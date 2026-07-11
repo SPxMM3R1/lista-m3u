@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import ssl
 import sys
@@ -83,7 +84,9 @@ def fetch_bytes(
         return response.status, response.read(limit), response.geturl()
 
 
-def check_channel(channel: Channel, attempts: int = 2) -> CheckResult:
+def check_channel(
+    channel: Channel, attempts: int = 2, *, allow_tvn_geo_block: bool = False
+) -> CheckResult:
     last_error = "respuesta desconocida"
     for attempt in range(attempts):
         try:
@@ -96,6 +99,13 @@ def check_channel(channel: Channel, attempts: int = 2) -> CheckResult:
                 return CheckResult(channel.name, channel.url, True, detail)
             last_error = f"HTTP {status}, contenido no reconocido"
         except urllib.error.HTTPError as error:
+            if allow_tvn_geo_block and channel.name == "TVN" and error.code == 403:
+                return CheckResult(
+                    channel.name,
+                    channel.url,
+                    True,
+                    "token oficial renovado; reproduccion limitada fuera de Chile (HTTP 403)",
+                )
             last_error = f"HTTP {error.code} {error.reason}"
         except Exception as error:  # Network and TLS failures need a compact report.
             last_error = f"{type(error).__name__}: {error}"
@@ -140,10 +150,15 @@ def fresh_tvn_url() -> str:
     return f"https://mdstrm.com/live-stream-playlist/{stream_id}.m3u8?access_token={token}"
 
 
-def verify_all(channels: list[Channel]) -> list[CheckResult]:
+def verify_all(channels: list[Channel], *, allow_tvn_geo_block: bool = False) -> list[CheckResult]:
     results: dict[str, CheckResult] = {}
     with ThreadPoolExecutor(max_workers=min(6, len(channels))) as pool:
-        futures = {pool.submit(check_channel, channel): channel for channel in channels}
+        futures = {
+            pool.submit(
+                check_channel, channel, allow_tvn_geo_block=allow_tvn_geo_block
+            ): channel
+            for channel in channels
+        }
         for future in as_completed(futures):
             result = future.result()
             results[result.channel] = result
@@ -174,28 +189,37 @@ def main() -> int:
         raise RuntimeError("la lista no contiene canales activos")
 
     print(f"Revisando {len(channels)} canales de {playlist.name}")
+    running_in_ci = os.environ.get("CI", "").lower() == "true"
     tvn_refreshed = False
     tvn = next((channel for channel in channels if channel.name == "TVN"), None)
     if tvn:
         current_tvn = check_channel(tvn)
         state = "OK" if current_tvn.ok else "VENCIDO"
         print(f"  [{state}] TVN: {current_tvn.detail}")
-        if not current_tvn.ok:
+        if running_in_ci or not current_tvn.ok:
             print("Renovando el enlace temporal de TVN desde su pagina oficial")
             new_url = fresh_tvn_url()
             candidate = Channel("TVN", new_url, tvn.url_line)
             refreshed_result = check_channel(candidate)
-            if not refreshed_result.ok:
+            geo_blocked = (
+                running_in_ci
+                and not refreshed_result.ok
+                and "HTTP 403" in refreshed_result.detail
+            )
+            if not refreshed_result.ok and not geo_blocked:
                 raise RuntimeError(f"el nuevo enlace de TVN fallo: {refreshed_result.detail}")
             lines[tvn.url_line] = new_url
             playlist.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
             tvn_refreshed = True
-            print("  [OK] TVN: token renovado y comprobado")
+            if geo_blocked:
+                print("  [GEO] TVN: token renovado; GitLab no puede reproducirlo fuera de Chile")
+            else:
+                print("  [OK] TVN: token renovado y comprobado")
 
     print("Verificacion final de la lista completa")
     final_lines = playlist.read_text(encoding="utf-8-sig").splitlines()
     final_channels = parse_channels(final_lines)
-    results = verify_all(final_channels)
+    results = verify_all(final_channels, allow_tvn_geo_block=running_in_ci)
     write_report(results, tvn_refreshed)
     failed = [result.channel for result in results if not result.ok]
     if failed:
