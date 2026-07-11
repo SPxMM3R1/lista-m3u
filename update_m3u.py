@@ -21,6 +21,7 @@ DEFAULT_PLAYLIST = Path(__file__).with_name("chile_tv_limpio_v3.m3u")
 REPORT_PATH = Path(__file__).with_name("channel-status.json")
 TVN_LIVE_PAGE = "https://live.tvn.cl/"
 TVN_DEFAULT_ID = "57a498c4d7b86d600e5461cb"
+CI_GEO_RESTRICTED_CHANNELS = {"TVN", "CHV", "24 Horas"}
 PLAYER_USER_AGENT = "VLC/3.0.20 LibVLC/3.0.20"
 BROWSER_USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -85,7 +86,7 @@ def fetch_bytes(
 
 
 def check_channel(
-    channel: Channel, attempts: int = 2, *, allow_tvn_geo_block: bool = False
+    channel: Channel, attempts: int = 2, *, allow_ci_geo_block: bool = False
 ) -> CheckResult:
     last_error = "respuesta desconocida"
     for attempt in range(attempts):
@@ -99,12 +100,16 @@ def check_channel(
                 return CheckResult(channel.name, channel.url, True, detail)
             last_error = f"HTTP {status}, contenido no reconocido"
         except urllib.error.HTTPError as error:
-            if allow_tvn_geo_block and channel.name == "TVN" and error.code == 403:
+            if (
+                allow_ci_geo_block
+                and channel.name in CI_GEO_RESTRICTED_CHANNELS
+                and error.code == 403
+            ):
                 return CheckResult(
                     channel.name,
                     channel.url,
                     True,
-                    "token oficial renovado; reproduccion limitada fuera de Chile (HTTP 403)",
+                    "reproduccion limitada fuera de Chile (HTTP 403)",
                 )
             last_error = f"HTTP {error.code} {error.reason}"
         except Exception as error:  # Network and TLS failures need a compact report.
@@ -150,12 +155,12 @@ def fresh_tvn_url() -> str:
     return f"https://mdstrm.com/live-stream-playlist/{stream_id}.m3u8?access_token={token}"
 
 
-def verify_all(channels: list[Channel], *, allow_tvn_geo_block: bool = False) -> list[CheckResult]:
+def verify_all(channels: list[Channel], *, allow_ci_geo_block: bool = False) -> list[CheckResult]:
     results: dict[str, CheckResult] = {}
     with ThreadPoolExecutor(max_workers=min(6, len(channels))) as pool:
         futures = {
             pool.submit(
-                check_channel, channel, allow_tvn_geo_block=allow_tvn_geo_block
+                check_channel, channel, allow_ci_geo_block=allow_ci_geo_block
             ): channel
             for channel in channels
         }
@@ -219,7 +224,7 @@ def main() -> int:
     print("Verificacion final de la lista completa")
     final_lines = playlist.read_text(encoding="utf-8-sig").splitlines()
     final_channels = parse_channels(final_lines)
-    results = verify_all(final_channels, allow_tvn_geo_block=running_in_ci)
+    results = verify_all(final_channels, allow_ci_geo_block=running_in_ci)
     write_report(results, tvn_refreshed)
     failed = [result.channel for result in results if not result.ok]
     if failed:
