@@ -1,9 +1,10 @@
 # Lista M3U para Android TV
 
-La lista publicada es `chile_tv_limpio_v3.m3u`. GitLab la revisa cada tres
-horas, renueva el enlace temporal de TVN, prueba todos los canales y logos PNG,
-busca reemplazos verificados en fuentes oficiales y confirma el archivo raw que
-consume la TV despues de publicarlo.
+La lista publicada es `chile_tv_limpio_v3.m3u`. Un calendario diario crea ocho
+trabajos espaciados cada tres horas. Cada trabajo renueva el enlace temporal de
+TVN, prueba todos los canales y logos PNG, busca reemplazos verificados en
+fuentes oficiales y confirma el archivo raw que consume la TV despues de
+publicarlo.
 
 URL para el reproductor:
 
