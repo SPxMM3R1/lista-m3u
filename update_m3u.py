@@ -473,7 +473,7 @@ def build_epg(
     return output, status
 
 
-def refresh_epg(channels: list[Channel]) -> dict:
+def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
     now = datetime.now(timezone.utc)
     expected_ids = {channel.tvg_id for channel in channels if channel.tvg_id}
     existing_status = None
@@ -486,7 +486,7 @@ def refresh_epg(channels: list[Channel]) -> dict:
                 minimum_future=timedelta(hours=24),
             )
             generated_at = existing_status.get("generated_at")
-            if generated_at:
+            if generated_at and not force:
                 age = now - datetime.fromisoformat(generated_at)
                 if age < EPG_REFRESH_INTERVAL:
                     existing_status.update({"updated": False, "reused": True})
@@ -822,7 +822,8 @@ def main() -> int:
         raise RuntimeError("la lista no contiene canales activos")
 
     print("Actualizando la guia de programacion de todos los canales")
-    epg_status = refresh_epg(channels)
+    force_epg_refresh = os.environ.get("EPG_FORCE_REFRESH", "").lower() == "true"
+    epg_status = refresh_epg(channels, force=force_epg_refresh)
     updated = "actualizada" if epg_status.get("updated") else "vigente"
     print(
         f"  [OK] EPG {updated}: {epg_status['channels']} canales y "

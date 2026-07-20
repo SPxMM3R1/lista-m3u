@@ -13,6 +13,9 @@ stages:
   script:
     - |
       VERIFY_EXIT=0
+      if echo "${CI_COMMIT_MESSAGE}" | grep -q '\[test m3u\]'; then
+        export EPG_FORCE_REFRESH=true
+      fi
       python update_m3u.py || VERIFY_EXIT=$?
       echo "$VERIFY_EXIT" > .verify-exit
     - |
