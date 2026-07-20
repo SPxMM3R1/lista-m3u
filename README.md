@@ -1,6 +1,6 @@
 # Lista M3U para Android TV
 
-La lista publicada es `chile_tv_limpio_v3.m3u`. Un calendario diario crea ocho
+La lista principal publicada es `m3u.m3u`. Un calendario diario crea ocho
 trabajos espaciados cada tres horas. Cada trabajo renueva el enlace temporal de
 TVN, prueba todos los canales y logos PNG, busca reemplazos verificados en
 fuentes oficiales, actualiza la guia de programacion y confirma los archivos
@@ -8,7 +8,14 @@ raw que consume la TV despues de publicarlos.
 
 URL para el reproductor:
 
+`https://gitlab.com/roberto.ramos.dz/lista-m3u/-/raw/main/m3u.m3u`
+
+La URL anterior sigue disponible como copia compatible para reproductores que
+aun no se hayan reconfigurado:
+
 `https://gitlab.com/roberto.ramos.dz/lista-m3u/-/raw/main/chile_tv_limpio_v3.m3u`
+
+El actualizador mantiene ambas listas identicas en cada ejecucion.
 
 La M3U enlaza automaticamente esta guia XMLTV:
 

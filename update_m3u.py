@@ -22,7 +22,8 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 
-DEFAULT_PLAYLIST = Path(__file__).with_name("chile_tv_limpio_v3.m3u")
+DEFAULT_PLAYLIST = Path(__file__).with_name("m3u.m3u")
+LEGACY_PLAYLIST = Path(__file__).with_name("chile_tv_limpio_v3.m3u")
 EPG_PATH = Path(__file__).with_name("epg.xml")
 REPORT_PATH = Path(__file__).with_name("channel-status.json")
 EPG_PUBLIC_URL = "https://gitlab.com/roberto.ramos.dz/lista-m3u/-/raw/main/epg.xml"
@@ -189,6 +190,18 @@ def ensure_playlist_epg_url(lines: list[str]) -> bool:
     if lines[0] == expected:
         return False
     lines[0] = expected
+    return True
+
+
+def sync_legacy_playlist(playlist: Path) -> bool:
+    if playlist.resolve() != DEFAULT_PLAYLIST.resolve():
+        return False
+    content = playlist.read_bytes()
+    if LEGACY_PLAYLIST.exists() and LEGACY_PLAYLIST.read_bytes() == content:
+        return False
+    temporary = LEGACY_PLAYLIST.with_suffix(".m3u.tmp")
+    temporary.write_bytes(content)
+    temporary.replace(LEGACY_PLAYLIST)
     return True
 
 
@@ -881,6 +894,9 @@ def main() -> int:
         final_channels = parse_channels(final_lines)
         print("Verificacion posterior a las reparaciones")
         results = verify_all(final_channels, allow_ci_geo_block=running_in_ci)
+
+    if sync_legacy_playlist(playlist):
+        print(f"Copia compatible sincronizada: {LEGACY_PLAYLIST.name}")
 
     print("Verificacion de logos PNG")
     logo_results = verify_logos(final_channels)
