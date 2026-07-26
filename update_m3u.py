@@ -40,8 +40,6 @@ EPG_SOURCES = {
     "es": "https://epgshare01.online/epgshare01/epg_ripper_ES1.xml.gz",
     "fr": "https://epgshare01.online/epgshare01/epg_ripper_FR1.xml.gz",
     "plex_mx": "https://i.mjh.nz/Plex/mx.xml.gz",
-    "pluto_mx": "https://i.mjh.nz/PlutoTV/mx.xml.gz",
-    "pluto_us": "https://i.mjh.nz/PlutoTV/us.xml.gz",
 }
 EPG_PROGRAMME_SOURCES = {
     "0104": ("cl", "Canal.TVN.(Chile).cl"),
@@ -59,13 +57,6 @@ EPG_PROGRAMME_SOURCES = {
         "plex_mx",
         "608049aefa2b8ae93c2c3a63-62ffc5cfa6cad6f2991745c2",
     ),
-    "Vevo80s.us": ("pluto_us", "5fd7b8bf927e090007685853"),
-    "Vevo90s.us": ("pluto_us", "5fd7bb1f86d94a000796e2c2"),
-    "Vevo2K.us": ("pluto_us", "5fd7bca3e0a4ee0007a38e8c"),
-    "NickelodeonClasico.us": ("pluto_mx", "6824cda00101510f9eeaa011"),
-    "HeyArnold.us": ("pluto_mx", "66c79221b1a34600087e264d"),
-    "Rugrats.us": ("pluto_mx", "5ea7215005d66d0007e8128a"),
-    "AvatarLaLeyendadeAang.us": ("pluto_mx", "6759ee82bd523200083b4f0f"),
 }
 RED_BULL_EPG_PAGE = "https://www.redbull.tv/es_CL/epg"
 RED_BULL_CHANNEL_ID = "rrn:content:video-channels:c81f8686-ab67-4965-ba04-5f6658bb96cc"
@@ -119,17 +110,6 @@ KNOWN_STREAM_FALLBACKS = {
     "Red Bull TV": ["https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master.m3u8"],
     "FUEL TV": [
         "https://amg01074-fueltv-fueltvau-samsungau-g09kq.amagi.tv/playlist/amg01074-fueltv-fueltvau-samsungau/playlist.m3u8"
-    ],
-    "Vevo 80s": ["https://jmp2.uk/plu-5fd7b8bf927e090007685853.m3u8"],
-    "Vevo 90s": ["https://jmp2.uk/plu-5fd7bb1f86d94a000796e2c2.m3u8"],
-    "Vevo 2K": ["https://jmp2.uk/plu-5fd7bca3e0a4ee0007a38e8c.m3u8"],
-    "Nickelodeon Clasico": [
-        "https://jmp2.uk/plu-6824cda00101510f9eeaa011.m3u8"
-    ],
-    "Hey Arnold!": ["https://jmp2.uk/plu-66c79221b1a34600087e264d.m3u8"],
-    "Rugrats": ["https://jmp2.uk/plu-5ea7215005d66d0007e8128a.m3u8"],
-    "Avatar: La Leyenda de Aang": [
-        "https://jmp2.uk/plu-6759ee82bd523200083b4f0f.m3u8"
     ],
 }
 

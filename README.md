@@ -26,8 +26,8 @@ La M3U enlaza automaticamente esta guia XMLTV:
 
 `https://gitlab.com/roberto.ramos.dz/lista-m3u/-/raw/main/epg.xml`
 
-La guia combina parrillas vigentes de Chile, Espana, Francia, Pluto TV y Plex
-con la programacion oficial de Red Bull TV. Los canales continuos que no
+La guia combina parrillas vigentes de Chile, Espana, Francia y Plex con la
+programacion oficial de Red Bull TV. Los canales continuos que no
 publican una parrilla XMLTV utilizable reciben bloques de senal en vivo, por lo
 que todos los canales siempre aparecen en la guia. El actualizador conserva una
 guia vigente si una fuente externa falla temporalmente.
