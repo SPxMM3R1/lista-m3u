@@ -39,7 +39,6 @@ EPG_SOURCES = {
     "cl": "https://epgshare01.online/epgshare01/epg_ripper_CL1.xml.gz",
     "es": "https://epgshare01.online/epgshare01/epg_ripper_ES1.xml.gz",
     "fr": "https://epgshare01.online/epgshare01/epg_ripper_FR1.xml.gz",
-    "plex_mx": "https://i.mjh.nz/Plex/mx.xml.gz",
 }
 EPG_PROGRAMME_SOURCES = {
     "0104": ("cl", "Canal.TVN.(Chile).cl"),
@@ -53,10 +52,6 @@ EPG_PROGRAMME_SOURCES = {
     "EuronewsSpanish.fr": ("es", "Euronews.es"),
     "NHKWorldJapan.jp": ("cl", "Canal.NHK.World.cl"),
     "AlJazeera.qa": ("es", "Al.Jazeera.English.es"),
-    "FUELTV.pt": (
-        "plex_mx",
-        "608049aefa2b8ae93c2c3a63-62ffc5cfa6cad6f2991745c2",
-    ),
 }
 RED_BULL_EPG_PAGE = "https://www.redbull.tv/es_CL/epg"
 RED_BULL_CHANNEL_ID = "rrn:content:video-channels:c81f8686-ab67-4965-ba04-5f6658bb96cc"
@@ -108,9 +103,6 @@ KNOWN_STREAM_FALLBACKS = {
     "NHK World Japan": [NHK_NO_CC_PUBLIC_URL],
     "Al Jazeera English": ["https://live-hls-apps-aje-v3-fa.getaj.net/AJE/index.m3u8"],
     "Red Bull TV": ["https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master.m3u8"],
-    "FUEL TV": [
-        "https://amg01074-fueltv-fueltvau-samsungau-g09kq.amagi.tv/playlist/amg01074-fueltv-fueltvau-samsungau/playlist.m3u8"
-    ],
 }
 
 
@@ -325,10 +317,6 @@ def xmltv_format(value: datetime) -> str:
     return value.astimezone(timezone.utc).strftime("%Y%m%d%H%M%S +0000")
 
 
-def clean_epg_text(value: str) -> str:
-    return re.sub(r"\s+", " ", html.unescape(value)).strip()
-
-
 def epg_status_from_xml(
     data: bytes,
     expected_ids: set[str],
@@ -528,7 +516,6 @@ def build_epg(
         source_roots[source_name] = source_root
 
     programmes_by_target = {channel_id: 0 for channel_id in expected_ids}
-    last_stop_by_target: dict[str, datetime] = {}
     source_lookup = {
         (source_name, source_id): target_id
         for target_id, (source_name, source_id) in EPG_PROGRAMME_SOURCES.items()
@@ -541,19 +528,9 @@ def build_epg(
                 continue
             copied = copy.deepcopy(programme)
             copied.set("channel", target_id)
-            for element in copied.iter():
-                if element.text:
-                    element.text = clean_epg_text(element.text)
-                element.tail = None
             root.append(copied)
             programmes_by_target[target_id] += 1
             guide_types[target_id] = "parrilla real"
-            stop_text = copied.get("stop", "")
-            if stop_text:
-                stop = xmltv_datetime(stop_text)
-                previous = last_stop_by_target.get(target_id)
-                if previous is None or stop > previous:
-                    last_stop_by_target[target_id] = stop
 
     red_bull_id = "RedBullTV.at"
     if red_bull_id in expected_ids:
@@ -570,19 +547,13 @@ def build_epg(
                     "channel": red_bull_id,
                 },
             )
-            ET.SubElement(programme, "title", {"lang": "es"}).text = clean_epg_text(
-                card["title"]
-            )
+            ET.SubElement(programme, "title", {"lang": "es"}).text = card["title"]
             subtitle = card.get("subheading")
             if subtitle:
-                ET.SubElement(programme, "sub-title", {"lang": "es"}).text = (
-                    clean_epg_text(subtitle)
-                )
+                ET.SubElement(programme, "sub-title", {"lang": "es"}).text = subtitle
             description = card.get("short_description") or card.get("long_description")
             if description:
-                ET.SubElement(programme, "desc", {"lang": "es"}).text = clean_epg_text(
-                    description
-                )
+                ET.SubElement(programme, "desc", {"lang": "es"}).text = description
             programmes_by_target[red_bull_id] += 1
             red_bull_last_stop = (
                 stop
@@ -601,19 +572,6 @@ def build_epg(
 
     for channel_id, count in programmes_by_target.items():
         if count:
-            if channel_id != red_bull_id:
-                last_stop = last_stop_by_target.get(channel_id)
-                if last_stop and last_stop < now + timedelta(days=5):
-                    added = add_continuous_programmes(
-                        root,
-                        channel_id,
-                        channel_by_id[channel_id].name,
-                        now=now,
-                        start_at=last_stop,
-                    )
-                    if added:
-                        programmes_by_target[channel_id] += added
-                        guide_types[channel_id] = "parrilla real + continuidad"
             continue
         channel = channel_by_id[channel_id]
         programmes_by_target[channel_id] = add_continuous_programmes(
