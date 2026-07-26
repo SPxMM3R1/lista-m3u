@@ -17,6 +17,11 @@ aun no se hayan reconfigurado:
 
 El actualizador mantiene ambas listas identicas en cada ejecucion.
 
+NHK World usa una variante publicada por este repositorio que conserva el
+audio y el video oficial hasta 1080p, pero elimina la pista de subtitulos CC
+que el manifiesto original activa de forma predeterminada. France 24 Espanol
+usa directamente la senal oficial 1080p de France 24.
+
 La M3U enlaza automaticamente esta guia XMLTV:
 
 `https://gitlab.com/roberto.ramos.dz/lista-m3u/-/raw/main/epg.xml`

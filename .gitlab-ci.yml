@@ -19,13 +19,13 @@ stages:
       python update_m3u.py || VERIFY_EXIT=$?
       echo "$VERIFY_EXIT" > .verify-exit
     - |
-      if [ -z "$(git status --porcelain -- m3u.m3u chile_tv_limpio_v3.m3u epg.xml)" ]; then
+      if [ -z "$(git status --porcelain -- m3u.m3u chile_tv_limpio_v3.m3u epg.xml nhk_no_cc.m3u8)" ]; then
         echo "La lista y la guia ya estaban al dia."
       else
         : "${GITLAB_PUSH_TOKEN:?Falta configurar GITLAB_PUSH_TOKEN en CI/CD Variables}"
         git config user.name "Actualizador M3U"
         git config user.email "m3u-bot@noreply.gitlab.com"
-        git add m3u.m3u chile_tv_limpio_v3.m3u epg.xml
+        git add m3u.m3u chile_tv_limpio_v3.m3u epg.xml nhk_no_cc.m3u8
         git commit -m "Actualiza M3U y EPG automaticamente [skip ci]"
         git remote set-url origin "https://oauth2:${GITLAB_PUSH_TOKEN}@gitlab.com/${CI_PROJECT_PATH}.git"
         git push origin "HEAD:${CI_DEFAULT_BRANCH}"
@@ -38,6 +38,10 @@ stages:
       python update_m3u.py \
         --playlist chile_tv_limpio_v3.m3u \
         --verify-published "${CI_PROJECT_URL}/-/raw/${CI_DEFAULT_BRANCH}/chile_tv_limpio_v3.m3u" \
+        || RAW_EXIT=$?
+      python update_m3u.py \
+        --playlist nhk_no_cc.m3u8 \
+        --verify-published "${CI_PROJECT_URL}/-/raw/${CI_DEFAULT_BRANCH}/nhk_no_cc.m3u8" \
         || RAW_EXIT=$?
       python update_m3u.py \
         --verify-epg-published "${CI_PROJECT_URL}/-/raw/${CI_DEFAULT_BRANCH}/epg.xml" \
