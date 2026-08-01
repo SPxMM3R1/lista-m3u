@@ -23,15 +23,13 @@ from pathlib import Path
 
 
 DEFAULT_PLAYLIST = Path(__file__).with_name("m3u.m3u")
-LEGACY_PLAYLIST = Path(__file__).with_name("chile_tv_limpio_v3.m3u")
 EPG_PATH = Path(__file__).with_name("epg.xml")
 NHK_NO_CC_PATH = Path(__file__).with_name("nhk_no_cc.m3u8")
 REPORT_PATH = Path(__file__).with_name("channel-status.json")
-EPG_PUBLIC_URL = "https://gitlab.com/roberto.ramos.dz/lista-m3u/-/raw/main/epg.xml"
+PUBLIC_RAW_BASE = "https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main"
+EPG_PUBLIC_URL = f"{PUBLIC_RAW_BASE}/epg.xml"
 NHK_MASTER_URL = "https://masterpl.hls.nhkworld.jp/hls/w/live/smarttv.m3u8"
-NHK_NO_CC_PUBLIC_URL = (
-    "https://gitlab.com/roberto.ramos.dz/lista-m3u/-/raw/main/nhk_no_cc.m3u8"
-)
+NHK_NO_CC_PUBLIC_URL = f"{PUBLIC_RAW_BASE}/nhk_no_cc.m3u8"
 FRANCE24_ES_1080_URL = (
     "https://live.france24.com/hls/live/2037220/F24_ES_HI_HLS/master_5000.m3u8"
 )
@@ -198,18 +196,6 @@ def ensure_playlist_epg_url(lines: list[str]) -> bool:
     if lines[0] == expected:
         return False
     lines[0] = expected
-    return True
-
-
-def sync_legacy_playlist(playlist: Path) -> bool:
-    if playlist.resolve() != DEFAULT_PLAYLIST.resolve():
-        return False
-    content = playlist.read_bytes()
-    if LEGACY_PLAYLIST.exists() and LEGACY_PLAYLIST.read_bytes() == content:
-        return False
-    temporary = LEGACY_PLAYLIST.with_suffix(".m3u.tmp")
-    temporary.write_bytes(content)
-    temporary.replace(LEGACY_PLAYLIST)
     return True
 
 
@@ -958,7 +944,7 @@ def main() -> int:
     lines = playlist.read_text(encoding="utf-8-sig").splitlines()
     if ensure_playlist_epg_url(lines):
         playlist.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
-        print("Cabecera M3U enlazada a la guia EPG publicada en GitLab")
+        print("Cabecera M3U enlazada a la guia EPG publicada en GitHub")
     channels = parse_channels(lines)
     if not channels:
         raise RuntimeError("la lista no contiene canales activos")
@@ -1006,7 +992,7 @@ def main() -> int:
             playlist.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
             tvn_refreshed = True
             if geo_blocked:
-                print("  [GEO] TVN: token renovado; GitLab no puede reproducirlo fuera de Chile")
+                print("  [GEO] TVN: token renovado; GitHub Actions no puede reproducirlo fuera de Chile")
             else:
                 print("  [OK] TVN: token renovado y comprobado")
 
@@ -1028,9 +1014,6 @@ def main() -> int:
         final_channels = parse_channels(final_lines)
         print("Verificacion posterior a las reparaciones")
         results = verify_all(final_channels, allow_ci_geo_block=running_in_ci)
-
-    if sync_legacy_playlist(playlist):
-        print(f"Copia compatible sincronizada: {LEGACY_PLAYLIST.name}")
 
     print("Verificacion de logos PNG")
     logo_results = verify_logos(final_channels)

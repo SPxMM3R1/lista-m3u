@@ -1,0 +1,91 @@
+name: Actualizar M3U y EPG
+
+on:
+  schedule:
+    - cron: "0 */3 * * *"
+  workflow_dispatch:
+    inputs:
+      force_epg_refresh:
+        description: Forzar la descarga de la guia EPG
+        required: false
+        default: false
+        type: boolean
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+concurrency:
+  group: m3u-publisher
+  cancel-in-progress: false
+
+jobs:
+  update:
+    if: github.event_name != 'push' || contains(github.event.head_commit.message, '[test m3u]')
+    runs-on: ubuntu-latest
+    env:
+      RAW_BASE: https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Preparar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Ejecutar actualizador
+        id: updater
+        shell: bash
+        run: |
+          if [ "${{ inputs.force_epg_refresh }}" = "true" ]; then
+            export EPG_FORCE_REFRESH=true
+          fi
+          set +e
+          python update_m3u.py
+          status=$?
+          echo "status=$status" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Publicar cambios
+        if: steps.updater.outputs.status == '0'
+        shell: bash
+        run: |
+          if git diff --quiet -- m3u.m3u epg.xml nhk_no_cc.m3u8; then
+            echo "La lista y la guia ya estaban al dia."
+            exit 0
+          fi
+          git config user.name "Actualizador M3U"
+          git config user.email "m3u-bot@users.noreply.github.com"
+          git add m3u.m3u epg.xml nhk_no_cc.m3u8
+          git commit -m "Actualiza M3U y EPG automaticamente [skip ci]"
+          git push origin HEAD:main
+
+      - name: Esperar y verificar publicacion
+        id: published
+        shell: bash
+        run: |
+          set +e
+          RAW_EXIT=0
+          python update_m3u.py --verify-published "$RAW_BASE/m3u.m3u" || RAW_EXIT=$?
+          python update_m3u.py --verify-published "$RAW_BASE/nhk_no_cc.m3u8" || RAW_EXIT=$?
+          python update_m3u.py --verify-epg-published "$RAW_BASE/epg.xml" || RAW_EXIT=$?
+          echo "status=$RAW_EXIT" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Fallar si hubo errores
+        if: steps.updater.outputs.status != '0' || steps.published.outputs.status != '0'
+        run: exit 1
+
+      - name: Guardar informe de canales
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: channel-status
+          path: channel-status.json
+          retention-days: 30
+          if-no-files-found: warn
