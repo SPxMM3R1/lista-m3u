@@ -106,14 +106,14 @@ variables:
 update_sports_10m:
   extends: .update_sports_template
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SPORTS_ONLY == "true"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && ($SPORTS_ONLY == "true" || $CI_PIPELINE_SCHEDULE_DESCRIPTION == "Actualizar deportes cada 10 minutos")'
     - if: '$CI_PIPELINE_SOURCE == "web" && $SPORTS_ONLY == "true"'
     - when: never
 
 update_m3u_now:
   extends: .update_m3u_template
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SPORTS_ONLY != "true"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SPORTS_ONLY != "true" && $CI_PIPELINE_SCHEDULE_DESCRIPTION != "Actualizar deportes cada 10 minutos"'
     - if: '$CI_PIPELINE_SOURCE == "web" && $SPORTS_ONLY != "true"'
     - if: '$CI_PIPELINE_SOURCE == "push" && $SPORTS_ONLY != "true" && $CI_COMMIT_MESSAGE =~ /\[test m3u\]/'
     - when: never
@@ -121,7 +121,7 @@ update_m3u_now:
 update_m3u_03h:
   extends: .update_m3u_template
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SPORTS_ONLY != "true"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SPORTS_ONLY != "true" && $CI_PIPELINE_SCHEDULE_DESCRIPTION != "Actualizar deportes cada 10 minutos"'
       when: delayed
       start_in: 3 hours
     - when: never
@@ -129,7 +129,7 @@ update_m3u_03h:
 update_m3u_06h:
   extends: .update_m3u_template
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SPORTS_ONLY != "true"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SPORTS_ONLY != "true" && $CI_PIPELINE_SCHEDULE_DESCRIPTION != "Actualizar deportes cada 10 minutos"'
       when: delayed
       start_in: 6 hours
     - when: never
@@ -137,7 +137,7 @@ update_m3u_06h:
 update_m3u_09h:
   extends: .update_m3u_template
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SPORTS_ONLY != "true"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SPORTS_ONLY != "true" && $CI_PIPELINE_SCHEDULE_DESCRIPTION != "Actualizar deportes cada 10 minutos"'
       when: delayed
       start_in: 9 hours
     - when: never
@@ -145,7 +145,7 @@ update_m3u_09h:
 update_m3u_12h:
   extends: .update_m3u_template
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SPORTS_ONLY != "true"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SPORTS_ONLY != "true" && $CI_PIPELINE_SCHEDULE_DESCRIPTION != "Actualizar deportes cada 10 minutos"'
       when: delayed
       start_in: 12 hours
     - when: never
@@ -153,7 +153,7 @@ update_m3u_12h:
 update_m3u_15h:
   extends: .update_m3u_template
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SPORTS_ONLY != "true"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SPORTS_ONLY != "true" && $CI_PIPELINE_SCHEDULE_DESCRIPTION != "Actualizar deportes cada 10 minutos"'
       when: delayed
       start_in: 15 hours
     - when: never
@@ -161,7 +161,7 @@ update_m3u_15h:
 update_m3u_18h:
   extends: .update_m3u_template
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SPORTS_ONLY != "true"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SPORTS_ONLY != "true" && $CI_PIPELINE_SCHEDULE_DESCRIPTION != "Actualizar deportes cada 10 minutos"'
       when: delayed
       start_in: 18 hours
     - when: never
@@ -169,7 +169,7 @@ update_m3u_18h:
 update_m3u_21h:
   extends: .update_m3u_template
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SPORTS_ONLY != "true"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SPORTS_ONLY != "true" && $CI_PIPELINE_SCHEDULE_DESCRIPTION != "Actualizar deportes cada 10 minutos"'
       when: delayed
       start_in: 21 hours
     - when: never

@@ -48,8 +48,11 @@ enlaces HLS directos y autorizados.
 La actualizacion normal mantiene la EPG de los 13 canales originales. Las
 entradas deportivas se consideran temporales y no se agregan a esa EPG. Para
 refrescar solo deportes se puede crear un segundo **Pipeline schedule** con
-frecuencia de 10 minutos y la variable `SPORTS_ONLY=true`. Ese schedule ejecuta
-`update_sports_10m` y no dispara los ocho trabajos diarios de la lista general.
+frecuencia de 10 minutos y la descripcion exacta `Actualizar deportes cada 10
+minutos`. GitLab expone esa descripcion como
+`CI_PIPELINE_SCHEDULE_DESCRIPTION`; el schedule ejecuta `update_sports_10m` y
+no dispara los ocho trabajos diarios de la lista general. Para una ejecucion
+manual desde **New pipeline** se mantiene disponible `SPORTS_ONLY=true`.
 
 Para dejar la lista como estaba antes, basta definir
 `SPORTS_EVENTS_ENABLED=false` en las variables de CI/CD y ejecutar una
