@@ -81,9 +81,30 @@ jobs:
           set +e
           RAW_EXIT=0
           RAW_COMMIT_BASE="https://raw.githubusercontent.com/${{ github.repository }}/${{ steps.publish.outputs.commit }}"
-          python update_m3u.py --verify-published "$RAW_COMMIT_BASE/m3u.m3u" || RAW_EXIT=$?
-          python update_m3u.py --verify-published "$RAW_COMMIT_BASE/nhk_no_cc.m3u8" || RAW_EXIT=$?
-          python update_m3u.py --verify-epg-published "$RAW_COMMIT_BASE/epg.xml" || RAW_EXIT=$?
+          verify_exact() {
+            local file="$1"
+            local attempts=0
+            while [ "$attempts" -lt 5 ]; do
+              attempts=$((attempts + 1))
+              temporary="$(mktemp)"
+              if curl --fail --silent --show-error --location --max-time 30 \
+                --retry 3 --retry-delay 2 \
+                "$RAW_COMMIT_BASE/$file?verify=$GITHUB_RUN_ID-$attempts" \
+                --output "$temporary" \
+                && cmp --silent "$temporary" "$file"; then
+                echo "$file publicado con contenido exacto"
+                rm -f "$temporary"
+                return 0
+              fi
+              rm -f "$temporary"
+              sleep 2
+            done
+            echo "$file no coincide con el commit publicado" >&2
+            return 1
+          }
+          verify_exact m3u.m3u || RAW_EXIT=1
+          verify_exact nhk_no_cc.m3u8 || RAW_EXIT=1
+          verify_exact epg.xml || RAW_EXIT=1
           echo "status=$RAW_EXIT" >> "$GITHUB_OUTPUT"
           exit 0
 
@@ -100,7 +121,7 @@ jobs:
             while [ "$attempts" -lt 6 ]; do
               attempts=$((attempts + 1))
               if body="$(curl --fail --silent --show-error --location --max-time 30 "$RAW_BASE/$file?health=$GITHUB_RUN_ID-$attempts")" \
-                && printf '%s' "$body" | grep --fixed-strings --quiet "$marker"; then
+                && [[ "$body" == *"$marker"* ]]; then
                 echo "$file accesible en raw/main"
                 return 0
               fi
