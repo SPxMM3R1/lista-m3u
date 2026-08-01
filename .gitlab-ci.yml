@@ -1,6 +1,10 @@
 stages:
   - verify
 
+variables:
+  SPORTS_EVENTS_ENABLED: "true"
+  SPORTS_ONLY: "false"
+
 .update_m3u_template:
   stage: verify
   image: python:3.12-alpine
@@ -57,18 +61,67 @@ stages:
     paths:
       - channel-status.json
 
+.update_sports_template:
+  stage: verify
+  image: python:3.12-alpine
+  resource_group: m3u-publisher
+  interruptible: false
+  before_script:
+    - apk add --no-cache git ca-certificates
+    - git fetch origin "${CI_DEFAULT_BRANCH}"
+    - git checkout -B "${CI_DEFAULT_BRANCH}" "origin/${CI_DEFAULT_BRANCH}"
+  script:
+    - python update_sports.py
+    - |
+      if [ -z "$(git status --porcelain -- m3u.m3u chile_tv_limpio_v3.m3u)" ]; then
+        echo "El bloque deportivo ya estaba al dia."
+      else
+        : "${GITLAB_PUSH_TOKEN:?Falta configurar GITLAB_PUSH_TOKEN en CI/CD Variables}"
+        git config user.name "Actualizador M3U"
+        git config user.email "m3u-bot@noreply.gitlab.com"
+        git add m3u.m3u chile_tv_limpio_v3.m3u
+        git commit -m "Actualiza deportes automaticamente [skip ci]"
+        git remote set-url origin "https://oauth2:${GITLAB_PUSH_TOKEN}@gitlab.com/${CI_PROJECT_PATH}.git"
+        git push origin "HEAD:${CI_DEFAULT_BRANCH}"
+      fi
+    - |
+      RAW_EXIT=0
+      python update_m3u.py \
+        --verify-published "${CI_PROJECT_URL}/-/raw/${CI_DEFAULT_BRANCH}/m3u.m3u" \
+        || RAW_EXIT=$?
+      python update_m3u.py \
+        --playlist chile_tv_limpio_v3.m3u \
+        --verify-published "${CI_PROJECT_URL}/-/raw/${CI_DEFAULT_BRANCH}/chile_tv_limpio_v3.m3u" \
+        || RAW_EXIT=$?
+      if [ "$RAW_EXIT" -ne 0 ]; then
+        echo "La publicacion deportiva no coincide con los archivos raw."
+        exit 1
+      fi
+  artifacts:
+    when: always
+    expire_in: 30 days
+    paths:
+      - sports-status.json
+
+update_sports_10m:
+  extends: .update_sports_template
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SPORTS_ONLY == "true"'
+    - if: '$CI_PIPELINE_SOURCE == "web" && $SPORTS_ONLY == "true"'
+    - when: never
+
 update_m3u_now:
   extends: .update_m3u_template
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
-    - if: '$CI_PIPELINE_SOURCE == "web"'
-    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_MESSAGE =~ /\[test m3u\]/'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SPORTS_ONLY != "true"'
+    - if: '$CI_PIPELINE_SOURCE == "web" && $SPORTS_ONLY != "true"'
+    - if: '$CI_PIPELINE_SOURCE == "push" && $SPORTS_ONLY != "true" && $CI_COMMIT_MESSAGE =~ /\[test m3u\]/'
     - when: never
 
 update_m3u_03h:
   extends: .update_m3u_template
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SPORTS_ONLY != "true"'
       when: delayed
       start_in: 3 hours
     - when: never
@@ -76,7 +129,7 @@ update_m3u_03h:
 update_m3u_06h:
   extends: .update_m3u_template
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SPORTS_ONLY != "true"'
       when: delayed
       start_in: 6 hours
     - when: never
@@ -84,7 +137,7 @@ update_m3u_06h:
 update_m3u_09h:
   extends: .update_m3u_template
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SPORTS_ONLY != "true"'
       when: delayed
       start_in: 9 hours
     - when: never
@@ -92,7 +145,7 @@ update_m3u_09h:
 update_m3u_12h:
   extends: .update_m3u_template
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SPORTS_ONLY != "true"'
       when: delayed
       start_in: 12 hours
     - when: never
@@ -100,7 +153,7 @@ update_m3u_12h:
 update_m3u_15h:
   extends: .update_m3u_template
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SPORTS_ONLY != "true"'
       when: delayed
       start_in: 15 hours
     - when: never
@@ -108,7 +161,7 @@ update_m3u_15h:
 update_m3u_18h:
   extends: .update_m3u_template
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SPORTS_ONLY != "true"'
       when: delayed
       start_in: 18 hours
     - when: never
@@ -116,7 +169,7 @@ update_m3u_18h:
 update_m3u_21h:
   extends: .update_m3u_template
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SPORTS_ONLY != "true"'
       when: delayed
       start_in: 21 hours
     - when: never

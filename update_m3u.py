@@ -32,6 +32,8 @@ NHK_MASTER_URL = "https://masterpl.hls.nhkworld.jp/hls/w/live/smarttv.m3u8"
 NHK_NO_CC_PUBLIC_URL = (
     "https://gitlab.com/roberto.ramos.dz/lista-m3u/-/raw/main/nhk_no_cc.m3u8"
 )
+SPORTS_BLOCK_START = "# AUTO SPORTS EVENTS BEGIN"
+SPORTS_BLOCK_END = "# AUTO SPORTS EVENTS END"
 FRANCE24_ES_1080_URL = (
     "https://live.france24.com/hls/live/2037220/F24_ES_HI_HLS/master_5000.m3u8"
 )
@@ -115,6 +117,7 @@ class Channel:
     logo_url: str = ""
     group: str = ""
     tvg_id: str = ""
+    dynamic: bool = False
 
 
 @dataclass(frozen=True)
@@ -135,7 +138,15 @@ class LogoResult:
 
 def parse_channels(lines: list[str]) -> list[Channel]:
     channels: list[Channel] = []
+    in_sports_block = False
     for index, line in enumerate(lines):
+        marker = line.strip()
+        if marker == SPORTS_BLOCK_START:
+            in_sports_block = True
+            continue
+        if marker == SPORTS_BLOCK_END:
+            in_sports_block = False
+            continue
         if not line.startswith("#EXTINF:"):
             continue
         name = line.rsplit(",", 1)[-1].strip() or f"Canal en linea {index + 1}"
@@ -152,7 +163,16 @@ def parse_channels(lines: list[str]) -> list[Channel]:
             if candidate.startswith("#"):
                 raise ValueError(f"{name}: falta la URL despues de #EXTINF")
             channels.append(
-                Channel(name, candidate, url_line, index, logo_url, group, tvg_id)
+                Channel(
+                    name,
+                    candidate,
+                    url_line,
+                    index,
+                    logo_url,
+                    group,
+                    tvg_id,
+                    in_sports_block,
+                )
             )
             break
         else:
@@ -211,6 +231,77 @@ def sync_legacy_playlist(playlist: Path) -> bool:
     temporary.write_bytes(content)
     temporary.replace(LEGACY_PLAYLIST)
     return True
+
+
+def remove_sports_block(lines: list[str]) -> list[str]:
+    output: list[str] = []
+    inside = False
+    for line in lines:
+        marker = line.strip()
+        if marker == SPORTS_BLOCK_START:
+            if inside:
+                raise ValueError("bloque deportivo anidado")
+            inside = True
+            continue
+        if marker == SPORTS_BLOCK_END:
+            if not inside:
+                raise ValueError("bloque deportivo sin inicio")
+            inside = False
+            continue
+        if not inside:
+            output.append(line)
+    if inside:
+        raise ValueError("bloque deportivo sin cierre")
+    while output and not output[-1].strip():
+        output.pop()
+    return output
+
+
+def sports_feature_enabled() -> bool:
+    value = os.environ.get("SPORTS_EVENTS_ENABLED", "false").strip().lower()
+    return value in {"1", "true", "yes", "on"}
+
+
+def update_sports_block(
+    lines: list[str], *, enabled: bool
+) -> tuple[list[str], dict]:
+    without_block = remove_sports_block(lines)
+    if not enabled:
+        return without_block, {
+            "enabled": False,
+            "ok": True,
+            "updated": without_block != lines,
+            "channels": 0,
+            "events": 0,
+            "errors": [],
+        }
+
+    try:
+        from sports_events import build_sports_entries, replace_sports_block, report_entries
+    except ImportError as error:
+        return without_block, {
+            "enabled": False,
+            "ok": True,
+            "module_missing": True,
+            "updated": without_block != lines,
+            "channels": 0,
+            "events": 0,
+            "errors": [str(error)],
+        }
+
+    existing_names = {channel.name for channel in parse_channels(without_block)}
+    entries, status = build_sports_entries(existing_names)
+    status = dict(status)
+    status["enabled"] = True
+    status["entries"] = report_entries(entries)
+    if not status.get("ok"):
+        status["updated"] = False
+        status["preserved"] = lines != without_block
+        return lines, status
+
+    updated_lines = replace_sports_block(without_block, entries)
+    status["updated"] = updated_lines != lines
+    return updated_lines, status
 
 
 def build_nhk_no_cc_manifest(master_text: str) -> str:
@@ -488,8 +579,9 @@ def build_epg(
     *,
     now: datetime,
 ) -> tuple[bytes, dict]:
-    expected_ids = {channel.tvg_id for channel in channels if channel.tvg_id}
-    if len(expected_ids) != len(channels):
+    guide_channels = [channel for channel in channels if channel.tvg_id and not channel.dynamic]
+    expected_ids = {channel.tvg_id for channel in guide_channels}
+    if len(expected_ids) != len(guide_channels):
         raise ValueError("todos los canales necesitan un tvg-id unico")
 
     root = ET.Element(
@@ -500,9 +592,9 @@ def build_epg(
             "data-generated-at": now.astimezone(timezone.utc).isoformat(),
         },
     )
-    channel_by_id = {channel.tvg_id: channel for channel in channels}
+    channel_by_id = {channel.tvg_id: channel for channel in guide_channels}
     guide_types: dict[str, str] = {}
-    for channel in channels:
+    for channel in guide_channels:
         element = ET.SubElement(root, "channel", {"id": channel.tvg_id})
         ET.SubElement(element, "display-name").text = channel.name
         if channel.logo_url:
@@ -596,7 +688,8 @@ def build_epg(
 
 def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
     now = datetime.now(timezone.utc)
-    expected_ids = {channel.tvg_id for channel in channels if channel.tvg_id}
+    guide_channels = [channel for channel in channels if channel.tvg_id and not channel.dynamic]
+    expected_ids = {channel.tvg_id for channel in guide_channels}
     existing_status = None
     if EPG_PATH.exists():
         try:
@@ -809,6 +902,8 @@ def repair_failed_channels(
                 channel.info_line,
                 channel.logo_url,
                 channel.group,
+                channel.tvg_id,
+                channel.dynamic,
             )
             candidate_result = check_channel(
                 candidate, allow_ci_geo_block=allow_ci_geo_block
@@ -883,20 +978,26 @@ def write_report(
     repaired_channels: list[str] | None = None,
     epg_status: dict | None = None,
     nhk_status: dict | None = None,
+    sports_status: dict | None = None,
+    dynamic_names: set[str] | None = None,
 ) -> None:
     logos = logo_results or []
+    dynamic_names = dynamic_names or set()
+    static_results = [result for result in results if result.channel not in dynamic_names]
+    static_logos = [logo for logo in logos if logo.channel not in dynamic_names]
     report = {
         "playlist": DEFAULT_PLAYLIST.name,
         "tvn_refreshed": tvn_refreshed,
         "repaired_channels": repaired_channels or [],
         "all_ok": (
-            all(result.ok for result in results)
-            and all(result.ok for result in logos)
+            all(result.ok for result in static_results)
+            and all(result.ok for result in static_logos)
             and bool(epg_status and epg_status.get("ok"))
             and bool(nhk_status and nhk_status.get("ok"))
         ),
         "epg": epg_status or {},
         "nhk_no_cc": nhk_status or {},
+        "sports": sports_status or {},
         "channels": [asdict(result) for result in results],
         "logos": [asdict(result) for result in logos],
     }
@@ -959,9 +1060,27 @@ def main() -> int:
     if ensure_playlist_epg_url(lines):
         playlist.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
         print("Cabecera M3U enlazada a la guia EPG publicada en GitLab")
+
+    lines, sports_status = update_sports_block(
+        lines, enabled=sports_feature_enabled()
+    )
+    if sports_status.get("updated"):
+        playlist.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
+    if sports_status.get("enabled"):
+        print(
+            "  [DEPORTE] {} canales verificados ({} eventos directos)".format(
+                sports_status.get("channels", 0), sports_status.get("events", 0)
+            )
+        )
+        for error in sports_status.get("errors", [])[:5]:
+            print(f"  [DEPORTE AVISO] {error}")
+    elif sports_status.get("updated"):
+        print("  [DEPORTE] bloque deportivo retirado por configuracion")
+
     channels = parse_channels(lines)
     if not channels:
         raise RuntimeError("la lista no contiene canales activos")
+    guide_channels = [channel for channel in channels if not channel.dynamic]
 
     print("Actualizando la variante de NHK World sin subtitulos CC")
     nhk_status = refresh_nhk_no_cc()
@@ -970,7 +1089,7 @@ def main() -> int:
 
     print("Actualizando la guia de programacion de todos los canales")
     force_epg_refresh = os.environ.get("EPG_FORCE_REFRESH", "").lower() == "true"
-    epg_status = refresh_epg(channels, force=force_epg_refresh)
+    epg_status = refresh_epg(guide_channels, force=force_epg_refresh)
     updated = "actualizada" if epg_status.get("updated") else "vigente"
     print(
         f"  [OK] EPG {updated}: {epg_status['channels']} canales y "
@@ -1034,6 +1153,7 @@ def main() -> int:
 
     print("Verificacion de logos PNG")
     logo_results = verify_logos(final_channels)
+    dynamic_names = {channel.name for channel in final_channels if channel.dynamic}
     write_report(
         results,
         tvn_refreshed,
@@ -1041,9 +1161,19 @@ def main() -> int:
         repaired_channels,
         epg_status,
         nhk_status,
+        sports_status,
+        dynamic_names,
     )
-    failed = [result.channel for result in results if not result.ok]
-    failed_logos = [result.channel for result in logo_results if not result.ok]
+    failed = [
+        result.channel
+        for result in results
+        if not result.ok and result.channel not in dynamic_names
+    ]
+    failed_logos = [
+        result.channel
+        for result in logo_results
+        if not result.ok and result.channel not in dynamic_names
+    ]
     if failed or failed_logos:
         if failed:
             print("Canales con problemas: " + ", ".join(failed), file=sys.stderr)
