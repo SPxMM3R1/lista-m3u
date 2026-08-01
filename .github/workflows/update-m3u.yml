@@ -59,6 +59,7 @@ jobs:
           if git diff --quiet -- m3u.m3u epg.xml nhk_no_cc.m3u8; then
             echo "La lista y la guia ya estaban al dia."
             echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           git config user.name "Actualizador M3U"
@@ -67,25 +68,55 @@ jobs:
           git commit -m "Actualiza M3U y EPG automaticamente [skip ci]"
           git push origin HEAD:main
           echo "changed=true" >> "$GITHUB_OUTPUT"
+          echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
       - name: Esperar propagacion de GitHub raw
         if: steps.publish.outputs.changed == 'true'
         run: sleep 15
 
-      - name: Esperar y verificar publicacion
+      - name: Verificar contenido exacto del commit publicado
         id: published
         shell: bash
         run: |
           set +e
           RAW_EXIT=0
-          python update_m3u.py --verify-published "$RAW_BASE/m3u.m3u" || RAW_EXIT=$?
-          python update_m3u.py --verify-published "$RAW_BASE/nhk_no_cc.m3u8" || RAW_EXIT=$?
-          python update_m3u.py --verify-epg-published "$RAW_BASE/epg.xml" || RAW_EXIT=$?
+          RAW_COMMIT_BASE="https://raw.githubusercontent.com/${{ github.repository }}/${{ steps.publish.outputs.commit }}"
+          python update_m3u.py --verify-published "$RAW_COMMIT_BASE/m3u.m3u" || RAW_EXIT=$?
+          python update_m3u.py --verify-published "$RAW_COMMIT_BASE/nhk_no_cc.m3u8" || RAW_EXIT=$?
+          python update_m3u.py --verify-epg-published "$RAW_COMMIT_BASE/epg.xml" || RAW_EXIT=$?
+          echo "status=$RAW_EXIT" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Comprobar URLs raw publicas de main
+        id: branch_raw
+        shell: bash
+        run: |
+          set +e
+          RAW_EXIT=0
+          check_raw() {
+            local file="$1"
+            local marker="$2"
+            local attempts=0
+            while [ "$attempts" -lt 6 ]; do
+              attempts=$((attempts + 1))
+              if body="$(curl --fail --silent --show-error --location --max-time 30 "$RAW_BASE/$file?health=$GITHUB_RUN_ID-$attempts")" \
+                && printf '%s' "$body" | grep --fixed-strings --quiet "$marker"; then
+                echo "$file accesible en raw/main"
+                return 0
+              fi
+              sleep 5
+            done
+            echo "$file no respondio con el formato esperado" >&2
+            return 1
+          }
+          check_raw m3u.m3u '#EXTM3U' || RAW_EXIT=1
+          check_raw nhk_no_cc.m3u8 '#EXTM3U' || RAW_EXIT=1
+          check_raw epg.xml '<?xml' || RAW_EXIT=1
           echo "status=$RAW_EXIT" >> "$GITHUB_OUTPUT"
           exit 0
 
       - name: Fallar si hubo errores
-        if: steps.updater.outputs.status != '0' || steps.published.outputs.status != '0'
+        if: steps.updater.outputs.status != '0' || steps.published.outputs.status != '0' || steps.branch_raw.outputs.status != '0'
         run: exit 1
 
       - name: Guardar informe de canales
