@@ -36,31 +36,6 @@ La tarea tambien se puede ejecutar manualmente desde **Build > Pipelines** con
 **New pipeline**. El resultado detallado queda guardado como
 `channel-status.json` dentro de los artefactos de la tarea.
 
-## Deportes opcionales
-
-El bloque automatico entre `AUTO SPORTS EVENTS BEGIN` y `AUTO SPORTS EVENTS END`
-se genera en `sports_events.py`. Solo incorpora fuentes HTTPS directas que
-responden como HLS y cuyo primer segmento tambien responde. Actualmente busca
-canales deportivos publicos de `iptv-org`, priorizando variantes 1080p, y puede
-aceptar un feed JSON adicional mediante `SPORTS_EVENT_FEED_URL` si contiene
-enlaces HLS directos y autorizados.
-
-La actualizacion normal mantiene la EPG de los 13 canales originales. Las
-entradas deportivas se consideran temporales y no se agregan a esa EPG. Para
-refrescar solo deportes se puede crear un segundo **Pipeline schedule** con
-frecuencia de 10 minutos y la descripcion exacta `Actualizar deportes cada 10
-minutos`. GitLab expone esa descripcion como
-`CI_PIPELINE_SCHEDULE_DESCRIPTION`; el schedule ejecuta `update_sports_10m` y
-no dispara los ocho trabajos diarios de la lista general. Para una ejecucion
-manual desde **New pipeline** se mantiene disponible `SPORTS_ONLY=true`.
-
-Para dejar la lista como estaba antes, basta definir
-`SPORTS_EVENTS_ENABLED=false` en las variables de CI/CD y ejecutar una
-actualizacion general. El actualizador retirara todo el bloque automatico, sin
-modificar los 13 canales, la EPG ni el mecanismo de TVN. Tambien se puede
-eliminar `sports_events.py`, `update_sports.py` y el job deportivo despues de
-desactivar esa variable.
-
 
 
 ## Getting started
