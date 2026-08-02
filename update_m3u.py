@@ -24,12 +24,10 @@ from pathlib import Path
 
 DEFAULT_PLAYLIST = Path(__file__).with_name("m3u.m3u")
 EPG_PATH = Path(__file__).with_name("epg.xml")
-NHK_NO_CC_PATH = Path(__file__).with_name("nhk_no_cc.m3u8")
 REPORT_PATH = Path(__file__).with_name("channel-status.json")
 PUBLIC_RAW_BASE = "https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main"
 EPG_PUBLIC_URL = f"{PUBLIC_RAW_BASE}/epg.xml"
 NHK_MASTER_URL = "https://masterpl.hls.nhkworld.jp/hls/w/live/smarttv.m3u8"
-NHK_NO_CC_PUBLIC_URL = f"{PUBLIC_RAW_BASE}/nhk_no_cc.m3u8"
 FRANCE24_ES_1080_URL = (
     "https://live.france24.com/hls/live/2037220/F24_ES_HI_HLS/master_5000.m3u8"
 )
@@ -98,7 +96,7 @@ KNOWN_STREAM_FALLBACKS = {
     "Euronews Espanol": [
         "https://cdn-euronews.akamaized.net/live/eds/euronews-es/25053/index.m3u8"
     ],
-    "NHK World Japan": [NHK_NO_CC_PUBLIC_URL],
+    "NHK World Japan": [NHK_MASTER_URL],
     "Al Jazeera English": ["https://live-hls-apps-aje-v3-fa.getaj.net/AJE/index.m3u8"],
     "Red Bull TV": ["https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master.m3u8"],
 }
@@ -197,106 +195,6 @@ def ensure_playlist_epg_url(lines: list[str]) -> bool:
         return False
     lines[0] = expected
     return True
-
-
-def build_nhk_no_cc_manifest(master_text: str) -> str:
-    if not master_text.lstrip("\ufeff\r\n ").startswith("#EXTM3U"):
-        raise ValueError("NHK no entrego un manifiesto HLS valido")
-
-    output: list[str] = []
-    for line in master_text.splitlines():
-        if line.startswith("#EXT-X-MEDIA:TYPE=SUBTITLES"):
-            continue
-        if line.startswith("#EXT-X-STREAM-INF:"):
-            line = re.sub(r',?SUBTITLES="[^"]+"', "", line)
-        output.append(line)
-
-    sanitized = "\n".join(output).rstrip() + "\n"
-    if "TYPE=SUBTITLES" in sanitized or "SUBTITLES=" in sanitized:
-        raise ValueError("no se pudieron eliminar todas las pistas CC de NHK")
-    if "TYPE=AUDIO" not in sanitized:
-        raise ValueError("el manifiesto de NHK perdio su pista de audio")
-    if "RESOLUTION=1920x1080" not in sanitized:
-        raise ValueError("el manifiesto de NHK no contiene la variante 1080p")
-    return sanitized
-
-
-def validate_nhk_no_cc_manifest(manifest: str) -> None:
-    if "TYPE=SUBTITLES" in manifest or "SUBTITLES=" in manifest:
-        raise ValueError("el manifiesto NHK aun contiene subtitulos")
-    audio_match = re.search(r'TYPE=AUDIO[^\r\n]*\bURI="([^"]+)"', manifest)
-    if not audio_match:
-        raise ValueError("el manifiesto NHK no contiene audio externo")
-
-    lines = manifest.splitlines()
-    video_url = ""
-    for index, line in enumerate(lines):
-        if line.startswith("#EXT-X-STREAM-INF:") and "RESOLUTION=1920x1080" in line:
-            for candidate in lines[index + 1 :]:
-                candidate = candidate.strip()
-                if not candidate or candidate.startswith("#"):
-                    continue
-                video_url = candidate
-                break
-            break
-    if not video_url:
-        raise ValueError("el manifiesto NHK no contiene una URL de video 1080p")
-
-    for label, url in (("audio", audio_match.group(1)), ("video 1080p", video_url)):
-        status, body, _ = fetch_bytes(
-            url,
-            {"User-Agent": PLAYER_USER_AGENT, "Accept": "*/*"},
-            timeout=30,
-            limit=262_144,
-        )
-        text = body.decode("utf-8", "replace").lstrip("\ufeff\r\n ")
-        if status != 200 or not text.startswith("#EXTM3U"):
-            raise ValueError(f"la pista de {label} de NHK no responde como HLS")
-
-
-def refresh_nhk_no_cc() -> dict:
-    try:
-        status, body, _ = fetch_bytes(
-            NHK_MASTER_URL,
-            {"User-Agent": PLAYER_USER_AGENT, "Accept": "*/*"},
-            timeout=30,
-            limit=262_144,
-        )
-        if status != 200:
-            raise ValueError(f"NHK respondio HTTP {status}")
-        manifest = build_nhk_no_cc_manifest(body.decode("utf-8", "replace"))
-        validate_nhk_no_cc_manifest(manifest)
-        content = manifest.encode("utf-8")
-        updated = not NHK_NO_CC_PATH.exists() or NHK_NO_CC_PATH.read_bytes() != content
-        if updated:
-            temporary = NHK_NO_CC_PATH.with_suffix(".m3u8.tmp")
-            temporary.write_bytes(content)
-            temporary.replace(NHK_NO_CC_PATH)
-        return {
-            "ok": True,
-            "updated": updated,
-            "subtitles": False,
-            "audio": True,
-            "resolution": "1920x1080",
-            "source": NHK_MASTER_URL,
-        }
-    except Exception as error:
-        if NHK_NO_CC_PATH.exists():
-            try:
-                manifest = NHK_NO_CC_PATH.read_text(encoding="utf-8")
-                validate_nhk_no_cc_manifest(manifest)
-                return {
-                    "ok": True,
-                    "updated": False,
-                    "preserved": True,
-                    "subtitles": False,
-                    "audio": True,
-                    "resolution": "1920x1080",
-                    "warning": f"se conservo el manifiesto NHK anterior: {error}",
-                }
-            except Exception:
-                pass
-        raise RuntimeError(f"no se pudo generar NHK sin CC: {error}") from error
 
 
 def xmltv_format(value: datetime) -> str:
@@ -709,24 +607,6 @@ def check_channel(
             last_error = f"{type(error).__name__}: {error}"
         if attempt + 1 < attempts:
             time.sleep(1.5)
-    if (
-        channel.name == "NHK World Japan"
-        and channel.url == NHK_NO_CC_PUBLIC_URL
-        and os.environ.get("CI", "").lower() != "true"
-        and NHK_NO_CC_PATH.exists()
-    ):
-        try:
-            validate_nhk_no_cc_manifest(
-                NHK_NO_CC_PATH.read_text(encoding="utf-8")
-            )
-            return CheckResult(
-                channel.name,
-                channel.url,
-                True,
-                "manifiesto local 1080p sin CC, pendiente de publicacion",
-            )
-        except Exception:
-            pass
     return CheckResult(channel.name, channel.url, False, last_error)
 
 
@@ -887,7 +767,6 @@ def write_report(
     logo_results: list[LogoResult] | None = None,
     repaired_channels: list[str] | None = None,
     epg_status: dict | None = None,
-    nhk_status: dict | None = None,
 ) -> None:
     logos = logo_results or []
     report = {
@@ -898,10 +777,8 @@ def write_report(
             all(result.ok for result in results)
             and all(result.ok for result in logos)
             and bool(epg_status and epg_status.get("ok"))
-            and bool(nhk_status and nhk_status.get("ok"))
         ),
         "epg": epg_status or {},
-        "nhk_no_cc": nhk_status or {},
         "channels": [asdict(result) for result in results],
         "logos": [asdict(result) for result in logos],
     }
@@ -967,11 +844,6 @@ def main() -> int:
     channels = parse_channels(lines)
     if not channels:
         raise RuntimeError("la lista no contiene canales activos")
-
-    print("Actualizando la variante de NHK World sin subtitulos CC")
-    nhk_status = refresh_nhk_no_cc()
-    nhk_state = "actualizado" if nhk_status.get("updated") else "vigente"
-    print(f"  [OK] NHK sin CC {nhk_state}: audio y video 1080p verificados")
 
     print("Actualizando la guia de programacion de todos los canales")
     force_epg_refresh = os.environ.get("EPG_FORCE_REFRESH", "").lower() == "true"
@@ -1042,7 +914,6 @@ def main() -> int:
         logo_results,
         repaired_channels,
         epg_status,
-        nhk_status,
     )
     failed = [result.channel for result in results if not result.ok]
     failed_logos = [result.channel for result in logo_results if not result.ok]

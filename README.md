@@ -20,7 +20,7 @@ Cada ejecucion:
 - renueva el enlace temporal de TVN;
 - prueba todos los streams y sus logos PNG;
 - busca reemplazos verificados en fuentes oficiales si un canal falla;
-- genera NHK World sin la pista de subtitulos CC activada por defecto;
+- comprueba el stream oficial normal de NHK World;
 - actualiza la guia EPG con las parrillas disponibles;
 - verifica que los archivos publicados en GitHub sigan accesibles;
 - publica `channel-status.json` como artefacto de la ejecucion.
