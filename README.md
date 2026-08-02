@@ -33,9 +33,8 @@ fuerza la descarga de la guia externa.
 
 ## Canales
 
-La lista contiene 41 canales: los 13 originales de Chile e internacionales,
+La lista contiene 45 canales: los 13 originales de Chile e internacionales,
 deportes (FIFA+ Hispanoamerica y FUEL TV), musica europea, rusa, alemana,
-estadounidense e italiana, CGTN en seis idiomas, canales coreanos, FilmRise
-Westerns y dibujos clasicos. Se excluyeron V2BEAT, Russian MusicBox y CCTV-15
-por no tener una fuente publica estable o confirmada; Deluxe Music se retiro
-porque su HLS publico devolvio 404 durante la comprobacion.
+estadounidense e italiana, CGTN en seis idiomas, CCTV-15, canales coreanos,
+FilmRise Westerns y dibujos clasicos. V2BEAT, Russian MusicBox y CCTV-15 usan
+fuentes externas o comunitarias y pueden ser menos estables que las oficiales.
