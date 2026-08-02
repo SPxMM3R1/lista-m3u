@@ -18,7 +18,7 @@ Guia de programacion XMLTV:
 Cada ejecucion:
 
 - renueva el enlace temporal de TVN;
-- prueba los 13 streams y sus logos PNG;
+- prueba todos los streams y sus logos PNG;
 - busca reemplazos verificados en fuentes oficiales si un canal falla;
 - genera NHK World sin la pista de subtitulos CC activada por defecto;
 - actualiza la guia EPG con las parrillas disponibles;
@@ -33,5 +33,9 @@ fuerza la descarga de la guia externa.
 
 ## Canales
 
-TVN, Mega, CHV, Canal 13, T13, 24 Horas, La Red, DW Espanol, France 24
-Espanol, Euronews Espanol, NHK World Japan, Al Jazeera English y Red Bull TV.
+La lista contiene 41 canales: los 13 originales de Chile e internacionales,
+deportes (FIFA+ Hispanoamerica y FUEL TV), musica europea, rusa, alemana,
+estadounidense e italiana, CGTN en seis idiomas, canales coreanos, FilmRise
+Westerns y dibujos clasicos. Se excluyeron V2BEAT, Russian MusicBox y CCTV-15
+por no tener una fuente publica estable o confirmada; Deluxe Music se retiro
+porque su HLS publico devolvio 404 durante la comprobacion.

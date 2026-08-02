@@ -57,6 +57,7 @@ EPG_REFRESH_INTERVAL = timedelta(hours=12)
 TVN_LIVE_PAGE = "https://live.tvn.cl/"
 TVN_DEFAULT_ID = "57a498c4d7b86d600e5461cb"
 CI_GEO_RESTRICTED_CHANNELS = {"TVN", "CHV", "24 Horas"}
+TLS_FALLBACK_CHANNELS = {"Vantage Classic", "Vantage Dance"}
 PLAYER_USER_AGENT = "VLC/3.0.20 LibVLC/3.0.20"
 BROWSER_USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -556,14 +557,33 @@ def build_epg(
             )
             guide_types[red_bull_id] = "parrilla oficial + continuidad"
 
-    for channel_id, count in programmes_by_target.items():
-        if count:
+    last_stop_by_channel: dict[str, datetime] = {}
+    for programme in root.findall("programme"):
+        channel_id = programme.get("channel", "")
+        if channel_id not in expected_ids:
             continue
+        stop = xmltv_datetime(programme.get("stop", ""))
+        previous = last_stop_by_channel.get(channel_id)
+        if previous is None or stop > previous:
+            last_stop_by_channel[channel_id] = stop
+
+    minimum_future = now + timedelta(hours=24)
+    for channel_id, count in programmes_by_target.items():
         channel = channel_by_id[channel_id]
-        programmes_by_target[channel_id] = add_continuous_programmes(
-            root, channel_id, channel.name, now=now
+        last_stop = last_stop_by_channel.get(channel_id)
+        if count and last_stop is not None and last_stop >= minimum_future:
+            continue
+        added = add_continuous_programmes(
+            root,
+            channel_id,
+            channel.name,
+            now=now,
+            start_at=last_stop if count and last_stop is not None else None,
         )
-        guide_types[channel_id] = "senal continua"
+        programmes_by_target[channel_id] += added
+        guide_types[channel_id] = (
+            "parrilla real + continuidad" if count else "senal continua"
+        )
 
     for channel in root.findall("channel"):
         channel.set("data-guide", guide_types.get(channel.get("id", ""), "senal continua"))
@@ -686,6 +706,38 @@ def check_channel(
                     "reproduccion limitada fuera de Chile (HTTP 403)",
                 )
             last_error = f"HTTP {error.code} {error.reason}"
+        except urllib.error.URLError as error:
+            reason = str(getattr(error, "reason", error)).lower()
+            if channel.name in TLS_FALLBACK_CHANNELS and (
+                "certificate" in reason or "ssl" in reason or "tls" in reason
+            ):
+                try:
+                    insecure_context = ssl.create_default_context()
+                    insecure_context.check_hostname = False
+                    insecure_context.verify_mode = ssl.CERT_NONE
+                    status, body, final_url = fetch_bytes(
+                        channel.url,
+                        request_headers(channel.name),
+                        context=insecure_context,
+                    )
+                    text = body.decode("utf-8", "replace").lstrip(
+                        "\ufeff\r\n "
+                    )
+                    if status == 200 and text.startswith("#EXTM3U"):
+                        detail = (
+                            "playlist HLS valida "
+                            "(certificado TLS del CDN vencido; comprobada con excepcion acotada)"
+                        )
+                        if final_url != channel.url:
+                            detail += " (con redireccion)"
+                        return CheckResult(channel.name, channel.url, True, detail)
+                    last_error = f"HTTP {status}, contenido no reconocido"
+                except Exception as fallback_error:
+                    last_error = (
+                        f"{type(fallback_error).__name__}: {fallback_error}"
+                    )
+            else:
+                last_error = f"URLError: {error}"
         except Exception as error:  # Network and TLS failures need a compact report.
             last_error = f"{type(error).__name__}: {error}"
         if attempt + 1 < attempts:
