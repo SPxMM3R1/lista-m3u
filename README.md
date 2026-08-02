@@ -33,8 +33,7 @@ fuerza la descarga de la guia externa.
 
 ## Canales
 
-La lista contiene 25 canales: los 13 originales de Chile e internacionales,
-deportes (FIFA+ Hispanoamerica y FUEL TV), musica europea, rusa, alemana e
-estadounidense, CCTV-15 y los canales adicionales que superaron la ultima
+La lista contiene 16 canales: los 13 originales de Chile e internacionales,
+mas Russian MusicBox, V2BEAT y XITE Hits Germany, que superaron la ultima
 verificacion. Se retiraron las señales coreanas, CGTN, Vantage, 15+, 70-80,
 Deluxe Rap, FilmRise, Mr Bean y Pluto Retro Toons.
