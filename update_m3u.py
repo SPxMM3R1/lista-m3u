@@ -100,6 +100,25 @@ KNOWN_STREAM_FALLBACKS = {
     "Al Jazeera English": ["https://live-hls-apps-aje-v3-fa.getaj.net/AJE/index.m3u8"],
     "Red Bull TV": ["https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master.m3u8"],
     "Europa Plus TV": ["http://31.148.48.15/Europa_Plus_HD/index.m3u8"],
+    "BRIDGE Deluxe": ["http://stream.mcquack.net/92/index.m3u8"],
+    "Dance TV House Floor": [
+        "https://m2b2.worldcast.tv:7443/dancetelevisionfive/dancetelevisionfive.m3u8"
+    ],
+    "Dance TV Tech House": [
+        "https://m2b2.worldcast.tv:7443/dancetelevisionfour/dancetelevisionfour.m3u8"
+    ],
+    "Dance TV Mainstage": [
+        "https://mbit1.worldcast.tv/dancetelevisionseven/multibit.m3u8"
+    ],
+    "Dance TV Deep House District": [
+        "https://m1b2.worldcast.tv/dancetelevisiontwo/2/dancetelevisiontwo.m3u8"
+    ],
+    "Dance TV Minimal Tech": [
+        "https://mbit1.worldcast.tv/dancetelevisionsix/stream_0.m3u8"
+    ],
+    "Best of Dance TV": [
+        "https://m1b2.worldcast.tv/dancetelevisionone/dancetelevisionone.m3u8"
+    ],
     "Dance TV Techno Warehouse": [
         "https://m2b2.worldcast.tv:7443/dancetelevisionthree/2/dancetelevisionthree.m3u8"
     ],
