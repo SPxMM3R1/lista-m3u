@@ -55,7 +55,7 @@ RED_BULL_CHANNEL_ID = "rrn:content:video-channels:c81f8686-ab67-4965-ba04-5f6658
 EPG_REFRESH_INTERVAL = timedelta(hours=12)
 TVN_LIVE_PAGE = "https://live.tvn.cl/"
 TVN_DEFAULT_ID = "57a498c4d7b86d600e5461cb"
-CI_GEO_RESTRICTED_CHANNELS = {"TVN", "CHV", "24 Horas"}
+CI_GEO_RESTRICTED_CHANNELS = {"TVN", "CHV", "24 Horas", "La Red"}
 PLAYER_USER_AGENT = "VLC/3.0.20 LibVLC/3.0.20"
 BROWSER_USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -78,7 +78,10 @@ OFFICIAL_CANDIDATE_HINTS = {
     "La Red": re.compile(r"(?:lared|ds5i0a12qngha)", re.IGNORECASE),
 }
 KNOWN_STREAM_FALLBACKS = {
-    "Mega": ["https://unlimited1-cl-isp.dps.live/mega/mega.smil/playlist.m3u8"],
+    "Mega": [
+        "http://tr.live.clarovtrcdn.vtrplay.com/megahdchi/vxfmt=dp/playlist.m3u8?device_profile=STB_HLS_VCAS_LIVE_HD",
+        "https://unlimited1-cl-isp.dps.live/mega/mega.smil/playlist.m3u8",
+    ],
     "CHV": [
         "https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/chv/chv.smil/playlist.m3u8"
     ],
@@ -87,7 +90,10 @@ KNOWN_STREAM_FALLBACKS = {
         "https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/t13/t13.smil/playlist.m3u8"
     ],
     "24 Horas": ["https://mdstrm.com/live-stream-playlist/689ba606ecfe7915e1f8f741.m3u8"],
-    "La Red": ["https://ds5i0a12qngha.cloudfront.net/ts:abr.m3u8"],
+    "La Red": [
+        "https://tv-mgmt.gtd.cl/bpk-tv/LARED/default/index.m3u8",
+        "https://ds5i0a12qngha.cloudfront.net/ts:abr.m3u8",
+    ],
     "DW Espanol": [
         "https://dwamdstream104.akamaized.net/hls/live/2015530/dwstream104/master.m3u8"
     ],
@@ -105,6 +111,13 @@ KNOWN_STREAM_FALLBACKS = {
     ],
 }
 PREFERRED_VARIANT_MASTERS = {
+    "Mega": "http://tr.live.clarovtrcdn.vtrplay.com/megahdchi/vxfmt=dp/playlist.m3u8?device_profile=STB_HLS_VCAS_LIVE_HD",
+    "La Red": "https://tv-mgmt.gtd.cl/bpk-tv/LARED/default/index.m3u8",
+    "CHV": "https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/chv/chv.smil/playlist.m3u8",
+    "DW Espanol": "https://dwamdstream104.akamaized.net/hls/live/2015530/dwstream104/master.m3u8",
+    "NHK World Japan": NHK_MASTER_URL,
+    "Al Jazeera English": "https://live-hls-apps-aje-v3-fa.getaj.net/AJE/index.m3u8",
+    "Red Bull TV": "https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master.m3u8",
     "XITE Hits Germany": "https://d726x48n2pd5h.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-skxr1pazhltvp/XITE_Hits.m3u8",
 }
 
@@ -164,7 +177,7 @@ def parse_channels(lines: list[str]) -> list[Channel]:
 
 
 def preferred_variant_url(channel_name: str, master_url: str) -> str | None:
-    """Return a video-only 720p child playlist when the master provides one."""
+    """Return the highest declared video child playlist up to 1080p."""
     headers = {
         "User-Agent": BROWSER_USER_AGENT,
         "Accept": "application/vnd.apple.mpegurl,*/*;q=0.8",
@@ -172,7 +185,7 @@ def preferred_variant_url(channel_name: str, master_url: str) -> str | None:
     try:
         _, body, final_url = fetch_bytes(master_url, headers, limit=1_048_576)
     except Exception as error:
-        print(f"  [AVISO] {channel_name}: no se pudo resolver la variante 720p: {error}")
+        print(f"  [AVISO] {channel_name}: no se pudo resolver la variante hasta 1080p: {error}")
         return None
 
     text = body.decode("utf-8", "replace")
@@ -187,7 +200,7 @@ def preferred_variant_url(channel_name: str, master_url: str) -> str | None:
         if not resolution:
             continue
         width, height = (int(value) for value in resolution.groups())
-        if height > 720:
+        if height > 1080:
             continue
         bandwidth_match = re.search(r"(?:AVERAGE-)?BANDWIDTH=(\d+)", line)
         bandwidth = int(bandwidth_match.group(1)) if bandwidth_match else 0
@@ -206,7 +219,7 @@ def pin_preferred_variants(lines: list[str]) -> bool:
         selected_url = preferred_variant_url(channel.name, master_url)
         if selected_url and selected_url != channel.url:
             lines[channel.url_line] = selected_url
-            print(f"  [OK] {channel.name}: fijada variante de video compatible")
+            print(f"  [OK] {channel.name}: fijada variante maxima de video (hasta 1080p)")
             changed = True
     return changed
 
