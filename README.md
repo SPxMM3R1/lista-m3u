@@ -21,6 +21,7 @@ Cada ejecucion:
 - prueba todos los streams y sus logos PNG;
 - busca reemplazos verificados en fuentes oficiales si un canal falla;
 - comprueba el stream oficial normal de NHK World;
+- fija variantes de video 720p en los maestros HLS compatibles para Android TV;
 - actualiza la guia EPG con las parrillas disponibles;
 - verifica que los archivos publicados en GitHub sigan accesibles;
 - publica `channel-status.json` como artefacto de la ejecucion.

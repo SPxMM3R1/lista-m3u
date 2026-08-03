@@ -20,6 +20,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import asdict, dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from urllib.parse import urljoin
 
 
 DEFAULT_PLAYLIST = Path(__file__).with_name("m3u.m3u")
@@ -101,6 +102,24 @@ KNOWN_STREAM_FALLBACKS = {
     "Red Bull TV": ["https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master.m3u8"],
     "Europa Plus TV": ["http://31.148.48.15/Europa_Plus_HD/index.m3u8"],
     "BRIDGE Deluxe": ["http://stream.mcquack.net/92/index.m3u8"],
+    "XITE Hits Germany": [
+        "https://d726x48n2pd5h.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-skxr1pazhltvp/XITE_Hits.m3u8"
+    ],
+    "Vevo 80s": [
+        "https://amg00056-vevotv-vevo80saunz-samsungau-rp5e3.amagi.tv/playlist/amg00056-vevotv-vevo80saunz-samsungau/playlist.m3u8"
+    ],
+    "Vevo 90s": [
+        "https://amg00056-vevotv-vevo90saunz-samsungau-n6a0d.amagi.tv/playlist/amg00056-vevotv-vevo90saunz-samsungau/playlist.m3u8"
+    ],
+    "Vevo Pop": [
+        "https://d128y56w6v2kax.cloudfront.net/playlist/amg00056-vevotv-vevopopau-samsungau/playlist.m3u8"
+    ],
+    "Vevo Latino": [
+        "https://amg00056-amg00056c13-rakuten-es-3246.playouts.now.amagi.tv/playlist.m3u8"
+    ],
+    "Qwest TV": [
+        "https://qwestjazz-rakuten.amagi.tv/hls/amagi_hls_data_rakutenAA-qwestjazz-rakuten/CDN/master.m3u8"
+    ],
     "Dance TV House Floor": [
         "https://m2b2.worldcast.tv:7443/dancetelevisionfive/dancetelevisionfive.m3u8"
     ],
@@ -122,6 +141,18 @@ KNOWN_STREAM_FALLBACKS = {
     "Dance TV Techno Warehouse": [
         "https://m2b2.worldcast.tv:7443/dancetelevisionthree/2/dancetelevisionthree.m3u8"
     ],
+}
+PREFERRED_VARIANT_MASTERS = {
+    "XITE Hits Germany": "https://d726x48n2pd5h.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-skxr1pazhltvp/XITE_Hits.m3u8",
+    "Dance TV Techno Warehouse": "https://m2b2.worldcast.tv:7443/dancetelevisionthree/2/dancetelevisionthree.m3u8",
+    "Dance TV House Floor": "https://m2b2.worldcast.tv:7443/dancetelevisionfive/2/dancetelevisionfive.m3u8",
+    "Dance TV Tech House": "https://m2b2.worldcast.tv:7443/dancetelevisionfour/2/dancetelevisionfour.m3u8",
+    "Dance TV Minimal Tech": "https://mbit1.worldcast.tv/dancetelevisionsix/multibit.m3u8",
+    "Vevo 80s": "https://amg00056-vevotv-vevo80saunz-samsungau-rp5e3.amagi.tv/playlist/amg00056-vevotv-vevo80saunz-samsungau/playlist.m3u8",
+    "Vevo 90s": "https://amg00056-vevotv-vevo90saunz-samsungau-n6a0d.amagi.tv/playlist/amg00056-vevotv-vevo90saunz-samsungau/playlist.m3u8",
+    "Vevo Pop": "https://d128y56w6v2kax.cloudfront.net/playlist/amg00056-vevotv-vevopopau-samsungau/playlist.m3u8",
+    "Vevo Latino": "https://amg00056-amg00056c13-rakuten-es-3246.playouts.now.amagi.tv/playlist.m3u8",
+    "Qwest TV": "https://qwestjazz-rakuten.amagi.tv/hls/amagi_hls_data_rakutenAA-qwestjazz-rakuten/CDN/master.m3u8",
 }
 
 
@@ -177,6 +208,54 @@ def parse_channels(lines: list[str]) -> list[Channel]:
         else:
             raise ValueError(f"{name}: falta la URL al final del archivo")
     return channels
+
+
+def preferred_variant_url(channel_name: str, master_url: str) -> str | None:
+    """Return a video-only 720p child playlist when the master provides one."""
+    headers = {
+        "User-Agent": BROWSER_USER_AGENT,
+        "Accept": "application/vnd.apple.mpegurl,*/*;q=0.8",
+    }
+    try:
+        _, body, final_url = fetch_bytes(master_url, headers, limit=1_048_576)
+    except Exception as error:
+        print(f"  [AVISO] {channel_name}: no se pudo resolver la variante 720p: {error}")
+        return None
+
+    text = body.decode("utf-8", "replace")
+    if not text.lstrip().startswith("#EXTM3U"):
+        return None
+    variants: list[tuple[int, int, int, str]] = []
+    lines = text.splitlines()
+    for index, line in enumerate(lines):
+        if not line.startswith("#EXT-X-STREAM-INF:") or index + 1 >= len(lines):
+            continue
+        resolution = re.search(r"RESOLUTION=(\d+)x(\d+)", line)
+        if not resolution:
+            continue
+        width, height = (int(value) for value in resolution.groups())
+        if height > 720:
+            continue
+        bandwidth_match = re.search(r"(?:AVERAGE-)?BANDWIDTH=(\d+)", line)
+        bandwidth = int(bandwidth_match.group(1)) if bandwidth_match else 0
+        variants.append((height, width, bandwidth, urljoin(final_url, lines[index + 1].strip())))
+    if not variants:
+        return None
+    return max(variants)[3]
+
+
+def pin_preferred_variants(lines: list[str]) -> bool:
+    changed = False
+    for channel in parse_channels(lines):
+        master_url = PREFERRED_VARIANT_MASTERS.get(channel.name)
+        if not master_url:
+            continue
+        selected_url = preferred_variant_url(channel.name, master_url)
+        if selected_url and selected_url != channel.url:
+            lines[channel.url_line] = selected_url
+            print(f"  [OK] {channel.name}: fijada variante de video compatible")
+            changed = True
+    return changed
 
 
 def request_headers(channel: str) -> dict[str, str]:
@@ -864,6 +943,9 @@ def main() -> int:
     if ensure_playlist_epg_url(lines):
         playlist.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
         print("Cabecera M3U enlazada a la guia EPG publicada en GitHub")
+    if pin_preferred_variants(lines):
+        playlist.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
+        print("Variantes de video compatibles guardadas en la lista")
     channels = parse_channels(lines)
     if not channels:
         raise RuntimeError("la lista no contiene canales activos")
