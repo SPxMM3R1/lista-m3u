@@ -100,59 +100,12 @@ KNOWN_STREAM_FALLBACKS = {
     "NHK World Japan": [NHK_MASTER_URL],
     "Al Jazeera English": ["https://live-hls-apps-aje-v3-fa.getaj.net/AJE/index.m3u8"],
     "Red Bull TV": ["https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master.m3u8"],
-    "Europa Plus TV": ["http://31.148.48.15/Europa_Plus_HD/index.m3u8"],
-    "BRIDGE Deluxe": ["http://stream.mcquack.net/92/index.m3u8"],
     "XITE Hits Germany": [
         "https://d726x48n2pd5h.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-skxr1pazhltvp/XITE_Hits.m3u8"
-    ],
-    "Vevo 80s": [
-        "https://amg00056-vevotv-vevo80saunz-samsungau-rp5e3.amagi.tv/playlist/amg00056-vevotv-vevo80saunz-samsungau/playlist.m3u8"
-    ],
-    "Vevo 90s": [
-        "https://amg00056-vevotv-vevo90saunz-samsungau-n6a0d.amagi.tv/playlist/amg00056-vevotv-vevo90saunz-samsungau/playlist.m3u8"
-    ],
-    "Vevo Pop": [
-        "https://d128y56w6v2kax.cloudfront.net/playlist/amg00056-vevotv-vevopopau-samsungau/playlist.m3u8"
-    ],
-    "Vevo Latino": [
-        "https://amg00056-amg00056c13-rakuten-es-3246.playouts.now.amagi.tv/playlist.m3u8"
-    ],
-    "Qwest TV": [
-        "https://qwestjazz-rakuten.amagi.tv/hls/amagi_hls_data_rakutenAA-qwestjazz-rakuten/CDN/master.m3u8"
-    ],
-    "Dance TV House Floor": [
-        "https://m2b2.worldcast.tv:7443/dancetelevisionfive/dancetelevisionfive.m3u8"
-    ],
-    "Dance TV Tech House": [
-        "https://m2b2.worldcast.tv:7443/dancetelevisionfour/dancetelevisionfour.m3u8"
-    ],
-    "Dance TV Mainstage": [
-        "https://mbit1.worldcast.tv/dancetelevisionseven/multibit.m3u8"
-    ],
-    "Dance TV Deep House District": [
-        "https://m1b2.worldcast.tv/dancetelevisiontwo/2/dancetelevisiontwo.m3u8"
-    ],
-    "Dance TV Minimal Tech": [
-        "https://mbit1.worldcast.tv/dancetelevisionsix/stream_0.m3u8"
-    ],
-    "Best of Dance TV": [
-        "https://m1b2.worldcast.tv/dancetelevisionone/dancetelevisionone.m3u8"
-    ],
-    "Dance TV Techno Warehouse": [
-        "https://m2b2.worldcast.tv:7443/dancetelevisionthree/2/dancetelevisionthree.m3u8"
     ],
 }
 PREFERRED_VARIANT_MASTERS = {
     "XITE Hits Germany": "https://d726x48n2pd5h.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-skxr1pazhltvp/XITE_Hits.m3u8",
-    "Dance TV Techno Warehouse": "https://m2b2.worldcast.tv:7443/dancetelevisionthree/2/dancetelevisionthree.m3u8",
-    "Dance TV House Floor": "https://m2b2.worldcast.tv:7443/dancetelevisionfive/2/dancetelevisionfive.m3u8",
-    "Dance TV Tech House": "https://m2b2.worldcast.tv:7443/dancetelevisionfour/2/dancetelevisionfour.m3u8",
-    "Dance TV Minimal Tech": "https://mbit1.worldcast.tv/dancetelevisionsix/multibit.m3u8",
-    "Vevo 80s": "https://amg00056-vevotv-vevo80saunz-samsungau-rp5e3.amagi.tv/playlist/amg00056-vevotv-vevo80saunz-samsungau/playlist.m3u8",
-    "Vevo 90s": "https://amg00056-vevotv-vevo90saunz-samsungau-n6a0d.amagi.tv/playlist/amg00056-vevotv-vevo90saunz-samsungau/playlist.m3u8",
-    "Vevo Pop": "https://d128y56w6v2kax.cloudfront.net/playlist/amg00056-vevotv-vevopopau-samsungau/playlist.m3u8",
-    "Vevo Latino": "https://amg00056-amg00056c13-rakuten-es-3246.playouts.now.amagi.tv/playlist.m3u8",
-    "Qwest TV": "https://qwestjazz-rakuten.amagi.tv/hls/amagi_hls_data_rakutenAA-qwestjazz-rakuten/CDN/master.m3u8",
 }
 
 
@@ -605,8 +558,15 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
     existing_status = None
     if EPG_PATH.exists():
         try:
+            existing_data = EPG_PATH.read_bytes()
+            existing_root = ET.fromstring(existing_data)
+            existing_channel_ids = {
+                channel.get("id", "") for channel in existing_root.findall("channel")
+            }
+            if existing_channel_ids != expected_ids:
+                raise ValueError("la guia publicada tiene canales fuera de la lista actual")
             existing_status = epg_status_from_xml(
-                EPG_PATH.read_bytes(),
+                existing_data,
                 expected_ids,
                 now=now,
                 minimum_future=timedelta(hours=24),
