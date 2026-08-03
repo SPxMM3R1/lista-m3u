@@ -99,6 +99,10 @@ KNOWN_STREAM_FALLBACKS = {
     "NHK World Japan": [NHK_MASTER_URL],
     "Al Jazeera English": ["https://live-hls-apps-aje-v3-fa.getaj.net/AJE/index.m3u8"],
     "Red Bull TV": ["https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master.m3u8"],
+    "Europa Plus TV": ["http://31.148.48.15/Europa_Plus_HD/index.m3u8"],
+    "Dance TV Techno Warehouse": [
+        "https://m2b2.worldcast.tv:7443/dancetelevisionthree/2/dancetelevisionthree.m3u8"
+    ],
 }
 
 
