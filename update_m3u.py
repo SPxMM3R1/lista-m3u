@@ -177,7 +177,7 @@ def parse_channels(lines: list[str]) -> list[Channel]:
 
 
 def preferred_variant_url(channel_name: str, master_url: str) -> str | None:
-    """Return the highest declared video child playlist up to 1080p."""
+    """Return the highest child up to 1080p without dropping separate audio."""
     headers = {
         "User-Agent": BROWSER_USER_AGENT,
         "Accept": "application/vnd.apple.mpegurl,*/*;q=0.8",
@@ -191,13 +191,23 @@ def preferred_variant_url(channel_name: str, master_url: str) -> str | None:
     text = body.decode("utf-8", "replace")
     if not text.lstrip().startswith("#EXTM3U"):
         return None
-    variants: list[tuple[int, int, int, str]] = []
     lines = text.splitlines()
+    if any(
+        line.startswith("#EXT-X-MEDIA:") and re.search(r"TYPE=AUDIO(?:,|$)", line)
+        for line in lines
+    ):
+        print(f"  [OK] {channel_name}: se conserva el maestro HLS para mantener su audio")
+        return master_url
+    variants: list[tuple[int, int, int, str]] = []
     for index, line in enumerate(lines):
         if not line.startswith("#EXT-X-STREAM-INF:") or index + 1 >= len(lines):
             continue
         resolution = re.search(r"RESOLUTION=(\d+)x(\d+)", line)
         if not resolution:
+            continue
+        codecs_match = re.search(r'CODECS="([^"]+)"', line)
+        codecs = codecs_match.group(1).lower() if codecs_match else ""
+        if not re.search(r"(?:^|,)\s*(?:mp4a|ac-3|ec-3|opus|vorbis)", codecs):
             continue
         width, height = (int(value) for value in resolution.groups())
         if height > 1080:
@@ -219,7 +229,10 @@ def pin_preferred_variants(lines: list[str]) -> bool:
         selected_url = preferred_variant_url(channel.name, master_url)
         if selected_url and selected_url != channel.url:
             lines[channel.url_line] = selected_url
-            print(f"  [OK] {channel.name}: fijada variante maxima de video (hasta 1080p)")
+            if selected_url == master_url:
+                print(f"  [OK] {channel.name}: restaurado maestro HLS con audio")
+            else:
+                print(f"  [OK] {channel.name}: fijada variante maxima con audio (hasta 1080p)")
             changed = True
     return changed
 
@@ -816,7 +829,16 @@ def fresh_tvn_url() -> str:
     token = token_match.group(1)
     if not re.fullmatch(r"[A-Za-z0-9._~-]+", token):
         raise RuntimeError("TVN entrego un token con formato inesperado")
-    return f"https://mdstrm.com/live-stream-playlist/{stream_id}.m3u8?access_token={token}"
+    playlist_url = f"https://mdstrm.com/live-stream-playlist/{stream_id}.m3u8?access_token={token}"
+    try:
+        _, _, resolved_url = fetch_bytes(
+            playlist_url, request_headers("TVN"), timeout=30, limit=4_096
+        )
+    except Exception as error:
+        raise RuntimeError(f"TVN no resolvio su playlist temporal: {error}") from error
+    if ".m3u8" not in resolved_url.lower():
+        raise RuntimeError("TVN redirecciono a una URL que no parece una playlist HLS")
+    return resolved_url
 
 
 def verify_all(channels: list[Channel], *, allow_ci_geo_block: bool = False) -> list[CheckResult]:
