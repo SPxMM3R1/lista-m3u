@@ -834,6 +834,11 @@ def fresh_tvn_url() -> str:
         _, _, resolved_url = fetch_bytes(
             playlist_url, request_headers("TVN"), timeout=30, limit=4_096
         )
+    except urllib.error.HTTPError as error:
+        if error.code == 403 and os.environ.get("CI", "").lower() == "true":
+            print("  TVN: GitHub Actions no puede resolver la URL final fuera de Chile; se publica el token fresco")
+            return playlist_url
+        raise RuntimeError(f"TVN no resolvio su playlist temporal: {error}") from error
     except Exception as error:
         raise RuntimeError(f"TVN no resolvio su playlist temporal: {error}") from error
     if ".m3u8" not in resolved_url.lower():
