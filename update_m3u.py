@@ -194,14 +194,43 @@ def parse_channels(lines: list[str]) -> list[Channel]:
 
 def preferred_variant_url(channel_name: str, master_url: str) -> str | None:
     """Return the highest child up to 1080p without dropping separate audio."""
-    headers = {
+    base_headers = {
         "User-Agent": BROWSER_USER_AGENT,
         "Accept": "application/vnd.apple.mpegurl,*/*;q=0.8",
     }
-    try:
-        _, body, final_url = fetch_bytes(master_url, headers, limit=1_048_576)
-    except Exception as error:
-        print(f"  [AVISO] {channel_name}: no se pudo resolver la variante hasta 1080p: {error}")
+    header_sets = [base_headers]
+    if channel_name == "TVN":
+        header_sets = [
+            {
+                **base_headers,
+                "Referer": "https://live.tvn.cl/",
+                "Origin": "https://live.tvn.cl",
+                "Accept-Language": "es-CL,es;q=0.9,en;q=0.8",
+            },
+            {
+                **base_headers,
+                "Referer": "https://www.tvn.cl/",
+                "Origin": "https://www.tvn.cl",
+            },
+            {
+                "User-Agent": PLAYER_USER_AGENT,
+                "Accept": "application/vnd.apple.mpegurl,*/*;q=0.8",
+                "Referer": "https://live.tvn.cl/",
+                "Origin": "https://live.tvn.cl",
+            },
+        ]
+    last_error: Exception | None = None
+    for headers in header_sets:
+        try:
+            _, body, final_url = fetch_bytes(master_url, headers, limit=1_048_576)
+            break
+        except Exception as error:
+            last_error = error
+    else:
+        print(
+            f"  [AVISO] {channel_name}: no se pudo resolver la variante hasta 1080p: "
+            f"{last_error}"
+        )
         return None
 
     text = body.decode("utf-8", "replace")
@@ -256,7 +285,8 @@ def pin_preferred_variants(lines: list[str]) -> bool:
 def request_headers(channel: str) -> dict[str, str]:
     headers = {"User-Agent": PLAYER_USER_AGENT, "Accept": "*/*"}
     if channel == "TVN":
-        headers["Referer"] = "https://www.tvn.cl/"
+        headers["Referer"] = "https://live.tvn.cl/"
+        headers["Origin"] = "https://live.tvn.cl"
     elif channel == "La Red":
         headers["Referer"] = "https://www.lared.cl/senal-online/"
     return headers
