@@ -17,7 +17,7 @@ Guia de programacion XMLTV:
 
 Cada ejecucion:
 
-- renueva el enlace temporal de TVN;
+- renueva el enlace temporal de TVN directamente desde su pagina oficial;
 - prueba todos los streams y sus logos PNG;
 - busca reemplazos verificados en fuentes oficiales si un canal falla;
 - comprueba el stream oficial normal de NHK World;

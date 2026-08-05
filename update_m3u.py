@@ -27,9 +27,6 @@ DEFAULT_PLAYLIST = Path(__file__).with_name("m3u.m3u")
 EPG_PATH = Path(__file__).with_name("epg.xml")
 REPORT_PATH = Path(__file__).with_name("channel-status.json")
 PUBLIC_RAW_BASE = "https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main"
-TVN_GITLAB_MIRROR_URL = (
-    "https://gitlab.com/roberto.ramos.dz/lista-m3u/-/raw/main/m3u.m3u"
-)
 EPG_PUBLIC_URL = f"{PUBLIC_RAW_BASE}/epg.xml"
 NHK_MASTER_URL = "https://masterpl.hls.nhkworld.jp/hls/w/live/smarttv.m3u8"
 FRANCE24_ES_1080_URL = (
@@ -831,32 +828,7 @@ def tvn_page_html() -> str:
     return body.decode("utf-8", "replace")
 
 
-def gitlab_tvn_url() -> str | None:
-    source_url = f"{TVN_GITLAB_MIRROR_URL}?tvn-source={int(time.time())}"
-    try:
-        _, body, _ = fetch_bytes(
-            source_url,
-            {"User-Agent": PLAYER_USER_AGENT, "Cache-Control": "no-cache"},
-            timeout=30,
-            limit=10_485_760,
-        )
-        channels = parse_channels(body.decode("utf-8-sig", "replace").splitlines())
-    except Exception as error:
-        print(f"  [AVISO] No se pudo leer el TVN renovado por GitLab: {error}")
-        return None
-    channel = next((item for item in channels if item.name == "TVN"), None)
-    if channel is None or "mdstrm.com/live-stream-playlist/" not in channel.url:
-        print("  [AVISO] GitLab no publico un enlace TVN reconocible")
-        return None
-    return channel.url
-
-
 def fresh_tvn_url() -> str:
-    if os.environ.get("CI", "").lower() == "true":
-        mirrored_url = gitlab_tvn_url()
-        if mirrored_url:
-            print("  TVN: usando el token fresco publicado por la automatizacion de GitLab")
-            return mirrored_url
     html = tvn_page_html()
     stream_id_match = re.search(r"\bid\s*:\s*['\"]([a-zA-Z0-9]+)['\"]", html)
     token_match = re.search(r"\baccess_token\s*:\s*['\"]([^'\"]+)['\"]", html)
@@ -867,20 +839,7 @@ def fresh_tvn_url() -> str:
     if not re.fullmatch(r"[A-Za-z0-9._~-]+", token):
         raise RuntimeError("TVN entrego un token con formato inesperado")
     playlist_url = f"https://mdstrm.com/live-stream-playlist/{stream_id}.m3u8?access_token={token}"
-    try:
-        _, _, resolved_url = fetch_bytes(
-            playlist_url, request_headers("TVN"), timeout=30, limit=4_096
-        )
-    except urllib.error.HTTPError as error:
-        if error.code == 403 and os.environ.get("CI", "").lower() == "true":
-            print("  TVN: GitHub Actions no puede resolver la URL final fuera de Chile; se publica el token fresco")
-            return playlist_url
-        raise RuntimeError(f"TVN no resolvio su playlist temporal: {error}") from error
-    except Exception as error:
-        raise RuntimeError(f"TVN no resolvio su playlist temporal: {error}") from error
-    if ".m3u8" not in resolved_url.lower():
-        raise RuntimeError("TVN redirecciono a una URL que no parece una playlist HLS")
-    return resolved_url
+    return playlist_url
 
 
 def verify_all(channels: list[Channel], *, allow_ci_geo_block: bool = False) -> list[CheckResult]:
@@ -1014,10 +973,8 @@ def main() -> int:
                 "TVN", new_url, tvn.url_line, tvn.info_line, tvn.logo_url, tvn.group
             )
             refreshed_result = check_channel(candidate)
-            geo_blocked = (
-                running_in_ci
-                and not refreshed_result.ok
-                and "HTTP 403" in refreshed_result.detail
+            geo_blocked = running_in_ci and not refreshed_result.ok and any(
+                f"HTTP {status}" in refreshed_result.detail for status in (401, 403)
             )
             if not refreshed_result.ok and not geo_blocked:
                 raise RuntimeError(f"el nuevo enlace de TVN fallo: {refreshed_result.detail}")
