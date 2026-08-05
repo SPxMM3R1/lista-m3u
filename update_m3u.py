@@ -93,8 +93,8 @@ KNOWN_STREAM_FALLBACKS = {
     ],
     "24 Horas": ["https://mdstrm.com/live-stream-playlist/689ba606ecfe7915e1f8f741.m3u8"],
     "La Red": [
-        "https://ds5i0a12qngha.cloudfront.net/ts:abr.m3u8",
         "https://tv-mgmt.gtd.cl/bpk-tv/LARED/default/index.m3u8",
+        "https://ds5i0a12qngha.cloudfront.net/ts:abr.m3u8",
     ],
     "DW Espanol": [
         "https://dwamdstream104.akamaized.net/hls/live/2015530/dwstream104/master.m3u8"
@@ -114,7 +114,6 @@ KNOWN_STREAM_FALLBACKS = {
 }
 PREFERRED_VARIANT_MASTERS = {
     "CHV": "https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/chv/chv.smil/playlist.m3u8",
-    "La Red": "https://ds5i0a12qngha.cloudfront.net/ts:abr.m3u8",
     "Canal 13": "https://redirector.dps.live/hls/13cl/playlist.m3u8",
     "24 Horas": "https://mdstrm.com/live-stream-playlist/689ba606ecfe7915e1f8f741.m3u8",
     "T13": "https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/t13/t13.smil/playlist.m3u8",
@@ -130,6 +129,10 @@ CUSTOM_AUDIO_MASTERS = {
     "Mega": (
         "http://tr.live.clarovtrcdn.vtrplay.com/megahdchi/vxfmt=dp/playlist.m3u8?device_profile=STB_HLS_VCAS_LIVE_HD",
         "mega-1080-audio.m3u8",
+    ),
+    "La Red": (
+        "https://tv-mgmt.gtd.cl/bpk-tv/LARED/default/index.m3u8",
+        "lared-1080-audio.m3u8",
     ),
     "NHK World Japan": (NHK_MASTER_URL, "nhk-1080-audio.m3u8"),
 }

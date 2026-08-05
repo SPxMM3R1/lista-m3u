@@ -21,8 +21,7 @@ Cada ejecucion:
 - prueba todos los streams y sus logos PNG;
 - busca reemplazos verificados en fuentes oficiales si un canal falla;
 - comprueba el stream oficial normal de NHK World;
-- genera wrappers HLS de 1080p con audio para Mega y NHK World;
-- usa una variante directa con audio integrado para La Red cuando esta disponible;
+- genera wrappers HLS de 1080p con audio para Mega, La Red y NHK World;
 - fija la variante directa de maxima calidad cuando conserva audio embebido;
 - conserva el maestro cuando el audio HLS es separado y no se puede publicar un wrapper seguro;
 - actualiza la guia EPG con las parrillas disponibles;
