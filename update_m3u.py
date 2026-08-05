@@ -1040,6 +1040,16 @@ def fresh_tvn_url() -> str:
     return playlist_url
 
 
+def tvn_direct_variant_is_fresh(url: str) -> bool:
+    """Keep a published direct TVN child until Mediastream's expiry timestamp."""
+    if "/live-stream-gdai/" not in url or "/variant/" not in url:
+        return False
+    expiry_match = re.search(r"[?&]ote=(\d+)", url)
+    if not expiry_match:
+        return False
+    return int(expiry_match.group(1)) > int(time.time() * 1000) + 300_000
+
+
 def verify_all(channels: list[Channel], *, allow_ci_geo_block: bool = False) -> list[CheckResult]:
     results: dict[str, CheckResult] = {}
     with ThreadPoolExecutor(max_workers=min(6, len(channels))) as pool:
@@ -1166,7 +1176,10 @@ def main() -> int:
         current_tvn = check_channel(tvn)
         state = "OK" if current_tvn.ok else "VENCIDO"
         print(f"  [{state}] TVN: {current_tvn.detail}")
-        if running_in_ci or not current_tvn.ok:
+        keep_direct_tvn = running_in_ci and tvn_direct_variant_is_fresh(tvn.url)
+        if keep_direct_tvn:
+            print("  TVN: se conserva la variante directa 1920x1080 mientras siga vigente")
+        elif running_in_ci or not current_tvn.ok:
             print("Renovando el enlace temporal de TVN desde su pagina oficial")
             new_url = fresh_tvn_url()
             candidate = Channel(
