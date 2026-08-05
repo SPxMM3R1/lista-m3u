@@ -20,7 +20,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import asdict, dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from urllib.parse import urljoin
+from urllib.parse import parse_qsl, urlencode, urljoin, urlsplit, urlunsplit
 
 
 DEFAULT_PLAYLIST = Path(__file__).with_name("m3u.m3u")
@@ -917,6 +917,43 @@ def check_channel(
     return CheckResult(channel.name, channel.url, False, last_error)
 
 
+def check_tvn_direct_segment(url: str) -> tuple[bool, str]:
+    """Confirm that a direct TVN child serves a current media segment."""
+    headers = {
+        "User-Agent": BROWSER_USER_AGENT,
+        "Accept": "*/*",
+        "Accept-Language": "es-CL,es;q=0.9,en;q=0.8",
+        "Referer": "https://live.tvn.cl/",
+        "Origin": "https://live.tvn.cl",
+    }
+    try:
+        status, body, final_url = fetch_bytes(url, headers, limit=1_048_576)
+        text = body.decode("utf-8", "replace").lstrip("\ufeff\r\n ")
+        if status != 200 or not text.startswith("#EXTM3U"):
+            return False, f"playlist HTTP {status}, contenido no reconocido"
+        segment = next(
+            (
+                line.strip()
+                for line in text.splitlines()
+                if line.strip() and not line.startswith("#")
+            ),
+            None,
+        )
+        if not segment:
+            return False, "playlist sin segmento multimedia"
+        segment_url = urljoin(final_url, segment)
+        segment_status, segment_body, _ = fetch_bytes(
+            segment_url, headers, timeout=25, limit=64
+        )
+        if segment_status == 200 and segment_body:
+            return True, "primer segmento multimedia valido"
+        return False, f"segmento HTTP {segment_status}"
+    except urllib.error.HTTPError as error:
+        return False, f"segmento HTTP {error.code} {error.reason}"
+    except Exception as error:
+        return False, f"segmento {type(error).__name__}: {error}"
+
+
 def check_logo(channel: Channel) -> LogoResult:
     if not channel.logo_url:
         return LogoResult(channel.name, "", False, "falta tvg-logo")
@@ -1062,6 +1099,89 @@ def tvn_direct_variant_is_fresh(url: str) -> bool:
     return int(expiry_match.group(1)) > int(time.time() * 1000) + 300_000
 
 
+def fresh_tvn_direct_from_google(current_url: str) -> str | None:
+    """Renew TVN's direct child, preferring fresh official signing parameters."""
+    current_parts = urlsplit(current_url)
+    current_query = dict(parse_qsl(current_parts.query, keep_blank_values=True))
+    required = ("aid", "pid", "sid", "uid", "ote", "ot")
+    try:
+        master_url = fresh_tvn_url()
+        master_parts = urlsplit(master_url)
+        stream_match = re.search(r"/live-stream-playlist/([A-Za-z0-9]+)\.m3u8", master_parts.path)
+        fresh_token = dict(parse_qsl(master_parts.query)).get("access_token")
+        if not stream_match or not fresh_token:
+            return None
+        stream_id = stream_match.group(1)
+
+        # This path has fresh pid/ote/ot values and is the most reliable direct form.
+        official_direct = preferred_variant_url("TVN", master_url)
+        template_url = current_url
+        if official_direct and "/live-stream-gdai/" in official_direct:
+            direct_ok, direct_detail = check_tvn_direct_segment(official_direct)
+            if direct_ok:
+                return official_direct
+            print(f"  TVN: directo oficial nuevo no valido; {direct_detail}")
+            template_url = official_direct
+
+        template_query = dict(
+            parse_qsl(urlsplit(template_url).query, keep_blank_values=True)
+        )
+        if not all(template_query.get(key) for key in required):
+            return None
+        player_url = f"https://mdstrm.com/live-stream/{stream_id}?access_token={fresh_token}"
+        _, player_body, _ = fetch_bytes(
+            player_url,
+            {
+                "User-Agent": BROWSER_USER_AGENT,
+                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+                "Referer": "https://live.tvn.cl/",
+                "Origin": "https://live.tvn.cl",
+            },
+            limit=1_048_576,
+        )
+        player_text = player_body.decode("utf-8", "replace")
+        asset_match = re.search(
+            r'"adInsertionGoogle"\s*:\s*\{.*?"asset_key"\s*:\s*"([^"]+)"',
+            player_text,
+            flags=re.DOTALL,
+        )
+        if not asset_match:
+            return None
+        google_master = (
+            f"https://dai.google.com/linear/hls/event/{asset_match.group(1)}/master.m3u8"
+        )
+        google_child = preferred_variant_url("TVN", google_master)
+        if not google_child:
+            return None
+        google_path = urlsplit(google_child).path
+        session_match = re.search(r"/stream/([^/]+)/variant/", google_path)
+        if not session_match:
+            return None
+        query = {key: template_query[key] for key in required}
+        query["access_token"] = fresh_token
+        query["adInsertionGoogleStreamId"] = session_match.group(1)
+        query["es"] = current_query.get("es", current_parts.netloc)
+        query["proto"] = current_query.get("proto", "https")
+        query["pz"] = current_query.get("pz", "cl")
+        candidate = urlunsplit(
+            (
+                "https",
+                current_parts.netloc,
+                f"/live-stream-gdai/{stream_id}{google_path}",
+                urlencode(query),
+                "",
+            )
+        )
+        candidate_ok, candidate_detail = check_tvn_direct_segment(candidate)
+        if not candidate_ok:
+            print(f"  TVN: candidato DAI no valido; {candidate_detail}")
+            return None
+        return candidate
+    except Exception as error:
+        print(f"  [AVISO] TVN: no se pudo renovar el directo por Google DAI: {error}")
+        return None
+
+
 def verify_all(channels: list[Channel], *, allow_ci_geo_block: bool = False) -> list[CheckResult]:
     results: dict[str, CheckResult] = {}
     with ThreadPoolExecutor(max_workers=min(6, len(channels))) as pool:
@@ -1190,7 +1310,40 @@ def main() -> int:
         print(f"  [{state}] TVN: {current_tvn.detail}")
         keep_direct_tvn = running_in_ci and tvn_direct_variant_is_fresh(tvn.url)
         if keep_direct_tvn:
-            print("  TVN: se conserva la variante directa 1920x1080 mientras siga vigente")
+            refreshed_direct_tvn = fresh_tvn_direct_from_google(tvn.url)
+            if refreshed_direct_tvn:
+                direct_candidate = Channel(
+                    "TVN",
+                    refreshed_direct_tvn,
+                    tvn.url_line,
+                    tvn.info_line,
+                    tvn.logo_url,
+                    tvn.group,
+                )
+                direct_result = check_channel(
+                    direct_candidate, allow_ci_geo_block=running_in_ci
+                )
+                segment_ok = True
+                if direct_result.ok and direct_result.detail == "playlist HLS valida":
+                    segment_ok, segment_detail = check_tvn_direct_segment(
+                        refreshed_direct_tvn
+                    )
+                    if not segment_ok:
+                        print(f"  TVN: renovacion descartada; {segment_detail}")
+                if direct_result.ok and segment_ok:
+                    lines[tvn.url_line] = refreshed_direct_tvn
+                    playlist.write_text(
+                        "\n".join(lines) + "\n", encoding="utf-8", newline="\n"
+                    )
+                    tvn_refreshed = True
+                    print("  TVN: variante directa 1920x1080 renovada y verificada")
+                else:
+                    print(
+                        "  TVN: se conserva la variante directa anterior; "
+                        "la renovacion no se pudo comprobar"
+                    )
+            else:
+                print("  TVN: se conserva la variante directa 1920x1080 mientras siga vigente")
         elif running_in_ci or not current_tvn.ok:
             print("Renovando el enlace temporal de TVN desde su pagina oficial")
             new_url = fresh_tvn_url()
