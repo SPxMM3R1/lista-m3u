@@ -56,7 +56,7 @@ jobs:
         if: steps.updater.outputs.status == '0'
         shell: bash
         run: |
-          if git diff --quiet -- m3u.m3u epg.xml; then
+          if [ -z "$(git status --porcelain -- m3u.m3u epg.xml custom-hls)" ]; then
             echo "La lista y la guia ya estaban al dia."
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
@@ -64,7 +64,7 @@ jobs:
           fi
           git config user.name "Actualizador M3U"
           git config user.email "m3u-bot@users.noreply.github.com"
-          git add m3u.m3u epg.xml
+          git add m3u.m3u epg.xml custom-hls
           git commit -m "Actualiza M3U y EPG automaticamente [skip ci]"
           git push origin HEAD:main
           echo "changed=true" >> "$GITHUB_OUTPUT"
@@ -104,6 +104,16 @@ jobs:
           }
           verify_exact m3u.m3u || RAW_EXIT=1
           verify_exact epg.xml || RAW_EXIT=1
+          shopt -s nullglob
+          custom_files=(custom-hls/*.m3u8)
+          if [ "${#custom_files[@]}" -eq 0 ]; then
+            echo "No se generaron wrappers HLS personalizados" >&2
+            RAW_EXIT=1
+          else
+            for file in "${custom_files[@]}"; do
+              verify_exact "$file" || RAW_EXIT=1
+            done
+          fi
           echo "status=$RAW_EXIT" >> "$GITHUB_OUTPUT"
           exit 0
 
@@ -131,6 +141,11 @@ jobs:
           }
           check_raw m3u.m3u '#EXTM3U' || RAW_EXIT=1
           check_raw epg.xml '<?xml' || RAW_EXIT=1
+          shopt -s nullglob
+          custom_files=(custom-hls/*.m3u8)
+          for file in "${custom_files[@]}"; do
+            check_raw "$file" '#EXTM3U' || RAW_EXIT=1
+          done
           echo "status=$RAW_EXIT" >> "$GITHUB_OUTPUT"
           exit 0
 
