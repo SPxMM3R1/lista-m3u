@@ -27,6 +27,9 @@ DEFAULT_PLAYLIST = Path(__file__).with_name("m3u.m3u")
 EPG_PATH = Path(__file__).with_name("epg.xml")
 REPORT_PATH = Path(__file__).with_name("channel-status.json")
 PUBLIC_RAW_BASE = "https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main"
+TVN_GITLAB_MIRROR_URL = (
+    "https://gitlab.com/roberto.ramos.dz/lista-m3u/-/raw/main/m3u.m3u"
+)
 EPG_PUBLIC_URL = f"{PUBLIC_RAW_BASE}/epg.xml"
 NHK_MASTER_URL = "https://masterpl.hls.nhkworld.jp/hls/w/live/smarttv.m3u8"
 FRANCE24_ES_1080_URL = (
@@ -114,11 +117,17 @@ PREFERRED_VARIANT_MASTERS = {
     "Mega": "http://tr.live.clarovtrcdn.vtrplay.com/megahdchi/vxfmt=dp/playlist.m3u8?device_profile=STB_HLS_VCAS_LIVE_HD",
     "La Red": "https://tv-mgmt.gtd.cl/bpk-tv/LARED/default/index.m3u8",
     "CHV": "https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/chv/chv.smil/playlist.m3u8",
+    "Canal 13": "https://redirector.dps.live/hls/13cl/playlist.m3u8",
+    "24 Horas": "https://mdstrm.com/live-stream-playlist/689ba606ecfe7915e1f8f741.m3u8",
+    "T13": "https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/t13/t13.smil/playlist.m3u8",
     "DW Espanol": "https://dwamdstream104.akamaized.net/hls/live/2015530/dwstream104/master.m3u8",
+    "Euronews Espanol": "https://cdn-euronews.akamaized.net/live/eds/euronews-es/25053/index.m3u8",
     "NHK World Japan": NHK_MASTER_URL,
     "Al Jazeera English": "https://live-hls-apps-aje-v3-fa.getaj.net/AJE/index.m3u8",
     "Red Bull TV": "https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master.m3u8",
     "XITE Hits Germany": "https://d726x48n2pd5h.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-skxr1pazhltvp/XITE_Hits.m3u8",
+    "M1": "http://stream.mcquack.net/218/index.m3u8",
+    "M2": "http://stream.mcquack.net/330/index.m3u8",
 }
 
 
@@ -679,16 +688,19 @@ def check_channel(
                 return CheckResult(channel.name, channel.url, True, detail)
             last_error = f"HTTP {status}, contenido no reconocido"
         except urllib.error.HTTPError as error:
+            geo_error_codes = {403}
+            if channel.name == "TVN":
+                geo_error_codes.add(401)
             if (
                 allow_ci_geo_block
                 and channel.name in CI_GEO_RESTRICTED_CHANNELS
-                and error.code == 403
+                and error.code in geo_error_codes
             ):
                 return CheckResult(
                     channel.name,
                     channel.url,
                     True,
-                    "reproduccion limitada fuera de Chile (HTTP 403)",
+                    f"reproduccion limitada fuera de Chile (HTTP {error.code})",
                 )
             last_error = f"HTTP {error.code} {error.reason}"
         except Exception as error:  # Network and TLS failures need a compact report.
@@ -819,7 +831,32 @@ def tvn_page_html() -> str:
     return body.decode("utf-8", "replace")
 
 
+def gitlab_tvn_url() -> str | None:
+    source_url = f"{TVN_GITLAB_MIRROR_URL}?tvn-source={int(time.time())}"
+    try:
+        _, body, _ = fetch_bytes(
+            source_url,
+            {"User-Agent": PLAYER_USER_AGENT, "Cache-Control": "no-cache"},
+            timeout=30,
+            limit=10_485_760,
+        )
+        channels = parse_channels(body.decode("utf-8-sig", "replace").splitlines())
+    except Exception as error:
+        print(f"  [AVISO] No se pudo leer el TVN renovado por GitLab: {error}")
+        return None
+    channel = next((item for item in channels if item.name == "TVN"), None)
+    if channel is None or "mdstrm.com/live-stream-playlist/" not in channel.url:
+        print("  [AVISO] GitLab no publico un enlace TVN reconocible")
+        return None
+    return channel.url
+
+
 def fresh_tvn_url() -> str:
+    if os.environ.get("CI", "").lower() == "true":
+        mirrored_url = gitlab_tvn_url()
+        if mirrored_url:
+            print("  TVN: usando el token fresco publicado por la automatizacion de GitLab")
+            return mirrored_url
     html = tvn_page_html()
     stream_id_match = re.search(r"\bid\s*:\s*['\"]([a-zA-Z0-9]+)['\"]", html)
     token_match = re.search(r"\baccess_token\s*:\s*['\"]([^'\"]+)['\"]", html)

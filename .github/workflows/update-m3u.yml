@@ -2,7 +2,7 @@ name: Actualizar M3U y EPG
 
 on:
   schedule:
-    - cron: "0 */3 * * *"
+    - cron: "0 * * * *"
   workflow_dispatch:
     inputs:
       force_epg_refresh:

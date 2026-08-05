@@ -1,7 +1,7 @@
 # Lista M3U para Android TV
 
 Repositorio publico de la lista M3U principal para Android TV. La lista se
-actualiza automaticamente cada tres horas mediante GitHub Actions.
+actualiza automaticamente cada hora mediante GitHub Actions.
 
 ## URLs para el reproductor
 
@@ -21,7 +21,8 @@ Cada ejecucion:
 - prueba todos los streams y sus logos PNG;
 - busca reemplazos verificados en fuentes oficiales si un canal falla;
 - comprueba el stream oficial normal de NHK World;
-- fija variantes de video 720p en los maestros HLS compatibles para Android TV;
+- fija la variante directa de maxima calidad cuando conserva audio embebido;
+- conserva el maestro cuando el audio HLS es una pista separada;
 - actualiza la guia EPG con las parrillas disponibles;
 - verifica que los archivos publicados en GitHub sigan accesibles;
 - publica `channel-status.json` como artefacto de la ejecucion.
