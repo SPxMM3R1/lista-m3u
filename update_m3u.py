@@ -1148,6 +1148,23 @@ def main() -> int:
             )
             if not refreshed_result.ok and not geo_blocked:
                 raise RuntimeError(f"el nuevo enlace de TVN fallo: {refreshed_result.detail}")
+            direct_tvn_url = preferred_variant_url("TVN", new_url)
+            if direct_tvn_url:
+                direct_candidate = Channel(
+                    "TVN",
+                    direct_tvn_url,
+                    tvn.url_line,
+                    tvn.info_line,
+                    tvn.logo_url,
+                    tvn.group,
+                )
+                direct_result = check_channel(direct_candidate)
+                direct_geo_blocked = running_in_ci and not direct_result.ok and any(
+                    f"HTTP {status}" in direct_result.detail for status in (401, 403)
+                )
+                if direct_result.ok or direct_geo_blocked:
+                    new_url = direct_tvn_url
+                    print("  TVN: fijada variante directa 1920x1080 con audio")
             lines[tvn.url_line] = new_url
             playlist.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
             tvn_refreshed = True
