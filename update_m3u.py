@@ -899,6 +899,18 @@ def check_channel(
                 )
             last_error = f"HTTP {error.code} {error.reason}"
         except Exception as error:  # Network and TLS failures need a compact report.
+            if (
+                allow_ci_geo_block
+                and channel.name == "TVN"
+                and tvn_direct_variant_is_fresh(channel.url)
+                and isinstance(error, urllib.error.URLError)
+            ):
+                return CheckResult(
+                    channel.name,
+                    channel.url,
+                    True,
+                    "variante directa vigente; runner fuera de Chile no pudo probarla",
+                )
             last_error = f"{type(error).__name__}: {error}"
         if attempt + 1 < attempts:
             time.sleep(1.5)
