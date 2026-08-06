@@ -126,6 +126,7 @@ PREFERRED_VARIANT_MASTERS = {
     "M1": "http://stream.mcquack.net/218/index.m3u8",
     "M2": "http://stream.mcquack.net/330/index.m3u8",
 }
+MASTER_ONLY_CHANNELS = {"Canal 13"}
 CUSTOM_AUDIO_MASTERS = {
     "Mega": (
         "http://tr.live.clarovtrcdn.vtrplay.com/megahdchi/vxfmt=dp/playlist.m3u8?device_profile=STB_HLS_VCAS_LIVE_HD",
@@ -272,7 +273,11 @@ def pin_preferred_variants(lines: list[str]) -> bool:
         master_url = PREFERRED_VARIANT_MASTERS.get(channel.name)
         if not master_url:
             continue
-        selected_url = preferred_variant_url(channel.name, master_url)
+        selected_url = (
+            master_url
+            if channel.name in MASTER_ONLY_CHANNELS
+            else preferred_variant_url(channel.name, master_url)
+        )
         if selected_url and selected_url != channel.url:
             lines[channel.url_line] = selected_url
             if selected_url == master_url:
@@ -881,7 +886,7 @@ def check_channel(
                 detail = "playlist HLS valida"
                 if final_url != channel.url:
                     detail += " (con redireccion)"
-                if channel.name == "La Red":
+                if channel.name in {"La Red", "Canal 13"}:
                     segment_ok, segment_detail = check_hls_first_segment(
                         channel.url,
                         request_headers(channel.name),
