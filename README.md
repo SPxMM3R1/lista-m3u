@@ -21,9 +21,10 @@ Cada ejecucion:
 - prueba todos los streams y sus logos PNG;
 - busca reemplazos verificados en fuentes oficiales si un canal falla;
 - comprueba el stream oficial normal de NHK World;
-- genera wrappers HLS de 1080p con audio para Mega, La Red y NHK World;
+- comprueba que La Red entregue un segmento multimedia actual y usa un directo estable;
+- genera wrappers HLS de 1080p con audio para Mega y NHK World;
 - fija la variante directa de maxima calidad cuando conserva audio embebido;
-- conserva el maestro cuando el audio HLS es separado y no se puede publicar un wrapper seguro;
+- renueva TVN si su segmento devuelve 404/410 y deja margen antes de conservar un enlace temporal;
 - actualiza la guia EPG con las parrillas disponibles;
 - verifica que los archivos publicados en GitHub sigan accesibles;
 - publica `channel-status.json` como artefacto de la ejecucion.

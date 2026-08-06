@@ -57,6 +57,7 @@ RED_BULL_CHANNEL_ID = "rrn:content:video-channels:c81f8686-ab67-4965-ba04-5f6658
 EPG_REFRESH_INTERVAL = timedelta(hours=12)
 TVN_LIVE_PAGE = "https://live.tvn.cl/"
 TVN_DEFAULT_ID = "57a498c4d7b86d600e5461cb"
+TVN_DIRECT_MIN_REMAINING = timedelta(hours=6)
 CI_GEO_RESTRICTED_CHANNELS = {"TVN", "CHV", "24 Horas", "La Red"}
 PLAYER_USER_AGENT = "VLC/3.0.20 LibVLC/3.0.20"
 BROWSER_USER_AGENT = (
@@ -93,8 +94,9 @@ KNOWN_STREAM_FALLBACKS = {
     ],
     "24 Horas": ["https://mdstrm.com/live-stream-playlist/689ba606ecfe7915e1f8f741.m3u8"],
     "La Red": [
+        "https://ds5i0a12qngha.cloudfront.net/medialist_15609871089997455276_hls.m3u8",
+        "https://iptv2.intersurtv.cl/LA_RED/tracks-v1a1/mono.ts.m3u8",
         "https://tv-mgmt.gtd.cl/bpk-tv/LARED/default/index.m3u8",
-        "https://ds5i0a12qngha.cloudfront.net/ts:abr.m3u8",
     ],
     "DW Espanol": [
         "https://dwamdstream104.akamaized.net/hls/live/2015530/dwstream104/master.m3u8"
@@ -129,10 +131,6 @@ CUSTOM_AUDIO_MASTERS = {
     "Mega": (
         "http://tr.live.clarovtrcdn.vtrplay.com/megahdchi/vxfmt=dp/playlist.m3u8?device_profile=STB_HLS_VCAS_LIVE_HD",
         "mega-1080-audio.m3u8",
-    ),
-    "La Red": (
-        "https://tv-mgmt.gtd.cl/bpk-tv/LARED/default/index.m3u8",
-        "lared-1080-audio.m3u8",
     ),
     "NHK World Japan": (NHK_MASTER_URL, "nhk-1080-audio.m3u8"),
 }
@@ -457,6 +455,20 @@ def pin_custom_audio_channels(lines: list[str]) -> bool:
         custom_url = custom_audio_master(channel.name, source[0], source[1])
         if custom_url and custom_url != channel.url:
             lines[channel.url_line] = custom_url
+            changed = True
+    return changed
+
+
+def pin_stable_direct_channels(lines: list[str]) -> bool:
+    """Move La Red away from wrappers that freeze short-lived CDN tokens."""
+    stable_urls = KNOWN_STREAM_FALLBACKS.get("La Red", [])
+    if not stable_urls:
+        return False
+    stable_url = stable_urls[0]
+    changed = False
+    for channel in parse_channels(lines):
+        if channel.name == "La Red" and channel.url != stable_url:
+            lines[channel.url_line] = stable_url
             changed = True
     return changed
 
@@ -880,6 +892,18 @@ def check_channel(
                 detail = "playlist HLS valida"
                 if final_url != channel.url:
                     detail += " (con redireccion)"
+                if channel.name == "La Red":
+                    segment_ok, segment_detail = check_hls_first_segment(
+                        channel.url,
+                        request_headers(channel.name),
+                        initial_body=body,
+                        initial_final_url=final_url,
+                    )
+                    if not segment_ok:
+                        return CheckResult(
+                            channel.name, channel.url, False, segment_detail
+                        )
+                    detail += f"; {segment_detail}"
                 return CheckResult(channel.name, channel.url, True, detail)
             last_error = f"HTTP {status}, contenido no reconocido"
         except urllib.error.HTTPError as error:
@@ -939,6 +963,55 @@ def check_tvn_direct_segment(url: str) -> tuple[bool, str]:
             ),
             None,
         )
+        if not segment:
+            return False, "playlist sin segmento multimedia"
+        segment_url = urljoin(final_url, segment)
+        segment_status, segment_body, _ = fetch_bytes(
+            segment_url, headers, timeout=25, limit=64
+        )
+        if segment_status == 200 and segment_body:
+            return True, "primer segmento multimedia valido"
+        return False, f"segmento HTTP {segment_status}"
+    except urllib.error.HTTPError as error:
+        return False, f"segmento HTTP {error.code} {error.reason}"
+    except Exception as error:
+        return False, f"segmento {type(error).__name__}: {error}"
+
+
+def check_hls_first_segment(
+    url: str,
+    headers: dict[str, str],
+    *,
+    initial_body: bytes | None = None,
+    initial_final_url: str | None = None,
+    depth: int = 0,
+) -> tuple[bool, str]:
+    """Confirm that an HLS master or media playlist delivers a live segment."""
+    if depth > 3:
+        return False, "playlist HLS con demasiados niveles"
+    try:
+        if initial_body is None:
+            status, body, final_url = fetch_bytes(url, headers, limit=1_048_576)
+        else:
+            status, body, final_url = 200, initial_body, initial_final_url or url
+        text = body.decode("utf-8", "replace").lstrip("\ufeff\r\n ")
+        if status != 200 or not text.startswith("#EXTM3U"):
+            return False, f"playlist HTTP {status}, contenido no reconocido"
+        lines = [line.strip() for line in text.splitlines()]
+        variants: list[tuple[int, int, str]] = []
+        for index, line in enumerate(lines):
+            if not line.startswith("#EXT-X-STREAM-INF:") or index + 1 >= len(lines):
+                continue
+            child = lines[index + 1]
+            if not child or child.startswith("#"):
+                continue
+            resolution = hls_attribute(line, "RESOLUTION") or "0x0"
+            width, height = (int(value) for value in resolution.split("x", 1))
+            variants.append((height, width, urljoin(final_url, child)))
+        if variants:
+            _, _, child_url = max(variants)
+            return check_hls_first_segment(child_url, headers, depth=depth + 1)
+        segment = next((line for line in lines if line and not line.startswith("#")), None)
         if not segment:
             return False, "playlist sin segmento multimedia"
         segment_url = urljoin(final_url, segment)
@@ -1090,13 +1163,14 @@ def fresh_tvn_url() -> str:
 
 
 def tvn_direct_variant_is_fresh(url: str) -> bool:
-    """Keep a published direct TVN child until Mediastream's expiry timestamp."""
+    """Keep a direct TVN child only while it has a conservative time margin."""
     if "/live-stream-gdai/" not in url or "/variant/" not in url:
         return False
     expiry_match = re.search(r"[?&]ote=(\d+)", url)
     if not expiry_match:
         return False
-    return int(expiry_match.group(1)) > int(time.time() * 1000) + 300_000
+    margin_ms = int(TVN_DIRECT_MIN_REMAINING.total_seconds() * 1000)
+    return int(expiry_match.group(1)) > int(time.time() * 1000) + margin_ms
 
 
 def fresh_tvn_direct_from_google(current_url: str) -> str | None:
@@ -1280,8 +1354,9 @@ def main() -> int:
         playlist.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
         print("Cabecera M3U enlazada a la guia EPG publicada en GitHub")
     custom_audio_changed = pin_custom_audio_channels(lines)
+    stable_direct_changed = pin_stable_direct_channels(lines)
     variants_changed = pin_preferred_variants(lines)
-    if custom_audio_changed or variants_changed:
+    if custom_audio_changed or stable_direct_changed or variants_changed:
         playlist.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
         print("Variantes de video compatibles guardadas en la lista")
     channels = parse_channels(lines)
@@ -1305,10 +1380,22 @@ def main() -> int:
     tvn_refreshed = False
     tvn = next((channel for channel in channels if channel.name == "TVN"), None)
     if tvn:
-        current_tvn = check_channel(tvn)
+        current_tvn = check_channel(tvn, allow_ci_geo_block=running_in_ci)
         state = "OK" if current_tvn.ok else "VENCIDO"
         print(f"  [{state}] TVN: {current_tvn.detail}")
-        keep_direct_tvn = running_in_ci and tvn_direct_variant_is_fresh(tvn.url)
+        tvn_segment_expired = False
+        if "/live-stream-gdai/" in tvn.url and "/variant/" in tvn.url:
+            segment_ok, segment_detail = check_tvn_direct_segment(tvn.url)
+            if not segment_ok:
+                print(f"  TVN: el directo no entrega un segmento actual ({segment_detail})")
+                tvn_segment_expired = bool(
+                    re.search(r"segmento HTTP (?:404|410)\b", segment_detail)
+                )
+        keep_direct_tvn = (
+            running_in_ci
+            and tvn_direct_variant_is_fresh(tvn.url)
+            and not tvn_segment_expired
+        )
         if keep_direct_tvn:
             refreshed_direct_tvn = fresh_tvn_direct_from_google(tvn.url)
             if refreshed_direct_tvn:
@@ -1344,7 +1431,7 @@ def main() -> int:
                     )
             else:
                 print("  TVN: se conserva la variante directa 1920x1080 mientras siga vigente")
-        elif running_in_ci or not current_tvn.ok:
+        elif running_in_ci or not current_tvn.ok or tvn_segment_expired:
             print("Renovando el enlace temporal de TVN desde su pagina oficial")
             new_url = fresh_tvn_url()
             candidate = Channel(
