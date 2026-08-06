@@ -57,7 +57,7 @@ RED_BULL_CHANNEL_ID = "rrn:content:video-channels:c81f8686-ab67-4965-ba04-5f6658
 EPG_REFRESH_INTERVAL = timedelta(hours=12)
 TVN_LIVE_PAGE = "https://live.tvn.cl/"
 TVN_DEFAULT_ID = "57a498c4d7b86d600e5461cb"
-CI_GEO_RESTRICTED_CHANNELS = {"TVN", "CHV", "24 Horas", "La Red"}
+CI_GEO_RESTRICTED_CHANNELS = {"TVN", "CHV", "Canal 13", "24 Horas", "La Red"}
 PLAYER_USER_AGENT = "VLC/3.0.20 LibVLC/3.0.20"
 BROWSER_USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -894,6 +894,17 @@ def check_channel(
                         initial_final_url=final_url,
                     )
                     if not segment_ok:
+                        if (
+                            allow_ci_geo_block
+                            and channel.name in CI_GEO_RESTRICTED_CHANNELS
+                            and "segmento HTTP 403" in segment_detail
+                        ):
+                            return CheckResult(
+                                channel.name,
+                                channel.url,
+                                True,
+                                "reproduccion limitada fuera de Chile (segmento HTTP 403)",
+                            )
                         return CheckResult(
                             channel.name, channel.url, False, segment_detail
                         )
