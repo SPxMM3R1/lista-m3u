@@ -10,6 +10,7 @@ const MEGAMEDIA_API_URL = "https://api.mega.cl/api/v1/mdstrm";
 const MEGA_MASTER_URL =
   "https://tr.live.clarovtrcdn.vtrplay.com/megahdchi/vxfmt=dp/" +
   "playlist.m3u8?device_profile=STB_HLS_VCAS_LIVE_HD";
+const MEGANOTICIAS_PROXY_PATH = "/meganoticias-proxy.m3u8";
 const STREAM_CACHE_TTL_MS = 45_000;
 
 const streamCache = new Map();
@@ -129,6 +130,161 @@ function rewriteHlsPlaylist(body, baseUrl) {
         : line;
     })
     .join("\n");
+}
+
+function isAllowedMeganoticiasTarget(value) {
+  let url;
+  try {
+    url = new URL(value);
+  } catch {
+    return false;
+  }
+  const hostname = url.hostname.toLowerCase();
+  return (
+    url.protocol === "https:" &&
+    (hostname === "mdstrm.com" || hostname.endsWith(".mdstrm.com"))
+  );
+}
+
+function encodeProxyTarget(value) {
+  return btoa(value)
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
+    .replace(/=+$/g, "");
+}
+
+function decodeProxyTarget(value) {
+  const normalized = value.replace(/-/g, "+").replace(/_/g, "/");
+  const padding = "=".repeat((4 - (normalized.length % 4)) % 4);
+  return atob(normalized + padding);
+}
+
+function proxyTargetUrl(target, origin) {
+  return `${origin}${MEGANOTICIAS_PROXY_PATH}?u=${encodeProxyTarget(target)}`;
+}
+
+function rewriteMeganoticiasHlsPlaylist(body, baseUrl, origin) {
+  return body
+    .split(/\r?\n/)
+    .map((line) => {
+      if (line.includes('URI="')) {
+        return line.replace(
+          /URI="([^"]+)"/g,
+          (_match, uri) => {
+            if (/^(?:data|skd):/i.test(uri)) {
+              return `URI="${uri}"`;
+            }
+            const target = secureHlsUrl(uri, baseUrl);
+            if (!isAllowedMeganoticiasTarget(target)) {
+              throw new Error("Meganoticias publico un recurso HLS externo");
+            }
+            return `URI="${proxyTargetUrl(target, origin)}"`;
+          },
+        );
+      }
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith("#")) {
+        return line;
+      }
+      const target = secureHlsUrl(trimmed, baseUrl);
+      if (!isAllowedMeganoticiasTarget(target)) {
+        throw new Error("Meganoticias publico una variante HLS externa");
+      }
+      return proxyTargetUrl(target, origin);
+    })
+    .join("\n");
+}
+
+function isHlsPlaylist(response, target) {
+  const contentType = response.headers.get("Content-Type") ?? "";
+  if (/mpegurl|m3u8/i.test(contentType)) {
+    return true;
+  }
+  try {
+    return new URL(response.url || target).pathname.toLowerCase().endsWith(".m3u8");
+  } catch {
+    return target.toLowerCase().includes(".m3u8");
+  }
+}
+
+function meganoticiasUpstreamHeaders(request, target) {
+  const headers = {
+    "User-Agent": BROWSER_USER_AGENT,
+    Referer: MEGANOTICIAS_LIVE_PAGE,
+    Origin: "https://www.meganoticias.cl",
+    Accept: isHlsPlaylist({ headers: new Headers(), url: target }, target)
+      ? "application/vnd.apple.mpegurl,*/*;q=0.8"
+      : "*/*",
+  };
+  const range = request.headers.get("Range");
+  if (range) {
+    headers.Range = range;
+  }
+  return headers;
+}
+
+async function fetchMeganoticiasTarget(request, target) {
+  return fetch(target, {
+    headers: meganoticiasUpstreamHeaders(request, target),
+  });
+}
+
+async function proxyMeganoticias(request, requestUrl) {
+  const encodedTarget = requestUrl.searchParams.get("u");
+  let target;
+  if (encodedTarget) {
+    try {
+      target = decodeProxyTarget(encodedTarget);
+    } catch {
+      return textResponse(400, "recurso HLS invalido\n");
+    }
+  } else {
+    target = await cachedStreamUrl("Meganoticias", freshMeganoticiasUrl);
+  }
+
+  if (!isAllowedMeganoticiasTarget(target)) {
+    return textResponse(400, "recurso HLS no permitido\n");
+  }
+
+  const response = await fetchMeganoticiasTarget(request, target);
+  if (!response.ok) {
+    console.error(`[FALLO] Meganoticias HLS HTTP ${response.status}`);
+    return textResponse(response.status, "Meganoticias HLS no disponible\n");
+  }
+
+  if (isHlsPlaylist(response, target)) {
+    const body = await response.text();
+    if (!body.trimStart().startsWith("#EXTM3U")) {
+      throw new Error("Meganoticias no devolvio una playlist HLS valida");
+    }
+    return playlistResponse(
+      rewriteMeganoticiasHlsPlaylist(
+        body,
+        response.url || target,
+        requestUrl.origin,
+      ),
+    );
+  }
+
+  const headers = new Headers();
+  for (const name of [
+    "Accept-Ranges",
+    "Content-Range",
+    "Content-Type",
+    "ETag",
+    "Last-Modified",
+  ]) {
+    const value = response.headers.get(name);
+    if (value) {
+      headers.set(name, value);
+    }
+  }
+  headers.set("Cache-Control", "no-store, no-cache, must-revalidate");
+  headers.set("Access-Control-Allow-Origin", "*");
+  return new Response(response.body, {
+    status: response.status,
+    headers,
+  });
 }
 
 function hlsAttribute(line, name) {
@@ -258,6 +414,17 @@ export default {
       } catch (error) {
         console.error(`[FALLO] Mega: ${error?.constructor?.name ?? "Error"}`);
         return textResponse(503, "Mega no disponible temporalmente\n");
+      }
+    }
+
+    if (path === MEGANOTICIAS_PROXY_PATH) {
+      try {
+        return await proxyMeganoticias(request, new URL(request.url));
+      } catch (error) {
+        console.error(
+          `[FALLO] Meganoticias proxy: ${error?.constructor?.name ?? "Error"}`,
+        );
+        return textResponse(503, "Meganoticias proxy no disponible temporalmente\n");
       }
     }
 
