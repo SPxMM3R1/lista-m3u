@@ -37,6 +37,11 @@ La guia conserva datos vigentes si una fuente externa falla temporalmente. La
 ejecucion tambien puede iniciarse manualmente desde la pestana **Actions** con
 el workflow **Actualizar M3U y EPG**.
 
+Los logos locales de NTV, TVN3, CHV Deportes, France 24, NHK World y XITE se
+publican como PNG RGBA de alta resolucion para que sean compatibles con el
+reproductor Android TV. Sus fuentes vectoriales se conservan en `logos/svg`;
+la M3U no apunta a SVG.
+
 ## Orden de la lista
 
 1. Nacionales normales
