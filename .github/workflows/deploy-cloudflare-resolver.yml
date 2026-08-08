@@ -75,16 +75,20 @@ jobs:
           echo "El health del Worker no respondio a tiempo." >&2
           exit 1
 
-      - name: Guardar URL del resolutor como variable del repositorio
+      - name: Guardar URL del resolutor como variable del repositorio (opcional)
         if: steps.config.outputs.configured == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
           set -euo pipefail
-          gh variable set M3U_RESOLVER_BASE_URL \
+          if gh variable set M3U_RESOLVER_BASE_URL \
             --repo "$GITHUB_REPOSITORY" \
-            --body "${{ steps.deploy.outputs.resolver_url }}"
+            --body "${{ steps.deploy.outputs.resolver_url }}"; then
+            echo "La URL del Worker quedó guardada como variable del repositorio."
+          else
+            echo "::warning::El token automático no puede escribir variables del repositorio; se conserva la URL ya configurada."
+          fi
 
       - name: Conectar la M3U al resolutor
         if: steps.config.outputs.configured == 'true'
