@@ -99,7 +99,36 @@ async function freshMegaPlaylist() {
   if (!body.trimStart().startsWith("#EXTM3U")) {
     throw new Error("Mega no devolvio una playlist HLS");
   }
-  return body.replaceAll("http://", "https://");
+  return rewriteHlsPlaylist(body, response.url || MEGA_MASTER_URL);
+}
+
+function secureHlsUrl(value, baseUrl) {
+  if (value.startsWith("data:")) {
+    return value;
+  }
+  const url = new URL(value, baseUrl);
+  if (url.protocol === "http:") {
+    url.protocol = "https:";
+  }
+  return url.toString();
+}
+
+function rewriteHlsPlaylist(body, baseUrl) {
+  return body
+    .split(/\r?\n/)
+    .map((line) => {
+      if (line.includes('URI="')) {
+        return line.replace(
+          /URI="([^"]+)"/g,
+          (_match, uri) => `URI="${secureHlsUrl(uri, baseUrl)}"`,
+        );
+      }
+      const trimmed = line.trim();
+      return trimmed && !trimmed.startsWith("#")
+        ? secureHlsUrl(trimmed, baseUrl)
+        : line;
+    })
+    .join("\n");
 }
 
 async function cachedStreamUrl(label, factory) {
