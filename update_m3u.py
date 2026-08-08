@@ -74,10 +74,22 @@ CI_GEO_RESTRICTED_CHANNELS = {
     "24 Horas",
     "La Red",
 }
-CI_LOCAL_ONLY_CHANNELS = {"Meganoticias Ahora"}
-# El token de Meganoticias depende de la red chilena y caduca antes de que
-# GitHub Raw deje de servir una copia cacheada de la lista.
-LOCAL_MEGANOTICIAS_URL = "http://192.168.0.165:8787/meganoticias.m3u8"
+# El resolutor publico se ejecuta en Santiago. La variable se configura en
+# GitHub despues de desplegar Cloud Run y mantiene la M3U sin IPs privadas.
+CLOUD_RESOLVER_BASE_URL = os.environ.get("M3U_RESOLVER_BASE_URL", "").strip().rstrip("/")
+CLOUD_RESOLVER_URLS = {
+    "TVN": f"{CLOUD_RESOLVER_BASE_URL}/tvn.m3u8",
+    "Meganoticias Ahora": f"{CLOUD_RESOLVER_BASE_URL}/meganoticias.m3u8",
+} if CLOUD_RESOLVER_BASE_URL else {}
+CLOUD_RESOLVER_CHANNELS = set(CLOUD_RESOLVER_URLS)
+CLOUD_CHANNEL_INFO = {
+    "Meganoticias Ahora": (
+        '#EXTINF:-1 tvg-id="MeganoticiasAhora.cl" '
+        'tvg-name="Meganoticias Ahora" '
+        'tvg-logo="https://static2-meganoticias.cdn.mdstrm.com/_common/images/'
+        'logo-meganoticias-.png" group-title="Noticias Chile",Meganoticias Ahora'
+    ),
+}
 PLAYER_USER_AGENT = "VLC/3.0.20 LibVLC/3.0.20"
 BROWSER_USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -165,6 +177,50 @@ PREFERRED_VARIANT_MASTERS = {
     "M2": "http://stream.mcquack.net/330/index.m3u8",
 }
 MASTER_ONLY_CHANNELS = {"Canal 13"}
+CUSTOM_VARIANT_MASTERS = {
+    "CHV": (
+        "https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/chv/chv.smil/playlist.m3u8",
+        "chv-audio.m3u8",
+    ),
+    "CHV Noticias": (
+        "https://redirector.rudo.video/hls-video/339f69c6122f6d8f4574732c235f09b7683e31a5/chvn/chvn.smil/playlist.m3u8",
+        "chv-noticias-audio.m3u8",
+    ),
+    "CHV Deportes": (
+        "https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/chvdeportes/chvdeportes.smil/playlist.m3u8",
+        "chv-deportes-audio.m3u8",
+    ),
+    "Canal 13": (
+        "https://redirector.dps.live/hls/13cl/playlist.m3u8",
+        "canal13-audio.m3u8",
+    ),
+    "T13": (
+        "https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/t13/t13.smil/playlist.m3u8",
+        "t13-audio.m3u8",
+    ),
+    "DW Espanol": (
+        "https://dwamdstream104.akamaized.net/hls/live/2015530/dwstream104/master.m3u8",
+        "dw-espanol-audio.m3u8",
+    ),
+    "Euronews Espanol": (
+        "https://cdn-euronews.akamaized.net/live/eds/euronews-es/25053/index.m3u8",
+        "euronews-espanol-audio.m3u8",
+    ),
+    "Al Jazeera English": (
+        "https://live-hls-apps-aje-v3-fa.getaj.net/AJE/index.m3u8",
+        "al-jazeera-audio.m3u8",
+    ),
+    "Red Bull TV": (
+        "https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master.m3u8",
+        "red-bull-audio.m3u8",
+    ),
+    "XITE Hits Germany": (
+        "https://d726x48n2pd5h.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-skxr1pazhltvp/XITE_Hits.m3u8",
+        "xite-hits-audio.m3u8",
+    ),
+    "M1": ("http://stream.mcquack.net/218/index.m3u8", "m1-audio.m3u8"),
+    "M2": ("http://stream.mcquack.net/330/index.m3u8", "m2-audio.m3u8"),
+}
 SEGMENT_CHECK_CHANNELS = {
     "TVN",
     "NTV",
@@ -176,6 +232,15 @@ SEGMENT_CHECK_CHANNELS = {
     "Canal 13",
     "CHV Noticias",
     "CHV Deportes",
+    "France 24 Espanol",
+    "DW Espanol",
+    "Euronews Espanol",
+    "NHK World Japan",
+    "Al Jazeera English",
+    "Red Bull TV",
+    "XITE Hits Germany",
+    "M1",
+    "M2",
 }
 CUSTOM_AUDIO_MASTERS = {
     "Mega": (
@@ -320,6 +385,8 @@ def preferred_variant_url(channel_name: str, master_url: str) -> str | None:
 def pin_preferred_variants(lines: list[str]) -> bool:
     changed = False
     for channel in parse_channels(lines):
+        if channel.name in CUSTOM_VARIANT_MASTERS:
+            continue
         master_url = PREFERRED_VARIANT_MASTERS.get(channel.name)
         if not master_url:
             continue
@@ -335,6 +402,38 @@ def pin_preferred_variants(lines: list[str]) -> bool:
             else:
                 print(f"  [OK] {channel.name}: fijada variante maxima con audio")
             changed = True
+    return changed
+
+
+def pin_cloud_resolver_channels(lines: list[str]) -> bool:
+    """Replace private resolver URLs after Cloud Run has been deployed."""
+    if not CLOUD_RESOLVER_URLS:
+        return False
+    changed = False
+    channels = parse_channels(lines)
+    present = {channel.name for channel in channels}
+    for channel in channels:
+        public_url = CLOUD_RESOLVER_URLS.get(channel.name)
+        if public_url and channel.url != public_url:
+            lines[channel.url_line] = public_url
+            changed = True
+            print(f"  [OK] {channel.name}: resolutor Cloud Run configurado")
+    missing = [
+        channel_name
+        for channel_name in CLOUD_CHANNEL_INFO
+        if channel_name not in present and channel_name in CLOUD_RESOLVER_URLS
+    ]
+    if missing:
+        marker = "# CLOUD_RESOLVER_CHANNELS"
+        insertion_index = lines.index(marker) + 1 if marker in lines else len(lines)
+        additions: list[str] = []
+        for channel_name in missing:
+            additions.extend(
+                [CLOUD_CHANNEL_INFO[channel_name], CLOUD_RESOLVER_URLS[channel_name], ""]
+            )
+            print(f"  [OK] {channel_name}: canal agregado al resolutor Cloud Run")
+        lines[insertion_index:insertion_index] = additions
+        changed = True
     return changed
 
 
@@ -513,6 +612,89 @@ def custom_audio_master(
         return None
 
 
+def custom_variant_master(
+    channel_name: str, source_url: str, filename: str
+) -> str | None:
+    """Publish one stable child variant when its video already embeds audio."""
+    wrapper_path = CUSTOM_HLS_DIR / filename
+    public_url = f"{CUSTOM_HLS_PUBLIC_BASE}/{filename}"
+    try:
+        headers = {
+            **request_headers(channel_name),
+            "Accept": "application/vnd.apple.mpegurl,*/*;q=0.8",
+        }
+        _, body, final_url = fetch_bytes(source_url, headers, limit=1_048_576)
+        source_lines = body.decode("utf-8", "replace").splitlines()
+        if not source_lines or not source_lines[0].lstrip().startswith("#EXTM3U"):
+            raise ValueError("el maestro fuente no tiene formato HLS")
+
+        variants: list[tuple[int, int, int, str, str]] = []
+        for index, line in enumerate(source_lines):
+            if not line.startswith("#EXT-X-STREAM-INF:") or index + 1 >= len(source_lines):
+                continue
+            resolution = re.search(r"RESOLUTION=(\d+)x(\d+)", line)
+            child_line = source_lines[index + 1].strip()
+            codecs = (hls_attribute(line, "CODECS") or "").lower()
+            has_embedded_audio = bool(
+                re.search(r"(?:^|,)\s*(?:mp4a|ac-3|ec-3|opus|vorbis)", codecs)
+            )
+            if not resolution or not child_line or child_line.startswith("#"):
+                continue
+            if not has_embedded_audio:
+                continue
+            width, height = (int(value) for value in resolution.groups())
+            if height > 1080:
+                continue
+            bandwidth_match = re.search(r"(?:AVERAGE-)?BANDWIDTH=(\d+)", line)
+            bandwidth = int(bandwidth_match.group(1)) if bandwidth_match else 0
+            variants.append(
+                (
+                    height,
+                    width,
+                    bandwidth,
+                    line,
+                    urljoin(final_url, child_line),
+                )
+            )
+        if not variants:
+            raise ValueError("el maestro no declara una variante con audio embebido")
+
+        _, _, _, stream_line, child_url = max(variants)
+        child_status, child_body, _ = fetch_bytes(child_url, headers, limit=262_144)
+        if child_status != 200 or not child_body.lstrip().startswith(b"#EXTM3U"):
+            raise ValueError("la variante seleccionada no devolvio una playlist HLS")
+
+        output_lines = ["#EXTM3U"]
+        output_lines.extend(
+            line
+            for line in source_lines[1:]
+            if line.startswith("#EXT-X-VERSION:")
+            or line.startswith("#EXT-X-INDEPENDENT-SEGMENTS")
+        )
+        output_lines.extend([stream_line, child_url, ""])
+        output = "\n".join(output_lines)
+        CUSTOM_HLS_DIR.mkdir(parents=True, exist_ok=True)
+        if not wrapper_path.exists() or wrapper_path.read_text(encoding="utf-8") != output:
+            temporary = wrapper_path.with_suffix(".m3u8.tmp")
+            temporary.write_text(output, encoding="utf-8", newline="\n")
+            temporary.replace(wrapper_path)
+        resolution = hls_attribute(stream_line, "RESOLUTION") or "video"
+        print(f"  [OK] {channel_name}: wrapper directo {resolution} con audio embebido")
+        return public_url
+    except Exception as error:
+        if wrapper_path.is_file():
+            print(
+                f"  [AVISO] {channel_name}: no se pudo renovar su wrapper ({type(error).__name__}); "
+                "se conserva el ultimo publicado"
+            )
+            return public_url
+        print(
+            f"  [AVISO] {channel_name}: no se pudo generar wrapper con audio embebido: "
+            f"{type(error).__name__}"
+        )
+        return None
+
+
 def pin_custom_audio_channels(lines: list[str]) -> bool:
     changed = False
     for channel in parse_channels(lines):
@@ -520,6 +702,19 @@ def pin_custom_audio_channels(lines: list[str]) -> bool:
         if not source:
             continue
         custom_url = custom_audio_master(channel.name, source[0], source[1])
+        if custom_url and custom_url != channel.url:
+            lines[channel.url_line] = custom_url
+            changed = True
+    return changed
+
+
+def pin_custom_variant_channels(lines: list[str]) -> bool:
+    changed = False
+    for channel in parse_channels(lines):
+        source = CUSTOM_VARIANT_MASTERS.get(channel.name)
+        if not source:
+            continue
+        custom_url = custom_variant_master(channel.name, source[0], source[1])
         if custom_url and custom_url != channel.url:
             lines[channel.url_line] = custom_url
             changed = True
@@ -934,12 +1129,15 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
 def check_channel(
     channel: Channel, attempts: int = 2, *, allow_ci_geo_block: bool = False
 ) -> CheckResult:
-    if allow_ci_geo_block and channel.name in CI_LOCAL_ONLY_CHANNELS:
+    if (
+        allow_ci_geo_block
+        and CLOUD_RESOLVER_URLS.get(channel.name) == channel.url
+    ):
         return CheckResult(
             channel.name,
             channel.url,
             True,
-            "token conservado; la validacion real requiere la red chilena",
+            "resolutor Cloud Run conservado; el stream se valida desde Santiago",
         )
     last_error = "respuesta desconocida"
     for attempt in range(attempts):
@@ -1154,10 +1352,10 @@ def repair_failed_channels(
         if result.ok:
             continue
         channel = channels_by_name[result.channel]
-        if channel.name in CI_LOCAL_ONLY_CHANNELS and channel.url == LOCAL_MEGANOTICIAS_URL:
+        if CLOUD_RESOLVER_URLS.get(channel.name) == channel.url:
             print(
-                f"  [CONSERVADO] {channel.name}: el endpoint local se mantiene; "
-                "su disponibilidad se comprueba desde la red chilena"
+                f"  [CONSERVADO] {channel.name}: el resolutor Cloud Run se mantiene; "
+                "su stream se valida desde Santiago"
             )
             continue
         print(f"Buscando reemplazo oficial para {channel.name}")
@@ -1324,15 +1522,15 @@ def refresh_dynamic_channel(
     *,
     running_in_ci: bool,
 ) -> bool:
-    if channel.name in CI_LOCAL_ONLY_CHANNELS and channel.url == LOCAL_MEGANOTICIAS_URL:
+    if CLOUD_RESOLVER_URLS.get(channel.name) == channel.url:
         current_result = check_channel(channel, allow_ci_geo_block=running_in_ci)
         state = "OK" if current_result.ok else "FALLO"
-        print(f"  [{state}] {channel.name}: endpoint local conservado; {current_result.detail}")
+        print(f"  [{state}] {channel.name}: resolutor Cloud Run conservado; {current_result.detail}")
         return False
-    if running_in_ci and channel.name in CI_LOCAL_ONLY_CHANNELS:
+    if running_in_ci and CLOUD_RESOLVER_URLS.get(channel.name) == channel.url:
         print(
-            f"  [CI] {channel.name}: se conserva el token local; "
-            "GitHub no puede renovarlo para la red chilena"
+            f"  [CI] {channel.name}: se conserva el resolutor Cloud Run; "
+            "la renovacion se ejecuta en Santiago"
         )
         return False
     current_result = check_channel(channel, allow_ci_geo_block=running_in_ci)
@@ -1493,11 +1691,18 @@ def main() -> int:
     if ensure_playlist_epg_url(lines):
         playlist.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
         print("Cabecera M3U enlazada a la guia EPG publicada en GitHub")
+    cloud_resolver_changed = pin_cloud_resolver_channels(lines)
     custom_audio_changed = pin_custom_audio_channels(lines)
+    custom_variant_changed = pin_custom_variant_channels(lines)
     variants_changed = pin_preferred_variants(lines)
-    if custom_audio_changed or variants_changed:
+    if (
+        cloud_resolver_changed
+        or custom_audio_changed
+        or custom_variant_changed
+        or variants_changed
+    ):
         playlist.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
-        print("Variantes de video compatibles guardadas en la lista")
+        print("Wrappers y variantes de video compatibles guardados en la lista")
     channels = parse_channels(lines)
     if not channels:
         raise RuntimeError("la lista no contiene canales activos")
@@ -1519,6 +1724,7 @@ def main() -> int:
     refreshed_channels: list[str] = []
     refresh_changed = False
     dynamic_channels = {
+        "TVN": fresh_tvn_url,
         "24 Horas": fresh_24horas_url,
         "Meganoticias Ahora": fresh_meganoticias_url,
     }

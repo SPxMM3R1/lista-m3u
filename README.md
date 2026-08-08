@@ -17,33 +17,44 @@ Guia de programacion XMLTV:
 
 Cada ejecucion:
 
-- verifica el enlace alternativo de TVN y busca un respaldo oficial si falla;
-- usa y redescubre la señal HLS que publica el reproductor oficial de 24 Horas;
-- conserva Meganoticias Ahora como endpoint local sin cache, porque su sesion depende de la red chilena y caduca antes que la cache de GitHub Raw;
-- prueba todos los streams y sus logos PNG;
-- busca reemplazos verificados y maestros de respaldo 1080p/720p si TVN, Mega o La Red fallan;
-- comprueba el primer segmento multimedia de los canales con tokens o wrappers;
-- comprueba el stream oficial normal de NHK World;
-- comprueba que La Red entregue un segmento multimedia actual, renueva su wrapper 1080p y conserva dos rutas HLS oficiales de respaldo;
-- genera wrappers HLS de 1080p con audio para Mega, La Red y NHK World;
-- fija la variante directa de maxima calidad cuando conserva audio embebido;
-- mantiene TVN en un enlace HLS alternativo verificado y conserva la reparacion oficial como respaldo;
+- comprueba los streams, los primeros segmentos multimedia y los logos PNG;
+- renueva las senales publicas con tokens que caducan;
+- genera wrappers HLS con audio separado para Mega, La Red y NHK World;
+- genera wrappers HLS de una sola variante para las fuentes que ya traen audio
+  embebido, fijando la maxima calidad disponible hasta 1080p;
+- deja como maestro directo las fuentes que no declaran audio de forma segura,
+  normalmente en 720p, en vez de publicar un wrapper que pueda quitar sonido;
 - actualiza la guia EPG con las parrillas disponibles;
-- verifica que los archivos publicados en GitHub sigan accesibles;
-- publica `channel-status.json` como artefacto de la ejecucion.
+- publica `channel-status.json` como artefacto de cada ejecucion.
 
-La guia conserva datos vigentes si una fuente externa falla temporalmente.
+TVN y Meganoticias Ahora usan el resolutor publico de Google Cloud Run en
+`southamerica-west1` (Santiago). El resolutor obtiene los tokens al abrir la
+senal y devuelve una redireccion HLS temporal. No se necesita dejar este PC
+encendido. Meganoticias se reincorpora automaticamente a la M3U cuando el
+despliegue cloud queda configurado.
 
-Meganoticias Ahora usa el endpoint local `http://192.168.0.165:8787/meganoticias.m3u8`.
-El PC debe estar encendido y la TV debe estar en la misma red local. El servidor
-se inicia con Windows mediante la tarea `VibeM3U - Servidor M3U local`.
+La guia conserva datos vigentes si una fuente externa falla temporalmente. La
+ejecucion tambien puede iniciarse manualmente desde la pestana **Actions** con
+el workflow **Actualizar M3U y EPG**.
 
-La ejecucion tambien puede iniciarse manualmente desde la pestaña **Actions**
-con el workflow **Actualizar M3U y EPG**. La opcion `force_epg_refresh`
-fuerza la descarga de la guia externa.
+## Orden de la lista
+
+1. Nacionales normales
+2. Noticias
+3. Miscelaneos nacionales
+4. Internacionales
 
 ## Canales
 
-La lista contiene 21 canales: los 13 originales de Chile e internacionales,
-Meganoticias Ahora, NTV, TVN3, CHV Noticias, CHV Deportes, M1, M2 y XITE Hits
-Germany, que superaron la ultima verificacion.
+La lista contiene 20 canales mientras se configura el resolutor cloud: TVN,
+Mega, CHV, Canal 13, La Red, 24 Horas, T13, CHV Noticias, NTV, TVN3,
+CHV Deportes, DW Espanol, France 24 Espanol, Euronews Espanol, NHK World
+Japan, Al Jazeera English, Red Bull TV, XITE Hits Germany, M1 y M2.
+
+## Resolutor cloud
+
+El workflow **Deploy Chile resolver** despliega `cloud-resolver` en Santiago,
+guarda su URL en la variable `M3U_RESOLVER_BASE_URL` y vuelve a insertar
+Meganoticias en el bloque de noticias. Requiere configurar una vez los secretos
+`GCP_WORKLOAD_IDENTITY_PROVIDER` y `GCP_SERVICE_ACCOUNT`. El proyecto se toma
+de la variable `GCP_PROJECT_ID` o usa `rugged-episode-148820`.

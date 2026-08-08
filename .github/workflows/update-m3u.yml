@@ -27,6 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       RAW_BASE: https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}
+      M3U_RESOLVER_BASE_URL: ${{ vars.M3U_RESOLVER_BASE_URL }}
     steps:
       - name: Descargar repositorio
         uses: actions/checkout@v4
