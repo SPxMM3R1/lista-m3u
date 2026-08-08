@@ -2070,7 +2070,7 @@ def main() -> int:
         print("Verificacion posterior a las reparaciones")
         results = verify_all(final_channels, allow_ci_geo_block=running_in_ci)
 
-    print("Verificacion de logos PNG")
+    print("Verificacion de logos")
     logo_results = verify_logos(final_channels)
     write_report(
         results,
