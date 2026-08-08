@@ -120,13 +120,13 @@ PREFERRED_LOGOS = {
     "Meganoticias Ahora": "https://static2-meganoticias.cdn.mdstrm.com/_common/images/logo-meganoticias-.png",
     "T13": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/chile/t13-cl.png",
     "CHV Noticias": "https://media.chilevision.cl/2026/01/CHV-NOTICIAS-LOGO@2x.png",
-    "NTV": f"{PUBLIC_RAW_BASE}/logos/ntv-transparent.png",
-    "TVN3": f"{PUBLIC_RAW_BASE}/logos/tvn3-transparent.png",
-    "CHV Deportes": f"{PUBLIC_RAW_BASE}/logos/chv-deportes-transparent.png",
-    "France 24 Espanol": f"{PUBLIC_RAW_BASE}/logos/france24-transparent.png",
-    "NHK World Japan": f"{PUBLIC_RAW_BASE}/logos/nhk-world-transparent.png",
-    "Al Jazeera English": f"{PUBLIC_RAW_BASE}/logos/aljazeera-transparent.png",
-    "XITE Hits Germany": f"{PUBLIC_RAW_BASE}/logos/xite-transparent.png",
+    "NTV": f"{PUBLIC_RAW_BASE}/logos/svg/ntv.svg",
+    "TVN3": f"{PUBLIC_RAW_BASE}/logos/svg/tvn3.svg",
+    "CHV Deportes": f"{PUBLIC_RAW_BASE}/logos/svg/chv-deportes.svg",
+    "France 24 Espanol": f"{PUBLIC_RAW_BASE}/logos/svg/france24.svg",
+    "NHK World Japan": f"{PUBLIC_RAW_BASE}/logos/svg/nhk-world.svg",
+    "Al Jazeera English": f"{PUBLIC_RAW_BASE}/logos/svg/aljazeera.svg",
+    "XITE Hits Germany": f"{PUBLIC_RAW_BASE}/logos/svg/xite.svg",
 }
 CONTINUOUS_PROGRAMME_DETAILS = {
     "TVN3": (
@@ -513,7 +513,7 @@ def pin_preferred_logos(lines: list[str]) -> bool:
         if updated != original:
             lines[channel.info_line] = updated
             changed = True
-            print(f"  [OK] {channel.name}: logo PNG preferido configurado")
+            print(f"  [OK] {channel.name}: logo preferido configurado")
     return changed
 
 
@@ -1516,7 +1516,10 @@ def check_hls_first_segment(
 def check_logo(channel: Channel) -> LogoResult:
     if not channel.logo_url:
         return LogoResult(channel.name, "", False, "falta tvg-logo")
-    headers = {"User-Agent": BROWSER_USER_AGENT, "Accept": "image/png,image/*;q=0.8,*/*;q=0.5"}
+    headers = {
+        "User-Agent": BROWSER_USER_AGENT,
+        "Accept": "image/svg+xml,image/png,image/*;q=0.8,*/*;q=0.5",
+    }
     try:
         status, body, _ = fetch_bytes(channel.logo_url, headers, limit=65_536)
         if status == 200 and body.startswith(b"\x89PNG\r\n\x1a\n"):
@@ -1528,7 +1531,14 @@ def check_logo(channel: Channel) -> LogoResult:
                     "PNG valido pero sin canal alfa transparente",
                 )
             return LogoResult(channel.name, channel.logo_url, True, "PNG valido y transparente")
-        return LogoResult(channel.name, channel.logo_url, False, f"HTTP {status}, no es PNG")
+        if status == 200 and svg_is_valid(body):
+            return LogoResult(channel.name, channel.logo_url, True, "SVG valido y vectorial")
+        return LogoResult(
+            channel.name,
+            channel.logo_url,
+            False,
+            f"HTTP {status}, no es PNG ni SVG valido",
+        )
     except urllib.error.HTTPError as error:
         return LogoResult(channel.name, channel.logo_url, False, f"HTTP {error.code} {error.reason}")
     except Exception as error:
@@ -1559,6 +1569,14 @@ def png_has_transparency(body: bytes) -> bool:
             break
         offset = end
     return False
+
+
+def svg_is_valid(body: bytes) -> bool:
+    try:
+        root = ET.fromstring(body)
+    except (ET.ParseError, UnicodeDecodeError):
+        return False
+    return root.tag.rsplit("}", 1)[-1].lower() == "svg"
 
 
 def verify_logos(channels: list[Channel]) -> list[LogoResult]:
