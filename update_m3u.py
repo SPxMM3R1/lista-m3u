@@ -65,6 +65,9 @@ except ZoneInfoNotFoundError:
     CHILE_TIMEZONE = timezone(timedelta(hours=-4))
 RED_BULL_EPG_PAGE = "https://www.redbull.tv/es_CL/epg"
 RED_BULL_CHANNEL_ID = "rrn:content:video-channels:c81f8686-ab67-4965-ba04-5f6658bb96cc"
+# Red Bull personaliza la parrilla por IP; GitHub Actions se ejecuta fuera de
+# Chile, asi que enviamos una IP publica chilena para conservar la parrilla local.
+RED_BULL_CHILE_GEO_IP = "186.67.0.1"
 EPG_REFRESH_INTERVAL = timedelta(hours=12)
 TVN_LIVE_PAGE = "https://live.tvn.cl/"
 TVN_DEFAULT_ID = "57a498c4d7b86d600e5461cb"
@@ -1340,7 +1343,11 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
     try:
         _, body, _ = fetch_bytes(
             f"{RED_BULL_EPG_PAGE}?refresh={int(time.time())}",
-            {"User-Agent": BROWSER_USER_AGENT, "Accept": "text/html,*/*"},
+            {
+                "User-Agent": BROWSER_USER_AGENT,
+                "Accept": "text/html,*/*",
+                "X-Forwarded-For": RED_BULL_CHILE_GEO_IP,
+            },
             timeout=90,
             limit=25_165_824,
         )
