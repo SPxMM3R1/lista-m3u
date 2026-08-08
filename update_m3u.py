@@ -122,6 +122,7 @@ PREFERRED_LOGOS = {
     "CHV Deportes": f"{PUBLIC_RAW_BASE}/logos/chv-deportes-transparent.png",
     "France 24 Espanol": f"{PUBLIC_RAW_BASE}/logos/france24-transparent.png",
     "NHK World Japan": f"{PUBLIC_RAW_BASE}/logos/nhk-world-transparent.png",
+    "Al Jazeera English": f"{PUBLIC_RAW_BASE}/logos/aljazeera-transparent.png",
     "XITE Hits Germany": f"{PUBLIC_RAW_BASE}/logos/xite-transparent.png",
 }
 CONTINUOUS_PROGRAMME_DETAILS = {
