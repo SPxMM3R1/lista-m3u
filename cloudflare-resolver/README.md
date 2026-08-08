@@ -8,10 +8,11 @@ publicas para las senales:
 - `/tvn.m3u8`
 - `/meganoticias.m3u8`
 
-El Worker obtiene los tokens temporales de TVN y Meganoticias, y para Mega
-lee el master oficial y convierte sus referencias `http://` a `https://`.
-Las rutas con token responden con una redireccion 302; Mega responde con un
-master HLS renovado. No escribe tokens en los logs ni en GitHub.
+El Worker obtiene los tokens temporales de TVN y Meganoticias. Para Mega lee el
+master oficial, selecciona la variante 1080p con audio y convierte sus
+referencias `http://` a `https://`. Las rutas con token responden con una
+redireccion 302; Mega responde con una playlist HLS simplificada y renovada.
+No escribe tokens en los logs ni en GitHub.
 
 ## Despliegue
 

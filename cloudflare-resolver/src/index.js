@@ -99,7 +99,7 @@ async function freshMegaPlaylist() {
   if (!body.trimStart().startsWith("#EXTM3U")) {
     throw new Error("Mega no devolvio una playlist HLS");
   }
-  return rewriteHlsPlaylist(body, response.url || MEGA_MASTER_URL);
+  return megaCompatibilityPlaylist(body, response.url || MEGA_MASTER_URL);
 }
 
 function secureHlsUrl(value, baseUrl) {
@@ -129,6 +129,83 @@ function rewriteHlsPlaylist(body, baseUrl) {
         : line;
     })
     .join("\n");
+}
+
+function hlsAttribute(line, name) {
+  const match = line.match(
+    new RegExp(`(?:^|,)${name}=(?:"([^"]*)"|([^,]*))`),
+  );
+  return match?.[1] ?? match?.[2]?.trim();
+}
+
+function replaceHlsAttribute(line, name, value) {
+  return line.replace(
+    new RegExp(`(${name}=)(?:"[^"]*"|[^,]*)`),
+    `$1"${value}"`,
+  );
+}
+
+function megaCompatibilityPlaylist(body, baseUrl) {
+  const lines = body.split(/\r?\n/);
+  const variants = [];
+  for (let index = 0; index < lines.length; index += 1) {
+    const line = lines[index];
+    if (!line.startsWith("#EXT-X-STREAM-INF:") || !lines[index + 1]) {
+      continue;
+    }
+    const resolution = hlsAttribute(line, "RESOLUTION")?.match(/^(\d+)x(\d+)$/);
+    const audioGroup = hlsAttribute(line, "AUDIO");
+    const child = lines[index + 1].trim();
+    if (!resolution || !audioGroup || !child || child.startsWith("#")) {
+      continue;
+    }
+    const width = Number(resolution[1]);
+    const height = Number(resolution[2]);
+    if (height > 1080) {
+      continue;
+    }
+    variants.push({
+      line,
+      child,
+      audioGroup,
+      width,
+      height,
+      bandwidth: Number(hlsAttribute(line, "BANDWIDTH") ?? 0),
+    });
+  }
+
+  const selected = variants.sort(
+    (left, right) =>
+      left.height - right.height ||
+      left.width - right.width ||
+      left.bandwidth - right.bandwidth,
+  ).at(-1);
+  if (!selected) {
+    return rewriteHlsPlaylist(body, baseUrl);
+  }
+
+  const sourceAudio = lines.find(
+    (line) =>
+      line.startsWith("#EXT-X-MEDIA:") &&
+      hlsAttribute(line, "TYPE") === "AUDIO" &&
+      hlsAttribute(line, "GROUP-ID") === selected.audioGroup &&
+      hlsAttribute(line, "URI"),
+  );
+  if (!sourceAudio) {
+    return rewriteHlsPlaylist(body, baseUrl);
+  }
+
+  const audioUrl = secureHlsUrl(hlsAttribute(sourceAudio, "URI"), baseUrl);
+  const videoUrl = secureHlsUrl(selected.child, baseUrl);
+  let audioLine = replaceHlsAttribute(sourceAudio, "GROUP-ID", "mega-audio");
+  audioLine = replaceHlsAttribute(audioLine, "URI", audioUrl);
+  if (!hlsAttribute(audioLine, "DEFAULT")) {
+    audioLine = audioLine.replace("TYPE=AUDIO,", "TYPE=AUDIO,DEFAULT=YES,");
+  }
+  const streamLine = replaceHlsAttribute(selected.line, "AUDIO", "mega-audio");
+  return ["#EXTM3U", "#EXT-X-VERSION:5", audioLine, streamLine, videoUrl, ""].join(
+    "\n",
+  );
 }
 
 async function cachedStreamUrl(label, factory) {
