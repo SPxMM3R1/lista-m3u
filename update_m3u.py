@@ -847,6 +847,11 @@ def xmltv_format(value: datetime) -> str:
     return value.astimezone(timezone.utc).strftime("%Y%m%d%H%M%S +0000")
 
 
+def xmltv_format_chile(value: datetime) -> str:
+    """Format a timestamp in Santiago time for players that ignore offsets."""
+    return value.astimezone(CHILE_TIMEZONE).strftime("%Y%m%d%H%M%S %z")
+
+
 def epg_status_from_xml(
     data: bytes,
     expected_ids: set[str],
@@ -1101,6 +1106,7 @@ def add_continuous_programmes(
     *,
     now: datetime,
     start_at: datetime | None = None,
+    formatter: Callable[[datetime], str] = xmltv_format,
 ) -> int:
     start = start_at or (
         now.astimezone(timezone.utc).replace(
@@ -1116,8 +1122,8 @@ def add_continuous_programmes(
             root,
             "programme",
             {
-                "start": xmltv_format(start),
-                "stop": xmltv_format(stop),
+                "start": formatter(start),
+                "stop": formatter(stop),
                 "channel": channel_id,
             },
         )
@@ -1193,8 +1199,8 @@ def build_epg(
                 root,
                 "programme",
                 {
-                    "start": xmltv_format(start),
-                    "stop": xmltv_format(stop),
+                    "start": xmltv_format_chile(start),
+                    "stop": xmltv_format_chile(stop),
                     "channel": red_bull_id,
                 },
             )
@@ -1218,6 +1224,7 @@ def build_epg(
                 channel_by_id[red_bull_id].name,
                 now=now,
                 start_at=red_bull_last_stop,
+                formatter=xmltv_format_chile,
             )
             guide_types[red_bull_id] = "parrilla oficial + continuidad"
 
@@ -1332,7 +1339,7 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
     red_bull_cards: list[dict] = []
     try:
         _, body, _ = fetch_bytes(
-            RED_BULL_EPG_PAGE,
+            f"{RED_BULL_EPG_PAGE}?refresh={int(time.time())}",
             {"User-Agent": BROWSER_USER_AGENT, "Accept": "text/html,*/*"},
             timeout=90,
             limit=25_165_824,
