@@ -58,6 +58,7 @@ RED_BULL_CHANNEL_ID = "rrn:content:video-channels:c81f8686-ab67-4965-ba04-5f6658
 EPG_REFRESH_INTERVAL = timedelta(hours=12)
 TVN_LIVE_PAGE = "https://live.tvn.cl/"
 TVN_DEFAULT_ID = "57a498c4d7b86d600e5461cb"
+TVN_ALTERNATIVE_URL = "https://iptv2.intersurtv.cl/TVN/index.m3u8?PlaylistM3UCL"
 TWENTYFOUR_LIVE_PAGE = "https://www.24horas.cl/envivo"
 TWENTYFOUR_DEFAULT_ID = "57d1a22064f5d85712b20dab"
 MEGA_LIVE_PAGE = "https://www.mega.cl/senal-en-vivo/"
@@ -108,7 +109,7 @@ OFFICIAL_CANDIDATE_HINTS = {
 }
 KNOWN_STREAM_FALLBACKS = {
     "TVN": [
-        "https://iptv2.intersurtv.cl/TVN/index.m3u8",
+        TVN_ALTERNATIVE_URL,
         "http://45.162.193.35/TVN/index.m3u8",
         "http://15.204.246.24:8080/TVNHD/index.m3u8",
     ],
@@ -166,11 +167,15 @@ PREFERRED_VARIANT_MASTERS = {
 MASTER_ONLY_CHANNELS = {"Canal 13"}
 SEGMENT_CHECK_CHANNELS = {
     "TVN",
+    "NTV",
+    "TVN3",
     "Mega",
     "Meganoticias Ahora",
     "24 Horas",
     "La Red",
     "Canal 13",
+    "CHV Noticias",
+    "CHV Deportes",
 }
 CUSTOM_AUDIO_MASTERS = {
     "Mega": (
@@ -335,7 +340,7 @@ def pin_preferred_variants(lines: list[str]) -> bool:
 
 def request_headers(channel: str) -> dict[str, str]:
     headers = {"User-Agent": PLAYER_USER_AGENT, "Accept": "*/*"}
-    if channel == "TVN":
+    if channel in {"TVN", "NTV", "TVN3"}:
         headers["Referer"] = "https://live.tvn.cl/"
         headers["Origin"] = "https://live.tvn.cl"
     elif channel == "Mega":
@@ -346,6 +351,9 @@ def request_headers(channel: str) -> dict[str, str]:
         headers["Origin"] = "https://www.meganoticias.cl"
     elif channel == "La Red":
         headers["Referer"] = "https://www.lared.cl/senal-online/"
+    elif channel in {"CHV Noticias", "CHV Deportes"}:
+        headers["Referer"] = "https://www.chilevision.cl/senal-online"
+        headers["Origin"] = "https://www.chilevision.cl"
     return headers
 
 
@@ -1511,7 +1519,6 @@ def main() -> int:
     refreshed_channels: list[str] = []
     refresh_changed = False
     dynamic_channels = {
-        "TVN": fresh_tvn_url,
         "24 Horas": fresh_24horas_url,
         "Meganoticias Ahora": fresh_meganoticias_url,
     }

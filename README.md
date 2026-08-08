@@ -17,7 +17,7 @@ Guia de programacion XMLTV:
 
 Cada ejecucion:
 
-- renueva los enlaces temporales de TVN desde su pagina oficial cuando corre en la red chilena;
+- verifica el enlace alternativo de TVN y busca un respaldo oficial si falla;
 - usa y redescubre la señal HLS que publica el reproductor oficial de 24 Horas;
 - conserva Meganoticias Ahora como endpoint local sin cache, porque su sesion depende de la red chilena y caduca antes que la cache de GitHub Raw;
 - prueba todos los streams y sus logos PNG;
@@ -27,7 +27,7 @@ Cada ejecucion:
 - comprueba que La Red entregue un segmento multimedia actual, renueva su wrapper 1080p y conserva dos rutas HLS oficiales de respaldo;
 - genera wrappers HLS de 1080p con audio para Mega, La Red y NHK World;
 - fija la variante directa de maxima calidad cuando conserva audio embebido;
-- mantiene TVN en su maestro oficial y renueva su access_token cuando deja de responder;
+- mantiene TVN en un enlace HLS alternativo verificado y conserva la reparacion oficial como respaldo;
 - actualiza la guia EPG con las parrillas disponibles;
 - verifica que los archivos publicados en GitHub sigan accesibles;
 - publica `channel-status.json` como artefacto de la ejecucion.
@@ -44,5 +44,6 @@ fuerza la descarga de la guia externa.
 
 ## Canales
 
-La lista contiene 17 canales: los 13 originales de Chile e internacionales,
-Meganoticias Ahora, M1, M2 y XITE Hits Germany, que superaron la ultima verificacion.
+La lista contiene 21 canales: los 13 originales de Chile e internacionales,
+Meganoticias Ahora, NTV, TVN3, CHV Noticias, CHV Deportes, M1, M2 y XITE Hits
+Germany, que superaron la ultima verificacion.
