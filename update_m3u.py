@@ -92,7 +92,10 @@ OFFICIAL_CANDIDATE_HINTS = {
     "Canal 13": re.compile(r"(?:13cl|canal.?13)", re.IGNORECASE),
     "T13": re.compile(r"(?:/t13/|t13\.)", re.IGNORECASE),
     "24 Horas": re.compile(r"(?:24horas|689ba606ecfe7915e1f8f741)", re.IGNORECASE),
-    "La Red": re.compile(r"(?:lared|ds5i0a12qngha)", re.IGNORECASE),
+    "La Red": re.compile(
+        r"(?:lared|ds5i0a12qngha|airstream\.run|d1kqwrirylysyt)",
+        re.IGNORECASE,
+    ),
 }
 KNOWN_STREAM_FALLBACKS = {
     "TVN": [
@@ -117,9 +120,8 @@ KNOWN_STREAM_FALLBACKS = {
     ],
     "24 Horas": ["https://mdstrm.com/live-stream-playlist/689ba606ecfe7915e1f8f741.m3u8"],
     "La Red": [
-        "https://ds5i0a12qngha.cloudfront.net/medialist_15609871089997455276_hls.m3u8",
-        "https://iptv2.intersurtv.cl/LA_RED/tracks-v1a1/mono.ts.m3u8",
-        "https://tv-mgmt.gtd.cl/bpk-tv/LARED/default/index.m3u8",
+        "https://live2.airstream.run/3969875408/ts:abr.m3u8",
+        "https://d1kqwrirylysyt.cloudfront.net/ts:abr.m3u8",
     ],
     "DW Espanol": [
         "https://dwamdstream104.akamaized.net/hls/live/2015530/dwstream104/master.m3u8"
@@ -1070,8 +1072,14 @@ def extract_hls_urls(page_text: str) -> list[str]:
         cleaned = html.unescape(match).replace("\\/", "/")
         cleaned = re.sub(r"\\+u0026", "&", cleaned, flags=re.IGNORECASE)
         cleaned = cleaned.rstrip("\\,);]")
-        if cleaned not in urls:
-            urls.append(cleaned)
+        alternatives = [cleaned]
+        if "#" in cleaned:
+            alternatives.extend(
+                part for part in cleaned.split("#") if part.startswith("http")
+            )
+        for alternative in alternatives:
+            if alternative not in urls:
+                urls.append(alternative)
     return urls
 
 

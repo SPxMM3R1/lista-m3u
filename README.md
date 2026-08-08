@@ -19,10 +19,10 @@ Cada ejecucion:
 
 - renueva los enlaces temporales de TVN y Meganoticias Ahora desde sus paginas oficiales;
 - prueba todos los streams y sus logos PNG;
-- busca reemplazos verificados y maestros de respaldo 1080p/720p si TVN o Mega fallan;
+- busca reemplazos verificados y maestros de respaldo 1080p/720p si TVN, Mega o La Red fallan;
 - comprueba el primer segmento multimedia de los canales con tokens o wrappers;
 - comprueba el stream oficial normal de NHK World;
-- comprueba que La Red entregue un segmento multimedia actual y renueva su wrapper 1080p;
+- comprueba que La Red entregue un segmento multimedia actual, renueva su wrapper 1080p y conserva dos rutas HLS oficiales de respaldo;
 - genera wrappers HLS de 1080p con audio para Mega, La Red y NHK World;
 - fija la variante directa de maxima calidad cuando conserva audio embebido;
 - mantiene TVN en su maestro oficial y renueva su access_token cuando deja de responder;
@@ -38,5 +38,5 @@ fuerza la descarga de la guia externa.
 
 ## Canales
 
-La lista contiene 16 canales: los 13 originales de Chile e internacionales,
-mas M1, M2 y XITE Hits Germany, que superaron la ultima verificacion.
+La lista contiene 17 canales: los 13 originales de Chile e internacionales,
+Meganoticias Ahora, M1, M2 y XITE Hits Germany, que superaron la ultima verificacion.
