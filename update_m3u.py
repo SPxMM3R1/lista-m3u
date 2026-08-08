@@ -22,6 +22,7 @@ from dataclasses import asdict, dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import quote, urlencode, urljoin, urlsplit
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 
 DEFAULT_PLAYLIST = Path(__file__).with_name("m3u.m3u")
@@ -52,7 +53,16 @@ EPG_PROGRAMME_SOURCES = {
     "EuronewsSpanish.fr": ("es", "Euronews.es"),
     "NHKWorldJapan.jp": ("cl", "Canal.NHK.World.cl"),
     "AlJazeera.qa": ("es", "Al.Jazeera.English.es"),
+    "MeganoticiasAhora.cl": ("tecnocentro", "LCH7159"),
+    "0124": ("tecnocentro", "LCH6525"),
+    "1153": ("tecnocentro", "LCH7017"),
+    "45": ("tecnocentro", "LCH4087"),
 }
+TECNOCENTRO_EPG_URL = "https://tecnocentro.cl/"
+try:
+    CHILE_TIMEZONE = ZoneInfo("America/Santiago")
+except ZoneInfoNotFoundError:
+    CHILE_TIMEZONE = timezone(timedelta(hours=-4))
 RED_BULL_EPG_PAGE = "https://www.redbull.tv/es_CL/epg"
 RED_BULL_CHANNEL_ID = "rrn:content:video-channels:c81f8686-ab67-4965-ba04-5f6658bb96cc"
 EPG_REFRESH_INTERVAL = timedelta(hours=12)
@@ -76,8 +86,8 @@ CI_GEO_RESTRICTED_CHANNELS = {
     "24 Horas",
     "La Red",
 }
-# El resolutor publico se ejecuta en Santiago. La variable se configura en
-# GitHub despues de desplegar Cloud Run y mantiene la M3U sin IPs privadas.
+# El resolutor publico se ejecuta en Cloudflare. La variable se configura en
+# GitHub despues del despliegue y mantiene la M3U sin IPs privadas.
 CLOUD_RESOLVER_BASE_URL = os.environ.get("M3U_RESOLVER_BASE_URL", "").strip().rstrip("/")
 CLOUD_RESOLVER_URLS = {
     "TVN": f"{CLOUD_RESOLVER_BASE_URL}/tvn.m3u8",
@@ -88,10 +98,47 @@ CLOUD_CHANNEL_INFO = {
     "Meganoticias Ahora": (
         '#EXTINF:-1 tvg-id="MeganoticiasAhora.cl" '
         'tvg-name="Meganoticias Ahora" '
-        'tvg-logo="https://static2-meganoticias.cdn.mdstrm.com/_common/images/'
-        'logo-meganoticias-.png" group-title="Noticias Chile",Meganoticias Ahora'
+        'tvg-logo="https://cdn.m3u.cl/logo/449_Meganoticias.png" '
+        'group-title="Noticias Chile",Meganoticias Ahora'
     ),
 }
+PREFERRED_LOGOS = {
+    "TVN": "https://cdn.m3u.cl/logo/452_TVN.png",
+    "Mega": "https://cdn.m3u.cl/logo/455_Mega.png",
+    "CHV": "https://cdn.m3u.cl/logo/1569_CHV.png",
+    "Canal 13": "https://cdn.m3u.cl/logo/1733_Canal_13.png",
+    "La Red": "https://cdn.m3u.cl/logo/790_La_Red.png",
+    "24 Horas": "https://cdn.m3u.cl/logo/448_TVN_24_Horas.png",
+    "Meganoticias Ahora": "https://cdn.m3u.cl/logo/449_Meganoticias.png",
+    "T13": "https://cdn.m3u.cl/logo/1054_T13.png",
+    "CHV Noticias": "https://cdn.m3u.cl/logo/1153_CHV_Noticias.png",
+    "NTV": "https://cdn.m3u.cl/logo/45_NTV.png",
+    "TVN3": "https://cdn.m3u.cl/logo/1437_TVN3.png",
+    "CHV Deportes": "https://cdn.m3u.cl/logo/1763_CHV_Deportes.png",
+}
+CONTINUOUS_PROGRAMME_DETAILS = {
+    "TVN3": (
+        "TVN3 - clasicos de TVN",
+        "Rotacion continua de programas historicos de TVN; no publica horarios XMLTV estables.",
+    ),
+    "CHV Deportes": (
+        "CHV Deportes en vivo",
+        "Senal deportiva continua; la parrilla horaria depende de los eventos publicados por CHV.",
+    ),
+    "XITE Hits Germany": (
+        "XITE Hits Germany - videoclips",
+        "Rotacion continua de videoclips musicales; no publica una parrilla horaria XMLTV estable.",
+    ),
+    "M1": (
+        "M1 - rotacion musical",
+        "Rotacion continua de videos musicales de M1; los programas especiales pueden cambiar de horario.",
+    ),
+    "M2": (
+        "M2 - rotacion musical",
+        "Rotacion continua de videos musicales de M2; los programas especiales pueden cambiar de horario.",
+    ),
+}
+NEWS_CHANNEL_ORDER = ("24 Horas", "Meganoticias Ahora", "CHV Noticias", "T13")
 PLAYER_USER_AGENT = "VLC/3.0.20 LibVLC/3.0.20"
 BROWSER_USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -437,6 +484,49 @@ def pin_cloud_resolver_channels(lines: list[str]) -> bool:
         lines[insertion_index:insertion_index] = additions
         changed = True
     return changed
+
+
+def pin_preferred_logos(lines: list[str]) -> bool:
+    changed = False
+    for channel in parse_channels(lines):
+        preferred = PREFERRED_LOGOS.get(channel.name)
+        if not preferred or channel.info_line < 0:
+            continue
+        original = lines[channel.info_line]
+        updated = re.sub(
+            r'(\btvg-logo=")[^"]+(\")',
+            lambda match: f"{match.group(1)}{preferred}{match.group(2)}",
+            original,
+        )
+        if updated != original:
+            lines[channel.info_line] = updated
+            changed = True
+            print(f"  [OK] {channel.name}: logo PNG preferido configurado")
+    return changed
+
+
+def pin_news_channel_order(lines: list[str]) -> bool:
+    channels = {channel.name: channel for channel in parse_channels(lines)}
+    if not all(name in channels for name in NEWS_CHANNEL_ORDER):
+        return False
+    slots = sorted(
+        (channels[name].info_line, channels[name].url_line)
+        for name in NEWS_CHANNEL_ORDER
+    )
+    current = [
+        next(name for name in NEWS_CHANNEL_ORDER if channels[name].info_line == info_line)
+        for info_line, _ in slots
+    ]
+    if tuple(current) == NEWS_CHANNEL_ORDER:
+        return False
+    records = {
+        name: (lines[channels[name].info_line], lines[channels[name].url_line])
+        for name in NEWS_CHANNEL_ORDER
+    }
+    for (info_line, url_line), name in zip(slots, NEWS_CHANNEL_ORDER):
+        lines[info_line], lines[url_line] = records[name]
+    print("  [OK] Noticias: orden 24 Horas, Meganoticias, CHV Noticias, T13")
+    return True
 
 
 def request_headers(channel: str) -> dict[str, str]:
@@ -874,6 +964,125 @@ def red_bull_schedule(page_html: str) -> list[dict]:
     return schedule
 
 
+def decode_web_text(data: bytes) -> str:
+    decoded = data.decode("utf-8", "replace")
+    if "\ufffd" in decoded:
+        return data.decode("cp1252", "replace")
+    return decoded
+
+
+def tecnocentro_schedule_items(page_html: str) -> list[tuple[str, str, str]]:
+    item_pattern = re.compile(
+        r'<div class="schedule-item[^>]*>\s*'
+        r'<div class="schedule-time">\s*'
+        r'(?:<span[^>]*>)?([^<\s]+)(?:</span>)?\s*-\s*([^<]+?)\s*</div>\s*'
+        r'<div class="schedule-title">\s*(.*?)\s*</div>',
+        re.IGNORECASE | re.DOTALL,
+    )
+    items: list[tuple[str, str, str]] = []
+    for start_text, stop_text, raw_title in item_pattern.findall(page_html):
+        title = html.unescape(re.sub(r"<[^>]+>", "", raw_title))
+        title = re.sub(r"\s+", " ", title).strip()
+        if title:
+            items.append((start_text.strip(), stop_text.strip(), title))
+    return items
+
+
+def fetch_tecnocentro_epg(
+    channels: list[Channel], now: datetime
+) -> tuple[bytes | None, dict[str, str]]:
+    target_ids = {
+        channel.tvg_id
+        for channel in channels
+        if channel.tvg_id and EPG_PROGRAMME_SOURCES.get(channel.tvg_id, ("", ""))[0]
+        == "tecnocentro"
+    }
+    if not target_ids:
+        return None, {}
+
+    source_ids = {
+        target_id: EPG_PROGRAMME_SOURCES[target_id][1]
+        for target_id in target_ids
+    }
+    root = ET.Element(
+        "tv",
+        {
+            "generator-info-name": "lista-m3u tecnocentro importer",
+            "source-info-name": TECNOCENTRO_EPG_URL,
+        },
+    )
+    errors: dict[str, str] = {}
+    found_by_target = {target_id: 0 for target_id in target_ids}
+    chile_today = now.astimezone(CHILE_TIMEZONE).date()
+    seen: set[tuple[str, str, str, str]] = set()
+
+    for offset in (0, 1):
+        schedule_day = chile_today + timedelta(days=offset)
+        for target_id, source_id in source_ids.items():
+            url = (
+                f"{TECNOCENTRO_EPG_URL}?view=schedule&channel={source_id}"
+                f"&date={schedule_day.isoformat()}"
+            )
+            try:
+                status, body, _ = fetch_bytes(
+                    url,
+                    {"User-Agent": BROWSER_USER_AGENT, "Accept": "text/html,*/*"},
+                    timeout=60,
+                    limit=262_144,
+                )
+                if status != 200:
+                    raise ValueError(f"HTTP {status}")
+                items = tecnocentro_schedule_items(decode_web_text(body))
+                previous_start: datetime | None = None
+                for start_text, stop_text, title in items:
+                    try:
+                        start_clock = datetime.strptime(start_text, "%H:%M").time()
+                        stop_clock = datetime.strptime(stop_text, "%H:%M").time()
+                    except ValueError:
+                        continue
+                    start = datetime.combine(
+                        schedule_day, start_clock, tzinfo=CHILE_TIMEZONE
+                    )
+                    if previous_start is not None and start <= previous_start:
+                        start += timedelta(days=1)
+                    stop = datetime.combine(
+                        schedule_day, stop_clock, tzinfo=CHILE_TIMEZONE
+                    )
+                    while stop <= start:
+                        stop += timedelta(days=1)
+                    previous_start = start
+                    if stop < now - timedelta(hours=6) or start > now + timedelta(days=5):
+                        continue
+                    key = (target_id, start.isoformat(), stop.isoformat(), title)
+                    if key in seen:
+                        continue
+                    seen.add(key)
+                    programme = ET.SubElement(
+                        root,
+                        "programme",
+                        {
+                            "start": xmltv_format(start),
+                            "stop": xmltv_format(stop),
+                            "channel": source_id,
+                        },
+                    )
+                    ET.SubElement(programme, "title", {"lang": "es"}).text = title
+                    ET.SubElement(programme, "desc", {"lang": "es"}).text = (
+                        "Programacion diaria consultada en TecnoCentro."
+                    )
+                    found_by_target[target_id] += 1
+            except Exception as error:
+                errors[target_id] = f"{type(error).__name__}: {error}"
+
+    for target_id, count in found_by_target.items():
+        if count == 0:
+            errors[target_id] = "TecnoCentro no publico bloques para este canal"
+
+    if not any(found_by_target.values()):
+        return None, errors
+    return ET.tostring(root, encoding="utf-8", xml_declaration=True), errors
+
+
 def add_continuous_programmes(
     root: ET.Element,
     channel_id: str,
@@ -901,10 +1110,12 @@ def add_continuous_programmes(
                 "channel": channel_id,
             },
         )
-        ET.SubElement(programme, "title", {"lang": "es"}).text = f"{channel_name} en vivo"
-        ET.SubElement(programme, "desc", {"lang": "es"}).text = (
-            "Programacion continua de la senal en vivo."
+        title, description = CONTINUOUS_PROGRAMME_DETAILS.get(
+            channel_name,
+            (f"{channel_name} en vivo", "Programacion continua de la senal en vivo."),
         )
+        ET.SubElement(programme, "title", {"lang": "es"}).text = title
+        ET.SubElement(programme, "desc", {"lang": "es"}).text = description
         count += 1
         start = stop
     return count
@@ -925,7 +1136,7 @@ def build_epg(
         "tv",
         {
             "generator-info-name": "lista-m3u updater",
-            "source-info-name": "EPGShare01 y fuentes oficiales",
+            "source-info-name": "EPGShare01, TecnoCentro y fuentes oficiales",
             "data-generated-at": now.astimezone(timezone.utc).isoformat(),
         },
     )
@@ -1097,6 +1308,13 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
             }
         )
         return existing_status
+
+    tecnocentro_data, tecnocentro_errors = fetch_tecnocentro_epg(channels, now)
+    if tecnocentro_data:
+        source_documents["tecnocentro"] = tecnocentro_data
+    source_errors.update(
+        {f"tecnocentro:{target_id}": error for target_id, error in tecnocentro_errors.items()}
+    )
     if not source_documents:
         raise RuntimeError("ninguna fuente EPG respondio correctamente")
 
@@ -1694,11 +1912,15 @@ def main() -> int:
         playlist.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
         print("Cabecera M3U enlazada a la guia EPG publicada en GitHub")
     cloud_resolver_changed = pin_cloud_resolver_channels(lines)
+    news_order_changed = pin_news_channel_order(lines)
+    preferred_logo_changed = pin_preferred_logos(lines)
     custom_audio_changed = pin_custom_audio_channels(lines)
     custom_variant_changed = pin_custom_variant_channels(lines)
     variants_changed = pin_preferred_variants(lines)
     if (
         cloud_resolver_changed
+        or news_order_changed
+        or preferred_logo_changed
         or custom_audio_changed
         or custom_variant_changed
         or variants_changed
