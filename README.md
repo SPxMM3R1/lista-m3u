@@ -17,8 +17,9 @@ Guia de programacion XMLTV:
 
 Cada ejecucion:
 
-- renueva los enlaces temporales de TVN y Meganoticias Ahora desde sus paginas oficiales;
+- renueva los enlaces temporales de TVN y Meganoticias Ahora desde sus paginas oficiales cuando corre en la red chilena;
 - usa y redescubre la señal HLS que publica el reproductor oficial de 24 Horas;
+- conserva el token de Meganoticias Ahora en GitHub y lo valida solo desde la red chilena;
 - prueba todos los streams y sus logos PNG;
 - busca reemplazos verificados y maestros de respaldo 1080p/720p si TVN, Mega o La Red fallan;
 - comprueba el primer segmento multimedia de los canales con tokens o wrappers;

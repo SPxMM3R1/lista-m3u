@@ -73,6 +73,7 @@ CI_GEO_RESTRICTED_CHANNELS = {
     "24 Horas",
     "La Red",
 }
+CI_LOCAL_ONLY_CHANNELS = {"Meganoticias Ahora"}
 PLAYER_USER_AGENT = "VLC/3.0.20 LibVLC/3.0.20"
 BROWSER_USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -922,6 +923,13 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
 def check_channel(
     channel: Channel, attempts: int = 2, *, allow_ci_geo_block: bool = False
 ) -> CheckResult:
+    if allow_ci_geo_block and channel.name in CI_LOCAL_ONLY_CHANNELS:
+        return CheckResult(
+            channel.name,
+            channel.url,
+            True,
+            "token conservado; la validacion real requiere la red chilena",
+        )
     last_error = "respuesta desconocida"
     for attempt in range(attempts):
         try:
@@ -1299,6 +1307,12 @@ def refresh_dynamic_channel(
     *,
     running_in_ci: bool,
 ) -> bool:
+    if running_in_ci and channel.name in CI_LOCAL_ONLY_CHANNELS:
+        print(
+            f"  [CI] {channel.name}: se conserva el token local; "
+            "GitHub no puede renovarlo para la red chilena"
+        )
+        return False
     current_result = check_channel(channel, allow_ci_geo_block=running_in_ci)
     state = "OK" if current_result.ok else "FALLO"
     print(f"  [{state}] {channel.name}: {current_result.detail}")
@@ -1334,7 +1348,7 @@ def refresh_dynamic_channel(
         geo_blocked = (
             running_in_ci
             and candidate_url.startswith("https://mdstrm.com/live-stream-playlist/")
-            and channel.name in {"TVN", "Meganoticias Ahora"}
+            and channel.name == "TVN"
             and not candidate_result.ok
             and any(f"HTTP {status}" in candidate_result.detail for status in (401, 403))
         )
