@@ -18,6 +18,7 @@ Guia de programacion XMLTV:
 Cada ejecucion:
 
 - renueva los enlaces temporales de TVN y Meganoticias Ahora desde sus paginas oficiales;
+- usa y redescubre la señal HLS que publica el reproductor oficial de 24 Horas;
 - prueba todos los streams y sus logos PNG;
 - busca reemplazos verificados y maestros de respaldo 1080p/720p si TVN, Mega o La Red fallan;
 - comprueba el primer segmento multimedia de los canales con tokens o wrappers;

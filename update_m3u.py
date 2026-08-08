@@ -58,6 +58,8 @@ RED_BULL_CHANNEL_ID = "rrn:content:video-channels:c81f8686-ab67-4965-ba04-5f6658
 EPG_REFRESH_INTERVAL = timedelta(hours=12)
 TVN_LIVE_PAGE = "https://live.tvn.cl/"
 TVN_DEFAULT_ID = "57a498c4d7b86d600e5461cb"
+TWENTYFOUR_LIVE_PAGE = "https://www.24horas.cl/envivo"
+TWENTYFOUR_DEFAULT_ID = "57d1a22064f5d85712b20dab"
 MEGA_LIVE_PAGE = "https://www.mega.cl/senal-en-vivo/"
 MEGANOTICIAS_LIVE_PAGE = "https://www.meganoticias.cl/senal-en-vivo/meganoticias/"
 MEGAMEDIA_API_URL = "https://api.mega.cl/api/v1/mdstrm"
@@ -91,7 +93,10 @@ OFFICIAL_CANDIDATE_HINTS = {
     "CHV": re.compile(r"(?:chv|chilevision)", re.IGNORECASE),
     "Canal 13": re.compile(r"(?:13cl|canal.?13)", re.IGNORECASE),
     "T13": re.compile(r"(?:/t13/|t13\.)", re.IGNORECASE),
-    "24 Horas": re.compile(r"(?:24horas|689ba606ecfe7915e1f8f741)", re.IGNORECASE),
+    "24 Horas": re.compile(
+        r"(?:24horas|57d1a22064f5d85712b20dab|689ba606ecfe7915e1f8f741)",
+        re.IGNORECASE,
+    ),
     "La Red": re.compile(
         r"(?:lared|ds5i0a12qngha|airstream\.run|d1kqwrirylysyt)",
         re.IGNORECASE,
@@ -118,7 +123,9 @@ KNOWN_STREAM_FALLBACKS = {
     "T13": [
         "https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/t13/t13.smil/playlist.m3u8"
     ],
-    "24 Horas": ["https://mdstrm.com/live-stream-playlist/689ba606ecfe7915e1f8f741.m3u8"],
+    "24 Horas": [
+        "https://mdstrm.com/live-stream-playlist/57d1a22064f5d85712b20dab.m3u8"
+    ],
     "La Red": [
         "https://live2.airstream.run/3969875408/ts:abr.m3u8",
         "https://d1kqwrirylysyt.cloudfront.net/ts:abr.m3u8",
@@ -142,7 +149,7 @@ KNOWN_STREAM_FALLBACKS = {
 PREFERRED_VARIANT_MASTERS = {
     "CHV": "https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/chv/chv.smil/playlist.m3u8",
     "Canal 13": "https://redirector.dps.live/hls/13cl/playlist.m3u8",
-    "24 Horas": "https://mdstrm.com/live-stream-playlist/689ba606ecfe7915e1f8f741.m3u8",
+    "24 Horas": "https://mdstrm.com/live-stream-playlist/57d1a22064f5d85712b20dab.m3u8",
     "T13": "https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/t13/t13.smil/playlist.m3u8",
     "DW Espanol": "https://dwamdstream104.akamaized.net/hls/live/2015530/dwstream104/master.m3u8",
     "Euronews Espanol": "https://cdn-euronews.akamaized.net/live/eds/euronews-es/25053/index.m3u8",
@@ -157,6 +164,7 @@ SEGMENT_CHECK_CHANNELS = {
     "TVN",
     "Mega",
     "Meganoticias Ahora",
+    "24 Horas",
     "La Red",
     "Canal 13",
 }
@@ -1087,6 +1095,7 @@ def discover_official_candidates(channel: Channel) -> list[str]:
     candidates: list[str] = []
     dynamic_factories = {
         "TVN": fresh_tvn_url,
+        "24 Horas": fresh_24horas_url,
         "Meganoticias Ahora": fresh_meganoticias_url,
     }
     factory = dynamic_factories.get(channel.name)
@@ -1186,6 +1195,18 @@ def fresh_tvn_url() -> str:
     return playlist_url
 
 
+def fresh_24horas_url() -> str:
+    html = megamedia_page_html(TWENTYFOUR_LIVE_PAGE)
+    stream_id_match = re.search(
+        r'<a[^>]+class=["\'][^"\']*playertablink[^"\']*active[^"\']*["\']'
+        r'[^>]+data-ms=["\']([a-zA-Z0-9]+)["\']',
+        html,
+        flags=re.IGNORECASE,
+    )
+    stream_id = stream_id_match.group(1) if stream_id_match else TWENTYFOUR_DEFAULT_ID
+    return f"https://mdstrm.com/live-stream-playlist/{stream_id}.m3u8"
+
+
 def megamedia_page_html(page_url: str) -> str:
     headers = {
         "User-Agent": BROWSER_USER_AGENT,
@@ -1193,7 +1214,25 @@ def megamedia_page_html(page_url: str) -> str:
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
         "Accept-Language": "es-CL,es;q=0.9,en;q=0.8",
     }
-    _, body, _ = fetch_bytes(page_url, headers, limit=2_097_152)
+    try:
+        _, body, _ = fetch_bytes(page_url, headers, limit=2_097_152)
+    except urllib.error.URLError as error:
+        reason = str(getattr(error, "reason", error)).lower()
+        if "certificate verify failed" not in reason and "certificate has expired" not in reason:
+            raise
+        print(
+            f"  {page_url}: certificado web vencido; usando excepcion TLS solo para "
+            "leer su configuracion publica"
+        )
+        insecure_context = ssl.create_default_context()
+        insecure_context.check_hostname = False
+        insecure_context.verify_mode = ssl.CERT_NONE
+        _, body, _ = fetch_bytes(
+            page_url,
+            headers,
+            context=insecure_context,
+            limit=2_097_152,
+        )
     return body.decode("utf-8", "replace")
 
 
@@ -1445,6 +1484,7 @@ def main() -> int:
     refresh_changed = False
     dynamic_channels = {
         "TVN": fresh_tvn_url,
+        "24 Horas": fresh_24horas_url,
         "Meganoticias Ahora": fresh_meganoticias_url,
     }
     for channel_name, fresh_url_factory in dynamic_channels.items():
