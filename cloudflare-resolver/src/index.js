@@ -133,7 +133,7 @@ function rewriteHlsPlaylist(body, baseUrl) {
 
 function hlsAttribute(line, name) {
   const match = line.match(
-    new RegExp(`(?:^|,)${name}=(?:"([^"]*)"|([^,]*))`),
+    new RegExp(`(?:^|[:,])${name}=(?:"([^"]*)"|([^,]*))`),
   );
   return match?.[1] ?? match?.[2]?.trim();
 }
