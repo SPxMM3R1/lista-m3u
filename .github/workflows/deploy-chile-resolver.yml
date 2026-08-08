@@ -27,16 +27,37 @@ jobs:
       - name: Descargar repositorio
         uses: actions/checkout@v4
 
+      - name: Comprobar configuracion de Google Cloud
+        id: config
+        env:
+          GCP_WIF_PROVIDER: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          GCP_DEPLOYER: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+        shell: bash
+        run: |
+          if [ -z "$GCP_WIF_PROVIDER" ] || [ -z "$GCP_DEPLOYER" ]; then
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Pendiente: configura GCP_WORKLOAD_IDENTITY_PROVIDER y GCP_SERVICE_ACCOUNT."
+          else
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Configuracion cloud pendiente
+        if: steps.config.outputs.configured != 'true'
+        run: echo "Cloud Run queda pendiente hasta configurar la identidad de Google Cloud."
+
       - name: Autenticar en Google Cloud
+        if: steps.config.outputs.configured == 'true'
         uses: google-github-actions/auth@v2
         with:
           workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
 
       - name: Preparar gcloud
+        if: steps.config.outputs.configured == 'true'
         uses: google-github-actions/setup-gcloud@v2
 
       - name: Desplegar en Santiago
+        if: steps.config.outputs.configured == 'true'
         id: deploy
         shell: bash
         run: |
@@ -60,6 +81,7 @@ jobs:
           echo "resolver_url=$resolver_url" >> "$GITHUB_OUTPUT"
 
       - name: Guardar URL del resolutor como variable del repositorio
+        if: steps.config.outputs.configured == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
@@ -70,6 +92,7 @@ jobs:
             --body "${{ steps.deploy.outputs.resolver_url }}"
 
       - name: Conectar la M3U al resolutor
+        if: steps.config.outputs.configured == 'true'
         env:
           M3U_RESOLVER_BASE_URL: ${{ steps.deploy.outputs.resolver_url }}
         shell: bash
@@ -90,6 +113,7 @@ jobs:
           fi
 
       - name: Publicar URL cloud en la rama principal
+        if: steps.config.outputs.configured == 'true'
         shell: bash
         run: |
           set -euo pipefail
