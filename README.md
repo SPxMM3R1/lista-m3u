@@ -37,9 +37,10 @@ La guia conserva datos vigentes si una fuente externa falla temporalmente. La
 ejecucion tambien puede iniciarse manualmente desde la pestana **Actions** con
 el workflow **Actualizar M3U y EPG**.
 
-Los logos locales de NTV, TVN3, CHV Deportes, France 24, NHK World, Al Jazeera
-y XITE se publican como SVG vectoriales en `logos/svg` y la M3U apunta a esas
-versiones para conservar la maxima nitidez en el reproductor Android TV.
+Todos los logos de los canales se conservan dentro de `logos/` y la M3U y el
+EPG apuntan a las copias publicadas en este repositorio. Los logos vectoriales
+se mantienen como SVG y los demas como PNG para conservar la mejor calidad
+disponible sin depender de servidores externos.
 
 ## Orden de la lista
 
@@ -51,7 +52,7 @@ versiones para conservar la maxima nitidez en el reproductor Android TV.
 ## Canales
 
 La lista contiene 21 canales: TVN,
-Mega, CHV, Canal 13, La Red, 24 Horas, T13, CHV Noticias, NTV, TVN3,
+Mega, CHV, Canal 13, La Red, 24 Horas, Meganoticias Ahora, CHV Noticias, T13, NTV, TVN3,
 CHV Deportes, DW Espanol, France 24 Espanol, Euronews Espanol, NHK World
 Japan, Al Jazeera English, Red Bull TV, XITE Hits Germany, M1 y M2.
 

@@ -30,6 +30,7 @@ EPG_PATH = Path(__file__).with_name("epg.xml")
 REPORT_PATH = Path(__file__).with_name("channel-status.json")
 PUBLIC_RAW_BASE = "https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main"
 EPG_PUBLIC_URL = f"{PUBLIC_RAW_BASE}/epg.xml"
+LOCAL_LOGOS_PUBLIC_BASE = f"{PUBLIC_RAW_BASE}/logos"
 CUSTOM_HLS_DIR = Path(__file__).with_name("custom-hls")
 CUSTOM_HLS_PUBLIC_BASE = f"{PUBLIC_RAW_BASE}/custom-hls"
 NHK_MASTER_URL = "https://masterpl.hls.nhkworld.jp/hls/w/live/smarttv.m3u8"
@@ -106,27 +107,32 @@ CLOUD_CHANNEL_INFO = {
     "Meganoticias Ahora": (
         '#EXTINF:-1 tvg-id="MeganoticiasAhora.cl" '
         'tvg-name="Meganoticias Ahora" '
-        'tvg-logo="https://static2-meganoticias.cdn.mdstrm.com/_common/images/logo-meganoticias-.png" '
+        f'tvg-logo="{LOCAL_LOGOS_PUBLIC_BASE}/meganoticias.png" '
         'group-title="Noticias Chile",Meganoticias Ahora'
     ),
 }
 PREFERRED_LOGOS = {
-    "TVN": "https://i.imgur.com/3FKZHL4.png",
-    "Mega": "https://i.imgur.com/RlZfR84.png",
-    "CHV": "https://i.imgur.com/2Pu8yXf.png",
-    "Canal 13": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/chile/canal13-cl.png",
-    "La Red": "https://i.imgur.com/nJOVM6e.png",
-    "24 Horas": "https://i.imgur.com/CEE9zPe.png",
-    "Meganoticias Ahora": "https://static2-meganoticias.cdn.mdstrm.com/_common/images/logo-meganoticias-.png",
-    "T13": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/chile/t13-cl.png",
-    "CHV Noticias": "https://media.chilevision.cl/2026/01/CHV-NOTICIAS-LOGO@2x.png",
-    "NTV": f"{PUBLIC_RAW_BASE}/logos/svg/ntv.svg",
-    "TVN3": f"{PUBLIC_RAW_BASE}/logos/svg/tvn3.svg",
-    "CHV Deportes": f"{PUBLIC_RAW_BASE}/logos/svg/chv-deportes.svg",
-    "France 24 Espanol": f"{PUBLIC_RAW_BASE}/logos/svg/france24.svg",
-    "NHK World Japan": f"{PUBLIC_RAW_BASE}/logos/svg/nhk-world.svg",
-    "Al Jazeera English": f"{PUBLIC_RAW_BASE}/logos/svg/aljazeera.svg",
-    "XITE Hits Germany": f"{PUBLIC_RAW_BASE}/logos/svg/xite.svg",
+    "TVN": f"{LOCAL_LOGOS_PUBLIC_BASE}/tvn.png",
+    "Mega": f"{LOCAL_LOGOS_PUBLIC_BASE}/mega.png",
+    "CHV": f"{LOCAL_LOGOS_PUBLIC_BASE}/chv.png",
+    "Canal 13": f"{LOCAL_LOGOS_PUBLIC_BASE}/canal13.png",
+    "La Red": f"{LOCAL_LOGOS_PUBLIC_BASE}/la-red.png",
+    "24 Horas": f"{LOCAL_LOGOS_PUBLIC_BASE}/24-horas.png",
+    "Meganoticias Ahora": f"{LOCAL_LOGOS_PUBLIC_BASE}/meganoticias.png",
+    "T13": f"{LOCAL_LOGOS_PUBLIC_BASE}/t13.png",
+    "CHV Noticias": f"{LOCAL_LOGOS_PUBLIC_BASE}/chv-noticias.png",
+    "NTV": f"{LOCAL_LOGOS_PUBLIC_BASE}/ntv.svg",
+    "TVN3": f"{LOCAL_LOGOS_PUBLIC_BASE}/tvn3.svg",
+    "CHV Deportes": f"{LOCAL_LOGOS_PUBLIC_BASE}/chv-deportes.svg",
+    "DW Espanol": f"{LOCAL_LOGOS_PUBLIC_BASE}/dw-espanol.png",
+    "France 24 Espanol": f"{LOCAL_LOGOS_PUBLIC_BASE}/france24.svg",
+    "Euronews Espanol": f"{LOCAL_LOGOS_PUBLIC_BASE}/euronews-espanol.png",
+    "NHK World Japan": f"{LOCAL_LOGOS_PUBLIC_BASE}/nhk-world.svg",
+    "Al Jazeera English": f"{LOCAL_LOGOS_PUBLIC_BASE}/aljazeera.svg",
+    "Red Bull TV": f"{LOCAL_LOGOS_PUBLIC_BASE}/red-bull-tv.png",
+    "XITE Hits Germany": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
+    "M1": f"{LOCAL_LOGOS_PUBLIC_BASE}/m1.png",
+    "M2": f"{LOCAL_LOGOS_PUBLIC_BASE}/m2.png",
 }
 CONTINUOUS_PROGRAMME_DETAILS = {
     "TVN3": (
