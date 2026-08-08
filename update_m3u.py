@@ -74,6 +74,9 @@ CI_GEO_RESTRICTED_CHANNELS = {
     "La Red",
 }
 CI_LOCAL_ONLY_CHANNELS = {"Meganoticias Ahora"}
+# El token de Meganoticias depende de la red chilena y caduca antes de que
+# GitHub Raw deje de servir una copia cacheada de la lista.
+LOCAL_MEGANOTICIAS_URL = "http://192.168.0.165:8787/meganoticias.m3u8"
 PLAYER_USER_AGENT = "VLC/3.0.20 LibVLC/3.0.20"
 BROWSER_USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -1143,6 +1146,12 @@ def repair_failed_channels(
         if result.ok:
             continue
         channel = channels_by_name[result.channel]
+        if channel.name in CI_LOCAL_ONLY_CHANNELS and channel.url == LOCAL_MEGANOTICIAS_URL:
+            print(
+                f"  [CONSERVADO] {channel.name}: el endpoint local se mantiene; "
+                "su disponibilidad se comprueba desde la red chilena"
+            )
+            continue
         print(f"Buscando reemplazo oficial para {channel.name}")
         for candidate_url in discover_official_candidates(channel):
             candidate = Channel(
@@ -1307,6 +1316,11 @@ def refresh_dynamic_channel(
     *,
     running_in_ci: bool,
 ) -> bool:
+    if channel.name in CI_LOCAL_ONLY_CHANNELS and channel.url == LOCAL_MEGANOTICIAS_URL:
+        current_result = check_channel(channel, allow_ci_geo_block=running_in_ci)
+        state = "OK" if current_result.ok else "FALLO"
+        print(f"  [{state}] {channel.name}: endpoint local conservado; {current_result.detail}")
+        return False
     if running_in_ci and channel.name in CI_LOCAL_ONLY_CHANNELS:
         print(
             f"  [CI] {channel.name}: se conserva el token local; "

@@ -1,7 +1,7 @@
 # Lista M3U para Android TV
 
 Repositorio publico de la lista M3U principal para Android TV. La lista se
-actualiza automaticamente cada hora mediante GitHub Actions.
+actualiza automaticamente cada 15 minutos mediante GitHub Actions.
 
 ## URLs para el reproductor
 
@@ -17,9 +17,9 @@ Guia de programacion XMLTV:
 
 Cada ejecucion:
 
-- renueva los enlaces temporales de TVN y Meganoticias Ahora desde sus paginas oficiales cuando corre en la red chilena;
+- renueva los enlaces temporales de TVN desde su pagina oficial cuando corre en la red chilena;
 - usa y redescubre la señal HLS que publica el reproductor oficial de 24 Horas;
-- conserva el token de Meganoticias Ahora en GitHub y lo valida solo desde la red chilena;
+- conserva Meganoticias Ahora como endpoint local sin cache, porque su sesion depende de la red chilena y caduca antes que la cache de GitHub Raw;
 - prueba todos los streams y sus logos PNG;
 - busca reemplazos verificados y maestros de respaldo 1080p/720p si TVN, Mega o La Red fallan;
 - comprueba el primer segmento multimedia de los canales con tokens o wrappers;
@@ -33,6 +33,10 @@ Cada ejecucion:
 - publica `channel-status.json` como artefacto de la ejecucion.
 
 La guia conserva datos vigentes si una fuente externa falla temporalmente.
+
+Meganoticias Ahora usa el endpoint local `http://192.168.0.165:8787/meganoticias.m3u8`.
+El PC debe estar encendido y la TV debe estar en la misma red local. El servidor
+se inicia con Windows mediante la tarea `VibeM3U - Servidor M3U local`.
 
 La ejecucion tambien puede iniciarse manualmente desde la pestaña **Actions**
 con el workflow **Actualizar M3U y EPG**. La opcion `force_epg_refresh`
