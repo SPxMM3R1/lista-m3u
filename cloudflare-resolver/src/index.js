@@ -7,6 +7,9 @@ const MEGANOTICIAS_LIVE_PAGE =
   "https://www.meganoticias.cl/senal-en-vivo/meganoticias/";
 const MEGANOTICIAS_DEFAULT_ID = "561430ae330428c223687e1e";
 const MEGAMEDIA_API_URL = "https://api.mega.cl/api/v1/mdstrm";
+const MEGA_MASTER_URL =
+  "https://tr.live.clarovtrcdn.vtrplay.com/megahdchi/vxfmt=dp/" +
+  "playlist.m3u8?device_profile=STB_HLS_VCAS_LIVE_HD";
 const STREAM_CACHE_TTL_MS = 45_000;
 
 const streamCache = new Map();
@@ -80,6 +83,25 @@ async function freshMeganoticiasUrl() {
   return `https://mdstrm.com/live-stream-playlist/${streamId}.m3u8?access_token=${encodeURIComponent(token)}`;
 }
 
+async function freshMegaPlaylist() {
+  const response = await fetch(MEGA_MASTER_URL, {
+    headers: {
+      "User-Agent": BROWSER_USER_AGENT,
+      Referer: "https://www.mega.cl/senal-en-vivo/",
+      Origin: "https://www.mega.cl",
+      Accept: "application/vnd.apple.mpegurl,*/*;q=0.8",
+    },
+  });
+  if (!response.ok) {
+    throw new Error(`master de Mega HTTP ${response.status}`);
+  }
+  const body = await response.text();
+  if (!body.trimStart().startsWith("#EXTM3U")) {
+    throw new Error("Mega no devolvio una playlist HLS");
+  }
+  return body.replaceAll("http://", "https://");
+}
+
 async function cachedStreamUrl(label, factory) {
   const now = Date.now();
   const cached = streamCache.get(label);
@@ -102,6 +124,17 @@ function textResponse(status, body) {
   });
 }
 
+function playlistResponse(body) {
+  return new Response(body, {
+    status: 200,
+    headers: {
+      "Content-Type": "application/vnd.apple.mpegurl",
+      "Cache-Control": "no-store, no-cache, must-revalidate",
+      "Access-Control-Allow-Origin": "*",
+    },
+  });
+}
+
 export default {
   async fetch(request) {
     if (request.method !== "GET") {
@@ -111,6 +144,15 @@ export default {
     const path = new URL(request.url).pathname;
     if (path === "/health") {
       return textResponse(200, "ok\n");
+    }
+
+    if (path === "/mega.m3u8") {
+      try {
+        return playlistResponse(await freshMegaPlaylist());
+      } catch (error) {
+        console.error(`[FALLO] Mega: ${error?.constructor?.name ?? "Error"}`);
+        return textResponse(503, "Mega no disponible temporalmente\n");
+      }
     }
 
     const routes = {

@@ -1,15 +1,17 @@
 # Resolutor Cloudflare para VibeM3U
 
-Variante gratuita del resolutor de TVN y Meganoticias. Mantiene las mismas
-rutas publicas que el servicio de Cloud Run:
+Variante gratuita del resolutor de TVN, Mega y Meganoticias. Mantiene rutas
+publicas para las senales:
 
 - `/health`
+- `/mega.m3u8`
 - `/tvn.m3u8`
 - `/meganoticias.m3u8`
 
-El Worker obtiene el token temporal, responde con una redireccion 302 al
-master oficial y conserva el resultado durante 45 segundos. No escribe el
-token en los logs ni en GitHub.
+El Worker obtiene los tokens temporales de TVN y Meganoticias, y para Mega
+lee el master oficial y convierte sus referencias `http://` a `https://`.
+Las rutas con token responden con una redireccion 302; Mega responde con un
+master HLS renovado. No escribe tokens en los logs ni en GitHub.
 
 ## Despliegue
 

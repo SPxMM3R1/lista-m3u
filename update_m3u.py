@@ -72,6 +72,10 @@ TVN_ALTERNATIVE_URL = "https://iptv2.intersurtv.cl/TVN/index.m3u8?PlaylistM3UCL"
 TWENTYFOUR_LIVE_PAGE = "https://www.24horas.cl/envivo"
 TWENTYFOUR_DEFAULT_ID = "57d1a22064f5d85712b20dab"
 MEGA_LIVE_PAGE = "https://www.mega.cl/senal-en-vivo/"
+MEGA_SOURCE_MASTER_URL = (
+    "https://tr.live.clarovtrcdn.vtrplay.com/megahdchi/"
+    "vxfmt=dp/playlist.m3u8?device_profile=STB_HLS_VCAS_LIVE_HD"
+)
 MEGANOTICIAS_LIVE_PAGE = "https://www.meganoticias.cl/senal-en-vivo/meganoticias/"
 MEGAMEDIA_API_URL = "https://api.mega.cl/api/v1/mdstrm"
 MEGANOTICIAS_DEFAULT_ID = "561430ae330428c223687e1e"
@@ -91,6 +95,7 @@ CI_GEO_RESTRICTED_CHANNELS = {
 CLOUD_RESOLVER_BASE_URL = os.environ.get("M3U_RESOLVER_BASE_URL", "").strip().rstrip("/")
 CLOUD_RESOLVER_URLS = {
     "TVN": f"{CLOUD_RESOLVER_BASE_URL}/tvn.m3u8",
+    "Mega": f"{CLOUD_RESOLVER_BASE_URL}/mega.m3u8",
     "Meganoticias Ahora": f"{CLOUD_RESOLVER_BASE_URL}/meganoticias.m3u8",
 } if CLOUD_RESOLVER_BASE_URL else {}
 CLOUD_RESOLVER_CHANNELS = set(CLOUD_RESOLVER_URLS)
@@ -98,23 +103,26 @@ CLOUD_CHANNEL_INFO = {
     "Meganoticias Ahora": (
         '#EXTINF:-1 tvg-id="MeganoticiasAhora.cl" '
         'tvg-name="Meganoticias Ahora" '
-        'tvg-logo="https://cdn.m3u.cl/logo/449_Meganoticias.png" '
+        'tvg-logo="https://static2-meganoticias.cdn.mdstrm.com/_common/images/logo-meganoticias-.png" '
         'group-title="Noticias Chile",Meganoticias Ahora'
     ),
 }
 PREFERRED_LOGOS = {
-    "TVN": "https://cdn.m3u.cl/logo/452_TVN.png",
-    "Mega": "https://cdn.m3u.cl/logo/455_Mega.png",
-    "CHV": "https://cdn.m3u.cl/logo/1569_CHV.png",
-    "Canal 13": "https://cdn.m3u.cl/logo/1733_Canal_13.png",
-    "La Red": "https://cdn.m3u.cl/logo/790_La_Red.png",
-    "24 Horas": "https://cdn.m3u.cl/logo/448_TVN_24_Horas.png",
-    "Meganoticias Ahora": "https://cdn.m3u.cl/logo/449_Meganoticias.png",
-    "T13": "https://cdn.m3u.cl/logo/1054_T13.png",
-    "CHV Noticias": "https://cdn.m3u.cl/logo/1153_CHV_Noticias.png",
-    "NTV": "https://cdn.m3u.cl/logo/45_NTV.png",
-    "TVN3": "https://cdn.m3u.cl/logo/1437_TVN3.png",
-    "CHV Deportes": "https://cdn.m3u.cl/logo/1763_CHV_Deportes.png",
+    "TVN": "https://i.imgur.com/3FKZHL4.png",
+    "Mega": "https://i.imgur.com/RlZfR84.png",
+    "CHV": "https://i.imgur.com/2Pu8yXf.png",
+    "Canal 13": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/chile/canal13-cl.png",
+    "La Red": "https://i.imgur.com/nJOVM6e.png",
+    "24 Horas": "https://i.imgur.com/CEE9zPe.png",
+    "Meganoticias Ahora": "https://static2-meganoticias.cdn.mdstrm.com/_common/images/logo-meganoticias-.png",
+    "T13": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/chile/t13-cl.png",
+    "CHV Noticias": "https://media.chilevision.cl/2026/01/CHV-NOTICIAS-LOGO@2x.png",
+    "NTV": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Logotipo_de_NTV.svg/960px-Logotipo_de_NTV.svg.png",
+    "TVN3": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/TVN_3_2023.svg/960px-TVN_3_2023.svg.png",
+    "CHV Deportes": f"{PUBLIC_RAW_BASE}/logos/chv-deportes-transparent.png",
+    "France 24 Espanol": f"{PUBLIC_RAW_BASE}/logos/france24-transparent.png",
+    "NHK World Japan": f"{PUBLIC_RAW_BASE}/logos/nhk-world-transparent.png",
+    "XITE Hits Germany": f"{PUBLIC_RAW_BASE}/logos/xite-transparent.png",
 }
 CONTINUOUS_PROGRAMME_DETAILS = {
     "TVN3": (
@@ -293,7 +301,7 @@ SEGMENT_CHECK_CHANNELS = {
 }
 CUSTOM_AUDIO_MASTERS = {
     "Mega": (
-        "http://tr.live.clarovtrcdn.vtrplay.com/megahdchi/vxfmt=dp/playlist.m3u8?device_profile=STB_HLS_VCAS_LIVE_HD",
+        MEGA_SOURCE_MASTER_URL,
         "mega-1080-audio.m3u8",
     ),
     "La Red": (
@@ -455,7 +463,7 @@ def pin_preferred_variants(lines: list[str]) -> bool:
 
 
 def pin_cloud_resolver_channels(lines: list[str]) -> bool:
-    """Replace private resolver URLs after Cloud Run has been deployed."""
+    """Replace renewable channel URLs after the cloud resolver is deployed."""
     if not CLOUD_RESOLVER_URLS:
         return False
     changed = False
@@ -466,7 +474,7 @@ def pin_cloud_resolver_channels(lines: list[str]) -> bool:
         if public_url and channel.url != public_url:
             lines[channel.url_line] = public_url
             changed = True
-            print(f"  [OK] {channel.name}: resolutor Cloud Run configurado")
+            print(f"  [OK] {channel.name}: resolutor cloud configurado")
     missing = [
         channel_name
         for channel_name in CLOUD_CHANNEL_INFO
@@ -480,7 +488,7 @@ def pin_cloud_resolver_channels(lines: list[str]) -> bool:
             additions.extend(
                 [CLOUD_CHANNEL_INFO[channel_name], CLOUD_RESOLVER_URLS[channel_name], ""]
             )
-            print(f"  [OK] {channel_name}: canal agregado al resolutor Cloud Run")
+            print(f"  [OK] {channel_name}: canal agregado al resolutor cloud")
         lines[insertion_index:insertion_index] = additions
         changed = True
     return changed
@@ -790,6 +798,8 @@ def custom_variant_master(
 def pin_custom_audio_channels(lines: list[str]) -> bool:
     changed = False
     for channel in parse_channels(lines):
+        if CLOUD_RESOLVER_URLS.get(channel.name) == channel.url:
+            continue
         source = CUSTOM_AUDIO_MASTERS.get(channel.name)
         if not source:
             continue
@@ -1486,12 +1496,45 @@ def check_logo(channel: Channel) -> LogoResult:
     try:
         status, body, _ = fetch_bytes(channel.logo_url, headers, limit=65_536)
         if status == 200 and body.startswith(b"\x89PNG\r\n\x1a\n"):
-            return LogoResult(channel.name, channel.logo_url, True, "PNG valido")
+            if not png_has_transparency(body):
+                return LogoResult(
+                    channel.name,
+                    channel.logo_url,
+                    False,
+                    "PNG valido pero sin canal alfa transparente",
+                )
+            return LogoResult(channel.name, channel.logo_url, True, "PNG valido y transparente")
         return LogoResult(channel.name, channel.logo_url, False, f"HTTP {status}, no es PNG")
     except urllib.error.HTTPError as error:
         return LogoResult(channel.name, channel.logo_url, False, f"HTTP {error.code} {error.reason}")
     except Exception as error:
         return LogoResult(channel.name, channel.logo_url, False, f"{type(error).__name__}: {error}")
+
+
+def png_has_transparency(body: bytes) -> bool:
+    """Check the PNG color type or tRNS chunk without requiring Pillow."""
+    if len(body) < 33 or not body.startswith(b"\x89PNG\r\n\x1a\n"):
+        return False
+    if body[12:16] != b"IHDR":
+        return False
+    color_type = body[25]
+    if color_type in {4, 6}:
+        return True
+    if color_type != 3:
+        return False
+    offset = 8
+    while offset + 12 <= len(body):
+        length = int.from_bytes(body[offset : offset + 4], "big")
+        chunk_type = body[offset + 4 : offset + 8]
+        end = offset + 12 + length
+        if end > len(body):
+            break
+        if chunk_type == b"tRNS":
+            return True
+        if chunk_type == b"IEND":
+            break
+        offset = end
+    return False
 
 
 def verify_logos(channels: list[Channel]) -> list[LogoResult]:

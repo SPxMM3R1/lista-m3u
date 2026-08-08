@@ -27,11 +27,11 @@ Cada ejecucion:
 - actualiza la guia EPG con las parrillas disponibles;
 - publica `channel-status.json` como artefacto de cada ejecucion.
 
-TVN y Meganoticias Ahora usan el resolutor publico de Google Cloud Run en
-`southamerica-west1` (Santiago). El resolutor obtiene los tokens al abrir la
-senal y devuelve una redireccion HLS temporal. No se necesita dejar este PC
-encendido. Meganoticias se reincorpora automaticamente a la M3U cuando el
-despliegue cloud queda configurado.
+TVN, Mega y Meganoticias Ahora usan el resolutor publico de Cloudflare. TVN y
+Meganoticias obtienen sus tokens al abrir la senal y devuelven una redireccion
+HLS temporal; Mega entrega su master oficial con referencias HTTPS para evitar
+bloqueos de trafico mixto en Android TV. No se necesita dejar este PC
+encendido.
 
 La guia conserva datos vigentes si una fuente externa falla temporalmente. La
 ejecucion tambien puede iniciarse manualmente desde la pestana **Actions** con
@@ -46,15 +46,14 @@ el workflow **Actualizar M3U y EPG**.
 
 ## Canales
 
-La lista contiene 20 canales mientras se configura el resolutor cloud: TVN,
+La lista contiene 21 canales: TVN,
 Mega, CHV, Canal 13, La Red, 24 Horas, T13, CHV Noticias, NTV, TVN3,
 CHV Deportes, DW Espanol, France 24 Espanol, Euronews Espanol, NHK World
 Japan, Al Jazeera English, Red Bull TV, XITE Hits Germany, M1 y M2.
 
 ## Resolutor cloud
 
-El workflow **Deploy Chile resolver** despliega `cloud-resolver` en Santiago,
-guarda su URL en la variable `M3U_RESOLVER_BASE_URL` y vuelve a insertar
-Meganoticias en el bloque de noticias. Requiere configurar una vez los secretos
-`GCP_WORKLOAD_IDENTITY_PROVIDER` y `GCP_SERVICE_ACCOUNT`. El proyecto se toma
-de la variable `GCP_PROJECT_ID` o usa `rugged-episode-148820`.
+El workflow **Deploy Cloudflare resolver** despliega `cloudflare-resolver`,
+guarda su URL en la variable `M3U_RESOLVER_BASE_URL` y conecta TVN, Mega y
+Meganoticias. Requiere configurar una vez los secretos
+`CLOUDFLARE_API_TOKEN` y `CLOUDFLARE_ACCOUNT_ID`.
