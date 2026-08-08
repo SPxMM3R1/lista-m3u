@@ -17,8 +17,10 @@ No escribe tokens en los logs ni en GitHub.
 
 La ruta `/meganoticias-proxy.m3u8` es una variante aislada para Meganoticias:
 el Worker obtiene el master, reescribe las variantes, el audio, las claves y
-los segmentos para que pasen por el mismo Worker. La ruta normal se conserva
-como respaldo mientras se valida la reproduccion en la TV.
+los segmentos para que pasen por el mismo Worker. Sus solicitudes se enrutan a
+una Durable Object unica para conservar el contexto de la sesion entre el
+master y sus segmentos. La ruta normal se conserva como respaldo mientras se
+valida la reproduccion en la TV.
 
 ## Despliegue
 

@@ -287,6 +287,12 @@ async function proxyMeganoticias(request, requestUrl) {
   });
 }
 
+export class MeganoticiasProxy {
+  async fetch(request) {
+    return proxyMeganoticias(request, new URL(request.url));
+  }
+}
+
 function hlsAttribute(line, name) {
   const match = line.match(
     new RegExp(`(?:^|[:,])${name}=(?:"([^"]*)"|([^,]*))`),
@@ -398,7 +404,7 @@ function playlistResponse(body) {
 }
 
 export default {
-  async fetch(request) {
+  async fetch(request, env) {
     if (request.method !== "GET") {
       return textResponse(405, "method not allowed\n");
     }
@@ -418,14 +424,11 @@ export default {
     }
 
     if (path === MEGANOTICIAS_PROXY_PATH) {
-      try {
-        return await proxyMeganoticias(request, new URL(request.url));
-      } catch (error) {
-        console.error(
-          `[FALLO] Meganoticias proxy: ${error?.constructor?.name ?? "Error"}`,
-        );
-        return textResponse(503, "Meganoticias proxy no disponible temporalmente\n");
+      if (!env.MEGANOTICIAS_PROXY) {
+        return textResponse(503, "Meganoticias proxy no configurado\n");
       }
+      const id = env.MEGANOTICIAS_PROXY.idFromName("meganoticias");
+      return env.MEGANOTICIAS_PROXY.get(id).fetch(request);
     }
 
     const routes = {
