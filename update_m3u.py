@@ -855,6 +855,15 @@ def xmltv_format_chile(value: datetime) -> str:
     return value.astimezone(CHILE_TIMEZONE).strftime("%Y%m%d%H%M%S %z")
 
 
+def localize_xmltv_programme(programme: ET.Element) -> ET.Element:
+    localized = copy.deepcopy(programme)
+    for attribute in ("start", "stop"):
+        value = localized.get(attribute)
+        if value:
+            localized.set(attribute, xmltv_format_chile(xmltv_datetime(value)))
+    return localized
+
+
 def epg_status_from_xml(
     data: bytes,
     expected_ids: set[str],
@@ -1080,8 +1089,8 @@ def fetch_tecnocentro_epg(
                         root,
                         "programme",
                         {
-                            "start": xmltv_format(start),
-                            "stop": xmltv_format(stop),
+                            "start": xmltv_format_chile(start),
+                            "stop": xmltv_format_chile(stop),
                             "channel": source_id,
                         },
                     )
@@ -1109,7 +1118,7 @@ def add_continuous_programmes(
     *,
     now: datetime,
     start_at: datetime | None = None,
-    formatter: Callable[[datetime], str] = xmltv_format,
+    formatter: Callable[[datetime], str] = xmltv_format_chile,
 ) -> int:
     start = start_at or (
         now.astimezone(timezone.utc).replace(
@@ -1186,7 +1195,7 @@ def build_epg(
             target_id = source_lookup.get((source_name, programme.get("channel", "")))
             if target_id is None:
                 continue
-            copied = copy.deepcopy(programme)
+            copied = localize_xmltv_programme(programme)
             copied.set("channel", target_id)
             root.append(copied)
             programmes_by_target[target_id] += 1
