@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify the published playlist and refresh TVN's expiring stream token."""
+"""Verify the published playlist and refresh expiring live stream links."""
 
 from __future__ import annotations
 
@@ -16,11 +16,12 @@ import time
 import urllib.error
 import urllib.request
 import xml.etree.ElementTree as ET
+from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import asdict, dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from urllib.parse import urljoin, urlsplit
+from urllib.parse import quote, urlencode, urljoin, urlsplit
 
 
 DEFAULT_PLAYLIST = Path(__file__).with_name("m3u.m3u")
@@ -57,7 +58,19 @@ RED_BULL_CHANNEL_ID = "rrn:content:video-channels:c81f8686-ab67-4965-ba04-5f6658
 EPG_REFRESH_INTERVAL = timedelta(hours=12)
 TVN_LIVE_PAGE = "https://live.tvn.cl/"
 TVN_DEFAULT_ID = "57a498c4d7b86d600e5461cb"
-CI_GEO_RESTRICTED_CHANNELS = {"TVN", "CHV", "Canal 13", "24 Horas", "La Red"}
+MEGA_LIVE_PAGE = "https://www.mega.cl/senal-en-vivo/"
+MEGANOTICIAS_LIVE_PAGE = "https://www.meganoticias.cl/senal-en-vivo/meganoticias/"
+MEGAMEDIA_API_URL = "https://api.mega.cl/api/v1/mdstrm"
+MEGANOTICIAS_DEFAULT_ID = "561430ae330428c223687e1e"
+CI_GEO_RESTRICTED_CHANNELS = {
+    "TVN",
+    "Mega",
+    "Meganoticias Ahora",
+    "CHV",
+    "Canal 13",
+    "24 Horas",
+    "La Red",
+}
 PLAYER_USER_AGENT = "VLC/3.0.20 LibVLC/3.0.20"
 BROWSER_USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -65,6 +78,7 @@ BROWSER_USER_AGENT = (
 )
 OFFICIAL_STREAM_PAGES = {
     "Mega": ["https://www.mega.cl/senal-en-vivo/"],
+    "Meganoticias Ahora": [MEGANOTICIAS_LIVE_PAGE],
     "CHV": ["https://www.chilevision.cl/senal-online"],
     "Canal 13": ["https://www.13.cl/en-vivo"],
     "T13": ["https://www.t13.cl/en-vivo"],
@@ -73,6 +87,7 @@ OFFICIAL_STREAM_PAGES = {
 }
 OFFICIAL_CANDIDATE_HINTS = {
     "Mega": re.compile(r"mega", re.IGNORECASE),
+    "Meganoticias Ahora": re.compile(r"(?:mega|meganoticias)", re.IGNORECASE),
     "CHV": re.compile(r"(?:chv|chilevision)", re.IGNORECASE),
     "Canal 13": re.compile(r"(?:13cl|canal.?13)", re.IGNORECASE),
     "T13": re.compile(r"(?:/t13/|t13\.)", re.IGNORECASE),
@@ -80,9 +95,18 @@ OFFICIAL_CANDIDATE_HINTS = {
     "La Red": re.compile(r"(?:lared|ds5i0a12qngha)", re.IGNORECASE),
 }
 KNOWN_STREAM_FALLBACKS = {
+    "TVN": [
+        "https://iptv2.intersurtv.cl/TVN/index.m3u8",
+        "http://45.162.193.35/TVN/index.m3u8",
+        "http://15.204.246.24:8080/TVNHD/index.m3u8",
+    ],
     "Mega": [
         "http://tr.live.clarovtrcdn.vtrplay.com/megahdchi/vxfmt=dp/playlist.m3u8?device_profile=STB_HLS_VCAS_LIVE_HD",
+        "https://iptv.bitred.cl/mega/index.m3u8",
+        "http://15.204.246.24:8080/MEGAHD/index.m3u8",
         "https://unlimited1-cl-isp.dps.live/mega/mega.smil/playlist.m3u8",
+        "https://unlimited2-cl-isp.dps.live/mega/mega.smil/playlist.m3u8",
+        "https://pantera1-100gb-cl-movistar.dps.live/mega/mega.smil/playlist.m3u8",
     ],
     "CHV": [
         "https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/chv/chv.smil/playlist.m3u8"
@@ -127,6 +151,13 @@ PREFERRED_VARIANT_MASTERS = {
     "M2": "http://stream.mcquack.net/330/index.m3u8",
 }
 MASTER_ONLY_CHANNELS = {"Canal 13"}
+SEGMENT_CHECK_CHANNELS = {
+    "TVN",
+    "Mega",
+    "Meganoticias Ahora",
+    "La Red",
+    "Canal 13",
+}
 CUSTOM_AUDIO_MASTERS = {
     "Mega": (
         "http://tr.live.clarovtrcdn.vtrplay.com/megahdchi/vxfmt=dp/playlist.m3u8?device_profile=STB_HLS_VCAS_LIVE_HD",
@@ -293,6 +324,12 @@ def request_headers(channel: str) -> dict[str, str]:
     if channel == "TVN":
         headers["Referer"] = "https://live.tvn.cl/"
         headers["Origin"] = "https://live.tvn.cl"
+    elif channel == "Mega":
+        headers["Referer"] = MEGA_LIVE_PAGE
+        headers["Origin"] = "https://www.mega.cl"
+    elif channel == "Meganoticias Ahora":
+        headers["Referer"] = MEGANOTICIAS_LIVE_PAGE
+        headers["Origin"] = "https://www.meganoticias.cl"
     elif channel == "La Red":
         headers["Referer"] = "https://www.lared.cl/senal-online/"
     return headers
@@ -886,7 +923,7 @@ def check_channel(
                 detail = "playlist HLS valida"
                 if final_url != channel.url:
                     detail += " (con redireccion)"
-                if channel.name in {"La Red", "Canal 13"}:
+                if channel.name in SEGMENT_CHECK_CHANNELS:
                     segment_ok, segment_detail = check_hls_first_segment(
                         channel.url,
                         request_headers(channel.name),
@@ -1039,7 +1076,18 @@ def extract_hls_urls(page_text: str) -> list[str]:
 
 
 def discover_official_candidates(channel: Channel) -> list[str]:
-    candidates = list(KNOWN_STREAM_FALLBACKS.get(channel.name, []))
+    candidates: list[str] = []
+    dynamic_factories = {
+        "TVN": fresh_tvn_url,
+        "Meganoticias Ahora": fresh_meganoticias_url,
+    }
+    factory = dynamic_factories.get(channel.name)
+    if factory:
+        try:
+            candidates.append(factory())
+        except Exception as error:
+            print(f"  [AVISO] {channel.name}: no se pudo renovar el enlace oficial: {error}")
+    candidates.extend(KNOWN_STREAM_FALLBACKS.get(channel.name, []))
     headers = {
         "User-Agent": BROWSER_USER_AGENT,
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
@@ -1067,7 +1115,7 @@ def repair_failed_channels(
     channels_by_name = {channel.name: channel for channel in channels}
     repaired: list[str] = []
     for result in results:
-        if result.ok or result.channel == "TVN":
+        if result.ok:
             continue
         channel = channels_by_name[result.channel]
         print(f"Buscando reemplazo oficial para {channel.name}")
@@ -1130,6 +1178,138 @@ def fresh_tvn_url() -> str:
     return playlist_url
 
 
+def megamedia_page_html(page_url: str) -> str:
+    headers = {
+        "User-Agent": BROWSER_USER_AGENT,
+        "Referer": page_url,
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "es-CL,es;q=0.9,en;q=0.8",
+    }
+    _, body, _ = fetch_bytes(page_url, headers, limit=2_097_152)
+    return body.decode("utf-8", "replace")
+
+
+def fresh_megamedia_url(page_url: str, default_id: str, label: str) -> str:
+    html = megamedia_page_html(page_url)
+    config_match = re.search(
+        r"var\s+VideoSenalEnVivo\s*=\s*\{\s*id:\s*'([^']+)'"
+        r".*?serverKey\s*:\s*'([^']+)'",
+        html,
+        flags=re.DOTALL,
+    )
+    if not config_match:
+        raise RuntimeError(f"la pagina de {label} no publico la configuracion del reproductor")
+    stream_id, server_key = config_match.groups()
+    stream_id = stream_id or default_id
+    query = urlencode(
+        {
+            "id": stream_id,
+            "ua": BROWSER_USER_AGENT,
+            "type": "live",
+            "process": "access_token",
+            "key": server_key,
+        }
+    )
+    headers = {
+        "User-Agent": BROWSER_USER_AGENT,
+        "Referer": page_url,
+        "Origin": urlsplit(page_url).scheme + "://" + urlsplit(page_url).netloc,
+        "Accept": "application/json",
+    }
+    status, body, _ = fetch_bytes(
+        f"{MEGAMEDIA_API_URL}?{query}", headers, limit=262_144
+    )
+    if status != 200:
+        raise RuntimeError(f"la API de {label} respondio HTTP {status}")
+    try:
+        response = json.loads(body.decode("utf-8", "replace"))
+    except json.JSONDecodeError as error:
+        raise RuntimeError(f"la API de {label} no devolvio JSON") from error
+    token = response.get("access_token") if isinstance(response, dict) else None
+    if not token or not isinstance(token, str):
+        message = response.get("message", "sin token") if isinstance(response, dict) else "sin token"
+        raise RuntimeError(f"la API de {label} no emitio access_token ({message})")
+    if not re.fullmatch(r"[A-Za-z0-9._~-]+", token):
+        raise RuntimeError(f"{label} entrego un token con formato inesperado")
+    return (
+        f"https://mdstrm.com/live-stream-playlist/{stream_id}.m3u8?access_token="
+        f"{quote(token, safe='')}"
+    )
+
+
+def fresh_meganoticias_url() -> str:
+    return fresh_megamedia_url(
+        MEGANOTICIAS_LIVE_PAGE,
+        MEGANOTICIAS_DEFAULT_ID,
+        "Meganoticias Ahora",
+    )
+
+
+def refresh_dynamic_channel(
+    lines: list[str],
+    channel: Channel,
+    fresh_url_factory: Callable[[], str],
+    *,
+    running_in_ci: bool,
+) -> bool:
+    current_result = check_channel(channel, allow_ci_geo_block=running_in_ci)
+    state = "OK" if current_result.ok else "FALLO"
+    print(f"  [{state}] {channel.name}: {current_result.detail}")
+    use_dynamic_master = "/live-stream-gdai/" not in channel.url
+    needs_refresh = running_in_ci or not current_result.ok or not use_dynamic_master
+    if not needs_refresh:
+        return False
+
+    candidates: list[str] = []
+    try:
+        candidates.append(fresh_url_factory())
+    except Exception as error:
+        print(f"  [AVISO] {channel.name}: no se pudo renovar el enlace oficial: {error}")
+    candidates.extend(KNOWN_STREAM_FALLBACKS.get(channel.name, []))
+
+    seen: set[str] = set()
+    for candidate_url in candidates:
+        if candidate_url == channel.url or candidate_url in seen:
+            continue
+        seen.add(candidate_url)
+        candidate = Channel(
+            channel.name,
+            candidate_url,
+            channel.url_line,
+            channel.info_line,
+            channel.logo_url,
+            channel.group,
+            channel.tvg_id,
+        )
+        candidate_result = check_channel(
+            candidate, allow_ci_geo_block=running_in_ci
+        )
+        geo_blocked = (
+            running_in_ci
+            and candidate_url.startswith("https://mdstrm.com/live-stream-playlist/")
+            and channel.name in {"TVN", "Meganoticias Ahora"}
+            and not candidate_result.ok
+            and any(f"HTTP {status}" in candidate_result.detail for status in (401, 403))
+        )
+        if candidate_result.ok or geo_blocked:
+            lines[channel.url_line] = candidate_url
+            if geo_blocked:
+                print(
+                    f"  [GEO] {channel.name}: maestro renovado; GitHub Actions no puede "
+                    "reproducirlo fuera de Chile"
+                )
+            else:
+                print(f"  [OK] {channel.name}: enlace renovado o respaldo verificado")
+            return True
+        print(f"  [AVISO] {channel.name}: candidato no usable: {candidate_result.detail}")
+
+    if current_result.ok:
+        print(f"  [AVISO] {channel.name}: se conserva el enlace actual")
+    else:
+        print(f"  [SIN RESPALDO] {channel.name}: se conserva el enlace fallido para revision")
+    return False
+
+
 def verify_all(channels: list[Channel], *, allow_ci_geo_block: bool = False) -> list[CheckResult]:
     results: dict[str, CheckResult] = {}
     with ThreadPoolExecutor(max_workers=min(6, len(channels))) as pool:
@@ -1153,11 +1333,14 @@ def write_report(
     logo_results: list[LogoResult] | None = None,
     repaired_channels: list[str] | None = None,
     epg_status: dict | None = None,
+    *,
+    refreshed_channels: list[str] | None = None,
 ) -> None:
     logos = logo_results or []
     report = {
         "playlist": DEFAULT_PLAYLIST.name,
         "tvn_refreshed": tvn_refreshed,
+        "refreshed_channels": refreshed_channels or [],
         "repaired_channels": repaired_channels or [],
         "all_ok": (
             all(result.ok for result in results)
@@ -1250,35 +1433,25 @@ def main() -> int:
 
     print(f"Revisando {len(channels)} canales de {playlist.name}")
     running_in_ci = os.environ.get("CI", "").lower() == "true"
-    tvn_refreshed = False
-    tvn = next((channel for channel in channels if channel.name == "TVN"), None)
-    if tvn:
-        current_tvn = check_channel(tvn, allow_ci_geo_block=running_in_ci)
-        state = "OK" if current_tvn.ok else "VENCIDO"
-        print(f"  [{state}] TVN: {current_tvn.detail}")
-        use_master = "/live-stream-gdai/" not in tvn.url
-        needs_tvn_refresh = running_in_ci or not current_tvn.ok or not use_master
-        if needs_tvn_refresh:
-            print("Renovando el maestro de TVN desde su pagina oficial")
-            new_url = fresh_tvn_url()
-            candidate = Channel(
-                "TVN", new_url, tvn.url_line, tvn.info_line, tvn.logo_url, tvn.group
-            )
-            refreshed_result = check_channel(
-                candidate, allow_ci_geo_block=running_in_ci
-            )
-            geo_blocked = running_in_ci and not refreshed_result.ok and any(
-                f"HTTP {status}" in refreshed_result.detail for status in (401, 403)
-            )
-            if not refreshed_result.ok and not geo_blocked:
-                raise RuntimeError(f"el nuevo maestro de TVN fallo: {refreshed_result.detail}")
-            lines[tvn.url_line] = new_url
-            playlist.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
-            tvn_refreshed = True
-            if geo_blocked:
-                print("  [GEO] TVN: maestro renovado; GitHub Actions no puede reproducirlo fuera de Chile")
-            else:
-                print("  [OK] TVN: maestro renovado y comprobado")
+    refreshed_channels: list[str] = []
+    refresh_changed = False
+    dynamic_channels = {
+        "TVN": fresh_tvn_url,
+        "Meganoticias Ahora": fresh_meganoticias_url,
+    }
+    for channel_name, fresh_url_factory in dynamic_channels.items():
+        channel = next((item for item in channels if item.name == channel_name), None)
+        if channel and refresh_dynamic_channel(
+            lines,
+            channel,
+            fresh_url_factory,
+            running_in_ci=running_in_ci,
+        ):
+            refreshed_channels.append(channel_name)
+            refresh_changed = True
+    if refresh_changed:
+        playlist.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
+    tvn_refreshed = "TVN" in refreshed_channels
 
     print("Verificacion final de la lista completa")
     final_lines = playlist.read_text(encoding="utf-8-sig").splitlines()
@@ -1307,6 +1480,7 @@ def main() -> int:
         logo_results,
         repaired_channels,
         epg_status,
+        refreshed_channels=refreshed_channels,
     )
     failed = [result.channel for result in results if not result.ok]
     failed_logos = [result.channel for result in logo_results if not result.ok]

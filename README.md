@@ -17,9 +17,10 @@ Guia de programacion XMLTV:
 
 Cada ejecucion:
 
-- renueva el enlace temporal de TVN directamente desde su pagina oficial;
+- renueva los enlaces temporales de TVN y Meganoticias Ahora desde sus paginas oficiales;
 - prueba todos los streams y sus logos PNG;
-- busca reemplazos verificados en fuentes oficiales si un canal falla;
+- busca reemplazos verificados y maestros de respaldo 1080p/720p si TVN o Mega fallan;
+- comprueba el primer segmento multimedia de los canales con tokens o wrappers;
 - comprueba el stream oficial normal de NHK World;
 - comprueba que La Red entregue un segmento multimedia actual y renueva su wrapper 1080p;
 - genera wrappers HLS de 1080p con audio para Mega, La Red y NHK World;
