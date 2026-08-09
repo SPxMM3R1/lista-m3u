@@ -136,7 +136,7 @@ CLOUD_CHANNEL_INFO = {
     "Meganoticias": (
         '#EXTINF:-1 tvg-id="MeganoticiasAhora.cl" '
         'tvg-name="Meganoticias" '
-        f'tvg-logo="{LOCAL_LOGOS_PUBLIC_BASE}/meganoticias.png" '
+        f'tvg-logo="{LOCAL_LOGOS_PUBLIC_BASE}/meganoticias.svg" '
         'group-title="Noticias Chile",Meganoticias'
     ),
 }
@@ -147,7 +147,7 @@ PREFERRED_LOGOS = {
     "Canal 13": f"{LOCAL_LOGOS_PUBLIC_BASE}/canal13.png",
     "La Red": f"{LOCAL_LOGOS_PUBLIC_BASE}/la-red.png",
     "24 Horas": f"{LOCAL_LOGOS_PUBLIC_BASE}/24-horas.png",
-    "Meganoticias": f"{LOCAL_LOGOS_PUBLIC_BASE}/meganoticias.png",
+    "Meganoticias": f"{LOCAL_LOGOS_PUBLIC_BASE}/meganoticias.svg",
     "T13": f"{LOCAL_LOGOS_PUBLIC_BASE}/t13.png",
     "CHV Noticias": f"{LOCAL_LOGOS_PUBLIC_BASE}/chv-noticias.png",
     "NTV": f"{LOCAL_LOGOS_PUBLIC_BASE}/ntv.svg",
