@@ -708,6 +708,41 @@ def epg_status_from_xml(
     }
 
 
+def normalize_red_bull_schedule(schedule: list[dict]) -> list[dict]:
+    """Return a chronological, non-overlapping linear guide."""
+    ordered: list[dict] = []
+    sortable: list[tuple[datetime, dict]] = []
+    for item in schedule:
+        try:
+            start = datetime.fromisoformat(item["start_time"].replace("Z", "+00:00"))
+            stop = datetime.fromisoformat(item["end_time"].replace("Z", "+00:00"))
+        except (KeyError, TypeError, ValueError):
+            continue
+        if stop > start:
+            sortable.append((start, item))
+
+    # The API can briefly return duplicate or overlapping cards while its guide
+    # rolls over. A linear XMLTV channel must expose one programme at a time.
+    previous_stop: datetime | None = None
+    for start, source_item in sorted(sortable, key=lambda pair: pair[0]):
+        stop = datetime.fromisoformat(source_item["end_time"].replace("Z", "+00:00"))
+        if previous_stop is not None and start < previous_stop:
+            if stop <= previous_stop:
+                continue
+            item = dict(source_item)
+            item["start_time"] = previous_stop.isoformat()
+            start = previous_stop
+        else:
+            item = source_item
+        ordered.append(item)
+        previous_stop = (
+            stop
+            if previous_stop is None or stop > previous_stop
+            else previous_stop
+        )
+    return ordered
+
+
 def red_bull_api_schedule(locale: str) -> list[dict]:
     """Read the current Red Bull linear schedule using a short-lived API session."""
     headers = {
@@ -767,7 +802,7 @@ def red_bull_api_schedule(locale: str) -> list[dict]:
                 "lang": language,
             }
         )
-    schedule.sort(key=lambda item: item["start_time"])
+    schedule = normalize_red_bull_schedule(schedule)
     if len(schedule) < 5:
         raise ValueError("EPG Red Bull entrego una parrilla demasiado corta")
     return schedule
@@ -811,7 +846,7 @@ def red_bull_relay_schedule(now: datetime) -> list[dict]:
                 "lang": title_element.get("lang") or "en",
             }
         )
-    schedule.sort(key=lambda item: item["start_time"])
+    schedule = normalize_red_bull_schedule(schedule)
     if len(schedule) < 5:
         raise ValueError("relay Red Bull entrego una parrilla demasiado corta")
     last_stop = datetime.fromisoformat(schedule[-1]["end_time"])
@@ -1712,7 +1747,7 @@ def build_epg(
         if red_bull_id not in expected_ids:
             continue
         red_bull_last_stop: datetime | None = None
-        for card in red_bull_cards:
+        for card in normalize_red_bull_schedule(red_bull_cards):
             start = datetime.fromisoformat(card["start_time"].replace("Z", "+00:00"))
             stop = datetime.fromisoformat(card["end_time"].replace("Z", "+00:00"))
             programme = ET.SubElement(

@@ -80,7 +80,11 @@ jobs:
         run: |
           set +e
           RAW_EXIT=0
-          RAW_COMMIT_BASE="https://raw.githubusercontent.com/${{ github.repository }}/${{ steps.publish.outputs.commit }}"
+          RAW_COMMIT="${{ steps.publish.outputs.commit }}"
+          if [ -z "$RAW_COMMIT" ]; then
+            RAW_COMMIT="$GITHUB_SHA"
+          fi
+          RAW_COMMIT_BASE="https://raw.githubusercontent.com/${{ github.repository }}/$RAW_COMMIT"
           verify_exact() {
             local file="$1"
             local attempts=0
