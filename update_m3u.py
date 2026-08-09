@@ -149,7 +149,7 @@ PREFERRED_LOGOS = {
     "13C": f"{LOCAL_LOGOS_PUBLIC_BASE}/13cultura.svg",
     "13 Festival": f"{LOCAL_LOGOS_PUBLIC_BASE}/13-festival.png",
     "13 Prime": f"{LOCAL_LOGOS_PUBLIC_BASE}/13-prime.png",
-    "Rewind": f"{LOCAL_LOGOS_PUBLIC_BASE}/rewind.png",
+    "Rewind": f"{LOCAL_LOGOS_PUBLIC_BASE}/rewind-v2.png",
     "UCV": f"{LOCAL_LOGOS_PUBLIC_BASE}/ucv.png",
     "Xtrema Terror": f"{LOCAL_LOGOS_PUBLIC_BASE}/xtrema-terror.png",
 }
