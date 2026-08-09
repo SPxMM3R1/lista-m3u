@@ -18,7 +18,8 @@ Guia de programacion XMLTV:
 Cada ejecucion:
 
 - comprueba los streams, los primeros segmentos multimedia y los logos PNG;
-- renueva las senales publicas con tokens que caducan;
+- conserva los maestros que requieren token para que la app de reproduccion
+  pueda resolverlos;
 - genera wrappers HLS con audio separado para Mega y NHK World;
 - genera wrappers HLS de una sola variante para las fuentes que ya traen audio
   embebido, fijando la maxima calidad disponible hasta 1080p;
@@ -27,13 +28,16 @@ Cada ejecucion:
 - actualiza la guia EPG con las parrillas disponibles;
 - publica `channel-status.json` como artefacto de cada ejecucion.
 
-TVN, Mega y Meganoticias usan el resolutor publico de Cloudflare. TVN y
-Meganoticias obtienen sus tokens al abrir la senal y devuelven una redireccion
-HLS temporal; Mega entrega su master oficial con referencias HTTPS para evitar
-bloqueos de trafico mixto en Android TV. La Red conserva su maestro oficial
-renovable, que entrega audio y variantes hasta 1080p sin guardar tokens hijos
-caducados en GitHub. No se necesita dejar este PC
-encendido.
+En el modo actual, TVN y Meganoticias publican sus maestros `mdstrm` sin
+`access_token`. El actualizador no intenta renovarlos ni sustituirlos: la app
+de reproduccion debe obtener el token antes de abrirlos. Mega conserva el
+resolutor publico de Cloudflare y La Red conserva su maestro oficial
+renovable. No se necesita dejar este PC encendido.
+
+El modo anterior se puede restaurar sin editar el codigo: configura la
+variable de repositorio `M3U_TOKEN_RESOLUTION_MODE` con el valor `cloud` en
+GitHub Actions. En ese modo TVN y Meganoticias vuelven a usar el resolutor y
+la renovacion automatica de tokens.
 
 La guia conserva datos vigentes si una fuente externa falla temporalmente. La
 ejecucion tambien puede iniciarse manualmente desde la pestana **Actions** con
@@ -60,7 +64,7 @@ Japan, Arirang TV, Al Jazeera English, Red Bull TV, XITE Hits Germany, M1 y M2.
 
 ## Resolutor cloud
 
-El workflow **Deploy Cloudflare resolver** despliega `cloudflare-resolver`,
-guarda su URL en la variable `M3U_RESOLVER_BASE_URL` y conecta TVN, Mega y
-Meganoticias. Requiere configurar una vez los secretos
+El workflow **Deploy Cloudflare resolver** despliega `cloudflare-resolver` y
+guarda su URL en la variable `M3U_RESOLVER_BASE_URL`. En el modo `cloud`, esa
+URL conecta TVN, Mega y Meganoticias. Requiere configurar una vez los secretos
 `CLOUDFLARE_API_TOKEN` y `CLOUDFLARE_ACCOUNT_ID`.

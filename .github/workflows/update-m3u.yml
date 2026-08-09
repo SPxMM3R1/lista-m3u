@@ -28,6 +28,7 @@ jobs:
     env:
       RAW_BASE: https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}
       M3U_RESOLVER_BASE_URL: ${{ vars.M3U_RESOLVER_BASE_URL }}
+      M3U_TOKEN_RESOLUTION_MODE: ${{ vars.M3U_TOKEN_RESOLUTION_MODE }}
     steps:
       - name: Descargar repositorio
         uses: actions/checkout@v4
