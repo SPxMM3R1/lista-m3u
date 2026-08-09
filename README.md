@@ -52,15 +52,15 @@ disponible sin depender de servidores externos.
 1. Nacionales normales
 2. Noticias
 3. Miscelaneos nacionales
-4. Internacionales
+4. Internacionales y canales agregados por region o tema
 
 ## Canales
 
-La lista contiene 28 canales: TVN,
-Mega, CHV, Canal 13, La Red, 24 Horas, Meganoticias, CHV Noticias, T13, NTV, TVN3,
-CHV Deportes, 13C, 13 Festival, 13 Prime, Rewind, UCV, DW Espanol, France 24
-Espanol, Euronews Espanol, NHK World Japan, Arirang TV, Al Jazeera English,
-Red Bull TV, XITE Hits Germany, M1, M2 y Xtrema Terror.
+La lista contiene 102 canales: 28 originales y 74 incorporados desde
+`TV_Mundial_Curada_2026-08-09.m3u`. Los nuevos grupos incluyen Chile,
+Argentina, Europa e internacional, musica europea, Balticos, Rusia, Japon,
+Estados Unidos y Canada. Se conservaron los canales existentes y se omitieron
+26 URLs de la fuente que no respondieron como HLS durante la comprobacion.
 
 ## Resolutor cloud
 

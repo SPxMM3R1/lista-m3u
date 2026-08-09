@@ -490,6 +490,9 @@ def request_headers(channel: str) -> dict[str, str]:
     elif channel in {"CHV Noticias", "CHV Deportes"}:
         headers["Referer"] = "https://www.chilevision.cl/senal-online"
         headers["Origin"] = "https://www.chilevision.cl"
+    elif channel == "Power Hit Radio":
+        headers["Referer"] = "https://play.tv3.lt/"
+        headers["Origin"] = "https://play.tv3.lt"
     return headers
 
 
