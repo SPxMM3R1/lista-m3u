@@ -19,7 +19,7 @@ Cada ejecucion:
 
 - comprueba los streams, los primeros segmentos multimedia y los logos PNG;
 - renueva las senales publicas con tokens que caducan;
-- genera wrappers HLS con audio separado para Mega, La Red y NHK World;
+- genera wrappers HLS con audio separado para Mega y NHK World;
 - genera wrappers HLS de una sola variante para las fuentes que ya traen audio
   embebido, fijando la maxima calidad disponible hasta 1080p;
 - deja como maestro directo las fuentes que no declaran audio de forma segura,
@@ -30,7 +30,9 @@ Cada ejecucion:
 TVN, Mega y Meganoticias Ahora usan el resolutor publico de Cloudflare. TVN y
 Meganoticias obtienen sus tokens al abrir la senal y devuelven una redireccion
 HLS temporal; Mega entrega su master oficial con referencias HTTPS para evitar
-bloqueos de trafico mixto en Android TV. No se necesita dejar este PC
+bloqueos de trafico mixto en Android TV. La Red conserva su maestro oficial
+renovable, que entrega audio y variantes hasta 1080p sin guardar tokens hijos
+caducados en GitHub. No se necesita dejar este PC
 encendido.
 
 La guia conserva datos vigentes si una fuente externa falla temporalmente. La
@@ -51,10 +53,10 @@ disponible sin depender de servidores externos.
 
 ## Canales
 
-La lista contiene 21 canales: TVN,
+La lista contiene 22 canales: TVN,
 Mega, CHV, Canal 13, La Red, 24 Horas, Meganoticias Ahora, CHV Noticias, T13, NTV, TVN3,
 CHV Deportes, DW Espanol, France 24 Espanol, Euronews Espanol, NHK World
-Japan, Al Jazeera English, Red Bull TV, XITE Hits Germany, M1 y M2.
+Japan, Arirang TV, Al Jazeera English, Red Bull TV, XITE Hits Germany, M1 y M2.
 
 ## Resolutor cloud
 

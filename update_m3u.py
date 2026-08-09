@@ -73,6 +73,11 @@ EPG_REFRESH_INTERVAL = timedelta(hours=12)
 TVN_LIVE_PAGE = "https://live.tvn.cl/"
 TVN_DEFAULT_ID = "57a498c4d7b86d600e5461cb"
 TVN_ALTERNATIVE_URL = "https://iptv2.intersurtv.cl/TVN/index.m3u8?PlaylistM3UCL"
+LA_RED_MASTER_URL = "https://tv-mgmt.gtd.cl/bpk-tv/LARED/default/index.m3u8"
+ARIRANG_TV_MASTER_URL = (
+    "http://amdlive-ch01.ctnd.com.edgesuite.net/"
+    "arirang_1ch/smil:arirang_1ch.smil/playlist.m3u8"
+)
 TWENTYFOUR_LIVE_PAGE = "https://www.24horas.cl/envivo"
 TWENTYFOUR_DEFAULT_ID = "57d1a22064f5d85712b20dab"
 MEGA_LIVE_PAGE = "https://www.mega.cl/senal-en-vivo/"
@@ -131,6 +136,7 @@ PREFERRED_LOGOS = {
     "Al Jazeera English": f"{LOCAL_LOGOS_PUBLIC_BASE}/aljazeera.svg",
     "Red Bull TV": f"{LOCAL_LOGOS_PUBLIC_BASE}/red-bull-tv.png",
     "XITE Hits Germany": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
+    "Arirang TV": f"{LOCAL_LOGOS_PUBLIC_BASE}/arirang.png",
     "M1": f"{LOCAL_LOGOS_PUBLIC_BASE}/m1.png",
     "M2": f"{LOCAL_LOGOS_PUBLIC_BASE}/m2.png",
 }
@@ -146,6 +152,10 @@ CONTINUOUS_PROGRAMME_DETAILS = {
     "XITE Hits Germany": (
         "XITE Hits Germany - videoclips",
         "Rotacion continua de videoclips musicales; no publica una parrilla horaria XMLTV estable.",
+    ),
+    "Arirang TV": (
+        "Arirang TV en vivo",
+        "Programacion continua de Arirang TV; la senal publica no ofrece una parrilla XMLTV estable.",
     ),
     "M1": (
         "M1 - rotacion musical",
@@ -211,9 +221,11 @@ KNOWN_STREAM_FALLBACKS = {
         "https://mdstrm.com/live-stream-playlist/57d1a22064f5d85712b20dab.m3u8"
     ],
     "La Red": [
+        LA_RED_MASTER_URL,
         "https://live2.airstream.run/3969875408/ts:abr.m3u8",
         "https://d1kqwrirylysyt.cloudfront.net/ts:abr.m3u8",
     ],
+    "Arirang TV": [ARIRANG_TV_MASTER_URL],
     "DW Espanol": [
         "https://dwamdstream104.akamaized.net/hls/live/2015530/dwstream104/master.m3u8"
     ],
@@ -235,6 +247,7 @@ PREFERRED_VARIANT_MASTERS = {
     "Canal 13": "https://redirector.dps.live/hls/13cl/playlist.m3u8",
     "24 Horas": "https://mdstrm.com/live-stream-playlist/57d1a22064f5d85712b20dab.m3u8",
     "T13": "https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/t13/t13.smil/playlist.m3u8",
+    "La Red": LA_RED_MASTER_URL,
     "DW Espanol": "https://dwamdstream104.akamaized.net/hls/live/2015530/dwstream104/master.m3u8",
     "Euronews Espanol": "https://cdn-euronews.akamaized.net/live/eds/euronews-es/25053/index.m3u8",
     "Al Jazeera English": "https://live-hls-apps-aje-v3-fa.getaj.net/AJE/index.m3u8",
@@ -304,6 +317,7 @@ SEGMENT_CHECK_CHANNELS = {
     "Euronews Espanol",
     "NHK World Japan",
     "Al Jazeera English",
+    "Arirang TV",
     "Red Bull TV",
     "XITE Hits Germany",
     "M1",
@@ -313,10 +327,6 @@ CUSTOM_AUDIO_MASTERS = {
     "Mega": (
         MEGA_SOURCE_MASTER_URL,
         "mega-1080-audio.m3u8",
-    ),
-    "La Red": (
-        "https://tv-mgmt.gtd.cl/bpk-tv/LARED/default/index.m3u8",
-        "lared-1080-audio.m3u8",
     ),
     "NHK World Japan": (NHK_MASTER_URL, "nhk-1080-audio.m3u8"),
 }
@@ -558,8 +568,6 @@ def request_headers(channel: str) -> dict[str, str]:
     elif channel == "Meganoticias Ahora":
         headers["Referer"] = MEGANOTICIAS_LIVE_PAGE
         headers["Origin"] = "https://www.meganoticias.cl"
-    elif channel == "La Red":
-        headers["Referer"] = "https://www.lared.cl/senal-online/"
     elif channel in {"CHV Noticias", "CHV Deportes"}:
         headers["Referer"] = "https://www.chilevision.cl/senal-online"
         headers["Origin"] = "https://www.chilevision.cl"
