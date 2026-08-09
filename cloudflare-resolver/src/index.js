@@ -496,7 +496,15 @@ export class MeganoticiasProxy {
   async fetch(request) {
     const requestUrl = new URL(request.url);
     if (requestUrl.pathname === MEGANOTICIAS_YOUTUBE_PATH) {
-      return proxyMeganoticiasYoutube(request, requestUrl);
+      try {
+        return await proxyMeganoticiasYoutube(request, requestUrl);
+      } catch (error) {
+        console.error(`[FALLO] YouTube proxy: ${error?.stack ?? error}`);
+        return textResponse(
+          502,
+          `YouTube HLS no disponible: ${error?.message ?? "error"}\n`,
+        );
+      }
     }
     return proxyMeganoticias(request, requestUrl);
   }
