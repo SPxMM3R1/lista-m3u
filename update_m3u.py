@@ -177,12 +177,12 @@ PREFERRED_LOGOS = {
 }
 CONTINUOUS_PROGRAMME_DETAILS = {
     "TVN3": (
-        "TVN3 - clasicos de TVN",
-        "Rotacion continua de programas historicos de TVN; no publica horarios XMLTV estables.",
+        "Live",
+        "",
     ),
     "CHV Deportes": (
-        "CHV Deportes en vivo",
-        "Senal deportiva continua; la parrilla horaria depende de los eventos publicados por CHV.",
+        "Live",
+        "",
     ),
     "XITE Hits Germany": (
         "XITE Hits Germany - videoclips",
@@ -209,8 +209,8 @@ CONTINUOUS_PROGRAMME_DETAILS = {
         "Rotacion continua de videos musicales de M2; los programas especiales pueden cambiar de horario.",
     ),
     "13C": (
-        "13C en vivo",
-        "Programacion continua de 13C; no se encontro una parrilla XMLTV publica estable.",
+        "Live",
+        "",
     ),
     "13 Festival": (
         "13 Festival en vivo",
@@ -221,8 +221,16 @@ CONTINUOUS_PROGRAMME_DETAILS = {
         "Programacion continua de 13 Prime; el respaldo publico no publica una parrilla XMLTV estable.",
     ),
     "RWND": (
-        "RWND - musica",
-        "Rotacion continua del canal musical chileno RWND; no publica una parrilla XMLTV estable.",
+        "Live",
+        "",
+    ),
+    "13 Kids": (
+        "Live",
+        "",
+    ),
+    "Autentic History": (
+        "Live",
+        "",
     ),
     "UCV": (
         "UCV en vivo",
@@ -1769,7 +1777,8 @@ def add_continuous_programmes(
             (f"{channel_name} en vivo", "Programacion continua de la senal en vivo."),
         )
         ET.SubElement(programme, "title", {"lang": "es"}).text = title
-        ET.SubElement(programme, "desc", {"lang": "es"}).text = description
+        if description:
+            ET.SubElement(programme, "desc", {"lang": "es"}).text = description
         count += 1
         start = stop
     return count
