@@ -467,7 +467,12 @@ async function freshMeganoticiasYoutubeUrl() {
   const body = await response.json();
   const manifest = body?.streamingData?.hlsManifestUrl;
   if (!isAllowedYoutubeTarget(manifest)) {
-    throw new Error("YouTube no devolvio un master HLS permitido");
+    const status = body?.playabilityStatus?.status ?? "sin estado";
+    const reason = body?.playabilityStatus?.reason ?? "sin razon";
+    const live = body?.videoDetails?.isLive ?? false;
+    throw new Error(
+      `YouTube no devolvio un master HLS permitido (${status}; ${reason}; live=${live})`,
+    );
   }
   return manifest;
 }
