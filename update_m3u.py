@@ -115,9 +115,7 @@ TOKEN_RESOLUTION_MODE = (
 ).strip().lower()
 USE_CLOUD_TOKEN_RESOLUTION = TOKEN_RESOLUTION_MODE in {
     "cloud",
-    "cloudflare",
     "resolver",
-    "worker",
 }
 USE_APP_TOKEN_RESOLUTION = not USE_CLOUD_TOKEN_RESOLUTION
 APP_TOKEN_CHANNEL_URLS = {
@@ -140,7 +138,7 @@ CI_GEO_RESTRICTED_CHANNELS = {
 }
 if USE_CLOUD_TOKEN_RESOLUTION:
     CI_GEO_RESTRICTED_CHANNELS.update({"TVN", "Meganoticias"})
-# El resolutor publico se ejecuta en Cloudflare. La variable se configura en
+# El resolutor publico se ejecuta en Cloud Run. La variable se configura en
 # GitHub despues del despliegue y mantiene la M3U sin IPs privadas.
 CLOUD_RESOLVER_BASE_URL = os.environ.get("M3U_RESOLVER_BASE_URL", "").strip().rstrip("/")
 CLOUD_RESOLVER_URLS: dict[str, str] = {}

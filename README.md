@@ -69,10 +69,10 @@ semanales. Se marca como `senal continua` cualquier canal que no publique una
 parrilla diaria verificable, en vez de presentar esa continuidad como una guia
 real.
 
-## Resolutor cloud
+## Resolutor Cloud Run
 
-El workflow **Deploy Cloudflare resolver** despliega `cloudflare-resolver` y
-guarda su URL en la variable `M3U_RESOLVER_BASE_URL`. En el modo `cloud`, esa
-URL conecta TVN, Mega y Meganoticias; en el modo actual no se usa para la
-lista. Requiere configurar una vez los secretos
-`CLOUDFLARE_API_TOKEN` y `CLOUDFLARE_ACCOUNT_ID`.
+El workflow **Deploy Chile resolver** puede desplegar `cloud-resolver` en
+Google Cloud Run, guardar su URL en `M3U_RESOLVER_BASE_URL` y conectar TVN,
+Mega y Meganoticias cuando `M3U_TOKEN_RESOLUTION_MODE` usa el modo `cloud` o
+`resolver`. Es opcional; el modo predeterminado conserva los maestros para que
+la app resuelva sus propios tokens.
