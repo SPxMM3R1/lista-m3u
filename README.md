@@ -54,12 +54,14 @@ disponible sin depender de servidores externos.
 
 ## Canales
 
-La lista contiene 28 canales despues de retirar 74 entradas seleccionadas de
+La lista contiene 49 canales despues de retirar 74 entradas seleccionadas de
 la fuente mundial. Se conservaron los nacionales, noticias, miscelaneos
-chilenos y una seleccion internacional, musical y europea.
+chilenos, canales de Espana, senales internacionales en espanol y una
+seleccion documental y musical europea.
 
 La EPG usa fuentes XMLTV de Chile, Espana, Francia, Alemania, Polonia,
 Letonia y Paises Bajos. M1 y M2 se actualizan desde sus parrillas oficiales
-semanales. Se marca como `senal continua` cualquier canal que no publique una
-parrilla diaria verificable, en vez de presentar esa continuidad como una guia
-real.
+semanales. Las senales espanolas con correspondencia en EPGShare reciben
+parrilla real; se marca como `senal continua` cualquier canal que no publique
+una parrilla diaria verificable, en vez de presentar esa continuidad como una
+guia real.

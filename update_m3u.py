@@ -21,7 +21,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import asdict, dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 
@@ -68,6 +68,15 @@ EPG_PROGRAMME_SOURCES = {
     "0124": ("tecnocentro", "LCH6525"),
     "1153": ("tecnocentro", "LCH7017"),
     "45": ("tecnocentro", "LCH4087"),
+    "La1.es@SD": ("es", "La.1.es"),
+    "La2.es@SD": ("es", "La.2.es"),
+    "Teledeporte.es@SD": ("es", "Teledeporte.es"),
+    "AragonTVInternacional.es@SD": ("es", "Aragón.TV.INT..es"),
+    "CanalSurAndalucia.es@SD": ("es", "Canal.Sur.Andalucía.es"),
+    "CMMTV.es@HD": ("es", "CMM.TV.es"),
+    "3CatInfo.es@SD": ("es", "3CatInfo.es"),
+    "Telesur.ve@HD": ("es", "teleSUR.es"),
+    "SolMusica.es@SD": ("es", "Sol.Música.es"),
     "M1.ua@SD": ("ukrainian-official", "M1.ua@SD"),
     "M2.ua@SD": ("ukrainian-official", "M2.ua@SD"),
 }
@@ -134,6 +143,11 @@ CI_GEO_RESTRICTED_CHANNELS = {
     "La Red",
     "TV Chile",
     "UChile TV",
+    # RTVE identifica algunas señales internacionales como restringidas por
+    # territorio; Actions no debe reemplazar un maestro oficial por un relay.
+    "La 1",
+    "TVE Internacional Europe",
+    "Teledeporte",
     # GitHub Actions corre fuera de Chile y no puede validar estos maestros
     # cuando el emisor responde 401/403; la app resuelve su acceso al abrirlos.
     "TVN",
@@ -166,6 +180,26 @@ PREFERRED_LOGOS = {
     "RedBull TV Español": f"{LOCAL_LOGOS_PUBLIC_BASE}/red-bull-tv.png",
     "XITE Hits Germany": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
     "Arirang TV": f"{LOCAL_LOGOS_PUBLIC_BASE}/arirang.png",
+    "Adventure Earth": f"{LOCAL_LOGOS_PUBLIC_BASE}/adventure-earth.png",
+    "Autentic Travel": f"{LOCAL_LOGOS_PUBLIC_BASE}/autentic-travel.png",
+    "Terra Mater WILD": f"{LOCAL_LOGOS_PUBLIC_BASE}/terra-mater-wild.png",
+    "Terra Mater WILD English": f"{LOCAL_LOGOS_PUBLIC_BASE}/terra-mater-wild.png",
+    "La 1": f"{LOCAL_LOGOS_PUBLIC_BASE}/la1.png",
+    "La 2": f"{LOCAL_LOGOS_PUBLIC_BASE}/la2.png",
+    "TVE Internacional Europe": f"{LOCAL_LOGOS_PUBLIC_BASE}/tve-internacional.png",
+    "TVE Star HD": f"{LOCAL_LOGOS_PUBLIC_BASE}/tve-star.png",
+    "Teledeporte": f"{LOCAL_LOGOS_PUBLIC_BASE}/teledeporte.png",
+    "Aragón TV Internacional": f"{LOCAL_LOGOS_PUBLIC_BASE}/aragon-tv.png",
+    "Canal Sur Andalucía": f"{LOCAL_LOGOS_PUBLIC_BASE}/canal-sur.png",
+    "Canal Sur Noticias": f"{LOCAL_LOGOS_PUBLIC_BASE}/canal-sur-noticias.png",
+    "CMM TV HD": f"{LOCAL_LOGOS_PUBLIC_BASE}/cmm-tv.png",
+    "Galicia TV Europa": f"{LOCAL_LOGOS_PUBLIC_BASE}/galicia-tv.png",
+    "3CatInfo": f"{LOCAL_LOGOS_PUBLIC_BASE}/3catinfo.png",
+    "FIFA+ Hispanic America": f"{LOCAL_LOGOS_PUBLIC_BASE}/fifa-plus.png",
+    "TV BRICS Español": f"{LOCAL_LOGOS_PUBLIC_BASE}/tv-brics.png",
+    "teleSUR HD": f"{LOCAL_LOGOS_PUBLIC_BASE}/telesur.png",
+    "Sol Música": f"{LOCAL_LOGOS_PUBLIC_BASE}/sol-musica.png",
+    "TVOMIX": f"{LOCAL_LOGOS_PUBLIC_BASE}/tvomix.png",
     "M1": f"{LOCAL_LOGOS_PUBLIC_BASE}/m1.png",
     "M2": f"{LOCAL_LOGOS_PUBLIC_BASE}/m2.png",
     "13C": f"{LOCAL_LOGOS_PUBLIC_BASE}/13cultura.svg",
@@ -199,6 +233,50 @@ CONTINUOUS_PROGRAMME_DETAILS = {
     "RedBull TV Español": (
         "RedBull TV Español en vivo",
         "Programacion continua de la senal chilena en espanol; la parrilla se obtiene desde Red Bull TV.",
+    ),
+    "Adventure Earth": (
+        "Adventure Earth en vivo",
+        "Senal documental continua; no se encontro una parrilla XMLTV publica estable.",
+    ),
+    "Autentic Travel": (
+        "Autentic Travel en vivo",
+        "Senal de viajes continua; no se encontro una parrilla XMLTV publica estable.",
+    ),
+    "Terra Mater WILD": (
+        "Terra Mater WILD en vivo",
+        "Senal de naturaleza continua; no se encontro una parrilla XMLTV publica estable.",
+    ),
+    "Terra Mater WILD English": (
+        "Terra Mater WILD English en vivo",
+        "Senal de naturaleza continua; no se encontro una parrilla XMLTV publica estable.",
+    ),
+    "TVE Internacional Europe": (
+        "TVE Internacional Europe en vivo",
+        "Senal internacional de RTVE; no se encontro una parrilla XMLTV publica estable.",
+    ),
+    "TVE Star HD": (
+        "TVE Star HD en vivo",
+        "Senal de series de RTVE; no se encontro una parrilla XMLTV publica estable.",
+    ),
+    "Canal Sur Noticias": (
+        "Canal Sur Noticias en vivo",
+        "Senal informativa continua; no se encontro una parrilla XMLTV separada estable.",
+    ),
+    "Galicia TV Europa": (
+        "Galicia TV Europa en vivo",
+        "Senal internacional continua; no se encontro una parrilla XMLTV publica estable.",
+    ),
+    "FIFA+ Hispanic America": (
+        "FIFA+ Hispanic America en vivo",
+        "Senal deportiva continua; la programacion depende de los eventos disponibles en FIFA+.",
+    ),
+    "TV BRICS Español": (
+        "TV BRICS Español en vivo",
+        "Senal internacional en espanol; no se encontro una parrilla XMLTV publica estable.",
+    ),
+    "TVOMIX": (
+        "TVOMIX en vivo",
+        "Rotacion continua de videos musicales; no se encontro una parrilla XMLTV publica estable.",
     ),
     "M1": (
         "M1 - rotacion musical",
@@ -346,6 +424,26 @@ SEGMENT_CHECK_CHANNELS = {
     "Rewind",
     "UCV",
     "Xtrema Terror",
+    "Adventure Earth",
+    "Autentic Travel",
+    "Terra Mater WILD",
+    "Terra Mater WILD English",
+    "La 1",
+    "La 2",
+    "TVE Internacional Europe",
+    "TVE Star HD",
+    "Teledeporte",
+    "Aragón TV Internacional",
+    "Canal Sur Andalucía",
+    "Canal Sur Noticias",
+    "CMM TV HD",
+    "Galicia TV Europa",
+    "3CatInfo",
+    "FIFA+ Hispanic America",
+    "TV BRICS Español",
+    "teleSUR HD",
+    "Sol Música",
+    "TVOMIX",
 }
 REMOVED_CHANNEL_IDS = frozenset(
     {
@@ -367,7 +465,6 @@ REMOVED_CHANNEL_IDS = frozenset(
         "BRFernsehen.de",
         "hrfernsehen.de",
         "Dokusat.de",
-        "AdventureEarth.de",
         "EuronewsEnglish.fr",
         "EuronewsFrench.fr",
         "BFMTV.fr",
@@ -2159,16 +2256,27 @@ def check_hls_first_segment(
         if variants:
             _, _, child_url = max(variants)
             return check_hls_first_segment(child_url, headers, depth=depth + 1)
-        segment = next((line for line in lines if line and not line.startswith("#")), None)
-        if not segment:
+        segments = [line for line in lines if line and not line.startswith("#")]
+        if not segments:
             return False, "playlist sin segmento multimedia"
-        segment_url = urljoin(final_url, segment)
-        segment_status, segment_body, _ = fetch_bytes(
-            segment_url, headers, timeout=25, limit=64
-        )
-        if segment_status == 200 and segment_body:
-            return True, "primer segmento multimedia valido"
-        return False, f"segmento HTTP {segment_status}"
+        # El primer segmento de una playlist en vivo puede retirarse mientras
+        # se comprueba. Probar también los más recientes evita falsos 404/502.
+        candidates = list(dict.fromkeys([segments[0], *segments[-3:]]))
+        last_detail = "segmento no disponible"
+        for segment in candidates:
+            segment_url = urljoin(final_url, segment)
+            try:
+                segment_status, segment_body, _ = fetch_bytes(
+                    segment_url, headers, timeout=25, limit=64
+                )
+                if segment_status == 200 and segment_body:
+                    return True, "segmento multimedia valido"
+                last_detail = f"segmento HTTP {segment_status}"
+            except urllib.error.HTTPError as error:
+                last_detail = f"segmento HTTP {error.code} {error.reason}"
+            except Exception as error:
+                last_detail = f"segmento {type(error).__name__}: {error}"
+        return False, last_detail
     except urllib.error.HTTPError as error:
         return False, f"segmento HTTP {error.code} {error.reason}"
     except Exception as error:
@@ -2183,18 +2291,39 @@ def check_logo(channel: Channel) -> LogoResult:
         "Accept": "image/svg+xml,image/png,image/*;q=0.8,*/*;q=0.5",
     }
     try:
-        status, body, _ = fetch_bytes(channel.logo_url, headers, limit=65_536)
+        local_path = None
+        if channel.logo_url.startswith(LOCAL_LOGOS_PUBLIC_BASE):
+            logo_name = Path(urlparse(channel.logo_url).path).name
+            candidate_path = Path(__file__).with_name("logos") / logo_name
+            if candidate_path.is_file():
+                local_path = candidate_path
+        if local_path is not None:
+            status, body = 200, local_path.read_bytes()
+            source_suffix = " (copia local)"
+        else:
+            status, body, _ = fetch_bytes(channel.logo_url, headers, limit=65_536)
+            source_suffix = ""
         if status == 200 and body.startswith(b"\x89PNG\r\n\x1a\n"):
             if not png_has_transparency(body):
                 return LogoResult(
                     channel.name,
                     channel.logo_url,
                     False,
-                    "PNG valido pero sin canal alfa transparente",
+                    f"PNG valido pero sin canal alfa transparente{source_suffix}",
                 )
-            return LogoResult(channel.name, channel.logo_url, True, "PNG valido y transparente")
+            return LogoResult(
+                channel.name,
+                channel.logo_url,
+                True,
+                f"PNG valido y transparente{source_suffix}",
+            )
         if status == 200 and svg_is_valid(body):
-            return LogoResult(channel.name, channel.logo_url, True, "SVG valido y vectorial")
+            return LogoResult(
+                channel.name,
+                channel.logo_url,
+                True,
+                f"SVG valido y vectorial{source_suffix}",
+            )
         return LogoResult(
             channel.name,
             channel.logo_url,
