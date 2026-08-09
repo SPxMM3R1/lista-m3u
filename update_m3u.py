@@ -146,7 +146,7 @@ PREFERRED_LOGOS = {
     "France 24 Espanol": f"{LOCAL_LOGOS_PUBLIC_BASE}/france24.svg",
     "Euronews Espanol": f"{LOCAL_LOGOS_PUBLIC_BASE}/euronews-espanol.png",
     "NHK World Japan": f"{LOCAL_LOGOS_PUBLIC_BASE}/nhk-world.svg",
-    "Al Jazeera English": f"{LOCAL_LOGOS_PUBLIC_BASE}/aljazeera.svg",
+    "Al Jazeera English": f"{LOCAL_LOGOS_PUBLIC_BASE}/aljazeera.svg?v=2",
     "Red Bull TV": f"{LOCAL_LOGOS_PUBLIC_BASE}/red-bull-tv.png",
     "XITE Hits Germany": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
     "Arirang TV": f"{LOCAL_LOGOS_PUBLIC_BASE}/arirang.png",
