@@ -163,6 +163,12 @@ PREFERRED_LOGOS = {
     "Arirang TV": f"{LOCAL_LOGOS_PUBLIC_BASE}/arirang.png",
     "M1": f"{LOCAL_LOGOS_PUBLIC_BASE}/m1.png",
     "M2": f"{LOCAL_LOGOS_PUBLIC_BASE}/m2.png",
+    "13C": f"{LOCAL_LOGOS_PUBLIC_BASE}/13c.png",
+    "13 Festival": f"{LOCAL_LOGOS_PUBLIC_BASE}/13-festival.png",
+    "13 Prime": f"{LOCAL_LOGOS_PUBLIC_BASE}/13-prime.png",
+    "Rewind": f"{LOCAL_LOGOS_PUBLIC_BASE}/rewind.png",
+    "UCV": f"{LOCAL_LOGOS_PUBLIC_BASE}/ucv.png",
+    "Xtrema Terror": f"{LOCAL_LOGOS_PUBLIC_BASE}/xtrema-terror.png",
 }
 CONTINUOUS_PROGRAMME_DETAILS = {
     "TVN3": (
@@ -188,6 +194,30 @@ CONTINUOUS_PROGRAMME_DETAILS = {
     "M2": (
         "M2 - rotacion musical",
         "Rotacion continua de videos musicales de M2; los programas especiales pueden cambiar de horario.",
+    ),
+    "13C": (
+        "13C en vivo",
+        "Programacion continua de 13C; no se encontro una parrilla XMLTV publica estable.",
+    ),
+    "13 Festival": (
+        "13 Festival en vivo",
+        "Programacion continua de 13 Festival; no se encontro una parrilla XMLTV publica estable.",
+    ),
+    "13 Prime": (
+        "13 Prime en vivo",
+        "Programacion continua de 13 Prime; el respaldo publico no publica una parrilla XMLTV estable.",
+    ),
+    "Rewind": (
+        "Rewind - musica",
+        "Rotacion continua del canal musical chileno Rewind; no publica una parrilla XMLTV estable.",
+    ),
+    "UCV": (
+        "UCV en vivo",
+        "Programacion continua de UCV; no se encontro una parrilla XMLTV publica estable.",
+    ),
+    "Xtrema Terror": (
+        "Xtrema Terror - peliculas",
+        "Rotacion continua de peliculas; la señal no publica una parrilla XMLTV estable.",
     ),
 }
 NEWS_CHANNEL_ORDER = ("24 Horas", "Meganoticias", "CHV Noticias", "T13")
@@ -265,6 +295,13 @@ KNOWN_STREAM_FALLBACKS = {
     "XITE Hits Germany": [
         "https://d726x48n2pd5h.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-skxr1pazhltvp/XITE_Hits.m3u8"
     ],
+    "13 Prime": [
+        "https://5ff3d9babae13.streamlock.net/aufymdjpjf/aufymdjpjf/playlist.m3u8",
+    ],
+    "UCV": [
+        "https://unlimited2-cl-isp.dps.live/ucvtv2/ucvtv2.smil/playlist.m3u8",
+        "https://pantera1-100gb-cl-movistar.dps.live/ucvtv2/ucvtv2.smil/playlist.m3u8",
+    ],
 }
 SEGMENT_CHECK_CHANNELS = {
     "TVN",
@@ -287,6 +324,12 @@ SEGMENT_CHECK_CHANNELS = {
     "XITE Hits Germany",
     "M1",
     "M2",
+    "13C",
+    "13 Festival",
+    "13 Prime",
+    "Rewind",
+    "UCV",
+    "Xtrema Terror",
 }
 @dataclass(frozen=True)
 class Channel:

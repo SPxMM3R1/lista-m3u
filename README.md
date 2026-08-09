@@ -56,10 +56,11 @@ disponible sin depender de servidores externos.
 
 ## Canales
 
-La lista contiene 22 canales: TVN,
+La lista contiene 28 canales: TVN,
 Mega, CHV, Canal 13, La Red, 24 Horas, Meganoticias, CHV Noticias, T13, NTV, TVN3,
-CHV Deportes, DW Espanol, France 24 Espanol, Euronews Espanol, NHK World
-Japan, Arirang TV, Al Jazeera English, Red Bull TV, XITE Hits Germany, M1 y M2.
+CHV Deportes, 13C, 13 Festival, 13 Prime, Rewind, UCV, DW Espanol, France 24
+Espanol, Euronews Espanol, NHK World Japan, Arirang TV, Al Jazeera English,
+Red Bull TV, XITE Hits Germany, M1, M2 y Xtrema Terror.
 
 ## Resolutor cloud
 
