@@ -533,6 +533,7 @@ def epg_status_from_xml(
 
     counts = {channel_id: 0 for channel_id in expected_ids}
     last_by_channel: dict[str, datetime] = {}
+    intervals_by_channel: dict[str, list[tuple[datetime, datetime]]] = {}
     first_start: datetime | None = None
     last_stop: datetime | None = None
     for programme in root.findall("programme"):
@@ -542,10 +543,25 @@ def epg_status_from_xml(
         start = xmltv_datetime(programme.get("start", ""))
         stop = xmltv_datetime(programme.get("stop", ""))
         counts[channel_id] += 1
+        intervals_by_channel.setdefault(channel_id, []).append((start, stop))
         previous = last_by_channel.get(channel_id)
         last_by_channel[channel_id] = stop if previous is None or stop > previous else previous
         first_start = start if first_start is None or start < first_start else first_start
         last_stop = stop if last_stop is None or stop > last_stop else last_stop
+
+    overlapping_channels = []
+    for channel_id, intervals in intervals_by_channel.items():
+        intervals.sort()
+        previous_stop: datetime | None = None
+        for start, stop in intervals:
+            if previous_stop is not None and start < previous_stop:
+                overlapping_channels.append(channel_id)
+                break
+            previous_stop = stop if previous_stop is None or stop > previous_stop else previous_stop
+    if overlapping_channels:
+        raise ValueError(
+            "programas superpuestos en la EPG: " + ", ".join(sorted(overlapping_channels))
+        )
 
     empty = sorted(channel_id for channel_id, count in counts.items() if count == 0)
     if empty:
@@ -892,24 +908,40 @@ def fetch_tecnocentro_epg(
                 if status != 200:
                     raise ValueError(f"HTTP {status}")
                 items = tecnocentro_schedule_items(decode_web_text(body))
-                previous_start: datetime | None = None
+                parsed_items: list[tuple[object, object, str]] = []
                 for start_text, stop_text, title in items:
                     try:
                         start_clock = datetime.strptime(start_text, "%H:%M").time()
                         stop_clock = datetime.strptime(stop_text, "%H:%M").time()
                     except ValueError:
                         continue
+                    parsed_items.append((start_clock, stop_clock, title))
+                if not parsed_items:
+                    continue
+
+                first_start_clock, first_stop_clock, _ = parsed_items[0]
+                base_day = schedule_day
+                if first_start_clock.hour >= 18 and first_stop_clock.hour <= 6:
+                    base_day -= timedelta(days=1)
+                previous_start: datetime | None = None
+                for start_clock, stop_clock, title in parsed_items:
                     start = datetime.combine(
-                        schedule_day, start_clock, tzinfo=CHILE_TIMEZONE
+                        base_day, start_clock, tzinfo=CHILE_TIMEZONE
                     )
-                    if previous_start is not None and start <= previous_start:
+                    while previous_start is not None and start <= previous_start:
                         start += timedelta(days=1)
                     stop = datetime.combine(
-                        schedule_day, stop_clock, tzinfo=CHILE_TIMEZONE
+                        start.date(), stop_clock, tzinfo=CHILE_TIMEZONE
                     )
                     while stop <= start:
                         stop += timedelta(days=1)
                     previous_start = start
+                    is_requested_day = start.date() == schedule_day
+                    is_current_previous_day = (
+                        start.date() == schedule_day - timedelta(days=1) and stop > now
+                    )
+                    if not (is_requested_day or is_current_previous_day):
+                        continue
                     if stop < now - timedelta(hours=6) or start > now + timedelta(days=5):
                         continue
                     key = (target_id, start.isoformat(), stop.isoformat(), title)
