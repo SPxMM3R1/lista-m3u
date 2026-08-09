@@ -149,7 +149,7 @@ PREFERRED_LOGOS = {
     "24 Horas": f"{LOCAL_LOGOS_PUBLIC_BASE}/24-horas.png",
     "Meganoticias": f"{LOCAL_LOGOS_PUBLIC_BASE}/meganoticias.svg",
     "T13": f"{LOCAL_LOGOS_PUBLIC_BASE}/t13.png",
-    "CHV Noticias": f"{LOCAL_LOGOS_PUBLIC_BASE}/chv-noticias.png",
+    "CHV Noticias": f"{LOCAL_LOGOS_PUBLIC_BASE}/chv-noticias.svg",
     "NTV": f"{LOCAL_LOGOS_PUBLIC_BASE}/ntv.svg",
     "TVN3": f"{LOCAL_LOGOS_PUBLIC_BASE}/tvn3.svg",
     "CHV Deportes": f"{LOCAL_LOGOS_PUBLIC_BASE}/chv-deportes.svg",
