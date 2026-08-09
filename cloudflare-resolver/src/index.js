@@ -331,10 +331,66 @@ function extractYoutubeLiveId(html) {
   const match = html.match(
     /"videoDetails":\{"videoId":"([A-Za-z0-9_-]{11})".{0,2000}?"isLive":true/s,
   );
-  if (!match) {
-    throw new Error("YouTube no publico una emision en vivo de Meganoticias");
+  return match?.[1] ?? null;
+}
+
+function findYoutubeBrowseLiveId(value) {
+  const pending = [value];
+  while (pending.length) {
+    const node = pending.pop();
+    if (!node || typeof node !== "object") {
+      continue;
+    }
+    const title =
+      node?.metadata?.lockupMetadataViewModel?.title?.content ?? "";
+    if (
+      typeof node.contentId === "string" &&
+      /^[A-Za-z0-9_-]{11}$/.test(node.contentId) &&
+      /en vivo|meganoticias ahora/i.test(title)
+    ) {
+      return node.contentId;
+    }
+    for (const child of Object.values(node)) {
+      if (child && typeof child === "object") {
+        pending.push(child);
+      }
+    }
   }
-  return match[1];
+  return null;
+}
+
+async function discoverYoutubeBrowseLiveId(channelHtml, apiKey) {
+  const clientVersion =
+    channelHtml.match(/"INNERTUBE_CLIENT_VERSION":"([^"]+)"/)?.[1] ??
+    "2.20260807.00.00";
+  const response = await fetch(
+    `https://www.youtube.com/youtubei/v1/browse?key=${encodeURIComponent(apiKey)}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "User-Agent": BROWSER_USER_AGENT,
+        "X-YouTube-Client-Name": "1",
+        "X-YouTube-Client-Version": clientVersion,
+        Referer: MEGANOTICIAS_YOUTUBE_CHANNEL_LIVE,
+        Origin: "https://www.youtube.com",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        context: {
+          client: {
+            clientName: "WEB",
+            clientVersion,
+          },
+        },
+        browseId: "UCkccyEbqhhM3uKOI6Shm-4Q",
+      }),
+    },
+  );
+  if (!response.ok) {
+    throw new Error(`API de canal de YouTube HTTP ${response.status}`);
+  }
+  return findYoutubeBrowseLiveId(await response.json());
 }
 
 async function freshMeganoticiasYoutubeUrl() {
@@ -342,13 +398,20 @@ async function freshMeganoticiasYoutubeUrl() {
     MEGANOTICIAS_YOUTUBE_CHANNEL_LIVE,
     "https://www.youtube.com/",
   );
-  const videoId = extractYoutubeLiveId(channelHtml);
-  const watchUrl = `https://www.youtube.com/watch?v=${videoId}`;
-  const watchHtml = await fetchYoutubePage(watchUrl, "https://www.youtube.com/");
-  const apiKey = watchHtml.match(/"INNERTUBE_API_KEY":"([^"]+)"/)?.[1];
+  const apiKey = channelHtml.match(/"INNERTUBE_API_KEY":"([^"]+)"/)?.[1];
   if (!apiKey) {
     throw new Error("YouTube no publico su clave de reproduccion");
   }
+  const videoId =
+    extractYoutubeLiveId(channelHtml) ??
+    (await discoverYoutubeBrowseLiveId(channelHtml, apiKey));
+  if (!videoId) {
+    throw new Error("YouTube no publico una emision en vivo de Meganoticias");
+  }
+  const watchUrl = `https://www.youtube.com/watch?v=${videoId}`;
+  const watchHtml = await fetchYoutubePage(watchUrl, "https://www.youtube.com/");
+  const playerApiKey =
+    watchHtml.match(/"INNERTUBE_API_KEY":"([^"]+)"/)?.[1] ?? apiKey;
 
   const payload = {
     context: {
@@ -364,7 +427,7 @@ async function freshMeganoticiasYoutubeUrl() {
     videoId,
   };
   const response = await fetch(
-    `${YOUTUBE_PLAYER_API_URL}?key=${encodeURIComponent(apiKey)}`,
+    `${YOUTUBE_PLAYER_API_URL}?key=${encodeURIComponent(playerApiKey)}`,
     {
       method: "POST",
       headers: {
