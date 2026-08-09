@@ -179,7 +179,7 @@ PREFERRED_LOGOS = {
     "Arirang TV": f"{LOCAL_LOGOS_PUBLIC_BASE}/arirang.png",
     "M1": f"{LOCAL_LOGOS_PUBLIC_BASE}/m1.png",
     "M2": f"{LOCAL_LOGOS_PUBLIC_BASE}/m2.png",
-    "13C": f"{LOCAL_LOGOS_PUBLIC_BASE}/13c.png",
+    "13C": f"{LOCAL_LOGOS_PUBLIC_BASE}/13cultura.svg",
     "13 Festival": f"{LOCAL_LOGOS_PUBLIC_BASE}/13-festival.png",
     "13 Prime": f"{LOCAL_LOGOS_PUBLIC_BASE}/13-prime.png",
     "Rewind": f"{LOCAL_LOGOS_PUBLIC_BASE}/rewind.png",
