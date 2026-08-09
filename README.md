@@ -22,9 +22,12 @@ Cada ejecucion:
   pueda resolverlos;
 - publica los maestros HLS originales de cada canal, sin wrappers ni variantes
   generadas por este repositorio;
+- prioriza enlaces descubiertos desde las paginas oficiales del emisor al
+  reparar una senal; los respaldos conocidos solo se prueban despues;
 - actualiza la guia EPG con las parrillas disponibles;
-- usa la parrilla oficial de Mega desde `mega.cl/programacion` y conserva
-  EPGShare como respaldo;
+- usa las parrillas oficiales disponibles de TVN y Mega, ademas de las de M1 y
+  M2; conserva EPGShare como respaldo cuando el emisor no publica XMLTV o una
+  parrilla automatizable;
 - publica `channel-status.json` como artefacto de cada ejecucion.
 
 En el modo actual, TVN y Meganoticias publican sus maestros `mdstrm` sin

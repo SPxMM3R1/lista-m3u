@@ -35,6 +35,8 @@ NHK_MASTER_URL = "https://masterpl.hls.nhkworld.jp/hls/w/live/smarttv.m3u8"
 FRANCE24_ES_1080_URL = (
     "https://live.france24.com/hls/live/2037220/F24_ES_HI_HLS/master_5000.m3u8"
 )
+# EPGShare es un agregador de respaldo. Las fuentes oficiales especificas se
+# incorporan en refresh_epg y tienen prioridad cuando publican una parrilla.
 EPG_SOURCES = {
     "cl": "https://epgshare01.online/epgshare01/epg_ripper_CL1.xml.gz",
     "es": "https://epgshare01.online/epgshare01/epg_ripper_ES1.xml.gz",
@@ -246,6 +248,7 @@ BROWSER_USER_AGENT = (
     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
 )
 OFFICIAL_STREAM_PAGES = {
+    "TVN": [TVN_LIVE_PAGE],
     "Mega": ["https://www.mega.cl/senal-en-vivo/"],
     "Meganoticias": [MEGANOTICIAS_LIVE_PAGE],
     "CHV": ["https://www.chilevision.cl/senal-online"],
@@ -253,6 +256,8 @@ OFFICIAL_STREAM_PAGES = {
     "T13": ["https://www.t13.cl/en-vivo"],
     "24 Horas": ["https://www.24horas.cl/envivo"],
     "La Red": ["https://www.lared.cl/senal-online/"],
+    "M1": ["https://m1.tv/live/"],
+    "M2": ["https://m2.tv/stream/"],
 }
 OFFICIAL_CANDIDATE_HINTS = {
     "Mega": re.compile(r"mega", re.IGNORECASE),
@@ -1994,7 +1999,6 @@ def discover_official_candidates(channel: Channel) -> list[str]:
             candidates.append(factory())
         except Exception as error:
             print(f"  [AVISO] {channel.name}: no se pudo renovar el enlace oficial: {error}")
-    candidates.extend(KNOWN_STREAM_FALLBACKS.get(channel.name, []))
     headers = {
         "User-Agent": BROWSER_USER_AGENT,
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
@@ -2009,6 +2013,9 @@ def discover_official_candidates(channel: Channel) -> list[str]:
                     candidates.append(candidate)
         except Exception as error:
             print(f"  [AVISO] {channel.name}: no se pudo leer {page_url}: {error}")
+    # Solo despues de consultar las paginas oficiales se prueban los respaldos
+    # conocidos. Pueden ser CDNs del proveedor o retransmisores comunitarios.
+    candidates.extend(KNOWN_STREAM_FALLBACKS.get(channel.name, []))
     return [candidate for candidate in candidates if candidate != channel.url]
 
 
