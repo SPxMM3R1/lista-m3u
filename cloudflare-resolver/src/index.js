@@ -39,6 +39,21 @@ async function fetchPage(url, referer) {
   return response.text();
 }
 
+async function fetchYoutubePage(url, referer) {
+  const response = await fetch(url, {
+    headers: {
+      "User-Agent": YOUTUBE_USER_AGENT,
+      Referer: referer,
+      Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+      "Accept-Language": "es-CL,es;q=0.9,en;q=0.8",
+    },
+  });
+  if (!response.ok) {
+    throw new Error(`pagina YouTube HTTP ${response.status}`);
+  }
+  return response.text();
+}
+
 function validateToken(token, label) {
   if (!token || !/^[A-Za-z0-9._~-]+$/.test(token)) {
     throw new Error(`${label} publico un token inesperado`);
@@ -323,13 +338,13 @@ function extractYoutubeLiveId(html) {
 }
 
 async function freshMeganoticiasYoutubeUrl() {
-  const channelHtml = await fetchPage(
+  const channelHtml = await fetchYoutubePage(
     MEGANOTICIAS_YOUTUBE_CHANNEL_LIVE,
     "https://www.youtube.com/",
   );
   const videoId = extractYoutubeLiveId(channelHtml);
   const watchUrl = `https://www.youtube.com/watch?v=${videoId}`;
-  const watchHtml = await fetchPage(watchUrl, "https://www.youtube.com/");
+  const watchHtml = await fetchYoutubePage(watchUrl, "https://www.youtube.com/");
   const apiKey = watchHtml.match(/"INNERTUBE_API_KEY":"([^"]+)"/)?.[1];
   if (!apiKey) {
     throw new Error("YouTube no publico su clave de reproduccion");
