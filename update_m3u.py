@@ -21,7 +21,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import asdict, dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from urllib.parse import quote, urlencode, urljoin, urlsplit
+from urllib.parse import urljoin
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 
@@ -84,11 +84,9 @@ RED_BULL_CHANNEL_ID = "rrn:content:video-channels:c81f8686-ab67-4965-ba04-5f6658
 # Chile, asi que enviamos una IP publica chilena para conservar la parrilla local.
 RED_BULL_CHILE_GEO_IP = "186.67.0.1"
 EPG_REFRESH_INTERVAL = timedelta(hours=3)
-TVN_LIVE_PAGE = "https://live.tvn.cl/"
 TVN_PROGRAMMING_PAGE = "https://www.tvn.cl/programacion"
 TVN_PROGRAMMING_BASE_URL = "https://estaticos.tvn.cl/epg/tvn"
 TVN_OFFICIAL_EPG_SOURCE = "tvn-oficial"
-TVN_DEFAULT_ID = "57a498c4d7b86d600e5461cb"
 TVN_ALTERNATIVE_URL = "https://iptv2.intersurtv.cl/TVN/index.m3u8?PlaylistM3UCL"
 LA_RED_MASTER_URL = "https://tv-mgmt.gtd.cl/bpk-tv/LARED/default/index.m3u8"
 ARIRANG_TV_MASTER_URL = (
@@ -105,26 +103,6 @@ MEGA_SOURCE_MASTER_URL = (
     "vxfmt=dp/playlist.m3u8?device_profile=STB_HLS_VCAS_LIVE_HD"
 )
 MEGANOTICIAS_LIVE_PAGE = "https://www.meganoticias.cl/senal-en-vivo/meganoticias/"
-MEGAMEDIA_API_URL = "https://api.mega.cl/api/v1/mdstrm"
-MEGANOTICIAS_DEFAULT_ID = "561430ae330428c223687e1e"
-# La app de reproduccion puede resolver estos maestros con su propio token.
-# El modo "app" es temporal y se puede revertir desde una variable de Actions:
-# M3U_TOKEN_RESOLUTION_MODE=cloud
-TOKEN_RESOLUTION_MODE = (
-    os.environ.get("M3U_TOKEN_RESOLUTION_MODE") or "app"
-).strip().lower()
-USE_CLOUD_TOKEN_RESOLUTION = TOKEN_RESOLUTION_MODE in {
-    "cloud",
-    "resolver",
-}
-USE_APP_TOKEN_RESOLUTION = not USE_CLOUD_TOKEN_RESOLUTION
-APP_TOKEN_CHANNEL_URLS = {
-    "TVN": f"https://mdstrm.com/live-stream-playlist/{TVN_DEFAULT_ID}.m3u8",
-    "Meganoticias": (
-        "https://mdstrm.com/live-stream-playlist/"
-        f"{MEGANOTICIAS_DEFAULT_ID}.m3u8"
-    ),
-}
 CI_GEO_RESTRICTED_CHANNELS = {
     "Mega",
     "NTV",
@@ -135,30 +113,14 @@ CI_GEO_RESTRICTED_CHANNELS = {
     "La Red",
     "TV Chile",
     "UChile TV",
+    # GitHub Actions corre fuera de Chile y no puede validar estos maestros
+    # cuando el emisor responde 401/403; la app resuelve su acceso al abrirlos.
+    "TVN",
+    "Meganoticias",
 }
-if USE_CLOUD_TOKEN_RESOLUTION:
-    CI_GEO_RESTRICTED_CHANNELS.update({"TVN", "Meganoticias"})
-# El resolutor publico se ejecuta en Cloud Run. La variable se configura en
-# GitHub despues del despliegue y mantiene la M3U sin IPs privadas.
-CLOUD_RESOLVER_BASE_URL = os.environ.get("M3U_RESOLVER_BASE_URL", "").strip().rstrip("/")
-CLOUD_RESOLVER_URLS: dict[str, str] = {}
-if CLOUD_RESOLVER_BASE_URL and USE_CLOUD_TOKEN_RESOLUTION:
-    CLOUD_RESOLVER_URLS.update(
-        {
-            "Mega": f"{CLOUD_RESOLVER_BASE_URL}/mega.m3u8",
-            "TVN": f"{CLOUD_RESOLVER_BASE_URL}/tvn.m3u8",
-            "Meganoticias": f"{CLOUD_RESOLVER_BASE_URL}/meganoticias.m3u8",
-        }
-    )
-CLOUD_RESOLVER_CHANNELS = set(CLOUD_RESOLVER_URLS)
-CLOUD_CHANNEL_INFO = {
-    "Meganoticias": (
-        '#EXTINF:-1 tvg-id="MeganoticiasAhora.cl" '
-        'tvg-name="Meganoticias" '
-        f'tvg-logo="{LOCAL_LOGOS_PUBLIC_BASE}/meganoticias.png" '
-        'group-title="Noticias Chile",Meganoticias'
-    ),
-}
+# Estos canales mantienen su maestro original; la autenticacion de playback
+# queda exclusivamente en la aplicacion y nunca se ejecuta desde Actions.
+APP_HANDLED_CHANNELS = {"TVN", "Meganoticias"}
 PREFERRED_LOGOS = {
     "TVN": f"{LOCAL_LOGOS_PUBLIC_BASE}/tvn.png",
     "Mega": f"{LOCAL_LOGOS_PUBLIC_BASE}/mega.png",
@@ -248,9 +210,7 @@ BROWSER_USER_AGENT = (
     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
 )
 OFFICIAL_STREAM_PAGES = {
-    "TVN": [TVN_LIVE_PAGE],
     "Mega": ["https://www.mega.cl/senal-en-vivo/"],
-    "Meganoticias": [MEGANOTICIAS_LIVE_PAGE],
     "CHV": ["https://www.chilevision.cl/senal-online"],
     "Canal 13": ["https://www.13.cl/en-vivo"],
     "T13": ["https://www.t13.cl/en-vivo"],
@@ -506,52 +466,6 @@ def remove_discontinued_channels(lines: list[str]) -> bool:
     return True
 
 
-def pin_cloud_resolver_channels(lines: list[str]) -> bool:
-    """Replace renewable channel URLs after the cloud resolver is deployed."""
-    if not CLOUD_RESOLVER_URLS:
-        return False
-    changed = False
-    channels = parse_channels(lines)
-    present = {channel.name for channel in channels}
-    for channel in channels:
-        public_url = CLOUD_RESOLVER_URLS.get(channel.name)
-        if public_url and channel.url != public_url:
-            lines[channel.url_line] = public_url
-            changed = True
-            print(f"  [OK] {channel.name}: resolutor cloud configurado")
-    missing = [
-        channel_name
-        for channel_name in CLOUD_CHANNEL_INFO
-        if channel_name not in present and channel_name in CLOUD_RESOLVER_URLS
-    ]
-    if missing:
-        marker = "# CLOUD_RESOLVER_CHANNELS"
-        insertion_index = lines.index(marker) + 1 if marker in lines else len(lines)
-        additions: list[str] = []
-        for channel_name in missing:
-            additions.extend(
-                [CLOUD_CHANNEL_INFO[channel_name], CLOUD_RESOLVER_URLS[channel_name], ""]
-            )
-            print(f"  [OK] {channel_name}: canal agregado al resolutor cloud")
-        lines[insertion_index:insertion_index] = additions
-        changed = True
-    return changed
-
-
-def pin_app_token_channels(lines: list[str]) -> bool:
-    """Expose stable token-required masters for the playback app."""
-    if not USE_APP_TOKEN_RESOLUTION:
-        return False
-    changed = False
-    for channel in parse_channels(lines):
-        app_url = APP_TOKEN_CHANNEL_URLS.get(channel.name)
-        if app_url and channel.url != app_url:
-            lines[channel.url_line] = app_url
-            changed = True
-            print(f"  [OK] {channel.name}: maestro reservado para token de la app")
-    return changed
-
-
 def pin_preferred_logos(lines: list[str]) -> bool:
     changed = False
     for channel in parse_channels(lines):
@@ -597,15 +511,13 @@ def pin_news_channel_order(lines: list[str]) -> bool:
 
 def request_headers(channel: str) -> dict[str, str]:
     headers = {"User-Agent": PLAYER_USER_AGENT, "Accept": "*/*"}
-    if channel in {"NTV", "TVN3"} or (
-        channel == "TVN" and USE_CLOUD_TOKEN_RESOLUTION
-    ):
+    if channel in {"NTV", "TVN3", "TVN"}:
         headers["Referer"] = "https://live.tvn.cl/"
         headers["Origin"] = "https://live.tvn.cl"
     elif channel == "Mega":
         headers["Referer"] = MEGA_LIVE_PAGE
         headers["Origin"] = "https://www.mega.cl"
-    elif channel == "Meganoticias" and USE_CLOUD_TOKEN_RESOLUTION:
+    elif channel == "Meganoticias":
         headers["Referer"] = MEGANOTICIAS_LIVE_PAGE
         headers["Origin"] = "https://www.meganoticias.cl"
     elif channel in {"CHV Noticias", "CHV Deportes"}:
@@ -1740,26 +1652,6 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
 def check_channel(
     channel: Channel, attempts: int = 2, *, allow_ci_geo_block: bool = False
 ) -> CheckResult:
-    if (
-        USE_APP_TOKEN_RESOLUTION
-        and APP_TOKEN_CHANNEL_URLS.get(channel.name) == channel.url
-    ):
-        return CheckResult(
-            channel.name,
-            channel.url,
-            True,
-            "maestro reservado para que la app resuelva el token",
-        )
-    if (
-        allow_ci_geo_block
-        and CLOUD_RESOLVER_URLS.get(channel.name) == channel.url
-    ):
-        return CheckResult(
-            channel.name,
-            channel.url,
-            True,
-            "resolutor Cloud Run conservado; el stream se valida desde Santiago",
-        )
     last_error = "respuesta desconocida"
     for attempt in range(attempts):
         try:
@@ -1798,25 +1690,30 @@ def check_channel(
             last_error = f"HTTP {status}, contenido no reconocido"
         except urllib.error.HTTPError as error:
             geo_error_codes = {403}
-            if channel.name == "TVN" and USE_CLOUD_TOKEN_RESOLUTION:
+            if channel.name in APP_HANDLED_CHANNELS:
                 geo_error_codes.add(401)
             if (
                 allow_ci_geo_block
                 and channel.name in CI_GEO_RESTRICTED_CHANNELS
                 and error.code in geo_error_codes
             ):
+                detail = (
+                    f"maestro reservado para la app; Actions no obtiene acceso "
+                    f"(HTTP {error.code})"
+                    if channel.name in APP_HANDLED_CHANNELS
+                    else f"reproduccion limitada fuera de Chile (HTTP {error.code})"
+                )
                 return CheckResult(
                     channel.name,
                     channel.url,
                     True,
-                    f"reproduccion limitada fuera de Chile (HTTP {error.code})",
+                    detail,
                 )
             last_error = f"HTTP {error.code} {error.reason}"
         except Exception as error:  # Network and TLS failures need a compact report.
             if (
                 allow_ci_geo_block
-                and channel.name == "TVN"
-                and USE_CLOUD_TOKEN_RESOLUTION
+                and channel.name in APP_HANDLED_CHANNELS
                 and "/live-stream-playlist/" in channel.url
                 and isinstance(error, urllib.error.URLError)
             ):
@@ -1824,7 +1721,7 @@ def check_channel(
                     channel.name,
                     channel.url,
                     True,
-                    "maestro vigente; runner fuera de Chile no pudo probarlo",
+                    "maestro conservado; Actions fuera de Chile no pudo probarlo",
                 )
             last_error = f"{type(error).__name__}: {error}"
         if attempt + 1 < attempts:
@@ -1986,13 +1883,6 @@ def discover_official_candidates(channel: Channel) -> list[str]:
     dynamic_factories = {
         "24 Horas": fresh_24horas_url,
     }
-    if USE_CLOUD_TOKEN_RESOLUTION:
-        dynamic_factories.update(
-            {
-                "TVN": fresh_tvn_url,
-                "Meganoticias": fresh_meganoticias_url,
-            }
-        )
     factory = dynamic_factories.get(channel.name)
     if factory:
         try:
@@ -2032,10 +1922,10 @@ def repair_failed_channels(
         if result.ok:
             continue
         channel = channels_by_name[result.channel]
-        if CLOUD_RESOLVER_URLS.get(channel.name) == channel.url:
+        if allow_ci_geo_block and channel.name in APP_HANDLED_CHANNELS:
             print(
-                f"  [CONSERVADO] {channel.name}: el resolutor Cloud Run se mantiene; "
-                "su stream se valida desde Santiago"
+                f"  [CONSERVADO] {channel.name}: se mantiene el maestro original; "
+                "la autenticacion queda en la app"
             )
             continue
         print(f"Buscando reemplazo oficial para {channel.name}")
@@ -2059,43 +1949,6 @@ def repair_failed_channels(
         if channel.name not in repaired:
             print(f"  [SIN REEMPLAZO] {channel.name}: se conserva el enlace para revision manual")
     return repaired
-
-
-def tvn_page_html() -> str:
-    headers = {
-        "User-Agent": BROWSER_USER_AGENT,
-        "Referer": "https://www.tvn.cl/",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-        "Accept-Language": "es-CL,es;q=0.9,en;q=0.8",
-    }
-    try:
-        _, body, _ = fetch_bytes(TVN_LIVE_PAGE, headers, limit=1_048_576)
-    except urllib.error.URLError as error:
-        reason = str(getattr(error, "reason", error)).lower()
-        if "certificate verify failed" not in reason and "certificate has expired" not in reason:
-            raise
-        print("  TVN: certificado web vencido; usando excepcion TLS solo para su pagina oficial")
-        insecure_context = ssl.create_default_context()
-        insecure_context.check_hostname = False
-        insecure_context.verify_mode = ssl.CERT_NONE
-        _, body, _ = fetch_bytes(
-            TVN_LIVE_PAGE, headers, context=insecure_context, limit=1_048_576
-        )
-    return body.decode("utf-8", "replace")
-
-
-def fresh_tvn_url() -> str:
-    html = tvn_page_html()
-    stream_id_match = re.search(r"\bid\s*:\s*['\"]([a-zA-Z0-9]+)['\"]", html)
-    token_match = re.search(r"\baccess_token\s*:\s*['\"]([^'\"]+)['\"]", html)
-    if not token_match:
-        raise RuntimeError("la pagina oficial de TVN no publico un access_token")
-    stream_id = stream_id_match.group(1) if stream_id_match else TVN_DEFAULT_ID
-    token = token_match.group(1)
-    if not re.fullmatch(r"[A-Za-z0-9._~-]+", token):
-        raise RuntimeError("TVN entrego un token con formato inesperado")
-    playlist_url = f"https://mdstrm.com/live-stream-playlist/{stream_id}.m3u8?access_token={token}"
-    return playlist_url
 
 
 def fresh_24horas_url() -> str:
@@ -2139,62 +1992,6 @@ def megamedia_page_html(page_url: str) -> str:
     return body.decode("utf-8", "replace")
 
 
-def fresh_megamedia_url(page_url: str, default_id: str, label: str) -> str:
-    html = megamedia_page_html(page_url)
-    config_match = re.search(
-        r"var\s+VideoSenalEnVivo\s*=\s*\{\s*id:\s*'([^']+)'"
-        r".*?serverKey\s*:\s*'([^']+)'",
-        html,
-        flags=re.DOTALL,
-    )
-    if not config_match:
-        raise RuntimeError(f"la pagina de {label} no publico la configuracion del reproductor")
-    stream_id, server_key = config_match.groups()
-    stream_id = stream_id or default_id
-    query = urlencode(
-        {
-            "id": stream_id,
-            "ua": BROWSER_USER_AGENT,
-            "type": "live",
-            "process": "access_token",
-            "key": server_key,
-        }
-    )
-    headers = {
-        "User-Agent": BROWSER_USER_AGENT,
-        "Referer": page_url,
-        "Origin": urlsplit(page_url).scheme + "://" + urlsplit(page_url).netloc,
-        "Accept": "application/json",
-    }
-    status, body, _ = fetch_bytes(
-        f"{MEGAMEDIA_API_URL}?{query}", headers, limit=262_144
-    )
-    if status != 200:
-        raise RuntimeError(f"la API de {label} respondio HTTP {status}")
-    try:
-        response = json.loads(body.decode("utf-8", "replace"))
-    except json.JSONDecodeError as error:
-        raise RuntimeError(f"la API de {label} no devolvio JSON") from error
-    token = response.get("access_token") if isinstance(response, dict) else None
-    if not token or not isinstance(token, str):
-        message = response.get("message", "sin token") if isinstance(response, dict) else "sin token"
-        raise RuntimeError(f"la API de {label} no emitio access_token ({message})")
-    if not re.fullmatch(r"[A-Za-z0-9._~-]+", token):
-        raise RuntimeError(f"{label} entrego un token con formato inesperado")
-    return (
-        f"https://mdstrm.com/live-stream-playlist/{stream_id}.m3u8?access_token="
-        f"{quote(token, safe='')}"
-    )
-
-
-def fresh_meganoticias_url() -> str:
-    return fresh_megamedia_url(
-        MEGANOTICIAS_LIVE_PAGE,
-        MEGANOTICIAS_DEFAULT_ID,
-        "Meganoticias",
-    )
-
-
 def refresh_dynamic_channel(
     lines: list[str],
     channel: Channel,
@@ -2202,17 +1999,6 @@ def refresh_dynamic_channel(
     *,
     running_in_ci: bool,
 ) -> bool:
-    if CLOUD_RESOLVER_URLS.get(channel.name) == channel.url:
-        current_result = check_channel(channel, allow_ci_geo_block=running_in_ci)
-        state = "OK" if current_result.ok else "FALLO"
-        print(f"  [{state}] {channel.name}: resolutor Cloud Run conservado; {current_result.detail}")
-        return False
-    if running_in_ci and CLOUD_RESOLVER_URLS.get(channel.name) == channel.url:
-        print(
-            f"  [CI] {channel.name}: se conserva el resolutor Cloud Run; "
-            "la renovacion se ejecuta en Santiago"
-        )
-        return False
     current_result = check_channel(channel, allow_ci_geo_block=running_in_ci)
     state = "OK" if current_result.ok else "FALLO"
     print(f"  [{state}] {channel.name}: {current_result.detail}")
@@ -2376,14 +2162,10 @@ def main() -> int:
             print("Cabecera M3U enlazada a la guia EPG publicada en GitHub")
         if discontinued_changed:
             print("Lista depurada de canales retirados")
-    app_token_changed = pin_app_token_channels(lines)
-    cloud_resolver_changed = pin_cloud_resolver_channels(lines)
     news_order_changed = pin_news_channel_order(lines)
     preferred_logo_changed = pin_preferred_logos(lines)
     if (
-        app_token_changed
-        or cloud_resolver_changed
-        or news_order_changed
+        news_order_changed
         or preferred_logo_changed
     ):
         playlist.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
@@ -2411,13 +2193,6 @@ def main() -> int:
     dynamic_channels = {
         "24 Horas": fresh_24horas_url,
     }
-    if USE_CLOUD_TOKEN_RESOLUTION:
-        dynamic_channels.update(
-            {
-                "TVN": fresh_tvn_url,
-                "Meganoticias": fresh_meganoticias_url,
-            }
-        )
     for channel_name, fresh_url_factory in dynamic_channels.items():
         channel = next((item for item in channels if item.name == channel_name), None)
         if channel and refresh_dynamic_channel(

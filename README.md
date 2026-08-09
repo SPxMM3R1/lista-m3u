@@ -18,8 +18,8 @@ Guia de programacion XMLTV:
 Cada ejecucion:
 
 - comprueba los streams, los primeros segmentos multimedia y los logos PNG;
-- conserva los maestros que requieren token para que la app de reproduccion
-  pueda resolverlos;
+- conserva los maestros originales de los canales cuya autenticacion corresponde
+  al reproductor;
 - publica los maestros HLS originales de cada canal, sin wrappers ni variantes
   generadas por este repositorio;
 - prioriza enlaces descubiertos desde las paginas oficiales del emisor al
@@ -30,16 +30,11 @@ Cada ejecucion:
   parrilla automatizable;
 - publica `channel-status.json` como artefacto de cada ejecucion.
 
-En el modo actual, TVN y Meganoticias publican sus maestros `mdstrm` sin
-`access_token`. El actualizador no intenta renovarlos ni sustituirlos: la app
-de reproduccion debe obtener el token antes de abrirlos. Mega y La Red
-publican sus maestros oficiales directos. No se necesita dejar este PC
+TVN y Meganoticias publican sus maestros `mdstrm` sin `access_token`. Actions
+no obtiene tokens, no llama APIs de autenticacion y no sustituye esos enlaces:
+la app de reproduccion debe resolver el acceso antes de abrirlos. Mega y La
+Red publican sus maestros oficiales directos. No se necesita dejar este PC
 encendido.
-
-El modo anterior se puede restaurar sin editar el codigo: configura la
-variable de repositorio `M3U_TOKEN_RESOLUTION_MODE` con el valor `cloud` en
-GitHub Actions. En ese modo TVN, Mega y Meganoticias vuelven a usar el
-resolutor y la renovacion automatica de tokens.
 
 La guia conserva datos vigentes si una fuente externa falla temporalmente. La
 ejecucion tambien puede iniciarse manualmente desde la pestana **Actions** con
@@ -68,11 +63,3 @@ Letonia y Paises Bajos. M1 y M2 se actualizan desde sus parrillas oficiales
 semanales. Se marca como `senal continua` cualquier canal que no publique una
 parrilla diaria verificable, en vez de presentar esa continuidad como una guia
 real.
-
-## Resolutor Cloud Run
-
-El workflow **Deploy Chile resolver** puede desplegar `cloud-resolver` en
-Google Cloud Run, guardar su URL en `M3U_RESOLVER_BASE_URL` y conectar TVN,
-Mega y Meganoticias cuando `M3U_TOKEN_RESOLUTION_MODE` usa el modo `cloud` o
-`resolver`. Es opcional; el modo predeterminado conserva los maestros para que
-la app resuelva sus propios tokens.
