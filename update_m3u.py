@@ -31,8 +31,6 @@ REPORT_PATH = Path(__file__).with_name("channel-status.json")
 PUBLIC_RAW_BASE = "https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main"
 EPG_PUBLIC_URL = f"{PUBLIC_RAW_BASE}/epg.xml"
 LOCAL_LOGOS_PUBLIC_BASE = f"{PUBLIC_RAW_BASE}/logos"
-CUSTOM_HLS_DIR = Path(__file__).with_name("custom-hls")
-CUSTOM_HLS_PUBLIC_BASE = f"{PUBLIC_RAW_BASE}/custom-hls"
 NHK_MASTER_URL = "https://masterpl.hls.nhkworld.jp/hls/w/live/smarttv.m3u8"
 FRANCE24_ES_1080_URL = (
     "https://live.france24.com/hls/live/2037220/F24_ES_HI_HLS/master_5000.m3u8"
@@ -122,12 +120,11 @@ if USE_CLOUD_TOKEN_RESOLUTION:
 # El resolutor publico se ejecuta en Cloudflare. La variable se configura en
 # GitHub despues del despliegue y mantiene la M3U sin IPs privadas.
 CLOUD_RESOLVER_BASE_URL = os.environ.get("M3U_RESOLVER_BASE_URL", "").strip().rstrip("/")
-CLOUD_RESOLVER_URLS = {
-    "Mega": f"{CLOUD_RESOLVER_BASE_URL}/mega.m3u8",
-} if CLOUD_RESOLVER_BASE_URL else {}
+CLOUD_RESOLVER_URLS: dict[str, str] = {}
 if CLOUD_RESOLVER_BASE_URL and USE_CLOUD_TOKEN_RESOLUTION:
     CLOUD_RESOLVER_URLS.update(
         {
+            "Mega": f"{CLOUD_RESOLVER_BASE_URL}/mega.m3u8",
             "TVN": f"{CLOUD_RESOLVER_BASE_URL}/tvn.m3u8",
             "Meganoticias": f"{CLOUD_RESOLVER_BASE_URL}/meganoticias.m3u8",
         }
@@ -267,65 +264,6 @@ KNOWN_STREAM_FALLBACKS = {
         "https://d726x48n2pd5h.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-skxr1pazhltvp/XITE_Hits.m3u8"
     ],
 }
-PREFERRED_VARIANT_MASTERS = {
-    "CHV": "https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/chv/chv.smil/playlist.m3u8",
-    "Canal 13": "https://redirector.dps.live/hls/13cl/playlist.m3u8",
-    "24 Horas": "https://mdstrm.com/live-stream-playlist/57d1a22064f5d85712b20dab.m3u8",
-    "T13": "https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/t13/t13.smil/playlist.m3u8",
-    "La Red": LA_RED_MASTER_URL,
-    "DW Espanol": "https://dwamdstream104.akamaized.net/hls/live/2015530/dwstream104/master.m3u8",
-    "Euronews Espanol": "https://cdn-euronews.akamaized.net/live/eds/euronews-es/25053/index.m3u8",
-    "Al Jazeera English": "https://live-hls-apps-aje-v3-fa.getaj.net/AJE/index.m3u8",
-    "Red Bull TV": "https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master.m3u8",
-    "XITE Hits Germany": "https://d726x48n2pd5h.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-skxr1pazhltvp/XITE_Hits.m3u8",
-    "M1": "http://stream.mcquack.net/218/index.m3u8",
-    "M2": "http://stream.mcquack.net/330/index.m3u8",
-}
-MASTER_ONLY_CHANNELS = {"Canal 13"}
-CUSTOM_VARIANT_MASTERS = {
-    "CHV": (
-        "https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/chv/chv.smil/playlist.m3u8",
-        "chv-audio.m3u8",
-    ),
-    "CHV Noticias": (
-        "https://redirector.rudo.video/hls-video/339f69c6122f6d8f4574732c235f09b7683e31a5/chvn/chvn.smil/playlist.m3u8",
-        "chv-noticias-audio.m3u8",
-    ),
-    "CHV Deportes": (
-        "https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/chvdeportes/chvdeportes.smil/playlist.m3u8",
-        "chv-deportes-audio.m3u8",
-    ),
-    "Canal 13": (
-        "https://redirector.dps.live/hls/13cl/playlist.m3u8",
-        "canal13-audio.m3u8",
-    ),
-    "T13": (
-        "https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/t13/t13.smil/playlist.m3u8",
-        "t13-audio.m3u8",
-    ),
-    "DW Espanol": (
-        "https://dwamdstream104.akamaized.net/hls/live/2015530/dwstream104/master.m3u8",
-        "dw-espanol-audio.m3u8",
-    ),
-    "Euronews Espanol": (
-        "https://cdn-euronews.akamaized.net/live/eds/euronews-es/25053/index.m3u8",
-        "euronews-espanol-audio.m3u8",
-    ),
-    "Al Jazeera English": (
-        "https://live-hls-apps-aje-v3-fa.getaj.net/AJE/index.m3u8",
-        "al-jazeera-audio.m3u8",
-    ),
-    "Red Bull TV": (
-        "https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master.m3u8",
-        "red-bull-audio.m3u8",
-    ),
-    "XITE Hits Germany": (
-        "https://d726x48n2pd5h.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-skxr1pazhltvp/XITE_Hits.m3u8",
-        "xite-hits-audio.m3u8",
-    ),
-    "M1": ("http://stream.mcquack.net/218/index.m3u8", "m1-audio.m3u8"),
-    "M2": ("http://stream.mcquack.net/330/index.m3u8", "m2-audio.m3u8"),
-}
 SEGMENT_CHECK_CHANNELS = {
     "TVN",
     "NTV",
@@ -348,15 +286,6 @@ SEGMENT_CHECK_CHANNELS = {
     "M1",
     "M2",
 }
-CUSTOM_AUDIO_MASTERS = {
-    "Mega": (
-        MEGA_SOURCE_MASTER_URL,
-        "mega-1080-audio.m3u8",
-    ),
-    "NHK World Japan": (NHK_MASTER_URL, "nhk-1080-audio.m3u8"),
-}
-
-
 @dataclass(frozen=True)
 class Channel:
     name: str
@@ -409,102 +338,6 @@ def parse_channels(lines: list[str]) -> list[Channel]:
         else:
             raise ValueError(f"{name}: falta la URL al final del archivo")
     return channels
-
-
-def preferred_variant_url(channel_name: str, master_url: str) -> str | None:
-    """Return the highest child up to 1080p without dropping separate audio."""
-    base_headers = {
-        "User-Agent": BROWSER_USER_AGENT,
-        "Accept": "application/vnd.apple.mpegurl,*/*;q=0.8",
-    }
-    header_sets = [base_headers]
-    if channel_name == "TVN" and USE_CLOUD_TOKEN_RESOLUTION:
-        header_sets = [
-            {
-                **base_headers,
-                "Referer": "https://live.tvn.cl/",
-                "Origin": "https://live.tvn.cl",
-                "Accept-Language": "es-CL,es;q=0.9,en;q=0.8",
-            },
-            {
-                **base_headers,
-                "Referer": "https://www.tvn.cl/",
-                "Origin": "https://www.tvn.cl",
-            },
-            {
-                "User-Agent": PLAYER_USER_AGENT,
-                "Accept": "application/vnd.apple.mpegurl,*/*;q=0.8",
-                "Referer": "https://live.tvn.cl/",
-                "Origin": "https://live.tvn.cl",
-            },
-        ]
-    last_error: Exception | None = None
-    for headers in header_sets:
-        try:
-            _, body, final_url = fetch_bytes(master_url, headers, limit=1_048_576)
-            break
-        except Exception as error:
-            last_error = error
-    else:
-        print(
-            f"  [AVISO] {channel_name}: no se pudo resolver la variante hasta 1080p: "
-            f"{last_error}"
-        )
-        return None
-
-    text = body.decode("utf-8", "replace")
-    if not text.lstrip().startswith("#EXTM3U"):
-        return None
-    lines = text.splitlines()
-    if any(
-        line.startswith("#EXT-X-MEDIA:") and re.search(r"TYPE=AUDIO(?:,|$)", line)
-        for line in lines
-    ):
-        print(f"  [OK] {channel_name}: se conserva el maestro HLS para mantener su audio")
-        return master_url
-    variants: list[tuple[int, int, int, str]] = []
-    for index, line in enumerate(lines):
-        if not line.startswith("#EXT-X-STREAM-INF:") or index + 1 >= len(lines):
-            continue
-        resolution = re.search(r"RESOLUTION=(\d+)x(\d+)", line)
-        if not resolution:
-            continue
-        codecs_match = re.search(r'CODECS="([^"]+)"', line)
-        codecs = codecs_match.group(1).lower() if codecs_match else ""
-        if not re.search(r"(?:^|,)\s*(?:mp4a|ac-3|ec-3|opus|vorbis)", codecs):
-            continue
-        width, height = (int(value) for value in resolution.groups())
-        if height > 1080:
-            continue
-        bandwidth_match = re.search(r"(?:AVERAGE-)?BANDWIDTH=(\d+)", line)
-        bandwidth = int(bandwidth_match.group(1)) if bandwidth_match else 0
-        variants.append((height, width, bandwidth, urljoin(final_url, lines[index + 1].strip())))
-    if not variants:
-        return None
-    return max(variants)[3]
-
-
-def pin_preferred_variants(lines: list[str]) -> bool:
-    changed = False
-    for channel in parse_channels(lines):
-        if channel.name in CUSTOM_VARIANT_MASTERS:
-            continue
-        master_url = PREFERRED_VARIANT_MASTERS.get(channel.name)
-        if not master_url:
-            continue
-        selected_url = (
-            master_url
-            if channel.name in MASTER_ONLY_CHANNELS
-            else preferred_variant_url(channel.name, master_url)
-        )
-        if selected_url and selected_url != channel.url:
-            lines[channel.url_line] = selected_url
-            if selected_url == master_url:
-                print(f"  [OK] {channel.name}: restaurado maestro HLS con audio")
-            else:
-                print(f"  [OK] {channel.name}: fijada variante maxima con audio")
-            changed = True
-    return changed
 
 
 def pin_cloud_resolver_channels(lines: list[str]) -> bool:
@@ -631,15 +464,6 @@ def fetch_bytes(
 def fetch_channel_bytes(
     url: str, headers: dict[str, str]
 ) -> tuple[int, bytes, str]:
-    """Read generated HLS wrappers locally before they are published by CI."""
-    prefix = f"{CUSTOM_HLS_PUBLIC_BASE}/"
-    if url.startswith(prefix):
-        relative = url[len(prefix) :].split("?", 1)[0]
-        parts = Path(relative).parts
-        if parts and all(part not in {"", ".", ".."} for part in parts):
-            local_path = CUSTOM_HLS_DIR.joinpath(*parts)
-            if local_path.is_file():
-                return 200, local_path.read_bytes(), url
     return fetch_bytes(url, headers)
 
 
@@ -650,236 +474,6 @@ def hls_attribute(line: str, name: str) -> str | None:
     if not match:
         return None
     return match.group(1) if match.group(1) is not None else match.group(2).strip()
-
-
-def replace_hls_attribute(line: str, name: str, value: str) -> str:
-    pattern = rf"({re.escape(name)}=)(?:\"[^\"]*\"|[^,]*)"
-    return re.sub(pattern, rf'\1"{value}"', line, count=1)
-
-
-def remove_hls_attribute(line: str, name: str) -> str:
-    return re.sub(
-        rf",?{re.escape(name)}=(?:\"[^\"]*\"|[^,]*)", "", line, count=1
-    )
-
-
-def custom_audio_master(
-    channel_name: str, source_url: str, filename: str
-) -> str | None:
-    """Publish a stable wrapper that pairs a 1080p video child with audio."""
-    wrapper_path = CUSTOM_HLS_DIR / filename
-    public_url = f"{CUSTOM_HLS_PUBLIC_BASE}/{filename}"
-    try:
-        headers = {
-            "User-Agent": BROWSER_USER_AGENT,
-            "Accept": "application/vnd.apple.mpegurl,*/*;q=0.8",
-        }
-        _, body, final_url = fetch_bytes(source_url, headers, limit=1_048_576)
-        source_lines = body.decode("utf-8", "replace").splitlines()
-        if not source_lines or not source_lines[0].lstrip().startswith("#EXTM3U"):
-            raise ValueError("el maestro fuente no tiene formato HLS")
-
-        variants: list[tuple[int, int, int, str, str, str]] = []
-        for index, line in enumerate(source_lines):
-            if not line.startswith("#EXT-X-STREAM-INF:") or index + 1 >= len(source_lines):
-                continue
-            resolution = re.search(r"RESOLUTION=(\d+)x(\d+)", line)
-            audio_group = hls_attribute(line, "AUDIO")
-            child_line = source_lines[index + 1].strip()
-            if not resolution or not audio_group or not child_line or child_line.startswith("#"):
-                continue
-            width, height = (int(value) for value in resolution.groups())
-            if height > 1080:
-                continue
-            average_bandwidth = hls_attribute(line, "AVERAGE-BANDWIDTH")
-            bandwidth = average_bandwidth or hls_attribute(line, "BANDWIDTH") or "0"
-            variants.append(
-                (
-                    height,
-                    width,
-                    int(bandwidth),
-                    audio_group,
-                    line,
-                    urljoin(final_url, child_line),
-                )
-            )
-        if not variants:
-            raise ValueError("no hay variante de video con audio alternativo")
-
-        _, _, _, audio_group, stream_line, video_url = max(variants)
-        audio_line = next(
-            (
-                line
-                for line in source_lines
-                if line.startswith("#EXT-X-MEDIA:")
-                and hls_attribute(line, "TYPE") == "AUDIO"
-                and hls_attribute(line, "GROUP-ID") == audio_group
-                and hls_attribute(line, "URI")
-            ),
-            None,
-        )
-        if audio_line is None:
-            raise ValueError(f"no se encontro la pista de audio {audio_group}")
-        audio_uri = hls_attribute(audio_line, "URI")
-        assert audio_uri is not None
-        audio_url = urljoin(final_url, audio_uri)
-
-        for role, child_url in (("video", video_url), ("audio", audio_url)):
-            _, child_body, _ = fetch_bytes(child_url, headers, limit=262_144)
-            if not child_body.lstrip().startswith(b"#EXTM3U"):
-                raise ValueError(f"la pista {role} no devolvio una playlist HLS")
-
-        custom_group = "custom-audio"
-        audio_line = replace_hls_attribute(audio_line, "GROUP-ID", custom_group)
-        audio_line = replace_hls_attribute(audio_line, "URI", audio_url)
-        if hls_attribute(audio_line, "DEFAULT") is None:
-            audio_line = audio_line.replace(
-                "TYPE=AUDIO,", "TYPE=AUDIO,DEFAULT=YES,", 1
-            )
-
-        stream_line = remove_hls_attribute(stream_line, "SUBTITLES")
-        stream_line = remove_hls_attribute(stream_line, "CLOSED-CAPTIONS")
-        stream_line = replace_hls_attribute(stream_line, "AUDIO", custom_group)
-        if hls_attribute(stream_line, "AUDIO") is None:
-            stream_line += f',AUDIO="{custom_group}"'
-
-        output_lines = ["#EXTM3U"]
-        output_lines.extend(
-            line
-            for line in source_lines[1:]
-            if line.startswith("#EXT-X-VERSION:")
-            or line.startswith("#EXT-X-INDEPENDENT-SEGMENTS")
-        )
-        output_lines.extend([audio_line, stream_line, video_url, ""])
-        output = "\n".join(output_lines)
-        CUSTOM_HLS_DIR.mkdir(parents=True, exist_ok=True)
-        if not wrapper_path.exists() or wrapper_path.read_text(encoding="utf-8") != output:
-            temporary = wrapper_path.with_suffix(".m3u8.tmp")
-            temporary.write_text(output, encoding="utf-8", newline="\n")
-            temporary.replace(wrapper_path)
-        resolution = hls_attribute(stream_line, "RESOLUTION") or "video"
-        print(f"  [OK] {channel_name}: wrapper directo {resolution} con audio generado")
-        return public_url
-    except Exception as error:
-        if wrapper_path.is_file():
-            print(
-                f"  [AVISO] {channel_name}: no se pudo renovar su wrapper ({error}); "
-                "se conserva el ultimo publicado"
-            )
-            return public_url
-        print(f"  [AVISO] {channel_name}: no se pudo generar wrapper con audio: {error}")
-        return None
-
-
-def custom_variant_master(
-    channel_name: str, source_url: str, filename: str
-) -> str | None:
-    """Publish one stable child variant when its video already embeds audio."""
-    wrapper_path = CUSTOM_HLS_DIR / filename
-    public_url = f"{CUSTOM_HLS_PUBLIC_BASE}/{filename}"
-    try:
-        headers = {
-            **request_headers(channel_name),
-            "Accept": "application/vnd.apple.mpegurl,*/*;q=0.8",
-        }
-        _, body, final_url = fetch_bytes(source_url, headers, limit=1_048_576)
-        source_lines = body.decode("utf-8", "replace").splitlines()
-        if not source_lines or not source_lines[0].lstrip().startswith("#EXTM3U"):
-            raise ValueError("el maestro fuente no tiene formato HLS")
-
-        variants: list[tuple[int, int, int, str, str]] = []
-        for index, line in enumerate(source_lines):
-            if not line.startswith("#EXT-X-STREAM-INF:") or index + 1 >= len(source_lines):
-                continue
-            resolution = re.search(r"RESOLUTION=(\d+)x(\d+)", line)
-            child_line = source_lines[index + 1].strip()
-            codecs = (hls_attribute(line, "CODECS") or "").lower()
-            has_embedded_audio = bool(
-                re.search(r"(?:^|,)\s*(?:mp4a|ac-3|ec-3|opus|vorbis)", codecs)
-            )
-            if not resolution or not child_line or child_line.startswith("#"):
-                continue
-            if not has_embedded_audio:
-                continue
-            width, height = (int(value) for value in resolution.groups())
-            if height > 1080:
-                continue
-            bandwidth_match = re.search(r"(?:AVERAGE-)?BANDWIDTH=(\d+)", line)
-            bandwidth = int(bandwidth_match.group(1)) if bandwidth_match else 0
-            variants.append(
-                (
-                    height,
-                    width,
-                    bandwidth,
-                    line,
-                    urljoin(final_url, child_line),
-                )
-            )
-        if not variants:
-            raise ValueError("el maestro no declara una variante con audio embebido")
-
-        _, _, _, stream_line, child_url = max(variants)
-        child_status, child_body, _ = fetch_bytes(child_url, headers, limit=262_144)
-        if child_status != 200 or not child_body.lstrip().startswith(b"#EXTM3U"):
-            raise ValueError("la variante seleccionada no devolvio una playlist HLS")
-
-        output_lines = ["#EXTM3U"]
-        output_lines.extend(
-            line
-            for line in source_lines[1:]
-            if line.startswith("#EXT-X-VERSION:")
-            or line.startswith("#EXT-X-INDEPENDENT-SEGMENTS")
-        )
-        output_lines.extend([stream_line, child_url, ""])
-        output = "\n".join(output_lines)
-        CUSTOM_HLS_DIR.mkdir(parents=True, exist_ok=True)
-        if not wrapper_path.exists() or wrapper_path.read_text(encoding="utf-8") != output:
-            temporary = wrapper_path.with_suffix(".m3u8.tmp")
-            temporary.write_text(output, encoding="utf-8", newline="\n")
-            temporary.replace(wrapper_path)
-        resolution = hls_attribute(stream_line, "RESOLUTION") or "video"
-        print(f"  [OK] {channel_name}: wrapper directo {resolution} con audio embebido")
-        return public_url
-    except Exception as error:
-        if wrapper_path.is_file():
-            print(
-                f"  [AVISO] {channel_name}: no se pudo renovar su wrapper ({type(error).__name__}); "
-                "se conserva el ultimo publicado"
-            )
-            return public_url
-        print(
-            f"  [AVISO] {channel_name}: no se pudo generar wrapper con audio embebido: "
-            f"{type(error).__name__}"
-        )
-        return None
-
-
-def pin_custom_audio_channels(lines: list[str]) -> bool:
-    changed = False
-    for channel in parse_channels(lines):
-        if CLOUD_RESOLVER_URLS.get(channel.name) == channel.url:
-            continue
-        source = CUSTOM_AUDIO_MASTERS.get(channel.name)
-        if not source:
-            continue
-        custom_url = custom_audio_master(channel.name, source[0], source[1])
-        if custom_url and custom_url != channel.url:
-            lines[channel.url_line] = custom_url
-            changed = True
-    return changed
-
-
-def pin_custom_variant_channels(lines: list[str]) -> bool:
-    changed = False
-    for channel in parse_channels(lines):
-        source = CUSTOM_VARIANT_MASTERS.get(channel.name)
-        if not source:
-            continue
-        custom_url = custom_variant_master(channel.name, source[0], source[1])
-        if custom_url and custom_url != channel.url:
-            lines[channel.url_line] = custom_url
-            changed = True
-    return changed
 
 
 def xmltv_datetime(value: str) -> datetime:
@@ -2071,20 +1665,14 @@ def main() -> int:
     cloud_resolver_changed = pin_cloud_resolver_channels(lines)
     news_order_changed = pin_news_channel_order(lines)
     preferred_logo_changed = pin_preferred_logos(lines)
-    custom_audio_changed = pin_custom_audio_channels(lines)
-    custom_variant_changed = pin_custom_variant_channels(lines)
-    variants_changed = pin_preferred_variants(lines)
     if (
         app_token_changed
         or cloud_resolver_changed
         or news_order_changed
         or preferred_logo_changed
-        or custom_audio_changed
-        or custom_variant_changed
-        or variants_changed
     ):
         playlist.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
-        print("Wrappers y variantes de video compatibles guardados en la lista")
+        print("Cambios de lista y maestros originales guardados")
     channels = parse_channels(lines)
     if not channels:
         raise RuntimeError("la lista no contiene canales activos")
