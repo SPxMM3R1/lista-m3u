@@ -162,8 +162,8 @@ PREFERRED_LOGOS = {
     "Euronews Espanol": f"{LOCAL_LOGOS_PUBLIC_BASE}/euronews-espanol.png",
     "NHK World Japan": f"{LOCAL_LOGOS_PUBLIC_BASE}/nhk-world.svg",
     "Al Jazeera English": f"{LOCAL_LOGOS_PUBLIC_BASE}/aljazeera.svg?v=2",
-    "RedBull World English": f"{LOCAL_LOGOS_PUBLIC_BASE}/red-bull-tv.png",
-    "RedBull Chile Espanol": f"{LOCAL_LOGOS_PUBLIC_BASE}/red-bull-tv.png",
+    "RedBull TV World": f"{LOCAL_LOGOS_PUBLIC_BASE}/red-bull-tv.png",
+    "RedBull TV Español": f"{LOCAL_LOGOS_PUBLIC_BASE}/red-bull-tv.png",
     "XITE Hits Germany": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
     "Arirang TV": f"{LOCAL_LOGOS_PUBLIC_BASE}/arirang.png",
     "M1": f"{LOCAL_LOGOS_PUBLIC_BASE}/m1.png",
@@ -192,12 +192,12 @@ CONTINUOUS_PROGRAMME_DETAILS = {
         "Arirang TV en vivo",
         "Programacion continua de Arirang TV; la senal publica no ofrece una parrilla XMLTV estable.",
     ),
-    "RedBull World English": (
-        "RedBull World English en vivo",
+    "RedBull TV World": (
+        "RedBull TV World en vivo",
         "Programacion continua de Red Bull TV; la senal inglesa no publica una parrilla XMLTV local estable.",
     ),
-    "RedBull Chile Espanol": (
-        "RedBull Chile Espanol en vivo",
+    "RedBull TV Español": (
+        "RedBull TV Español en vivo",
         "Programacion continua de la senal chilena en espanol; la parrilla se obtiene desde Red Bull TV.",
     ),
     "M1": (
@@ -305,8 +305,8 @@ KNOWN_STREAM_FALLBACKS = {
     ],
     "NHK World Japan": [NHK_MASTER_URL],
     "Al Jazeera English": ["https://live-hls-apps-aje-v3-fa.getaj.net/AJE/index.m3u8"],
-    "RedBull World English": [RED_BULL_WORLD_URL],
-    "RedBull Chile Espanol": [RED_BULL_CHILE_URL],
+    "RedBull TV World": [RED_BULL_WORLD_URL],
+    "RedBull TV Español": [RED_BULL_CHILE_URL],
     "XITE Hits Germany": [
         "https://d726x48n2pd5h.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-skxr1pazhltvp/XITE_Hits.m3u8"
     ],
@@ -335,8 +335,8 @@ SEGMENT_CHECK_CHANNELS = {
     "NHK World Japan",
     "Al Jazeera English",
     "Arirang TV",
-    "RedBull World English",
-    "RedBull Chile Espanol",
+    "RedBull TV World",
+    "RedBull TV Español",
     "XITE Hits Germany",
     "M1",
     "M2",
