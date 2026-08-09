@@ -79,6 +79,8 @@ ARIRANG_TV_MASTER_URL = (
 TWENTYFOUR_LIVE_PAGE = "https://www.24horas.cl/envivo"
 TWENTYFOUR_DEFAULT_ID = "57d1a22064f5d85712b20dab"
 MEGA_LIVE_PAGE = "https://www.mega.cl/senal-en-vivo/"
+MEGA_PROGRAMMING_PAGE = "https://www.mega.cl/programacion/"
+MEGA_OFFICIAL_EPG_SOURCE = "mega-oficial"
 MEGA_SOURCE_MASTER_URL = (
     "https://tr.live.clarovtrcdn.vtrplay.com/megahdchi/"
     "vxfmt=dp/playlist.m3u8?device_profile=STB_HLS_VCAS_LIVE_HD"
@@ -641,6 +643,186 @@ def red_bull_schedule(page_html: str) -> list[dict]:
     return schedule
 
 
+MEGA_MONTHS = {
+    "enero": 1,
+    "febrero": 2,
+    "marzo": 3,
+    "abril": 4,
+    "mayo": 5,
+    "junio": 6,
+    "julio": 7,
+    "agosto": 8,
+    "septiembre": 9,
+    "octubre": 10,
+    "noviembre": 11,
+    "diciembre": 12,
+}
+
+
+def mega_jsonld_objects(value):
+    if isinstance(value, dict):
+        yield value
+        graph = value.get("@graph")
+        if graph is not None:
+            yield from mega_jsonld_objects(graph)
+    elif isinstance(value, list):
+        for item in value:
+            yield from mega_jsonld_objects(item)
+
+
+def mega_article_payloads(page_html: str) -> list[tuple[str, str]]:
+    payloads: list[tuple[str, str]] = []
+    blocks = re.findall(
+        r'<script\b(?=[^>]*application/ld\+json)[^>]*>(.*?)</script\s*>',
+        page_html,
+        flags=re.IGNORECASE | re.DOTALL,
+    )
+    for block in blocks:
+        try:
+            # Mega publica saltos de linea literales dentro de articleBody.
+            data = json.loads(html.unescape(block), strict=False)
+        except json.JSONDecodeError:
+            continue
+        for item in mega_jsonld_objects(data):
+            headline = item.get("headline") if isinstance(item, dict) else None
+            body = item.get("articleBody") if isinstance(item, dict) else None
+            if isinstance(headline, str) and isinstance(body, str):
+                payloads.append((headline, body))
+    return payloads
+
+
+def mega_article_date(headline: str, year: int):
+    match = re.search(
+        r"\b(\d{1,2})\s+de\s+([a-z]+)", headline.casefold()
+    )
+    if not match:
+        return None
+    month = MEGA_MONTHS.get(match.group(2))
+    if month is None:
+        return None
+    try:
+        return datetime(year, month, int(match.group(1))).date()
+    except ValueError:
+        return None
+
+
+def mega_schedule_items(article_body: str) -> list[tuple[object, str]]:
+    text = html.unescape(article_body)
+    text = re.sub(r"<br\s*/?>|</(?:p|li)>", "\n", text, flags=re.IGNORECASE)
+    text = re.sub(r"<[^>]+>", "", text)
+    items: list[tuple[object, str]] = []
+    for raw_line in re.split(r"\r?\n", text):
+        line = re.sub(r"\s+", " ", raw_line).strip(" \t-*\u2022")
+        match = re.match(
+            r"(.+?):\s*(\d{1,2}):(\d{2})\s*(?:horas?)?\.?$",
+            line,
+            flags=re.IGNORECASE,
+        )
+        if not match:
+            continue
+        hour, minute = int(match.group(2)), int(match.group(3))
+        if hour > 23 or minute > 59:
+            continue
+        title = re.sub(r"\s+", " ", match.group(1)).strip(" .")
+        if title:
+            items.append((datetime.strptime(f"{hour:02d}:{minute:02d}", "%H:%M").time(), title))
+    return items
+
+
+def fetch_mega_official_epg(
+    channels: list[Channel], now: datetime
+) -> tuple[bytes | None, str | None]:
+    if not any(channel.tvg_id == "0105" for channel in channels):
+        return None, None
+    headers = {
+        "User-Agent": BROWSER_USER_AGENT,
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "es-CL,es;q=0.9,en;q=0.8",
+    }
+    try:
+        status, body, _ = fetch_bytes(
+            MEGA_PROGRAMMING_PAGE, headers, timeout=60, limit=8_388_608
+        )
+        if status != 200:
+            raise ValueError(f"HTTP {status}")
+        page_html = decode_web_text(body)
+        article_urls: list[str] = []
+        for raw_url in re.findall(
+            r"https://www\.mega\.cl/programacion/[^\"'<>\s]+?\.html",
+            page_html,
+            flags=re.IGNORECASE,
+        ):
+            url = html.unescape(raw_url).replace("\\/", "/")
+            if url not in article_urls:
+                article_urls.append(url)
+
+        payloads = mega_article_payloads(page_html)
+        for article_url in article_urls:
+            status, article_body, _ = fetch_bytes(
+                article_url, headers, timeout=60, limit=8_388_608
+            )
+            if status == 200:
+                payloads.extend(mega_article_payloads(decode_web_text(article_body)))
+
+        today = now.astimezone(CHILE_TIMEZONE).date()
+        valid_dates = {
+            today + timedelta(days=offset) for offset in range(-1, 8)
+        }
+        schedules: dict[object, list[tuple[object, str]]] = {}
+        for headline, article_body in payloads:
+            schedule_day = mega_article_date(headline, today.year)
+            if schedule_day not in valid_dates:
+                continue
+            items = mega_schedule_items(article_body)
+            if len(items) >= 3 and schedule_day not in schedules:
+                schedules[schedule_day] = items
+        if len(schedules) < 2:
+            raise ValueError("Mega no publico dos dias de parrilla oficial")
+
+        root = ET.Element(
+            "tv",
+            {
+                "generator-info-name": "lista-m3u Mega importer",
+                "source-info-name": MEGA_PROGRAMMING_PAGE,
+            },
+        )
+        for schedule_day in sorted(schedules):
+            starts: list[tuple[datetime, str]] = []
+            previous_start: datetime | None = None
+            for start_clock, title in schedules[schedule_day]:
+                start = datetime.combine(
+                    schedule_day, start_clock, tzinfo=CHILE_TIMEZONE
+                )
+                if previous_start is not None and start <= previous_start:
+                    start += timedelta(days=1)
+                starts.append((start, title))
+                previous_start = start
+            for index, (start, title) in enumerate(starts):
+                stop = (
+                    starts[index + 1][0]
+                    if index + 1 < len(starts)
+                    else start + timedelta(hours=2)
+                )
+                if stop <= start:
+                    stop = start + timedelta(minutes=30)
+                programme = ET.SubElement(
+                    root,
+                    "programme",
+                    {
+                        "start": xmltv_format_chile(start),
+                        "stop": xmltv_format_chile(stop),
+                        "channel": "0105",
+                    },
+                )
+                ET.SubElement(programme, "title", {"lang": "es"}).text = title
+                ET.SubElement(programme, "desc", {"lang": "es"}).text = (
+                    "Programacion oficial consultada en Mega."
+                )
+        return ET.tostring(root, encoding="utf-8", xml_declaration=True), None
+    except Exception as error:
+        return None, f"{type(error).__name__}: {error}"
+
+
 def decode_web_text(data: bytes) -> str:
     decoded = data.decode("utf-8", "replace")
     if "\ufffd" in decoded:
@@ -839,6 +1021,9 @@ def build_epg(
         for target_id, (source_name, source_id) in EPG_PROGRAMME_SOURCES.items()
         if target_id in expected_ids
     }
+    if MEGA_OFFICIAL_EPG_SOURCE in source_roots and "0105" in expected_ids:
+        source_lookup.pop(("cl", "Canal.Mega.(Chile).cl"), None)
+        source_lookup[(MEGA_OFFICIAL_EPG_SOURCE, "0105")] = "0105"
     for source_name, source_root in source_roots.items():
         for programme in source_root.findall("programme"):
             target_id = source_lookup.get((source_name, programme.get("channel", "")))
@@ -977,7 +1162,18 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
         except Exception as error:
             source_errors[source_name] = str(error)
 
-    if source_errors and existing_status is not None:
+    mega_data, mega_error = fetch_mega_official_epg(channels, now)
+    if mega_data:
+        source_documents[MEGA_OFFICIAL_EPG_SOURCE] = mega_data
+    if mega_error:
+        source_errors[MEGA_OFFICIAL_EPG_SOURCE] = mega_error
+
+    blocking_source_errors = {
+        source_name: error
+        for source_name, error in source_errors.items()
+        if source_name != MEGA_OFFICIAL_EPG_SOURCE
+    }
+    if blocking_source_errors and existing_status is not None:
         existing_status.update(
             {
                 "updated": False,
