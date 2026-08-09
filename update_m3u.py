@@ -116,6 +116,8 @@ CI_GEO_RESTRICTED_CHANNELS = {
     "Canal 13",
     "24 Horas",
     "La Red",
+    "TV Chile",
+    "UChile TV",
 }
 if USE_CLOUD_TOKEN_RESOLUTION:
     CI_GEO_RESTRICTED_CHANNELS.update({"TVN", "Meganoticias"})
