@@ -146,6 +146,7 @@ CI_GEO_RESTRICTED_CHANNELS = {
     # RTVE identifica algunas señales internacionales como restringidas por
     # territorio; Actions no debe reemplazar un maestro oficial por un relay.
     "La 1",
+    "La 2",
     "TVE Internacional Europe",
     "Teledeporte",
     # GitHub Actions corre fuera de Chile y no puede validar estos maestros
@@ -2176,9 +2177,11 @@ def check_channel(
                                 True,
                                 "reproduccion limitada fuera de Chile (segmento HTTP 403)",
                             )
-                        return CheckResult(
-                            channel.name, channel.url, False, segment_detail
-                        )
+                        last_error = segment_detail
+                        if attempt + 1 < attempts:
+                            time.sleep(1.5)
+                            continue
+                        return CheckResult(channel.name, channel.url, False, last_error)
                     detail += f"; {segment_detail}"
                 return CheckResult(channel.name, channel.url, True, detail)
             last_error = f"HTTP {status}, contenido no reconocido"
