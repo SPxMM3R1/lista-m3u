@@ -394,24 +394,45 @@ async function discoverYoutubeBrowseLiveId(channelHtml, apiKey) {
 }
 
 async function freshMeganoticiasYoutubeUrl() {
-  const channelHtml = await fetchYoutubePage(
+  let apiKey;
+  let videoId;
+  const discoveryErrors = [];
+  for (const pageUrl of [
     MEGANOTICIAS_YOUTUBE_CHANNEL_LIVE,
-    "https://www.youtube.com/",
-  );
-  const apiKey = channelHtml.match(/"INNERTUBE_API_KEY":"([^"]+)"/)?.[1];
-  if (!apiKey) {
-    throw new Error("YouTube no publico su clave de reproduccion");
+    "https://www.youtube.com/@Meganoticiasoficial/live",
+    "https://www.youtube.com/channel/UCkccyEbqhhM3uKOI6Shm-4Q/streams",
+  ]) {
+    try {
+      const channelHtml = await fetchYoutubePage(
+        pageUrl,
+        "https://www.youtube.com/",
+      );
+      const pageApiKey = channelHtml.match(
+        /"INNERTUBE_API_KEY":"([^"]+)"/,
+      )?.[1];
+      if (!pageApiKey) {
+        throw new Error("YouTube no publico su clave de reproduccion");
+      }
+      const pageVideoId =
+        extractYoutubeLiveId(channelHtml) ??
+        (await discoverYoutubeBrowseLiveId(channelHtml, pageApiKey));
+      if (pageVideoId) {
+        apiKey = pageApiKey;
+        videoId = pageVideoId;
+        break;
+      }
+      discoveryErrors.push(`${pageUrl}: sin emision en vivo`);
+    } catch (error) {
+      discoveryErrors.push(`${pageUrl}: ${error?.message ?? "error"}`);
+    }
   }
-  const videoId =
-    extractYoutubeLiveId(channelHtml) ??
-    (await discoverYoutubeBrowseLiveId(channelHtml, apiKey));
   if (!videoId) {
-    throw new Error("YouTube no publico una emision en vivo de Meganoticias");
+    throw new Error(
+      `YouTube no publico una emision en vivo de Meganoticias (${discoveryErrors.join(
+        "; ",
+      )})`,
+    );
   }
-  const watchUrl = `https://www.youtube.com/watch?v=${videoId}`;
-  const watchHtml = await fetchYoutubePage(watchUrl, "https://www.youtube.com/");
-  const playerApiKey =
-    watchHtml.match(/"INNERTUBE_API_KEY":"([^"]+)"/)?.[1] ?? apiKey;
 
   const payload = {
     context: {
@@ -427,7 +448,7 @@ async function freshMeganoticiasYoutubeUrl() {
     videoId,
   };
   const response = await fetch(
-    `${YOUTUBE_PLAYER_API_URL}?key=${encodeURIComponent(playerApiKey)}`,
+    `${YOUTUBE_PLAYER_API_URL}?key=${encodeURIComponent(apiKey)}`,
     {
       method: "POST",
       headers: {
