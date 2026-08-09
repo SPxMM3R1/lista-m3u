@@ -39,6 +39,10 @@ EPG_SOURCES = {
     "cl": "https://epgshare01.online/epgshare01/epg_ripper_CL1.xml.gz",
     "es": "https://epgshare01.online/epgshare01/epg_ripper_ES1.xml.gz",
     "fr": "https://epgshare01.online/epgshare01/epg_ripper_FR1.xml.gz",
+    "de": "https://epgshare01.online/epgshare01/epg_ripper_DE1.xml.gz",
+    "pl": "https://epgshare01.online/epgshare01/epg_ripper_PL1.xml.gz",
+    "lv": "https://epgshare01.online/epgshare01/epg_ripper_LV1.xml.gz",
+    "nl": "https://epgshare01.online/epgshare01/epg_ripper_NL1.xml.gz",
 }
 EPG_PROGRAMME_SOURCES = {
     "0104": ("cl", "Canal.TVN.(Chile).cl"),
@@ -52,16 +56,26 @@ EPG_PROGRAMME_SOURCES = {
     "EuronewsSpanish.fr": ("es", "Euronews.es"),
     "NHKWorldJapan.jp": ("cl", "Canal.NHK.World.cl"),
     "AlJazeera.qa": ("es", "Al.Jazeera.English.es"),
+    "TVChile.cl": ("cl", "TV.Chile.cl"),
+    "ArirangTV.kr": ("pl", "Arirang.TV.pl"),
+    "XITEHits.nl@Germany": ("nl", "XITE.nl"),
+    "DWEnglish.de": ("lv", "Deutsche.Welle.English.HD.lv"),
     "MeganoticiasAhora.cl": ("tecnocentro", "LCH7159"),
     "0124": ("tecnocentro", "LCH6525"),
     "1153": ("tecnocentro", "LCH7017"),
     "45": ("tecnocentro", "LCH4087"),
+    "M1.ua@SD": ("ukrainian-official", "M1.ua@SD"),
+    "M2.ua@SD": ("ukrainian-official", "M2.ua@SD"),
 }
 TECNOCENTRO_EPG_URL = "https://tecnocentro.cl/"
 try:
     CHILE_TIMEZONE = ZoneInfo("America/Santiago")
 except ZoneInfoNotFoundError:
     CHILE_TIMEZONE = timezone(timedelta(hours=-4))
+try:
+    UKRAINE_TIMEZONE = ZoneInfo("Europe/Kyiv")
+except ZoneInfoNotFoundError:
+    UKRAINE_TIMEZONE = timezone(timedelta(hours=3))
 RED_BULL_EPG_PAGE = "https://www.redbull.tv/es_CL/epg"
 RED_BULL_CHANNEL_ID = "rrn:content:video-channels:c81f8686-ab67-4965-ba04-5f6658bb96cc"
 # Red Bull personaliza la parrilla por IP; GitHub Actions se ejecuta fuera de
@@ -333,6 +347,84 @@ SEGMENT_CHECK_CHANNELS = {
     "UCV",
     "Xtrema Terror",
 }
+REMOVED_CHANNEL_IDS = frozenset(
+    {
+        "13Festival.cl@SD",
+        "13P.cl@SD",
+        "UCVTV.cl@SD",
+        "XtremaTerror.ar@SD",
+        "UChileTV.cl",
+        "13Realities.cl",
+        "13T.cl",
+        "ElPinguinoTV.cl",
+        "Canal26.ar",
+        "NetTV.ar",
+        "TVUniversidad.ar",
+        "BravoTV.ar",
+        "AiredeSantaFe.ar",
+        "DasErste.de",
+        "ARDalpha.de",
+        "BRFernsehen.de",
+        "hrfernsehen.de",
+        "Dokusat.de",
+        "AdventureEarth.de",
+        "EuronewsEnglish.fr",
+        "EuronewsFrench.fr",
+        "BFMTV.fr",
+        "BloombergTVEurope.uk",
+        "DeluxeMusic.de",
+        "DeluxeDance.de",
+        "DeluxeRap.de",
+        "4FunTV.pl",
+        "4FunKids.pl",
+        "RadiowaCzworka.pl",
+        "RadioRAM.pl",
+        "RedCarpetTVInternational.pl",
+        "BestofDanceTV.ee",
+        "DanceTVAlgorhythm.ee",
+        "DanceTVDeepHouseDistrict.ee",
+        "DanceTVEDMMainstage.ee",
+        "DanceTVHouseFloor.ee",
+        "DanceTVMinimalTech.ee",
+        "DanceTVTechnoWarehouse.ee",
+        "ETV.ee",
+        "ETV2.ee",
+        "ETVPlus.ee",
+        "ReTV.lv",
+        "TVNET.lv",
+        "DelfiTV.lt",
+        "LietuvosRytasTV.lt",
+        "LRTKlasika.lt",
+        "LRTOpus.lt",
+        "LRTRadijas.lt",
+        "M1.lt",
+        "PowerHitRadio.lt",
+        "Moskva24.ru",
+        "MoskvaDoveriye.ru",
+        "SanktPeterburg.ru",
+        "RBKTV.ru",
+        "BelRos.ru",
+        "360.ru",
+        "Moymir.ru",
+        "RadioShanson.ru",
+        "Weathernews.jp",
+        "NBCNewsNOW.us",
+        "NBCSportsNOW.us",
+        "BloombergTV.us",
+        "BloombergOriginals.us",
+        "BloombergTVPlus.us",
+        "WeatherNation.us",
+        "CourtTV.us",
+        "48Hours.us",
+        "AKCTV.us",
+        "AKCTVPuppies.us",
+        "ICIRDI.ca",
+        "CBFTDT.ca",
+        "CFHDDT.ca",
+        "CityNewsToronto.ca",
+        "CityNewsVancouver.ca",
+    }
+)
 @dataclass(frozen=True)
 class Channel:
     name: str
@@ -385,6 +477,25 @@ def parse_channels(lines: list[str]) -> list[Channel]:
         else:
             raise ValueError(f"{name}: falta la URL al final del archivo")
     return channels
+
+
+def remove_discontinued_channels(lines: list[str]) -> bool:
+    """Remove the explicitly retired channels before any automatic refresh."""
+    if not REMOVED_CHANNEL_IDS:
+        return False
+    channels = parse_channels(lines)
+    remove_lines: set[int] = set()
+    removed: list[str] = []
+    for channel in channels:
+        if channel.tvg_id not in REMOVED_CHANNEL_IDS:
+            continue
+        remove_lines.update({channel.info_line, channel.url_line})
+        removed.append(channel.name)
+    if not remove_lines:
+        return False
+    lines[:] = [line for index, line in enumerate(lines) if index not in remove_lines]
+    print("  [OK] Canales retirados: " + ", ".join(removed))
+    return True
 
 
 def pin_cloud_resolver_channels(lines: list[str]) -> bool:
@@ -894,6 +1005,159 @@ def decode_web_text(data: bytes) -> str:
     return decoded
 
 
+UKRAINIAN_WEEKDAYS = {
+    "monday": 0,
+    "tuesday": 1,
+    "wednesday": 2,
+    "thursday": 3,
+    "friday": 4,
+    "saturday": 5,
+    "sunday": 6,
+}
+UKRAINIAN_MUSIC_SCHEDULE_PAGES = {
+    "M1.ua@SD": ("M1", "https://m1.tv/shedule/"),
+    "M2.ua@SD": ("M2", "https://m2.tv/shedule/"),
+}
+
+
+def ukrainian_weekly_schedule(page_html: str) -> dict[int, list[tuple[object, str]]]:
+    schedules: dict[int, list[tuple[object, str]]] = {}
+    day_pattern = re.compile(
+        r'<ul\b[^>]*\bid=["\']day_(monday|tuesday|wednesday|thursday|friday|saturday|sunday)["\'][^>]*>(.*?)</ul\s*>',
+        re.IGNORECASE | re.DOTALL,
+    )
+    item_pattern = re.compile(r"<li\b.*?</li\s*>", re.IGNORECASE | re.DOTALL)
+    time_pattern = re.compile(
+        r'<div\b[^>]*class=["\']time["\'][^>]*>\s*(\d{1,2}:\d{2})\s*</div>',
+        re.IGNORECASE | re.DOTALL,
+    )
+    title_pattern = re.compile(
+        r'<div\b[^>]*class=["\']title["\'][^>]*>.*?<span\b[^>]*>(.*?)</span\s*>',
+        re.IGNORECASE | re.DOTALL,
+    )
+    for day_name, day_html in day_pattern.findall(page_html):
+        items: list[tuple[object, str]] = []
+        for item_html in item_pattern.findall(day_html):
+            time_match = time_pattern.search(item_html)
+            title_match = title_pattern.search(item_html)
+            if not time_match or not title_match:
+                continue
+            try:
+                start_clock = datetime.strptime(
+                    time_match.group(1), "%H:%M"
+                ).time()
+            except ValueError:
+                continue
+            title = html.unescape(re.sub(r"<[^>]+>", "", title_match.group(1)))
+            title = re.sub(r"\s+", " ", title).strip()
+            if title:
+                items.append((start_clock, title))
+        if items:
+            schedules[UKRAINIAN_WEEKDAYS[day_name.casefold()]] = sorted(
+                items, key=lambda item: item[0]
+            )
+    return schedules
+
+
+def fetch_ukrainian_music_epg(
+    channels: list[Channel], now: datetime
+) -> tuple[bytes | None, dict[str, str]]:
+    targets = [
+        (channel.tvg_id, channel_name, page_url)
+        for channel in channels
+        for channel_name, page_url in [
+            UKRAINIAN_MUSIC_SCHEDULE_PAGES.get(channel.tvg_id, ("", ""))
+        ]
+        if channel_name and page_url
+    ]
+    if not targets:
+        return None, {}
+
+    root = ET.Element(
+        "tv",
+        {
+            "generator-info-name": "lista-m3u Ukrainian music importer",
+            "source-info-name": "M1 y M2 oficiales",
+        },
+    )
+    errors: dict[str, str] = {}
+    found_by_target = {target_id: 0 for target_id, _, _ in targets}
+    now_ukraine = now.astimezone(UKRAINE_TIMEZONE)
+    today = now_ukraine.date()
+
+    for target_id, channel_name, page_url in targets:
+        try:
+            status, body, _ = fetch_bytes(
+                page_url,
+                {
+                    "User-Agent": BROWSER_USER_AGENT,
+                    "Accept": "text/html,application/xhtml+xml,*/*",
+                },
+                timeout=60,
+                limit=2_000_000,
+            )
+            if status != 200:
+                raise ValueError(f"HTTP {status}")
+            weekly = ukrainian_weekly_schedule(decode_web_text(body))
+            if len(weekly) < 5:
+                raise ValueError("la parrilla semanal no contiene suficientes dias")
+
+            for offset in range(-1, 8):
+                schedule_day = today + timedelta(days=offset)
+                items = weekly.get(schedule_day.weekday(), [])
+                if not items:
+                    continue
+                for index, (start_clock, title) in enumerate(items):
+                    start = datetime.combine(
+                        schedule_day, start_clock, tzinfo=UKRAINE_TIMEZONE
+                    )
+                    if index + 1 < len(items):
+                        stop = datetime.combine(
+                            schedule_day,
+                            items[index + 1][0],
+                            tzinfo=UKRAINE_TIMEZONE,
+                        )
+                        while stop <= start:
+                            stop += timedelta(days=1)
+                    else:
+                        next_items = weekly.get((schedule_day.weekday() + 1) % 7, [])
+                        if next_items:
+                            stop = datetime.combine(
+                                schedule_day + timedelta(days=1),
+                                next_items[0][0],
+                                tzinfo=UKRAINE_TIMEZONE,
+                            )
+                        else:
+                            stop = start + timedelta(hours=6)
+                    if stop <= start:
+                        stop = start + timedelta(minutes=30)
+                    if stop < now - timedelta(hours=6) or start > now + timedelta(days=5):
+                        continue
+                    programme = ET.SubElement(
+                        root,
+                        "programme",
+                        {
+                            "start": xmltv_format_chile(start),
+                            "stop": xmltv_format_chile(stop),
+                            "channel": target_id,
+                        },
+                    )
+                    ET.SubElement(programme, "title", {"lang": "uk"}).text = title
+                    ET.SubElement(programme, "desc", {"lang": "es"}).text = (
+                        f"Programacion semanal consultada en el sitio oficial de {channel_name}."
+                    )
+                    found_by_target[target_id] += 1
+        except Exception as error:
+            errors[target_id] = f"{type(error).__name__}: {error}"
+
+    for target_id, count in found_by_target.items():
+        if count == 0:
+            errors[target_id] = "la fuente oficial no publico bloques utilizables"
+    if not any(found_by_target.values()):
+        return None, errors
+    return ET.tostring(root, encoding="utf-8", xml_declaration=True), errors
+
+
 def tecnocentro_schedule_items(page_html: str) -> list[tuple[str, str, str]]:
     item_pattern = re.compile(
         r'<div class="schedule-item[^>]*>\s*'
@@ -1269,6 +1533,15 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
         source_documents["tecnocentro"] = tecnocentro_data
     source_errors.update(
         {f"tecnocentro:{target_id}": error for target_id, error in tecnocentro_errors.items()}
+    )
+    ukrainian_data, ukrainian_errors = fetch_ukrainian_music_epg(channels, now)
+    if ukrainian_data:
+        source_documents["ukrainian-official"] = ukrainian_data
+    source_errors.update(
+        {
+            f"ukrainian-official:{target_id}": error
+            for target_id, error in ukrainian_errors.items()
+        }
     )
     if not source_documents:
         raise RuntimeError("ninguna fuente EPG respondio correctamente")
@@ -1934,9 +2207,14 @@ def main() -> int:
         )
 
     lines = playlist.read_text(encoding="utf-8-sig").splitlines()
-    if ensure_playlist_epg_url(lines):
+    discontinued_changed = remove_discontinued_channels(lines)
+    epg_url_changed = ensure_playlist_epg_url(lines)
+    if epg_url_changed or discontinued_changed:
         playlist.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
-        print("Cabecera M3U enlazada a la guia EPG publicada en GitHub")
+        if epg_url_changed:
+            print("Cabecera M3U enlazada a la guia EPG publicada en GitHub")
+        if discontinued_changed:
+            print("Lista depurada de canales retirados")
     app_token_changed = pin_app_token_channels(lines)
     cloud_resolver_changed = pin_cloud_resolver_channels(lines)
     news_order_changed = pin_news_channel_order(lines)

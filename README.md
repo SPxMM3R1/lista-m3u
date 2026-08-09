@@ -56,11 +56,15 @@ disponible sin depender de servidores externos.
 
 ## Canales
 
-La lista contiene 102 canales: 28 originales y 74 incorporados desde
-`TV_Mundial_Curada_2026-08-09.m3u`. Los nuevos grupos incluyen Chile,
-Argentina, Europa e internacional, musica europea, Balticos, Rusia, Japon,
-Estados Unidos y Canada. Se conservaron los canales existentes y se omitieron
-26 URLs de la fuente que no respondieron como HLS durante la comprobacion.
+La lista contiene 28 canales despues de retirar 74 entradas seleccionadas de
+la fuente mundial. Se conservaron los nacionales, noticias, miscelaneos
+chilenos y una seleccion internacional, musical y europea.
+
+La EPG usa fuentes XMLTV de Chile, Espana, Francia, Alemania, Polonia,
+Letonia y Paises Bajos. M1 y M2 se actualizan desde sus parrillas oficiales
+semanales. Se marca como `senal continua` cualquier canal que no publique una
+parrilla diaria verificable, en vez de presentar esa continuidad como una guia
+real.
 
 ## Resolutor cloud
 
