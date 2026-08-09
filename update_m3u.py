@@ -91,7 +91,7 @@ MEGANOTICIAS_DEFAULT_ID = "561430ae330428c223687e1e"
 CI_GEO_RESTRICTED_CHANNELS = {
     "TVN",
     "Mega",
-    "Meganoticias Ahora",
+    "Meganoticias",
     "NTV",
     "CHV",
     "CHV Deportes",
@@ -105,15 +105,15 @@ CLOUD_RESOLVER_BASE_URL = os.environ.get("M3U_RESOLVER_BASE_URL", "").strip().rs
 CLOUD_RESOLVER_URLS = {
     "TVN": f"{CLOUD_RESOLVER_BASE_URL}/tvn.m3u8",
     "Mega": f"{CLOUD_RESOLVER_BASE_URL}/mega.m3u8",
-    "Meganoticias Ahora": f"{CLOUD_RESOLVER_BASE_URL}/meganoticias.m3u8",
+    "Meganoticias": f"{CLOUD_RESOLVER_BASE_URL}/meganoticias.m3u8",
 } if CLOUD_RESOLVER_BASE_URL else {}
 CLOUD_RESOLVER_CHANNELS = set(CLOUD_RESOLVER_URLS)
 CLOUD_CHANNEL_INFO = {
-    "Meganoticias Ahora": (
+    "Meganoticias": (
         '#EXTINF:-1 tvg-id="MeganoticiasAhora.cl" '
-        'tvg-name="Meganoticias Ahora" '
+        'tvg-name="Meganoticias" '
         f'tvg-logo="{LOCAL_LOGOS_PUBLIC_BASE}/meganoticias.png" '
-        'group-title="Noticias Chile",Meganoticias Ahora'
+        'group-title="Noticias Chile",Meganoticias'
     ),
 }
 PREFERRED_LOGOS = {
@@ -123,7 +123,7 @@ PREFERRED_LOGOS = {
     "Canal 13": f"{LOCAL_LOGOS_PUBLIC_BASE}/canal13.png",
     "La Red": f"{LOCAL_LOGOS_PUBLIC_BASE}/la-red.png",
     "24 Horas": f"{LOCAL_LOGOS_PUBLIC_BASE}/24-horas.png",
-    "Meganoticias Ahora": f"{LOCAL_LOGOS_PUBLIC_BASE}/meganoticias.png",
+    "Meganoticias": f"{LOCAL_LOGOS_PUBLIC_BASE}/meganoticias.png",
     "T13": f"{LOCAL_LOGOS_PUBLIC_BASE}/t13.png",
     "CHV Noticias": f"{LOCAL_LOGOS_PUBLIC_BASE}/chv-noticias.png",
     "NTV": f"{LOCAL_LOGOS_PUBLIC_BASE}/ntv.svg",
@@ -166,7 +166,7 @@ CONTINUOUS_PROGRAMME_DETAILS = {
         "Rotacion continua de videos musicales de M2; los programas especiales pueden cambiar de horario.",
     ),
 }
-NEWS_CHANNEL_ORDER = ("24 Horas", "Meganoticias Ahora", "CHV Noticias", "T13")
+NEWS_CHANNEL_ORDER = ("24 Horas", "Meganoticias", "CHV Noticias", "T13")
 PLAYER_USER_AGENT = "VLC/3.0.20 LibVLC/3.0.20"
 BROWSER_USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -174,7 +174,7 @@ BROWSER_USER_AGENT = (
 )
 OFFICIAL_STREAM_PAGES = {
     "Mega": ["https://www.mega.cl/senal-en-vivo/"],
-    "Meganoticias Ahora": [MEGANOTICIAS_LIVE_PAGE],
+    "Meganoticias": [MEGANOTICIAS_LIVE_PAGE],
     "CHV": ["https://www.chilevision.cl/senal-online"],
     "Canal 13": ["https://www.13.cl/en-vivo"],
     "T13": ["https://www.t13.cl/en-vivo"],
@@ -183,7 +183,7 @@ OFFICIAL_STREAM_PAGES = {
 }
 OFFICIAL_CANDIDATE_HINTS = {
     "Mega": re.compile(r"mega", re.IGNORECASE),
-    "Meganoticias Ahora": re.compile(r"(?:mega|meganoticias)", re.IGNORECASE),
+    "Meganoticias": re.compile(r"(?:mega|meganoticias)", re.IGNORECASE),
     "CHV": re.compile(r"(?:chv|chilevision)", re.IGNORECASE),
     "Canal 13": re.compile(r"(?:13cl|canal.?13)", re.IGNORECASE),
     "T13": re.compile(r"(?:/t13/|t13\.)", re.IGNORECASE),
@@ -306,7 +306,7 @@ SEGMENT_CHECK_CHANNELS = {
     "NTV",
     "TVN3",
     "Mega",
-    "Meganoticias Ahora",
+    "Meganoticias",
     "24 Horas",
     "La Red",
     "Canal 13",
@@ -565,7 +565,7 @@ def request_headers(channel: str) -> dict[str, str]:
     elif channel == "Mega":
         headers["Referer"] = MEGA_LIVE_PAGE
         headers["Origin"] = "https://www.mega.cl"
-    elif channel == "Meganoticias Ahora":
+    elif channel == "Meganoticias":
         headers["Referer"] = MEGANOTICIAS_LIVE_PAGE
         headers["Origin"] = "https://www.meganoticias.cl"
     elif channel in {"CHV Noticias", "CHV Deportes"}:
@@ -1632,7 +1632,7 @@ def discover_official_candidates(channel: Channel) -> list[str]:
     dynamic_factories = {
         "TVN": fresh_tvn_url,
         "24 Horas": fresh_24horas_url,
-        "Meganoticias Ahora": fresh_meganoticias_url,
+        "Meganoticias": fresh_meganoticias_url,
     }
     factory = dynamic_factories.get(channel.name)
     if factory:
@@ -1830,7 +1830,7 @@ def fresh_meganoticias_url() -> str:
     return fresh_megamedia_url(
         MEGANOTICIAS_LIVE_PAGE,
         MEGANOTICIAS_DEFAULT_ID,
-        "Meganoticias Ahora",
+        "Meganoticias",
     )
 
 
@@ -2049,7 +2049,7 @@ def main() -> int:
     dynamic_channels = {
         "TVN": fresh_tvn_url,
         "24 Horas": fresh_24horas_url,
-        "Meganoticias Ahora": fresh_meganoticias_url,
+        "Meganoticias": fresh_meganoticias_url,
     }
     for channel_name, fresh_url_factory in dynamic_channels.items():
         channel = next((item for item in channels if item.name == channel_name), None)

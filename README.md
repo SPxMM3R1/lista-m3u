@@ -27,7 +27,7 @@ Cada ejecucion:
 - actualiza la guia EPG con las parrillas disponibles;
 - publica `channel-status.json` como artefacto de cada ejecucion.
 
-TVN, Mega y Meganoticias Ahora usan el resolutor publico de Cloudflare. TVN y
+TVN, Mega y Meganoticias usan el resolutor publico de Cloudflare. TVN y
 Meganoticias obtienen sus tokens al abrir la senal y devuelven una redireccion
 HLS temporal; Mega entrega su master oficial con referencias HTTPS para evitar
 bloqueos de trafico mixto en Android TV. La Red conserva su maestro oficial
@@ -54,7 +54,7 @@ disponible sin depender de servidores externos.
 ## Canales
 
 La lista contiene 22 canales: TVN,
-Mega, CHV, Canal 13, La Red, 24 Horas, Meganoticias Ahora, CHV Noticias, T13, NTV, TVN3,
+Mega, CHV, Canal 13, La Red, 24 Horas, Meganoticias, CHV Noticias, T13, NTV, TVN3,
 CHV Deportes, DW Espanol, France 24 Espanol, Euronews Espanol, NHK World
 Japan, Arirang TV, Al Jazeera English, Red Bull TV, XITE Hits Germany, M1 y M2.
 
