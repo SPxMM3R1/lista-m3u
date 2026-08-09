@@ -84,11 +84,25 @@ try:
     UKRAINE_TIMEZONE = ZoneInfo("Europe/Kyiv")
 except ZoneInfoNotFoundError:
     UKRAINE_TIMEZONE = timezone(timedelta(hours=3))
-RED_BULL_EPG_PAGE = "https://www.redbull.tv/es_CL/epg"
-RED_BULL_CHANNEL_ID = "rrn:content:video-channels:c81f8686-ab67-4965-ba04-5f6658bb96cc"
-# Red Bull personaliza la parrilla por IP; GitHub Actions se ejecuta fuera de
-# Chile, asi que enviamos una IP publica chilena para conservar la parrilla local.
-RED_BULL_CHILE_GEO_IP = "186.67.0.1"
+RED_BULL_SESSION_URL = (
+    "https://api.redbull.tv/v3/session?category=smart_tv&os_family=android"
+)
+RED_BULL_OFFICIAL_EPG_URL = "https://api.redbull.tv/v3/epg?complete=true"
+# Este relay esta documentado por iptv-org/epg, pero se usa solo como respaldo:
+# su disponibilidad depende de la actualizacion diaria del proveedor.
+RED_BULL_RELAY_EPG_URL = "https://nzxmltv.com/iptv/redbull.xml"
+RED_BULL_WORLD_ID = "RedBullWorldEnglish.int"
+RED_BULL_CHILE_ID = "RedBullChileEspanol.cl"
+RED_BULL_CHANNEL_LOCALES = {
+    RED_BULL_WORLD_ID: "en",
+    RED_BULL_CHILE_ID: "es",
+}
+RED_BULL_WORLD_URL = (
+    "https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master.m3u8"
+)
+RED_BULL_CHILE_URL = (
+    "https://freqsyndlin.redbull.com/957/rbtv/hls/master/playlist.m3u8"
+)
 EPG_REFRESH_INTERVAL = timedelta(hours=3)
 TVN_PROGRAMMING_PAGE = "https://www.tvn.cl/programacion"
 TVN_PROGRAMMING_BASE_URL = "https://estaticos.tvn.cl/epg/tvn"
@@ -147,7 +161,8 @@ PREFERRED_LOGOS = {
     "Euronews Espanol": f"{LOCAL_LOGOS_PUBLIC_BASE}/euronews-espanol.png",
     "NHK World Japan": f"{LOCAL_LOGOS_PUBLIC_BASE}/nhk-world.svg",
     "Al Jazeera English": f"{LOCAL_LOGOS_PUBLIC_BASE}/aljazeera.svg?v=2",
-    "Red Bull TV": f"{LOCAL_LOGOS_PUBLIC_BASE}/red-bull-tv.png",
+    "RedBull World English": f"{LOCAL_LOGOS_PUBLIC_BASE}/red-bull-tv.png",
+    "RedBull Chile Espanol": f"{LOCAL_LOGOS_PUBLIC_BASE}/red-bull-tv.png",
     "XITE Hits Germany": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
     "Arirang TV": f"{LOCAL_LOGOS_PUBLIC_BASE}/arirang.png",
     "M1": f"{LOCAL_LOGOS_PUBLIC_BASE}/m1.png",
@@ -175,6 +190,14 @@ CONTINUOUS_PROGRAMME_DETAILS = {
     "Arirang TV": (
         "Arirang TV en vivo",
         "Programacion continua de Arirang TV; la senal publica no ofrece una parrilla XMLTV estable.",
+    ),
+    "RedBull World English": (
+        "RedBull World English en vivo",
+        "Programacion continua de Red Bull TV; la senal inglesa no publica una parrilla XMLTV local estable.",
+    ),
+    "RedBull Chile Espanol": (
+        "RedBull Chile Espanol en vivo",
+        "Programacion continua de la senal chilena en espanol; la parrilla se obtiene desde Red Bull TV.",
     ),
     "M1": (
         "M1 - rotacion musical",
@@ -281,7 +304,8 @@ KNOWN_STREAM_FALLBACKS = {
     ],
     "NHK World Japan": [NHK_MASTER_URL],
     "Al Jazeera English": ["https://live-hls-apps-aje-v3-fa.getaj.net/AJE/index.m3u8"],
-    "Red Bull TV": ["https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master.m3u8"],
+    "RedBull World English": [RED_BULL_WORLD_URL],
+    "RedBull Chile Espanol": [RED_BULL_CHILE_URL],
     "XITE Hits Germany": [
         "https://d726x48n2pd5h.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-skxr1pazhltvp/XITE_Hits.m3u8"
     ],
@@ -310,7 +334,8 @@ SEGMENT_CHECK_CHANNELS = {
     "NHK World Japan",
     "Al Jazeera English",
     "Arirang TV",
-    "Red Bull TV",
+    "RedBull World English",
+    "RedBull Chile Espanol",
     "XITE Hits Germany",
     "M1",
     "M2",
@@ -683,65 +708,142 @@ def epg_status_from_xml(
     }
 
 
-def find_red_bull_channel_rails(value):
-    if isinstance(value, dict):
-        rails = value.get("channelRails")
-        if isinstance(rails, list):
-            return rails
-        for child in value.values():
-            found = find_red_bull_channel_rails(child)
-            if found is not None:
-                return found
-    elif isinstance(value, list):
-        for child in value:
-            found = find_red_bull_channel_rails(child)
-            if found is not None:
-                return found
-    return None
-
-
-def red_bull_schedule(page_html: str) -> list[dict]:
-    scripts = re.findall(
-        r"<script>self\.__next_f\.push\((.*?)\)</script>", page_html, re.DOTALL
+def red_bull_api_schedule(locale: str) -> list[dict]:
+    """Read the current Red Bull linear schedule using a short-lived API session."""
+    headers = {
+        "User-Agent": BROWSER_USER_AGENT,
+        "Accept": "application/json",
+        "Accept-Language": "es-CL,es;q=0.9",
+    }
+    status, body, _ = fetch_bytes(
+        f"{RED_BULL_SESSION_URL}&locale={locale}",
+        headers,
+        timeout=60,
+        limit=1_048_576,
     )
-    rails = None
-    for script in scripts:
-        try:
-            payload = json.loads(script)
-        except json.JSONDecodeError:
-            continue
-        if len(payload) < 2 or not isinstance(payload[1], str):
-            continue
-        if "schedule_dates_state" not in payload[1]:
-            continue
-        serialized = payload[1].split(":", 1)[-1]
-        rails = find_red_bull_channel_rails(json.loads(serialized))
-        if rails:
-            break
-    if not rails:
-        raise ValueError("Red Bull TV no publico la estructura de su parrilla")
+    if status != 200:
+        raise ValueError(f"sesion Red Bull HTTP {status}")
+    session = json.loads(body)
+    token = session.get("token")
+    if not token:
+        raise ValueError("Red Bull no entrego token de sesion")
 
-    channel = next(
-        (item for item in rails if item.get("id") == RED_BULL_CHANNEL_ID), None
+    epg_headers = dict(headers)
+    epg_headers["Authorization"] = token
+    status, body, _ = fetch_bytes(
+        RED_BULL_OFFICIAL_EPG_URL,
+        epg_headers,
+        timeout=60,
+        limit=10_485_760,
     )
-    if channel is None:
-        raise ValueError("no se encontro el canal World of Red Bull")
+    if status != 200:
+        raise ValueError(f"EPG Red Bull HTTP {status}")
+    payload = json.loads(body)
+    items = payload.get("items")
+    if not isinstance(items, list):
+        raise ValueError("EPG Red Bull no contiene items")
+
+    language = "es" if locale.startswith("es") else "en"
     schedule: list[dict] = []
     seen: set[tuple[str, str, str]] = set()
-    for card in channel.get("cards", []):
-        title = card.get("title")
-        start = card.get("start_time")
-        stop = card.get("end_time")
+    for item in items:
+        title = item.get("title")
+        start = item.get("start_time")
+        stop = item.get("end_time")
         if not title or not start or not stop:
             continue
         key = (start, stop, title)
         if key in seen:
             continue
         seen.add(key)
-        schedule.append(card)
+        schedule.append(
+            {
+                "start_time": start,
+                "end_time": stop,
+                "title": title,
+                "subheading": item.get("subheading"),
+                "short_description": item.get("short_description"),
+                "long_description": item.get("long_description"),
+                "lang": language,
+            }
+        )
+    schedule.sort(key=lambda item: item["start_time"])
     if len(schedule) < 5:
-        raise ValueError("Red Bull TV entrego una parrilla demasiado corta")
+        raise ValueError("EPG Red Bull entrego una parrilla demasiado corta")
     return schedule
+
+
+def red_bull_relay_schedule(now: datetime) -> list[dict]:
+    """Use the GitHub-documented relay only when it has a current guide."""
+    status, body, _ = fetch_bytes(
+        RED_BULL_RELAY_EPG_URL,
+        {
+            "User-Agent": BROWSER_USER_AGENT,
+            "Accept": "application/xml,text/xml,*/*",
+        },
+        timeout=60,
+        limit=10_485_760,
+    )
+    if status != 200:
+        raise ValueError(f"relay Red Bull HTTP {status}")
+    root = ET.fromstring(body)
+    schedule: list[dict] = []
+    for programme in root.findall("programme"):
+        if programme.get("channel") != "10001":
+            continue
+        start_value = programme.get("start")
+        stop_value = programme.get("stop")
+        title_element = programme.find("title")
+        if not start_value or not stop_value or title_element is None:
+            continue
+        start = xmltv_datetime(start_value)
+        stop = xmltv_datetime(stop_value)
+        if stop <= now - timedelta(hours=1):
+            continue
+        schedule.append(
+            {
+                "start_time": start.isoformat(),
+                "end_time": stop.isoformat(),
+                "title": (title_element.text or "Red Bull TV").strip(),
+                "subheading": None,
+                "short_description": None,
+                "long_description": None,
+                "lang": title_element.get("lang") or "en",
+            }
+        )
+    schedule.sort(key=lambda item: item["start_time"])
+    if len(schedule) < 5:
+        raise ValueError("relay Red Bull entrego una parrilla demasiado corta")
+    last_stop = datetime.fromisoformat(schedule[-1]["end_time"])
+    if last_stop < now + timedelta(hours=24):
+        raise ValueError("relay Red Bull no cubre las proximas 24 horas")
+    return schedule
+
+
+def fetch_red_bull_schedules(
+    expected_ids: set[str], now: datetime
+) -> tuple[dict[str, list[dict]], set[str], dict[str, str]]:
+    schedules: dict[str, list[dict]] = {}
+    source_names: set[str] = set()
+    errors: dict[str, str] = {}
+    for channel_id, locale in RED_BULL_CHANNEL_LOCALES.items():
+        if channel_id not in expected_ids:
+            continue
+        try:
+            schedules[channel_id] = red_bull_api_schedule(locale)
+            source_names.add("red-bull-oficial")
+        except Exception as official_error:
+            if channel_id != RED_BULL_WORLD_ID:
+                errors[f"red_bull:{channel_id}"] = str(official_error)
+                continue
+            try:
+                schedules[channel_id] = red_bull_relay_schedule(now)
+                source_names.add("red-bull-relay")
+            except Exception as relay_error:
+                errors[f"red_bull:{channel_id}"] = (
+                    f"oficial: {official_error}; relay: {relay_error}"
+                )
+    return schedules, source_names, errors
 
 
 MEGA_MONTHS = {
@@ -1545,7 +1647,7 @@ def add_continuous_programmes(
 def build_epg(
     source_documents: dict[str, bytes],
     channels: list[Channel],
-    red_bull_cards: list[dict],
+    red_bull_schedules: dict[str, list[dict]],
     *,
     now: datetime,
 ) -> tuple[bytes, dict]:
@@ -1557,7 +1659,9 @@ def build_epg(
         "tv",
         {
             "generator-info-name": "lista-m3u updater",
-            "source-info-name": "EPGShare01, TecnoCentro y fuentes oficiales",
+            "source-info-name": (
+                "EPGShare01, TecnoCentro, fuentes oficiales y relay GitHub"
+            ),
             "data-generated-at": now.astimezone(timezone.utc).isoformat(),
         },
     )
@@ -1604,8 +1708,9 @@ def build_epg(
             programmes_by_target[target_id] += 1
             guide_types[target_id] = "parrilla real"
 
-    red_bull_id = "RedBullTV.at"
-    if red_bull_id in expected_ids:
+    for red_bull_id, red_bull_cards in red_bull_schedules.items():
+        if red_bull_id not in expected_ids:
+            continue
         red_bull_last_stop: datetime | None = None
         for card in red_bull_cards:
             start = datetime.fromisoformat(card["start_time"].replace("Z", "+00:00"))
@@ -1619,13 +1724,18 @@ def build_epg(
                     "channel": red_bull_id,
                 },
             )
-            ET.SubElement(programme, "title", {"lang": "es"}).text = card["title"]
+            language = card.get("lang", "es")
+            ET.SubElement(programme, "title", {"lang": language}).text = card[
+                "title"
+            ]
             subtitle = card.get("subheading")
             if subtitle:
-                ET.SubElement(programme, "sub-title", {"lang": "es"}).text = subtitle
+                ET.SubElement(programme, "sub-title", {"lang": language}).text = (
+                    subtitle
+                )
             description = card.get("short_description") or card.get("long_description")
             if description:
-                ET.SubElement(programme, "desc", {"lang": "es"}).text = description
+                ET.SubElement(programme, "desc", {"lang": language}).text = description
             programmes_by_target[red_bull_id] += 1
             red_bull_last_stop = (
                 stop
@@ -1641,7 +1751,7 @@ def build_epg(
                 start_at=red_bull_last_stop,
                 formatter=xmltv_format_chile,
             )
-            guide_types[red_bull_id] = "parrilla oficial + continuidad"
+            guide_types[red_bull_id] = "parrilla oficial Red Bull + continuidad"
 
     last_stop_by_channel: dict[str, datetime] = {}
     for programme in root.findall("programme"):
@@ -1749,6 +1859,11 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
     if nhk_error:
         source_errors[NHK_OFFICIAL_EPG_SOURCE] = nhk_error
 
+    red_bull_schedules, red_bull_source_names, red_bull_errors = (
+        fetch_red_bull_schedules(expected_ids, now)
+    )
+    source_errors.update(red_bull_errors)
+
     blocking_source_errors = {
         source_name: error
         for source_name, error in source_errors.items()
@@ -1784,24 +1899,8 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
     if not source_documents:
         raise RuntimeError("ninguna fuente EPG respondio correctamente")
 
-    red_bull_cards: list[dict] = []
-    try:
-        _, body, _ = fetch_bytes(
-            f"{RED_BULL_EPG_PAGE}?refresh={int(time.time())}",
-            {
-                "User-Agent": BROWSER_USER_AGENT,
-                "Accept": "text/html,*/*",
-                "X-Forwarded-For": RED_BULL_CHILE_GEO_IP,
-            },
-            timeout=90,
-            limit=25_165_824,
-        )
-        red_bull_cards = red_bull_schedule(body.decode("utf-8", "replace"))
-    except Exception as error:
-        source_errors["red_bull"] = str(error)
-
     output, epg_status = build_epg(
-        source_documents, channels, red_bull_cards, now=now
+        source_documents, channels, red_bull_schedules, now=now
     )
     temporary = EPG_PATH.with_suffix(".xml.tmp")
     temporary.write_bytes(output)
@@ -1809,7 +1908,7 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
     epg_status.update(
         {
             "updated": True,
-            "sources": list(source_documents),
+            "sources": list(source_documents) + sorted(red_bull_source_names),
             "source_errors": source_errors,
         }
     )
