@@ -11,6 +11,13 @@ const MEGA_MASTER_URL =
   "https://tr.live.clarovtrcdn.vtrplay.com/megahdchi/vxfmt=dp/" +
   "playlist.m3u8?device_profile=STB_HLS_VCAS_LIVE_HD";
 const MEGANOTICIAS_PROXY_PATH = "/meganoticias-proxy.m3u8";
+const MEGANOTICIAS_YOUTUBE_PATH = "/meganoticias-youtube.m3u8";
+const MEGANOTICIAS_YOUTUBE_CHANNEL_LIVE =
+  "https://www.youtube.com/channel/UCkccyEbqhhM3uKOI6Shm-4Q/live";
+const YOUTUBE_PLAYER_API_URL = "https://www.youtube.com/youtubei/v1/player";
+const YOUTUBE_CLIENT_VERSION = "21.02.35";
+const YOUTUBE_USER_AGENT =
+  "com.google.android.youtube/21.02.35 (Linux; U; Android 11) gzip";
 const STREAM_CACHE_TTL_MS = 45_000;
 
 const streamCache = new Map();
@@ -163,6 +170,10 @@ function proxyTargetUrl(target, origin) {
   return `${origin}${MEGANOTICIAS_PROXY_PATH}?u=${encodeProxyTarget(target)}`;
 }
 
+function proxyTargetUrlForPath(target, origin, path) {
+  return `${origin}${path}?u=${encodeProxyTarget(target)}`;
+}
+
 function rewriteMeganoticiasHlsPlaylist(body, baseUrl, origin) {
   return body
     .split(/\r?\n/)
@@ -287,9 +298,207 @@ async function proxyMeganoticias(request, requestUrl) {
   });
 }
 
+function isAllowedYoutubeTarget(value) {
+  let url;
+  try {
+    url = new URL(value);
+  } catch {
+    return false;
+  }
+  const hostname = url.hostname.toLowerCase();
+  return (
+    url.protocol === "https:" &&
+    (hostname === "googlevideo.com" || hostname.endsWith(".googlevideo.com"))
+  );
+}
+
+function extractYoutubeLiveId(html) {
+  const match = html.match(
+    /"videoDetails":\{"videoId":"([A-Za-z0-9_-]{11})".{0,2000}?"isLive":true/s,
+  );
+  if (!match) {
+    throw new Error("YouTube no publico una emision en vivo de Meganoticias");
+  }
+  return match[1];
+}
+
+async function freshMeganoticiasYoutubeUrl() {
+  const channelHtml = await fetchPage(
+    MEGANOTICIAS_YOUTUBE_CHANNEL_LIVE,
+    "https://www.youtube.com/",
+  );
+  const videoId = extractYoutubeLiveId(channelHtml);
+  const watchUrl = `https://www.youtube.com/watch?v=${videoId}`;
+  const watchHtml = await fetchPage(watchUrl, "https://www.youtube.com/");
+  const apiKey = watchHtml.match(/"INNERTUBE_API_KEY":"([^"]+)"/)?.[1];
+  if (!apiKey) {
+    throw new Error("YouTube no publico su clave de reproduccion");
+  }
+
+  const payload = {
+    context: {
+      client: {
+        clientName: "ANDROID",
+        clientVersion: YOUTUBE_CLIENT_VERSION,
+        androidSdkVersion: 30,
+        userAgent: YOUTUBE_USER_AGENT,
+        osName: "Android",
+        osVersion: "11",
+      },
+    },
+    videoId,
+  };
+  const response = await fetch(
+    `${YOUTUBE_PLAYER_API_URL}?key=${encodeURIComponent(apiKey)}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "User-Agent": YOUTUBE_USER_AGENT,
+        "X-YouTube-Client-Name": "3",
+        "X-YouTube-Client-Version": YOUTUBE_CLIENT_VERSION,
+        Accept: "application/json",
+      },
+      body: JSON.stringify(payload),
+    },
+  );
+  if (!response.ok) {
+    throw new Error(`API de reproduccion de YouTube HTTP ${response.status}`);
+  }
+  const body = await response.json();
+  const manifest = body?.streamingData?.hlsManifestUrl;
+  if (!isAllowedYoutubeTarget(manifest)) {
+    throw new Error("YouTube no devolvio un master HLS permitido");
+  }
+  return manifest;
+}
+
+function rewriteYoutubeHlsPlaylist(body, baseUrl, origin) {
+  return body
+    .split(/\r?\n/)
+    .map((line) => {
+      if (line.includes('URI="')) {
+        return line.replace(
+          /URI="([^"]+)"/g,
+          (_match, uri) => {
+            if (/^(?:data|skd):/i.test(uri)) {
+              return `URI="${uri}"`;
+            }
+            const target = secureHlsUrl(uri, baseUrl);
+            if (!isAllowedYoutubeTarget(target)) {
+              throw new Error("YouTube publico un recurso HLS externo");
+            }
+            return `URI="${proxyTargetUrlForPath(
+              target,
+              origin,
+              MEGANOTICIAS_YOUTUBE_PATH,
+            )}"`;
+          },
+        );
+      }
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith("#")) {
+        return line;
+      }
+      const target = secureHlsUrl(trimmed, baseUrl);
+      if (!isAllowedYoutubeTarget(target)) {
+        throw new Error("YouTube publico una variante HLS externa");
+      }
+      return proxyTargetUrlForPath(
+        target,
+        origin,
+        MEGANOTICIAS_YOUTUBE_PATH,
+      );
+    })
+    .join("\n");
+}
+
+function youtubeUpstreamHeaders(request, target) {
+  const headers = {
+    "User-Agent": BROWSER_USER_AGENT,
+    Referer: "https://www.youtube.com/",
+    Origin: "https://www.youtube.com",
+    Accept: isHlsPlaylist({ headers: new Headers(), url: target }, target)
+      ? "application/vnd.apple.mpegurl,*/*;q=0.8"
+      : "*/*",
+  };
+  const range = request.headers.get("Range");
+  if (range) {
+    headers.Range = range;
+  }
+  return headers;
+}
+
+async function proxyMeganoticiasYoutube(request, requestUrl) {
+  const encodedTarget = requestUrl.searchParams.get("u");
+  let target;
+  if (encodedTarget) {
+    try {
+      target = decodeProxyTarget(encodedTarget);
+    } catch {
+      return textResponse(400, "recurso HLS de YouTube invalido\n");
+    }
+  } else {
+    target = await cachedStreamUrl(
+      "MeganoticiasYouTube",
+      freshMeganoticiasYoutubeUrl,
+    );
+  }
+
+  if (!isAllowedYoutubeTarget(target)) {
+    return textResponse(400, "recurso HLS de YouTube no permitido\n");
+  }
+
+  const response = await fetch(target, {
+    headers: youtubeUpstreamHeaders(request, target),
+  });
+  if (!response.ok) {
+    console.error(`[FALLO] YouTube HLS HTTP ${response.status}`);
+    return textResponse(response.status, "YouTube HLS no disponible\n");
+  }
+
+  if (isHlsPlaylist(response, target)) {
+    const body = await response.text();
+    if (!body.trimStart().startsWith("#EXTM3U")) {
+      throw new Error("YouTube no devolvio una playlist HLS valida");
+    }
+    return playlistResponse(
+      rewriteYoutubeHlsPlaylist(
+        body,
+        response.url || target,
+        requestUrl.origin,
+      ),
+    );
+  }
+
+  const headers = new Headers();
+  for (const name of [
+    "Accept-Ranges",
+    "Content-Range",
+    "Content-Type",
+    "ETag",
+    "Last-Modified",
+  ]) {
+    const value = response.headers.get(name);
+    if (value) {
+      headers.set(name, value);
+    }
+  }
+  headers.set("Cache-Control", "no-store, no-cache, must-revalidate");
+  headers.set("Access-Control-Allow-Origin", "*");
+  return new Response(response.body, {
+    status: response.status,
+    headers,
+  });
+}
+
 export class MeganoticiasProxy {
   async fetch(request) {
-    return proxyMeganoticias(request, new URL(request.url));
+    const requestUrl = new URL(request.url);
+    if (requestUrl.pathname === MEGANOTICIAS_YOUTUBE_PATH) {
+      return proxyMeganoticiasYoutube(request, requestUrl);
+    }
+    return proxyMeganoticias(request, requestUrl);
   }
 }
 
@@ -423,11 +632,18 @@ export default {
       }
     }
 
-    if (path === MEGANOTICIAS_PROXY_PATH) {
+    if (
+      path === MEGANOTICIAS_PROXY_PATH ||
+      path === MEGANOTICIAS_YOUTUBE_PATH
+    ) {
       if (!env.MEGANOTICIAS_PROXY) {
         return textResponse(503, "Meganoticias proxy no configurado\n");
       }
-      const id = env.MEGANOTICIAS_PROXY.idFromName("meganoticias");
+      const id = env.MEGANOTICIAS_PROXY.idFromName(
+        path === MEGANOTICIAS_YOUTUBE_PATH
+          ? "meganoticias-youtube"
+          : "meganoticias",
+      );
       return env.MEGANOTICIAS_PROXY.get(id).fetch(request);
     }
 

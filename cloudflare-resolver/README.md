@@ -8,6 +8,7 @@ publicas para las senales:
 - `/tvn.m3u8`
 - `/meganoticias.m3u8`
 - `/meganoticias-proxy.m3u8` (prueba proxy HLS)
+- `/meganoticias-youtube.m3u8` (prueba HLS de YouTube)
 
 El Worker obtiene los tokens temporales de TVN y Meganoticias. Para Mega lee el
 master oficial, selecciona la variante 1080p con audio y convierte sus
@@ -21,6 +22,10 @@ los segmentos para que pasen por el mismo Worker. Sus solicitudes se enrutan a
 una Durable Object unica para conservar el contexto de la sesion entre el
 master y sus segmentos. La ruta normal se conserva como respaldo mientras se
 valida la reproduccion en la TV.
+
+La ruta `/meganoticias-youtube.m3u8` busca la emision en vivo oficial del
+canal verificado de Meganoticias, obtiene el master HLS de YouTube y reescribe
+sus variantes y segmentos con la misma Durable Object.
 
 ## Despliegue
 
