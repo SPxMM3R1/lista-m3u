@@ -81,8 +81,11 @@ RED_BULL_CHANNEL_ID = "rrn:content:video-channels:c81f8686-ab67-4965-ba04-5f6658
 # Red Bull personaliza la parrilla por IP; GitHub Actions se ejecuta fuera de
 # Chile, asi que enviamos una IP publica chilena para conservar la parrilla local.
 RED_BULL_CHILE_GEO_IP = "186.67.0.1"
-EPG_REFRESH_INTERVAL = timedelta(hours=12)
+EPG_REFRESH_INTERVAL = timedelta(hours=3)
 TVN_LIVE_PAGE = "https://live.tvn.cl/"
+TVN_PROGRAMMING_PAGE = "https://www.tvn.cl/programacion"
+TVN_PROGRAMMING_BASE_URL = "https://estaticos.tvn.cl/epg/tvn"
+TVN_OFFICIAL_EPG_SOURCE = "tvn-oficial"
 TVN_DEFAULT_ID = "57a498c4d7b86d600e5461cb"
 TVN_ALTERNATIVE_URL = "https://iptv2.intersurtv.cl/TVN/index.m3u8?PlaylistM3UCL"
 LA_RED_MASTER_URL = "https://tv-mgmt.gtd.cl/bpk-tv/LARED/default/index.m3u8"
@@ -904,6 +907,147 @@ def mega_schedule_items(article_body: str) -> list[tuple[object, str]]:
     return items
 
 
+def tvn_official_title(value: str) -> str:
+    title = re.sub(r"\s+", " ", value).strip()
+    if title.isupper():
+        return title.title()
+    return title
+
+
+def tvn_jsonp_items(data: bytes) -> list[dict]:
+    text = decode_web_text(data).strip()
+    match = re.search(
+        r"jsonp\s*\(\s*(\[.*\])\s*\)\s*;?\s*$",
+        text,
+        flags=re.IGNORECASE | re.DOTALL,
+    )
+    if not match:
+        raise ValueError("TVN no publico un JSONP valido")
+    payload = json.loads(match.group(1))
+    if not isinstance(payload, list):
+        raise ValueError("la parrilla JSON de TVN no es una lista")
+    return [item for item in payload if isinstance(item, dict)]
+
+
+def fetch_tvn_official_epg(
+    channels: list[Channel], now: datetime
+) -> tuple[bytes | None, str | None]:
+    if not any(channel.tvg_id == "0104" for channel in channels):
+        return None, None
+    headers = {
+        "User-Agent": BROWSER_USER_AGENT,
+        "Accept": "application/json,text/javascript,*/*;q=0.8",
+        "Accept-Language": "es-CL,es;q=0.9,en;q=0.8",
+        "Referer": TVN_PROGRAMMING_PAGE,
+    }
+    # El CDN estatico de TVN mantiene vencido su certificado; el endpoint se
+    # consulta solo como fuente oficial de parrilla y ya usa este mismo
+    # contexto de compatibilidad para la pagina de TVN.
+    insecure_context = ssl.create_default_context()
+    insecure_context.check_hostname = False
+    insecure_context.verify_mode = ssl.CERT_NONE
+    try:
+        chile_today = now.astimezone(CHILE_TIMEZONE).date()
+        root = ET.Element(
+            "tv",
+            {
+                "generator-info-name": "lista-m3u TVN importer",
+                "source-info-name": TVN_PROGRAMMING_PAGE,
+            },
+        )
+        seen: set[tuple[str, str, str]] = set()
+        programme_count = 0
+        source_errors: list[str] = []
+        for offset in range(-1, 8):
+            schedule_day = chile_today + timedelta(days=offset)
+            url = (
+                f"{TVN_PROGRAMMING_BASE_URL}/{schedule_day:%Y/%m/%d}"
+                "/programacion.json"
+            )
+            try:
+                status, body, _ = fetch_bytes(
+                    url,
+                    headers,
+                    timeout=60,
+                    context=insecure_context,
+                    limit=2_000_000,
+                )
+                if status != 200:
+                    raise ValueError(f"HTTP {status}")
+                items = tvn_jsonp_items(body)
+            except Exception as error:
+                source_errors.append(f"{schedule_day}: {error}")
+                continue
+
+            for item in items:
+                if item.get("senal") not in (5, "5"):
+                    continue
+                date_text = str(item.get("fecha", "")).strip()
+                start_text = str(item.get("horaInicio", "")).strip()
+                stop_text = str(item.get("horaTermino", "")).strip()
+                title = tvn_official_title(str(item.get("programa", "")))
+                if not (date_text and start_text and stop_text and title):
+                    continue
+                try:
+                    start_date = datetime.strptime(
+                        date_text, "%d/%m/%Y"
+                    ).date()
+                    start_clock = datetime.strptime(
+                        start_text, "%H:%M:%S"
+                    ).time()
+                    stop_clock = datetime.strptime(
+                        stop_text, "%H:%M:%S"
+                    ).time()
+                except ValueError:
+                    continue
+
+                start = datetime.combine(
+                    start_date, start_clock, tzinfo=CHILE_TIMEZONE
+                )
+                stop_date = (
+                    start_date + timedelta(days=1)
+                    if stop_clock <= start_clock
+                    else start_date
+                )
+                stop = datetime.combine(
+                    stop_date, stop_clock, tzinfo=CHILE_TIMEZONE
+                )
+                if stop <= start:
+                    continue
+                if stop < now - timedelta(hours=6):
+                    continue
+                if start > now + timedelta(days=8):
+                    continue
+                key = (start.isoformat(), stop.isoformat(), title)
+                if key in seen:
+                    continue
+                seen.add(key)
+                programme = ET.SubElement(
+                    root,
+                    "programme",
+                    {
+                        "start": xmltv_format_chile(start),
+                        "stop": xmltv_format_chile(stop),
+                        "channel": "0104",
+                    },
+                )
+                ET.SubElement(programme, "title", {"lang": "es"}).text = title
+                ET.SubElement(programme, "desc", {"lang": "es"}).text = (
+                    "Programacion oficial consultada en TVN."
+                )
+                programme_count += 1
+
+        if programme_count < 5:
+            detail = "; ".join(source_errors[:2])
+            suffix = f" ({detail})" if detail else ""
+            raise ValueError(
+                f"TVN publico una parrilla oficial demasiado corta{suffix}"
+            )
+        return ET.tostring(root, encoding="utf-8", xml_declaration=True), None
+    except Exception as error:
+        return None, f"{type(error).__name__}: {error}"
+
+
 def fetch_mega_official_epg(
     channels: list[Channel], now: datetime
 ) -> tuple[bytes | None, str | None]:
@@ -1368,6 +1512,9 @@ def build_epg(
     if MEGA_OFFICIAL_EPG_SOURCE in source_roots and "0105" in expected_ids:
         source_lookup.pop(("cl", "Canal.Mega.(Chile).cl"), None)
         source_lookup[(MEGA_OFFICIAL_EPG_SOURCE, "0105")] = "0105"
+    if TVN_OFFICIAL_EPG_SOURCE in source_roots and "0104" in expected_ids:
+        source_lookup.pop(("cl", "Canal.TVN.(Chile).cl"), None)
+        source_lookup[(TVN_OFFICIAL_EPG_SOURCE, "0104")] = "0104"
     for source_name, source_root in source_roots.items():
         for programme in source_root.findall("programme"):
             target_id = source_lookup.get((source_name, programme.get("channel", "")))
@@ -1506,6 +1653,12 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
         except Exception as error:
             source_errors[source_name] = str(error)
 
+    tvn_data, tvn_error = fetch_tvn_official_epg(channels, now)
+    if tvn_data:
+        source_documents[TVN_OFFICIAL_EPG_SOURCE] = tvn_data
+    if tvn_error:
+        source_errors[TVN_OFFICIAL_EPG_SOURCE] = tvn_error
+
     mega_data, mega_error = fetch_mega_official_epg(channels, now)
     if mega_data:
         source_documents[MEGA_OFFICIAL_EPG_SOURCE] = mega_data
@@ -1515,7 +1668,8 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
     blocking_source_errors = {
         source_name: error
         for source_name, error in source_errors.items()
-        if source_name != MEGA_OFFICIAL_EPG_SOURCE
+        if source_name
+        not in {MEGA_OFFICIAL_EPG_SOURCE, TVN_OFFICIAL_EPG_SOURCE}
     }
     if blocking_source_errors and existing_status is not None:
         existing_status.update(
