@@ -206,7 +206,7 @@ PREFERRED_LOGOS = {
     "13C": f"{LOCAL_LOGOS_PUBLIC_BASE}/13cultura.svg",
     "13 Festival": f"{LOCAL_LOGOS_PUBLIC_BASE}/13-festival.png",
     "13 Prime": f"{LOCAL_LOGOS_PUBLIC_BASE}/13-prime.png",
-    "Rewind": f"{LOCAL_LOGOS_PUBLIC_BASE}/rewind-v2.png",
+    "RWND": f"{LOCAL_LOGOS_PUBLIC_BASE}/rewind-v2.png",
     "UCV": f"{LOCAL_LOGOS_PUBLIC_BASE}/ucv.png",
     "Xtrema Terror": f"{LOCAL_LOGOS_PUBLIC_BASE}/xtrema-terror.png",
 }
@@ -299,9 +299,9 @@ CONTINUOUS_PROGRAMME_DETAILS = {
         "13 Prime en vivo",
         "Programacion continua de 13 Prime; el respaldo publico no publica una parrilla XMLTV estable.",
     ),
-    "Rewind": (
-        "Rewind - musica",
-        "Rotacion continua del canal musical chileno Rewind; no publica una parrilla XMLTV estable.",
+    "RWND": (
+        "RWND - musica",
+        "Rotacion continua del canal musical chileno RWND; no publica una parrilla XMLTV estable.",
     ),
     "UCV": (
         "UCV en vivo",
@@ -422,7 +422,7 @@ SEGMENT_CHECK_CHANNELS = {
     "13C",
     "13 Festival",
     "13 Prime",
-    "Rewind",
+    "RWND",
     "UCV",
     "Xtrema Terror",
     "Adventure Earth",
