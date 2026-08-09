@@ -88,6 +88,7 @@ RED_BULL_SESSION_URL = (
     "https://api.redbull.tv/v3/session?category=smart_tv&os_family=android"
 )
 RED_BULL_OFFICIAL_EPG_URL = "https://api.redbull.tv/v3/epg?complete=true"
+RED_BULL_SPANISH_EPG_PAGE = "https://www.redbull.tv/es/epg"
 # Este relay esta documentado por iptv-org/epg, pero se usa solo como respaldo:
 # su disponibilidad depende de la actualizacion diaria del proveedor.
 RED_BULL_RELAY_EPG_URL = "https://nzxmltv.com/iptv/redbull.xml"
@@ -743,6 +744,86 @@ def normalize_red_bull_schedule(schedule: list[dict]) -> list[dict]:
     return ordered
 
 
+def red_bull_page_schedule(now: datetime) -> list[dict]:
+    """Read the Spanish World of Red Bull rail from the official TV guide page."""
+    status, body, _ = fetch_bytes(
+        RED_BULL_SPANISH_EPG_PAGE,
+        {
+            "User-Agent": BROWSER_USER_AGENT,
+            "Accept": "text/html,application/xhtml+xml,*/*",
+            "Accept-Language": "es-CL,es;q=0.9",
+        },
+        timeout=90,
+        limit=30_000_000,
+    )
+    if status != 200:
+        raise ValueError(f"pagina EPG Red Bull HTTP {status}")
+    html = body.decode("utf-8", "replace")
+    rails = None
+    for script in re.findall(r"<script[^>]*>(.*?)</script>", html, re.IGNORECASE | re.DOTALL):
+        if "channelRails" not in script:
+            continue
+        match = re.fullmatch(
+            r"\s*self\.__next_f\.push\(\[1,(.*)\]\)\s*", script, re.DOTALL
+        )
+        if not match:
+            continue
+        try:
+            decoded = json.loads(match.group(1))
+            marker = '"channelRails":'
+            marker_start = decoded.index(marker) + len(marker)
+            rails, _ = json.JSONDecoder().raw_decode(decoded, marker_start)
+            break
+        except (IndexError, json.JSONDecodeError, TypeError, ValueError):
+            continue
+    if not isinstance(rails, list):
+        raise ValueError("pagina EPG Red Bull no contiene channelRails")
+
+    world_rail = next(
+        (
+            rail
+            for rail in rails
+            if isinstance(rail, dict)
+            and str(rail.get("title", "")).strip().lower() == "world of red bull"
+        ),
+        None,
+    )
+    if not isinstance(world_rail, dict):
+        raise ValueError("pagina EPG Red Bull no contiene la rail World of Red Bull")
+
+    schedule: list[dict] = []
+    for card in world_rail.get("cards", []):
+        if not isinstance(card, dict):
+            continue
+        title = card.get("title")
+        start = card.get("start_time")
+        stop = card.get("end_time")
+        if not title or not start or not stop:
+            continue
+        try:
+            if datetime.fromisoformat(stop.replace("Z", "+00:00")) <= now - timedelta(
+                hours=1
+            ):
+                continue
+        except (TypeError, ValueError):
+            continue
+        schedule.append(
+            {
+                "start_time": start,
+                "end_time": stop,
+                "title": title,
+                "subheading": card.get("subheading"),
+                "short_description": card.get("short_description"),
+                "long_description": card.get("long_description"),
+                "lang": "es",
+            }
+        )
+    schedule = normalize_red_bull_schedule(schedule)
+    if len(schedule) < 5:
+        raise ValueError("pagina EPG Red Bull entrego una parrilla demasiado corta")
+    return schedule
+
+
 def red_bull_api_schedule(locale: str) -> list[dict]:
     """Read the current Red Bull linear schedule using a short-lived API session."""
     headers = {
@@ -864,6 +945,21 @@ def fetch_red_bull_schedules(
     for channel_id, locale in RED_BULL_CHANNEL_LOCALES.items():
         if channel_id not in expected_ids:
             continue
+        if channel_id == RED_BULL_CHILE_ID:
+            try:
+                schedules[channel_id] = red_bull_page_schedule(now)
+                source_names.add("red-bull-es-oficial-page")
+                continue
+            except Exception as page_error:
+                try:
+                    schedules[channel_id] = red_bull_api_schedule(locale)
+                    source_names.add("red-bull-oficial-fallback")
+                    continue
+                except Exception as official_error:
+                    errors[f"red_bull:{channel_id}"] = (
+                        f"pagina: {page_error}; API: {official_error}"
+                    )
+                    continue
         try:
             schedules[channel_id] = red_bull_api_schedule(locale)
             source_names.add("red-bull-oficial")
