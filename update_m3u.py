@@ -32,6 +32,9 @@ PUBLIC_RAW_BASE = "https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main"
 EPG_PUBLIC_URL = f"{PUBLIC_RAW_BASE}/epg.xml"
 LOCAL_LOGOS_PUBLIC_BASE = f"{PUBLIC_RAW_BASE}/logos"
 NHK_MASTER_URL = "https://masterpl.hls.nhkworld.jp/hls/w/live/smarttv.m3u8"
+NHK_WORLD_LIVE_PAGE = "https://www3.nhk.or.jp/nhkworld/en/live_tv/"
+NHK_WORLD_EPG_BASE_URL = "https://masterpl.hls.nhkworld.jp/epg/w"
+NHK_OFFICIAL_EPG_SOURCE = "nhk-world-oficial"
 FRANCE24_ES_1080_URL = (
     "https://live.france24.com/hls/live/2037220/F24_ES_HI_HLS/master_5000.m3u8"
 )
@@ -56,7 +59,6 @@ EPG_PROGRAMME_SOURCES = {
     "DW.de": ("es", "Deutsche.Welle.es"),
     "France24.fr": ("fr", "France.24.Espanol.fr"),
     "EuronewsSpanish.fr": ("es", "Euronews.es"),
-    "NHKWorldJapan.jp": ("cl", "Canal.NHK.World.cl"),
     "AlJazeera.qa": ("es", "Al.Jazeera.English.es"),
     "TVChile.cl": ("cl", "TV.Chile.cl"),
     "ArirangTV.kr": ("pl", "Arirang.TV.pl"),
@@ -74,6 +76,10 @@ try:
     CHILE_TIMEZONE = ZoneInfo("America/Santiago")
 except ZoneInfoNotFoundError:
     CHILE_TIMEZONE = timezone(timedelta(hours=-4))
+try:
+    NHK_TIMEZONE = ZoneInfo("Asia/Tokyo")
+except ZoneInfoNotFoundError:
+    NHK_TIMEZONE = timezone(timedelta(hours=9))
 try:
     UKRAINE_TIMEZONE = ZoneInfo("Europe/Kyiv")
 except ZoneInfoNotFoundError:
@@ -965,6 +971,156 @@ def fetch_tvn_official_epg(
         return None, f"{type(error).__name__}: {error}"
 
 
+def fetch_nhk_official_epg(
+    channels: list[Channel], now: datetime
+) -> tuple[bytes | None, str | None]:
+    """Import the English NHK World schedule instead of domestic NHK XMLTV."""
+    if not any(channel.tvg_id == "NHKWorldJapan.jp" for channel in channels):
+        return None, None
+
+    headers = {
+        "User-Agent": BROWSER_USER_AGENT,
+        "Accept": "application/json,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Referer": NHK_WORLD_LIVE_PAGE,
+    }
+    root = ET.Element(
+        "tv",
+        {
+            "generator-info-name": "lista-m3u NHK World importer",
+            "source-info-name": NHK_WORLD_LIVE_PAGE,
+        },
+    )
+    records: list[dict[str, object]] = []
+    source_errors: list[str] = []
+    nhk_today = now.astimezone(NHK_TIMEZONE).date()
+
+    for offset in range(-1, 10):
+        schedule_day = nhk_today + timedelta(days=offset)
+        url = f"{NHK_WORLD_EPG_BASE_URL}/{schedule_day:%Y%m%d}.json"
+        try:
+            status, body, _ = fetch_bytes(
+                url,
+                headers,
+                timeout=60,
+                limit=2_000_000,
+            )
+            if status != 200:
+                raise ValueError(f"HTTP {status}")
+            payload = json.loads(decode_web_text(body))
+            items = payload.get("data") if isinstance(payload, dict) else None
+            if not isinstance(items, list):
+                raise ValueError("NHK no publico un campo data valido")
+        except Exception as error:
+            source_errors.append(f"{schedule_day}: {error}")
+            continue
+
+        for item in items:
+            if not isinstance(item, dict):
+                continue
+            start_text = str(item.get("startTime", "")).strip()
+            stop_text = str(item.get("endTime", "")).strip()
+            if not start_text or not stop_text:
+                continue
+            try:
+                start = datetime.fromisoformat(start_text.replace("Z", "+00:00"))
+                stop = datetime.fromisoformat(stop_text.replace("Z", "+00:00"))
+            except ValueError:
+                continue
+            if start.tzinfo is None:
+                start = start.replace(tzinfo=NHK_TIMEZONE)
+            if stop.tzinfo is None:
+                stop = stop.replace(tzinfo=NHK_TIMEZONE)
+            if stop <= start:
+                continue
+
+            is_extract_marker = item.get("extractProgram") in (1, "1", True)
+            if is_extract_marker:
+                # NHK World uses one-minute INFO markers between some shows.
+                # Its official page extends the preceding show to the marker's
+                # end and hides the marker itself.
+                if records and stop > records[-1]["stop"]:
+                    records[-1]["stop"] = stop
+                continue
+            if item.get("wstrm") not in (1, "1", True):
+                continue
+
+            title = re.sub(r"\s+", " ", str(item.get("title", ""))).strip()
+            if not title or title.casefold() == "info":
+                continue
+            episode_title = re.sub(
+                r"\s+", " ", str(item.get("episodeTitle", ""))
+            ).strip()
+            description = re.sub(
+                r"\s+", " ", str(item.get("description", ""))
+            ).strip()
+            records.append(
+                {
+                    "start": start,
+                    "stop": stop,
+                    "title": title,
+                    "episode_title": episode_title,
+                    "description": description,
+                    "link": str(item.get("link", "")).strip(),
+                }
+            )
+
+    seen: set[tuple[str, str, str]] = set()
+    programme_count = 0
+    lower_limit = now - timedelta(hours=6)
+    upper_limit = now + timedelta(days=8)
+    for record in sorted(records, key=lambda value: value["start"]):
+        start = record["start"]
+        stop = record["stop"]
+        title = record["title"]
+        if not isinstance(start, datetime) or not isinstance(stop, datetime):
+            continue
+        if not isinstance(title, str) or stop < lower_limit or start > upper_limit:
+            continue
+        key = (start.isoformat(), stop.isoformat(), title)
+        if key in seen:
+            continue
+        seen.add(key)
+        programme = ET.SubElement(
+            root,
+            "programme",
+            {
+                "start": xmltv_format(start),
+                "stop": xmltv_format(stop),
+                "channel": "NHKWorldJapan.jp",
+            },
+        )
+        ET.SubElement(programme, "title", {"lang": "en"}).text = title
+        episode_title = record["episode_title"]
+        if isinstance(episode_title, str) and episode_title:
+            ET.SubElement(programme, "sub-title", {"lang": "en"}).text = (
+                episode_title
+            )
+        description = record["description"]
+        if isinstance(description, str) and description:
+            ET.SubElement(programme, "desc", {"lang": "en"}).text = description
+        link = record["link"]
+        if isinstance(link, str) and link:
+            ET.SubElement(programme, "url").text = link
+        programme_count += 1
+
+    future_limit = now + timedelta(hours=24)
+    has_future_schedule = any(
+        isinstance(record["stop"], datetime) and record["stop"] >= future_limit
+        for record in records
+    )
+    if programme_count < 5 or not has_future_schedule:
+        detail = "; ".join(source_errors[:2])
+        suffix = f" ({detail})" if detail else ""
+        raise_error = (
+            "NHK World publico una parrilla oficial demasiado corta"
+            if programme_count < 5
+            else "NHK World no publico 24 horas futuras"
+        )
+        return None, f"ValueError: {raise_error}{suffix}"
+    return ET.tostring(root, encoding="utf-8", xml_declaration=True), None
+
+
 def fetch_mega_official_epg(
     channels: list[Channel], now: datetime
 ) -> tuple[bytes | None, str | None]:
@@ -1432,6 +1588,11 @@ def build_epg(
     if TVN_OFFICIAL_EPG_SOURCE in source_roots and "0104" in expected_ids:
         source_lookup.pop(("cl", "Canal.TVN.(Chile).cl"), None)
         source_lookup[(TVN_OFFICIAL_EPG_SOURCE, "0104")] = "0104"
+    if NHK_OFFICIAL_EPG_SOURCE in source_roots and "NHKWorldJapan.jp" in expected_ids:
+        source_lookup.pop(("cl", "Canal.NHK.World.cl"), None)
+        source_lookup[(NHK_OFFICIAL_EPG_SOURCE, "NHKWorldJapan.jp")] = (
+            "NHKWorldJapan.jp"
+        )
     for source_name, source_root in source_roots.items():
         for programme in source_root.findall("programme"):
             target_id = source_lookup.get((source_name, programme.get("channel", "")))
@@ -1581,6 +1742,12 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
         source_documents[MEGA_OFFICIAL_EPG_SOURCE] = mega_data
     if mega_error:
         source_errors[MEGA_OFFICIAL_EPG_SOURCE] = mega_error
+
+    nhk_data, nhk_error = fetch_nhk_official_epg(channels, now)
+    if nhk_data:
+        source_documents[NHK_OFFICIAL_EPG_SOURCE] = nhk_data
+    if nhk_error:
+        source_errors[NHK_OFFICIAL_EPG_SOURCE] = nhk_error
 
     blocking_source_errors = {
         source_name: error
