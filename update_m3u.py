@@ -155,11 +155,11 @@ PREFERRED_LOGOS = {
     "NTV": f"{LOCAL_LOGOS_PUBLIC_BASE}/ntv.svg",
     "TVN3": f"{LOCAL_LOGOS_PUBLIC_BASE}/tvn3.svg",
     "CHV Deportes": f"{LOCAL_LOGOS_PUBLIC_BASE}/chv-deportes.svg",
-    "DW Espanol": f"{LOCAL_LOGOS_PUBLIC_BASE}/dw.svg",
+    "DW Español": f"{LOCAL_LOGOS_PUBLIC_BASE}/dw.svg",
     "DW English": f"{LOCAL_LOGOS_PUBLIC_BASE}/dw.svg",
     "Autentic History": f"{LOCAL_LOGOS_PUBLIC_BASE}/autentic-history.svg",
-    "France 24 Espanol": f"{LOCAL_LOGOS_PUBLIC_BASE}/france24.svg",
-    "Euronews Espanol": f"{LOCAL_LOGOS_PUBLIC_BASE}/euronews-espanol.png",
+    "France 24 Español": f"{LOCAL_LOGOS_PUBLIC_BASE}/france24.svg",
+    "Euronews Español": f"{LOCAL_LOGOS_PUBLIC_BASE}/euronews-espanol.png",
     "NHK World Japan": f"{LOCAL_LOGOS_PUBLIC_BASE}/nhk-world.svg",
     "Al Jazeera English": f"{LOCAL_LOGOS_PUBLIC_BASE}/aljazeera.svg?v=2",
     "RedBull TV World": f"{LOCAL_LOGOS_PUBLIC_BASE}/red-bull-tv.png",
@@ -302,13 +302,13 @@ KNOWN_STREAM_FALLBACKS = {
         "https://d1kqwrirylysyt.cloudfront.net/ts:abr.m3u8",
     ],
     "Arirang TV": [ARIRANG_TV_MASTER_URL],
-    "DW Espanol": [
+    "DW Español": [
         "https://dwamdstream104.akamaized.net/hls/live/2015530/dwstream104/master.m3u8"
     ],
-    "France 24 Espanol": [
+    "France 24 Español": [
         FRANCE24_ES_1080_URL
     ],
-    "Euronews Espanol": [
+    "Euronews Español": [
         "https://cdn-euronews.akamaized.net/live/eds/euronews-es/25053/index.m3u8"
     ],
     "NHK World Japan": [NHK_MASTER_URL],
@@ -337,9 +337,9 @@ SEGMENT_CHECK_CHANNELS = {
     "Canal 13",
     "CHV Noticias",
     "CHV Deportes",
-    "France 24 Espanol",
-    "DW Espanol",
-    "Euronews Espanol",
+    "France 24 Español",
+    "DW Español",
+    "Euronews Español",
     "NHK World Japan",
     "Al Jazeera English",
     "Arirang TV",
