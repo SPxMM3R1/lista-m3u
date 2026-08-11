@@ -169,11 +169,7 @@ PREFERRED_LOGOS = {
     "M1": f"{LOCAL_LOGOS_PUBLIC_BASE}/m1.png",
     "M2": f"{LOCAL_LOGOS_PUBLIC_BASE}/m2.png",
     "13C": f"{LOCAL_LOGOS_PUBLIC_BASE}/13cultura.svg",
-    "13 Festival": f"{LOCAL_LOGOS_PUBLIC_BASE}/13-festival.png",
-    "13 Prime": f"{LOCAL_LOGOS_PUBLIC_BASE}/13-prime.png",
     "RWND": f"{LOCAL_LOGOS_PUBLIC_BASE}/rewind-v2.png",
-    "UCV": f"{LOCAL_LOGOS_PUBLIC_BASE}/ucv.png",
-    "Xtrema Terror": f"{LOCAL_LOGOS_PUBLIC_BASE}/xtrema-terror.png",
 }
 CONTINUOUS_PROGRAMME_DETAILS = {
     "TVN3": (
@@ -212,14 +208,6 @@ CONTINUOUS_PROGRAMME_DETAILS = {
         "Live",
         "",
     ),
-    "13 Festival": (
-        "13 Festival en vivo",
-        "Programacion continua de 13 Festival; no se encontro una parrilla XMLTV publica estable.",
-    ),
-    "13 Prime": (
-        "13 Prime en vivo",
-        "Programacion continua de 13 Prime; el respaldo publico no publica una parrilla XMLTV estable.",
-    ),
     "RWND": (
         "Live",
         "",
@@ -231,14 +219,6 @@ CONTINUOUS_PROGRAMME_DETAILS = {
     "Autentic History": (
         "Live",
         "",
-    ),
-    "UCV": (
-        "UCV en vivo",
-        "Programacion continua de UCV; no se encontro una parrilla XMLTV publica estable.",
-    ),
-    "Xtrema Terror": (
-        "Xtrema Terror - peliculas",
-        "Rotacion continua de peliculas; la señal no publica una parrilla XMLTV estable.",
     ),
 }
 NEWS_CHANNEL_ORDER = ("24 Horas", "Meganoticias", "CHV Noticias", "T13")
@@ -318,13 +298,6 @@ KNOWN_STREAM_FALLBACKS = {
     "XITE Hits Germany": [
         "https://d726x48n2pd5h.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-skxr1pazhltvp/XITE_Hits.m3u8"
     ],
-    "13 Prime": [
-        "https://5ff3d9babae13.streamlock.net/aufymdjpjf/aufymdjpjf/playlist.m3u8",
-    ],
-    "UCV": [
-        "https://unlimited2-cl-isp.dps.live/ucvtv2/ucvtv2.smil/playlist.m3u8",
-        "https://pantera1-100gb-cl-movistar.dps.live/ucvtv2/ucvtv2.smil/playlist.m3u8",
-    ],
 }
 SEGMENT_CHECK_CHANNELS = {
     "TVN",
@@ -349,90 +322,8 @@ SEGMENT_CHECK_CHANNELS = {
     "M1",
     "M2",
     "13C",
-    "13 Festival",
-    "13 Prime",
     "RWND",
-    "UCV",
-    "Xtrema Terror",
 }
-REMOVED_CHANNEL_IDS = frozenset(
-    {
-        "13Festival.cl@SD",
-        "13P.cl@SD",
-        "UCVTV.cl@SD",
-        "XtremaTerror.ar@SD",
-        "UChileTV.cl",
-        "13Realities.cl",
-        "13T.cl",
-        "ElPinguinoTV.cl",
-        "Canal26.ar",
-        "NetTV.ar",
-        "TVUniversidad.ar",
-        "BravoTV.ar",
-        "AiredeSantaFe.ar",
-        "DasErste.de",
-        "ARDalpha.de",
-        "BRFernsehen.de",
-        "hrfernsehen.de",
-        "Dokusat.de",
-        "AdventureEarth.de",
-        "EuronewsEnglish.fr",
-        "EuronewsFrench.fr",
-        "BFMTV.fr",
-        "BloombergTVEurope.uk",
-        "DeluxeMusic.de",
-        "DeluxeDance.de",
-        "DeluxeRap.de",
-        "4FunTV.pl",
-        "4FunKids.pl",
-        "RadiowaCzworka.pl",
-        "RadioRAM.pl",
-        "RedCarpetTVInternational.pl",
-        "BestofDanceTV.ee",
-        "DanceTVAlgorhythm.ee",
-        "DanceTVDeepHouseDistrict.ee",
-        "DanceTVEDMMainstage.ee",
-        "DanceTVHouseFloor.ee",
-        "DanceTVMinimalTech.ee",
-        "DanceTVTechnoWarehouse.ee",
-        "ETV.ee",
-        "ETV2.ee",
-        "ETVPlus.ee",
-        "ReTV.lv",
-        "TVNET.lv",
-        "DelfiTV.lt",
-        "LietuvosRytasTV.lt",
-        "LRTKlasika.lt",
-        "LRTOpus.lt",
-        "LRTRadijas.lt",
-        "M1.lt",
-        "PowerHitRadio.lt",
-        "Moskva24.ru",
-        "MoskvaDoveriye.ru",
-        "SanktPeterburg.ru",
-        "RBKTV.ru",
-        "BelRos.ru",
-        "360.ru",
-        "Moymir.ru",
-        "RadioShanson.ru",
-        "Weathernews.jp",
-        "NBCNewsNOW.us",
-        "NBCSportsNOW.us",
-        "BloombergTV.us",
-        "BloombergOriginals.us",
-        "BloombergTVPlus.us",
-        "WeatherNation.us",
-        "CourtTV.us",
-        "48Hours.us",
-        "AKCTV.us",
-        "AKCTVPuppies.us",
-        "ICIRDI.ca",
-        "CBFTDT.ca",
-        "CFHDDT.ca",
-        "CityNewsToronto.ca",
-        "CityNewsVancouver.ca",
-    }
-)
 @dataclass(frozen=True)
 class Channel:
     name: str
@@ -485,25 +376,6 @@ def parse_channels(lines: list[str]) -> list[Channel]:
         else:
             raise ValueError(f"{name}: falta la URL al final del archivo")
     return channels
-
-
-def remove_discontinued_channels(lines: list[str]) -> bool:
-    """Remove the explicitly retired channels before any automatic refresh."""
-    if not REMOVED_CHANNEL_IDS:
-        return False
-    channels = parse_channels(lines)
-    remove_lines: set[int] = set()
-    removed: list[str] = []
-    for channel in channels:
-        if channel.tvg_id not in REMOVED_CHANNEL_IDS:
-            continue
-        remove_lines.update({channel.info_line, channel.url_line})
-        removed.append(channel.name)
-    if not remove_lines:
-        return False
-    lines[:] = [line for index, line in enumerate(lines) if index not in remove_lines]
-    print("  [OK] Canales retirados: " + ", ".join(removed))
-    return True
 
 
 def pin_preferred_logos(lines: list[str]) -> bool:
@@ -2594,14 +2466,11 @@ def main() -> int:
         )
 
     lines = playlist.read_text(encoding="utf-8-sig").splitlines()
-    discontinued_changed = remove_discontinued_channels(lines)
     epg_url_changed = ensure_playlist_epg_url(lines)
-    if epg_url_changed or discontinued_changed:
+    if epg_url_changed:
         playlist.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
         if epg_url_changed:
             print("Cabecera M3U enlazada a la guia EPG publicada en GitHub")
-        if discontinued_changed:
-            print("Lista depurada de canales retirados")
     news_order_changed = pin_news_channel_order(lines)
     preferred_logo_changed = pin_preferred_logos(lines)
     if (

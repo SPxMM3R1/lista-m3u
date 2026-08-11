@@ -17,7 +17,7 @@ Guia de programacion XMLTV:
 
 Cada ejecucion:
 
-- comprueba los streams, los primeros segmentos multimedia y los logos PNG;
+- comprueba los streams, los primeros segmentos multimedia y los logos locales;
 - conserva los maestros originales de los canales cuya autenticacion corresponde
   al reproductor;
 - publica los maestros HLS originales de cada canal, sin wrappers ni variantes
@@ -30,11 +30,10 @@ Cada ejecucion:
   parrilla automatizable;
 - publica `channel-status.json` como artefacto de cada ejecucion.
 
-TVN y Meganoticias publican sus maestros `mdstrm` sin `access_token`. Actions
-no obtiene tokens, no llama APIs de autenticacion y no sustituye esos enlaces:
-la app de reproduccion debe resolver el acceso antes de abrirlos. Mega y La
-Red publican sus maestros oficiales directos. No se necesita dejar este PC
-encendido.
+TVN y Meganoticias conservan sus maestros originales. Actions no interviene en
+la autenticacion de reproduccion; esa responsabilidad corresponde a la app.
+Mega y La Red publican sus maestros oficiales directos. No se necesita dejar
+este PC encendido.
 
 La guia conserva datos vigentes si una fuente externa falla temporalmente. La
 ejecucion tambien puede iniciarse manualmente desde la pestana **Actions** con
@@ -54,9 +53,8 @@ disponible sin depender de servidores externos.
 
 ## Canales
 
-La lista contiene 29 canales despues de retirar 74 entradas seleccionadas de
-la fuente mundial. Se conservaron los nacionales, noticias, miscelaneos
-chilenos y una seleccion internacional, musical y europea.
+La lista contiene 29 canales: nacionales, noticias, miscelaneos chilenos y una
+seleccion internacional, musical y europea.
 
 La EPG usa fuentes XMLTV de Chile, Espana, Francia, Alemania, Polonia,
 Letonia y Paises Bajos. M1 y M2 se actualizan desde sus parrillas oficiales
