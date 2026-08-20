@@ -1,7 +1,9 @@
 # Lista M3U para Android TV
 
-Repositorio publico de la lista M3U principal para Android TV. La lista se
-actualiza automaticamente cada 15 minutos mediante GitHub Actions.
+Repositorio publico de la lista M3U principal para Android TV. La lista y su
+EPG se actualizan mediante un coordinador comun que solo ejecuta el flujo
+completo cada 48 horas. Ese mismo resultado puede generarse desde Windows o
+desde GitHub Actions.
 
 ## URLs para el reproductor
 
@@ -15,7 +17,7 @@ Guia de programacion XMLTV:
 
 ## Funcionamiento
 
-Cada ejecucion:
+Cada ejecucion completa:
 
 - comprueba los streams, los primeros segmentos multimedia y los logos locales;
 - conserva los maestros originales de los canales cuya autenticacion corresponde
@@ -30,14 +32,23 @@ Cada ejecucion:
   parrilla automatizable;
 - publica `channel-status.json` como artefacto de cada ejecucion.
 
+El coordinador `run_m3u_48h.py` conserva `run-state.json` para que el cambio
+entre ejecutor local y GitHub sea transparente. Durante la ventana local hasta
+el 1 de septiembre de 2026 se puede registrar
+`register_local_48h_task.ps1`; desde el 2 de septiembre GitHub Actions retoma
+el mismo flujo. El disparador diario de GitHub solo consume una comprobacion
+ligera cuando aun no vencen las 48 horas.
+
 TVN y Meganoticias conservan sus maestros originales. Actions no interviene en
 la autenticacion de reproduccion; esa responsabilidad corresponde a la app.
-Mega y La Red publican sus maestros oficiales directos. No se necesita dejar
-este PC encendido.
+Mega y La Red publican sus maestros oficiales directos. El PC solo necesita
+estar disponible durante la ventana local; despues del 2 de septiembre el
+ejecutor vuelve a ser GitHub Actions.
 
 La guia conserva datos vigentes si una fuente externa falla temporalmente. La
 ejecucion tambien puede iniciarse manualmente desde la pestana **Actions** con
-el workflow **Actualizar M3U y EPG**.
+el workflow **Actualizar M3U y EPG**. `force_run` omite la espera de 48 horas y
+`force_epg_refresh` fuerza la descarga de las fuentes EPG.
 
 Todos los logos de los canales se conservan dentro de `logos/` y la M3U y el
 EPG apuntan a las copias publicadas en este repositorio. Los logos vectoriales

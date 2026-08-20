@@ -2,9 +2,17 @@ name: Actualizar M3U y EPG
 
 on:
   schedule:
-    - cron: "*/15 * * * *"
+    # El disparador diario solo consulta el estado; el actualizador completo
+    # se ejecuta cuando run-state.json marca 48 horas vencidas.
+    - cron: "0 3 * * *"
+      timezone: "America/Santiago"
   workflow_dispatch:
     inputs:
+      force_run:
+        description: Ejecutar aunque no hayan vencido las 48 horas
+        required: false
+        default: false
+        type: boolean
       force_epg_refresh:
         description: Forzar la descarga de la guia EPG
         required: false
@@ -38,25 +46,29 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Ejecutar actualizador
+      - name: Ejecutar coordinador de 48 horas
         id: updater
         shell: bash
         run: |
+          args=(run_m3u_48h.py --executor github)
+          if [ "${{ inputs.force_run }}" = "true" ]; then
+            args+=(--force)
+          fi
           if [ "${{ inputs.force_epg_refresh }}" = "true" ]; then
-            export EPG_FORCE_REFRESH=true
+            args+=(--force-epg)
           fi
           set +e
-          python update_m3u.py
+          python "${args[@]}"
           status=$?
           echo "status=$status" >> "$GITHUB_OUTPUT"
           exit 0
 
       - name: Publicar cambios
         id: publish
-        if: steps.updater.outputs.status == '0'
+        if: steps.updater.outputs.status == '0' && steps.updater.outputs.ran == 'true'
         shell: bash
         run: |
-          if [ -z "$(git status --porcelain -- m3u.m3u epg.xml)" ]; then
+          if [ -z "$(git status --porcelain -- m3u.m3u epg.xml run-state.json)" ]; then
             echo "La lista y la guia ya estaban al dia."
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
@@ -64,18 +76,19 @@ jobs:
           fi
           git config user.name "Actualizador M3U"
           git config user.email "m3u-bot@users.noreply.github.com"
-          git add m3u.m3u epg.xml
+          git add m3u.m3u epg.xml run-state.json
           git commit -m "Actualiza M3U y EPG automaticamente [skip ci]"
           git push origin HEAD:main
           echo "changed=true" >> "$GITHUB_OUTPUT"
           echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
       - name: Esperar propagacion de GitHub raw
-        if: steps.publish.outputs.changed == 'true'
+        if: steps.updater.outputs.ran == 'true' && steps.publish.outputs.changed == 'true'
         run: sleep 15
 
       - name: Verificar contenido exacto del commit publicado
         id: published
+        if: steps.updater.outputs.ran == 'true'
         shell: bash
         run: |
           set +e
@@ -113,6 +126,7 @@ jobs:
 
       - name: Comprobar URLs raw publicas de main
         id: branch_raw
+        if: steps.updater.outputs.ran == 'true'
         shell: bash
         run: |
           set +e
@@ -139,8 +153,12 @@ jobs:
           exit 0
 
       - name: Fallar si hubo errores
-        if: steps.updater.outputs.status != '0' || steps.published.outputs.status != '0' || steps.branch_raw.outputs.status != '0'
+        if: steps.updater.outputs.status != '0' || (steps.updater.outputs.ran == 'true' && (steps.published.outputs.status != '0' || steps.branch_raw.outputs.status != '0'))
         run: exit 1
+
+      - name: Informar ventana no vencida
+        if: steps.updater.outputs.status == '0' && steps.updater.outputs.ran != 'true'
+        run: echo "No se ejecuta el flujo completo; aun no han vencido 48 horas o la ventana pertenece al otro ejecutor."
 
       - name: Guardar informe de canales
         if: always()

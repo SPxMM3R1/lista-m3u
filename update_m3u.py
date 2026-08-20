@@ -104,7 +104,9 @@ RED_BULL_WORLD_URL = (
 RED_BULL_CHILE_URL = (
     "https://freqsyndlin.redbull.com/957/rbtv/hls/master/playlist.m3u8"
 )
-EPG_REFRESH_INTERVAL = timedelta(hours=3)
+# La guia se actualiza junto con la validacion de canales cada 48 horas. Se
+# conserva la reutilizacion de una guia valida si una ejecucion falla.
+EPG_REFRESH_INTERVAL = timedelta(hours=48)
 TVN_PROGRAMMING_PAGE = "https://www.tvn.cl/programacion"
 TVN_PROGRAMMING_BASE_URL = "https://estaticos.tvn.cl/epg/tvn"
 TVN_OFFICIAL_EPG_SOURCE = "tvn-oficial"
@@ -2497,6 +2499,9 @@ def main() -> int:
 
     print(f"Revisando {len(channels)} canales de {playlist.name}")
     running_in_ci = os.environ.get("CI", "").lower() == "true"
+    allow_geo_restricted = running_in_ci or (
+        os.environ.get("M3U_ALLOW_GEO_RESTRICTED", "").lower() == "true"
+    )
     refreshed_channels: list[str] = []
     refresh_changed = False
     dynamic_channels = {
@@ -2508,7 +2513,7 @@ def main() -> int:
             lines,
             channel,
             fresh_url_factory,
-            running_in_ci=running_in_ci,
+            running_in_ci=allow_geo_restricted,
         ):
             refreshed_channels.append(channel_name)
             refresh_changed = True
@@ -2519,12 +2524,12 @@ def main() -> int:
     print("Verificacion final de la lista completa")
     final_lines = playlist.read_text(encoding="utf-8-sig").splitlines()
     final_channels = parse_channels(final_lines)
-    results = verify_all(final_channels, allow_ci_geo_block=running_in_ci)
+    results = verify_all(final_channels, allow_ci_geo_block=allow_geo_restricted)
     repaired_channels = repair_failed_channels(
         final_lines,
         final_channels,
         results,
-        allow_ci_geo_block=running_in_ci,
+        allow_ci_geo_block=allow_geo_restricted,
     )
     if repaired_channels:
         playlist.write_text(
@@ -2533,7 +2538,7 @@ def main() -> int:
         final_lines = playlist.read_text(encoding="utf-8-sig").splitlines()
         final_channels = parse_channels(final_lines)
         print("Verificacion posterior a las reparaciones")
-        results = verify_all(final_channels, allow_ci_geo_block=running_in_ci)
+        results = verify_all(final_channels, allow_ci_geo_block=allow_geo_restricted)
 
     print("Verificacion de logos")
     logo_results = verify_logos(final_channels)
