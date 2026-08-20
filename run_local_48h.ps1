@@ -25,6 +25,26 @@ function Resolve-Executable {
     throw "No se encontro $Label compatible."
 }
 
+function Invoke-LoggedNative {
+    param(
+        [string]$Executable,
+        [string[]]$Arguments,
+        [string]$Description
+    )
+
+    $previousErrorActionPreference = $ErrorActionPreference
+    $ErrorActionPreference = 'Continue'
+    $output = @(& $Executable @Arguments 2>&1)
+    $exitCode = $LASTEXITCODE
+    $ErrorActionPreference = $previousErrorActionPreference
+    foreach ($entry in $output) {
+        Add-Content -LiteralPath $logPath -Value ([string]$entry)
+    }
+    if ($exitCode -ne 0) {
+        throw "$Description fallo con codigo $exitCode"
+    }
+}
+
 $pythonCommand = Get-Command python -ErrorAction SilentlyContinue
 $gitCommand = Get-Command git -ErrorAction SilentlyContinue
 $pythonCandidates = @(
@@ -66,19 +86,16 @@ try {
         throw "Hay cambios tracked antes de iniciar; no se sobrescriben: $trackedChanges"
     }
 
-    & $gitPath fetch origin main 2>&1 | Tee-Object -FilePath $logPath -Append
-    if ($LASTEXITCODE -ne 0) { throw 'git fetch fallo' }
+    Invoke-LoggedNative -Executable $gitPath -Arguments @('fetch', 'origin', 'main') -Description 'git fetch'
 
     $countsText = ((@(& $gitPath rev-list --left-right --count HEAD...origin/main) -join " ")).Trim()
     $counts = ($countsText -split '\s+')
     $ahead = [int]$counts[0]
     $behind = [int]$counts[1]
     if ($behind -gt 0 -and $ahead -eq 0) {
-        & $gitPath merge --ff-only origin/main 2>&1 | Tee-Object -FilePath $logPath -Append
-        if ($LASTEXITCODE -ne 0) { throw 'La sincronizacion fast-forward fallo' }
+        Invoke-LoggedNative -Executable $gitPath -Arguments @('merge', '--ff-only', 'origin/main') -Description 'La sincronizacion fast-forward'
     } elseif ($ahead -gt 0 -and $behind -eq 0) {
-        & $gitPath push origin HEAD:main 2>&1 | Tee-Object -FilePath $logPath -Append
-        if ($LASTEXITCODE -ne 0) { throw 'Habia una publicacion local pendiente y el push fallo' }
+        Invoke-LoggedNative -Executable $gitPath -Arguments @('push', 'origin', 'HEAD:main') -Description 'El push pendiente'
         exit 0
     } elseif ($ahead -gt 0 -and $behind -gt 0) {
         throw 'La rama local y origin/main divergieron; se requiere revision manual'
@@ -90,8 +107,7 @@ try {
         'local'
     )
     if ($Force) { $coordinatorArguments += '--force' }
-    & $pythonPath @coordinatorArguments 2>&1 | Tee-Object -FilePath $logPath -Append
-    if ($LASTEXITCODE -ne 0) { throw 'El coordinador/actualizador fallo' }
+    Invoke-LoggedNative -Executable $pythonPath -Arguments $coordinatorArguments -Description 'El coordinador/actualizador'
 
     $changes = ((@(& $gitPath status --porcelain --untracked-files=no) -join "`n")).Trim()
     if (-not $changes) {
@@ -106,25 +122,20 @@ try {
         throw "El actualizador modifico rutas no autorizadas: $($unexpected -join ', ')"
     }
 
-    & $gitPath add -- m3u.m3u epg.xml run-state.json 2>&1 | Tee-Object -FilePath $logPath -Append
-    if ($LASTEXITCODE -ne 0) { throw 'git add fallo' }
+    Invoke-LoggedNative -Executable $gitPath -Arguments @('add', '--', 'm3u.m3u', 'epg.xml', 'run-state.json') -Description 'git add'
     $staged = @(& $gitPath diff --cached --name-only)
     $unexpectedStaged = @($staged | Where-Object { $_ -and ($_ -notin $allowedPaths) })
     if ($unexpectedStaged.Count -gt 0) {
         throw "El staging contiene rutas no autorizadas: $($unexpectedStaged -join ', ')"
     }
-    & $gitPath config user.name 'Actualizador M3U'
-    & $gitPath config user.email 'm3u-bot@users.noreply.github.com'
-    & $gitPath commit -m 'Actualiza M3U y EPG automaticamente [skip ci]' 2>&1 | Tee-Object -FilePath $logPath -Append
-    if ($LASTEXITCODE -ne 0) { throw 'git commit fallo' }
-    & $gitPath push origin HEAD:main 2>&1 | Tee-Object -FilePath $logPath -Append
-    if ($LASTEXITCODE -ne 0) { throw 'git push fallo; el commit local queda preparado para reintento' }
+    Invoke-LoggedNative -Executable $gitPath -Arguments @('config', 'user.name', 'Actualizador M3U') -Description 'git config user.name'
+    Invoke-LoggedNative -Executable $gitPath -Arguments @('config', 'user.email', 'm3u-bot@users.noreply.github.com') -Description 'git config user.email'
+    Invoke-LoggedNative -Executable $gitPath -Arguments @('commit', '-m', 'Actualiza M3U y EPG automaticamente [skip ci]') -Description 'git commit'
+    Invoke-LoggedNative -Executable $gitPath -Arguments @('push', 'origin', 'HEAD:main') -Description 'git push'
 
     $rawBase = 'https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main'
-    & $pythonPath (Join-Path $projectRoot 'update_m3u.py') '--verify-published' "$rawBase/m3u.m3u" 2>&1 | Tee-Object -FilePath $logPath -Append
-    if ($LASTEXITCODE -ne 0) { throw 'La verificacion Raw de M3U fallo' }
-    & $pythonPath (Join-Path $projectRoot 'update_m3u.py') '--verify-epg-published' "$rawBase/epg.xml" 2>&1 | Tee-Object -FilePath $logPath -Append
-    if ($LASTEXITCODE -ne 0) { throw 'La verificacion Raw de EPG fallo' }
+    Invoke-LoggedNative -Executable $pythonPath -Arguments @((Join-Path $projectRoot 'update_m3u.py'), '--verify-published', "$rawBase/m3u.m3u") -Description 'La verificacion Raw de M3U'
+    Invoke-LoggedNative -Executable $pythonPath -Arguments @((Join-Path $projectRoot 'update_m3u.py'), '--verify-epg-published', "$rawBase/epg.xml") -Description 'La verificacion Raw de EPG'
     Add-Content -LiteralPath $logPath -Value "[$(Get-Date -Format o)] Publicacion local verificada."
 } catch {
     $errorMessage = $_.Exception.Message
