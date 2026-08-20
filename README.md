@@ -83,6 +83,9 @@ Letonia y Paises Bajos, junto con la guia publica de Zapping para senales
 chilenas seleccionadas. M1 y M2 se actualizan desde sus parrillas oficiales
 semanales. Se marca como `senal continua` cualquier canal que no publique una
 parrilla diaria verificable, en vez de presentar esa continuidad como una guia
-real. SimpleTV se reviso como posible fuente, pero su sitio oficial aun anuncia
-la guia/Catch-Up como funcion futura y no expone un endpoint publico estable;
-no se incorpora hasta poder validarlo sin credenciales ni scraping fragil.
+real. Simply.TV (con punto) se reviso como proveedor B2B de EPG y metadata:
+su portal de entrega requiere autenticacion y la cuenta de prueba gratuita solo
+ofrece un grupo limitado de canales. No se incorpora como dependencia del flujo
+publico hasta contar con acceso autorizado y confirmar cobertura para estos
+canales; si se habilita, se integrara como fuente opcional con credenciales fuera
+del repositorio y Zapping/fuentes oficiales como respaldo.
