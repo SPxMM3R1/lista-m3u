@@ -30,6 +30,10 @@ Cada ejecucion completa:
 - usa las parrillas oficiales disponibles de TVN y Mega, ademas de las de M1 y
   M2; conserva EPGShare como respaldo cuando el emisor no publica XMLTV o una
   parrilla automatizable;
+- usa la guia publica de Zapping Chile para las senales nacionales donde
+  EPGShare/TecnoCentro mostraban desplazamientos o no entregaban una parrilla
+  util; sus marcas Unix absolutas se convierten a America/Santiago sin sumar
+  horas manualmente;
 - publica `channel-status.json` como artefacto de cada ejecucion.
 
 El coordinador `run_m3u_48h.py` conserva `run-state.json` para que el cambio
@@ -75,7 +79,10 @@ La lista contiene 29 canales: nacionales, noticias, miscelaneos chilenos y una
 seleccion internacional, musical y europea.
 
 La EPG usa fuentes XMLTV de Chile, Espana, Francia, Alemania, Polonia,
-Letonia y Paises Bajos. M1 y M2 se actualizan desde sus parrillas oficiales
+Letonia y Paises Bajos, junto con la guia publica de Zapping para senales
+chilenas seleccionadas. M1 y M2 se actualizan desde sus parrillas oficiales
 semanales. Se marca como `senal continua` cualquier canal que no publique una
 parrilla diaria verificable, en vez de presentar esa continuidad como una guia
-real.
+real. SimpleTV se reviso como posible fuente, pero su sitio oficial aun anuncia
+la guia/Catch-Up como funcion futura y no expone un endpoint publico estable;
+no se incorpora hasta poder validarlo sin credenciales ni scraping fragil.

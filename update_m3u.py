@@ -71,6 +71,24 @@ EPG_PROGRAMME_SOURCES = {
     "M1.ua@SD": ("ukrainian-official", "M1.ua@SD"),
     "M2.ua@SD": ("ukrainian-official", "M2.ua@SD"),
 }
+# Zapping publica una guia HTML con marcas Unix absolutas para el programa
+# actual, hoy y manana. Se usa solo para senales chilenas donde la fuente
+# agregada estaba desplazada o no entregaba una parrilla util. TVN y Mega
+# conservan sus adaptadores oficiales especificos.
+ZAPPING_EPG_SOURCE = "zapping-guia-publica"
+ZAPPING_EPG_BASE_URL = "https://guia.zappingtv.com"
+ZAPPING_EPG_CHANNELS = {
+    "0106": "chv",
+    "0107": "canal13",
+    "0102": "lared",
+    "0201": "24horas",
+    "MeganoticiasAhora.cl": "meganoticias",
+    "1153": "chvnoticias",
+    "0124": "t13",
+    "45": "ntv",
+    "1437": "tvn3",
+    "13C.cl@SD": "13cable",
+}
 TECNOCENTRO_EPG_URL = "https://tecnocentro.cl/"
 try:
     CHILE_TIMEZONE = ZoneInfo("America/Santiago")
@@ -1337,6 +1355,136 @@ def decode_web_text(data: bytes) -> str:
     return decoded
 
 
+def zapping_html_text(value: str) -> str:
+    value = html.unescape(re.sub(r"<[^>]+>", " ", value))
+    return re.sub(r"\s+", " ", value).strip()
+
+
+def zapping_schedule_rows(page_html: str) -> list[tuple[datetime, str]]:
+    """Extract absolute-start programmes from a public Zapping guide page."""
+    today_marker = re.search(
+        r'<div\b[^>]*class=["\'][^"\']*\btoday-schedule\b[^"\']*["\']',
+        page_html,
+        re.IGNORECASE,
+    )
+    if not today_marker:
+        raise ValueError("la guia Zapping no contiene la parrilla del dia")
+
+    rows: list[tuple[datetime, str]] = []
+    current_html = page_html[: today_marker.start()]
+    current_info = re.search(r'href=["\']info/(\d+)["\']', current_html, re.IGNORECASE)
+    current_title = re.search(r"<h4\b[^>]*>(.*?)</h4\s*>", current_html, re.IGNORECASE | re.DOTALL)
+    if current_info and current_title:
+        rows.append(
+            (
+                datetime.fromtimestamp(int(current_info.group(1)), timezone.utc),
+                zapping_html_text(current_title.group(1)),
+            )
+        )
+
+    item_pattern = re.compile(
+        r'<a\b'
+        r'(?=[^>]*\bhref=["\']info/(\d+)["\'])'
+        r'(?=[^>]*\bclass=["\'][^"\']*\bepg-item\b[^"\']*["\'])'
+        r'[^>]*>(.*?)</a\s*>',
+        re.IGNORECASE | re.DOTALL,
+    )
+    title_pattern = re.compile(
+        r'class=["\'][^"\']*\bepg-schedule-title\b[^"\']*["\'][^>]*>(.*?)</p\s*>',
+        re.IGNORECASE | re.DOTALL,
+    )
+    for match in item_pattern.finditer(page_html[today_marker.start() :]):
+        title_match = title_pattern.search(match.group(2))
+        if not title_match:
+            continue
+        title = zapping_html_text(title_match.group(1))
+        if not title:
+            continue
+        start = datetime.fromtimestamp(int(match.group(1)), timezone.utc)
+        rows.append((start, title))
+
+    unique: dict[datetime, str] = {}
+    for start, title in rows:
+        unique.setdefault(start, title)
+    return sorted(unique.items())
+
+
+def fetch_zapping_epg(
+    channels: list[Channel], now: datetime
+) -> tuple[bytes | None, dict[str, str]]:
+    targets = [
+        (channel.tvg_id, ZAPPING_EPG_CHANNELS[channel.tvg_id])
+        for channel in channels
+        if channel.tvg_id in ZAPPING_EPG_CHANNELS
+    ]
+    if not targets:
+        return None, {}
+
+    root = ET.Element(
+        "tv",
+        {
+            "generator-info-name": "lista-m3u Zapping guide importer",
+            "source-info-name": ZAPPING_EPG_BASE_URL,
+        },
+    )
+    errors: dict[str, str] = {}
+    found_by_target = {target_id: 0 for target_id, _ in targets}
+    for target_id, slug in targets:
+        url = f"{ZAPPING_EPG_BASE_URL}/{slug}/"
+        try:
+            status, body, _ = fetch_bytes(
+                url,
+                {
+                    "User-Agent": BROWSER_USER_AGENT,
+                    "Accept": "text/html,application/xhtml+xml,*/*",
+                },
+                timeout=60,
+                limit=4_000_000,
+            )
+            if status != 200:
+                raise ValueError(f"HTTP {status}")
+            rows = zapping_schedule_rows(decode_web_text(body))
+            if len(rows) < 3:
+                raise ValueError("la guia Zapping contiene muy pocos bloques")
+
+            for index, (start, title) in enumerate(rows):
+                stop = (
+                    rows[index + 1][0]
+                    if index + 1 < len(rows)
+                    else start + timedelta(hours=3)
+                )
+                if stop <= start:
+                    continue
+                if stop < now - timedelta(hours=6) or start > now + timedelta(days=4):
+                    continue
+                programme = ET.SubElement(
+                    root,
+                    "programme",
+                    {
+                        "start": xmltv_format_chile(start),
+                        "stop": xmltv_format_chile(stop),
+                        "channel": target_id,
+                    },
+                )
+                ET.SubElement(programme, "title", {"lang": "es"}).text = title
+                ET.SubElement(programme, "desc", {"lang": "es"}).text = (
+                    "Programacion publica consultada en la guia de Zapping Chile."
+                )
+                found_by_target[target_id] += 1
+        except Exception as error:
+            errors[target_id] = f"{type(error).__name__}: {error}"
+
+    for target_id, count in found_by_target.items():
+        if count == 0:
+            errors[target_id] = "la guia Zapping no publico bloques utilizables"
+
+    # La fuente es opcional, pero no se mezcla una descarga parcial con otras
+    # fuentes: un fallo de una pagina debe conservar la guia anterior.
+    if errors or not any(found_by_target.values()):
+        return None, errors
+    return ET.tostring(root, encoding="utf-8", xml_declaration=True), errors
+
+
 UKRAINIAN_WEEKDAYS = {
     "monday": 0,
     "tuesday": 1,
@@ -1674,7 +1822,7 @@ def build_epg(
         {
             "generator-info-name": "lista-m3u updater",
             "source-info-name": (
-                "EPGShare01, TecnoCentro, fuentes oficiales y relay GitHub"
+                "EPGShare01, Zapping, TecnoCentro, fuentes oficiales y relay GitHub"
             ),
             "data-generated-at": now.astimezone(timezone.utc).isoformat(),
         },
@@ -1711,6 +1859,16 @@ def build_epg(
         source_lookup[(NHK_OFFICIAL_EPG_SOURCE, "NHKWorldJapan.jp")] = (
             "NHKWorldJapan.jp"
         )
+    if ZAPPING_EPG_SOURCE in source_roots:
+        zapping_target_ids = {
+            programme.get("channel", "")
+            for programme in source_roots[ZAPPING_EPG_SOURCE].findall("programme")
+        }
+        for target_id in sorted(zapping_target_ids & set(ZAPPING_EPG_CHANNELS)):
+            for lookup_key, lookup_target in list(source_lookup.items()):
+                if lookup_target == target_id:
+                    source_lookup.pop(lookup_key, None)
+            source_lookup[(ZAPPING_EPG_SOURCE, target_id)] = target_id
     for source_name, source_root in source_roots.items():
         for programme in source_root.findall("programme"):
             target_id = source_lookup.get((source_name, programme.get("channel", "")))
@@ -1890,6 +2048,26 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
                 "updated": False,
                 "preserved": True,
                 "warning": "se conservo la guia anterior por fallos de fuente",
+                "source_errors": source_errors,
+            }
+        )
+        return existing_status
+
+    zapping_data, zapping_errors = fetch_zapping_epg(channels, now)
+    source_errors.update(
+        {
+            f"{ZAPPING_EPG_SOURCE}:{target_id}": error
+            for target_id, error in zapping_errors.items()
+        }
+    )
+    if zapping_data:
+        source_documents[ZAPPING_EPG_SOURCE] = zapping_data
+    elif zapping_errors and existing_status is not None:
+        existing_status.update(
+            {
+                "updated": False,
+                "preserved": True,
+                "warning": "se conservo la guia anterior por fallo de la guia publica Zapping",
                 "source_errors": source_errors,
             }
         )
