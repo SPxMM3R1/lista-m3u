@@ -56,12 +56,12 @@ Push-Location $projectRoot
 try {
     "[$(Get-Date -Format o)] Inicio del ejecutor local" | Set-Content -LiteralPath $logPath -Encoding UTF8
 
-    $branch = (& $gitPath rev-parse --abbrev-ref HEAD).Trim()
+    $branch = ((@(& $gitPath rev-parse --abbrev-ref HEAD) -join "`n")).Trim()
     if ($branch -ne 'main') {
         throw "El ejecutor local requiere la rama main; rama actual: $branch"
     }
 
-    $trackedChanges = (& $gitPath status --porcelain --untracked-files=no).Trim()
+    $trackedChanges = ((@(& $gitPath status --porcelain --untracked-files=no) -join "`n")).Trim()
     if ($trackedChanges) {
         throw "Hay cambios tracked antes de iniciar; no se sobrescriben: $trackedChanges"
     }
@@ -69,7 +69,8 @@ try {
     & $gitPath fetch origin main 2>&1 | Tee-Object -FilePath $logPath -Append
     if ($LASTEXITCODE -ne 0) { throw 'git fetch fallo' }
 
-    $counts = ((& $gitPath rev-list --left-right --count HEAD...origin/main).Trim() -split '\s+')
+    $countsText = ((@(& $gitPath rev-list --left-right --count HEAD...origin/main) -join " ")).Trim()
+    $counts = ($countsText -split '\s+')
     $ahead = [int]$counts[0]
     $behind = [int]$counts[1]
     if ($behind -gt 0 -and $ahead -eq 0) {
@@ -92,7 +93,7 @@ try {
     & $pythonPath @coordinatorArguments 2>&1 | Tee-Object -FilePath $logPath -Append
     if ($LASTEXITCODE -ne 0) { throw 'El coordinador/actualizador fallo' }
 
-    $changes = (& $gitPath status --porcelain --untracked-files=no).Trim()
+    $changes = ((@(& $gitPath status --porcelain --untracked-files=no) -join "`n")).Trim()
     if (-not $changes) {
         Add-Content -LiteralPath $logPath -Value 'No habia una ventana de 48 horas vencida.'
         exit 0
@@ -126,8 +127,10 @@ try {
     if ($LASTEXITCODE -ne 0) { throw 'La verificacion Raw de EPG fallo' }
     Add-Content -LiteralPath $logPath -Value "[$(Get-Date -Format o)] Publicacion local verificada."
 } catch {
-    Add-Content -LiteralPath $logPath -Value "[$(Get-Date -Format o)] ERROR: $($_.Exception.Message)"
-    Write-Error $_
+    $errorMessage = $_.Exception.Message
+    if (-not $errorMessage) { $errorMessage = $_.ToString() }
+    Add-Content -LiteralPath $logPath -Value "[$(Get-Date -Format o)] ERROR: $errorMessage"
+    Write-Error -Message $errorMessage
     exit 1
 } finally {
     Pop-Location
