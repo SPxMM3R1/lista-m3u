@@ -40,6 +40,10 @@ el mismo flujo. La tarea local se repite cada 48 horas; GitHub usa un disparador
 diario muy ligero porque Actions no dispone de un temporizador exacto de 48
 horas, y no ejecuta red/EPG/canales cuando el estado aun no vencio.
 
+Durante esta ventana, GitHub Actions queda deshabilitado para no consumir cuota.
+El programador local contiene un disparador puntual para reactivarlo el 2 de
+septiembre de 2026 a las 03:05 (hora local), y luego se deshabilita a si mismo.
+
 TVN y Meganoticias conservan sus maestros originales. Actions no interviene en
 la autenticacion de reproduccion; esa responsabilidad corresponde a la app.
 Mega y La Red publican sus maestros oficiales directos. El PC solo necesita

@@ -34,6 +34,10 @@ $trigger = New-ScheduledTaskTrigger `
     -At $firstRun `
     -RepetitionInterval (New-TimeSpan -Hours 48) `
     -RepetitionDuration (New-TimeSpan -Days 14)
+$resumeTrigger = New-ScheduledTaskTrigger `
+    -Once `
+    -At ([datetime]'2026-09-02T03:05:00')
+$triggers = @($trigger, $resumeTrigger)
 $settings = New-ScheduledTaskSettingsSet `
     -StartWhenAvailable `
     -RunOnlyIfNetworkAvailable `
@@ -47,12 +51,12 @@ $principal = New-ScheduledTaskPrincipal `
 Register-ScheduledTask `
     -TaskName $taskName `
     -Action $action `
-    -Trigger $trigger `
+    -Trigger $triggers `
     -Settings $settings `
     -Principal $principal `
-    -Description 'Ejecuta la validacion y publicacion de Lista M3U solo cuando vencen 48 horas; se detiene al comenzar el 2 de septiembre de 2026.' `
+    -Description 'Ejecuta Lista M3U cada 48 horas durante la ventana local y reactiva GitHub Actions el 2 de septiembre de 2026.' `
     -Force | Out-Null
 
 Write-Output "Tarea registrada: $taskName"
 Write-Output "Primera ejecucion programada: $($firstRun.ToString('yyyy-MM-dd HH:mm:ss'))"
-Write-Output 'La tarea se repite cada 48 horas y el coordinador conserva una compuerta adicional de seguridad.'
+Write-Output 'La tarea se repite cada 48 horas y contiene un disparador puntual para reactivar GitHub el 2026-09-02 03:05.'
