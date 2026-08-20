@@ -48,6 +48,13 @@ EPG_SOURCES = {
     "pl": "https://epgshare01.online/epgshare01/epg_ripper_PL1.xml.gz",
     "lv": "https://epgshare01.online/epgshare01/epg_ripper_LV1.xml.gz",
     "nl": "https://epgshare01.online/epgshare01/epg_ripper_NL1.xml.gz",
+    # PLEX1 cubre los canales FAST de BBC, Bloomberg, CBS, Qello, Stingray y
+    # XITE. Las fuentes por pais completan noticias internacionales que no
+    # aparecen en PLEX1, sin descargar el ALL_SOURCES de mas de 200 MB.
+    "plex1": "https://epgshare01.online/epgshare01/epg_ripper_PLEX1.xml.gz",
+    "tr1": "https://epgshare01.online/epgshare01/epg_ripper_TR1.xml.gz",
+    "sg1": "https://epgshare01.online/epgshare01/epg_ripper_SG1.xml.gz",
+    "ng1": "https://epgshare01.online/epgshare01/epg_ripper_NG1.xml.gz",
 }
 EPG_PROGRAMME_SOURCES = {
     "0104": ("cl", "Canal.TVN.(Chile).cl"),
@@ -70,6 +77,22 @@ EPG_PROGRAMME_SOURCES = {
     "45": ("tecnocentro", "LCH4087"),
     "M1.ua@SD": ("ukrainian-official", "M1.ua@SD"),
     "M2.ua@SD": ("ukrainian-official", "M2.ua@SD"),
+    "BBCEarth.uk": ("plex1", "plex.tv.BBC.Earth.plex"),
+    "BBCNews.uk": ("plex1", "plex.tv.BBC.News.(North.America).plex"),
+    "BBCTravel.us": ("plex1", "plex.tv.BBC.Travel.plex"),
+    "BloombergTV.us": ("plex1", "plex.tv.Bloomberg.TV.plex"),
+    "BloombergOriginals.us": ("plex1", "plex.tv.Bloomberg.Originals.plex"),
+    "CBSNews247.us": ("plex1", "plex.tv.CBS.News.24/7.plex"),
+    "QelloConcertsbyStingray.ca": ("plex1", "plex.tv.Qello.Concerts.plex"),
+    "StingrayClassica.ca": ("plex1", "plex.tv.Stingray.Classica.Stream.plex"),
+    "StingrayDJAZZ.ca": ("plex1", "plex.tv.Stingray.DJAZZ.plex"),
+    "XITE80sFlashback.us": ("plex1", "plex.tv.XITE.80s.Flashback.plex"),
+    "XITE90sThrowback.us": ("plex1", "plex.tv.XITE.90s.Throwback.plex"),
+    "XITERockxMetal.nl": ("plex1", "plex.tv.XITE.Rock.x.Metal.plex"),
+    "XITEJustChill.nl": ("plex1", "plex.tv.XITE.Just.Chill.plex"),
+    "TRTWorld.tr": ("tr1", "TRT.WORLD.HD.tr"),
+    "CNA.sg": ("sg1", "CNA.(HD).sg"),
+    "AfricanewsEnglish.fr": ("ng1", "Africanews.ng"),
 }
 # Zapping publica una guia HTML con marcas Unix absolutas para el programa
 # actual, hoy y manana. Se usa solo para senales chilenas donde la fuente
@@ -158,6 +181,9 @@ CI_GEO_RESTRICTED_CHANNELS = {
     # cuando el emisor responde 401/403; la app resuelve su acceso al abrirlos.
     "TVN",
     "Meganoticias",
+    # CNA publica el stream con restricciones regionales; la CDN puede
+    # responder 403 desde GitHub aunque entregue segmentos desde Chile.
+    "CNA",
 }
 # Estos canales mantienen su maestro original; la autenticacion de playback
 # queda exclusivamente en la aplicacion y nunca se ejecuta desde Actions.
@@ -190,6 +216,22 @@ PREFERRED_LOGOS = {
     "M2": f"{LOCAL_LOGOS_PUBLIC_BASE}/m2.png",
     "13C": f"{LOCAL_LOGOS_PUBLIC_BASE}/13cultura.svg",
     "RWND": f"{LOCAL_LOGOS_PUBLIC_BASE}/rewind-v2.png",
+    "BBC Earth FAST": f"{LOCAL_LOGOS_PUBLIC_BASE}/bbc.svg",
+    "BBC News": f"{LOCAL_LOGOS_PUBLIC_BASE}/bbc.svg",
+    "BBC Travel": f"{LOCAL_LOGOS_PUBLIC_BASE}/bbc.svg",
+    "Bloomberg TV US": f"{LOCAL_LOGOS_PUBLIC_BASE}/bloomberg.svg",
+    "Bloomberg Originals": f"{LOCAL_LOGOS_PUBLIC_BASE}/bloomberg.svg",
+    "CBS News 24/7": f"{LOCAL_LOGOS_PUBLIC_BASE}/cbs-news.svg",
+    "TRT World": f"{LOCAL_LOGOS_PUBLIC_BASE}/trt-world.svg",
+    "CNA": f"{LOCAL_LOGOS_PUBLIC_BASE}/cna.svg",
+    "Africanews English": f"{LOCAL_LOGOS_PUBLIC_BASE}/africanews.svg",
+    "Qello Concerts by Stingray": f"{LOCAL_LOGOS_PUBLIC_BASE}/qello.svg",
+    "Stingray Classica": f"{LOCAL_LOGOS_PUBLIC_BASE}/stingray-classica.svg",
+    "Stingray DJAZZ": f"{LOCAL_LOGOS_PUBLIC_BASE}/stingray-djazz.svg",
+    "XITE 80s Flashback": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
+    "XITE 90s Throwback": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
+    "XITE Rock x Metal": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
+    "XITE Just Chill": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
 }
 CONTINUOUS_PROGRAMME_DETAILS = {
     "TVN3": (
@@ -223,6 +265,22 @@ CONTINUOUS_PROGRAMME_DETAILS = {
     "M2": (
         "M2 - rotacion musical",
         "Rotacion continua de videos musicales de M2; los programas especiales pueden cambiar de horario.",
+    ),
+    "XITE 80s Flashback": (
+        "XITE 80s Flashback - videoclips",
+        "Programacion musical de XITE; se conserva continuidad si la guia FAST no esta disponible.",
+    ),
+    "XITE 90s Throwback": (
+        "XITE 90s Throwback - videoclips",
+        "Programacion musical de XITE; se conserva continuidad si la guia FAST no esta disponible.",
+    ),
+    "XITE Rock x Metal": (
+        "XITE Rock x Metal - videoclips",
+        "Programacion musical de XITE; se conserva continuidad si la guia FAST no esta disponible.",
+    ),
+    "XITE Just Chill": (
+        "XITE Just Chill - videoclips",
+        "Programacion musical de XITE; se conserva continuidad si la guia FAST no esta disponible.",
     ),
     "13C": (
         "Live",
@@ -318,6 +376,19 @@ KNOWN_STREAM_FALLBACKS = {
     "XITE Hits Germany": [
         "https://d726x48n2pd5h.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-skxr1pazhltvp/XITE_Hits.m3u8"
     ],
+    "XITE 80s Flashback": [
+        "https://d1n314cytqn9r3.cloudfront.net/XITE_80s_Flashback.m3u8"
+    ],
+    "XITE 90s Throwback": [
+        "https://d284aawtm5vi48.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-fjdfi2br1jtq7/XITE_90s_Throwback.m3u8"
+    ],
+    "XITE Rock x Metal": [
+        "https://d198ro05q94rc4.cloudfront.net/XITE_Rock_On.m3u8",
+        "https://jmp2.uk/plu-623a1b5188ecdc0007c9ef5a.m3u8",
+    ],
+    "XITE Just Chill": [
+        "https://dvnftgdlbnemm.cloudfront.net/XITE_Just_Chill.m3u8"
+    ],
 }
 SEGMENT_CHECK_CHANNELS = {
     "TVN",
@@ -343,6 +414,22 @@ SEGMENT_CHECK_CHANNELS = {
     "M2",
     "13C",
     "RWND",
+    "BBC Earth FAST",
+    "BBC News",
+    "BBC Travel",
+    "Bloomberg TV US",
+    "Bloomberg Originals",
+    "CBS News 24/7",
+    "TRT World",
+    "CNA",
+    "Africanews English",
+    "Qello Concerts by Stingray",
+    "Stingray Classica",
+    "Stingray DJAZZ",
+    "XITE 80s Flashback",
+    "XITE 90s Throwback",
+    "XITE Rock x Metal",
+    "XITE Just Chill",
 }
 @dataclass(frozen=True)
 class Channel:

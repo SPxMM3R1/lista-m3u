@@ -30,6 +30,10 @@ Cada ejecucion completa:
 - usa las parrillas oficiales disponibles de TVN y Mega, ademas de las de M1 y
   M2; conserva EPGShare como respaldo cuando el emisor no publica XMLTV o una
   parrilla automatizable;
+- integra PLEX1 para las señales FAST de BBC, Bloomberg, CBS, Qello, Stingray
+  y XITE, y usa las fuentes pequeñas TR1, SG1 y NG1 solo para TRT World, CNA y
+  Africanews, respectivamente; no descarga el XML combinado de todos los
+  proveedores;
 - usa la guia publica de Zapping Chile para las senales nacionales donde
   EPGShare/TecnoCentro mostraban desplazamientos o no entregaban una parrilla
   util; sus marcas Unix absolutas se convierten a America/Santiago sin sumar
@@ -75,15 +79,16 @@ disponible sin depender de servidores externos.
 
 ## Canales
 
-La lista contiene 29 canales: nacionales, noticias, miscelaneos chilenos y una
-seleccion internacional, musical y europea.
+La lista contiene 45 canales: nacionales, noticias, miscelaneos chilenos,
+noticias internacionales, documentales, conciertos y una seleccion musical.
 
 La EPG usa fuentes XMLTV de Chile, Espana, Francia, Alemania, Polonia,
-Letonia y Paises Bajos, junto con la guia publica de Zapping para senales
-chilenas seleccionadas. M1 y M2 se actualizan desde sus parrillas oficiales
-semanales. Se marca como `senal continua` cualquier canal que no publique una
-parrilla diaria verificable, en vez de presentar esa continuidad como una guia
-real. Simply.TV (con punto) se reviso como proveedor B2B de EPG y metadata:
+Letonia, Paises Bajos, PLEX1, Turquia, Singapur y Nigeria, junto con la guia
+publica de Zapping para senales chilenas seleccionadas. M1 y M2 se actualizan
+desde sus parrillas oficiales semanales. Se marca como `senal continua`
+cualquier canal que no publique una parrilla diaria verificable, en vez de
+presentar esa continuidad como una guia real. Simply.TV (con punto) se reviso
+como proveedor B2B de EPG y metadata:
 su portal de entrega requiere autenticacion y la cuenta de prueba gratuita solo
 ofrece un grupo limitado de canales. No se incorpora como dependencia del flujo
 publico hasta contar con acceso autorizado y confirmar cobertura para estos
