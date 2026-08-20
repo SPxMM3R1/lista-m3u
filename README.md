@@ -37,8 +37,10 @@ entre ejecutor local y GitHub sea transparente. Durante la ventana local hasta
 el 1 de septiembre de 2026 se puede registrar
 `register_local_48h_task.ps1`; desde el 2 de septiembre GitHub Actions retoma
 el mismo flujo. La tarea local se repite cada 48 horas; GitHub usa un disparador
-diario muy ligero porque Actions no dispone de un temporizador exacto de 48
-horas, y no ejecuta red/EPG/canales cuando el estado aun no vencio.
+cada dos dias de calendario porque Actions no dispone de un temporizador exacto
+de 48 horas, y no ejecuta red/EPG/canales cuando el estado aun no vencio. La
+compuerta de `run-state.json` conserva el minimo de 48 horas aunque los cambios
+de mes hagan que el intervalo del cron no sea exactamente igual.
 
 Durante esta ventana, GitHub Actions queda deshabilitado para no consumir cuota.
 El programador local contiene un disparador puntual para reactivarlo el 2 de

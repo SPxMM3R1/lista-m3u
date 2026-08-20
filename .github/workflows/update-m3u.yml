@@ -2,9 +2,9 @@ name: Actualizar M3U y EPG
 
 on:
   schedule:
-    # El disparador diario solo consulta el estado; el actualizador completo
-    # se ejecuta cuando run-state.json marca 48 horas vencidas.
-    - cron: "0 3 * * *"
+    # El disparador corre cada dos dias de calendario; el actualizador completo
+    # se ejecuta solo cuando run-state.json marca 48 horas vencidas.
+    - cron: "0 3 */2 * *"
       timezone: "America/Santiago"
   workflow_dispatch:
     inputs:
