@@ -7,6 +7,7 @@ $ErrorActionPreference = 'Stop'
 $taskName = 'Lista M3U - actualizador local 48h'
 $projectRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $runnerPath = Join-Path $projectRoot 'run_local_48h.ps1'
+$statePath = Join-Path $projectRoot 'run-state.json'
 $windowsPowerShell = Join-Path $env:SystemRoot 'System32\WindowsPowerShell\v1.0\powershell.exe'
 
 if ($Unregister) {
@@ -18,7 +19,21 @@ if ($Unregister) {
 $action = New-ScheduledTaskAction `
     -Execute $windowsPowerShell `
     -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$runnerPath`""
-$trigger = New-ScheduledTaskTrigger -Daily -At ([datetime]::Today.AddHours(3)) -DaysInterval 1
+$firstRun = (Get-Date).AddMinutes(1)
+if (Test-Path -LiteralPath $statePath -PathType Leaf) {
+    $state = Get-Content -Raw -LiteralPath $statePath | ConvertFrom-Json
+    if ($state.last_published_at) {
+        $scheduledNext = [DateTimeOffset]::Parse($state.last_published_at).ToLocalTime().DateTime.AddHours(48)
+        if ($scheduledNext -gt (Get-Date)) {
+            $firstRun = $scheduledNext
+        }
+    }
+}
+$trigger = New-ScheduledTaskTrigger `
+    -Once `
+    -At $firstRun `
+    -RepetitionInterval (New-TimeSpan -Hours 48) `
+    -RepetitionDuration (New-TimeSpan -Days 14)
 $settings = New-ScheduledTaskSettingsSet `
     -StartWhenAvailable `
     -RunOnlyIfNetworkAvailable `
@@ -39,4 +54,5 @@ Register-ScheduledTask `
     -Force | Out-Null
 
 Write-Output "Tarea registrada: $taskName"
-Write-Output 'La tarea se despierta diariamente a las 03:00, pero el coordinador solo ejecuta el flujo completo cada 48 horas.'
+Write-Output "Primera ejecucion programada: $($firstRun.ToString('yyyy-MM-dd HH:mm:ss'))"
+Write-Output 'La tarea se repite cada 48 horas y el coordinador conserva una compuerta adicional de seguridad.'

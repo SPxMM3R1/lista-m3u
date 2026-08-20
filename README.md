@@ -36,8 +36,9 @@ El coordinador `run_m3u_48h.py` conserva `run-state.json` para que el cambio
 entre ejecutor local y GitHub sea transparente. Durante la ventana local hasta
 el 1 de septiembre de 2026 se puede registrar
 `register_local_48h_task.ps1`; desde el 2 de septiembre GitHub Actions retoma
-el mismo flujo. El disparador diario de GitHub solo consume una comprobacion
-ligera cuando aun no vencen las 48 horas.
+el mismo flujo. La tarea local se repite cada 48 horas; GitHub usa un disparador
+diario muy ligero porque Actions no dispone de un temporizador exacto de 48
+horas, y no ejecuta red/EPG/canales cuando el estado aun no vencio.
 
 TVN y Meganoticias conservan sus maestros originales. Actions no interviene en
 la autenticacion de reproduccion; esa responsabilidad corresponde a la app.
