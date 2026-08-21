@@ -299,55 +299,7 @@ CONTINUOUS_PROGRAMME_DETAILS = {
         "",
     ),
 }
-PLAYLIST_GROUPS = (
-    (
-        "Chile",
-        ("TVN", "Mega", "CHV", "Canal 13", "La Red", "TV Chile"),
-    ),
-    (
-        "Noticias Chile",
-        ("24 Horas", "Meganoticias", "CHV Noticias", "T13"),
-    ),
-    ("Deportes Chile", ("CHV Deportes",)),
-    ("Infantil y Familiar", ("NTV", "13 Kids")),
-    ("Cultura y Retro", ("13C", "TVN3", "RWND")),
-    (
-        "Noticias Internacionales",
-        (
-            "BBC News",
-            "France 24 Español",
-            "DW Español",
-            "Euronews Español",
-            "Bloomberg TV US",
-            "CBS News 24/7",
-            "Al Jazeera English",
-            "TRT World",
-            "CNA",
-            "Africanews English",
-            "DW English",
-        ),
-    ),
-    (
-        "Documentales y Viajes",
-        ("BBC Earth FAST", "BBC Travel", "Bloomberg Originals", "Autentic History"),
-    ),
-    ("Cultura Global", ("NHK World Japan", "Arirang TV")),
-    ("Deportes y Aventura", ("RedBull TV World", "RedBull TV Español")),
-    ("Conciertos", ("Qello Concerts by Stingray",)),
-    ("Jazz y Clasica", ("Stingray Classica", "Stingray DJAZZ")),
-    ("Musica", ("M1", "M2", "XITE Hits Germany")),
-    (
-        "Musica 70s 80s 90s",
-        ("XITE 80s Flashback", "XITE 90s Throwback"),
-    ),
-    ("Rock y Metal", ("XITE Rock x Metal",)),
-    ("Ambiental y Chill", ("XITE Just Chill",)),
-)
-PLAYLIST_CHANNEL_ORDER = tuple(
-    channel_name
-    for _, channel_names in PLAYLIST_GROUPS
-    for channel_name in channel_names
-)
+NEWS_CHANNEL_ORDER = ("24 Horas", "Meganoticias", "CHV Noticias", "T13")
 PLAYER_USER_AGENT = "VLC/3.0.20 LibVLC/3.0.20"
 BROWSER_USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -552,50 +504,28 @@ def pin_preferred_logos(lines: list[str]) -> bool:
     return changed
 
 
-def pin_playlist_order(lines: list[str]) -> bool:
-    parsed_channels = parse_channels(lines)
-    channels = {channel.name: channel for channel in parsed_channels}
-    if not all(name in channels for name in PLAYLIST_CHANNEL_ORDER):
+def pin_news_channel_order(lines: list[str]) -> bool:
+    channels = {channel.name: channel for channel in parse_channels(lines)}
+    if not all(name in channels for name in NEWS_CHANNEL_ORDER):
         return False
-
-    blocks = {
-        channel.name: (lines[channel.info_line], lines[channel.url_line])
-        for channel in parsed_channels
-    }
-    first_info_line = min(channel.info_line for channel in parsed_channels)
-    header = [
-        line
-        for line in lines[:first_info_line]
-        if line.startswith("#EXTM3U")
+    slots = sorted(
+        (channels[name].info_line, channels[name].url_line)
+        for name in NEWS_CHANNEL_ORDER
+    )
+    current = [
+        next(name for name in NEWS_CHANNEL_ORDER if channels[name].info_line == info_line)
+        for info_line, _ in slots
     ]
-    rebuilt = header + [""]
-    grouped_names = set()
-    for group_title, channel_names in PLAYLIST_GROUPS:
-        rebuilt.append(f"# {group_title}")
-        for channel_name in channel_names:
-            info_line, url_line = blocks[channel_name]
-            info_line = re.sub(
-                r'(\bgroup-title=")[^"]+(")',
-                lambda match: f"{match.group(1)}{group_title}{match.group(2)}",
-                info_line,
-            )
-            rebuilt.extend((info_line, url_line, ""))
-            grouped_names.add(channel_name)
-
-    remaining = [channel.name for channel in parsed_channels if channel.name not in grouped_names]
-    if remaining:
-        rebuilt.append("# Otros")
-        for channel_name in remaining:
-            info_line, url_line = blocks[channel_name]
-            rebuilt.extend((info_line, url_line, ""))
-
-    while rebuilt and rebuilt[-1] == "":
-        rebuilt.pop()
-    changed = rebuilt != lines
-    if changed:
-        lines[:] = rebuilt
-        print("  [OK] Lista: orden tematico aplicado")
-    return changed
+    if tuple(current) == NEWS_CHANNEL_ORDER:
+        return False
+    records = {
+        name: (lines[channels[name].info_line], lines[channels[name].url_line])
+        for name in NEWS_CHANNEL_ORDER
+    }
+    for (info_line, url_line), name in zip(slots, NEWS_CHANNEL_ORDER):
+        lines[info_line], lines[url_line] = records[name]
+    print("  [OK] Noticias: orden 24 Horas, Meganoticias, CHV Noticias, T13")
+    return True
 
 
 def request_headers(channel: str) -> dict[str, str]:
@@ -2808,10 +2738,10 @@ def main() -> int:
         playlist.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
         if epg_url_changed:
             print("Cabecera M3U enlazada a la guia EPG publicada en GitHub")
-    playlist_order_changed = pin_playlist_order(lines)
+    news_order_changed = pin_news_channel_order(lines)
     preferred_logo_changed = pin_preferred_logos(lines)
     if (
-        playlist_order_changed
+        news_order_changed
         or preferred_logo_changed
     ):
         playlist.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
