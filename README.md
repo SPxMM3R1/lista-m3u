@@ -68,7 +68,9 @@ el workflow **Actualizar M3U y EPG**. `force_run` omite la espera de 48 horas y
 Todos los logos de los canales se conservan dentro de `logos/` y la M3U y el
 EPG apuntan a las copias publicadas en este repositorio. Los logos vectoriales
 se mantienen como SVG y los demas como PNG para conservar la mejor calidad
-disponible sin depender de servidores externos.
+disponible sin depender de servidores externos. La M3U usa la familia
+monocroma de `logos/white/`; los logos originales de `logos/` se conservan
+como respaldo y fuente de identidad visual.
 
 ## Orden de la lista
 
