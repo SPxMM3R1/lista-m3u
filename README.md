@@ -82,6 +82,9 @@ disponible sin depender de servidores externos.
 La lista contiene 45 canales: nacionales, noticias, miscelaneos chilenos,
 noticias internacionales, documentales, conciertos y una seleccion musical.
 
+TVN y La Red se actualizan desde sus parrillas oficiales. La fuente oficial de
+La Red tiene prioridad sobre Zapping y EPGShare; esas fuentes se conservan como
+respaldo si la pagina del canal no responde o no entrega 24 horas futuras.
 La EPG usa fuentes XMLTV de Chile, Espana, Francia, Alemania, Polonia,
 Letonia, Paises Bajos, PLEX1, Turquia, Singapur y Nigeria, junto con la guia
 publica de Zapping para senales chilenas seleccionadas. M1 y M2 se actualizan

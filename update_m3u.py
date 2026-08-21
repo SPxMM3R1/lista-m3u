@@ -152,6 +152,8 @@ TVN_PROGRAMMING_PAGE = "https://www.tvn.cl/programacion"
 TVN_PROGRAMMING_BASE_URL = "https://estaticos.tvn.cl/epg/tvn"
 TVN_OFFICIAL_EPG_SOURCE = "tvn-oficial"
 TVN_ALTERNATIVE_URL = "https://iptv2.intersurtv.cl/TVN/index.m3u8?PlaylistM3UCL"
+LA_RED_PROGRAMMING_PAGE = "https://www.lared.cl/guia-programacion"
+LA_RED_OFFICIAL_EPG_SOURCE = "la-red-oficial"
 LA_RED_MASTER_URL = "https://tv-mgmt.gtd.cl/bpk-tv/LARED/default/index.m3u8"
 ARIRANG_TV_MASTER_URL = (
     "http://amdlive-ch01.ctnd.com.edgesuite.net/"
@@ -1057,6 +1059,177 @@ def tvn_official_title(value: str) -> str:
     return title
 
 
+LA_RED_DAY_INDEX = {
+    "mon": 0,
+    "tue": 1,
+    "wed": 2,
+    "thu": 3,
+    "fri": 4,
+    "sat": 5,
+    "sun": 6,
+}
+
+
+def la_red_html_text(value: str) -> str:
+    value = html.unescape(re.sub(r"<[^>]+>", " ", value))
+    return re.sub(r"\s+", " ", value).strip()
+
+
+def la_red_schedule_items(page_html: str) -> dict[int, list[tuple[object, str]]]:
+    """Extract the official La Red weekly tabs keyed by weekday index."""
+    day_pattern = re.compile(
+        r'<div\b'
+        r'(?=[^>]*\bid=["\'](?P<day>mon|tue|wed|thu|fri|sat|sun)["\'])'
+        r'(?=[^>]*\bclass=["\'][^"\']*\btab_content\b[^"\']*\bshows-list\b[^"\']*["\'])'
+        r'[^>]*>',
+        re.IGNORECASE,
+    )
+    item_pattern = re.compile(
+        r'<div\b'
+        r'(?=[^>]*\bclass=["\'][^"\']*\bitem\b[^"\']*["\'])'
+        r'(?=[^>]*\bclass=["\'][^"\']*\bparent\b[^"\']*["\'])'
+        r'[^>]*>(.*?)'
+        r'(?=<div\b'
+        r'(?=[^>]*\bclass=["\'][^"\']*\bitem\b[^"\']*["\'])'
+        r'(?=[^>]*\bclass=["\'][^"\']*\bparent\b[^"\']*["\'])'
+        r'[^>]*>|$)',
+        re.IGNORECASE | re.DOTALL,
+    )
+    time_pattern = re.compile(
+        r'<div\b[^>]*\bclass=["\'][^"\']*\bhour\b[^"\']*["\'][^>]*>'
+        r'.*?<p\b[^>]*>(\d{1,2}):(\d{2})</p\s*>',
+        re.IGNORECASE | re.DOTALL,
+    )
+    title_pattern = re.compile(
+        r'<[^>]*\bclass=["\'][^"\']*\bprograma-name\b[^"\']*["\'][^>]*>'
+        r'(.*?)</p\s*>',
+        re.IGNORECASE | re.DOTALL,
+    )
+
+    day_markers = list(day_pattern.finditer(page_html))
+    schedules: dict[int, list[tuple[object, str]]] = {}
+    for index, marker in enumerate(day_markers):
+        day_index = LA_RED_DAY_INDEX[marker.group("day").casefold()]
+        body_end = (
+            day_markers[index + 1].start()
+            if index + 1 < len(day_markers)
+            else len(page_html)
+        )
+        day_html = page_html[marker.end() : body_end]
+        items: list[tuple[object, str]] = []
+        for item_match in item_pattern.finditer(day_html):
+            time_match = time_pattern.search(item_match.group(1))
+            title_match = title_pattern.search(item_match.group(1))
+            if not time_match or not title_match:
+                continue
+            hour, minute = int(time_match.group(1)), int(time_match.group(2))
+            if hour > 23 or minute > 59:
+                continue
+            title = la_red_html_text(title_match.group(1))
+            if title:
+                items.append(
+                    (
+                        datetime.strptime(f"{hour:02d}:{minute:02d}", "%H:%M").time(),
+                        title,
+                    )
+                )
+        if items:
+            schedules[day_index] = items
+    return schedules
+
+
+def fetch_la_red_official_epg(
+    channels: list[Channel], now: datetime
+) -> tuple[bytes | None, str | None]:
+    if not any(channel.tvg_id == "0102" for channel in channels):
+        return None, None
+    headers = {
+        "User-Agent": BROWSER_USER_AGENT,
+        "Accept": "text/html,application/xhtml+xml,*/*;q=0.8",
+        "Accept-Language": "es-CL,es;q=0.9,en;q=0.8",
+        "Referer": LA_RED_PROGRAMMING_PAGE,
+    }
+    try:
+        status, body, _ = fetch_bytes(
+            LA_RED_PROGRAMMING_PAGE,
+            headers,
+            timeout=60,
+            limit=8_000_000,
+        )
+        if status != 200:
+            raise ValueError(f"HTTP {status}")
+
+        schedules = la_red_schedule_items(decode_web_text(body))
+        if sum(len(items) for items in schedules.values()) < 5:
+            raise ValueError("La Red no publico una parrilla oficial suficiente")
+
+        chile_today = now.astimezone(CHILE_TIMEZONE).date()
+        week_start = chile_today - timedelta(days=chile_today.weekday())
+        starts: list[tuple[datetime, str]] = []
+        for day_index, items in schedules.items():
+            schedule_day = week_start + timedelta(days=day_index)
+            previous_start: datetime | None = None
+            for start_clock, title in items:
+                start = datetime.combine(
+                    schedule_day, start_clock, tzinfo=CHILE_TIMEZONE
+                )
+                if previous_start is not None and start <= previous_start:
+                    start += timedelta(days=1)
+                starts.append((start, title))
+                previous_start = start
+
+        unique_starts: dict[datetime, str] = {}
+        for start, title in starts:
+            unique_starts.setdefault(start, title)
+        ordered = sorted(unique_starts.items())
+
+        root = ET.Element(
+            "tv",
+            {
+                "generator-info-name": "lista-m3u La Red importer",
+                "source-info-name": LA_RED_PROGRAMMING_PAGE,
+            },
+        )
+        lower_limit = now - timedelta(hours=6)
+        upper_limit = now + timedelta(days=8)
+        programme_count = 0
+        last_stop: datetime | None = None
+        for index, (start, title) in enumerate(ordered):
+            stop = (
+                ordered[index + 1][0]
+                if index + 1 < len(ordered)
+                else start + timedelta(hours=2)
+            )
+            if stop <= start:
+                continue
+            if stop < lower_limit or start > upper_limit:
+                continue
+            programme = ET.SubElement(
+                root,
+                "programme",
+                {
+                    "start": xmltv_format_chile(start),
+                    "stop": xmltv_format_chile(stop),
+                    "channel": "0102",
+                },
+            )
+            ET.SubElement(programme, "title", {"lang": "es"}).text = title
+            ET.SubElement(programme, "desc", {"lang": "es"}).text = (
+                "Programacion oficial consultada en La Red."
+            )
+            programme_count += 1
+            last_stop = stop if last_stop is None or stop > last_stop else last_stop
+
+        future_limit = now + timedelta(hours=24)
+        if programme_count < 5 or last_stop is None or last_stop < future_limit:
+            raise ValueError(
+                "La Red no publico una parrilla oficial con 24 horas futuras"
+            )
+        return ET.tostring(root, encoding="utf-8", xml_declaration=True), None
+    except Exception as error:
+        return None, f"{type(error).__name__}: {error}"
+
+
 def tvn_jsonp_items(data: bytes) -> list[dict]:
     text = decode_web_text(data).strip()
     match = re.search(
@@ -1935,6 +2108,16 @@ def build_epg(
         for target_id, (source_name, source_id) in EPG_PROGRAMME_SOURCES.items()
         if target_id in expected_ids
     }
+    if ZAPPING_EPG_SOURCE in source_roots:
+        zapping_target_ids = {
+            programme.get("channel", "")
+            for programme in source_roots[ZAPPING_EPG_SOURCE].findall("programme")
+        }
+        for target_id in sorted(zapping_target_ids & set(ZAPPING_EPG_CHANNELS)):
+            for lookup_key, lookup_target in list(source_lookup.items()):
+                if lookup_target == target_id:
+                    source_lookup.pop(lookup_key, None)
+            source_lookup[(ZAPPING_EPG_SOURCE, target_id)] = target_id
     if MEGA_OFFICIAL_EPG_SOURCE in source_roots and "0105" in expected_ids:
         source_lookup.pop(("cl", "Canal.Mega.(Chile).cl"), None)
         source_lookup[(MEGA_OFFICIAL_EPG_SOURCE, "0105")] = "0105"
@@ -1946,16 +2129,10 @@ def build_epg(
         source_lookup[(NHK_OFFICIAL_EPG_SOURCE, "NHKWorldJapan.jp")] = (
             "NHKWorldJapan.jp"
         )
-    if ZAPPING_EPG_SOURCE in source_roots:
-        zapping_target_ids = {
-            programme.get("channel", "")
-            for programme in source_roots[ZAPPING_EPG_SOURCE].findall("programme")
-        }
-        for target_id in sorted(zapping_target_ids & set(ZAPPING_EPG_CHANNELS)):
-            for lookup_key, lookup_target in list(source_lookup.items()):
-                if lookup_target == target_id:
-                    source_lookup.pop(lookup_key, None)
-            source_lookup[(ZAPPING_EPG_SOURCE, target_id)] = target_id
+    if LA_RED_OFFICIAL_EPG_SOURCE in source_roots and "0102" in expected_ids:
+        source_lookup.pop(("cl", "Canal.La.Red.(Chile).cl"), None)
+        source_lookup.pop((ZAPPING_EPG_SOURCE, "0102"), None)
+        source_lookup[(LA_RED_OFFICIAL_EPG_SOURCE, "0102")] = "0102"
     for source_name, source_root in source_roots.items():
         for programme in source_root.findall("programme"):
             target_id = source_lookup.get((source_name, programme.get("channel", "")))
@@ -2106,6 +2283,12 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
     if tvn_error:
         source_errors[TVN_OFFICIAL_EPG_SOURCE] = tvn_error
 
+    la_red_data, la_red_error = fetch_la_red_official_epg(channels, now)
+    if la_red_data:
+        source_documents[LA_RED_OFFICIAL_EPG_SOURCE] = la_red_data
+    if la_red_error:
+        source_errors[LA_RED_OFFICIAL_EPG_SOURCE] = la_red_error
+
     mega_data, mega_error = fetch_mega_official_epg(channels, now)
     if mega_data:
         source_documents[MEGA_OFFICIAL_EPG_SOURCE] = mega_data
@@ -2127,7 +2310,11 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
         source_name: error
         for source_name, error in source_errors.items()
         if source_name
-        not in {MEGA_OFFICIAL_EPG_SOURCE, TVN_OFFICIAL_EPG_SOURCE}
+        not in {
+            LA_RED_OFFICIAL_EPG_SOURCE,
+            MEGA_OFFICIAL_EPG_SOURCE,
+            TVN_OFFICIAL_EPG_SOURCE,
+        }
     }
     if blocking_source_errors and existing_status is not None:
         existing_status.update(
