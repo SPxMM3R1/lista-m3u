@@ -72,10 +72,21 @@ disponible sin depender de servidores externos.
 
 ## Orden de la lista
 
-1. Nacionales normales
-2. Noticias
-3. Miscelaneos nacionales
-4. Internacionales y canales agregados por region o tema
+1. Chile
+2. Noticias Chile
+3. Deportes Chile
+4. Infantil y Familiar
+5. Cultura y Retro
+6. Noticias Internacionales
+7. Documentales y Viajes
+8. Cultura Global
+9. Deportes y Aventura
+10. Conciertos
+11. Jazz y Clasica
+12. Musica
+13. Musica 70s 80s 90s
+14. Rock y Metal
+15. Ambiental y Chill
 
 ## Canales
 

@@ -1,6 +1,6 @@
 #EXTM3U x-tvg-url="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/epg.xml"
 
-# Nacionales normales
+# Chile
 #EXTINF:-1 tvg-id="0104" tvg-name="TVN" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvn.png" group-title="Chile",TVN
 https://iptv2.intersurtv.cl/TVN/index.m3u8?PlaylistM3UCL
 
@@ -16,13 +16,15 @@ https://redirector.dps.live/hls/13cl/playlist.m3u8
 #EXTINF:-1 tvg-id="0102" tvg-name="La Red" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/la-red.png" group-title="Chile",La Red
 https://tv-mgmt.gtd.cl/bpk-tv/LARED/default/index.m3u8
 
-# Noticias
+#EXTINF:-1 tvg-id="TVChile.cl" tvg-name="TV Chile" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvchilecl.png" tvg-country="CL" group-title="Chile",TV Chile
+https://mdstrm.com/live-stream-playlist/533adcc949386ce765657d7c.m3u8
+
+# Noticias Chile
 #EXTINF:-1 tvg-id="0201" tvg-name="24 Horas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/24-horas.png" group-title="Noticias Chile",24 Horas
 https://mdstrm.com/live-stream-playlist/57d1a22064f5d85712b20dab.m3u8
 
 #EXTINF:-1 tvg-id="MeganoticiasAhora.cl" tvg-name="Meganoticias" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/meganoticias.png" group-title="Noticias Chile",Meganoticias
 https://mdstrm.com/live-stream-playlist/561430ae330428c223687e1e.m3u8
-
 
 #EXTINF:-1 tvg-id="1153" tvg-name="CHV Noticias" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/chv-noticias.svg" group-title="Noticias Chile",CHV Noticias
 https://redirector.rudo.video/hls-video/339f69c6122f6d8f4574732c235f09b7683e31a5/chvn/chvn.smil/playlist.m3u8
@@ -30,80 +32,48 @@ https://redirector.rudo.video/hls-video/339f69c6122f6d8f4574732c235f09b7683e31a5
 #EXTINF:-1 tvg-id="0124" tvg-name="T13" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/t13.png" group-title="Noticias Chile",T13
 https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/t13/t13.smil/playlist.m3u8
 
-# Miscelaneos nacionales
-#EXTINF:-1 tvg-id="45" tvg-name="NTV" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/ntv.svg" group-title="Miscelaneos Chile",NTV
-https://mdstrm.com/live-stream-playlist/5aaabe9e2c56420918184c6d.m3u8?PlaylistM3UCL
-
-#EXTINF:-1 tvg-id="1437" tvg-name="TVN3" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvn3.svg" group-title="Miscelaneos Chile",TVN3
-https://mdstrm.com/live-stream-playlist/5653641561b4eba30a7e4929.m3u8?PlaylistM3UCL
-
-#EXTINF:-1 tvg-id="1763" tvg-name="CHV Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/chv-deportes.svg" group-title="Miscelaneos Chile",CHV Deportes
+# Deportes Chile
+#EXTINF:-1 tvg-id="1763" tvg-name="CHV Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/chv-deportes.svg" group-title="Deportes Chile",CHV Deportes
 https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/chvdeportes/chvdeportes.smil/playlist.m3u8
 
-#EXTINF:-1 tvg-id="13C.cl@SD" tvg-name="13C" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/13cultura.svg" group-title="Miscelaneos Chile",13C
-https://origin.dpsgo.com/ssai/event/GI-9cp_bT8KcerLpZwkuhw/master.m3u8
+# Infantil y Familiar
+#EXTINF:-1 tvg-id="45" tvg-name="NTV" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/ntv.svg" group-title="Infantil y Familiar",NTV
+https://mdstrm.com/live-stream-playlist/5aaabe9e2c56420918184c6d.m3u8?PlaylistM3UCL
 
-
-
-#EXTINF:-1 tvg-id="RewindTV.cl@SD" tvg-name="RWND" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/rewind-v2.png" group-title="Miscelaneos Chile",RWND
-https://tls-cl.cdnz.cl/rewindtv/live/playlist.m3u8
-
-
-# Internacionales
-#EXTINF:-1 tvg-id="DW.de" tvg-name="DW Español" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/dw.svg" group-title="Internacional",DW Español
-https://dwamdstream104.akamaized.net/hls/live/2015530/dwstream104/master.m3u8
-
-#EXTINF:-1 tvg-id="France24.fr" tvg-name="France 24 Español" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/france24.svg" group-title="Internacional",France 24 Español
-https://live.france24.com/hls/live/2037220/F24_ES_HI_HLS/master_5000.m3u8
-
-#EXTINF:-1 tvg-id="EuronewsSpanish.fr" tvg-name="Euronews Español" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/euronews-espanol.png" group-title="Internacional",Euronews Español
-https://cdn-euronews.akamaized.net/live/eds/euronews-es/25053/index.m3u8
-
-#EXTINF:-1 tvg-id="NHKWorldJapan.jp" tvg-name="NHK World Japan" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/nhk-world.svg" group-title="Internacional",NHK World Japan
-https://masterpl.hls.nhkworld.jp/hls/w/live/smarttv.m3u8
-
-#EXTINF:-1 tvg-id="ArirangTV.kr" tvg-name="Arirang TV" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/arirang.png" group-title="Internacional",Arirang TV
-http://amdlive-ch01.ctnd.com.edgesuite.net/arirang_1ch/smil:arirang_1ch.smil/playlist.m3u8
-
-#EXTINF:-1 tvg-id="AlJazeera.qa" tvg-name="Al Jazeera English" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/aljazeera.svg?v=2" group-title="Internacional",Al Jazeera English
-https://live-hls-apps-aje-v3-fa.getaj.net/AJE/index.m3u8
-
-#EXTINF:-1 tvg-id="RedBullWorldEnglish.int" tvg-name="RedBull TV World" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/red-bull-tv.png" tvg-country="AT" group-title="Internacional",RedBull TV World
-https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master.m3u8
-#EXTINF:-1 tvg-id="RedBullChileEspanol.cl" tvg-name="RedBull TV Español" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/red-bull-tv.png" tvg-country="CL" group-title="Internacional",RedBull TV Español
-https://freqsyndlin.redbull.com/957/rbtv/hls/master/playlist.m3u8
-
-#EXTINF:-1 tvg-id="XITEHits.nl@Germany" tvg-name="XITE Hits Germany" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/xite.svg" group-title="Internacional",XITE Hits Germany
-https://d726x48n2pd5h.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-skxr1pazhltvp/XITE_Hits.m3u8
-
-#EXTINF:-1 tvg-id="M1.ua@SD" tvg-name="M1" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/m1.png" group-title="Internacional",M1
-http://stream.mcquack.net/218/index.m3u8
-
-#EXTINF:-1 tvg-id="M2.ua@SD" tvg-name="M2" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/m2.png" group-title="Internacional",M2
-http://stream.mcquack.net/330/index.m3u8
-
-
-
-
-#EXTINF:-1 tvg-id="TVChile.cl" tvg-name="TV Chile" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvchilecl.png" tvg-country="CL" group-title="Chile",TV Chile
-https://mdstrm.com/live-stream-playlist/533adcc949386ce765657d7c.m3u8
-#EXTINF:-1 tvg-id="13Kids.cl" tvg-name="13 Kids" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/13kidscl.png" tvg-country="CL" group-title="Chile",13 Kids
+#EXTINF:-1 tvg-id="13Kids.cl" tvg-name="13 Kids" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/13kidscl.png" tvg-country="CL" group-title="Infantil y Familiar",13 Kids
 https://origin.dpsgo.com/ssai/event/LhHrVtyeQkKZ-Ye_xEU75g/master.m3u8
 
-#EXTINF:-1 tvg-id="AutenticHistory.de" tvg-name="Autentic History" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/autentic-history.svg" tvg-country="DE" group-title="Europa e Internacional",Autentic History
-https://9e754fa707344ccca6d84955c8fcaf36.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/RlaxxTV-eu_AutenticHistory/playlist.m3u8
-#EXTINF:-1 tvg-id="DWEnglish.de" tvg-name="DW English" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/dw.svg" tvg-country="DE" group-title="Europa e Internacional",DW English
-https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/master.m3u8
+# Cultura y Retro
+#EXTINF:-1 tvg-id="13C.cl@SD" tvg-name="13C" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/13cultura.svg" group-title="Cultura y Retro",13C
+https://origin.dpsgo.com/ssai/event/GI-9cp_bT8KcerLpZwkuhw/master.m3u8
 
-# Noticias internacionales
+#EXTINF:-1 tvg-id="1437" tvg-name="TVN3" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvn3.svg" group-title="Cultura y Retro",TVN3
+https://mdstrm.com/live-stream-playlist/5653641561b4eba30a7e4929.m3u8?PlaylistM3UCL
+
+#EXTINF:-1 tvg-id="RewindTV.cl@SD" tvg-name="RWND" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/rewind-v2.png" group-title="Cultura y Retro",RWND
+https://tls-cl.cdnz.cl/rewindtv/live/playlist.m3u8
+
+# Noticias Internacionales
 #EXTINF:-1 tvg-id="BBCNews.uk" tvg-name="BBC News" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/bbc.svg" tvg-country="GB" group-title="Noticias Internacionales",BBC News
 https://vs-hls-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_channel_hd/mobile_wifi_main_hd_abr_v2.m3u8
+
+#EXTINF:-1 tvg-id="France24.fr" tvg-name="France 24 Español" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/france24.svg" group-title="Noticias Internacionales",France 24 Español
+https://live.france24.com/hls/live/2037220/F24_ES_HI_HLS/master_5000.m3u8
+
+#EXTINF:-1 tvg-id="DW.de" tvg-name="DW Español" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/dw.svg" group-title="Noticias Internacionales",DW Español
+https://dwamdstream104.akamaized.net/hls/live/2015530/dwstream104/master.m3u8
+
+#EXTINF:-1 tvg-id="EuronewsSpanish.fr" tvg-name="Euronews Español" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/euronews-espanol.png" group-title="Noticias Internacionales",Euronews Español
+https://cdn-euronews.akamaized.net/live/eds/euronews-es/25053/index.m3u8
 
 #EXTINF:-1 tvg-id="BloombergTV.us" tvg-name="Bloomberg TV US" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/bloomberg.svg" tvg-country="US" group-title="Noticias Internacionales",Bloomberg TV US
 https://bloomberg.com/media-manifest/streams/us.m3u8
 
 #EXTINF:-1 tvg-id="CBSNews247.us" tvg-name="CBS News 24/7" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/cbs-news.svg" tvg-country="US" group-title="Noticias Internacionales",CBS News 24/7
 https://cbsn-us.cbsnstream.cbsnews.com/out/v1/55a8648e8f134e82a470f83d562deeca/master.m3u8
+
+#EXTINF:-1 tvg-id="AlJazeera.qa" tvg-name="Al Jazeera English" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/aljazeera.svg?v=2" group-title="Noticias Internacionales",Al Jazeera English
+https://live-hls-apps-aje-v3-fa.getaj.net/AJE/index.m3u8
 
 #EXTINF:-1 tvg-id="TRTWorld.tr" tvg-name="TRT World" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/trt-world.svg" tvg-country="TR" group-title="Noticias Internacionales",TRT World
 https://tv-trtworld.medya.trt.com.tr/master.m3u8
@@ -114,35 +84,68 @@ https://d2e1asnsl7br7b.cloudfront.net/7782e205e72f43aeb4a48ec97f66ebbe/index_5.m
 #EXTINF:-1 tvg-id="AfricanewsEnglish.fr" tvg-name="Africanews English" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/africanews.svg" tvg-country="FR" group-title="Noticias Internacionales",Africanews English
 https://cdn-euronews.akamaized.net/live/eds/africanews-en/25049/index.m3u8
 
-# Documentales y viajes
-#EXTINF:-1 tvg-id="BBCEarth.uk" tvg-name="BBC Earth FAST" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/bbc.svg" tvg-country="GB" group-title="Documentales",BBC Earth FAST
+#EXTINF:-1 tvg-id="DWEnglish.de" tvg-name="DW English" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/dw.svg" tvg-country="DE" group-title="Noticias Internacionales",DW English
+https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/master.m3u8
+
+# Documentales y Viajes
+#EXTINF:-1 tvg-id="BBCEarth.uk" tvg-name="BBC Earth FAST" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/bbc.svg" tvg-country="GB" group-title="Documentales y Viajes",BBC Earth FAST
 https://amg00793-amg00793c6-xumo-us-2669.playouts.now.amagi.tv/BBCStudios-BBCEarthA-hls/playlist.m3u8
 
-#EXTINF:-1 tvg-id="BBCTravel.us" tvg-name="BBC Travel" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/bbc.svg" tvg-country="GB" group-title="Documentales",BBC Travel
+#EXTINF:-1 tvg-id="BBCTravel.us" tvg-name="BBC Travel" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/bbc.svg" tvg-country="GB" group-title="Documentales y Viajes",BBC Travel
 https://jmp2.uk/plu-60e4519e6873180007d3cddb.m3u8
 
-#EXTINF:-1 tvg-id="BloombergOriginals.us" tvg-name="Bloomberg Originals" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/bloomberg.svg" tvg-country="US" group-title="Documentales",Bloomberg Originals
+#EXTINF:-1 tvg-id="BloombergOriginals.us" tvg-name="Bloomberg Originals" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/bloomberg.svg" tvg-country="US" group-title="Documentales y Viajes",Bloomberg Originals
 https://www.bloomberg.com/media-manifest/streams/originals-global.m3u8
 
-# Conciertos y musica
-#EXTINF:-1 tvg-id="QelloConcertsbyStingray.ca" tvg-name="Qello Concerts by Stingray" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/qello.svg" tvg-country="CA" group-title="Conciertos y Musica",Qello Concerts by Stingray
+#EXTINF:-1 tvg-id="AutenticHistory.de" tvg-name="Autentic History" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/autentic-history.svg" tvg-country="DE" group-title="Documentales y Viajes",Autentic History
+https://9e754fa707344ccca6d84955c8fcaf36.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/RlaxxTV-eu_AutenticHistory/playlist.m3u8
+
+# Cultura Global
+#EXTINF:-1 tvg-id="NHKWorldJapan.jp" tvg-name="NHK World Japan" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/nhk-world.svg" group-title="Cultura Global",NHK World Japan
+https://masterpl.hls.nhkworld.jp/hls/w/live/smarttv.m3u8
+
+#EXTINF:-1 tvg-id="ArirangTV.kr" tvg-name="Arirang TV" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/arirang.png" group-title="Cultura Global",Arirang TV
+http://amdlive-ch01.ctnd.com.edgesuite.net/arirang_1ch/smil:arirang_1ch.smil/playlist.m3u8
+
+# Deportes y Aventura
+#EXTINF:-1 tvg-id="RedBullWorldEnglish.int" tvg-name="RedBull TV World" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/red-bull-tv.png" tvg-country="AT" group-title="Deportes y Aventura",RedBull TV World
+https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master.m3u8
+
+#EXTINF:-1 tvg-id="RedBullChileEspanol.cl" tvg-name="RedBull TV Español" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/red-bull-tv.png" tvg-country="CL" group-title="Deportes y Aventura",RedBull TV Español
+https://freqsyndlin.redbull.com/957/rbtv/hls/master/playlist.m3u8
+
+# Conciertos
+#EXTINF:-1 tvg-id="QelloConcertsbyStingray.ca" tvg-name="Qello Concerts by Stingray" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/qello.svg" tvg-country="CA" group-title="Conciertos",Qello Concerts by Stingray
 https://lotus.stingray.com/manifest/qello-qello001-montreal/samsungtvplus/master.m3u8
 
-#EXTINF:-1 tvg-id="StingrayClassica.ca" tvg-name="Stingray Classica" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/stingray-classica.svg" tvg-country="CA" group-title="Conciertos y Musica",Stingray Classica
+# Jazz y Clasica
+#EXTINF:-1 tvg-id="StingrayClassica.ca" tvg-name="Stingray Classica" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/stingray-classica.svg" tvg-country="CA" group-title="Jazz y Clasica",Stingray Classica
 https://lotus.stingray.com/manifest/classica-cla008-montreal/samsungtvplus/master.m3u8
 
-#EXTINF:-1 tvg-id="StingrayDJAZZ.ca" tvg-name="Stingray DJAZZ" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/stingray-djazz.svg" tvg-country="CA" group-title="Conciertos y Musica",Stingray DJAZZ
+#EXTINF:-1 tvg-id="StingrayDJAZZ.ca" tvg-name="Stingray DJAZZ" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/stingray-djazz.svg" tvg-country="CA" group-title="Jazz y Clasica",Stingray DJAZZ
 https://lotus.stingray.com/manifest/djazz-djaads-montreal/samsungtvplus/master.m3u8
 
-# XITE: fuentes CloudFront reparadas y tvg-id alineado con el catalogo actual
+# Musica
+#EXTINF:-1 tvg-id="M1.ua@SD" tvg-name="M1" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/m1.png" group-title="Musica",M1
+http://stream.mcquack.net/218/index.m3u8
+
+#EXTINF:-1 tvg-id="M2.ua@SD" tvg-name="M2" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/m2.png" group-title="Musica",M2
+http://stream.mcquack.net/330/index.m3u8
+
+#EXTINF:-1 tvg-id="XITEHits.nl@Germany" tvg-name="XITE Hits Germany" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/xite.svg" group-title="Musica",XITE Hits Germany
+https://d726x48n2pd5h.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-skxr1pazhltvp/XITE_Hits.m3u8
+
+# Musica 70s 80s 90s
 #EXTINF:-1 tvg-id="XITE80sFlashback.us" tvg-name="XITE 80s Flashback" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/xite.svg" group-title="Musica 70s 80s 90s",XITE 80s Flashback
 https://d1n314cytqn9r3.cloudfront.net/XITE_80s_Flashback.m3u8
 
 #EXTINF:-1 tvg-id="XITE90sThrowback.us" tvg-name="XITE 90s Throwback" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/xite.svg" group-title="Musica 70s 80s 90s",XITE 90s Throwback
 https://d284aawtm5vi48.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-fjdfi2br1jtq7/XITE_90s_Throwback.m3u8
 
+# Rock y Metal
 #EXTINF:-1 tvg-id="XITERockxMetal.nl" tvg-name="XITE Rock x Metal" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/xite.svg" tvg-country="NL" group-title="Rock y Metal",XITE Rock x Metal
 https://d198ro05q94rc4.cloudfront.net/XITE_Rock_On.m3u8
 
+# Ambiental y Chill
 #EXTINF:-1 tvg-id="XITEJustChill.nl" tvg-name="XITE Just Chill" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/xite.svg" tvg-country="NL" group-title="Ambiental y Chill",XITE Just Chill
 https://dvnftgdlbnemm.cloudfront.net/XITE_Just_Chill.m3u8
