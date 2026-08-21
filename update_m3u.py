@@ -31,7 +31,6 @@ REPORT_PATH = Path(__file__).with_name("channel-status.json")
 PUBLIC_RAW_BASE = "https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main"
 EPG_PUBLIC_URL = f"{PUBLIC_RAW_BASE}/epg.xml"
 LOCAL_LOGOS_PUBLIC_BASE = f"{PUBLIC_RAW_BASE}/logos"
-LOCAL_WHITE_LOGOS_PUBLIC_BASE = f"{LOCAL_LOGOS_PUBLIC_BASE}/white"
 NHK_MASTER_URL = "https://masterpl.hls.nhkworld.jp/hls/w/live/smarttv.m3u8"
 NHK_WORLD_LIVE_PAGE = "https://www3.nhk.or.jp/nhkworld/en/live_tv/"
 NHK_WORLD_EPG_BASE_URL = "https://masterpl.hls.nhkworld.jp/epg/w"
@@ -190,51 +189,49 @@ CI_GEO_RESTRICTED_CHANNELS = {
 # queda exclusivamente en la aplicacion y nunca se ejecuta desde Actions.
 APP_HANDLED_CHANNELS = {"TVN", "Meganoticias"}
 PREFERRED_LOGOS = {
-    "TVN": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/tvn.png",
-    "Mega": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/mega.png",
-    "CHV": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/chv.svg",
-    "Canal 13": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/canal13.png",
-    "La Red": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/la-red.png",
-    "24 Horas": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/24-horas.png",
-    "Meganoticias": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/meganoticias.png",
-    "T13": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/t13.png",
-    "CHV Noticias": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/chv-noticias.png",
-    "NTV": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/ntv.png",
-    "TVN3": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/tvn3.png",
-    "CHV Deportes": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/chv-deportes.svg",
-    "DW Español": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/dw-espanol.png",
-    "DW English": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/dw-english.svg",
-    "Autentic History": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/autentic-history.svg",
-    "France 24 Español": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/france24.png",
-    "Euronews Español": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/euronews-espanol.svg",
-    "NHK World Japan": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/nhk-world.png",
-    "Al Jazeera English": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/aljazeera.png",
-    "RedBull TV World": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/red-bull-tv.png",
-    "RedBull TV Español": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/red-bull-tv.png",
-    "XITE Hits Germany": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/xite-hits.svg",
-    "Arirang TV": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/arirang.png",
-    "M1": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/m1.svg",
-    "M2": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/m2.svg",
-    "TV Chile": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/tv-chile.svg",
-    "13 Kids": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/13-kids.svg",
-    "13C": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/13cultura.png",
-    "RWND": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/rwnd.svg",
-    "BBC Earth FAST": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/bbc-earth.svg",
-    "BBC News": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/bbc-news.png",
-    "BBC Travel": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/bbc-travel.svg",
-    "Bloomberg TV US": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/bloomberg.svg",
-    "Bloomberg Originals": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/bloomberg-originals.svg",
-    "CBS News 24/7": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/cbs-news.svg",
-    "TRT World": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/trt-world.svg",
-    "CNA": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/cna.svg",
-    "Africanews English": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/africanews.svg",
-    "Qello Concerts by Stingray": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/qello.svg",
-    "Stingray Classica": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/stingray-classica.svg",
-    "Stingray DJAZZ": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/stingray-djazz.svg",
-    "XITE 80s Flashback": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/xite-80s.svg",
-    "XITE 90s Throwback": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/xite-90s.svg",
-    "XITE Rock x Metal": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/xite-rock-metal.svg",
-    "XITE Just Chill": f"{LOCAL_WHITE_LOGOS_PUBLIC_BASE}/xite-just-chill.svg",
+    "TVN": f"{LOCAL_LOGOS_PUBLIC_BASE}/tvn.png",
+    "Mega": f"{LOCAL_LOGOS_PUBLIC_BASE}/mega.png",
+    "CHV": f"{LOCAL_LOGOS_PUBLIC_BASE}/chv.png",
+    "Canal 13": f"{LOCAL_LOGOS_PUBLIC_BASE}/canal13.png",
+    "La Red": f"{LOCAL_LOGOS_PUBLIC_BASE}/la-red.png",
+    "24 Horas": f"{LOCAL_LOGOS_PUBLIC_BASE}/24-horas.png",
+    "Meganoticias": f"{LOCAL_LOGOS_PUBLIC_BASE}/meganoticias.png",
+    "T13": f"{LOCAL_LOGOS_PUBLIC_BASE}/t13.png",
+    "CHV Noticias": f"{LOCAL_LOGOS_PUBLIC_BASE}/chv-noticias.svg",
+    "NTV": f"{LOCAL_LOGOS_PUBLIC_BASE}/ntv.svg",
+    "TVN3": f"{LOCAL_LOGOS_PUBLIC_BASE}/tvn3.svg",
+    "CHV Deportes": f"{LOCAL_LOGOS_PUBLIC_BASE}/chv-deportes.svg",
+    "DW Español": f"{LOCAL_LOGOS_PUBLIC_BASE}/dw.svg",
+    "DW English": f"{LOCAL_LOGOS_PUBLIC_BASE}/dw.svg",
+    "Autentic History": f"{LOCAL_LOGOS_PUBLIC_BASE}/autentic-history.svg",
+    "France 24 Español": f"{LOCAL_LOGOS_PUBLIC_BASE}/france24.svg",
+    "Euronews Español": f"{LOCAL_LOGOS_PUBLIC_BASE}/euronews-espanol.png",
+    "NHK World Japan": f"{LOCAL_LOGOS_PUBLIC_BASE}/nhk-world.svg",
+    "Al Jazeera English": f"{LOCAL_LOGOS_PUBLIC_BASE}/aljazeera.svg?v=2",
+    "RedBull TV World": f"{LOCAL_LOGOS_PUBLIC_BASE}/red-bull-tv.png",
+    "RedBull TV Español": f"{LOCAL_LOGOS_PUBLIC_BASE}/red-bull-tv.png",
+    "XITE Hits Germany": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
+    "Arirang TV": f"{LOCAL_LOGOS_PUBLIC_BASE}/arirang.png",
+    "M1": f"{LOCAL_LOGOS_PUBLIC_BASE}/m1.png",
+    "M2": f"{LOCAL_LOGOS_PUBLIC_BASE}/m2.png",
+    "13C": f"{LOCAL_LOGOS_PUBLIC_BASE}/13cultura.svg",
+    "RWND": f"{LOCAL_LOGOS_PUBLIC_BASE}/rewind-v2.png",
+    "BBC Earth FAST": f"{LOCAL_LOGOS_PUBLIC_BASE}/bbc.svg",
+    "BBC News": f"{LOCAL_LOGOS_PUBLIC_BASE}/bbc.svg",
+    "BBC Travel": f"{LOCAL_LOGOS_PUBLIC_BASE}/bbc.svg",
+    "Bloomberg TV US": f"{LOCAL_LOGOS_PUBLIC_BASE}/bloomberg.svg",
+    "Bloomberg Originals": f"{LOCAL_LOGOS_PUBLIC_BASE}/bloomberg.svg",
+    "CBS News 24/7": f"{LOCAL_LOGOS_PUBLIC_BASE}/cbs-news.svg",
+    "TRT World": f"{LOCAL_LOGOS_PUBLIC_BASE}/trt-world.svg",
+    "CNA": f"{LOCAL_LOGOS_PUBLIC_BASE}/cna.svg",
+    "Africanews English": f"{LOCAL_LOGOS_PUBLIC_BASE}/africanews.svg",
+    "Qello Concerts by Stingray": f"{LOCAL_LOGOS_PUBLIC_BASE}/qello.svg",
+    "Stingray Classica": f"{LOCAL_LOGOS_PUBLIC_BASE}/stingray-classica.svg",
+    "Stingray DJAZZ": f"{LOCAL_LOGOS_PUBLIC_BASE}/stingray-djazz.svg",
+    "XITE 80s Flashback": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
+    "XITE 90s Throwback": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
+    "XITE Rock x Metal": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
+    "XITE Just Chill": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
 }
 CONTINUOUS_PROGRAMME_DETAILS = {
     "TVN3": (
@@ -2349,15 +2346,10 @@ def check_logo(channel: Channel) -> LogoResult:
     try:
         local_path = None
         if channel.logo_url.startswith(LOCAL_LOGOS_PUBLIC_BASE):
-            public_path = urlparse(channel.logo_url).path
-            marker = "/logos/"
-            if marker in public_path:
-                relative_logo = public_path.split(marker, 1)[1]
-                candidate_path = Path(__file__).with_name("logos") / Path(
-                    *relative_logo.split("/")
-                )
-                if candidate_path.is_file():
-                    local_path = candidate_path
+            logo_name = Path(urlparse(channel.logo_url).path).name
+            candidate_path = Path(__file__).with_name("logos") / logo_name
+            if candidate_path.is_file():
+                local_path = candidate_path
         if local_path is not None:
             status, body = 200, local_path.read_bytes()
             source_suffix = " (copia local)"
