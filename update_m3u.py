@@ -1738,9 +1738,10 @@ def fetch_zapping_epg(
         if count == 0:
             errors[target_id] = "la guia Zapping no publico bloques utilizables"
 
-    # La fuente es opcional, pero no se mezcla una descarga parcial con otras
-    # fuentes: un fallo de una pagina debe conservar la guia anterior.
-    if errors or not any(found_by_target.values()):
+    # La fuente es opcional y se selecciona por canal. Una pagina que falle no
+    # invalida los bloques validos de las otras paginas; build_epg usa esos
+    # bloques y deja el fallback configurado para los canales sin cobertura.
+    if not any(found_by_target.values()):
         return None, errors
     return ET.tostring(root, encoding="utf-8", xml_declaration=True), errors
 

@@ -87,8 +87,10 @@ La Red tiene prioridad sobre Zapping y EPGShare; esas fuentes se conservan como
 respaldo si la pagina del canal no responde o no entrega 24 horas futuras.
 La EPG usa fuentes XMLTV de Chile, Espana, Francia, Alemania, Polonia,
 Letonia, Paises Bajos, PLEX1, Turquia, Singapur y Nigeria, junto con la guia
-publica de Zapping para senales chilenas seleccionadas. M1 y M2 se actualizan
-desde sus parrillas oficiales semanales. Se marca como `senal continua`
+publica de Zapping para senales chilenas seleccionadas. Zapping se selecciona
+por canal cuando su parrilla es valida; una fuente oficial siempre tiene
+prioridad y un fallo aislado de Zapping no invalida los demas canales. M1 y M2
+se actualizan desde sus parrillas oficiales semanales. Se marca como `senal continua`
 cualquier canal que no publique una parrilla diaria verificable, en vez de
 presentar esa continuidad como una guia real. Simply.TV (con punto) se reviso
 como proveedor B2B de EPG y metadata:
