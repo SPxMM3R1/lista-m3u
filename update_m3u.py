@@ -232,8 +232,11 @@ PREFERRED_LOGOS = {
     "Stingray DJAZZ": f"{LOCAL_LOGOS_PUBLIC_BASE}/stingray-djazz.svg",
     "XITE 80s Flashback": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
     "XITE 90s Throwback": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
+    "MTV Classic": f"{LOCAL_LOGOS_PUBLIC_BASE}/mtv-classic.svg",
     "MTV Biggest Pop": f"{LOCAL_LOGOS_PUBLIC_BASE}/mtv-biggest-pop.svg",
+    "MTV Spankin' New": f"{LOCAL_LOGOS_PUBLIC_BASE}/mtv-spankin-new.svg",
     "XITE Rock x Metal": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
+    "MTV Rocks": f"{LOCAL_LOGOS_PUBLIC_BASE}/mtv-rocks.svg",
     "XITE Just Chill": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
 }
 CONTINUOUS_PROGRAMME_DETAILS = {
@@ -277,13 +280,25 @@ CONTINUOUS_PROGRAMME_DETAILS = {
         "XITE 90s Throwback - videoclips",
         "Programacion musical de XITE; se conserva continuidad si la guia FAST no esta disponible.",
     ),
+    "MTV Classic": (
+        "MTV Classic - videoclips",
+        "Rotacion continua de videoclips clasicos de MTV; la senal no publica una parrilla XMLTV estable.",
+    ),
     "MTV Biggest Pop": (
         "MTV Biggest Pop - videoclips",
         "Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.",
     ),
+    "MTV Spankin' New": (
+        "MTV Spankin' New - videoclips",
+        "Rotacion continua de novedades musicales de MTV; la senal no publica una parrilla XMLTV estable.",
+    ),
     "XITE Rock x Metal": (
         "XITE Rock x Metal - videoclips",
         "Programacion musical de XITE; se conserva continuidad si la guia FAST no esta disponible.",
+    ),
+    "MTV Rocks": (
+        "MTV Rocks - videoclips",
+        "Rotacion continua de rock y videoclips de MTV; la senal no publica una parrilla XMLTV estable.",
     ),
     "XITE Just Chill": (
         "XITE Just Chill - videoclips",
@@ -400,6 +415,19 @@ KNOWN_STREAM_FALLBACKS = {
         "https://jmp2.uk/plu-6047fabfce6e8e00070bcc9f.m3u8",
         "https://jmp2.uk/plu-5d14fd1a252d35decbc4080c.m3u8",
     ],
+    "MTV Classic": [
+        "https://jmp2.uk/plu-66a01dcb8561260008b0a41d.m3u8",
+        "https://jmp2.uk/plu-654100b4bdf3cf0008aa49c7.m3u8",
+        "https://jmp2.uk/plu-66a11a21a79dea0008aa90ca.m3u8",
+    ],
+    "MTV Spankin' New": [
+        "https://jmp2.uk/plu-6541010f770cf1000866be98.m3u8",
+        "https://jmp2.uk/plu-5d14fdb8ca91eedee1633117.m3u8",
+    ],
+    "MTV Rocks": [
+        "https://jmp2.uk/plu-66a01e07d2d50d0008100d6a.m3u8",
+        "https://jmp2.uk/plu-66a01b52a4ee27000808ea36.m3u8",
+    ],
 }
 SEGMENT_CHECK_CHANNELS = {
     "TVN",
@@ -439,8 +467,11 @@ SEGMENT_CHECK_CHANNELS = {
     "Stingray DJAZZ",
     "XITE 80s Flashback",
     "XITE 90s Throwback",
+    "MTV Classic",
     "MTV Biggest Pop",
+    "MTV Spankin' New",
     "XITE Rock x Metal",
+    "MTV Rocks",
     "XITE Just Chill",
 }
 @dataclass(frozen=True)
