@@ -31,6 +31,7 @@ REPORT_PATH = Path(__file__).with_name("channel-status.json")
 PUBLIC_RAW_BASE = "https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main"
 EPG_PUBLIC_URL = f"{PUBLIC_RAW_BASE}/epg.xml"
 LOCAL_LOGOS_PUBLIC_BASE = f"{PUBLIC_RAW_BASE}/logos"
+TEST_GROUP_PREFIX = "PRUEBA - "
 NHK_MASTER_URL = "https://masterpl.hls.nhkworld.jp/hls/w/live/smarttv.m3u8"
 NHK_WORLD_LIVE_PAGE = "https://www3.nhk.or.jp/nhkworld/en/live_tv/"
 NHK_WORLD_EPG_BASE_URL = "https://masterpl.hls.nhkworld.jp/epg/w"
@@ -2608,6 +2609,13 @@ def check_hls_first_segment(
 
 def check_logo(channel: Channel) -> LogoResult:
     if not channel.logo_url:
+        if channel.group.startswith(TEST_GROUP_PREFIX):
+            return LogoResult(
+                channel.name,
+                "",
+                True,
+                "entrada de prueba sin tvg-logo local; se omite sin marcar fallo",
+            )
         return LogoResult(channel.name, "", False, "falta tvg-logo")
     headers = {
         "User-Agent": BROWSER_USER_AGENT,

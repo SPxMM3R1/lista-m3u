@@ -158,3 +158,406 @@ https://jmp2.uk/plu-66a01e07d2d50d0008100d6a.m3u8
 
 #EXTINF:-1 tvg-id="XITEJustChill.nl" tvg-name="XITE Just Chill" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/xite.svg" tvg-country="NL" group-title="Ambiental y Chill",XITE Just Chill
 https://dvnftgdlbnemm.cloudfront.net/XITE_Just_Chill.m3u8
+
+# =========================
+# PRUEBAS - FUENTES VALIDADAS 2026-08-22
+# Estas entradas se mantienen al final para comparar fuentes sin alterar las
+# fuentes principales. Las URLs de Highfly son renovables y los eventos
+# temporales no se incluyen aqui porque pueden caducar.
+# Las pruebas sin tvg-logo local se conservan sin logo para no inventar arte.
+# =========================
+
+# Deportes Highfly: playlist y primer segmento validados. El catalogo JSON
+# actual ofrece 13 senales permanentes; se conservan 12 porque Sky Sports F1
+# UHD devolvio 403. Los eventos "streamed" son temporales y no se fijan aqui.
+#EXTINF:-1 tvg-id="TEST.Highfly.USTennisChannel" tvg-name="[TEST] US Tennis Channel" tvg-country="US" group-title="PRUEBA - Deportes Highfly",[TEST] US Tennis Channel
+https://leaf.highfly.dev/m3u/us-tennis-channel/live.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Highfly.SkySportsF1" tvg-name="[TEST] Sky Sports F1 RAW" tvg-country="GB" group-title="PRUEBA - Deportes Highfly",[TEST] Sky Sports F1 RAW
+https://leaf.highfly.dev/m3u/now-sky-sports-f1-free/live.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Highfly.ESPNHD" tvg-name="[TEST] ESPN HD" tvg-country="US" group-title="PRUEBA - Deportes Highfly",[TEST] ESPN HD
+https://leaf.highfly.dev/m3u/us-espn-hd/live.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Highfly.MarqueeSportsNetwork" tvg-name="[TEST] Marquee Sports Network HD" tvg-country="US" group-title="PRUEBA - Deportes Highfly",[TEST] Marquee Sports Network HD
+https://leaf.highfly.dev/m3u/us-marquee-sports-network-hd/live.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Highfly.SkySportsRacing" tvg-name="[TEST] Sky Sports Racing" tvg-country="GB" group-title="PRUEBA - Deportes Highfly",[TEST] Sky Sports Racing
+https://leaf.highfly.dev/m3u/vip-sky-sports-racing/live.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Highfly.SkySportsPremierLeague" tvg-name="[TEST] Sky Sports Premier League" tvg-country="GB" group-title="PRUEBA - Deportes Highfly",[TEST] Sky Sports Premier League
+https://leaf.highfly.dev/m3u/now-sky-sports-premier-league/live.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Highfly.SkySport1NZ" tvg-name="[TEST] Sky Sport 1 NZ" tvg-country="NZ" group-title="PRUEBA - Deportes Highfly",[TEST] Sky Sport 1 NZ
+https://leaf.highfly.dev/m3u/nz-sky-sport-1/live.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Highfly.SkySportsTennis" tvg-name="[TEST] Sky Sports Tennis" tvg-country="GB" group-title="PRUEBA - Deportes Highfly",[TEST] Sky Sports Tennis
+https://leaf.highfly.dev/m3u/now-sky-sports-tennis/live.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Highfly.FoxSports502" tvg-name="[TEST] FOX Sports 502 HD" tvg-country="AU" group-title="PRUEBA - Deportes Highfly",[TEST] FOX Sports 502 HD
+https://leaf.highfly.dev/m3u/au-fox-sports-502-hd/live.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Highfly.SkySportsGolf" tvg-name="[TEST] Sky Sports Golf" tvg-country="GB" group-title="PRUEBA - Deportes Highfly",[TEST] Sky Sports Golf
+https://leaf.highfly.dev/m3u/vip-sky-sports-golf/live.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Highfly.FoxSports504" tvg-name="[TEST] FOX Sports 504 HD" tvg-country="AU" group-title="PRUEBA - Deportes Highfly",[TEST] FOX Sports 504 HD
+https://leaf.highfly.dev/m3u/au-fox-sports-504-hd/live.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Highfly.FoxSports507" tvg-name="[TEST] FOX Sports 507 HD" tvg-country="AU" group-title="PRUEBA - Deportes Highfly",[TEST] FOX Sports 507 HD
+https://leaf.highfly.dev/m3u/au-fox-sports-507-hd/live.m3u8
+
+# Fuentes ChileTV: alternativas directas validadas hasta segmento
+#EXTINF:-1 tvg-id="TEST.ChileTV.24HorasTlink" tvg-name="[TEST] 24 Horas - ChileTV" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/24-horas.png" tvg-country="CL" group-title="PRUEBA - ChileTV",[TEST] 24 Horas - ChileTV
+https://cdn1tlinkgo.tlink.cl/24horashd/tracks-v1a1/mono.m3u8
+
+#EXTINF:-1 tvg-id="TEST.ChileTV.TVNLink" tvg-name="[TEST] TVN - ChileTV" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvn.png" tvg-country="CL" group-title="PRUEBA - ChileTV",[TEST] TVN - ChileTV
+https://cdn1tlinkgo.tlink.cl/tvnhd/index.m3u8
+
+#EXTINF:-1 tvg-id="TEST.ChileTV.MeganoticiasLink" tvg-name="[TEST] Meganoticias - ChileTV" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/meganoticias.png" tvg-country="CL" group-title="PRUEBA - ChileTV",[TEST] Meganoticias - ChileTV
+https://cdn1tlinkgo.tlink.cl/meganoticias/index.m3u8
+
+#EXTINF:-1 tvg-id="TEST.ChileTV.MegaLink" tvg-name="[TEST] Mega - ChileTV" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/mega.png" tvg-country="CL" group-title="PRUEBA - ChileTV",[TEST] Mega - ChileTV
+https://unlimited2-cl-isp.dps.live/mega/mega.smil/playlist.m3u8?ChileTv
+
+#EXTINF:-1 tvg-id="TEST.ChileTV.CHVLink" tvg-name="[TEST] Chilevision - ChileTV" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/chv.png" tvg-country="CL" group-title="PRUEBA - ChileTV",[TEST] Chilevision - ChileTV
+https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/chv/chv.smil/playlist.m3u8
+
+#EXTINF:-1 tvg-id="TEST.ChileTV.Canal13Link" tvg-name="[TEST] Canal 13 - ChileTV" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/canal13.png" tvg-country="CL" group-title="PRUEBA - ChileTV",[TEST] Canal 13 - ChileTV
+https://redirector.dps.live/hls/13cl/playlist.m3u8?ChileTv
+
+# La Red entrega fMP4; funciona en reproductores HLS modernos
+#EXTINF:-1 tvg-id="TEST.ChileTV.LaRedClaro" tvg-name="[TEST] La Red - Claro Video" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/la-red.png" tvg-country="CL" group-title="PRUEBA - ChileTV",[TEST] La Red - Claro Video
+https://clbpktstvhls-1.clarovideo.com/bpk-tv/LAREDHD/hls_fk/index.m3u8
+
+#EXTINF:-1 tvg-id="TEST.ChileTV.NTVLink" tvg-name="[TEST] NTV - ChileTV" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/ntv.svg" tvg-country="CL" group-title="PRUEBA - ChileTV",[TEST] NTV - ChileTV
+https://mdstrm.com/live-stream-playlist/5aaabe9e2c56420918184c6d.m3u8
+
+#EXTINF:-1 tvg-id="TEST.ChileTV.13CLink" tvg-name="[TEST] 13C - ChileTV" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/13cultura.svg" tvg-country="CL" group-title="PRUEBA - ChileTV",[TEST] 13C - ChileTV
+https://cdn1tlinkgo.tlink.cl/13c/tracks-v1a1/mono.m3u8
+
+#EXTINF:-1 tvg-id="TEST.ChileTV.CHVDeportesLink" tvg-name="[TEST] CHV Deportes - ChileTV" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/chv-deportes.svg" tvg-country="CL" group-title="PRUEBA - ChileTV",[TEST] CHV Deportes - ChileTV
+https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/chvdeportes/chvdeportes.smil/playlist.m3u8
+
+#EXTINF:-1 tvg-id="TEST.ChileTV.13Cocina" tvg-name="[TEST] 13 Cocina" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/canal13.png" tvg-country="CL" group-title="PRUEBA - ChileTV",[TEST] 13 Cocina
+https://redirector.dps.live/hls/13cocina/playlist.m3u8?ChileTv
+
+#EXTINF:-1 tvg-id="TEST.ChileTV.13Cultura" tvg-name="[TEST] 13 Cultura" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/13cultura.svg" tvg-country="CL" group-title="PRUEBA - ChileTV",[TEST] 13 Cultura
+https://origin.dpsgo.com/ssai/event/GI-9cp_bT8KcerLpZwkuhw/master.m3u8
+
+#EXTINF:-1 tvg-id="TEST.ChileTV.13Teleseries" tvg-name="[TEST] 13 Teleseries" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/canal13.png" tvg-country="CL" group-title="PRUEBA - ChileTV",[TEST] 13 Teleseries
+https://origin.dpsgo.com/ssai/event/f4TrySe8SoiGF8Lu3EIq1g/master.m3u8
+
+#EXTINF:-1 tvg-id="TEST.ChileTV.TVSENADO" tvg-name="[TEST] TV Senado" tvg-country="CL" group-title="PRUEBA - ChileTV",[TEST] TV Senado
+https://janus-tv-ply.senado.cl/playlist/playlist.m3u8
+
+#EXTINF:-1 tvg-id="TEST.ChileTV.TVChile" tvg-name="[TEST] TV Chile - ChileTV" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvchilecl.png" tvg-country="CL" group-title="PRUEBA - ChileTV",[TEST] TV Chile - ChileTV
+https://mdstrm.com/live-stream-playlist/533adcc949386ce765657d7c.m3u8
+
+#EXTINF:-1 tvg-id="TEST.ChileTV.Teletrak" tvg-name="[TEST] Teletrak" tvg-country="CL" group-title="PRUEBA - ChileTV",[TEST] Teletrak
+https://unlimited6-cl.dps.live/sportinghd/sportinghd.smil/playlist.m3u8
+
+#EXTINF:-1 tvg-id="TEST.ChileTV.DWEspanol" tvg-name="[TEST] DW Español - ChileTV" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/dw.svg" tvg-country="DE" group-title="PRUEBA - Internacional",[TEST] DW Español - ChileTV
+https://dwamdstream104.akamaized.net/hls/live/2015530/dwstream104/index.m3u8
+
+# Musica: fuentes directas validadas hasta segmento
+#EXTINF:-1 tvg-id="TEST.ChileTV.30A" tvg-name="[TEST] 30A TV Music" tvg-country="US" group-title="PRUEBA - Musica",[TEST] 30A TV Music
+https://30a-tv.com/music.m3u8
+
+#EXTINF:-1 tvg-id="TEST.ChileTV.RetroPlus1" tvg-name="[TEST] Retro Plus TV 1" tvg-country="CL" group-title="PRUEBA - Musica",[TEST] Retro Plus TV 1
+https://tls-cl.cdnz.cl/retroplustvuno/live/playlist.m3u8?ChileTv
+
+#EXTINF:-1 tvg-id="TEST.ChileTV.RetroPlus2" tvg-name="[TEST] Retro Plus TV 2" tvg-country="CL" group-title="PRUEBA - Musica",[TEST] Retro Plus TV 2
+https://tls-cl.cdnz.cl/retroplustvdos/live/playlist.m3u8?ChileTv
+
+#EXTINF:-1 tvg-id="TEST.ChileTV.RetroPlus3" tvg-name="[TEST] Retro Plus TV 3" tvg-country="CL" group-title="PRUEBA - Musica",[TEST] Retro Plus TV 3
+https://tls-cl.cdnz.cl/retroplustvtres/live/playlist.m3u8?ChileTv
+
+#EXTINF:-1 tvg-id="TEST.ChileTV.VintageMusic" tvg-name="[TEST] Vintage Music TV" tvg-country="US" group-title="PRUEBA - Musica",[TEST] Vintage Music TV
+https://59ef525c24caa.streamlock.net/vmtv/tvvintage/playlist.m3u8
+
+#EXTINF:-1 tvg-id="TEST.ChileTV.DanceFM" tvg-name="[TEST] Dance FM TV" tvg-country="CL" group-title="PRUEBA - Musica",[TEST] Dance FM TV
+https://5eaccbab48461.streamlock.net:1936/dancefm_1/dancefm_1/playlist.m3u8
+
+#EXTINF:-1 tvg-id="TEST.ChileTV.EternalMetal" tvg-name="[TEST] Eternal Metal TV" tvg-country="BR" group-title="PRUEBA - Musica",[TEST] Eternal Metal TV
+https://stmv7.voxtvhd.com.br/eternaltv/eternaltv/playlist.m3u8?ChileTv
+
+# =========================
+# PRUEBAS - ARGENTINA 2026-08-22
+# Fuentes publicas seleccionadas desde el catalogo argentino de iptv-org.
+# Se conservaron solo las que entregaron playlist y primer segmento.
+# =========================
+
+# Noticias y señales nacionales
+# A24 y America TV requirieron cabeceras publicas y excepcion TLS durante la prueba.
+#EXTINF:-1 tvg-id="TEST.Argentina.A24" tvg-name="[TEST] A24" tvg-country="AR" group-title="PRUEBA - Argentina Noticias" http-referrer="https://www.a24.com/" http-user-agent="Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, como Gecko) Chrome/112.0.0.0 Mobile Safari/537.36",[TEST] A24
+https://g5.vxral-slo.transport.edge-access.net/a12/ngrp:a24-100056_all/playlist.m3u8?sense=true
+
+#EXTINF:-1 tvg-id="TEST.Argentina.AmericaTV" tvg-name="[TEST] America TV" tvg-country="AR" group-title="PRUEBA - Argentina Noticias" http-referrer="https://www.americatv.com.ar/" http-user-agent="Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, como Gecko) Chrome/112.0.0.0 Mobile Safari/537.36",[TEST] America TV
+https://prepublish.f.qaotic.net/a07/americahls-100056/playlist_720p.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Argentina.Canal26" tvg-name="[TEST] Canal 26" tvg-country="AR" group-title="PRUEBA - Argentina Noticias",[TEST] Canal 26
+https://stream-gtlc.telecentro.net.ar/hls/canal26hls/main.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Argentina.CanalE" tvg-name="[TEST] Canal E" tvg-country="AR" group-title="PRUEBA - Argentina Noticias",[TEST] Canal E
+https://unlimited1-us.dps.live/perfiltv/perfiltv.smil/playlist.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Argentina.MercurioNoticias" tvg-name="[TEST] Mercurio Noticias" tvg-country="AR" group-title="PRUEBA - Argentina Noticias",[TEST] Mercurio Noticias
+https://videostream.shockmedia.com.ar/hls/mercuriotv/mercuriotv.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Argentina.AireSantaFe" tvg-name="[TEST] Aire de Santa Fe" tvg-country="AR" group-title="PRUEBA - Argentina",[TEST] Aire de Santa Fe
+https://unlimited1-us.dps.live/airedesantafetv/airedesantafetv.smil/playlist.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Argentina.AlternaTV" tvg-name="[TEST] Alterna TV" tvg-country="AR" group-title="PRUEBA - Argentina",[TEST] Alterna TV
+https://tv.alterna.ar/stream/hls/live.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Argentina.Argentinisima" tvg-name="[TEST] Argentinisima Satelital" tvg-country="AR" group-title="PRUEBA - Argentina",[TEST] Argentinisima Satelital
+https://stream1.sersat.com/hls/argentinisima.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Argentina.NetTV" tvg-name="[TEST] NET TV" tvg-country="AR" group-title="PRUEBA - Argentina",[TEST] NET TV
+https://unlimited1-us.dps.live/nettv/nettv.smil/playlist.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Argentina.TVMana" tvg-name="[TEST] TV Mana Argentina" tvg-country="AR" group-title="PRUEBA - Argentina",[TEST] TV Mana Argentina
+https://w2.manasat.com/tvmana-ar/smil:tvmana-ar.smil/playlist.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Argentina.Telemax" tvg-name="[TEST] Telemax" tvg-country="AR" group-title="PRUEBA - Argentina",[TEST] Telemax
+https://stream-gtlc.telecentro.net.ar/hls/telemaxhls/main.m3u8
+
+# Regionales, universitarias y provinciales
+#EXTINF:-1 tvg-id="TEST.Argentina.Canal4Teleaire" tvg-name="[TEST] Canal 4 Teleaire" tvg-country="AR" group-title="PRUEBA - Argentina Regional",[TEST] Canal 4 Teleaire
+https://stmvideo6.livecastv.com/canal4/canal4/playlist.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Argentina.Canal4VillaDolores" tvg-name="[TEST] Canal 4 Villa Dolores" tvg-country="AR" group-title="PRUEBA - Argentina Regional",[TEST] Canal 4 Villa Dolores
+https://stmvideo3.livecastv.com/canal4vd/canal4vd/playlist.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Argentina.Canal5SantaFe" tvg-name="[TEST] Canal 5 Santa Fe" tvg-country="AR" group-title="PRUEBA - Argentina Regional",[TEST] Canal 5 Santa Fe
+https://stream.arcast.com.ar/c5sf/c5sf/playlist.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Argentina.Canal7Neuquen" tvg-name="[TEST] Canal 7 Neuquen" tvg-country="AR" group-title="PRUEBA - Argentina Regional",[TEST] Canal 7 Neuquen
+https://stream.arcast.com.ar/c7nq/ngrp:c7nq_all/playlist.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Argentina.CanalUniversidadMDP" tvg-name="[TEST] Canal Universidad MDP" tvg-country="AR" group-title="PRUEBA - Argentina Regional",[TEST] Canal Universidad MDP
+https://videostream.shockmedia.com.ar/hls/canaluniversidadmdp/canaluniversidadmdp.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Argentina.ChamameTV" tvg-name="[TEST] Chamame TV" tvg-country="AR" group-title="PRUEBA - Argentina Regional",[TEST] Chamame TV
+https://srv4.zcast.com.br/chamametv/chamametv/playlist.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Argentina.CorrientesTV" tvg-name="[TEST] Corrientes TV" tvg-country="AR" group-title="PRUEBA - Argentina Regional",[TEST] Corrientes TV
+https://617c5175c970b.streamlock.net:4444/13max2/live13maxtv2026/playlist.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Argentina.EcoTV" tvg-name="[TEST] Eco TV" tvg-country="AR" group-title="PRUEBA - Argentina Regional",[TEST] Eco TV
+https://stream.arcast.com.ar/ecotv/ngrp:ecotv_all/playlist.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Argentina.RTNNeuquen" tvg-name="[TEST] RTN Neuquen" tvg-country="AR" group-title="PRUEBA - Argentina Regional",[TEST] RTN Neuquen
+https://media.neuquen.gov.ar/rtn/television/media.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Argentina.TVPublicaFueguina" tvg-name="[TEST] TV Publica Fueguina" tvg-country="AR" group-title="PRUEBA - Argentina Regional",[TEST] TV Publica Fueguina
+https://nd106.republicaservers.com/hls/c8094/index.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Argentina.TVUniversidadUNLP" tvg-name="[TEST] TV Universidad UNLP" tvg-country="AR" group-title="PRUEBA - Argentina Regional",[TEST] TV Universidad UNLP
+https://stratus.stream.cespi.unlp.edu.ar/hls/tvunlp.m3u8
+
+# Musica y radios con imagen
+#EXTINF:-1 tvg-id="TEST.Argentina.AzaharesRadio" tvg-name="[TEST] Azahares Radio Multimedia" tvg-country="AR" group-title="PRUEBA - Argentina Musica",[TEST] Azahares Radio Multimedia
+https://streamyes.alsolnet.com/azaharesfm/live/playlist.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Argentina.BeatsRadio" tvg-name="[TEST] Beats Radio" tvg-country="AR" group-title="PRUEBA - Argentina Musica",[TEST] Beats Radio
+https://videostream.shockmedia.com.ar:19360/beatsradio/beatsradio.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Argentina.CumbiaMix" tvg-name="[TEST] Cumbia Mix" tvg-country="AR" group-title="PRUEBA - Argentina Musica",[TEST] Cumbia Mix
+https://cloud.tvomix.com/CUMBIAMIX/index.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Argentina.GarageTV" tvg-name="[TEST] Garage TV Latin America" tvg-country="AR" group-title="PRUEBA - Argentina Musica",[TEST] Garage TV Latin America
+https://stream1.sersat.com/hls/garagetv.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Argentina.KpopMix" tvg-name="[TEST] Kpop Mix" tvg-country="AR" group-title="PRUEBA - Argentina Musica",[TEST] Kpop Mix
+https://cloud.tvomix.com/KPOPMIX/index.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Argentina.La100" tvg-name="[TEST] La 100" tvg-country="AR" group-title="PRUEBA - Argentina Musica",[TEST] La 100
+https://mdstrm.com/live-stream-playlist/68b74fd1d6512526f1f7c75a.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Argentina.RadioConexionWebTV" tvg-name="[TEST] Radio Conexion Web TV" tvg-country="AR" group-title="PRUEBA - Argentina Musica",[TEST] Radio Conexion Web TV
+https://tuvideoonline.com.ar:3391/live/radioconexionlive.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Argentina.RadioRealpolitik" tvg-name="[TEST] Radio Realpolitik" tvg-country="AR" group-title="PRUEBA - Argentina Musica",[TEST] Radio Realpolitik
+https://vivo.solumedia.com:19360/realpolitik/realpolitik.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Argentina.UrbanMix" tvg-name="[TEST] Urban Mix" tvg-country="AR" group-title="PRUEBA - Argentina Musica",[TEST] Urban Mix
+https://cloud.tvomix.com/URBANMIX/index.m3u8
+
+# =========================
+# PRUEBAS - BBC 2026-08-22
+# Solo BBC News Pashto respondio desde esta ubicacion; las senales BBC UK
+# principales devolvieron 403/404 y no se incorporan como funcionales.
+# =========================
+
+#EXTINF:-1 tvg-id="TEST.BBC.NewsPashto" tvg-name="[TEST] BBC News Pashto" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/bbc.svg" tvg-country="AF" group-title="PRUEBA - BBC",[TEST] BBC News Pashto
+https://vs-hls-pushb-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_afghan_tv/t=3840/v=pv14/b=5070016/main.m3u8
+
+# =========================
+# PRUEBAS - RT 2026-08-22
+# Maestros oficiales publicos de RT; el CDN respondio con certificado TLS
+# vencido durante la prueba local y por eso permanecen solo como test.
+# =========================
+
+#EXTINF:-1 tvg-id="TEST.RT.Arabic" tvg-name="[TEST] RT Arabic" tvg-country="AE" group-title="PRUEBA - RT",[TEST] RT Arabic
+https://rt-arb.rttv.com/live/rtarab/playlist.m3u8
+
+#EXTINF:-1 tvg-id="TEST.RT.Balkan" tvg-name="[TEST] RT Balkan" tvg-country="RS" group-title="PRUEBA - RT",[TEST] RT Balkan
+https://rt-srb.rttv.com/live/rtbalkan/playlist.m3u8
+
+#EXTINF:-1 tvg-id="TEST.RT.DE" tvg-name="[TEST] RT DE" tvg-country="DE" group-title="PRUEBA - RT",[TEST] RT DE
+https://rt-ger.rttv.com/live/rtdeutsch/playlist.m3u8
+
+#EXTINF:-1 tvg-id="TEST.RT.Documentary" tvg-name="[TEST] RT Documentary" tvg-country="RU" group-title="PRUEBA - RT",[TEST] RT Documentary
+https://rt-rtd.rttv.com/live/rtdoc/playlist.m3u8
+
+#EXTINF:-1 tvg-id="TEST.RT.France" tvg-name="[TEST] RT France" tvg-country="FR" group-title="PRUEBA - RT",[TEST] RT France
+https://rt-fra.rttv.com/live/rtfrance/playlist.m3u8
+
+#EXTINF:-1 tvg-id="TEST.RT.India" tvg-name="[TEST] RT India" tvg-country="IN" group-title="PRUEBA - RT",[TEST] RT India
+https://rt-india.rttv.com/dvr/rtindia/playlist.m3u8
+
+# =========================
+# PRUEBAS - MUSICA Y CONCIERTOS 2026-08-22
+# Fuentes publicas adicionales seleccionadas para comparar estabilidad y
+# variedad musical; no se promueven al bloque principal en esta etapa.
+# =========================
+
+#EXTINF:-1 tvg-id="TEST.Music.BestOfMTV" tvg-name="[TEST] Best of MTV" tvg-country="US" group-title="PRUEBA - Musica Internacional",[TEST] Best of MTV
+https://jmp2.uk/plu-632aff5e44111b00076ad9b1.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Music.ConcertChannel" tvg-name="[TEST] Concert Channel" tvg-country="US" group-title="PRUEBA - Conciertos",[TEST] Concert Channel
+https://jmp2.uk/plu-6868152657543d1f8be4ece3.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Music.MTVFlowLatino" tvg-name="[TEST] MTV Flow Latino" tvg-country="US" group-title="PRUEBA - Musica Latina",[TEST] MTV Flow Latino
+https://jmp2.uk/plu-62b218fc511d4b00070ddc0c.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Music.StingrayIConcerts" tvg-name="[TEST] Stingray iConcerts" tvg-country="CA" group-title="PRUEBA - Conciertos",[TEST] Stingray iConcerts
+https://dash4.antik.sk/live/test_stingray_iconcerts_hd_hevc50/playlist.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Music.Totalmusic" tvg-name="[TEST] Totalmusic" tvg-country="US" group-title="PRUEBA - Musica Internacional",[TEST] Totalmusic
+https://cdn.global.elektamedia.com/live/c7eds/Totalmusic/SA_LIVE_hls_enc/master.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Music.Totalmusic80s" tvg-name="[TEST] Totalmusic 80s" tvg-country="US" group-title="PRUEBA - Musica Internacional",[TEST] Totalmusic 80s
+https://cdn.global.elektamedia.com/live/c7eds/Totalmusic_80s/SA_LIVE_hls_enc/master.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Music.Totalmusic2000s" tvg-name="[TEST] Totalmusic 2000s" tvg-country="US" group-title="PRUEBA - Musica Internacional",[TEST] Totalmusic 2000s
+https://cdn.global.elektamedia.com/live/c7eds/Totalmusic_00s/SA_LIVE_hls_enc/master.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Music.TotalmusicConcerts" tvg-name="[TEST] Totalmusic Concerts" tvg-country="US" group-title="PRUEBA - Conciertos",[TEST] Totalmusic Concerts
+https://cdn.global.elektamedia.com/live/c7eds/Totalmusic_Concerts/SA_LIVE_hls_enc/master.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Music.TotalmusicDance" tvg-name="[TEST] Totalmusic Dance" tvg-country="US" group-title="PRUEBA - Musica Internacional",[TEST] Totalmusic Dance
+https://cdn.global.elektamedia.com/live/c7eds/Totalmusic_Dance/SA_LIVE_hls_enc/master.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Music.XITEClassicCountry" tvg-name="[TEST] XITE Classic Country" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/xite.svg" tvg-country="NL" group-title="PRUEBA - Musica Internacional",[TEST] XITE Classic Country
+https://jmp2.uk/plu-623b92a2ccefed0007b1db48.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Music.XITENuevoLatino" tvg-name="[TEST] XITE Nuevo Latino" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/xite.svg" tvg-country="NL" group-title="PRUEBA - Musica Latina",[TEST] XITE Nuevo Latino
+https://d3bsgqzbpkrvbb.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-w288eaw03izg1/XITE_Nuevo_Latino.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Music.XITESiempreLatino" tvg-name="[TEST] XITE Siempre Latino" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/xite.svg" tvg-country="NL" group-title="PRUEBA - Musica Latina",[TEST] XITE Siempre Latino
+https://d1xc25jm9e0l4b.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-xplkt8i7m24dc/XITE_Siempre_Latino.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Music.YoMTV" tvg-name="[TEST] Yo! MTV" tvg-country="US" group-title="PRUEBA - Musica Internacional",[TEST] Yo! MTV
+https://jmp2.uk/plu-654102ed770cf1000866c307.m3u8
+
+# =========================
+# PRUEBAS - HISTORICOS Y MUNDIALES 2026-08-22
+# Se revisaron 43 fuentes que habian aparecido en recomendaciones anteriores
+# o en ampliaciones historicas. 30 pasaron el primer barrido; una devolvio 401
+# en la verificacion final y solo 29 se mantienen en este bloque.
+# =========================
+
+# Noticias mundiales e internacionales
+#EXTINF:-1 tvg-id="TEST.World.TeleSUR" tvg-name="[TEST] teleSUR HD" tvg-country="VE" group-title="PRUEBA - Noticias Mundial",[TEST] teleSUR HD
+https://mblesmain01.telesur.ultrabase.net/mbliveMain/hd/playlist.m3u8
+
+#EXTINF:-1 tvg-id="TEST.World.NBCNewsNOW" tvg-name="[TEST] NBC News NOW" tvg-country="US" group-title="PRUEBA - Noticias Mundial",[TEST] NBC News NOW
+https://d1bl6tskrpq9ze.cloudfront.net/hls/master.m3u8?ads.xumo_channelId=99984003
+
+#EXTINF:-1 tvg-id="TEST.World.BloombergTVPlus" tvg-name="[TEST] Bloomberg TV+" tvg-country="US" group-title="PRUEBA - Noticias Mundial",[TEST] Bloomberg TV+
+https://bloomberg.com/media-manifest/streams/phoenix-us.m3u8
+
+#EXTINF:-1 tvg-id="TEST.World.EuronewsEnglish" tvg-name="[TEST] Euronews English" tvg-country="FR" group-title="PRUEBA - Noticias Mundial",[TEST] Euronews English
+https://cdn-euronews.akamaized.net/live/eds/euronews-en/25002/index.m3u8
+
+#EXTINF:-1 tvg-id="TEST.World.EuronewsFrench" tvg-name="[TEST] Euronews Français" tvg-country="FR" group-title="PRUEBA - Noticias Mundial",[TEST] Euronews Français
+https://cdn-euronews.akamaized.net/live/eds/euronews-fr/25026/index.m3u8
+
+#EXTINF:-1 tvg-id="TEST.World.BFMTV" tvg-name="[TEST] BFM TV" tvg-country="FR" group-title="PRUEBA - Noticias Mundial",[TEST] BFM TV
+https://live-cdn-stream-euw1.bfmtv.bct.nextradiotv.com/master.m3u8
+
+#EXTINF:-1 tvg-id="TEST.World.CanalSurNoticias" tvg-name="[TEST] Canal Sur Noticias" tvg-country="ES" group-title="PRUEBA - Noticias Mundial",[TEST] Canal Sur Noticias
+https://cdnlive.codev8.net/rtvalive/smil:channel42.smil/playlist.m3u8
+
+#EXTINF:-1 tvg-id="TEST.World.Reuters" tvg-name="[TEST] Reuters" tvg-country="GB" group-title="PRUEBA - Noticias Mundial",[TEST] Reuters
+https://amg00453-reuters-amg00453c1-rakuten-uk-2110.playouts.now.amagi.tv/playlist/amg00453-reuters-reuters-rakutenuk/playlist.m3u8
+
+#EXTINF:-1 tvg-id="TEST.World.France24English" tvg-name="[TEST] France 24 English" tvg-country="FR" group-title="PRUEBA - Noticias Mundial",[TEST] France 24 English
+https://live.france24.com/hls/live/2037218/F24_EN_HI_HLS/master_5000.m3u8
+
+# Internacional en español y regionales europeas
+#EXTINF:-1 tvg-id="TEST.International.ThreeCatInfo" tvg-name="[TEST] 3CatInfo" tvg-country="ES" group-title="PRUEBA - Internacional",[TEST] 3CatInfo
+https://directes-tv-int.3catdirectes.cat/live-origin/canal324-hls/master.m3u8
+
+#EXTINF:-1 tvg-id="TEST.International.GaliciaTV" tvg-name="[TEST] Galicia TV Europa" tvg-country="ES" group-title="PRUEBA - Internacional",[TEST] Galicia TV Europa
+https://crtvg-europa.flumotion.cloud/playlist.m3u8
+
+#EXTINF:-1 tvg-id="TEST.International.TVBRICSEspanol" tvg-name="[TEST] TV BRICS Español" tvg-country="INT" group-title="PRUEBA - Internacional",[TEST] TV BRICS Español
+https://espbrics.mediacdn.ru/cdn/brics/spanish/playlist.m3u8
+
+#EXTINF:-1 tvg-id="TEST.International.FIFAHispanic" tvg-name="[TEST] FIFA+ Hispanic America" tvg-country="INT" group-title="PRUEBA - Internacional",[TEST] FIFA+ Hispanic America
+https://6c849fb3.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/TEctbXhfRklGQVBsdXNTcGFuaXNoLTFfSExT/playlist.m3u8
+
+# Musica, conciertos y radio visual
+# Stingray/Qwest se conservan como test hasta confirmar estabilidad desde la TV.
+#EXTINF:-1 tvg-id="TEST.Music.QwestJazz" tvg-name="[TEST] Qwest TV Jazz" tvg-country="US" group-title="PRUEBA - Musica Internacional",[TEST] Qwest TV Jazz
+https://qwest-jazz-plex.amagi.tv/playlist.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Music.StingrayClassicRock" tvg-name="[TEST] Stingray Classic Rock" tvg-country="CA" group-title="PRUEBA - Rock y Metal",[TEST] Stingray Classic Rock
+https://lotus.stingray.com/manifest/ose-101ads-montreal/samsungtvplus/master.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Music.StingrayFlashback70s" tvg-name="[TEST] Stingray Flashback 70s" tvg-country="CA" group-title="PRUEBA - Musica 70s 80s 90s",[TEST] Stingray Flashback 70s
+https://lotus.stingray.com/manifest/ose-115ads-montreal/samsungtvplus/master.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Music.StingrayHitList" tvg-name="[TEST] Stingray Hit List" tvg-country="CA" group-title="PRUEBA - Musica Internacional",[TEST] Stingray Hit List
+https://lotus.stingray.com/manifest/ose-107ads-montreal/samsungtvplus/master.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Music.StingrayEasyListening" tvg-name="[TEST] Stingray Easy Listening" tvg-country="CA" group-title="PRUEBA - Ambiental y Chill",[TEST] Stingray Easy Listening
+https://lotus.stingray.com/manifest/ose-137ads-montreal/samsungtvplus/master.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Music.RadioJavanTV" tvg-name="[TEST] Radio Javan TV" tvg-country="INT" group-title="PRUEBA - Musica Internacional",[TEST] Radio Javan TV
+https://rjtvhls.wns.live/hls/stream.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Music.SolMusica" tvg-name="[TEST] Sol Música" tvg-country="ES" group-title="PRUEBA - Musica Latina",[TEST] Sol Música
+https://d2glyu450vvghm.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-21u4g5cjglv02/sm.m3u8
+
+# Dance TV
+#EXTINF:-1 tvg-id="TEST.Music.BestOfDanceTV" tvg-name="[TEST] Best of Dance TV" tvg-country="INT" group-title="PRUEBA - Dance",[TEST] Best of Dance TV
+https://m1b2.worldcast.tv/dancetelevisionone/dancetelevisionone.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Music.DanceTVAlgorhythm" tvg-name="[TEST] Dance TV Algorhythm" tvg-country="INT" group-title="PRUEBA - Dance",[TEST] Dance TV Algorhythm
+https://m2b2.worldcast.tv:7443/dancetelevisionfour/dancetelevisionfour.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Music.DanceTVDeepHouse" tvg-name="[TEST] Dance TV Deep House District" tvg-country="INT" group-title="PRUEBA - Dance",[TEST] Dance TV Deep House District
+https://m1b2.worldcast.tv/dancetelevisiontwo/dancetelevisiontwo.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Music.DanceTVEDM" tvg-name="[TEST] Dance TV EDM Mainstage" tvg-country="INT" group-title="PRUEBA - Dance",[TEST] Dance TV EDM Mainstage
+https://mbit1.worldcast.tv/dancetelevisionseven/multibit.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Music.DanceTVHouse" tvg-name="[TEST] Dance TV House Floor" tvg-country="INT" group-title="PRUEBA - Dance",[TEST] Dance TV House Floor
+https://m2b2.worldcast.tv:7443/dancetelevisionfive/dancetelevisionfive.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Music.DanceTVMinimal" tvg-name="[TEST] Dance TV Minimal Tech" tvg-country="INT" group-title="PRUEBA - Dance",[TEST] Dance TV Minimal Tech
+https://mbit1.worldcast.tv/dancetelevisionsix/multibit.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Music.DanceTVTechno" tvg-name="[TEST] Dance TV Techno Warehouse" tvg-country="INT" group-title="PRUEBA - Dance",[TEST] Dance TV Techno Warehouse
+https://m2b2.worldcast.tv:7443/dancetelevisionthree/dancetelevisionthree.m3u8
+
+# Documentales y naturaleza
+#EXTINF:-1 tvg-id="TEST.Documentary.RealWild" tvg-name="[TEST] Real Wild" tvg-country="US" group-title="PRUEBA - Documentales",[TEST] Real Wild
+https://lds-realwild-vizio.amagi.tv/playlist.m3u8
+
+#EXTINF:-1 tvg-id="TEST.Documentary.WaterBear" tvg-name="[TEST] WaterBear" tvg-country="INT" group-title="PRUEBA - Documentales",[TEST] WaterBear
+https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01415-waterbearnetwor-waterbear-samsungse/playlist.m3u8
