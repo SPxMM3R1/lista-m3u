@@ -232,6 +232,7 @@ PREFERRED_LOGOS = {
     "Stingray DJAZZ": f"{LOCAL_LOGOS_PUBLIC_BASE}/stingray-djazz.svg",
     "XITE 80s Flashback": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
     "XITE 90s Throwback": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
+    "MTV Biggest Pop": f"{LOCAL_LOGOS_PUBLIC_BASE}/mtv-biggest-pop.svg",
     "XITE Rock x Metal": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
     "XITE Just Chill": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
 }
@@ -275,6 +276,10 @@ CONTINUOUS_PROGRAMME_DETAILS = {
     "XITE 90s Throwback": (
         "XITE 90s Throwback - videoclips",
         "Programacion musical de XITE; se conserva continuidad si la guia FAST no esta disponible.",
+    ),
+    "MTV Biggest Pop": (
+        "MTV Biggest Pop - videoclips",
+        "Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.",
     ),
     "XITE Rock x Metal": (
         "XITE Rock x Metal - videoclips",
@@ -391,6 +396,10 @@ KNOWN_STREAM_FALLBACKS = {
     "XITE Just Chill": [
         "https://dvnftgdlbnemm.cloudfront.net/XITE_Just_Chill.m3u8"
     ],
+    "MTV Biggest Pop": [
+        "https://jmp2.uk/plu-6047fabfce6e8e00070bcc9f.m3u8",
+        "https://jmp2.uk/plu-5d14fd1a252d35decbc4080c.m3u8",
+    ],
 }
 SEGMENT_CHECK_CHANNELS = {
     "TVN",
@@ -430,6 +439,7 @@ SEGMENT_CHECK_CHANNELS = {
     "Stingray DJAZZ",
     "XITE 80s Flashback",
     "XITE 90s Throwback",
+    "MTV Biggest Pop",
     "XITE Rock x Metal",
     "XITE Just Chill",
 }

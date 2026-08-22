@@ -34,6 +34,9 @@ Cada ejecucion completa:
   y XITE, y usa las fuentes pequeñas TR1, SG1 y NG1 solo para TRT World, CNA y
   Africanews, respectivamente; no descarga el XML combinado de todos los
   proveedores;
+- conserva MTV Biggest Pop desde el feed latinoamericano de Pluto TV; como la
+  señal no publica una parrilla XMLTV estable, el actualizador genera continuidad
+  de videoclips sin inventar horarios concretos;
 - usa la guia publica de Zapping Chile para las senales nacionales donde
   EPGShare/TecnoCentro mostraban desplazamientos o no entregaban una parrilla
   util; sus marcas Unix absolutas se convierten a America/Santiago sin sumar
@@ -79,7 +82,7 @@ disponible sin depender de servidores externos.
 
 ## Canales
 
-La lista contiene 45 canales: nacionales, noticias, miscelaneos chilenos,
+La lista contiene 46 canales: nacionales, noticias, miscelaneos chilenos,
 noticias internacionales, documentales, conciertos y una seleccion musical.
 
 TVN y La Red se actualizan desde sus parrillas oficiales. La fuente oficial de

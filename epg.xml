@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
-<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-generated-at="2026-08-21T23:15:43.315315+00:00">
+<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-generated-at="2026-08-22T02:37:55.796328+00:00">
   <channel id="0104" data-guide="parrilla real + continuidad">
     <display-name>TVN</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvn.png" />
   </channel>
-  <channel id="0105" data-guide="parrilla real + continuidad">
+  <channel id="0105" data-guide="parrilla real">
     <display-name>Mega</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/mega.png" />
   </channel>
@@ -171,6 +171,10 @@
   <channel id="XITE90sThrowback.us" data-guide="parrilla real">
     <display-name>XITE 90s Throwback</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/xite.svg" />
+  </channel>
+  <channel id="MTVBiggestPop.us" data-guide="senal continua">
+    <display-name>MTV Biggest Pop</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/mtv-biggest-pop.svg" />
   </channel>
   <channel id="XITERockxMetal.nl" data-guide="parrilla real">
     <display-name>XITE Rock x Metal</display-name>
@@ -24619,14 +24623,6 @@
   <programme start="20260823000000 -0400" stop="20260823060000 -0400" channel="AfricanewsEnglish.fr">
     <title lang="en">Africanews</title>
   </programme>
-  <programme start="20260821130000 -0400" stop="20260821150000 -0400" channel="0104">
-    <title lang="es">24 Horas Al Dia</title>
-    <desc lang="es">Programacion oficial consultada en TVN.</desc>
-  </programme>
-  <programme start="20260821150000 -0400" stop="20260821163000 -0400" channel="0104">
-    <title lang="es">Pampa Ilusión</title>
-    <desc lang="es">Programacion oficial consultada en TVN.</desc>
-  </programme>
   <programme start="20260821163000 -0400" stop="20260821174500 -0400" channel="0104">
     <title lang="es">La Promesa</title>
     <desc lang="es">Programacion oficial consultada en TVN.</desc>
@@ -24662,18 +24658,6 @@
   <programme start="20260822041500 -0400" stop="20260822050000 -0400" channel="0104">
     <title lang="es">La Vida Es Una Lotería</title>
     <desc lang="es">Programacion oficial consultada en TVN.</desc>
-  </programme>
-  <programme start="20260821120000 -0400" stop="20260821140000 -0400" channel="0102">
-    <title lang="es">Al fondo hay sitio</title>
-    <desc lang="es">Programacion oficial consultada en La Red.</desc>
-  </programme>
-  <programme start="20260821140000 -0400" stop="20260821150000 -0400" channel="0102">
-    <title lang="es">Hudson &amp; Rex</title>
-    <desc lang="es">Programacion oficial consultada en La Red.</desc>
-  </programme>
-  <programme start="20260821150000 -0400" stop="20260821160000 -0400" channel="0102">
-    <title lang="es">La Mujer Biónica</title>
-    <desc lang="es">Programacion oficial consultada en La Red.</desc>
   </programme>
   <programme start="20260821160000 -0400" stop="20260821170000 -0400" channel="0102">
     <title lang="es">Los Ángeles de Charlie</title>
@@ -24895,85 +24879,37 @@
     <title lang="es">Volverías con tu Ex? 2 (lo mejor)</title>
     <desc lang="es">Programacion oficial consultada en Mega.</desc>
   </programme>
-  <programme start="20260821131000 -0400" stop="20260821132000 -0400" channel="NHKWorldJapan.jp">
-    <title lang="en">MATSURI: The Heartbeat of Japan</title>
-    <sub-title lang="en">Hibuse Matsuri: Kashima-chiku, Minamisoma</sub-title>
-    <desc lang="en">At Hibuse Matsuri, the Fire Prevention Festival, men douse buildings in water as a prayer for protection from fire. At this event held in January, bonfires and sake help to keep people warm.</desc>
-    <url>https://www3.nhk.or.jp/nhkworld/en/shows/matsuri_japan/</url>
+  <programme start="20260822080000 -0400" stop="20260822130000 -0400" channel="0105">
+    <title lang="es">Meganoticias Siempre Juntos</title>
+    <desc lang="es">Programacion oficial consultada en Mega.</desc>
   </programme>
-  <programme start="20260821132000 -0400" stop="20260821133000 -0400" channel="NHKWorldJapan.jp">
-    <title lang="en">Herbal 10min</title>
-    <sub-title lang="en">Seeding the Future</sub-title>
-    <desc lang="en">In Uda, discover Japan's oldest private medicinal herb garden, where the natural landscape from 300 years ago is preserved in a botanical time capsule, a sanctuary of the local culture and history.</desc>
-    <url>https://www3.nhk.or.jp/nhkworld/en/shows/herbalsymphony/</url>
+  <programme start="20260822130000 -0400" stop="20260822154000 -0400" channel="0105">
+    <title lang="es">Meganoticias Actualiza</title>
+    <desc lang="es">Programacion oficial consultada en Mega.</desc>
   </programme>
-  <programme start="20260821133000 -0400" stop="20260821140000 -0400" channel="NHKWorldJapan.jp">
-    <title lang="en">Asia Insight</title>
-    <sub-title lang="en">India's Cooking Fuel Crisis</sub-title>
-    <desc lang="en">India had relied on receiving 90% of its imported liquid petroleum gas from the Middle East, but after US strike on Iran, people and restaurants are struggling to deal with surging gas prices.</desc>
-    <url>https://www3.nhk.or.jp/nhkworld/en/shows/asiainsight/</url>
+  <programme start="20260822154000 -0400" stop="20260822180000 -0400" channel="0105">
+    <title lang="es">Fútbol Femenino Recoleta vs. Colo-Colo</title>
+    <desc lang="es">Programacion oficial consultada en Mega.</desc>
   </programme>
-  <programme start="20260821140000 -0400" stop="20260821141000 -0400" channel="NHKWorldJapan.jp">
-    <title lang="en">NHK NEWSLINE</title>
-    <desc lang="en">NHK NEWSLINE brings you up to date with the latest from Japan, Asia and around the world. Our team covers breaking news and major developments, with trusted anchors to tie it all together.</desc>
-    <url>https://www3.nhk.or.jp/nhkworld/en/news/</url>
+  <programme start="20260822180000 -0400" stop="20260822190000 -0400" channel="0105">
+    <title lang="es">Viajando Ando</title>
+    <desc lang="es">Programacion oficial consultada en Mega.</desc>
   </programme>
-  <programme start="20260821141000 -0400" stop="20260821142300 -0400" channel="NHKWorldJapan.jp">
-    <title lang="en">BIZ STREAM SPECIAL EDITION</title>
-    <sub-title lang="en">Tackling Wood Waste (370)</sub-title>
-    <desc lang="en">Tackling Wood Waste: Japan possesses large amounts of usable forestland. This episode focuses on business initiatives that are trying to increase the use of Japanese timber and wood waste.</desc>
-    <url>https://www3.nhk.or.jp/nhkworld/en/shows/bizstream/</url>
+  <programme start="20260822190000 -0400" stop="20260822200000 -0400" channel="0105">
+    <title lang="es">Nuestras Fiestas</title>
+    <desc lang="es">Programacion oficial consultada en Mega.</desc>
   </programme>
-  <programme start="20260821142300 -0400" stop="20260821142800 -0400" channel="NHKWorldJapan.jp">
-    <title lang="en">JAPAN FROM ABOVE: UP CLOSE</title>
-    <sub-title lang="en">Beppu Hot Springs</sub-title>
-    <desc lang="en">This program takes you on an aerial journey across 21st century Japan. Enjoy the bird's-eye view of unique landscapes as well as intimate portraits of the people who inhabit the archipelago.</desc>
-    <url>https://www3.nhk.or.jp/nhkworld/en/shows/upclose/</url>
+  <programme start="20260822200000 -0400" stop="20260822221000 -0400" channel="0105">
+    <title lang="es">Meganoticias Prime</title>
+    <desc lang="es">Programacion oficial consultada en Mega.</desc>
   </programme>
-  <programme start="20260821142800 -0400" stop="20260821144300 -0400" channel="NHKWorldJapan.jp">
-    <title lang="en">Direct Talk</title>
-    <sub-title lang="en">Connecting Architecture, People, and Nature</sub-title>
-    <desc lang="en">The architect Sejima Kazuyo has won global attention for her delicate style, breaking from the norm to achieve free, open spaces. She explains her architectural philosophy.</desc>
-    <url>https://www3.nhk.or.jp/nhkworld/en/shows/directtalk/</url>
+  <programme start="20260822221000 -0400" stop="20260823001500 -0400" channel="0105">
+    <title lang="es">Coliseo</title>
+    <desc lang="es">Programacion oficial consultada en Mega.</desc>
   </programme>
-  <programme start="20260821144300 -0400" stop="20260821145500 -0400" channel="NHKWorldJapan.jp">
-    <title lang="en">Vanishing Alpine Meadows</title>
-    <sub-title lang="en">On the Brink of Extinction?: Ep.3 Vanishing Alpine Meadows</sub-title>
-    <desc lang="en">The ecosystem in Hokkaido's Taisetsu Mountains is changing dramatically. Alpine plants have vanished due to global warming which has created a crisis for rare animals that depend on them to survive.</desc>
-    <url>https://www3.nhk.or.jp/nhkworld/en/shows/impacts/</url>
-  </programme>
-  <programme start="20260821145500 -0400" stop="20260821150000 -0400" channel="NHKWorldJapan.jp">
-    <title lang="en">Ukiyoe EDO-LIFE:Night on the Town</title>
-    <sub-title lang="en">Night View of Saruwaka-machi</sub-title>
-    <desc lang="en">A full moon shines above a bustling neighborhood. Featured prominently are kabuki theaters...on hiatus. Still, people have come out to take in the nightlife, and hopefully a celebrity sighting or two.</desc>
-  </programme>
-  <programme start="20260821150000 -0400" stop="20260821153000 -0400" channel="NHKWorldJapan.jp">
-    <title lang="en">Medical Frontiers 2026</title>
-    <sub-title lang="en">When Lung Cancer Strikes Nonsmokers</sub-title>
-    <desc lang="en">Lung cancer is on the rise among nonsmokers. Japanese doctors have advanced surgery that removes less lung tissue while maintaining high survival rates when the disease is detected early.</desc>
-    <url>https://www3.nhk.or.jp/nhkworld/en/shows/medicalfrontiers/</url>
-  </programme>
-  <programme start="20260821153000 -0400" stop="20260821160000 -0400" channel="NHKWorldJapan.jp">
-    <title lang="en">SCHOOL OF J-POP</title>
-    <sub-title lang="en">Exploring Vocaloid Music Through'Cosmic Princess Kaguya!'</sub-title>
-    <desc lang="en">Comedian Naomi Watanabe unpack the culture and history behind J-POP for beginners everywhere, Today's subject is the 2026 anime film that has captivated the world: "Cosmic Princess Kaguya!"</desc>
-    <url>https://www3.nhk.or.jp/nhkworld/en/shows/schoolofjpop/</url>
-  </programme>
-  <programme start="20260821160000 -0400" stop="20260821161000 -0400" channel="NHKWorldJapan.jp">
-    <title lang="en">NHK NEWSLINE</title>
-    <desc lang="en">NHK NEWSLINE brings you up to date with the latest from Japan, Asia and around the world. Our team covers breaking news and major developments, with trusted anchors to tie it all together.</desc>
-  </programme>
-  <programme start="20260821161000 -0400" stop="20260821162000 -0400" channel="NHKWorldJapan.jp">
-    <title lang="en">Century Signboards</title>
-    <sub-title lang="en">All About the Beans</sub-title>
-    <desc lang="en">A 100-year-old café born out of the friendship between Brazil and Japan. Coffee so great that it was even loved by superstar John Lennon.</desc>
-    <url>https://www3.nhk.or.jp/nhkworld/en/shows/centurysignboards/</url>
-  </programme>
-  <programme start="20260821162000 -0400" stop="20260821163000 -0400" channel="NHKWorldJapan.jp">
-    <title lang="en">Nun's Seasonal Calendar</title>
-    <sub-title lang="en">June</sub-title>
-    <desc lang="en">In this episode, we learn about boshu and geshi, two dates from early summer. The chefs prepare ume plums and tea leaves and teach us how to make a pair of refreshing summer dishes.</desc>
-    <url>https://www3.nhk.or.jp/nhkworld/en/shows/nunscalendar/</url>
+  <programme start="20260823001500 -0400" stop="20260823021500 -0400" channel="0105">
+    <title lang="es">Travel App</title>
+    <desc lang="es">Programacion oficial consultada en Mega.</desc>
   </programme>
   <programme start="20260821163000 -0400" stop="20260821170000 -0400" channel="NHKWorldJapan.jp">
     <title lang="en">Design X Stories</title>
@@ -28048,13 +27984,47 @@
     <desc lang="en">Disaster training is advancing with digital technology. See how AR/VR technology is helping participants gain realistic experience about the movement of smoke in fires and the risks of a tsunami.</desc>
     <url>https://www3.nhk.or.jp/nhkworld/en/shows/bosaiscience/</url>
   </programme>
-  <programme start="20260821190000 -0400" stop="20260821200000 -0400" channel="0106">
-    <title lang="es">Traicionada</title>
-    <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
+  <programme start="20260829192500 -0400" stop="20260829193000 -0400" channel="NHKWorldJapan.jp">
+    <title lang="en">DESIGN MUSEUM JAPAN</title>
+    <sub-title lang="en">Propellers: Unwavering Rationality</sub-title>
+    <desc lang="en">Okayama / Hara Kenya (graphic designer) Hara visits a Japanese propeller maker with a 30% global market share, to discover the merit of finding an object's perfect shape, without compromise.</desc>
+    <url>https://www3.nhk.or.jp/nhkworld/en/shows/designmuseumjapan/</url>
   </programme>
-  <programme start="20260821200000 -0400" stop="20260821223500 -0400" channel="0106">
-    <title lang="es">CHV Noticias central</title>
-    <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
+  <programme start="20260829193000 -0400" stop="20260829200000 -0400" channel="NHKWorldJapan.jp">
+    <title lang="en">KABUKI KOOL</title>
+    <sub-title lang="en">Married Love</sub-title>
+    <desc lang="en">Actor Kataoka Ainosuke explores the sometimes tragic and occasionally comical relationships between married couples in kabuki. Explore these dramatic tales of fidelity and romance.</desc>
+    <url>https://www3.nhk.or.jp/nhkworld/en/shows/kabukikool/</url>
+  </programme>
+  <programme start="20260829200000 -0400" stop="20260829205000 -0400" channel="NHKWorldJapan.jp">
+    <title lang="en">Human-Elephant Conflict: Sri Lanka</title>
+    <desc lang="en">In Sri Lanka, elephants are both feared and revered. In 2024, around 150 people and 400 elephants died in increasingly frequent encounters, which can force people to make life-altering decisions.</desc>
+    <url>https://www3.nhk.or.jp/nhkworld/en/shows/human-elephant/</url>
+  </programme>
+  <programme start="20260829205000 -0400" stop="20260829210000 -0400" channel="NHKWorldJapan.jp">
+    <title lang="en">Nun's Seasonal Calendar</title>
+    <sub-title lang="en">August</sub-title>
+    <desc lang="en">In this episode, we learn about risshu and shosho, two dates of early autumn. The temple chefs show us how to prepare dishes using winter melon and share their recipe for a Japanese-style ratatouille.</desc>
+    <url>https://www3.nhk.or.jp/nhkworld/en/shows/nunscalendar/</url>
+  </programme>
+  <programme start="20260829210000 -0400" stop="20260829211000 -0400" channel="NHKWorldJapan.jp">
+    <title lang="en">NHK NEWSLINE</title>
+    <desc lang="en">NHK NEWSLINE brings you up to date with the latest from Japan, Asia and around the world. Our team covers breaking news and major developments, with trusted anchors to tie it all together.</desc>
+    <url>https://www3.nhk.or.jp/nhkworld/en/news/</url>
+  </programme>
+  <programme start="20260829211000 -0400" stop="20260829220000 -0400" channel="NHKWorldJapan.jp">
+    <title lang="en">NHK WORLD-JAPAN Special program</title>
+    <sub-title lang="en">AIZU</sub-title>
+    <desc lang="en">NHK WORLD-JAPAN presents a wide range of programs from news, current affairs, documentaries, etc. focusing on Japan and Asia.</desc>
+  </programme>
+  <programme start="20260829220000 -0400" stop="20260829221000 -0400" channel="NHKWorldJapan.jp">
+    <title lang="en">NHK NEWSLINE</title>
+    <desc lang="en">NHK NEWSLINE brings you up to date with the latest from Japan, Asia and around the world. Our team covers breaking news and major developments, with trusted anchors to tie it all together.</desc>
+    <url>https://www3.nhk.or.jp/nhkworld/en/news/</url>
+  </programme>
+  <programme start="20260829221000 -0400" stop="20260829224000 -0400" channel="NHKWorldJapan.jp">
+    <title lang="en">NHK WORLD SELECTION</title>
+    <desc lang="en">A selection of acclaimed programs from NHK's domestic channels dubbed into English.</desc>
   </programme>
   <programme start="20260821223500 -0400" stop="20260822010000 -0400" channel="0106">
     <title lang="es">Primer plano</title>
@@ -28098,10 +28068,6 @@
   </programme>
   <programme start="20260822202000 -0400" stop="20260822232000 -0400" channel="0106">
     <title lang="es">CHV Noticias central</title>
-    <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
-  </programme>
-  <programme start="20260821191500 -0400" stop="20260821210000 -0400" channel="0107">
-    <title lang="es">Qué Dice Chile</title>
     <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
   </programme>
   <programme start="20260821210000 -0400" stop="20260821224000 -0400" channel="0107">
@@ -28178,18 +28144,6 @@
   </programme>
   <programme start="20260822222000 -0400" stop="20260823012000 -0400" channel="0107">
     <title lang="es">El clan</title>
-    <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
-  </programme>
-  <programme start="20260821190000 -0400" stop="20260821193000 -0400" channel="0201">
-    <title lang="es">Noticias 24 Claves Del Día</title>
-    <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
-  </programme>
-  <programme start="20260821193000 -0400" stop="20260821200000 -0400" channel="0201">
-    <title lang="es">Sonidos 24</title>
-    <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
-  </programme>
-  <programme start="20260821200000 -0400" stop="20260821210000 -0400" channel="0201">
-    <title lang="es">24 Horas deportes</title>
     <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
   </programme>
   <programme start="20260821210000 -0400" stop="20260821224500 -0400" channel="0201">
@@ -28392,19 +28346,7 @@
     <title lang="es">Entrevistas 24</title>
     <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
   </programme>
-  <programme start="20260821190000 -0400" stop="20260821193000 -0400" channel="MeganoticiasAhora.cl">
-    <title lang="es">Megainvestiga</title>
-    <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
-  </programme>
-  <programme start="20260821193000 -0400" stop="20260821200000 -0400" channel="MeganoticiasAhora.cl">
-    <title lang="es">Megatiempo PM</title>
-    <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
-  </programme>
-  <programme start="20260821200000 -0400" stop="20260821220000 -0400" channel="MeganoticiasAhora.cl">
-    <title lang="es">Meganoticias Prime</title>
-    <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
-  </programme>
-  <programme start="20260821220000 -0400" stop="20260821230000 -0400" channel="MeganoticiasAhora.cl">
+  <programme start="20260821220500 -0400" stop="20260821230000 -0400" channel="MeganoticiasAhora.cl">
     <title lang="es">Megadeportes</title>
     <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
   </programme>
@@ -28478,14 +28420,6 @@
   </programme>
   <programme start="20260822230000 -0400" stop="20260823020000 -0400" channel="MeganoticiasAhora.cl">
     <title lang="es">Megainvestiga</title>
-    <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
-  </programme>
-  <programme start="20260821183000 -0400" stop="20260821200000 -0400" channel="1153">
-    <title lang="es">CHV Noticias tarde</title>
-    <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
-  </programme>
-  <programme start="20260821200000 -0400" stop="20260821223000 -0400" channel="1153">
-    <title lang="es">CHV Noticias central</title>
     <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
   </programme>
   <programme start="20260821223000 -0400" stop="20260821230000 -0400" channel="1153">
@@ -28600,20 +28534,8 @@
     <title lang="es">Reportajes CHV Noticias</title>
     <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
   </programme>
-  <programme start="20260821190000 -0400" stop="20260821193000 -0400" channel="0124">
-    <title lang="es">Emprendedores T13</title>
-    <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
-  </programme>
-  <programme start="20260821193000 -0400" stop="20260821200000 -0400" channel="0124">
-    <title lang="es">Vida y Salud</title>
-    <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
-  </programme>
-  <programme start="20260821200000 -0400" stop="20260821210000 -0400" channel="0124">
-    <title lang="es">Micrófono Abierto</title>
-    <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
-  </programme>
   <programme start="20260821210000 -0400" stop="20260821224000 -0400" channel="0124">
-    <title lang="es">Teletrece</title>
+    <title lang="es" />
     <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
   </programme>
   <programme start="20260821224000 -0400" stop="20260821225000 -0400" channel="0124">
@@ -28724,15 +28646,7 @@
     <title lang="es">Mi segundo tiempo</title>
     <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
   </programme>
-  <programme start="20260821190000 -0400" stop="20260821210000 -0400" channel="45">
-    <title lang="es">Ahora Caigo Especial</title>
-    <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
-  </programme>
-  <programme start="20260821210000 -0400" stop="20260821220000 -0400" channel="45">
-    <title lang="es">31 minutos</title>
-    <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
-  </programme>
-  <programme start="20260821220000 -0400" stop="20260821230000 -0400" channel="45">
+  <programme start="20260821220500 -0400" stop="20260821230000 -0400" channel="45">
     <title lang="es">Chile conectado</title>
     <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
   </programme>
@@ -28824,18 +28738,6 @@
     <title lang="es">Aniversario Ntv</title>
     <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
   </programme>
-  <programme start="20260821183000 -0400" stop="20260821200000 -0400" channel="1437">
-    <title lang="es">Calle 7</title>
-    <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
-  </programme>
-  <programme start="20260821200000 -0400" stop="20260821210000 -0400" channel="1437">
-    <title lang="es">Patiperros</title>
-    <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
-  </programme>
-  <programme start="20260821210000 -0400" stop="20260821220000 -0400" channel="1437">
-    <title lang="es">¿Dónde está Elisa?</title>
-    <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
-  </programme>
   <programme start="20260821220000 -0400" stop="20260821230000 -0400" channel="1437">
     <title lang="es">Mea Culpa</title>
     <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
@@ -28920,24 +28822,8 @@
     <title lang="es">El día menos pensado</title>
     <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
   </programme>
-  <programme start="20260821190000 -0400" stop="20260821200000 -0400" channel="13C.cl@SD">
-    <title lang="es">El Giornalista</title>
-    <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
-  </programme>
-  <programme start="20260821200000 -0400" stop="20260821210000 -0400" channel="13C.cl@SD">
-    <title lang="es">Energía Infinita</title>
-    <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
-  </programme>
-  <programme start="20260821210000 -0400" stop="20260821220000 -0400" channel="13C.cl@SD">
-    <title lang="es">Cultura Milenaria</title>
-    <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
-  </programme>
-  <programme start="20260821220000 -0400" stop="20260821223000 -0400" channel="13C.cl@SD">
-    <title lang="es">La Gracia de Viajar</title>
-    <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
-  </programme>
   <programme start="20260821223000 -0400" stop="20260821233000 -0400" channel="13C.cl@SD">
-    <title lang="es">Siempre hay un Chileno</title>
+    <title lang="es">Siempre hay un Chileno | ANDALUCÍA</title>
     <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
   </programme>
   <programme start="20260821233000 -0400" stop="20260822000000 -0400" channel="13C.cl@SD">
@@ -29067,18 +28953,6 @@
   <programme start="20260822233000 -0400" stop="20260823023000 -0400" channel="13C.cl@SD">
     <title lang="es">El Clan, en busca de la aventura</title>
     <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
-  </programme>
-  <programme start="20260821130000 -0400" stop="20260821140000 -0400" channel="M1.ua@SD">
-    <title lang="uk">Головний хіт-парад України</title>
-    <desc lang="es">Programacion semanal consultada en el sitio oficial de M1.</desc>
-  </programme>
-  <programme start="20260821140000 -0400" stop="20260821145000 -0400" channel="M1.ua@SD">
-    <title lang="uk">Хіт-парад «СвоєРідне»</title>
-    <desc lang="es">Programacion semanal consultada en el sitio oficial de M1.</desc>
-  </programme>
-  <programme start="20260821145000 -0400" stop="20260821160000 -0400" channel="M1.ua@SD">
-    <title lang="uk">M1 HITS</title>
-    <desc lang="es">Programacion semanal consultada en el sitio oficial de M1.</desc>
   </programme>
   <programme start="20260821160000 -0400" stop="20260821165000 -0400" channel="M1.ua@SD">
     <title lang="uk">Час кохати</title>
@@ -29336,31 +29210,6 @@
     <title lang="uk">ХІТИ НОН-СТОП</title>
     <desc lang="es">Programacion semanal consultada en el sitio oficial de M2.</desc>
   </programme>
-  <programme start="20260821174815 -0400" stop="20260821184157 -0400" channel="RedBullWorldEnglish.int">
-    <title lang="en">Castles in the Sky</title>
-    <sub-title lang="en">A completely new approach to surf filmmaking</sub-title>
-    <desc lang="en">This is as close to the experience of pioneering new coastlines as you can get without getting on a plane.</desc>
-  </programme>
-  <programme start="20260821184157 -0400" stop="20260821192729 -0400" channel="RedBullWorldEnglish.int">
-    <title lang="en">Creepy Fingers</title>
-    <sub-title lang="en">Witness surfer antics in a journey of playful exploration</sub-title>
-    <desc lang="en">Witness the wild antics of top surfers in a blend of beauty, silliness and raw human existence.</desc>
-  </programme>
-  <programme start="20260821192729 -0400" stop="20260821202218 -0400" channel="RedBullWorldEnglish.int">
-    <title lang="en">Distance Between Dreams</title>
-    <sub-title lang="en">Redefining big wave surfing</sub-title>
-    <desc lang="en">During a historically big winter, iconic surfer Ian Walsh is out to redefine the ceiling on paddle surfing.</desc>
-  </programme>
-  <programme start="20260821202218 -0400" stop="20260821210618 -0400" channel="RedBullWorldEnglish.int">
-    <title lang="en">WSL MEO Rip Curl Pro Portugal</title>
-    <sub-title lang="en">Inside Pro Surfing S1E3</sub-title>
-    <desc lang="en">Come backstage for a closer study of WSL MEO Rip Curl Pro Portugal’s biggest storylines.</desc>
-  </programme>
-  <programme start="20260821210618 -0400" stop="20260821214557 -0400" channel="RedBullWorldEnglish.int">
-    <title lang="en">Momentum</title>
-    <sub-title lang="en">A new surf era begins with Kelly Slater, Rob Machado and rising stars </sub-title>
-    <desc lang="en">Momentum features the first sections of New School surfers Kelly Slater, Rob Machado, Shane Dorian and more.</desc>
-  </programme>
   <programme start="20260821214557 -0400" stop="20260821222254 -0400" channel="RedBullWorldEnglish.int">
     <title lang="en">Drive Thru Europe</title>
     <sub-title lang="en">Revealing Europe's historic wave spots</sub-title>
@@ -29574,81 +29423,89 @@
     <sub-title lang="en">Red Bull Signature Series S2020E7</sub-title>
     <desc lang="en">Held in the Great Smoky Mountains, America's top off-road riders faced a brutal test of man and machine.</desc>
   </programme>
-  <programme start="20260822205332 -0400" stop="20260823025332 -0400" channel="RedBullWorldEnglish.int">
+  <programme start="20260822205332 -0400" stop="20260822220107 -0400" channel="RedBullWorldEnglish.int">
+    <title lang="en">Crandon World Cup</title>
+    <sub-title lang="en">Red Bull Signature Series S2020E8</sub-title>
+    <desc lang="en">America's best off-road drivers race on the longest, fastest short-course track at Crandon Raceway.</desc>
+  </programme>
+  <programme start="20260822220107 -0400" stop="20260822230929 -0400" channel="RedBullWorldEnglish.int">
+    <title lang="en">Volcom Pipe Pro</title>
+    <sub-title lang="en">Red Bull Signature Series S2019E1</sub-title>
+    <desc lang="en">The world's best surfers converge on the legendary Banzai Pipeline break in Oahu, Hawaii.</desc>
+  </programme>
+  <programme start="20260822230929 -0400" stop="20260822233529 -0400" channel="RedBullWorldEnglish.int">
+    <title lang="en">From a paper plane contest to diving off ruins </title>
+    <sub-title lang="en">For Reals S1E5</sub-title>
+    <desc lang="en">Red Bull athletes do it all, from diving off ancient ruins to acing a paper plane competition.</desc>
+  </programme>
+  <programme start="20260822233529 -0400" stop="20260823000205 -0400" channel="RedBullWorldEnglish.int">
+    <title lang="en">From F1 desert racing to a skatepark in the sky </title>
+    <sub-title lang="en">For Reals S1E1</sub-title>
+    <desc lang="en">Red Bull athletes do it all, from riding a skatepark under a hot air balloon to F1 drivers racing on water. </desc>
+  </programme>
+  <programme start="20260823000205 -0400" stop="20260823060205 -0400" channel="RedBullWorldEnglish.int">
     <title lang="es">RedBull TV World en vivo</title>
     <desc lang="es">Programacion continua de Red Bull TV; la senal inglesa no publica una parrilla XMLTV local estable.</desc>
   </programme>
-  <programme start="20260823025332 -0400" stop="20260823085332 -0400" channel="RedBullWorldEnglish.int">
+  <programme start="20260823060205 -0400" stop="20260823120205 -0400" channel="RedBullWorldEnglish.int">
     <title lang="es">RedBull TV World en vivo</title>
     <desc lang="es">Programacion continua de Red Bull TV; la senal inglesa no publica una parrilla XMLTV local estable.</desc>
   </programme>
-  <programme start="20260823085332 -0400" stop="20260823145332 -0400" channel="RedBullWorldEnglish.int">
+  <programme start="20260823120205 -0400" stop="20260823180205 -0400" channel="RedBullWorldEnglish.int">
     <title lang="es">RedBull TV World en vivo</title>
     <desc lang="es">Programacion continua de Red Bull TV; la senal inglesa no publica una parrilla XMLTV local estable.</desc>
   </programme>
-  <programme start="20260823145332 -0400" stop="20260823205332 -0400" channel="RedBullWorldEnglish.int">
+  <programme start="20260823180205 -0400" stop="20260824000205 -0400" channel="RedBullWorldEnglish.int">
     <title lang="es">RedBull TV World en vivo</title>
     <desc lang="es">Programacion continua de Red Bull TV; la senal inglesa no publica una parrilla XMLTV local estable.</desc>
   </programme>
-  <programme start="20260823205332 -0400" stop="20260824025332 -0400" channel="RedBullWorldEnglish.int">
+  <programme start="20260824000205 -0400" stop="20260824060205 -0400" channel="RedBullWorldEnglish.int">
     <title lang="es">RedBull TV World en vivo</title>
     <desc lang="es">Programacion continua de Red Bull TV; la senal inglesa no publica una parrilla XMLTV local estable.</desc>
   </programme>
-  <programme start="20260824025332 -0400" stop="20260824085332 -0400" channel="RedBullWorldEnglish.int">
+  <programme start="20260824060205 -0400" stop="20260824120205 -0400" channel="RedBullWorldEnglish.int">
     <title lang="es">RedBull TV World en vivo</title>
     <desc lang="es">Programacion continua de Red Bull TV; la senal inglesa no publica una parrilla XMLTV local estable.</desc>
   </programme>
-  <programme start="20260824085332 -0400" stop="20260824145332 -0400" channel="RedBullWorldEnglish.int">
+  <programme start="20260824120205 -0400" stop="20260824180205 -0400" channel="RedBullWorldEnglish.int">
     <title lang="es">RedBull TV World en vivo</title>
     <desc lang="es">Programacion continua de Red Bull TV; la senal inglesa no publica una parrilla XMLTV local estable.</desc>
   </programme>
-  <programme start="20260824145332 -0400" stop="20260824205332 -0400" channel="RedBullWorldEnglish.int">
+  <programme start="20260824180205 -0400" stop="20260825000205 -0400" channel="RedBullWorldEnglish.int">
     <title lang="es">RedBull TV World en vivo</title>
     <desc lang="es">Programacion continua de Red Bull TV; la senal inglesa no publica una parrilla XMLTV local estable.</desc>
   </programme>
-  <programme start="20260824205332 -0400" stop="20260825025332 -0400" channel="RedBullWorldEnglish.int">
+  <programme start="20260825000205 -0400" stop="20260825060205 -0400" channel="RedBullWorldEnglish.int">
     <title lang="es">RedBull TV World en vivo</title>
     <desc lang="es">Programacion continua de Red Bull TV; la senal inglesa no publica una parrilla XMLTV local estable.</desc>
   </programme>
-  <programme start="20260825025332 -0400" stop="20260825085332 -0400" channel="RedBullWorldEnglish.int">
+  <programme start="20260825060205 -0400" stop="20260825120205 -0400" channel="RedBullWorldEnglish.int">
     <title lang="es">RedBull TV World en vivo</title>
     <desc lang="es">Programacion continua de Red Bull TV; la senal inglesa no publica una parrilla XMLTV local estable.</desc>
   </programme>
-  <programme start="20260825085332 -0400" stop="20260825145332 -0400" channel="RedBullWorldEnglish.int">
+  <programme start="20260825120205 -0400" stop="20260825180205 -0400" channel="RedBullWorldEnglish.int">
     <title lang="es">RedBull TV World en vivo</title>
     <desc lang="es">Programacion continua de Red Bull TV; la senal inglesa no publica una parrilla XMLTV local estable.</desc>
   </programme>
-  <programme start="20260825145332 -0400" stop="20260825205332 -0400" channel="RedBullWorldEnglish.int">
+  <programme start="20260825180205 -0400" stop="20260826000205 -0400" channel="RedBullWorldEnglish.int">
     <title lang="es">RedBull TV World en vivo</title>
     <desc lang="es">Programacion continua de Red Bull TV; la senal inglesa no publica una parrilla XMLTV local estable.</desc>
   </programme>
-  <programme start="20260825205332 -0400" stop="20260826025332 -0400" channel="RedBullWorldEnglish.int">
+  <programme start="20260826000205 -0400" stop="20260826060205 -0400" channel="RedBullWorldEnglish.int">
     <title lang="es">RedBull TV World en vivo</title>
     <desc lang="es">Programacion continua de Red Bull TV; la senal inglesa no publica una parrilla XMLTV local estable.</desc>
   </programme>
-  <programme start="20260826025332 -0400" stop="20260826085332 -0400" channel="RedBullWorldEnglish.int">
+  <programme start="20260826060205 -0400" stop="20260826120205 -0400" channel="RedBullWorldEnglish.int">
     <title lang="es">RedBull TV World en vivo</title>
     <desc lang="es">Programacion continua de Red Bull TV; la senal inglesa no publica una parrilla XMLTV local estable.</desc>
   </programme>
-  <programme start="20260826085332 -0400" stop="20260826145332 -0400" channel="RedBullWorldEnglish.int">
+  <programme start="20260826120205 -0400" stop="20260826180205 -0400" channel="RedBullWorldEnglish.int">
     <title lang="es">RedBull TV World en vivo</title>
     <desc lang="es">Programacion continua de Red Bull TV; la senal inglesa no publica una parrilla XMLTV local estable.</desc>
   </programme>
-  <programme start="20260826145332 -0400" stop="20260826205332 -0400" channel="RedBullWorldEnglish.int">
+  <programme start="20260826180205 -0400" stop="20260827000205 -0400" channel="RedBullWorldEnglish.int">
     <title lang="es">RedBull TV World en vivo</title>
     <desc lang="es">Programacion continua de Red Bull TV; la senal inglesa no publica una parrilla XMLTV local estable.</desc>
-  </programme>
-  <programme start="20260821181108 -0400" stop="20260821190139 -0400" channel="RedBullChileEspanol.cl">
-    <title lang="es">Red Bull Soapbox Race: coches sin motor en Texas</title>
-    <desc lang="es">Equipos construyen sus propios coches sin motor para desafiar una pista empinada llena de obstáculos en Dallas, Texas, donde la competencia se basa en velocidad y creatividad de diseño.</desc>
-  </programme>
-  <programme start="20260821190139 -0400" stop="20260821201527 -0400" channel="RedBullChileEspanol.cl">
-    <title lang="es">Ride: United - motociclismo competitivo</title>
-    <desc lang="es">Estrellas del enduro, FMX y motocross se reúnen para celebrar la comunidad y camaradería del motociclismo, donde el estilo pasa a segundo plano y la pasión lo une todo.</desc>
-  </programme>
-  <programme start="20260821201527 -0400" stop="20260821211504 -0400" channel="RedBullChileEspanol.cl">
-    <title lang="es">Life &amp; Basketball: The Rise of Lethal Shooter</title>
-    <desc lang="es">Conoce la historia de Chris Matthews, alias Lethal Shooter, el entrenador de tiro más solicitado del mundo, cuya pasión y perseverancia lo llevaron de jugador a mentor clave en el baloncesto global.</desc>
   </programme>
   <programme start="20260821211504 -0400" stop="20260821213820 -0400" channel="RedBullChileEspanol.cl">
     <title lang="es">Nadine Wallner en el El Chaltén - esquí freeride</title>
@@ -29842,249 +29699,109 @@
     <title lang="es">RedBull TV Español en vivo</title>
     <desc lang="es">Programacion continua de la senal chilena en espanol; la parrilla se obtiene desde Red Bull TV.</desc>
   </programme>
-  <programme start="20260819200000 -0400" stop="20260820020000 -0400" channel="AutenticHistory.de">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260820020000 -0400" stop="20260820080000 -0400" channel="AutenticHistory.de">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260820080000 -0400" stop="20260820140000 -0400" channel="AutenticHistory.de">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260820140000 -0400" stop="20260820200000 -0400" channel="AutenticHistory.de">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260820200000 -0400" stop="20260821020000 -0400" channel="AutenticHistory.de">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260821020000 -0400" stop="20260821080000 -0400" channel="AutenticHistory.de">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260821080000 -0400" stop="20260821140000 -0400" channel="AutenticHistory.de">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260821140000 -0400" stop="20260821200000 -0400" channel="AutenticHistory.de">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260821200000 -0400" stop="20260822020000 -0400" channel="AutenticHistory.de">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260822020000 -0400" stop="20260822080000 -0400" channel="AutenticHistory.de">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260822080000 -0400" stop="20260822140000 -0400" channel="AutenticHistory.de">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260822140000 -0400" stop="20260822200000 -0400" channel="AutenticHistory.de">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260822200000 -0400" stop="20260823020000 -0400" channel="AutenticHistory.de">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260823020000 -0400" stop="20260823080000 -0400" channel="AutenticHistory.de">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260823080000 -0400" stop="20260823140000 -0400" channel="AutenticHistory.de">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260823140000 -0400" stop="20260823200000 -0400" channel="AutenticHistory.de">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260823200000 -0400" stop="20260824020000 -0400" channel="AutenticHistory.de">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260824020000 -0400" stop="20260824080000 -0400" channel="AutenticHistory.de">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260824080000 -0400" stop="20260824140000 -0400" channel="AutenticHistory.de">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260824140000 -0400" stop="20260824200000 -0400" channel="AutenticHistory.de">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260824200000 -0400" stop="20260825020000 -0400" channel="AutenticHistory.de">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260825020000 -0400" stop="20260825080000 -0400" channel="AutenticHistory.de">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260825080000 -0400" stop="20260825140000 -0400" channel="AutenticHistory.de">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260825140000 -0400" stop="20260825200000 -0400" channel="AutenticHistory.de">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260825200000 -0400" stop="20260826020000 -0400" channel="AutenticHistory.de">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260826020000 -0400" stop="20260826080000 -0400" channel="AutenticHistory.de">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260826080000 -0400" stop="20260826140000 -0400" channel="AutenticHistory.de">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260826140000 -0400" stop="20260826200000 -0400" channel="AutenticHistory.de">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260819200000 -0400" stop="20260820020000 -0400" channel="1763">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260820020000 -0400" stop="20260820080000 -0400" channel="1763">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260820080000 -0400" stop="20260820140000 -0400" channel="1763">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260820140000 -0400" stop="20260820200000 -0400" channel="1763">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260820200000 -0400" stop="20260821020000 -0400" channel="1763">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260821020000 -0400" stop="20260821080000 -0400" channel="1763">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260821080000 -0400" stop="20260821140000 -0400" channel="1763">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260821140000 -0400" stop="20260821200000 -0400" channel="1763">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260821200000 -0400" stop="20260822020000 -0400" channel="1763">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260822020000 -0400" stop="20260822080000 -0400" channel="1763">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260822080000 -0400" stop="20260822140000 -0400" channel="1763">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260822140000 -0400" stop="20260822200000 -0400" channel="1763">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260822200000 -0400" stop="20260823020000 -0400" channel="1763">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260823020000 -0400" stop="20260823080000 -0400" channel="1763">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260823080000 -0400" stop="20260823140000 -0400" channel="1763">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260823140000 -0400" stop="20260823200000 -0400" channel="1763">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260823200000 -0400" stop="20260824020000 -0400" channel="1763">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260824020000 -0400" stop="20260824080000 -0400" channel="1763">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260824080000 -0400" stop="20260824140000 -0400" channel="1763">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260824140000 -0400" stop="20260824200000 -0400" channel="1763">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260824200000 -0400" stop="20260825020000 -0400" channel="1763">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260825020000 -0400" stop="20260825080000 -0400" channel="1763">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260825080000 -0400" stop="20260825140000 -0400" channel="1763">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260825140000 -0400" stop="20260825200000 -0400" channel="1763">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260825200000 -0400" stop="20260826020000 -0400" channel="1763">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260826020000 -0400" stop="20260826080000 -0400" channel="1763">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260826080000 -0400" stop="20260826140000 -0400" channel="1763">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260826140000 -0400" stop="20260826200000 -0400" channel="1763">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260822023000 -0400" stop="20260822083000 -0400" channel="0105">
-    <title lang="es">Mega en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260822083000 -0400" stop="20260822143000 -0400" channel="0105">
-    <title lang="es">Mega en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260822143000 -0400" stop="20260822203000 -0400" channel="0105">
-    <title lang="es">Mega en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260822203000 -0400" stop="20260823023000 -0400" channel="0105">
-    <title lang="es">Mega en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260823023000 -0400" stop="20260823083000 -0400" channel="0105">
-    <title lang="es">Mega en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260823083000 -0400" stop="20260823143000 -0400" channel="0105">
-    <title lang="es">Mega en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260823143000 -0400" stop="20260823203000 -0400" channel="0105">
-    <title lang="es">Mega en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260823203000 -0400" stop="20260824023000 -0400" channel="0105">
-    <title lang="es">Mega en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260824023000 -0400" stop="20260824083000 -0400" channel="0105">
-    <title lang="es">Mega en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260824083000 -0400" stop="20260824143000 -0400" channel="0105">
-    <title lang="es">Mega en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260824143000 -0400" stop="20260824203000 -0400" channel="0105">
-    <title lang="es">Mega en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260824203000 -0400" stop="20260825023000 -0400" channel="0105">
-    <title lang="es">Mega en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260825023000 -0400" stop="20260825083000 -0400" channel="0105">
-    <title lang="es">Mega en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260825083000 -0400" stop="20260825143000 -0400" channel="0105">
-    <title lang="es">Mega en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260825143000 -0400" stop="20260825203000 -0400" channel="0105">
-    <title lang="es">Mega en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260825203000 -0400" stop="20260826023000 -0400" channel="0105">
-    <title lang="es">Mega en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260826023000 -0400" stop="20260826083000 -0400" channel="0105">
-    <title lang="es">Mega en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260826083000 -0400" stop="20260826143000 -0400" channel="0105">
-    <title lang="es">Mega en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260826143000 -0400" stop="20260826203000 -0400" channel="0105">
-    <title lang="es">Mega en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
+  <programme start="20260826205017 -0400" stop="20260827025017 -0400" channel="RedBullChileEspanol.cl">
+    <title lang="es">RedBull TV Español en vivo</title>
+    <desc lang="es">Programacion continua de la senal chilena en espanol; la parrilla se obtiene desde Red Bull TV.</desc>
+  </programme>
+  <programme start="20260820200000 -0400" stop="20260821020000 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260821020000 -0400" stop="20260821080000 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260821080000 -0400" stop="20260821140000 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260821140000 -0400" stop="20260821200000 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260821200000 -0400" stop="20260822020000 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260822020000 -0400" stop="20260822080000 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260822080000 -0400" stop="20260822140000 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260822140000 -0400" stop="20260822200000 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260822200000 -0400" stop="20260823020000 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260823020000 -0400" stop="20260823080000 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260823080000 -0400" stop="20260823140000 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260823140000 -0400" stop="20260823200000 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260823200000 -0400" stop="20260824020000 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260824020000 -0400" stop="20260824080000 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260824080000 -0400" stop="20260824140000 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260824140000 -0400" stop="20260824200000 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260824200000 -0400" stop="20260825020000 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260825020000 -0400" stop="20260825080000 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260825080000 -0400" stop="20260825140000 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260825140000 -0400" stop="20260825200000 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260825200000 -0400" stop="20260826020000 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260826020000 -0400" stop="20260826080000 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260826080000 -0400" stop="20260826140000 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260826140000 -0400" stop="20260826200000 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260826200000 -0400" stop="20260827020000 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
   </programme>
   <programme start="20260822050000 -0400" stop="20260822110000 -0400" channel="0104">
     <title lang="es">TVN en vivo</title>
@@ -30162,18 +29879,6 @@
     <title lang="es">TVN en vivo</title>
     <desc lang="es">Programacion continua de la senal en vivo.</desc>
   </programme>
-  <programme start="20260819200000 -0400" stop="20260820020000 -0400" channel="RewindTV.cl@SD">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260820020000 -0400" stop="20260820080000 -0400" channel="RewindTV.cl@SD">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260820080000 -0400" stop="20260820140000 -0400" channel="RewindTV.cl@SD">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260820140000 -0400" stop="20260820200000 -0400" channel="RewindTV.cl@SD">
-    <title lang="es">Live</title>
-  </programme>
   <programme start="20260820200000 -0400" stop="20260821020000 -0400" channel="RewindTV.cl@SD">
     <title lang="es">Live</title>
   </programme>
@@ -30246,16 +29951,7 @@
   <programme start="20260826140000 -0400" stop="20260826200000 -0400" channel="RewindTV.cl@SD">
     <title lang="es">Live</title>
   </programme>
-  <programme start="20260819200000 -0400" stop="20260820020000 -0400" channel="13Kids.cl">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260820020000 -0400" stop="20260820080000 -0400" channel="13Kids.cl">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260820080000 -0400" stop="20260820140000 -0400" channel="13Kids.cl">
-    <title lang="es">Live</title>
-  </programme>
-  <programme start="20260820140000 -0400" stop="20260820200000 -0400" channel="13Kids.cl">
+  <programme start="20260826200000 -0400" stop="20260827020000 -0400" channel="RewindTV.cl@SD">
     <title lang="es">Live</title>
   </programme>
   <programme start="20260820200000 -0400" stop="20260821020000 -0400" channel="13Kids.cl">
@@ -30328,6 +30024,159 @@
     <title lang="es">Live</title>
   </programme>
   <programme start="20260826140000 -0400" stop="20260826200000 -0400" channel="13Kids.cl">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260826200000 -0400" stop="20260827020000 -0400" channel="13Kids.cl">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260820200000 -0400" stop="20260821020000 -0400" channel="1763">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260821020000 -0400" stop="20260821080000 -0400" channel="1763">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260821080000 -0400" stop="20260821140000 -0400" channel="1763">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260821140000 -0400" stop="20260821200000 -0400" channel="1763">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260821200000 -0400" stop="20260822020000 -0400" channel="1763">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260822020000 -0400" stop="20260822080000 -0400" channel="1763">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260822080000 -0400" stop="20260822140000 -0400" channel="1763">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260822140000 -0400" stop="20260822200000 -0400" channel="1763">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260822200000 -0400" stop="20260823020000 -0400" channel="1763">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260823020000 -0400" stop="20260823080000 -0400" channel="1763">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260823080000 -0400" stop="20260823140000 -0400" channel="1763">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260823140000 -0400" stop="20260823200000 -0400" channel="1763">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260823200000 -0400" stop="20260824020000 -0400" channel="1763">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260824020000 -0400" stop="20260824080000 -0400" channel="1763">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260824080000 -0400" stop="20260824140000 -0400" channel="1763">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260824140000 -0400" stop="20260824200000 -0400" channel="1763">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260824200000 -0400" stop="20260825020000 -0400" channel="1763">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260825020000 -0400" stop="20260825080000 -0400" channel="1763">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260825080000 -0400" stop="20260825140000 -0400" channel="1763">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260825140000 -0400" stop="20260825200000 -0400" channel="1763">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260825200000 -0400" stop="20260826020000 -0400" channel="1763">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260826020000 -0400" stop="20260826080000 -0400" channel="1763">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260826080000 -0400" stop="20260826140000 -0400" channel="1763">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260826140000 -0400" stop="20260826200000 -0400" channel="1763">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260826200000 -0400" stop="20260827020000 -0400" channel="1763">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260820200000 -0400" stop="20260821020000 -0400" channel="AutenticHistory.de">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260821020000 -0400" stop="20260821080000 -0400" channel="AutenticHistory.de">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260821080000 -0400" stop="20260821140000 -0400" channel="AutenticHistory.de">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260821140000 -0400" stop="20260821200000 -0400" channel="AutenticHistory.de">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260821200000 -0400" stop="20260822020000 -0400" channel="AutenticHistory.de">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260822020000 -0400" stop="20260822080000 -0400" channel="AutenticHistory.de">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260822080000 -0400" stop="20260822140000 -0400" channel="AutenticHistory.de">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260822140000 -0400" stop="20260822200000 -0400" channel="AutenticHistory.de">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260822200000 -0400" stop="20260823020000 -0400" channel="AutenticHistory.de">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260823020000 -0400" stop="20260823080000 -0400" channel="AutenticHistory.de">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260823080000 -0400" stop="20260823140000 -0400" channel="AutenticHistory.de">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260823140000 -0400" stop="20260823200000 -0400" channel="AutenticHistory.de">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260823200000 -0400" stop="20260824020000 -0400" channel="AutenticHistory.de">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260824020000 -0400" stop="20260824080000 -0400" channel="AutenticHistory.de">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260824080000 -0400" stop="20260824140000 -0400" channel="AutenticHistory.de">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260824140000 -0400" stop="20260824200000 -0400" channel="AutenticHistory.de">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260824200000 -0400" stop="20260825020000 -0400" channel="AutenticHistory.de">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260825020000 -0400" stop="20260825080000 -0400" channel="AutenticHistory.de">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260825080000 -0400" stop="20260825140000 -0400" channel="AutenticHistory.de">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260825140000 -0400" stop="20260825200000 -0400" channel="AutenticHistory.de">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260825200000 -0400" stop="20260826020000 -0400" channel="AutenticHistory.de">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260826020000 -0400" stop="20260826080000 -0400" channel="AutenticHistory.de">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260826080000 -0400" stop="20260826140000 -0400" channel="AutenticHistory.de">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260826140000 -0400" stop="20260826200000 -0400" channel="AutenticHistory.de">
+    <title lang="es">Live</title>
+  </programme>
+  <programme start="20260826200000 -0400" stop="20260827020000 -0400" channel="AutenticHistory.de">
     <title lang="es">Live</title>
   </programme>
 </tv>
