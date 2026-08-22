@@ -199,8 +199,11 @@ APP_HANDLED_CHANNELS = {"TVN", "Meganoticias"}
 PREFERRED_LOGOS = {
     "TVN": f"{LOCAL_LOGOS_PUBLIC_BASE}/tvn.png",
     "Mega": f"{LOCAL_LOGOS_PUBLIC_BASE}/mega.png",
+    "Mega Alternativo": f"{LOCAL_LOGOS_PUBLIC_BASE}/mega.png",
     "CHV": f"{LOCAL_LOGOS_PUBLIC_BASE}/chv.png",
     "Canal 13": f"{LOCAL_LOGOS_PUBLIC_BASE}/canal13.png",
+    "13 Cocina": f"{LOCAL_LOGOS_PUBLIC_BASE}/canal13.png",
+    "13 Teleseries": f"{LOCAL_LOGOS_PUBLIC_BASE}/canal13.png",
     "La Red": f"{LOCAL_LOGOS_PUBLIC_BASE}/la-red.png",
     "24 Horas": f"{LOCAL_LOGOS_PUBLIC_BASE}/24-horas.png",
     "Meganoticias": f"{LOCAL_LOGOS_PUBLIC_BASE}/meganoticias.png",
@@ -210,18 +213,23 @@ PREFERRED_LOGOS = {
     "TVN3": f"{LOCAL_LOGOS_PUBLIC_BASE}/tvn3.svg",
     "CHV Deportes": f"{LOCAL_LOGOS_PUBLIC_BASE}/chv-deportes.svg",
     "DW Español": f"{LOCAL_LOGOS_PUBLIC_BASE}/dw.svg",
+    "DW Español Alternativo": f"{LOCAL_LOGOS_PUBLIC_BASE}/dw.svg",
     "DW English": f"{LOCAL_LOGOS_PUBLIC_BASE}/dw.svg",
     "Autentic History": f"{LOCAL_LOGOS_PUBLIC_BASE}/autentic-history.svg",
     "France 24 Español": f"{LOCAL_LOGOS_PUBLIC_BASE}/france24.svg",
+    "France 24 English": f"{LOCAL_LOGOS_PUBLIC_BASE}/france24.svg",
     "Euronews Español": f"{LOCAL_LOGOS_PUBLIC_BASE}/euronews-espanol.png",
     "NHK World Japan": f"{LOCAL_LOGOS_PUBLIC_BASE}/nhk-world.svg",
     "Al Jazeera English": f"{LOCAL_LOGOS_PUBLIC_BASE}/aljazeera.svg?v=2",
     "RedBull TV World": f"{LOCAL_LOGOS_PUBLIC_BASE}/red-bull-tv.png",
     "RedBull TV Español": f"{LOCAL_LOGOS_PUBLIC_BASE}/red-bull-tv.png",
     "XITE Hits Germany": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
+    "XITE Nuevo Latino": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
+    "XITE Siempre Latino": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
     "Arirang TV": f"{LOCAL_LOGOS_PUBLIC_BASE}/arirang.png",
     "M1": f"{LOCAL_LOGOS_PUBLIC_BASE}/m1.png",
     "M2": f"{LOCAL_LOGOS_PUBLIC_BASE}/m2.png",
+    "13 Cultura": f"{LOCAL_LOGOS_PUBLIC_BASE}/13cultura.svg",
     "13C": f"{LOCAL_LOGOS_PUBLIC_BASE}/13c.png",
     "RWND": f"{LOCAL_LOGOS_PUBLIC_BASE}/rewind-v2.png",
     "BBC Earth FAST": f"{LOCAL_LOGOS_PUBLIC_BASE}/bbc-earth.svg",
@@ -241,23 +249,37 @@ PREFERRED_LOGOS = {
     "MTV Classic": f"{LOCAL_LOGOS_PUBLIC_BASE}/mtv-classic.svg",
     "MTV Biggest Pop": f"{LOCAL_LOGOS_PUBLIC_BASE}/mtv-biggest-pop.svg",
     "MTV Spankin' New": f"{LOCAL_LOGOS_PUBLIC_BASE}/mtv-spankin-new.svg",
-    "[TEST] MTV Flow Latino": f"{LOCAL_LOGOS_PUBLIC_BASE}/mtv-flow-latino.svg",
-    "[TEST] Yo! MTV": f"{LOCAL_LOGOS_PUBLIC_BASE}/mtv-yo.svg",
+    "MTV Flow Latino": f"{LOCAL_LOGOS_PUBLIC_BASE}/mtv-flow-latino.svg",
+    "Yo! MTV": f"{LOCAL_LOGOS_PUBLIC_BASE}/mtv-yo.svg",
     "XITE Rock x Metal": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
     "MTV Rocks": f"{LOCAL_LOGOS_PUBLIC_BASE}/mtv-rocks.svg",
     "XITE Just Chill": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
-    "[TEST] Sky Sports F1 RAW": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-f1.png",
-    "[TEST] ESPN HD": f"{LOCAL_LOGOS_PUBLIC_BASE}/espn.svg",
-    "[TEST] Marquee Sports Network HD": f"{LOCAL_LOGOS_PUBLIC_BASE}/marquee-sports-network.svg",
-    "[TEST] Sky Sports Racing": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-racing.png",
-    "[TEST] Sky Sport 1 NZ": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sport-1-nz.png",
-    "[TEST] Sky Sports Tennis": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-tennis.png",
-    "[TEST] FOX Sports 502 HD": f"{LOCAL_LOGOS_PUBLIC_BASE}/fox-sports.svg",
-    "[TEST] Sky Sports Golf": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-golf.png",
-    "[TEST] FOX Sports 504 HD": f"{LOCAL_LOGOS_PUBLIC_BASE}/fox-sports.svg",
-    "[TEST] FOX Sports 507 HD": f"{LOCAL_LOGOS_PUBLIC_BASE}/fox-sports.svg",
-    "[TEST] TV Senado": f"{LOCAL_LOGOS_PUBLIC_BASE}/tv-senado.jpg",
-    "[TEST] Teletrak": f"{LOCAL_LOGOS_PUBLIC_BASE}/teletrak.jpg",
+    "Sky Sports F1": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-f1.png",
+    "ESPN HD": f"{LOCAL_LOGOS_PUBLIC_BASE}/espn.svg",
+    "Marquee Sports Network HD": f"{LOCAL_LOGOS_PUBLIC_BASE}/marquee-sports-network.svg",
+    "Sky Sports Racing": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-racing.png",
+    "Sky Sports Premier League": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-premier-league.png",
+    "Sky Sport 1 NZ": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sport-1-nz.png",
+    "Sky Sports Tennis": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-tennis.png",
+    "FOX Sports 502 HD": f"{LOCAL_LOGOS_PUBLIC_BASE}/fox-sports.svg",
+    "Sky Sports Golf": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-golf.png",
+    "FOX Sports 504 HD": f"{LOCAL_LOGOS_PUBLIC_BASE}/fox-sports.svg",
+    "FOX Sports 507 HD": f"{LOCAL_LOGOS_PUBLIC_BASE}/fox-sports.svg",
+    "TV Senado": f"{LOCAL_LOGOS_PUBLIC_BASE}/tv-senado.jpg",
+    "Teletrak": f"{LOCAL_LOGOS_PUBLIC_BASE}/teletrak.jpg",
+    "Retro Plus TV 1": f"{LOCAL_LOGOS_PUBLIC_BASE}/retro-plus.jpg",
+    "Retro Plus TV 2": f"{LOCAL_LOGOS_PUBLIC_BASE}/retro-plus.jpg",
+    "Retro Plus TV 3": f"{LOCAL_LOGOS_PUBLIC_BASE}/retro-plus.jpg",
+    "Totalmusic 80s": f"{LOCAL_LOGOS_PUBLIC_BASE}/totalmusic-80s.png",
+    "Totalmusic 2000s": f"{LOCAL_LOGOS_PUBLIC_BASE}/totalmusic-2000s.png",
+    "Totalmusic Concerts": f"{LOCAL_LOGOS_PUBLIC_BASE}/totalmusic-concerts.png",
+    "Totalmusic Dance": f"{LOCAL_LOGOS_PUBLIC_BASE}/totalmusic-dance.png",
+    "Reuters": f"{LOCAL_LOGOS_PUBLIC_BASE}/reuters.png",
+    "Real Wild": f"{LOCAL_LOGOS_PUBLIC_BASE}/real-wild.png",
+    "beIN SPORTS XTRA": f"{LOCAL_LOGOS_PUBLIC_BASE}/bein-sports-xtra.jpg",
+    "beIN SPORTS XTRA Español": f"{LOCAL_LOGOS_PUBLIC_BASE}/bein-sports-xtra-es.jpg",
+    "NHL Network": f"{LOCAL_LOGOS_PUBLIC_BASE}/nhl-network.png",
+    "TyC Sports": f"{LOCAL_LOGOS_PUBLIC_BASE}/tyc-sports.png",
 }
 CONTINUOUS_PROGRAMME_DETAILS = {
     "TVN3": (
@@ -324,9 +346,65 @@ CONTINUOUS_PROGRAMME_DETAILS = {
         "XITE Just Chill - videoclips",
         "Programacion musical de XITE; se conserva continuidad si la guia FAST no esta disponible.",
     ),
+    "13 Cultura": (
+        "13 Cultura en vivo",
+        "Programacion continua de 13 Cultura; no publica una parrilla horaria XMLTV estable.",
+    ),
     "13C": (
-        "Live",
-        "",
+        "13C en vivo",
+        "Programacion publica consultada en la guia de Zapping Chile.",
+    ),
+    "XITE Nuevo Latino": (
+        "XITE Nuevo Latino - videoclips",
+        "Rotacion continua de videoclips latinos; no publica una parrilla horaria XMLTV estable.",
+    ),
+    "XITE Siempre Latino": (
+        "XITE Siempre Latino - videoclips",
+        "Rotacion continua de videoclips latinos; no publica una parrilla horaria XMLTV estable.",
+    ),
+    "MTV Flow Latino": (
+        "MTV Flow Latino - videoclips",
+        "Rotacion continua de videoclips latinos de MTV; no publica una parrilla horaria XMLTV estable.",
+    ),
+    "Yo! MTV": (
+        "Yo! MTV - videoclips",
+        "Rotacion continua de videoclips de MTV; no publica una parrilla horaria XMLTV estable.",
+    ),
+    "Retro Plus TV 1": (
+        "Retro Plus TV 1 - videoclips",
+        "Rotacion continua de videos musicales retro; no publica una parrilla horaria XMLTV estable.",
+    ),
+    "Retro Plus TV 2": (
+        "Retro Plus TV 2 - videoclips",
+        "Rotacion continua de videos musicales retro; no publica una parrilla horaria XMLTV estable.",
+    ),
+    "Retro Plus TV 3": (
+        "Retro Plus TV 3 - videoclips",
+        "Rotacion continua de videos musicales retro; no publica una parrilla horaria XMLTV estable.",
+    ),
+    "Totalmusic 80s": (
+        "Totalmusic 80s - videoclips",
+        "Rotacion continua de videoclips de los 80; no publica una parrilla horaria XMLTV estable.",
+    ),
+    "Totalmusic 2000s": (
+        "Totalmusic 2000s - videoclips",
+        "Rotacion continua de videoclips de los 2000; no publica una parrilla horaria XMLTV estable.",
+    ),
+    "Totalmusic Concerts": (
+        "Totalmusic Concerts - concierto",
+        "Rotacion continua de conciertos y presentaciones musicales; no publica una parrilla horaria XMLTV estable.",
+    ),
+    "Totalmusic Dance": (
+        "Totalmusic Dance - videoclips",
+        "Rotacion continua de musica dance; no publica una parrilla horaria XMLTV estable.",
+    ),
+    "Reuters": (
+        "Reuters en vivo",
+        "Senal informativa continua de Reuters; no publica una parrilla horaria XMLTV estable.",
+    ),
+    "Real Wild": (
+        "Real Wild en vivo",
+        "Senal documental continua; no publica una parrilla horaria XMLTV estable.",
     ),
     "RWND": (
         "Live",
@@ -2662,6 +2740,13 @@ def check_logo(channel: Channel) -> LogoResult:
                 True,
                 f"PNG valido y transparente{source_suffix}",
             )
+        if status == 200 and jpeg_is_valid(body):
+            return LogoResult(
+                channel.name,
+                channel.logo_url,
+                True,
+                f"JPEG valido{source_suffix}",
+            )
         if status == 200 and svg_is_valid(body):
             return LogoResult(
                 channel.name,
@@ -2705,6 +2790,10 @@ def png_has_transparency(body: bytes) -> bool:
             break
         offset = end
     return False
+
+
+def jpeg_is_valid(body: bytes) -> bool:
+    return len(body) >= 3 and body[:3] == b"\xff\xd8\xff"
 
 
 def svg_is_valid(body: bytes) -> bool:
