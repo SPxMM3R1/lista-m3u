@@ -10,6 +10,8 @@ $githubRepository = 'SPxMM3R1/lista-m3u'
 $githubWorkflow = 'update-m3u.yml'
 $logDirectory = Join-Path $projectRoot '.local-run'
 $logPath = Join-Path $logDirectory 'latest.log'
+$windowsPowerShell = Join-Path $env:SystemRoot 'System32\WindowsPowerShell\v1.0\powershell.exe'
+$registrationPath = Join-Path $projectRoot 'register_local_48h_task.ps1'
 
 New-Item -ItemType Directory -Path $logDirectory -Force | Out-Null
 
@@ -62,6 +64,19 @@ $gitCandidates = @(
 $pythonPath = Resolve-Executable -Candidates $pythonCandidates -Label 'Python'
 $gitPath = Resolve-Executable -Candidates $gitCandidates -Label 'Git'
 
+function Register-NextLocalRun {
+    Invoke-LoggedNative `
+        -Executable $windowsPowerShell `
+        -Arguments @(
+            '-NoProfile',
+            '-ExecutionPolicy',
+            'Bypass',
+            '-File',
+            $registrationPath
+        ) `
+        -Description 'La reprogramacion local dinamica'
+}
+
 $today = (Get-Date).Date
 if ($today -ge [datetime]'2026-09-02') {
     try {
@@ -113,6 +128,7 @@ try {
         Invoke-LoggedNative -Executable $gitPath -Arguments @('merge', '--ff-only', 'origin/main') -Description 'La sincronizacion fast-forward'
     } elseif ($ahead -gt 0 -and $behind -eq 0) {
         Invoke-LoggedNative -Executable $gitPath -Arguments @('push', 'origin', 'HEAD:main') -Description 'El push pendiente'
+        Register-NextLocalRun
         exit 0
     } elseif ($ahead -gt 0 -and $behind -gt 0) {
         throw 'La rama local y origin/main divergieron; se requiere revision manual'
@@ -128,7 +144,8 @@ try {
 
     $changes = ((@(& $gitPath status --porcelain --untracked-files=no) -join "`n")).Trim()
     if (-not $changes) {
-        Add-Content -LiteralPath $logPath -Value 'No habia una ventana de 48 horas vencida.'
+        Add-Content -LiteralPath $logPath -Value 'No habia una ventana dinamica vencida.'
+        Register-NextLocalRun
         exit 0
     }
 
@@ -154,10 +171,19 @@ try {
     Invoke-LoggedNative -Executable $pythonPath -Arguments @((Join-Path $projectRoot 'update_m3u.py'), '--verify-published', "$rawBase/m3u.m3u") -Description 'La verificacion Raw de M3U'
     Invoke-LoggedNative -Executable $pythonPath -Arguments @((Join-Path $projectRoot 'update_m3u.py'), '--verify-epg-published', "$rawBase/epg.xml") -Description 'La verificacion Raw de EPG'
     Add-Content -LiteralPath $logPath -Value "[$(Get-Date -Format o)] Publicacion local verificada."
+    Register-NextLocalRun
 } catch {
     $errorMessage = $_.Exception.Message
     if (-not $errorMessage) { $errorMessage = $_.ToString() }
     Add-Content -LiteralPath $logPath -Value "[$(Get-Date -Format o)] ERROR: $errorMessage"
+    try {
+        Register-NextLocalRun
+        Add-Content -LiteralPath $logPath -Value "[$(Get-Date -Format o)] Reintento dinamico programado."
+    } catch {
+        $rescheduleError = $_.Exception.Message
+        if (-not $rescheduleError) { $rescheduleError = $_.ToString() }
+        Add-Content -LiteralPath $logPath -Value "[$(Get-Date -Format o)] ERROR al programar reintento: $rescheduleError"
+    }
     Write-Error -Message $errorMessage
     exit 1
 } finally {

@@ -19,21 +19,27 @@ if ($Unregister) {
 $action = New-ScheduledTaskAction `
     -Execute $windowsPowerShell `
     -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$runnerPath`""
-$firstRun = (Get-Date).AddMinutes(1)
+$now = Get-Date
+$firstRun = $now.AddMinutes(15)
 if (Test-Path -LiteralPath $statePath -PathType Leaf) {
-    $state = Get-Content -Raw -LiteralPath $statePath | ConvertFrom-Json
-    if ($state.last_published_at) {
-        $scheduledNext = [DateTimeOffset]::Parse($state.last_published_at).ToLocalTime().DateTime.AddHours(48)
-        if ($scheduledNext -gt (Get-Date)) {
+    try {
+        $state = Get-Content -Raw -LiteralPath $statePath | ConvertFrom-Json
+        $scheduledNext = $null
+        if ($state.next_scheduled_at) {
+            $scheduledNext = [DateTimeOffset]::Parse($state.next_scheduled_at).ToLocalTime().DateTime
+        } elseif ($state.last_published_at) {
+            $scheduledNext = [DateTimeOffset]::Parse($state.last_published_at).ToLocalTime().DateTime.AddHours(48)
+        }
+        if ($scheduledNext -and $scheduledNext -gt $now) {
             $firstRun = $scheduledNext
         }
+    } catch {
+        Write-Warning "No se pudo leer la proxima ventana desde run-state.json; se usara un reintento en 15 minutos."
     }
 }
 $trigger = New-ScheduledTaskTrigger `
     -Once `
-    -At $firstRun `
-    -RepetitionInterval (New-TimeSpan -Hours 48) `
-    -RepetitionDuration (New-TimeSpan -Days 14)
+    -At $firstRun
 $resumeTrigger = New-ScheduledTaskTrigger `
     -Once `
     -At ([datetime]'2026-09-02T03:05:00')
@@ -54,9 +60,10 @@ Register-ScheduledTask `
     -Trigger $triggers `
     -Settings $settings `
     -Principal $principal `
-    -Description 'Ejecuta Lista M3U cada 48 horas durante la ventana local y reactiva GitHub Actions el 2 de septiembre de 2026.' `
+    -Description 'Ejecuta Lista M3U en la proxima ventana dinamica de la guia, con limite de 48 horas, y reactiva GitHub Actions el 2 de septiembre de 2026.' `
     -Force | Out-Null
 
 Write-Output "Tarea registrada: $taskName"
 Write-Output "Primera ejecucion programada: $($firstRun.ToString('yyyy-MM-dd HH:mm:ss'))"
-Write-Output 'La tarea se repite cada 48 horas y contiene un disparador puntual para reactivar GitHub el 2026-09-02 03:05.'
+Write-Output 'La tarea usa una ejecucion unica y se vuelve a programar segun el vencimiento real de la guia, con limite de 48 horas y minimo de 6 horas.'
+Write-Output 'Tambien contiene un disparador puntual para reactivar GitHub el 2026-09-02 03:05.'

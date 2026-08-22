@@ -148,6 +148,11 @@ RED_BULL_CHILE_URL = (
 # La guia se actualiza junto con la validacion de canales cada 48 horas. Se
 # conserva la reutilizacion de una guia valida si una ejecucion falla.
 EPG_REFRESH_INTERVAL = timedelta(hours=48)
+# El coordinador puede adelantar la siguiente ejecucion cuando una fuente real
+# termina antes de las 48 horas. Los bloques de continuidad no cuentan para
+# este calculo: solo sirven para que la guia no quede vacia mientras llega el
+# siguiente refresco.
+EPG_REFRESH_LEAD = timedelta(hours=6)
 TVN_PROGRAMMING_PAGE = "https://www.tvn.cl/programacion"
 TVN_PROGRAMMING_BASE_URL = "https://estaticos.tvn.cl/epg/tvn"
 TVN_OFFICIAL_EPG_SOURCE = "tvn-oficial"
@@ -723,6 +728,18 @@ def epg_status_from_xml(
         if generated_at_text
         else None
     )
+    next_refresh_text = root.get("data-next-refresh-at", "")
+    next_refresh: datetime | None = None
+    if next_refresh_text:
+        try:
+            next_refresh = datetime.fromisoformat(
+                next_refresh_text.replace("Z", "+00:00")
+            )
+            if next_refresh.tzinfo is None:
+                next_refresh = next_refresh.replace(tzinfo=timezone.utc)
+            next_refresh = next_refresh.astimezone(timezone.utc)
+        except ValueError:
+            next_refresh = None
     guide_types = {
         channel.get("id", ""): channel.get("data-guide", "real")
         for channel in channel_elements
@@ -735,6 +752,7 @@ def epg_status_from_xml(
         "first_start_utc": first_start.astimezone(timezone.utc).isoformat(),
         "last_stop_utc": last_stop.astimezone(timezone.utc).isoformat(),
         "generated_at": generated_at.isoformat() if generated_at else None,
+        "next_refresh_at": next_refresh.isoformat() if next_refresh else None,
         "guide_types": guide_types,
     }
 
@@ -2145,6 +2163,7 @@ def build_epg(
         source_roots[source_name] = source_root
 
     programmes_by_target = {channel_id: 0 for channel_id in expected_ids}
+    real_last_stop_by_target: dict[str, datetime] = {}
     source_lookup = {
         (source_name, source_id): target_id
         for target_id, (source_name, source_id) in EPG_PROGRAMME_SOURCES.items()
@@ -2185,6 +2204,14 @@ def build_epg(
             root.append(copied)
             programmes_by_target[target_id] += 1
             guide_types[target_id] = "parrilla real"
+            try:
+                stop = xmltv_datetime(copied.get("stop", ""))
+            except ValueError:
+                pass
+            else:
+                previous_stop = real_last_stop_by_target.get(target_id)
+                if previous_stop is None or stop > previous_stop:
+                    real_last_stop_by_target[target_id] = stop
 
     for red_bull_id, red_bull_cards in red_bull_schedules.items():
         if red_bull_id not in expected_ids:
@@ -2220,6 +2247,8 @@ def build_epg(
                 if red_bull_last_stop is None or stop > red_bull_last_stop
                 else red_bull_last_stop
             )
+        if red_bull_last_stop is not None:
+            real_last_stop_by_target[red_bull_id] = red_bull_last_stop
         if programmes_by_target[red_bull_id]:
             programmes_by_target[red_bull_id] += add_continuous_programmes(
                 root,
@@ -2262,6 +2291,14 @@ def build_epg(
     for channel in root.findall("channel"):
         channel.set("data-guide", guide_types.get(channel.get("id", ""), "senal continua"))
 
+    real_stop_candidates = list(real_last_stop_by_target.values())
+    if real_stop_candidates:
+        next_refresh = min(real_stop_candidates) - EPG_REFRESH_LEAD
+        root.set(
+            "data-next-refresh-at",
+            next_refresh.astimezone(timezone.utc).isoformat(),
+        )
+
     ET.indent(root, space="  ")
     output = ET.tostring(root, encoding="utf-8", xml_declaration=True) + b"\n"
     status = epg_status_from_xml(
@@ -2271,6 +2308,10 @@ def build_epg(
         minimum_future=timedelta(hours=24),
     )
     status["guide_types"] = guide_types
+    status["real_last_stop_utc"] = {
+        channel_id: stop.astimezone(timezone.utc).isoformat()
+        for channel_id, stop in real_last_stop_by_target.items()
+    }
     return output, status
 
 

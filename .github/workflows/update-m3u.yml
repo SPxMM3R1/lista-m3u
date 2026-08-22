@@ -46,7 +46,7 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Ejecutar coordinador de 48 horas
+      - name: Ejecutar coordinador con ventana dinamica
         id: updater
         shell: bash
         run: |
@@ -158,7 +158,7 @@ jobs:
 
       - name: Informar ventana no vencida
         if: steps.updater.outputs.status == '0' && steps.updater.outputs.ran != 'true'
-        run: echo "No se ejecuta el flujo completo; aun no han vencido 48 horas o la ventana pertenece al otro ejecutor."
+        run: echo "No se ejecuta el flujo completo; aun no ha llegado la ventana dinamica o la ventana pertenece al otro ejecutor."
 
       - name: Guardar informe de canales
         if: always()

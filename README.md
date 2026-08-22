@@ -1,9 +1,10 @@
 # Lista M3U para Android TV
 
 Repositorio publico de la lista M3U principal para Android TV. La lista y su
-EPG se actualizan mediante un coordinador comun que solo ejecuta el flujo
-completo cada 48 horas. Ese mismo resultado puede generarse desde Windows o
-desde GitHub Actions.
+EPG se actualizan mediante un coordinador comun. El limite de seguridad es de
+48 horas, pero la siguiente ejecucion puede adelantarse cuando la programacion
+real disponible esta a punto de terminar. Ese mismo resultado puede generarse
+desde Windows o desde GitHub Actions.
 
 ## URLs para el reproductor
 
@@ -27,6 +28,9 @@ Cada ejecucion completa:
 - prioriza enlaces descubiertos desde las paginas oficiales del emisor al
   reparar una senal; los respaldos conocidos solo se prueban despues;
 - actualiza la guia EPG con las parrillas disponibles;
+- calcula en `epg.xml` la proxima ventana usando el fin mas temprano de una
+  parrilla real menos seis horas; los bloques de continuidad no adelantan la
+  ejecucion;
 - usa las parrillas oficiales disponibles de TVN y Mega, ademas de las de M1 y
   M2; conserva EPGShare como respaldo cuando el emisor no publica XMLTV o una
   parrilla automatizable;
@@ -47,14 +51,19 @@ Cada ejecucion completa:
 - publica `channel-status.json` como artefacto de cada ejecucion.
 
 El coordinador `run_m3u_48h.py` conserva `run-state.json` para que el cambio
-entre ejecutor local y GitHub sea transparente. Durante la ventana local hasta
-el 1 de septiembre de 2026 se puede registrar
-`register_local_48h_task.ps1`; desde el 2 de septiembre GitHub Actions retoma
-el mismo flujo. La tarea local se repite cada 48 horas; GitHub usa un disparador
-cada dos dias de calendario porque Actions no dispone de un temporizador exacto
-de 48 horas, y no ejecuta red/EPG/canales cuando el estado aun no vencio. La
-compuerta de `run-state.json` conserva el minimo de 48 horas aunque los cambios
-de mes hagan que el intervalo del cron no sea exactamente igual.
+entre ejecutor local y GitHub sea transparente. Elige la primera de estas
+ventanas: el fin de la guia real menos seis horas o el limite de 48 horas desde
+la ultima publicacion. Nunca programa dos ejecuciones con menos de seis horas
+de separacion. Durante la ventana local hasta el 1 de septiembre de 2026 se
+puede registrar `register_local_48h_task.ps1`; la tarea usa un disparador unico
+y se vuelve a registrar al terminar cada ejecucion. Desde el 2 de septiembre
+GitHub Actions retoma el mismo flujo.
+
+GitHub conserva un disparador cada dos dias de calendario porque Actions no
+dispone de un temporizador puntual que pueda reprogramarse desde el EPG. Ese
+cron funciona como respaldo: el coordinador sigue respetando la ventana
+dinamica cuando despierta. La compuerta de `run-state.json` evita ejecuciones
+innecesarias aunque el cron despierte antes de tiempo.
 
 Durante esta ventana, GitHub Actions queda deshabilitado para no consumir cuota.
 El programador local contiene un disparador puntual para reactivarlo el 2 de
@@ -68,7 +77,7 @@ ejecutor vuelve a ser GitHub Actions.
 
 La guia conserva datos vigentes si una fuente externa falla temporalmente. La
 ejecucion tambien puede iniciarse manualmente desde la pestana **Actions** con
-el workflow **Actualizar M3U y EPG**. `force_run` omite la espera de 48 horas y
+el workflow **Actualizar M3U y EPG**. `force_run` omite la ventana dinamica y
 `force_epg_refresh` fuerza la descarga de las fuentes EPG.
 
 Todos los logos de los canales se conservan dentro de `logos/` y la M3U y el

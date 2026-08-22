@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Coordina una ejecucion completa de Lista M3U cada 48 horas.
+"""Coordina una ejecucion completa de Lista M3U con vencimiento dinamico.
 
 El mismo coordinador se usa desde Windows y desde GitHub Actions. No publica
 por si mismo: prepara la salida y el estado para que cada ejecutor pueda usar
-su mecanismo de commit y verificacion habitual.
+su mecanismo de commit y verificacion habitual. El limite normal sigue siendo
+48 horas, pero una guia real que termina antes adelanta la proxima ejecucion.
 """
 
 from __future__ import annotations
@@ -16,13 +17,16 @@ import sys
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
+import xml.etree.ElementTree as ET
 
 
 PROJECT_ROOT = Path(__file__).resolve().parent
 UPDATE_SCRIPT = PROJECT_ROOT / "update_m3u.py"
 STATE_PATH = PROJECT_ROOT / "run-state.json"
+EPG_PATH = PROJECT_ROOT / "epg.xml"
 OUTPUT_PATHS = (PROJECT_ROOT / "m3u.m3u", PROJECT_ROOT / "epg.xml")
 INTERVAL = timedelta(hours=48)
+MINIMUM_INTERVAL = timedelta(hours=6)
 LOCAL_LAST_DAY = date(2026, 9, 1)
 GITHUB_FIRST_DAY = date(2026, 9, 2)
 try:
@@ -77,29 +81,60 @@ def last_published_at(state: dict) -> datetime | None:
     return parsed.astimezone(timezone.utc)
 
 
+def epg_next_refresh_at() -> datetime | None:
+    """Read the next deadline calculated from real EPG programmes."""
+    if not EPG_PATH.exists():
+        return None
+    try:
+        root = ET.parse(EPG_PATH).getroot()
+        value = root.get("data-next-refresh-at")
+        if not value:
+            return None
+        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+        if parsed.tzinfo is None:
+            parsed = parsed.replace(tzinfo=timezone.utc)
+        return parsed.astimezone(timezone.utc)
+    except (OSError, ET.ParseError, ValueError):
+        return None
+
+
+def next_scheduled_at(state: dict, current: datetime) -> datetime:
+    """Return the earlier of the EPG deadline and the 48-hour safety limit."""
+    previous = last_published_at(state)
+    if previous is None:
+        return current
+    maximum = previous + INTERVAL
+    dynamic = epg_next_refresh_at()
+    candidate = min(maximum, dynamic) if dynamic is not None else maximum
+    # A malformed or stale guide must not create a tight retry loop.
+    return max(candidate, previous + MINIMUM_INTERVAL)
+
+
 def is_due(state: dict, current: datetime, force: bool) -> bool:
     if force:
         return True
     previous = last_published_at(state)
     if previous is None:
         return True
-    elapsed = current - previous
-    if elapsed.total_seconds() < 0:
+    if current < previous:
         print(
             "La ultima publicacion esta en el futuro; se omite la ejecucion "
             "para evitar una frecuencia accidental.",
             file=sys.stderr,
         )
         return False
-    return elapsed >= INTERVAL
+    return current >= next_scheduled_at(state, current)
 
 
-def write_state(current: datetime, executor: str) -> None:
+def write_state(current: datetime, executor: str, next_run: datetime) -> None:
     state = {
-        "schema": 1,
+        "schema": 2,
         "interval_hours": 48,
+        "minimum_interval_hours": 6,
         "last_published_at": timestamp(current),
         "last_executor": executor,
+        "next_scheduled_at": timestamp(next_run),
+        "schedule_basis": "fin de guia real menos 6 horas o limite de 48 horas",
     }
     temporary = STATE_PATH.with_suffix(".json.tmp")
     temporary.write_text(
@@ -178,10 +213,11 @@ def main() -> int:
     previous = last_published_at(state)
     if previous:
         print(f"Ultima publicacion efectiva: {timestamp(previous)}")
+    next_at = next_scheduled_at(state, current)
     due = is_due(state, current, args.force or args.force_epg)
     write_github_output("due", "true" if due else "false")
+    write_github_output("next_scheduled_at", timestamp(next_at))
     if not due:
-        next_at = previous + INTERVAL if previous else current
         print(f"Actualizacion no necesaria; proxima ventana: {timestamp(next_at)}")
         return 0
     if args.dry_run:
@@ -201,9 +237,17 @@ def main() -> int:
         )
         return return_code
 
-    write_state(current, args.executor)
+    published_at = now_utc()
+    next_after_publish = next_scheduled_at(
+        {"last_published_at": timestamp(published_at)}, published_at
+    )
+    write_state(published_at, args.executor, next_after_publish)
     write_github_output("ran", "true")
-    print("Actualizacion completa preparada para publicar.")
+    write_github_output("next_scheduled_at", timestamp(next_after_publish))
+    print(
+        "Actualizacion completa preparada para publicar. "
+        f"Proxima ventana dinamica: {timestamp(next_after_publish)}"
+    )
     return 0
 
 
