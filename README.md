@@ -27,7 +27,8 @@ Cada ejecucion completa:
   generadas por este repositorio;
 - prioriza enlaces descubiertos desde las paginas oficiales del emisor al
   reparar una senal; los respaldos conocidos solo se prueban despues;
-- actualiza la guia EPG con las parrillas disponibles;
+- actualiza la guia EPG con parrillas XMLTV reales; una entrada que solo
+  pueda recibir bloques genericos se rechaza y no se publica;
 - calcula en `epg.xml` la proxima ventana usando el fin mas temprano de una
   parrilla real menos seis horas; los bloques de continuidad no adelantan la
   ejecucion;
@@ -38,16 +39,20 @@ Cada ejecucion completa:
   y XITE, y usa las fuentes pequeñas TR1, SG1 y NG1 solo para TRT World, CNA y
   Africanews, respectivamente; no descarga el XML combinado de todos los
   proveedores;
-- conserva MTV Biggest Pop desde el feed latinoamericano de Pluto TV; como la
-  señal no publica una parrilla XMLTV estable, el actualizador genera continuidad
-  de videoclips sin inventar horarios concretos;
-- incorpora MTV Classic, MTV Rocks y MTV Spankin' New desde feeds Pluto TV
-  catalogados; al igual que Biggest Pop, conservan guia de continuidad porque no
-  publican una parrilla XMLTV estable;
-- incorpora Premier Sports 1 y Premier Sports 2 desde los resolutores JSON
-  publicos de TvVoo; cada ejecucion de 48 horas solicita tokens nuevos,
-  prueba el HLS completo y conserva continuidad en la EPG porque TvVoo no
-  publica una parrilla XMLTV estable;
+- incorpora la parrilla XMLTV de PlutoTV para MTV Classic, MTV Biggest Pop,
+  MTV Spankin' New, MTV Flow Latino y Yo! MTV; las tarjetas repetidas de Pluto
+  se deduplican antes de construir la EPG;
+- incorpora 16 canales adicionales desde los resolutores JSON publicos de TvVoo:
+  CNN, MTV Hits, M6 Music, Trace Urban, Sky Sports Main Event, Sky Sports+,
+  TNT Sports 3, ESPN 3, Eurosport 1, RMC Sport 1, RMC Sport 2, DAZN 2,
+  Sport TV 1, Sport TV 2, Eleven Sports 1 y Eleven Sports 2. Cada ejecucion de
+  48 horas solicita tokens nuevos, valida maestro/variante/segmento y usa el
+  mismo enlace HTTP solo cuando el nodo HTTPS responde con certificado vencido;
+- prioriza la guia oficial de Canal 13 para 13C, manteniendola separada de
+  13 Cultura; si la pagina oficial no entrega bloques vigentes, usa Zapping
+  como respaldo por canal;
+- mantiene Premier Sports 1 y Premier Sports 2 desde los resolutores JSON
+  publicos de TvVoo, con renovacion cada 48 horas y guia UK1 real;
 - usa la guia publica de Zapping Chile para las senales nacionales donde
   EPGShare/TecnoCentro mostraban desplazamientos o no entregaban una parrilla
   util; sus marcas Unix absolutas se convierten a America/Santiago sin sumar
@@ -98,8 +103,8 @@ disponible sin depender de servidores externos.
 
 ## Canales
 
-La lista contiene 66 canales: nacionales, noticias, miscelaneos chilenos,
-noticias internacionales, documentales, conciertos y una seleccion musical.
+La lista contiene 73 canales: nacionales, noticias, miscelaneos chilenos,
+noticias internacionales, documentales, conciertos, musica y deportes.
 
 TVN y Mega se actualizan desde sus parrillas oficiales cuando estan
 disponibles. Para T13 no se encontro una parrilla oficial diaria de la senal
@@ -111,14 +116,27 @@ respaldo si la pagina del canal no responde o no entrega 24 horas futuras.
 Para 24 Horas no se encontro una parrilla diaria oficial publica y estructurada
 en 24horas.cl: se usa Zapping cuando entrega bloques validos y EPGShare01 como
 tercera opcion. Un fallo aislado de Zapping no invalida los respaldos por canal.
-La EPG usa fuentes XMLTV de Chile, Espana, Francia, Alemania, Polonia,
-Letonia, Paises Bajos, PLEX1, Turquia, Singapur y Nigeria, junto con la guia
-publica de Zapping para senales chilenas seleccionadas. Zapping se selecciona
-por canal cuando su parrilla es valida; una fuente oficial siempre tiene
-prioridad y un fallo aislado de Zapping no invalida los demas canales. M1 y M2
-se actualizan desde sus parrillas oficiales semanales. Se marca como `senal continua`
-cualquier canal que no publique una parrilla diaria verificable, en vez de
-presentar esa continuidad como una guia real. Simply.TV (con punto) se reviso
+La EPG usa fuentes XMLTV de Chile, Espana, Francia, Alemania, Reino Unido,
+Argentina, Portugal, Nueva Zelanda, Estados Unidos, Polonia, Letonia, Paises
+Bajos, PLEX1, PlutoTV, Turquia, Singapur y Nigeria, junto con la guia publica
+de Zapping para senales chilenas seleccionadas. El orden es: fuente oficial
+del canal, XMLTV real por pais/proveedor y Zapping u otra fuente secundaria
+real. M1, M2 y 13C se actualizan desde sus parrillas oficiales. La produccion
+no conserva canales cuya unica salida seria `senal continua`; el constructor
+falla antes de publicar si aparece uno. Puede existir `parrilla real +
+continuidad` cuando la fuente real tiene un horizonte corto: los programas
+siguen siendo reales y la continuidad solo cubre el hueco hasta la proxima
+actualizacion.
+
+En esta depuracion se retiraron los canales sin una fuente de EPG real
+verificable: CHV Deportes, 13 Cultura, 13 Kids, Autentic History, Reuters,
+Totalmusic 80s, Totalmusic 2000s, Totalmusic Concerts y Totalmusic Dance.
+13C permanece en la lista como canal distinto y conserva la parrilla oficial
+de `https://www.13.cl/c/programacion`; no se reutilizo esa guia para 13 Cultura.
+RT France y DAZN FAST+ respondieron como HLS en la auditoria TvVoo, pero no se
+incorporaron porque no encontramos una parrilla real compatible.
+
+Simply.TV (con punto) se reviso
 como proveedor B2B de EPG y metadata:
 su portal de entrega requiere autenticacion y la cuenta de prueba gratuita solo
 ofrece un grupo limitado de canales. No se incorpora como dependencia del flujo

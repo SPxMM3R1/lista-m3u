@@ -46,6 +46,11 @@ EPG_SOURCES = {
     "es": "https://epgshare01.online/epgshare01/epg_ripper_ES1.xml.gz",
     "fr": "https://epgshare01.online/epgshare01/epg_ripper_FR1.xml.gz",
     "de": "https://epgshare01.online/epgshare01/epg_ripper_DE1.xml.gz",
+    "uk1": "https://epgshare01.online/epgshare01/epg_ripper_UK1.xml.gz",
+    "ar1": "https://epgshare01.online/epgshare01/epg_ripper_AR1.xml.gz",
+    "pt1": "https://epgshare01.online/epgshare01/epg_ripper_PT1.xml.gz",
+    "nz1": "https://epgshare01.online/epgshare01/epg_ripper_NZ1.xml.gz",
+    "us2": "https://epgshare01.online/epgshare01/epg_ripper_US2.xml.gz",
     "pl": "https://epgshare01.online/epgshare01/epg_ripper_PL1.xml.gz",
     "lv": "https://epgshare01.online/epgshare01/epg_ripper_LV1.xml.gz",
     "nl": "https://epgshare01.online/epgshare01/epg_ripper_NL1.xml.gz",
@@ -56,6 +61,9 @@ EPG_SOURCES = {
     "tr1": "https://epgshare01.online/epgshare01/epg_ripper_TR1.xml.gz",
     "sg1": "https://epgshare01.online/epgshare01/epg_ripper_SG1.xml.gz",
     "ng1": "https://epgshare01.online/epgshare01/epg_ripper_NG1.xml.gz",
+    # PlutoTV es la fuente de parrilla real para los canales lineales Pluto
+    # usados por MTV. No se generan bloques de continuidad para esos IDs.
+    "pluto": "https://i.mjh.nz/PlutoTV/all.xml.gz",
 }
 EPG_PROGRAMME_SOURCES = {
     "0104": ("cl", "Canal.TVN.(Chile).cl"),
@@ -72,6 +80,49 @@ EPG_PROGRAMME_SOURCES = {
     "ArirangTV.kr": ("pl", "Arirang.TV.pl"),
     "XITEHits.nl@Germany": ("nl", "XITE.nl"),
     "DWEnglish.de": ("lv", "Deutsche.Welle.English.HD.lv"),
+    "France24.fr@English": ("fr", "France.24.Anglais.fr"),
+    "ESPN.us": ("us2", "ESPN.HD.us2"),
+    "MarqueeSportsNetwork.us": ("us2", "Marquee.Sports.Network.HD.us2"),
+    "NHLNetwork.us": ("us2", "NHL.Network.HD.us2"),
+    "RewindTV.cl@SD": ("us2", "Rewind.TV.us2"),
+    "TyCSports.ar": ("ar1", "Canal.TyC.Sports.ar"),
+    "SkySport1.nz": ("nz1", "Sky.Sport.1.nz"),
+    "SkySportsF1.uk": ("uk1", "SkySp.F1.HD.uk"),
+    "SkySportsRacing.uk": ("uk1", "SkySp.Racing.HD.uk"),
+    "SkySportsPremierLeague.uk": ("uk1", "SkySp.PL.HD.uk"),
+    "SkySportsTennis.uk": ("uk1", "SkySp.Tennis.HD.uk"),
+    "SkySportsGolf.uk": ("uk1", "SkySp.Golf.HD.uk"),
+    "PremierSports1.ie": ("uk1", "Premier.Sports.1.HD.uk"),
+    "PremierSports2.ie": ("uk1", "Premier.Sports.2.HD.uk"),
+    "BeINSportsXtra.us": ("plex1", "plex.tv.beIN.SPORTS.XTRA.plex"),
+    "BeINSportsXtra.us@Spanish": (
+        "plex1",
+        "plex.tv.beIN.Sports.Xtra.en.Español.plex",
+    ),
+    "RealWild.us": ("plex1", "plex.tv.Real.Wild.plex"),
+    "XITENuevoLatino.us": ("plex1", "plex.tv.XITE.Nuevo.Latino.plex"),
+    "XITESiempreLatino.us": ("plex1", "plex.tv.XITE.Siempre.Latino.plex"),
+    "MTVClassic.us": ("pluto", "66a01dcb8561260008b0a41d"),
+    "MTVBiggestPop.us": ("pluto", "6047fabfce6e8e00070bcc9f"),
+    "MTVSpankinNew.us": ("pluto", "6541010f770cf1000866be98"),
+    "MTVFlowLatino.us": ("pluto", "62b218fc511d4b00070ddc0c"),
+    "YoMTV.us": ("pluto", "654102ed770cf1000866c307"),
+    "SkySportsMainEvent.uk@TvVoo": ("uk1", "SkySpMainEvHD.uk"),
+    "SkySportsPlus.uk@TvVoo": ("uk1", "SkySp+.uk"),
+    "TNTSports3.uk@TvVoo": ("uk1", "TNT.Sports.3.HD.uk"),
+    "CNN.us@TvVoo": ("uk1", "CNN.HD.uk"),
+    "ESPN3.ar@TvVoo": ("ar1", "Canal.ESPN.3.(Argentina).ar"),
+    "Eurosport1.fr@TvVoo": ("fr", "Eurosport.1.fr"),
+    "RMCSport1.fr@TvVoo": ("fr", "RMC.Sport.1.fr"),
+    "RMCSport2.fr@TvVoo": ("fr", "RMC.Sport.Live.2.fr"),
+    "MTVHits.fr@TvVoo": ("nz1", "MTV.Hits.nz"),
+    "M6Music.fr@TvVoo": ("fr", "M6.Music.fr"),
+    "TraceUrban.fr@TvVoo": ("fr", "Trace.Urban.fr"),
+    "DAZN2.de@TvVoo": ("de", "DAZN.2.de"),
+    "SportTV1.pt@TvVoo": ("pt1", "SPORT.TV1.HD.pt"),
+    "SportTV2.pt@TvVoo": ("pt1", "SPORT.TV2.HD.pt"),
+    "ElevenSports1.pt@TvVoo": ("pl", "Eleven.Sports.1.HD.pl"),
+    "ElevenSports2.pt@TvVoo": ("pl", "Eleven.Sports.2.HD.pl"),
     "Meganoticias.cl": ("tecnocentro", "LCH7159"),
     "0124": ("tecnocentro", "LCH6525"),
     "1153": ("tecnocentro", "LCH7017"),
@@ -176,6 +227,8 @@ MEGA_SOURCE_MASTER_URL = (
     "vxfmt=dp/playlist.m3u8?device_profile=STB_HLS_VCAS_LIVE_HD"
 )
 MEGANOTICIAS_LIVE_PAGE = "https://www.meganoticias.cl/senal-en-vivo/meganoticias/"
+CANAL13_13C_PROGRAMMING_PAGE = "https://www.13.cl/c/programacion"
+CANAL13_13C_OFFICIAL_EPG_SOURCE = "canal13-13c-oficial"
 TVVOO_STREAM_BASE_URL = "https://tvvoo.hayd.uk/stream/tv"
 # TvVoo publica varios alias para las mismas senales. Se prueban primero los
 # alias que hoy entregan un segmento funcional y se conservan las variantes HD
@@ -191,6 +244,67 @@ TVVOO_STREAM_RESOLVER_IDS = {
         "vavoo_PREMIER%20SPORTS%202%7Cgroup%3Auk",
         "vavoo_PREMIER%20SPORTS%202%20HD%7Cgroup%3Auk",
     ),
+    "Sky Sports Main Event": (
+        "vavoo_SKY%20SPORTS%20MAIN%20EVENT%7Cgroup%3Auk",
+        "vavoo_SKY%20SPORTS%20MAIN%20EVENT%20HD%7Cgroup%3Auk",
+    ),
+    # El catalogo TvVoo conserva el alias ARENA; la parrilla actual se
+    # identifica como Sky Sports+, por eso el tvg-id y la EPG usan Sky+.
+    "Sky Sports+": (
+        "vavoo_SKY%20SPORTS%20ARENA%7Cgroup%3Auk",
+        "vavoo_SKY%20SPORTS%20ARENA%20HD%7Cgroup%3Auk",
+    ),
+    "TNT Sports 3": (
+        "vavoo_TNT%20SPORTS%203%7Cgroup%3Auk",
+        "vavoo_TNT%20SPORTS%203%20HD%7Cgroup%3Auk",
+    ),
+    "CNN": ("vavoo_CNN%7Cgroup%3Auk",),
+    "ESPN 3": ("vavoo_ESPN%203%7Cgroup%3Aar",),
+    "Eurosport 1": (
+        "vavoo_EUROSPORT%201%7Cgroup%3Afr",
+        "vavoo_EUROSPORT%201%20FHD%7Cgroup%3Afr",
+        "vavoo_EUROSPORT%201%20HD%7Cgroup%3Afr",
+    ),
+    "RMC Sport 1": (
+        "vavoo_RMC%20SPORT%201%7Cgroup%3Afr",
+        "vavoo_RMC%20SPORT%201%20FHD%7Cgroup%3Afr",
+        "vavoo_RMC%20SPORT%201%20HD%7Cgroup%3Afr",
+    ),
+    "RMC Sport 2": (
+        "vavoo_RMC%20SPORT%202%7Cgroup%3Afr",
+        "vavoo_RMC%20SPORT%202%20FHD%7Cgroup%3Afr",
+        "vavoo_RMC%20SPORT%202%20HD%7Cgroup%3Afr",
+    ),
+    "MTV Hits": (
+        "vavoo_MTV%20HITS%7Cgroup%3Afr",
+        "vavoo_MTV%20HITS%20HD%7Cgroup%3Afr",
+        "vavoo_MTV%20HITS%20SD%7Cgroup%3Afr",
+    ),
+    "M6 Music": (
+        "vavoo_M6%20MUSIC%7Cgroup%3Afr",
+        "vavoo_M6%20MUSIC%20HD%7Cgroup%3Afr",
+        "vavoo_M6%20MUSIC%20SD%7Cgroup%3Afr",
+    ),
+    "Trace Urban": (
+        "vavoo_TRACE%20URBAN%7Cgroup%3Afr",
+        "vavoo_TRACE%20URBAN%20HD%7Cgroup%3Afr",
+        "vavoo_TRACE%20URBAN%20SD%7Cgroup%3Afr",
+    ),
+    "DAZN 2": (
+        "vavoo_DAZN%202%7Cgroup%3Ade",
+        "vavoo_DAZN%202%20HD%7Cgroup%3Ade",
+        "vavoo_DAZN%202%20FHD%7Cgroup%3Ade",
+    ),
+    "Sport TV 1": (
+        "vavoo_SPORT%20TV%201%7Cgroup%3Apt",
+        "vavoo_SPORT%20TV%201%20HD%7Cgroup%3Apt",
+    ),
+    "Sport TV 2": (
+        "vavoo_SPORT%20TV%202%7Cgroup%3Apt",
+        "vavoo_SPORT%20TV%202%20HD%7Cgroup%3Apt",
+    ),
+    "Eleven Sports 1": ("vavoo_ELEVEN%20SPORTS%201%20HD%7Cgroup%3Apt",),
+    "Eleven Sports 2": ("vavoo_ELEVEN%20SPORTS%202%20HD%7Cgroup%3Apt",),
 }
 CI_GEO_RESTRICTED_CHANNELS = {
     "Mega",
@@ -287,6 +401,22 @@ PREFERRED_LOGOS = {
     "beIN SPORTS XTRA Español": f"{LOCAL_LOGOS_PUBLIC_BASE}/bein-sports-xtra-es.jpg",
     "NHL Network": f"{LOCAL_LOGOS_PUBLIC_BASE}/nhl-network.png",
     "TyC Sports": f"{LOCAL_LOGOS_PUBLIC_BASE}/tyc-sports.png",
+    "Sky Sports Main Event": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-main-event.png",
+    "Sky Sports+": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-plus.png",
+    "TNT Sports 3": f"{LOCAL_LOGOS_PUBLIC_BASE}/tnt-sports-3.png",
+    "CNN": f"{LOCAL_LOGOS_PUBLIC_BASE}/cnn.png",
+    "ESPN 3": f"{LOCAL_LOGOS_PUBLIC_BASE}/espn-3.png",
+    "Eurosport 1": f"{LOCAL_LOGOS_PUBLIC_BASE}/eurosport-1.png",
+    "RMC Sport 1": f"{LOCAL_LOGOS_PUBLIC_BASE}/rmc-sport-1.png",
+    "RMC Sport 2": f"{LOCAL_LOGOS_PUBLIC_BASE}/rmc-sport-2.png",
+    "MTV Hits": f"{LOCAL_LOGOS_PUBLIC_BASE}/mtv-hits.png",
+    "M6 Music": f"{LOCAL_LOGOS_PUBLIC_BASE}/m6-music.png",
+    "Trace Urban": f"{LOCAL_LOGOS_PUBLIC_BASE}/trace-urban.png",
+    "DAZN 2": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn-2.png",
+    "Sport TV 1": f"{LOCAL_LOGOS_PUBLIC_BASE}/sport-tv-1.png",
+    "Sport TV 2": f"{LOCAL_LOGOS_PUBLIC_BASE}/sport-tv-2.png",
+    "Eleven Sports 1": f"{LOCAL_LOGOS_PUBLIC_BASE}/eleven-sports-1.png",
+    "Eleven Sports 2": f"{LOCAL_LOGOS_PUBLIC_BASE}/eleven-sports-2.png",
 }
 CONTINUOUS_PROGRAMME_DETAILS = {
     "TVN3": (
@@ -575,6 +705,22 @@ SEGMENT_CHECK_CHANNELS = {
     "XITE Just Chill",
     "Premier Sports 1",
     "Premier Sports 2",
+    "Sky Sports Main Event",
+    "Sky Sports+",
+    "TNT Sports 3",
+    "CNN",
+    "ESPN 3",
+    "Eurosport 1",
+    "RMC Sport 1",
+    "RMC Sport 2",
+    "MTV Hits",
+    "M6 Music",
+    "Trace Urban",
+    "DAZN 2",
+    "Sport TV 1",
+    "Sport TV 2",
+    "Eleven Sports 1",
+    "Eleven Sports 2",
 }
 @dataclass(frozen=True)
 class Channel:
@@ -1771,6 +1917,209 @@ def decode_web_text(data: bytes) -> str:
     return decoded
 
 
+CANAL13_WEEKDAY_INDEX = {
+    "lunes": 0,
+    "martes": 1,
+    "miercoles": 2,
+    "miércoles": 2,
+    "jueves": 3,
+    "viernes": 4,
+    "sabado": 5,
+    "sábado": 5,
+    "domingo": 6,
+}
+CANAL13_MONTH_INDEX = {
+    "enero": 1,
+    "febrero": 2,
+    "marzo": 3,
+    "abril": 4,
+    "mayo": 5,
+    "junio": 6,
+    "julio": 7,
+    "agosto": 8,
+    "septiembre": 9,
+    "setiembre": 9,
+    "octubre": 10,
+    "noviembre": 11,
+    "diciembre": 12,
+}
+
+
+def canal13_official_payload(page_html: str) -> dict:
+    """Extract the JSON object embedded by the official 13C guide page."""
+    match = re.search(
+        r"const\s+programacionJson\s*=\s*(\{.*?\})\s*;\s*"
+        r"console\.log\(programacionJson(?:\.titulo)?\)",
+        page_html,
+        flags=re.IGNORECASE | re.DOTALL,
+    )
+    if not match:
+        raise ValueError("Canal 13 no publico programacionJson para 13C")
+    payload = json.loads(match.group(1))
+    if not isinstance(payload, dict) or not isinstance(payload.get("dias"), dict):
+        raise ValueError("el JSON oficial de 13C no contiene dias validos")
+    return payload
+
+
+def canal13_schedule_date(
+    day_name: str, day_number: int, title: str, now: datetime
+) -> object:
+    """Resolve the date printed by 13.cl and tolerate a stale week label."""
+    normalized_day = re.sub(r"\s+", "", day_name.casefold())
+    weekday = CANAL13_WEEKDAY_INDEX.get(normalized_day)
+    if weekday is None:
+        raise ValueError(f"dia no reconocido en la guia 13C: {day_name}")
+    title_match = re.search(
+        r"\b([A-Za-zÁÉÍÓÚáéíóúñÑ]+)\s+(20\d{2})\b", title
+    )
+    if not title_match:
+        raise ValueError("la guia oficial de 13C no contiene mes y ano")
+    month_name = title_match.group(1).casefold()
+    month = CANAL13_MONTH_INDEX.get(month_name)
+    if month is None:
+        raise ValueError(f"mes no reconocido en la guia 13C: {month_name}")
+    year = int(title_match.group(2))
+    try:
+        candidate = datetime(year, month, day_number, tzinfo=CHILE_TIMEZONE).date()
+    except ValueError as error:
+        raise ValueError(f"fecha invalida en la guia oficial de 13C: {error}") from error
+    if candidate.weekday() == weekday:
+        return candidate
+
+    # A stale cached title can carry the wrong month/year. Search a narrow
+    # window while retaining the day number and weekday printed by the page.
+    reference = now.astimezone(CHILE_TIMEZONE).date()
+    for delta in range(-370, 371):
+        alternative = reference + timedelta(days=delta)
+        if alternative.day == day_number and alternative.weekday() == weekday:
+            return alternative
+    raise ValueError(f"no se pudo ubicar la fecha de {day_name} {day_number}")
+
+
+def fetch_13c_official_epg(
+    channels: list[Channel], now: datetime
+) -> tuple[bytes | None, str | None]:
+    """Import the real weekly 13C guide from Canal 13 before Zapping."""
+    if not any(channel.tvg_id == "13C.cl@SD" for channel in channels):
+        return None, None
+    try:
+        status, body, _ = fetch_bytes(
+            CANAL13_13C_PROGRAMMING_PAGE,
+            {
+                "User-Agent": BROWSER_USER_AGENT,
+                "Accept": "text/html,application/xhtml+xml,*/*;q=0.8",
+                "Accept-Language": "es-CL,es;q=0.9,en;q=0.8",
+                "Referer": "https://www.13.cl/c",
+            },
+            timeout=60,
+            limit=10_000_000,
+        )
+        if status != 200:
+            raise ValueError(f"HTTP {status}")
+        payload = canal13_official_payload(decode_web_text(body))
+        title = str(payload.get("titulo", "")).strip()
+        raw_days = payload.get("dias")
+        if not isinstance(raw_days, dict):
+            raise ValueError("la guia oficial de 13C no contiene un objeto dias")
+
+        records: list[tuple[datetime, str]] = []
+        for day_name, date_objects in raw_days.items():
+            if not isinstance(date_objects, dict):
+                continue
+            for date_text, schedule in date_objects.items():
+                if not isinstance(schedule, dict):
+                    continue
+                day_match = re.search(r"(\d{1,2})", str(date_text))
+                if not day_match:
+                    continue
+                schedule_date = canal13_schedule_date(
+                    str(day_name), int(day_match.group(1)), title, now
+                )
+                parsed: list[tuple[object, str]] = []
+                for clock_text, raw_title in schedule.items():
+                    clock_match = re.fullmatch(r"(\d{1,2}):(\d{2})", str(clock_text).strip())
+                    if not clock_match:
+                        continue
+                    hour, minute = int(clock_match.group(1)), int(clock_match.group(2))
+                    if hour > 23 or minute > 59:
+                        continue
+                    clean_title = re.sub(r"\s+", " ", str(raw_title)).strip()
+                    if not clean_title:
+                        continue
+                    marker = ""
+                    marker_match = re.search(r"\s+([RE])\s*$", clean_title, re.IGNORECASE)
+                    if marker_match:
+                        marker = " (Estreno)" if marker_match.group(1).upper() == "E" else " (R)"
+                        clean_title = clean_title[: marker_match.start()].rstrip()
+                    parsed.append(
+                        (
+                            datetime.strptime(
+                                f"{hour:02d}:{minute:02d}", "%H:%M"
+                            ).time(),
+                            clean_title + marker,
+                        )
+                    )
+                previous_start: datetime | None = None
+                for start_clock, clean_title in parsed:
+                    start = datetime.combine(
+                        schedule_date, start_clock, tzinfo=CHILE_TIMEZONE
+                    )
+                    if previous_start is not None and start <= previous_start:
+                        start += timedelta(days=1)
+                    records.append((start, clean_title))
+                    previous_start = start
+
+        unique_records: dict[datetime, str] = {}
+        for start, clean_title in records:
+            unique_records.setdefault(start, clean_title)
+        ordered = sorted(unique_records.items())
+        lower_limit = now - timedelta(hours=6)
+        upper_limit = now + timedelta(days=8)
+        filtered = [
+            (start, clean_title)
+            for start, clean_title in ordered
+            if start <= upper_limit and start + timedelta(minutes=1) >= lower_limit
+        ]
+        if len(filtered) < 5:
+            raise ValueError("Canal 13 no publico una parrilla oficial vigente suficiente")
+
+        root = ET.Element(
+            "tv",
+            {
+                "generator-info-name": "lista-m3u Canal 13 13C importer",
+                "source-info-name": CANAL13_13C_PROGRAMMING_PAGE,
+            },
+        )
+        programme_count = 0
+        for index, (start, clean_title) in enumerate(filtered):
+            stop = (
+                filtered[index + 1][0]
+                if index + 1 < len(filtered)
+                else start + timedelta(hours=2)
+            )
+            if stop <= start:
+                continue
+            programme = ET.SubElement(
+                root,
+                "programme",
+                {
+                    "start": xmltv_format_chile(start),
+                    "stop": xmltv_format_chile(stop),
+                    "channel": "13C.cl@SD",
+                },
+            )
+            ET.SubElement(programme, "title", {"lang": "es"}).text = clean_title
+            ET.SubElement(programme, "desc", {"lang": "es"}).text = (
+                "Programacion oficial consultada en Canal 13 para 13C."
+            )
+            programme_count += 1
+        if programme_count < 5:
+            raise ValueError("la guia oficial de 13C no contiene bloques utilizables")
+        return ET.tostring(root, encoding="utf-8", xml_declaration=True), None
+    except Exception as error:
+        return None, f"{type(error).__name__}: {error}"
+
+
 def zapping_html_text(value: str) -> str:
     value = html.unescape(re.sub(r"<[^>]+>", " ", value))
     return re.sub(r"\s+", " ", value).strip()
@@ -2291,11 +2640,32 @@ def build_epg(
         source_lookup.pop(("cl", "Canal.La.Red.(Chile).cl"), None)
         source_lookup.pop((ZAPPING_EPG_SOURCE, "0102"), None)
         source_lookup[(LA_RED_OFFICIAL_EPG_SOURCE, "0102")] = "0102"
+    if (
+        CANAL13_13C_OFFICIAL_EPG_SOURCE in source_roots
+        and "13C.cl@SD" in expected_ids
+    ):
+        source_lookup.pop((ZAPPING_EPG_SOURCE, "13C.cl@SD"), None)
+        source_lookup[(CANAL13_13C_OFFICIAL_EPG_SOURCE, "13C.cl@SD")] = (
+            "13C.cl@SD"
+        )
     for source_name, source_root in source_roots.items():
+        seen_source_programmes: set[tuple[str, str, str, str]] = set()
         for programme in source_root.findall("programme"):
             target_id = source_lookup.get((source_name, programme.get("channel", "")))
             if target_id is None:
                 continue
+            if source_name == "pluto":
+                # Pluto's public XML sometimes repeats the same card verbatim
+                # at a boundary. Keep one copy so XMLTV remains non-overlapping.
+                duplicate_key = (
+                    programme.get("channel", ""),
+                    programme.get("start", ""),
+                    programme.get("stop", ""),
+                    programme.findtext("title", ""),
+                )
+                if duplicate_key in seen_source_programmes:
+                    continue
+                seen_source_programmes.add(duplicate_key)
             copied = localize_xmltv_programme(programme)
             copied.set("channel", target_id)
             root.append(copied)
@@ -2387,6 +2757,17 @@ def build_epg(
 
     for channel in root.findall("channel"):
         channel.set("data-guide", guide_types.get(channel.get("id", ""), "senal continua"))
+
+    generic_only = sorted(
+        channel_id
+        for channel_id in expected_ids
+        if guide_types.get(channel_id) == "senal continua"
+    )
+    if generic_only:
+        names = ", ".join(channel_by_id[channel_id].name for channel_id in generic_only)
+        raise ValueError(
+            "se rechazo una EPG generica para canales de produccion: " + names
+        )
 
     real_stop_candidates = list(real_last_stop_by_target.values())
     if real_stop_candidates:
@@ -2481,6 +2862,12 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
     if nhk_error:
         source_errors[NHK_OFFICIAL_EPG_SOURCE] = nhk_error
 
+    canal13_data, canal13_error = fetch_13c_official_epg(channels, now)
+    if canal13_data:
+        source_documents[CANAL13_13C_OFFICIAL_EPG_SOURCE] = canal13_data
+    if canal13_error:
+        source_errors[CANAL13_13C_OFFICIAL_EPG_SOURCE] = canal13_error
+
     red_bull_schedules, red_bull_source_names, red_bull_errors = (
         fetch_red_bull_schedules(expected_ids, now)
     )
@@ -2494,6 +2881,7 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
             LA_RED_OFFICIAL_EPG_SOURCE,
             MEGA_OFFICIAL_EPG_SOURCE,
             TVN_OFFICIAL_EPG_SOURCE,
+            CANAL13_13C_OFFICIAL_EPG_SOURCE,
         }
     }
     if blocking_source_errors and existing_status is not None:
@@ -3206,6 +3594,16 @@ def main() -> int:
             True,
         ),
     }
+    for channel_name in TVVOO_STREAM_RESOLVER_IDS:
+        dynamic_channels.setdefault(
+            channel_name,
+            (
+                lambda channel_name=channel_name: fresh_tvvoo_stream_urls(
+                    channel_name
+                ),
+                True,
+            ),
+        )
     for channel_name, (fresh_url_factory, always_refresh) in dynamic_channels.items():
         channel = next((item for item in channels if item.name == channel_name), None)
         if channel and refresh_dynamic_channel(
