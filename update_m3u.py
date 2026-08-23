@@ -176,6 +176,22 @@ MEGA_SOURCE_MASTER_URL = (
     "vxfmt=dp/playlist.m3u8?device_profile=STB_HLS_VCAS_LIVE_HD"
 )
 MEGANOTICIAS_LIVE_PAGE = "https://www.meganoticias.cl/senal-en-vivo/meganoticias/"
+TVVOO_STREAM_BASE_URL = "https://tvvoo.hayd.uk/stream/tv"
+# TvVoo publica varios alias para las mismas senales. Se prueban primero los
+# alias que hoy entregan un segmento funcional y se conservan las variantes HD
+# como respaldo para cuando el proveedor las vuelva a servir.
+TVVOO_STREAM_RESOLVER_IDS = {
+    "Premier Sports 1": (
+        "vavoo_PREMIER%20SPORT%7Cgroup%3Auk",
+        "vavoo_PREMIER%20SPORTS%201%7Cgroup%3Auk",
+        "vavoo_PREMIER%20SPORTS%201%20HD%7Cgroup%3Auk",
+    ),
+    "Premier Sports 2": (
+        "vavoo_PREMIER%20SPORT%202%7Cgroup%3Auk",
+        "vavoo_PREMIER%20SPORTS%202%7Cgroup%3Auk",
+        "vavoo_PREMIER%20SPORTS%202%20HD%7Cgroup%3Auk",
+    ),
+}
 CI_GEO_RESTRICTED_CHANNELS = {
     "Mega",
     "NTV",
@@ -256,6 +272,8 @@ PREFERRED_LOGOS = {
     "Marquee Sports Network HD": f"{LOCAL_LOGOS_PUBLIC_BASE}/marquee-sports-network.svg",
     "Sky Sports Racing": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-racing.png",
     "Sky Sports Premier League": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-premier-league.png",
+    "Premier Sports 1": f"{LOCAL_LOGOS_PUBLIC_BASE}/premier-sports-1.png",
+    "Premier Sports 2": f"{LOCAL_LOGOS_PUBLIC_BASE}/premier-sports-2.png",
     "Sky Sport 1 NZ": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sport-1-nz.png",
     "Sky Sports Tennis": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-tennis.png",
     "FOX Sports 502 HD": f"{LOCAL_LOGOS_PUBLIC_BASE}/fox-sports.svg",
@@ -342,6 +360,14 @@ CONTINUOUS_PROGRAMME_DETAILS = {
     "XITE Just Chill": (
         "XITE Just Chill - videoclips",
         "Programacion musical de XITE; se conserva continuidad si la guia FAST no esta disponible.",
+    ),
+    "Premier Sports 1": (
+        "Premier Sports 1 en vivo",
+        "Senal deportiva continua; TvVoo no publica una parrilla XMLTV estable para esta senal.",
+    ),
+    "Premier Sports 2": (
+        "Premier Sports 2 en vivo",
+        "Senal deportiva continua; TvVoo no publica una parrilla XMLTV estable para esta senal.",
     ),
     "13 Cultura": (
         "13 Cultura en vivo",
@@ -567,6 +593,8 @@ SEGMENT_CHECK_CHANNELS = {
     "XITE Rock x Metal",
     "MTV Rocks",
     "XITE Just Chill",
+    "Premier Sports 1",
+    "Premier Sports 2",
 }
 @dataclass(frozen=True)
 class Channel:
@@ -2911,6 +2939,45 @@ def fresh_24horas_url() -> str:
     return f"https://mdstrm.com/live-stream-playlist/{stream_id}.m3u8"
 
 
+def fresh_tvvoo_stream_urls(channel_name: str) -> list[str]:
+    """Resolve current TvVoo HLS URLs for a channel without storing its token."""
+    resolver_ids = TVVOO_STREAM_RESOLVER_IDS.get(channel_name)
+    if not resolver_ids:
+        raise ValueError(f"no hay resolver TvVoo para {channel_name}")
+    headers = {
+        "User-Agent": BROWSER_USER_AGENT,
+        "Accept": "application/json",
+    }
+    candidates: list[str] = []
+    errors: list[str] = []
+    for resolver_id in resolver_ids:
+        endpoint = f"{TVVOO_STREAM_BASE_URL}/{resolver_id}.json"
+        try:
+            status, body, _ = fetch_bytes(endpoint, headers, timeout=30, limit=131_072)
+            if status != 200:
+                raise ValueError(f"HTTP {status}")
+            payload = json.loads(body.decode("utf-8", "replace"))
+            for stream in payload.get("streams", []):
+                stream_url = str(stream.get("url", "")).strip()
+                if not stream_url:
+                    continue
+                candidates.append(stream_url)
+                parsed = urlparse(stream_url)
+                # Algunos nodos HTTPS del proveedor estan entregando un
+                # certificado vencido; el mismo JSON publica nodos HTTP que
+                # siguen entregando el HLS. Se prueba HTTPS primero y HTTP
+                # solo como compatibilidad del stream publico.
+                if parsed.scheme.lower() == "https":
+                    candidates.append(parsed._replace(scheme="http").geturl())
+        except Exception as error:
+            errors.append(f"{resolver_id}: {type(error).__name__}: {error}")
+    unique = list(dict.fromkeys(candidates))
+    if unique:
+        return unique
+    detail = "; ".join(errors) if errors else "respuesta sin streams"
+    raise RuntimeError(f"TvVoo no entrego una URL para {channel_name}: {detail}")
+
+
 def megamedia_page_html(page_url: str) -> str:
     headers = {
         "User-Agent": BROWSER_USER_AGENT,
@@ -2943,21 +3010,31 @@ def megamedia_page_html(page_url: str) -> str:
 def refresh_dynamic_channel(
     lines: list[str],
     channel: Channel,
-    fresh_url_factory: Callable[[], str],
+    fresh_url_factory: Callable[[], str | list[str]],
     *,
     running_in_ci: bool,
+    always_refresh: bool = False,
 ) -> bool:
     current_result = check_channel(channel, allow_ci_geo_block=running_in_ci)
     state = "OK" if current_result.ok else "FALLO"
     print(f"  [{state}] {channel.name}: {current_result.detail}")
     use_dynamic_master = "/live-stream-gdai/" not in channel.url
-    needs_refresh = running_in_ci or not current_result.ok or not use_dynamic_master
+    needs_refresh = (
+        always_refresh
+        or running_in_ci
+        or not current_result.ok
+        or not use_dynamic_master
+    )
     if not needs_refresh:
         return False
 
     candidates: list[str] = []
     try:
-        candidates.append(fresh_url_factory())
+        fresh_result = fresh_url_factory()
+        if isinstance(fresh_result, str):
+            candidates.append(fresh_result)
+        else:
+            candidates.extend(fresh_result)
     except Exception as error:
         print(f"  [AVISO] {channel.name}: no se pudo renovar el enlace oficial: {error}")
     candidates.extend(KNOWN_STREAM_FALLBACKS.get(channel.name, []))
@@ -3139,15 +3216,24 @@ def main() -> int:
     refreshed_channels: list[str] = []
     refresh_changed = False
     dynamic_channels = {
-        "24 Horas": fresh_24horas_url,
+        "24 Horas": (fresh_24horas_url, False),
+        "Premier Sports 1": (
+            lambda: fresh_tvvoo_stream_urls("Premier Sports 1"),
+            True,
+        ),
+        "Premier Sports 2": (
+            lambda: fresh_tvvoo_stream_urls("Premier Sports 2"),
+            True,
+        ),
     }
-    for channel_name, fresh_url_factory in dynamic_channels.items():
+    for channel_name, (fresh_url_factory, always_refresh) in dynamic_channels.items():
         channel = next((item for item in channels if item.name == channel_name), None)
         if channel and refresh_dynamic_channel(
             lines,
             channel,
             fresh_url_factory,
             running_in_ci=allow_geo_restricted,
+            always_refresh=always_refresh,
         ):
             refreshed_channels.append(channel_name)
             refresh_changed = True

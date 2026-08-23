@@ -44,6 +44,10 @@ Cada ejecucion completa:
 - incorpora MTV Classic, MTV Rocks y MTV Spankin' New desde feeds Pluto TV
   catalogados; al igual que Biggest Pop, conservan guia de continuidad porque no
   publican una parrilla XMLTV estable;
+- incorpora Premier Sports 1 y Premier Sports 2 desde los resolutores JSON
+  publicos de TvVoo; cada ejecucion de 48 horas solicita tokens nuevos,
+  prueba el HLS completo y conserva continuidad en la EPG porque TvVoo no
+  publica una parrilla XMLTV estable;
 - usa la guia publica de Zapping Chile para las senales nacionales donde
   EPGShare/TecnoCentro mostraban desplazamientos o no entregaban una parrilla
   util; sus marcas Unix absolutas se convierten a America/Santiago sin sumar
@@ -94,7 +98,7 @@ disponible sin depender de servidores externos.
 
 ## Canales
 
-La lista contiene 49 canales: nacionales, noticias, miscelaneos chilenos,
+La lista contiene 74 canales: nacionales, noticias, miscelaneos chilenos,
 noticias internacionales, documentales, conciertos y una seleccion musical.
 
 TVN y Mega se actualizan desde sus parrillas oficiales cuando estan
