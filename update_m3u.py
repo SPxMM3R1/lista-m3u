@@ -98,7 +98,8 @@ EPG_PROGRAMME_SOURCES = {
 # Zapping publica una guia HTML con marcas Unix absolutas para el programa
 # actual, hoy y manana. Se usa solo para senales chilenas donde la fuente
 # agregada estaba desplazada o no entregaba una parrilla util. TVN y Mega
-# conservan sus adaptadores oficiales especificos.
+# conservan sus adaptadores oficiales especificos; T13 usa Zapping y
+# TecnoCentro porque no hay una parrilla oficial diaria de esa senal.
 ZAPPING_EPG_SOURCE = "zapping-guia-publica"
 ZAPPING_EPG_BASE_URL = "https://guia.zappingtv.com"
 ZAPPING_EPG_CHANNELS = {
@@ -202,9 +203,9 @@ PREFERRED_LOGOS = {
     "CHV": f"{LOCAL_LOGOS_PUBLIC_BASE}/chv.png",
     "Canal 13": f"{LOCAL_LOGOS_PUBLIC_BASE}/canal13.png",
     "La Red": f"{LOCAL_LOGOS_PUBLIC_BASE}/la-red.png",
-    "24 Horas": f"{LOCAL_LOGOS_PUBLIC_BASE}/24-horas.png",
+    "24 Horas": f"{LOCAL_LOGOS_PUBLIC_BASE}/24-horas.svg",
     "Meganoticias": f"{LOCAL_LOGOS_PUBLIC_BASE}/meganoticias.png",
-    "T13": f"{LOCAL_LOGOS_PUBLIC_BASE}/t13.png",
+    "T13": f"{LOCAL_LOGOS_PUBLIC_BASE}/t13.svg",
     "CHV Noticias": f"{LOCAL_LOGOS_PUBLIC_BASE}/chv-noticias.svg",
     "NTV": f"{LOCAL_LOGOS_PUBLIC_BASE}/ntv.svg",
     "TVN3": f"{LOCAL_LOGOS_PUBLIC_BASE}/tvn3.svg",
@@ -2507,16 +2508,8 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
     )
     if zapping_data:
         source_documents[ZAPPING_EPG_SOURCE] = zapping_data
-    elif zapping_errors and existing_status is not None:
-        existing_status.update(
-            {
-                "updated": False,
-                "preserved": True,
-                "warning": "se conservo la guia anterior por fallo de la guia publica Zapping",
-                "source_errors": source_errors,
-            }
-        )
-        return existing_status
+    # Un fallo de Zapping es por canal y no debe abortar la actualizacion:
+    # build_epg conserva EPGShare01/TecnoCentro como tercera opcion.
 
     tecnocentro_data, tecnocentro_errors = fetch_tecnocentro_epg(channels, now)
     if tecnocentro_data:

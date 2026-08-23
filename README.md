@@ -97,9 +97,16 @@ disponible sin depender de servidores externos.
 La lista contiene 49 canales: nacionales, noticias, miscelaneos chilenos,
 noticias internacionales, documentales, conciertos y una seleccion musical.
 
-TVN y La Red se actualizan desde sus parrillas oficiales. La fuente oficial de
-La Red tiene prioridad sobre Zapping y EPGShare; esas fuentes se conservan como
+TVN y Mega se actualizan desde sus parrillas oficiales cuando estan
+disponibles. Para T13 no se encontro una parrilla oficial diaria de la senal
+`t13.smil`: la pagina `13.cl/programacion` corresponde a la parrilla general
+de Canal 13 y no coincide con esa senal. Por eso T13 usa Zapping como primera
+opcion y TecnoCentro como tercera opcion. La fuente oficial de La Red tiene
+prioridad sobre Zapping y EPGShare; esas fuentes se conservan como
 respaldo si la pagina del canal no responde o no entrega 24 horas futuras.
+Para 24 Horas no se encontro una parrilla diaria oficial publica y estructurada
+en 24horas.cl: se usa Zapping cuando entrega bloques validos y EPGShare01 como
+tercera opcion. Un fallo aislado de Zapping no invalida los respaldos por canal.
 La EPG usa fuentes XMLTV de Chile, Espana, Francia, Alemania, Polonia,
 Letonia, Paises Bajos, PLEX1, Turquia, Singapur y Nigeria, junto con la guia
 publica de Zapping para senales chilenas seleccionadas. Zapping se selecciona
