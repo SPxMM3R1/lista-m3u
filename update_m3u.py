@@ -32,6 +32,13 @@ PUBLIC_RAW_BASE = "https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main"
 EPG_PUBLIC_URL = f"{PUBLIC_RAW_BASE}/epg.xml"
 LOCAL_LOGOS_PUBLIC_BASE = f"{PUBLIC_RAW_BASE}/logos"
 TEST_GROUP_PREFIX = "PRUEBA - "
+# TvVoo responde para estas dos senales, pero no se encontro una parrilla
+# XMLTV propia ni una fuente de terceros que identifique el canal exacto.
+# Se publican en la lista principal sin inventar programas de continuidad.
+NO_EPG_CHANNEL_IDS = {
+    "RTFrance.fr@TvVoo",
+    "DAZNFastPlus.de@TvVoo",
+}
 NHK_MASTER_URL = "https://masterpl.hls.nhkworld.jp/hls/w/live/smarttv.m3u8"
 NHK_WORLD_LIVE_PAGE = "https://www3.nhk.or.jp/nhkworld/en/live_tv/"
 NHK_WORLD_EPG_BASE_URL = "https://masterpl.hls.nhkworld.jp/epg/w"
@@ -259,6 +266,7 @@ TVVOO_STREAM_RESOLVER_IDS = {
         "vavoo_TNT%20SPORTS%203%20HD%7Cgroup%3Auk",
     ),
     "CNN": ("vavoo_CNN%7Cgroup%3Auk",),
+    "RT France": ("vavoo_RT%20FRANCE%7Cgroup%3Afr",),
     "ESPN 3": ("vavoo_ESPN%203%7Cgroup%3Aar",),
     "Eurosport 1": (
         "vavoo_EUROSPORT%201%7Cgroup%3Afr",
@@ -295,6 +303,7 @@ TVVOO_STREAM_RESOLVER_IDS = {
         "vavoo_DAZN%202%20HD%7Cgroup%3Ade",
         "vavoo_DAZN%202%20FHD%7Cgroup%3Ade",
     ),
+    "DAZN FAST+": ("vavoo_DAZN%20FAST%2B%7Cgroup%3Ade",),
     "Sport TV 1": (
         "vavoo_SPORT%20TV%201%7Cgroup%3Apt",
         "vavoo_SPORT%20TV%201%20HD%7Cgroup%3Apt",
@@ -405,6 +414,7 @@ PREFERRED_LOGOS = {
     "Sky Sports+": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-plus.png",
     "TNT Sports 3": f"{LOCAL_LOGOS_PUBLIC_BASE}/tnt-sports-3.png",
     "CNN": f"{LOCAL_LOGOS_PUBLIC_BASE}/cnn.png",
+    "RT France": f"{LOCAL_LOGOS_PUBLIC_BASE}/rt-france.png",
     "ESPN 3": f"{LOCAL_LOGOS_PUBLIC_BASE}/espn-3.png",
     "Eurosport 1": f"{LOCAL_LOGOS_PUBLIC_BASE}/eurosport-1.png",
     "RMC Sport 1": f"{LOCAL_LOGOS_PUBLIC_BASE}/rmc-sport-1.png",
@@ -413,6 +423,7 @@ PREFERRED_LOGOS = {
     "M6 Music": f"{LOCAL_LOGOS_PUBLIC_BASE}/m6-music.png",
     "Trace Urban": f"{LOCAL_LOGOS_PUBLIC_BASE}/trace-urban.png",
     "DAZN 2": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn-2.png",
+    "DAZN FAST+": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn-fast.png",
     "Sport TV 1": f"{LOCAL_LOGOS_PUBLIC_BASE}/sport-tv-1.png",
     "Sport TV 2": f"{LOCAL_LOGOS_PUBLIC_BASE}/sport-tv-2.png",
     "Eleven Sports 1": f"{LOCAL_LOGOS_PUBLIC_BASE}/eleven-sports-1.png",
@@ -709,6 +720,7 @@ SEGMENT_CHECK_CHANNELS = {
     "Sky Sports+",
     "TNT Sports 3",
     "CNN",
+    "RT France",
     "ESPN 3",
     "Eurosport 1",
     "RMC Sport 1",
@@ -717,6 +729,7 @@ SEGMENT_CHECK_CHANNELS = {
     "M6 Music",
     "Trace Urban",
     "DAZN 2",
+    "DAZN FAST+",
     "Sport TV 1",
     "Sport TV 2",
     "Eleven Sports 1",
@@ -910,6 +923,7 @@ def epg_status_from_xml(
     *,
     now: datetime,
     minimum_future: timedelta,
+    allow_empty_ids: set[str] | None = None,
 ) -> dict:
     root = ET.fromstring(data)
     if root.tag != "tv":
@@ -952,13 +966,19 @@ def epg_status_from_xml(
             "programas superpuestos en la EPG: " + ", ".join(sorted(overlapping_channels))
         )
 
-    empty = sorted(channel_id for channel_id, count in counts.items() if count == 0)
+    allowed_empty = set(allow_empty_ids or ()) & expected_ids
+    empty = sorted(
+        channel_id
+        for channel_id, count in counts.items()
+        if count == 0 and channel_id not in allowed_empty
+    )
     if empty:
         raise ValueError("canales sin programas en la EPG: " + ", ".join(empty))
     expiring = sorted(
         channel_id
         for channel_id in expected_ids
-        if last_by_channel.get(channel_id, now) < now + minimum_future
+        if channel_id not in allowed_empty
+        and last_by_channel.get(channel_id, now) < now + minimum_future
     )
     if expiring:
         raise ValueError("programacion insuficiente para: " + ", ".join(expiring))
@@ -2740,6 +2760,9 @@ def build_epg(
     minimum_future = now + timedelta(hours=24)
     for channel_id, count in programmes_by_target.items():
         channel = channel_by_id[channel_id]
+        if channel_id in NO_EPG_CHANNEL_IDS:
+            guide_types[channel_id] = "sin guía"
+            continue
         last_stop = last_stop_by_channel.get(channel_id)
         if count and last_stop is not None and last_stop >= minimum_future:
             continue
@@ -2784,6 +2807,7 @@ def build_epg(
         expected_ids,
         now=now,
         minimum_future=timedelta(hours=24),
+        allow_empty_ids=NO_EPG_CHANNEL_IDS,
     )
     status["guide_types"] = guide_types
     status["real_last_stop_utc"] = {
@@ -2811,6 +2835,7 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
                 expected_ids,
                 now=now,
                 minimum_future=timedelta(hours=24),
+                allow_empty_ids=NO_EPG_CHANNEL_IDS,
             )
             generated_at = existing_status.get("generated_at")
             if generated_at and not force:

@@ -42,12 +42,13 @@ Cada ejecucion completa:
 - incorpora la parrilla XMLTV de PlutoTV para MTV Classic, MTV Biggest Pop,
   MTV Spankin' New, MTV Flow Latino y Yo! MTV; las tarjetas repetidas de Pluto
   se deduplican antes de construir la EPG;
-- incorpora 16 canales adicionales desde los resolutores JSON publicos de TvVoo:
+- incorpora 18 canales adicionales desde los resolutores JSON publicos de TvVoo:
   CNN, MTV Hits, M6 Music, Trace Urban, Sky Sports Main Event, Sky Sports+,
   TNT Sports 3, ESPN 3, Eurosport 1, RMC Sport 1, RMC Sport 2, DAZN 2,
-  Sport TV 1, Sport TV 2, Eleven Sports 1 y Eleven Sports 2. Cada ejecucion de
-  48 horas solicita tokens nuevos, valida maestro/variante/segmento y usa el
-  mismo enlace HTTP solo cuando el nodo HTTPS responde con certificado vencido;
+  DAZN FAST+, RT France, Sport TV 1, Sport TV 2, Eleven Sports 1 y Eleven
+  Sports 2. Cada ejecucion de 48 horas solicita tokens nuevos, valida
+  maestro/variante/segmento y usa el mismo enlace HTTP solo cuando el nodo HTTPS
+  responde con certificado vencido;
 - prioriza la guia oficial de Canal 13 para 13C, manteniendola separada de
   13 Cultura; si la pagina oficial no entrega bloques vigentes, usa Zapping
   como respaldo por canal;
@@ -103,7 +104,7 @@ disponible sin depender de servidores externos.
 
 ## Canales
 
-La lista contiene 73 canales: nacionales, noticias, miscelaneos chilenos,
+La lista contiene 75 canales: nacionales, noticias, miscelaneos chilenos,
 noticias internacionales, documentales, conciertos, musica y deportes.
 
 TVN y Mega se actualizan desde sus parrillas oficiales cuando estan
@@ -123,18 +124,20 @@ de Zapping para senales chilenas seleccionadas. El orden es: fuente oficial
 del canal, XMLTV real por pais/proveedor y Zapping u otra fuente secundaria
 real. M1, M2 y 13C se actualizan desde sus parrillas oficiales. La produccion
 no conserva canales cuya unica salida seria `senal continua`; el constructor
-falla antes de publicar si aparece uno. Puede existir `parrilla real +
-continuidad` cuando la fuente real tiene un horizonte corto: los programas
-siguen siendo reales y la continuidad solo cubre el hueco hasta la proxima
-actualizacion.
+ falla antes de publicar si aparece uno. Las excepciones explicitas de TvVoo
+ que responden como HLS pero no tienen una guia identificable se publican como
+ `sin guía`, sin inventar programas. Puede existir `parrilla real + continuidad`
+ cuando la fuente real tiene un horizonte corto: los programas siguen siendo
+ reales y la continuidad solo cubre el hueco hasta la proxima actualizacion.
 
 En esta depuracion se retiraron los canales sin una fuente de EPG real
 verificable: CHV Deportes, 13 Cultura, 13 Kids, Autentic History, Reuters,
 Totalmusic 80s, Totalmusic 2000s, Totalmusic Concerts y Totalmusic Dance.
 13C permanece en la lista como canal distinto y conserva la parrilla oficial
 de `https://www.13.cl/c/programacion`; no se reutilizo esa guia para 13 Cultura.
-RT France y DAZN FAST+ respondieron como HLS en la auditoria TvVoo, pero no se
-incorporaron porque no encontramos una parrilla real compatible.
+RT France y DAZN FAST+ se incorporan porque TvVoo devuelve HLS utilizable; sus
+canales XMLTV quedan declarados como `sin guía` hasta que exista una parrilla
+que identifique esas señales exactas.
 
 Simply.TV (con punto) se reviso
 como proveedor B2B de EPG y metadata:

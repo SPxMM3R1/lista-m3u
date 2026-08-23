@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-generated-at="2026-08-23T23:11:27.094510+00:00" data-next-refresh-at="2026-08-23T23:00:00+00:00">
+<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-generated-at="2026-08-23T23:39:18.955098+00:00" data-next-refresh-at="2026-08-23T23:00:00+00:00">
   <channel id="0104" data-guide="parrilla real + continuidad">
     <display-name>TVN</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvn.png" />
@@ -67,6 +67,10 @@
   <channel id="CNN.us@TvVoo" data-guide="parrilla real">
     <display-name>CNN</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/cnn.png" />
+  </channel>
+  <channel id="RTFrance.fr@TvVoo" data-guide="sin guía">
+    <display-name>RT France</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/rt-france.png" />
   </channel>
   <channel id="EuronewsSpanish.fr" data-guide="parrilla real">
     <display-name>Euronews Español</display-name>
@@ -243,6 +247,10 @@
   <channel id="DAZN2.de@TvVoo" data-guide="parrilla real">
     <display-name>DAZN 2</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/dazn-2.png" />
+  </channel>
+  <channel id="DAZNFastPlus.de@TvVoo" data-guide="sin guía">
+    <display-name>DAZN FAST+</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/dazn-fast.png" />
   </channel>
   <channel id="SportTV1.pt@TvVoo" data-guide="parrilla real">
     <display-name>Sport TV 1</display-name>
@@ -48260,10 +48268,6 @@
     <category>Music</category>
     <category>Latino</category>
   </programme>
-  <programme start="20260823111500 -0400" stop="20260823133000 -0400" channel="0104">
-    <title lang="es">Cantinflas</title>
-    <desc lang="es">Programacion oficial consultada en TVN.</desc>
-  </programme>
   <programme start="20260823133000 -0400" stop="20260823153000 -0400" channel="0104">
     <title lang="es">24 Horas Al Dia</title>
     <desc lang="es">Programacion oficial consultada en TVN.</desc>
@@ -48363,18 +48367,6 @@
   <programme start="20260824002000 -0400" stop="20260824022000 -0400" channel="0105">
     <title lang="es">Dale Play (lo mejor)</title>
     <desc lang="es">Programacion oficial consultada en Mega.</desc>
-  </programme>
-  <programme start="20260823131000 -0400" stop="20260823132500 -0400" channel="NHKWorldJapan.jp">
-    <title lang="en">RAMEN JAPAN</title>
-    <sub-title lang="en">Kanagawa Part2</sub-title>
-    <desc lang="en">Meet the two legends behind Kanagawa's ramen! A bowl that redefined the industry with a focus on ingredients!</desc>
-    <url>https://www3.nhk.or.jp/nhkworld/en/shows/ramenjapan/</url>
-  </programme>
-  <programme start="20260823132500 -0400" stop="20260823133000 -0400" channel="NHKWorldJapan.jp">
-    <title lang="en">Core Kyoto mini</title>
-    <sub-title lang="en">Tsubo-niwa</sub-title>
-    <desc lang="en">Tsubo-niwa, life enhanced by quintessential spaces. Dive deep into the beauty of the ancient capital, still innovative 1,200 years after its foundation.</desc>
-    <url>https://www3.nhk.or.jp/nhkworld/en/shows/corekyoto/</url>
   </programme>
   <programme start="20260823133000 -0400" stop="20260823134500 -0400" channel="NHKWorldJapan.jp">
     <title lang="en">Easy Japanese for Work</title>
@@ -51451,9 +51443,11 @@
     <title lang="en">NHK NEWSLINE</title>
     <desc lang="en">NHK NEWSLINE brings you up to date with the latest from Japan, Asia and around the world. Our team covers breaking news and major developments, with trusted anchors to tie it all together.</desc>
   </programme>
-  <programme start="20260823133000 -0400" stop="20260823140000 -0400" channel="13C.cl@SD">
-    <title lang="es">SEAFOOD LOVERS - Capítulo 3 (R)</title>
-    <desc lang="es">Programacion oficial consultada en Canal 13 para 13C.</desc>
+  <programme start="20260831193000 -0400" stop="20260831200000 -0400" channel="NHKWorldJapan.jp">
+    <title lang="en">Hometown Stories</title>
+    <sub-title lang="en">Forging Bonds Through Boxing</sub-title>
+    <desc lang="en">A free boxing gym helps people of all ages who are facing personal challenges to work hard and reach new goals. Meanwhile, its owner is battling cancer, and searching for a reason to keep on going.</desc>
+    <url>https://www3.nhk.or.jp/nhkworld/en/shows/hometown/</url>
   </programme>
   <programme start="20260823140000 -0400" stop="20260823150000 -0400" channel="13C.cl@SD">
     <title lang="es">RECOMIENDO CHILE - Capítulo 16 (R)</title>
@@ -51751,10 +51745,6 @@
     <title lang="es">Meganoticias Hora Cero</title>
     <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
   </programme>
-  <programme start="20260823190000 -0400" stop="20260823193000 -0400" channel="0124">
-    <title lang="es">Emprendedores T13</title>
-    <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
-  </programme>
   <programme start="20260823193000 -0400" stop="20260823200000 -0400" channel="0124">
     <title lang="es">Sin intereses</title>
     <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
@@ -52021,10 +52011,6 @@
   </programme>
   <programme start="20260823233000 -0400" stop="20260824000000 -0400" channel="1153">
     <title lang="es">Hoy en el mundo: Resumen semanal</title>
-    <desc lang="es">Programacion diaria consultada en TecnoCentro.</desc>
-  </programme>
-  <programme start="20260823130000 -0400" stop="20260823133000 -0400" channel="45">
-    <title lang="es">Mithy el explorador</title>
     <desc lang="es">Programacion diaria consultada en TecnoCentro.</desc>
   </programme>
   <programme start="20260823133000 -0400" stop="20260823143000 -0400" channel="45">
@@ -52302,10 +52288,6 @@
   <programme start="20260824233000 -0400" stop="20260825000000 -0400" channel="45">
     <title lang="es">Chile conectado</title>
     <desc lang="es">Programacion diaria consultada en TecnoCentro.</desc>
-  </programme>
-  <programme start="20260823124000 -0400" stop="20260823132000 -0400" channel="M1.ua@SD">
-    <title lang="uk">Хіт-парад «СвоєРідне»</title>
-    <desc lang="es">Programacion semanal consultada en el sitio oficial de M1.</desc>
   </programme>
   <programme start="20260823132000 -0400" stop="20260823170000 -0400" channel="M1.ua@SD">
     <title lang="uk">M1 HITS</title>
@@ -52888,10 +52870,6 @@
     <title lang="es">RedBull TV World en vivo</title>
     <desc lang="es">Programacion continua de Red Bull TV; la senal inglesa no publica una parrilla XMLTV local estable.</desc>
   </programme>
-  <programme start="20260823165510 -0400" stop="20260823183708 -0400" channel="RedBullChileEspanol.cl">
-    <title lang="es">Red Bull Soapbox Race Madrid - Coches caseros sin motor</title>
-    <desc lang="es">Equipos construyen sus propios coches sin motor para desafiar una pista empinada llena de obstáculos en Madrid, España, donde la competencia se basa en velocidad y creatividad de diseño.</desc>
-  </programme>
   <programme start="20260823183708 -0400" stop="20260823192752 -0400" channel="RedBullChileEspanol.cl">
     <title lang="es">Red Bull Soapbox Race: Iowa, EEUU</title>
     <desc lang="es">Equipos construyen sus propios coches sin motor para desafiar una pista empinada llena de obstáculos en Iowa, EEUU, donde la competencia se basa en velocidad y creatividad de diseño.</desc>
@@ -53044,446 +53022,6 @@
     <title lang="es">RedBull TV Español en vivo</title>
     <desc lang="es">Programacion continua de la senal chilena en espanol; la parrilla se obtiene desde Red Bull TV.</desc>
   </programme>
-  <programme start="20260824103000 -0400" stop="20260824163000 -0400" channel="YoMTV.us">
-    <title lang="es">Yo! MTV - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips de MTV; no publica una parrilla horaria XMLTV estable.</desc>
-  </programme>
-  <programme start="20260824163000 -0400" stop="20260824223000 -0400" channel="YoMTV.us">
-    <title lang="es">Yo! MTV - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips de MTV; no publica una parrilla horaria XMLTV estable.</desc>
-  </programme>
-  <programme start="20260824223000 -0400" stop="20260825043000 -0400" channel="YoMTV.us">
-    <title lang="es">Yo! MTV - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips de MTV; no publica una parrilla horaria XMLTV estable.</desc>
-  </programme>
-  <programme start="20260825043000 -0400" stop="20260825103000 -0400" channel="YoMTV.us">
-    <title lang="es">Yo! MTV - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips de MTV; no publica una parrilla horaria XMLTV estable.</desc>
-  </programme>
-  <programme start="20260825103000 -0400" stop="20260825163000 -0400" channel="YoMTV.us">
-    <title lang="es">Yo! MTV - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips de MTV; no publica una parrilla horaria XMLTV estable.</desc>
-  </programme>
-  <programme start="20260825163000 -0400" stop="20260825223000 -0400" channel="YoMTV.us">
-    <title lang="es">Yo! MTV - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips de MTV; no publica una parrilla horaria XMLTV estable.</desc>
-  </programme>
-  <programme start="20260825223000 -0400" stop="20260826043000 -0400" channel="YoMTV.us">
-    <title lang="es">Yo! MTV - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips de MTV; no publica una parrilla horaria XMLTV estable.</desc>
-  </programme>
-  <programme start="20260826043000 -0400" stop="20260826103000 -0400" channel="YoMTV.us">
-    <title lang="es">Yo! MTV - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips de MTV; no publica una parrilla horaria XMLTV estable.</desc>
-  </programme>
-  <programme start="20260826103000 -0400" stop="20260826163000 -0400" channel="YoMTV.us">
-    <title lang="es">Yo! MTV - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips de MTV; no publica una parrilla horaria XMLTV estable.</desc>
-  </programme>
-  <programme start="20260826163000 -0400" stop="20260826223000 -0400" channel="YoMTV.us">
-    <title lang="es">Yo! MTV - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips de MTV; no publica una parrilla horaria XMLTV estable.</desc>
-  </programme>
-  <programme start="20260826223000 -0400" stop="20260827043000 -0400" channel="YoMTV.us">
-    <title lang="es">Yo! MTV - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips de MTV; no publica una parrilla horaria XMLTV estable.</desc>
-  </programme>
-  <programme start="20260827043000 -0400" stop="20260827103000 -0400" channel="YoMTV.us">
-    <title lang="es">Yo! MTV - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips de MTV; no publica una parrilla horaria XMLTV estable.</desc>
-  </programme>
-  <programme start="20260827103000 -0400" stop="20260827163000 -0400" channel="YoMTV.us">
-    <title lang="es">Yo! MTV - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips de MTV; no publica una parrilla horaria XMLTV estable.</desc>
-  </programme>
-  <programme start="20260827163000 -0400" stop="20260827223000 -0400" channel="YoMTV.us">
-    <title lang="es">Yo! MTV - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips de MTV; no publica una parrilla horaria XMLTV estable.</desc>
-  </programme>
-  <programme start="20260827223000 -0400" stop="20260828043000 -0400" channel="YoMTV.us">
-    <title lang="es">Yo! MTV - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips de MTV; no publica una parrilla horaria XMLTV estable.</desc>
-  </programme>
-  <programme start="20260828043000 -0400" stop="20260828103000 -0400" channel="YoMTV.us">
-    <title lang="es">Yo! MTV - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips de MTV; no publica una parrilla horaria XMLTV estable.</desc>
-  </programme>
-  <programme start="20260828103000 -0400" stop="20260828163000 -0400" channel="YoMTV.us">
-    <title lang="es">Yo! MTV - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips de MTV; no publica una parrilla horaria XMLTV estable.</desc>
-  </programme>
-  <programme start="20260828163000 -0400" stop="20260828223000 -0400" channel="YoMTV.us">
-    <title lang="es">Yo! MTV - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips de MTV; no publica una parrilla horaria XMLTV estable.</desc>
-  </programme>
-  <programme start="20260824101500 -0400" stop="20260824161500 -0400" channel="MTVBiggestPop.us">
-    <title lang="es">MTV Biggest Pop - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260824161500 -0400" stop="20260824221500 -0400" channel="MTVBiggestPop.us">
-    <title lang="es">MTV Biggest Pop - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260824221500 -0400" stop="20260825041500 -0400" channel="MTVBiggestPop.us">
-    <title lang="es">MTV Biggest Pop - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260825041500 -0400" stop="20260825101500 -0400" channel="MTVBiggestPop.us">
-    <title lang="es">MTV Biggest Pop - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260825101500 -0400" stop="20260825161500 -0400" channel="MTVBiggestPop.us">
-    <title lang="es">MTV Biggest Pop - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260825161500 -0400" stop="20260825221500 -0400" channel="MTVBiggestPop.us">
-    <title lang="es">MTV Biggest Pop - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260825221500 -0400" stop="20260826041500 -0400" channel="MTVBiggestPop.us">
-    <title lang="es">MTV Biggest Pop - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260826041500 -0400" stop="20260826101500 -0400" channel="MTVBiggestPop.us">
-    <title lang="es">MTV Biggest Pop - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260826101500 -0400" stop="20260826161500 -0400" channel="MTVBiggestPop.us">
-    <title lang="es">MTV Biggest Pop - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260826161500 -0400" stop="20260826221500 -0400" channel="MTVBiggestPop.us">
-    <title lang="es">MTV Biggest Pop - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260826221500 -0400" stop="20260827041500 -0400" channel="MTVBiggestPop.us">
-    <title lang="es">MTV Biggest Pop - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260827041500 -0400" stop="20260827101500 -0400" channel="MTVBiggestPop.us">
-    <title lang="es">MTV Biggest Pop - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260827101500 -0400" stop="20260827161500 -0400" channel="MTVBiggestPop.us">
-    <title lang="es">MTV Biggest Pop - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260827161500 -0400" stop="20260827221500 -0400" channel="MTVBiggestPop.us">
-    <title lang="es">MTV Biggest Pop - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260827221500 -0400" stop="20260828041500 -0400" channel="MTVBiggestPop.us">
-    <title lang="es">MTV Biggest Pop - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260828041500 -0400" stop="20260828101500 -0400" channel="MTVBiggestPop.us">
-    <title lang="es">MTV Biggest Pop - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260828101500 -0400" stop="20260828161500 -0400" channel="MTVBiggestPop.us">
-    <title lang="es">MTV Biggest Pop - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260828161500 -0400" stop="20260828221500 -0400" channel="MTVBiggestPop.us">
-    <title lang="es">MTV Biggest Pop - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260824102200 -0400" stop="20260824162200 -0400" channel="MTVClassic.us">
-    <title lang="es">MTV Classic - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips clasicos de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260824162200 -0400" stop="20260824222200 -0400" channel="MTVClassic.us">
-    <title lang="es">MTV Classic - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips clasicos de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260824222200 -0400" stop="20260825042200 -0400" channel="MTVClassic.us">
-    <title lang="es">MTV Classic - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips clasicos de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260825042200 -0400" stop="20260825102200 -0400" channel="MTVClassic.us">
-    <title lang="es">MTV Classic - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips clasicos de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260825102200 -0400" stop="20260825162200 -0400" channel="MTVClassic.us">
-    <title lang="es">MTV Classic - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips clasicos de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260825162200 -0400" stop="20260825222200 -0400" channel="MTVClassic.us">
-    <title lang="es">MTV Classic - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips clasicos de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260825222200 -0400" stop="20260826042200 -0400" channel="MTVClassic.us">
-    <title lang="es">MTV Classic - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips clasicos de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260826042200 -0400" stop="20260826102200 -0400" channel="MTVClassic.us">
-    <title lang="es">MTV Classic - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips clasicos de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260826102200 -0400" stop="20260826162200 -0400" channel="MTVClassic.us">
-    <title lang="es">MTV Classic - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips clasicos de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260826162200 -0400" stop="20260826222200 -0400" channel="MTVClassic.us">
-    <title lang="es">MTV Classic - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips clasicos de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260826222200 -0400" stop="20260827042200 -0400" channel="MTVClassic.us">
-    <title lang="es">MTV Classic - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips clasicos de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260827042200 -0400" stop="20260827102200 -0400" channel="MTVClassic.us">
-    <title lang="es">MTV Classic - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips clasicos de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260827102200 -0400" stop="20260827162200 -0400" channel="MTVClassic.us">
-    <title lang="es">MTV Classic - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips clasicos de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260827162200 -0400" stop="20260827222200 -0400" channel="MTVClassic.us">
-    <title lang="es">MTV Classic - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips clasicos de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260827222200 -0400" stop="20260828042200 -0400" channel="MTVClassic.us">
-    <title lang="es">MTV Classic - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips clasicos de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260828042200 -0400" stop="20260828102200 -0400" channel="MTVClassic.us">
-    <title lang="es">MTV Classic - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips clasicos de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260828102200 -0400" stop="20260828162200 -0400" channel="MTVClassic.us">
-    <title lang="es">MTV Classic - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips clasicos de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260828162200 -0400" stop="20260828222200 -0400" channel="MTVClassic.us">
-    <title lang="es">MTV Classic - videoclips</title>
-    <desc lang="es">Rotacion continua de videoclips clasicos de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260824050000 -0400" stop="20260824110000 -0400" channel="0104">
-    <title lang="es">TVN en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260824110000 -0400" stop="20260824170000 -0400" channel="0104">
-    <title lang="es">TVN en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260824170000 -0400" stop="20260824230000 -0400" channel="0104">
-    <title lang="es">TVN en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260824230000 -0400" stop="20260825050000 -0400" channel="0104">
-    <title lang="es">TVN en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260825050000 -0400" stop="20260825110000 -0400" channel="0104">
-    <title lang="es">TVN en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260825110000 -0400" stop="20260825170000 -0400" channel="0104">
-    <title lang="es">TVN en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260825170000 -0400" stop="20260825230000 -0400" channel="0104">
-    <title lang="es">TVN en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260825230000 -0400" stop="20260826050000 -0400" channel="0104">
-    <title lang="es">TVN en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260826050000 -0400" stop="20260826110000 -0400" channel="0104">
-    <title lang="es">TVN en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260826110000 -0400" stop="20260826170000 -0400" channel="0104">
-    <title lang="es">TVN en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260826170000 -0400" stop="20260826230000 -0400" channel="0104">
-    <title lang="es">TVN en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260826230000 -0400" stop="20260827050000 -0400" channel="0104">
-    <title lang="es">TVN en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260827050000 -0400" stop="20260827110000 -0400" channel="0104">
-    <title lang="es">TVN en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260827110000 -0400" stop="20260827170000 -0400" channel="0104">
-    <title lang="es">TVN en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260827170000 -0400" stop="20260827230000 -0400" channel="0104">
-    <title lang="es">TVN en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260827230000 -0400" stop="20260828050000 -0400" channel="0104">
-    <title lang="es">TVN en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260828050000 -0400" stop="20260828110000 -0400" channel="0104">
-    <title lang="es">TVN en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260828110000 -0400" stop="20260828170000 -0400" channel="0104">
-    <title lang="es">TVN en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260828170000 -0400" stop="20260828230000 -0400" channel="0104">
-    <title lang="es">TVN en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260824022000 -0400" stop="20260824082000 -0400" channel="0105">
-    <title lang="es">Mega en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260824082000 -0400" stop="20260824142000 -0400" channel="0105">
-    <title lang="es">Mega en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260824142000 -0400" stop="20260824202000 -0400" channel="0105">
-    <title lang="es">Mega en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260824202000 -0400" stop="20260825022000 -0400" channel="0105">
-    <title lang="es">Mega en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260825022000 -0400" stop="20260825082000 -0400" channel="0105">
-    <title lang="es">Mega en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260825082000 -0400" stop="20260825142000 -0400" channel="0105">
-    <title lang="es">Mega en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260825142000 -0400" stop="20260825202000 -0400" channel="0105">
-    <title lang="es">Mega en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260825202000 -0400" stop="20260826022000 -0400" channel="0105">
-    <title lang="es">Mega en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260826022000 -0400" stop="20260826082000 -0400" channel="0105">
-    <title lang="es">Mega en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260826082000 -0400" stop="20260826142000 -0400" channel="0105">
-    <title lang="es">Mega en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260826142000 -0400" stop="20260826202000 -0400" channel="0105">
-    <title lang="es">Mega en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260826202000 -0400" stop="20260827022000 -0400" channel="0105">
-    <title lang="es">Mega en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260827022000 -0400" stop="20260827082000 -0400" channel="0105">
-    <title lang="es">Mega en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260827082000 -0400" stop="20260827142000 -0400" channel="0105">
-    <title lang="es">Mega en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260827142000 -0400" stop="20260827202000 -0400" channel="0105">
-    <title lang="es">Mega en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260827202000 -0400" stop="20260828022000 -0400" channel="0105">
-    <title lang="es">Mega en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260828022000 -0400" stop="20260828082000 -0400" channel="0105">
-    <title lang="es">Mega en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260828082000 -0400" stop="20260828142000 -0400" channel="0105">
-    <title lang="es">Mega en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260828142000 -0400" stop="20260828202000 -0400" channel="0105">
-    <title lang="es">Mega en vivo</title>
-    <desc lang="es">Programacion continua de la senal en vivo.</desc>
-  </programme>
-  <programme start="20260824103000 -0400" stop="20260824163000 -0400" channel="MTVSpankinNew.us">
-    <title lang="es">MTV Spankin' New - videoclips</title>
-    <desc lang="es">Rotacion continua de novedades musicales de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260824163000 -0400" stop="20260824223000 -0400" channel="MTVSpankinNew.us">
-    <title lang="es">MTV Spankin' New - videoclips</title>
-    <desc lang="es">Rotacion continua de novedades musicales de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260824223000 -0400" stop="20260825043000 -0400" channel="MTVSpankinNew.us">
-    <title lang="es">MTV Spankin' New - videoclips</title>
-    <desc lang="es">Rotacion continua de novedades musicales de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260825043000 -0400" stop="20260825103000 -0400" channel="MTVSpankinNew.us">
-    <title lang="es">MTV Spankin' New - videoclips</title>
-    <desc lang="es">Rotacion continua de novedades musicales de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260825103000 -0400" stop="20260825163000 -0400" channel="MTVSpankinNew.us">
-    <title lang="es">MTV Spankin' New - videoclips</title>
-    <desc lang="es">Rotacion continua de novedades musicales de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260825163000 -0400" stop="20260825223000 -0400" channel="MTVSpankinNew.us">
-    <title lang="es">MTV Spankin' New - videoclips</title>
-    <desc lang="es">Rotacion continua de novedades musicales de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260825223000 -0400" stop="20260826043000 -0400" channel="MTVSpankinNew.us">
-    <title lang="es">MTV Spankin' New - videoclips</title>
-    <desc lang="es">Rotacion continua de novedades musicales de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260826043000 -0400" stop="20260826103000 -0400" channel="MTVSpankinNew.us">
-    <title lang="es">MTV Spankin' New - videoclips</title>
-    <desc lang="es">Rotacion continua de novedades musicales de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260826103000 -0400" stop="20260826163000 -0400" channel="MTVSpankinNew.us">
-    <title lang="es">MTV Spankin' New - videoclips</title>
-    <desc lang="es">Rotacion continua de novedades musicales de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260826163000 -0400" stop="20260826223000 -0400" channel="MTVSpankinNew.us">
-    <title lang="es">MTV Spankin' New - videoclips</title>
-    <desc lang="es">Rotacion continua de novedades musicales de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260826223000 -0400" stop="20260827043000 -0400" channel="MTVSpankinNew.us">
-    <title lang="es">MTV Spankin' New - videoclips</title>
-    <desc lang="es">Rotacion continua de novedades musicales de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260827043000 -0400" stop="20260827103000 -0400" channel="MTVSpankinNew.us">
-    <title lang="es">MTV Spankin' New - videoclips</title>
-    <desc lang="es">Rotacion continua de novedades musicales de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260827103000 -0400" stop="20260827163000 -0400" channel="MTVSpankinNew.us">
-    <title lang="es">MTV Spankin' New - videoclips</title>
-    <desc lang="es">Rotacion continua de novedades musicales de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260827163000 -0400" stop="20260827223000 -0400" channel="MTVSpankinNew.us">
-    <title lang="es">MTV Spankin' New - videoclips</title>
-    <desc lang="es">Rotacion continua de novedades musicales de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260827223000 -0400" stop="20260828043000 -0400" channel="MTVSpankinNew.us">
-    <title lang="es">MTV Spankin' New - videoclips</title>
-    <desc lang="es">Rotacion continua de novedades musicales de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260828043000 -0400" stop="20260828103000 -0400" channel="MTVSpankinNew.us">
-    <title lang="es">MTV Spankin' New - videoclips</title>
-    <desc lang="es">Rotacion continua de novedades musicales de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260828103000 -0400" stop="20260828163000 -0400" channel="MTVSpankinNew.us">
-    <title lang="es">MTV Spankin' New - videoclips</title>
-    <desc lang="es">Rotacion continua de novedades musicales de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
-  <programme start="20260828163000 -0400" stop="20260828223000 -0400" channel="MTVSpankinNew.us">
-    <title lang="es">MTV Spankin' New - videoclips</title>
-    <desc lang="es">Rotacion continua de novedades musicales de MTV; la senal no publica una parrilla XMLTV estable.</desc>
-  </programme>
   <programme start="20260824070000 -0400" stop="20260824130000 -0400" channel="13C.cl@SD">
     <title lang="es">13C en vivo</title>
     <desc lang="es">Programacion publica consultada en la guia de Zapping Chile.</desc>
@@ -53632,6 +53170,298 @@
     <title lang="es">MTV Flow Latino - videoclips</title>
     <desc lang="es">Rotacion continua de videoclips latinos de MTV; no publica una parrilla horaria XMLTV estable.</desc>
   </programme>
+  <programme start="20260824050000 -0400" stop="20260824110000 -0400" channel="0104">
+    <title lang="es">TVN en vivo</title>
+    <desc lang="es">Programacion continua de la senal en vivo.</desc>
+  </programme>
+  <programme start="20260824110000 -0400" stop="20260824170000 -0400" channel="0104">
+    <title lang="es">TVN en vivo</title>
+    <desc lang="es">Programacion continua de la senal en vivo.</desc>
+  </programme>
+  <programme start="20260824170000 -0400" stop="20260824230000 -0400" channel="0104">
+    <title lang="es">TVN en vivo</title>
+    <desc lang="es">Programacion continua de la senal en vivo.</desc>
+  </programme>
+  <programme start="20260824230000 -0400" stop="20260825050000 -0400" channel="0104">
+    <title lang="es">TVN en vivo</title>
+    <desc lang="es">Programacion continua de la senal en vivo.</desc>
+  </programme>
+  <programme start="20260825050000 -0400" stop="20260825110000 -0400" channel="0104">
+    <title lang="es">TVN en vivo</title>
+    <desc lang="es">Programacion continua de la senal en vivo.</desc>
+  </programme>
+  <programme start="20260825110000 -0400" stop="20260825170000 -0400" channel="0104">
+    <title lang="es">TVN en vivo</title>
+    <desc lang="es">Programacion continua de la senal en vivo.</desc>
+  </programme>
+  <programme start="20260825170000 -0400" stop="20260825230000 -0400" channel="0104">
+    <title lang="es">TVN en vivo</title>
+    <desc lang="es">Programacion continua de la senal en vivo.</desc>
+  </programme>
+  <programme start="20260825230000 -0400" stop="20260826050000 -0400" channel="0104">
+    <title lang="es">TVN en vivo</title>
+    <desc lang="es">Programacion continua de la senal en vivo.</desc>
+  </programme>
+  <programme start="20260826050000 -0400" stop="20260826110000 -0400" channel="0104">
+    <title lang="es">TVN en vivo</title>
+    <desc lang="es">Programacion continua de la senal en vivo.</desc>
+  </programme>
+  <programme start="20260826110000 -0400" stop="20260826170000 -0400" channel="0104">
+    <title lang="es">TVN en vivo</title>
+    <desc lang="es">Programacion continua de la senal en vivo.</desc>
+  </programme>
+  <programme start="20260826170000 -0400" stop="20260826230000 -0400" channel="0104">
+    <title lang="es">TVN en vivo</title>
+    <desc lang="es">Programacion continua de la senal en vivo.</desc>
+  </programme>
+  <programme start="20260826230000 -0400" stop="20260827050000 -0400" channel="0104">
+    <title lang="es">TVN en vivo</title>
+    <desc lang="es">Programacion continua de la senal en vivo.</desc>
+  </programme>
+  <programme start="20260827050000 -0400" stop="20260827110000 -0400" channel="0104">
+    <title lang="es">TVN en vivo</title>
+    <desc lang="es">Programacion continua de la senal en vivo.</desc>
+  </programme>
+  <programme start="20260827110000 -0400" stop="20260827170000 -0400" channel="0104">
+    <title lang="es">TVN en vivo</title>
+    <desc lang="es">Programacion continua de la senal en vivo.</desc>
+  </programme>
+  <programme start="20260827170000 -0400" stop="20260827230000 -0400" channel="0104">
+    <title lang="es">TVN en vivo</title>
+    <desc lang="es">Programacion continua de la senal en vivo.</desc>
+  </programme>
+  <programme start="20260827230000 -0400" stop="20260828050000 -0400" channel="0104">
+    <title lang="es">TVN en vivo</title>
+    <desc lang="es">Programacion continua de la senal en vivo.</desc>
+  </programme>
+  <programme start="20260828050000 -0400" stop="20260828110000 -0400" channel="0104">
+    <title lang="es">TVN en vivo</title>
+    <desc lang="es">Programacion continua de la senal en vivo.</desc>
+  </programme>
+  <programme start="20260828110000 -0400" stop="20260828170000 -0400" channel="0104">
+    <title lang="es">TVN en vivo</title>
+    <desc lang="es">Programacion continua de la senal en vivo.</desc>
+  </programme>
+  <programme start="20260828170000 -0400" stop="20260828230000 -0400" channel="0104">
+    <title lang="es">TVN en vivo</title>
+    <desc lang="es">Programacion continua de la senal en vivo.</desc>
+  </programme>
+  <programme start="20260824101500 -0400" stop="20260824161500 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260824161500 -0400" stop="20260824221500 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260824221500 -0400" stop="20260825041500 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260825041500 -0400" stop="20260825101500 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260825101500 -0400" stop="20260825161500 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260825161500 -0400" stop="20260825221500 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260825221500 -0400" stop="20260826041500 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260826041500 -0400" stop="20260826101500 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260826101500 -0400" stop="20260826161500 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260826161500 -0400" stop="20260826221500 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260826221500 -0400" stop="20260827041500 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260827041500 -0400" stop="20260827101500 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260827101500 -0400" stop="20260827161500 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260827161500 -0400" stop="20260827221500 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260827221500 -0400" stop="20260828041500 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260828041500 -0400" stop="20260828101500 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260828101500 -0400" stop="20260828161500 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260828161500 -0400" stop="20260828221500 -0400" channel="MTVBiggestPop.us">
+    <title lang="es">MTV Biggest Pop - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips pop de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260824103000 -0400" stop="20260824163000 -0400" channel="MTVSpankinNew.us">
+    <title lang="es">MTV Spankin' New - videoclips</title>
+    <desc lang="es">Rotacion continua de novedades musicales de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260824163000 -0400" stop="20260824223000 -0400" channel="MTVSpankinNew.us">
+    <title lang="es">MTV Spankin' New - videoclips</title>
+    <desc lang="es">Rotacion continua de novedades musicales de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260824223000 -0400" stop="20260825043000 -0400" channel="MTVSpankinNew.us">
+    <title lang="es">MTV Spankin' New - videoclips</title>
+    <desc lang="es">Rotacion continua de novedades musicales de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260825043000 -0400" stop="20260825103000 -0400" channel="MTVSpankinNew.us">
+    <title lang="es">MTV Spankin' New - videoclips</title>
+    <desc lang="es">Rotacion continua de novedades musicales de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260825103000 -0400" stop="20260825163000 -0400" channel="MTVSpankinNew.us">
+    <title lang="es">MTV Spankin' New - videoclips</title>
+    <desc lang="es">Rotacion continua de novedades musicales de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260825163000 -0400" stop="20260825223000 -0400" channel="MTVSpankinNew.us">
+    <title lang="es">MTV Spankin' New - videoclips</title>
+    <desc lang="es">Rotacion continua de novedades musicales de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260825223000 -0400" stop="20260826043000 -0400" channel="MTVSpankinNew.us">
+    <title lang="es">MTV Spankin' New - videoclips</title>
+    <desc lang="es">Rotacion continua de novedades musicales de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260826043000 -0400" stop="20260826103000 -0400" channel="MTVSpankinNew.us">
+    <title lang="es">MTV Spankin' New - videoclips</title>
+    <desc lang="es">Rotacion continua de novedades musicales de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260826103000 -0400" stop="20260826163000 -0400" channel="MTVSpankinNew.us">
+    <title lang="es">MTV Spankin' New - videoclips</title>
+    <desc lang="es">Rotacion continua de novedades musicales de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260826163000 -0400" stop="20260826223000 -0400" channel="MTVSpankinNew.us">
+    <title lang="es">MTV Spankin' New - videoclips</title>
+    <desc lang="es">Rotacion continua de novedades musicales de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260826223000 -0400" stop="20260827043000 -0400" channel="MTVSpankinNew.us">
+    <title lang="es">MTV Spankin' New - videoclips</title>
+    <desc lang="es">Rotacion continua de novedades musicales de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260827043000 -0400" stop="20260827103000 -0400" channel="MTVSpankinNew.us">
+    <title lang="es">MTV Spankin' New - videoclips</title>
+    <desc lang="es">Rotacion continua de novedades musicales de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260827103000 -0400" stop="20260827163000 -0400" channel="MTVSpankinNew.us">
+    <title lang="es">MTV Spankin' New - videoclips</title>
+    <desc lang="es">Rotacion continua de novedades musicales de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260827163000 -0400" stop="20260827223000 -0400" channel="MTVSpankinNew.us">
+    <title lang="es">MTV Spankin' New - videoclips</title>
+    <desc lang="es">Rotacion continua de novedades musicales de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260827223000 -0400" stop="20260828043000 -0400" channel="MTVSpankinNew.us">
+    <title lang="es">MTV Spankin' New - videoclips</title>
+    <desc lang="es">Rotacion continua de novedades musicales de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260828043000 -0400" stop="20260828103000 -0400" channel="MTVSpankinNew.us">
+    <title lang="es">MTV Spankin' New - videoclips</title>
+    <desc lang="es">Rotacion continua de novedades musicales de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260828103000 -0400" stop="20260828163000 -0400" channel="MTVSpankinNew.us">
+    <title lang="es">MTV Spankin' New - videoclips</title>
+    <desc lang="es">Rotacion continua de novedades musicales de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260828163000 -0400" stop="20260828223000 -0400" channel="MTVSpankinNew.us">
+    <title lang="es">MTV Spankin' New - videoclips</title>
+    <desc lang="es">Rotacion continua de novedades musicales de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260824102200 -0400" stop="20260824162200 -0400" channel="MTVClassic.us">
+    <title lang="es">MTV Classic - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips clasicos de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260824162200 -0400" stop="20260824222200 -0400" channel="MTVClassic.us">
+    <title lang="es">MTV Classic - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips clasicos de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260824222200 -0400" stop="20260825042200 -0400" channel="MTVClassic.us">
+    <title lang="es">MTV Classic - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips clasicos de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260825042200 -0400" stop="20260825102200 -0400" channel="MTVClassic.us">
+    <title lang="es">MTV Classic - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips clasicos de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260825102200 -0400" stop="20260825162200 -0400" channel="MTVClassic.us">
+    <title lang="es">MTV Classic - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips clasicos de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260825162200 -0400" stop="20260825222200 -0400" channel="MTVClassic.us">
+    <title lang="es">MTV Classic - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips clasicos de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260825222200 -0400" stop="20260826042200 -0400" channel="MTVClassic.us">
+    <title lang="es">MTV Classic - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips clasicos de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260826042200 -0400" stop="20260826102200 -0400" channel="MTVClassic.us">
+    <title lang="es">MTV Classic - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips clasicos de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260826102200 -0400" stop="20260826162200 -0400" channel="MTVClassic.us">
+    <title lang="es">MTV Classic - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips clasicos de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260826162200 -0400" stop="20260826222200 -0400" channel="MTVClassic.us">
+    <title lang="es">MTV Classic - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips clasicos de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260826222200 -0400" stop="20260827042200 -0400" channel="MTVClassic.us">
+    <title lang="es">MTV Classic - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips clasicos de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260827042200 -0400" stop="20260827102200 -0400" channel="MTVClassic.us">
+    <title lang="es">MTV Classic - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips clasicos de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260827102200 -0400" stop="20260827162200 -0400" channel="MTVClassic.us">
+    <title lang="es">MTV Classic - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips clasicos de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260827162200 -0400" stop="20260827222200 -0400" channel="MTVClassic.us">
+    <title lang="es">MTV Classic - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips clasicos de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260827222200 -0400" stop="20260828042200 -0400" channel="MTVClassic.us">
+    <title lang="es">MTV Classic - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips clasicos de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260828042200 -0400" stop="20260828102200 -0400" channel="MTVClassic.us">
+    <title lang="es">MTV Classic - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips clasicos de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260828102200 -0400" stop="20260828162200 -0400" channel="MTVClassic.us">
+    <title lang="es">MTV Classic - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips clasicos de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
+  <programme start="20260828162200 -0400" stop="20260828222200 -0400" channel="MTVClassic.us">
+    <title lang="es">MTV Classic - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips clasicos de MTV; la senal no publica una parrilla XMLTV estable.</desc>
+  </programme>
   <programme start="20260824010000 -0400" stop="20260824070000 -0400" channel="0102">
     <title lang="es">La Red en vivo</title>
     <desc lang="es">Programacion continua de la senal en vivo.</desc>
@@ -53710,6 +53540,154 @@
   </programme>
   <programme start="20260828190000 -0400" stop="20260829010000 -0400" channel="0102">
     <title lang="es">La Red en vivo</title>
+    <desc lang="es">Programacion continua de la senal en vivo.</desc>
+  </programme>
+  <programme start="20260824103000 -0400" stop="20260824163000 -0400" channel="YoMTV.us">
+    <title lang="es">Yo! MTV - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips de MTV; no publica una parrilla horaria XMLTV estable.</desc>
+  </programme>
+  <programme start="20260824163000 -0400" stop="20260824223000 -0400" channel="YoMTV.us">
+    <title lang="es">Yo! MTV - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips de MTV; no publica una parrilla horaria XMLTV estable.</desc>
+  </programme>
+  <programme start="20260824223000 -0400" stop="20260825043000 -0400" channel="YoMTV.us">
+    <title lang="es">Yo! MTV - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips de MTV; no publica una parrilla horaria XMLTV estable.</desc>
+  </programme>
+  <programme start="20260825043000 -0400" stop="20260825103000 -0400" channel="YoMTV.us">
+    <title lang="es">Yo! MTV - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips de MTV; no publica una parrilla horaria XMLTV estable.</desc>
+  </programme>
+  <programme start="20260825103000 -0400" stop="20260825163000 -0400" channel="YoMTV.us">
+    <title lang="es">Yo! MTV - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips de MTV; no publica una parrilla horaria XMLTV estable.</desc>
+  </programme>
+  <programme start="20260825163000 -0400" stop="20260825223000 -0400" channel="YoMTV.us">
+    <title lang="es">Yo! MTV - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips de MTV; no publica una parrilla horaria XMLTV estable.</desc>
+  </programme>
+  <programme start="20260825223000 -0400" stop="20260826043000 -0400" channel="YoMTV.us">
+    <title lang="es">Yo! MTV - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips de MTV; no publica una parrilla horaria XMLTV estable.</desc>
+  </programme>
+  <programme start="20260826043000 -0400" stop="20260826103000 -0400" channel="YoMTV.us">
+    <title lang="es">Yo! MTV - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips de MTV; no publica una parrilla horaria XMLTV estable.</desc>
+  </programme>
+  <programme start="20260826103000 -0400" stop="20260826163000 -0400" channel="YoMTV.us">
+    <title lang="es">Yo! MTV - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips de MTV; no publica una parrilla horaria XMLTV estable.</desc>
+  </programme>
+  <programme start="20260826163000 -0400" stop="20260826223000 -0400" channel="YoMTV.us">
+    <title lang="es">Yo! MTV - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips de MTV; no publica una parrilla horaria XMLTV estable.</desc>
+  </programme>
+  <programme start="20260826223000 -0400" stop="20260827043000 -0400" channel="YoMTV.us">
+    <title lang="es">Yo! MTV - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips de MTV; no publica una parrilla horaria XMLTV estable.</desc>
+  </programme>
+  <programme start="20260827043000 -0400" stop="20260827103000 -0400" channel="YoMTV.us">
+    <title lang="es">Yo! MTV - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips de MTV; no publica una parrilla horaria XMLTV estable.</desc>
+  </programme>
+  <programme start="20260827103000 -0400" stop="20260827163000 -0400" channel="YoMTV.us">
+    <title lang="es">Yo! MTV - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips de MTV; no publica una parrilla horaria XMLTV estable.</desc>
+  </programme>
+  <programme start="20260827163000 -0400" stop="20260827223000 -0400" channel="YoMTV.us">
+    <title lang="es">Yo! MTV - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips de MTV; no publica una parrilla horaria XMLTV estable.</desc>
+  </programme>
+  <programme start="20260827223000 -0400" stop="20260828043000 -0400" channel="YoMTV.us">
+    <title lang="es">Yo! MTV - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips de MTV; no publica una parrilla horaria XMLTV estable.</desc>
+  </programme>
+  <programme start="20260828043000 -0400" stop="20260828103000 -0400" channel="YoMTV.us">
+    <title lang="es">Yo! MTV - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips de MTV; no publica una parrilla horaria XMLTV estable.</desc>
+  </programme>
+  <programme start="20260828103000 -0400" stop="20260828163000 -0400" channel="YoMTV.us">
+    <title lang="es">Yo! MTV - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips de MTV; no publica una parrilla horaria XMLTV estable.</desc>
+  </programme>
+  <programme start="20260828163000 -0400" stop="20260828223000 -0400" channel="YoMTV.us">
+    <title lang="es">Yo! MTV - videoclips</title>
+    <desc lang="es">Rotacion continua de videoclips de MTV; no publica una parrilla horaria XMLTV estable.</desc>
+  </programme>
+  <programme start="20260824022000 -0400" stop="20260824082000 -0400" channel="0105">
+    <title lang="es">Mega en vivo</title>
+    <desc lang="es">Programacion continua de la senal en vivo.</desc>
+  </programme>
+  <programme start="20260824082000 -0400" stop="20260824142000 -0400" channel="0105">
+    <title lang="es">Mega en vivo</title>
+    <desc lang="es">Programacion continua de la senal en vivo.</desc>
+  </programme>
+  <programme start="20260824142000 -0400" stop="20260824202000 -0400" channel="0105">
+    <title lang="es">Mega en vivo</title>
+    <desc lang="es">Programacion continua de la senal en vivo.</desc>
+  </programme>
+  <programme start="20260824202000 -0400" stop="20260825022000 -0400" channel="0105">
+    <title lang="es">Mega en vivo</title>
+    <desc lang="es">Programacion continua de la senal en vivo.</desc>
+  </programme>
+  <programme start="20260825022000 -0400" stop="20260825082000 -0400" channel="0105">
+    <title lang="es">Mega en vivo</title>
+    <desc lang="es">Programacion continua de la senal en vivo.</desc>
+  </programme>
+  <programme start="20260825082000 -0400" stop="20260825142000 -0400" channel="0105">
+    <title lang="es">Mega en vivo</title>
+    <desc lang="es">Programacion continua de la senal en vivo.</desc>
+  </programme>
+  <programme start="20260825142000 -0400" stop="20260825202000 -0400" channel="0105">
+    <title lang="es">Mega en vivo</title>
+    <desc lang="es">Programacion continua de la senal en vivo.</desc>
+  </programme>
+  <programme start="20260825202000 -0400" stop="20260826022000 -0400" channel="0105">
+    <title lang="es">Mega en vivo</title>
+    <desc lang="es">Programacion continua de la senal en vivo.</desc>
+  </programme>
+  <programme start="20260826022000 -0400" stop="20260826082000 -0400" channel="0105">
+    <title lang="es">Mega en vivo</title>
+    <desc lang="es">Programacion continua de la senal en vivo.</desc>
+  </programme>
+  <programme start="20260826082000 -0400" stop="20260826142000 -0400" channel="0105">
+    <title lang="es">Mega en vivo</title>
+    <desc lang="es">Programacion continua de la senal en vivo.</desc>
+  </programme>
+  <programme start="20260826142000 -0400" stop="20260826202000 -0400" channel="0105">
+    <title lang="es">Mega en vivo</title>
+    <desc lang="es">Programacion continua de la senal en vivo.</desc>
+  </programme>
+  <programme start="20260826202000 -0400" stop="20260827022000 -0400" channel="0105">
+    <title lang="es">Mega en vivo</title>
+    <desc lang="es">Programacion continua de la senal en vivo.</desc>
+  </programme>
+  <programme start="20260827022000 -0400" stop="20260827082000 -0400" channel="0105">
+    <title lang="es">Mega en vivo</title>
+    <desc lang="es">Programacion continua de la senal en vivo.</desc>
+  </programme>
+  <programme start="20260827082000 -0400" stop="20260827142000 -0400" channel="0105">
+    <title lang="es">Mega en vivo</title>
+    <desc lang="es">Programacion continua de la senal en vivo.</desc>
+  </programme>
+  <programme start="20260827142000 -0400" stop="20260827202000 -0400" channel="0105">
+    <title lang="es">Mega en vivo</title>
+    <desc lang="es">Programacion continua de la senal en vivo.</desc>
+  </programme>
+  <programme start="20260827202000 -0400" stop="20260828022000 -0400" channel="0105">
+    <title lang="es">Mega en vivo</title>
+    <desc lang="es">Programacion continua de la senal en vivo.</desc>
+  </programme>
+  <programme start="20260828022000 -0400" stop="20260828082000 -0400" channel="0105">
+    <title lang="es">Mega en vivo</title>
+    <desc lang="es">Programacion continua de la senal en vivo.</desc>
+  </programme>
+  <programme start="20260828082000 -0400" stop="20260828142000 -0400" channel="0105">
+    <title lang="es">Mega en vivo</title>
+    <desc lang="es">Programacion continua de la senal en vivo.</desc>
+  </programme>
+  <programme start="20260828142000 -0400" stop="20260828202000 -0400" channel="0105">
+    <title lang="es">Mega en vivo</title>
     <desc lang="es">Programacion continua de la senal en vivo.</desc>
   </programme>
 </tv>
