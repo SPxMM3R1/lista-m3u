@@ -72,7 +72,7 @@ EPG_PROGRAMME_SOURCES = {
     "ArirangTV.kr": ("pl", "Arirang.TV.pl"),
     "XITEHits.nl@Germany": ("nl", "XITE.nl"),
     "DWEnglish.de": ("lv", "Deutsche.Welle.English.HD.lv"),
-    "MeganoticiasAhora.cl": ("tecnocentro", "LCH7159"),
+    "Meganoticias.cl": ("tecnocentro", "LCH7159"),
     "0124": ("tecnocentro", "LCH6525"),
     "1153": ("tecnocentro", "LCH7017"),
     "45": ("tecnocentro", "LCH4087"),
@@ -106,7 +106,7 @@ ZAPPING_EPG_CHANNELS = {
     "0107": "canal13",
     "0102": "lared",
     "0201": "24horas",
-    "MeganoticiasAhora.cl": "meganoticias",
+    "Meganoticias.cl": "meganoticias",
     "1153": "chvnoticias",
     "0124": "t13",
     "45": "ntv",
@@ -193,9 +193,9 @@ CI_GEO_RESTRICTED_CHANNELS = {
     # responder 403 desde GitHub aunque entregue segmentos desde Chile.
     "CNA",
 }
-# Estos canales mantienen su maestro original; la autenticacion de playback
-# queda exclusivamente en la aplicacion y nunca se ejecuta desde Actions.
-APP_HANDLED_CHANNELS = {"TVN", "Meganoticias"}
+# TVN mantiene su maestro original; la autenticacion de playback queda
+# exclusivamente en la aplicacion y nunca se ejecuta desde Actions.
+APP_HANDLED_CHANNELS = {"TVN"}
 PREFERRED_LOGOS = {
     "TVN": f"{LOCAL_LOGOS_PUBLIC_BASE}/tvn.png",
     "Mega": f"{LOCAL_LOGOS_PUBLIC_BASE}/mega.png",
@@ -210,7 +210,6 @@ PREFERRED_LOGOS = {
     "TVN3": f"{LOCAL_LOGOS_PUBLIC_BASE}/tvn3.svg",
     "CHV Deportes": f"{LOCAL_LOGOS_PUBLIC_BASE}/chv-deportes.svg",
     "DW Español": f"{LOCAL_LOGOS_PUBLIC_BASE}/dw.svg",
-    "DW Español Alternativo": f"{LOCAL_LOGOS_PUBLIC_BASE}/dw.svg",
     "DW English": f"{LOCAL_LOGOS_PUBLIC_BASE}/dw.svg",
     "Autentic History": f"{LOCAL_LOGOS_PUBLIC_BASE}/autentic-history.svg",
     "France 24 Español": f"{LOCAL_LOGOS_PUBLIC_BASE}/france24.svg",
