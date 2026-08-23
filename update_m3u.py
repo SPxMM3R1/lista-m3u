@@ -199,11 +199,8 @@ APP_HANDLED_CHANNELS = {"TVN", "Meganoticias"}
 PREFERRED_LOGOS = {
     "TVN": f"{LOCAL_LOGOS_PUBLIC_BASE}/tvn.png",
     "Mega": f"{LOCAL_LOGOS_PUBLIC_BASE}/mega.png",
-    "Mega Alternativo": f"{LOCAL_LOGOS_PUBLIC_BASE}/mega.png",
     "CHV": f"{LOCAL_LOGOS_PUBLIC_BASE}/chv.png",
     "Canal 13": f"{LOCAL_LOGOS_PUBLIC_BASE}/canal13.png",
-    "13 Cocina": f"{LOCAL_LOGOS_PUBLIC_BASE}/canal13.png",
-    "13 Teleseries": f"{LOCAL_LOGOS_PUBLIC_BASE}/canal13.png",
     "La Red": f"{LOCAL_LOGOS_PUBLIC_BASE}/la-red.png",
     "24 Horas": f"{LOCAL_LOGOS_PUBLIC_BASE}/24-horas.png",
     "Meganoticias": f"{LOCAL_LOGOS_PUBLIC_BASE}/meganoticias.png",
@@ -461,7 +458,6 @@ KNOWN_STREAM_FALLBACKS = {
         "https://iptv.bitred.cl/mega/index.m3u8",
         "http://15.204.246.24:8080/MEGAHD/index.m3u8",
         "https://unlimited1-cl-isp.dps.live/mega/mega.smil/playlist.m3u8",
-        "https://unlimited2-cl-isp.dps.live/mega/mega.smil/playlist.m3u8",
         "https://pantera1-100gb-cl-movistar.dps.live/mega/mega.smil/playlist.m3u8",
     ],
     "CHV": [
