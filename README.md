@@ -98,7 +98,7 @@ disponible sin depender de servidores externos.
 
 ## Canales
 
-La lista contiene 74 canales: nacionales, noticias, miscelaneos chilenos,
+La lista contiene 66 canales: nacionales, noticias, miscelaneos chilenos,
 noticias internacionales, documentales, conciertos y una seleccion musical.
 
 TVN y Mega se actualizan desde sus parrillas oficiales cuando estan

@@ -276,15 +276,7 @@ PREFERRED_LOGOS = {
     "Premier Sports 2": f"{LOCAL_LOGOS_PUBLIC_BASE}/premier-sports-2.png",
     "Sky Sport 1 NZ": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sport-1-nz.png",
     "Sky Sports Tennis": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-tennis.png",
-    "FOX Sports 502 HD": f"{LOCAL_LOGOS_PUBLIC_BASE}/fox-sports.svg",
     "Sky Sports Golf": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-golf.png",
-    "FOX Sports 504 HD": f"{LOCAL_LOGOS_PUBLIC_BASE}/fox-sports.svg",
-    "FOX Sports 507 HD": f"{LOCAL_LOGOS_PUBLIC_BASE}/fox-sports.svg",
-    "TV Senado": f"{LOCAL_LOGOS_PUBLIC_BASE}/tv-senado.jpg",
-    "Teletrak": f"{LOCAL_LOGOS_PUBLIC_BASE}/teletrak.jpg",
-    "Retro Plus TV 1": f"{LOCAL_LOGOS_PUBLIC_BASE}/retro-plus.jpg",
-    "Retro Plus TV 2": f"{LOCAL_LOGOS_PUBLIC_BASE}/retro-plus.jpg",
-    "Retro Plus TV 3": f"{LOCAL_LOGOS_PUBLIC_BASE}/retro-plus.jpg",
     "Totalmusic 80s": f"{LOCAL_LOGOS_PUBLIC_BASE}/totalmusic-80s.png",
     "Totalmusic 2000s": f"{LOCAL_LOGOS_PUBLIC_BASE}/totalmusic-2000s.png",
     "Totalmusic Concerts": f"{LOCAL_LOGOS_PUBLIC_BASE}/totalmusic-concerts.png",
@@ -392,18 +384,6 @@ CONTINUOUS_PROGRAMME_DETAILS = {
     "Yo! MTV": (
         "Yo! MTV - videoclips",
         "Rotacion continua de videoclips de MTV; no publica una parrilla horaria XMLTV estable.",
-    ),
-    "Retro Plus TV 1": (
-        "Retro Plus TV 1 - videoclips",
-        "Rotacion continua de videos musicales retro; no publica una parrilla horaria XMLTV estable.",
-    ),
-    "Retro Plus TV 2": (
-        "Retro Plus TV 2 - videoclips",
-        "Rotacion continua de videos musicales retro; no publica una parrilla horaria XMLTV estable.",
-    ),
-    "Retro Plus TV 3": (
-        "Retro Plus TV 3 - videoclips",
-        "Rotacion continua de videos musicales retro; no publica una parrilla horaria XMLTV estable.",
     ),
     "Totalmusic 80s": (
         "Totalmusic 80s - videoclips",
