@@ -32,6 +32,11 @@ PUBLIC_RAW_BASE = "https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main"
 EPG_PUBLIC_URL = f"{PUBLIC_RAW_BASE}/epg.xml"
 LOCAL_LOGOS_PUBLIC_BASE = f"{PUBLIC_RAW_BASE}/logos"
 TEST_GROUP_PREFIX = "PRUEBA - "
+# Nombre corto mostrado por el reproductor -> nombre canonico que usa el
+# actualizador. El tvg-id y la fuente de XITE no cambian.
+DISPLAY_NAME_ALIASES = {
+    "XITE Hits": "XITE Hits Germany",
+}
 # TvVoo responde para estas dos senales, pero no se encontro una parrilla
 # XMLTV propia ni una fuente de terceros que identifique el canal exacto.
 # Se publican en la lista principal sin inventar programas de continuidad.
@@ -744,6 +749,7 @@ class Channel:
     logo_url: str = ""
     group: str = ""
     tvg_id: str = ""
+    display_name: str = ""
 
 
 @dataclass(frozen=True)
@@ -767,7 +773,8 @@ def parse_channels(lines: list[str]) -> list[Channel]:
     for index, line in enumerate(lines):
         if not line.startswith("#EXTINF:"):
             continue
-        name = line.rsplit(",", 1)[-1].strip() or f"Canal en linea {index + 1}"
+        display_name = line.rsplit(",", 1)[-1].strip() or f"Canal en linea {index + 1}"
+        name = DISPLAY_NAME_ALIASES.get(display_name, display_name)
         logo_match = re.search(r'\btvg-logo="([^"]+)"', line)
         group_match = re.search(r'\bgroup-title="([^"]+)"', line)
         id_match = re.search(r'\btvg-id="([^"]+)"', line)
@@ -781,7 +788,16 @@ def parse_channels(lines: list[str]) -> list[Channel]:
             if candidate.startswith("#"):
                 raise ValueError(f"{name}: falta la URL despues de #EXTINF")
             channels.append(
-                Channel(name, candidate, url_line, index, logo_url, group, tvg_id)
+                Channel(
+                    name,
+                    candidate,
+                    url_line,
+                    index,
+                    logo_url,
+                    group,
+                    tvg_id,
+                    display_name,
+                )
             )
             break
         else:
@@ -2617,7 +2633,7 @@ def build_epg(
     guide_types: dict[str, str] = {}
     for channel in channels:
         element = ET.SubElement(root, "channel", {"id": channel.tvg_id})
-        ET.SubElement(element, "display-name").text = channel.name
+        ET.SubElement(element, "display-name").text = channel.display_name or channel.name
         if channel.logo_url:
             ET.SubElement(element, "icon", {"src": channel.logo_url})
 
