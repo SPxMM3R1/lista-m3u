@@ -24,7 +24,12 @@ PROJECT_ROOT = Path(__file__).resolve().parent
 UPDATE_SCRIPT = PROJECT_ROOT / "update_m3u.py"
 STATE_PATH = PROJECT_ROOT / "run-state.json"
 EPG_PATH = PROJECT_ROOT / "epg.xml"
-OUTPUT_PATHS = (PROJECT_ROOT / "m3u.m3u", PROJECT_ROOT / "epg.xml")
+RESOLVER_CATALOG_PATH = PROJECT_ROOT / "resolver-catalog.json"
+OUTPUT_PATHS = (
+    PROJECT_ROOT / "m3u.m3u",
+    PROJECT_ROOT / "epg.xml",
+    RESOLVER_CATALOG_PATH,
+)
 INTERVAL = timedelta(hours=48)
 MINIMUM_INTERVAL = timedelta(hours=6)
 LOCAL_LAST_DAY = date(2026, 9, 1)
@@ -232,7 +237,8 @@ def main() -> int:
     if return_code != 0:
         restore_outputs(snapshots)
         print(
-            "El actualizador fallo; se conservaron m3u.m3u y epg.xml anteriores.",
+            "El actualizador fallo; se conservaron m3u.m3u, epg.xml y "
+            "resolver-catalog.json anteriores.",
             file=sys.stderr,
         )
         return return_code

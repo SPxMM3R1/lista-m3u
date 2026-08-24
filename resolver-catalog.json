@@ -1,0 +1,306 @@
+{
+  "schemaVersion": 1,
+  "catalogVersion": "2026.08.24.2",
+  "providers": [
+    {
+      "id": "tvn",
+      "name": "TVN",
+      "engine": "tvn",
+      "enabledByDefault": true,
+      "cacheTtlSeconds": 0,
+      "match": {
+        "tvgIds": [
+          "0104"
+        ]
+      },
+      "config": {
+        "pageUrl": "https://live.tvn.cl/",
+        "pageReferer": "https://www.tvn.cl/",
+        "playlistTemplate": "https://mdstrm.com/live-stream-playlist/{streamId}.m3u8",
+        "playbackOrigin": "https://live.tvn.cl",
+        "defaultStreamId": "57a498c4d7b86d600e5461cb"
+      }
+    },
+    {
+      "id": "meganoticias",
+      "name": "Meganoticias dinamico",
+      "engine": "meganoticias",
+      "enabledByDefault": true,
+      "cacheTtlSeconds": 0,
+      "match": {
+        "tvgIds": [
+          "MeganoticiasAhora.cl"
+        ]
+      },
+      "config": {
+        "pageUrl": "https://www.meganoticias.cl/senal-en-vivo/meganoticias/",
+        "apiUrl": "https://api.mega.cl/api/v1/mdstrm",
+        "playlistTemplate": "https://mdstrm.com/live-stream-playlist/{streamId}.m3u8",
+        "playbackOrigin": "https://www.meganoticias.cl"
+      }
+    },
+    {
+      "id": "24horas",
+      "name": "24 Horas",
+      "engine": "24horas",
+      "enabledByDefault": true,
+      "cacheTtlSeconds": 0,
+      "match": {
+        "tvgIds": [
+          "0201"
+        ]
+      },
+      "config": {
+        "pageUrl": "https://www.24horas.cl/envivo",
+        "playlistTemplate": "https://mdstrm.com/live-stream-playlist/{streamId}.m3u8",
+        "defaultStreamId": "57d1a22064f5d85712b20dab"
+      }
+    },
+    {
+      "id": "tvvoo",
+      "name": "TvVoo",
+      "engine": "tvvoo",
+      "enabledByDefault": true,
+      "cacheTtlSeconds": 900,
+      "match": {
+        "tvgIds": [
+          "PremierSports1.ie",
+          "PremierSports2.ie",
+          "SkySportsRacing.uk"
+        ],
+        "tvgIdSuffixes": [
+          "@TvVoo"
+        ]
+      },
+      "config": {
+        "endpointBase": "https://tvvoo.hayd.uk/stream/tv",
+        "maxAliases": 8,
+        "maxCandidates": 16,
+        "streamsPath": "streams",
+        "urlField": "url",
+        "allowHttpFallback": true
+      },
+      "compatibilityAliases": {
+        "Premier Sports 1": [
+          "vavoo_PREMIER%20SPORT%7Cgroup%3Auk",
+          "vavoo_PREMIER%20SPORTS%201%7Cgroup%3Auk",
+          "vavoo_PREMIER%20SPORTS%201%20HD%7Cgroup%3Auk"
+        ],
+        "Premier Sports 2": [
+          "vavoo_PREMIER%20SPORT%202%7Cgroup%3Auk",
+          "vavoo_PREMIER%20SPORTS%202%7Cgroup%3Auk",
+          "vavoo_PREMIER%20SPORTS%202%20HD%7Cgroup%3Auk"
+        ],
+        "Sky Sports Main Event": [
+          "vavoo_SKY%20SPORTS%20MAIN%20EVENT%7Cgroup%3Auk",
+          "vavoo_SKY%20SPORTS%20MAIN%20EVENT%20HD%7Cgroup%3Auk"
+        ],
+        "Sky Sports Arena": [
+          "vavoo_SKY%20SPORTS%20ARENA%7Cgroup%3Auk",
+          "vavoo_SKY%20SPORTS%20ARENA%20HD%7Cgroup%3Auk"
+        ],
+        "Sky Sports Racing": [
+          "vavoo_SKY%20SPORTS%20RACING%7Cgroup%3Auk",
+          "vavoo_SKY%20SPORTS%20RACING%20HD%7Cgroup%3Auk"
+        ],
+        "TNT Sports 3": [
+          "vavoo_TNT%20SPORTS%203%7Cgroup%3Auk",
+          "vavoo_TNT%20SPORTS%203%20HD%7Cgroup%3Auk"
+        ],
+        "CNN": [
+          "vavoo_CNN%7Cgroup%3Auk"
+        ],
+        "RT France": [
+          "vavoo_RT%20FRANCE%7Cgroup%3Afr"
+        ],
+        "ESPN 3": [
+          "vavoo_ESPN%203%7Cgroup%3Aar"
+        ],
+        "Eurosport 1": [
+          "vavoo_EUROSPORT%201%7Cgroup%3Afr",
+          "vavoo_EUROSPORT%201%20FHD%7Cgroup%3Afr",
+          "vavoo_EUROSPORT%201%20HD%7Cgroup%3Afr"
+        ],
+        "RMC Sport 1": [
+          "vavoo_RMC%20SPORT%201%7Cgroup%3Afr",
+          "vavoo_RMC%20SPORT%201%20FHD%7Cgroup%3Afr",
+          "vavoo_RMC%20SPORT%201%20HD%7Cgroup%3Afr"
+        ],
+        "RMC Sport 2": [
+          "vavoo_RMC%20SPORT%202%7Cgroup%3Afr",
+          "vavoo_RMC%20SPORT%202%20FHD%7Cgroup%3Afr",
+          "vavoo_RMC%20SPORT%202%20HD%7Cgroup%3Afr"
+        ],
+        "MTV Hits": [
+          "vavoo_MTV%20HITS%7Cgroup%3Afr",
+          "vavoo_MTV%20HITS%20HD%7Cgroup%3Afr",
+          "vavoo_MTV%20HITS%20SD%7Cgroup%3Afr"
+        ],
+        "M6 Music": [
+          "vavoo_M6%20MUSIC%7Cgroup%3Afr",
+          "vavoo_M6%20MUSIC%20HD%7Cgroup%3Afr",
+          "vavoo_M6%20MUSIC%20SD%7Cgroup%3Afr"
+        ],
+        "Trace Urban": [
+          "vavoo_TRACE%20URBAN%7Cgroup%3Afr",
+          "vavoo_TRACE%20URBAN%20HD%7Cgroup%3Afr",
+          "vavoo_TRACE%20URBAN%20SD%7Cgroup%3Afr"
+        ],
+        "DAZN 2": [
+          "vavoo_DAZN%202%7Cgroup%3Ade",
+          "vavoo_DAZN%202%20HD%7Cgroup%3Ade",
+          "vavoo_DAZN%202%20FHD%7Cgroup%3Ade"
+        ],
+        "DAZN FAST+": [
+          "vavoo_DAZN%20FAST%2B%7Cgroup%3Ade"
+        ],
+        "Sport TV 1": [
+          "vavoo_SPORT%20TV%201%7Cgroup%3Apt",
+          "vavoo_SPORT%20TV%201%20HD%7Cgroup%3Apt"
+        ],
+        "Sport TV 2": [
+          "vavoo_SPORT%20TV%202%7Cgroup%3Apt",
+          "vavoo_SPORT%20TV%202%20HD%7Cgroup%3Apt"
+        ],
+        "Eleven Sports 1": [
+          "vavoo_ELEVEN%20SPORTS%201%20HD%7Cgroup%3Apt"
+        ],
+        "Eleven Sports 2": [
+          "vavoo_ELEVEN%20SPORTS%202%20HD%7Cgroup%3Apt"
+        ],
+        "Sky Sports Action": [
+          "vavoo_SKY%20SPORTS%20ACTION%7Cgroup%3Auk",
+          "vavoo_SKY%20SPORT%20ACTION%7Cgroup%3Auk",
+          "vavoo_SKY%20SPORTS%20ACTION%20HD%7Cgroup%3Auk"
+        ],
+        "Sky Sports Cricket": [
+          "vavoo_SKY%20SPORTS%20CRICKET%7Cgroup%3Auk",
+          "vavoo_SKY%20SPORTS%20CRICKET%20HD%7Cgroup%3Auk"
+        ],
+        "Sky Sports Football": [
+          "vavoo_SKY%20SPORTS%20FOOTBALL%7Cgroup%3Auk",
+          "vavoo_SKY%20SPORTS%20FOOTBALL%20HD%7Cgroup%3Auk"
+        ],
+        "Sky Sports NFL": [
+          "vavoo_SKY%20SPORTS%20NFL%7Cgroup%3Auk",
+          "vavoo_SKY%20SPORTS%20NFL%20HD%7Cgroup%3Auk"
+        ],
+        "Sky Sports Mix": [
+          "vavoo_SKY%20SPORTS%20MIX%7Cgroup%3Auk",
+          "vavoo_SKY%20SPORTS%20MIX%20FHD%7Cgroup%3Auk",
+          "vavoo_SKY%20SPORTS%20MIX%20HD%7Cgroup%3Auk"
+        ],
+        "Sky Sports News": [
+          "vavoo_SKY%20SPORTS%20NEWS%7Cgroup%3Auk",
+          "vavoo_SKY%20SPORTS%20NEWS%20HD%7Cgroup%3Auk"
+        ],
+        "Eurosport 2 UK": [
+          "vavoo_EUROSPORT%202%7Cgroup%3Auk",
+          "vavoo_EUROSPORT%202%20HD%7Cgroup%3Auk"
+        ],
+        "Eurosport 2 España": [
+          "vavoo_EUROSPORT%202%7Cgroup%3Aes",
+          "vavoo_EUROSPORT%202%20HD%7Cgroup%3Aes",
+          "vavoo_EUROSPORT%202%20FHD%7Cgroup%3Aes"
+        ],
+        "DAZN 1 France": [
+          "vavoo_DAZN%201%7Cgroup%3Afr"
+        ],
+        "DAZN Ligue 1 Live 1": [
+          "vavoo_DAZN%20LIGUE%201%20LIVE%201%20FHD%7Cgroup%3Afr"
+        ],
+        "DAZN Ligue 1 Live 2": [
+          "vavoo_DAZN%20LIGUE%201%20LIVE%202%20HD%7Cgroup%3Afr"
+        ],
+        "DAZN Ligue 1 Live 3": [
+          "vavoo_DAZN%20LIGUE%201%20LIVE%203%20HD%7Cgroup%3Afr"
+        ],
+        "DAZN Ligue 1 Live 4": [
+          "vavoo_DAZN%20LIGUE%201%20LIVE%204%20HD%7Cgroup%3Afr"
+        ],
+        "DAZN 1 Germany": [
+          "vavoo_DAZN%201%7Cgroup%3Ade",
+          "vavoo_DAZN%201%20HD%7Cgroup%3Ade"
+        ],
+        "Eurosport 2 Germany": [
+          "vavoo_EUROSPORT%202%7Cgroup%3Ade",
+          "vavoo_EUROSPORT%202%20FHD%7Cgroup%3Ade",
+          "vavoo_EUROSPORT%202%20HD%7Cgroup%3Ade"
+        ],
+        "DAZN 3 España": [
+          "vavoo_DAZN%203%7Cgroup%3Aes"
+        ],
+        "DAZN 2 España": [
+          "vavoo_DAZN%202%7Cgroup%3Aes",
+          "vavoo_DAZN%202%20HD%7Cgroup%3Aes",
+          "vavoo_DAZN%202%20FHD%7Cgroup%3Aes"
+        ],
+        "DAZN LaLiga 1": [
+          "vavoo_DAZN%20LALIGA%201%7Cgroup%3Aes"
+        ],
+        "DAZN LaLiga 2": [
+          "vavoo_DAZN%20LALIGA%202%7Cgroup%3Aes"
+        ],
+        "DAZN 1 Portugal": [
+          "vavoo_DAZN%201%7Cgroup%3Apt"
+        ],
+        "DAZN 2 Portugal": [
+          "vavoo_DAZN%202%7Cgroup%3Apt"
+        ],
+        "DAZN 3 Portugal": [
+          "vavoo_DAZN%203%7Cgroup%3Apt"
+        ],
+        "DAZN 4 Portugal": [
+          "vavoo_DAZN%204%7Cgroup%3Apt"
+        ],
+        "DAZN 5 Portugal": [
+          "vavoo_DAZN%205%7Cgroup%3Apt"
+        ],
+        "DAZN 6 Portugal": [
+          "vavoo_DAZN%206%7Cgroup%3Apt"
+        ],
+        "DAZN 1 Italia": [
+          "vavoo_DAZN%201%7Cgroup%3Ait"
+        ],
+        "Eurosport 2 Italia": [
+          "vavoo_EUROSPORT%202%7Cgroup%3Ait"
+        ],
+        "Sky Sport 24 Italia": [
+          "vavoo_SKY%20SPORT%2024%7Cgroup%3Ait"
+        ],
+        "Sky Sport Calcio Italia": [
+          "vavoo_SKY%20SPORT%20CALCIO%7Cgroup%3Ait"
+        ],
+        "Sky Sport Max Italia": [
+          "vavoo_SKY%20SPORT%20MAX%7Cgroup%3Ait"
+        ],
+        "Sky Sport MotoGP Italia": [
+          "vavoo_SKY%20SPORT%20MOTO%20GP%7Cgroup%3Ait"
+        ],
+        "Sky Sport NBA Italia": [
+          "vavoo_SKY%20SPORT%20NBA%7Cgroup%3Ait"
+        ],
+        "Sky Sport Uno Italia": [
+          "vavoo_SKY%20SPORT%20UNO%7Cgroup%3Ait"
+        ]
+      }
+    },
+    {
+      "id": "highfly",
+      "name": "Highfly",
+      "engine": "highfly",
+      "enabledByDefault": true,
+      "cacheTtlSeconds": 300,
+      "match": {
+        "hosts": [
+          "leaf.highfly.dev"
+        ]
+      },
+      "config": {
+        "directTemplate": "https://leaf.highfly.dev/m3u/{id}/live.m3u8",
+        "manifestUrl": "https://sports.highfly.dev/eyJvbmx5TGl2ZSI6dHJ1ZX0/manifest.json",
+        "allowHttpFallback": true
+      }
+    }
+  ]
+}

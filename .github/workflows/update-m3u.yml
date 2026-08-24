@@ -68,16 +68,16 @@ jobs:
         if: steps.updater.outputs.status == '0' && steps.updater.outputs.ran == 'true'
         shell: bash
         run: |
-          if [ -z "$(git status --porcelain -- m3u.m3u epg.xml run-state.json)" ]; then
-            echo "La lista y la guia ya estaban al dia."
+          if [ -z "$(git status --porcelain -- m3u.m3u epg.xml resolver-catalog.json run-state.json)" ]; then
+            echo "La lista, la guia y el catalogo de resolutores ya estaban al dia."
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           git config user.name "Actualizador M3U"
           git config user.email "m3u-bot@users.noreply.github.com"
-          git add m3u.m3u epg.xml run-state.json
-          git commit -m "Actualiza M3U y EPG automaticamente [skip ci]"
+          git add m3u.m3u epg.xml resolver-catalog.json run-state.json
+          git commit -m "Actualiza M3U, EPG y resolutores automaticamente [skip ci]"
           git push origin HEAD:main
           echo "changed=true" >> "$GITHUB_OUTPUT"
           echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
@@ -121,6 +121,7 @@ jobs:
           }
           verify_exact m3u.m3u || RAW_EXIT=1
           verify_exact epg.xml || RAW_EXIT=1
+          verify_exact resolver-catalog.json || RAW_EXIT=1
           echo "status=$RAW_EXIT" >> "$GITHUB_OUTPUT"
           exit 0
 
@@ -149,6 +150,7 @@ jobs:
           }
           check_raw m3u.m3u '#EXTM3U' || RAW_EXIT=1
           check_raw epg.xml '<?xml' || RAW_EXIT=1
+          check_raw resolver-catalog.json '"schemaVersion": 1' || RAW_EXIT=1
           echo "status=$RAW_EXIT" >> "$GITHUB_OUTPUT"
           exit 0
 

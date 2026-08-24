@@ -16,6 +16,18 @@ Guia de programacion XMLTV:
 
 `https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/epg.xml`
 
+Catalogo declarativo de resolutores para VibeM3U:
+
+`https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/resolver-catalog.json`
+
+La M3U conserva una URL HLS de respaldo para reproductores externos. VibeM3U
+usa los atributos `x-resolver-*` para renovar la fuente justo antes de abrirla:
+TVN y 24 Horas consultan sus paginas oficiales, TvVoo usa aliases estables y
+Highfly usa un slug estable junto al `manifest.json` configurado. Meganoticias
+de produccion y los canales Pluto/directos no usan resolutor. El catalogo solo
+contiene reglas y endpoints HTTPS permitidos; nunca publica respuestas HLS,
+tokens, claves ni URLs de sesion.
+
 ## Funcionamiento
 
 Cada ejecucion completa:
@@ -42,7 +54,7 @@ Cada ejecucion completa:
 - incorpora la parrilla XMLTV de PlutoTV para MTV Classic, MTV Biggest Pop,
   MTV Spankin' New y MTV Flow Latino; las tarjetas repetidas de Pluto
   se deduplican antes de construir la EPG;
-- incorpora 51 canales desde los resolutores JSON publicos de TvVoo:
+- incorpora 54 canales desde los resolutores JSON publicos de TvVoo:
   CNN, MTV Hits, M6 Music, Trace Urban, Sky Sports Main Event, Sky Sports Arena,
   TNT Sports 3, ESPN 3, Eurosport 1, RMC Sport 1, RMC Sport 2, DAZN 2,
   DAZN FAST+, RT France, Sport TV 1, Sport TV 2, Eleven Sports 1 y Eleven

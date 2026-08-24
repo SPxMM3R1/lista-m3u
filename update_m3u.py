@@ -28,9 +28,34 @@ from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 DEFAULT_PLAYLIST = Path(__file__).with_name("m3u.m3u")
 EPG_PATH = Path(__file__).with_name("epg.xml")
 REPORT_PATH = Path(__file__).with_name("channel-status.json")
+RESOLVER_CATALOG_PATH = Path(__file__).with_name("resolver-catalog.json")
 PUBLIC_RAW_BASE = "https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main"
 EPG_PUBLIC_URL = f"{PUBLIC_RAW_BASE}/epg.xml"
 LOCAL_LOGOS_PUBLIC_BASE = f"{PUBLIC_RAW_BASE}/logos"
+RESOLVER_SCHEMA_VERSION = 1
+RESOLVER_CATALOG_VERSION = "2026.08.24.2"
+ALLOWED_RESOLVER_ENGINES = {"tvn", "meganoticias", "24horas", "tvvoo", "highfly"}
+RESOLVER_ATTRIBUTE_NAMES = (
+    "x-resolver",
+    "x-resolver-endpoint",
+    "x-resolver-ids",
+    "x-resolver-id",
+    "x-resolver-manifest",
+    "x-resolver-refresh",
+)
+HIGHFLY_MANIFEST_URL = (
+    "https://sports.highfly.dev/"
+    "eyJvbmx5TGl2ZSI6dHJ1ZX0/manifest.json"
+)
+HIGHFLY_RESOLVER_CHANNELS = {
+    "SkySportsF1.uk": "now-sky-sports-f1-free",
+    "ESPN.us": "us-espn-hd",
+    "MarqueeSportsNetwork.us": "us-marquee-sports-network-hd",
+    "SkySportsPremierLeague.uk": "now-sky-sports-premier-league",
+    "SkySport1.nz": "nz-sky-sport-1",
+    "SkySportsTennis.uk": "now-sky-sports-tennis",
+    "SkySportsGolf.uk": "vip-sky-sports-golf",
+}
 TEST_GROUP_PREFIX = "PRUEBA - "
 # Nombre corto mostrado por el reproductor -> nombre canonico que usa el
 # actualizador. El tvg-id y la fuente de XITE no cambian.
@@ -460,6 +485,116 @@ TVVOO_STREAM_RESOLVER_IDS = {
     "Sky Sport NBA Italia": ("vavoo_SKY%20SPORT%20NBA%7Cgroup%3Ait",),
     "Sky Sport Uno Italia": ("vavoo_SKY%20SPORT%20UNO%7Cgroup%3Ait",),
 }
+
+
+def build_resolver_catalog() -> dict:
+    """Build the declarative catalogue consumed by VibeM3U.
+
+    Only stable identifiers and allow-listed HTTPS endpoints belong here. The
+    short-lived HLS responses returned by TvVoo/Highfly stay in the playlist as
+    compatibility fallbacks and are never copied into this catalogue.
+    """
+    return {
+        "schemaVersion": RESOLVER_SCHEMA_VERSION,
+        "catalogVersion": RESOLVER_CATALOG_VERSION,
+        "providers": [
+            {
+                "id": "tvn",
+                "name": "TVN",
+                "engine": "tvn",
+                "enabledByDefault": True,
+                "cacheTtlSeconds": 0,
+                "match": {"tvgIds": ["0104"]},
+                "config": {
+                    "pageUrl": "https://live.tvn.cl/",
+                    "pageReferer": "https://www.tvn.cl/",
+                    "playlistTemplate": (
+                        "https://mdstrm.com/live-stream-playlist/"
+                        "{streamId}.m3u8"
+                    ),
+                    "playbackOrigin": "https://live.tvn.cl",
+                    "defaultStreamId": "57a498c4d7b86d600e5461cb",
+                },
+            },
+            {
+                "id": "meganoticias",
+                "name": "Meganoticias dinamico",
+                "engine": "meganoticias",
+                "enabledByDefault": True,
+                "cacheTtlSeconds": 0,
+                "match": {"tvgIds": ["MeganoticiasAhora.cl"]},
+                "config": {
+                    "pageUrl": MEGANOTICIAS_LIVE_PAGE,
+                    "apiUrl": "https://api.mega.cl/api/v1/mdstrm",
+                    "playlistTemplate": (
+                        "https://mdstrm.com/live-stream-playlist/"
+                        "{streamId}.m3u8"
+                    ),
+                    "playbackOrigin": "https://www.meganoticias.cl",
+                },
+            },
+            {
+                "id": "24horas",
+                "name": "24 Horas",
+                "engine": "24horas",
+                "enabledByDefault": True,
+                "cacheTtlSeconds": 0,
+                "match": {"tvgIds": ["0201"]},
+                "config": {
+                    "pageUrl": TWENTYFOUR_LIVE_PAGE,
+                    "playlistTemplate": (
+                        "https://mdstrm.com/live-stream-playlist/"
+                        "{streamId}.m3u8"
+                    ),
+                    "defaultStreamId": TWENTYFOUR_DEFAULT_ID,
+                },
+            },
+            {
+                "id": "tvvoo",
+                "name": "TvVoo",
+                "engine": "tvvoo",
+                "enabledByDefault": True,
+                "cacheTtlSeconds": 900,
+                "match": {
+                    "tvgIds": [
+                        "PremierSports1.ie",
+                        "PremierSports2.ie",
+                        "SkySportsRacing.uk",
+                    ],
+                    "tvgIdSuffixes": ["@TvVoo"],
+                },
+                "config": {
+                    "endpointBase": TVVOO_STREAM_BASE_URL,
+                    "maxAliases": 8,
+                    "maxCandidates": 16,
+                    "streamsPath": "streams",
+                    "urlField": "url",
+                    "allowHttpFallback": True,
+                },
+                "compatibilityAliases": {
+                    name: list(aliases)
+                    for name, aliases in TVVOO_STREAM_RESOLVER_IDS.items()
+                },
+            },
+            {
+                "id": "highfly",
+                "name": "Highfly",
+                "engine": "highfly",
+                "enabledByDefault": True,
+                "cacheTtlSeconds": 300,
+                "match": {"hosts": ["leaf.highfly.dev"]},
+                "config": {
+                    "directTemplate": (
+                        "https://leaf.highfly.dev/m3u/{id}/live.m3u8"
+                    ),
+                    "manifestUrl": HIGHFLY_MANIFEST_URL,
+                    "allowHttpFallback": True,
+                },
+            },
+        ],
+    }
+
+
 CI_GEO_RESTRICTED_CHANNELS = {
     "Mega",
     "NTV",
@@ -1056,6 +1191,258 @@ def parse_channels(lines: list[str]) -> list[Channel]:
         else:
             raise ValueError(f"{name}: falta la URL al final del archivo")
     return channels
+
+
+def resolver_attributes_for(channel: Channel) -> dict[str, str]:
+    if channel.tvg_id == "0104":
+        return {"x-resolver": "tvn", "x-resolver-refresh": "on_play"}
+    if channel.tvg_id == "0201":
+        return {"x-resolver": "24horas", "x-resolver-refresh": "on_play"}
+    if channel.tvg_id == "MeganoticiasAhora.cl":
+        return {
+            "x-resolver": "meganoticias",
+            "x-resolver-refresh": "on_play",
+        }
+    resolver_ids = TVVOO_STREAM_RESOLVER_IDS.get(channel.name)
+    if resolver_ids:
+        return {
+            "x-resolver": "tvvoo",
+            "x-resolver-endpoint": TVVOO_STREAM_BASE_URL,
+            "x-resolver-ids": ";".join(resolver_ids),
+            "x-resolver-refresh": "on_play",
+        }
+    highfly_slug = HIGHFLY_RESOLVER_CHANNELS.get(channel.tvg_id)
+    if highfly_slug:
+        return {
+            "x-resolver": "highfly",
+            "x-resolver-id": highfly_slug,
+            "x-resolver-manifest": HIGHFLY_MANIFEST_URL,
+            "x-resolver-refresh": "on_play",
+        }
+    return {}
+
+
+def with_resolver_attributes(line: str, attributes: dict[str, str]) -> str:
+    metadata, separator, display_name = line.rpartition(",")
+    if not separator or not metadata.startswith("#EXTINF:"):
+        raise ValueError(f"linea #EXTINF invalida: {line[:120]}")
+    for name in RESOLVER_ATTRIBUTE_NAMES:
+        metadata = re.sub(
+            rf"\s+{re.escape(name)}=(?:\"[^\"]*\"|[^\s,]+)",
+            "",
+            metadata,
+        )
+    if attributes:
+        encoded = " ".join(f'{name}="{value}"' for name, value in attributes.items())
+        metadata = f"{metadata} {encoded}"
+    return f"{metadata},{display_name}"
+
+
+def pin_resolver_metadata(lines: list[str]) -> bool:
+    changed = False
+    for channel in parse_channels(lines):
+        if channel.info_line < 0:
+            continue
+        original = lines[channel.info_line]
+        attributes = resolver_attributes_for(channel)
+        updated = with_resolver_attributes(original, attributes)
+        if updated != original:
+            lines[channel.info_line] = updated
+            changed = True
+            resolver = attributes.get("x-resolver", "directo")
+            print(f"  [OK] {channel.name}: metadatos de resolutor {resolver}")
+    return changed
+
+
+def resolver_catalog_text(catalog: dict) -> str:
+    return json.dumps(catalog, indent=2, ensure_ascii=False) + "\n"
+
+
+def catalog_version_key(value: str) -> tuple[int, ...]:
+    if not re.fullmatch(r"\d{4}(?:\.\d+){3}", value):
+        raise ValueError(f"catalogVersion invalida: {value}")
+    return tuple(int(part) for part in value.split("."))
+
+
+def write_resolver_catalog(path: Path = RESOLVER_CATALOG_PATH) -> bool:
+    expected = build_resolver_catalog()
+    if path.exists():
+        try:
+            current = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as error:
+            raise ValueError(f"{path.name} existente no es JSON valido: {error}") from error
+        current_version = str(current.get("catalogVersion", ""))
+        if catalog_version_key(current_version) > catalog_version_key(
+            RESOLVER_CATALOG_VERSION
+        ):
+            raise ValueError(
+                f"{path.name} tiene una version futura ({current_version})"
+            )
+        if current_version == RESOLVER_CATALOG_VERSION and current != expected:
+            raise ValueError(
+                "el contenido del catalogo cambio sin aumentar catalogVersion"
+            )
+        if current == expected:
+            return False
+    path.write_text(resolver_catalog_text(expected), encoding="utf-8", newline="\n")
+    print(f"  [OK] {path.name}: catalogo {RESOLVER_CATALOG_VERSION} generado")
+    return True
+
+
+def iter_catalog_urls(value: object):
+    if isinstance(value, dict):
+        for nested in value.values():
+            yield from iter_catalog_urls(nested)
+    elif isinstance(value, list):
+        for nested in value:
+            yield from iter_catalog_urls(nested)
+    elif isinstance(value, str) and value.startswith(("http://", "https://")):
+        yield value
+
+
+def validate_resolver_catalog(path: Path = RESOLVER_CATALOG_PATH) -> dict:
+    try:
+        raw = path.read_text(encoding="utf-8")
+        catalog = json.loads(raw)
+    except (OSError, json.JSONDecodeError) as error:
+        raise ValueError(f"{path.name} no es JSON valido: {error}") from error
+    if len(raw.encode("utf-8")) > 262_144:
+        raise ValueError(f"{path.name} supera el limite de 256 KiB de VibeM3U")
+    if catalog.get("schemaVersion") != RESOLVER_SCHEMA_VERSION:
+        raise ValueError("resolver-catalog.json debe usar schemaVersion 1")
+    catalog_version_key(str(catalog.get("catalogVersion", "")))
+    providers = catalog.get("providers")
+    if not isinstance(providers, list):
+        raise ValueError("resolver-catalog.json no contiene providers validos")
+    ids = [provider.get("id") for provider in providers if isinstance(provider, dict)]
+    engines = {
+        provider.get("engine") for provider in providers if isinstance(provider, dict)
+    }
+    if len(ids) != len(set(ids)):
+        raise ValueError("resolver-catalog.json contiene proveedores duplicados")
+    if set(ids) != ALLOWED_RESOLVER_ENGINES or engines != ALLOWED_RESOLVER_ENGINES:
+        raise ValueError("el catalogo debe contener solamente los cinco motores permitidos")
+    forbidden = ("serverkey", "/sunshine/", "access_token=", "token=", "streams[].url")
+    lowered = raw.lower()
+    if any(marker in lowered for marker in forbidden):
+        raise ValueError("el catalogo contiene una clave, token o URL de sesion")
+    allowed_hosts = {
+        "live.tvn.cl",
+        "www.tvn.cl",
+        "mdstrm.com",
+        "www.meganoticias.cl",
+        "api.mega.cl",
+        "www.24horas.cl",
+        "tvvoo.hayd.uk",
+        "leaf.highfly.dev",
+        "sports.highfly.dev",
+        "raw.githubusercontent.com",
+    }
+    for url in iter_catalog_urls(catalog):
+        parsed = urlparse(url.replace("{streamId}", "stream").replace("{id}", "id"))
+        if parsed.scheme != "https" or (parsed.hostname or "").lower() not in allowed_hosts:
+            raise ValueError(f"endpoint no permitido en catalogo: {url}")
+        if parsed.hostname == "raw.githubusercontent.com" and not parsed.path.startswith(
+            "/SPxMM3R1/lista-m3u/"
+        ):
+            raise ValueError(f"ruta GitHub Raw no permitida: {url}")
+    by_id = {provider["id"]: provider for provider in providers}
+    aliases = by_id["tvvoo"].get("compatibilityAliases")
+    expected_aliases = {
+        name: list(values) for name, values in TVVOO_STREAM_RESOLVER_IDS.items()
+    }
+    if aliases != expected_aliases:
+        raise ValueError("los aliases TvVoo no coinciden con la fuente del actualizador")
+    highfly_manifest = by_id["highfly"].get("config", {}).get("manifestUrl")
+    if highfly_manifest != HIGHFLY_MANIFEST_URL or "/configure" in highfly_manifest:
+        raise ValueError("Highfly debe apuntar al manifest.json final configurado")
+    return catalog
+
+
+def validate_playlist_resolvers(lines: list[str]) -> dict[str, int]:
+    channels = parse_channels(lines)
+    identities: set[tuple[str, str]] = set()
+    counts = {engine: 0 for engine in sorted(ALLOWED_RESOLVER_ENGINES)}
+    for channel in channels:
+        identity = (channel.tvg_id, channel.name)
+        if identity in identities:
+            raise ValueError(
+                f"entrada de canal duplicada: {channel.name} ({channel.tvg_id})"
+            )
+        identities.add(identity)
+        line = lines[channel.info_line]
+        attrs = {
+            name: match.group(1)
+            for name in RESOLVER_ATTRIBUTE_NAMES
+            if (match := re.search(rf'\b{re.escape(name)}="([^"]*)"', line))
+        }
+        expected = resolver_attributes_for(channel)
+        if attrs != expected:
+            raise ValueError(
+                f"{channel.name}: metadatos de resolutor distintos al contrato"
+            )
+        engine = attrs.get("x-resolver")
+        if not engine:
+            continue
+        if engine not in ALLOWED_RESOLVER_ENGINES:
+            raise ValueError(f"{channel.name}: resolutor no permitido {engine}")
+        if not channel.tvg_id:
+            raise ValueError(f"{channel.name}: canal dinamico sin tvg-id estable")
+        counts[engine] += 1
+        serialized = " ".join(attrs.values()).lower()
+        if any(marker in serialized for marker in ("/sunshine/", "serverkey", "token=")):
+            raise ValueError(f"{channel.name}: atributos contienen datos temporales")
+        if engine == "tvvoo":
+            aliases = attrs.get("x-resolver-ids", "").split(";")
+            if not aliases or any(not alias for alias in aliases):
+                raise ValueError(f"{channel.name}: TvVoo sin aliases estables")
+            if tuple(aliases) != TVVOO_STREAM_RESOLVER_IDS[channel.name]:
+                raise ValueError(f"{channel.name}: aliases TvVoo fuera de orden")
+        elif engine == "highfly":
+            if not attrs.get("x-resolver-id") or not attrs.get("x-resolver-manifest"):
+                raise ValueError(f"{channel.name}: Highfly incompleto")
+            if "/configure" in attrs["x-resolver-manifest"]:
+                raise ValueError(f"{channel.name}: Highfly apunta a HTML configure")
+    production_meganoticias = [
+        channel for channel in channels if channel.tvg_id == "Meganoticias.cl"
+    ]
+    if len(production_meganoticias) != 1:
+        raise ValueError("Meganoticias.cl debe conservar exactamente una entrada")
+    if resolver_attributes_for(production_meganoticias[0]):
+        raise ValueError("Meganoticias.cl de produccion debe seguir siendo directo")
+    for channel in channels:
+        if channel.url.startswith("https://jmp2.uk/plu-") and resolver_attributes_for(channel):
+            raise ValueError(f"{channel.name}: Pluto no debe usar x-resolver")
+    expected_tvvoo = set(TVVOO_STREAM_RESOLVER_IDS)
+    actual_tvvoo = {
+        channel.name
+        for channel in channels
+        if resolver_attributes_for(channel).get("x-resolver") == "tvvoo"
+    }
+    missing_tvvoo = sorted(expected_tvvoo - actual_tvvoo)
+    if missing_tvvoo:
+        raise ValueError("faltan canales TvVoo del mapa: " + ", ".join(missing_tvvoo))
+    missing_highfly = sorted(
+        set(HIGHFLY_RESOLVER_CHANNELS)
+        - {
+            channel.tvg_id
+            for channel in channels
+            if resolver_attributes_for(channel).get("x-resolver") == "highfly"
+        }
+    )
+    if missing_highfly:
+        raise ValueError("faltan canales Highfly: " + ", ".join(missing_highfly))
+    return counts
+
+
+def validate_resolver_contract(lines: list[str]) -> dict[str, int]:
+    validate_resolver_catalog()
+    counts = validate_playlist_resolvers(lines)
+    print(
+        "Contrato de resolutores valido: "
+        + ", ".join(f"{engine}={count}" for engine, count in counts.items())
+    )
+    return counts
 
 
 def pin_preferred_logos(lines: list[str]) -> bool:
@@ -3871,6 +4258,16 @@ def main() -> int:
     parser.add_argument("--playlist", type=Path, default=DEFAULT_PLAYLIST)
     parser.add_argument("--verify-published", metavar="URL")
     parser.add_argument("--verify-epg-published", metavar="URL")
+    parser.add_argument(
+        "--sync-resolver-contract",
+        action="store_true",
+        help="genera metadatos M3U y resolver-catalog.json sin usar la red",
+    )
+    parser.add_argument(
+        "--validate-resolvers-only",
+        action="store_true",
+        help="valida el contrato M3U/catalogo sin actualizar streams ni EPG",
+    )
     args = parser.parse_args()
 
     playlist = args.playlist.resolve()
@@ -3886,6 +4283,19 @@ def main() -> int:
         )
 
     lines = playlist.read_text(encoding="utf-8-sig").splitlines()
+    if args.validate_resolvers_only:
+        validate_resolver_contract(lines)
+        return 0
+    if args.sync_resolver_contract:
+        resolver_changed = pin_resolver_metadata(lines)
+        if resolver_changed:
+            playlist.write_text(
+                "\n".join(lines) + "\n", encoding="utf-8", newline="\n"
+            )
+        write_resolver_catalog()
+        validate_resolver_contract(lines)
+        return 0
+
     epg_url_changed = ensure_playlist_epg_url(lines)
     if epg_url_changed:
         playlist.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
@@ -3893,12 +4303,16 @@ def main() -> int:
             print("Cabecera M3U enlazada a la guia EPG publicada en GitHub")
     news_order_changed = pin_news_channel_order(lines)
     preferred_logo_changed = pin_preferred_logos(lines)
+    resolver_changed = pin_resolver_metadata(lines)
     if (
         news_order_changed
         or preferred_logo_changed
+        or resolver_changed
     ):
         playlist.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
         print("Cambios de lista y maestros originales guardados")
+    write_resolver_catalog()
+    validate_resolver_contract(lines)
     channels = parse_channels(lines)
     if not channels:
         raise RuntimeError("la lista no contiene canales activos")
