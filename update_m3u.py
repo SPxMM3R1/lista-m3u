@@ -118,7 +118,6 @@ EPG_PROGRAMME_SOURCES = {
     "MTVBiggestPop.us": ("pluto", "6047fabfce6e8e00070bcc9f"),
     "MTVSpankinNew.us": ("pluto", "6541010f770cf1000866be98"),
     "MTVFlowLatino.us": ("pluto", "62b218fc511d4b00070ddc0c"),
-    "YoMTV.us": ("pluto", "654102ed770cf1000866c307"),
     "SkySportsMainEvent.uk@TvVoo": ("uk1", "SkySpMainEvHD.uk"),
     "SkySportsPlus.uk@TvVoo": ("uk1", "SkySp+.uk"),
     "TNTSports3.uk@TvVoo": ("uk1", "TNT.Sports.3.HD.uk"),
@@ -391,7 +390,6 @@ PREFERRED_LOGOS = {
     "MTV Biggest Pop": f"{LOCAL_LOGOS_PUBLIC_BASE}/mtv-biggest-pop.svg",
     "MTV Spankin' New": f"{LOCAL_LOGOS_PUBLIC_BASE}/mtv-spankin-new.svg",
     "MTV Flow Latino": f"{LOCAL_LOGOS_PUBLIC_BASE}/mtv-flow-latino.svg",
-    "Yo! MTV": f"{LOCAL_LOGOS_PUBLIC_BASE}/mtv-yo.svg",
     "XITE Rock x Metal": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
     "MTV Rocks": f"{LOCAL_LOGOS_PUBLIC_BASE}/mtv-rocks.svg",
     "XITE Just Chill": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
@@ -526,10 +524,6 @@ CONTINUOUS_PROGRAMME_DETAILS = {
     "MTV Flow Latino": (
         "MTV Flow Latino - videoclips",
         "Rotacion continua de videoclips latinos de MTV; no publica una parrilla horaria XMLTV estable.",
-    ),
-    "Yo! MTV": (
-        "Yo! MTV - videoclips",
-        "Rotacion continua de videoclips de MTV; no publica una parrilla horaria XMLTV estable.",
     ),
     "Totalmusic 80s": (
         "Totalmusic 80s - videoclips",

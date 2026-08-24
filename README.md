@@ -40,7 +40,7 @@ Cada ejecucion completa:
   Africanews, respectivamente; no descarga el XML combinado de todos los
   proveedores;
 - incorpora la parrilla XMLTV de PlutoTV para MTV Classic, MTV Biggest Pop,
-  MTV Spankin' New, MTV Flow Latino y Yo! MTV; las tarjetas repetidas de Pluto
+  MTV Spankin' New y MTV Flow Latino; las tarjetas repetidas de Pluto
   se deduplican antes de construir la EPG;
 - incorpora 18 canales adicionales desde los resolutores JSON publicos de TvVoo:
   CNN, MTV Hits, M6 Music, Trace Urban, Sky Sports Main Event, Sky Sports+,
