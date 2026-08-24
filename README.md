@@ -49,6 +49,9 @@ Cada ejecucion completa:
   Sports 2. Cada ejecucion de 48 horas solicita tokens nuevos, valida
   maestro/variante/segmento y usa el mismo enlace HTTP solo cuando el nodo HTTPS
   responde con certificado vencido;
+- conserva Sky Sports Racing con Highfly como fuente primaria y aliases Vavoo
+  de respaldo. Si el slug Highfly deja de existir, el actualizador solicita un
+  alias nuevo a TvVoo, valida su HLS y publica el enlace que respondio;
 - prioriza la guia oficial de Canal 13 para 13C, manteniendola separada de
   13 Cultura; si la pagina oficial no entrega bloques vigentes, usa Zapping
   como respaldo por canal;
@@ -104,7 +107,7 @@ disponible sin depender de servidores externos.
 
 ## Canales
 
-La lista contiene 75 canales: nacionales, noticias, miscelaneos chilenos,
+La lista contiene 83 canales: nacionales, noticias, miscelaneos chilenos,
 noticias internacionales, documentales, conciertos, musica y deportes.
 
 TVN y Mega se actualizan desde sus parrillas oficiales cuando estan
@@ -130,11 +133,22 @@ no conserva canales cuya unica salida seria `senal continua`; el constructor
  cuando la fuente real tiene un horizonte corto: los programas siguen siendo
  reales y la continuidad solo cubre el hueco hasta la proxima actualizacion.
 
-En esta depuracion se retiraron los canales sin una fuente de EPG real
-verificable: CHV Deportes, 13 Cultura, 13 Kids, Autentic History, Reuters,
-Totalmusic 80s, Totalmusic 2000s, Totalmusic Concerts y Totalmusic Dance.
-13C permanece en la lista como canal distinto y conserva la parrilla oficial
-de `https://www.13.cl/c/programacion`; no se reutilizo esa guia para 13 Cultura.
+Se reincorporaron provisionalmente nueve canales que habian desaparecido sin
+una instruccion de borrado: CHV Deportes, 13 Cultura, 13 Kids, Autentic History,
+Reuters, Totalmusic 80s, Totalmusic 2000s, Totalmusic Concerts y Totalmusic
+Dance. Sus maestros HLS entregaron playlist y primer segmento multimedia
+durante la verificacion, pero no se inventa una parrilla XMLTV: el actualizador
+los publica con `data-guide="sin guía"` hasta encontrar una fuente que
+identifique exactamente cada senal. 13C permanece en la lista como canal
+distinto y conserva la parrilla oficial de `https://www.13.cl/c/programacion`;
+no se reutiliza esa guia para 13 Cultura.
+
+El repositorio `OwnerPlugins/vavoo` se utilizo como referencia de los aliases
+Vavoo y de la separacion entre catalogo, resolutor y EPG. No se copiaron sus
+URLs `127.0.0.1` ni su proxy local: no funcionarian desde un reproductor
+remoto. La lista publica conserva solo las URLs HLS que el resolutor remoto
+entrega y que el actualizador puede renovar y validar; tampoco se incorpora la
+telemetria opcional del plugin.
 RT France y DAZN FAST+ se incorporan porque TvVoo devuelve HLS utilizable; sus
 canales XMLTV quedan declarados como `sin guía` hasta que exista una parrilla
 que identifique esas señales exactas.

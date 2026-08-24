@@ -37,6 +37,14 @@ https://mdstrm.com/live-stream-playlist/5aaabe9e2c56420918184c6d.m3u8?PlaylistM3
 #EXTINF:-1 tvg-id="1437" tvg-name="TVN3" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvn3.svg" group-title="Miscelaneos Chile",TVN3
 https://mdstrm.com/live-stream-playlist/5653641561b4eba30a7e4929.m3u8?PlaylistM3UCL
 
+# Canales recuperados para revision: sus maestros HLS responden, pero no se
+# inventa una parrilla XMLTV cuando no existe una fuente que identifique la senal.
+#EXTINF:-1 tvg-id="1763" tvg-name="CHV Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/chv-deportes.svg" group-title="Miscelaneos Chile",CHV Deportes
+https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/chvdeportes/chvdeportes.smil/playlist.m3u8
+
+#EXTINF:-1 tvg-id="13Cultura.cl@DPS" tvg-name="13 Cultura" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/13cultura.svg" tvg-country="CL" group-title="Miscelaneos Chile",13 Cultura
+https://origin.dpsgo.com/ssai/event/GI-9cp_bT8KcerLpZwkuhw/master.m3u8
+
 #EXTINF:-1 tvg-id="13C.cl@SD" tvg-name="13C" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/13c.png" group-title="Miscelaneos Chile",13C
 https://cdn1tlinkgo.tlink.cl/13c/tracks-v1a1/mono.m3u8
 
@@ -53,15 +61,18 @@ https://live.france24.com/hls/live/2037220/F24_ES_HI_HLS/master_5000.m3u8
 #EXTINF:-1 tvg-id="France24.fr@English" tvg-name="France 24 English" tvg-country="FR" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/france24.svg" group-title="Noticias Internacionales",France 24 English
 https://live.france24.com/hls/live/2037218/F24_EN_HI_HLS/master_5000.m3u8
 
+#EXTINF:-1 tvg-id="ReutersTV.us" tvg-name="Reuters" tvg-country="GB" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/reuters.png" group-title="Noticias Internacionales",Reuters
+https://amg00453-reuters-amg00453c1-rakuten-uk-2110.playouts.now.amagi.tv/playlist/amg00453-reuters-reuters-rakutenuk/playlist.m3u8
+
 # CNN TvVoo se renueva desde su resolutor publico; su guia usa CNN HD UK como
 # identificador XMLTV secundario porque el canal no publica una guia propia.
 #EXTINF:-1 tvg-id="CNN.us@TvVoo" tvg-name="CNN" tvg-country="US" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/cnn.png" group-title="Noticias Internacionales",CNN
-http://td3wb1bchdvsahp.ngolpdkyoctjcddxshli469r.org/sunshine/4Hb5RudLen9sLjJ06df6VgyHYJWtWrfBHcRQa2U_jRD12C7059CRQRsVpcuTAwpfic-tbcYhFm3deiu_a5hE_wDLGqsvEx10CLT7NgkTOe7727TOfFz--FFkH4lBzKO9G0Ri4783Nukb1rydkIFNaE30IB-rs7g1f8_ZN7aDVe_eDW_zGOS8YdtmoEyz6eTb9uzqeqBibNfPKIDIVTDffB139SjfO-Ig-QmIsw0IPIiaJkU-CP-n3qIDvAsgzASAtuYUlS54fE2l_zUy9_bpIaH6-FQoBiddwVvwa5gywElrLr8Svck01NilKU0cUDfza8G0ftBOMPQU_Hm8MTGWrA/hls/index.m3u8
+http://td3wb1bchdvsahp.ngolpdkyoctjcddxshli469r.org/sunshine/oUjyFzMI5tq8ndEKXeIYQgCw4wmmFoXLm4nyXsqDO5DDF0B3-kyhKp-o7b0z9Fd_TLFlOVh9DLrj0yR_PQgIwHF13_kto-ESIRhnQ7tIvmfkn5jMa8YfcMT7KtyT3fE5DI41VJOFQr0Hzrfz0rmwe7SuGjaXl15hM_MkqNYvYLvS_DxSjR90lkXsP3yUdow4YQWdBhkdyfrNQBntMr9BWP5uEiS6OUZkqoVO9q6NSTLRf8mrqOLs4ki7DPGciI3ArcOeSAu7DHjb4FM3ZOs_1o5N1h5uEKALc46JD2VPJN4CcA_LeWddFOtmfd-IIKAHY7sQJLCO0RaTM6mDW9N3tQ/hls/index.m3u8
 
 # TvVoo devuelve la senal; no se encontro una parrilla XMLTV identificable para
 # RT France, por lo que queda publicado con EPG explicita "sin guía".
 #EXTINF:-1 tvg-id="RTFrance.fr@TvVoo" tvg-name="RT France" tvg-country="FR" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/rt-france.png" group-title="Noticias Internacionales",RT France
-http://shouurvki7jtfax.ngolpdkyoctjcddxshli469r.org/sunshine/Z9n0alzNlwGrsdTkCObbnBZrNY28QRKL7Uw8QSIO8Y7uAS9Hj-lLRXGVQMj13bgrYimika3N-I0_VnD7A9UZat3HqG8DVTXPbsDNlJ8fwIL1gWsK8uDNNLrMclwYynL65Z6zcFUJYz7o2JAvbFWZ3WPLXzgQs4bYD9_fimpuf6m4Ac-rKDHwWsHnjIf_KX1qBlm9ct9fw27UCMthBE2cEW4kMt3ZZmWuubkqibR4kpExMuSiGp19ExPYkRjTEd7atsAqZhiYZL6Ogk8MiO5R0FWkD1xvQJVaW6yz6_lwyNtu6hchf923KWbqPyZAArU1-JGx9CQrlp-nyIVQiQ7i6Q/hls/index.m3u8
+http://td3wb1bchdvsahp.ngolpdkyoctjcddxshli469r.org/sunshine/UabHaLp4M3lS1to_HJaakPTTaSIgWyUYlq7JwqnIu2_AR7cuFgAlTXLFM9Bpm0gf8CtgpnrYQrInOGAwhirfG7U7LA7D536UPpkfJMPZlydiIQS7OGJdvt1vRPRVFl2qudtoA2loBCQyvBquJq0pWJ422zjDW5rMKoOph-AzHIZZGHePkyeFQTIn7OJ1bVgqug5dLhfALWL_5r2QHVa7QdcsoUbaJOUoS0uUrvLw0JX_6dxz_WoffqRD3suXDNc9xAJt2tL4mipsdRpelbA00ME5XlSLnQozg2nl255Tizs0ZfgMi9TdMWPq5HZfhTAqOHa0IhLNqKEWiiLWBkF4IQ/hls/index.m3u8
 
 #EXTINF:-1 tvg-id="EuronewsSpanish.fr" tvg-name="Euronews Español" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/euronews-espanol.png" group-title="Internacional",Euronews Español
 https://cdn-euronews.akamaized.net/live/eds/euronews-es/25053/index.m3u8
@@ -112,6 +123,12 @@ http://stream.mcquack.net/330/index.m3u8
 #EXTINF:-1 tvg-id="TVChile.cl" tvg-name="TV Chile" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvchilecl.png" tvg-country="CL" group-title="Chile",TV Chile
 https://mdstrm.com/live-stream-playlist/533adcc949386ce765657d7c.m3u8
 
+#EXTINF:-1 tvg-id="13Kids.cl" tvg-name="13 Kids" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/13kidscl.png" tvg-country="CL" group-title="Chile",13 Kids
+https://origin.dpsgo.com/ssai/event/LhHrVtyeQkKZ-Ye_xEU75g/master.m3u8
+
+#EXTINF:-1 tvg-id="AutenticHistory.de" tvg-name="Autentic History" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/autentic-history.svg" tvg-country="DE" group-title="Europa e Internacional",Autentic History
+https://9e754fa707344ccca6d84955c8fcaf36.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/RlaxxTV-eu_AutenticHistory/playlist.m3u8
+
 #EXTINF:-1 tvg-id="DWEnglish.de" tvg-name="DW English" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/dw.svg" tvg-country="DE" group-title="Europa e Internacional",DW English
 https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/master.m3u8
 
@@ -130,6 +147,18 @@ https://lotus.stingray.com/manifest/qello-qello001-montreal/samsungtvplus/master
 #EXTINF:-1 tvg-id="StingrayClassica.ca" tvg-name="Stingray Classica" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/stingray-classica.svg" tvg-country="CA" group-title="Conciertos y Musica",Stingray Classica
 https://lotus.stingray.com/manifest/classica-cla008-montreal/samsungtvplus/master.m3u8
 
+#EXTINF:-1 tvg-id="Totalmusic80s.uk" tvg-name="Totalmusic 80s" tvg-country="US" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/totalmusic-80s.png" group-title="Musica 70s 80s 90s",Totalmusic 80s
+https://cdn.global.elektamedia.com/live/c7eds/Totalmusic_80s/SA_LIVE_hls_enc/master.m3u8
+
+#EXTINF:-1 tvg-id="Totalmusic2000s.uk" tvg-name="Totalmusic 2000s" tvg-country="US" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/totalmusic-2000s.png" group-title="Musica 2000s",Totalmusic 2000s
+https://cdn.global.elektamedia.com/live/c7eds/Totalmusic_00s/SA_LIVE_hls_enc/master.m3u8
+
+#EXTINF:-1 tvg-id="TotalmusicConcerts.uk" tvg-name="Totalmusic Concerts" tvg-country="US" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/totalmusic-concerts.png" group-title="Conciertos y Musica",Totalmusic Concerts
+https://cdn.global.elektamedia.com/live/c7eds/Totalmusic_Concerts/SA_LIVE_hls_enc/master.m3u8
+
+#EXTINF:-1 tvg-id="TotalmusicDance.uk" tvg-name="Totalmusic Dance" tvg-country="US" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/totalmusic-dance.png" group-title="Musica Dance",Totalmusic Dance
+https://cdn.global.elektamedia.com/live/c7eds/Totalmusic_Dance/SA_LIVE_hls_enc/master.m3u8
+
 #EXTINF:-1 tvg-id="MTVClassic.us" tvg-name="MTV Classic" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/mtv-classic.svg" tvg-country="US" group-title="Musica 70s 80s 90s",MTV Classic
 https://jmp2.uk/plu-66a01dcb8561260008b0a41d.m3u8
 
@@ -144,13 +173,13 @@ https://jmp2.uk/plu-62b218fc511d4b00070ddc0c.m3u8
 
 # Canales musicales TvVoo con fuente XMLTV real; se renuevan cada 48 horas.
 #EXTINF:-1 tvg-id="MTVHits.fr@TvVoo" tvg-name="MTV Hits" tvg-country="FR" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/mtv-hits.png" group-title="Musica Pop",MTV Hits
-http://shouurvki7jtfax.ngolpdkyoctjcddxshli469r.org/sunshine/HQ4ue9jzDVqddgn6CPq1AVA220zPTfTaP6gdcbb_rhgaFduanKHcHj2f4UgoB_sKedWKBiHFYPUK3uJ_2W1ESUEqHlwWPlXubbL9oLI1m3vsa6HUZBzGf5rB8YucF40uUGpWDdIFwTUYAVj88D6kiD07T60Tux6vSD021S6GS2oKr5hgo21znSGVPT_3KaAYNUidCnM_jUCIpcdb8izympitSNLFI757f-rtsCb7qmNA5YZAPpVxXRKtwgfZJQdogmT1qZEURtTYffB8iYbwDprWD9VMRbC9_jo-pSITfuzdgRVfxIfkH4zzWOt_vzoviACCLSe8zOZDiSnLDXNq5g/hls/index.m3u8
+http://td3wb1bchdvsahp.ngolpdkyoctjcddxshli469r.org/sunshine/13dyDL52BVFlck-grh5hnUzdjfq6sYfP05JatXxyxyQ40txV6gJTRcoCUzm1EpHzHj7reExrXIAyEzSzZFLplVv18bPgBZfKXXmuiNo9gDQ4DvntgF951GIx1do9GlaFpE26WsZQ-iS9COmSaCGef3U81zpmsiK9WREgbu8Jpm9tF8T2hBVF4zH5-pBlOq0CBThRH14HwgK80bb67_XHzC2QPVycYaalZqPpHBYmPBZqXLtieYCOy-gJRrN0VPQdZKew2tDbkZhdzw2LxjE371vn4HEWtjFIZI2Zr8dK35XeurRQNn1UL8d7H5ykWj8pE4gHfY_aYycUKoG12pfFeA/hls/index.m3u8
 
 #EXTINF:-1 tvg-id="M6Music.fr@TvVoo" tvg-name="M6 Music" tvg-country="FR" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/m6-music.png" group-title="Musica Pop",M6 Music
-http://qmaalhy7acgxwhm.ngolpdkyoctjcddxshli469r.org/sunshine/I3jUC15sGlK7GoIKasksIZEzQjsSVGrABeGMmbULjD0uESwZ1_ksU3xBwIMjakkYM1JdKopoWbHBPZjFhelxuF_fe0QsaXAErmSzjKgIa2aoJteFDPsa6gqNWSPWNrwVLWstsvwsU5hZcY0zkbeI1BSyfheJTtwIMwg79zy6ufMw4nAFMCciaNJdq0YBMgz5fU4YVTtHwTZUMkYpCNSBafIJZpN7Hsf1EBhmb_B1lhb7q951mEgeQ6b1lg74JDpUDOeZjWSD0hVCYLMtzD8EeJ0rZ2_oqfw1cJhJk0vDBnPqrIac1w8DOljLGU9NNVkHMfeNwYFyWDFoYqGWi7iWcQ/hls/index.m3u8
+http://qmaalhy7acgxwhm.ngolpdkyoctjcddxshli469r.org/sunshine/jvjJ71ZlblUSuVaWydvJxRhQ9ksYnzHV3fPV40hqyg2q-orzUjNOLrgIEKtoNHhYc-u0CdZIhYXqlITxLDXfqntfat3NLMiktoH8FdYq0tAY9UtG9Gh1JDYp4LVqy04eW78DIDIcvrzrYaSjlUcIS4VEBkLbfU54SqUaBKPRxGFzlP1LbuYvBNYfOTPifuHw7M_4BcEivDWaSuksXiolgAQddyRG1LNAZyPRGEfmt39Yo8SUGe_R3hQlAXYIVUNWUEX9G2Fzt0_CA-FGPxAC1iuqK65IzVqritPiT3y4l3zS5lKHe9s0kM8jeJJhWWsGre9wKNYtpqCTeJ91NxMGkQ/hls/index.m3u8
 
 #EXTINF:-1 tvg-id="TraceUrban.fr@TvVoo" tvg-name="Trace Urban" tvg-country="FR" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/trace-urban.png" group-title="Musica Latina",Trace Urban
-http://td3wb1bchdvsahp.ngolpdkyoctjcddxshli469r.org/sunshine/IOj8FaJvzoY8fjFbozU_5v-e5gFgJjyhH6NIJJjiDcFxHrEAMCglipwOEBjLqU2QOTcnt93vcfeguZxPkorShDO8X2fhxULt5Mu-jT5sJRlty2SeDR7l6nyr7B7jdB9GLz15rKAJTnCqQ0PYSW5o_zAvJHz7i4xutjK41cPPiULBO1t3xfGgk_rg-0c9L3n7zhygKQ2fYcB_Q_KuzKfljxJraxigJ8sqdXYgvHKyu4BuLSChL2enKr9rNRrMoct-fbZxos6qsQWEmxW_twgqAYuBLoczqnGfqlrw4YKzyGNMl10mvPospbWP8XAWq_dzbiwT2ICNe5UL-k9Jh2nJ9A/hls/index.m3u8
+http://qmaalhy7acgxwhm.ngolpdkyoctjcddxshli469r.org/sunshine/Vg3gzZ2j2nMzKdO_Ld_xKyzpZRsytt23E9BA7ue9krA2GWVmOMfNGaO-L7tcR75B1jTXCtkZfDeeD84_8JDn7_ypiimQ5D43eGVpAj5ahpfaBmqHxIpiRe8JVHykWoA9PfF-ea-4XR1bYVxbYvt6Pet78Vpx4sxbNsRAUMmNhnINo1XGab0J_FKsP_zCxMqckB7rhaQB2pa8qBSrgoAU4BWB_UA2IS4JRX6PfI5yzsNIbVlvA6AVzT5aZsblaVjvQ0pLLKdIbQJeF9bmCWrNzDZR70I42S-Jd7iOBWy3de_ty7RaD_KVLu9Kf7H1K1JMqh4PSq8Xkx8cVQEkP1AFAA/hls/index.m3u8
 
 # Fuentes deportivas publicas incorporadas al catalogo principal. Se revalidan
 # en cada ejecucion; los enlaces temporales se conservan para renovacion segura.
@@ -164,7 +193,7 @@ https://leaf.highfly.dev/m3u/us-espn-hd/live.m3u8
 https://leaf.highfly.dev/m3u/us-marquee-sports-network-hd/live.m3u8
 
 #EXTINF:-1 tvg-id="SkySportsRacing.uk" tvg-name="Sky Sports Racing" tvg-country="GB" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/sky-sports-racing.png",Sky Sports Racing
-https://leaf.highfly.dev/m3u/vip-sky-sports-racing/live.m3u8
+http://td3wb1bchdvsahp.ngolpdkyoctjcddxshli469r.org/sunshine/LsT-zNGw4gJMQWgpYqkdmYtkZdxpQulEu9YCh9XeTaix8OoV-h2tp91uAfk0emSxqOweJcQf6in77SmWyFCKOGZJsL9GsS3pM8_INqUKuZ3jPNz9-KdOxp62_EV8hIL-kTqcQ-IXBebJE-34T9tgmidmB9fk_8BUeb-NAXKotnT5s_ZNZYpbBa6qX_FoSQ09NeR_2RlmpqJ4R3-ZMtO3bAUMM_hwWJkV9ZMRg7hYAoTWAgSout9OBPbbsXncloG5wDH2KzsSEipkyEmZ7rnGelHDr-i31A-c-QGmrLJaoUpIv3hKIC4Phj87HrnV8gHvX_ouhNqAy9KUu0z_6MbgEg/hls/index.m3u8
 
 #EXTINF:-1 tvg-id="SkySportsPremierLeague.uk" tvg-name="Sky Sports Premier League" tvg-country="GB" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/sky-sports-premier-league.png" group-title="Deportes",Sky Sports Premier League
 https://leaf.highfly.dev/m3u/now-sky-sports-premier-league/live.m3u8
@@ -172,54 +201,54 @@ https://leaf.highfly.dev/m3u/now-sky-sports-premier-league/live.m3u8
 # Premier Sports 1/2 se resuelven nuevamente desde TvVoo en cada ejecucion.
 # El token publicado aqui es solo el punto de partida del siguiente refresco.
 #EXTINF:-1 tvg-id="PremierSports1.ie" tvg-name="Premier Sports 1" tvg-country="IE" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/premier-sports-1.png",Premier Sports 1
-http://qmaalhy7acgxwhm.ngolpdkyoctjcddxshli469r.org/sunshine/XI1RdGo1jvtSG3RupXvB1Qs6bP7Fh42i1iKpzauVPtgd4gFTZuhdGy_H76euGS7eiUVSObOIg4W9lO9EuIJTQU5ix74nOeLKLiPYLg7gWdDtvbdNnn_lhuV5e5jn3CWieNxAmSFfqFr-3cSv4Qx5ZpS01LjeRdbYNCk6LPLns6sKmuBE1cXMfSyQt6EAXqKi1O2vhbcWlTLKD5U-sLUiqs2k4r--xDXUuUMMlMau4MAFvtxQvq6VJSzzW5nSEcKktxCOZD4uAJp1uMcWPZ7ZHv32r2UE37zZQbP6Ea6iQ49Pu0s035eoqewlDsgx0yifiRsfWtKd7N3Chr9BbXhVDQ/hls/index.m3u8
+http://qmaalhy7acgxwhm.ngolpdkyoctjcddxshli469r.org/sunshine/D4wm2vI4OONEQDiN_tESfwn5tUecrxO1Otuzu6gEY0Xj95xd2USc6O9E53rpIqBbIC9VMDZqitGxbv2tTUEiyEY5x3ruDdMRZvIw0umfi0UybRFxpcNB0wCF0PSCd3jlwj5u8LIPYaXenypcewVU-cL9vWyMLx9olwpILIiMRIXXME7qJIiAjhtKDtU6dIH1RcVblD0FtmREPnEJJhjcDFzZ8-BohQAhpT9ba-SGuqe_EHn4t4_nKYIcZVmdnIJiAgt3aW2ogs1Wd5pUKoZRhUFaOLuZ8fxbcpAp98jzuGlVtqHlbdj2LDHZGQfRZQxjNUwVKVnAP9rf9pS_pF3Z9g/hls/index.m3u8
 
 #EXTINF:-1 tvg-id="PremierSports2.ie" tvg-name="Premier Sports 2" tvg-country="IE" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/premier-sports-2.png",Premier Sports 2
-http://shouurvki7jtfax.ngolpdkyoctjcddxshli469r.org/sunshine/uLijZWh_IvM2myKRvyPyK6hQnnywSKOSFvM01sNYII9d5T5n6HK43mJAcOeY_ITPClFlM_Z2hkc-Xy810T_wzPc0RTnTSKPXWCDTF2Pi20hw6YhlqBsRGtN_pnI4V-CCzMvugdbs3xsKjZ4pyJdAPZL74yDHCFTQESzpKWfivBVIp6pOKOu9nH_EZufUuM7I0yzpECN0qbMDVYsl9PVYsKxIYjgmQad4N7ENfXamd8euf49t4ZCW4Ps6CX4qAnuzyRfpJL84Sxe2JghLTlK3aIrLf8D4A1WWlExWdcgg5n-S3lTaN3WTsi72J_f59sSp4V4GRTxu_B6rw4A-QZmdNQ/hls/index.m3u8
+http://td3wb1bchdvsahp.ngolpdkyoctjcddxshli469r.org/sunshine/BvZcGD94-JQh2YaKxl0aUlTqnOpc2ILVpw_--OuGRwOs7nutkU8JWxOefxEooMz539eTbaJdv9-8QdpW76s5mdXCLYgZ71UNeYnfaW9VYYQXbOhAsublOnRHhFFC_TY47rr4cwtSJIMWNdCe5fg7KSH_NJq_oRg9aSdNo2n1v9D3ncMCIV_E8DbY2j0OBU6dtFbzQPlCg5-4D8F0SyeN5G3Nk33nhzAMjafUDj9gEE4DOugzgnU_GftiCxytOAgcgXaib5iyRc1xy8RoeQy2PNO-xVwA_fdN4bwqxW7szmv97N9CyB3MgADoIWLXrZscfa8VeJX7RUFTnQX8M38Siw/hls/index.m3u8
 
 # Canales deportivos TvVoo con renovacion dinamica; el updater publica el HLS
 # verificado y conserva HTTP solo cuando el certificado HTTPS esta vencido.
 #EXTINF:-1 tvg-id="SkySportsMainEvent.uk@TvVoo" tvg-name="Sky Sports Main Event" tvg-country="GB" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/sky-sports-main-event.png" group-title="Deportes",Sky Sports Main Event
-http://qmaalhy7acgxwhm.ngolpdkyoctjcddxshli469r.org/sunshine/XjX9-VYCuhhUqEWzTYXxB8zNhEtVkZ3SfJ1L_b4q4bQcRNK9my5xeyvbxEftNVw1_Uyw9S-NYr340An2TnE4-y0jrBUsrTea-biKGOMhYbqCc7zIlNHO_olVUH0Jc3sXd8stGChJQJT3jZz86owpBFeLRGfs5WysA3owtlUeGpLgqtwsdvIKsF230zNktZ--j9DlHCnLe1AIWVSzuBck_6HBwyfF4WXMiGVOgmjWv6PRHAE_uXdp6SxvvRfYg3cMLCIQ78Idtb54xJdi7_twrgD7gZY9oR73zP27Tdwy2XLYc_8jTsTk_EdcRTuXTCNWoxWvqSbw4JvLyXnwv8MRLg/hls/index.m3u8
+http://qmaalhy7acgxwhm.ngolpdkyoctjcddxshli469r.org/sunshine/FahvbaIIinXaZcI3RZ7euWF2py4YKVqUOPGg-U-DMD0fA1xhtaY-RLhTqXMhdWYhURpLFmPBJSEW9G1v-K7KElOHn1XA3pybmRVHz7f9TrvVYAVJjKYL9GrYvd6k4_QgBBUiiu47uDY70Ef92AvZUEgjpqRXVLgDgJckSUtXGOcXWsWmTnsu6qveewPG05q8nsz1L-ZZzNM6EzpcsTJvMXGyBwkbxMkhXTi9ateLINlGA6mMzKUI9XpIbLj4pd9ojRY2w_7DkbkQNZYYg3iFrKYFQ-ZRPrMSlaEvZ0cgP0bwxC91569rYFd5pHuOeRReVUoQyhbHwH3CIDJ3C9K1-g/hls/index.m3u8
 
 # TvVoo lo rotula como Arena; la guia actual se asocia a Sky Sports+.
 #EXTINF:-1 tvg-id="SkySportsPlus.uk@TvVoo" tvg-name="Sky Sports+" tvg-country="GB" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/sky-sports-plus.png" group-title="Deportes",Sky Sports+
-http://td3wb1bchdvsahp.ngolpdkyoctjcddxshli469r.org/sunshine/wkL4H7UIfTBhJ08T16EtWtZ4vrfPygc5lajjf5HSnrHaeT1Htsic0Zb5COtRWZyotC4rZ7TvQUOFpVr7pou1iA-EfQsggJC2Ctgm2atBQVi5rqmAnPqPRKnLGG_DHZ8xvGylHnP6EE-RGl5R62tNwkx_HAWSO80ClOPbX1rNe-5_mLzrJTGDlzhLAXwfNb6PAiaKSEL5dsC_LAY8KPFxr_DQvGVwpysO9R3eFL4ArrudVFQ7g1_qd_Bmh8yyIEiAHkelCJfWQ4sWYs3Ie3T1uCU10HKY2-n81gCy1YH-Lt3D3ScfDfFXJC8engDMBxCjdJpFYW_nbH6yzEM9Ffv--g/hls/index.m3u8
+http://td3wb1bchdvsahp.ngolpdkyoctjcddxshli469r.org/sunshine/-FXAl-kgXYbHvDwLfdgSSsl359hLffnxvUK9dpwmjxfgNSOeoW8eV-q3WTTA4v0D7XBYzdIaOJw-K3LBjaLrK9om7-Il7yd-HM5oSfxDbMUmq_5zMWbJxQxtFyQ5zeIvB4jt6r6v_CmnMGqSRGMNQ92_kTR46u_CjxMxVUZLAxEn_IxGb_n2sn2mnNh_yIcMibgjlDcIukMxc3huJZ40Zk3D3LY_ArOS833sid5zu2cAI3jG-EL_KBZOio-q1w-nYFe5dyOCMTt0MGhNdJVBuMgJ4HwxdapD6WcBk8NFK19aUv_yrxtG088Zlwnw2uGbAU_kWdv-wcnAMDOl3fdDfA/hls/index.m3u8
 
 #EXTINF:-1 tvg-id="TNTSports3.uk@TvVoo" tvg-name="TNT Sports 3" tvg-country="GB" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tnt-sports-3.png" group-title="Deportes",TNT Sports 3
-http://qmaalhy7acgxwhm.ngolpdkyoctjcddxshli469r.org/sunshine/d-xamM-_Xbpau7g1Hb-sOuwTlyFpywgCoeHon6skpQJ2qVrHV8MdIDoujW5eWL6GuQZ4tjUt_FFWsBuIZqAYk9nSG2-w3gHe6APHPeJ1Xor0jSa0dQ4lmO81zpjmjnIXfXr95yebju36Wk95E5KzV6gKHkDlF0xldqctPWPGqOLm2IDyz47ggMEPJrxkgHu64GOKb-yDzfDjN8YhFu6ZPbxto2zmWjhKYTsOMzcZjzYws_BO76H7F9c5itLDzn75L44I-4uVCT-xbDsmFeCFhd0yiysBV-GF6W_fVMSk-9U5AqxdsRiL4zjZ2csJiUMdqpsx2dMZE6moMWKDvvwetA/hls/index.m3u8
+http://qmaalhy7acgxwhm.ngolpdkyoctjcddxshli469r.org/sunshine/iCfcPVXQ9_z9Qs1e2E_DJ56_RE4p8hADwyVo3gCY9hlrSp8M-nPi0dXlauPcz8av9BwgsjV6lRfPgYs-e2tRVxrqkrrKQ_0z6n7QmPSWBjsZHgCe07wokBCWFzxQcbKRd2ErsnCYoSce6TniMrBlqJY1dwSVVd3kuKNUsgiIf4h6x8iTIiQqiYoUDq3Fm5jwGGbzchKpzNLGPkuj_16nhNS9Iz1SHcqUbyWFy7WsP7R27zTavpwhlh-9t2O4A39OUOPrcSIdEYN46X-mlIi_yUd8yNjEU5PSO-02fkRaYiEOFm1NYSRi87-GSnK-Xnc9Mj_vuOYQfK1ARzocaPnsKQ/hls/index.m3u8
 
 #EXTINF:-1 tvg-id="ESPN3.ar@TvVoo" tvg-name="ESPN 3" tvg-country="AR" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-3.png" group-title="Deportes Argentina",ESPN 3
-http://shouurvki7jtfax.ngolpdkyoctjcddxshli469r.org/sunshine/-6K0OXo2CTZOcKaXimO9q2yras3aYHXOe8TpWKgx8V9Ve6to2EGpKKXdZ1jKThLYTCOwUKAJeUhWBbu3UkpGTenHTsp8UJOUfOx_sSN_VXYR2B3ewV6s1MoiCEbombuo1OpOfiKOinzh2tHaeMnsu21_b-3ORQbf1GB5VJCu6RvHn5CnlwOqx3DutEKUVi8gvPEWD89FTiTcxDb1uRkZo_Ik69BVvUNcQAeFknnhwq1Q0P02GRGniwI-xP_TgiKSg4rhUarraamluT_bCqXfIyEvmJyN_805FrWOle6uwxoUwRkED_FDRCrKSuq-cppY5QZSTBbsQVVjkKC-fFAktA/hls/index.m3u8
+http://td3wb1bchdvsahp.ngolpdkyoctjcddxshli469r.org/sunshine/LOxZLF5QegpgMG-VjZ5yAdCfAP0aBQ_Gs397Q99XIDMZaw3Jv7D6c1UiHpsHyJO3S4xn8kyAxE3ibm5YNs9L25duhiTATIgouVhDLTkT8wLZ6x5r4-Qfys8Fj11KKqVt3IeIAJ__jkuWNf0xokCV9S8f-4-x336GS8lK87uLVbE4EtHwyFda6JNLN8xLFjszmc13BcsPoFVz_baWPChZjbXYlwQdV6LBFK3CdRDKlUQj0yP9FdRSH_k_uSt3uO-9mK6e_otU-PbuZglb5NeVmQXhXN5BN_WmC9ljtkw7CH4FrdtTRGrtl5-1j-l4tzbc_XyicAsY0TnlRDwtYNTjyQ/hls/index.m3u8
 
 #EXTINF:-1 tvg-id="Eurosport1.fr@TvVoo" tvg-name="Eurosport 1" tvg-country="FR" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/eurosport-1.png" group-title="Deportes",Eurosport 1
-http://td3wb1bchdvsahp.ngolpdkyoctjcddxshli469r.org/sunshine/YMFd0-GVy7sUnE_u0GF5yLIc6lfOMX1Srt0tQckkM-z9scpbGTvj5U0ybKsV_kCH_jN2_yi7niP919MHQQM098wa0T0aon-20DAym11iSPcxEx0F3hxdDWBaN-EGnaKV5wNmtLKf7lYt9VlymfUYAN4KvI40z0znEZXVAKP8ud4Myeszxc54v_k7npcY3NZysx0HH_VD5Wzz01CG4EQPPFjWLvRgNZmpnH2wbmu6p4AVjMpRGYw0Kql6Rc9FEwW4t-DTwwkMVNCNCXpj0t-i3v6mizAYawudXl7PWZfSA0sjf41PtkvmN48uIRiMPYg9h3EXxE4rmsjxpD_uYLkHyw/hls/index.m3u8
+http://qmaalhy7acgxwhm.ngolpdkyoctjcddxshli469r.org/sunshine/YZPvbZKP8yb7vlVJqVZam7u72tu3LfPiEn21KtqtSgeOnYpELG1xtjeV2XjdR1C60Evs6MSUhSg4tdtkiGOriZ3mHvAc3k09t64WxqdWfPWAUwpERB4M0e9qPS6R0IR09Hv9lzxXCOK24j71O5rpb5FMMRk_S6CPLEWSVZusUpG4g6p5dWUd4QrfLO7qvjKXzekulyeQnwMf0WGd6X-6VIsaHIkrycxEFYhdzUvZ6_Xi7bUvKQ3bhJGh9MBiwVZ3C5Gc8UxueNZSuZEtweq_AfhWPCG-RKHeWWi3FVG7_mLsE0m_tfi_L-MfMXRsWJs0gqxTUGDAJn_77m2WFLSonQ/hls/index.m3u8
 
 #EXTINF:-1 tvg-id="RMCSport1.fr@TvVoo" tvg-name="RMC Sport 1" tvg-country="FR" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/rmc-sport-1.png" group-title="Deportes",RMC Sport 1
-http://qmaalhy7acgxwhm.ngolpdkyoctjcddxshli469r.org/sunshine/rIIEvTujALKx1VmElu4U1qxDiK8kD3FqV9ujJTNI2c5133zU20QQnmzmHyC3gtwIID46mUL78VNYUBLzpT_UGH3TKR1QZyMbQnm53cdrdLgYgFXpV7EvTgaXxQ-DPldBQdc9p9uDk-O316xWICqDFqQnDO9BDgf6Qy5hWXvxnnVll4fAyTmZZ40BWpFGT3noI7WpasSYXWNU_o4Go3LLH6uLHBIs4nc5SIdc1AN55dlQEZwgF3rKFHWd-0ycaSk_g7_-RTdBwg1_wDUUX0wYgsQMEDssK8kSoWBb2ASyU7z_hBR0E8DMl9uoER-T0GNQbb_bSIkV7vmbocdmONTjrA/hls/index.m3u8
+http://qmaalhy7acgxwhm.ngolpdkyoctjcddxshli469r.org/sunshine/DvnYW3unUmcQ4xM19pLUSwRGHb7LfzBkAcq8P0W081M_0Mje8zBIAZft1FLyFEaqlEk8NeP1NuPnVANozAk3F6PelSspxYd4zCjs1cY2K6AOIcFM4ayMSS7OHyGzJkguTrUW_UxB-z1AGJyjL1Rkq_r7Nx54iLUb6E-0AsKbR3qBW74P5VPdwRieNwLZnKNyhJimKRNB4z0UrAdCRGqy6oFxMxHrbtbpznbXUM-mn1HzGdYEEsmuDrHAb0US-x0OmazZ17btQOk-8N4iR_CAheMqaDN9FvwwHEQky0qPmK8XRXIlfpuzqKHH19FUMMN-5YxDpJU2XWFuLW4FqShS5Q/hls/index.m3u8
 
 #EXTINF:-1 tvg-id="RMCSport2.fr@TvVoo" tvg-name="RMC Sport 2" tvg-country="FR" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/rmc-sport-2.png" group-title="Deportes",RMC Sport 2
-http://shouurvki7jtfax.ngolpdkyoctjcddxshli469r.org/sunshine/svKYpeoSyWC3kLejlHg0XCt3HiSgJs_YU5O7szlIMN63CNNDHHOBmiBHjHtmZGRA9FpFZDGQ5Z8ZCC1DMFcbJHK9eDMA3wHz2olFxZx4-9hucrfT4LxbpilgbzzWQ9fzzL7ISmIvRMkO6cJSvrAfx5Asbp2Wb26W3GUOEhTH_9bIt967DGzBkFUTgGKSb1a9zbZnCj99Td8dCkUhi2Xbvy5KwRSYB_-nlap-kNeBbhAbScgUxhzmK8FpUBSrrYR3p_OmT220Djw6oVOVnj8Zdu0lkIpwrmMM0o7vXoZcIS-Y8_-DT9D7H9vGmGqh9BXFzN-HORoUadALk2D9LbG8Pg/hls/index.m3u8
+http://qmaalhy7acgxwhm.ngolpdkyoctjcddxshli469r.org/sunshine/EWtnh7VAzTQSlKShq96Q3qhGOo0QoRJ1kj7uarGC10z-6mukthBcBDVrG56nOwp2XQknR9M4HSrNDiyFs02neockkl22OwgUyAh5s9-ucMfQwsMkP_U_9t4zQ2qeX3CfahuZ0evCXiXwOqiSF28op7FceVn-ZVXxwZw3Vkjlcs1j_b4UG9V-7dVCkRcKYkjj4uSdbAxu7xIDZGpIJ4gcg1ROJyzA-GZoJ9sxGM1PbpOp37Nexvvpj7G9TEWjsm1cxmSeRlcS_qcUNlwNRBcbAPlISIpXDpcFBh_C9LV4yMakHaIYl6RQJ5z5rFeWg0OIUj5ihEQvFTfAMYARsptb2A/hls/index.m3u8
 
 #EXTINF:-1 tvg-id="DAZN2.de@TvVoo" tvg-name="DAZN 2" tvg-country="DE" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/dazn-2.png" group-title="Deportes",DAZN 2
-http://qmaalhy7acgxwhm.ngolpdkyoctjcddxshli469r.org/sunshine/wDajoqo-KMtuIWbovX7iXW6PBxUsJtOFAav5GhSMcDbvNp3U7Hmu6O9tS_sb-1gT45vhFb8jzyau0Dg9437qv6FSuUyICj7ERoQhNCOzDHrafODURdpA5hsaq_7S73YVsQzSHblu8pW9KvBxMf8F6sXEPH1d8wxaJTvMIviSiP-9Qdyle-xne7zSNdhskNNGduGgxWeezSmYI4FXQkKLzum7V3ZneLcUsEejur9btfJApK4ON3WVbCOUJfYZQRoYFC3bG0EdBKoriV9-6xcgaef3n0DToxRMFVHrauvz-FYLatpyqLI0hgDBSRMVHYjNRbsXlPjOu2o9EPftVWUp2A/hls/index.m3u8
+http://td3wb1bchdvsahp.ngolpdkyoctjcddxshli469r.org/sunshine/XCT63aJdbsefJRbOEISOF4o-hwZY3EgcDcXENJcozIqmuL-jz9RfCwcgpskRe1ScBfjWwrjXrng1hhOv7OOW5DJ6nEvpec-7BAv8PMwuIJQx4ZuojUDQFBTd359RsDveHpmzAWVjv2um8_s5adfB5wHjKCaC0NWOQMZ-s96U1jzUAxhO5ZiFi7S321GQ7H5iSM89-yW1dO96KDSDf5YfAd4JioUx3E-0WX3CuUFQ-57XjQs6LWjnH_sUk2Gz3XeJJyivnQUZBcYJPM5lRk-XgQ3HTfYQYV6vDfi2ORtGHlxXAiJaEs4zA4s8bf5CBUZrTYwVU9Fk7Mcd0l_RK7UHOA/hls/index.m3u8
 
 # TvVoo devuelve la senal; no se encontro una parrilla XMLTV identificable
 # para DAZN FAST+, por lo que queda publicado con EPG explicita "sin guía".
 #EXTINF:-1 tvg-id="DAZNFastPlus.de@TvVoo" tvg-name="DAZN FAST+" tvg-country="DE" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/dazn-fast.png" group-title="Deportes",DAZN FAST+
-http://shouurvki7jtfax.ngolpdkyoctjcddxshli469r.org/sunshine/xF3yVstVgRcfRdtQa30-wKdhqFognw2d-83oos6FZyz9MT1twOQPz99fR8UvmxQUhTFMU8fw_r7fQ1yI9Ias4NBIpfux5hBLksHKeqrQdYJ2p_BiSGb3xrhROc9_vFlr4xO-XmS2t7Y_Fp4Hcwf9PMS3T87TWKUmx3cqx3bwTQEv9zCZKXlmGHdewgKEdTDWYJFlGApqaw_78fBxbGOxic6Z1rXAqF6pTffwBjqGREpbRqPvv9ho11BeZU-zncarZwU1LdOi5MCLPvE5OUjuPPC0Ni_7sCouiwwYChEDrv608U_EYgVt0Gl3xpG2_wKFGWq8PXVCuN01x5ujOVAsVQ/hls/index.m3u8
+http://td3wb1bchdvsahp.ngolpdkyoctjcddxshli469r.org/sunshine/mB4JQc5BxcDJujL3Ysb9YdjL68J7TaAZesLsP_mzQ0gO6sWftD_7hq4r3HBRbdi9Y7jc3jN_izBlK4-MPZS5Z6rRn1VDcMp2yAbin25lxZpI-zOEKJ-DHCY7k-PGxAZ0EClWJORW3VOYKmDpnckk1Oy_TbVRwVKzy-jaBNzW4g9OFNTuEE5TOpNisN31CGZcG5KrFyzz3mOmRgnZDwcXDLKd1z3bSkxTdrKlBDoH5hqotXQRaLIphwiD9auMAneccjBD4r2WrY_G6mi2dbTL7CwOLeB3H_umn_GlgI0kyKuv2ZwB07RPrCFyY1JbGh3YnKxb91YtDonY5hYBHAEpqQ/hls/index.m3u8
 
 #EXTINF:-1 tvg-id="SportTV1.pt@TvVoo" tvg-name="Sport TV 1" tvg-country="PT" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/sport-tv-1.png" group-title="Deportes",Sport TV 1
-http://td3wb1bchdvsahp.ngolpdkyoctjcddxshli469r.org/sunshine/VZ7Nhye9M6wdgB0bs8b6Hfa9emIad1nZRxWz9f3XaeJd3xLckdkMLpo2yj6nOWeH7Noek5PyxSMAmFnJkT0AibVgQIgmpLI0nRCPUhlZYopaJkmZ1uNbSwx1-H3xfRu2QL8ks9aU23mDgx4OOPORm5pPt623O_UObaHuDh3NmypRIE334idygbc3QVc8rSlqaTKok_z1eCiyOVYrzuc136bADfwC2NQcUrE1_BheYad3NscZbn8j4I1D6lyhSZ9_niH2gM4vbiL0zX8yp5fkhzdBbKF_LuRIKY6ndbIDO1uWQkSyMWWOI29fvaiPolEL9wHESVX6LD_-DN8XBwUAYA/hls/index.m3u8
+http://td3wb1bchdvsahp.ngolpdkyoctjcddxshli469r.org/sunshine/MMTCZ1vasrD2w_ExIujCtdfqqHFlPZ2p-vlmqTmvxYzbGkV6_FMbKpldvob98ShYNp13O7DJg-VtYmiyc0z5fl4ghV6gg4i_8vNwVe1dFoDqSLnl0vBU4al9z2OpsGywx7Tl2RzB2KcfofGueMHE4DkD5VWqricrLdIzn8xfOGjtV0LCaMZTJy602DAF0IUPKMeMVvG7MRVCkErBkgaEai9wd4SrymqKBILymLgT7XuAlZ8eI6532HVed_I1WNef5tGhahL1kCZn3A0C9_RWD62uEp5kmlt-DktwdkW-_s7xMmDMsloLAbUQmtqvb3pZnSuDgZfp2nCPJSAgpSXnSQ/hls/index.m3u8
 
 #EXTINF:-1 tvg-id="SportTV2.pt@TvVoo" tvg-name="Sport TV 2" tvg-country="PT" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/sport-tv-2.png" group-title="Deportes",Sport TV 2
-http://shouurvki7jtfax.ngolpdkyoctjcddxshli469r.org/sunshine/dPm3GEC2lpyIo_XvSlWwgZuHs7yDxCwPmKkk9FeOm-jh2T9Gf40YaGp7qeusf-R7QZ_wVhG_KexBgiEMZfphBkDXC8hIo5TwXFG54E1KwQxBRw9jgZ1OT5JoLWTqjtMg7vqhJcGCFNe6s5tTMeuMzbpTcyrjLMTgG-3JaCgM0j_clWQXlChukrxGzoMPOFxbKMVhB7EGeO3znokSPzbpj7A3yJbeUrhdXKeABS-uxVC5eHM5ADseHyPa1Ics6thHM54ASGDD7Diyqal4aNEk9z6enLRKwBrPVuHVD9VURDjN57AN24Lrrah7LzExisRcsXqe2_6Rum11rI5HM_H0ig/hls/index.m3u8
+http://td3wb1bchdvsahp.ngolpdkyoctjcddxshli469r.org/sunshine/cMU_x4Ipiph-ZTFXEmGEcmJqrtlHWvKMZqssFmnGulXoKQmWl7rLS15NTNX-Mhak37gGXuOTZtvuGMUFiDwXeUypQ2WZjywraKpN2XuxVbQ2OpU7EWyf17dkznKfP76QKpVg8-ntpWP35rsPYLOx_DA8xFtHt5P9zjgw-sIXNNmi7_Jyt4ei6v_pLREUrFC9KRgnuXPFIX1wvzjI8v3cMnzzMQZtvHDDibEyJ_bLV_yAQoUrcse9upn4qSr0LwsDFTs0XXpRxRoewXd4KddLIyJ7l9mqk_gjKa0ZhiFY3u3YdMiWr0seynPpJM0bdFYzqseIN-nmS5J8apdyrPsRmQ/hls/index.m3u8
 
 #EXTINF:-1 tvg-id="ElevenSports1.pt@TvVoo" tvg-name="Eleven Sports 1" tvg-country="PT" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/eleven-sports-1.png" group-title="Deportes",Eleven Sports 1
-http://td3wb1bchdvsahp.ngolpdkyoctjcddxshli469r.org/sunshine/12IwwUCQgqNvvYUIBP9Y4nXX3jGOPIidO0lFS2KdnILmZPvIsNCeONN3GTu_n6tsT82RShA6XtCEXcg2gmEEK97rJgb_LUw8a85woR7DzoqXPQ_LTnKIZ8gqgts6BM3Ab45qzoLy5UmBSvLt0EYH-DPKp1nsUPzsP7p_8OAFX02IYuL0sxahOpFbdyIVLUX1mrXXbyA_eGqbTTKpQKzHGBkcHi8cHQ2JhIGfJDZ2SdKIutYY0JgH8DybGqWKR6XjVkNJV9J_o8YWWuzTPLAyoLjtsggaLu9hJOAcQw5oX-i11cXH5TIl8_4QaodP6wNXsJZ1Is6NROPm8MwGVSIglg/hls/index.m3u8
+http://qmaalhy7acgxwhm.ngolpdkyoctjcddxshli469r.org/sunshine/iG41r4eqRNrU1HIZve1q5ICsAi3PK2RIlldx9FGCJ9Y6J-NTK3n9qEtJBLVm5OXf1buTOzI1dyAPDChmaA2prYunRCgXZ4jSxhjsGe-24-JeCYrv7xP6qVXi59TXf4mLSMI-Bg_yEuPPe6I2JRHY6SxeksArUMQEeNZrPtRxZb6SccDq6ZUQcTOGZPL3epgzxh_35N-UiD4MbAdvjCH0ReFRjlvZ0Iwml4JDMJbKxXjU5seoC7Z8HqyFZC37wjONHM-0HZH9XNEbe_lHX12YpWdopqAvfS8y2_FspempGSNKe6Wg_8UJ8i_Ae16YIp2M2_25MH7fxzfuewqaZYXyXw/hls/index.m3u8
 
 #EXTINF:-1 tvg-id="ElevenSports2.pt@TvVoo" tvg-name="Eleven Sports 2" tvg-country="PT" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/eleven-sports-2.png" group-title="Deportes",Eleven Sports 2
-http://shouurvki7jtfax.ngolpdkyoctjcddxshli469r.org/sunshine/VkOKN6FbHko-Qu7mkDkkVfJKHUgcq8VNyBwBcsYoOptWynp4PnkV9ZeFNALNl23ZPMf7FOBCyFX70cYdO85Krj1E_qw0EWmg7rx5yELM_fujrQdAYw48OwbjYthIi_UTa4Xd-9P99wAl_RpoGyLW-AjfpktQQV2GGfKzloNE-ydxycVPVGeHYNGuwyIePntkqiWUpJe6STfVsR90OlhGou-OEfGXYRzbWyPvAUF2WH6MYNNgbUkYScCxOIzrLOWgBqjEZix8D6Lfayw1qm3HiF90ibGm7I04Mun5WyFMeWDIX4Bs9Rf37YIU7QCsfYFSSguOp4mKJYpq5rGXN0iuRQ/hls/index.m3u8
+http://td3wb1bchdvsahp.ngolpdkyoctjcddxshli469r.org/sunshine/20WcYAoqs9tRp5cwJ4pwb7-66OpYmCYqxB4YGk7Y05EcZifM7dSIiai476_Q5AmV82Vj1iKpulFcaFyL57ctvUmNLDzy-BysQ3FRN10uBg_z153aiMxdH1Lqt9y2zC1vX2YioJoQLAE7MA7rxk3CE_IjR7ooipDsivUpIFH1aN6E7y807Qj1AKvbhuG3zwPsr6YCOau4Z0qHO2cnRF7sna7pKGWuaopAUES56_SJNCjLJE46wE-LXQysALRPNQP18bHgn2T1hIEral8K2A5xzsgDiikk9BlKxfx7xpK2G1l5zXkQWkcSxPgNyve-Jjay1yU8t95Yi_tHbvnwEAcn9w/hls/index.m3u8
 
 #EXTINF:-1 tvg-id="SkySport1.nz" tvg-name="Sky Sport 1 NZ" tvg-country="NZ" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/sky-sport-1-nz.png",Sky Sport 1 NZ
 https://leaf.highfly.dev/m3u/nz-sky-sport-1/live.m3u8

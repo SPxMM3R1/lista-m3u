@@ -43,6 +43,17 @@ DISPLAY_NAME_ALIASES = {
 NO_EPG_CHANNEL_IDS = {
     "RTFrance.fr@TvVoo",
     "DAZNFastPlus.de@TvVoo",
+    # Canales recuperados con HLS verificable, pero sin una fuente XMLTV que
+    # identifique exactamente la senal. Se publican sin inventar continuidad.
+    "1763",
+    "13Cultura.cl@DPS",
+    "13Kids.cl",
+    "AutenticHistory.de",
+    "ReutersTV.us",
+    "Totalmusic80s.uk",
+    "Totalmusic2000s.uk",
+    "TotalmusicConcerts.uk",
+    "TotalmusicDance.uk",
 }
 NHK_MASTER_URL = "https://masterpl.hls.nhkworld.jp/hls/w/live/smarttv.m3u8"
 NHK_WORLD_LIVE_PAGE = "https://www3.nhk.or.jp/nhkworld/en/live_tv/"
@@ -241,6 +252,10 @@ MEGANOTICIAS_LIVE_PAGE = "https://www.meganoticias.cl/senal-en-vivo/meganoticias
 CANAL13_13C_PROGRAMMING_PAGE = "https://www.13.cl/c/programacion"
 CANAL13_13C_OFFICIAL_EPG_SOURCE = "canal13-13c-oficial"
 TVVOO_STREAM_BASE_URL = "https://tvvoo.hayd.uk/stream/tv"
+# El relay publico de Highfly puede responder con un certificado vencido aun
+# cuando el mismo HLS entrega playlist y segmentos. La excepcion queda
+# limitada a este host y solo se activa ante el error explicito de expiracion.
+EXPIRED_CERT_FALLBACK_HOSTS = {"leaf.highfly.dev"}
 # TvVoo publica varios alias para las mismas senales. Se prueban primero los
 # alias que hoy entregan un segmento funcional y se conservan las variantes HD
 # como respaldo para cuando el proveedor las vuelva a servir.
@@ -264,6 +279,12 @@ TVVOO_STREAM_RESOLVER_IDS = {
     "Sky Sports+": (
         "vavoo_SKY%20SPORTS%20ARENA%7Cgroup%3Auk",
         "vavoo_SKY%20SPORTS%20ARENA%20HD%7Cgroup%3Auk",
+    ),
+    # Highfly dejo de publicar el slug VIP de Sky Sports Racing; TvVoo aun
+    # entrega aliases publicos funcionales para la misma senal.
+    "Sky Sports Racing": (
+        "vavoo_SKY%20SPORTS%20RACING%7Cgroup%3Auk",
+        "vavoo_SKY%20SPORTS%20RACING%20HD%7Cgroup%3Auk",
     ),
     "TNT Sports 3": (
         "vavoo_TNT%20SPORTS%203%7Cgroup%3Auk",
@@ -673,14 +694,18 @@ SEGMENT_CHECK_CHANNELS = {
     "TVN",
     "NTV",
     "TVN3",
+    "CHV Deportes",
     "Mega",
     "Meganoticias",
     "24 Horas",
     "La Red",
     "Canal 13",
     "CHV Noticias",
-    "CHV Deportes",
+    "13 Cultura",
+    "13 Kids",
+    "Autentic History",
     "France 24 Español",
+    "Reuters",
     "DW Español",
     "Euronews Español",
     "NHK World Japan",
@@ -704,6 +729,10 @@ SEGMENT_CHECK_CHANNELS = {
     "Africanews English",
     "Qello Concerts by Stingray",
     "Stingray Classica",
+    "Totalmusic 80s",
+    "Totalmusic 2000s",
+    "Totalmusic Concerts",
+    "Totalmusic Dance",
     "Stingray DJAZZ",
     "XITE 80s Flashback",
     "XITE 90s Throwback",
@@ -871,8 +900,25 @@ def fetch_bytes(
     limit: int = 262_144,
 ) -> tuple[int, bytes, str]:
     request = urllib.request.Request(url, headers=headers)
-    with urllib.request.urlopen(request, timeout=timeout, context=context) as response:
-        return response.status, response.read(limit), response.geturl()
+    try:
+        with urllib.request.urlopen(request, timeout=timeout, context=context) as response:
+            return response.status, response.read(limit), response.geturl()
+    except urllib.error.URLError as error:
+        hostname = (urlparse(url).hostname or "").lower()
+        reason = str(getattr(error, "reason", error)).lower()
+        if (
+            context is None
+            and hostname in EXPIRED_CERT_FALLBACK_HOSTS
+            and "certificate has expired" in reason
+        ):
+            expired_cert_context = ssl.create_default_context()
+            expired_cert_context.check_hostname = False
+            expired_cert_context.verify_mode = ssl.CERT_NONE
+            with urllib.request.urlopen(
+                request, timeout=timeout, context=expired_cert_context
+            ) as response:
+                return response.status, response.read(limit), response.geturl()
+        raise
 
 
 def fetch_channel_bytes(
