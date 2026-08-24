@@ -382,7 +382,7 @@ PREFERRED_LOGOS = {
     "TRT World": f"{LOCAL_LOGOS_PUBLIC_BASE}/trt-world.svg",
     "CNA": f"{LOCAL_LOGOS_PUBLIC_BASE}/cna.svg",
     "Africanews English": f"{LOCAL_LOGOS_PUBLIC_BASE}/africanews.svg",
-    "Qello Concerts by Stingray": f"{LOCAL_LOGOS_PUBLIC_BASE}/qello.svg",
+    "Qello Concerts by Stingray": f"{LOCAL_LOGOS_PUBLIC_BASE}/qello-concerts.jpg",
     "Stingray Classica": f"{LOCAL_LOGOS_PUBLIC_BASE}/stingray-classica.svg",
     "Stingray DJAZZ": f"{LOCAL_LOGOS_PUBLIC_BASE}/stingray-djazz.svg",
     "XITE 80s Flashback": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
