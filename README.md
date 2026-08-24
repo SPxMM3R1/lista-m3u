@@ -42,11 +42,14 @@ Cada ejecucion completa:
 - incorpora la parrilla XMLTV de PlutoTV para MTV Classic, MTV Biggest Pop,
   MTV Spankin' New y MTV Flow Latino; las tarjetas repetidas de Pluto
   se deduplican antes de construir la EPG;
-- incorpora 18 canales adicionales desde los resolutores JSON publicos de TvVoo:
+- incorpora 50 canales desde los resolutores JSON publicos de TvVoo:
   CNN, MTV Hits, M6 Music, Trace Urban, Sky Sports Main Event, Sky Sports+,
   TNT Sports 3, ESPN 3, Eurosport 1, RMC Sport 1, RMC Sport 2, DAZN 2,
   DAZN FAST+, RT France, Sport TV 1, Sport TV 2, Eleven Sports 1 y Eleven
-  Sports 2. Cada ejecucion de 48 horas solicita tokens nuevos, valida
+  Sports 2. También incorpora la tanda de validación de Sky Sports
+  Action/Cricket/Football/Mix/News, Sky Sport italiano, Eurosport 2 y
+  Eurosport 360, además de DAZN Francia, Alemania, España, Portugal e Italia.
+  Cada ejecucion de 48 horas solicita tokens nuevos, valida
   maestro/variante/segmento y usa el mismo enlace HTTP solo cuando el nodo HTTPS
   responde con certificado vencido;
 - conserva Sky Sports Racing con Highfly como fuente primaria y aliases Vavoo
@@ -107,7 +110,7 @@ disponible sin depender de servidores externos.
 
 ## Canales
 
-La lista contiene 83 canales: nacionales, noticias, miscelaneos chilenos,
+La lista contiene 115 canales: nacionales, noticias, miscelaneos chilenos,
 noticias internacionales, documentales, conciertos, musica y deportes.
 
 TVN y Mega se actualizan desde sus parrillas oficiales cuando estan

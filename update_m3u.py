@@ -54,6 +54,19 @@ NO_EPG_CHANNEL_IDS = {
     "Totalmusic2000s.uk",
     "TotalmusicConcerts.uk",
     "TotalmusicDance.uk",
+    "SkySportsAction.uk@TvVoo",
+    "SkySportsCricket.uk@TvVoo",
+    "SkySportsMix.uk@TvVoo",
+    "SkySportsNews.uk@TvVoo",
+    "Eurosport2.uk@TvVoo",
+    "Eurosport3604.fr@TvVoo",
+    "Eurosport3605.fr@TvVoo",
+    "DAZNLigue1Live1.fr@TvVoo",
+    "DAZNLigue1Live2.fr@TvVoo",
+    "DAZNLigue1Live3.fr@TvVoo",
+    "DAZNLigue1Live4.fr@TvVoo",
+    "DAZN6.pt@TvVoo",
+    "DAZN1.fr@TvVoo",
 }
 NHK_MASTER_URL = "https://masterpl.hls.nhkworld.jp/hls/w/live/smarttv.m3u8"
 NHK_WORLD_LIVE_PAGE = "https://www3.nhk.or.jp/nhkworld/en/live_tv/"
@@ -84,6 +97,7 @@ EPG_SOURCES = {
     "tr1": "https://epgshare01.online/epgshare01/epg_ripper_TR1.xml.gz",
     "sg1": "https://epgshare01.online/epgshare01/epg_ripper_SG1.xml.gz",
     "ng1": "https://epgshare01.online/epgshare01/epg_ripper_NG1.xml.gz",
+    "it1": "https://epgshare01.online/epgshare01/epg_ripper_IT1.xml.gz",
     # PlutoTV es la fuente de parrilla real para los canales lineales Pluto
     # usados por MTV. No se generan bloques de continuidad para esos IDs.
     "pluto": "https://i.mjh.nz/PlutoTV/all.xml.gz",
@@ -145,6 +159,26 @@ EPG_PROGRAMME_SOURCES = {
     "SportTV2.pt@TvVoo": ("pt1", "SPORT.TV2.HD.pt"),
     "ElevenSports1.pt@TvVoo": ("pl", "Eleven.Sports.1.HD.pl"),
     "ElevenSports2.pt@TvVoo": ("pl", "Eleven.Sports.2.HD.pl"),
+    "SkySportsFootball.uk@TvVoo": ("uk1", "Sky.Sports.Football.HD.uk"),
+    "DAZN1.fr@TvVoo": ("fr", "DAZN.1.fr"),
+    "DAZN1.de@TvVoo": ("de", "DAZN.1.de"),
+    "Eurosport2.de@TvVoo": ("de", "Eurosport.2.de"),
+    "DAZN3.es@TvVoo": ("es", "DAZN.3.es"),
+    "DAZNLaliga1.es@TvVoo": ("es", "DAZN.LaLiga.es"),
+    "DAZNLaliga2.es@TvVoo": ("es", "DAZN.LaLiga.2.es"),
+    "DAZN1.pt@TvVoo": ("pt1", "DAZN.1.pt"),
+    "DAZN2.pt@TvVoo": ("pt1", "DAZN.2.pt"),
+    "DAZN3.pt@TvVoo": ("pt1", "DAZN.3.pt"),
+    "DAZN4.pt@TvVoo": ("pt1", "DAZN.4.pt"),
+    "DAZN5.pt@TvVoo": ("pt1", "DAZN.5.pt"),
+    "DAZN1.it@TvVoo": ("it1", "DAZN.1.it.it"),
+    "Eurosport2.it@TvVoo": ("it1", "Eurosport.2.Italia.it"),
+    "SkySport24.it@TvVoo": ("it1", "Sky.Sport.24.it"),
+    "SkySportCalcio.it@TvVoo": ("it1", "Sky.Sport.Calcio.it"),
+    "SkySportMax.it@TvVoo": ("it1", "Sky.Sport.Max.it"),
+    "SkySportMotoGP.it@TvVoo": ("it1", "Sky.Sport.MotoGP.it"),
+    "SkySportNBA.it@TvVoo": ("it1", "Sky.Sport.NBA.it"),
+    "SkySportUno.it@TvVoo": ("it1", "Sky.Sport.Uno.it"),
     "Meganoticias.cl": ("tecnocentro", "LCH7159"),
     "0124": ("tecnocentro", "LCH6525"),
     "1153": ("tecnocentro", "LCH7017"),
@@ -339,6 +373,77 @@ TVVOO_STREAM_RESOLVER_IDS = {
     ),
     "Eleven Sports 1": ("vavoo_ELEVEN%20SPORTS%201%20HD%7Cgroup%3Apt",),
     "Eleven Sports 2": ("vavoo_ELEVEN%20SPORTS%202%20HD%7Cgroup%3Apt",),
+    "Sky Sports Action": (
+        "vavoo_SKY%20SPORTS%20ACTION%7Cgroup%3Auk",
+        "vavoo_SKY%20SPORT%20ACTION%7Cgroup%3Auk",
+        "vavoo_SKY%20SPORTS%20ACTION%20HD%7Cgroup%3Auk",
+    ),
+    "Sky Sports Cricket": (
+        "vavoo_SKY%20SPORTS%20CRICKET%7Cgroup%3Auk",
+        "vavoo_SKY%20SPORTS%20CRICKET%20HD%7Cgroup%3Auk",
+    ),
+    "Sky Sports Football": (
+        "vavoo_SKY%20SPORTS%20FOOTBALL%7Cgroup%3Auk",
+        "vavoo_SKY%20SPORTS%20FOOTBALL%20HD%7Cgroup%3Auk",
+    ),
+    "Sky Sports Mix": (
+        "vavoo_SKY%20SPORTS%20MIX%7Cgroup%3Auk",
+        "vavoo_SKY%20SPORTS%20MIX%20FHD%7Cgroup%3Auk",
+        "vavoo_SKY%20SPORTS%20MIX%20HD%7Cgroup%3Auk",
+    ),
+    "Sky Sports News": (
+        "vavoo_SKY%20SPORTS%20NEWS%7Cgroup%3Auk",
+        "vavoo_SKY%20SPORTS%20NEWS%20HD%7Cgroup%3Auk",
+    ),
+    "Eurosport 2 UK": (
+        "vavoo_EUROSPORT%202%7Cgroup%3Auk",
+        "vavoo_EUROSPORT%202%20HD%7Cgroup%3Auk",
+    ),
+    "Eurosport 360 4": ("vavoo_EUROSPORT%20360%204%7Cgroup%3Afr",),
+    "Eurosport 360 5": ("vavoo_EUROSPORT%20360%205%7Cgroup%3Afr",),
+    "DAZN 1 France": ("vavoo_DAZN%201%7Cgroup%3Afr",),
+    "DAZN Ligue 1 Live 1": (
+        "vavoo_DAZN%20LIGUE%201%20LIVE%201%20FHD%7Cgroup%3Afr",
+    ),
+    "DAZN Ligue 1 Live 2": (
+        "vavoo_DAZN%20LIGUE%201%20LIVE%202%20HD%7Cgroup%3Afr",
+    ),
+    "DAZN Ligue 1 Live 3": (
+        "vavoo_DAZN%20LIGUE%201%20LIVE%203%20HD%7Cgroup%3Afr",
+    ),
+    "DAZN Ligue 1 Live 4": (
+        "vavoo_DAZN%20LIGUE%201%20LIVE%204%20HD%7Cgroup%3Afr",
+    ),
+    "DAZN 1 Germany": (
+        "vavoo_DAZN%201%7Cgroup%3Ade",
+        "vavoo_DAZN%201%20HD%7Cgroup%3Ade",
+    ),
+    "Eurosport 2 Germany": (
+        "vavoo_EUROSPORT%202%7Cgroup%3Ade",
+        "vavoo_EUROSPORT%202%20FHD%7Cgroup%3Ade",
+        "vavoo_EUROSPORT%202%20HD%7Cgroup%3Ade",
+    ),
+    "DAZN 3 España": ("vavoo_DAZN%203%7Cgroup%3Aes",),
+    "DAZN LaLiga 1": ("vavoo_DAZN%20LALIGA%201%7Cgroup%3Aes",),
+    "DAZN LaLiga 2": ("vavoo_DAZN%20LALIGA%202%7Cgroup%3Aes",),
+    "DAZN 1 Portugal": ("vavoo_DAZN%201%7Cgroup%3Apt",),
+    "DAZN 2 Portugal": ("vavoo_DAZN%202%7Cgroup%3Apt",),
+    "DAZN 3 Portugal": ("vavoo_DAZN%203%7Cgroup%3Apt",),
+    "DAZN 4 Portugal": ("vavoo_DAZN%204%7Cgroup%3Apt",),
+    "DAZN 5 Portugal": ("vavoo_DAZN%205%7Cgroup%3Apt",),
+    "DAZN 6 Portugal": ("vavoo_DAZN%206%7Cgroup%3Apt",),
+    "DAZN 1 Italia": ("vavoo_DAZN%201%7Cgroup%3Ait",),
+    "Eurosport 2 Italia": ("vavoo_EUROSPORT%202%7Cgroup%3Ait",),
+    "Sky Sport 24 Italia": ("vavoo_SKY%20SPORT%2024%7Cgroup%3Ait",),
+    "Sky Sport Calcio Italia": (
+        "vavoo_SKY%20SPORT%20CALCIO%7Cgroup%3Ait",
+    ),
+    "Sky Sport Max Italia": ("vavoo_SKY%20SPORT%20MAX%7Cgroup%3Ait",),
+    "Sky Sport MotoGP Italia": (
+        "vavoo_SKY%20SPORT%20MOTO%20GP%7Cgroup%3Ait",
+    ),
+    "Sky Sport NBA Italia": ("vavoo_SKY%20SPORT%20NBA%7Cgroup%3Ait",),
+    "Sky Sport Uno Italia": ("vavoo_SKY%20SPORT%20UNO%7Cgroup%3Ait",),
 }
 CI_GEO_RESTRICTED_CHANNELS = {
     "Mega",
@@ -452,6 +557,39 @@ PREFERRED_LOGOS = {
     "Sport TV 2": f"{LOCAL_LOGOS_PUBLIC_BASE}/sport-tv-2.png",
     "Eleven Sports 1": f"{LOCAL_LOGOS_PUBLIC_BASE}/eleven-sports-1.png",
     "Eleven Sports 2": f"{LOCAL_LOGOS_PUBLIC_BASE}/eleven-sports-2.png",
+    "Sky Sports Action": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports.svg",
+    "Sky Sports Cricket": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports.svg",
+    "Sky Sports Football": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports.svg",
+    "Sky Sports Mix": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports.svg",
+    "Sky Sports News": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports.svg",
+    "Sky Sports NFL": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports.svg",
+    "Sky Sport 24 Italia": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports.svg",
+    "Sky Sport Calcio Italia": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports.svg",
+    "Sky Sport Max Italia": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports.svg",
+    "Sky Sport MotoGP Italia": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports.svg",
+    "Sky Sport NBA Italia": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports.svg",
+    "Sky Sport Uno Italia": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports.svg",
+    "Eurosport 2 UK": f"{LOCAL_LOGOS_PUBLIC_BASE}/eurosport.svg",
+    "Eurosport 360 4": f"{LOCAL_LOGOS_PUBLIC_BASE}/eurosport.svg",
+    "Eurosport 360 5": f"{LOCAL_LOGOS_PUBLIC_BASE}/eurosport.svg",
+    "Eurosport 2 Germany": f"{LOCAL_LOGOS_PUBLIC_BASE}/eurosport.svg",
+    "Eurosport 2 Italia": f"{LOCAL_LOGOS_PUBLIC_BASE}/eurosport.svg",
+    "DAZN 1 France": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
+    "DAZN Ligue 1 Live 1": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
+    "DAZN Ligue 1 Live 2": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
+    "DAZN Ligue 1 Live 3": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
+    "DAZN Ligue 1 Live 4": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
+    "DAZN 1 Germany": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
+    "DAZN 3 España": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
+    "DAZN LaLiga 1": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
+    "DAZN LaLiga 2": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
+    "DAZN 1 Portugal": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
+    "DAZN 2 Portugal": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
+    "DAZN 3 Portugal": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
+    "DAZN 4 Portugal": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
+    "DAZN 5 Portugal": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
+    "DAZN 6 Portugal": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
+    "DAZN 1 Italia": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
 }
 CONTINUOUS_PROGRAMME_DETAILS = {
     "TVN3": (
@@ -581,6 +719,54 @@ CONTINUOUS_PROGRAMME_DETAILS = {
     "Autentic History": (
         "Live",
         "",
+    ),
+    "Sky Sports Action": (
+        "Sky Sports Action en vivo",
+        "Senal deportiva continua; TvVoo no publica una parrilla XMLTV estable para esta senal.",
+    ),
+    "Sky Sports Cricket": (
+        "Sky Sports Cricket en vivo",
+        "Senal deportiva continua; TvVoo no publica una parrilla XMLTV estable para esta senal.",
+    ),
+    "Sky Sports Mix": (
+        "Sky Sports Mix en vivo",
+        "Senal deportiva continua; TvVoo no publica una parrilla XMLTV estable para esta senal.",
+    ),
+    "Sky Sports News": (
+        "Sky Sports News en vivo",
+        "Senal deportiva continua; TvVoo no publica una parrilla XMLTV estable para esta senal.",
+    ),
+    "Eurosport 2 UK": (
+        "Eurosport 2 UK en vivo",
+        "Senal deportiva continua; TvVoo no publica una parrilla XMLTV estable para esta senal.",
+    ),
+    "Eurosport 360 4": (
+        "Eurosport 360 4 en vivo",
+        "Senal deportiva continua; TvVoo no publica una parrilla XMLTV estable para esta senal.",
+    ),
+    "Eurosport 360 5": (
+        "Eurosport 360 5 en vivo",
+        "Senal deportiva continua; TvVoo no publica una parrilla XMLTV estable para esta senal.",
+    ),
+    "DAZN Ligue 1 Live 1": (
+        "DAZN Ligue 1 Live 1 en vivo",
+        "Senal deportiva continua; TvVoo no publica una parrilla XMLTV estable para esta senal.",
+    ),
+    "DAZN Ligue 1 Live 2": (
+        "DAZN Ligue 1 Live 2 en vivo",
+        "Senal deportiva continua; TvVoo no publica una parrilla XMLTV estable para esta senal.",
+    ),
+    "DAZN Ligue 1 Live 3": (
+        "DAZN Ligue 1 Live 3 en vivo",
+        "Senal deportiva continua; TvVoo no publica una parrilla XMLTV estable para esta senal.",
+    ),
+    "DAZN Ligue 1 Live 4": (
+        "DAZN Ligue 1 Live 4 en vivo",
+        "Senal deportiva continua; TvVoo no publica una parrilla XMLTV estable para esta senal.",
+    ),
+    "DAZN 6 Portugal": (
+        "DAZN 6 Portugal en vivo",
+        "Senal deportiva continua; TvVoo no publica una parrilla XMLTV estable para esta senal.",
     ),
 }
 NEWS_CHANNEL_ORDER = ("24 Horas", "Meganoticias", "CHV Noticias", "T13")
@@ -762,6 +948,38 @@ SEGMENT_CHECK_CHANNELS = {
     "Sport TV 2",
     "Eleven Sports 1",
     "Eleven Sports 2",
+    "Sky Sports Action",
+    "Sky Sports Cricket",
+    "Sky Sports Football",
+    "Sky Sports Mix",
+    "Sky Sports News",
+    "Eurosport 2 UK",
+    "Eurosport 360 4",
+    "Eurosport 360 5",
+    "DAZN 1 France",
+    "DAZN Ligue 1 Live 1",
+    "DAZN Ligue 1 Live 2",
+    "DAZN Ligue 1 Live 3",
+    "DAZN Ligue 1 Live 4",
+    "DAZN 1 Germany",
+    "Eurosport 2 Germany",
+    "DAZN 3 España",
+    "DAZN LaLiga 1",
+    "DAZN LaLiga 2",
+    "DAZN 1 Portugal",
+    "DAZN 2 Portugal",
+    "DAZN 3 Portugal",
+    "DAZN 4 Portugal",
+    "DAZN 5 Portugal",
+    "DAZN 6 Portugal",
+    "DAZN 1 Italia",
+    "Eurosport 2 Italia",
+    "Sky Sport 24 Italia",
+    "Sky Sport Calcio Italia",
+    "Sky Sport Max Italia",
+    "Sky Sport MotoGP Italia",
+    "Sky Sport NBA Italia",
+    "Sky Sport Uno Italia",
 }
 @dataclass(frozen=True)
 class Channel:
@@ -1840,6 +2058,11 @@ def fetch_nhk_official_epg(
     programme_count = 0
     lower_limit = now - timedelta(hours=6)
     upper_limit = now + timedelta(days=8)
+    # El JSON oficial puede entregar una tarjeta tardia encima de otra en
+    # los cambios de bloque. Conservamos el programa que comienza despues,
+    # recortamos solo el borde del anterior y descartamos tarjetas totalmente
+    # contenidas; asi la fuente sigue siendo oficial y XMLTV no se solapa.
+    ordered_records: list[dict[str, object]] = []
     for record in sorted(records, key=lambda value: value["start"]):
         start = record["start"]
         stop = record["stop"]
@@ -1852,6 +2075,29 @@ def fetch_nhk_official_epg(
         if key in seen:
             continue
         seen.add(key)
+        if ordered_records:
+            previous = ordered_records[-1]
+            previous_start = previous["start"]
+            previous_stop = previous["stop"]
+            if isinstance(previous_start, datetime) and isinstance(previous_stop, datetime):
+                if start < previous_stop:
+                    if stop <= previous_stop:
+                        continue
+                    previous["stop"] = start
+                    if start <= previous_start:
+                        ordered_records.pop()
+        if stop <= start:
+            continue
+        ordered_records.append(record)
+
+    for record in ordered_records:
+        start = record["start"]
+        stop = record["stop"]
+        title = record["title"]
+        if not isinstance(start, datetime) or not isinstance(stop, datetime):
+            continue
+        if not isinstance(title, str) or stop < lower_limit or start > upper_limit:
+            continue
         programme = ET.SubElement(
             root,
             "programme",
