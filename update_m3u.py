@@ -59,8 +59,6 @@ NO_EPG_CHANNEL_IDS = {
     "SkySportsMix.uk@TvVoo",
     "SkySportsNews.uk@TvVoo",
     "Eurosport2.uk@TvVoo",
-    "Eurosport3604.fr@TvVoo",
-    "Eurosport3605.fr@TvVoo",
     "DAZNLigue1Live1.fr@TvVoo",
     "DAZNLigue1Live2.fr@TvVoo",
     "DAZNLigue1Live3.fr@TvVoo",
@@ -144,7 +142,7 @@ EPG_PROGRAMME_SOURCES = {
     "MTVSpankinNew.us": ("pluto", "6541010f770cf1000866be98"),
     "MTVFlowLatino.us": ("pluto", "62b218fc511d4b00070ddc0c"),
     "SkySportsMainEvent.uk@TvVoo": ("uk1", "SkySpMainEvHD.uk"),
-    "SkySportsPlus.uk@TvVoo": ("uk1", "SkySp+.uk"),
+    "SkySportsArena.uk@TvVoo": ("uk1", "SkySp+.uk"),
     "TNTSports3.uk@TvVoo": ("uk1", "TNT.Sports.3.HD.uk"),
     "CNN.us@TvVoo": ("uk1", "CNN.HD.uk"),
     "ESPN3.ar@TvVoo": ("ar1", "Canal.ESPN.3.(Argentina).ar"),
@@ -160,6 +158,11 @@ EPG_PROGRAMME_SOURCES = {
     "ElevenSports1.pt@TvVoo": ("pl", "Eleven.Sports.1.HD.pl"),
     "ElevenSports2.pt@TvVoo": ("pl", "Eleven.Sports.2.HD.pl"),
     "SkySportsFootball.uk@TvVoo": ("uk1", "Sky.Sports.Football.HD.uk"),
+    "SkySportsNFL.uk@TvVoo": ("uk1", "Sky.Sports.NFL.uk"),
+    "Eurosport2.es@TvVoo": ("es", "Eurosport.2.es"),
+    "DAZN2.es@TvVoo": ("es", "DAZN.2.es"),
+    "DAZNDarts.de@PlutoTV": ("pluto", "64b67f0424ade50008a3be17"),
+    "DAZNHeldinnen.de@PlutoTV": ("pluto", "64afe50c5dc16600087f3227"),
     "DAZN1.fr@TvVoo": ("fr", "DAZN.1.fr"),
     "DAZN1.de@TvVoo": ("de", "DAZN.1.de"),
     "Eurosport2.de@TvVoo": ("de", "Eurosport.2.de"),
@@ -309,8 +312,8 @@ TVVOO_STREAM_RESOLVER_IDS = {
         "vavoo_SKY%20SPORTS%20MAIN%20EVENT%20HD%7Cgroup%3Auk",
     ),
     # El catalogo TvVoo conserva el alias ARENA; la parrilla actual se
-    # identifica como Sky Sports+, por eso el tvg-id y la EPG usan Sky+.
-    "Sky Sports+": (
+    # TvVoo devuelve la senal como ARENA; la EPG UK1 la identifica como Sky+.
+    "Sky Sports Arena": (
         "vavoo_SKY%20SPORTS%20ARENA%7Cgroup%3Auk",
         "vavoo_SKY%20SPORTS%20ARENA%20HD%7Cgroup%3Auk",
     ),
@@ -386,6 +389,10 @@ TVVOO_STREAM_RESOLVER_IDS = {
         "vavoo_SKY%20SPORTS%20FOOTBALL%7Cgroup%3Auk",
         "vavoo_SKY%20SPORTS%20FOOTBALL%20HD%7Cgroup%3Auk",
     ),
+    "Sky Sports NFL": (
+        "vavoo_SKY%20SPORTS%20NFL%7Cgroup%3Auk",
+        "vavoo_SKY%20SPORTS%20NFL%20HD%7Cgroup%3Auk",
+    ),
     "Sky Sports Mix": (
         "vavoo_SKY%20SPORTS%20MIX%7Cgroup%3Auk",
         "vavoo_SKY%20SPORTS%20MIX%20FHD%7Cgroup%3Auk",
@@ -399,8 +406,11 @@ TVVOO_STREAM_RESOLVER_IDS = {
         "vavoo_EUROSPORT%202%7Cgroup%3Auk",
         "vavoo_EUROSPORT%202%20HD%7Cgroup%3Auk",
     ),
-    "Eurosport 360 4": ("vavoo_EUROSPORT%20360%204%7Cgroup%3Afr",),
-    "Eurosport 360 5": ("vavoo_EUROSPORT%20360%205%7Cgroup%3Afr",),
+    "Eurosport 2 España": (
+        "vavoo_EUROSPORT%202%7Cgroup%3Aes",
+        "vavoo_EUROSPORT%202%20HD%7Cgroup%3Aes",
+        "vavoo_EUROSPORT%202%20FHD%7Cgroup%3Aes",
+    ),
     "DAZN 1 France": ("vavoo_DAZN%201%7Cgroup%3Afr",),
     "DAZN Ligue 1 Live 1": (
         "vavoo_DAZN%20LIGUE%201%20LIVE%201%20FHD%7Cgroup%3Afr",
@@ -424,6 +434,11 @@ TVVOO_STREAM_RESOLVER_IDS = {
         "vavoo_EUROSPORT%202%20HD%7Cgroup%3Ade",
     ),
     "DAZN 3 España": ("vavoo_DAZN%203%7Cgroup%3Aes",),
+    "DAZN 2 España": (
+        "vavoo_DAZN%202%7Cgroup%3Aes",
+        "vavoo_DAZN%202%20HD%7Cgroup%3Aes",
+        "vavoo_DAZN%202%20FHD%7Cgroup%3Aes",
+    ),
     "DAZN LaLiga 1": ("vavoo_DAZN%20LALIGA%201%7Cgroup%3Aes",),
     "DAZN LaLiga 2": ("vavoo_DAZN%20LALIGA%202%7Cgroup%3Aes",),
     "DAZN 1 Portugal": ("vavoo_DAZN%201%7Cgroup%3Apt",),
@@ -540,7 +555,7 @@ PREFERRED_LOGOS = {
     "NHL Network": f"{LOCAL_LOGOS_PUBLIC_BASE}/nhl-network.png",
     "TyC Sports": f"{LOCAL_LOGOS_PUBLIC_BASE}/tyc-sports.png",
     "Sky Sports Main Event": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-main-event.png",
-    "Sky Sports+": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-plus.png",
+    "Sky Sports Arena": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports.svg",
     "TNT Sports 3": f"{LOCAL_LOGOS_PUBLIC_BASE}/tnt-sports-3.png",
     "CNN": f"{LOCAL_LOGOS_PUBLIC_BASE}/cnn.png",
     "RT France": f"{LOCAL_LOGOS_PUBLIC_BASE}/rt-france.png",
@@ -570,8 +585,7 @@ PREFERRED_LOGOS = {
     "Sky Sport NBA Italia": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports.svg",
     "Sky Sport Uno Italia": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports.svg",
     "Eurosport 2 UK": f"{LOCAL_LOGOS_PUBLIC_BASE}/eurosport.svg",
-    "Eurosport 360 4": f"{LOCAL_LOGOS_PUBLIC_BASE}/eurosport.svg",
-    "Eurosport 360 5": f"{LOCAL_LOGOS_PUBLIC_BASE}/eurosport.svg",
+    "Eurosport 2 España": f"{LOCAL_LOGOS_PUBLIC_BASE}/eurosport.svg",
     "Eurosport 2 Germany": f"{LOCAL_LOGOS_PUBLIC_BASE}/eurosport.svg",
     "Eurosport 2 Italia": f"{LOCAL_LOGOS_PUBLIC_BASE}/eurosport.svg",
     "DAZN 1 France": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
@@ -581,6 +595,7 @@ PREFERRED_LOGOS = {
     "DAZN Ligue 1 Live 4": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
     "DAZN 1 Germany": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
     "DAZN 3 España": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
+    "DAZN 2 España": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
     "DAZN LaLiga 1": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
     "DAZN LaLiga 2": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
     "DAZN 1 Portugal": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
@@ -590,6 +605,8 @@ PREFERRED_LOGOS = {
     "DAZN 5 Portugal": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
     "DAZN 6 Portugal": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
     "DAZN 1 Italia": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
+    "DAZN Darts x Pluto TV": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
+    "DAZN Heldinnen x Pluto TV": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
 }
 CONTINUOUS_PROGRAMME_DETAILS = {
     "TVN3": (
@@ -738,14 +755,6 @@ CONTINUOUS_PROGRAMME_DETAILS = {
     ),
     "Eurosport 2 UK": (
         "Eurosport 2 UK en vivo",
-        "Senal deportiva continua; TvVoo no publica una parrilla XMLTV estable para esta senal.",
-    ),
-    "Eurosport 360 4": (
-        "Eurosport 360 4 en vivo",
-        "Senal deportiva continua; TvVoo no publica una parrilla XMLTV estable para esta senal.",
-    ),
-    "Eurosport 360 5": (
-        "Eurosport 360 5 en vivo",
         "Senal deportiva continua; TvVoo no publica una parrilla XMLTV estable para esta senal.",
     ),
     "DAZN Ligue 1 Live 1": (
@@ -931,7 +940,7 @@ SEGMENT_CHECK_CHANNELS = {
     "Premier Sports 1",
     "Premier Sports 2",
     "Sky Sports Main Event",
-    "Sky Sports+",
+    "Sky Sports Arena",
     "TNT Sports 3",
     "CNN",
     "RT France",
@@ -951,11 +960,11 @@ SEGMENT_CHECK_CHANNELS = {
     "Sky Sports Action",
     "Sky Sports Cricket",
     "Sky Sports Football",
+    "Sky Sports NFL",
     "Sky Sports Mix",
     "Sky Sports News",
     "Eurosport 2 UK",
-    "Eurosport 360 4",
-    "Eurosport 360 5",
+    "Eurosport 2 España",
     "DAZN 1 France",
     "DAZN Ligue 1 Live 1",
     "DAZN Ligue 1 Live 2",
@@ -964,6 +973,7 @@ SEGMENT_CHECK_CHANNELS = {
     "DAZN 1 Germany",
     "Eurosport 2 Germany",
     "DAZN 3 España",
+    "DAZN 2 España",
     "DAZN LaLiga 1",
     "DAZN LaLiga 2",
     "DAZN 1 Portugal",
@@ -980,6 +990,8 @@ SEGMENT_CHECK_CHANNELS = {
     "Sky Sport MotoGP Italia",
     "Sky Sport NBA Italia",
     "Sky Sport Uno Italia",
+    "DAZN Darts x Pluto TV",
+    "DAZN Heldinnen x Pluto TV",
 }
 @dataclass(frozen=True)
 class Channel:
