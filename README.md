@@ -54,7 +54,7 @@ Cada ejecucion completa:
 - incorpora la parrilla XMLTV de PlutoTV para MTV Classic, MTV Biggest Pop,
   MTV Spankin' New y MTV Flow Latino; las tarjetas repetidas de Pluto
   se deduplican antes de construir la EPG;
-- incorpora 54 canales desde los resolutores JSON publicos de TvVoo:
+- incorpora 65 canales desde los resolutores JSON publicos de TvVoo:
   CNN, MTV Hits, M6 Music, Trace Urban, Sky Sports Main Event, Sky Sports Arena,
   TNT Sports 3, ESPN 3, Eurosport 1, RMC Sport 1, RMC Sport 2, DAZN 2,
   DAZN FAST+, RT France, Sport TV 1, Sport TV 2, Eleven Sports 1 y Eleven
@@ -62,7 +62,9 @@ Cada ejecucion completa:
   Action/Cricket/Football/Mix/News/NFL, Sky Sport italiano y Eurosport 2 UK y
   España, además de DAZN Francia, Alemania, España, Portugal e
   Italia. Las señales nuevas de Arena, NFL, Eurosport 2 España y DAZN 2 España
-  quedan marcadas como prueba dinámica;
+  quedan marcadas como prueba dinámica. La tanda europea del 25 de agosto
+  agrega TNT Sports 1, NRJ Hits, MCM, DAZN F1 España, Sport TV 4 y 5, además
+  de Sky Sport F1/Golf/Tennis/Premier League y Eurosport 1 de Alemania;
 - incorpora DAZN Darts x Pluto TV y DAZN Heldinnen x Pluto TV como señales FAST
   de producción: sus HLS públicos redirigen al distribuidor Pluto y sus guías
   XMLTV se obtienen desde la fuente pública de Pluto con los IDs oficiales de
@@ -128,7 +130,7 @@ disponible sin depender de servidores externos.
 
 ## Canales
 
-La lista contiene 118 canales: nacionales, noticias, miscelaneos chilenos,
+La lista contiene 129 canales: nacionales, noticias, miscelaneos chilenos,
 noticias internacionales, documentales, conciertos, musica y deportes.
 
 TVN y Mega se actualizan desde sus parrillas oficiales cuando estan

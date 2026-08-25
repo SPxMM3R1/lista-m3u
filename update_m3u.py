@@ -33,7 +33,7 @@ PUBLIC_RAW_BASE = "https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main"
 EPG_PUBLIC_URL = f"{PUBLIC_RAW_BASE}/epg.xml"
 LOCAL_LOGOS_PUBLIC_BASE = f"{PUBLIC_RAW_BASE}/logos"
 RESOLVER_SCHEMA_VERSION = 1
-RESOLVER_CATALOG_VERSION = "2026.08.24.2"
+RESOLVER_CATALOG_VERSION = "2026.08.25.1"
 ALLOWED_RESOLVER_ENGINES = {"tvn", "meganoticias", "24horas", "tvvoo", "highfly"}
 RESOLVER_ATTRIBUTE_NAMES = (
     "x-resolver",
@@ -90,6 +90,9 @@ NO_EPG_CHANNEL_IDS = {
     "DAZNLigue1Live4.fr@TvVoo",
     "DAZN6.pt@TvVoo",
     "DAZN1.fr@TvVoo",
+    # EPGShare conserva la identidad MCM.fr, pero actualmente no publica
+    # bloques vigentes para la señal. No se inventa continuidad.
+    "MCM.fr@TvVoo",
 }
 NHK_MASTER_URL = "https://masterpl.hls.nhkworld.jp/hls/w/live/smarttv.m3u8"
 NHK_WORLD_LIVE_PAGE = "https://www3.nhk.or.jp/nhkworld/en/live_tv/"
@@ -207,6 +210,20 @@ EPG_PROGRAMME_SOURCES = {
     "SkySportMotoGP.it@TvVoo": ("it1", "Sky.Sport.MotoGP.it"),
     "SkySportNBA.it@TvVoo": ("it1", "Sky.Sport.NBA.it"),
     "SkySportUno.it@TvVoo": ("it1", "Sky.Sport.Uno.it"),
+    "TNTSports1.uk@TvVoo": ("uk1", "TNT.Sports.1.HD.uk"),
+    "NRJHits.fr@TvVoo": ("fr", "NRJ.Hits.fr"),
+    "MCM.fr@TvVoo": ("fr", "MCM.fr"),
+    "DAZNF1.es@TvVoo": ("es", "DAZN.F1.es"),
+    "SportTV4.pt@TvVoo": ("pt1", "SPORT.TV4.HD.pt"),
+    "SportTV5.pt@TvVoo": ("pt1", "SPORT.TV5.HD.pt"),
+    "SkySportF1.de@TvVoo": ("de", "Sky.Sport.F1.de"),
+    "SkySportGolf.de@TvVoo": ("de", "Sky.Sport.Golf.de"),
+    "SkySportTennis.de@TvVoo": ("de", "Sky.Sport.Tennis.de"),
+    "SkySportPremierLeague.de@TvVoo": (
+        "de",
+        "Sky.Sport.Premier.League.de",
+    ),
+    "Eurosport1.de@TvVoo": ("de", "Eurosport.1.de"),
     "Meganoticias.cl": ("tecnocentro", "LCH7159"),
     "0124": ("tecnocentro", "LCH6525"),
     "1153": ("tecnocentro", "LCH7017"),
@@ -484,6 +501,58 @@ TVVOO_STREAM_RESOLVER_IDS = {
     ),
     "Sky Sport NBA Italia": ("vavoo_SKY%20SPORT%20NBA%7Cgroup%3Ait",),
     "Sky Sport Uno Italia": ("vavoo_SKY%20SPORT%20UNO%7Cgroup%3Ait",),
+    "TNT Sports 1": (
+        "vavoo_TNT%20SPORTS%201%7Cgroup%3Auk",
+        "vavoo_TNT%20SPORTS%201%20HD%7Cgroup%3Auk",
+        "vavoo_TNT%20SPORTS%201%20%28BACKUP%29%7Cgroup%3Auk",
+    ),
+    "NRJ Hits": (
+        "vavoo_NRJ%20HITS%7Cgroup%3Afr",
+        "vavoo_NRJ%20HITS%20HD%7Cgroup%3Afr",
+        "vavoo_NRJ%20HITS%20SD%7Cgroup%3Afr",
+    ),
+    "MCM": (
+        "vavoo_MCM%7Cgroup%3Afr",
+        "vavoo_MCM%20HD%7Cgroup%3Afr",
+        "vavoo_MCM%20SD%7Cgroup%3Afr",
+    ),
+    "DAZN F1 España": (
+        "vavoo_DAZN%20F1%7Cgroup%3Aes",
+        "vavoo_DAZN%20F1%20HD%7Cgroup%3Aes",
+        "vavoo_DAZN%20F1%20FHD%7Cgroup%3Aes",
+    ),
+    "Sport TV 4": (
+        "vavoo_SPORT%20TV%204%7Cgroup%3Apt",
+        "vavoo_SPORT%20TV%204%20HD%7Cgroup%3Apt",
+        "vavoo_SPORT%20TV%204%20%28BACKUP%29%7Cgroup%3Apt",
+    ),
+    "Sport TV 5": (
+        "vavoo_SPORT%20TV%205%7Cgroup%3Apt",
+        "vavoo_SPORT%20TV%205%20HD%7Cgroup%3Apt",
+        "vavoo_SPORT%20TV%205%20%28BACKUP%29%7Cgroup%3Apt",
+    ),
+    "Sky Sport F1 Germany": (
+        "vavoo_SKY%20SPORT%20F1%7Cgroup%3Ade",
+        "vavoo_SKY%20SPORT%20F1%20HD%2B%7Cgroup%3Ade",
+        "vavoo_SKY%20SPORT%20F1%20HD%20%28H265%29%7Cgroup%3Ade",
+    ),
+    "Sky Sport Golf Germany": (
+        "vavoo_SKY%20SPORT%20GOLF%7Cgroup%3Ade",
+        "vavoo_SKY%20SPORT%20GOLF%20HD%7Cgroup%3Ade",
+    ),
+    "Sky Sport Tennis Germany": (
+        "vavoo_SKY%20SPORT%20TENNIS%7Cgroup%3Ade",
+        "vavoo_SKY%20SPORT%20TENNIS%20HD%7Cgroup%3Ade",
+    ),
+    "Sky Sport Premier League Germany": (
+        "vavoo_SKY%20SPORT%20PREMIER%20LEAGUE%7Cgroup%3Ade",
+        "vavoo_SKY%20SPORT%20PREMIER%20LEAGUE%20HD%7Cgroup%3Ade",
+    ),
+    "Eurosport 1 Germany": (
+        "vavoo_EUROSPORT%201%7Cgroup%3Ade",
+        "vavoo_EUROSPORT%201%20HD%7Cgroup%3Ade",
+        "vavoo_EUROSPORT%201%20FHD%7Cgroup%3Ade",
+    ),
 }
 
 
@@ -742,6 +811,19 @@ PREFERRED_LOGOS = {
     "DAZN 1 Italia": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
     "DAZN Darts x Pluto TV": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
     "DAZN Heldinnen x Pluto TV": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
+    "TNT Sports 1": f"{LOCAL_LOGOS_PUBLIC_BASE}/tnt-sports-1.png",
+    "NRJ Hits": f"{LOCAL_LOGOS_PUBLIC_BASE}/nrj-hits.png",
+    "MCM": f"{LOCAL_LOGOS_PUBLIC_BASE}/mcm.png",
+    "DAZN F1 España": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn-f1.png",
+    "Sport TV 4": f"{LOCAL_LOGOS_PUBLIC_BASE}/sport-tv-4.png",
+    "Sport TV 5": f"{LOCAL_LOGOS_PUBLIC_BASE}/sport-tv-5.png",
+    "Sky Sport F1 Germany": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sport-f1-de.png",
+    "Sky Sport Golf Germany": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sport-golf-de.png",
+    "Sky Sport Tennis Germany": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sport-tennis-de.png",
+    "Sky Sport Premier League Germany": (
+        f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sport-premier-league-de.png"
+    ),
+    "Eurosport 1 Germany": f"{LOCAL_LOGOS_PUBLIC_BASE}/eurosport-1-de.png",
 }
 CONTINUOUS_PROGRAMME_DETAILS = {
     "TVN3": (
@@ -1127,6 +1209,17 @@ SEGMENT_CHECK_CHANNELS = {
     "Sky Sport Uno Italia",
     "DAZN Darts x Pluto TV",
     "DAZN Heldinnen x Pluto TV",
+    "TNT Sports 1",
+    "NRJ Hits",
+    "MCM",
+    "DAZN F1 España",
+    "Sport TV 4",
+    "Sport TV 5",
+    "Sky Sport F1 Germany",
+    "Sky Sport Golf Germany",
+    "Sky Sport Tennis Germany",
+    "Sky Sport Premier League Germany",
+    "Eurosport 1 Germany",
 }
 @dataclass(frozen=True)
 class Channel:
