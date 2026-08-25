@@ -21,7 +21,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import asdict, dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from urllib.parse import urljoin, urlparse
+from urllib.parse import urlencode, urljoin, urlparse
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 
@@ -71,25 +71,18 @@ NO_EPG_CHANNEL_IDS = {
     # Canales recuperados con HLS verificable, pero sin una fuente XMLTV que
     # identifique exactamente la senal. Se publican sin inventar continuidad.
     "1763",
-    "13Cultura.cl@DPS",
-    "13Kids.cl",
-    "AutenticHistory.de",
     "ReutersTV.us",
     "Totalmusic80s.uk",
     "Totalmusic2000s.uk",
     "TotalmusicConcerts.uk",
     "TotalmusicDance.uk",
-    "SkySportsAction.uk@TvVoo",
-    "SkySportsCricket.uk@TvVoo",
-    "SkySportsMix.uk@TvVoo",
-    "SkySportsNews.uk@TvVoo",
     "Eurosport2.uk@TvVoo",
     "DAZNLigue1Live1.fr@TvVoo",
     "DAZNLigue1Live2.fr@TvVoo",
     "DAZNLigue1Live3.fr@TvVoo",
     "DAZNLigue1Live4.fr@TvVoo",
     "DAZN6.pt@TvVoo",
-    "DAZN1.fr@TvVoo",
+    # DAZN 1 Francia ahora usa la parrilla oficial publica de Pickx.
     # EPGShare conserva la identidad MCM.fr, pero actualmente no publica
     # bloques vigentes para la señal. No se inventa continuidad.
     "MCM.fr@TvVoo",
@@ -128,6 +121,26 @@ EPG_SOURCES = {
     # usados por MTV. No se generan bloques de continuidad para esos IDs.
     "pluto": "https://i.mjh.nz/PlutoTV/all.xml.gz",
 }
+CANAL13_13GO_EPG_SOURCE = "canal13-13go-oficial"
+CANAL13_13GO_EPG_URLS = {
+    "13Cultura.cl@DPS": "https://cdn.rudo.video/assets/canal-13/playlists/13cultura/epg.json",
+    "13Kids.cl": "https://cdn.rudo.video/assets/canal-13/playlists/13kids/epg.json",
+}
+SKY_OFFICIAL_EPG_SOURCE = "sky-oficial"
+SKY_OFFICIAL_EPG_SCHEDULE_URL = "https://awk.epgsky.com/hawk/linear/schedule"
+SKY_OFFICIAL_EPG_CHANNELS = {
+    "SkySportsAction.uk@TvVoo": "1343",
+    "SkySportsCricket.uk@TvVoo": "1702",
+    "SkySportsMix.uk@TvVoo": "4091",
+    "SkySportsNews.uk@TvVoo": "1340",
+}
+AUTENTIC_HISTORY_EPG_SOURCE = "autentic-history-oficial"
+AUTENTIC_HISTORY_PAGE = "https://watch.whaletvplus.com/"
+AUTENTIC_HISTORY_CHANNEL_ID = "931186243466302968"
+PICKX_EPG_SOURCE = "pickx-dazn-oficial"
+PICKX_EPG_PAGE = "https://www.pickx.be/nl/televisie/tv-gids"
+PICKX_EPG_API_BASE = "https://px-epg.azureedge.net/airings"
+PICKX_EPG_CHANNELS = {"DAZN1.fr@TvVoo": "UID0640"}
 EPG_PROGRAMME_SOURCES = {
     "0104": ("cl", "Canal.TVN.(Chile).cl"),
     "0105": ("cl", "Canal.Mega.(Chile).cl"),
@@ -155,6 +168,10 @@ EPG_PROGRAMME_SOURCES = {
     "SkySportsPremierLeague.uk": ("uk1", "SkySp.PL.HD.uk"),
     "SkySportsTennis.uk": ("uk1", "SkySp.Tennis.HD.uk"),
     "SkySportsGolf.uk": ("uk1", "SkySp.Golf.HD.uk"),
+    "SkySportsAction.uk@TvVoo": (SKY_OFFICIAL_EPG_SOURCE, "1343"),
+    "SkySportsCricket.uk@TvVoo": (SKY_OFFICIAL_EPG_SOURCE, "1702"),
+    "SkySportsMix.uk@TvVoo": (SKY_OFFICIAL_EPG_SOURCE, "4091"),
+    "SkySportsNews.uk@TvVoo": (SKY_OFFICIAL_EPG_SOURCE, "1340"),
     "PremierSports1.ie": ("uk1", "Premier.Sports.1.HD.uk"),
     "PremierSports2.ie": ("uk1", "Premier.Sports.2.HD.uk"),
     "BeINSportsXtra.us": ("plex1", "plex.tv.beIN.SPORTS.XTRA.plex"),
@@ -191,7 +208,7 @@ EPG_PROGRAMME_SOURCES = {
     "DAZN2.es@TvVoo": ("es", "DAZN.2.es"),
     "DAZNDarts.de@PlutoTV": ("pluto", "64b67f0424ade50008a3be17"),
     "DAZNHeldinnen.de@PlutoTV": ("pluto", "64afe50c5dc16600087f3227"),
-    "DAZN1.fr@TvVoo": ("fr", "DAZN.1.fr"),
+    "DAZN1.fr@TvVoo": (PICKX_EPG_SOURCE, "UID0640"),
     "DAZN1.de@TvVoo": ("de", "DAZN.1.de"),
     "Eurosport2.de@TvVoo": ("de", "Eurosport.2.de"),
     "DAZN3.es@TvVoo": ("es", "DAZN.3.es"),
@@ -224,6 +241,12 @@ EPG_PROGRAMME_SOURCES = {
         "Sky.Sport.Premier.League.de",
     ),
     "Eurosport1.de@TvVoo": ("de", "Eurosport.1.de"),
+    "13Cultura.cl@DPS": (CANAL13_13GO_EPG_SOURCE, "13cultura"),
+    "13Kids.cl": (CANAL13_13GO_EPG_SOURCE, "13kids"),
+    "AutenticHistory.de": (
+        AUTENTIC_HISTORY_EPG_SOURCE,
+        AUTENTIC_HISTORY_CHANNEL_ID,
+    ),
     "Meganoticias.cl": ("tecnocentro", "LCH7159"),
     "0124": ("tecnocentro", "LCH6525"),
     "1153": ("tecnocentro", "LCH7017"),
@@ -2934,6 +2957,459 @@ def fetch_13c_official_epg(
         return None, f"{type(error).__name__}: {error}"
 
 
+def external_epg_datetime(value: object) -> datetime:
+    """Parse the ISO timestamps used by the public non-XMLTV sources."""
+    text = str(value).strip()
+    if text.endswith("Z"):
+        text = text[:-1] + "+00:00"
+    parsed = datetime.fromisoformat(text)
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=timezone.utc)
+    return parsed
+
+
+def epg_root(source_name: str) -> ET.Element:
+    return ET.Element(
+        "tv",
+        {
+            "generator-info-name": "lista-m3u updater",
+            "source-info-name": source_name,
+        },
+    )
+
+
+def fetch_13go_epg(
+    channels: list[Channel], now: datetime
+) -> tuple[bytes | None, str | None]:
+    """Import the public JSON EPG used by the 13Go streams for 13Cultura/13Kids."""
+    targets = {
+        channel.tvg_id: CANAL13_13GO_EPG_URLS[channel.tvg_id]
+        for channel in channels
+        if channel.tvg_id in CANAL13_13GO_EPG_URLS
+    }
+    if not targets:
+        return None, None
+    try:
+        root = epg_root("Canal 13 13Go EPG JSON oficial")
+        minimum_start = now - timedelta(hours=6)
+        maximum_stop = now + timedelta(days=5)
+        counts = {channel_id: 0 for channel_id in targets}
+        for channel_id, url in targets.items():
+            status, body, _ = fetch_bytes(
+                url,
+                {
+                    "User-Agent": BROWSER_USER_AGENT,
+                    "Accept": "application/json,text/plain,*/*",
+                    "Referer": "https://old.13go.cl/",
+                },
+                timeout=45,
+                limit=4_000_000,
+            )
+            if status != 200:
+                raise ValueError(f"{channel_id}: HTTP {status}")
+            payload = json.loads(decode_web_text(body))
+            events = payload.get("events") if isinstance(payload, dict) else None
+            if not isinstance(events, list):
+                raise ValueError(f"{channel_id}: el JSON no contiene events")
+            source_id = "13cultura" if channel_id == "13Cultura.cl@DPS" else "13kids"
+            for event in events:
+                if not isinstance(event, dict):
+                    continue
+                try:
+                    start = external_epg_datetime(event["beginTime"])
+                    stop = external_epg_datetime(event["endTime"])
+                except (KeyError, TypeError, ValueError):
+                    continue
+                if stop <= minimum_start or start >= maximum_stop or stop <= start:
+                    continue
+                title = re.sub(r"\s+", " ", str(event.get("title", "")).strip())
+                if not title:
+                    continue
+                programme = ET.SubElement(
+                    root,
+                    "programme",
+                    {
+                        "start": xmltv_format_chile(start),
+                        "stop": xmltv_format_chile(stop),
+                        "channel": source_id,
+                    },
+                )
+                ET.SubElement(programme, "title", {"lang": "es"}).text = title
+                episode_title = str(event.get("episodeTitle", "")).strip()
+                if episode_title and episode_title.casefold() != title.casefold():
+                    ET.SubElement(programme, "sub-title", {"lang": "es"}).text = (
+                        episode_title
+                    )
+                synopsis = re.sub(
+                    r"\s+", " ", str(event.get("synopsis", "")).strip()
+                )
+                if synopsis:
+                    ET.SubElement(programme, "desc", {"lang": "es"}).text = synopsis
+                genre = str(event.get("genre", "")).strip()
+                if genre:
+                    ET.SubElement(programme, "category", {"lang": "es"}).text = genre
+                counts[channel_id] += 1
+        missing = [channel_id for channel_id, count in counts.items() if count == 0]
+        if missing:
+            raise ValueError("13Go sin eventos vigentes: " + ", ".join(missing))
+        return ET.tostring(root, encoding="utf-8", xml_declaration=True), None
+    except Exception as error:
+        return None, f"{type(error).__name__}: {error}"
+
+
+def fetch_sky_official_epg(
+    channels: list[Channel], now: datetime
+) -> tuple[bytes | None, str | None]:
+    """Import the public Sky linear schedule for the four TvVoo Sky channels."""
+    targets = {
+        channel.tvg_id: SKY_OFFICIAL_EPG_CHANNELS[channel.tvg_id]
+        for channel in channels
+        if channel.tvg_id in SKY_OFFICIAL_EPG_CHANNELS
+    }
+    if not targets:
+        return None, None
+    try:
+        root = epg_root("Sky Sports EPG oficial")
+        counts = {channel_id: 0 for channel_id in targets}
+        seen: set[tuple[str, str, int]] = set()
+        start_limit = now - timedelta(hours=6)
+        stop_limit = now + timedelta(days=5)
+        query_sids = ",".join(sorted(set(targets.values())))
+        headers = {
+            "User-Agent": BROWSER_USER_AGENT,
+            "Accept": "application/json,*/*",
+            "X-SkyOTT-Territory": "GB",
+            "Referer": "https://www.skysports.com/watch/tv-guide",
+        }
+        for day_offset in range(3):
+            schedule_date = (now + timedelta(days=day_offset)).astimezone(timezone.utc).date()
+            url = (
+                f"{SKY_OFFICIAL_EPG_SCHEDULE_URL}/"
+                f"{schedule_date:%Y%m%d}/{query_sids}"
+            )
+            status, body, _ = fetch_bytes(
+                url, headers, timeout=45, limit=8_000_000
+            )
+            if status != 200:
+                raise ValueError(f"HTTP {status}")
+            payload = json.loads(decode_web_text(body))
+            schedules = payload.get("schedule") if isinstance(payload, dict) else None
+            if not isinstance(schedules, list):
+                raise ValueError("Sky no devolvio schedule")
+            for schedule in schedules:
+                if not isinstance(schedule, dict):
+                    continue
+                source_id = str(schedule.get("sid", ""))
+                target_id = next(
+                    (
+                        channel_id
+                        for channel_id, sid in targets.items()
+                        if sid == source_id
+                    ),
+                    None,
+                )
+                if target_id is None:
+                    continue
+                events = schedule.get("events")
+                if not isinstance(events, list):
+                    continue
+                for event in events:
+                    if not isinstance(event, dict):
+                        continue
+                    try:
+                        start = datetime.fromtimestamp(
+                            int(event["st"]), timezone.utc
+                        )
+                        stop = start + timedelta(seconds=int(event["d"]))
+                    except (KeyError, TypeError, ValueError, OverflowError):
+                        continue
+                    if stop <= start_limit or start >= stop_limit or stop <= start:
+                        continue
+                    event_key = (source_id, str(event.get("eid", "")), int(event["st"]))
+                    if event_key in seen:
+                        continue
+                    seen.add(event_key)
+                    title = re.sub(r"\s+", " ", str(event.get("t", "")).strip())
+                    if not title:
+                        continue
+                    programme = ET.SubElement(
+                        root,
+                        "programme",
+                        {
+                            "start": xmltv_format_chile(start),
+                            "stop": xmltv_format_chile(stop),
+                            "channel": source_id,
+                        },
+                    )
+                    ET.SubElement(programme, "title", {"lang": "en"}).text = title
+                    description = re.sub(
+                        r"\s+", " ", str(event.get("sy", "")).strip()
+                    )
+                    if description:
+                        ET.SubElement(programme, "desc", {"lang": "en"}).text = description
+                    season = event.get("seasonnumber")
+                    episode = event.get("episodenumber")
+                    if season is not None or episode is not None:
+                        episode_element = ET.SubElement(programme, "episode-num", {"system": "onscreen"})
+                        episode_element.text = (
+                            f"S{int(season):02d}E{int(episode):02d}"
+                            if season is not None and episode is not None
+                            else str(season if season is not None else episode)
+                        )
+                    counts[target_id] += 1
+        missing = [channel_id for channel_id, count in counts.items() if count == 0]
+        if missing:
+            raise ValueError("Sky sin eventos vigentes: " + ", ".join(missing))
+        return ET.tostring(root, encoding="utf-8", xml_declaration=True), None
+    except Exception as error:
+        return None, f"{type(error).__name__}: {error}"
+
+
+def fetch_autentic_history_epg(
+    channels: list[Channel], now: datetime
+) -> tuple[bytes | None, str | None]:
+    """Resolve Whale TV+'s public frontend token in memory and import its EPG."""
+    if not any(channel.tvg_id == "AutenticHistory.de" for channel in channels):
+        return None, None
+    try:
+        page_headers = {
+            "User-Agent": BROWSER_USER_AGENT,
+            "Accept": "text/html,application/xhtml+xml,*/*;q=0.8",
+        }
+        status, page_body, page_url = fetch_bytes(
+            AUTENTIC_HISTORY_PAGE, page_headers, timeout=45, limit=8_000_000
+        )
+        if status != 200:
+            raise ValueError(f"Whale TV+ HTTP {status}")
+        page_html = decode_web_text(page_body)
+        script_urls = []
+        for script_url in re.findall(
+            r"<script[^>]+src=[\"']([^\"']+)[\"']", page_html, re.IGNORECASE
+        ):
+            absolute = urljoin(page_url or AUTENTIC_HISTORY_PAGE, script_url)
+            if absolute not in script_urls:
+                script_urls.append(absolute)
+        api_token = None
+        token_patterns = (
+            r"apiToken.{0,160}?[\"']([0-9a-f]{32})[\"']",
+            r"apiToken.{0,160}?([0-9a-f]{32})",
+        )
+        for script_url in script_urls:
+            try:
+                script_status, script_body, _ = fetch_bytes(
+                    script_url,
+                    {"User-Agent": BROWSER_USER_AGENT, "Accept": "*/*"},
+                    timeout=45,
+                    limit=12_000_000,
+                )
+            except Exception:
+                continue
+            if script_status != 200:
+                continue
+            script_text = decode_web_text(script_body)
+            for pattern in token_patterns:
+                match = re.search(pattern, script_text, re.IGNORECASE | re.DOTALL)
+                if match:
+                    api_token = match.group(1)
+                    break
+            if api_token:
+                break
+        if not api_token:
+            raise ValueError("Whale TV+ no publico apiToken en sus scripts")
+        api_base = "https://rlaxx.zeasn.tv/livetv/api"
+        common_headers = {
+            "User-Agent": BROWSER_USER_AGENT,
+            "Accept": "application/json,*/*",
+            "Origin": "https://watch.whaletvplus.com",
+            "Referer": AUTENTIC_HISTORY_PAGE,
+        }
+        auth_url = f"{api_base}/v1/auth/access?{urlencode({'uuid': '1', 'apiToken': api_token, 'langCode': 'en'})}"
+        auth_status, auth_body, _ = fetch_bytes(
+            auth_url, common_headers, timeout=45, limit=2_000_000
+        )
+        if auth_status != 200:
+            raise ValueError(f"Whale TV+ auth HTTP {auth_status}")
+        auth_payload = json.loads(decode_web_text(auth_body))
+        auth_data = auth_payload.get("data") if isinstance(auth_payload, dict) else None
+        session_token = auth_data.get("token") if isinstance(auth_data, dict) else None
+        if not session_token:
+            raise ValueError("Whale TV+ no devolvio token de sesion")
+        start_ms = int((now - timedelta(hours=6)).timestamp() * 1000)
+        end_ms = int((now + timedelta(days=5)).timestamp() * 1000)
+        epg_url = (
+            f"{api_base}/device/browser/v1/epg?"
+            + urlencode(
+                {
+                    "channelIds": AUTENTIC_HISTORY_CHANNEL_ID,
+                    "startTime": start_ms,
+                    "endTime": end_ms,
+                }
+            )
+        )
+        epg_headers = dict(common_headers)
+        epg_headers["token"] = str(session_token)
+        epg_status, epg_body, _ = fetch_bytes(
+            epg_url, epg_headers, timeout=45, limit=8_000_000
+        )
+        if epg_status != 200:
+            raise ValueError(f"Whale TV+ EPG HTTP {epg_status}")
+        epg_payload = json.loads(decode_web_text(epg_body))
+        groups = epg_payload.get("data") if isinstance(epg_payload, dict) else None
+        if not isinstance(groups, list):
+            raise ValueError("Whale TV+ no devolvio grupos EPG")
+        root = epg_root("Whale TV+ EPG publico de Autentic History")
+        count = 0
+        for group in groups:
+            if not isinstance(group, dict):
+                continue
+            for item in group.get("ptList", []):
+                if not isinstance(item, dict):
+                    continue
+                try:
+                    start = datetime.fromtimestamp(int(item["prgStm"]) / 1000, timezone.utc)
+                    stop = datetime.fromtimestamp(int(item["prgEtm"]) / 1000, timezone.utc)
+                except (KeyError, TypeError, ValueError, OverflowError):
+                    continue
+                if stop <= start or stop <= now - timedelta(hours=6) or start >= now + timedelta(days=5):
+                    continue
+                title = re.sub(r"\s+", " ", str(item.get("prgTitle", "")).strip())
+                if not title:
+                    continue
+                programme = ET.SubElement(
+                    root,
+                    "programme",
+                    {
+                        "start": xmltv_format_chile(start),
+                        "stop": xmltv_format_chile(stop),
+                        "channel": AUTENTIC_HISTORY_CHANNEL_ID,
+                    },
+                )
+                ET.SubElement(programme, "title", {"lang": "en"}).text = title
+                count += 1
+        if count == 0:
+            raise ValueError("Whale TV+ no devolvio programas vigentes")
+        return ET.tostring(root, encoding="utf-8", xml_declaration=True), None
+    except Exception as error:
+        return None, f"{type(error).__name__}: {error}"
+
+
+def fetch_pickx_dazn_epg(
+    channels: list[Channel], now: datetime
+) -> tuple[bytes | None, str | None]:
+    """Import DAZN 1 France from Pickx's public, versioned EPG endpoint."""
+    targets = {
+        channel.tvg_id: PICKX_EPG_CHANNELS[channel.tvg_id]
+        for channel in channels
+        if channel.tvg_id in PICKX_EPG_CHANNELS
+    }
+    if not targets:
+        return None, None
+    try:
+        page_status, page_body, _ = fetch_bytes(
+            PICKX_EPG_PAGE,
+            {
+                "User-Agent": BROWSER_USER_AGENT,
+                "Accept": "text/html,application/xhtml+xml,*/*;q=0.8",
+            },
+            timeout=45,
+            limit=12_000_000,
+        )
+        if page_status != 200:
+            raise ValueError(f"Pickx HTTP {page_status}")
+        page_html = decode_web_text(page_body)
+        hash_match = re.search(r"\"hashes\"\s*:\s*\[\s*\"([^\"]+)\"", page_html)
+        if not hash_match:
+            raise ValueError("Pickx no publico la version EPG")
+        version_status, version_body, _ = fetch_bytes(
+            "https://www.pickx.be/api/s-" + hash_match.group(1),
+            {"User-Agent": BROWSER_USER_AGENT, "Accept": "application/json,*/*"},
+            timeout=45,
+            limit=1_000_000,
+        )
+        if version_status != 200:
+            raise ValueError(f"Pickx version HTTP {version_status}")
+        version_payload = json.loads(decode_web_text(version_body))
+        version = version_payload.get("version") if isinstance(version_payload, dict) else None
+        if not version:
+            raise ValueError("Pickx devolvio una version EPG vacia")
+        root = epg_root("Pickx EPG publico de DAZN 1 Francia")
+        counts = {channel_id: 0 for channel_id in targets}
+        seen_rows: set[tuple[str, str, str]] = set()
+        start_limit = now - timedelta(hours=6)
+        stop_limit = now + timedelta(days=5)
+        for day_offset in range(3):
+            schedule_date = (now + timedelta(days=day_offset)).astimezone(timezone.utc).date()
+            for channel_id, provider_channel_id in targets.items():
+                url = (
+                    f"{PICKX_EPG_API_BASE}/{version}/{schedule_date:%Y-%m-%d}/"
+                    f"channel/{provider_channel_id}?timezone=Europe%2FBrussels"
+                )
+                status, body, _ = fetch_bytes(
+                    url,
+                    {
+                        "User-Agent": BROWSER_USER_AGENT,
+                        "Accept": "application/json,*/*",
+                        "Origin": "https://www.pickx.be",
+                        "Referer": PICKX_EPG_PAGE,
+                    },
+                    timeout=45,
+                    limit=8_000_000,
+                )
+                if status != 200:
+                    raise ValueError(f"Pickx {provider_channel_id} HTTP {status}")
+                rows = json.loads(decode_web_text(body))
+                if not isinstance(rows, list):
+                    raise ValueError("Pickx no devolvio una lista de emisiones")
+                for row in rows:
+                    if not isinstance(row, dict):
+                        continue
+                    try:
+                        start = external_epg_datetime(row["programScheduleStart"])
+                        stop = external_epg_datetime(row["programScheduleEnd"])
+                    except (KeyError, TypeError, ValueError):
+                        continue
+                    if stop <= start_limit or start >= stop_limit or stop <= start:
+                        continue
+                    program = row.get("program") if isinstance(row.get("program"), dict) else {}
+                    title = re.sub(r"\s+", " ", str(program.get("title", "")).strip())
+                    if not title:
+                        continue
+                    row_key = (
+                        start.isoformat(),
+                        stop.isoformat(),
+                        title,
+                    )
+                    if row_key in seen_rows:
+                        continue
+                    seen_rows.add(row_key)
+                    programme = ET.SubElement(
+                        root,
+                        "programme",
+                        {
+                            "start": xmltv_format_chile(start),
+                            "stop": xmltv_format_chile(stop),
+                            "channel": provider_channel_id,
+                        },
+                    )
+                    ET.SubElement(programme, "title", {"lang": "fr"}).text = title
+                    episode_title = str(program.get("episodeTitle", "")).strip()
+                    if episode_title:
+                        ET.SubElement(programme, "sub-title", {"lang": "fr"}).text = episode_title
+                    description = re.sub(r"\s+", " ", str(program.get("description", "")).strip())
+                    if description:
+                        ET.SubElement(programme, "desc", {"lang": "fr"}).text = description
+                    category = str(program.get("category", "")).strip()
+                    if category:
+                        ET.SubElement(programme, "category", {"lang": "fr"}).text = category
+                    counts[channel_id] += 1
+        missing = [channel_id for channel_id, count in counts.items() if count == 0]
+        if missing:
+            raise ValueError("Pickx sin emisiones vigentes: " + ", ".join(missing))
+        return ET.tostring(root, encoding="utf-8", xml_declaration=True), None
+    except Exception as error:
+        return None, f"{type(error).__name__}: {error}"
+
+
 def zapping_html_text(value: str) -> str:
     value = html.unescape(re.sub(r"<[^>]+>", " ", value))
     return re.sub(r"\s+", " ", value).strip()
@@ -3462,6 +3938,32 @@ def build_epg(
         source_lookup[(CANAL13_13C_OFFICIAL_EPG_SOURCE, "13C.cl@SD")] = (
             "13C.cl@SD"
         )
+    source_overrides = {
+        CANAL13_13GO_EPG_SOURCE: {
+            "13Cultura.cl@DPS": "13cultura",
+            "13Kids.cl": "13kids",
+        },
+        SKY_OFFICIAL_EPG_SOURCE: {
+            channel_id: sid
+            for channel_id, sid in SKY_OFFICIAL_EPG_CHANNELS.items()
+        },
+        AUTENTIC_HISTORY_EPG_SOURCE: {
+            "AutenticHistory.de": AUTENTIC_HISTORY_CHANNEL_ID,
+        },
+        PICKX_EPG_SOURCE: {
+            "DAZN1.fr@TvVoo": PICKX_EPG_CHANNELS["DAZN1.fr@TvVoo"],
+        },
+    }
+    for source_name, target_mappings in source_overrides.items():
+        if source_name not in source_roots:
+            continue
+        for target_id, source_id in target_mappings.items():
+            if target_id not in expected_ids:
+                continue
+            for lookup_key, lookup_target in list(source_lookup.items()):
+                if lookup_target == target_id:
+                    source_lookup.pop(lookup_key, None)
+            source_lookup[(source_name, source_id)] = target_id
     for source_name, source_root in source_roots.items():
         seen_source_programmes: set[tuple[str, str, str, str]] = set()
         for programme in source_root.findall("programme"):
@@ -3687,6 +4189,30 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
     if canal13_error:
         source_errors[CANAL13_13C_OFFICIAL_EPG_SOURCE] = canal13_error
 
+    canal13go_data, canal13go_error = fetch_13go_epg(channels, now)
+    if canal13go_data:
+        source_documents[CANAL13_13GO_EPG_SOURCE] = canal13go_data
+    if canal13go_error:
+        source_errors[CANAL13_13GO_EPG_SOURCE] = canal13go_error
+
+    sky_data, sky_error = fetch_sky_official_epg(channels, now)
+    if sky_data:
+        source_documents[SKY_OFFICIAL_EPG_SOURCE] = sky_data
+    if sky_error:
+        source_errors[SKY_OFFICIAL_EPG_SOURCE] = sky_error
+
+    autentic_data, autentic_error = fetch_autentic_history_epg(channels, now)
+    if autentic_data:
+        source_documents[AUTENTIC_HISTORY_EPG_SOURCE] = autentic_data
+    if autentic_error:
+        source_errors[AUTENTIC_HISTORY_EPG_SOURCE] = autentic_error
+
+    pickx_data, pickx_error = fetch_pickx_dazn_epg(channels, now)
+    if pickx_data:
+        source_documents[PICKX_EPG_SOURCE] = pickx_data
+    if pickx_error:
+        source_errors[PICKX_EPG_SOURCE] = pickx_error
+
     red_bull_schedules, red_bull_source_names, red_bull_errors = (
         fetch_red_bull_schedules(expected_ids, now)
     )
@@ -3701,6 +4227,10 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
             MEGA_OFFICIAL_EPG_SOURCE,
             TVN_OFFICIAL_EPG_SOURCE,
             CANAL13_13C_OFFICIAL_EPG_SOURCE,
+            CANAL13_13GO_EPG_SOURCE,
+            SKY_OFFICIAL_EPG_SOURCE,
+            AUTENTIC_HISTORY_EPG_SOURCE,
+            PICKX_EPG_SOURCE,
         }
     }
     if blocking_source_errors and existing_status is not None:
