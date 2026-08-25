@@ -33,7 +33,7 @@ PUBLIC_RAW_BASE = "https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main"
 EPG_PUBLIC_URL = f"{PUBLIC_RAW_BASE}/epg.xml"
 LOCAL_LOGOS_PUBLIC_BASE = f"{PUBLIC_RAW_BASE}/logos"
 RESOLVER_SCHEMA_VERSION = 1
-RESOLVER_CATALOG_VERSION = "2026.08.25.1"
+RESOLVER_CATALOG_VERSION = "2026.08.25.6"
 ALLOWED_RESOLVER_ENGINES = {"tvn", "meganoticias", "24horas", "tvvoo", "highfly"}
 RESOLVER_ATTRIBUTE_NAMES = (
     "x-resolver",
@@ -56,12 +56,14 @@ HIGHFLY_RESOLVER_CHANNELS = {
     "SkySportsTennis.uk": "now-sky-sports-tennis",
     "SkySportsGolf.uk": "vip-sky-sports-golf",
 }
+
 TEST_GROUP_PREFIX = "PRUEBA - "
 # Nombre corto mostrado por el reproductor -> nombre canonico que usa el
 # actualizador. El tvg-id y la fuente de XITE no cambian.
 DISPLAY_NAME_ALIASES = {
     "XITE Hits": "XITE Hits Germany",
 }
+
 # TvVoo responde para estas dos senales, pero no se encontro una parrilla
 # XMLTV propia ni una fuente de terceros que identifique el canal exacto.
 # Se publican en la lista principal sin inventar programas de continuidad.
@@ -87,7 +89,84 @@ NO_EPG_CHANNEL_IDS = {
     # bloques vigentes para la señal. No se inventa continuidad.
     "MCM.fr@TvVoo",
 }
+# Estas señales nuevas se publican como pruebas por región. La fuente no
+# entregó una asociación XMLTV exacta y no se inventa una parrilla genérica.
+NO_EPG_CHANNEL_IDS.update({
+    "Vavoo.uk.BBCTWO@TvVoo",
+    "Vavoo.uk.BBCFOUR@TvVoo",
+    "Vavoo.uk.BBCWORLDNEWS@TvVoo",
+    "Vavoo.uk.SKYSPORTSF1@TvVoo",
+    "Vavoo.uk.TNTSPORTS2@TvVoo",
+    "Vavoo.uk.4MUSIC@TvVoo",
+    "Vavoo.it.BLOOMBERGTV@TvVoo",
+    "Vavoo.it.EUROSPORT1@TvVoo",
+    "Vavoo.it.SKYSPORTF1@TvVoo",
+    "Vavoo.it.SKYSPORTTENNIS@TvVoo",
+    "Vavoo.fr.MEZZOLIVE@TvVoo",
+    "Vavoo.fr.STINGRAYCLASSICA@TvVoo",
+    "Vavoo.fr.TRACEAFRICA@TvVoo",
+    "Vavoo.fr.RMCSPORT3@TvVoo",
+    "Vavoo.de.RTDE@TvVoo",
+    "Vavoo.de.XITE@TvVoo",
+    "Vavoo.pt.SPORTTV3@TvVoo",
+    "Vavoo.pt.ELEVENSPORT3@TvVoo",
+    "Vavoo.pt.EUROSPORT1@TvVoo",
+    "Vavoo.pt.MTVPORTUGAL@TvVoo",
+    "Vavoo.pt.STINGRAYICONCERTS@TvVoo",
+    "Vavoo.es.ESPN2@TvVoo",
+    "Vavoo.es.DAZN4@TvVoo",
+    "Vavoo.es.EUROSPORT1@TvVoo",
+    "Vavoo.pl.BBCEARTH@TvVoo",
+    "Vavoo.pl.CNN@TvVoo",
+    "Vavoo.pl.EUROSPORT3@TvVoo",
+    "Vavoo.nl.ESPN1@TvVoo",
+    "Vavoo.nl.FOXSPORTS1@TvVoo",
+    "Vavoo.nl.XITEROCK@TvVoo",
+    "Vavoo.nl.STINGRAYDJAZZ@TvVoo",
+    "Vavoo.tr.EUROSPORT1@TvVoo",
+    "Vavoo.tr.TRTWORLD@TvVoo",
+    "Vavoo.tr.BEINSPORTS1@TvVoo",
+    "Vavoo.tr.NBATV@TvVoo",
+    "Vavoo.bk.ARENASPORT1@TvVoo",
+    "Vavoo.bk.EUROSPORT1@TvVoo",
+    "Vavoo.ru.RTDOCUMENTARY@TvVoo",
+    "Vavoo.ro.DIGISPORT1@TvVoo",
+    "Vavoo.bg.MAXSPORT1@TvVoo",
+    "Vavoo.bg.STINGRAYICONCERTS@TvVoo",
+    "Vavoo.al.SUPERSPORT1@TvVoo",
+    "Vavoo.al.ARENASPORT1@TvVoo",
+    "Vavoo.ar.ALJAZEERAEN@TvVoo",
+    "Vavoo.ar.BEINSPORTS1@TvVoo",
+    "Vavoo.ar.MTV00S@TvVoo",
+})
 NHK_MASTER_URL = "https://masterpl.hls.nhkworld.jp/hls/w/live/smarttv.m3u8"
+# EPGShare01 no entregó una parrilla actual para estas pruebas; se mantienen
+# sin guía en vez de rellenarlas con continuidad genérica.
+NO_EPG_CHANNEL_IDS.difference_update({
+    "Vavoo.uk.BBCTWO@TvVoo",
+    "Vavoo.uk.BBCFOUR@TvVoo",
+    "Vavoo.uk.TNTSPORTS2@TvVoo",
+    "Vavoo.it.BLOOMBERGTV@TvVoo",
+    "Vavoo.it.EUROSPORT1@TvVoo",
+    "Vavoo.it.SKYSPORTF1@TvVoo",
+    "Vavoo.it.SKYSPORTTENNIS@TvVoo",
+    "Vavoo.it.SKYSPORTGOLF@TvVoo",
+    "Vavoo.fr.MEZZOLIVE@TvVoo",
+    "Vavoo.fr.RMCSPORT3@TvVoo",
+    "Vavoo.pt.SPORTTV3@TvVoo",
+    "Vavoo.pt.ELEVENSPORT3@TvVoo",
+    "Vavoo.pt.EUROSPORT1@TvVoo",
+    "Vavoo.pt.MTVPORTUGAL@TvVoo",
+    "Vavoo.pt.STINGRAYICONCERTS@TvVoo",
+    "Vavoo.es.DAZN4@TvVoo",
+    "Vavoo.es.EUROSPORT1@TvVoo",
+    "Vavoo.pl.BBCEARTH@TvVoo",
+    "Vavoo.pl.CNN@TvVoo",
+    "Vavoo.pl.MTVPOLSKA@TvVoo",
+    "Vavoo.nl.ESPN1@TvVoo",
+    "Vavoo.nl.STINGRAYDJAZZ@TvVoo",
+    "Vavoo.tr.EUROSPORT1@TvVoo",
+})
 NHK_WORLD_LIVE_PAGE = "https://www3.nhk.or.jp/nhkworld/en/live_tv/"
 NHK_WORLD_EPG_BASE_URL = "https://masterpl.hls.nhkworld.jp/epg/w"
 NHK_OFFICIAL_EPG_SOURCE = "nhk-world-oficial"
@@ -270,6 +349,33 @@ EPG_PROGRAMME_SOURCES = {
     "CNA.sg": ("sg1", "CNA.(HD).sg"),
     "AfricanewsEnglish.fr": ("ng1", "Africanews.ng"),
 }
+
+# EPGShare01 entrega parrilla real para estas señales nuevas. Se asocia por
+# el ID exacto de la fuente y no por coincidencia amplia del nombre visible.
+EPG_PROGRAMME_SOURCES.update({
+    "Vavoo.uk.BBCTWO@TvVoo": ("uk1", "BBC.Two.HD.uk"),
+    "Vavoo.uk.BBCFOUR@TvVoo": ("uk1", "BBC.Four.HD.uk"),
+    "Vavoo.uk.TNTSPORTS2@TvVoo": ("uk1", "TNT.Sports.2.HD.uk"),
+    "Vavoo.it.BLOOMBERGTV@TvVoo": ("it1", "Bloomberg.it"),
+    "Vavoo.it.EUROSPORT1@TvVoo": ("it1", "Eurosport.Italia.it"),
+    "Vavoo.it.SKYSPORTF1@TvVoo": ("it1", "Sky.Sport.F1.it"),
+    "Vavoo.it.SKYSPORTTENNIS@TvVoo": ("it1", "Sky.Sport.Tennis.it"),
+    "Vavoo.de.SKYSPORT1@TvVoo": ("de", "Sky.Sport.1.de"),
+    "Vavoo.fr.MEZZOLIVE@TvVoo": ("fr", "Mezzo.Live.HD.fr"),
+    "Vavoo.fr.RMCSPORT3@TvVoo": ("fr", "RMC.Sport.Live.3.fr"),
+    "Vavoo.pt.SPORTTV3@TvVoo": ("pt1", "SPORT.TV3.HD.pt"),
+    "Vavoo.pt.ELEVENSPORT3@TvVoo": ("pl", "Eleven.Sports.3.HD.pl"),
+    "Vavoo.pt.EUROSPORT1@TvVoo": ("pt1", "Eurosport.1.HD.pt"),
+    "Vavoo.pt.MTVPORTUGAL@TvVoo": ("pt1", "MTV.Portugal.HD.pt"),
+    "Vavoo.pt.STINGRAYICONCERTS@TvVoo": ("pt1", "Stingray.iConcerts.HD.pt"),
+    "Vavoo.es.DAZN4@TvVoo": ("es", "DAZN.4.es"),
+    "Vavoo.es.EUROSPORT1@TvVoo": ("es", "Eurosport.1.es"),
+    "Vavoo.pl.BBCEARTH@TvVoo": ("pl", "BBC.Earth.HD.pl"),
+    "Vavoo.pl.CNN@TvVoo": ("pl", "CNN.pl"),
+    "Vavoo.nl.ESPN1@TvVoo": ("nl", "ESPN.nl"),
+    "Vavoo.nl.STINGRAYDJAZZ@TvVoo": ("nl", "Stingray.DJAZZ.nl"),
+    "Vavoo.tr.EUROSPORT1@TvVoo": ("tr1", "EUROSPORT.1.HD.tr"),
+})
 # Zapping publica una guia HTML con marcas Unix absolutas para el programa
 # actual, hoy y manana. Se usa solo para senales chilenas donde la fuente
 # agregada estaba desplazada o no entregaba una parrilla util. TVN y Mega
@@ -577,6 +683,58 @@ TVVOO_STREAM_RESOLVER_IDS = {
         "vavoo_EUROSPORT%201%20FHD%7Cgroup%3Ade",
     ),
 }
+
+# Tanda adicional descubierta en los catálogos TvVoo por país/región.
+# El nombre visible identifica la región; HD/FHD quedan agrupados como aliases.
+TVVOO_STREAM_RESOLVER_IDS.update({
+    "BBC Two Reino Unido": ("vavoo_BBC%20TWO%7Cgroup%3Auk",),
+    "BBC Four Reino Unido": ("vavoo_BBC%20FOUR%7Cgroup%3Auk",),
+    "BBC World News Reino Unido": ("vavoo_BBC%20WORLD%20NEWS%7Cgroup%3Auk",),
+    "Sky Sports F1 Reino Unido": ("vavoo_SKY%20SPORTS%20F1%20FHD%7Cgroup%3Auk", "vavoo_SKY%20SPORTS%20F1%20HD%7Cgroup%3Auk", "vavoo_SKY%20SPORTS%20F1%7Cgroup%3Auk",),
+    "TNT Sports 2 Reino Unido": ("vavoo_TNT%20SPORTS%202%20HD%7Cgroup%3Auk", "vavoo_TNT%20SPORTS%202%7Cgroup%3Auk",),
+    "4Music Reino Unido": ("vavoo_4MUSIC%7Cgroup%3Auk",),
+    "Bloomberg TV Italia": ("vavoo_BLOOMBERG%20TV%7Cgroup%3Ait", "vavoo_BLOOMBERG%20TV%204K%7Cgroup%3Ait",),
+    "Eurosport 1 Italia": ("vavoo_EUROSPORT%201%7Cgroup%3Ait",),
+    "Sky Sport F1 Italia": ("vavoo_SKY%20SPORT%20F1%7Cgroup%3Ait",),
+    "Sky Sport Tennis Italia": ("vavoo_SKY%20SPORT%20TENNIS%7Cgroup%3Ait",),
+    "Mezzo Live Francia": ("vavoo_MEZZO%20LIVE%20HD%7Cgroup%3Afr", "vavoo_MEZZO%20LIVE%7Cgroup%3Afr", "vavoo_MEZZO%20LIVE%20SD%7Cgroup%3Afr",),
+    "Stingray Classica Francia": ("vavoo_STINGRAY%20CLASSICA%7Cgroup%3Afr",),
+    "Trace Africa Francia": ("vavoo_TRACE%20AFRICA%7Cgroup%3Afr",),
+    "RMC Sport 3 Francia": ("vavoo_RMC%20SPORT%203%20FHD%7Cgroup%3Afr", "vavoo_RMC%20SPORT%203%20HD%7Cgroup%3Afr", "vavoo_RMC%20SPORT%203%7Cgroup%3Afr",),
+    "RT DE Alemania": ("vavoo_RT%20DE%7Cgroup%3Ade",),
+    "Sky Sport 1 Alemania": ("vavoo_SKY%20SPORT%201%20HD%7Cgroup%3Ade", "vavoo_SKY%20SPORT%201%20HD%2B%7Cgroup%3Ade", "vavoo_SKY%20SPORT%201%7Cgroup%3Ade", "vavoo_SKY%20SPORT%201%20HEVC%7Cgroup%3Ade",),
+    "XITE Alemania": ("vavoo_XITE%20HD%7Cgroup%3Ade", "vavoo_XITE%7Cgroup%3Ade",),
+    "Sport TV 3 Portugal": ("vavoo_SPORT%20TV%203%20HD%7Cgroup%3Apt", "vavoo_SPORT%20TV%203%7Cgroup%3Apt",),
+    "Eleven Sports 3 Portugal": ("vavoo_ELEVEN%20SPORT%203%7Cgroup%3Apt",),
+    "Eurosport 1 Portugal": ("vavoo_EUROSPORT%201%20HD%7Cgroup%3Apt", "vavoo_EUROSPORT%201%7Cgroup%3Apt",),
+    "MTV Portugal Portugal": ("vavoo_MTV%20PORTUGAL%7Cgroup%3Apt",),
+    "Stingray iConcerts Portugal": ("vavoo_STINGRAY%20ICONCERTS%7Cgroup%3Apt",),
+    "ESPN 2 España": ("vavoo_ESPN%202%7Cgroup%3Aes",),
+    "DAZN 4 España": ("vavoo_DAZN%204%7Cgroup%3Aes",),
+    "Eurosport 1 España": ("vavoo_EUROSPORT%201%20HD%7Cgroup%3Aes", "vavoo_EUROSPORT%201%7Cgroup%3Aes",),
+    "BBC Earth Polonia": ("vavoo_BBC%20EARTH%20HD%7Cgroup%3Apl", "vavoo_BBC%20EARTH%7Cgroup%3Apl",),
+    "CNN Polonia": ("vavoo_CNN%7Cgroup%3Apl",),
+    "Eurosport 3 Polonia": ("vavoo_EUROSPORT%203%7Cgroup%3Apl",),
+    "ESPN 1 Países Bajos": ("vavoo_ESPN%201%7Cgroup%3Anl",),
+    "Fox Sports 1 Países Bajos": ("vavoo_FOX%20SPORTS%201%7Cgroup%3Anl",),
+    "XITE Rock Países Bajos": ("vavoo_XITE%20ROCK%7Cgroup%3Anl",),
+    "Stingray DJAZZ Países Bajos": ("vavoo_STINGRAY%20DJAZZ%7Cgroup%3Anl",),
+    "TRT World Turquía": ("vavoo_TRT%20WORLD%7Cgroup%3Atr", "vavoo_TRT%20WORLD%20HEVC%7Cgroup%3Atr",),
+    "Eurosport 1 Turquía": ("vavoo_EUROSPORT%201%7Cgroup%3Atr",),
+    "beIN Sports 1 Turquía": ("vavoo_BEIN%20SPORTS%201%20HD%7Cgroup%3Atr", "vavoo_BEIN%20SPORTS%201%7Cgroup%3Atr", "vavoo_BEIN%20SPORTS%201%20H265%7Cgroup%3Atr",),
+    "NBA TV Turquía": ("vavoo_NBA%20TV%20FHD%7Cgroup%3Atr", "vavoo_NBA%20TV%20HD%7Cgroup%3Atr", "vavoo_NBA%20TV%7Cgroup%3Atr",),
+    "Arena Sport 1 Balcanes": ("vavoo_ARENA%20SPORT%201%20HD%7Cgroup%3Abk", "vavoo_ARENA%20SPORT%201%7Cgroup%3Abk",),
+    "Eurosport 1 Balcanes": ("vavoo_EUROSPORT%201%7Cgroup%3Abk",),
+    "RT Documentary Rusia": ("vavoo_RT%20DOCUMENTARY%7Cgroup%3Aru",),
+    "Digi Sport 1 Rumanía": ("vavoo_DIGI%20SPORT%201%20HD%7Cgroup%3Aro", "vavoo_DIGI%20SPORT%201%7Cgroup%3Aro",),
+    "Max Sport 1 Bulgaria": ("vavoo_MAX%20SPORT%201%7Cgroup%3Abg",),
+    "Stingray iConcerts Bulgaria": ("vavoo_STINGRAY%20ICONCERTS%7Cgroup%3Abg",),
+    "SuperSport 1 Albania": ("vavoo_SUPERSPORT%201%7Cgroup%3Aal",),
+    "Arena Sport 1 Albania": ("vavoo_ARENA%20SPORT%201%7Cgroup%3Aal",),
+    "Al Jazeera English MENA": ("vavoo_AL%20JAZEERA%20EN%7Cgroup%3Aar",),
+    "beIN Sports 1 MENA": ("vavoo_BEIN%20SPORTS%201%20HD%7Cgroup%3Aar", "vavoo_BEIN%20SPORTS%201%7Cgroup%3Aar", "vavoo_BEIN%20SPORTS%201%20SD%7Cgroup%3Aar",),
+    "MTV 00s MENA": ("vavoo_MTV%2000S%7Cgroup%3Aar",),
+})
 
 
 def build_resolver_catalog() -> dict:
@@ -1244,6 +1402,58 @@ SEGMENT_CHECK_CHANNELS = {
     "Sky Sport Premier League Germany",
     "Eurosport 1 Germany",
 }
+
+# Las nuevas pruebas deben pasar master, variante y primer segmento en cada
+# ejecución antes de que el updater las considere publicables.
+SEGMENT_CHECK_CHANNELS.update({
+    "Arena Sport 1 Albania",
+    "SuperSport 1 Albania",
+    "Al Jazeera English MENA",
+    "beIN Sports 1 MENA",
+    "MTV 00s MENA",
+    "Max Sport 1 Bulgaria",
+    "Stingray iConcerts Bulgaria",
+    "Arena Sport 1 Balcanes",
+    "Eurosport 1 Balcanes",
+    "RT DE Alemania",
+    "Sky Sport 1 Alemania",
+    "XITE Alemania",
+    "DAZN 4 España",
+    "ESPN 2 España",
+    "Eurosport 1 España",
+    "Mezzo Live Francia",
+    "RMC Sport 3 Francia",
+    "Stingray Classica Francia",
+    "Trace Africa Francia",
+    "Bloomberg TV Italia",
+    "Eurosport 1 Italia",
+    "Sky Sport F1 Italia",
+    "Sky Sport Tennis Italia",
+    "ESPN 1 Países Bajos",
+    "Fox Sports 1 Países Bajos",
+    "Stingray DJAZZ Países Bajos",
+    "XITE Rock Países Bajos",
+    "BBC Earth Polonia",
+    "CNN Polonia",
+    "Eurosport 3 Polonia",
+    "Eleven Sports 3 Portugal",
+    "Eurosport 1 Portugal",
+    "MTV Portugal Portugal",
+    "Sport TV 3 Portugal",
+    "Stingray iConcerts Portugal",
+    "Digi Sport 1 Rumanía",
+    "RT Documentary Rusia",
+    "beIN Sports 1 Turquía",
+    "Eurosport 1 Turquía",
+    "NBA TV Turquía",
+    "TRT World Turquía",
+    "4Music Reino Unido",
+    "BBC Four Reino Unido",
+    "BBC Two Reino Unido",
+    "BBC World News Reino Unido",
+    "Sky Sports F1 Reino Unido",
+    "TNT Sports 2 Reino Unido",
+})
 @dataclass(frozen=True)
 class Channel:
     name: str
