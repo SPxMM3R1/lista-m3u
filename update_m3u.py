@@ -194,6 +194,10 @@ EPG_SOURCES = {
     # usados por MTV. No se generan bloques de continuidad para esos IDs.
     "pluto": "https://i.mjh.nz/PlutoTV/all.xml.gz",
 }
+CANAL13_MAIN_EPG_SOURCE = "canal13-abierto-oficial"
+CANAL13_MAIN_EPG_URL = (
+    "https://www.13.cl/sites/default/files/tools/epg-canal13.json"
+)
 CANAL13_13GO_EPG_SOURCE = "canal13-13go-oficial"
 CANAL13_13GO_EPG_URLS = {
     "13Cultura.cl@DPS": "https://cdn.rudo.video/assets/canal-13/playlists/13cultura/epg.json",
@@ -349,12 +353,14 @@ EPG_PROGRAMME_SOURCES.update({
 })
 # Zapping publica una guia HTML con marcas Unix absolutas para el programa
 # actual, hoy y manana. Se usa solo para senales chilenas donde la fuente
-# agregada estaba desplazada o no entregaba una parrilla util. TVN y Mega
-# conservan sus adaptadores oficiales especificos; T13 usa Zapping y
-# TecnoCentro porque no hay una parrilla oficial diaria de esa senal.
+# agregada estaba desplazada o no entregaba una parrilla util. TVN, Mega,
+# Canal 13 y La Red conservan sus adaptadores oficiales especificos; T13 usa
+# Zapping y TecnoCentro porque no hay una parrilla oficial diaria de esa senal.
 ZAPPING_EPG_SOURCE = "zapping-guia-publica"
 ZAPPING_EPG_BASE_URL = "https://guia.zappingtv.com"
 ZAPPING_EPG_CHANNELS = {
+    "0104": "tvn",
+    "0105": "mega",
     "0106": "chv",
     "0107": "canal13",
     "0102": "lared",
@@ -1833,6 +1839,7 @@ def epg_status_from_xml(
     counts = {channel_id: 0 for channel_id in expected_ids}
     last_by_channel: dict[str, datetime] = {}
     intervals_by_channel: dict[str, list[tuple[datetime, datetime]]] = {}
+    invalid_duration_channels: set[str] = set()
     first_start: datetime | None = None
     last_stop: datetime | None = None
     for programme in root.findall("programme"):
@@ -1841,12 +1848,21 @@ def epg_status_from_xml(
             continue
         start = xmltv_datetime(programme.get("start", ""))
         stop = xmltv_datetime(programme.get("stop", ""))
+        if stop <= start:
+            invalid_duration_channels.add(channel_id)
+            continue
         counts[channel_id] += 1
         intervals_by_channel.setdefault(channel_id, []).append((start, stop))
         previous = last_by_channel.get(channel_id)
         last_by_channel[channel_id] = stop if previous is None or stop > previous else previous
         first_start = start if first_start is None or start < first_start else first_start
         last_stop = stop if last_stop is None or stop > last_stop else last_stop
+
+    if invalid_duration_channels:
+        raise ValueError(
+            "programas con duracion nula o negativa en la EPG: "
+            + ", ".join(sorted(invalid_duration_channels))
+        )
 
     overlapping_channels = []
     for channel_id, intervals in intervals_by_channel.items():
@@ -1904,6 +1920,11 @@ def epg_status_from_xml(
         for channel in channel_elements
         if channel.get("id", "") in expected_ids
     }
+    guide_sources = {
+        channel.get("id", ""): channel.get("data-guide-source", "")
+        for channel in channel_elements
+        if channel.get("id", "") in expected_ids
+    }
     return {
         "ok": True,
         "channels": len(expected_ids),
@@ -1913,6 +1934,7 @@ def epg_status_from_xml(
         "generated_at": generated_at.isoformat() if generated_at else None,
         "next_refresh_at": next_refresh.isoformat() if next_refresh else None,
         "guide_types": guide_types,
+        "guide_sources": guide_sources,
     }
 
 
@@ -3085,6 +3107,146 @@ def epg_root(source_name: str) -> ET.Element:
     )
 
 
+def fetch_canal13_main_official_epg(
+    channels: list[Channel], now: datetime
+) -> tuple[bytes | None, str | None]:
+    """Import the public structured guide used by Canal 13's official player."""
+    if not any(channel.tvg_id == "0107" for channel in channels):
+        return None, None
+    try:
+        status, body, _ = fetch_bytes(
+            CANAL13_MAIN_EPG_URL,
+            {
+                "User-Agent": BROWSER_USER_AGENT,
+                "Accept": "application/json,text/plain,*/*",
+                "Accept-Language": "es-CL,es;q=0.9,en;q=0.8",
+                "Referer": "https://www.13.cl/",
+            },
+            timeout=45,
+            limit=4_000_000,
+        )
+        if status != 200:
+            raise ValueError(f"HTTP {status}")
+        payload = json.loads(decode_web_text(body))
+        events = payload.get("events") if isinstance(payload, dict) else None
+        if not isinstance(events, list):
+            raise ValueError("el JSON oficial de Canal 13 no contiene events")
+
+        lower_limit = now - timedelta(hours=6)
+        upper_limit = now + timedelta(days=5)
+        records: list[dict[str, object]] = []
+        for event in events:
+            if not isinstance(event, dict):
+                continue
+            try:
+                start = external_epg_datetime(event["beginTime"])
+                stop = external_epg_datetime(event["endTime"])
+            except (KeyError, TypeError, ValueError):
+                continue
+            if stop <= start or stop <= lower_limit or start >= upper_limit:
+                continue
+            generic_title = re.sub(
+                r"\s+",
+                " ",
+                html.unescape(str(event.get("title", ""))).strip(),
+            )
+            episode_title = re.sub(
+                r"\s+",
+                " ",
+                html.unescape(str(event.get("episodeTitle", ""))).strip(),
+            )
+            title = episode_title or generic_title
+            if not title:
+                continue
+            records.append(
+                {
+                    "start": start,
+                    "stop": stop,
+                    "title": title,
+                    "synopsis": re.sub(
+                        r"\s+",
+                        " ",
+                        html.unescape(str(event.get("synopsis", ""))).strip(),
+                    ),
+                    "genre": re.sub(
+                        r"\s+",
+                        " ",
+                        html.unescape(str(event.get("genre", ""))).strip(),
+                    ),
+                }
+            )
+
+        normalized: list[dict[str, object]] = []
+        seen: set[tuple[datetime, datetime, str]] = set()
+        for record in sorted(records, key=lambda item: item["start"]):
+            start = record["start"]
+            stop = record["stop"]
+            title = record["title"]
+            if not isinstance(start, datetime) or not isinstance(stop, datetime):
+                continue
+            if not isinstance(title, str):
+                continue
+            key = (start, stop, title)
+            if key in seen:
+                continue
+            seen.add(key)
+            if normalized:
+                previous = normalized[-1]
+                previous_start = previous["start"]
+                previous_stop = previous["stop"]
+                if (
+                    isinstance(previous_start, datetime)
+                    and isinstance(previous_stop, datetime)
+                    and start < previous_stop
+                ):
+                    if stop <= previous_stop:
+                        continue
+                    previous["stop"] = start
+                    if start <= previous_start:
+                        normalized.pop()
+            if stop > start:
+                normalized.append(record)
+
+        if len(normalized) < 5:
+            raise ValueError("Canal 13 publico una parrilla oficial demasiado corta")
+        last_stop = max(
+            record["stop"]
+            for record in normalized
+            if isinstance(record["stop"], datetime)
+        )
+        if not isinstance(last_stop, datetime) or last_stop < now + timedelta(hours=24):
+            raise ValueError("Canal 13 no publico 24 horas futuras")
+
+        root = epg_root("Canal 13 EPG JSON oficial")
+        for record in normalized:
+            start = record["start"]
+            stop = record["stop"]
+            title = record["title"]
+            if not isinstance(start, datetime) or not isinstance(stop, datetime):
+                continue
+            if not isinstance(title, str):
+                continue
+            programme = ET.SubElement(
+                root,
+                "programme",
+                {
+                    "start": xmltv_format_chile(start),
+                    "stop": xmltv_format_chile(stop),
+                    "channel": "0107",
+                },
+            )
+            ET.SubElement(programme, "title", {"lang": "es"}).text = title
+            synopsis = record["synopsis"]
+            if isinstance(synopsis, str) and synopsis:
+                ET.SubElement(programme, "desc", {"lang": "es"}).text = synopsis
+            genre = record["genre"]
+            if isinstance(genre, str) and genre:
+                ET.SubElement(programme, "category", {"lang": "es"}).text = genre
+        return ET.tostring(root, encoding="utf-8", xml_declaration=True), None
+    except Exception as error:
+        return None, f"{type(error).__name__}: {error}"
+
+
 def fetch_13go_epg(
     channels: list[Channel], now: datetime
 ) -> tuple[bytes | None, str | None]:
@@ -4007,6 +4169,7 @@ def build_epg(
 
     programmes_by_target = {channel_id: 0 for channel_id in expected_ids}
     real_last_stop_by_target: dict[str, datetime] = {}
+    guide_sources: dict[str, str] = {}
     source_lookup = {
         (source_name, source_id): target_id
         for target_id, (source_name, source_id) in EPG_PROGRAMME_SOURCES.items()
@@ -4022,11 +4185,20 @@ def build_epg(
                 if lookup_target == target_id:
                     source_lookup.pop(lookup_key, None)
             source_lookup[(ZAPPING_EPG_SOURCE, target_id)] = target_id
+    if CANAL13_MAIN_EPG_SOURCE in source_roots and "0107" in expected_ids:
+        for lookup_key, lookup_target in list(source_lookup.items()):
+            if lookup_target == "0107":
+                source_lookup.pop(lookup_key, None)
+        source_lookup[(CANAL13_MAIN_EPG_SOURCE, "0107")] = "0107"
     if MEGA_OFFICIAL_EPG_SOURCE in source_roots and "0105" in expected_ids:
-        source_lookup.pop(("cl", "Canal.Mega.(Chile).cl"), None)
+        for lookup_key, lookup_target in list(source_lookup.items()):
+            if lookup_target == "0105":
+                source_lookup.pop(lookup_key, None)
         source_lookup[(MEGA_OFFICIAL_EPG_SOURCE, "0105")] = "0105"
     if TVN_OFFICIAL_EPG_SOURCE in source_roots and "0104" in expected_ids:
-        source_lookup.pop(("cl", "Canal.TVN.(Chile).cl"), None)
+        for lookup_key, lookup_target in list(source_lookup.items()):
+            if lookup_target == "0104":
+                source_lookup.pop(lookup_key, None)
         source_lookup[(TVN_OFFICIAL_EPG_SOURCE, "0104")] = "0104"
     if NHK_OFFICIAL_EPG_SOURCE in source_roots and "NHKWorldJapan.jp" in expected_ids:
         source_lookup.pop(("cl", "Canal.NHK.World.cl"), None)
@@ -4087,18 +4259,21 @@ def build_epg(
                     continue
                 seen_source_programmes.add(duplicate_key)
             copied = localize_xmltv_programme(programme)
+            try:
+                start = xmltv_datetime(copied.get("start", ""))
+                stop = xmltv_datetime(copied.get("stop", ""))
+            except ValueError:
+                continue
+            if stop <= start:
+                continue
             copied.set("channel", target_id)
             root.append(copied)
             programmes_by_target[target_id] += 1
             guide_types[target_id] = "parrilla real"
-            try:
-                stop = xmltv_datetime(copied.get("stop", ""))
-            except ValueError:
-                pass
-            else:
-                previous_stop = real_last_stop_by_target.get(target_id)
-                if previous_stop is None or stop > previous_stop:
-                    real_last_stop_by_target[target_id] = stop
+            guide_sources[target_id] = source_name
+            previous_stop = real_last_stop_by_target.get(target_id)
+            if previous_stop is None or stop > previous_stop:
+                real_last_stop_by_target[target_id] = stop
 
     for red_bull_id, red_bull_cards in red_bull_schedules.items():
         if red_bull_id not in expected_ids:
@@ -4137,6 +4312,7 @@ def build_epg(
         if red_bull_last_stop is not None:
             real_last_stop_by_target[red_bull_id] = red_bull_last_stop
         if programmes_by_target[red_bull_id]:
+            guide_sources[red_bull_id] = "red-bull-oficial"
             programmes_by_target[red_bull_id] += add_continuous_programmes(
                 root,
                 red_bull_id,
@@ -4179,7 +4355,9 @@ def build_epg(
         )
 
     for channel in root.findall("channel"):
-        channel.set("data-guide", guide_types.get(channel.get("id", ""), "senal continua"))
+        channel_id = channel.get("id", "")
+        channel.set("data-guide", guide_types.get(channel_id, "senal continua"))
+        channel.set("data-guide-source", guide_sources.get(channel_id, ""))
 
     generic_only = sorted(
         channel_id
@@ -4194,7 +4372,10 @@ def build_epg(
 
     real_stop_candidates = list(real_last_stop_by_target.values())
     if real_stop_candidates:
-        next_refresh = min(real_stop_candidates) - EPG_REFRESH_LEAD
+        next_refresh = max(
+            min(real_stop_candidates) - EPG_REFRESH_LEAD,
+            now + EPG_REFRESH_LEAD,
+        )
         root.set(
             "data-next-refresh-at",
             next_refresh.astimezone(timezone.utc).isoformat(),
@@ -4210,6 +4391,7 @@ def build_epg(
         allow_empty_ids=NO_EPG_CHANNEL_IDS,
     )
     status["guide_types"] = guide_types
+    status["guide_sources"] = guide_sources
     status["real_last_stop_utc"] = {
         channel_id: stop.astimezone(timezone.utc).isoformat()
         for channel_id, stop in real_last_stop_by_target.items()
@@ -4287,6 +4469,14 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
     if nhk_error:
         source_errors[NHK_OFFICIAL_EPG_SOURCE] = nhk_error
 
+    canal13_main_data, canal13_main_error = fetch_canal13_main_official_epg(
+        channels, now
+    )
+    if canal13_main_data:
+        source_documents[CANAL13_MAIN_EPG_SOURCE] = canal13_main_data
+    if canal13_main_error:
+        source_errors[CANAL13_MAIN_EPG_SOURCE] = canal13_main_error
+
     canal13_data, canal13_error = fetch_13c_official_epg(channels, now)
     if canal13_data:
         source_documents[CANAL13_13C_OFFICIAL_EPG_SOURCE] = canal13_data
@@ -4330,6 +4520,7 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
             LA_RED_OFFICIAL_EPG_SOURCE,
             MEGA_OFFICIAL_EPG_SOURCE,
             TVN_OFFICIAL_EPG_SOURCE,
+            CANAL13_MAIN_EPG_SOURCE,
             CANAL13_13C_OFFICIAL_EPG_SOURCE,
             CANAL13_13GO_EPG_SOURCE,
             SKY_OFFICIAL_EPG_SOURCE,
