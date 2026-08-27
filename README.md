@@ -24,7 +24,8 @@ La M3U conserva una URL HLS de respaldo para reproductores externos. VibeM3U
 usa los atributos `x-resolver-*` para renovar la fuente justo antes de abrirla:
 TVN y 24 Horas consultan sus paginas oficiales, TvVoo usa aliases estables y
 Highfly usa un slug estable junto al `manifest.json` configurado. Meganoticias
-de produccion y los canales Pluto/directos no usan resolutor. El catalogo solo
+usa ahora el resolutor oficial porque su CDN exige autorizacion de corta
+duracion; Pluto y los canales directos siguen sin resolutor. El catalogo solo
 contiene reglas y endpoints HTTPS permitidos; nunca publica respuestas HLS,
 tokens, claves ni URLs de sesion.
 
@@ -105,7 +106,7 @@ Durante esta ventana, GitHub Actions queda deshabilitado para no consumir cuota.
 El programador local contiene un disparador puntual para reactivarlo el 2 de
 septiembre de 2026 a las 03:05 (hora local), y luego se deshabilita a si mismo.
 
-TVN y Meganoticias conservan sus maestros originales. Actions no interviene en
+TVN y Meganoticias conservan sus maestros oficiales. Actions no interviene en
 la autenticacion de reproduccion; esa responsabilidad corresponde a la app.
 Mega y La Red publican sus maestros oficiales directos. El PC solo necesita
 estar disponible durante la ventana local; despues del 2 de septiembre el
@@ -130,7 +131,7 @@ disponible sin depender de servidores externos.
 
 ## Canales
 
-La lista contiene 129 canales: nacionales, noticias, miscelaneos chilenos,
+La lista contiene 176 canales: nacionales, noticias, miscelaneos chilenos,
 noticias internacionales, documentales, conciertos, musica y deportes.
 
 TVN y Mega se actualizan desde sus parrillas oficiales cuando estan

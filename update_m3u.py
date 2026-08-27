@@ -33,7 +33,7 @@ PUBLIC_RAW_BASE = "https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main"
 EPG_PUBLIC_URL = f"{PUBLIC_RAW_BASE}/epg.xml"
 LOCAL_LOGOS_PUBLIC_BASE = f"{PUBLIC_RAW_BASE}/logos"
 RESOLVER_SCHEMA_VERSION = 1
-RESOLVER_CATALOG_VERSION = "2026.08.25.6"
+RESOLVER_CATALOG_VERSION = "2026.08.26.1"
 ALLOWED_RESOLVER_ENGINES = {"tvn", "meganoticias", "24horas", "tvvoo", "highfly"}
 RESOLVER_ATTRIBUTE_NAMES = (
     "x-resolver",
@@ -457,6 +457,11 @@ MEGA_SOURCE_MASTER_URL = (
     "vxfmt=dp/playlist.m3u8?device_profile=STB_HLS_VCAS_LIVE_HD"
 )
 MEGANOTICIAS_LIVE_PAGE = "https://www.meganoticias.cl/senal-en-vivo/meganoticias/"
+MEGANOTICIAS_DEFAULT_STREAM_ID = "561430ae330428c223687e1e"
+MEGANOTICIAS_OFFICIAL_MASTER_URL = (
+    "https://mdstrm.com/live-stream-playlist/"
+    f"{MEGANOTICIAS_DEFAULT_STREAM_ID}.m3u8"
+)
 CANAL13_13C_PROGRAMMING_PAGE = "https://www.13.cl/c/programacion"
 CANAL13_13C_OFFICIAL_EPG_SOURCE = "canal13-13c-oficial"
 TVVOO_STREAM_BASE_URL = "https://tvvoo.hayd.uk/stream/tv"
@@ -772,7 +777,9 @@ def build_resolver_catalog() -> dict:
                 "engine": "meganoticias",
                 "enabledByDefault": True,
                 "cacheTtlSeconds": 0,
-                "match": {"tvgIds": ["MeganoticiasAhora.cl"]},
+                "match": {
+                    "tvgIds": ["Meganoticias.cl", "MeganoticiasAhora.cl"]
+                },
                 "config": {
                     "pageUrl": MEGANOTICIAS_LIVE_PAGE,
                     "apiUrl": "https://api.mega.cl/api/v1/mdstrm",
@@ -865,7 +872,7 @@ CI_GEO_RESTRICTED_CHANNELS = {
 }
 # TVN mantiene su maestro original; la autenticacion de playback queda
 # exclusivamente en la aplicacion y nunca se ejecuta desde Actions.
-APP_HANDLED_CHANNELS = {"TVN"}
+APP_HANDLED_CHANNELS = {"TVN", "Meganoticias"}
 PREFERRED_LOGOS = {
     "TVN": f"{LOCAL_LOGOS_PUBLIC_BASE}/tvn.png",
     "Mega": f"{LOCAL_LOGOS_PUBLIC_BASE}/mega.png",
@@ -1230,6 +1237,10 @@ KNOWN_STREAM_FALLBACKS = {
     "24 Horas": [
         "https://mdstrm.com/live-stream-playlist/57d1a22064f5d85712b20dab.m3u8"
     ],
+    # El master oficial exige un access_token de corta duración. Se publica
+    # solo como respaldo estable para clientes externos; VibeM3U lo renueva
+    # desde la página oficial justo antes de reproducir.
+    "Meganoticias": [MEGANOTICIAS_OFFICIAL_MASTER_URL],
     "La Red": [
         LA_RED_MASTER_URL,
         "https://live2.airstream.run/3969875408/ts:abr.m3u8",
@@ -1524,7 +1535,7 @@ def resolver_attributes_for(channel: Channel) -> dict[str, str]:
         return {"x-resolver": "tvn", "x-resolver-refresh": "on_play"}
     if channel.tvg_id == "0201":
         return {"x-resolver": "24horas", "x-resolver-refresh": "on_play"}
-    if channel.tvg_id == "MeganoticiasAhora.cl":
+    if channel.tvg_id in {"Meganoticias.cl", "MeganoticiasAhora.cl"}:
         return {
             "x-resolver": "meganoticias",
             "x-resolver-refresh": "on_play",
@@ -1734,8 +1745,9 @@ def validate_playlist_resolvers(lines: list[str]) -> dict[str, int]:
     ]
     if len(production_meganoticias) != 1:
         raise ValueError("Meganoticias.cl debe conservar exactamente una entrada")
-    if resolver_attributes_for(production_meganoticias[0]):
-        raise ValueError("Meganoticias.cl de produccion debe seguir siendo directo")
+    production_attributes = resolver_attributes_for(production_meganoticias[0])
+    if production_attributes.get("x-resolver") != "meganoticias":
+        raise ValueError("Meganoticias.cl debe usar el resolutor oficial")
     for channel in channels:
         if channel.url.startswith("https://jmp2.uk/plu-") and resolver_attributes_for(channel):
             raise ValueError(f"{channel.name}: Pluto no debe usar x-resolver")
@@ -4545,8 +4557,12 @@ def check_channel(
             geo_error_codes = {403}
             if channel.name in APP_HANDLED_CHANNELS:
                 geo_error_codes.add(401)
+            app_managed_master = (
+                channel.name in APP_HANDLED_CHANNELS
+                and "/live-stream-playlist/" in channel.url
+            )
             if (
-                allow_ci_geo_block
+                (allow_ci_geo_block or app_managed_master)
                 and channel.name in CI_GEO_RESTRICTED_CHANNELS
                 and error.code in geo_error_codes
             ):
@@ -4866,6 +4882,23 @@ def fresh_24horas_url() -> str:
     return f"https://mdstrm.com/live-stream-playlist/{stream_id}.m3u8"
 
 
+def fresh_meganoticias_url() -> str:
+    """Read the current official stream id without requesting its token."""
+    html = megamedia_page_html(MEGANOTICIAS_LIVE_PAGE)
+    stream_id_match = re.search(
+        r"var\s+VideoSenalEnVivo\s*=\s*\{.{0,65536}?"
+        r"\bid\s*:\s*['\"]([A-Za-z0-9_-]+)",
+        html,
+        flags=re.IGNORECASE | re.DOTALL,
+    )
+    stream_id = (
+        stream_id_match.group(1)
+        if stream_id_match
+        else MEGANOTICIAS_DEFAULT_STREAM_ID
+    )
+    return f"https://mdstrm.com/live-stream-playlist/{stream_id}.m3u8"
+
+
 def fresh_tvvoo_stream_urls(channel_name: str) -> list[str]:
     """Resolve current TvVoo HLS URLs for a channel without storing its token."""
     resolver_ids = TVVOO_STREAM_RESOLVER_IDS.get(channel_name)
@@ -5171,6 +5204,7 @@ def main() -> int:
     refresh_changed = False
     dynamic_channels = {
         "24 Horas": (fresh_24horas_url, False),
+        "Meganoticias": (fresh_meganoticias_url, True),
         "Premier Sports 1": (
             lambda: fresh_tvvoo_stream_urls("Premier Sports 1"),
             True,
