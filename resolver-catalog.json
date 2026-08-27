@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "catalogVersion": "2026.08.26.1",
+  "catalogVersion": "2026.08.26.2",
   "providers": [
     {
       "id": "tvn",
@@ -66,8 +66,7 @@
       "match": {
         "tvgIds": [
           "PremierSports1.ie",
-          "PremierSports2.ie",
-          "SkySportsRacing.uk"
+          "PremierSports2.ie"
         ],
         "tvgIdSuffixes": [
           "@TvVoo"
@@ -100,10 +99,6 @@
           "vavoo_SKY%20SPORTS%20ARENA%7Cgroup%3Auk",
           "vavoo_SKY%20SPORTS%20ARENA%20HD%7Cgroup%3Auk"
         ],
-        "Sky Sports Racing": [
-          "vavoo_SKY%20SPORTS%20RACING%7Cgroup%3Auk",
-          "vavoo_SKY%20SPORTS%20RACING%20HD%7Cgroup%3Auk"
-        ],
         "TNT Sports 3": [
           "vavoo_TNT%20SPORTS%203%7Cgroup%3Auk",
           "vavoo_TNT%20SPORTS%203%20HD%7Cgroup%3Auk"
@@ -111,26 +106,10 @@
         "CNN": [
           "vavoo_CNN%7Cgroup%3Auk"
         ],
-        "RT France": [
-          "vavoo_RT%20FRANCE%7Cgroup%3Afr"
-        ],
-        "ESPN 3": [
-          "vavoo_ESPN%203%7Cgroup%3Aar"
-        ],
         "Eurosport 1": [
           "vavoo_EUROSPORT%201%7Cgroup%3Afr",
           "vavoo_EUROSPORT%201%20FHD%7Cgroup%3Afr",
           "vavoo_EUROSPORT%201%20HD%7Cgroup%3Afr"
-        ],
-        "RMC Sport 1": [
-          "vavoo_RMC%20SPORT%201%7Cgroup%3Afr",
-          "vavoo_RMC%20SPORT%201%20FHD%7Cgroup%3Afr",
-          "vavoo_RMC%20SPORT%201%20HD%7Cgroup%3Afr"
-        ],
-        "RMC Sport 2": [
-          "vavoo_RMC%20SPORT%202%7Cgroup%3Afr",
-          "vavoo_RMC%20SPORT%202%20FHD%7Cgroup%3Afr",
-          "vavoo_RMC%20SPORT%202%20HD%7Cgroup%3Afr"
         ],
         "MTV Hits": [
           "vavoo_MTV%20HITS%7Cgroup%3Afr",
@@ -146,11 +125,6 @@
           "vavoo_TRACE%20URBAN%7Cgroup%3Afr",
           "vavoo_TRACE%20URBAN%20HD%7Cgroup%3Afr",
           "vavoo_TRACE%20URBAN%20SD%7Cgroup%3Afr"
-        ],
-        "DAZN 2": [
-          "vavoo_DAZN%202%7Cgroup%3Ade",
-          "vavoo_DAZN%202%20HD%7Cgroup%3Ade",
-          "vavoo_DAZN%202%20FHD%7Cgroup%3Ade"
         ],
         "DAZN FAST+": [
           "vavoo_DAZN%20FAST%2B%7Cgroup%3Ade"

@@ -33,7 +33,7 @@ PUBLIC_RAW_BASE = "https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main"
 EPG_PUBLIC_URL = f"{PUBLIC_RAW_BASE}/epg.xml"
 LOCAL_LOGOS_PUBLIC_BASE = f"{PUBLIC_RAW_BASE}/logos"
 RESOLVER_SCHEMA_VERSION = 1
-RESOLVER_CATALOG_VERSION = "2026.08.26.1"
+RESOLVER_CATALOG_VERSION = "2026.08.26.2"
 ALLOWED_RESOLVER_ENGINES = {"tvn", "meganoticias", "24horas", "tvvoo", "highfly"}
 RESOLVER_ATTRIBUTE_NAMES = (
     "x-resolver",
@@ -50,7 +50,6 @@ HIGHFLY_MANIFEST_URL = (
 HIGHFLY_RESOLVER_CHANNELS = {
     "SkySportsF1.uk": "now-sky-sports-f1-free",
     "ESPN.us": "us-espn-hd",
-    "MarqueeSportsNetwork.us": "us-marquee-sports-network-hd",
     "SkySportsPremierLeague.uk": "now-sky-sports-premier-league",
     "SkySport1.nz": "nz-sky-sport-1",
     "SkySportsTennis.uk": "now-sky-sports-tennis",
@@ -68,7 +67,6 @@ DISPLAY_NAME_ALIASES = {
 # XMLTV propia ni una fuente de terceros que identifique el canal exacto.
 # Se publican en la lista principal sin inventar programas de continuidad.
 NO_EPG_CHANNEL_IDS = {
-    "RTFrance.fr@TvVoo",
     "DAZNFastPlus.de@TvVoo",
     # Canales recuperados con HLS verificable, pero sin una fuente XMLTV que
     # identifique exactamente la senal. Se publican sin inventar continuidad.
@@ -237,13 +235,11 @@ EPG_PROGRAMME_SOURCES = {
     "DWEnglish.de": ("lv", "Deutsche.Welle.English.HD.lv"),
     "France24.fr@English": ("fr", "France.24.Anglais.fr"),
     "ESPN.us": ("us2", "ESPN.HD.us2"),
-    "MarqueeSportsNetwork.us": ("us2", "Marquee.Sports.Network.HD.us2"),
     "NHLNetwork.us": ("us2", "NHL.Network.HD.us2"),
     "RewindTV.cl@SD": ("us2", "Rewind.TV.us2"),
     "TyCSports.ar": ("ar1", "Canal.TyC.Sports.ar"),
     "SkySport1.nz": ("nz1", "Sky.Sport.1.nz"),
     "SkySportsF1.uk": ("uk1", "SkySp.F1.HD.uk"),
-    "SkySportsRacing.uk": ("uk1", "SkySp.Racing.HD.uk"),
     "SkySportsPremierLeague.uk": ("uk1", "SkySp.PL.HD.uk"),
     "SkySportsTennis.uk": ("uk1", "SkySp.Tennis.HD.uk"),
     "SkySportsGolf.uk": ("uk1", "SkySp.Golf.HD.uk"),
@@ -269,14 +265,10 @@ EPG_PROGRAMME_SOURCES = {
     "SkySportsArena.uk@TvVoo": ("uk1", "SkySp+.uk"),
     "TNTSports3.uk@TvVoo": ("uk1", "TNT.Sports.3.HD.uk"),
     "CNN.us@TvVoo": ("uk1", "CNN.HD.uk"),
-    "ESPN3.ar@TvVoo": ("ar1", "Canal.ESPN.3.(Argentina).ar"),
     "Eurosport1.fr@TvVoo": ("fr", "Eurosport.1.fr"),
-    "RMCSport1.fr@TvVoo": ("fr", "RMC.Sport.1.fr"),
-    "RMCSport2.fr@TvVoo": ("fr", "RMC.Sport.Live.2.fr"),
     "MTVHits.fr@TvVoo": ("nz1", "MTV.Hits.nz"),
     "M6Music.fr@TvVoo": ("fr", "M6.Music.fr"),
     "TraceUrban.fr@TvVoo": ("fr", "Trace.Urban.fr"),
-    "DAZN2.de@TvVoo": ("de", "DAZN.2.de"),
     "SportTV1.pt@TvVoo": ("pt1", "SPORT.TV1.HD.pt"),
     "SportTV2.pt@TvVoo": ("pt1", "SPORT.TV2.HD.pt"),
     "ElevenSports1.pt@TvVoo": ("pl", "Eleven.Sports.1.HD.pl"),
@@ -493,33 +485,15 @@ TVVOO_STREAM_RESOLVER_IDS = {
         "vavoo_SKY%20SPORTS%20ARENA%7Cgroup%3Auk",
         "vavoo_SKY%20SPORTS%20ARENA%20HD%7Cgroup%3Auk",
     ),
-    # Highfly dejo de publicar el slug VIP de Sky Sports Racing; TvVoo aun
-    # entrega aliases publicos funcionales para la misma senal.
-    "Sky Sports Racing": (
-        "vavoo_SKY%20SPORTS%20RACING%7Cgroup%3Auk",
-        "vavoo_SKY%20SPORTS%20RACING%20HD%7Cgroup%3Auk",
-    ),
     "TNT Sports 3": (
         "vavoo_TNT%20SPORTS%203%7Cgroup%3Auk",
         "vavoo_TNT%20SPORTS%203%20HD%7Cgroup%3Auk",
     ),
     "CNN": ("vavoo_CNN%7Cgroup%3Auk",),
-    "RT France": ("vavoo_RT%20FRANCE%7Cgroup%3Afr",),
-    "ESPN 3": ("vavoo_ESPN%203%7Cgroup%3Aar",),
     "Eurosport 1": (
         "vavoo_EUROSPORT%201%7Cgroup%3Afr",
         "vavoo_EUROSPORT%201%20FHD%7Cgroup%3Afr",
         "vavoo_EUROSPORT%201%20HD%7Cgroup%3Afr",
-    ),
-    "RMC Sport 1": (
-        "vavoo_RMC%20SPORT%201%7Cgroup%3Afr",
-        "vavoo_RMC%20SPORT%201%20FHD%7Cgroup%3Afr",
-        "vavoo_RMC%20SPORT%201%20HD%7Cgroup%3Afr",
-    ),
-    "RMC Sport 2": (
-        "vavoo_RMC%20SPORT%202%7Cgroup%3Afr",
-        "vavoo_RMC%20SPORT%202%20FHD%7Cgroup%3Afr",
-        "vavoo_RMC%20SPORT%202%20HD%7Cgroup%3Afr",
     ),
     "MTV Hits": (
         "vavoo_MTV%20HITS%7Cgroup%3Afr",
@@ -535,11 +509,6 @@ TVVOO_STREAM_RESOLVER_IDS = {
         "vavoo_TRACE%20URBAN%7Cgroup%3Afr",
         "vavoo_TRACE%20URBAN%20HD%7Cgroup%3Afr",
         "vavoo_TRACE%20URBAN%20SD%7Cgroup%3Afr",
-    ),
-    "DAZN 2": (
-        "vavoo_DAZN%202%7Cgroup%3Ade",
-        "vavoo_DAZN%202%20HD%7Cgroup%3Ade",
-        "vavoo_DAZN%202%20FHD%7Cgroup%3Ade",
     ),
     "DAZN FAST+": ("vavoo_DAZN%20FAST%2B%7Cgroup%3Ade",),
     "Sport TV 1": (
@@ -816,7 +785,6 @@ def build_resolver_catalog() -> dict:
                     "tvgIds": [
                         "PremierSports1.ie",
                         "PremierSports2.ie",
-                        "SkySportsRacing.uk",
                     ],
                     "tvgIdSuffixes": ["@TvVoo"],
                 },
@@ -927,9 +895,7 @@ PREFERRED_LOGOS = {
     "MTV Rocks": f"{LOCAL_LOGOS_PUBLIC_BASE}/mtv-rocks.svg",
     "XITE Just Chill": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
     "Sky Sports F1": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-f1.png",
-    "ESPN HD": f"{LOCAL_LOGOS_PUBLIC_BASE}/espn.svg",
-    "Marquee Sports Network HD": f"{LOCAL_LOGOS_PUBLIC_BASE}/marquee-sports-network.svg",
-    "Sky Sports Racing": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-racing.png",
+    "ESPN": f"{LOCAL_LOGOS_PUBLIC_BASE}/espn.svg",
     "Sky Sports Premier League": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-premier-league.png",
     "Premier Sports 1": f"{LOCAL_LOGOS_PUBLIC_BASE}/premier-sports-1.png",
     "Premier Sports 2": f"{LOCAL_LOGOS_PUBLIC_BASE}/premier-sports-2.png",
@@ -950,15 +916,10 @@ PREFERRED_LOGOS = {
     "Sky Sports Arena": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports.svg",
     "TNT Sports 3": f"{LOCAL_LOGOS_PUBLIC_BASE}/tnt-sports-3.png",
     "CNN": f"{LOCAL_LOGOS_PUBLIC_BASE}/cnn.png",
-    "RT France": f"{LOCAL_LOGOS_PUBLIC_BASE}/rt-france.png",
-    "ESPN 3": f"{LOCAL_LOGOS_PUBLIC_BASE}/espn-3.png",
     "Eurosport 1": f"{LOCAL_LOGOS_PUBLIC_BASE}/eurosport-1.png",
-    "RMC Sport 1": f"{LOCAL_LOGOS_PUBLIC_BASE}/rmc-sport-1.png",
-    "RMC Sport 2": f"{LOCAL_LOGOS_PUBLIC_BASE}/rmc-sport-2.png",
     "MTV Hits": f"{LOCAL_LOGOS_PUBLIC_BASE}/mtv-hits.png",
     "M6 Music": f"{LOCAL_LOGOS_PUBLIC_BASE}/m6-music.png",
     "Trace Urban": f"{LOCAL_LOGOS_PUBLIC_BASE}/trace-urban.png",
-    "DAZN 2": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn-2.png",
     "DAZN FAST+": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn-fast.png",
     "Sport TV 1": f"{LOCAL_LOGOS_PUBLIC_BASE}/sport-tv-1.png",
     "Sport TV 2": f"{LOCAL_LOGOS_PUBLIC_BASE}/sport-tv-2.png",
@@ -1352,15 +1313,10 @@ SEGMENT_CHECK_CHANNELS = {
     "Sky Sports Arena",
     "TNT Sports 3",
     "CNN",
-    "RT France",
-    "ESPN 3",
     "Eurosport 1",
-    "RMC Sport 1",
-    "RMC Sport 2",
     "MTV Hits",
     "M6 Music",
     "Trace Urban",
-    "DAZN 2",
     "DAZN FAST+",
     "Sport TV 1",
     "Sport TV 2",
