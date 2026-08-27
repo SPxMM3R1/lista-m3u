@@ -399,11 +399,11 @@ RED_BULL_WORLD_URL = (
 RED_BULL_CHILE_URL = (
     "https://freqsyndlin.redbull.com/957/rbtv/hls/master/playlist.m3u8"
 )
-# La guia se actualiza junto con la validacion de canales cada 48 horas. Se
+# La guia se actualiza junto con la validacion de canales cada 24 horas. Se
 # conserva la reutilizacion de una guia valida si una ejecucion falla.
-EPG_REFRESH_INTERVAL = timedelta(hours=48)
+EPG_REFRESH_INTERVAL = timedelta(hours=24)
 # El coordinador puede adelantar la siguiente ejecucion cuando una fuente real
-# termina antes de las 48 horas. Los bloques de continuidad no cuentan para
+# termina antes de las 24 horas. Los bloques de continuidad no cuentan para
 # este calculo: solo sirven para que la guia no quede vacia mientras llega el
 # siguiente refresco.
 EPG_REFRESH_LEAD = timedelta(hours=6)

@@ -2,14 +2,14 @@ name: Actualizar M3U y EPG
 
 on:
   schedule:
-    # El disparador corre cada dos dias de calendario; el actualizador completo
-    # se ejecuta solo cuando run-state.json marca 48 horas vencidas.
-    - cron: "0 3 */2 * *"
+    # Un unico disparador diario. El coordinador evita trabajo si la ventana
+    # de 24 horas aun no vencio y mantiene la transicion local/GitHub.
+    - cron: "0 3 * * *"
       timezone: "America/Santiago"
   workflow_dispatch:
     inputs:
       force_run:
-        description: Ejecutar aunque no hayan vencido las 48 horas
+        description: Ejecutar aunque no hayan vencido las 24 horas
         required: false
         default: false
         type: boolean
@@ -46,7 +46,7 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Ejecutar coordinador con ventana dinamica
+      - name: Ejecutar coordinador con ventana diaria
         id: updater
         shell: bash
         run: |

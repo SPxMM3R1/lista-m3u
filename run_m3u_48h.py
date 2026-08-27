@@ -4,7 +4,7 @@
 El mismo coordinador se usa desde Windows y desde GitHub Actions. No publica
 por si mismo: prepara la salida y el estado para que cada ejecutor pueda usar
 su mecanismo de commit y verificacion habitual. El limite normal sigue siendo
-48 horas, pero una guia real que termina antes adelanta la proxima ejecucion.
+24 horas, pero una guia real que termina antes adelanta la proxima ejecucion.
 """
 
 from __future__ import annotations
@@ -30,7 +30,7 @@ OUTPUT_PATHS = (
     PROJECT_ROOT / "epg.xml",
     RESOLVER_CATALOG_PATH,
 )
-INTERVAL = timedelta(hours=48)
+INTERVAL = timedelta(hours=24)
 MINIMUM_INTERVAL = timedelta(hours=6)
 LOCAL_LAST_DAY = date(2026, 9, 1)
 GITHUB_FIRST_DAY = date(2026, 9, 2)
@@ -60,7 +60,7 @@ def load_state() -> dict:
     if not STATE_PATH.exists():
         return {
             "schema": 1,
-            "interval_hours": 48,
+            "interval_hours": 24,
             "last_published_at": None,
             "last_executor": None,
         }
@@ -104,7 +104,7 @@ def epg_next_refresh_at() -> datetime | None:
 
 
 def next_scheduled_at(state: dict, current: datetime) -> datetime:
-    """Return the earlier of the EPG deadline and the 48-hour safety limit."""
+    """Return the earlier of the EPG deadline and the 24-hour safety limit."""
     previous = last_published_at(state)
     if previous is None:
         return current
@@ -134,12 +134,12 @@ def is_due(state: dict, current: datetime, force: bool) -> bool:
 def write_state(current: datetime, executor: str, next_run: datetime) -> None:
     state = {
         "schema": 2,
-        "interval_hours": 48,
+        "interval_hours": 24,
         "minimum_interval_hours": 6,
         "last_published_at": timestamp(current),
         "last_executor": executor,
         "next_scheduled_at": timestamp(next_run),
-        "schedule_basis": "fin de guia real menos 6 horas o limite de 48 horas",
+        "schedule_basis": "fin de guia real menos 6 horas o limite de 24 horas",
     }
     temporary = STATE_PATH.with_suffix(".json.tmp")
     temporary.write_text(
@@ -180,13 +180,13 @@ def run_updater(force_epg: bool) -> int:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Ejecuta la validacion M3U/EPG cuando vencen 48 horas."
+        description="Ejecuta la validacion M3U/EPG cuando vencen 24 horas."
     )
     parser.add_argument("--executor", choices=("local", "github"), required=True)
     parser.add_argument(
         "--force",
         action="store_true",
-        help="ignora el intervalo de 48 horas, sin saltar la ventana local/GitHub",
+        help="ignora el intervalo de 24 horas, sin saltar la ventana local/GitHub",
     )
     parser.add_argument("--force-epg", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
