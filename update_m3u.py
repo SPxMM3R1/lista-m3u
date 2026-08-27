@@ -33,7 +33,7 @@ PUBLIC_RAW_BASE = "https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main"
 EPG_PUBLIC_URL = f"{PUBLIC_RAW_BASE}/epg.xml"
 LOCAL_LOGOS_PUBLIC_BASE = f"{PUBLIC_RAW_BASE}/logos"
 RESOLVER_SCHEMA_VERSION = 1
-RESOLVER_CATALOG_VERSION = "2026.08.26.2"
+RESOLVER_CATALOG_VERSION = "2026.08.26.3"
 ALLOWED_RESOLVER_ENGINES = {"tvn", "meganoticias", "24horas", "tvvoo", "highfly"}
 RESOLVER_ATTRIBUTE_NAMES = (
     "x-resolver",
@@ -53,7 +53,6 @@ HIGHFLY_RESOLVER_CHANNELS = {
     "SkySportsPremierLeague.uk": "now-sky-sports-premier-league",
     "SkySport1.nz": "nz-sky-sport-1",
     "SkySportsTennis.uk": "now-sky-sports-tennis",
-    "SkySportsGolf.uk": "vip-sky-sports-golf",
 }
 
 TEST_GROUP_PREFIX = "PRUEBA - "
@@ -132,10 +131,7 @@ NO_EPG_CHANNEL_IDS.update({
     "Vavoo.bg.MAXSPORT1@TvVoo",
     "Vavoo.bg.STINGRAYICONCERTS@TvVoo",
     "Vavoo.al.SUPERSPORT1@TvVoo",
-    "Vavoo.al.ARENASPORT1@TvVoo",
-    "Vavoo.ar.ALJAZEERAEN@TvVoo",
     "Vavoo.ar.BEINSPORTS1@TvVoo",
-    "Vavoo.ar.MTV00S@TvVoo",
 })
 NHK_MASTER_URL = "https://masterpl.hls.nhkworld.jp/hls/w/live/smarttv.m3u8"
 # EPGShare01 no entregó una parrilla actual para estas pruebas; se mantienen
@@ -206,8 +202,6 @@ CANAL13_13GO_EPG_URLS = {
 SKY_OFFICIAL_EPG_SOURCE = "sky-oficial"
 SKY_OFFICIAL_EPG_SCHEDULE_URL = "https://awk.epgsky.com/hawk/linear/schedule"
 SKY_OFFICIAL_EPG_CHANNELS = {
-    "SkySportsAction.uk@TvVoo": "1343",
-    "SkySportsCricket.uk@TvVoo": "1702",
     "SkySportsMix.uk@TvVoo": "4091",
     "SkySportsNews.uk@TvVoo": "1340",
 }
@@ -217,7 +211,7 @@ AUTENTIC_HISTORY_CHANNEL_ID = "931186243466302968"
 PICKX_EPG_SOURCE = "pickx-dazn-oficial"
 PICKX_EPG_PAGE = "https://www.pickx.be/nl/televisie/tv-gids"
 PICKX_EPG_API_BASE = "https://px-epg.azureedge.net/airings"
-PICKX_EPG_CHANNELS = {"DAZN1.fr@TvVoo": "UID0640"}
+PICKX_EPG_CHANNELS = {}
 EPG_PROGRAMME_SOURCES = {
     "0104": ("cl", "Canal.TVN.(Chile).cl"),
     "0105": ("cl", "Canal.Mega.(Chile).cl"),
@@ -235,25 +229,16 @@ EPG_PROGRAMME_SOURCES = {
     "DWEnglish.de": ("lv", "Deutsche.Welle.English.HD.lv"),
     "France24.fr@English": ("fr", "France.24.Anglais.fr"),
     "ESPN.us": ("us2", "ESPN.HD.us2"),
-    "NHLNetwork.us": ("us2", "NHL.Network.HD.us2"),
     "RewindTV.cl@SD": ("us2", "Rewind.TV.us2"),
     "TyCSports.ar": ("ar1", "Canal.TyC.Sports.ar"),
     "SkySport1.nz": ("nz1", "Sky.Sport.1.nz"),
     "SkySportsF1.uk": ("uk1", "SkySp.F1.HD.uk"),
     "SkySportsPremierLeague.uk": ("uk1", "SkySp.PL.HD.uk"),
     "SkySportsTennis.uk": ("uk1", "SkySp.Tennis.HD.uk"),
-    "SkySportsGolf.uk": ("uk1", "SkySp.Golf.HD.uk"),
-    "SkySportsAction.uk@TvVoo": (SKY_OFFICIAL_EPG_SOURCE, "1343"),
-    "SkySportsCricket.uk@TvVoo": (SKY_OFFICIAL_EPG_SOURCE, "1702"),
     "SkySportsMix.uk@TvVoo": (SKY_OFFICIAL_EPG_SOURCE, "4091"),
     "SkySportsNews.uk@TvVoo": (SKY_OFFICIAL_EPG_SOURCE, "1340"),
     "PremierSports1.ie": ("uk1", "Premier.Sports.1.HD.uk"),
     "PremierSports2.ie": ("uk1", "Premier.Sports.2.HD.uk"),
-    "BeINSportsXtra.us": ("plex1", "plex.tv.beIN.SPORTS.XTRA.plex"),
-    "BeINSportsXtra.us@Spanish": (
-        "plex1",
-        "plex.tv.beIN.Sports.Xtra.en.Español.plex",
-    ),
     "RealWild.us": ("plex1", "plex.tv.Real.Wild.plex"),
     "XITENuevoLatino.us": ("plex1", "plex.tv.XITE.Nuevo.Latino.plex"),
     "XITESiempreLatino.us": ("plex1", "plex.tv.XITE.Siempre.Latino.plex"),
@@ -271,16 +256,10 @@ EPG_PROGRAMME_SOURCES = {
     "TraceUrban.fr@TvVoo": ("fr", "Trace.Urban.fr"),
     "SportTV1.pt@TvVoo": ("pt1", "SPORT.TV1.HD.pt"),
     "SportTV2.pt@TvVoo": ("pt1", "SPORT.TV2.HD.pt"),
-    "ElevenSports1.pt@TvVoo": ("pl", "Eleven.Sports.1.HD.pl"),
-    "ElevenSports2.pt@TvVoo": ("pl", "Eleven.Sports.2.HD.pl"),
     "SkySportsFootball.uk@TvVoo": ("uk1", "Sky.Sports.Football.HD.uk"),
     "SkySportsNFL.uk@TvVoo": ("uk1", "Sky.Sports.NFL.uk"),
     "Eurosport2.es@TvVoo": ("es", "Eurosport.2.es"),
     "DAZN2.es@TvVoo": ("es", "DAZN.2.es"),
-    "DAZNDarts.de@PlutoTV": ("pluto", "64b67f0424ade50008a3be17"),
-    "DAZNHeldinnen.de@PlutoTV": ("pluto", "64afe50c5dc16600087f3227"),
-    "DAZN1.fr@TvVoo": (PICKX_EPG_SOURCE, "UID0640"),
-    "DAZN1.de@TvVoo": ("de", "DAZN.1.de"),
     "Eurosport2.de@TvVoo": ("de", "Eurosport.2.de"),
     "DAZN3.es@TvVoo": ("es", "DAZN.3.es"),
     "DAZNLaliga1.es@TvVoo": ("es", "DAZN.LaLiga.es"),
@@ -519,17 +498,6 @@ TVVOO_STREAM_RESOLVER_IDS = {
         "vavoo_SPORT%20TV%202%7Cgroup%3Apt",
         "vavoo_SPORT%20TV%202%20HD%7Cgroup%3Apt",
     ),
-    "Eleven Sports 1": ("vavoo_ELEVEN%20SPORTS%201%20HD%7Cgroup%3Apt",),
-    "Eleven Sports 2": ("vavoo_ELEVEN%20SPORTS%202%20HD%7Cgroup%3Apt",),
-    "Sky Sports Action": (
-        "vavoo_SKY%20SPORTS%20ACTION%7Cgroup%3Auk",
-        "vavoo_SKY%20SPORT%20ACTION%7Cgroup%3Auk",
-        "vavoo_SKY%20SPORTS%20ACTION%20HD%7Cgroup%3Auk",
-    ),
-    "Sky Sports Cricket": (
-        "vavoo_SKY%20SPORTS%20CRICKET%7Cgroup%3Auk",
-        "vavoo_SKY%20SPORTS%20CRICKET%20HD%7Cgroup%3Auk",
-    ),
     "Sky Sports Football": (
         "vavoo_SKY%20SPORTS%20FOOTBALL%7Cgroup%3Auk",
         "vavoo_SKY%20SPORTS%20FOOTBALL%20HD%7Cgroup%3Auk",
@@ -556,7 +524,6 @@ TVVOO_STREAM_RESOLVER_IDS = {
         "vavoo_EUROSPORT%202%20HD%7Cgroup%3Aes",
         "vavoo_EUROSPORT%202%20FHD%7Cgroup%3Aes",
     ),
-    "DAZN 1 France": ("vavoo_DAZN%201%7Cgroup%3Afr",),
     "DAZN Ligue 1 Live 1": (
         "vavoo_DAZN%20LIGUE%201%20LIVE%201%20FHD%7Cgroup%3Afr",
     ),
@@ -568,10 +535,6 @@ TVVOO_STREAM_RESOLVER_IDS = {
     ),
     "DAZN Ligue 1 Live 4": (
         "vavoo_DAZN%20LIGUE%201%20LIVE%204%20HD%7Cgroup%3Afr",
-    ),
-    "DAZN 1 Germany": (
-        "vavoo_DAZN%201%7Cgroup%3Ade",
-        "vavoo_DAZN%201%20HD%7Cgroup%3Ade",
     ),
     "Eurosport 2 Germany": (
         "vavoo_EUROSPORT%202%7Cgroup%3Ade",
@@ -704,10 +667,7 @@ TVVOO_STREAM_RESOLVER_IDS.update({
     "Max Sport 1 Bulgaria": ("vavoo_MAX%20SPORT%201%7Cgroup%3Abg",),
     "Stingray iConcerts Bulgaria": ("vavoo_STINGRAY%20ICONCERTS%7Cgroup%3Abg",),
     "SuperSport 1 Albania": ("vavoo_SUPERSPORT%201%7Cgroup%3Aal",),
-    "Arena Sport 1 Albania": ("vavoo_ARENA%20SPORT%201%7Cgroup%3Aal",),
-    "Al Jazeera English MENA": ("vavoo_AL%20JAZEERA%20EN%7Cgroup%3Aar",),
     "beIN Sports 1 MENA": ("vavoo_BEIN%20SPORTS%201%20HD%7Cgroup%3Aar", "vavoo_BEIN%20SPORTS%201%7Cgroup%3Aar", "vavoo_BEIN%20SPORTS%201%20SD%7Cgroup%3Aar",),
-    "MTV 00s MENA": ("vavoo_MTV%2000S%7Cgroup%3Aar",),
 })
 
 
@@ -901,16 +861,12 @@ PREFERRED_LOGOS = {
     "Premier Sports 2": f"{LOCAL_LOGOS_PUBLIC_BASE}/premier-sports-2.png",
     "Sky Sport 1 NZ": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sport-1-nz.png",
     "Sky Sports Tennis": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-tennis.png",
-    "Sky Sports Golf": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-golf.png",
     "Totalmusic 80s": f"{LOCAL_LOGOS_PUBLIC_BASE}/totalmusic-80s.png",
     "Totalmusic 2000s": f"{LOCAL_LOGOS_PUBLIC_BASE}/totalmusic-2000s.png",
     "Totalmusic Concerts": f"{LOCAL_LOGOS_PUBLIC_BASE}/totalmusic-concerts.png",
     "Totalmusic Dance": f"{LOCAL_LOGOS_PUBLIC_BASE}/totalmusic-dance.png",
     "Reuters": f"{LOCAL_LOGOS_PUBLIC_BASE}/reuters.png",
     "Real Wild": f"{LOCAL_LOGOS_PUBLIC_BASE}/real-wild.png",
-    "beIN SPORTS XTRA": f"{LOCAL_LOGOS_PUBLIC_BASE}/bein-sports-xtra.jpg",
-    "beIN SPORTS XTRA Español": f"{LOCAL_LOGOS_PUBLIC_BASE}/bein-sports-xtra-es.jpg",
-    "NHL Network": f"{LOCAL_LOGOS_PUBLIC_BASE}/nhl-network.png",
     "TyC Sports": f"{LOCAL_LOGOS_PUBLIC_BASE}/tyc-sports.png",
     "Sky Sports Main Event": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-main-event.png",
     "Sky Sports Arena": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports.svg",
@@ -923,10 +879,6 @@ PREFERRED_LOGOS = {
     "DAZN FAST+": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn-fast.png",
     "Sport TV 1": f"{LOCAL_LOGOS_PUBLIC_BASE}/sport-tv-1.png",
     "Sport TV 2": f"{LOCAL_LOGOS_PUBLIC_BASE}/sport-tv-2.png",
-    "Eleven Sports 1": f"{LOCAL_LOGOS_PUBLIC_BASE}/eleven-sports-1.png",
-    "Eleven Sports 2": f"{LOCAL_LOGOS_PUBLIC_BASE}/eleven-sports-2.png",
-    "Sky Sports Action": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports.svg",
-    "Sky Sports Cricket": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports.svg",
     "Sky Sports Football": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports.svg",
     "Sky Sports Mix": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports.svg",
     "Sky Sports News": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports.svg",
@@ -941,12 +893,10 @@ PREFERRED_LOGOS = {
     "Eurosport 2 España": f"{LOCAL_LOGOS_PUBLIC_BASE}/eurosport.svg",
     "Eurosport 2 Germany": f"{LOCAL_LOGOS_PUBLIC_BASE}/eurosport.svg",
     "Eurosport 2 Italia": f"{LOCAL_LOGOS_PUBLIC_BASE}/eurosport.svg",
-    "DAZN 1 France": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
     "DAZN Ligue 1 Live 1": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
     "DAZN Ligue 1 Live 2": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
     "DAZN Ligue 1 Live 3": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
     "DAZN Ligue 1 Live 4": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
-    "DAZN 1 Germany": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
     "DAZN 3 España": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
     "DAZN 2 España": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
     "DAZN LaLiga 1": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
@@ -958,8 +908,6 @@ PREFERRED_LOGOS = {
     "DAZN 5 Portugal": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
     "DAZN 6 Portugal": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
     "DAZN 1 Italia": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
-    "DAZN Darts x Pluto TV": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
-    "DAZN Heldinnen x Pluto TV": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
     "TNT Sports 1": f"{LOCAL_LOGOS_PUBLIC_BASE}/tnt-sports-1.png",
     "NRJ Hits": f"{LOCAL_LOGOS_PUBLIC_BASE}/nrj-hits.png",
     "MCM": f"{LOCAL_LOGOS_PUBLIC_BASE}/mcm.png",
@@ -1102,14 +1050,6 @@ CONTINUOUS_PROGRAMME_DETAILS = {
     "Autentic History": (
         "Live",
         "",
-    ),
-    "Sky Sports Action": (
-        "Sky Sports Action en vivo",
-        "Senal deportiva continua; TvVoo no publica una parrilla XMLTV estable para esta senal.",
-    ),
-    "Sky Sports Cricket": (
-        "Sky Sports Cricket en vivo",
-        "Senal deportiva continua; TvVoo no publica una parrilla XMLTV estable para esta senal.",
     ),
     "Sky Sports Mix": (
         "Sky Sports Mix en vivo",
@@ -1320,22 +1260,16 @@ SEGMENT_CHECK_CHANNELS = {
     "DAZN FAST+",
     "Sport TV 1",
     "Sport TV 2",
-    "Eleven Sports 1",
-    "Eleven Sports 2",
-    "Sky Sports Action",
-    "Sky Sports Cricket",
     "Sky Sports Football",
     "Sky Sports NFL",
     "Sky Sports Mix",
     "Sky Sports News",
     "Eurosport 2 UK",
     "Eurosport 2 España",
-    "DAZN 1 France",
     "DAZN Ligue 1 Live 1",
     "DAZN Ligue 1 Live 2",
     "DAZN Ligue 1 Live 3",
     "DAZN Ligue 1 Live 4",
-    "DAZN 1 Germany",
     "Eurosport 2 Germany",
     "DAZN 3 España",
     "DAZN 2 España",
@@ -1355,8 +1289,6 @@ SEGMENT_CHECK_CHANNELS = {
     "Sky Sport MotoGP Italia",
     "Sky Sport NBA Italia",
     "Sky Sport Uno Italia",
-    "DAZN Darts x Pluto TV",
-    "DAZN Heldinnen x Pluto TV",
     "TNT Sports 1",
     "NRJ Hits",
     "MCM",
@@ -1373,11 +1305,8 @@ SEGMENT_CHECK_CHANNELS = {
 # Las nuevas pruebas deben pasar master, variante y primer segmento en cada
 # ejecución antes de que el updater las considere publicables.
 SEGMENT_CHECK_CHANNELS.update({
-    "Arena Sport 1 Albania",
     "SuperSport 1 Albania",
-    "Al Jazeera English MENA",
     "beIN Sports 1 MENA",
-    "MTV 00s MENA",
     "Max Sport 1 Bulgaria",
     "Stingray iConcerts Bulgaria",
     "Arena Sport 1 Balcanes",
@@ -3474,7 +3403,7 @@ def fetch_autentic_history_epg(
 def fetch_pickx_dazn_epg(
     channels: list[Channel], now: datetime
 ) -> tuple[bytes | None, str | None]:
-    """Import DAZN 1 France from Pickx's public, versioned EPG endpoint."""
+    """Import the optional Pickx guide when a channel is configured."""
     targets = {
         channel.tvg_id: PICKX_EPG_CHANNELS[channel.tvg_id]
         for channel in channels
@@ -4127,9 +4056,6 @@ def build_epg(
         },
         AUTENTIC_HISTORY_EPG_SOURCE: {
             "AutenticHistory.de": AUTENTIC_HISTORY_CHANNEL_ID,
-        },
-        PICKX_EPG_SOURCE: {
-            "DAZN1.fr@TvVoo": PICKX_EPG_CHANNELS["DAZN1.fr@TvVoo"],
         },
     }
     for source_name, target_mappings in source_overrides.items():
