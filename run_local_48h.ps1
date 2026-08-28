@@ -6,8 +6,6 @@ param(
 $ErrorActionPreference = 'Stop'
 $projectRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $taskName = 'Lista M3U - actualizador local 48h'
-$githubRepository = 'SPxMM3R1/lista-m3u'
-$githubWorkflow = 'update-m3u.yml'
 $logDirectory = Join-Path $projectRoot '.local-run'
 $logPath = Join-Path $logDirectory 'latest.log'
 $windowsPowerShell = Join-Path $env:SystemRoot 'System32\WindowsPowerShell\v1.0\powershell.exe'
@@ -77,33 +75,6 @@ function Register-NextLocalRun {
         -Description 'La reprogramacion local dinamica'
 }
 
-$today = (Get-Date).Date
-if ($today -ge [datetime]'2026-09-02') {
-    try {
-        $ghCommand = Get-Command gh -ErrorAction SilentlyContinue
-        $ghCandidates = @(
-            $(if ($ghCommand) { $ghCommand.Source }),
-            (Join-Path $env:ProgramFiles 'GitHub CLI\gh.exe'),
-            (Join-Path $env:LOCALAPPDATA 'Programs\GitHub CLI\gh.exe')
-        )
-        $ghPath = Resolve-Executable -Candidates $ghCandidates -Label 'GitHub CLI'
-        Invoke-LoggedNative `
-            -Executable $ghPath `
-            -Arguments @('workflow', 'enable', $githubWorkflow, '--repo', $githubRepository) `
-            -Description 'La reactivacion de GitHub Actions'
-        Add-Content -LiteralPath $logPath -Value "[$(Get-Date -Format o)] GitHub Actions reactivado: $githubWorkflow."
-        Disable-ScheduledTask -TaskName $taskName -ErrorAction Stop | Out-Null
-        Add-Content -LiteralPath $logPath -Value "[$(Get-Date -Format o)] Tarea local deshabilitada tras reactivar GitHub."
-        exit 0
-    } catch {
-        $errorMessage = $_.Exception.Message
-        if (-not $errorMessage) { $errorMessage = $_.ToString() }
-        Add-Content -LiteralPath $logPath -Value "[$(Get-Date -Format o)] ERROR al reactivar GitHub o deshabilitar la tarea: $errorMessage"
-        Write-Error -Message $errorMessage
-        exit 1
-    }
-}
-
 Push-Location $projectRoot
 try {
     "[$(Get-Date -Format o)] Inicio del ejecutor local" | Set-Content -LiteralPath $logPath -Encoding UTF8
@@ -168,6 +139,7 @@ try {
     $changedPaths = @(& $gitPath diff --name-only)
     $allowedPaths = @(
         'm3u.m3u',
+        'channel-catalog.m3u',
         'epg.xml',
         'resolver-catalog.json',
         'channel-health-state.json',
@@ -182,6 +154,7 @@ try {
         'add',
         '--',
         'm3u.m3u',
+        'channel-catalog.m3u',
         'epg.xml',
         'resolver-catalog.json',
         'channel-health-state.json',

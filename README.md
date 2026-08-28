@@ -90,41 +90,35 @@ Cada ejecucion completa:
   horas manualmente;
 - publica `channel-status.json` y un informe Markdown como artefactos de cada
   ejecucion; tambien conserva un issue de GitHub con el historial detallado.
-- conserva un canal directo caido como temporalmente no disponible sin
-  congelar las otras actualizaciones; si falla simultaneamente al menos el 25%
-  de las fuentes directas (con un minimo de cinco), bloquea la publicacion como
-  posible problema sistemico del runner o de red.
+- retira temporalmente de `m3u.m3u` cualquier canal que siga fallando despues
+  de validar HLS, reintentar y buscar reparaciones; `channel-catalog.m3u`
+  conserva el inventario completo para volver a probarlo y reactivarlo en la
+  siguiente ejecucion;
+- si falla simultaneamente al menos el 25% de las fuentes directas o de todo el
+  catalogo, bloquea la publicacion como posible problema sistemico del runner,
+  de red o del proveedor, en vez de retirar canales masivamente.
 
-El coordinador `run_m3u_48h.py` conserva `run-state.json` para que el cambio
-entre ejecutor local y GitHub sea transparente. Elige la primera de estas
+El coordinador `run_m3u_48h.py` conserva `run-state.json`. Elige la primera de estas
 ventanas: el fin de la guia real menos seis horas o el limite de 12 horas desde
 la ultima publicacion. Nunca programa dos ejecuciones con menos de seis horas
-de separacion. Durante la ventana local hasta el 1 de septiembre de 2026 se
-puede registrar `register_local_48h_task.ps1`; la tarea usa un disparador unico
-y se vuelve a registrar al terminar cada ejecucion. Desde el 2 de septiembre
-GitHub Actions retoma el mismo flujo.
+de separacion. GitHub Actions es el ejecutor principal desde ahora. La tarea
+local queda deshabilitada y los scripts locales se conservan solamente como
+respaldo manual; no deben ejecutarse al mismo tiempo que el cron remoto.
 
 GitHub conserva dos disparadores diarios, a las 00:00 y 12:00 (hora de
 Santiago). Cada cron ejecuta una sola validacion coordinada de streams, logos,
 EPG y resolutores; la compuerta de `run-state.json` evita trabajo duplicado.
 GitHub puede iniciar unos minutos despues porque los cron son best effort.
 
-Durante esta ventana, los cron de GitHub quedan en espera para no consumir cuota.
-El programador local contiene un disparador puntual para reactivarlo el 2 de
-septiembre de 2026 a las 03:05 (hora local), y luego se deshabilita a si mismo.
-
 TVN y Meganoticias conservan sus maestros oficiales. Actions no interviene en
 la autenticacion de reproduccion; esa responsabilidad corresponde a la app.
-Mega y La Red publican sus maestros oficiales directos. El PC solo necesita
-estar disponible durante la ventana local; despues del 2 de septiembre el
-ejecutor vuelve a ser GitHub Actions.
+Mega y La Red publican sus maestros oficiales directos. El PC no necesita
+estar encendido para el mantenimiento normal.
 
 La guia conserva datos vigentes si una fuente externa falla temporalmente. La
 ejecucion tambien puede iniciarse manualmente desde la pestana **Actions** con
 el workflow **Actualizar M3U y EPG**. `force_run` omite la ventana dinamica y
 `force_epg_refresh` fuerza la descarga de las fuentes EPG.
-La entrada manual `allow_before_september` solo autoriza pruebas expresas antes
-del 2 de septiembre; los disparadores programados permanecen bloqueados.
 
 Todos los logos de los canales se conservan dentro de `logos/` y la M3U y el
 EPG apuntan a las copias publicadas en este repositorio. Los logos vectoriales
@@ -140,8 +134,11 @@ disponible sin depender de servidores externos.
 
 ## Canales
 
-La lista contiene 176 canales: nacionales, noticias, miscelaneos chilenos,
-noticias internacionales, documentales, conciertos, musica y deportes.
+El catalogo contiene 154 candidatos: nacionales, noticias, miscelaneos
+chilenos, noticias internacionales, documentales, conciertos, musica y
+deportes. El numero visible en `m3u.m3u` puede ser menor en una ejecucion si
+algunos candidatos agotaron sus reintentos; vuelven automaticamente cuando la
+validacion completa responde.
 
 TVN y Mega se actualizan desde sus parrillas oficiales cuando estan
 disponibles. Para T13 no se encontro una parrilla oficial diaria de la senal

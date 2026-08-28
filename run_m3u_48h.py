@@ -14,9 +14,8 @@ import json
 import os
 import subprocess
 import sys
-from datetime import date, datetime, timedelta, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 import xml.etree.ElementTree as ET
 
 
@@ -27,19 +26,12 @@ EPG_PATH = PROJECT_ROOT / "epg.xml"
 RESOLVER_CATALOG_PATH = PROJECT_ROOT / "resolver-catalog.json"
 OUTPUT_PATHS = (
     PROJECT_ROOT / "m3u.m3u",
+    PROJECT_ROOT / "channel-catalog.m3u",
     PROJECT_ROOT / "epg.xml",
     RESOLVER_CATALOG_PATH,
 )
 INTERVAL = timedelta(hours=12)
 MINIMUM_INTERVAL = timedelta(hours=6)
-LOCAL_LAST_DAY = date(2026, 9, 1)
-GITHUB_FIRST_DAY = date(2026, 9, 2)
-try:
-    CHILE_TIMEZONE = ZoneInfo("America/Santiago")
-except ZoneInfoNotFoundError:
-    CHILE_TIMEZONE = timezone(timedelta(hours=-4))
-
-
 def now_utc() -> datetime:
     return datetime.now(timezone.utc).replace(microsecond=0)
 
@@ -186,17 +178,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--force",
         action="store_true",
-        help="ignora el intervalo de 12 horas, sin saltar la ventana local/GitHub",
+        help="ignora el intervalo de 12 horas",
     )
     parser.add_argument("--force-epg", action="store_true")
-    parser.add_argument(
-        "--allow-before-github-window",
-        action="store_true",
-        help=(
-            "permite una prueba manual de GitHub antes del 2026-09-02; "
-            "no debe usarse desde el cron"
-        ),
-    )
     parser.add_argument("--dry-run", action="store_true")
     return parser.parse_args()
 
@@ -204,36 +188,9 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     args = parse_args()
     current = now_utc()
-    chile_day = current.astimezone(CHILE_TIMEZONE).date()
 
     write_github_output("ran", "false")
     write_github_output("due", "false")
-
-    if args.executor == "local" and chile_day >= GITHUB_FIRST_DAY:
-        print(
-            f"Ventana local finalizada el {LOCAL_LAST_DAY.isoformat()}; "
-            "GitHub queda como ejecutor desde el 2026-09-02."
-        )
-        return 0
-    if (
-        args.executor == "github"
-        and chile_day < GITHUB_FIRST_DAY
-        and not args.allow_before_github_window
-    ):
-        print(
-            "Ventana GitHub en espera hasta el 2026-09-02; no se consume "
-            "la ejecucion de actualizacion."
-        )
-        return 0
-    if (
-        args.executor == "github"
-        and chile_day < GITHUB_FIRST_DAY
-        and args.allow_before_github_window
-    ):
-        print(
-            "Prueba manual anticipada autorizada; los cron siguen en espera "
-            "hasta el 2026-09-02."
-        )
 
     state = load_state()
     previous = last_published_at(state)
@@ -258,8 +215,8 @@ def main() -> int:
     if return_code != 0:
         restore_outputs(snapshots)
         print(
-            "El actualizador fallo; se conservaron m3u.m3u, epg.xml y "
-            "resolver-catalog.json anteriores.",
+            "El actualizador fallo; se conservaron m3u.m3u, "
+            "channel-catalog.m3u, epg.xml y resolver-catalog.json anteriores.",
             file=sys.stderr,
         )
         return return_code

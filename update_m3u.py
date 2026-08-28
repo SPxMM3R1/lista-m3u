@@ -26,6 +26,7 @@ from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 
 DEFAULT_PLAYLIST = Path(__file__).with_name("m3u.m3u")
+CHANNEL_CATALOG_PATH = Path(__file__).with_name("channel-catalog.m3u")
 EPG_PATH = Path(__file__).with_name("epg.xml")
 REPORT_PATH = Path(__file__).with_name("channel-status.json")
 HEALTH_STATE_PATH = Path(__file__).with_name("channel-health-state.json")
@@ -409,7 +410,7 @@ RED_BULL_CHILE_URL = (
 # La guia se actualiza junto con la validacion de canales cada 12 horas. Se
 # conserva la reutilizacion de una guia valida si una ejecucion falla.
 EPG_REFRESH_INTERVAL = timedelta(hours=12)
-HEALTH_FAILURE_THRESHOLD = 3
+HEALTH_FAILURE_THRESHOLD = 1
 PUBLISHED_EPG_FALLBACK_SOURCE = "epg-publicada-conservada"
 # El coordinador puede adelantar la siguiente ejecucion cuando una fuente real
 # termina antes de las 12 horas. Los bloques de continuidad no cuentan para
@@ -1422,6 +1423,22 @@ def parse_channels(lines: list[str]) -> list[Channel]:
         else:
             raise ValueError(f"{name}: falta la URL al final del archivo")
     return channels
+
+
+def filter_playlist_to_working_channels(
+    lines: list[str], channels: list[Channel], working_names: set[str]
+) -> list[str]:
+    """Build the public playlist while retaining every candidate elsewhere.
+
+    ``channel-catalog.m3u`` remains the canonical inventory. Only the EXTINF
+    and URL lines of a failed candidate are omitted here, so comments and
+    thematic separators remain stable in the public playlist.
+    """
+    omitted_indexes: set[int] = set()
+    for channel in channels:
+        if channel.name not in working_names:
+            omitted_indexes.update((channel.info_line, channel.url_line))
+    return [line for index, line in enumerate(lines) if index not in omitted_indexes]
 
 
 def resolver_attributes_for(channel: Channel) -> dict[str, str]:
@@ -5185,9 +5202,10 @@ def write_report(
 ) -> dict:
     """Write a token-free run report and update persistent channel health.
 
-    A failed fallback is informational when the channel has an on-play
-    resolver. An isolated direct failure is published as unavailable so it
-    cannot freeze every other update; a systemic direct outage still blocks.
+    A channel that exhausts all retries is removed from the public playlist for
+    this run, including resolver-managed fallbacks. The canonical catalogue
+    retains it for the next run. A systemic outage still blocks publication so
+    a runner or provider incident cannot empty a large part of the playlist.
     """
 
     def safe_detail(value: str) -> str:
@@ -5226,7 +5244,6 @@ def write_report(
         old_failures = int(old.get("consecutive_failures", 0) or 0)
         attributes = resolver_attributes_for(channel)
         resolver = attributes.get("x-resolver")
-        resolved_by_app = bool(resolver)
         ok = bool(result and result.ok)
         failures = 0 if ok else old_failures + 1
 
@@ -5237,16 +5254,12 @@ def write_report(
                 status = "renewed"
             else:
                 status = "functional"
-        elif resolved_by_app:
-            status = "resolver_required"
-        elif failures >= HEALTH_FAILURE_THRESHOLD:
-            status = "temporarily_unavailable"
         else:
-            status = "intermittent"
+            status = "temporarily_unavailable"
 
-        # Un canal individual caído se conserva para que las demás fuentes y
-        # la EPG puedan actualizarse. Solo una caída sistémica de muchas
-        # fuentes directas bloqueará la publicación completa.
+        # Un fallo individual no congela las demás fuentes: se retira solo de
+        # la M3U pública y permanece en el catálogo canónico. Una caída
+        # sistémica bloquea la publicación completa.
         blocking = False
         previous_status = str(old.get("status", "new"))
         last_ok_at = checked_at if ok else old.get("last_ok_at")
@@ -5315,11 +5328,32 @@ def write_report(
         entry for entry in health_entries if entry["resolver"] == "direct"
     ]
     direct_failures = [entry for entry in direct_entries if not entry["ok"]]
+    all_failures = [entry for entry in health_entries if not entry["ok"]]
     systemic_threshold = max(5, (len(direct_entries) + 3) // 4)
     systemic_direct_failure = len(direct_failures) >= systemic_threshold
-    if systemic_direct_failure:
-        for entry in direct_failures:
+    systemic_all_threshold = max(10, (len(health_entries) + 3) // 4)
+    systemic_all_failure = len(all_failures) >= systemic_all_threshold
+    if systemic_direct_failure or systemic_all_failure:
+        for entry in all_failures:
             entry["blocking"] = True
+    for entry in health_entries:
+        if systemic_direct_failure or systemic_all_failure:
+            entry["published"] = None
+            entry["publication_action"] = "unchanged_systemic_guard"
+        elif entry["ok"]:
+            entry["published"] = True
+            entry["publication_action"] = (
+                "reactivated"
+                if entry["previous_status"] in {
+                    "intermittent",
+                    "temporarily_unavailable",
+                    "resolver_required",
+                }
+                else "published"
+            )
+        else:
+            entry["published"] = False
+            entry["publication_action"] = "temporarily_removed"
     blocking_failures = [entry for entry in health_entries if entry["blocking"]]
     degraded_channels = [
         entry
@@ -5362,6 +5396,21 @@ def write_report(
             "resolver_degradations": len(degraded_channels),
             "systemic_direct_failure": systemic_direct_failure,
             "systemic_direct_failure_threshold": systemic_threshold,
+            "systemic_all_failure": systemic_all_failure,
+            "systemic_all_failure_threshold": systemic_all_threshold,
+            "published_channels": sum(
+                1 for entry in health_entries if entry["published"] is True
+            ),
+            "temporarily_removed": sum(
+                1
+                for entry in health_entries
+                if entry["publication_action"] == "temporarily_removed"
+            ),
+            "reactivated": sum(
+                1
+                for entry in health_entries
+                if entry["publication_action"] == "reactivated"
+            ),
             "removed_since_previous_run": len(removed_channels),
             "status_counts": status_counts,
         },
@@ -5370,6 +5419,11 @@ def write_report(
         "blocking_failures": blocking_failures,
         "direct_failures": direct_failures,
         "degraded_channels": degraded_channels,
+        "temporarily_removed": [
+            entry
+            for entry in health_entries
+            if entry["publication_action"] == "temporarily_removed"
+        ],
         "removed_channels": removed_channels,
         "logos": logo_entries,
     }
@@ -5453,9 +5507,18 @@ def main() -> int:
         validate_resolver_contract(lines)
         return 0
 
+    source_playlist = (
+        CHANNEL_CATALOG_PATH
+        if playlist == DEFAULT_PLAYLIST.resolve() and CHANNEL_CATALOG_PATH.exists()
+        else playlist
+    )
+    lines = source_playlist.read_text(encoding="utf-8-sig").splitlines()
+
     epg_url_changed = ensure_playlist_epg_url(lines)
     if epg_url_changed:
-        playlist.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
+        source_playlist.write_text(
+            "\n".join(lines) + "\n", encoding="utf-8", newline="\n"
+        )
         if epg_url_changed:
             print("Cabecera M3U enlazada a la guia EPG publicada en GitHub")
     news_order_changed = pin_news_channel_order(lines)
@@ -5466,7 +5529,9 @@ def main() -> int:
         or preferred_logo_changed
         or resolver_changed
     ):
-        playlist.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
+        source_playlist.write_text(
+            "\n".join(lines) + "\n", encoding="utf-8", newline="\n"
+        )
         print("Cambios de lista y maestros originales guardados")
     write_resolver_catalog()
     validate_resolver_contract(lines)
@@ -5486,7 +5551,10 @@ def main() -> int:
         guide_type = epg_status.get("guide_types", {}).get(channel.tvg_id, "sin datos")
         print(f"  [EPG] {channel.name}: {guide_type}")
 
-    print(f"Revisando {len(channels)} canales de {playlist.name}")
+    print(
+        f"Revisando {len(channels)} candidatos de {source_playlist.name} "
+        f"para publicar {playlist.name}"
+    )
     running_in_ci = os.environ.get("CI", "").lower() == "true"
     allow_geo_restricted = running_in_ci or (
         os.environ.get("M3U_ALLOW_GEO_RESTRICTED", "").lower() == "true"
@@ -5548,11 +5616,13 @@ def main() -> int:
     ]
     refresh_changed = bool(refreshed_channels)
     if refresh_changed:
-        playlist.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
+        source_playlist.write_text(
+            "\n".join(lines) + "\n", encoding="utf-8", newline="\n"
+        )
     tvn_refreshed = "TVN" in refreshed_channels
 
     print("Verificacion final de la lista completa")
-    final_lines = playlist.read_text(encoding="utf-8-sig").splitlines()
+    final_lines = source_playlist.read_text(encoding="utf-8-sig").splitlines()
     final_channels = parse_channels(final_lines)
     results = verify_all(final_channels, allow_ci_geo_block=allow_geo_restricted)
     repaired_channels = repair_failed_channels(
@@ -5562,10 +5632,10 @@ def main() -> int:
         allow_ci_geo_block=allow_geo_restricted,
     )
     if repaired_channels:
-        playlist.write_text(
+        source_playlist.write_text(
             "\n".join(final_lines) + "\n", encoding="utf-8", newline="\n"
         )
-        final_lines = playlist.read_text(encoding="utf-8-sig").splitlines()
+        final_lines = source_playlist.read_text(encoding="utf-8-sig").splitlines()
         final_channels = parse_channels(final_lines)
         print("Verificacion posterior a las reparaciones")
         results = verify_all(final_channels, allow_ci_geo_block=allow_geo_restricted)
@@ -5581,6 +5651,27 @@ def main() -> int:
         epg_status,
         refreshed_channels=refreshed_channels,
     )
+    if report["publication_ready"]:
+        working_names = {result.channel for result in results if result.ok}
+        public_lines = filter_playlist_to_working_channels(
+            final_lines, final_channels, working_names
+        )
+        playlist.write_text(
+            "\n".join(public_lines) + "\n", encoding="utf-8", newline="\n"
+        )
+        temporarily_removed = [
+            channel.name for channel in final_channels if channel.name not in working_names
+        ]
+        if temporarily_removed:
+            print(
+                "Retirados temporalmente de la M3U publica tras agotar "
+                "reintentos: " + ", ".join(temporarily_removed),
+                file=sys.stderr,
+            )
+        print(
+            f"M3U publica: {len(working_names)} canales activos; "
+            f"catalogo de reintento: {len(final_channels)} candidatos"
+        )
     failed = [entry["name"] for entry in report["blocking_failures"]]
     direct_failed = [entry["name"] for entry in report["direct_failures"]]
     degraded = [entry["name"] for entry in report["degraded_channels"]]
@@ -5588,13 +5679,14 @@ def main() -> int:
     epg_failed = not bool(epg_status.get("ok"))
     if degraded:
         print(
-            "Respaldos degradados, recuperables por resolutor al reproducir: "
+            "Respaldos degradados retirados temporalmente; el resolutor y el "
+            "catalogo los volveran a intentar: "
             + ", ".join(degraded),
             file=sys.stderr,
         )
     if direct_failed:
         print(
-            "Canales directos conservados como no disponibles: "
+            "Canales directos retirados temporalmente de la M3U publica: "
             + ", ".join(direct_failed),
             file=sys.stderr,
         )
@@ -5608,10 +5700,9 @@ def main() -> int:
         return 1
     working = sum(1 for result in results if result.ok)
     print(
-        f"Lista publicable: {working} fuentes funcionales, "
-        f"{len(degraded)} renovables por resolutor y "
-        f"{len(direct_failed)} directas temporalmente no disponibles "
-        f"({len(results)} total)"
+        f"Lista publicable: {working} canales activos y "
+        f"{len(results) - working} retirados temporalmente "
+        f"({len(results)} candidatos conservados)"
     )
     return 0
 

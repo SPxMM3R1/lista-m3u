@@ -18,11 +18,6 @@ on:
         required: false
         default: false
         type: boolean
-      allow_before_september:
-        description: Autorizar una prueba manual antes del 2 de septiembre
-        required: false
-        default: false
-        type: boolean
   push:
     branches:
       - main
@@ -63,9 +58,6 @@ jobs:
           if [ "${{ inputs.force_epg_refresh }}" = "true" ]; then
             args+=(--force-epg)
           fi
-          if [ "${{ inputs.allow_before_september }}" = "true" ]; then
-            args+=(--allow-before-github-window)
-          fi
           set +e
           python "${args[@]}"
           status=$?
@@ -77,7 +69,7 @@ jobs:
         if: steps.updater.outputs.status == '0' && steps.updater.outputs.ran == 'true'
         shell: bash
         run: |
-          if [ -z "$(git status --porcelain -- m3u.m3u epg.xml resolver-catalog.json channel-health-state.json run-state.json)" ]; then
+          if [ -z "$(git status --porcelain -- m3u.m3u channel-catalog.m3u epg.xml resolver-catalog.json channel-health-state.json run-state.json)" ]; then
             echo "La lista, la guia, la salud y el catalogo de resolutores ya estaban al dia."
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
@@ -85,7 +77,7 @@ jobs:
           fi
           git config user.name "Actualizador M3U"
           git config user.email "m3u-bot@users.noreply.github.com"
-          git add m3u.m3u epg.xml resolver-catalog.json channel-health-state.json run-state.json
+          git add m3u.m3u channel-catalog.m3u epg.xml resolver-catalog.json channel-health-state.json run-state.json
           git commit -m "Actualiza M3U, EPG y resolutores automaticamente [skip ci]"
           git push origin HEAD:main
           echo "changed=true" >> "$GITHUB_OUTPUT"
@@ -146,6 +138,7 @@ jobs:
             return 1
           }
           verify_exact m3u.m3u || RAW_EXIT=1
+          verify_exact channel-catalog.m3u || RAW_EXIT=1
           verify_exact epg.xml || RAW_EXIT=1
           verify_exact resolver-catalog.json || RAW_EXIT=1
           verify_exact channel-health-state.json || RAW_EXIT=1
@@ -176,6 +169,7 @@ jobs:
             return 1
           }
           check_raw m3u.m3u '#EXTM3U' || RAW_EXIT=1
+          check_raw channel-catalog.m3u '#EXTM3U' || RAW_EXIT=1
           check_raw epg.xml '<?xml' || RAW_EXIT=1
           check_raw resolver-catalog.json '"schemaVersion": 1' || RAW_EXIT=1
           check_raw channel-health-state.json '"schema": 1' || RAW_EXIT=1

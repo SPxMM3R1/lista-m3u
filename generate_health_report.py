@@ -77,6 +77,9 @@ def render(report: dict) -> str:
             "## Resumen",
             "",
             f"- Canales revisados: **{summary.get('total_channels', len(channels))}**.",
+            f"- Canales publicados: **{summary.get('published_channels', 0)}**.",
+            f"- Retirados temporalmente tras agotar reintentos: **{summary.get('temporarily_removed', 0)}**.",
+            f"- Reactivados en esta ejecución: **{summary.get('reactivated', 0)}**.",
             f"- Fuentes directas temporalmente no disponibles: **{summary.get('direct_failures', 0)}**.",
             f"- Fallos sistémicos que bloquean publicación: **{summary.get('blocking_failures', 0)}**.",
             f"- Respaldos degradados recuperables por resolutor: **{summary.get('resolver_degradations', 0)}**.",
@@ -115,8 +118,8 @@ def render(report: dict) -> str:
             "",
             "## Detalle por canal",
             "",
-            "| Estado | Canal | tvg-id | Grupo | Fuente | Fallos seguidos | Diagnóstico |",
-            "|---|---|---|---|---|---:|---|",
+            "| Estado | Publicación | Canal | tvg-id | Grupo | Fuente | Fallos seguidos | Diagnóstico |",
+            "|---|---|---|---|---|---|---:|---|",
         ]
     )
     for item in channels:
@@ -126,6 +129,7 @@ def render(report: dict) -> str:
             + " | ".join(
                 [
                     STATUS_LABELS.get(status, status.upper()),
+                    cell(item.get("publication_action", "sin cambio")),
                     cell(item.get("name")),
                     cell(item.get("tvg_id")),
                     cell(item.get("group")),
@@ -142,10 +146,10 @@ def render(report: dict) -> str:
             "",
             "## Criterio de mantenimiento",
             "",
-            "- Un fallo directo individual conserva el canal como temporalmente no disponible y no congela las demás actualizaciones.",
-            "- Una caída simultánea de al menos el 25% de las fuentes directas, con un mínimo de cinco, sí bloquea la publicación como posible fallo sistémico del runner o la red.",
-            "- Un respaldo TvVoo, Highfly, TVN, 24 Horas o Meganoticias puede figurar como `RESOLUTOR`: VibeM3U lo renueva al reproducir y el fallo temporal del respaldo no elimina el canal.",
-            "- Tras tres fallos directos consecutivos el informe marca `NO DISPONIBLE`; nunca se elimina automáticamente.",
+            "- Un canal que agota la validación, los reintentos y las reparaciones se retira de la M3U pública en esa ejecución.",
+            "- `channel-catalog.m3u` conserva todos los candidatos: cada ejecución vuelve a probar los retirados y los reactiva automáticamente cuando responden.",
+            "- La EPG conserva la cobertura del catálogo completo para que una reactivación recupere inmediatamente su `tvg-id` y programación.",
+            "- Una caída simultánea de al menos el 25% de las fuentes directas o de todo el catálogo bloquea la publicación como posible fallo sistémico del runner, la red o un proveedor.",
             "- El informe omite URLs completas, tokens y parámetros de sesión.",
         ]
     )

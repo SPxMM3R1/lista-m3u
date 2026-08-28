@@ -40,10 +40,7 @@ if (Test-Path -LiteralPath $statePath -PathType Leaf) {
 $trigger = New-ScheduledTaskTrigger `
     -Once `
     -At $firstRun
-$resumeTrigger = New-ScheduledTaskTrigger `
-    -Once `
-    -At ([datetime]'2026-09-02T03:05:00')
-$triggers = @($trigger, $resumeTrigger)
+$triggers = @($trigger)
 $settings = New-ScheduledTaskSettingsSet `
     -StartWhenAvailable `
     -RunOnlyIfNetworkAvailable `
@@ -60,10 +57,10 @@ Register-ScheduledTask `
     -Trigger $triggers `
     -Settings $settings `
     -Principal $principal `
-    -Description 'Ejecuta Lista M3U en la proxima ventana dinamica de la guia, con limite de 12 horas, y reactiva GitHub Actions el 2 de septiembre de 2026.' `
+    -Description 'Ejecutor local opcional de Lista M3U; GitHub Actions es el ejecutor principal.' `
     -Force | Out-Null
 
 Write-Output "Tarea registrada: $taskName"
 Write-Output "Primera ejecucion programada: $($firstRun.ToString('yyyy-MM-dd HH:mm:ss'))"
 Write-Output 'La tarea usa una ejecucion unica y se vuelve a programar segun el vencimiento real de la guia, con limite de 12 horas y minimo de 6 horas.'
-Write-Output 'Tambien contiene un disparador puntual para reactivar GitHub el 2026-09-02 03:05.'
+Write-Output 'GitHub Actions sigue siendo el ejecutor principal; no habilite esta tarea junto con el cron remoto.'
