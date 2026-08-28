@@ -410,6 +410,7 @@ RED_BULL_CHILE_URL = (
 # conserva la reutilizacion de una guia valida si una ejecucion falla.
 EPG_REFRESH_INTERVAL = timedelta(hours=12)
 HEALTH_FAILURE_THRESHOLD = 3
+PUBLISHED_EPG_FALLBACK_SOURCE = "epg-publicada-conservada"
 # El coordinador puede adelantar la siguiente ejecucion cuando una fuente real
 # termina antes de las 12 horas. Los bloques de continuidad no cuentan para
 # este calculo: solo sirven para que la guia no quede vacia mientras llega el
@@ -4242,6 +4243,37 @@ def build_epg(
                 if lookup_target == target_id:
                     source_lookup.pop(lookup_key, None)
             source_lookup[(source_name, source_id)] = target_id
+
+    # Si una fuente opcional por canal desaparece durante una renovación
+    # forzada, conservar únicamente la parrilla real vigente de la publicación
+    # anterior para ese canal. Nunca se mezcla con una fuente fresca ni se usa
+    # para inventar continuidad genérica.
+    published_fallback = source_roots.get(PUBLISHED_EPG_FALLBACK_SOURCE)
+    if published_fallback is not None:
+        fresh_targets: set[str] = set()
+        for source_name, source_root in source_roots.items():
+            if source_name == PUBLISHED_EPG_FALLBACK_SOURCE:
+                continue
+            for programme in source_root.findall("programme"):
+                target_id = source_lookup.get(
+                    (source_name, programme.get("channel", ""))
+                )
+                if target_id is None:
+                    continue
+                try:
+                    stop = xmltv_datetime(programme.get("stop", ""))
+                except ValueError:
+                    continue
+                if stop > now:
+                    fresh_targets.add(target_id)
+        fresh_targets.update(
+            target_id
+            for target_id, cards in red_bull_schedules.items()
+            if target_id in expected_ids and cards
+        )
+        for target_id in expected_ids - fresh_targets - NO_EPG_CHANNEL_IDS:
+            source_lookup[(PUBLISHED_EPG_FALLBACK_SOURCE, target_id)] = target_id
+
     for source_name, source_root in source_roots.items():
         seen_source_programmes: set[tuple[str, str, str, str]] = set()
         for programme in source_root.findall("programme"):
@@ -4271,7 +4303,11 @@ def build_epg(
             copied.set("channel", target_id)
             root.append(copied)
             programmes_by_target[target_id] += 1
-            guide_types[target_id] = "parrilla real"
+            guide_types[target_id] = (
+                "parrilla real conservada"
+                if source_name == PUBLISHED_EPG_FALLBACK_SOURCE
+                else "parrilla real"
+            )
             guide_sources[target_id] = source_name
             previous_stop = real_last_stop_by_target.get(target_id)
             if previous_stop is None or stop > previous_stop:
@@ -4405,6 +4441,7 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
     now = datetime.now(timezone.utc)
     expected_ids = {channel.tvg_id for channel in channels if channel.tvg_id}
     existing_status = None
+    existing_data: bytes | None = None
     if EPG_PATH.exists():
         try:
             existing_data = EPG_PATH.read_bytes()
@@ -4570,6 +4607,8 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
     )
     if not source_documents:
         raise RuntimeError("ninguna fuente EPG respondio correctamente")
+    if existing_status is not None and existing_data is not None:
+        source_documents[PUBLISHED_EPG_FALLBACK_SOURCE] = existing_data
 
     output, epg_status = build_epg(
         source_documents, channels, red_bull_schedules, now=now

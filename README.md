@@ -42,6 +42,9 @@ Cada ejecucion completa:
   reparar una senal; los respaldos conocidos solo se prueban despues;
 - actualiza la guia EPG con parrillas XMLTV reales; una entrada que solo
   pueda recibir bloques genericos se rechaza y no se publica;
+- si una fuente exacta por canal falla durante una renovacion, conserva solo
+  sus bloques reales todavia vigentes de la EPG publicada y nunca los mezcla
+  con una fuente fresca ni los sustituye por continuidad inventada;
 - calcula en `epg.xml` la proxima ventana usando el fin mas temprano de una
   parrilla real menos seis horas; los bloques de continuidad no adelantan la
   ejecucion;
