@@ -5186,8 +5186,8 @@ def write_report(
     """Write a token-free run report and update persistent channel health.
 
     A failed fallback is informational when the channel has an on-play
-    resolver. Direct channels remain blocking because no second source can
-    recover them inside VibeM3U.
+    resolver. An isolated direct failure is published as unavailable so it
+    cannot freeze every other update; a systemic direct outage still blocks.
     """
 
     def safe_detail(value: str) -> str:
@@ -5244,7 +5244,10 @@ def write_report(
         else:
             status = "intermittent"
 
-        blocking = not ok and not resolved_by_app
+        # Un canal individual caído se conserva para que las demás fuentes y
+        # la EPG puedan actualizarse. Solo una caída sistémica de muchas
+        # fuentes directas bloqueará la publicación completa.
+        blocking = False
         previous_status = str(old.get("status", "new"))
         last_ok_at = checked_at if ok else old.get("last_ok_at")
         detail = safe_detail(result.detail if result else "sin resultado de validacion")
@@ -5308,9 +5311,20 @@ def write_report(
     )
 
     logos = logo_results or []
+    direct_entries = [
+        entry for entry in health_entries if entry["resolver"] == "direct"
+    ]
+    direct_failures = [entry for entry in direct_entries if not entry["ok"]]
+    systemic_threshold = max(5, (len(direct_entries) + 3) // 4)
+    systemic_direct_failure = len(direct_failures) >= systemic_threshold
+    if systemic_direct_failure:
+        for entry in direct_failures:
+            entry["blocking"] = True
     blocking_failures = [entry for entry in health_entries if entry["blocking"]]
     degraded_channels = [
-        entry for entry in health_entries if not entry["ok"] and not entry["blocking"]
+        entry
+        for entry in health_entries
+        if not entry["ok"] and entry["resolver"] != "direct"
     ]
     status_counts: dict[str, int] = {}
     for entry in health_entries:
@@ -5331,6 +5345,12 @@ def write_report(
         "refreshed_channels": refreshed_channels or [],
         "repaired_channels": repaired_channels or [],
         "all_ok": (
+            not direct_failures
+            and not degraded_channels
+            and all(result.ok for result in logos)
+            and bool(epg_status and epg_status.get("ok"))
+        ),
+        "publication_ready": (
             not blocking_failures
             and all(result.ok for result in logos)
             and bool(epg_status and epg_status.get("ok"))
@@ -5338,13 +5358,17 @@ def write_report(
         "summary": {
             "total_channels": len(health_entries),
             "blocking_failures": len(blocking_failures),
+            "direct_failures": len(direct_failures),
             "resolver_degradations": len(degraded_channels),
+            "systemic_direct_failure": systemic_direct_failure,
+            "systemic_direct_failure_threshold": systemic_threshold,
             "removed_since_previous_run": len(removed_channels),
             "status_counts": status_counts,
         },
         "epg": epg_status or {},
         "channels": health_entries,
         "blocking_failures": blocking_failures,
+        "direct_failures": direct_failures,
         "degraded_channels": degraded_channels,
         "removed_channels": removed_channels,
         "logos": logo_entries,
@@ -5491,17 +5515,38 @@ def main() -> int:
                 True,
             ),
         )
+    refresh_jobs: list[
+        tuple[str, Channel, Callable[[], str | list[str]], bool]
+    ] = []
     for channel_name, (fresh_url_factory, always_refresh) in dynamic_channels.items():
         channel = next((item for item in channels if item.name == channel_name), None)
-        if channel and refresh_dynamic_channel(
-            lines,
-            channel,
-            fresh_url_factory,
-            running_in_ci=allow_geo_restricted,
-            always_refresh=always_refresh,
-        ):
-            refreshed_channels.append(channel_name)
-            refresh_changed = True
+        if channel:
+            refresh_jobs.append(
+                (channel_name, channel, fresh_url_factory, always_refresh)
+            )
+    refresh_results: dict[str, bool] = {}
+    if refresh_jobs:
+        with ThreadPoolExecutor(max_workers=min(6, len(refresh_jobs))) as pool:
+            futures = {
+                pool.submit(
+                    refresh_dynamic_channel,
+                    lines,
+                    channel,
+                    fresh_url_factory,
+                    running_in_ci=allow_geo_restricted,
+                    always_refresh=always_refresh,
+                ): channel_name
+                for channel_name, channel, fresh_url_factory, always_refresh in refresh_jobs
+            }
+            for future in as_completed(futures):
+                channel_name = futures[future]
+                refresh_results[channel_name] = future.result()
+    refreshed_channels = [
+        channel_name
+        for channel_name in dynamic_channels
+        if refresh_results.get(channel_name)
+    ]
+    refresh_changed = bool(refreshed_channels)
     if refresh_changed:
         playlist.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
     tvn_refreshed = "TVN" in refreshed_channels
@@ -5537,6 +5582,7 @@ def main() -> int:
         refreshed_channels=refreshed_channels,
     )
     failed = [entry["name"] for entry in report["blocking_failures"]]
+    direct_failed = [entry["name"] for entry in report["direct_failures"]]
     degraded = [entry["name"] for entry in report["degraded_channels"]]
     failed_logos = [result.channel for result in logo_results if not result.ok]
     epg_failed = not bool(epg_status.get("ok"))
@@ -5544,6 +5590,12 @@ def main() -> int:
         print(
             "Respaldos degradados, recuperables por resolutor al reproducir: "
             + ", ".join(degraded),
+            file=sys.stderr,
+        )
+    if direct_failed:
+        print(
+            "Canales directos conservados como no disponibles: "
+            + ", ".join(direct_failed),
             file=sys.stderr,
         )
     if failed or failed_logos or epg_failed:
@@ -5554,10 +5606,12 @@ def main() -> int:
         if epg_failed:
             print("La EPG no supero la validacion completa", file=sys.stderr)
         return 1
-    working = len(results) - len(degraded)
+    working = sum(1 for result in results if result.ok)
     print(
-        f"Lista publicable: {working} respaldos funcionales y "
-        f"{len(degraded)} canales renovables por resolutor ({len(results)} total)"
+        f"Lista publicable: {working} fuentes funcionales, "
+        f"{len(degraded)} renovables por resolutor y "
+        f"{len(direct_failed)} directas temporalmente no disponibles "
+        f"({len(results)} total)"
     )
     return 0
 

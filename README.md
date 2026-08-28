@@ -90,6 +90,10 @@ Cada ejecucion completa:
   horas manualmente;
 - publica `channel-status.json` y un informe Markdown como artefactos de cada
   ejecucion; tambien conserva un issue de GitHub con el historial detallado.
+- conserva un canal directo caido como temporalmente no disponible sin
+  congelar las otras actualizaciones; si falla simultaneamente al menos el 25%
+  de las fuentes directas (con un minimo de cinco), bloquea la publicacion como
+  posible problema sistemico del runner o de red.
 
 El coordinador `run_m3u_48h.py` conserva `run-state.json` para que el cambio
 entre ejecutor local y GitHub sea transparente. Elige la primera de estas
