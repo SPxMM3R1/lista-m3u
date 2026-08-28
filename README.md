@@ -2,7 +2,7 @@
 
 Repositorio publico de la lista M3U principal para Android TV. La lista y su
 EPG se actualizan mediante un coordinador comun. El limite de seguridad es de
-24 horas, pero la siguiente ejecucion puede adelantarse cuando la programacion
+12 horas, pero la siguiente ejecucion puede adelantarse cuando la programacion
 real disponible esta a punto de terminar. Ese mismo resultado puede generarse
 desde Windows o desde GitHub Actions.
 
@@ -70,7 +70,7 @@ Cada ejecucion completa:
   de producción: sus HLS públicos redirigen al distribuidor Pluto y sus guías
   XMLTV se obtienen desde la fuente pública de Pluto con los IDs oficiales de
   ambos canales;
-  Cada ejecucion diaria solicita tokens nuevos, valida
+  Cada ejecucion solicita tokens nuevos, valida
   maestro/variante/segmento y usa el mismo enlace HTTP solo cuando el nodo HTTPS
   responde con certificado vencido;
 - conserva Sky Sports Racing con Highfly como fuente primaria y aliases Vavoo
@@ -80,29 +80,29 @@ Cada ejecucion completa:
   13 Cultura; si la pagina oficial no entrega bloques vigentes, usa Zapping
   como respaldo por canal;
 - mantiene Premier Sports 1 y Premier Sports 2 desde los resolutores JSON
-  publicos de TvVoo, con renovacion cada 24 horas y guia UK1 real;
+  publicos de TvVoo, con renovacion cada 12 horas y guia UK1 real;
 - usa la guia publica de Zapping Chile para las senales nacionales donde
   EPGShare/TecnoCentro mostraban desplazamientos o no entregaban una parrilla
   util; sus marcas Unix absolutas se convierten a America/Santiago sin sumar
   horas manualmente;
-- publica `channel-status.json` como artefacto de cada ejecucion.
+- publica `channel-status.json` y un informe Markdown como artefactos de cada
+  ejecucion; tambien conserva un issue de GitHub con el historial detallado.
 
 El coordinador `run_m3u_48h.py` conserva `run-state.json` para que el cambio
 entre ejecutor local y GitHub sea transparente. Elige la primera de estas
-ventanas: el fin de la guia real menos seis horas o el limite de 24 horas desde
+ventanas: el fin de la guia real menos seis horas o el limite de 12 horas desde
 la ultima publicacion. Nunca programa dos ejecuciones con menos de seis horas
 de separacion. Durante la ventana local hasta el 1 de septiembre de 2026 se
 puede registrar `register_local_48h_task.ps1`; la tarea usa un disparador unico
 y se vuelve a registrar al terminar cada ejecucion. Desde el 2 de septiembre
 GitHub Actions retoma el mismo flujo.
 
-GitHub conserva un unico disparador diario a las 03:00 (hora de Santiago)
-porque Actions no dispone de un temporizador puntual que pueda reprogramarse
-desde el EPG. Ese cron funciona como ventana de trabajo: el coordinador sigue
-respetando la ventana dinamica cuando despierta. La compuerta de `run-state.json`
-evita ejecuciones innecesarias aunque el cron despierte antes de tiempo.
+GitHub conserva dos disparadores diarios, a las 00:00 y 12:00 (hora de
+Santiago). Cada cron ejecuta una sola validacion coordinada de streams, logos,
+EPG y resolutores; la compuerta de `run-state.json` evita trabajo duplicado.
+GitHub puede iniciar unos minutos despues porque los cron son best effort.
 
-Durante esta ventana, GitHub Actions queda deshabilitado para no consumir cuota.
+Durante esta ventana, los cron de GitHub quedan en espera para no consumir cuota.
 El programador local contiene un disparador puntual para reactivarlo el 2 de
 septiembre de 2026 a las 03:05 (hora local), y luego se deshabilita a si mismo.
 
@@ -116,6 +116,8 @@ La guia conserva datos vigentes si una fuente externa falla temporalmente. La
 ejecucion tambien puede iniciarse manualmente desde la pestana **Actions** con
 el workflow **Actualizar M3U y EPG**. `force_run` omite la ventana dinamica y
 `force_epg_refresh` fuerza la descarga de las fuentes EPG.
+La entrada manual `allow_before_september` solo autoriza pruebas expresas antes
+del 2 de septiembre; los disparadores programados permanecen bloqueados.
 
 Todos los logos de los canales se conservan dentro de `logos/` y la M3U y el
 EPG apuntan a las copias publicadas en este repositorio. Los logos vectoriales

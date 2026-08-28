@@ -2,19 +2,24 @@ name: Actualizar M3U y EPG
 
 on:
   schedule:
-    # Un unico disparador diario. El coordinador evita trabajo si la ventana
-    # de 24 horas aun no vencio y mantiene la transicion local/GitHub.
-    - cron: "0 3 * * *"
+    # Dos ventanas locales: 00:00 y 12:00 de Santiago. GitHub puede iniciar
+    # algunos minutos despues porque los cron programados son best effort.
+    - cron: "0 0,12 * * *"
       timezone: "America/Santiago"
   workflow_dispatch:
     inputs:
       force_run:
-        description: Ejecutar aunque no hayan vencido las 24 horas
+        description: Ejecutar aunque no hayan vencido las 12 horas
         required: false
         default: false
         type: boolean
       force_epg_refresh:
         description: Forzar la descarga de la guia EPG
+        required: false
+        default: false
+        type: boolean
+      allow_before_september:
+        description: Autorizar una prueba manual antes del 2 de septiembre
         required: false
         default: false
         type: boolean
@@ -24,6 +29,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
 
 concurrency:
   group: m3u-publisher
@@ -46,7 +52,7 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Ejecutar coordinador con ventana diaria
+      - name: Ejecutar coordinador con ventana de 12 horas
         id: updater
         shell: bash
         run: |
@@ -56,6 +62,9 @@ jobs:
           fi
           if [ "${{ inputs.force_epg_refresh }}" = "true" ]; then
             args+=(--force-epg)
+          fi
+          if [ "${{ inputs.allow_before_september }}" = "true" ]; then
+            args+=(--allow-before-github-window)
           fi
           set +e
           python "${args[@]}"
@@ -68,19 +77,36 @@ jobs:
         if: steps.updater.outputs.status == '0' && steps.updater.outputs.ran == 'true'
         shell: bash
         run: |
-          if [ -z "$(git status --porcelain -- m3u.m3u epg.xml resolver-catalog.json run-state.json)" ]; then
-            echo "La lista, la guia y el catalogo de resolutores ya estaban al dia."
+          if [ -z "$(git status --porcelain -- m3u.m3u epg.xml resolver-catalog.json channel-health-state.json run-state.json)" ]; then
+            echo "La lista, la guia, la salud y el catalogo de resolutores ya estaban al dia."
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           git config user.name "Actualizador M3U"
           git config user.email "m3u-bot@users.noreply.github.com"
-          git add m3u.m3u epg.xml resolver-catalog.json run-state.json
+          git add m3u.m3u epg.xml resolver-catalog.json channel-health-state.json run-state.json
           git commit -m "Actualiza M3U, EPG y resolutores automaticamente [skip ci]"
           git push origin HEAD:main
           echo "changed=true" >> "$GITHUB_OUTPUT"
           echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Conservar historial de salud si la publicación fue bloqueada
+        id: health_state
+        if: steps.updater.outputs.due == 'true' && steps.updater.outputs.status != '0'
+        shell: bash
+        run: |
+          if [ -z "$(git status --porcelain -- channel-health-state.json)" ]; then
+            echo "El historial de salud no cambió."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "Actualizador M3U"
+          git config user.email "m3u-bot@users.noreply.github.com"
+          git add channel-health-state.json
+          git commit -m "Registra fallos de canales sin publicar la lista [skip ci]"
+          git push origin HEAD:main
+          echo "changed=true" >> "$GITHUB_OUTPUT"
 
       - name: Esperar propagacion de GitHub raw
         if: steps.updater.outputs.ran == 'true' && steps.publish.outputs.changed == 'true'
@@ -122,6 +148,7 @@ jobs:
           verify_exact m3u.m3u || RAW_EXIT=1
           verify_exact epg.xml || RAW_EXIT=1
           verify_exact resolver-catalog.json || RAW_EXIT=1
+          verify_exact channel-health-state.json || RAW_EXIT=1
           echo "status=$RAW_EXIT" >> "$GITHUB_OUTPUT"
           exit 0
 
@@ -151,22 +178,89 @@ jobs:
           check_raw m3u.m3u '#EXTM3U' || RAW_EXIT=1
           check_raw epg.xml '<?xml' || RAW_EXIT=1
           check_raw resolver-catalog.json '"schemaVersion": 1' || RAW_EXIT=1
+          check_raw channel-health-state.json '"schema": 1' || RAW_EXIT=1
           echo "status=$RAW_EXIT" >> "$GITHUB_OUTPUT"
           exit 0
-
-      - name: Fallar si hubo errores
-        if: steps.updater.outputs.status != '0' || (steps.updater.outputs.ran == 'true' && (steps.published.outputs.status != '0' || steps.branch_raw.outputs.status != '0'))
-        run: exit 1
 
       - name: Informar ventana no vencida
         if: steps.updater.outputs.status == '0' && steps.updater.outputs.ran != 'true'
         run: echo "No se ejecuta el flujo completo; aun no ha llegado la ventana dinamica o la ventana pertenece al otro ejecutor."
+
+      - name: Generar informe detallado
+        if: always() && steps.updater.outputs.due == 'true'
+        env:
+          RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          UPDATE_STATUS: ${{ steps.updater.outputs.status }}
+          PUBLICATION_STATUS: ${{ steps.publish.outcome }}
+          RAW_STATUS: commit=${{ steps.published.outputs.status }}, main=${{ steps.branch_raw.outputs.status }}
+        shell: bash
+        run: |
+          python generate_health_report.py
+          cat health-report.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Notificar informe en GitHub
+        if: always() && steps.updater.outputs.due == 'true' && hashFiles('health-report.md') != ''
+        continue-on-error: true
+        uses: actions/github-script@v7
+        env:
+          REPORT_PATH: health-report.md
+        with:
+          script: |
+            const fs = require('fs');
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const title = 'Estado automático de Lista M3U';
+            const label = 'm3u-health-report';
+            const body = fs.readFileSync(process.env.REPORT_PATH, 'utf8').slice(0, 65000);
+            try {
+              await github.rest.issues.createLabel({
+                owner,
+                repo,
+                name: label,
+                color: '1f6feb',
+                description: 'Informes automáticos de canales, EPG y publicación'
+              });
+            } catch (error) {
+              if (error.status !== 422) throw error;
+            }
+            const listed = await github.rest.issues.listForRepo({
+              owner,
+              repo,
+              state: 'open',
+              labels: label,
+              per_page: 100
+            });
+            const issue = listed.data.find(item => !item.pull_request && item.title === title);
+            if (issue) {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: issue.number,
+                body
+              });
+              core.info(`Informe agregado a #${issue.number}`);
+            } else {
+              const created = await github.rest.issues.create({
+                owner,
+                repo,
+                title,
+                body,
+                labels: [label]
+              });
+              core.info(`Informe creado en #${created.data.number}`);
+            }
 
       - name: Guardar informe de canales
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: channel-status
-          path: channel-status.json
+          path: |
+            channel-status.json
+            health-report.md
           retention-days: 30
           if-no-files-found: warn
+
+      - name: Fallar si hubo errores
+        if: steps.updater.outputs.status != '0' || (steps.updater.outputs.ran == 'true' && (steps.published.outputs.status != '0' || steps.branch_raw.outputs.status != '0'))
+        run: exit 1

@@ -18,7 +18,7 @@ import urllib.request
 import xml.etree.ElementTree as ET
 from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import urlencode, urljoin, urlparse
@@ -28,6 +28,7 @@ from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 DEFAULT_PLAYLIST = Path(__file__).with_name("m3u.m3u")
 EPG_PATH = Path(__file__).with_name("epg.xml")
 REPORT_PATH = Path(__file__).with_name("channel-status.json")
+HEALTH_STATE_PATH = Path(__file__).with_name("channel-health-state.json")
 RESOLVER_CATALOG_PATH = Path(__file__).with_name("resolver-catalog.json")
 PUBLIC_RAW_BASE = "https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main"
 EPG_PUBLIC_URL = f"{PUBLIC_RAW_BASE}/epg.xml"
@@ -405,11 +406,12 @@ RED_BULL_WORLD_URL = (
 RED_BULL_CHILE_URL = (
     "https://freqsyndlin.redbull.com/957/rbtv/hls/master/playlist.m3u8"
 )
-# La guia se actualiza junto con la validacion de canales cada 24 horas. Se
+# La guia se actualiza junto con la validacion de canales cada 12 horas. Se
 # conserva la reutilizacion de una guia valida si una ejecucion falla.
-EPG_REFRESH_INTERVAL = timedelta(hours=24)
+EPG_REFRESH_INTERVAL = timedelta(hours=12)
+HEALTH_FAILURE_THRESHOLD = 3
 # El coordinador puede adelantar la siguiente ejecucion cuando una fuente real
-# termina antes de las 24 horas. Los bloques de continuidad no cuentan para
+# termina antes de las 12 horas. Los bloques de continuidad no cuentan para
 # este calculo: solo sirven para que la guia no quede vacia mientras llega el
 # siguiente refresco.
 EPG_REFRESH_LEAD = timedelta(hours=6)
@@ -5133,6 +5135,7 @@ def verify_all(channels: list[Channel], *, allow_ci_geo_block: bool = False) -> 
 
 
 def write_report(
+    channels: list[Channel],
     results: list[CheckResult],
     tvn_refreshed: bool,
     logo_results: list[LogoResult] | None = None,
@@ -5140,23 +5143,175 @@ def write_report(
     epg_status: dict | None = None,
     *,
     refreshed_channels: list[str] | None = None,
-) -> None:
+) -> dict:
+    """Write a token-free run report and update persistent channel health.
+
+    A failed fallback is informational when the channel has an on-play
+    resolver. Direct channels remain blocking because no second source can
+    recover them inside VibeM3U.
+    """
+
+    def safe_detail(value: str) -> str:
+        sanitized = re.sub(r"https?://\S+", "[URL omitida]", value)
+        sanitized = re.sub(
+            r"(?i)\b(access_token|token|serverkey|signature|sig|auth)=\S+",
+            r"\1=[omitido]",
+            sanitized,
+        )
+        return sanitized[:500]
+
+    try:
+        previous_state = json.loads(HEALTH_STATE_PATH.read_text(encoding="utf-8"))
+        if not isinstance(previous_state, dict):
+            previous_state = {}
+    except (OSError, json.JSONDecodeError):
+        previous_state = {}
+    previous_channels = previous_state.get("channels", {})
+    if not isinstance(previous_channels, dict):
+        previous_channels = {}
+
+    generated_at = datetime.now(timezone.utc).replace(microsecond=0)
+    checked_at = generated_at.isoformat().replace("+00:00", "Z")
+    refreshed = set(refreshed_channels or [])
+    repaired = set(repaired_channels or [])
+    results_by_name = {result.channel: result for result in results}
+    health_entries: list[dict] = []
+    new_health_channels: dict[str, dict] = {}
+
+    for channel in channels:
+        result = results_by_name.get(channel.name)
+        key = channel.tvg_id or channel.name
+        old = previous_channels.get(key, {})
+        if not isinstance(old, dict):
+            old = {}
+        old_failures = int(old.get("consecutive_failures", 0) or 0)
+        attributes = resolver_attributes_for(channel)
+        resolver = attributes.get("x-resolver")
+        resolved_by_app = bool(resolver)
+        ok = bool(result and result.ok)
+        failures = 0 if ok else old_failures + 1
+
+        if ok:
+            if old_failures:
+                status = "recovered"
+            elif channel.name in refreshed or channel.name in repaired:
+                status = "renewed"
+            else:
+                status = "functional"
+        elif resolved_by_app:
+            status = "resolver_required"
+        elif failures >= HEALTH_FAILURE_THRESHOLD:
+            status = "temporarily_unavailable"
+        else:
+            status = "intermittent"
+
+        blocking = not ok and not resolved_by_app
+        previous_status = str(old.get("status", "new"))
+        last_ok_at = checked_at if ok else old.get("last_ok_at")
+        detail = safe_detail(result.detail if result else "sin resultado de validacion")
+        source_host = urlparse(result.url).hostname if result and result.url else None
+        entry = {
+            "id": key,
+            "name": channel.display_name or channel.name,
+            "tvg_id": channel.tvg_id,
+            "group": channel.group,
+            "resolver": resolver or "direct",
+            "source_host": source_host,
+            "status": status,
+            "previous_status": previous_status,
+            "status_changed": previous_status != status,
+            "ok": ok,
+            "blocking": blocking,
+            "consecutive_failures": failures,
+            "last_checked_at": checked_at,
+            "last_ok_at": last_ok_at,
+            "detail": detail,
+        }
+        health_entries.append(entry)
+        new_health_channels[key] = {
+            field: entry[field]
+            for field in (
+                "name",
+                "tvg_id",
+                "group",
+                "resolver",
+                "status",
+                "consecutive_failures",
+                "last_checked_at",
+                "last_ok_at",
+            )
+        }
+
+    current_ids = set(new_health_channels)
+    removed_channels = [
+        {
+            "id": key,
+            "name": str(value.get("name", key)) if isinstance(value, dict) else key,
+            "previous_status": (
+                str(value.get("status", "unknown"))
+                if isinstance(value, dict)
+                else "unknown"
+            ),
+        }
+        for key, value in previous_channels.items()
+        if key not in current_ids
+    ]
+
+    health_state = {
+        "schema": 1,
+        "updated_at": checked_at,
+        "failure_threshold": HEALTH_FAILURE_THRESHOLD,
+        "channels": new_health_channels,
+    }
+    HEALTH_STATE_PATH.write_text(
+        json.dumps(health_state, indent=2, ensure_ascii=True) + "\n",
+        encoding="utf-8",
+    )
+
     logos = logo_results or []
+    blocking_failures = [entry for entry in health_entries if entry["blocking"]]
+    degraded_channels = [
+        entry for entry in health_entries if not entry["ok"] and not entry["blocking"]
+    ]
+    status_counts: dict[str, int] = {}
+    for entry in health_entries:
+        status = str(entry["status"])
+        status_counts[status] = status_counts.get(status, 0) + 1
+    logo_entries = [
+        {
+            "channel": result.channel,
+            "ok": result.ok,
+            "detail": safe_detail(result.detail),
+        }
+        for result in logos
+    ]
     report = {
         "playlist": DEFAULT_PLAYLIST.name,
+        "generated_at": checked_at,
         "tvn_refreshed": tvn_refreshed,
         "refreshed_channels": refreshed_channels or [],
         "repaired_channels": repaired_channels or [],
         "all_ok": (
-            all(result.ok for result in results)
+            not blocking_failures
             and all(result.ok for result in logos)
             and bool(epg_status and epg_status.get("ok"))
         ),
+        "summary": {
+            "total_channels": len(health_entries),
+            "blocking_failures": len(blocking_failures),
+            "resolver_degradations": len(degraded_channels),
+            "removed_since_previous_run": len(removed_channels),
+            "status_counts": status_counts,
+        },
         "epg": epg_status or {},
-        "channels": [asdict(result) for result in results],
-        "logos": [asdict(result) for result in logos],
+        "channels": health_entries,
+        "blocking_failures": blocking_failures,
+        "degraded_channels": degraded_channels,
+        "removed_channels": removed_channels,
+        "logos": logo_entries,
     }
     REPORT_PATH.write_text(json.dumps(report, indent=2, ensure_ascii=True) + "\n", encoding="utf-8")
+    return report
 
 
 def verify_published_copy(
@@ -5333,7 +5488,8 @@ def main() -> int:
 
     print("Verificacion de logos")
     logo_results = verify_logos(final_channels)
-    write_report(
+    report = write_report(
+        final_channels,
         results,
         tvn_refreshed,
         logo_results,
@@ -5341,15 +5497,29 @@ def main() -> int:
         epg_status,
         refreshed_channels=refreshed_channels,
     )
-    failed = [result.channel for result in results if not result.ok]
+    failed = [entry["name"] for entry in report["blocking_failures"]]
+    degraded = [entry["name"] for entry in report["degraded_channels"]]
     failed_logos = [result.channel for result in logo_results if not result.ok]
-    if failed or failed_logos:
+    epg_failed = not bool(epg_status.get("ok"))
+    if degraded:
+        print(
+            "Respaldos degradados, recuperables por resolutor al reproducir: "
+            + ", ".join(degraded),
+            file=sys.stderr,
+        )
+    if failed or failed_logos or epg_failed:
         if failed:
-            print("Canales con problemas: " + ", ".join(failed), file=sys.stderr)
+            print("Canales directos con problemas: " + ", ".join(failed), file=sys.stderr)
         if failed_logos:
             print("Logos con problemas: " + ", ".join(failed_logos), file=sys.stderr)
+        if epg_failed:
+            print("La EPG no supero la validacion completa", file=sys.stderr)
         return 1
-    print(f"Todos los canales funcionan ({len(results)}/{len(results)})")
+    working = len(results) - len(degraded)
+    print(
+        f"Lista publicable: {working} respaldos funcionales y "
+        f"{len(degraded)} canales renovables por resolutor ({len(results)} total)"
+    )
     return 0
 
 

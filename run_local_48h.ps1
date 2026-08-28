@@ -140,7 +140,23 @@ try {
         'local'
     )
     if ($Force) { $coordinatorArguments += '--force' }
-    Invoke-LoggedNative -Executable $pythonPath -Arguments $coordinatorArguments -Description 'El coordinador/actualizador'
+    try {
+        Invoke-LoggedNative -Executable $pythonPath -Arguments $coordinatorArguments -Description 'El coordinador/actualizador'
+    } catch {
+        $coordinatorError = $_
+        $failureChanges = @(& $gitPath diff --name-only)
+        $unexpectedFailureChanges = @(
+            $failureChanges | Where-Object { $_ -and ($_ -ne 'channel-health-state.json') }
+        )
+        if ($unexpectedFailureChanges.Count -eq 0 -and $failureChanges -contains 'channel-health-state.json') {
+            Invoke-LoggedNative -Executable $gitPath -Arguments @('config', 'user.name', 'Actualizador M3U') -Description 'git config user.name'
+            Invoke-LoggedNative -Executable $gitPath -Arguments @('config', 'user.email', 'm3u-bot@users.noreply.github.com') -Description 'git config user.email'
+            Invoke-LoggedNative -Executable $gitPath -Arguments @('add', '--', 'channel-health-state.json') -Description 'git add salud'
+            Invoke-LoggedNative -Executable $gitPath -Arguments @('commit', '-m', 'Registra fallos de canales sin publicar la lista [skip ci]') -Description 'git commit salud'
+            Invoke-LoggedNative -Executable $gitPath -Arguments @('push', 'origin', 'HEAD:main') -Description 'git push salud'
+        }
+        throw $coordinatorError
+    }
 
     $changes = ((@(& $gitPath status --porcelain --untracked-files=no) -join "`n")).Trim()
     if (-not $changes) {
@@ -150,13 +166,27 @@ try {
     }
 
     $changedPaths = @(& $gitPath diff --name-only)
-    $allowedPaths = @('m3u.m3u', 'epg.xml', 'run-state.json')
+    $allowedPaths = @(
+        'm3u.m3u',
+        'epg.xml',
+        'resolver-catalog.json',
+        'channel-health-state.json',
+        'run-state.json'
+    )
     $unexpected = @($changedPaths | Where-Object { $_ -and ($_ -notin $allowedPaths) })
     if ($unexpected.Count -gt 0) {
         throw "El actualizador modifico rutas no autorizadas: $($unexpected -join ', ')"
     }
 
-    Invoke-LoggedNative -Executable $gitPath -Arguments @('add', '--', 'm3u.m3u', 'epg.xml', 'run-state.json') -Description 'git add'
+    Invoke-LoggedNative -Executable $gitPath -Arguments @(
+        'add',
+        '--',
+        'm3u.m3u',
+        'epg.xml',
+        'resolver-catalog.json',
+        'channel-health-state.json',
+        'run-state.json'
+    ) -Description 'git add'
     $staged = @(& $gitPath diff --cached --name-only)
     $unexpectedStaged = @($staged | Where-Object { $_ -and ($_ -notin $allowedPaths) })
     if ($unexpectedStaged.Count -gt 0) {
@@ -164,7 +194,7 @@ try {
     }
     Invoke-LoggedNative -Executable $gitPath -Arguments @('config', 'user.name', 'Actualizador M3U') -Description 'git config user.name'
     Invoke-LoggedNative -Executable $gitPath -Arguments @('config', 'user.email', 'm3u-bot@users.noreply.github.com') -Description 'git config user.email'
-    Invoke-LoggedNative -Executable $gitPath -Arguments @('commit', '-m', 'Actualiza M3U y EPG automaticamente [skip ci]') -Description 'git commit'
+    Invoke-LoggedNative -Executable $gitPath -Arguments @('commit', '-m', 'Actualiza M3U, EPG y resolutores automaticamente [skip ci]') -Description 'git commit'
     Invoke-LoggedNative -Executable $gitPath -Arguments @('push', 'origin', 'HEAD:main') -Description 'git push'
 
     $rawBase = 'https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main'

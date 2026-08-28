@@ -4,7 +4,7 @@
 El mismo coordinador se usa desde Windows y desde GitHub Actions. No publica
 por si mismo: prepara la salida y el estado para que cada ejecutor pueda usar
 su mecanismo de commit y verificacion habitual. El limite normal sigue siendo
-24 horas, pero una guia real que termina antes adelanta la proxima ejecucion.
+12 horas, pero una guia real que termina antes adelanta la proxima ejecucion.
 """
 
 from __future__ import annotations
@@ -30,7 +30,7 @@ OUTPUT_PATHS = (
     PROJECT_ROOT / "epg.xml",
     RESOLVER_CATALOG_PATH,
 )
-INTERVAL = timedelta(hours=24)
+INTERVAL = timedelta(hours=12)
 MINIMUM_INTERVAL = timedelta(hours=6)
 LOCAL_LAST_DAY = date(2026, 9, 1)
 GITHUB_FIRST_DAY = date(2026, 9, 2)
@@ -60,7 +60,7 @@ def load_state() -> dict:
     if not STATE_PATH.exists():
         return {
             "schema": 1,
-            "interval_hours": 24,
+            "interval_hours": 12,
             "last_published_at": None,
             "last_executor": None,
         }
@@ -104,7 +104,7 @@ def epg_next_refresh_at() -> datetime | None:
 
 
 def next_scheduled_at(state: dict, current: datetime) -> datetime:
-    """Return the earlier of the EPG deadline and the 24-hour safety limit."""
+    """Return the earlier of the EPG deadline and the 12-hour safety limit."""
     previous = last_published_at(state)
     if previous is None:
         return current
@@ -134,12 +134,12 @@ def is_due(state: dict, current: datetime, force: bool) -> bool:
 def write_state(current: datetime, executor: str, next_run: datetime) -> None:
     state = {
         "schema": 2,
-        "interval_hours": 24,
+        "interval_hours": 12,
         "minimum_interval_hours": 6,
         "last_published_at": timestamp(current),
         "last_executor": executor,
         "next_scheduled_at": timestamp(next_run),
-        "schedule_basis": "fin de guia real menos 6 horas o limite de 24 horas",
+        "schedule_basis": "fin de guia real menos 6 horas o limite de 12 horas",
     }
     temporary = STATE_PATH.with_suffix(".json.tmp")
     temporary.write_text(
@@ -180,15 +180,23 @@ def run_updater(force_epg: bool) -> int:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Ejecuta la validacion M3U/EPG cuando vencen 24 horas."
+        description="Ejecuta la validacion M3U/EPG cuando vencen 12 horas."
     )
     parser.add_argument("--executor", choices=("local", "github"), required=True)
     parser.add_argument(
         "--force",
         action="store_true",
-        help="ignora el intervalo de 24 horas, sin saltar la ventana local/GitHub",
+        help="ignora el intervalo de 12 horas, sin saltar la ventana local/GitHub",
     )
     parser.add_argument("--force-epg", action="store_true")
+    parser.add_argument(
+        "--allow-before-github-window",
+        action="store_true",
+        help=(
+            "permite una prueba manual de GitHub antes del 2026-09-02; "
+            "no debe usarse desde el cron"
+        ),
+    )
     parser.add_argument("--dry-run", action="store_true")
     return parser.parse_args()
 
@@ -207,12 +215,25 @@ def main() -> int:
             "GitHub queda como ejecutor desde el 2026-09-02."
         )
         return 0
-    if args.executor == "github" and chile_day < GITHUB_FIRST_DAY:
+    if (
+        args.executor == "github"
+        and chile_day < GITHUB_FIRST_DAY
+        and not args.allow_before_github_window
+    ):
         print(
             "Ventana GitHub en espera hasta el 2026-09-02; no se consume "
             "la ejecucion de actualizacion."
         )
         return 0
+    if (
+        args.executor == "github"
+        and chile_day < GITHUB_FIRST_DAY
+        and args.allow_before_github_window
+    ):
+        print(
+            "Prueba manual anticipada autorizada; los cron siguen en espera "
+            "hasta el 2026-09-02."
+        )
 
     state = load_state()
     previous = last_published_at(state)
