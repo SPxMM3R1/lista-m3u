@@ -63,6 +63,57 @@ class TvnEpgTests(unittest.TestCase):
         self.assertEqual(tvn3.get("data-guide-source"), update_m3u.ZAPPING_EPG_SOURCE)
         self.assertGreater(status["programmes"], 0)
 
+    def test_tvn3_uses_public_nowplaying_when_html_is_geoblocked(self) -> None:
+        now = datetime(2026, 8, 28, 18, tzinfo=timezone.utc)
+        channels = [channel("TVN3", "1437")]
+        cards = [
+            {
+                "start_time": int((now - timedelta(hours=1)).timestamp()),
+                "end_time": int(now.timestamp()),
+                "title": "Siempre lunes",
+            },
+            {
+                "start_time": int(now.timestamp()),
+                "end_time": int((now + timedelta(hours=1)).timestamp()),
+                "title": "¿Dónde está Elisa?",
+            },
+            {
+                "start_time": int((now + timedelta(hours=1)).timestamp()),
+                "end_time": int((now + timedelta(hours=2)).timestamp()),
+                "title": "Legado: tierra adentro",
+            },
+        ]
+        payload = {
+            "data": {
+                "schedule": {
+                    "tvn3": {
+                        "past": [cards[0]],
+                        "now": cards[1],
+                        "next": [cards[2]],
+                    }
+                }
+            }
+        }
+
+        def fake_fetch(url, *_args, **_kwargs):
+            if url == update_m3u.ZAPPING_NOWPLAYING_URL:
+                return 200, json.dumps(payload, ensure_ascii=False).encode(), url
+            raise TimeoutError("Acceso denegado: Pais no permitido")
+
+        with patch.object(update_m3u, "fetch_bytes", side_effect=fake_fetch):
+            source, errors = update_m3u.fetch_zapping_epg(channels, now)
+
+        self.assertIsNotNone(source)
+        self.assertEqual(errors, {})
+        root = ET.fromstring(source)
+        programmes = root.findall("programme")
+        self.assertEqual(len(programmes), 3)
+        self.assertEqual(
+            [programme.findtext("title") for programme in programmes],
+            ["Siempre lunes", "¿Dónde está Elisa?", "Legado: tierra adentro"],
+        )
+        self.assertEqual({item.get("channel") for item in programmes}, {"1437"})
+
     def test_official_tvn_json_never_populates_tvn3(self) -> None:
         now = datetime(2026, 8, 28, 12, tzinfo=timezone.utc)
         channels = [channel("TVN", "0104"), channel("TVN3", "1437")]

@@ -368,6 +368,7 @@ EPG_PROGRAMME_SOURCES.update({
 # Zapping y TecnoCentro porque no hay una parrilla oficial diaria de esa senal.
 ZAPPING_EPG_SOURCE = "zapping-guia-publica"
 ZAPPING_EPG_BASE_URL = "https://guia.zappingtv.com"
+ZAPPING_NOWPLAYING_URL = "https://charly.zappingtv.com/v3/webplayer/nowplaying"
 ZAPPING_EPG_CHANNELS = {
     "0104": "tvn",
     "0105": "mega",
@@ -1773,8 +1774,9 @@ def fetch_bytes(
     timeout: int = 25,
     context: ssl.SSLContext | None = None,
     limit: int = 262_144,
+    data: bytes | None = None,
 ) -> tuple[int, bytes, str]:
-    request = urllib.request.Request(url, headers=headers)
+    request = urllib.request.Request(url, headers=headers, data=data)
     try:
         with urllib.request.urlopen(request, timeout=timeout, context=context) as response:
             return response.status, response.read(limit), response.geturl()
@@ -3781,6 +3783,64 @@ def fetch_zapping_epg(
         },
     )
 
+    # El HTML de la guia contiene hoy y manana, pero bloquea por pais a los
+    # runners de GitHub. El endpoint publico nowplaying no requiere sesion y
+    # entrega pasado inmediato, programa actual y proximos con inicio/fin
+    # absolutos. Se consulta una sola vez y se usa solo si falla la pagina
+    # completa de un canal.
+    nowplaying_blocks: dict[str, list[tuple[datetime, datetime, str]]] = {}
+    nowplaying_error: str | None = None
+    try:
+        status, body, _ = fetch_bytes(
+            ZAPPING_NOWPLAYING_URL,
+            {
+                "User-Agent": BROWSER_USER_AGENT,
+                "Accept": "application/json,*/*",
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            timeout=60,
+            limit=4_000_000,
+            data=b"data=",
+        )
+        if status != 200:
+            raise ValueError(f"HTTP {status}")
+        payload = json.loads(body.decode("utf-8"))
+        schedule = payload.get("data", {}).get("schedule", {})
+        if not isinstance(schedule, dict):
+            raise ValueError("nowplaying no contiene un mapa schedule")
+        for target_id, alias in targets:
+            entry = schedule.get(alias)
+            if not isinstance(entry, dict):
+                continue
+            cards: list[dict] = []
+            for key in ("past", "now", "next"):
+                value = entry.get(key)
+                if isinstance(value, list):
+                    cards.extend(card for card in value if isinstance(card, dict))
+                elif isinstance(value, dict):
+                    cards.append(value)
+            unique_cards: dict[tuple[datetime, datetime], str] = {}
+            for card in cards:
+                try:
+                    start = datetime.fromtimestamp(int(card["start_time"]), timezone.utc)
+                    stop = datetime.fromtimestamp(int(card["end_time"]), timezone.utc)
+                except (KeyError, TypeError, ValueError, OSError):
+                    continue
+                title = str(card.get("title") or card.get("program_title") or "").strip()
+                if not title or stop <= start:
+                    continue
+                if stop < now - timedelta(hours=6) or start > now + timedelta(days=4):
+                    continue
+                unique_cards[(start, stop)] = title
+            blocks = [
+                (start, stop, title)
+                for (start, stop), title in sorted(unique_cards.items())
+            ]
+            if blocks:
+                nowplaying_blocks[target_id] = blocks
+    except Exception as error:
+        nowplaying_error = f"{type(error).__name__}: {error}"
+
     def fetch_target(
         target_id: str, slug: str
     ) -> tuple[str, list[tuple[datetime, datetime, str]], str | None]:
@@ -3817,7 +3877,13 @@ def fetch_zapping_epg(
                 raise ValueError("la guia Zapping no publico bloques utilizables")
             return target_id, blocks, None
         except Exception as error:
-            return target_id, [], f"{type(error).__name__}: {error}"
+            fallback = nowplaying_blocks.get(target_id, [])
+            if fallback:
+                return target_id, fallback, None
+            details = f"{type(error).__name__}: {error}"
+            if nowplaying_error:
+                details += f"; nowplaying: {nowplaying_error}"
+            return target_id, [], details
 
     # Cada pagina es una fuente independiente. La concurrencia reduce la
     # duracion del unico run de Actions sin mezclar resultados ni permitir que
@@ -3849,7 +3915,7 @@ def fetch_zapping_epg(
             )
             ET.SubElement(programme, "title", {"lang": "es"}).text = title
             description = (
-                "Parrilla horaria publica de Zapping Chile para TVN3, "
+                "Parrilla publica de Zapping Chile y Simply.TV para TVN3, "
                 "senal oficial de TVN."
                 if target_id == "1437"
                 else "Programacion publica consultada en la guia de Zapping Chile."

@@ -122,12 +122,14 @@ el workflow **Actualizar M3U y EPG**. `force_run` omite la ventana dinamica y
 
 TVN y TVN3 son señales distintas y nunca comparten parrilla: TVN usa el JSONP
 oficial de `tvn.cl` con `tvg-id="0104"`; TVN3 conserva `tvg-id="1437"`, consulta
-su página diaria exacta de Zapping y publica además `https://www.tvn.cl/tvn3`
-como referencia oficial de la señal. Las páginas de Zapping se procesan de
-forma independiente y concurrente, de modo que el fallo de otro canal no puede
-descartar TVN3. TecnoCentro queda como respaldo. Si ninguna fuente entrega
-bloques exactos y la parrilla real anterior ya venció, TVN3 se marca `sin guía`
-y no recibe continuidad inventada.
+la guía horaria pública de Zapping/Simply.TV y publica además
+`https://www.tvn.cl/tvn3` como referencia oficial de la señal. La consulta tiene
+dos niveles: el HTML completo de hoy/mañana y el endpoint público de programa
+actual/próximos cuando el HTML aplica restricción geográfica al runner. Las
+páginas se procesan por canal para que un fallo independiente no descarte
+TVN3. Si ninguna fuente entrega bloques exactos, TVN3 se marca `sin guía` en
+vez de heredar por error la programación de TVN o aceptar el bloque genérico
+de 24 horas que publica TVN Play.
 
 Todos los logos de los canales se conservan dentro de `logos/` y la M3U y el
 EPG apuntan a las copias publicadas en este repositorio. Los logos vectoriales
