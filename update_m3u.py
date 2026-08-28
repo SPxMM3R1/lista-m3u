@@ -11,6 +11,7 @@ import json
 import os
 import re
 import ssl
+import subprocess
 import sys
 import time
 import urllib.error
@@ -3764,6 +3765,62 @@ def zapping_schedule_rows(page_html: str) -> list[tuple[datetime, str]]:
     return sorted(unique.items())
 
 
+def fetch_zapping_nowplaying_bytes() -> bytes:
+    headers = {
+        "User-Agent": BROWSER_USER_AGENT,
+        "Accept": "application/json,*/*",
+        "Content-Type": "application/x-www-form-urlencoded",
+    }
+    primary_error: Exception | None = None
+    try:
+        status, body, _ = fetch_bytes(
+            ZAPPING_NOWPLAYING_URL,
+            headers,
+            timeout=60,
+            limit=4_000_000,
+            data=b"data=",
+        )
+        if status == 200:
+            return body
+        primary_error = ValueError(f"HTTP {status}")
+    except Exception as error:
+        primary_error = error
+
+    # El host corta las conexiones urllib desde algunos rangos de GitHub,
+    # aunque acepta la misma peticion con curl. El runner ya incluye curl y el
+    # comando usa argumentos fijos, sin shell, credenciales ni datos privados.
+    try:
+        completed = subprocess.run(
+            [
+                "curl",
+                "--fail",
+                "--silent",
+                "--show-error",
+                "--location",
+                "--max-time",
+                "60",
+                "--header",
+                "Content-Type: application/x-www-form-urlencoded",
+                "--data",
+                "data=",
+                ZAPPING_NOWPLAYING_URL,
+            ],
+            check=True,
+            capture_output=True,
+            timeout=65,
+        )
+    except Exception as curl_error:
+        raise RuntimeError(
+            f"urllib: {type(primary_error).__name__}: {primary_error}; "
+            f"curl: {type(curl_error).__name__}: {curl_error}"
+        ) from curl_error
+    if not completed.stdout:
+        raise ValueError("nowplaying respondio sin contenido")
+    if len(completed.stdout) > 4_000_000:
+        raise ValueError("nowplaying excede el limite de 4 MB")
+    return completed.stdout
+
+
 def fetch_zapping_epg(
     channels: list[Channel], now: datetime
 ) -> tuple[bytes | None, dict[str, str]]:
@@ -3791,19 +3848,7 @@ def fetch_zapping_epg(
     nowplaying_blocks: dict[str, list[tuple[datetime, datetime, str]]] = {}
     nowplaying_error: str | None = None
     try:
-        status, body, _ = fetch_bytes(
-            ZAPPING_NOWPLAYING_URL,
-            {
-                "User-Agent": BROWSER_USER_AGENT,
-                "Accept": "application/json,*/*",
-                "Content-Type": "application/x-www-form-urlencoded",
-            },
-            timeout=60,
-            limit=4_000_000,
-            data=b"data=",
-        )
-        if status != 200:
-            raise ValueError(f"HTTP {status}")
+        body = fetch_zapping_nowplaying_bytes()
         payload = json.loads(body.decode("utf-8"))
         schedule = payload.get("data", {}).get("schedule", {})
         if not isinstance(schedule, dict):

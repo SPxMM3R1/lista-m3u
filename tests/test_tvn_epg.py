@@ -2,6 +2,7 @@ import json
 import unittest
 import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta, timezone
+from types import SimpleNamespace
 from unittest.mock import patch
 
 import update_m3u
@@ -29,6 +30,8 @@ class TvnEpgTests(unittest.TestCase):
         ]
 
         def fake_fetch(url, *_args, **_kwargs):
+            if url == update_m3u.ZAPPING_NOWPLAYING_URL:
+                return 200, b'{"data":{"schedule":{}}}', url
             if url.endswith("/tvn3/"):
                 return 200, b"tvn3", url
             raise TimeoutError("fallo simulado independiente")
@@ -96,15 +99,21 @@ class TvnEpgTests(unittest.TestCase):
         }
 
         def fake_fetch(url, *_args, **_kwargs):
-            if url == update_m3u.ZAPPING_NOWPLAYING_URL:
-                return 200, json.dumps(payload, ensure_ascii=False).encode(), url
             raise TimeoutError("Acceso denegado: Pais no permitido")
 
-        with patch.object(update_m3u, "fetch_bytes", side_effect=fake_fetch):
+        curl_result = SimpleNamespace(
+            stdout=json.dumps(payload, ensure_ascii=False).encode()
+        )
+        with patch.object(
+            update_m3u, "fetch_bytes", side_effect=fake_fetch
+        ), patch.object(
+            update_m3u.subprocess, "run", return_value=curl_result
+        ) as curl_run:
             source, errors = update_m3u.fetch_zapping_epg(channels, now)
 
         self.assertIsNotNone(source)
         self.assertEqual(errors, {})
+        curl_run.assert_called_once()
         root = ET.fromstring(source)
         programmes = root.findall("programme")
         self.assertEqual(len(programmes), 3)
