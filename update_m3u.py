@@ -5504,26 +5504,24 @@ def main() -> int:
             else 1
         )
 
-    lines = playlist.read_text(encoding="utf-8-sig").splitlines()
-    if args.validate_resolvers_only:
-        validate_resolver_contract(lines)
-        return 0
-    if args.sync_resolver_contract:
-        resolver_changed = pin_resolver_metadata(lines)
-        if resolver_changed:
-            playlist.write_text(
-                "\n".join(lines) + "\n", encoding="utf-8", newline="\n"
-            )
-        write_resolver_catalog()
-        validate_resolver_contract(lines)
-        return 0
-
     source_playlist = (
         CHANNEL_CATALOG_PATH
         if playlist == DEFAULT_PLAYLIST.resolve() and CHANNEL_CATALOG_PATH.exists()
         else playlist
     )
     lines = source_playlist.read_text(encoding="utf-8-sig").splitlines()
+    if args.validate_resolvers_only:
+        validate_resolver_contract(lines)
+        return 0
+    if args.sync_resolver_contract:
+        resolver_changed = pin_resolver_metadata(lines)
+        if resolver_changed:
+            source_playlist.write_text(
+                "\n".join(lines) + "\n", encoding="utf-8", newline="\n"
+            )
+        write_resolver_catalog()
+        validate_resolver_contract(lines)
+        return 0
 
     epg_url_changed = ensure_playlist_epg_url(lines)
     if epg_url_changed:
