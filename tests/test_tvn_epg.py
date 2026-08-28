@@ -114,6 +114,12 @@ class TvnEpgTests(unittest.TestCase):
         self.assertIsNotNone(source)
         self.assertEqual(errors, {})
         curl_run.assert_called_once()
+        curl_command = curl_run.call_args.args[0]
+        self.assertIn("--connect-to", curl_command)
+        self.assertIn(
+            "charly.zappingtv.com:443:br-apig.zappingtv.com:443",
+            curl_command,
+        )
         root = ET.fromstring(source)
         programmes = root.findall("programme")
         self.assertEqual(len(programmes), 3)
@@ -122,6 +128,18 @@ class TvnEpgTests(unittest.TestCase):
             ["Siempre lunes", "¿Dónde está Elisa?", "Legado: tierra adentro"],
         )
         self.assertEqual({item.get("channel") for item in programmes}, {"1437"})
+
+        output, status = update_m3u.build_epg(
+            {update_m3u.ZAPPING_EPG_SOURCE: source}, channels, {}, now=now
+        )
+        output_root = ET.fromstring(output)
+        tvn3 = output_root.find("./channel[@id='1437']")
+        self.assertEqual(tvn3.get("data-guide"), "parrilla real parcial")
+        self.assertEqual(status["programmes"], 3)
+        self.assertNotIn(
+            "TVN3",
+            [item.findtext("title") for item in output_root.findall("programme")],
+        )
 
     def test_official_tvn_json_never_populates_tvn3(self) -> None:
         now = datetime(2026, 8, 28, 12, tzinfo=timezone.utc)

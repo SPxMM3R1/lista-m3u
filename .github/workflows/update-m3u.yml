@@ -18,6 +18,11 @@ on:
         required: false
         default: false
         type: boolean
+      epg_only:
+        description: Actualizar solo la EPG sin tocar salud ni streams
+        required: false
+        default: false
+        type: boolean
   push:
     branches:
       - main
@@ -54,6 +59,15 @@ jobs:
         id: updater
         shell: bash
         run: |
+          if [ "${{ inputs.epg_only }}" = "true" ]; then
+            echo "due=true" >> "$GITHUB_OUTPUT"
+            echo "ran=true" >> "$GITHUB_OUTPUT"
+            set +e
+            python update_m3u.py --refresh-epg-only
+            status=$?
+            echo "status=$status" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
           args=(run_m3u_48h.py --executor github)
           if [ "${{ inputs.force_run }}" = "true" ]; then
             args+=(--force)

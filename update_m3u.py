@@ -370,6 +370,14 @@ EPG_PROGRAMME_SOURCES.update({
 ZAPPING_EPG_SOURCE = "zapping-guia-publica"
 ZAPPING_EPG_BASE_URL = "https://guia.zappingtv.com"
 ZAPPING_NOWPLAYING_URL = "https://charly.zappingtv.com/v3/webplayer/nowplaying"
+# `charly` rechaza algunos rangos de GitHub antes de llegar a la aplicacion.
+# Estos frontales regionales publicos sirven el mismo API. curl --connect-to
+# cambia solo el destino TCP: conserva la URL, Host y SNI de `charly`, por lo
+# que TLS sigue validandose normalmente y no se publica ningun token.
+ZAPPING_NOWPLAYING_CONNECT_HOSTS = (
+    "br-apig.zappingtv.com",
+    "ec-apig.zappingtv.com",
+)
 ZAPPING_EPG_CHANNELS = {
     "0104": "tvn",
     "0105": "mega",
@@ -3786,39 +3794,45 @@ def fetch_zapping_nowplaying_bytes() -> bytes:
     except Exception as error:
         primary_error = error
 
-    # El host corta las conexiones urllib desde algunos rangos de GitHub,
-    # aunque acepta la misma peticion con curl. El runner ya incluye curl y el
-    # comando usa argumentos fijos, sin shell, credenciales ni datos privados.
-    try:
-        completed = subprocess.run(
-            [
-                "curl",
-                "--fail",
-                "--silent",
-                "--show-error",
-                "--location",
-                "--max-time",
-                "60",
-                "--header",
-                "Content-Type: application/x-www-form-urlencoded",
-                "--data",
-                "data=",
-                ZAPPING_NOWPLAYING_URL,
-            ],
-            check=True,
-            capture_output=True,
-            timeout=65,
-        )
-    except Exception as curl_error:
-        raise RuntimeError(
-            f"urllib: {type(primary_error).__name__}: {primary_error}; "
-            f"curl: {type(curl_error).__name__}: {curl_error}"
-        ) from curl_error
-    if not completed.stdout:
-        raise ValueError("nowplaying respondio sin contenido")
-    if len(completed.stdout) > 4_000_000:
-        raise ValueError("nowplaying excede el limite de 4 MB")
-    return completed.stdout
+    # El runner ya incluye curl. Los argumentos son fijos, no usan shell y
+    # prueban frontales regionales equivalentes sin relajar la verificacion TLS.
+    curl_errors: list[str] = []
+    for connect_host in ZAPPING_NOWPLAYING_CONNECT_HOSTS:
+        try:
+            completed = subprocess.run(
+                [
+                    "curl",
+                    "--fail",
+                    "--silent",
+                    "--show-error",
+                    "--location",
+                    "--max-time",
+                    "30",
+                    "--connect-to",
+                    f"charly.zappingtv.com:443:{connect_host}:443",
+                    "--header",
+                    "Content-Type: application/x-www-form-urlencoded",
+                    "--data",
+                    "data=",
+                    ZAPPING_NOWPLAYING_URL,
+                ],
+                check=True,
+                capture_output=True,
+                timeout=35,
+            )
+            if not completed.stdout:
+                raise ValueError("nowplaying respondio sin contenido")
+            if len(completed.stdout) > 4_000_000:
+                raise ValueError("nowplaying excede el limite de 4 MB")
+            return completed.stdout
+        except Exception as curl_error:
+            curl_errors.append(
+                f"{connect_host}: {type(curl_error).__name__}: {curl_error}"
+            )
+    raise RuntimeError(
+        f"urllib: {type(primary_error).__name__}: {primary_error}; "
+        "curl regional: " + " | ".join(curl_errors)
+    )
 
 
 def fetch_zapping_epg(
@@ -4546,6 +4560,12 @@ def build_epg(
             continue
         last_stop = last_stop_by_channel.get(channel_id)
         if count and last_stop is not None and last_stop >= minimum_future:
+            continue
+        if count and channel_id in OPTIONAL_EPG_CHANNEL_IDS:
+            # Una parrilla parcial real es preferible a completar el dia con
+            # el nombre del canal. El siguiente refresco volvera a consultar
+            # la fuente para ampliar la ventana disponible.
+            guide_types[channel_id] = "parrilla real parcial"
             continue
         added = add_continuous_programmes(
             root,
@@ -5629,6 +5649,11 @@ def main() -> int:
         action="store_true",
         help="valida el contrato M3U/catalogo sin actualizar streams ni EPG",
     )
+    parser.add_argument(
+        "--refresh-epg-only",
+        action="store_true",
+        help="fuerza y publica solo la EPG, sin validar ni renovar streams",
+    )
     args = parser.parse_args()
 
     playlist = args.playlist.resolve()
@@ -5649,6 +5674,16 @@ def main() -> int:
         else playlist
     )
     lines = source_playlist.read_text(encoding="utf-8-sig").splitlines()
+    if args.refresh_epg_only:
+        channels = parse_channels(lines)
+        if not channels:
+            raise RuntimeError("la lista no contiene canales activos")
+        epg_status = refresh_epg(channels, force=True)
+        print(
+            f"EPG actualizada: {epg_status['channels']} canales y "
+            f"{epg_status['programmes']} programas"
+        )
+        return 0
     if args.validate_resolvers_only:
         validate_resolver_contract(lines)
         return 0

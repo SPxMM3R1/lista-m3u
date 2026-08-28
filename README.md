@@ -171,8 +171,13 @@ no conserva canales cuya unica salida seria `senal continua`; el constructor
  falla antes de publicar si aparece uno. Las excepciones explicitas de TvVoo
  que responden como HLS pero no tienen una guia identificable se publican como
  `sin guía`, sin inventar programas. Puede existir `parrilla real + continuidad`
- cuando la fuente real tiene un horizonte corto: los programas siguen siendo
- reales y la continuidad solo cubre el hueco hasta la proxima actualizacion.
+ cuando una fuente de producción entrega bloques reales pero una ventana menor
+ a 24 horas. Las fuentes marcadas como opcionales, como TVN3, conservan
+ `parrilla real parcial`: nunca se rellenan con un bloque genérico del canal.
+
+Para diagnosticar una fuente sin alterar el historial de salud ni renovar URLs
+HLS, el mismo workflow admite la ejecución manual `epg_only`. Las ventanas
+automáticas de las 00:00 y 12:00 continúan ejecutando el mantenimiento completo.
 
 Se reincorporaron provisionalmente nueve canales que habian desaparecido sin
 una instruccion de borrado: CHV Deportes, 13 Cultura, 13 Kids, Autentic History,
