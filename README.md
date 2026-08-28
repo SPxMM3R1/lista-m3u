@@ -120,6 +120,11 @@ ejecucion tambien puede iniciarse manualmente desde la pestana **Actions** con
 el workflow **Actualizar M3U y EPG**. `force_run` omite la ventana dinamica y
 `force_epg_refresh` fuerza la descarga de las fuentes EPG.
 
+TVN3 intenta Zapping y TecnoCentro en cada ciclo. Si ambas fuentes no entregan
+bloques exactos y la parrilla real anterior ya venció, se publica explícitamente
+como `sin guía`; no se inventa una programación genérica ni se bloquea el resto
+de la lista.
+
 Todos los logos de los canales se conservan dentro de `logos/` y la M3U y el
 EPG apuntan a las copias publicadas en este repositorio. Los logos vectoriales
 se mantienen como SVG y los demas como PNG para conservar la mejor calidad

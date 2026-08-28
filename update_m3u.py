@@ -135,6 +135,13 @@ NO_EPG_CHANNEL_IDS.update({
     "Vavoo.al.SUPERSPORT1@TvVoo",
     "Vavoo.ar.BEINSPORTS1@TvVoo",
 })
+# Estas señales sí tienen fuentes de programación preferidas, pero pueden
+# quedar temporalmente sin bloques. En ese caso se publica "sin guía" en vez
+# de inventar continuidad o bloquear toda la actualización. Se vuelven a
+# consultar normalmente en cada ejecución.
+OPTIONAL_EPG_CHANNEL_IDS = {
+    "1437",  # TVN3: Zapping/TecnoCentro cuando entregan bloques exactos.
+}
 NHK_MASTER_URL = "https://masterpl.hls.nhkworld.jp/hls/w/live/smarttv.m3u8"
 # EPGShare01 no entregó una parrilla actual para estas pruebas; se mantienen
 # sin guía en vez de rellenarlas con continuidad genérica.
@@ -163,6 +170,7 @@ NO_EPG_CHANNEL_IDS.difference_update({
     "Vavoo.nl.STINGRAYDJAZZ@TvVoo",
     "Vavoo.tr.EUROSPORT1@TvVoo",
 })
+EPG_ALLOWED_EMPTY_IDS = NO_EPG_CHANNEL_IDS | OPTIONAL_EPG_CHANNEL_IDS
 NHK_WORLD_LIVE_PAGE = "https://www3.nhk.or.jp/nhkworld/en/live_tv/"
 NHK_WORLD_EPG_BASE_URL = "https://masterpl.hls.nhkworld.jp/epg/w"
 NHK_OFFICIAL_EPG_SOURCE = "nhk-world-oficial"
@@ -4394,6 +4402,9 @@ def build_epg(
         if channel_id in NO_EPG_CHANNEL_IDS:
             guide_types[channel_id] = "sin guía"
             continue
+        if not count and channel_id in OPTIONAL_EPG_CHANNEL_IDS:
+            guide_types[channel_id] = "sin guía"
+            continue
         last_stop = last_stop_by_channel.get(channel_id)
         if count and last_stop is not None and last_stop >= minimum_future:
             continue
@@ -4443,7 +4454,7 @@ def build_epg(
         expected_ids,
         now=now,
         minimum_future=timedelta(hours=24),
-        allow_empty_ids=NO_EPG_CHANNEL_IDS,
+        allow_empty_ids=EPG_ALLOWED_EMPTY_IDS,
     )
     status["guide_types"] = guide_types
     status["guide_sources"] = guide_sources
@@ -4473,7 +4484,7 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
                 expected_ids,
                 now=now,
                 minimum_future=timedelta(hours=24),
-                allow_empty_ids=NO_EPG_CHANNEL_IDS,
+                allow_empty_ids=EPG_ALLOWED_EMPTY_IDS,
             )
             generated_at = existing_status.get("generated_at")
             if generated_at and not force:
