@@ -120,10 +120,14 @@ ejecucion tambien puede iniciarse manualmente desde la pestana **Actions** con
 el workflow **Actualizar M3U y EPG**. `force_run` omite la ventana dinamica y
 `force_epg_refresh` fuerza la descarga de las fuentes EPG.
 
-TVN3 intenta Zapping y TecnoCentro en cada ciclo. Si ambas fuentes no entregan
-bloques exactos y la parrilla real anterior ya venció, se publica explícitamente
-como `sin guía`; no se inventa una programación genérica ni se bloquea el resto
-de la lista.
+TVN y TVN3 son señales distintas y nunca comparten parrilla: TVN usa el JSONP
+oficial de `tvn.cl` con `tvg-id="0104"`; TVN3 conserva `tvg-id="1437"`, consulta
+su página diaria exacta de Zapping y publica además `https://www.tvn.cl/tvn3`
+como referencia oficial de la señal. Las páginas de Zapping se procesan de
+forma independiente y concurrente, de modo que el fallo de otro canal no puede
+descartar TVN3. TecnoCentro queda como respaldo. Si ninguna fuente entrega
+bloques exactos y la parrilla real anterior ya venció, TVN3 se marca `sin guía`
+y no recibe continuidad inventada.
 
 Todos los logos de los canales se conservan dentro de `logos/` y la M3U y el
 EPG apuntan a las copias publicadas en este repositorio. Los logos vectoriales

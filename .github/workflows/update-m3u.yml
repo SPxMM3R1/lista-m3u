@@ -47,6 +47,9 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Probar importadores EPG
+        run: python -m unittest discover -s tests -p "test_*.py"
+
       - name: Ejecutar coordinador con ventana de 12 horas
         id: updater
         shell: bash

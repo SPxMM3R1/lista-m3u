@@ -428,6 +428,7 @@ EPG_REFRESH_LEAD = timedelta(hours=6)
 TVN_PROGRAMMING_PAGE = "https://www.tvn.cl/programacion"
 TVN_PROGRAMMING_BASE_URL = "https://estaticos.tvn.cl/epg/tvn"
 TVN_OFFICIAL_EPG_SOURCE = "tvn-oficial"
+TVN3_OFFICIAL_PAGE = "https://www.tvn.cl/tvn3"
 TVN_ALTERNATIVE_URL = "https://iptv2.intersurtv.cl/TVN/index.m3u8?PlaylistM3UCL"
 LA_RED_PROGRAMMING_PAGE = "https://www.lared.cl/guia-programacion"
 LA_RED_OFFICIAL_EPG_SOURCE = "la-red-oficial"
@@ -3779,9 +3780,10 @@ def fetch_zapping_epg(
             "source-info-name": ZAPPING_EPG_BASE_URL,
         },
     )
-    errors: dict[str, str] = {}
-    found_by_target = {target_id: 0 for target_id, _ in targets}
-    for target_id, slug in targets:
+
+    def fetch_target(
+        target_id: str, slug: str
+    ) -> tuple[str, list[tuple[datetime, datetime, str]], str | None]:
         url = f"{ZAPPING_EPG_BASE_URL}/{slug}/"
         try:
             status, body, _ = fetch_bytes(
@@ -3799,6 +3801,7 @@ def fetch_zapping_epg(
             if len(rows) < 3:
                 raise ValueError("la guia Zapping contiene muy pocos bloques")
 
+            blocks: list[tuple[datetime, datetime, str]] = []
             for index, (start, title) in enumerate(rows):
                 stop = (
                     rows[index + 1][0]
@@ -3809,31 +3812,54 @@ def fetch_zapping_epg(
                     continue
                 if stop < now - timedelta(hours=6) or start > now + timedelta(days=4):
                     continue
-                programme = ET.SubElement(
-                    root,
-                    "programme",
-                    {
-                        "start": xmltv_format_chile(start),
-                        "stop": xmltv_format_chile(stop),
-                        "channel": target_id,
-                    },
-                )
-                ET.SubElement(programme, "title", {"lang": "es"}).text = title
-                ET.SubElement(programme, "desc", {"lang": "es"}).text = (
-                    "Programacion publica consultada en la guia de Zapping Chile."
-                )
-                found_by_target[target_id] += 1
+                blocks.append((start, stop, title))
+            if not blocks:
+                raise ValueError("la guia Zapping no publico bloques utilizables")
+            return target_id, blocks, None
         except Exception as error:
-            errors[target_id] = f"{type(error).__name__}: {error}"
+            return target_id, [], f"{type(error).__name__}: {error}"
 
-    for target_id, count in found_by_target.items():
-        if count == 0:
-            errors[target_id] = "la guia Zapping no publico bloques utilizables"
+    # Cada pagina es una fuente independiente. La concurrencia reduce la
+    # duracion del unico run de Actions sin mezclar resultados ni permitir que
+    # un fallo de otro canal descarte la parrilla valida de TVN3.
+    results: dict[str, list[tuple[datetime, datetime, str]]] = {}
+    errors: dict[str, str] = {}
+    with ThreadPoolExecutor(max_workers=min(6, len(targets))) as pool:
+        futures = {
+            pool.submit(fetch_target, target_id, slug): target_id
+            for target_id, slug in targets
+        }
+        for future in as_completed(futures):
+            target_id, blocks, error = future.result()
+            if blocks:
+                results[target_id] = blocks
+            if error:
+                errors[target_id] = error
+
+    for target_id, _ in targets:
+        for start, stop, title in results.get(target_id, []):
+            programme = ET.SubElement(
+                root,
+                "programme",
+                {
+                    "start": xmltv_format_chile(start),
+                    "stop": xmltv_format_chile(stop),
+                    "channel": target_id,
+                },
+            )
+            ET.SubElement(programme, "title", {"lang": "es"}).text = title
+            description = (
+                "Parrilla horaria publica de Zapping Chile para TVN3, "
+                "senal oficial de TVN."
+                if target_id == "1437"
+                else "Programacion publica consultada en la guia de Zapping Chile."
+            )
+            ET.SubElement(programme, "desc", {"lang": "es"}).text = description
 
     # La fuente es opcional y se selecciona por canal. Una pagina que falle no
     # invalida los bloques validos de las otras paginas; build_epg usa esos
     # bloques y deja el fallback configurado para los canales sin cobertura.
-    if not any(found_by_target.values()):
+    if not results:
         return None, errors
     return ET.tostring(root, encoding="utf-8", xml_declaration=True), errors
 
@@ -4187,6 +4213,8 @@ def build_epg(
         ET.SubElement(element, "display-name").text = channel.display_name or channel.name
         if channel.logo_url:
             ET.SubElement(element, "icon", {"src": channel.logo_url})
+        if channel.tvg_id == "1437":
+            ET.SubElement(element, "url").text = TVN3_OFFICIAL_PAGE
 
     source_roots: dict[str, ET.Element] = {}
     for source_name, source_xml in source_documents.items():
