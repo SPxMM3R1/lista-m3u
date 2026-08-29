@@ -233,7 +233,6 @@ EPG_PROGRAMME_SOURCES = {
     "0106": ("cl", "Canal.Chilevisi\u00f3n.(CHV).cl"),
     "0107": ("cl", "Canal.13.de.Chile.cl"),
     "0201": ("cl", "Canal.24.Horas.(Chile).cl"),
-    "0102": ("cl", "Canal.La.Red.(Chile).cl"),
     "DW.de": ("es", "Deutsche.Welle.es"),
     "France24.fr": ("fr", "France.24.Espanol.fr"),
     "EuronewsSpanish.fr": ("es", "Euronews.es"),
@@ -383,7 +382,6 @@ ZAPPING_EPG_CHANNELS = {
     "0105": "mega",
     "0106": "chv",
     "0107": "canal13",
-    "0102": "lared",
     "0201": "24horas",
     "Meganoticias.cl": "meganoticias",
     "1153": "chvnoticias",
@@ -1158,11 +1156,7 @@ KNOWN_STREAM_FALLBACKS = {
     # solo como respaldo estable para clientes externos; VibeM3U lo renueva
     # desde la página oficial justo antes de reproducir.
     "Meganoticias": [MEGANOTICIAS_OFFICIAL_MASTER_URL],
-    "La Red": [
-        LA_RED_MASTER_URL,
-        "https://live2.airstream.run/3969875408/ts:abr.m3u8",
-        "https://d1kqwrirylysyt.cloudfront.net/ts:abr.m3u8",
-    ],
+    "La Red": [LA_RED_MASTER_URL],
     "Arirang TV": [ARIRANG_TV_MASTER_URL],
     "DW Español": [
         "https://dwamdstream104.akamaized.net/hls/live/2015530/dwstream104/master.m3u8"
@@ -1898,9 +1892,10 @@ def epg_status_from_xml(
                 overlapping_channels.append(channel_id)
                 break
             previous_stop = stop if previous_stop is None or stop > previous_stop else previous_stop
+    validation_warnings: list[str] = []
     if overlapping_channels:
-        raise ValueError(
-            "programas superpuestos en la EPG: " + ", ".join(sorted(overlapping_channels))
+        validation_warnings.append(
+            "programas superpuestos en: " + ", ".join(sorted(overlapping_channels))
         )
 
     allowed_empty = set(allow_empty_ids or ()) & expected_ids
@@ -1960,6 +1955,7 @@ def epg_status_from_xml(
         "next_refresh_at": next_refresh.isoformat() if next_refresh else None,
         "guide_types": guide_types,
         "guide_sources": guide_sources,
+        "warnings": validation_warnings,
     }
 
 
@@ -4479,6 +4475,10 @@ def build_epg(
             if target_id in expected_ids and cards
         )
         for target_id in expected_ids - fresh_targets - NO_EPG_CHANNEL_IDS:
+            if target_id == "0102":
+                # La Red queda estrictamente en la fuente oficial. No se
+                # recicla una EPG antigua de EPGShare/Zapping como respaldo.
+                continue
             source_lookup[(PUBLISHED_EPG_FALLBACK_SOURCE, target_id)] = target_id
 
     for source_name, source_root in source_roots.items():
@@ -5784,6 +5784,8 @@ def main() -> int:
         for channel in channels:
             guide_type = epg_status.get("guide_types", {}).get(channel.tvg_id, "sin datos")
             print(f"  [EPG] {channel.name}: {guide_type}")
+        for warning in epg_status.get("warnings", []):
+            print(f"  [AVISO] EPG: {warning}", file=sys.stderr)
 
     print(
         f"Revisando {len(channels)} candidatos de {source_playlist.name} "

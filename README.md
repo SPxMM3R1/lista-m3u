@@ -150,9 +150,11 @@ TVN y Mega se actualizan desde sus parrillas oficiales cuando estan
 disponibles. Para T13 no se encontro una parrilla oficial diaria de la senal
 `t13.smil`: la pagina `13.cl/programacion` corresponde a la parrilla general
 de Canal 13 y no coincide con esa senal. Por eso T13 usa Zapping como primera
-opcion y TecnoCentro como tercera opcion. La fuente oficial de La Red tiene
-prioridad sobre Zapping y EPGShare; esas fuentes se conservan como
-respaldo si la pagina del canal no responde o no entrega 24 horas futuras.
+opcion y TecnoCentro como tercera opcion. La EPG de La Red usa exclusivamente
+su guia oficial. Si esa pagina no responde o no entrega una parrilla
+suficiente, no se sustituye por Zapping, EPGShare ni por otra fuente: se deja
+constancia del fallo y se conserva unicamente la cobertura tecnica, marcada
+como tal y no presentada como programacion real.
 Para 24 Horas no se encontro una parrilla diaria oficial publica y estructurada
 en 24horas.cl: se usa Zapping cuando entrega bloques validos y EPGShare01 como
 tercera opcion. Un fallo aislado de Zapping no invalida los respaldos por canal.

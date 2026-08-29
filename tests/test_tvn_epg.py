@@ -231,6 +231,70 @@ class TvnEpgTests(unittest.TestCase):
         )
         self.assertEqual(status["programmes"], 1)
 
+    def test_epg_overlap_is_reported_without_invalidating_the_whole_guide(self) -> None:
+        now = datetime(2026, 8, 28, 12, tzinfo=timezone.utc)
+        root = ET.Element("tv")
+        ET.SubElement(root, "channel", {"id": "overlap.channel"})
+        for start, stop, title in (
+            (now - timedelta(hours=1), now + timedelta(hours=2), "Bloque A"),
+            (now + timedelta(hours=1), now + timedelta(hours=25), "Bloque B"),
+        ):
+            programme = ET.SubElement(
+                root,
+                "programme",
+                {
+                    "start": update_m3u.xmltv_format_chile(start),
+                    "stop": update_m3u.xmltv_format_chile(stop),
+                    "channel": "overlap.channel",
+                },
+            )
+            ET.SubElement(programme, "title").text = title
+
+        status = update_m3u.epg_status_from_xml(
+            ET.tostring(root, encoding="utf-8", xml_declaration=True),
+            {"overlap.channel"},
+            now=now,
+            minimum_future=timedelta(hours=24),
+        )
+
+        self.assertTrue(status["ok"])
+        self.assertIn("overlap.channel", status["warnings"][0])
+
+    def test_la_red_does_not_fallback_to_aggregated_epg(self) -> None:
+        now = datetime(2026, 8, 28, 12, tzinfo=timezone.utc)
+        la_red = channel("La Red", "0102")
+
+        def source(channel_id: str, title: str) -> bytes:
+            root = ET.Element("tv")
+            programme = ET.SubElement(
+                root,
+                "programme",
+                {
+                    "start": update_m3u.xmltv_format_chile(now - timedelta(hours=1)),
+                    "stop": update_m3u.xmltv_format_chile(now + timedelta(hours=25)),
+                    "channel": channel_id,
+                },
+            )
+            ET.SubElement(programme, "title").text = title
+            return ET.tostring(root, encoding="utf-8", xml_declaration=True)
+
+        output, status = update_m3u.build_epg(
+            {
+                "cl": source("Canal.La.Red.(Chile).cl", "EPGShare no autorizada"),
+                update_m3u.ZAPPING_EPG_SOURCE: source("0102", "Zapping no autorizada"),
+            },
+            [la_red],
+            {},
+            now=now,
+        )
+
+        root = ET.fromstring(output)
+        titles = [item.findtext("title", "") for item in root.findall("programme")]
+        self.assertFalse(any("no autorizada" in title for title in titles))
+        la_red_epg = root.find("./channel[@id='0102']")
+        self.assertEqual(la_red_epg.get("data-guide-source"), "continuidad-tecnica")
+        self.assertGreater(status["programmes"], 0)
+
 
 if __name__ == "__main__":
     unittest.main()
