@@ -1099,6 +1099,106 @@ CONTINUOUS_PROGRAMME_DETAILS = {
     ),
 }
 NEWS_CHANNEL_ORDER = ("24 Horas", "Meganoticias", "CHV Noticias", "T13")
+CONTENT_CATEGORY_ORDER = (
+    "Nacionales",
+    "Noticias nacionales",
+    "Noticias internacionales",
+    "Deportes",
+    "Música",
+    "Misceláneos",
+)
+CONTENT_CATEGORY_INDEX = {
+    category: index for index, category in enumerate(CONTENT_CATEGORY_ORDER)
+}
+
+# La clasificación se hace por ``tvg-id`` o por reglas acotadas de contenido,
+# nunca por el estado de salud. Un canal retirado temporalmente debe conservar
+# su posición en ``channel-catalog.m3u`` para volver al mismo lugar cuando se
+# recupere.
+NATIONAL_CHANNEL_IDS = {
+    "0104",  # TVN
+    "0105",  # Mega
+    "0106",  # CHV
+    "0107",  # Canal 13
+    "0102",  # La Red
+    "TVChile.cl",
+    "13Kids.cl",
+}
+NATIONAL_NEWS_CHANNEL_IDS = {
+    "0201",  # 24 Horas
+    "Meganoticias.cl",
+    "1153",  # CHV Noticias
+    "0124",  # T13
+}
+INTERNATIONAL_NEWS_CHANNEL_IDS = {
+    "DW.de",
+    "France24.fr",
+    "France24.fr@English",
+    "ReutersTV.us",
+    "CNN.us@TvVoo",
+    "EuronewsSpanish.fr",
+    "NHKWorldJapan.jp",
+    "AlJazeera.qa",
+    "DWEnglish.de",
+    "BBCNews.uk",
+    "Vavoo.uk.BBCWORLDNEWS@TvVoo",
+    "Vavoo.it.BLOOMBERGTV@TvVoo",
+    "Vavoo.pl.CNN@TvVoo",
+    "Vavoo.de.RTDE@TvVoo",
+    "Vavoo.tr.TRTWORLD@TvVoo",
+}
+MUSIC_CHANNEL_IDS = {
+    "XITEHits.nl@Germany",
+    "XITENuevoLatino.us",
+    "XITESiempreLatino.us",
+    "XITE80sFlashback.us",
+    "XITE90sThrowback.us",
+    "XITERockxMetal.nl",
+    "XITEJustChill.nl",
+    "M1.ua@SD",
+    "M2.ua@SD",
+    "QelloConcertsbyStingray.ca",
+    "StingrayClassica.ca",
+    "Totalmusic80s.uk",
+    "Totalmusic2000s.uk",
+    "TotalmusicConcerts.uk",
+    "TotalmusicDance.uk",
+    "MTVClassic.us",
+    "MTVBiggestPop.us",
+    "MTVSpankinNew.us",
+    "MTVFlowLatino.us",
+    "MTVHits.fr@TvVoo",
+    "M6Music.fr@TvVoo",
+    "TraceUrban.fr@TvVoo",
+    "NRJHits.fr@TvVoo",
+    "MCM.fr@TvVoo",
+    "Vavoo.uk.4MUSIC@TvVoo",
+    "Vavoo.fr.MEZZOLIVE@TvVoo",
+    "Vavoo.fr.STINGRAYCLASSICA@TvVoo",
+    "Vavoo.pt.MTVPORTUGAL@TvVoo",
+    "Vavoo.pt.STINGRAYICONCERTS@TvVoo",
+    "Vavoo.nl.XITEROCK@TvVoo",
+    "Vavoo.nl.STINGRAYDJAZZ@TvVoo",
+    "Vavoo.bg.STINGRAYICONCERTS@TvVoo",
+}
+SPORTS_NAME_PATTERN = re.compile(
+    r"(?:\bsport(?:s)?\b|\beurosport\b|\bespn\b|\bdazn\b|\bf1\b|\bmotogp\b|"
+    r"\bformula\s*1\b|\bsky\s+sport|\bsky\s+sports|\btyc\s+sports\b|"
+    r"\bnba\b|\bsupersport\b)",
+    re.IGNORECASE,
+)
+MUSIC_NAME_PATTERN = re.compile(
+    r"(?:\bxite\b|\bmtv\b|\bmusic\b|\bmusica\b|\bqello\b|\bstingray\b|"
+    r"\btotalmusic\b|\btrace\b|\bnrj\b|\bmcm\b|\bmezzo\b|\b4music\b|"
+    r"\bconcerts?\b|\biconcerts\b)",
+    re.IGNORECASE,
+)
+INTERNATIONAL_NEWS_NAME_PATTERN = re.compile(
+    r"(?:\bbbc\s+(?:news|world\s+news)\b|\bcnn\b|\bdw(?:\s|$)|\bfrance\s*24\b|"
+    r"\breuters\b|\beuronews\b|\bnhk\b|\bal\s+jazeera\b|\bbloomberg\b|"
+    r"\brt\s+de\b|\btrt\s+world\b)",
+    re.IGNORECASE,
+)
 PLAYER_USER_AGENT = "VLC/3.0.20 LibVLC/3.0.20"
 BROWSER_USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -1423,6 +1523,112 @@ def parse_channels(lines: list[str]) -> list[Channel]:
         else:
             raise ValueError(f"{name}: falta la URL al final del archivo")
     return channels
+
+
+def content_category_for(channel: Channel) -> str:
+    """Return the stable thematic bucket used by both published playlists.
+
+    The explicit ID sets cover the current catalogue. The narrow name/group
+    rules let future additions be placed sensibly without using a broad,
+    error-prone substring match for resolver selection.
+    """
+    if channel.tvg_id in NATIONAL_CHANNEL_IDS:
+        return "Nacionales"
+    if channel.tvg_id in NATIONAL_NEWS_CHANNEL_IDS:
+        return "Noticias nacionales"
+    if (
+        channel.tvg_id in INTERNATIONAL_NEWS_CHANNEL_IDS
+        or INTERNATIONAL_NEWS_NAME_PATTERN.search(channel.name)
+    ):
+        return "Noticias internacionales"
+    if (
+        channel.tvg_id == "1763"
+        or "deporte" in channel.group.lower()
+        or SPORTS_NAME_PATTERN.search(channel.name)
+    ):
+        return "Deportes"
+    if (
+        channel.tvg_id in MUSIC_CHANNEL_IDS
+        or "musica" in channel.group.lower()
+        or "música" in channel.group.lower()
+        or MUSIC_NAME_PATTERN.search(channel.name)
+    ):
+        return "Música"
+    return "Misceláneos"
+
+
+def with_content_category(line: str, category: str) -> str:
+    """Set the visible group without changing any other EXTINF metadata."""
+    metadata, separator, display_name = line.rpartition(",")
+    if not separator or not metadata.startswith("#EXTINF:"):
+        raise ValueError(f"linea #EXTINF invalida: {line[:120]}")
+    group_attribute = f'group-title="{category}"'
+    if re.search(r'\bgroup-title="[^"]*"', metadata):
+        metadata = re.sub(
+            r'\bgroup-title="[^"]*"', group_attribute, metadata, count=1
+        )
+    else:
+        metadata = f"{metadata} {group_attribute}"
+    return f"{metadata},{display_name}"
+
+
+def order_channels_by_content(lines: list[str]) -> bool:
+    """Order the complete catalogue and normalize its six public groups.
+
+    Only channel records are moved. The first ``#EXTM3U`` header is retained;
+    explanatory section comments from older layouts are intentionally removed
+    so a failed channel cannot leave a misleading heading in the public copy.
+    ``filter_playlist_to_working_channels`` later removes failed records from
+    this already ordered sequence, preserving their future catalogue position.
+    """
+    channels = parse_channels(lines)
+    if not channels:
+        return False
+
+    first_info_line = min(channel.info_line for channel in channels)
+    header = [
+        line for line in lines[:first_info_line] if line.startswith("#EXTM3U")
+    ]
+    if not header:
+        header = ["#EXTM3U"]
+
+    records = []
+    for original_index, channel in enumerate(channels):
+        category = content_category_for(channel)
+        records.append(
+            (
+                CONTENT_CATEGORY_INDEX[category],
+                original_index,
+                category,
+                with_content_category(lines[channel.info_line], category),
+                lines[channel.url_line],
+            )
+        )
+    records.sort(key=lambda item: (item[0], item[1]))
+
+    ordered_lines = list(header)
+    current_category = None
+    category_counts = {category: 0 for category in CONTENT_CATEGORY_ORDER}
+    for _, _, category, info_line, url_line in records:
+        if category != current_category:
+            if ordered_lines and ordered_lines[-1] != "":
+                ordered_lines.append("")
+            ordered_lines.append(f"# {category}")
+            current_category = category
+        ordered_lines.extend((info_line, url_line))
+        category_counts[category] += 1
+    while ordered_lines and ordered_lines[-1] == "":
+        ordered_lines.pop()
+
+    changed = ordered_lines != lines
+    if changed:
+        lines[:] = ordered_lines
+        counts = ", ".join(
+            f"{category}={category_counts[category]}"
+            for category in CONTENT_CATEGORY_ORDER
+        )
+        print(f"  [OK] Orden tematico aplicado: {counts}")
+    return changed
 
 
 def filter_playlist_to_working_channels(
@@ -5766,6 +5972,7 @@ def main() -> int:
         validate_resolver_contract(lines)
         return 0
 
+    content_order_changed = order_channels_by_content(lines)
     epg_url_changed = ensure_playlist_epg_url(lines)
     if epg_url_changed:
         source_playlist.write_text(
@@ -5776,11 +5983,7 @@ def main() -> int:
     news_order_changed = pin_news_channel_order(lines)
     preferred_logo_changed = pin_preferred_logos(lines)
     resolver_changed = pin_resolver_metadata(lines)
-    if (
-        news_order_changed
-        or preferred_logo_changed
-        or resolver_changed
-    ):
+    if content_order_changed or news_order_changed or preferred_logo_changed or resolver_changed:
         source_playlist.write_text(
             "\n".join(lines) + "\n", encoding="utf-8", newline="\n"
         )

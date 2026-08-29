@@ -133,10 +133,23 @@ disponible sin depender de servidores externos.
 
 ## Orden de la lista
 
-1. Nacionales normales
-2. Noticias
-3. Miscelaneos nacionales
-4. Internacionales y canales agregados por region o tema
+El orden tematico se construye siempre desde `channel-catalog.m3u`, que
+conserva los 154 candidatos aunque alguno quede temporalmente fuera de la M3U
+publica por fallar la validacion. `m3u.m3u` solo filtra esos candidatos sin
+alterar su posicion; cuando un canal se recupera, vuelve al mismo bloque.
+
+1. Nacionales
+2. Noticias nacionales
+3. Noticias internacionales
+4. Deportes
+5. Música
+6. Misceláneos
+
+Los seis valores se reflejan tambien en `group-title`. Los canales de
+documentales, cultura, entretenimiento y señales internacionales generales
+quedan en `Misceláneos`; las señales de conciertos, XITE, MTV, Stingray y
+similares quedan en `Música`. La clasificación no cambia `tvg-id`, asociaciones
+XMLTV, resolutores ni URLs de respaldo.
 
 ## Canales
 
