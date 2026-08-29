@@ -116,7 +116,19 @@ jobs:
         run: |
           set +e
           exit_code=0
-          check_raw() { curl --fail --silent --show-error --location --max-time 30 "$RAW_BASE/$1?health=$GITHUB_RUN_ID" | grep -q "$2"; }
+          check_raw() {
+            local tmp status
+            tmp="$(mktemp)"
+            if ! curl --fail --silent --show-error --location --max-time 30 \
+              "$RAW_BASE/$1?health=$GITHUB_RUN_ID" --output "$tmp"; then
+              rm -f "$tmp"
+              return 1
+            fi
+            grep -q "$2" "$tmp"
+            status=$?
+            rm -f "$tmp"
+            return "$status"
+          }
           check_raw m3u.m3u '#EXTM3U' || exit_code=1
           check_raw channel-catalog.m3u '#EXTM3U' || exit_code=1
           check_raw resolver-catalog.json '"schemaVersion": 1' || exit_code=1
