@@ -1,10 +1,9 @@
 # Lista M3U para Android TV
 
-Repositorio publico de la lista M3U principal para Android TV. La lista y su
-EPG se actualizan mediante un coordinador comun. El limite de seguridad es de
-6 horas, pero la siguiente ejecucion puede adelantarse cuando la programacion
-real disponible esta a punto de terminar. Ese mismo resultado puede generarse
-desde Windows o desde GitHub Actions.
+Repositorio publico de la lista M3U principal para Android TV. El mantenimiento
+esta separado en dos procesos independientes: uno actualiza canales,
+resolutores y salud; el otro construye la EPG sobre el catalogo completo. Ambos
+usan ventanas fijas de seis horas y publican sus salidas sin sobrescribirse.
 
 ## URLs para el reproductor
 
@@ -31,7 +30,7 @@ tokens, claves ni URLs de sesion.
 
 ## Funcionamiento
 
-Cada ejecucion completa:
+El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
 
 - comprueba los streams, los primeros segmentos multimedia y los logos locales;
 - conserva los maestros originales de los canales cuya autenticacion corresponde
@@ -40,14 +39,7 @@ Cada ejecucion completa:
   generadas por este repositorio;
 - prioriza enlaces descubiertos desde las paginas oficiales del emisor al
   reparar una senal; los respaldos conocidos solo se prueban despues;
-- actualiza la guia EPG con parrillas XMLTV reales; una entrada que solo
-  pueda recibir bloques genericos se rechaza y no se publica;
-- si una fuente exacta por canal falla durante una renovacion, conserva solo
-  sus bloques reales todavia vigentes de la EPG publicada y nunca los mezcla
-  con una fuente fresca ni los sustituye por continuidad inventada;
-- calcula en `epg.xml` la proxima ventana usando el fin mas temprano de una
-  parrilla real menos seis horas; los bloques de continuidad no adelantan la
-  ejecucion;
+- no modifica `epg.xml`: la EPG tiene un proceso independiente;
 - usa las parrillas oficiales disponibles de TVN y Mega, ademas de las de M1 y
   M2; conserva EPGShare como respaldo cuando el emisor no publica XMLTV o una
   parrilla automatizable;
@@ -72,8 +64,8 @@ Cada ejecucion completa:
 - incorpora DAZN Darts x Pluto TV y DAZN Heldinnen x Pluto TV como señales FAST
   de producción: sus HLS públicos redirigen al distribuidor Pluto y sus guías
   XMLTV se obtienen desde la fuente pública de Pluto con los IDs oficiales de
-  ambos canales;
-  Cada ejecucion solicita tokens nuevos, valida
+  ambos canales. La EPG se actualiza en el proceso independiente;
+- cada ejecucion de canales solicita enlaces nuevos, valida
   maestro/variante/segmento y usa el mismo enlace HTTP solo cuando el nodo HTTPS
   responde con certificado vencido;
 - conserva Sky Sports Racing con Highfly como fuente primaria y aliases Vavoo
@@ -98,18 +90,17 @@ Cada ejecucion completa:
   catalogo, bloquea la publicacion como posible problema sistemico del runner,
   de red o del proveedor, en vez de retirar canales masivamente.
 
-El coordinador `run_m3u_6h.py` conserva `run-state.json` y mantiene una ventana
-fija de seis horas desde la ultima publicacion. La fecha de fin de la guia real
-se conserva como dato informativo, pero nunca pospone una ventana del
-mantenimiento. Nunca programa dos ejecuciones con menos de seis horas de
-separacion. GitHub Actions es el ejecutor principal desde ahora. La tarea
-local queda deshabilitada y los scripts locales se conservan solamente como
-respaldo manual; no deben ejecutarse al mismo tiempo que el cron remoto.
+El coordinador `run_m3u_6h.py` conserva `run-state.json`; el coordinador
+`run_epg_6h.py` conserva `epg-run-state.json`. Cada estado tiene su propia
+ventana fija de seis horas. GitHub Actions es el ejecutor principal desde
+ahora. La tarea local queda deshabilitada y los scripts locales se conservan
+solamente como respaldo manual; no deben ejecutarse al mismo tiempo que el
+cron remoto.
 
-GitHub conserva cuatro disparadores diarios, a las 00:00, 06:00, 12:00 y
-18:00 (hora de Santiago). Cada cron ejecuta una sola validacion coordinada de
-streams, logos, EPG y resolutores; la compuerta de `run-state.json` evita
-trabajo duplicado.
+El proceso de canales corre a las 00:00, 06:00, 12:00 y 18:00 (hora de
+Santiago). El proceso de EPG corre a las 00:30, 06:30, 12:30 y 18:30. La
+compuerta de cada estado evita trabajo duplicado y ambos comparten una cola de
+publicacion para no competir por `main`.
 GitHub puede iniciar unos minutos despues porque los cron son best effort.
 
 TVN y Meganoticias conservan sus maestros oficiales. Actions no interviene en
@@ -119,8 +110,9 @@ estar encendido para el mantenimiento normal.
 
 La guia conserva datos vigentes si una fuente externa falla temporalmente. La
 ejecucion tambien puede iniciarse manualmente desde la pestana **Actions** con
-el workflow **Actualizar M3U y EPG**. `force_run` omite la ventana dinamica y
-`force_epg_refresh` fuerza la descarga de las fuentes EPG.
+los workflows **Actualizar canales M3U** o **Actualizar EPG**. El primero
+renueva streams y salud; el segundo fuerza la reconstruccion de la guia sobre
+`channel-catalog.m3u`.
 
 TVN y TVN3 son señales distintas y nunca comparten parrilla: TVN usa el JSONP
 oficial de `tvn.cl` con `tvg-id="0104"`; TVN3 conserva `tvg-id="1437"`, consulta
@@ -129,8 +121,8 @@ la guía horaria pública de Zapping/Simply.TV y publica además
 dos niveles: el HTML completo de hoy/mañana y el endpoint público de programa
 actual/próximos cuando el HTML aplica restricción geográfica al runner. Las
 páginas se procesan por canal para que un fallo independiente no descarte
-TVN3. Si ninguna fuente entrega bloques exactos, TVN3 se marca `sin guía` en
-vez de heredar por error la programación de TVN o aceptar el bloque genérico
+TVN3. Si ninguna fuente entrega bloques exactos, TVN3 recibe `continuidad tecnica`
+explicita en vez de heredar por error la programación de TVN o aceptar el bloque genérico
 de 24 horas que publica TVN Play.
 
 Todos los logos de los canales se conservan dentro de `logos/` y la M3U y el
@@ -168,26 +160,24 @@ Argentina, Portugal, Nueva Zelanda, Estados Unidos, Polonia, Letonia, Paises
 Bajos, PLEX1, PlutoTV, Turquia, Singapur y Nigeria, junto con la guia publica
 de Zapping para senales chilenas seleccionadas. El orden es: fuente oficial
 del canal, XMLTV real por pais/proveedor y Zapping u otra fuente secundaria
-real. M1, M2 y 13C se actualizan desde sus parrillas oficiales. La produccion
-no conserva canales cuya unica salida seria `senal continua`; el constructor
- falla antes de publicar si aparece uno. Las excepciones explicitas de TvVoo
- que responden como HLS pero no tienen una guia identificable se publican como
- `sin guía`, sin inventar programas. Puede existir `parrilla real + continuidad`
- cuando una fuente de producción entrega bloques reales pero una ventana menor
- a 24 horas. Las fuentes marcadas como opcionales, como TVN3, conservan
- `parrilla real parcial`: nunca se rellenan con un bloque genérico del canal.
+real. M1, M2 y 13C se actualizan desde sus parrillas oficiales. La EPG siempre
+conserva al menos un bloque para cada canal del catalogo, incluso si fue
+retirado temporalmente de `m3u.m3u` por fallos HLS. Cuando ninguna fuente real
+entrega una parrilla exacta, se usa `continuidad tecnica`, marcada en
+`data-guide` y en el titulo como programacion no disponible; no se presenta
+como una guia oficial. La siguiente corrida vuelve a intentar la fuente real
+y reemplaza esa cobertura cuando aparece.
 
 Para diagnosticar una fuente sin alterar el historial de salud ni renovar URLs
-HLS, el mismo workflow admite la ejecución manual `epg_only`. Las ventanas
-automáticas de las 00:00, 06:00, 12:00 y 18:00 ejecutan el mantenimiento completo.
+HLS, se usa el workflow independiente **Actualizar EPG**. Las ventanas de
+canales y EPG no ejecutan el proceso contrario.
 
 Se reincorporaron provisionalmente nueve canales que habian desaparecido sin
 una instruccion de borrado: CHV Deportes, 13 Cultura, 13 Kids, Autentic History,
 Reuters, Totalmusic 80s, Totalmusic 2000s, Totalmusic Concerts y Totalmusic
 Dance. Sus maestros HLS entregaron playlist y primer segmento multimedia
-durante la verificacion, pero no se inventa una parrilla XMLTV: el actualizador
-los publica con `data-guide="sin guía"` hasta encontrar una fuente que
-identifique exactamente cada senal. 13C permanece en la lista como canal
+durante la verificacion; si no hay fuente real, el actualizador conserva una
+marca de `continuidad tecnica` para no dejar el canal sin bloque EPG. 13C permanece en la lista como canal
 distinto y conserva la parrilla oficial de `https://www.13.cl/c/programacion`;
 no se reutiliza esa guia para 13 Cultura.
 
