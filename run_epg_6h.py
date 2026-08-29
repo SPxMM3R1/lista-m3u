@@ -1,11 +1,5 @@
 #!/usr/bin/env python3
-"""Coordina el mantenimiento de canales de Lista M3U cada seis horas.
-
-El mismo coordinador se usa desde Windows y desde GitHub Actions. No publica
-por si mismo: prepara la salida y el estado para que cada ejecutor pueda usar
-su mecanismo de commit y verificacion habitual. La EPG tiene un coordinador
-independiente y no se modifica desde este proceso.
-"""
+"""Coordina la publicacion independiente de la EPG cada seis horas."""
 
 from __future__ import annotations
 
@@ -16,19 +10,12 @@ import subprocess
 import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-import xml.etree.ElementTree as ET
 
 
 PROJECT_ROOT = Path(__file__).resolve().parent
 UPDATE_SCRIPT = PROJECT_ROOT / "update_m3u.py"
-STATE_PATH = PROJECT_ROOT / "run-state.json"
-RESOLVER_CATALOG_PATH = PROJECT_ROOT / "resolver-catalog.json"
-OUTPUT_PATHS = (
-    PROJECT_ROOT / "m3u.m3u",
-    PROJECT_ROOT / "channel-catalog.m3u",
-    RESOLVER_CATALOG_PATH,
-    PROJECT_ROOT / "run-state.json",
-)
+STATE_PATH = PROJECT_ROOT / "epg-run-state.json"
+EPG_PATH = PROJECT_ROOT / "epg.xml"
 INTERVAL = timedelta(hours=6)
 
 
@@ -59,9 +46,9 @@ def load_state() -> dict:
     try:
         state = json.loads(STATE_PATH.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as error:
-        raise RuntimeError(f"run-state.json no se puede leer: {error}") from error
+        raise RuntimeError(f"epg-run-state.json no se puede leer: {error}") from error
     if not isinstance(state, dict):
-        raise RuntimeError("run-state.json no contiene un objeto JSON")
+        raise RuntimeError("epg-run-state.json no contiene un objeto JSON")
     return state
 
 
@@ -79,16 +66,8 @@ def last_published_at(state: dict) -> datetime | None:
 
 
 def next_scheduled_at(state: dict, current: datetime) -> datetime:
-    """Return the fixed six-hour maintenance window.
-
-    The EPG deadline remains useful diagnostic metadata, but it must not defer
-    a scheduled run: the six-hour cadence is intentional while channels are
-    being recovered.
-    """
     previous = last_published_at(state)
-    if previous is None:
-        return current
-    return previous + INTERVAL
+    return current if previous is None else previous + INTERVAL
 
 
 def is_due(state: dict, current: datetime, force: bool) -> bool:
@@ -99,8 +78,7 @@ def is_due(state: dict, current: datetime, force: bool) -> bool:
         return True
     if current < previous:
         print(
-            "La ultima publicacion esta en el futuro; se omite la ejecucion "
-            "para evitar una frecuencia accidental.",
+            "La ultima EPG publicada esta en el futuro; se omite la ejecucion.",
             file=sys.stderr,
         )
         return False
@@ -115,7 +93,7 @@ def write_state(current: datetime, executor: str, next_run: datetime) -> None:
         "last_published_at": timestamp(current),
         "last_executor": executor,
         "next_scheduled_at": timestamp(next_run),
-        "schedule_basis": "mantenimiento fijo cada 6 horas; fin de guia informativo",
+        "schedule_basis": "EPG independiente cada 6 horas sobre catalogo completo",
     }
     temporary = STATE_PATH.with_suffix(".json.tmp")
     temporary.write_text(
@@ -124,27 +102,11 @@ def write_state(current: datetime, executor: str, next_run: datetime) -> None:
     temporary.replace(STATE_PATH)
 
 
-def restore_outputs(snapshots: dict[Path, bytes | None]) -> None:
-    for path, content in snapshots.items():
-        if content is None:
-            if path.exists():
-                path.unlink()
-            continue
-        try:
-            if path.read_bytes() != content:
-                path.write_bytes(content)
-        except FileNotFoundError:
-            path.write_bytes(content)
-
-
 def run_updater() -> int:
     environment = os.environ.copy()
-    # TVN y Meganoticias conservan sus masters para que la aplicacion resuelva
-    # la autenticacion. El ejecutor local debe clasificar sus 401/403 igual que
-    # Actions, sin sustituir la URL ni escribir tokens.
-    environment["M3U_ALLOW_GEO_RESTRICTED"] = "true"
+    environment["EPG_FORCE_REFRESH"] = "true"
     completed = subprocess.run(
-        [sys.executable, str(UPDATE_SCRIPT), "--channels-only"],
+        [sys.executable, str(UPDATE_SCRIPT), "--refresh-epg-only"],
         cwd=PROJECT_ROOT,
         env=environment,
         check=False,
@@ -154,14 +116,10 @@ def run_updater() -> int:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Ejecuta la validacion M3U/EPG cuando vencen 6 horas."
+        description="Actualiza la EPG del catalogo completo cada seis horas."
     )
     parser.add_argument("--executor", choices=("local", "github"), required=True)
-    parser.add_argument(
-        "--force",
-        action="store_true",
-        help="ignora el intervalo de 6 horas",
-    )
+    parser.add_argument("--force", action="store_true", help="ignora el intervalo")
     parser.add_argument("--dry-run", action="store_true")
     return parser.parse_args()
 
@@ -169,37 +127,38 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     args = parse_args()
     current = now_utc()
-
     write_github_output("ran", "false")
     write_github_output("due", "false")
 
     state = load_state()
     previous = last_published_at(state)
     if previous:
-        print(f"Ultima publicacion efectiva: {timestamp(previous)}")
+        print(f"Ultima EPG publicada: {timestamp(previous)}")
     next_at = next_scheduled_at(state, current)
     due = is_due(state, current, args.force)
     write_github_output("due", "true" if due else "false")
     write_github_output("next_scheduled_at", timestamp(next_at))
     if not due:
-        print(f"Actualizacion no necesaria; proxima ventana: {timestamp(next_at)}")
+        print(f"EPG no necesita actualizacion; proxima ventana: {timestamp(next_at)}")
         return 0
     if args.dry_run:
-        print("La actualizacion esta vencida; dry-run no ejecuta el actualizador.")
+        print("La EPG esta vencida; dry-run no ejecuta el actualizador.")
         return 0
 
-    snapshots = {
-        path: path.read_bytes() if path.exists() else None for path in OUTPUT_PATHS
-    }
-    print(f"Ejecutando mantenimiento de canales con {args.executor} a las {timestamp(current)}")
+    snapshot_epg = EPG_PATH.read_bytes() if EPG_PATH.exists() else None
+    snapshot_state = STATE_PATH.read_bytes() if STATE_PATH.exists() else None
+    print(f"Ejecutando EPG independiente con {args.executor} a las {timestamp(current)}")
     return_code = run_updater()
     if return_code != 0:
-        restore_outputs(snapshots)
-        print(
-            "El actualizador fallo; se conservaron la M3U, el catalogo de canales, "
-            "los resolutores y el estado de salud anteriores.",
-            file=sys.stderr,
-        )
+        if snapshot_epg is None:
+            EPG_PATH.unlink(missing_ok=True)
+        else:
+            EPG_PATH.write_bytes(snapshot_epg)
+        if snapshot_state is None:
+            STATE_PATH.unlink(missing_ok=True)
+        else:
+            STATE_PATH.write_bytes(snapshot_state)
+        print("La EPG fallo; se conservaron la guia y su estado anteriores.", file=sys.stderr)
         return return_code
 
     published_at = now_utc()
@@ -209,10 +168,7 @@ def main() -> int:
     write_state(published_at, args.executor, next_after_publish)
     write_github_output("ran", "true")
     write_github_output("next_scheduled_at", timestamp(next_after_publish))
-    print(
-        "Mantenimiento de canales preparado para publicar. "
-        f"Proxima ventana: {timestamp(next_after_publish)}"
-    )
+    print(f"EPG preparada para publicar. Proxima ventana: {timestamp(next_after_publish)}")
     return 0
 
 

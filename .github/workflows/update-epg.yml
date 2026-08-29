@@ -1,0 +1,23 @@
+name: Actualizar EPG
+on:
+  schedule:
+    - cron: "30 */6 * * *"
+      timezone: "America/Santiago"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: m3u-publisher
+  cancel-in-progress: false
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m unittest discover -s tests -p "test_*.py"
+      - run: python run_epg_6h.py --executor github
+      - run: python publish_epg.py
+      - run: sleep 15

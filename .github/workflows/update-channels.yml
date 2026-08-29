@@ -1,0 +1,157 @@
+name: Actualizar canales M3U
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+      timezone: "America/Santiago"
+  workflow_dispatch:
+    inputs:
+      force_run:
+        description: Ejecutar aunque no hayan vencido las 6 horas
+        required: false
+        default: false
+        type: boolean
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: m3u-publisher
+  cancel-in-progress: false
+
+jobs:
+  update:
+    if: github.event_name != 'push' || contains(github.event.head_commit.message, '[test m3u]')
+    runs-on: ubuntu-latest
+    env:
+      RAW_BASE: https://raw.githubusercontent.com/${{ github.repository }}/main
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Preparar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Probar importadores EPG
+        run: python -m unittest discover -s tests -p "test_*.py"
+
+      - name: Ejecutar mantenimiento independiente de canales
+        id: updater
+        shell: bash
+        run: |
+          args=(run_m3u_6h.py --executor github)
+          if [ "${{ inputs.force_run }}" = "true" ]; then args+=(--force); fi
+          set +e
+          python "${args[@]}"
+          status=$?
+          echo "status=$status" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Publicar canales y estado
+        id: publish
+        if: steps.updater.outputs.status == '0' && steps.updater.outputs.ran == 'true'
+        shell: bash
+        run: |
+          files=(m3u.m3u channel-catalog.m3u resolver-catalog.json channel-health-state.json run-state.json)
+          if [ -z "$(git status --porcelain -- "${files[@]}")" ]; then
+            echo "Los canales y resolutores ya estaban al dia."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "Actualizador M3U"
+          git config user.email "m3u-bot@users.noreply.github.com"
+          git add -- "${files[@]}"
+          git commit -m "Actualiza canales y resolutores automaticamente [skip ci]"
+          git push origin HEAD:main
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+          echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Conservar historial de salud si la publicación fue bloqueada
+        if: steps.updater.outputs.due == 'true' && steps.updater.outputs.status != '0'
+        shell: bash
+        run: |
+          if [ -z "$(git status --porcelain -- channel-health-state.json)" ]; then exit 0; fi
+          git config user.name "Actualizador M3U"
+          git config user.email "m3u-bot@users.noreply.github.com"
+          git add -- channel-health-state.json
+          git commit -m "Registra fallos de canales sin publicar la lista [skip ci]"
+          git push origin HEAD:main
+
+      - name: Esperar propagacion de GitHub Raw
+        if: steps.updater.outputs.ran == 'true' && steps.publish.outputs.changed == 'true'
+        run: sleep 15
+
+      - name: Verificar salidas publicadas
+        id: published
+        if: steps.updater.outputs.ran == 'true'
+        shell: bash
+        run: |
+          set +e
+          raw_commit="${{ steps.publish.outputs.commit }}"
+          if [ -z "$raw_commit" ]; then raw_commit="$GITHUB_SHA"; fi
+          base="https://raw.githubusercontent.com/${{ github.repository }}/$raw_commit"
+          exit_code=0
+          for file in m3u.m3u channel-catalog.m3u resolver-catalog.json channel-health-state.json run-state.json; do
+            tmp="$(mktemp)"
+            if ! curl --fail --silent --show-error --location --max-time 30 --retry 3 "$base/$file?verify=$GITHUB_RUN_ID" --output "$tmp" || ! cmp --silent "$tmp" "$file"; then
+              echo "$file no coincide con el commit publicado" >&2
+              exit_code=1
+            else
+              echo "$file publicado con contenido exacto"
+            fi
+            rm -f "$tmp"
+          done
+          echo "status=$exit_code" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Comprobar URLs Raw de main
+        id: branch_raw
+        if: steps.updater.outputs.ran == 'true'
+        shell: bash
+        run: |
+          set +e
+          exit_code=0
+          check_raw() { curl --fail --silent --show-error --location --max-time 30 "$RAW_BASE/$1?health=$GITHUB_RUN_ID" | grep -q "$2"; }
+          check_raw m3u.m3u '#EXTM3U' || exit_code=1
+          check_raw channel-catalog.m3u '#EXTM3U' || exit_code=1
+          check_raw resolver-catalog.json '"schemaVersion": 1' || exit_code=1
+          check_raw channel-health-state.json '"schema": 1' || exit_code=1
+          check_raw run-state.json '"schema": 2' || exit_code=1
+          echo "status=$exit_code" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Generar informe detallado
+        if: always() && steps.updater.outputs.due == 'true'
+        env:
+          RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          UPDATE_STATUS: ${{ steps.updater.outputs.status }}
+          PUBLICATION_STATUS: ${{ steps.publish.outcome }}
+          RAW_STATUS: commit=${{ steps.published.outputs.status }}, main=${{ steps.branch_raw.outputs.status }}
+        shell: bash
+        run: |
+          python generate_health_report.py
+          cat health-report.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Guardar informe de canales
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: channel-status
+          path: |
+            channel-status.json
+            health-report.md
+          retention-days: 30
+          if-no-files-found: warn
+
+      - name: Fallar si hubo errores
+        if: steps.updater.outputs.status != '0' || (steps.updater.outputs.ran == 'true' && (steps.published.outputs.status != '0' || steps.branch_raw.outputs.status != '0'))
+        run: exit 1

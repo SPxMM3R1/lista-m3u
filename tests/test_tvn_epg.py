@@ -134,12 +134,30 @@ class TvnEpgTests(unittest.TestCase):
         )
         output_root = ET.fromstring(output)
         tvn3 = output_root.find("./channel[@id='1437']")
-        self.assertEqual(tvn3.get("data-guide"), "parrilla real parcial")
-        self.assertEqual(status["programmes"], 3)
+        self.assertEqual(
+            tvn3.get("data-guide"), "parrilla real parcial + continuidad tecnica"
+        )
+        self.assertGreater(status["programmes"], 3)
         self.assertNotIn(
             "TVN3",
             [item.findtext("title") for item in output_root.findall("programme")],
         )
+
+    def test_channel_without_real_source_gets_explicit_technical_coverage(self) -> None:
+        now = datetime(2026, 8, 28, 18, tzinfo=timezone.utc)
+        output, status = update_m3u.build_epg(
+            {}, [channel("Canal sin fuente", "unknown.channel")], {}, now=now
+        )
+
+        root = ET.fromstring(output)
+        entry = root.find("./channel[@id='unknown.channel']")
+        self.assertIsNotNone(entry)
+        self.assertEqual(entry.get("data-guide"), "continuidad tecnica")
+        self.assertEqual(entry.get("data-guide-source"), "continuidad-tecnica")
+        programmes = root.findall("./programme[@channel='unknown.channel']")
+        self.assertGreater(len(programmes), 0)
+        self.assertIn("programacion no disponible", programmes[0].findtext("title"))
+        self.assertEqual(status["programmes"], len(programmes))
 
     def test_official_tvn_json_never_populates_tvn3(self) -> None:
         now = datetime(2026, 8, 28, 12, tzinfo=timezone.utc)

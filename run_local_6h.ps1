@@ -140,7 +140,6 @@ try {
     $allowedPaths = @(
         'm3u.m3u',
         'channel-catalog.m3u',
-        'epg.xml',
         'resolver-catalog.json',
         'channel-health-state.json',
         'run-state.json'
@@ -155,7 +154,6 @@ try {
         '--',
         'm3u.m3u',
         'channel-catalog.m3u',
-        'epg.xml',
         'resolver-catalog.json',
         'channel-health-state.json',
         'run-state.json'
@@ -167,12 +165,11 @@ try {
     }
     Invoke-LoggedNative -Executable $gitPath -Arguments @('config', 'user.name', 'Actualizador M3U') -Description 'git config user.name'
     Invoke-LoggedNative -Executable $gitPath -Arguments @('config', 'user.email', 'm3u-bot@users.noreply.github.com') -Description 'git config user.email'
-    Invoke-LoggedNative -Executable $gitPath -Arguments @('commit', '-m', 'Actualiza M3U, EPG y resolutores automaticamente [skip ci]') -Description 'git commit'
+    Invoke-LoggedNative -Executable $gitPath -Arguments @('commit', '-m', 'Actualiza canales y resolutores automaticamente [skip ci]') -Description 'git commit'
     Invoke-LoggedNative -Executable $gitPath -Arguments @('push', 'origin', 'HEAD:main') -Description 'git push'
 
     $rawBase = 'https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main'
     Invoke-LoggedNative -Executable $pythonPath -Arguments @((Join-Path $projectRoot 'update_m3u.py'), '--verify-published', "$rawBase/m3u.m3u") -Description 'La verificacion Raw de M3U'
-    Invoke-LoggedNative -Executable $pythonPath -Arguments @((Join-Path $projectRoot 'update_m3u.py'), '--verify-epg-published', "$rawBase/epg.xml") -Description 'La verificacion Raw de EPG'
     Add-Content -LiteralPath $logPath -Value "[$(Get-Date -Format o)] Publicacion local verificada."
     Register-NextLocalRun
 } catch {

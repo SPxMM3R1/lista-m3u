@@ -17,7 +17,7 @@ import time
 import urllib.error
 import urllib.request
 import xml.etree.ElementTree as ET
-from collections.abc import Callable
+from collections.abc import Callable, Iterable
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
@@ -4315,6 +4315,7 @@ def add_continuous_programmes(
     *,
     now: datetime,
     start_at: datetime | None = None,
+    technical: bool = False,
     formatter: Callable[[datetime], str] = xmltv_format_chile,
 ) -> int:
     start = start_at or (
@@ -4336,10 +4337,18 @@ def add_continuous_programmes(
                 "channel": channel_id,
             },
         )
-        title, description = CONTINUOUS_PROGRAMME_DETAILS.get(
-            channel_name,
-            (f"{channel_name} en vivo", "Programacion continua de la senal en vivo."),
-        )
+        if technical:
+            title = f"{channel_name} - programacion no disponible"
+            description = (
+                "Bloque tecnico temporal: no se encontro una parrilla XMLTV real "
+                "para esta senal en esta ejecucion. Se conserva cobertura EPG "
+                "para que el canal siga visible cuando vuelva a estar disponible."
+            )
+        else:
+            title, description = CONTINUOUS_PROGRAMME_DETAILS.get(
+                channel_name,
+                (f"{channel_name} en vivo", "Programacion continua de la senal en vivo."),
+            )
         ET.SubElement(programme, "title", {"lang": "es"}).text = title
         if description:
             ET.SubElement(programme, "desc", {"lang": "es"}).text = description
@@ -4590,20 +4599,8 @@ def build_epg(
     minimum_future = now + timedelta(hours=24)
     for channel_id, count in programmes_by_target.items():
         channel = channel_by_id[channel_id]
-        if channel_id in NO_EPG_CHANNEL_IDS:
-            guide_types[channel_id] = "sin guía"
-            continue
-        if not count and channel_id in OPTIONAL_EPG_CHANNEL_IDS:
-            guide_types[channel_id] = "sin guía"
-            continue
         last_stop = last_stop_by_channel.get(channel_id)
         if count and last_stop is not None and last_stop >= minimum_future:
-            continue
-        if count and channel_id in OPTIONAL_EPG_CHANNEL_IDS:
-            # Una parrilla parcial real es preferible a completar el dia con
-            # el nombre del canal. El siguiente refresco volvera a consultar
-            # la fuente para ampliar la ventana disponible.
-            guide_types[channel_id] = "parrilla real parcial"
             continue
         added = add_continuous_programmes(
             root,
@@ -4611,27 +4608,21 @@ def build_epg(
             channel.name,
             now=now,
             start_at=last_stop if count and last_stop is not None else None,
+            technical=True,
         )
         programmes_by_target[channel_id] += added
         guide_types[channel_id] = (
-            "parrilla real + continuidad" if count else "senal continua"
+            "parrilla real parcial + continuidad tecnica"
+            if count
+            else "continuidad tecnica"
         )
+        if not count:
+            guide_sources[channel_id] = "continuidad-tecnica"
 
     for channel in root.findall("channel"):
         channel_id = channel.get("id", "")
         channel.set("data-guide", guide_types.get(channel_id, "senal continua"))
         channel.set("data-guide-source", guide_sources.get(channel_id, ""))
-
-    generic_only = sorted(
-        channel_id
-        for channel_id in expected_ids
-        if guide_types.get(channel_id) == "senal continua"
-    )
-    if generic_only:
-        names = ", ".join(channel_by_id[channel_id].name for channel_id in generic_only)
-        raise ValueError(
-            "se rechazo una EPG generica para canales de produccion: " + names
-        )
 
     real_stop_candidates = list(real_last_stop_by_target.values())
     if real_stop_candidates:
@@ -5238,8 +5229,8 @@ def fresh_meganoticias_url() -> str:
     return f"https://mdstrm.com/live-stream-playlist/{stream_id}.m3u8"
 
 
-def fresh_tvvoo_stream_urls(channel_name: str) -> list[str]:
-    """Resolve current TvVoo HLS URLs for a channel without storing its token."""
+def iter_fresh_tvvoo_stream_urls(channel_name: str) -> Iterable[str]:
+    """Yield current TvVoo HLS URLs lazily, without storing provider tokens."""
     resolver_ids = TVVOO_STREAM_RESOLVER_IDS.get(channel_name)
     if not resolver_ids:
         raise ValueError(f"no hay resolver TvVoo para {channel_name}")
@@ -5247,8 +5238,8 @@ def fresh_tvvoo_stream_urls(channel_name: str) -> list[str]:
         "User-Agent": BROWSER_USER_AGENT,
         "Accept": "application/json",
     }
-    candidates: list[str] = []
     errors: list[str] = []
+    yielded = False
     for resolver_id in resolver_ids:
         endpoint = f"{TVVOO_STREAM_BASE_URL}/{resolver_id}.json"
         try:
@@ -5260,21 +5251,25 @@ def fresh_tvvoo_stream_urls(channel_name: str) -> list[str]:
                 stream_url = str(stream.get("url", "")).strip()
                 if not stream_url:
                     continue
-                candidates.append(stream_url)
+                yielded = True
+                yield stream_url
                 parsed = urlparse(stream_url)
                 # Algunos nodos HTTPS del proveedor estan entregando un
                 # certificado vencido; el mismo JSON publica nodos HTTP que
                 # siguen entregando el HLS. Se prueba HTTPS primero y HTTP
                 # solo como compatibilidad del stream publico.
                 if parsed.scheme.lower() == "https":
-                    candidates.append(parsed._replace(scheme="http").geturl())
+                    yield parsed._replace(scheme="http").geturl()
         except Exception as error:
             errors.append(f"{resolver_id}: {type(error).__name__}: {error}")
-    unique = list(dict.fromkeys(candidates))
-    if unique:
-        return unique
-    detail = "; ".join(errors) if errors else "respuesta sin streams"
-    raise RuntimeError(f"TvVoo no entrego una URL para {channel_name}: {detail}")
+    if not yielded:
+        detail = "; ".join(errors) if errors else "respuesta sin streams"
+        raise RuntimeError(f"TvVoo no entrego una URL para {channel_name}: {detail}")
+
+
+def fresh_tvvoo_stream_urls(channel_name: str) -> list[str]:
+    """Return all current TvVoo candidates for diagnostics and compatibility."""
+    return list(dict.fromkeys(iter_fresh_tvvoo_stream_urls(channel_name)))
 
 
 def megamedia_page_html(page_url: str) -> str:
@@ -5309,7 +5304,7 @@ def megamedia_page_html(page_url: str) -> str:
 def refresh_dynamic_channel(
     lines: list[str],
     channel: Channel,
-    fresh_url_factory: Callable[[], str | list[str]],
+    fresh_url_factory: Callable[[], str | Iterable[str]],
     *,
     running_in_ci: bool,
     always_refresh: bool = False,
@@ -5327,21 +5322,17 @@ def refresh_dynamic_channel(
     if not needs_refresh:
         return False
 
-    candidates: list[str] = []
+    fresh_candidates: Iterable[str] = ()
     try:
         fresh_result = fresh_url_factory()
-        if isinstance(fresh_result, str):
-            candidates.append(fresh_result)
-        else:
-            candidates.extend(fresh_result)
+        fresh_candidates = (fresh_result,) if isinstance(fresh_result, str) else fresh_result
     except Exception as error:
         print(f"  [AVISO] {channel.name}: no se pudo renovar el enlace oficial: {error}")
-    candidates.extend(KNOWN_STREAM_FALLBACKS.get(channel.name, []))
 
     seen: set[str] = set()
-    for candidate_url in candidates:
+    def try_candidate(candidate_url: str) -> bool:
         if candidate_url == channel.url or candidate_url in seen:
-            continue
+            return False
         seen.add(candidate_url)
         candidate = Channel(
             channel.name,
@@ -5373,6 +5364,18 @@ def refresh_dynamic_channel(
                 print(f"  [OK] {channel.name}: enlace renovado o respaldo verificado")
             return True
         print(f"  [AVISO] {channel.name}: candidato no usable: {candidate_result.detail}")
+        return False
+
+    try:
+        for candidate_url in fresh_candidates:
+            if try_candidate(candidate_url):
+                return True
+    except Exception as error:
+        print(f"  [AVISO] {channel.name}: fallo al leer candidatos renovados: {error}")
+
+    for candidate_url in KNOWN_STREAM_FALLBACKS.get(channel.name, []):
+        if try_candidate(candidate_url):
+            return True
 
     if current_result.ok:
         print(f"  [AVISO] {channel.name}: se conserva el enlace actual")
@@ -5687,10 +5690,16 @@ def main() -> int:
         action="store_true",
         help="valida el contrato M3U/catalogo sin actualizar streams ni EPG",
     )
-    parser.add_argument(
+    mode_group = parser.add_mutually_exclusive_group()
+    mode_group.add_argument(
         "--refresh-epg-only",
         action="store_true",
-        help="fuerza y publica solo la EPG, sin validar ni renovar streams",
+        help="fuerza y publica solo la EPG sobre el catalogo completo",
+    )
+    mode_group.add_argument(
+        "--channels-only",
+        action="store_true",
+        help="actualiza solo canales, resolutores y salud; no toca la EPG",
     )
     args = parser.parse_args()
 
@@ -5713,9 +5722,16 @@ def main() -> int:
     )
     lines = source_playlist.read_text(encoding="utf-8-sig").splitlines()
     if args.refresh_epg_only:
-        channels = parse_channels(lines)
+        epg_playlist = (
+            CHANNEL_CATALOG_PATH
+            if playlist == DEFAULT_PLAYLIST.resolve() and CHANNEL_CATALOG_PATH.exists()
+            else playlist
+        )
+        channels = parse_channels(
+            epg_playlist.read_text(encoding="utf-8-sig").splitlines()
+        )
         if not channels:
-            raise RuntimeError("la lista no contiene canales activos")
+            raise RuntimeError("el catalogo no contiene canales para la EPG")
         epg_status = refresh_epg(channels, force=True)
         print(
             f"EPG actualizada: {epg_status['channels']} canales y "
@@ -5760,17 +5776,32 @@ def main() -> int:
     if not channels:
         raise RuntimeError("la lista no contiene canales activos")
 
-    print("Actualizando la guia de programacion de todos los canales")
-    force_epg_refresh = os.environ.get("EPG_FORCE_REFRESH", "").lower() == "true"
-    epg_status = refresh_epg(channels, force=force_epg_refresh)
-    updated = "actualizada" if epg_status.get("updated") else "vigente"
-    print(
-        f"  [OK] EPG {updated}: {epg_status['channels']} canales y "
-        f"{epg_status['programmes']} programas"
-    )
-    for channel in channels:
-        guide_type = epg_status.get("guide_types", {}).get(channel.tvg_id, "sin datos")
-        print(f"  [EPG] {channel.name}: {guide_type}")
+    if args.channels_only:
+        epg_status = {
+            "ok": True,
+            "updated": False,
+            "skipped": True,
+            "channels": len(channels),
+            "programmes": None,
+            "guide_types": {},
+            "guide_sources": {},
+        }
+        print(
+            "EPG omitida: este proceso mantiene canales y resolutores; "
+            "la EPG se ejecuta de forma independiente sobre channel-catalog.m3u"
+        )
+    else:
+        print("Actualizando la guia de programacion de todos los canales")
+        force_epg_refresh = os.environ.get("EPG_FORCE_REFRESH", "").lower() == "true"
+        epg_status = refresh_epg(channels, force=force_epg_refresh)
+        updated = "actualizada" if epg_status.get("updated") else "vigente"
+        print(
+            f"  [OK] EPG {updated}: {epg_status['channels']} canales y "
+            f"{epg_status['programmes']} programas"
+        )
+        for channel in channels:
+            guide_type = epg_status.get("guide_types", {}).get(channel.tvg_id, "sin datos")
+            print(f"  [EPG] {channel.name}: {guide_type}")
 
     print(
         f"Revisando {len(channels)} candidatos de {source_playlist.name} "
@@ -5786,11 +5817,11 @@ def main() -> int:
         "24 Horas": (fresh_24horas_url, False),
         "Meganoticias": (fresh_meganoticias_url, True),
         "Premier Sports 1": (
-            lambda: fresh_tvvoo_stream_urls("Premier Sports 1"),
+            lambda: iter_fresh_tvvoo_stream_urls("Premier Sports 1"),
             True,
         ),
         "Premier Sports 2": (
-            lambda: fresh_tvvoo_stream_urls("Premier Sports 2"),
+            lambda: iter_fresh_tvvoo_stream_urls("Premier Sports 2"),
             True,
         ),
     }
@@ -5798,14 +5829,14 @@ def main() -> int:
         dynamic_channels.setdefault(
             channel_name,
             (
-                lambda channel_name=channel_name: fresh_tvvoo_stream_urls(
+                lambda channel_name=channel_name: iter_fresh_tvvoo_stream_urls(
                     channel_name
                 ),
                 True,
             ),
         )
     refresh_jobs: list[
-        tuple[str, Channel, Callable[[], str | list[str]], bool]
+        tuple[str, Channel, Callable[[], str | Iterable[str]], bool]
     ] = []
     for channel_name, (fresh_url_factory, always_refresh) in dynamic_channels.items():
         channel = next((item for item in channels if item.name == channel_name), None)
