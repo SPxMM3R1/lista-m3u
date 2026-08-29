@@ -300,6 +300,8 @@ class TvnEpgTests(unittest.TestCase):
     def test_epg_accepts_retired_channels_in_previous_publication(self) -> None:
         now = datetime.now(timezone.utc).replace(microsecond=0)
         active = channel("Canal activo", "active.channel")
+        retired = channel("Canal retirado", "retired.channel")
+        stale = channel("Canal antiguo", "stale.channel")
 
         with tempfile.TemporaryDirectory() as temporary_directory:
             temporary = Path(temporary_directory)
@@ -309,18 +311,22 @@ class TvnEpgTests(unittest.TestCase):
                 "tv",
                 {"data-generated-at": (now - timedelta(hours=1)).isoformat()},
             )
-            ET.SubElement(root, "channel", {"id": active.tvg_id})
-            ET.SubElement(root, "channel", {"id": "retired.channel"})
-            programme = ET.SubElement(
-                root,
-                "programme",
-                {
-                    "start": update_m3u.xmltv_format_chile(now - timedelta(hours=1)),
-                    "stop": update_m3u.xmltv_format_chile(now + timedelta(hours=25)),
-                    "channel": active.tvg_id,
-                },
-            )
-            ET.SubElement(programme, "title").text = "Programa vigente"
+            for item in (active, retired, stale):
+                ET.SubElement(root, "channel", {"id": item.tvg_id})
+                programme = ET.SubElement(
+                    root,
+                    "programme",
+                    {
+                        "start": update_m3u.xmltv_format_chile(
+                            now - timedelta(hours=1)
+                        ),
+                        "stop": update_m3u.xmltv_format_chile(
+                            now + timedelta(hours=25)
+                        ),
+                        "channel": item.tvg_id,
+                    },
+                )
+                ET.SubElement(programme, "title").text = f"Programa {item.name}"
             epg_path.write_bytes(
                 ET.tostring(root, encoding="utf-8", xml_declaration=True)
             )
@@ -334,10 +340,10 @@ class TvnEpgTests(unittest.TestCase):
             with patch.object(update_m3u, "EPG_PATH", epg_path), patch.object(
                 update_m3u, "DEFAULT_PLAYLIST", public_playlist
             ):
-                status = update_m3u.refresh_epg([active])
+                status = update_m3u.refresh_epg([active, retired])
 
         self.assertTrue(status["reused"])
-        self.assertEqual(status["channels"], 1)
+        self.assertEqual(status["channels"], 2)
 
 
 if __name__ == "__main__":
