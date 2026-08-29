@@ -11,6 +11,10 @@ Lista M3U:
 
 `https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/m3u.m3u`
 
+Lista M3U externa (TvVoo/Vavoo y Highfly):
+
+`https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/m3u-externa.m3u`
+
 Guia de programacion XMLTV:
 
 `https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/epg.xml`
@@ -41,6 +45,12 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
 - prioriza enlaces descubiertos desde las paginas oficiales del emisor al
   reparar una senal; los respaldos conocidos solo se prueban despues;
 - no modifica `epg.xml`: la EPG tiene un proceso independiente;
+- publica `m3u.m3u` con fuentes directas y resolutores propios de TVN/Meganoticias;
+- publica `m3u-externa.m3u` con TvVoo/Vavoo y Highfly, sin duplicar canales ni
+  dejar que una caída de esos resolutores bloquee la lista principal;
+- solo reemplaza `m3u.m3u` cuando el 100% de sus candidatos tiene cobertura EPG
+  XMLTV vigente y validada para al menos 24 horas; si la compuerta falla,
+  conserva la versión anterior;
 - usa las parrillas oficiales disponibles de TVN y Mega, ademas de las de M1 y
   M2; conserva EPGShare como respaldo cuando el emisor no publica XMLTV o una
   parrilla automatizable;
@@ -83,10 +93,10 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
   horas manualmente;
 - publica `channel-status.json` y un informe Markdown como artefactos de cada
   ejecucion; tambien conserva un issue de GitHub con el historial detallado.
-- retira temporalmente de `m3u.m3u` cualquier canal que siga fallando despues
-  de validar HLS, reintentar y buscar reparaciones; `channel-catalog.m3u`
-  conserva el inventario completo para volver a probarlo y reactivarlo en la
-  siguiente ejecucion;
+- retira temporalmente de la lista publica correspondiente cualquier canal que
+  siga fallando despues de validar HLS, reintentar y buscar reparaciones;
+  `channel-catalog.m3u` conserva el inventario completo para volver a probarlo
+  y reactivarlo en la siguiente ejecucion;
 - si falla simultaneamente al menos el 25% de las fuentes directas, bloquea la
   publicación como posible problema sistémico del runner o de la red; los
   fallos de resolutores se retiran individualmente y se reintentan en la
@@ -136,8 +146,9 @@ disponible sin depender de servidores externos.
 
 El orden tematico se construye siempre desde `channel-catalog.m3u`, que
 conserva los 154 candidatos aunque alguno quede temporalmente fuera de la M3U
-publica por fallar la validacion. `m3u.m3u` solo filtra esos candidatos sin
-alterar su posicion; cuando un canal se recupera, vuelve al mismo bloque.
+publica por fallar la validacion. `m3u.m3u` y `m3u-externa.m3u` filtran esos
+candidatos sin alterar su posicion dentro de su propia salida; cuando un canal
+se recupera, vuelve al mismo bloque.
 
 1. Nacionales
 2. Noticias nacionales
@@ -156,9 +167,11 @@ XMLTV, resolutores ni URLs de respaldo.
 
 El catalogo contiene 154 candidatos: nacionales, noticias, miscelaneos
 chilenos, noticias internacionales, documentales, conciertos, musica y
-deportes. El numero visible en `m3u.m3u` puede ser menor en una ejecucion si
-algunos candidatos agotaron sus reintentos; vuelven automaticamente cuando la
-validacion completa responde.
+deportes. `m3u.m3u` es la lista principal de fuentes directas, TVN y
+Meganoticias; `m3u-externa.m3u` concentra TvVoo/Vavoo y Highfly. El numero
+visible en cada lista puede ser menor en una ejecucion si algunos candidatos
+agotaron sus reintentos; vuelven automaticamente cuando la validacion completa
+responde.
 
 TVN y Mega se actualizan desde sus parrillas oficiales cuando estan
 disponibles. Para T13 no se encontro una parrilla oficial diaria de la senal
@@ -177,8 +190,8 @@ Argentina, Portugal, Nueva Zelanda, Estados Unidos, Polonia, Letonia, Paises
 Bajos, PLEX1, PlutoTV, Turquia, Singapur y Nigeria, junto con la guia publica
 de Zapping para senales chilenas seleccionadas. El orden es: fuente oficial
 del canal, XMLTV real por pais/proveedor y Zapping u otra fuente secundaria
-real. M1, M2 y 13C se actualizan desde sus parrillas oficiales. La EPG verifica
-`m3u.m3u`, pero construye sus IDs esperados desde `channel-catalog.m3u`: un
+real. M1, M2 y 13C se actualizan desde sus parrillas oficiales. La EPG
+construye sus IDs esperados desde `channel-catalog.m3u`: un
 canal retirado temporalmente de la lista publica continua recibiendo EPG y no
 causa un error por no aparecer en `m3u.m3u`. La EPG conserva al menos un bloque
 para cada canal del catalogo, incluso si fue retirado temporalmente por fallos
@@ -186,7 +199,10 @@ HLS. Cuando ninguna fuente real
 entrega una parrilla exacta, se usa `continuidad tecnica`, marcada en
 `data-guide` y en el titulo como programacion no disponible; no se presenta
 como una guia oficial. La siguiente corrida vuelve a intentar la fuente real
-y reemplaza esa cobertura cuando aparece.
+y reemplaza esa cobertura cuando aparece. Antes de publicar `m3u.m3u`, el
+proceso de canales audita que sus candidatos tengan canal XMLTV, programas y
+al menos 24 horas futuras; la lista externa no depende de esta compuerta y se
+publica por separado.
 
 Para diagnosticar una fuente sin alterar el historial de salud ni renovar URLs
 HLS, se usa el workflow independiente **Actualizar EPG**. Las ventanas de

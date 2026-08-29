@@ -48,6 +48,8 @@ def render(report: dict) -> str:
     summary = report.get("summary") or {}
     channels = report.get("channels") or []
     epg = report.get("epg") or {}
+    main_epg = report.get("main_epg") or {}
+    playlists = report.get("playlists") or {}
     logos = report.get("logos") or []
     fatal = report.get("fatal_error")
     real_guides, official_guides, missing_guides = count_guides(epg)
@@ -97,6 +99,31 @@ def render(report: dict) -> str:
         ]
     )
 
+    lines.extend(["", "### Salidas públicas", ""])
+    for key, label in (("main", "Principal"), ("external", "Externa")):
+        playlist = playlists.get(key) or {}
+        epg_label = (
+            f"EPG {playlist.get('epg_coverage_percent', 0)}%"
+            if playlist.get("epg_required")
+            else "EPG no bloqueante"
+        )
+        readiness = (
+            "lista actualizada"
+            if playlist.get("publication_ready")
+            else f"retenida ({playlist.get('hold_reason') or 'validación incompleta'})"
+        )
+        lines.append(
+            f"- **{label}** (`{cell(playlist.get('file'))}`): "
+            f"{playlist.get('working_channels', 0)}/{playlist.get('candidate_channels', 0)} "
+            f"canales listos; {epg_label}; {readiness}."
+        )
+    if main_epg.get("technical_guides"):
+        lines.append(
+            "- La compuerta principal incluye continuidad técnica marcada para: "
+            + ", ".join(cell(item) for item in main_epg["technical_guides"])
+            + "."
+        )
+
     lines.extend(["", "## Cambios desde la revisión anterior", ""])
     if changes:
         for item in changes:
@@ -118,8 +145,8 @@ def render(report: dict) -> str:
             "",
             "## Detalle por canal",
             "",
-            "| Estado | Publicación | Canal | tvg-id | Grupo | Fuente | Fallos seguidos | Diagnóstico |",
-            "|---|---|---|---|---|---|---:|---|",
+            "| Estado | Publicación | Lista | Canal | tvg-id | Grupo | Fuente | Fallos seguidos | Diagnóstico |",
+            "|---|---|---|---|---|---|---|---:|---|",
         ]
     )
     for item in channels:
@@ -130,6 +157,7 @@ def render(report: dict) -> str:
                 [
                     STATUS_LABELS.get(status, status.upper()),
                     cell(item.get("publication_action", "sin cambio")),
+                    cell(item.get("playlist", "main")),
                     cell(item.get("name")),
                     cell(item.get("tvg_id")),
                     cell(item.get("group")),
@@ -147,6 +175,8 @@ def render(report: dict) -> str:
             "## Criterio de mantenimiento",
             "",
             "- Un canal que agota la validación, los reintentos y las reparaciones se retira de la M3U pública en esa ejecución.",
+            "- `m3u.m3u` es la lista principal: solo se reemplaza cuando el 100% de sus candidatos tiene EPG XMLTV vigente y validada para al menos 24 horas; si la compuerta falla, se conserva la versión anterior.",
+            "- `m3u-externa.m3u` contiene TvVoo/Vavoo y Highfly y se publica de forma independiente; una caída de esos resolutores no bloquea la lista principal.",
             "- `channel-catalog.m3u` conserva todos los candidatos: cada ejecución vuelve a probar los retirados y los reactiva automáticamente cuando responden.",
             "- La EPG conserva la cobertura del catálogo completo para que una reactivación recupere inmediatamente su `tvg-id` y programación.",
             "- Una caída simultánea de al menos el 25% de las fuentes directas bloquea la publicación como posible fallo sistémico del runner o la red; los fallos de resolutores se retiran individualmente y se reintentan en la siguiente ejecución.",

@@ -1,4 +1,7 @@
+import tempfile
 import unittest
+from pathlib import Path
+from unittest.mock import patch
 
 import update_m3u
 
@@ -88,6 +91,86 @@ class PlaylistOrderTests(unittest.TestCase):
         self.assertIn('group-title="Deportes"', info_line)
         self.assertIn('x-resolver="highfly"', info_line)
         self.assertIn('x-resolver-id="us-espn-hd"', info_line)
+
+    def test_public_lists_split_by_resolver_without_empty_groups(self) -> None:
+        lines = [
+            "#EXTM3U",
+            "# Nacionales",
+            extinf("0104", "TVN", "Nacionales"),
+            "https://example.invalid/tvn.m3u8",
+            "# Deportes",
+            extinf("ESPN.us", "ESPN", "Deportes"),
+            "https://example.invalid/espn.m3u8",
+        ]
+        channels = update_m3u.parse_channels(lines)
+
+        self.assertEqual(
+            [update_m3u.playlist_key_for(item) for item in channels],
+            ["main", "external"],
+        )
+        principal = update_m3u.filter_playlist_to_working_channels(
+            lines, channels, {"TVN"}
+        )
+        externa = update_m3u.filter_playlist_to_working_channels(
+            lines, channels, {"ESPN"}
+        )
+        self.assertEqual(
+            [item.name for item in update_m3u.parse_channels(principal)], ["TVN"]
+        )
+        self.assertEqual(
+            [item.name for item in update_m3u.parse_channels(externa)], ["ESPN"]
+        )
+        self.assertNotIn("# Deportes", principal)
+        self.assertNotIn("# Nacionales", externa)
+
+    def test_external_list_can_publish_when_principal_epg_is_held(self) -> None:
+        principal = update_m3u.Channel(
+            name="TVN",
+            url="https://example.invalid/tvn.m3u8",
+            url_line=0,
+            tvg_id="0104",
+            display_name="TVN",
+        )
+        external = update_m3u.Channel(
+            name="ESPN",
+            url="https://example.invalid/espn.m3u8",
+            url_line=1,
+            tvg_id="ESPN.us",
+            display_name="ESPN",
+        )
+        results = [
+            update_m3u.CheckResult(item.name, item.url, True, "ok")
+            for item in (principal, external)
+        ]
+        logos = [
+            update_m3u.LogoResult(item.name, "", True, "ok")
+            for item in (principal, external)
+        ]
+
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            temporary = Path(temporary_directory)
+            with patch.object(
+                update_m3u, "HEALTH_STATE_PATH", temporary / "health.json"
+            ), patch.object(
+                update_m3u, "REPORT_PATH", temporary / "report.json"
+            ):
+                report = update_m3u.write_report(
+                    [principal, external],
+                    results,
+                    False,
+                    logos,
+                    epg_status={"ok": False},
+                    main_epg_status={"ok": False, "required_channels": 1},
+                )
+
+        self.assertFalse(report["playlists"]["main"]["publication_ready"])
+        self.assertTrue(report["playlists"]["external"]["publication_ready"])
+        self.assertEqual(
+            report["playlists"]["main"]["hold_reason"], "epg_incomplete"
+        )
+        actions = {item["name"]: item["publication_action"] for item in report["channels"]}
+        self.assertEqual(actions["TVN"], "held_missing_epg")
+        self.assertEqual(actions["ESPN"], "published")
 
 
 if __name__ == "__main__":

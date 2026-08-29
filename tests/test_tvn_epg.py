@@ -345,6 +345,58 @@ class TvnEpgTests(unittest.TestCase):
         self.assertTrue(status["reused"])
         self.assertEqual(status["channels"], 2)
 
+    def test_main_playlist_epg_gate_requires_every_principal_channel(self) -> None:
+        now = datetime(2026, 8, 29, 12, tzinfo=timezone.utc)
+        principal = [channel("TVN", "0104"), channel("Meganoticias", "Meganoticias.cl")]
+
+        root = ET.Element("tv", {"data-generated-at": now.isoformat()})
+        for item in principal:
+            ET.SubElement(
+                root,
+                "channel",
+                {"id": item.tvg_id, "data-guide": "parrilla oficial"},
+            )
+            programme = ET.SubElement(
+                root,
+                "programme",
+                {
+                    "start": update_m3u.xmltv_format_chile(now - timedelta(hours=1)),
+                    "stop": update_m3u.xmltv_format_chile(now + timedelta(hours=25)),
+                    "channel": item.tvg_id,
+                },
+            )
+            ET.SubElement(programme, "title").text = f"Programa {item.name}"
+        data = ET.tostring(root, encoding="utf-8", xml_declaration=True)
+
+        status = update_m3u.validate_main_playlist_epg(principal, data=data, now=now)
+
+        self.assertTrue(status["ok"])
+        self.assertEqual(status["required_channels"], 2)
+        self.assertEqual(status["coverage_percent"], 100)
+
+        incomplete = update_m3u.validate_main_playlist_epg(
+            principal[:1], data=data, now=now
+        )
+        self.assertTrue(incomplete["ok"])
+
+        missing = ET.Element("tv")
+        ET.SubElement(missing, "channel", {"id": "0104"})
+        missing_programme = ET.SubElement(
+            missing,
+            "programme",
+            {
+                "start": update_m3u.xmltv_format_chile(now - timedelta(hours=1)),
+                "stop": update_m3u.xmltv_format_chile(now + timedelta(hours=25)),
+                "channel": "0104",
+            },
+        )
+        ET.SubElement(missing_programme, "title").text = "TVN"
+        failed = update_m3u.validate_main_playlist_epg(
+            principal, data=ET.tostring(missing, encoding="utf-8"), now=now
+        )
+        self.assertFalse(failed["ok"])
+        self.assertIn("Meganoticias.cl", failed["error"])
+
 
 if __name__ == "__main__":
     unittest.main()

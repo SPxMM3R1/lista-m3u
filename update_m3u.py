@@ -27,6 +27,7 @@ from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 
 DEFAULT_PLAYLIST = Path(__file__).with_name("m3u.m3u")
+EXTERNAL_PLAYLIST = Path(__file__).with_name("m3u-externa.m3u")
 CHANNEL_CATALOG_PATH = Path(__file__).with_name("channel-catalog.m3u")
 EPG_PATH = Path(__file__).with_name("epg.xml")
 REPORT_PATH = Path(__file__).with_name("channel-status.json")
@@ -38,6 +39,8 @@ LOCAL_LOGOS_PUBLIC_BASE = f"{PUBLIC_RAW_BASE}/logos"
 RESOLVER_SCHEMA_VERSION = 1
 RESOLVER_CATALOG_VERSION = "2026.08.28.1"
 ALLOWED_RESOLVER_ENGINES = {"tvn", "meganoticias", "tvvoo", "highfly"}
+MAIN_PLAYLIST_RESOLVERS = frozenset({"direct", "tvn", "meganoticias"})
+EXTERNAL_PLAYLIST_RESOLVERS = frozenset({"tvvoo", "highfly"})
 RESOLVER_ATTRIBUTE_NAMES = (
     "x-resolver",
     "x-resolver-endpoint",
@@ -1637,14 +1640,31 @@ def filter_playlist_to_working_channels(
     """Build the public playlist while retaining every candidate elsewhere.
 
     ``channel-catalog.m3u`` remains the canonical inventory. Only the EXTINF
-    and URL lines of a failed candidate are omitted here, so comments and
-    thematic separators remain stable in the public playlist.
+    and URL lines of a failed candidate are omitted here. Empty thematic
+    separators are removed from the public copy, while the catalogue keeps
+    every candidate in its original position for the next retry.
     """
     omitted_indexes: set[int] = set()
     for channel in channels:
         if channel.name not in working_names:
             omitted_indexes.update((channel.info_line, channel.url_line))
-    return [line for index, line in enumerate(lines) if index not in omitted_indexes]
+    working_groups = {
+        channel.group
+        for channel in channels
+        if channel.name in working_names
+    }
+    category_headers = {
+        f"# {category}": category for category in CONTENT_CATEGORY_ORDER
+    }
+    return [
+        line
+        for index, line in enumerate(lines)
+        if index not in omitted_indexes
+        and (
+            line not in category_headers
+            or category_headers[line] in working_groups
+        )
+    ]
 
 
 def resolver_attributes_for(channel: Channel) -> dict[str, str]:
@@ -1672,6 +1692,28 @@ def resolver_attributes_for(channel: Channel) -> dict[str, str]:
             "x-resolver-refresh": "on_play",
         }
     return {}
+
+
+def resolver_engine_for(channel: Channel) -> str:
+    """Return the executable resolver family assigned to ``channel``."""
+    return resolver_attributes_for(channel).get("x-resolver", "direct")
+
+
+def playlist_key_for(channel: Channel) -> str:
+    """Return the public list that owns a channel.
+
+    Direct sources and the Chilean resolvers stay in the principal list. The
+    renewable catalogue providers are isolated in the external list so a
+    Vavoo/TvVoo outage cannot make the official list unavailable.
+    """
+    engine = resolver_engine_for(channel)
+    if engine in EXTERNAL_PLAYLIST_RESOLVERS:
+        return "external"
+    if engine in MAIN_PLAYLIST_RESOLVERS:
+        return "main"
+    # Unknown/future providers stay in the principal fallback until an
+    # explicit executable resolver and list policy are added.
+    return "main"
 
 
 def with_resolver_attributes(line: str, attributes: dict[str, str]) -> str:
@@ -2163,6 +2205,109 @@ def epg_status_from_xml(
         "guide_sources": guide_sources,
         "warnings": validation_warnings,
     }
+
+
+def validate_main_playlist_epg(
+    channels: list[Channel],
+    *,
+    data: bytes | None = None,
+    now: datetime | None = None,
+) -> dict:
+    """Validate the hard EPG gate for the principal public playlist.
+
+    The independent EPG job still builds coverage for the complete catalogue.
+    This narrower audit is intentionally run by the channel job as a safety
+    gate before replacing ``m3u.m3u``. Technical continuity blocks count as
+    coverage so a transient source outage cannot erase a channel's XMLTV ID;
+    their explicit ``data-guide`` marker remains visible to the app/report and
+    they are never presented as an official programme source.
+    """
+    current = now or datetime.now(timezone.utc)
+    if current.tzinfo is None:
+        current = current.replace(tzinfo=timezone.utc)
+    current = current.astimezone(timezone.utc)
+    principal_channels = [
+        channel for channel in channels if playlist_key_for(channel) == "main"
+    ]
+    missing_id_channels = [channel.name for channel in principal_channels if not channel.tvg_id]
+    principal_ids = [channel.tvg_id for channel in principal_channels if channel.tvg_id]
+    duplicate_ids = sorted(
+        tvg_id
+        for tvg_id in set(principal_ids)
+        if principal_ids.count(tvg_id) > 1
+    )
+    expected_ids = set(principal_ids)
+    base = {
+        "scope": DEFAULT_PLAYLIST.name,
+        "required_channels": len(principal_channels),
+        "required_ids": sorted(expected_ids),
+        "minimum_future_hours": 24,
+    }
+    if missing_id_channels:
+        return {
+            **base,
+            "ok": False,
+            "error": "canales principales sin tvg-id: " + ", ".join(missing_id_channels),
+            "channels": 0,
+            "programmes": 0,
+            "technical_guides": [],
+        }
+    if duplicate_ids:
+        return {
+            **base,
+            "ok": False,
+            "error": "tvg-id duplicados en la lista principal: " + ", ".join(duplicate_ids),
+            "channels": 0,
+            "programmes": 0,
+            "technical_guides": [],
+        }
+    if not expected_ids:
+        return {
+            **base,
+            "ok": False,
+            "error": "la lista principal no contiene canales con tvg-id",
+            "channels": 0,
+            "programmes": 0,
+            "technical_guides": [],
+        }
+    if data is None:
+        try:
+            data = EPG_PATH.read_bytes()
+        except OSError as error:
+            return {
+                **base,
+                "ok": False,
+                "error": f"no se pudo leer {EPG_PATH.name}: {error}",
+                "channels": 0,
+                "programmes": 0,
+                "technical_guides": [],
+            }
+    try:
+        status = epg_status_from_xml(
+            data,
+            expected_ids,
+            now=current,
+            minimum_future=timedelta(hours=24),
+            allow_empty_ids=set(),
+        )
+    except (ET.ParseError, ValueError) as error:
+        return {
+            **base,
+            "ok": False,
+            "error": str(error),
+            "channels": 0,
+            "programmes": 0,
+            "technical_guides": [],
+        }
+    technical_guides = sorted(
+        channel_id
+        for channel_id, guide_type in (status.get("guide_types") or {}).items()
+        if "continuidad tecnica" in str(guide_type).lower()
+    )
+    status.update(base)
+    status["technical_guides"] = technical_guides
+    status["coverage_percent"] = 100 if status.get("ok") else 0
+    return status
 
 
 def normalize_red_bull_schedule(schedule: list[dict]) -> list[dict]:
@@ -4845,23 +4990,30 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
     now = datetime.now(timezone.utc)
     expected_ids = {channel.tvg_id for channel in channels if channel.tvg_id}
     public_ids: set[str] | None = None
-    if CHANNEL_CATALOG_PATH.exists() and DEFAULT_PLAYLIST.exists():
+    public_playlist_paths = [
+        path
+        for path in (DEFAULT_PLAYLIST, EXTERNAL_PLAYLIST)
+        if path.exists()
+    ]
+    if CHANNEL_CATALOG_PATH.exists() and public_playlist_paths:
         catalog_ids = {
             channel.tvg_id
             for channel in channels
             if channel.tvg_id
         }
-        public_ids = {
-            channel.tvg_id
-            for channel in parse_channels(
-                DEFAULT_PLAYLIST.read_text(encoding="utf-8-sig").splitlines()
+        public_ids: set[str] = set()
+        for public_playlist in public_playlist_paths:
+            public_ids.update(
+                channel.tvg_id
+                for channel in parse_channels(
+                    public_playlist.read_text(encoding="utf-8-sig").splitlines()
+                )
+                if channel.tvg_id
             )
-            if channel.tvg_id
-        }
         retired_ids = catalog_ids - public_ids
         unknown_public_ids = public_ids - catalog_ids
         print(
-            "EPG verificada contra m3u.m3u y channel-catalog.m3u: "
+            "EPG verificada contra las listas publicas y channel-catalog.m3u: "
             f"{len(public_ids & catalog_ids)} activos, "
             f"{len(retired_ids)} retirados temporalmente; "
             "se procesara el catalogo completo"
@@ -5630,6 +5782,7 @@ def write_report(
     repaired_channels: list[str] | None = None,
     epg_status: dict | None = None,
     *,
+    main_epg_status: dict | None = None,
     refreshed_channels: list[str] | None = None,
 ) -> dict:
     """Write a token-free run report and update persistent channel health.
@@ -5699,11 +5852,13 @@ def write_report(
         last_ok_at = checked_at if ok else old.get("last_ok_at")
         detail = safe_detail(result.detail if result else "sin resultado de validacion")
         source_host = urlparse(result.url).hostname if result and result.url else None
+        playlist_key = playlist_key_for(channel)
         entry = {
             "id": key,
             "name": channel.display_name or channel.name,
             "tvg_id": channel.tvg_id,
             "group": channel.group,
+            "playlist": playlist_key,
             "resolver": resolver or "direct",
             "source_host": source_host,
             "status": status,
@@ -5723,6 +5878,7 @@ def write_report(
                 "name",
                 "tvg_id",
                 "group",
+                "playlist",
                 "resolver",
                 "status",
                 "consecutive_failures",
@@ -5758,21 +5914,76 @@ def write_report(
     )
 
     logos = logo_results or []
+    main_epg = main_epg_status if main_epg_status is not None else (epg_status or {})
     direct_entries = [
         entry for entry in health_entries if entry["resolver"] == "direct"
     ]
     direct_failures = [entry for entry in direct_entries if not entry["ok"]]
     systemic_threshold = max(5, (len(direct_entries) + 3) // 4)
     systemic_direct_failure = len(direct_failures) >= systemic_threshold
+
+    main_entries = [entry for entry in health_entries if entry["playlist"] == "main"]
+    external_entries = [
+        entry for entry in health_entries if entry["playlist"] == "external"
+    ]
+    main_working_entries = [entry for entry in main_entries if entry["ok"]]
+    external_working_entries = [entry for entry in external_entries if entry["ok"]]
+    main_epg_ok = bool(main_epg.get("ok"))
+    channel_by_name = {channel.name: channel for channel in channels}
+    logo_failures_by_playlist = {"main": [], "external": []}
+    for result in logos:
+        if result.ok:
+            continue
+        channel = channel_by_name.get(result.channel)
+        key = playlist_key_for(channel) if channel else "main"
+        logo_failures_by_playlist.setdefault(key, []).append(result.channel)
+    main_logo_failures = sorted(logo_failures_by_playlist.get("main", []))
+    external_logo_failures = sorted(logo_failures_by_playlist.get("external", []))
+
+    # The 25% direct-source guard applies only to the principal list. An
+    # outage in the external resolver pool must not hide otherwise healthy
+    # direct/official channels, and the two outputs are published separately.
     if systemic_direct_failure:
-        for entry in health_entries:
-            if entry["ok"]:
-                continue
-            entry["blocking"] = True
+        for entry in main_entries:
+            if not entry["ok"]:
+                entry["blocking"] = True
+
+    main_hold_reason = None
+    if systemic_direct_failure:
+        main_hold_reason = "systemic_direct_failure"
+    elif not main_epg_ok:
+        main_hold_reason = "epg_incomplete"
+    elif main_logo_failures:
+        main_hold_reason = "logo_validation"
+    elif not main_working_entries:
+        main_hold_reason = "no_working_channels"
+
+    external_hold_reason = None
+    if external_logo_failures:
+        external_hold_reason = "logo_validation"
+    elif external_entries and not external_working_entries:
+        external_hold_reason = "no_working_channels"
+
     for entry in health_entries:
-        if systemic_direct_failure:
+        is_main = entry["playlist"] == "main"
+        if is_main and systemic_direct_failure:
             entry["published"] = None
             entry["publication_action"] = "unchanged_systemic_guard"
+        elif is_main and not main_epg_ok and entry["ok"]:
+            entry["published"] = False
+            entry["publication_action"] = "held_missing_epg"
+        elif is_main and main_logo_failures and entry["ok"]:
+            entry["published"] = False
+            entry["publication_action"] = "held_logo_validation"
+        elif is_main and not main_working_entries and entry["ok"]:
+            entry["published"] = False
+            entry["publication_action"] = "held_no_working_channels"
+        elif not is_main and external_logo_failures and entry["ok"]:
+            entry["published"] = False
+            entry["publication_action"] = "held_logo_validation"
+        elif not is_main and not external_working_entries and entry["ok"]:
+            entry["published"] = False
+            entry["publication_action"] = "held_no_working_channels"
         elif entry["ok"]:
             entry["published"] = True
             entry["publication_action"] = (
@@ -5787,6 +5998,7 @@ def write_report(
         else:
             entry["published"] = False
             entry["publication_action"] = "temporarily_removed"
+
     blocking_failures = [entry for entry in health_entries if entry["blocking"]]
     degraded_channels = [
         entry
@@ -5805,6 +6017,63 @@ def write_report(
         }
         for result in logos
     ]
+    main_epg_types = main_epg.get("guide_types") or {}
+    main_epg_covered = len(
+        set(main_epg_types).intersection(
+            {entry["tvg_id"] for entry in main_entries if entry["tvg_id"]}
+        )
+    )
+    main_epg_coverage = round(
+        100 * main_epg_covered / len(main_entries), 2
+    ) if main_entries else 0
+    main_ready = bool(
+        main_entries
+        and main_working_entries
+        and main_epg_ok
+        and not main_logo_failures
+        and not systemic_direct_failure
+    )
+    external_ready = bool(
+        external_entries
+        and external_working_entries
+        and not external_logo_failures
+    )
+    playlists = {
+        "main": {
+            "file": DEFAULT_PLAYLIST.name,
+            "candidate_channels": len(main_entries),
+            "working_channels": len(main_working_entries),
+            "published_channels": sum(
+                1
+                for entry in main_entries
+                if entry["published"] is True
+            ),
+            "epg_required": True,
+            "epg_ok": main_epg_ok,
+            "epg_covered_channels": main_epg_covered,
+            "epg_coverage_percent": main_epg_coverage,
+            "epg_programmes": main_epg.get("programmes", 0),
+            "technical_guides": main_epg.get("technical_guides", []),
+            "publication_ready": main_ready,
+            "hold_reason": main_hold_reason,
+            "logo_failures": main_logo_failures,
+        },
+        "external": {
+            "file": EXTERNAL_PLAYLIST.name,
+            "candidate_channels": len(external_entries),
+            "working_channels": len(external_working_entries),
+            "published_channels": sum(
+                1
+                for entry in external_entries
+                if entry["published"] is True
+            ),
+            "epg_required": False,
+            "epg_ok": None,
+            "publication_ready": external_ready,
+            "hold_reason": external_hold_reason,
+            "logo_failures": external_logo_failures,
+        },
+    }
     report = {
         "playlist": DEFAULT_PLAYLIST.name,
         "generated_at": checked_at,
@@ -5815,13 +6084,11 @@ def write_report(
             not direct_failures
             and not degraded_channels
             and all(result.ok for result in logos)
-            and bool(epg_status and epg_status.get("ok"))
+            and main_epg_ok
         ),
-        "publication_ready": (
-            not blocking_failures
-            and all(result.ok for result in logos)
-            and bool(epg_status and epg_status.get("ok"))
-        ),
+        "publication_ready": main_ready and external_ready,
+        "playlists": playlists,
+        "main_epg": main_epg,
         "summary": {
             "total_channels": len(health_entries),
             "blocking_failures": len(blocking_failures),
@@ -5837,11 +6104,20 @@ def write_report(
                 for entry in health_entries
                 if entry["publication_action"] == "temporarily_removed"
             ),
+            "held_channels": sum(
+                1
+                for entry in health_entries
+                if str(entry["publication_action"]).startswith("held_")
+            ),
             "reactivated": sum(
                 1
                 for entry in health_entries
                 if entry["publication_action"] == "reactivated"
             ),
+            "main_epg_ok": main_epg_ok,
+            "main_epg_coverage_percent": main_epg_coverage,
+            "main_publication_ready": main_ready,
+            "external_publication_ready": external_ready,
             "removed_since_previous_run": len(removed_channels),
             "status_counts": status_counts,
         },
@@ -5994,23 +6270,35 @@ def main() -> int:
         raise RuntimeError("la lista no contiene canales activos")
 
     if args.channels_only:
-        epg_status = {
-            "ok": True,
-            "updated": False,
-            "skipped": True,
-            "channels": len(channels),
-            "programmes": None,
-            "guide_types": {},
-            "guide_sources": {},
-        }
+        main_epg_status = validate_main_playlist_epg(channels)
+        epg_status = dict(main_epg_status)
+        epg_status.update(
+            {
+                "updated": False,
+                "skipped": True,
+                "catalog_scope": CHANNEL_CATALOG_PATH.name,
+            }
+        )
         print(
             "EPG omitida: este proceso mantiene canales y resolutores; "
             "la EPG se ejecuta de forma independiente sobre channel-catalog.m3u"
         )
+        if main_epg_status.get("ok"):
+            print(
+                "  [OK] Compuerta EPG de m3u.m3u: cobertura 100% para "
+                f"{main_epg_status['required_channels']} canales"
+            )
+        else:
+            print(
+                "  [AVISO] Compuerta EPG de m3u.m3u cerrada: "
+                + str(main_epg_status.get("error", "cobertura incompleta")),
+                file=sys.stderr,
+            )
     else:
         print("Actualizando la guia de programacion de todos los canales")
         force_epg_refresh = os.environ.get("EPG_FORCE_REFRESH", "").lower() == "true"
         epg_status = refresh_epg(channels, force=force_epg_refresh)
+        main_epg_status = validate_main_playlist_epg(channels)
         updated = "actualizada" if epg_status.get("updated") else "vigente"
         print(
             f"  [OK] EPG {updated}: {epg_status['channels']} canales y "
@@ -6021,6 +6309,12 @@ def main() -> int:
             print(f"  [EPG] {channel.name}: {guide_type}")
         for warning in epg_status.get("warnings", []):
             print(f"  [AVISO] EPG: {warning}", file=sys.stderr)
+        if not main_epg_status.get("ok"):
+            print(
+                "  [AVISO] Compuerta EPG de m3u.m3u cerrada: "
+                + str(main_epg_status.get("error", "cobertura incompleta")),
+                file=sys.stderr,
+            )
 
     print(
         f"Revisando {len(channels)} candidatos de {source_playlist.name} "
@@ -6119,34 +6413,61 @@ def main() -> int:
         logo_results,
         repaired_channels,
         epg_status,
+        main_epg_status=main_epg_status,
         refreshed_channels=refreshed_channels,
     )
-    if report["publication_ready"]:
-        working_names = {result.channel for result in results if result.ok}
+    working_names = {result.channel for result in results if result.ok}
+    main_publication = report["playlists"]["main"]
+    external_publication = report["playlists"]["external"]
+    main_working_names = {
+        channel.name
+        for channel in final_channels
+        if playlist_key_for(channel) == "main" and channel.name in working_names
+    }
+    external_working_names = {
+        channel.name
+        for channel in final_channels
+        if playlist_key_for(channel) == "external" and channel.name in working_names
+    }
+    if main_publication["publication_ready"]:
         public_lines = filter_playlist_to_working_channels(
-            final_lines, final_channels, working_names
+            final_lines, final_channels, main_working_names
         )
         playlist.write_text(
             "\n".join(public_lines) + "\n", encoding="utf-8", newline="\n"
         )
-        temporarily_removed = [
-            channel.name for channel in final_channels if channel.name not in working_names
-        ]
-        if temporarily_removed:
-            print(
-                "Retirados temporalmente de la M3U publica tras agotar "
-                "reintentos: " + ", ".join(temporarily_removed),
-                file=sys.stderr,
-            )
         print(
-            f"M3U publica: {len(working_names)} canales activos; "
-            f"catalogo de reintento: {len(final_channels)} candidatos"
+            f"M3U principal: {len(main_working_names)} canales activos; "
+            f"EPG 100% validada sobre {main_publication['candidate_channels']} candidatos"
+        )
+    else:
+        print(
+            "M3U principal conservada sin reemplazo: "
+            + str(main_publication.get("hold_reason", "validacion incompleta")),
+            file=sys.stderr,
+        )
+    if external_publication["publication_ready"]:
+        external_lines = filter_playlist_to_working_channels(
+            final_lines, final_channels, external_working_names
+        )
+        EXTERNAL_PLAYLIST.write_text(
+            "\n".join(external_lines) + "\n", encoding="utf-8", newline="\n"
+        )
+        print(
+            f"M3U externa: {len(external_working_names)} canales activos; "
+            f"catalogo de reintento: {external_publication['candidate_channels']} candidatos"
+        )
+    else:
+        print(
+            "M3U externa conservada sin reemplazo: "
+            + str(external_publication.get("hold_reason", "validacion incompleta")),
+            file=sys.stderr,
         )
     failed = [entry["name"] for entry in report["blocking_failures"]]
     direct_failed = [entry["name"] for entry in report["direct_failures"]]
     degraded = [entry["name"] for entry in report["degraded_channels"]]
     failed_logos = [result.channel for result in logo_results if not result.ok]
-    epg_failed = not bool(epg_status.get("ok"))
+    epg_failed = not bool(main_epg_status.get("ok"))
     if degraded:
         print(
             "Respaldos degradados retirados temporalmente; el resolutor y el "
@@ -6166,11 +6487,23 @@ def main() -> int:
         if failed_logos:
             print("Logos con problemas: " + ", ".join(failed_logos), file=sys.stderr)
         if epg_failed:
-            print("La EPG no supero la validacion completa", file=sys.stderr)
+            print(
+                "La EPG de la lista principal no supero la compuerta; "
+                "se conserva la salida anterior",
+                file=sys.stderr,
+            )
+    if not main_publication["publication_ready"] and not external_publication[
+        "publication_ready"
+    ]:
+        print(
+            "Ninguna de las dos listas pudo publicarse de forma segura; "
+            "se conservaron las salidas anteriores",
+            file=sys.stderr,
+        )
         return 1
     working = sum(1 for result in results if result.ok)
     print(
-        f"Lista publicable: {working} canales activos y "
+        f"Catalogo verificado: {working} canales activos y "
         f"{len(results) - working} retirados temporalmente "
         f"({len(results)} candidatos conservados)"
     )
