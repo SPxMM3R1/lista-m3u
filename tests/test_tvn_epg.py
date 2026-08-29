@@ -1,4 +1,6 @@
 import json
+from pathlib import Path
+import tempfile
 import unittest
 import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta, timezone
@@ -294,6 +296,48 @@ class TvnEpgTests(unittest.TestCase):
         la_red_epg = root.find("./channel[@id='0102']")
         self.assertEqual(la_red_epg.get("data-guide-source"), "continuidad-tecnica")
         self.assertGreater(status["programmes"], 0)
+
+    def test_epg_accepts_retired_channels_in_previous_publication(self) -> None:
+        now = datetime.now(timezone.utc).replace(microsecond=0)
+        active = channel("Canal activo", "active.channel")
+
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            temporary = Path(temporary_directory)
+            epg_path = temporary / "epg.xml"
+            public_playlist = temporary / "m3u.m3u"
+            root = ET.Element(
+                "tv",
+                {"data-generated-at": (now - timedelta(hours=1)).isoformat()},
+            )
+            ET.SubElement(root, "channel", {"id": active.tvg_id})
+            ET.SubElement(root, "channel", {"id": "retired.channel"})
+            programme = ET.SubElement(
+                root,
+                "programme",
+                {
+                    "start": update_m3u.xmltv_format_chile(now - timedelta(hours=1)),
+                    "stop": update_m3u.xmltv_format_chile(now + timedelta(hours=25)),
+                    "channel": active.tvg_id,
+                },
+            )
+            ET.SubElement(programme, "title").text = "Programa vigente"
+            epg_path.write_bytes(
+                ET.tostring(root, encoding="utf-8", xml_declaration=True)
+            )
+            public_playlist.write_text(
+                "#EXTM3U\n"
+                '#EXTINF:-1 tvg-id="active.channel",Canal activo\n'
+                "https://example.invalid/live.m3u8\n",
+                encoding="utf-8",
+            )
+
+            with patch.object(update_m3u, "EPG_PATH", epg_path), patch.object(
+                update_m3u, "DEFAULT_PLAYLIST", public_playlist
+            ):
+                status = update_m3u.refresh_epg([active])
+
+        self.assertTrue(status["reused"])
+        self.assertEqual(status["channels"], 1)
 
 
 if __name__ == "__main__":

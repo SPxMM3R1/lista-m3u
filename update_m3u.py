@@ -4638,6 +4638,35 @@ def build_epg(
 def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
     now = datetime.now(timezone.utc)
     expected_ids = {channel.tvg_id for channel in channels if channel.tvg_id}
+    public_ids: set[str] | None = None
+    if CHANNEL_CATALOG_PATH.exists() and DEFAULT_PLAYLIST.exists():
+        catalog_ids = {
+            channel.tvg_id
+            for channel in channels
+            if channel.tvg_id
+        }
+        public_ids = {
+            channel.tvg_id
+            for channel in parse_channels(
+                DEFAULT_PLAYLIST.read_text(encoding="utf-8-sig").splitlines()
+            )
+            if channel.tvg_id
+        }
+        retired_ids = catalog_ids - public_ids
+        unknown_public_ids = public_ids - catalog_ids
+        print(
+            "EPG verificada contra m3u.m3u y channel-catalog.m3u: "
+            f"{len(public_ids & catalog_ids)} activos, "
+            f"{len(retired_ids)} retirados temporalmente; "
+            "se procesara el catalogo completo"
+        )
+        if unknown_public_ids:
+            print(
+                "  [AVISO] M3U publica contiene IDs fuera del catalogo; "
+                "se ignoran para la EPG: "
+                + ", ".join(sorted(unknown_public_ids)),
+                file=sys.stderr,
+            )
     existing_status = None
     existing_data: bytes | None = None
     if EPG_PATH.exists():
@@ -4647,8 +4676,12 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
             existing_channel_ids = {
                 channel.get("id", "") for channel in existing_root.findall("channel")
             }
-            if existing_channel_ids != expected_ids:
-                raise ValueError("la guia publicada tiene canales fuera de la lista actual")
+            missing_existing_ids = expected_ids - existing_channel_ids
+            if missing_existing_ids:
+                raise ValueError(
+                    "la guia publicada no contiene canales del catalogo: "
+                    + ", ".join(sorted(missing_existing_ids))
+                )
             existing_status = epg_status_from_xml(
                 existing_data,
                 expected_ids,

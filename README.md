@@ -163,9 +163,12 @@ Argentina, Portugal, Nueva Zelanda, Estados Unidos, Polonia, Letonia, Paises
 Bajos, PLEX1, PlutoTV, Turquia, Singapur y Nigeria, junto con la guia publica
 de Zapping para senales chilenas seleccionadas. El orden es: fuente oficial
 del canal, XMLTV real por pais/proveedor y Zapping u otra fuente secundaria
-real. M1, M2 y 13C se actualizan desde sus parrillas oficiales. La EPG siempre
-conserva al menos un bloque para cada canal del catalogo, incluso si fue
-retirado temporalmente de `m3u.m3u` por fallos HLS. Cuando ninguna fuente real
+real. M1, M2 y 13C se actualizan desde sus parrillas oficiales. La EPG verifica
+`m3u.m3u`, pero construye sus IDs esperados desde `channel-catalog.m3u`: un
+canal retirado temporalmente de la lista publica continua recibiendo EPG y no
+causa un error por no aparecer en `m3u.m3u`. La EPG conserva al menos un bloque
+para cada canal del catalogo, incluso si fue retirado temporalmente por fallos
+HLS. Cuando ninguna fuente real
 entrega una parrilla exacta, se usa `continuidad tecnica`, marcada en
 `data-guide` y en el titulo como programacion no disponible; no se presenta
 como una guia oficial. La siguiente corrida vuelve a intentar la fuente real
