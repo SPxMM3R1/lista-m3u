@@ -50,6 +50,7 @@ def render(report: dict) -> str:
     epg = report.get("epg") or {}
     main_epg = report.get("main_epg") or {}
     playlists = report.get("playlists") or {}
+    resolver_refresh = report.get("resolver_refresh") or {}
     logos = report.get("logos") or []
     fatal = report.get("fatal_error")
     real_guides, official_guides, missing_guides = count_guides(epg)
@@ -98,6 +99,34 @@ def render(report: dict) -> str:
             + ".",
         ]
     )
+
+    if resolver_refresh:
+        lines.extend(
+            [
+                "",
+                "### Renovación dinámica",
+                "",
+                f"- Intentos de renovación: **{resolver_refresh.get('attempted', 0)}**; "
+                f"caché reciente reutilizada: **{resolver_refresh.get('skipped_recent', 0)}**.",
+                f"- Enlaces cambiados: **{resolver_refresh.get('changed', 0)}**; "
+                f"renovaciones aceptadas: **{resolver_refresh.get('accepted', 0)}**; "
+                f"fallos: **{resolver_refresh.get('failed', 0)}**.",
+            ]
+        )
+        by_engine = resolver_refresh.get("by_engine") or {}
+        if by_engine:
+            lines.append(
+                "- Por motor: "
+                + "; ".join(
+                    f"`{cell(engine)}` "
+                    f"(intentos {stats.get('attempted', 0)}, "
+                    f"caché {stats.get('skipped_recent', 0)}, "
+                    f"cambios {stats.get('changed', 0)}, "
+                    f"fallos {stats.get('failed', 0)})"
+                    for engine, stats in sorted(by_engine.items())
+                )
+                + "."
+            )
 
     lines.extend(["", "### Salidas públicas", ""])
     for key, label in (("main", "Principal"), ("external", "Externa")):

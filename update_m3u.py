@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import copy
 import gzip
+import hashlib
 import html
 import json
 import os
@@ -41,6 +42,16 @@ RESOLVER_CATALOG_VERSION = "2026.08.28.1"
 ALLOWED_RESOLVER_ENGINES = {"tvn", "meganoticias", "tvvoo", "highfly"}
 MAIN_PLAYLIST_RESOLVERS = frozenset({"direct", "tvn", "meganoticias"})
 EXTERNAL_PLAYLIST_RESOLVERS = frozenset({"tvvoo", "highfly"})
+DYNAMIC_RESOLVER_ENGINES = frozenset({"meganoticias", "tvvoo", "highfly"})
+# Los enlaces resueltos de TvVoo/Highfly son efimeros o pueden cambiar de
+# nodo. Esta ventana solo evita repetir una renovacion si se lanza otra corrida
+# poco despues de una validacion correcta; no sustituye la renovacion normal de
+# las ventanas de seis horas.
+RESOLVER_VALIDATION_TTL = {
+    "meganoticias": timedelta(minutes=20),
+    "tvvoo": timedelta(minutes=30),
+    "highfly": timedelta(minutes=30),
+}
 RESOLVER_ATTRIBUTE_NAMES = (
     "x-resolver",
     "x-resolver-endpoint",
@@ -472,7 +483,7 @@ TVVOO_STREAM_BASE_URL = "https://tvvoo.hayd.uk/stream/tv"
 # El relay publico de Highfly puede responder con un certificado vencido aun
 # cuando el mismo HLS entrega playlist y segmentos. La excepcion queda
 # limitada a este host y solo se activa ante el error explicito de expiracion.
-EXPIRED_CERT_FALLBACK_HOSTS = {"leaf.highfly.dev"}
+EXPIRED_CERT_FALLBACK_HOSTS = {"leaf.highfly.dev", "sports.highfly.dev"}
 # TvVoo publica varios alias para las mismas senales. Se prueban primero los
 # alias que hoy entregan un segmento funcional y se conservan las variantes HD
 # como respaldo para cuando el proveedor las vuelva a servir.
@@ -1484,11 +1495,94 @@ class CheckResult:
 
 
 @dataclass(frozen=True)
+class DynamicRefreshOutcome:
+    """Resultado en memoria de una renovacion de fuente dinamica.
+
+    ``resolved_url`` y ``check_result`` no se escriben en los informes: solo
+    sirven para aplicar de forma serial los cambios producidos por los
+    workers y evitar una segunda validacion del mismo candidato.
+    """
+
+    channel: str
+    resolver: str
+    accepted: bool
+    changed: bool
+    skipped: bool
+    detail: str
+    resolved_url: str | None = None
+    check_result: CheckResult | None = None
+
+
+@dataclass(frozen=True)
 class LogoResult:
     channel: str
     url: str
     ok: bool
     detail: str
+
+
+# Politicas conservadoras por proveedor. Los limites mas cortos evitan que un
+# CDN caido monopolice el runner, pero se mantienen dos intentos para no
+# confundir una perdida puntual con una senal retirada.
+@dataclass(frozen=True)
+class ChannelCheckPolicy:
+    attempts: int
+    playlist_timeout: int
+    segment_timeout: int
+    resolver_timeout: int
+    retry_delay: float
+    workers: int
+
+
+CHANNEL_CHECK_POLICIES = {
+    "direct": ChannelCheckPolicy(
+        attempts=2,
+        playlist_timeout=20,
+        segment_timeout=14,
+        resolver_timeout=20,
+        retry_delay=0.75,
+        workers=8,
+    ),
+    "tvn": ChannelCheckPolicy(
+        attempts=2,
+        playlist_timeout=22,
+        segment_timeout=16,
+        resolver_timeout=22,
+        retry_delay=0.75,
+        workers=4,
+    ),
+    "meganoticias": ChannelCheckPolicy(
+        attempts=2,
+        playlist_timeout=22,
+        segment_timeout=16,
+        resolver_timeout=22,
+        retry_delay=0.75,
+        workers=3,
+    ),
+    "tvvoo": ChannelCheckPolicy(
+        attempts=2,
+        playlist_timeout=18,
+        segment_timeout=12,
+        resolver_timeout=22,
+        retry_delay=0.5,
+        workers=6,
+    ),
+    "highfly": ChannelCheckPolicy(
+        attempts=2,
+        playlist_timeout=20,
+        segment_timeout=14,
+        resolver_timeout=20,
+        retry_delay=0.5,
+        workers=4,
+    ),
+}
+
+
+def channel_check_policy(channel: Channel) -> ChannelCheckPolicy:
+    """Choose timeouts/retries from the explicit resolver classification."""
+    return CHANNEL_CHECK_POLICIES.get(
+        resolver_engine_for(channel), CHANNEL_CHECK_POLICIES["direct"]
+    )
 
 
 def parse_channels(lines: list[str]) -> list[Channel]:
@@ -2035,9 +2129,12 @@ def fetch_bytes(
 
 
 def fetch_channel_bytes(
-    url: str, headers: dict[str, str]
+    url: str,
+    headers: dict[str, str],
+    *,
+    timeout: int = 25,
 ) -> tuple[int, bytes, str]:
-    return fetch_bytes(url, headers)
+    return fetch_bytes(url, headers, timeout=timeout)
 
 
 def hls_attribute(line: str, name: str) -> str | None:
@@ -5216,13 +5313,20 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
 
 
 def check_channel(
-    channel: Channel, attempts: int = 2, *, allow_ci_geo_block: bool = False
+    channel: Channel,
+    attempts: int | None = None,
+    *,
+    allow_ci_geo_block: bool = False,
 ) -> CheckResult:
+    policy = channel_check_policy(channel)
+    attempt_count = max(1, attempts if attempts is not None else policy.attempts)
     last_error = "respuesta desconocida"
-    for attempt in range(attempts):
+    for attempt in range(attempt_count):
         try:
             status, body, final_url = fetch_channel_bytes(
-                channel.url, request_headers(channel.name)
+                channel.url,
+                request_headers(channel.name),
+                timeout=policy.playlist_timeout,
             )
             text = body.decode("utf-8", "replace").lstrip("\ufeff\r\n ")
             if status == 200 and text.startswith("#EXTM3U"):
@@ -5235,6 +5339,8 @@ def check_channel(
                         request_headers(channel.name),
                         initial_body=body,
                         initial_final_url=final_url,
+                        request_timeout=policy.playlist_timeout,
+                        segment_timeout=policy.segment_timeout,
                     )
                     if not segment_ok:
                         if (
@@ -5249,8 +5355,8 @@ def check_channel(
                                 "reproduccion limitada fuera de Chile (segmento HTTP 403)",
                             )
                         last_error = segment_detail
-                        if attempt + 1 < attempts:
-                            time.sleep(1.5)
+                        if attempt + 1 < attempt_count:
+                            time.sleep(policy.retry_delay)
                             continue
                         return CheckResult(channel.name, channel.url, False, last_error)
                     detail += f"; {segment_detail}"
@@ -5296,8 +5402,8 @@ def check_channel(
                     "maestro conservado; Actions fuera de Chile no pudo probarlo",
                 )
             last_error = f"{type(error).__name__}: {error}"
-        if attempt + 1 < attempts:
-            time.sleep(1.5)
+        if attempt + 1 < attempt_count:
+            time.sleep(policy.retry_delay)
     return CheckResult(channel.name, channel.url, False, last_error)
 
 
@@ -5308,13 +5414,20 @@ def check_hls_first_segment(
     initial_body: bytes | None = None,
     initial_final_url: str | None = None,
     depth: int = 0,
+    request_timeout: int = 25,
+    segment_timeout: int = 25,
 ) -> tuple[bool, str]:
     """Confirm that an HLS master or media playlist delivers a live segment."""
     if depth > 3:
         return False, "playlist HLS con demasiados niveles"
     try:
         if initial_body is None:
-            status, body, final_url = fetch_bytes(url, headers, limit=1_048_576)
+            status, body, final_url = fetch_bytes(
+                url,
+                headers,
+                timeout=request_timeout,
+                limit=1_048_576,
+            )
         else:
             status, body, final_url = 200, initial_body, initial_final_url or url
         text = body.decode("utf-8", "replace").lstrip("\ufeff\r\n ")
@@ -5333,7 +5446,13 @@ def check_hls_first_segment(
             variants.append((height, width, urljoin(final_url, child)))
         if variants:
             _, _, child_url = max(variants)
-            return check_hls_first_segment(child_url, headers, depth=depth + 1)
+            return check_hls_first_segment(
+                child_url,
+                headers,
+                depth=depth + 1,
+                request_timeout=request_timeout,
+                segment_timeout=segment_timeout,
+            )
         segments = [line for line in lines if line and not line.startswith("#")]
         if not segments:
             return False, "playlist sin segmento multimedia"
@@ -5345,7 +5464,10 @@ def check_hls_first_segment(
             segment_url = urljoin(final_url, segment)
             try:
                 segment_status, segment_body, _ = fetch_bytes(
-                    segment_url, headers, timeout=25, limit=64
+                    segment_url,
+                    headers,
+                    timeout=segment_timeout,
+                    limit=64,
                 )
                 if segment_status == 200 and segment_body:
                     return True, "segmento multimedia valido"
@@ -5537,6 +5659,7 @@ def repair_failed_channels(
     results: list[CheckResult],
     *,
     allow_ci_geo_block: bool,
+    repaired_results: dict[str, CheckResult] | None = None,
 ) -> list[str]:
     channels_by_name = {channel.name: channel for channel in channels}
     repaired: list[str] = []
@@ -5559,6 +5682,8 @@ def repair_failed_channels(
                 channel.info_line,
                 channel.logo_url,
                 channel.group,
+                channel.tvg_id,
+                channel.display_name,
             )
             candidate_result = check_channel(
                 candidate, allow_ci_geo_block=allow_ci_geo_block
@@ -5566,6 +5691,8 @@ def repair_failed_channels(
             if candidate_result.ok:
                 lines[channel.url_line] = candidate_url
                 repaired.append(channel.name)
+                if repaired_results is not None:
+                    repaired_results[channel.name] = candidate_result
                 print(f"  [REPARADO] {channel.name}: enlace alternativo verificado")
                 break
         if channel.name not in repaired:
@@ -5574,7 +5701,10 @@ def repair_failed_channels(
 
 
 def fresh_24horas_url() -> str:
-    html = megamedia_page_html(TWENTYFOUR_LIVE_PAGE)
+    html = megamedia_page_html(
+        TWENTYFOUR_LIVE_PAGE,
+        timeout=CHANNEL_CHECK_POLICIES["direct"].resolver_timeout,
+    )
     stream_id_match = re.search(
         r'<a[^>]+class=["\'][^"\']*playertablink[^"\']*active[^"\']*["\']'
         r'[^>]+data-ms=["\']([a-zA-Z0-9]+)["\']',
@@ -5587,7 +5717,10 @@ def fresh_24horas_url() -> str:
 
 def fresh_meganoticias_url() -> str:
     """Read the current official stream id without requesting its token."""
-    html = megamedia_page_html(MEGANOTICIAS_LIVE_PAGE)
+    html = megamedia_page_html(
+        MEGANOTICIAS_LIVE_PAGE,
+        timeout=CHANNEL_CHECK_POLICIES["meganoticias"].resolver_timeout,
+    )
     stream_id_match = re.search(
         r"var\s+VideoSenalEnVivo\s*=\s*\{.{0,65536}?"
         r"\bid\s*:\s*['\"]([A-Za-z0-9_-]+)",
@@ -5602,6 +5735,98 @@ def fresh_meganoticias_url() -> str:
     return f"https://mdstrm.com/live-stream-playlist/{stream_id}.m3u8"
 
 
+def fetch_highfly_manifest() -> dict:
+    """Confirm the configured Highfly manifest without persisting its body."""
+    status, body, _ = fetch_bytes(
+        HIGHFLY_MANIFEST_URL,
+        {
+            "User-Agent": BROWSER_USER_AGENT,
+            "Accept": "application/json",
+        },
+        timeout=CHANNEL_CHECK_POLICIES["highfly"].resolver_timeout,
+        limit=1_048_576,
+    )
+    if status != 200:
+        raise RuntimeError(f"manifest Highfly HTTP {status}")
+    try:
+        payload = json.loads(body.decode("utf-8", "replace"))
+    except json.JSONDecodeError as error:
+        raise ValueError(f"manifest Highfly no es JSON valido: {error}") from error
+    if not isinstance(payload, dict):
+        raise ValueError("manifest Highfly no contiene un objeto JSON")
+    # El manifiesto describe un addon y puede cambiar de forma; exigir solo
+    # sus secciones publicas evita depender de URLs de sesion o de un esquema
+    # que no controla este repositorio.
+    if not any(key in payload for key in ("resources", "catalogs", "types")):
+        raise ValueError("manifest Highfly no parece un manifiesto de canales")
+    return payload
+
+
+def fresh_highfly_stream_urls(
+    channel: Channel, *, manifest_verified: bool
+) -> Iterable[str]:
+    """Return the canonical Highfly leaf for a validated stable slug."""
+    slug = HIGHFLY_RESOLVER_CHANNELS.get(channel.tvg_id)
+    if not slug:
+        raise ValueError(f"no hay slug Highfly para {channel.tvg_id or channel.name}")
+    if not manifest_verified:
+        raise RuntimeError("manifest Highfly no verificable en esta ejecucion")
+    yield f"https://leaf.highfly.dev/m3u/{slug}/live.m3u8"
+
+
+def load_health_state() -> dict:
+    """Read token-free health metadata used for the short validation cache."""
+    try:
+        state = json.loads(HEALTH_STATE_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    return state if isinstance(state, dict) else {}
+
+
+def resolver_url_fingerprint(url: str) -> str:
+    """Store only a non-reversible URL fingerprint in persistent state."""
+    return hashlib.sha256(url.encode("utf-8")).hexdigest()[:16]
+
+
+def dynamic_validation_is_fresh(
+    channel: Channel,
+    current_result: CheckResult,
+    health_state: dict,
+    *,
+    now: datetime,
+) -> bool:
+    """Return whether a successful dynamic URL can be reused briefly.
+
+    The fingerprint prevents a manually changed URL from inheriting the age of
+    a previous one. A missing/invalid state always causes a normal renewal.
+    """
+    if not current_result.ok:
+        return False
+    resolver = resolver_engine_for(channel)
+    ttl = RESOLVER_VALIDATION_TTL.get(resolver)
+    if ttl is None:
+        return False
+    entries = health_state.get("channels", {})
+    if not isinstance(entries, dict):
+        return False
+    entry = entries.get(channel.tvg_id or channel.name)
+    if not isinstance(entry, dict):
+        return False
+    validated_at = entry.get("last_resolver_validated_at") or entry.get("last_ok_at")
+    if not validated_at:
+        return False
+    try:
+        previous = datetime.fromisoformat(str(validated_at).replace("Z", "+00:00"))
+    except ValueError:
+        return False
+    if previous.tzinfo is None:
+        previous = previous.replace(tzinfo=timezone.utc)
+    age = now.astimezone(timezone.utc) - previous.astimezone(timezone.utc)
+    if age < timedelta(0) or age > ttl:
+        return False
+    return entry.get("resolver_url_hash") == resolver_url_fingerprint(channel.url)
+
+
 def iter_fresh_tvvoo_stream_urls(channel_name: str) -> Iterable[str]:
     """Yield current TvVoo HLS URLs lazily, without storing provider tokens."""
     resolver_ids = TVVOO_STREAM_RESOLVER_IDS.get(channel_name)
@@ -5611,12 +5836,18 @@ def iter_fresh_tvvoo_stream_urls(channel_name: str) -> Iterable[str]:
         "User-Agent": BROWSER_USER_AGENT,
         "Accept": "application/json",
     }
+    resolver_timeout = CHANNEL_CHECK_POLICIES["tvvoo"].resolver_timeout
     errors: list[str] = []
     yielded = False
     for resolver_id in resolver_ids:
         endpoint = f"{TVVOO_STREAM_BASE_URL}/{resolver_id}.json"
         try:
-            status, body, _ = fetch_bytes(endpoint, headers, timeout=30, limit=131_072)
+            status, body, _ = fetch_bytes(
+                endpoint,
+                headers,
+                timeout=resolver_timeout,
+                limit=131_072,
+            )
             if status != 200:
                 raise ValueError(f"HTTP {status}")
             payload = json.loads(body.decode("utf-8", "replace"))
@@ -5645,7 +5876,7 @@ def fresh_tvvoo_stream_urls(channel_name: str) -> list[str]:
     return list(dict.fromkeys(iter_fresh_tvvoo_stream_urls(channel_name)))
 
 
-def megamedia_page_html(page_url: str) -> str:
+def megamedia_page_html(page_url: str, *, timeout: int = 25) -> str:
     headers = {
         "User-Agent": BROWSER_USER_AGENT,
         "Referer": page_url,
@@ -5653,7 +5884,12 @@ def megamedia_page_html(page_url: str) -> str:
         "Accept-Language": "es-CL,es;q=0.9,en;q=0.8",
     }
     try:
-        _, body, _ = fetch_bytes(page_url, headers, limit=2_097_152)
+        _, body, _ = fetch_bytes(
+            page_url,
+            headers,
+            timeout=timeout,
+            limit=2_097_152,
+        )
     except urllib.error.URLError as error:
         reason = str(getattr(error, "reason", error)).lower()
         if "certificate verify failed" not in reason and "certificate has expired" not in reason:
@@ -5669,31 +5905,29 @@ def megamedia_page_html(page_url: str) -> str:
             page_url,
             headers,
             context=insecure_context,
+            timeout=timeout,
             limit=2_097_152,
         )
     return body.decode("utf-8", "replace")
 
 
 def refresh_dynamic_channel(
-    lines: list[str],
     channel: Channel,
     fresh_url_factory: Callable[[], str | Iterable[str]],
     *,
     running_in_ci: bool,
-    always_refresh: bool = False,
-) -> bool:
-    current_result = check_channel(channel, allow_ci_geo_block=running_in_ci)
+    current_result: CheckResult | None = None,
+) -> DynamicRefreshOutcome:
+    """Renew one dynamic source without mutating shared playlist lines.
+
+    The initial parallel validation is passed in so this worker does not
+    request the current URL a second time. A successful candidate is checked
+    here and returned to the caller, which applies the URL serially.
+    """
+    if current_result is None:
+        current_result = check_channel(channel, allow_ci_geo_block=running_in_ci)
     state = "OK" if current_result.ok else "FALLO"
     print(f"  [{state}] {channel.name}: {current_result.detail}")
-    use_dynamic_master = "/live-stream-gdai/" not in channel.url
-    needs_refresh = (
-        always_refresh
-        or running_in_ci
-        or not current_result.ok
-        or not use_dynamic_master
-    )
-    if not needs_refresh:
-        return False
 
     fresh_candidates: Iterable[str] = ()
     try:
@@ -5703,9 +5937,10 @@ def refresh_dynamic_channel(
         print(f"  [AVISO] {channel.name}: no se pudo renovar el enlace oficial: {error}")
 
     seen: set[str] = set()
-    def try_candidate(candidate_url: str) -> bool:
+
+    def try_candidate(candidate_url: str) -> DynamicRefreshOutcome | None:
         if candidate_url == channel.url or candidate_url in seen:
-            return False
+            return None
         seen.add(candidate_url)
         candidate = Channel(
             channel.name,
@@ -5727,7 +5962,6 @@ def refresh_dynamic_channel(
             and any(f"HTTP {status}" in candidate_result.detail for status in (401, 403))
         )
         if candidate_result.ok or geo_blocked:
-            lines[channel.url_line] = candidate_url
             if geo_blocked:
                 print(
                     f"  [GEO] {channel.name}: maestro renovado; GitHub Actions no puede "
@@ -5735,42 +5969,207 @@ def refresh_dynamic_channel(
                 )
             else:
                 print(f"  [OK] {channel.name}: enlace renovado o respaldo verificado")
-            return True
+            accepted_result = candidate_result
+            if geo_blocked:
+                accepted_result = CheckResult(
+                    channel.name,
+                    candidate_url,
+                    True,
+                    "maestro renovado; Actions no puede probar el segmento fuera de Chile",
+                )
+            return DynamicRefreshOutcome(
+                channel=channel.name,
+                resolver=resolver_engine_for(channel),
+                accepted=True,
+                changed=candidate_url != channel.url,
+                skipped=False,
+                detail="enlace dinamico renovado y validado",
+                resolved_url=candidate_url,
+                check_result=accepted_result,
+            )
         print(f"  [AVISO] {channel.name}: candidato no usable: {candidate_result.detail}")
-        return False
+        return None
 
     try:
         for candidate_url in fresh_candidates:
-            if try_candidate(candidate_url):
-                return True
+            outcome = try_candidate(candidate_url)
+            if outcome is not None:
+                return outcome
     except Exception as error:
         print(f"  [AVISO] {channel.name}: fallo al leer candidatos renovados: {error}")
 
     for candidate_url in KNOWN_STREAM_FALLBACKS.get(channel.name, []):
-        if try_candidate(candidate_url):
-            return True
+        outcome = try_candidate(candidate_url)
+        if outcome is not None:
+            return outcome
 
     if current_result.ok:
         print(f"  [AVISO] {channel.name}: se conserva el enlace actual")
+        return DynamicRefreshOutcome(
+            channel=channel.name,
+            resolver=resolver_engine_for(channel),
+            accepted=True,
+            changed=False,
+            skipped=False,
+            detail="enlace actual validado; no hubo candidato nuevo",
+            resolved_url=channel.url,
+            check_result=current_result,
+        )
     else:
         print(f"  [SIN RESPALDO] {channel.name}: se conserva el enlace fallido para revision")
-    return False
+        return DynamicRefreshOutcome(
+            channel=channel.name,
+            resolver=resolver_engine_for(channel),
+            accepted=False,
+            changed=False,
+            skipped=False,
+            detail="sin candidato dinamico usable",
+            check_result=current_result,
+        )
 
 
-def verify_all(channels: list[Channel], *, allow_ci_geo_block: bool = False) -> list[CheckResult]:
-    results: dict[str, CheckResult] = {}
-    with ThreadPoolExecutor(max_workers=min(6, len(channels))) as pool:
+def skipped_dynamic_refresh(
+    channel: Channel, current_result: CheckResult
+) -> DynamicRefreshOutcome:
+    """Represent a short-lived cache hit without contacting the resolver."""
+    print(
+        f"  [CACHE] {channel.name}: enlace {resolver_engine_for(channel)} "
+        "validado recientemente; no se renueva"
+    )
+    return DynamicRefreshOutcome(
+        channel=channel.name,
+        resolver=resolver_engine_for(channel),
+        accepted=current_result.ok,
+        changed=False,
+        skipped=True,
+        detail="validacion dinamica reciente reutilizada",
+        resolved_url=channel.url,
+        check_result=current_result,
+    )
+
+
+def run_dynamic_refreshes(
+    jobs: list[
+        tuple[Channel, Callable[[], str | Iterable[str]], CheckResult]
+    ],
+    *,
+    allow_ci_geo_block: bool,
+) -> list[DynamicRefreshOutcome]:
+    """Run TvVoo, Highfly and official dynamic renewals in isolated pools."""
+    if not jobs:
+        return []
+    grouped: dict[str, list[tuple[Channel, Callable[[], str | Iterable[str]], CheckResult]]] = {}
+    for job in jobs:
+        grouped.setdefault(resolver_engine_for(job[0]), []).append(job)
+
+    def run_group(
+        engine: str,
+        group: list[tuple[Channel, Callable[[], str | Iterable[str]], CheckResult]],
+    ) -> list[DynamicRefreshOutcome]:
+        workers = min(
+            max(1, CHANNEL_CHECK_POLICIES.get(engine, CHANNEL_CHECK_POLICIES["direct"]).workers),
+            len(group),
+        )
+        outcomes: list[DynamicRefreshOutcome] = []
+        with ThreadPoolExecutor(max_workers=workers) as pool:
+            futures = {
+                pool.submit(
+                    refresh_dynamic_channel,
+                    channel,
+                    fresh_url_factory,
+                    running_in_ci=allow_ci_geo_block,
+                    current_result=current_result,
+                ): channel.name
+                for channel, fresh_url_factory, current_result in group
+            }
+            for future in as_completed(futures):
+                outcomes.append(future.result())
+        return outcomes
+
+    outcomes: list[DynamicRefreshOutcome] = []
+    with ThreadPoolExecutor(max_workers=len(grouped)) as phase_pool:
         futures = {
-            pool.submit(
-                check_channel, channel, allow_ci_geo_block=allow_ci_geo_block
-            ): channel
-            for channel in channels
+            phase_pool.submit(run_group, engine, group): engine
+            for engine, group in grouped.items()
         }
         for future in as_completed(futures):
-            result = future.result()
-            results[result.channel] = result
-            state = "OK" if result.ok else "FALLO"
-            print(f"  [{state}] {result.channel}: {result.detail}")
+            outcomes.extend(future.result())
+    order = {job[0].name: index for index, job in enumerate(jobs)}
+    return sorted(outcomes, key=lambda item: order.get(item.channel, len(order)))
+
+
+def _verify_channel_group(
+    channels: list[Channel], *, allow_ci_geo_block: bool
+) -> dict[str, CheckResult]:
+    if not channels:
+        return {}
+
+    by_resolver: dict[str, list[Channel]] = {}
+    for channel in channels:
+        by_resolver.setdefault(resolver_engine_for(channel), []).append(channel)
+
+    def verify_resolver_group(
+        resolver: str, resolver_channels: list[Channel]
+    ) -> dict[str, CheckResult]:
+        policy = CHANNEL_CHECK_POLICIES.get(
+            resolver, CHANNEL_CHECK_POLICIES["direct"]
+        )
+        workers = min(policy.workers, len(resolver_channels))
+        resolver_results: dict[str, CheckResult] = {}
+        with ThreadPoolExecutor(max_workers=workers) as pool:
+            futures = {
+                pool.submit(
+                    check_channel,
+                    channel,
+                    allow_ci_geo_block=allow_ci_geo_block,
+                ): channel
+                for channel in resolver_channels
+            }
+            for future in as_completed(futures):
+                result = future.result()
+                resolver_results[result.channel] = result
+                state = "OK" if result.ok else "FALLO"
+                print(f"  [{state}] {result.channel}: {result.detail}")
+        return resolver_results
+
+    # Cada lista tiene pools independientes y cada proveedor tiene su propio
+    # limite: un retraso de TvVoo/Highfly no consume los workers directos.
+    results: dict[str, CheckResult] = {}
+    with ThreadPoolExecutor(max_workers=len(by_resolver)) as phase_pool:
+        futures = {
+            phase_pool.submit(verify_resolver_group, resolver, resolver_channels): resolver
+            for resolver, resolver_channels in by_resolver.items()
+        }
+        for future in as_completed(futures):
+            results.update(future.result())
+    return results
+
+
+def verify_all(
+    channels: list[Channel], *, allow_ci_geo_block: bool = False
+) -> list[CheckResult]:
+    """Validate every stream in parallel while isolating the two public lists."""
+    if not channels:
+        return []
+    groups: dict[str, list[Channel]] = {"main": [], "external": []}
+    for channel in channels:
+        groups.setdefault(playlist_key_for(channel), []).append(channel)
+
+    results: dict[str, CheckResult] = {}
+    active_groups = {
+        name: group for name, group in groups.items() if group
+    }
+    with ThreadPoolExecutor(max_workers=len(active_groups)) as phase_pool:
+        futures = {
+            phase_pool.submit(
+                _verify_channel_group,
+                group,
+                allow_ci_geo_block=allow_ci_geo_block,
+            ): name
+            for name, group in active_groups.items()
+        }
+        for future in as_completed(futures):
+            results.update(future.result())
     return [results[channel.name] for channel in channels]
 
 
@@ -5784,6 +6183,7 @@ def write_report(
     *,
     main_epg_status: dict | None = None,
     refreshed_channels: list[str] | None = None,
+    dynamic_refresh_status: dict[str, dict] | None = None,
 ) -> dict:
     """Write a token-free run report and update persistent channel health.
 
@@ -5816,6 +6216,7 @@ def write_report(
     checked_at = generated_at.isoformat().replace("+00:00", "Z")
     refreshed = set(refreshed_channels or [])
     repaired = set(repaired_channels or [])
+    dynamic_status = dynamic_refresh_status or {}
     results_by_name = {result.channel: result for result in results}
     health_entries: list[dict] = []
     new_health_channels: dict[str, dict] = {}
@@ -5850,6 +6251,16 @@ def write_report(
         blocking = False
         previous_status = str(old.get("status", "new"))
         last_ok_at = checked_at if ok else old.get("last_ok_at")
+        resolver_validated_at = old.get("last_resolver_validated_at")
+        resolver_url_hash = old.get("resolver_url_hash")
+        if resolver in DYNAMIC_RESOLVER_ENGINES:
+            if ok:
+                resolver_validated_at = checked_at
+                resolver_url_hash = resolver_url_fingerprint(channel.url)
+            elif not isinstance(resolver_validated_at, str):
+                resolver_validated_at = None
+            elif not isinstance(resolver_url_hash, str):
+                resolver_url_hash = None
         detail = safe_detail(result.detail if result else "sin resultado de validacion")
         source_host = urlparse(result.url).hostname if result and result.url else None
         playlist_key = playlist_key_for(channel)
@@ -5871,8 +6282,15 @@ def write_report(
             "last_ok_at": last_ok_at,
             "detail": detail,
         }
+        if resolver in DYNAMIC_RESOLVER_ENGINES:
+            entry.update(
+                {
+                    "last_resolver_validated_at": resolver_validated_at,
+                    "resolver_url_hash": resolver_url_hash,
+                }
+            )
         health_entries.append(entry)
-        new_health_channels[key] = {
+        health_entry = {
             field: entry[field]
             for field in (
                 "name",
@@ -5886,6 +6304,14 @@ def write_report(
                 "last_ok_at",
             )
         }
+        if resolver in DYNAMIC_RESOLVER_ENGINES:
+            health_entry.update(
+                {
+                    "last_resolver_validated_at": resolver_validated_at,
+                    "resolver_url_hash": resolver_url_hash,
+                }
+            )
+        new_health_channels[key] = health_entry
 
     current_ids = set(new_health_channels)
     removed_channels = [
@@ -6038,6 +6464,44 @@ def write_report(
         and external_working_entries
         and not external_logo_failures
     )
+    resolver_refresh_summary = {
+        "attempted": sum(
+            1
+            for status in dynamic_status.values()
+            if status.get("status") not in {"skipped_recent"}
+        ),
+        "skipped_recent": sum(
+            1
+            for status in dynamic_status.values()
+            if status.get("status") == "skipped_recent"
+        ),
+        "changed": sum(
+            1 for status in dynamic_status.values() if status.get("changed")
+        ),
+        "accepted": sum(
+            1 for status in dynamic_status.values() if status.get("accepted")
+        ),
+        "failed": sum(
+            1
+            for status in dynamic_status.values()
+            if status.get("status") == "failed"
+        ),
+        "by_engine": {},
+    }
+    for status in dynamic_status.values():
+        engine = str(status.get("resolver", "unknown"))
+        engine_summary = resolver_refresh_summary["by_engine"].setdefault(
+            engine,
+            {"attempted": 0, "skipped_recent": 0, "changed": 0, "failed": 0},
+        )
+        if status.get("status") == "skipped_recent":
+            engine_summary["skipped_recent"] += 1
+        else:
+            engine_summary["attempted"] += 1
+        if status.get("changed"):
+            engine_summary["changed"] += 1
+        if status.get("status") == "failed":
+            engine_summary["failed"] += 1
     playlists = {
         "main": {
             "file": DEFAULT_PLAYLIST.name,
@@ -6079,6 +6543,7 @@ def write_report(
         "generated_at": checked_at,
         "tvn_refreshed": tvn_refreshed,
         "refreshed_channels": refreshed_channels or [],
+        "resolver_refresh": resolver_refresh_summary,
         "repaired_channels": repaired_channels or [],
         "all_ok": (
             not direct_failures
@@ -6119,6 +6584,11 @@ def write_report(
             "main_publication_ready": main_ready,
             "external_publication_ready": external_ready,
             "removed_since_previous_run": len(removed_channels),
+            "resolver_refresh_attempted": resolver_refresh_summary["attempted"],
+            "resolver_refresh_skipped_recent": resolver_refresh_summary[
+                "skipped_recent"
+            ],
+            "resolver_refresh_changed": resolver_refresh_summary["changed"],
             "status_counts": status_counts,
         },
         "epg": epg_status or {},
@@ -6324,60 +6794,99 @@ def main() -> int:
     allow_geo_restricted = running_in_ci or (
         os.environ.get("M3U_ALLOW_GEO_RESTRICTED", "").lower() == "true"
     )
-    refreshed_channels: list[str] = []
-    refresh_changed = False
-    dynamic_channels = {
-        "Meganoticias": (fresh_meganoticias_url, True),
-        "Premier Sports 1": (
-            lambda: iter_fresh_tvvoo_stream_urls("Premier Sports 1"),
-            True,
-        ),
-        "Premier Sports 2": (
-            lambda: iter_fresh_tvvoo_stream_urls("Premier Sports 2"),
-            True,
-        ),
-    }
-    for channel_name in TVVOO_STREAM_RESOLVER_IDS:
-        dynamic_channels.setdefault(
-            channel_name,
-            (
-                lambda channel_name=channel_name: iter_fresh_tvvoo_stream_urls(
-                    channel_name
-                ),
-                True,
-            ),
-        )
-    refresh_jobs: list[
-        tuple[str, Channel, Callable[[], str | Iterable[str]], bool]
+    print("Validacion paralela inicial de fuentes directas y resolutores")
+    initial_results = verify_all(
+        channels, allow_ci_geo_block=allow_geo_restricted
+    )
+    results_by_name = {result.channel: result for result in initial_results}
+    previous_health_state = load_health_state()
+    validation_now = datetime.now(timezone.utc)
+
+    # Primero se decide que necesita renovar cada canal. Si una corrida manual
+    # se repite poco despues de otra, una URL dinamica ya comprobada se
+    # conserva; si fallo o supero su TTL, vuelve a consultarse el proveedor.
+    dynamic_jobs: list[
+        tuple[Channel, Callable[[], str | Iterable[str]], CheckResult]
     ] = []
-    for channel_name, (fresh_url_factory, always_refresh) in dynamic_channels.items():
-        channel = next((item for item in channels if item.name == channel_name), None)
-        if channel:
-            refresh_jobs.append(
-                (channel_name, channel, fresh_url_factory, always_refresh)
+    dynamic_outcomes: list[DynamicRefreshOutcome] = []
+    cached_dynamic_names: set[str] = set()
+    highfly_channels_needing_refresh: list[Channel] = []
+    for channel in channels:
+        resolver = resolver_engine_for(channel)
+        if resolver not in DYNAMIC_RESOLVER_ENGINES:
+            continue
+        current_result = results_by_name[channel.name]
+        if dynamic_validation_is_fresh(
+            channel,
+            current_result,
+            previous_health_state,
+            now=validation_now,
+        ):
+            dynamic_outcomes.append(
+                skipped_dynamic_refresh(channel, current_result)
             )
-    refresh_results: dict[str, bool] = {}
-    if refresh_jobs:
-        with ThreadPoolExecutor(max_workers=min(6, len(refresh_jobs))) as pool:
-            futures = {
-                pool.submit(
-                    refresh_dynamic_channel,
-                    lines,
-                    channel,
-                    fresh_url_factory,
-                    running_in_ci=allow_geo_restricted,
-                    always_refresh=always_refresh,
-                ): channel_name
-                for channel_name, channel, fresh_url_factory, always_refresh in refresh_jobs
-            }
-            for future in as_completed(futures):
-                channel_name = futures[future]
-                refresh_results[channel_name] = future.result()
-    refreshed_channels = [
-        channel_name
-        for channel_name in dynamic_channels
-        if refresh_results.get(channel_name)
-    ]
+            cached_dynamic_names.add(channel.name)
+            continue
+        if resolver == "highfly":
+            highfly_channels_needing_refresh.append(channel)
+
+    highfly_manifest_verified = False
+    if highfly_channels_needing_refresh:
+        try:
+            fetch_highfly_manifest()
+            highfly_manifest_verified = True
+            print(
+                f"  [OK] Highfly: manifest verificado para "
+                f"{len(highfly_channels_needing_refresh)} canales"
+            )
+        except Exception as error:
+            print(
+                f"  [AVISO] Highfly: no se pudo verificar el manifest; "
+                f"se conservaran los enlaces actuales si siguen funcionando: {error}"
+            )
+
+    for channel in channels:
+        resolver = resolver_engine_for(channel)
+        if resolver not in DYNAMIC_RESOLVER_ENGINES:
+            continue
+        current_result = results_by_name[channel.name]
+        if channel.name in cached_dynamic_names:
+            continue
+        if resolver == "tvvoo":
+            fresh_url_factory = lambda channel_name=channel.name: iter_fresh_tvvoo_stream_urls(
+                channel_name
+            )
+        elif resolver == "meganoticias":
+            fresh_url_factory = fresh_meganoticias_url
+        elif resolver == "highfly":
+            fresh_url_factory = lambda channel=channel: fresh_highfly_stream_urls(
+                channel,
+                manifest_verified=highfly_manifest_verified,
+            )
+        else:
+            continue
+        dynamic_jobs.append((channel, fresh_url_factory, current_result))
+
+    dynamic_outcomes.extend(
+        run_dynamic_refreshes(
+            dynamic_jobs,
+            allow_ci_geo_block=allow_geo_restricted,
+        )
+    )
+    dynamic_outcomes_by_name = {
+        outcome.channel: outcome for outcome in dynamic_outcomes
+    }
+    refreshed_channels: list[str] = []
+    for channel in channels:
+        outcome = dynamic_outcomes_by_name.get(channel.name)
+        if outcome is None:
+            continue
+        if outcome.check_result is not None:
+            results_by_name[channel.name] = outcome.check_result
+        if outcome.changed and outcome.resolved_url:
+            lines[channel.url_line] = outcome.resolved_url
+            refreshed_channels.append(channel.name)
+
     refresh_changed = bool(refreshed_channels)
     if refresh_changed:
         source_playlist.write_text(
@@ -6385,24 +6894,47 @@ def main() -> int:
         )
     tvn_refreshed = "TVN" in refreshed_channels
 
-    print("Verificacion final de la lista completa")
-    final_lines = source_playlist.read_text(encoding="utf-8-sig").splitlines()
+    print(
+        "Validacion de resolutores completada; no se repite la comprobacion "
+        "de los candidatos ya validados"
+    )
+    final_lines = list(lines)
     final_channels = parse_channels(final_lines)
-    results = verify_all(final_channels, allow_ci_geo_block=allow_geo_restricted)
+    results = [results_by_name[channel.name] for channel in final_channels]
+    repaired_results: dict[str, CheckResult] = {}
     repaired_channels = repair_failed_channels(
         final_lines,
         final_channels,
         results,
         allow_ci_geo_block=allow_geo_restricted,
+        repaired_results=repaired_results,
     )
     if repaired_channels:
         source_playlist.write_text(
             "\n".join(final_lines) + "\n", encoding="utf-8", newline="\n"
         )
-        final_lines = source_playlist.read_text(encoding="utf-8-sig").splitlines()
+        final_lines = list(final_lines)
         final_channels = parse_channels(final_lines)
-        print("Verificacion posterior a las reparaciones")
-        results = verify_all(final_channels, allow_ci_geo_block=allow_geo_restricted)
+        results_by_name.update(repaired_results)
+        results = [results_by_name[channel.name] for channel in final_channels]
+
+    dynamic_refresh_status = {
+        outcome.channel: {
+            "resolver": outcome.resolver,
+            "status": (
+                "skipped_recent"
+                if outcome.skipped
+                else (
+                    "failed"
+                    if not outcome.accepted
+                    else ("renewed" if outcome.changed else "validated")
+                )
+            ),
+            "accepted": outcome.accepted,
+            "changed": outcome.changed,
+        }
+        for outcome in dynamic_outcomes
+    }
 
     print("Verificacion de logos")
     logo_results = verify_logos(final_channels)
@@ -6415,6 +6947,7 @@ def main() -> int:
         epg_status,
         main_epg_status=main_epg_status,
         refreshed_channels=refreshed_channels,
+        dynamic_refresh_status=dynamic_refresh_status,
     )
     working_names = {result.channel for result in results if result.ok}
     main_publication = report["playlists"]["main"]

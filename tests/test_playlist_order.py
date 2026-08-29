@@ -1,5 +1,7 @@
+import json
 import tempfile
 import unittest
+from datetime import datetime, timezone
 from pathlib import Path
 from unittest.mock import patch
 
@@ -14,6 +16,116 @@ def extinf(tvg_id: str, name: str, group: str = "legacy") -> str:
 
 
 class PlaylistOrderTests(unittest.TestCase):
+    def test_dynamic_validation_cache_is_short_lived_and_url_bound(self) -> None:
+        channel = update_m3u.Channel(
+            name="ESPN",
+            url="https://leaf.highfly.dev/m3u/us-espn-hd/live.m3u8",
+            url_line=0,
+            tvg_id="ESPN.us",
+            display_name="ESPN",
+        )
+        now = datetime(2026, 8, 29, 12, tzinfo=timezone.utc)
+        state = {
+            "channels": {
+                "ESPN.us": {
+                    "last_resolver_validated_at": "2026-08-29T11:50:00Z",
+                    "resolver_url_hash": update_m3u.resolver_url_fingerprint(
+                        channel.url
+                    ),
+                }
+            }
+        }
+        current = update_m3u.CheckResult(channel.name, channel.url, True, "ok")
+
+        self.assertTrue(
+            update_m3u.dynamic_validation_is_fresh(
+                channel, current, state, now=now
+            )
+        )
+        changed_url = channel.url + "?changed=1"
+        changed_channel = update_m3u.Channel(
+            channel.name,
+            changed_url,
+            channel.url_line,
+            tvg_id=channel.tvg_id,
+            display_name=channel.display_name,
+        )
+        changed_result = update_m3u.CheckResult(
+            changed_channel.name, changed_channel.url, True, "ok"
+        )
+        self.assertFalse(
+            update_m3u.dynamic_validation_is_fresh(
+                changed_channel, changed_result, state, now=now
+            )
+        )
+        expired_state = {
+            "channels": {
+                "ESPN.us": {
+                    "last_resolver_validated_at": "2026-08-29T11:00:00Z",
+                    "resolver_url_hash": update_m3u.resolver_url_fingerprint(
+                        channel.url
+                    ),
+                }
+            }
+        }
+        self.assertFalse(
+            update_m3u.dynamic_validation_is_fresh(
+                channel, current, expired_state, now=now
+            )
+        )
+
+    def test_provider_policies_keep_parallel_validation_bounded(self) -> None:
+        tvvoo = update_m3u.Channel(
+            name="Sky Sports Arena",
+            url="https://example.invalid/tvvoo.m3u8",
+            url_line=0,
+            tvg_id="SkySportsArena.uk@TvVoo",
+        )
+        highfly = update_m3u.Channel(
+            name="ESPN",
+            url="https://leaf.highfly.dev/m3u/us-espn-hd/live.m3u8",
+            url_line=0,
+            tvg_id="ESPN.us",
+        )
+
+        self.assertEqual(
+            update_m3u.channel_check_policy(tvvoo).playlist_timeout, 18
+        )
+        self.assertEqual(
+            update_m3u.channel_check_policy(highfly).segment_timeout, 14
+        )
+        self.assertEqual(update_m3u.channel_check_policy(tvvoo).workers, 6)
+        self.assertEqual(update_m3u.channel_check_policy(highfly).workers, 4)
+
+    def test_dynamic_refresh_outcome_does_not_mutate_playlist_from_worker(self) -> None:
+        channel = update_m3u.Channel(
+            name="ESPN",
+            url="https://leaf.highfly.dev/m3u/us-espn-hd/live.m3u8",
+            url_line=1,
+            tvg_id="ESPN.us",
+        )
+        current = update_m3u.CheckResult(channel.name, channel.url, False, "expired")
+        replacement = "https://leaf.highfly.dev/m3u/us-espn-hd/live-v2.m3u8"
+        lines = ["#EXTM3U", channel.url]
+        with patch.object(
+            update_m3u,
+            "check_channel",
+            return_value=update_m3u.CheckResult(
+                channel.name, replacement, True, "playlist HLS valida"
+            ),
+        ):
+            outcome = update_m3u.refresh_dynamic_channel(
+                channel,
+                lambda: replacement,
+                running_in_ci=False,
+                current_result=current,
+            )
+
+        self.assertTrue(outcome.accepted)
+        self.assertTrue(outcome.changed)
+        self.assertEqual(outcome.resolved_url, replacement)
+        self.assertEqual(lines[1], channel.url)
+
     def test_tv_chile_belongs_to_international_news_group(self) -> None:
         tv_chile = update_m3u.Channel(
             name="TV Chile",
@@ -175,6 +287,9 @@ class PlaylistOrderTests(unittest.TestCase):
                     epg_status={"ok": False},
                     main_epg_status={"ok": False, "required_channels": 1},
                 )
+                health_state = json.loads(
+                    (temporary / "health.json").read_text(encoding="utf-8")
+                )
 
         self.assertFalse(report["playlists"]["main"]["publication_ready"])
         self.assertTrue(report["playlists"]["external"]["publication_ready"])
@@ -184,6 +299,13 @@ class PlaylistOrderTests(unittest.TestCase):
         actions = {item["name"]: item["publication_action"] for item in report["channels"]}
         self.assertEqual(actions["TVN"], "held_missing_epg")
         self.assertEqual(actions["ESPN"], "published")
+        espn_state = health_state["channels"]["ESPN.us"]
+        self.assertEqual(
+            espn_state["resolver_url_hash"],
+            update_m3u.resolver_url_fingerprint(external.url),
+        )
+        self.assertTrue(espn_state["last_resolver_validated_at"])
+        self.assertNotIn(external.url, json.dumps(health_state))
 
 
 if __name__ == "__main__":

@@ -76,9 +76,20 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
   de producción: sus HLS públicos redirigen al distribuidor Pluto y sus guías
   XMLTV se obtienen desde la fuente pública de Pluto con los IDs oficiales de
   ambos canales. La EPG se actualiza en el proceso independiente;
-- cada ejecucion de canales solicita enlaces nuevos, valida
-  maestro/variante/segmento y usa el mismo enlace HTTP solo cuando el nodo HTTPS
-  responde con certificado vencido;
+- cada ejecucion de canales mantiene una validacion paralela separada para las
+  listas principal y externa, comprobando maestro/variante/segmento;
+- las renovaciones de TvVoo, Highfly y Meganoticias se ejecutan despues de esa
+  validacion, agrupadas por proveedor. Una URL dinamica que acaba de validarse
+  se reutiliza durante una ventana corta para no repetir consultas; al superar
+  el TTL, fallar o cambiar su huella, vuelve a resolverse. Highfly consulta su
+  `manifest.json` una sola vez por corrida y conserva los slugs estables;
+- los reintentos y tiempos de espera se ajustan por motor: directos, TVN,
+  Meganoticias, TvVoo y Highfly tienen limites propios para que un proveedor
+  lento no bloquee a los demas. Los candidatos aceptados durante la renovacion
+  ya llegan validados a la salida y no se comprueba toda la lista por segunda
+  vez;
+- usa el mismo enlace HTTP solo cuando el nodo HTTPS responde con certificado
+  vencido y la excepcion se limita a los hosts conocidos de Highfly;
 - conserva Sky Sports Racing con Highfly como fuente primaria y aliases Vavoo
   de respaldo. Si el slug Highfly deja de existir, el actualizador solicita un
   alias nuevo a TvVoo, valida su HLS y publica el enlace que respondio;
@@ -93,6 +104,8 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
   horas manualmente;
 - publica `channel-status.json` y un informe Markdown como artefactos de cada
   ejecucion; tambien conserva un issue de GitHub con el historial detallado.
+- `channel-health-state.json` conserva solo la hora de validacion dinamica y una
+  huella irreversible de la URL; no guarda tokens, claves ni URLs de sesion.
 - retira temporalmente de la lista publica correspondiente cualquier canal que
   siga fallando despues de validar HLS, reintentar y buscar reparaciones;
   `channel-catalog.m3u` conserva el inventario completo para volver a probarlo
