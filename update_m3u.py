@@ -36,8 +36,8 @@ PUBLIC_RAW_BASE = "https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main"
 EPG_PUBLIC_URL = f"{PUBLIC_RAW_BASE}/epg.xml"
 LOCAL_LOGOS_PUBLIC_BASE = f"{PUBLIC_RAW_BASE}/logos"
 RESOLVER_SCHEMA_VERSION = 1
-RESOLVER_CATALOG_VERSION = "2026.08.26.3"
-ALLOWED_RESOLVER_ENGINES = {"tvn", "meganoticias", "24horas", "tvvoo", "highfly"}
+RESOLVER_CATALOG_VERSION = "2026.08.28.1"
+ALLOWED_RESOLVER_ENGINES = {"tvn", "meganoticias", "tvvoo", "highfly"}
 RESOLVER_ATTRIBUTE_NAMES = (
     "x-resolver",
     "x-resolver-endpoint",
@@ -752,22 +752,6 @@ def build_resolver_catalog() -> dict:
                 },
             },
             {
-                "id": "24horas",
-                "name": "24 Horas",
-                "engine": "24horas",
-                "enabledByDefault": True,
-                "cacheTtlSeconds": 0,
-                "match": {"tvgIds": ["0201"]},
-                "config": {
-                    "pageUrl": TWENTYFOUR_LIVE_PAGE,
-                    "playlistTemplate": (
-                        "https://mdstrm.com/live-stream-playlist/"
-                        "{streamId}.m3u8"
-                    ),
-                    "defaultStreamId": TWENTYFOUR_DEFAULT_ID,
-                },
-            },
-            {
                 "id": "tvvoo",
                 "name": "TvVoo",
                 "engine": "tvvoo",
@@ -1466,8 +1450,6 @@ def filter_playlist_to_working_channels(
 def resolver_attributes_for(channel: Channel) -> dict[str, str]:
     if channel.tvg_id == "0104":
         return {"x-resolver": "tvn", "x-resolver-refresh": "on_play"}
-    if channel.tvg_id == "0201":
-        return {"x-resolver": "24horas", "x-resolver-refresh": "on_play"}
     if channel.tvg_id in {"Meganoticias.cl", "MeganoticiasAhora.cl"}:
         return {
             "x-resolver": "meganoticias",
@@ -5814,7 +5796,6 @@ def main() -> int:
     refreshed_channels: list[str] = []
     refresh_changed = False
     dynamic_channels = {
-        "24 Horas": (fresh_24horas_url, False),
         "Meganoticias": (fresh_meganoticias_url, True),
         "Premier Sports 1": (
             lambda: iter_fresh_tvvoo_stream_urls("Premier Sports 1"),

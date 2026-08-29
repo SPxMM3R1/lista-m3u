@@ -21,8 +21,9 @@ Catalogo declarativo de resolutores para VibeM3U:
 
 La M3U conserva una URL HLS de respaldo para reproductores externos. VibeM3U
 usa los atributos `x-resolver-*` para renovar la fuente justo antes de abrirla:
-TVN y 24 Horas consultan sus paginas oficiales, TvVoo usa aliases estables y
-Highfly usa un slug estable junto al `manifest.json` configurado. Meganoticias
+TVN consulta su pagina oficial; 24 Horas se mantiene como canal directo, TvVoo
+usa aliases estables y Highfly usa un slug estable junto al `manifest.json`
+configurado. Meganoticias
 usa ahora el resolutor oficial porque su CDN exige autorizacion de corta
 duracion; Pluto y los canales directos siguen sin resolutor. El catalogo solo
 contiene reglas y endpoints HTTPS permitidos; nunca publica respuestas HLS,
