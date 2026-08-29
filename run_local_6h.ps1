@@ -5,11 +5,11 @@ param(
 
 $ErrorActionPreference = 'Stop'
 $projectRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
-$taskName = 'Lista M3U - actualizador local 48h'
+$taskName = 'Lista M3U - actualizador local 6h'
 $logDirectory = Join-Path $projectRoot '.local-run'
 $logPath = Join-Path $logDirectory 'latest.log'
 $windowsPowerShell = Join-Path $env:SystemRoot 'System32\WindowsPowerShell\v1.0\powershell.exe'
-$registrationPath = Join-Path $projectRoot 'register_local_48h_task.ps1'
+$registrationPath = Join-Path $projectRoot 'register_local_6h_task.ps1'
 
 New-Item -ItemType Directory -Path $logDirectory -Force | Out-Null
 
@@ -106,7 +106,7 @@ try {
     }
 
     $coordinatorArguments = @(
-        (Join-Path $projectRoot 'run_m3u_48h.py'),
+        (Join-Path $projectRoot 'run_m3u_6h.py'),
         '--executor',
         'local'
     )

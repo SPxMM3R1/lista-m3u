@@ -4,9 +4,9 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
-$taskName = 'Lista M3U - actualizador local 48h'
+$taskName = 'Lista M3U - actualizador local 6h'
 $projectRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
-$runnerPath = Join-Path $projectRoot 'run_local_48h.ps1'
+$runnerPath = Join-Path $projectRoot 'run_local_6h.ps1'
 $statePath = Join-Path $projectRoot 'run-state.json'
 $windowsPowerShell = Join-Path $env:SystemRoot 'System32\WindowsPowerShell\v1.0\powershell.exe'
 
@@ -28,7 +28,7 @@ if (Test-Path -LiteralPath $statePath -PathType Leaf) {
         if ($state.next_scheduled_at) {
             $scheduledNext = [DateTimeOffset]::Parse($state.next_scheduled_at).ToLocalTime().DateTime
         } elseif ($state.last_published_at) {
-            $scheduledNext = [DateTimeOffset]::Parse($state.last_published_at).ToLocalTime().DateTime.AddHours(12)
+            $scheduledNext = [DateTimeOffset]::Parse($state.last_published_at).ToLocalTime().DateTime.AddHours(6)
         }
         if ($scheduledNext -and $scheduledNext -gt $now) {
             $firstRun = $scheduledNext
@@ -62,5 +62,5 @@ Register-ScheduledTask `
 
 Write-Output "Tarea registrada: $taskName"
 Write-Output "Primera ejecucion programada: $($firstRun.ToString('yyyy-MM-dd HH:mm:ss'))"
-Write-Output 'La tarea usa una ejecucion unica y se vuelve a programar segun el vencimiento real de la guia, con limite de 12 horas y minimo de 6 horas.'
+Write-Output 'La tarea usa una ejecucion unica y se vuelve a programar segun el vencimiento real de la guia, con limite de 6 horas.'
 Write-Output 'GitHub Actions sigue siendo el ejecutor principal; no habilite esta tarea junto con el cron remoto.'

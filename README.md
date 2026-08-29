@@ -2,7 +2,7 @@
 
 Repositorio publico de la lista M3U principal para Android TV. La lista y su
 EPG se actualizan mediante un coordinador comun. El limite de seguridad es de
-12 horas, pero la siguiente ejecucion puede adelantarse cuando la programacion
+6 horas, pero la siguiente ejecucion puede adelantarse cuando la programacion
 real disponible esta a punto de terminar. Ese mismo resultado puede generarse
 desde Windows o desde GitHub Actions.
 
@@ -83,7 +83,7 @@ Cada ejecucion completa:
   13 Cultura; si la pagina oficial no entrega bloques vigentes, usa Zapping
   como respaldo por canal;
 - mantiene Premier Sports 1 y Premier Sports 2 desde los resolutores JSON
-  publicos de TvVoo, con renovacion cada 12 horas y guia UK1 real;
+  publicos de TvVoo, con renovacion cada 6 horas y guia UK1 real;
 - usa la guia publica de Zapping Chile para las senales nacionales donde
   EPGShare/TecnoCentro mostraban desplazamientos o no entregaban una parrilla
   util; sus marcas Unix absolutas se convierten a America/Santiago sin sumar
@@ -98,16 +98,18 @@ Cada ejecucion completa:
   catalogo, bloquea la publicacion como posible problema sistemico del runner,
   de red o del proveedor, en vez de retirar canales masivamente.
 
-El coordinador `run_m3u_48h.py` conserva `run-state.json`. Elige la primera de estas
-ventanas: el fin de la guia real menos seis horas o el limite de 12 horas desde
-la ultima publicacion. Nunca programa dos ejecuciones con menos de seis horas
-de separacion. GitHub Actions es el ejecutor principal desde ahora. La tarea
+El coordinador `run_m3u_6h.py` conserva `run-state.json` y mantiene una ventana
+fija de seis horas desde la ultima publicacion. La fecha de fin de la guia real
+se conserva como dato informativo, pero nunca pospone una ventana del
+mantenimiento. Nunca programa dos ejecuciones con menos de seis horas de
+separacion. GitHub Actions es el ejecutor principal desde ahora. La tarea
 local queda deshabilitada y los scripts locales se conservan solamente como
 respaldo manual; no deben ejecutarse al mismo tiempo que el cron remoto.
 
-GitHub conserva dos disparadores diarios, a las 00:00 y 12:00 (hora de
-Santiago). Cada cron ejecuta una sola validacion coordinada de streams, logos,
-EPG y resolutores; la compuerta de `run-state.json` evita trabajo duplicado.
+GitHub conserva cuatro disparadores diarios, a las 00:00, 06:00, 12:00 y
+18:00 (hora de Santiago). Cada cron ejecuta una sola validacion coordinada de
+streams, logos, EPG y resolutores; la compuerta de `run-state.json` evita
+trabajo duplicado.
 GitHub puede iniciar unos minutos despues porque los cron son best effort.
 
 TVN y Meganoticias conservan sus maestros oficiales. Actions no interviene en
@@ -177,7 +179,7 @@ no conserva canales cuya unica salida seria `senal continua`; el constructor
 
 Para diagnosticar una fuente sin alterar el historial de salud ni renovar URLs
 HLS, el mismo workflow admite la ejecución manual `epg_only`. Las ventanas
-automáticas de las 00:00 y 12:00 continúan ejecutando el mantenimiento completo.
+automáticas de las 00:00, 06:00, 12:00 y 18:00 ejecutan el mantenimiento completo.
 
 Se reincorporaron provisionalmente nueve canales que habian desaparecido sin
 una instruccion de borrado: CHV Deportes, 13 Cultura, 13 Kids, Autentic History,

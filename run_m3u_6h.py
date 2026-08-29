@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Coordina una ejecucion completa de Lista M3U con vencimiento dinamico.
+"""Coordina una ejecucion completa de Lista M3U cada seis horas.
 
 El mismo coordinador se usa desde Windows y desde GitHub Actions. No publica
 por si mismo: prepara la salida y el estado para que cada ejecutor pueda usar
 su mecanismo de commit y verificacion habitual. El limite normal sigue siendo
-12 horas, pero una guia real que termina antes adelanta la proxima ejecucion.
+6 horas; la fecha de fin de la guia queda como informacion diagnostica.
 """
 
 from __future__ import annotations
@@ -30,8 +30,10 @@ OUTPUT_PATHS = (
     PROJECT_ROOT / "epg.xml",
     RESOLVER_CATALOG_PATH,
 )
-INTERVAL = timedelta(hours=12)
+INTERVAL = timedelta(hours=6)
 MINIMUM_INTERVAL = timedelta(hours=6)
+
+
 def now_utc() -> datetime:
     return datetime.now(timezone.utc).replace(microsecond=0)
 
@@ -52,7 +54,7 @@ def load_state() -> dict:
     if not STATE_PATH.exists():
         return {
             "schema": 1,
-            "interval_hours": 12,
+            "interval_hours": 6,
             "last_published_at": None,
             "last_executor": None,
         }
@@ -96,15 +98,16 @@ def epg_next_refresh_at() -> datetime | None:
 
 
 def next_scheduled_at(state: dict, current: datetime) -> datetime:
-    """Return the earlier of the EPG deadline and the 12-hour safety limit."""
+    """Return the fixed six-hour maintenance window.
+
+    The EPG deadline remains useful diagnostic metadata, but it must not defer
+    a scheduled run: the six-hour cadence is intentional while channels are
+    being recovered.
+    """
     previous = last_published_at(state)
     if previous is None:
         return current
-    maximum = previous + INTERVAL
-    dynamic = epg_next_refresh_at()
-    candidate = min(maximum, dynamic) if dynamic is not None else maximum
-    # A malformed or stale guide must not create a tight retry loop.
-    return max(candidate, previous + MINIMUM_INTERVAL)
+    return previous + INTERVAL
 
 
 def is_due(state: dict, current: datetime, force: bool) -> bool:
@@ -126,12 +129,12 @@ def is_due(state: dict, current: datetime, force: bool) -> bool:
 def write_state(current: datetime, executor: str, next_run: datetime) -> None:
     state = {
         "schema": 2,
-        "interval_hours": 12,
+        "interval_hours": 6,
         "minimum_interval_hours": 6,
         "last_published_at": timestamp(current),
         "last_executor": executor,
         "next_scheduled_at": timestamp(next_run),
-        "schedule_basis": "fin de guia real menos 6 horas o limite de 12 horas",
+        "schedule_basis": "mantenimiento fijo cada 6 horas; fin de guia informativo",
     }
     temporary = STATE_PATH.with_suffix(".json.tmp")
     temporary.write_text(
@@ -172,13 +175,13 @@ def run_updater(force_epg: bool) -> int:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Ejecuta la validacion M3U/EPG cuando vencen 12 horas."
+        description="Ejecuta la validacion M3U/EPG cuando vencen 6 horas."
     )
     parser.add_argument("--executor", choices=("local", "github"), required=True)
     parser.add_argument(
         "--force",
         action="store_true",
-        help="ignora el intervalo de 12 horas",
+        help="ignora el intervalo de 6 horas",
     )
     parser.add_argument("--force-epg", action="store_true")
     parser.add_argument("--dry-run", action="store_true")

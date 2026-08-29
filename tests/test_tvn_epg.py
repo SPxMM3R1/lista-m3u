@@ -172,6 +172,47 @@ class TvnEpgTests(unittest.TestCase):
             {"0104"},
         )
 
+    def test_la_red_official_source_overrides_aggregated_schedule(self) -> None:
+        now = datetime(2026, 8, 28, 12, tzinfo=timezone.utc)
+        la_red = channel("La Red", "0102")
+
+        def source(channel_id: str, title: str) -> bytes:
+            root = ET.Element("tv")
+            programme = ET.SubElement(
+                root,
+                "programme",
+                {
+                    "start": update_m3u.xmltv_format_chile(now - timedelta(hours=1)),
+                    "stop": update_m3u.xmltv_format_chile(now + timedelta(hours=25)),
+                    "channel": channel_id,
+                },
+            )
+            ET.SubElement(programme, "title").text = title
+            return ET.tostring(root, encoding="utf-8", xml_declaration=True)
+
+        output, status = update_m3u.build_epg(
+            {
+                "cl": source("Canal.La.Red.(Chile).cl", "EPGShare incorrecta"),
+                update_m3u.ZAPPING_EPG_SOURCE: source("0102", "Zapping incorrecta"),
+                update_m3u.LA_RED_OFFICIAL_EPG_SOURCE: source(
+                    "0102", "La Red oficial"
+                ),
+            },
+            [la_red],
+            {},
+            now=now,
+        )
+
+        root = ET.fromstring(output)
+        programme = root.find("./programme[@channel='0102']")
+        self.assertEqual(programme.findtext("title"), "La Red oficial")
+        la_red_epg = root.find("./channel[@id='0102']")
+        self.assertEqual(
+            la_red_epg.get("data-guide-source"),
+            update_m3u.LA_RED_OFFICIAL_EPG_SOURCE,
+        )
+        self.assertEqual(status["programmes"], 1)
+
 
 if __name__ == "__main__":
     unittest.main()

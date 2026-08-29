@@ -425,16 +425,19 @@ RED_BULL_WORLD_URL = (
 RED_BULL_CHILE_URL = (
     "https://freqsyndlin.redbull.com/957/rbtv/hls/master/playlist.m3u8"
 )
-# La guia se actualiza junto con la validacion de canales cada 12 horas. Se
+# La guia se actualiza junto con la validacion de canales cada 6 horas. Se
 # conserva la reutilizacion de una guia valida si una ejecucion falla.
-EPG_REFRESH_INTERVAL = timedelta(hours=12)
+# El coordinador y el cron tienen cuatro ventanas diarias; tres horas es solo
+# el margen informativo para una guia que termina pronto, no una quinta ventana.
+EPG_REFRESH_INTERVAL = timedelta(hours=6)
 HEALTH_FAILURE_THRESHOLD = 1
 PUBLISHED_EPG_FALLBACK_SOURCE = "epg-publicada-conservada"
 # El coordinador puede adelantar la siguiente ejecucion cuando una fuente real
-# termina antes de las 12 horas. Los bloques de continuidad no cuentan para
+# termina antes de las 6 horas. Los bloques de continuidad no cuentan para
 # este calculo: solo sirven para que la guia no quede vacia mientras llega el
 # siguiente refresco.
-EPG_REFRESH_LEAD = timedelta(hours=6)
+# Las fuentes opcionales no se completan con continuidad generica.
+EPG_REFRESH_LEAD = timedelta(hours=3)
 TVN_PROGRAMMING_PAGE = "https://www.tvn.cl/programacion"
 TVN_PROGRAMMING_BASE_URL = "https://estaticos.tvn.cl/epg/tvn"
 TVN_OFFICIAL_EPG_SOURCE = "tvn-oficial"
@@ -2430,14 +2433,49 @@ def fetch_la_red_official_epg(
         "Referer": LA_RED_PROGRAMMING_PAGE,
     }
     try:
-        status, body, _ = fetch_bytes(
-            LA_RED_PROGRAMMING_PAGE,
-            headers,
-            timeout=60,
-            limit=8_000_000,
-        )
-        if status != 200:
-            raise ValueError(f"HTTP {status}")
+        try:
+            status, body, _ = fetch_bytes(
+                LA_RED_PROGRAMMING_PAGE,
+                headers,
+                timeout=60,
+                limit=8_000_000,
+            )
+            if status != 200:
+                raise ValueError(f"HTTP {status}")
+        except Exception as primary_error:
+            # Algunos runners reciben un bloqueo transitorio con urllib. Se
+            # reintenta la misma pagina oficial con curl, sin cookies, login,
+            # tokens ni relajacion TLS. No se cambia la fuente por Zapping.
+            try:
+                completed = subprocess.run(
+                    [
+                        "curl",
+                        "--fail",
+                        "--silent",
+                        "--show-error",
+                        "--location",
+                        "--max-time",
+                        "60",
+                        "--user-agent",
+                        BROWSER_USER_AGENT,
+                        "--header",
+                        "Accept: text/html,application/xhtml+xml,*/*;q=0.8",
+                        "--header",
+                        "Accept-Language: es-CL,es;q=0.9,en;q=0.8",
+                        "--header",
+                        f"Referer: {LA_RED_PROGRAMMING_PAGE}",
+                        LA_RED_PROGRAMMING_PAGE,
+                    ],
+                    check=True,
+                    capture_output=True,
+                    timeout=65,
+                )
+                body = completed.stdout
+            except Exception as curl_error:
+                raise RuntimeError(
+                    f"urllib: {type(primary_error).__name__}: {primary_error}; "
+                    f"curl oficial: {type(curl_error).__name__}: {curl_error}"
+                ) from curl_error
 
         schedules = la_red_schedule_items(decode_web_text(body))
         if sum(len(items) for items in schedules.values()) < 5:
