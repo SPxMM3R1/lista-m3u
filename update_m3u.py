@@ -1124,7 +1124,6 @@ NATIONAL_CHANNEL_IDS = {
     "0106",  # CHV
     "0107",  # Canal 13
     "0102",  # La Red
-    "TVChile.cl",
     "13Kids.cl",
 }
 NATIONAL_NEWS_CHANNEL_IDS = {
@@ -1134,6 +1133,7 @@ NATIONAL_NEWS_CHANNEL_IDS = {
     "0124",  # T13
 }
 INTERNATIONAL_NEWS_CHANNEL_IDS = {
+    "TVChile.cl",
     "DW.de",
     "France24.fr",
     "France24.fr@English",

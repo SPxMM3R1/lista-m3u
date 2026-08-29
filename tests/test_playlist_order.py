@@ -14,6 +14,19 @@ def extinf(tvg_id: str, name: str, group: str = "legacy") -> str:
 
 
 class PlaylistOrderTests(unittest.TestCase):
+    def test_tv_chile_belongs_to_international_news_group(self) -> None:
+        tv_chile = update_m3u.Channel(
+            name="TV Chile",
+            url="https://example.invalid/tv-chile.m3u8",
+            url_line=0,
+            tvg_id="TVChile.cl",
+            display_name="TV Chile",
+        )
+
+        self.assertEqual(
+            update_m3u.content_category_for(tv_chile), "Noticias internacionales"
+        )
+
     def test_catalogue_is_ordered_and_public_filter_keeps_the_same_sequence(self) -> None:
         lines = [
             '#EXTM3U x-tvg-url="https://example.invalid/epg.xml"',
