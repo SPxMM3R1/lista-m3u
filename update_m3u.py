@@ -5690,8 +5690,10 @@ def write_report(
             status = "temporarily_unavailable"
 
         # Un fallo individual no congela las demás fuentes: se retira solo de
-        # la M3U pública y permanece en el catálogo canónico. Una caída
-        # sistémica bloquea la publicación completa.
+        # la M3U pública y permanece en el catálogo canónico. La protección
+        # sistémica se calcula más abajo únicamente con fuentes directas;
+        # los resolutores tienen enlaces efímeros y pueden fallar en bloque
+        # mientras el motor de reproducción sigue siendo recuperable.
         blocking = False
         previous_status = str(old.get("status", "new"))
         last_ok_at = checked_at if ok else old.get("last_ok_at")
@@ -5760,16 +5762,15 @@ def write_report(
         entry for entry in health_entries if entry["resolver"] == "direct"
     ]
     direct_failures = [entry for entry in direct_entries if not entry["ok"]]
-    all_failures = [entry for entry in health_entries if not entry["ok"]]
     systemic_threshold = max(5, (len(direct_entries) + 3) // 4)
     systemic_direct_failure = len(direct_failures) >= systemic_threshold
-    systemic_all_threshold = max(10, (len(health_entries) + 3) // 4)
-    systemic_all_failure = len(all_failures) >= systemic_all_threshold
-    if systemic_direct_failure or systemic_all_failure:
-        for entry in all_failures:
+    if systemic_direct_failure:
+        for entry in health_entries:
+            if entry["ok"]:
+                continue
             entry["blocking"] = True
     for entry in health_entries:
-        if systemic_direct_failure or systemic_all_failure:
+        if systemic_direct_failure:
             entry["published"] = None
             entry["publication_action"] = "unchanged_systemic_guard"
         elif entry["ok"]:
@@ -5828,8 +5829,6 @@ def write_report(
             "resolver_degradations": len(degraded_channels),
             "systemic_direct_failure": systemic_direct_failure,
             "systemic_direct_failure_threshold": systemic_threshold,
-            "systemic_all_failure": systemic_all_failure,
-            "systemic_all_failure_threshold": systemic_all_threshold,
             "published_channels": sum(
                 1 for entry in health_entries if entry["published"] is True
             ),

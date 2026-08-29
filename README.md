@@ -87,9 +87,10 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
   de validar HLS, reintentar y buscar reparaciones; `channel-catalog.m3u`
   conserva el inventario completo para volver a probarlo y reactivarlo en la
   siguiente ejecucion;
-- si falla simultaneamente al menos el 25% de las fuentes directas o de todo el
-  catalogo, bloquea la publicacion como posible problema sistemico del runner,
-  de red o del proveedor, en vez de retirar canales masivamente.
+- si falla simultaneamente al menos el 25% de las fuentes directas, bloquea la
+  publicación como posible problema sistémico del runner o de la red; los
+  fallos de resolutores se retiran individualmente y se reintentan en la
+  siguiente ejecución.
 
 El coordinador `run_m3u_6h.py` conserva `run-state.json`; el coordinador
 `run_epg_6h.py` conserva `epg-run-state.json`. Cada estado tiene su propia

@@ -149,7 +149,7 @@ def render(report: dict) -> str:
             "- Un canal que agota la validación, los reintentos y las reparaciones se retira de la M3U pública en esa ejecución.",
             "- `channel-catalog.m3u` conserva todos los candidatos: cada ejecución vuelve a probar los retirados y los reactiva automáticamente cuando responden.",
             "- La EPG conserva la cobertura del catálogo completo para que una reactivación recupere inmediatamente su `tvg-id` y programación.",
-            "- Una caída simultánea de al menos el 25% de las fuentes directas o de todo el catálogo bloquea la publicación como posible fallo sistémico del runner, la red o un proveedor.",
+            "- Una caída simultánea de al menos el 25% de las fuentes directas bloquea la publicación como posible fallo sistémico del runner o la red; los fallos de resolutores se retiran individualmente y se reintentan en la siguiente ejecución.",
             "- El informe omite URLs completas, tokens y parámetros de sesión.",
         ]
     )
