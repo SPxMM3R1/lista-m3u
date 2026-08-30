@@ -260,7 +260,7 @@ EPG_PROGRAMME_SOURCES = {
     "AlJazeera.qa": ("es", "Al.Jazeera.English.es"),
     "TVChile.cl": ("cl", "TV.Chile.cl"),
     "ArirangTV.kr": ("pl", "Arirang.TV.pl"),
-    "XITEHits.nl@Germany": ("nl", "XITE.nl"),
+    "XITEHits.nl@Germany": ("plex1", "plex.tv.XITE.Hits.plex"),
     "DWEnglish.de": ("lv", "Deutsche.Welle.English.HD.lv"),
     "France24.fr@English": ("fr", "France.24.Anglais.fr"),
     "ESPN.us": ("us2", "ESPN.HD.us2"),
