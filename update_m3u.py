@@ -1040,6 +1040,7 @@ PREFERRED_LOGOS = {
     "Sport TV 4": f"{LOCAL_LOGOS_PUBLIC_BASE}/sport-tv-4.png",
     "Sport TV 5": f"{LOCAL_LOGOS_PUBLIC_BASE}/sport-tv-5.png",
     "Sky Sport F1 Germany": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sport-f1-de.png",
+    "Sky Sport F1 Italia": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-f1-mosca-logopedia.webp",
     "Sky Sport Golf Germany": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sport-golf-de.png",
     "Sky Sport Tennis Germany": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sport-tennis-de.png",
     "Sky Sport Premier League Germany": (
