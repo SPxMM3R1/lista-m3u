@@ -11,7 +11,7 @@ Lista M3U:
 
 `https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/m3u.m3u`
 
-Lista M3U externa (TvVoo/Vavoo y Highfly):
+Lista M3U externa (TvVoo/Vavoo y el resto de Highfly):
 
 `https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/m3u-externa.m3u`
 
@@ -45,8 +45,9 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
 - prioriza enlaces descubiertos desde las paginas oficiales del emisor al
   reparar una senal; los respaldos conocidos solo se prueban despues;
 - no modifica `epg.xml`: la EPG tiene un proceso independiente;
-- publica `m3u.m3u` con fuentes directas y resolutores propios de TVN/Meganoticias;
-- publica `m3u-externa.m3u` con TvVoo/Vavoo y Highfly, sin duplicar canales ni
+- publica `m3u.m3u` con fuentes directas, resolutores propios de TVN/Meganoticias
+  y las señales Highfly seleccionadas Sky Sports F1 y Sky Sports Tennis;
+- publica `m3u-externa.m3u` con TvVoo/Vavoo y el resto de Highfly, sin duplicar canales ni
   dejar que una caída de esos resolutores bloquee la lista principal;
 - solo reemplaza `m3u.m3u` cuando el 100% de sus candidatos tiene cobertura EPG
   XMLTV vigente y validada para al menos 24 horas; si la compuerta falla,
@@ -177,8 +178,9 @@ XMLTV, resolutores ni URLs de respaldo.
 
 El catalogo contiene 150 candidatos: nacionales, noticias, miscelaneos
 chilenos, noticias internacionales, documentales, conciertos, musica y
-deportes. `m3u.m3u` es la lista principal de fuentes directas, TVN y
-Meganoticias; `m3u-externa.m3u` concentra TvVoo/Vavoo y Highfly. El numero
+deportes. `m3u.m3u` es la lista principal de fuentes directas, TVN, Meganoticias
+y las señales Highfly seleccionadas Sky Sports F1 y Sky Sports Tennis;
+`m3u-externa.m3u` concentra TvVoo/Vavoo y el resto de Highfly. El numero
 visible en cada lista puede ser menor en una ejecucion si algunos candidatos
 agotaron sus reintentos; vuelven automaticamente cuando la validacion completa
 responde.

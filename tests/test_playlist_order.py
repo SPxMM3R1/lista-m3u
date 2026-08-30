@@ -300,6 +300,33 @@ class PlaylistOrderTests(unittest.TestCase):
         self.assertNotIn("# Deportes", principal)
         self.assertNotIn("# Nacionales", externa)
 
+    def test_selected_highfly_channels_are_published_in_main(self) -> None:
+        selected = [
+            update_m3u.Channel(
+                name="Sky Sports F1",
+                url="https://leaf.highfly.dev/m3u/now-sky-sports-f1-free/live.m3u8",
+                url_line=0,
+                tvg_id="SkySportsF1.uk",
+            ),
+            update_m3u.Channel(
+                name="Sky Sports Tennis",
+                url="https://leaf.highfly.dev/m3u/now-sky-sports-tennis/live.m3u8",
+                url_line=1,
+                tvg_id="SkySportsTennis.uk",
+            ),
+            update_m3u.Channel(
+                name="ESPN",
+                url="https://leaf.highfly.dev/m3u/us-espn-hd/live.m3u8",
+                url_line=2,
+                tvg_id="ESPN.us",
+            ),
+        ]
+
+        self.assertEqual(
+            [update_m3u.playlist_key_for(item) for item in selected],
+            ["main", "main", "external"],
+        )
+
     def test_external_list_can_publish_when_principal_epg_is_held(self) -> None:
         principal = update_m3u.Channel(
             name="TVN",

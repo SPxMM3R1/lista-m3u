@@ -42,6 +42,9 @@ RESOLVER_CATALOG_VERSION = "2026.08.28.1"
 ALLOWED_RESOLVER_ENGINES = {"tvn", "meganoticias", "tvvoo", "highfly"}
 MAIN_PLAYLIST_RESOLVERS = frozenset({"direct", "tvn", "meganoticias"})
 EXTERNAL_PLAYLIST_RESOLVERS = frozenset({"tvvoo", "highfly"})
+# Estas dos senales Highfly se publican expresamente en la lista principal;
+# mantienen el resolutor para renovar su fuente justo antes de reproducir.
+MAIN_PLAYLIST_CHANNEL_IDS = frozenset({"SkySportsF1.uk", "SkySportsTennis.uk"})
 DYNAMIC_RESOLVER_ENGINES = frozenset({"meganoticias", "tvvoo", "highfly"})
 # Los enlaces resueltos de TvVoo/Highfly son efimeros o pueden cambiar de
 # nodo. Esta ventana solo evita repetir una renovacion si se lanza otra corrida
@@ -880,13 +883,13 @@ PREFERRED_LOGOS = {
     "XITE Rock x Metal": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
     "MTV Rocks": f"{LOCAL_LOGOS_PUBLIC_BASE}/mtv-rocks.svg",
     "XITE Just Chill": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
-    "Sky Sports F1": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-f1.png",
+    "Sky Sports F1": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-f1-logopedia.svg",
     "ESPN": f"{LOCAL_LOGOS_PUBLIC_BASE}/espn.svg",
     "Sky Sports Premier League": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-premier-league.png",
     "Premier Sports 1": f"{LOCAL_LOGOS_PUBLIC_BASE}/premier-sports-1.png",
     "Premier Sports 2": f"{LOCAL_LOGOS_PUBLIC_BASE}/premier-sports-2.png",
     "Sky Sport 1 NZ": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sport-1-nz.png",
-    "Sky Sports Tennis": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-tennis.png",
+    "Sky Sports Tennis": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-tennis-logopedia.svg",
     "Reuters": f"{LOCAL_LOGOS_PUBLIC_BASE}/reuters.png",
     "Real Wild": f"{LOCAL_LOGOS_PUBLIC_BASE}/real-wild.png",
     "TyC Sports": f"{LOCAL_LOGOS_PUBLIC_BASE}/tyc-sports.png",
@@ -1855,6 +1858,8 @@ def playlist_key_for(channel: Channel) -> str:
     renewable catalogue providers are isolated in the external list so a
     Vavoo/TvVoo outage cannot make the official list unavailable.
     """
+    if channel.tvg_id in MAIN_PLAYLIST_CHANNEL_IDS:
+        return "main"
     engine = resolver_engine_for(channel)
     if engine in EXTERNAL_PLAYLIST_RESOLVERS:
         return "external"

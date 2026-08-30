@@ -205,7 +205,7 @@ def render(report: dict) -> str:
             "",
             "- Un canal que agota la validación, los reintentos y las reparaciones se retira de la M3U pública en esa ejecución.",
             "- `m3u.m3u` es la lista principal: solo se reemplaza cuando el 100% de sus candidatos tiene EPG XMLTV vigente y validada para al menos 24 horas; si la compuerta falla, se conserva la versión anterior.",
-            "- `m3u-externa.m3u` contiene TvVoo/Vavoo y Highfly y se publica de forma independiente; una caída de esos resolutores no bloquea la lista principal.",
+            "- `m3u-externa.m3u` contiene TvVoo/Vavoo y el resto de Highfly; Sky Sports F1 y Sky Sports Tennis son la excepción y se publican en `m3u.m3u` con su resolutor Highfly. La caída de los resolutores externos no bloquea la lista principal.",
             "- `channel-catalog.m3u` conserva todos los candidatos: cada ejecución vuelve a probar los retirados y los reactiva automáticamente cuando responden.",
             "- La EPG conserva la cobertura del catálogo completo para que una reactivación recupere inmediatamente su `tvg-id` y programación.",
             "- Una caída simultánea de al menos el 25% de las fuentes directas bloquea la publicación como posible fallo sistémico del runner o la red; los fallos de resolutores se retiran individualmente y se reintentan en la siguiente ejecución.",
