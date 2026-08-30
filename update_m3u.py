@@ -863,6 +863,7 @@ PREFERRED_LOGOS = {
     "Arirang TV": f"{LOCAL_LOGOS_PUBLIC_BASE}/arirang.png",
     "M1": f"{LOCAL_LOGOS_PUBLIC_BASE}/m1.png",
     "M2": f"{LOCAL_LOGOS_PUBLIC_BASE}/m2.png",
+    "13 Go": f"{LOCAL_LOGOS_PUBLIC_BASE}/13go.svg",
     "13 Cultura": f"{LOCAL_LOGOS_PUBLIC_BASE}/13cultura.svg",
     "13C": f"{LOCAL_LOGOS_PUBLIC_BASE}/13c.png",
     "RWND": f"{LOCAL_LOGOS_PUBLIC_BASE}/rewind-v2.png",
@@ -1058,9 +1059,9 @@ CONTINUOUS_PROGRAMME_DETAILS = {
         "Live",
         "",
     ),
-    "13 Kids": (
+    "13 Go": (
         "Diego y Glot",
-        "Continuidad de Diego y Glot para cubrir toda la ventana visible de 13 Kids.",
+        "Continuidad de Diego y Glot para cubrir toda la ventana visible de 13 Go.",
     ),
     "Autentic History": (
         "Live",
@@ -1359,7 +1360,7 @@ SEGMENT_CHECK_CHANNELS = {
     "Canal 13",
     "CHV Noticias",
     "13 Cultura",
-    "13 Kids",
+    "13 Go",
     "Autentic History",
     "France 24 Español",
     "Reuters",

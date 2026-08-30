@@ -167,11 +167,11 @@ class TvnEpgTests(unittest.TestCase):
         self.assertFalse(any(item.find("desc") is not None for item in programmes))
         self.assertEqual(status["programmes"], len(programmes))
 
-    def test_13kids_uses_diego_y_glot_for_real_and_continuity_blocks(self) -> None:
+    def test_13go_uses_diego_y_glot_for_real_and_continuity_blocks(self) -> None:
         now = datetime(2026, 8, 28, 18, tzinfo=timezone.utc)
         source = b"""<?xml version="1.0" encoding="UTF-8"?>
 <tv>
-  <channel id="13kids"><display-name>13 Kids</display-name></channel>
+  <channel id="13kids"><display-name>13 Go</display-name></channel>
   <programme start="20260828170000 +0000" stop="20260828190000 +0000" channel="13kids">
     <title lang="es">Programa que no debe mostrarse</title>
     <sub-title lang="es">Episodio temporal</sub-title>
@@ -181,7 +181,7 @@ class TvnEpgTests(unittest.TestCase):
 
         output, status = update_m3u.build_epg(
             {update_m3u.CANAL13_13GO_EPG_SOURCE: source},
-            [channel("13 Kids", "13Kids.cl")],
+            [channel("13 Go", "13Kids.cl")],
             {},
             now=now,
         )

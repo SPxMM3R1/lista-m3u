@@ -221,7 +221,7 @@ HLS, se usa el workflow independiente **Actualizar EPG**. Las ventanas de
 canales y EPG no ejecutan el proceso contrario.
 
 Se reincorporaron provisionalmente cinco canales que habian desaparecido sin
-una instruccion de borrado: CHV Deportes, 13 Cultura, 13 Kids, Autentic History y
+una instruccion de borrado: CHV Deportes, 13 Cultura, 13 Go (antes 13 Kids), Autentic History y
 Reuters. Sus maestros HLS entregaron playlist y primer segmento multimedia
 durante la verificacion; si no hay fuente real, el actualizador conserva una
 marca de `continuidad tecnica` para no dejar el canal sin bloque EPG. 13C permanece en la lista como canal
