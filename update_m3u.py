@@ -38,12 +38,12 @@ PUBLIC_RAW_BASE = "https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main"
 EPG_PUBLIC_URL = f"{PUBLIC_RAW_BASE}/epg.xml"
 LOCAL_LOGOS_PUBLIC_BASE = f"{PUBLIC_RAW_BASE}/logos"
 RESOLVER_SCHEMA_VERSION = 1
-RESOLVER_CATALOG_VERSION = "2026.08.28.1"
+RESOLVER_CATALOG_VERSION = "2026.08.29.1"
 ALLOWED_RESOLVER_ENGINES = {"tvn", "meganoticias", "tvvoo", "highfly"}
 MAIN_PLAYLIST_RESOLVERS = frozenset({"direct", "tvn", "meganoticias"})
 EXTERNAL_PLAYLIST_RESOLVERS = frozenset({"tvvoo", "highfly"})
-# Estas dos senales Highfly se publican expresamente en la lista principal;
-# mantienen el resolutor para renovar su fuente justo antes de reproducir.
+# Estas dos senales dinamicas se publican expresamente en la lista principal;
+# mantienen su resolutor para renovar la fuente justo antes de reproducir.
 MAIN_PLAYLIST_CHANNEL_IDS = frozenset({"SkySportsF1.uk", "SkySportsTennis.uk"})
 DYNAMIC_RESOLVER_ENGINES = frozenset({"meganoticias", "tvvoo", "highfly"})
 # Los enlaces resueltos de TvVoo/Highfly son efimeros o pueden cambiar de
@@ -72,7 +72,6 @@ HIGHFLY_RESOLVER_CHANNELS = {
     "ESPN.us": "us-espn-hd",
     "SkySportsPremierLeague.uk": "now-sky-sports-premier-league",
     "SkySport1.nz": "nz-sky-sport-1",
-    "SkySportsTennis.uk": "now-sky-sports-tennis",
 }
 
 TEST_GROUP_PREFIX = "PRUEBA - "
@@ -507,6 +506,12 @@ TVVOO_STREAM_RESOLVER_IDS = {
         "vavoo_SKY%20SPORTS%20ARENA%7Cgroup%3Auk",
         "vavoo_SKY%20SPORTS%20ARENA%20HD%7Cgroup%3Auk",
     ),
+    # El slug estatico de Highfly para Tennis quedo sin worker. Este alias
+    # UK responde con una fuente HLS renovable y se conserva como identidad,
+    # no como URL temporal.
+    "Sky Sports Tennis": (
+        "vavoo_SKY%20SPORTS%20TENNIS%7Cgroup%3Auk",
+    ),
     "TNT Sports 3": (
         "vavoo_TNT%20SPORTS%203%7Cgroup%3Auk",
         "vavoo_TNT%20SPORTS%203%20HD%7Cgroup%3Auk",
@@ -772,6 +777,7 @@ def build_resolver_catalog() -> dict:
                     "tvgIds": [
                         "PremierSports1.ie",
                         "PremierSports2.ie",
+                        "SkySportsTennis.uk",
                     ],
                     "tvgIdSuffixes": ["@TvVoo"],
                 },
@@ -883,13 +889,13 @@ PREFERRED_LOGOS = {
     "XITE Rock x Metal": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
     "MTV Rocks": f"{LOCAL_LOGOS_PUBLIC_BASE}/mtv-rocks.svg",
     "XITE Just Chill": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
-    "Sky Sports F1": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-f1-logopedia.svg",
+    "Sky Sports F1": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-f1-mosca-logopedia.png",
     "ESPN": f"{LOCAL_LOGOS_PUBLIC_BASE}/espn.svg",
     "Sky Sports Premier League": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-premier-league.png",
     "Premier Sports 1": f"{LOCAL_LOGOS_PUBLIC_BASE}/premier-sports-1.png",
     "Premier Sports 2": f"{LOCAL_LOGOS_PUBLIC_BASE}/premier-sports-2.png",
     "Sky Sport 1 NZ": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sport-1-nz.png",
-    "Sky Sports Tennis": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-tennis-logopedia.svg",
+    "Sky Sports Tennis": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-tennis-hd-logopedia.svg",
     "Reuters": f"{LOCAL_LOGOS_PUBLIC_BASE}/reuters.png",
     "Real Wild": f"{LOCAL_LOGOS_PUBLIC_BASE}/real-wild.png",
     "TyC Sports": f"{LOCAL_LOGOS_PUBLIC_BASE}/tyc-sports.png",
@@ -1393,6 +1399,8 @@ SEGMENT_CHECK_CHANNELS = {
     "Premier Sports 2",
     "Sky Sports Main Event",
     "Sky Sports Arena",
+    "Sky Sports F1",
+    "Sky Sports Tennis",
     "TNT Sports 3",
     "CNN",
     "Eurosport 1",
@@ -5903,6 +5911,9 @@ def dynamic_validation_is_fresh(
         return False
     entry = entries.get(channel.tvg_id or channel.name)
     if not isinstance(entry, dict):
+        return False
+    recorded_resolver = entry.get("resolver")
+    if recorded_resolver and recorded_resolver != resolver:
         return False
     validated_at = entry.get("last_resolver_validated_at") or entry.get("last_ok_at")
     if not validated_at:

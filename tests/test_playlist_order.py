@@ -42,6 +42,22 @@ class PlaylistOrderTests(unittest.TestCase):
                 channel, current, state, now=now
             )
         )
+        mismatched_resolver_state = {
+            "channels": {
+                "ESPN.us": {
+                    "resolver": "tvvoo",
+                    "last_resolver_validated_at": "2026-08-29T11:50:00Z",
+                    "resolver_url_hash": update_m3u.resolver_url_fingerprint(
+                        channel.url
+                    ),
+                }
+            }
+        }
+        self.assertFalse(
+            update_m3u.dynamic_validation_is_fresh(
+                channel, current, mismatched_resolver_state, now=now
+            )
+        )
         changed_url = channel.url + "?changed=1"
         changed_channel = update_m3u.Channel(
             channel.name,
@@ -300,7 +316,7 @@ class PlaylistOrderTests(unittest.TestCase):
         self.assertNotIn("# Deportes", principal)
         self.assertNotIn("# Nacionales", externa)
 
-    def test_selected_highfly_channels_are_published_in_main(self) -> None:
+    def test_selected_dynamic_channels_are_published_in_main(self) -> None:
         selected = [
             update_m3u.Channel(
                 name="Sky Sports F1",
@@ -310,7 +326,7 @@ class PlaylistOrderTests(unittest.TestCase):
             ),
             update_m3u.Channel(
                 name="Sky Sports Tennis",
-                url="https://leaf.highfly.dev/m3u/now-sky-sports-tennis/live.m3u8",
+                url="https://example.invalid/sky-sports-tennis.m3u8",
                 url_line=1,
                 tvg_id="SkySportsTennis.uk",
             ),
@@ -326,6 +342,26 @@ class PlaylistOrderTests(unittest.TestCase):
             [update_m3u.playlist_key_for(item) for item in selected],
             ["main", "main", "external"],
         )
+
+    def test_sky_tennis_uses_tvvoo_after_stale_highfly_slug(self) -> None:
+        channel = update_m3u.Channel(
+            name="Sky Sports Tennis",
+            url="https://example.invalid/sky-sports-tennis.m3u8",
+            url_line=0,
+            tvg_id="SkySportsTennis.uk",
+        )
+
+        self.assertEqual(update_m3u.resolver_engine_for(channel), "tvvoo")
+        self.assertEqual(
+            update_m3u.resolver_attributes_for(channel),
+            {
+                "x-resolver": "tvvoo",
+                "x-resolver-endpoint": update_m3u.TVVOO_STREAM_BASE_URL,
+                "x-resolver-ids": "vavoo_SKY%20SPORTS%20TENNIS%7Cgroup%3Auk",
+                "x-resolver-refresh": "on_play",
+            },
+        )
+        self.assertNotIn("SkySportsTennis.uk", update_m3u.HIGHFLY_RESOLVER_CHANNELS)
 
     def test_external_list_can_publish_when_principal_epg_is_held(self) -> None:
         principal = update_m3u.Channel(
