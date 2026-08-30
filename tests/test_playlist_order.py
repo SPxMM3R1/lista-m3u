@@ -332,7 +332,7 @@ class PlaylistOrderTests(unittest.TestCase):
             ),
             update_m3u.Channel(
                 name="Sky Sports Tennis",
-                url="https://example.invalid/sky-sports-tennis.m3u8",
+                url="https://leaf.highfly.dev/m3u/now-sky-sports-tennis/live.m3u8",
                 url_line=1,
                 tvg_id="SkySportsTennis.uk",
             ),
@@ -349,25 +349,29 @@ class PlaylistOrderTests(unittest.TestCase):
             ["main", "main", "external"],
         )
 
-    def test_sky_tennis_uses_tvvoo_after_stale_highfly_slug(self) -> None:
+    def test_sky_tennis_uses_highfly_after_slug_returns(self) -> None:
         channel = update_m3u.Channel(
             name="Sky Sports Tennis",
-            url="https://example.invalid/sky-sports-tennis.m3u8",
+            url="https://leaf.highfly.dev/m3u/now-sky-sports-tennis/live.m3u8",
             url_line=0,
             tvg_id="SkySportsTennis.uk",
         )
 
-        self.assertEqual(update_m3u.resolver_engine_for(channel), "tvvoo")
+        self.assertEqual(update_m3u.resolver_engine_for(channel), "highfly")
         self.assertEqual(
             update_m3u.resolver_attributes_for(channel),
             {
-                "x-resolver": "tvvoo",
-                "x-resolver-endpoint": update_m3u.TVVOO_STREAM_BASE_URL,
-                "x-resolver-ids": "vavoo_SKY%20SPORTS%20TENNIS%7Cgroup%3Auk",
+                "x-resolver": "highfly",
+                "x-resolver-id": "now-sky-sports-tennis",
+                "x-resolver-manifest": update_m3u.HIGHFLY_MANIFEST_URL,
                 "x-resolver-refresh": "on_play",
             },
         )
-        self.assertNotIn("SkySportsTennis.uk", update_m3u.HIGHFLY_RESOLVER_CHANNELS)
+        self.assertEqual(update_m3u.playlist_key_for(channel), "main")
+        self.assertEqual(
+            update_m3u.HIGHFLY_RESOLVER_CHANNELS["SkySportsTennis.uk"],
+            "now-sky-sports-tennis",
+        )
 
     def test_external_list_can_publish_when_principal_epg_is_held(self) -> None:
         principal = update_m3u.Channel(

@@ -46,7 +46,7 @@ PUBLIC_RAW_BASE = "https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main"
 EPG_PUBLIC_URL = f"{PUBLIC_RAW_BASE}/epg.xml"
 LOCAL_LOGOS_PUBLIC_BASE = f"{PUBLIC_RAW_BASE}/logos"
 RESOLVER_SCHEMA_VERSION = 1
-RESOLVER_CATALOG_VERSION = "2026.08.29.1"
+RESOLVER_CATALOG_VERSION = "2026.08.29.2"
 ALLOWED_RESOLVER_ENGINES = {"tvn", "meganoticias", "tvvoo", "highfly"}
 MAIN_PLAYLIST_RESOLVERS = frozenset({"direct", "tvn", "meganoticias"})
 EXTERNAL_PLAYLIST_RESOLVERS = frozenset({"tvvoo", "highfly"})
@@ -80,6 +80,7 @@ HIGHFLY_RESOLVER_CHANNELS = {
     "ESPN.us": "us-espn-hd",
     "SkySportsPremierLeague.uk": "now-sky-sports-premier-league",
     "SkySport1.nz": "nz-sky-sport-1",
+    "SkySportsTennis.uk": "now-sky-sports-tennis",
 }
 
 TEST_GROUP_PREFIX = "PRUEBA - "
@@ -514,12 +515,6 @@ TVVOO_STREAM_RESOLVER_IDS = {
         "vavoo_SKY%20SPORTS%20ARENA%7Cgroup%3Auk",
         "vavoo_SKY%20SPORTS%20ARENA%20HD%7Cgroup%3Auk",
     ),
-    # El slug estatico de Highfly para Tennis quedo sin worker. Este alias
-    # UK responde con una fuente HLS renovable y se conserva como identidad,
-    # no como URL temporal.
-    "Sky Sports Tennis": (
-        "vavoo_SKY%20SPORTS%20TENNIS%7Cgroup%3Auk",
-    ),
     "TNT Sports 3": (
         "vavoo_TNT%20SPORTS%203%7Cgroup%3Auk",
         "vavoo_TNT%20SPORTS%203%20HD%7Cgroup%3Auk",
@@ -785,7 +780,6 @@ def build_resolver_catalog() -> dict:
                     "tvgIds": [
                         "PremierSports1.ie",
                         "PremierSports2.ie",
-                        "SkySportsTennis.uk",
                     ],
                     "tvgIdSuffixes": ["@TvVoo"],
                 },
@@ -808,7 +802,10 @@ def build_resolver_catalog() -> dict:
                 "engine": "highfly",
                 "enabledByDefault": True,
                 "cacheTtlSeconds": 300,
-                "match": {"hosts": ["leaf.highfly.dev"]},
+                "match": {
+                    "tvgIds": list(HIGHFLY_RESOLVER_CHANNELS),
+                    "hosts": ["leaf.highfly.dev"],
+                },
                 "config": {
                     "directTemplate": (
                         "https://leaf.highfly.dev/m3u/{id}/live.m3u8"
@@ -904,7 +901,7 @@ PREFERRED_LOGOS = {
     "Premier Sports 1": f"{LOCAL_LOGOS_PUBLIC_BASE}/premier-sports-1.png",
     "Premier Sports 2": f"{LOCAL_LOGOS_PUBLIC_BASE}/premier-sports-2.png",
     "Sky Sport 1 NZ": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sport-1-nz.png",
-    "Sky Sports Tennis": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-tennis-hd-logopedia.svg",
+    "Sky Sports Tennis": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-tennis.png",
     "Reuters": f"{LOCAL_LOGOS_PUBLIC_BASE}/reuters.png",
     "Real Wild": f"{LOCAL_LOGOS_PUBLIC_BASE}/real-wild.png",
     "TyC Sports": f"{LOCAL_LOGOS_PUBLIC_BASE}/tyc-sports.png",

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "catalogVersion": "2026.08.29.1",
+  "catalogVersion": "2026.08.29.2",
   "providers": [
     {
       "id": "tvn",
@@ -49,8 +49,7 @@
       "match": {
         "tvgIds": [
           "PremierSports1.ie",
-          "PremierSports2.ie",
-          "SkySportsTennis.uk"
+          "PremierSports2.ie"
         ],
         "tvgIdSuffixes": [
           "@TvVoo"
@@ -82,9 +81,6 @@
         "Sky Sports Arena": [
           "vavoo_SKY%20SPORTS%20ARENA%7Cgroup%3Auk",
           "vavoo_SKY%20SPORTS%20ARENA%20HD%7Cgroup%3Auk"
-        ],
-        "Sky Sports Tennis": [
-          "vavoo_SKY%20SPORTS%20TENNIS%7Cgroup%3Auk"
         ],
         "TNT Sports 3": [
           "vavoo_TNT%20SPORTS%203%7Cgroup%3Auk",
@@ -441,6 +437,13 @@
       "enabledByDefault": true,
       "cacheTtlSeconds": 300,
       "match": {
+        "tvgIds": [
+          "SkySportsF1.uk",
+          "ESPN.us",
+          "SkySportsPremierLeague.uk",
+          "SkySport1.nz",
+          "SkySportsTennis.uk"
+        ],
         "hosts": [
           "leaf.highfly.dev"
         ]
