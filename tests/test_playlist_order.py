@@ -363,6 +363,34 @@ class PlaylistOrderTests(unittest.TestCase):
             ["main", "main", "external"],
         )
 
+    def test_direct_sky_probe_can_stay_in_main_for_manual_testing(self) -> None:
+        lines = [
+            "#EXTM3U",
+            "# Deportes",
+            extinf(
+                "SkySportsF1.uk@Direct",
+                "Sky Sports F1 UK (Directo)",
+                "Deportes",
+            ),
+            "http://example.invalid/sky-f1.m3u8",
+            extinf("ESPN.us", "ESPN", "Deportes"),
+            "https://example.invalid/espn.m3u8",
+        ]
+        channels = update_m3u.parse_channels(lines)
+        probe = channels[0]
+
+        self.assertTrue(update_m3u.is_direct_probe(probe))
+        self.assertEqual(update_m3u.playlist_key_for(probe), "main")
+
+        principal = update_m3u.filter_playlist_to_working_channels(
+            lines, channels, {probe.name}
+        )
+        self.assertEqual(
+            [item.name for item in update_m3u.parse_channels(principal)],
+            [probe.name],
+        )
+        self.assertEqual(principal[-1], "http://example.invalid/sky-f1.m3u8")
+
     def test_sky_tennis_uses_highfly_after_slug_returns(self) -> None:
         channel = update_m3u.Channel(
             name="Sky Sports Tennis",

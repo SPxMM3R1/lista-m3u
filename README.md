@@ -55,8 +55,9 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
 - prioriza enlaces descubiertos desde las paginas oficiales del emisor al
   reparar una senal; los respaldos conocidos solo se prueban despues;
 - no modifica `epg.xml`: la EPG tiene un proceso independiente;
-- publica `m3u.m3u` con fuentes directas, resolutores propios de TVN/Meganoticias
-  y las señales dinámicas seleccionadas Sky Sports F1 y Sky Sports Tennis;
+- publica `m3u.m3u` con fuentes directas, resolutores propios de TVN/Meganoticias,
+  las señales dinámicas seleccionadas Sky Sports F1 y Sky Sports Tennis y un
+  bloque explícito de sondas directas de Sky Sports para prueba manual;
 - publica `m3u-externa.m3u` con TvVoo/Vavoo y el resto de Highfly, sin duplicar canales ni
   dejar que una caída de esos resolutores bloquee la lista principal;
 - solo reemplaza `m3u.m3u` cuando el 100% de sus candidatos tiene cobertura EPG
@@ -115,6 +116,10 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
   siga fallando despues de validar HLS, reintentar y buscar reparaciones;
   `channel-catalog.m3u` conserva el inventario completo para volver a probarlo
   y reactivarlo en la siguiente ejecucion;
+- conserva las sondas identificadas con `@Direct` en `m3u.m3u` aunque el
+  chequeo automático no llegue al primer segmento: son candidatas de
+  investigación, no se cuentan como fuentes directas saludables ni sustituyen
+  un resolutor renovable;
 - si falla simultaneamente al menos el 25% de las fuentes directas, bloquea la
   publicación como posible problema sistémico del runner o de la red; los
   fallos de resolutores se retiran individualmente y se reintentan en la
@@ -186,14 +191,24 @@ XMLTV, resolutores ni URLs de respaldo.
 
 ## Canales
 
-El catalogo contiene 150 candidatos: nacionales, noticias, miscelaneos
+El catalogo contiene 161 candidatos: nacionales, noticias, miscelaneos
 chilenos, noticias internacionales, documentales, conciertos, musica y
-deportes. `m3u.m3u` es la lista principal de fuentes directas, TVN, Meganoticias
-y las señales dinámicas seleccionadas Sky Sports F1 y Sky Sports Tennis;
+deportes. `m3u.m3u` es la lista principal de fuentes directas, TVN, Meganoticias,
+las señales dinámicas seleccionadas Sky Sports F1 y Sky Sports Tennis y las
+sondas directas de Sky Sports;
 `m3u-externa.m3u` concentra TvVoo/Vavoo y el resto de Highfly. El numero
 visible en cada lista puede ser menor en una ejecucion si algunos candidatos
 agotaron sus reintentos; vuelven automaticamente cuando la validacion completa
 responde.
+
+Las sondas directas de Sky están marcadas con `@Direct` en `tvg-id` y con
+`(Directo)` en el nombre: incluyen F1 UK, F1 Italia, Action UK, Cricket UK,
+Football Irlanda, Main Event Irlanda, News UK, NFL UK, Austria 1, Basket Italia
+y Top Event Alemania. Se mantienen visibles para probarlas en vivo incluso
+cuando el CDN público cambia, exige cabeceras adicionales o deja de responder.
+Las URLs son respaldos de investigación sin procedencia oficial garantizada y
+no contienen tokens ni credenciales; el informe conserva el resultado real de
+la validación HLS.
 
 TVN y Mega se actualizan desde sus parrillas oficiales cuando estan
 disponibles. Para T13 no se encontro una parrilla oficial diaria de la senal

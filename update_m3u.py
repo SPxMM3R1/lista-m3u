@@ -53,6 +53,25 @@ EXTERNAL_PLAYLIST_RESOLVERS = frozenset({"tvvoo", "highfly"})
 # Estas dos senales dinamicas se publican expresamente en la lista principal;
 # mantienen su resolutor para renovar la fuente justo antes de reproducir.
 MAIN_PLAYLIST_CHANNEL_IDS = frozenset({"SkySportsF1.uk", "SkySportsTennis.uk"})
+# Sondas directas solicitadas para probar en vivo fuentes publicas de Sky
+# Sports. No son resolutores ni se consideran una fuente oficial: conservan
+# su URL tal cual para que el usuario pueda comprobarlas manualmente. El
+# actualizador las prueba y las reporta, pero no las retira de m3u.m3u por un
+# fallo individual. Los demas enlaces directos siguen sujetos al filtro de
+# salud normal.
+DIRECT_PROBE_CHANNEL_IDS = frozenset({
+    "SkySportsF1.uk@Direct",
+    "SkySportF1.it@Direct",
+    "SkySportsAction.uk@Direct",
+    "SkySportsCricket.uk@Direct",
+    "SkySportsFootball.ie@Direct",
+    "SkySportsMainEvent.ie@Direct",
+    "SkySportsNews.uk@Direct",
+    "SkySportsNFL.uk@Direct",
+    "SkySportAustria1.at@Direct",
+    "SkySportBasket.it@Direct",
+    "SkySportTopEvent.de@Direct",
+})
 DYNAMIC_RESOLVER_ENGINES = frozenset({"meganoticias", "tvvoo", "highfly"})
 # Los enlaces resueltos de TvVoo/Highfly son efimeros o pueden cambiar de
 # nodo. Esta ventana solo evita repetir una renovacion si se lanza otra corrida
@@ -895,7 +914,18 @@ PREFERRED_LOGOS = {
     "XITE Rock x Metal": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
     "MTV Rocks": f"{LOCAL_LOGOS_PUBLIC_BASE}/mtv-rocks.svg",
     "XITE Just Chill": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
-    "Sky Sports F1": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-f1-mosca-logopedia.png",
+    "Sky Sports F1": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-f1-mosca-logopedia.webp",
+    "Sky Sports F1 UK (Directo)": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-f1-mosca-logopedia.webp",
+    "Sky Sports F1 Italia (Directo)": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-f1-mosca-logopedia.webp",
+    "Sky Sports Action UK (Directo)": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports.svg",
+    "Sky Sports Cricket UK (Directo)": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports.svg",
+    "Sky Sports Football Irlanda (Directo)": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports.svg",
+    "Sky Sports Main Event Irlanda (Directo)": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-main-event.png",
+    "Sky Sports News UK (Directo)": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports.svg",
+    "Sky Sports NFL UK (Directo)": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports.svg",
+    "Sky Sport Austria 1 (Directo)": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports.svg",
+    "Sky Sport Basket Italia (Directo)": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports.svg",
+    "Sky Sport Top Event Alemania (Directo)": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports.svg",
     "ESPN": f"{LOCAL_LOGOS_PUBLIC_BASE}/espn.svg",
     "Sky Sports Premier League": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-premier-league.png",
     "Premier Sports 1": f"{LOCAL_LOGOS_PUBLIC_BASE}/premier-sports-1.png",
@@ -1411,6 +1441,17 @@ SEGMENT_CHECK_CHANNELS = {
     "Sky Sports Arena",
     "Sky Sports F1",
     "Sky Sports Tennis",
+    "Sky Sports F1 UK (Directo)",
+    "Sky Sports F1 Italia (Directo)",
+    "Sky Sports Action UK (Directo)",
+    "Sky Sports Cricket UK (Directo)",
+    "Sky Sports Football Irlanda (Directo)",
+    "Sky Sports Main Event Irlanda (Directo)",
+    "Sky Sports News UK (Directo)",
+    "Sky Sports NFL UK (Directo)",
+    "Sky Sport Austria 1 (Directo)",
+    "Sky Sport Basket Italia (Directo)",
+    "Sky Sport Top Event Alemania (Directo)",
     "TNT Sports 3",
     "CNN",
     "Eurosport 1",
@@ -1810,9 +1851,11 @@ def filter_playlist_to_working_channels(
     """Build the public playlist while retaining every candidate elsewhere.
 
     ``channel-catalog.m3u`` remains the canonical inventory. Only the EXTINF
-    and URL lines of a failed candidate are omitted here. Empty thematic
-    separators are removed from the public copy, while the catalogue keeps
-    every candidate in its original position for the next retry.
+    and URL lines of a failed ordinary candidate are omitted here. Explicit
+    direct probes are passed in ``working_names`` by ``main`` so they remain
+    visible for manual testing. Empty thematic separators are removed from
+    the public copy, while the catalogue keeps every candidate in its original
+    position for the next retry.
     """
     omitted_indexes: set[int] = set()
     for channel in channels:
@@ -1826,7 +1869,7 @@ def filter_playlist_to_working_channels(
     category_headers = {
         f"# {section}": category for section, category in ORDER_SECTION_GROUPS.items()
     }
-    return [
+    filtered_lines = [
         line
         for index, line in enumerate(lines)
         if index not in omitted_indexes
@@ -1835,6 +1878,9 @@ def filter_playlist_to_working_channels(
             or category_headers[line] in working_groups
         )
     ]
+    while filtered_lines and not filtered_lines[-1].strip():
+        filtered_lines.pop()
+    return filtered_lines
 
 
 def resolver_attributes_for(channel: Channel) -> dict[str, str]:
@@ -1886,6 +1932,14 @@ def playlist_key_for(channel: Channel) -> str:
     # Unknown/future providers stay in the principal fallback until an
     # explicit executable resolver and list policy are added.
     return "main"
+
+
+def is_direct_probe(channel: Channel) -> bool:
+    """Return whether a direct channel is intentionally kept for live testing."""
+    return (
+        resolver_engine_for(channel) == "direct"
+        and channel.tvg_id in DIRECT_PROBE_CHANNEL_IDS
+    )
 
 
 def with_resolver_attributes(line: str, attributes: dict[str, str]) -> str:
@@ -5634,6 +5688,13 @@ def check_logo(channel: Channel) -> LogoResult:
                 True,
                 f"PNG valido y transparente{source_suffix}",
             )
+        if status == 200 and webp_is_valid(body):
+            return LogoResult(
+                channel.name,
+                channel.logo_url,
+                True,
+                f"WebP valido{source_suffix}",
+            )
         if status == 200 and jpeg_is_valid(body):
             return LogoResult(
                 channel.name,
@@ -5688,6 +5749,15 @@ def png_has_transparency(body: bytes) -> bool:
 
 def jpeg_is_valid(body: bytes) -> bool:
     return len(body) >= 3 and body[:3] == b"\xff\xd8\xff"
+
+
+def webp_is_valid(body: bytes) -> bool:
+    return (
+        len(body) >= 16
+        and body[:4] == b"RIFF"
+        and body[8:12] == b"WEBP"
+        and body[12:16] in {b"VP8 ", b"VP8L", b"VP8X"}
+    )
 
 
 def svg_is_valid(body: bytes) -> bool:
@@ -6384,6 +6454,7 @@ def write_report(
             "group": channel.group,
             "playlist": playlist_key,
             "resolver": resolver or "direct",
+            "test_candidate": is_direct_probe(channel),
             "source_host": source_host,
             "status": status,
             "previous_status": previous_status,
@@ -6455,9 +6526,17 @@ def write_report(
     logos = logo_results or []
     main_epg = main_epg_status if main_epg_status is not None else (epg_status or {})
     direct_entries = [
-        entry for entry in health_entries if entry["resolver"] == "direct"
+        entry
+        for entry in health_entries
+        if entry["resolver"] == "direct" and not entry["test_candidate"]
     ]
     direct_failures = [entry for entry in direct_entries if not entry["ok"]]
+    direct_probe_entries = [
+        entry for entry in health_entries if entry["test_candidate"]
+    ]
+    direct_probe_failures = [
+        entry for entry in direct_probe_entries if not entry["ok"]
+    ]
     systemic_threshold = max(5, (len(direct_entries) + 3) // 4)
     systemic_direct_failure = len(direct_failures) >= systemic_threshold
 
@@ -6517,6 +6596,12 @@ def write_report(
         elif is_main and not main_working_entries and entry["ok"]:
             entry["published"] = False
             entry["publication_action"] = "held_no_working_channels"
+        elif is_main and entry["test_candidate"]:
+            # Estas entradas se mantienen expresamente para la prueba manual
+            # solicitada, aunque el chequeo automatico no logre llegar al
+            # primer segmento. No cuentan para el guard de salud directa.
+            entry["published"] = True
+            entry["publication_action"] = "manual_test_candidate"
         elif not is_main and external_logo_failures and entry["ok"]:
             entry["published"] = False
             entry["publication_action"] = "held_logo_validation"
@@ -6671,6 +6756,8 @@ def write_report(
             "total_channels": len(health_entries),
             "blocking_failures": len(blocking_failures),
             "direct_failures": len(direct_failures),
+            "direct_probe_candidates": len(direct_probe_entries),
+            "direct_probe_failures": len(direct_probe_failures),
             "resolver_degradations": len(degraded_channels),
             "systemic_direct_failure": systemic_direct_failure,
             "systemic_direct_failure_threshold": systemic_threshold,
@@ -6708,6 +6795,8 @@ def write_report(
         "channels": health_entries,
         "blocking_failures": blocking_failures,
         "direct_failures": direct_failures,
+        "direct_probe_candidates": direct_probe_entries,
+        "direct_probe_failures": direct_probe_failures,
         "degraded_channels": degraded_channels,
         "temporarily_removed": [
             entry
@@ -7090,11 +7179,16 @@ def main() -> int:
     working_names = {result.channel for result in results if result.ok}
     main_publication = report["playlists"]["main"]
     external_publication = report["playlists"]["external"]
+    main_probe_names = {
+        channel.name
+        for channel in final_channels
+        if playlist_key_for(channel) == "main" and is_direct_probe(channel)
+    }
     main_working_names = {
         channel.name
         for channel in final_channels
         if playlist_key_for(channel) == "main" and channel.name in working_names
-    }
+    } | main_probe_names
     external_working_names = {
         channel.name
         for channel in final_channels
@@ -7137,6 +7231,9 @@ def main() -> int:
     sync_short_playlist_aliases()
     failed = [entry["name"] for entry in report["blocking_failures"]]
     direct_failed = [entry["name"] for entry in report["direct_failures"]]
+    direct_probe_failed = [
+        entry["name"] for entry in report["direct_probe_failures"]
+    ]
     degraded = [entry["name"] for entry in report["degraded_channels"]]
     failed_logos = [result.channel for result in logo_results if not result.ok]
     epg_failed = not bool(main_epg_status.get("ok"))
@@ -7151,6 +7248,13 @@ def main() -> int:
         print(
             "Canales directos retirados temporalmente de la M3U publica: "
             + ", ".join(direct_failed),
+            file=sys.stderr,
+        )
+    if direct_probe_failed:
+        print(
+            "Sondas directas de Sky conservadas para prueba manual aunque el "
+            "chequeo automatico fallo: "
+            + ", ".join(direct_probe_failed),
             file=sys.stderr,
         )
     if failed or failed_logos or epg_failed:
