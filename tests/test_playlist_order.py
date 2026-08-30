@@ -478,7 +478,7 @@ class PlaylistOrderTests(unittest.TestCase):
             list(update_m3u.F1_CHANNEL_ORDER),
         )
 
-    def test_direct_sky_probe_can_stay_in_main_for_manual_testing(self) -> None:
+    def test_removed_direct_sky_probe_cannot_reenter_public_catalogue(self) -> None:
         lines = [
             "#EXTM3U",
             "# Deportes",
@@ -491,20 +491,26 @@ class PlaylistOrderTests(unittest.TestCase):
             extinf("ESPN.us", "ESPN", "Deportes"),
             "https://example.invalid/espn.m3u8",
         ]
-        channels = update_m3u.parse_channels(lines)
-        probe = channels[0]
+        removed = update_m3u.remove_permanently_removed_channels(lines)
 
-        self.assertTrue(update_m3u.is_direct_probe(probe))
-        self.assertEqual(update_m3u.playlist_key_for(probe), "main")
-
-        principal = update_m3u.filter_playlist_to_working_channels(
-            lines, channels, {probe.name}
+        self.assertEqual(
+            removed,
+            ["Sky Sports F1 UK (Directo)"],
         )
         self.assertEqual(
-            [item.name for item in update_m3u.parse_channels(principal)],
-            [probe.name],
+            [item.name for item in update_m3u.parse_channels(lines)],
+            ["ESPN"],
         )
-        self.assertEqual(principal[-1], "http://example.invalid/sky-f1.m3u8")
+        self.assertFalse(
+            update_m3u.is_direct_probe(
+                update_m3u.Channel(
+                    name="Sky Sports F1 UK (Directo)",
+                    url="https://example.invalid/sky-f1.m3u8",
+                    url_line=0,
+                    tvg_id="SkySportsF1.uk@Direct",
+                )
+            )
+        )
 
     def test_external_filter_does_not_leak_protected_main_f1(self) -> None:
         lines = [

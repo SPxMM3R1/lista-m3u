@@ -56,8 +56,6 @@ EXTERNAL_PLAYLIST_RESOLVERS = frozenset({"tvvoo", "highfly"})
 # poder probarlas junto al F1 canonico, sin mover el resto del grupo TvVoo.
 F1_CHANNEL_ORDER = (
     "SkySportsF1.uk",
-    "SkySportsF1.uk@Direct",
-    "SkySportF1.it@Direct",
     "DAZNF1.es@TvVoo",
     "SkySportF1.de@TvVoo",
     "Vavoo.uk.SKYSPORTSF1@TvVoo",
@@ -69,25 +67,10 @@ MAIN_PLAYLIST_CHANNEL_IDS = F1_CHANNEL_IDS | frozenset({"SkySportsTennis.uk"})
 # puntual este caida. Su slug sigue siendo estable y VibeM3U lo renueva al
 # reproducir; esta excepcion no se extiende a los demas canales dinamicos.
 ALWAYS_PUBLISH_MAIN_CHANNEL_IDS = frozenset({"SkySportsF1.uk"})
-# Sondas directas solicitadas para probar en vivo fuentes publicas de Sky
-# Sports. No son resolutores ni se consideran una fuente oficial: conservan
-# su URL tal cual para que el usuario pueda comprobarlas manualmente. El
-# actualizador las prueba y las reporta, pero no las retira de m3u.m3u por un
-# fallo individual. Los demas enlaces directos siguen sujetos al filtro de
-# salud normal.
-DIRECT_PROBE_CHANNEL_IDS = frozenset({
-    "SkySportsF1.uk@Direct",
-    "SkySportF1.it@Direct",
-    "SkySportsAction.uk@Direct",
-    "SkySportsCricket.uk@Direct",
-    "SkySportsFootball.ie@Direct",
-    "SkySportsMainEvent.ie@Direct",
-    "SkySportsNews.uk@Direct",
-    "SkySportsNFL.uk@Direct",
-    "SkySportAustria1.at@Direct",
-    "SkySportBasket.it@Direct",
-    "SkySportTopEvent.de@Direct",
-})
+# Actualmente no se publican sondas directas de Sky Sports. El conjunto se
+# conserva como punto de extension para futuras sondas que reciban autorizacion
+# explicita, pero las entradas retiradas no pueden volver por un fallo puntual.
+DIRECT_PROBE_CHANNEL_IDS = frozenset()
 DYNAMIC_RESOLVER_ENGINES = frozenset({"meganoticias", "tvvoo", "highfly"})
 # Los enlaces resueltos de TvVoo/Highfly son efimeros o pueden cambiar de
 # nodo. Esta ventana solo evita repetir una renovacion si se lanza otra corrida
@@ -136,6 +119,7 @@ PERMANENTLY_REMOVED_CHANNEL_NAME_PATTERNS = (
     re.compile(r"\brmc\b", re.IGNORECASE),
     re.compile(r"\breuters\b", re.IGNORECASE),
     re.compile(r"\bstingray\s+(?:d)?jazz\b", re.IGNORECASE),
+    re.compile(r"\bsky\s+sport(?:s)?\b.*\bdirecto\b", re.IGNORECASE),
     re.compile(r"\bturqu(?:ía|ia)\b", re.IGNORECASE),
     re.compile(r"\bbalcanes\b", re.IGNORECASE),
 )
@@ -151,6 +135,17 @@ PERMANENTLY_REMOVED_CHANNEL_IDS = frozenset(
         "ReutersTV.us",
         "StingrayDJAZZ.ca",
         "Vavoo.nl.STINGRAYDJAZZ@TvVoo",
+        "SkySportsF1.uk@Direct",
+        "SkySportF1.it@Direct",
+        "SkySportsAction.uk@Direct",
+        "SkySportsCricket.uk@Direct",
+        "SkySportsFootball.ie@Direct",
+        "SkySportsMainEvent.ie@Direct",
+        "SkySportsNews.uk@Direct",
+        "SkySportsNFL.uk@Direct",
+        "SkySportAustria1.at@Direct",
+        "SkySportBasket.it@Direct",
+        "SkySportTopEvent.de@Direct",
         "Vavoo.tr.EUROSPORT1@TvVoo",
         "Vavoo.tr.BEINSPORTS1@TvVoo",
         "Vavoo.tr.NBATV@TvVoo",
