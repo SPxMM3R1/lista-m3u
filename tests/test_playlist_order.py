@@ -246,6 +246,10 @@ class PlaylistOrderTests(unittest.TestCase):
             "https://example.invalid/rewind.m3u8",
             extinf("news-int.channel", "BBC News", "Noticias internacionales"),
             "https://example.invalid/news.m3u8",
+            extinf("13Cultura.cl@DPS", "13 Cultura", "Misceláneos"),
+            "https://example.invalid/13cultura.m3u8",
+            extinf("1437", "TVN3", "Misceláneos"),
+            "https://example.invalid/tvn3.m3u8",
             extinf("13C.cl@SD", "13C", "Misceláneos"),
             "https://example.invalid/13c.m3u8",
             extinf("45", "NTV", "Misceláneos"),
@@ -259,12 +263,22 @@ class PlaylistOrderTests(unittest.TestCase):
         channels = update_m3u.parse_channels(lines)
         self.assertEqual(
             [channel.name for channel in channels],
-            ["24 Horas", "NTV", "13C", "RWND", "BBC News"],
+            [
+                "24 Horas",
+                "NTV",
+                "TVN3",
+                "13C",
+                "13 Cultura",
+                "RWND",
+                "BBC News",
+            ],
         )
         self.assertEqual(
             [channel.group for channel in channels],
             [
                 "Noticias nacionales",
+                "Misceláneos",
+                "Misceláneos",
                 "Misceláneos",
                 "Misceláneos",
                 "Misceláneos",

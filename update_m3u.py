@@ -1121,17 +1121,21 @@ CONTENT_CATEGORY_INDEX = {
     category: index for index, category in enumerate(CONTENT_CATEGORY_ORDER)
 }
 
-# Estas tres senales siguen siendo "Miscelaneos" por contenido, pero el
-# usuario las quiere inmediatamente despues del bloque de noticias nacionales.
+# Estas cinco senales siguen siendo "Miscelaneos" por contenido, pero el
+# usuario las quiere inmediatamente despues de NTV y en un orden estable.
 # Se separa el orden visual de la categoria para no falsear su group-title.
 POST_NATIONAL_NEWS_CHANNEL_IDS = {
     "45",  # NTV
+    "1437",  # TVN3
     "13C.cl@SD",
+    "13Cultura.cl@DPS",
     "RewindTV.cl@SD",
 }
 POST_NATIONAL_NEWS_CHANNEL_ORDER = (
     "45",
+    "1437",
     "13C.cl@SD",
+    "13Cultura.cl@DPS",
     "RewindTV.cl@SD",
 )
 POST_NATIONAL_NEWS_CHANNEL_INDEX = {
