@@ -50,9 +50,25 @@ RESOLVER_CATALOG_VERSION = "2026.08.29.2"
 ALLOWED_RESOLVER_ENGINES = {"tvn", "meganoticias", "tvvoo", "highfly"}
 MAIN_PLAYLIST_RESOLVERS = frozenset({"direct", "tvn", "meganoticias"})
 EXTERNAL_PLAYLIST_RESOLVERS = frozenset({"tvvoo", "highfly"})
-# Estas dos senales dinamicas se publican expresamente en la lista principal;
+# Estas senales dinamicas se publican expresamente en la lista principal;
 # mantienen su resolutor para renovar la fuente justo antes de reproducir.
-MAIN_PLAYLIST_CHANNEL_IDS = frozenset({"SkySportsF1.uk", "SkySportsTennis.uk"})
+# Las variantes F1 que ya existen en el catalogo externo se agrupan aqui para
+# poder probarlas junto al F1 canonico, sin mover el resto del grupo TvVoo.
+F1_CHANNEL_ORDER = (
+    "SkySportsF1.uk",
+    "SkySportsF1.uk@Direct",
+    "SkySportF1.it@Direct",
+    "DAZNF1.es@TvVoo",
+    "SkySportF1.de@TvVoo",
+    "Vavoo.uk.SKYSPORTSF1@TvVoo",
+    "Vavoo.it.SKYSPORTF1@TvVoo",
+)
+F1_CHANNEL_IDS = frozenset(F1_CHANNEL_ORDER)
+MAIN_PLAYLIST_CHANNEL_IDS = F1_CHANNEL_IDS | frozenset({"SkySportsTennis.uk"})
+# El F1 de Highfly se conserva en la salida principal aunque su comprobacion
+# puntual este caida. Su slug sigue siendo estable y VibeM3U lo renueva al
+# reproducir; esta excepcion no se extiende a los demas canales dinamicos.
+ALWAYS_PUBLISH_MAIN_CHANNEL_IDS = frozenset({"SkySportsF1.uk"})
 # Sondas directas solicitadas para probar en vivo fuentes publicas de Sky
 # Sports. No son resolutores ni se consideran una fuente oficial: conservan
 # su URL tal cual para que el usuario pueda comprobarlas manualmente. El
@@ -1762,6 +1778,22 @@ def within_section_order_key(
     if section == POST_NATIONAL_NEWS_SECTION:
         return (0, POST_NATIONAL_NEWS_CHANNEL_INDEX[channel.tvg_id])
 
+    if section == "Deportes" and channel.tvg_id in F1_CHANNEL_IDS:
+        f1_positions = [
+            index
+            for index, item in enumerate(channels)
+            if item.tvg_id in F1_CHANNEL_IDS
+        ]
+        if f1_positions:
+            # F1 variants may be scattered through an older catalogue. Reserve
+            # one contiguous block at the first F1 occurrence so the public
+            # list presents the Highfly source beside its language/quality
+            # alternatives.
+            return (
+                min(f1_positions),
+                F1_CHANNEL_ORDER.index(channel.tvg_id),
+            )
+
     if section == "Noticias internacionales":
         dw_positions = [
             index
@@ -1846,7 +1878,11 @@ def order_channels_by_content(lines: list[str]) -> bool:
 
 
 def filter_playlist_to_working_channels(
-    lines: list[str], channels: list[Channel], working_names: set[str]
+    lines: list[str],
+    channels: list[Channel],
+    working_names: set[str],
+    *,
+    preserve_protected_main: bool = True,
 ) -> list[str]:
     """Build the public playlist while retaining every candidate elsewhere.
 
@@ -1859,12 +1895,22 @@ def filter_playlist_to_working_channels(
     """
     omitted_indexes: set[int] = set()
     for channel in channels:
-        if channel.name not in working_names:
+        protected_main = (
+            preserve_protected_main
+            and playlist_key_for(channel) == "main"
+            and is_protected_main_channel(channel)
+        )
+        if channel.name not in working_names and not protected_main:
             omitted_indexes.update((channel.info_line, channel.url_line))
     working_groups = {
         channel.group
         for channel in channels
         if channel.name in working_names
+        or (
+            preserve_protected_main
+            and playlist_key_for(channel) == "main"
+            and is_protected_main_channel(channel)
+        )
     }
     category_headers = {
         f"# {section}": category for section, category in ORDER_SECTION_GROUPS.items()
@@ -1939,6 +1985,15 @@ def is_direct_probe(channel: Channel) -> bool:
     return (
         resolver_engine_for(channel) == "direct"
         and channel.tvg_id in DIRECT_PROBE_CHANNEL_IDS
+    )
+
+
+def is_protected_main_channel(channel: Channel | None) -> bool:
+    """Return whether a main-list channel survives an individual health miss."""
+    return bool(
+        channel
+        and channel.tvg_id in ALWAYS_PUBLISH_MAIN_CHANNEL_IDS
+        and resolver_engine_for(channel) == "highfly"
     )
 
 
@@ -6372,8 +6427,10 @@ def write_report(
 
     A channel that exhausts all retries is removed from the public playlist for
     this run, including resolver-managed fallbacks. The canonical catalogue
-    retains it for the next run. A systemic outage still blocks publication so
-    a runner or provider incident cannot empty a large part of the playlist.
+    retains it for the next run. The protected Highfly F1 exception remains in
+    the main output because its stable resolver can be refreshed by the player.
+    A systemic outage still blocks publication so a runner or provider incident
+    cannot empty a large part of the playlist.
     """
 
     def safe_detail(value: str) -> str:
@@ -6548,6 +6605,17 @@ def write_report(
     external_working_entries = [entry for entry in external_entries if entry["ok"]]
     main_epg_ok = bool(main_epg.get("ok"))
     channel_by_name = {channel.name: channel for channel in channels}
+    protected_main_ids = {
+        channel.tvg_id
+        for channel in channels
+        if playlist_key_for(channel) == "main"
+        and is_protected_main_channel(channel)
+    }
+    main_publishable_entries = [
+        entry
+        for entry in main_entries
+        if entry["ok"] or entry["tvg_id"] in protected_main_ids
+    ]
     logo_failures_by_playlist = {"main": [], "external": []}
     for result in logos:
         if result.ok:
@@ -6573,7 +6641,7 @@ def write_report(
         main_hold_reason = "epg_incomplete"
     elif main_logo_failures:
         main_hold_reason = "logo_validation"
-    elif not main_working_entries:
+    elif not main_publishable_entries:
         main_hold_reason = "no_working_channels"
 
     external_hold_reason = None
@@ -6602,6 +6670,12 @@ def write_report(
             # primer segmento. No cuentan para el guard de salud directa.
             entry["published"] = True
             entry["publication_action"] = "manual_test_candidate"
+        elif is_main and entry["tvg_id"] in protected_main_ids:
+            # El F1 de Highfly es una sonda renovable de la lista principal.
+            # Una caida de la hoja no debe quitar el canal del catalogo
+            # publicado: VibeM3U obtiene una fuente fresca al reproducir.
+            entry["published"] = True
+            entry["publication_action"] = "protected_fallback"
         elif not is_main and external_logo_failures and entry["ok"]:
             entry["published"] = False
             entry["publication_action"] = "held_logo_validation"
@@ -6652,7 +6726,7 @@ def write_report(
     ) if main_entries else 0
     main_ready = bool(
         main_entries
-        and main_working_entries
+        and main_publishable_entries
         and main_epg_ok
         and not main_logo_failures
         and not systemic_direct_failure
@@ -7184,11 +7258,17 @@ def main() -> int:
         for channel in final_channels
         if playlist_key_for(channel) == "main" and is_direct_probe(channel)
     }
+    protected_main_names = {
+        channel.name
+        for channel in final_channels
+        if playlist_key_for(channel) == "main"
+        and is_protected_main_channel(channel)
+    }
     main_working_names = {
         channel.name
         for channel in final_channels
         if playlist_key_for(channel) == "main" and channel.name in working_names
-    } | main_probe_names
+    } | main_probe_names | protected_main_names
     external_working_names = {
         channel.name
         for channel in final_channels
@@ -7213,7 +7293,10 @@ def main() -> int:
         )
     if external_publication["publication_ready"]:
         external_lines = filter_playlist_to_working_channels(
-            final_lines, final_channels, external_working_names
+            final_lines,
+            final_channels,
+            external_working_names,
+            preserve_protected_main=False,
         )
         EXTERNAL_PLAYLIST.write_text(
             "\n".join(external_lines) + "\n", encoding="utf-8", newline="\n"

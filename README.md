@@ -11,7 +11,7 @@ Lista M3U:
 
 `https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/m3u.m3u`
 
-Lista M3U externa (TvVoo/Vavoo y el resto de Highfly):
+Lista M3U externa (TvVoo/Vavoo y Highfly, salvo las excepciones de prueba de la principal):
 
 `https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/m3u-externa.m3u`
 
@@ -56,10 +56,11 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
   reparar una senal; los respaldos conocidos solo se prueban despues;
 - no modifica `epg.xml`: la EPG tiene un proceso independiente;
 - publica `m3u.m3u` con fuentes directas, resolutores propios de TVN/Meganoticias,
-  las señales dinámicas seleccionadas Sky Sports F1 y Sky Sports Tennis y un
-  bloque explícito de sondas directas de Sky Sports para prueba manual;
+  la familia completa de señales F1 contigua junto al F1 de Highfly, Sky Sports
+  Tennis y un bloque explícito de sondas directas de Sky Sports para prueba manual;
 - publica `m3u-externa.m3u` con TvVoo/Vavoo y el resto de Highfly, sin duplicar canales ni
-  dejar que una caída de esos resolutores bloquee la lista principal;
+  dejar que una caída de esos resolutores bloquee la lista principal; la familia
+  F1 completa queda contigua en `m3u.m3u` junto al F1 de Highfly;
 - solo reemplaza `m3u.m3u` cuando el 100% de sus candidatos tiene cobertura EPG
   XMLTV vigente y validada para al menos 24 horas; si la compuerta falla,
   conserva la versión anterior;

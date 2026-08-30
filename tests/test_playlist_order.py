@@ -363,6 +363,77 @@ class PlaylistOrderTests(unittest.TestCase):
             ["main", "main", "external"],
         )
 
+    def test_all_catalogue_f1_variants_are_assigned_to_main(self) -> None:
+        expected_ids = set(update_m3u.F1_CHANNEL_ORDER)
+        self.assertEqual(expected_ids, update_m3u.F1_CHANNEL_IDS)
+        channels = [
+            update_m3u.Channel(
+                name=channel_id,
+                url="https://example.invalid/f1.m3u8",
+                url_line=index,
+                tvg_id=channel_id,
+            )
+            for index, channel_id in enumerate(update_m3u.F1_CHANNEL_ORDER)
+        ]
+
+        self.assertTrue(
+            all(update_m3u.playlist_key_for(item) == "main" for item in channels)
+        )
+
+    def test_highfly_f1_is_kept_when_health_check_fails(self) -> None:
+        lines = [
+            "#EXTM3U",
+            "# Deportes",
+            extinf("SkySportsF1.uk", "Sky Sports F1", "Deportes"),
+            "https://leaf.highfly.dev/m3u/now-sky-sports-f1-free/live.m3u8",
+        ]
+        channel = update_m3u.parse_channels(lines)[0]
+
+        self.assertTrue(update_m3u.is_protected_main_channel(channel))
+        filtered = update_m3u.filter_playlist_to_working_channels(
+            lines, [channel], set()
+        )
+        self.assertEqual(
+            [item.tvg_id for item in update_m3u.parse_channels(filtered)],
+            ["SkySportsF1.uk"],
+        )
+
+    def test_f1_variants_are_contiguous_in_thematic_order(self) -> None:
+        lines = ["#EXTM3U"]
+        for index, channel_id in reversed(
+            list(enumerate(update_m3u.F1_CHANNEL_ORDER))
+        ):
+            lines.extend(
+                (
+                    extinf(channel_id, channel_id, "Deportes"),
+                    f"https://example.invalid/f1-{index}.m3u8",
+                )
+            )
+        lines.extend(
+            (
+                extinf("other.sport", "Otro deporte", "Deportes"),
+                "https://example.invalid/other.m3u8",
+            )
+        )
+
+        update_m3u.order_channels_by_content(lines)
+        ordered_ids = [
+            channel.tvg_id for channel in update_m3u.parse_channels(lines)
+        ]
+
+        f1_positions = [
+            ordered_ids.index(channel_id)
+            for channel_id in update_m3u.F1_CHANNEL_ORDER
+        ]
+        self.assertEqual(
+            f1_positions,
+            list(range(min(f1_positions), max(f1_positions) + 1)),
+        )
+        self.assertEqual(
+            ordered_ids[min(f1_positions) : max(f1_positions) + 1],
+            list(update_m3u.F1_CHANNEL_ORDER),
+        )
+
     def test_direct_sky_probe_can_stay_in_main_for_manual_testing(self) -> None:
         lines = [
             "#EXTM3U",
@@ -390,6 +461,63 @@ class PlaylistOrderTests(unittest.TestCase):
             [probe.name],
         )
         self.assertEqual(principal[-1], "http://example.invalid/sky-f1.m3u8")
+
+    def test_external_filter_does_not_leak_protected_main_f1(self) -> None:
+        lines = [
+            "#EXTM3U",
+            "# Deportes",
+            extinf("SkySportsF1.uk", "Sky Sports F1", "Deportes"),
+            "https://leaf.highfly.dev/m3u/now-sky-sports-f1-free/live.m3u8",
+            extinf("ESPN.us", "ESPN", "Deportes"),
+            "https://example.invalid/espn.m3u8",
+        ]
+        channels = update_m3u.parse_channels(lines)
+
+        external = update_m3u.filter_playlist_to_working_channels(
+            lines,
+            channels,
+            {"ESPN"},
+            preserve_protected_main=False,
+        )
+        self.assertEqual(
+            [item.name for item in update_m3u.parse_channels(external)], ["ESPN"]
+        )
+
+    def test_report_marks_failed_highfly_f1_as_protected_fallback(self) -> None:
+        channel = update_m3u.Channel(
+            name="Sky Sports F1",
+            url="https://leaf.highfly.dev/m3u/now-sky-sports-f1-free/live.m3u8",
+            url_line=0,
+            tvg_id="SkySportsF1.uk",
+            display_name="Sky Sports F1",
+        )
+        result = update_m3u.CheckResult(channel.name, channel.url, False, "down")
+        logo = update_m3u.LogoResult(channel.name, "", True, "ok")
+
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            temporary = Path(temporary_directory)
+            with patch.object(
+                update_m3u, "HEALTH_STATE_PATH", temporary / "health.json"
+            ), patch.object(
+                update_m3u, "REPORT_PATH", temporary / "report.json"
+            ):
+                report = update_m3u.write_report(
+                    [channel],
+                    [result],
+                    False,
+                    [logo],
+                    epg_status={"ok": True},
+                    main_epg_status={
+                        "ok": True,
+                        "required_channels": 1,
+                        "guide_types": {channel.tvg_id: "real"},
+                    },
+                )
+
+        entry = report["channels"][0]
+        self.assertTrue(report["playlists"]["main"]["publication_ready"])
+        self.assertTrue(entry["published"])
+        self.assertEqual(entry["publication_action"], "protected_fallback")
 
     def test_sky_tennis_uses_highfly_after_slug_returns(self) -> None:
         channel = update_m3u.Channel(
