@@ -46,7 +46,7 @@ PUBLIC_RAW_BASE = "https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main"
 EPG_PUBLIC_URL = f"{PUBLIC_RAW_BASE}/epg.xml"
 LOCAL_LOGOS_PUBLIC_BASE = f"{PUBLIC_RAW_BASE}/logos"
 RESOLVER_SCHEMA_VERSION = 1
-RESOLVER_CATALOG_VERSION = "2026.08.29.2"
+RESOLVER_CATALOG_VERSION = "2026.08.30.1"
 ALLOWED_RESOLVER_ENGINES = {"tvn", "meganoticias", "tvvoo", "highfly"}
 MAIN_PLAYLIST_RESOLVERS = frozenset({"direct", "tvn", "meganoticias"})
 EXTERNAL_PLAYLIST_RESOLVERS = frozenset({"tvvoo", "highfly"})
@@ -125,6 +125,35 @@ DISPLAY_NAME_ALIASES = {
     "XITE Hits": "XITE Hits Germany",
 }
 
+# Exclusiones permanentes solicitadas para no volver a publicar señales que ya
+# no forman parte de la selección. Las reglas por nombre también cubren una
+# futura entrada equivalente aunque cambie su tvg-id.
+PERMANENTLY_REMOVED_CHANNEL_NAME_PATTERNS = (
+    re.compile(r"\bbloomberg\s+tv\b", re.IGNORECASE),
+    re.compile(r"\bcnn\s+polonia\b", re.IGNORECASE),
+    re.compile(r"\btrt\b", re.IGNORECASE),
+    re.compile(r"\bdazn\s+fast\b", re.IGNORECASE),
+    re.compile(r"\brmc\b", re.IGNORECASE),
+    re.compile(r"\bturqu(?:ía|ia)\b", re.IGNORECASE),
+    re.compile(r"\bbalcanes\b", re.IGNORECASE),
+)
+PERMANENTLY_REMOVED_CHANNEL_IDS = frozenset(
+    {
+        "BloombergTV.us",
+        "TRTWorld.tr",
+        "Vavoo.it.BLOOMBERGTV@TvVoo",
+        "Vavoo.pl.CNN@TvVoo",
+        "Vavoo.tr.TRTWORLD@TvVoo",
+        "DAZNFastPlus.de@TvVoo",
+        "Vavoo.fr.RMCSPORT3@TvVoo",
+        "Vavoo.tr.EUROSPORT1@TvVoo",
+        "Vavoo.tr.BEINSPORTS1@TvVoo",
+        "Vavoo.tr.NBATV@TvVoo",
+        "Vavoo.bk.ARENASPORT1@TvVoo",
+        "Vavoo.bk.EUROSPORT1@TvVoo",
+    }
+)
+
 # TvVoo responde para estas dos senales, pero no se encontro una parrilla
 # XMLTV propia ni una fuente de terceros que identifique el canal exacto.
 # Se publican en la lista principal sin inventar programas de continuidad.
@@ -192,6 +221,7 @@ NO_EPG_CHANNEL_IDS.update({
     "Vavoo.al.SUPERSPORT1@TvVoo",
     "Vavoo.ar.BEINSPORTS1@TvVoo",
 })
+NO_EPG_CHANNEL_IDS.difference_update(PERMANENTLY_REMOVED_CHANNEL_IDS)
 # Estas señales sí tienen fuentes de programación preferidas, pero pueden
 # quedar temporalmente sin bloques. En ese caso se publica "sin guía" en vez
 # de inventar continuidad o bloquear toda la actualización. Se vuelven a
@@ -417,6 +447,11 @@ EPG_PROGRAMME_SOURCES.update({
     "Vavoo.nl.STINGRAYDJAZZ@TvVoo": ("nl", "Stingray.DJAZZ.nl"),
     "Vavoo.tr.EUROSPORT1@TvVoo": ("tr1", "EUROSPORT.1.HD.tr"),
 })
+EPG_PROGRAMME_SOURCES = {
+    channel_id: source
+    for channel_id, source in EPG_PROGRAMME_SOURCES.items()
+    if channel_id not in PERMANENTLY_REMOVED_CHANNEL_IDS
+}
 # Zapping publica una guia HTML con marcas Unix absolutas para el programa
 # actual, hoy y manana. Se usa solo para senales chilenas donde la fuente
 # agregada estaba desplazada o no entregaba una parrilla util. TVN, Mega,
@@ -755,6 +790,14 @@ TVVOO_STREAM_RESOLVER_IDS.update({
     "SuperSport 1 Albania": ("vavoo_SUPERSPORT%201%7Cgroup%3Aal",),
     "beIN Sports 1 MENA": ("vavoo_BEIN%20SPORTS%201%20HD%7Cgroup%3Aar", "vavoo_BEIN%20SPORTS%201%7Cgroup%3Aar", "vavoo_BEIN%20SPORTS%201%20SD%7Cgroup%3Aar",),
 })
+TVVOO_STREAM_RESOLVER_IDS = {
+    name: aliases
+    for name, aliases in TVVOO_STREAM_RESOLVER_IDS.items()
+    if not any(
+        pattern.search(name)
+        for pattern in PERMANENTLY_REMOVED_CHANNEL_NAME_PATTERNS
+    )
+}
 
 
 def build_resolver_catalog() -> dict:
@@ -1249,6 +1292,7 @@ INTERNATIONAL_NEWS_CHANNEL_IDS = {
     "Vavoo.de.RTDE@TvVoo",
     "Vavoo.tr.TRTWORLD@TvVoo",
 }
+INTERNATIONAL_NEWS_CHANNEL_IDS.difference_update(PERMANENTLY_REMOVED_CHANNEL_IDS)
 MUSIC_CHANNEL_IDS = {
     "XITEHits.nl@Germany",
     "XITENuevoLatino.us",
@@ -1567,6 +1611,14 @@ SEGMENT_CHECK_CHANNELS.update({
     "Sky Sports F1 Reino Unido",
     "TNT Sports 2 Reino Unido",
 })
+SEGMENT_CHECK_CHANNELS = {
+    name
+    for name in SEGMENT_CHECK_CHANNELS
+    if not any(
+        pattern.search(name)
+        for pattern in PERMANENTLY_REMOVED_CHANNEL_NAME_PATTERNS
+    )
+}
 @dataclass(frozen=True)
 class Channel:
     name: str
@@ -1713,6 +1765,38 @@ def parse_channels(lines: list[str]) -> list[Channel]:
         else:
             raise ValueError(f"{name}: falta la URL al final del archivo")
     return channels
+
+
+def is_permanently_removed_channel_name(name: str) -> bool:
+    return any(
+        pattern.search(name)
+        for pattern in PERMANENTLY_REMOVED_CHANNEL_NAME_PATTERNS
+    )
+
+
+def is_permanently_removed_channel(channel: Channel) -> bool:
+    return (
+        channel.tvg_id in PERMANENTLY_REMOVED_CHANNEL_IDS
+        or is_permanently_removed_channel_name(channel.name)
+        or is_permanently_removed_channel_name(channel.display_name)
+    )
+
+
+def remove_permanently_removed_channels(lines: list[str]) -> list[str]:
+    """Remove permanently excluded records while preserving all other order."""
+    channels = parse_channels(lines)
+    removed = [channel for channel in channels if is_permanently_removed_channel(channel)]
+    if not removed:
+        return []
+    omitted_indexes = {
+        index
+        for channel in removed
+        for index in (channel.info_line, channel.url_line)
+    }
+    lines[:] = [
+        line for index, line in enumerate(lines) if index not in omitted_indexes
+    ]
+    return [channel.display_name or channel.name for channel in removed]
 
 
 def content_category_for(channel: Channel) -> str:
@@ -6988,7 +7072,16 @@ def main() -> int:
         else playlist
     )
     lines = source_playlist.read_text(encoding="utf-8-sig").splitlines()
+    removed_channels = remove_permanently_removed_channels(lines)
     if args.refresh_epg_only:
+        if removed_channels:
+            source_playlist.write_text(
+                "\n".join(lines) + "\n", encoding="utf-8", newline="\n"
+            )
+            print(
+                "Exclusiones permanentes retiradas del catalogo: "
+                + ", ".join(removed_channels)
+            )
         epg_playlist = (
             CHANNEL_CATALOG_PATH
             if playlist == DEFAULT_PLAYLIST.resolve() and CHANNEL_CATALOG_PATH.exists()
@@ -7008,9 +7101,17 @@ def main() -> int:
     if args.validate_resolvers_only:
         validate_resolver_contract(lines)
         return 0
+    if removed_channels:
+        source_playlist.write_text(
+            "\n".join(lines) + "\n", encoding="utf-8", newline="\n"
+        )
+        print(
+            "Exclusiones permanentes retiradas del catalogo: "
+            + ", ".join(removed_channels)
+        )
     if args.sync_resolver_contract:
         resolver_changed = pin_resolver_metadata(lines)
-        if resolver_changed:
+        if resolver_changed or removed_channels:
             source_playlist.write_text(
                 "\n".join(lines) + "\n", encoding="utf-8", newline="\n"
             )

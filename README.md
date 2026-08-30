@@ -67,9 +67,9 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
 - usa las parrillas oficiales disponibles de TVN y Mega, ademas de las de M1 y
   M2; conserva EPGShare como respaldo cuando el emisor no publica XMLTV o una
   parrilla automatizable;
-- integra PLEX1 para las señales FAST de BBC, Bloomberg, CBS, Qello, Stingray
-  y XITE, y usa las fuentes pequeñas TR1, SG1 y NG1 solo para TRT World, CNA y
-  Africanews, respectivamente; no descarga el XML combinado de todos los
+- integra PLEX1 para las señales FAST de BBC, CBS, Qello, Stingray y XITE, y
+  usa las fuentes pequeñas SG1 y NG1 solo para CNA y Africanews,
+  respectivamente; no descarga el XML combinado de todos los
   proveedores;
 - incorpora la parrilla XMLTV de PlutoTV para MTV Classic, MTV Biggest Pop,
   MTV Spankin' New y MTV Flow Latino; las tarjetas repetidas de Pluto
@@ -225,7 +225,7 @@ en 24horas.cl: se usa Zapping cuando entrega bloques validos y EPGShare01 como
 tercera opcion. Un fallo aislado de Zapping no invalida los respaldos por canal.
 La EPG usa fuentes XMLTV de Chile, Espana, Francia, Alemania, Reino Unido,
 Argentina, Portugal, Nueva Zelanda, Estados Unidos, Polonia, Letonia, Paises
-Bajos, PLEX1, PlutoTV, Turquia, Singapur y Nigeria, junto con la guia publica
+Bajos, PLEX1, PlutoTV, Singapur y Nigeria, junto con la guia publica
 de Zapping para senales chilenas seleccionadas. El orden es: fuente oficial
 del canal, XMLTV real por pais/proveedor y Zapping u otra fuente secundaria
 real. M1, M2 y 13C se actualizan desde sus parrillas oficiales. La EPG
@@ -260,9 +260,10 @@ URLs `127.0.0.1` ni su proxy local: no funcionarian desde un reproductor
 remoto. La lista publica conserva solo las URLs HLS que el resolutor remoto
 entrega y que el actualizador puede renovar y validar; tampoco se incorpora la
 telemetria opcional del plugin.
-DAZN FAST+ se conserva porque TvVoo devuelve HLS utilizable; si una señal no
-tiene una parrilla XMLTV exacta, queda declarada con continuidad técnica y no
-se rellena con la guía de otro canal.
+La selección actual excluye de forma permanente Bloomberg TV, CNN Polonia, TRT,
+DAZN FAST+, RMC y cualquier canal cuyo nombre indique Turquía o Balcanes. El
+filtro se aplica también al catálogo de reintento y al catálogo de resolutores,
+por lo que esas entradas no reaparecen en las corridas automáticas.
 
 Simply.TV (con punto) se reviso
 como proveedor B2B de EPG y metadata:

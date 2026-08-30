@@ -161,6 +161,32 @@ class PlaylistOrderTests(unittest.TestCase):
             update_m3u.content_category_for(tv_chile), "Noticias internacionales"
         )
 
+    def test_permanent_channel_exclusions_keep_unrelated_poland_channels(self) -> None:
+        lines = ["#EXTM3U"]
+        excluded = [
+            ("bloomberg.channel", "Bloomberg TV Italia"),
+            ("cnn.channel", "CNN Polonia"),
+            ("trt.channel", "TRT World Turquía"),
+            ("dazn-fast.channel", "DAZN FAST+"),
+            ("rmc.channel", "RMC Sport 3 Francia"),
+            ("turkey.channel", "Eurosport 1 Turquía"),
+            ("balkan.channel", "Arena Sport 1 Balcanes"),
+        ]
+        retained = [
+            ("bbc-earth.channel", "BBC Earth Polonia"),
+            ("eurosport.channel", "Eurosport 3 Polonia"),
+        ]
+        for tvg_id, name in excluded + retained:
+            lines.extend((extinf(tvg_id, name), f"https://example.invalid/{tvg_id}.m3u8"))
+
+        removed = update_m3u.remove_permanently_removed_channels(lines)
+
+        self.assertEqual(removed, [name for _, name in excluded])
+        self.assertEqual(
+            [channel.name for channel in update_m3u.parse_channels(lines)],
+            [name for _, name in retained],
+        )
+
     def test_catalogue_is_ordered_and_public_filter_keeps_the_same_sequence(self) -> None:
         lines = [
             '#EXTM3U x-tvg-url="https://example.invalid/epg.xml"',
