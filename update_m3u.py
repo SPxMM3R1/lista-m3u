@@ -859,7 +859,7 @@ PREFERRED_LOGOS = {
     "RWND": f"{LOCAL_LOGOS_PUBLIC_BASE}/rewind-v2.png",
     "BBC Earth FAST": f"{LOCAL_LOGOS_PUBLIC_BASE}/bbc-earth-2023-i.svg",
     "BBC Earth Polonia": f"{LOCAL_LOGOS_PUBLIC_BASE}/bbc-earth-2023-i.svg",
-    "BBC News": f"{LOCAL_LOGOS_PUBLIC_BASE}/bbc.svg",
+    "BBC News": f"{LOCAL_LOGOS_PUBLIC_BASE}/bbc-news-2022.svg",
     "BBC Travel": f"{LOCAL_LOGOS_PUBLIC_BASE}/bbc.svg",
     "Bloomberg TV US": f"{LOCAL_LOGOS_PUBLIC_BASE}/bloomberg.svg",
     "Bloomberg Originals": f"{LOCAL_LOGOS_PUBLIC_BASE}/bloomberg.svg",
