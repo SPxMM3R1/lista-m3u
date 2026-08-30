@@ -70,7 +70,7 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
   usa las fuentes pequeñas SG1 y NG1 solo para CNA y Africanews,
   respectivamente; no descarga el XML combinado de todos los
   proveedores;
-- incorpora la parrilla XMLTV de PlutoTV para MTV Classic, MTV Biggest Pop,
+- incorpora la parrilla XMLTV de PlutoTV para MTV Biggest Pop,
   MTV Spankin' New y MTV Flow Latino; las tarjetas repetidas de Pluto
   se deduplican antes de construir la EPG;
 - incorpora candidatos de noticias, deportes y música desde los resolutores JSON

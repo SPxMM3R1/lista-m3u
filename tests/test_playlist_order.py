@@ -192,6 +192,7 @@ class PlaylistOrderTests(unittest.TestCase):
         excluded = [
             ("ReutersTV.us", "Reuters"),
             ("Vavoo.nl.STINGRAYDJAZZ@TvVoo", "Stingray DJAZZ Países Bajos"),
+            ("MTVClassic.us", "MTV Classic"),
         ]
         retained = [("StingrayClassica.ca", "Stingray Classica")]
         for tvg_id, name in excluded + retained:
@@ -347,6 +348,40 @@ class PlaylistOrderTests(unittest.TestCase):
         self.assertEqual(
             [channel.name for channel in update_m3u.parse_channels(lines)],
             ["DW Español", "DW English", "BBC News"],
+        )
+
+    def test_nhk_and_arirang_stay_adjacent_in_international_news(self) -> None:
+        lines = [
+            "#EXTM3U",
+            extinf(
+                "NHKWorldJapan.jp",
+                "NHK World Japan",
+                "Noticias internacionales",
+            ),
+            "https://example.invalid/nhk.m3u8",
+            extinf("news-int.channel", "BBC News", "Noticias internacionales"),
+            "https://example.invalid/bbc.m3u8",
+            extinf("ArirangTV.kr", "Arirang TV", "Misceláneos"),
+            "https://example.invalid/arirang.m3u8",
+            extinf(
+                "AlJazeera.qa",
+                "Al Jazeera English",
+                "Noticias internacionales",
+            ),
+            "https://example.invalid/aljazeera.m3u8",
+        ]
+
+        update_m3u.order_channels_by_content(lines)
+
+        ordered = update_m3u.parse_channels(lines)
+        self.assertEqual(
+            [channel.tvg_id for channel in ordered],
+            [
+                "NHKWorldJapan.jp",
+                "ArirangTV.kr",
+                "news-int.channel",
+                "AlJazeera.qa",
+            ],
         )
 
     def test_public_lists_split_by_resolver_without_empty_groups(self) -> None:

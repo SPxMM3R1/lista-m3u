@@ -134,6 +134,7 @@ PERMANENTLY_REMOVED_CHANNEL_IDS = frozenset(
         "ReutersTV.us",
         "StingrayDJAZZ.ca",
         "Vavoo.nl.STINGRAYDJAZZ@TvVoo",
+        "MTVClassic.us",
         "SkySportsF1.uk@Direct",
         "SkySportF1.it@Direct",
         "Vavoo.it.SKYSPORTF1@TvVoo",
@@ -340,7 +341,6 @@ EPG_PROGRAMME_SOURCES = {
     "RealWild.us": ("plex1", "plex.tv.Real.Wild.plex"),
     "XITENuevoLatino.us": ("plex1", "plex.tv.XITE.Nuevo.Latino.plex"),
     "XITESiempreLatino.us": ("plex1", "plex.tv.XITE.Siempre.Latino.plex"),
-    "MTVClassic.us": ("pluto", "66a01dcb8561260008b0a41d"),
     "MTVBiggestPop.us": ("pluto", "6047fabfce6e8e00070bcc9f"),
     "MTVSpankinNew.us": ("pluto", "6541010f770cf1000866be98"),
     "MTVFlowLatino.us": ("pluto", "62b218fc511d4b00070ddc0c"),
@@ -948,7 +948,8 @@ PREFERRED_LOGOS = {
     "RWND": f"{LOCAL_LOGOS_PUBLIC_BASE}/rewind-v2.png",
     "BBC Earth FAST": f"{LOCAL_LOGOS_PUBLIC_BASE}/bbc-earth-2023-i.svg",
     "BBC Earth Polonia": f"{LOCAL_LOGOS_PUBLIC_BASE}/bbc-earth-2023-i.svg",
-    "BBC News": f"{LOCAL_LOGOS_PUBLIC_BASE}/bbc-news-transparent.png",
+    # Variante blanca y transparente de la misma familia visual que BBC Earth.
+    "BBC News": f"{LOCAL_LOGOS_PUBLIC_BASE}/bbc-news-2022.svg",
     "BBC Travel": f"{LOCAL_LOGOS_PUBLIC_BASE}/bbc.svg",
     "Bloomberg TV US": f"{LOCAL_LOGOS_PUBLIC_BASE}/bloomberg.svg",
     "Bloomberg Originals": f"{LOCAL_LOGOS_PUBLIC_BASE}/bloomberg.svg",
@@ -964,7 +965,6 @@ PREFERRED_LOGOS = {
     "Stingray DJAZZ": f"{LOCAL_LOGOS_PUBLIC_BASE}/stingray-djazz.svg",
     "XITE 80s Flashback": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
     "XITE 90s Throwback": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
-    "MTV Classic": f"{LOCAL_LOGOS_PUBLIC_BASE}/mtv-classic.svg",
     "MTV Biggest Pop": f"{LOCAL_LOGOS_PUBLIC_BASE}/mtv-biggest-pop.svg",
     "MTV Spankin' New": f"{LOCAL_LOGOS_PUBLIC_BASE}/mtv-spankin-new.svg",
     "MTV Flow Latino": f"{LOCAL_LOGOS_PUBLIC_BASE}/mtv-flow-latino.svg",
@@ -1088,10 +1088,6 @@ CONTINUOUS_PROGRAMME_DETAILS = {
     "XITE 90s Throwback": (
         "XITE 90s Throwback - videoclips",
         "Programacion musical de XITE; se conserva continuidad si la guia FAST no esta disponible.",
-    ),
-    "MTV Classic": (
-        "MTV Classic - videoclips",
-        "Rotacion continua de videoclips clasicos de MTV; la senal no publica una parrilla XMLTV estable.",
     ),
     "MTV Biggest Pop": (
         "MTV Biggest Pop - videoclips",
@@ -1233,6 +1229,8 @@ POST_NATIONAL_NEWS_CHANNEL_INDEX = {
 }
 DW_CHANNEL_ORDER = ("DW.de", "DWEnglish.de")
 DW_CHANNEL_IDS = frozenset(DW_CHANNEL_ORDER)
+INTERNATIONAL_NEWS_PINNED_ORDER = ("NHKWorldJapan.jp", "ArirangTV.kr")
+INTERNATIONAL_NEWS_PINNED_IDS = frozenset(INTERNATIONAL_NEWS_PINNED_ORDER)
 POST_NATIONAL_NEWS_SECTION = "Despues de noticias nacionales"
 ORDER_SECTION_ORDER = (
     "Nacionales",
@@ -1283,6 +1281,7 @@ INTERNATIONAL_NEWS_CHANNEL_IDS = {
     "CNN.us@TvVoo",
     "EuronewsSpanish.fr",
     "NHKWorldJapan.jp",
+    "ArirangTV.kr",
     "AlJazeera.qa",
     "DWEnglish.de",
     "BBCNews.uk",
@@ -1305,7 +1304,6 @@ MUSIC_CHANNEL_IDS = {
     "M2.ua@SD",
     "QelloConcertsbyStingray.ca",
     "StingrayClassica.ca",
-    "MTVClassic.us",
     "MTVBiggestPop.us",
     "MTVSpankinNew.us",
     "MTVFlowLatino.us",
@@ -1433,11 +1431,6 @@ KNOWN_STREAM_FALLBACKS = {
         "https://jmp2.uk/plu-6047fabfce6e8e00070bcc9f.m3u8",
         "https://jmp2.uk/plu-5d14fd1a252d35decbc4080c.m3u8",
     ],
-    "MTV Classic": [
-        "https://jmp2.uk/plu-66a01dcb8561260008b0a41d.m3u8",
-        "https://jmp2.uk/plu-654100b4bdf3cf0008aa49c7.m3u8",
-        "https://jmp2.uk/plu-66a11a21a79dea0008aa90ca.m3u8",
-    ],
     "MTV Spankin' New": [
         "https://jmp2.uk/plu-6541010f770cf1000866be98.m3u8",
         "https://jmp2.uk/plu-5d14fdb8ca91eedee1633117.m3u8",
@@ -1489,7 +1482,6 @@ SEGMENT_CHECK_CHANNELS = {
     "Stingray DJAZZ",
     "XITE 80s Flashback",
     "XITE 90s Throwback",
-    "MTV Classic",
     "MTV Biggest Pop",
     "MTV Spankin' New",
     "XITE Rock x Metal",
@@ -1878,6 +1870,23 @@ def within_section_order_key(
             )
 
     if section == "Noticias internacionales":
+        international_news_positions = [
+            index
+            for index, item in enumerate(channels)
+            if item.tvg_id in INTERNATIONAL_NEWS_PINNED_IDS
+        ]
+        if (
+            len(international_news_positions)
+            == len(INTERNATIONAL_NEWS_PINNED_ORDER)
+            and channel.tvg_id in INTERNATIONAL_NEWS_PINNED_IDS
+        ):
+            # NHK y Arirang se mantienen como pareja; Arirang queda
+            # inmediatamente despues de NHK aunque el catalogo antiguo los
+            # haya separado con otros canales internacionales.
+            return (
+                min(international_news_positions),
+                INTERNATIONAL_NEWS_PINNED_ORDER.index(channel.tvg_id),
+            )
         dw_positions = [
             index
             for index, item in enumerate(channels)
