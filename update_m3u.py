@@ -46,7 +46,7 @@ PUBLIC_RAW_BASE = "https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main"
 EPG_PUBLIC_URL = f"{PUBLIC_RAW_BASE}/epg.xml"
 LOCAL_LOGOS_PUBLIC_BASE = f"{PUBLIC_RAW_BASE}/logos"
 RESOLVER_SCHEMA_VERSION = 1
-RESOLVER_CATALOG_VERSION = "2026.08.30.3"
+RESOLVER_CATALOG_VERSION = "2026.08.30.4"
 ALLOWED_RESOLVER_ENGINES = {"tvn", "meganoticias", "tvvoo", "highfly"}
 MAIN_PLAYLIST_RESOLVERS = frozenset({"direct", "tvn", "meganoticias"})
 EXTERNAL_PLAYLIST_RESOLVERS = frozenset({"tvvoo", "highfly"})
@@ -745,7 +745,7 @@ TVVOO_STREAM_RESOLVER_IDS.update({
     "BBC Two Reino Unido": ("vavoo_BBC%20TWO%7Cgroup%3Auk",),
     "BBC Four Reino Unido": ("vavoo_BBC%20FOUR%7Cgroup%3Auk",),
     "BBC World News Reino Unido": ("vavoo_BBC%20WORLD%20NEWS%7Cgroup%3Auk",),
-    "Sky Sports F1 Reino Unido": ("vavoo_SKY%20SPORTS%20F1%20FHD%7Cgroup%3Auk", "vavoo_SKY%20SPORTS%20F1%20HD%7Cgroup%3Auk", "vavoo_SKY%20SPORTS%20F1%7Cgroup%3Auk",),
+    "Sky F1 UK": ("vavoo_SKY%20SPORTS%20F1%20FHD%7Cgroup%3Auk", "vavoo_SKY%20SPORTS%20F1%20HD%7Cgroup%3Auk", "vavoo_SKY%20SPORTS%20F1%7Cgroup%3Auk",),
     "TNT Sports 2 Reino Unido": ("vavoo_TNT%20SPORTS%202%20HD%7Cgroup%3Auk", "vavoo_TNT%20SPORTS%202%7Cgroup%3Auk",),
     "4Music Reino Unido": ("vavoo_4MUSIC%7Cgroup%3Auk",),
     "Bloomberg TV Italia": ("vavoo_BLOOMBERG%20TV%7Cgroup%3Ait", "vavoo_BLOOMBERG%20TV%204K%7Cgroup%3Ait",),
@@ -972,6 +972,7 @@ PREFERRED_LOGOS = {
     "MTV Rocks": f"{LOCAL_LOGOS_PUBLIC_BASE}/mtv-rocks.svg",
     "XITE Just Chill": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
     "Sky Sports F1": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-f1-mosca-logopedia.webp",
+    "Sky F1 UK": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-f1-mosca-logopedia.webp",
     "Sky Sports F1 UK (Directo)": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-f1-mosca-logopedia.webp",
     "Sky Sports F1 Italia (Directo)": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-f1-mosca-logopedia.webp",
     "Sky Sports Action UK (Directo)": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports.svg",
@@ -1605,7 +1606,7 @@ SEGMENT_CHECK_CHANNELS.update({
     "BBC Four Reino Unido",
     "BBC Two Reino Unido",
     "BBC World News Reino Unido",
-    "Sky Sports F1 Reino Unido",
+    "Sky F1 UK",
     "TNT Sports 2 Reino Unido",
 })
 SEGMENT_CHECK_CHANNELS = {
