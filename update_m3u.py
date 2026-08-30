@@ -29,6 +29,14 @@ from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 DEFAULT_PLAYLIST = Path(__file__).with_name("m3u.m3u")
 EXTERNAL_PLAYLIST = Path(__file__).with_name("m3u-externa.m3u")
+# Alias oficiales de una sola letra para reproductores con límite de longitud.
+# Son copias generadas de las salidas canónicas, no un acortador externo.
+SHORT_DIRECT_PLAYLIST = Path(__file__).with_name("1.m3u")
+SHORT_EXTERNAL_PLAYLIST = Path(__file__).with_name("2.m3u")
+SHORT_PLAYLIST_ALIASES = (
+    (DEFAULT_PLAYLIST, SHORT_DIRECT_PLAYLIST),
+    (EXTERNAL_PLAYLIST, SHORT_EXTERNAL_PLAYLIST),
+)
 CHANNEL_CATALOG_PATH = Path(__file__).with_name("channel-catalog.m3u")
 EPG_PATH = Path(__file__).with_name("epg.xml")
 REPORT_PATH = Path(__file__).with_name("channel-status.json")
@@ -6745,6 +6753,31 @@ def verify_published_copy(
     return False
 
 
+def sync_short_playlist_aliases() -> list[Path]:
+    """Keep the official one-character playlist aliases byte-for-byte current."""
+    changed: list[Path] = []
+    for canonical, alias in SHORT_PLAYLIST_ALIASES:
+        if not canonical.is_file():
+            raise RuntimeError(f"falta la lista canonica para el alias: {canonical.name}")
+        content = canonical.read_bytes()
+        if alias.is_file() and alias.read_bytes() == content:
+            continue
+        temporary = alias.with_name(f".{alias.name}.tmp")
+        try:
+            temporary.write_bytes(content)
+            temporary.replace(alias)
+        finally:
+            if temporary.exists():
+                temporary.unlink()
+        changed.append(alias)
+    if changed:
+        print(
+            "Alias cortos oficiales sincronizados: "
+            + ", ".join(path.name for path in changed)
+        )
+    return changed
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--playlist", type=Path, default=DEFAULT_PLAYLIST)
@@ -7100,6 +7133,7 @@ def main() -> int:
             + str(external_publication.get("hold_reason", "validacion incompleta")),
             file=sys.stderr,
         )
+    sync_short_playlist_aliases()
     failed = [entry["name"] for entry in report["blocking_failures"]]
     direct_failed = [entry["name"] for entry in report["direct_failures"]]
     degraded = [entry["name"] for entry in report["degraded_channels"]]

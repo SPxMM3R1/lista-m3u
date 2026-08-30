@@ -26,6 +26,8 @@ RESOLVER_CATALOG_PATH = PROJECT_ROOT / "resolver-catalog.json"
 OUTPUT_PATHS = (
     PROJECT_ROOT / "m3u.m3u",
     PROJECT_ROOT / "m3u-externa.m3u",
+    PROJECT_ROOT / "1.m3u",
+    PROJECT_ROOT / "2.m3u",
     PROJECT_ROOT / "channel-catalog.m3u",
     RESOLVER_CATALOG_PATH,
     PROJECT_ROOT / "run-state.json",

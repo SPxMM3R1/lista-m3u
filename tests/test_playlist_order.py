@@ -16,6 +16,12 @@ def extinf(tvg_id: str, name: str, group: str = "legacy") -> str:
 
 
 class PlaylistOrderTests(unittest.TestCase):
+    def test_official_short_aliases_match_canonical_playlists(self) -> None:
+        for canonical, alias in update_m3u.SHORT_PLAYLIST_ALIASES:
+            self.assertTrue(canonical.is_file(), canonical)
+            self.assertTrue(alias.is_file(), alias)
+            self.assertEqual(alias.read_bytes(), canonical.read_bytes())
+
     def test_dynamic_validation_cache_is_short_lived_and_url_bound(self) -> None:
         channel = update_m3u.Channel(
             name="ESPN",

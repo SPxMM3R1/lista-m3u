@@ -140,6 +140,8 @@ try {
     $allowedPaths = @(
         'm3u.m3u',
         'channel-catalog.m3u',
+        '1.m3u',
+        '2.m3u',
         'resolver-catalog.json',
         'channel-health-state.json',
         'run-state.json'
@@ -154,6 +156,8 @@ try {
         '--',
         'm3u.m3u',
         'channel-catalog.m3u',
+        '1.m3u',
+        '2.m3u',
         'resolver-catalog.json',
         'channel-health-state.json',
         'run-state.json'
@@ -170,6 +174,8 @@ try {
 
     $rawBase = 'https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main'
     Invoke-LoggedNative -Executable $pythonPath -Arguments @((Join-Path $projectRoot 'update_m3u.py'), '--verify-published', "$rawBase/m3u.m3u") -Description 'La verificacion Raw de M3U'
+    Invoke-LoggedNative -Executable $pythonPath -Arguments @((Join-Path $projectRoot 'update_m3u.py'), '--verify-published', "$rawBase/1.m3u", '--playlist', '1.m3u') -Description 'La verificacion Raw del alias 1.m3u'
+    Invoke-LoggedNative -Executable $pythonPath -Arguments @((Join-Path $projectRoot 'update_m3u.py'), '--verify-published', "$rawBase/2.m3u", '--playlist', '2.m3u') -Description 'La verificacion Raw del alias 2.m3u'
     Add-Content -LiteralPath $logPath -Value "[$(Get-Date -Format o)] Publicacion local verificada."
     Register-NextLocalRun
 } catch {

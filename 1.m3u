@@ -1,0 +1,112 @@
+#EXTM3U x-tvg-url="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/epg.xml"
+
+# Nacionales
+#EXTINF:-1 tvg-id="0104" tvg-name="TVN" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvn.png" group-title="Nacionales" x-resolver="tvn" x-resolver-refresh="on_play",TVN
+https://iptv2.intersurtv.cl/TVN/index.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-id="0105" tvg-name="Mega" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/mega.png" group-title="Nacionales",Mega
+https://tr.live.clarovtrcdn.vtrplay.com/megahdchi/vxfmt=dp/playlist.m3u8?device_profile=STB_HLS_VCAS_LIVE_HD
+#EXTINF:-1 tvg-id="0106" tvg-name="CHV" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/chv.png" group-title="Nacionales",CHV
+https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/chv/chv.smil/playlist.m3u8
+#EXTINF:-1 tvg-id="0107" tvg-name="Canal 13" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/canal13.png" group-title="Nacionales",Canal 13
+https://redirector.dps.live/hls/13cl/playlist.m3u8
+#EXTINF:-1 tvg-id="0102" tvg-name="La Red" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/la-red.png" group-title="Nacionales",La Red
+https://tv-mgmt.gtd.cl/bpk-tv/LARED/default/index.m3u8
+#EXTINF:-1 tvg-id="13Kids.cl" tvg-name="13 Go" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/13go.svg" tvg-country="CL" group-title="Nacionales",13 Go
+https://origin.dpsgo.com/ssai/event/LhHrVtyeQkKZ-Ye_xEU75g/master.m3u8
+
+# Noticias nacionales
+#EXTINF:-1 tvg-id="0201" tvg-name="24 Horas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/24-horas.svg" group-title="Noticias nacionales",24 Horas
+https://mdstrm.com/live-stream-playlist/57d1a22064f5d85712b20dab.m3u8
+#EXTINF:-1 tvg-id="Meganoticias.cl" tvg-name="Meganoticias" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/meganoticias.png" group-title="Noticias nacionales" x-resolver="meganoticias" x-resolver-refresh="on_play",Meganoticias
+https://mdstrm.com/live-stream-playlist/561430ae330428c223687e1e.m3u8
+#EXTINF:-1 tvg-id="1153" tvg-name="CHV Noticias" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/chv-noticias.svg" group-title="Noticias nacionales",CHV Noticias
+https://redirector.rudo.video/hls-video/339f69c6122f6d8f4574732c235f09b7683e31a5/chvn/chvn.smil/playlist.m3u8
+#EXTINF:-1 tvg-id="0124" tvg-name="T13" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/t13.svg" group-title="Noticias nacionales",T13
+https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/t13/t13.smil/playlist.m3u8
+
+#EXTINF:-1 tvg-id="45" tvg-name="NTV" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/ntv.svg" group-title="Misceláneos",NTV
+https://mdstrm.com/live-stream-playlist/5aaabe9e2c56420918184c6d.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-id="RewindTV.cl@SD" tvg-name="RWND" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/rewind-v2.png" group-title="Misceláneos",RWND
+https://tls-cl.cdnz.cl/rewindtv/live/playlist.m3u8
+
+# Noticias internacionales
+#EXTINF:-1 tvg-id="TVChile.cl" tvg-name="TV Chile" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvchilecl.png" tvg-country="CL" group-title="Noticias internacionales",TV Chile
+https://mdstrm.com/live-stream-playlist/533adcc949386ce765657d7c.m3u8
+#EXTINF:-1 tvg-id="DW.de" tvg-name="DW Español" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/dw.svg" group-title="Noticias internacionales",DW Español
+https://dwamdstream104.akamaized.net/hls/live/2015530/dwstream104/master.m3u8
+#EXTINF:-1 tvg-id="DWEnglish.de" tvg-name="DW English" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/dw.svg" tvg-country="DE" group-title="Noticias internacionales",DW English
+https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/master.m3u8
+#EXTINF:-1 tvg-id="France24.fr" tvg-name="France 24 Español" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/france24.svg" group-title="Noticias internacionales",France 24 Español
+https://live.france24.com/hls/live/2037220/F24_ES_HI_HLS/master_5000.m3u8
+#EXTINF:-1 tvg-id="France24.fr@English" tvg-name="France 24 English" tvg-country="FR" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/france24.svg" group-title="Noticias internacionales",France 24 English
+https://live.france24.com/hls/live/2037218/F24_EN_HI_HLS/master_5000.m3u8
+#EXTINF:-1 tvg-id="ReutersTV.us" tvg-name="Reuters" tvg-country="GB" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/reuters.png" group-title="Noticias internacionales",Reuters
+https://amg00453-reuters-amg00453c1-rakuten-uk-2110.playouts.now.amagi.tv/playlist/amg00453-reuters-reuters-rakutenuk/playlist.m3u8
+#EXTINF:-1 tvg-id="EuronewsSpanish.fr" tvg-name="Euronews Español" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/euronews-espanol.png" group-title="Noticias internacionales",Euronews Español
+https://cdn-euronews.akamaized.net/live/eds/euronews-es/25053/index.m3u8
+#EXTINF:-1 tvg-id="NHKWorldJapan.jp" tvg-name="NHK World Japan" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/nhk-world.svg" group-title="Noticias internacionales",NHK World Japan
+https://masterpl.hls.nhkworld.jp/hls/w/live/smarttv.m3u8
+#EXTINF:-1 tvg-id="AlJazeera.qa" tvg-name="Al Jazeera English" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/aljazeera.svg?v=2" group-title="Noticias internacionales",Al Jazeera English
+https://live-hls-apps-aje-v3-fa.getaj.net/AJE/index.m3u8
+#EXTINF:-1 tvg-id="BBCNews.uk" tvg-name="BBC News" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/bbc-news-2022.svg" tvg-country="GB" group-title="Noticias internacionales",BBC News
+https://vs-hls-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_channel_hd/mobile_wifi_main_hd_abr_v2.m3u8
+
+# Deportes
+#EXTINF:-1 tvg-id="1763" tvg-name="CHV Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/chv-deportes.svg" group-title="Deportes",CHV Deportes
+https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/chvdeportes/chvdeportes.smil/playlist.m3u8
+#EXTINF:-1 tvg-id="SkySportsF1.uk" tvg-name="Sky Sports F1" tvg-country="GB" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/sky-sports-f1-mosca-logopedia.png" x-resolver="highfly" x-resolver-id="now-sky-sports-f1-free" x-resolver-manifest="https://sports.highfly.dev/eyJvbmx5TGl2ZSI6dHJ1ZX0/manifest.json" x-resolver-refresh="on_play",Sky Sports F1
+https://leaf.highfly.dev/m3u/now-sky-sports-f1-free/live.m3u8
+#EXTINF:-1 tvg-id="SkySportsTennis.uk" tvg-name="Sky Sports Tennis" tvg-country="GB" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/sky-sports-tennis-hd-logopedia.svg" x-resolver="tvvoo" x-resolver-endpoint="https://tvvoo.hayd.uk/stream/tv" x-resolver-ids="vavoo_SKY%20SPORTS%20TENNIS%7Cgroup%3Auk" x-resolver-refresh="on_play",Sky Sports Tennis
+http://qmaalhy7acgxwhm.ngolpdkyoctjcddxshli469r.org/sunshine/7BKOLczXtBPMvuZA4ZgaTJx5R5He4WYWE8dynXnOQwHNDT4rV9tQhRpXXutjx2c4mOAN4o9HPXfOSNt-UDh2A4qqJfBR-inHgbl567S09Fw_JyF_ZQEVcvhCfR89-x99EyaBSEWfsajrdrnk5Ngos_QydH2aW4K83ehTKseAD0BBiQth3GjOtgdVwWXUWpq4OX572iFQUXMFJB_-_YC9IDxKmVONFozj1PwGXOJox6oVYjPaNI1_jNCkfwfD9VRiZ7vsjgTXA8wg1t5OqDr3aT0AmJZ-Cpp3ygff3R8mlYt2iytvTsROnrvI5Z2LzaL0T0vwmAMFNHtAW26ON2Xm5Q/hls/index.m3u8
+#EXTINF:-1 tvg-id="TyCSports.ar" tvg-name="TyC Sports" tvg-country="AR" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tyc-sports.png" group-title="Deportes",TyC Sports
+https://amg26268-amg26268c14-freelivesports-emea-10267.playouts.now.amagi.tv/ts-us-e2-n2/playlist/amg26268-sportsstudio-tycsports-freelivesportsemea/playlist.m3u8
+
+# Música
+#EXTINF:-1 tvg-id="XITEHits.nl@Germany" tvg-name="XITE Hits" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/xite.svg" group-title="Música",XITE Hits
+https://d726x48n2pd5h.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-skxr1pazhltvp/XITE_Hits.m3u8
+#EXTINF:-1 tvg-id="XITENuevoLatino.us" tvg-name="XITE Nuevo Latino" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/xite.svg" tvg-country="NL" group-title="Música",XITE Nuevo Latino
+https://d3bsgqzbpkrvbb.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-w288eaw03izg1/XITE_Nuevo_Latino.m3u8
+#EXTINF:-1 tvg-id="XITESiempreLatino.us" tvg-name="XITE Siempre Latino" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/xite.svg" tvg-country="NL" group-title="Música",XITE Siempre Latino
+https://d1xc25jm9e0l4b.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-xplkt8i7m24dc/XITE_Siempre_Latino.m3u8
+#EXTINF:-1 tvg-id="XITE80sFlashback.us" tvg-name="XITE 80s Flashback" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/xite.svg" group-title="Música",XITE 80s Flashback
+https://d1n314cytqn9r3.cloudfront.net/XITE_80s_Flashback.m3u8
+#EXTINF:-1 tvg-id="XITE90sThrowback.us" tvg-name="XITE 90s Throwback" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/xite.svg" group-title="Música",XITE 90s Throwback
+https://d284aawtm5vi48.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-fjdfi2br1jtq7/XITE_90s_Throwback.m3u8
+#EXTINF:-1 tvg-id="XITERockxMetal.nl" tvg-name="XITE Rock x Metal" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/xite.svg" tvg-country="NL" group-title="Música",XITE Rock x Metal
+https://d198ro05q94rc4.cloudfront.net/XITE_Rock_On.m3u8
+#EXTINF:-1 tvg-id="XITEJustChill.nl" tvg-name="XITE Just Chill" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/xite.svg" tvg-country="NL" group-title="Música",XITE Just Chill
+https://dvnftgdlbnemm.cloudfront.net/XITE_Just_Chill.m3u8
+#EXTINF:-1 tvg-id="M1.ua@SD" tvg-name="M1" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/m1.png" group-title="Música",M1
+http://stream.mcquack.net/218/index.m3u8
+#EXTINF:-1 tvg-id="M2.ua@SD" tvg-name="M2" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/m2.png" group-title="Música",M2
+http://stream.mcquack.net/330/index.m3u8
+#EXTINF:-1 tvg-id="QelloConcertsbyStingray.ca" tvg-name="Qello Concerts by Stingray" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/qello-concerts.jpg" tvg-country="CA" group-title="Música",Qello Concerts by Stingray
+https://lotus.stingray.com/manifest/qello-qello001-montreal/samsungtvplus/master.m3u8
+#EXTINF:-1 tvg-id="StingrayClassica.ca" tvg-name="Stingray Classica" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/stingray-classica-official.svg" tvg-country="CA" group-title="Música",Stingray Classica
+https://lotus.stingray.com/manifest/classica-cla008-montreal/samsungtvplus/master.m3u8
+#EXTINF:-1 tvg-id="MTVClassic.us" tvg-name="MTV Classic" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/mtv-classic.svg" tvg-country="US" group-title="Música",MTV Classic
+https://jmp2.uk/plu-66a01dcb8561260008b0a41d.m3u8
+#EXTINF:-1 tvg-id="MTVBiggestPop.us" tvg-name="MTV Biggest Pop" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/mtv-biggest-pop.svg" tvg-country="US" group-title="Música",MTV Biggest Pop
+https://jmp2.uk/plu-6047fabfce6e8e00070bcc9f.m3u8
+#EXTINF:-1 tvg-id="MTVSpankinNew.us" tvg-name="MTV Spankin' New" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/mtv-spankin-new.svg" tvg-country="US" group-title="Música",MTV Spankin' New
+https://jmp2.uk/plu-6541010f770cf1000866be98.m3u8
+#EXTINF:-1 tvg-id="MTVFlowLatino.us" tvg-name="MTV Flow Latino" tvg-country="US" group-title="Música" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/mtv-flow-latino.svg",MTV Flow Latino
+https://jmp2.uk/plu-62b218fc511d4b00070ddc0c.m3u8
+
+# Misceláneos
+#EXTINF:-1 tvg-id="1437" tvg-name="TVN3" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvn3.svg" group-title="Misceláneos",TVN3
+https://mdstrm.com/live-stream-playlist/5653641561b4eba30a7e4929.m3u8?PlaylistM3UCL
+#EXTINF:-1 tvg-id="13Cultura.cl@DPS" tvg-name="13 Cultura" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/13cultura.svg" tvg-country="CL" group-title="Misceláneos",13 Cultura
+https://origin.dpsgo.com/ssai/event/GI-9cp_bT8KcerLpZwkuhw/master.m3u8
+#EXTINF:-1 tvg-id="ArirangTV.kr" tvg-name="Arirang TV" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/arirang.png" group-title="Misceláneos",Arirang TV
+http://amdlive-ch01.ctnd.com.edgesuite.net/arirang_1ch/smil:arirang_1ch.smil/playlist.m3u8
+#EXTINF:-1 tvg-id="RedBullWorldEnglish.int" tvg-name="RedBull TV World" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/red-bull-tv.png" tvg-country="AT" group-title="Misceláneos",RedBull TV World
+https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master.m3u8
+#EXTINF:-1 tvg-id="RedBullChileEspanol.cl" tvg-name="RedBull TV Español" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/red-bull-tv.png" tvg-country="CL" group-title="Misceláneos",RedBull TV Español
+https://freqsyndlin.redbull.com/957/rbtv/hls/master/playlist.m3u8
+#EXTINF:-1 tvg-id="AutenticHistory.de" tvg-name="Autentic History" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/autentic-history.svg" tvg-country="DE" group-title="Misceláneos",Autentic History
+https://9e754fa707344ccca6d84955c8fcaf36.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/RlaxxTV-eu_AutenticHistory/playlist.m3u8
+#EXTINF:-1 tvg-id="BBCEarth.uk" tvg-name="BBC Earth FAST" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/bbc-earth-2023-i.svg" tvg-country="GB" group-title="Misceláneos",BBC Earth FAST
+https://amg00793-amg00793c6-xumo-us-2669.playouts.now.amagi.tv/BBCStudios-BBCEarthA-hls/playlist.m3u8
+#EXTINF:-1 tvg-id="RealWild.us" tvg-name="Real Wild" tvg-country="US" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/real-wild.png" group-title="Misceláneos",Real Wild
+https://lds-realwild-vizio.amagi.tv/playlist.m3u8

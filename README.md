@@ -15,6 +15,16 @@ Lista M3U externa (TvVoo/Vavoo y el resto de Highfly):
 
 `https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/m3u-externa.m3u`
 
+Alias cortos oficiales para el reproductor (sin acortador externo):
+
+- Principal: `https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/1.m3u`
+- Externa: `https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/2.m3u`
+
+`1.m3u` y `2.m3u` son copias sincronizadas automáticamente de las dos listas
+canónicas. Al estar dentro del repositorio público, usan HTTPS y no tienen un
+TTL de acortador; seguirán disponibles mientras se conserve este repositorio y
+su rama `main`.
+
 Guia de programacion XMLTV:
 
 `https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/epg.xml`
