@@ -46,7 +46,7 @@ PUBLIC_RAW_BASE = "https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main"
 EPG_PUBLIC_URL = f"{PUBLIC_RAW_BASE}/epg.xml"
 LOCAL_LOGOS_PUBLIC_BASE = f"{PUBLIC_RAW_BASE}/logos"
 RESOLVER_SCHEMA_VERSION = 1
-RESOLVER_CATALOG_VERSION = "2026.08.30.1"
+RESOLVER_CATALOG_VERSION = "2026.08.30.2"
 ALLOWED_RESOLVER_ENGINES = {"tvn", "meganoticias", "tvvoo", "highfly"}
 MAIN_PLAYLIST_RESOLVERS = frozenset({"direct", "tvn", "meganoticias"})
 EXTERNAL_PLAYLIST_RESOLVERS = frozenset({"tvvoo", "highfly"})
@@ -134,6 +134,8 @@ PERMANENTLY_REMOVED_CHANNEL_NAME_PATTERNS = (
     re.compile(r"\btrt\b", re.IGNORECASE),
     re.compile(r"\bdazn\s+fast\b", re.IGNORECASE),
     re.compile(r"\brmc\b", re.IGNORECASE),
+    re.compile(r"\breuters\b", re.IGNORECASE),
+    re.compile(r"\bstingray\s+(?:d)?jazz\b", re.IGNORECASE),
     re.compile(r"\bturqu(?:ía|ia)\b", re.IGNORECASE),
     re.compile(r"\bbalcanes\b", re.IGNORECASE),
 )
@@ -146,6 +148,9 @@ PERMANENTLY_REMOVED_CHANNEL_IDS = frozenset(
         "Vavoo.tr.TRTWORLD@TvVoo",
         "DAZNFastPlus.de@TvVoo",
         "Vavoo.fr.RMCSPORT3@TvVoo",
+        "ReutersTV.us",
+        "StingrayDJAZZ.ca",
+        "Vavoo.nl.STINGRAYDJAZZ@TvVoo",
         "Vavoo.tr.EUROSPORT1@TvVoo",
         "Vavoo.tr.BEINSPORTS1@TvVoo",
         "Vavoo.tr.NBATV@TvVoo",

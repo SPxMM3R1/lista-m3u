@@ -246,11 +246,11 @@ Para diagnosticar una fuente sin alterar el historial de salud ni renovar URLs
 HLS, se usa el workflow independiente **Actualizar EPG**. Las ventanas de
 canales y EPG no ejecutan el proceso contrario.
 
-Se reincorporaron provisionalmente cinco canales que habian desaparecido sin
-una instruccion de borrado: CHV Deportes, 13 Cultura, 13 Go (antes 13 Kids), Autentic History y
-Reuters. Sus maestros HLS entregaron playlist y primer segmento multimedia
-durante la verificacion; si no hay fuente real, el actualizador conserva una
-marca de `continuidad tecnica` para no dejar el canal sin bloque EPG. 13C permanece en la lista como canal
+Se reincorporaron provisionalmente cuatro canales que habian desaparecido sin
+una instruccion de borrado: CHV Deportes, 13 Cultura, 13 Go (antes 13 Kids) y Autentic History.
+Sus maestros HLS entregaron playlist y primer segmento multimedia durante la
+verificacion; si no hay fuente real, el actualizador conserva una marca de
+`continuidad tecnica` para no dejar el canal sin bloque EPG. 13C permanece en la lista como canal
 distinto y conserva la parrilla oficial de `https://www.13.cl/c/programacion`;
 no se reutiliza esa guia para 13 Cultura.
 
