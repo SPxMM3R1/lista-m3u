@@ -217,6 +217,58 @@ class PlaylistOrderTests(unittest.TestCase):
         self.assertIn('x-resolver="highfly"', info_line)
         self.assertIn('x-resolver-id="us-espn-hd"', info_line)
 
+    def test_selected_misc_channels_follow_national_news(self) -> None:
+        lines = [
+            "#EXTM3U",
+            extinf("RewindTV.cl@SD", "RWND", "Misceláneos"),
+            "https://example.invalid/rewind.m3u8",
+            extinf("news-int.channel", "BBC News", "Noticias internacionales"),
+            "https://example.invalid/news.m3u8",
+            extinf("13C.cl@SD", "13C", "Misceláneos"),
+            "https://example.invalid/13c.m3u8",
+            extinf("45", "NTV", "Misceláneos"),
+            "https://example.invalid/ntv.m3u8",
+            extinf("0201", "24 Horas", "Noticias nacionales"),
+            "https://example.invalid/24horas.m3u8",
+        ]
+
+        update_m3u.order_channels_by_content(lines)
+
+        channels = update_m3u.parse_channels(lines)
+        self.assertEqual(
+            [channel.name for channel in channels],
+            ["24 Horas", "NTV", "13C", "RWND", "BBC News"],
+        )
+        self.assertEqual(
+            [channel.group for channel in channels],
+            [
+                "Noticias nacionales",
+                "Misceláneos",
+                "Misceláneos",
+                "Misceláneos",
+                "Noticias internacionales",
+            ],
+        )
+        self.assertIn("# Despues de noticias nacionales", lines)
+
+    def test_dw_channels_stay_adjacent_in_international_news(self) -> None:
+        lines = [
+            "#EXTM3U",
+            extinf("DWEnglish.de", "DW English", "Noticias internacionales"),
+            "https://example.invalid/dw-en.m3u8",
+            extinf("news-int.channel", "BBC News", "Noticias internacionales"),
+            "https://example.invalid/bbc.m3u8",
+            extinf("DW.de", "DW Español", "Noticias internacionales"),
+            "https://example.invalid/dw-es.m3u8",
+        ]
+
+        update_m3u.order_channels_by_content(lines)
+
+        self.assertEqual(
+            [channel.name for channel in update_m3u.parse_channels(lines)],
+            ["DW Español", "DW English", "BBC News"],
+        )
+
     def test_public_lists_split_by_resolver_without_empty_groups(self) -> None:
         lines = [
             "#EXTM3U",

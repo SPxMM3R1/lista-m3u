@@ -158,8 +158,47 @@ class TvnEpgTests(unittest.TestCase):
         self.assertEqual(entry.get("data-guide-source"), "continuidad-tecnica")
         programmes = root.findall("./programme[@channel='unknown.channel']")
         self.assertGreater(len(programmes), 0)
-        self.assertIn("programacion no disponible", programmes[0].findtext("title"))
+        self.assertEqual(
+            {item.findtext("title") for item in programmes},
+            {"Live"},
+        )
+        self.assertTrue(all(item.get("start", "")[8:14] == "000000" for item in programmes))
+        self.assertTrue(all(item.get("stop", "")[8:14] == "235900" for item in programmes))
+        self.assertFalse(any(item.find("desc") is not None for item in programmes))
         self.assertEqual(status["programmes"], len(programmes))
+
+    def test_13kids_uses_diego_y_glot_for_real_and_continuity_blocks(self) -> None:
+        now = datetime(2026, 8, 28, 18, tzinfo=timezone.utc)
+        source = b"""<?xml version="1.0" encoding="UTF-8"?>
+<tv>
+  <channel id="13kids"><display-name>13 Kids</display-name></channel>
+  <programme start="20260828170000 +0000" stop="20260828190000 +0000" channel="13kids">
+    <title lang="es">Programa que no debe mostrarse</title>
+    <sub-title lang="es">Episodio temporal</sub-title>
+  </programme>
+</tv>
+"""
+
+        output, status = update_m3u.build_epg(
+            {update_m3u.CANAL13_13GO_EPG_SOURCE: source},
+            [channel("13 Kids", "13Kids.cl")],
+            {},
+            now=now,
+        )
+
+        root = ET.fromstring(output)
+        channel_element = root.find("./channel[@id='13Kids.cl']")
+        self.assertEqual(
+            channel_element.get("data-guide"),
+            "parrilla Diego y Glot + continuidad",
+        )
+        programmes = root.findall("./programme[@channel='13Kids.cl']")
+        self.assertGreater(len(programmes), 1)
+        self.assertEqual(
+            {item.findtext("title") for item in programmes}, {"Diego y Glot"}
+        )
+        self.assertFalse(any(item.find("sub-title") is not None for item in programmes))
+        self.assertEqual(status["programmes"], len(root.findall("programme")))
 
     def test_official_tvn_json_never_populates_tvn3(self) -> None:
         now = datetime(2026, 8, 28, 12, tzinfo=timezone.utc)

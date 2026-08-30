@@ -88,10 +88,6 @@ NO_EPG_CHANNEL_IDS = {
     # identifique exactamente la senal. Se publican sin inventar continuidad.
     "1763",
     "ReutersTV.us",
-    "Totalmusic80s.uk",
-    "Totalmusic2000s.uk",
-    "TotalmusicConcerts.uk",
-    "TotalmusicDance.uk",
     "Eurosport2.uk@TvVoo",
     "DAZNLigue1Live1.fr@TvVoo",
     "DAZNLigue1Live2.fr@TvVoo",
@@ -889,10 +885,6 @@ PREFERRED_LOGOS = {
     "Premier Sports 2": f"{LOCAL_LOGOS_PUBLIC_BASE}/premier-sports-2.png",
     "Sky Sport 1 NZ": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sport-1-nz.png",
     "Sky Sports Tennis": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-tennis.png",
-    "Totalmusic 80s": f"{LOCAL_LOGOS_PUBLIC_BASE}/totalmusic-80s.png",
-    "Totalmusic 2000s": f"{LOCAL_LOGOS_PUBLIC_BASE}/totalmusic-2000s.png",
-    "Totalmusic Concerts": f"{LOCAL_LOGOS_PUBLIC_BASE}/totalmusic-concerts.png",
-    "Totalmusic Dance": f"{LOCAL_LOGOS_PUBLIC_BASE}/totalmusic-dance.png",
     "Reuters": f"{LOCAL_LOGOS_PUBLIC_BASE}/reuters.png",
     "Real Wild": f"{LOCAL_LOGOS_PUBLIC_BASE}/real-wild.png",
     "TyC Sports": f"{LOCAL_LOGOS_PUBLIC_BASE}/tyc-sports.png",
@@ -1043,22 +1035,6 @@ CONTINUOUS_PROGRAMME_DETAILS = {
         "MTV Flow Latino - videoclips",
         "Rotacion continua de videoclips latinos de MTV; no publica una parrilla horaria XMLTV estable.",
     ),
-    "Totalmusic 80s": (
-        "Totalmusic 80s - videoclips",
-        "Rotacion continua de videoclips de los 80; no publica una parrilla horaria XMLTV estable.",
-    ),
-    "Totalmusic 2000s": (
-        "Totalmusic 2000s - videoclips",
-        "Rotacion continua de videoclips de los 2000; no publica una parrilla horaria XMLTV estable.",
-    ),
-    "Totalmusic Concerts": (
-        "Totalmusic Concerts - concierto",
-        "Rotacion continua de conciertos y presentaciones musicales; no publica una parrilla horaria XMLTV estable.",
-    ),
-    "Totalmusic Dance": (
-        "Totalmusic Dance - videoclips",
-        "Rotacion continua de musica dance; no publica una parrilla horaria XMLTV estable.",
-    ),
     "Reuters": (
         "Reuters en vivo",
         "Senal informativa continua de Reuters; no publica una parrilla horaria XMLTV estable.",
@@ -1072,8 +1048,8 @@ CONTINUOUS_PROGRAMME_DETAILS = {
         "",
     ),
     "13 Kids": (
-        "Live",
-        "",
+        "Diego y Glot",
+        "Continuidad de Diego y Glot para cubrir toda la ventana visible de 13 Kids.",
     ),
     "Autentic History": (
         "Live",
@@ -1112,6 +1088,9 @@ CONTINUOUS_PROGRAMME_DETAILS = {
         "Senal deportiva continua; TvVoo no publica una parrilla XMLTV estable para esta senal.",
     ),
 }
+FORCED_EPG_TITLES = {
+    "13Kids.cl": "Diego y Glot",
+}
 NEWS_CHANNEL_ORDER = ("24 Horas", "Meganoticias", "CHV Noticias", "T13")
 CONTENT_CATEGORY_ORDER = (
     "Nacionales",
@@ -1123,6 +1102,48 @@ CONTENT_CATEGORY_ORDER = (
 )
 CONTENT_CATEGORY_INDEX = {
     category: index for index, category in enumerate(CONTENT_CATEGORY_ORDER)
+}
+
+# Estas tres senales siguen siendo "Miscelaneos" por contenido, pero el
+# usuario las quiere inmediatamente despues del bloque de noticias nacionales.
+# Se separa el orden visual de la categoria para no falsear su group-title.
+POST_NATIONAL_NEWS_CHANNEL_IDS = {
+    "45",  # NTV
+    "13C.cl@SD",
+    "RewindTV.cl@SD",
+}
+POST_NATIONAL_NEWS_CHANNEL_ORDER = (
+    "45",
+    "13C.cl@SD",
+    "RewindTV.cl@SD",
+)
+POST_NATIONAL_NEWS_CHANNEL_INDEX = {
+    channel_id: index
+    for index, channel_id in enumerate(POST_NATIONAL_NEWS_CHANNEL_ORDER)
+}
+DW_CHANNEL_ORDER = ("DW.de", "DWEnglish.de")
+DW_CHANNEL_IDS = frozenset(DW_CHANNEL_ORDER)
+POST_NATIONAL_NEWS_SECTION = "Despues de noticias nacionales"
+ORDER_SECTION_ORDER = (
+    "Nacionales",
+    "Noticias nacionales",
+    POST_NATIONAL_NEWS_SECTION,
+    "Noticias internacionales",
+    "Deportes",
+    "Música",
+    "Misceláneos",
+)
+ORDER_SECTION_INDEX = {
+    section: index for index, section in enumerate(ORDER_SECTION_ORDER)
+}
+ORDER_SECTION_GROUPS = {
+    "Nacionales": "Nacionales",
+    "Noticias nacionales": "Noticias nacionales",
+    POST_NATIONAL_NEWS_SECTION: "Misceláneos",
+    "Noticias internacionales": "Noticias internacionales",
+    "Deportes": "Deportes",
+    "Música": "Música",
+    "Misceláneos": "Misceláneos",
 }
 
 # La clasificación se hace por ``tvg-id`` o por reglas acotadas de contenido,
@@ -1173,10 +1194,6 @@ MUSIC_CHANNEL_IDS = {
     "M2.ua@SD",
     "QelloConcertsbyStingray.ca",
     "StingrayClassica.ca",
-    "Totalmusic80s.uk",
-    "Totalmusic2000s.uk",
-    "TotalmusicConcerts.uk",
-    "TotalmusicDance.uk",
     "MTVClassic.us",
     "MTVBiggestPop.us",
     "MTVSpankinNew.us",
@@ -1203,7 +1220,7 @@ SPORTS_NAME_PATTERN = re.compile(
 )
 MUSIC_NAME_PATTERN = re.compile(
     r"(?:\bxite\b|\bmtv\b|\bmusic\b|\bmusica\b|\bqello\b|\bstingray\b|"
-    r"\btotalmusic\b|\btrace\b|\bnrj\b|\bmcm\b|\bmezzo\b|\b4music\b|"
+    r"\btrace\b|\bnrj\b|\bmcm\b|\bmezzo\b|\b4music\b|"
     r"\bconcerts?\b|\biconcerts\b)",
     re.IGNORECASE,
 )
@@ -1358,10 +1375,6 @@ SEGMENT_CHECK_CHANNELS = {
     "Africanews English",
     "Qello Concerts by Stingray",
     "Stingray Classica",
-    "Totalmusic 80s",
-    "Totalmusic 2000s",
-    "Totalmusic Concerts",
-    "Totalmusic Dance",
     "Stingray DJAZZ",
     "XITE 80s Flashback",
     "XITE 90s Throwback",
@@ -1669,6 +1682,41 @@ def with_content_category(line: str, category: str) -> str:
     return f"{metadata},{display_name}"
 
 
+def order_section_for(channel: Channel) -> str:
+    if channel.tvg_id in POST_NATIONAL_NEWS_CHANNEL_IDS:
+        return POST_NATIONAL_NEWS_SECTION
+    return content_category_for(channel)
+
+
+def within_section_order_key(
+    channel: Channel,
+    original_index: int,
+    section: str,
+    channels: list[Channel],
+) -> tuple[int, int]:
+    """Keep requested channel families together without changing categories."""
+    if section == POST_NATIONAL_NEWS_SECTION:
+        return (0, POST_NATIONAL_NEWS_CHANNEL_INDEX[channel.tvg_id])
+
+    if section == "Noticias internacionales":
+        dw_positions = [
+            index
+            for index, item in enumerate(channels)
+            if item.tvg_id in DW_CHANNEL_IDS
+        ]
+        if len(dw_positions) == len(DW_CHANNEL_ORDER):
+            dw_anchor = min(dw_positions)
+            if channel.tvg_id in DW_CHANNEL_IDS:
+                return (dw_anchor, DW_CHANNEL_ORDER.index(channel.tvg_id))
+            # Reserve two adjacent positions at the first DW occurrence. This
+            # keeps DW Español immediately followed by DW English even when an
+            # older catalogue had another international channel between them.
+            if original_index > dw_anchor:
+                return (original_index + 1, 2)
+
+    return (original_index, 2)
+
+
 def order_channels_by_content(lines: list[str]) -> bool:
     """Order the complete catalogue and normalize its six public groups.
 
@@ -1692,10 +1740,15 @@ def order_channels_by_content(lines: list[str]) -> bool:
     records = []
     for original_index, channel in enumerate(channels):
         category = content_category_for(channel)
+        section = order_section_for(channel)
         records.append(
             (
-                CONTENT_CATEGORY_INDEX[category],
+                ORDER_SECTION_INDEX[section],
+                within_section_order_key(
+                    channel, original_index, section, channels
+                ),
                 original_index,
+                section,
                 category,
                 with_content_category(lines[channel.info_line], category),
                 lines[channel.url_line],
@@ -1704,14 +1757,14 @@ def order_channels_by_content(lines: list[str]) -> bool:
     records.sort(key=lambda item: (item[0], item[1]))
 
     ordered_lines = list(header)
-    current_category = None
+    current_section = None
     category_counts = {category: 0 for category in CONTENT_CATEGORY_ORDER}
-    for _, _, category, info_line, url_line in records:
-        if category != current_category:
+    for _, _, _, section, category, info_line, url_line in records:
+        if section != current_section:
             if ordered_lines and ordered_lines[-1] != "":
                 ordered_lines.append("")
-            ordered_lines.append(f"# {category}")
-            current_category = category
+            ordered_lines.append(f"# {section}")
+            current_section = section
         ordered_lines.extend((info_line, url_line))
         category_counts[category] += 1
     while ordered_lines and ordered_lines[-1] == "":
@@ -1748,7 +1801,7 @@ def filter_playlist_to_working_channels(
         if channel.name in working_names
     }
     category_headers = {
-        f"# {category}": category for category in CONTENT_CATEGORY_ORDER
+        f"# {section}": category for section, category in ORDER_SECTION_GROUPS.items()
     }
     return [
         line
@@ -4744,16 +4797,26 @@ def add_continuous_programmes(
     technical: bool = False,
     formatter: Callable[[datetime], str] = xmltv_format_chile,
 ) -> int:
-    start = start_at or (
-        now.astimezone(timezone.utc).replace(
+    day_aligned_technical = technical and start_at is None
+    if day_aligned_technical:
+        start = now.astimezone(CHILE_TIMEZONE).replace(
             hour=0, minute=0, second=0, microsecond=0
+        ) - timedelta(days=1)
+    else:
+        start = start_at or (
+            now.astimezone(timezone.utc).replace(
+                hour=0, minute=0, second=0, microsecond=0
+            )
+            - timedelta(days=1)
         )
-        - timedelta(days=1)
-    )
     stop_limit = now.astimezone(timezone.utc) + timedelta(days=5)
     count = 0
     while start < stop_limit:
-        stop = start + timedelta(hours=6)
+        stop = (
+            start + timedelta(days=1) - timedelta(minutes=1)
+            if day_aligned_technical
+            else start + timedelta(hours=6)
+        )
         programme = ET.SubElement(
             root,
             "programme",
@@ -4764,12 +4827,8 @@ def add_continuous_programmes(
             },
         )
         if technical:
-            title = f"{channel_name} - programacion no disponible"
-            description = (
-                "Bloque tecnico temporal: no se encontro una parrilla XMLTV real "
-                "para esta senal en esta ejecucion. Se conserva cobertura EPG "
-                "para que el canal siga visible cuando vuelva a estar disponible."
-            )
+            title = "Live"
+            description = ""
         else:
             title, description = CONTINUOUS_PROGRAMME_DETAILS.get(
                 channel_name,
@@ -4779,7 +4838,7 @@ def add_continuous_programmes(
         if description:
             ET.SubElement(programme, "desc", {"lang": "es"}).text = description
         count += 1
-        start = stop
+        start = start + timedelta(days=1) if day_aligned_technical else stop
     return count
 
 
@@ -4948,6 +5007,14 @@ def build_epg(
                     continue
                 seen_source_programmes.add(duplicate_key)
             copied = localize_xmltv_programme(programme)
+            forced_title = FORCED_EPG_TITLES.get(target_id)
+            if forced_title:
+                title_element = copied.find("title")
+                if title_element is None:
+                    title_element = ET.SubElement(copied, "title", {"lang": "es"})
+                title_element.text = forced_title
+                for subtitle in copied.findall("sub-title"):
+                    copied.remove(subtitle)
             try:
                 start = xmltv_datetime(copied.get("start", ""))
                 stop = xmltv_datetime(copied.get("stop", ""))
@@ -5031,6 +5098,24 @@ def build_epg(
         channel = channel_by_id[channel_id]
         last_stop = last_stop_by_channel.get(channel_id)
         if count and last_stop is not None and last_stop >= minimum_future:
+            continue
+        if channel_id in FORCED_EPG_TITLES:
+            added = add_continuous_programmes(
+                root,
+                channel_id,
+                channel.name,
+                now=now,
+                start_at=last_stop if count and last_stop is not None else None,
+                technical=False,
+            )
+            programmes_by_target[channel_id] += added
+            guide_types[channel_id] = (
+                "parrilla Diego y Glot + continuidad"
+                if count
+                else "continuidad Diego y Glot"
+            )
+            if not count:
+                guide_sources[channel_id] = "continuidad-diego-y-glot"
             continue
         added = add_continuous_programmes(
             root,

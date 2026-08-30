@@ -61,17 +61,11 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
 - incorpora la parrilla XMLTV de PlutoTV para MTV Classic, MTV Biggest Pop,
   MTV Spankin' New y MTV Flow Latino; las tarjetas repetidas de Pluto
   se deduplican antes de construir la EPG;
-- incorpora 65 canales desde los resolutores JSON publicos de TvVoo:
-  CNN, MTV Hits, M6 Music, Trace Urban, Sky Sports Main Event, Sky Sports Arena,
-  TNT Sports 3, ESPN 3, Eurosport 1, RMC Sport 1, RMC Sport 2, DAZN 2,
-  DAZN FAST+, RT France, Sport TV 1, Sport TV 2, Eleven Sports 1 y Eleven
-  Sports 2. También incorpora la tanda de validación de Sky Sports
-  Action/Cricket/Football/Mix/News/NFL, Sky Sport italiano y Eurosport 2 UK y
-  España, además de DAZN Francia, Alemania, España, Portugal e
-  Italia. Las señales nuevas de Arena, NFL, Eurosport 2 España y DAZN 2 España
-  quedan marcadas como prueba dinámica. La tanda europea del 25 de agosto
-  agrega TNT Sports 1, NRJ Hits, MCM, DAZN F1 España, Sport TV 4 y 5, además
-  de Sky Sport F1/Golf/Tennis/Premier League y Eurosport 1 de Alemania;
+- incorpora candidatos de noticias, deportes y música desde los resolutores JSON
+  públicos de TvVoo, manteniendo un solo canal lógico por señal y sus aliases
+  estables por país. Las señales que no responden se retiran temporalmente de
+  las listas públicas, pero permanecen en `channel-catalog.m3u` para volver a
+  probarlas en la siguiente corrida;
 - incorpora DAZN Darts x Pluto TV y DAZN Heldinnen x Pluto TV como señales FAST
   de producción: sus HLS públicos redirigen al distribuidor Pluto y sus guías
   XMLTV se obtienen desde la fuente pública de Pluto con los IDs oficiales de
@@ -90,9 +84,9 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
   vez;
 - usa el mismo enlace HTTP solo cuando el nodo HTTPS responde con certificado
   vencido y la excepcion se limita a los hosts conocidos de Highfly;
-- conserva Sky Sports Racing con Highfly como fuente primaria y aliases Vavoo
-  de respaldo. Si el slug Highfly deja de existir, el actualizador solicita un
-  alias nuevo a TvVoo, valida su HLS y publica el enlace que respondio;
+- conserva los slugs de Highfly y los aliases de TvVoo como fuentes renovables.
+  Si una fuente deja de existir, el actualizador solicita candidatos nuevos,
+  valida su HLS y publica el enlace que respondió;
 - prioriza la guia oficial de Canal 13 para 13C, manteniendola separada de
   13 Cultura; si la pagina oficial no entrega bloques vigentes, usa Zapping
   como respaldo por canal;
@@ -158,27 +152,30 @@ disponible sin depender de servidores externos.
 ## Orden de la lista
 
 El orden tematico se construye siempre desde `channel-catalog.m3u`, que
-conserva los 154 candidatos aunque alguno quede temporalmente fuera de la M3U
+conserva los 150 candidatos aunque alguno quede temporalmente fuera de la M3U
 publica por fallar la validacion. `m3u.m3u` y `m3u-externa.m3u` filtran esos
 candidatos sin alterar su posicion dentro de su propia salida; cuando un canal
 se recupera, vuelve al mismo bloque.
 
 1. Nacionales
 2. Noticias nacionales
-3. Noticias internacionales
-4. Deportes
-5. Música
-6. Misceláneos
+3. NTV, 13C y RWND (sección posterior a Noticias nacionales)
+4. Noticias internacionales
+5. Deportes
+6. Música
+7. Misceláneos
 
 Los seis valores se reflejan tambien en `group-title`. Los canales de
 documentales, cultura, entretenimiento y señales internacionales generales
 quedan en `Misceláneos`; las señales de conciertos, XITE, MTV, Stingray y
-similares quedan en `Música`. La clasificación no cambia `tvg-id`, asociaciones
+similares quedan en `Música`. NTV, 13C y RWND conservan `Misceláneos` como
+grupo, aunque se muestran en una sección propia inmediatamente después de las
+noticias nacionales. La clasificación no cambia `tvg-id`, asociaciones
 XMLTV, resolutores ni URLs de respaldo.
 
 ## Canales
 
-El catalogo contiene 154 candidatos: nacionales, noticias, miscelaneos
+El catalogo contiene 150 candidatos: nacionales, noticias, miscelaneos
 chilenos, noticias internacionales, documentales, conciertos, musica y
 deportes. `m3u.m3u` es la lista principal de fuentes directas, TVN y
 Meganoticias; `m3u-externa.m3u` concentra TvVoo/Vavoo y Highfly. El numero
@@ -210,8 +207,8 @@ causa un error por no aparecer en `m3u.m3u`. La EPG conserva al menos un bloque
 para cada canal del catalogo, incluso si fue retirado temporalmente por fallos
 HLS. Cuando ninguna fuente real
 entrega una parrilla exacta, se usa `continuidad tecnica`, marcada en
-`data-guide` y en el titulo como programacion no disponible; no se presenta
-como una guia oficial. La siguiente corrida vuelve a intentar la fuente real
+`data-guide`; sus bloques visibles se titulan `Live` y se alinean de 00:00 a
+23:59 en horario de Santiago. No se presenta como una guia oficial. La siguiente corrida vuelve a intentar la fuente real
 y reemplaza esa cobertura cuando aparece. Antes de publicar `m3u.m3u`, el
 proceso de canales audita que sus candidatos tengan canal XMLTV, programas y
 al menos 24 horas futuras; la lista externa no depende de esta compuerta y se
@@ -221,10 +218,9 @@ Para diagnosticar una fuente sin alterar el historial de salud ni renovar URLs
 HLS, se usa el workflow independiente **Actualizar EPG**. Las ventanas de
 canales y EPG no ejecutan el proceso contrario.
 
-Se reincorporaron provisionalmente nueve canales que habian desaparecido sin
-una instruccion de borrado: CHV Deportes, 13 Cultura, 13 Kids, Autentic History,
-Reuters, Totalmusic 80s, Totalmusic 2000s, Totalmusic Concerts y Totalmusic
-Dance. Sus maestros HLS entregaron playlist y primer segmento multimedia
+Se reincorporaron provisionalmente cinco canales que habian desaparecido sin
+una instruccion de borrado: CHV Deportes, 13 Cultura, 13 Kids, Autentic History y
+Reuters. Sus maestros HLS entregaron playlist y primer segmento multimedia
 durante la verificacion; si no hay fuente real, el actualizador conserva una
 marca de `continuidad tecnica` para no dejar el canal sin bloque EPG. 13C permanece en la lista como canal
 distinto y conserva la parrilla oficial de `https://www.13.cl/c/programacion`;
@@ -236,9 +232,9 @@ URLs `127.0.0.1` ni su proxy local: no funcionarian desde un reproductor
 remoto. La lista publica conserva solo las URLs HLS que el resolutor remoto
 entrega y que el actualizador puede renovar y validar; tampoco se incorpora la
 telemetria opcional del plugin.
-RT France y DAZN FAST+ se incorporan porque TvVoo devuelve HLS utilizable; sus
-canales XMLTV quedan declarados como `sin guía` hasta que exista una parrilla
-que identifique esas señales exactas.
+DAZN FAST+ se conserva porque TvVoo devuelve HLS utilizable; si una señal no
+tiene una parrilla XMLTV exacta, queda declarada con continuidad técnica y no
+se rellena con la guía de otro canal.
 
 Simply.TV (con punto) se reviso
 como proveedor B2B de EPG y metadata:
