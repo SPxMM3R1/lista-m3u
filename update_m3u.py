@@ -952,8 +952,8 @@ PREFERRED_LOGOS = {
     "RWND": f"{LOCAL_LOGOS_PUBLIC_BASE}/rewind-v2.png",
     "BBC Earth FAST": f"{LOCAL_LOGOS_PUBLIC_BASE}/bbc-earth-2023-i.svg",
     "BBC Earth Polonia": f"{LOCAL_LOGOS_PUBLIC_BASE}/bbc-earth-2023-i.svg",
-    # Variante blanca y transparente de la misma familia visual que BBC Earth.
-    "BBC News": f"{LOCAL_LOGOS_PUBLIC_BASE}/bbc-news-2022.svg",
+    # Misma composición blanca y transparente que BBC Earth, con NEWS en el wordmark.
+    "BBC News": f"{LOCAL_LOGOS_PUBLIC_BASE}/bbc-news-earth-style.svg",
     "BBC Travel": f"{LOCAL_LOGOS_PUBLIC_BASE}/bbc.svg",
     "Bloomberg TV US": f"{LOCAL_LOGOS_PUBLIC_BASE}/bloomberg.svg",
     "Bloomberg Originals": f"{LOCAL_LOGOS_PUBLIC_BASE}/bloomberg.svg",
