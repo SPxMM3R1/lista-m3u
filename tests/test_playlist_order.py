@@ -491,7 +491,7 @@ class PlaylistOrderTests(unittest.TestCase):
             ("it1", "Sky.Sport.F1.it"),
         )
 
-    def test_failed_highfly_f1_moves_to_external_retry_queue(self) -> None:
+    def test_failed_highfly_f1_stays_in_main_retryable_fallback(self) -> None:
         lines = [
             "#EXTM3U",
             "# Deportes",
@@ -500,20 +500,51 @@ class PlaylistOrderTests(unittest.TestCase):
         ]
         channel = update_m3u.parse_channels(lines)[0]
 
-        self.assertFalse(update_m3u.is_protected_main_channel(channel))
+        self.assertTrue(update_m3u.is_protected_main_channel(channel))
+        self.assertEqual(
+            update_m3u.publication_playlist_for(working=False, channel=channel),
+            "main",
+        )
         principal = update_m3u.filter_playlist_to_working_channels(
             lines, [channel], set()
         )
         self.assertEqual(
-            update_m3u.parse_channels(principal),
-            [],
+            [item.tvg_id for item in update_m3u.parse_channels(principal)],
+            ["SkySportsF1.uk"],
         )
         external = update_m3u.filter_playlist_to_working_channels(
-            lines, [channel], {channel.name}
+            lines, [channel], set(), preserve_protected_main=False
         )
         self.assertEqual(
-            [item.tvg_id for item in update_m3u.parse_channels(external)],
-            ["SkySportsF1.uk"],
+            update_m3u.parse_channels(external),
+            [],
+        )
+        original_url = channel.url
+        with patch.object(
+            update_m3u,
+            "discover_official_candidates",
+            return_value=["https://example.invalid/replacement.m3u8"],
+        ) as discover:
+            repaired = update_m3u.repair_failed_channels(
+                lines,
+                [channel],
+                [update_m3u.CheckResult(channel.name, original_url, False, "down")],
+                allow_ci_geo_block=False,
+            )
+        self.assertEqual(repaired, [])
+        self.assertEqual(lines[channel.url_line], original_url)
+        discover.assert_not_called()
+
+        tennis = update_m3u.Channel(
+            name="Sky Sports Tennis",
+            url="https://leaf.highfly.dev/m3u/now-sky-sports-tennis/live.m3u8",
+            url_line=0,
+            tvg_id="SkySportsTennis.uk",
+        )
+        self.assertTrue(update_m3u.is_protected_main_channel(tennis))
+        self.assertEqual(
+            update_m3u.publication_playlist_for(working=False, channel=tennis),
+            "main",
         )
 
     def test_requested_sports_families_keep_order_in_one_contiguous_block(
@@ -617,7 +648,7 @@ class PlaylistOrderTests(unittest.TestCase):
             [item.name for item in update_m3u.parse_channels(external)], ["ESPN"]
         )
 
-    def test_report_moves_failed_highfly_f1_to_external(self) -> None:
+    def test_report_keeps_failed_highfly_f1_in_main(self) -> None:
         channel = update_m3u.Channel(
             name="Sky Sports F1",
             url="https://leaf.highfly.dev/m3u/now-sky-sports-f1-free/live.m3u8",
@@ -649,12 +680,17 @@ class PlaylistOrderTests(unittest.TestCase):
                 )
 
         entry = report["channels"][0]
-        self.assertFalse(report["playlists"]["main"]["publication_ready"])
+        self.assertTrue(report["playlists"]["main"]["publication_ready"])
         self.assertTrue(report["playlists"]["external"]["publication_ready"])
-        self.assertEqual(entry["playlist"], "external")
+        self.assertEqual(entry["playlist"], "main")
         self.assertTrue(entry["published"])
+        self.assertEqual(entry["publication_action"], "protected_fallback")
         self.assertEqual(
-            entry["publication_action"], "temporarily_moved_to_external"
+            report["playlists"]["main"]["protected_fallback_channels"], 1
+        )
+        self.assertEqual(report["summary"]["protected_main_fallbacks"], 1)
+        self.assertEqual(
+            report["playlists"]["external"]["candidate_channels"], 0
         )
 
     def test_sky_tennis_uses_highfly_after_slug_returns(self) -> None:

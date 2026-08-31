@@ -57,9 +57,12 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
 - no modifica `epg.xml`: la EPG tiene un proceso independiente;
 - publica `m3u.m3u` con todos los canales que respondieron en la ejecución actual,
   sin importar si fueron fuentes directas, TVN/Meganoticias, TvVoo/Vavoo o Highfly;
+  `Sky Sports F1` y `Sky Sports Tennis` de Highfly son la excepción protegida y
+  permanecen en la principal aunque su chequeo automático falle;
 - publica `m3u-externa.m3u` con todos los canales que no respondieron después de
-  sus reintentos y reparaciones. No es una lista fija por proveedor: es la cola
-  visible de diagnóstico y reintento para la siguiente ejecución;
+  sus reintentos y reparaciones, excepto esas dos señales Highfly protegidas. No
+  es una lista fija por proveedor: es la cola visible de diagnóstico y reintento
+  para la siguiente ejecución;
 - conserva el orden temático definido en `channel-catalog.m3u`: al recuperarse,
   un canal vuelve a la lista principal en su misma posición relativa;
 - solo reemplaza `m3u.m3u` cuando el 100% de los canales que se van a publicar
@@ -117,9 +120,10 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
 - `channel-health-state.json` conserva solo la hora de validacion dinamica y una
   huella irreversible de la URL; no guarda tokens, claves ni URLs de sesion.
 - mueve temporalmente a `m3u-externa.m3u` cualquier canal que siga fallando
-  despues de validar HLS, reintentar y buscar reparaciones; `channel-catalog.m3u`
-  conserva el inventario completo para volver a probarlo y reactivarlo en la
-  siguiente ejecucion;
+  despues de validar HLS, reintentar y buscar reparaciones; `SkySportsF1.uk` y
+  `SkySportsTennis.uk` de Highfly quedan protegidos en la principal;
+  `channel-catalog.m3u` conserva el inventario completo para volver a probarlo y
+  reactivarlo en la siguiente ejecucion;
 - las sondas antiguas de Sky identificadas con `@Direct` fueron retiradas de
   forma permanente; no se vuelven a publicar aunque el origen las entregue o
   fallen sus comprobaciones;
@@ -172,10 +176,11 @@ disponible sin depender de servidores externos.
 
 El orden tematico se construye siempre desde `channel-catalog.m3u`, que
 conserva todos los candidatos aunque alguno quede temporalmente fuera de la
-principal por fallar la validacion. `m3u.m3u` contiene el subconjunto sano y
-`m3u-externa.m3u` el subconjunto no disponible; ambas salidas filtran el mismo
-catalogo sin alterar la posicion relativa de los canales. Cuando un canal se
-recupera, vuelve al mismo bloque de la principal.
+principal por fallar la validacion. `m3u.m3u` contiene el subconjunto sano y las
+dos señales Highfly protegidas; `m3u-externa.m3u` contiene el subconjunto
+ordinario no disponible. Ambas salidas filtran el mismo catalogo sin alterar la
+posicion relativa de los canales. Cuando un canal se recupera, vuelve al mismo
+bloque de la principal.
 
 1. Nacionales
 2. Noticias nacionales
@@ -200,8 +205,10 @@ chilenos, noticias internacionales, documentales, conciertos, musica y
 deportes. `m3u.m3u` es la vista principal de los canales que respondieron;
 `m3u-externa.m3u` es la vista externa de los que quedaron temporalmente
 desactivados. El reparto cambia en cada ejecucion: una señal de TvVoo/Highfly
-que responda pasa a la principal y una señal directa que falle pasa a la
-externa. El catalogo no pierde ninguna entrada elegible.
+que responda pasa a la principal y una señal ordinaria que falle pasa a la
+externa. `Sky Sports F1` y `Sky Sports Tennis` de Highfly permanecen siempre en
+la principal, incluso ante un fallo temporal del chequeo. El catalogo no pierde
+ninguna entrada elegible.
 
 Las antiguas sondas directas de Sky (`@Direct`/`(Directo)`) ya no forman parte
 de ninguna lista pública. Las señales Sky que permanecen son las que tienen un
