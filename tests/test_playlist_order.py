@@ -459,6 +459,20 @@ class PlaylistOrderTests(unittest.TestCase):
             all(update_m3u.playlist_key_for(item) == "main" for item in channels)
         )
 
+    def test_tvvoo_italian_f1_variant_is_restored_with_stable_contract(self) -> None:
+        channel_id = "Vavoo.it.SKYSPORTF1@TvVoo"
+
+        self.assertNotIn(channel_id, update_m3u.PERMANENTLY_REMOVED_CHANNEL_IDS)
+        self.assertIn(channel_id, update_m3u.F1_CHANNEL_ORDER)
+        self.assertEqual(
+            update_m3u.TVVOO_STREAM_RESOLVER_IDS["Sky Sport F1 Italia"],
+            ("vavoo_SKY%20SPORT%20F1%7Cgroup%3Ait",),
+        )
+        self.assertEqual(
+            update_m3u.EPG_PROGRAMME_SOURCES[channel_id],
+            ("it1", "Sky.Sport.F1.it"),
+        )
+
     def test_highfly_f1_is_kept_when_health_check_fails(self) -> None:
         lines = [
             "#EXTM3U",

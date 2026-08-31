@@ -46,7 +46,7 @@ PUBLIC_RAW_BASE = "https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main"
 EPG_PUBLIC_URL = f"{PUBLIC_RAW_BASE}/epg.xml"
 LOCAL_LOGOS_PUBLIC_BASE = f"{PUBLIC_RAW_BASE}/logos"
 RESOLVER_SCHEMA_VERSION = 1
-RESOLVER_CATALOG_VERSION = "2026.08.30.4"
+RESOLVER_CATALOG_VERSION = "2026.08.30.5"
 ALLOWED_RESOLVER_ENGINES = {"tvn", "meganoticias", "tvvoo", "highfly"}
 MAIN_PLAYLIST_RESOLVERS = frozenset({"direct", "tvn", "meganoticias"})
 EXTERNAL_PLAYLIST_RESOLVERS = frozenset({"tvvoo", "highfly"})
@@ -59,6 +59,7 @@ F1_CHANNEL_ORDER = (
     "DAZNF1.es@TvVoo",
     "SkySportF1.de@TvVoo",
     "Vavoo.uk.SKYSPORTSF1@TvVoo",
+    "Vavoo.it.SKYSPORTF1@TvVoo",
 )
 F1_CHANNEL_IDS = frozenset(F1_CHANNEL_ORDER)
 MAIN_PLAYLIST_CHANNEL_IDS = F1_CHANNEL_IDS | frozenset({"SkySportsTennis.uk"})
@@ -137,7 +138,6 @@ PERMANENTLY_REMOVED_CHANNEL_IDS = frozenset(
         "MTVClassic.us",
         "SkySportsF1.uk@Direct",
         "SkySportF1.it@Direct",
-        "Vavoo.it.SKYSPORTF1@TvVoo",
         "SkySportsAction.uk@Direct",
         "SkySportsCricket.uk@Direct",
         "SkySportsFootball.ie@Direct",
@@ -186,6 +186,7 @@ NO_EPG_CHANNEL_IDS.update({
     "Vavoo.uk.4MUSIC@TvVoo",
     "Vavoo.it.BLOOMBERGTV@TvVoo",
     "Vavoo.it.EUROSPORT1@TvVoo",
+    "Vavoo.it.SKYSPORTF1@TvVoo",
     "Vavoo.it.SKYSPORTTENNIS@TvVoo",
     "Vavoo.fr.MEZZOLIVE@TvVoo",
     "Vavoo.fr.STINGRAYCLASSICA@TvVoo",
@@ -238,6 +239,7 @@ NO_EPG_CHANNEL_IDS.difference_update({
     "Vavoo.uk.TNTSPORTS2@TvVoo",
     "Vavoo.it.BLOOMBERGTV@TvVoo",
     "Vavoo.it.EUROSPORT1@TvVoo",
+    "Vavoo.it.SKYSPORTF1@TvVoo",
     "Vavoo.it.SKYSPORTTENNIS@TvVoo",
     "Vavoo.it.SKYSPORTGOLF@TvVoo",
     "Vavoo.fr.MEZZOLIVE@TvVoo",
@@ -427,6 +429,7 @@ EPG_PROGRAMME_SOURCES.update({
     "Vavoo.uk.TNTSPORTS2@TvVoo": ("uk1", "TNT.Sports.2.HD.uk"),
     "Vavoo.it.BLOOMBERGTV@TvVoo": ("it1", "Bloomberg.it"),
     "Vavoo.it.EUROSPORT1@TvVoo": ("it1", "Eurosport.Italia.it"),
+    "Vavoo.it.SKYSPORTF1@TvVoo": ("it1", "Sky.Sport.F1.it"),
     "Vavoo.it.SKYSPORTTENNIS@TvVoo": ("it1", "Sky.Sport.Tennis.it"),
     "Vavoo.de.SKYSPORT1@TvVoo": ("de", "Sky.Sport.1.de"),
     "Vavoo.fr.MEZZOLIVE@TvVoo": ("fr", "Mezzo.Live.HD.fr"),
@@ -751,6 +754,7 @@ TVVOO_STREAM_RESOLVER_IDS.update({
     "Bloomberg TV Italia": ("vavoo_BLOOMBERG%20TV%7Cgroup%3Ait", "vavoo_BLOOMBERG%20TV%204K%7Cgroup%3Ait",),
     "Eurosport 1 Italia": ("vavoo_EUROSPORT%201%7Cgroup%3Ait",),
     "Sky Sport Tennis Italia": ("vavoo_SKY%20SPORT%20TENNIS%7Cgroup%3Ait",),
+    "Sky Sport F1 Italia": ("vavoo_SKY%20SPORT%20F1%7Cgroup%3Ait",),
     "Mezzo Live Francia": ("vavoo_MEZZO%20LIVE%20HD%7Cgroup%3Afr", "vavoo_MEZZO%20LIVE%7Cgroup%3Afr", "vavoo_MEZZO%20LIVE%20SD%7Cgroup%3Afr",),
     "Stingray Classica Francia": ("vavoo_STINGRAY%20CLASSICA%7Cgroup%3Afr",),
     "Trace Africa Francia": ("vavoo_TRACE%20AFRICA%7Cgroup%3Afr",),
@@ -1576,6 +1580,7 @@ SEGMENT_CHECK_CHANNELS.update({
     "Trace Africa Francia",
     "Bloomberg TV Italia",
     "Eurosport 1 Italia",
+    "Sky Sport F1 Italia",
     "Sky Sport Tennis Italia",
     "ESPN 1 Países Bajos",
     "Fox Sports 1 Países Bajos",
