@@ -52,8 +52,9 @@ MAIN_PLAYLIST_RESOLVERS = frozenset({"direct", "tvn", "meganoticias"})
 EXTERNAL_PLAYLIST_RESOLVERS = frozenset({"tvvoo", "highfly"})
 # Estas senales dinamicas se publican expresamente en la lista principal;
 # mantienen su resolutor para renovar la fuente justo antes de reproducir.
-# Las variantes F1 que ya existen en el catalogo externo se agrupan aqui para
-# poder probarlas junto al F1 canonico, sin mover el resto del grupo TvVoo.
+# El orden visual comienza en el F1 de Highfly, seguido inmediatamente por su
+# Tennis de Highfly. Despues se mantiene junta toda la familia F1, incluyendo
+# DAZN F1, y luego el resto de Sky, Eurosport y DAZN.
 F1_CHANNEL_ORDER = (
     "SkySportsF1.uk",
     "DAZNF1.es@TvVoo",
@@ -62,7 +63,73 @@ F1_CHANNEL_ORDER = (
     "Vavoo.it.SKYSPORTF1@TvVoo",
 )
 F1_CHANNEL_IDS = frozenset(F1_CHANNEL_ORDER)
-MAIN_PLAYLIST_CHANNEL_IDS = F1_CHANNEL_IDS | frozenset({"SkySportsTennis.uk"})
+SKY_SPORTS_CHANNEL_ORDER = (
+    # Prioridad solicitada: primero las dos senales renovables de Highfly.
+    "SkySportsF1.uk",
+    "SkySportsTennis.uk",
+    # Todas las variantes F1, independientemente del proveedor.
+    "DAZNF1.es@TvVoo",
+    "SkySportF1.de@TvVoo",
+    "Vavoo.uk.SKYSPORTSF1@TvVoo",
+    "Vavoo.it.SKYSPORTF1@TvVoo",
+    # El resto de variantes Sky se mantiene en un unico bloque.
+    "SkySportTennis.de@TvVoo",
+    "Vavoo.it.SKYSPORTTENNIS@TvVoo",
+    "SkySportsPremierLeague.uk",
+    "SkySportsMainEvent.uk@TvVoo",
+    "SkySportsArena.uk@TvVoo",
+    "SkySport1.nz",
+    "SkySportsFootball.uk@TvVoo",
+    "SkySportsMix.uk@TvVoo",
+    "SkySportsNews.uk@TvVoo",
+    "SkySportsNFL.uk@TvVoo",
+    "SkySportGolf.de@TvVoo",
+    "SkySportPremierLeague.de@TvVoo",
+    "SkySport24.it@TvVoo",
+    "SkySportCalcio.it@TvVoo",
+    "SkySportMax.it@TvVoo",
+    "SkySportMotoGP.it@TvVoo",
+    "SkySportNBA.it@TvVoo",
+    "SkySportUno.it@TvVoo",
+    "Vavoo.de.SKYSPORT1@TvVoo",
+)
+EUROSPORT_CHANNEL_ORDER = (
+    "Eurosport1.fr@TvVoo",
+    "Eurosport1.de@TvVoo",
+    "Vavoo.it.EUROSPORT1@TvVoo",
+    "Vavoo.pt.EUROSPORT1@TvVoo",
+    "Vavoo.es.EUROSPORT1@TvVoo",
+    "Eurosport2.uk@TvVoo",
+    "Eurosport2.de@TvVoo",
+    "Eurosport2.it@TvVoo",
+    "Eurosport2.es@TvVoo",
+    "Vavoo.pl.EUROSPORT3@TvVoo",
+)
+DAZN_CHANNEL_ORDER = (
+    # DAZN F1 se conserva dentro del bloque F1 anterior.
+    "DAZNLigue1Live1.fr@TvVoo",
+    "DAZNLigue1Live2.fr@TvVoo",
+    "DAZNLigue1Live3.fr@TvVoo",
+    "DAZNLigue1Live4.fr@TvVoo",
+    "DAZN3.es@TvVoo",
+    "DAZNLaliga1.es@TvVoo",
+    "DAZNLaliga2.es@TvVoo",
+    "DAZN2.es@TvVoo",
+    "Vavoo.es.DAZN4@TvVoo",
+    "DAZN1.pt@TvVoo",
+    "DAZN2.pt@TvVoo",
+    "DAZN3.pt@TvVoo",
+    "DAZN4.pt@TvVoo",
+    "DAZN5.pt@TvVoo",
+    "DAZN6.pt@TvVoo",
+    "DAZN1.it@TvVoo",
+)
+SPORTS_CHANNEL_ORDER = SKY_SPORTS_CHANNEL_ORDER + EUROSPORT_CHANNEL_ORDER + DAZN_CHANNEL_ORDER
+SPORTS_CHANNEL_IDS = frozenset(SPORTS_CHANNEL_ORDER)
+SPORTS_CHANNEL_INDEX = {
+    channel_id: index for index, channel_id in enumerate(SPORTS_CHANNEL_ORDER)
+}
+MAIN_PLAYLIST_CHANNEL_IDS = SPORTS_CHANNEL_IDS
 # El F1 de Highfly se conserva en la salida principal aunque su comprobacion
 # puntual este caida. Su slug sigue siendo estable y VibeM3U lo renueva al
 # reproducir; esta excepcion no se extiende a los demas canales dinamicos.
@@ -1858,20 +1925,19 @@ def within_section_order_key(
     if section == POST_NATIONAL_NEWS_SECTION:
         return (0, POST_NATIONAL_NEWS_CHANNEL_INDEX[channel.tvg_id])
 
-    if section == "Deportes" and channel.tvg_id in F1_CHANNEL_IDS:
-        f1_positions = [
+    if section == "Deportes" and channel.tvg_id in SPORTS_CHANNEL_IDS:
+        sports_positions = [
             index
             for index, item in enumerate(channels)
-            if item.tvg_id in F1_CHANNEL_IDS
+            if item.tvg_id in SPORTS_CHANNEL_IDS
         ]
-        if f1_positions:
-            # F1 variants may be scattered through an older catalogue. Reserve
-            # one contiguous block at the first F1 occurrence so the public
-            # list presents the Highfly source beside its language/quality
-            # alternatives.
+        if sports_positions:
+            # Sky, Eurosport y DAZN pueden estar dispersos en un catalogo
+            # antiguo. Reserve un bloque unico en la primera posicion actual
+            # de Sky Sports F1 para conservar la posicion solicitada.
             return (
-                min(f1_positions),
-                F1_CHANNEL_ORDER.index(channel.tvg_id),
+                min(sports_positions),
+                SPORTS_CHANNEL_INDEX[channel.tvg_id],
             )
 
     if section == "Noticias internacionales":
@@ -2061,9 +2127,10 @@ def resolver_engine_for(channel: Channel) -> str:
 def playlist_key_for(channel: Channel) -> str:
     """Return the public list that owns a channel.
 
-    Direct sources and the Chilean resolvers stay in the principal list. The
-    renewable catalogue providers are isolated in the external list so a
-    Vavoo/TvVoo outage cannot make the official list unavailable.
+    Direct sources, the Chilean resolvers and the selected sports families
+    stay in the principal list. Other renewable catalogue providers remain in
+    the external list so an unrelated Vavoo/TvVoo outage cannot make the
+    principal list unavailable.
     """
     if channel.tvg_id in MAIN_PLAYLIST_CHANNEL_IDS:
         return "main"

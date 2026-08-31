@@ -435,11 +435,29 @@ class PlaylistOrderTests(unittest.TestCase):
                 url_line=2,
                 tvg_id="ESPN.us",
             ),
+            update_m3u.Channel(
+                name="Sky Sports Main Event",
+                url="https://example.invalid/sky-main-event.m3u8",
+                url_line=3,
+                tvg_id="SkySportsMainEvent.uk@TvVoo",
+            ),
+            update_m3u.Channel(
+                name="Eurosport 1",
+                url="https://example.invalid/eurosport-1.m3u8",
+                url_line=4,
+                tvg_id="Eurosport1.fr@TvVoo",
+            ),
+            update_m3u.Channel(
+                name="DAZN 3 España",
+                url="https://example.invalid/dazn-3-es.m3u8",
+                url_line=5,
+                tvg_id="DAZN3.es@TvVoo",
+            ),
         ]
 
         self.assertEqual(
             [update_m3u.playlist_key_for(item) for item in selected],
-            ["main", "main", "external"],
+            ["main", "main", "external", "main", "main", "main"],
         )
 
     def test_all_catalogue_f1_variants_are_assigned_to_main(self) -> None:
@@ -491,10 +509,12 @@ class PlaylistOrderTests(unittest.TestCase):
             ["SkySportsF1.uk"],
         )
 
-    def test_f1_variants_are_contiguous_in_thematic_order(self) -> None:
+    def test_requested_sports_families_keep_order_in_one_contiguous_block(
+        self,
+    ) -> None:
         lines = ["#EXTM3U"]
         for index, channel_id in reversed(
-            list(enumerate(update_m3u.F1_CHANNEL_ORDER))
+            list(enumerate(update_m3u.SPORTS_CHANNEL_ORDER))
         ):
             lines.extend(
                 (
@@ -514,16 +534,24 @@ class PlaylistOrderTests(unittest.TestCase):
             channel.tvg_id for channel in update_m3u.parse_channels(lines)
         ]
 
-        f1_positions = [
+        sports_positions = [
             ordered_ids.index(channel_id)
-            for channel_id in update_m3u.F1_CHANNEL_ORDER
+            for channel_id in update_m3u.SPORTS_CHANNEL_ORDER
         ]
         self.assertEqual(
-            f1_positions,
-            list(range(min(f1_positions), max(f1_positions) + 1)),
+            sports_positions,
+            list(range(min(sports_positions), max(sports_positions) + 1)),
         )
         self.assertEqual(
-            ordered_ids[min(f1_positions) : max(f1_positions) + 1],
+            ordered_ids[min(sports_positions) : max(sports_positions) + 1],
+            list(update_m3u.SPORTS_CHANNEL_ORDER),
+        )
+        self.assertEqual(
+            ordered_ids[:2],
+            ["SkySportsF1.uk", "SkySportsTennis.uk"],
+        )
+        self.assertEqual(
+            [channel_id for channel_id in ordered_ids if channel_id in update_m3u.F1_CHANNEL_IDS],
             list(update_m3u.F1_CHANNEL_ORDER),
         )
 
