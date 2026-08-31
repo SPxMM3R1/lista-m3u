@@ -11,7 +11,7 @@ Lista M3U:
 
 `https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/m3u.m3u`
 
-Lista M3U externa (TvVoo/Vavoo y Highfly, salvo las excepciones de prueba de la principal):
+Lista M3U externa (canales temporalmente no disponibles y en cola de reintento):
 
 `https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/m3u-externa.m3u`
 
@@ -55,14 +55,17 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
 - prioriza enlaces descubiertos desde las paginas oficiales del emisor al
   reparar una senal; los respaldos conocidos solo se prueban despues;
 - no modifica `epg.xml`: la EPG tiene un proceso independiente;
-- publica `m3u.m3u` con fuentes directas, resolutores propios de TVN/Meganoticias,
-  la familia de señales F1 contigua junto al F1 de Highfly y Sky Sports Tennis;
-- publica `m3u-externa.m3u` con TvVoo/Vavoo y el resto de Highfly, sin duplicar canales ni
-  dejar que una caída de esos resolutores bloquee la lista principal; la familia
-  F1 completa queda contigua en `m3u.m3u` junto al F1 de Highfly;
-- solo reemplaza `m3u.m3u` cuando el 100% de sus candidatos tiene cobertura EPG
-  XMLTV vigente y validada para al menos 24 horas; si la compuerta falla,
-  conserva la versión anterior;
+- publica `m3u.m3u` con todos los canales que respondieron en la ejecución actual,
+  sin importar si fueron fuentes directas, TVN/Meganoticias, TvVoo/Vavoo o Highfly;
+- publica `m3u-externa.m3u` con todos los canales que no respondieron después de
+  sus reintentos y reparaciones. No es una lista fija por proveedor: es la cola
+  visible de diagnóstico y reintento para la siguiente ejecución;
+- conserva el orden temático definido en `channel-catalog.m3u`: al recuperarse,
+  un canal vuelve a la lista principal en su misma posición relativa;
+- solo reemplaza `m3u.m3u` cuando el 100% de los canales que se van a publicar
+  tiene cobertura EPG XMLTV vigente y validada para al menos 24 horas; si la
+  compuerta falla, conserva la versión principal anterior y deja los fallos en
+  la externa;
 - usa las parrillas oficiales disponibles de TVN y Mega, ademas de las de M1 y
   M2; conserva EPGShare como respaldo cuando el emisor no publica XMLTV o una
   parrilla automatizable;
@@ -75,15 +78,16 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
   se deduplican antes de construir la EPG;
 - incorpora candidatos de noticias, deportes y música desde los resolutores JSON
   públicos de TvVoo, manteniendo un solo canal lógico por señal y sus aliases
-  estables por país. Las señales que no responden se retiran temporalmente de
-  las listas públicas, pero permanecen en `channel-catalog.m3u` para volver a
-  probarlas en la siguiente corrida;
+  estables por país. Las señales que no responden pasan a `m3u-externa.m3u`,
+  pero permanecen en `channel-catalog.m3u` para volver a probarlas;
 - incorpora DAZN Darts x Pluto TV y DAZN Heldinnen x Pluto TV como señales FAST
   de producción: sus HLS públicos redirigen al distribuidor Pluto y sus guías
   XMLTV se obtienen desde la fuente pública de Pluto con los IDs oficiales de
   ambos canales. La EPG se actualiza en el proceso independiente;
-- cada ejecucion de canales mantiene una validacion paralela separada para las
-  listas principal y externa, comprobando maestro/variante/segmento;
+- cada ejecucion de canales mantiene pools de validacion paralelos por origen,
+  comprobando maestro/variante/segmento; el destino publico se decide despues
+  de la comprobacion individual, por lo que una señal sana puede cambiar de
+  lista aunque su proveedor original no cambie;
 - las renovaciones de TvVoo, Highfly y Meganoticias se ejecutan despues de esa
   validacion, agrupadas por proveedor. Una URL dinamica que acaba de validarse
   se reutiliza durante una ventana corta para no repetir consultas; al superar
@@ -112,10 +116,10 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
   ejecucion; tambien conserva un issue de GitHub con el historial detallado.
 - `channel-health-state.json` conserva solo la hora de validacion dinamica y una
   huella irreversible de la URL; no guarda tokens, claves ni URLs de sesion.
-- retira temporalmente de la lista publica correspondiente cualquier canal que
-  siga fallando despues de validar HLS, reintentar y buscar reparaciones;
-  `channel-catalog.m3u` conserva el inventario completo para volver a probarlo
-  y reactivarlo en la siguiente ejecucion;
+- mueve temporalmente a `m3u-externa.m3u` cualquier canal que siga fallando
+  despues de validar HLS, reintentar y buscar reparaciones; `channel-catalog.m3u`
+  conserva el inventario completo para volver a probarlo y reactivarlo en la
+  siguiente ejecucion;
 - las sondas antiguas de Sky identificadas con `@Direct` fueron retiradas de
   forma permanente; no se vuelven a publicar aunque el origen las entregue o
   fallen sus comprobaciones;
@@ -167,10 +171,11 @@ disponible sin depender de servidores externos.
 ## Orden de la lista
 
 El orden tematico se construye siempre desde `channel-catalog.m3u`, que
-conserva los 150 candidatos aunque alguno quede temporalmente fuera de la M3U
-publica por fallar la validacion. `m3u.m3u` y `m3u-externa.m3u` filtran esos
-candidatos sin alterar su posicion dentro de su propia salida; cuando un canal
-se recupera, vuelve al mismo bloque.
+conserva todos los candidatos aunque alguno quede temporalmente fuera de la
+principal por fallar la validacion. `m3u.m3u` contiene el subconjunto sano y
+`m3u-externa.m3u` el subconjunto no disponible; ambas salidas filtran el mismo
+catalogo sin alterar la posicion relativa de los canales. Cuando un canal se
+recupera, vuelve al mismo bloque de la principal.
 
 1. Nacionales
 2. Noticias nacionales
@@ -190,14 +195,13 @@ XMLTV, resolutores ni URLs de respaldo.
 
 ## Canales
 
-El catalogo contiene 138 candidatos: nacionales, noticias, miscelaneos
+El catalogo contiene los candidatos nacionales, noticias, miscelaneos
 chilenos, noticias internacionales, documentales, conciertos, musica y
-deportes. `m3u.m3u` es la lista principal de fuentes directas, TVN, Meganoticias,
-las señales dinámicas seleccionadas Sky Sports F1 y Sky Sports Tennis;
-`m3u-externa.m3u` concentra TvVoo/Vavoo y el resto de Highfly. El numero
-visible en cada lista puede ser menor en una ejecucion si algunos candidatos
-agotaron sus reintentos; vuelven automaticamente cuando la validacion completa
-responde.
+deportes. `m3u.m3u` es la vista principal de los canales que respondieron;
+`m3u-externa.m3u` es la vista externa de los que quedaron temporalmente
+desactivados. El reparto cambia en cada ejecucion: una señal de TvVoo/Highfly
+que responda pasa a la principal y una señal directa que falle pasa a la
+externa. El catalogo no pierde ninguna entrada elegible.
 
 Las antiguas sondas directas de Sky (`@Direct`/`(Directo)`) ya no forman parte
 de ninguna lista pública. Las señales Sky que permanecen son las que tienen un

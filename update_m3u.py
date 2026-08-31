@@ -50,11 +50,13 @@ RESOLVER_CATALOG_VERSION = "2026.08.30.5"
 ALLOWED_RESOLVER_ENGINES = {"tvn", "meganoticias", "tvvoo", "highfly"}
 MAIN_PLAYLIST_RESOLVERS = frozenset({"direct", "tvn", "meganoticias"})
 EXTERNAL_PLAYLIST_RESOLVERS = frozenset({"tvvoo", "highfly"})
-# Estas senales dinamicas se publican expresamente en la lista principal;
-# mantienen su resolutor para renovar la fuente justo antes de reproducir.
-# El orden visual comienza en el F1 de Highfly, seguido inmediatamente por su
-# Tennis de Highfly. Despues se mantiene junta toda la familia F1, incluyendo
-# DAZN F1, y luego el resto de Sky, Eurosport y DAZN.
+# Estas senales dinamicas conservan su resolutor para renovar la fuente justo
+# antes de reproducir. El orden visual del catalogo comienza en el F1 de
+# Highfly, seguido inmediatamente por su Tennis de Highfly. Despues se
+# mantiene junta toda la familia F1, incluyendo DAZN F1, y luego el resto de
+# Sky, Eurosport y DAZN. La lista publica final se decide por estado: todo lo
+# que responde va a ``m3u.m3u`` y lo no disponible queda visible en
+# ``m3u-externa.m3u`` para su reintento posterior.
 F1_CHANNEL_ORDER = (
     "SkySportsF1.uk",
     "DAZNF1.es@TvVoo",
@@ -130,10 +132,11 @@ SPORTS_CHANNEL_INDEX = {
     channel_id: index for index, channel_id in enumerate(SPORTS_CHANNEL_ORDER)
 }
 MAIN_PLAYLIST_CHANNEL_IDS = SPORTS_CHANNEL_IDS
-# El F1 de Highfly se conserva en la salida principal aunque su comprobacion
-# puntual este caida. Su slug sigue siendo estable y VibeM3U lo renueva al
-# reproducir; esta excepcion no se extiende a los demas canales dinamicos.
-ALWAYS_PUBLISH_MAIN_CHANNEL_IDS = frozenset({"SkySportsF1.uk"})
+# La salida publica se asigna por estado de salud. Un canal Highfly caido no
+# desaparece: pasa a la lista externa y conserva su slug para que la siguiente
+# corrida o VibeM3U puedan renovarlo. Se deja el conjunto vacio por
+# compatibilidad con consumidores antiguos que importen esta constante.
+ALWAYS_PUBLISH_MAIN_CHANNEL_IDS = frozenset()
 # Actualmente no se publican sondas directas de Sky Sports. El conjunto se
 # conserva como punto de extension para futuras sondas que reciban autorizacion
 # explicita, pero las entradas retiradas no pueden volver por un fallo puntual.
@@ -2045,17 +2048,23 @@ def filter_playlist_to_working_channels(
     channels: list[Channel],
     working_names: set[str],
     *,
-    preserve_protected_main: bool = True,
+    preserve_protected_main: bool = False,
 ) -> list[str]:
-    """Build the public playlist while retaining every candidate elsewhere.
+    """Select one set of catalogue channels for a public playlist.
 
     ``channel-catalog.m3u`` remains the canonical inventory. Only the EXTINF
-    and URL lines of a failed ordinary candidate are omitted here. Explicit
-    direct probes are passed in ``working_names`` by ``main`` so they remain
-    visible for manual testing. Empty thematic separators are removed from
-    the public copy, while the catalogue keeps every candidate in its original
-    position for the next retry.
+    and URL lines of channels not included in ``working_names`` are omitted.
+    The channel job passes all healthy channels for ``m3u.m3u`` and all
+    temporarily unavailable channels for ``m3u-externa.m3u``. Empty thematic
+    separators are removed from the public copy, while the catalogue keeps
+    every candidate in its original position for the next retry.
+
+    ``preserve_protected_main`` is retained as an opt-in compatibility switch
+    for callers outside the normal publication flow. The production flow does
+    not use exceptions: a failed channel is visible in the external list,
+    including a failed Highfly F1.
     """
+    selected_names = set(working_names)
     omitted_indexes: set[int] = set()
     for channel in channels:
         protected_main = (
@@ -2063,12 +2072,12 @@ def filter_playlist_to_working_channels(
             and playlist_key_for(channel) == "main"
             and is_protected_main_channel(channel)
         )
-        if channel.name not in working_names and not protected_main:
+        if channel.name not in selected_names and not protected_main:
             omitted_indexes.update((channel.info_line, channel.url_line))
     working_groups = {
         channel.group
         for channel in channels
-        if channel.name in working_names
+        if channel.name in selected_names
         or (
             preserve_protected_main
             and playlist_key_for(channel) == "main"
@@ -2125,12 +2134,12 @@ def resolver_engine_for(channel: Channel) -> str:
 
 
 def playlist_key_for(channel: Channel) -> str:
-    """Return the public list that owns a channel.
+    """Return the validation pool assigned to a channel's original source.
 
-    Direct sources, the Chilean resolvers and the selected sports families
-    stay in the principal list. Other renewable catalogue providers remain in
-    the external list so an unrelated Vavoo/TvVoo outage cannot make the
-    principal list unavailable.
+    This is deliberately separate from the public output assignment. It keeps
+    validation workers and resolver-specific policies isolated. The final
+    public list is selected by :func:`publication_playlist_for` after the
+    health result is known.
     """
     if channel.tvg_id in MAIN_PLAYLIST_CHANNEL_IDS:
         return "main"
@@ -2142,6 +2151,16 @@ def playlist_key_for(channel: Channel) -> str:
     # Unknown/future providers stay in the principal fallback until an
     # explicit executable resolver and list policy are added.
     return "main"
+
+
+def publication_playlist_for(*, working: bool) -> str:
+    """Return the public list for the current health result.
+
+    The principal list is the useful live view. A failed candidate remains
+    visible, with its stable metadata and retryable fallback, in the external
+    list instead of disappearing from the TV interface.
+    """
+    return "main" if working else "external"
 
 
 def is_direct_probe(channel: Channel) -> bool:
@@ -2658,6 +2677,7 @@ def epg_status_from_xml(
 def validate_main_playlist_epg(
     channels: list[Channel],
     *,
+    required_channels: list[Channel] | None = None,
     data: bytes | None = None,
     now: datetime | None = None,
 ) -> dict:
@@ -2665,18 +2685,26 @@ def validate_main_playlist_epg(
 
     The independent EPG job still builds coverage for the complete catalogue.
     This narrower audit is intentionally run by the channel job as a safety
-    gate before replacing ``m3u.m3u``. Technical continuity blocks count as
-    coverage so a transient source outage cannot erase a channel's XMLTV ID;
-    their explicit ``data-guide`` marker remains visible to the app/report and
-    they are never presented as an official programme source.
+    gate before replacing ``m3u.m3u``. When ``required_channels`` is supplied,
+    it represents the channels that responded in the current run; this keeps
+    the 100% gate aligned with the actual principal output while failed
+    candidates remain visible in ``m3u-externa.m3u``. Technical continuity
+    blocks count as coverage so a transient source outage cannot erase a
+    channel's XMLTV ID; their explicit ``data-guide`` marker remains visible
+    to the app/report and they are never presented as an official programme
+    source.
     """
     current = now or datetime.now(timezone.utc)
     if current.tzinfo is None:
         current = current.replace(tzinfo=timezone.utc)
     current = current.astimezone(timezone.utc)
-    principal_channels = [
-        channel for channel in channels if playlist_key_for(channel) == "main"
-    ]
+    principal_channels = (
+        list(required_channels)
+        if required_channels is not None
+        else [
+            channel for channel in channels if playlist_key_for(channel) == "main"
+        ]
+    )
     missing_id_channels = [channel.name for channel in principal_channels if not channel.tvg_id]
     principal_ids = [channel.tvg_id for channel in principal_channels if channel.tvg_id]
     duplicate_ids = sorted(
@@ -6589,12 +6617,12 @@ def write_report(
 ) -> dict:
     """Write a token-free run report and update persistent channel health.
 
-    A channel that exhausts all retries is removed from the public playlist for
-    this run, including resolver-managed fallbacks. The canonical catalogue
-    retains it for the next run. The protected Highfly F1 exception remains in
-    the main output because its stable resolver can be refreshed by the player.
-    A systemic outage still blocks publication so a runner or provider incident
-    cannot empty a large part of the playlist.
+    A channel that exhausts all retries is moved to the external public
+    playlist for this run, including resolver-managed fallbacks. The canonical
+    catalogue retains it for the next run. Healthy channels from every source
+    pool are placed in the principal playlist. A systemic outage still blocks
+    replacement of the principal output so a runner or direct-source incident
+    cannot publish an unsafe empty view.
     """
 
     def safe_detail(value: str) -> str:
@@ -6667,13 +6695,14 @@ def write_report(
                 resolver_url_hash = None
         detail = safe_detail(result.detail if result else "sin resultado de validacion")
         source_host = urlparse(result.url).hostname if result and result.url else None
-        playlist_key = playlist_key_for(channel)
+        playlist_key = publication_playlist_for(working=ok)
         entry = {
             "id": key,
             "name": channel.display_name or channel.name,
             "tvg_id": channel.tvg_id,
             "group": channel.group,
             "playlist": playlist_key,
+            "validation_playlist": playlist_key_for(channel),
             "resolver": resolver or "direct",
             "test_candidate": is_direct_probe(channel),
             "source_host": source_host,
@@ -6761,6 +6790,10 @@ def write_report(
     systemic_threshold = max(5, (len(direct_entries) + 3) // 4)
     systemic_direct_failure = len(direct_failures) >= systemic_threshold
 
+    # ``playlist`` is assigned from the current health result above. Therefore
+    # the principal set is exactly the responding set and the external set is
+    # exactly the temporarily unavailable set, regardless of the resolver that
+    # originally supplied the channel.
     main_entries = [entry for entry in health_entries if entry["playlist"] == "main"]
     external_entries = [
         entry for entry in health_entries if entry["playlist"] == "external"
@@ -6768,24 +6801,20 @@ def write_report(
     main_working_entries = [entry for entry in main_entries if entry["ok"]]
     external_working_entries = [entry for entry in external_entries if entry["ok"]]
     main_epg_ok = bool(main_epg.get("ok"))
-    channel_by_name = {channel.name: channel for channel in channels}
-    protected_main_ids = {
-        channel.tvg_id
-        for channel in channels
-        if playlist_key_for(channel) == "main"
-        and is_protected_main_channel(channel)
+    # LogoResult uses the parser's canonical channel name. Keep that lookup
+    # independent from the display label, because aliases such as XITE Hits
+    # can intentionally render a shorter name in the public report/M3U.
+    entry_by_name = {
+        channel.name: entry
+        for channel, entry in zip(channels, health_entries)
     }
-    main_publishable_entries = [
-        entry
-        for entry in main_entries
-        if entry["ok"] or entry["tvg_id"] in protected_main_ids
-    ]
+    main_publishable_entries = [entry for entry in main_entries if entry["ok"]]
     logo_failures_by_playlist = {"main": [], "external": []}
     for result in logos:
         if result.ok:
             continue
-        channel = channel_by_name.get(result.channel)
-        key = playlist_key_for(channel) if channel else "main"
+        entry = entry_by_name.get(result.channel)
+        key = entry.get("playlist", "external") if entry else "external"
         logo_failures_by_playlist.setdefault(key, []).append(result.channel)
     main_logo_failures = sorted(logo_failures_by_playlist.get("main", []))
     external_logo_failures = sorted(logo_failures_by_playlist.get("external", []))
@@ -6808,11 +6837,12 @@ def write_report(
     elif not main_publishable_entries:
         main_hold_reason = "no_working_channels"
 
+    # The external output is intentionally a visible retry queue. It must be
+    # writable even when every entry is currently unavailable; otherwise a
+    # resolver outage would hide precisely the channels the user needs to
+    # inspect. Logo failures remain diagnostic and do not discard the retry
+    # entry.
     external_hold_reason = None
-    if external_logo_failures:
-        external_hold_reason = "logo_validation"
-    elif external_entries and not external_working_entries:
-        external_hold_reason = "no_working_channels"
 
     for entry in health_entries:
         is_main = entry["playlist"] == "main"
@@ -6828,25 +6858,7 @@ def write_report(
         elif is_main and not main_working_entries and entry["ok"]:
             entry["published"] = False
             entry["publication_action"] = "held_no_working_channels"
-        elif is_main and entry["test_candidate"]:
-            # Estas entradas se mantienen expresamente para la prueba manual
-            # solicitada, aunque el chequeo automatico no logre llegar al
-            # primer segmento. No cuentan para el guard de salud directa.
-            entry["published"] = True
-            entry["publication_action"] = "manual_test_candidate"
-        elif is_main and entry["tvg_id"] in protected_main_ids:
-            # El F1 de Highfly es una sonda renovable de la lista principal.
-            # Una caida de la hoja no debe quitar el canal del catalogo
-            # publicado: VibeM3U obtiene una fuente fresca al reproducir.
-            entry["published"] = True
-            entry["publication_action"] = "protected_fallback"
-        elif not is_main and external_logo_failures and entry["ok"]:
-            entry["published"] = False
-            entry["publication_action"] = "held_logo_validation"
-        elif not is_main and not external_working_entries and entry["ok"]:
-            entry["published"] = False
-            entry["publication_action"] = "held_no_working_channels"
-        elif entry["ok"]:
+        elif is_main and entry["ok"]:
             entry["published"] = True
             entry["publication_action"] = (
                 "reactivated"
@@ -6858,8 +6870,11 @@ def write_report(
                 else "published"
             )
         else:
-            entry["published"] = False
-            entry["publication_action"] = "temporarily_removed"
+            # Failed channels remain visible in m3u-externa.m3u. Their HLS
+            # fallback may be stale, but the stable tvg-id/resolver metadata is
+            # preserved and the next run can move them back to main.
+            entry["published"] = True
+            entry["publication_action"] = "temporarily_moved_to_external"
 
     blocking_failures = [entry for entry in health_entries if entry["blocking"]]
     degraded_channels = [
@@ -6895,11 +6910,17 @@ def write_report(
         and not main_logo_failures
         and not systemic_direct_failure
     )
-    external_ready = bool(
-        external_entries
-        and external_working_entries
-        and not external_logo_failures
-    )
+    # The external output is a retry/diagnostic view, so an all-failed resolver
+    # pool is still a valid publication. Keeping it writable is what makes the
+    # disabled channels visible on the TV instead of hiding them during an
+    # outage. ``external_logo_failures`` is reported, but does not discard the
+    # channel's stable ID and fallback.
+    external_ready = True
+    temporarily_moved_entries = [
+        entry
+        for entry in health_entries
+        if entry["publication_action"] == "temporarily_moved_to_external"
+    ]
     resolver_refresh_summary = {
         "attempted": sum(
             1
@@ -6943,6 +6964,8 @@ def write_report(
             "file": DEFAULT_PLAYLIST.name,
             "candidate_channels": len(main_entries),
             "working_channels": len(main_working_entries),
+            "active_channels": len(main_working_entries),
+            "disabled_channels": sum(1 for entry in main_entries if not entry["ok"]),
             "published_channels": sum(
                 1
                 for entry in main_entries
@@ -6962,6 +6985,10 @@ def write_report(
             "file": EXTERNAL_PLAYLIST.name,
             "candidate_channels": len(external_entries),
             "working_channels": len(external_working_entries),
+            "active_channels": len(external_working_entries),
+            "disabled_channels": sum(
+                1 for entry in external_entries if not entry["ok"]
+            ),
             "published_channels": sum(
                 1
                 for entry in external_entries
@@ -7002,11 +7029,9 @@ def write_report(
             "published_channels": sum(
                 1 for entry in health_entries if entry["published"] is True
             ),
-            "temporarily_removed": sum(
-                1
-                for entry in health_entries
-                if entry["publication_action"] == "temporarily_removed"
-            ),
+            "active_channels": sum(1 for entry in health_entries if entry["ok"]),
+            "temporarily_removed": len(temporarily_moved_entries),
+            "temporarily_moved_to_external": len(temporarily_moved_entries),
             "held_channels": sum(
                 1
                 for entry in health_entries
@@ -7036,11 +7061,8 @@ def write_report(
         "direct_probe_candidates": direct_probe_entries,
         "direct_probe_failures": direct_probe_failures,
         "degraded_channels": degraded_channels,
-        "temporarily_removed": [
-            entry
-            for entry in health_entries
-            if entry["publication_action"] == "temporarily_removed"
-        ],
+        "temporarily_removed": temporarily_moved_entries,
+        "temporarily_moved_to_external": temporarily_moved_entries,
         "removed_channels": removed_channels,
         "logos": logo_entries,
     }
@@ -7222,35 +7244,25 @@ def main() -> int:
         raise RuntimeError("la lista no contiene canales activos")
 
     if args.channels_only:
-        main_epg_status = validate_main_playlist_epg(channels)
-        epg_status = dict(main_epg_status)
-        epg_status.update(
-            {
-                "updated": False,
-                "skipped": True,
-                "catalog_scope": CHANNEL_CATALOG_PATH.name,
-            }
-        )
+        # The final main-list EPG gate is evaluated after stream validation,
+        # because the principal list now contains only channels that respond
+        # in this run. The independent EPG job still covers the full catalog.
+        main_epg_status = {}
+        epg_status = {
+            "updated": False,
+            "skipped": True,
+            "catalog_scope": CHANNEL_CATALOG_PATH.name,
+        }
         print(
             "EPG omitida: este proceso mantiene canales y resolutores; "
-            "la EPG se ejecuta de forma independiente sobre channel-catalog.m3u"
+            "la EPG se ejecuta de forma independiente sobre channel-catalog.m3u; "
+            "la compuerta de m3u.m3u se calculara al terminar la validacion"
         )
-        if main_epg_status.get("ok"):
-            print(
-                "  [OK] Compuerta EPG de m3u.m3u: cobertura 100% para "
-                f"{main_epg_status['required_channels']} canales"
-            )
-        else:
-            print(
-                "  [AVISO] Compuerta EPG de m3u.m3u cerrada: "
-                + str(main_epg_status.get("error", "cobertura incompleta")),
-                file=sys.stderr,
-            )
     else:
         print("Actualizando la guia de programacion de todos los canales")
         force_epg_refresh = os.environ.get("EPG_FORCE_REFRESH", "").lower() == "true"
         epg_status = refresh_epg(channels, force=force_epg_refresh)
-        main_epg_status = validate_main_playlist_epg(channels)
+        main_epg_status = {}
         updated = "actualizada" if epg_status.get("updated") else "vigente"
         print(
             f"  [OK] EPG {updated}: {epg_status['channels']} canales y "
@@ -7261,12 +7273,6 @@ def main() -> int:
             print(f"  [EPG] {channel.name}: {guide_type}")
         for warning in epg_status.get("warnings", []):
             print(f"  [AVISO] EPG: {warning}", file=sys.stderr)
-        if not main_epg_status.get("ok"):
-            print(
-                "  [AVISO] Compuerta EPG de m3u.m3u cerrada: "
-                + str(main_epg_status.get("error", "cobertura incompleta")),
-                file=sys.stderr,
-            )
 
     print(
         f"Revisando {len(channels)} candidatos de {source_playlist.name} "
@@ -7276,7 +7282,10 @@ def main() -> int:
     allow_geo_restricted = running_in_ci or (
         os.environ.get("M3U_ALLOW_GEO_RESTRICTED", "").lower() == "true"
     )
-    print("Validacion paralela inicial de fuentes directas y resolutores")
+    print(
+        "Validacion paralela inicial por pool de origen; la salida final se "
+        "reparte segun el estado de cada canal"
+    )
     initial_results = verify_all(
         channels, allow_ci_geo_block=allow_geo_restricted
     )
@@ -7418,6 +7427,44 @@ def main() -> int:
         for outcome in dynamic_outcomes
     }
 
+    working_names = {result.channel for result in results if result.ok}
+    main_working_channels = [
+        channel for channel in final_channels if channel.name in working_names
+    ]
+    # Evaluate the hard gate against the exact set that will be written to
+    # m3u.m3u. Failed candidates are intentionally excluded from this check
+    # because they are still exposed in m3u-externa.m3u for inspection/retry.
+    main_epg_status = validate_main_playlist_epg(
+        final_channels,
+        required_channels=main_working_channels,
+    )
+    if args.channels_only:
+        epg_status.update(
+            {
+                key: value
+                for key, value in main_epg_status.items()
+                if key not in {"updated", "skipped", "catalog_scope"}
+            }
+        )
+        epg_status.update(
+            {
+                "updated": False,
+                "skipped": True,
+                "catalog_scope": CHANNEL_CATALOG_PATH.name,
+            }
+        )
+    if main_epg_status.get("ok"):
+        print(
+            "  [OK] Compuerta EPG de m3u.m3u: cobertura 100% para "
+            f"{main_epg_status['required_channels']} canales activos"
+        )
+    else:
+        print(
+            "  [AVISO] Compuerta EPG de m3u.m3u cerrada: "
+            + str(main_epg_status.get("error", "cobertura incompleta")),
+            file=sys.stderr,
+        )
+
     print("Verificacion de logos")
     logo_results = verify_logos(final_channels)
     report = write_report(
@@ -7431,33 +7478,18 @@ def main() -> int:
         refreshed_channels=refreshed_channels,
         dynamic_refresh_status=dynamic_refresh_status,
     )
-    working_names = {result.channel for result in results if result.ok}
     main_publication = report["playlists"]["main"]
     external_publication = report["playlists"]["external"]
-    main_probe_names = {
-        channel.name
-        for channel in final_channels
-        if playlist_key_for(channel) == "main" and is_direct_probe(channel)
-    }
-    protected_main_names = {
-        channel.name
-        for channel in final_channels
-        if playlist_key_for(channel) == "main"
-        and is_protected_main_channel(channel)
-    }
-    main_working_names = {
-        channel.name
-        for channel in final_channels
-        if playlist_key_for(channel) == "main" and channel.name in working_names
-    } | main_probe_names | protected_main_names
-    external_working_names = {
-        channel.name
-        for channel in final_channels
-        if playlist_key_for(channel) == "external" and channel.name in working_names
+    main_working_names = set(working_names)
+    external_names = {
+        channel.name for channel in final_channels if channel.name not in working_names
     }
     if main_publication["publication_ready"]:
         public_lines = filter_playlist_to_working_channels(
-            final_lines, final_channels, main_working_names
+            final_lines,
+            final_channels,
+            main_working_names,
+            preserve_protected_main=False,
         )
         playlist.write_text(
             "\n".join(public_lines) + "\n", encoding="utf-8", newline="\n"
@@ -7476,15 +7508,15 @@ def main() -> int:
         external_lines = filter_playlist_to_working_channels(
             final_lines,
             final_channels,
-            external_working_names,
+            external_names,
             preserve_protected_main=False,
         )
         EXTERNAL_PLAYLIST.write_text(
             "\n".join(external_lines) + "\n", encoding="utf-8", newline="\n"
         )
         print(
-            f"M3U externa: {len(external_working_names)} canales activos; "
-            f"catalogo de reintento: {external_publication['candidate_channels']} candidatos"
+            f"M3U externa: {len(external_names)} canales temporalmente no disponibles; "
+            f"catalogo de reintento: {len(final_channels)} candidatos"
         )
     else:
         print(
@@ -7510,7 +7542,7 @@ def main() -> int:
         )
     if direct_failed:
         print(
-            "Canales directos retirados temporalmente de la M3U publica: "
+            "Canales movidos temporalmente a m3u-externa.m3u: "
             + ", ".join(direct_failed),
             file=sys.stderr,
         )

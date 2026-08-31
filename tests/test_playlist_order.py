@@ -491,7 +491,7 @@ class PlaylistOrderTests(unittest.TestCase):
             ("it1", "Sky.Sport.F1.it"),
         )
 
-    def test_highfly_f1_is_kept_when_health_check_fails(self) -> None:
+    def test_failed_highfly_f1_moves_to_external_retry_queue(self) -> None:
         lines = [
             "#EXTM3U",
             "# Deportes",
@@ -500,12 +500,19 @@ class PlaylistOrderTests(unittest.TestCase):
         ]
         channel = update_m3u.parse_channels(lines)[0]
 
-        self.assertTrue(update_m3u.is_protected_main_channel(channel))
-        filtered = update_m3u.filter_playlist_to_working_channels(
+        self.assertFalse(update_m3u.is_protected_main_channel(channel))
+        principal = update_m3u.filter_playlist_to_working_channels(
             lines, [channel], set()
         )
         self.assertEqual(
-            [item.tvg_id for item in update_m3u.parse_channels(filtered)],
+            update_m3u.parse_channels(principal),
+            [],
+        )
+        external = update_m3u.filter_playlist_to_working_channels(
+            lines, [channel], {channel.name}
+        )
+        self.assertEqual(
+            [item.tvg_id for item in update_m3u.parse_channels(external)],
             ["SkySportsF1.uk"],
         )
 
@@ -610,7 +617,7 @@ class PlaylistOrderTests(unittest.TestCase):
             [item.name for item in update_m3u.parse_channels(external)], ["ESPN"]
         )
 
-    def test_report_marks_failed_highfly_f1_as_protected_fallback(self) -> None:
+    def test_report_moves_failed_highfly_f1_to_external(self) -> None:
         channel = update_m3u.Channel(
             name="Sky Sports F1",
             url="https://leaf.highfly.dev/m3u/now-sky-sports-f1-free/live.m3u8",
@@ -642,9 +649,13 @@ class PlaylistOrderTests(unittest.TestCase):
                 )
 
         entry = report["channels"][0]
-        self.assertTrue(report["playlists"]["main"]["publication_ready"])
+        self.assertFalse(report["playlists"]["main"]["publication_ready"])
+        self.assertTrue(report["playlists"]["external"]["publication_ready"])
+        self.assertEqual(entry["playlist"], "external")
         self.assertTrue(entry["published"])
-        self.assertEqual(entry["publication_action"], "protected_fallback")
+        self.assertEqual(
+            entry["publication_action"], "temporarily_moved_to_external"
+        )
 
     def test_sky_tennis_uses_highfly_after_slug_returns(self) -> None:
         channel = update_m3u.Channel(
@@ -670,7 +681,7 @@ class PlaylistOrderTests(unittest.TestCase):
             "now-sky-sports-tennis",
         )
 
-    def test_external_list_can_publish_when_principal_epg_is_held(self) -> None:
+    def test_working_channels_cross_provider_lists_by_current_health(self) -> None:
         principal = update_m3u.Channel(
             name="TVN",
             url="https://example.invalid/tvn.m3u8",
@@ -686,8 +697,8 @@ class PlaylistOrderTests(unittest.TestCase):
             display_name="ESPN",
         )
         results = [
-            update_m3u.CheckResult(item.name, item.url, True, "ok")
-            for item in (principal, external)
+            update_m3u.CheckResult(principal.name, principal.url, False, "down"),
+            update_m3u.CheckResult(external.name, external.url, True, "ok"),
         ]
         logos = [
             update_m3u.LogoResult(item.name, "", True, "ok")
@@ -706,21 +717,27 @@ class PlaylistOrderTests(unittest.TestCase):
                     results,
                     False,
                     logos,
-                    epg_status={"ok": False},
-                    main_epg_status={"ok": False, "required_channels": 1},
+                    epg_status={"ok": True},
+                    main_epg_status={
+                        "ok": True,
+                        "required_channels": 1,
+                        "guide_types": {external.tvg_id: "real"},
+                    },
                 )
                 health_state = json.loads(
                     (temporary / "health.json").read_text(encoding="utf-8")
                 )
 
-        self.assertFalse(report["playlists"]["main"]["publication_ready"])
+        self.assertTrue(report["playlists"]["main"]["publication_ready"])
         self.assertTrue(report["playlists"]["external"]["publication_ready"])
-        self.assertEqual(
-            report["playlists"]["main"]["hold_reason"], "epg_incomplete"
-        )
         actions = {item["name"]: item["publication_action"] for item in report["channels"]}
-        self.assertEqual(actions["TVN"], "held_missing_epg")
+        playlists = {item["name"]: item["playlist"] for item in report["channels"]}
+        self.assertEqual(actions["TVN"], "temporarily_moved_to_external")
         self.assertEqual(actions["ESPN"], "published")
+        self.assertEqual(playlists["TVN"], "external")
+        self.assertEqual(playlists["ESPN"], "main")
+        self.assertEqual(report["playlists"]["main"]["candidate_channels"], 1)
+        self.assertEqual(report["playlists"]["external"]["candidate_channels"], 1)
         espn_state = health_state["channels"]["ESPN.us"]
         self.assertEqual(
             espn_state["resolver_url_hash"],

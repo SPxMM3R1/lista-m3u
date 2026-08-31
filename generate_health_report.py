@@ -81,7 +81,8 @@ def render(report: dict) -> str:
             "",
             f"- Canales revisados: **{summary.get('total_channels', len(channels))}**.",
             f"- Canales publicados: **{summary.get('published_channels', 0)}**.",
-            f"- Retirados temporalmente tras agotar reintentos: **{summary.get('temporarily_removed', 0)}**.",
+            f"- Movidos temporalmente a la lista externa para reintento: **{summary.get('temporarily_moved_to_external', summary.get('temporarily_removed', 0))}**.",
+            f"- Activos en la principal: **{summary.get('active_channels', 0)}**; en cola externa: **{playlists.get('external', {}).get('candidate_channels', 0)}**.",
             f"- Reactivados en esta ejecución: **{summary.get('reactivated', 0)}**.",
             f"- Fuentes directas temporalmente no disponibles: **{summary.get('direct_failures', 0)}**.",
             f"- Fallos sistémicos que bloquean publicación: **{summary.get('blocking_failures', 0)}**.",
@@ -143,8 +144,10 @@ def render(report: dict) -> str:
         )
         lines.append(
             f"- **{label}** (`{cell(playlist.get('file'))}`): "
-            f"{playlist.get('working_channels', 0)}/{playlist.get('candidate_channels', 0)} "
-            f"canales listos; {epg_label}; {readiness}."
+            f"{playlist.get('active_channels', playlist.get('working_channels', 0))} activos, "
+            f"{playlist.get('disabled_channels', 0)} desactivados "
+            f"({playlist.get('candidate_channels', 0)} en esta salida); "
+            f"{epg_label}; {readiness}."
         )
     if main_epg.get("technical_guides"):
         lines.append(
@@ -203,10 +206,10 @@ def render(report: dict) -> str:
             "",
             "## Criterio de mantenimiento",
             "",
-            "- Un canal que agota la validación, los reintentos y las reparaciones se retira de la M3U pública en esa ejecución; el F1 canónico de Highfly se conserva como excepción renovable.",
+            "- Un canal que agota la validación, los reintentos y las reparaciones se mueve temporalmente a `m3u-externa.m3u`; el catálogo canónico lo conserva para probarlo de nuevo.",
             "- `m3u.m3u` es la lista principal: solo se reemplaza cuando el 100% de sus candidatos tiene EPG XMLTV vigente y validada para al menos 24 horas; si la compuerta falla, se conserva la versión anterior.",
-            "- `m3u-externa.m3u` contiene TvVoo/Vavoo y el resto de Highfly; la familia F1 completa y Sky Sports Tennis son la excepción y se publican en `m3u.m3u` con sus resolutores renovables. La caída de los resolutores externos no bloquea la lista principal.",
-            "- `channel-catalog.m3u` conserva todos los candidatos: cada ejecución vuelve a probar los retirados y los reactiva automáticamente cuando responden.",
+            "- `m3u-externa.m3u` es una cola visible de diagnóstico y reintento: contiene todos los candidatos que no respondieron en la ejecución actual, sin importar si su fuente original era directa, TvVoo o Highfly.",
+            "- `channel-catalog.m3u` conserva todos los candidatos: cada ejecución vuelve a probar los desactivados y los reactiva automáticamente en `m3u.m3u` cuando responden.",
             "- La EPG conserva la cobertura del catálogo completo para que una reactivación recupere inmediatamente su `tvg-id` y programación.",
             "- Una caída simultánea de al menos el 25% de las fuentes directas bloquea la publicación como posible fallo sistémico del runner o la red; los fallos de resolutores se retiran individualmente y se reintentan en la siguiente ejecución.",
             "- El informe omite URLs completas, tokens y parámetros de sesión.",
