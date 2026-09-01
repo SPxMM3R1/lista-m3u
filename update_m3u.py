@@ -54,9 +54,9 @@ EXTERNAL_PLAYLIST_RESOLVERS = frozenset({"tvvoo", "highfly"})
 # antes de reproducir. El orden visual del catalogo comienza en el F1 de
 # Highfly, seguido inmediatamente por su Tennis de Highfly. Despues se
 # mantiene junta toda la familia F1, incluyendo DAZN F1, y luego el resto de
-# Sky, Eurosport y DAZN. La lista publica final se decide por estado: todo lo
-# que responde va a ``m3u.m3u`` y lo no disponible queda visible en
-# ``m3u-externa.m3u`` para su reintento posterior.
+# Sky, Eurosport y DAZN. La lista publica final no se decide por salud:
+# ``m3u.m3u`` conserva una membresia manual persistente y
+# ``m3u-externa.m3u`` contiene el complemento del catalogo.
 F1_CHANNEL_ORDER = (
     "SkySportsF1.uk",
     "DAZNF1.es@TvVoo",
@@ -132,15 +132,6 @@ SPORTS_CHANNEL_INDEX = {
     channel_id: index for index, channel_id in enumerate(SPORTS_CHANNEL_ORDER)
 }
 MAIN_PLAYLIST_CHANNEL_IDS = SPORTS_CHANNEL_IDS
-# Estas dos senales Highfly son excepciones permanentes de publicacion. Aunque
-# el chequeo del runner falle, deben seguir visibles en la lista principal para
-# que VibeM3U pueda renovar el slug al reproducirlas.
-ALWAYS_PUBLISH_MAIN_CHANNEL_IDS = frozenset(
-    {
-        "SkySportsF1.uk",
-        "SkySportsTennis.uk",
-    }
-)
 # Actualmente no se publican sondas directas de Sky Sports. El conjunto se
 # conserva como punto de extension para futuras sondas que reciban autorizacion
 # explicita, pero las entradas retiradas no pueden volver por un fallo puntual.
@@ -1333,9 +1324,8 @@ ORDER_SECTION_GROUPS = {
 }
 
 # La clasificación se hace por ``tvg-id`` o por reglas acotadas de contenido,
-# nunca por el estado de salud. Un canal retirado temporalmente debe conservar
-# su posición en ``channel-catalog.m3u`` para volver al mismo lugar cuando se
-# recupere.
+# nunca por el estado de salud. Todos los canales conservan su posición en
+# ``channel-catalog.m3u`` independientemente de su lista manual y su salud.
 NATIONAL_CHANNEL_IDS = {
     "0104",  # TVN
     "0105",  # Mega
@@ -1852,10 +1842,17 @@ def is_permanently_removed_channel(channel: Channel) -> bool:
     )
 
 
-def remove_permanently_removed_channels(lines: list[str]) -> list[str]:
-    """Remove permanently excluded records while preserving all other order."""
+def remove_permanently_removed_channels(
+    lines: list[str], *, protected_ids: set[str] | frozenset[str] = frozenset()
+) -> list[str]:
+    """Remove excluded records without touching manual main-list members."""
     channels = parse_channels(lines)
-    removed = [channel for channel in channels if is_permanently_removed_channel(channel)]
+    removed = [
+        channel
+        for channel in channels
+        if channel.tvg_id not in protected_ids
+        and is_permanently_removed_channel(channel)
+    ]
     if not removed:
         return []
     omitted_indexes = {
@@ -1989,8 +1986,8 @@ def order_channels_by_content(lines: list[str]) -> bool:
     Only channel records are moved. The first ``#EXTM3U`` header is retained;
     explanatory section comments from older layouts are intentionally removed
     so a failed channel cannot leave a misleading heading in the public copy.
-    ``filter_playlist_to_working_channels`` later removes failed records from
-    this already ordered sequence, preserving their future catalogue position.
+    ``filter_playlist_to_channel_ids`` later selects both manual outputs from
+    this already ordered sequence without changing their relative position.
     """
     channels = parse_channels(lines)
     if not channels:
@@ -2047,47 +2044,27 @@ def order_channels_by_content(lines: list[str]) -> bool:
     return changed
 
 
-def filter_playlist_to_working_channels(
+def filter_playlist_to_channel_ids(
     lines: list[str],
     channels: list[Channel],
-    working_names: set[str],
-    *,
-    preserve_protected_main: bool = True,
+    selected_ids: set[str] | frozenset[str],
 ) -> list[str]:
-    """Select one set of catalogue channels for a public playlist.
+    """Select a stable-ID subset of the canonical catalogue.
 
     ``channel-catalog.m3u`` remains the canonical inventory. Only the EXTINF
-    and URL lines of channels not included in ``working_names`` are omitted.
-    The channel job passes all healthy channels plus the two protected Highfly
-    channels for ``m3u.m3u`` and all other temporarily unavailable channels for
-    ``m3u-externa.m3u``. Empty thematic separators are removed from the public
-    copy, while the catalogue keeps every candidate in its original position
-    for the next retry.
-
-    ``preserve_protected_main`` is retained so callers can explicitly disable
-    the exception when building a diagnostic subset. The normal principal
-    output uses it; a failed Highfly F1 or Tennis is never moved to the
-    external list.
+    and URL lines whose stable ``tvg-id`` is not selected are omitted. Health
+    never participates in this decision: the main list supplies its own manual
+    membership and the external list receives the catalogue complement.
     """
-    selected_names = set(working_names)
+    selected = set(selected_ids)
     omitted_indexes: set[int] = set()
     for channel in channels:
-        protected_main = (
-            preserve_protected_main
-            and playlist_key_for(channel) == "main"
-            and is_protected_main_channel(channel)
-        )
-        if channel.name not in selected_names and not protected_main:
+        if channel.tvg_id not in selected:
             omitted_indexes.update((channel.info_line, channel.url_line))
     working_groups = {
         channel.group
         for channel in channels
-        if channel.name in selected_names
-        or (
-            preserve_protected_main
-            and playlist_key_for(channel) == "main"
-            and is_protected_main_channel(channel)
-        )
+        if channel.tvg_id in selected
     }
     category_headers = {
         f"# {section}": category for section, category in ORDER_SECTION_GROUPS.items()
@@ -2104,6 +2081,44 @@ def filter_playlist_to_working_channels(
     while filtered_lines and not filtered_lines[-1].strip():
         filtered_lines.pop()
     return filtered_lines
+
+
+def stable_channel_ids(channels: list[Channel], *, label: str) -> tuple[str, ...]:
+    """Return unique stable IDs or reject a playlist unsafe for manual use."""
+    missing = [channel.name for channel in channels if not channel.tvg_id]
+    if missing:
+        raise ValueError(f"{label} contiene canales sin tvg-id: " + ", ".join(missing))
+    ids = [channel.tvg_id for channel in channels]
+    duplicates = sorted(
+        channel_id
+        for channel_id in set(ids)
+        if ids.count(channel_id) > 1
+    )
+    if duplicates:
+        raise ValueError(f"{label} contiene tvg-id duplicados: " + ", ".join(duplicates))
+    return tuple(ids)
+
+
+def load_manual_main_channel_ids(
+    catalog_channels: list[Channel],
+    path: Path = DEFAULT_PLAYLIST,
+) -> frozenset[str]:
+    """Read the sticky main-list membership before any automated update."""
+    if not path.is_file():
+        raise RuntimeError(f"falta la lista principal manual: {path.name}")
+    main_channels = parse_channels(
+        path.read_text(encoding="utf-8-sig").splitlines()
+    )
+    main_ids = frozenset(stable_channel_ids(main_channels, label=path.name))
+    if not main_ids:
+        raise ValueError(f"{path.name} no puede quedar sin canales")
+    catalog_ids = set(stable_channel_ids(catalog_channels, label="channel-catalog.m3u"))
+    unknown = sorted(main_ids - catalog_ids)
+    if unknown:
+        raise ValueError(
+            f"{path.name} contiene IDs fuera del catalogo: " + ", ".join(unknown)
+        )
+    return main_ids
 
 
 def resolver_attributes_for(channel: Channel) -> dict[str, str]:
@@ -2143,8 +2158,8 @@ def playlist_key_for(channel: Channel) -> str:
 
     This is deliberately separate from the public output assignment. It keeps
     validation workers and resolver-specific policies isolated. The final
-    public list is selected by :func:`publication_playlist_for` after the
-    health result is known.
+    public list is selected by :func:`publication_playlist_for` from the
+    manual main-list membership.
     """
     if channel.tvg_id in MAIN_PLAYLIST_CHANNEL_IDS:
         return "main"
@@ -2159,18 +2174,11 @@ def playlist_key_for(channel: Channel) -> str:
 
 
 def publication_playlist_for(
-    *, working: bool, channel: Channel | None = None
+    channel: Channel,
+    main_channel_ids: set[str] | frozenset[str],
 ) -> str:
-    """Return the public list for the current health result.
-
-    The principal list is the useful live view. A failed ordinary candidate
-    remains visible, with its stable metadata and retryable fallback, in the
-    external list. The protected Highfly F1 and Tennis entries remain in the
-    principal list even when their runner check fails.
-    """
-    if not working and is_protected_main_channel(channel):
-        return "main"
-    return "main" if working else "external"
+    """Return the manual public-list assignment, independent of health."""
+    return "main" if channel.tvg_id in main_channel_ids else "external"
 
 
 def is_direct_probe(channel: Channel) -> bool:
@@ -2178,15 +2186,6 @@ def is_direct_probe(channel: Channel) -> bool:
     return (
         resolver_engine_for(channel) == "direct"
         and channel.tvg_id in DIRECT_PROBE_CHANNEL_IDS
-    )
-
-
-def is_protected_main_channel(channel: Channel | None) -> bool:
-    """Return whether protected Highfly F1/Tennis survives a health miss."""
-    return bool(
-        channel
-        and channel.tvg_id in ALWAYS_PUBLISH_MAIN_CHANNEL_IDS
-        and resolver_engine_for(channel) == "highfly"
     )
 
 
@@ -2412,6 +2411,72 @@ def validate_resolver_contract(lines: list[str]) -> dict[str, int]:
         + ", ".join(f"{engine}={count}" for engine, count in counts.items())
     )
     return counts
+
+
+def playlist_records_by_id(lines: list[str], *, label: str) -> dict[str, tuple[str, str]]:
+    channels = parse_channels(lines)
+    stable_channel_ids(channels, label=label)
+    return {
+        channel.tvg_id: (lines[channel.info_line], lines[channel.url_line])
+        for channel in channels
+    }
+
+
+def validate_public_playlist_partition(
+    catalog_lines: list[str],
+    main_lines: list[str],
+    external_lines: list[str],
+    expected_main_ids: set[str] | frozenset[str],
+) -> dict[str, int]:
+    """Prove that manual membership and resolver records survived generation."""
+    catalog = playlist_records_by_id(catalog_lines, label=CHANNEL_CATALOG_PATH.name)
+    main = playlist_records_by_id(main_lines, label=DEFAULT_PLAYLIST.name)
+    external = playlist_records_by_id(
+        external_lines, label=EXTERNAL_PLAYLIST.name
+    )
+    catalog_ids = set(catalog)
+    expected_main = set(expected_main_ids)
+    if not expected_main:
+        raise ValueError("la membresia manual de m3u.m3u no puede estar vacia")
+    unknown_main = sorted(expected_main - catalog_ids)
+    if unknown_main:
+        raise ValueError(
+            "la lista principal manual contiene IDs fuera del catalogo: "
+            + ", ".join(unknown_main)
+        )
+    if set(main) != expected_main:
+        missing = sorted(expected_main - set(main))
+        added = sorted(set(main) - expected_main)
+        raise ValueError(
+            "la automatizacion altero la membresia manual de m3u.m3u; "
+            f"faltan={missing}, agregados={added}"
+        )
+    expected_external = catalog_ids - expected_main
+    if set(external) != expected_external:
+        missing = sorted(expected_external - set(external))
+        added = sorted(set(external) - expected_external)
+        raise ValueError(
+            "m3u-externa.m3u no coincide con el complemento del catalogo; "
+            f"faltan={missing}, agregados={added}"
+        )
+    overlap = sorted(set(main).intersection(external))
+    if overlap:
+        raise ValueError("canales repetidos entre listas: " + ", ".join(overlap))
+    for channel_id, record in {**main, **external}.items():
+        if record != catalog[channel_id]:
+            raise ValueError(
+                f"{channel_id}: la salida publica no adopto la URL o "
+                "los metadatos de resolutor actuales del catalogo"
+            )
+    print(
+        "Particion manual valida: "
+        f"principal={len(main)}, externa={len(external)}, catalogo={len(catalog)}"
+    )
+    return {
+        "main_channels": len(main),
+        "external_channels": len(external),
+        "catalog_channels": len(catalog),
+    }
 
 
 def pin_preferred_logos(lines: list[str]) -> bool:
@@ -2696,9 +2761,8 @@ def validate_main_playlist_epg(
     The independent EPG job still builds coverage for the complete catalogue.
     This narrower audit is intentionally run by the channel job as a safety
     gate before replacing ``m3u.m3u``. When ``required_channels`` is supplied,
-    it represents the channels that responded in the current run; this keeps
-    the 100% gate aligned with the actual principal output while failed
-    candidates remain visible in ``m3u-externa.m3u``. Technical continuity
+    it represents every member of the manually curated principal list,
+    regardless of health. Technical continuity
     blocks count as coverage so a transient source outage cannot erase a
     channel's XMLTV ID; their explicit ``data-guide`` marker remains visible
     to the app/report and they are never presented as an official programme
@@ -5528,12 +5592,12 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
                 )
                 if channel.tvg_id
             )
-        retired_ids = catalog_ids - public_ids
+        unpublished_ids = catalog_ids - public_ids
         unknown_public_ids = public_ids - catalog_ids
         print(
             "EPG verificada contra las listas publicas y channel-catalog.m3u: "
-            f"{len(public_ids & catalog_ids)} activos, "
-            f"{len(retired_ids)} retirados temporalmente; "
+            f"{len(public_ids & catalog_ids)} presentes entre ambas listas, "
+            f"{len(unpublished_ids)} fuera de las salidas; "
             "se procesara el catalogo completo"
         )
         if unknown_public_ids:
@@ -6104,18 +6168,6 @@ def repair_failed_channels(
         if result.ok:
             continue
         channel = channels_by_name[result.channel]
-        if is_protected_main_channel(channel):
-            print(
-                f"  [CONSERVADO] {channel.name}: Highfly protegido; "
-                "se mantiene su slug y enlace de respaldo para VibeM3U"
-            )
-            continue
-        if allow_ci_geo_block and channel.name in APP_HANDLED_CHANNELS:
-            print(
-                f"  [CONSERVADO] {channel.name}: se mantiene el maestro original; "
-                "la autenticacion queda en la app"
-            )
-            continue
         print(f"Buscando reemplazo oficial para {channel.name}")
         for candidate_url in discover_official_candidates(channel):
             candidate = Channel(
@@ -6627,18 +6679,18 @@ def write_report(
     repaired_channels: list[str] | None = None,
     epg_status: dict | None = None,
     *,
+    main_channel_ids: set[str] | frozenset[str],
     main_epg_status: dict | None = None,
     refreshed_channels: list[str] | None = None,
     dynamic_refresh_status: dict[str, dict] | None = None,
 ) -> dict:
     """Write a token-free run report and update persistent channel health.
 
-    A channel that exhausts all retries is moved to the external public
-    playlist for this run, including resolver-managed fallbacks. The canonical
-    catalogue retains it for the next run. Healthy channels from every source
-    pool are placed in the principal playlist. A systemic outage still blocks
-    replacement of the principal output so a runner or direct-source incident
-    cannot publish an unsafe empty view.
+    Public-list membership is manual and sticky. Health changes status and
+    diagnostics but never moves a channel between outputs. The canonical
+    catalogue remains the source for URLs, resolver metadata and order. A
+    systemic direct-source outage can still hold the previous principal file
+    so a runner incident does not publish partially repaired data.
     """
 
     def safe_detail(value: str) -> str:
@@ -6691,11 +6743,10 @@ def write_report(
         else:
             status = "temporarily_unavailable"
 
-        # Un fallo individual no congela las demás fuentes: se retira solo de
-        # la M3U pública y permanece en el catálogo canónico. La protección
-        # sistémica se calcula más abajo únicamente con fuentes directas;
-        # los resolutores tienen enlaces efímeros y pueden fallar en bloque
-        # mientras el motor de reproducción sigue siendo recuperable.
+        # Un fallo individual no cambia de lista al canal. La protección
+        # sistémica se calcula más abajo únicamente con fuentes directas; los
+        # resolutores tienen enlaces efímeros y pueden fallar en bloque mientras
+        # el motor de reproducción sigue siendo recuperable.
         blocking = False
         previous_status = str(old.get("status", "new"))
         last_ok_at = checked_at if ok else old.get("last_ok_at")
@@ -6711,7 +6762,7 @@ def write_report(
                 resolver_url_hash = None
         detail = safe_detail(result.detail if result else "sin resultado de validacion")
         source_host = urlparse(result.url).hostname if result and result.url else None
-        playlist_key = publication_playlist_for(working=ok, channel=channel)
+        playlist_key = publication_playlist_for(channel, main_channel_ids)
         entry = {
             "id": key,
             "name": channel.display_name or channel.name,
@@ -6806,11 +6857,8 @@ def write_report(
     systemic_threshold = max(5, (len(direct_entries) + 3) // 4)
     systemic_direct_failure = len(direct_failures) >= systemic_threshold
 
-    # ``playlist`` is assigned from the current health result above. The
-    # principal set is the responding set, with one deliberate exception:
-    # protected Highfly F1/Tennis remain in the principal set even when their
-    # runner probe fails. Every other unavailable candidate goes to the
-    # external retry view.
+    # ``playlist`` is assigned only from the manual main membership. A health
+    # transition never moves a channel between public outputs.
     main_entries = [entry for entry in health_entries if entry["playlist"] == "main"]
     external_entries = [
         entry for entry in health_entries if entry["playlist"] == "external"
@@ -6825,22 +6873,9 @@ def write_report(
         channel.name: entry
         for channel, entry in zip(channels, health_entries)
     }
-    def entry_is_protected_main(entry: dict) -> bool:
-        return bool(
-            entry.get("tvg_id") in ALWAYS_PUBLISH_MAIN_CHANNEL_IDS
-            and entry.get("resolver") == "highfly"
-        )
-
-    protected_main_entries = [
-        entry for entry in main_entries if entry_is_protected_main(entry)
-    ]
-    protected_main_failures = [
-        entry for entry in protected_main_entries if not entry["ok"]
-    ]
-    main_publishable_entries = [
-        entry
-        for entry in main_entries
-        if entry["ok"] or entry_is_protected_main(entry)
+    main_unavailable_entries = [entry for entry in main_entries if not entry["ok"]]
+    external_unavailable_entries = [
+        entry for entry in external_entries if not entry["ok"]
     ]
     logo_failures_by_playlist = {"main": [], "external": []}
     for result in logos:
@@ -6857,7 +6892,7 @@ def write_report(
     # direct/official channels, and the two outputs are published separately.
     if systemic_direct_failure:
         for entry in main_entries:
-            if not entry["ok"] and not entry_is_protected_main(entry):
+            if not entry["ok"]:
                 entry["blocking"] = True
 
     main_hold_reason = None
@@ -6867,14 +6902,12 @@ def write_report(
         main_hold_reason = "epg_incomplete"
     elif main_logo_failures:
         main_hold_reason = "logo_validation"
-    elif not main_publishable_entries:
-        main_hold_reason = "no_working_channels"
+    elif not main_entries:
+        main_hold_reason = "empty_manual_membership"
 
-    # The external output is intentionally a visible retry queue. It must be
-    # writable even when every entry is currently unavailable; otherwise a
-    # resolver outage would hide precisely the channels the user needs to
-    # inspect. Logo failures remain diagnostic and do not discard the retry
-    # entry.
+    # The external output is the manually unpromoted catalogue complement. It
+    # remains writable regardless of current health; logos and failures stay
+    # diagnostic and never change membership.
     external_hold_reason = None
 
     for entry in health_entries:
@@ -6882,39 +6915,33 @@ def write_report(
         if is_main and systemic_direct_failure:
             entry["published"] = None
             entry["publication_action"] = "unchanged_systemic_guard"
-        elif is_main and not main_epg_ok and (
-            entry["ok"] or entry_is_protected_main(entry)
-        ):
+        elif is_main and not main_epg_ok:
             entry["published"] = False
             entry["publication_action"] = "held_missing_epg"
-        elif is_main and main_logo_failures and (
-            entry["ok"] or entry_is_protected_main(entry)
-        ):
+        elif is_main and main_logo_failures:
             entry["published"] = False
             entry["publication_action"] = "held_logo_validation"
-        elif is_main and not main_working_entries and entry["ok"]:
-            entry["published"] = False
-            entry["publication_action"] = "held_no_working_channels"
-        elif is_main and entry_is_protected_main(entry) and not entry["ok"]:
+        elif is_main:
             entry["published"] = True
-            entry["publication_action"] = "protected_fallback"
-        elif is_main and entry["ok"]:
+            if not entry["ok"]:
+                entry["publication_action"] = "retained_main_unavailable"
+            else:
+                entry["publication_action"] = (
+                    "recovered_in_main"
+                    if entry["previous_status"] in {
+                        "intermittent",
+                        "temporarily_unavailable",
+                        "resolver_required",
+                    }
+                    else "published_in_main"
+                )
+        else:
             entry["published"] = True
             entry["publication_action"] = (
-                "reactivated"
-                if entry["previous_status"] in {
-                    "intermittent",
-                    "temporarily_unavailable",
-                    "resolver_required",
-                }
-                else "published"
+                "available_in_external"
+                if entry["ok"]
+                else "retained_external_unavailable"
             )
-        else:
-            # Failed ordinary channels remain visible in m3u-externa.m3u. Their
-            # HLS fallback may be stale, but the stable tvg-id/resolver metadata
-            # is preserved and the next run can move them back to main.
-            entry["published"] = True
-            entry["publication_action"] = "temporarily_moved_to_external"
 
     blocking_failures = [entry for entry in health_entries if entry["blocking"]]
     degraded_channels = [
@@ -6922,7 +6949,6 @@ def write_report(
         for entry in health_entries
         if not entry["ok"]
         and entry["resolver"] != "direct"
-        and not entry_is_protected_main(entry)
     ]
     status_counts: dict[str, int] = {}
     for entry in health_entries:
@@ -6947,22 +6973,14 @@ def write_report(
     ) if main_entries else 0
     main_ready = bool(
         main_entries
-        and main_publishable_entries
         and main_epg_ok
         and not main_logo_failures
         and not systemic_direct_failure
     )
-    # The external output is a retry/diagnostic view, so an all-failed resolver
-    # pool is still a valid publication. Keeping it writable is what makes the
-    # disabled channels visible on the TV instead of hiding them during an
-    # outage. ``external_logo_failures`` is reported, but does not discard the
-    # channel's stable ID and fallback.
+    # The external output is a persistent candidate view, so an all-failed
+    # resolver pool is still a valid publication.
     external_ready = True
-    temporarily_moved_entries = [
-        entry
-        for entry in health_entries
-        if entry["publication_action"] == "temporarily_moved_to_external"
-    ]
+    temporarily_moved_entries: list[dict] = []
     resolver_refresh_summary = {
         "attempted": sum(
             1
@@ -7004,15 +7022,12 @@ def write_report(
     playlists = {
         "main": {
             "file": DEFAULT_PLAYLIST.name,
+            "membership_mode": "manual_sticky",
             "candidate_channels": len(main_entries),
             "working_channels": len(main_working_entries),
             "active_channels": len(main_working_entries),
-            "disabled_channels": sum(
-                1
-                for entry in main_entries
-                if not entry["ok"] and not entry_is_protected_main(entry)
-            ),
-            "protected_fallback_channels": len(protected_main_failures),
+            "unavailable_channels": len(main_unavailable_entries),
+            "disabled_channels": 0,
             "published_channels": sum(
                 1
                 for entry in main_entries
@@ -7030,12 +7045,12 @@ def write_report(
         },
         "external": {
             "file": EXTERNAL_PLAYLIST.name,
+            "membership_mode": "catalog_complement",
             "candidate_channels": len(external_entries),
             "working_channels": len(external_working_entries),
             "active_channels": len(external_working_entries),
-            "disabled_channels": sum(
-                1 for entry in external_entries if not entry["ok"]
-            ),
+            "unavailable_channels": len(external_unavailable_entries),
+            "disabled_channels": 0,
             "published_channels": sum(
                 1
                 for entry in external_entries
@@ -7058,7 +7073,6 @@ def write_report(
         "all_ok": (
             not direct_failures
             and not degraded_channels
-            and not protected_main_failures
             and all(result.ok for result in logos)
             and main_epg_ok
         ),
@@ -7072,7 +7086,9 @@ def write_report(
             "direct_probe_candidates": len(direct_probe_entries),
             "direct_probe_failures": len(direct_probe_failures),
             "resolver_degradations": len(degraded_channels),
-            "protected_main_fallbacks": len(protected_main_failures),
+            "retained_main_unavailable": len(main_unavailable_entries),
+            "external_available": len(external_working_entries),
+            "external_unavailable": len(external_unavailable_entries),
             "systemic_direct_failure": systemic_direct_failure,
             "systemic_direct_failure_threshold": systemic_threshold,
             "published_channels": sum(
@@ -7089,7 +7105,7 @@ def write_report(
             "reactivated": sum(
                 1
                 for entry in health_entries
-                if entry["publication_action"] == "reactivated"
+                if entry["publication_action"] == "recovered_in_main"
             ),
             "main_epg_ok": main_epg_ok,
             "main_epg_coverage_percent": main_epg_coverage,
@@ -7110,7 +7126,8 @@ def write_report(
         "direct_probe_candidates": direct_probe_entries,
         "direct_probe_failures": direct_probe_failures,
         "degraded_channels": degraded_channels,
-        "protected_main_failures": protected_main_failures,
+        "main_unavailable_channels": main_unavailable_entries,
+        "external_unavailable_channels": external_unavailable_entries,
         "temporarily_removed": temporarily_moved_entries,
         "temporarily_moved_to_external": temporarily_moved_entries,
         "removed_channels": removed_channels,
@@ -7193,6 +7210,11 @@ def main() -> int:
         action="store_true",
         help="valida el contrato M3U/catalogo sin actualizar streams ni EPG",
     )
+    parser.add_argument(
+        "--validate-public-lists-only",
+        action="store_true",
+        help="valida offline la membresia manual y la propagacion de resolutores",
+    )
     mode_group = parser.add_mutually_exclusive_group()
     mode_group.add_argument(
         "--refresh-epg-only",
@@ -7224,7 +7246,29 @@ def main() -> int:
         else playlist
     )
     lines = source_playlist.read_text(encoding="utf-8-sig").splitlines()
-    removed_channels = remove_permanently_removed_channels(lines)
+    catalogue_before_update = parse_channels(lines)
+    membership_path = (
+        DEFAULT_PLAYLIST
+        if source_playlist == CHANNEL_CATALOG_PATH
+        else playlist
+    )
+    manual_main_ids = load_manual_main_channel_ids(
+        catalogue_before_update,
+        membership_path,
+    )
+    if args.validate_public_lists_only:
+        validate_resolver_contract(lines)
+        validate_public_playlist_partition(
+            lines,
+            DEFAULT_PLAYLIST.read_text(encoding="utf-8-sig").splitlines(),
+            EXTERNAL_PLAYLIST.read_text(encoding="utf-8-sig").splitlines(),
+            manual_main_ids,
+        )
+        return 0
+    removed_channels = remove_permanently_removed_channels(
+        lines,
+        protected_ids=manual_main_ids,
+    )
     if args.refresh_epg_only:
         if removed_channels:
             source_playlist.write_text(
@@ -7292,11 +7336,13 @@ def main() -> int:
     channels = parse_channels(lines)
     if not channels:
         raise RuntimeError("la lista no contiene canales activos")
+    if load_manual_main_channel_ids(channels, membership_path) != manual_main_ids:
+        raise RuntimeError("la membresia manual principal cambio durante la preparacion")
 
     if args.channels_only:
-        # The final main-list EPG gate is evaluated after stream validation,
-        # because the principal list now contains only channels that respond
-        # in this run. The independent EPG job still covers the full catalog.
+        # The final main-list EPG gate is evaluated after stream maintenance
+        # against the complete manual membership. The independent EPG job
+        # still covers the full catalogue.
         main_epg_status = {}
         epg_status = {
             "updated": False,
@@ -7333,8 +7379,8 @@ def main() -> int:
         os.environ.get("M3U_ALLOW_GEO_RESTRICTED", "").lower() == "true"
     )
     print(
-        "Validacion paralela inicial por pool de origen; la salida final se "
-        "reparte segun el estado de cada canal"
+        "Validacion paralela inicial por pool de origen; la salud no cambia "
+        "la membresia manual de las listas"
     )
     initial_results = verify_all(
         channels, allow_ci_geo_block=allow_geo_restricted
@@ -7477,22 +7523,23 @@ def main() -> int:
         for outcome in dynamic_outcomes
     }
 
-    working_names = {result.channel for result in results if result.ok}
-    protected_main_names = {
-        channel.name
-        for channel in final_channels
-        if is_protected_main_channel(channel)
-    }
-    main_publication_names = working_names | protected_main_names
+    catalogue_ids = frozenset(
+        stable_channel_ids(final_channels, label=CHANNEL_CATALOG_PATH.name)
+    )
+    missing_manual_ids = sorted(set(manual_main_ids) - set(catalogue_ids))
+    if missing_manual_ids:
+        raise RuntimeError(
+            "el reparador elimino canales de la lista principal manual: "
+            + ", ".join(missing_manual_ids)
+        )
+    external_ids = frozenset(set(catalogue_ids) - set(manual_main_ids))
     main_publication_channels = [
         channel
         for channel in final_channels
-        if channel.name in main_publication_names
+        if channel.tvg_id in manual_main_ids
     ]
     # Evaluate the hard gate against the exact set that will be written to
-    # m3u.m3u. Failed ordinary candidates are excluded because they are still
-    # exposed in m3u-externa.m3u for inspection/retry. The protected Highfly
-    # F1/Tennis channels remain part of this gate even when their probe fails.
+    # m3u.m3u. Every manual member remains required regardless of health.
     main_epg_status = validate_main_playlist_epg(
         final_channels,
         required_channels=main_publication_channels,
@@ -7533,32 +7580,50 @@ def main() -> int:
         logo_results,
         repaired_channels,
         epg_status,
+        main_channel_ids=manual_main_ids,
         main_epg_status=main_epg_status,
         refreshed_channels=refreshed_channels,
         dynamic_refresh_status=dynamic_refresh_status,
     )
     main_publication = report["playlists"]["main"]
     external_publication = report["playlists"]["external"]
-    main_working_names = set(main_publication_names)
-    external_names = {
-        channel.name
-        for channel in final_channels
-        if channel.name not in main_publication_names
-    }
+    candidate_main_lines = filter_playlist_to_channel_ids(
+        final_lines,
+        final_channels,
+        manual_main_ids,
+    )
+    candidate_external_lines = filter_playlist_to_channel_ids(
+        final_lines,
+        final_channels,
+        external_ids,
+    )
+    validate_public_playlist_partition(
+        final_lines,
+        candidate_main_lines,
+        candidate_external_lines,
+        manual_main_ids,
+    )
+    main_working_count = sum(
+        1
+        for channel, result in zip(final_channels, results)
+        if channel.tvg_id in manual_main_ids and result.ok
+    )
+    external_working_count = sum(
+        1
+        for channel, result in zip(final_channels, results)
+        if channel.tvg_id in external_ids and result.ok
+    )
     if main_publication["publication_ready"]:
-        public_lines = filter_playlist_to_working_channels(
-            final_lines,
-            final_channels,
-            main_working_names,
-            preserve_protected_main=True,
-        )
         playlist.write_text(
-            "\n".join(public_lines) + "\n", encoding="utf-8", newline="\n"
+            "\n".join(candidate_main_lines) + "\n",
+            encoding="utf-8",
+            newline="\n",
         )
         print(
-            f"M3U principal: {len(main_working_names)} canales publicados "
-            f"({len(protected_main_names - working_names)} protegidos en fallback); "
-            f"EPG 100% validada sobre {main_publication['candidate_channels']} candidatos"
+            f"M3U principal manual: {len(manual_main_ids)} canales conservados; "
+            f"{main_working_count} activos y "
+            f"{len(manual_main_ids) - main_working_count} temporalmente no disponibles; "
+            "EPG 100% validada"
         )
     else:
         print(
@@ -7567,18 +7632,15 @@ def main() -> int:
             file=sys.stderr,
         )
     if external_publication["publication_ready"]:
-        external_lines = filter_playlist_to_working_channels(
-            final_lines,
-            final_channels,
-            external_names,
-            preserve_protected_main=False,
-        )
         EXTERNAL_PLAYLIST.write_text(
-            "\n".join(external_lines) + "\n", encoding="utf-8", newline="\n"
+            "\n".join(candidate_external_lines) + "\n",
+            encoding="utf-8",
+            newline="\n",
         )
         print(
-            f"M3U externa: {len(external_names)} canales temporalmente no disponibles; "
-            f"catalogo de reintento: {len(final_channels)} candidatos"
+            f"M3U externa: {len(external_ids)} candidatos no promovidos; "
+            f"{external_working_count} activos y "
+            f"{len(external_ids) - external_working_count} no disponibles"
         )
     else:
         print(
@@ -7597,14 +7659,14 @@ def main() -> int:
     epg_failed = not bool(main_epg_status.get("ok"))
     if degraded:
         print(
-            "Respaldos degradados retirados temporalmente; el resolutor y el "
-            "catalogo los volveran a intentar: "
+            "Resolutores degradados; conservaron su lista asignada y se "
+            "volveran a reparar: "
             + ", ".join(degraded),
             file=sys.stderr,
         )
     if direct_failed:
         print(
-            "Canales movidos temporalmente a m3u-externa.m3u: "
+            "Fuentes directas no disponibles; conservaron su membresia manual: "
             + ", ".join(direct_failed),
             file=sys.stderr,
         )
@@ -7636,13 +7698,11 @@ def main() -> int:
         )
         return 1
     working = sum(1 for result in results if result.ok)
-    protected_fallback_count = len(protected_main_names - working_names)
-    temporarily_unavailable = len(results) - working - protected_fallback_count
     print(
         f"Catalogo verificado: {working} canales activos y "
-        f"{temporarily_unavailable} retirados temporalmente; "
-        f"{protected_fallback_count} protegidos en la lista principal "
-        f"({len(results)} candidatos conservados)"
+        f"{len(results) - working} temporalmente no disponibles; "
+        f"membresia fija principal={len(manual_main_ids)}, "
+        f"externa={len(external_ids)} ({len(results)} candidatos conservados)"
     )
     return 0
 

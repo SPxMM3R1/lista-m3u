@@ -206,6 +206,24 @@ class PlaylistOrderTests(unittest.TestCase):
             [name for _, name in retained],
         )
 
+    def test_manual_main_member_is_never_removed_by_automatic_exclusions(self) -> None:
+        lines = [
+            "#EXTM3U",
+            extinf("ReutersTV.us", "Reuters", "Noticias internacionales"),
+            "https://example.invalid/reuters.m3u8",
+        ]
+
+        removed = update_m3u.remove_permanently_removed_channels(
+            lines,
+            protected_ids={"ReutersTV.us"},
+        )
+
+        self.assertEqual(removed, [])
+        self.assertEqual(
+            [channel.tvg_id for channel in update_m3u.parse_channels(lines)],
+            ["ReutersTV.us"],
+        )
+
     def test_catalogue_is_ordered_and_public_filter_keeps_the_same_sequence(self) -> None:
         lines = [
             '#EXTM3U x-tvg-url="https://example.invalid/epg.xml"',
@@ -253,14 +271,14 @@ class PlaylistOrderTests(unittest.TestCase):
             ],
         )
 
-        public_lines = update_m3u.filter_playlist_to_working_channels(
+        public_lines = update_m3u.filter_playlist_to_channel_ids(
             lines,
             channels,
             {
-                "TVN",
-                "BBC News",
-                "XITE Nuevo Latino",
-                "BBC Earth FAST",
+                "0104",
+                "news-int.channel",
+                "music.channel",
+                "misc.channel",
             },
         )
         public_channels = update_m3u.parse_channels(public_lines)
@@ -384,7 +402,7 @@ class PlaylistOrderTests(unittest.TestCase):
             ],
         )
 
-    def test_public_lists_split_by_resolver_without_empty_groups(self) -> None:
+    def test_public_lists_follow_selected_stable_ids_without_empty_groups(self) -> None:
         lines = [
             "#EXTM3U",
             "# Nacionales",
@@ -400,11 +418,11 @@ class PlaylistOrderTests(unittest.TestCase):
             [update_m3u.playlist_key_for(item) for item in channels],
             ["main", "external"],
         )
-        principal = update_m3u.filter_playlist_to_working_channels(
-            lines, channels, {"TVN"}
+        principal = update_m3u.filter_playlist_to_channel_ids(
+            lines, channels, {"0104"}
         )
-        externa = update_m3u.filter_playlist_to_working_channels(
-            lines, channels, {"ESPN"}
+        externa = update_m3u.filter_playlist_to_channel_ids(
+            lines, channels, {"ESPN.us"}
         )
         self.assertEqual(
             [item.name for item in update_m3u.parse_channels(principal)], ["TVN"]
@@ -414,6 +432,76 @@ class PlaylistOrderTests(unittest.TestCase):
         )
         self.assertNotIn("# Deportes", principal)
         self.assertNotIn("# Nacionales", externa)
+
+    def test_main_membership_is_sticky_and_manual_promotion_is_explicit(self) -> None:
+        catalog_lines = [
+            "#EXTM3U",
+            extinf("0104", "TVN", "Nacionales"),
+            "https://example.invalid/tvn.m3u8",
+            extinf("ESPN.us", "ESPN", "Deportes"),
+            "https://example.invalid/espn.m3u8",
+        ]
+        catalog_channels = update_m3u.parse_channels(catalog_lines)
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            main_path = Path(temporary_directory) / "m3u.m3u"
+            main_path.write_text(
+                "\n".join(catalog_lines[:3]) + "\n",
+                encoding="utf-8",
+            )
+            original = update_m3u.load_manual_main_channel_ids(
+                catalog_channels,
+                main_path,
+            )
+            self.assertEqual(original, {"0104"})
+
+            main_path.write_text(
+                "\n".join(catalog_lines) + "\n",
+                encoding="utf-8",
+            )
+            promoted = update_m3u.load_manual_main_channel_ids(
+                catalog_channels,
+                main_path,
+            )
+            self.assertEqual(promoted, {"0104", "ESPN.us"})
+
+    def test_generated_lists_preserve_manual_partition_and_resolver_records(self) -> None:
+        catalog_lines = [
+            "#EXTM3U",
+            extinf("0104", "TVN", "Nacionales"),
+            "https://example.invalid/tvn.m3u8",
+            extinf("ESPN.us", "ESPN", "Deportes"),
+            "https://example.invalid/espn.m3u8",
+        ]
+        channels = update_m3u.parse_channels(catalog_lines)
+        main_lines = update_m3u.filter_playlist_to_channel_ids(
+            catalog_lines,
+            channels,
+            {"0104"},
+        )
+        external_lines = update_m3u.filter_playlist_to_channel_ids(
+            catalog_lines,
+            channels,
+            {"ESPN.us"},
+        )
+
+        result = update_m3u.validate_public_playlist_partition(
+            catalog_lines,
+            main_lines,
+            external_lines,
+            {"0104"},
+        )
+        self.assertEqual(
+            result,
+            {"main_channels": 1, "external_channels": 1, "catalog_channels": 2},
+        )
+
+        with self.assertRaisesRegex(ValueError, "altero la membresia manual"):
+            update_m3u.validate_public_playlist_partition(
+                catalog_lines,
+                external_lines,
+                main_lines,
+                {"0104"},
+            )
 
     def test_selected_dynamic_channels_are_published_in_main(self) -> None:
         selected = [
@@ -491,7 +579,7 @@ class PlaylistOrderTests(unittest.TestCase):
             ("it1", "Sky.Sport.F1.it"),
         )
 
-    def test_failed_highfly_f1_stays_in_main_retryable_fallback(self) -> None:
+    def test_repairer_can_repair_failed_highfly_main_channel(self) -> None:
         lines = [
             "#EXTM3U",
             "# Deportes",
@@ -499,41 +587,35 @@ class PlaylistOrderTests(unittest.TestCase):
             "https://leaf.highfly.dev/m3u/now-sky-sports-f1-free/live.m3u8",
         ]
         channel = update_m3u.parse_channels(lines)[0]
-
-        self.assertTrue(update_m3u.is_protected_main_channel(channel))
         self.assertEqual(
-            update_m3u.publication_playlist_for(working=False, channel=channel),
+            update_m3u.publication_playlist_for(channel, {"SkySportsF1.uk"}),
             "main",
         )
-        principal = update_m3u.filter_playlist_to_working_channels(
-            lines, [channel], set()
-        )
-        self.assertEqual(
-            [item.tvg_id for item in update_m3u.parse_channels(principal)],
-            ["SkySportsF1.uk"],
-        )
-        external = update_m3u.filter_playlist_to_working_channels(
-            lines, [channel], set(), preserve_protected_main=False
-        )
-        self.assertEqual(
-            update_m3u.parse_channels(external),
-            [],
-        )
         original_url = channel.url
+        replacement = "https://example.invalid/replacement.m3u8"
         with patch.object(
             update_m3u,
             "discover_official_candidates",
-            return_value=["https://example.invalid/replacement.m3u8"],
-        ) as discover:
+            return_value=[replacement],
+        ) as discover, patch.object(
+            update_m3u,
+            "check_channel",
+            return_value=update_m3u.CheckResult(
+                channel.name,
+                replacement,
+                True,
+                "playlist HLS valida",
+            ),
+        ):
             repaired = update_m3u.repair_failed_channels(
                 lines,
                 [channel],
                 [update_m3u.CheckResult(channel.name, original_url, False, "down")],
                 allow_ci_geo_block=False,
             )
-        self.assertEqual(repaired, [])
-        self.assertEqual(lines[channel.url_line], original_url)
-        discover.assert_not_called()
+        self.assertEqual(repaired, [channel.name])
+        self.assertEqual(lines[channel.url_line], replacement)
+        discover.assert_called_once_with(channel)
 
         tennis = update_m3u.Channel(
             name="Sky Sports Tennis",
@@ -541,11 +623,44 @@ class PlaylistOrderTests(unittest.TestCase):
             url_line=0,
             tvg_id="SkySportsTennis.uk",
         )
-        self.assertTrue(update_m3u.is_protected_main_channel(tennis))
         self.assertEqual(
-            update_m3u.publication_playlist_for(working=False, channel=tennis),
+            update_m3u.publication_playlist_for(
+                tennis, {"SkySportsF1.uk", "SkySportsTennis.uk"}
+            ),
             "main",
         )
+
+    def test_repairer_does_not_skip_app_handled_channels(self) -> None:
+        lines = [
+            "#EXTM3U",
+            extinf("0104", "TVN", "Nacionales"),
+            "https://example.invalid/tvn-old.m3u8",
+        ]
+        channel = update_m3u.parse_channels(lines)[0]
+        replacement = "https://example.invalid/tvn-new.m3u8"
+        with patch.object(
+            update_m3u,
+            "discover_official_candidates",
+            return_value=[replacement],
+        ), patch.object(
+            update_m3u,
+            "check_channel",
+            return_value=update_m3u.CheckResult(
+                channel.name,
+                replacement,
+                True,
+                "playlist HLS valida",
+            ),
+        ):
+            repaired = update_m3u.repair_failed_channels(
+                lines,
+                [channel],
+                [update_m3u.CheckResult(channel.name, channel.url, False, "down")],
+                allow_ci_geo_block=True,
+            )
+
+        self.assertEqual(repaired, ["TVN"])
+        self.assertEqual(lines[channel.url_line], replacement)
 
     def test_requested_sports_families_keep_order_in_one_contiguous_block(
         self,
@@ -627,7 +742,7 @@ class PlaylistOrderTests(unittest.TestCase):
             )
         )
 
-    def test_external_filter_does_not_leak_protected_main_f1(self) -> None:
+    def test_external_filter_does_not_duplicate_manual_main_f1(self) -> None:
         lines = [
             "#EXTM3U",
             "# Deportes",
@@ -638,17 +753,16 @@ class PlaylistOrderTests(unittest.TestCase):
         ]
         channels = update_m3u.parse_channels(lines)
 
-        external = update_m3u.filter_playlist_to_working_channels(
+        external = update_m3u.filter_playlist_to_channel_ids(
             lines,
             channels,
-            {"ESPN"},
-            preserve_protected_main=False,
+            {"ESPN.us"},
         )
         self.assertEqual(
             [item.name for item in update_m3u.parse_channels(external)], ["ESPN"]
         )
 
-    def test_report_keeps_failed_highfly_f1_in_main(self) -> None:
+    def test_report_keeps_every_failed_manual_member_in_main(self) -> None:
         channel = update_m3u.Channel(
             name="Sky Sports F1",
             url="https://leaf.highfly.dev/m3u/now-sky-sports-f1-free/live.m3u8",
@@ -672,6 +786,7 @@ class PlaylistOrderTests(unittest.TestCase):
                     False,
                     [logo],
                     epg_status={"ok": True},
+                    main_channel_ids={channel.tvg_id},
                     main_epg_status={
                         "ok": True,
                         "required_channels": 1,
@@ -684,11 +799,11 @@ class PlaylistOrderTests(unittest.TestCase):
         self.assertTrue(report["playlists"]["external"]["publication_ready"])
         self.assertEqual(entry["playlist"], "main")
         self.assertTrue(entry["published"])
-        self.assertEqual(entry["publication_action"], "protected_fallback")
+        self.assertEqual(entry["publication_action"], "retained_main_unavailable")
         self.assertEqual(
-            report["playlists"]["main"]["protected_fallback_channels"], 1
+            report["playlists"]["main"]["unavailable_channels"], 1
         )
-        self.assertEqual(report["summary"]["protected_main_fallbacks"], 1)
+        self.assertEqual(report["summary"]["retained_main_unavailable"], 1)
         self.assertEqual(
             report["playlists"]["external"]["candidate_channels"], 0
         )
@@ -717,7 +832,7 @@ class PlaylistOrderTests(unittest.TestCase):
             "now-sky-sports-tennis",
         )
 
-    def test_working_channels_cross_provider_lists_by_current_health(self) -> None:
+    def test_health_never_moves_channels_across_manual_lists(self) -> None:
         principal = update_m3u.Channel(
             name="TVN",
             url="https://example.invalid/tvn.m3u8",
@@ -754,10 +869,11 @@ class PlaylistOrderTests(unittest.TestCase):
                     False,
                     logos,
                     epg_status={"ok": True},
+                    main_channel_ids={principal.tvg_id},
                     main_epg_status={
                         "ok": True,
                         "required_channels": 1,
-                        "guide_types": {external.tvg_id: "real"},
+                        "guide_types": {principal.tvg_id: "real"},
                     },
                 )
                 health_state = json.loads(
@@ -768,10 +884,10 @@ class PlaylistOrderTests(unittest.TestCase):
         self.assertTrue(report["playlists"]["external"]["publication_ready"])
         actions = {item["name"]: item["publication_action"] for item in report["channels"]}
         playlists = {item["name"]: item["playlist"] for item in report["channels"]}
-        self.assertEqual(actions["TVN"], "temporarily_moved_to_external")
-        self.assertEqual(actions["ESPN"], "published")
-        self.assertEqual(playlists["TVN"], "external")
-        self.assertEqual(playlists["ESPN"], "main")
+        self.assertEqual(actions["TVN"], "retained_main_unavailable")
+        self.assertEqual(actions["ESPN"], "available_in_external")
+        self.assertEqual(playlists["TVN"], "main")
+        self.assertEqual(playlists["ESPN"], "external")
         self.assertEqual(report["playlists"]["main"]["candidate_channels"], 1)
         self.assertEqual(report["playlists"]["external"]["candidate_channels"], 1)
         espn_state = health_state["channels"]["ESPN.us"]

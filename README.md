@@ -11,7 +11,7 @@ Lista M3U:
 
 `https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/m3u.m3u`
 
-Lista M3U externa (canales temporalmente no disponibles y en cola de reintento):
+Lista M3U externa (candidatos del catalogo aún no promovidos manualmente):
 
 `https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/m3u-externa.m3u`
 
@@ -55,16 +55,13 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
 - prioriza enlaces descubiertos desde las paginas oficiales del emisor al
   reparar una senal; los respaldos conocidos solo se prueban despues;
 - no modifica `epg.xml`: la EPG tiene un proceso independiente;
-- publica `m3u.m3u` con todos los canales que respondieron en la ejecución actual,
-  sin importar si fueron fuentes directas, TVN/Meganoticias, TvVoo/Vavoo o Highfly;
-  `Sky Sports F1` y `Sky Sports Tennis` de Highfly son la excepción protegida y
-  permanecen en la principal aunque su chequeo automático falle;
-- publica `m3u-externa.m3u` con todos los canales que no respondieron después de
-  sus reintentos y reparaciones, excepto esas dos señales Highfly protegidas. No
-  es una lista fija por proveedor: es la cola visible de diagnóstico y reintento
-  para la siguiente ejecución;
-- conserva el orden temático definido en `channel-catalog.m3u`: al recuperarse,
-  un canal vuelve a la lista principal en su misma posición relativa;
+- usa los `tvg-id` presentes en `m3u.m3u` como membresía manual persistente:
+  ningún fallo de salud elimina o mueve un canal de la principal;
+- publica `m3u-externa.m3u` como el complemento exacto de `channel-catalog.m3u`:
+  un canal puede responder y seguir allí hasta que se promueva manualmente;
+- al mover manualmente un canal desde la lista externa a `m3u.m3u`, adopta la
+  misma protección permanente de todos los miembros de la principal;
+- conserva el orden temático definido en `channel-catalog.m3u` en ambas salidas;
 - solo reemplaza `m3u.m3u` cuando el 100% de los canales que se van a publicar
   tiene cobertura EPG XMLTV vigente y validada para al menos 24 horas; si la
   compuerta falla, conserva la versión principal anterior y deja los fallos en
@@ -81,8 +78,8 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
   se deduplican antes de construir la EPG;
 - incorpora candidatos de noticias, deportes y música desde los resolutores JSON
   públicos de TvVoo, manteniendo un solo canal lógico por señal y sus aliases
-  estables por país. Las señales que no responden pasan a `m3u-externa.m3u`,
-  pero permanecen en `channel-catalog.m3u` para volver a probarlas;
+  estables por país. Su lista depende de la promoción manual, no del resultado
+  de cada chequeo, y todas permanecen en `channel-catalog.m3u` para repararlas;
 - incorpora DAZN Darts x Pluto TV y DAZN Heldinnen x Pluto TV como señales FAST
   de producción: sus HLS públicos redirigen al distribuidor Pluto y sus guías
   XMLTV se obtienen desde la fuente pública de Pluto con los IDs oficiales de
@@ -119,18 +116,14 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
   ejecucion; tambien conserva un issue de GitHub con el historial detallado.
 - `channel-health-state.json` conserva solo la hora de validacion dinamica y una
   huella irreversible de la URL; no guarda tokens, claves ni URLs de sesion.
-- mueve temporalmente a `m3u-externa.m3u` cualquier canal que siga fallando
-  despues de validar HLS, reintentar y buscar reparaciones; `SkySportsF1.uk` y
-  `SkySportsTennis.uk` de Highfly quedan protegidos en la principal;
-  `channel-catalog.m3u` conserva el inventario completo para volver a probarlo y
-  reactivarlo en la siguiente ejecucion;
+- reintenta y repara todos los canales, tanto principales como externos, sin
+  cambiar su membresía; `channel-catalog.m3u` conserva el inventario completo;
 - las sondas antiguas de Sky identificadas con `@Direct` fueron retiradas de
   forma permanente; no se vuelven a publicar aunque el origen las entregue o
   fallen sus comprobaciones;
 - si falla simultaneamente al menos el 25% de las fuentes directas, bloquea la
-  publicación como posible problema sistémico del runner o de la red; los
-  fallos de resolutores se retiran individualmente y se reintentan en la
-  siguiente ejecución.
+  publicación como posible problema sistémico del runner o de la red, sin
+  eliminar ni mover canales entre listas.
 
 El coordinador `run_m3u_6h.py` conserva `run-state.json`; el coordinador
 `run_epg_6h.py` conserva `epg-run-state.json`. Cada estado tiene su propia
@@ -138,6 +131,14 @@ ventana fija de seis horas. GitHub Actions es el ejecutor principal desde
 ahora. La tarea local queda deshabilitada y los scripts locales se conservan
 solamente como respaldo manual; no deben ejecutarse al mismo tiempo que el
 cron remoto.
+
+Además del cron, un cambio en `m3u.m3u`, `m3u-externa.m3u`,
+`channel-catalog.m3u`, `resolver-catalog.json` o en la lógica del actualizador
+dispara el workflow de canales inmediatamente y fuerza una corrida. Antes de
+publicar, Actions sincroniza el contrato de resolutores, ejecuta el reparador
+sobre todo el catálogo y comprueba que la principal conserve exactamente sus
+`tvg-id`, que la externa sea su complemento y que ambas adopten los metadatos y
+URLs vigentes del catálogo.
 
 El proceso de canales corre a las 00:00, 06:00, 12:00 y 18:00 (hora de
 Santiago). El proceso de EPG corre a las 00:30, 06:30, 12:30 y 18:30. La
@@ -175,12 +176,10 @@ disponible sin depender de servidores externos.
 ## Orden de la lista
 
 El orden tematico se construye siempre desde `channel-catalog.m3u`, que
-conserva todos los candidatos aunque alguno quede temporalmente fuera de la
-principal por fallar la validacion. `m3u.m3u` contiene el subconjunto sano y las
-dos señales Highfly protegidas; `m3u-externa.m3u` contiene el subconjunto
-ordinario no disponible. Ambas salidas filtran el mismo catalogo sin alterar la
-posicion relativa de los canales. Cuando un canal se recupera, vuelve al mismo
-bloque de la principal.
+conserva todos los candidatos. `m3u.m3u` contiene la selección manual ya
+probada; `m3u-externa.m3u` contiene el complemento aún no promovido. Ambas
+salidas filtran el mismo catalogo sin alterar la posicion relativa de los
+canales. La salud y la recuperación de una fuente no cambian ese reparto.
 
 1. Nacionales
 2. Noticias nacionales
@@ -202,12 +201,10 @@ XMLTV, resolutores ni URLs de respaldo.
 
 El catalogo contiene los candidatos nacionales, noticias, miscelaneos
 chilenos, noticias internacionales, documentales, conciertos, musica y
-deportes. `m3u.m3u` es la vista principal de los canales que respondieron;
-`m3u-externa.m3u` es la vista externa de los que quedaron temporalmente
-desactivados. El reparto cambia en cada ejecucion: una señal de TvVoo/Highfly
-que responda pasa a la principal y una señal ordinaria que falle pasa a la
-externa. `Sky Sports F1` y `Sky Sports Tennis` de Highfly permanecen siempre en
-la principal, incluso ante un fallo temporal del chequeo. El catalogo no pierde
+deportes. `m3u.m3u` es la selección principal editada manualmente y ningún
+canal sale de ella por fallar. `m3u-externa.m3u` contiene los candidatos que aún
+no se han promovido. El reparto solo cambia mediante una edición manual; el
+reparador y los resolutores trabajan sobre ambas listas. El catalogo no pierde
 ninguna entrada elegible.
 
 Las antiguas sondas directas de Sky (`@Direct`/`(Directo)`) ya no forman parte
@@ -233,10 +230,9 @@ de Zapping para senales chilenas seleccionadas. El orden es: fuente oficial
 del canal, XMLTV real por pais/proveedor y Zapping u otra fuente secundaria
 real. M1, M2 y 13C se actualizan desde sus parrillas oficiales. La EPG
 construye sus IDs esperados desde `channel-catalog.m3u`: un
-canal retirado temporalmente de la lista publica continua recibiendo EPG y no
-causa un error por no aparecer en `m3u.m3u`. La EPG conserva al menos un bloque
-para cada canal del catalogo, incluso si fue retirado temporalmente por fallos
-HLS. Cuando ninguna fuente real
+canal que permanezca en la lista externa continua recibiendo EPG y no causa un
+error por no aparecer en `m3u.m3u`. La EPG conserva al menos un bloque para cada
+canal del catalogo, incluso si su HLS falla. Cuando ninguna fuente real
 entrega una parrilla exacta, se usa `continuidad tecnica`, marcada en
 `data-guide`; sus bloques visibles se titulan `Live` y se alinean de 00:00 a
 23:59 en horario de Santiago. No se presenta como una guia oficial. La siguiente corrida vuelve a intentar la fuente real

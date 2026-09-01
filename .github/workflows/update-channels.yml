@@ -1,6 +1,17 @@
 name: Actualizar canales M3U
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - "m3u.m3u"
+      - "m3u-externa.m3u"
+      - "channel-catalog.m3u"
+      - "resolver-catalog.json"
+      - "update_m3u.py"
+      - "run_m3u_6h.py"
+      - ".github/workflows/update-channels.yml"
   schedule:
     - cron: "0 */6 * * *"
       timezone: "America/Santiago"
@@ -21,7 +32,7 @@ concurrency:
 
 jobs:
   update:
-    if: github.event_name != 'push' || contains(github.event.head_commit.message, '[test m3u]')
+    if: github.event_name != 'push' || !contains(github.event.head_commit.message, '[skip ci]')
     runs-on: ubuntu-latest
     env:
       RAW_BASE: https://raw.githubusercontent.com/${{ github.repository }}/main
@@ -39,17 +50,38 @@ jobs:
       - name: Probar importadores EPG
         run: python -m unittest discover -s tests -p "test_*.py"
 
+      - name: Sincronizar cambios del contrato de resolutores
+        id: resolver_contract
+        shell: bash
+        run: |
+          before="$(sha256sum channel-catalog.m3u resolver-catalog.json | sha256sum | cut -d' ' -f1)"
+          python update_m3u.py --sync-resolver-contract
+          python update_m3u.py --validate-resolvers-only
+          after="$(sha256sum channel-catalog.m3u resolver-catalog.json | sha256sum | cut -d' ' -f1)"
+          if [ "$before" = "$after" ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "El contrato cambió; las dos listas adoptarán los nuevos metadatos sin cambiar su membresía."
+          fi
+
       - name: Ejecutar mantenimiento independiente de canales
         id: updater
         shell: bash
         run: |
           args=(run_m3u_6h.py --executor github)
-          if [ "${{ inputs.force_run }}" = "true" ]; then args+=(--force); fi
+          if [ "${{ inputs.force_run }}" = "true" ] || [ "${{ github.event_name }}" = "push" ]; then args+=(--force); fi
           set +e
           python "${args[@]}"
           status=$?
           echo "status=$status" >> "$GITHUB_OUTPUT"
           exit 0
+
+      - name: Verificar membresía manual y propagación de resolutores
+        if: steps.updater.outputs.status == '0' && steps.updater.outputs.ran == 'true'
+        run: |
+          python update_m3u.py --validate-resolvers-only
+          python update_m3u.py --validate-public-lists-only
 
       - name: Publicar canales y estado
         id: publish
@@ -66,7 +98,12 @@ jobs:
           git config user.name "Actualizador M3U"
           git config user.email "m3u-bot@users.noreply.github.com"
           git add -- "${files[@]}"
-          git commit -m "Actualiza canales y resolutores automaticamente [skip ci]"
+          if [ "${{ steps.resolver_contract.outputs.changed }}" = "true" ]; then
+            message="Repara canales y sincroniza resolutores automaticamente [skip ci]"
+          else
+            message="Actualiza y repara canales automaticamente [skip ci]"
+          fi
+          git commit -m "$message"
           git push origin HEAD:main
           echo "changed=true" >> "$GITHUB_OUTPUT"
           echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"

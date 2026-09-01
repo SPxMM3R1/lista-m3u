@@ -81,10 +81,9 @@ def render(report: dict) -> str:
             "",
             f"- Canales revisados: **{summary.get('total_channels', len(channels))}**.",
             f"- Canales publicados: **{summary.get('published_channels', 0)}**.",
-            f"- Movidos temporalmente a la lista externa para reintento: **{summary.get('temporarily_moved_to_external', summary.get('temporarily_removed', 0))}**.",
-            f"- Activos en la principal: **{summary.get('active_channels', 0)}**; en cola externa: **{playlists.get('external', {}).get('candidate_channels', 0)}**.",
-            f"- Fallbacks Highfly protegidos en la principal: **{summary.get('protected_main_fallbacks', 0)}**.",
-            f"- Reactivados en esta ejecución: **{summary.get('reactivated', 0)}**.",
+            f"- Membresía manual principal: **{playlists.get('main', {}).get('candidate_channels', 0)}**; no disponibles pero conservados: **{summary.get('retained_main_unavailable', 0)}**.",
+            f"- Candidatos externos no promovidos: **{playlists.get('external', {}).get('candidate_channels', 0)}**; disponibles: **{summary.get('external_available', 0)}**; no disponibles: **{summary.get('external_unavailable', 0)}**.",
+            f"- Recuperados dentro de su lista asignada: **{summary.get('reactivated', 0)}**.",
             f"- Fuentes directas temporalmente no disponibles: **{summary.get('direct_failures', 0)}**.",
             f"- Fallos sistémicos que bloquean publicación: **{summary.get('blocking_failures', 0)}**.",
             f"- Respaldos degradados recuperables por resolutor: **{summary.get('resolver_degradations', 0)}**.",
@@ -146,7 +145,7 @@ def render(report: dict) -> str:
         lines.append(
             f"- **{label}** (`{cell(playlist.get('file'))}`): "
             f"{playlist.get('active_channels', playlist.get('working_channels', 0))} activos, "
-            f"{playlist.get('disabled_channels', 0)} desactivados "
+            f"{playlist.get('unavailable_channels', 0)} no disponibles "
             f"({playlist.get('candidate_channels', 0)} en esta salida); "
             f"{epg_label}; {readiness}."
         )
@@ -207,13 +206,13 @@ def render(report: dict) -> str:
             "",
             "## Criterio de mantenimiento",
             "",
-            "- Un canal ordinario que agota la validación, los reintentos y las reparaciones se mueve temporalmente a `m3u-externa.m3u`; el catálogo canónico lo conserva para probarlo de nuevo.",
-            "- `Sky Sports F1` y `Sky Sports Tennis` de Highfly son excepciones permanentes: permanecen en `m3u.m3u` aunque el runner no pueda comprobarlos; VibeM3U renueva sus slugs al reproducir.",
-            "- `m3u.m3u` es la lista principal: solo se reemplaza cuando el 100% de sus candidatos tiene EPG XMLTV vigente y validada para al menos 24 horas; si la compuerta falla, se conserva la versión anterior.",
-            "- `m3u-externa.m3u` es una cola visible de diagnóstico y reintento: contiene todos los candidatos que no respondieron en la ejecución actual, sin importar si su fuente original era directa, TvVoo o Highfly, excepto las dos señales Highfly protegidas.",
-            "- `channel-catalog.m3u` conserva todos los candidatos: cada ejecución vuelve a probar los desactivados y los reactiva automáticamente en `m3u.m3u` cuando responden.",
-            "- La EPG conserva la cobertura del catálogo completo para que una reactivación recupere inmediatamente su `tvg-id` y programación.",
-            "- Una caída simultánea de al menos el 25% de las fuentes directas bloquea la publicación como posible fallo sistémico del runner o la red; los fallos de resolutores se retiran individualmente y se reintentan en la siguiente ejecución.",
+            "- `m3u.m3u` define una membresía manual persistente por `tvg-id`: ningún fallo de salud mueve o elimina sus canales.",
+            "- Promover manualmente un canal desde `m3u-externa.m3u` a `m3u.m3u` lo convierte en miembro permanente de la principal desde la siguiente ejecución.",
+            "- `m3u-externa.m3u` contiene exactamente el complemento no promovido de `channel-catalog.m3u`; un canal puede responder y seguir allí hasta que se promueva manualmente.",
+            "- El reparador automático, las renovaciones TvVoo/Highfly y la validación HLS se ejecutan para todos los canales sin alterar su lista asignada.",
+            "- `m3u.m3u` solo se reemplaza cuando el 100% de su membresía tiene EPG XMLTV vigente y validada para al menos 24 horas; si la compuerta falla, se conserva la versión anterior.",
+            "- La EPG conserva la cobertura del catálogo completo para que todos los candidatos tengan su `tvg-id` y programación preparados.",
+            "- Una caída simultánea de al menos el 25% de las fuentes directas bloquea la publicación como posible fallo sistémico del runner o la red, pero no cambia membresías.",
             "- El informe omite URLs completas, tokens y parámetros de sesión.",
         ]
     )
