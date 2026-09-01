@@ -1451,6 +1451,7 @@ KNOWN_STREAM_FALLBACKS = {
         "https://pantera1-100gb-cl-movistar.dps.live/mega/mega.smil/playlist.m3u8",
     ],
     "CHV": [
+        "https://redirector.dps.live/hls/chv/playlist.m3u8",
         "https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/chv/chv.smil/playlist.m3u8"
     ],
     "Canal 13": ["https://redirector.dps.live/hls/13cl/playlist.m3u8"],
@@ -1512,6 +1513,7 @@ SEGMENT_CHECK_CHANNELS = {
     "TVN",
     "NTV",
     "TVN3",
+    "CHV",
     "CHV Deportes",
     "Mega",
     "Meganoticias",
