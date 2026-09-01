@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "catalogVersion": "2026.09.01.1",
+  "catalogVersion": "2026.09.01.2",
   "providers": [
     {
       "id": "tvn",
@@ -61,7 +61,11 @@
         "maxCandidates": 16,
         "streamsPath": "streams",
         "urlField": "url",
-        "allowHttpFallback": true
+        "allowHttpFallback": true,
+        "recipeId": "bounded-payload-v1",
+        "validationMode": "media-signature-v1",
+        "maxPayloadDepth": 6,
+        "maxExtractedStrings": 256
       },
       "compatibilityAliases": {
         "Premier Sports 1": [

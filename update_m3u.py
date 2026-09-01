@@ -46,8 +46,10 @@ PUBLIC_RAW_BASE = "https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main"
 EPG_PUBLIC_URL = f"{PUBLIC_RAW_BASE}/epg.xml"
 LOCAL_LOGOS_PUBLIC_BASE = f"{PUBLIC_RAW_BASE}/logos"
 RESOLVER_SCHEMA_VERSION = 1
-RESOLVER_CATALOG_VERSION = "2026.09.01.1"
+RESOLVER_CATALOG_VERSION = "2026.09.01.2"
 ALLOWED_RESOLVER_ENGINES = {"tvn", "meganoticias", "tvvoo", "highfly"}
+TVVOO_RECIPE_ID = "bounded-payload-v1"
+TVVOO_VALIDATION_MODE = "media-signature-v1"
 MAIN_PLAYLIST_RESOLVERS = frozenset({"direct", "tvn", "meganoticias"})
 EXTERNAL_PLAYLIST_RESOLVERS = frozenset({"tvvoo", "highfly"})
 # Estas senales dinamicas conservan su resolutor para renovar la fuente justo
@@ -154,6 +156,7 @@ RESOLVER_ATTRIBUTE_NAMES = (
     "x-resolver-id",
     "x-resolver-manifest",
     "x-resolver-refresh",
+    "x-resolver-recipe",
 )
 HIGHFLY_MANIFEST_URL = (
     "https://sports.highfly.dev/"
@@ -994,6 +997,10 @@ def build_resolver_catalog() -> dict:
                     "streamsPath": "streams",
                     "urlField": "url",
                     "allowHttpFallback": True,
+                    "recipeId": TVVOO_RECIPE_ID,
+                    "validationMode": TVVOO_VALIDATION_MODE,
+                    "maxPayloadDepth": 6,
+                    "maxExtractedStrings": 256,
                 },
                 "compatibilityAliases": {
                     name: list(aliases)
@@ -2276,6 +2283,7 @@ def resolver_attributes_for(channel: Channel) -> dict[str, str]:
             "x-resolver-endpoint": TVVOO_STREAM_BASE_URL,
             "x-resolver-ids": ";".join(resolver_ids),
             "x-resolver-refresh": "on_play",
+            "x-resolver-recipe": TVVOO_RECIPE_ID,
         }
     highfly_slug = HIGHFLY_RESOLVER_CHANNELS.get(channel.tvg_id)
     if highfly_slug:
@@ -2428,7 +2436,7 @@ def validate_resolver_catalog(path: Path = RESOLVER_CATALOG_PATH) -> dict:
     if len(ids) != len(set(ids)):
         raise ValueError("resolver-catalog.json contiene proveedores duplicados")
     if set(ids) != ALLOWED_RESOLVER_ENGINES or engines != ALLOWED_RESOLVER_ENGINES:
-        raise ValueError("el catalogo debe contener solamente los cinco motores permitidos")
+        raise ValueError("el catalogo contiene motores fuera del contrato permitido")
     forbidden = ("serverkey", "/sunshine/", "access_token=", "token=", "streams[].url")
     lowered = raw.lower()
     if any(marker in lowered for marker in forbidden):
@@ -2454,6 +2462,15 @@ def validate_resolver_catalog(path: Path = RESOLVER_CATALOG_PATH) -> dict:
         ):
             raise ValueError(f"ruta GitHub Raw no permitida: {url}")
     by_id = {provider["id"]: provider for provider in providers}
+    tvvoo_config = by_id["tvvoo"].get("config", {})
+    if tvvoo_config.get("recipeId") != TVVOO_RECIPE_ID:
+        raise ValueError("TvVoo debe autorizar la receta declarativa versionada")
+    if tvvoo_config.get("validationMode") != TVVOO_VALIDATION_MODE:
+        raise ValueError("TvVoo debe exigir validacion por firma multimedia")
+    if tvvoo_config.get("maxPayloadDepth") != 6:
+        raise ValueError("TvVoo debe conservar el limite de profundidad del payload")
+    if tvvoo_config.get("maxExtractedStrings") != 256:
+        raise ValueError("TvVoo debe conservar el limite de cadenas del payload")
     aliases = by_id["tvvoo"].get("compatibilityAliases")
     expected_aliases = {
         name: list(values) for name, values in TVVOO_STREAM_RESOLVER_IDS.items()
@@ -2505,6 +2522,8 @@ def validate_playlist_resolvers(lines: list[str]) -> dict[str, int]:
                 raise ValueError(f"{channel.name}: TvVoo sin aliases estables")
             if tuple(aliases) != TVVOO_STREAM_RESOLVER_IDS[channel.name]:
                 raise ValueError(f"{channel.name}: aliases TvVoo fuera de orden")
+            if attrs.get("x-resolver-recipe") != TVVOO_RECIPE_ID:
+                raise ValueError(f"{channel.name}: receta TvVoo ausente o desconocida")
         elif engine == "highfly":
             if not attrs.get("x-resolver-id") or not attrs.get("x-resolver-manifest"):
                 raise ValueError(f"{channel.name}: Highfly incompleto")

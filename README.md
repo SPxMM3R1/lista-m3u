@@ -43,6 +43,13 @@ duracion; Pluto y los canales directos siguen sin resolutor. El catalogo solo
 contiene reglas y endpoints HTTPS permitidos; nunca publica respuestas HLS,
 tokens, claves ni URLs de sesion.
 
+Los canales TvVoo publican además
+`x-resolver-recipe="bounded-payload-v1"`. VibeM3U solo activa esa extracción
+acotada si `resolver-catalog.json` autoriza exactamente el mismo ID y el modo
+`media-signature-v1`; la M3U no puede incorporar código ejecutable. El contrato
+para continuar el sistema, sus límites y las validaciones de publicación están
+en [RESOLVER_RECIPE_CONTRACT.md](RESOLVER_RECIPE_CONTRACT.md).
+
 ## Funcionamiento
 
 El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
