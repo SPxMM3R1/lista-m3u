@@ -46,7 +46,7 @@ PUBLIC_RAW_BASE = "https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main"
 EPG_PUBLIC_URL = f"{PUBLIC_RAW_BASE}/epg.xml"
 LOCAL_LOGOS_PUBLIC_BASE = f"{PUBLIC_RAW_BASE}/logos"
 RESOLVER_SCHEMA_VERSION = 1
-RESOLVER_CATALOG_VERSION = "2026.08.30.5"
+RESOLVER_CATALOG_VERSION = "2026.09.01.1"
 ALLOWED_RESOLVER_ENGINES = {"tvn", "meganoticias", "tvvoo", "highfly"}
 MAIN_PLAYLIST_RESOLVERS = frozenset({"direct", "tvn", "meganoticias"})
 EXTERNAL_PLAYLIST_RESOLVERS = frozenset({"tvvoo", "highfly"})
@@ -106,6 +106,7 @@ EUROSPORT_CHANNEL_ORDER = (
     "Eurosport2.it@TvVoo",
     "Eurosport2.es@TvVoo",
     "Vavoo.pl.EUROSPORT3@TvVoo",
+    "Vavoo.it.EUROSPORT4TIMVISION@TvVoo",
 )
 DAZN_CHANNEL_ORDER = (
     # DAZN F1 se conserva dentro del bloque F1 anterior.
@@ -490,13 +491,19 @@ EPG_PROGRAMME_SOURCES = {
 # el ID exacto de la fuente y no por coincidencia amplia del nombre visible.
 EPG_PROGRAMME_SOURCES.update({
     "Vavoo.uk.BBCTWO@TvVoo": ("uk1", "BBC.Two.HD.uk"),
+    "Vavoo.uk.BBCTHREE@TvVoo": ("uk1", "BBC.Three.HD.uk"),
     "Vavoo.uk.BBCFOUR@TvVoo": ("uk1", "BBC.Four.HD.uk"),
     "Vavoo.uk.TNTSPORTS2@TvVoo": ("uk1", "TNT.Sports.2.HD.uk"),
+    "Vavoo.uk.TNTSPORTS4@TvVoo": ("uk1", "TNT.Sports.4.HD.uk"),
     "Vavoo.it.BLOOMBERGTV@TvVoo": ("it1", "Bloomberg.it"),
     "Vavoo.it.EUROSPORT1@TvVoo": ("it1", "Eurosport.Italia.it"),
     "Vavoo.it.SKYSPORTF1@TvVoo": ("it1", "Sky.Sport.F1.it"),
     "Vavoo.it.SKYSPORTTENNIS@TvVoo": ("it1", "Sky.Sport.Tennis.it"),
     "Vavoo.de.SKYSPORT1@TvVoo": ("de", "Sky.Sport.1.de"),
+    "Vavoo.de.SKYDOCUMENTARIES@TvVoo": ("de", "Sky.Documentaries.de"),
+    "Vavoo.de.SKYNATURE@TvVoo": ("de", "Sky.Nature.de"),
+    "Vavoo.de.HISTORY@TvVoo": ("de", "The.HISTORY.Channel.de"),
+    "Vavoo.de.DELUXEMUSIC@TvVoo": ("de", "DELUXE.MUSIC.de"),
     "Vavoo.fr.MEZZOLIVE@TvVoo": ("fr", "Mezzo.Live.HD.fr"),
     "Vavoo.fr.RMCSPORT3@TvVoo": ("fr", "RMC.Sport.Live.3.fr"),
     "Vavoo.pt.SPORTTV3@TvVoo": ("pt1", "SPORT.TV3.HD.pt"),
@@ -506,6 +513,7 @@ EPG_PROGRAMME_SOURCES.update({
     "Vavoo.pt.STINGRAYICONCERTS@TvVoo": ("pt1", "Stingray.iConcerts.HD.pt"),
     "Vavoo.es.DAZN4@TvVoo": ("es", "DAZN.4.es"),
     "Vavoo.es.EUROSPORT1@TvVoo": ("es", "Eurosport.1.es"),
+    "Vavoo.es.DISCOVERYCHANNEL@TvVoo": ("es", "Discovery.Channel.es"),
     "Vavoo.pl.BBCEARTH@TvVoo": ("pl", "BBC.Earth.HD.pl"),
     "Vavoo.pl.CNN@TvVoo": ("pl", "CNN.pl"),
     "Vavoo.nl.ESPN1@TvVoo": ("nl", "ESPN.nl"),
@@ -811,36 +819,89 @@ TVVOO_STREAM_RESOLVER_IDS = {
 # El nombre visible identifica la región; HD/FHD quedan agrupados como aliases.
 TVVOO_STREAM_RESOLVER_IDS.update({
     "BBC Two Reino Unido": ("vavoo_BBC%20TWO%7Cgroup%3Auk",),
+    "BBC Three Reino Unido": (
+        "vavoo_BBC%20THREE%7Cgroup%3Auk",
+        "vavoo_BBC%203%7Cgroup%3Auk",
+    ),
     "BBC Four Reino Unido": ("vavoo_BBC%20FOUR%7Cgroup%3Auk",),
     "BBC World News Reino Unido": ("vavoo_BBC%20WORLD%20NEWS%7Cgroup%3Auk",),
     "Sky F1 UK": ("vavoo_SKY%20SPORTS%20F1%20FHD%7Cgroup%3Auk", "vavoo_SKY%20SPORTS%20F1%20HD%7Cgroup%3Auk", "vavoo_SKY%20SPORTS%20F1%7Cgroup%3Auk",),
     "TNT Sports 2 Reino Unido": ("vavoo_TNT%20SPORTS%202%20HD%7Cgroup%3Auk", "vavoo_TNT%20SPORTS%202%7Cgroup%3Auk",),
+    "TNT Sports 4 Reino Unido": (
+        "vavoo_TNT%20SPORTS%204%7Cgroup%3Auk",
+        "vavoo_TNT%20SPORTS%204%20HD%7Cgroup%3Auk",
+    ),
+    "National Geographic Reino Unido": (
+        "vavoo_NATIONAL%20GEOGRAPHIC%7Cgroup%3Auk",
+    ),
+    "VH1 Reino Unido": ("vavoo_VH1%7Cgroup%3Auk",),
     "4Music Reino Unido": ("vavoo_4MUSIC%7Cgroup%3Auk",),
     "Bloomberg TV Italia": ("vavoo_BLOOMBERG%20TV%7Cgroup%3Ait", "vavoo_BLOOMBERG%20TV%204K%7Cgroup%3Ait",),
     "Eurosport 1 Italia": ("vavoo_EUROSPORT%201%7Cgroup%3Ait",),
+    "Eurosport 4 TIMVISION Italia": (
+        "vavoo_EUROSPORT%204%20TIMVISION%7Cgroup%3Ait",
+    ),
     "Sky Sport Tennis Italia": ("vavoo_SKY%20SPORT%20TENNIS%7Cgroup%3Ait",),
     "Sky Sport F1 Italia": ("vavoo_SKY%20SPORT%20F1%7Cgroup%3Ait",),
     "Mezzo Live Francia": ("vavoo_MEZZO%20LIVE%20HD%7Cgroup%3Afr", "vavoo_MEZZO%20LIVE%7Cgroup%3Afr", "vavoo_MEZZO%20LIVE%20SD%7Cgroup%3Afr",),
     "Stingray Classica Francia": ("vavoo_STINGRAY%20CLASSICA%7Cgroup%3Afr",),
+    "Discovery Science Francia": (
+        "vavoo_DISCOVERY%20SCIENCE%7Cgroup%3Afr",
+    ),
     "Trace Africa Francia": ("vavoo_TRACE%20AFRICA%7Cgroup%3Afr",),
     "RMC Sport 3 Francia": ("vavoo_RMC%20SPORT%203%20FHD%7Cgroup%3Afr", "vavoo_RMC%20SPORT%203%20HD%7Cgroup%3Afr", "vavoo_RMC%20SPORT%203%7Cgroup%3Afr",),
     "RT DE Alemania": ("vavoo_RT%20DE%7Cgroup%3Ade",),
     "Sky Sport 1 Alemania": ("vavoo_SKY%20SPORT%201%20HD%7Cgroup%3Ade", "vavoo_SKY%20SPORT%201%20HD%2B%7Cgroup%3Ade", "vavoo_SKY%20SPORT%201%7Cgroup%3Ade", "vavoo_SKY%20SPORT%201%20HEVC%7Cgroup%3Ade",),
+    "Sky Documentaries Alemania": (
+        "vavoo_SKY%20DOCUMENTARIES%7Cgroup%3Ade",
+        "vavoo_SKY%20DOCUMENTARIES%20HD%7Cgroup%3Ade",
+        "vavoo_SKY%20DOCUMENTARIES%20HD%20%28BACKUP%29%7Cgroup%3Ade",
+    ),
+    "Sky Nature Alemania": (
+        "vavoo_SKY%20NATURE%7Cgroup%3Ade",
+        "vavoo_SKY%20NATURE%20HD%7Cgroup%3Ade",
+        "vavoo_SKY%20NATURE%20HD%20%28BACKUP%29%7Cgroup%3Ade",
+    ),
+    "History Alemania": (
+        "vavoo_HISTORY%7Cgroup%3Ade",
+        "vavoo_HISTORY%20HD%20%28BACKUP%29%7Cgroup%3Ade",
+    ),
+    "Deluxe Music Alemania": (
+        "vavoo_DELUXE%20MUSIC%20HD%7Cgroup%3Ade",
+        "vavoo_DELUXE%20MUSIC%7Cgroup%3Ade",
+        "vavoo_DELUXE%20MUSIC%20HEVC%7Cgroup%3Ade",
+    ),
     "XITE Alemania": ("vavoo_XITE%20HD%7Cgroup%3Ade", "vavoo_XITE%7Cgroup%3Ade",),
     "Sport TV 3 Portugal": ("vavoo_SPORT%20TV%203%20HD%7Cgroup%3Apt", "vavoo_SPORT%20TV%203%7Cgroup%3Apt",),
     "Eleven Sports 3 Portugal": ("vavoo_ELEVEN%20SPORT%203%7Cgroup%3Apt",),
     "Eurosport 1 Portugal": ("vavoo_EUROSPORT%201%20HD%7Cgroup%3Apt", "vavoo_EUROSPORT%201%7Cgroup%3Apt",),
     "MTV Portugal Portugal": ("vavoo_MTV%20PORTUGAL%7Cgroup%3Apt",),
+    "MTV 00s Portugal": ("vavoo_MTV%2000S%7Cgroup%3Apt",),
+    "Stingray Retro Portugal": (
+        "vavoo_STINGRAY%20RETRO%7Cgroup%3Apt",
+    ),
     "Stingray iConcerts Portugal": ("vavoo_STINGRAY%20ICONCERTS%7Cgroup%3Apt",),
     "ESPN 2 España": ("vavoo_ESPN%202%7Cgroup%3Aes",),
     "DAZN 4 España": ("vavoo_DAZN%204%7Cgroup%3Aes",),
     "Eurosport 1 España": ("vavoo_EUROSPORT%201%20HD%7Cgroup%3Aes", "vavoo_EUROSPORT%201%7Cgroup%3Aes",),
+    "Discovery Channel España": (
+        "vavoo_DISCOVERY%20CHANNEL%7Cgroup%3Aes",
+    ),
+    "Nat Geo Wild España": (
+        "vavoo_NAT%20GEO%20WILD%20HD%7Cgroup%3Aes",
+    ),
     "BBC Earth Polonia": ("vavoo_BBC%20EARTH%20HD%7Cgroup%3Apl", "vavoo_BBC%20EARTH%7Cgroup%3Apl",),
     "CNN Polonia": ("vavoo_CNN%7Cgroup%3Apl",),
     "Eurosport 3 Polonia": ("vavoo_EUROSPORT%203%7Cgroup%3Apl",),
     "ESPN 1 Países Bajos": ("vavoo_ESPN%201%7Cgroup%3Anl",),
     "Fox Sports 1 Países Bajos": ("vavoo_FOX%20SPORTS%201%7Cgroup%3Anl",),
     "XITE Rock Países Bajos": ("vavoo_XITE%20ROCK%7Cgroup%3Anl",),
+    "XITE Classic Country Países Bajos": (
+        "vavoo_XITE%20CLASSIC%20COUNTRY%7Cgroup%3Anl",
+    ),
+    "XITE Gospel Países Bajos": (
+        "vavoo_XITE%20GOSPEL%7Cgroup%3Anl",
+    ),
     "Stingray DJAZZ Países Bajos": ("vavoo_STINGRAY%20DJAZZ%7Cgroup%3Anl",),
     "TRT World Turquía": ("vavoo_TRT%20WORLD%7Cgroup%3Atr", "vavoo_TRT%20WORLD%20HEVC%7Cgroup%3Atr",),
     "Eurosport 1 Turquía": ("vavoo_EUROSPORT%201%7Cgroup%3Atr",),
@@ -1020,6 +1081,38 @@ PREFERRED_LOGOS = {
     # Misma composición blanca y transparente que BBC Earth, con NEWS en el wordmark.
     "BBC News": f"{LOCAL_LOGOS_PUBLIC_BASE}/bbc-news-earth-style.svg",
     "BBC Travel": f"{LOCAL_LOGOS_PUBLIC_BASE}/bbc.svg",
+    "BBC Three Reino Unido": (
+        "https://raw.githubusercontent.com/tv-logo/tv-logos/main/"
+        "countries/united-kingdom/bbc-three-uk.png"
+    ),
+    "National Geographic Reino Unido": (
+        "https://raw.githubusercontent.com/tv-logo/tv-logos/main/"
+        "countries/united-kingdom/national-geographic-uk.png"
+    ),
+    "Discovery Channel España": (
+        "https://raw.githubusercontent.com/tv-logo/tv-logos/main/"
+        "countries/spain/discovery-channel-es.png"
+    ),
+    "Discovery Science Francia": (
+        "https://raw.githubusercontent.com/tv-logo/tv-logos/main/"
+        "countries/argentina/discovery-science-ar.png"
+    ),
+    "Nat Geo Wild España": (
+        "https://raw.githubusercontent.com/tv-logo/tv-logos/main/"
+        "countries/germany/nat-geo-wild-de.png"
+    ),
+    "Sky Documentaries Alemania": (
+        "https://raw.githubusercontent.com/tv-logo/tv-logos/main/"
+        "countries/united-kingdom/sky-documentaries-uk.png"
+    ),
+    "Sky Nature Alemania": (
+        "https://raw.githubusercontent.com/tv-logo/tv-logos/main/"
+        "countries/italy/sky-nature-it.png"
+    ),
+    "History Alemania": (
+        "https://raw.githubusercontent.com/tv-logo/tv-logos/main/"
+        "countries/germany/history-de.png"
+    ),
     "Bloomberg TV US": f"{LOCAL_LOGOS_PUBLIC_BASE}/bloomberg.svg",
     "Bloomberg Originals": f"{LOCAL_LOGOS_PUBLIC_BASE}/bloomberg.svg",
     "CBS News 24/7": f"{LOCAL_LOGOS_PUBLIC_BASE}/cbs-news.svg",
@@ -1029,6 +1122,10 @@ PREFERRED_LOGOS = {
     "Qello Concerts by Stingray": f"{LOCAL_LOGOS_PUBLIC_BASE}/qello.png",
     "Stingray iConcerts Portugal": f"{LOCAL_LOGOS_PUBLIC_BASE}/qello.png",
     "Stingray iConcerts Bulgaria": f"{LOCAL_LOGOS_PUBLIC_BASE}/qello.png",
+    "Stingray Retro Portugal": (
+        "https://raw.githubusercontent.com/tv-logo/tv-logos/main/"
+        "countries/canada/stingray-retro-ca.png"
+    ),
     "Stingray Classica": f"{LOCAL_LOGOS_PUBLIC_BASE}/stingray-classica-official.svg",
     "Stingray Classica Francia": f"{LOCAL_LOGOS_PUBLIC_BASE}/stingray-classica-official.svg",
     "Stingray DJAZZ": f"{LOCAL_LOGOS_PUBLIC_BASE}/stingray-djazz.svg",
@@ -1037,6 +1134,20 @@ PREFERRED_LOGOS = {
     "MTV Biggest Pop": f"{LOCAL_LOGOS_PUBLIC_BASE}/mtv-biggest-pop.svg",
     "MTV Spankin' New": f"{LOCAL_LOGOS_PUBLIC_BASE}/mtv-spankin-new.svg",
     "MTV Flow Latino": f"{LOCAL_LOGOS_PUBLIC_BASE}/mtv-flow-latino.svg",
+    "MTV 00s Portugal": (
+        "https://raw.githubusercontent.com/tv-logo/tv-logos/main/"
+        "countries/argentina/mtv-00s-ar.png"
+    ),
+    "VH1 Reino Unido": (
+        "https://raw.githubusercontent.com/tv-logo/tv-logos/main/"
+        "countries/united-kingdom/vh1-uk.png"
+    ),
+    "Deluxe Music Alemania": (
+        "https://raw.githubusercontent.com/tv-logo/tv-logos/main/"
+        "countries/germany/deluxe-music-de.png"
+    ),
+    "XITE Classic Country Países Bajos": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
+    "XITE Gospel Países Bajos": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
     "XITE Rock x Metal": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
     "MTV Rocks": f"{LOCAL_LOGOS_PUBLIC_BASE}/mtv-rocks.svg",
     "XITE Just Chill": f"{LOCAL_LOGOS_PUBLIC_BASE}/xite.svg",
@@ -1065,6 +1176,10 @@ PREFERRED_LOGOS = {
     "Sky Sports Main Event": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-main-event.png",
     "Sky Sports Arena": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports.svg",
     "TNT Sports 3": f"{LOCAL_LOGOS_PUBLIC_BASE}/tnt-sports-3.png",
+    "TNT Sports 4 Reino Unido": (
+        "https://raw.githubusercontent.com/tv-logo/tv-logos/main/"
+        "countries/united-kingdom/tnt-sports-4-uk.png"
+    ),
     "CNN": f"{LOCAL_LOGOS_PUBLIC_BASE}/cnn.png",
     "Eurosport 1": f"{LOCAL_LOGOS_PUBLIC_BASE}/eurosport-1.png",
     "MTV Hits": f"{LOCAL_LOGOS_PUBLIC_BASE}/mtv-hits.png",
@@ -1087,6 +1202,7 @@ PREFERRED_LOGOS = {
     "Eurosport 2 España": f"{LOCAL_LOGOS_PUBLIC_BASE}/eurosport.svg",
     "Eurosport 2 Germany": f"{LOCAL_LOGOS_PUBLIC_BASE}/eurosport.svg",
     "Eurosport 2 Italia": f"{LOCAL_LOGOS_PUBLIC_BASE}/eurosport.svg",
+    "Eurosport 4 TIMVISION Italia": f"{LOCAL_LOGOS_PUBLIC_BASE}/eurosport.svg",
     "DAZN Ligue 1 Live 1": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
     "DAZN Ligue 1 Live 2": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
     "DAZN Ligue 1 Live 3": f"{LOCAL_LOGOS_PUBLIC_BASE}/dazn.svg",
@@ -1384,8 +1500,14 @@ MUSIC_CHANNEL_IDS = {
     "Vavoo.fr.MEZZOLIVE@TvVoo",
     "Vavoo.fr.STINGRAYCLASSICA@TvVoo",
     "Vavoo.pt.MTVPORTUGAL@TvVoo",
+    "Vavoo.pt.MTV00S@TvVoo",
     "Vavoo.pt.STINGRAYICONCERTS@TvVoo",
+    "Vavoo.pt.STINGRAYRETRO@TvVoo",
+    "Vavoo.de.DELUXEMUSIC@TvVoo",
+    "Vavoo.uk.VH1@TvVoo",
     "Vavoo.nl.XITEROCK@TvVoo",
+    "Vavoo.nl.XITECLASSICCOUNTRY@TvVoo",
+    "Vavoo.nl.XITEGOSPEL@TvVoo",
     "Vavoo.nl.STINGRAYDJAZZ@TvVoo",
     "Vavoo.bg.STINGRAYICONCERTS@TvVoo",
 }
@@ -1672,6 +1794,22 @@ SEGMENT_CHECK_CHANNELS.update({
     "BBC World News Reino Unido",
     "Sky F1 UK",
     "TNT Sports 2 Reino Unido",
+    "BBC Three Reino Unido",
+    "National Geographic Reino Unido",
+    "Discovery Channel España",
+    "Discovery Science Francia",
+    "Nat Geo Wild España",
+    "Sky Documentaries Alemania",
+    "Sky Nature Alemania",
+    "History Alemania",
+    "Deluxe Music Alemania",
+    "MTV 00s Portugal",
+    "Stingray Retro Portugal",
+    "TNT Sports 4 Reino Unido",
+    "Eurosport 4 TIMVISION Italia",
+    "VH1 Reino Unido",
+    "XITE Classic Country Países Bajos",
+    "XITE Gospel Países Bajos",
 })
 SEGMENT_CHECK_CHANNELS = {
     name
