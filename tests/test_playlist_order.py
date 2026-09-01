@@ -164,19 +164,20 @@ class PlaylistOrderTests(unittest.TestCase):
     def test_permanent_channel_exclusions_keep_unrelated_poland_channels(self) -> None:
         lines = ["#EXTM3U"]
         excluded = [
-            ("bloomberg.channel", "Bloomberg TV Italia"),
+            ("bloomberg.channel", "Bloomberg TV Francia"),
+            ("trt.channel", "TRT World Internacional"),
+            ("turkey.channel", "Eurosport 1 Turquía Directo"),
+        ]
+        restored = [
             ("cnn.channel", "CNN Polonia"),
-            ("trt.channel", "TRT World Turquía"),
             ("dazn-fast.channel", "DAZN FAST+"),
             ("rmc.channel", "RMC Sport 3 Francia"),
-            ("turkey.channel", "Eurosport 1 Turquía"),
+            ("turkey-restored.channel", "Eurosport 1 Turquía"),
             ("balkan.channel", "Arena Sport 1 Balcanes"),
-        ]
-        retained = [
             ("bbc-earth.channel", "BBC Earth Polonia"),
             ("eurosport.channel", "Eurosport 3 Polonia"),
         ]
-        for tvg_id, name in excluded + retained:
+        for tvg_id, name in excluded + restored:
             lines.extend((extinf(tvg_id, name), f"https://example.invalid/{tvg_id}.m3u8"))
 
         removed = update_m3u.remove_permanently_removed_channels(lines)
@@ -184,17 +185,19 @@ class PlaylistOrderTests(unittest.TestCase):
         self.assertEqual(removed, [name for _, name in excluded])
         self.assertEqual(
             [channel.name for channel in update_m3u.parse_channels(lines)],
-            [name for _, name in retained],
+            [name for _, name in restored],
         )
 
-    def test_permanent_channel_exclusions_remove_reuters_and_stingray_djazz(self) -> None:
+    def test_permanent_channel_exclusions_remove_reuters_but_restore_djazz_candidate(self) -> None:
         lines = ["#EXTM3U"]
         excluded = [
             ("ReutersTV.us", "Reuters"),
-            ("Vavoo.nl.STINGRAYDJAZZ@TvVoo", "Stingray DJAZZ Países Bajos"),
             ("MTVClassic.us", "MTV Classic"),
         ]
-        retained = [("StingrayClassica.ca", "Stingray Classica")]
+        retained = [
+            ("Vavoo.nl.STINGRAYDJAZZ@TvVoo", "Stingray DJAZZ Países Bajos"),
+            ("StingrayClassica.ca", "Stingray Classica"),
+        ]
         for tvg_id, name in excluded + retained:
             lines.extend((extinf(tvg_id, name), f"https://example.invalid/{tvg_id}.m3u8"))
 
@@ -205,6 +208,40 @@ class PlaylistOrderTests(unittest.TestCase):
             [channel.name for channel in update_m3u.parse_channels(lines)],
             [name for _, name in retained],
         )
+
+    def test_restored_research_candidates_stay_in_external_catalogue(self) -> None:
+        catalog_channels = update_m3u.parse_channels(
+            update_m3u.CHANNEL_CATALOG_PATH.read_text(encoding="utf-8-sig").splitlines()
+        )
+        main_channels = update_m3u.parse_channels(
+            update_m3u.DEFAULT_PLAYLIST.read_text(encoding="utf-8-sig").splitlines()
+        )
+        external_channels = update_m3u.parse_channels(
+            update_m3u.EXTERNAL_PLAYLIST.read_text(encoding="utf-8-sig").splitlines()
+        )
+
+        restored = [
+            channel
+            for channel in catalog_channels
+            if channel.name in update_m3u.RESTORED_EXTERNAL_CHANNEL_NAMES
+        ]
+
+        self.assertEqual(
+            {channel.name for channel in restored},
+            set(update_m3u.RESTORED_EXTERNAL_CHANNEL_NAMES),
+        )
+        self.assertTrue(
+            all(channel.tvg_id not in {item.tvg_id for item in main_channels} for channel in restored)
+        )
+        self.assertTrue(
+            all(channel.tvg_id in {item.tvg_id for item in external_channels} for channel in restored)
+        )
+        for channel in restored:
+            self.assertEqual(
+                update_m3u.resolver_attributes_for(channel).get("x-resolver"),
+                "tvvoo",
+            )
+            self.assertIn(channel.name, update_m3u.TVVOO_STREAM_RESOLVER_IDS)
 
     def test_manual_main_member_is_never_removed_by_automatic_exclusions(self) -> None:
         lines = [

@@ -46,7 +46,7 @@ PUBLIC_RAW_BASE = "https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main"
 EPG_PUBLIC_URL = f"{PUBLIC_RAW_BASE}/epg.xml"
 LOCAL_LOGOS_PUBLIC_BASE = f"{PUBLIC_RAW_BASE}/logos"
 RESOLVER_SCHEMA_VERSION = 1
-RESOLVER_CATALOG_VERSION = "2026.09.01.2"
+RESOLVER_CATALOG_VERSION = "2026.09.01.3"
 ALLOWED_RESOLVER_ENGINES = {"tvn", "meganoticias", "tvvoo", "highfly"}
 TVVOO_RECIPE_ID = "bounded-payload-v1"
 TVVOO_VALIDATION_MODE = "media-signature-v1"
@@ -221,6 +221,72 @@ PERMANENTLY_REMOVED_CHANNEL_IDS = frozenset(
         "Vavoo.tr.NBATV@TvVoo",
         "Vavoo.bk.ARENASPORT1@TvVoo",
         "Vavoo.bk.EUROSPORT1@TvVoo",
+    }
+)
+
+# Estas entradas fueron retiradas del catalogo activo, pero se restauran como
+# candidatos de investigacion exclusivamente en la lista externa (catalogo
+# 2). No forman parte de la membresia manual de ``m3u.m3u``. La excepcion es
+# deliberada: sin ella, el saneamiento de exclusiones permanentes las
+# volveria a borrar en el siguiente run.
+RESTORED_EXTERNAL_CHANNEL_NAMES = frozenset(
+    {
+        "Al Jazeera English MENA",
+        "Arena Sport 1 Albania",
+        "Arena Sport 1 Balcanes",
+        "Bloomberg TV Italia",
+        "CNN Polonia",
+        "DAZN 1 France",
+        "DAZN 1 Germany",
+        "DAZN 2",
+        "DAZN FAST+",
+        "ESPN 3",
+        "Eleven Sports 1",
+        "Eleven Sports 2",
+        "Eurosport 1 Balcanes",
+        "Eurosport 1 Turquía",
+        "MTV 00s MENA",
+        "NBA TV Turquía",
+        "RMC Sport 1",
+        "RMC Sport 2",
+        "RMC Sport 3 Francia",
+        "RT France",
+        "Sky Sports Action",
+        "Sky Sports Cricket",
+        "Sky Sports Racing",
+        "Stingray DJAZZ Países Bajos",
+        "TRT World Turquía",
+        "beIN Sports 1 Turquía",
+    }
+)
+RESTORED_EXTERNAL_CHANNEL_IDS = frozenset(
+    {
+        "Vavoo.ar.ALJAZEERAEN@TvVoo",
+        "Vavoo.al.ARENASPORT1@TvVoo",
+        "Vavoo.bk.ARENASPORT1@TvVoo",
+        "Vavoo.it.BLOOMBERGTV@TvVoo",
+        "Vavoo.pl.CNN@TvVoo",
+        "DAZN1.fr@TvVoo",
+        "DAZN1.de@TvVoo",
+        "DAZN2.de@TvVoo",
+        "DAZNFastPlus.de@TvVoo",
+        "ESPN3.ar@TvVoo",
+        "ElevenSports1.pt@TvVoo",
+        "ElevenSports2.pt@TvVoo",
+        "Vavoo.bk.EUROSPORT1@TvVoo",
+        "Vavoo.tr.EUROSPORT1@TvVoo",
+        "Vavoo.ar.MTV00S@TvVoo",
+        "Vavoo.tr.NBATV@TvVoo",
+        "RMCSport1.fr@TvVoo",
+        "RMCSport2.fr@TvVoo",
+        "Vavoo.fr.RMCSPORT3@TvVoo",
+        "RTFrance.fr@TvVoo",
+        "SkySportsAction.uk@TvVoo",
+        "SkySportsCricket.uk@TvVoo",
+        "SkySportsRacing.uk",
+        "Vavoo.nl.STINGRAYDJAZZ@TvVoo",
+        "Vavoo.tr.TRTWORLD@TvVoo",
+        "Vavoo.tr.BEINSPORTS1@TvVoo",
     }
 )
 
@@ -527,6 +593,7 @@ EPG_PROGRAMME_SOURCES = {
     channel_id: source
     for channel_id, source in EPG_PROGRAMME_SOURCES.items()
     if channel_id not in PERMANENTLY_REMOVED_CHANNEL_IDS
+    or channel_id in RESTORED_EXTERNAL_CHANNEL_IDS
 }
 # Zapping publica una guia HTML con marcas Unix absolutas para el programa
 # actual, hoy y manana. Se usa solo para senales chilenas donde la fuente
@@ -919,10 +986,103 @@ TVVOO_STREAM_RESOLVER_IDS.update({
     "SuperSport 1 Albania": ("vavoo_SUPERSPORT%201%7Cgroup%3Aal",),
     "beIN Sports 1 MENA": ("vavoo_BEIN%20SPORTS%201%20HD%7Cgroup%3Aar", "vavoo_BEIN%20SPORTS%201%7Cgroup%3Aar", "vavoo_BEIN%20SPORTS%201%20SD%7Cgroup%3Aar",),
 })
+
+# Aliases recuperados del inventario historico para volver a probarlos en el
+# catalogo 2. Las variantes de calidad se mantienen en el orden publicado por
+# TvVoo; no son URLs ni credenciales y VibeM3U las resuelve bajo demanda.
+TVVOO_STREAM_RESOLVER_IDS.update({
+    "Al Jazeera English MENA": (
+        "vavoo_AL%20JAZEERA%20EN%7Cgroup%3Aar",
+    ),
+    "Arena Sport 1 Albania": (
+        "vavoo_ARENA%20SPORT%201%7Cgroup%3Aal",
+    ),
+    "Arena Sport 1 Balcanes": (
+        "vavoo_ARENA%20SPORT%201%20HD%7Cgroup%3Abk",
+        "vavoo_ARENA%20SPORT%201%7Cgroup%3Abk",
+    ),
+    "Bloomberg TV Italia": (
+        "vavoo_BLOOMBERG%20TV%7Cgroup%3Ait",
+        "vavoo_BLOOMBERG%20TV%204K%7Cgroup%3Ait",
+    ),
+    "CNN Polonia": ("vavoo_CNN%7Cgroup%3Apl",),
+    "DAZN 1 France": ("vavoo_DAZN%201%7Cgroup%3Afr",),
+    "DAZN 1 Germany": (
+        "vavoo_DAZN%201%7Cgroup%3Ade",
+        "vavoo_DAZN%201%20HD%7Cgroup%3Ade",
+    ),
+    "DAZN 2": (
+        "vavoo_DAZN%202%7Cgroup%3Ade",
+        "vavoo_DAZN%202%20HD%7Cgroup%3Ade",
+        "vavoo_DAZN%202%20FHD%7Cgroup%3Ade",
+    ),
+    "DAZN FAST+": ("vavoo_DAZN%20FAST%2B%7Cgroup%3Ade",),
+    "ESPN 3": ("vavoo_ESPN%203%7Cgroup%3Aar",),
+    "Eleven Sports 1": (
+        "vavoo_ELEVEN%20SPORTS%201%20HD%7Cgroup%3Apt",
+    ),
+    "Eleven Sports 2": (
+        "vavoo_ELEVEN%20SPORTS%202%20HD%7Cgroup%3Apt",
+    ),
+    "Eurosport 1 Balcanes": (
+        "vavoo_EUROSPORT%201%7Cgroup%3Abk",
+    ),
+    "Eurosport 1 Turquía": (
+        "vavoo_EUROSPORT%201%7Cgroup%3Atr",
+    ),
+    "MTV 00s MENA": ("vavoo_MTV%2000S%7Cgroup%3Aar",),
+    "NBA TV Turquía": (
+        "vavoo_NBA%20TV%20FHD%7Cgroup%3Atr",
+        "vavoo_NBA%20TV%20HD%7Cgroup%3Atr",
+        "vavoo_NBA%20TV%7Cgroup%3Atr",
+    ),
+    "RMC Sport 1": (
+        "vavoo_RMC%20SPORT%201%7Cgroup%3Afr",
+        "vavoo_RMC%20SPORT%201%20FHD%7Cgroup%3Afr",
+        "vavoo_RMC%20SPORT%201%20HD%7Cgroup%3Afr",
+    ),
+    "RMC Sport 2": (
+        "vavoo_RMC%20SPORT%202%7Cgroup%3Afr",
+        "vavoo_RMC%20SPORT%202%20FHD%7Cgroup%3Afr",
+        "vavoo_RMC%20SPORT%202%20HD%7Cgroup%3Afr",
+    ),
+    "RMC Sport 3 Francia": (
+        "vavoo_RMC%20SPORT%203%20FHD%7Cgroup%3Afr",
+        "vavoo_RMC%20SPORT%203%20HD%7Cgroup%3Afr",
+        "vavoo_RMC%20SPORT%203%7Cgroup%3Afr",
+    ),
+    "RT France": ("vavoo_RT%20FRANCE%7Cgroup%3Afr",),
+    "Sky Sports Action": (
+        "vavoo_SKY%20SPORTS%20ACTION%7Cgroup%3Auk",
+        "vavoo_SKY%20SPORT%20ACTION%7Cgroup%3Auk",
+        "vavoo_SKY%20SPORTS%20ACTION%20HD%7Cgroup%3Auk",
+    ),
+    "Sky Sports Cricket": (
+        "vavoo_SKY%20SPORTS%20CRICKET%7Cgroup%3Auk",
+        "vavoo_SKY%20SPORTS%20CRICKET%20HD%7Cgroup%3Auk",
+    ),
+    "Sky Sports Racing": (
+        "vavoo_SKY%20SPORTS%20RACING%7Cgroup%3Auk",
+        "vavoo_SKY%20SPORTS%20RACING%20HD%7Cgroup%3Auk",
+    ),
+    "Stingray DJAZZ Países Bajos": (
+        "vavoo_STINGRAY%20DJAZZ%7Cgroup%3Anl",
+    ),
+    "TRT World Turquía": (
+        "vavoo_TRT%20WORLD%7Cgroup%3Atr",
+        "vavoo_TRT%20WORLD%20HEVC%7Cgroup%3Atr",
+    ),
+    "beIN Sports 1 Turquía": (
+        "vavoo_BEIN%20SPORTS%201%20HD%7Cgroup%3Atr",
+        "vavoo_BEIN%20SPORTS%201%7Cgroup%3Atr",
+        "vavoo_BEIN%20SPORTS%201%20H265%7Cgroup%3Atr",
+    ),
+})
 TVVOO_STREAM_RESOLVER_IDS = {
     name: aliases
     for name, aliases in TVVOO_STREAM_RESOLVER_IDS.items()
-    if not any(
+    if name in RESTORED_EXTERNAL_CHANNEL_NAMES
+    or not any(
         pattern.search(name)
         for pattern in PERMANENTLY_REMOVED_CHANNEL_NAME_PATTERNS
     )
@@ -1826,6 +1986,10 @@ SEGMENT_CHECK_CHANNELS = {
         for pattern in PERMANENTLY_REMOVED_CHANNEL_NAME_PATTERNS
     )
 }
+# Los candidatos restaurados vuelven a pasar la comprobacion completa
+# maestro/variante/segmento, aunque su nombre coincida con una exclusion
+# historica. Esto solo afecta a la lista externa de pruebas.
+SEGMENT_CHECK_CHANNELS.update(RESTORED_EXTERNAL_CHANNEL_NAMES)
 @dataclass(frozen=True)
 class Channel:
     name: str
@@ -1982,6 +2146,12 @@ def is_permanently_removed_channel_name(name: str) -> bool:
 
 
 def is_permanently_removed_channel(channel: Channel) -> bool:
+    if (
+        channel.tvg_id in RESTORED_EXTERNAL_CHANNEL_IDS
+        or channel.name in RESTORED_EXTERNAL_CHANNEL_NAMES
+        or channel.display_name in RESTORED_EXTERNAL_CHANNEL_NAMES
+    ):
+        return False
     return (
         channel.tvg_id in PERMANENTLY_REMOVED_CHANNEL_IDS
         or is_permanently_removed_channel_name(channel.name)

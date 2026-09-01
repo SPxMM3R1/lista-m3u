@@ -87,6 +87,11 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
   públicos de TvVoo, manteniendo un solo canal lógico por señal y sus aliases
   estables por país. Su lista depende de la promoción manual, no del resultado
   de cada chequeo, y todas permanecen en `channel-catalog.m3u` para repararlas;
+- conserva en `m3u-externa.m3u` un bloque de candidatos históricos restaurados
+  para investigación: aliases regionales de RT, Bloomberg, CNN, DAZN, ESPN,
+  Eleven, RMC, Sky, Stingray, TRT, beIN, Arena y Eurosport. Están excluidos
+  de la membresía manual de `m3u.m3u`, se renuevan como TvVoo y no se eliminan
+  por coincidir con las exclusiones históricas;
 - incorpora DAZN Darts x Pluto TV y DAZN Heldinnen x Pluto TV como señales FAST
   de producción: sus HLS públicos redirigen al distribuidor Pluto y sus guías
   XMLTV se obtienen desde la fuente pública de Pluto con los IDs oficiales de
@@ -217,6 +222,13 @@ ninguna entrada elegible.
 Las antiguas sondas directas de Sky (`@Direct`/`(Directo)`) ya no forman parte
 de ninguna lista pública. Las señales Sky que permanecen son las que tienen un
 resolutor renovable o una fuente seleccionada explícitamente.
+
+Las entradas históricas restauradas para investigación pertenecen únicamente a
+la lista 2. Se conservan en `channel-catalog.m3u` para que cada corrida pueda
+revalidar sus aliases y regenerar `m3u-externa.m3u`/`2.m3u`; no se deben mover a
+`m3u.m3u` mediante un cambio automático de salud. Las variantes renombradas
+`DAZN F1 España` y `Sky Sports F1 Reino Unido` no se duplican: sus aliases se
+mantienen bajo `DAZN F1` y `Sky F1 UK`, respectivamente.
 
 TVN y Mega se actualizan desde sus parrillas oficiales cuando estan
 disponibles. Para T13 no se encontro una parrilla oficial diaria de la senal
