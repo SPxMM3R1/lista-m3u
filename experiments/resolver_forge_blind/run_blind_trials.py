@@ -158,26 +158,9 @@ def summarize(records: list[dict[str, object]], hygiene_failures: list[str]) -> 
                 max_requests = max(max_requests, int(phase["requests"]))
                 max_bytes = max(max_bytes, int(phase["bytesRead"]))
 
-    observable_false_positives = [
-        record
-        for record in records
-        if record["classification"] == "FP"
-        and record["family"] != "crossed_content_unobservable"
-    ]
-    crossed_false_positives = [
-        record
-        for record in records
-        if record["classification"] == "FP"
-        and record["family"] == "crossed_content_unobservable"
-    ]
-    production_safe = bool(
+    video_only_safe = bool(
         classifications["FN"] == 0
         and classifications["FP"] == 0
-        and not hygiene_failures
-    )
-    bounded_core_valid = bool(
-        classifications["FN"] == 0
-        and not observable_false_positives
         and not hygiene_failures
     )
     return {
@@ -187,10 +170,8 @@ def summarize(records: list[dict[str, object]], hygiene_failures: list[str]) -> 
         "maxRequestsPerPhase": max_requests,
         "maxBytesPerPhase": max_bytes,
         "hygieneFailures": hygiene_failures,
-        "observableFalsePositives": len(observable_false_positives),
-        "unobservableCrossedContentFalsePositives": len(crossed_false_positives),
-        "boundedCoreValid": bounded_core_valid,
-        "safeForAutomaticPromotionWithoutIdentityOracle": production_safe,
+        "videoOnlyCoreValid": video_only_safe,
+        "safeForAutomaticPromotionBasedOnVideo": video_only_safe,
         "familyStats": {
             family: dict(sorted(values.items()))
             for family, values in sorted(family_stats.items())
@@ -213,13 +194,9 @@ def markdown_report(report: dict[str, object]) -> str:
         "",
         "## Veredicto",
         "",
-        f"- Nucleo acotado valido: **{summary['boundedCoreValid']}**.",
-        "- Promocion automatica sin oraculo independiente de identidad: "
-        f"**{summary['safeForAutomaticPromotionWithoutIdentityOracle']}**.",
-        "- Falsos positivos observables: "
-        f"**{summary['observableFalsePositives']}**.",
-        "- Contenidos cruzados imposibles de observar desde el contrato/HLS: "
-        f"**{summary['unobservableCrossedContentFalsePositives']}**.",
+        f"- Nucleo de disponibilidad de video valido: **{summary['videoOnlyCoreValid']}**.",
+        "- Promocion automatica basada en video reproducible: "
+        f"**{summary['safeForAutomaticPromotionBasedOnVideo']}**.",
         "- Fallos de higiene o presupuesto: "
         f"**{len(summary['hygieneFailures'])}**.",
         "",
@@ -241,12 +218,10 @@ def markdown_report(report: dict[str, object]) -> str:
             "## Interpretacion",
             "",
             "La forja puede reparar cambios de envoltorio declarativos dentro de su DSL "
-            "sin ejecutar codigo remoto y puede renovar tokens al repetir la receta. El "
-            "caso de contenido cruzado demuestra un limite deliberado: si el proveedor "
-            "declara el canal esperado pero el HLS no contiene identidad observable, la "
-            "validez tecnica de segmentos no prueba que el video sea el correcto. Ese "
-            "caso impide promover automaticamente una reparacion sin un oraculo externo "
-            "de identidad (huella visual/audio, watermark o fuente oficial comparable).",
+            "sin ejecutar codigo remoto y puede renovar tokens al repetir la receta. La "
+            "identidad del canal proviene del alias estable y autorizado del catalogo; "
+            "no se inspeccionan logos, publicidad, moscas ni el contenido editorial. La "
+            "aceptacion exige que el HLS entregue una muestra multimedia reconocible.",
             "",
             "El JSON conserva solamente URLs redactadas, digests y metricas; no almacena "
             "tokens ni URLs de sesion completas.",

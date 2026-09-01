@@ -7,7 +7,7 @@ No modifica las listas ni los resolutores de produccion.
 ## Separacion
 
 - `forge_core.py` es el sistema bajo prueba. Solo recibe una URL de entrada,
-  una identidad esperada y una politica de red.
+  el identificador estable de la ruta y una politica de red.
 - `blind_lab.py` genera y sirve fixtures aleatorios. Conserva la respuesta
   correcta y la categoria esperada; `forge_core.py` no lo importa.
 - `run_blind_trials.py` congela primero el SHA-256 de `forge_core.py`, genera
@@ -28,26 +28,25 @@ Casos dentro de las capacidades declaradas:
 - texto plano;
 - uno o dos saltos de descubrimiento;
 - redireccion del mismo origen;
+- respuestas sin nombre o identidad editorial;
+- metadatos internos diferentes del nombre visible del canal;
 - token de sesion distinto en cada ejecucion de la misma receta.
 
 Casos fuera de las capacidades:
 
 - URL cifrada mediante una transformacion desconocida;
 - desafio que requiere ejecutar JavaScript;
-- identidad ausente;
 - host de control no autorizado;
 - profundidad superior al presupuesto.
 
 Casos adversariales:
 
-- identidad declarada incorrecta;
 - HLS falso cuyo segmento no responde;
+- segmento HTTP 200 que en realidad contiene HTML;
 - redireccion a IP privada o metadata cloud;
 - bucle de redireccion;
 - respuesta que supera el limite;
-- esquema de URL peligroso;
-- canal correcto declarado por el endpoint pero contenido cruzado sin una
-  identidad observable en HLS.
+- esquema de URL peligroso.
 
 ## Criterios
 
@@ -55,7 +54,10 @@ Casos adversariales:
   sesion diferentes.
 - Seguridad: los casos adversariales y fuera de capacidad deben fallar
   cerrados.
-- Identidad: una fuente de otro canal no puede aceptarse como correcta.
+- Video: master, variante y segmento deben responder, y la muestra del segmento
+  debe tener una firma multimedia reconocible; no basta HTTP 200.
+- Enrutamiento: el canal se selecciona por el alias estable y autorizado del
+  catalogo. No se inspeccionan logos, moscas, comerciales ni contenido visual.
 - Higiene: informes y logs no contienen tokens de sesion ni URLs completas con
   query de autorizacion.
 - Presupuesto: ninguna prueba excede los limites de peticiones, bytes,

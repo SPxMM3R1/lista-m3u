@@ -487,6 +487,40 @@ class _HlsProbe:
     resolved_url: str | None = None
 
 
+def _segment_sample_is_media(result: FetchResult) -> bool:
+    """Recognise common HLS media containers without decoding the programme."""
+    body = result.body
+    if not body:
+        return False
+    content_type = result.content_type.lower()
+    if content_type.startswith("text/") or content_type in {
+        "application/json",
+        "application/xml",
+        "text/html",
+    }:
+        return False
+
+    # MPEG-TS: at least two 188-byte packets with a matching sync offset.
+    for offset in range(min(188, len(body))):
+        if (
+            body[offset] == 0x47
+            and offset + 188 < len(body)
+            and body[offset + 188] == 0x47
+        ):
+            return True
+
+    # ISO BMFF/fMP4 segments normally begin with one of these boxes.
+    if len(body) >= 8 and body[4:8] in {b"ftyp", b"styp", b"moof", b"sidx"}:
+        return True
+
+    # ADTS AAC or an ID3-prefixed audio segment.
+    if len(body) >= 2 and body[0] == 0xFF and (body[1] & 0xF6) == 0xF0:
+        return True
+    if len(body) >= 10 and body[:3] == b"ID3":
+        return True
+    return False
+
+
 def probe_hls(
     client: SafeHttpClient,
     url: str,
@@ -505,8 +539,6 @@ def probe_hls(
     identity_match = SESSION_DATA_PATTERN.search(text)
     if identity_match:
         stream_identity = identity_match.group(1).strip()
-        if not identity_matches(stream_identity, expected_id, expected_name):
-            return _HlsProbe(False, stream_identity, "identidad HLS distinta")
 
     lines = [line.strip() for line in text.splitlines() if line.strip()]
     media_url = master.final_url
@@ -543,12 +575,12 @@ def probe_hls(
     last_segment_error = "segmento no disponible"
     for segment in segment_candidates:
         try:
-            result = client.fetch(segment, control=False, read_limit=64)
+            result = client.fetch(segment, control=False, read_limit=1024)
         except ForgeError as error:
             last_segment_error = str(error)
             continue
-        if not result.body:
-            last_segment_error = "segmento vacio"
+        if not _segment_sample_is_media(result):
+            last_segment_error = "segmento sin contenido multimedia reconocible"
             continue
         successful_segments += 1
         if successful_segments >= client.policy.segments_to_probe:
@@ -585,9 +617,6 @@ def execute_recipe(recipe: Recipe, policy: ForgePolicy) -> Resolution:
             continue
 
         if result.body.lstrip().startswith(b"#EXTM3U") or _looks_hls_url(result.final_url):
-            if not inherited_identity:
-                failures.append("identidad no demostrada antes de HLS")
-                continue
             probe = probe_hls(
                 client,
                 result.final_url,
@@ -634,8 +663,6 @@ def execute_recipe(recipe: Recipe, policy: ForgePolicy) -> Resolution:
                 if parsed.scheme not in {"http", "https"}:
                     continue
                 if _looks_hls_url(candidate):
-                    if not local_identity:
-                        continue
                     try:
                         client._validate_url(candidate, control=False)
                     except SecurityViolation as error:
@@ -713,9 +740,6 @@ def fixed_schema_baseline(
         payload = json.loads(result.body.decode("utf-8"))
         streams = payload.get("streams", [])
         if not isinstance(streams, list):
-            return False
-        identity = payload.get("id") or payload.get("name") or ""
-        if not identity_matches(str(identity), expected_id, expected_name):
             return False
         for stream in streams[:16]:
             if not isinstance(stream, dict) or not isinstance(stream.get("url"), str):

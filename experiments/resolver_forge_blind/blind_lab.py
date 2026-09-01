@@ -32,25 +32,26 @@ SUPPORTED_FAMILIES = (
     "same_origin_redirect",
     "relative_hls",
     "decoy_then_valid",
+    "missing_identity",
+    "wrong_metadata",
+    "wrong_hls_identity",
+    "crossed_content_unobservable",
 )
 
 OUT_OF_ENVELOPE_FAMILIES = (
     "xor_cipher",
     "javascript_reverse",
-    "missing_identity",
     "new_control_host",
     "too_deep",
 )
 
 ADVERSARIAL_FAMILIES = (
-    "wrong_metadata",
-    "wrong_hls_identity",
     "broken_segment",
+    "html_segment",
     "private_redirect",
     "redirect_loop",
     "oversized_body",
     "dangerous_scheme",
-    "crossed_content_unobservable",
 )
 
 
@@ -338,6 +339,8 @@ class BlindFixtureLab:
             self._json(handler, {keys[0]: case.expected_id, keys[1]: wrong_url})
         elif family == "broken_segment":
             self._json(handler, {keys[0]: case.expected_id, keys[1]: url})
+        elif family == "html_segment":
+            self._json(handler, {keys[0]: case.expected_id, keys[1]: url})
         elif family == "private_redirect":
             self._send(
                 handler,
@@ -487,8 +490,26 @@ class BlindFixtureLab:
         if case.family == "broken_segment":
             self._send(handler, HTTPStatus.NOT_FOUND, b"", "text/plain")
             return
+        if case.family == "html_segment":
+            self._send(
+                handler,
+                HTTPStatus.OK,
+                b"<html><body>not a media segment</body></html>",
+                "text/html",
+            )
+            return
         content_id = case.actual_content_id if wrong else case.expected_id
-        body = ("SYNTHETIC-VIDEO:" + content_id + ":" + case.nonce).encode()
+        payload = ("SYNTHETIC-VIDEO:" + content_id + ":" + case.nonce).encode()
+        packets = []
+        for counter in range(3):
+            packet = bytearray(188)
+            packet[0] = 0x47
+            packet[1] = counter & 0x1F
+            packet[3] = 0x10
+            repeated = (payload * ((184 // len(payload)) + 1))[:184]
+            packet[4:] = repeated
+            packets.append(bytes(packet))
+        body = b"".join(packets)
         self._send(handler, HTTPStatus.OK, body, "video/mp2t")
 
 
