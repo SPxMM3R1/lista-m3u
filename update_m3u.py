@@ -23,7 +23,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from urllib.parse import urlencode, urljoin, urlparse
+from urllib.parse import unquote, urlencode, urljoin, urlparse
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 
@@ -42,10 +42,14 @@ EPG_PATH = Path(__file__).with_name("epg.xml")
 REPORT_PATH = Path(__file__).with_name("channel-status.json")
 HEALTH_STATE_PATH = Path(__file__).with_name("channel-health-state.json")
 RESOLVER_CATALOG_PATH = Path(__file__).with_name("resolver-catalog.json")
+TVVOO_DISCOVERY_MAP_PATH = Path(__file__).with_name("tvvoo-discovered.json")
 PUBLIC_RAW_BASE = "https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main"
 EPG_PUBLIC_URL = f"{PUBLIC_RAW_BASE}/epg.xml"
 LOCAL_LOGOS_PUBLIC_BASE = f"{PUBLIC_RAW_BASE}/logos"
 RESOLVER_SCHEMA_VERSION = 1
+# This is the version of the checked-in resolver rules. The writer advances
+# the patch component automatically when the daily TvVoo discovery sidecar
+# changes, so discovery never has to edit Python source just to publish data.
 RESOLVER_CATALOG_VERSION = "2026.09.01.4"
 ALLOWED_RESOLVER_ENGINES = {"tvn", "meganoticias", "tvvoo", "highfly"}
 TVVOO_RECIPE_ID = "bounded-payload-v1"
@@ -1166,7 +1170,168 @@ TVVOO_STREAM_RESOLVER_IDS = {
 }
 
 
-def build_resolver_catalog() -> dict:
+# The discovery job stores only stable TvVoo identities here. It deliberately
+# does not store resolved streams, session URLs, tokens or provider payloads.
+# Keeping this sidecar separate from the Python map lets the daily job add a
+# channel without changing executable resolver code.
+TVVOO_DISCOVERY_SCHEMA_VERSION = 1
+TVVOO_DISCOVERY_MAX_CHANNELS = 240
+TVVOO_DISCOVERY_MAX_ALIASES = 8
+TVVOO_DISCOVERY_REGIONS = frozenset(
+    {"uk", "it", "fr", "de", "pt", "es", "nl", "pl", "bg", "ar", "ro", "ru"}
+)
+TVVOO_DISCOVERY_CATEGORIES = frozenset(
+    {"Deportes", "Noticias internacionales", "Música", "Misceláneos"}
+)
+TVVOO_DISCOVERY_ID_PATTERN = re.compile(
+    r"^Vavoo\.(?P<region>[a-z]{2})\.(?P<slug>[A-Za-z0-9-]{2,64})@TvVoo$"
+)
+TVVOO_DISCOVERY_ALIAS_PATTERN = re.compile(
+    r"^vavoo_[A-Za-z0-9%._~+\-]+%7Cgroup%3A[a-z]{2}$"
+)
+TVVOO_DISCOVERY_LOGO_HOSTS = frozenset(
+    {
+        "antifriz.tv",
+        "epg.pw",
+        "i.imgur.com",
+        "raw.githubusercontent.com",
+        "static.wikia.nocookie.net",
+        "tvlogo.org",
+    }
+)
+
+
+def validate_tvvoo_discovery_document(
+    document: object, *, label: str = TVVOO_DISCOVERY_MAP_PATH.name
+) -> dict[str, dict[str, object]]:
+    """Validate the bounded, data-only TvVoo discovery sidecar."""
+    if not isinstance(document, dict):
+        raise ValueError(f"{label} debe contener un objeto JSON")
+    if document.get("schemaVersion") != TVVOO_DISCOVERY_SCHEMA_VERSION:
+        raise ValueError(f"{label} debe usar schemaVersion 1")
+    channels = document.get("channels")
+    if not isinstance(channels, dict):
+        raise ValueError(f"{label}.channels debe ser un objeto")
+    if len(channels) > TVVOO_DISCOVERY_MAX_CHANNELS:
+        raise ValueError(
+            f"{label} supera el maximo de {TVVOO_DISCOVERY_MAX_CHANNELS} canales"
+        )
+
+    validated: dict[str, dict[str, object]] = {}
+    seen_names: set[str] = set()
+    forbidden = ("access_token", "serverkey", "sunshine", "session", "token")
+    for tvg_id, raw_entry in channels.items():
+        if not isinstance(tvg_id, str):
+            raise ValueError(f"{label}: un ID de canal no es texto")
+        id_match = TVVOO_DISCOVERY_ID_PATTERN.fullmatch(tvg_id)
+        if not id_match or id_match.group("region") not in TVVOO_DISCOVERY_REGIONS:
+            raise ValueError(f"{label}: ID TvVoo no permitido: {tvg_id}")
+        if not isinstance(raw_entry, dict):
+            raise ValueError(f"{label}: entrada invalida para {tvg_id}")
+        allowed_keys = {"name", "aliases", "region", "sourceName", "category", "logo"}
+        unknown_keys = set(raw_entry) - allowed_keys
+        if unknown_keys:
+            raise ValueError(
+                f"{label}: campos no permitidos en {tvg_id}: "
+                + ", ".join(sorted(unknown_keys))
+            )
+        name = raw_entry.get("name")
+        source_name = raw_entry.get("sourceName", "")
+        category = raw_entry.get("category", "Misceláneos")
+        region = raw_entry.get("region")
+        logo = raw_entry.get("logo", "")
+        if (
+            not isinstance(name, str)
+            or not name.strip()
+            or len(name) > 100
+            or any(ord(char) < 32 for char in name)
+        ):
+            raise ValueError(f"{label}: nombre invalido para {tvg_id}")
+        if name in seen_names:
+            raise ValueError(f"{label}: nombre duplicado: {name}")
+        seen_names.add(name)
+        if (
+            not isinstance(source_name, str)
+            or len(source_name) > 100
+            or any(ord(char) < 32 for char in source_name)
+        ):
+            raise ValueError(f"{label}: sourceName invalido para {tvg_id}")
+        if not isinstance(region, str) or region != id_match.group("region"):
+            raise ValueError(f"{label}: region inconsistente para {tvg_id}")
+        if not isinstance(category, str) or category not in TVVOO_DISCOVERY_CATEGORIES:
+            raise ValueError(f"{label}: categoria no permitida para {tvg_id}")
+        if not isinstance(logo, str) or len(logo) > 512:
+            raise ValueError(f"{label}: logo invalido para {tvg_id}")
+        if logo:
+            parsed_logo = urlparse(logo)
+            if (
+                parsed_logo.scheme != "https"
+                or parsed_logo.hostname not in TVVOO_DISCOVERY_LOGO_HOSTS
+                or parsed_logo.username
+                or parsed_logo.password
+                or parsed_logo.query
+                or parsed_logo.fragment
+            ):
+                raise ValueError(f"{label}: host o URL de logo no permitido para {tvg_id}")
+
+        aliases = raw_entry.get("aliases")
+        if not isinstance(aliases, list) or not aliases:
+            raise ValueError(f"{label}: faltan aliases para {tvg_id}")
+        if len(aliases) > TVVOO_DISCOVERY_MAX_ALIASES:
+            raise ValueError(f"{label}: demasiados aliases para {tvg_id}")
+        clean_aliases: list[str] = []
+        for alias in aliases:
+            if not isinstance(alias, str) or not TVVOO_DISCOVERY_ALIAS_PATTERN.fullmatch(alias):
+                raise ValueError(f"{label}: alias no permitido para {tvg_id}: {alias}")
+            decoded = unquote(alias)
+            decoded_match = re.fullmatch(
+                r"vavoo_(?P<name>.+)\|group:(?P<region>[a-z]{2})", decoded
+            )
+            if not decoded_match or decoded_match.group("region") != region:
+                raise ValueError(f"{label}: alias con region inconsistente para {tvg_id}")
+            if alias in clean_aliases:
+                raise ValueError(f"{label}: alias duplicado para {tvg_id}")
+            clean_aliases.append(alias)
+        entry_text = json.dumps(raw_entry, ensure_ascii=False).lower()
+        if any(value in entry_text for value in forbidden):
+            raise ValueError(f"{label}: se detecto un dato temporal o sensible en {tvg_id}")
+        validated[tvg_id] = {
+            "name": name.strip(),
+            "aliases": clean_aliases,
+            "region": region,
+            "sourceName": source_name.strip(),
+            "category": category,
+            "logo": logo,
+        }
+    return validated
+
+
+def load_tvvoo_discovery_entries(
+    path: Path = TVVOO_DISCOVERY_MAP_PATH,
+) -> dict[str, dict[str, object]]:
+    if not path.exists():
+        return {}
+    try:
+        document = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise ValueError(f"{path.name} no es JSON valido: {error}") from error
+    return validate_tvvoo_discovery_document(document, label=path.name)
+
+
+TVVOO_DISCOVERY_ENTRIES = load_tvvoo_discovery_entries()
+for _discovered_id, _discovered_entry in TVVOO_DISCOVERY_ENTRIES.items():
+    _discovered_name = str(_discovered_entry["name"])
+    _discovered_aliases = tuple(str(alias) for alias in _discovered_entry["aliases"])
+    _existing_aliases = TVVOO_STREAM_RESOLVER_IDS.get(_discovered_name)
+    if _existing_aliases is not None and tuple(_existing_aliases) != _discovered_aliases:
+        raise ValueError(
+            f"{TVVOO_DISCOVERY_MAP_PATH.name}: {_discovered_name} "
+            "ya existe con aliases diferentes"
+        )
+    TVVOO_STREAM_RESOLVER_IDS[_discovered_name] = _discovered_aliases
+
+
+def build_resolver_catalog(*, catalog_version: str | None = None) -> dict:
     """Build the declarative catalogue consumed by VibeM3U.
 
     Only stable identifiers and allow-listed HTTPS endpoints belong here. The
@@ -1175,7 +1340,7 @@ def build_resolver_catalog() -> dict:
     """
     return {
         "schemaVersion": RESOLVER_SCHEMA_VERSION,
-        "catalogVersion": RESOLVER_CATALOG_VERSION,
+        "catalogVersion": catalog_version or RESOLVER_CATALOG_VERSION,
         "providers": [
             {
                 "id": "tvn",
@@ -2652,28 +2817,46 @@ def catalog_version_key(value: str) -> tuple[int, ...]:
     return tuple(int(part) for part in value.split("."))
 
 
+def next_catalog_version(value: str) -> str:
+    parts = list(catalog_version_key(value))
+    parts[-1] += 1
+    return f"{parts[0]:04d}.{parts[1]:02d}.{parts[2]:02d}.{parts[3]}"
+
+
 def write_resolver_catalog(path: Path = RESOLVER_CATALOG_PATH) -> bool:
-    expected = build_resolver_catalog()
+    base_version = RESOLVER_CATALOG_VERSION
+    base_expected = build_resolver_catalog(catalog_version=base_version)
+    expected_version = base_version
+    current = None
     if path.exists():
         try:
             current = json.loads(path.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError) as error:
             raise ValueError(f"{path.name} existente no es JSON valido: {error}") from error
         current_version = str(current.get("catalogVersion", ""))
-        if catalog_version_key(current_version) > catalog_version_key(
-            RESOLVER_CATALOG_VERSION
-        ):
-            raise ValueError(
-                f"{path.name} tiene una version futura ({current_version})"
-            )
-        if current_version == RESOLVER_CATALOG_VERSION and current != expected:
-            raise ValueError(
-                "el contenido del catalogo cambio sin aumentar catalogVersion"
-            )
-        if current == expected:
+        current_key = catalog_version_key(current_version)
+        base_key = catalog_version_key(base_version)
+        if current == base_expected:
             return False
+        if current_key < base_key:
+            expected_version = base_version
+        elif current_key == base_key:
+            expected_version = next_catalog_version(base_version)
+        else:
+            # A previous discovery run may already have advanced the patch
+            # component. Rebuild that exact version first; only advance it
+            # again when the stable map really changed.
+            current_expected = build_resolver_catalog(
+                catalog_version=current_version
+            )
+            if current == current_expected:
+                return False
+            expected_version = next_catalog_version(current_version)
+    expected = build_resolver_catalog(catalog_version=expected_version)
+    if current == expected:
+        return False
     path.write_text(resolver_catalog_text(expected), encoding="utf-8", newline="\n")
-    print(f"  [OK] {path.name}: catalogo {RESOLVER_CATALOG_VERSION} generado")
+    print(f"  [OK] {path.name}: catalogo {expected_version} generado")
     return True
 
 

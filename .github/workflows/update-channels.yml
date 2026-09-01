@@ -9,6 +9,8 @@ on:
       - "m3u-externa.m3u"
       - "channel-catalog.m3u"
       - "resolver-catalog.json"
+      - "tvvoo-discovered.json"
+      - "discover_tvvoo_catalog.py"
       - "update_m3u.py"
       - "run_m3u_6h.py"
       - ".github/workflows/update-channels.yml"
@@ -88,7 +90,7 @@ jobs:
         if: steps.updater.outputs.status == '0' && steps.updater.outputs.ran == 'true'
         shell: bash
         run: |
-          files=(m3u.m3u m3u-externa.m3u 1.m3u 2.m3u channel-catalog.m3u resolver-catalog.json channel-health-state.json run-state.json)
+          files=(m3u.m3u m3u-externa.m3u 1.m3u 2.m3u channel-catalog.m3u resolver-catalog.json tvvoo-discovered.json channel-health-state.json run-state.json)
           if [ -z "$(git status --porcelain -- "${files[@]}")" ]; then
             echo "Los canales y resolutores ya estaban al dia."
             echo "changed=false" >> "$GITHUB_OUTPUT"
@@ -133,7 +135,7 @@ jobs:
           if [ -z "$raw_commit" ]; then raw_commit="$GITHUB_SHA"; fi
           base="https://raw.githubusercontent.com/${{ github.repository }}/$raw_commit"
           exit_code=0
-          for file in m3u.m3u m3u-externa.m3u 1.m3u 2.m3u channel-catalog.m3u resolver-catalog.json channel-health-state.json run-state.json; do
+          for file in m3u.m3u m3u-externa.m3u 1.m3u 2.m3u channel-catalog.m3u resolver-catalog.json tvvoo-discovered.json channel-health-state.json run-state.json; do
             tmp="$(mktemp)"
             if ! curl --fail --silent --show-error --location --max-time 30 --retry 3 "$base/$file?verify=$GITHUB_RUN_ID" --output "$tmp" || ! cmp --silent "$tmp" "$file"; then
               echo "$file no coincide con el commit publicado" >&2
@@ -172,6 +174,7 @@ jobs:
           check_raw 2.m3u '#EXTM3U' || exit_code=1
           check_raw channel-catalog.m3u '#EXTM3U' || exit_code=1
           check_raw resolver-catalog.json '"schemaVersion": 1' || exit_code=1
+          check_raw tvvoo-discovered.json '"schemaVersion": 1' || exit_code=1
           check_raw channel-health-state.json '"schema": 1' || exit_code=1
           check_raw run-state.json '"schema": 2' || exit_code=1
           echo "status=$exit_code" >> "$GITHUB_OUTPUT"

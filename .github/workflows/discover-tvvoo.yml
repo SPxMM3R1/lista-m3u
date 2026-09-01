@@ -1,0 +1,82 @@
+name: Descubrir catalogo TvVoo
+
+on:
+  schedule:
+    - cron: "15 3 * * *"
+      timezone: "America/Santiago"
+  workflow_dispatch:
+    inputs:
+      max_new:
+        description: Maximo de candidatos nuevos en esta ejecucion
+        required: false
+        default: "24"
+        type: number
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: m3u-publisher
+  cancel-in-progress: false
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Preparar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Probar importadores
+        run: python -m unittest discover -s tests -p "test_*.py"
+
+      - name: Reconciliar identidades persistentes
+        run: python discover_tvvoo_catalog.py --executor github --reconcile-only
+
+      - name: Validar contrato inicial
+        run: python update_m3u.py --validate-resolvers-only
+
+      - name: Buscar candidatos nuevos en los catalogos publicos
+        shell: bash
+        run: |
+          max_new="${{ inputs.max_new }}"
+          if [ -z "$max_new" ]; then max_new=24; fi
+          python discover_tvvoo_catalog.py --executor github --max-new "$max_new"
+
+      - name: Validar listas y resolutores sin red de streams
+        run: |
+          python update_m3u.py --validate-resolvers-only
+          python update_m3u.py --validate-public-lists-only
+          git diff --check
+
+      - name: Publicar descubrimientos si hubo cambios
+        id: publish
+        shell: bash
+        run: |
+          files=(tvvoo-discovered.json channel-catalog.m3u m3u-externa.m3u 2.m3u resolver-catalog.json)
+          if [ -z "$(git status --porcelain -- "${files[@]}")" ]; then
+            echo "No se detectaron canales nuevos; no se crea commit."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "Descubridor M3U"
+          git config user.email "m3u-bot@users.noreply.github.com"
+          git add -- "${files[@]}"
+          git commit -m "Descubre candidatos TvVoo nuevos"
+          git push origin HEAD:main
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+          echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Solicitar reparacion inmediata de canales
+        if: steps.publish.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run update-channels.yml --ref main --field force_run=true

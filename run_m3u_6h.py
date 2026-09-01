@@ -23,6 +23,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent
 UPDATE_SCRIPT = PROJECT_ROOT / "update_m3u.py"
 STATE_PATH = PROJECT_ROOT / "run-state.json"
 RESOLVER_CATALOG_PATH = PROJECT_ROOT / "resolver-catalog.json"
+TVVOO_DISCOVERY_MAP_PATH = PROJECT_ROOT / "tvvoo-discovered.json"
 OUTPUT_PATHS = (
     PROJECT_ROOT / "m3u.m3u",
     PROJECT_ROOT / "m3u-externa.m3u",
@@ -30,6 +31,7 @@ OUTPUT_PATHS = (
     PROJECT_ROOT / "2.m3u",
     PROJECT_ROOT / "channel-catalog.m3u",
     RESOLVER_CATALOG_PATH,
+    TVVOO_DISCOVERY_MAP_PATH,
     PROJECT_ROOT / "run-state.json",
 )
 INTERVAL = timedelta(hours=6)

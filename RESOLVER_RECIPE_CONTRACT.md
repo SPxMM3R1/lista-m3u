@@ -1,6 +1,6 @@
 # Contrato de receta de resolutores para VibeM3U
 
-Estado: `schemaVersion: 1`, catálogo `2026.09.01.2`, receta
+Estado: `schemaVersion: 1`, catálogo base `2026.09.01.4`, receta
 `bounded-payload-v1`.
 
 Este repositorio publica datos. VibeM3U conserva toda la lógica ejecutable.
@@ -13,11 +13,13 @@ clases Android ni mezclar commits.
 - Lista externa: `m3u-externa.m3u` y su alias `2.m3u`.
 - Inventario completo: `channel-catalog.m3u`.
 - Configuración declarativa: `resolver-catalog.json`.
+- Identidades descubiertas de TvVoo: `tvvoo-discovered.json`.
 - Guía compartida para todo el inventario: `epg.xml`.
 
 La pertenencia manual no cambia con esta receta: los mismos 42 canales siguen
-en la principal y los otros 111 permanecen en la externa. El reparador trabaja
-sobre los 153 canales del catálogo.
+en la principal y el complemento permanece en la externa. En la última siembra
+el reparador trabaja sobre 225 canales del catálogo; el descubrimiento diario
+puede aumentar ese complemento dentro de su límite seguro.
 
 ## Metadatos TvVoo obligatorios
 
@@ -31,7 +33,7 @@ https://respaldo-temporal.example/hls/index.m3u8
 Reglas:
 
 - `x-resolver-ids` contiene aliases estables y ordenados, nunca URLs de sesión.
-- `x-resolver-recipe` es idéntico para los 102 canales TvVoo actuales.
+- `x-resolver-recipe` es idéntico para todos los canales TvVoo incluidos.
 - No se añade la receta a TVN, Meganoticias, Highfly, Pluto o fuentes directas.
 - La URL de la línea siguiente sigue siendo respaldo para otros reproductores.
 - La EPG continúa asociándose exclusivamente mediante el `tvg-id` estable.
@@ -69,6 +71,11 @@ también bloquea destinos de red privados y valida cada redirección.
   coincidan exactamente.
 - `validate_resolver_catalog()` bloquea motores, hosts, tokens, recetas y modos
   no permitidos.
+- `discover_tvvoo_catalog.py` consulta únicamente catálogos públicos, agrupa
+  variantes de calidad, deduplica por alias y escribe solo identidades
+  estables en `tvvoo-discovered.json`; no modifica la membresía de la lista 1.
+- `catalogVersion` avanza automáticamente en el componente de parche cuando
+  cambia el mapa estable, sin modificar el código ejecutable del resolutor.
 
 Comandos sin red para el contrato:
 
@@ -99,7 +106,8 @@ como identificador persistente.
 ## Evolución y compatibilidad
 
 Cambiar aliases, límites o un endpoint ya permitido requiere aumentar
-`catalogVersion`. Una transformación nueva requiere un ID nuevo y una APK que
+`catalogVersion`; el escritor lo hace automáticamente para los descubrimientos
+estables. Una transformación nueva requiere un ID nuevo y una APK que
 lo incluya explícitamente; no se cambia silenciosamente el significado de
 `bounded-payload-v1`.
 

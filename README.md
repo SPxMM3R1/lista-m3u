@@ -137,6 +137,19 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
   publicación como posible problema sistémico del runner o de la red, sin
   eliminar ni mover canales entre listas.
 
+El descubrimiento de catálogo (`discover-tvvoo.yml` / `discover_tvvoo_catalog.py`)
+corre una vez al día a las 03:15, separado de los procesos de canales y EPG.
+Consulta los catálogos públicos de TvVoo para Reino Unido, Italia, Francia,
+Alemania, Portugal, España, Países Bajos, Polonia, Bulgaria, Argentina,
+Rumanía y Rusia. Deduplica por señal y alias, descarta regiones y nombres
+excluidos, exige un logo HTTPS de un host permitido y agrega como máximo 24
+candidatos por ejecución y 240 en total al catálogo externo. La información
+estable queda en `tvvoo-discovered.json`; nunca se guardan URLs de sesión,
+tokens ni respuestas temporales. La lista principal no se modifica. Cuando hay
+nuevos candidatos, el descubridor solicita explícitamente el workflow de
+mantenimiento de canales, que intenta resolver y validar sus HLS; la EPG los
+incorpora en su próxima ejecución independiente sobre el catálogo completo.
+
 El coordinador `run_m3u_6h.py` conserva `run-state.json`; el coordinador
 `run_epg_6h.py` conserva `epg-run-state.json`. Cada estado tiene su propia
 ventana fija de seis horas. GitHub Actions es el ejecutor principal desde
@@ -153,7 +166,8 @@ sobre todo el catálogo y comprueba que la principal conserve exactamente sus
 URLs vigentes del catálogo.
 
 El proceso de canales corre a las 00:00, 06:00, 12:00 y 18:00 (hora de
-Santiago). El proceso de EPG corre a las 00:30, 06:30, 12:30 y 18:30. La
+Santiago). El proceso de EPG corre a las 00:30, 06:30, 12:30 y 18:30. El
+descubrimiento de TvVoo corre a las 03:15. La
 compuerta de cada estado evita trabajo duplicado y ambos comparten una cola de
 publicacion para no competir por `main`.
 GitHub puede iniciar unos minutos despues porque los cron son best effort.
