@@ -46,7 +46,7 @@ PUBLIC_RAW_BASE = "https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main"
 EPG_PUBLIC_URL = f"{PUBLIC_RAW_BASE}/epg.xml"
 LOCAL_LOGOS_PUBLIC_BASE = f"{PUBLIC_RAW_BASE}/logos"
 RESOLVER_SCHEMA_VERSION = 1
-RESOLVER_CATALOG_VERSION = "2026.09.01.3"
+RESOLVER_CATALOG_VERSION = "2026.09.01.4"
 ALLOWED_RESOLVER_ENGINES = {"tvn", "meganoticias", "tvvoo", "highfly"}
 TVVOO_RECIPE_ID = "bounded-payload-v1"
 TVVOO_VALIDATION_MODE = "media-signature-v1"
@@ -80,6 +80,7 @@ SKY_SPORTS_CHANNEL_ORDER = (
     "SkySportTennis.de@TvVoo",
     "Vavoo.it.SKYSPORTTENNIS@TvVoo",
     "SkySportsPremierLeague.uk",
+    "Vavoo.uk.SKYSPORTSPREMIERLEAGUE@TvVoo",
     "SkySportsMainEvent.uk@TvVoo",
     "SkySportsArena.uk@TvVoo",
     "SkySport1.nz",
@@ -95,6 +96,8 @@ SKY_SPORTS_CHANNEL_ORDER = (
     "SkySportMotoGP.it@TvVoo",
     "SkySportNBA.it@TvVoo",
     "SkySportUno.it@TvVoo",
+    "Vavoo.it.SKYSPORTSERIEA@TvVoo",
+    "Vavoo.it.SKYSUPERTENNIS@TvVoo",
     "Vavoo.de.SKYSPORT1@TvVoo",
 )
 EUROSPORT_CHANNEL_ORDER = (
@@ -107,6 +110,7 @@ EUROSPORT_CHANNEL_ORDER = (
     "Eurosport2.de@TvVoo",
     "Eurosport2.it@TvVoo",
     "Eurosport2.es@TvVoo",
+    "Vavoo.pl.EUROSPORT2@TvVoo",
     "Vavoo.pl.EUROSPORT3@TvVoo",
     "Vavoo.it.EUROSPORT4TIMVISION@TvVoo",
 )
@@ -1078,6 +1082,79 @@ TVVOO_STREAM_RESOLVER_IDS.update({
         "vavoo_BEIN%20SPORTS%201%20H265%7Cgroup%3Atr",
     ),
 })
+
+# Candidatos nuevos de la revisión pública TvVoo 5.0.23. Solo se incorporan
+# señales con una identidad regional explícita y una comprobación HLS
+# satisfactoria; las URLs de sesión se renuevan al ejecutar el actualizador.
+TVVOO_STREAM_RESOLVER_IDS.update({
+    "Max Sport 3 Bulgaria": (
+        "vavoo_MAX%20SPORT%203%7Cgroup%3Abg",
+    ),
+    "Mezzo Francia": (
+        "vavoo_MEZZO%7Cgroup%3Afr",
+    ),
+    "Trace Sport Stars Francia": (
+        "vavoo_TRACE%20SPORT%20STARS%7Cgroup%3Afr",
+    ),
+    "beIN Sports 2 Francia": (
+        "vavoo_BEIN%20SPORTS%202%7Cgroup%3Afr",
+    ),
+    "beIN Sports 3 Francia": (
+        "vavoo_BEIN%20SPORTS%203%7Cgroup%3Afr",
+    ),
+    "Rai Sport Italia": (
+        "vavoo_RAI%20SPORT%7Cgroup%3Ait",
+    ),
+    "Sky Sport Serie A Italia": (
+        "vavoo_SKY%20SPORT%20SERIE%20A%7Cgroup%3Ait",
+    ),
+    "Sky Super Tennis Italia": (
+        "vavoo_SKY%20SUPER%20TENNIS%7Cgroup%3Ait",
+    ),
+    "Super Tennis Italia": (
+        "vavoo_SUPER%20TENNIS%7Cgroup%3Ait",
+    ),
+    "XITE Paises Bajos": (
+        "vavoo_XITE%7Cgroup%3Anl",
+    ),
+    "Ziggo Sport Paises Bajos": (
+        "vavoo_ZIGGO%20SPORT%7Cgroup%3Anl",
+    ),
+    "Ziggo Sport Golf Paises Bajos": (
+        "vavoo_ZIGGO%20SPORT%20GOLF%7Cgroup%3Anl",
+    ),
+    "Ziggo Sport Racing Paises Bajos": (
+        "vavoo_ZIGGO%20SPORT%20RACING%7Cgroup%3Anl",
+    ),
+    "Ziggo Sport Tennis Paises Bajos": (
+        "vavoo_ZIGGO%20SPORT%20TENNIS%7Cgroup%3Anl",
+    ),
+    "BBC First Polonia": (
+        "vavoo_BBC%20FIRST%7Cgroup%3Apl",
+    ),
+    "Eurosport 2 Polonia": (
+        "vavoo_EUROSPORT%202%7Cgroup%3Apl",
+    ),
+    "TVP Sport Polonia": (
+        "vavoo_TVP%20SPORT%7Cgroup%3Apl",
+    ),
+    "Sport TV 6 Portugal": (
+        "vavoo_SPORT%20TV%206%7Cgroup%3Apt",
+    ),
+    "Sport TV 7 Portugal": (
+        "vavoo_SPORT%20TV%207%7Cgroup%3Apt",
+    ),
+    "Sport TV NBA Portugal": (
+        "vavoo_SPORT%20TV%20NBA%7Cgroup%3Apt",
+    ),
+    "W-Sport Portugal": (
+        "vavoo_W-SPORT%7Cgroup%3Apt",
+    ),
+    "Sky Sports Premier League Reino Unido": (
+        "vavoo_SKY%20SPORTS%20PREMIER%20LEAGUE%7Cgroup%3Auk",
+    ),
+})
+
 TVVOO_STREAM_RESOLVER_IDS = {
     name: aliases
     for name, aliases in TVVOO_STREAM_RESOLVER_IDS.items()
@@ -1990,6 +2067,32 @@ SEGMENT_CHECK_CHANNELS = {
 # maestro/variante/segmento, aunque su nombre coincida con una exclusion
 # historica. Esto solo afecta a la lista externa de pruebas.
 SEGMENT_CHECK_CHANNELS.update(RESTORED_EXTERNAL_CHANNEL_NAMES)
+# Los candidatos nuevos también requieren master, variante y segmento antes
+# de renovar el respaldo temporal de la lista externa.
+SEGMENT_CHECK_CHANNELS.update({
+    "Max Sport 3 Bulgaria",
+    "Mezzo Francia",
+    "Trace Sport Stars Francia",
+    "beIN Sports 2 Francia",
+    "beIN Sports 3 Francia",
+    "Rai Sport Italia",
+    "Sky Sport Serie A Italia",
+    "Sky Super Tennis Italia",
+    "Super Tennis Italia",
+    "XITE Paises Bajos",
+    "Ziggo Sport Paises Bajos",
+    "Ziggo Sport Golf Paises Bajos",
+    "Ziggo Sport Racing Paises Bajos",
+    "Ziggo Sport Tennis Paises Bajos",
+    "BBC First Polonia",
+    "Eurosport 2 Polonia",
+    "TVP Sport Polonia",
+    "Sport TV 6 Portugal",
+    "Sport TV 7 Portugal",
+    "Sport TV NBA Portugal",
+    "W-Sport Portugal",
+    "Sky Sports Premier League Reino Unido",
+})
 @dataclass(frozen=True)
 class Channel:
     name: str
