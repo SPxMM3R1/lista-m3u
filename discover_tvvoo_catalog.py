@@ -94,15 +94,25 @@ QUALITY_TOKENS = frozenset(
     {"4K", "8K", "FHD", "HD", "SD", "UHD", "H265", "HEVC", "BACKUP"}
 )
 EXCLUDED_NAME_PATTERN = re.compile(
-    r"\b(?:ADULT|EROTIC|PORN|XXX|PLAYBOY|BLUE\s+MOVIE|PPV|PAY\s+PER\s+VIEW|"
-    r"VOD|TEST|DEMO|EVENT|MATCH\s+CENTER|TURKEY|TÜRKIYE|TURQU[IÍ]A|"
+    r"\b(?:PPV|PAY\s+PER\s+VIEW|VOD|TEST|DEMO|EVENT|MATCH\s+CENTER|"
+    r"TURKEY|TÜRKIYE|TURQU[IÍ]A|"
     r"BALKAN|BALCAN)\b",
+    re.IGNORECASE,
+)
+ADULT_PATTERN = re.compile(
+    r"\b(?:ADULT|EROTIC(?:A|S)?|PORN(?:O)?|XXX|PLAYBOY|PRIVATE|"
+    r"BRAZZERS|HUSTLER|PENTHOUSE|REDLIGHT|DORCEL|VIVID|EROTIK|"
+    r"BEATE|18\s*\+)",
     re.IGNORECASE,
 )
 SPORTS_PATTERN = re.compile(
     r"\b(?:SPORT|SPORTS|ESPN|DAZN|EUROSPORT|TNT\s+SPORT|BEIN|ZIGGO|"
-    r"PREMIER\s+SPORT|RACING|FOOTBALL|TENNIS|GOLF|CRICKET|NFL|F1|"
-    r"MOTOGP|NBA|NHL|W-SPORT|ELEVEN)\b",
+    r"PREMIER\s+SPORT|RACING|RALLY|FOOTBALL|SOCCER|FUTBOL|FÚTBOL|"
+    r"TENNIS|GOLF|CRICKET|NFL|F1|FORMULA\s*1|MOTOGP|MOTO|MOTORSPORT|"
+    r"NBA|NHL|MLB|W-SPORT|ELEVEN|RUGBY|BOXING|UFC|FIGHT|WWE|"
+    r"WRESTLING|CYCLING|ATHLETICS|HORSE|EQUESTRIAN|VOLLEY(?:BALL)?|"
+    r"BASKET(?:BALL)?|BASEBALL|HOCKEY|SKI|SURF|EXTREME|OLYMPIC|"
+    r"DARTS|HANDBALL|BADMINTON|SWIMMING|SWIM|WATER\s+SPORT)\b",
     re.IGNORECASE,
 )
 NEWS_PATTERN = re.compile(
@@ -111,14 +121,28 @@ NEWS_PATTERN = re.compile(
     re.IGNORECASE,
 )
 MUSIC_PATTERN = re.compile(
-    r"\b(?:MUSIC|MTV|XITE|STINGRAY|TRACE|VH1|BOX\s+HITS|"
-    r"CONCERTS?)\b",
+    r"\b(?:MUSIC|MUSIK|MUSIQUE|MUSICA|MTV|XITE|STINGRAY|TRACE|VH1|"
+    r"BOX\s+HITS|HITS|CONCERTS?|ICONCERTS?|QELLO|LIVE\s+MUSIC|"
+    r"JAZZ|CLASSICAL|CLASSIQUE|OPERA|DJAZZ|ROCK|POP|COUNTRY|KARAOKE)\b",
+    re.IGNORECASE,
+)
+MOVIE_PATTERN = re.compile(
+    r"\b(?:MOVIE|MOVIES|FILM|FILMS|CINEMA|CINE|CINÉ|SKY\s+CINEMA|"
+    r"TCM|AMC|HOLLYWOOD|STAR\s+MOVIES|CINEMAX|PARAMOUNT|FILM4|"
+    r"CANAL\s*\+|CINESTAR|KINO)\b",
+    re.IGNORECASE,
+)
+SUBTITLE_HINT_PATTERN = re.compile(
+    r"\b(?:SUBTITLE(?:S)?|SUBTIT(?:LE|LES|ULOS?|ULADA|ULADO)|SUBBED|"
+    r"SUBTITLED|VOST(?:FR|ES)?|VOSE|VOST|WITH\s+SUBTITLES)\b",
     re.IGNORECASE,
 )
 CATEGORY_ORDER = (
     "Deportes",
-    "Noticias internacionales",
     "Música",
+    "Películas",
+    "Adultos",
+    "Noticias internacionales",
     "Misceláneos",
 )
 
@@ -131,6 +155,7 @@ class CandidateGroup:
     logo: str
     category: str
     base_key: str
+    subtitle_hint: bool = False
 
 
 def normalize_spaces(value: object) -> str:
@@ -225,17 +250,64 @@ def safe_logo(value: object) -> str:
     return logo
 
 
-def category_for(source_name: str, genres: object) -> str:
-    genre_text = " ".join(
-        normalize_spaces(item)
-        for item in (genres if isinstance(genres, list) else [])
-        if isinstance(item, str)
+def metadata_search_text(
+    source_name: str, genres: object, metadata: dict[str, object] | None = None
+) -> str:
+    values = [source_name]
+    if isinstance(genres, list):
+        values.extend(item for item in genres if isinstance(item, str))
+    elif isinstance(genres, str):
+        values.append(genres)
+    # TvVoo currently exposes mostly name/genres/logo fields. These optional
+    # fields make the classifier forward-compatible if a catalogue starts
+    # publishing language, subtitle or description hints later, without
+    # persisting arbitrary provider metadata in the sidecar.
+    if isinstance(metadata, dict):
+        for key in (
+            "description",
+            "category",
+            "language",
+            "languages",
+            "country",
+            "audio",
+            "subtitle",
+            "subtitles",
+            "tags",
+        ):
+            value = metadata.get(key)
+            if isinstance(value, list):
+                values.extend(item for item in value if isinstance(item, str))
+            elif isinstance(value, str):
+                values.append(value)
+    return " ".join(normalize_spaces(value) for value in values if value)
+
+
+def has_subtitle_hint(
+    source_name: str, genres: object, metadata: dict[str, object] | None = None
+) -> bool:
+    combined = metadata_search_text(source_name, genres, metadata)
+    return bool(
+        MOVIE_PATTERN.search(combined)
+        and SUBTITLE_HINT_PATTERN.search(combined)
     )
-    combined = f"{source_name} {genre_text}"
+
+
+def category_for(
+    source_name: str,
+    genres: object,
+    metadata: dict[str, object] | None = None,
+) -> str:
+    combined = metadata_search_text(source_name, genres, metadata)
+    # Adult content is intentionally classified, never excluded. It comes
+    # first so a movie/music-branded adult signal cannot be misfiled.
+    if ADULT_PATTERN.search(combined):
+        return "Adultos"
     if SPORTS_PATTERN.search(combined):
         return "Deportes"
     if NEWS_PATTERN.search(combined):
         return "Noticias internacionales"
+    if MOVIE_PATTERN.search(combined):
+        return "Películas"
     if MUSIC_PATTERN.search(combined):
         return "Música"
     return "Misceláneos"
@@ -343,7 +415,12 @@ def candidate_groups(metas: list[dict[str, object]], region: str) -> list[Candid
                 "alias": alias,
                 "source_name": source_name,
                 "logo": logo,
-                "category": category_for(source_name, meta.get("genres", [])),
+                "category": category_for(
+                    source_name, meta.get("genres", []), meta
+                ),
+                "subtitle_hint": has_subtitle_hint(
+                    source_name, meta.get("genres", []), meta
+                ),
             }
         )
 
@@ -376,6 +453,10 @@ def candidate_groups(metas: list[dict[str, object]], region: str) -> list[Candid
             categories,
             key=lambda value: CATEGORY_ORDER.index(value),
         )
+        subtitle_hint = any(
+            bool(item.get("subtitle_hint"))
+            for item in group_variants
+        )
         groups.append(
             CandidateGroup(
                 region=region,
@@ -384,6 +465,7 @@ def candidate_groups(metas: list[dict[str, object]], region: str) -> list[Candid
                 logo=logo,
                 category=category,
                 base_key=base_key,
+                subtitle_hint=subtitle_hint,
             )
         )
     return groups
@@ -478,6 +560,7 @@ def select_candidates(
     for bucket in buckets.values():
         bucket.sort(
             key=lambda group: (
+                0 if group.category == "Películas" and group.subtitle_hint else 1,
                 group.base_key,
                 group.aliases,
             )
@@ -488,8 +571,8 @@ def select_candidates(
     while len(selected) < limit and any(buckets.values()):
         progress = False
         # Visit countries first and categories second. This keeps one noisy
-        # region from consuming the whole daily budget while still giving
-        # sports/news/music priority within every country.
+        # region from consuming the whole daily budget while giving sports,
+        # concerts/music, films and adult signals priority within every country.
         for region in DISCOVERY_REGIONS:
             for category in CATEGORY_ORDER:
                 bucket = buckets.get((region, category), [])

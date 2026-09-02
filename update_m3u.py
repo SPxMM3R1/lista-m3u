@@ -1181,7 +1181,14 @@ TVVOO_DISCOVERY_REGIONS = frozenset(
     {"uk", "it", "fr", "de", "pt", "es", "nl", "pl", "bg", "ar", "ro", "ru"}
 )
 TVVOO_DISCOVERY_CATEGORIES = frozenset(
-    {"Deportes", "Noticias internacionales", "Música", "Misceláneos"}
+    {
+        "Deportes",
+        "Noticias internacionales",
+        "Música",
+        "Películas",
+        "Adultos",
+        "Misceláneos",
+    }
 )
 TVVOO_DISCOVERY_ID_PATTERN = re.compile(
     r"^Vavoo\.(?P<region>[a-z]{2})\.(?P<slug>[A-Za-z0-9-]{2,64})@TvVoo$"
@@ -1794,6 +1801,8 @@ CONTENT_CATEGORY_ORDER = (
     "Noticias internacionales",
     "Deportes",
     "Música",
+    "Películas",
+    "Adultos",
     "Misceláneos",
 )
 CONTENT_CATEGORY_INDEX = {
@@ -1833,6 +1842,8 @@ ORDER_SECTION_ORDER = (
     "Noticias internacionales",
     "Deportes",
     "Música",
+    "Películas",
+    "Adultos",
     "Misceláneos",
 )
 ORDER_SECTION_INDEX = {
@@ -1845,6 +1856,8 @@ ORDER_SECTION_GROUPS = {
     "Noticias internacionales": "Noticias internacionales",
     "Deportes": "Deportes",
     "Música": "Música",
+    "Películas": "Películas",
+    "Adultos": "Adultos",
     "Misceláneos": "Misceláneos",
 }
 
@@ -1923,13 +1936,32 @@ MUSIC_CHANNEL_IDS = {
 SPORTS_NAME_PATTERN = re.compile(
     r"(?:\bsport(?:s)?\b|\beurosport\b|\bespn\b|\bdazn\b|\bf1\b|\bmotogp\b|"
     r"\bformula\s*1\b|\bsky\s+sport|\bsky\s+sports|\btyc\s+sports\b|"
-    r"\bnba\b|\bsupersport\b)",
+    r"\bnba\b|\bsupersport\b|\brugby\b|\bboxing\b|\bufc\b|\bwwe\b|"
+    r"\bwrestling\b|\bcycling\b|\bathletics\b|\bmotorsport\b|\bmoto\b|"
+    r"\brally\b|\bracing\b|\bhorse\b|\bequestrian\b|\bvolley(?:ball)?\b|"
+    r"\bbasket(?:ball)?\b|\bbaseball\b|\bhockey\b|\bski\b|\bsurf\b|"
+    r"\bolympic\b|\bdarts\b|\bhandball\b|\bbadminton\b|\bswimming\b|"
+    r"\bsoccer\b|\bfootball\b|\bfutbol\b|\bfútbol\b)",
     re.IGNORECASE,
 )
 MUSIC_NAME_PATTERN = re.compile(
     r"(?:\bxite\b|\bmtv\b|\bmusic\b|\bmusica\b|\bqello\b|\bstingray\b|"
     r"\btrace\b|\bnrj\b|\bmcm\b|\bmezzo\b|\b4music\b|"
-    r"\bconcerts?\b|\biconcerts\b)",
+    r"\bconcerts?\b|\biconcerts\b|\bjazz\b|\bclassical\b|\bopera\b|"
+    r"\bdjazz\b|\brock\b|\bpop\b|\bcountry\b|\bkaraoke\b|\bhits\b)",
+    re.IGNORECASE,
+)
+MOVIE_NAME_PATTERN = re.compile(
+    r"(?:\bmovies?\b|\bfilms?\b|\bcinema\b|\bcine\b|\bciné\b|"
+    r"\bsky\s+cinema\b|\btcm\b|\bamc\b|\bhollywood\b|\bstar\s+movies\b|"
+    r"\bcinemax\b|\bparamount\b|\bfilm4\b|\bcanal\s*\+|"
+    r"\bcinestar\b|\bkino\b)",
+    re.IGNORECASE,
+)
+ADULT_NAME_PATTERN = re.compile(
+    r"(?:\badult\b|\berotic(?:a|s)?\b|\bporn(?:o)?\b|\bxxx\b|"
+    r"\bplayboy\b|\bprivate\b|\bbrazzers\b|\bhustler\b|\bpenthouse\b|"
+    r"\bredlight\b|\bdorcel\b|\bvivid\b|\berotik\b|\bbeate\b|\b18\s*\+)",
     re.IGNORECASE,
 )
 INTERNATIONAL_NEWS_NAME_PATTERN = re.compile(
@@ -2458,26 +2490,41 @@ def content_category_for(channel: Channel) -> str:
     rules let future additions be placed sensibly without using a broad,
     error-prone substring match for resolver selection.
     """
+    group_text = channel.group.casefold()
+    name_text = channel.name
+    if (
+        "adult" in group_text
+        or "adultos" in group_text
+        or ADULT_NAME_PATTERN.search(name_text)
+    ):
+        return "Adultos"
     if channel.tvg_id in NATIONAL_CHANNEL_IDS:
         return "Nacionales"
     if channel.tvg_id in NATIONAL_NEWS_CHANNEL_IDS:
         return "Noticias nacionales"
     if (
         channel.tvg_id in INTERNATIONAL_NEWS_CHANNEL_IDS
-        or INTERNATIONAL_NEWS_NAME_PATTERN.search(channel.name)
+        or INTERNATIONAL_NEWS_NAME_PATTERN.search(name_text)
     ):
         return "Noticias internacionales"
     if (
         channel.tvg_id == "1763"
-        or "deporte" in channel.group.lower()
-        or SPORTS_NAME_PATTERN.search(channel.name)
+        or "deporte" in group_text
+        or SPORTS_NAME_PATTERN.search(name_text)
     ):
         return "Deportes"
     if (
+        "pelicula" in group_text
+        or "películas" in group_text
+        or "movie" in group_text
+        or MOVIE_NAME_PATTERN.search(name_text)
+    ):
+        return "Películas"
+    if (
         channel.tvg_id in MUSIC_CHANNEL_IDS
-        or "musica" in channel.group.lower()
-        or "música" in channel.group.lower()
-        or MUSIC_NAME_PATTERN.search(channel.name)
+        or "musica" in group_text
+        or "música" in group_text
+        or MUSIC_NAME_PATTERN.search(name_text)
     ):
         return "Música"
     return "Misceláneos"

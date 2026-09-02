@@ -21,6 +21,54 @@ class TvVooDiscoveryTests(unittest.TestCase):
             discovery.identity_key("Eleven Sport 1 FHD"),
         )
 
+    def test_adult_signals_are_classified_not_excluded(self) -> None:
+        self.assertFalse(discovery.excluded_source_name("Private XXX HD"))
+        self.assertEqual(
+            discovery.category_for("Private XXX HD", ["Entertainment"]),
+            "Adultos",
+        )
+        self.assertEqual(
+            discovery.category_for("Penthouse", ["Movies"]),
+            "Adultos",
+        )
+
+    def test_broad_sports_music_and_movie_classification(self) -> None:
+        self.assertEqual(
+            discovery.category_for("World Rugby", ["Sport"]),
+            "Deportes",
+        )
+        self.assertEqual(
+            discovery.category_for("Live Concerts", ["Music"]),
+            "Música",
+        )
+        self.assertEqual(
+            discovery.category_for("Cinema Classics", ["Movies"]),
+            "Películas",
+        )
+        self.assertTrue(
+            discovery.has_subtitle_hint(
+                "Cinema VOST", ["Movies"], {"language": "Original Version"}
+            )
+        )
+
+    def test_candidate_group_keeps_movie_subtitle_hint(self) -> None:
+        groups = discovery.candidate_groups(
+            [
+                {
+                    "type": "tv",
+                    "id": "vavoo_Cinema%20VOST%7Cgroup%3Auk",
+                    "name": "Cinema VOST HD",
+                    "genres": ["Movies"],
+                    "language": "Original Version",
+                    "logo": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/cinema.png",
+                }
+            ],
+            "uk",
+        )
+        self.assertEqual(len(groups), 1)
+        self.assertEqual(groups[0].category, "Películas")
+        self.assertTrue(groups[0].subtitle_hint)
+
     def test_logo_policy_rejects_placeholder_and_query_urls(self) -> None:
         self.assertEqual(
             discovery.safe_logo(
@@ -116,11 +164,11 @@ class TvVooDiscoveryTests(unittest.TestCase):
 
     def test_discovery_sidecar_and_catalog_patch_version_are_valid(self) -> None:
         self.assertEqual(
-            discovery.updater.next_catalog_version("2026.09.01.4"),
-            "2026.09.01.5",
+            discovery.updater.next_catalog_version("2026.09.01.5"),
+            "2026.09.01.6",
         )
         entries = discovery.updater.load_tvvoo_discovery_entries()
-        self.assertEqual(len(entries), 24)
+        self.assertGreaterEqual(len(entries), 24)
         self.assertTrue(
             all(
                 discovery.updater.resolver_attributes_for(channel).get("x-resolver")

@@ -83,10 +83,15 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
 - incorpora la parrilla XMLTV de PlutoTV para MTV Biggest Pop,
   MTV Spankin' New y MTV Flow Latino; las tarjetas repetidas de Pluto
   se deduplican antes de construir la EPG;
-- incorpora candidatos de noticias, deportes y música desde los resolutores JSON
-  públicos de TvVoo, manteniendo un solo canal lógico por señal y sus aliases
-  estables por país. Su lista depende de la promoción manual, no del resultado
-  de cada chequeo, y todas permanecen en `channel-catalog.m3u` para repararlas;
+- incorpora candidatos de noticias, deportes, música/conciertos, películas y
+   adultos desde los catálogos JSON públicos de TvVoo, manteniendo un solo canal
+   lógico por señal y sus aliases estables por país. Los adultos solo se
+   publican en la lista externa y se muestran bajo `PRUEBA - Adultos`; nunca se
+   descartan por su temática. Las películas se marcan como subtituladas solo si
+   el propio catálogo aporta una señal explícita como VOST o subtítulos; no se
+   inventa una guía ni un idioma. Su lista depende de la
+   promoción manual, no del resultado de cada chequeo, y todas permanecen en
+   `channel-catalog.m3u` para repararlas;
 - conserva en `m3u-externa.m3u` un bloque de candidatos históricos restaurados
   para investigación: aliases regionales de RT, Bloomberg, CNN, DAZN, ESPN,
   Eleven, RMC, Sky, Stingray, TRT, beIN, Arena y Eurosport. Están excluidos
@@ -142,13 +147,17 @@ corre una vez al día a las 03:15, separado de los procesos de canales y EPG.
 Consulta los catálogos públicos de TvVoo para Reino Unido, Italia, Francia,
 Alemania, Portugal, España, Países Bajos, Polonia, Bulgaria, Argentina,
 Rumanía y Rusia. Deduplica por señal y alias, descarta regiones y nombres
-excluidos, exige un logo HTTPS de un host permitido y agrega como máximo 24
-candidatos por ejecución y 240 en total al catálogo externo. La información
-estable queda en `tvvoo-discovered.json`; nunca se guardan URLs de sesión,
-tokens ni respuestas temporales. La lista principal no se modifica. Cuando hay
-nuevos candidatos, el descubridor solicita explícitamente el workflow de
-mantenimiento de canales, que intenta resolver y validar sus HLS; la EPG los
-incorpora en su próxima ejecución independiente sobre el catálogo completo.
+excluidos (PPV, VOD, TEST/EVENT y las regiones geográficas ya vetadas), exige un
+logo HTTPS de un host permitido y agrega como máximo 24 candidatos por
+ejecución y 240 en total al catálogo externo. Las señales deportivas se
+clasifican también por disciplina —fútbol, rugby, boxeo, motor, ciclismo,
+baloncesto, hockey, golf, tenis, carreras, etc.— y la música incluye conciertos,
+jazz, rock, pop y señales equivalentes. La información estable queda en
+`tvvoo-discovered.json`; nunca se guardan URLs de sesión, tokens ni respuestas
+temporales. La lista principal no se modifica. Cuando hay nuevos candidatos,
+el descubridor solicita explícitamente el workflow de mantenimiento de canales,
+que intenta resolver y validar sus HLS; la EPG los incorpora en su próxima
+ejecución independiente sobre el catálogo completo.
 
 El coordinador `run_m3u_6h.py` conserva `run-state.json`; el coordinador
 `run_epg_6h.py` conserva `epg-run-state.json`. Cada estado tiene su propia
