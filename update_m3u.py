@@ -23,7 +23,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from urllib.parse import unquote, urlencode, urljoin, urlparse
+from urllib.parse import parse_qsl, unquote, urlencode, urljoin, urlparse
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 
@@ -1979,8 +1979,22 @@ BROWSER_USER_AGENT = (
 OFFICIAL_STREAM_PAGES = {
     "Mega": ["https://www.mega.cl/senal-en-vivo/"],
     "CHV": ["https://www.chilevision.cl/senal-online"],
-    "Canal 13": ["https://www.13.cl/en-vivo"],
-    "T13": ["https://www.t13.cl/en-vivo"],
+    # Las paginas oficiales pueden contener un reproductor Rudo con un
+    # manifiesto de mayor calidad que el respaldo publico. Se inspeccionan
+    # solo como fuente de descubrimiento; no se publican sus tokens.
+    "Canal 13": [
+        "https://www.13.cl/en-vivo",
+        "https://rudo.video/live/c13",
+    ],
+    "T13": [
+        "https://www.t13.cl/en-vivo",
+        "https://rudo.video/live/t13",
+    ],
+    "13C": [
+        "https://www.13.cl/c",
+        "https://rudo.video/live/13c",
+    ],
+    "CHV Deportes": ["https://www.chilevision.cl/deportes/senal-online/"],
     "24 Horas": ["https://www.24horas.cl/envivo"],
     "La Red": ["https://www.lared.cl/senal-online/"],
     "M1": ["https://m1.tv/live/"],
@@ -1990,7 +2004,14 @@ OFFICIAL_CANDIDATE_HINTS = {
     "Mega": re.compile(r"mega", re.IGNORECASE),
     "Meganoticias": re.compile(r"(?:mega|meganoticias)", re.IGNORECASE),
     "CHV": re.compile(r"(?:chv|chilevision)", re.IGNORECASE),
+    # No basta con que el host sea mdstrm: la pagina oficial de Deportes puede
+    # contener referencias a otras senales de Chilevision. El identificador
+    # historico y el slug del canal son los unicos candidatos acotados.
+    "CHV Deportes": re.compile(
+        r"(?:chvdeportes|6531749eaf244059b3ade17b)", re.IGNORECASE
+    ),
     "Canal 13": re.compile(r"(?:13cl|canal.?13)", re.IGNORECASE),
+    "13C": re.compile(r"(?:13c|13cable|w8a3r5t4shwawmpnmn-xg)", re.IGNORECASE),
     "T13": re.compile(r"(?:/t13/|t13\.)", re.IGNORECASE),
     "24 Horas": re.compile(
         r"(?:24horas|57d1a22064f5d85712b20dab|689ba606ecfe7915e1f8f741)",
@@ -2001,6 +2022,34 @@ OFFICIAL_CANDIDATE_HINTS = {
         re.IGNORECASE,
     ),
 }
+# Solo se siguen manifiestos extraidos de un reproductor Rudo que fue
+# enlazado por una pagina oficial del canal. Esto evita aceptar URLs de HLS
+# arbitrarias encontradas en scripts, anuncios o contenido incrustado.
+OFFICIAL_PLAYER_STREAM_HOSTS = frozenset(
+    {"origin.dpsgo.com", "redirector.dps.live", "redirector.rudo.video"}
+)
+OFFICIAL_PLAYER_SLUGS = {
+    "Canal 13": frozenset({"c13"}),
+    "T13": frozenset({"t13"}),
+    "13C": frozenset({"13c"}),
+    "CHV Deportes": frozenset({"chvdeportes"}),
+}
+OFFICIAL_QUALITY_UPGRADE_CHANNELS = frozenset({"Canal 13", "T13"})
+TRANSIENT_HLS_QUERY_KEYS = frozenset(
+    {
+        "access-token",
+        "auth-token",
+        "did",
+        "ndvc",
+        "platform",
+        "serverkey",
+        "session",
+        "sig",
+        "signature",
+        "sid",
+        "token",
+    }
+)
 KNOWN_STREAM_FALLBACKS = {
     "TVN": [
         TVN_ALTERNATIVE_URL,
@@ -2020,7 +2069,16 @@ KNOWN_STREAM_FALLBACKS = {
     ],
     "Canal 13": ["https://redirector.dps.live/hls/13cl/playlist.m3u8"],
     "T13": [
+        # Respaldo oficial independiente del reproductor Rudo. La lista
+        # actual sigue usando el Rudo dinamico, que tambien es 720p.
+        "https://redirector.dps.live/hls/t13/playlist.m3u8",
         "https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/t13/t13.smil/playlist.m3u8"
+    ],
+    "CHV Deportes": [
+        # Candidato historico publicado para la senal de Pluto/CHV. Se
+        # conserva solo como ultima prueba y nunca sustituye el enlace si no
+        # entrega playlist y segmento multimedia validos.
+        "https://mdstrm.com/live-stream-playlist/6531749eaf244059b3ade17b.m3u8",
     ],
     "24 Horas": [
         "https://mdstrm.com/live-stream-playlist/57d1a22064f5d85712b20dab.m3u8"
@@ -6786,6 +6844,52 @@ def extract_hls_urls(page_text: str) -> list[str]:
     return urls
 
 
+def extract_official_player_urls(page_text: str) -> list[str]:
+    """Find the bounded Rudo player pages embedded by an official site."""
+    matches = re.findall(
+        r"https?:\\?/\\?/rudo\.video/live/[A-Za-z0-9_-]+/?",
+        page_text,
+        flags=re.IGNORECASE,
+    )
+    urls: list[str] = []
+    for match in matches:
+        player_url = html.unescape(match).replace("\\/", "/").rstrip("/")
+        if player_url not in urls:
+            urls.append(player_url)
+    return urls
+
+
+def sanitize_official_hls_url(raw_url: str) -> str | None:
+    """Return a publishable HLS URL without session material.
+
+    Official player pages sometimes render an HLS URL with empty query
+    placeholders such as ``ndvc=``. Non-empty values for those fields are
+    session data and must never be copied into a public M3U. Empty transient
+    fields are removed so the candidate remains comparable to the stable
+    fallback URL.
+    """
+    cleaned = html.unescape(raw_url).replace("\\/", "/").strip()
+    parsed = urlparse(cleaned)
+    if parsed.scheme.lower() not in {"http", "https"} or not parsed.netloc:
+        return None
+    if (
+        (parsed.hostname or "").lower() == "rudo.video"
+        and parsed.path.rstrip("/").lower() == "/rudo.m3u8"
+    ):
+        # Rudo's generic relay is a player-internal helper, not the channel
+        # manifest extracted from the official page.
+        return None
+    safe_query: list[tuple[str, str]] = []
+    for key, value in parse_qsl(parsed.query, keep_blank_values=True):
+        normalized_key = key.lower().replace("_", "-")
+        if normalized_key in TRANSIENT_HLS_QUERY_KEYS:
+            if value:
+                return None
+            continue
+        safe_query.append((key, value))
+    return parsed._replace(query=urlencode(safe_query, doseq=True)).geturl()
+
+
 def discover_official_candidates(channel: Channel) -> list[str]:
     candidates: list[str] = []
     dynamic_factories = {
@@ -6802,19 +6906,183 @@ def discover_official_candidates(channel: Channel) -> list[str]:
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
         "Accept-Language": "es-CL,es;q=0.9,en;q=0.8",
     }
+
+    def append_candidates(page_text: str, *, from_official_player: bool) -> None:
+        hint = OFFICIAL_CANDIDATE_HINTS.get(channel.name)
+        for raw_candidate in extract_hls_urls(page_text):
+            candidate = sanitize_official_hls_url(raw_candidate)
+            if not candidate or candidate in candidates:
+                continue
+            if from_official_player:
+                hostname = (urlparse(candidate).hostname or "").lower()
+                if hostname not in OFFICIAL_PLAYER_STREAM_HOSTS:
+                    continue
+            elif hint is not None and not hint.search(candidate):
+                continue
+            candidates.append(candidate)
+
+    player_pages: list[str] = []
+    expected_player_slugs = OFFICIAL_PLAYER_SLUGS.get(channel.name)
     for page_url in OFFICIAL_STREAM_PAGES.get(channel.name, []):
         try:
             _, body, _ = fetch_bytes(page_url, headers, limit=2_097_152)
-            for candidate in extract_hls_urls(body.decode("utf-8", "replace")):
-                hint = OFFICIAL_CANDIDATE_HINTS.get(channel.name)
-                if (hint is None or hint.search(candidate)) and candidate not in candidates:
-                    candidates.append(candidate)
+            page_text = body.decode("utf-8", "replace")
+            page_host = (urlparse(page_url).hostname or "").lower()
+            page_path = urlparse(page_url).path.rstrip("/").lower()
+            append_candidates(
+                page_text,
+                from_official_player=(
+                    page_host == "rudo.video" and page_path.startswith("/live/")
+                ),
+            )
+            for player_url in extract_official_player_urls(page_text):
+                player_slug = urlparse(player_url).path.rstrip("/").rsplit("/", 1)[-1].lower()
+                if expected_player_slugs and player_slug not in expected_player_slugs:
+                    continue
+                if player_url not in player_pages:
+                    player_pages.append(player_url)
         except Exception as error:
             print(f"  [AVISO] {channel.name}: no se pudo leer {page_url}: {error}")
+    for player_url in player_pages:
+        try:
+            _, body, _ = fetch_bytes(player_url, headers, limit=1_048_576)
+            append_candidates(
+                body.decode("utf-8", "replace"),
+                from_official_player=True,
+            )
+        except Exception as error:
+            print(f"  [AVISO] {channel.name}: no se pudo leer {player_url}: {error}")
     # Solo despues de consultar las paginas oficiales se prueban los respaldos
     # conocidos. Pueden ser CDNs del proveedor o retransmisores comunitarios.
     candidates.extend(KNOWN_STREAM_FALLBACKS.get(channel.name, []))
-    return [candidate for candidate in candidates if candidate != channel.url]
+    return list(dict.fromkeys(candidate for candidate in candidates if candidate != channel.url))
+
+
+def hls_max_resolution(
+    url: str,
+    *,
+    headers: dict[str, str] | None = None,
+    depth: int = 0,
+) -> tuple[int, int]:
+    """Read the highest advertised HLS resolution without retaining media data."""
+    if depth > 3:
+        return (0, 0)
+    request_headers_value = headers or {
+        "User-Agent": PLAYER_USER_AGENT,
+        "Accept": "*/*",
+    }
+    try:
+        status, body, final_url = fetch_bytes(
+            url,
+            request_headers_value,
+            timeout=25,
+            limit=1_048_576,
+        )
+    except Exception:
+        return (0, 0)
+    if status != 200:
+        return (0, 0)
+    text = body.decode("utf-8", "replace").lstrip("\ufeff\r\n ")
+    if not text.startswith("#EXTM3U"):
+        return (0, 0)
+    lines = [line.strip() for line in text.splitlines()]
+    variants: list[tuple[int, int, str]] = []
+    for index, line in enumerate(lines):
+        if not line.startswith("#EXT-X-STREAM-INF:") or index + 1 >= len(lines):
+            continue
+        resolution = hls_attribute(line, "RESOLUTION")
+        child = lines[index + 1]
+        if not resolution or not child or child.startswith("#"):
+            continue
+        try:
+            width, height = (int(value) for value in resolution.split("x", 1))
+        except ValueError:
+            continue
+        variants.append((height, width, urljoin(final_url, child)))
+    if not variants:
+        return (0, 0)
+    best_height, best_width, best_child = max(variants)
+    child_height, child_width = hls_max_resolution(
+        best_child,
+        headers=request_headers_value,
+        depth=depth + 1,
+    )
+    if (child_height, child_width) > (best_height, best_width):
+        return (child_width, child_height)
+    return (best_width, best_height)
+
+
+def upgrade_official_quality(
+    lines: list[str],
+    channels: list[Channel],
+    results_by_name: dict[str, CheckResult],
+    *,
+    allow_ci_geo_block: bool,
+) -> list[str]:
+    """Adopt only a verified, strictly higher-quality official HLS candidate."""
+    upgraded: list[str] = []
+    for channel in channels:
+        if channel.name not in OFFICIAL_QUALITY_UPGRADE_CHANNELS:
+            continue
+        current_result = results_by_name.get(channel.name)
+        if not current_result or not current_result.ok:
+            continue
+        current_width, current_height = hls_max_resolution(
+            channel.url,
+            headers=request_headers(channel.name),
+        )
+        current_quality = (current_height, current_width)
+        if current_quality == (0, 0):
+            print(
+                f"  [AVISO] {channel.name}: no se pudo determinar la resolucion actual; "
+                "no se intenta degradar ni sustituir"
+            )
+            continue
+        print(
+            f"  [CALIDAD] {channel.name}: actual {current_width}x{current_height}; "
+            "buscando solo una mejora oficial"
+        )
+        for candidate_url in discover_official_candidates(channel):
+            hostname = (urlparse(candidate_url).hostname or "").lower()
+            if hostname not in OFFICIAL_PLAYER_STREAM_HOSTS:
+                continue
+            candidate = Channel(
+                channel.name,
+                candidate_url,
+                channel.url_line,
+                channel.info_line,
+                channel.logo_url,
+                channel.group,
+                channel.tvg_id,
+                channel.display_name,
+            )
+            candidate_result = check_channel(
+                candidate,
+                allow_ci_geo_block=allow_ci_geo_block,
+            )
+            if not candidate_result.ok:
+                continue
+            candidate_width, candidate_height = hls_max_resolution(
+                candidate_url,
+                headers=request_headers(channel.name),
+            )
+            candidate_quality = (candidate_height, candidate_width)
+            if candidate_quality <= current_quality:
+                continue
+            lines[channel.url_line] = candidate_url
+            results_by_name[channel.name] = candidate_result
+            upgraded.append(channel.name)
+            print(
+                f"  [MEJORA] {channel.name}: {current_width}x{current_height} -> "
+                f"{candidate_width}x{candidate_height}; fuente oficial validada"
+            )
+            break
+        if channel.name not in upgraded:
+            print(
+                f"  [OK] {channel.name}: no se encontro una mejora oficial estable; "
+                "se conserva el enlace actual"
+            )
+    return upgraded
 
 
 def repair_failed_channels(
@@ -8167,6 +8435,25 @@ def main() -> int:
         final_channels = parse_channels(final_lines)
         results_by_name.update(repaired_results)
         results = [results_by_name[channel.name] for channel in final_channels]
+
+    quality_upgraded_channels = upgrade_official_quality(
+        final_lines,
+        final_channels,
+        results_by_name,
+        allow_ci_geo_block=allow_geo_restricted,
+    )
+    if quality_upgraded_channels:
+        source_playlist.write_text(
+            "\n".join(final_lines) + "\n", encoding="utf-8", newline="\n"
+        )
+        final_lines = list(final_lines)
+        final_channels = parse_channels(final_lines)
+        results = [results_by_name[channel.name] for channel in final_channels]
+        refreshed_channels.extend(
+            channel_name
+            for channel_name in quality_upgraded_channels
+            if channel_name not in refreshed_channels
+        )
 
     dynamic_refresh_status = {
         outcome.channel: {

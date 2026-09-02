@@ -22,6 +22,163 @@ class PlaylistOrderTests(unittest.TestCase):
             self.assertTrue(alias.is_file(), alias)
             self.assertEqual(alias.read_bytes(), canonical.read_bytes())
 
+    def test_official_channel_pages_cover_chv_deportes_13c_and_rudo_upgrades(self) -> None:
+        self.assertIn(
+            "https://www.chilevision.cl/deportes/senal-online/",
+            update_m3u.OFFICIAL_STREAM_PAGES["CHV Deportes"],
+        )
+        self.assertIn(
+            "https://rudo.video/live/13c",
+            update_m3u.OFFICIAL_STREAM_PAGES["13C"],
+        )
+        self.assertIn(
+            "https://rudo.video/live/c13",
+            update_m3u.OFFICIAL_STREAM_PAGES["Canal 13"],
+        )
+        self.assertIn(
+            "https://redirector.dps.live/hls/t13/playlist.m3u8",
+            update_m3u.KNOWN_STREAM_FALLBACKS["T13"],
+        )
+
+    def test_official_player_extraction_removes_empty_and_nonempty_session_data(self) -> None:
+        page = (
+            '<div data-url="https://rudo.video/live/chvdeportes"></div>'
+            '<iframe src="https://rudo.video/live/chvdeportes"></iframe>'
+        )
+        self.assertEqual(
+            update_m3u.extract_official_player_urls(page),
+            ["https://rudo.video/live/chvdeportes"],
+        )
+        stable = (
+            "https://origin.dpsgo.com/ssai/event/example/master.m3u8"
+            "?auth-token=&platform=&ndvc="
+        )
+        self.assertEqual(
+            update_m3u.sanitize_official_hls_url(stable),
+            "https://origin.dpsgo.com/ssai/event/example/master.m3u8",
+        )
+        self.assertIsNone(
+            update_m3u.sanitize_official_hls_url(
+                "https://origin.dpsgo.com/ssai/event/example/master.m3u8"
+                "?auth-token=secret"
+            )
+        )
+        self.assertIsNone(
+            update_m3u.sanitize_official_hls_url("https://rudo.video/rudo.m3u8")
+        )
+
+    def test_discover_official_candidates_follows_bounded_rudo_player(self) -> None:
+        page_url = "https://www.chilevision.cl/deportes/senal-online/"
+        player_url = "https://rudo.video/live/chvdeportes"
+        hls_url = "https://origin.dpsgo.com/ssai/event/example/master.m3u8"
+        official_page = f'<div data-url="{player_url}"></div>'
+        player_page = (
+            '<video src="https://rudo.video/rudo.m3u8"></video>'
+            f'<script>var streamURL = "{hls_url}?auth-token=&platform=&ndvc=";</script>'
+        )
+
+        def fake_fetch(url, headers, **kwargs):
+            del headers, kwargs
+            if url == page_url:
+                return 200, official_page.encode("utf-8"), url
+            if url == player_url:
+                return 200, player_page.encode("utf-8"), url
+            raise AssertionError(url)
+
+        channel = update_m3u.Channel(
+            "CHV Deportes",
+            "https://example.invalid/chv-deportes.m3u8",
+            0,
+        )
+        with patch.object(update_m3u, "OFFICIAL_STREAM_PAGES", {"CHV Deportes": [page_url]}), patch.object(
+            update_m3u, "fetch_bytes", side_effect=fake_fetch
+        ):
+            candidates = update_m3u.discover_official_candidates(channel)
+
+        self.assertEqual(candidates[0], hls_url)
+        self.assertNotIn("rudo.m3u8", candidates)
+        self.assertNotIn("auth-token", candidates[0])
+
+    def test_official_quality_upgrade_requires_strictly_better_verified_hls(self) -> None:
+        channel = update_m3u.Channel(
+            "Canal 13",
+            "https://redirector.dps.live/hls/13cl/playlist.m3u8",
+            1,
+            0,
+            tvg_id="0107",
+        )
+        candidate_url = "https://origin.dpsgo.com/ssai/event/better/master.m3u8"
+        lines = [
+            '#EXTINF:-1 tvg-id="0107",Canal 13',
+            channel.url,
+        ]
+        results = {
+            "Canal 13": update_m3u.CheckResult(
+                "Canal 13", channel.url, True, "playlist HLS valida"
+            )
+        }
+        candidate_result = update_m3u.CheckResult(
+            "Canal 13", candidate_url, True, "playlist HLS valida; segmento multimedia valido"
+        )
+        with patch.object(
+            update_m3u,
+            "discover_official_candidates",
+            return_value=[candidate_url],
+        ), patch.object(
+            update_m3u,
+            "check_channel",
+            return_value=candidate_result,
+        ), patch.object(
+            update_m3u,
+            "hls_max_resolution",
+            side_effect=[(1280, 720), (1920, 1080)],
+        ):
+            upgraded = update_m3u.upgrade_official_quality(
+                lines,
+                [channel],
+                results,
+                allow_ci_geo_block=False,
+            )
+
+        self.assertEqual(upgraded, ["Canal 13"])
+        self.assertEqual(lines[1], candidate_url)
+        self.assertIs(results["Canal 13"], candidate_result)
+
+    def test_chv_deportes_candidate_filter_ignores_unrelated_mdstrm_urls(self) -> None:
+        page_url = "https://www.chilevision.cl/deportes/senal-online/"
+        player_url = "https://rudo.video/live/chvdeportes"
+        unrelated = "https://mdstrm.com/live-stream-playlist/unrelated.m3u8"
+        official_page = (
+            f'<div data-url="{player_url}"></div>'
+            f'<script>var unrelated = "{unrelated}";</script>'
+        )
+
+        def fake_fetch(url, headers, **kwargs):
+            del headers, kwargs
+            if url == page_url:
+                return 200, official_page.encode("utf-8"), url
+            if url == player_url:
+                return 200, b"<video src=\"https://rudo.video/rudo.m3u8\"></video>", url
+            raise AssertionError(url)
+
+        channel = update_m3u.Channel(
+            "CHV Deportes",
+            "https://example.invalid/chv-deportes.m3u8",
+            0,
+        )
+        with patch.object(
+            update_m3u,
+            "OFFICIAL_STREAM_PAGES",
+            {"CHV Deportes": [page_url]},
+        ), patch.object(update_m3u, "fetch_bytes", side_effect=fake_fetch):
+            candidates = update_m3u.discover_official_candidates(channel)
+
+        self.assertNotIn(unrelated, candidates)
+        self.assertIn(
+            "https://mdstrm.com/live-stream-playlist/6531749eaf244059b3ade17b.m3u8",
+            candidates,
+        )
+
     def test_dynamic_validation_cache_is_short_lived_and_url_bound(self) -> None:
         channel = update_m3u.Channel(
             name="ESPN",
