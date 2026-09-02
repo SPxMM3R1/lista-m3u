@@ -31,6 +31,10 @@ class TvVooDiscoveryTests(unittest.TestCase):
             discovery.category_for("Penthouse", ["Movies"]),
             "Adultos",
         )
+        self.assertNotEqual(
+            discovery.category_for("Private Eyes", []),
+            "Adultos",
+        )
 
     def test_adult_signal_without_safe_logo_is_kept(self) -> None:
         groups = discovery.candidate_groups(
