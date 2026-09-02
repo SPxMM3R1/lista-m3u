@@ -443,16 +443,19 @@ def candidate_groups(metas: list[dict[str, object]], region: str) -> list[Candid
         )
         primary = ranked[0]
         logo = str(primary["logo"])
-        if not logo:
-            # A candidate without a trustworthy logo is left for a later run;
-            # this keeps the automatic list visually usable and prevents a
-            # placeholder/remote tracking image from entering the catalogue.
-            continue
         categories = [str(item["category"]) for item in group_variants]
         category = min(
             categories,
             key=lambda value: CATEGORY_ORDER.index(value),
         )
+        if not logo and category != "Adultos":
+            # A candidate without a trustworthy logo is left for a later run;
+            # this keeps the automatic list visually usable and prevents a
+            # placeholder/remote tracking image from entering the catalogue.
+            continue
+        # Adult signals are user-requested and must not disappear merely
+        # because their provider omitted a logo or used an untrusted host.
+        # They remain safe here because no untrusted image URL is persisted.
         subtitle_hint = any(
             bool(item.get("subtitle_hint"))
             for item in group_variants

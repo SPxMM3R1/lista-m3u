@@ -32,6 +32,23 @@ class TvVooDiscoveryTests(unittest.TestCase):
             "Adultos",
         )
 
+    def test_adult_signal_without_safe_logo_is_kept(self) -> None:
+        groups = discovery.candidate_groups(
+            [
+                {
+                    "type": "tv",
+                    "id": "vavoo_Private%20Channel%7Cgroup%3Auk",
+                    "name": "Private Channel",
+                    "genres": ["Adult"],
+                    "logo": "https://untrusted.example/private.png",
+                }
+            ],
+            "uk",
+        )
+        self.assertEqual(len(groups), 1)
+        self.assertEqual(groups[0].category, "Adultos")
+        self.assertEqual(groups[0].logo, "")
+
     def test_broad_sports_music_and_movie_classification(self) -> None:
         self.assertEqual(
             discovery.category_for("World Rugby", ["Sport"]),

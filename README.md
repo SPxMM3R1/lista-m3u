@@ -87,7 +87,8 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
    adultos desde los catálogos JSON públicos de TvVoo, manteniendo un solo canal
    lógico por señal y sus aliases estables por país. Los adultos solo se
    publican en la lista externa y se muestran bajo `PRUEBA - Adultos`; nunca se
-   descartan por su temática. Las películas se marcan como subtituladas solo si
+   descartan por su temática ni por falta de un logo seguro (en ese caso quedan
+   sin logo). Las películas se marcan como subtituladas solo si
    el propio catálogo aporta una señal explícita como VOST o subtítulos; no se
    inventa una guía ni un idioma. Su lista depende de la
    promoción manual, no del resultado de cada chequeo, y todas permanecen en
@@ -148,8 +149,10 @@ Consulta los catálogos públicos de TvVoo para Reino Unido, Italia, Francia,
 Alemania, Portugal, España, Países Bajos, Polonia, Bulgaria, Argentina,
 Rumanía y Rusia. Deduplica por señal y alias, descarta regiones y nombres
 excluidos (PPV, VOD, TEST/EVENT y las regiones geográficas ya vetadas), exige un
-logo HTTPS de un host permitido y agrega como máximo 24 candidatos por
-ejecución y 240 en total al catálogo externo. Las señales deportivas se
+logo HTTPS de un host permitido para las categorías normales y permite que una
+señal adulta continúe sin logo si TvVoo no entrega uno confiable. Agrega como
+máximo 24 candidatos por ejecución y 240 en total al catálogo externo. Las
+señales deportivas se
 clasifican también por disciplina —fútbol, rugby, boxeo, motor, ciclismo,
 baloncesto, hockey, golf, tenis, carreras, etc.— y la música incluye conciertos,
 jazz, rock, pop y señales equivalentes. La información estable queda en
