@@ -72,7 +72,10 @@ jobs:
         shell: bash
         run: |
           args=(run_m3u_6h.py --executor github)
-          if [ "${{ inputs.force_run }}" = "true" ] || [ "${{ github.event_name }}" = "push" ]; then args+=(--force); fi
+          # Cada ventana del cron es una oportunidad real de renovar enlaces
+          # efimeros. No la descartes por el estado anterior: GitHub cron es
+          # best-effort y puede arrancar varios minutos tarde.
+          if [ "${{ inputs.force_run }}" = "true" ] || [ "${{ github.event_name }}" = "push" ] || [ "${{ github.event_name }}" = "schedule" ]; then args+=(--force); fi
           set +e
           python "${args[@]}"
           status=$?

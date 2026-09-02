@@ -179,10 +179,24 @@ URLs vigentes del catálogo.
 
 El proceso de canales corre a las 00:00, 06:00, 12:00 y 18:00 (hora de
 Santiago). El proceso de EPG corre a las 00:30, 06:30, 12:30 y 18:30. El
-descubrimiento de TvVoo corre a las 03:15. La
-compuerta de cada estado evita trabajo duplicado y ambos comparten una cola de
-publicacion para no competir por `main`.
+descubrimiento de TvVoo corre a las 03:15. Cada ventana programada fuerza una
+consulta de enlaces dinamicos; la compuerta de seis horas solo protege
+invocaciones locales o manuales repetidas fuera del cron. Los procesos
+comparten una cola de publicacion para no competir por `main`.
 GitHub puede iniciar unos minutos despues porque los cron son best effort.
+
+La actualizacion de canales sincroniza siempre las URLs y metadatos actuales
+con `m3u.m3u`, `m3u-externa.m3u`, sus alias cortos y `channel-catalog.m3u`.
+La compuerta de calidad de EPG/logos permanece en el informe para diagnostico,
+pero no deja una URL HLS efimera antigua en la lista principal; la EPG se
+reconstruye en su proceso independiente.
+
+TvVoo puede entregar algunos HLS `sunshine` con certificado vencido. No se
+desactiva TLS de forma global: el fallback sin verificacion se permite solo
+para el sufijo CDN conocido y la ruta HLS efimera de TvVoo, mientras que el
+endpoint JSON, las fuentes oficiales, la EPG, logos y GitHub mantienen
+verificacion normal. Los candidatos HTTPS se prueban despues de su variante
+HTTP para evitar publicar un enlace que un reproductor estricto no pueda abrir.
 
 TVN y Meganoticias conservan sus maestros oficiales. Actions no interviene en
 la autenticacion de reproduccion; esa responsabilidad corresponde a la app.

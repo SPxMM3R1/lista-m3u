@@ -142,12 +142,17 @@ def restore_outputs(snapshots: dict[Path, bytes | None]) -> None:
             path.write_bytes(content)
 
 
-def run_updater() -> int:
+def run_updater(force: bool = False) -> int:
     environment = os.environ.copy()
     # TVN y Meganoticias conservan sus masters para que la aplicacion resuelva
     # la autenticacion. El ejecutor local debe clasificar sus 401/403 igual que
     # Actions, sin sustituir la URL ni escribir tokens.
     environment["M3U_ALLOW_GEO_RESTRICTED"] = "true"
+    # Una corrida programada/forzada debe renovar TvVoo, Highfly y el resolver
+    # dinamico de Meganoticias aunque el estado de salud conserve una
+    # validacion reciente. El coordinador sigue protegiendo el intervalo entre
+    # corridas cuando no se usa --force.
+    environment["M3U_FORCE_DYNAMIC_REFRESH"] = "true" if force else "false"
     completed = subprocess.run(
         [sys.executable, str(UPDATE_SCRIPT), "--channels-only"],
         cwd=PROJECT_ROOT,
@@ -197,7 +202,7 @@ def main() -> int:
         path: path.read_bytes() if path.exists() else None for path in OUTPUT_PATHS
     }
     print(f"Ejecutando mantenimiento de canales con {args.executor} a las {timestamp(current)}")
-    return_code = run_updater()
+    return_code = run_updater(args.force)
     if return_code != 0:
         restore_outputs(snapshots)
         print(

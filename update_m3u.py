@@ -712,6 +712,13 @@ TVVOO_STREAM_BASE_URL = "https://tvvoo.hayd.uk/stream/tv"
 # cuando el mismo HLS entrega playlist y segmentos. La excepcion queda
 # limitada a este host y solo se activa ante el error explicito de expiracion.
 EXPIRED_CERT_FALLBACK_HOSTS = {"leaf.highfly.dev", "sports.highfly.dev"}
+# Algunos nodos efimeros ``/sunshine/`` de TvVoo estan sirviendo el HLS con un
+# certificado vencido. Este sufijo es el dominio de CDN conocido del proveedor;
+# mantenerlo acotado evita convertir un certificado vencido de cualquier host
+# remoto en una fuente aceptable. La funcion ``is_tvvoo_hls_candidate_url``
+# exige ademas HTTPS y la ruta efimera exacta.
+TVVOO_HLS_HOST_SUFFIXES = (".ngolpdkyoctjcddxshli469r.org",)
+TVVOO_HLS_PATH_PREFIX = "/sunshine/"
 # TvVoo publica varios alias para las mismas senales. Se prueban primero los
 # alias que hoy entregan un segmento funcional y se conservan las variantes HD
 # como respaldo para cuando el proveedor las vuelva a servir.
@@ -2438,9 +2445,16 @@ CHANNEL_CHECK_POLICIES = {
         attempts=2,
         playlist_timeout=18,
         segment_timeout=12,
-        resolver_timeout=22,
+        # El endpoint de alias normalmente responde en menos de un segundo.
+        # Un alias muerto no debe retener el mantenimiento durante 22 s por
+        # cada intento; los aliases siguientes y la proxima ventana vuelven a
+        # probarlo.
+        resolver_timeout=10,
         retry_delay=0.5,
-        workers=6,
+        # TvVoo es el pool mas grande. Doce workers mantienen la carga acotada
+        # y evitan que cientos de aliases lentos conviertan una renovacion en
+        # una ejecucion de doce minutos.
+        workers=12,
     ),
     "highfly": ChannelCheckPolicy(
         attempts=2,
@@ -3263,6 +3277,30 @@ def request_headers(channel: str) -> dict[str, str]:
     return headers
 
 
+def is_tvvoo_hls_candidate_url(url: str) -> bool:
+    """Return whether ``url`` is a known, scoped TvVoo HLS candidate.
+
+    TvVoo's resolver returns short-lived CDN URLs. Only those URLs may use the
+    narrowly scoped expired-certificate fallback below; official pages, EPG,
+    logos, GitHub and arbitrary direct sources always keep normal TLS checks.
+    """
+    parsed = urlparse(url)
+    hostname = (parsed.hostname or "").lower()
+    return (
+        parsed.scheme.lower() == "https"
+        and parsed.path.lower().startswith(TVVOO_HLS_PATH_PREFIX)
+        and any(hostname.endswith(suffix) for suffix in TVVOO_HLS_HOST_SUFFIXES)
+    )
+
+
+def expired_certificate_context() -> ssl.SSLContext:
+    """Create the deliberately insecure context used only for known fallbacks."""
+    context = ssl.create_default_context()
+    context.check_hostname = False
+    context.verify_mode = ssl.CERT_NONE
+    return context
+
+
 def fetch_bytes(
     url: str,
     headers: dict[str, str],
@@ -3271,6 +3309,7 @@ def fetch_bytes(
     context: ssl.SSLContext | None = None,
     limit: int = 262_144,
     data: bytes | None = None,
+    allow_scoped_expired_cert: bool = False,
 ) -> tuple[int, bytes, str]:
     request = urllib.request.Request(url, headers=headers, data=data)
     try:
@@ -3281,12 +3320,16 @@ def fetch_bytes(
         reason = str(getattr(error, "reason", error)).lower()
         if (
             context is None
-            and hostname in EXPIRED_CERT_FALLBACK_HOSTS
+            and (
+                hostname in EXPIRED_CERT_FALLBACK_HOSTS
+                or (
+                    allow_scoped_expired_cert
+                    and is_tvvoo_hls_candidate_url(url)
+                )
+            )
             and "certificate has expired" in reason
         ):
-            expired_cert_context = ssl.create_default_context()
-            expired_cert_context.check_hostname = False
-            expired_cert_context.verify_mode = ssl.CERT_NONE
+            expired_cert_context = expired_certificate_context()
             with urllib.request.urlopen(
                 request, timeout=timeout, context=expired_cert_context
             ) as response:
@@ -3299,8 +3342,14 @@ def fetch_channel_bytes(
     headers: dict[str, str],
     *,
     timeout: int = 25,
+    allow_scoped_expired_cert: bool = False,
 ) -> tuple[int, bytes, str]:
-    return fetch_bytes(url, headers, timeout=timeout)
+    return fetch_bytes(
+        url,
+        headers,
+        timeout=timeout,
+        allow_scoped_expired_cert=allow_scoped_expired_cert,
+    )
 
 
 def hls_attribute(line: str, name: str) -> str | None:
@@ -6525,6 +6574,7 @@ def check_channel(
     allow_ci_geo_block: bool = False,
 ) -> CheckResult:
     policy = channel_check_policy(channel)
+    allow_scoped_expired_cert = resolver_engine_for(channel) == "tvvoo"
     attempt_count = max(1, attempts if attempts is not None else policy.attempts)
     last_error = "respuesta desconocida"
     for attempt in range(attempt_count):
@@ -6533,6 +6583,7 @@ def check_channel(
                 channel.url,
                 request_headers(channel.name),
                 timeout=policy.playlist_timeout,
+                allow_scoped_expired_cert=allow_scoped_expired_cert,
             )
             text = body.decode("utf-8", "replace").lstrip("\ufeff\r\n ")
             if status == 200 and text.startswith("#EXTM3U"):
@@ -6547,6 +6598,7 @@ def check_channel(
                         initial_final_url=final_url,
                         request_timeout=policy.playlist_timeout,
                         segment_timeout=policy.segment_timeout,
+                        allow_scoped_expired_cert=allow_scoped_expired_cert,
                     )
                     if not segment_ok:
                         if (
@@ -6622,6 +6674,7 @@ def check_hls_first_segment(
     depth: int = 0,
     request_timeout: int = 25,
     segment_timeout: int = 25,
+    allow_scoped_expired_cert: bool = False,
 ) -> tuple[bool, str]:
     """Confirm that an HLS master or media playlist delivers a live segment."""
     if depth > 3:
@@ -6633,6 +6686,7 @@ def check_hls_first_segment(
                 headers,
                 timeout=request_timeout,
                 limit=1_048_576,
+                allow_scoped_expired_cert=allow_scoped_expired_cert,
             )
         else:
             status, body, final_url = 200, initial_body, initial_final_url or url
@@ -6658,6 +6712,7 @@ def check_hls_first_segment(
                 depth=depth + 1,
                 request_timeout=request_timeout,
                 segment_timeout=segment_timeout,
+                allow_scoped_expired_cert=allow_scoped_expired_cert,
             )
         segments = [line for line in lines if line and not line.startswith("#")]
         if not segments:
@@ -6674,6 +6729,7 @@ def check_hls_first_segment(
                     headers,
                     timeout=segment_timeout,
                     limit=64,
+                    allow_scoped_expired_cert=allow_scoped_expired_cert,
                 )
                 if segment_status == 200 and segment_body:
                     return True, "segmento multimedia valido"
@@ -7285,14 +7341,18 @@ def iter_fresh_tvvoo_stream_urls(channel_name: str) -> Iterable[str]:
                 if not stream_url:
                     continue
                 yielded = True
-                yield stream_url
                 parsed = urlparse(stream_url)
                 # Algunos nodos HTTPS del proveedor estan entregando un
-                # certificado vencido; el mismo JSON publica nodos HTTP que
-                # siguen entregando el HLS. Se prueba HTTPS primero y HTTP
-                # solo como compatibilidad del stream publico.
+                # certificado vencido; el mismo JSON publica el mismo nodo por
+                # HTTP y ese es el respaldo que se debe publicar primero. El
+                # HTTPS queda como ultimo recurso: solo check_channel puede
+                # aceptar su certificado vencido de forma acotada al HLS
+                # TvVoo conocido.
                 if parsed.scheme.lower() == "https":
                     yield parsed._replace(scheme="http").geturl()
+                    yield stream_url
+                else:
+                    yield stream_url
         except Exception as error:
             errors.append(f"{resolver_id}: {type(error).__name__}: {error}")
     if not yielded:
@@ -7620,8 +7680,8 @@ def write_report(
     Public-list membership is manual and sticky. Health changes status and
     diagnostics but never moves a channel between outputs. The canonical
     catalogue remains the source for URLs, resolver metadata and order. A
-    systemic direct-source outage can still hold the previous principal file
-    so a runner incident does not publish partially repaired data.
+    systemic direct-source outage still marks the principal quality gate, but
+    it does not authorize keeping stale ephemeral links in the public copy.
     """
 
     def safe_detail(value: str) -> str:
@@ -8320,9 +8380,16 @@ def main() -> int:
     previous_health_state = load_health_state()
     validation_now = datetime.now(timezone.utc)
 
-    # Primero se decide que necesita renovar cada canal. Si una corrida manual
-    # se repite poco despues de otra, una URL dinamica ya comprobada se
-    # conserva; si fallo o supero su TTL, vuelve a consultarse el proveedor.
+    # Primero se decide que necesita renovar cada canal. Las corridas normales
+    # pueden reutilizar durante unos minutos una URL dinamica ya comprobada,
+    # pero el coordinador marca las corridas programadas/forzadas para que
+    # consulten el proveedor siempre. Esto evita que un TTL corto convierta una
+    # ventana de mantenimiento en un falso "sin cambios".
+    force_dynamic_refresh = (
+        os.environ.get("M3U_FORCE_DYNAMIC_REFRESH", "").lower() == "true"
+    )
+    if force_dynamic_refresh:
+        print("Renovacion dinamica forzada: se consultaran todos los resolutores")
     dynamic_jobs: list[
         tuple[Channel, Callable[[], str | Iterable[str]], CheckResult]
     ] = []
@@ -8334,7 +8401,7 @@ def main() -> int:
         if resolver not in DYNAMIC_RESOLVER_ENGINES:
             continue
         current_result = results_by_name[channel.name]
-        if dynamic_validation_is_fresh(
+        if not force_dynamic_refresh and dynamic_validation_is_fresh(
             channel,
             current_result,
             previous_health_state,
@@ -8563,12 +8630,17 @@ def main() -> int:
         for channel, result in zip(final_channels, results)
         if channel.tvg_id in external_ids and result.ok
     )
+    # La membresia de la lista 1 sigue siendo manual y la compuerta de EPG se
+    # conserva como indicador de calidad, pero ninguna compuerta de salud debe
+    # dejar una URL efimera vieja en la salida publica. La EPG se construye en
+    # el workflow independiente; por eso la copia principal siempre adopta
+    # los enlaces y metadatos que acaba de validar el catalogo.
+    playlist.write_text(
+        "\n".join(candidate_main_lines) + "\n",
+        encoding="utf-8",
+        newline="\n",
+    )
     if main_publication["publication_ready"]:
-        playlist.write_text(
-            "\n".join(candidate_main_lines) + "\n",
-            encoding="utf-8",
-            newline="\n",
-        )
         print(
             f"M3U principal manual: {len(manual_main_ids)} canales conservados; "
             f"{main_working_count} activos y "
@@ -8577,7 +8649,8 @@ def main() -> int:
         )
     else:
         print(
-            "M3U principal conservada sin reemplazo: "
+            "M3U principal sincronizada con enlaces/metadatos actuales; "
+            "la compuerta de calidad de EPG/logos queda registrada como: "
             + str(main_publication.get("hold_reason", "validacion incompleta")),
             file=sys.stderr,
         )
@@ -8635,7 +8708,7 @@ def main() -> int:
         if epg_failed:
             print(
                 "La EPG de la lista principal no supero la compuerta; "
-                "se conserva la salida anterior",
+                "los enlaces se sincronizaron y la alerta queda para el workflow de EPG",
                 file=sys.stderr,
             )
     if not main_publication["publication_ready"] and not external_publication[

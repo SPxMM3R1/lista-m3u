@@ -271,9 +271,12 @@ class PlaylistOrderTests(unittest.TestCase):
             update_m3u.channel_check_policy(tvvoo).playlist_timeout, 18
         )
         self.assertEqual(
+            update_m3u.channel_check_policy(tvvoo).resolver_timeout, 10
+        )
+        self.assertEqual(
             update_m3u.channel_check_policy(highfly).segment_timeout, 14
         )
-        self.assertEqual(update_m3u.channel_check_policy(tvvoo).workers, 6)
+        self.assertEqual(update_m3u.channel_check_policy(tvvoo).workers, 12)
         self.assertEqual(update_m3u.channel_check_policy(highfly).workers, 4)
 
     def test_dynamic_refresh_outcome_does_not_mutate_playlist_from_worker(self) -> None:

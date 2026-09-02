@@ -89,6 +89,22 @@ dos listas. Debe comprobar que la principal conserva su secuencia de `tvg-id`,
 que la externa es el complemento exacto del catálogo y que las copias cortas
 son idénticas a sus archivos canónicos.
 
+## Renovación y certificados
+
+Las ventanas programadas del mantenimiento de canales fuerzan una consulta
+fresca de cada resolutor dinámico. El TTL corto del estado de salud solo evita
+repeticiones accidentales de ejecuciones manuales; no puede impedir la
+renovación de una ventana del cron.
+
+La verificación TLS no se desactiva globalmente. Como compatibilidad temporal
+con los nodos públicos de TvVoo que sirven certificados vencidos, el actualizador
+puede usar un contexto sin verificación únicamente después de que un canal
+clasificado como `tvvoo` haya recibido una URL HTTPS de la ruta `/sunshine/`
+desde el dominio CDN conocido. Primero se prueba y, cuando es posible, se
+publica la variante HTTP del mismo candidato. Las páginas oficiales, el
+endpoint JSON, la EPG, los logos, GitHub y cualquier host no incluido en esa
+regla conservan la validación TLS normal.
+
 ## Datos prohibidos
 
 No deben publicarse en `resolver-catalog.json` ni en atributos `x-resolver-*`:
