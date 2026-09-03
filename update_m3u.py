@@ -537,6 +537,7 @@ EPG_SOURCES = {
     "ar1": "https://epgshare01.online/epgshare01/epg_ripper_AR1.xml.gz",
     "pt1": "https://epgshare01.online/epgshare01/epg_ripper_PT1.xml.gz",
     "nz1": "https://epgshare01.online/epgshare01/epg_ripper_NZ1.xml.gz",
+    "au1": "https://epgshare01.online/epgshare01/epg_ripper_AU1.xml.gz",
     "us2": "https://epgshare01.online/epgshare01/epg_ripper_US2.xml.gz",
     "pl": "https://epgshare01.online/epgshare01/epg_ripper_PL1.xml.gz",
     "lv": "https://epgshare01.online/epgshare01/epg_ripper_LV1.xml.gz",
@@ -568,6 +569,15 @@ SKY_OFFICIAL_EPG_CHANNELS = {
     "SkySportsMix.uk@TvVoo": "4091",
     "SkySportsNews.uk@TvVoo": "1340",
 }
+RALLY_TV_OFFICIAL_EPG_SOURCE = "rally-tv-oficial"
+RALLY_TV_OFFICIAL_EPG_URL = "https://www.rally.tv/en/epg"
+OPTIONAL_EPG_SOURCE_NAMES = frozenset(
+    {
+        RALLY_TV_OFFICIAL_EPG_SOURCE,
+        "highfly-main-event-4k-simulcast",
+        "highfly-f1-4k-simulcast",
+    }
+)
 AUTENTIC_HISTORY_EPG_SOURCE = "autentic-history-oficial"
 AUTENTIC_HISTORY_PAGE = "https://watch.whaletvplus.com/"
 AUTENTIC_HISTORY_CHANNEL_ID = "931186243466302968"
@@ -681,6 +691,51 @@ EPG_PROGRAMME_SOURCES = {
     "CNA.sg": ("sg1", "CNA.(HD).sg"),
     "AfricanewsEnglish.fr": ("ng1", "Africanews.ng"),
 }
+
+# Guías específicas para la lista 3. Se mantienen fuera de las listas 1 y 2
+# y se asocian por tvg-id estable para que la activación opcional no altere el
+# resto del catálogo.
+EPG_PROGRAMME_SOURCES.update({
+    "HighflyPremium.now-sky-sports-cricket": (
+        "uk1",
+        "SkySpCricket.HD.uk",
+    ),
+    "HighflyPremium.au-fox-sports-504-hd": (
+        "au1",
+        "FoxFooty.au",
+    ),
+    "HighflyPremium.now-sky-sports-golf": (
+        "uk1",
+        "SkySp.Golf.HD.uk",
+    ),
+    "HighflyPremium.us-marquee-sports-network-hd": (
+        "us2",
+        "Marquee.Sports.Network.HD.us2",
+    ),
+    "HighflyPremium.au-fox-sports-502-hd": (
+        "au1",
+        "FoxLeague.au",
+    ),
+    "HighflyPremium.us-tennis-channel": (
+        "us2",
+        "Tennis.Channel.HD.us2",
+    ),
+    # La versión UHD mantiene la parrilla de Main Event; la fuente agregada
+    # no publica un ID UHD independiente y el simulcast es la asociación
+    # disponible más precisa.
+    "HighflyPremium.4k-sky-sports-main-events": (
+        "highfly-main-event-4k-simulcast",
+        "Highfly.Sky.Sports.Main.Event.4K",
+    ),
+    "HighflyPremium.now-sky-sports-f1-2": (
+        "highfly-f1-4k-simulcast",
+        "Highfly.Sky.Sports.F1.4K",
+    ),
+})
+EPG_PROGRAMME_SOURCES["HighflyPremium.es-rally-tv"] = (
+    RALLY_TV_OFFICIAL_EPG_SOURCE,
+    "RallyTV.us",
+)
 
 # EPGShare01 entrega parrilla real para estas señales nuevas. Se asocia por
 # el ID exacto de la fuente y no por coincidencia amplia del nombre visible.
@@ -5251,6 +5306,131 @@ def epg_root(source_name: str) -> ET.Element:
     )
 
 
+def clone_xmltv_channel(
+    source_xml: bytes,
+    source_channel_id: str,
+    cloned_channel_id: str,
+) -> bytes:
+    """Create an in-memory XMLTV source for a simulcast channel.
+
+    Some public guides expose Main Event HD but not its UHD simulcast as a
+    separate XMLTV ID. Cloning only that channel keeps the association exact
+    without making one source ID compete between two output channels.
+    """
+    source_root = ET.fromstring(source_xml)
+    output = ET.Element(
+        "tv",
+        {
+            "generator-info-name": "lista-m3u updater",
+            "source-info-name": "Sky Main Event UHD simulcast",
+        },
+    )
+    source_channel = next(
+        (
+            channel
+            for channel in source_root.findall("channel")
+            if channel.get("id") == source_channel_id
+        ),
+        None,
+    )
+    if source_channel is None:
+        raise ValueError(f"no se encontro el canal fuente {source_channel_id}")
+    channel_copy = copy.deepcopy(source_channel)
+    channel_copy.set("id", cloned_channel_id)
+    output.append(channel_copy)
+    programme_count = 0
+    for programme in source_root.findall("programme"):
+        if programme.get("channel") != source_channel_id:
+            continue
+        programme_copy = copy.deepcopy(programme)
+        programme_copy.set("channel", cloned_channel_id)
+        output.append(programme_copy)
+        programme_count += 1
+    if programme_count < 1:
+        raise ValueError(f"el canal fuente {source_channel_id} no tiene programas")
+    ET.indent(output, space="  ")
+    return ET.tostring(output, encoding="utf-8", xml_declaration=True)
+
+
+RALLY_TV_CARD_RE = re.compile(
+    r'\\"title\\":\\"(?P<title>(?:\\\\.|[^"\\])*)\\"'
+    r'.*?\\"start_time\\":\\"(?P<start>[^"\\]+)\\"'
+    r'.*?\\"end_time\\":\\"(?P<end>[^"\\]+)\\"',
+    flags=re.DOTALL,
+)
+
+
+def fetch_rally_tv_official_epg(
+    channels: list[Channel], now: datetime
+) -> tuple[bytes | None, str | None]:
+    """Import Rally.TV's own 24/7 linear-channel guide.
+
+    The page embeds the current EPG as serialized card data. We read only the
+    first `cards` collection, which is the linear Rally TV channel; the page
+    also contains separate rails for Best of Highlights and Onboards.
+    """
+    if not any(channel.tvg_id == "HighflyPremium.es-rally-tv" for channel in channels):
+        return None, None
+    try:
+        status, body, _ = fetch_bytes(
+            RALLY_TV_OFFICIAL_EPG_URL,
+            {
+                "User-Agent": BROWSER_USER_AGENT,
+                "Accept": "text/html,application/xhtml+xml,*/*;q=0.8",
+                "Accept-Language": "en,en-US;q=0.8,es;q=0.6",
+            },
+            timeout=60,
+            limit=8_000_000,
+        )
+        if status != 200:
+            raise ValueError(f"HTTP {status}")
+        page = decode_web_text(body)
+        card_markers = list(re.finditer(r'\\"cards\\":\[', page))
+        if not card_markers:
+            raise ValueError("Rally.TV no publico su coleccion cards")
+        first_start = card_markers[0].end()
+        first_end = card_markers[1].start() if len(card_markers) > 1 else len(page)
+        cards: list[tuple[datetime, datetime, str]] = []
+        seen: set[tuple[datetime, datetime, str]] = set()
+        for match in RALLY_TV_CARD_RE.finditer(page[first_start:first_end]):
+            try:
+                title = json.loads('"' + match.group("title") + '"')
+                start = external_epg_datetime(match.group("start"))
+                stop = external_epg_datetime(match.group("end"))
+            except (TypeError, ValueError, json.JSONDecodeError):
+                continue
+            title = re.sub(r"\s+", " ", str(title).strip())
+            if not title or title.casefold() == "gtm (noscript)" or stop <= start:
+                continue
+            item = (start, stop, title)
+            if item in seen:
+                continue
+            seen.add(item)
+            cards.append(item)
+        cards.sort(key=lambda item: (item[0], item[1], item[2]))
+        minimum_start = now - timedelta(hours=6)
+        cards = [item for item in cards if item[1] > minimum_start]
+        if len(cards) < 5:
+            raise ValueError("Rally.TV entrego una parrilla demasiado corta")
+        if max(item[1] for item in cards) < now + timedelta(hours=24):
+            raise ValueError("Rally.TV no cubre las proximas 24 horas")
+        root = epg_root("Rally.TV EPG oficial")
+        for start, stop, title in cards:
+            programme = ET.SubElement(
+                root,
+                "programme",
+                {
+                    "start": xmltv_format_chile(start),
+                    "stop": xmltv_format_chile(stop),
+                    "channel": "RallyTV.us",
+                },
+            )
+            ET.SubElement(programme, "title", {"lang": "en"}).text = title
+        return ET.tostring(root, encoding="utf-8", xml_declaration=True), None
+    except Exception as error:
+        return None, f"{type(error).__name__}: {error}"
+
+
 def fetch_canal13_main_official_epg(
     channels: list[Channel], now: datetime
 ) -> tuple[bytes | None, str | None]:
@@ -6842,6 +7022,32 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
         except Exception as error:
             source_errors[source_name] = str(error)
 
+    if "uk1" in source_documents:
+        try:
+            source_documents["highfly-main-event-4k-simulcast"] = (
+                clone_xmltv_channel(
+                    source_documents["uk1"],
+                    "SkySpMainEvHD.uk",
+                    "Highfly.Sky.Sports.Main.Event.4K",
+                )
+            )
+        except Exception as error:
+            source_errors["highfly-main-event-4k-simulcast"] = str(error)
+        try:
+            source_documents["highfly-f1-4k-simulcast"] = clone_xmltv_channel(
+                source_documents["uk1"],
+                "SkySp.F1.HD.uk",
+                "Highfly.Sky.Sports.F1.4K",
+            )
+        except Exception as error:
+            source_errors["highfly-f1-4k-simulcast"] = str(error)
+
+    rally_data, rally_error = fetch_rally_tv_official_epg(channels, now)
+    if rally_data:
+        source_documents[RALLY_TV_OFFICIAL_EPG_SOURCE] = rally_data
+    if rally_error:
+        source_errors[RALLY_TV_OFFICIAL_EPG_SOURCE] = rally_error
+
     tvn_data, tvn_error = fetch_tvn_official_epg(channels, now)
     if tvn_data:
         source_documents[TVN_OFFICIAL_EPG_SOURCE] = tvn_data
@@ -6913,6 +7119,8 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
         source_name: error
         for source_name, error in source_errors.items()
         if source_name
+        not in OPTIONAL_EPG_SOURCE_NAMES
+        and source_name
         not in {
             LA_RED_OFFICIAL_EPG_SOURCE,
             MEGA_OFFICIAL_EPG_SOURCE,
@@ -8666,6 +8874,7 @@ def main() -> int:
         args.sync_resolver_contract
         or args.validate_resolvers_only
         or args.validate_public_lists_only
+        or args.refresh_epg_only
     ):
         sync_highfly_premium_stable_playlist()
 

@@ -134,6 +134,79 @@ class HighflyPremiumListTest(unittest.TestCase):
                 ).splitlines()
             )
 
+    def test_new_list3_channels_use_real_epg_mappings(self) -> None:
+        self.assertEqual(
+            ("uk1", "SkySpCricket.HD.uk"),
+            update_m3u.EPG_PROGRAMME_SOURCES[
+                "HighflyPremium.now-sky-sports-cricket"
+            ],
+        )
+        self.assertEqual(
+            ("uk1", "SkySp.Golf.HD.uk"),
+            update_m3u.EPG_PROGRAMME_SOURCES[
+                "HighflyPremium.now-sky-sports-golf"
+            ],
+        )
+        self.assertEqual(
+            ("us2", "Marquee.Sports.Network.HD.us2"),
+            update_m3u.EPG_PROGRAMME_SOURCES[
+                "HighflyPremium.us-marquee-sports-network-hd"
+            ],
+        )
+        self.assertEqual(
+            ("au1", "FoxFooty.au"),
+            update_m3u.EPG_PROGRAMME_SOURCES[
+                "HighflyPremium.au-fox-sports-504-hd"
+            ],
+        )
+        self.assertEqual(
+            ("au1", "FoxLeague.au"),
+            update_m3u.EPG_PROGRAMME_SOURCES[
+                "HighflyPremium.au-fox-sports-502-hd"
+            ],
+        )
+
+    def test_rally_official_epg_reads_only_linear_cards(self) -> None:
+        cards = []
+        for index in range(25):
+            start_day = 3 + index // 24
+            stop_day = 3 + (index + 1) // 24
+            start = f"2026-09-{start_day:02d}T{(10 + index) % 24:02d}:00:00.000Z"
+            stop = f"2026-09-{stop_day:02d}T{(11 + index) % 24:02d}:00:00.000Z"
+            cards.append(
+                (
+                    '{\\"title\\":\\"Rally programme '
+                    + str(index)
+                    + f'\\",\\"start_time\\":\\"{start}\\",'
+                    + f'\\"end_time\\":\\"{stop}\\"}}'
+                )
+            )
+        sample = (
+            '\\"title\\":\\"Rally TV\\",\\"type\\":\\"epg\\",\\"cards\\":['
+            + ",".join(cards)
+            + '],\\"title\\":\\"Best of Highlights\\",\\"cards\\":[]'
+        )
+        channels = update_m3u.parse_channels(
+            Path(update_m3u.HIGHFLY_PREMIUM_STABLE_PLAYLIST)
+            .read_text(encoding="utf-8-sig")
+            .splitlines()
+        )
+        with patch.object(
+            update_m3u,
+            "fetch_bytes",
+            return_value=(200, sample.encode("utf-8"), update_m3u.RALLY_TV_OFFICIAL_EPG_URL),
+        ):
+            data, error = update_m3u.fetch_rally_tv_official_epg(
+                channels,
+                update_m3u.datetime(2026, 9, 3, 9, tzinfo=update_m3u.timezone.utc),
+            )
+        self.assertIsNone(error)
+        self.assertIsNotNone(data)
+        root = update_m3u.ET.fromstring(data)
+        programmes = root.findall("programme")
+        self.assertGreaterEqual(len(programmes), 20)
+        self.assertTrue(all(p.get("channel") == "RallyTV.us" for p in programmes))
+
 
 if __name__ == "__main__":
     unittest.main()
