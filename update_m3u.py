@@ -23,7 +23,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from urllib.parse import parse_qsl, unquote, urlencode, urljoin, urlparse
+from urllib.parse import parse_qsl, quote, unquote, urlencode, urljoin, urlparse
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 
@@ -38,6 +38,124 @@ SHORT_PLAYLIST_ALIASES = (
     (EXTERNAL_PLAYLIST, SHORT_EXTERNAL_PLAYLIST),
 )
 CHANNEL_CATALOG_PATH = Path(__file__).with_name("channel-catalog.m3u")
+# Lista 3 es una salida publica y estable de metadatos para VibeM3U. El
+# catalogo Premium solo aporta slugs: nunca se copia una URL firmada ni un
+# token a este archivo. Los eventos temporales pertenecen exclusivamente a la
+# aplicacion y no se publican desde este repositorio.
+HIGHFLY_PREMIUM_STABLE_PLAYLIST = Path(__file__).with_name("3.m3u")
+HIGHFLY_PREMIUM_STABLE_CATALOG_URL = (
+    "https://sports.highfly.dev/catalog/sport/sports_live.json"
+)
+HIGHFLY_PREMIUM_STABLE_MANIFEST_URL = "https://sports.highfly.dev/manifest.json"
+HIGHFLY_PREMIUM_STABLE_ID_PATTERN = re.compile(
+    r"^leaf:(?P<slug>[a-z0-9][a-z0-9_-]{1,127})$", re.IGNORECASE
+)
+# Conserva primero las cinco posiciones historicas que ya conoce la M3U. Los
+# nuevos slugs se agregan despues, en el orden de prioridad del producto.
+HIGHFLY_PREMIUM_STABLE_ORDER = (
+    "now-sky-sports-f1-free",
+    "now-sky-sports-tennis",
+    "now-sky-sports-premier-league",
+    "nz-sky-sport-1",
+    "us-espn-hd",
+    "now-sky-sports-cricket",
+    "es-rally-tv",
+    "au-fox-sports-504-hd",
+    "now-sky-sports-golf",
+    "us-marquee-sports-network-hd",
+    "au-fox-sports-502-hd",
+    "us-tennis-channel",
+    "4k-sky-sports-main-events",
+    "now-sky-sports-f1-2",
+)
+# tvg-id se mantiene canonico para las cinco entradas que ya poseen EPG. Los
+# ids HighflyPremium.* son nuevos y no colisionan con las listas 1/2.
+HIGHFLY_PREMIUM_STABLE_OVERRIDES = {
+    "now-sky-sports-f1-free": {
+        "tvg_id": "SkySportsF1.uk",
+        "name": "Sky Sports F1",
+        "country": "GB",
+        "logo": "sky-sports-f1.png",
+    },
+    "now-sky-sports-tennis": {
+        "tvg_id": "SkySportsTennis.uk",
+        "name": "Sky Sports Tennis",
+        "country": "GB",
+        "logo": "sky-sports-tennis.png",
+    },
+    "now-sky-sports-premier-league": {
+        "tvg_id": "SkySportsPremierLeague.uk",
+        "name": "Sky Sports Premier League",
+        "country": "GB",
+        "logo": "sky-sports-premier-league.png",
+    },
+    "nz-sky-sport-1": {
+        "tvg_id": "SkySport1.nz",
+        "name": "Sky Sport 1 NZ",
+        "country": "NZ",
+        "logo": "sky-sport-1-nz.png",
+    },
+    "us-espn-hd": {
+        "tvg_id": "ESPN.us",
+        "name": "ESPN",
+        "country": "US",
+        "logo": "espn.svg",
+    },
+    "now-sky-sports-cricket": {
+        "tvg_id": "HighflyPremium.now-sky-sports-cricket",
+        "name": "Sky Sports Cricket",
+        "country": "GB",
+        "logo": "sky-sports.svg",
+    },
+    "es-rally-tv": {
+        "tvg_id": "HighflyPremium.es-rally-tv",
+        "name": "Rally TV",
+        "country": "ES",
+        "logo": "sky-sports.svg",
+    },
+    "au-fox-sports-504-hd": {
+        "tvg_id": "HighflyPremium.au-fox-sports-504-hd",
+        "name": "Fox Sports 504",
+        "country": "AU",
+        "logo": "fox-sports.svg",
+    },
+    "now-sky-sports-golf": {
+        "tvg_id": "HighflyPremium.now-sky-sports-golf",
+        "name": "Sky Sports Golf",
+        "country": "GB",
+        "logo": "sky-sports-golf.png",
+    },
+    "us-marquee-sports-network-hd": {
+        "tvg_id": "HighflyPremium.us-marquee-sports-network-hd",
+        "name": "Marquee Sports Network",
+        "country": "US",
+        "logo": "marquee-sports-network.svg",
+    },
+    "au-fox-sports-502-hd": {
+        "tvg_id": "HighflyPremium.au-fox-sports-502-hd",
+        "name": "Fox Sports 502",
+        "country": "AU",
+        "logo": "fox-sports.svg",
+    },
+    "us-tennis-channel": {
+        "tvg_id": "HighflyPremium.us-tennis-channel",
+        "name": "Tennis Channel",
+        "country": "US",
+        "logo": "sky-sports-tennis.png",
+    },
+    "4k-sky-sports-main-events": {
+        "tvg_id": "HighflyPremium.4k-sky-sports-main-events",
+        "name": "Sky Sports Main Event 4K",
+        "country": "GB",
+        "logo": "sky-sports-main-event.png",
+    },
+    "now-sky-sports-f1-2": {
+        "tvg_id": "HighflyPremium.now-sky-sports-f1-2",
+        "name": "Sky Sports F1 4K",
+        "country": "GB",
+        "logo": "sky-sports-f1.png",
+    },
+}
 EPG_PATH = Path(__file__).with_name("epg.xml")
 REPORT_PATH = Path(__file__).with_name("channel-status.json")
 HEALTH_STATE_PATH = Path(__file__).with_name("channel-health-state.json")
@@ -2511,6 +2629,31 @@ def parse_channels(lines: list[str]) -> list[Channel]:
     return channels
 
 
+def channels_with_highfly_premium_stable(channels: list[Channel]) -> list[Channel]:
+    """Add validated Lista 3 channels to the EPG scope without changing lists 1/2."""
+    result = list(channels)
+    if not HIGHFLY_PREMIUM_STABLE_PLAYLIST.is_file():
+        return result
+    try:
+        validate_highfly_premium_stable_playlist()
+        stable_channels = parse_channels(
+            HIGHFLY_PREMIUM_STABLE_PLAYLIST.read_text(encoding="utf-8-sig").splitlines()
+        )
+    except Exception as error:
+        print(
+            "EPG: se ignora Lista 3 estable invalida "
+            f"({type(error).__name__})",
+            file=sys.stderr,
+        )
+        return result
+    existing_ids = {channel.tvg_id for channel in result if channel.tvg_id}
+    for channel in stable_channels:
+        if channel.tvg_id and channel.tvg_id not in existing_ids:
+            result.append(channel)
+            existing_ids.add(channel.tvg_id)
+    return result
+
+
 def is_permanently_removed_channel_name(name: str) -> bool:
     return any(
         pattern.search(name)
@@ -3335,6 +3478,280 @@ def fetch_bytes(
             ) as response:
                 return response.status, response.read(limit), response.geturl()
         raise
+
+
+def _highfly_premium_clean_m3u_text(value: object, maximum_length: int = 180) -> str:
+    """Normalize provider text before placing it in a quoted M3U attribute."""
+    normalized = re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]", "", str(value or ""))
+    normalized = re.sub(r"\s+", " ", normalized).replace('"', "").replace(",", " · ")
+    normalized = normalized.strip()
+    return normalized[:maximum_length].strip()
+
+
+def _highfly_premium_catalog_name(value: object, slug: str) -> str:
+    name = _highfly_premium_clean_m3u_text(value)
+    if not name:
+        return slug.replace("-", " ").title()
+    # The public catalogue decorates names with quality/source labels. They
+    # are useful to the provider but make the app's channel labels noisy.
+    name = re.sub(
+        r"^\s*(?:\(?\s*(?:FHD|HD|4K)\s*\)?\s*[:\-]\s*)",
+        "",
+        name,
+        flags=re.IGNORECASE,
+    )
+    name = re.sub(r"\s*[ᴿᴬᵂ]+\s*$", "", name).strip()
+    return name or slug.replace("-", " ").title()
+
+
+def _highfly_premium_stable_slug(value: object) -> str | None:
+    match = HIGHFLY_PREMIUM_STABLE_ID_PATTERN.fullmatch(str(value or "").strip())
+    return match.group("slug").lower() if match else None
+
+
+def parse_highfly_premium_stable_catalog(payload: bytes | str | dict) -> list[dict[str, str]]:
+    """Return stable slugs and app-owned metadata from a public Highfly catalog.
+
+    This parser intentionally ignores ``streamed:`` event entries and every
+    provider URL. The only source identity that reaches ``3.m3u`` is the
+    allow-listed ``leaf:<slug>`` identifier.
+    """
+    decoded: object | None = None
+    if isinstance(payload, bytes):
+        raw_payload = payload.decode("utf-8-sig")
+    elif isinstance(payload, str):
+        raw_payload = payload
+    elif isinstance(payload, dict):
+        decoded = payload
+        raw_payload = ""
+    else:
+        raise ValueError("catalogo Highfly Premium invalido")
+    if raw_payload:
+        if len(raw_payload.encode("utf-8")) > 2 * 1024 * 1024:
+            raise ValueError("catalogo Highfly Premium demasiado grande")
+        try:
+            decoded = json.loads(raw_payload)
+        except json.JSONDecodeError as error:
+            raise ValueError("catalogo Highfly Premium no es JSON valido") from error
+    if decoded is None:
+        raise ValueError("catalogo Highfly Premium vacio")
+    if not isinstance(decoded, dict):
+        raise ValueError("catalogo Highfly Premium no contiene un objeto")
+    metas = decoded.get("metas")
+    if not isinstance(metas, list):
+        raise ValueError("catalogo Highfly Premium no contiene metas")
+
+    by_slug: dict[str, dict[str, str]] = {}
+    for meta in metas[:512]:
+        if not isinstance(meta, dict):
+            continue
+        slug = _highfly_premium_stable_slug(meta.get("id"))
+        if not slug or slug in by_slug:
+            continue
+        override = HIGHFLY_PREMIUM_STABLE_OVERRIDES.get(slug, {})
+        tvg_id = _highfly_premium_clean_m3u_text(
+            override.get("tvg_id") or f"HighflyPremium.{slug}",
+            180,
+        )
+        name = _highfly_premium_clean_m3u_text(
+            override.get("name") or _highfly_premium_catalog_name(meta.get("name"), slug),
+            180,
+        )
+        country = _highfly_premium_clean_m3u_text(
+            override.get("country") or "INT",
+            8,
+        ).upper()
+        logo = _highfly_premium_clean_m3u_text(
+            override.get("logo") or "sky-sports.svg",
+            120,
+        )
+        if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]{0,119}", logo):
+            logo = "sky-sports.svg"
+        by_slug[slug] = {
+            "slug": slug,
+            "tvg_id": tvg_id,
+            "name": name or slug,
+            "country": country or "INT",
+            "logo": logo,
+        }
+
+    ordered: list[dict[str, str]] = []
+    added: set[str] = set()
+    for slug in HIGHFLY_PREMIUM_STABLE_ORDER:
+        entry = by_slug.get(slug)
+        if entry is not None:
+            ordered.append(entry)
+            added.add(slug)
+    for entry in by_slug.values():
+        if entry["slug"] not in added:
+            ordered.append(entry)
+    return ordered
+
+
+def fetch_highfly_premium_stable_catalog() -> list[dict[str, str]]:
+    status, body, final_url = fetch_bytes(
+        HIGHFLY_PREMIUM_STABLE_CATALOG_URL,
+        {
+            "Accept": "application/json",
+            "User-Agent": BROWSER_USER_AGENT,
+        },
+        timeout=25,
+        limit=2 * 1024 * 1024,
+    )
+    final_host = (urlparse(final_url).hostname or "").lower()
+    if status != 200 or final_host != "sports.highfly.dev":
+        raise ValueError("catalogo Highfly Premium no respondio desde el host esperado")
+    return parse_highfly_premium_stable_catalog(body)
+
+
+def render_highfly_premium_stable_playlist(entries: Iterable[dict[str, str]]) -> str:
+    """Render Lista 3 with public slugs and a token-free playback fallback."""
+    lines = [
+        f'#EXTM3U x-tvg-url="{EPG_PUBLIC_URL}"',
+        "# Lista 3 · Highfly Premium · canales estables",
+    ]
+    seen: set[str] = set()
+    for entry in entries:
+        slug = _highfly_premium_stable_slug(f"leaf:{entry.get('slug', '')}")
+        if not slug or slug in seen:
+            continue
+        seen.add(slug)
+        tvg_id = _highfly_premium_clean_m3u_text(entry.get("tvg_id"), 180)
+        name = _highfly_premium_clean_m3u_text(entry.get("name"), 180) or slug
+        country = _highfly_premium_clean_m3u_text(entry.get("country") or "INT", 8)
+        logo = _highfly_premium_clean_m3u_text(
+            entry.get("logo") or "sky-sports.svg",
+            120,
+        )
+        logo_url = f"{LOCAL_LOGOS_PUBLIC_BASE}/{quote(logo, safe='-_.')}"
+        attrs = (
+            f'tvg-id="{tvg_id}" '
+            f'tvg-name="{name}" '
+            f'tvg-country="{country}" '
+            f'tvg-logo="{logo_url}" '
+            'group-title="Lista 3 · Highfly Premium · Deportes" '
+            'x-resolver="highfly" '
+            f'x-resolver-id="{slug}" '
+            f'x-resolver-manifest="{HIGHFLY_PREMIUM_STABLE_MANIFEST_URL}" '
+            'x-resolver-refresh="on_play" '
+            'x-highfly-premium-stable="true" '
+            f'x-highfly-premium-id="leaf:{slug}" '
+            'x-highfly-premium-kind="estable" '
+            'x-highfly-premium-list="3"'
+        )
+        lines.append(f"#EXTINF:-1 {attrs},{name}")
+        # The leaf URL is deliberately only a non-authorized fallback. VibeM3U
+        # replaces it with a fresh Premium source during playback.
+        lines.append(f"https://leaf.highfly.dev/m3u/{slug}/live.m3u8")
+    if len(lines) == 2:
+        raise ValueError("catalogo Highfly Premium no contiene canales estables")
+    return "\n".join(lines) + "\n"
+
+
+def _m3u_attribute(line: str, name: str) -> str:
+    match = re.search(rf'\b{re.escape(name)}="([^"]*)"', line, re.IGNORECASE)
+    return match.group(1).strip() if match else ""
+
+
+def validate_highfly_premium_stable_playlist(
+    lines: list[str] | None = None,
+    *,
+    path: Path = HIGHFLY_PREMIUM_STABLE_PLAYLIST,
+) -> int:
+    """Validate that Lista 3 contains slugs, not Premium credentials."""
+    if lines is None:
+        if not path.is_file():
+            raise ValueError(f"falta la lista estable Highfly: {path.name}")
+        lines = path.read_text(encoding="utf-8-sig").splitlines()
+    if not lines or not lines[0].startswith("#EXTM3U"):
+        raise ValueError("Lista 3 no tiene una cabecera #EXTM3U valida")
+
+    count = 0
+    seen: set[str] = set()
+    for index, line in enumerate(lines):
+        if not line.startswith("#EXTINF:"):
+            continue
+        resolver = _m3u_attribute(line, "x-resolver")
+        slug = _m3u_attribute(line, "x-resolver-id").lower()
+        premium_id = _m3u_attribute(line, "x-highfly-premium-id")
+        if resolver.lower() != "highfly":
+            raise ValueError("Lista 3 contiene una entrada sin x-resolver=highfly")
+        if _m3u_attribute(line, "x-resolver-refresh").lower() != "on_play":
+            raise ValueError("Lista 3 debe renovar Highfly al abrir el canal")
+        if _m3u_attribute(line, "x-resolver-manifest") != HIGHFLY_PREMIUM_STABLE_MANIFEST_URL:
+            raise ValueError("Lista 3 contiene un manifiesto Highfly no autorizado")
+        if not _m3u_attribute(line, "tvg-id"):
+            raise ValueError("Lista 3 contiene una entrada sin tvg-id estable")
+        if not HIGHFLY_PREMIUM_STABLE_ID_PATTERN.fullmatch(f"leaf:{slug}"):
+            raise ValueError("Lista 3 contiene un slug Highfly invalido")
+        if slug in seen:
+            raise ValueError(f"Lista 3 repite el slug {slug}")
+        if _m3u_attribute(line, "x-highfly-premium-stable").lower() != "true":
+            raise ValueError("Lista 3 no marca la entrada como estable")
+        if _m3u_attribute(line, "x-highfly-premium-kind").lower() != "estable":
+            raise ValueError("Lista 3 contiene una clase de entrada invalida")
+        if _m3u_attribute(line, "x-highfly-premium-list") != "3":
+            raise ValueError("Lista 3 contiene una entrada de otra lista")
+        if premium_id.lower() != f"leaf:{slug}":
+            raise ValueError("Lista 3 no conserva el ID leaf del slug")
+        if re.search(r'\bx-highfly-premium\s*=', line, re.IGNORECASE):
+            raise ValueError("Lista 3 no puede marcar eventos virtuales")
+        logo = _m3u_attribute(line, "tvg-logo")
+        if not logo.startswith(LOCAL_LOGOS_PUBLIC_BASE + "/"):
+            raise ValueError("Lista 3 debe usar logos del repositorio")
+        expected_url = f"https://leaf.highfly.dev/m3u/{slug}/live.m3u8"
+        url = ""
+        for next_line in lines[index + 1:]:
+            candidate = next_line.strip()
+            if not candidate:
+                continue
+            if candidate.startswith("#"):
+                break
+            url = candidate
+            break
+        if url != expected_url:
+            raise ValueError("Lista 3 contiene una URL que no corresponde al slug")
+        if urlparse(url).query or urlparse(url).fragment:
+            raise ValueError("Lista 3 no puede contener query o fragmentos de sesion")
+        seen.add(slug)
+        count += 1
+    if count == 0:
+        raise ValueError("Lista 3 no contiene canales estables")
+    return count
+
+
+def sync_highfly_premium_stable_playlist(
+    path: Path = HIGHFLY_PREMIUM_STABLE_PLAYLIST,
+) -> bool:
+    """Refresh Lista 3, preserving the previous copy on a transient outage."""
+    try:
+        entries = fetch_highfly_premium_stable_catalog()
+        content = render_highfly_premium_stable_playlist(entries)
+        validate_highfly_premium_stable_playlist(content.splitlines(), path=path)
+    except Exception as error:
+        if path.is_file():
+            print(
+                "Lista 3 estable conservada; no se pudo consultar el catalogo "
+                f"Highfly Premium ({type(error).__name__})",
+                file=sys.stderr,
+            )
+            return False
+        print(
+            "Lista 3 estable no disponible; el runner continuara sin canales "
+            f"Highfly Premium ({type(error).__name__})",
+            file=sys.stderr,
+        )
+        return False
+
+    previous = path.read_text(encoding="utf-8") if path.is_file() else None
+    if previous == content:
+        print("Lista 3 estable Highfly vigente; no hubo cambios")
+        return False
+    path.write_text(content, encoding="utf-8", newline="\n")
+    print(
+        f"Lista 3 estable Highfly actualizada: {len(entries)} slugs publicos"
+    )
+    return True
 
 
 def fetch_channel_bytes(
@@ -8197,6 +8614,11 @@ def main() -> int:
         help="genera metadatos M3U y resolver-catalog.json sin usar la red",
     )
     parser.add_argument(
+        "--sync-highfly-premium-list",
+        action="store_true",
+        help="actualiza 3.m3u con slugs estables publicos de Highfly",
+    )
+    parser.add_argument(
         "--validate-resolvers-only",
         action="store_true",
         help="valida el contrato M3U/catalogo sin actualizar streams ni EPG",
@@ -8231,6 +8653,22 @@ def main() -> int:
             else 1
         )
 
+    if args.sync_highfly_premium_list:
+        changed = sync_highfly_premium_stable_playlist()
+        if HIGHFLY_PREMIUM_STABLE_PLAYLIST.is_file():
+            validate_highfly_premium_stable_playlist()
+            return 0
+        return 1 if not changed else 0
+
+    # La sincronizacion publica se ejecuta en las corridas reales de canales y
+    # EPG, pero los modos de contrato/validacion deben permanecer offline.
+    if not (
+        args.sync_resolver_contract
+        or args.validate_resolvers_only
+        or args.validate_public_lists_only
+    ):
+        sync_highfly_premium_stable_playlist()
+
     source_playlist = (
         CHANNEL_CATALOG_PATH
         if playlist == DEFAULT_PLAYLIST.resolve() and CHANNEL_CATALOG_PATH.exists()
@@ -8249,6 +8687,8 @@ def main() -> int:
     )
     if args.validate_public_lists_only:
         validate_resolver_contract(lines)
+        if HIGHFLY_PREMIUM_STABLE_PLAYLIST.is_file():
+            validate_highfly_premium_stable_playlist()
         validate_public_playlist_partition(
             lines,
             DEFAULT_PLAYLIST.read_text(encoding="utf-8-sig").splitlines(),
@@ -8279,7 +8719,8 @@ def main() -> int:
         )
         if not channels:
             raise RuntimeError("el catalogo no contiene canales para la EPG")
-        epg_status = refresh_epg(channels, force=True)
+        epg_channels = channels_with_highfly_premium_stable(channels)
+        epg_status = refresh_epg(epg_channels, force=True)
         print(
             f"EPG actualizada: {epg_status['channels']} canales y "
             f"{epg_status['programmes']} programas"
@@ -8287,6 +8728,8 @@ def main() -> int:
         return 0
     if args.validate_resolvers_only:
         validate_resolver_contract(lines)
+        if HIGHFLY_PREMIUM_STABLE_PLAYLIST.is_file():
+            validate_highfly_premium_stable_playlist()
         return 0
     if removed_channels:
         source_playlist.write_text(
@@ -8348,14 +8791,15 @@ def main() -> int:
     else:
         print("Actualizando la guia de programacion de todos los canales")
         force_epg_refresh = os.environ.get("EPG_FORCE_REFRESH", "").lower() == "true"
-        epg_status = refresh_epg(channels, force=force_epg_refresh)
+        epg_channels = channels_with_highfly_premium_stable(channels)
+        epg_status = refresh_epg(epg_channels, force=force_epg_refresh)
         main_epg_status = {}
         updated = "actualizada" if epg_status.get("updated") else "vigente"
         print(
             f"  [OK] EPG {updated}: {epg_status['channels']} canales y "
             f"{epg_status['programmes']} programas"
         )
-        for channel in channels:
+        for channel in epg_channels:
             guide_type = epg_status.get("guide_types", {}).get(channel.tvg_id, "sin datos")
             print(f"  [EPG] {channel.name}: {guide_type}")
         for warning in epg_status.get("warnings", []):

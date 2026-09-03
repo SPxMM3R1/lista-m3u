@@ -25,6 +25,17 @@ canónicas. Al estar dentro del repositorio público, usan HTTPS y no tienen un
 TTL de acortador; seguirán disponibles mientras se conserve este repositorio y
 su rama `main`.
 
+Lista 3 opcional de Highfly Premium (canales estables):
+
+`https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/3.m3u`
+
+`3.m3u` es una tercera fuente independiente. VibeM3U puede activarla o
+desactivarla sin modificar ni mezclar `m3u.m3u`/`1.m3u` con
+`m3u-externa.m3u`/`2.m3u`. Publica únicamente identificadores estables
+`leaf:<slug>` y una URL HLS sin autorización como respaldo; el token o la
+configuración Premium se introducen localmente en VibeM3U y nunca se guardan en
+este repositorio ni en la M3U.
+
 Guia de programacion XMLTV:
 
 `https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/epg.xml`
@@ -121,6 +132,10 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
 - conserva los slugs de Highfly y los aliases de TvVoo como fuentes renovables.
   Si una fuente deja de existir, el actualizador solicita candidatos nuevos,
   valida su HLS y publica el enlace que respondió;
+- sincroniza `3.m3u` desde el catálogo público de Highfly, pero solo conserva
+  entradas estables `leaf:`; ignora eventos temporales `streamed:` y no copia
+  URLs firmadas, tokens ni posters del proveedor. La lista 3 se puede cargar o
+  desactivar de forma independiente en el reproductor;
 - prioriza la guia oficial de Canal 13 para 13C, manteniendola separada de
   13 Cultura; si la pagina oficial no entrega bloques vigentes, usa Zapping
   como respaldo por canal;
@@ -231,7 +246,9 @@ El orden tematico se construye siempre desde `channel-catalog.m3u`, que
 conserva todos los candidatos. `m3u.m3u` contiene la selección manual ya
 probada; `m3u-externa.m3u` contiene el complemento aún no promovido. Ambas
 salidas filtran el mismo catalogo sin alterar la posicion relativa de los
-canales. La salud y la recuperación de una fuente no cambian ese reparto.
+canales. `3.m3u` es una salida separada para las señales estables de Highfly
+Premium y no participa en el reparto manual de las listas 1 y 2. La salud y la
+recuperación de una fuente no cambian ese reparto.
 
 1. Nacionales
 2. Noticias nacionales

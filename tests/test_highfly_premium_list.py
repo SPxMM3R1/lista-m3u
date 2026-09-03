@@ -1,0 +1,139 @@
+import json
+import tempfile
+import unittest
+from pathlib import Path
+from unittest.mock import patch
+
+import update_m3u
+
+
+class HighflyPremiumListTest(unittest.TestCase):
+    def test_only_leaf_slugs_are_rendered_and_events_are_ignored(self) -> None:
+        payload = {
+            "metas": [
+                {
+                    "id": "streamed:match-123",
+                    "name": "Temporary event",
+                    "poster": "https://cdn.highfly.dev/private/event.webp?token=secret",
+                },
+                {
+                    "id": "leaf:now-sky-sports-f1-free",
+                    "name": "(FHD) SKY SPORTS F1 ᴿᴬᵂ",
+                    "poster": "https://cdn.highfly.dev/leaf_posters/f1.webp",
+                },
+                {"id": "javascript:unsafe", "name": "Unsafe"},
+            ]
+        }
+
+        entries = update_m3u.parse_highfly_premium_stable_catalog(
+            json.dumps(payload).encode("utf-8")
+        )
+        content = update_m3u.render_highfly_premium_stable_playlist(entries)
+
+        self.assertEqual(["now-sky-sports-f1-free"], [item["slug"] for item in entries])
+        self.assertIn('x-resolver-id="now-sky-sports-f1-free"', content)
+        self.assertIn('x-highfly-premium-id="leaf:now-sky-sports-f1-free"', content)
+        self.assertIn('tvg-id="SkySportsF1.uk"', content)
+        self.assertIn("https://leaf.highfly.dev/m3u/now-sky-sports-f1-free/live.m3u8", content)
+        self.assertNotIn("streamed:", content)
+        self.assertNotIn("access_token", content)
+        self.assertNotIn("token=secret", content)
+        self.assertNotIn("cdn.highfly.dev/leaf_posters", content)
+        self.assertEqual(1, update_m3u.validate_highfly_premium_stable_playlist(
+            content.splitlines()
+        ))
+
+    def test_catalog_order_prefers_historical_slots_then_new_channels(self) -> None:
+        payload = {
+            "metas": [
+                {"id": "leaf:us-espn-hd", "name": "ESPN"},
+                {"id": "leaf:future-channel", "name": "Future"},
+                {"id": "leaf:now-sky-sports-tennis", "name": "Tennis"},
+                {"id": "leaf:now-sky-sports-f1-free", "name": "F1"},
+            ]
+        }
+
+        entries = update_m3u.parse_highfly_premium_stable_catalog(payload)
+
+        self.assertEqual(
+            [
+                "now-sky-sports-f1-free",
+                "now-sky-sports-tennis",
+                "us-espn-hd",
+                "future-channel",
+            ],
+            [item["slug"] for item in entries],
+        )
+
+    def test_sync_preserves_previous_file_on_catalog_failure(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "3.m3u"
+            previous = "#EXTM3U\n# old stable list\n"
+            path.write_text(previous, encoding="utf-8")
+            with patch.object(
+                update_m3u,
+                "fetch_highfly_premium_stable_catalog",
+                side_effect=RuntimeError("provider unavailable"),
+            ):
+                self.assertFalse(
+                    update_m3u.sync_highfly_premium_stable_playlist(path)
+                )
+            self.assertEqual(previous, path.read_text(encoding="utf-8"))
+
+    def test_sync_writes_validated_public_list_without_a_token(self) -> None:
+        entries = [
+            {
+                "slug": "now-sky-sports-f1-free",
+                "tvg_id": "SkySportsF1.uk",
+                "name": "Sky Sports F1",
+                "country": "GB",
+                "logo": "sky-sports-f1.png",
+            }
+        ]
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "3.m3u"
+            with patch.object(
+                update_m3u,
+                "fetch_highfly_premium_stable_catalog",
+                return_value=entries,
+            ):
+                self.assertTrue(
+                    update_m3u.sync_highfly_premium_stable_playlist(path)
+                )
+            content = path.read_text(encoding="utf-8")
+            self.assertEqual(
+                1,
+                update_m3u.validate_highfly_premium_stable_playlist(
+                    content.splitlines(), path=path
+                ),
+            )
+            self.assertNotIn("access_token", content)
+            self.assertNotIn("signature", content)
+            self.assertIn(
+                f'x-resolver-manifest="{update_m3u.HIGHFLY_PREMIUM_STABLE_MANIFEST_URL}"',
+                content,
+            )
+            self.assertIn('x-resolver-refresh="on_play"', content)
+
+    def test_list3_rejects_non_final_manifest(self) -> None:
+        entries = [
+            {
+                "slug": "now-sky-sports-f1-free",
+                "tvg_id": "SkySportsF1.uk",
+                "name": "Sky Sports F1",
+                "country": "GB",
+                "logo": "sky-sports-f1.png",
+            }
+        ]
+        content = update_m3u.render_highfly_premium_stable_playlist(entries)
+        with self.assertRaises(ValueError):
+            update_m3u.validate_highfly_premium_stable_playlist(
+                content.replace(
+                    update_m3u.HIGHFLY_PREMIUM_STABLE_MANIFEST_URL,
+                    "https://sports.highfly.dev/configure",
+                ).splitlines()
+            )
+
+
+if __name__ == "__main__":
+    unittest.main()

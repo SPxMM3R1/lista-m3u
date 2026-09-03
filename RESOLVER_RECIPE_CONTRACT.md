@@ -11,6 +11,7 @@ clases Android ni mezclar commits.
 
 - Lista principal manual: `m3u.m3u` y su alias `1.m3u`.
 - Lista externa: `m3u-externa.m3u` y su alias `2.m3u`.
+- Lista opcional Highfly Premium: `3.m3u`.
 - Inventario completo: `channel-catalog.m3u`.
 - Configuración declarativa: `resolver-catalog.json`.
 - Identidades descubiertas de TvVoo: `tvvoo-discovered.json`.
@@ -20,6 +21,13 @@ La pertenencia manual no cambia con esta receta: los mismos 42 canales siguen
 en la principal y el complemento permanece en la externa. En la última siembra
 el reparador trabaja sobre 225 canales del catálogo; el descubrimiento diario
 puede aumentar ese complemento dentro de su límite seguro.
+
+`3.m3u` no es una promoción automática de la lista principal ni de la externa.
+Es una fuente opcional que VibeM3U puede activar o desactivar por separado para
+las señales estables del catálogo Highfly. Sus entradas conservan solamente el
+identificador `leaf:<slug>`, el manifiesto público final y una URL HLS de
+respaldo sin credenciales. El token Premium se configura y se mantiene en la
+aplicación; no se publica en este repositorio.
 
 ## Metadatos TvVoo obligatorios
 

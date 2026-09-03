@@ -16,6 +16,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent
 UPDATE_SCRIPT = PROJECT_ROOT / "update_m3u.py"
 STATE_PATH = PROJECT_ROOT / "epg-run-state.json"
 EPG_PATH = PROJECT_ROOT / "epg.xml"
+PREMIUM_STABLE_PLAYLIST_PATH = PROJECT_ROOT / "3.m3u"
 INTERVAL = timedelta(hours=6)
 
 
@@ -146,6 +147,11 @@ def main() -> int:
         return 0
 
     snapshot_epg = EPG_PATH.read_bytes() if EPG_PATH.exists() else None
+    snapshot_premium_stable = (
+        PREMIUM_STABLE_PLAYLIST_PATH.read_bytes()
+        if PREMIUM_STABLE_PLAYLIST_PATH.exists()
+        else None
+    )
     snapshot_state = STATE_PATH.read_bytes() if STATE_PATH.exists() else None
     print(f"Ejecutando EPG independiente con {args.executor} a las {timestamp(current)}")
     return_code = run_updater()
@@ -154,6 +160,10 @@ def main() -> int:
             EPG_PATH.unlink(missing_ok=True)
         else:
             EPG_PATH.write_bytes(snapshot_epg)
+        if snapshot_premium_stable is None:
+            PREMIUM_STABLE_PLAYLIST_PATH.unlink(missing_ok=True)
+        else:
+            PREMIUM_STABLE_PLAYLIST_PATH.write_bytes(snapshot_premium_stable)
         if snapshot_state is None:
             STATE_PATH.unlink(missing_ok=True)
         else:
