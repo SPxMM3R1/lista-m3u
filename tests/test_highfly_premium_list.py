@@ -166,6 +166,40 @@ class HighflyPremiumListTest(unittest.TestCase):
             ],
         )
 
+    def test_uhd_sky_channels_use_dedicated_logo_variants(self) -> None:
+        self.assertEqual(
+            "sky-sports-main-event-uhd.png",
+            update_m3u.HIGHFLY_PREMIUM_STABLE_OVERRIDES[
+                "4k-sky-sports-main-events"
+            ]["logo"],
+        )
+        self.assertEqual(
+            "sky-sports-f1-uhd.png",
+            update_m3u.HIGHFLY_PREMIUM_STABLE_OVERRIDES[
+                "now-sky-sports-f1-2"
+            ]["logo"],
+        )
+        content = update_m3u.render_highfly_premium_stable_playlist(
+            [
+                {
+                    "slug": "4k-sky-sports-main-events",
+                    "tvg_id": "HighflyPremium.4k-sky-sports-main-events",
+                    "name": "Sky Sports Main Event UHD",
+                    "country": "GB",
+                    "logo": "sky-sports-main-event-uhd.png",
+                },
+                {
+                    "slug": "now-sky-sports-f1-2",
+                    "tvg_id": "HighflyPremium.now-sky-sports-f1-2",
+                    "name": "Sky Sports F1 UHD",
+                    "country": "GB",
+                    "logo": "sky-sports-f1-uhd.png",
+                },
+            ]
+        )
+        self.assertIn("/logos/sky-sports-main-event-uhd.png", content)
+        self.assertIn("/logos/sky-sports-f1-uhd.png", content)
+
     def test_rally_official_epg_reads_only_linear_cards(self) -> None:
         cards = []
         for index in range(25):
