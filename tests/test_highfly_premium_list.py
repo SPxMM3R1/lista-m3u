@@ -220,11 +220,21 @@ class HighflyPremiumListTest(unittest.TestCase):
             + ",".join(cards)
             + '],\\"title\\":\\"Best of Highlights\\",\\"cards\\":[]'
         )
-        channels = update_m3u.parse_channels(
-            Path(update_m3u.HIGHFLY_PREMIUM_STABLE_PLAYLIST)
-            .read_text(encoding="utf-8-sig")
-            .splitlines()
-        )
+        # Rally es una señal opcional y la lista 3 se sincroniza con un
+        # catálogo dinámico. No acoples esta prueba al contenido mutable de
+        # 3.m3u: el importador debe probarse con la identidad que activa su
+        # fuente oficial, aunque el canal haya desaparecido temporalmente del
+        # catálogo publicado.
+        channels = [
+            update_m3u.Channel(
+                name="Rally TV",
+                url="https://example.invalid/rally/live.m3u8",
+                url_line=1,
+                info_line=0,
+                tvg_id="HighflyPremium.es-rally-tv",
+                display_name="Rally TV",
+            )
+        ]
         with patch.object(
             update_m3u,
             "fetch_bytes",
@@ -240,6 +250,26 @@ class HighflyPremiumListTest(unittest.TestCase):
         programmes = root.findall("programme")
         self.assertGreaterEqual(len(programmes), 20)
         self.assertTrue(all(p.get("channel") == "RallyTV.us" for p in programmes))
+
+    def test_rally_official_epg_is_skipped_when_channel_is_absent(self) -> None:
+        channels = [
+            update_m3u.Channel(
+                name="Sky Sports F1",
+                url="https://example.invalid/sky-f1/live.m3u8",
+                url_line=1,
+                info_line=0,
+                tvg_id="SkySportsF1.uk",
+                display_name="Sky Sports F1",
+            )
+        ]
+        with patch.object(update_m3u, "fetch_bytes") as fetch:
+            data, error = update_m3u.fetch_rally_tv_official_epg(
+                channels,
+                update_m3u.datetime(2026, 9, 3, 9, tzinfo=update_m3u.timezone.utc),
+            )
+        self.assertIsNone(data)
+        self.assertIsNone(error)
+        fetch.assert_not_called()
 
 
 if __name__ == "__main__":
