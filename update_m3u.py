@@ -50,24 +50,29 @@ HIGHFLY_PREMIUM_STABLE_MANIFEST_URL = "https://sports.highfly.dev/manifest.json"
 HIGHFLY_PREMIUM_STABLE_ID_PATTERN = re.compile(
     r"^leaf:(?P<slug>[a-z0-9][a-z0-9_-]{1,127})$", re.IGNORECASE
 )
-# Conserva primero las cinco posiciones historicas que ya conoce la M3U. Los
+# Conserva primero las posiciones historicas que siguen activas en la M3U. Los
 # nuevos slugs se agregan despues, en el orden de prioridad del producto.
 HIGHFLY_PREMIUM_STABLE_ORDER = (
     "now-sky-sports-f1-free",
     "now-sky-sports-tennis",
     "now-sky-sports-premier-league",
-    "nz-sky-sport-1",
     "us-espn-hd",
-    "now-sky-sports-cricket",
     "es-rally-tv",
-    "au-fox-sports-504-hd",
-    "now-sky-sports-golf",
     "us-marquee-sports-network-hd",
     "au-fox-sports-502-hd",
-    "us-tennis-channel",
     "4k-sky-sports-main-events",
     "now-sky-sports-f1-2",
 )
+# Exclusiones explicitas de la lista 3. La fuente Premium es dinamica y puede
+# volver a anunciar una señal retirada; este denylist evita que una sincronizacion
+# posterior la vuelva a publicar sin una decision manual.
+HIGHFLY_PREMIUM_STABLE_EXCLUDED_SLUGS = frozenset({
+    "nz-sky-sport-1",
+    "now-sky-sports-cricket",
+    "au-fox-sports-504-hd",
+    "now-sky-sports-golf",
+    "us-tennis-channel",
+})
 # tvg-id se mantiene canonico para las cinco entradas que ya poseen EPG. Los
 # ids HighflyPremium.* son nuevos y no colisionan con las listas 1/2.
 HIGHFLY_PREMIUM_STABLE_OVERRIDES = {
@@ -89,41 +94,17 @@ HIGHFLY_PREMIUM_STABLE_OVERRIDES = {
         "country": "GB",
         "logo": "sky-sports-premier-league.png",
     },
-    "nz-sky-sport-1": {
-        "tvg_id": "SkySport1.nz",
-        "name": "Sky Sport 1 NZ",
-        "country": "NZ",
-        "logo": "sky-sport-1-nz.png",
-    },
     "us-espn-hd": {
         "tvg_id": "ESPN.us",
         "name": "ESPN",
         "country": "US",
         "logo": "espn.svg",
     },
-    "now-sky-sports-cricket": {
-        "tvg_id": "HighflyPremium.now-sky-sports-cricket",
-        "name": "Sky Sports Cricket",
-        "country": "GB",
-        "logo": "sky-sports.svg",
-    },
     "es-rally-tv": {
         "tvg_id": "HighflyPremium.es-rally-tv",
         "name": "Rally TV",
         "country": "ES",
         "logo": "sky-sports.svg",
-    },
-    "au-fox-sports-504-hd": {
-        "tvg_id": "HighflyPremium.au-fox-sports-504-hd",
-        "name": "Fox Sports 504",
-        "country": "AU",
-        "logo": "fox-sports.svg",
-    },
-    "now-sky-sports-golf": {
-        "tvg_id": "HighflyPremium.now-sky-sports-golf",
-        "name": "Sky Sports Golf",
-        "country": "GB",
-        "logo": "sky-sports-golf.png",
     },
     "us-marquee-sports-network-hd": {
         "tvg_id": "HighflyPremium.us-marquee-sports-network-hd",
@@ -136,12 +117,6 @@ HIGHFLY_PREMIUM_STABLE_OVERRIDES = {
         "name": "Fox Sports 502",
         "country": "AU",
         "logo": "fox-sports.svg",
-    },
-    "us-tennis-channel": {
-        "tvg_id": "HighflyPremium.us-tennis-channel",
-        "name": "Tennis Channel",
-        "country": "US",
-        "logo": "sky-sports-tennis.png",
     },
     "4k-sky-sports-main-events": {
         "tvg_id": "HighflyPremium.4k-sky-sports-main-events",
@@ -710,18 +685,6 @@ EPG_PROGRAMME_SOURCES = {
 # y se asocian por tvg-id estable para que la activación opcional no altere el
 # resto del catálogo.
 EPG_PROGRAMME_SOURCES.update({
-    "HighflyPremium.now-sky-sports-cricket": (
-        "uk1",
-        "SkySpCricket.HD.uk",
-    ),
-    "HighflyPremium.au-fox-sports-504-hd": (
-        "au1",
-        "FoxFooty.au",
-    ),
-    "HighflyPremium.now-sky-sports-golf": (
-        "uk1",
-        "SkySp.Golf.HD.uk",
-    ),
     "HighflyPremium.us-marquee-sports-network-hd": (
         "us2",
         "Marquee.Sports.Network.HD.us2",
@@ -729,10 +692,6 @@ EPG_PROGRAMME_SOURCES.update({
     "HighflyPremium.au-fox-sports-502-hd": (
         "au1",
         "FoxLeague.au",
-    ),
-    "HighflyPremium.us-tennis-channel": (
-        "us2",
-        "Tennis.Channel.HD.us2",
     ),
     # La versión UHD mantiene la parrilla de Main Event; la fuente agregada
     # no publica un ID UHD independiente y el simulcast es la asociación
@@ -3669,7 +3628,7 @@ def parse_highfly_premium_stable_catalog(payload: bytes | str | dict) -> list[di
         if not isinstance(meta, dict):
             continue
         slug = _highfly_premium_stable_slug(meta.get("id"))
-        if not slug or slug in by_slug:
+        if not slug or slug in HIGHFLY_PREMIUM_STABLE_EXCLUDED_SLUGS or slug in by_slug:
             continue
         override = HIGHFLY_PREMIUM_STABLE_OVERRIDES.get(slug, {})
         tvg_id = _highfly_premium_clean_m3u_text(
@@ -3736,7 +3695,11 @@ def render_highfly_premium_stable_playlist(entries: Iterable[dict[str, str]]) ->
     seen: set[str] = set()
     for entry in entries:
         slug = _highfly_premium_stable_slug(f"leaf:{entry.get('slug', '')}")
-        if not slug or slug in seen:
+        if (
+            not slug
+            or slug in HIGHFLY_PREMIUM_STABLE_EXCLUDED_SLUGS
+            or slug in seen
+        ):
             continue
         seen.add(slug)
         tvg_id = _highfly_premium_clean_m3u_text(entry.get("tvg_id"), 180)
@@ -3807,6 +3770,8 @@ def validate_highfly_premium_stable_playlist(
             raise ValueError("Lista 3 contiene una entrada sin tvg-id estable")
         if not HIGHFLY_PREMIUM_STABLE_ID_PATTERN.fullmatch(f"leaf:{slug}"):
             raise ValueError("Lista 3 contiene un slug Highfly invalido")
+        if slug in HIGHFLY_PREMIUM_STABLE_EXCLUDED_SLUGS:
+            raise ValueError(f"Lista 3 contiene una señal Premium retirada: {slug}")
         if slug in seen:
             raise ValueError(f"Lista 3 repite el slug {slug}")
         if _m3u_attribute(line, "x-highfly-premium-stable").lower() != "true":

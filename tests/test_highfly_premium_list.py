@@ -134,29 +134,46 @@ class HighflyPremiumListTest(unittest.TestCase):
                 ).splitlines()
             )
 
-    def test_new_list3_channels_use_real_epg_mappings(self) -> None:
+    def test_removed_premium_slugs_are_not_republished(self) -> None:
+        removed = {
+            "nz-sky-sport-1",
+            "now-sky-sports-cricket",
+            "au-fox-sports-504-hd",
+            "now-sky-sports-golf",
+            "us-tennis-channel",
+        }
+        payload = {
+            "metas": [
+                {"id": f"leaf:{slug}", "name": slug}
+                for slug in removed
+            ]
+            + [{"id": "leaf:now-sky-sports-f1-free", "name": "F1"}],
+        }
+
+        entries = update_m3u.parse_highfly_premium_stable_catalog(payload)
+        content = update_m3u.render_highfly_premium_stable_playlist(entries)
+
         self.assertEqual(
-            ("uk1", "SkySpCricket.HD.uk"),
-            update_m3u.EPG_PROGRAMME_SOURCES[
-                "HighflyPremium.now-sky-sports-cricket"
-            ],
+            ["now-sky-sports-f1-free"],
+            [item["slug"] for item in entries],
         )
+        for slug in removed:
+            self.assertNotIn(slug, content)
+            self.assertNotIn(f"HighflyPremium.{slug}", update_m3u.EPG_PROGRAMME_SOURCES)
+
+        self.assertIn("x-resolver-id=\"now-sky-sports-f1-free\"", content)
         self.assertEqual(
-            ("uk1", "SkySp.Golf.HD.uk"),
-            update_m3u.EPG_PROGRAMME_SOURCES[
-                "HighflyPremium.now-sky-sports-golf"
-            ],
+            1,
+            update_m3u.validate_highfly_premium_stable_playlist(
+                content.splitlines()
+            ),
         )
+
+    def test_remaining_premium_epg_mapping_is_kept(self) -> None:
         self.assertEqual(
             ("us2", "Marquee.Sports.Network.HD.us2"),
             update_m3u.EPG_PROGRAMME_SOURCES[
                 "HighflyPremium.us-marquee-sports-network-hd"
-            ],
-        )
-        self.assertEqual(
-            ("au1", "FoxFooty.au"),
-            update_m3u.EPG_PROGRAMME_SOURCES[
-                "HighflyPremium.au-fox-sports-504-hd"
             ],
         )
         self.assertEqual(
