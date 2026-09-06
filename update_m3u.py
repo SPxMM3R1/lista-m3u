@@ -56,7 +56,6 @@ HIGHFLY_PREMIUM_STABLE_ORDER = (
     "now-sky-sports-f1-free",
     "now-sky-sports-tennis",
     "now-sky-sports-premier-league",
-    "us-espn-hd",
     "es-rally-tv",
     "us-marquee-sports-network-hd",
     "4k-sky-sports-main-events",
@@ -67,6 +66,7 @@ HIGHFLY_PREMIUM_STABLE_ORDER = (
 # posterior la vuelva a publicar sin una decision manual.
 HIGHFLY_PREMIUM_STABLE_EXCLUDED_SLUGS = frozenset({
     "au-fox-sports-502-hd",
+    "us-espn-hd",
     "nz-sky-sport-1",
     "now-sky-sports-cricket",
     "au-fox-sports-504-hd",
@@ -93,12 +93,6 @@ HIGHFLY_PREMIUM_STABLE_OVERRIDES = {
         "name": "Sky Sports Premier League",
         "country": "GB",
         "logo": "sky-sports-premier-league.png",
-    },
-    "us-espn-hd": {
-        "tvg_id": "ESPN.us",
-        "name": "ESPN",
-        "country": "US",
-        "logo": "espn.svg",
     },
     "es-rally-tv": {
         "tvg_id": "HighflyPremium.es-rally-tv",
@@ -185,7 +179,6 @@ SKY_SPORTS_CHANNEL_ORDER = (
     "Vavoo.uk.SKYSPORTSPREMIERLEAGUE@TvVoo",
     "SkySportsMainEvent.uk@TvVoo",
     "SkySportsArena.uk@TvVoo",
-    "SkySport1.nz",
     "SkySportsFootball.uk@TvVoo",
     "SkySportsMix.uk@TvVoo",
     "SkySportsNews.uk@TvVoo",
@@ -273,9 +266,7 @@ HIGHFLY_MANIFEST_URL = (
 )
 HIGHFLY_RESOLVER_CHANNELS = {
     "SkySportsF1.uk": "now-sky-sports-f1-free",
-    "ESPN.us": "us-espn-hd",
     "SkySportsPremierLeague.uk": "now-sky-sports-premier-league",
-    "SkySport1.nz": "nz-sky-sport-1",
     "SkySportsTennis.uk": "now-sky-sports-tennis",
 }
 
@@ -583,10 +574,8 @@ EPG_PROGRAMME_SOURCES = {
     "XITEHits.nl@Germany": ("plex1", "plex.tv.XITE.Hits.plex"),
     "DWEnglish.de": ("lv", "Deutsche.Welle.English.HD.lv"),
     "France24.fr@English": ("fr", "France.24.Anglais.fr"),
-    "ESPN.us": ("us2", "ESPN.HD.us2"),
     "RewindTV.cl@SD": ("us2", "Rewind.TV.us2"),
     "TyCSports.ar": ("ar1", "Canal.TyC.Sports.ar"),
-    "SkySport1.nz": ("nz1", "Sky.Sport.1.nz"),
     "SkySportsF1.uk": ("uk1", "SkySp.F1.HD.uk"),
     "SkySportsPremierLeague.uk": ("uk1", "SkySp.PL.HD.uk"),
     "SkySportsTennis.uk": ("uk1", "SkySp.Tennis.HD.uk"),

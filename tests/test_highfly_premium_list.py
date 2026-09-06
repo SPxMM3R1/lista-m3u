@@ -59,7 +59,6 @@ class HighflyPremiumListTest(unittest.TestCase):
             [
                 "now-sky-sports-f1-free",
                 "now-sky-sports-tennis",
-                "us-espn-hd",
                 "future-channel",
             ],
             [item["slug"] for item in entries],
@@ -137,6 +136,7 @@ class HighflyPremiumListTest(unittest.TestCase):
     def test_removed_premium_slugs_are_not_republished(self) -> None:
         removed = {
             "au-fox-sports-502-hd",
+            "us-espn-hd",
             "nz-sky-sport-1",
             "now-sky-sports-cricket",
             "au-fox-sports-504-hd",

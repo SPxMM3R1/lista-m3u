@@ -245,16 +245,16 @@ class PlaylistOrderTests(unittest.TestCase):
 
     def test_dynamic_validation_cache_is_short_lived_and_url_bound(self) -> None:
         channel = update_m3u.Channel(
-            name="ESPN",
-            url="https://leaf.highfly.dev/m3u/us-espn-hd/live.m3u8",
+            name="Sky Sports Tennis",
+            url="https://leaf.highfly.dev/m3u/now-sky-sports-tennis/live.m3u8",
             url_line=0,
-            tvg_id="ESPN.us",
-            display_name="ESPN",
+            tvg_id="SkySportsTennis.uk",
+            display_name="Sky Sports Tennis",
         )
         now = datetime(2026, 8, 29, 12, tzinfo=timezone.utc)
         state = {
             "channels": {
-                "ESPN.us": {
+                "SkySportsTennis.uk": {
                     "last_resolver_validated_at": "2026-08-29T11:50:00Z",
                     "resolver_url_hash": update_m3u.resolver_url_fingerprint(
                         channel.url
@@ -271,7 +271,7 @@ class PlaylistOrderTests(unittest.TestCase):
         )
         mismatched_resolver_state = {
             "channels": {
-                "ESPN.us": {
+                "SkySportsTennis.uk": {
                     "resolver": "tvvoo",
                     "last_resolver_validated_at": "2026-08-29T11:50:00Z",
                     "resolver_url_hash": update_m3u.resolver_url_fingerprint(
@@ -303,7 +303,7 @@ class PlaylistOrderTests(unittest.TestCase):
         )
         expired_state = {
             "channels": {
-                "ESPN.us": {
+                "SkySportsTennis.uk": {
                     "last_resolver_validated_at": "2026-08-29T11:00:00Z",
                     "resolver_url_hash": update_m3u.resolver_url_fingerprint(
                         channel.url
@@ -325,10 +325,10 @@ class PlaylistOrderTests(unittest.TestCase):
             tvg_id="SkySportsArena.uk@TvVoo",
         )
         highfly = update_m3u.Channel(
-            name="ESPN",
-            url="https://leaf.highfly.dev/m3u/us-espn-hd/live.m3u8",
+            name="Sky Sports Tennis",
+            url="https://leaf.highfly.dev/m3u/now-sky-sports-tennis/live.m3u8",
             url_line=0,
-            tvg_id="ESPN.us",
+            tvg_id="SkySportsTennis.uk",
         )
 
         self.assertEqual(
@@ -345,13 +345,13 @@ class PlaylistOrderTests(unittest.TestCase):
 
     def test_dynamic_refresh_outcome_does_not_mutate_playlist_from_worker(self) -> None:
         channel = update_m3u.Channel(
-            name="ESPN",
-            url="https://leaf.highfly.dev/m3u/us-espn-hd/live.m3u8",
+            name="Sky Sports Tennis",
+            url="https://leaf.highfly.dev/m3u/now-sky-sports-tennis/live.m3u8",
             url_line=1,
-            tvg_id="ESPN.us",
+            tvg_id="SkySportsTennis.uk",
         )
         current = update_m3u.CheckResult(channel.name, channel.url, False, "expired")
-        replacement = "https://leaf.highfly.dev/m3u/us-espn-hd/live-v2.m3u8"
+        replacement = "https://leaf.highfly.dev/m3u/now-sky-sports-tennis/live-v2.m3u8"
         lines = ["#EXTM3U", channel.url]
         with patch.object(
             update_m3u,
@@ -563,9 +563,9 @@ class PlaylistOrderTests(unittest.TestCase):
     def test_resolver_attributes_survive_group_normalization(self) -> None:
         lines = [
             "#EXTM3U",
-            '#EXTINF:-1 tvg-id="ESPN.us" group-title="PRUEBA" '
-            'x-resolver="highfly" x-resolver-id="us-espn-hd",ESPN',
-            "https://example.invalid/espn.m3u8",
+            '#EXTINF:-1 tvg-id="SkySportsTennis.uk" group-title="PRUEBA" '
+            'x-resolver="highfly" x-resolver-id="now-sky-sports-tennis",Sky Sports Tennis',
+            "https://example.invalid/sky-tennis.m3u8",
         ]
 
         update_m3u.order_channels_by_content(lines)
@@ -573,7 +573,7 @@ class PlaylistOrderTests(unittest.TestCase):
         info_line = next(line for line in lines if line.startswith("#EXTINF:"))
         self.assertIn('group-title="Deportes"', info_line)
         self.assertIn('x-resolver="highfly"', info_line)
-        self.assertIn('x-resolver-id="us-espn-hd"', info_line)
+        self.assertIn('x-resolver-id="now-sky-sports-tennis"', info_line)
 
     def test_selected_misc_channels_follow_national_news(self) -> None:
         lines = [
@@ -682,8 +682,8 @@ class PlaylistOrderTests(unittest.TestCase):
             extinf("0104", "TVN", "Nacionales"),
             "https://example.invalid/tvn.m3u8",
             "# Deportes",
-            extinf("ESPN.us", "ESPN", "Deportes"),
-            "https://example.invalid/espn.m3u8",
+            extinf("Vavoo.uk.SKYNEWS@TvVoo", "Sky News Reino Unido", "Noticias internacionales"),
+            "https://example.invalid/sky-news.m3u8",
         ]
         channels = update_m3u.parse_channels(lines)
 
@@ -695,13 +695,13 @@ class PlaylistOrderTests(unittest.TestCase):
             lines, channels, {"0104"}
         )
         externa = update_m3u.filter_playlist_to_channel_ids(
-            lines, channels, {"ESPN.us"}
+            lines, channels, {"Vavoo.uk.SKYNEWS@TvVoo"}
         )
         self.assertEqual(
             [item.name for item in update_m3u.parse_channels(principal)], ["TVN"]
         )
         self.assertEqual(
-            [item.name for item in update_m3u.parse_channels(externa)], ["ESPN"]
+            [item.name for item in update_m3u.parse_channels(externa)], ["Sky News Reino Unido"]
         )
         self.assertNotIn("# Deportes", principal)
         self.assertNotIn("# Nacionales", externa)
@@ -791,10 +791,10 @@ class PlaylistOrderTests(unittest.TestCase):
                 tvg_id="SkySportsTennis.uk",
             ),
             update_m3u.Channel(
-                name="ESPN",
-                url="https://leaf.highfly.dev/m3u/us-espn-hd/live.m3u8",
+                name="Sky News Reino Unido",
+                url="https://example.invalid/sky-news.m3u8",
                 url_line=2,
-                tvg_id="ESPN.us",
+                tvg_id="Vavoo.uk.SKYNEWS@TvVoo",
             ),
             update_m3u.Channel(
                 name="Sky Sports Main Event",
@@ -1225,11 +1225,11 @@ class PlaylistOrderTests(unittest.TestCase):
             display_name="TVN",
         )
         external = update_m3u.Channel(
-            name="ESPN",
-            url="https://example.invalid/espn.m3u8",
+            name="Sky Sports Arena",
+            url="https://example.invalid/arena.m3u8",
             url_line=1,
-            tvg_id="ESPN.us",
-            display_name="ESPN",
+            tvg_id="SkySportsArena.uk@TvVoo",
+            display_name="Sky Sports Arena",
         )
         results = [
             update_m3u.CheckResult(principal.name, principal.url, False, "down"),
@@ -1269,17 +1269,17 @@ class PlaylistOrderTests(unittest.TestCase):
         actions = {item["name"]: item["publication_action"] for item in report["channels"]}
         playlists = {item["name"]: item["playlist"] for item in report["channels"]}
         self.assertEqual(actions["TVN"], "retained_main_unavailable")
-        self.assertEqual(actions["ESPN"], "available_in_external")
+        self.assertEqual(actions["Sky Sports Arena"], "available_in_external")
         self.assertEqual(playlists["TVN"], "main")
-        self.assertEqual(playlists["ESPN"], "external")
+        self.assertEqual(playlists["Sky Sports Arena"], "external")
         self.assertEqual(report["playlists"]["main"]["candidate_channels"], 1)
         self.assertEqual(report["playlists"]["external"]["candidate_channels"], 1)
-        espn_state = health_state["channels"]["ESPN.us"]
+        arena_state = health_state["channels"]["SkySportsArena.uk@TvVoo"]
         self.assertEqual(
-            espn_state["resolver_url_hash"],
+            arena_state["resolver_url_hash"],
             update_m3u.resolver_url_fingerprint(external.url),
         )
-        self.assertTrue(espn_state["last_resolver_validated_at"])
+        self.assertTrue(arena_state["last_resolver_validated_at"])
         self.assertNotIn(external.url, json.dumps(health_state))
 
 
