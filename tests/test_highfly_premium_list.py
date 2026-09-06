@@ -223,6 +223,14 @@ class HighflyPremiumListTest(unittest.TestCase):
                 "/logos/sky-sports-tennis-ii.svg"
             )
         )
+        for filename in ("sky-sports-f1-dark.svg", "sky-sports-tennis-ii.svg"):
+            svg = (Path(update_m3u.__file__).parent / "logos" / filename).read_text(
+                encoding="utf-8"
+            )
+            self.assertIn(
+                '<rect width="100%" height="100%" fill="#fff"/>',
+                svg,
+            )
 
     def test_rally_official_epg_reads_only_linear_cards(self) -> None:
         cards = []
