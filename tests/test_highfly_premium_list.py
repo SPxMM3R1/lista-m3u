@@ -136,6 +136,7 @@ class HighflyPremiumListTest(unittest.TestCase):
 
     def test_removed_premium_slugs_are_not_republished(self) -> None:
         removed = {
+            "au-fox-sports-502-hd",
             "nz-sky-sport-1",
             "now-sky-sports-cricket",
             "au-fox-sports-504-hd",
@@ -174,12 +175,6 @@ class HighflyPremiumListTest(unittest.TestCase):
             ("us2", "Marquee.Sports.Network.HD.us2"),
             update_m3u.EPG_PROGRAMME_SOURCES[
                 "HighflyPremium.us-marquee-sports-network-hd"
-            ],
-        )
-        self.assertEqual(
-            ("au1", "FoxLeague.au"),
-            update_m3u.EPG_PROGRAMME_SOURCES[
-                "HighflyPremium.au-fox-sports-502-hd"
             ],
         )
 

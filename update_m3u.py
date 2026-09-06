@@ -59,7 +59,6 @@ HIGHFLY_PREMIUM_STABLE_ORDER = (
     "us-espn-hd",
     "es-rally-tv",
     "us-marquee-sports-network-hd",
-    "au-fox-sports-502-hd",
     "4k-sky-sports-main-events",
     "now-sky-sports-f1-2",
 )
@@ -67,6 +66,7 @@ HIGHFLY_PREMIUM_STABLE_ORDER = (
 # volver a anunciar una señal retirada; este denylist evita que una sincronizacion
 # posterior la vuelva a publicar sin una decision manual.
 HIGHFLY_PREMIUM_STABLE_EXCLUDED_SLUGS = frozenset({
+    "au-fox-sports-502-hd",
     "nz-sky-sport-1",
     "now-sky-sports-cricket",
     "au-fox-sports-504-hd",
@@ -111,12 +111,6 @@ HIGHFLY_PREMIUM_STABLE_OVERRIDES = {
         "name": "Marquee Sports Network",
         "country": "US",
         "logo": "marquee-sports-network.svg",
-    },
-    "au-fox-sports-502-hd": {
-        "tvg_id": "HighflyPremium.au-fox-sports-502-hd",
-        "name": "Fox Sports 502",
-        "country": "AU",
-        "logo": "fox-sports.svg",
     },
     "4k-sky-sports-main-events": {
         "tvg_id": "HighflyPremium.4k-sky-sports-main-events",
@@ -688,10 +682,6 @@ EPG_PROGRAMME_SOURCES.update({
     "HighflyPremium.us-marquee-sports-network-hd": (
         "us2",
         "Marquee.Sports.Network.HD.us2",
-    ),
-    "HighflyPremium.au-fox-sports-502-hd": (
-        "au1",
-        "FoxLeague.au",
     ),
     # La versión UHD mantiene la parrilla de Main Event; la fuente agregada
     # no publica un ID UHD independiente y el simulcast es la asociación
