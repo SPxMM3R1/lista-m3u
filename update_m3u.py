@@ -147,13 +147,13 @@ HIGHFLY_PREMIUM_STABLE_OVERRIDES = {
         "tvg_id": "HighflyPremium.4k-sky-sports-main-events",
         "name": "Sky Sports Main Event UHD",
         "country": "GB",
-        "logo": "sky-sports-main-event-uhd.png",
+        "logo": "sky-sports-main-event-uhd.svg",
     },
     "now-sky-sports-f1-2": {
         "tvg_id": "HighflyPremium.now-sky-sports-f1-2",
         "name": "Sky Sports F1 UHD",
         "country": "GB",
-        "logo": "sky-sports-f1-uhd.png",
+        "logo": "sky-sports-f1-uhd.svg",
     },
 }
 EPG_PATH = Path(__file__).with_name("epg.xml")
@@ -174,6 +174,17 @@ TVVOO_RECIPE_ID = "bounded-payload-v1"
 TVVOO_VALIDATION_MODE = "media-signature-v1"
 MAIN_PLAYLIST_RESOLVERS = frozenset({"direct", "tvn", "meganoticias"})
 EXTERNAL_PLAYLIST_RESOLVERS = frozenset({"tvvoo", "highfly"})
+# La lista 2 conserva todas las fuentes directas y los resolutores que no son
+# TvVoo. Para TvVoo solo se publican las familias solicitadas para pruebas:
+# Sky, Eurosport, ESPN y TNT Sports. El filtro usa el ID y el nombre porque
+# los aliases de Vavoo pueden cambiar de idioma o de país sin cambiar la
+# señal lógica.
+EXTERNAL_VAVOO_ALLOWED_BRAND_PATTERNS = (
+    re.compile(r"(?<![a-z])sky", re.IGNORECASE),
+    re.compile(r"(?<![a-z])eurosport", re.IGNORECASE),
+    re.compile(r"(?<![a-z])espn", re.IGNORECASE),
+    re.compile(r"(?<![a-z])tnt[\s._-]*sports", re.IGNORECASE),
+)
 # Estas senales dinamicas conservan su resolutor para renovar la fuente justo
 # antes de reproducir. El orden visual del catalogo comienza en el F1 de
 # Highfly, seguido inmediatamente por su Tennis de Highfly. Despues se
@@ -3093,6 +3104,38 @@ def publication_playlist_for(
     return "main" if channel.tvg_id in main_channel_ids else "external"
 
 
+def external_vavoo_channel_is_allowed(channel: Channel) -> bool:
+    """Return whether a TvVoo candidate is allowed in the public list 2.
+
+    Direct channels and non-TvVoo resolvers are intentionally accepted here;
+    the policy narrows only the Vavoo/TvVoo portion of the external catalogue.
+    """
+    if (
+        resolver_engine_for(channel) != "tvvoo"
+        and "@tvvoo" not in channel.tvg_id.casefold()
+    ):
+        return True
+    searchable = " ".join(
+        value
+        for value in (channel.tvg_id, channel.name, channel.display_name)
+        if value
+    )
+    return any(pattern.search(searchable) for pattern in EXTERNAL_VAVOO_ALLOWED_BRAND_PATTERNS)
+
+
+def external_publication_channel_ids(
+    channels: list[Channel],
+    external_ids: set[str] | frozenset[str],
+) -> frozenset[str]:
+    """Return list-2 IDs after applying the narrow TvVoo brand policy."""
+    return frozenset(
+        channel.tvg_id
+        for channel in channels
+        if channel.tvg_id in external_ids
+        and external_vavoo_channel_is_allowed(channel)
+    )
+
+
 def is_direct_probe(channel: Channel) -> bool:
     """Return whether a direct channel is intentionally kept for live testing."""
     return (
@@ -3368,8 +3411,9 @@ def validate_public_playlist_partition(
     main_lines: list[str],
     external_lines: list[str],
     expected_main_ids: set[str] | frozenset[str],
+    expected_external_ids: set[str] | frozenset[str] | None = None,
 ) -> dict[str, int]:
-    """Prove that manual membership and resolver records survived generation."""
+    """Prove that both public lists match their explicit membership policy."""
     catalog = playlist_records_by_id(catalog_lines, label=CHANNEL_CATALOG_PATH.name)
     main = playlist_records_by_id(main_lines, label=DEFAULT_PLAYLIST.name)
     external = playlist_records_by_id(
@@ -3392,7 +3436,23 @@ def validate_public_playlist_partition(
             "la automatizacion altero la membresia manual de m3u.m3u; "
             f"faltan={missing}, agregados={added}"
         )
-    expected_external = catalog_ids - expected_main
+    expected_external = (
+        catalog_ids - expected_main
+        if expected_external_ids is None
+        else set(expected_external_ids)
+    )
+    unknown_external = sorted(expected_external - catalog_ids)
+    if unknown_external:
+        raise ValueError(
+            "la lista externa contiene IDs fuera del catalogo: "
+            + ", ".join(unknown_external)
+        )
+    overlap_expected = sorted(expected_main.intersection(expected_external))
+    if overlap_expected:
+        raise ValueError(
+            "la politica publica repite canales entre listas: "
+            + ", ".join(overlap_expected)
+        )
     if set(external) != expected_external:
         missing = sorted(expected_external - set(external))
         added = sorted(set(external) - expected_external)
@@ -8381,6 +8441,7 @@ def write_report(
     dynamic_refresh_status: dict[str, dict] | None = None,
     automatic_partition_actions: dict[str, str] | None = None,
     automatic_demoted_main_ids: set[str] | frozenset[str] = frozenset(),
+    external_channel_ids: set[str] | frozenset[str] | None = None,
 ) -> dict:
     """Write a token-free run report and update persistent channel health.
 
@@ -8652,6 +8713,12 @@ def write_report(
                     }
                     else "published_in_main"
                 )
+        elif (
+            external_channel_ids is not None
+            and entry["tvg_id"] not in external_channel_ids
+        ):
+            entry["published"] = False
+            entry["publication_action"] = "filtered_external_policy"
         else:
             entry["published"] = True
             if entry["automatic_partition_action"] == "moved_to_external":
@@ -8785,6 +8852,11 @@ def write_report(
                 for entry in external_entries
                 if entry["published"] is True
             ),
+            "filtered_channels": sum(
+                1
+                for entry in external_entries
+                if entry.get("publication_action") == "filtered_external_policy"
+            ),
             "epg_required": False,
             "epg_ok": None,
             "publication_ready": external_ready,
@@ -8825,6 +8897,11 @@ def write_report(
             "retained_main_unavailable": len(main_unavailable_entries),
             "external_available": len(external_working_entries),
             "external_unavailable": len(external_unavailable_entries),
+            "external_published": sum(
+                1
+                for entry in external_entries
+                if entry["published"] is True
+            ),
             "systemic_direct_failure": systemic_direct_failure,
             "systemic_direct_failure_threshold": systemic_threshold,
             "published_channels": sum(
@@ -9033,6 +9110,13 @@ def main() -> int:
             DEFAULT_PLAYLIST.read_text(encoding="utf-8-sig").splitlines(),
             EXTERNAL_PLAYLIST.read_text(encoding="utf-8-sig").splitlines(),
             manual_main_ids,
+            expected_external_ids=external_publication_channel_ids(
+                catalogue_before_update,
+                frozenset(
+                    set(stable_channel_ids(catalogue_before_update, label="channel-catalog.m3u"))
+                    - set(manual_main_ids)
+                ),
+            ),
         )
         return 0
     removed_channels = remove_permanently_removed_channels(
@@ -9348,6 +9432,10 @@ def main() -> int:
             + ", ".join(missing_manual_ids)
         )
     external_ids = frozenset(set(catalogue_ids) - set(effective_main_ids))
+    external_publication_ids = external_publication_channel_ids(
+        final_channels,
+        external_ids,
+    )
     main_publication_channels = [
         channel
         for channel in final_channels
@@ -9401,6 +9489,7 @@ def main() -> int:
         dynamic_refresh_status=dynamic_refresh_status,
         automatic_partition_actions=automatic_partition_actions,
         automatic_demoted_main_ids=new_automatic_demoted_main_ids,
+        external_channel_ids=external_publication_ids,
     )
     main_publication = report["playlists"]["main"]
     external_publication = report["playlists"]["external"]
@@ -9412,13 +9501,14 @@ def main() -> int:
     candidate_external_lines = filter_playlist_to_channel_ids(
         final_lines,
         final_channels,
-        external_ids,
+        external_publication_ids,
     )
     validate_public_playlist_partition(
         final_lines,
         candidate_main_lines,
         candidate_external_lines,
         effective_main_ids,
+        expected_external_ids=external_publication_ids,
     )
     main_working_count = sum(
         1
@@ -9428,7 +9518,7 @@ def main() -> int:
     external_working_count = sum(
         1
         for channel, result in zip(final_channels, results)
-        if channel.tvg_id in external_ids and result.ok
+        if channel.tvg_id in external_publication_ids and result.ok
     )
     # La membresia de la lista 1 sigue siendo manual salvo la excepcion
     # automatica y reversible de 13C. La EPG se construye sobre el catalogo
@@ -9461,8 +9551,9 @@ def main() -> int:
         )
         print(
             f"M3U externa: {len(external_ids)} candidatos no promovidos; "
+            f"{len(external_publication_ids)} publicados tras el filtro TvVoo; "
             f"{external_working_count} activos y "
-            f"{len(external_ids) - external_working_count} no disponibles"
+            f"{len(external_publication_ids) - external_working_count} no disponibles"
         )
     else:
         print(

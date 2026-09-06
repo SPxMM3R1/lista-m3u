@@ -22,6 +22,70 @@ class PlaylistOrderTests(unittest.TestCase):
             self.assertTrue(alias.is_file(), alias)
             self.assertEqual(alias.read_bytes(), canonical.read_bytes())
 
+    def test_external_policy_keeps_direct_and_selected_vavoo_brands(self) -> None:
+        channels = [
+            update_m3u.Channel(
+                name="Canal directo",
+                url="https://example.invalid/direct.m3u8",
+                url_line=0,
+                tvg_id="direct.example",
+            ),
+            update_m3u.Channel(
+                name="Vavoo ESPN test",
+                url="https://example.invalid/espn.m3u8",
+                url_line=0,
+                tvg_id="Vavoo.test.ESPN@TvVoo",
+            ),
+            update_m3u.Channel(
+                name="Vavoo TNT Sports test",
+                url="https://example.invalid/tnt.m3u8",
+                url_line=0,
+                tvg_id="Vavoo.test.TNT@TvVoo",
+            ),
+            update_m3u.Channel(
+                name="Alias compacto permitido",
+                url="https://example.invalid/tnt2.m3u8",
+                url_line=0,
+                tvg_id="Vavoo.test.TNTSPORTS2@TvVoo",
+            ),
+            update_m3u.Channel(
+                name="Vavoo general news test",
+                url="https://example.invalid/news.m3u8",
+                url_line=0,
+                tvg_id="Vavoo.test.NEWS@TvVoo",
+            ),
+            update_m3u.Channel(
+                name="Premium Highfly test",
+                url="https://leaf.highfly.dev/m3u/us-espn-hd/live.m3u8",
+                url_line=0,
+                tvg_id="ESPN.us",
+            ),
+        ]
+        with patch.object(
+            update_m3u,
+            "TVVOO_STREAM_RESOLVER_IDS",
+            {
+                "Vavoo ESPN test": ("espn",),
+                "Vavoo TNT Sports test": ("tnt",),
+                "Vavoo general news test": ("news",),
+            },
+        ):
+            selected = update_m3u.external_publication_channel_ids(
+                channels,
+                {channel.tvg_id for channel in channels},
+            )
+
+        self.assertEqual(
+            selected,
+            {
+                "direct.example",
+                "Vavoo.test.ESPN@TvVoo",
+                "Vavoo.test.TNT@TvVoo",
+                "Vavoo.test.TNTSPORTS2@TvVoo",
+                "ESPN.us",
+            },
+        )
+
     def test_official_channel_pages_cover_chv_deportes_13c_and_rudo_upgrades(self) -> None:
         self.assertIn(
             "https://www.chilevision.cl/deportes/senal-online/",
@@ -393,8 +457,20 @@ class PlaylistOrderTests(unittest.TestCase):
         self.assertTrue(
             all(channel.tvg_id not in {item.tvg_id for item in main_channels} for channel in restored)
         )
+        external_ids = update_m3u.external_publication_channel_ids(
+            catalog_channels,
+            {
+                channel.tvg_id
+                for channel in catalog_channels
+                if channel.tvg_id not in {item.tvg_id for item in main_channels}
+            },
+        )
         self.assertTrue(
-            all(channel.tvg_id in {item.tvg_id for item in external_channels} for channel in restored)
+            all(
+                (channel.tvg_id in {item.tvg_id for item in external_channels})
+                == (channel.tvg_id in external_ids)
+                for channel in restored
+            )
         )
         for channel in restored:
             self.assertEqual(

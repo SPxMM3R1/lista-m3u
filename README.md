@@ -247,11 +247,17 @@ disponible sin depender de servidores externos.
 
 El orden tematico se construye siempre desde `channel-catalog.m3u`, que
 conserva todos los candidatos. `m3u.m3u` contiene la selección manual ya
-probada; `m3u-externa.m3u` contiene el complemento aún no promovido. Ambas
-salidas filtran el mismo catalogo sin alterar la posicion relativa de los
+probada; `m3u-externa.m3u` contiene el complemento publicable aún no promovido.
+Ambas salidas filtran el mismo catalogo sin alterar la posicion relativa de los
 canales. `3.m3u` es una salida separada para las señales estables de Highfly
 Premium y no participa en el reparto manual de las listas 1 y 2. La salud no
 cambia el reparto manual salvo el traslado automático y reversible de 13C.
+
+La lista externa conserva todos los canales directos. Para los candidatos con
+`x-resolver="tvvoo"`, la política de publicación de la lista 2 conserva solo
+las familias Sky, Eurosport, ESPN y TNT Sports. Los demás Vavoo no se borran
+del `channel-catalog.m3u`: quedan fuera de `m3u-externa.m3u` y `2.m3u`, pero
+siguen disponibles para EPG, validación y una futura revisión de selección.
 
 1. Nacionales
 2. Noticias nacionales
@@ -284,9 +290,10 @@ Las antiguas sondas directas de Sky (`@Direct`/`(Directo)`) ya no forman parte
 de ninguna lista pública. Las señales Sky que permanecen son las que tienen un
 resolutor renovable o una fuente seleccionada explícitamente.
 
-Las entradas históricas restauradas para investigación pertenecen únicamente a
-la lista 2. Se conservan en `channel-catalog.m3u` para que cada corrida pueda
-revalidar sus aliases y regenerar `m3u-externa.m3u`/`2.m3u`; no se deben mover a
+Las entradas históricas restauradas para investigación pertenecen al catálogo
+externo. Solo las que cumplen la política de publicación de la lista 2 llegan
+a `m3u-externa.m3u`/`2.m3u`; todas se conservan en `channel-catalog.m3u` para
+que cada corrida pueda revalidar sus aliases y EPG. No se deben mover a
 `m3u.m3u` mediante un cambio automático de salud. La excepción controlada es
 13C, cuyo traslado y recuperación quedan registrados en
 `channel-health-state.json`. Las variantes renombradas

@@ -17,10 +17,12 @@ clases Android ni mezclar commits.
 - Identidades descubiertas de TvVoo: `tvvoo-discovered.json`.
 - Guía compartida para todo el inventario: `epg.xml`.
 
-La pertenencia manual no cambia con esta receta: los mismos 42 canales siguen
-en la principal y el complemento permanece en la externa. En la última siembra
-el reparador trabaja sobre 225 canales del catálogo; el descubrimiento diario
-puede aumentar ese complemento dentro de su límite seguro.
+La pertenencia manual no cambia con esta receta: `m3u.m3u` conserva su
+selección explícita y la lista externa se genera desde el complemento del
+catálogo aplicando su política de publicación. La lista 2 conserva todas las
+fuentes directas y, entre las fuentes TvVoo, solo Sky, Eurosport, ESPN y TNT
+Sports. Los demás candidatos siguen en `channel-catalog.m3u` para validación y
+EPG, aunque no se publiquen en `m3u-externa.m3u`/`2.m3u`.
 
 `3.m3u` no es una promoción automática de la lista principal ni de la externa.
 Es una fuente opcional que VibeM3U puede activar o desactivar por separado para
