@@ -72,10 +72,12 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
 - prioriza enlaces descubiertos desde las paginas oficiales del emisor al
   reparar una senal; los respaldos conocidos solo se prueban despues;
 - no modifica `epg.xml`: la EPG tiene un proceso independiente;
-- usa los `tvg-id` presentes en `m3u.m3u` como membresía manual persistente:
-  ningún fallo de salud elimina o mueve un canal de la principal;
-- publica `m3u-externa.m3u` como el complemento exacto de `channel-catalog.m3u`:
-  un canal puede responder y seguir allí hasta que se promueva manualmente;
+- usa los `tvg-id` presentes en `m3u.m3u` como membresía manual persistente;
+  la única excepción es `13C.cl@SD`, que después de tres fallos consecutivos
+  puede pasar temporalmente a la externa y volver automáticamente al recuperar;
+- publica `m3u-externa.m3u` como el complemento exacto de `channel-catalog.m3u`,
+  incluyendo los traslados automáticos reversibles; un canal puede responder y
+  seguir allí hasta que se promueva manualmente o se recupere por esa política;
 - al mover manualmente un canal desde la lista externa a `m3u.m3u`, adopta la
   misma protección permanente de todos los miembros de la principal;
 - conserva el orden temático definido en `channel-catalog.m3u` en ambas salidas;
@@ -149,14 +151,15 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
   ejecucion; tambien conserva un issue de GitHub con el historial detallado.
 - `channel-health-state.json` conserva solo la hora de validacion dinamica y una
   huella irreversible de la URL; no guarda tokens, claves ni URLs de sesion.
-- reintenta y repara todos los canales, tanto principales como externos, sin
-  cambiar su membresía; `channel-catalog.m3u` conserva el inventario completo;
+- reintenta y repara todos los canales, tanto principales como externos; la
+  membresía solo cambia mediante edición manual salvo la política reversible de
+  13C; `channel-catalog.m3u` conserva el inventario completo;
 - las sondas antiguas de Sky identificadas con `@Direct` fueron retiradas de
   forma permanente; no se vuelven a publicar aunque el origen las entregue o
   fallen sus comprobaciones;
 - si falla simultaneamente al menos el 25% de las fuentes directas, bloquea la
   publicación como posible problema sistémico del runner o de la red, sin
-  eliminar ni mover canales entre listas.
+  eliminar canales ni cambiar las membresías manuales no gestionadas.
 
 El descubrimiento de catálogo (`discover-tvvoo.yml` / `discover_tvvoo_catalog.py`)
 corre una vez al día a las 03:15, separado de los procesos de canales y EPG.
@@ -247,8 +250,8 @@ conserva todos los candidatos. `m3u.m3u` contiene la selección manual ya
 probada; `m3u-externa.m3u` contiene el complemento aún no promovido. Ambas
 salidas filtran el mismo catalogo sin alterar la posicion relativa de los
 canales. `3.m3u` es una salida separada para las señales estables de Highfly
-Premium y no participa en el reparto manual de las listas 1 y 2. La salud y la
-recuperación de una fuente no cambian ese reparto.
+Premium y no participa en el reparto manual de las listas 1 y 2. La salud no
+cambia el reparto manual salvo el traslado automático y reversible de 13C.
 
 1. Nacionales
 2. Noticias nacionales
@@ -270,10 +273,11 @@ XMLTV, resolutores ni URLs de respaldo.
 
 El catalogo contiene los candidatos nacionales, noticias, miscelaneos
 chilenos, noticias internacionales, documentales, conciertos, musica y
-deportes. `m3u.m3u` es la selección principal editada manualmente y ningún
-canal sale de ella por fallar. `m3u-externa.m3u` contiene los candidatos que aún
-no se han promovido. El reparto solo cambia mediante una edición manual; el
-reparador y los resolutores trabajan sobre ambas listas. El catalogo no pierde
+deportes. `m3u.m3u` es la selección principal editada manualmente; ningún canal
+sale de ella por un fallo aislado. `13C.cl@SD` es una excepción controlada:
+después de tres fallos consecutivos puede pasar temporalmente a
+`m3u-externa.m3u` y vuelve a la principal tras una validación correcta. El
+reparador y los resolutores trabajan sobre ambas listas y el catalogo no pierde
 ninguna entrada elegible.
 
 Las antiguas sondas directas de Sky (`@Direct`/`(Directo)`) ya no forman parte
@@ -283,7 +287,9 @@ resolutor renovable o una fuente seleccionada explícitamente.
 Las entradas históricas restauradas para investigación pertenecen únicamente a
 la lista 2. Se conservan en `channel-catalog.m3u` para que cada corrida pueda
 revalidar sus aliases y regenerar `m3u-externa.m3u`/`2.m3u`; no se deben mover a
-`m3u.m3u` mediante un cambio automático de salud. Las variantes renombradas
+`m3u.m3u` mediante un cambio automático de salud. La excepción controlada es
+13C, cuyo traslado y recuperación quedan registrados en
+`channel-health-state.json`. Las variantes renombradas
 `DAZN F1 España` y `Sky Sports F1 Reino Unido` no se duplican: sus aliases se
 mantienen bajo `DAZN F1` y `Sky F1 UK`, respectivamente.
 

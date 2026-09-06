@@ -206,13 +206,13 @@ def render(report: dict) -> str:
             "",
             "## Criterio de mantenimiento",
             "",
-            "- `m3u.m3u` define una membresía manual persistente por `tvg-id`: ningún fallo de salud mueve o elimina sus canales.",
+            "- `m3u.m3u` define una membresía manual persistente por `tvg-id`; la única excepción es el traslado reversible de 13C tras tres fallos consecutivos.",
             "- Promover manualmente un canal desde `m3u-externa.m3u` a `m3u.m3u` lo convierte en miembro permanente de la principal desde la siguiente ejecución.",
-            "- `m3u-externa.m3u` contiene exactamente el complemento no promovido de `channel-catalog.m3u`; un canal puede responder y seguir allí hasta que se promueva manualmente.",
-            "- El reparador automático, las renovaciones TvVoo/Highfly y la validación HLS se ejecutan para todos los canales sin alterar su lista asignada.",
+            "- `m3u-externa.m3u` contiene el complemento no promovido de `channel-catalog.m3u` más los traslados automáticos reversibles; un canal puede responder y seguir allí hasta que se promueva manualmente o se recupere.",
+            "- El reparador automático, las renovaciones TvVoo/Highfly y la validación HLS se ejecutan para todos los canales; 13C vuelve a la principal después de una validación correcta.",
             "- `m3u.m3u` solo se reemplaza cuando el 100% de su membresía tiene EPG XMLTV vigente y validada para al menos 24 horas; si la compuerta falla, se conserva la versión anterior.",
             "- La EPG conserva la cobertura del catálogo completo para que todos los candidatos tengan su `tvg-id` y programación preparados.",
-            "- Una caída simultánea de al menos el 25% de las fuentes directas bloquea la publicación como posible fallo sistémico del runner o la red, pero no cambia membresías.",
+            "- Una caída simultánea de al menos el 25% de las fuentes directas bloquea la publicación como posible fallo sistémico del runner o la red, pero no cambia membresías manuales no gestionadas.",
             "- El informe omite URLs completas, tokens y parámetros de sesión.",
         ]
     )

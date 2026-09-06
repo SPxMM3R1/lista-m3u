@@ -847,6 +847,11 @@ RED_BULL_CHILE_URL = (
 # el margen informativo para una guia que termina pronto, no una quinta ventana.
 EPG_REFRESH_INTERVAL = timedelta(hours=6)
 HEALTH_FAILURE_THRESHOLD = 1
+# 13C es la unica senal de la lista principal que se administra con una
+# traslado temporal automatico. Se conserva en el catalogo y en la EPG; solo
+# cambia su salida publica despues de varios fallos consecutivos.
+AUTO_MAIN_DEMOTION_FAILURE_THRESHOLD = 3
+AUTO_RECOVERABLE_MAIN_CHANNEL_IDS = frozenset({"13C.cl@SD"})
 PUBLISHED_EPG_FALLBACK_SOURCE = "epg-publicada-conservada"
 # El coordinador puede adelantar la siguiente ejecucion cuando una fuente real
 # termina antes de las 6 horas. Los bloques de continuidad no cuentan para
@@ -2958,9 +2963,9 @@ def filter_playlist_to_channel_ids(
     """Select a stable-ID subset of the canonical catalogue.
 
     ``channel-catalog.m3u`` remains the canonical inventory. Only the EXTINF
-    and URL lines whose stable ``tvg-id`` is not selected are omitted. Health
-    never participates in this decision: the main list supplies its own manual
-    membership and the external list receives the catalogue complement.
+    and URL lines whose stable ``tvg-id`` is not selected are omitted. The
+    selected IDs are normally the manual main membership, with the explicit
+    automatic 13C demotion/recovery policy already applied by the caller.
     """
     selected = set(selected_ids)
     omitted_indexes: set[int] = set()
@@ -3084,7 +3089,7 @@ def publication_playlist_for(
     channel: Channel,
     main_channel_ids: set[str] | frozenset[str],
 ) -> str:
-    """Return the manual public-list assignment, independent of health."""
+    """Return the effective public-list assignment for this run."""
     return "main" if channel.tvg_id in main_channel_ids else "external"
 
 
@@ -7873,6 +7878,98 @@ def load_health_state() -> dict:
     return state if isinstance(state, dict) else {}
 
 
+def automatic_demoted_main_ids(
+    health_state: dict,
+    catalog_ids: set[str] | frozenset[str],
+) -> frozenset[str]:
+    """Return managed main-list IDs currently held in the external output.
+
+    The public M3U is the durable output, so an automatically demoted channel
+    is no longer present in ``m3u.m3u`` on the next run. This small state block
+    lets the updater still recognize that the channel was originally selected
+    for the main list and can be restored after a successful validation.
+    """
+    partition = health_state.get("automatic_partition", {})
+    if not isinstance(partition, dict):
+        return frozenset()
+    raw_ids = partition.get("demoted_main_ids", [])
+    if not isinstance(raw_ids, list):
+        return frozenset()
+    catalog = set(catalog_ids)
+    return frozenset(
+        str(channel_id)
+        for channel_id in raw_ids
+        if str(channel_id) in AUTO_RECOVERABLE_MAIN_CHANNEL_IDS
+        and str(channel_id) in catalog
+    )
+
+
+def apply_automatic_main_partition(
+    channels: list[Channel],
+    results: list[CheckResult],
+    configured_main_ids: set[str] | frozenset[str],
+    health_state: dict,
+) -> tuple[frozenset[str], frozenset[str], dict[str, str]]:
+    """Apply the narrow automatic demotion/recovery policy.
+
+    ``configured_main_ids`` comes from the current ``m3u.m3u``. When 13C was
+    previously demoted, its ID is restored into the evaluation set from the
+    token-free health state so a successful probe can promote it again. Other
+    manually selected channels remain sticky and are never changed here.
+    """
+    catalog_ids = {
+        channel.tvg_id for channel in channels if channel.tvg_id
+    }
+    previous_demoted = automatic_demoted_main_ids(health_state, catalog_ids)
+    managed_ids = (
+        (set(configured_main_ids) | set(previous_demoted))
+        & set(AUTO_RECOVERABLE_MAIN_CHANNEL_IDS)
+        & catalog_ids
+    )
+    effective_main_ids = set(configured_main_ids) | set(previous_demoted)
+    demoted_ids = set(previous_demoted)
+    actions: dict[str, str] = {}
+    results_by_name = {result.channel: result for result in results}
+    previous_channels = health_state.get("channels", {})
+    if not isinstance(previous_channels, dict):
+        previous_channels = {}
+
+    for channel in channels:
+        channel_id = channel.tvg_id
+        if channel_id not in managed_ids:
+            continue
+        result = results_by_name.get(channel.name)
+        old = previous_channels.get(channel_id, {})
+        if not isinstance(old, dict):
+            old = {}
+        old_failures = int(old.get("consecutive_failures", 0) or 0)
+        failures = 0 if result and result.ok else old_failures + 1
+
+        if result and result.ok:
+            effective_main_ids.add(channel_id)
+            if channel_id in previous_demoted:
+                actions[channel_id] = "recovered_to_main"
+            demoted_ids.discard(channel_id)
+            continue
+
+        if failures >= AUTO_MAIN_DEMOTION_FAILURE_THRESHOLD:
+            effective_main_ids.discard(channel_id)
+            demoted_ids.add(channel_id)
+            if channel_id not in previous_demoted:
+                actions[channel_id] = "moved_to_external"
+        elif channel_id in previous_demoted:
+            # Do not oscillate back to the main output after one inconclusive
+            # check. A successful validation is required for reactivation.
+            effective_main_ids.discard(channel_id)
+            demoted_ids.add(channel_id)
+
+    return (
+        frozenset(effective_main_ids),
+        frozenset(demoted_ids),
+        actions,
+    )
+
+
 def resolver_url_fingerprint(url: str) -> str:
     """Store only a non-reversible URL fingerprint in persistent state."""
     return hashlib.sha256(url.encode("utf-8")).hexdigest()[:16]
@@ -8282,14 +8379,17 @@ def write_report(
     main_epg_status: dict | None = None,
     refreshed_channels: list[str] | None = None,
     dynamic_refresh_status: dict[str, dict] | None = None,
+    automatic_partition_actions: dict[str, str] | None = None,
+    automatic_demoted_main_ids: set[str] | frozenset[str] = frozenset(),
 ) -> dict:
     """Write a token-free run report and update persistent channel health.
 
-    Public-list membership is manual and sticky. Health changes status and
-    diagnostics but never moves a channel between outputs. The canonical
-    catalogue remains the source for URLs, resolver metadata and order. A
-    systemic direct-source outage still marks the principal quality gate, but
-    it does not authorize keeping stale ephemeral links in the public copy.
+    Public-list membership is manual and sticky except for the explicitly
+    managed automatic 13C demotion/recovery policy. Health changes status and
+    diagnostics for every channel. The canonical catalogue remains the source
+    for URLs, resolver metadata and order. A systemic direct-source outage
+    still marks the principal quality gate, but it does not authorize keeping
+    stale ephemeral links in the public copy.
     """
 
     def safe_detail(value: str) -> str:
@@ -8316,6 +8416,12 @@ def write_report(
     refreshed = set(refreshed_channels or [])
     repaired = set(repaired_channels or [])
     dynamic_status = dynamic_refresh_status or {}
+    partition_actions = automatic_partition_actions or {}
+    demoted_main_ids = frozenset(
+        channel_id
+        for channel_id in automatic_demoted_main_ids
+        if channel_id in AUTO_RECOVERABLE_MAIN_CHANNEL_IDS
+    )
     results_by_name = {result.channel: result for result in results}
     health_entries: list[dict] = []
     new_health_channels: dict[str, dict] = {}
@@ -8342,10 +8448,11 @@ def write_report(
         else:
             status = "temporarily_unavailable"
 
-        # Un fallo individual no cambia de lista al canal. La protección
-        # sistémica se calcula más abajo únicamente con fuentes directas; los
-        # resolutores tienen enlaces efímeros y pueden fallar en bloque mientras
-        # el motor de reproducción sigue siendo recuperable.
+        # Un fallo individual no cambia de lista salvo la politica explicita
+        # y reversible de 13C. La proteccion sistemica se calcula mas abajo
+        # unicamente con fuentes directas; los resolutores tienen enlaces
+        # efimeros y pueden fallar en bloque mientras el motor sigue siendo
+        # recuperable.
         blocking = False
         previous_status = str(old.get("status", "new"))
         last_ok_at = checked_at if ok else old.get("last_ok_at")
@@ -8362,6 +8469,7 @@ def write_report(
         detail = safe_detail(result.detail if result else "sin resultado de validacion")
         source_host = urlparse(result.url).hostname if result and result.url else None
         playlist_key = publication_playlist_for(channel, main_channel_ids)
+        automatic_partition_action = partition_actions.get(key)
         entry = {
             "id": key,
             "name": channel.display_name or channel.name,
@@ -8381,6 +8489,7 @@ def write_report(
             "last_checked_at": checked_at,
             "last_ok_at": last_ok_at,
             "detail": detail,
+            "automatic_partition_action": automatic_partition_action,
         }
         if resolver in DYNAMIC_RESOLVER_ENGINES:
             entry.update(
@@ -8432,6 +8541,13 @@ def write_report(
         "schema": 1,
         "updated_at": checked_at,
         "failure_threshold": HEALTH_FAILURE_THRESHOLD,
+        "automatic_partition": {
+            "schema": 1,
+            "policy": "demote_main_after_consecutive_failures",
+            "failure_threshold": AUTO_MAIN_DEMOTION_FAILURE_THRESHOLD,
+            "managed_main_ids": sorted(AUTO_RECOVERABLE_MAIN_CHANNEL_IDS),
+            "demoted_main_ids": sorted(demoted_main_ids),
+        },
         "channels": new_health_channels,
     }
     HEALTH_STATE_PATH.write_text(
@@ -8456,8 +8572,8 @@ def write_report(
     systemic_threshold = max(5, (len(direct_entries) + 3) // 4)
     systemic_direct_failure = len(direct_failures) >= systemic_threshold
 
-    # ``playlist`` is assigned only from the manual main membership. A health
-    # transition never moves a channel between public outputs.
+    # ``playlist`` is assigned from the effective membership. Only the narrow
+    # automatic 13C policy can differ from the current manual main file.
     main_entries = [entry for entry in health_entries if entry["playlist"] == "main"]
     external_entries = [
         entry for entry in health_entries if entry["playlist"] == "external"
@@ -8504,9 +8620,9 @@ def write_report(
     elif not main_entries:
         main_hold_reason = "empty_manual_membership"
 
-    # The external output is the manually unpromoted catalogue complement. It
-    # remains writable regardless of current health; logos and failures stay
-    # diagnostic and never change membership.
+    # The external output is the catalogue complement plus any channel held by
+    # the explicit automatic demotion policy. It remains writable regardless
+    # of current health; logos and failures stay diagnostic for all others.
     external_hold_reason = None
 
     for entry in health_entries:
@@ -8524,6 +8640,8 @@ def write_report(
             entry["published"] = True
             if not entry["ok"]:
                 entry["publication_action"] = "retained_main_unavailable"
+            elif entry["automatic_partition_action"] == "recovered_to_main":
+                entry["publication_action"] = "recovered_in_main"
             else:
                 entry["publication_action"] = (
                     "recovered_in_main"
@@ -8536,11 +8654,14 @@ def write_report(
                 )
         else:
             entry["published"] = True
-            entry["publication_action"] = (
-                "available_in_external"
-                if entry["ok"]
-                else "retained_external_unavailable"
-            )
+            if entry["automatic_partition_action"] == "moved_to_external":
+                entry["publication_action"] = "moved_to_external"
+            else:
+                entry["publication_action"] = (
+                    "available_in_external"
+                    if entry["ok"]
+                    else "retained_external_unavailable"
+                )
 
     blocking_failures = [entry for entry in health_entries if entry["blocking"]]
     degraded_channels = [
@@ -8579,7 +8700,16 @@ def write_report(
     # The external output is a persistent candidate view, so an all-failed
     # resolver pool is still a valid publication.
     external_ready = True
-    temporarily_moved_entries: list[dict] = []
+    temporarily_moved_entries = [
+        entry
+        for entry in health_entries
+        if entry.get("automatic_partition_action") == "moved_to_external"
+    ]
+    automatically_reactivated_entries = [
+        entry
+        for entry in health_entries
+        if entry.get("automatic_partition_action") == "recovered_to_main"
+    ]
     resolver_refresh_summary = {
         "attempted": sum(
             1
@@ -8621,7 +8751,7 @@ def write_report(
     playlists = {
         "main": {
             "file": DEFAULT_PLAYLIST.name,
-            "membership_mode": "manual_sticky",
+            "membership_mode": "manual_sticky_with_13c_auto_recovery",
             "candidate_channels": len(main_entries),
             "working_channels": len(main_working_entries),
             "active_channels": len(main_working_entries),
@@ -8644,7 +8774,7 @@ def write_report(
         },
         "external": {
             "file": EXTERNAL_PLAYLIST.name,
-            "membership_mode": "catalog_complement",
+            "membership_mode": "catalog_complement_with_13c_auto_demotion",
             "candidate_channels": len(external_entries),
             "working_channels": len(external_working_entries),
             "active_channels": len(external_working_entries),
@@ -8669,6 +8799,13 @@ def write_report(
         "refreshed_channels": refreshed_channels or [],
         "resolver_refresh": resolver_refresh_summary,
         "repaired_channels": repaired_channels or [],
+        "automatic_partition": {
+            "policy": "demote_main_after_consecutive_failures",
+            "failure_threshold": AUTO_MAIN_DEMOTION_FAILURE_THRESHOLD,
+            "managed_main_ids": sorted(AUTO_RECOVERABLE_MAIN_CHANNEL_IDS),
+            "demoted_main_ids": sorted(demoted_main_ids),
+            "actions": partition_actions,
+        },
         "all_ok": (
             not direct_failures
             and not degraded_channels
@@ -8706,6 +8843,7 @@ def write_report(
                 for entry in health_entries
                 if entry["publication_action"] == "recovered_in_main"
             ),
+            "automatic_reactivated": len(automatically_reactivated_entries),
             "main_epg_ok": main_epg_ok,
             "main_epg_coverage_percent": main_epg_coverage,
             "main_publication_ready": main_ready,
@@ -8877,6 +9015,15 @@ def main() -> int:
         catalogue_before_update,
         membership_path,
     )
+    previous_health_state = load_health_state()
+    previous_auto_demoted_main_ids = automatic_demoted_main_ids(
+        previous_health_state,
+        {
+            channel.tvg_id
+            for channel in catalogue_before_update
+            if channel.tvg_id
+        },
+    )
     if args.validate_public_lists_only:
         validate_resolver_contract(lines)
         if HIGHFLY_PREMIUM_STABLE_PLAYLIST.is_file():
@@ -8890,7 +9037,7 @@ def main() -> int:
         return 0
     removed_channels = remove_permanently_removed_channels(
         lines,
-        protected_ids=manual_main_ids,
+        protected_ids=set(manual_main_ids) | set(previous_auto_demoted_main_ids),
     )
     if args.refresh_epg_only:
         if removed_channels:
@@ -9013,7 +9160,6 @@ def main() -> int:
         channels, allow_ci_geo_block=allow_geo_restricted
     )
     results_by_name = {result.channel: result for result in initial_results}
-    previous_health_state = load_health_state()
     validation_now = datetime.now(timezone.utc)
 
     # Primero se decide que necesita renovar cada canal. Las corridas normales
@@ -9177,20 +9323,38 @@ def main() -> int:
     catalogue_ids = frozenset(
         stable_channel_ids(final_channels, label=CHANNEL_CATALOG_PATH.name)
     )
+    (
+        effective_main_ids,
+        new_automatic_demoted_main_ids,
+        automatic_partition_actions,
+    ) = (
+        apply_automatic_main_partition(
+            final_channels,
+            results,
+            manual_main_ids,
+            previous_health_state,
+        )
+    )
+    if automatic_partition_actions:
+        for channel_id, action in automatic_partition_actions.items():
+            print(
+                f"  [AUTO] {channel_id}: {action} "
+                f"(umbral={AUTO_MAIN_DEMOTION_FAILURE_THRESHOLD})"
+            )
     missing_manual_ids = sorted(set(manual_main_ids) - set(catalogue_ids))
     if missing_manual_ids:
         raise RuntimeError(
             "el reparador elimino canales de la lista principal manual: "
             + ", ".join(missing_manual_ids)
         )
-    external_ids = frozenset(set(catalogue_ids) - set(manual_main_ids))
+    external_ids = frozenset(set(catalogue_ids) - set(effective_main_ids))
     main_publication_channels = [
         channel
         for channel in final_channels
-        if channel.tvg_id in manual_main_ids
+        if channel.tvg_id in effective_main_ids
     ]
     # Evaluate the hard gate against the exact set that will be written to
-    # m3u.m3u. Every manual member remains required regardless of health.
+    # m3u.m3u. The full catalog remains the EPG scope, including demoted 13C.
     main_epg_status = validate_main_playlist_epg(
         final_channels,
         required_channels=main_publication_channels,
@@ -9231,17 +9395,19 @@ def main() -> int:
         logo_results,
         repaired_channels,
         epg_status,
-        main_channel_ids=manual_main_ids,
+        main_channel_ids=effective_main_ids,
         main_epg_status=main_epg_status,
         refreshed_channels=refreshed_channels,
         dynamic_refresh_status=dynamic_refresh_status,
+        automatic_partition_actions=automatic_partition_actions,
+        automatic_demoted_main_ids=new_automatic_demoted_main_ids,
     )
     main_publication = report["playlists"]["main"]
     external_publication = report["playlists"]["external"]
     candidate_main_lines = filter_playlist_to_channel_ids(
         final_lines,
         final_channels,
-        manual_main_ids,
+        effective_main_ids,
     )
     candidate_external_lines = filter_playlist_to_channel_ids(
         final_lines,
@@ -9252,23 +9418,22 @@ def main() -> int:
         final_lines,
         candidate_main_lines,
         candidate_external_lines,
-        manual_main_ids,
+        effective_main_ids,
     )
     main_working_count = sum(
         1
         for channel, result in zip(final_channels, results)
-        if channel.tvg_id in manual_main_ids and result.ok
+        if channel.tvg_id in effective_main_ids and result.ok
     )
     external_working_count = sum(
         1
         for channel, result in zip(final_channels, results)
         if channel.tvg_id in external_ids and result.ok
     )
-    # La membresia de la lista 1 sigue siendo manual y la compuerta de EPG se
-    # conserva como indicador de calidad, pero ninguna compuerta de salud debe
-    # dejar una URL efimera vieja en la salida publica. La EPG se construye en
-    # el workflow independiente; por eso la copia principal siempre adopta
-    # los enlaces y metadatos que acaba de validar el catalogo.
+    # La membresia de la lista 1 sigue siendo manual salvo la excepcion
+    # automatica y reversible de 13C. La EPG se construye sobre el catalogo
+    # completo en el workflow independiente, por lo que un canal demovido
+    # conserva su guia lista para volver a la principal.
     playlist.write_text(
         "\n".join(candidate_main_lines) + "\n",
         encoding="utf-8",
@@ -9276,9 +9441,9 @@ def main() -> int:
     )
     if main_publication["publication_ready"]:
         print(
-            f"M3U principal manual: {len(manual_main_ids)} canales conservados; "
+            f"M3U principal efectiva: {len(effective_main_ids)} canales; "
             f"{main_working_count} activos y "
-            f"{len(manual_main_ids) - main_working_count} temporalmente no disponibles; "
+            f"{len(effective_main_ids) - main_working_count} temporalmente no disponibles; "
             "EPG 100% validada"
         )
     else:
@@ -9323,7 +9488,8 @@ def main() -> int:
         )
     if direct_failed:
         print(
-            "Fuentes directas no disponibles; conservaron su membresia manual: "
+            "Fuentes directas no disponibles; conservaron su asignacion salvo "
+            "la politica automatica de 13C: "
             + ", ".join(direct_failed),
             file=sys.stderr,
         )
@@ -9358,7 +9524,7 @@ def main() -> int:
     print(
         f"Catalogo verificado: {working} canales activos y "
         f"{len(results) - working} temporalmente no disponibles; "
-        f"membresia fija principal={len(manual_main_ids)}, "
+        f"membresia efectiva principal={len(effective_main_ids)}, "
         f"externa={len(external_ids)} ({len(results)} candidatos conservados)"
     )
     return 0

@@ -1029,6 +1029,117 @@ class PlaylistOrderTests(unittest.TestCase):
             "now-sky-sports-tennis",
         )
 
+    def test_13c_moves_to_external_after_three_consecutive_failures(self) -> None:
+        channel = update_m3u.Channel(
+            name="13C",
+            url="https://example.invalid/13c.m3u8",
+            url_line=0,
+            tvg_id="13C.cl@SD",
+        )
+        result = update_m3u.CheckResult(channel.name, channel.url, False, "timeout")
+        health_state = {
+            "channels": {
+                channel.tvg_id: {
+                    "consecutive_failures": 2,
+                    "playlist": "main",
+                    "status": "temporarily_unavailable",
+                }
+            }
+        }
+
+        effective, demoted, actions = update_m3u.apply_automatic_main_partition(
+            [channel],
+            [result],
+            {channel.tvg_id},
+            health_state,
+        )
+
+        self.assertNotIn(channel.tvg_id, effective)
+        self.assertEqual(demoted, {channel.tvg_id})
+        self.assertEqual(actions, {channel.tvg_id: "moved_to_external"})
+
+    def test_13c_returns_to_main_after_a_successful_validation(self) -> None:
+        channel = update_m3u.Channel(
+            name="13C",
+            url="https://example.invalid/13c.m3u8",
+            url_line=0,
+            tvg_id="13C.cl@SD",
+        )
+        result = update_m3u.CheckResult(channel.name, channel.url, True, "ok")
+        health_state = {
+            "automatic_partition": {
+                "demoted_main_ids": [channel.tvg_id],
+            },
+            "channels": {
+                channel.tvg_id: {
+                    "consecutive_failures": 7,
+                    "playlist": "external",
+                    "status": "temporarily_unavailable",
+                }
+            },
+        }
+
+        effective, demoted, actions = update_m3u.apply_automatic_main_partition(
+            [channel],
+            [result],
+            set(),
+            health_state,
+        )
+
+        self.assertIn(channel.tvg_id, effective)
+        self.assertEqual(demoted, set())
+        self.assertEqual(actions, {channel.tvg_id: "recovered_to_main"})
+
+    def test_report_persists_13c_automatic_demotion_state(self) -> None:
+        channel = update_m3u.Channel(
+            name="13C",
+            url="https://example.invalid/13c.m3u8",
+            url_line=0,
+            tvg_id="13C.cl@SD",
+        )
+        result = update_m3u.CheckResult(channel.name, channel.url, False, "timeout")
+        logo = update_m3u.LogoResult(channel.name, "", True, "ok")
+
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            temporary = Path(temporary_directory)
+            with patch.object(
+                update_m3u, "HEALTH_STATE_PATH", temporary / "health.json"
+            ), patch.object(
+                update_m3u, "REPORT_PATH", temporary / "report.json"
+            ):
+                report = update_m3u.write_report(
+                    [channel],
+                    [result],
+                    False,
+                    [logo],
+                    epg_status={"ok": True},
+                    main_channel_ids=set(),
+                    main_epg_status={
+                        "ok": True,
+                        "required_channels": 0,
+                        "guide_types": {},
+                    },
+                    automatic_partition_actions={
+                        channel.tvg_id: "moved_to_external"
+                    },
+                    automatic_demoted_main_ids={channel.tvg_id},
+                )
+                health_state = json.loads(
+                    (temporary / "health.json").read_text(encoding="utf-8")
+                )
+
+        entry = report["channels"][0]
+        self.assertEqual(entry["playlist"], "external")
+        self.assertEqual(entry["publication_action"], "moved_to_external")
+        self.assertEqual(
+            report["automatic_partition"]["demoted_main_ids"],
+            [channel.tvg_id],
+        )
+        self.assertEqual(
+            health_state["automatic_partition"]["demoted_main_ids"],
+            [channel.tvg_id],
+        )
+
     def test_health_never_moves_channels_across_manual_lists(self) -> None:
         principal = update_m3u.Channel(
             name="TVN",
