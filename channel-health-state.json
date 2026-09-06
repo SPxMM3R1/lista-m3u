@@ -1,7 +1,18 @@
 {
   "schema": 1,
-  "updated_at": "2026-09-06T01:12:03Z",
+  "updated_at": "2026-09-06T02:20:01Z",
   "failure_threshold": 1,
+  "automatic_partition": {
+    "schema": 1,
+    "policy": "demote_main_after_consecutive_failures",
+    "failure_threshold": 3,
+    "managed_main_ids": [
+      "13C.cl@SD"
+    ],
+    "demoted_main_ids": [
+      "13C.cl@SD"
+    ]
+  },
   "channels": {
     "0104": {
       "name": "TVN",
@@ -11,8 +22,8 @@
       "resolver": "tvn",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "0105": {
       "name": "Mega",
@@ -22,8 +33,8 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "0106": {
       "name": "CHV",
@@ -33,8 +44,8 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "0107": {
       "name": "Canal 13",
@@ -44,8 +55,8 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "0102": {
       "name": "La Red",
@@ -55,8 +66,8 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "13Kids.cl": {
       "name": "13 Go",
@@ -66,8 +77,8 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "0201": {
       "name": "24 Horas",
@@ -77,8 +88,8 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "Meganoticias.cl": {
       "name": "Meganoticias",
@@ -88,8 +99,8 @@
       "resolver": "meganoticias",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "1153": {
       "name": "CHV Noticias",
@@ -99,8 +110,8 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "0124": {
       "name": "T13",
@@ -110,8 +121,8 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "45": {
       "name": "NTV",
@@ -121,8 +132,8 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "1437": {
       "name": "TVN3",
@@ -132,18 +143,18 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "13C.cl@SD": {
       "name": "13C",
       "tvg_id": "13C.cl@SD",
       "group": "Miscel\u00e1neos",
-      "playlist": "main",
+      "playlist": "external",
       "resolver": "direct",
       "status": "temporarily_unavailable",
-      "consecutive_failures": 57,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "consecutive_failures": 58,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": null
     },
     "13Cultura.cl@DPS": {
@@ -154,8 +165,8 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "RewindTV.cl@SD": {
       "name": "RWND",
@@ -165,8 +176,8 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "TVChile.cl": {
       "name": "TV Chile",
@@ -176,8 +187,8 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "DW.de": {
       "name": "DW Espa\u00f1ol",
@@ -187,8 +198,8 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "DWEnglish.de": {
       "name": "DW English",
@@ -198,8 +209,8 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "NHKWorldJapan.jp": {
       "name": "NHK World Japan",
@@ -209,8 +220,8 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "ArirangTV.kr": {
       "name": "Arirang TV",
@@ -220,8 +231,8 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "France24.fr": {
       "name": "France 24 Espa\u00f1ol",
@@ -231,8 +242,8 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "France24.fr@English": {
       "name": "France 24 English",
@@ -242,8 +253,8 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "CNN.us@TvVoo": {
       "name": "CNN",
@@ -253,10 +264,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "6c92e82efe5c99c2"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "acf144af8bcfa8af"
     },
     "EuronewsSpanish.fr": {
       "name": "Euronews Espa\u00f1ol",
@@ -266,8 +277,8 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "AlJazeera.qa": {
       "name": "Al Jazeera English",
@@ -277,8 +288,8 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "BBCNews.uk": {
       "name": "BBC News",
@@ -288,8 +299,8 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "Vavoo.uk.BBCWORLDNEWS@TvVoo": {
       "name": "BBC World News Reino Unido",
@@ -299,10 +310,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "5fe6ade7120d2a82"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "daba4fa92cdd610c"
     },
     "Vavoo.de.RTDE@TvVoo": {
       "name": "RT DE Alemania",
@@ -312,10 +323,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "0f9404238808639f"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "c90778149775493d"
     },
     "Vavoo.it.BLOOMBERGTV@TvVoo": {
       "name": "Bloomberg TV Italia",
@@ -325,10 +336,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "877a9c130f11a3f1"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "b066696832e70063"
     },
     "Vavoo.pl.CNN@TvVoo": {
       "name": "CNN Polonia",
@@ -338,10 +349,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "0d4d719cf93f1199"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "5bf4e20416ba7b71"
     },
     "Vavoo.tr.TRTWORLD@TvVoo": {
       "name": "TRT World Turqu\u00eda",
@@ -351,10 +362,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "39d39598edee1bcd"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "06754527c91beba6"
     },
     "Vavoo.ar.ALJAZEERAEN@TvVoo": {
       "name": "Al Jazeera English MENA",
@@ -364,10 +375,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "daa9bbb3113a9608"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "4385608d04c25d3d"
     },
     "Vavoo.de.DW@TvVoo": {
       "name": "Dw Alemania",
@@ -377,10 +388,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "33b33b6d44490177"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "13e4b45ae17289c2"
     },
     "Vavoo.de.DWTV@TvVoo": {
       "name": "Dw TV Alemania",
@@ -389,8 +400,8 @@
       "playlist": "external",
       "resolver": "tvvoo",
       "status": "temporarily_unavailable",
-      "consecutive_failures": 6,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "consecutive_failures": 7,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": "2026-09-05T08:09:16Z",
       "last_resolver_validated_at": "2026-09-05T08:09:16Z",
       "resolver_url_hash": "20048ce84e0afe0b"
@@ -403,10 +414,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "5416d29e4617d8c9"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "bf8070048a12f4ba"
     },
     "Vavoo.pt.CNNPORTUGAL@TvVoo": {
       "name": "CNN Portugal",
@@ -416,10 +427,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "1f7ebd594565a1c0"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "cf23bad057a17375"
     },
     "Vavoo.fr.FRANCE24@TvVoo": {
       "name": "France 24 Francia",
@@ -429,10 +440,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "a74ce12135b6c6e6"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "da3928285bf533fc"
     },
     "1763": {
       "name": "CHV Deportes",
@@ -442,8 +453,8 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "SkySportsF1.uk": {
       "name": "Sky Sports F1",
@@ -453,9 +464,9 @@
       "resolver": "highfly",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
       "resolver_url_hash": "735401ce64010188"
     },
     "SkySportsTennis.uk": {
@@ -466,9 +477,9 @@
       "resolver": "highfly",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
       "resolver_url_hash": "8f63608cf63bb984"
     },
     "DAZNF1.es@TvVoo": {
@@ -479,10 +490,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "7007c49c04741430"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "666c79deefa8abf5"
     },
     "SkySportF1.de@TvVoo": {
       "name": "Sky Sport F1 Germany",
@@ -492,10 +503,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "211846efe195b0ae"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "3ba34dd92a4a9290"
     },
     "Vavoo.uk.SKYSPORTSF1@TvVoo": {
       "name": "Sky F1 UK",
@@ -505,10 +516,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "ad01961e0e491994"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "0bf6f957ad11c16a"
     },
     "Vavoo.it.SKYSPORTF1@TvVoo": {
       "name": "Sky Sport F1 Italia",
@@ -518,10 +529,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "6bc27b2c4d081116"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "b848ddab1000cf7f"
     },
     "SkySportTennis.de@TvVoo": {
       "name": "Sky Sport Tennis Germany",
@@ -531,10 +542,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "0e6df624f76adf7b"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "c74426e7ad40b655"
     },
     "Vavoo.it.SKYSPORTTENNIS@TvVoo": {
       "name": "Sky Sport Tennis Italia",
@@ -544,10 +555,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "7a170fae86d38217"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "e118303a07c00a4d"
     },
     "SkySportsPremierLeague.uk": {
       "name": "Sky Sports Premier League",
@@ -557,9 +568,9 @@
       "resolver": "highfly",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
       "resolver_url_hash": "ca7b7330f17f9329"
     },
     "Vavoo.uk.SKYSPORTSPREMIERLEAGUE@TvVoo": {
@@ -570,10 +581,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "0130a614e6f1178b"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "120caa77a0d659c2"
     },
     "SkySportsMainEvent.uk@TvVoo": {
       "name": "Sky Sports Main Event",
@@ -583,10 +594,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "08d26b25f2792fa2"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "ea98808286614491"
     },
     "SkySportsArena.uk@TvVoo": {
       "name": "Sky Sports Arena",
@@ -596,10 +607,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "8542ef7a42c8200e"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "bce7048758fc1851"
     },
     "SkySport1.nz": {
       "name": "Sky Sport 1 NZ",
@@ -608,8 +619,8 @@
       "playlist": "main",
       "resolver": "highfly",
       "status": "temporarily_unavailable",
-      "consecutive_failures": 9,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "consecutive_failures": 10,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": "2026-09-03T17:14:58Z",
       "last_resolver_validated_at": "2026-09-03T17:14:58Z",
       "resolver_url_hash": "48462c6ec2d81001"
@@ -622,10 +633,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "a00bfec77ab6f4c3"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "3603c81580f7177f"
     },
     "SkySportsMix.uk@TvVoo": {
       "name": "Sky Sports Mix",
@@ -635,10 +646,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "3dd882594f5ea6a0"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "bb094b70b6a3d958"
     },
     "SkySportsNews.uk@TvVoo": {
       "name": "Sky Sports News",
@@ -648,10 +659,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "c1a3798e073a2625"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "7d50fccf5164c2b5"
     },
     "SkySportsNFL.uk@TvVoo": {
       "name": "Sky Sports NFL",
@@ -661,10 +672,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "920ea0ca3d1d780f"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "79ebfb60cc9b5726"
     },
     "SkySportGolf.de@TvVoo": {
       "name": "Sky Sport Golf Germany",
@@ -674,10 +685,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "0094b4c1649ddc1a"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "eb33cddcbdb01d2a"
     },
     "SkySportPremierLeague.de@TvVoo": {
       "name": "Sky Sport Premier League Germany",
@@ -687,10 +698,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "9f8a80aa9e9403fb"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "84a4496185e37e22"
     },
     "SkySport24.it@TvVoo": {
       "name": "Sky Sport 24 Italia",
@@ -700,10 +711,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "407468a5b33fbb4f"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "bb707f59a1a0491f"
     },
     "SkySportCalcio.it@TvVoo": {
       "name": "Sky Sport Calcio Italia",
@@ -713,10 +724,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "e131fe042e589360"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "9a91d6a02374fc35"
     },
     "SkySportMax.it@TvVoo": {
       "name": "Sky Sport Max Italia",
@@ -726,10 +737,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "0e943e4e82365238"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "6c57adcac513f667"
     },
     "SkySportMotoGP.it@TvVoo": {
       "name": "Sky Sport MotoGP Italia",
@@ -739,10 +750,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "49c4868dae4ec559"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "ad3a08a6dd8a2b3f"
     },
     "SkySportNBA.it@TvVoo": {
       "name": "Sky Sport NBA Italia",
@@ -752,10 +763,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "b9fb1ad20268d29c"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "13fdb3ad0a7f142f"
     },
     "SkySportUno.it@TvVoo": {
       "name": "Sky Sport Uno Italia",
@@ -765,10 +776,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "e76158881daf587b"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "6f7d73f93170005e"
     },
     "Vavoo.it.SKYSPORTSERIEA@TvVoo": {
       "name": "Sky Sport Serie A Italia",
@@ -778,10 +789,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "02ac2cc62a23ced2"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "ffb4f6ff511d7e8e"
     },
     "Vavoo.it.SKYSUPERTENNIS@TvVoo": {
       "name": "Sky Super Tennis Italia",
@@ -790,8 +801,8 @@
       "playlist": "external",
       "resolver": "tvvoo",
       "status": "temporarily_unavailable",
-      "consecutive_failures": 6,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "consecutive_failures": 7,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": "2026-09-05T08:09:16Z",
       "last_resolver_validated_at": "2026-09-05T08:09:16Z",
       "resolver_url_hash": "af3c38c6274c5094"
@@ -804,10 +815,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "474d7dd5a815c3ab"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "d9cdf6eb9f8c9160"
     },
     "Eurosport1.fr@TvVoo": {
       "name": "Eurosport 1",
@@ -817,10 +828,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "c510b6831534d37f"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "98e362be2b64217d"
     },
     "Eurosport1.de@TvVoo": {
       "name": "Eurosport 1 Germany",
@@ -830,10 +841,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "8eb3aa07e3734553"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "01f4c65b5c062a76"
     },
     "Vavoo.it.EUROSPORT1@TvVoo": {
       "name": "Eurosport 1 Italia",
@@ -843,10 +854,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "e0310c44b2ad6c5a"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "50457def415aa8d9"
     },
     "Vavoo.pt.EUROSPORT1@TvVoo": {
       "name": "Eurosport 1 Portugal",
@@ -856,10 +867,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "cfc527e04efa0d4c"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "20775d60dc163a3e"
     },
     "Vavoo.es.EUROSPORT1@TvVoo": {
       "name": "Eurosport 1 Espa\u00f1a",
@@ -868,8 +879,8 @@
       "playlist": "external",
       "resolver": "tvvoo",
       "status": "temporarily_unavailable",
-      "consecutive_failures": 6,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "consecutive_failures": 7,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": "2026-09-05T08:09:16Z",
       "last_resolver_validated_at": "2026-09-05T08:09:16Z",
       "resolver_url_hash": "922724e6bd3d5a2a"
@@ -881,8 +892,8 @@
       "playlist": "external",
       "resolver": "tvvoo",
       "status": "temporarily_unavailable",
-      "consecutive_failures": 6,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "consecutive_failures": 7,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": "2026-09-05T08:09:16Z",
       "last_resolver_validated_at": "2026-09-05T08:09:16Z",
       "resolver_url_hash": "7130e4b46ed1f855"
@@ -895,10 +906,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "84a465c7435df88d"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "10a5b9c27f2180fb"
     },
     "Eurosport2.it@TvVoo": {
       "name": "Eurosport 2 Italia",
@@ -908,10 +919,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "a35477fd240b988f"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "832e4c6dead36859"
     },
     "Eurosport2.es@TvVoo": {
       "name": "Eurosport 2 Espa\u00f1a",
@@ -921,10 +932,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "302a8bf032145206"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "59423e23d73735e0"
     },
     "Vavoo.pl.EUROSPORT2@TvVoo": {
       "name": "Eurosport 2 Polonia",
@@ -934,10 +945,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "52f0c8ae448b556e"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "8cf5ab2d28af79c5"
     },
     "Vavoo.pl.EUROSPORT3@TvVoo": {
       "name": "Eurosport 3 Polonia",
@@ -947,10 +958,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "d51076b7ce34729d"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "ec79368ee3bc45bc"
     },
     "Vavoo.it.EUROSPORT4TIMVISION@TvVoo": {
       "name": "Eurosport 4 TIMVISION Italia",
@@ -960,10 +971,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "52a2985311fe6f62"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "3f2a9cf3a4e1d57d"
     },
     "DAZNLigue1Live1.fr@TvVoo": {
       "name": "DAZN Ligue 1 Live 1",
@@ -973,10 +984,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "07baf7251a38946a"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "02d6b9c54515fb14"
     },
     "DAZNLigue1Live2.fr@TvVoo": {
       "name": "DAZN Ligue 1 Live 2",
@@ -985,8 +996,8 @@
       "playlist": "external",
       "resolver": "tvvoo",
       "status": "temporarily_unavailable",
-      "consecutive_failures": 57,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "consecutive_failures": 58,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": null,
       "last_resolver_validated_at": null,
       "resolver_url_hash": null
@@ -998,8 +1009,8 @@
       "playlist": "external",
       "resolver": "tvvoo",
       "status": "temporarily_unavailable",
-      "consecutive_failures": 2,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "consecutive_failures": 3,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": "2026-09-05T23:39:53Z",
       "last_resolver_validated_at": "2026-09-05T23:39:53Z",
       "resolver_url_hash": "a5a264ff2530b204"
@@ -1011,8 +1022,8 @@
       "playlist": "external",
       "resolver": "tvvoo",
       "status": "temporarily_unavailable",
-      "consecutive_failures": 57,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "consecutive_failures": 58,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": null,
       "last_resolver_validated_at": null,
       "resolver_url_hash": null
@@ -1024,8 +1035,8 @@
       "playlist": "external",
       "resolver": "tvvoo",
       "status": "temporarily_unavailable",
-      "consecutive_failures": 57,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "consecutive_failures": 58,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": null,
       "last_resolver_validated_at": null,
       "resolver_url_hash": null
@@ -1038,10 +1049,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "be226a0826139765"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "f013ef3df6a922e4"
     },
     "DAZNLaliga2.es@TvVoo": {
       "name": "DAZN LaLiga 2",
@@ -1051,10 +1062,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "61f959e88d95b095"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "56c18229358d3215"
     },
     "DAZN2.es@TvVoo": {
       "name": "DAZN 2 Espa\u00f1a",
@@ -1064,10 +1075,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "bd1fc11855bb55cc"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "2f54fa451d062876"
     },
     "Vavoo.es.DAZN4@TvVoo": {
       "name": "DAZN 4 Espa\u00f1a",
@@ -1077,10 +1088,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "335ff8307f8ee844"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "f409e735c5a93b35"
     },
     "DAZN1.pt@TvVoo": {
       "name": "DAZN 1 Portugal",
@@ -1090,10 +1101,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "bb36137025498c8f"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "bfe76043f7fb9d50"
     },
     "DAZN2.pt@TvVoo": {
       "name": "DAZN 2 Portugal",
@@ -1103,10 +1114,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "f96cc9062160bbbf"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "d15a78862aacda63"
     },
     "DAZN3.pt@TvVoo": {
       "name": "DAZN 3 Portugal",
@@ -1116,10 +1127,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "2feabffd6ccd018b"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "30f30317e5bfa723"
     },
     "DAZN4.pt@TvVoo": {
       "name": "DAZN 4 Portugal",
@@ -1129,10 +1140,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "723bab143e9eb722"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "5392eba1bac93e99"
     },
     "DAZN5.pt@TvVoo": {
       "name": "DAZN 5 Portugal",
@@ -1142,10 +1153,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "244b14fc93749f62"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "7437207e97f01b16"
     },
     "DAZN6.pt@TvVoo": {
       "name": "DAZN 6 Portugal",
@@ -1155,10 +1166,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "f54301a1c349e590"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "f660d4808f405804"
     },
     "DAZN1.it@TvVoo": {
       "name": "DAZN 1 Italia",
@@ -1168,10 +1179,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "671340a38509e1ef"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "bd6d5a20b4d96ca8"
     },
     "ESPN.us": {
       "name": "ESPN",
@@ -1181,9 +1192,9 @@
       "resolver": "highfly",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
       "resolver_url_hash": "aaa6f34b28575373"
     },
     "PremierSports1.ie": {
@@ -1194,10 +1205,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "b178dea501415768"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "9c0c86a916b36da6"
     },
     "PremierSports2.ie": {
       "name": "Premier Sports 2",
@@ -1207,10 +1218,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "491ecca04cf76d3e"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "afa04382bb3029d7"
     },
     "TNTSports3.uk@TvVoo": {
       "name": "TNT Sports 3",
@@ -1220,10 +1231,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "e68b613469079470"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "7204ae00c780bf1d"
     },
     "SportTV1.pt@TvVoo": {
       "name": "Sport TV 1",
@@ -1233,10 +1244,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "5631a6cf03c1c865"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "c96f91425f8f90e8"
     },
     "SportTV2.pt@TvVoo": {
       "name": "Sport TV 2",
@@ -1246,10 +1257,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "7a51721aee97c0c2"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "86815f9478273a22"
     },
     "TyCSports.ar": {
       "name": "TyC Sports",
@@ -1259,8 +1270,8 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "TNTSports1.uk@TvVoo": {
       "name": "TNT Sports 1",
@@ -1268,9 +1279,9 @@
       "group": "Deportes",
       "playlist": "external",
       "resolver": "tvvoo",
-      "status": "renewed",
-      "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "status": "temporarily_unavailable",
+      "consecutive_failures": 1,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": "2026-09-06T01:12:03Z",
       "last_resolver_validated_at": "2026-09-06T01:12:03Z",
       "resolver_url_hash": "43b46652eaf13e46"
@@ -1283,10 +1294,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "d3be6fcccd67d8a2"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "1976952a5be85c72"
     },
     "SportTV5.pt@TvVoo": {
       "name": "Sport TV 5",
@@ -1296,10 +1307,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "7205b121c84d45ed"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "b9cd94ff30b474df"
     },
     "Vavoo.uk.TNTSPORTS2@TvVoo": {
       "name": "TNT Sports 2 Reino Unido",
@@ -1307,12 +1318,12 @@
       "group": "Deportes",
       "playlist": "external",
       "resolver": "tvvoo",
-      "status": "temporarily_unavailable",
-      "consecutive_failures": 6,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-05T08:09:16Z",
-      "last_resolver_validated_at": "2026-09-05T08:09:16Z",
-      "resolver_url_hash": "1754a41cc84b55a9"
+      "status": "recovered",
+      "consecutive_failures": 0,
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "a8b95992607a2757"
     },
     "Vavoo.pt.SPORTTV3@TvVoo": {
       "name": "Sport TV 3 Portugal",
@@ -1322,10 +1333,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "31c40ae7d6519376"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "b256e437cc9f8b27"
     },
     "Vavoo.pt.ELEVENSPORT3@TvVoo": {
       "name": "Eleven Sports 3 Portugal",
@@ -1335,10 +1346,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "c96e7d96afd04103"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "3492e609832c7672"
     },
     "Vavoo.es.ESPN2@TvVoo": {
       "name": "ESPN 2 Espa\u00f1a",
@@ -1346,12 +1357,12 @@
       "group": "Deportes",
       "playlist": "external",
       "resolver": "tvvoo",
-      "status": "recovered",
+      "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "95520b2accb30932"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "e83c569e25419f82"
     },
     "Vavoo.nl.ESPN1@TvVoo": {
       "name": "ESPN 1 Pa\u00edses Bajos",
@@ -1361,10 +1372,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "45a79c3e61424599"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "6d5f8d9708a02ac7"
     },
     "Vavoo.nl.FOXSPORTS1@TvVoo": {
       "name": "Fox Sports 1 Pa\u00edses Bajos",
@@ -1373,8 +1384,8 @@
       "playlist": "external",
       "resolver": "tvvoo",
       "status": "temporarily_unavailable",
-      "consecutive_failures": 7,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "consecutive_failures": 8,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": "2026-09-04T23:50:12Z",
       "last_resolver_validated_at": "2026-09-04T23:50:12Z",
       "resolver_url_hash": "fae696794c1c2680"
@@ -1387,10 +1398,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "5a0e3fca6b6dfa27"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "ceb3a5f3e56ba5ac"
     },
     "Vavoo.bg.MAXSPORT1@TvVoo": {
       "name": "Max Sport 1 Bulgaria",
@@ -1400,10 +1411,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "fa4e5c018ce03acb"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "9f46a57b9d03438e"
     },
     "Vavoo.al.SUPERSPORT1@TvVoo": {
       "name": "SuperSport 1 Albania",
@@ -1411,9 +1422,9 @@
       "group": "Deportes",
       "playlist": "external",
       "resolver": "tvvoo",
-      "status": "renewed",
-      "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "status": "temporarily_unavailable",
+      "consecutive_failures": 1,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": "2026-09-06T01:12:03Z",
       "last_resolver_validated_at": "2026-09-06T01:12:03Z",
       "resolver_url_hash": "864f24bf41d6375f"
@@ -1426,10 +1437,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "e190ab6bdad41f4d"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "84b11485a76fb342"
     },
     "Vavoo.uk.TNTSPORTS4@TvVoo": {
       "name": "TNT Sports 4 Reino Unido",
@@ -1439,10 +1450,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "91ed2d51bd9a5bb6"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "a6ba028f1d2b2722"
     },
     "SkySportsRacing.uk": {
       "name": "Sky Sports Racing",
@@ -1452,10 +1463,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "8a15ddcda6ab9d55"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "cd343ac42869e811"
     },
     "ESPN3.ar@TvVoo": {
       "name": "ESPN 3",
@@ -1465,10 +1476,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "ec15de6f241847b7"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "1928a66a8d1cd91d"
     },
     "RMCSport1.fr@TvVoo": {
       "name": "RMC Sport 1",
@@ -1478,10 +1489,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "511fefed253d39fa"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "ac2ba4437b814b53"
     },
     "RMCSport2.fr@TvVoo": {
       "name": "RMC Sport 2",
@@ -1491,10 +1502,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "5e484055c819a3fc"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "4c7b7f103e73ed69"
     },
     "DAZN2.de@TvVoo": {
       "name": "DAZN 2",
@@ -1504,10 +1515,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "56969291fef5475a"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "0eebe1757197082e"
     },
     "DAZNFastPlus.de@TvVoo": {
       "name": "DAZN FAST+",
@@ -1517,10 +1528,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "7e76e93457ffabfc"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "d337b0169ae50929"
     },
     "ElevenSports1.pt@TvVoo": {
       "name": "Eleven Sports 1",
@@ -1530,10 +1541,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "781e31f8386b016c"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "e809b6c5b1f7fe87"
     },
     "ElevenSports2.pt@TvVoo": {
       "name": "Eleven Sports 2",
@@ -1543,10 +1554,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "fdaacb44476bb6f7"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "bf65cd7a43769e92"
     },
     "SkySportsAction.uk@TvVoo": {
       "name": "Sky Sports Action",
@@ -1556,10 +1567,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "64bc7bf92c84624f"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "951cf3e7e3a89b33"
     },
     "SkySportsCricket.uk@TvVoo": {
       "name": "Sky Sports Cricket",
@@ -1569,10 +1580,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "c510ffb9469ad507"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "3de51faaae18e4f5"
     },
     "DAZN1.fr@TvVoo": {
       "name": "DAZN 1 France",
@@ -1580,9 +1591,9 @@
       "group": "Deportes",
       "playlist": "external",
       "resolver": "tvvoo",
-      "status": "renewed",
-      "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "status": "temporarily_unavailable",
+      "consecutive_failures": 1,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": "2026-09-06T01:12:03Z",
       "last_resolver_validated_at": "2026-09-06T01:12:03Z",
       "resolver_url_hash": "e6abdfb894818b0a"
@@ -1595,10 +1606,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "69a50268093b7ab4"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "6c962b3f4f74a808"
     },
     "Vavoo.fr.RMCSPORT3@TvVoo": {
       "name": "RMC Sport 3 Francia",
@@ -1608,10 +1619,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "6d5893ca70c051eb"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "f6c16045d5ca2a32"
     },
     "Vavoo.tr.EUROSPORT1@TvVoo": {
       "name": "Eurosport 1 Turqu\u00eda",
@@ -1621,10 +1632,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "46f9bac6b9dbfae0"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "1a68815d4de0ef8e"
     },
     "Vavoo.tr.BEINSPORTS1@TvVoo": {
       "name": "beIN Sports 1 Turqu\u00eda",
@@ -1634,10 +1645,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "ec693c9ee5e20654"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "a755a1eac11e9005"
     },
     "Vavoo.tr.NBATV@TvVoo": {
       "name": "NBA TV Turqu\u00eda",
@@ -1647,10 +1658,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "0e5bdfe134dd7b00"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "512b5efd44cb4515"
     },
     "Vavoo.bk.ARENASPORT1@TvVoo": {
       "name": "Arena Sport 1 Balcanes",
@@ -1660,10 +1671,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "279a1340b61b764d"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "4b8408d06fcfa7b9"
     },
     "Vavoo.bk.EUROSPORT1@TvVoo": {
       "name": "Eurosport 1 Balcanes",
@@ -1673,10 +1684,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "d7a546cba2046ef9"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "9df7abbe08b15105"
     },
     "Vavoo.al.ARENASPORT1@TvVoo": {
       "name": "Arena Sport 1 Albania",
@@ -1686,10 +1697,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "eef91df08c7b34bf"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "a036ee4670a9fe94"
     },
     "Vavoo.bg.MAXSPORT3@TvVoo": {
       "name": "Max Sport 3 Bulgaria",
@@ -1699,10 +1710,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "2418a3c96ab4c17e"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "69ad4dc9f60c2383"
     },
     "Vavoo.fr.BEINSPORTS2@TvVoo": {
       "name": "beIN Sports 2 Francia",
@@ -1712,10 +1723,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "ddb7132bb61ec41c"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "35a002cfe0743dcb"
     },
     "Vavoo.fr.BEINSPORTS3@TvVoo": {
       "name": "beIN Sports 3 Francia",
@@ -1725,10 +1736,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "83469dcfe0d3c877"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "830f61953e43fc71"
     },
     "Vavoo.it.SUPERTENNIS@TvVoo": {
       "name": "Super Tennis Italia",
@@ -1738,10 +1749,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "61999ecc1378f091"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "5ebeb5145ffb306a"
     },
     "Vavoo.nl.ZIGGOSPORT@TvVoo": {
       "name": "Ziggo Sport Paises Bajos",
@@ -1751,10 +1762,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "d4872c45392620ca"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "1792fac14e0d613a"
     },
     "Vavoo.nl.ZIGGOSPORTGOLF@TvVoo": {
       "name": "Ziggo Sport Golf Paises Bajos",
@@ -1763,8 +1774,8 @@
       "playlist": "external",
       "resolver": "tvvoo",
       "status": "temporarily_unavailable",
-      "consecutive_failures": 9,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "consecutive_failures": 10,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": "2026-09-03T17:14:58Z",
       "last_resolver_validated_at": "2026-09-03T17:14:58Z",
       "resolver_url_hash": "7cdc529478956c65"
@@ -1775,12 +1786,12 @@
       "group": "Deportes",
       "playlist": "external",
       "resolver": "tvvoo",
-      "status": "functional",
+      "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "0bb988a7e2358b03"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "319f56f8c4433b4e"
     },
     "Vavoo.nl.ZIGGOSPORTTENNIS@TvVoo": {
       "name": "Ziggo Sport Tennis Paises Bajos",
@@ -1789,8 +1800,8 @@
       "playlist": "external",
       "resolver": "tvvoo",
       "status": "temporarily_unavailable",
-      "consecutive_failures": 6,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "consecutive_failures": 7,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": "2026-09-05T08:09:16Z",
       "last_resolver_validated_at": "2026-09-05T08:09:16Z",
       "resolver_url_hash": "b104e8e0daf4190f"
@@ -1803,10 +1814,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "ec81cfdc0e176697"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "bb33eecf6cd7222a"
     },
     "Vavoo.pt.SPORTTV6@TvVoo": {
       "name": "Sport TV 6 Portugal",
@@ -1816,10 +1827,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "97dc75731982fab4"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "97f15a0a43ec5a40"
     },
     "Vavoo.pt.SPORTTV7@TvVoo": {
       "name": "Sport TV 7 Portugal",
@@ -1829,10 +1840,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "f75b0667c265f858"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "10bd5cdc2bfdc5c8"
     },
     "Vavoo.pt.SPORTTVNBA@TvVoo": {
       "name": "Sport TV NBA Portugal",
@@ -1842,10 +1853,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "00feb13386c65b25"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "8c9e471bfc105e36"
     },
     "Vavoo.pt.WSPORT@TvVoo": {
       "name": "W-Sport Portugal",
@@ -1855,10 +1866,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "8a406c35e738503f"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "5208fabdc703a4d5"
     },
     "Vavoo.fr.TRACESPORTSTARS@TvVoo": {
       "name": "Trace Sport Stars Francia",
@@ -1867,8 +1878,8 @@
       "playlist": "external",
       "resolver": "tvvoo",
       "status": "temporarily_unavailable",
-      "consecutive_failures": 6,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "consecutive_failures": 7,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": "2026-09-05T08:09:16Z",
       "last_resolver_validated_at": "2026-09-05T08:09:16Z",
       "resolver_url_hash": "3d5d508f2b3fbcd7"
@@ -1881,10 +1892,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "c942cc4981001872"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "37fafc216a9b2548"
     },
     "Vavoo.de.AUTOMOTORSPORT@TvVoo": {
       "name": "Auto Motor Sport Alemania",
@@ -1894,10 +1905,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "e9c039530e035bfb"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "a1400d4f8220d69d"
     },
     "Vavoo.es.BARCATV@TvVoo": {
       "name": "Barca TV Espa\u00f1a",
@@ -1907,10 +1918,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "ec470b11358893c5"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "f262b9ae201aa3bb"
     },
     "Vavoo.fr.AUTOMOTOLACHAINE@TvVoo": {
       "name": "Automoto La Chaine Francia",
@@ -1919,8 +1930,8 @@
       "playlist": "external",
       "resolver": "tvvoo",
       "status": "temporarily_unavailable",
-      "consecutive_failures": 6,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "consecutive_failures": 7,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": "2026-09-05T08:09:16Z",
       "last_resolver_validated_at": "2026-09-05T08:09:16Z",
       "resolver_url_hash": "2ff1c991a853ecac"
@@ -1933,10 +1944,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "86fbf6ea53085b8f"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "4d54e5bb2c28b021"
     },
     "Vavoo.nl.ESPN2@TvVoo": {
       "name": "ESPN 2 Pa\u00edses Bajos",
@@ -1946,10 +1957,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "c0d43a8012476c7d"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "fdda14a3a3bcf9e7"
     },
     "Vavoo.pt.ELEVENSPORT4@TvVoo": {
       "name": "Eleven Sport 4 Portugal",
@@ -1959,10 +1970,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "85992bf98f414eb4"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "c73e954ecaa4cd79"
     },
     "Vavoo.uk.BTSPORT1@TvVoo": {
       "name": "BT Sport 1 Reino Unido",
@@ -1972,10 +1983,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "79b7ed152d9fc843"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "8a1f2164f07513a4"
     },
     "Vavoo.uk.BTSPORT2@TvVoo": {
       "name": "BT Sport 2 Reino Unido",
@@ -1985,10 +1996,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "e9f916100515767e"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "390ce42f00194f15"
     },
     "Vavoo.it.MILANTV@TvVoo": {
       "name": "Milan TV Italia",
@@ -1998,10 +2009,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "c99ec64df82fcbae"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "3a7aacfd9ceabfd9"
     },
     "Vavoo.fr.BEINSPORT1@TvVoo": {
       "name": "Bein Sports 1 Francia",
@@ -2011,10 +2022,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "953d9f359fddaa5f"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "3845eae7a880628e"
     },
     "Vavoo.de.MAGENTASPORT1@TvVoo": {
       "name": "Magenta Sport 1 Alemania",
@@ -2024,10 +2035,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "fa882971229bff1e"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "9f6a94982102eec1"
     },
     "Vavoo.pt.ELEVENSPORT5@TvVoo": {
       "name": "Eleven Sports 5 Portugal",
@@ -2037,10 +2048,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "9758baf3a0fbba48"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "18db824c8ed0d200"
     },
     "Vavoo.uk.BTSPORT3@TvVoo": {
       "name": "BT Sport 3 Reino Unido",
@@ -2050,10 +2061,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "36ff9ec1a382bb8c"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "313cac9b6347cbf2"
     },
     "Vavoo.it.RAISPORTLIVEDURINGEVENTSONLY@TvVoo": {
       "name": "Rai Sport [Live During Events Only] Italia",
@@ -2062,8 +2073,8 @@
       "playlist": "external",
       "resolver": "tvvoo",
       "status": "temporarily_unavailable",
-      "consecutive_failures": 6,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "consecutive_failures": 7,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": "2026-09-05T08:09:16Z",
       "last_resolver_validated_at": "2026-09-05T08:09:16Z",
       "resolver_url_hash": "6e90d91feea0538c"
@@ -2076,10 +2087,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "fc33ef04d226974a"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "96843d2b660ed18e"
     },
     "Vavoo.de.MAGENTASPORT10@TvVoo": {
       "name": "Magenta Sport 10 Alemania",
@@ -2089,10 +2100,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "6a5187de325d12ed"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "5ac6801f615d7afe"
     },
     "Vavoo.pt.ELEVENSPORT6@TvVoo": {
       "name": "Eleven Sport 6 Portugal",
@@ -2101,8 +2112,8 @@
       "playlist": "external",
       "resolver": "tvvoo",
       "status": "temporarily_unavailable",
-      "consecutive_failures": 18,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "consecutive_failures": 19,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": null,
       "last_resolver_validated_at": null,
       "resolver_url_hash": null
@@ -2114,8 +2125,8 @@
       "playlist": "external",
       "resolver": "tvvoo",
       "status": "temporarily_unavailable",
-      "consecutive_failures": 6,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "consecutive_failures": 7,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": "2026-09-05T08:09:16Z",
       "last_resolver_validated_at": "2026-09-05T08:09:16Z",
       "resolver_url_hash": "9d877cc868d5cf3a"
@@ -2126,9 +2137,9 @@
       "group": "Deportes",
       "playlist": "external",
       "resolver": "tvvoo",
-      "status": "renewed",
-      "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "status": "temporarily_unavailable",
+      "consecutive_failures": 1,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": "2026-09-06T01:12:03Z",
       "last_resolver_validated_at": "2026-09-06T01:12:03Z",
       "resolver_url_hash": "e272a25e11c75d11"
@@ -2139,9 +2150,9 @@
       "group": "Deportes",
       "playlist": "external",
       "resolver": "tvvoo",
-      "status": "renewed",
-      "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "status": "temporarily_unavailable",
+      "consecutive_failures": 1,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": "2026-09-06T01:12:03Z",
       "last_resolver_validated_at": "2026-09-06T01:12:03Z",
       "resolver_url_hash": "92f4b4dc2cabb231"
@@ -2154,10 +2165,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "3b28a1ecc8d9e258"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "17567873a0078e54"
     },
     "Vavoo.de.MAGENTASPORT11@TvVoo": {
       "name": "Magenta Sport 11 Alemania",
@@ -2167,10 +2178,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "324e33ef226e30fc"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "0647bc05fdc4e8ed"
     },
     "Vavoo.pt.EUROSPORT2@TvVoo": {
       "name": "Eurosport 2 Portugal",
@@ -2180,10 +2191,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "c21efd20773b2c6c"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "b978990875d26f04"
     },
     "Vavoo.es.BEINSPORTN@TvVoo": {
       "name": "Bein Sports N Espa\u00f1a",
@@ -2193,10 +2204,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "428322922a7e85c9"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "f4320667d954930b"
     },
     "Vavoo.uk.EUROSPORT@TvVoo": {
       "name": "Eurosport Reino Unido",
@@ -2204,12 +2215,12 @@
       "group": "Deportes",
       "playlist": "external",
       "resolver": "tvvoo",
-      "status": "temporarily_unavailable",
-      "consecutive_failures": 6,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": null,
-      "last_resolver_validated_at": null,
-      "resolver_url_hash": null
+      "status": "recovered",
+      "consecutive_failures": 0,
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "dee997fec336080c"
     },
     "Vavoo.it.SKYSPORTFOOTBALLLIVEDURINGEVENTSONLY@TvVoo": {
       "name": "Sky Sport Football [Live During Events Only] Italia",
@@ -2219,10 +2230,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "a3da6d7f816109e4"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "a37c5a15416cfcdc"
     },
     "Vavoo.fr.BEINSPORTMAX6@TvVoo": {
       "name": "Bein Sports Max 6 Francia",
@@ -2232,10 +2243,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "c3d965d64b39ff31"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "9b0a7eed7e9bfdf7"
     },
     "Vavoo.de.MAGENTASPORT12@TvVoo": {
       "name": "Magenta Sport 12 Alemania",
@@ -2245,10 +2256,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "a9a9bd714896a79b"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "e793d9f8dac11bfa"
     },
     "Vavoo.pt.NBATV@TvVoo": {
       "name": "NBA TV Portugal",
@@ -2258,10 +2269,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "027f096f9bfc222c"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "78d3d9678b2f7bd8"
     },
     "Vavoo.es.BEINSPORTXTRAN@TvVoo": {
       "name": "Bein Sports Xtra \u00d1 Espa\u00f1a",
@@ -2271,10 +2282,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "749855bac139d00e"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "479e76f07de9574b"
     },
     "XITEHits.nl@Germany": {
       "name": "XITE Hits",
@@ -2284,8 +2295,8 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "XITENuevoLatino.us": {
       "name": "XITE Nuevo Latino",
@@ -2295,8 +2306,8 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "XITESiempreLatino.us": {
       "name": "XITE Siempre Latino",
@@ -2306,8 +2317,8 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "XITE80sFlashback.us": {
       "name": "XITE 80s Flashback",
@@ -2317,8 +2328,8 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "XITE90sThrowback.us": {
       "name": "XITE 90s Throwback",
@@ -2328,8 +2339,8 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "XITERockxMetal.nl": {
       "name": "XITE Rock x Metal",
@@ -2339,8 +2350,8 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "XITEJustChill.nl": {
       "name": "XITE Just Chill",
@@ -2350,8 +2361,8 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "M1.ua@SD": {
       "name": "M1",
@@ -2359,9 +2370,9 @@
       "group": "M\u00fasica",
       "playlist": "main",
       "resolver": "direct",
-      "status": "functional",
-      "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "status": "temporarily_unavailable",
+      "consecutive_failures": 1,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": "2026-09-06T01:12:03Z"
     },
     "M2.ua@SD": {
@@ -2370,9 +2381,9 @@
       "group": "M\u00fasica",
       "playlist": "main",
       "resolver": "direct",
-      "status": "recovered",
-      "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "status": "temporarily_unavailable",
+      "consecutive_failures": 1,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": "2026-09-06T01:12:03Z"
     },
     "QelloConcertsbyStingray.ca": {
@@ -2383,8 +2394,8 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "StingrayClassica.ca": {
       "name": "Stingray Classica",
@@ -2394,8 +2405,8 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "MTVBiggestPop.us": {
       "name": "MTV Biggest Pop",
@@ -2405,8 +2416,8 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "MTVSpankinNew.us": {
       "name": "MTV Spankin' New",
@@ -2416,8 +2427,8 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "MTVFlowLatino.us": {
       "name": "MTV Flow Latino",
@@ -2427,8 +2438,8 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "MTVHits.fr@TvVoo": {
       "name": "MTV Hits",
@@ -2436,9 +2447,9 @@
       "group": "M\u00fasica",
       "playlist": "external",
       "resolver": "tvvoo",
-      "status": "renewed",
-      "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "status": "temporarily_unavailable",
+      "consecutive_failures": 1,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": "2026-09-06T01:12:03Z",
       "last_resolver_validated_at": "2026-09-06T01:12:03Z",
       "resolver_url_hash": "9d4a49110dc56fdb"
@@ -2451,10 +2462,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "9066410cd02aa01a"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "ac340a3fcf60469f"
     },
     "TraceUrban.fr@TvVoo": {
       "name": "Trace Urban",
@@ -2464,10 +2475,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "5ffee15851e004da"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "058c19b151e6cb0d"
     },
     "NRJHits.fr@TvVoo": {
       "name": "NRJ Hits",
@@ -2477,10 +2488,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "29ed3124e588b61e"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "5e728bdd80325a0d"
     },
     "MCM.fr@TvVoo": {
       "name": "MCM",
@@ -2490,10 +2501,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "8124955751f65ff9"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "3773ebddfa9b9f8e"
     },
     "Vavoo.uk.4MUSIC@TvVoo": {
       "name": "4Music Reino Unido",
@@ -2501,12 +2512,12 @@
       "group": "M\u00fasica",
       "playlist": "external",
       "resolver": "tvvoo",
-      "status": "temporarily_unavailable",
-      "consecutive_failures": 6,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-05T08:09:16Z",
-      "last_resolver_validated_at": "2026-09-05T08:09:16Z",
-      "resolver_url_hash": "f075310d6b750df0"
+      "status": "recovered",
+      "consecutive_failures": 0,
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "693e087ade16fded"
     },
     "Vavoo.fr.MEZZOLIVE@TvVoo": {
       "name": "Mezzo Live Francia",
@@ -2515,8 +2526,8 @@
       "playlist": "external",
       "resolver": "tvvoo",
       "status": "temporarily_unavailable",
-      "consecutive_failures": 43,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "consecutive_failures": 44,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": "2026-08-30T00:07:17Z",
       "last_resolver_validated_at": "2026-08-30T00:07:17Z",
       "resolver_url_hash": "47b2fe5c5eb4fe89"
@@ -2529,10 +2540,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "e2510eda489f08a4"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "048d203f9d215a1d"
     },
     "Vavoo.fr.TRACEAFRICA@TvVoo": {
       "name": "Trace Africa Francia",
@@ -2541,8 +2552,8 @@
       "playlist": "external",
       "resolver": "tvvoo",
       "status": "temporarily_unavailable",
-      "consecutive_failures": 7,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "consecutive_failures": 8,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": "2026-09-04T23:50:12Z",
       "last_resolver_validated_at": "2026-09-04T23:50:12Z",
       "resolver_url_hash": "65e2ff84eb6e7754"
@@ -2555,10 +2566,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "4e5d441f799f14f8"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "e662eeacf42c40e2"
     },
     "Vavoo.pt.MTVPORTUGAL@TvVoo": {
       "name": "MTV Portugal Portugal",
@@ -2568,10 +2579,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "447a35a67fd74319"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "f55bf2a4677adb79"
     },
     "Vavoo.pt.STINGRAYICONCERTS@TvVoo": {
       "name": "Stingray iConcerts Portugal",
@@ -2581,10 +2592,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "e9f0fe5f4b2dd061"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "132331ff553c4897"
     },
     "Vavoo.nl.XITEROCK@TvVoo": {
       "name": "XITE Rock Pa\u00edses Bajos",
@@ -2594,10 +2605,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "2b4ea7dabfa2d8ec"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "38f446f284530d48"
     },
     "Vavoo.bg.STINGRAYICONCERTS@TvVoo": {
       "name": "Stingray iConcerts Bulgaria",
@@ -2607,10 +2618,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "46e781899f0d3ff2"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "8549d86a01736c9b"
     },
     "Vavoo.de.DELUXEMUSIC@TvVoo": {
       "name": "Deluxe Music Alemania",
@@ -2620,10 +2631,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "c53096c79354dc3e"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "b8b08caba7e0760f"
     },
     "Vavoo.pt.MTV00S@TvVoo": {
       "name": "MTV 00s Portugal",
@@ -2633,10 +2644,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "db0a0d0b4b7d4327"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "1efc9180b97ad6e0"
     },
     "Vavoo.pt.STINGRAYRETRO@TvVoo": {
       "name": "Stingray Retro Portugal",
@@ -2646,10 +2657,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "7889eee726226f00"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "f967c3a46b44734d"
     },
     "Vavoo.uk.VH1@TvVoo": {
       "name": "VH1 Reino Unido",
@@ -2657,12 +2668,12 @@
       "group": "M\u00fasica",
       "playlist": "external",
       "resolver": "tvvoo",
-      "status": "temporarily_unavailable",
-      "consecutive_failures": 6,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-05T08:09:16Z",
-      "last_resolver_validated_at": "2026-09-05T08:09:16Z",
-      "resolver_url_hash": "10e3ef5f70d7aeec"
+      "status": "recovered",
+      "consecutive_failures": 0,
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "9d5687bb46313f5c"
     },
     "Vavoo.nl.XITECLASSICCOUNTRY@TvVoo": {
       "name": "XITE Classic Country Pa\u00edses Bajos",
@@ -2672,10 +2683,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "c5632b593964faf6"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "03553f1106efaebb"
     },
     "Vavoo.nl.XITEGOSPEL@TvVoo": {
       "name": "XITE Gospel Pa\u00edses Bajos",
@@ -2685,10 +2696,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "2277261123a145e9"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "686585e3f4b74663"
     },
     "Vavoo.nl.STINGRAYDJAZZ@TvVoo": {
       "name": "Stingray DJAZZ Pa\u00edses Bajos",
@@ -2696,12 +2707,12 @@
       "group": "M\u00fasica",
       "playlist": "external",
       "resolver": "tvvoo",
-      "status": "recovered",
+      "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "1de361dc30c70218"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "f0a95b11397ffb77"
     },
     "Vavoo.ar.MTV00S@TvVoo": {
       "name": "MTV 00s MENA",
@@ -2711,10 +2722,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "41fb3133671b2ceb"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "aac78b7fbdfacf7f"
     },
     "Vavoo.fr.MEZZO@TvVoo": {
       "name": "Mezzo Francia",
@@ -2724,10 +2735,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "42f3e46f4e64ab1e"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "1ae6cfd0d819f1c7"
     },
     "Vavoo.nl.XITE@TvVoo": {
       "name": "XITE Paises Bajos",
@@ -2737,10 +2748,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "bdd8394380db953a"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "d655e70ba5fbab25"
     },
     "Vavoo.de.MTV@TvVoo": {
       "name": "MTV Alemania",
@@ -2750,10 +2761,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "2b6f445fcd6b2eba"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "b47185895a08498d"
     },
     "Vavoo.fr.CSTAR@TvVoo": {
       "name": "C Star Francia",
@@ -2763,10 +2774,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "be9405ab5de62752"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "b652b33e65b54531"
     },
     "Vavoo.pt.VH1@TvVoo": {
       "name": "Vh1 Portugal",
@@ -2776,10 +2787,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "45861c45b85ee764"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "b85986466fa5d165"
     },
     "Vavoo.uk.BOXHITS@TvVoo": {
       "name": "Box Hits Reino Unido",
@@ -2788,8 +2799,8 @@
       "playlist": "external",
       "resolver": "tvvoo",
       "status": "temporarily_unavailable",
-      "consecutive_failures": 22,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "consecutive_failures": 23,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": null,
       "last_resolver_validated_at": null,
       "resolver_url_hash": null
@@ -2802,10 +2813,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "bda8952bb27940f8"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "76ae1a828362390e"
     },
     "Vavoo.it.DEEJAYTV@TvVoo": {
       "name": "Deejay TV Italia",
@@ -2815,10 +2826,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "c3fd3e75675ecca6"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "f45248b6f9da8595"
     },
     "Vavoo.fr.MCMPOP@TvVoo": {
       "name": "Mcm Pop Francia",
@@ -2828,10 +2839,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "44f8988e369d4aee"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "5c19d27ca476bc06"
     },
     "Vavoo.de.DEUTSCHESMUSIKFERNSEHEN@TvVoo": {
       "name": "Deutsches Musik Fernsehen Alemania",
@@ -2841,10 +2852,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "fa960f357724c1a0"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "9738e64487e2b07b"
     },
     "Vavoo.pt.MCMPOP@TvVoo": {
       "name": "Mcm Pop Portugal",
@@ -2854,10 +2865,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "78d04441263f6f27"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "0b8f906ffa3d0c89"
     },
     "Vavoo.uk.MTVROCKS@TvVoo": {
       "name": "MTV Rocks Reino Unido",
@@ -2865,12 +2876,12 @@
       "group": "M\u00fasica",
       "playlist": "external",
       "resolver": "tvvoo",
-      "status": "recovered",
+      "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "cf7bfba900202c72"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "01f6d4d922dd3d76"
     },
     "Vavoo.it.LA5@TvVoo": {
       "name": "La 5 Italia",
@@ -2880,10 +2891,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "03dbcf767e783b48"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "69e7308f04220d09"
     },
     "Vavoo.fr.MCMTOP@TvVoo": {
       "name": "Mcm Top Francia",
@@ -2893,10 +2904,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "cebb98e6311b50c7"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "0b3b607c408ce840"
     },
     "Vavoo.uk.POP@TvVoo": {
       "name": "Pop Reino Unido",
@@ -2906,10 +2917,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "da842c637620a9f2"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "6b26265c67880194"
     },
     "Vavoo.it.RTL102@TvVoo": {
       "name": "Rtl 102 Italia",
@@ -2919,10 +2930,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "a68212adf78bad65"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "5a3be036889e246a"
     },
     "Vavoo.fr.MELODY@TvVoo": {
       "name": "Melody Francia",
@@ -2932,10 +2943,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "2b0b57ebc805b8c8"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "a1a0a2b62c846ff1"
     },
     "Vavoo.uk.POPMAX@TvVoo": {
       "name": "Pop Max Reino Unido",
@@ -2944,8 +2955,8 @@
       "playlist": "external",
       "resolver": "tvvoo",
       "status": "temporarily_unavailable",
-      "consecutive_failures": 6,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "consecutive_failures": 7,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": null,
       "last_resolver_validated_at": null,
       "resolver_url_hash": null
@@ -2957,8 +2968,8 @@
       "playlist": "external",
       "resolver": "tvvoo",
       "status": "temporarily_unavailable",
-      "consecutive_failures": 6,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "consecutive_failures": 7,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": null,
       "last_resolver_validated_at": null,
       "resolver_url_hash": null
@@ -2971,10 +2982,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "8b091305d3b7b9c9"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "e5e35d5cb7768af0"
     },
     "Vavoo.uk.FILM4@TvVoo": {
       "name": "Film4 Reino Unido",
@@ -2983,8 +2994,8 @@
       "playlist": "external",
       "resolver": "tvvoo",
       "status": "temporarily_unavailable",
-      "consecutive_failures": 21,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "consecutive_failures": 22,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": null,
       "last_resolver_validated_at": null,
       "resolver_url_hash": null
@@ -2997,10 +3008,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "f6a15087cb9ded54"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "c06504d444285ed9"
     },
     "Vavoo.fr.ACTION@TvVoo": {
       "name": "Action Francia",
@@ -3010,10 +3021,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "7012ddffe8c182db"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "9523801e3a7663e8"
     },
     "Vavoo.de.KINOWELTTV@TvVoo": {
       "name": "Kinowelt TV Alemania",
@@ -3023,10 +3034,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "7657be0c09caf57c"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "f782a6a4e1f374bb"
     },
     "Vavoo.pt.AMCCRIME@TvVoo": {
       "name": "Amc Crime Portugal",
@@ -3036,10 +3047,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "ce4f4ba589ab2106"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "454a89c5728c9868"
     },
     "Vavoo.uk.PARAMOUNT@TvVoo": {
       "name": "Paramount Reino Unido",
@@ -3048,8 +3059,8 @@
       "playlist": "external",
       "resolver": "tvvoo",
       "status": "temporarily_unavailable",
-      "consecutive_failures": 9,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "consecutive_failures": 10,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": "2026-09-03T17:14:58Z",
       "last_resolver_validated_at": "2026-09-03T17:14:58Z",
       "resolver_url_hash": "d42c02505452dbf4"
@@ -3062,10 +3073,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "95756092c1af0932"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "0a2518bc471ee018"
     },
     "Vavoo.fr.ALTICESTUDIO@TvVoo": {
       "name": "Altice Studio Francia",
@@ -3074,8 +3085,8 @@
       "playlist": "external",
       "resolver": "tvvoo",
       "status": "temporarily_unavailable",
-      "consecutive_failures": 8,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "consecutive_failures": 9,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": "2026-09-04T18:59:00Z",
       "last_resolver_validated_at": "2026-09-04T18:59:00Z",
       "resolver_url_hash": "705a9fe066c80198"
@@ -3088,10 +3099,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "bd9303d4a105a577"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "74e018475277c9ec"
     },
     "Vavoo.pt.AMCBREAK@TvVoo": {
       "name": "Amc Break Portugal",
@@ -3101,10 +3112,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "8afb5ae82f05e38b"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "7f65f5d500798998"
     },
     "Vavoo.uk.SKYCINEMAACTION@TvVoo": {
       "name": "Sky Cinema Action Reino Unido",
@@ -3114,10 +3125,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "611950d2fe4cf0eb"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "d19268df63b603eb"
     },
     "Vavoo.it.FOX@TvVoo": {
       "name": "Fox Italia",
@@ -3125,9 +3136,9 @@
       "group": "Pel\u00edculas",
       "playlist": "external",
       "resolver": "tvvoo",
-      "status": "renewed",
-      "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "status": "temporarily_unavailable",
+      "consecutive_failures": 1,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": "2026-09-06T01:12:03Z",
       "last_resolver_validated_at": "2026-09-06T01:12:03Z",
       "resolver_url_hash": "9f06e41907adf9f3"
@@ -3140,10 +3151,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "dc0c590a1e01226d"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "03ce13116b1c8ee2"
     },
     "Vavoo.de.SKYCINEMA@TvVoo": {
       "name": "Sky Cinema Alemania",
@@ -3151,9 +3162,9 @@
       "group": "Pel\u00edculas",
       "playlist": "external",
       "resolver": "tvvoo",
-      "status": "renewed",
-      "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "status": "temporarily_unavailable",
+      "consecutive_failures": 1,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": "2026-09-06T01:12:03Z",
       "last_resolver_validated_at": "2026-09-06T01:12:03Z",
       "resolver_url_hash": "3abe3b12472f8825"
@@ -3166,10 +3177,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "f85086d722c8350f"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "229468cd2aad75d7"
     },
     "Vavoo.es.ANTENA3@TvVoo": {
       "name": "Antena 3 Espa\u00f1a",
@@ -3179,10 +3190,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "4a5264a345f7046b"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "3556e00b240ccac0"
     },
     "Vavoo.uk.SKYCINEMAANIMATION@TvVoo": {
       "name": "Sky Cinema Animation Reino Unido",
@@ -3191,8 +3202,8 @@
       "playlist": "external",
       "resolver": "tvvoo",
       "status": "temporarily_unavailable",
-      "consecutive_failures": 6,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "consecutive_failures": 7,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": null,
       "last_resolver_validated_at": null,
       "resolver_url_hash": null
@@ -3205,10 +3216,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "ba6eea35399c99f6"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "f9839523402e364e"
     },
     "Vavoo.fr.CANALCINEMA@TvVoo": {
       "name": "Canal+ Cinema Francia",
@@ -3218,10 +3229,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "e7316c304e96acaa"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "12d648e480c16e81"
     },
     "Vavoo.de.PARAMOUNTNETWORK@TvVoo": {
       "name": "Paramount Network Alemania",
@@ -3230,8 +3241,8 @@
       "playlist": "external",
       "resolver": "tvvoo",
       "status": "temporarily_unavailable",
-      "consecutive_failures": 6,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "consecutive_failures": 7,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": null,
       "last_resolver_validated_at": null,
       "resolver_url_hash": null
@@ -3244,10 +3255,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "e8676de473d4295a"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "7f82f7a6190e060d"
     },
     "Vavoo.es.ATRESERIESA3SERIES@TvVoo": {
       "name": "Atreseries (A3 Series) Espa\u00f1a",
@@ -3257,10 +3268,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "588e6f7ae09c5859"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "05194c25a4c7fcfb"
     },
     "Vavoo.it.CARTOONITO@TvVoo": {
       "name": "Cartoonito Italia",
@@ -3270,10 +3281,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "5d1973ddc87ad1a6"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "38eb786492002280"
     },
     "RedBullWorldEnglish.int": {
       "name": "RedBull TV World",
@@ -3283,8 +3294,8 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "RedBullChileEspanol.cl": {
       "name": "RedBull TV Espa\u00f1ol",
@@ -3294,8 +3305,8 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "AutenticHistory.de": {
       "name": "Autentic History",
@@ -3305,8 +3316,8 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "BBCEarth.uk": {
       "name": "BBC Earth FAST",
@@ -3316,8 +3327,8 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "RealWild.us": {
       "name": "Real Wild",
@@ -3327,8 +3338,8 @@
       "resolver": "direct",
       "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z"
     },
     "Vavoo.uk.BBCTWO@TvVoo": {
       "name": "BBC Two Reino Unido",
@@ -3338,10 +3349,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "4a4e0c5a3ffaa27c"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "326dfb558d2d9620"
     },
     "Vavoo.uk.BBCFOUR@TvVoo": {
       "name": "BBC Four Reino Unido",
@@ -3351,10 +3362,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "c2a179e5187cbbb3"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "ddacb1a8a4e99027"
     },
     "Vavoo.pl.BBCEARTH@TvVoo": {
       "name": "BBC Earth Polonia",
@@ -3364,10 +3375,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "32aec76c7cdd841d"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "c107373fbf5f7fb3"
     },
     "Vavoo.ru.RTDOCUMENTARY@TvVoo": {
       "name": "RT Documentary Rusia",
@@ -3376,8 +3387,8 @@
       "playlist": "external",
       "resolver": "tvvoo",
       "status": "temporarily_unavailable",
-      "consecutive_failures": 6,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "consecutive_failures": 7,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": "2026-09-05T08:09:16Z",
       "last_resolver_validated_at": "2026-09-05T08:09:16Z",
       "resolver_url_hash": "5655ea62bcebb8cb"
@@ -3390,10 +3401,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "3334d28619f0958c"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "24d9b2d84e61556c"
     },
     "Vavoo.uk.NATIONALGEOGRAPHIC@TvVoo": {
       "name": "National Geographic Reino Unido",
@@ -3403,10 +3414,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "1821cb76c47d5e09"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "1ae5917de3542f90"
     },
     "Vavoo.es.DISCOVERYCHANNEL@TvVoo": {
       "name": "Discovery Channel Espa\u00f1a",
@@ -3416,10 +3427,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "49fd2fb9f6a27dad"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "b0a53cf04983399b"
     },
     "Vavoo.fr.DISCOVERYSCIENCE@TvVoo": {
       "name": "Discovery Science Francia",
@@ -3429,10 +3440,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "9c4153c69c542b1d"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "945012e33edcb61f"
     },
     "Vavoo.es.NATGEOWILD@TvVoo": {
       "name": "Nat Geo Wild Espa\u00f1a",
@@ -3441,8 +3452,8 @@
       "playlist": "external",
       "resolver": "tvvoo",
       "status": "temporarily_unavailable",
-      "consecutive_failures": 6,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "consecutive_failures": 7,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": "2026-09-05T08:09:16Z",
       "last_resolver_validated_at": "2026-09-05T08:09:16Z",
       "resolver_url_hash": "385b4bcd7f432a69"
@@ -3455,10 +3466,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "5763608658ab8fdf"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "a090d0a0b731ce51"
     },
     "Vavoo.de.SKYNATURE@TvVoo": {
       "name": "Sky Nature Alemania",
@@ -3468,10 +3479,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "72524c60389f4a5a"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "97ba1cf0739b5f24"
     },
     "Vavoo.de.HISTORY@TvVoo": {
       "name": "History Alemania",
@@ -3481,10 +3492,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "2d9096647bc3d8e6"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "d772d8a0c38f1589"
     },
     "RTFrance.fr@TvVoo": {
       "name": "RT France",
@@ -3494,10 +3505,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "565b6c4aff3f4880"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "59c2034a206d304b"
     },
     "Vavoo.pl.BBCFIRST@TvVoo": {
       "name": "BBC First Polonia",
@@ -3507,10 +3518,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "8e83032446dbc68e"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "7f417a435cf61632"
     },
     "Vavoo.de.13THSTREET@TvVoo": {
       "name": "13Th Street Alemania",
@@ -3520,10 +3531,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "ed0f2b4b37a93cc9"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "9cc848e81fa44cbf"
     },
     "Vavoo.es.7TELEVALENCIA@TvVoo": {
       "name": "7 Televalencia Espa\u00f1a",
@@ -3533,10 +3544,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "3f8ed7c8f7415db3"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "7b0cc30cb69b3697"
     },
     "Vavoo.fr.13EMERUE@TvVoo": {
       "name": "13Eme Rue Francia",
@@ -3546,10 +3557,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "32ef2e091638e6b8"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "ab86ab3bb8d68c57"
     },
     "Vavoo.fr.BFM@TvVoo": {
       "name": "Bfm Francia",
@@ -3558,8 +3569,8 @@
       "playlist": "external",
       "resolver": "tvvoo",
       "status": "temporarily_unavailable",
-      "consecutive_failures": 9,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "consecutive_failures": 10,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": "2026-09-03T17:14:58Z",
       "last_resolver_validated_at": "2026-09-03T17:14:58Z",
       "resolver_url_hash": "445e1f88fdaee734"
@@ -3572,10 +3583,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "7b4df198004f0c18"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "f76b836102d76209"
     },
     "Vavoo.it.RAINEWS24@TvVoo": {
       "name": "Rai News 24 Italia",
@@ -3585,10 +3596,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "174e355b4af5cb0f"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "73a289d9164d0cbb"
     },
     "Vavoo.nl.NPONIEUWS@TvVoo": {
       "name": "Npo Nieuws Pa\u00edses Bajos",
@@ -3598,10 +3609,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "3d63aaff965e6d3a"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "9ff9cae298568d56"
     },
     "Vavoo.pt.24KITCHEN@TvVoo": {
       "name": "24 Kitchen Portugal",
@@ -3611,10 +3622,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "acc581a0cb35e927"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "0f1007db9a4aab87"
     },
     "Vavoo.pt.SICNOTICIAS@TvVoo": {
       "name": "Sic Noticias Portugal",
@@ -3624,10 +3635,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "034e5794e2ddaa32"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "3a4c265dc178b815"
     },
     "Vavoo.uk.ALIBI@TvVoo": {
       "name": "Alibi Reino Unido",
@@ -3635,12 +3646,12 @@
       "group": "Miscel\u00e1neos",
       "playlist": "external",
       "resolver": "tvvoo",
-      "status": "temporarily_unavailable",
-      "consecutive_failures": 6,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-05T08:09:16Z",
-      "last_resolver_validated_at": "2026-09-05T08:09:16Z",
-      "resolver_url_hash": "a856fcbebfedc4b5"
+      "status": "recovered",
+      "consecutive_failures": 0,
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "5977cc876201075e"
     },
     "Vavoo.uk.ARISENEWS@TvVoo": {
       "name": "Arise News Reino Unido",
@@ -3649,8 +3660,8 @@
       "playlist": "external",
       "resolver": "tvvoo",
       "status": "temporarily_unavailable",
-      "consecutive_failures": 22,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "consecutive_failures": 23,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": null,
       "last_resolver_validated_at": null,
       "resolver_url_hash": null
@@ -3663,10 +3674,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "4c21fadf7975bee8"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "6bf63458356c033b"
     },
     "Vavoo.uk.ANIMALPLANET@TvVoo": {
       "name": "Animal Planet Reino Unido",
@@ -3676,10 +3687,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "9bed30ad6c0b3d3d"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "bddc32a6fbb83487"
     },
     "Vavoo.it.TGNORBA24@TvVoo": {
       "name": "Tg Norba 24 Italia",
@@ -3688,8 +3699,8 @@
       "playlist": "external",
       "resolver": "tvvoo",
       "status": "temporarily_unavailable",
-      "consecutive_failures": 7,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "consecutive_failures": 8,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": "2026-09-04T23:50:12Z",
       "last_resolver_validated_at": "2026-09-04T23:50:12Z",
       "resolver_url_hash": "55b865b580fe98b9"
@@ -3702,10 +3713,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "82d05cea9b9b0238"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "b6c6fa1914a55936"
     },
     "Vavoo.fr.BFMBUSINESS@TvVoo": {
       "name": "Bfm Business Francia",
@@ -3715,10 +3726,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "51a6804704bb4da3"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "accf734a71fadc59"
     },
     "Vavoo.fr.6TER@TvVoo": {
       "name": "6Ter Francia",
@@ -3728,10 +3739,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "ae2a2d31d27e11f4"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "e99d8443c2d3c3a5"
     },
     "Vavoo.de.3SAT@TvVoo": {
       "name": "3Sat Alemania",
@@ -3741,10 +3752,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "75ce375a906bdc0d"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "ae26473a588527bd"
     },
     "Vavoo.pt.ABOLATV@TvVoo": {
       "name": "A Bola TV Portugal",
@@ -3754,10 +3765,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "d0c7d06bb78f19f6"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "b8b854097b2932e5"
     },
     "Vavoo.uk.GBNEWS@TvVoo": {
       "name": "Gb News Reino Unido",
@@ -3767,10 +3778,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "db963bba51321a10"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "7172244011937206"
     },
     "Vavoo.uk.BABYTV@TvVoo": {
       "name": "Baby TV Reino Unido",
@@ -3780,10 +3791,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "034f18a320e647e7"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "ad5cd543d5aca2ba"
     },
     "Vavoo.it.BOINGPLUS@TvVoo": {
       "name": "Boing Plus Italia",
@@ -3793,10 +3804,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "8a954f01aa2200b8"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "8ce454a00a27b5aa"
     },
     "Vavoo.fr.BFMTV@TvVoo": {
       "name": "Bfm TV Francia",
@@ -3806,10 +3817,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "25ee5d59d8a8f4cb"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "ce47d2bf2eaa3252"
     },
     "Vavoo.fr.AB1@TvVoo": {
       "name": "Ab1 Francia",
@@ -3819,10 +3830,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "cc6c4bfde8382664"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "ef9a7fae41f1504b"
     },
     "Vavoo.de.ALLGAU@TvVoo": {
       "name": "Allgau Alemania",
@@ -3830,12 +3841,12 @@
       "group": "Miscel\u00e1neos",
       "playlist": "external",
       "resolver": "tvvoo",
-      "status": "temporarily_unavailable",
-      "consecutive_failures": 6,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-05T08:09:16Z",
-      "last_resolver_validated_at": "2026-09-05T08:09:16Z",
-      "resolver_url_hash": "911acd727b15ba82"
+      "status": "recovered",
+      "consecutive_failures": 0,
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "7d5dae19f5ee219d"
     },
     "Vavoo.pt.AXN@TvVoo": {
       "name": "Axn Portugal",
@@ -3845,10 +3856,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "784e4da967884fff"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "93427924e0671f10"
     },
     "Vavoo.uk.GOODNEWSTV@TvVoo": {
       "name": "Good News TV Reino Unido",
@@ -3857,8 +3868,8 @@
       "playlist": "external",
       "resolver": "tvvoo",
       "status": "temporarily_unavailable",
-      "consecutive_failures": 14,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "consecutive_failures": 15,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": null,
       "last_resolver_validated_at": null,
       "resolver_url_hash": null
@@ -3870,8 +3881,8 @@
       "playlist": "external",
       "resolver": "tvvoo",
       "status": "temporarily_unavailable",
-      "consecutive_failures": 14,
-      "last_checked_at": "2026-09-06T01:12:03Z",
+      "consecutive_failures": 15,
+      "last_checked_at": "2026-09-06T02:20:01Z",
       "last_ok_at": null,
       "last_resolver_validated_at": null,
       "resolver_url_hash": null
@@ -3884,10 +3895,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "f96dd01cf19cafc1"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "d6d5f33440b313bf"
     },
     "Vavoo.fr.CNEWS@TvVoo": {
       "name": "C News Francia",
@@ -3897,10 +3908,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "5de13d9cb74df625"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "f95a00378cbef324"
     },
     "Vavoo.fr.ANIMAUX@TvVoo": {
       "name": "Animaux Francia",
@@ -3910,10 +3921,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "84cdc422e64ae43d"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "86882dda3b166faf"
     },
     "Vavoo.de.TAGESSCHAU24@TvVoo": {
       "name": "Tagesschau 24 Alemania",
@@ -3923,10 +3934,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "54824aae8dbfc974"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "9ee0ef877d0ae6a5"
     },
     "Vavoo.de.ALLGAUTV@TvVoo": {
       "name": "Allgau TV Alemania",
@@ -3936,10 +3947,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "9c6008a051d49052"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "f600ed3f18d48be7"
     },
     "Vavoo.pt.AXNWHITE@TvVoo": {
       "name": "Axn White Portugal",
@@ -3949,10 +3960,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "a9673ea13cb3a2a2"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "1cddadc3ea1b9c20"
     },
     "Vavoo.es.7TVMURCIA@TvVoo": {
       "name": "7 TV Murcia Espa\u00f1a",
@@ -3962,10 +3973,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "319a40a3bd68d0d3"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "812bc41655d04ec2"
     },
     "Vavoo.uk.SKYNEWS@TvVoo": {
       "name": "Sky News Reino Unido",
@@ -3975,10 +3986,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "323054ffbc62dec2"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "c28249344888786e"
     },
     "Vavoo.uk.BBCENTERTAINMENT@TvVoo": {
       "name": "BBC Entertainment Reino Unido",
@@ -3988,10 +3999,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "d33e77e7661e8725"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "70984ef877e90c1c"
     },
     "Vavoo.it.CARTOONNETWORK@TvVoo": {
       "name": "Cartoon Network Italia",
@@ -4001,10 +4012,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "42201bdb4242a1ce"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "1fe40a43a30b13fa"
     },
     "Vavoo.fr.ARTE@TvVoo": {
       "name": "Arte Francia",
@@ -4014,10 +4025,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "79433a02cb50c647"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "a9022af0c740d5e7"
     },
     "Vavoo.de.TAGESSCHAU24-D966C2E0@TvVoo": {
       "name": "Tagesschau24 Alemania",
@@ -4027,10 +4038,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "c17d9196990fcc3d"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "75889d02cd24bea4"
     },
     "Vavoo.de.ANIXE@TvVoo": {
       "name": "Anixe Alemania",
@@ -4040,10 +4051,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "73f22a8652de553f"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "c36946bca16c52db"
     },
     "Vavoo.pt.BIGGS@TvVoo": {
       "name": "Biggs Portugal",
@@ -4053,10 +4064,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "24602c94e2d19572"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "32e9b56552f9f9b8"
     },
     "Vavoo.es.ACTIVATV@TvVoo": {
       "name": "Activa TV Espa\u00f1a",
@@ -4066,10 +4077,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "ad57fdf40d10eb1f"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "df34ef1f4d44c024"
     },
     "Vavoo.es.CANALODISEA@TvVoo": {
       "name": "Canal Odisea Espa\u00f1a",
@@ -4079,10 +4090,10 @@
       "resolver": "tvvoo",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-09-06T01:12:03Z",
-      "last_ok_at": "2026-09-06T01:12:03Z",
-      "last_resolver_validated_at": "2026-09-06T01:12:03Z",
-      "resolver_url_hash": "b49dea8d91b85fab"
+      "last_checked_at": "2026-09-06T02:20:01Z",
+      "last_ok_at": "2026-09-06T02:20:01Z",
+      "last_resolver_validated_at": "2026-09-06T02:20:01Z",
+      "resolver_url_hash": "0398d48d192120ea"
     }
   }
 }
