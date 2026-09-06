@@ -265,13 +265,16 @@ MAIN_PLAYLIST_CHANNEL_IDS = SPORTS_CHANNEL_IDS
 # conserva como punto de extension para futuras sondas que reciban autorizacion
 # explicita, pero las entradas retiradas no pueden volver por un fallo puntual.
 DIRECT_PROBE_CHANNEL_IDS = frozenset()
-DYNAMIC_RESOLVER_ENGINES = frozenset({"meganoticias", "tvvoo", "highfly"})
+# TVN y Meganoticias son resolutores gestionados por la aplicacion: la lista
+# conserva sus masters oficiales y VibeM3U obtiene la autorizacion al abrir el
+# canal. Solo TvVoo y Highfly se renuevan desde Actions porque entregan fuentes
+# efimeras para reproductores externos.
+DYNAMIC_RESOLVER_ENGINES = frozenset({"tvvoo", "highfly"})
 # Los enlaces resueltos de TvVoo/Highfly son efimeros o pueden cambiar de
 # nodo. Esta ventana solo evita repetir una renovacion si se lanza otra corrida
 # poco despues de una validacion correcta; no sustituye la renovacion normal de
 # las ventanas de seis horas.
 RESOLVER_VALIDATION_TTL = {
-    "meganoticias": timedelta(minutes=20),
     "tvvoo": timedelta(minutes=30),
     "highfly": timedelta(minutes=30),
 }
@@ -7822,26 +7825,6 @@ def fresh_24horas_url() -> str:
     return f"https://mdstrm.com/live-stream-playlist/{stream_id}.m3u8"
 
 
-def fresh_meganoticias_url() -> str:
-    """Read the current official stream id without requesting its token."""
-    html = megamedia_page_html(
-        MEGANOTICIAS_LIVE_PAGE,
-        timeout=CHANNEL_CHECK_POLICIES["meganoticias"].resolver_timeout,
-    )
-    stream_id_match = re.search(
-        r"var\s+VideoSenalEnVivo\s*=\s*\{.{0,65536}?"
-        r"\bid\s*:\s*['\"]([A-Za-z0-9_-]+)",
-        html,
-        flags=re.IGNORECASE | re.DOTALL,
-    )
-    stream_id = (
-        stream_id_match.group(1)
-        if stream_id_match
-        else MEGANOTICIAS_DEFAULT_STREAM_ID
-    )
-    return f"https://mdstrm.com/live-stream-playlist/{stream_id}.m3u8"
-
-
 def fetch_highfly_manifest() -> dict:
     """Confirm the configured Highfly manifest without persisting its body."""
     status, body, _ = fetch_bytes(
@@ -9042,7 +9025,7 @@ def main() -> int:
         os.environ.get("M3U_FORCE_DYNAMIC_REFRESH", "").lower() == "true"
     )
     if force_dynamic_refresh:
-        print("Renovacion dinamica forzada: se consultaran todos los resolutores")
+        print("Renovacion dinamica forzada: se consultaran TvVoo y Highfly")
     dynamic_jobs: list[
         tuple[Channel, Callable[[], str | Iterable[str]], CheckResult]
     ] = []
@@ -9094,8 +9077,6 @@ def main() -> int:
             fresh_url_factory = lambda channel_name=channel.name: iter_fresh_tvvoo_stream_urls(
                 channel_name
             )
-        elif resolver == "meganoticias":
-            fresh_url_factory = fresh_meganoticias_url
         elif resolver == "highfly":
             fresh_url_factory = lambda channel=channel: fresh_highfly_stream_urls(
                 channel,

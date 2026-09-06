@@ -149,10 +149,9 @@ def run_updater(force: bool = False) -> int:
     # la autenticacion. El ejecutor local debe clasificar sus 401/403 igual que
     # Actions, sin sustituir la URL ni escribir tokens.
     environment["M3U_ALLOW_GEO_RESTRICTED"] = "true"
-    # Una corrida programada/forzada debe renovar TvVoo, Highfly y el resolver
-    # dinamico de Meganoticias aunque el estado de salud conserve una
-    # validacion reciente. El coordinador sigue protegiendo el intervalo entre
-    # corridas cuando no se usa --force.
+    # Una corrida programada/forzada debe renovar TvVoo y Highfly aunque el
+    # estado de salud conserve una validacion reciente. TVN y Meganoticias se
+    # resuelven dentro de la aplicacion al abrir el canal.
     environment["M3U_FORCE_DYNAMIC_REFRESH"] = "true" if force else "false"
     completed = subprocess.run(
         [sys.executable, str(UPDATE_SCRIPT), "--channels-only"],

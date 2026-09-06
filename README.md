@@ -45,12 +45,11 @@ Catalogo declarativo de resolutores para VibeM3U:
 `https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/resolver-catalog.json`
 
 La M3U conserva una URL HLS de respaldo para reproductores externos. VibeM3U
-usa los atributos `x-resolver-*` para renovar la fuente justo antes de abrirla:
-TVN consulta su pagina oficial; 24 Horas se mantiene como canal directo, TvVoo
-usa aliases estables y Highfly usa un slug estable junto al `manifest.json`
-configurado. Meganoticias
-usa ahora el resolutor oficial porque su CDN exige autorizacion de corta
-duracion; Pluto y los canales directos siguen sin resolutor. El catalogo solo
+usa los atributos `x-resolver-*` para resolver la fuente justo antes de abrirla:
+TVN y Meganoticias conservan sus masters oficiales para que la aplicacion
+obtenga la autorizacion al reproducir; 24 Horas se mantiene como canal directo,
+TvVoo usa aliases estables y Highfly usa un slug estable junto al `manifest.json`
+configurado. Pluto y los canales directos siguen sin resolutor. El catalogo solo
 contiene reglas y endpoints HTTPS permitidos; nunca publica respuestas HLS,
 tokens, claves ni URLs de sesion.
 
@@ -117,8 +116,9 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
   comprobando maestro/variante/segmento; el destino publico se decide despues
   de la comprobacion individual, por lo que una señal sana puede cambiar de
   lista aunque su proveedor original no cambie;
-- las renovaciones de TvVoo, Highfly y Meganoticias se ejecutan despues de esa
-  validacion, agrupadas por proveedor. Una URL dinamica que acaba de validarse
+- las renovaciones de TvVoo y Highfly se ejecutan despues de esa validacion,
+  agrupadas por proveedor. TVN y Meganoticias quedan para la resolucion de la
+  aplicacion al abrir el canal. Una URL dinamica que acaba de validarse
   se reutiliza durante una ventana corta para no repetir consultas; al superar
   el TTL, fallar o cambiar su huella, vuelve a resolverse. Highfly consulta su
   `manifest.json` una sola vez por corrida y conserva los slugs estables;
@@ -193,9 +193,9 @@ sobre todo el catálogo y comprueba que la principal conserve exactamente sus
 URLs vigentes del catálogo.
 
 El proceso de canales corre a las 00:00, 06:00, 12:00 y 18:00 (hora de
-Santiago). El proceso de EPG corre a las 00:30, 06:30, 12:30 y 18:30. El
-descubrimiento de TvVoo corre a las 03:15. Cada ventana programada fuerza una
-consulta de enlaces dinamicos; la compuerta de seis horas solo protege
+Santiago). El proceso de EPG corre a las 00:30, 06:30, 12:30 y 18:30. Cada
+ventana programada fuerza una consulta de enlaces dinamicos de TvVoo y Highfly;
+la compuerta de seis horas solo protege
 invocaciones locales o manuales repetidas fuera del cron. Los procesos
 comparten una cola de publicacion para no competir por `main`.
 GitHub puede iniciar unos minutos despues porque los cron son best effort.

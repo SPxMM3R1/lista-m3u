@@ -28,6 +28,16 @@ class _Response:
 
 
 class RuntimePolicyTests(unittest.TestCase):
+    def test_app_handled_channels_are_not_background_refreshed(self) -> None:
+        self.assertIn("TVN", update_m3u.APP_HANDLED_CHANNELS)
+        self.assertIn("Meganoticias", update_m3u.APP_HANDLED_CHANNELS)
+        self.assertNotIn("tvn", update_m3u.DYNAMIC_RESOLVER_ENGINES)
+        self.assertNotIn("meganoticias", update_m3u.DYNAMIC_RESOLVER_ENGINES)
+        self.assertEqual(
+            update_m3u.DYNAMIC_RESOLVER_ENGINES,
+            frozenset({"tvvoo", "highfly"}),
+        )
+
     def test_expired_certificate_scope_is_only_known_tvvoo_hls(self) -> None:
         self.assertTrue(
             update_m3u.is_tvvoo_hls_candidate_url(
