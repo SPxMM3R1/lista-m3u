@@ -191,6 +191,14 @@ class HighflyPremiumListTest(unittest.TestCase):
                 "now-sky-sports-f1-2"
             ]["logo"],
         )
+        self.assertIn(
+            "4k-sky-sports-main-events",
+            update_m3u.HIGHFLY_PREMIUM_STABLE_EXCLUDED_SLUGS,
+        )
+        self.assertIn(
+            "now-sky-sports-f1-2",
+            update_m3u.HIGHFLY_PREMIUM_STABLE_EXCLUDED_SLUGS,
+        )
         content = update_m3u.render_highfly_premium_stable_playlist(
             [
                 {
@@ -207,10 +215,18 @@ class HighflyPremiumListTest(unittest.TestCase):
                     "country": "GB",
                     "logo": "sky-sports-f1-uhd.svg",
                 },
+                {
+                    "slug": "now-sky-sports-tennis",
+                    "tvg_id": "SkySportsTennis.uk",
+                    "name": "Sky Sports Tennis",
+                    "country": "GB",
+                    "logo": "sky-sports-tennis.png",
+                },
             ]
         )
-        self.assertIn("/logos/sky-sports-main-event-uhd.svg", content)
-        self.assertIn("/logos/sky-sports-f1-uhd.svg", content)
+        self.assertNotIn("4k-sky-sports-main-events", content)
+        self.assertNotIn("now-sky-sports-f1-2", content)
+        self.assertIn("now-sky-sports-tennis", content)
 
     def test_rally_official_epg_reads_only_linear_cards(self) -> None:
         cards = []

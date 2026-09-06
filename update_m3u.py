@@ -58,12 +58,11 @@ HIGHFLY_PREMIUM_STABLE_ORDER = (
     "now-sky-sports-premier-league",
     "es-rally-tv",
     "us-marquee-sports-network-hd",
-    "4k-sky-sports-main-events",
-    "now-sky-sports-f1-2",
 )
 # Exclusiones explicitas de la lista 3. La fuente Premium es dinamica y puede
 # volver a anunciar una señal retirada; este denylist evita que una sincronizacion
-# posterior la vuelva a publicar sin una decision manual.
+# posterior la vuelva a publicar sin una decision manual. Las dos senales UHD
+# se excluyen de Lista 3 porque ahora son miembros manuales de Lista 1.
 HIGHFLY_PREMIUM_STABLE_EXCLUDED_SLUGS = frozenset({
     "au-fox-sports-502-hd",
     "us-espn-hd",
@@ -72,6 +71,8 @@ HIGHFLY_PREMIUM_STABLE_EXCLUDED_SLUGS = frozenset({
     "au-fox-sports-504-hd",
     "now-sky-sports-golf",
     "us-tennis-channel",
+    "4k-sky-sports-main-events",
+    "now-sky-sports-f1-2",
 })
 # tvg-id se mantiene canonico para las cinco entradas que ya poseen EPG. Los
 # ids HighflyPremium.* son nuevos y no colisionan con las listas 1/2.
@@ -161,6 +162,7 @@ F1_CHANNEL_ORDER = (
     "SkySportF1.de@TvVoo",
     "Vavoo.uk.SKYSPORTSF1@TvVoo",
     "Vavoo.it.SKYSPORTF1@TvVoo",
+    "HighflyPremium.now-sky-sports-f1-2",
 )
 F1_CHANNEL_IDS = frozenset(F1_CHANNEL_ORDER)
 SKY_SPORTS_CHANNEL_ORDER = (
@@ -172,12 +174,14 @@ SKY_SPORTS_CHANNEL_ORDER = (
     "SkySportF1.de@TvVoo",
     "Vavoo.uk.SKYSPORTSF1@TvVoo",
     "Vavoo.it.SKYSPORTF1@TvVoo",
+    "HighflyPremium.now-sky-sports-f1-2",
     # El resto de variantes Sky se mantiene en un unico bloque.
     "SkySportTennis.de@TvVoo",
     "Vavoo.it.SKYSPORTTENNIS@TvVoo",
     "SkySportsPremierLeague.uk",
     "Vavoo.uk.SKYSPORTSPREMIERLEAGUE@TvVoo",
     "SkySportsMainEvent.uk@TvVoo",
+    "HighflyPremium.4k-sky-sports-main-events",
     "SkySportsArena.uk@TvVoo",
     "SkySportsFootball.uk@TvVoo",
     "SkySportsMix.uk@TvVoo",
@@ -268,6 +272,8 @@ HIGHFLY_RESOLVER_CHANNELS = {
     "SkySportsF1.uk": "now-sky-sports-f1-free",
     "SkySportsPremierLeague.uk": "now-sky-sports-premier-league",
     "SkySportsTennis.uk": "now-sky-sports-tennis",
+    "HighflyPremium.now-sky-sports-f1-2": "now-sky-sports-f1-2",
+    "HighflyPremium.4k-sky-sports-main-events": "4k-sky-sports-main-events",
 }
 
 TEST_GROUP_PREFIX = "PRUEBA - "
