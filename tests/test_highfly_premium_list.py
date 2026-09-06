@@ -200,6 +200,30 @@ class HighflyPremiumListTest(unittest.TestCase):
         self.assertIn("/logos/sky-sports-main-event-uhd.png", content)
         self.assertIn("/logos/sky-sports-f1-uhd.png", content)
 
+    def test_sky_f1_and_tennis_use_source_svg_assets(self) -> None:
+        self.assertEqual(
+            "sky-sports-f1-dark.svg",
+            update_m3u.HIGHFLY_PREMIUM_STABLE_OVERRIDES[
+                "now-sky-sports-f1-free"
+            ]["logo"],
+        )
+        self.assertEqual(
+            "sky-sports-tennis-ii.svg",
+            update_m3u.HIGHFLY_PREMIUM_STABLE_OVERRIDES[
+                "now-sky-sports-tennis"
+            ]["logo"],
+        )
+        self.assertTrue(
+            update_m3u.PREFERRED_LOGOS["Sky Sports F1"].endswith(
+                "/logos/sky-sports-f1-dark.svg"
+            )
+        )
+        self.assertTrue(
+            update_m3u.PREFERRED_LOGOS["Sky Sports Tennis"].endswith(
+                "/logos/sky-sports-tennis-ii.svg"
+            )
+        )
+
     def test_rally_official_epg_reads_only_linear_cards(self) -> None:
         cards = []
         for index in range(25):
