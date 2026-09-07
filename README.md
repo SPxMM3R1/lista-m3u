@@ -75,9 +75,10 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
 - usa los `tvg-id` presentes en `m3u.m3u` como membresía manual persistente;
   la única excepción es `13C.cl@SD`, que después de tres fallos consecutivos
   puede pasar temporalmente a la externa y volver automáticamente al recuperar;
-- publica `m3u-externa.m3u` como el complemento exacto de `channel-catalog.m3u`,
-  incluyendo los traslados automáticos reversibles; un canal puede responder y
-  seguir allí hasta que se promueva manualmente o se recupere por esa política;
+- publica `m3u-externa.m3u` como el subconjunto externo que funcionó en la
+  validación actual, incluyendo los traslados automáticos reversibles; un canal
+  externo que falla se retira temporalmente de esa salida, pero permanece en
+  `channel-catalog.m3u` para reintento y reactivación automática;
 - al mover manualmente un canal desde la lista externa a `m3u.m3u`, adopta la
   misma protección permanente de todos los miembros de la principal;
 - conserva el orden temático definido en `channel-catalog.m3u` en ambas salidas;
@@ -152,8 +153,10 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
 - `channel-health-state.json` conserva solo la hora de validacion dinamica y una
   huella irreversible de la URL; no guarda tokens, claves ni URLs de sesion.
 - reintenta y repara todos los canales, tanto principales como externos; la
-  membresía solo cambia mediante edición manual salvo la política reversible de
-  13C; `channel-catalog.m3u` conserva el inventario completo;
+  membresía de la lista 1 solo cambia mediante edición manual salvo la política
+  reversible de 13C, mientras que la lista 2 publica únicamente los canales
+  externos que funcionaron en la última validación; `channel-catalog.m3u`
+  conserva el inventario completo para reintentar los que hayan fallado;
 - las sondas antiguas de Sky identificadas con `@Direct` fueron retiradas de
   forma permanente; no se vuelven a publicar aunque el origen las entregue o
   fallen sus comprobaciones;
@@ -291,9 +294,10 @@ de ninguna lista pública. Las señales Sky que permanecen son las que tienen un
 resolutor renovable o una fuente seleccionada explícitamente.
 
 Las entradas históricas restauradas para investigación pertenecen al catálogo
-externo. Solo las que cumplen la política de publicación de la lista 2 llegan
-a `m3u-externa.m3u`/`2.m3u`; todas se conservan en `channel-catalog.m3u` para
-que cada corrida pueda revalidar sus aliases y EPG. No se deben mover a
+externo. Solo las que cumplen la política de publicación y pasan la validación
+actual llegan a `m3u-externa.m3u`/`2.m3u`; las que fallan se retiran
+temporalmente de esa salida, pero todas se conservan en `channel-catalog.m3u`
+para que cada corrida pueda revalidar sus aliases, fuentes y EPG. No se deben mover a
 `m3u.m3u` mediante un cambio automático de salud. La excepción controlada es
 13C, cuyo traslado y recuperación quedan registrados en
 `channel-health-state.json`. Las variantes renombradas

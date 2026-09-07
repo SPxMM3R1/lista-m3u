@@ -86,6 +86,64 @@ class PlaylistOrderTests(unittest.TestCase):
             },
         )
 
+    def test_external_policy_excludes_unavailable_output_but_keeps_catalog_candidate(self) -> None:
+        channels = [
+            update_m3u.Channel(
+                name="Canal externo sano",
+                url="https://example.invalid/healthy.m3u8",
+                url_line=0,
+                tvg_id="external.healthy",
+            ),
+            update_m3u.Channel(
+                name="Canal externo caido",
+                url="https://example.invalid/failed.m3u8",
+                url_line=0,
+                tvg_id="external.failed",
+            ),
+        ]
+
+        selected = update_m3u.external_publication_channel_ids(
+            channels,
+            {channel.tvg_id for channel in channels},
+            available_ids={"external.healthy"},
+        )
+
+        self.assertEqual(selected, {"external.healthy"})
+        self.assertEqual(
+            {channel.tvg_id for channel in channels},
+            {"external.healthy", "external.failed"},
+        )
+
+    def test_previous_health_filters_only_temporarily_unavailable_external_ids(self) -> None:
+        channels = [
+            update_m3u.Channel(
+                name="Canal externo sano",
+                url="https://example.invalid/healthy.m3u8",
+                url_line=0,
+                tvg_id="external.healthy",
+            ),
+            update_m3u.Channel(
+                name="Canal externo caido",
+                url="https://example.invalid/failed.m3u8",
+                url_line=0,
+                tvg_id="external.failed",
+            ),
+        ]
+
+        available = update_m3u.external_available_ids_from_health(
+            channels,
+            {channel.tvg_id for channel in channels},
+            {
+                "channels": {
+                    "external.failed": {
+                        "status": "temporarily_unavailable"
+                    }
+                }
+            },
+        )
+
+        self.assertEqual(available, {"external.healthy"})
+
     def test_official_channel_pages_cover_chv_deportes_13c_and_rudo_upgrades(self) -> None:
         self.assertIn(
             "https://www.chilevision.cl/deportes/senal-online/",

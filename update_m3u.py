@@ -3070,14 +3070,45 @@ def external_vavoo_channel_is_allowed(channel: Channel) -> bool:
 def external_publication_channel_ids(
     channels: list[Channel],
     external_ids: set[str] | frozenset[str],
+    available_ids: set[str] | frozenset[str] | None = None,
 ) -> frozenset[str]:
-    """Return list-2 IDs after applying the narrow TvVoo brand policy."""
+    """Return currently publishable list-2 IDs.
+
+    ``channel-catalog.m3u`` remains the retry inventory. ``available_ids`` is
+    therefore only an output filter: a failed external channel stays in the
+    catalogue and can return on a later successful validation.
+    """
     return frozenset(
         channel.tvg_id
         for channel in channels
         if channel.tvg_id in external_ids
+        and (available_ids is None or channel.tvg_id in available_ids)
         and external_vavoo_channel_is_allowed(channel)
     )
+
+
+def external_available_ids_from_health(
+    channels: list[Channel],
+    external_ids: set[str] | frozenset[str],
+    health_state: dict,
+) -> frozenset[str]:
+    """Return external IDs not marked unavailable by the previous run.
+
+    This is used only by the offline partition validator. Missing health data
+    is treated as available so a first run does not hide catalogue entries.
+    """
+    raw_channels = health_state.get("channels", {})
+    if not isinstance(raw_channels, dict):
+        return frozenset(external_ids)
+    available: set[str] = set()
+    for channel in channels:
+        channel_id = channel.tvg_id
+        if channel_id not in external_ids:
+            continue
+        health = raw_channels.get(channel_id)
+        if not isinstance(health, dict) or health.get("status") != "temporarily_unavailable":
+            available.add(channel_id)
+    return frozenset(available)
 
 
 def is_direct_probe(channel: Channel) -> bool:
@@ -8395,12 +8426,13 @@ def write_report(
 ) -> dict:
     """Write a token-free run report and update persistent channel health.
 
-    Public-list membership is manual and sticky except for the explicitly
-    managed automatic 13C demotion/recovery policy. Health changes status and
-    diagnostics for every channel. The canonical catalogue remains the source
-    for URLs, resolver metadata and order. A systemic direct-source outage
-    still marks the principal quality gate, but it does not authorize keeping
-    stale ephemeral links in the public copy.
+    Main-list membership is manual and sticky except for the explicitly
+    managed automatic 13C demotion/recovery policy. List-2 membership is the
+    currently healthy subset of the external catalogue. Health changes status
+    and diagnostics for every channel, while the canonical catalogue remains
+    the source for URLs, resolver metadata, order and future retries. A
+    systemic direct-source outage still marks the principal quality gate, but
+    it does not authorize keeping stale ephemeral links in the public copy.
     """
 
     def safe_detail(value: str) -> str:
@@ -8631,9 +8663,9 @@ def write_report(
     elif not main_entries:
         main_hold_reason = "empty_manual_membership"
 
-    # The external output is the catalogue complement plus any channel held by
-    # the explicit automatic demotion policy. It remains writable regardless
-    # of current health; logos and failures stay diagnostic for all others.
+    # The external output is the healthy subset of the catalogue complement.
+    # Failed entries stay in channel-catalog.m3u so the next run can retry and
+    # reactivate them, but they must not be offered to the player meanwhile.
     external_hold_reason = None
 
     for entry in health_entries:
@@ -8668,7 +8700,11 @@ def write_report(
             and entry["tvg_id"] not in external_channel_ids
         ):
             entry["published"] = False
-            entry["publication_action"] = "filtered_external_policy"
+            entry["publication_action"] = (
+                "temporarily_removed_external"
+                if not entry["ok"]
+                else "filtered_external_policy"
+            )
         else:
             entry["published"] = True
             if entry["automatic_partition_action"] == "moved_to_external":
@@ -8807,6 +8843,11 @@ def write_report(
                 for entry in external_entries
                 if entry.get("publication_action") == "filtered_external_policy"
             ),
+            "temporarily_removed_channels": sum(
+                1
+                for entry in external_entries
+                if entry.get("publication_action") == "temporarily_removed_external"
+            ),
             "epg_required": False,
             "epg_ok": None,
             "publication_ready": external_ready,
@@ -8851,6 +8892,11 @@ def write_report(
                 1
                 for entry in external_entries
                 if entry["published"] is True
+            ),
+            "external_temporarily_removed": sum(
+                1
+                for entry in external_entries
+                if entry.get("publication_action") == "temporarily_removed_external"
             ),
             "systemic_direct_failure": systemic_direct_failure,
             "systemic_direct_failure_threshold": systemic_threshold,
@@ -9060,12 +9106,22 @@ def main() -> int:
             DEFAULT_PLAYLIST.read_text(encoding="utf-8-sig").splitlines(),
             EXTERNAL_PLAYLIST.read_text(encoding="utf-8-sig").splitlines(),
             manual_main_ids,
-            expected_external_ids=external_publication_channel_ids(
-                catalogue_before_update,
-                frozenset(
-                    set(stable_channel_ids(catalogue_before_update, label="channel-catalog.m3u"))
-                    - set(manual_main_ids)
-                ),
+            expected_external_ids=(
+                external_publication_channel_ids(
+                    catalogue_before_update,
+                    frozenset(
+                        set(stable_channel_ids(catalogue_before_update, label="channel-catalog.m3u"))
+                        - set(manual_main_ids)
+                    ),
+                    available_ids=external_available_ids_from_health(
+                        catalogue_before_update,
+                        frozenset(
+                            set(stable_channel_ids(catalogue_before_update, label="channel-catalog.m3u"))
+                            - set(manual_main_ids)
+                        ),
+                        previous_health_state,
+                    ),
+                )
             ),
         )
         return 0
@@ -9382,9 +9438,15 @@ def main() -> int:
             + ", ".join(missing_manual_ids)
         )
     external_ids = frozenset(set(catalogue_ids) - set(effective_main_ids))
+    external_available_ids = {
+        channel.tvg_id
+        for channel, result in zip(final_channels, results)
+        if result.ok
+    }
     external_publication_ids = external_publication_channel_ids(
         final_channels,
         external_ids,
+        available_ids=external_available_ids,
     )
     main_publication_channels = [
         channel
@@ -9502,8 +9564,10 @@ def main() -> int:
         print(
             f"M3U externa: {len(external_ids)} candidatos no promovidos; "
             f"{len(external_publication_ids)} publicados tras el filtro TvVoo; "
-            f"{external_working_count} activos y "
-            f"{len(external_publication_ids) - external_working_count} no disponibles"
+            f"{external_working_count} activos; "
+            f"{external_publication.get('temporarily_removed_channels', 0)} "
+            "retirados temporalmente por fallo; "
+            f"{external_publication.get('filtered_channels', 0)} fuera por politica"
         )
     else:
         print(
