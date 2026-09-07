@@ -59,6 +59,8 @@ https://vs-hls-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_ch
 # Deportes
 #EXTINF:-1 tvg-id="1763" tvg-name="CHV Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/chv-deportes.svg" group-title="Deportes",CHV Deportes
 https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/chvdeportes/chvdeportes.smil/playlist.m3u8
+#EXTINF:-1 tvg-id="AztecaDeportesNetwork.mx@SD" tvg-name="Azteca Deportes Network" tvg-country="MX" tvg-logo="https://match-images.icdb.tv/5913207f2494844101287828e87625eb.jpg" group-title="Deportes",Azteca Deportes Network
+https://live-manifest.production-public.tubi.io/live/6bf131c3-d664-424c-93c9-49188a788980/playlist.m3u8
 #EXTINF:-1 tvg-id="SkySportsF1.uk" tvg-name="Sky Sports F1" tvg-country="GB" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/sky-sports-f1.png" x-resolver="highfly" x-resolver-id="now-sky-sports-f1-free" x-resolver-manifest="https://sports.highfly.dev/eyJvbmx5TGl2ZSI6dHJ1ZX0/manifest.json" x-resolver-refresh="on_play",Sky Sports F1
 https://leaf.highfly.dev/m3u/now-sky-sports-f1-free/live.m3u8
 #EXTINF:-1 tvg-id="SkySportsTennis.uk" tvg-name="Sky Sports Tennis" tvg-country="GB" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/sky-sports-tennis.png" x-resolver="highfly" x-resolver-id="now-sky-sports-tennis" x-resolver-manifest="https://sports.highfly.dev/eyJvbmx5TGl2ZSI6dHJ1ZX0/manifest.json" x-resolver-refresh="on_play",Sky Sports Tennis
@@ -71,6 +73,10 @@ https://leaf.highfly.dev/m3u/now-sky-sports-premier-league/live.m3u8
 https://leaf.highfly.dev/m3u/4k-sky-sports-main-events/live.m3u8
 
 # Música
+#EXTINF:-1 tvg-id="RumbaTV.co@SD" tvg-name="Rumba TV" tvg-country="CO" tvg-logo="https://i.imgur.com/WtVpWwI.png" group-title="Música",Rumba TV
+http://45.162.193.35/RUMBATV/index.m3u8
+#EXTINF:-1 tvg-id="TelehitMusica.mx@SD" tvg-name="Telehit Música" tvg-country="MX" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/world-latin-america/telehit-musica-mx.png" group-title="Música",Telehit Música
+http://181.119.66.28:8081/TELEHIT-MUSICA/index.m3u8
 #EXTINF:-1 tvg-id="XITEHits.nl@Germany" tvg-name="XITE Hits" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/xite.svg" group-title="Música",XITE Hits
 https://d726x48n2pd5h.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-skxr1pazhltvp/XITE_Hits.m3u8
 #EXTINF:-1 tvg-id="XITENuevoLatino.us" tvg-name="XITE Nuevo Latino" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/xite.svg" tvg-country="NL" group-title="Música",XITE Nuevo Latino
@@ -92,7 +98,78 @@ http://stream.mcquack.net/330/index.m3u8
 
 
 
+# Películas
+#EXTINF:-1 tvg-id="AMCLatinAmerica.us@Panregional" tvg-name="AMC Latin America" tvg-country="US" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/argentina/amc-ar.png" group-title="Películas",AMC Latin America
+http://177.234.249.178:8888/AMC/index.m3u8
+#EXTINF:-1 tvg-id="Cinecanal.us@South" tvg-name="Cinecanal South" tvg-country="US" tvg-logo="https://cdn.freebiesupply.com/logos/large/2x/cinecanal-logo-png-transparent.png" group-title="Películas",Cinecanal South
+http://45.162.193.35/CINECANAL/index.m3u8
+#EXTINF:-1 tvg-id="FXLatinAmerica.us@Panregional" tvg-name="FX Latin America" tvg-country="US" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/world-latin-america/fx-lam.png" group-title="Películas",FX Latin America
+http://45.162.193.35/FX/index.m3u8
+#EXTINF:-1 tvg-id="PasionesLatinAmerica.us@SD" tvg-name="Pasiones Latin America" tvg-country="US" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/argentina/pasiones-ar.png" group-title="Películas",Pasiones Latin America
+http://45.162.193.35/PASIONESHD/index.m3u8
+#EXTINF:-1 tvg-id="StarChannelLatinAmerica.us@Panregional" tvg-name="Star Channel Latin America" tvg-country="US" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/world-latin-america/star-channel-lam.png" group-title="Películas",Star Channel Latin America
+http://45.162.193.35/STAR_CHANNEL/index.m3u8
+#EXTINF:-1 tvg-id="StudioUniversalLatinAmerica.us@Panregional" tvg-name="Studio Universal Latin America" tvg-country="US" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/world-latin-america/studio-universal-lam.png" group-title="Películas",Studio Universal Latin America
+http://45.162.193.35/STUDIO-UNIVERSAL/index.m3u8
+#EXTINF:-1 tvg-id="AELatinAmerica.us@Panregional" tvg-name="A&E Latin America" tvg-country="US" tvg-logo="https://cdn.imgbin.com/4/9/15/a-e-logo-QKQ4VRhS.jpg" group-title="Películas",A&E Latin America
+http://138.121.15.230:9002/A&E/index.m3u8
+#EXTINF:-1 tvg-id="DePeliculaLatinAmerica.mx@SD" tvg-name="De Película Latin America" tvg-country="MX" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/world-latin-america/de-pelicula-lam.png" group-title="Películas",De Película Latin America
+http://181.119.66.28:8081/DE-PELICULA/index.m3u8
+#EXTINF:-1 tvg-id="TNTNovelas.us@Panregional" tvg-name="TNT Novelas" tvg-country="US" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/world-latin-america/tnt-novelas-lam.png" group-title="Películas",TNT Novelas
+http://190.93.224.42/TNT-NOVELAS/index.m3u8
+#EXTINF:-1 tvg-id="AMCenEspanol.us@SD" tvg-name="AMC en Español" tvg-country="US" tvg-logo="https://i.imgur.com/L1h6W5Q.png" group-title="Películas",AMC en Español
+https://amc-amcespanol-1-us.lg.wurl.tv/playlist.m3u8
+#EXTINF:-1 tvg-id="ComedyCentralenEspanol.us@SD" tvg-name="Comedy Central en Español" tvg-country="US" tvg-logo="https://i.imgur.com/6xTD3G8.png" group-title="Películas",Comedy Central en Español
+https://jmp2.uk/plu-5cf96dad1652631e36d43320.m3u8
+#EXTINF:-1 tvg-id="ComedyCentralLatinAmerica.us@Panregional" tvg-name="Comedy Central Latin America" tvg-country="US" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/argentina/comedy-central-ar.png" group-title="Películas",Comedy Central Latin America
+http://190.93.224.42/COMEDY-CENTRAL/index.m3u8
+#EXTINF:-1 tvg-id="DisneyChannelLatinAmerica.ar@Panregional" tvg-name="Disney Channel Latin America" tvg-country="AR" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/argentina/disney-channel-ar.png" group-title="Películas",Disney Channel Latin America
+http://45.171.108.253:8888/DISNEY_CHANNEL/index.m3u8
+#EXTINF:-1 tvg-id="LasEstrellasLatinAmerica.mx@SD" tvg-name="Las Estrellas Latin America" tvg-country="MX" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/mexico/las-estrellas-mx.png" group-title="Películas",Las Estrellas Latin America
+http://190.93.224.42/CANAL-LAS-ESTRELLAS/index.m3u8
+#EXTINF:-1 tvg-id="LifetimeLatinAmerica.us@Panregional" tvg-name="Lifetime Latin America" tvg-country="US" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/argentina/lifetime-ar.png" group-title="Películas",Lifetime Latin America
+http://138.121.15.230:9002/LIFETIME/index.m3u8
+#EXTINF:-1 tvg-id="SonyChannelAndes.us@SD" tvg-name="Sony Channel Andes" tvg-country="US" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/argentina/sony-channel-ar.png" group-title="Películas",Sony Channel Andes
+http://177.234.249.178:8888/SONY-TV/index.m3u8
+#EXTINF:-1 tvg-id="UnivisionLatinAmerica.mx@Panregional" tvg-name="Univision Latin America" tvg-country="MX" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/univision-us.png" group-title="Películas",Univision Latin America
+http://138.121.15.230:9002/UNIVISION/index.m3u8
+#EXTINF:-1 tvg-id="UniversalTVLatinAmerica.us@Panregional" tvg-name="Universal TV Latin America" tvg-country="US" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/world-latin-america/universal-tv-lam.png" group-title="Películas",Universal TV Latin America
+http://138.121.15.230:9002/UNIVERSAL-CHANNEL/index.m3u8
+#EXTINF:-1 tvg-id="PlutoTVNovelas.us@LatAm" tvg-name="Pluto TV Novelas" tvg-country="US" tvg-logo="https://i.imgur.com/R44LypS.png" group-title="Películas",Pluto TV Novelas
+https://jmp2.uk/plu-5dcde0cc2efd2700090b7ff4.m3u8
 # Misceláneos
+#EXTINF:-1 tvg-id="AztecaInternacional.mx@SD" tvg-name="Azteca Internacional" tvg-country="MX" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/world-latin-america/azteca-international-lam.png" group-title="Misceláneos",Azteca Internacional
+https://azt-mun.otteravision.com/azt/mun/mun.m3u8
+#EXTINF:-1 tvg-id="CanalRCN.co@SD" tvg-name="Canal RCN" tvg-country="CO" tvg-logo="https://i.imgur.com/5PhTaHp.png" group-title="Misceláneos",Canal RCN
+http://138.121.15.230:9002/RCN/index.m3u8
+#EXTINF:-1 tvg-id="CaracolTV.co@SD" tvg-name="Caracol TV" tvg-country="CO" tvg-logo="https://i.imgur.com/WbfdJbk.png" group-title="Misceláneos",Caracol TV
+http://138.121.15.230:9002/CARACOL/index.m3u8
+#EXTINF:-1 tvg-id="HistoriaYVida.es@SD" tvg-name="Historia y Vida" tvg-country="ES" tvg-logo="https://i.imgur.com/3lbh2X6.png" group-title="Misceláneos",Historia y Vida
+https://jmp2.uk/plu-67517f923a61d40008c451f0.m3u8
+#EXTINF:-1 tvg-id="NationalGeographic.mx@SD" tvg-name="National Geographic México" tvg-country="MX" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/world-latin-america/national-geographic-lam.png" group-title="Misceláneos",National Geographic México
+http://138.121.15.230:9002/NAT-GEO/index.m3u8
+#EXTINF:-1 tvg-id="NickelodeonLatinAmerica.us@Panregional" tvg-name="Nickelodeon Latin America" tvg-country="US" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/argentina/nickelodeon-ar.png" group-title="Misceláneos",Nickelodeon Latin America
+http://177.234.249.178:8888/NICK/index.m3u8
+#EXTINF:-1 tvg-id="TelefeInternacional.ar@SD" tvg-name="Telefe Internacional" tvg-country="AR" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/argentina/telefe-ar.png" group-title="Misceláneos",Telefe Internacional
+http://190.108.83.69:8000/play/a08l/index.m3u8
+#EXTINF:-1 tvg-id="TelemundoInternacional.us@South" tvg-name="Telemundo Internacional" tvg-country="US" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/argentina/telemundo-international-ar.png" group-title="Misceláneos",Telemundo Internacional
+http://190.60.46.156:8089/TELEMUNDO/index.m3u8
+#EXTINF:-1 tvg-id="TVEInternacionalAmerica.es@HD" tvg-name="TVE Internacional América" tvg-country="ES" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/international/tve-internacional-int.png" group-title="Misceláneos",TVE Internacional América
+https://rtvelivestream-rtveplayplus.rtve.es/rtvesec/int/tvei_ame_main_1080.m3u8
+#EXTINF:-1 tvg-id="PlutoTVDocumentales.us@LatAm" tvg-name="Pluto TV Documentales" tvg-country="US" tvg-logo="https://i.imgur.com/xaiWDjK.png" group-title="Misceláneos",Pluto TV Documentales
+https://jmp2.uk/plu-5ddc503ac7ef120009b101a2.m3u8
+#EXTINF:-1 tvg-id="Docu.cl@SD" tvg-name="Docu." tvg-country="CL" tvg-logo="https://i.imgur.com/7xvQ7jR.png" group-title="Misceláneos",Docu.
+http://45.162.193.35/DOCU/index.m3u8
+#EXTINF:-1 tvg-id="ARTV.cl@SD" tvg-name="ARTV" tvg-country="CL" tvg-logo="https://i.imgur.com/rKP1ihL.png" group-title="Misceláneos",ARTV
+http://45.162.193.35/ARTV/index.m3u8
+#EXTINF:-1 tvg-id="NationalGeographicLatinAmerica.us@Panregional" tvg-name="National Geographic Latin America" tvg-country="US" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/world-latin-america/national-geographic-lam.png" group-title="Misceláneos",National Geographic Latin America
+http://45.162.193.35/NATGEO/index.m3u8
+#EXTINF:-1 tvg-id="HistoryLatinAmerica.us@Panregional" tvg-name="History Channel Latin America" tvg-country="US" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/world-latin-america/history-channel-lam.png" group-title="Misceláneos",History Channel Latin America
+http://15.204.246.24:8080/HistoryHD/index.m3u8
+#EXTINF:-1 tvg-id="History2LatinAmerica.us@Panregional" tvg-name="History 2 Latin America" tvg-country="US" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/world-latin-america/history-channel-2-lam.png" group-title="Misceláneos",History 2 Latin America
+http://138.121.15.230:9002/HISTORY-2/index.m3u8
+#EXTINF:-1 tvg-id="ZonaLatina.cl@SD" tvg-name="Zona Latina" tvg-country="CL" tvg-logo="https://i.imgur.com/lMyZZtk.png" group-title="Misceláneos",Zona Latina
+http://45.162.193.35/ZONALATINA/index.m3u8
 #EXTINF:-1 tvg-id="RedBullWorldEnglish.int" tvg-name="RedBull TV World" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/red-bull-tv.png" tvg-country="AT" group-title="Misceláneos",RedBull TV World
 https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master.m3u8
 #EXTINF:-1 tvg-id="RedBullChileEspanol.cl" tvg-name="RedBull TV Español" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/red-bull-tv.png" tvg-country="CL" group-title="Misceláneos",RedBull TV Español

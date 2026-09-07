@@ -401,6 +401,10 @@ RESTORED_EXTERNAL_CHANNEL_IDS = frozenset(
 # Se publican en la lista principal sin inventar programas de continuidad.
 NO_EPG_CHANNEL_IDS = {
     "DAZNFastPlus.de@TvVoo",
+    # La fuente chilena devuelve solo "Canal no disponible" para esta señal.
+    # Se mantiene cobertura XMLTV con Live, pero no se conserva esa respuesta
+    # editorial vacía como si fuera una parrilla real.
+    "AMCLatinAmerica.us@Panregional",
     # Canales recuperados con HLS verificable, pero sin una fuente XMLTV que
     # identifique exactamente la senal. Se publican sin inventar continuidad.
     "1763",
@@ -646,6 +650,56 @@ EPG_PROGRAMME_SOURCES = {
         AUTENTIC_HISTORY_EPG_SOURCE,
         AUTENTIC_HISTORY_CHANNEL_ID,
     ),
+    # Canales directos internacionales en español descubiertos en IPTV-org.
+    # Se usa la asociación chilena de EPGShare cuando existe; si una fuente
+    # no entrega bloques para el ID exacto, build_epg conserva continuidad
+    # técnica sin bloquear la publicación del catálogo completo.
+    "Cinecanal.us@South": ("cl", "Canal.Cinecanal.(Chile).cl"),
+    "FXLatinAmerica.us@Panregional": ("cl", "Canal.FX.(Chile).cl"),
+    "NationalGeographicLatinAmerica.us@Panregional": (
+        "cl",
+        "Canal.National.Geographic.(Chile).cl",
+    ),
+    "PasionesLatinAmerica.us@SD": (
+        "cl",
+        "Canal.Pasiones.(Latinoamérica).cl",
+    ),
+    "StarChannelLatinAmerica.us@Panregional": (
+        "cl",
+        "Canal.Star.Channel.(Chile).cl",
+    ),
+    "HistoryLatinAmerica.us@Panregional": (
+        "cl",
+        "Canal.History.(Chile).cl",
+    ),
+    "History2LatinAmerica.us@Panregional": (
+        "cl",
+        "Canal.History.2.(Chile).cl",
+    ),
+    "ZonaLatina.cl@SD": ("cl", "Canal.Zona.Latina.cl"),
+    "TNTNovelas.us@Panregional": (
+        "cl",
+        "Canal.TNT.Novelas.(Chile).cl",
+    ),
+    "AELatinAmerica.us@Panregional": ("cl", "Canal.A&E.(Chile).cl"),
+    "DePeliculaLatinAmerica.mx@SD": ("us2", "De.Pelicula.us2"),
+    # Nuevas señales internacionales y Pluto descubiertas en IPTV-org.
+    # Solo se asocian fuentes XMLTV cuando el ID de origen fue comprobado;
+    # las restantes conservan la continuidad técnica explícita.
+    "ComedyCentralenEspanol.us@SD": ("pluto", "5cf96dad1652631e36d43320"),
+    "ComedyCentralLatinAmerica.us@Panregional": ("us2", "Comedy.Central.HD.us2"),
+    "DisneyChannelLatinAmerica.ar@Panregional": ("us2", "Disney.Channel.HD.us2"),
+    "CaracolTV.co@SD": ("us2", "CARACOL.INTERNATIONAL.us2"),
+    "LifetimeLatinAmerica.us@Panregional": ("us2", "Lifetime.HD.us2"),
+    "NationalGeographic.mx@SD": ("us2", "National.Geographic.HD.us2"),
+    "NickelodeonLatinAmerica.us@Panregional": ("us2", "Nickelodeon.HD.us2"),
+    "TelefeInternacional.ar@SD": ("us2", "Telefe.Internacional.us2"),
+    "TelemundoInternacional.us@South": ("us2", "Telemundo.Satellite.Feed.us2"),
+    "TVEInternacionalAmerica.es@HD": ("us2", "TVE.us2"),
+    "UnivisionLatinAmerica.mx@Panregional": ("us2", "Univision.Network.HD.us2"),
+    "HistoriaYVida.es@SD": ("pluto", "67517f923a61d40008c451f0"),
+    "PlutoTVDocumentales.us@LatAm": ("pluto", "5ddc503ac7ef120009b101a2"),
+    "PlutoTVNovelas.us@LatAm": ("pluto", "5dcde0cc2efd2700090b7ff4"),
     "Meganoticias.cl": ("tecnocentro", "LCH7159"),
     "0124": ("tecnocentro", "LCH6525"),
     "1153": ("tecnocentro", "LCH7017"),
