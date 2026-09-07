@@ -327,6 +327,39 @@ PERMANENTLY_REMOVED_CHANNEL_IDS = frozenset(
         "Vavoo.tr.NBATV@TvVoo",
         "Vavoo.bk.ARENASPORT1@TvVoo",
         "Vavoo.bk.EUROSPORT1@TvVoo",
+        "RumbaTV.co@SD",
+        "AMCLatinAmerica.us@Panregional",
+        "Cinecanal.us@South",
+        "FXLatinAmerica.us@Panregional",
+        "PasionesLatinAmerica.us@SD",
+        "StarChannelLatinAmerica.us@Panregional",
+        "StudioUniversalLatinAmerica.us@Panregional",
+        "AELatinAmerica.us@Panregional",
+        "DePeliculaLatinAmerica.mx@SD",
+        "TNTNovelas.us@Panregional",
+        "AMCenEspanol.us@SD",
+        "ComedyCentralenEspanol.us@SD",
+        "ComedyCentralLatinAmerica.us@Panregional",
+        "DisneyChannelLatinAmerica.ar@Panregional",
+        "LasEstrellasLatinAmerica.mx@SD",
+        "LifetimeLatinAmerica.us@Panregional",
+        "UnivisionLatinAmerica.mx@Panregional",
+        "UniversalTVLatinAmerica.us@Panregional",
+        "PlutoTVNovelas.us@LatAm",
+        "AztecaInternacional.mx@SD",
+        "CanalRCN.co@SD",
+        "CaracolTV.co@SD",
+        "HistoriaYVida.es@SD",
+        "NationalGeographic.mx@SD",
+        "NickelodeonLatinAmerica.us@Panregional",
+        "TelefeInternacional.ar@SD",
+        "TelemundoInternacional.us@South",
+        "PlutoTVDocumentales.us@LatAm",
+        "Docu.cl@SD",
+        "ARTV.cl@SD",
+        "NationalGeographicLatinAmerica.us@Panregional",
+        "HistoryLatinAmerica.us@Panregional",
+        "ZonaLatina.cl@SD",
     }
 )
 
@@ -401,10 +434,6 @@ RESTORED_EXTERNAL_CHANNEL_IDS = frozenset(
 # Se publican en la lista principal sin inventar programas de continuidad.
 NO_EPG_CHANNEL_IDS = {
     "DAZNFastPlus.de@TvVoo",
-    # La fuente chilena devuelve solo "Canal no disponible" para esta señal.
-    # Se mantiene cobertura XMLTV con Live, pero no se conserva esa respuesta
-    # editorial vacía como si fuera una parrilla real.
-    "AMCLatinAmerica.us@Panregional",
     # Canales recuperados con HLS verificable, pero sin una fuente XMLTV que
     # identifique exactamente la senal. Se publican sin inventar continuidad.
     "1763",
