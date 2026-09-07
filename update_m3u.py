@@ -111,7 +111,7 @@ HIGHFLY_PREMIUM_STABLE_OVERRIDES = {
         "tvg_id": "HighflyPremium.4k-sky-sports-main-events",
         "name": "Sky Sports Main Event UHD",
         "country": "GB",
-        "logo": "sky-sports-main-event-uhd.svg",
+        "logo": "sky-sports-main-event-uhd.png",
     },
     "now-sky-sports-f1-2": {
         "tvg_id": "HighflyPremium.now-sky-sports-f1-2",

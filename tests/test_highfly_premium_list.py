@@ -180,7 +180,7 @@ class HighflyPremiumListTest(unittest.TestCase):
 
     def test_uhd_sky_channels_use_dedicated_logo_variants(self) -> None:
         self.assertEqual(
-            "sky-sports-main-event-uhd.svg",
+            "sky-sports-main-event-uhd.png",
             update_m3u.HIGHFLY_PREMIUM_STABLE_OVERRIDES[
                 "4k-sky-sports-main-events"
             ]["logo"],
@@ -206,7 +206,7 @@ class HighflyPremiumListTest(unittest.TestCase):
                     "tvg_id": "HighflyPremium.4k-sky-sports-main-events",
                     "name": "Sky Sports Main Event UHD",
                     "country": "GB",
-                    "logo": "sky-sports-main-event-uhd.svg",
+                    "logo": "sky-sports-main-event-uhd.png",
                 },
                 {
                     "slug": "now-sky-sports-f1-2",
