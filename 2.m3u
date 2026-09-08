@@ -4,6 +4,17 @@
 
 # Despues de noticias nacionales
 
+# Nacionales
+#EXTINF:-1 tvg-id="13Kids.cl" tvg-name="13 Go" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/13go-mosca.png" tvg-country="CL" group-title="Nacionales",13 Go
+https://origin.dpsgo.com/ssai/event/LhHrVtyeQkKZ-Ye_xEU75g/master.m3u8
+
+# Noticias internacionales
+#EXTINF:-1 tvg-id="TVChile.cl" tvg-name="TV Chile" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvchilecl.png" tvg-country="CL" group-title="Noticias internacionales",TV Chile
+https://mdstrm.com/live-stream-playlist/533adcc949386ce765657d7c.m3u8
+#EXTINF:-1 tvg-id="France24.fr@English" tvg-name="France 24 English" tvg-country="FR" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/france24.svg" group-title="Noticias internacionales",France 24 English
+https://live.france24.com/hls/live/2037218/F24_EN_HI_HLS/master_5000.m3u8
+#EXTINF:-1 tvg-id="EuronewsSpanish.fr" tvg-name="Euronews Español" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/euronews-espanol.png" group-title="Noticias internacionales",Euronews Español
+https://cdn-euronews.akamaized.net/live/eds/euronews-es/25053/index.m3u8
 
 # Deportes
 #EXTINF:-1 tvg-id="SkySportF1.de@TvVoo" tvg-name="Sky Sport F1 Germany" tvg-country="DE" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/sky-sport-f1-de.png" group-title="Deportes" x-resolver="tvvoo" x-resolver-endpoint="https://tvvoo.hayd.uk/stream/tv" x-resolver-ids="vavoo_SKY%20SPORT%20F1%7Cgroup%3Ade;vavoo_SKY%20SPORT%20F1%20HD%2B%7Cgroup%3Ade;vavoo_SKY%20SPORT%20F1%20HD%20%28H265%29%7Cgroup%3Ade" x-resolver-refresh="on_play" x-resolver-recipe="bounded-payload-v1",Sky Sport F1 Germany
@@ -90,6 +101,10 @@ http://37.49.225.50:8008/sunshine/Yr3KeFBbVllz18GPAF1OwsjLaBfNRO0SmbYjvwKO6kNMsz
 http://qmaalhy7acgxwhm.ngolpdkyoctjcddxshli469r.org/sunshine/jtdIaA5ygUb2xjrnBdR8AjaCDOCJNzTR3Pf2AUnMKsgfwURWmMiLO81leTtcPLdHDnjn4gXDQ_ZVaSwMff__X2BbHzIkdmp4AN8XntyMAwQDY6M2GUXy5eVv_S6uVHKSu9I0R5BSHOg2E2nem2bKhjZCb8mlnkz85miQu1_cdzU5J-BXxxH0xDbfEAhoQHiR0sdoGt4QexIUJS9_b2VeOY7EHd2LyccwYu83zvXiTG5miAMfCrWy6L6b_SHWajVly81HWAWGeHKcbl8F0-Qzrf7EgeP4A44sz6kF8VIk6aoFc4yYXzHK_VBI3prFaM8W/hls/index.m3u8
 #EXTINF:-1 tvg-id="Vavoo.pt.EUROSPORT2@TvVoo" tvg-name="Eurosport 2 Portugal" tvg-country="PT" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/eurosport-2-fr.png" group-title="Deportes" x-resolver="tvvoo" x-resolver-endpoint="https://tvvoo.hayd.uk/stream/tv" x-resolver-ids="vavoo_EUROSPORT%202%7Cgroup%3Apt;vavoo_EUROSPORT%202%20%28BACKUP%29%7Cgroup%3Apt" x-resolver-refresh="on_play" x-resolver-recipe="bounded-payload-v1",Eurosport 2 Portugal
 http://109.205.187.150:8008/sunshine/VY7gfkoyikVlJPk1ga4_k7XC1nVkYiZgA02dX1BVzBo6cuNcQPEf7HPxHwM0GS7wJLl6yOC004fERLzLJdWXpaRgq4q6-yjtAgmVof8ZrzHUMl7vDnMVbPiSXLM4qaWz2C_2ucR4-qNzueMkpYsdZEGixZBLlVrowAt-1AySDdNtc9Wlaqxrvu7yDcLW2Ez6XWhX0I24umkLIk609Tg5dwv-KP-Kbuo4Sq6BhW5KS-iXXGeREUuJmSFFGvwZt-fIyY0x0-bV1ebubW1BVSfBvEzxHLA6J20gSOGcztno3XKIqBMsN2O4I-dDI7iDA2U4/hls/index.m3u8
+#EXTINF:-1 tvg-id="1763" tvg-name="CHV Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/chv-deportes.svg" group-title="Deportes",CHV Deportes
+https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/chvdeportes/chvdeportes.smil/playlist.m3u8
+#EXTINF:-1 tvg-id="AztecaDeportesNetwork.mx@SD" tvg-name="Azteca Deportes Network" tvg-country="MX" tvg-logo="https://match-images.icdb.tv/5913207f2494844101287828e87625eb.jpg" group-title="Deportes",Azteca Deportes Network
+https://live-manifest.production-public.tubi.io/live/6bf131c3-d664-424c-93c9-49188a788980/playlist.m3u8
 
 # Música
 #EXTINF:-1 tvg-id="QelloConcertsbyStingray.ca" tvg-name="Qello Concerts by Stingray" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/qello.png" tvg-country="CA" group-title="Música",Qello Concerts by Stingray
