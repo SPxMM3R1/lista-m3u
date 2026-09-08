@@ -95,7 +95,7 @@ HIGHFLY_PREMIUM_STABLE_OVERRIDES = {
         "tvg_id": "SkySportsPremierLeague.uk",
         "name": "Sky Sports Premier League",
         "country": "GB",
-        "logo": "sky-sports-premier-league.jpg",
+        "logo": "sky-sports-premier-league.png",
     },
     "es-rally-tv": {
         "tvg_id": "HighflyPremium.es-rally-tv",
@@ -1765,7 +1765,7 @@ PREFERRED_LOGOS = {
     "Sky Sport Basket Italia (Directo)": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports.svg",
     "Sky Sport Top Event Alemania (Directo)": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports.svg",
     "ESPN": f"{LOCAL_LOGOS_PUBLIC_BASE}/espn.svg",
-    "Sky Sports Premier League": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-premier-league.jpg",
+    "Sky Sports Premier League": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-premier-league.png",
     "Premier Sports 1": f"{LOCAL_LOGOS_PUBLIC_BASE}/premier-sports-1.png",
     "Premier Sports 2": f"{LOCAL_LOGOS_PUBLIC_BASE}/premier-sports-2.png",
     "Sky Sport 1 NZ": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sport-1-nz.png",
