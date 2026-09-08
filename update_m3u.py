@@ -93,7 +93,7 @@ HIGHFLY_PREMIUM_STABLE_OVERRIDES = {
         "tvg_id": "SkySportsPremierLeague.uk",
         "name": "Sky Sports Premier League",
         "country": "GB",
-        "logo": "sky-sports-premier-league.png",
+        "logo": "sky-sports-premier-league.jpg",
     },
     "es-rally-tv": {
         "tvg_id": "HighflyPremium.es-rally-tv",
@@ -111,13 +111,13 @@ HIGHFLY_PREMIUM_STABLE_OVERRIDES = {
         "tvg_id": "HighflyPremium.4k-sky-sports-main-events",
         "name": "Sky Sports Main Event UHD",
         "country": "GB",
-        "logo": "sky-sports-main-event-uhd.png",
+        "logo": "sky-sports-main-event-uhd.jpg",
     },
     "now-sky-sports-f1-2": {
         "tvg_id": "HighflyPremium.now-sky-sports-f1-2",
         "name": "Sky Sports F1 UHD",
         "country": "GB",
-        "logo": "sky-sports-f1-uhd.svg",
+        "logo": "sky-sports-f1-uhd.jpg",
     },
 }
 EPG_PATH = Path(__file__).with_name("epg.xml")
@@ -1807,7 +1807,7 @@ PREFERRED_LOGOS = {
     "Sky Sport Basket Italia (Directo)": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports.svg",
     "Sky Sport Top Event Alemania (Directo)": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports.svg",
     "ESPN": f"{LOCAL_LOGOS_PUBLIC_BASE}/espn.svg",
-    "Sky Sports Premier League": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-premier-league.png",
+    "Sky Sports Premier League": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-premier-league.jpg",
     "Premier Sports 1": f"{LOCAL_LOGOS_PUBLIC_BASE}/premier-sports-1.png",
     "Premier Sports 2": f"{LOCAL_LOGOS_PUBLIC_BASE}/premier-sports-2.png",
     "Sky Sport 1 NZ": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sport-1-nz.png",
