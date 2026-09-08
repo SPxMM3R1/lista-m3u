@@ -522,6 +522,15 @@ class PlaylistOrderTests(unittest.TestCase):
                 for channel in catalog_channels
                 if channel.tvg_id not in {item.tvg_id for item in main_channels}
             },
+            available_ids=update_m3u.external_available_ids_from_health(
+                catalog_channels,
+                {
+                    channel.tvg_id
+                    for channel in catalog_channels
+                    if channel.tvg_id not in {item.tvg_id for item in main_channels}
+                },
+                update_m3u.load_health_state(),
+            ),
         )
         self.assertTrue(
             all(

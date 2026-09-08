@@ -180,13 +180,13 @@ class HighflyPremiumListTest(unittest.TestCase):
 
     def test_uhd_sky_channels_use_dedicated_logo_variants(self) -> None:
         self.assertEqual(
-            "sky-sports-main-event-uhd.png",
+            "sky-sports-main-event-uhd.jpg",
             update_m3u.HIGHFLY_PREMIUM_STABLE_OVERRIDES[
                 "4k-sky-sports-main-events"
             ]["logo"],
         )
         self.assertEqual(
-            "sky-sports-f1-uhd.svg",
+            "sky-sports-f1-uhd.jpg",
             update_m3u.HIGHFLY_PREMIUM_STABLE_OVERRIDES[
                 "now-sky-sports-f1-2"
             ]["logo"],
