@@ -15,14 +15,17 @@ clases Android ni mezclar commits.
 - Inventario completo: `channel-catalog.m3u`.
 - Configuración declarativa: `resolver-catalog.json`.
 - Identidades descubiertas de TvVoo: `tvvoo-discovered.json`.
-- Guía compartida para todo el inventario: `epg.xml`.
+- Guía XMLTV de la lista 1: `epg.xml`.
 
 La pertenencia manual no cambia con esta receta: `m3u.m3u` conserva su
 selección explícita y la lista externa se genera desde el complemento del
 catálogo aplicando su política de publicación. La lista 2 conserva todas las
 fuentes directas y, entre las fuentes TvVoo, solo Sky, Eurosport, ESPN y TNT
 Sports. Los demás candidatos siguen en `channel-catalog.m3u` para validación y
-EPG, aunque no se publiquen en `m3u-externa.m3u`/`2.m3u`.
+reintento, aunque no se publiquen en `m3u-externa.m3u`/`2.m3u`. `epg.xml` se
+construye exclusivamente para los canales presentes en `m3u.m3u`/`1.m3u`; un
+canal externo o Premium empieza a recibir guía en la siguiente ejecución solo
+después de ser promovido manualmente a la lista 1.
 
 `3.m3u` no es una promoción automática de la lista principal ni de la externa.
 Es una fuente opcional que VibeM3U puede activar o desactivar por separado para

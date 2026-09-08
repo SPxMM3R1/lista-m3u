@@ -94,7 +94,7 @@ def write_state(current: datetime, executor: str, next_run: datetime) -> None:
         "last_published_at": timestamp(current),
         "last_executor": executor,
         "next_scheduled_at": timestamp(next_run),
-        "schedule_basis": "EPG independiente cada 6 horas sobre catalogo completo",
+        "schedule_basis": "EPG independiente cada 6 horas sobre Lista 1 (m3u.m3u)",
     }
     temporary = STATE_PATH.with_suffix(".json.tmp")
     temporary.write_text(
@@ -117,7 +117,7 @@ def run_updater() -> int:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Actualiza la EPG del catalogo completo cada seis horas."
+        description="Actualiza la EPG de Lista 1 (m3u.m3u) cada seis horas."
     )
     parser.add_argument("--executor", choices=("local", "github"), required=True)
     parser.add_argument("--force", action="store_true", help="ignora el intervalo")

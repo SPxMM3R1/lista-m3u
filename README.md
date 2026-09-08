@@ -2,8 +2,10 @@
 
 Repositorio publico de la lista M3U principal para Android TV. El mantenimiento
 esta separado en dos procesos independientes: uno actualiza canales,
-resolutores y salud; el otro construye la EPG sobre el catalogo completo. Ambos
-usan ventanas fijas de seis horas y publican sus salidas sin sobrescribirse.
+resolutores y salud; el otro construye la EPG exclusivamente para la lista 1
+manual. El catalogo completo sigue siendo inventario de validacion y reintento,
+no amplia el alcance de XMLTV. Ambos procesos usan ventanas fijas de seis horas
+y publican sus salidas sin sobrescribirse.
 
 ## URLs para el reproductor
 
@@ -39,6 +41,12 @@ este repositorio ni en la M3U.
 Guia de programacion XMLTV:
 
 `https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/epg.xml`
+
+La guia contiene unicamente los canales presentes en `m3u.m3u` (y su alias
+`1.m3u`). Los canales de `m3u-externa.m3u`/`2.m3u`, `3.m3u` y
+`channel-catalog.m3u` no se agregan a `epg.xml` mientras no sean promovidos
+manualmente a la lista 1. Al promover un canal, la siguiente corrida de EPG
+incorpora su `tvg-id` estable.
 
 Catalogo declarativo de resolutores para VibeM3U:
 
@@ -260,7 +268,8 @@ La lista externa conserva todos los canales directos. Para los candidatos con
 `x-resolver="tvvoo"`, la política de publicación de la lista 2 conserva solo
 las familias Sky, Eurosport, ESPN y TNT Sports. Los demás Vavoo no se borran
 del `channel-catalog.m3u`: quedan fuera de `m3u-externa.m3u` y `2.m3u`, pero
-siguen disponibles para EPG, validación y una futura revisión de selección.
+  siguen disponibles para validación y una futura revisión de selección. No se
+  incluyen en `epg.xml` hasta pertenecer a Lista 1.
 
 1. Nacionales
 2. Noticias nacionales
@@ -297,7 +306,7 @@ Las entradas históricas restauradas para investigación pertenecen al catálogo
 externo. Solo las que cumplen la política de publicación y pasan la validación
 actual llegan a `m3u-externa.m3u`/`2.m3u`; las que fallan se retiran
 temporalmente de esa salida, pero todas se conservan en `channel-catalog.m3u`
-para que cada corrida pueda revalidar sus aliases, fuentes y EPG. No se deben mover a
+para que cada corrida pueda revalidar sus aliases y fuentes. No se deben mover a
 `m3u.m3u` mediante un cambio automático de salud. La excepción controlada es
 13C, cuyo traslado y recuperación quedan registrados en
 `channel-health-state.json`. Las variantes renombradas
