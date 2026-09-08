@@ -94,16 +94,18 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
   tiene cobertura EPG XMLTV vigente y validada para al menos 24 horas; si la
   compuerta falla, conserva la versión principal anterior y deja los fallos en
   la externa;
-- usa las parrillas oficiales disponibles de TVN y Mega, ademas de las de M1 y
-  M2; conserva EPGShare como respaldo cuando el emisor no publica XMLTV o una
-  parrilla automatizable;
-- integra PLEX1 para las señales FAST de BBC, CBS, Qello, Stingray y XITE, y
-  usa las fuentes pequeñas SG1 y NG1 solo para CNA y Africanews,
-  respectivamente; no descarga el XML combinado de todos los
-  proveedores;
-- incorpora la parrilla XMLTV de PlutoTV para MTV Biggest Pop,
-  MTV Spankin' New y MTV Flow Latino; las tarjetas repetidas de Pluto
-  se deduplican antes de construir la EPG;
+- construye la EPG en el workflow independiente con una sola pasada de
+  `iptv-org/epg`, usando `epg-iptv-org.channels.xml` como manifiesto exacto de
+  los canales de Lista 1; el resultado se filtra por `xmltv_id` estable y no
+  descarga en esa corrida las fuentes históricas repartidas por el actualizador;
+- el manifiesto usa los `site_id` publicados por `iptv-org/epg` para Chile,
+  noticias internacionales, Sky, XITE, Telehit, Sony, History 2, Real Wild y
+  otras señales con correspondencia comprobada. Si un canal de Lista 1 no
+  tiene una fuente exacta allí, no se le asigna la parrilla de otro canal:
+  recibe `Live` técnico hasta que exista una asociación válida;
+- conserva los adaptadores oficiales, Zapping, TecnoCentro y las fuentes
+  antiguas en el código para auditoría y pruebas unitarias, pero no los ejecuta
+  en el modo activo `iptv-org-only`;
 - incorpora candidatos de noticias, deportes, música/conciertos, películas y
    adultos desde los catálogos JSON públicos de TvVoo, manteniendo un solo canal
    lógico por señal y sus aliases estables por país. Los adultos solo se
@@ -147,15 +149,14 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
   entradas estables `leaf:`; ignora eventos temporales `streamed:` y no copia
   URLs firmadas, tokens ni posters del proveedor. La lista 3 se puede cargar o
   desactivar de forma independiente en el reproductor;
-- prioriza la guia oficial de Canal 13 para 13C, manteniendola separada de
-  13 Cultura; si la pagina oficial no entrega bloques vigentes, usa Zapping
-  como respaldo por canal;
+- mantiene los IDs de Canal 13, TVN3, 13 Cultura y las señales directas aunque
+  no estén presentes en el manifiesto activo; sus programas se vuelven a
+  intentar en cada corrida y mientras tanto reciben continuidad técnica
+  claramente marcada;
 - mantiene Premier Sports 1 y Premier Sports 2 desde los resolutores JSON
   publicos de TvVoo, con renovacion cada 6 horas y guia UK1 real;
-- usa la guia publica de Zapping Chile para las senales nacionales donde
-  EPGShare/TecnoCentro mostraban desplazamientos o no entregaban una parrilla
-  util; sus marcas Unix absolutas se convierten a America/Santiago sin sumar
-  horas manualmente;
+- normaliza las fechas XMLTV a `America/Santiago` al construir la salida,
+  respetando el offset entregado por cada fuente y sin sumar horas manualmente;
 - publica `channel-status.json` y un informe Markdown como artefactos de cada
   ejecucion; tambien conserva un issue de GitHub con el historial detallado.
 - `channel-health-state.json` conserva solo la hora de validacion dinamica y una
@@ -238,13 +239,12 @@ los workflows **Actualizar canales M3U** o **Actualizar EPG**. El primero
 renueva streams y salud; el segundo fuerza la reconstruccion de la guia sobre
 `channel-catalog.m3u`.
 
-TVN y TVN3 son señales distintas y nunca comparten parrilla: TVN usa el JSONP
-oficial de `tvn.cl` con `tvg-id="0104"`; TVN3 conserva `tvg-id="1437"`, consulta
-la guía horaria pública de Zapping/Simply.TV y publica además
-`https://www.tvn.cl/tvn3` como referencia oficial de la señal. La consulta tiene
-dos niveles: el HTML completo de hoy/mañana y el endpoint público de programa
-actual/próximos cuando el HTML aplica restricción geográfica al runner. Las
-páginas se procesan por canal para que un fallo independiente no descarte
+TVN y TVN3 son señales distintas y nunca comparten parrilla: TVN conserva
+`tvg-id="0104"`; TVN3 conserva `tvg-id="1437"` y publica además
+`https://www.tvn.cl/tvn3` como referencia oficial de la señal. En el modo activo
+la única consulta de EPG es el manifiesto de `iptv-org/epg`; si TVN3 no tiene un
+`site_id` exacto allí, recibe continuidad técnica y se reintenta en la siguiente
+corrida. Las páginas se procesan por canal para que un fallo independiente no descarte
 TVN3. Si ninguna fuente entrega bloques exactos, TVN3 recibe `continuidad tecnica`
 explicita en vez de heredar por error la programación de TVN o aceptar el bloque genérico
 de 24 horas que publica TVN Play.
@@ -313,35 +313,16 @@ para que cada corrida pueda revalidar sus aliases y fuentes. No se deben mover a
 `DAZN F1 España` y `Sky Sports F1 Reino Unido` no se duplican: sus aliases se
 mantienen bajo `DAZN F1` y `Sky F1 UK`, respectivamente.
 
-TVN y Mega se actualizan desde sus parrillas oficiales cuando estan
-disponibles. Para T13 no se encontro una parrilla oficial diaria de la senal
-`t13.smil`: la pagina `13.cl/programacion` corresponde a la parrilla general
-de Canal 13 y no coincide con esa senal. Por eso T13 usa Zapping como primera
-opcion y TecnoCentro como tercera opcion. La EPG de La Red usa exclusivamente
-su guia oficial. Si esa pagina no responde o no entrega una parrilla
-suficiente, no se sustituye por Zapping, EPGShare ni por otra fuente: se deja
-constancia del fallo y se conserva unicamente la cobertura tecnica, marcada
-como tal y no presentada como programacion real.
-Para 24 Horas no se encontro una parrilla diaria oficial publica y estructurada
-en 24horas.cl: se usa Zapping cuando entrega bloques validos y EPGShare01 como
-tercera opcion. Un fallo aislado de Zapping no invalida los respaldos por canal.
-La EPG usa fuentes XMLTV de Chile, Espana, Francia, Alemania, Reino Unido,
-Argentina, Portugal, Nueva Zelanda, Estados Unidos, Polonia, Letonia, Paises
-Bajos, PLEX1, PlutoTV, Singapur y Nigeria, junto con la guia publica
-de Zapping para senales chilenas seleccionadas. El orden es: fuente oficial
-del canal, XMLTV real por pais/proveedor y Zapping u otra fuente secundaria
-real. M1, M2 y 13C se actualizan desde sus parrillas oficiales. La EPG
-construye sus IDs esperados desde `channel-catalog.m3u`: un
-canal que permanezca en la lista externa continua recibiendo EPG y no causa un
-error por no aparecer en `m3u.m3u`. La EPG conserva al menos un bloque para cada
-canal del catalogo, incluso si su HLS falla. Cuando ninguna fuente real
-entrega una parrilla exacta, se usa `continuidad tecnica`, marcada en
-`data-guide`; sus bloques visibles se titulan `Live` y se alinean de 00:00 a
-23:59 en horario de Santiago. No se presenta como una guia oficial. La siguiente corrida vuelve a intentar la fuente real
-y reemplaza esa cobertura cuando aparece. Antes de publicar `m3u.m3u`, el
-proceso de canales audita que sus candidatos tengan canal XMLTV, programas y
-al menos 24 horas futuras; la lista externa no depende de esta compuerta y se
-publica por separado.
+La EPG activa usa únicamente el manifiesto reducido de `iptv-org/epg` y
+construye sus IDs esperados desde `m3u.m3u`/`1.m3u`, no desde la lista externa ni
+desde la Lista 3. Un canal de Lista 1 que no tenga una correspondencia exacta
+en el manifiesto no provoca el fallo de toda la corrida: recibe `continuidad
+tecnica`, marcada en `data-guide`, con bloques visibles `Live` de 00:00 a 23:59
+en horario de Santiago. No se presenta como una guía oficial. La siguiente
+corrida vuelve a probar el `site_id` real y reemplaza esa cobertura cuando
+aparece una parrilla válida. La EPG publicada conserva una versión anterior
+solo como red de seguridad si el combinador falla después de haber producido
+una guía válida en una corrida anterior.
 
 Para diagnosticar una fuente sin alterar el historial de salud ni renovar URLs
 HLS, se usa el workflow independiente **Actualizar EPG**. Las ventanas de
@@ -372,4 +353,4 @@ su portal de entrega requiere autenticacion y la cuenta de prueba gratuita solo
 ofrece un grupo limitado de canales. No se incorpora como dependencia del flujo
 publico hasta contar con acceso autorizado y confirmar cobertura para estos
 canales; si se habilita, se integrara como fuente opcional con credenciales fuera
-del repositorio y Zapping/fuentes oficiales como respaldo.
+del repositorio y el manifiesto de `iptv-org/epg` como respaldo.
