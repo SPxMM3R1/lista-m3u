@@ -152,38 +152,38 @@ EXTERNAL_VAVOO_ALLOWED_BRAND_PATTERNS = (
     re.compile(r"(?<![a-z])tnt[\s._-]*sports", re.IGNORECASE),
 )
 # Estas senales dinamicas conservan su resolutor para renovar la fuente justo
-# antes de reproducir. El orden visual del catalogo comienza en el F1 de
-# Highfly, seguido inmediatamente por su Tennis de Highfly. Despues se
-# mantiene junta toda la familia F1, incluyendo DAZN F1, y luego el resto de
-# Sky, Eurosport y DAZN. La lista publica final no se decide por salud:
+# antes de reproducir. El orden visual solicitado para la lista principal es:
+# Sky Sports F1, Sky Sports F1 UHD, Sky Sports Tennis, Sky Sports Main Event
+# UHD y Sky Sports Premier League. Despues se mantienen juntas las demas
+# variantes Sky, Eurosport y DAZN. La lista publica final no se decide por
+# salud:
 # ``m3u.m3u`` conserva una membresia manual persistente y
 # ``m3u-externa.m3u`` contiene el complemento del catalogo.
 F1_CHANNEL_ORDER = (
     "SkySportsF1.uk",
+    "HighflyPremium.now-sky-sports-f1-2",
     "DAZNF1.es@TvVoo",
     "SkySportF1.de@TvVoo",
     "Vavoo.uk.SKYSPORTSF1@TvVoo",
     "Vavoo.it.SKYSPORTF1@TvVoo",
-    "HighflyPremium.now-sky-sports-f1-2",
 )
 F1_CHANNEL_IDS = frozenset(F1_CHANNEL_ORDER)
 SKY_SPORTS_CHANNEL_ORDER = (
-    # Prioridad solicitada: primero las dos senales renovables de Highfly.
+    # Orden principal solicitado por el usuario.
     "SkySportsF1.uk",
+    "HighflyPremium.now-sky-sports-f1-2",
     "SkySportsTennis.uk",
-    # Todas las variantes F1, independientemente del proveedor.
+    "HighflyPremium.4k-sky-sports-main-events",
+    "SkySportsPremierLeague.uk",
+    # Despues de las cinco senales principales, el resto de variantes.
     "DAZNF1.es@TvVoo",
     "SkySportF1.de@TvVoo",
     "Vavoo.uk.SKYSPORTSF1@TvVoo",
     "Vavoo.it.SKYSPORTF1@TvVoo",
-    "HighflyPremium.now-sky-sports-f1-2",
-    # El resto de variantes Sky se mantiene en un unico bloque.
     "SkySportTennis.de@TvVoo",
     "Vavoo.it.SKYSPORTTENNIS@TvVoo",
-    "SkySportsPremierLeague.uk",
     "Vavoo.uk.SKYSPORTSPREMIERLEAGUE@TvVoo",
     "SkySportsMainEvent.uk@TvVoo",
-    "HighflyPremium.4k-sky-sports-main-events",
     "SkySportsArena.uk@TvVoo",
     "SkySportsFootball.uk@TvVoo",
     "SkySportsMix.uk@TvVoo",
