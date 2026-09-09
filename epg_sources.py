@@ -1,15 +1,13 @@
 """Fuentes EPG activas y adaptadores historicos.
 
-El actualizador conserva adaptadores historicos en ``update_m3u.py`` mientras
-se decide que respaldos retirar. Este modulo define el camino activo de la
-prueba: ``iptv-org/epg`` recibe un manifiesto XML reducido a los canales de
-Lista 1 y devuelve una sola guia XMLTV combinada. La separacion es deliberada:
-una fuente que deje de responder no debe hacer que el publicador vuelva a
-descargar todas las fuentes antiguas ni que borre canales del catalogo.
+El camino activo consulta solamente adaptadores oficiales por canal de Lista 1.
+Una fuente que deje de responder no bloquea las demas: el canal conserva una
+cobertura tecnica ``Live`` hasta la siguiente ejecucion, sin inventar una
+parrilla ni recurrir a agregadores.
 
-No se hace asociacion por coincidencia parcial del nombre visible. El
-manifiesto activo conserva un ``xmltv_id`` exacto por canal; el mapa de
-Zapping queda solo como adaptador historico y punto de prueba compatible.
+No se hace asociacion por coincidencia parcial del nombre visible. Cada
+adaptador usa IDs exactos de la M3U; el mapa de Zapping queda solo como
+adaptador historico y punto de prueba compatible.
 """
 
 from __future__ import annotations
@@ -25,11 +23,7 @@ from datetime import datetime, timedelta, timezone
 from typing import Any
 
 
-EPG_SOURCE_MODE = "iptv-org-only"
-IPTV_ORG_EPG_SOURCE = "iptv-org-epg"
-IPTV_ORG_EPG_REPOSITORY = "https://github.com/iptv-org/epg"
-IPTV_ORG_CHANNEL_MANIFEST = "epg-iptv-org.channels.xml"
-IPTV_ORG_GUIDE_FILENAME = "iptv-org-guide.xml"
+EPG_SOURCE_MODE = "official-only"
 ZAPPING_EPG_SOURCE = "zapping-guia-publica"
 ZAPPING_EPG_BASE_URL = "https://guia.zappingtv.com"
 ZAPPING_NOWPLAYING_URL = (
@@ -91,10 +85,10 @@ LEGACY_SOURCE_GROUPS: Mapping[str, str] = {
     "published": "epg.xml publicada anteriormente",
 }
 
-# Fuentes antiguas conservadas para auditoria y eventual recuperacion. No se
-# descargan cuando EPG_SOURCE_MODE es "iptv-org-only". Mantenerlas aqui evita
-# que la politica activa dependa de una lista de URLs repartida por el
-# actualizador principal y permite retirarlas en una sola revision posterior.
+# Fuentes antiguas conservadas solo para auditoria y eventual recuperacion. No
+# se descargan cuando EPG_SOURCE_MODE es "official-only". Mantenerlas aqui
+# evita que una futura recuperacion dependa de URLs repartidas por el
+# actualizador principal.
 LEGACY_EPG_BACKUP_URLS: Mapping[str, str] = {
     "cl": "https://epgshare01.online/epgshare01/epg_ripper_CL1.xml.gz",
     "es": "https://epgshare01.online/epgshare01/epg_ripper_ES1.xml.gz",

@@ -48,6 +48,22 @@ La guia contiene unicamente los canales presentes en `m3u.m3u` (y su alias
 manualmente a la lista 1. Al promover un canal, la siguiente corrida de EPG
 incorpora su `tvg-id` estable.
 
+La EPG activa funciona en modo `official-only`. Los bridges oficiales
+implementados actualmente son: TVN, La Red, Mega, Canal 13, 13Go, Chilevision,
+T13, NHK World, BBC News, Al Jazeera, M1/M2, Red Bull y Autentic History.
+Cada uno usa un ID exacto de Lista 1 y rechaza una respuesta sin bloques reales
+o sin al menos 24 horas futuras. No se consulta ningún agregador externo, no se
+clona ningún repositorio de terceros y no se mezcla una parrilla de otro canal. Sky conserva
+un bridge preparado para sus IDs oficiales disponibles; si el proveedor no
+entrega un SID público para una señal concreta, esa señal queda en `Live` hasta
+que exista una asociación oficial verificable.
+
+Los canales de Lista 1 que no tienen hoy una parrilla oficial pública usable
+(por ejemplo DW, France 24, Arirang, XITE, TVE Internacional y las fuentes
+Highfly) reciben continuidad técnica `Live` para no bloquear la actualización.
+El informe de cada corrida separa `official_programme_ids` de
+`technical_ids`; `Live` no se presenta como programación real.
+
 Catalogo declarativo de resolutores para VibeM3U:
 
 `https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/resolver-catalog.json`
@@ -94,24 +110,18 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
   tiene cobertura EPG XMLTV vigente y validada para al menos 24 horas; si la
   compuerta falla, conserva la versión principal anterior y deja los fallos en
   la externa;
-- construye la EPG en el workflow independiente con una sola pasada de
-  `iptv-org/epg`, usando `epg-iptv-org.channels.xml` como manifiesto exacto de
-  los canales de Lista 1; el resultado se filtra por `xmltv_id` estable y no
-  descarga en esa corrida las fuentes históricas repartidas por el actualizador;
-- el manifiesto usa los `site_id` publicados por `iptv-org/epg` para Chile,
-  noticias internacionales, Sky, XITE, Telehit, Sony, History 2, Real Wild y
-  otras señales con correspondencia comprobada. Si un canal de Lista 1 no
-  tiene una fuente exacta allí, no se le asigna la parrilla de otro canal:
-  recibe `Live` técnico hasta que exista una asociación válida;
+- construye la EPG en el workflow independiente con bridges y scrapers de
+  fuentes oficiales, todos limitados a los `tvg-id` exactos de Lista 1;
+- cada bridge valida su respuesta y sus bloques antes de incorporarlos. Si una
+  señal no publica una guía oficial estable, recibe `Live` técnico hasta que
+  aparezca una fuente oficial válida; nunca se hereda la parrilla de otro canal;
 - conserva los adaptadores oficiales, Zapping, TecnoCentro y las fuentes
-  antiguas en el código para auditoría y pruebas unitarias, pero no los ejecuta
-  en el modo activo `iptv-org-only`;
-- una corrida exitosa de EPG publica solo el documento combinado de
-  `iptv-org/epg` más los bloques `Live` técnicos necesarios para completar
-  Lista 1; no mezcla la EPG publicada anteriormente. Si el combinador falla
-  antes de producir una guía válida, `run_epg_6h.py` restaura la publicación
-  anterior como copia de seguridad atómica y deja el fallo en el estado de la
-  corrida;
+  antiguas en el código para auditoría y pruebas unitarias, pero el modo activo
+  `official-only` no consulta agregadores ni fuentes históricas;
+- una corrida exitosa publica únicamente las parrillas oficiales que
+  respondieron y bloques `Live` técnicos para completar Lista 1. No reutiliza
+  una guía anterior si no está marcada como generada por fuentes oficiales;
+  una falla aislada de un bridge no aborta los demás canales;
 - incorpora candidatos de noticias, deportes, música/conciertos, películas y
    adultos desde los catálogos JSON públicos de TvVoo, manteniendo un solo canal
    lógico por señal y sus aliases estables por país. Los adultos solo se
@@ -258,14 +268,13 @@ fallos de salud, no descubre aliases y no renueva URLs efimeras.
 TVN y TVN3 son señales distintas y nunca comparten parrilla: TVN conserva
 `tvg-id="0104"`; TVN3 conserva `tvg-id="1437"` y publica además
 `https://www.tvn.cl/tvn3` como referencia oficial de la señal. En el modo activo
-la única consulta de EPG es el manifiesto de `iptv-org/epg`; si TVN3 no tiene un
-`site_id` exacto allí, recibe continuidad técnica y se reintenta en la siguiente
+cada bridge consulta únicamente su página o API oficial; si TVN3 no publica una
+parrilla estable, recibe continuidad técnica y se vuelve a probar en la siguiente
 corrida. Las páginas se procesan por canal para que un fallo independiente no descarte
 TVN3. Si ninguna fuente entrega bloques exactos, TVN3 recibe `continuidad tecnica`
 explicita en vez de heredar por error la programación de TVN o aceptar el bloque genérico
-de 24 horas que publica TVN Play. La copia anterior solo se restaura a nivel
-de corrida si el combinador no consigue generar una guía válida; no se mezcla
-dentro de una guía nueva.
+de 24 horas que publica TVN Play. Una guía anterior solo puede reutilizarse si fue
+generada por el modo oficial.
 
 Todos los logos de los canales se conservan dentro de `logos/` y la M3U y el
 EPG apuntan a las copias publicadas en este repositorio. Los logos vectoriales
@@ -331,18 +340,15 @@ para que cada corrida pueda revalidar sus aliases y fuentes. No se deben mover a
 `DAZN F1 España` y `Sky Sports F1 Reino Unido` no se duplican: sus aliases se
 mantienen bajo `DAZN F1` y `Sky F1 UK`, respectivamente.
 
-La EPG activa usa únicamente el manifiesto reducido de `iptv-org/epg` y
-construye sus IDs esperados desde `m3u.m3u`/`1.m3u`, no desde la lista externa ni
-desde la Lista 3. Un canal de Lista 1 que no tenga una correspondencia exacta
-en el manifiesto no provoca el fallo de toda la corrida: recibe `continuidad
-tecnica`, marcada en `data-guide`, con bloques visibles `Live` de 00:00 a 23:59
-en horario de Santiago. No se presenta como una guía oficial. La siguiente
-corrida vuelve a probar el `site_id` real y reemplaza esa cobertura cuando
-aparece una parrilla válida. Si el XMLTV combinado repite tarjetas o publica
-intervalos solapados, el constructor recorta el intervalo posterior o elimina
-el duplicado; el solapamiento de un canal no invalida toda la guía. Si el
-combinador falla, la copia anterior solo se restaura a nivel de corrida y no
-se mezcla dentro de una guía nueva.
+La EPG activa construye sus IDs esperados desde `m3u.m3u`/`1.m3u`, no desde la
+lista externa ni desde la Lista 3. Un canal de Lista 1 sin bridge oficial no
+provoca el fallo de toda la corrida: recibe `continuidad tecnica`, marcada en
+`data-guide`, con bloques visibles `Live` de 00:00 a 23:59 en horario de Santiago.
+No se presenta como una guía oficial. La siguiente corrida vuelve a probar el
+bridge oficial y reemplaza esa cobertura cuando aparece una parrilla válida. Si
+una página oficial repite tarjetas o publica intervalos solapados, el constructor
+recorta el intervalo posterior o elimina el duplicado; el solapamiento de un canal
+no invalida toda la guía.
 
 Para diagnosticar una fuente sin alterar el historial de salud ni renovar URLs
 HLS, se usa el workflow independiente **Actualizar EPG**. Las ventanas de
@@ -373,4 +379,4 @@ su portal de entrega requiere autenticacion y la cuenta de prueba gratuita solo
 ofrece un grupo limitado de canales. No se incorpora como dependencia del flujo
 publico hasta contar con acceso autorizado y confirmar cobertura para estos
 canales; si se habilita, se integrara como fuente opcional con credenciales fuera
-del repositorio y el manifiesto de `iptv-org/epg` como respaldo.
+del repositorio y nunca como sustituto de un bridge oficial.

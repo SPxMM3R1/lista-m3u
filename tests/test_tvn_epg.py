@@ -348,7 +348,10 @@ class TvnEpgTests(unittest.TestCase):
             public_playlist = temporary / "m3u.m3u"
             root = ET.Element(
                 "tv",
-                {"data-generated-at": (now - timedelta(hours=1)).isoformat()},
+                {
+                    "data-generated-at": (now - timedelta(hours=1)).isoformat(),
+                    "source-info-name": "fuentes oficiales por canal + continuidad tecnica",
+                },
             )
             for item in (active, retired, stale):
                 ET.SubElement(root, "channel", {"id": item.tvg_id})

@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import base64
 import copy
 import gzip
 import hashlib
@@ -15,6 +16,7 @@ import ssl
 import subprocess
 import sys
 import time
+import unicodedata
 import urllib.error
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -542,7 +544,7 @@ FRANCE24_ES_1080_URL = (
     "https://live.france24.com/hls/live/2037220/F24_ES_HI_HLS/master_5000.m3u8"
 )
 # Las URLs heredadas se conservan en un unico archivo de fuentes, pero no se
-# descargan en el modo activo iptv-org-only.
+# descargan en el modo activo official-only.
 EPG_SOURCES = epg_sources.LEGACY_EPG_BACKUP_URLS
 CANAL13_MAIN_EPG_SOURCE = "canal13-abierto-oficial"
 CANAL13_MAIN_EPG_URL = (
@@ -656,10 +658,9 @@ EPG_PROGRAMME_SOURCES = {
         AUTENTIC_HISTORY_EPG_SOURCE,
         AUTENTIC_HISTORY_CHANNEL_ID,
     ),
-    # Canales directos internacionales en español descubiertos en IPTV-org.
-    # Se usa la asociación chilena de EPGShare cuando existe; si una fuente
-    # no entrega bloques para el ID exacto, build_epg conserva continuidad
-    # técnica sin bloquear la publicación del catálogo completo.
+    # Canales directos internacionales retirados del catálogo activo. Las
+    # asociaciones históricas se conservan solo para auditoría de IDs y no se
+    # descargan en el modo official-only.
     "Cinecanal.us@South": ("cl", "Canal.Cinecanal.(Chile).cl"),
     "FXLatinAmerica.us@Panregional": ("cl", "Canal.FX.(Chile).cl"),
     "NationalGeographicLatinAmerica.us@Panregional": (
@@ -689,9 +690,9 @@ EPG_PROGRAMME_SOURCES = {
     ),
     "AELatinAmerica.us@Panregional": ("cl", "Canal.A&E.(Chile).cl"),
     "DePeliculaLatinAmerica.mx@SD": ("us2", "De.Pelicula.us2"),
-    # Nuevas señales internacionales y Pluto descubiertas en IPTV-org.
-    # Solo se asocian fuentes XMLTV cuando el ID de origen fue comprobado;
-    # las restantes conservan la continuidad técnica explícita.
+    # Asociaciones históricas de señales internacionales y FAST. Solo se
+    # asocian fuentes cuando el ID de origen fue comprobado; el camino activo
+    # official-only no descarga ninguna de estas copias.
     "ComedyCentralenEspanol.us@SD": ("pluto", "5cf96dad1652631e36d43320"),
     "ComedyCentralLatinAmerica.us@Panregional": ("us2", "Comedy.Central.HD.us2"),
     "DisneyChannelLatinAmerica.ar@Panregional": ("us2", "Disney.Channel.HD.us2"),
@@ -795,13 +796,9 @@ EPG_PROGRAMME_SOURCES = {
     or channel_id in RESTORED_EXTERNAL_CHANNEL_IDS
 }
 # El unico camino activo de EPG y sus aliases viven en epg_sources.py. Los
-# nombres se reexportan aqui por compatibilidad con los tests y con las
-# funciones de construccion de XMLTV. Los adaptadores historicos inferiores
-# quedan disponibles como respaldo hasta revisar su retiro explicitamente.
+# adaptadores historicos inferiores quedan disponibles solo para pruebas de
+# compatibilidad; no se descargan en el modo oficial-only.
 EPG_SOURCE_MODE = epg_sources.EPG_SOURCE_MODE
-IPTV_ORG_EPG_SOURCE = epg_sources.IPTV_ORG_EPG_SOURCE
-IPTV_ORG_CHANNEL_MANIFEST = epg_sources.IPTV_ORG_CHANNEL_MANIFEST
-IPTV_ORG_GUIDE_FILENAME = epg_sources.IPTV_ORG_GUIDE_FILENAME
 ZAPPING_EPG_SOURCE = epg_sources.ZAPPING_EPG_SOURCE
 ZAPPING_EPG_BASE_URL = epg_sources.ZAPPING_EPG_BASE_URL
 ZAPPING_NOWPLAYING_URL = epg_sources.ZAPPING_NOWPLAYING_URL
@@ -825,7 +822,7 @@ RED_BULL_SESSION_URL = (
 )
 RED_BULL_OFFICIAL_EPG_URL = "https://api.redbull.tv/v3/epg?complete=true"
 RED_BULL_SPANISH_EPG_PAGE = "https://www.redbull.tv/es/epg"
-# Este relay esta documentado por iptv-org/epg, pero se usa solo como respaldo:
+# Este relay publico de Red Bull se usa solo como respaldo de su API oficial;
 # su disponibilidad depende de la actualizacion diaria del proveedor.
 RED_BULL_RELAY_EPG_URL = "https://nzxmltv.com/iptv/redbull.xml"
 RED_BULL_WORLD_ID = "RedBullWorldEnglish.int"
@@ -864,6 +861,10 @@ TVN_PROGRAMMING_BASE_URL = "https://estaticos.tvn.cl/epg/tvn"
 TVN_OFFICIAL_EPG_SOURCE = "tvn-oficial"
 TVN3_OFFICIAL_PAGE = "https://www.tvn.cl/tvn3"
 TVN_ALTERNATIVE_URL = "https://iptv2.intersurtv.cl/TVN/index.m3u8?PlaylistM3UCL"
+CHILEVISION_PROGRAMMING_PAGE = "https://www.chilevision.cl/page/programacion/"
+CHILEVISION_OFFICIAL_EPG_SOURCE = "chilevision-oficial"
+T13_PROGRAMMING_PAGE = "https://www.13.cl/programacion"
+T13_OFFICIAL_EPG_SOURCE = "t13-oficial"
 LA_RED_PROGRAMMING_PAGE = "https://www.lared.cl/guia-programacion"
 LA_RED_OFFICIAL_EPG_SOURCE = "la-red-oficial"
 LA_RED_MASTER_URL = "https://tv-mgmt.gtd.cl/bpk-tv/LARED/default/index.m3u8"
@@ -888,6 +889,33 @@ MEGANOTICIAS_OFFICIAL_MASTER_URL = (
 )
 CANAL13_13C_PROGRAMMING_PAGE = "https://www.13.cl/c/programacion"
 CANAL13_13C_OFFICIAL_EPG_SOURCE = "canal13-13c-oficial"
+BBC_NEWS_SCHEDULE_PAGE = "https://www.bbc.co.uk/schedules/p00fzl9m"
+BBC_NEWS_OFFICIAL_EPG_SOURCE = "bbc-news-oficial"
+ALJAZEERA_SCHEDULE_PAGE = "https://www.aljazeera.com/schedule/"
+ALJAZEERA_OFFICIAL_EPG_SOURCE = "aljazeera-oficial"
+# Fuentes oficiales permitidas para la EPG de Lista 1. El nombre se mantiene
+# acotado para que una fuente externa nueva no gane prioridad por accidente.
+OFFICIAL_EPG_SOURCE_NAMES = frozenset(
+    {
+        TVN_OFFICIAL_EPG_SOURCE,
+        CHILEVISION_OFFICIAL_EPG_SOURCE,
+        T13_OFFICIAL_EPG_SOURCE,
+        MEGA_OFFICIAL_EPG_SOURCE,
+        CANAL13_MAIN_EPG_SOURCE,
+        CANAL13_13C_OFFICIAL_EPG_SOURCE,
+        CANAL13_13GO_EPG_SOURCE,
+        LA_RED_OFFICIAL_EPG_SOURCE,
+        NHK_OFFICIAL_EPG_SOURCE,
+        SKY_OFFICIAL_EPG_SOURCE,
+        BBC_NEWS_OFFICIAL_EPG_SOURCE,
+        ALJAZEERA_OFFICIAL_EPG_SOURCE,
+        AUTENTIC_HISTORY_EPG_SOURCE,
+        "ukrainian-official",
+        "red-bull-es-oficial-page",
+        "red-bull-oficial",
+        "red-bull-oficial-fallback",
+    }
+)
 TVVOO_STREAM_BASE_URL = "https://tvvoo.hayd.uk/stream/tv"
 # El relay publico de Highfly puede responder con un certificado vencido aun
 # cuando el mismo HLS entrega playlist y segmentos. La excepcion queda
@@ -4559,7 +4587,11 @@ def fetch_red_bull_schedules(
             schedules[channel_id] = red_bull_api_schedule(locale)
             source_names.add("red-bull-oficial")
         except Exception as official_error:
-            if channel_id != RED_BULL_WORLD_ID:
+            # The active EPG contract is strictly official-only.  The relay
+            # remains available only to the legacy non-official pipeline for
+            # historical reproducibility; it must never silently enter the
+            # published official guide.
+            if EPG_SOURCE_MODE == "official-only" or channel_id != RED_BULL_WORLD_ID:
                 errors[f"red_bull:{channel_id}"] = str(official_error)
                 continue
             try:
@@ -4570,6 +4602,93 @@ def fetch_red_bull_schedules(
                     f"oficial: {official_error}; relay: {relay_error}"
                 )
     return schedules, source_names, errors
+
+
+def fetch_list1_official_epg(
+    channels: list[Channel], now: datetime
+) -> tuple[
+    dict[str, bytes],
+    dict[str, list[dict]],
+    set[str],
+    dict[str, str],
+]:
+    """Fetch the allowlisted official bridges for channels in Lista 1.
+
+    Each adapter is tied to exact channel IDs. A source can provide a real
+    schedule when it returns a valid guide; a failure is recorded and leaves
+    that channel for the technical ``Live`` fallback. No aggregate source is
+    downloaded here.
+    """
+
+    source_documents: dict[str, bytes] = {}
+    source_errors: dict[str, str] = {}
+
+    def add_single_source(source_name: str, fetcher) -> None:
+        try:
+            data, error = fetcher(channels, now)
+        except Exception as exception:
+            source_errors[source_name] = (
+                f"{type(exception).__name__}: {exception}"
+            )
+            return
+        if data:
+            source_documents[source_name] = data
+        if error:
+            source_errors[source_name] = error
+
+    for source_name, fetcher in (
+        (TVN_OFFICIAL_EPG_SOURCE, fetch_tvn_official_epg),
+        (CHILEVISION_OFFICIAL_EPG_SOURCE, fetch_chilevision_official_epg),
+        (T13_OFFICIAL_EPG_SOURCE, fetch_t13_official_epg),
+        (LA_RED_OFFICIAL_EPG_SOURCE, fetch_la_red_official_epg),
+        (MEGA_OFFICIAL_EPG_SOURCE, fetch_mega_official_epg),
+        (NHK_OFFICIAL_EPG_SOURCE, fetch_nhk_official_epg),
+        (CANAL13_MAIN_EPG_SOURCE, fetch_canal13_main_official_epg),
+        (CANAL13_13C_OFFICIAL_EPG_SOURCE, fetch_13c_official_epg),
+        (CANAL13_13GO_EPG_SOURCE, fetch_13go_epg),
+        (SKY_OFFICIAL_EPG_SOURCE, fetch_sky_official_epg),
+        (BBC_NEWS_OFFICIAL_EPG_SOURCE, fetch_bbc_news_official_epg),
+        (ALJAZEERA_OFFICIAL_EPG_SOURCE, fetch_aljazeera_official_epg),
+        (AUTENTIC_HISTORY_EPG_SOURCE, fetch_autentic_history_epg),
+    ):
+        add_single_source(source_name, fetcher)
+
+    try:
+        ukrainian_data, ukrainian_errors = fetch_ukrainian_music_epg(
+            channels, now
+        )
+    except Exception as exception:
+        ukrainian_data = None
+        ukrainian_errors = {
+            "source": f"{type(exception).__name__}: {exception}"
+        }
+    if ukrainian_data:
+        source_documents["ukrainian-official"] = ukrainian_data
+    source_errors.update(
+        {
+            f"ukrainian-official:{target_id}": error
+            for target_id, error in ukrainian_errors.items()
+        }
+    )
+
+    expected_ids = {channel.tvg_id for channel in channels if channel.tvg_id}
+    try:
+        red_bull_schedules, red_bull_source_names, red_bull_errors = (
+            fetch_red_bull_schedules(expected_ids, now)
+        )
+    except Exception as exception:
+        red_bull_schedules = {}
+        red_bull_source_names = set()
+        red_bull_errors = {
+            "red_bull": f"{type(exception).__name__}: {exception}"
+        }
+    source_errors.update(red_bull_errors)
+    return (
+        source_documents,
+        red_bull_schedules,
+        red_bull_source_names,
+        source_errors,
+    )
 
 
 MEGA_MONTHS = {
@@ -5852,6 +5971,471 @@ def fetch_13go_epg(
         return None, f"{type(error).__name__}: {error}"
 
 
+SPANISH_SCHEDULE_MONTHS = {
+    "enero": 1,
+    "febrero": 2,
+    "marzo": 3,
+    "abril": 4,
+    "mayo": 5,
+    "junio": 6,
+    "julio": 7,
+    "agosto": 8,
+    "septiembre": 9,
+    "setiembre": 9,
+    "octubre": 10,
+    "noviembre": 11,
+    "diciembre": 12,
+}
+
+
+def _official_html_text(value: str) -> str:
+    value = html.unescape(re.sub(r"<[^>]+>", " ", value))
+    return re.sub(r"\s+", " ", value).strip()
+
+
+def _spanish_schedule_date(value: str, reference: datetime) -> datetime.date:
+    normalized = unicodedata.normalize("NFKD", value.casefold())
+    normalized = "".join(
+        character for character in normalized if not unicodedata.combining(character)
+    )
+    match = re.search(
+        r"\b(?P<day>\d{1,2})\s+de\s+(?P<month>[a-z]+)(?:\s+de\s+(?P<year>\d{4}))?",
+        normalized,
+    )
+    if not match:
+        raise ValueError(f"fecha de parrilla no reconocida: {value!r}")
+    month = SPANISH_SCHEDULE_MONTHS.get(match.group("month"))
+    if month is None:
+        raise ValueError(f"mes de parrilla no reconocido: {value!r}")
+    year = int(match.group("year") or reference.year)
+    return datetime(year, month, int(match.group("day"))).date()
+
+
+def _schedule_rows_to_xmltv(
+    *,
+    source_name: str,
+    channel_id: str,
+    rows: list[tuple[datetime, datetime, str, str]],
+) -> bytes:
+    root = epg_root(source_name)
+    for start, stop, title, description in rows:
+        if stop <= start:
+            continue
+        programme = ET.SubElement(
+            root,
+            "programme",
+            {
+                "start": xmltv_format_chile(start),
+                "stop": xmltv_format_chile(stop),
+                "channel": channel_id,
+            },
+        )
+        ET.SubElement(programme, "title", {"lang": "es"}).text = title
+        if description:
+            ET.SubElement(programme, "desc", {"lang": "es"}).text = description
+    return ET.tostring(root, encoding="utf-8", xml_declaration=True)
+
+
+def parse_t13_official_schedule(
+    page_html: str, now: datetime
+) -> list[tuple[datetime, datetime, str, str]]:
+    """Parse the dated schedule rendered by the official T13 page."""
+    marker = re.search(r'<div\s+class="programacion-dia"\s*>', page_html, re.I)
+    if not marker:
+        raise ValueError("T13 no publico bloques programacion-dia")
+    blocks = re.split(
+        r'(?=<div\s+class="programacion-dia"\s*>)',
+        page_html[marker.start() :],
+        flags=re.I,
+    )
+    rows: list[tuple[datetime, datetime, str, str]] = []
+    for block in blocks:
+        heading = re.search(
+            r'<h2\s+class="dia"\s*>(?P<date>.*?)</h2>', block, re.I | re.S
+        )
+        if not heading:
+            continue
+        schedule_date = _spanish_schedule_date(
+            _official_html_text(heading.group("date")), now
+        )
+        previous_clock = None
+        day_cursor = schedule_date
+        records: list[tuple[datetime, str]] = []
+        item_pattern = re.compile(
+            r'<div\s+class="hora"\s*>(?P<time>\d{1,2}:\d{2})</div>\s*'
+            r'<div\s+class="programa"\s*>(?P<title>.*?)</div>',
+            re.I | re.S,
+        )
+        for item in item_pattern.finditer(block):
+            try:
+                clock = datetime.strptime(item.group("time").strip(), "%H:%M").time()
+            except ValueError:
+                continue
+            if previous_clock is not None and clock < previous_clock:
+                day_cursor += timedelta(days=1)
+            start = datetime.combine(day_cursor, clock, tzinfo=CHILE_TIMEZONE)
+            title = _official_html_text(item.group("title"))
+            if title:
+                records.append((start, title))
+            previous_clock = clock
+        for index, (start, title) in enumerate(records):
+            stop = (
+                records[index + 1][0]
+                if index + 1 < len(records)
+                else start + timedelta(hours=2)
+            )
+            rows.append((start, stop, title, "Programacion oficial publicada por T13."))
+    rows.sort(key=lambda item: (item[0], item[1], item[2]))
+    unique: list[tuple[datetime, datetime, str, str]] = []
+    seen: set[tuple[datetime, str]] = set()
+    for row in rows:
+        key = (row[0], row[2])
+        if key in seen:
+            continue
+        seen.add(key)
+        unique.append(row)
+    if len(unique) < 5:
+        raise ValueError("T13 publico una parrilla oficial demasiado corta")
+    if max(row[1] for row in unique) < now + timedelta(hours=24):
+        raise ValueError("T13 no publico 24 horas futuras")
+    return unique
+
+
+def fetch_t13_official_epg(
+    channels: list[Channel], now: datetime
+) -> tuple[bytes | None, str | None]:
+    if not any(channel.tvg_id == "0124" for channel in channels):
+        return None, None
+    try:
+        status, body, _ = fetch_bytes(
+            T13_PROGRAMMING_PAGE,
+            {
+                "User-Agent": BROWSER_USER_AGENT,
+                "Accept": "text/html,application/xhtml+xml,*/*;q=0.8",
+                "Accept-Language": "es-CL,es;q=0.9,en;q=0.8",
+                "Referer": "https://www.13.cl/",
+            },
+            timeout=45,
+            limit=8_000_000,
+        )
+        if status != 200:
+            raise ValueError(f"HTTP {status}")
+        rows = parse_t13_official_schedule(decode_web_text(body), now)
+        return (
+            _schedule_rows_to_xmltv(
+                source_name="T13 programacion oficial",
+                channel_id="0124",
+                rows=rows,
+            ),
+            None,
+        )
+    except Exception as error:
+        return None, f"{type(error).__name__}: {error}"
+
+
+def parse_chilevision_official_schedule(
+    page_html: str, now: datetime
+) -> list[tuple[datetime, datetime, str, str]]:
+    """Parse Chilevision's seven official day panels.
+
+    The page exposes weekday panels without absolute dates. The active panel
+    is treated as the provider's current local day, then the other panels are
+    anchored relative to the runner's Chile date. This avoids guessing from
+    programme names while tolerating the site's rolling-week layout.
+    """
+    section = re.search(
+        r'<section\s+id="programacion".*?</section>',
+        page_html,
+        re.I | re.S,
+    )
+    if not section:
+        raise ValueError("Chilevision no publico la seccion programacion")
+    section_html = section.group(0)
+    buttons = list(
+        re.finditer(
+            r'<button\b(?P<attrs>[^>]*)class="[^"]*schedule-section__button[^"]*"[^>]*>'
+            r'(?P<title>.*?)</button>',
+            section_html,
+            re.I | re.S,
+        )
+    )
+    if not buttons:
+        raise ValueError("Chilevision no publico sus dias de programacion")
+    active_index = next(
+        (
+            index
+            for index, button in enumerate(buttons)
+            if re.search(r'data-status="active"', button.group("attrs"), re.I)
+        ),
+        len(buttons) // 2,
+    )
+    body_marker = re.search(
+        r'<div\s+class="schedule-section__body"\s*>', section_html, re.I
+    )
+    if not body_marker:
+        raise ValueError("Chilevision no publico el cuerpo de programacion")
+    list_blocks = re.split(
+        r'(?=<div\s+class="schedule-section__list\b)',
+        section_html[body_marker.start() :],
+        flags=re.I,
+    )
+    list_blocks = [block for block in list_blocks if "schedule-card__hour" in block]
+    if len(list_blocks) < len(buttons):
+        raise ValueError("Chilevision publico menos paneles que dias")
+    rows: list[tuple[datetime, datetime, str, str]] = []
+    today = now.astimezone(CHILE_TIMEZONE).date()
+    for index, block in enumerate(list_blocks[: len(buttons)]):
+        panel_date = today + timedelta(days=index - active_index)
+        previous_clock = None
+        day_cursor = panel_date
+        records: list[tuple[datetime, str]] = []
+        item_pattern = re.compile(
+            r'<div\s+class="schedule-card__hour"\s*>(?P<time>\d{1,2}:\d{2})</div>.*?'
+            r'<strong\s+class="schedule-card__title"[^>]*>.*?'
+            r'<a\b[^>]*>(?P<title>.*?)</a>',
+            re.I | re.S,
+        )
+        for item in item_pattern.finditer(block):
+            try:
+                clock = datetime.strptime(item.group("time").strip(), "%H:%M").time()
+            except ValueError:
+                continue
+            if previous_clock is not None and clock < previous_clock:
+                day_cursor += timedelta(days=1)
+            start = datetime.combine(day_cursor, clock, tzinfo=CHILE_TIMEZONE)
+            title = _official_html_text(item.group("title"))
+            if title:
+                records.append((start, title))
+            previous_clock = clock
+        for row_index, (start, title) in enumerate(records):
+            stop = (
+                records[row_index + 1][0]
+                if row_index + 1 < len(records)
+                else start + timedelta(hours=2)
+            )
+            rows.append(
+                (
+                    start,
+                    stop,
+                    title,
+                    "Programacion oficial publicada por Chilevision.",
+                )
+            )
+    rows.sort(key=lambda item: (item[0], item[1], item[2]))
+    unique: list[tuple[datetime, datetime, str, str]] = []
+    seen: set[tuple[datetime, str]] = set()
+    for row in rows:
+        key = (row[0], row[2])
+        if key in seen:
+            continue
+        seen.add(key)
+        unique.append(row)
+    if len(unique) < 5:
+        raise ValueError("Chilevision publico una parrilla oficial demasiado corta")
+    if max(row[1] for row in unique) < now + timedelta(hours=24):
+        raise ValueError("Chilevision no publico 24 horas futuras")
+    return unique
+
+
+def fetch_chilevision_official_epg(
+    channels: list[Channel], now: datetime
+) -> tuple[bytes | None, str | None]:
+    if not any(channel.tvg_id == "0106" for channel in channels):
+        return None, None
+    try:
+        status, body, _ = fetch_bytes(
+            CHILEVISION_PROGRAMMING_PAGE,
+            {
+                "User-Agent": BROWSER_USER_AGENT,
+                "Accept": "text/html,application/xhtml+xml,*/*;q=0.8",
+                "Accept-Language": "es-CL,es;q=0.9,en;q=0.8",
+            },
+            timeout=45,
+            limit=8_000_000,
+        )
+        if status != 200:
+            raise ValueError(f"HTTP {status}")
+        rows = parse_chilevision_official_schedule(decode_web_text(body), now)
+        return (
+            _schedule_rows_to_xmltv(
+                source_name="Chilevision programacion oficial",
+                channel_id="0106",
+                rows=rows,
+            ),
+            None,
+        )
+    except Exception as error:
+        return None, f"{type(error).__name__}: {error}"
+
+
+def fetch_bbc_news_official_epg(
+    channels: list[Channel], now: datetime
+) -> tuple[bytes | None, str | None]:
+    if not any(channel.tvg_id == "BBCNews.uk" for channel in channels):
+        return None, None
+    try:
+        try:
+            schedule_timezone = ZoneInfo("Europe/London")
+            schedule_day = now.astimezone(schedule_timezone).date()
+        except ZoneInfoNotFoundError:
+            # Windows runners without the IANA tzdata package can still use
+            # the BBC's absolute ISO timestamps. The one-day boundary is
+            # covered by the -1/+6 fetch window below.
+            schedule_day = now.astimezone(timezone.utc).date()
+        records: list[tuple[datetime, str, str]] = []
+        headers = {
+            "User-Agent": BROWSER_USER_AGENT,
+            "Accept": "text/html,application/xhtml+xml,*/*;q=0.8",
+            "Accept-Language": "en-GB,en;q=0.9",
+        }
+        pattern = re.compile(
+            r'<h3\s+class="broadcast__time[^"]*"[^>]*\bcontent="(?P<start>[^"]+)"'
+            r'.*?<span\s+class="programme__title[^"]*"[^>]*>'
+            r'\s*<span>(?P<title>.*?)</span>',
+            re.I | re.S,
+        )
+        for offset in range(-1, 6):
+            page_date = schedule_day + timedelta(days=offset)
+            url = f"{BBC_NEWS_SCHEDULE_PAGE}/{page_date:%Y/%m/%d}"
+            status, body, _ = fetch_bytes(
+                url, headers, timeout=45, limit=8_000_000
+            )
+            if status != 200:
+                raise ValueError(f"{page_date}: HTTP {status}")
+            page = decode_web_text(body)
+            page_matches = list(pattern.finditer(page))
+            if not page_matches:
+                raise ValueError(f"{page_date}: BBC no publico programas")
+            for match in page_matches:
+                try:
+                    start = external_epg_datetime(match.group("start"))
+                except ValueError:
+                    continue
+                title = _official_html_text(match.group("title"))
+                if title:
+                    records.append((start, title, "Programacion oficial de BBC News."))
+        unique: dict[tuple[datetime, str], tuple[datetime, str, str]] = {}
+        for record in records:
+            unique.setdefault((record[0], record[1]), record)
+        ordered = sorted(unique.values(), key=lambda item: item[0])
+        lower_limit = now - timedelta(hours=6)
+        upper_limit = now + timedelta(days=5)
+        ordered = [item for item in ordered if lower_limit < item[0] < upper_limit]
+        rows: list[tuple[datetime, datetime, str, str]] = []
+        for index, (start, title, description) in enumerate(ordered):
+            next_start = ordered[index + 1][0] if index + 1 < len(ordered) else None
+            stop = next_start if next_start and next_start > start else start + timedelta(minutes=30)
+            if stop > start:
+                rows.append((start, stop, title, description))
+        if len(rows) < 5:
+            raise ValueError("BBC News publico una parrilla oficial demasiado corta")
+        if max(row[1] for row in rows) < now + timedelta(hours=24):
+            raise ValueError("BBC News no publico 24 horas futuras")
+        return (
+            _schedule_rows_to_xmltv(
+                source_name="BBC News schedule oficial",
+                channel_id="BBCNews.uk",
+                rows=rows,
+            ),
+            None,
+        )
+    except Exception as error:
+        return None, f"{type(error).__name__}: {error}"
+
+
+def _find_aljazeera_schedule(value: object) -> list[dict[str, object]] | None:
+    if isinstance(value, dict):
+        schedule = value.get("schedule")
+        if isinstance(schedule, list) and all(
+            isinstance(item, dict) for item in schedule
+        ):
+            return schedule
+        for child in value.values():
+            found = _find_aljazeera_schedule(child)
+            if found is not None:
+                return found
+    elif isinstance(value, list):
+        for child in value:
+            found = _find_aljazeera_schedule(child)
+            if found is not None:
+                return found
+    return None
+
+
+def fetch_aljazeera_official_epg(
+    channels: list[Channel], now: datetime
+) -> tuple[bytes | None, str | None]:
+    if not any(channel.tvg_id == "AlJazeera.qa" for channel in channels):
+        return None, None
+    try:
+        status, body, _ = fetch_bytes(
+            ALJAZEERA_SCHEDULE_PAGE,
+            {
+                "User-Agent": BROWSER_USER_AGENT,
+                "Accept": "text/html,application/xhtml+xml,*/*;q=0.8",
+                "Accept-Language": "en-US,en;q=0.9",
+            },
+            timeout=45,
+            limit=12_000_000,
+        )
+        if status != 200:
+            raise ValueError(f"HTTP {status}")
+        page = decode_web_text(body)
+        encoded = re.search(r'window\.__APOLLO_STATE__="([^"]+)"', page)
+        if not encoded:
+            raise ValueError("Al Jazeera no publico su estado de schedule")
+        payload = json.loads(base64.b64decode(encoded.group(1)).decode("utf-8"))
+        schedule = _find_aljazeera_schedule(payload)
+        if not schedule:
+            raise ValueError("Al Jazeera no publico una lista schedule valida")
+        records: list[tuple[datetime, str, str]] = []
+        for item in schedule:
+            try:
+                start_date = datetime.fromtimestamp(
+                    int(str(item["startDate"])), timezone.utc
+                ).date()
+                hours, minutes = str(item["showTimeslot"]).split(":", 1)
+                start = datetime.combine(
+                    start_date,
+                    datetime.strptime(
+                        f"{int(hours):02d}:{int(minutes):02d}", "%H:%M"
+                    ).time(),
+                    tzinfo=timezone.utc,
+                )
+            except (KeyError, TypeError, ValueError, OverflowError):
+                continue
+            title = re.sub(r"\s+", " ", str(item.get("showName", ""))).strip()
+            description = re.sub(
+                r"\s+", " ", str(item.get("showDescription", ""))
+            ).strip()
+            if title:
+                records.append((start, title, description))
+        records.sort(key=lambda item: item[0])
+        lower_limit = now - timedelta(hours=6)
+        upper_limit = now + timedelta(days=5)
+        records = [item for item in records if lower_limit < item[0] < upper_limit]
+        rows: list[tuple[datetime, datetime, str, str]] = []
+        for index, (start, title, description) in enumerate(records):
+            next_start = records[index + 1][0] if index + 1 < len(records) else None
+            stop = next_start if next_start and next_start > start else start + timedelta(hours=1)
+            if stop > start:
+                rows.append((start, stop, title, description))
+        if len(rows) < 5:
+            raise ValueError("Al Jazeera publico una parrilla oficial demasiado corta")
+        if max(row[1] for row in rows) < now + timedelta(hours=24):
+            raise ValueError("Al Jazeera no publico 24 horas futuras")
+        return (
+            _schedule_rows_to_xmltv(
+                source_name="Al Jazeera schedule oficial",
+                channel_id="AlJazeera.qa",
+                rows=rows,
+            ),
+            None,
+        )
+    except Exception as error:
+        return None, f"{type(error).__name__}: {error}"
+
+
 def fetch_sky_official_epg(
     channels: list[Channel], now: datetime
 ) -> tuple[bytes | None, str | None]:
@@ -6808,8 +7392,11 @@ def build_epg(
     if len(expected_ids) != len(channels):
         raise ValueError("todos los canales necesitan un tvg-id unico")
 
-    if IPTV_ORG_EPG_SOURCE in source_documents:
-        source_info_name = "iptv-org/epg combinado + continuidad tecnica"
+    if EPG_SOURCE_MODE == "official-only" or any(
+        source_name in OFFICIAL_EPG_SOURCE_NAMES
+        for source_name in source_documents
+    ):
+        source_info_name = "fuentes oficiales por canal + continuidad tecnica"
     elif ZAPPING_EPG_SOURCE in source_documents:
         source_info_name = "Zapping publico + EPG publicada conservada + continuidad tecnica"
     else:
@@ -6847,13 +7434,6 @@ def build_epg(
         for target_id, (source_name, source_id) in EPG_PROGRAMME_SOURCES.items()
         if target_id in expected_ids
     }
-    # El combinador de iptv-org recibe nuestro manifiesto con el tvg-id como
-    # xmltv_id. Sus programas llegan ya identificados con el ID estable de la
-    # M3U, por lo que no se debe intentar cruzarlos por nombre o por el
-    # proveedor interno que uso cada sitio.
-    if IPTV_ORG_EPG_SOURCE in source_roots:
-        for target_id in expected_ids:
-            source_lookup[(IPTV_ORG_EPG_SOURCE, target_id)] = target_id
     if ZAPPING_EPG_SOURCE in source_roots:
         zapping_target_ids = {
             programme.get("channel", "")
@@ -6897,9 +7477,21 @@ def build_epg(
             "13C.cl@SD"
         )
     source_overrides = {
+        CHILEVISION_OFFICIAL_EPG_SOURCE: {
+            "0106": "0106",
+        },
+        T13_OFFICIAL_EPG_SOURCE: {
+            "0124": "0124",
+        },
         CANAL13_13GO_EPG_SOURCE: {
             "13Cultura.cl@DPS": "13cultura",
             "13Kids.cl": "13kids",
+        },
+        BBC_NEWS_OFFICIAL_EPG_SOURCE: {
+            "BBCNews.uk": "BBCNews.uk",
+        },
+        ALJAZEERA_OFFICIAL_EPG_SOURCE: {
+            "AlJazeera.qa": "AlJazeera.qa",
         },
         SKY_OFFICIAL_EPG_SOURCE: {
             channel_id: sid
@@ -6925,7 +7517,7 @@ def build_epg(
     # anterior para ese canal. Nunca se mezcla con una fuente fresca ni se usa
     # para inventar continuidad genérica.
     published_fallback = source_roots.get(PUBLISHED_EPG_FALLBACK_SOURCE)
-    if published_fallback is not None and IPTV_ORG_EPG_SOURCE not in source_roots:
+    if published_fallback is not None:
         fresh_targets: set[str] = set()
         for source_name, source_root in source_roots.items():
             if source_name == PUBLISHED_EPG_FALLBACK_SOURCE:
@@ -7136,117 +7728,80 @@ def build_epg(
     return output, status
 
 
-def _iptv_org_guide_path() -> Path:
-    configured = os.environ.get("IPTV_ORG_EPG_GUIDE_PATH")
-    if configured:
-        candidate = Path(configured)
-        return candidate if candidate.is_absolute() else Path(__file__).with_name(configured)
-    return Path(__file__).with_name(IPTV_ORG_GUIDE_FILENAME)
-
-
-def refresh_epg_from_iptv_org(
+def refresh_epg_from_official(
     channels: list[Channel],
     *,
     now: datetime,
     existing_status: dict | None,
     existing_data: bytes | None,
 ) -> dict:
-    """Build Lista 1 from one guide generated by the iptv-org combiner.
+    """Build Lista 1 exclusively from official channel bridges.
 
-    The Node tool performs the network collection in one pass before this
-    function is called. This Python step only validates the resulting XMLTV,
-    maps its stable ``xmltv_id`` values to the M3U, and adds technical Live
-    coverage for channels that do not yet have an exact iptv-org site entry.
+    ``existing_status`` and ``existing_data`` are deliberately not used as a
+    second live source: an older publication may have been generated by a
+    provider that is no longer allowed. A failed official bridge therefore
+    results in technical ``Live`` coverage for that channel, not in reuse of
+    an old aggregate schedule.
     """
 
     source_documents: dict[str, bytes] = {}
     source_errors: dict[str, str] = {}
-    guide_path = _iptv_org_guide_path()
     expected_ids = {channel.tvg_id for channel in channels if channel.tvg_id}
     try:
-        combined_data = guide_path.read_bytes()
-        combined_root = ET.fromstring(combined_data)
-        if combined_root.tag != "tv":
-            raise ValueError("el combinador no produjo una raiz XMLTV <tv>")
-        guide_ids = {
-            element.get("id", "")
-            for element in combined_root.findall("channel")
-            if element.get("id")
+        (
+            source_documents,
+            red_bull_schedules,
+            red_bull_source_names,
+            source_errors,
+        ) = fetch_list1_official_epg(channels, now)
+    except Exception as exception:
+        source_documents = {}
+        red_bull_schedules = {}
+        red_bull_source_names = set()
+        source_errors = {
+            "official-bridges": f"{type(exception).__name__}: {exception}"
         }
-        programme_ids = {
-            element.get("channel", "")
-            for element in combined_root.findall("programme")
-            if element.get("channel")
-        }
-        matched_ids = expected_ids & guide_ids & programme_ids
-        if not matched_ids:
-            raise ValueError(
-                "el XMLTV combinado no contiene programas para los tvg-id de Lista 1"
-            )
-        unexpected_ids = (guide_ids | programme_ids) - expected_ids
-        if unexpected_ids:
-            print(
-                "  [AVISO] iptv-org/epg devolvio IDs fuera de Lista 1; "
-                "se filtraran durante la construccion: "
-                + ", ".join(sorted(unexpected_ids)),
-                file=sys.stderr,
-            )
-        source_documents[IPTV_ORG_EPG_SOURCE] = combined_data
-    except (OSError, ET.ParseError, ValueError) as error:
-        source_errors[IPTV_ORG_EPG_SOURCE] = f"{guide_path.name}: {error}"
-
-    if IPTV_ORG_EPG_SOURCE not in source_documents:
-        if existing_status is not None:
-            existing_status.update(
-                {
-                    "updated": False,
-                    "preserved": True,
-                    "warning": "iptv-org/epg no produjo una guia valida; se conservo la anterior",
-                    "source_errors": source_errors,
-                    "active_source_mode": EPG_SOURCE_MODE,
-                    "single_source_pipeline": True,
-                }
-            )
-            return existing_status
-        raise RuntimeError(
-            "iptv-org/epg no produjo una guia valida y no existe una EPG anterior"
-        )
 
     output, epg_status = build_epg(
         source_documents,
         channels,
-        {},
+        red_bull_schedules,
         now=now,
     )
     temporary = EPG_PATH.with_suffix(".xml.tmp")
     temporary.write_bytes(output)
     temporary.replace(EPG_PATH)
 
-    combined_root = ET.fromstring(source_documents[IPTV_ORG_EPG_SOURCE])
-    guide_ids = {
-        element.get("id", "")
-        for element in combined_root.findall("channel")
-        if element.get("id")
-    }
-    programme_ids = {
-        element.get("channel", "")
-        for element in combined_root.findall("programme")
-        if element.get("channel")
-    }
-    matched_ids = sorted(expected_ids & guide_ids & programme_ids)
+    official_source_names = sorted(
+        set(source_documents) & OFFICIAL_EPG_SOURCE_NAMES
+    )
+    official_source_names.extend(
+        sorted(
+            source_name
+            for source_name in red_bull_source_names
+            if source_name in OFFICIAL_EPG_SOURCE_NAMES
+        )
+    )
+    official_source_names = sorted(set(official_source_names))
+    official_ids = sorted(
+        target_id
+        for target_id, source_name in epg_status.get("guide_sources", {}).items()
+        if source_name in OFFICIAL_EPG_SOURCE_NAMES
+    )
     epg_status.update(
         {
             "updated": True,
-            "sources": [IPTV_ORG_EPG_SOURCE],
+            "sources": sorted(set(source_documents) | set(red_bull_source_names)),
             "source_errors": source_errors,
             "active_source_mode": EPG_SOURCE_MODE,
-            "single_source_pipeline": True,
-            "iptv_org_coverage": {
+            "official_only_pipeline": True,
+            "official_sources": official_source_names,
+            "official_channel_ids": official_ids,
+            "official_coverage": {
                 "list1_channels": len(expected_ids),
-                "real_programme_channels": len(matched_ids),
-                "real_programme_ids": matched_ids,
-                "technical_ids": sorted(expected_ids - set(matched_ids)),
-                "manifest": IPTV_ORG_CHANNEL_MANIFEST,
+                "official_programme_channels": len(official_ids),
+                "official_programme_ids": official_ids,
+                "technical_ids": sorted(expected_ids - set(official_ids)),
             },
         }
     )
@@ -7392,7 +7947,14 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
                 allow_empty_ids=EPG_ALLOWED_EMPTY_IDS,
             )
             generated_at = existing_status.get("generated_at")
-            if generated_at and not force:
+            existing_source_info = existing_root.get("source-info-name", "")
+            reusable_official_guide = (
+                EPG_SOURCE_MODE != "official-only"
+                or existing_source_info.startswith(
+                    "fuentes oficiales por canal + continuidad tecnica"
+                )
+            )
+            if generated_at and not force and reusable_official_guide:
                 age = now - datetime.fromisoformat(generated_at)
                 if age < EPG_REFRESH_INTERVAL:
                     existing_status.update({"updated": False, "reused": True})
@@ -7400,8 +7962,8 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
         except Exception:
             existing_status = None
 
-    if EPG_SOURCE_MODE == "iptv-org-only":
-        return refresh_epg_from_iptv_org(
+    if EPG_SOURCE_MODE == "official-only":
+        return refresh_epg_from_official(
             channels,
             now=now,
             existing_status=existing_status,
