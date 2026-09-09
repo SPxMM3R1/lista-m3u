@@ -4,6 +4,12 @@ on:
     - cron: "30 */6 * * *"
       timezone: "America/Santiago"
   workflow_dispatch:
+    inputs:
+      force:
+        description: "Fuerza una descarga inmediata de la EPG sin cambiar la cadencia automática"
+        required: false
+        default: false
+        type: boolean
 permissions:
   contents: write
 concurrency:
@@ -27,7 +33,13 @@ jobs:
         run: npm ci --no-audit --no-fund
         working-directory: ${{ runner.temp }}/iptv-org-epg
       - run: python -m unittest discover -s tests -p "test_*.py"
-      - run: python run_epg_6h.py --executor github
+      - name: Ejecutar EPG independiente
+        run: |
+          if [[ "${{ inputs.force }}" == "true" ]]; then
+            python run_epg_6h.py --executor github --force
+          else
+            python run_epg_6h.py --executor github
+          fi
         env:
           IPTV_ORG_EPG_ROOT: ${{ runner.temp }}/iptv-org-epg
           IPTV_ORG_EPG_GUIDE_PATH: ${{ github.workspace }}/iptv-org-guide.xml
