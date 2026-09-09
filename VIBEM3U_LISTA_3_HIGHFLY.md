@@ -105,12 +105,11 @@ automaticamente la lista 3 a m3u.m3u: son salidas separadas.
 
 ## EPG y logos
 
-El runner construye `epg.xml` exclusivamente para los canales de Lista 1
-(`m3u.m3u`/`1.m3u`). Las entradas de `3.m3u` no se agregan automáticamente a
-la guía por estar en la lista Premium; si una señal Premium se promueve
-manualmente a Lista 1, recibe su `tvg-id` y su guía en la siguiente ejecución.
-Así se evita que el catálogo Premium cambiante amplíe o desordene la EPG
-principal.
+El runner incluye las entradas validas de 3.m3u en el conjunto usado para
+refrescar la EPG. Las cinco identidades historicas conocidas conservan sus
+IDs de canal; las nuevas identidades reciben la asociacion que exista en el
+catalogo EPG y, si aun no existe una fuente real, quedan con continuidad
+tecnica hasta que se agregue un mapeo verificado.
 
 Los logos se resuelven desde este repositorio. No depender de posters del
 catalogo Premium para la interfaz de VibeM3U: esos posters pueden ser

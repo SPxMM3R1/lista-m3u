@@ -384,33 +384,6 @@ class TvnEpgTests(unittest.TestCase):
         self.assertTrue(status["reused"])
         self.assertEqual(status["channels"], 2)
 
-    def test_epg_scope_reads_only_lista_1(self) -> None:
-        with tempfile.TemporaryDirectory() as temporary_directory:
-            temporary = Path(temporary_directory)
-            main_playlist = temporary / "m3u.m3u"
-            alias_playlist = temporary / "1.m3u"
-            main_playlist.write_text(
-                "#EXTM3U\n"
-                '#EXTINF:-1 tvg-id="main.one",Principal\n'
-                "https://example.invalid/main.m3u8\n"
-                '#EXTINF:-1 tvg-id="main.two",Principal dos\n'
-                "https://example.invalid/main-two.m3u8\n",
-                encoding="utf-8",
-            )
-            alias_playlist.write_text(
-                "#EXTM3U\n"
-                '#EXTINF:-1 tvg-id="alias.only",Alias\n'
-                "https://example.invalid/alias.m3u8\n",
-                encoding="utf-8",
-            )
-
-            with patch.object(update_m3u, "DEFAULT_PLAYLIST", main_playlist), patch.object(
-                update_m3u, "SHORT_DIRECT_PLAYLIST", alias_playlist
-            ):
-                scoped = update_m3u.load_main_epg_channels()
-
-        self.assertEqual([item.tvg_id for item in scoped], ["main.one", "main.two"])
-
     def test_main_playlist_epg_gate_requires_every_principal_channel(self) -> None:
         now = datetime(2026, 8, 29, 12, tzinfo=timezone.utc)
         principal = [channel("TVN", "0104"), channel("Meganoticias", "Meganoticias.cl")]

@@ -843,9 +843,9 @@ RED_BULL_CHILE_URL = (
 # el margen informativo para una guia que termina pronto, no una quinta ventana.
 EPG_REFRESH_INTERVAL = timedelta(hours=6)
 HEALTH_FAILURE_THRESHOLD = 1
-# 13C es la unica senal de la lista principal que se administra con un
-# traslado temporal automatico. Se conserva en el catalogo; su EPG se publica
-# mientras pertenezca a Lista 1 y vuelve a entrar al promoverlo.
+# 13C es la unica senal de la lista principal que se administra con una
+# traslado temporal automatico. Se conserva en el catalogo y en la EPG; solo
+# cambia su salida publica despues de varios fallos consecutivos.
 AUTO_MAIN_DEMOTION_FAILURE_THRESHOLD = 3
 AUTO_RECOVERABLE_MAIN_CHANNEL_IDS = frozenset({"13C.cl@SD"})
 PUBLISHED_EPG_FALLBACK_SOURCE = "epg-publicada-conservada"
@@ -2688,46 +2688,8 @@ def parse_channels(lines: list[str]) -> list[Channel]:
     return channels
 
 
-def load_main_epg_channels() -> list[Channel]:
-    """Load exactly the channels published in Lista 1 for the EPG.
-
-    ``channel-catalog.m3u`` remains the retry/inventory source for channel
-    maintenance, but it must never silently expand the XMLTV scope. The
-    canonical source for the guide is ``m3u.m3u``; ``1.m3u`` is only a local
-    compatibility alias used if the canonical file is temporarily absent.
-    """
-    path = DEFAULT_PLAYLIST if DEFAULT_PLAYLIST.is_file() else SHORT_DIRECT_PLAYLIST
-    if not path.is_file():
-        raise RuntimeError(
-            "no existe la lista 1 (m3u.m3u ni 1.m3u) para construir la EPG"
-        )
-    channels = parse_channels(path.read_text(encoding="utf-8-sig").splitlines())
-    if not channels:
-        raise RuntimeError(f"la lista 1 {path.name} no contiene canales para la EPG")
-    tvg_ids = [channel.tvg_id for channel in channels]
-    missing_ids = [channel.name for channel in channels if not channel.tvg_id]
-    duplicate_ids = sorted(
-        tvg_id for tvg_id in set(tvg_ids) if tvg_id and tvg_ids.count(tvg_id) > 1
-    )
-    if missing_ids:
-        raise RuntimeError(
-            "la lista 1 contiene canales sin tvg-id para la EPG: "
-            + ", ".join(missing_ids)
-        )
-    if duplicate_ids:
-        raise RuntimeError(
-            "la lista 1 contiene tvg-id duplicados para la EPG: "
-            + ", ".join(duplicate_ids)
-        )
-    return channels
-
-
 def channels_with_highfly_premium_stable(channels: list[Channel]) -> list[Channel]:
-    """Legacy helper kept for callers that explicitly request Lista 3.
-
-    The production EPG paths do not call this function: their scope is always
-    the manually curated Lista 1 loaded by :func:`load_main_epg_channels`.
-    """
+    """Add validated Lista 3 channels to the EPG scope without changing lists 1/2."""
     result = list(channels)
     if not HIGHFLY_PREMIUM_STABLE_PLAYLIST.is_file():
         return result
@@ -4128,8 +4090,8 @@ def validate_main_playlist_epg(
 ) -> dict:
     """Validate the hard EPG gate for the principal public playlist.
 
-    The independent EPG job builds coverage for this same principal list.
-    This audit is intentionally run by the channel job as a safety
+    The independent EPG job still builds coverage for the complete catalogue.
+    This narrower audit is intentionally run by the channel job as a safety
     gate before replacing ``m3u.m3u``. When ``required_channels`` is supplied,
     it represents every member of the manually curated principal list,
     regardless of health. Technical continuity
@@ -7061,8 +7023,8 @@ def refresh_epg_from_active_zapping(
     The previous XML is not a second live source: it is only used to keep a
     channel's last known real schedule when Zapping has no exact association
     for it. Channels without either one receive the existing technical/live
-    fallback from ``build_epg``. This keeps the selected Lista 1 scope complete
-    without downloading or merging a dozen independent providers.
+    fallback from ``build_epg``. This keeps the catalog complete without
+    downloading or merging a dozen independent providers.
     """
 
     source_documents: dict[str, bytes] = {}
@@ -7134,33 +7096,37 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
     now = datetime.now(timezone.utc)
     expected_ids = {channel.tvg_id for channel in channels if channel.tvg_id}
     public_ids: set[str] | None = None
-    public_playlist = DEFAULT_PLAYLIST if DEFAULT_PLAYLIST.exists() else SHORT_DIRECT_PLAYLIST
-    if CHANNEL_CATALOG_PATH.exists() and public_playlist.exists():
+    public_playlist_paths = [
+        path
+        for path in (DEFAULT_PLAYLIST, EXTERNAL_PLAYLIST)
+        if path.exists()
+    ]
+    if CHANNEL_CATALOG_PATH.exists() and public_playlist_paths:
         catalog_ids = {
             channel.tvg_id
             for channel in channels
             if channel.tvg_id
         }
         public_ids: set[str] = set()
-        public_ids.update(
-            channel.tvg_id
-            for channel in parse_channels(
-                public_playlist.read_text(encoding="utf-8-sig").splitlines()
+        for public_playlist in public_playlist_paths:
+            public_ids.update(
+                channel.tvg_id
+                for channel in parse_channels(
+                    public_playlist.read_text(encoding="utf-8-sig").splitlines()
+                )
+                if channel.tvg_id
             )
-            if channel.tvg_id
-        )
         unpublished_ids = catalog_ids - public_ids
         unknown_public_ids = public_ids - catalog_ids
         print(
-            "EPG verificada exclusivamente contra Lista 1 "
-            f"({public_playlist.name}) y channel-catalog.m3u: "
-            f"{len(public_ids & catalog_ids)} canales de Lista 1, "
+            "EPG verificada contra las listas publicas y channel-catalog.m3u: "
+            f"{len(public_ids & catalog_ids)} presentes entre ambas listas, "
             f"{len(unpublished_ids)} fuera de las salidas; "
-            "no se incluyen Lista 2 ni Lista 3"
+            "se procesara el catalogo completo"
         )
         if unknown_public_ids:
             print(
-                "  [AVISO] Lista 1 contiene IDs fuera del catalogo; "
+                "  [AVISO] M3U publica contiene IDs fuera del catalogo; "
                 "se ignoran para la EPG: "
                 + ", ".join(sorted(unknown_public_ids)),
                 file=sys.stderr,
@@ -9184,7 +9150,7 @@ def main() -> int:
     mode_group.add_argument(
         "--refresh-epg-only",
         action="store_true",
-        help="fuerza y publica solo la EPG de Lista 1 (m3u.m3u)",
+        help="fuerza y publica solo la EPG sobre el catalogo completo",
     )
     mode_group.add_argument(
         "--channels-only",
@@ -9288,7 +9254,17 @@ def main() -> int:
                 "Exclusiones permanentes retiradas del catalogo: "
                 + ", ".join(removed_channels)
             )
-        epg_channels = load_main_epg_channels()
+        epg_playlist = (
+            CHANNEL_CATALOG_PATH
+            if playlist == DEFAULT_PLAYLIST.resolve() and CHANNEL_CATALOG_PATH.exists()
+            else playlist
+        )
+        channels = parse_channels(
+            epg_playlist.read_text(encoding="utf-8-sig").splitlines()
+        )
+        if not channels:
+            raise RuntimeError("el catalogo no contiene canales para la EPG")
+        epg_channels = channels_with_highfly_premium_stable(channels)
         epg_status = refresh_epg(epg_channels, force=True)
         print(
             f"EPG actualizada: {epg_status['channels']} canales y "
@@ -9345,22 +9321,22 @@ def main() -> int:
     if args.channels_only:
         # The final main-list EPG gate is evaluated after stream maintenance
         # against the complete manual membership. The independent EPG job
-        # covers exactly that same Lista 1 scope.
+        # still covers the full catalogue.
         main_epg_status = {}
         epg_status = {
             "updated": False,
             "skipped": True,
-            "catalog_scope": DEFAULT_PLAYLIST.name,
+            "catalog_scope": CHANNEL_CATALOG_PATH.name,
         }
         print(
             "EPG omitida: este proceso mantiene canales y resolutores; "
-            "la EPG se ejecuta de forma independiente sobre Lista 1; "
+            "la EPG se ejecuta de forma independiente sobre channel-catalog.m3u; "
             "la compuerta de m3u.m3u se calculara al terminar la validacion"
         )
     else:
-        print("Actualizando la guia de programacion de Lista 1")
+        print("Actualizando la guia de programacion de todos los canales")
         force_epg_refresh = os.environ.get("EPG_FORCE_REFRESH", "").lower() == "true"
-        epg_channels = load_main_epg_channels()
+        epg_channels = channels_with_highfly_premium_stable(channels)
         epg_status = refresh_epg(epg_channels, force=force_epg_refresh)
         main_epg_status = {}
         updated = "actualizada" if epg_status.get("updated") else "vigente"
@@ -9594,7 +9570,7 @@ def main() -> int:
         if channel.tvg_id in effective_main_ids
     ]
     # Evaluate the hard gate against the exact set that will be written to
-    # m3u.m3u. The EPG scope is the same principal list, never the catalog.
+    # m3u.m3u. The full catalog remains the EPG scope, including demoted 13C.
     main_epg_status = validate_main_playlist_epg(
         final_channels,
         required_channels=main_publication_channels,
@@ -9673,9 +9649,9 @@ def main() -> int:
         if channel.tvg_id in external_publication_ids and result.ok
     )
     # La membresia de la lista 1 sigue siendo manual salvo la excepcion
-    # automatica y reversible de 13C. La EPG se construye exclusivamente sobre
-    # la lista 1; los canales de Lista 2/3 conservan sus metadatos y fuentes
-    # fuera del XMLTV hasta que se promuevan manualmente.
+    # automatica y reversible de 13C. La EPG se construye sobre el catalogo
+    # completo en el workflow independiente, por lo que un canal demovido
+    # conserva su guia lista para volver a la principal.
     playlist.write_text(
         "\n".join(candidate_main_lines) + "\n",
         encoding="utf-8",
