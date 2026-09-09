@@ -1,25 +1,11 @@
 #EXTM3U x-tvg-url="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/epg.xml"
 
-# Nacionales
-#EXTINF:-1 tvg-id="13Kids.cl" tvg-name="13 Go" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/13go-mosca.png" tvg-country="CL" group-title="Nacionales",13 Go
-https://origin.dpsgo.com/ssai/event/LhHrVtyeQkKZ-Ye_xEU75g/master.m3u8
 
 
 # Despues de noticias nacionales
 
-# Noticias internacionales
-#EXTINF:-1 tvg-id="TVChile.cl" tvg-name="TV Chile" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvchilecl.png" tvg-country="CL" group-title="Noticias internacionales",TV Chile
-https://mdstrm.com/live-stream-playlist/533adcc949386ce765657d7c.m3u8
-#EXTINF:-1 tvg-id="France24.fr@English" tvg-name="France 24 English" tvg-country="FR" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/france24.svg" group-title="Noticias internacionales",France 24 English
-https://live.france24.com/hls/live/2037218/F24_EN_HI_HLS/master_5000.m3u8
-#EXTINF:-1 tvg-id="EuronewsSpanish.fr" tvg-name="Euronews Español" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/euronews-espanol.png" group-title="Noticias internacionales",Euronews Español
-https://cdn-euronews.akamaized.net/live/eds/euronews-es/25053/index.m3u8
 
 # Deportes
-#EXTINF:-1 tvg-id="1763" tvg-name="CHV Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/chv-deportes.svg" group-title="Deportes",CHV Deportes
-https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/chvdeportes/chvdeportes.smil/playlist.m3u8
-#EXTINF:-1 tvg-id="AztecaDeportesNetwork.mx@SD" tvg-name="Azteca Deportes Network" tvg-country="MX" tvg-logo="https://match-images.icdb.tv/5913207f2494844101287828e87625eb.jpg" group-title="Deportes",Azteca Deportes Network
-https://live-manifest.production-public.tubi.io/live/6bf131c3-d664-424c-93c9-49188a788980/playlist.m3u8
 #EXTINF:-1 tvg-id="SkySportF1.de@TvVoo" tvg-name="Sky Sport F1 Germany" tvg-country="DE" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/sky-sport-f1-de.png" group-title="Deportes" x-resolver="tvvoo" x-resolver-endpoint="https://tvvoo.hayd.uk/stream/tv" x-resolver-ids="vavoo_SKY%20SPORT%20F1%7Cgroup%3Ade;vavoo_SKY%20SPORT%20F1%20HD%2B%7Cgroup%3Ade;vavoo_SKY%20SPORT%20F1%20HD%20%28H265%29%7Cgroup%3Ade" x-resolver-refresh="on_play" x-resolver-recipe="bounded-payload-v1",Sky Sport F1 Germany
 http://mjkskdvpfpb1fbv.ngolpdkyoctjcddxshli469r.org/sunshine/FPGMNWKAzF7D6SJIiI4_ZMAF09X6MGLeNWBi1QoG5dl5ZBT5tUXgE6YTCLf_B1V1OTVl9plB5o6wEEy3LMzvP0aktNOyibPdNsk5U3TU7Pq8YYzeUP_wsnCc79F9aX9cxvlun654PuSAwc9XOISGZI9_sYUgdKrfip4t7jNn4oQk7oP0JKh_reNvXc7dia2Bcdr-pihMmDbYwJaogEGuq4m1B2VWRuq0IRtTsseeOCI9Gh1j4wrm8WUGmxIISzBGhFCxXSRY0i0gas4pD8t5LnKNNIMUTnnzm6gVyXahxthyeEQD3k3OPQ2m1NmtcTn-/hls/index.m3u8
 #EXTINF:-1 tvg-id="Vavoo.uk.SKYSPORTSF1@TvVoo" tvg-name="Sky F1 UK" tvg-country="UK" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/sky-sports-f1.png" group-title="Deportes" x-resolver="tvvoo" x-resolver-endpoint="https://tvvoo.hayd.uk/stream/tv" x-resolver-ids="vavoo_SKY%20SPORTS%20F1%20FHD%7Cgroup%3Auk;vavoo_SKY%20SPORTS%20F1%20HD%7Cgroup%3Auk;vavoo_SKY%20SPORTS%20F1%7Cgroup%3Auk" x-resolver-refresh="on_play" x-resolver-recipe="bounded-payload-v1",Sky F1 UK
@@ -135,8 +121,6 @@ http://shouurvki7jtfax.ngolpdkyoctjcddxshli469r.org/sunshine/NxsGrAfHBKg6uzaNaUB
 
 
 # Misceláneos
-#EXTINF:-1 tvg-id="History2LatinAmerica.us@Panregional" tvg-name="History 2 Latin America" tvg-country="US" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/world-latin-america/history-channel-2-lam.png" group-title="Misceláneos",History 2 Latin America
-http://138.121.15.230:9002/HISTORY-2/index.m3u8
 #EXTINF:-1 tvg-id="BBCEarth.uk" tvg-name="BBC Earth FAST" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/bbc-earth-2023-i.svg" tvg-country="GB" group-title="Misceláneos",BBC Earth FAST
 https://amg00793-amg00793c6-xumo-us-2669.playouts.now.amagi.tv/BBCStudios-BBCEarthA-hls/playlist.m3u8
 #EXTINF:-1 tvg-id="Vavoo.de.SKYDOCUMENTARIES@TvVoo" tvg-name="Sky Documentaries Alemania" tvg-country="DE" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/sky-documentaries-uk.png" group-title="Misceláneos" x-resolver="tvvoo" x-resolver-endpoint="https://tvvoo.hayd.uk/stream/tv" x-resolver-ids="vavoo_SKY%20DOCUMENTARIES%7Cgroup%3Ade;vavoo_SKY%20DOCUMENTARIES%20HD%7Cgroup%3Ade;vavoo_SKY%20DOCUMENTARIES%20HD%20%28BACKUP%29%7Cgroup%3Ade" x-resolver-refresh="on_play" x-resolver-recipe="bounded-payload-v1",Sky Documentaries Alemania

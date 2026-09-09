@@ -1040,14 +1040,8 @@ class PlaylistOrderTests(unittest.TestCase):
             list(update_m3u.SPORTS_CHANNEL_ORDER),
         )
         self.assertEqual(
-            ordered_ids[:5],
-            [
-                "SkySportsF1.uk",
-                "HighflyPremium.now-sky-sports-f1-2",
-                "SkySportsTennis.uk",
-                "HighflyPremium.4k-sky-sports-main-events",
-                "SkySportsPremierLeague.uk",
-            ],
+            ordered_ids[:2],
+            ["SkySportsF1.uk", "SkySportsTennis.uk"],
         )
         self.assertEqual(
             [channel_id for channel_id in ordered_ids if channel_id in update_m3u.F1_CHANNEL_IDS],
