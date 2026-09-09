@@ -24,6 +24,7 @@ from collections.abc import Callable, Iterable
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
+from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import parse_qsl, quote, unquote, urlencode, urljoin, urlparse
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
@@ -544,8 +545,23 @@ FRANCE24_ES_1080_URL = (
     "https://live.france24.com/hls/live/2037220/F24_ES_HI_HLS/master_5000.m3u8"
 )
 # Las URLs heredadas se conservan en un unico archivo de fuentes, pero no se
-# descargan en el modo activo official-only.
+# descargan en bloque. Los feeds EPGShare se usan unicamente como fallback
+# exacto por canal despues de consultar las fuentes oficiales.
 EPG_SOURCES = epg_sources.LEGACY_EPG_BACKUP_URLS
+EPGSHARE_FALLBACK_SOURCE_PREFIX = "epgshare:"
+EPGSHARE_FALLBACK_MIN_PROGRAMMES = 5
+EPGSHARE_FALLBACK_MIN_FUTURE = timedelta(hours=24)
+EPGSHARE_FALLBACK_MAX_COMPRESSED_BYTES = 16_777_216
+EPGSHARE_FALLBACK_MAX_DECOMPRESSED_BYTES = 96 * 1024 * 1024
+EPGSHARE_FALLBACK_URLS = {
+    source_name: source_url
+    for source_name, source_url in EPG_SOURCES.items()
+    if source_url.startswith("https://epgshare01.online/")
+}
+EPGSHARE_FALLBACK_SOURCE_NAMES = frozenset(
+    f"{EPGSHARE_FALLBACK_SOURCE_PREFIX}{source_name}"
+    for source_name in EPGSHARE_FALLBACK_URLS
+)
 CANAL13_MAIN_EPG_SOURCE = "canal13-abierto-oficial"
 CANAL13_MAIN_EPG_URL = (
     "https://www.13.cl/sites/default/files/tools/epg-canal13.json"
@@ -739,12 +755,12 @@ EPG_PROGRAMME_SOURCES.update({
         "us2",
         "Marquee.Sports.Network.HD.us2",
     ),
-    # La versión UHD mantiene la parrilla de Main Event; la fuente agregada
-    # no publica un ID UHD independiente y el simulcast es la asociación
-    # disponible más precisa.
+    # La versión UHD mantiene la parrilla de Main Event HD. EPGShare publica
+    # el ID HD y no un ID UHD independiente; el canal premium se asocia al
+    # mismo origen exacto para comprobar y copiar esa parrilla.
     "HighflyPremium.4k-sky-sports-main-events": (
-        "highfly-main-event-4k-simulcast",
-        "Highfly.Sky.Sports.Main.Event.4K",
+        "uk1",
+        "SkySpMainEvHD.uk",
     ),
     "HighflyPremium.now-sky-sports-f1-2": (
         "highfly-f1-4k-simulcast",
@@ -795,11 +811,19 @@ EPG_PROGRAMME_SOURCES = {
     if channel_id not in PERMANENTLY_REMOVED_CHANNEL_IDS
     or channel_id in RESTORED_EXTERNAL_CHANNEL_IDS
 }
+MIRRORED_EPG_SOURCE_PREFIX = "mirror:"
+# Los UHD no tienen una parrilla editorial propia. F1 UHD reutiliza la guía
+# del canal Sky Sports F1 HD presente en Lista 1; Main Event UHD usa el mismo
+# ID HD directamente en EPG_PROGRAMME_SOURCES arriba.
+EPG_GUIDE_MIRRORS = {
+    "HighflyPremium.now-sky-sports-f1-2": "SkySportsF1.uk",
+}
 # El unico camino activo de EPG y sus aliases viven en epg_sources.py. Los
 # adaptadores historicos inferiores quedan disponibles solo para pruebas de
 # compatibilidad; no se descargan en el modo oficial-only.
 EPG_SOURCE_MODE = epg_sources.EPG_SOURCE_MODE
 ZAPPING_EPG_SOURCE = epg_sources.ZAPPING_EPG_SOURCE
+HISTORICAL_EPG_SOURCE_NAMES = frozenset({"tecnocentro", ZAPPING_EPG_SOURCE})
 ZAPPING_EPG_BASE_URL = epg_sources.ZAPPING_EPG_BASE_URL
 ZAPPING_NOWPLAYING_URL = epg_sources.ZAPPING_NOWPLAYING_URL
 ZAPPING_NOWPLAYING_CONNECT_HOSTS = epg_sources.ZAPPING_NOWPLAYING_CONNECT_HOSTS
@@ -809,6 +833,12 @@ try:
     CHILE_TIMEZONE = ZoneInfo("America/Santiago")
 except ZoneInfoNotFoundError:
     CHILE_TIMEZONE = timezone(timedelta(hours=-4))
+try:
+    TELEHIT_TIMEZONE = ZoneInfo("America/Mexico_City")
+except ZoneInfoNotFoundError:
+    # Los runners de Windows pueden no tener tzdata instalado. Telehit usa
+    # hora de Ciudad de Mexico; UTC-06:00 es el respaldo historico estable.
+    TELEHIT_TIMEZONE = timezone(timedelta(hours=-6))
 try:
     NHK_TIMEZONE = ZoneInfo("Asia/Tokyo")
 except ZoneInfoNotFoundError:
@@ -889,6 +919,28 @@ MEGANOTICIAS_OFFICIAL_MASTER_URL = (
 )
 CANAL13_13C_PROGRAMMING_PAGE = "https://www.13.cl/c/programacion"
 CANAL13_13C_OFFICIAL_EPG_SOURCE = "canal13-13c-oficial"
+TELEHIT_OFFICIAL_EPG_SOURCE = "telehit-oficial"
+TELEHIT_OFFICIAL_PROGRAMMING_PAGE = "https://www.telehit.com/programacion"
+TELEHIT_OFFICIAL_GRAPHQL_URL = "https://api.televisa.com/graphql/q"
+TELEHIT_OFFICIAL_CHANNEL_ID = "TelehitMusica.mx@SD"
+# TV Passport is a third-party fallback only. The date-suffixed pages expose
+# the station's actual listings as data-* attributes, so the bridge can avoid
+# browser automation and keep the source identity exact.
+TELEHIT_PASSPORT_EPG_SOURCE = "telehit-passport"
+TELEHIT_PASSPORT_STATION_URL = (
+    "https://www.tvpassport.com/tv-listings/stations/telehit/6143"
+)
+TELEHIT_PASSPORT_SCHEDULE_URL = (
+    f"{TELEHIT_PASSPORT_STATION_URL}/{{schedule_date}}"
+)
+TELEHIT_PASSPORT_MIN_PROGRAMMES = 5
+TELEHIT_PASSPORT_MIN_FUTURE = timedelta(hours=24)
+# Es el identificador publico que usa el JavaScript de la guia oficial. No es
+# un token de usuario ni se publica en M3U, EPG o catalogos de resolutores.
+TELEHIT_OFFICIAL_CLIENT_AUTHORIZATION = (
+    "10e22492f81ebf5c3fdc8f0d5f6eeaf2:"
+    "a949615ffb1e64e083fe759d1eec9339"
+)
 BBC_NEWS_SCHEDULE_PAGE = "https://www.bbc.co.uk/schedules/p00fzl9m"
 BBC_NEWS_OFFICIAL_EPG_SOURCE = "bbc-news-oficial"
 ALJAZEERA_SCHEDULE_PAGE = "https://www.aljazeera.com/schedule/"
@@ -904,6 +956,7 @@ OFFICIAL_EPG_SOURCE_NAMES = frozenset(
         CANAL13_MAIN_EPG_SOURCE,
         CANAL13_13C_OFFICIAL_EPG_SOURCE,
         CANAL13_13GO_EPG_SOURCE,
+        TELEHIT_OFFICIAL_EPG_SOURCE,
         LA_RED_OFFICIAL_EPG_SOURCE,
         NHK_OFFICIAL_EPG_SOURCE,
         SKY_OFFICIAL_EPG_SOURCE,
@@ -916,6 +969,10 @@ OFFICIAL_EPG_SOURCE_NAMES = frozenset(
         "red-bull-oficial-fallback",
     }
 )
+# Fuentes externas acotadas por ID exacto. Se reportan separadas de las
+# fuentes oficiales y de EPGShare, pero participan en el mismo circuito de
+# renovación para que un fallo de Telehit no aborte toda la EPG.
+EXTERNAL_EPG_SOURCE_NAMES = frozenset({TELEHIT_PASSPORT_EPG_SOURCE})
 TVVOO_STREAM_BASE_URL = "https://tvvoo.hayd.uk/stream/tv"
 # El relay publico de Highfly puede responder con un certificado vencido aun
 # cuando el mismo HLS entrega playlist y segmentos. La excepcion queda
@@ -2010,6 +2067,15 @@ CONTINUOUS_PROGRAMME_DETAILS = {
 FORCED_EPG_TITLES = {
     "13Kids.cl": "Diego y Glot",
 }
+# La continuidad tecnica es una excepcion editorial limitada a RWND. Todos
+# los demas canales deben conservar una guia real si existe o quedar marcados
+# de forma explicita como sin guia; nunca deben recibir un bloque ``Live``
+# generico por el solo hecho de que una fuente haya fallado.
+TECHNICAL_CONTINUITY_CHANNEL_IDS = frozenset({"RewindTV.cl@SD"})
+NO_GUIDE_PROGRAMME_TITLE = "Sin guía disponible"
+NO_GUIDE_PROGRAMME_DESCRIPTION = (
+    "No se encontró una programación verificable para esta señal en la ejecución actual."
+)
 NEWS_CHANNEL_ORDER = ("24 Horas", "Meganoticias", "CHV Noticias", "T13")
 CONTENT_CATEGORY_ORDER = (
     "Nacionales",
@@ -3689,6 +3755,67 @@ def fetch_bytes(
         raise
 
 
+def fetch_official_page_bytes(
+    url: str,
+    headers: dict[str, str],
+    *,
+    timeout: int = 60,
+    limit: int = 8_388_608,
+) -> bytes:
+    """Fetch an allowlisted official page with a runner-compatible retry.
+
+    Some official sites return an intermittent 404 to Python's urllib while
+    returning the same page to the runner's curl/browser stack. The retry is
+    deliberately restricted to the exact official URL supplied by an
+    in-repository bridge; it does not change provider, follow a discovered
+    host, relax TLS, or use cookies or credentials.
+    """
+
+    try:
+        status, body, _ = fetch_bytes(
+            url,
+            headers,
+            timeout=timeout,
+            limit=limit,
+        )
+        if status != 200:
+            raise ValueError(f"HTTP {status}")
+        return body
+    except Exception as primary_error:
+        curl_command = [
+            "curl",
+            "--fail",
+            "--silent",
+            "--show-error",
+            "--location",
+            "--max-time",
+            str(timeout),
+            "--user-agent",
+            headers.get("User-Agent", BROWSER_USER_AGENT),
+        ]
+        for header_name in ("Accept", "Accept-Language", "Referer"):
+            header_value = headers.get(header_name)
+            if header_value:
+                curl_command.extend(["--header", f"{header_name}: {header_value}"])
+        curl_command.append(url)
+        try:
+            completed = subprocess.run(
+                curl_command,
+                check=True,
+                capture_output=True,
+                timeout=timeout + 5,
+            )
+            body = completed.stdout
+            if len(body) > limit:
+                raise ValueError(f"respuesta oficial supera el limite de {limit} bytes")
+            return body
+        except Exception as curl_error:
+            raise RuntimeError(
+                f"urllib: {type(primary_error).__name__}: {primary_error}; "
+                f"curl oficial: {type(curl_error).__name__}: {curl_error}"
+            ) from curl_error
+
+
 def _highfly_premium_clean_m3u_text(value: object, maximum_length: int = 180) -> str:
     """Normalize provider text before placing it in a quoted M3U attribute."""
     normalized = re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]", "", str(value or ""))
@@ -4616,8 +4743,10 @@ def fetch_list1_official_epg(
 
     Each adapter is tied to exact channel IDs. A source can provide a real
     schedule when it returns a valid guide; a failure is recorded and leaves
-    that channel for the technical ``Live`` fallback. No aggregate source is
-    downloaded here.
+    that channel for the exact fallbacks. If those also fail, only RWND may
+    receive technical ``Live`` coverage; every other channel is marked
+    explicitly as ``Sin guía disponible``. No aggregate source is downloaded
+    here.
     """
 
     source_documents: dict[str, bytes] = {}
@@ -4642,6 +4771,7 @@ def fetch_list1_official_epg(
         (T13_OFFICIAL_EPG_SOURCE, fetch_t13_official_epg),
         (LA_RED_OFFICIAL_EPG_SOURCE, fetch_la_red_official_epg),
         (MEGA_OFFICIAL_EPG_SOURCE, fetch_mega_official_epg),
+        (TELEHIT_OFFICIAL_EPG_SOURCE, fetch_telehit_official_epg),
         (NHK_OFFICIAL_EPG_SOURCE, fetch_nhk_official_epg),
         (CANAL13_MAIN_EPG_SOURCE, fetch_canal13_main_official_epg),
         (CANAL13_13C_OFFICIAL_EPG_SOURCE, fetch_13c_official_epg),
@@ -4652,6 +4782,12 @@ def fetch_list1_official_epg(
         (AUTENTIC_HISTORY_EPG_SOURCE, fetch_autentic_history_epg),
     ):
         add_single_source(source_name, fetcher)
+
+    # Passport is deliberately attempted only after the official Telehit
+    # widget. It is a bounded third-party fallback for the exact Telehit ID,
+    # never a replacement for a valid official document.
+    if TELEHIT_OFFICIAL_EPG_SOURCE not in source_documents:
+        add_single_source(TELEHIT_PASSPORT_EPG_SOURCE, fetch_telehit_passport_epg)
 
     try:
         ukrainian_data, ukrainian_errors = fetch_ukrainian_music_epg(
@@ -4689,6 +4825,163 @@ def fetch_list1_official_epg(
         red_bull_source_names,
         source_errors,
     )
+
+
+def fetch_epgshare_fallback_epg(
+    channels: list[Channel],
+    eligible_ids: Iterable[str],
+    now: datetime,
+) -> tuple[dict[str, bytes], dict[str, str]]:
+    """Fetch only the EPGShare feeds needed by uncovered List 1 IDs.
+
+    EPGShare is deliberately a secondary source. The caller supplies the IDs
+    for which the official bridge produced no programme at all; this function
+    never decides identity from a channel name. Every programme is accepted
+    only when its source channel ID is an exact entry in
+    ``EPG_PROGRAMME_SOURCES`` and the resulting target has at least five
+    programmes extending 24 hours into the future.
+
+    The returned XML documents contain only validated source-channel
+    programmes. They are keyed with ``epgshare:<country>`` so they cannot be
+    confused with the old aggregate pipeline or with a future provider using
+    the same country key.
+    """
+
+    allowed_ids = {
+        str(channel_id)
+        for channel_id in eligible_ids
+        if str(channel_id).strip()
+    }
+    if not allowed_ids:
+        return {}, {}
+
+    mappings_by_source: dict[str, dict[str, str]] = {}
+    ambiguous_source_ids: dict[str, set[str]] = {}
+    for target_id, mapping in EPG_PROGRAMME_SOURCES.items():
+        if target_id not in allowed_ids:
+            continue
+        source_name, source_id = mapping
+        if source_name not in EPGSHARE_FALLBACK_URLS:
+            continue
+        source_mapping = mappings_by_source.setdefault(source_name, {})
+        previous_target = source_mapping.get(source_id)
+        if previous_target is not None and previous_target != target_id:
+            ambiguous_source_ids.setdefault(source_name, set()).add(source_id)
+            continue
+        source_mapping[source_id] = target_id
+
+    for source_name, source_ids in ambiguous_source_ids.items():
+        source_mapping = mappings_by_source.get(source_name, {})
+        for source_id in source_ids:
+            source_mapping.pop(source_id, None)
+
+    if not mappings_by_source:
+        return {}, {}
+
+    headers = {
+        "User-Agent": BROWSER_USER_AGENT,
+        "Accept": "application/gzip,application/octet-stream,*/*",
+        "Accept-Language": "es-CL,es;q=0.9,en;q=0.8",
+    }
+    source_documents: dict[str, bytes] = {}
+    source_errors: dict[str, str] = {}
+    now_floor = now - timedelta(hours=6)
+    future_limit = now + EPGSHARE_FALLBACK_MIN_FUTURE
+    upper_limit = now + timedelta(days=8)
+
+    for source_name, source_mapping in sorted(mappings_by_source.items()):
+        if not source_mapping:
+            continue
+        qualified_name = f"{EPGSHARE_FALLBACK_SOURCE_PREFIX}{source_name}"
+        try:
+            status, compressed, _ = fetch_bytes(
+                EPGSHARE_FALLBACK_URLS[source_name],
+                headers,
+                timeout=60,
+                limit=EPGSHARE_FALLBACK_MAX_COMPRESSED_BYTES,
+            )
+            if status != 200:
+                raise ValueError(f"HTTP {status}")
+            if not compressed.startswith(b"\x1f\x8b"):
+                raise ValueError("la respuesta no es XMLTV gzip")
+            decompressed = gzip.decompress(compressed)
+            if len(decompressed) > EPGSHARE_FALLBACK_MAX_DECOMPRESSED_BYTES:
+                raise ValueError(
+                    "el XMLTV descomprimido supera "
+                    f"{EPGSHARE_FALLBACK_MAX_DECOMPRESSED_BYTES // (1024 * 1024)} MB"
+                )
+            source_root = ET.fromstring(decompressed)
+            if source_root.tag != "tv":
+                raise ValueError("la respuesta no contiene una raiz XMLTV <tv>")
+        except Exception as error:
+            source_errors[qualified_name] = (
+                f"{type(error).__name__}: {error}"
+            )
+            continue
+
+        programmes_by_target: dict[str, list[ET.Element]] = {}
+        last_stop_by_target: dict[str, datetime] = {}
+        for programme in source_root.findall("programme"):
+            target_id = source_mapping.get(programme.get("channel", ""))
+            if target_id is None:
+                continue
+            title = re.sub(
+                r"\s+",
+                " ",
+                (programme.findtext("title") or "").strip(),
+            )
+            if not title:
+                continue
+            try:
+                start = xmltv_datetime(programme.get("start", ""))
+                stop = xmltv_datetime(programme.get("stop", ""))
+            except ValueError:
+                continue
+            if stop <= start or stop < now_floor or start > upper_limit:
+                continue
+            programmes_by_target.setdefault(target_id, []).append(programme)
+            previous_stop = last_stop_by_target.get(target_id)
+            if previous_stop is None or stop > previous_stop:
+                last_stop_by_target[target_id] = stop
+
+        valid_targets = {
+            target_id
+            for target_id, programmes in programmes_by_target.items()
+            if len(programmes) >= EPGSHARE_FALLBACK_MIN_PROGRAMMES
+            and last_stop_by_target.get(target_id, datetime.min.replace(tzinfo=timezone.utc))
+            >= future_limit
+        }
+        if not valid_targets:
+            source_errors[qualified_name] = (
+                "no contiene una parrilla exacta con cinco programas y 24 horas futuras"
+            )
+            continue
+
+        fallback_root = ET.Element(
+            "tv",
+            {
+                "generator-info-name": "lista-m3u EPGShare fallback",
+                "source-info-name": EPGSHARE_FALLBACK_URLS[source_name],
+            },
+        )
+        valid_source_ids = {
+            source_id
+            for source_id, target_id in source_mapping.items()
+            if target_id in valid_targets
+        }
+        for channel_element in source_root.findall("channel"):
+            if channel_element.get("id", "") in valid_source_ids:
+                fallback_root.append(copy.deepcopy(channel_element))
+        for target_id in sorted(valid_targets):
+            for programme in programmes_by_target[target_id]:
+                fallback_root.append(copy.deepcopy(programme))
+        source_documents[qualified_name] = ET.tostring(
+            fallback_root,
+            encoding="utf-8",
+            xml_declaration=True,
+        )
+
+    return source_documents, source_errors
 
 
 MEGA_MONTHS = {
@@ -4875,49 +5168,12 @@ def fetch_la_red_official_epg(
         "Referer": LA_RED_PROGRAMMING_PAGE,
     }
     try:
-        try:
-            status, body, _ = fetch_bytes(
-                LA_RED_PROGRAMMING_PAGE,
-                headers,
-                timeout=60,
-                limit=8_000_000,
-            )
-            if status != 200:
-                raise ValueError(f"HTTP {status}")
-        except Exception as primary_error:
-            # Algunos runners reciben un bloqueo transitorio con urllib. Se
-            # reintenta la misma pagina oficial con curl, sin cookies, login,
-            # tokens ni relajacion TLS. No se cambia la fuente por Zapping.
-            try:
-                completed = subprocess.run(
-                    [
-                        "curl",
-                        "--fail",
-                        "--silent",
-                        "--show-error",
-                        "--location",
-                        "--max-time",
-                        "60",
-                        "--user-agent",
-                        BROWSER_USER_AGENT,
-                        "--header",
-                        "Accept: text/html,application/xhtml+xml,*/*;q=0.8",
-                        "--header",
-                        "Accept-Language: es-CL,es;q=0.9,en;q=0.8",
-                        "--header",
-                        f"Referer: {LA_RED_PROGRAMMING_PAGE}",
-                        LA_RED_PROGRAMMING_PAGE,
-                    ],
-                    check=True,
-                    capture_output=True,
-                    timeout=65,
-                )
-                body = completed.stdout
-            except Exception as curl_error:
-                raise RuntimeError(
-                    f"urllib: {type(primary_error).__name__}: {primary_error}; "
-                    f"curl oficial: {type(curl_error).__name__}: {curl_error}"
-                ) from curl_error
+        body = fetch_official_page_bytes(
+            LA_RED_PROGRAMMING_PAGE,
+            headers,
+            timeout=60,
+            limit=8_000_000,
+        )
 
         schedules = la_red_schedule_items(decode_web_text(body))
         if sum(len(items) for items in schedules.values()) < 5:
@@ -5313,11 +5569,12 @@ def fetch_mega_official_epg(
         "Accept-Language": "es-CL,es;q=0.9,en;q=0.8",
     }
     try:
-        status, body, _ = fetch_bytes(
-            MEGA_PROGRAMMING_PAGE, headers, timeout=60, limit=8_388_608
+        body = fetch_official_page_bytes(
+            MEGA_PROGRAMMING_PAGE,
+            headers,
+            timeout=60,
+            limit=8_388_608,
         )
-        if status != 200:
-            raise ValueError(f"HTTP {status}")
         page_html = decode_web_text(body)
         article_urls: list[str] = []
         for raw_url in re.findall(
@@ -5331,11 +5588,16 @@ def fetch_mega_official_epg(
 
         payloads = mega_article_payloads(page_html)
         for article_url in article_urls:
-            status, article_body, _ = fetch_bytes(
-                article_url, headers, timeout=60, limit=8_388_608
-            )
-            if status == 200:
+            try:
+                article_body = fetch_official_page_bytes(
+                    article_url,
+                    headers,
+                    timeout=60,
+                    limit=8_388_608,
+                )
                 payloads.extend(mega_article_payloads(decode_web_text(article_body)))
+            except Exception:
+                continue
 
         today = now.astimezone(CHILE_TIMEZONE).date()
         valid_dates = {
@@ -5392,6 +5654,351 @@ def fetch_mega_official_epg(
                     "Programacion oficial consultada en Mega."
                 )
         return ET.tostring(root, encoding="utf-8", xml_declaration=True), None
+    except Exception as error:
+        return None, f"{type(error).__name__}: {error}"
+
+
+def _telehit_graphql_query(path: str) -> str:
+    """Build the query used by Telehit's official programming widget."""
+    return (
+        "{\n"
+        "  getTvShows (\n"
+        f'    api: {{ type: "tvschedule", path: "{path}" }}\n'
+        '    findTvShow: { schedule: "00:00" }\n'
+        "  ) {\n"
+        "    shows {\n"
+        "      title, description, duration, endTime, schedule,\n"
+        "      onLiveEndTime, onLive, urlOfficialSite\n"
+        "    }\n"
+        "  }\n"
+        "}"
+    )
+
+
+def _telehit_clock(value: object) -> object:
+    text = str(value or "").strip()
+    for pattern in ("%H:%M:%S", "%H:%M"):
+        try:
+            return datetime.strptime(text, pattern).time()
+        except ValueError:
+            continue
+    raise ValueError(f"hora Telehit no reconocida: {text!r}")
+
+
+def _telehit_duration_seconds(value: object) -> int | None:
+    try:
+        seconds = int(float(str(value).strip()))
+    except (TypeError, ValueError):
+        return None
+    return seconds if seconds > 0 else None
+
+
+class _TelehitPassportListingParser(HTMLParser):
+    """Extract exact Telehit listing cards from a TV Passport station page."""
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.items: list[dict[str, str]] = []
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        if tag.lower() != "div":
+            return
+        attributes = {
+            name.lower(): value or ""
+            for name, value in attrs
+            if name
+        }
+        classes = set(attributes.get("class", "").split())
+        if "list-group-item" not in classes:
+            return
+        # The station page can contain other list-group elements. The exact
+        # callsign makes the association deterministic when the layout changes.
+        if attributes.get("data-callsign", "").upper() != "THIT":
+            return
+        start = attributes.get("data-st", "").strip()
+        title = attributes.get("data-showname", "").strip()
+        if not start or not title:
+            return
+        self.items.append(
+            {
+                "start": start,
+                "title": title,
+                "description": attributes.get("data-description", "").strip(),
+                "duration": attributes.get("data-duration", "").strip(),
+            }
+        )
+
+
+def parse_telehit_passport_schedule(
+    page_html: str,
+) -> list[tuple[datetime, datetime, str, str]]:
+    """Parse the dated TV Passport cards into Mexico-local schedule rows."""
+
+    parser = _TelehitPassportListingParser()
+    parser.feed(page_html)
+    parser.close()
+
+    records: list[tuple[datetime, str, str, int | None]] = []
+    for item in parser.items:
+        try:
+            start = datetime.strptime(
+                item["start"],
+                "%Y-%m-%d %H:%M:%S",
+            ).replace(tzinfo=TELEHIT_TIMEZONE)
+        except ValueError:
+            continue
+        title = re.sub(r"\s+", " ", html.unescape(item["title"])).strip()
+        if not title:
+            continue
+        description = re.sub(
+            r"\s+",
+            " ",
+            html.unescape(item["description"]),
+        ).strip()
+        try:
+            duration_minutes = int(item["duration"])
+        except (TypeError, ValueError):
+            duration_minutes = None
+        records.append((start, title, description, duration_minutes))
+
+    records.sort(key=lambda row: (row[0], row[1]))
+    unique_records: list[tuple[datetime, str, str, int | None]] = []
+    seen: set[tuple[datetime, str]] = set()
+    for record in records:
+        key = (record[0], record[1])
+        if key in seen:
+            continue
+        seen.add(key)
+        unique_records.append(record)
+
+    rows: list[tuple[datetime, datetime, str, str]] = []
+    for index, (start, title, description, duration_minutes) in enumerate(
+        unique_records
+    ):
+        next_start = (
+            unique_records[index + 1][0]
+            if index + 1 < len(unique_records)
+            else None
+        )
+        if duration_minutes is not None and duration_minutes > 0:
+            stop = start + timedelta(minutes=duration_minutes)
+        elif next_start is not None:
+            stop = next_start
+        else:
+            stop = start + timedelta(hours=3)
+        # Never emit overlapping XMLTV blocks if the provider changes a
+        # duration without moving the next listing.
+        if next_start is not None and start < next_start < stop:
+            stop = next_start
+        if stop <= start:
+            continue
+        rows.append((start, stop, title, description))
+    return rows
+
+
+def fetch_telehit_passport_epg(
+    channels: list[Channel], now: datetime
+) -> tuple[bytes | None, str | None]:
+    """Use TV Passport only when the official Telehit bridge has no guide."""
+
+    if not any(
+        channel.tvg_id == TELEHIT_OFFICIAL_CHANNEL_ID for channel in channels
+    ):
+        return None, None
+
+    headers = {
+        "User-Agent": BROWSER_USER_AGENT,
+        "Accept": "text/html,application/xhtml+xml,*/*;q=0.8",
+        "Accept-Language": "es-MX,es;q=0.9,en;q=0.8",
+        "Referer": TELEHIT_OFFICIAL_PROGRAMMING_PAGE,
+    }
+    local_now = now.astimezone(TELEHIT_TIMEZONE)
+    schedule_dates = (
+        local_now.date() - timedelta(days=1),
+        local_now.date(),
+        local_now.date() + timedelta(days=1),
+    )
+    rows: list[tuple[datetime, datetime, str, str]] = []
+    page_errors: list[str] = []
+    for schedule_date in schedule_dates:
+        url = TELEHIT_PASSPORT_SCHEDULE_URL.format(
+            schedule_date=schedule_date.isoformat()
+        )
+        try:
+            status, body, _ = fetch_bytes(
+                url,
+                headers,
+                timeout=45,
+                limit=8_000_000,
+            )
+            if status != 200:
+                raise ValueError(f"HTTP {status}")
+            page_rows = parse_telehit_passport_schedule(decode_web_text(body))
+            if not page_rows:
+                raise ValueError("la pagina no contiene tarjetas THIT")
+            rows.extend(page_rows)
+        except Exception as error:
+            page_errors.append(f"{schedule_date}: {error}")
+
+    unique: dict[tuple[datetime, str], tuple[datetime, datetime, str, str]] = {}
+    for row in rows:
+        unique.setdefault((row[0], row[2]), row)
+    rows = sorted(unique.values(), key=lambda row: (row[0], row[1], row[2]))
+
+    lower_limit = local_now - timedelta(hours=6)
+    upper_limit = local_now + timedelta(days=8)
+    rows = [
+        row
+        for row in rows
+        if row[1] > lower_limit and row[0] < upper_limit
+    ]
+    if len(rows) < TELEHIT_PASSPORT_MIN_PROGRAMMES:
+        details = "; ".join(page_errors[:2])
+        suffix = f" ({details})" if details else ""
+        return None, f"Telehit Passport publico muy pocos bloques{suffix}"
+    if not any(start <= local_now < stop for start, stop, _, _ in rows):
+        return None, "Telehit Passport no publico un programa vigente"
+    if max(stop for _, stop, _, _ in rows) < local_now + TELEHIT_PASSPORT_MIN_FUTURE:
+        return None, "Telehit Passport no publico 24 horas futuras"
+
+    return (
+        _schedule_rows_to_xmltv(
+            source_name=TELEHIT_PASSPORT_STATION_URL,
+            channel_id=TELEHIT_OFFICIAL_CHANNEL_ID,
+            rows=rows,
+        ),
+        None,
+    )
+
+
+def fetch_telehit_official_epg(
+    channels: list[Channel], now: datetime
+) -> tuple[bytes | None, str | None]:
+    """Import Telehit's official guide through its public Televisa widget API.
+
+    ``www.telehit.com/programacion`` embeds this API in the official Televisa
+    programming widget. We query exact calendar days, convert the provider's
+    Mexico-local clock to XMLTV, and reject a response that has no programme
+    covering the current time or does not reach 24 hours into the future.
+    """
+
+    if not any(
+        channel.tvg_id == TELEHIT_OFFICIAL_CHANNEL_ID for channel in channels
+    ):
+        return None, None
+
+    headers = {
+        "User-Agent": BROWSER_USER_AGENT,
+        "Accept": "application/json, text/plain, */*",
+        "Accept-Language": "es-MX,es;q=0.9,en;q=0.8",
+        "Content-Type": "application/json;charset=UTF-8",
+        "Origin": "https://www.telehit.com",
+        "Referer": TELEHIT_OFFICIAL_PROGRAMMING_PAGE,
+        "Authorization": TELEHIT_OFFICIAL_CLIENT_AUTHORIZATION,
+    }
+    try:
+        local_now = now.astimezone(TELEHIT_TIMEZONE)
+        lower_limit = local_now - timedelta(hours=6)
+        upper_limit = local_now + timedelta(days=8)
+        rows: list[tuple[datetime, datetime, str, str]] = []
+        seen: set[tuple[datetime, datetime, str]] = set()
+        day_errors: list[str] = []
+
+        for offset in range(-1, 8):
+            schedule_day = local_now.date() + timedelta(days=offset)
+            path = f"/{schedule_day:%y%m%d}/telehit.json"
+            payload = json.dumps(
+                {"query": _telehit_graphql_query(path)},
+                ensure_ascii=False,
+            ).encode("utf-8")
+            try:
+                status, body, _ = fetch_bytes(
+                    f"{TELEHIT_OFFICIAL_GRAPHQL_URL}/{int(time.time() * 1000)}",
+                    headers,
+                    timeout=45,
+                    limit=4_000_000,
+                    data=payload,
+                )
+                if status != 200:
+                    raise ValueError(f"HTTP {status}")
+                if body.startswith(b"\x1f\x8b"):
+                    body = gzip.decompress(body)
+                response = json.loads(decode_web_text(body))
+                graphql_errors = response.get("errors")
+                data = response.get("data")
+                container = data.get("getTvShows") if isinstance(data, dict) else None
+                shows = container.get("shows") if isinstance(container, dict) else None
+                if not isinstance(shows, list):
+                    detail = graphql_errors or "respuesta sin shows"
+                    raise ValueError(f"Telehit GraphQL sin shows: {detail}")
+            except Exception as error:
+                day_errors.append(f"{schedule_day}: {error}")
+                continue
+
+            for show in shows:
+                if not isinstance(show, dict):
+                    continue
+                title = re.sub(r"\s+", " ", str(show.get("title", "")).strip())
+                if not title:
+                    continue
+                try:
+                    start_clock = _telehit_clock(show.get("schedule"))
+                    start = datetime.combine(
+                        schedule_day,
+                        start_clock,
+                        tzinfo=TELEHIT_TIMEZONE,
+                    )
+                except (TypeError, ValueError):
+                    continue
+
+                duration_seconds = _telehit_duration_seconds(show.get("duration"))
+                if duration_seconds is not None:
+                    stop = start + timedelta(seconds=duration_seconds)
+                else:
+                    try:
+                        stop_clock = _telehit_clock(show.get("endTime"))
+                    except (TypeError, ValueError):
+                        continue
+                    stop_day = (
+                        schedule_day + timedelta(days=1)
+                        if stop_clock <= start_clock
+                        else schedule_day
+                    )
+                    stop = datetime.combine(
+                        stop_day,
+                        stop_clock,
+                        tzinfo=TELEHIT_TIMEZONE,
+                    )
+                if stop <= start or stop <= lower_limit or start >= upper_limit:
+                    continue
+                description = re.sub(
+                    r"\s+",
+                    " ",
+                    str(show.get("description", "")).strip(),
+                )
+                key = (start, stop, title)
+                if key in seen:
+                    continue
+                seen.add(key)
+                rows.append((start, stop, title, description))
+
+        rows.sort(key=lambda row: (row[0], row[1], row[2]))
+        if len(rows) < 5:
+            detail = "; ".join(day_errors[:2])
+            suffix = f" ({detail})" if detail else ""
+            raise ValueError(f"Telehit publico una parrilla demasiado corta{suffix}")
+        if not any(start <= local_now < stop for start, stop, _, _ in rows):
+            raise ValueError("Telehit no publico un programa vigente")
+        if max(stop for _, stop, _, _ in rows) < local_now + timedelta(hours=24):
+            raise ValueError("Telehit no publico 24 horas futuras")
+        return (
+            _schedule_rows_to_xmltv(
+                source_name=TELEHIT_OFFICIAL_PROGRAMMING_PAGE,
+                channel_id=TELEHIT_OFFICIAL_CHANNEL_ID,
+                rows=rows,
+            ),
+            None,
+        )
     except Exception as error:
         return None, f"{type(error).__name__}: {error}"
 
@@ -7334,8 +7941,14 @@ def add_continuous_programmes(
     now: datetime,
     start_at: datetime | None = None,
     technical: bool = False,
+    title_override: str | None = None,
+    description_override: str | None = None,
     formatter: Callable[[datetime], str] = xmltv_format_chile,
 ) -> int:
+    if technical and channel_id not in TECHNICAL_CONTINUITY_CHANNEL_IDS:
+        raise ValueError(
+            f"continuidad tecnica no autorizada para el canal {channel_id}"
+        )
     day_aligned_technical = technical and start_at is None
     if day_aligned_technical:
         start = now.astimezone(CHILE_TIMEZONE).replace(
@@ -7365,7 +7978,10 @@ def add_continuous_programmes(
                 "channel": channel_id,
             },
         )
-        if technical:
+        if title_override is not None:
+            title = title_override
+            description = description_override or ""
+        elif technical:
             title = "Live"
             description = ""
         else:
@@ -7392,15 +8008,48 @@ def build_epg(
     if len(expected_ids) != len(channels):
         raise ValueError("todos los canales necesitan un tvg-id unico")
 
-    if EPG_SOURCE_MODE == "official-only" or any(
+    has_epgshare_sources = any(
+        source_name in EPGSHARE_FALLBACK_SOURCE_NAMES
+        for source_name in source_documents
+    )
+    has_historical_sources = any(
+        source_name in HISTORICAL_EPG_SOURCE_NAMES
+        for source_name in source_documents
+    )
+    has_external_sources = any(
+        source_name in EXTERNAL_EPG_SOURCE_NAMES
+        for source_name in source_documents
+    )
+    source_info_suffix = " + fallback historico" if has_historical_sources else ""
+    external_source_suffix = (
+        " + fallback externo validado" if has_external_sources else ""
+    )
+    if has_epgshare_sources:
+        source_info_name = (
+            "fuentes oficiales por canal + fallback EPGShare"
+            f"{external_source_suffix}{source_info_suffix}"
+            " + continuidad tecnica solo RWND"
+        )
+    elif EPG_SOURCE_MODE == "official-only" or any(
         source_name in OFFICIAL_EPG_SOURCE_NAMES
         for source_name in source_documents
     ):
-        source_info_name = "fuentes oficiales por canal + continuidad tecnica"
+        source_info_name = (
+            "fuentes oficiales por canal"
+            f"{external_source_suffix}{source_info_suffix}"
+            " + continuidad tecnica solo RWND"
+        )
+    elif has_external_sources:
+        source_info_name = (
+            "fallback externo validado"
+            f"{source_info_suffix} + continuidad tecnica solo RWND"
+        )
     elif ZAPPING_EPG_SOURCE in source_documents:
-        source_info_name = "Zapping publico + EPG publicada conservada + continuidad tecnica"
+        source_info_name = (
+            "Zapping publico + EPG publicada conservada + continuidad tecnica solo RWND"
+        )
     else:
-        source_info_name = "EPG publicada conservada + continuidad tecnica"
+        source_info_name = "EPG publicada conservada + continuidad tecnica solo RWND"
     root = ET.Element(
         "tv",
         {
@@ -7434,6 +8083,13 @@ def build_epg(
         for target_id, (source_name, source_id) in EPG_PROGRAMME_SOURCES.items()
         if target_id in expected_ids
     }
+    for target_id, (source_name, source_id) in EPG_PROGRAMME_SOURCES.items():
+        if target_id not in expected_ids:
+            continue
+        if source_name in EPGSHARE_FALLBACK_URLS:
+            source_lookup[
+                (f"{EPGSHARE_FALLBACK_SOURCE_PREFIX}{source_name}", source_id)
+            ] = target_id
     if ZAPPING_EPG_SOURCE in source_roots:
         zapping_target_ids = {
             programme.get("channel", "")
@@ -7487,6 +8143,9 @@ def build_epg(
             "13Cultura.cl@DPS": "13cultura",
             "13Kids.cl": "13kids",
         },
+        TELEHIT_OFFICIAL_EPG_SOURCE: {
+            "TelehitMusica.mx@SD": TELEHIT_OFFICIAL_CHANNEL_ID,
+        },
         BBC_NEWS_OFFICIAL_EPG_SOURCE: {
             "BBCNews.uk": "BBCNews.uk",
         },
@@ -7511,6 +8170,74 @@ def build_epg(
                 if lookup_target == target_id:
                     source_lookup.pop(lookup_key, None)
             source_lookup[(source_name, source_id)] = target_id
+
+    # Keep the official Telehit widget authoritative if both documents happen
+    # to be present. Passport is mapped only when the official source is absent.
+    if TELEHIT_OFFICIAL_CHANNEL_ID in expected_ids:
+        for lookup_key, lookup_target in list(source_lookup.items()):
+            if lookup_target == TELEHIT_OFFICIAL_CHANNEL_ID:
+                source_lookup.pop(lookup_key, None)
+        if TELEHIT_OFFICIAL_EPG_SOURCE in source_roots:
+            source_lookup[
+                (TELEHIT_OFFICIAL_EPG_SOURCE, TELEHIT_OFFICIAL_CHANNEL_ID)
+            ] = TELEHIT_OFFICIAL_CHANNEL_ID
+        elif TELEHIT_PASSPORT_EPG_SOURCE in source_roots:
+            source_lookup[
+                (TELEHIT_PASSPORT_EPG_SOURCE, TELEHIT_OFFICIAL_CHANNEL_ID)
+            ] = TELEHIT_OFFICIAL_CHANNEL_ID
+
+    # EPGShare solo puede ganar cuando el puente oficial no entrego ningun
+    # programa para ese ID. Si ambos documentos traen datos, la guia oficial
+    # conserva prioridad y el documento secundario se ignora para ese canal.
+    official_targets_with_programmes: set[str] = set()
+    for source_name, source_root in source_roots.items():
+        if source_name not in OFFICIAL_EPG_SOURCE_NAMES:
+            continue
+        for programme in source_root.findall("programme"):
+            target_id = source_lookup.get(
+                (source_name, programme.get("channel", ""))
+            )
+            if target_id is None:
+                continue
+            try:
+                stop = xmltv_datetime(programme.get("stop", ""))
+            except ValueError:
+                continue
+            if stop > now:
+                official_targets_with_programmes.add(target_id)
+    official_targets_with_programmes.update(
+        target_id
+        for target_id, cards in red_bull_schedules.items()
+        if target_id in expected_ids and cards
+    )
+
+    epgshare_targets: set[str] = set()
+    for source_name, source_root in source_roots.items():
+        if source_name not in EPGSHARE_FALLBACK_SOURCE_NAMES:
+            continue
+        per_target: dict[str, tuple[int, datetime | None]] = {}
+        for programme in source_root.findall("programme"):
+            target_id = source_lookup.get(
+                (source_name, programme.get("channel", ""))
+            )
+            if target_id is None or target_id in official_targets_with_programmes:
+                continue
+            try:
+                stop = xmltv_datetime(programme.get("stop", ""))
+            except ValueError:
+                continue
+            count, previous_stop = per_target.get(target_id, (0, None))
+            per_target[target_id] = (
+                count + 1,
+                stop if previous_stop is None or stop > previous_stop else previous_stop,
+            )
+        epgshare_targets.update(
+            target_id
+            for target_id, (count, last_stop) in per_target.items()
+            if count >= EPGSHARE_FALLBACK_MIN_PROGRAMMES
+            and last_stop is not None
+            and last_stop >= now + EPGSHARE_FALLBACK_MIN_FUTURE
+        )
 
     # Si una fuente opcional por canal desaparece durante una renovación
     # forzada, conservar únicamente la parrilla real vigente de la publicación
@@ -7552,6 +8279,15 @@ def build_epg(
             target_id = source_lookup.get((source_name, programme.get("channel", "")))
             if target_id is None:
                 continue
+            is_epgshare_source = source_name in EPGSHARE_FALLBACK_SOURCE_NAMES
+            if is_epgshare_source and target_id not in epgshare_targets:
+                continue
+            if (
+                not is_epgshare_source
+                and target_id in epgshare_targets
+                and source_name in OFFICIAL_EPG_SOURCE_NAMES
+            ):
+                continue
             if source_name == "pluto":
                 # Pluto's public XML sometimes repeats the same card verbatim
                 # at a boundary. Keep one copy so XMLTV remains non-overlapping.
@@ -7586,6 +8322,12 @@ def build_epg(
             guide_types[target_id] = (
                 "parrilla real conservada"
                 if source_name == PUBLISHED_EPG_FALLBACK_SOURCE
+                else "parrilla EPGShare"
+                if is_epgshare_source
+                else "parrilla externa verificada"
+                if source_name in EXTERNAL_EPG_SOURCE_NAMES
+                else "parrilla real historica"
+                if source_name in HISTORICAL_EPG_SOURCE_NAMES
                 else "parrilla real"
             )
             guide_sources[target_id] = source_name
@@ -7595,6 +8337,8 @@ def build_epg(
 
     for red_bull_id, red_bull_cards in red_bull_schedules.items():
         if red_bull_id not in expected_ids:
+            continue
+        if red_bull_id in epgshare_targets:
             continue
         red_bull_last_stop: datetime | None = None
         for card in normalize_red_bull_schedule(red_bull_cards):
@@ -7641,6 +8385,43 @@ def build_epg(
             )
             guide_types[red_bull_id] = "parrilla oficial Red Bull + continuidad"
 
+    # Copia editorial para señales UHD: el programa debe ser el mismo que el
+    # canal Sky HD correspondiente, aunque el vídeo provenga de Highfly. Se
+    # elimina cualquier documento UHD independiente para que no se mezclen dos
+    # parrillas distintas del mismo servicio.
+    for mirror_target, source_target in EPG_GUIDE_MIRRORS.items():
+        if mirror_target not in expected_ids or source_target not in expected_ids:
+            continue
+        source_programmes = [
+            programme
+            for programme in root.findall("programme")
+            if programme.get("channel", "") == source_target
+        ]
+        for programme in list(root.findall("programme")):
+            if programme.get("channel", "") == mirror_target:
+                root.remove(programme)
+        programmes_by_target[mirror_target] = 0
+        real_last_stop_by_target.pop(mirror_target, None)
+        guide_sources.pop(mirror_target, None)
+        guide_types.pop(mirror_target, None)
+        for source_programme in source_programmes:
+            mirrored = copy.deepcopy(source_programme)
+            mirrored.set("channel", mirror_target)
+            root.append(mirrored)
+            programmes_by_target[mirror_target] += 1
+            try:
+                stop = xmltv_datetime(mirrored.get("stop", ""))
+            except ValueError:
+                continue
+            previous_stop = real_last_stop_by_target.get(mirror_target)
+            if previous_stop is None or stop > previous_stop:
+                real_last_stop_by_target[mirror_target] = stop
+        if programmes_by_target[mirror_target]:
+            guide_sources[mirror_target] = (
+                f"{MIRRORED_EPG_SOURCE_PREFIX}{source_target}"
+            )
+            guide_types[mirror_target] = "parrilla espejo Sky HD"
+
     last_stop_by_channel: dict[str, datetime] = {}
     for programme in root.findall("programme"):
         channel_id = programme.get("channel", "")
@@ -7675,22 +8456,46 @@ def build_epg(
             if not count:
                 guide_sources[channel_id] = "continuidad-diego-y-glot"
             continue
+        if channel_id in TECHNICAL_CONTINUITY_CHANNEL_IDS:
+            added = add_continuous_programmes(
+                root,
+                channel_id,
+                channel.name,
+                now=now,
+                start_at=last_stop if count and last_stop is not None else None,
+                technical=True,
+            )
+            programmes_by_target[channel_id] += added
+            guide_types[channel_id] = (
+                "parrilla real parcial + continuidad tecnica"
+                if count
+                else "continuidad tecnica"
+            )
+            if not count:
+                guide_sources[channel_id] = "continuidad-tecnica"
+            continue
+
+        # No inventar una parrilla para un canal que no tiene una fuente
+        # verificable. Se conserva la cobertura XMLTV para que la tarjeta no
+        # desaparezca, pero el estado y el titulo dejan claro que no es una
+        # guia real ni continuidad tecnica.
         added = add_continuous_programmes(
             root,
             channel_id,
             channel.name,
             now=now,
             start_at=last_stop if count and last_stop is not None else None,
-            technical=True,
+            title_override=NO_GUIDE_PROGRAMME_TITLE,
+            description_override=NO_GUIDE_PROGRAMME_DESCRIPTION,
         )
         programmes_by_target[channel_id] += added
         guide_types[channel_id] = (
-            "parrilla real parcial + continuidad tecnica"
+            "parrilla real parcial + sin guia disponible"
             if count
-            else "continuidad tecnica"
+            else "sin guia disponible"
         )
         if not count:
-            guide_sources[channel_id] = "continuidad-tecnica"
+            guide_sources[channel_id] = "sin-guia"
 
     normalized_programmes = normalize_xmltv_programmes(root, expected_ids)
     for channel in root.findall("channel"):
@@ -7735,13 +8540,18 @@ def refresh_epg_from_official(
     existing_status: dict | None,
     existing_data: bytes | None,
 ) -> dict:
-    """Build Lista 1 exclusively from official channel bridges.
+    """Build Lista 1 with official bridges first and bounded fallbacks.
 
     ``existing_status`` and ``existing_data`` are deliberately not used as a
     second live source: an older publication may have been generated by a
-    provider that is no longer allowed. A failed official bridge therefore
-    results in technical ``Live`` coverage for that channel, not in reuse of
-    an old aggregate schedule.
+    provider that is no longer allowed. A failed official bridge first leaves
+    the channel eligible for an exact EPGShare country feed. Channels that
+    still have no current guide are then tried against the historical live
+    adapters that were used before the official migration (TecnoCentro and,
+    only for the remaining exact aliases, Zapping). If every live source fails
+    validation, only RWND receives technical ``Live`` coverage; all other
+    channels receive an explicit ``Sin guía disponible`` block. The old
+    ``epg.xml`` is never copied as a stale schedule.
     """
 
     source_documents: dict[str, bytes] = {}
@@ -7762,6 +8572,162 @@ def refresh_epg_from_official(
             "official-bridges": f"{type(exception).__name__}: {exception}"
         }
 
+    # Probe the official documents without publishing them. ``build_epg``
+    # already knows every exact official association, so this avoids keeping a
+    # second hand-written list that could drift from the final XMLTV mapping.
+    try:
+        _probe_output, probe_status = build_epg(
+            source_documents,
+            channels,
+            red_bull_schedules,
+            now=now,
+        )
+    except Exception as exception:
+        probe_status = {"guide_sources": {}}
+        source_errors["official-probe"] = (
+            f"{type(exception).__name__}: {exception}"
+        )
+    official_probe_ids = {
+        target_id
+        for target_id, source_name in probe_status.get("guide_sources", {}).items()
+        if source_name in OFFICIAL_EPG_SOURCE_NAMES
+    }
+    eligible_for_epgshare = expected_ids - official_probe_ids
+    try:
+        fallback_documents, fallback_errors = fetch_epgshare_fallback_epg(
+            channels,
+            eligible_for_epgshare,
+            now,
+        )
+    except Exception as exception:
+        fallback_documents = {}
+        fallback_errors = {
+            "epgshare-fallback": f"{type(exception).__name__}: {exception}"
+        }
+    source_documents.update(fallback_documents)
+    source_errors.update(fallback_errors)
+
+    # Recover the pre-migration behavior only for channels that still lack a
+    # current official/EPGShare programme. This probe is deliberately based on
+    # the same exact associations used by the final builder, so a new source
+    # cannot steal a channel merely because its visible name looks similar.
+    try:
+        _probe_output, current_probe_status = build_epg(
+            source_documents,
+            channels,
+            red_bull_schedules,
+            now=now,
+        )
+    except Exception as exception:
+        current_probe_status = {"guide_sources": {}}
+        source_errors["current-fallback-probe"] = (
+            f"{type(exception).__name__}: {exception}"
+        )
+    current_source_names = (
+        set(OFFICIAL_EPG_SOURCE_NAMES)
+        | EXTERNAL_EPG_SOURCE_NAMES
+        | EPGSHARE_FALLBACK_SOURCE_NAMES
+    )
+    current_source_names.update(
+        source_name
+        for source_name in current_probe_status.get("guide_sources", {}).values()
+        if source_name.startswith(MIRRORED_EPG_SOURCE_PREFIX)
+    )
+    current_ids = {
+        target_id
+        for target_id, source_name in current_probe_status.get(
+            "guide_sources", {}
+        ).items()
+        if source_name in current_source_names
+    }
+    historical_candidate_ids = expected_ids - current_ids
+    historical_channels = [
+        channel for channel in channels if channel.tvg_id in historical_candidate_ids
+    ]
+
+    historical_source_names: set[str] = set()
+    if historical_channels:
+        try:
+            tecnocentro_data, tecnocentro_errors = fetch_tecnocentro_epg(
+                historical_channels,
+                now,
+            )
+        except Exception as exception:
+            tecnocentro_data = None
+            tecnocentro_errors = {
+                "source": f"{type(exception).__name__}: {exception}"
+            }
+        if tecnocentro_data:
+            source_documents["tecnocentro"] = tecnocentro_data
+            historical_source_names.add("tecnocentro")
+        source_errors.update(
+            {
+                f"historical-tecnocentro:{target_id}": error
+                for target_id, error in tecnocentro_errors.items()
+            }
+        )
+
+        # Re-probe before using Zapping so its historical guide cannot replace
+        # a TecnoCentro guide obtained in this same run.
+        try:
+            _probe_output, historical_probe_status = build_epg(
+                source_documents,
+                channels,
+                red_bull_schedules,
+                now=now,
+            )
+        except Exception as exception:
+            historical_probe_status = {"guide_sources": {}}
+            source_errors["historical-fallback-probe"] = (
+                f"{type(exception).__name__}: {exception}"
+            )
+        resolved_after_tecnocentro = {
+            target_id
+            for target_id, source_name in historical_probe_status.get(
+                "guide_sources", {}
+            ).items()
+            if source_name in current_source_names
+            or source_name in HISTORICAL_EPG_SOURCE_NAMES
+        }
+        zapping_candidate_ids = expected_ids - resolved_after_tecnocentro
+        zapping_channels = [
+            channel
+            for channel in channels
+            if channel.tvg_id in zapping_candidate_ids
+        ]
+        if zapping_channels:
+            try:
+                zapping_data, zapping_errors = fetch_zapping_epg(
+                    zapping_channels,
+                    now,
+                )
+            except Exception as exception:
+                zapping_data = None
+                zapping_errors = {
+                    "source": f"{type(exception).__name__}: {exception}"
+                }
+            if zapping_data:
+                source_documents[ZAPPING_EPG_SOURCE] = zapping_data
+                historical_source_names.add(ZAPPING_EPG_SOURCE)
+            source_errors.update(
+                {
+                    f"historical-zapping:{target_id}": error
+                    for target_id, error in zapping_errors.items()
+                }
+            )
+
+        try:
+            _probe_output, historical_final_probe = build_epg(
+                source_documents,
+                channels,
+                red_bull_schedules,
+                now=now,
+            )
+        except Exception as exception:
+            historical_final_probe = {"guide_sources": {}}
+            source_errors["historical-final-probe"] = (
+                f"{type(exception).__name__}: {exception}"
+            )
     output, epg_status = build_epg(
         source_documents,
         channels,
@@ -7788,20 +8754,73 @@ def refresh_epg_from_official(
         for target_id, source_name in epg_status.get("guide_sources", {}).items()
         if source_name in OFFICIAL_EPG_SOURCE_NAMES
     )
+    external_source_names = sorted(
+        set(source_documents) & EXTERNAL_EPG_SOURCE_NAMES
+    )
+    external_ids = sorted(
+        target_id
+        for target_id, source_name in epg_status.get("guide_sources", {}).items()
+        if source_name in EXTERNAL_EPG_SOURCE_NAMES
+    )
+    epgshare_source_names = sorted(
+        source_name
+        for source_name in source_documents
+        if source_name in EPGSHARE_FALLBACK_SOURCE_NAMES
+    )
+    epgshare_ids = sorted(
+        target_id
+        for target_id, source_name in epg_status.get("guide_sources", {}).items()
+        if source_name in EPGSHARE_FALLBACK_SOURCE_NAMES
+    )
+    historical_ids = sorted(
+        target_id
+        for target_id, source_name in epg_status.get("guide_sources", {}).items()
+        if source_name in HISTORICAL_EPG_SOURCE_NAMES
+    )
+    mirrored_ids = sorted(
+        target_id
+        for target_id, source_name in epg_status.get("guide_sources", {}).items()
+        if source_name.startswith(MIRRORED_EPG_SOURCE_PREFIX)
+    )
     epg_status.update(
         {
             "updated": True,
             "sources": sorted(set(source_documents) | set(red_bull_source_names)),
             "source_errors": source_errors,
             "active_source_mode": EPG_SOURCE_MODE,
-            "official_only_pipeline": True,
+            "official_only_pipeline": not bool(
+                epgshare_ids or historical_ids or external_ids
+            ),
+            "official_first_pipeline": True,
             "official_sources": official_source_names,
             "official_channel_ids": official_ids,
+            "external_fallback_sources": external_source_names,
+            "external_fallback_channel_ids": external_ids,
+            "epgshare_fallback_sources": epgshare_source_names,
+            "epgshare_fallback_channel_ids": epgshare_ids,
+            "historical_fallback_sources": sorted(historical_source_names),
+            "historical_fallback_channel_ids": historical_ids,
+            "mirrored_channel_ids": mirrored_ids,
             "official_coverage": {
                 "list1_channels": len(expected_ids),
                 "official_programme_channels": len(official_ids),
                 "official_programme_ids": official_ids,
-                "technical_ids": sorted(expected_ids - set(official_ids)),
+                "external_fallback_channels": len(external_ids),
+                "external_fallback_ids": external_ids,
+                "epgshare_fallback_channels": len(epgshare_ids),
+                "epgshare_fallback_ids": epgshare_ids,
+                "historical_fallback_channels": len(historical_ids),
+                "historical_fallback_ids": historical_ids,
+                "mirrored_channels": len(mirrored_ids),
+                "mirrored_ids": mirrored_ids,
+                "technical_ids": sorted(
+                    expected_ids
+                    - set(official_ids)
+                    - set(external_ids)
+                    - set(epgshare_ids)
+                    - set(historical_ids)
+                    - set(mirrored_ids)
+                ),
             },
         }
     )
@@ -7819,9 +8838,10 @@ def refresh_epg_from_active_zapping(
 
     The previous XML is not a second live source: it is only used to keep a
     channel's last known real schedule when Zapping has no exact association
-    for it. Channels without either one receive the existing technical/live
-    fallback from ``build_epg``. This keeps the selected Lista 1 scope complete
-    without downloading or merging a dozen independent providers.
+    for it. Channels without either one receive the bounded fallback from
+    ``build_epg``: technical ``Live`` only for RWND and ``Sin guía disponible``
+    for the rest. This keeps the selected Lista 1 scope complete without
+    downloading or merging a dozen independent providers.
     """
 
     source_documents: dict[str, bytes] = {}
@@ -7951,7 +8971,15 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
             reusable_official_guide = (
                 EPG_SOURCE_MODE != "official-only"
                 or existing_source_info.startswith(
-                    "fuentes oficiales por canal + continuidad tecnica"
+                    (
+                        "fuentes oficiales por canal + continuidad tecnica",
+                        "fuentes oficiales por canal + fallback EPGShare + continuidad tecnica",
+                        "fuentes oficiales por canal + continuidad tecnica solo RWND",
+                        "fuentes oficiales por canal + fallback EPGShare + continuidad tecnica solo RWND",
+                        "fuentes oficiales por canal + fallback externo validado",
+                        "fuentes oficiales por canal + fallback EPGShare + fallback externo validado",
+                        "fallback externo validado",
+                    )
                 )
             )
             if generated_at and not force and reusable_official_guide:
@@ -8096,6 +9124,8 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
         not in {
             LA_RED_OFFICIAL_EPG_SOURCE,
             MEGA_OFFICIAL_EPG_SOURCE,
+            TELEHIT_OFFICIAL_EPG_SOURCE,
+            TELEHIT_PASSPORT_EPG_SOURCE,
             TVN_OFFICIAL_EPG_SOURCE,
             CANAL13_MAIN_EPG_SOURCE,
             CANAL13_13C_OFFICIAL_EPG_SOURCE,

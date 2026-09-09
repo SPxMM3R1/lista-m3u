@@ -21,6 +21,69 @@ def channel(name: str, tvg_id: str) -> update_m3u.Channel:
 
 
 class TvnEpgTests(unittest.TestCase):
+    def test_sony_channel_uses_exact_zapping_alias(self) -> None:
+        now = datetime(2026, 8, 28, 18, tzinfo=timezone.utc)
+        channels = [channel("Sony Channel", "SonyChannelAndes.us@SD")]
+        cards = [
+            {
+                "start_time": int((now - timedelta(hours=1)).timestamp()),
+                "end_time": int(now.timestamp()),
+                "title": "Sony programa anterior",
+            },
+            {
+                "start_time": int(now.timestamp()),
+                "end_time": int((now + timedelta(hours=1)).timestamp()),
+                "title": "Sony programa actual",
+            },
+            {
+                "start_time": int((now + timedelta(hours=1)).timestamp()),
+                "end_time": int((now + timedelta(hours=2)).timestamp()),
+                "title": "Sony programa siguiente",
+            },
+        ]
+        payload = {
+            "data": {
+                "schedule": {
+                    "sony": {
+                        "past": [cards[0]],
+                        "now": cards[1],
+                        "next": [cards[2]],
+                    }
+                }
+            }
+        }
+
+        def fake_fetch(url, *_args, **_kwargs):
+            if url == update_m3u.ZAPPING_NOWPLAYING_URL:
+                return 200, json.dumps(payload).encode("utf-8"), url
+            if url.endswith("/sony/"):
+                raise TimeoutError("guia individual temporalmente inaccesible")
+            raise AssertionError(f"URL Zapping no esperada: {url}")
+
+        with patch.object(update_m3u, "fetch_bytes", side_effect=fake_fetch):
+            source, errors = update_m3u.fetch_zapping_epg(channels, now)
+
+        self.assertIsNotNone(source)
+        self.assertEqual(errors, {})
+        source_root = ET.fromstring(source)
+        programmes = source_root.findall("programme")
+        self.assertEqual(len(programmes), 3)
+        self.assertEqual(
+            {programme.get("channel") for programme in programmes},
+            {"SonyChannelAndes.us@SD"},
+        )
+
+        output, status = update_m3u.build_epg(
+            {update_m3u.ZAPPING_EPG_SOURCE: source}, channels, {}, now=now
+        )
+        output_root = ET.fromstring(output)
+        sony = output_root.find("./channel[@id='SonyChannelAndes.us@SD']")
+        self.assertIsNotNone(sony)
+        self.assertEqual(
+            sony.get("data-guide-source"), update_m3u.ZAPPING_EPG_SOURCE
+        )
+        self.assertGreater(status["programmes"], 3)
+
     def test_tvn3_survives_failure_from_another_zapping_page(self) -> None:
         now = datetime(2026, 8, 28, 12, tzinfo=timezone.utc)
         channels = [channel("TVN3", "1437"), channel("Mega", "0105")]
@@ -137,7 +200,7 @@ class TvnEpgTests(unittest.TestCase):
         output_root = ET.fromstring(output)
         tvn3 = output_root.find("./channel[@id='1437']")
         self.assertEqual(
-            tvn3.get("data-guide"), "parrilla real parcial + continuidad tecnica"
+            tvn3.get("data-guide"), "parrilla real parcial + sin guia disponible"
         )
         self.assertGreater(status["programmes"], 3)
         self.assertNotIn(
@@ -145,7 +208,7 @@ class TvnEpgTests(unittest.TestCase):
             [item.findtext("title") for item in output_root.findall("programme")],
         )
 
-    def test_channel_without_real_source_gets_explicit_technical_coverage(self) -> None:
+    def test_channel_without_real_source_gets_explicit_no_guide_coverage(self) -> None:
         now = datetime(2026, 8, 28, 18, tzinfo=timezone.utc)
         output, status = update_m3u.build_epg(
             {}, [channel("Canal sin fuente", "unknown.channel")], {}, now=now
@@ -154,18 +217,47 @@ class TvnEpgTests(unittest.TestCase):
         root = ET.fromstring(output)
         entry = root.find("./channel[@id='unknown.channel']")
         self.assertIsNotNone(entry)
-        self.assertEqual(entry.get("data-guide"), "continuidad tecnica")
-        self.assertEqual(entry.get("data-guide-source"), "continuidad-tecnica")
+        self.assertEqual(entry.get("data-guide"), "sin guia disponible")
+        self.assertEqual(entry.get("data-guide-source"), "sin-guia")
         programmes = root.findall("./programme[@channel='unknown.channel']")
         self.assertGreater(len(programmes), 0)
         self.assertEqual(
             {item.findtext("title") for item in programmes},
-            {"Live"},
+            {update_m3u.NO_GUIDE_PROGRAMME_TITLE},
         )
-        self.assertTrue(all(item.get("start", "")[8:14] == "000000" for item in programmes))
-        self.assertTrue(all(item.get("stop", "")[8:14] == "235900" for item in programmes))
-        self.assertFalse(any(item.find("desc") is not None for item in programmes))
+        self.assertTrue(all(item.find("desc") is not None for item in programmes))
         self.assertEqual(status["programmes"], len(programmes))
+
+    def test_only_rwnd_gets_technical_continuity(self) -> None:
+        now = datetime(2026, 8, 28, 18, tzinfo=timezone.utc)
+        channels = [
+            channel("RWND", "RewindTV.cl@SD"),
+            channel("Sony", "sony.channel"),
+        ]
+        output, status = update_m3u.build_epg({}, channels, {}, now=now)
+
+        root = ET.fromstring(output)
+        rwnd = root.find("./channel[@id='RewindTV.cl@SD']")
+        sony = root.find("./channel[@id='sony.channel']")
+        self.assertEqual(rwnd.get("data-guide"), "continuidad tecnica")
+        self.assertEqual(rwnd.get("data-guide-source"), "continuidad-tecnica")
+        self.assertEqual(sony.get("data-guide"), "sin guia disponible")
+        self.assertEqual(sony.get("data-guide-source"), "sin-guia")
+        self.assertEqual(
+            sorted(
+                channel_id
+                for channel_id, guide_type in status["guide_types"].items()
+                if "continuidad tecnica" in guide_type
+            ),
+            ["RewindTV.cl@SD"],
+        )
+        self.assertEqual(
+            {
+                item.findtext("title")
+                for item in root.findall("./programme[@channel='sony.channel']")
+            },
+            {update_m3u.NO_GUIDE_PROGRAMME_TITLE},
+        )
 
     def test_13go_uses_diego_y_glot_for_real_and_continuity_blocks(self) -> None:
         now = datetime(2026, 8, 28, 18, tzinfo=timezone.utc)
@@ -350,7 +442,7 @@ class TvnEpgTests(unittest.TestCase):
                 "tv",
                 {
                     "data-generated-at": (now - timedelta(hours=1)).isoformat(),
-                    "source-info-name": "fuentes oficiales por canal + continuidad tecnica",
+                    "source-info-name": "fuentes oficiales por canal + continuidad tecnica solo RWND",
                 },
             )
             for item in (active, retired, stale):

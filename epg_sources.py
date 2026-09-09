@@ -1,9 +1,17 @@
 """Fuentes EPG activas y adaptadores historicos.
 
-El camino activo consulta solamente adaptadores oficiales por canal de Lista 1.
-Una fuente que deje de responder no bloquea las demas: el canal conserva una
-cobertura tecnica ``Live`` hasta la siguiente ejecucion, sin inventar una
-parrilla ni recurrir a agregadores.
+El camino activo consulta primero adaptadores oficiales por canal de Lista 1,
+incluido el widget oficial de Telehit publicado en su pagina de programacion.
+Cuando uno de esos adaptadores no entrega ninguna parrilla para un ID exacto,
+``update_m3u.py`` puede consultar EPGShare como respaldo acotado por pais. La
+fuente secundaria nunca reemplaza una guia oficial valida ni se usa por
+coincidencia parcial del nombre visible. Si tampoco hay resultado, el flujo
+puede probar los adaptadores historicos en vivo que existian antes de la
+migracion oficial (TecnoCentro y luego aliases exactos de Zapping). No se
+reutilizan bloques antiguos de ``epg.xml``. Si todos fallan, solo RWND puede
+recibir la cobertura tecnica ``Live``; los demas canales quedan marcados como
+``Sin guía disponible`` para no presentar una continuidad inventada como si
+fuera programación real.
 
 No se hace asociacion por coincidencia parcial del nombre visible. Cada
 adaptador usa IDs exactos de la M3U; el mapa de Zapping queda solo como
@@ -72,6 +80,8 @@ ZAPPING_EPG_CHANNELS: dict[str, str] = {
     # Otras senales cuyo nombre publico coincide de forma exacta.
     "RedBullWorldEnglish.int": "redbulltv",
     "Vavoo.it.CARTOONITO@TvVoo": "cartoonito",
+    # Alias publico exacto verificado para Sony Channel.
+    "SonyChannelAndes.us@SD": "sony",
 }
 
 # Nombre descriptivo de las fuentes antiguas. Se usa en informes para que no
@@ -85,10 +95,10 @@ LEGACY_SOURCE_GROUPS: Mapping[str, str] = {
     "published": "epg.xml publicada anteriormente",
 }
 
-# Fuentes antiguas conservadas solo para auditoria y eventual recuperacion. No
-# se descargan cuando EPG_SOURCE_MODE es "official-only". Mantenerlas aqui
-# evita que una futura recuperacion dependa de URLs repartidas por el
-# actualizador principal.
+# Fuentes conservadas como respaldo por pais. El flujo activo no las descarga
+# en bloque: ``update_m3u.py`` selecciona solo los feeds EPGShare necesarios
+# para IDs de Lista 1 que no obtuvieron una guia oficial. Las demas entradas
+# siguen siendo historicas y no se activan por accidente.
 LEGACY_EPG_BACKUP_URLS: Mapping[str, str] = {
     "cl": "https://epgshare01.online/epgshare01/epg_ripper_CL1.xml.gz",
     "es": "https://epgshare01.online/epgshare01/epg_ripper_ES1.xml.gz",
