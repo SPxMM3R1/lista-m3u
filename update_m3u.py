@@ -840,8 +840,9 @@ RED_BULL_WORLD_URL = (
 RED_BULL_CHILE_URL = (
     "https://freqsyndlin.redbull.com/957/rbtv/hls/master/playlist.m3u8"
 )
-# La guia se actualiza junto con la validacion de canales cada 6 horas. Se
-# conserva la reutilizacion de una guia valida si una ejecucion falla.
+# La guia se actualiza junto con la validacion de canales cada 6 horas. Si una
+# ejecucion falla, el coordinador restaura la publicacion anterior completa;
+# una ejecucion exitosa nunca mezcla esa copia de seguridad con la guia fresca.
 # El coordinador y el cron tienen cuatro ventanas diarias; tres horas es solo
 # el margen informativo para una guia que termina pronto, no una quinta ventana.
 EPG_REFRESH_INTERVAL = timedelta(hours=6)
@@ -4001,6 +4002,76 @@ def localize_xmltv_programme(programme: ET.Element) -> ET.Element:
     return localized
 
 
+def normalize_xmltv_programmes(
+    root: ET.Element,
+    expected_ids: set[str],
+) -> int:
+    """Remove invalid/overlapping programme intervals without failing the guide.
+
+    Public XMLTV sources can repeat a card at a boundary or briefly publish two
+    adjacent versions of the same event.  Keep the longest interval when two
+    cards start together; for a partial overlap, trim the later card to the
+    previous stop.  This is deliberately a presentation-level repair: it does
+    not invent titles or associate a programme with another channel.
+    """
+
+    source_programmes = list(root.findall("programme"))
+    by_channel: dict[str, list[tuple[datetime, datetime, int, ET.Element]]] = {}
+    removed = 0
+    for index, programme in enumerate(source_programmes):
+        channel_id = programme.get("channel", "")
+        if channel_id not in expected_ids:
+            root.remove(programme)
+            removed += 1
+            continue
+        try:
+            start = xmltv_datetime(programme.get("start", ""))
+            stop = xmltv_datetime(programme.get("stop", ""))
+        except ValueError:
+            root.remove(programme)
+            removed += 1
+            continue
+        if stop <= start:
+            root.remove(programme)
+            removed += 1
+            continue
+        by_channel.setdefault(channel_id, []).append(
+            (start, stop, index, programme)
+        )
+
+    for programme in source_programmes:
+        if programme in root:
+            root.remove(programme)
+
+    channel_order = [
+        channel.get("id", "")
+        for channel in root.findall("channel")
+        if channel.get("id", "") in expected_ids
+    ]
+    channel_order.extend(
+        sorted(channel_id for channel_id in by_channel if channel_id not in channel_order)
+    )
+    for channel_id in channel_order:
+        intervals = by_channel.get(channel_id, [])
+        # A longer interval wins when two source cards start at exactly the
+        # same instant.  The original index keeps output deterministic.
+        intervals.sort(key=lambda item: (item[0], -item[1].timestamp(), item[2]))
+        previous_stop: datetime | None = None
+        for start, stop, _index, programme in intervals:
+            if previous_stop is not None and start < previous_stop:
+                if stop <= previous_stop:
+                    removed += 1
+                    continue
+                start = previous_stop
+                programme.set("start", xmltv_format_chile(start))
+            if stop <= start:
+                removed += 1
+                continue
+            root.append(programme)
+            previous_stop = stop
+    return removed
+
+
 def epg_status_from_xml(
     data: bytes,
     expected_ids: set[str],
@@ -6738,9 +6809,7 @@ def build_epg(
         raise ValueError("todos los canales necesitan un tvg-id unico")
 
     if IPTV_ORG_EPG_SOURCE in source_documents:
-        source_info_name = (
-            "iptv-org/epg combinado + EPG publicada conservada + continuidad tecnica"
-        )
+        source_info_name = "iptv-org/epg combinado + continuidad tecnica"
     elif ZAPPING_EPG_SOURCE in source_documents:
         source_info_name = "Zapping publico + EPG publicada conservada + continuidad tecnica"
     else:
@@ -6856,7 +6925,7 @@ def build_epg(
     # anterior para ese canal. Nunca se mezcla con una fuente fresca ni se usa
     # para inventar continuidad genérica.
     published_fallback = source_roots.get(PUBLISHED_EPG_FALLBACK_SOURCE)
-    if published_fallback is not None:
+    if published_fallback is not None and IPTV_ORG_EPG_SOURCE not in source_roots:
         fresh_targets: set[str] = set()
         for source_name, source_root in source_roots.items():
             if source_name == PUBLISHED_EPG_FALLBACK_SOURCE:
@@ -7031,6 +7100,7 @@ def build_epg(
         if not count:
             guide_sources[channel_id] = "continuidad-tecnica"
 
+    normalized_programmes = normalize_xmltv_programmes(root, expected_ids)
     for channel in root.findall("channel"):
         channel_id = channel.get("id", "")
         channel.set("data-guide", guide_types.get(channel_id, "senal continua"))
@@ -7058,6 +7128,7 @@ def build_epg(
     )
     status["guide_types"] = guide_types
     status["guide_sources"] = guide_sources
+    status["normalized_programmes"] = normalized_programmes
     status["real_last_stop_utc"] = {
         channel_id: stop.astimezone(timezone.utc).isoformat()
         for channel_id, stop in real_last_stop_by_target.items()
@@ -7124,18 +7195,8 @@ def refresh_epg_from_iptv_org(
     except (OSError, ET.ParseError, ValueError) as error:
         source_errors[IPTV_ORG_EPG_SOURCE] = f"{guide_path.name}: {error}"
 
-    if existing_data is not None:
-        try:
-            ET.fromstring(existing_data)
-        except ET.ParseError as error:
-            source_errors[PUBLISHED_EPG_FALLBACK_SOURCE] = (
-                f"XML anterior invalido: {error}"
-            )
-        else:
-            source_documents[PUBLISHED_EPG_FALLBACK_SOURCE] = existing_data
-
     if IPTV_ORG_EPG_SOURCE not in source_documents:
-        if existing_status is not None and PUBLISHED_EPG_FALLBACK_SOURCE in source_documents:
+        if existing_status is not None:
             existing_status.update(
                 {
                     "updated": False,
@@ -7143,6 +7204,7 @@ def refresh_epg_from_iptv_org(
                     "warning": "iptv-org/epg no produjo una guia valida; se conservo la anterior",
                     "source_errors": source_errors,
                     "active_source_mode": EPG_SOURCE_MODE,
+                    "single_source_pipeline": True,
                 }
             )
             return existing_status
@@ -7175,14 +7237,15 @@ def refresh_epg_from_iptv_org(
     epg_status.update(
         {
             "updated": True,
-            "sources": list(source_documents),
+            "sources": [IPTV_ORG_EPG_SOURCE],
             "source_errors": source_errors,
             "active_source_mode": EPG_SOURCE_MODE,
+            "single_source_pipeline": True,
             "iptv_org_coverage": {
                 "list1_channels": len(expected_ids),
                 "real_programme_channels": len(matched_ids),
                 "real_programme_ids": matched_ids,
-                "technical_or_preserved_ids": sorted(expected_ids - set(matched_ids)),
+                "technical_ids": sorted(expected_ids - set(matched_ids)),
                 "manifest": IPTV_ORG_CHANNEL_MANIFEST,
             },
         }
@@ -9303,6 +9366,125 @@ def sync_short_playlist_aliases() -> list[Path]:
     return changed
 
 
+def _write_playlist_if_changed(path: Path, lines: list[str]) -> bool:
+    """Write a normalized playlist only when its bytes would actually change."""
+    content = "\n".join(lines).rstrip("\n") + "\n"
+    current = None
+    if path.exists():
+        current = path.read_text(encoding="utf-8-sig").replace("\r\n", "\n")
+    if current == content:
+        return False
+    path.write_text(content, encoding="utf-8", newline="\n")
+    return True
+
+
+def sanitize_list1_publication() -> dict[str, int]:
+    """Normalize public playlists without changing manual membership or health.
+
+    This is an offline repair pass for metadata, ordering, headers and exact
+    list partitioning.  It intentionally does not probe streams, demote a
+    channel, discover aliases, or remove a failed candidate.  The channel
+    workflow remains the only process allowed to make health-based decisions.
+    """
+
+    if not CHANNEL_CATALOG_PATH.is_file():
+        raise RuntimeError(f"falta el catalogo {CHANNEL_CATALOG_PATH.name}")
+    if not DEFAULT_PLAYLIST.is_file():
+        raise RuntimeError(f"falta la lista principal {DEFAULT_PLAYLIST.name}")
+    if not EXTERNAL_PLAYLIST.is_file():
+        raise RuntimeError(f"falta la lista externa {EXTERNAL_PLAYLIST.name}")
+
+    catalog_lines = CHANNEL_CATALOG_PATH.read_text(
+        encoding="utf-8-sig"
+    ).splitlines()
+    external_before = EXTERNAL_PLAYLIST.read_text(
+        encoding="utf-8-sig"
+    ).splitlines()
+    catalog_before = parse_channels(catalog_lines)
+    manual_main_ids = load_manual_main_channel_ids(catalog_before, DEFAULT_PLAYLIST)
+    current_external_ids = frozenset(
+        stable_channel_ids(
+            parse_channels(external_before),
+            label=EXTERNAL_PLAYLIST.name,
+        )
+    )
+
+    catalogue_changed = any(
+        (
+            order_channels_by_content(catalog_lines),
+            ensure_playlist_epg_url(catalog_lines),
+            pin_news_channel_order(catalog_lines),
+            pin_preferred_logos(catalog_lines),
+            pin_resolver_metadata(catalog_lines),
+        )
+    )
+    if catalogue_changed:
+        CHANNEL_CATALOG_PATH.write_text(
+            "\n".join(catalog_lines).rstrip("\n") + "\n",
+            encoding="utf-8",
+            newline="\n",
+        )
+
+    write_resolver_catalog()
+    validate_resolver_contract(catalog_lines)
+    catalog_channels = parse_channels(catalog_lines)
+
+    main_lines = filter_playlist_to_channel_ids(
+        catalog_lines,
+        catalog_channels,
+        manual_main_ids,
+    )
+    ensure_playlist_epg_url(main_lines)
+    pin_news_channel_order(main_lines)
+    external_lines = filter_playlist_to_channel_ids(
+        catalog_lines,
+        catalog_channels,
+        current_external_ids,
+    )
+    validate_public_playlist_partition(
+        catalog_lines,
+        main_lines,
+        external_lines,
+        manual_main_ids,
+        expected_external_ids=current_external_ids,
+    )
+
+    main_changed = _write_playlist_if_changed(DEFAULT_PLAYLIST, main_lines)
+    external_changed = _write_playlist_if_changed(EXTERNAL_PLAYLIST, external_lines)
+    sync_short_playlist_aliases()
+
+    # Re-read the public files after writing: the pass is only successful if
+    # the exact bytes now satisfy the stable-ID and resolver contracts.
+    final_catalog = CHANNEL_CATALOG_PATH.read_text(
+        encoding="utf-8-sig"
+    ).splitlines()
+    final_main = DEFAULT_PLAYLIST.read_text(encoding="utf-8-sig").splitlines()
+    final_external = EXTERNAL_PLAYLIST.read_text(
+        encoding="utf-8-sig"
+    ).splitlines()
+    validate_resolver_contract(final_catalog)
+    validate_public_playlist_partition(
+        final_catalog,
+        final_main,
+        final_external,
+        manual_main_ids,
+        expected_external_ids=current_external_ids,
+    )
+    result = {
+        "catalog_changed": int(catalogue_changed),
+        "main_changed": int(main_changed),
+        "external_changed": int(external_changed),
+        "main_channels": len(parse_channels(final_main)),
+        "external_channels": len(parse_channels(final_external)),
+    }
+    print(
+        "Sanitizacion Lista 1 completada: "
+        f"principal={result['main_channels']}, externa={result['external_channels']}, "
+        f"catalogo={'actualizado' if catalogue_changed else 'sin cambios'}"
+    )
+    return result
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--playlist", type=Path, default=DEFAULT_PLAYLIST)
@@ -9339,6 +9521,11 @@ def main() -> int:
         action="store_true",
         help="actualiza solo canales, resolutores y salud; no toca la EPG",
     )
+    mode_group.add_argument(
+        "--sanitize-list1-only",
+        action="store_true",
+        help="normaliza Lista 1 y sus metadatos sin probar streams ni cambiar membresia",
+    )
     args = parser.parse_args()
 
     playlist = args.playlist.resolve()
@@ -9360,6 +9547,10 @@ def main() -> int:
             return 0
         return 1 if not changed else 0
 
+    if args.sanitize_list1_only:
+        sanitize_list1_publication()
+        return 0
+
     # La sincronizacion publica se ejecuta en las corridas reales de canales y
     # EPG, pero los modos de contrato/validacion deben permanecer offline.
     if not (
@@ -9367,6 +9558,7 @@ def main() -> int:
         or args.validate_resolvers_only
         or args.validate_public_lists_only
         or args.refresh_epg_only
+        or args.sanitize_list1_only
     ):
         sync_highfly_premium_stable_playlist()
 

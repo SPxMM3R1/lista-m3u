@@ -106,6 +106,12 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
 - conserva los adaptadores oficiales, Zapping, TecnoCentro y las fuentes
   antiguas en el código para auditoría y pruebas unitarias, pero no los ejecuta
   en el modo activo `iptv-org-only`;
+- una corrida exitosa de EPG publica solo el documento combinado de
+  `iptv-org/epg` más los bloques `Live` técnicos necesarios para completar
+  Lista 1; no mezcla la EPG publicada anteriormente. Si el combinador falla
+  antes de producir una guía válida, `run_epg_6h.py` restaura la publicación
+  anterior como copia de seguridad atómica y deja el fallo en el estado de la
+  corrida;
 - incorpora candidatos de noticias, deportes, música/conciertos, películas y
    adultos desde los catálogos JSON públicos de TvVoo, manteniendo un solo canal
    lógico por señal y sus aliases estables por país. Los adultos solo se
@@ -233,11 +239,21 @@ la autenticacion de reproduccion; esa responsabilidad corresponde a la app.
 Mega y La Red publican sus maestros oficiales directos. El PC no necesita
 estar encendido para el mantenimiento normal.
 
-La guia conserva datos vigentes si una fuente externa falla temporalmente. La
-ejecucion tambien puede iniciarse manualmente desde la pestana **Actions** con
+La ejecucion tambien puede iniciarse manualmente desde la pestana **Actions** con
 los workflows **Actualizar canales M3U** o **Actualizar EPG**. El primero
 renueva streams y salud; el segundo fuerza la reconstruccion de la guia sobre
-`channel-catalog.m3u`.
+Lista 1 mediante una sola pasada del combinador.
+
+Para corregir unicamente cabeceras, orden, logos, atributos de resolutor y la
+particion exacta de las listas sin hacer sondas ni cambiar la membresia manual,
+se puede ejecutar:
+
+```text
+python update_m3u.py --sanitize-list1-only
+```
+
+La sanitizacion es offline y reversible mediante Git: no retira canales por
+fallos de salud, no descubre aliases y no renueva URLs efimeras.
 
 TVN y TVN3 son señales distintas y nunca comparten parrilla: TVN conserva
 `tvg-id="0104"`; TVN3 conserva `tvg-id="1437"` y publica además
@@ -247,7 +263,9 @@ la única consulta de EPG es el manifiesto de `iptv-org/epg`; si TVN3 no tiene u
 corrida. Las páginas se procesan por canal para que un fallo independiente no descarte
 TVN3. Si ninguna fuente entrega bloques exactos, TVN3 recibe `continuidad tecnica`
 explicita en vez de heredar por error la programación de TVN o aceptar el bloque genérico
-de 24 horas que publica TVN Play.
+de 24 horas que publica TVN Play. La copia anterior solo se restaura a nivel
+de corrida si el combinador no consigue generar una guía válida; no se mezcla
+dentro de una guía nueva.
 
 Todos los logos de los canales se conservan dentro de `logos/` y la M3U y el
 EPG apuntan a las copias publicadas en este repositorio. Los logos vectoriales
@@ -320,9 +338,11 @@ en el manifiesto no provoca el fallo de toda la corrida: recibe `continuidad
 tecnica`, marcada en `data-guide`, con bloques visibles `Live` de 00:00 a 23:59
 en horario de Santiago. No se presenta como una guía oficial. La siguiente
 corrida vuelve a probar el `site_id` real y reemplaza esa cobertura cuando
-aparece una parrilla válida. La EPG publicada conserva una versión anterior
-solo como red de seguridad si el combinador falla después de haber producido
-una guía válida en una corrida anterior.
+aparece una parrilla válida. Si el XMLTV combinado repite tarjetas o publica
+intervalos solapados, el constructor recorta el intervalo posterior o elimina
+el duplicado; el solapamiento de un canal no invalida toda la guía. Si el
+combinador falla, la copia anterior solo se restaura a nivel de corrida y no
+se mezcla dentro de una guía nueva.
 
 Para diagnosticar una fuente sin alterar el historial de salud ni renovar URLs
 HLS, se usa el workflow independiente **Actualizar EPG**. Las ventanas de
