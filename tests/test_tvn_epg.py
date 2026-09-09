@@ -301,7 +301,7 @@ class TvnEpgTests(unittest.TestCase):
         self.assertTrue(status["ok"])
         self.assertIn("overlap.channel", status["warnings"][0])
 
-    def test_la_red_uses_zapping_in_zapping_only_mode(self) -> None:
+    def test_la_red_does_not_fallback_to_aggregated_epg(self) -> None:
         now = datetime(2026, 8, 28, 12, tzinfo=timezone.utc)
         la_red = channel("La Red", "0102")
 
@@ -331,9 +331,9 @@ class TvnEpgTests(unittest.TestCase):
 
         root = ET.fromstring(output)
         titles = [item.findtext("title", "") for item in root.findall("programme")]
-        self.assertIn("Zapping no autorizada", titles)
+        self.assertFalse(any("no autorizada" in title for title in titles))
         la_red_epg = root.find("./channel[@id='0102']")
-        self.assertEqual(la_red_epg.get("data-guide-source"), update_m3u.ZAPPING_EPG_SOURCE)
+        self.assertEqual(la_red_epg.get("data-guide-source"), "continuidad-tecnica")
         self.assertGreater(status["programmes"], 0)
 
     def test_epg_accepts_retired_channels_in_previous_publication(self) -> None:

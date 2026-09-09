@@ -26,8 +26,6 @@ from pathlib import Path
 from urllib.parse import parse_qsl, quote, unquote, urlencode, urljoin, urlparse
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
-import epg_sources
-
 
 DEFAULT_PLAYLIST = Path(__file__).with_name("m3u.m3u")
 EXTERNAL_PLAYLIST = Path(__file__).with_name("m3u-externa.m3u")
@@ -541,9 +539,34 @@ NHK_OFFICIAL_EPG_SOURCE = "nhk-world-oficial"
 FRANCE24_ES_1080_URL = (
     "https://live.france24.com/hls/live/2037220/F24_ES_HI_HLS/master_5000.m3u8"
 )
-# Las URLs heredadas se conservan en un unico archivo de fuentes, pero no se
-# descargan en el modo activo zapping-only.
-EPG_SOURCES = epg_sources.LEGACY_EPG_BACKUP_URLS
+# EPGShare es un agregador de respaldo. Las fuentes oficiales especificas se
+# incorporan en refresh_epg y tienen prioridad cuando publican una parrilla.
+EPG_SOURCES = {
+    "cl": "https://epgshare01.online/epgshare01/epg_ripper_CL1.xml.gz",
+    "es": "https://epgshare01.online/epgshare01/epg_ripper_ES1.xml.gz",
+    "fr": "https://epgshare01.online/epgshare01/epg_ripper_FR1.xml.gz",
+    "de": "https://epgshare01.online/epgshare01/epg_ripper_DE1.xml.gz",
+    "uk1": "https://epgshare01.online/epgshare01/epg_ripper_UK1.xml.gz",
+    "ar1": "https://epgshare01.online/epgshare01/epg_ripper_AR1.xml.gz",
+    "pt1": "https://epgshare01.online/epgshare01/epg_ripper_PT1.xml.gz",
+    "nz1": "https://epgshare01.online/epgshare01/epg_ripper_NZ1.xml.gz",
+    "au1": "https://epgshare01.online/epgshare01/epg_ripper_AU1.xml.gz",
+    "us2": "https://epgshare01.online/epgshare01/epg_ripper_US2.xml.gz",
+    "pl": "https://epgshare01.online/epgshare01/epg_ripper_PL1.xml.gz",
+    "lv": "https://epgshare01.online/epgshare01/epg_ripper_LV1.xml.gz",
+    "nl": "https://epgshare01.online/epgshare01/epg_ripper_NL1.xml.gz",
+    # PLEX1 cubre los canales FAST de BBC, Bloomberg, CBS, Qello, Stingray y
+    # XITE. Las fuentes por pais completan noticias internacionales que no
+    # aparecen en PLEX1, sin descargar el ALL_SOURCES de mas de 200 MB.
+    "plex1": "https://epgshare01.online/epgshare01/epg_ripper_PLEX1.xml.gz",
+    "tr1": "https://epgshare01.online/epgshare01/epg_ripper_TR1.xml.gz",
+    "sg1": "https://epgshare01.online/epgshare01/epg_ripper_SG1.xml.gz",
+    "ng1": "https://epgshare01.online/epgshare01/epg_ripper_NG1.xml.gz",
+    "it1": "https://epgshare01.online/epgshare01/epg_ripper_IT1.xml.gz",
+    # PlutoTV es la fuente de parrilla real para los canales lineales Pluto
+    # usados por MTV. No se generan bloques de continuidad para esos IDs.
+    "pluto": "https://i.mjh.nz/PlutoTV/all.xml.gz",
+}
 CANAL13_MAIN_EPG_SOURCE = "canal13-abierto-oficial"
 CANAL13_MAIN_EPG_URL = (
     "https://www.13.cl/sites/default/files/tools/epg-canal13.json"
@@ -794,16 +817,35 @@ EPG_PROGRAMME_SOURCES = {
     if channel_id not in PERMANENTLY_REMOVED_CHANNEL_IDS
     or channel_id in RESTORED_EXTERNAL_CHANNEL_IDS
 }
-# El unico camino activo de EPG y sus aliases viven en epg_sources.py. Los
-# nombres se reexportan aqui por compatibilidad con los tests y con las
-# funciones de construccion de XMLTV. Los adaptadores historicos inferiores
-# quedan disponibles como respaldo hasta revisar su retiro explicitamente.
-EPG_SOURCE_MODE = epg_sources.EPG_SOURCE_MODE
-ZAPPING_EPG_SOURCE = epg_sources.ZAPPING_EPG_SOURCE
-ZAPPING_EPG_BASE_URL = epg_sources.ZAPPING_EPG_BASE_URL
-ZAPPING_NOWPLAYING_URL = epg_sources.ZAPPING_NOWPLAYING_URL
-ZAPPING_NOWPLAYING_CONNECT_HOSTS = epg_sources.ZAPPING_NOWPLAYING_CONNECT_HOSTS
-ZAPPING_EPG_CHANNELS = epg_sources.ZAPPING_EPG_CHANNELS
+# Zapping publica una guia HTML con marcas Unix absolutas para el programa
+# actual, hoy y manana. Se usa solo para senales chilenas donde la fuente
+# agregada estaba desplazada o no entregaba una parrilla util. TVN, Mega,
+# Canal 13 y La Red conservan sus adaptadores oficiales especificos; T13 usa
+# Zapping y TecnoCentro porque no hay una parrilla oficial diaria de esa senal.
+ZAPPING_EPG_SOURCE = "zapping-guia-publica"
+ZAPPING_EPG_BASE_URL = "https://guia.zappingtv.com"
+ZAPPING_NOWPLAYING_URL = "https://charly.zappingtv.com/v3/webplayer/nowplaying"
+# `charly` rechaza algunos rangos de GitHub antes de llegar a la aplicacion.
+# Estos frontales regionales publicos sirven el mismo API. curl --connect-to
+# cambia solo el destino TCP: conserva la URL, Host y SNI de `charly`, por lo
+# que TLS sigue validandose normalmente y no se publica ningun token.
+ZAPPING_NOWPLAYING_CONNECT_HOSTS = (
+    "br-apig.zappingtv.com",
+    "ec-apig.zappingtv.com",
+)
+ZAPPING_EPG_CHANNELS = {
+    "0104": "tvn",
+    "0105": "mega",
+    "0106": "chv",
+    "0107": "canal13",
+    "0201": "24horas",
+    "Meganoticias.cl": "meganoticias",
+    "1153": "chvnoticias",
+    "0124": "t13",
+    "45": "ntv",
+    "1437": "tvn3",
+    "13C.cl@SD": "13cable",
+}
 TECNOCENTRO_EPG_URL = "https://tecnocentro.cl/"
 try:
     CHILE_TIMEZONE = ZoneInfo("America/Santiago")
@@ -6093,9 +6135,61 @@ def fetch_pickx_dazn_epg(
         return None, f"{type(error).__name__}: {error}"
 
 
-# Copia historica conservada solo como respaldo documental. El camino activo
-# usa epg_sources.fetch_zapping_nowplaying_bytes a traves del wrapper inferior.
-def _legacy_fetch_zapping_nowplaying_bytes() -> bytes:
+def zapping_html_text(value: str) -> str:
+    value = html.unescape(re.sub(r"<[^>]+>", " ", value))
+    return re.sub(r"\s+", " ", value).strip()
+
+
+def zapping_schedule_rows(page_html: str) -> list[tuple[datetime, str]]:
+    """Extract absolute-start programmes from a public Zapping guide page."""
+    today_marker = re.search(
+        r'<div\b[^>]*class=["\'][^"\']*\btoday-schedule\b[^"\']*["\']',
+        page_html,
+        re.IGNORECASE,
+    )
+    if not today_marker:
+        raise ValueError("la guia Zapping no contiene la parrilla del dia")
+
+    rows: list[tuple[datetime, str]] = []
+    current_html = page_html[: today_marker.start()]
+    current_info = re.search(r'href=["\']info/(\d+)["\']', current_html, re.IGNORECASE)
+    current_title = re.search(r"<h4\b[^>]*>(.*?)</h4\s*>", current_html, re.IGNORECASE | re.DOTALL)
+    if current_info and current_title:
+        rows.append(
+            (
+                datetime.fromtimestamp(int(current_info.group(1)), timezone.utc),
+                zapping_html_text(current_title.group(1)),
+            )
+        )
+
+    item_pattern = re.compile(
+        r'<a\b'
+        r'(?=[^>]*\bhref=["\']info/(\d+)["\'])'
+        r'(?=[^>]*\bclass=["\'][^"\']*\bepg-item\b[^"\']*["\'])'
+        r'[^>]*>(.*?)</a\s*>',
+        re.IGNORECASE | re.DOTALL,
+    )
+    title_pattern = re.compile(
+        r'class=["\'][^"\']*\bepg-schedule-title\b[^"\']*["\'][^>]*>(.*?)</p\s*>',
+        re.IGNORECASE | re.DOTALL,
+    )
+    for match in item_pattern.finditer(page_html[today_marker.start() :]):
+        title_match = title_pattern.search(match.group(2))
+        if not title_match:
+            continue
+        title = zapping_html_text(title_match.group(1))
+        if not title:
+            continue
+        start = datetime.fromtimestamp(int(match.group(1)), timezone.utc)
+        rows.append((start, title))
+
+    unique: dict[datetime, str] = {}
+    for start, title in rows:
+        unique.setdefault(start, title)
+    return sorted(unique.items())
+
+
+def fetch_zapping_nowplaying_bytes() -> bytes:
     headers = {
         "User-Agent": BROWSER_USER_AGENT,
         "Accept": "application/json,*/*",
@@ -6157,7 +6251,7 @@ def _legacy_fetch_zapping_nowplaying_bytes() -> bytes:
     )
 
 
-def _legacy_fetch_zapping_epg(
+def fetch_zapping_epg(
     channels: list[Channel], now: datetime
 ) -> tuple[bytes | None, dict[str, str]]:
     targets = [
@@ -6309,44 +6403,6 @@ def _legacy_fetch_zapping_epg(
     if not results:
         return None, errors
     return ET.tostring(root, encoding="utf-8", xml_declaration=True), errors
-
-
-# Compatibilidad: el adaptador ejecutable se mantiene en epg_sources.py. Estos
-# wrappers conservan los puntos de inyeccion que usan las pruebas existentes y
-# permiten que fetch_bytes/decode_web_text sigan siendo reemplazables sin
-# acoplar el modulo de fuentes al enorme actualizador de listas.
-def zapping_html_text(value: str) -> str:
-    return epg_sources.zapping_html_text(value)
-
-
-def zapping_schedule_rows(page_html: str) -> list[tuple[datetime, str]]:
-    return epg_sources.zapping_schedule_rows(page_html)
-
-
-def fetch_zapping_nowplaying_bytes() -> bytes:
-    return epg_sources.fetch_zapping_nowplaying_bytes(
-        fetch_bytes=fetch_bytes,
-        user_agent=BROWSER_USER_AGENT,
-        run_process=subprocess.run,
-    )
-
-
-# Adaptador activo reexportado para conservar las pruebas y puntos de inyeccion
-# existentes; la implementacion vive en epg_sources.py.
-def fetch_zapping_epg(
-    channels: list[Channel], now: datetime
-) -> tuple[bytes | None, dict[str, str]]:
-    return epg_sources.fetch_zapping_epg(
-        channels,
-        now,
-        fetch_bytes=fetch_bytes,
-        user_agent=BROWSER_USER_AGENT,
-        schedule_rows=zapping_schedule_rows,
-        decode_text=decode_web_text,
-        format_timestamp=xmltv_format_chile,
-        nowplaying_fetcher=fetch_zapping_nowplaying_bytes,
-        run_process=subprocess.run,
-    )
 
 
 UKRAINIAN_WEEKDAYS = {
@@ -6701,7 +6757,7 @@ def build_epg(
         {
             "generator-info-name": "lista-m3u updater",
             "source-info-name": (
-                "Zapping publico + EPG publicada conservada + continuidad tecnica"
+                "EPGShare01, Zapping, TecnoCentro, fuentes oficiales y relay GitHub"
             ),
             "data-generated-at": now.astimezone(timezone.utc).isoformat(),
         },
@@ -7011,87 +7067,6 @@ def build_epg(
     return output, status
 
 
-def refresh_epg_from_active_zapping(
-    channels: list[Channel],
-    *,
-    now: datetime,
-    existing_status: dict | None,
-    existing_data: bytes | None,
-) -> dict:
-    """Refresh EPG using only Zapping plus the previous XML as a safety net.
-
-    The previous XML is not a second live source: it is only used to keep a
-    channel's last known real schedule when Zapping has no exact association
-    for it. Channels without either one receive the existing technical/live
-    fallback from ``build_epg``. This keeps the catalog complete without
-    downloading or merging a dozen independent providers.
-    """
-
-    source_documents: dict[str, bytes] = {}
-    source_errors: dict[str, str] = {}
-    zapping_data, zapping_errors = fetch_zapping_epg(channels, now)
-    source_errors.update(
-        {
-            f"{ZAPPING_EPG_SOURCE}:{target_id}": error
-            for target_id, error in zapping_errors.items()
-        }
-    )
-    if zapping_data:
-        source_documents[ZAPPING_EPG_SOURCE] = zapping_data
-
-    # Aunque la EPG anterior no cumpla ya el minimo de 24 horas, puede
-    # contener parrillas reales utiles para los canales que Zapping aun no
-    # relaciona. Se valida solo que el XML sea legible; build_epg decide por
-    # canal si conserva esa parrilla o genera continuidad.
-    if existing_data is not None:
-        try:
-            ET.fromstring(existing_data)
-        except ET.ParseError as error:
-            source_errors[PUBLISHED_EPG_FALLBACK_SOURCE] = (
-                f"XML anterior invalido: {error}"
-            )
-        else:
-            source_documents[PUBLISHED_EPG_FALLBACK_SOURCE] = existing_data
-
-    if not source_documents:
-        if existing_status is not None:
-            existing_status.update(
-                {
-                    "updated": False,
-                    "preserved": True,
-                    "warning": "Zapping no entrego ninguna parrilla; se conservo la anterior",
-                    "source_errors": source_errors,
-                    "active_source_mode": EPG_SOURCE_MODE,
-                }
-            )
-            return existing_status
-        raise RuntimeError("Zapping no respondio y no existe una EPG anterior valida")
-
-    output, epg_status = build_epg(
-        source_documents,
-        channels,
-        {},
-        now=now,
-    )
-    temporary = EPG_PATH.with_suffix(".xml.tmp")
-    temporary.write_bytes(output)
-    temporary.replace(EPG_PATH)
-
-    coverage = epg_sources.zapping_coverage(
-        channel.tvg_id for channel in channels if channel.tvg_id
-    )
-    epg_status.update(
-        {
-            "updated": True,
-            "sources": list(source_documents),
-            "source_errors": source_errors,
-            "active_source_mode": EPG_SOURCE_MODE,
-            "zapping_coverage": coverage,
-        }
-    )
-    return epg_status
-
-
 def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
     now = datetime.now(timezone.utc)
     expected_ids = {channel.tvg_id for channel in channels if channel.tvg_id}
@@ -7161,14 +7136,6 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
                     return existing_status
         except Exception:
             existing_status = None
-
-    if EPG_SOURCE_MODE == "zapping-only":
-        return refresh_epg_from_active_zapping(
-            channels,
-            now=now,
-            existing_status=existing_status,
-            existing_data=existing_data,
-        )
 
     headers = {
         "User-Agent": BROWSER_USER_AGENT,
