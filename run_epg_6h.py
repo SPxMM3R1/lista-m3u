@@ -16,6 +16,8 @@ PROJECT_ROOT = Path(__file__).resolve().parent
 UPDATE_SCRIPT = PROJECT_ROOT / "update_m3u.py"
 STATE_PATH = PROJECT_ROOT / "epg-run-state.json"
 EPG_PATH = PROJECT_ROOT / "epg.xml"
+IPTV_ORG_GUIDE_PATH = PROJECT_ROOT / "iptv-org-guide.xml"
+IPTV_ORG_MANIFEST_PATH = PROJECT_ROOT / "epg-iptv-org.channels.xml"
 PREMIUM_STABLE_PLAYLIST_PATH = PROJECT_ROOT / "3.m3u"
 INTERVAL = timedelta(hours=6)
 
@@ -115,6 +117,52 @@ def run_updater() -> int:
     return completed.returncode
 
 
+def run_iptv_org_combiner() -> int:
+    """Run the official iptv-org/epg CLI once for the Lista 1 manifest."""
+
+    guide_path = Path(
+        os.environ.get("IPTV_ORG_EPG_GUIDE_PATH", str(IPTV_ORG_GUIDE_PATH))
+    )
+    if not guide_path.is_absolute():
+        guide_path = PROJECT_ROOT / guide_path
+    os.environ["IPTV_ORG_EPG_GUIDE_PATH"] = str(guide_path)
+
+    epg_root_text = os.environ.get("IPTV_ORG_EPG_ROOT")
+    if not epg_root_text:
+        if guide_path.exists():
+            print(f"Se reutiliza la guia combinada existente: {guide_path}")
+            return 0
+        raise RuntimeError(
+            "falta IPTV_ORG_EPG_ROOT y no existe una guia combinada previa; "
+            "el workflow debe preparar el checkout de iptv-org/epg"
+        )
+
+    epg_root = Path(epg_root_text)
+    if not (epg_root / "package.json").exists():
+        raise RuntimeError(f"checkout iptv-org/epg invalido: {epg_root}")
+    if not IPTV_ORG_MANIFEST_PATH.exists():
+        raise RuntimeError(f"falta el manifiesto {IPTV_ORG_MANIFEST_PATH.name}")
+
+    command = [
+        "npm",
+        "run",
+        "grab",
+        "---",
+        f"--channels={IPTV_ORG_MANIFEST_PATH}",
+        f"--output={guide_path}",
+        "--maxConnections=8",
+        "--days=2",
+        "--timeout=30000",
+    ]
+    print("Ejecutando una sola pasada de iptv-org/epg con la Lista 1")
+    completed = subprocess.run(command, cwd=epg_root, check=False)
+    if completed.returncode != 0:
+        return completed.returncode
+    if not guide_path.exists() or guide_path.stat().st_size == 0:
+        raise RuntimeError("iptv-org/epg termino sin crear una guia XMLTV")
+    return 0
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Actualiza la EPG de Lista 1 (m3u.m3u) cada seis horas."
@@ -153,10 +201,15 @@ def main() -> int:
         else None
     )
     snapshot_state = STATE_PATH.read_bytes() if STATE_PATH.exists() else None
-    print(
-        f"Ejecutando EPG oficial de Lista 1 con {args.executor} "
-        f"a las {timestamp(current)}"
-    )
+    print(f"Ejecutando EPG independiente con {args.executor} a las {timestamp(current)}")
+    try:
+        combiner_return_code = run_iptv_org_combiner()
+    except Exception as error:
+        print(f"ERROR en iptv-org/epg: {error}", file=sys.stderr)
+        return 1
+    if combiner_return_code != 0:
+        print("iptv-org/epg fallo; se conservaron la guia y su estado anteriores.", file=sys.stderr)
+        return combiner_return_code
     return_code = run_updater()
     if return_code != 0:
         if snapshot_epg is None:

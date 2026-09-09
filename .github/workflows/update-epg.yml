@@ -4,12 +4,6 @@ on:
     - cron: "30 */6 * * *"
       timezone: "America/Santiago"
   workflow_dispatch:
-    inputs:
-      force:
-        description: "Fuerza una descarga inmediata de la EPG sin cambiar la cadencia automática"
-        required: false
-        default: false
-        type: boolean
 permissions:
   contents: write
 concurrency:
@@ -23,13 +17,19 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: python -m unittest discover -s tests -p "test_*.py"
-      - name: Ejecutar EPG independiente
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Preparar combinador iptv-org/epg
         run: |
-          if [[ "${{ inputs.force }}" == "true" ]]; then
-            python run_epg_6h.py --executor github --force
-          else
-            python run_epg_6h.py --executor github
-          fi
+          git clone --depth 1 -b master https://github.com/iptv-org/epg.git "$RUNNER_TEMP/iptv-org-epg"
+      - name: Instalar dependencias del combinador
+        run: npm ci --no-audit --no-fund
+        working-directory: ${{ runner.temp }}/iptv-org-epg
+      - run: python -m unittest discover -s tests -p "test_*.py"
+      - run: python run_epg_6h.py --executor github
+        env:
+          IPTV_ORG_EPG_ROOT: ${{ runner.temp }}/iptv-org-epg
+          IPTV_ORG_EPG_GUIDE_PATH: ${{ github.workspace }}/iptv-org-guide.xml
       - run: python publish_epg.py
       - run: sleep 15
