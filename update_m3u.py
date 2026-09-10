@@ -47,6 +47,10 @@ HIGHFLY_PREMIUM_STABLE_CATALOG_URL = (
     "https://sports.highfly.dev/catalog/sport/sports_live.json"
 )
 HIGHFLY_PREMIUM_STABLE_MANIFEST_URL = "https://sports.highfly.dev/manifest.json"
+HIGHFLY_STREAM_API_TEMPLATE = (
+    "https://sports.highfly.dev/stream/sport/leaf:{slug}.json"
+)
+HIGHFLY_STREAM_ALLOWED_HOSTS = frozenset({"leaf.highfly.dev"})
 HIGHFLY_PREMIUM_STABLE_ID_PATTERN = re.compile(
     r"^leaf:(?P<slug>[a-z0-9][a-z0-9_-]{1,127})$", re.IGNORECASE
 )
@@ -74,6 +78,15 @@ HIGHFLY_PREMIUM_STABLE_EXCLUDED_SLUGS = frozenset({
     "4k-sky-sports-main-events",
     "now-sky-sports-f1-2",
 })
+# El proveedor rota los slugs. Estas reglas por nombre conservan las bajas
+# manuales aunque la misma señal vuelva con un identificador distinto.
+HIGHFLY_PREMIUM_STABLE_EXCLUDED_NAME_PATTERNS = (
+    re.compile(r"\bfox\s+sports\s+(?:501|502|504)\b", re.IGNORECASE),
+    re.compile(r"\bnz\s*:\s*sky\s+sport(?:s)?\s+1\b", re.IGNORECASE),
+    re.compile(r"\bsky\s+sport(?:s)?\s+1\s+nz\b", re.IGNORECASE),
+    re.compile(r"\bsky\s+sports\s+(?:golf|cricket)\b", re.IGNORECASE),
+    re.compile(r"(?<![a-z0-9])espn(?![a-z0-9])", re.IGNORECASE),
+)
 # tvg-id se mantiene canonico para las cinco entradas que ya poseen EPG. Los
 # ids HighflyPremium.* son nuevos y no colisionan con las listas 1/2.
 HIGHFLY_PREMIUM_STABLE_OVERRIDES = {
@@ -269,12 +282,32 @@ HIGHFLY_MANIFEST_URL = (
     "eyJvbmx5TGl2ZSI6dHJ1ZX0/manifest.json"
 )
 HIGHFLY_RESOLVER_CHANNELS = {
-    "SkySportsF1.uk": "now-sky-sports-f1-free",
-    "SkySportsPremierLeague.uk": "now-sky-sports-premier-league",
-    "SkySportsTennis.uk": "now-sky-sports-tennis",
-    "HighflyPremium.now-sky-sports-f1-2": "now-sky-sports-f1-2",
-    "HighflyPremium.4k-sky-sports-main-events": "4k-sky-sports-main-events",
+    # Fallbacks de hoja publicados por el catalogo actual. El mapa se
+    # refresca desde sports_live.json cuando hay red, pero estos valores
+    # permiten resolver aun si el catalogo de descubrimiento esta caido.
+    "SkySportsF1.uk": "f1-3949409",
+    "SkySportsPremierLeague.uk": "pl-434343434",
+    "SkySportsTennis.uk": "ten-3930030",
+    "HighflyPremium.now-sky-sports-f1-2": "f-39388833",
+    "HighflyPremium.4k-sky-sports-main-events": "ml-383892993",
 }
+
+
+def highfly_premium_entry_is_excluded(slug: str, name: object) -> bool:
+    """Apply stable slug and rotated-name exclusions to a public entry."""
+    if slug in HIGHFLY_PREMIUM_STABLE_EXCLUDED_SLUGS:
+        return True
+    searchable = _highfly_premium_clean_m3u_text(name, 180)
+    if any(pattern.search(searchable) for pattern in HIGHFLY_PREMIUM_STABLE_EXCLUDED_NAME_PATTERNS):
+        return True
+    words = re.sub(r"[^a-z0-9]+", " ", searchable.casefold()).split()
+    # The current catalog labels Tennis Channel simply as "TENNIS". Do not
+    # catch the desired Sky Sports Tennis signal.
+    return bool(words == ["hd", "tennis"] or words == ["tennis", "channel"])
+# Highfly cambia los slugs de las hojas cuando rota su catalogo. Esta memoria
+# vive solo durante la corrida: el identificador canonico del canal no cambia
+# y nunca se escribe una URL de sesion dentro del catalogo de resolutores.
+HIGHFLY_RUNTIME_RESOLVER_CHANNELS: dict[str, str] = {}
 
 TEST_GROUP_PREFIX = "PRUEBA - "
 # Nombre corto mostrado por el reproductor -> nombre canonico que usa el
@@ -606,7 +639,10 @@ EPG_PROGRAMME_SOURCES = {
     "TVChile.cl": ("cl", "TV.Chile.cl"),
     "ArirangTV.kr": ("pl", "Arirang.TV.pl"),
     "XITEHits.nl@Germany": ("plex1", "plex.tv.XITE.Hits.plex"),
-    "DWEnglish.de": ("lv", "Deutsche.Welle.English.HD.lv"),
+    # LV solo publica bloques "TV programma nav pieejama". Se conserva una
+    # parrilla real DW-TV como respaldo; la página oficial de DW tiene
+    # prioridad durante cada actualización.
+    "DWEnglish.de": ("fr", "DW-TV.fr"),
     "France24.fr@English": ("fr", "France.24.Anglais.fr"),
     "RewindTV.cl@SD": ("us2", "Rewind.TV.us2"),
     "TyCSports.ar": ("ar1", "Canal.TyC.Sports.ar"),
@@ -833,6 +869,10 @@ ZAPPING_EPG_CHANNELS = {
     "0107": "canal13",
     "0201": "24horas",
     "Meganoticias.cl": "meganoticias",
+    # Zapping identifica esta señal como ``dwe`` (DW English), no como la
+    # parrilla alemana ``DW-TV``. La página oficial de DW conserva prioridad;
+    # Zapping queda como fallback real antes del feed EPGShare francés.
+    "DWEnglish.de": "dwe",
     "1153": "chvnoticias",
     "0124": "t13",
     "45": "ntv",
@@ -895,6 +935,8 @@ TVN_PROGRAMMING_BASE_URL = "https://estaticos.tvn.cl/epg/tvn"
 TVN_OFFICIAL_EPG_SOURCE = "tvn-oficial"
 TVN3_OFFICIAL_PAGE = "https://www.tvn.cl/tvn3"
 TVN_ALTERNATIVE_URL = "https://iptv2.intersurtv.cl/TVN/index.m3u8?PlaylistM3UCL"
+CHV_PROGRAMMING_PAGE = "https://www.chilevision.cl/page/programacion"
+CHV_OFFICIAL_EPG_SOURCE = "chilevision-oficial"
 LA_RED_PROGRAMMING_PAGE = "https://www.lared.cl/guia-programacion"
 LA_RED_OFFICIAL_EPG_SOURCE = "la-red-oficial"
 LA_RED_MASTER_URL = "https://tv-mgmt.gtd.cl/bpk-tv/LARED/default/index.m3u8"
@@ -919,6 +961,8 @@ MEGANOTICIAS_OFFICIAL_MASTER_URL = (
 )
 CANAL13_13C_PROGRAMMING_PAGE = "https://www.13.cl/c/programacion"
 CANAL13_13C_OFFICIAL_EPG_SOURCE = "canal13-13c-oficial"
+DW_ENGLISH_PROGRAMMING_PAGE = "https://www.dw.com/en/live-tv/channel-english"
+DW_ENGLISH_OFFICIAL_EPG_SOURCE = "dw-english-oficial"
 TVVOO_STREAM_BASE_URL = "https://tvvoo.hayd.uk/stream/tv"
 # El relay publico de Highfly puede responder con un certificado vencido aun
 # cuando el mismo HLS entrega playlist y segmentos. La excepcion queda
@@ -3083,7 +3127,7 @@ def resolver_attributes_for(channel: Channel) -> dict[str, str]:
             "x-resolver-refresh": "on_play",
             "x-resolver-recipe": TVVOO_RECIPE_ID,
         }
-    highfly_slug = HIGHFLY_RESOLVER_CHANNELS.get(channel.tvg_id)
+    highfly_slug = highfly_slug_for(channel.tvg_id)
     if highfly_slug:
         return {
             "x-resolver": "highfly",
@@ -3393,7 +3437,19 @@ def validate_playlist_resolvers(lines: list[str]) -> dict[str, int]:
             if (match := re.search(rf'\b{re.escape(name)}="([^"]*)"', line))
         }
         expected = resolver_attributes_for(channel)
-        if attrs != expected:
+        highfly_dynamic_match = (
+            expected.get("x-resolver") == "highfly"
+            and set(attrs) == set(expected)
+            and attrs.get("x-resolver") == "highfly"
+            and attrs.get("x-resolver-manifest") == expected.get("x-resolver-manifest")
+            and attrs.get("x-resolver-refresh") == "on_play"
+            and bool(
+                HIGHFLY_PREMIUM_STABLE_ID_PATTERN.fullmatch(
+                    f"leaf:{attrs.get('x-resolver-id', '')}"
+                )
+            )
+        )
+        if attrs != expected and not highfly_dynamic_match:
             raise ValueError(
                 f"{channel.name}: metadatos de resolutor distintos al contrato"
             )
@@ -3421,6 +3477,10 @@ def validate_playlist_resolvers(lines: list[str]) -> dict[str, int]:
                 raise ValueError(f"{channel.name}: Highfly incompleto")
             if "/configure" in attrs["x-resolver-manifest"]:
                 raise ValueError(f"{channel.name}: Highfly apunta a HTML configure")
+            if not HIGHFLY_PREMIUM_STABLE_ID_PATTERN.fullmatch(
+                f"leaf:{attrs['x-resolver-id']}"
+            ):
+                raise ValueError(f"{channel.name}: slug Highfly invalido")
     production_meganoticias = [
         channel for channel in channels if channel.tvg_id == "Meganoticias.cl"
     ]
@@ -3699,6 +3759,84 @@ def _highfly_premium_stable_slug(value: object) -> str | None:
     return match.group("slug").lower() if match else None
 
 
+def parse_highfly_live_resolver_map(payload: bytes | str | dict) -> dict[str, str]:
+    """Map stable app IDs to the current public Highfly leaf slugs.
+
+    The public sports catalog is the discovery source. Only allow-listed leaf
+    IDs are retained; event IDs, poster URLs and Premium upgrade URLs are
+    deliberately ignored. The map is runtime state and is not a resolver
+    credential or a permanent channel identity.
+    """
+    decoded: object | None = None
+    if isinstance(payload, bytes):
+        raw_payload = payload.decode("utf-8-sig")
+    elif isinstance(payload, str):
+        raw_payload = payload
+    elif isinstance(payload, dict):
+        decoded = payload
+        raw_payload = ""
+    else:
+        raise ValueError("catalogo Highfly invalido")
+    if raw_payload:
+        if len(raw_payload.encode("utf-8")) > 2 * 1024 * 1024:
+            raise ValueError("catalogo Highfly demasiado grande")
+        try:
+            decoded = json.loads(raw_payload)
+        except json.JSONDecodeError as error:
+            raise ValueError("catalogo Highfly no es JSON valido") from error
+    if not isinstance(decoded, dict):
+        raise ValueError("catalogo Highfly no contiene un objeto")
+    metas = decoded.get("metas")
+    if not isinstance(metas, list):
+        raise ValueError("catalogo Highfly no contiene metas")
+
+    resolver_map: dict[str, str] = {}
+    for meta in metas[:512]:
+        if not isinstance(meta, dict):
+            continue
+        slug = _highfly_premium_stable_slug(meta.get("id"))
+        if not slug:
+            continue
+        raw_name = _highfly_premium_clean_m3u_text(meta.get("name"), 180)
+        searchable = f"{slug} {raw_name}".casefold()
+        is_uhd = bool(re.search(r"\b4k\b|\buhd\b", searchable))
+
+        stable_id: str | None = None
+        if "sky sports f1" in searchable:
+            stable_id = (
+                "HighflyPremium.now-sky-sports-f1-2"
+                if is_uhd
+                else "SkySportsF1.uk"
+            )
+        elif "sky sports tennis" in searchable:
+            stable_id = "SkySportsTennis.uk"
+        elif "sky sports premier league" in searchable:
+            stable_id = "SkySportsPremierLeague.uk"
+        elif "sky sports main event" in searchable or "sky sports main events" in searchable:
+            stable_id = "HighflyPremium.4k-sky-sports-main-events"
+
+        if stable_id and stable_id not in resolver_map:
+            resolver_map[stable_id] = slug
+    return resolver_map
+
+
+def update_highfly_runtime_resolver_map(payload: bytes | str | dict) -> dict[str, str]:
+    """Replace the in-memory Highfly slug map after a validated catalog fetch."""
+    resolver_map = parse_highfly_live_resolver_map(payload)
+    if resolver_map:
+        HIGHFLY_RUNTIME_RESOLVER_CHANNELS.clear()
+        HIGHFLY_RUNTIME_RESOLVER_CHANNELS.update(resolver_map)
+    return resolver_map
+
+
+def highfly_slug_for(tvg_id: str | None) -> str | None:
+    if not tvg_id:
+        return None
+    return HIGHFLY_RUNTIME_RESOLVER_CHANNELS.get(tvg_id) or HIGHFLY_RESOLVER_CHANNELS.get(
+        tvg_id
+    )
+
+
 def parse_highfly_premium_stable_catalog(payload: bytes | str | dict) -> list[dict[str, str]]:
     """Return stable slugs and app-owned metadata from a public Highfly catalog.
 
@@ -3736,7 +3874,12 @@ def parse_highfly_premium_stable_catalog(payload: bytes | str | dict) -> list[di
         if not isinstance(meta, dict):
             continue
         slug = _highfly_premium_stable_slug(meta.get("id"))
-        if not slug or slug in HIGHFLY_PREMIUM_STABLE_EXCLUDED_SLUGS or slug in by_slug:
+        raw_name = _highfly_premium_clean_m3u_text(meta.get("name"), 180)
+        if (
+            not slug
+            or highfly_premium_entry_is_excluded(slug, raw_name)
+            or slug in by_slug
+        ):
             continue
         override = HIGHFLY_PREMIUM_STABLE_OVERRIDES.get(slug, {})
         tvg_id = _highfly_premium_clean_m3u_text(
@@ -3744,7 +3887,7 @@ def parse_highfly_premium_stable_catalog(payload: bytes | str | dict) -> list[di
             180,
         )
         name = _highfly_premium_clean_m3u_text(
-            override.get("name") or _highfly_premium_catalog_name(meta.get("name"), slug),
+            override.get("name") or _highfly_premium_catalog_name(raw_name, slug),
             180,
         )
         country = _highfly_premium_clean_m3u_text(
@@ -3791,6 +3934,7 @@ def fetch_highfly_premium_stable_catalog() -> list[dict[str, str]]:
     final_host = (urlparse(final_url).hostname or "").lower()
     if status != 200 or final_host != "sports.highfly.dev":
         raise ValueError("catalogo Highfly Premium no respondio desde el host esperado")
+    update_highfly_runtime_resolver_map(body)
     return parse_highfly_premium_stable_catalog(body)
 
 
@@ -3805,7 +3949,7 @@ def render_highfly_premium_stable_playlist(entries: Iterable[dict[str, str]]) ->
         slug = _highfly_premium_stable_slug(f"leaf:{entry.get('slug', '')}")
         if (
             not slug
-            or slug in HIGHFLY_PREMIUM_STABLE_EXCLUDED_SLUGS
+            or highfly_premium_entry_is_excluded(slug, entry.get("name"))
             or slug in seen
         ):
             continue
@@ -3878,7 +4022,9 @@ def validate_highfly_premium_stable_playlist(
             raise ValueError("Lista 3 contiene una entrada sin tvg-id estable")
         if not HIGHFLY_PREMIUM_STABLE_ID_PATTERN.fullmatch(f"leaf:{slug}"):
             raise ValueError("Lista 3 contiene un slug Highfly invalido")
-        if slug in HIGHFLY_PREMIUM_STABLE_EXCLUDED_SLUGS:
+        if highfly_premium_entry_is_excluded(
+            slug, _m3u_attribute(line, "tvg-name")
+        ):
             raise ValueError(f"Lista 3 contiene una señal Premium retirada: {slug}")
         if slug in seen:
             raise ValueError(f"Lista 3 repite el slug {slug}")
@@ -4000,6 +4146,57 @@ def xmltv_format(value: datetime) -> str:
 def xmltv_format_chile(value: datetime) -> str:
     """Format a timestamp in Santiago time for players that ignore offsets."""
     return value.astimezone(CHILE_TIMEZONE).strftime("%Y%m%d%H%M%S %z")
+
+
+EPG_TITLE_ACRONYMS = frozenset(
+    {
+        "BBC",
+        "CHV",
+        "CNN",
+        "DW",
+        "ESPN",
+        "F1",
+        "HD",
+        "MTV",
+        "NHK",
+        "NTV",
+        "T13",
+        "TVN",
+        "UHD",
+        "XITE",
+    }
+)
+
+
+def normalize_epg_title(value: object) -> str:
+    """Make all-uppercase source titles readable without changing normal text."""
+    title = html.unescape(re.sub(r"\s+", " ", str(value or ""))).strip()
+    letters = [character for character in title if character.isalpha()]
+    if not title or not letters or not all(character.isupper() for character in letters):
+        return title
+
+    normalized_parts: list[str] = []
+    for part in re.split(r"(\s+)", title):
+        if not part or part.isspace():
+            normalized_parts.append(part)
+            continue
+        match = re.match(r"^(?P<prefix>[^\wÀ-ÿ]*)(?P<core>[\wÀ-ÿ]+)(?P<suffix>[^\wÀ-ÿ]*)$", part)
+        if not match:
+            normalized_parts.append(part.casefold().capitalize())
+            continue
+        prefix = match.group("prefix")
+        core = match.group("core")
+        suffix = match.group("suffix")
+        if core.upper() in EPG_TITLE_ACRONYMS:
+            display_core = core.upper()
+        else:
+            display_core = core.casefold().capitalize()
+        normalized_parts.append(prefix + display_core + suffix)
+    normalized = "".join(normalized_parts)
+    # A title made only of acronyms (for example "F1") is intentionally kept
+    # as the channel/program brand. Multiword all-uppercase text is always
+    # converted to a readable sentence/title form above.
+    return normalized
 
 
 def localize_xmltv_programme(programme: ET.Element) -> ET.Element:
@@ -4598,10 +4795,7 @@ def mega_schedule_items(article_body: str) -> list[tuple[object, str]]:
 
 
 def tvn_official_title(value: str) -> str:
-    title = re.sub(r"\s+", " ", value).strip()
-    if title.isupper():
-        return title.title()
-    return title
+    return normalize_epg_title(value)
 
 
 LA_RED_DAY_INDEX = {
@@ -4938,6 +5132,246 @@ def fetch_tvn_official_epg(
             suffix = f" ({detail})" if detail else ""
             raise ValueError(
                 f"TVN publico una parrilla oficial demasiado corta{suffix}"
+            )
+        return ET.tostring(root, encoding="utf-8", xml_declaration=True), None
+    except Exception as error:
+        return None, f"{type(error).__name__}: {error}"
+
+
+def chv_html_text(value: str) -> str:
+    value = html.unescape(re.sub(r"<[^>]+>", " ", value))
+    return re.sub(r"\s+", " ", value).strip()
+
+
+def chv_schedule_items(page_html: str) -> dict[int, list[tuple[object, str]]]:
+    """Extract Chilevision's Monday-to-Sunday official schedule cards."""
+    list_marker = re.compile(
+        r'<div\b(?=[^>]*\bclass=["\'][^"\']*\bschedule-section__list\b[^"\']*["\'])'
+        r'[^>]*>',
+        re.IGNORECASE,
+    )
+    article_pattern = re.compile(
+        r"<article\b(?=[^>]*\bclass=[\"'][^\"']*\bschedule-card\b[^\"']*[\"'])"
+        r"[^>]*>(.*?)</article\s*>",
+        re.IGNORECASE | re.DOTALL,
+    )
+    hour_pattern = re.compile(
+        r'<div\b[^>]*\bclass=["\'][^"\']*\bschedule-card__hour\b[^"\']*["\'][^>]*>'
+        r"(.*?)</div\s*>",
+        re.IGNORECASE | re.DOTALL,
+    )
+    title_pattern = re.compile(
+        r'<(?:strong|div)\b[^>]*\bclass=["\'][^"\']*\bschedule-card__title\b[^"\']*["\'][^>]*>'
+        r".*?<a\b[^>]*>(.*?)</a\s*>",
+        re.IGNORECASE | re.DOTALL,
+    )
+
+    markers = list(list_marker.finditer(page_html))
+    schedules: dict[int, list[tuple[object, str]]] = {}
+    for index, marker in enumerate(markers[:7]):
+        body_end = markers[index + 1].start() if index + 1 < len(markers) else len(page_html)
+        body = page_html[marker.end() : body_end]
+        items: list[tuple[object, str]] = []
+        for article in article_pattern.finditer(body):
+            hour_match = hour_pattern.search(article.group(1))
+            title_match = title_pattern.search(article.group(1))
+            if not hour_match or not title_match:
+                continue
+            clock_match = re.fullmatch(r"\s*(\d{1,2}):(\d{2})\s*", hour_match.group(1))
+            if not clock_match:
+                continue
+            hour, minute = int(clock_match.group(1)), int(clock_match.group(2))
+            if hour > 23 or minute > 59:
+                continue
+            title = chv_html_text(title_match.group(1))
+            if title:
+                items.append(
+                    (
+                        datetime.strptime(f"{hour:02d}:{minute:02d}", "%H:%M").time(),
+                        title,
+                    )
+                )
+        if items:
+            schedules[index] = items
+    return schedules
+
+
+def fetch_chv_official_epg(
+    channels: list[Channel], now: datetime
+) -> tuple[bytes | None, str | None]:
+    """Import Chilevision's official weekly schedule for the CHV channel."""
+    if not any(channel.tvg_id == "0106" for channel in channels):
+        return None, None
+    headers = {
+        "User-Agent": BROWSER_USER_AGENT,
+        "Accept": "text/html,application/xhtml+xml,*/*;q=0.8",
+        "Accept-Language": "es-CL,es;q=0.9,en;q=0.8",
+        "Referer": CHV_PROGRAMMING_PAGE,
+    }
+    try:
+        status, body, _ = fetch_bytes(
+            CHV_PROGRAMMING_PAGE,
+            headers,
+            timeout=60,
+            limit=12_000_000,
+        )
+        if status != 200:
+            raise ValueError(f"HTTP {status}")
+        schedules = chv_schedule_items(decode_web_text(body))
+        if sum(len(items) for items in schedules.values()) < 5:
+            raise ValueError("Chilevision no publico suficientes bloques oficiales")
+
+        today = now.astimezone(CHILE_TIMEZONE).date()
+        week_start = today - timedelta(days=today.weekday())
+        starts_by_day: dict[int, list[tuple[datetime, str]]] = {}
+        for day_index, items in schedules.items():
+            schedule_date = week_start + timedelta(days=day_index)
+            starts: list[tuple[datetime, str]] = []
+            previous_start: datetime | None = None
+            for clock, title in items:
+                start = datetime.combine(schedule_date, clock, tzinfo=CHILE_TIMEZONE)
+                if previous_start is not None and start <= previous_start:
+                    start += timedelta(days=1)
+                starts.append((start, normalize_epg_title(title)))
+                previous_start = start
+            starts_by_day[day_index] = starts
+
+        root = ET.Element(
+            "tv",
+            {
+                "generator-info-name": "lista-m3u Chilevision importer",
+                "source-info-name": CHV_PROGRAMMING_PAGE,
+            },
+        )
+        programme_count = 0
+        for day_index, starts in sorted(starts_by_day.items()):
+            next_day_first = starts_by_day.get(day_index + 1, [])
+            for index, (start, title) in enumerate(starts):
+                if index + 1 < len(starts):
+                    stop = starts[index + 1][0]
+                elif next_day_first:
+                    stop = next_day_first[0][0]
+                else:
+                    stop = start + timedelta(hours=2)
+                if stop <= start:
+                    stop = start + timedelta(minutes=30)
+                if stop < now - timedelta(hours=6) or start > now + timedelta(days=8):
+                    continue
+                programme = ET.SubElement(
+                    root,
+                    "programme",
+                    {
+                        "start": xmltv_format_chile(start),
+                        "stop": xmltv_format_chile(stop),
+                        "channel": "0106",
+                    },
+                )
+                ET.SubElement(programme, "title", {"lang": "es"}).text = title
+                ET.SubElement(programme, "desc", {"lang": "es"}).text = (
+                    "Programacion oficial consultada en Chilevision."
+                )
+                programme_count += 1
+        if programme_count < 5:
+            raise ValueError("Chilevision no publico bloques vigentes suficientes")
+        return ET.tostring(root, encoding="utf-8", xml_declaration=True), None
+    except Exception as error:
+        return None, f"{type(error).__name__}: {error}"
+
+
+def dw_english_schedule_slots(page_html: str) -> list[tuple[datetime, datetime, str]]:
+    """Extract the current DW English slots embedded in the official page."""
+    slot_pattern = re.compile(
+        r'"startDate":"(?P<start>20\d{2}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z)"'
+        r'.*?"endDate":"(?P<stop>20\d{2}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z)"'
+        r'.*?"program":\{"name":"(?P<program>(?:\\.|[^"\\])*)"'
+        r'.*?"programElement":\{"name":"(?P<detail>(?:\\.|[^"\\])*)"',
+        re.IGNORECASE | re.DOTALL,
+    )
+
+    def decode_fragment(value: str) -> str:
+        try:
+            return str(json.loads(f'"{value}"'))
+        except json.JSONDecodeError:
+            return html.unescape(value)
+
+    slots: list[tuple[datetime, datetime, str]] = []
+    seen: set[tuple[datetime, datetime, str]] = set()
+    for match in slot_pattern.finditer(page_html):
+        try:
+            start = datetime.fromisoformat(match.group("start").replace("Z", "+00:00"))
+            stop = datetime.fromisoformat(match.group("stop").replace("Z", "+00:00"))
+        except ValueError:
+            continue
+        if stop <= start:
+            continue
+        program = re.sub(r"\s+", " ", decode_fragment(match.group("program"))).strip()
+        detail = re.sub(r"\s+", " ", decode_fragment(match.group("detail"))).strip()
+        if not program:
+            continue
+        title = program
+        if detail and detail.casefold() not in {"news", program.casefold()}:
+            title = f"{program}: {detail}"
+        item = (start, stop, normalize_epg_title(title))
+        if item in seen:
+            continue
+        seen.add(item)
+        slots.append(item)
+    return sorted(slots, key=lambda item: (item[0], item[1], item[2]))
+
+
+def fetch_dw_english_official_epg(
+    channels: list[Channel], now: datetime
+) -> tuple[bytes | None, str | None]:
+    """Import DW English's live schedule instead of the empty LV feed."""
+    if not any(channel.tvg_id == "DWEnglish.de" for channel in channels):
+        return None, None
+    headers = {
+        "User-Agent": BROWSER_USER_AGENT,
+        "Accept": "text/html,application/xhtml+xml,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Referer": DW_ENGLISH_PROGRAMMING_PAGE,
+    }
+    try:
+        status, body, _ = fetch_bytes(
+            DW_ENGLISH_PROGRAMMING_PAGE,
+            headers,
+            timeout=60,
+            limit=20_000_000,
+        )
+        if status != 200:
+            raise ValueError(f"HTTP {status}")
+        slots = dw_english_schedule_slots(decode_web_text(body))
+        current_slots = [
+            slot
+            for slot in slots
+            if slot[1] > now - timedelta(hours=6)
+            and slot[0] < now + timedelta(days=2)
+        ]
+        if len(current_slots) < 5:
+            raise ValueError("DW English no publico suficientes bloques oficiales")
+        if max(slot[1] for slot in current_slots) < now + timedelta(hours=4):
+            raise ValueError("DW English no publico una ventana futura util")
+
+        root = ET.Element(
+            "tv",
+            {
+                "generator-info-name": "lista-m3u DW English importer",
+                "source-info-name": DW_ENGLISH_PROGRAMMING_PAGE,
+            },
+        )
+        for start, stop, title in current_slots:
+            programme = ET.SubElement(
+                root,
+                "programme",
+                {
+                    "start": xmltv_format(start),
+                    "stop": xmltv_format(stop),
+                    "channel": "DWEnglish.de",
+                },
+            )
+            ET.SubElement(programme, "title", {"lang": "en"}).text = title
+            ET.SubElement(programme, "desc", {"lang": "en"}).text = (
+                "Programacion oficial consultada en DW English."
             )
         return ET.tostring(root, encoding="utf-8", xml_declaration=True), None
     except Exception as error:
@@ -6716,6 +7150,18 @@ def build_epg(
             if lookup_target == "0104":
                 source_lookup.pop(lookup_key, None)
         source_lookup[(TVN_OFFICIAL_EPG_SOURCE, "0104")] = "0104"
+    if CHV_OFFICIAL_EPG_SOURCE in source_roots and "0106" in expected_ids:
+        for lookup_key, lookup_target in list(source_lookup.items()):
+            if lookup_target == "0106":
+                source_lookup.pop(lookup_key, None)
+        source_lookup[(CHV_OFFICIAL_EPG_SOURCE, "0106")] = "0106"
+    if DW_ENGLISH_OFFICIAL_EPG_SOURCE in source_roots and "DWEnglish.de" in expected_ids:
+        for lookup_key, lookup_target in list(source_lookup.items()):
+            if lookup_target == "DWEnglish.de":
+                source_lookup.pop(lookup_key, None)
+        source_lookup[(DW_ENGLISH_OFFICIAL_EPG_SOURCE, "DWEnglish.de")] = (
+            "DWEnglish.de"
+        )
     if NHK_OFFICIAL_EPG_SOURCE in source_roots and "NHKWorldJapan.jp" in expected_ids:
         source_lookup.pop(("cl", "Canal.NHK.World.cl"), None)
         source_lookup[(NHK_OFFICIAL_EPG_SOURCE, "NHKWorldJapan.jp")] = (
@@ -6937,6 +7383,15 @@ def build_epg(
         if not count:
             guide_sources[channel_id] = "continuidad-tecnica"
 
+    # Algunas fuentes entregan títulos completos en mayúsculas. Normalizar
+    # aquí, justo antes de publicar, cubre EPGShare, Zapping, fuentes oficiales
+    # y continuidad sin obligar a cada importador a repetir la misma regla.
+    for programme in root.findall("programme"):
+        for element_name in ("title", "sub-title"):
+            element = programme.find(element_name)
+            if element is not None and element.text:
+                element.text = normalize_epg_title(element.text)
+
     for channel in root.findall("channel"):
         channel_id = channel.get("id", "")
         channel.set("data-guide", guide_types.get(channel_id, "senal continua"))
@@ -7101,6 +7556,12 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
     if tvn_error:
         source_errors[TVN_OFFICIAL_EPG_SOURCE] = tvn_error
 
+    chv_data, chv_error = fetch_chv_official_epg(channels, now)
+    if chv_data:
+        source_documents[CHV_OFFICIAL_EPG_SOURCE] = chv_data
+    if chv_error:
+        source_errors[CHV_OFFICIAL_EPG_SOURCE] = chv_error
+
     la_red_data, la_red_error = fetch_la_red_official_epg(channels, now)
     if la_red_data:
         source_documents[LA_RED_OFFICIAL_EPG_SOURCE] = la_red_data
@@ -7112,6 +7573,12 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
         source_documents[MEGA_OFFICIAL_EPG_SOURCE] = mega_data
     if mega_error:
         source_errors[MEGA_OFFICIAL_EPG_SOURCE] = mega_error
+
+    dw_english_data, dw_english_error = fetch_dw_english_official_epg(channels, now)
+    if dw_english_data:
+        source_documents[DW_ENGLISH_OFFICIAL_EPG_SOURCE] = dw_english_data
+    if dw_english_error:
+        source_errors[DW_ENGLISH_OFFICIAL_EPG_SOURCE] = dw_english_error
 
     nhk_data, nhk_error = fetch_nhk_official_epg(channels, now)
     if nhk_data:
@@ -7166,6 +7633,8 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
             LA_RED_OFFICIAL_EPG_SOURCE,
             MEGA_OFFICIAL_EPG_SOURCE,
             TVN_OFFICIAL_EPG_SOURCE,
+            CHV_OFFICIAL_EPG_SOURCE,
+            DW_ENGLISH_OFFICIAL_EPG_SOURCE,
             CANAL13_MAIN_EPG_SOURCE,
             CANAL13_13C_OFFICIAL_EPG_SOURCE,
             CANAL13_13GO_EPG_SOURCE,
@@ -7889,15 +8358,93 @@ def fetch_highfly_manifest() -> dict:
     return payload
 
 
+def highfly_stream_urls_from_payload(payload: bytes | str | dict) -> list[str]:
+    """Extract only playable leaf HLS URLs from one Highfly stream response."""
+    decoded: object | None = None
+    if isinstance(payload, bytes):
+        raw_payload = payload.decode("utf-8-sig")
+    elif isinstance(payload, str):
+        raw_payload = payload
+    elif isinstance(payload, dict):
+        decoded = payload
+        raw_payload = ""
+    else:
+        raise ValueError("respuesta Highfly invalida")
+    if raw_payload:
+        if len(raw_payload.encode("utf-8")) > 1_048_576:
+            raise ValueError("respuesta Highfly demasiado grande")
+        decoded = json.loads(raw_payload)
+    if not isinstance(decoded, dict):
+        raise ValueError("respuesta Highfly no contiene un objeto")
+    streams = decoded.get("streams")
+    if not isinstance(streams, list):
+        return []
+
+    urls: list[str] = []
+    seen: set[str] = set()
+    for stream in streams[:32]:
+        if not isinstance(stream, dict):
+            continue
+        candidate = str(stream.get("url", "")).strip()
+        parsed = urlparse(candidate)
+        if (
+            parsed.scheme.lower() != "https"
+            or (parsed.hostname or "").lower() not in HIGHFLY_STREAM_ALLOWED_HOSTS
+            or not parsed.path.lower().startswith("/m3u/")
+            or not parsed.path.lower().endswith(".m3u8")
+            or candidate in seen
+        ):
+            continue
+        seen.add(candidate)
+        urls.append(candidate)
+    return urls
+
+
+def fetch_highfly_stream_urls_for_slug(slug: str) -> list[str]:
+    """Ask Highfly's current stream API for a leaf, never for an upgrade URL."""
+    if not HIGHFLY_PREMIUM_STABLE_ID_PATTERN.fullmatch(f"leaf:{slug}"):
+        raise ValueError("slug Highfly invalido")
+    status, body, final_url = fetch_bytes(
+        HIGHFLY_STREAM_API_TEMPLATE.format(slug=quote(slug, safe="-_.~")),
+        {
+            "Accept": "application/json",
+            "User-Agent": BROWSER_USER_AGENT,
+        },
+        timeout=CHANNEL_CHECK_POLICIES["highfly"].resolver_timeout,
+        limit=1_048_576,
+    )
+    final_host = (urlparse(final_url).hostname or "").lower()
+    if status != 200 or final_host != "sports.highfly.dev":
+        raise ValueError("API Highfly no respondio desde el host esperado")
+    return highfly_stream_urls_from_payload(body)
+
+
 def fresh_highfly_stream_urls(
     channel: Channel, *, manifest_verified: bool
 ) -> Iterable[str]:
-    """Return the canonical Highfly leaf for a validated stable slug."""
-    slug = HIGHFLY_RESOLVER_CHANNELS.get(channel.tvg_id)
+    """Return the current Highfly leaf, with a scoped direct fallback."""
+    slug = highfly_slug_for(channel.tvg_id)
     if not slug:
         raise ValueError(f"no hay slug Highfly para {channel.tvg_id or channel.name}")
     if not manifest_verified:
         raise RuntimeError("manifest Highfly no verificable en esta ejecucion")
+
+    candidate_slugs = [slug]
+    static_slug = HIGHFLY_RESOLVER_CHANNELS.get(channel.tvg_id)
+    if static_slug and static_slug not in candidate_slugs:
+        candidate_slugs.append(static_slug)
+    for candidate_slug in candidate_slugs:
+        try:
+            fresh_urls = fetch_highfly_stream_urls_for_slug(candidate_slug)
+        except Exception:
+            continue
+        if fresh_urls:
+            yield from fresh_urls
+            return
+
+    # Keep the old contract-compatible URL as a last resort for external
+    # players. The channel checker will reject it if Highfly has no worker;
+    # this must never hide the API failure or be treated as a fresh success.
     yield f"https://leaf.highfly.dev/m3u/{slug}/live.m3u8"
 
 
@@ -8992,6 +9539,17 @@ def sync_short_playlist_aliases() -> list[Path]:
 
 
 def main() -> int:
+    # GitHub Actions usa UTF-8, pero algunas ejecuciones locales de Windows
+    # heredan la consola ``charmap``. Un nombre con acentos no debe abortar la
+    # corrida después de validar los canales; sustituir solo la salida es
+    # seguro porque no altera los archivos publicados.
+    for stream in (sys.stdout, sys.stderr):
+        reconfigure = getattr(stream, "reconfigure", None)
+        if callable(reconfigure):
+            try:
+                reconfigure(encoding="utf-8", errors="replace")
+            except (OSError, ValueError):
+                pass
     parser = argparse.ArgumentParser()
     parser.add_argument("--playlist", type=Path, default=DEFAULT_PLAYLIST)
     parser.add_argument("--verify-published", metavar="URL")

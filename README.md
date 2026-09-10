@@ -48,8 +48,9 @@ La M3U conserva una URL HLS de respaldo para reproductores externos. VibeM3U
 usa los atributos `x-resolver-*` para resolver la fuente justo antes de abrirla:
 TVN y Meganoticias conservan sus masters oficiales para que la aplicacion
 obtenga la autorizacion al reproducir; 24 Horas se mantiene como canal directo,
-TvVoo usa aliases estables y Highfly usa un slug estable junto al `manifest.json`
-configurado. Pluto y los canales directos siguen sin resolutor. El catalogo solo
+TvVoo usa aliases estables y Highfly usa el `manifest.json` configurado junto
+con el slug de hoja vigente del catalogo publico. Pluto y los canales directos
+siguen sin resolutor. El catalogo solo
 contiene reglas y endpoints HTTPS permitidos; nunca publica respuestas HLS,
 tokens, claves ni URLs de sesion.
 
@@ -124,7 +125,10 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
   aplicacion al abrir el canal. Una URL dinamica que acaba de validarse
   se reutiliza durante una ventana corta para no repetir consultas; al superar
   el TTL, fallar o cambiar su huella, vuelve a resolverse. Highfly consulta su
-  `manifest.json` una sola vez por corrida y conserva los slugs estables;
+  `manifest.json` y el catalogo publico una vez por corrida; cuando el
+  proveedor rota una hoja, consulta
+  `stream/sport/leaf:{slug}.json` y solo acepta una HLS HTTPS de
+  `leaf.highfly.dev`;
 - los reintentos y tiempos de espera se ajustan por motor: directos, TVN,
   Meganoticias, TvVoo y Highfly tienen limites propios para que un proveedor
   lento no bloquee a los demas. Los candidatos aceptados durante la renovacion
@@ -132,9 +136,12 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
   vez;
 - usa el mismo enlace HTTP solo cuando el nodo HTTPS responde con certificado
   vencido y la excepcion se limita a los hosts conocidos de Highfly;
-- conserva los slugs de Highfly y los aliases de TvVoo como fuentes renovables.
-  Si una fuente deja de existir, el actualizador solicita candidatos nuevos,
-  valida su HLS y publica el enlace que respondió;
+- conserva los identificadores canonicos de Highfly y los aliases de TvVoo como
+  fuentes renovables. El slug que cambia el proveedor solo vive en memoria
+  durante la corrida; si una fuente deja de existir, el actualizador solicita
+  candidatos nuevos, valida su HLS y publica el enlace que respondió. Las
+  respuestas de upgrade de Google, URLs de evento y hosts fuera de la lista
+  permitida se descartan;
 - sincroniza `3.m3u` desde el catálogo público de Highfly, pero solo conserva
   entradas estables `leaf:`; ignora eventos temporales `streamed:` y no copia
   URLs firmadas, tokens ni posters del proveedor. La lista 3 se puede cargar o
@@ -142,12 +149,23 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
 - prioriza la guia oficial de Canal 13 para 13C, manteniendola separada de
   13 Cultura; si la pagina oficial no entrega bloques vigentes, usa Zapping
   como respaldo por canal;
+- usa la página oficial de programación de Chilevisión para CHV, con los
+  bloques semanales convertidos a XMLTV; si esa página falla, conserva el
+  respaldo normal por canal sin mezclar la guía de CHV con otra señal;
+- usa la página oficial de DW English para `DWEnglish.de`. La entrada `dwe` de
+  Zapping queda como primer fallback agregado porque entrega títulos en inglés;
+  el feed letón que solo dice “programa no disponible” no se usa. `DW-TV.fr`
+  queda como respaldo XMLTV final cuando la página oficial y Zapping no
+  entregan una ventana suficiente;
 - mantiene Premier Sports 1 y Premier Sports 2 desde los resolutores JSON
   publicos de TvVoo, con renovacion cada 6 horas y guia UK1 real;
-- usa la guia publica de Zapping Chile para las senales nacionales donde
-  EPGShare/TecnoCentro mostraban desplazamientos o no entregaban una parrilla
-  util; sus marcas Unix absolutas se convierten a America/Santiago sin sumar
-  horas manualmente;
+- resuelve las señales nacionales en este orden: adaptador oficial del canal
+  cuando existe (TVN, Mega, CHV, Canal 13, La Red y 13C), luego la entrada
+  correspondiente de Zapping y finalmente EPGShare/TecnoCentro. Para
+  Meganoticias, que no publica una parrilla XML/HTML diaria estable separada
+  en su página oficial, `meganoticias` de Zapping es el fallback operativo;
+  nunca se sustituye por la parrilla de Mega. Las marcas Unix de Zapping se
+  convierten a America/Santiago sin sumar horas manualmente;
 - publica `channel-status.json` y un informe Markdown como artefactos de cada
   ejecucion; tambien conserva un issue de GitHub con el historial detallado.
 - `channel-health-state.json` conserva solo la hora de validacion dinamica y una

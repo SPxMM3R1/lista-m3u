@@ -21,6 +21,188 @@ def channel(name: str, tvg_id: str) -> update_m3u.Channel:
 
 
 class TvnEpgTests(unittest.TestCase):
+    def test_chv_parser_extracts_official_weekly_cards(self) -> None:
+        days = []
+        for index, day_name in enumerate(
+            ("lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo")
+        ):
+            days.append(
+                f'''
+                <div class="schedule-section__list" data-day="{day_name}">
+                  <article class="schedule-card">
+                    <div class="schedule-card__hour">09:30</div>
+                    <strong class="schedule-card__title"><a>NOTICIAS {day_name}</a></strong>
+                  </article>
+                </div>
+                '''
+            )
+
+        schedules = update_m3u.chv_schedule_items("\n".join(days))
+
+        self.assertEqual(7, len(schedules))
+        self.assertEqual("NOTICIAS lunes", schedules[0][0][1])
+        self.assertEqual("09:30", schedules[3][0][0].strftime("%H:%M"))
+
+    def test_official_chv_schedule_overrides_aggregated_schedule(self) -> None:
+        now = datetime(2026, 8, 24, 12, tzinfo=timezone.utc)
+        html = "".join(
+            f'''
+            <div class="schedule-section__list">
+              <article class="schedule-card">
+                <div class="schedule-card__hour">{hour:02d}:00</div>
+                <div class="schedule-card__title"><a>PROGRAMA OFICIAL {index}</a></div>
+              </article>
+            </div>
+            '''
+            for index, hour in enumerate((9, 10, 11, 12, 13, 14, 15))
+        )
+        with patch.object(
+            update_m3u,
+            "fetch_bytes",
+            return_value=(200, html.encode("utf-8"), update_m3u.CHV_PROGRAMMING_PAGE),
+        ):
+            official, error = update_m3u.fetch_chv_official_epg(
+                [channel("CHV", "0106")], now
+            )
+
+        self.assertIsNone(error)
+        self.assertIsNotNone(official)
+        aggregated = ET.Element("tv")
+        bad = ET.SubElement(
+            aggregated,
+            "programme",
+            {
+                "start": update_m3u.xmltv_format_chile(now - timedelta(hours=1)),
+                "stop": update_m3u.xmltv_format_chile(now + timedelta(hours=25)),
+                "channel": "0106",
+            },
+        )
+        ET.SubElement(bad, "title").text = "AGREGADA INCORRECTA"
+
+        output, status = update_m3u.build_epg(
+            {
+                "cl": ET.tostring(aggregated, encoding="utf-8"),
+                update_m3u.ZAPPING_EPG_SOURCE: ET.tostring(
+                    aggregated, encoding="utf-8"
+                ),
+                update_m3u.CHV_OFFICIAL_EPG_SOURCE: official,
+            },
+            [channel("CHV", "0106")],
+            {},
+            now=now,
+        )
+        root = ET.fromstring(output)
+        titles = [
+            item.findtext("title", "")
+            for item in root.findall("./programme[@channel='0106']")
+        ]
+        self.assertIn("Programa Oficial 3", titles)
+        self.assertNotIn("AGREGADA INCORRECTA", titles)
+        self.assertEqual(
+            update_m3u.CHV_OFFICIAL_EPG_SOURCE,
+            root.find("./channel[@id='0106']").get("data-guide-source"),
+        )
+        self.assertGreater(status["programmes"], 0)
+
+    def test_dw_english_parser_and_official_source_use_english_schedule(self) -> None:
+        now = datetime(2026, 8, 24, 12, tzinfo=timezone.utc)
+        records = []
+        for index in range(5):
+            start = now + timedelta(hours=index)
+            stop = start + timedelta(hours=1)
+            records.append(
+                "{"
+                f'"startDate":"{start.strftime("%Y-%m-%dT%H:%M:%SZ")}",'
+                f'"endDate":"{stop.strftime("%Y-%m-%dT%H:%M:%SZ")}",'
+                '"program":{"name":"DW NEWS"},'
+                f'"programElement":{{"name":"WORLD UPDATE {index}"}}'
+                "}"
+            )
+        html = "<script>" + ",".join(records) + "</script>"
+
+        slots = update_m3u.dw_english_schedule_slots(html)
+        self.assertEqual(5, len(slots))
+        self.assertEqual("DW News: World Update 0", slots[0][2])
+
+        with patch.object(
+            update_m3u,
+            "fetch_bytes",
+            return_value=(
+                200,
+                html.encode("utf-8"),
+                update_m3u.DW_ENGLISH_PROGRAMMING_PAGE,
+            ),
+        ):
+            official, error = update_m3u.fetch_dw_english_official_epg(
+                [channel("DW English", "DWEnglish.de")], now
+            )
+
+        self.assertIsNone(error)
+        self.assertIsNotNone(official)
+        root = ET.fromstring(official)
+        self.assertEqual(
+            "DW News: World Update 0",
+            root.find("./programme").findtext("title"),
+        )
+
+    def test_dw_english_uses_zapping_dwe_when_official_is_unavailable(self) -> None:
+        self.assertEqual("dwe", update_m3u.ZAPPING_EPG_CHANNELS["DWEnglish.de"])
+        now = datetime(2026, 8, 24, 12, tzinfo=timezone.utc)
+        source_root = ET.Element("tv")
+        programme = ET.SubElement(
+            source_root,
+            "programme",
+            {
+                "start": update_m3u.xmltv_format_chile(now - timedelta(minutes=30)),
+                "stop": update_m3u.xmltv_format_chile(now + timedelta(hours=2)),
+                "channel": "DWEnglish.de",
+            },
+        )
+        ET.SubElement(programme, "title").text = "DW NEWS ENGLISH"
+
+        output, status = update_m3u.build_epg(
+            {update_m3u.ZAPPING_EPG_SOURCE: ET.tostring(source_root, encoding="utf-8")},
+            [channel("DW English", "DWEnglish.de")],
+            {},
+            now=now,
+        )
+
+        root = ET.fromstring(output)
+        dw_channel = root.find("./channel[@id='DWEnglish.de']")
+        self.assertEqual(update_m3u.ZAPPING_EPG_SOURCE, dw_channel.get("data-guide-source"))
+        self.assertEqual(
+            "DW News English",
+            root.find("./programme[@channel='DWEnglish.de']").findtext("title"),
+        )
+        self.assertGreater(status["programmes"], 0)
+
+    def test_final_epg_titles_are_not_all_uppercase(self) -> None:
+        now = datetime(2026, 8, 24, 12, tzinfo=timezone.utc)
+        source_root = ET.Element("tv")
+        programme = ET.SubElement(
+            source_root,
+            "programme",
+            {
+                "start": update_m3u.xmltv_format_chile(now - timedelta(hours=1)),
+                "stop": update_m3u.xmltv_format_chile(now + timedelta(hours=25)),
+                "channel": "0104",
+            },
+        )
+        ET.SubElement(programme, "title").text = "THE DAY NEWS"
+
+        output, _ = update_m3u.build_epg(
+            {update_m3u.ZAPPING_EPG_SOURCE: ET.tostring(source_root, encoding="utf-8")},
+            [channel("TVN", "0104")],
+            {},
+            now=now,
+        )
+
+        root = ET.fromstring(output)
+        self.assertEqual(
+            "The Day News",
+            root.find("./programme[@channel='0104']").findtext("title"),
+        )
+
     def test_mexico_epgshare_mapping_covers_telehit_and_sony(self) -> None:
         self.assertEqual(
             update_m3u.EPG_SOURCES["mx1"],

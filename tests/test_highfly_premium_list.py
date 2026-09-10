@@ -8,6 +8,125 @@ import update_m3u
 
 
 class HighflyPremiumListTest(unittest.TestCase):
+    def test_runtime_map_uses_current_sky_leaf_slugs(self) -> None:
+        payload = {
+            "metas": [
+                {
+                    "id": "leaf:f1-3949409",
+                    "name": "(FHD) : SKY SPORTS F1 ᴿᴬᵂ",
+                },
+                {"id": "leaf:f-39388833", "name": "4K : SKY SPORTS F1"},
+                {
+                    "id": "leaf:ten-3930030",
+                    "name": "(FHD) : SKY SPORTS TENNIS ᴿᴬᵂ",
+                },
+                {
+                    "id": "leaf:pl-434343434",
+                    "name": "(FHD) : SKY SPORTS PREMIER LEAGUE ᴿᴬᵂ",
+                },
+                {
+                    "id": "leaf:ml-383892993",
+                    "name": "4K : SKY SPORTS MAIN EVENTS",
+                },
+            ]
+        }
+
+        self.assertEqual(
+            {
+                "SkySportsF1.uk": "f1-3949409",
+                "HighflyPremium.now-sky-sports-f1-2": "f-39388833",
+                "SkySportsTennis.uk": "ten-3930030",
+                "SkySportsPremierLeague.uk": "pl-434343434",
+                "HighflyPremium.4k-sky-sports-main-events": "ml-383892993",
+            },
+            update_m3u.parse_highfly_live_resolver_map(payload),
+        )
+
+    def test_rotated_removed_highfly_names_are_not_republished(self) -> None:
+        payload = {
+            "metas": [
+                {"id": "leaf:nz-399329303", "name": "NZ: SKY SPORT 1"},
+                {"id": "leaf:us-espn-hd-0", "name": "(HD) : ESPN"},
+                {"id": "leaf:gol-9300300", "name": "(FHD) : SKY SPORTS GOLF"},
+                {
+                    "id": "leaf:melanin-394903",
+                    "name": "(FHD) : SKY SPORTS CRICKET",
+                },
+                {"id": "leaf:us-39903003", "name": "HD : TENNIS"},
+                {"id": "leaf:au-fox-sports-501-hd", "name": "FOX SPORTS 501 HD"},
+                {"id": "leaf:f1-3949409", "name": "(FHD) : SKY SPORTS F1"},
+                {
+                    "id": "leaf:ten-3930030",
+                    "name": "(FHD) : SKY SPORTS TENNIS",
+                },
+            ]
+        }
+
+        entries = update_m3u.parse_highfly_premium_stable_catalog(payload)
+
+        self.assertEqual(
+            ["f1-3949409", "ten-3930030"],
+            [entry["slug"] for entry in entries],
+        )
+
+    def test_highfly_stream_response_rejects_upgrade_and_non_leaf_urls(self) -> None:
+        payload = {
+            "streams": [
+                {"url": "https://www.google.com/accounts/upgrade"},
+                {
+                    "url": (
+                        "https://leaf.highfly.dev/m3u/f1-3949409/"
+                        "live.m3u8"
+                    )
+                },
+                {"url": "https://leaf.highfly.dev/other/live.m3u8"},
+            ]
+        }
+
+        self.assertEqual(
+            ["https://leaf.highfly.dev/m3u/f1-3949409/live.m3u8"],
+            update_m3u.highfly_stream_urls_from_payload(payload),
+        )
+
+    def test_fresh_highfly_uses_runtime_slug_and_stream_api(self) -> None:
+        channel = update_m3u.Channel(
+            name="Sky Sports F1",
+            url="https://leaf.highfly.dev/m3u/old/live.m3u8",
+            url_line=1,
+            info_line=0,
+            tvg_id="SkySportsF1.uk",
+            display_name="Sky Sports F1",
+        )
+        api_url = (
+            "https://sports.highfly.dev/stream/sport/leaf:f1-3949409.json"
+        )
+        response = {
+            "streams": [
+                {"url": "https://leaf.highfly.dev/m3u/f1-3949409/live.m3u8"}
+            ]
+        }
+
+        with patch.object(
+            update_m3u,
+            "HIGHFLY_RUNTIME_RESOLVER_CHANNELS",
+            {"SkySportsF1.uk": "f1-3949409"},
+        ), patch.object(
+            update_m3u,
+            "fetch_bytes",
+            return_value=(200, json.dumps(response).encode("utf-8"), api_url),
+        ) as fetch:
+            urls = list(
+                update_m3u.fresh_highfly_stream_urls(
+                    channel, manifest_verified=True
+                )
+            )
+
+        self.assertEqual(
+            ["https://leaf.highfly.dev/m3u/f1-3949409/live.m3u8"], urls
+        )
+        fetch.assert_called_once()
+        self.assertIn(api_url, fetch.call_args.args)
+
     def test_only_leaf_slugs_are_rendered_and_events_are_ignored(self) -> None:
         payload = {
             "metas": [
