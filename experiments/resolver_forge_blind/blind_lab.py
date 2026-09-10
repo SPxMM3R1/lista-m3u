@@ -511,10 +511,3 @@ class BlindFixtureLab:
             packets.append(bytes(packet))
         body = b"".join(packets)
         self._send(handler, HTTPStatus.OK, body, "video/mp2t")
-
-
-def family_counts(cases: list[HiddenCase]) -> dict[str, int]:
-    counts: dict[str, int] = {}
-    for case in cases:
-        counts[case.family] = counts.get(case.family, 0) + 1
-    return counts

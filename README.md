@@ -89,9 +89,9 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
 - usa las parrillas oficiales disponibles de TVN y Mega, ademas de las de M1 y
   M2; conserva EPGShare como respaldo cuando el emisor no publica XMLTV o una
   parrilla automatizable;
-- integra PLEX1 para las señales FAST de BBC, CBS, Qello, Stingray y XITE, y
-  usa las fuentes pequeñas SG1 y NG1 solo para CNA y Africanews,
-  respectivamente; no descarga el XML combinado de todos los
+- integra PLEX1 para las señales FAST de BBC, CBS, Qello, Stingray y XITE; las
+  fuentes EPGShare por país se descargan solo cuando un canal del catálogo
+  tiene una asociación activa, y no se descarga el XML combinado de todos los
   proveedores;
 - incorpora la parrilla XMLTV de PlutoTV para MTV Biggest Pop,
   MTV Spankin' New y MTV Flow Latino; las tarjetas repetidas de Pluto
@@ -316,12 +316,14 @@ como tal y no presentada como programacion real.
 Para 24 Horas no se encontro una parrilla diaria oficial publica y estructurada
 en 24horas.cl: se usa Zapping cuando entrega bloques validos y EPGShare01 como
 tercera opcion. Un fallo aislado de Zapping no invalida los respaldos por canal.
-La EPG usa fuentes XMLTV de Chile, Espana, Francia, Alemania, Reino Unido,
+La EPG usa fuentes XMLTV de Chile, Espana, México, Francia, Alemania, Reino Unido,
 Argentina, Portugal, Nueva Zelanda, Estados Unidos, Polonia, Letonia, Paises
-Bajos, PLEX1, PlutoTV, Singapur y Nigeria, junto con la guia publica
+Bajos, PLEX1 y PlutoTV, junto con la guia publica
 de Zapping para senales chilenas seleccionadas. El orden es: fuente oficial
 del canal, XMLTV real por pais/proveedor y Zapping u otra fuente secundaria
-real. M1, M2 y 13C se actualizan desde sus parrillas oficiales. La EPG
+real. Telehit Música y Sony Channel usan la fuente EPGShare MX1, con los IDs
+exactos `Canal.Telehit.Música.mx` y `Canal.Sony.(México).mx`. M1, M2 y 13C se
+actualizan desde sus parrillas oficiales. La EPG
 construye sus IDs esperados desde `channel-catalog.m3u`: un
 canal que permanezca en la lista externa continua recibiendo EPG y no causa un
 error por no aparecer en `m3u.m3u`. La EPG conserva al menos un bloque para cada

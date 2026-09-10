@@ -21,6 +21,90 @@ def channel(name: str, tvg_id: str) -> update_m3u.Channel:
 
 
 class TvnEpgTests(unittest.TestCase):
+    def test_mexico_epgshare_mapping_covers_telehit_and_sony(self) -> None:
+        self.assertEqual(
+            update_m3u.EPG_SOURCES["mx1"],
+            "https://epgshare01.online/epgshare01/epg_ripper_MX1.xml.gz",
+        )
+        self.assertEqual(
+            update_m3u.EPG_PROGRAMME_SOURCES["TelehitMusica.mx@SD"],
+            ("mx1", "Canal.Telehit.Música.mx"),
+        )
+        self.assertEqual(
+            update_m3u.EPG_PROGRAMME_SOURCES["SonyChannelAndes.us@SD"],
+            ("mx1", "Canal.Sony.(México).mx"),
+        )
+
+    def test_epgshare_scope_skips_feeds_without_catalogue_targets(self) -> None:
+        sources = update_m3u.epgshare_source_names_for(
+            [
+                channel("TVN", "0104"),
+                channel("La Red", "0102"),
+                channel("Telehit Música", "TelehitMusica.mx@SD"),
+                channel("Sony Channel", "SonyChannelAndes.us@SD"),
+            ]
+        )
+
+        self.assertEqual(sources, frozenset({"cl", "mx1"}))
+        self.assertNotIn("au1", update_m3u.EPG_SOURCES)
+        self.assertNotIn("sg1", update_m3u.EPG_SOURCES)
+        self.assertNotIn("ng1", update_m3u.EPG_SOURCES)
+
+    def test_mexico_epgshare_mapping_produces_named_programmes(self) -> None:
+        now = datetime(2026, 8, 28, 12, tzinfo=timezone.utc)
+        source_root = ET.Element("tv")
+        for source_id, title in (
+            ("Canal.Telehit.Música.mx", "Top 10"),
+            ("Canal.Sony.(México).mx", "Búsqueda implacable"),
+        ):
+            ET.SubElement(source_root, "channel", {"id": source_id})
+            programme = ET.SubElement(
+                source_root,
+                "programme",
+                {
+                    "start": update_m3u.xmltv_format_chile(
+                        now - timedelta(hours=1)
+                    ),
+                    "stop": update_m3u.xmltv_format_chile(
+                        now + timedelta(hours=25)
+                    ),
+                    "channel": source_id,
+                },
+            )
+            ET.SubElement(programme, "title").text = title
+
+        output, status = update_m3u.build_epg(
+            {"mx1": ET.tostring(source_root, encoding="utf-8")},
+            [
+                channel("Telehit Música", "TelehitMusica.mx@SD"),
+                channel("Sony Channel", "SonyChannelAndes.us@SD"),
+            ],
+            {},
+            now=now,
+        )
+
+        root = ET.fromstring(output)
+        self.assertEqual(
+            root.find("./programme[@channel='TelehitMusica.mx@SD']").findtext(
+                "title"
+            ),
+            "Top 10",
+        )
+        self.assertEqual(
+            root.find("./programme[@channel='SonyChannelAndes.us@SD']").findtext(
+                "title"
+            ),
+            "Búsqueda implacable",
+        )
+        self.assertEqual(
+            status["guide_sources"]["TelehitMusica.mx@SD"],
+            "mx1",
+        )
+        self.assertEqual(
+            status["guide_sources"]["SonyChannelAndes.us@SD"],
+            "mx1",
+        )
+
     def test_tvn3_survives_failure_from_another_zapping_page(self) -> None:
         now = datetime(2026, 8, 28, 12, tzinfo=timezone.utc)
         channels = [channel("TVN3", "1437"), channel("Mega", "0105")]

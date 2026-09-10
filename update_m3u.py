@@ -444,7 +444,6 @@ NO_EPG_CHANNEL_IDS = {
     "DAZNLigue1Live3.fr@TvVoo",
     "DAZNLigue1Live4.fr@TvVoo",
     "DAZN6.pt@TvVoo",
-    # DAZN 1 Francia ahora usa la parrilla oficial publica de Pickx.
     # EPGShare conserva la identidad MCM.fr, pero actualmente no publica
     # bloques vigentes para la señal. No se inventa continuidad.
     "MCM.fr@TvVoo",
@@ -544,13 +543,13 @@ FRANCE24_ES_1080_URL = (
 EPG_SOURCES = {
     "cl": "https://epgshare01.online/epgshare01/epg_ripper_CL1.xml.gz",
     "es": "https://epgshare01.online/epgshare01/epg_ripper_ES1.xml.gz",
+    "mx1": "https://epgshare01.online/epgshare01/epg_ripper_MX1.xml.gz",
     "fr": "https://epgshare01.online/epgshare01/epg_ripper_FR1.xml.gz",
     "de": "https://epgshare01.online/epgshare01/epg_ripper_DE1.xml.gz",
     "uk1": "https://epgshare01.online/epgshare01/epg_ripper_UK1.xml.gz",
     "ar1": "https://epgshare01.online/epgshare01/epg_ripper_AR1.xml.gz",
     "pt1": "https://epgshare01.online/epgshare01/epg_ripper_PT1.xml.gz",
     "nz1": "https://epgshare01.online/epgshare01/epg_ripper_NZ1.xml.gz",
-    "au1": "https://epgshare01.online/epgshare01/epg_ripper_AU1.xml.gz",
     "us2": "https://epgshare01.online/epgshare01/epg_ripper_US2.xml.gz",
     "pl": "https://epgshare01.online/epgshare01/epg_ripper_PL1.xml.gz",
     "lv": "https://epgshare01.online/epgshare01/epg_ripper_LV1.xml.gz",
@@ -560,8 +559,6 @@ EPG_SOURCES = {
     # aparecen en PLEX1, sin descargar el ALL_SOURCES de mas de 200 MB.
     "plex1": "https://epgshare01.online/epgshare01/epg_ripper_PLEX1.xml.gz",
     "tr1": "https://epgshare01.online/epgshare01/epg_ripper_TR1.xml.gz",
-    "sg1": "https://epgshare01.online/epgshare01/epg_ripper_SG1.xml.gz",
-    "ng1": "https://epgshare01.online/epgshare01/epg_ripper_NG1.xml.gz",
     "it1": "https://epgshare01.online/epgshare01/epg_ripper_IT1.xml.gz",
     # PlutoTV es la fuente de parrilla real para los canales lineales Pluto
     # usados por MTV. No se generan bloques de continuidad para esos IDs.
@@ -594,10 +591,6 @@ OPTIONAL_EPG_SOURCE_NAMES = frozenset(
 AUTENTIC_HISTORY_EPG_SOURCE = "autentic-history-oficial"
 AUTENTIC_HISTORY_PAGE = "https://watch.whaletvplus.com/"
 AUTENTIC_HISTORY_CHANNEL_ID = "931186243466302968"
-PICKX_EPG_SOURCE = "pickx-dazn-oficial"
-PICKX_EPG_PAGE = "https://www.pickx.be/nl/televisie/tv-gids"
-PICKX_EPG_API_BASE = "https://px-epg.azureedge.net/airings"
-PICKX_EPG_CHANNELS = {}
 EPG_PROGRAMME_SOURCES = {
     "0104": ("cl", "Canal.TVN.(Chile).cl"),
     "0105": ("cl", "Canal.Mega.(Chile).cl"),
@@ -608,6 +601,8 @@ EPG_PROGRAMME_SOURCES = {
     "France24.fr": ("fr", "France.24.Espanol.fr"),
     "EuronewsSpanish.fr": ("es", "Euronews.es"),
     "AlJazeera.qa": ("es", "Al.Jazeera.English.es"),
+    "TelehitMusica.mx@SD": ("mx1", "Canal.Telehit.Música.mx"),
+    "SonyChannelAndes.us@SD": ("mx1", "Canal.Sony.(México).mx"),
     "TVChile.cl": ("cl", "TV.Chile.cl"),
     "ArirangTV.kr": ("pl", "Arirang.TV.pl"),
     "XITEHits.nl@Germany": ("plex1", "plex.tv.XITE.Hits.plex"),
@@ -749,8 +744,6 @@ EPG_PROGRAMME_SOURCES = {
     "XITERockxMetal.nl": ("plex1", "plex.tv.XITE.Rock.x.Metal.plex"),
     "XITEJustChill.nl": ("plex1", "plex.tv.XITE.Just.Chill.plex"),
     "TRTWorld.tr": ("tr1", "TRT.WORLD.HD.tr"),
-    "CNA.sg": ("sg1", "CNA.(HD).sg"),
-    "AfricanewsEnglish.fr": ("ng1", "Africanews.ng"),
 }
 
 # Guías específicas para la lista 3. Se mantienen fuera de las listas 1 y 2
@@ -6018,123 +6011,6 @@ def fetch_autentic_history_epg(
         return None, f"{type(error).__name__}: {error}"
 
 
-def fetch_pickx_dazn_epg(
-    channels: list[Channel], now: datetime
-) -> tuple[bytes | None, str | None]:
-    """Import the optional Pickx guide when a channel is configured."""
-    targets = {
-        channel.tvg_id: PICKX_EPG_CHANNELS[channel.tvg_id]
-        for channel in channels
-        if channel.tvg_id in PICKX_EPG_CHANNELS
-    }
-    if not targets:
-        return None, None
-    try:
-        page_status, page_body, _ = fetch_bytes(
-            PICKX_EPG_PAGE,
-            {
-                "User-Agent": BROWSER_USER_AGENT,
-                "Accept": "text/html,application/xhtml+xml,*/*;q=0.8",
-            },
-            timeout=45,
-            limit=12_000_000,
-        )
-        if page_status != 200:
-            raise ValueError(f"Pickx HTTP {page_status}")
-        page_html = decode_web_text(page_body)
-        hash_match = re.search(r"\"hashes\"\s*:\s*\[\s*\"([^\"]+)\"", page_html)
-        if not hash_match:
-            raise ValueError("Pickx no publico la version EPG")
-        version_status, version_body, _ = fetch_bytes(
-            "https://www.pickx.be/api/s-" + hash_match.group(1),
-            {"User-Agent": BROWSER_USER_AGENT, "Accept": "application/json,*/*"},
-            timeout=45,
-            limit=1_000_000,
-        )
-        if version_status != 200:
-            raise ValueError(f"Pickx version HTTP {version_status}")
-        version_payload = json.loads(decode_web_text(version_body))
-        version = version_payload.get("version") if isinstance(version_payload, dict) else None
-        if not version:
-            raise ValueError("Pickx devolvio una version EPG vacia")
-        root = epg_root("Pickx EPG publico de DAZN 1 Francia")
-        counts = {channel_id: 0 for channel_id in targets}
-        seen_rows: set[tuple[str, str, str]] = set()
-        start_limit = now - timedelta(hours=6)
-        stop_limit = now + timedelta(days=5)
-        for day_offset in range(3):
-            schedule_date = (now + timedelta(days=day_offset)).astimezone(timezone.utc).date()
-            for channel_id, provider_channel_id in targets.items():
-                url = (
-                    f"{PICKX_EPG_API_BASE}/{version}/{schedule_date:%Y-%m-%d}/"
-                    f"channel/{provider_channel_id}?timezone=Europe%2FBrussels"
-                )
-                status, body, _ = fetch_bytes(
-                    url,
-                    {
-                        "User-Agent": BROWSER_USER_AGENT,
-                        "Accept": "application/json,*/*",
-                        "Origin": "https://www.pickx.be",
-                        "Referer": PICKX_EPG_PAGE,
-                    },
-                    timeout=45,
-                    limit=8_000_000,
-                )
-                if status != 200:
-                    raise ValueError(f"Pickx {provider_channel_id} HTTP {status}")
-                rows = json.loads(decode_web_text(body))
-                if not isinstance(rows, list):
-                    raise ValueError("Pickx no devolvio una lista de emisiones")
-                for row in rows:
-                    if not isinstance(row, dict):
-                        continue
-                    try:
-                        start = external_epg_datetime(row["programScheduleStart"])
-                        stop = external_epg_datetime(row["programScheduleEnd"])
-                    except (KeyError, TypeError, ValueError):
-                        continue
-                    if stop <= start_limit or start >= stop_limit or stop <= start:
-                        continue
-                    program = row.get("program") if isinstance(row.get("program"), dict) else {}
-                    title = re.sub(r"\s+", " ", str(program.get("title", "")).strip())
-                    if not title:
-                        continue
-                    row_key = (
-                        start.isoformat(),
-                        stop.isoformat(),
-                        title,
-                    )
-                    if row_key in seen_rows:
-                        continue
-                    seen_rows.add(row_key)
-                    programme = ET.SubElement(
-                        root,
-                        "programme",
-                        {
-                            "start": xmltv_format_chile(start),
-                            "stop": xmltv_format_chile(stop),
-                            "channel": provider_channel_id,
-                        },
-                    )
-                    ET.SubElement(programme, "title", {"lang": "fr"}).text = title
-                    episode_title = str(program.get("episodeTitle", "")).strip()
-                    if episode_title:
-                        ET.SubElement(programme, "sub-title", {"lang": "fr"}).text = episode_title
-                    description = re.sub(r"\s+", " ", str(program.get("description", "")).strip())
-                    if description:
-                        ET.SubElement(programme, "desc", {"lang": "fr"}).text = description
-                    category = str(program.get("category", "")).strip()
-                    if category:
-                        ET.SubElement(programme, "category", {"lang": "fr"}).text = category
-                    counts[channel_id] += 1
-        missing = [channel_id for channel_id, count in counts.items() if count == 0]
-        if missing:
-            raise ValueError("Pickx sin emisiones vigentes: " + ", ".join(missing))
-        return ET.tostring(root, encoding="utf-8", xml_declaration=True), None
-    except Exception as error:
-        return None, f"{type(error).__name__}: {error}"
-
-
 def zapping_html_text(value: str) -> str:
     value = html.unescape(re.sub(r"<[^>]+>", " ", value))
     return re.sub(r"\s+", " ", value).strip()
@@ -6741,6 +6617,18 @@ def add_continuous_programmes(
     return count
 
 
+def epgshare_source_names_for(
+    channels: Iterable[Channel],
+) -> frozenset[str]:
+    """Return only EPGShare feeds mapped to the current catalogue IDs."""
+    expected_ids = {channel.tvg_id for channel in channels if channel.tvg_id}
+    return frozenset(
+        source_name
+        for target_id, (source_name, _source_id) in EPG_PROGRAMME_SOURCES.items()
+        if target_id in expected_ids and source_name in EPG_SOURCES
+    )
+
+
 def build_epg(
     source_documents: dict[str, bytes],
     channels: list[Channel],
@@ -7143,7 +7031,18 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
     }
     source_documents: dict[str, bytes] = {}
     source_errors: dict[str, str] = {}
+    required_epgshare_sources = epgshare_source_names_for(channels)
+    skipped_epgshare_sources = sorted(
+        set(EPG_SOURCES) - set(required_epgshare_sources)
+    )
+    if skipped_epgshare_sources:
+        print(
+            "Fuentes EPGShare no requeridas por el catalogo actual: "
+            + ", ".join(skipped_epgshare_sources)
+        )
     for source_name, source_url in EPG_SOURCES.items():
+        if source_name not in required_epgshare_sources:
+            continue
         try:
             status, compressed, _ = fetch_bytes(
                 source_url, headers, timeout=60, limit=10_485_760
@@ -7236,12 +7135,6 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
     if autentic_error:
         source_errors[AUTENTIC_HISTORY_EPG_SOURCE] = autentic_error
 
-    pickx_data, pickx_error = fetch_pickx_dazn_epg(channels, now)
-    if pickx_data:
-        source_documents[PICKX_EPG_SOURCE] = pickx_data
-    if pickx_error:
-        source_errors[PICKX_EPG_SOURCE] = pickx_error
-
     red_bull_schedules, red_bull_source_names, red_bull_errors = (
         fetch_red_bull_schedules(expected_ids, now)
     )
@@ -7262,7 +7155,6 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
             CANAL13_13GO_EPG_SOURCE,
             SKY_OFFICIAL_EPG_SOURCE,
             AUTENTIC_HISTORY_EPG_SOURCE,
-            PICKX_EPG_SOURCE,
         }
     }
     if blocking_source_errors and existing_status is not None:
@@ -8187,11 +8079,6 @@ def iter_fresh_tvvoo_stream_urls(channel_name: str) -> Iterable[str]:
     if not yielded:
         detail = "; ".join(errors) if errors else "respuesta sin streams"
         raise RuntimeError(f"TvVoo no entrego una URL para {channel_name}: {detail}")
-
-
-def fresh_tvvoo_stream_urls(channel_name: str) -> list[str]:
-    """Return all current TvVoo candidates for diagnostics and compatibility."""
-    return list(dict.fromkeys(iter_fresh_tvvoo_stream_urls(channel_name)))
 
 
 def megamedia_page_html(page_url: str, *, timeout: int = 25) -> str:
