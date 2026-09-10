@@ -1394,7 +1394,7 @@ TVVOO_STREAM_RESOLVER_IDS = {
 # Keeping this sidecar separate from the Python map lets the daily job add a
 # channel without changing executable resolver code.
 TVVOO_DISCOVERY_SCHEMA_VERSION = 1
-TVVOO_DISCOVERY_MAX_CHANNELS = 240
+TVVOO_DISCOVERY_MAX_CHANNELS = 2000
 TVVOO_DISCOVERY_MAX_ALIASES = 8
 TVVOO_DISCOVERY_REGIONS = frozenset(
     {"uk", "it", "fr", "de", "pt", "es", "nl", "pl", "bg", "ar", "ro", "ru"}
@@ -2756,6 +2756,9 @@ def is_permanently_removed_channel_name(name: str) -> bool:
 
 
 def is_permanently_removed_channel(channel: Channel) -> bool:
+    # The user explicitly restored the complete ar catalogue.
+    if is_tvvoo_ar_channel(channel):
+        return False
     if (
         channel.tvg_id in RESTORED_EXTERNAL_CHANNEL_IDS
         or channel.name in RESTORED_EXTERNAL_CHANNEL_NAMES
@@ -3124,6 +3127,14 @@ def publication_playlist_for(
     return "main" if channel.tvg_id in main_channel_ids else "external"
 
 
+def is_tvvoo_ar_channel(channel: Channel) -> bool:
+    """Identify the requested ar group by its resolver aliases, not its name."""
+    return any(
+        unquote(alias).endswith("|group:ar")
+        for alias in TVVOO_STREAM_RESOLVER_IDS.get(channel.name, ())
+    )
+
+
 def external_vavoo_channel_is_allowed(channel: Channel) -> bool:
     """Return whether a TvVoo candidate is allowed in the public list 2.
 
@@ -3134,6 +3145,8 @@ def external_vavoo_channel_is_allowed(channel: Channel) -> bool:
         resolver_engine_for(channel) != "tvvoo"
         and "@tvvoo" not in channel.tvg_id.casefold()
     ):
+        return True
+    if is_tvvoo_ar_channel(channel):
         return True
     searchable = " ".join(
         value
@@ -3171,17 +3184,20 @@ def external_available_ids_from_health(
     """Return external IDs not marked unavailable by the previous run.
 
     This is used only by the offline partition validator. Missing health data
-    is treated as available so a first run does not hide catalogue entries.
+    is treated as available for legacy entries. The complete ar import must
+    have health evidence before its metadata-only candidates enter list 2.
     """
     raw_channels = health_state.get("channels", {})
     if not isinstance(raw_channels, dict):
-        return frozenset(external_ids)
+        raw_channels = {}
     available: set[str] = set()
     for channel in channels:
         channel_id = channel.tvg_id
         if channel_id not in external_ids:
             continue
         health = raw_channels.get(channel_id)
+        if is_tvvoo_ar_channel(channel) and not isinstance(health, dict):
+            continue
         if not isinstance(health, dict) or health.get("status") != "temporarily_unavailable":
             available.add(channel_id)
     return frozenset(available)
@@ -7239,7 +7255,7 @@ def check_channel(
                 detail = "playlist HLS valida"
                 if final_url != channel.url:
                     detail += " (con redireccion)"
-                if channel.name in SEGMENT_CHECK_CHANNELS:
+                if channel.name in SEGMENT_CHECK_CHANNELS or is_tvvoo_ar_channel(channel):
                     segment_ok, segment_detail = check_hls_first_segment(
                         channel.url,
                         request_headers(channel.name),

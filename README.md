@@ -167,7 +167,7 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
 El descubrimiento de catálogo (`discover-tvvoo.yml` / `discover_tvvoo_catalog.py`)
 corre una vez al día a las 03:15, separado de los procesos de canales y EPG.
 Consulta los catálogos públicos de TvVoo para Reino Unido, Italia, Francia,
-Alemania, Portugal, España, Países Bajos, Polonia, Bulgaria, Argentina,
+Alemania, Portugal, España, Países Bajos, Polonia, Bulgaria, Arabia (grupo `ar`),
 Rumanía y Rusia. Deduplica por señal y alias, descarta regiones y nombres
 excluidos (PPV, VOD, TEST/EVENT y las regiones geográficas ya vetadas), exige un
 logo HTTPS de un host permitido para las categorías normales y permite que una
@@ -182,6 +182,14 @@ temporales. La lista principal no se modifica. Cuando hay nuevos candidatos,
 el descubridor solicita explícitamente el workflow de mantenimiento de canales,
 que intenta resolver y validar sus HLS; la EPG los incorpora en su próxima
 ejecución independiente sobre el catálogo completo.
+
+La importación completa solicitada del grupo `ar` usa
+`python import_tvvoo_ar.py --write`. Lee `src/channels/lists.json` del repositorio `qwertyuiop8899/tvvoo`,
+agrupa variantes de calidad y conserva también los canales sin logo. El grupo
+del proveedor mezcla señales de varios países; no se marca como Argentina.
+La capacidad del archivo de identidades es 2.000; la selección automática
+general mantiene su límite de 240. Las altas contienen aliases estables, no
+enlaces de sesión, y esperan la validación de canales para aparecer en lista 2.
 
 El coordinador `run_m3u_6h.py` conserva `run-state.json`; el coordinador
 `run_epg_6h.py` conserva `epg-run-state.json`. Cada estado tiene su propia
@@ -258,7 +266,8 @@ cambia el reparto manual salvo el traslado automático y reversible de 13C.
 
 La lista externa conserva todos los canales directos. Para los candidatos con
 `x-resolver="tvvoo"`, la política de publicación de la lista 2 conserva solo
-las familias Sky, Eurosport, ESPN y TNT Sports. Los demás Vavoo no se borran
+las familias Sky, Eurosport, ESPN y TNT Sports, además de todo el grupo `ar`
+solicitado expresamente. Los demás Vavoo no se borran
 del `channel-catalog.m3u`: quedan fuera de `m3u-externa.m3u` y `2.m3u`, pero
 siguen disponibles para EPG, validación y una futura revisión de selección.
 
