@@ -113,7 +113,7 @@ class HighflyResolverTest(unittest.TestCase):
     def test_runtime_catalog_updates_highfly_leaf_fallback(self) -> None:
         lines = [
             "#EXTM3U",
-            '#EXTINF:-1 tvg-id="HighflyPremium.now-sky-sports-f1-2" x-resolver="highfly",Sky Sports F1 UHD',
+            '#EXTINF:-1 tvg-id="HighflyPremium.now-sky-sports-f1-2" x-resolver="highfly" x-resolver-id="f-39388833",Sky Sports F1 UHD',
             "https://leaf.highfly.dev/m3u/f-39388833/live.m3u8",
         ]
 
@@ -129,6 +129,106 @@ class HighflyResolverTest(unittest.TestCase):
             "https://leaf.highfly.dev/m3u/f1-93930303/live.m3u8",
             lines[2],
         )
+        self.assertIn('x-resolver-id="f1-93930303"', lines[1])
+
+    def test_premium_empty_leaf_is_accepted_for_both_uhd_channels(self) -> None:
+        cases = (
+            (
+                "HighflyPremium.now-sky-sports-f1-2",
+                "Sky Sports F1 UHD",
+                "new-f1-93930303",
+            ),
+            (
+                "HighflyPremium.4k-sky-sports-main-events",
+                "Sky Sports Main Event UHD",
+                "new-main-event-93930303",
+            ),
+        )
+        payload = {"streams": []}
+        for tvg_id, name, slug in cases:
+            api_url = update_m3u.HIGHFLY_STREAM_API_TEMPLATE.format(slug=slug)
+            with patch.object(
+                update_m3u,
+                "fetch_bytes",
+                return_value=(200, json.dumps(payload).encode("utf-8"), api_url),
+            ):
+                with self.assertRaises(update_m3u.HighflyPremiumRequired):
+                    update_m3u.fetch_highfly_stream_urls_for_slug(
+                        slug,
+                        premium_allowed=True,
+                    )
+
+            channel = update_m3u.Channel(
+                name=name,
+                url="https://leaf.highfly.dev/m3u/old/live.m3u8",
+                url_line=1,
+                info_line=0,
+                tvg_id=tvg_id,
+                display_name=name,
+            )
+            current = update_m3u.CheckResult(name, channel.url, False, "expired")
+            with patch.dict(
+                update_m3u.HIGHFLY_RUNTIME_RESOLVER_CHANNELS,
+                {tvg_id: slug},
+                clear=True,
+            ), patch.object(
+                update_m3u,
+                "fetch_bytes",
+                return_value=(200, json.dumps(payload).encode("utf-8"), api_url),
+            ):
+                outcome = update_m3u.refresh_dynamic_channel(
+                    channel,
+                    lambda channel=channel: update_m3u.fresh_highfly_stream_urls(
+                        channel,
+                        manifest_verified=True,
+                    ),
+                    running_in_ci=True,
+                    current_result=current,
+                )
+
+            self.assertTrue(outcome.accepted)
+            self.assertTrue(outcome.changed)
+            self.assertEqual(
+                f"https://leaf.highfly.dev/m3u/{slug}/live.m3u8",
+                outcome.resolved_url,
+            )
+
+    def test_seeded_premium_slug_survives_catalog_without_main_event(self) -> None:
+        lines = [
+            "#EXTM3U",
+            '#EXTINF:-1 tvg-id="HighflyPremium.4k-sky-sports-main-events" x-resolver="highfly" x-resolver-id="new-main-event-93930303",Sky Sports Main Event UHD',
+            "https://leaf.highfly.dev/m3u/new-main-event-93930303/live.m3u8",
+        ]
+        with patch.dict(
+            update_m3u.HIGHFLY_RUNTIME_RESOLVER_CHANNELS,
+            {},
+            clear=True,
+        ):
+            seeded = update_m3u.seed_highfly_runtime_resolver_map(lines)
+            discovered = update_m3u.update_highfly_runtime_resolver_map(
+                {
+                    "metas": [
+                        {
+                            "id": "leaf:f1-3949409",
+                            "name": "(FHD) : SKY SPORTS F1",
+                        }
+                    ]
+                }
+            )
+
+            self.assertEqual(
+                {
+                    "HighflyPremium.4k-sky-sports-main-events": "new-main-event-93930303"
+                },
+                seeded,
+            )
+            self.assertEqual({"SkySportsF1.uk": "f1-3949409"}, discovered)
+            self.assertEqual(
+                "new-main-event-93930303",
+                update_m3u.HIGHFLY_RUNTIME_RESOLVER_CHANNELS[
+                    "HighflyPremium.4k-sky-sports-main-events"
+                ],
+            )
 
     def test_premium_leaf_is_app_managed_after_catalog_lock(self) -> None:
         payload = {

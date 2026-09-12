@@ -234,6 +234,18 @@ HIGHFLY_RESOLVER_CHANNELS = {
     "ESPN2.us": "us-33323323",
 }
 
+# Estos son los dos canales UHD cuya hoja puede estar visible en el catálogo
+# pero entregar únicamente una respuesta Premium (o una lista de streams
+# vacía) al runner. La app debe aceptar esa hoja y resolver el HLS con la
+# autorización del usuario; el actualizador solo cambia el slug público y la
+# URL de compatibilidad, nunca intenta manejar credenciales Premium.
+HIGHFLY_PREMIUM_CHANNEL_IDS = frozenset(
+    {
+        "HighflyPremium.now-sky-sports-f1-2",
+        "HighflyPremium.4k-sky-sports-main-events",
+    }
+)
+
 
 # Highfly cambia los slugs de las hojas cuando rota su catalogo. Esta memoria
 # vive solo durante la corrida: el identificador canonico del canal no cambia
@@ -3717,23 +3729,43 @@ def parse_highfly_live_resolver_map(payload: bytes | str | dict) -> dict[str, st
         raw_name = _highfly_catalog_text(meta.get("name"), 180)
         searchable = f"{slug} {raw_name}".casefold()
         is_uhd = bool(re.search(r"\b4k\b|\buhd\b", searchable))
+        is_sky_f1 = bool(
+            re.search(r"\bsky\s+sports?\b.*\bf1\b", searchable)
+            or re.search(r"\bf1\b.*\bsky\s+sports?\b", searchable)
+        )
+        is_sky_tennis = bool(
+            re.search(r"\bsky\s+sports?\b.*\btennis\b", searchable)
+            or re.search(r"\btennis\b.*\bsky\s+sports?\b", searchable)
+        )
+        is_sky_premier_league = bool(
+            re.search(
+                r"\bsky\s+sports?\b.*\bpremier\s+league\b", searchable
+            )
+            or re.search(
+                r"\bpremier\s+league\b.*\bsky\s+sports?\b", searchable
+            )
+        )
+        is_sky_main_event = bool(
+            re.search(r"\bsky\s+sports?\b.*\bmain\s+events?\b", searchable)
+            or re.search(r"\bmain\s+events?\b.*\bsky\s+sports?\b", searchable)
+        )
 
         stable_id: str | None = None
         if re.search(r"\bespn\s*2\b", searchable):
             stable_id = "ESPN2.us"
         elif re.search(r"\bespn\b", searchable):
             stable_id = "ESPN.us"
-        elif "sky sports f1" in searchable:
+        elif is_sky_f1:
             stable_id = (
                 "HighflyPremium.now-sky-sports-f1-2"
                 if is_uhd
                 else "SkySportsF1.uk"
             )
-        elif "sky sports tennis" in searchable:
+        elif is_sky_tennis:
             stable_id = "SkySportsTennis.uk"
-        elif "sky sports premier league" in searchable:
+        elif is_sky_premier_league:
             stable_id = "SkySportsPremierLeague.uk"
-        elif "sky sports main event" in searchable or "sky sports main events" in searchable:
+        elif is_sky_main_event and is_uhd:
             stable_id = "HighflyPremium.4k-sky-sports-main-events"
 
         if stable_id and stable_id not in resolver_map:
@@ -3742,12 +3774,41 @@ def parse_highfly_live_resolver_map(payload: bytes | str | dict) -> dict[str, st
 
 
 def update_highfly_runtime_resolver_map(payload: bytes | str | dict) -> dict[str, str]:
-    """Replace the in-memory Highfly slug map after a validated catalog fetch."""
+    """Merge current Highfly slugs after a validated catalog fetch.
+
+    The public catalog can omit a Premium leaf while still serving the rest of
+    the catalogue. Merging prevents that partial response from erasing a
+    slug seeded from the checked-in M3U or discovered earlier in the same run.
+    A later matching leaf still replaces the old value normally.
+    """
     resolver_map = parse_highfly_live_resolver_map(payload)
     if resolver_map:
-        HIGHFLY_RUNTIME_RESOLVER_CHANNELS.clear()
         HIGHFLY_RUNTIME_RESOLVER_CHANNELS.update(resolver_map)
     return resolver_map
+
+
+def seed_highfly_runtime_resolver_map(lines: list[str]) -> dict[str, str]:
+    """Seed runtime slugs from checked-in metadata before public discovery.
+
+    This keeps the last published Premium leaf available when the public
+    Highfly catalogue temporarily omits that leaf. Only known canonical
+    Highfly IDs and syntactically valid leaf slugs are accepted; no URL query,
+    token, cookie, or provider response is copied into runtime state.
+    """
+    seeded: dict[str, str] = {}
+    for channel in parse_channels(lines):
+        if channel.tvg_id not in HIGHFLY_RESOLVER_CHANNELS or channel.info_line < 0:
+            continue
+        info_line = lines[channel.info_line]
+        if not re.search(r'\bx-resolver="highfly"', info_line):
+            continue
+        match = re.search(r'\bx-resolver-id="([^"]+)"', info_line)
+        raw_slug = match.group(1) if match else ""
+        slug = _highfly_leaf_slug(f"leaf:{raw_slug}")
+        if slug:
+            seeded[channel.tvg_id] = slug
+            HIGHFLY_RUNTIME_RESOLVER_CHANNELS.setdefault(channel.tvg_id, slug)
+    return seeded
 
 
 def highfly_slug_for(tvg_id: str | None) -> str | None:
@@ -3790,15 +3851,25 @@ def sync_highfly_runtime_fallbacks(lines: list[str]) -> bool:
         if resolver_engine_for(channel) != "highfly":
             continue
         slug = highfly_slug_for(channel.tvg_id)
-        if not slug or not is_highfly_leaf_url(channel.url):
+        if not slug:
             continue
         expected_url = highfly_fallback_url(slug)
-        if channel.url != expected_url:
+        if is_highfly_leaf_url(channel.url) and channel.url != expected_url:
             lines[channel.url_line] = expected_url
             changed = True
             print(
                 f"  [OK] {channel.name}: fallback Highfly actualizado a {slug}"
             )
+        if channel.info_line >= 0:
+            expected_info = with_resolver_attributes(
+                lines[channel.info_line], resolver_attributes_for(channel)
+            )
+            if expected_info != lines[channel.info_line]:
+                lines[channel.info_line] = expected_info
+                changed = True
+                print(
+                    f"  [OK] {channel.name}: x-resolver-id Highfly actualizado a {slug}"
+                )
     return changed
 
 
@@ -8071,8 +8142,16 @@ def highfly_stream_urls_from_payload(payload: bytes | str | dict) -> list[str]:
     return urls
 
 
-def fetch_highfly_stream_urls_for_slug(slug: str) -> list[str]:
-    """Ask Highfly's current stream API for a leaf, never for an upgrade URL."""
+def fetch_highfly_stream_urls_for_slug(
+    slug: str, *, premium_allowed: bool = False
+) -> list[str]:
+    """Ask Highfly's current stream API for a leaf, never for an upgrade URL.
+
+    ``premium_allowed`` is restricted by the caller to the two canonical UHD
+    channels. A valid JSON response with no public HLS is then reported as a
+    Premium leaf instead of a dead/expired source, so VibeM3U can authorize it
+    in memory.
+    """
     if not HIGHFLY_LEAF_ID_PATTERN.fullmatch(f"leaf:{slug}"):
         raise ValueError("slug Highfly invalido")
     status, body, final_url = fetch_bytes(
@@ -8093,7 +8172,10 @@ def fetch_highfly_stream_urls_for_slug(slug: str) -> list[str]:
         raise ValueError("respuesta Highfly no es JSON valido") from error
     if highfly_payload_requires_premium(payload):
         raise HighflyPremiumRequired(slug)
-    return highfly_stream_urls_from_payload(payload)
+    urls = highfly_stream_urls_from_payload(payload)
+    if premium_allowed and not urls:
+        raise HighflyPremiumRequired(slug)
+    return urls
 
 
 def fresh_highfly_stream_urls(
@@ -8106,13 +8188,17 @@ def fresh_highfly_stream_urls(
     if not manifest_verified:
         raise RuntimeError("manifest Highfly no verificable en esta ejecucion")
 
+    premium_allowed = channel.tvg_id in HIGHFLY_PREMIUM_CHANNEL_IDS
     candidate_slugs = [slug]
     static_slug = HIGHFLY_RESOLVER_CHANNELS.get(channel.tvg_id)
     if static_slug and static_slug not in candidate_slugs:
         candidate_slugs.append(static_slug)
     for candidate_slug in candidate_slugs:
         try:
-            fresh_urls = fetch_highfly_stream_urls_for_slug(candidate_slug)
+            fresh_urls = fetch_highfly_stream_urls_for_slug(
+                candidate_slug,
+                premium_allowed=premium_allowed,
+            )
         except HighflyPremiumRequired:
             # La hoja actual existe, pero su HLS está reservado a la sesión
             # Premium de la aplicación. No continuar hacia el leaf antiguo ni
@@ -8385,12 +8471,13 @@ def refresh_dynamic_channel(
         # un fallo real y no debe ocultarse del informe.
         if (
             resolver_engine_for(channel) != "highfly"
-            or not channel.tvg_id.startswith("HighflyPremium.")
+            or channel.tvg_id not in HIGHFLY_PREMIUM_CHANNEL_IDS
         ):
             return None
         detail = (
-            "hoja Highfly Premium vigente; el HLS publico requiere autorizacion "
-            "de la aplicacion y no se marca como fuente caducada"
+            "hoja Highfly Premium reconocida; el HLS publico puede estar protegido "
+            "o ausente y VibeM3U debe autorizarla en memoria; no se marca como "
+            "fuente caducada"
         )
         print(f"  [APP] {channel.name}: {detail}")
         return DynamicRefreshOutcome(
@@ -9435,6 +9522,7 @@ def main() -> int:
         # Refrescar antes de escribir los metadatos evita publicar un
         # x-resolver-id nuevo junto a un fallback leaf ya retirado. El
         # catalogo solo aporta slugs allow-listed; nunca aporta tokens.
+        seed_highfly_runtime_resolver_map(lines)
         refresh_highfly_runtime_catalog()
         highfly_runtime_changed = sync_highfly_runtime_fallbacks(lines)
     resolver_changed = pin_resolver_metadata(lines)
