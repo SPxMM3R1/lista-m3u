@@ -211,11 +211,14 @@ general mantiene su límite de 240. Las altas contienen aliases estables, no
 enlaces de sesión, y esperan la validación de canales para aparecer en lista 2.
 
 El coordinador `run_m3u_6h.py` conserva `run-state.json`; el coordinador
-`run_epg_6h.py` conserva `epg-run-state.json`. Cada estado tiene su propia
-ventana fija de seis horas. GitHub Actions es el ejecutor principal desde
-ahora. La tarea local queda deshabilitada y los scripts locales se conservan
-solamente como respaldo manual; no deben ejecutarse al mismo tiempo que el
-cron remoto.
+`run_epg_6h.py` conserva `epg-run-state.json`. Las ventanas locales de Chile
+quedan fijas: canales a las 04:00, 10:00, 16:00 y 22:00; EPG a las 00:00,
+06:00, 12:00 y 18:00. Así la primera EPG del día se construye a las 06:00 y
+normalmente encuentra terminada la renovación de canales de las 04:00. Cada
+estado mantiene su ventana de seis horas. GitHub Actions es el ejecutor
+principal desde ahora. La tarea local queda deshabilitada y los scripts locales
+se conservan solamente como respaldo manual; no deben ejecutarse al mismo
+tiempo que el cron remoto.
 
 Además del cron, un cambio en `m3u.m3u`, `m3u-externa.m3u`,
 `channel-catalog.m3u`, `resolver-catalog.json` o en la lógica del actualizador

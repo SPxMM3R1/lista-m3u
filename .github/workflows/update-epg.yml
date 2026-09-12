@@ -1,7 +1,8 @@
 name: Actualizar EPG
 on:
   schedule:
-    - cron: "30 */6 * * *"
+    # Primera EPG del dia a las 06:00; luego cada seis horas.
+    - cron: "0 0,6,12,18 * * *"
       timezone: "America/Santiago"
   workflow_dispatch:
 permissions:

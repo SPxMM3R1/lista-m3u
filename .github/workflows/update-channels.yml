@@ -15,7 +15,8 @@ on:
       - "run_m3u_6h.py"
       - ".github/workflows/update-channels.yml"
   schedule:
-    - cron: "0 */6 * * *"
+    # Renovacion de canales dos horas antes de cada ventana de EPG.
+    - cron: "0 4,10,16,22 * * *"
       timezone: "America/Santiago"
   workflow_dispatch:
     inputs:
