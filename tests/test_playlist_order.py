@@ -162,6 +162,18 @@ class PlaylistOrderTests(unittest.TestCase):
             update_m3u.KNOWN_STREAM_FALLBACKS["T13"],
         )
 
+    def test_tve_internacional_has_official_america_fallback_and_segment_check(self) -> None:
+        self.assertEqual(
+            update_m3u.TVE_INTERNACIONAL_AMERICA_1080_URL,
+            "https://rtvelivestream-rtveplayplus.rtve.es/rtvesec/int/"
+            "tvei_ame_main_1080.m3u8",
+        )
+        self.assertIn(
+            update_m3u.TVE_INTERNACIONAL_AMERICA_576_URL,
+            update_m3u.KNOWN_STREAM_FALLBACKS["TVE Internacional"],
+        )
+        self.assertIn("TVE Internacional", update_m3u.SEGMENT_CHECK_CHANNELS)
+
     def test_official_player_extraction_removes_empty_and_nonempty_session_data(self) -> None:
         page = (
             '<div data-url="https://rudo.video/live/chvdeportes"></div>'

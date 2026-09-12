@@ -555,7 +555,6 @@ EPG_PROGRAMME_SOURCES = {
     "EuronewsSpanish.fr": ("es", "Euronews.es"),
     "AlJazeera.qa": ("es", "Al.Jazeera.English.es"),
     "TelehitMusica.mx@SD": ("mx1", "Canal.Telehit.Música.mx"),
-    "SonyChannelAndes.us@SD": ("mx1", "Canal.Sony.(México).mx"),
     "TVChile.cl": ("cl", "TV.Chile.cl"),
     "ArirangTV.kr": ("pl", "Arirang.TV.pl"),
     "XITEHits.nl@Germany": ("plex1", "plex.tv.XITE.Hits.plex"),
@@ -850,6 +849,17 @@ TVN_PROGRAMMING_BASE_URL = "https://estaticos.tvn.cl/epg/tvn"
 TVN_OFFICIAL_EPG_SOURCE = "tvn-oficial"
 TVN3_OFFICIAL_PAGE = "https://www.tvn.cl/tvn3"
 TVN_ALTERNATIVE_URL = "https://iptv2.intersurtv.cl/TVN/index.m3u8?PlaylistM3UCL"
+TVE_INTERNACIONAL_AMERICA_1080_URL = (
+    "https://rtvelivestream-rtveplayplus.rtve.es/rtvesec/int/"
+    "tvei_ame_main_1080.m3u8"
+)
+TVE_INTERNACIONAL_AMERICA_576_URL = (
+    "https://rtvelivestream-rtveplayplus.rtve.es/rtvesec/int/"
+    "tvei_ame_main_576.m3u8"
+)
+# RTVE publica dos resoluciones del mismo feed de America. La de 576p sirve
+# como respaldo publico estable si la ruta 1080p falla; ambas se validan hasta
+# el primer segmento antes de usarse o publicarse.
 CHV_PROGRAMMING_PAGE = "https://www.chilevision.cl/page/programacion"
 CHV_OFFICIAL_EPG_SOURCE = "chilevision-oficial"
 LA_RED_PROGRAMMING_PAGE = "https://www.lared.cl/guia-programacion"
@@ -2253,6 +2263,9 @@ KNOWN_STREAM_FALLBACKS = {
         "https://redirector.dps.live/hls/t13/playlist.m3u8",
         "https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd/t13/t13.smil/playlist.m3u8"
     ],
+    "TVE Internacional": [
+        TVE_INTERNACIONAL_AMERICA_576_URL,
+    ],
     "CHV Deportes": [
         # Candidato historico publicado para la senal de Pluto/CHV. Se
         # conserva solo como ultima prueba y nunca sustituye el enlace si no
@@ -2314,6 +2327,7 @@ SEGMENT_CHECK_CHANNELS = {
     "TVN",
     "NTV",
     "TVN3",
+    "TVE Internacional",
     "CHV",
     "CHV Deportes",
     "Mega",

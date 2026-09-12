@@ -209,7 +209,7 @@ class TvnEpgTests(unittest.TestCase):
             root.find("./programme[@channel='0104']").findtext("title"),
         )
 
-    def test_mexico_epgshare_mapping_covers_telehit_and_sony(self) -> None:
+    def test_mexico_epgshare_mapping_covers_telehit(self) -> None:
         self.assertEqual(
             update_m3u.EPG_SOURCES["mx1"],
             "https://epgshare01.online/epgshare01/epg_ripper_MX1.xml.gz",
@@ -218,10 +218,6 @@ class TvnEpgTests(unittest.TestCase):
             update_m3u.EPG_PROGRAMME_SOURCES["TelehitMusica.mx@SD"],
             ("mx1", "Canal.Telehit.Música.mx"),
         )
-        self.assertEqual(
-            update_m3u.EPG_PROGRAMME_SOURCES["SonyChannelAndes.us@SD"],
-            ("mx1", "Canal.Sony.(México).mx"),
-        )
 
     def test_epgshare_scope_skips_feeds_without_catalogue_targets(self) -> None:
         sources = update_m3u.epgshare_source_names_for(
@@ -229,7 +225,6 @@ class TvnEpgTests(unittest.TestCase):
                 channel("TVN", "0104"),
                 channel("La Red", "0102"),
                 channel("Telehit Música", "TelehitMusica.mx@SD"),
-                channel("Sony Channel", "SonyChannelAndes.us@SD"),
             ]
         )
 
@@ -243,7 +238,6 @@ class TvnEpgTests(unittest.TestCase):
         source_root = ET.Element("tv")
         for source_id, title in (
             ("Canal.Telehit.Música.mx", "Top 10"),
-            ("Canal.Sony.(México).mx", "Búsqueda implacable"),
         ):
             ET.SubElement(source_root, "channel", {"id": source_id})
             programme = ET.SubElement(
@@ -265,7 +259,6 @@ class TvnEpgTests(unittest.TestCase):
             {"mx1": ET.tostring(source_root, encoding="utf-8")},
             [
                 channel("Telehit Música", "TelehitMusica.mx@SD"),
-                channel("Sony Channel", "SonyChannelAndes.us@SD"),
             ],
             {},
             now=now,
@@ -279,17 +272,7 @@ class TvnEpgTests(unittest.TestCase):
             "Top 10",
         )
         self.assertEqual(
-            root.find("./programme[@channel='SonyChannelAndes.us@SD']").findtext(
-                "title"
-            ),
-            "Búsqueda implacable",
-        )
-        self.assertEqual(
             status["guide_sources"]["TelehitMusica.mx@SD"],
-            "mx1",
-        )
-        self.assertEqual(
-            status["guide_sources"]["SonyChannelAndes.us@SD"],
             "mx1",
         )
 

@@ -64,6 +64,9 @@ en [RESOLVER_RECIPE_CONTRACT.md](RESOLVER_RECIPE_CONTRACT.md).
 El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
 
 - comprueba los streams, los primeros segmentos multimedia y los logos locales;
+- TVE Internacional conserva su feed oficial de America en 1080p y prueba la
+  variante oficial 576p como respaldo; ambas deben entregar playlist y segmento
+  antes de aceptarse;
 - conserva los maestros originales de los canales cuya autenticacion corresponde
   al reproductor;
 - publica los maestros HLS originales de cada canal, sin wrappers ni variantes
@@ -346,8 +349,8 @@ Argentina, Portugal, Nueva Zelanda, Estados Unidos, Polonia, Letonia, Paises
 Bajos, PLEX1 y PlutoTV, junto con la guia publica
 de Zapping para senales chilenas seleccionadas. El orden es: fuente oficial
 del canal, XMLTV real por pais/proveedor y Zapping u otra fuente secundaria
-real. Telehit Música y Sony Channel usan la fuente EPGShare MX1, con los IDs
-exactos `Canal.Telehit.Música.mx` y `Canal.Sony.(México).mx`. M1, M2 y 13C se
+real. Telehit Música usa la fuente EPGShare MX1 con el ID exacto
+`Canal.Telehit.Música.mx`. M1, M2 y 13C se
 actualizan desde sus parrillas oficiales. La EPG
 construye sus IDs esperados desde `channel-catalog.m3u`: un
 canal que permanezca en la lista externa continua recibiendo EPG y no causa un
