@@ -21,6 +21,12 @@ def channel(name: str, tvg_id: str) -> update_m3u.Channel:
 
 
 class TvnEpgTests(unittest.TestCase):
+    def test_red_bull_spanish_uses_chile_regional_guide(self) -> None:
+        self.assertEqual(
+            "https://www.redbull.tv/es_CL/epg",
+            update_m3u.RED_BULL_SPANISH_EPG_PAGE,
+        )
+
     def test_chv_parser_extracts_official_weekly_cards(self) -> None:
         days = []
         for index, day_name in enumerate(

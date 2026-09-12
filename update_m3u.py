@@ -796,7 +796,10 @@ RED_BULL_SESSION_URL = (
     "https://api.redbull.tv/v3/session?category=smart_tv&os_family=android"
 )
 RED_BULL_OFFICIAL_EPG_URL = "https://api.redbull.tv/v3/epg?complete=true"
-RED_BULL_SPANISH_EPG_PAGE = "https://www.redbull.tv/es/epg"
+# Chile-specific Red Bull TV rail. The generic /es/epg page can expose a
+# different regional schedule; do not use the global v3 EPG as the primary
+# source for RedBullChileEspanol.cl.
+RED_BULL_SPANISH_EPG_PAGE = "https://www.redbull.tv/es_CL/epg"
 # Este relay esta documentado por iptv-org/epg, pero se usa solo como respaldo:
 # su disponibilidad depende de la actualizacion diaria del proveedor.
 RED_BULL_RELAY_EPG_URL = "https://nzxmltv.com/iptv/redbull.xml"
