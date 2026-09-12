@@ -48,6 +48,15 @@ HIGHFLY_STREAM_API_TEMPLATE = (
     "https://sports.highfly.dev/stream/sport/leaf:{slug}.json"
 )
 HIGHFLY_STREAM_ALLOWED_HOSTS = frozenset({"leaf.highfly.dev"})
+# El catalogo publico de Highfly puede describir una hoja Premium sin entregar
+# un HLS reproducible al runner. Es una respuesta esperada para canales que la
+# aplicacion abre con la autorizacion del usuario, no una URL que debamos
+# conservar ni publicar como redireccion.
+HIGHFLY_PREMIUM_LOCK_MARKERS = (
+    "upgrade to premium",
+    "premium required",
+    "only available to premium",
+)
 HIGHFLY_LEAF_ID_PATTERN = re.compile(
     r"^leaf:(?P<slug>[a-z0-9][a-z0-9_-]{1,127})$", re.IGNORECASE
 )
@@ -208,7 +217,10 @@ HIGHFLY_RESOLVER_CHANNELS = {
     "SkySportsF1.uk": "f1-3949409",
     "SkySportsPremierLeague.uk": "pl-434343434",
     "SkySportsTennis.uk": "ten-3930030",
-    "HighflyPremium.now-sky-sports-f1-2": "f-39388833",
+    # Ultimo slug publico conocido. Se reemplaza en cada corrida desde el
+    # catalogo; este valor solo evita volver a publicar el slug retirado si el
+    # catalogo esta temporalmente fuera de servicio.
+    "HighflyPremium.now-sky-sports-f1-2": "f1-93930303",
     "HighflyPremium.4k-sky-sports-main-events": "ml-383892993",
     "ESPN.us": "us-espn-hd-0",
     "ESPN2.us": "us-33323323",
@@ -2555,6 +2567,21 @@ class DynamicRefreshOutcome:
     check_result: CheckResult | None = None
 
 
+class HighflyPremiumRequired(RuntimeError):
+    """Highfly exposes the current leaf but reserves its HLS for Premium.
+
+    The exception carries only the allow-listed leaf fallback. It never stores
+    or exposes an upgrade URL, token, cookie, signature, or session response.
+    """
+
+    def __init__(self, slug: str) -> None:
+        self.slug = slug
+        self.fallback_url = f"https://leaf.highfly.dev/m3u/{slug}/live.m3u8"
+        super().__init__(
+            f"Highfly Premium requiere autorizacion de la aplicacion para {slug}"
+        )
+
+
 @dataclass(frozen=True)
 class LogoResult:
     channel: str
@@ -3702,6 +3729,50 @@ def highfly_slug_for(tvg_id: str | None) -> str | None:
     return HIGHFLY_RUNTIME_RESOLVER_CHANNELS.get(tvg_id) or HIGHFLY_RESOLVER_CHANNELS.get(
         tvg_id
     )
+
+
+def highfly_fallback_url(slug: str) -> str:
+    """Build the token-free compatibility URL for one allow-listed leaf."""
+    if not HIGHFLY_LEAF_ID_PATTERN.fullmatch(f"leaf:{slug}"):
+        raise ValueError("slug Highfly invalido")
+    return f"https://leaf.highfly.dev/m3u/{slug}/live.m3u8"
+
+
+def is_highfly_leaf_url(url: str) -> bool:
+    parsed = urlparse(url)
+    return (
+        parsed.scheme.lower() == "https"
+        and (parsed.hostname or "").lower() in HIGHFLY_STREAM_ALLOWED_HOSTS
+        and parsed.path.lower().startswith("/m3u/")
+        and parsed.path.lower().endswith(".m3u8")
+        and not parsed.query
+        and not parsed.fragment
+    )
+
+
+def sync_highfly_runtime_fallbacks(lines: list[str]) -> bool:
+    """Pin current public leaf fallbacks after the runtime catalog refresh.
+
+    A leaf is only a compatibility fallback. The app resolver remains the
+    canonical playback path and obtains any authorization in memory. Updating
+    the fallback and ``x-resolver-id`` together prevents a stale leaf from
+    being mistaken for the current Premium channel on the next app refresh.
+    """
+    changed = False
+    for channel in parse_channels(lines):
+        if resolver_engine_for(channel) != "highfly":
+            continue
+        slug = highfly_slug_for(channel.tvg_id)
+        if not slug or not is_highfly_leaf_url(channel.url):
+            continue
+        expected_url = highfly_fallback_url(slug)
+        if channel.url != expected_url:
+            lines[channel.url_line] = expected_url
+            changed = True
+            print(
+                f"  [OK] {channel.name}: fallback Highfly actualizado a {slug}"
+            )
+    return changed
 
 
 def refresh_highfly_runtime_catalog() -> dict[str, str]:
@@ -7912,6 +7983,25 @@ def fetch_highfly_manifest() -> dict:
     return payload
 
 
+def highfly_payload_requires_premium(payload: object) -> bool:
+    """Detect a locked Premium leaf without accepting its upgrade URL."""
+    if not isinstance(payload, dict):
+        return False
+    streams = payload.get("streams")
+    if not isinstance(streams, list):
+        return False
+    for stream in streams[:32]:
+        if not isinstance(stream, dict):
+            continue
+        searchable = " ".join(
+            str(stream.get(field, ""))
+            for field in ("name", "title", "description")
+        ).casefold()
+        if any(marker in searchable for marker in HIGHFLY_PREMIUM_LOCK_MARKERS):
+            return True
+    return False
+
+
 def highfly_stream_urls_from_payload(payload: bytes | str | dict) -> list[str]:
     """Extract only playable leaf HLS URLs from one Highfly stream response."""
     decoded: object | None = None
@@ -7970,7 +8060,13 @@ def fetch_highfly_stream_urls_for_slug(slug: str) -> list[str]:
     final_host = (urlparse(final_url).hostname or "").lower()
     if status != 200 or final_host != "sports.highfly.dev":
         raise ValueError("API Highfly no respondio desde el host esperado")
-    return highfly_stream_urls_from_payload(body)
+    try:
+        payload = json.loads(body.decode("utf-8-sig"))
+    except json.JSONDecodeError as error:
+        raise ValueError("respuesta Highfly no es JSON valido") from error
+    if highfly_payload_requires_premium(payload):
+        raise HighflyPremiumRequired(slug)
+    return highfly_stream_urls_from_payload(payload)
 
 
 def fresh_highfly_stream_urls(
@@ -7990,6 +8086,11 @@ def fresh_highfly_stream_urls(
     for candidate_slug in candidate_slugs:
         try:
             fresh_urls = fetch_highfly_stream_urls_for_slug(candidate_slug)
+        except HighflyPremiumRequired:
+            # La hoja actual existe, pero su HLS está reservado a la sesión
+            # Premium de la aplicación. No continuar hacia el leaf antiguo ni
+            # convertir la respuesta de upgrade en un falso fallback.
+            raise
         except Exception:
             continue
         if fresh_urls:
@@ -7999,7 +8100,7 @@ def fresh_highfly_stream_urls(
     # Keep the old contract-compatible URL as a last resort for external
     # players. The channel checker will reject it if Highfly has no worker;
     # this must never hide the API failure or be treated as a fresh success.
-    yield f"https://leaf.highfly.dev/m3u/{slug}/live.m3u8"
+    yield highfly_fallback_url(slug)
 
 
 def load_health_state() -> dict:
@@ -8251,10 +8352,45 @@ def refresh_dynamic_channel(
     state = "OK" if current_result.ok else "FALLO"
     print(f"  [{state}] {channel.name}: {current_result.detail}")
 
+    def premium_managed_outcome(error: HighflyPremiumRequired) -> DynamicRefreshOutcome | None:
+        # Solo las entradas cuyo ID declara Premium pueden quedar a cargo de
+        # VibeM3U. Una respuesta bloqueada de otro canal Highfly sigue siendo
+        # un fallo real y no debe ocultarse del informe.
+        if (
+            resolver_engine_for(channel) != "highfly"
+            or not channel.tvg_id.startswith("HighflyPremium.")
+        ):
+            return None
+        detail = (
+            "hoja Highfly Premium vigente; el HLS publico requiere autorizacion "
+            "de la aplicacion y no se marca como fuente caducada"
+        )
+        print(f"  [APP] {channel.name}: {detail}")
+        return DynamicRefreshOutcome(
+            channel=channel.name,
+            resolver=resolver_engine_for(channel),
+            accepted=True,
+            changed=error.fallback_url != channel.url,
+            skipped=False,
+            detail=detail,
+            resolved_url=error.fallback_url,
+            check_result=CheckResult(
+                channel.name,
+                error.fallback_url,
+                True,
+                detail,
+            ),
+        )
+
     fresh_candidates: Iterable[str] = ()
     try:
         fresh_result = fresh_url_factory()
         fresh_candidates = (fresh_result,) if isinstance(fresh_result, str) else fresh_result
+    except HighflyPremiumRequired as error:
+        premium_outcome = premium_managed_outcome(error)
+        if premium_outcome is not None:
+            return premium_outcome
+        print(f"  [AVISO] {channel.name}: no se pudo renovar el enlace oficial: {error}")
     except Exception as error:
         print(f"  [AVISO] {channel.name}: no se pudo renovar el enlace oficial: {error}")
 
@@ -8317,6 +8453,11 @@ def refresh_dynamic_channel(
             outcome = try_candidate(candidate_url)
             if outcome is not None:
                 return outcome
+    except HighflyPremiumRequired as error:
+        premium_outcome = premium_managed_outcome(error)
+        if premium_outcome is not None:
+            return premium_outcome
+        print(f"  [AVISO] {channel.name}: fallo al leer candidatos renovados: {error}")
     except Exception as error:
         print(f"  [AVISO] {channel.name}: fallo al leer candidatos renovados: {error}")
 
@@ -9259,8 +9400,24 @@ def main() -> int:
             print("Cabecera M3U enlazada a la guia EPG publicada en GitHub")
     news_order_changed = pin_news_channel_order(lines)
     preferred_logo_changed = pin_preferred_logos(lines)
+    highfly_runtime_changed = False
+    if any(
+        channel.tvg_id in HIGHFLY_RESOLVER_CHANNELS
+        for channel in parse_channels(lines)
+    ):
+        # Refrescar antes de escribir los metadatos evita publicar un
+        # x-resolver-id nuevo junto a un fallback leaf ya retirado. El
+        # catalogo solo aporta slugs allow-listed; nunca aporta tokens.
+        refresh_highfly_runtime_catalog()
+        highfly_runtime_changed = sync_highfly_runtime_fallbacks(lines)
     resolver_changed = pin_resolver_metadata(lines)
-    if content_order_changed or news_order_changed or preferred_logo_changed or resolver_changed:
+    if (
+        content_order_changed
+        or news_order_changed
+        or preferred_logo_changed
+        or highfly_runtime_changed
+        or resolver_changed
+    ):
         source_playlist.write_text(
             "\n".join(lines) + "\n", encoding="utf-8", newline="\n"
         )
@@ -9273,10 +9430,9 @@ def main() -> int:
     if load_manual_main_channel_ids(channels, membership_path) != manual_main_ids:
         raise RuntimeError("la membresia manual principal cambio durante la preparacion")
 
-    if any(resolver_engine_for(channel) == "highfly" for channel in channels):
-        # La membresia de Highfly es manual. Solo se refresca el slug efimero
-        # en RAM para que los canales ya seleccionados sigan resolviendo.
-        refresh_highfly_runtime_catalog()
+    # El mapa Highfly ya se actualizo antes de pin_resolver_metadata(). Se
+    # conserva en RAM para que la renovacion y la validacion usen exactamente
+    # los mismos slugs que quedaron en la M3U.
 
     if args.channels_only:
         # The final main-list EPG gate is evaluated after stream maintenance

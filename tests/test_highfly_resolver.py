@@ -78,6 +78,110 @@ class HighflyResolverTest(unittest.TestCase):
             update_m3u.highfly_stream_urls_from_payload(payload),
         )
 
+    def test_highfly_premium_lock_is_detected_without_accepting_upgrade_url(self) -> None:
+        payload = {
+            "streams": [
+                {
+                    "name": "\U0001f512 Leaf · (4K) : SKY SPORTS F1",
+                    "title": "3840x2160 · Upgrade to Premium",
+                    "url": "https://www.google.com/",
+                    "behaviorHints": {"notWebReady": True},
+                }
+            ]
+        }
+
+        self.assertTrue(update_m3u.highfly_payload_requires_premium(payload))
+        self.assertEqual([], update_m3u.highfly_stream_urls_from_payload(payload))
+
+        with patch.object(
+            update_m3u,
+            "fetch_bytes",
+            return_value=(
+                200,
+                json.dumps(payload).encode("utf-8"),
+                "https://sports.highfly.dev/stream/sport/leaf:f1-93930303.json",
+            ),
+        ):
+            with self.assertRaises(update_m3u.HighflyPremiumRequired) as raised:
+                update_m3u.fetch_highfly_stream_urls_for_slug("f1-93930303")
+
+        self.assertEqual(
+            "https://leaf.highfly.dev/m3u/f1-93930303/live.m3u8",
+            raised.exception.fallback_url,
+        )
+
+    def test_runtime_catalog_updates_highfly_leaf_fallback(self) -> None:
+        lines = [
+            "#EXTM3U",
+            '#EXTINF:-1 tvg-id="HighflyPremium.now-sky-sports-f1-2" x-resolver="highfly",Sky Sports F1 UHD',
+            "https://leaf.highfly.dev/m3u/f-39388833/live.m3u8",
+        ]
+
+        with patch.dict(
+            update_m3u.HIGHFLY_RUNTIME_RESOLVER_CHANNELS,
+            {"HighflyPremium.now-sky-sports-f1-2": "f1-93930303"},
+            clear=True,
+        ):
+            changed = update_m3u.sync_highfly_runtime_fallbacks(lines)
+
+        self.assertTrue(changed)
+        self.assertEqual(
+            "https://leaf.highfly.dev/m3u/f1-93930303/live.m3u8",
+            lines[2],
+        )
+
+    def test_premium_leaf_is_app_managed_after_catalog_lock(self) -> None:
+        payload = {
+            "streams": [
+                {
+                    "name": "\U0001f512 Leaf · (4K) : SKY SPORTS F1",
+                    "title": "3840x2160 · Upgrade to Premium",
+                    "url": "https://www.google.com/",
+                }
+            ]
+        }
+        channel = update_m3u.Channel(
+            name="Sky Sports F1 UHD",
+            url="https://leaf.highfly.dev/m3u/f-39388833/live.m3u8",
+            url_line=0,
+            info_line=0,
+            tvg_id="HighflyPremium.now-sky-sports-f1-2",
+            display_name="Sky Sports F1 UHD",
+        )
+        current = update_m3u.CheckResult(
+            channel.name, channel.url, False, "HTTP 404 Not Found"
+        )
+        with patch.dict(
+            update_m3u.HIGHFLY_RUNTIME_RESOLVER_CHANNELS,
+            {"HighflyPremium.now-sky-sports-f1-2": "f1-93930303"},
+            clear=True,
+        ), patch.object(
+            update_m3u,
+            "fetch_bytes",
+            return_value=(
+                200,
+                json.dumps(payload).encode("utf-8"),
+                "https://sports.highfly.dev/stream/sport/leaf:f1-93930303.json",
+            ),
+        ):
+            outcome = update_m3u.refresh_dynamic_channel(
+                channel,
+                lambda: update_m3u.fresh_highfly_stream_urls(
+                    channel, manifest_verified=True
+                ),
+                running_in_ci=True,
+                current_result=current,
+            )
+
+        self.assertTrue(outcome.accepted)
+        self.assertTrue(outcome.changed)
+        self.assertIsNotNone(outcome.check_result)
+        self.assertTrue(outcome.check_result.ok)
+        self.assertEqual(
+            "https://leaf.highfly.dev/m3u/f1-93930303/live.m3u8",
+            outcome.resolved_url,
+        )
+
     def test_fresh_highfly_uses_runtime_slug_and_stream_api(self) -> None:
         channel = update_m3u.Channel(
             name="Sky Sports F1",

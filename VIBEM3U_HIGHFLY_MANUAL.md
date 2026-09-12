@@ -19,7 +19,7 @@ La lista principal conserva estas siete identidades:
 | `tvg-id` | Nombre | `x-resolver-id` |
 |---|---|---|
 | `SkySportsF1.uk` | Sky Sports F1 | `f1-3949409` |
-| `HighflyPremium.now-sky-sports-f1-2` | Sky Sports F1 UHD | `f-39388833` |
+| `HighflyPremium.now-sky-sports-f1-2` | Sky Sports F1 UHD | `f1-93930303` |
 | `SkySportsTennis.uk` | Sky Sports Tennis | `ten-3930030` |
 | `HighflyPremium.4k-sky-sports-main-events` | Sky Sports Main Event UHD | `ml-383892993` |
 | `SkySportsPremierLeague.uk` | Sky Sports Premier League | `pl-434343434` |
@@ -35,9 +35,17 @@ temporal al terminar o al recibir un rechazo.
 
 El actualizador consulta el catálogo público
 `https://sports.highfly.dev/catalog/sport/sports_live.json` únicamente para
-obtener slugs actuales en memoria. La consulta no agrega canales, no elimina
-miembros manuales y no publica eventos `streamed:`. Si el catálogo falla, se
-usan los slugs estáticos conocidos y la lista no se reescribe.
+obtener slugs actuales y sincronizar, en conjunto, el `x-resolver-id` y la URL
+HLS de respaldo sin token. La consulta no agrega canales, no elimina miembros
+manuales y no publica eventos `streamed:`. Si el catálogo falla, se usan los
+slugs estáticos conocidos y no se reemplaza una fuente por una URL de upgrade.
+
+Una hoja que el catálogo describe como `Upgrade to Premium` no es una fuente
+caducada: el endpoint público devuelve una oferta de autorización, no un HLS.
+El actualizador conserva la identidad y el fallback de hoja allow-listed,
+marca la entrada como gestionada por la aplicación y deja que VibeM3U resuelva
+la reproducción con la autorización Premium en memoria. Nunca se guarda la
+URL de upgrade, token, cookie, firma ni respuesta de sesión.
 
 Para añadir otra señal Highfly, la decisión es manual: primero se verifica la
 fuente, se elige un `tvg-id` estable, se configura el logo y la EPG, y luego se
