@@ -292,9 +292,11 @@ reparto manual salvo el traslado automático y reversible de 13C.
 
 La lista externa conserva todos los canales directos. Para los candidatos con
 `x-resolver="tvvoo"`, la política de publicación de la lista 2 conserva solo
-las familias Sky, Eurosport, ESPN y TNT Sports y excluye todas las entradas con
-aliases `|group:ar`, incluidas las que no muestran la etiqueta `[TvVoo ar]` en
-el nombre. El grupo `ar` no se borra
+las señales deportivas de Sky (incluidas `Sky Sport`, `Sky Sports` y `Sky Super
+Tennis`), Eurosport, ESPN y TNT Sports. Por tanto, Sky Cinema, Sky Nature, Sky
+Documentaries y Sky News quedan fuera de la salida externa. También excluye
+todas las entradas con aliases `|group:ar`, incluidas las que no muestran la
+etiqueta `[TvVoo ar]` en el nombre. El grupo `ar` no se borra
 del `channel-catalog.m3u`: quedan fuera de `m3u-externa.m3u` y `2.m3u`, pero
 siguen disponibles para EPG, validación y una futura revisión de selección.
 

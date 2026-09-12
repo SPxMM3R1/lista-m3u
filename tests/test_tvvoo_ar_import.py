@@ -57,6 +57,42 @@ class TvVooArImportTests(unittest.TestCase):
             self.assertEqual(updater.external_available_ids_from_health([ar], {ar.tvg_id}, {}), frozenset())
             self.assertEqual(updater.external_available_ids_from_health([ar], {ar.tvg_id}, {"channels": {ar.tvg_id: {"status": "functional"}}}), {ar.tvg_id})
 
+    def test_external_sky_filter_keeps_sports_and_excludes_other_brands(self):
+        sports = updater.Channel(
+            name="Sky Sport F1 Germany",
+            tvg_id="SkySportF1.de@TvVoo",
+            url="https://example.invalid",
+            url_line=0,
+        )
+        super_tennis = updater.Channel(
+            name="Sky Super Tennis Italia",
+            tvg_id="Vavoo.it.SKYSUPERTENNIS@TvVoo",
+            url="https://example.invalid",
+            url_line=0,
+        )
+        cinema = updater.Channel(
+            name="Sky Cinema Action Reino Unido",
+            tvg_id="Vavoo.uk.SKYCINEMAACTION@TvVoo",
+            url="https://example.invalid",
+            url_line=0,
+        )
+        news = updater.Channel(
+            name="Sky News Reino Unido",
+            tvg_id="Vavoo.uk.SKYNEWS@TvVoo",
+            url="https://example.invalid",
+            url_line=0,
+        )
+        with patch.object(updater, "TVVOO_STREAM_RESOLVER_IDS", {
+            sports.name: ("sky_sport_f1%7Cgroup%3Ade",),
+            super_tennis.name: ("sky_super_tennis%7Cgroup%3Ait",),
+            cinema.name: ("sky_cinema%7Cgroup%3Auk",),
+            news.name: ("sky_news%7Cgroup%3Auk",),
+        }):
+            self.assertTrue(updater.external_vavoo_channel_is_allowed(sports))
+            self.assertTrue(updater.external_vavoo_channel_is_allowed(super_tennis))
+            self.assertFalse(updater.external_vavoo_channel_is_allowed(cinema))
+            self.assertFalse(updater.external_vavoo_channel_is_allowed(news))
+
 
 if __name__ == "__main__":
     unittest.main()

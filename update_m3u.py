@@ -80,13 +80,19 @@ MAIN_PLAYLIST_RESOLVERS = frozenset({"direct", "tvn", "meganoticias"})
 EXTERNAL_PLAYLIST_RESOLVERS = frozenset({"tvvoo", "highfly"})
 # La lista 2 conserva todas las fuentes directas y los resolutores que no son
 # TvVoo. Para TvVoo solo se publican las familias solicitadas para pruebas:
-# Sky, Eurosport, ESPN y TNT Sports. El grupo ``ar`` queda fuera de la salida
-# publica aunque sus identidades se mantengan en el catalogo interno para
-# reintentos o una futura seleccion manual. El filtro usa el ID y el nombre
-# porque los aliases de Vavoo pueden cambiar de idioma o de pais sin cambiar
-# la senal logica.
+# Sky deportivo, Eurosport, ESPN y TNT Sports. El grupo ``ar`` queda fuera de
+# la salida publica aunque sus identidades se mantengan en el catalogo interno
+# para reintentos o una futura seleccion manual. El filtro usa el ID y el
+# nombre porque los aliases de Vavoo pueden cambiar de idioma o de pais sin
+# cambiar la senal logica.
+SKY_SPORTS_BRAND_PATTERN = re.compile(
+    r"(?<![a-z])sky[\s._-]*(?:sports?|super[\s._-]*tennis|"
+    r"f1|formula[\s._-]*1|motogp|calcio|football|golf|nba|cricket|"
+    r"racing|premier[\s._-]*league|bundesliga)",
+    re.IGNORECASE,
+)
 EXTERNAL_VAVOO_ALLOWED_BRAND_PATTERNS = (
-    re.compile(r"(?<![a-z])sky", re.IGNORECASE),
+    SKY_SPORTS_BRAND_PATTERN,
     re.compile(r"(?<![a-z])eurosport", re.IGNORECASE),
     re.compile(r"(?<![a-z])espn", re.IGNORECASE),
     re.compile(r"(?<![a-z])tnt[\s._-]*sports", re.IGNORECASE),
@@ -3121,7 +3127,10 @@ def external_vavoo_channel_is_allowed(channel: Channel) -> bool:
         for value in (channel.tvg_id, channel.name, channel.display_name)
         if value
     )
-    return any(pattern.search(searchable) for pattern in EXTERNAL_VAVOO_ALLOWED_BRAND_PATTERNS)
+    return any(
+        pattern.search(searchable)
+        for pattern in EXTERNAL_VAVOO_ALLOWED_BRAND_PATTERNS
+    )
 
 
 def external_publication_channel_ids(
