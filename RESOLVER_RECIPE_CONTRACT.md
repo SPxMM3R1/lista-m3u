@@ -11,7 +11,8 @@ clases Android ni mezclar commits.
 
 - Lista principal manual: `m3u.m3u` y su alias `1.m3u`.
 - Lista externa: `m3u-externa.m3u` y su alias `2.m3u`.
-- Lista opcional Highfly Premium: `3.m3u`.
+- Los canales Highfly seleccionados manualmente pertenecen a la lista principal;
+  no existe una tercera lista publicada.
 - Inventario completo: `channel-catalog.m3u`.
 - Configuración declarativa: `resolver-catalog.json`.
 - Identidades descubiertas de TvVoo: `tvvoo-discovered.json`.
@@ -24,12 +25,13 @@ fuentes directas y, entre las fuentes TvVoo, solo Sky, Eurosport, ESPN y TNT
 Sports. Los demás candidatos siguen en `channel-catalog.m3u` para validación y
 EPG, aunque no se publiquen en `m3u-externa.m3u`/`2.m3u`.
 
-`3.m3u` no es una promoción automática de la lista principal ni de la externa.
-Es una fuente opcional que VibeM3U puede activar o desactivar por separado para
-las señales estables del catálogo Highfly. Sus entradas conservan solamente el
-identificador `leaf:<slug>`, el manifiesto público final y una URL HLS de
-respaldo sin credenciales. El token Premium se configura y se mantiene en la
-aplicación; no se publica en este repositorio.
+Highfly no tiene una salida automática independiente. Cuando una señal Highfly
+se selecciona, se agrega manualmente a `m3u.m3u`/`1.m3u` con su `tvg-id` estable,
+`x-resolver="highfly"`, `x-resolver-id`, `x-resolver-manifest` y
+`x-resolver-refresh="on_play"`. El catálogo público de Highfly solo sirve para
+actualizar en memoria el slug que rota; no cambia la membresía de la lista,
+no publica eventos temporales y no guarda credenciales. El token Premium se
+configura y se mantiene en VibeM3U.
 
 ## Metadatos TvVoo obligatorios
 

@@ -25,16 +25,14 @@ canónicas. Al estar dentro del repositorio público, usan HTTPS y no tienen un
 TTL de acortador; seguirán disponibles mientras se conserve este repositorio y
 su rama `main`.
 
-Lista 3 opcional de Highfly Premium (canales estables):
-
-`https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/3.m3u`
-
-`3.m3u` es una tercera fuente independiente. VibeM3U puede activarla o
-desactivarla sin modificar ni mezclar `m3u.m3u`/`1.m3u` con
-`m3u-externa.m3u`/`2.m3u`. Publica únicamente identificadores estables
-`leaf:<slug>` y una URL HLS sin autorización como respaldo; el token o la
-configuración Premium se introducen localmente en VibeM3U y nunca se guardan en
-este repositorio ni en la M3U.
+Highfly ya no se publica como una tercera lista. Sus canales seleccionados se
+incorporan manualmente a la lista principal (`m3u.m3u`/`1.m3u`) y conservan
+`x-resolver="highfly"`, `x-resolver-id`, `x-resolver-manifest` y
+`x-resolver-refresh="on_play"`. La credencial Premium, si corresponde, se
+configura únicamente en VibeM3U; nunca se guarda en este repositorio ni en la
+M3U. El catálogo público de Highfly solo se consulta durante una corrida para
+renovar en memoria los slugs de esos canales manuales y no modifica la
+membresía de ninguna lista.
 
 Guia de programacion XMLTV:
 
@@ -142,10 +140,10 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
   candidatos nuevos, valida su HLS y publica el enlace que respondió. Las
   respuestas de upgrade de Google, URLs de evento y hosts fuera de la lista
   permitida se descartan;
-- sincroniza `3.m3u` desde el catálogo público de Highfly, pero solo conserva
-  entradas estables `leaf:`; ignora eventos temporales `streamed:` y no copia
-  URLs firmadas, tokens ni posters del proveedor. La lista 3 se puede cargar o
-  desactivar de forma independiente en el reproductor;
+- consulta el catálogo público de Highfly únicamente para renovar en memoria
+  los slugs `leaf:` de canales Highfly que ya fueron seleccionados manualmente
+  en la lista 1; ignora eventos temporales `streamed:` y no copia URLs firmadas,
+  tokens ni posters del proveedor;
 - prioriza la guia oficial de Canal 13 para 13C, manteniendola separada de
   13 Cultura; si la pagina oficial no entrega bloques vigentes, usa Zapping
   como respaldo por canal;
@@ -278,9 +276,9 @@ El orden tematico se construye siempre desde `channel-catalog.m3u`, que
 conserva todos los candidatos. `m3u.m3u` contiene la selección manual ya
 probada; `m3u-externa.m3u` contiene el complemento publicable aún no promovido.
 Ambas salidas filtran el mismo catalogo sin alterar la posicion relativa de los
-canales. `3.m3u` es una salida separada para las señales estables de Highfly
-Premium y no participa en el reparto manual de las listas 1 y 2. La salud no
-cambia el reparto manual salvo el traslado automático y reversible de 13C.
+canales. No existe una tercera salida: las señales Highfly que se quieran
+conservar se agregan manualmente a `m3u.m3u`/`1.m3u`. La salud no cambia el
+reparto manual salvo el traslado automático y reversible de 13C.
 
 La lista externa conserva todos los canales directos. Para los candidatos con
 `x-resolver="tvvoo"`, la política de publicación de la lista 2 conserva solo
