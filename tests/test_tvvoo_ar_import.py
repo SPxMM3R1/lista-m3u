@@ -42,7 +42,7 @@ class TvVooArImportTests(unittest.TestCase):
         self.assertEqual(stats["existing"], 1)
         self.assertEqual(after, catalog)
 
-    def test_ar_exception_is_scoped_and_still_requires_availability(self):
+    def test_ar_group_is_excluded_from_public_list_but_kept_for_retry(self):
         ar = updater.Channel(name="TRT ar", tvg_id="Vavoo.ar.TRT@TvVoo", url="https://example.invalid", url_line=0)
         other = updater.Channel(name="TRT de", tvg_id="Vavoo.de.TRT@TvVoo", url="https://example.invalid", url_line=0)
         with patch.object(updater, "TVVOO_STREAM_RESOLVER_IDS", {
@@ -51,7 +51,7 @@ class TvVooArImportTests(unittest.TestCase):
         }):
             self.assertFalse(updater.is_permanently_removed_channel(ar))
             self.assertTrue(updater.is_permanently_removed_channel(other))
-            self.assertTrue(updater.external_vavoo_channel_is_allowed(ar))
+            self.assertFalse(updater.external_vavoo_channel_is_allowed(ar))
             self.assertFalse(updater.external_vavoo_channel_is_allowed(other))
             self.assertEqual(updater.external_publication_channel_ids([ar], {ar.tvg_id}, set()), frozenset())
             self.assertEqual(updater.external_available_ids_from_health([ar], {ar.tvg_id}, {}), frozenset())

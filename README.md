@@ -100,10 +100,12 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
   se deduplican antes de construir la EPG;
 - incorpora candidatos de noticias, deportes, música/conciertos, películas y
    adultos desde los catálogos JSON públicos de TvVoo, manteniendo un solo canal
-   lógico por señal y sus aliases estables por país. Los adultos solo se
-   publican en la lista externa y se muestran bajo `PRUEBA - Adultos`; nunca se
-   descartan por su temática ni por falta de un logo seguro (en ese caso quedan
-   sin logo). Las películas se marcan como subtituladas solo si
+   lógico por señal y sus aliases estables por país. El grupo TvVoo `ar` se
+   conserva en `channel-catalog.m3u` como inventario de reintento, pero queda
+   excluido de la lista externa hasta una selección manual explícita. Las
+   señales adultas no se eliminan del catálogo por su temática ni por falta de
+   un logo seguro (en ese caso quedan sin logo). Las películas se marcan como
+   subtituladas solo si
    el propio catálogo aporta una señal explícita como VOST o subtítulos; no se
    inventa una guía ni un idioma. Su lista depende de la
    promoción manual, no del resultado de cada chequeo, y todas permanecen en
@@ -208,7 +210,9 @@ agrupa variantes de calidad y conserva también los canales sin logo. El grupo
 del proveedor mezcla señales de varios países; no se marca como Argentina.
 La capacidad del archivo de identidades es 2.000; la selección automática
 general mantiene su límite de 240. Las altas contienen aliases estables, no
-enlaces de sesión, y esperan la validación de canales para aparecer en lista 2.
+enlaces de sesión, y esperan la validación y la política de publicación para
+aparecer en lista 2; el grupo `ar` permanece deliberadamente fuera de esa
+salida pública.
 
 El coordinador `run_m3u_6h.py` conserva `run-state.json`; el coordinador
 `run_epg_6h.py` conserva `epg-run-state.json`. Las ventanas locales de Chile
@@ -288,8 +292,9 @@ reparto manual salvo el traslado automático y reversible de 13C.
 
 La lista externa conserva todos los canales directos. Para los candidatos con
 `x-resolver="tvvoo"`, la política de publicación de la lista 2 conserva solo
-las familias Sky, Eurosport, ESPN y TNT Sports, además de todo el grupo `ar`
-solicitado expresamente. Los demás Vavoo no se borran
+las familias Sky, Eurosport, ESPN y TNT Sports y excluye todas las entradas con
+aliases `|group:ar`, incluidas las que no muestran la etiqueta `[TvVoo ar]` en
+el nombre. El grupo `ar` no se borra
 del `channel-catalog.m3u`: quedan fuera de `m3u-externa.m3u` y `2.m3u`, pero
 siguen disponibles para EPG, validación y una futura revisión de selección.
 
