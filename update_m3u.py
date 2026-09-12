@@ -1652,7 +1652,7 @@ PREFERRED_LOGOS = {
     "M1": f"{LOCAL_LOGOS_PUBLIC_BASE}/m1.png",
     "M2": f"{LOCAL_LOGOS_PUBLIC_BASE}/m2.png",
     "13 Go": f"{LOCAL_LOGOS_PUBLIC_BASE}/13go-mosca.png",
-    "13 Cultura": f"{LOCAL_LOGOS_PUBLIC_BASE}/13cultura.svg",
+    "13 Cultura": f"{LOCAL_LOGOS_PUBLIC_BASE}/13cultura.png",
     "13C": f"{LOCAL_LOGOS_PUBLIC_BASE}/13c.png",
     "RWND": f"{LOCAL_LOGOS_PUBLIC_BASE}/rewind-v2.png",
     "BBC Earth FAST": f"{LOCAL_LOGOS_PUBLIC_BASE}/bbc-earth-2023-i.svg",
