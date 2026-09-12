@@ -12,12 +12,21 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
+    env:
+      # Use the Python tzdata package so America/Santiago follows DST even if
+      # the runner image has an older system timezone database.
+      PYTHONTZPATH: ""
+      EPG_FORCE_REFRESH: "true"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Instalar datos de zona horaria
+        run: python -m pip install --disable-pip-version-check --no-input tzdata
+      - name: Comprobar zona horaria de Chile
+        run: python -c "from datetime import datetime, timezone; from zoneinfo import ZoneInfo; now=datetime.now(timezone.utc).astimezone(ZoneInfo('America/Santiago')); print(now.isoformat()); assert now.utcoffset() is not None"
       - run: python -m unittest discover -s tests -p "test_*.py"
-      - run: python run_epg_6h.py --executor github
+      - run: python run_epg_6h.py --executor github --force
       - run: python publish_epg.py
       - run: sleep 15

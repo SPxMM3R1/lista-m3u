@@ -85,6 +85,11 @@ def is_due(state: dict, current: datetime, force: bool) -> bool:
     return current >= next_scheduled_at(state, current)
 
 
+def force_requested(args: argparse.Namespace) -> bool:
+    """Treat the CI refresh flag as a coordinator force, not only an updater flag."""
+    return args.force or os.environ.get("EPG_FORCE_REFRESH", "").lower() == "true"
+
+
 def write_state(current: datetime, executor: str, next_run: datetime) -> None:
     state = {
         "schema": 2,
@@ -135,7 +140,8 @@ def main() -> int:
     if previous:
         print(f"Ultima EPG publicada: {timestamp(previous)}")
     next_at = next_scheduled_at(state, current)
-    due = is_due(state, current, args.force)
+    force = force_requested(args)
+    due = is_due(state, current, force)
     write_github_output("due", "true" if due else "false")
     write_github_output("next_scheduled_at", timestamp(next_at))
     if not due:
