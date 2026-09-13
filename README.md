@@ -162,11 +162,20 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
 - usa la página oficial de programación de Chilevisión para CHV, con los
   bloques semanales convertidos a XMLTV; si esa página falla, conserva el
   respaldo normal por canal sin mezclar la guía de CHV con otra señal;
-- usa la página oficial de DW English para `DWEnglish.de`. La entrada `dwe` de
-  Zapping queda como primer fallback agregado porque entrega títulos en inglés;
-  el feed letón que solo dice “programa no disponible” no se usa. `DW-TV.fr`
-  queda como respaldo XMLTV final cuando la página oficial y Zapping no
-  entregan una ventana suficiente;
+- usa las páginas oficiales separadas de DW Español (`DW.de`) y DW English
+  (`DWEnglish.de`). `DW.de` no se asocia al registro ambiguo
+  `Deutsche.Welle.es` de EPGShare, porque puede entregar la parrilla
+  internacional en inglés; si la página oficial en español falla, se conserva
+  el canal y se genera solo `Live` técnico, sin reciclar esa guía incorrecta.
+  Para `DWEnglish.de`, la entrada `dwe` de Zapping queda como primer fallback
+  agregado porque entrega títulos en inglés; el feed letón que solo dice
+  “programa no disponible” no se usa. `DW-TV.fr` queda como respaldo XMLTV
+  final cuando la página oficial y Zapping no entregan una ventana suficiente;
+- Red Bull Español se consulta exclusivamente en la página regional oficial
+  `https://www.redbull.tv/es_CL/epg`. La API global no se usa como fallback para
+  ese canal, porque puede devolver una parrilla de otra región; si la página
+  regional falla, se deja continuidad técnica en vez de publicar una guía
+  incorrecta.
 - mantiene Premier Sports 1 y Premier Sports 2 desde los resolutores JSON
   publicos de TvVoo, con renovacion cada 6 horas y guia UK1 real;
 - resuelve las señales nacionales en este orden: adaptador oficial del canal

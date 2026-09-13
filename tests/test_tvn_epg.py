@@ -27,6 +27,55 @@ class TvnEpgTests(unittest.TestCase):
             update_m3u.RED_BULL_SPANISH_EPG_PAGE,
         )
 
+    def test_red_bull_spanish_does_not_fallback_to_global_api(self) -> None:
+        now = datetime(2026, 9, 12, 20, tzinfo=timezone.utc)
+        with patch.object(
+            update_m3u,
+            "red_bull_page_schedule",
+            side_effect=RuntimeError("pagina regional no disponible"),
+        ), patch.object(update_m3u, "red_bull_api_schedule") as global_api:
+            schedules, sources, errors = update_m3u.fetch_red_bull_schedules(
+                {update_m3u.RED_BULL_CHILE_ID}, now
+            )
+
+        self.assertEqual({}, schedules)
+        self.assertEqual(set(), sources)
+        self.assertIn(
+            f"red_bull:{update_m3u.RED_BULL_CHILE_ID}",
+            errors,
+        )
+        global_api.assert_not_called()
+
+    def test_red_bull_spanish_schedule_is_marked_as_regional_official(self) -> None:
+        now = datetime(2026, 9, 12, 20, tzinfo=timezone.utc)
+        cards = [
+            {
+                "start_time": (now + timedelta(minutes=index * 30)).isoformat(),
+                "end_time": (now + timedelta(minutes=(index + 1) * 30)).isoformat(),
+                "title": f"Batalla oficial {index}",
+                "lang": "es",
+            }
+            for index in range(5)
+        ]
+        output, status = update_m3u.build_epg(
+            {},
+            [channel("Red Bull TV Español", update_m3u.RED_BULL_CHILE_ID)],
+            {update_m3u.RED_BULL_CHILE_ID: cards},
+            now=now,
+        )
+
+        root = ET.fromstring(output)
+        programme_titles = [
+            element.text
+            for element in root.findall("programme/title")
+            if element.text
+        ]
+        self.assertIn("Batalla oficial 0", programme_titles)
+        self.assertEqual(
+            "red-bull-es-oficial-page",
+            status["guide_sources"][update_m3u.RED_BULL_CHILE_ID],
+        )
+
     def test_chv_parser_extracts_official_weekly_cards(self) -> None:
         days = []
         for index, day_name in enumerate(
@@ -150,6 +199,60 @@ class TvnEpgTests(unittest.TestCase):
             "DW News: World Update 0",
             root.find("./programme").findtext("title"),
         )
+
+    def test_dw_spanish_uses_official_spanish_schedule_not_international_epg(self) -> None:
+        self.assertNotIn("DW.de", update_m3u.EPG_PROGRAMME_SOURCES)
+        now = datetime(2026, 8, 24, 12, tzinfo=timezone.utc)
+        records = []
+        for index in range(5):
+            start = now + timedelta(hours=index)
+            stop = start + timedelta(hours=1)
+            records.append(
+                "{"
+                f'"startDate":"{start.strftime("%Y-%m-%dT%H:%M:%SZ")}",'
+                f'"endDate":"{stop.strftime("%Y-%m-%dT%H:%M:%SZ")}",'
+                '"program":{"name":"DW NOTICIAS"},'
+                f'"programElement":{{"name":"ACTUALIDAD LATINOAMERICANA {index}"}}'
+                "}"
+            )
+        html = "<script>" + ",".join(records) + "</script>"
+
+        with patch.object(
+            update_m3u,
+            "fetch_bytes",
+            return_value=(
+                200,
+                html.encode("utf-8"),
+                update_m3u.DW_SPANISH_PROGRAMMING_PAGE,
+            ),
+        ):
+            official, error = update_m3u.fetch_dw_spanish_official_epg(
+                [channel("DW Español", "DW.de")], now
+            )
+
+        self.assertIsNone(error)
+        self.assertIsNotNone(official)
+        output, status = update_m3u.build_epg(
+            {update_m3u.DW_SPANISH_OFFICIAL_EPG_SOURCE: official},
+            [channel("DW Español", "DW.de")],
+            {},
+            now=now,
+        )
+        root = ET.fromstring(output)
+        titles = [
+            item.findtext("title", "")
+            for item in root.findall("./programme[@channel='DW.de']")
+        ]
+        self.assertIn(
+            "DW Noticias: Actualidad Latinoamericana 0",
+            titles,
+        )
+        self.assertNotIn("The Day", titles)
+        self.assertEqual(
+            update_m3u.DW_SPANISH_OFFICIAL_EPG_SOURCE,
+            root.find("./channel[@id='DW.de']").get("data-guide-source"),
+        )
+        self.assertGreater(status["programmes"], 0)
 
     def test_dw_english_uses_zapping_dwe_when_official_is_unavailable(self) -> None:
         self.assertEqual("dwe", update_m3u.ZAPPING_EPG_CHANNELS["DWEnglish.de"])

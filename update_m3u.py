@@ -570,7 +570,6 @@ EPG_PROGRAMME_SOURCES = {
     "0106": ("cl", "Canal.Chilevisi\u00f3n.(CHV).cl"),
     "0107": ("cl", "Canal.13.de.Chile.cl"),
     "0201": ("cl", "Canal.24.Horas.(Chile).cl"),
-    "DW.de": ("es", "Deutsche.Welle.es"),
     "France24.fr": ("fr", "France.24.Espanol.fr"),
     "EuronewsSpanish.fr": ("es", "Euronews.es"),
     "AlJazeera.qa": ("es", "Al.Jazeera.English.es"),
@@ -908,6 +907,8 @@ CANAL13_13C_PROGRAMMING_PAGE = "https://www.13.cl/c/programacion"
 CANAL13_13C_OFFICIAL_EPG_SOURCE = "canal13-13c-oficial"
 DW_ENGLISH_PROGRAMMING_PAGE = "https://www.dw.com/en/live-tv/channel-english"
 DW_ENGLISH_OFFICIAL_EPG_SOURCE = "dw-english-oficial"
+DW_SPANISH_PROGRAMMING_PAGE = "https://www.dw.com/es/live-tv/channel-spanish"
+DW_SPANISH_OFFICIAL_EPG_SOURCE = "dw-espanol-oficial"
 TVVOO_STREAM_BASE_URL = "https://tvvoo.hayd.uk/stream/tv"
 # El relay publico de Highfly puede responder con un certificado vencido aun
 # cuando el mismo HLS entrega playlist y segmentos. La excepcion queda
@@ -4490,15 +4491,14 @@ def fetch_red_bull_schedules(
                 source_names.add("red-bull-es-oficial-page")
                 continue
             except Exception as page_error:
-                try:
-                    schedules[channel_id] = red_bull_api_schedule(locale)
-                    source_names.add("red-bull-oficial-fallback")
-                    continue
-                except Exception as official_error:
-                    errors[f"red_bull:{channel_id}"] = (
-                        f"pagina: {page_error}; API: {official_error}"
-                    )
-                    continue
+                # La API v3 es global y no representa necesariamente la rail
+                # regional que ve el usuario en es_CL/epg. No la usamos como
+                # fallback para evitar publicar una parrilla de otro país o
+                # de Red Bull World bajo la identidad española.
+                errors[f"red_bull:{channel_id}"] = (
+                    f"pagina oficial regional: {page_error}"
+                )
+                continue
         try:
             schedules[channel_id] = red_bull_api_schedule(locale)
             source_names.add("red-bull-oficial")
@@ -5180,6 +5180,65 @@ def fetch_dw_english_official_epg(
             ET.SubElement(programme, "title", {"lang": "en"}).text = title
             ET.SubElement(programme, "desc", {"lang": "en"}).text = (
                 "Programacion oficial consultada en DW English."
+            )
+        return ET.tostring(root, encoding="utf-8", xml_declaration=True), None
+    except Exception as error:
+        return None, f"{type(error).__name__}: {error}"
+
+
+def fetch_dw_spanish_official_epg(
+    channels: list[Channel], now: datetime
+) -> tuple[bytes | None, str | None]:
+    """Import DW Español's official schedule without the DW International feed."""
+    if not any(channel.tvg_id == "DW.de" for channel in channels):
+        return None, None
+    headers = {
+        "User-Agent": BROWSER_USER_AGENT,
+        "Accept": "text/html,application/xhtml+xml,*/*;q=0.8",
+        "Accept-Language": "es-CL,es;q=0.9,en;q=0.8",
+        "Referer": DW_SPANISH_PROGRAMMING_PAGE,
+    }
+    try:
+        status, body, _ = fetch_bytes(
+            DW_SPANISH_PROGRAMMING_PAGE,
+            headers,
+            timeout=60,
+            limit=20_000_000,
+        )
+        if status != 200:
+            raise ValueError(f"HTTP {status}")
+        slots = dw_english_schedule_slots(decode_web_text(body))
+        current_slots = [
+            slot
+            for slot in slots
+            if slot[1] > now - timedelta(hours=6)
+            and slot[0] < now + timedelta(days=2)
+        ]
+        if len(current_slots) < 5:
+            raise ValueError("DW Español no publico suficientes bloques oficiales")
+        if max(slot[1] for slot in current_slots) < now + timedelta(hours=4):
+            raise ValueError("DW Español no publico una ventana futura util")
+
+        root = ET.Element(
+            "tv",
+            {
+                "generator-info-name": "lista-m3u DW Español importer",
+                "source-info-name": DW_SPANISH_PROGRAMMING_PAGE,
+            },
+        )
+        for start, stop, title in current_slots:
+            programme = ET.SubElement(
+                root,
+                "programme",
+                {
+                    "start": xmltv_format(start),
+                    "stop": xmltv_format(stop),
+                    "channel": "DW.de",
+                },
+            )
+            ET.SubElement(programme, "title", {"lang": "es"}).text = title
+            ET.SubElement(programme, "desc", {"lang": "es"}).text = (
+                "Programacion oficial consultada en DW Español."
             )
         return ET.tostring(root, encoding="utf-8", xml_declaration=True), None
     except Exception as error:
@@ -6891,6 +6950,11 @@ def build_epg(
         source_lookup[(DW_ENGLISH_OFFICIAL_EPG_SOURCE, "DWEnglish.de")] = (
             "DWEnglish.de"
         )
+    if DW_SPANISH_OFFICIAL_EPG_SOURCE in source_roots and "DW.de" in expected_ids:
+        for lookup_key, lookup_target in list(source_lookup.items()):
+            if lookup_target == "DW.de":
+                source_lookup.pop(lookup_key, None)
+        source_lookup[(DW_SPANISH_OFFICIAL_EPG_SOURCE, "DW.de")] = "DW.de"
     if NHK_OFFICIAL_EPG_SOURCE in source_roots and "NHKWorldJapan.jp" in expected_ids:
         source_lookup.pop(("cl", "Canal.NHK.World.cl"), None)
         source_lookup[(NHK_OFFICIAL_EPG_SOURCE, "NHKWorldJapan.jp")] = (
@@ -7050,7 +7114,11 @@ def build_epg(
         if red_bull_last_stop is not None:
             real_last_stop_by_target[red_bull_id] = red_bull_last_stop
         if programmes_by_target[red_bull_id]:
-            guide_sources[red_bull_id] = "red-bull-oficial"
+            guide_sources[red_bull_id] = (
+                "red-bull-es-oficial-page"
+                if red_bull_id == RED_BULL_CHILE_ID
+                else "red-bull-oficial"
+            )
             programmes_by_target[red_bull_id] += add_continuous_programmes(
                 root,
                 red_bull_id,
@@ -7303,6 +7371,12 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
     if dw_english_error:
         source_errors[DW_ENGLISH_OFFICIAL_EPG_SOURCE] = dw_english_error
 
+    dw_spanish_data, dw_spanish_error = fetch_dw_spanish_official_epg(channels, now)
+    if dw_spanish_data:
+        source_documents[DW_SPANISH_OFFICIAL_EPG_SOURCE] = dw_spanish_data
+    if dw_spanish_error:
+        source_errors[DW_SPANISH_OFFICIAL_EPG_SOURCE] = dw_spanish_error
+
     nhk_data, nhk_error = fetch_nhk_official_epg(channels, now)
     if nhk_data:
         source_documents[NHK_OFFICIAL_EPG_SOURCE] = nhk_data
@@ -7358,6 +7432,7 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
             TVN_OFFICIAL_EPG_SOURCE,
             CHV_OFFICIAL_EPG_SOURCE,
             DW_ENGLISH_OFFICIAL_EPG_SOURCE,
+            DW_SPANISH_OFFICIAL_EPG_SOURCE,
             CANAL13_MAIN_EPG_SOURCE,
             CANAL13_13C_OFFICIAL_EPG_SOURCE,
             CANAL13_13GO_EPG_SOURCE,
