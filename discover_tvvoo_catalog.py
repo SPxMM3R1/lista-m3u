@@ -79,7 +79,11 @@ REGION_COUNTRIES = {
 CATALOG_MAX_BYTES = 8 * 1024 * 1024
 DEFAULT_MAX_NEW = 24
 MAX_NEW_PER_RUN = 48
-MAX_TOTAL_DISCOVERED = 240
+# The sidecar already contains the complete imported catalogue, so keeping a
+# smaller selection cap here would permanently disable future discovery once
+# that import has completed.  The updater and its schema validator use the
+# same 2,000-channel ceiling.
+MAX_TOTAL_DISCOVERED = 2_000
 SAFE_LOGO_HOSTS = frozenset(
     {
         "antifriz.tv",
@@ -335,6 +339,8 @@ def pretty_name(source_name: str, region: str) -> str:
         r"\bBt\b": "BT",
         r"\bDazn\b": "DAZN",
         r"\bEspn\b": "ESPN",
+        r"\bFox\b": "FOX",
+        r"\bTnt\b": "TNT",
         r"\bBbc\b": "BBC",
         r"\bCnn\b": "CNN",
         r"\bNba\b": "NBA",
@@ -344,6 +350,7 @@ def pretty_name(source_name: str, region: str) -> str:
         r"\bFhd\b": "FHD",
         r"\bHd\b": "HD",
         r"\bF1\b": "F1",
+        r"\bMotogp\b": "MotoGP",
     }
     for pattern, replacement in replacements.items():
         value = re.sub(pattern, replacement, value, flags=re.IGNORECASE)
@@ -534,7 +541,17 @@ def existing_inventory(
 
     # The executable map also represents channels already curated in the
     # catalogue, even when a future manual edit has temporarily removed one.
-    for resolver_aliases in updater.TVVOO_STREAM_RESOLVER_IDS.values():
+    for known_name, resolver_aliases in updater.TVVOO_STREAM_RESOLVER_IDS.items():
+        # Static entries often carry the display-region suffix while a live
+        # TvVoo meta omits it (for example ``MotoGP`` versus ``MotoGP Italia``).
+        # Register both forms so discovery cannot create a second tvg-id for
+        # the same logical channel and make update_m3u reject the sidecar.
+        identity_names.add(identity_key(known_name))
+        for region_label in REGION_LABELS.values():
+            suffix = f" {region_label}"
+            if known_name.casefold().endswith(suffix.casefold()):
+                identity_names.add(identity_key(known_name[:-len(suffix)]))
+                break
         for alias in resolver_aliases:
             normalized = normalize_vavoo_id(alias)
             if normalized:

@@ -175,6 +175,13 @@ class TvVooDiscoveryTests(unittest.TestCase):
         self.assertEqual(selected[0][1].source_name, "Rai Sport")
         self.assertEqual(stats["duplicate_alias"], 1)
 
+    def test_inventory_skips_static_display_names_with_region_suffix(self) -> None:
+        _, _, names, _ = discovery.existing_inventory(["#EXTM3U"], {})
+        self.assertIn(
+            discovery.identity_key("SKY SPORT MOTOGP"),
+            names,
+        )
+
     def test_m3u_record_contains_stable_metadata_only(self) -> None:
         group = discovery.CandidateGroup(
             region="de",

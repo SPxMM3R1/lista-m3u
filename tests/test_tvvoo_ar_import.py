@@ -83,6 +83,12 @@ class TvVooArImportTests(unittest.TestCase):
             url="https://example.invalid",
             url_line=0,
         )
+        fox_sports = updater.Channel(
+            name="FOX Sports 4 Países Bajos",
+            tvg_id="Vavoo.nl.FOXSPORT4@TvVoo",
+            url="https://example.invalid",
+            url_line=0,
+        )
         cinema = updater.Channel(
             name="Sky Cinema Action Reino Unido",
             tvg_id="Vavoo.uk.SKYCINEMAACTION@TvVoo",
@@ -98,11 +104,13 @@ class TvVooArImportTests(unittest.TestCase):
         with patch.object(updater, "TVVOO_STREAM_RESOLVER_IDS", {
             sports.name: ("sky_sport_f1%7Cgroup%3Ade",),
             super_tennis.name: ("sky_super_tennis%7Cgroup%3Ait",),
+            fox_sports.name: ("fox_sports_4%7Cgroup%3Anl",),
             cinema.name: ("sky_cinema%7Cgroup%3Auk",),
             news.name: ("sky_news%7Cgroup%3Auk",),
         }):
             self.assertTrue(updater.external_vavoo_channel_is_allowed(sports))
             self.assertTrue(updater.external_vavoo_channel_is_allowed(super_tennis))
+            self.assertTrue(updater.external_vavoo_channel_is_allowed(fox_sports))
             self.assertFalse(updater.external_vavoo_channel_is_allowed(cinema))
             self.assertFalse(updater.external_vavoo_channel_is_allowed(news))
 

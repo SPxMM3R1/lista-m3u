@@ -200,7 +200,7 @@ Rumanía y Rusia. Deduplica por señal y alias, descarta regiones y nombres
 excluidos (PPV, VOD, TEST/EVENT y las regiones geográficas ya vetadas), exige un
 logo HTTPS de un host permitido para las categorías normales y permite que una
 señal adulta continúe sin logo si TvVoo no entrega uno confiable. Agrega como
-máximo 24 candidatos por ejecución y 240 en total al catálogo externo. Las
+máximo 24 candidatos por ejecución y 2.000 en total al catálogo externo. Las
 señales deportivas se
 clasifican también por disciplina —fútbol, rugby, boxeo, motor, ciclismo,
 baloncesto, hockey, golf, tenis, carreras, etc.— y la música incluye conciertos,
@@ -215,8 +215,9 @@ La importación completa solicitada del grupo `ar` usa
 `python import_tvvoo_ar.py --write`. Lee `src/channels/lists.json` del repositorio `qwertyuiop8899/tvvoo`,
 agrupa variantes de calidad y conserva también los canales sin logo. El grupo
 del proveedor mezcla señales de varios países; no se marca como Argentina.
-La capacidad del archivo de identidades es 2.000; la selección automática
-general mantiene su límite de 240. Las altas contienen aliases estables, no
+La capacidad del archivo de identidades y de la selección automática general es
+2.000; cada ejecución sigue limitada a 24 candidatos por defecto (48 como
+máximo manual). Las altas contienen aliases estables, no
 enlaces de sesión, y esperan la validación y la política de publicación para
 aparecer en lista 2; el grupo `ar` permanece deliberadamente fuera de esa
 salida pública.
@@ -305,7 +306,7 @@ reparto manual salvo el traslado automático y reversible de 13C.
 La lista externa conserva todos los canales directos. Para los candidatos con
 `x-resolver="tvvoo"`, la política de publicación de la lista 2 conserva solo
 las señales deportivas de Sky (incluidas `Sky Sport`, `Sky Sports` y `Sky Super
-Tennis`), Eurosport, ESPN y TNT Sports. Por tanto, Sky Cinema, Sky Nature, Sky
+Tennis`), Fox Sports, Eurosport, ESPN y TNT Sports. Por tanto, Sky Cinema, Sky Nature, Sky
 Documentaries y Sky News quedan fuera de la salida externa. También excluye
 todas las entradas con aliases `|group:ar`, incluidas las que no muestran la
 etiqueta `[TvVoo ar]` en el nombre. El grupo `ar` no se borra
