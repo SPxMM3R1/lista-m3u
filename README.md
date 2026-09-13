@@ -333,7 +333,9 @@ quedan en `Misceláneos`; las señales de conciertos, XITE, MTV, Stingray y
 similares quedan en `Música`. NTV, 13C y RWND conservan `Misceláneos` como
 grupo, aunque se muestran en una sección propia inmediatamente después de las
 noticias nacionales. La clasificación no cambia `tvg-id`, asociaciones
-XMLTV, resolutores ni URLs de respaldo.
+XMLTV, resolutores ni URLs de respaldo. Dentro de `Música`, el catálogo agrupa
+primero todos los canales XITE, después todos los MTV y luego conserva el orden
+relativo del resto de señales musicales.
 
 ## Canales
 

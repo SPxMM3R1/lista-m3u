@@ -677,6 +677,34 @@ class PlaylistOrderTests(unittest.TestCase):
         self.assertIn('x-resolver="highfly"', info_line)
         self.assertIn('x-resolver-id="now-sky-sports-tennis"', info_line)
 
+    def test_music_order_puts_mtv_after_every_xite(self) -> None:
+        lines = [
+            "#EXTM3U",
+            extinf("MTVBiggestPop.us", "MTV Biggest Pop", "Música"),
+            "https://example.invalid/mtv-pop.m3u8",
+            extinf("QelloConcertsbyStingray.ca", "Qello Concerts", "Música"),
+            "https://example.invalid/qello.m3u8",
+            extinf("Vavoo.de.XITE@TvVoo", "Canal musical", "Música"),
+            "https://example.invalid/xite-de.m3u8",
+            extinf("MTVHits.fr@TvVoo", "Canal musical", "Música"),
+            "https://example.invalid/mtv-hits.m3u8",
+            extinf("XITEJustChill.nl", "Canal musical", "Música"),
+            "https://example.invalid/xite-chill.m3u8",
+        ]
+
+        update_m3u.order_channels_by_content(lines)
+
+        self.assertEqual(
+            [channel.tvg_id for channel in update_m3u.parse_channels(lines)],
+            [
+                "Vavoo.de.XITE@TvVoo",
+                "XITEJustChill.nl",
+                "MTVBiggestPop.us",
+                "MTVHits.fr@TvVoo",
+                "QelloConcertsbyStingray.ca",
+            ],
+        )
+
     def test_selected_misc_channels_follow_national_news(self) -> None:
         lines = [
             "#EXTM3U",

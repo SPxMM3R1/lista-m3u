@@ -2178,6 +2178,8 @@ MUSIC_CHANNEL_IDS = {
     "Vavoo.nl.STINGRAYDJAZZ@TvVoo",
     "Vavoo.bg.STINGRAYICONCERTS@TvVoo",
 }
+MUSIC_XITE_PATTERN = re.compile(r"xite", re.IGNORECASE)
+MUSIC_MTV_PATTERN = re.compile(r"mtv", re.IGNORECASE)
 SPORTS_NAME_PATTERN = re.compile(
     r"(?:\bsport(?:s)?\b|\beurosport\b|\bespn\b|\bdazn\b|\bf1\b|\bmotogp\b|"
     r"\bformula\s*1\b|\bsky\s+sport|\bsky\s+sports|\btyc\s+sports\b|"
@@ -2884,6 +2886,26 @@ def order_section_for(channel: Channel) -> str:
     return content_category_for(channel)
 
 
+def music_family_order(channel: Channel) -> int:
+    """Return the stable family order requested for the music block.
+
+    The catalogue contains both curated XITE entries and regional TvVoo
+    aliases. Matching the stable metadata instead of only the current display
+    name keeps every XITE together even when a provider changes its label.
+    MTV follows the complete XITE block; all other music keeps its catalogue
+    order after those two families.
+    """
+    identity = " ".join(
+        value for value in (channel.tvg_id, channel.name, channel.display_name)
+        if value
+    )
+    if MUSIC_XITE_PATTERN.search(identity):
+        return 0
+    if MUSIC_MTV_PATTERN.search(identity):
+        return 1
+    return 2
+
+
 def within_section_order_key(
     channel: Channel,
     original_index: int,
@@ -2893,6 +2915,9 @@ def within_section_order_key(
     """Keep requested channel families together without changing categories."""
     if section == POST_NATIONAL_NEWS_SECTION:
         return (0, POST_NATIONAL_NEWS_CHANNEL_INDEX[channel.tvg_id])
+
+    if section == "Música":
+        return (music_family_order(channel), original_index)
 
     if section == "Deportes" and channel.tvg_id in SPORTS_CHANNEL_IDS:
         sports_positions = [
