@@ -55,7 +55,7 @@ class PlaylistOrderTests(unittest.TestCase):
                 tvg_id="Vavoo.test.NEWS@TvVoo",
             ),
             update_m3u.Channel(
-                name="Premium Highfly test",
+                name="Highfly ESPN test",
                 url="https://leaf.highfly.dev/m3u/us-espn-hd/live.m3u8",
                 url_line=0,
                 tvg_id="ESPN.us",
@@ -1106,10 +1106,10 @@ class PlaylistOrderTests(unittest.TestCase):
             ordered_ids[:5],
             [
                 "SkySportsF1.uk",
-                "HighflyPremium.now-sky-sports-f1-2",
                 "SkySportsTennis.uk",
-                "HighflyPremium.4k-sky-sports-main-events",
                 "SkySportsPremierLeague.uk",
+                "ESPN.us",
+                "ESPN2.us",
             ],
         )
         self.assertEqual(

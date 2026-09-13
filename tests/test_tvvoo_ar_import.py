@@ -22,6 +22,19 @@ class TvVooArImportTests(unittest.TestCase):
         self.assertEqual(stats["added"], 0)
         self.assertEqual(catalog, second)
 
+    def test_premium_ar_channels_are_skipped(self):
+        entries = [
+            {"name": "ESPN Premium", "country": "Arabia"},
+            {"name": "BEIN SPORTS 1 PREMIUM", "country": "Arabia"},
+            {"name": "ESPN", "country": "Arabia"},
+        ]
+        doc, catalog, stats = importer.import_entries(
+            entries, {"schemaVersion": 1, "channels": {}}, "#EXTM3U\n"
+        )
+        self.assertEqual(stats["added"], 1)
+        self.assertNotIn("PREMIUM", catalog.upper())
+        self.assertEqual("ESPN", next(iter(doc["channels"].values()))["sourceName"])
+
     def test_unicode_channels_are_distinct_and_encoded(self):
         entries = [
             {"name": "TV العربية", "country": "Arabia"},

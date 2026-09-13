@@ -23,6 +23,8 @@ def group_entries(entries):
         if entry.get("country") != "Arabia":
             continue
         name = discovery.normalize_spaces(entry.get("name", ""))
+        if discovery.excluded_source_name(name):
+            continue
         alias = "vavoo_" + quote(name, safe="") + "%7Cgroup%3Aar"
         # Preserve non-Latin names; ASCII-only grouping would merge distinct
         # Arabic channels which happen to share an English prefix.
@@ -38,11 +40,18 @@ def group_entries(entries):
 
 def import_entries(entries, document, catalog_text):
     """Preserve existing channels and merge quality variants by stable alias."""
+    document["channels"] = {
+        channel_id: entry
+        for channel_id, entry in document["channels"].items()
+        if not discovery.is_premium_channel_name(
+            entry.get("sourceName") or entry.get("name") or ""
+        )
+    }
     sidecar = document["channels"]
     alias_owners = {}
     used_ids = set(sidecar)
     used_names = {entry["name"] for entry in sidecar.values()}
-    lines = catalog_text.splitlines()
+    lines, _ = discovery.remove_premium_catalog_records(catalog_text.splitlines())
     for line in lines:
         if not line.startswith("#EXTINF:"):
             continue

@@ -90,6 +90,32 @@ class TvVooDiscoveryTests(unittest.TestCase):
         self.assertEqual(groups[0].category, "Películas")
         self.assertTrue(groups[0].subtitle_hint)
 
+    def test_premium_channels_are_not_discovered_or_materialized(self) -> None:
+        groups = discovery.candidate_groups(
+            [
+                {
+                    "type": "tv",
+                    "id": "vavoo_ESPN%20PREMIUM%7Cgroup%3Aar",
+                    "name": "ESPN Premium",
+                    "genres": ["Sport"],
+                    "logo": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/espn.png",
+                }
+            ],
+            "ar",
+        )
+        self.assertEqual([], groups)
+        lines, removed = discovery.remove_premium_catalog_records(
+            [
+                "#EXTM3U",
+                '#EXTINF:-1 tvg-id="Vavoo.ar.ESPNPREMIUM@TvVoo" tvg-name="ESPN Premium",ESPN Premium',
+                "https://tvvoo.hayd.uk/stream/tv/example.json",
+                '#EXTINF:-1 tvg-id="Vavoo.ar.ESPN@TvVoo" tvg-name="ESPN",ESPN',
+                "https://tvvoo.hayd.uk/stream/tv/espn.json",
+            ]
+        )
+        self.assertEqual({"Vavoo.ar.ESPNPREMIUM@TvVoo"}, removed)
+        self.assertEqual(3, len(lines))
+
     def test_logo_policy_rejects_placeholder_and_query_urls(self) -> None:
         self.assertEqual(
             discovery.safe_logo(

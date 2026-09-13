@@ -94,7 +94,7 @@ QUALITY_TOKENS = frozenset(
     {"4K", "8K", "FHD", "HD", "SD", "UHD", "H265", "HEVC", "BACKUP"}
 )
 EXCLUDED_NAME_PATTERN = re.compile(
-    r"\b(?:PPV|PAY\s+PER\s+VIEW|VOD|TEST|DEMO|EVENT|MATCH\s+CENTER|"
+    r"\b(?:PPV|PAY\s+PER\s+VIEW|VOD|PREMIUM|TEST|DEMO|EVENT|MATCH\s+CENTER|"
     r"TURKEY|TÜRKIYE|TURQU[IÍ]A|"
     r"BALKAN|BALCAN)\b",
     re.IGNORECASE,
@@ -480,6 +480,38 @@ def m3u_attribute(line: str, name: str) -> str:
     return match.group(1) if match else ""
 
 
+def is_premium_channel_name(value: object) -> bool:
+    """Identify paid-channel branding before it enters any local inventory."""
+    return bool(re.search(r"\bpremium\b", normalize_spaces(value), re.IGNORECASE))
+
+
+def remove_premium_catalog_records(lines: list[str]) -> tuple[list[str], set[str]]:
+    """Remove complete M3U records branded as Premium and return their IDs."""
+    filtered: list[str] = []
+    removed_ids: set[str] = set()
+    index = 0
+    while index < len(lines):
+        line = lines[index]
+        if line.startswith("#EXTINF:"):
+            display_name = line.rsplit(",", 1)[-1].strip()
+            channel_name = " ".join(
+                part
+                for part in (m3u_attribute(line, "tvg-name"), display_name)
+                if part
+            )
+            if is_premium_channel_name(channel_name):
+                channel_id = m3u_attribute(line, "tvg-id")
+                if channel_id:
+                    removed_ids.add(channel_id)
+                index += 1
+                if index < len(lines) and not lines[index].startswith("#"):
+                    index += 1
+                continue
+        filtered.append(line)
+        index += 1
+    return filtered, removed_ids
+
+
 def existing_inventory(
     lines: list[str], sidecar: dict[str, dict[str, object]]
 ) -> tuple[set[str], set[str], set[str], set[str]]:
@@ -720,7 +752,17 @@ def main() -> int:
         raise RuntimeError(f"falta {CATALOG_PATH.name}")
 
     catalog_lines = CATALOG_PATH.read_text(encoding="utf-8-sig").splitlines()
-    sidecar = dict(updater.TVVOO_DISCOVERY_ENTRIES)
+    catalog_lines, removed_catalog_ids = remove_premium_catalog_records(catalog_lines)
+    original_sidecar = dict(updater.TVVOO_DISCOVERY_ENTRIES)
+    sidecar = {
+        channel_id: entry
+        for channel_id, entry in original_sidecar.items()
+        if not is_premium_channel_name(
+            entry.get("sourceName") or entry.get("name") or ""
+        )
+    }
+    removed_sidecar_ids = set(original_sidecar) - set(sidecar)
+    catalogue_changed = bool(removed_catalog_ids or removed_sidecar_ids)
     missing_sidecar = missing_sidecar_records(catalog_lines, sidecar)
     existing_ids, existing_aliases, existing_names, _ = existing_inventory(
         catalog_lines, sidecar
@@ -740,7 +782,12 @@ def main() -> int:
                 failures.append(f"{region}: {type(error).__name__}: {error}")
 
     # A transient outage must not erase or invalidate the existing catalogue.
-    if not fetched_regions and not args.reconcile_only and not missing_sidecar:
+    if (
+        not fetched_regions
+        and not args.reconcile_only
+        and not missing_sidecar
+        and not catalogue_changed
+    ):
         print(
             "Descubrimiento TvVoo sin cambios: todos los catálogos fallaron; "
             "se conserva la lista 2 anterior.",
@@ -768,7 +815,8 @@ def main() -> int:
         f"metas={total_metas}, grupos={len(all_groups)}, "
         f"pendientes_sidecar={len(missing_sidecar)}, "
         f"seleccionados={len(selected)}, "
-        f"capacidad_restante={stats['capacity']}"
+        f"capacidad_restante={stats['capacity']}, "
+        f"premium_retirados={len(removed_catalog_ids | removed_sidecar_ids)}"
     )
     for failure in failures:
         print(f"  [AVISO] {failure}", file=sys.stderr)
@@ -783,7 +831,7 @@ def main() -> int:
                 f"[{group.category}] aliases={len(group.aliases)}"
             )
         return 0
-    if not selected and not missing_sidecar:
+    if not selected and not missing_sidecar and not catalogue_changed:
         print("No se detectaron candidatos nuevos ni identidades pendientes.")
         return 0
 
@@ -870,7 +918,8 @@ def main() -> int:
         raise
 
     print(
-        f"Reconciliadas {len(missing_sidecar)} identidades y agregados "
+        f"Reconciliadas {len(missing_sidecar)} identidades, retiradas "
+        f"{len(removed_catalog_ids | removed_sidecar_ids)} señales Premium y agregados "
         f"{len(selected)} candidatos nuevos al catalogo externo. "
         f"Total sidecar automatico: {len(sidecar)}/{MAX_TOTAL_DISCOVERED}."
     )

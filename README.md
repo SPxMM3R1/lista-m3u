@@ -28,11 +28,9 @@ su rama `main`.
 Highfly ya no se publica como una tercera lista. Sus canales seleccionados se
 incorporan manualmente a la lista principal (`m3u.m3u`/`1.m3u`) y conservan
 `x-resolver="highfly"`, `x-resolver-id`, `x-resolver-manifest` y
-`x-resolver-refresh="on_play"`. La credencial Premium, si corresponde, se
-configura únicamente en VibeM3U; nunca se guarda en este repositorio ni en la
-M3U. El catálogo público de Highfly solo se consulta durante una corrida para
-renovar en memoria los slugs de esos canales manuales y no modifica la
-membresía de ninguna lista.
+`x-resolver-refresh="on_play"`. El catálogo público de Highfly solo se consulta
+durante una corrida para renovar en memoria los slugs de esos canales manuales
+y no modifica la membresía de ninguna lista.
 
 Guia de programacion XMLTV:
 
@@ -145,13 +143,6 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
   candidatos nuevos, valida su HLS y publica el enlace que respondió. Las
   respuestas de upgrade de Google, URLs de evento y hosts fuera de la lista
   permitida se descartan;
-- trata `HighflyPremium.now-sky-sports-f1-2` y
-  `HighflyPremium.4k-sky-sports-main-events` como hojas Premium válidas aunque
-  el endpoint público devuelva una respuesta bloqueada o sin streams. En ese
-  caso conserva/actualiza el `x-resolver-id` y el fallback con el slug vigente,
-  y deja que VibeM3U obtenga la autorización en memoria. Una respuesta HTTP
-  inválida, un host no permitido o un slug que no aparezca en el catálogo no se
-  acepta como reparación;
 - consulta el catálogo público de Highfly únicamente para renovar en memoria
   los slugs `leaf:` de canales Highfly que ya fueron seleccionados manualmente
   en la lista 1; ignora eventos temporales `streamed:` y no copia URLs firmadas,

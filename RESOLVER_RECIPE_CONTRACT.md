@@ -30,8 +30,7 @@ se selecciona, se agrega manualmente a `m3u.m3u`/`1.m3u` con su `tvg-id` estable
 `x-resolver="highfly"`, `x-resolver-id`, `x-resolver-manifest` y
 `x-resolver-refresh="on_play"`. El catálogo público de Highfly solo sirve para
 actualizar en memoria el slug que rota; no cambia la membresía de la lista,
-no publica eventos temporales y no guarda credenciales. El token Premium se
-configura y se mantiene en VibeM3U.
+no publica eventos temporales y no guarda credenciales.
 
 ## Metadatos TvVoo obligatorios
 

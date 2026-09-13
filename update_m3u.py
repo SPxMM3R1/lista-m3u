@@ -48,15 +48,6 @@ HIGHFLY_STREAM_API_TEMPLATE = (
     "https://sports.highfly.dev/stream/sport/leaf:{slug}.json"
 )
 HIGHFLY_STREAM_ALLOWED_HOSTS = frozenset({"leaf.highfly.dev"})
-# El catalogo publico de Highfly puede describir una hoja Premium sin entregar
-# un HLS reproducible al runner. Es una respuesta esperada para canales que la
-# aplicacion abre con la autorizacion del usuario, no una URL que debamos
-# conservar ni publicar como redireccion.
-HIGHFLY_PREMIUM_LOCK_MARKERS = (
-    "upgrade to premium",
-    "premium required",
-    "only available to premium",
-)
 HIGHFLY_LEAF_ID_PATTERN = re.compile(
     r"^leaf:(?P<slug>[a-z0-9][a-z0-9_-]{1,127})$", re.IGNORECASE
 )
@@ -134,15 +125,14 @@ EXTERNAL_MANUAL_EXCLUDED_CHANNEL_IDS = frozenset(
 )
 # Estas senales dinamicas conservan su resolutor para renovar la fuente justo
 # antes de reproducir. El orden visual solicitado para la lista principal es:
-# Sky Sports F1, Sky Sports F1 UHD, Sky Sports Tennis, Sky Sports Main Event
-# UHD, Sky Sports Premier League, ESPN y ESPN 2. Despues se mantienen juntas
+# Sky Sports F1, Sky Sports Tennis, Sky Sports Premier League, ESPN y ESPN 2.
+# Despues se mantienen juntas
 # las demas variantes Sky, Eurosport y DAZN. La lista publica final no se decide por
 # salud:
 # ``m3u.m3u`` conserva una membresia manual persistente y
 # ``m3u-externa.m3u`` contiene el complemento del catalogo.
 F1_CHANNEL_ORDER = (
     "SkySportsF1.uk",
-    "HighflyPremium.now-sky-sports-f1-2",
     "DAZNF1.es@TvVoo",
     "SkySportF1.de@TvVoo",
     "Vavoo.uk.SKYSPORTSF1@TvVoo",
@@ -152,9 +142,7 @@ F1_CHANNEL_IDS = frozenset(F1_CHANNEL_ORDER)
 SKY_SPORTS_CHANNEL_ORDER = (
     # Orden principal solicitado por el usuario.
     "SkySportsF1.uk",
-    "HighflyPremium.now-sky-sports-f1-2",
     "SkySportsTennis.uk",
-    "HighflyPremium.4k-sky-sports-main-events",
     "SkySportsPremierLeague.uk",
     "ESPN.us",
     "ESPN2.us",
@@ -260,26 +248,9 @@ HIGHFLY_RESOLVER_CHANNELS = {
     "SkySportsF1.uk": "f1-3949409",
     "SkySportsPremierLeague.uk": "pl-434343434",
     "SkySportsTennis.uk": "ten-3930030",
-    # Ultimo slug publico conocido. Se reemplaza en cada corrida desde el
-    # catalogo; este valor solo evita volver a publicar el slug retirado si el
-    # catalogo esta temporalmente fuera de servicio.
-    "HighflyPremium.now-sky-sports-f1-2": "f1-93930303",
-    "HighflyPremium.4k-sky-sports-main-events": "ml-383892993",
     "ESPN.us": "us-espn-hd-0",
     "ESPN2.us": "us-33323323",
 }
-
-# Estos son los dos canales UHD cuya hoja puede estar visible en el catálogo
-# pero entregar únicamente una respuesta Premium (o una lista de streams
-# vacía) al runner. La app debe aceptar esa hoja y resolver el HLS con la
-# autorización del usuario; el actualizador solo cambia el slug público y la
-# URL de compatibilidad, nunca intenta manejar credenciales Premium.
-HIGHFLY_PREMIUM_CHANNEL_IDS = frozenset(
-    {
-        "HighflyPremium.now-sky-sports-f1-2",
-        "HighflyPremium.4k-sky-sports-main-events",
-    }
-)
 
 
 # Highfly cambia los slugs de las hojas cuando rota su catalogo. Esta memoria
@@ -590,12 +561,6 @@ SKY_OFFICIAL_EPG_CHANNELS = {
     "SkySportsMix.uk@TvVoo": "4091",
     "SkySportsNews.uk@TvVoo": "1340",
 }
-OPTIONAL_EPG_SOURCE_NAMES = frozenset(
-    {
-        "highfly-main-event-4k-simulcast",
-        "highfly-f1-4k-simulcast",
-    }
-)
 AUTENTIC_HISTORY_EPG_SOURCE = "autentic-history-oficial"
 AUTENTIC_HISTORY_PAGE = "https://watch.whaletvplus.com/"
 AUTENTIC_HISTORY_CHANNEL_ID = "931186243466302968"
@@ -756,21 +721,6 @@ EPG_PROGRAMME_SOURCES = {
     "XITEJustChill.nl": ("plex1", "plex.tv.XITE.Just.Chill.plex"),
     "TRTWorld.tr": ("tr1", "TRT.WORLD.HD.tr"),
 }
-
-# Guías específicas para canales Highfly manuales de la lista principal.
-EPG_PROGRAMME_SOURCES.update({
-    # La versión UHD mantiene la parrilla de Main Event; la fuente agregada
-    # no publica un ID UHD independiente y el simulcast es la asociación
-    # disponible más precisa.
-    "HighflyPremium.4k-sky-sports-main-events": (
-        "highfly-main-event-4k-simulcast",
-        "Highfly.Sky.Sports.Main.Event.4K",
-    ),
-    "HighflyPremium.now-sky-sports-f1-2": (
-        "highfly-f1-4k-simulcast",
-        "Highfly.Sky.Sports.F1.4K",
-    ),
-})
 
 # EPGShare01 entrega parrilla real para estas señales nuevas. Se asocia por
 # el ID exacto de la fuente y no por coincidencia amplia del nombre visible.
@@ -2639,21 +2589,6 @@ class DynamicRefreshOutcome:
     check_result: CheckResult | None = None
 
 
-class HighflyPremiumRequired(RuntimeError):
-    """Highfly exposes the current leaf but reserves its HLS for Premium.
-
-    The exception carries only the allow-listed leaf fallback. It never stores
-    or exposes an upgrade URL, token, cookie, signature, or session response.
-    """
-
-    def __init__(self, slug: str) -> None:
-        self.slug = slug
-        self.fallback_url = f"https://leaf.highfly.dev/m3u/{slug}/live.m3u8"
-        super().__init__(
-            f"Highfly Premium requiere autorizacion de la aplicacion para {slug}"
-        )
-
-
 @dataclass(frozen=True)
 class LogoResult:
     channel: str
@@ -3754,9 +3689,9 @@ def parse_highfly_live_resolver_map(payload: bytes | str | dict) -> dict[str, st
     """Map stable app IDs to the current public Highfly leaf slugs.
 
     The public sports catalog is the discovery source. Only allow-listed leaf
-    IDs are retained; event IDs, poster URLs and Premium upgrade URLs are
-    deliberately ignored. The map is runtime state and is not a resolver
-    credential or a permanent channel identity.
+    IDs are retained; event IDs and poster URLs are deliberately ignored. The
+    map is runtime state and is not a resolver credential or a permanent
+    channel identity.
     """
     decoded: object | None = None
     if isinstance(payload, bytes):
@@ -3790,7 +3725,6 @@ def parse_highfly_live_resolver_map(payload: bytes | str | dict) -> dict[str, st
             continue
         raw_name = _highfly_catalog_text(meta.get("name"), 180)
         searchable = f"{slug} {raw_name}".casefold()
-        is_uhd = bool(re.search(r"\b4k\b|\buhd\b", searchable))
         is_sky_f1 = bool(
             re.search(r"\bsky\s+sports?\b.*\bf1\b", searchable)
             or re.search(r"\bf1\b.*\bsky\s+sports?\b", searchable)
@@ -3807,28 +3741,17 @@ def parse_highfly_live_resolver_map(payload: bytes | str | dict) -> dict[str, st
                 r"\bpremier\s+league\b.*\bsky\s+sports?\b", searchable
             )
         )
-        is_sky_main_event = bool(
-            re.search(r"\bsky\s+sports?\b.*\bmain\s+events?\b", searchable)
-            or re.search(r"\bmain\s+events?\b.*\bsky\s+sports?\b", searchable)
-        )
-
         stable_id: str | None = None
         if re.search(r"\bespn\s*2\b", searchable):
             stable_id = "ESPN2.us"
         elif re.search(r"\bespn\b", searchable):
             stable_id = "ESPN.us"
         elif is_sky_f1:
-            stable_id = (
-                "HighflyPremium.now-sky-sports-f1-2"
-                if is_uhd
-                else "SkySportsF1.uk"
-            )
+            stable_id = "SkySportsF1.uk"
         elif is_sky_tennis:
             stable_id = "SkySportsTennis.uk"
         elif is_sky_premier_league:
             stable_id = "SkySportsPremierLeague.uk"
-        elif is_sky_main_event and is_uhd:
-            stable_id = "HighflyPremium.4k-sky-sports-main-events"
 
         if stable_id and stable_id not in resolver_map:
             resolver_map[stable_id] = slug
@@ -3838,10 +3761,10 @@ def parse_highfly_live_resolver_map(payload: bytes | str | dict) -> dict[str, st
 def update_highfly_runtime_resolver_map(payload: bytes | str | dict) -> dict[str, str]:
     """Merge current Highfly slugs after a validated catalog fetch.
 
-    The public catalog can omit a Premium leaf while still serving the rest of
-    the catalogue. Merging prevents that partial response from erasing a
-    slug seeded from the checked-in M3U or discovered earlier in the same run.
-    A later matching leaf still replaces the old value normally.
+    The public catalog can omit a leaf while still serving the rest of the
+    catalogue. Merging prevents that partial response from erasing a slug
+    seeded from the checked-in M3U or discovered earlier in the same run. A
+    later matching leaf still replaces the old value normally.
     """
     resolver_map = parse_highfly_live_resolver_map(payload)
     if resolver_map:
@@ -3852,10 +3775,10 @@ def update_highfly_runtime_resolver_map(payload: bytes | str | dict) -> dict[str
 def seed_highfly_runtime_resolver_map(lines: list[str]) -> dict[str, str]:
     """Seed runtime slugs from checked-in metadata before public discovery.
 
-    This keeps the last published Premium leaf available when the public
-    Highfly catalogue temporarily omits that leaf. Only known canonical
-    Highfly IDs and syntactically valid leaf slugs are accepted; no URL query,
-    token, cookie, or provider response is copied into runtime state.
+    This keeps the last published leaf available when the public Highfly
+    catalogue temporarily omits it. Only known canonical Highfly IDs and
+    syntactically valid leaf slugs are accepted; no URL query, token, cookie,
+    or provider response is copied into runtime state.
     """
     seeded: dict[str, str] = {}
     for channel in parse_channels(lines):
@@ -3906,7 +3829,7 @@ def sync_highfly_runtime_fallbacks(lines: list[str]) -> bool:
     A leaf is only a compatibility fallback. The app resolver remains the
     canonical playback path and obtains any authorization in memory. Updating
     the fallback and ``x-resolver-id`` together prevents a stale leaf from
-    being mistaken for the current Premium channel on the next app refresh.
+    being mistaken for the current channel on the next app refresh.
     """
     changed = False
     for channel in parse_channels(lines):
@@ -7382,26 +7305,6 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
         except Exception as error:
             source_errors[source_name] = str(error)
 
-    if "uk1" in source_documents:
-        try:
-            source_documents["highfly-main-event-4k-simulcast"] = (
-                clone_xmltv_channel(
-                    source_documents["uk1"],
-                    "SkySpMainEvHD.uk",
-                    "Highfly.Sky.Sports.Main.Event.4K",
-                )
-            )
-        except Exception as error:
-            source_errors["highfly-main-event-4k-simulcast"] = str(error)
-        try:
-            source_documents["highfly-f1-4k-simulcast"] = clone_xmltv_channel(
-                source_documents["uk1"],
-                "SkySp.F1.HD.uk",
-                "Highfly.Sky.Sports.F1.4K",
-            )
-        except Exception as error:
-            source_errors["highfly-f1-4k-simulcast"] = str(error)
-
     tvn_data, tvn_error = fetch_tvn_official_epg(channels, now)
     if tvn_data:
         source_documents[TVN_OFFICIAL_EPG_SOURCE] = tvn_data
@@ -7484,10 +7387,7 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
     blocking_source_errors = {
         source_name: error
         for source_name, error in source_errors.items()
-        if source_name
-        not in OPTIONAL_EPG_SOURCE_NAMES
-        and source_name
-        not in {
+        if source_name not in {
             LA_RED_OFFICIAL_EPG_SOURCE,
             MEGA_OFFICIAL_EPG_SOURCE,
             TVN_OFFICIAL_EPG_SOURCE,
@@ -8217,25 +8117,6 @@ def fetch_highfly_manifest() -> dict:
     return payload
 
 
-def highfly_payload_requires_premium(payload: object) -> bool:
-    """Detect a locked Premium leaf without accepting its upgrade URL."""
-    if not isinstance(payload, dict):
-        return False
-    streams = payload.get("streams")
-    if not isinstance(streams, list):
-        return False
-    for stream in streams[:32]:
-        if not isinstance(stream, dict):
-            continue
-        searchable = " ".join(
-            str(stream.get(field, ""))
-            for field in ("name", "title", "description")
-        ).casefold()
-        if any(marker in searchable for marker in HIGHFLY_PREMIUM_LOCK_MARKERS):
-            return True
-    return False
-
-
 def highfly_stream_urls_from_payload(payload: bytes | str | dict) -> list[str]:
     """Extract only playable leaf HLS URLs from one Highfly stream response."""
     decoded: object | None = None
@@ -8278,16 +8159,8 @@ def highfly_stream_urls_from_payload(payload: bytes | str | dict) -> list[str]:
     return urls
 
 
-def fetch_highfly_stream_urls_for_slug(
-    slug: str, *, premium_allowed: bool = False
-) -> list[str]:
-    """Ask Highfly's current stream API for a leaf, never for an upgrade URL.
-
-    ``premium_allowed`` is restricted by the caller to the two canonical UHD
-    channels. A valid JSON response with no public HLS is then reported as a
-    Premium leaf instead of a dead/expired source, so VibeM3U can authorize it
-    in memory.
-    """
+def fetch_highfly_stream_urls_for_slug(slug: str) -> list[str]:
+    """Ask Highfly's current stream API for a leaf."""
     if not HIGHFLY_LEAF_ID_PATTERN.fullmatch(f"leaf:{slug}"):
         raise ValueError("slug Highfly invalido")
     status, body, final_url = fetch_bytes(
@@ -8306,12 +8179,7 @@ def fetch_highfly_stream_urls_for_slug(
         payload = json.loads(body.decode("utf-8-sig"))
     except json.JSONDecodeError as error:
         raise ValueError("respuesta Highfly no es JSON valido") from error
-    if highfly_payload_requires_premium(payload):
-        raise HighflyPremiumRequired(slug)
-    urls = highfly_stream_urls_from_payload(payload)
-    if premium_allowed and not urls:
-        raise HighflyPremiumRequired(slug)
-    return urls
+    return highfly_stream_urls_from_payload(payload)
 
 
 def fresh_highfly_stream_urls(
@@ -8324,7 +8192,6 @@ def fresh_highfly_stream_urls(
     if not manifest_verified:
         raise RuntimeError("manifest Highfly no verificable en esta ejecucion")
 
-    premium_allowed = channel.tvg_id in HIGHFLY_PREMIUM_CHANNEL_IDS
     candidate_slugs = [slug]
     static_slug = HIGHFLY_RESOLVER_CHANNELS.get(channel.tvg_id)
     if static_slug and static_slug not in candidate_slugs:
@@ -8333,13 +8200,7 @@ def fresh_highfly_stream_urls(
         try:
             fresh_urls = fetch_highfly_stream_urls_for_slug(
                 candidate_slug,
-                premium_allowed=premium_allowed,
             )
-        except HighflyPremiumRequired:
-            # La hoja actual existe, pero su HLS está reservado a la sesión
-            # Premium de la aplicación. No continuar hacia el leaf antiguo ni
-            # convertir la respuesta de upgrade en un falso fallback.
-            raise
         except Exception:
             continue
         if fresh_urls:
@@ -8601,46 +8462,10 @@ def refresh_dynamic_channel(
     state = "OK" if current_result.ok else "FALLO"
     print(f"  [{state}] {channel.name}: {current_result.detail}")
 
-    def premium_managed_outcome(error: HighflyPremiumRequired) -> DynamicRefreshOutcome | None:
-        # Solo las entradas cuyo ID declara Premium pueden quedar a cargo de
-        # VibeM3U. Una respuesta bloqueada de otro canal Highfly sigue siendo
-        # un fallo real y no debe ocultarse del informe.
-        if (
-            resolver_engine_for(channel) != "highfly"
-            or channel.tvg_id not in HIGHFLY_PREMIUM_CHANNEL_IDS
-        ):
-            return None
-        detail = (
-            "hoja Highfly Premium reconocida; el HLS publico puede estar protegido "
-            "o ausente y VibeM3U debe autorizarla en memoria; no se marca como "
-            "fuente caducada"
-        )
-        print(f"  [APP] {channel.name}: {detail}")
-        return DynamicRefreshOutcome(
-            channel=channel.name,
-            resolver=resolver_engine_for(channel),
-            accepted=True,
-            changed=error.fallback_url != channel.url,
-            skipped=False,
-            detail=detail,
-            resolved_url=error.fallback_url,
-            check_result=CheckResult(
-                channel.name,
-                error.fallback_url,
-                True,
-                detail,
-            ),
-        )
-
     fresh_candidates: Iterable[str] = ()
     try:
         fresh_result = fresh_url_factory()
         fresh_candidates = (fresh_result,) if isinstance(fresh_result, str) else fresh_result
-    except HighflyPremiumRequired as error:
-        premium_outcome = premium_managed_outcome(error)
-        if premium_outcome is not None:
-            return premium_outcome
-        print(f"  [AVISO] {channel.name}: no se pudo renovar el enlace oficial: {error}")
     except Exception as error:
         print(f"  [AVISO] {channel.name}: no se pudo renovar el enlace oficial: {error}")
 
@@ -8703,11 +8528,6 @@ def refresh_dynamic_channel(
             outcome = try_candidate(candidate_url)
             if outcome is not None:
                 return outcome
-    except HighflyPremiumRequired as error:
-        premium_outcome = premium_managed_outcome(error)
-        if premium_outcome is not None:
-            return premium_outcome
-        print(f"  [AVISO] {channel.name}: fallo al leer candidatos renovados: {error}")
     except Exception as error:
         print(f"  [AVISO] {channel.name}: fallo al leer candidatos renovados: {error}")
 
