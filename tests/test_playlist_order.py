@@ -114,6 +114,29 @@ class PlaylistOrderTests(unittest.TestCase):
             {"external.healthy", "external.failed"},
         )
 
+    def test_manual_external_exclusions_stay_out_of_list_two_but_in_catalogue(self) -> None:
+        catalog_channels = update_m3u.parse_channels(
+            update_m3u.CHANNEL_CATALOG_PATH.read_text(encoding="utf-8-sig").splitlines()
+        )
+        external_channels = update_m3u.parse_channels(
+            update_m3u.EXTERNAL_PLAYLIST.read_text(encoding="utf-8-sig").splitlines()
+        )
+        catalog_ids = {channel.tvg_id for channel in catalog_channels}
+        external_ids = {channel.tvg_id for channel in external_channels}
+
+        self.assertTrue(
+            update_m3u.EXTERNAL_MANUAL_EXCLUDED_CHANNEL_IDS <= catalog_ids
+        )
+        self.assertTrue(
+            update_m3u.EXTERNAL_MANUAL_EXCLUDED_CHANNEL_IDS.isdisjoint(external_ids)
+        )
+        selected = update_m3u.external_publication_channel_ids(
+            catalog_channels,
+            update_m3u.EXTERNAL_MANUAL_EXCLUDED_CHANNEL_IDS,
+            available_ids=update_m3u.EXTERNAL_MANUAL_EXCLUDED_CHANNEL_IDS,
+        )
+        self.assertEqual(frozenset(), selected)
+
     def test_previous_health_filters_only_temporarily_unavailable_external_ids(self) -> None:
         channels = [
             update_m3u.Channel(

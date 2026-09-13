@@ -315,6 +315,9 @@ todas las entradas con aliases `|group:ar`, incluidas las que no muestran la
 etiqueta `[TvVoo ar]` en el nombre. El grupo `ar` no se borra
 del `channel-catalog.m3u`: quedan fuera de `m3u-externa.m3u` y `2.m3u`, pero
 siguen disponibles para EPG, validación y una futura revisión de selección.
+Las exclusiones manuales solicitadas para la lista 2 siguen la misma regla:
+permanecen en `channel-catalog.m3u` para EPG y reparación, pero se mantienen
+fuera de la publicación externa en las siguientes ejecuciones.
 
 1. Nacionales
 2. Noticias nacionales

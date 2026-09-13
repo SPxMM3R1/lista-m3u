@@ -97,6 +97,41 @@ EXTERNAL_VAVOO_ALLOWED_BRAND_PATTERNS = (
     re.compile(r"(?<![a-z])espn", re.IGNORECASE),
     re.compile(r"(?<![a-z])tnt[\s._-]*sports", re.IGNORECASE),
 )
+# Exclusiones manuales de la lista 2. Se conservan en ``channel-catalog.m3u``
+# para que la EPG y el reparador puedan seguir conociendo sus identidades, pero
+# no se vuelven a publicar automáticamente en ``m3u-externa.m3u``/``2.m3u``.
+EXTERNAL_MANUAL_EXCLUDED_CHANNEL_IDS = frozenset(
+    {
+        "13Kids.cl",
+        "TVChile.cl",
+        "EuronewsSpanish.fr",
+        "1763",
+        "AztecaDeportesNetwork.mx@SD",
+        "SkySportsNews.uk@TvVoo",
+        "SkySportGolf.de@TvVoo",
+        "SkySportMotoGP.it@TvVoo",
+        "Vavoo.it.SKYSPORTSERIEA@TvVoo",
+        "Vavoo.de.SKYSPORT1@TvVoo",
+        "Vavoo.pt.EUROSPORT1@TvVoo",
+        "Eurosport2.de@TvVoo",
+        "Vavoo.pl.EUROSPORT3@TvVoo",
+        "TyCSports.ar",
+        "BeINSportsXtra.us@Direct",
+        "BeINSportsXtra.us@Spanish",
+        "Vavoo.nl.ESPN1@TvVoo",
+        "Vavoo.uk.TNTSPORTS4@TvVoo",
+        "SkySportsAction.uk@TvVoo",
+        "SkySportsCricket.uk@TvVoo",
+        "Vavoo.tr.EUROSPORT1@TvVoo",
+        "Vavoo.bk.EUROSPORT1@TvVoo",
+        "Vavoo.nl.ESPN2@TvVoo",
+        "Vavoo.it.SKYSPORT24LIVEDURINGEVENTSONLY@TvVoo",
+        "Vavoo.pt.EUROSPORT2@TvVoo",
+        "Vavoo.uk.EUROSPORT@TvVoo",
+        "History2LatinAmerica.us@Panregional",
+        "BBCEarth.uk",
+    }
+)
 # Estas senales dinamicas conservan su resolutor para renovar la fuente justo
 # antes de reproducir. El orden visual solicitado para la lista principal es:
 # Sky Sports F1, Sky Sports F1 UHD, Sky Sports Tennis, Sky Sports Main Event
@@ -3161,6 +3196,7 @@ def external_publication_channel_ids(
         channel.tvg_id
         for channel in channels
         if channel.tvg_id in external_ids
+        and channel.tvg_id not in EXTERNAL_MANUAL_EXCLUDED_CHANNEL_IDS
         and (available_ids is None or channel.tvg_id in available_ids)
         and external_vavoo_channel_is_allowed(channel)
     )
