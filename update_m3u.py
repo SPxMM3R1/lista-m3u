@@ -2550,6 +2550,9 @@ SEGMENT_CHECK_CHANNELS.update({
     "Sport TV NBA Portugal",
     "W-Sport Portugal",
     "Sky Sports Premier League Reino Unido",
+    "Fox Sports 1",
+    "Fox Sports 2",
+    "Eurosport 4K Czechia",
 })
 @dataclass(frozen=True)
 class Channel:
