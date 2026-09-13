@@ -294,7 +294,12 @@ de 24 horas que publica TVN Play.
 Todos los logos de los canales se conservan dentro de `logos/` y la M3U y el
 EPG apuntan a las copias publicadas en este repositorio. Los logos vectoriales
 se mantienen como SVG y los demas como PNG para conservar la mejor calidad
-disponible sin depender de servidores externos.
+disponible sin depender de servidores externos. Los logos MTV locales usan una
+geometría común: en la referencia de 1280x783 px la marca ocupa 514x308 px y
+el espacio vacío hasta el nombre ocupa 36 px (11,69 % de la altura de la
+marca). Esa proporción se conserva en `mtv-biggest-pop.svg`,
+`mtv-flow-latino.svg`, `mtv-spankin-new.svg` y `mtv-hits.png`, sin cambiar sus
+colores, formas ni identificadores de canal.
 
 ## Orden de la lista
 
