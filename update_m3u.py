@@ -212,10 +212,58 @@ SPORTS_CHANNEL_INDEX = {
     channel_id: index for index, channel_id in enumerate(SPORTS_CHANNEL_ORDER)
 }
 MAIN_PLAYLIST_CHANNEL_IDS = SPORTS_CHANNEL_IDS
-# Actualmente no se publican sondas directas de Sky Sports. El conjunto se
-# conserva como punto de extension para futuras sondas que reciban autorizacion
-# explicita, pero las entradas retiradas no pueden volver por un fallo puntual.
-DIRECT_PROBE_CHANNEL_IDS = frozenset()
+# Las rutas publicas nuevas se conservan como sondas de verificacion manual.
+# No forman parte de la membresia manual de la lista 1 y no cuentan para la
+# compuerta sistemica de fuentes directas; aun asi deben pasar playlist,
+# variante y primer segmento en cada corrida.
+DIRECT_PROBE_CHANNEL_IDS = frozenset(
+    {
+        "FoxSports1.us@Direct",
+        "FoxSports2.us@Direct",
+        "Eurosport4KCzechia.cz@Direct",
+        "ESPNU.us@Direct85",
+        "ArenaSport1.sk@Direct88",
+        "ArenaSport2.sk@Direct88",
+        "CTSport.cz@Direct88",
+        "M4Sport.hu@Direct88",
+        "RealMadridTVEnglish.es@Direct88",
+        "Spiler1.hu@Direct88",
+        "Spiler2.hu@Direct88",
+        "Sport1.cz@Direct88",
+        "Sport1.hu@Direct88",
+        "Sport2.cz@Direct88",
+        "Sport2.hu@Direct88",
+        "AMCEurope.uk@CzechDirect88",
+        "AMCEurope.uk@HungaryDirect88",
+        "BBCEarth.uk@HungaryDirect88",
+        "Film4.hu@Direct88",
+        "History.cz@Direct88",
+        "History.hu@Direct88",
+        "History2.cz@Direct88",
+        "NickJr.cz@Direct88",
+        "NickJr.hu@Direct88",
+        "Nickelodeon.cz@Direct88",
+        "Nickelodeon.hu@Direct88",
+        "Nicktoons.cz@Direct88",
+        "Nicktoons.hu@Direct88",
+        "PrimaStar.cz@Direct88",
+        "AssamTalks.in@DirectTVSEN7",
+        "HBOHits.us@EastDirectTVSEN7",
+        "Laff.us@DirectTVSEN7",
+        "MadaniChannelEnglish.pk@DirectTVSEN7",
+        "Nickelodeon.uk@DirectTVSEN7",
+        "StarSportsSelect2.in@DirectTVSEN7",
+        "TeenNick.us@EastDirectTVSEN7",
+        "FoxSports1.us@DirectTVSEN7",
+        "ESPN.us@Direct181",
+        "ESPN4.br@Direct181",
+        "FoxSports1.us@Direct190",
+        "FoxDeportes.us@Direct23",
+        "FoxSports.us@Cloudfront",
+        "ESPN8TheOcho.us@Cloudfront",
+        "ESPNews.us@Direct41",
+    }
+)
 # TVN y Meganoticias son resolutores gestionados por la aplicacion: la lista
 # conserva sus masters oficiales y VibeM3U obtiene la autorizacion al abrir el
 # canal. Solo TvVoo y Highfly se renuevan desde Actions porque entregan fuentes
@@ -7487,7 +7535,11 @@ def check_channel(
                 detail = "playlist HLS valida"
                 if final_url != channel.url:
                     detail += " (con redireccion)"
-                if channel.name in SEGMENT_CHECK_CHANNELS or is_tvvoo_ar_channel(channel):
+                if (
+                    channel.name in SEGMENT_CHECK_CHANNELS
+                    or is_direct_probe(channel)
+                    or is_tvvoo_ar_channel(channel)
+                ):
                     segment_ok, segment_detail = check_hls_first_segment(
                         channel.url,
                         request_headers(channel.name),
