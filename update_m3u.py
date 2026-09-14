@@ -265,6 +265,10 @@ DIRECT_PROBE_CHANNEL_IDS = frozenset(
         "ESPNews.us@Direct41",
     }
 )
+# Las entradas DASH se validan con el mismo criterio de prueba manual que las
+# HLS directas, pero con un parser MPD separado. El conjunto es deliberado:
+# un MPD no entra al catalogo publicado solo por devolver HTTP 200.
+DASH_PROBE_CHANNEL_IDS = frozenset({"MNBSport.mn@DirectDASH"})
 # TVN y Meganoticias son resolutores gestionados por la aplicacion: la lista
 # conserva sus masters oficiales y VibeM3U obtiene la autorizacion al abrir el
 # canal. Solo TvVoo y Highfly se renuevan desde Actions porque entregan fuentes
@@ -2613,6 +2617,7 @@ class Channel:
     group: str = ""
     tvg_id: str = ""
     display_name: str = ""
+    stream_format: str = "hls"
 
 
 @dataclass(frozen=True)
@@ -2740,6 +2745,16 @@ def parse_channels(lines: list[str]) -> list[Channel]:
                 continue
             if candidate.startswith("#"):
                 raise ValueError(f"{name}: falta la URL despues de #EXTINF")
+            format_match = re.search(r'\bx-stream-format="([^"]+)"', line)
+            stream_format = (
+                format_match.group(1).strip().lower()
+                if format_match
+                else (
+                    "dash"
+                    if urlparse(candidate).path.lower().endswith(".mpd")
+                    else "hls"
+                )
+            )
             channels.append(
                 Channel(
                     name,
@@ -2750,6 +2765,7 @@ def parse_channels(lines: list[str]) -> list[Channel]:
                     group,
                     tvg_id,
                     display_name,
+                    stream_format,
                 )
             )
             break
@@ -3246,7 +3262,10 @@ def is_direct_probe(channel: Channel) -> bool:
     """Return whether a direct channel is intentionally kept for live testing."""
     return (
         resolver_engine_for(channel) == "direct"
-        and channel.tvg_id in DIRECT_PROBE_CHANNEL_IDS
+        and (
+            channel.tvg_id in DIRECT_PROBE_CHANNEL_IDS
+            or channel.tvg_id in DASH_PROBE_CHANNEL_IDS
+        )
     )
 
 
@@ -3662,6 +3681,15 @@ def request_headers(channel: str) -> dict[str, str]:
     elif channel == "Power Hit Radio":
         headers["Referer"] = "https://play.tv3.lt/"
         headers["Origin"] = "https://play.tv3.lt"
+    elif channel.startswith("MNB Sport"):
+        headers.update(
+            {
+                "User-Agent": BROWSER_USER_AGENT,
+                "Accept": "application/dash+xml,application/xml;q=0.9,*/*;q=0.8",
+                "Referer": "https://www.mnb.mn/",
+                "Origin": "https://www.mnb.mn",
+            }
+        )
     return headers
 
 
@@ -7532,7 +7560,20 @@ def check_channel(
                 allow_scoped_expired_cert=allow_scoped_expired_cert,
             )
             text = body.decode("utf-8", "replace").lstrip("\ufeff\r\n ")
-            if status == 200 and text.startswith("#EXTM3U"):
+            if status == 200 and channel.stream_format == "dash":
+                dash_ok, dash_detail = check_dash_first_segments(
+                    channel.url,
+                    request_headers(channel.name),
+                    initial_body=body,
+                    initial_final_url=final_url,
+                    request_timeout=policy.playlist_timeout,
+                    segment_timeout=policy.segment_timeout,
+                )
+                if dash_ok:
+                    detail = f"manifiesto DASH valido; {dash_detail}"
+                    return CheckResult(channel.name, channel.url, True, detail)
+                last_error = dash_detail
+            elif status == 200 and text.startswith("#EXTM3U"):
                 detail = "playlist HLS valida"
                 if final_url != channel.url:
                     detail += " (con redireccion)"
@@ -7613,6 +7654,347 @@ def check_channel(
         if attempt + 1 < attempt_count:
             time.sleep(policy.retry_delay)
     return CheckResult(channel.name, channel.url, False, last_error)
+
+
+def _dash_local_name(element: ET.Element) -> str:
+    return element.tag.rsplit("}", 1)[-1].casefold()
+
+
+def _dash_child(element: ET.Element, name: str) -> ET.Element | None:
+    wanted = name.casefold()
+    return next(
+        (child for child in list(element) if _dash_local_name(child) == wanted),
+        None,
+    )
+
+
+def _dash_children(element: ET.Element, name: str) -> list[ET.Element]:
+    wanted = name.casefold()
+    return [child for child in list(element) if _dash_local_name(child) == wanted]
+
+
+def _dash_base_url(parent: str, element: ET.Element) -> str:
+    value = parent
+    for base_element in _dash_children(element, "BaseURL"):
+        base = (base_element.text or "").strip()
+        if base:
+            value = urljoin(value, base)
+    return value
+
+
+def _dash_safe_url(value: str) -> bool:
+    parsed = urlparse(value)
+    return (
+        parsed.scheme.casefold() == "https"
+        and bool(parsed.netloc)
+        and not parsed.query
+        and not parsed.fragment
+    )
+
+
+def _dash_is_protected(root: ET.Element) -> bool:
+    """Reject DRM or license signalling before any DASH candidate is published."""
+    protected_names = {"contentprotection", "pssh", "laurl", "license"}
+    protected_markers = (
+        "widevine",
+        "playready",
+        "clearkey",
+        "license",
+        "pssh",
+    )
+    for element in root.iter():
+        if _dash_local_name(element) in protected_names:
+            return True
+        for key, raw_value in element.attrib.items():
+            key_text = key.casefold()
+            value_text = str(raw_value).casefold()
+            if key_text in {"schemeiduri", "value", "default_kid"} and any(
+                marker in value_text for marker in protected_markers
+            ):
+                return True
+    return False
+
+
+def _dash_timeline_points(timeline: ET.Element) -> list[tuple[int, int]]:
+    """Expand the bounded live portion of a SegmentTimeline."""
+    points: list[tuple[int, int]] = []
+    cursor: int | None = None
+    segments = _dash_children(timeline, "S")
+    for index, segment in enumerate(segments):
+        duration_raw = segment.attrib.get("d")
+        if not duration_raw:
+            continue
+        duration = int(duration_raw)
+        start_raw = segment.attrib.get("t")
+        start = int(start_raw) if start_raw is not None else cursor
+        if start is None:
+            start = 0
+        repeat = int(segment.attrib.get("r", "0"))
+        if repeat < 0:
+            next_explicit = next(
+                (
+                    int(candidate.attrib["t"])
+                    for candidate in segments[index + 1 :]
+                    if "t" in candidate.attrib
+                ),
+                None,
+            )
+            if next_explicit is not None and next_explicit > start:
+                repeat = max(0, (next_explicit - start) // duration - 1)
+            else:
+                # A live MPD can leave r=-1 open-ended. Four recent entries
+                # are enough to test the CDN without generating an unbounded
+                # request set.
+                repeat = 3
+        for offset in range(repeat + 1):
+            points.append((start + offset * duration, duration))
+        cursor = start + (repeat + 1) * duration
+    return points
+
+
+def _dash_expand_template(
+    template: str,
+    *,
+    representation_id: str,
+    bandwidth: str,
+    number: int | None = None,
+    time_value: int | None = None,
+) -> str:
+    values = {
+        "RepresentationID": representation_id,
+        "Bandwidth": bandwidth,
+        "Number": "" if number is None else str(number),
+        "Time": "" if time_value is None else str(time_value),
+    }
+
+    def replace(match: re.Match[str]) -> str:
+        name = match.group(1)
+        width = match.group(2)
+        value = values[name]
+        if width and value.isdigit():
+            value = value.zfill(int(width))
+        return value
+
+    return re.sub(r"\$(RepresentationID|Bandwidth|Number|Time)(?:%0(\d+)d)?\$", replace, template)
+
+
+def _dash_track_urls(
+    *,
+    adaptation: ET.Element,
+    representation: ET.Element,
+    base_url: str,
+) -> tuple[str | None, list[str]]:
+    adaptation_template = _dash_child(adaptation, "SegmentTemplate")
+    representation_template = _dash_child(representation, "SegmentTemplate")
+    template = representation_template or adaptation_template
+    if template is not None:
+        attributes = dict(adaptation_template.attrib if adaptation_template is not None else {})
+        attributes.update(template.attrib)
+        representation_id = representation.attrib.get("id", "")
+        bandwidth = representation.attrib.get("bandwidth", "0")
+        initialization = attributes.get("initialization")
+        init_url = (
+            urljoin(
+                base_url,
+                _dash_expand_template(
+                    initialization or "",
+                    representation_id=representation_id,
+                    bandwidth=bandwidth,
+                ),
+            )
+            if initialization
+            else None
+        )
+        timeline = _dash_child(template, "SegmentTimeline")
+        media_template = attributes.get("media")
+        media_urls: list[str] = []
+        if timeline is not None and media_template:
+            points = _dash_timeline_points(timeline)
+            for time_value, _ in points[-3:]:
+                media_urls.append(
+                    urljoin(
+                        base_url,
+                        _dash_expand_template(
+                            media_template,
+                            representation_id=representation_id,
+                            bandwidth=bandwidth,
+                            time_value=time_value,
+                        ),
+                    )
+                )
+        elif media_template and "$Number$" in media_template:
+            start_number = int(attributes.get("startNumber", "1"))
+            for number in range(start_number, start_number + 3):
+                media_urls.append(
+                    urljoin(
+                        base_url,
+                        _dash_expand_template(
+                            media_template,
+                            representation_id=representation_id,
+                            bandwidth=bandwidth,
+                            number=number,
+                        ),
+                    )
+                )
+        return init_url, list(dict.fromkeys(media_urls))
+
+    segment_list = _dash_child(representation, "SegmentList") or _dash_child(
+        adaptation, "SegmentList"
+    )
+    if segment_list is not None:
+        initialization_element = _dash_child(segment_list, "Initialization")
+        init_url = (
+            urljoin(base_url, initialization_element.attrib["sourceURL"])
+            if initialization_element is not None
+            and initialization_element.attrib.get("sourceURL")
+            else None
+        )
+        media_urls = [
+            urljoin(base_url, element.attrib["media"])
+            for element in _dash_children(segment_list, "SegmentURL")
+            if element.attrib.get("media")
+        ]
+        return init_url, media_urls[-3:]
+
+    # A clear DASH MPD may expose a complete file through Representation's
+    # BaseURL. It is still probed as a media object, but never as a hidden
+    # license or a query-bearing session URL.
+    representation_base = _dash_base_url(base_url, representation)
+    if representation_base != base_url:
+        return None, [representation_base]
+    return None, []
+
+
+def check_dash_first_segments(
+    url: str,
+    headers: dict[str, str],
+    *,
+    initial_body: bytes | None = None,
+    initial_final_url: str | None = None,
+    request_timeout: int = 25,
+    segment_timeout: int = 25,
+) -> tuple[bool, str]:
+    """Validate a clear, query-free live MPD and recent media segments.
+
+    The validator intentionally refuses DRM signalling and any query-bearing
+    manifest or segment URL. It proves at least one video representation and,
+    when advertised, one audio representation by fetching initialization and
+    recent media fragments. It is deliberately independent of HLS validation.
+    """
+    try:
+        if initial_body is None:
+            status, body, final_url = fetch_bytes(
+                url,
+                headers,
+                timeout=request_timeout,
+                limit=2_097_152,
+            )
+        else:
+            status, body, final_url = (
+                200,
+                initial_body,
+                initial_final_url or url,
+            )
+        if status != 200:
+            return False, f"manifiesto DASH HTTP {status}"
+        if not _dash_safe_url(final_url):
+            return False, "DASH rechazado: URL del manifiesto no es HTTPS estable"
+        try:
+            root = ET.fromstring(body)
+        except (ET.ParseError, UnicodeDecodeError) as error:
+            return False, f"MPD XML invalido: {error}"
+        if _dash_local_name(root) != "mpd":
+            return False, "respuesta DASH sin elemento MPD"
+        if _dash_is_protected(root):
+            return False, "DASH rechazado: MPD anuncia DRM o licencia"
+
+        mpd_base = _dash_base_url(final_url, root)
+        if not _dash_safe_url(mpd_base):
+            return False, "DASH rechazado: BaseURL no es HTTPS estable"
+        periods = _dash_children(root, "Period")
+        if not periods:
+            return False, "MPD sin Period"
+        video_tracks: list[tuple[int, int, int, str | None, list[str]]] = []
+        audio_tracks: list[tuple[int, int, int, str | None, list[str]]] = []
+        for period in periods[:1]:
+            period_base = _dash_base_url(mpd_base, period)
+            for adaptation in _dash_children(period, "AdaptationSet"):
+                adaptation_base = _dash_base_url(period_base, adaptation)
+                mime = adaptation.attrib.get("mimeType", "").casefold()
+                content_type = adaptation.attrib.get("contentType", "").casefold()
+                kind = "video" if content_type == "video" or mime.startswith("video/") else (
+                    "audio" if content_type == "audio" or mime.startswith("audio/") else ""
+                )
+                if not kind:
+                    continue
+                representations = _dash_children(adaptation, "Representation")
+                for representation in representations:
+                    representation_base = _dash_base_url(adaptation_base, representation)
+                    init_url, media_urls = _dash_track_urls(
+                        adaptation=adaptation,
+                        representation=representation,
+                        base_url=representation_base,
+                    )
+                    if not init_url and not media_urls:
+                        continue
+                    if any(not _dash_safe_url(candidate) for candidate in [
+                        candidate for candidate in [init_url, *media_urls] if candidate
+                    ]):
+                        return False, "DASH rechazado: segmento con query o URL no HTTPS"
+                    score = (
+                        int(representation.attrib.get("height", "0") or 0),
+                        int(representation.attrib.get("width", "0") or 0),
+                        int(representation.attrib.get("bandwidth", "0") or 0),
+                        init_url,
+                        media_urls,
+                    )
+                    (video_tracks if kind == "video" else audio_tracks).append(score)
+        if not video_tracks:
+            return False, "MPD sin representación de video utilizable"
+
+        def probe_track(track: tuple[int, int, int, str | None, list[str]], label: str) -> tuple[bool, str]:
+            height, width, _, init_url, media_urls = track
+            candidates = [candidate for candidate in [init_url, *media_urls[-3:]] if candidate]
+            if not candidates:
+                return False, f"DASH {label} sin fragmentos"
+            for candidate in candidates:
+                try:
+                    segment_status, segment_body, segment_final_url = fetch_bytes(
+                        candidate,
+                        headers,
+                        timeout=segment_timeout,
+                        limit=64,
+                    )
+                    if (
+                        segment_status == 200
+                        and segment_body
+                        and _dash_safe_url(segment_final_url)
+                    ):
+                        continue
+                    return False, f"DASH {label} HTTP {segment_status} o redireccion insegura"
+                except urllib.error.HTTPError as error:
+                    return False, f"DASH {label} HTTP {error.code} {error.reason}"
+                except Exception as error:
+                    return False, f"DASH {label} {type(error).__name__}: {error}"
+            return True, f"{label} {width}x{height}" if width and height else label
+
+        video = max(video_tracks, key=lambda item: item[:3])
+        video_ok, video_detail = probe_track(video, "video")
+        if not video_ok:
+            return False, video_detail
+        audio_detail = ""
+        if audio_tracks:
+            audio = max(audio_tracks, key=lambda item: item[:3])
+            audio_ok, audio_detail = probe_track(audio, "audio")
+            if not audio_ok:
+                return False, audio_detail
+        return True, "; ".join(
+            part for part in (video_detail, audio_detail, "fragmentos recientes validos") if part
+        )
+    except urllib.error.HTTPError as error:
+        return False, f"DASH HTTP {error.code} {error.reason}"
+    except Exception as error:
+        return False, f"DASH {type(error).__name__}: {error}"
 
 
 def check_hls_first_segment(
