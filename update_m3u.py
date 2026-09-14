@@ -255,6 +255,7 @@ DIRECT_PROBE_CHANNEL_IDS = frozenset(
         "StarSportsSelect2.in@DirectTVSEN7",
         "TeenNick.us@EastDirectTVSEN7",
         "FoxSports1.us@DirectTVSEN7",
+        "FoxSports.ar@Direct179",
         "ESPN.us@Direct181",
         "ESPN4.br@Direct181",
         "FoxSports1.us@Direct190",
