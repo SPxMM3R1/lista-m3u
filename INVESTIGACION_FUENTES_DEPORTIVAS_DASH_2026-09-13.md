@@ -80,6 +80,20 @@ catálogo: muchos son comunitarios, geobloqueados, no 24/7 o cambian de origen.
 - TyC Sports desde rutas IP comunitarias: hubo fallos intermitentes; solo se
   considera la variante FAST que pasó la prueba completa.
 
+También se revisó [freecasthub/public-iptv](https://github.com/freecasthub/public-iptv),
+que declara limitarse a señales públicas y legales. Su playlist deportiva no
+aporta un Fox/ESPN/Eurosport/Sky/TNT lineal nuevo, pero sí produjo candidatos
+interesantes para una futura lista deportiva gratuita. En la comprobación
+actual pasaron Red Bull TV, FIFA+ English, FIFA+ Women, Esport3, Belarus 5,
+TJK TV, Stadium, SportsGrid, FUEL TV, World of Freesports y Trace Sport Stars.
+No se publicaron automáticamente: varios son regionales, no están disponibles
+en Chile o no tienen EPG compatible, y un único pase no demuestra permanencia.
+Motorsport.tv, Teledeporte, L'Équipe, ERT Sports, San Marino RTV Sport, RTSH
+Sport, TVRI Sport, TDM Sports, RTA Sport y otros fallaron en el momento de la
+prueba. MNB Sport apareció allí como HLS no reproducible, mientras que el MPD
+HTTPS de MNB publicado en esta lista pasó tres pruebas; por eso se mantuvo la
+fuente DASH ya validada y no se reemplazó por una variante peor.
+
 El índice de [iptv-org/iptv](https://github.com/iptv-org/iptv) se usa solo como
 descubridor. El propio proyecto mantiene un historial de enlaces rotos y
 reclamaciones; en su solicitud de canales deportivos documenta que Eurosport
@@ -157,4 +171,3 @@ en un enlace persistente.
    como `Live`.
 5. Para Fox One, ESPN, NOW/Sky Sports, TNT Sports o HBO Max, usar el flujo
    oficial autenticado de VibeM3U, no extraer ni publicar manifests de sesión.
-
