@@ -88,6 +88,47 @@ class DashSupportTests(unittest.TestCase):
         )
         self.assertTrue(update_m3u.is_direct_probe(channel))
 
+    def test_research_and_dash_blocks_are_at_external_list_tail(self) -> None:
+        lines = [
+            "#EXTM3U",
+            "# Deportes",
+            '#EXTINF:-1 tvg-id="Regular" group-title="Deportes",Regular',
+            "https://cdn.example/regular.m3u8",
+            "# Misceláneos",
+            '#EXTINF:-1 tvg-id="Research" group-title="Deportes",Research',
+            "https://cdn.example/research.m3u8",
+            '#EXTINF:-1 tvg-id="Dash" group-title="Deportes" x-stream-format="dash",Dash',
+            "https://cdn.example/dash.mpd",
+        ]
+
+        moved = update_m3u.move_external_research_blocks_to_end(
+            lines,
+            {"Research"},
+            {"Dash"},
+        )
+        ids = [channel.tvg_id for channel in update_m3u.parse_channels(moved)]
+
+        self.assertEqual(ids, ["Regular", "Research", "Dash"])
+        self.assertEqual(moved[-3], "# DASH FTA sin DRM")
+        self.assertEqual(moved[-2].split('tvg-id="', 1)[1].split('"', 1)[0], "Dash")
+
+    def test_explicit_dash_tail_survives_transient_health_failure(self) -> None:
+        channel = update_m3u.Channel(
+            name="MNB Sport",
+            url="https://cdn.example/live/mnb.mpd",
+            url_line=1,
+            tvg_id="MNBSport.mn@DirectDASH",
+            stream_format="dash",
+        )
+
+        published = update_m3u.external_publication_channel_ids(
+            [channel],
+            {channel.tvg_id},
+            available_ids=set(),
+        )
+
+        self.assertEqual(published, {channel.tvg_id})
+
 
 if __name__ == "__main__":
     unittest.main()

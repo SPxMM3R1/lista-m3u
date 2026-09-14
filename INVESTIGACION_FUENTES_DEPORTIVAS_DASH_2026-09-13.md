@@ -14,6 +14,12 @@ guardan tokens, claves, URLs firmadas, sesiones ni licencias DRM.
   verificación manual.
 - `48d9a9e`: se añadió soporte seguro para fuentes DASH y se publicó
   `MNBSport.mn@DirectDASH` como fuente DASH FTA en la lista externa.
+- Esta publicación añade 16 fuentes HLS deportivas que pasaron la prueba de
+  playlist, variante y fragmento: FTF Sports (2), Fubo Sports Network, Band
+  Sports (2), Red Bull TV, FIFA+ (2), Esport3, Belarus 5, TJK TV, Stadium,
+  SportsGrid, FUEL TV, World of Freesports y Trace Sport Stars.
+- La investigación y el bloque DASH quedan al final de `m3u-externa.m3u` y
+  `2.m3u`; el bloque DASH es el último para facilitar la verificación manual.
 - La publicación remota verificada corresponde a `48d9a9e30055c3a559cfa7904281e03481bfa156`.
 - El árbol de trabajo conserva únicamente el directorio local de adjuntos sin
   seguimiento; no se incluyó en ningún commit.
@@ -39,7 +45,7 @@ Para DASH se comprobó:
 
 El nuevo validador está en [update_m3u.py](update_m3u.py) y las pruebas
 unitarias en [tests/test_dash_support.py](tests/test_dash_support.py). Las
-pruebas unitarias DASH pasan (4/4) y la suite completa pasó (99/99) antes de
+pruebas unitarias DASH pasan (5/5) y la suite completa pasó (101/101) antes de
 la publicación.
 
 ## Fuentes publicadas y comprobadas
@@ -54,6 +60,7 @@ la publicación.
 | Eurosport | `Eurosport4KCzechia.cz@Direct` | HLS y fragmento válidos en la comprobación | Se conserva en lista 2; no se afirma que sea una fuente oficial de WBD. |
 | FAST deportivo | beIN SPORTS XTRA y TyC Sports | El feed público FAST/Amagi y el de TyC pasaron la prueba | Las entradas existentes se conservan; no se sustituyen por una URL temporal de un tercero. |
 | DASH FTA | `MNBSport.mn@DirectDASH` | MPD dinámico, vídeo 1920x1080, audio y fragmentos recientes válidos en 3 comprobaciones consecutivas | Añadido a lista 2 con `x-stream-format="dash"`. |
+| Investigación deportiva | 16 fuentes HLS directas de FTF, Fubo, Band, Red Bull TV, FIFA+, Esport3, Belarus 5, TJK TV, Stadium, SportsGrid, FUEL TV, World of Freesports y Trace Sport Stars | Playlist, variante y fragmento válidos en la comprobación de publicación | Añadidas al bloque final de lista 2 para revisión manual; no se presentan como fuentes oficiales ni se guardan sesiones. |
 
 La página oficial de MNB publica su directo de MNB Sport en
 [mnb.mn/live/tv3](https://www.mnb.mn/live/tv3), y el sitio de MNB identifica
@@ -68,11 +75,12 @@ catálogo: muchos son comunitarios, geobloqueados, no 24/7 o cambian de origen.
 
 - `Fubo Sports Network` y `FTF Sports`: entregaron HLS y fragmentos, pero no
   se encontró una garantía de que el endpoint concreto sea una fuente oficial
-  estable para este proyecto. Quedan como candidatos para una aprobación
-  manual posterior.
+  estable para este proyecto. Se publican únicamente como candidatos de
+  revisión manual en el bloque final de lista 2.
 - `Band Sports` Brasil: varias rutas públicas pasaron la prueba, pero su
   disponibilidad y autorización geográfica no son suficientemente estables
-  para publicarlas automáticamente.
+  para publicarlas como fuentes principales; se dejan solo en el bloque final
+  de revisión manual.
 - `CBS Sports Golazo Network`: la playlist respondió, pero el fragmento fue
   `403`; queda rechazado.
 - beIN SPORTS XTRA en español desde una ruta IP comunitaria: falló la
@@ -86,8 +94,11 @@ aporta un Fox/ESPN/Eurosport/Sky/TNT lineal nuevo, pero sí produjo candidatos
 interesantes para una futura lista deportiva gratuita. En la comprobación
 actual pasaron Red Bull TV, FIFA+ English, FIFA+ Women, Esport3, Belarus 5,
 TJK TV, Stadium, SportsGrid, FUEL TV, World of Freesports y Trace Sport Stars.
-No se publicaron automáticamente: varios son regionales, no están disponibles
-en Chile o no tienen EPG compatible, y un único pase no demuestra permanencia.
+La publicación se limitó a los 16 candidatos que pasaron la prueba completa.
+Varios son regionales, pueden no estar disponibles en Chile o no tener EPG
+compatible; un único pase no demuestra permanencia. Por eso no se promueven a
+la lista principal y se mantienen al final de lista 2, donde el reparador puede
+volver a validarlos.
 Motorsport.tv, Teledeporte, L'Équipe, ERT Sports, San Marino RTV Sport, RTSH
 Sport, TVRI Sport, TDM Sports, RTA Sport y otros fallaron en el momento de la
 prueba. MNB Sport apareció allí como HLS no reproducible, mientras que el MPD

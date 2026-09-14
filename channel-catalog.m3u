@@ -108,7 +108,7 @@ https://redirector.rudo.video/hls-video/10b92cafdf3646cbc1e727f3dc76863621a327fd
 #EXTINF:-1 tvg-id="AztecaDeportesNetwork.mx@SD" tvg-name="Azteca Deportes Network" tvg-country="MX" tvg-logo="https://match-images.icdb.tv/5913207f2494844101287828e87625eb.jpg" group-title="Deportes",Azteca Deportes Network
 https://live-manifest.production-public.tubi.io/live/6bf131c3-d664-424c-93c9-49188a788980/playlist.m3u8
 #EXTINF:-1 tvg-id="SkySportsF1.uk" tvg-name="Sky Sports F1" tvg-country="GB" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/sky-sports-f1.png" x-resolver="highfly" x-resolver-id="f1-3949409" x-resolver-manifest="https://sports.highfly.dev/eyJvbmx5TGl2ZSI6dHJ1ZX0/manifest.json" x-resolver-refresh="on_play",Sky Sports F1
-https://leaf.highfly.dev/m3u/v-383939393/live.m3u8
+https://leaf.highfly.dev/m3u/f1-3949409/live.m3u8
 #EXTINF:-1 tvg-id="SkySportsTennis.uk" tvg-name="Sky Sports Tennis" tvg-country="GB" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/sky-sports-tennis.png" x-resolver="highfly" x-resolver-id="ten-3930030" x-resolver-manifest="https://sports.highfly.dev/eyJvbmx5TGl2ZSI6dHJ1ZX0/manifest.json" x-resolver-refresh="on_play",Sky Sports Tennis
 https://leaf.highfly.dev/m3u/ten-3930030/live.m3u8
 #EXTINF:-1 tvg-id="SkySportsPremierLeague.uk" tvg-name="Sky Sports Premier League" tvg-country="GB" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/sky-sports-premier-league.png" group-title="Deportes" x-resolver="highfly" x-resolver-id="pl-434343434" x-resolver-manifest="https://sports.highfly.dev/eyJvbmx5TGl2ZSI6dHJ1ZX0/manifest.json" x-resolver-refresh="on_play",Sky Sports Premier League
@@ -863,6 +863,38 @@ http://td3wb1bchdvsahp.ngolpdkyoctjcddxshli469r.org/sunshine/s9GhHOumr-JAVMh14XF
 http://shouurvki7jtfax.ngolpdkyoctjcddxshli469r.org/sunshine/cOYOwl25P-FK1UwBRtnePM1Q9h3mjxBobyfu5a6awwj3x7Bxmajxl9MYj5qu-PkNidEYxoywp5S2cIY3tg4Chg0I1BjfKfThf_pTgUhRdH1MijUQ8443L1AvqSPFGVE_HOIMLUszdDvbGSatH8jpLSfnHGN_BtXmFgwLm7bnId9kTgB3_g18hUnsFx4g8L8eCz0fwteRHBoq3HYyv1NoliSknZomkkqzDvALnJ_4eG29zTjCEa7oU99yoH1sjGhOuGtzU4P15sBtX8ycAvtX6xMzRW8qe65L8p-jZRUUhfQq8XCzCOkNgNX_EthkbtOe/hls/index.m3u8
 #EXTINF:-1 tvg-id="Vavoo.uk.TNTSPORTESPN@TvVoo" tvg-name="TNT Sports ESPN Reino Unido" tvg-country="GB" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/bt-sport-espn-uk.png" group-title="Deportes" x-resolver="tvvoo" x-resolver-endpoint="https://tvvoo.hayd.uk/stream/tv" x-resolver-ids="vavoo_TNT%20SPORTS%20ESPN%7Cgroup%3Auk" x-resolver-refresh="on_play" x-resolver-recipe="bounded-payload-v1",TNT Sports ESPN Reino Unido
 https://mjkskdvpfpb1fbv.ngolpdkyoctjcddxshli469r.org/sunshine/u_Kp98gFRzyRktfFyc7kNlvnicps_caVfYyMmcY5Wbs8unIQ-ZydlI9M7ZoLr9vcvwZK2vk_7GHoGmnLyZ4Vfw8vSM0-4pYf6j1HWqiyhoNHkSUKUYGj57Lt3AYcrQXw1hSfUZKCQV5wH1CnMZn-OqSaRdgwQBd5vd6VBj1M65rvmafmkeW9gPF76XO6eBqZNt0ZzWCssD1MNgoeYmiagBAT8cajgfxb0od0BdjvaS_7udeGPbuoqUuXzmB09hmBKbISb0dS9x__uVFAuNi0iMGupikzzMhjS8a8FVl5EIfCORviBsliPklIW9ynyjta/hls/index.m3u8
+#EXTINF:-1 tvg-id="FTFSports.us@DirectCDN77" tvg-name="FTF Sports [CDN77]" tvg-country="US" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/misc/vod/ftf-vod.png" group-title="Deportes",FTF Sports [CDN77]
+https://1593604785.rsc.cdn77.org/FTF/FTF_SCTE.m3u8
+#EXTINF:-1 tvg-id="FTFSports.us@DirectLinear" tvg-name="FTF Sports [Linear]" tvg-country="US" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/misc/vod/ftf-vod.png" group-title="Deportes",FTF Sports [Linear]
+https://1657061170.rsc.cdn77.org/HLS/FTF-LINEAR.m3u8
+#EXTINF:-1 tvg-id="FuboSportsNetwork.us@DirectTubi" tvg-name="Fubo Sports Network [Tubi]" tvg-country="US" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fubo-sports-network-us.png" group-title="Deportes",Fubo Sports Network [Tubi]
+https://aegis-cloudfront-1.tubi.video/c2ac89da-5c69-439e-b85d-d87de0548b54/5.m3u8
+#EXTINF:-1 tvg-id="BandSports.br@Direct45" tvg-name="Band Sports [IP 45]" tvg-country="BR" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/brazil/band-sports-br.png" group-title="Deportes",Band Sports [IP 45]
+http://45.162.64.114/BAND_SPORTS/index.m3u8
+#EXTINF:-1 tvg-id="BandSports.br@Direct170" tvg-name="Band Sports [IP 170]" tvg-country="BR" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/brazil/band-sports-br.png" group-title="Deportes",Band Sports [IP 170]
+http://170.83.16.50/BAND_SPORTS/index.m3u8
+#EXTINF:-1 tvg-id="RedBullTV.int@DirectFreeCast" tvg-name="Red Bull TV [FreeCast]" tvg-country="INT" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/international/red-bull-tv-int.png" group-title="Deportes",Red Bull TV [FreeCast]
+https://e7c8f7d5.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWdiX1JlZEJ1bGxUVi0xX0hMUw/playlist.m3u8
+#EXTINF:-1 tvg-id="FIFAPlusEnglish.int@DirectFreeCast" tvg-name="FIFA+ English [FreeCast]" tvg-country="INT" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/FIFA%2B_(2025).svg/700px-FIFA%2B_(2025).svg.png" group-title="Deportes",FIFA+ English [FreeCast]
+https://a62dad94.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWV1X0ZJRkFQbHVzRW5nbGlzaF9ITFM/playlist.m3u8
+#EXTINF:-1 tvg-id="FIFAPlusWomen.int@DirectFreeCast" tvg-name="FIFA+ Women [FreeCast]" tvg-country="INT" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/FIFA%2B_(2025).svg/700px-FIFA%2B_(2025).svg.png" group-title="Deportes",FIFA+ Women [FreeCast]
+https://cffda8ff.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/U2Ftc3VuZy1nYl9GSUZBUGx1c3dvbWVuX0hMUw/playlist.m3u8
+#EXTINF:-1 tvg-id="Esport3.es@DirectFreeCast" tvg-name="Esport3 [FreeCast]" tvg-country="ES" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Esport3.svg/330px-Esport3.svg.png" group-title="Deportes",Esport3 [FreeCast]
+https://directes-tv-int.3catdirectes.cat/live-content/esport3-hls/master.m3u8
+#EXTINF:-1 tvg-id="Belarus5.by@DirectFreeCast" tvg-name="Belarus 5 [FreeCast]" tvg-country="BY" tvg-logo="https://i.imgur.com/NJsRFud.png" group-title="Deportes",Belarus 5 [FreeCast]
+https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus5.smil/playlist.m3u8
+#EXTINF:-1 tvg-id="TJKTV.tj@DirectFreeCast" tvg-name="TJK TV [FreeCast]" tvg-country="TJ" tvg-logo="https://i.imgur.com/3zHdkYG.png" group-title="Deportes",TJK TV [FreeCast]
+https://tjktv-live.tjk.org/tjktv.m3u8
+#EXTINF:-1 tvg-id="Stadium.us@DirectFreeCast" tvg-name="Stadium [FreeCast]" tvg-country="US" tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/5/53/Stadium_%28sports_network%29_logo.svg/512px-Stadium_%28sports_network%29_logo.svg.png" group-title="Deportes",Stadium [FreeCast]
+https://aegis-cloudfront-1.tubi.video/74681dcc-e6d0-4add-ad67-a22ad9c152e6/playlist.m3u8
+#EXTINF:-1 tvg-id="SportsGrid.us@DirectFreeCast" tvg-name="SportsGrid [FreeCast]" tvg-country="US" tvg-logo="https://i.imgur.com/ulGKX30.png" group-title="Deportes",SportsGrid [FreeCast]
+https://sportsgrid-tribal.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-id="FUELTV.int@DirectFreeCast" tvg-name="FUEL TV [FreeCast]" tvg-country="INT" tvg-logo="https://i.imgur.com/I8mviBy.png" group-title="Deportes",FUEL TV [FreeCast]
+https://amg01074-fueltv-fueltvemeaen-rakuten-b6j62.amagi.tv/hls/amagi_hls_data_rakutenAA-fueltvemeaen/CDN/master.m3u8
+#EXTINF:-1 tvg-id="WorldOfFreesports.int@DirectFreeCast" tvg-name="World of Freesports [FreeCast]" tvg-country="INT" tvg-logo="https://i.imgur.com/lta5Mog.png" group-title="Deportes",World of Freesports [FreeCast]
+https://mainstreammedia-worldoffreesportsintl-rakuten.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-id="TraceSportStars.int@DirectFreeCast" tvg-name="Trace Sport Stars [FreeCast]" tvg-country="INT" tvg-logo="https://i.imgur.com/FabFP5A.png" group-title="Deportes",Trace Sport Stars [FreeCast]
+https://lightning-tracesport-samsungau.amagi.tv/playlist.m3u8
 
 # Música
 #EXTINF:-1 tvg-id="XITEHits.nl@Germany" tvg-name="XITE Hits" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/xite.svg" group-title="Música",XITE Hits

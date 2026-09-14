@@ -97,8 +97,6 @@ http://tvsen7.aynascope.net/ssport2hd/index.m3u8
 https://tvsen7.aynascope.net/foxsports1/index.m3u8
 #EXTINF:-1 tvg-id="FoxSports.ar@Direct179" tvg-name="Fox Sports Argentina [IP 179]" tvg-country="AR" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/fox-sports.svg" group-title="Deportes",Fox Sports Argentina [IP 179]
 http://179.64.36.245:8000/play/a07j/index.m3u8
-#EXTINF:-1 tvg-id="MNBSport.mn@DirectDASH" tvg-name="MNB Sport [DASH FTA]" tvg-country="MN" tvg-logo="https://i.imgur.com/z854PC3.png" group-title="Deportes" x-stream-format="dash",MNB Sport [DASH FTA]
-https://cdn3.skygo.mn/live/disk1/MNBSport/DASH-FTA/MNBSport.mpd
 #EXTINF:-1 tvg-id="ESPN.us@Direct181" tvg-name="ESPN [IP 181]" tvg-country="BR" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn.svg" group-title="Deportes",ESPN [IP 181]
 http://181.78.197.59:8000/play/a07z/index.m3u8
 #EXTINF:-1 tvg-id="ESPN4.br@Direct181" tvg-name="ESPN 4 Brasil [IP 181]" tvg-country="BR" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn.svg" group-title="Deportes",ESPN 4 Brasil [IP 181]
@@ -206,3 +204,41 @@ http://tvsen7.aynascope.net/MadaniTV/index.m3u8
 http://tvsen7.aynascope.net/nicklodean/index.m3u8
 #EXTINF:-1 tvg-id="TeenNick.us@EastDirectTVSEN7" tvg-name="TeenNick [TVSEN7]" tvg-country="US" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/TeenNick_2019_logo.svg/960px-TeenNick_2019_logo.svg.png" group-title="Misceláneos",TeenNick [TVSEN7]
 http://tvsen7.aynascope.net/teennick/index.m3u8
+
+# Investigación deportiva publicada
+#EXTINF:-1 tvg-id="FTFSports.us@DirectCDN77" tvg-name="FTF Sports [CDN77]" tvg-country="US" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/misc/vod/ftf-vod.png" group-title="Deportes",FTF Sports [CDN77]
+https://1593604785.rsc.cdn77.org/FTF/FTF_SCTE.m3u8
+#EXTINF:-1 tvg-id="FTFSports.us@DirectLinear" tvg-name="FTF Sports [Linear]" tvg-country="US" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/misc/vod/ftf-vod.png" group-title="Deportes",FTF Sports [Linear]
+https://1657061170.rsc.cdn77.org/HLS/FTF-LINEAR.m3u8
+#EXTINF:-1 tvg-id="FuboSportsNetwork.us@DirectTubi" tvg-name="Fubo Sports Network [Tubi]" tvg-country="US" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fubo-sports-network-us.png" group-title="Deportes",Fubo Sports Network [Tubi]
+https://aegis-cloudfront-1.tubi.video/c2ac89da-5c69-439e-b85d-d87de0548b54/5.m3u8
+#EXTINF:-1 tvg-id="BandSports.br@Direct45" tvg-name="Band Sports [IP 45]" tvg-country="BR" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/brazil/band-sports-br.png" group-title="Deportes",Band Sports [IP 45]
+http://45.162.64.114/BAND_SPORTS/index.m3u8
+#EXTINF:-1 tvg-id="BandSports.br@Direct170" tvg-name="Band Sports [IP 170]" tvg-country="BR" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/brazil/band-sports-br.png" group-title="Deportes",Band Sports [IP 170]
+http://170.83.16.50/BAND_SPORTS/index.m3u8
+#EXTINF:-1 tvg-id="RedBullTV.int@DirectFreeCast" tvg-name="Red Bull TV [FreeCast]" tvg-country="INT" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/international/red-bull-tv-int.png" group-title="Deportes",Red Bull TV [FreeCast]
+https://e7c8f7d5.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWdiX1JlZEJ1bGxUVi0xX0hMUw/playlist.m3u8
+#EXTINF:-1 tvg-id="FIFAPlusEnglish.int@DirectFreeCast" tvg-name="FIFA+ English [FreeCast]" tvg-country="INT" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/FIFA%2B_(2025).svg/700px-FIFA%2B_(2025).svg.png" group-title="Deportes",FIFA+ English [FreeCast]
+https://a62dad94.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWV1X0ZJRkFQbHVzRW5nbGlzaF9ITFM/playlist.m3u8
+#EXTINF:-1 tvg-id="FIFAPlusWomen.int@DirectFreeCast" tvg-name="FIFA+ Women [FreeCast]" tvg-country="INT" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/FIFA%2B_(2025).svg/700px-FIFA%2B_(2025).svg.png" group-title="Deportes",FIFA+ Women [FreeCast]
+https://cffda8ff.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/U2Ftc3VuZy1nYl9GSUZBUGx1c3dvbWVuX0hMUw/playlist.m3u8
+#EXTINF:-1 tvg-id="Esport3.es@DirectFreeCast" tvg-name="Esport3 [FreeCast]" tvg-country="ES" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Esport3.svg/330px-Esport3.svg.png" group-title="Deportes",Esport3 [FreeCast]
+https://directes-tv-int.3catdirectes.cat/live-content/esport3-hls/master.m3u8
+#EXTINF:-1 tvg-id="Belarus5.by@DirectFreeCast" tvg-name="Belarus 5 [FreeCast]" tvg-country="BY" tvg-logo="https://i.imgur.com/NJsRFud.png" group-title="Deportes",Belarus 5 [FreeCast]
+https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus5.smil/playlist.m3u8
+#EXTINF:-1 tvg-id="TJKTV.tj@DirectFreeCast" tvg-name="TJK TV [FreeCast]" tvg-country="TJ" tvg-logo="https://i.imgur.com/3zHdkYG.png" group-title="Deportes",TJK TV [FreeCast]
+https://tjktv-live.tjk.org/tjktv.m3u8
+#EXTINF:-1 tvg-id="Stadium.us@DirectFreeCast" tvg-name="Stadium [FreeCast]" tvg-country="US" tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/5/53/Stadium_%28sports_network%29_logo.svg/512px-Stadium_%28sports_network%29_logo.svg.png" group-title="Deportes",Stadium [FreeCast]
+https://aegis-cloudfront-1.tubi.video/74681dcc-e6d0-4add-ad67-a22ad9c152e6/playlist.m3u8
+#EXTINF:-1 tvg-id="SportsGrid.us@DirectFreeCast" tvg-name="SportsGrid [FreeCast]" tvg-country="US" tvg-logo="https://i.imgur.com/ulGKX30.png" group-title="Deportes",SportsGrid [FreeCast]
+https://sportsgrid-tribal.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-id="FUELTV.int@DirectFreeCast" tvg-name="FUEL TV [FreeCast]" tvg-country="INT" tvg-logo="https://i.imgur.com/I8mviBy.png" group-title="Deportes",FUEL TV [FreeCast]
+https://amg01074-fueltv-fueltvemeaen-rakuten-b6j62.amagi.tv/hls/amagi_hls_data_rakutenAA-fueltvemeaen/CDN/master.m3u8
+#EXTINF:-1 tvg-id="WorldOfFreesports.int@DirectFreeCast" tvg-name="World of Freesports [FreeCast]" tvg-country="INT" tvg-logo="https://i.imgur.com/lta5Mog.png" group-title="Deportes",World of Freesports [FreeCast]
+https://mainstreammedia-worldoffreesportsintl-rakuten.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-id="TraceSportStars.int@DirectFreeCast" tvg-name="Trace Sport Stars [FreeCast]" tvg-country="INT" tvg-logo="https://i.imgur.com/FabFP5A.png" group-title="Deportes",Trace Sport Stars [FreeCast]
+https://lightning-tracesport-samsungau.amagi.tv/playlist.m3u8
+
+# DASH FTA sin DRM
+#EXTINF:-1 tvg-id="MNBSport.mn@DirectDASH" tvg-name="MNB Sport [DASH FTA]" tvg-country="MN" tvg-logo="https://i.imgur.com/z854PC3.png" group-title="Deportes" x-stream-format="dash",MNB Sport [DASH FTA]
+https://cdn3.skygo.mn/live/disk1/MNBSport/DASH-FTA/MNBSport.mpd

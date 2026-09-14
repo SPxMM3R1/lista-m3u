@@ -263,12 +263,55 @@ DIRECT_PROBE_CHANNEL_IDS = frozenset(
         "FoxSports.us@Cloudfront",
         "ESPN8TheOcho.us@Cloudfront",
         "ESPNews.us@Direct41",
+        # Candidatos deportivos públicos comprobados durante la investigación
+        # 2026-09-13. Se publican en la lista 2 como sondas manuales; no se
+        # convierten en fuentes oficiales ni en identidad del canal.
+        "FTFSports.us@DirectCDN77",
+        "FTFSports.us@DirectLinear",
+        "FuboSportsNetwork.us@DirectTubi",
+        "BandSports.br@Direct45",
+        "BandSports.br@Direct170",
+        "RedBullTV.int@DirectFreeCast",
+        "FIFAPlusEnglish.int@DirectFreeCast",
+        "FIFAPlusWomen.int@DirectFreeCast",
+        "Esport3.es@DirectFreeCast",
+        "Belarus5.by@DirectFreeCast",
+        "TJKTV.tj@DirectFreeCast",
+        "Stadium.us@DirectFreeCast",
+        "SportsGrid.us@DirectFreeCast",
+        "FUELTV.int@DirectFreeCast",
+        "WorldOfFreesports.int@DirectFreeCast",
+        "TraceSportStars.int@DirectFreeCast",
     }
 )
 # Las entradas DASH se validan con el mismo criterio de prueba manual que las
 # HLS directas, pero con un parser MPD separado. El conjunto es deliberado:
 # un MPD no entra al catalogo publicado solo por devolver HTTP 200.
 DASH_PROBE_CHANNEL_IDS = frozenset({"MNBSport.mn@DirectDASH"})
+# Bloques que se muestran al final de la lista 2 para poder inspeccionarlos
+# manualmente sin mezclar sus candidatos con el catálogo cotidiano. DASH queda
+# en un bloque aún más final para que sea fácil distinguir el formato.
+EXTERNAL_RESEARCH_TAIL_CHANNEL_IDS = frozenset(
+    {
+        "FTFSports.us@DirectCDN77",
+        "FTFSports.us@DirectLinear",
+        "FuboSportsNetwork.us@DirectTubi",
+        "BandSports.br@Direct45",
+        "BandSports.br@Direct170",
+        "RedBullTV.int@DirectFreeCast",
+        "FIFAPlusEnglish.int@DirectFreeCast",
+        "FIFAPlusWomen.int@DirectFreeCast",
+        "Esport3.es@DirectFreeCast",
+        "Belarus5.by@DirectFreeCast",
+        "TJKTV.tj@DirectFreeCast",
+        "Stadium.us@DirectFreeCast",
+        "SportsGrid.us@DirectFreeCast",
+        "FUELTV.int@DirectFreeCast",
+        "WorldOfFreesports.int@DirectFreeCast",
+        "TraceSportStars.int@DirectFreeCast",
+    }
+)
+EXTERNAL_DASH_TAIL_CHANNEL_IDS = frozenset({"MNBSport.mn@DirectDASH"})
 # TVN y Meganoticias son resolutores gestionados por la aplicacion: la lista
 # conserva sus masters oficiales y VibeM3U obtiene la autorizacion al abrir el
 # canal. Solo TvVoo y Highfly se renuevan desde Actions porque entregan fuentes
@@ -3077,6 +3120,63 @@ def filter_playlist_to_channel_ids(
     return filtered_lines
 
 
+def move_external_research_blocks_to_end(
+    lines: list[str],
+    research_ids: set[str] | frozenset[str],
+    dash_ids: set[str] | frozenset[str],
+) -> list[str]:
+    """Move newly researched candidates to visible blocks at list-2's end.
+
+    The canonical catalogue remains thematically ordered. Only the external
+    publication gets this presentation rule, so the manual list and the EPG
+    scope do not inherit a special research ordering. DASH is emitted after
+    the HLS research block and is never mixed with ordinary channels.
+    """
+    channels = parse_channels(lines)
+    if not channels:
+        return lines
+    research = set(research_ids)
+    dash = set(dash_ids)
+    selected_tail_ids = research | dash
+    tail_channels = [
+        channel for channel in channels if channel.tvg_id in selected_tail_ids
+    ]
+    if not tail_channels:
+        return lines
+    omitted_indexes = {
+        index
+        for channel in tail_channels
+        for index in (channel.info_line, channel.url_line)
+    }
+    remaining = [
+        line
+        for index, line in enumerate(lines)
+        if index not in omitted_indexes
+    ]
+    while remaining and not remaining[-1].strip():
+        remaining.pop()
+
+    research_channels = [
+        channel for channel in tail_channels if channel.tvg_id not in dash
+    ]
+    dash_channels = [
+        channel for channel in tail_channels if channel.tvg_id in dash
+    ]
+    if research_channels:
+        if remaining:
+            remaining.append("")
+        remaining.append("# Investigación deportiva publicada")
+        for channel in research_channels:
+            remaining.extend((lines[channel.info_line], lines[channel.url_line]))
+    if dash_channels:
+        if remaining:
+            remaining.append("")
+        remaining.append("# DASH FTA sin DRM")
+        for channel in dash_channels:
+            remaining.extend((lines[channel.info_line], lines[channel.url_line]))
+    return remaining
+
+
 def stable_channel_ids(channels: list[Channel], *, label: str) -> tuple[str, ...]:
     """Return unique stable IDs or reject a playlist unsafe for manual use."""
     missing = [channel.name for channel in channels if not channel.tvg_id]
@@ -3219,14 +3319,21 @@ def external_publication_channel_ids(
 
     ``channel-catalog.m3u`` remains the retry inventory. ``available_ids`` is
     therefore only an output filter: a failed external channel stays in the
-    catalogue and can return on a later successful validation.
+    catalogue and can return on a later successful validation. The explicit
+    clear-DASH research entries are the one deliberate exception: they remain
+    visible in list 2 for manual playback checks, while the next run retries
+    their MPD and fragment validation.
     """
     return frozenset(
         channel.tvg_id
         for channel in channels
         if channel.tvg_id in external_ids
         and channel.tvg_id not in EXTERNAL_MANUAL_EXCLUDED_CHANNEL_IDS
-        and (available_ids is None or channel.tvg_id in available_ids)
+        and (
+            available_ids is None
+            or channel.tvg_id in available_ids
+            or channel.tvg_id in EXTERNAL_DASH_TAIL_CHANNEL_IDS
+        )
         and external_vavoo_channel_is_allowed(channel)
     )
 
@@ -3251,6 +3358,9 @@ def external_available_ids_from_health(
         if channel_id not in external_ids:
             continue
         health = raw_channels.get(channel_id)
+        if channel_id in EXTERNAL_DASH_TAIL_CHANNEL_IDS:
+            available.add(channel_id)
+            continue
         if is_tvvoo_ar_channel(channel) and not isinstance(health, dict):
             continue
         if not isinstance(health, dict) or health.get("status") != "temporarily_unavailable":
@@ -10256,6 +10366,11 @@ def main() -> int:
         final_lines,
         final_channels,
         external_publication_ids,
+    )
+    candidate_external_lines = move_external_research_blocks_to_end(
+        candidate_external_lines,
+        EXTERNAL_RESEARCH_TAIL_CHANNEL_IDS,
+        EXTERNAL_DASH_TAIL_CHANNEL_IDS,
     )
     validate_public_playlist_partition(
         final_lines,
