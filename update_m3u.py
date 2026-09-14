@@ -15,6 +15,7 @@ import ssl
 import subprocess
 import sys
 import time
+import unicodedata
 import urllib.error
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -4183,6 +4184,91 @@ def normalize_epg_title(value: object) -> str:
     return normalized
 
 
+EPG_DESCRIPTION_METADATA_PATTERNS = (
+    re.compile(r"^(?:programacion|parrilla)\s+(?:publica|oficial|diaria|semanal)\s+consultada\b"),
+    re.compile(r"^parrilla publica de zapping chile\b"),
+    re.compile(r"^programacion continua de .+;\s*(?:no publica|se conserva)\b"),
+    re.compile(r"^rotacion continua de .+;\s*(?:no publica|se conserva)\b"),
+    re.compile(r"^senal (?:deportiva|informativa|documental) continua;\s*tvvoo\b"),
+    re.compile(r"^programa pagado\b|productos para la venta\b"),
+)
+
+
+def _fold_epg_description(value: str) -> str:
+    folded = unicodedata.normalize("NFKD", value)
+    return "".join(character for character in folded if not unicodedata.combining(character))
+
+
+def normalize_epg_description(value: object) -> str:
+    """Return a safe, source-backed XMLTV synopsis or an empty string.
+
+    Descriptions are optional XMLTV metadata. A schedule-only source must not
+    be turned into a fake synopsis, so known provenance/continuity boilerplate
+    is removed while real descriptions from official or XMLTV sources are
+    preserved without destructive length limits.
+    """
+    text = html.unescape(str(value or ""))
+    text = re.sub(
+        r"<(?:script|style)\b[^>]*>.*?</(?:script|style)\s*>",
+        " ",
+        text,
+        flags=re.IGNORECASE | re.DOTALL,
+    )
+    text = re.sub(r"<\s*br\s*/?\s*>", " ", text, flags=re.IGNORECASE)
+    text = re.sub(r"</(?:p|div|li|tr|td|h[1-6])\s*>", " ", text, flags=re.IGNORECASE)
+    text = re.sub(r"<[^>]+>", " ", text)
+    text = re.sub(r"\s+", " ", text).strip(" \t\r\n-–—")
+    if not text:
+        return ""
+    folded = _fold_epg_description(text).casefold()
+    if re.fullmatch(r"(?:https?://|www\.)\S+", folded):
+        return ""
+    if any(pattern.search(folded) for pattern in EPG_DESCRIPTION_METADATA_PATTERNS):
+        return ""
+    if re.match(r"^(?:publicidad|aviso publicitario|anuncio)\b", folded):
+        return ""
+    return text
+
+
+def sanitize_xmltv_descriptions(root: ET.Element) -> dict[str, int]:
+    """Clean programme descriptions while retaining the best text per lang.
+
+    This is intentionally applied at the final XMLTV boundary, after source
+    precedence and fallback selection. It therefore protects descriptions
+    copied from EPGShare/Pluto/official XMLTV as well as descriptions created
+    by the official JSON importers, without changing titles or time windows.
+    """
+    programme_count = 0
+    channel_ids: set[str] = set()
+    for programme in root.findall("programme"):
+        descriptions = programme.findall("desc")
+        best_by_language: dict[str, tuple[int, ET.Element, str]] = {}
+        for description in descriptions:
+            cleaned = normalize_epg_description(description.text)
+            if not cleaned:
+                programme.remove(description)
+                continue
+            language = description.get("lang", "")
+            candidate = (len(cleaned), description, cleaned)
+            previous = best_by_language.get(language)
+            if previous is not None:
+                if candidate[0] <= previous[0]:
+                    programme.remove(description)
+                    continue
+                programme.remove(previous[1])
+            description.text = cleaned
+            best_by_language[language] = candidate
+        if best_by_language:
+            programme_count += 1
+            channel_id = programme.get("channel", "")
+            if channel_id:
+                channel_ids.add(channel_id)
+    return {
+        "programmes": programme_count,
+        "channels": len(channel_ids),
+    }
+
+
 def localize_xmltv_programme(programme: ET.Element) -> ET.Element:
     localized = copy.deepcopy(programme)
     for attribute in ("start", "stop"):
@@ -7364,6 +7450,17 @@ def build_epg(
             if element is not None and element.text:
                 element.text = normalize_epg_title(element.text)
 
+    description_status = sanitize_xmltv_descriptions(root)
+    root.set("data-description-policy", "verified-source-only")
+    root.set(
+        "data-description-programmes",
+        str(description_status["programmes"]),
+    )
+    root.set(
+        "data-description-channels",
+        str(description_status["channels"]),
+    )
+
     for channel in root.findall("channel"):
         channel_id = channel.get("id", "")
         channel.set("data-guide", guide_types.get(channel_id, "senal continua"))
@@ -7391,6 +7488,10 @@ def build_epg(
     )
     status["guide_types"] = guide_types
     status["guide_sources"] = guide_sources
+    status["descriptions"] = {
+        **description_status,
+        "policy": "verified-source-only",
+    }
     status["real_last_stop_utc"] = {
         channel_id: stop.astimezone(timezone.utc).isoformat()
         for channel_id, stop in real_last_stop_by_target.items()

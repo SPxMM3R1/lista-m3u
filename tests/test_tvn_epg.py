@@ -311,6 +311,35 @@ class TvnEpgTests(unittest.TestCase):
             "The Day News",
             root.find("./programme[@channel='0104']").findtext("title"),
         )
+        self.assertEqual("verified-source-only", root.get("data-description-policy"))
+
+    def test_descriptions_keep_real_synopsis_and_drop_source_boilerplate(self) -> None:
+        root = ET.Element("tv")
+        real = ET.SubElement(root, "programme", {"channel": "real"})
+        ET.SubElement(real, "desc", {"lang": "es"}).text = (
+            "<p>Una mirada breve a la historia y sus protagonistas.</p>"
+        )
+        duplicate = ET.SubElement(real, "desc", {"lang": "es"})
+        duplicate.text = "Una sinopsis real mucho más completa para el mismo programa."
+        metadata = ET.SubElement(root, "programme", {"channel": "metadata"})
+        ET.SubElement(metadata, "desc", {"lang": "es"}).text = (
+            "Programación oficial consultada en TVN."
+        )
+        technical = ET.SubElement(root, "programme", {"channel": "technical"})
+        ET.SubElement(technical, "desc", {"lang": "es"}).text = (
+            "Programación continua de la señal en vivo; no publica una parrilla "
+            "horaria XMLTV estable."
+        )
+
+        status = update_m3u.sanitize_xmltv_descriptions(root)
+
+        self.assertEqual({"programmes": 1, "channels": 1}, status)
+        self.assertEqual(
+            "Una sinopsis real mucho más completa para el mismo programa.",
+            real.findtext("desc"),
+        )
+        self.assertIsNone(metadata.find("desc"))
+        self.assertIsNone(technical.find("desc"))
 
     def test_mexico_epgshare_mapping_covers_telehit(self) -> None:
         self.assertEqual(
