@@ -82,9 +82,9 @@ class PlaylistOrderTests(unittest.TestCase):
                 "Vavoo.test.ESPN@TvVoo",
                 "Vavoo.test.TNT@TvVoo",
                 "Vavoo.test.TNTSPORTS2@TvVoo",
+                "ESPN.us",
             },
         )
-        self.assertNotIn("ESPN.us", selected)
 
     def test_external_policy_excludes_unavailable_output_but_keeps_catalog_candidate(self) -> None:
         channels = [
