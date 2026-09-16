@@ -148,6 +148,11 @@ SKY_SPORTS_CHANNEL_ORDER = (
     "SkySportsPremierLeague.uk",
     "ESPN.us",
     "ESPN2.us",
+    "TNTSports3.uk@TvVoo",
+    "FoxSports1.us@Direct",
+    "ESPN.us@Direct181",
+    "ESPN4.br@Direct181",
+    "FoxDeportes.us@Direct23",
     # Despues de las cinco senales principales, el resto de variantes.
     "DAZNF1.es@TvVoo",
     "SkySportF1.de@TvVoo",
