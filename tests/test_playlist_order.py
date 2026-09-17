@@ -1103,11 +1103,12 @@ class PlaylistOrderTests(unittest.TestCase):
             list(update_m3u.SPORTS_CHANNEL_ORDER),
         )
         self.assertEqual(
-            ordered_ids[:5],
+            ordered_ids[:6],
             [
                 "SkySportsF1.uk",
                 "SkySportsTennis.uk",
                 "SkySportsPremierLeague.uk",
+                "SkySportsMainEvent.uk@TvVoo",
                 "ESPN.us",
                 "ESPN2.us",
             ],
