@@ -1,9 +1,14 @@
 # Lista M3U para Android TV
 
+![Icono minimalista de VibeM3U](branding/vibem3u-icon.png)
+
 Repositorio publico de la lista M3U principal para Android TV. El mantenimiento
 esta separado en dos procesos independientes: uno actualiza canales,
 resolutores y salud; el otro construye la EPG sobre el catalogo completo. Ambos
 usan ventanas fijas de seis horas y publican sus salidas sin sobrescribirse.
+
+El icono del proyecto se conserva como un recurso independiente de los logos de
+canales y no participa en la generación de las listas ni de la EPG.
 
 ## URLs para el reproductor
 
