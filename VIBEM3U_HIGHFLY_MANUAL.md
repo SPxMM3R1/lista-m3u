@@ -32,7 +32,7 @@ temporal al terminar o al recibir un rechazo.
 ## Renovación y selección
 
 El actualizador consulta el catálogo público
-`https://sports.highfly.dev/catalog/sport/sports_live.json` únicamente para
+`https://sports.highfly.to/catalog/sport/sports_live.json` únicamente para
 obtener slugs actuales y sincronizar, en conjunto, el `x-resolver-id` y la URL
 HLS de respaldo sin token. La consulta no agrega canales, no elimina miembros
 manuales y no publica eventos `streamed:`. Si el catálogo falla, se usan los

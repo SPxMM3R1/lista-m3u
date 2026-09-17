@@ -101,7 +101,7 @@ class HighflyResolverTest(unittest.TestCase):
             tvg_id="SkySportsF1.uk",
             display_name="Sky Sports F1",
         )
-        api_url = "https://sports.highfly.dev/stream/sport/leaf:f1-3949409.json"
+        api_url = "https://sports.highfly.to/stream/sport/leaf:f1-3949409.json"
         response = {
             "streams": [
                 {"url": "https://leaf.highfly.dev/m3u/f1-3949409/live.m3u8"}

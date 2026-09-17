@@ -43,10 +43,10 @@ CHANNEL_CATALOG_PATH = Path(__file__).with_name("channel-catalog.m3u")
 # publicas. Su catalogo se consulta para renovar slugs en memoria; nunca
 # modifica la membresia ni genera una tercera lista.
 HIGHFLY_PUBLIC_CATALOG_URL = (
-    "https://sports.highfly.dev/catalog/sport/sports_live.json"
+    "https://sports.highfly.to/catalog/sport/sports_live.json"
 )
 HIGHFLY_STREAM_API_TEMPLATE = (
-    "https://sports.highfly.dev/stream/sport/leaf:{slug}.json"
+    "https://sports.highfly.to/stream/sport/leaf:{slug}.json"
 )
 HIGHFLY_STREAM_ALLOWED_HOSTS = frozenset({"leaf.highfly.dev"})
 HIGHFLY_LEAF_ID_PATTERN = re.compile(
@@ -341,7 +341,7 @@ RESOLVER_ATTRIBUTE_NAMES = (
     "x-resolver-recipe",
 )
 HIGHFLY_MANIFEST_URL = (
-    "https://sports.highfly.dev/"
+    "https://sports.highfly.to/"
     "eyJvbmx5TGl2ZSI6dHJ1ZX0/manifest.json"
 )
 HIGHFLY_RESOLVER_CHANNELS = {
@@ -1001,7 +1001,7 @@ TVVOO_STREAM_BASE_URL = "https://tvvoo.hayd.uk/stream/tv"
 # El relay publico de Highfly puede responder con un certificado vencido aun
 # cuando el mismo HLS entrega playlist y segmentos. La excepcion queda
 # limitada a este host y solo se activa ante el error explicito de expiracion.
-EXPIRED_CERT_FALLBACK_HOSTS = {"leaf.highfly.dev", "sports.highfly.dev"}
+EXPIRED_CERT_FALLBACK_HOSTS = {"leaf.highfly.dev", "sports.highfly.to"}
 # Algunos nodos efimeros ``/sunshine/`` de TvVoo estan sirviendo el HLS con un
 # certificado vencido. Este sufijo es el dominio de CDN conocido del proveedor;
 # mantenerlo acotado evita convertir un certificado vencido de cualquier host
@@ -3516,7 +3516,7 @@ def validate_resolver_catalog(path: Path = RESOLVER_CATALOG_PATH) -> dict:
         "www.24horas.cl",
         "tvvoo.hayd.uk",
         "leaf.highfly.dev",
-        "sports.highfly.dev",
+        "sports.highfly.to",
         "raw.githubusercontent.com",
     }
     for url in iter_catalog_urls(catalog):
@@ -4068,7 +4068,7 @@ def refresh_highfly_runtime_catalog() -> dict[str, str]:
             limit=2 * 1024 * 1024,
         )
         final_host = (urlparse(final_url).hostname or "").lower()
-        if status != 200 or final_host != "sports.highfly.dev":
+        if status != 200 or final_host != "sports.highfly.to":
             raise ValueError("catalogo Highfly no respondio desde el host esperado")
         resolver_map = update_highfly_runtime_resolver_map(body)
         if resolver_map:
@@ -8828,7 +8828,7 @@ def fetch_highfly_stream_urls_for_slug(slug: str) -> list[str]:
         limit=1_048_576,
     )
     final_host = (urlparse(final_url).hostname or "").lower()
-    if status != 200 or final_host != "sports.highfly.dev":
+    if status != 200 or final_host != "sports.highfly.to":
         raise ValueError("API Highfly no respondio desde el host esperado")
     try:
         payload = json.loads(body.decode("utf-8-sig"))
