@@ -29,8 +29,6 @@ class HighflyResolverTest(unittest.TestCase):
         self.assertEqual(
             {
                 "SkySportsF1.uk": "f1-3949409",
-                "ESPN.us": "us-espn-hd-0",
-                "ESPN2.us": "us-33323323",
                 "SkySportsTennis.uk": "ten-3930030",
                 "SkySportsPremierLeague.uk": "pl-434343434",
             },
@@ -143,36 +141,6 @@ class HighflyResolverTest(unittest.TestCase):
         )
         fetch.assert_called_once()
         self.assertIn(api_url, fetch.call_args.args)
-
-    def test_highfly_espn_channels_have_stable_contract_and_epg(self) -> None:
-        expected = {
-            "ESPN.us": ("ESPN", "us-espn-hd-0", "ESPN.HD.us2"),
-            "ESPN2.us": ("ESPN 2", "us-33323323", "ESPN2.HD.us2"),
-        }
-
-        for tvg_id, (name, slug, epg_id) in expected.items():
-            channel = update_m3u.Channel(
-                name=name,
-                url=f"https://papacito.cfd/m3u/{slug}/live.m3u8",
-                url_line=0,
-                info_line=0,
-                tvg_id=tvg_id,
-                display_name=name,
-            )
-            self.assertEqual(update_m3u.resolver_engine_for(channel), "highfly")
-            self.assertEqual(
-                update_m3u.resolver_attributes_for(channel),
-                {
-                    "x-resolver": "highfly",
-                    "x-resolver-id": slug,
-                    "x-resolver-manifest": update_m3u.HIGHFLY_MANIFEST_URL,
-                    "x-resolver-refresh": "on_play",
-                },
-            )
-            self.assertEqual(update_m3u.HIGHFLY_RESOLVER_CHANNELS[tvg_id], slug)
-            self.assertEqual(
-                update_m3u.EPG_PROGRAMME_SOURCES[tvg_id], ("us2", epg_id)
-            )
 
     def test_runtime_catalog_refresh_is_in_memory_only(self) -> None:
         payload = {

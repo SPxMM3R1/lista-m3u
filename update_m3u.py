@@ -147,8 +147,6 @@ SKY_SPORTS_CHANNEL_ORDER = (
     "SkySportsTennis.uk",
     "SkySportsPremierLeague.uk",
     "SkySportsMainEvent.uk@TvVoo",
-    "ESPN.us",
-    "ESPN2.us",
     "TNTSports3.uk@TvVoo",
     "FoxSports1.us@Direct",
     "ESPN.us@Direct181",
@@ -351,8 +349,6 @@ HIGHFLY_RESOLVER_CHANNELS = {
     "SkySportsF1.uk": "f1-3949409",
     "SkySportsPremierLeague.uk": "pl-434343434",
     "SkySportsTennis.uk": "ten-3930030",
-    "ESPN.us": "us-espn-hd-0",
-    "ESPN2.us": "us-33323323",
 }
 
 
@@ -690,8 +686,6 @@ EPG_PROGRAMME_SOURCES = {
     "SkySportsF1.uk": ("uk1", "SkySp.F1.HD.uk"),
     "SkySportsPremierLeague.uk": ("uk1", "SkySp.PL.HD.uk"),
     "SkySportsTennis.uk": ("uk1", "SkySp.Tennis.HD.uk"),
-    "ESPN.us": ("us2", "ESPN.HD.us2"),
-    "ESPN2.us": ("us2", "ESPN2.HD.us2"),
     "SkySportsMix.uk@TvVoo": (SKY_OFFICIAL_EPG_SOURCE, "4091"),
     "SkySportsNews.uk@TvVoo": (SKY_OFFICIAL_EPG_SOURCE, "1340"),
     "PremierSports1.ie": ("uk1", "Premier.Sports.1.HD.uk"),
@@ -3939,11 +3933,7 @@ def parse_highfly_live_resolver_map(payload: bytes | str | dict) -> dict[str, st
             )
         )
         stable_id: str | None = None
-        if re.search(r"\bespn\s*2\b", searchable):
-            stable_id = "ESPN2.us"
-        elif re.search(r"\bespn\b", searchable):
-            stable_id = "ESPN.us"
-        elif is_sky_f1:
+        if is_sky_f1:
             stable_id = "SkySportsF1.uk"
         elif is_sky_tennis:
             stable_id = "SkySportsTennis.uk"
