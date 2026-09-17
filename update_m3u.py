@@ -347,8 +347,8 @@ HIGHFLY_RESOLVER_CHANNELS = {
     # refresca desde sports_live.json cuando hay red, pero estos valores
     # permiten resolver aun si el catalogo de descubrimiento esta caido.
     "SkySportsF1.uk": "f1-3949409",
-    "SkySportsPremierLeague.uk": "pl-434343434",
-    "SkySportsTennis.uk": "ten-3930030",
+    "SkySportsPremierLeague.uk": "now-4994949494",
+    "SkySportsTennis.uk": "uk-330030303",
 }
 
 

@@ -16,11 +16,11 @@ class HighflyResolverTest(unittest.TestCase):
                 {"id": "leaf:us-espn-hd-0", "name": "(HD) : ESPN"},
                 {"id": "leaf:us-33323323", "name": "(HD) : ESPN 2"},
                 {
-                    "id": "leaf:ten-3930030",
+                    "id": "leaf:uk-330030303",
                     "name": "(FHD) : SKY SPORTS TENNIS ᴿᴬᵂ",
                 },
                 {
-                    "id": "leaf:pl-434343434",
+                    "id": "leaf:now-4994949494",
                     "name": "(FHD) : SKY SPORTS PREMIER LEAGUE ᴿᴬᵂ",
                 },
             ]
@@ -29,8 +29,8 @@ class HighflyResolverTest(unittest.TestCase):
         self.assertEqual(
             {
                 "SkySportsF1.uk": "f1-3949409",
-                "SkySportsTennis.uk": "ten-3930030",
-                "SkySportsPremierLeague.uk": "pl-434343434",
+                "SkySportsTennis.uk": "uk-330030303",
+                "SkySportsPremierLeague.uk": "now-4994949494",
             },
             update_m3u.parse_highfly_live_resolver_map(payload),
         )
@@ -41,12 +41,12 @@ class HighflyResolverTest(unittest.TestCase):
                 {"id": "streamed:us-open-2026", "name": "US Open"},
                 {"id": "leaf:unknown-channel", "name": "Unknown channel"},
                 {"id": "javascript:unsafe", "name": "Unsafe"},
-                {"id": "leaf:ten-3930030", "name": "Sky Sports Tennis"},
+                {"id": "leaf:uk-330030303", "name": "Sky Sports Tennis"},
             ]
         }
 
         self.assertEqual(
-            {"SkySportsTennis.uk": "ten-3930030"},
+            {"SkySportsTennis.uk": "uk-330030303"},
             update_m3u.parse_highfly_live_resolver_map(payload),
         )
 
@@ -145,7 +145,7 @@ class HighflyResolverTest(unittest.TestCase):
     def test_runtime_catalog_refresh_is_in_memory_only(self) -> None:
         payload = {
             "metas": [
-                {"id": "leaf:ten-3930030", "name": "Sky Sports Tennis"}
+                {"id": "leaf:uk-330030303", "name": "Sky Sports Tennis"}
             ]
         }
         with patch.object(
@@ -160,9 +160,9 @@ class HighflyResolverTest(unittest.TestCase):
             update_m3u.HIGHFLY_RUNTIME_RESOLVER_CHANNELS.clear()
             mapping = update_m3u.refresh_highfly_runtime_catalog()
 
-        self.assertEqual({"SkySportsTennis.uk": "ten-3930030"}, mapping)
+        self.assertEqual({"SkySportsTennis.uk": "uk-330030303"}, mapping)
         self.assertEqual(
-            "ten-3930030",
+            "uk-330030303",
             update_m3u.HIGHFLY_RUNTIME_RESOLVER_CHANNELS["SkySportsTennis.uk"],
         )
 

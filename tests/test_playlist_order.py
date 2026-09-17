@@ -1229,7 +1229,7 @@ class PlaylistOrderTests(unittest.TestCase):
             update_m3u.resolver_attributes_for(channel),
             {
                 "x-resolver": "highfly",
-                "x-resolver-id": "ten-3930030",
+                "x-resolver-id": "uk-330030303",
                 "x-resolver-manifest": update_m3u.HIGHFLY_MANIFEST_URL,
                 "x-resolver-refresh": "on_play",
             },
@@ -1237,7 +1237,7 @@ class PlaylistOrderTests(unittest.TestCase):
         self.assertEqual(update_m3u.playlist_key_for(channel), "main")
         self.assertEqual(
             update_m3u.HIGHFLY_RESOLVER_CHANNELS["SkySportsTennis.uk"],
-            "ten-3930030",
+            "uk-330030303",
         )
 
     def test_13c_moves_to_external_after_three_consecutive_failures(self) -> None:
