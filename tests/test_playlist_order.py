@@ -56,7 +56,7 @@ class PlaylistOrderTests(unittest.TestCase):
             ),
             update_m3u.Channel(
                 name="Highfly ESPN test",
-                url="https://leaf.highfly.dev/m3u/us-espn-hd/live.m3u8",
+                url="https://papacito.cfd/m3u/us-espn-hd/live.m3u8",
                 url_line=0,
                 tvg_id="ESPN.us",
             ),
@@ -339,7 +339,7 @@ class PlaylistOrderTests(unittest.TestCase):
     def test_dynamic_validation_cache_is_short_lived_and_url_bound(self) -> None:
         channel = update_m3u.Channel(
             name="Sky Sports Tennis",
-            url="https://leaf.highfly.dev/m3u/now-sky-sports-tennis/live.m3u8",
+            url="https://papacito.cfd/m3u/now-sky-sports-tennis/live.m3u8",
             url_line=0,
             tvg_id="SkySportsTennis.uk",
             display_name="Sky Sports Tennis",
@@ -419,7 +419,7 @@ class PlaylistOrderTests(unittest.TestCase):
         )
         highfly = update_m3u.Channel(
             name="Sky Sports Tennis",
-            url="https://leaf.highfly.dev/m3u/now-sky-sports-tennis/live.m3u8",
+            url="https://papacito.cfd/m3u/now-sky-sports-tennis/live.m3u8",
             url_line=0,
             tvg_id="SkySportsTennis.uk",
         )
@@ -439,12 +439,12 @@ class PlaylistOrderTests(unittest.TestCase):
     def test_dynamic_refresh_outcome_does_not_mutate_playlist_from_worker(self) -> None:
         channel = update_m3u.Channel(
             name="Sky Sports Tennis",
-            url="https://leaf.highfly.dev/m3u/now-sky-sports-tennis/live.m3u8",
+            url="https://papacito.cfd/m3u/now-sky-sports-tennis/live.m3u8",
             url_line=1,
             tvg_id="SkySportsTennis.uk",
         )
         current = update_m3u.CheckResult(channel.name, channel.url, False, "expired")
-        replacement = "https://leaf.highfly.dev/m3u/now-sky-sports-tennis/live-v2.m3u8"
+        replacement = "https://papacito.cfd/m3u/now-sky-sports-tennis/live-v2.m3u8"
         lines = ["#EXTM3U", channel.url]
         with patch.object(
             update_m3u,
@@ -910,13 +910,13 @@ class PlaylistOrderTests(unittest.TestCase):
         selected = [
             update_m3u.Channel(
                 name="Sky Sports F1",
-                url="https://leaf.highfly.dev/m3u/now-sky-sports-f1-free/live.m3u8",
+                url="https://papacito.cfd/m3u/now-sky-sports-f1-free/live.m3u8",
                 url_line=0,
                 tvg_id="SkySportsF1.uk",
             ),
             update_m3u.Channel(
                 name="Sky Sports Tennis",
-                url="https://leaf.highfly.dev/m3u/now-sky-sports-tennis/live.m3u8",
+                url="https://papacito.cfd/m3u/now-sky-sports-tennis/live.m3u8",
                 url_line=1,
                 tvg_id="SkySportsTennis.uk",
             ),
@@ -987,7 +987,7 @@ class PlaylistOrderTests(unittest.TestCase):
             "#EXTM3U",
             "# Deportes",
             extinf("SkySportsF1.uk", "Sky Sports F1", "Deportes"),
-            "https://leaf.highfly.dev/m3u/now-sky-sports-f1-free/live.m3u8",
+            "https://papacito.cfd/m3u/now-sky-sports-f1-free/live.m3u8",
         ]
         channel = update_m3u.parse_channels(lines)[0]
         self.assertEqual(
@@ -1022,7 +1022,7 @@ class PlaylistOrderTests(unittest.TestCase):
 
         tennis = update_m3u.Channel(
             name="Sky Sports Tennis",
-            url="https://leaf.highfly.dev/m3u/now-sky-sports-tennis/live.m3u8",
+            url="https://papacito.cfd/m3u/now-sky-sports-tennis/live.m3u8",
             url_line=0,
             tvg_id="SkySportsTennis.uk",
         )
@@ -1156,7 +1156,7 @@ class PlaylistOrderTests(unittest.TestCase):
             "#EXTM3U",
             "# Deportes",
             extinf("SkySportsF1.uk", "Sky Sports F1", "Deportes"),
-            "https://leaf.highfly.dev/m3u/now-sky-sports-f1-free/live.m3u8",
+            "https://papacito.cfd/m3u/now-sky-sports-f1-free/live.m3u8",
             extinf("ESPN.us", "ESPN", "Deportes"),
             "https://example.invalid/espn.m3u8",
         ]
@@ -1174,7 +1174,7 @@ class PlaylistOrderTests(unittest.TestCase):
     def test_report_keeps_every_failed_manual_member_in_main(self) -> None:
         channel = update_m3u.Channel(
             name="Sky Sports F1",
-            url="https://leaf.highfly.dev/m3u/now-sky-sports-f1-free/live.m3u8",
+            url="https://papacito.cfd/m3u/now-sky-sports-f1-free/live.m3u8",
             url_line=0,
             tvg_id="SkySportsF1.uk",
             display_name="Sky Sports F1",
@@ -1220,7 +1220,7 @@ class PlaylistOrderTests(unittest.TestCase):
     def test_sky_tennis_uses_highfly_after_slug_returns(self) -> None:
         channel = update_m3u.Channel(
             name="Sky Sports Tennis",
-            url="https://leaf.highfly.dev/m3u/now-sky-sports-tennis/live.m3u8",
+            url="https://papacito.cfd/m3u/now-sky-sports-tennis/live.m3u8",
             url_line=0,
             tvg_id="SkySportsTennis.uk",
         )

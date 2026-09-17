@@ -58,24 +58,39 @@ class HighflyResolverTest(unittest.TestCase):
                 {"url": "https://www.google.com/accounts/upgrade"},
                 {
                     "url": (
-                        "https://leaf.highfly.dev/m3u/f1-3949409/"
+                        "https://papacito.cfd/m3u/f1-3949409/"
                         "live.m3u8"
                     )
                 },
-                {"url": "https://leaf.highfly.dev/other/live.m3u8"},
+                {"url": "https://papacito.cfd/other/live.m3u8"},
             ]
         }
 
         self.assertEqual(
-            ["https://leaf.highfly.dev/m3u/f1-3949409/live.m3u8"],
+            ["https://papacito.cfd/m3u/f1-3949409/live.m3u8"],
             update_m3u.highfly_stream_urls_from_payload(payload),
+        )
+
+    def test_papacito_numeric_playlist_is_decoded_only_for_highfly_host(self) -> None:
+        encoded = b"35\n69\n88\n84\n77\n51\n85\n10"
+        self.assertEqual(
+            b"#EXTM3U\n",
+            update_m3u.decode_highfly_playlist_body(
+                encoded, "https://papacito.cfd/m3u/f1-3949409/live.m3u8"
+            ),
+        )
+        self.assertEqual(
+            encoded,
+            update_m3u.decode_highfly_playlist_body(
+                encoded, "https://example.invalid/m3u/f1-3949409/live.m3u8"
+            ),
         )
 
     def test_runtime_catalog_updates_highfly_leaf_fallback(self) -> None:
         lines = [
             "#EXTM3U",
             '#EXTINF:-1 tvg-id="SkySportsF1.uk" x-resolver="highfly" x-resolver-id="old-f1-39388833",Sky Sports F1',
-            "https://leaf.highfly.dev/m3u/old-f1-39388833/live.m3u8",
+            "https://papacito.cfd/m3u/old-f1-39388833/live.m3u8",
         ]
 
         with patch.dict(
@@ -87,7 +102,7 @@ class HighflyResolverTest(unittest.TestCase):
 
         self.assertTrue(changed)
         self.assertEqual(
-            "https://leaf.highfly.dev/m3u/f1-93930303/live.m3u8",
+            "https://papacito.cfd/m3u/f1-93930303/live.m3u8",
             lines[2],
         )
         self.assertIn('x-resolver-id="f1-93930303"', lines[1])
@@ -95,7 +110,7 @@ class HighflyResolverTest(unittest.TestCase):
     def test_fresh_highfly_uses_runtime_slug_and_stream_api(self) -> None:
         channel = update_m3u.Channel(
             name="Sky Sports F1",
-            url="https://leaf.highfly.dev/m3u/old/live.m3u8",
+            url="https://papacito.cfd/m3u/old/live.m3u8",
             url_line=1,
             info_line=0,
             tvg_id="SkySportsF1.uk",
@@ -104,7 +119,7 @@ class HighflyResolverTest(unittest.TestCase):
         api_url = "https://sports.highfly.to/stream/sport/leaf:f1-3949409.json"
         response = {
             "streams": [
-                {"url": "https://leaf.highfly.dev/m3u/f1-3949409/live.m3u8"}
+                {"url": "https://papacito.cfd/m3u/f1-3949409/live.m3u8"}
             ]
         }
 
@@ -124,7 +139,7 @@ class HighflyResolverTest(unittest.TestCase):
             )
 
         self.assertEqual(
-            ["https://leaf.highfly.dev/m3u/f1-3949409/live.m3u8"], urls
+            ["https://papacito.cfd/m3u/f1-3949409/live.m3u8"], urls
         )
         fetch.assert_called_once()
         self.assertIn(api_url, fetch.call_args.args)
@@ -138,7 +153,7 @@ class HighflyResolverTest(unittest.TestCase):
         for tvg_id, (name, slug, epg_id) in expected.items():
             channel = update_m3u.Channel(
                 name=name,
-                url=f"https://leaf.highfly.dev/m3u/{slug}/live.m3u8",
+                url=f"https://papacito.cfd/m3u/{slug}/live.m3u8",
                 url_line=0,
                 info_line=0,
                 tvg_id=tvg_id,

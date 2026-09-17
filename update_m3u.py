@@ -48,7 +48,7 @@ HIGHFLY_PUBLIC_CATALOG_URL = (
 HIGHFLY_STREAM_API_TEMPLATE = (
     "https://sports.highfly.to/stream/sport/leaf:{slug}.json"
 )
-HIGHFLY_STREAM_ALLOWED_HOSTS = frozenset({"leaf.highfly.dev"})
+HIGHFLY_STREAM_ALLOWED_HOSTS = frozenset({"papacito.cfd"})
 HIGHFLY_LEAF_ID_PATTERN = re.compile(
     r"^leaf:(?P<slug>[a-z0-9][a-z0-9_-]{1,127})$", re.IGNORECASE
 )
@@ -1001,7 +1001,7 @@ TVVOO_STREAM_BASE_URL = "https://tvvoo.hayd.uk/stream/tv"
 # El relay publico de Highfly puede responder con un certificado vencido aun
 # cuando el mismo HLS entrega playlist y segmentos. La excepcion queda
 # limitada a este host y solo se activa ante el error explicito de expiracion.
-EXPIRED_CERT_FALLBACK_HOSTS = {"leaf.highfly.dev", "sports.highfly.to"}
+EXPIRED_CERT_FALLBACK_HOSTS = {"papacito.cfd", "sports.highfly.to"}
 # Algunos nodos efimeros ``/sunshine/`` de TvVoo estan sirviendo el HLS con un
 # certificado vencido. Este sufijo es el dominio de CDN conocido del proveedor;
 # mantenerlo acotado evita convertir un certificado vencido de cualquier host
@@ -1721,11 +1721,11 @@ def build_resolver_catalog(*, catalog_version: str | None = None) -> dict:
                 "cacheTtlSeconds": 300,
                 "match": {
                     "tvgIds": list(HIGHFLY_RESOLVER_CHANNELS),
-                    "hosts": ["leaf.highfly.dev"],
+                    "hosts": ["papacito.cfd"],
                 },
                 "config": {
                     "directTemplate": (
-                        "https://leaf.highfly.dev/m3u/{id}/live.m3u8"
+                        "https://papacito.cfd/m3u/{id}/live.m3u8"
                     ),
                     "manifestUrl": HIGHFLY_MANIFEST_URL,
                     "allowHttpFallback": True,
@@ -3515,7 +3515,7 @@ def validate_resolver_catalog(path: Path = RESOLVER_CATALOG_PATH) -> dict:
         "api.mega.cl",
         "www.24horas.cl",
         "tvvoo.hayd.uk",
-        "leaf.highfly.dev",
+        "papacito.cfd",
         "sports.highfly.to",
         "raw.githubusercontent.com",
     }
@@ -4005,7 +4005,7 @@ def highfly_fallback_url(slug: str) -> str:
     """Build the token-free compatibility URL for one allow-listed leaf."""
     if not HIGHFLY_LEAF_ID_PATTERN.fullmatch(f"leaf:{slug}"):
         raise ValueError("slug Highfly invalido")
-    return f"https://leaf.highfly.dev/m3u/{slug}/live.m3u8"
+    return f"https://papacito.cfd/m3u/{slug}/live.m3u8"
 
 
 def is_highfly_leaf_url(url: str) -> bool:
@@ -4093,12 +4093,40 @@ def fetch_channel_bytes(
     timeout: int = 25,
     allow_scoped_expired_cert: bool = False,
 ) -> tuple[int, bytes, str]:
-    return fetch_bytes(
+    status, body, final_url = fetch_bytes(
         url,
         headers,
         timeout=timeout,
         allow_scoped_expired_cert=allow_scoped_expired_cert,
     )
+    return status, decode_highfly_playlist_body(body, final_url), final_url
+
+
+def decode_highfly_playlist_body(body: bytes, final_url: str) -> bytes:
+    """Decode Highfly's scoped numeric HLS playlist wrapper.
+
+    The current papacito relay returns each playlist byte as one decimal line.
+    This is a provider-specific transport wrapper, not a reason to disable TLS
+    or to accept arbitrary decoded content. Decode only responses from the
+    allow-listed Highfly stream host and only when the result is a valid HLS
+    header; all other responses are returned byte-for-byte unchanged.
+    """
+    hostname = (urlparse(final_url).hostname or "").lower()
+    if hostname not in HIGHFLY_STREAM_ALLOWED_HOSTS:
+        return body
+    if body.lstrip(b"\xef\xbb\xbf\r\n \t").startswith(b"#EXTM3U"):
+        return body
+    try:
+        raw_lines = body.decode("ascii").splitlines()
+        if not raw_lines or len(raw_lines) > 4096:
+            return body
+        values = [int(line.strip()) for line in raw_lines if line.strip()]
+        if not values or any(value < 0 or value > 255 for value in values):
+            return body
+        decoded = bytes(values)
+    except (UnicodeDecodeError, ValueError):
+        return body
+    return decoded if decoded.lstrip(b"\xef\xbb\xbf\r\n \t").startswith(b"#EXTM3U") else body
 
 
 def hls_attribute(line: str, name: str) -> str | None:
@@ -8238,6 +8266,7 @@ def check_hls_first_segment(
             )
         else:
             status, body, final_url = 200, initial_body, initial_final_url or url
+        body = decode_highfly_playlist_body(body, final_url)
         text = body.decode("utf-8", "replace").lstrip("\ufeff\r\n ")
         if status != 200 or not text.startswith("#EXTM3U"):
             return False, f"playlist HTTP {status}, contenido no reconocido"
@@ -8586,6 +8615,7 @@ def hls_max_resolution(
         return (0, 0)
     if status != 200:
         return (0, 0)
+    body = decode_highfly_playlist_body(body, final_url)
     text = body.decode("utf-8", "replace").lstrip("\ufeff\r\n ")
     if not text.startswith("#EXTM3U"):
         return (0, 0)

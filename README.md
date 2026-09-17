@@ -129,7 +129,7 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
   `manifest.json` y el catalogo publico una vez por corrida; cuando el
   proveedor rota una hoja, consulta
   `stream/sport/leaf:{slug}.json` y solo acepta una HLS HTTPS de
-  `leaf.highfly.dev`;
+  `papacito.cfd`;
 - los reintentos y tiempos de espera se ajustan por motor: directos, TVN,
   Meganoticias, TvVoo y Highfly tienen limites propios para que un proveedor
   lento no bloquee a los demas. Los candidatos aceptados durante la renovacion
