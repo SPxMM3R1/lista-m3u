@@ -1111,6 +1111,10 @@ class PlaylistOrderTests(unittest.TestCase):
                 "SkySportsMainEvent.uk@TvVoo",
             ],
         )
+        self.assertLess(
+            ordered_ids.index("TNTSports1.uk@TvVoo"),
+            ordered_ids.index("TNTSports3.uk@TvVoo"),
+        )
         self.assertEqual(
             [channel_id for channel_id in ordered_ids if channel_id in update_m3u.F1_CHANNEL_IDS],
             list(update_m3u.F1_CHANNEL_ORDER),

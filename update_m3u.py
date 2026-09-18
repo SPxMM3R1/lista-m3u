@@ -151,6 +151,7 @@ SKY_SPORTS_CHANNEL_ORDER = (
     "SkySportsTennis.uk",
     "SkySportsPremierLeague.uk",
     "SkySportsMainEvent.uk@TvVoo",
+    "TNTSports1.uk@TvVoo",
     "TNTSports3.uk@TvVoo",
     "FoxSports1.us@Direct",
     "ESPN.us@Direct181",
