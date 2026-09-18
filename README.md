@@ -216,13 +216,52 @@ principal desde ahora. La tarea local queda deshabilitada y los scripts locales
 se conservan solamente como respaldo manual; no deben ejecutarse al mismo
 tiempo que el cron remoto.
 
-Además del cron, un cambio en `m3u.m3u`, `m3u-externa.m3u`,
-`channel-catalog.m3u`, `resolver-catalog.json` o en la lógica del actualizador
-dispara el workflow de canales inmediatamente y fuerza una corrida. Antes de
-publicar, Actions sincroniza el contrato de resolutores, ejecuta el reparador
-sobre todo el catálogo y comprueba que la principal conserve exactamente sus
-`tvg-id`, que la externa sea su complemento y que ambas adopten los metadatos y
-URLs vigentes del catálogo.
+Los cambios de `push` ya no fuerzan el mantenimiento completo. El workflow
+`Publicar cambios dirigidos` clasifica el diff antes de tocar la red:
+
+- logos, orden y metadatos se validan offline y solo sincronizan las listas o
+  aliases afectados;
+- un cambio de URL valida únicamente los `tvg-id` modificados y propaga su
+  bloque a las listas derivadas, sin renovar Highfly, TvVoo ni el resto del
+  catálogo;
+- `epg-overrides.json` permite renovar y mezclar solo los canales indicados en
+  `epg.xml`, preservando los demás programas;
+- cambios de lógica, contrato, membresía o fuentes globales se prueban y se
+  difieren a la siguiente ventana completa.
+
+Para un cambio de stream se puede editar el bloque del canal en el catálogo o
+declararlo en `stream-overrides.json`, por ejemplo:
+
+```json
+{
+  "channels": {
+    "CanalEjemplo.cl": {
+      "url": "https://servidor.example/live/master.m3u8",
+      "reason": "cambio manual de stream"
+    }
+  }
+}
+```
+
+Para dirigir una fuente EPG se usa `epg-overrides.json` sin incluir tokens ni
+URLs de sesión:
+
+```json
+{
+  "channels": {
+    "CanalEjemplo.cl": {
+      "source": "sky-oficial",
+      "source_id": "4091"
+    }
+  }
+}
+```
+
+El clasificador falla cerrado si un cambio mezcla stream y EPG, cambia la
+membresía o no permite identificar con seguridad los canales afectados. En
+esos casos no publica parcialmente: espera la corrida completa. Las corridas
+dirigidas no escriben `run-state.json` ni `epg-run-state.json`, por lo que no
+alteran el próximo horario de mantenimiento.
 
 Los horarios anteriores son los horarios reales de GitHub Actions. GitHub puede
 iniciar unos minutos después porque los cron son best effort; la compuerta de

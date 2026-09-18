@@ -1,0 +1,129 @@
+name: Publicar cambios dirigidos
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "logos/**"
+      - "m3u.m3u"
+      - "m3u-externa.m3u"
+      - "1.m3u"
+      - "2.m3u"
+      - "channel-catalog.m3u"
+      - "stream-overrides.json"
+      - "epg-overrides.json"
+      - "epg.xml"
+      - "change_plan.py"
+      - "targeted_update.py"
+      - "update_m3u.py"
+      - "run_m3u_6h.py"
+      - "run_epg_6h.py"
+      - "publish_epg.py"
+      - "tests/**"
+      - ".github/workflows/**"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Tipo de cambio dirigido
+        required: true
+        default: presentation
+        type: choice
+        options:
+          - presentation
+          - stream
+          - epg
+      channel_ids:
+        description: tvg-id separados por espacios para stream o EPG
+        required: false
+        default: ""
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: m3u-publisher
+  cancel-in-progress: false
+
+jobs:
+  targeted:
+    if: github.event_name != 'push' || !contains(github.event.head_commit.message, '[skip ci]')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Preparar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Ejecutar pruebas offline
+        run: python -m unittest discover -s tests -p "test_*.py"
+
+      - name: Aplicar cambio dirigido del push
+        if: github.event_name == 'push'
+        env:
+          BASE_SHA: ${{ github.event.before }}
+        run: python targeted_update.py --base "$BASE_SHA"
+
+      - name: Aplicar cambio dirigido manual
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          TARGETED_MODE: ${{ inputs.mode }}
+          TARGETED_CHANNEL_IDS: ${{ inputs.channel_ids }}
+        shell: bash
+        run: |
+          read -r -a ids <<< "$TARGETED_CHANNEL_IDS"
+          python targeted_update.py --mode "$TARGETED_MODE" --channel-ids "${ids[@]}"
+
+      - name: Publicar solo artefactos dirigidos
+        id: publish
+        shell: bash
+        run: |
+          files=(m3u.m3u m3u-externa.m3u 1.m3u 2.m3u channel-catalog.m3u epg.xml stream-overrides.json epg-overrides.json)
+          if [ -d logos ]; then files+=(logos); fi
+          if [ -z "$(git status --porcelain -- "${files[@]}")" ]; then
+            echo "No hay artefactos dirigidos nuevos para publicar."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "Actualizador dirigido"
+          git config user.email "m3u-bot@users.noreply.github.com"
+          stage_files=()
+          for file in "${files[@]}"; do
+            if [ -e "$file" ]; then stage_files+=("$file"); fi
+          done
+          git add -- "${stage_files[@]}"
+          git commit -m "Publica cambio dirigido [skip ci]"
+          git push origin HEAD:main
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+          echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Esperar propagacion de GitHub Raw
+        if: steps.publish.outputs.changed == 'true'
+        run: sleep 15
+
+      - name: Verificar artefactos dirigidos publicados
+        if: steps.publish.outputs.changed == 'true'
+        env:
+          PUBLISHED_COMMIT: ${{ steps.publish.outputs.commit }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="https://raw.githubusercontent.com/${{ github.repository }}/$PUBLISHED_COMMIT"
+          for file in m3u.m3u m3u-externa.m3u 1.m3u 2.m3u channel-catalog.m3u epg.xml; do
+            if ! git cat-file -e "$PUBLISHED_COMMIT:$file" 2>/dev/null; then
+              continue
+            fi
+            tmp="$(mktemp)"
+            curl --fail --silent --show-error --location --retry 3 \
+              "$base/$file?targeted=${{ github.run_id }}" --output "$tmp"
+            cmp --silent "$tmp" "$file"
+            rm -f "$tmp"
+            echo "$file publicado con contenido exacto"
+          done

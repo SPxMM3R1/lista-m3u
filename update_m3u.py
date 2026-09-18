@@ -58,6 +58,7 @@ HIGHFLY_BITRATE_PATTERN = re.compile(
     re.IGNORECASE,
 )
 EPG_PATH = Path(__file__).with_name("epg.xml")
+EPG_OVERRIDES_PATH = Path(__file__).with_name("epg-overrides.json")
 REPORT_PATH = Path(__file__).with_name("channel-status.json")
 HEALTH_STATE_PATH = Path(__file__).with_name("channel-health-state.json")
 RESOLVER_CATALOG_PATH = Path(__file__).with_name("resolver-catalog.json")
@@ -7393,7 +7394,69 @@ def build_epg(
     return output, status
 
 
-def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
+def apply_epg_overrides(path: Path = EPG_OVERRIDES_PATH) -> dict[str, tuple[str, str]]:
+    """Apply token-free per-channel EPG source overrides when configured."""
+    if not path.exists():
+        return {}
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise ValueError(f"{path.name} no es JSON valido: {error}") from error
+    if not isinstance(payload, dict):
+        raise ValueError(f"{path.name} debe contener un objeto JSON")
+    raw_channels = payload.get("channels", payload)
+    if not isinstance(raw_channels, dict):
+        raise ValueError(f"{path.name}: channels debe ser un objeto por tvg-id")
+    allowed_sources = set(EPG_SOURCES) | {
+        ZAPPING_EPG_SOURCE,
+        "tecnocentro",
+        "ukrainian-official",
+        TVN_OFFICIAL_EPG_SOURCE,
+        CHV_OFFICIAL_EPG_SOURCE,
+        LA_RED_OFFICIAL_EPG_SOURCE,
+        MEGA_OFFICIAL_EPG_SOURCE,
+        CANAL13_MAIN_EPG_SOURCE,
+        CANAL13_13C_OFFICIAL_EPG_SOURCE,
+        CANAL13_13GO_EPG_SOURCE,
+        DW_ENGLISH_OFFICIAL_EPG_SOURCE,
+        DW_SPANISH_OFFICIAL_EPG_SOURCE,
+        NHK_OFFICIAL_EPG_SOURCE,
+        SKY_OFFICIAL_EPG_SOURCE,
+        AUTENTIC_HISTORY_EPG_SOURCE,
+    }
+    applied: dict[str, tuple[str, str]] = {}
+    for channel_id, raw_entry in raw_channels.items():
+        if not isinstance(raw_entry, dict):
+            raise ValueError(f"{path.name}: {channel_id} debe ser un objeto")
+        source = str(raw_entry.get("source", "")).strip()
+        source_id = str(
+            raw_entry.get("source_id", raw_entry.get("sourceId", ""))
+        ).strip()
+        if not source or not source_id:
+            raise ValueError(f"{path.name}: {channel_id} necesita source y source_id")
+        if source not in allowed_sources:
+            raise ValueError(f"{path.name}: fuente EPG no permitida: {source}")
+        stable_id = str(channel_id).strip()
+        if not stable_id:
+            raise ValueError(f"{path.name}: contiene un tvg-id vacio")
+        EPG_PROGRAMME_SOURCES[stable_id] = (source, source_id)
+        applied[stable_id] = (source, source_id)
+    if applied:
+        print(
+            "Overrides EPG dirigidos aplicados: "
+            + ", ".join(sorted(applied))
+        )
+    return applied
+
+
+def refresh_epg(
+    channels: list[Channel],
+    *,
+    force: bool = False,
+    output_path: Path | None = None,
+) -> dict:
+    apply_epg_overrides()
+    output_path = output_path or EPG_PATH
     now = datetime.now(timezone.utc)
     expected_ids = {channel.tvg_id for channel in channels if channel.tvg_id}
     public_ids: set[str] | None = None
@@ -7434,9 +7497,9 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
             )
     existing_status = None
     existing_data: bytes | None = None
-    if EPG_PATH.exists():
+    if output_path.exists():
         try:
-            existing_data = EPG_PATH.read_bytes()
+            existing_data = output_path.read_bytes()
             existing_root = ET.fromstring(existing_data)
             existing_channel_ids = {
                 channel.get("id", "") for channel in existing_root.findall("channel")
@@ -7633,9 +7696,9 @@ def refresh_epg(channels: list[Channel], *, force: bool = False) -> dict:
     output, epg_status = build_epg(
         source_documents, channels, red_bull_schedules, now=now
     )
-    temporary = EPG_PATH.with_suffix(".xml.tmp")
+    temporary = output_path.with_suffix(".xml.tmp")
     temporary.write_bytes(output)
-    temporary.replace(EPG_PATH)
+    temporary.replace(output_path)
     epg_status.update(
         {
             "updated": True,

@@ -1,17 +1,6 @@
 name: Actualizar canales M3U
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - "m3u.m3u"
-      - "m3u-externa.m3u"
-      - "channel-catalog.m3u"
-      - "resolver-catalog.json"
-      - "update_m3u.py"
-      - "run_m3u_6h.py"
-      - ".github/workflows/update-channels.yml"
   schedule:
     # Renovacion de canales dos horas antes de cada ventana de EPG.
     - cron: "0 4,10,16,22 * * *"
