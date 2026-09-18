@@ -1,9 +1,5 @@
 #EXTM3U x-tvg-url="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/epg.xml"
 
-
-
-# Despues de noticias nacionales
-
 # Noticias internacionales
 #EXTINF:-1 tvg-id="France24.fr@English" tvg-name="France 24 English" tvg-country="FR" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/france24.svg" group-title="Noticias internacionales",France 24 English
 https://live.france24.com/hls/live/2037218/F24_EN_HI_HLS/master_5000.m3u8
@@ -63,6 +59,8 @@ http://88.212.15.19/live/sport2_hun/index.m3u8
 http://tvsen7.aynascope.net/ssport2hd/index.m3u8
 #EXTINF:-1 tvg-id="FoxSports.ar@Direct179" tvg-name="Fox Sports Argentina [IP 179]" tvg-country="AR" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/fox-sports.svg" group-title="Deportes",Fox Sports Argentina [IP 179]
 http://179.64.36.245:8000/play/a07j/index.m3u8
+#EXTINF:-1 tvg-id="MNBSport.mn@DirectDASH" tvg-name="MNB Sport [DASH FTA]" tvg-country="MN" tvg-logo="https://i.imgur.com/z854PC3.png" group-title="Deportes" x-stream-format="dash",MNB Sport [DASH FTA]
+https://cdn3.skygo.mn/live/disk1/MNBSport/DASH-FTA/MNBSport.mpd
 #EXTINF:-1 tvg-id="FoxSports1.us@Direct190" tvg-name="Fox Sports 1 [IP 190]" tvg-country="US" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/fox-sports.svg" group-title="Deportes",Fox Sports 1 [IP 190]
 http://190.11.225.124:5000/live/fs1_hd/playlist.m3u8
 #EXTINF:-1 tvg-id="FoxSports.us@Cloudfront" tvg-name="Fox Sports [Cloudfront]" tvg-country="US" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/fox-sports.svg" group-title="Deportes",Fox Sports [Cloudfront]
@@ -87,46 +85,6 @@ http://td3wb1bchdvsahp.ngolpdkyoctjcddxshli469r.org/sunshine/8fGIoocWfeS6ARe7lml
 http://td3wb1bchdvsahp.ngolpdkyoctjcddxshli469r.org/sunshine/xL_QdY_D-9SqhC-NDlWE-jBYJ1KbcLj6KkFTR4AwQ2O48CB5eh7bKx3vnYJOBY6ptGJo3jgAapy183hZ4Hjt6smtZqVnjWv6wIE3xCyC6fU_nr-jVqBrJf0-qL975uZNOtxHP9SZWxJ38AYVc2K2GtHNh1gM1sb7-5YCX6tKkVacBYicCbF3W5sTEmUcfGfoLZ8Ulr4QuzZmf3ccbxlMdJB5fKn-0XaOBvIwNeOlPBibdG29ljnrdjQABxLIj3NskHLe-yT8imp5mlaGXWFAd6bBEPIHRGmQqxY7GTENHknz1S3RiZE9rQbAjCO4fjwD/hls/index.m3u8
 #EXTINF:-1 tvg-id="Vavoo.uk.TNTSPORTESPN@TvVoo" tvg-name="TNT Sports ESPN Reino Unido" tvg-country="GB" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/bt-sport-espn-uk.png" group-title="Deportes" x-resolver="tvvoo" x-resolver-endpoint="https://tvvoo.hayd.uk/stream/tv" x-resolver-ids="vavoo_TNT%20SPORTS%20ESPN%7Cgroup%3Auk" x-resolver-refresh="on_play" x-resolver-recipe="bounded-payload-v1",TNT Sports ESPN Reino Unido
 http://mjkskdvpfpb1fbv.ngolpdkyoctjcddxshli469r.org/sunshine/kDngQZduIVgIvYDCIrK6O9OMpqdoPha5651R1IdrvF-Jg86c9JCi5YTR82M2YVsHK2bmRoy5gSD1B6A2v2sk4eMzs38fybgZz53nRLj7l-w8F9_tCd2M9h0u8qECcv30JXlN1WciEJAUsRsVT4D7yUFYp73lam8XF1V4tDhvOocx2jGYOPgvGmJqv1GG_STuoHSNs9MZl_3eKegMEdI4wCIF2L6BZN7f7ALrBfACZp1itP8_FNw48OU8CjXGOf8XELyhUIS5iCJqTjJB1yiwvsKU0rcJy6JbHlbUbDgMcIy46_3Yx1xjsb-wuFNp7rcn/hls/index.m3u8
-
-
-# Películas
-#EXTINF:-1 tvg-id="AMCEurope.uk@CzechDirect88" tvg-name="AMC Europe Czech Republic [IP 88]" tvg-country="CZ" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/AMC_logo_2019.svg/960px-AMC_logo_2019.svg.png" group-title="Películas",AMC Europe Czech Republic [IP 88]
-http://88.212.15.19/live/test_amc_25p/playlist.m3u8
-#EXTINF:-1 tvg-id="AMCEurope.uk@HungaryDirect88" tvg-name="AMC Europe Hungary [IP 88]" tvg-country="HU" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/AMC_logo_2019.svg/960px-AMC_logo_2019.svg.png" group-title="Películas",AMC Europe Hungary [IP 88]
-http://88.212.15.19/live/amc_hun/index.m3u8
-#EXTINF:-1 tvg-id="Film4.hu@Direct88" tvg-name="Film4 [IP 88]" tvg-country="HU" tvg-logo="https://i.imgur.com/X5N8CHf.png" group-title="Películas",Film4 [IP 88]
-http://88.212.15.19/live/film4_hun/index.m3u8
-
-
-# Misceláneos
-#EXTINF:-1 tvg-id="BBCEarth.uk@HungaryDirect88" tvg-name="BBC Earth Hungary [IP 88]" tvg-country="HU" tvg-logo="https://i.imgur.com/nGSsUd4.png" group-title="Misceláneos",BBC Earth Hungary [IP 88]
-http://88.212.15.19/live/bbce_hun/index.m3u8
-#EXTINF:-1 tvg-id="History.cz@Direct88" tvg-name="History Czechia [IP 88]" tvg-country="CZ" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/History_%282021%29.svg/500px-History_%282021%29.svg.png" group-title="Misceláneos",History Czechia [IP 88]
-http://88.212.15.19/live/test_history/playlist.m3u8
-#EXTINF:-1 tvg-id="History.hu@Direct88" tvg-name="History Hungary [IP 88]" tvg-country="HU" tvg-logo="https://i.imgur.com/OWIK7FJ.png" group-title="Misceláneos",History Hungary [IP 88]
-http://88.212.15.19/live/history_hun/index.m3u8
-#EXTINF:-1 tvg-id="History2.cz@Direct88" tvg-name="History2 [IP 88]" tvg-country="CZ" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/History2_logo_%282022%29.svg/960px-History2_logo_%282022%29.svg.png" group-title="Misceláneos",History2 [IP 88]
-http://88.212.15.19/live/test_h2/playlist.m3u8
-#EXTINF:-1 tvg-id="NickJr.cz@Direct88" tvg-name="Nick Jr Czechia [IP 88]" tvg-country="CZ" tvg-logo="https://i.imgur.com/KT4tdQs.png" group-title="Misceláneos",Nick Jr Czechia [IP 88]
-http://88.212.15.19/live/test_nick_jr/playlist.m3u8
-#EXTINF:-1 tvg-id="NickJr.hu@Direct88" tvg-name="Nick Jr Hungary [IP 88]" tvg-country="HU" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Nick_Jr._logo_2023_%28outline%29.svg/960px-Nick_Jr._logo_2023_%28outline%29.svg.png" group-title="Misceláneos",Nick Jr Hungary [IP 88]
-http://88.212.15.19/live/nick_junior_hun/index.m3u8
-#EXTINF:-1 tvg-id="Nickelodeon.cz@Direct88" tvg-name="Nickelodeon Czechia [IP 88]" tvg-country="CZ" tvg-logo="https://i.imgur.com/E84jnP8.png" group-title="Misceláneos",Nickelodeon Czechia [IP 88]
-http://88.212.15.19/live/test_nickelodeon_hevc_25p/playlist.m3u8
-#EXTINF:-1 tvg-id="Nickelodeon.hu@Direct88" tvg-name="Nickelodeon Hungary [IP 88]" tvg-country="HU" tvg-logo="https://i.imgur.com/fXs8f6a.png" group-title="Misceláneos",Nickelodeon Hungary [IP 88]
-http://88.212.15.19/live/test_nickelodeon_hu_1200_atk/playlist.m3u8
-#EXTINF:-1 tvg-id="Nicktoons.cz@Direct88" tvg-name="Nicktoons Czechia [IP 88]" tvg-country="CZ" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/d/d8/Nicktoons_UK_Logo_2014.png" group-title="Misceláneos",Nicktoons Czechia [IP 88]
-http://88.212.15.19/live/test_nicktoons/playlist.m3u8
-#EXTINF:-1 tvg-id="Nicktoons.hu@Direct88" tvg-name="Nicktoons Hungary [IP 88]" tvg-country="HU" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/d/d8/Nicktoons_UK_Logo_2014.png" group-title="Misceláneos",Nicktoons Hungary [IP 88]
-http://88.212.15.19/live/nicktoons_hungary/index.m3u8
-#EXTINF:-1 tvg-id="PrimaStar.cz@Direct88" tvg-name="Prima Star [IP 88]" tvg-country="CZ" tvg-logo="https://i.imgur.com/ppqgNDA.png" group-title="Misceláneos",Prima Star [IP 88]
-http://88.212.15.19/live/test_prima_star_hevc_25p/playlist.m3u8
-#EXTINF:-1 tvg-id="AssamTalks.in@DirectTVSEN7" tvg-name="Assam Talks [TVSEN7]" tvg-country="IN" tvg-logo="https://dtil.tmsimg.com/assets/s142683_ld_h15_aa.png?lock=720x540" group-title="Misceláneos",Assam Talks [TVSEN7]
-http://tvsen7.aynascope.net/AssamTalks/index.m3u8
-#EXTINF:-1 tvg-id="MadaniChannelEnglish.pk@DirectTVSEN7" tvg-name="Madani Channel English [TVSEN7]" tvg-country="PK" tvg-logo="https://i.imgur.com/Abi9j0A.png" group-title="Misceláneos",Madani Channel English [TVSEN7]
-http://tvsen7.aynascope.net/MadaniTV/index.m3u8
-
-# Investigación deportiva publicada
 #EXTINF:-1 tvg-id="FTFSports.us@DirectCDN77" tvg-name="FTF Sports [CDN77]" tvg-country="US" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/misc/vod/ftf-vod.png" group-title="Deportes",FTF Sports [CDN77]
 https://1593604785.rsc.cdn77.org/FTF/FTF_SCTE.m3u8
 #EXTINF:-1 tvg-id="FTFSports.us@DirectLinear" tvg-name="FTF Sports [Linear]" tvg-country="US" tvg-logo="https://raw.githubusercontent.com/tv-logo/tv-logos/main/misc/vod/ftf-vod.png" group-title="Deportes",FTF Sports [Linear]
@@ -160,6 +118,38 @@ https://mainstreammedia-worldoffreesportsintl-rakuten.amagi.tv/playlist.m3u8
 #EXTINF:-1 tvg-id="TraceSportStars.int@DirectFreeCast" tvg-name="Trace Sport Stars [FreeCast]" tvg-country="INT" tvg-logo="https://i.imgur.com/FabFP5A.png" group-title="Deportes",Trace Sport Stars [FreeCast]
 https://lightning-tracesport-samsungau.amagi.tv/playlist.m3u8
 
-# DASH FTA sin DRM
-#EXTINF:-1 tvg-id="MNBSport.mn@DirectDASH" tvg-name="MNB Sport [DASH FTA]" tvg-country="MN" tvg-logo="https://i.imgur.com/z854PC3.png" group-title="Deportes" x-stream-format="dash",MNB Sport [DASH FTA]
-https://cdn3.skygo.mn/live/disk1/MNBSport/DASH-FTA/MNBSport.mpd
+# Películas
+#EXTINF:-1 tvg-id="AMCEurope.uk@CzechDirect88" tvg-name="AMC Europe Czech Republic [IP 88]" tvg-country="CZ" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/AMC_logo_2019.svg/960px-AMC_logo_2019.svg.png" group-title="Películas",AMC Europe Czech Republic [IP 88]
+http://88.212.15.19/live/test_amc_25p/playlist.m3u8
+#EXTINF:-1 tvg-id="AMCEurope.uk@HungaryDirect88" tvg-name="AMC Europe Hungary [IP 88]" tvg-country="HU" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/AMC_logo_2019.svg/960px-AMC_logo_2019.svg.png" group-title="Películas",AMC Europe Hungary [IP 88]
+http://88.212.15.19/live/amc_hun/index.m3u8
+#EXTINF:-1 tvg-id="Film4.hu@Direct88" tvg-name="Film4 [IP 88]" tvg-country="HU" tvg-logo="https://i.imgur.com/X5N8CHf.png" group-title="Películas",Film4 [IP 88]
+http://88.212.15.19/live/film4_hun/index.m3u8
+
+# Misceláneos
+#EXTINF:-1 tvg-id="BBCEarth.uk@HungaryDirect88" tvg-name="BBC Earth Hungary [IP 88]" tvg-country="HU" tvg-logo="https://i.imgur.com/nGSsUd4.png" group-title="Misceláneos",BBC Earth Hungary [IP 88]
+http://88.212.15.19/live/bbce_hun/index.m3u8
+#EXTINF:-1 tvg-id="History.cz@Direct88" tvg-name="History Czechia [IP 88]" tvg-country="CZ" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/History_%282021%29.svg/500px-History_%282021%29.svg.png" group-title="Misceláneos",History Czechia [IP 88]
+http://88.212.15.19/live/test_history/playlist.m3u8
+#EXTINF:-1 tvg-id="History.hu@Direct88" tvg-name="History Hungary [IP 88]" tvg-country="HU" tvg-logo="https://i.imgur.com/OWIK7FJ.png" group-title="Misceláneos",History Hungary [IP 88]
+http://88.212.15.19/live/history_hun/index.m3u8
+#EXTINF:-1 tvg-id="History2.cz@Direct88" tvg-name="History2 [IP 88]" tvg-country="CZ" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/History2_logo_%282022%29.svg/960px-History2_logo_%282022%29.svg.png" group-title="Misceláneos",History2 [IP 88]
+http://88.212.15.19/live/test_h2/playlist.m3u8
+#EXTINF:-1 tvg-id="NickJr.cz@Direct88" tvg-name="Nick Jr Czechia [IP 88]" tvg-country="CZ" tvg-logo="https://i.imgur.com/KT4tdQs.png" group-title="Misceláneos",Nick Jr Czechia [IP 88]
+http://88.212.15.19/live/test_nick_jr/playlist.m3u8
+#EXTINF:-1 tvg-id="NickJr.hu@Direct88" tvg-name="Nick Jr Hungary [IP 88]" tvg-country="HU" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Nick_Jr._logo_2023_%28outline%29.svg/960px-Nick_Jr._logo_2023_%28outline%29.svg.png" group-title="Misceláneos",Nick Jr Hungary [IP 88]
+http://88.212.15.19/live/nick_junior_hun/index.m3u8
+#EXTINF:-1 tvg-id="Nickelodeon.cz@Direct88" tvg-name="Nickelodeon Czechia [IP 88]" tvg-country="CZ" tvg-logo="https://i.imgur.com/E84jnP8.png" group-title="Misceláneos",Nickelodeon Czechia [IP 88]
+http://88.212.15.19/live/test_nickelodeon_hevc_25p/playlist.m3u8
+#EXTINF:-1 tvg-id="Nickelodeon.hu@Direct88" tvg-name="Nickelodeon Hungary [IP 88]" tvg-country="HU" tvg-logo="https://i.imgur.com/fXs8f6a.png" group-title="Misceláneos",Nickelodeon Hungary [IP 88]
+http://88.212.15.19/live/test_nickelodeon_hu_1200_atk/playlist.m3u8
+#EXTINF:-1 tvg-id="Nicktoons.cz@Direct88" tvg-name="Nicktoons Czechia [IP 88]" tvg-country="CZ" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/d/d8/Nicktoons_UK_Logo_2014.png" group-title="Misceláneos",Nicktoons Czechia [IP 88]
+http://88.212.15.19/live/test_nicktoons/playlist.m3u8
+#EXTINF:-1 tvg-id="Nicktoons.hu@Direct88" tvg-name="Nicktoons Hungary [IP 88]" tvg-country="HU" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/d/d8/Nicktoons_UK_Logo_2014.png" group-title="Misceláneos",Nicktoons Hungary [IP 88]
+http://88.212.15.19/live/nicktoons_hungary/index.m3u8
+#EXTINF:-1 tvg-id="PrimaStar.cz@Direct88" tvg-name="Prima Star [IP 88]" tvg-country="CZ" tvg-logo="https://i.imgur.com/ppqgNDA.png" group-title="Misceláneos",Prima Star [IP 88]
+http://88.212.15.19/live/test_prima_star_hevc_25p/playlist.m3u8
+#EXTINF:-1 tvg-id="AssamTalks.in@DirectTVSEN7" tvg-name="Assam Talks [TVSEN7]" tvg-country="IN" tvg-logo="https://dtil.tmsimg.com/assets/s142683_ld_h15_aa.png?lock=720x540" group-title="Misceláneos",Assam Talks [TVSEN7]
+http://tvsen7.aynascope.net/AssamTalks/index.m3u8
+#EXTINF:-1 tvg-id="MadaniChannelEnglish.pk@DirectTVSEN7" tvg-name="Madani Channel English [TVSEN7]" tvg-country="PK" tvg-logo="https://i.imgur.com/Abi9j0A.png" group-title="Misceláneos",Madani Channel English [TVSEN7]
+http://tvsen7.aynascope.net/MadaniTV/index.m3u8
