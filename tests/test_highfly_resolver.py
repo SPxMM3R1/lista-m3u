@@ -96,6 +96,38 @@ class HighflyResolverTest(unittest.TestCase):
             update_m3u.highfly_stream_urls_from_payload(payload),
         )
 
+    def test_dynamic_refresh_keeps_healthy_current_highfly_candidate(self) -> None:
+        current = "https://papacito.cfd/m3u/high/live.m3u8"
+        lower = "https://papacito.cfd/m3u/lower/live.m3u8"
+        channel = update_m3u.Channel(
+            name="Sky Sports Tennis",
+            url=current,
+            url_line=1,
+            info_line=0,
+            tvg_id="SkySportsTennis.uk",
+            display_name="Sky Sports Tennis",
+        )
+        current_result = update_m3u.CheckResult(
+            channel.name,
+            current,
+            True,
+            "enlace actual validado",
+        )
+
+        with patch.object(update_m3u, "check_channel") as check_channel:
+            outcome = update_m3u.refresh_dynamic_channel(
+                channel,
+                lambda: iter([current, lower]),
+                running_in_ci=False,
+                current_result=current_result,
+            )
+
+        self.assertTrue(outcome.accepted)
+        self.assertFalse(outcome.changed)
+        self.assertEqual(current, outcome.resolved_url)
+        self.assertIs(outcome.check_result, current_result)
+        check_channel.assert_not_called()
+
     def test_papacito_numeric_playlist_is_decoded_only_for_highfly_host(self) -> None:
         encoded = b"35\n69\n88\n84\n77\n51\n85\n10"
         self.assertEqual(

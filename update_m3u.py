@@ -9078,7 +9078,23 @@ def refresh_dynamic_channel(
     seen: set[str] = set()
 
     def try_candidate(candidate_url: str) -> DynamicRefreshOutcome | None:
-        if candidate_url == channel.url or candidate_url in seen:
+        if candidate_url == channel.url:
+            if current_result.ok:
+                return DynamicRefreshOutcome(
+                    channel=channel.name,
+                    resolver=resolver_engine_for(channel),
+                    accepted=True,
+                    changed=False,
+                    skipped=False,
+                    detail=(
+                        "enlace actual validado; se conserva antes de probar "
+                        "candidatos de menor prioridad"
+                    ),
+                    resolved_url=channel.url,
+                    check_result=current_result,
+                )
+            return None
+        if candidate_url in seen:
             return None
         seen.add(candidate_url)
         candidate = Channel(
