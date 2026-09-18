@@ -29,5 +29,14 @@ jobs:
         run: python -c "from datetime import datetime, timezone; from zoneinfo import ZoneInfo; now=datetime.now(timezone.utc).astimezone(ZoneInfo('America/Santiago')); print(now.isoformat()); assert now.utcoffset() is not None"
       - run: python -m unittest discover -s tests -p "test_*.py"
       - run: python run_epg_6h.py --executor github --force
-      - run: python publish_epg.py
+      - name: Publicar EPG
+        id: publish
+        shell: bash
+        run: |
+          python publish_epg.py
+          echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
       - run: sleep 15
+      - name: Verificar EPG publicada en GitHub Raw
+        env:
+          RAW_BASE: https://raw.githubusercontent.com/${{ github.repository }}
+        run: python update_m3u.py --verify-epg-published "$RAW_BASE/${{ steps.publish.outputs.commit }}/epg.xml"

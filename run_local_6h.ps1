@@ -139,6 +139,7 @@ try {
     $changedPaths = @(& $gitPath diff --name-only)
     $allowedPaths = @(
         'm3u.m3u',
+        'm3u-externa.m3u',
         'channel-catalog.m3u',
         '1.m3u',
         '2.m3u',
@@ -155,6 +156,7 @@ try {
         'add',
         '--',
         'm3u.m3u',
+        'm3u-externa.m3u',
         'channel-catalog.m3u',
         '1.m3u',
         '2.m3u',

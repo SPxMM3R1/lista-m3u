@@ -69,6 +69,33 @@ class HighflyResolverTest(unittest.TestCase):
             update_m3u.highfly_stream_urls_from_payload(payload),
         )
 
+    def test_highfly_stream_response_prefers_highest_reported_bitrate(self) -> None:
+        low = "https://papacito.cfd/m3u/low/live.m3u8"
+        high = "https://papacito.cfd/m3u/high/live.m3u8"
+        numeric = "https://papacito.cfd/m3u/numeric/live.m3u8"
+        payload = {
+            "streams": [
+                {"url": low, "title": "1920x1080 · Stereo · ~7.8 Mbps"},
+                {"url": high, "title": "1920x1080 · Stereo · ~9.6 Mbps"},
+                {"url": numeric, "bandwidth": 8_500_000},
+            ]
+        }
+
+        self.assertEqual(
+            [high, numeric, low],
+            update_m3u.highfly_stream_urls_from_payload(payload),
+        )
+
+    def test_highfly_stream_response_keeps_provider_order_without_bitrate(self) -> None:
+        first = "https://papacito.cfd/m3u/first/live.m3u8"
+        second = "https://papacito.cfd/m3u/second/live.m3u8"
+        payload = {"streams": [{"url": first}, {"url": second}]}
+
+        self.assertEqual(
+            [first, second],
+            update_m3u.highfly_stream_urls_from_payload(payload),
+        )
+
     def test_papacito_numeric_playlist_is_decoded_only_for_highfly_host(self) -> None:
         encoded = b"35\n69\n88\n84\n77\n51\n85\n10"
         self.assertEqual(

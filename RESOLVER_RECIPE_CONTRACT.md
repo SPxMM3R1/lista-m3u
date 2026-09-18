@@ -15,7 +15,6 @@ clases Android ni mezclar commits.
   no existe una tercera lista publicada.
 - Inventario completo: `channel-catalog.m3u`.
 - Configuración declarativa: `resolver-catalog.json`.
-- Identidades descubiertas de TvVoo: `tvvoo-discovered.json`.
 - Guía compartida para todo el inventario: `epg.xml`.
 
 La pertenencia manual no cambia con esta receta: `m3u.m3u` conserva su
@@ -30,7 +29,9 @@ se selecciona, se agrega manualmente a `m3u.m3u`/`1.m3u` con su `tvg-id` estable
 `x-resolver="highfly"`, `x-resolver-id`, `x-resolver-manifest` y
 `x-resolver-refresh="on_play"`. El catálogo público de Highfly solo sirve para
 actualizar en memoria el slug que rota; no cambia la membresía de la lista,
-no publica eventos temporales y no guarda credenciales.
+no publica eventos temporales y no guarda credenciales. Si la API devuelve más
+de un stream para el mismo canal, el actualizador prioriza el mayor bitrate
+anunciado antes de validar el HLS.
 
 ## Metadatos TvVoo obligatorios
 
@@ -82,11 +83,12 @@ también bloquea destinos de red privados y valida cada redirección.
   coincidan exactamente.
 - `validate_resolver_catalog()` bloquea motores, hosts, tokens, recetas y modos
   no permitidos.
-- `discover_tvvoo_catalog.py` consulta únicamente catálogos públicos, agrupa
-  variantes de calidad, deduplica por alias y escribe solo identidades
-  estables en `tvvoo-discovered.json`; no modifica la membresía de la lista 1.
-- `catalogVersion` avanza automáticamente en el componente de parche cuando
-  cambia el mapa estable, sin modificar el código ejecutable del resolutor.
+- Las identidades TvVoo y sus aliases se mantienen manualmente en
+  `channel-catalog.m3u`; el actualizador toma ese mapa para validar y generar
+  el catálogo declarativo. No existe un proceso automático de altas.
+- `catalogVersion` debe avanzar en el componente de parche cuando cambia el
+  mapa estable; el escritor del contrato conserva esa monotonicidad, sin
+  modificar el código ejecutable del resolutor.
 
 Comandos sin red para el contrato:
 
@@ -133,8 +135,8 @@ como identificador persistente.
 ## Evolución y compatibilidad
 
 Cambiar aliases, límites o un endpoint ya permitido requiere aumentar
-`catalogVersion`; el escritor lo hace automáticamente para los descubrimientos
-estables. Una transformación nueva requiere un ID nuevo y una APK que
+`catalogVersion`; el escritor conserva la monotonicidad para esos cambios.
+Una transformación nueva requiere un ID nuevo y una APK que
 lo incluya explícitamente; no se cambia silenciosamente el significado de
 `bounded-payload-v1`.
 

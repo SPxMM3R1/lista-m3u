@@ -52,18 +52,21 @@ HIGHFLY_STREAM_ALLOWED_HOSTS = frozenset({"papacito.cfd"})
 HIGHFLY_LEAF_ID_PATTERN = re.compile(
     r"^leaf:(?P<slug>[a-z0-9][a-z0-9_-]{1,127})$", re.IGNORECASE
 )
+HIGHFLY_BITRATE_PATTERN = re.compile(
+    r"(?<![\d.,])(?P<value>\d+(?:[.,]\d+)?)\s*"
+    r"(?P<unit>gbps|gbit/s|mbps|mbit/s|kbps|kbit/s|bps)(?!\w)",
+    re.IGNORECASE,
+)
 EPG_PATH = Path(__file__).with_name("epg.xml")
 REPORT_PATH = Path(__file__).with_name("channel-status.json")
 HEALTH_STATE_PATH = Path(__file__).with_name("channel-health-state.json")
 RESOLVER_CATALOG_PATH = Path(__file__).with_name("resolver-catalog.json")
-TVVOO_DISCOVERY_MAP_PATH = Path(__file__).with_name("tvvoo-discovered.json")
 PUBLIC_RAW_BASE = "https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main"
 EPG_PUBLIC_URL = f"{PUBLIC_RAW_BASE}/epg.xml"
 LOCAL_LOGOS_PUBLIC_BASE = f"{PUBLIC_RAW_BASE}/logos"
 RESOLVER_SCHEMA_VERSION = 1
-# This is the version of the checked-in resolver rules. The writer advances
-# the patch component automatically when the daily TvVoo discovery sidecar
-# changes, so discovery never has to edit Python source just to publish data.
+# This is the base version of the checked-in resolver rules. The writer keeps
+# the patch component monotonic when the checked-in alias map changes.
 RESOLVER_CATALOG_VERSION = "2026.09.01.4"
 ALLOWED_RESOLVER_ENGINES = {"tvn", "meganoticias", "tvvoo", "highfly"}
 TVVOO_RECIPE_ID = "bounded-payload-v1"
@@ -345,7 +348,7 @@ HIGHFLY_MANIFEST_URL = (
 HIGHFLY_RESOLVER_CHANNELS = {
     # Fallbacks de hoja publicados por el catalogo actual. El mapa se
     # refresca desde sports_live.json cuando hay red, pero estos valores
-    # permiten resolver aun si el catalogo de descubrimiento esta caido.
+    # permiten resolver aun si el catalogo publico esta caido.
     "SkySportsF1.uk": "f1-3949409",
     "SkySportsPremierLeague.uk": "now-4994949494",
     "SkySportsTennis.uk": "uk-330030303",
@@ -1184,7 +1187,7 @@ TVVOO_STREAM_RESOLVER_IDS = {
     ),
 }
 
-# Tanda adicional descubierta en los catálogos TvVoo por país/región.
+# Tanda adicional del catálogo TvVoo por país/región.
 # El nombre visible identifica la región; HD/FHD quedan agrupados como aliases.
 TVVOO_STREAM_RESOLVER_IDS.update({
     "BBC Two Reino Unido": ("vavoo_BBC%20TWO%7Cgroup%3Auk",),
@@ -1378,7 +1381,7 @@ TVVOO_STREAM_RESOLVER_IDS.update({
     ),
 })
 
-# Candidatos nuevos de la revisión pública TvVoo 5.0.23. Solo se incorporan
+# Identidades incorporadas desde la revisión pública TvVoo 5.0.23. Solo se incorporan
 # señales con una identidad regional explícita y una comprobación HLS
 # satisfactoria; las URLs de sesión se renuevan al ejecutar el actualizador.
 TVVOO_STREAM_RESOLVER_IDS.update({
@@ -1461,172 +1464,40 @@ TVVOO_STREAM_RESOLVER_IDS = {
 }
 
 
-# The discovery job stores only stable TvVoo identities here. It deliberately
-# does not store resolved streams, session URLs, tokens or provider payloads.
-# Keeping this sidecar separate from the Python map lets the daily job add a
-# channel without changing executable resolver code.
-TVVOO_DISCOVERY_SCHEMA_VERSION = 1
-TVVOO_DISCOVERY_MAX_CHANNELS = 2000
-TVVOO_DISCOVERY_MAX_ALIASES = 8
-TVVOO_DISCOVERY_REGIONS = frozenset(
-    {"uk", "it", "fr", "de", "pt", "es", "nl", "pl", "bg", "ar", "ro", "ru"}
-)
-TVVOO_DISCOVERY_CATEGORIES = frozenset(
-    {
-        "Deportes",
-        "Noticias internacionales",
-        "Música",
-        "Películas",
-        "Adultos",
-        "Misceláneos",
-    }
-)
-TVVOO_DISCOVERY_ID_PATTERN = re.compile(
-    r"^Vavoo\.(?P<region>[a-z]{2})\.(?P<slug>[A-Za-z0-9-]{2,64})@TvVoo$"
-)
-TVVOO_DISCOVERY_ALIAS_PATTERN = re.compile(
-    r"^vavoo_[A-Za-z0-9%._~+\-]+%7Cgroup%3A[a-z]{2}$"
-)
-TVVOO_DISCOVERY_LOGO_HOSTS = frozenset(
-    {
-        "antifriz.tv",
-        "epg.pw",
-        "i.imgur.com",
-        "raw.githubusercontent.com",
-        "static.wikia.nocookie.net",
-        "tvlogo.org",
-    }
-)
+# The checked-in catalogue is the source of truth for the complete, manually
+# curated TvVoo alias map. The larger Python map above remains as a fallback
+# for tools that inspect this module without the catalogue file present.
+_M3U_ATTRIBUTE_PATTERN = re.compile(r'([\w-]+)="([^"]*)"')
 
 
-def validate_tvvoo_discovery_document(
-    document: object, *, label: str = TVVOO_DISCOVERY_MAP_PATH.name
-) -> dict[str, dict[str, object]]:
-    """Validate the bounded, data-only TvVoo discovery sidecar."""
-    if not isinstance(document, dict):
-        raise ValueError(f"{label} debe contener un objeto JSON")
-    if document.get("schemaVersion") != TVVOO_DISCOVERY_SCHEMA_VERSION:
-        raise ValueError(f"{label} debe usar schemaVersion 1")
-    channels = document.get("channels")
-    if not isinstance(channels, dict):
-        raise ValueError(f"{label}.channels debe ser un objeto")
-    if len(channels) > TVVOO_DISCOVERY_MAX_CHANNELS:
-        raise ValueError(
-            f"{label} supera el maximo de {TVVOO_DISCOVERY_MAX_CHANNELS} canales"
-        )
-
-    validated: dict[str, dict[str, object]] = {}
-    seen_names: set[str] = set()
-    forbidden = ("access_token", "serverkey", "sunshine", "session", "token")
-    for tvg_id, raw_entry in channels.items():
-        if not isinstance(tvg_id, str):
-            raise ValueError(f"{label}: un ID de canal no es texto")
-        id_match = TVVOO_DISCOVERY_ID_PATTERN.fullmatch(tvg_id)
-        if not id_match or id_match.group("region") not in TVVOO_DISCOVERY_REGIONS:
-            raise ValueError(f"{label}: ID TvVoo no permitido: {tvg_id}")
-        if not isinstance(raw_entry, dict):
-            raise ValueError(f"{label}: entrada invalida para {tvg_id}")
-        allowed_keys = {"name", "aliases", "region", "sourceName", "category", "logo"}
-        unknown_keys = set(raw_entry) - allowed_keys
-        if unknown_keys:
-            raise ValueError(
-                f"{label}: campos no permitidos en {tvg_id}: "
-                + ", ".join(sorted(unknown_keys))
-            )
-        name = raw_entry.get("name")
-        source_name = raw_entry.get("sourceName", "")
-        category = raw_entry.get("category", "Misceláneos")
-        region = raw_entry.get("region")
-        logo = raw_entry.get("logo", "")
-        if (
-            not isinstance(name, str)
-            or not name.strip()
-            or len(name) > 100
-            or any(ord(char) < 32 for char in name)
-        ):
-            raise ValueError(f"{label}: nombre invalido para {tvg_id}")
-        if name in seen_names:
-            raise ValueError(f"{label}: nombre duplicado: {name}")
-        seen_names.add(name)
-        if (
-            not isinstance(source_name, str)
-            or len(source_name) > 100
-            or any(ord(char) < 32 for char in source_name)
-        ):
-            raise ValueError(f"{label}: sourceName invalido para {tvg_id}")
-        if not isinstance(region, str) or region != id_match.group("region"):
-            raise ValueError(f"{label}: region inconsistente para {tvg_id}")
-        if not isinstance(category, str) or category not in TVVOO_DISCOVERY_CATEGORIES:
-            raise ValueError(f"{label}: categoria no permitida para {tvg_id}")
-        if not isinstance(logo, str) or len(logo) > 512:
-            raise ValueError(f"{label}: logo invalido para {tvg_id}")
-        if logo:
-            parsed_logo = urlparse(logo)
-            if (
-                parsed_logo.scheme != "https"
-                or parsed_logo.hostname not in TVVOO_DISCOVERY_LOGO_HOSTS
-                or parsed_logo.username
-                or parsed_logo.password
-                or parsed_logo.query
-                or parsed_logo.fragment
-            ):
-                raise ValueError(f"{label}: host o URL de logo no permitido para {tvg_id}")
-
-        aliases = raw_entry.get("aliases")
-        if not isinstance(aliases, list) or not aliases:
-            raise ValueError(f"{label}: faltan aliases para {tvg_id}")
-        if len(aliases) > TVVOO_DISCOVERY_MAX_ALIASES:
-            raise ValueError(f"{label}: demasiados aliases para {tvg_id}")
-        clean_aliases: list[str] = []
-        for alias in aliases:
-            if not isinstance(alias, str) or not TVVOO_DISCOVERY_ALIAS_PATTERN.fullmatch(alias):
-                raise ValueError(f"{label}: alias no permitido para {tvg_id}: {alias}")
-            decoded = unquote(alias)
-            decoded_match = re.fullmatch(
-                r"vavoo_(?P<name>.+)\|group:(?P<region>[a-z]{2})", decoded
-            )
-            if not decoded_match or decoded_match.group("region") != region:
-                raise ValueError(f"{label}: alias con region inconsistente para {tvg_id}")
-            if alias in clean_aliases:
-                raise ValueError(f"{label}: alias duplicado para {tvg_id}")
-            clean_aliases.append(alias)
-        entry_text = json.dumps(raw_entry, ensure_ascii=False).lower()
-        if any(value in entry_text for value in forbidden):
-            raise ValueError(f"{label}: se detecto un dato temporal o sensible en {tvg_id}")
-        validated[tvg_id] = {
-            "name": name.strip(),
-            "aliases": clean_aliases,
-            "region": region,
-            "sourceName": source_name.strip(),
-            "category": category,
-            "logo": logo,
-        }
-    return validated
-
-
-def load_tvvoo_discovery_entries(
-    path: Path = TVVOO_DISCOVERY_MAP_PATH,
-) -> dict[str, dict[str, object]]:
-    if not path.exists():
+def load_checked_in_tvvoo_aliases(
+    path: Path = CHANNEL_CATALOG_PATH,
+) -> dict[str, tuple[str, ...]]:
+    if not path.is_file():
         return {}
-    try:
-        document = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError) as error:
-        raise ValueError(f"{path.name} no es JSON valido: {error}") from error
-    return validate_tvvoo_discovery_document(document, label=path.name)
-
-
-TVVOO_DISCOVERY_ENTRIES = load_tvvoo_discovery_entries()
-for _discovered_id, _discovered_entry in TVVOO_DISCOVERY_ENTRIES.items():
-    _discovered_name = str(_discovered_entry["name"])
-    _discovered_aliases = tuple(str(alias) for alias in _discovered_entry["aliases"])
-    _existing_aliases = TVVOO_STREAM_RESOLVER_IDS.get(_discovered_name)
-    if _existing_aliases is not None and tuple(_existing_aliases) != _discovered_aliases:
-        raise ValueError(
-            f"{TVVOO_DISCOVERY_MAP_PATH.name}: {_discovered_name} "
-            "ya existe con aliases diferentes"
+    aliases: dict[str, tuple[str, ...]] = {}
+    for line in path.read_text(encoding="utf-8-sig").splitlines():
+        if not line.startswith("#EXTINF:") or 'x-resolver="tvvoo"' not in line:
+            continue
+        attributes = dict(_M3U_ATTRIBUTE_PATTERN.findall(line))
+        name = attributes.get("tvg-name") or line.rsplit(",", 1)[-1].strip()
+        values = tuple(
+            alias
+            for alias in attributes.get("x-resolver-ids", "").split(";")
+            if alias
         )
-    TVVOO_STREAM_RESOLVER_IDS[_discovered_name] = _discovered_aliases
+        if not name or not values:
+            continue
+        previous = aliases.get(name)
+        if previous is not None and previous != values:
+            raise ValueError(f"channel-catalog.m3u: aliases TvVoo distintos para {name}")
+        aliases[name] = values
+    return aliases
+
+
+_checked_in_tvvoo_aliases = load_checked_in_tvvoo_aliases()
+if _checked_in_tvvoo_aliases:
+    TVVOO_STREAM_RESOLVER_IDS = _checked_in_tvvoo_aliases
 
 
 def build_resolver_catalog(*, catalog_version: str | None = None) -> dict:
@@ -2275,7 +2146,7 @@ OFFICIAL_STREAM_PAGES = {
     "CHV": ["https://www.chilevision.cl/senal-online"],
     # Las paginas oficiales pueden contener un reproductor Rudo con un
     # manifiesto de mayor calidad que el respaldo publico. Se inspeccionan
-    # solo como fuente de descubrimiento; no se publican sus tokens.
+    # solo como fuente publica; no se publican sus tokens.
     "Canal 13": [
         "https://www.13.cl/en-vivo",
         "https://rudo.video/live/c13",
@@ -3447,7 +3318,7 @@ def write_resolver_catalog(path: Path = RESOLVER_CATALOG_PATH) -> bool:
         elif current_key == base_key:
             expected_version = next_catalog_version(base_version)
         else:
-            # A previous discovery run may already have advanced the patch
+            # A previous maintenance run may already have advanced the patch
             # component. Rebuild that exact version first; only advance it
             # again when the stable map really changed.
             current_expected = build_resolver_catalog(
@@ -3879,7 +3750,7 @@ def _highfly_leaf_slug(value: object) -> str | None:
 def parse_highfly_live_resolver_map(payload: bytes | str | dict) -> dict[str, str]:
     """Map stable app IDs to the current public Highfly leaf slugs.
 
-    The public sports catalog is the discovery source. Only allow-listed leaf
+    The public sports catalog is the source of current leaf slugs. Only allow-listed leaf
     IDs are retained; event IDs and poster URLs are deliberately ignored. The
     map is runtime state and is not a resolver credential or a permanent
     channel identity.
@@ -3950,7 +3821,7 @@ def update_highfly_runtime_resolver_map(payload: bytes | str | dict) -> dict[str
 
     The public catalog can omit a leaf while still serving the rest of the
     catalogue. Merging prevents that partial response from erasing a slug
-    seeded from the checked-in M3U or discovered earlier in the same run. A
+    seeded from the checked-in M3U or updated earlier in the same run. A
     later matching leaf still replaces the old value normally.
     """
     resolver_map = parse_highfly_live_resolver_map(payload)
@@ -3960,7 +3831,7 @@ def update_highfly_runtime_resolver_map(payload: bytes | str | dict) -> dict[str
 
 
 def seed_highfly_runtime_resolver_map(lines: list[str]) -> dict[str, str]:
-    """Seed runtime slugs from checked-in metadata before public discovery.
+    """Seed runtime slugs from checked-in metadata before the public lookup.
 
     This keeps the last published leaf available when the public Highfly
     catalogue temporarily omits it. Only known canonical Highfly IDs and
@@ -8793,7 +8664,13 @@ def fetch_highfly_manifest() -> dict:
 
 
 def highfly_stream_urls_from_payload(payload: bytes | str | dict) -> list[str]:
-    """Extract only playable leaf HLS URLs from one Highfly stream response."""
+    """Extract playable HLS URLs, preferring the highest reported bitrate.
+
+    Highfly currently reports the bitrate in the human-readable stream title
+    (for example ``1920x1080 ... ~9.6 Mbps``), but some responses expose it as
+    a numeric ``bitrate`` or ``bandwidth`` field. Unknown bitrates retain the
+    provider order and are placed after streams with an explicit bitrate.
+    """
     decoded: object | None = None
     if isinstance(payload, bytes):
         raw_payload = payload.decode("utf-8-sig")
@@ -8814,9 +8691,8 @@ def highfly_stream_urls_from_payload(payload: bytes | str | dict) -> list[str]:
     if not isinstance(streams, list):
         return []
 
-    urls: list[str] = []
-    seen: set[str] = set()
-    for stream in streams[:32]:
+    candidates: dict[str, tuple[int | None, int]] = {}
+    for index, stream in enumerate(streams[:32]):
         if not isinstance(stream, dict):
             continue
         candidate = str(stream.get("url", "")).strip()
@@ -8826,12 +8702,67 @@ def highfly_stream_urls_from_payload(payload: bytes | str | dict) -> list[str]:
             or (parsed.hostname or "").lower() not in HIGHFLY_STREAM_ALLOWED_HOSTS
             or not parsed.path.lower().startswith("/m3u/")
             or not parsed.path.lower().endswith(".m3u8")
-            or candidate in seen
         ):
             continue
-        seen.add(candidate)
-        urls.append(candidate)
-    return urls
+        bitrate = highfly_stream_bitrate(stream)
+        previous = candidates.get(candidate)
+        if previous is None or (
+            bitrate is not None
+            and (previous[0] is None or bitrate > previous[0])
+        ):
+            candidates[candidate] = (bitrate, index)
+
+    if any(bitrate is not None for bitrate, _ in candidates.values()):
+        ordered = sorted(
+            candidates.items(),
+            key=lambda item: (
+                item[1][0] is None,
+                -(item[1][0] or 0),
+                item[1][1],
+            ),
+        )
+    else:
+        ordered = list(candidates.items())
+    return [url for url, _ in ordered]
+
+
+def highfly_stream_bitrate(stream: dict) -> int | None:
+    """Return the advertised stream bitrate in bits per second, if present."""
+    for key in ("bitrate", "bitrate_bps", "bandwidth", "bandwidth_bps"):
+        bitrate = parse_highfly_bitrate(stream.get(key), bare_is_bps=True)
+        if bitrate is not None:
+            return bitrate
+    for key in ("title", "name", "quality", "description"):
+        bitrate = parse_highfly_bitrate(stream.get(key))
+        if bitrate is not None:
+            return bitrate
+    return None
+
+
+def parse_highfly_bitrate(value: object, *, bare_is_bps: bool = False) -> int | None:
+    """Parse a Highfly bitrate value without treating resolution as bitrate."""
+    if isinstance(value, bool) or value is None:
+        return None
+    if isinstance(value, (int, float)):
+        return int(value) if value > 0 else None
+    text = str(value).strip()
+    if bare_is_bps and re.fullmatch(r"\d+(?:[.,]\d+)?", text):
+        return int(float(text.replace(",", ".")))
+    match = HIGHFLY_BITRATE_PATTERN.search(text)
+    if not match:
+        return None
+    amount = float(match.group("value").replace(",", "."))
+    multiplier = {
+        "bps": 1,
+        "kbps": 1_000,
+        "kbit/s": 1_000,
+        "mbps": 1_000_000,
+        "mbit/s": 1_000_000,
+        "gbps": 1_000_000_000,
+        "gbit/s": 1_000_000_000,
+    }[match.group("unit").lower()]
+    bitrate = int(amount * multiplier)
+    return bitrate if bitrate > 0 else None
 
 
 def fetch_highfly_stream_urls_for_slug(slug: str) -> list[str]:

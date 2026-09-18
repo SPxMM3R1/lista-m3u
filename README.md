@@ -101,9 +101,9 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
 - incorpora la parrilla XMLTV de PlutoTV para MTV Biggest Pop,
   MTV Spankin' New y MTV Flow Latino; las tarjetas repetidas de Pluto
   se deduplican antes de construir la EPG;
-- incorpora candidatos de noticias, deportes, música/conciertos, películas y
-   adultos desde los catálogos JSON públicos de TvVoo, manteniendo un solo canal
-   lógico por señal y sus aliases estables por país. El grupo TvVoo `ar` se
+- conserva en `channel-catalog.m3u` las identidades TvVoo incorporadas manualmente
+   para noticias, deportes, música/conciertos, películas y adultos, manteniendo
+   un solo canal lógico por señal y sus aliases estables por país. El grupo TvVoo `ar` se
    conserva en `channel-catalog.m3u` como inventario de reintento, pero queda
    excluido de la lista externa hasta una selección manual explícita. Las
    señales adultas no se eliminan del catálogo por su temática ni por falta de
@@ -134,7 +134,9 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
   `manifest.json` y el catalogo publico una vez por corrida; cuando el
   proveedor rota una hoja, consulta
   `stream/sport/leaf:{slug}.json` y solo acepta una HLS HTTPS de
-  `papacito.cfd`;
+  `papacito.cfd`; si la API informa varios streams, se prueban primero en
+  orden descendente de bitrate anunciado y se conserva el primero que supera
+  la validación HLS;
 - los reintentos y tiempos de espera se ajustan por motor: directos, TVN,
   Meganoticias, TvVoo y Highfly tienen limites propios para que un proveedor
   lento no bloquee a los demas. Los candidatos aceptados durante la renovacion
@@ -197,35 +199,12 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
   publicación como posible problema sistémico del runner o de la red, sin
   eliminar canales ni cambiar las membresías manuales no gestionadas.
 
-El descubrimiento de catálogo (`discover-tvvoo.yml` / `discover_tvvoo_catalog.py`)
-corre una vez al día a las 03:15, separado de los procesos de canales y EPG.
-Consulta los catálogos públicos de TvVoo para Reino Unido, Italia, Francia,
-Alemania, Portugal, España, Países Bajos, Polonia, Bulgaria, Arabia (grupo `ar`),
-Rumanía y Rusia. Deduplica por señal y alias, descarta regiones y nombres
-excluidos (PPV, VOD, TEST/EVENT y las regiones geográficas ya vetadas), exige un
-logo HTTPS de un host permitido para las categorías normales y permite que una
-señal adulta continúe sin logo si TvVoo no entrega uno confiable. Agrega como
-máximo 24 candidatos por ejecución y 2.000 en total al catálogo externo. Las
-señales deportivas se
-clasifican también por disciplina —fútbol, rugby, boxeo, motor, ciclismo,
-baloncesto, hockey, golf, tenis, carreras, etc.— y la música incluye conciertos,
-jazz, rock, pop y señales equivalentes. La información estable queda en
-`tvvoo-discovered.json`; nunca se guardan URLs de sesión, tokens ni respuestas
-temporales. La lista principal no se modifica. Cuando hay nuevos candidatos,
-el descubridor solicita explícitamente el workflow de mantenimiento de canales,
-que intenta resolver y validar sus HLS; la EPG los incorpora en su próxima
-ejecución independiente sobre el catálogo completo.
-
-La importación completa solicitada del grupo `ar` usa
-`python import_tvvoo_ar.py --write`. Lee `src/channels/lists.json` del repositorio `qwertyuiop8899/tvvoo`,
-agrupa variantes de calidad y conserva también los canales sin logo. El grupo
-del proveedor mezcla señales de varios países; no se marca como Argentina.
-La capacidad del archivo de identidades y de la selección automática general es
-2.000; cada ejecución sigue limitada a 24 candidatos por defecto (48 como
-máximo manual). Las altas contienen aliases estables, no
-enlaces de sesión, y esperan la validación y la política de publicación para
-aparecer en lista 2; el grupo `ar` permanece deliberadamente fuera de esa
-salida pública.
+Las identidades TvVoo se mantienen manualmente en `channel-catalog.m3u` y sus
+aliases se reflejan en `resolver-catalog.json`. El mantenimiento de canales
+renueva y valida las fuentes de las identidades existentes; no añade canales
+automáticamente ni modifica la membresía de la lista principal. El grupo `ar`
+se conserva en el catálogo para reintento, pero permanece fuera de la salida
+pública hasta una selección manual explícita.
 
 El coordinador `run_m3u_6h.py` conserva `run-state.json`; el coordinador
 `run_epg_6h.py` conserva `epg-run-state.json`. Las ventanas locales de Chile
@@ -245,13 +224,11 @@ sobre todo el catálogo y comprueba que la principal conserve exactamente sus
 `tvg-id`, que la externa sea su complemento y que ambas adopten los metadatos y
 URLs vigentes del catálogo.
 
-El proceso de canales corre a las 00:00, 06:00, 12:00 y 18:00 (hora de
-Santiago). El proceso de EPG corre a las 00:30, 06:30, 12:30 y 18:30. Cada
-ventana programada fuerza una consulta de enlaces dinamicos de TvVoo y Highfly;
-la compuerta de seis horas solo protege
-invocaciones locales o manuales repetidas fuera del cron. Los procesos
-comparten una cola de publicacion para no competir por `main`.
-GitHub puede iniciar unos minutos despues porque los cron son best effort.
+Los horarios anteriores son los horarios reales de GitHub Actions. GitHub puede
+iniciar unos minutos después porque los cron son best effort; la compuerta de
+seis horas solo protege invocaciones locales o manuales repetidas fuera del
+cron. Los procesos comparten una cola de publicación para no competir por
+`main`.
 
 La actualizacion de canales sincroniza siempre las URLs y metadatos actuales
 con `m3u.m3u`, `m3u-externa.m3u`, sus alias cortos y `channel-catalog.m3u`.
