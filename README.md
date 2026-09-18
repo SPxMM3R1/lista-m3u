@@ -226,8 +226,18 @@ Los cambios de `push` ya no fuerzan el mantenimiento completo. El workflow
   catálogo;
 - `epg-overrides.json` permite renovar y mezclar solo los canales indicados en
   `epg.xml`, preservando los demás programas;
+- cada cambio dirigido exitoso queda registrado para el runner de seis horas:
+  `presentation-overrides.json` conserva orden/metadatos/logos, el manifiesto de
+  streams conserva una selección manual y `epg-manual-overrides.xml` conserva
+  los bloques EPG editados directamente;
 - cambios de lógica, contrato, membresía o fuentes globales se prueban y se
   difieren a la siguiente ventana completa.
+
+La corrida completa aplica esos manifiestos después de su normalización
+automática. Por eso una decisión editorial, un stream fijado o un bloque EPG
+manual no se pierde cuando se renuevan los demás canales. Para liberar una
+decisión hay que eliminar su entrada del manifiesto correspondiente; la
+próxima ventana vuelve entonces a aplicar las reglas automáticas normales.
 
 Para un cambio de stream se puede editar el bloque del canal en el catálogo o
 declararlo en `stream-overrides.json`, por ejemplo:
@@ -242,6 +252,10 @@ declararlo en `stream-overrides.json`, por ejemplo:
   }
 }
 ```
+
+Los streams fijados deben ser URLs durables, sin query, firma ni token de
+sesión. Los enlaces efímeros `/sunshine/` se renuevan mediante el resolutor y
+no se guardan como una decisión manual permanente.
 
 Para dirigir una fuente EPG se usa `epg-overrides.json` sin incluir tokens ni
 URLs de sesión:

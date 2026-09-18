@@ -54,6 +54,8 @@ _PLAYLIST_PATHS = {
 }
 _STREAM_MANIFEST = "stream-overrides.json"
 _EPG_MANIFEST = "epg-overrides.json"
+_PRESENTATION_MANIFEST = "presentation-overrides.json"
+_EPG_MANUAL_OVERRIDES = "epg-manual-overrides.xml"
 _INFO_ID_PATTERN = re.compile(r'\btvg-id="([^"]+)"')
 _IGNORED_PREFIXES = (
     "README",
@@ -150,6 +152,49 @@ def _manifest_ids(text: str, *, path: str) -> set[str]:
     return ids
 
 
+def _presentation_manifest_ids(text: str, *, path: str) -> set[str]:
+    try:
+        payload = json.loads(text)
+    except json.JSONDecodeError as error:
+        raise ChangePlanError(f"{path}: JSON invalido: {error}") from error
+    if not isinstance(payload, dict):
+        raise ChangePlanError(f"{path}: se esperaba un objeto JSON")
+    presentation = payload.get("presentation", payload)
+    if not isinstance(presentation, dict):
+        raise ChangePlanError(f"{path}: presentation debe ser un objeto")
+    ids: set[str] = set()
+    info_lines = presentation.get("info_lines", {})
+    if isinstance(info_lines, dict):
+        ids.update(str(channel_id).strip() for channel_id in info_lines)
+    orders = presentation.get("orders", {})
+    if isinstance(orders, dict):
+        for order in orders.values():
+            if isinstance(order, list):
+                ids.update(str(channel_id).strip() for channel_id in order)
+    ids.discard("")
+    return ids
+
+
+def _epg_override_ids(text: str, *, path: str) -> set[str]:
+    try:
+        root = ET.fromstring(text)
+    except ET.ParseError as error:
+        raise ChangePlanError(f"{path}: XML invalido: {error}") from error
+    ids = {
+        element.get("id", "").strip()
+        for element in root.findall("channel")
+        if element.get("id", "").strip()
+    }
+    ids.update(
+        element.get("channel", "").strip()
+        for element in root.findall("programme")
+        if element.get("channel", "").strip()
+    )
+    if not ids:
+        raise ChangePlanError(f"{path}: no contiene canales EPG")
+    return ids
+
+
 def _changed_epg_ids(before: str, after: str, *, path: str) -> set[str]:
     try:
         before_root = ET.fromstring(before)
@@ -222,6 +267,21 @@ def classify_changes(
                 full_reasons.append("se elimino el manifiesto de EPG")
             else:
                 epg_ids.update(_manifest_ids(after[path], path=path))
+            continue
+        if path == _PRESENTATION_MANIFEST:
+            if path not in after:
+                full_reasons.append("se elimino el manifiesto de presentacion")
+            else:
+                presentation_ids.update(
+                    _presentation_manifest_ids(after[path], path=path)
+                )
+                presentation_changed = True
+            continue
+        if path == _EPG_MANUAL_OVERRIDES:
+            if path not in after:
+                full_reasons.append("se elimino el bloqueo manual de EPG")
+            else:
+                epg_ids.update(_epg_override_ids(after[path], path=path))
             continue
         if path.startswith("logos/"):
             presentation_ids.update(())

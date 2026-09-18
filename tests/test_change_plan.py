@@ -101,6 +101,34 @@ https://example.test/one.m3u8
         self.assertEqual(ChangeKind.STREAM, plan.kind)
         self.assertEqual(("one",), plan.channel_ids)
 
+    def test_presentation_manifest_is_presentation_only(self) -> None:
+        plan = classify_changes(
+            ["presentation-overrides.json"],
+            after={
+                "presentation-overrides.json": (
+                    '{"schema": 1, "orders": {"channel-catalog.m3u": '
+                    '["two", "one"]}, "info_lines": {}, "assets": []}'
+                )
+            },
+        )
+
+        self.assertEqual(ChangeKind.PRESENTATION, plan.kind)
+        self.assertEqual(("one", "two"), plan.channel_ids)
+
+    def test_epg_manual_override_targets_only_its_channels(self) -> None:
+        plan = classify_changes(
+            ["epg-manual-overrides.xml"],
+            after={
+                "epg-manual-overrides.xml": (
+                    '<tv><channel id="two" />'
+                    '<programme channel="two" start="1" stop="2" /></tv>'
+                )
+            },
+        )
+
+        self.assertEqual(ChangeKind.EPG, plan.kind)
+        self.assertEqual(("two",), plan.channel_ids)
+
     def test_membership_change_is_deferred_to_full_window(self) -> None:
         added = BASE_PLAYLIST + (
             '#EXTINF:-1 tvg-id="three",Three\nhttps://example.test/three.m3u8\n'

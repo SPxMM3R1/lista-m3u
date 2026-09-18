@@ -1,8 +1,12 @@
+import json
 import unittest
 from pathlib import Path
 import tempfile
+from unittest.mock import patch
 
 import update_m3u
+import targeted_update
+import change_plan
 
 from targeted_update import (
     apply_playlist_text_updates,
@@ -23,6 +27,112 @@ def xml(*programmes: str) -> bytes:
 
 
 class TargetedUpdateTest(unittest.TestCase):
+    def test_presentation_intent_is_persisted_for_the_scheduled_runner(self) -> None:
+        before = {
+            "channel-catalog.m3u": (
+                '#EXTM3U\n'
+                '#EXTINF:-1 tvg-id="one" group-title="News",One\n'
+                'https://example.test/one.m3u8\n'
+                '#EXTINF:-1 tvg-id="two" group-title="Sports",Two\n'
+                'https://example.test/two.m3u8\n'
+            )
+        }
+        after = {
+            "channel-catalog.m3u": (
+                '#EXTM3U\n'
+                '#EXTINF:-1 tvg-id="two" group-title="Sports",Two\n'
+                'https://example.test/two.m3u8\n'
+                '#EXTINF:-1 tvg-id="one" group-title="News",One editado\n'
+                'https://example.test/one.m3u8\n'
+            )
+        }
+        plan = change_plan.ChangePlan(
+            change_plan.ChangeKind.PRESENTATION,
+            channel_ids=("one", "two"),
+            changed_files=("channel-catalog.m3u",),
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "presentation-overrides.json"
+            with patch.object(targeted_update, "PRESENTATION_OVERRIDES_PATH", path):
+                self.assertTrue(
+                    targeted_update.persist_presentation_overrides(
+                        plan, before, after
+                    )
+                )
+            payload = json.loads(path.read_text(encoding="utf-8"))
+
+        self.assertEqual(
+            ["two", "one"],
+            payload["orders"]["channel-catalog.m3u"],
+        )
+        self.assertIn("One editado", payload["info_lines"]["one"])
+
+    def test_stream_intent_is_persisted_for_the_scheduled_runner(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "stream-overrides.json"
+            with patch.object(targeted_update, "STREAM_OVERRIDES_PATH", path):
+                self.assertTrue(
+                    targeted_update.persist_stream_overrides(
+                        {"one": "https://example.test/new.m3u8"}, {}
+                    )
+                )
+            payload = json.loads(path.read_text(encoding="utf-8"))
+
+        self.assertEqual(
+            "https://example.test/new.m3u8",
+            payload["channels"]["one"]["url"],
+        )
+
+    def test_stream_intent_rejects_a_signed_playback_url(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "stream-overrides.json"
+            with patch.object(targeted_update, "STREAM_OVERRIDES_PATH", path):
+                with self.assertRaises(change_plan.ChangePlanError):
+                    targeted_update.persist_stream_overrides(
+                        {"one": "https://cdn.example/live.m3u8?token=secret"},
+                        {},
+                    )
+
+    def test_direct_epg_change_is_locked_for_future_full_refreshes(self) -> None:
+        locked = (
+            b'<?xml version="1.0" encoding="utf-8"?>\n'
+            b'<tv><channel id="one"><display-name>One manual</display-name>'
+            b'</channel><programme channel="one" start="20260918100000 +0000" '
+            b'stop="20260918110000 +0000"><title>Manual</title></programme></tv>\n'
+        )
+        generated = (
+            b'<?xml version="1.0" encoding="utf-8"?>\n'
+            b'<tv><channel id="one"><display-name>One automatic</display-name>'
+            b'</channel><programme channel="one" start="20260918100000 +0000" '
+            b'stop="20260918110000 +0000"><title>Automatic</title></programme></tv>\n'
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "epg-manual-overrides.xml"
+            path.write_bytes(locked)
+            output = update_m3u.apply_epg_manual_overrides(generated, path)
+
+        self.assertIn(b"Manual", output)
+        self.assertNotIn(b"Automatic", output)
+
+    def test_partial_epg_refresh_ignores_locks_for_other_channels(self) -> None:
+        locked = (
+            b'<tv><channel id="one" /><channel id="two" />'
+            b'<programme channel="one" start="1" stop="2" />'
+            b'<programme channel="two" start="1" stop="2" /></tv>'
+        )
+        generated = b'<tv><channel id="one" /><programme channel="one" /></tv>'
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "epg-manual-overrides.xml"
+            path.write_bytes(locked)
+            output = update_m3u.apply_epg_manual_overrides(
+                generated,
+                path,
+                allowed_ids={"one"},
+            )
+
+        self.assertIn(b'channel="one"', output)
+        self.assertNotIn(b'channel="two"', output)
+
     def test_epg_override_is_validated_and_applied_without_tokens(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "epg-overrides.json"
@@ -61,6 +171,33 @@ class TargetedUpdateTest(unittest.TestCase):
         self.assertIn("# Sports", reordered)
         self.assertIn("# News", reordered)
 
+    def test_scheduled_runner_reapplies_presentation_order_and_metadata(self) -> None:
+        lines = [
+            "#EXTM3U",
+            '#EXTINF:-1 tvg-id="one" group-title="News",One',
+            "https://example.test/one.m3u8",
+            '#EXTINF:-1 tvg-id="two" group-title="Sports",Two',
+            "https://example.test/two.m3u8",
+        ]
+        overrides = {
+            "orders": {"channel-catalog.m3u": ["two", "one"]},
+            "info_lines": {
+                "one": '#EXTINF:-1 tvg-id="one" group-title="News",One editado'
+            },
+        }
+
+        changed = update_m3u.apply_presentation_overrides(
+            lines,
+            "channel-catalog.m3u",
+            overrides,
+        )
+
+        self.assertTrue(changed)
+        self.assertLess(
+            lines.index('#EXTINF:-1 tvg-id="two" group-title="Sports",Two'),
+            lines.index('#EXTINF:-1 tvg-id="one" group-title="News",One editado'),
+        )
+
     def test_stream_update_changes_only_requested_record(self) -> None:
         playlist = """#EXTM3U
 #EXTINF:-1 tvg-id="one",One
@@ -78,6 +215,44 @@ https://example.test/two.m3u8
         self.assertIn("https://example.test/one.m3u8", updated)
         self.assertIn("https://example.test/two-new.m3u8", updated)
         self.assertNotIn("https://example.test/two.m3u8", updated)
+
+    def test_scheduled_runner_applies_a_stream_lock(self) -> None:
+        lines = [
+            "#EXTM3U",
+            '#EXTINF:-1 tvg-id="one",One',
+            "https://example.test/one-old.m3u8",
+        ]
+
+        applied = update_m3u.apply_stream_overrides(
+            lines,
+            {"one": "https://example.test/one-fixed.m3u8"},
+        )
+
+        self.assertEqual({"one"}, applied)
+        self.assertEqual("https://example.test/one-fixed.m3u8", lines[-1])
+
+    def test_repair_does_not_replace_a_stream_lock(self) -> None:
+        channel = update_m3u.Channel(
+            name="Canal fijado",
+            url="https://example.test/fixed.m3u8",
+            url_line=1,
+            tvg_id="fixed",
+        )
+        lines = ["#EXTM3U", channel.url]
+        result = update_m3u.CheckResult(channel.name, channel.url, False, "down")
+
+        with patch.object(update_m3u, "discover_official_candidates") as discover:
+            repaired = update_m3u.repair_failed_channels(
+                lines,
+                [channel],
+                [result],
+                allow_ci_geo_block=False,
+                protected_channel_ids={"fixed"},
+            )
+
+        self.assertEqual([], repaired)
+        self.assertEqual(channel.url, lines[1])
+        discover.assert_not_called()
 
     def test_merge_replaces_only_requested_channel(self) -> None:
         existing = xml(

@@ -31,6 +31,9 @@ PLAYLIST_NAMES = (
 )
 PLAYLIST_PATHS = tuple(PROJECT_ROOT / name for name in PLAYLIST_NAMES)
 EPG_PATH = PROJECT_ROOT / "epg.xml"
+PRESENTATION_OVERRIDES_PATH = PROJECT_ROOT / "presentation-overrides.json"
+STREAM_OVERRIDES_PATH = PROJECT_ROOT / "stream-overrides.json"
+EPG_MANUAL_OVERRIDES_PATH = PROJECT_ROOT / "epg-manual-overrides.xml"
 
 
 def _git_text(base: str, path: str) -> str | None:
@@ -193,6 +196,136 @@ def _collect_info_updates(
     return updates
 
 
+def _changed_presentation_orders(
+    plan: change_plan.ChangePlan,
+    before: dict[str, str],
+    after: dict[str, str],
+) -> dict[str, list[str]]:
+    orders: dict[str, list[str]] = {}
+    for path in plan.changed_files:
+        if path not in change_plan._PLAYLIST_PATHS:
+            continue
+        if path not in before or path not in after:
+            continue
+        before_ids = [
+            channel.tvg_id
+            for channel in update_m3u.parse_channels(before[path].splitlines())
+        ]
+        after_ids = [
+            channel.tvg_id
+            for channel in update_m3u.parse_channels(after[path].splitlines())
+        ]
+        if before_ids != after_ids:
+            orders[path] = after_ids
+    return orders
+
+
+def _json_object(path: Path, text: str | None) -> dict[str, object]:
+    if text is None and not path.exists():
+        return {}
+    raw = text if text is not None else path.read_text(encoding="utf-8-sig")
+    try:
+        payload = json.loads(raw)
+    except json.JSONDecodeError as error:
+        raise change_plan.ChangePlanError(f"{path.name}: JSON invalido: {error}") from error
+    if not isinstance(payload, dict):
+        raise change_plan.ChangePlanError(f"{path.name}: se esperaba un objeto JSON")
+    return payload
+
+
+def persist_presentation_overrides(
+    plan: change_plan.ChangePlan,
+    before: dict[str, str],
+    after: dict[str, str],
+) -> bool:
+    """Record the editorial intent so the six-hour runner reapplies it."""
+    info_lines = _collect_info_updates(plan, before, after)
+    orders = _changed_presentation_orders(plan, before, after)
+    assets = sorted(
+        path.replace("\\", "/")
+        for path in plan.changed_files
+        if path.startswith("logos/")
+    )
+    manifest_text = after.get("presentation-overrides.json")
+    payload = _json_object(PRESENTATION_OVERRIDES_PATH, manifest_text)
+    payload["schema"] = 1
+    presentation = payload.get("presentation", payload)
+    if not isinstance(presentation, dict):
+        raise change_plan.ChangePlanError(
+            "presentation-overrides.json: presentation debe ser un objeto"
+        )
+    manifest_orders = presentation.setdefault("orders", {})
+    manifest_info = presentation.setdefault("info_lines", {})
+    manifest_assets = presentation.setdefault("assets", [])
+    if not isinstance(manifest_orders, dict) or not isinstance(manifest_info, dict):
+        raise change_plan.ChangePlanError(
+            "presentation-overrides.json: orders e info_lines deben ser objetos"
+        )
+    if not isinstance(manifest_assets, list):
+        raise change_plan.ChangePlanError(
+            "presentation-overrides.json: assets debe ser una lista"
+        )
+    changed = False
+    for playlist_name, order in orders.items():
+        if manifest_orders.get(playlist_name) != order:
+            manifest_orders[playlist_name] = order
+            changed = True
+    for channel_id, info_line in info_lines.items():
+        if manifest_info.get(channel_id) != info_line:
+            manifest_info[channel_id] = info_line
+            changed = True
+    merged_assets = sorted({str(asset) for asset in manifest_assets} | set(assets))
+    if merged_assets != manifest_assets:
+        presentation["assets"] = merged_assets
+        changed = True
+    if not changed and PRESENTATION_OVERRIDES_PATH.exists():
+        return False
+    PRESENTATION_OVERRIDES_PATH.write_text(
+        json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+    return True
+
+
+def persist_stream_overrides(
+    updates: dict[str, str],
+    after: dict[str, str],
+) -> bool:
+    """Make a directed stream choice visible to future scheduled runs."""
+    manifest_text = after.get("stream-overrides.json")
+    payload = _json_object(STREAM_OVERRIDES_PATH, manifest_text)
+    payload["schema"] = 1
+    channels = payload.setdefault("channels", {})
+    if not isinstance(channels, dict):
+        raise change_plan.ChangePlanError(
+            "stream-overrides.json: channels debe ser un objeto"
+        )
+    changed = False
+    for channel_id, url in updates.items():
+        if not update_m3u.is_persistable_stream_override_url(url):
+            raise change_plan.ChangePlanError(
+                f"{channel_id}: el cambio dirigido contiene una URL temporal; "
+                "usa una URL estable sin query ni token"
+            )
+        entry = channels.get(channel_id)
+        if not isinstance(entry, dict):
+            entry = {}
+        if entry.get("url") != url:
+            entry["url"] = url
+            changed = True
+        entry.setdefault("reason", "cambio dirigido persistente")
+        channels[channel_id] = entry
+    if not changed and STREAM_OVERRIDES_PATH.exists():
+        return False
+    STREAM_OVERRIDES_PATH.write_text(
+        json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+    return True
+
+
 def _playlist_lines() -> dict[Path, list[str]]:
     return {
         path: path.read_text(encoding="utf-8-sig").splitlines()
@@ -295,6 +428,7 @@ def apply_presentation(
     before: dict[str, str],
     after: dict[str, str],
 ) -> None:
+    persist_presentation_overrides(plan, before, after)
     info_updates = _collect_info_updates(plan, before, after)
     updated = _apply_playlist_updates({}, info_updates)
     if "channel-catalog.m3u" in plan.changed_files:
@@ -311,6 +445,13 @@ def apply_presentation(
                 ):
                     if path in updated:
                         updated[path] = reorder_playlist_lines(updated[path], after_ids)
+    presentation_overrides = update_m3u.load_presentation_overrides()
+    for path, lines in updated.items():
+        update_m3u.apply_presentation_overrides(
+            lines,
+            path.name,
+            presentation_overrides,
+        )
     _validate_partition(updated)
     for path in PROJECT_ROOT.joinpath("logos").glob("**/*"):
         if path.is_file() and path.stat().st_size == 0:
@@ -325,8 +466,12 @@ def apply_stream(
     after: dict[str, str],
 ) -> None:
     url_updates = _collect_stream_urls(plan, before, after)
+    persist_stream_overrides(url_updates, after)
     info_updates = _collect_info_updates(plan, before, after)
-    updated = _apply_playlist_updates(url_updates, info_updates)
+    updated = _apply_playlist_updates(
+        update_m3u.stream_override_urls(),
+        info_updates,
+    )
     catalog_lines = updated[PROJECT_ROOT / "channel-catalog.m3u"]
     catalog_channels = {
         channel.tvg_id: channel
@@ -417,6 +562,39 @@ def _apply_epg_manifest(after: dict[str, str], channel_ids: set[str]) -> None:
         update_m3u.EPG_PROGRAMME_SOURCES[channel_id] = (source, source_id)
 
 
+def _epg_subset(document: bytes, target_ids: set[str]) -> bytes:
+    root = ET.fromstring(document)
+    if root.tag != "tv":
+        raise ValueError("la EPG debe tener raiz <tv>")
+    subset = ET.Element("tv", root.attrib)
+    for channel in root.findall("channel"):
+        if channel.get("id", "") in target_ids:
+            subset.append(copy.deepcopy(channel))
+    missing = sorted(
+        target_ids
+        - {
+            channel.get("id", "")
+            for channel in subset.findall("channel")
+        }
+    )
+    if missing:
+        raise ValueError("la EPG no contiene canales: " + ", ".join(missing))
+    for programme in root.findall("programme"):
+        if programme.get("channel", "") in target_ids:
+            subset.append(copy.deepcopy(programme))
+    ET.indent(subset, space="  ")
+    return ET.tostring(subset, encoding="utf-8", xml_declaration=True) + b"\n"
+
+
+def _persist_epg_manual_overrides(replacement: bytes, target_ids: set[str]) -> None:
+    if EPG_MANUAL_OVERRIDES_PATH.exists():
+        existing = EPG_MANUAL_OVERRIDES_PATH.read_bytes()
+    else:
+        existing = b'<?xml version="1.0" encoding="utf-8"?>\n<tv />\n'
+    merged = merge_epg_xml(existing, replacement, target_ids)
+    EPG_MANUAL_OVERRIDES_PATH.write_bytes(merged)
+
+
 def apply_epg(
     plan: change_plan.ChangePlan,
     after: dict[str, str],
@@ -431,17 +609,23 @@ def apply_epg(
     if len(selected) != len(plan.channel_ids):
         missing = sorted(set(plan.channel_ids) - {channel.tvg_id for channel in selected})
         raise RuntimeError("EPG dirigida: faltan canales: " + ", ".join(missing))
-    _apply_epg_manifest(after, set(plan.channel_ids))
-
     existing = EPG_PATH.read_bytes()
-    temporary = EPG_PATH.with_name(".epg-targeted.xml")
-    temporary.write_bytes(existing)
-    try:
-        update_m3u.refresh_epg(selected, force=True, output_path=temporary)
-        replacement = temporary.read_bytes()
-    finally:
-        temporary.unlink(missing_ok=True)
-        temporary.with_suffix(".xml.tmp").unlink(missing_ok=True)
+    if "epg.xml" in plan.changed_files and "epg.xml" in after:
+        replacement = _epg_subset(
+            after["epg.xml"].encode("utf-8"),
+            set(plan.channel_ids),
+        )
+        _persist_epg_manual_overrides(replacement, set(plan.channel_ids))
+    else:
+        _apply_epg_manifest(after, set(plan.channel_ids))
+        temporary = EPG_PATH.with_name(".epg-targeted.xml")
+        temporary.write_bytes(existing)
+        try:
+            update_m3u.refresh_epg(selected, force=True, output_path=temporary)
+            replacement = temporary.read_bytes()
+        finally:
+            temporary.unlink(missing_ok=True)
+            temporary.with_suffix(".xml.tmp").unlink(missing_ok=True)
     merged = merge_epg_xml(existing, replacement, set(plan.channel_ids))
     expected_ids = {channel.tvg_id for channel in catalog_channels if channel.tvg_id}
     update_m3u.epg_status_from_xml(
@@ -465,6 +649,20 @@ def execute(plan: change_plan.ChangePlan, before: dict[str, str], after: dict[st
         print("Sin artefactos publicos dirigidos; no se ejecuta ningun actualizador.")
         return 0
     if plan.kind is change_plan.ChangeKind.FULL:
+        # A broad commit still may contain an individually understandable
+        # stream/order/logo edit. Record that intent before deferring the
+        # expensive maintenance run, so the next full runner cannot erase it.
+        try:
+            stream_probe = change_plan.ChangePlan(
+                change_plan.ChangeKind.STREAM,
+                changed_files=plan.changed_files,
+            )
+            stream_updates = _collect_stream_urls(stream_probe, before, after)
+            if stream_updates:
+                persist_stream_overrides(stream_updates, after)
+            persist_presentation_overrides(plan, before, after)
+        except change_plan.ChangePlanError as error:
+            print(f"Aviso: no se pudo persistir una intencion dirigida: {error}")
         print(
             "Cambio amplio diferido a la proxima ventana completa: " + plan.reason
         )

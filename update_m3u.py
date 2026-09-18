@@ -59,6 +59,11 @@ HIGHFLY_BITRATE_PATTERN = re.compile(
 )
 EPG_PATH = Path(__file__).with_name("epg.xml")
 EPG_OVERRIDES_PATH = Path(__file__).with_name("epg-overrides.json")
+EPG_MANUAL_OVERRIDES_PATH = Path(__file__).with_name("epg-manual-overrides.xml")
+STREAM_OVERRIDES_PATH = Path(__file__).with_name("stream-overrides.json")
+PRESENTATION_OVERRIDES_PATH = Path(__file__).with_name(
+    "presentation-overrides.json"
+)
 REPORT_PATH = Path(__file__).with_name("channel-status.json")
 HEALTH_STATE_PATH = Path(__file__).with_name("channel-health-state.json")
 RESOLVER_CATALOG_PATH = Path(__file__).with_name("resolver-catalog.json")
@@ -3266,6 +3271,202 @@ def with_resolver_attributes(line: str, attributes: dict[str, str]) -> str:
         encoded = " ".join(f'{name}="{value}"' for name, value in attributes.items())
         metadata = f"{metadata} {encoded}"
     return f"{metadata},{display_name}"
+
+
+def load_presentation_overrides(
+    path: Path = PRESENTATION_OVERRIDES_PATH,
+) -> dict[str, object]:
+    """Load the durable presentation decisions recorded by the directed runner."""
+    empty: dict[str, object] = {
+        "schema": 1,
+        "orders": {},
+        "info_lines": {},
+        "assets": [],
+    }
+    if not path.exists():
+        return empty
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise ValueError(f"{path.name} no es JSON valido: {error}") from error
+    if not isinstance(payload, dict) or payload.get("schema", 1) != 1:
+        raise ValueError(f"{path.name} debe usar schema 1")
+    presentation = payload.get("presentation", payload)
+    if not isinstance(presentation, dict):
+        raise ValueError(f"{path.name}: presentation debe ser un objeto")
+    orders = presentation.get("orders", {})
+    if not isinstance(orders, dict):
+        raise ValueError(f"{path.name}: orders debe ser un objeto")
+    normalized_orders: dict[str, list[str]] = {}
+    for playlist_name, raw_order in orders.items():
+        if not isinstance(raw_order, list):
+            raise ValueError(f"{path.name}: orden invalido para {playlist_name}")
+        order = [str(channel_id).strip() for channel_id in raw_order]
+        if any(not channel_id for channel_id in order):
+            raise ValueError(f"{path.name}: orden con tvg-id vacio")
+        if len(order) != len(set(order)):
+            raise ValueError(f"{path.name}: orden duplicado para {playlist_name}")
+        normalized_orders[str(playlist_name)] = order
+    info_lines = presentation.get("info_lines", {})
+    if not isinstance(info_lines, dict):
+        raise ValueError(f"{path.name}: info_lines debe ser un objeto")
+    normalized_info: dict[str, str] = {}
+    for channel_id, raw_line in info_lines.items():
+        stable_id = str(channel_id).strip()
+        line = str(raw_line)
+        if not stable_id or not line.startswith("#EXTINF:"):
+            raise ValueError(f"{path.name}: info_line invalida para {channel_id}")
+        match = re.search(r'\btvg-id="([^"]+)"', line)
+        if not match or match.group(1) != stable_id:
+            raise ValueError(f"{path.name}: info_line no coincide con {stable_id}")
+        normalized_info[stable_id] = line
+    assets = presentation.get("assets", [])
+    if not isinstance(assets, list) or any(not isinstance(asset, str) for asset in assets):
+        raise ValueError(f"{path.name}: assets debe ser una lista de rutas")
+    return {
+        "schema": 1,
+        "orders": normalized_orders,
+        "info_lines": normalized_info,
+        "assets": sorted({asset.replace("\\", "/") for asset in assets}),
+    }
+
+
+def _reorder_lines_by_override(lines: list[str], desired_ids: list[str]) -> list[str]:
+    channels = parse_channels(lines)
+    if not channels:
+        return list(lines)
+    rank = {channel_id: index for index, channel_id in enumerate(desired_ids)}
+    ordered = sorted(
+        enumerate(channels),
+        key=lambda item: (rank.get(item[1].tvg_id, len(rank)), item[0]),
+    )
+    first_info_line = min(channel.info_line for channel in channels)
+    header = [
+        line for line in lines[:first_info_line] if line.startswith("#EXTM3U")
+    ]
+    if not header:
+        header = ["#EXTM3U"]
+    result = list(header)
+    previous_group = None
+    for _, channel in ordered:
+        if channel.group != previous_group:
+            result.extend(["", f"# {channel.group}" if channel.group else ""])
+            previous_group = channel.group
+        result.extend((lines[channel.info_line], lines[channel.url_line]))
+    while result and result[-1] == "":
+        result.pop()
+    return result
+
+
+def apply_presentation_overrides(
+    lines: list[str],
+    playlist_name: str,
+    overrides: dict[str, object] | None = None,
+) -> bool:
+    """Apply durable metadata/order decisions after automatic normalization."""
+    payload = overrides if overrides is not None else load_presentation_overrides()
+    info_lines = payload.get("info_lines", {})
+    orders = payload.get("orders", {})
+    if not isinstance(info_lines, dict) or not isinstance(orders, dict):
+        raise ValueError("manifiesto de presentacion invalido")
+    changed = False
+    channels = parse_channels(lines)
+    for channel in channels:
+        override = info_lines.get(channel.tvg_id)
+        if not override:
+            continue
+        updated = with_resolver_attributes(
+            str(override), resolver_attributes_for(channel)
+        )
+        if updated != lines[channel.info_line]:
+            lines[channel.info_line] = updated
+            changed = True
+    desired_ids = orders.get(playlist_name)
+    if isinstance(desired_ids, list) and desired_ids:
+        reordered = _reorder_lines_by_override(lines, desired_ids)
+        if reordered != lines:
+            lines[:] = reordered
+            changed = True
+    return changed
+
+
+def _stream_override_entries(path: Path) -> dict[str, dict[str, str]]:
+    if not path.exists():
+        return {}
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise ValueError(f"{path.name} no es JSON valido: {error}") from error
+    if not isinstance(payload, dict):
+        raise ValueError(f"{path.name} debe contener un objeto JSON")
+    raw_channels = payload.get("channels", payload)
+    if not isinstance(raw_channels, dict):
+        raise ValueError(f"{path.name}: channels debe ser un objeto por tvg-id")
+    entries: dict[str, dict[str, str]] = {}
+    for channel_id, raw_entry in raw_channels.items():
+        stable_id = str(channel_id).strip()
+        entry = raw_entry if isinstance(raw_entry, dict) else {"url": raw_entry}
+        url = str(
+            entry.get("url", entry.get("stream_url", entry.get("candidate_url", "")))
+        ).strip()
+        if not stable_id or not is_persistable_stream_override_url(url):
+            raise ValueError(
+                f"{path.name}: {channel_id} necesita una URL HTTP(S) estable, sin token"
+            )
+        entries[stable_id] = {"url": url}
+    return entries
+
+
+def is_persistable_stream_override_url(url: str) -> bool:
+    """Accept only durable stream choices, never a signed playback response."""
+    parsed = urlparse(url.strip())
+    if parsed.scheme not in {"http", "https"} or not parsed.netloc:
+        return False
+    if parsed.query or parsed.fragment:
+        return False
+    lowered = url.casefold()
+    return not any(
+        marker in lowered
+        for marker in (
+            "/sunshine/",
+            "access_token=",
+            "token=",
+            "serverkey",
+            "sig=",
+            "signature=",
+            "hdnts=",
+            "expires=",
+        )
+    )
+
+
+def stream_override_urls(
+    path: Path = STREAM_OVERRIDES_PATH,
+) -> dict[str, str]:
+    return {
+        channel_id: entry["url"]
+        for channel_id, entry in _stream_override_entries(path).items()
+    }
+
+
+def apply_stream_overrides(
+    lines: list[str],
+    overrides: dict[str, str] | None = None,
+) -> set[str]:
+    urls = overrides if overrides is not None else stream_override_urls()
+    applied: set[str] = set()
+    for channel in parse_channels(lines):
+        if channel.tvg_id not in urls:
+            continue
+        lines[channel.url_line] = urls[channel.tvg_id]
+        applied.add(channel.tvg_id)
+    unknown = sorted(set(urls) - applied)
+    if unknown:
+        raise ValueError(
+            "stream-overrides.json contiene canales fuera del catalogo: "
+            + ", ".join(unknown)
+        )
+    return applied
 
 
 def pin_resolver_metadata(lines: list[str]) -> bool:
@@ -7375,6 +7576,7 @@ def build_epg(
 
     ET.indent(root, space="  ")
     output = ET.tostring(root, encoding="utf-8", xml_declaration=True) + b"\n"
+    output = apply_epg_manual_overrides(output, allowed_ids=expected_ids)
     status = epg_status_from_xml(
         output,
         expected_ids,
@@ -7448,6 +7650,81 @@ def apply_epg_overrides(path: Path = EPG_OVERRIDES_PATH) -> dict[str, tuple[str,
             + ", ".join(sorted(applied))
         )
     return applied
+
+
+def _epg_override_root(path: Path = EPG_MANUAL_OVERRIDES_PATH) -> ET.Element | None:
+    if not path.exists():
+        return None
+    try:
+        root = ET.fromstring(path.read_bytes())
+    except (OSError, ET.ParseError) as error:
+        raise ValueError(f"{path.name} no es XML valido: {error}") from error
+    if root.tag != "tv":
+        raise ValueError(f"{path.name} debe tener raiz <tv>")
+    if not root.findall("channel"):
+        raise ValueError(f"{path.name} no contiene canales")
+    return root
+
+
+def apply_epg_manual_overrides(
+    document: bytes,
+    path: Path = EPG_MANUAL_OVERRIDES_PATH,
+    *,
+    allowed_ids: set[str] | frozenset[str] | None = None,
+) -> bytes:
+    """Replace locked channel blocks after a normal EPG refresh."""
+    overrides = _epg_override_root(path)
+    if overrides is None:
+        return document
+    root = ET.fromstring(document)
+    if root.tag != "tv":
+        raise ValueError("la EPG generada debe tener raiz <tv>")
+    channel_ids = {
+        element.get("id", "").strip()
+        for element in overrides.findall("channel")
+        if element.get("id", "").strip()
+    }
+    if allowed_ids is not None:
+        channel_ids.intersection_update(allowed_ids)
+    if not channel_ids:
+        return document
+    replacement_channels = {
+        element.get("id", ""): element
+        for element in overrides.findall("channel")
+        if element.get("id", "") in channel_ids
+    }
+    current_ids = {
+        element.get("id", "")
+        for element in root.findall("channel")
+    }
+    missing = sorted(channel_ids - current_ids)
+    if missing:
+        raise ValueError(
+            "el bloqueo manual de EPG contiene canales fuera del catalogo: "
+            + ", ".join(missing)
+        )
+    for element in list(root.findall("channel")):
+        if element.get("id", "") in channel_ids:
+            root.remove(element)
+    for element in list(root.findall("programme")):
+        if element.get("channel", "") in channel_ids:
+            root.remove(element)
+    insertion_index = next(
+        (
+            index
+            for index, element in enumerate(list(root))
+            if element.tag == "programme"
+        ),
+        len(list(root)),
+    )
+    for channel_id in sorted(channel_ids):
+        root.insert(insertion_index, copy.deepcopy(replacement_channels[channel_id]))
+        insertion_index += 1
+    for programme in overrides.findall("programme"):
+        if programme.get("channel", "") in channel_ids:
+            root.append(copy.deepcopy(programme))
+    ET.indent(root, space="  ")
+    return ET.tostring(root, encoding="utf-8", xml_declaration=True) + b"\n"
 
 
 def refresh_epg(
@@ -8577,10 +8854,13 @@ def upgrade_official_quality(
     results_by_name: dict[str, CheckResult],
     *,
     allow_ci_geo_block: bool,
+    protected_channel_ids: set[str] | frozenset[str] = frozenset(),
 ) -> list[str]:
     """Adopt only a verified, strictly higher-quality official HLS candidate."""
     upgraded: list[str] = []
     for channel in channels:
+        if channel.tvg_id in protected_channel_ids:
+            continue
         if channel.name not in OFFICIAL_QUALITY_UPGRADE_CHANNELS:
             continue
         current_result = results_by_name.get(channel.name)
@@ -8651,6 +8931,7 @@ def repair_failed_channels(
     *,
     allow_ci_geo_block: bool,
     repaired_results: dict[str, CheckResult] | None = None,
+    protected_channel_ids: set[str] | frozenset[str] = frozenset(),
 ) -> list[str]:
     channels_by_name = {channel.name: channel for channel in channels}
     repaired: list[str] = []
@@ -8658,6 +8939,11 @@ def repair_failed_channels(
         if result.ok:
             continue
         channel = channels_by_name[result.channel]
+        if channel.tvg_id in protected_channel_ids:
+            print(
+                f"  [MANUAL] {channel.name}: se conserva el stream fijado aunque falle"
+            )
+            continue
         print(f"Buscando reemplazo oficial para {channel.name}")
         for candidate_url in discover_official_candidates(channel):
             candidate = Channel(
@@ -10051,6 +10337,8 @@ def main() -> int:
         else playlist
     )
     lines = source_playlist.read_text(encoding="utf-8-sig").splitlines()
+    presentation_overrides = load_presentation_overrides()
+    apply_presentation_overrides(lines, source_playlist.name, presentation_overrides)
     catalogue_before_update = parse_channels(lines)
     membership_path = (
         DEFAULT_PLAYLIST
@@ -10115,7 +10403,9 @@ def main() -> int:
             else playlist
         )
         channels = parse_channels(
-            epg_playlist.read_text(encoding="utf-8-sig").splitlines()
+            lines
+            if epg_playlist == source_playlist
+            else epg_playlist.read_text(encoding="utf-8-sig").splitlines()
         )
         if not channels:
             raise RuntimeError("el catalogo no contiene canales para la EPG")
@@ -10168,12 +10458,27 @@ def main() -> int:
         refresh_highfly_runtime_catalog()
         highfly_runtime_changed = sync_highfly_runtime_fallbacks(lines)
     resolver_changed = pin_resolver_metadata(lines)
+    presentation_override_changed = apply_presentation_overrides(
+        lines,
+        source_playlist.name,
+        presentation_overrides,
+    )
+    manual_stream_ids = apply_stream_overrides(lines)
+    if presentation_override_changed:
+        print("  [MANUAL] Decisiones de orden/metadatos reaplicadas")
+    if manual_stream_ids:
+        print(
+            "  [MANUAL] Streams fijados por manifiesto: "
+            + ", ".join(sorted(manual_stream_ids))
+        )
     if (
         content_order_changed
         or news_order_changed
         or preferred_logo_changed
         or highfly_runtime_changed
         or resolver_changed
+        or presentation_override_changed
+        or manual_stream_ids
     ):
         source_playlist.write_text(
             "\n".join(lines) + "\n", encoding="utf-8", newline="\n"
@@ -10261,6 +10566,9 @@ def main() -> int:
         resolver = resolver_engine_for(channel)
         if resolver not in DYNAMIC_RESOLVER_ENGINES:
             continue
+        if channel.tvg_id in manual_stream_ids:
+            print(f"  [MANUAL] {channel.name}: stream fijado por override")
+            continue
         current_result = results_by_name[channel.name]
         if not force_dynamic_refresh and dynamic_validation_is_fresh(
             channel,
@@ -10294,6 +10602,8 @@ def main() -> int:
     for channel in channels:
         resolver = resolver_engine_for(channel)
         if resolver not in DYNAMIC_RESOLVER_ENGINES:
+            continue
+        if channel.tvg_id in manual_stream_ids:
             continue
         current_result = results_by_name[channel.name]
         if channel.name in cached_dynamic_names:
@@ -10352,6 +10662,7 @@ def main() -> int:
         results,
         allow_ci_geo_block=allow_geo_restricted,
         repaired_results=repaired_results,
+        protected_channel_ids=manual_stream_ids,
     )
     if repaired_channels:
         source_playlist.write_text(
@@ -10367,6 +10678,7 @@ def main() -> int:
         final_channels,
         results_by_name,
         allow_ci_geo_block=allow_geo_restricted,
+        protected_channel_ids=manual_stream_ids,
     )
     if quality_upgraded_channels:
         source_playlist.write_text(
@@ -10508,6 +10820,16 @@ def main() -> int:
         candidate_external_lines,
         EXTERNAL_RESEARCH_TAIL_CHANNEL_IDS,
         EXTERNAL_DASH_TAIL_CHANNEL_IDS,
+    )
+    apply_presentation_overrides(
+        candidate_main_lines,
+        DEFAULT_PLAYLIST.name,
+        presentation_overrides,
+    )
+    apply_presentation_overrides(
+        candidate_external_lines,
+        EXTERNAL_PLAYLIST.name,
+        presentation_overrides,
     )
     validate_public_playlist_partition(
         final_lines,
