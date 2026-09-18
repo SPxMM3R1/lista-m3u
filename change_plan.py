@@ -75,7 +75,9 @@ _FULL_FILES = {
 
 
 def _normalize_path(path: str) -> str:
-    normalized = path.replace("\\", "/").lstrip("./")
+    normalized = path.replace("\\", "/")
+    while normalized.startswith("./"):
+        normalized = normalized[2:]
     return normalized
 
 

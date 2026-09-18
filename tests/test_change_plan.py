@@ -12,6 +12,13 @@ https://example.test/two.m3u8
 
 
 class ChangePlanTest(unittest.TestCase):
+    def test_dot_github_path_keeps_its_leading_dot_and_is_full(self) -> None:
+        plan = classify_changes(["./.github/workflows/targeted-changes.yml"])
+
+        self.assertEqual(ChangeKind.FULL, plan.kind)
+        self.assertTrue(plan.full_run_required)
+        self.assertEqual((".github/workflows/targeted-changes.yml",), plan.changed_files)
+
     def test_logo_change_is_presentation_only(self) -> None:
         plan = classify_changes(["logos/one.png"])
 
