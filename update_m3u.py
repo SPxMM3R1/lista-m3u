@@ -3127,6 +3127,22 @@ def stable_channel_ids(channels: list[Channel], *, label: str) -> tuple[str, ...
     return tuple(ids)
 
 
+def catalog_id_for_public_channel(
+    channel: Channel,
+    catalog_channels: Iterable[Channel],
+) -> str | None:
+    """Resolve a public TvVoo reference to its legacy catalog identity."""
+    catalog_by_id = {item.tvg_id: item for item in catalog_channels if item.tvg_id}
+    if channel.tvg_id in catalog_by_id:
+        return channel.tvg_id
+    if not is_tvvoo_reference(channel):
+        return None
+    matches = [item for item in catalog_by_id.values() if item.name == channel.name]
+    if len(matches) == 1:
+        return matches[0].tvg_id
+    return None
+
+
 def load_manual_main_channel_ids(
     catalog_channels: list[Channel],
     path: Path = DEFAULT_PLAYLIST,
@@ -3137,10 +3153,23 @@ def load_manual_main_channel_ids(
     main_channels = parse_channels(
         path.read_text(encoding="utf-8-sig").splitlines()
     )
-    main_ids = frozenset(stable_channel_ids(main_channels, label=path.name))
+    catalog_ids = set(stable_channel_ids(catalog_channels, label="channel-catalog.m3u"))
+    canonical_ids = [
+        catalog_id_for_public_channel(channel, catalog_channels)
+        for channel in main_channels
+    ]
+    unknown = sorted(
+        channel.tvg_id
+        for channel, canonical_id in zip(main_channels, canonical_ids)
+        if canonical_id is None
+    )
+    if unknown:
+        raise ValueError(
+            f"{path.name} contiene IDs fuera del catalogo: " + ", ".join(unknown)
+        )
+    main_ids = frozenset(canonical_id for canonical_id in canonical_ids if canonical_id)
     if not main_ids:
         raise ValueError(f"{path.name} no puede quedar sin canales")
-    catalog_ids = set(stable_channel_ids(catalog_channels, label="channel-catalog.m3u"))
     unknown = sorted(main_ids - catalog_ids)
     if unknown:
         raise ValueError(
@@ -3844,11 +3873,35 @@ def validate_public_playlist_partition(
     expected_external_ids: set[str] | frozenset[str] | None = None,
 ) -> dict[str, int]:
     """Prove that both public lists match their explicit membership policy."""
+    catalog_channels = parse_channels(catalog_lines)
     catalog = playlist_records_by_id(catalog_lines, label=CHANNEL_CATALOG_PATH.name)
-    main = playlist_records_by_id(main_lines, label=DEFAULT_PLAYLIST.name)
-    external = playlist_records_by_id(
-        external_lines, label=EXTERNAL_PLAYLIST.name
-    )
+    main_channels = parse_channels(main_lines)
+    playlist_records_by_id(main_lines, label=DEFAULT_PLAYLIST.name)
+    external_channels = parse_channels(external_lines)
+    playlist_records_by_id(external_lines, label=EXTERNAL_PLAYLIST.name)
+    main: dict[str, tuple[str, str]] = {}
+    main_channel_by_catalog_id: dict[str, Channel] = {}
+    for channel in main_channels:
+        catalog_id = catalog_id_for_public_channel(channel, catalog_channels)
+        if catalog_id is None:
+            continue
+        if catalog_id in main:
+            raise ValueError(
+                f"{catalog_id}: la lista principal repite la identidad del catalogo"
+            )
+        main[catalog_id] = (main_lines[channel.info_line], main_lines[channel.url_line])
+        main_channel_by_catalog_id[catalog_id] = channel
+    external: dict[str, tuple[str, str]] = {}
+    external_channel_by_catalog_id: dict[str, Channel] = {}
+    for channel in external_channels:
+        catalog_id = catalog_id_for_public_channel(channel, catalog_channels)
+        if catalog_id is None:
+            continue
+        external[catalog_id] = (
+            external_lines[channel.info_line],
+            external_lines[channel.url_line],
+        )
+        external_channel_by_catalog_id[catalog_id] = channel
     catalog_ids = set(catalog)
     expected_main = set(expected_main_ids)
     if not expected_main:
@@ -3894,6 +3947,9 @@ def validate_public_playlist_partition(
     if overlap:
         raise ValueError("canales repetidos entre listas: " + ", ".join(overlap))
     for channel_id, record in {**main, **external}.items():
+        public_channel = main_channel_by_catalog_id.get(channel_id) or external_channel_by_catalog_id.get(channel_id)
+        if public_channel is not None and is_tvvoo_reference(public_channel):
+            continue
         if record != catalog[channel_id]:
             raise ValueError(
                 f"{channel_id}: la salida publica no adopto la URL o "

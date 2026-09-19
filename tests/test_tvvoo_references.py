@@ -128,6 +128,31 @@ class TvVooReferenceTests(unittest.TestCase):
         self.assertIn('x-resolver="tvvoo"', reference_info)
         self.assertIn(f'x-resolver-id="{REFERENCE_ALIAS}"', reference_info)
 
+    def test_public_reference_counts_as_legacy_catalog_membership(self) -> None:
+        catalog_lines = [
+            "#EXTM3U",
+            '#EXTINF:-1 tvg-id="SkySportsMainEvent.uk@TvVoo" '
+            'x-resolver="tvvoo" x-resolver-ids="legacy",Sky 1',
+            "https://example.invalid/legacy.m3u8",
+        ]
+        with tempfile.TemporaryDirectory() as directory:
+            main_path = Path(directory) / "m3u.m3u"
+            main_path.write_text("\n".join(reference_lines()) + "\n", encoding="utf-8")
+            catalog = update_m3u.parse_channels(catalog_lines)
+            self.assertEqual(
+                frozenset({"SkySportsMainEvent.uk@TvVoo"}),
+                update_m3u.load_manual_main_channel_ids(catalog, main_path),
+            )
+
+        external_lines = ["#EXTM3U"]
+        result = update_m3u.validate_public_playlist_partition(
+            catalog_lines,
+            reference_lines(),
+            external_lines,
+            {"SkySportsMainEvent.uk@TvVoo"},
+        )
+        self.assertEqual(1, result["main_channels"])
+
 
 if __name__ == "__main__":
     unittest.main()
