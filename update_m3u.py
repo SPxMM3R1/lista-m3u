@@ -2695,6 +2695,41 @@ def parse_channels(lines: list[str]) -> list[Channel]:
     return channels
 
 
+def tvvoo_reference_stable_id(channel: Channel) -> str:
+    """Return the stable id carried by an app-exported TvVoo URI.
+
+    These entries are metadata references, not HLS playlists.  Keeping the
+    check here URL based lets them coexist with the legacy name-to-alias map
+    without adding resolver metadata to the ``Channel`` dataclass.
+    """
+    parsed = urlparse(channel.url)
+    if (
+        parsed.scheme.lower() != "tvvoo"
+        or parsed.netloc.lower() != "channel"
+        or parsed.query
+        or parsed.fragment
+    ):
+        return ""
+    path = parsed.path.lstrip("/")
+    if not path or "/" in path:
+        return ""
+    stable_id = unquote(path)
+    if "|" not in stable_id:
+        return ""
+    country, alias = stable_id.split("|", 1)
+    return stable_id if country and alias.startswith("vavoo_") else ""
+
+
+def has_tvvoo_reference_scheme(channel: Channel) -> bool:
+    """Recognize every TvVoo URI, including malformed refs, fail-closed."""
+    return urlparse(channel.url).scheme.lower() == "tvvoo"
+
+
+def is_tvvoo_reference(channel: Channel) -> bool:
+    """Whether ``channel`` is a tokenless ``tvvoo://channel/<stableId>`` ref."""
+    return bool(tvvoo_reference_stable_id(channel))
+
+
 def is_permanently_removed_channel_name(name: str) -> bool:
     return any(
         pattern.search(name)
@@ -2933,6 +2968,27 @@ def order_channels_by_content(lines: list[str]) -> bool:
             )
         )
     records.sort(key=lambda item: (item[0], item[1]))
+    # A TvVoo reference is an app-owned identity row.  Keep its channel slot
+    # fixed while legacy rows are normalized around it; this preserves the
+    # user's exported order and never substitutes the reference URI.
+    reference_slots = {
+        record[2]: record
+        for record in records
+        if is_tvvoo_reference(channels[record[2]])
+    }
+    if reference_slots:
+        movable = [
+            record for record in records if record[2] not in reference_slots
+        ]
+        records = []
+        movable_index = 0
+        for original_index in range(len(channels)):
+            fixed = reference_slots.get(original_index)
+            if fixed is not None:
+                records.append(fixed)
+            else:
+                records.append(movable[movable_index])
+                movable_index += 1
 
     ordered_lines = list(header)
     current_section = None
@@ -3094,6 +3150,11 @@ def load_manual_main_channel_ids(
 
 
 def resolver_attributes_for(channel: Channel) -> dict[str, str]:
+    if has_tvvoo_reference_scheme(channel):
+        # The EXTINF line is authoritative for a reference.  Its aliases,
+        # logo and any presentation fields must survive a catalogue update;
+        # only the resolver family is needed by partitioning and health code.
+        return {"x-resolver": "tvvoo"}
     if channel.tvg_id == "0104":
         return {"x-resolver": "tvn", "x-resolver-refresh": "on_play"}
     if channel.tvg_id in {"Meganoticias.cl", "MeganoticiasAhora.cl"}:
@@ -3474,6 +3535,10 @@ def pin_resolver_metadata(lines: list[str]) -> bool:
     for channel in parse_channels(lines):
         if channel.info_line < 0:
             continue
+        if is_tvvoo_reference(channel):
+            # App-exported references have no renewable HLS metadata.  Do not
+            # rewrite their aliases or URI while normalizing legacy entries.
+            continue
         original = lines[channel.info_line]
         attributes = resolver_attributes_for(channel)
         updated = with_resolver_attributes(original, attributes)
@@ -3634,6 +3699,46 @@ def validate_playlist_resolvers(lines: list[str]) -> dict[str, int]:
             for name in RESOLVER_ATTRIBUTE_NAMES
             if (match := re.search(rf'\b{re.escape(name)}="([^"]*)"', line))
         }
+        if has_tvvoo_reference_scheme(channel):
+            if not is_tvvoo_reference(channel):
+                raise ValueError(f"{channel.name}: referencia TvVoo invalida")
+            stable_id = tvvoo_reference_stable_id(channel)
+            stable_alias = stable_id.split("|", 1)[1]
+            aliases = [
+                alias
+                for alias in attrs.get("x-resolver-ids", "").split(";")
+                if alias
+            ]
+            resolver_id = attrs.get("x-resolver-id", "")
+            if attrs.get("x-resolver") != "tvvoo":
+                raise ValueError(
+                    f"{channel.name}: referencia TvVoo sin x-resolver=tvvoo"
+                )
+            if not aliases and resolver_id:
+                aliases = [resolver_id]
+            if not aliases or stable_alias not in aliases:
+                raise ValueError(
+                    f"{channel.name}: referencia TvVoo sin alias estable del URI"
+                )
+            if resolver_id and resolver_id != stable_alias:
+                raise ValueError(
+                    f"{channel.name}: x-resolver-id no coincide con el URI TvVoo"
+                )
+            if channel.tvg_id and channel.tvg_id != stable_id + "@TvVoo":
+                raise ValueError(
+                    f"{channel.name}: tvg-id no coincide con el stableId TvVoo"
+                )
+            country_match = re.search(r'\bx-resolver-country="([^"]*)"', line)
+            reference_country = country_match.group(1) if country_match else ""
+            if reference_country != stable_id.split("|", 1)[0]:
+                raise ValueError(
+                    f"{channel.name}: x-resolver-country no coincide con el URI TvVoo"
+                )
+            serialized = " ".join(attrs.values()).lower()
+            if any(marker in serialized for marker in ("/sunshine/", "serverkey", "token=")):
+                raise ValueError(f"{channel.name}: referencia TvVoo contiene datos temporales")
+            counts["tvvoo"] += 1
+            continue
         expected = resolver_attributes_for(channel)
         highfly_dynamic_match = (
             expected.get("x-resolver") == "highfly"
@@ -7266,11 +7371,12 @@ def build_epg(
     programmes_by_target = {channel_id: 0 for channel_id in expected_ids}
     real_last_stop_by_target: dict[str, datetime] = {}
     guide_sources: dict[str, str] = {}
-    source_lookup = {
-        (source_name, source_id): target_id
-        for target_id, (source_name, source_id) in EPG_PROGRAMME_SOURCES.items()
-        if target_id in expected_ids
-    }
+    # Una fuente puede alimentar la identidad legacy del catalogo y una
+    # referencia TvVoo estable de la lista publica al mismo tiempo.
+    source_lookup: dict[tuple[str, str], set[str]] = {}
+    for target_id, (source_name, source_id) in EPG_PROGRAMME_SOURCES.items():
+        if target_id in expected_ids:
+            source_lookup.setdefault((source_name, source_id), set()).add(target_id)
     if ZAPPING_EPG_SOURCE in source_roots:
         zapping_target_ids = {
             programme.get("channel", "")
@@ -7278,58 +7384,58 @@ def build_epg(
         }
         for target_id in sorted(zapping_target_ids & set(ZAPPING_EPG_CHANNELS)):
             for lookup_key, lookup_target in list(source_lookup.items()):
-                if lookup_target == target_id:
+                if target_id in lookup_target:
                     source_lookup.pop(lookup_key, None)
-            source_lookup[(ZAPPING_EPG_SOURCE, target_id)] = target_id
+            source_lookup[(ZAPPING_EPG_SOURCE, target_id)] = {target_id}
     if CANAL13_MAIN_EPG_SOURCE in source_roots and "0107" in expected_ids:
         for lookup_key, lookup_target in list(source_lookup.items()):
-            if lookup_target == "0107":
+            if "0107" in lookup_target:
                 source_lookup.pop(lookup_key, None)
-        source_lookup[(CANAL13_MAIN_EPG_SOURCE, "0107")] = "0107"
+        source_lookup[(CANAL13_MAIN_EPG_SOURCE, "0107")] = {"0107"}
     if MEGA_OFFICIAL_EPG_SOURCE in source_roots and "0105" in expected_ids:
         for lookup_key, lookup_target in list(source_lookup.items()):
-            if lookup_target == "0105":
+            if "0105" in lookup_target:
                 source_lookup.pop(lookup_key, None)
-        source_lookup[(MEGA_OFFICIAL_EPG_SOURCE, "0105")] = "0105"
+        source_lookup[(MEGA_OFFICIAL_EPG_SOURCE, "0105")] = {"0105"}
     if TVN_OFFICIAL_EPG_SOURCE in source_roots and "0104" in expected_ids:
         for lookup_key, lookup_target in list(source_lookup.items()):
-            if lookup_target == "0104":
+            if "0104" in lookup_target:
                 source_lookup.pop(lookup_key, None)
-        source_lookup[(TVN_OFFICIAL_EPG_SOURCE, "0104")] = "0104"
+        source_lookup[(TVN_OFFICIAL_EPG_SOURCE, "0104")] = {"0104"}
     if CHV_OFFICIAL_EPG_SOURCE in source_roots and "0106" in expected_ids:
         for lookup_key, lookup_target in list(source_lookup.items()):
-            if lookup_target == "0106":
+            if "0106" in lookup_target:
                 source_lookup.pop(lookup_key, None)
-        source_lookup[(CHV_OFFICIAL_EPG_SOURCE, "0106")] = "0106"
+        source_lookup[(CHV_OFFICIAL_EPG_SOURCE, "0106")] = {"0106"}
     if DW_ENGLISH_OFFICIAL_EPG_SOURCE in source_roots and "DWEnglish.de" in expected_ids:
         for lookup_key, lookup_target in list(source_lookup.items()):
-            if lookup_target == "DWEnglish.de":
+            if "DWEnglish.de" in lookup_target:
                 source_lookup.pop(lookup_key, None)
         source_lookup[(DW_ENGLISH_OFFICIAL_EPG_SOURCE, "DWEnglish.de")] = (
-            "DWEnglish.de"
+            {"DWEnglish.de"}
         )
     if DW_SPANISH_OFFICIAL_EPG_SOURCE in source_roots and "DW.de" in expected_ids:
         for lookup_key, lookup_target in list(source_lookup.items()):
-            if lookup_target == "DW.de":
+            if "DW.de" in lookup_target:
                 source_lookup.pop(lookup_key, None)
-        source_lookup[(DW_SPANISH_OFFICIAL_EPG_SOURCE, "DW.de")] = "DW.de"
+        source_lookup[(DW_SPANISH_OFFICIAL_EPG_SOURCE, "DW.de")] = {"DW.de"}
     if NHK_OFFICIAL_EPG_SOURCE in source_roots and "NHKWorldJapan.jp" in expected_ids:
         source_lookup.pop(("cl", "Canal.NHK.World.cl"), None)
-        source_lookup[(NHK_OFFICIAL_EPG_SOURCE, "NHKWorldJapan.jp")] = (
+        source_lookup[(NHK_OFFICIAL_EPG_SOURCE, "NHKWorldJapan.jp")] = {
             "NHKWorldJapan.jp"
-        )
+        }
     if LA_RED_OFFICIAL_EPG_SOURCE in source_roots and "0102" in expected_ids:
         source_lookup.pop(("cl", "Canal.La.Red.(Chile).cl"), None)
         source_lookup.pop((ZAPPING_EPG_SOURCE, "0102"), None)
-        source_lookup[(LA_RED_OFFICIAL_EPG_SOURCE, "0102")] = "0102"
+        source_lookup[(LA_RED_OFFICIAL_EPG_SOURCE, "0102")] = {"0102"}
     if (
         CANAL13_13C_OFFICIAL_EPG_SOURCE in source_roots
         and "13C.cl@SD" in expected_ids
     ):
         source_lookup.pop((ZAPPING_EPG_SOURCE, "13C.cl@SD"), None)
-        source_lookup[(CANAL13_13C_OFFICIAL_EPG_SOURCE, "13C.cl@SD")] = (
+        source_lookup[(CANAL13_13C_OFFICIAL_EPG_SOURCE, "13C.cl@SD")] = {
             "13C.cl@SD"
-        )
+        }
     source_overrides = {
         CANAL13_13GO_EPG_SOURCE: {
             "13Cultura.cl@DPS": "13cultura",
@@ -7350,9 +7456,9 @@ def build_epg(
             if target_id not in expected_ids:
                 continue
             for lookup_key, lookup_target in list(source_lookup.items()):
-                if lookup_target == target_id:
+                if target_id in lookup_target:
                     source_lookup.pop(lookup_key, None)
-            source_lookup[(source_name, source_id)] = target_id
+            source_lookup[(source_name, source_id)] = {target_id}
 
     # Si una fuente opcional por canal desaparece durante una renovación
     # forzada, conservar únicamente la parrilla real vigente de la publicación
@@ -7365,17 +7471,17 @@ def build_epg(
             if source_name == PUBLISHED_EPG_FALLBACK_SOURCE:
                 continue
             for programme in source_root.findall("programme"):
-                target_id = source_lookup.get(
+                target_ids = source_lookup.get(
                     (source_name, programme.get("channel", ""))
                 )
-                if target_id is None:
+                if not target_ids:
                     continue
                 try:
                     stop = xmltv_datetime(programme.get("stop", ""))
                 except ValueError:
                     continue
                 if stop > now:
-                    fresh_targets.add(target_id)
+                    fresh_targets.update(target_ids)
         fresh_targets.update(
             target_id
             for target_id, cards in red_bull_schedules.items()
@@ -7386,13 +7492,13 @@ def build_epg(
                 # La Red queda estrictamente en la fuente oficial. No se
                 # recicla una EPG antigua de EPGShare/Zapping como respaldo.
                 continue
-            source_lookup[(PUBLISHED_EPG_FALLBACK_SOURCE, target_id)] = target_id
+            source_lookup[(PUBLISHED_EPG_FALLBACK_SOURCE, target_id)] = {target_id}
 
     for source_name, source_root in source_roots.items():
         seen_source_programmes: set[tuple[str, str, str, str]] = set()
         for programme in source_root.findall("programme"):
-            target_id = source_lookup.get((source_name, programme.get("channel", "")))
-            if target_id is None:
+            target_ids = source_lookup.get((source_name, programme.get("channel", "")))
+            if not target_ids:
                 continue
             if source_name == "pluto":
                 # Pluto's public XML sometimes repeats the same card verbatim
@@ -7406,34 +7512,35 @@ def build_epg(
                 if duplicate_key in seen_source_programmes:
                     continue
                 seen_source_programmes.add(duplicate_key)
-            copied = localize_xmltv_programme(programme)
-            forced_title = FORCED_EPG_TITLES.get(target_id)
-            if forced_title:
-                title_element = copied.find("title")
-                if title_element is None:
-                    title_element = ET.SubElement(copied, "title", {"lang": "es"})
-                title_element.text = forced_title
-                for subtitle in copied.findall("sub-title"):
-                    copied.remove(subtitle)
-            try:
-                start = xmltv_datetime(copied.get("start", ""))
-                stop = xmltv_datetime(copied.get("stop", ""))
-            except ValueError:
-                continue
-            if stop <= start:
-                continue
-            copied.set("channel", target_id)
-            root.append(copied)
-            programmes_by_target[target_id] += 1
-            guide_types[target_id] = (
-                "parrilla real conservada"
-                if source_name == PUBLISHED_EPG_FALLBACK_SOURCE
-                else "parrilla real"
-            )
-            guide_sources[target_id] = source_name
-            previous_stop = real_last_stop_by_target.get(target_id)
-            if previous_stop is None or stop > previous_stop:
-                real_last_stop_by_target[target_id] = stop
+            for target_id in sorted(target_ids):
+                copied = localize_xmltv_programme(programme)
+                forced_title = FORCED_EPG_TITLES.get(target_id)
+                if forced_title:
+                    title_element = copied.find("title")
+                    if title_element is None:
+                        title_element = ET.SubElement(copied, "title", {"lang": "es"})
+                    title_element.text = forced_title
+                    for subtitle in copied.findall("sub-title"):
+                        copied.remove(subtitle)
+                try:
+                    start = xmltv_datetime(copied.get("start", ""))
+                    stop = xmltv_datetime(copied.get("stop", ""))
+                except ValueError:
+                    continue
+                if stop <= start:
+                    continue
+                copied.set("channel", target_id)
+                root.append(copied)
+                programmes_by_target[target_id] += 1
+                guide_types[target_id] = (
+                    "parrilla real conservada"
+                    if source_name == PUBLISHED_EPG_FALLBACK_SOURCE
+                    else "parrilla real"
+                )
+                guide_sources[target_id] = source_name
+                previous_stop = real_last_stop_by_target.get(target_id)
+                if previous_stop is None or stop > previous_stop:
+                    real_last_stop_by_target[target_id] = stop
 
     for red_bull_id, red_bull_cards in red_bull_schedules.items():
         if red_bull_id not in expected_ids:
@@ -7727,6 +7834,43 @@ def apply_epg_manual_overrides(
     return ET.tostring(root, encoding="utf-8", xml_declaration=True) + b"\n"
 
 
+def include_public_tvvoo_epg_aliases(channels: list[Channel]) -> list[Channel]:
+    """Include public TvVoo identities while retaining catalog identities.
+
+    The app-owned reference carries a stable tvg-id that intentionally differs
+    from the legacy catalog id.  Reuse the legacy channel's EPG source by
+    matching the presentation name, then build one XMLTV channel/programme
+    block for each identity.
+    """
+    catalog_by_name = {channel.name: channel for channel in channels}
+    known_ids = {channel.tvg_id for channel in channels if channel.tvg_id}
+    aliases: list[Channel] = []
+    for playlist_path in (DEFAULT_PLAYLIST, EXTERNAL_PLAYLIST):
+        if not playlist_path.is_file():
+            continue
+        playlist_channels = parse_channels(
+            playlist_path.read_text(encoding="utf-8-sig").splitlines()
+        )
+        for reference in playlist_channels:
+            if not is_tvvoo_reference(reference) or reference.tvg_id in known_ids:
+                continue
+            catalog_channel = catalog_by_name.get(reference.name)
+            if catalog_channel is None or not catalog_channel.tvg_id:
+                continue
+            source = EPG_PROGRAMME_SOURCES.get(catalog_channel.tvg_id)
+            if source is None:
+                continue
+            EPG_PROGRAMME_SOURCES[reference.tvg_id] = source
+            aliases.append(reference)
+            known_ids.add(reference.tvg_id)
+    if aliases:
+        print(
+            "Aliases EPG TvVoo incluidos: "
+            + ", ".join(sorted(alias.tvg_id for alias in aliases))
+        )
+    return [*channels, *aliases]
+
+
 def refresh_epg(
     channels: list[Channel],
     *,
@@ -7734,6 +7878,7 @@ def refresh_epg(
     output_path: Path | None = None,
 ) -> dict:
     apply_epg_overrides()
+    channels = include_public_tvvoo_epg_aliases(channels)
     output_path = output_path or EPG_PATH
     now = datetime.now(timezone.utc)
     expected_ids = {channel.tvg_id for channel in channels if channel.tvg_id}
@@ -7993,6 +8138,16 @@ def check_channel(
     *,
     allow_ci_geo_block: bool = False,
 ) -> CheckResult:
+    if has_tvvoo_reference_scheme(channel):
+        valid = is_tvvoo_reference(channel)
+        return CheckResult(
+            channel.name,
+            channel.url,
+            valid,
+            "referencia TvVoo conservada; sin sondeo HLS"
+            if valid
+            else "referencia TvVoo invalida; sin sondeo",
+        )
     policy = channel_check_policy(channel)
     allow_scoped_expired_cert = resolver_engine_for(channel) == "tvvoo"
     attempt_count = max(1, attempts if attempts is not None else policy.attempts)
@@ -9413,6 +9568,20 @@ def refresh_dynamic_channel(
     request the current URL a second time. A successful candidate is checked
     here and returned to the caller, which applies the URL serially.
     """
+    if has_tvvoo_reference_scheme(channel):
+        reference_result = current_result or check_channel(
+            channel, allow_ci_geo_block=running_in_ci
+        )
+        return DynamicRefreshOutcome(
+            channel=channel.name,
+            resolver="tvvoo",
+            accepted=is_tvvoo_reference(channel),
+            changed=False,
+            skipped=True,
+            detail="referencia TvVoo conservada; no se renueva",
+            resolved_url=channel.url,
+            check_result=reference_result,
+        )
     if current_result is None:
         current_result = check_channel(channel, allow_ci_geo_block=running_in_ci)
     state = "OK" if current_result.ok else "FALLO"
@@ -9548,6 +9717,23 @@ def skipped_dynamic_refresh(
         changed=False,
         skipped=True,
         detail="validacion dinamica reciente reutilizada",
+        resolved_url=channel.url,
+        check_result=current_result,
+    )
+
+
+def skipped_tvvoo_reference(
+    channel: Channel, current_result: CheckResult
+) -> DynamicRefreshOutcome:
+    """Represent an app reference that is intentionally never resolved here."""
+    valid = is_tvvoo_reference(channel)
+    return DynamicRefreshOutcome(
+        channel=channel.name,
+        resolver="tvvoo",
+        accepted=valid,
+        changed=False,
+        skipped=True,
+        detail="referencia TvVoo conservada; no se renueva",
         resolved_url=channel.url,
         check_result=current_result,
     )
@@ -9751,7 +9937,10 @@ def write_report(
         ok = bool(result and result.ok)
         failures = 0 if ok else old_failures + 1
 
-        if ok:
+        metadata_only = is_tvvoo_reference(channel)
+        if metadata_only:
+            status = "identity_only"
+        elif ok:
             if old_failures:
                 status = "recovered"
             elif channel.name in refreshed or channel.name in repaired:
@@ -9768,10 +9957,14 @@ def write_report(
         # recuperable.
         blocking = False
         previous_status = str(old.get("status", "new"))
-        last_ok_at = checked_at if ok else old.get("last_ok_at")
+        last_ok_at = (
+            checked_at
+            if ok and not metadata_only
+            else (None if metadata_only else old.get("last_ok_at"))
+        )
         resolver_validated_at = old.get("last_resolver_validated_at")
         resolver_url_hash = old.get("resolver_url_hash")
-        if resolver in DYNAMIC_RESOLVER_ENGINES:
+        if resolver in DYNAMIC_RESOLVER_ENGINES and not is_tvvoo_reference(channel):
             if ok:
                 resolver_validated_at = checked_at
                 resolver_url_hash = resolver_url_fingerprint(channel.url)
@@ -9797,6 +9990,7 @@ def write_report(
             "previous_status": previous_status,
             "status_changed": previous_status != status,
             "ok": ok,
+            "identity_only": metadata_only,
             "blocking": blocking,
             "consecutive_failures": failures,
             "last_checked_at": checked_at,
@@ -9824,6 +10018,7 @@ def write_report(
                 "consecutive_failures",
                 "last_checked_at",
                 "last_ok_at",
+                "identity_only",
             )
         }
         if resolver in DYNAMIC_RESOLVER_ENGINES:
@@ -10570,6 +10765,10 @@ def main() -> int:
             print(f"  [MANUAL] {channel.name}: stream fijado por override")
             continue
         current_result = results_by_name[channel.name]
+        if has_tvvoo_reference_scheme(channel):
+            dynamic_outcomes.append(skipped_tvvoo_reference(channel, current_result))
+            cached_dynamic_names.add(channel.name)
+            continue
         if not force_dynamic_refresh and dynamic_validation_is_fresh(
             channel,
             current_result,
