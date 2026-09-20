@@ -27,6 +27,8 @@ from pathlib import Path
 from urllib.parse import parse_qsl, quote, unquote, urlencode, urljoin, urlparse
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
+import vibem3u_selection
+
 
 DEFAULT_PLAYLIST = Path(__file__).with_name("m3u.m3u")
 EXTERNAL_PLAYLIST = Path(__file__).with_name("m3u-externa.m3u")
@@ -39,6 +41,7 @@ SHORT_PLAYLIST_ALIASES = (
     (EXTERNAL_PLAYLIST, SHORT_EXTERNAL_PLAYLIST),
 )
 CHANNEL_CATALOG_PATH = Path(__file__).with_name("channel-catalog.m3u")
+VIBEM3U_SELECTION_PATH = Path(__file__).with_name("data") / "vibem3u-selection.json"
 # Highfly solo resuelve canales que ya pertenecen manualmente a las listas
 # publicas. Su catalogo se consulta para renovar slugs en memoria; nunca
 # modifica la membresia ni genera una tercera lista.
@@ -3176,6 +3179,87 @@ def load_manual_main_channel_ids(
             f"{path.name} contiene IDs fuera del catalogo: " + ", ".join(unknown)
         )
     return main_ids
+
+
+def load_vibem3u_selection(
+    path: Path = VIBEM3U_SELECTION_PATH,
+) -> vibem3u_selection.SelectionDocument:
+    """Load the optional Android selection declaration without HLS data."""
+
+    return vibem3u_selection.load_selection(path)
+
+
+def vibem3u_managed_main_ids(
+    catalog_channels: list[Channel],
+    path: Path = DEFAULT_PLAYLIST,
+) -> frozenset[str]:
+    """Return canonical IDs previously marked as app-managed in m3u.m3u."""
+
+    if not path.is_file():
+        return frozenset()
+    lines = path.read_text(encoding="utf-8-sig").splitlines()
+    managed: set[str] = set()
+    for channel in parse_channels(lines):
+        if not vibem3u_selection.selection_marker_is_managed(lines[channel.info_line]):
+            continue
+        catalog_id = catalog_id_for_public_channel(channel, catalog_channels)
+        if catalog_id:
+            managed.add(catalog_id)
+    return frozenset(managed)
+
+
+def apply_vibem3u_selection(
+    lines: list[str],
+    reconciliation: vibem3u_selection.SelectionReconciliation,
+) -> tuple[bool, int]:
+    """Mark selected catalogue rows and adopt current Highfly references.
+
+    The marker is copied into both public playlists by the existing partition
+    code, so the next run can distinguish an app-managed membership from an
+    older manual decision.  No provider URL is read from the selection file;
+    only the allow-listed Highfly slug is used to refresh its token-free
+    compatibility leaf.
+    """
+
+    changed = False
+    resource_updates = 0
+    selected_ids = set(reconciliation.selected_catalog_ids)
+    channels = parse_channels(lines)
+    for channel in channels:
+        desired = channel.tvg_id in selected_ids
+        current = vibem3u_selection.selection_marker_is_managed(
+            lines[channel.info_line]
+        )
+        if current != desired:
+            lines[channel.info_line] = vibem3u_selection.with_selection_marker(
+                lines[channel.info_line], desired
+            )
+            changed = True
+
+    for item in reconciliation.matched:
+        if item.row.provider != "highfly":
+            continue
+        channel = channels[item.catalog_index]
+        HIGHFLY_RUNTIME_RESOLVER_CHANNELS[channel.tvg_id] = item.row.resolver_slug
+        expected_attributes = {
+            "x-resolver": "highfly",
+            "x-resolver-id": item.row.resolver_slug,
+            "x-resolver-manifest": HIGHFLY_MANIFEST_URL,
+            "x-resolver-refresh": "on_play",
+        }
+        updated_info = with_resolver_attributes(
+            lines[channel.info_line], expected_attributes
+        )
+        if updated_info != lines[channel.info_line]:
+            lines[channel.info_line] = updated_info
+            changed = True
+            resource_updates += 1
+        expected_url = highfly_fallback_url(item.row.resolver_slug)
+        if is_highfly_leaf_url(channel.url) and channel.url != expected_url:
+            lines[channel.url_line] = expected_url
+            changed = True
+            resource_updates += 1
+    return changed, resource_updates
 
 
 def resolver_attributes_for(channel: Channel) -> dict[str, str]:
@@ -9935,6 +10019,7 @@ def write_report(
     automatic_partition_actions: dict[str, str] | None = None,
     automatic_demoted_main_ids: set[str] | frozenset[str] = frozenset(),
     external_channel_ids: set[str] | frozenset[str] | None = None,
+    vibem3u_selection_report: dict[str, object] | None = None,
 ) -> dict:
     """Write a token-free run report and update persistent channel health.
 
@@ -10390,6 +10475,7 @@ def write_report(
             "demoted_main_ids": sorted(demoted_main_ids),
             "actions": partition_actions,
         },
+        "vibem3u_selection": vibem3u_selection_report or {},
         "all_ok": (
             not direct_failures
             and not degraded_channels
@@ -10557,6 +10643,11 @@ def main() -> int:
         action="store_true",
         help="valida offline la membresia manual y la propagacion de resolutores",
     )
+    parser.add_argument(
+        "--validate-vibem3u-selection",
+        action="store_true",
+        help="valida offline la seleccion publicada por VibeM3U",
+    )
     mode_group = parser.add_mutually_exclusive_group()
     mode_group.add_argument(
         "--refresh-epg-only",
@@ -10596,10 +10687,50 @@ def main() -> int:
         if source_playlist == CHANNEL_CATALOG_PATH
         else playlist
     )
-    manual_main_ids = load_manual_main_channel_ids(
+    configured_manual_main_ids = load_manual_main_channel_ids(
         catalogue_before_update,
         membership_path,
     )
+    selection_document = load_vibem3u_selection()
+    selection_reconciliation = vibem3u_selection.reconcile_selection(
+        selection_document,
+        catalogue_before_update,
+        lines,
+    )
+    previous_vibem3u_ids = vibem3u_managed_main_ids(
+        catalogue_before_update,
+        membership_path,
+    )
+    if selection_document.present:
+        manual_main_ids = frozenset(
+            (set(configured_manual_main_ids) - set(previous_vibem3u_ids))
+            | set(selection_reconciliation.selected_catalog_ids)
+        )
+    else:
+        manual_main_ids = configured_manual_main_ids
+    selection_changed = False
+    selection_resource_updates = 0
+    if selection_document.present and source_playlist == CHANNEL_CATALOG_PATH:
+        selection_changed, selection_resource_updates = apply_vibem3u_selection(
+            lines,
+            selection_reconciliation,
+        )
+    selection_report = selection_reconciliation.report()
+    selection_report["previous_managed_rows"] = len(previous_vibem3u_ids)
+    selection_report["resource_updates"] = selection_resource_updates
+    selection_report["effective_main_ids"] = sorted(manual_main_ids)
+    if args.validate_vibem3u_selection:
+        print(
+            "Seleccion VibeM3U valida: "
+            f"{len(selection_reconciliation.matched)} coincidencias, "
+            f"{len(selection_reconciliation.pending)} pendientes"
+        )
+        for item in selection_reconciliation.pending:
+            print(
+                "  [PENDING] "
+                f"{item['provider']}/{item['catalogKey']}: {item['reason']}"
+            )
+        return 0
     previous_health_state = load_health_state()
     previous_auto_demoted_main_ids = automatic_demoted_main_ids(
         previous_health_state,
@@ -10640,7 +10771,7 @@ def main() -> int:
         protected_ids=set(manual_main_ids) | set(previous_auto_demoted_main_ids),
     )
     if args.refresh_epg_only:
-        if removed_channels:
+        if removed_channels or selection_changed:
             source_playlist.write_text(
                 "\n".join(lines) + "\n", encoding="utf-8", newline="\n"
             )
@@ -10669,17 +10800,24 @@ def main() -> int:
     if args.validate_resolvers_only:
         validate_resolver_contract(lines)
         return 0
-    if removed_channels:
+    if removed_channels or selection_changed:
         source_playlist.write_text(
             "\n".join(lines) + "\n", encoding="utf-8", newline="\n"
         )
-        print(
-            "Exclusiones permanentes retiradas del catalogo: "
-            + ", ".join(removed_channels)
-        )
+        if removed_channels:
+            print(
+                "Exclusiones permanentes retiradas del catalogo: "
+                + ", ".join(removed_channels)
+            )
+        if selection_changed:
+            print(
+                "Seleccion VibeM3U reconciliada: "
+                f"{len(selection_reconciliation.matched)} coincidencias, "
+                f"{len(selection_reconciliation.pending)} pendientes"
+            )
     if args.sync_resolver_contract:
         resolver_changed = pin_resolver_metadata(lines)
-        if resolver_changed or removed_channels:
+        if resolver_changed or removed_channels or selection_changed:
             source_playlist.write_text(
                 "\n".join(lines) + "\n", encoding="utf-8", newline="\n"
             )
@@ -10730,6 +10868,7 @@ def main() -> int:
         or resolver_changed
         or presentation_override_changed
         or manual_stream_ids
+        or selection_changed
     ):
         source_playlist.write_text(
             "\n".join(lines) + "\n", encoding="utf-8", newline="\n"
@@ -10740,7 +10879,7 @@ def main() -> int:
     channels = parse_channels(lines)
     if not channels:
         raise RuntimeError("la lista no contiene canales activos")
-    if load_manual_main_channel_ids(channels, membership_path) != manual_main_ids:
+    if load_manual_main_channel_ids(channels, membership_path) != configured_manual_main_ids:
         raise RuntimeError("la membresia manual principal cambio durante la preparacion")
 
     # El mapa Highfly ya se actualizo antes de pin_resolver_metadata(). Se
@@ -11058,6 +11197,7 @@ def main() -> int:
         automatic_partition_actions=automatic_partition_actions,
         automatic_demoted_main_ids=new_automatic_demoted_main_ids,
         external_channel_ids=external_publication_ids,
+        vibem3u_selection_report=selection_report,
     )
     main_publication = report["playlists"]["main"]
     external_publication = report["playlists"]["external"]

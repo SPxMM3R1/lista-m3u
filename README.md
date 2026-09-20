@@ -45,6 +45,19 @@ Catalogo declarativo de resolutores para VibeM3U:
 
 `https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/resolver-catalog.json`
 
+VibeM3U publica su selección de proveedor, sin URLs de reproducción, en
+`data/vibem3u-selection.json`. El runner consume ese archivo cuando existe:
+cruza Highfly por `catalogKey`, TvVoo por `catalogKey`/alias estable, conserva
+el `tvg-id` canónico y marca únicamente las coincidencias confirmadas como
+membresía gestionada por la aplicación. Las filas provisionales, ausentes o
+ambiguas quedan como `pending` en `channel-status.json`; no se convierten en
+un `tvg-id` ni reciben EPG/logo por aproximación. Un cambio en ese archivo
+dispara el workflow de canales para que la reconciliación ocurra después de la
+publicación de VibeM3U.
+
+El contrato completo de identidades, EPG y logos está en
+[VIBEM3U_ID_CONTRACT_EPG_LOGOS.md](VIBEM3U_ID_CONTRACT_EPG_LOGOS.md).
+
 La M3U conserva una URL HLS de respaldo para reproductores externos. VibeM3U
 usa los atributos `x-resolver-*` para resolver la fuente justo antes de abrirla:
 TVN y Meganoticias conservan sus masters oficiales para que la aplicacion
