@@ -82,6 +82,10 @@ TVVOO_RECIPE_ID = "bounded-payload-v1"
 TVVOO_VALIDATION_MODE = "media-signature-v1"
 MAIN_PLAYLIST_RESOLVERS = frozenset({"direct", "tvn", "meganoticias"})
 EXTERNAL_PLAYLIST_RESOLVERS = frozenset({"tvvoo", "highfly"})
+# TvVoo and Highfly are app-only playback sources.  Their identities remain in
+# the catalogue and in the token-free VibeM3U selection manifest, but a runner
+# execution must never promote either resolver family into m3u.m3u/1.m3u.
+APP_ONLY_RESOLVER_ENGINES = frozenset({"tvvoo", "highfly"})
 # La lista 2 conserva todas las fuentes directas y los resolutores que no son
 # TvVoo. Para TvVoo solo se publican las familias solicitadas para pruebas:
 # Sky deportivo, Fox Sports, Eurosport, ESPN y TNT Sports. El grupo ``ar`` queda fuera de
@@ -3181,6 +3185,28 @@ def load_manual_main_channel_ids(
     return main_ids
 
 
+def app_only_resolver_channel_ids(
+    catalog_channels: Iterable[Channel],
+) -> frozenset[str]:
+    """Return catalog identities that must be resolved only inside VibeM3U."""
+
+    return frozenset(
+        channel.tvg_id
+        for channel in catalog_channels
+        if channel.tvg_id
+        and resolver_engine_for(channel) in APP_ONLY_RESOLVER_ENGINES
+    )
+
+
+def public_main_membership_ids(
+    configured_main_ids: Iterable[str],
+    app_only_ids: Iterable[str],
+) -> frozenset[str]:
+    """Keep app-only resolver identities out of the public main playlist."""
+
+    return frozenset(set(configured_main_ids) - set(app_only_ids))
+
+
 def load_vibem3u_selection(
     path: Path = VIBEM3U_SELECTION_PATH,
 ) -> vibem3u_selection.SelectionDocument:
@@ -3193,7 +3219,7 @@ def vibem3u_managed_main_ids(
     catalog_channels: list[Channel],
     path: Path = DEFAULT_PLAYLIST,
 ) -> frozenset[str]:
-    """Return canonical IDs previously marked as app-managed in m3u.m3u."""
+    """Return legacy app-managed IDs still present in the main playlist."""
 
     if not path.is_file():
         return frozenset()
@@ -3214,11 +3240,10 @@ def apply_vibem3u_selection(
 ) -> tuple[bool, int]:
     """Mark selected catalogue rows and adopt current Highfly references.
 
-    The marker is copied into both public playlists by the existing partition
-    code, so the next run can distinguish an app-managed membership from an
-    older manual decision.  No provider URL is read from the selection file;
-    only the allow-listed Highfly slug is used to refresh its token-free
-    compatibility leaf.
+    The marker stays in the canonical catalogue as reconciliation evidence;
+    it does not promote a TvVoo/Highfly row into the public main playlist. No
+    provider URL is read from the selection file; only the allow-listed
+    Highfly slug is used to refresh its token-free compatibility leaf.
     """
 
     changed = False
@@ -10691,6 +10716,7 @@ def main() -> int:
         catalogue_before_update,
         membership_path,
     )
+    app_only_ids = app_only_resolver_channel_ids(catalogue_before_update)
     selection_document = load_vibem3u_selection()
     selection_reconciliation = vibem3u_selection.reconcile_selection(
         selection_document,
@@ -10701,13 +10727,14 @@ def main() -> int:
         catalogue_before_update,
         membership_path,
     )
-    if selection_document.present:
-        manual_main_ids = frozenset(
-            (set(configured_manual_main_ids) - set(previous_vibem3u_ids))
-            | set(selection_reconciliation.selected_catalog_ids)
-        )
-    else:
-        manual_main_ids = configured_manual_main_ids
+    # The app selection is intentionally not a public-list promotion
+    # mechanism.  TvVoo/Highfly rows are resolved in VibeM3U at playback time;
+    # removing them here also protects the policy if an older m3u.m3u still
+    # contains a manually published dynamic row.
+    manual_main_ids = public_main_membership_ids(
+        configured_manual_main_ids,
+        app_only_ids,
+    )
     selection_changed = False
     selection_resource_updates = 0
     if selection_document.present and source_playlist == CHANNEL_CATALOG_PATH:
@@ -10717,6 +10744,8 @@ def main() -> int:
         )
     selection_report = selection_reconciliation.report()
     selection_report["previous_managed_rows"] = len(previous_vibem3u_ids)
+    selection_report["app_only_resolver_ids"] = sorted(app_only_ids)
+    selection_report["selection_promotes_to_main"] = False
     selection_report["resource_updates"] = selection_resource_updates
     selection_report["effective_main_ids"] = sorted(manual_main_ids)
     if args.validate_vibem3u_selection:

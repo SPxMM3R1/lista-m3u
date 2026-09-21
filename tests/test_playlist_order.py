@@ -22,6 +22,45 @@ class PlaylistOrderTests(unittest.TestCase):
             self.assertTrue(alias.is_file(), alias)
             self.assertEqual(alias.read_bytes(), canonical.read_bytes())
 
+    def test_main_playlists_exclude_app_only_resolvers(self) -> None:
+        for playlist in (
+            update_m3u.DEFAULT_PLAYLIST,
+            update_m3u.SHORT_DIRECT_PLAYLIST,
+        ):
+            channels = update_m3u.parse_channels(
+                playlist.read_text(encoding="utf-8-sig").splitlines()
+            )
+            app_only = update_m3u.app_only_resolver_channel_ids(channels)
+            self.assertEqual(set(), app_only)
+
+    def test_app_only_resolver_ids_are_removed_from_main_membership(self) -> None:
+        lines = [
+            "#EXTM3U",
+            extinf("0104", "TVN", "Nacionales"),
+            "https://example.invalid/tvn.m3u8",
+            '#EXTINF:-1 tvg-id="SkySportsF1.uk" x-resolver="highfly",Sky Sports F1',
+            "https://example.invalid/highfly.m3u8",
+            '#EXTINF:-1 tvg-id="SkySportsMainEvent.uk@TvVoo" '
+            'x-resolver="tvvoo",Sky Sports Main Event',
+            "https://example.invalid/tvvoo.m3u8",
+        ]
+        channels = update_m3u.parse_channels(lines)
+        app_only = update_m3u.app_only_resolver_channel_ids(channels)
+
+        self.assertEqual(
+            {"SkySportsF1.uk", "SkySportsMainEvent.uk@TvVoo"},
+            set(app_only),
+        )
+        self.assertEqual(
+            {"0104"},
+            set(
+                update_m3u.public_main_membership_ids(
+                    {channel.tvg_id for channel in channels},
+                    app_only,
+                )
+            ),
+        )
+
     def test_external_policy_keeps_direct_and_selected_vavoo_brands(self) -> None:
         channels = [
             update_m3u.Channel(

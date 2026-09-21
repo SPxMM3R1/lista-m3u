@@ -30,12 +30,12 @@ canónicas. Al estar dentro del repositorio público, usan HTTPS y no tienen un
 TTL de acortador; seguirán disponibles mientras se conserve este repositorio y
 su rama `main`.
 
-Highfly ya no se publica como una tercera lista. Sus canales seleccionados se
-incorporan manualmente a la lista principal (`m3u.m3u`/`1.m3u`) y conservan
-`x-resolver="highfly"`, `x-resolver-id`, `x-resolver-manifest` y
-`x-resolver-refresh="on_play"`. El catálogo público de Highfly solo se consulta
-durante una corrida para renovar en memoria los slugs de esos canales manuales
-y no modifica la membresía de ninguna lista.
+Highfly y TvVoo son fuentes de reproducción exclusivas de VibeM3U. Sus canales
+no pertenecen a la lista principal (`m3u.m3u`/`1.m3u`): sus identidades se
+conservan en `channel-catalog.m3u` y la aplicación los incorpora desde su
+selección local para resolverlos justo al reproducir. El catálogo público de
+Highfly solo se consulta para renovar en memoria los slugs declarados por la
+app; el runner no promueve una selección de VibeM3U a la membresía pública.
 
 Guia de programacion XMLTV:
 
@@ -47,13 +47,13 @@ Catalogo declarativo de resolutores para VibeM3U:
 
 VibeM3U publica su selección de proveedor, sin URLs de reproducción, en
 `data/vibem3u-selection.json`. El runner consume ese archivo cuando existe:
-cruza Highfly por `catalogKey`, TvVoo por `catalogKey`/alias estable, conserva
-el `tvg-id` canónico y marca únicamente las coincidencias confirmadas como
-membresía gestionada por la aplicación. Las filas provisionales, ausentes o
-ambiguas quedan como `pending` en `channel-status.json`; no se convierten en
-un `tvg-id` ni reciben EPG/logo por aproximación. Un cambio en ese archivo
-dispara el workflow de canales para que la reconciliación ocurra después de la
-publicación de VibeM3U.
+cruza Highfly por `catalogKey` y TvVoo por `catalogKey`/alias estable para
+validar identidades, EPG, logos y referencias de resolución, pero mantiene esas
+familias fuera de `m3u.m3u`/`1.m3u`. Las filas provisionales, ausentes o ambiguas
+quedan como `pending` en `channel-status.json`; no se convierten en un `tvg-id`
+ni reciben EPG/logo por aproximación. Un cambio en ese archivo puede disparar
+el workflow de canales para actualizar metadatos, sin volver a publicar una
+URL dinámica en la lista principal.
 
 El contrato completo de identidades, EPG y logos está en
 [VIBEM3U_ID_CONTRACT_EPG_LOGOS.md](VIBEM3U_ID_CONTRACT_EPG_LOGOS.md).
@@ -163,10 +163,9 @@ El proceso de canales (`update-channels.yml` / `run_m3u_6h.py`):
   candidatos nuevos, valida su HLS y publica el enlace que respondió. Las
   respuestas de upgrade de Google, URLs de evento y hosts fuera de la lista
   permitida se descartan;
-- consulta el catálogo público de Highfly únicamente para renovar en memoria
-  los slugs `leaf:` de canales Highfly que ya fueron seleccionados manualmente
-  en la lista 1; ignora eventos temporales `streamed:` y no copia URLs firmadas,
-  tokens ni posters del proveedor;
+- consulta el catálogo público de Highfly únicamente para validar y renovar en
+  memoria los slugs `leaf:` declarados por VibeM3U; ignora eventos temporales
+  `streamed:` y no copia URLs firmadas, tokens ni posters del proveedor;
 - prioriza la guia oficial de Canal 13 para 13C, manteniendola separada de
   13 Cultura; si la pagina oficial no entrega bloques vigentes, usa Zapping
   como respaldo por canal;
@@ -344,12 +343,12 @@ colores, formas ni identificadores de canal.
 ## Orden de la lista
 
 El orden tematico se construye siempre desde `channel-catalog.m3u`, que
-conserva todos los candidatos. `m3u.m3u` contiene la selección manual ya
-probada; `m3u-externa.m3u` contiene el complemento publicable aún no promovido.
-Ambas salidas filtran el mismo catalogo sin alterar la posicion relativa de los
-canales. No existe una tercera salida: las señales Highfly que se quieran
-conservar se agregan manualmente a `m3u.m3u`/`1.m3u`. La salud no cambia el
-reparto manual salvo el traslado automático y reversible de 13C.
+conserva todos los candidatos. `m3u.m3u` contiene la selección manual de
+canales directos, TVN y Meganoticias; `m3u-externa.m3u` contiene el complemento
+publicable aún no promovido. TvVoo y Highfly quedan fuera de ambas decisiones
+de membresía de la lista principal y VibeM3U los añade localmente cuando el
+usuario los selecciona. La salud no cambia el reparto manual salvo el traslado
+automático y reversible de 13C.
 
 La lista externa conserva todos los canales directos. Para los candidatos con
 `x-resolver="tvvoo"`, la política de publicación de la lista 2 conserva solo

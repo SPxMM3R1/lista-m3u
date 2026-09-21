@@ -64,6 +64,54 @@ class VibeM3USelectionTest(unittest.TestCase):
         self.assertEqual(frozenset({"SkySportsTennis.uk"}), result.selected_catalog_ids)
         self.assertEqual("catalogKey=tvg-id", result.matched[0].match)
 
+    def test_empty_category_is_valid_editorial_metadata(self) -> None:
+        payload = self.base_manifest(
+            [
+                {
+                    "provider": "highfly",
+                    "catalogKey": "SkySportsTennis.uk",
+                    "providerResourceId": "leaf:tennis-847291",
+                    "resolverSlug": "tennis-847291",
+                    "name": "Sky Sports Tennis",
+                    "group": "Deportes",
+                    "category": "",
+                    "identityState": "canonical",
+                    "order": 1,
+                }
+            ]
+        )
+
+        document = vibem3u_selection.load_selection(self.write_manifest(payload))
+
+        self.assertEqual("", document.rows[0].category)
+
+    def test_duplicate_provider_resources_share_one_stable_selection_row(self) -> None:
+        channels = []
+        for order, resource in enumerate(
+                ("leaf:f1-3949409", "leaf:f1-4k-344334"),
+                start=1,
+        ):
+            channels.append(
+                {
+                    "provider": "highfly",
+                    "catalogKey": "SkySportsF1.uk",
+                    "providerResourceId": resource,
+                    "resolverSlug": resource[5:],
+                    "name": "Sky Sports F1",
+                    "group": "Deportes",
+                    "category": "Motor Sports",
+                    "identityState": "canonical",
+                    "order": order,
+                }
+            )
+
+        document = vibem3u_selection.load_selection(
+            self.write_manifest(self.base_manifest(channels))
+        )
+
+        self.assertEqual(1, len(document.rows))
+        self.assertEqual("leaf:f1-3949409", document.rows[0].provider_resource_id)
+
     def test_tvvoo_matches_by_encoded_resolver_alias(self) -> None:
         stable_id = "unitedkingdom|vavoo_SKY%201%7Cgroup%3Auk"
         path = self.write_manifest(

@@ -6,6 +6,12 @@ VibeM3U entregará la selección de canales y sus identidades de proveedor. El
 runner de `Lista M3U` usará esas identidades para localizar, validar y publicar
 el `tvg-id` canónico, la EPG y el logo correspondiente.
 
+La selección de TvVoo y Highfly es app-only: el runner puede reconciliar sus
+identidades, EPG, logos y referencias de resolución, pero no los agrega a la
+membresía pública de `m3u.m3u`/`1.m3u`. VibeM3U incorpora esos canales localmente
+y renueva su fuente al iniciar la reproducción, evitando que una caída
+transitoria del proveedor obligue a regenerar la lista pública.
+
 La identidad que entregue VibeM3U debe permitir reconocer el mismo canal
 después de una renovación del catálogo, un cambio de `leaf`, una actualización
 de la URL HLS, un cambio de logo o un cambio de posición.

@@ -155,9 +155,11 @@ def load_selection(path: Path) -> SelectionDocument:
                 continue
             key = (row.provider, row.catalog_key)
             if key in seen_keys:
-                raise SelectionError(
-                    f"{path.name}: catalogKey duplicado: {row.provider}/{row.catalog_key}"
-                )
+                # Several provider resources or quality variants may describe
+                # the same stable catalogKey.  Keep the first ordered row for
+                # EPG/logo reconciliation; the app still owns its local
+                # runtime alternatives.
+                continue
             seen_keys.add(key)
             rows.append(row)
     rows.sort(key=lambda item: (item.order, item.provider, item.catalog_key))
@@ -243,7 +245,10 @@ def _parse_row(raw_row: object, provider: str, filename: str) -> SelectionRow:
     _validate_catalog_key(provider, catalog_key, filename)
     name = _required_text(raw_row, "name", filename)
     group = _required_text(raw_row, "group", filename)
-    category = _required_text(raw_row, "category", filename)
+    # Category is editorial metadata, not identity.  VibeM3U may legitimately
+    # leave it blank while the runner still has a stable catalogKey, group and
+    # order to reconcile.
+    category = _optional_text(raw_row, "category")
     identity_state = _required_text(raw_row, "identityState", filename).casefold()
     if identity_state not in {"canonical", "provisional"}:
         raise SelectionError(f"{filename}: identityState invalido para {catalog_key}")
