@@ -182,7 +182,7 @@ jobs:
               rm -f "$tmp"
               return 1
             fi
-            grep -q "$2" "$tmp"
+            grep -Eq "$2" "$tmp"
             status=$?
             rm -f "$tmp"
             return "$status"
@@ -192,11 +192,11 @@ jobs:
           check_raw 1.m3u '#EXTM3U' || exit_code=1
           check_raw 2.m3u '#EXTM3U' || exit_code=1
           check_raw channel-catalog.m3u '#EXTM3U' || exit_code=1
-          check_raw resolver-catalog.json '"schemaVersion": 1' || exit_code=1
-          check_raw channel-health-state.json '"schema": 1' || exit_code=1
-          check_raw run-state.json '"schema": 2' || exit_code=1
+          check_raw resolver-catalog.json '"schemaVersion"[[:space:]]*:[[:space:]]*1' || exit_code=1
+          check_raw channel-health-state.json '"schema"[[:space:]]*:[[:space:]]*1' || exit_code=1
+          check_raw run-state.json '"schema"[[:space:]]*:[[:space:]]*2' || exit_code=1
           if [ -f data/vibem3u-selection.json ]; then
-            check_raw data/vibem3u-selection.json '"schemaVersion": 1' || exit_code=1
+            check_raw data/vibem3u-selection.json '"schemaVersion"[[:space:]]*:[[:space:]]*1' || exit_code=1
           fi
           echo "status=$exit_code" >> "$GITHUB_OUTPUT"
           exit 0
