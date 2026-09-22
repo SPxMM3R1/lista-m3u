@@ -51,9 +51,10 @@ cruza Highfly por `catalogKey` y TvVoo por `catalogKey`/alias estable para
 validar identidades, EPG, logos y referencias de resolución, pero mantiene esas
 familias fuera de `m3u.m3u`/`1.m3u`. Las filas provisionales, ausentes o ambiguas
 quedan como `pending` en `channel-status.json`; no se convierten en un `tvg-id`
-ni reciben EPG/logo por aproximación. Un cambio en ese archivo puede disparar
-el workflow de canales para actualizar metadatos, sin volver a publicar una
-URL dinámica en la lista principal.
+ni reciben EPG/logo por aproximación. Un cambio en ese archivo dispara el
+workflow de canales para actualizar metadatos y el workflow independiente de
+EPG para regenerar de inmediato la guía del catálogo canónico completo, sin
+volver a publicar una URL dinámica en la lista principal.
 
 El contrato completo de identidades, EPG y logos está en
 [VIBEM3U_ID_CONTRACT_EPG_LOGOS.md](VIBEM3U_ID_CONTRACT_EPG_LOGOS.md).
