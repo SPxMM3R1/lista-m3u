@@ -144,7 +144,7 @@
     <dialog class="dialog add-dialog" id="add-dialog" aria-labelledby="add-dialog-title">
       <form method="dialog" class="dialog-shell">
         <div class="dialog-heading">
-          <div><h2 id="add-dialog-title">Añadir canales</h2><p>Elige una fuente; los catálogos externos se consultan aquí.</p></div>
+          <div><h2 id="add-dialog-title">Añadir canales</h2><p>Elige una fuente; Highfly y TvVoo también aceptan catálogos pegados.</p></div>
           <button class="icon-button" value="cancel" aria-label="Cerrar catálogo disponible">
             <svg aria-hidden="true" viewBox="0 0 20 20"><path d="m5 5 10 10M15 5 5 15"/></svg>
           </button>
@@ -169,6 +169,30 @@
           <button class="text-button catalog-refresh" id="refresh-provider-catalog" type="button" hidden>Actualizar catálogo</button>
         </div>
         <p class="catalog-status" id="provider-catalog-status" role="status" aria-live="polite"></p>
+        <details class="catalog-manual" id="manual-catalog">
+          <summary>¿No carga el proveedor? Pega aquí su JSON</summary>
+          <div class="catalog-manual-provider" id="highfly-json-panel" hidden>
+            <label class="catalog-json-label" for="highfly-catalog-json">Catálogo JSON de Highfly</label>
+            <textarea class="catalog-json-input" id="highfly-catalog-json" rows="5" spellcheck="false" autocomplete="off" placeholder='{"metas":[{"id":"leaf:…","name":"…"}]}'></textarea>
+            <p class="catalog-json-help">Pega el JSON del catálogo con <code>metas</code>. Solo se conservan nombres e identidades; no se importan logos, URL ni direcciones de streaming.</p>
+            <div class="catalog-json-actions"><button class="button button-secondary" id="use-highfly-json" type="button">Usar JSON de Highfly</button></div>
+            <p class="catalog-json-status" id="highfly-json-status" role="status" aria-live="polite"></p>
+          </div>
+          <div class="catalog-manual-provider" id="tvvoo-json-panel" hidden>
+            <details class="catalog-manifest-manual">
+              <summary>Si no carga la lista de países, pega el manifiesto TvVoo</summary>
+              <label class="catalog-json-label" for="tvvoo-manifest-json">Manifiesto JSON de TvVoo</label>
+              <textarea class="catalog-json-input catalog-json-input-compact" id="tvvoo-manifest-json" rows="3" spellcheck="false" autocomplete="off" placeholder='{"catalogs":[{"id":"vavoo_tv_es","name":"…"}]}'></textarea>
+              <div class="catalog-json-actions"><button class="button button-secondary" id="use-tvvoo-manifest-json" type="button">Cargar países del JSON</button></div>
+              <p class="catalog-json-status" id="tvvoo-manifest-status" role="status" aria-live="polite"></p>
+            </details>
+            <label class="catalog-json-label" for="tvvoo-catalog-json">Catálogo regional JSON de TvVoo</label>
+            <textarea class="catalog-json-input" id="tvvoo-catalog-json" rows="5" spellcheck="false" autocomplete="off" placeholder='{"metas":[{"id":"vavoo_…|group:es","name":"…"}]}'></textarea>
+            <p class="catalog-json-help">Selecciona el país arriba y pega su catálogo con <code>metas</code>. Se conserva el alias canónico junto al país; no se importan logos ni URL.</p>
+            <div class="catalog-json-actions"><button class="button button-secondary" id="use-tvvoo-json" type="button">Usar JSON de TvVoo</button></div>
+            <p class="catalog-json-status" id="tvvoo-json-status" role="status" aria-live="polite"></p>
+          </div>
+        </details>
         <label class="search-field logo-search">
           <svg aria-hidden="true" viewBox="0 0 20 20"><circle cx="8.5" cy="8.5" r="5.25"/><path d="m12.5 12.5 4 4"/></svg>
           <span class="visually-hidden">Buscar canales disponibles</span>

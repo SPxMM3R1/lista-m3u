@@ -20,8 +20,11 @@ import {
   loadTvVooCatalog,
   normalizeProviderName,
   parseHighflyCatalog,
+  parseHighflyCatalogJson,
   parseTvVooCatalog,
+  parseTvVooCatalogJson,
   parseTvVooManifest,
+  parseTvVooManifestJson,
 } from "../site/provider-catalog.mjs";
 
 globalThis.crypto ??= webcrypto;
@@ -180,6 +183,34 @@ test("TvVoo catalog rows use country plus canonical alias and drop remote logo U
   assert.equal(Object.hasOwn(rows[0], "logo"), false);
   assert.equal(JSON.stringify(rows).includes("private.invalid"), false);
   assert.deepEqual(validateLayout({ schemaVersion: 1, channels: [{ ...rows[0], order: 1, number: 1, state: "active" }] }), []);
+});
+
+test("pasted Highfly and TvVoo JSON uses the same stable identity parsers", () => {
+  const highfly = parseHighflyCatalogJson(JSON.stringify({ metas: [
+    { id: "leaf:rotating-resource", name: "(FHD) : SKY SPORTS F1", streamUrl: "https://private.invalid/live.m3u8?token=secret" },
+  ] }), [{ catalogKey: "SkySportsF1.uk", name: "Sky Sports F1" }]);
+  assert.equal(highfly[0].catalogKey, "SkySportsF1.uk");
+  assert.equal(highfly[0].providerResourceId, "leaf:rotating-resource");
+  assert.equal(JSON.stringify(highfly).includes("private.invalid"), false);
+
+  const countries = parseTvVooManifestJson(JSON.stringify({ catalogs: [
+    { id: "vavoo_search_tv", name: "Search", type: "tv" },
+    { id: "vavoo_tv_es", name: "Vavoo TV • Spain", type: "tv" },
+  ] }));
+  assert.equal(countries[0].countryKey, "spain");
+  const tvvoo = parseTvVooCatalogJson(JSON.stringify({ metas: [
+    { id: "vavoo_ESPN%201|group:es", name: "ESPN 1", streamUrl: "https://private.invalid/live.m3u8" },
+  ] }), countries[0]);
+  assert.equal(tvvoo[0].catalogKey, "spain|vavoo_ESPN%201%7Cgroup%3Aes");
+  assert.equal(JSON.stringify(tvvoo).includes("private.invalid"), false);
+});
+
+test("pasted provider JSON rejects invalid, wrong-shape and oversized documents", () => {
+  assert.throws(() => parseHighflyCatalogJson("{not-json"), /JSON válido/);
+  assert.throws(() => parseHighflyCatalogJson("{}"), /metas/);
+  assert.throws(() => parseTvVooCatalogJson(JSON.stringify({ metas: [{ id: "vavoo_ESPN", name: "ESPN" }] }), null), /país TvVoo seleccionado/);
+  assert.throws(() => parseHighflyCatalogJson(`${JSON.stringify({ metas: [] })}${" ".repeat(2 * 1024 * 1024)}`), /2 MiB/);
+  assert.throws(() => parseTvVooManifestJson(`${JSON.stringify({ catalogs: [] })}${" ".repeat(512 * 1024)}`), /512 KiB/);
 });
 
 test("provider fetches are fixed-origin, credential-free metadata GETs", async () => {

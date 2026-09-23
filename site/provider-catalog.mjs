@@ -115,6 +115,28 @@ export function parseHighflyCatalog(document, registry = []) {
   return result;
 }
 
+function parsePastedJson(raw, maximumBytes, provider) {
+  if (typeof raw !== "string" || !raw.trim()) throw new Error(`Pega primero el JSON de ${provider}.`);
+  if (new TextEncoder().encode(raw).byteLength > maximumBytes) {
+    const megabytes = maximumBytes / (1024 * 1024);
+    const limit = Number.isInteger(megabytes) ? `${megabytes} MiB` : `${Math.ceil(maximumBytes / 1024)} KiB`;
+    throw new Error(`El JSON de ${provider} supera el límite de ${limit}.`);
+  }
+  try {
+    return JSON.parse(raw);
+  } catch {
+    throw new Error(`El texto de ${provider} no es JSON válido.`);
+  }
+}
+
+export function parseHighflyCatalogJson(raw, registry = []) {
+  const document = parsePastedJson(raw, MAX_HIGHFLY_BYTES, "Highfly");
+  if (!Array.isArray(document?.metas)) throw new Error("El JSON Highfly debe ser un catálogo con una propiedad metas[].");
+  const rows = parseHighflyCatalog(document, registry);
+  if (!rows.length) throw new Error("El JSON no contiene canales Highfly reconocibles. Se esperan recursos leaf:* con nombre.");
+  return rows;
+}
+
 export function parseTvVooManifest(document) {
   if (!Array.isArray(document?.catalogs)) throw new Error("TvVoo no publicó una lista de países reconocible.");
   const countries = [];
@@ -135,6 +157,10 @@ export function parseTvVooManifest(document) {
   }
   if (!countries.length) throw new Error("TvVoo no publicó catálogos de televisión disponibles.");
   return countries.sort((left, right) => left.id === "vavoo_tv_es" ? -1 : right.id === "vavoo_tv_es" ? 1 : left.name.localeCompare(right.name, "es"));
+}
+
+export function parseTvVooManifestJson(raw) {
+  return parseTvVooManifest(parsePastedJson(raw, MAX_MANIFEST_BYTES, "el manifiesto TvVoo"));
 }
 
 function decodeAliasPart(value) {
@@ -199,6 +225,14 @@ export function parseTvVooCatalog(document, country) {
     });
   }
   return result;
+}
+
+export function parseTvVooCatalogJson(raw, country) {
+  const document = parsePastedJson(raw, MAX_TVVOO_BYTES, "TvVoo");
+  if (!Array.isArray(document?.metas)) throw new Error("El JSON TvVoo debe ser un catálogo regional con una propiedad metas[].");
+  const rows = parseTvVooCatalog(document, country);
+  if (!rows.length) throw new Error("El JSON no contiene canales TvVoo reconocibles para el país seleccionado.");
+  return rows;
 }
 
 async function fetchJson(url, maximumBytes, fetchImpl, signal, unavailableMessage) {

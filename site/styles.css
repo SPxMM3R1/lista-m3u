@@ -58,9 +58,9 @@ body {
   line-height: 1.45;
 }
 
-button, input, select { font: inherit; }
+button, input, select, textarea { font: inherit; }
 button { color: inherit; }
-button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible {
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, summary:focus-visible {
   outline: 3px solid var(--focus);
   outline-offset: 3px;
 }
@@ -444,6 +444,26 @@ input[type="range"] { width: 100%; height: 1.45rem; margin: 0; accent-color: var
 .catalog-status { min-height: 1.25rem; margin: 0.2rem 0 0.25rem; color: var(--muted); font-size: 0.81rem; line-height: 1.4; }
 .catalog-status[data-state="loading"] { color: var(--blue-deep); }
 .catalog-status[data-state="error"] { color: var(--red); }
+.catalog-manual { margin: 0.15rem 0 0.75rem; border: 1px solid var(--line); border-radius: var(--radius-small); background: #fbfcfe; }
+.catalog-manual > summary, .catalog-manifest-manual > summary { padding: 0.65rem 0.75rem; color: var(--blue-deep); cursor: pointer; font-size: 0.84rem; font-weight: 650; }
+.catalog-manual-provider { display: grid; gap: 0.45rem; padding: 0.1rem 0.75rem 0.75rem; }
+.catalog-manifest-manual { margin-bottom: 0.35rem; border: 1px solid var(--line); border-radius: 5px; background: var(--surface); }
+.catalog-manifest-manual > summary { color: var(--ink-soft); font-size: 0.8rem; }
+.catalog-manifest-manual > .catalog-json-label,
+.catalog-manifest-manual > .catalog-json-input,
+.catalog-manifest-manual > .catalog-json-actions,
+.catalog-manifest-manual > .catalog-json-status { margin-right: 0.65rem; margin-left: 0.65rem; width: calc(100% - 1.3rem); }
+.catalog-manifest-manual > .catalog-json-status { margin-bottom: 0.55rem; }
+.catalog-json-label { color: var(--ink-soft); font-size: 0.82rem; font-weight: 650; }
+.catalog-json-input { width: 100%; min-height: 7rem; resize: vertical; padding: 0.65rem 0.7rem; color: var(--ink); background: var(--surface); border: 1px solid var(--line-strong); border-radius: 5px; font-family: ui-monospace, "Cascadia Code", Consolas, monospace; font-size: 0.76rem; line-height: 1.45; tab-size: 2; }
+.catalog-json-input-compact { min-height: 4.5rem; }
+.catalog-json-help { margin: 0; color: var(--muted); font-size: 0.77rem; line-height: 1.4; }
+.catalog-json-actions { display: flex; justify-content: flex-end; }
+.catalog-json-actions .button { min-height: 2.25rem; padding: 0.38rem 0.7rem; font-size: 0.83rem; }
+.catalog-json-status { min-height: 1.15rem; margin: 0; color: var(--muted); font-size: 0.77rem; line-height: 1.4; }
+.catalog-json-status[data-state="error"] { color: var(--red); }
+.add-dialog .dialog-shell { overflow-y: auto; }
+.add-dialog.has-manual-open .available-list { max-height: 28vh; }
 .available-list { display: grid; gap: 0.3rem; max-height: 50vh; padding: 0.4rem 0; overflow: auto; }
 .available-row { display: grid; grid-template-columns: 2.4rem minmax(0, 1fr) auto auto; align-items: center; gap: 0.65rem; min-height: 3.4rem; padding: 0.35rem 0.55rem; border-bottom: 1px solid #e8ebf1; }
 .available-row .channel-logo, .available-row .logo-fallback { width: 2rem; height: 2rem; }
