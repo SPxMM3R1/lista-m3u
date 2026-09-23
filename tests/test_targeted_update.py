@@ -1,7 +1,8 @@
 import json
+import tempfile
 import unittest
 from pathlib import Path
-import tempfile
+from subprocess import CompletedProcess
 from unittest.mock import patch
 
 import update_m3u
@@ -27,6 +28,39 @@ def xml(*programmes: str) -> bytes:
 
 
 class TargetedUpdateTest(unittest.TestCase):
+    def test_repository_plan_skips_binary_web_assets(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            project_root = Path(directory)
+            asset = project_root / "site" / "assets" / "fonts" / "font.ttf"
+            asset.parent.mkdir(parents=True)
+            asset.write_bytes(b"\x00\xff\xfe")
+            diff_result = CompletedProcess(
+                args=["git", "diff"],
+                returncode=0,
+                stdout="site/assets/fonts/font.ttf\n",
+                stderr="",
+            )
+            show_result = CompletedProcess(
+                args=["git", "show"],
+                returncode=0,
+                stdout=b"\x00\xff\xfe",
+                stderr=b"",
+            )
+            with (
+                patch.object(targeted_update, "PROJECT_ROOT", project_root),
+                patch.object(
+                    targeted_update.subprocess,
+                    "run",
+                    side_effect=[diff_result, show_result],
+                ),
+            ):
+                plan, before, after = targeted_update.repository_plan("a" * 40)
+
+        self.assertEqual(change_plan.ChangeKind.FULL, plan.kind)
+        self.assertEqual(("site/assets/fonts/font.ttf",), plan.changed_files)
+        self.assertEqual({}, before)
+        self.assertEqual({}, after)
+
     def test_presentation_intent_is_persisted_for_the_scheduled_runner(self) -> None:
         before = {
             "channel-catalog.m3u": (

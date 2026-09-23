@@ -37,6 +37,14 @@ STREAM_OVERRIDES_PATH = PROJECT_ROOT / "stream-overrides.json"
 EPG_MANUAL_OVERRIDES_PATH = PROJECT_ROOT / "epg-manual-overrides.xml"
 
 
+def _decode_utf8_text(data: bytes) -> str | None:
+    """Decode a text snapshot, treating binary assets as non-text inputs."""
+    try:
+        return data.decode("utf-8-sig")
+    except UnicodeDecodeError:
+        return None
+
+
 def _git_text(base: str, path: str) -> str | None:
     result = subprocess.run(
         ["git", "show", f"{base}:{path}"],
@@ -46,7 +54,7 @@ def _git_text(base: str, path: str) -> str | None:
     )
     if result.returncode != 0:
         return None
-    return result.stdout.decode("utf-8-sig")
+    return _decode_utf8_text(result.stdout)
 
 
 def repository_plan(base: str) -> tuple[change_plan.ChangePlan, dict[str, str], dict[str, str]]:
@@ -71,7 +79,9 @@ def repository_plan(base: str) -> tuple[change_plan.ChangePlan, dict[str, str], 
             before[path] = old
         current = PROJECT_ROOT / path
         if current.is_file():
-            after[path] = current.read_text(encoding="utf-8-sig")
+            current_text = _decode_utf8_text(current.read_bytes())
+            if current_text is not None:
+                after[path] = current_text
     return change_plan.classify_changes(paths, before=before, after=after), before, after
 
 
