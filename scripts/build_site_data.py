@@ -23,6 +23,10 @@ SITE = ROOT / "site"
 DEFAULT_OUTPUT = ROOT / "_site"
 REPOSITORY = "SPxMM3R1/lista-m3u"
 EXTINF_ATTRIBUTE = re.compile(r'([\w-]+)="([^"]*)"')
+UNSAFE_PROVIDER_TEXT = re.compile(
+    r"https?://|\.m3u8?(?:\b|\?)|\.mpd(?:\b|\?)|access_token=|token=|signature=|hdnts=|[\r\n]",
+    re.I,
+)
 ALLOWED_LOGO_EXTENSIONS = {".png", ".jpg", ".jpeg", ".webp", ".svg"}
 EDITOR_LAYOUT_PATH = Path("data/channel-editor-layout.json")
 SELECTION_PATH = Path("data/vibem3u-selection.json")
@@ -99,6 +103,36 @@ def parse_playlist(text: str, source_list: str) -> list[dict[str, object]]:
             }
         )
     return channels
+
+
+def parse_provider_identities(text: str) -> list[dict[str, str]]:
+    """Export only canonical IDs/names for exact provider identity matching."""
+    identities: list[dict[str, str]] = []
+    seen: set[tuple[str, str]] = set()
+    for line in text.lstrip("\ufeff").splitlines():
+        if not line.startswith("#EXTINF:"):
+            continue
+        metadata, comma, display = line.rpartition(",")
+        if not comma:
+            continue
+        attrs = {key: value for key, value in EXTINF_ATTRIBUTE.findall(metadata)}
+        if attrs.get("x-resolver", "").casefold() == "tvvoo":
+            continue
+        catalog_key = attrs.get("tvg-id", "").strip()
+        name = (attrs.get("tvg-name") or display).strip()
+        if (
+            not catalog_key
+            or catalog_key.casefold().startswith("leaf:")
+            or not name
+            or any(UNSAFE_PROVIDER_TEXT.search(value) for value in (catalog_key, name))
+        ):
+            continue
+        identity = (catalog_key, name)
+        if identity in seen:
+            continue
+        seen.add(identity)
+        identities.append({"catalogKey": catalog_key, "name": name})
+    return identities
 
 
 def _provider_row(provider: str, row: dict) -> dict[str, object]:
@@ -356,6 +390,12 @@ def build_bundle(output: Path = DEFAULT_OUTPUT) -> Path:
     data_dir.mkdir(parents=True, exist_ok=True)
     (data_dir / "catalog.json").write_text(
         json.dumps({"channels": catalog}, ensure_ascii=False, separators=(",", ":")) + "\n",
+        encoding="utf-8",
+    )
+    channel_catalog_path = ROOT / "channel-catalog.m3u"
+    identities = parse_provider_identities(channel_catalog_path.read_text(encoding="utf-8-sig"))
+    (data_dir / "provider-identities.json").write_text(
+        json.dumps({"identities": identities}, ensure_ascii=False, separators=(",", ":")) + "\n",
         encoding="utf-8",
     )
     (data_dir / "logos.json").write_text(

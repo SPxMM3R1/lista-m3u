@@ -1,18 +1,21 @@
-# Contrato de identidades VibeM3U → Lista M3U
+# Contrato de identidades VibeM3U ↔ Lista M3U
 
 ## Objetivo
 
-VibeM3U entregará la selección de canales y sus identidades de proveedor. El
-runner de `Lista M3U` usará esas identidades para localizar, validar y publicar
-el `tvg-id` canónico, la EPG y el logo correspondiente.
+El editor web de `Lista M3U` crea y publica la selección de canales y sus
+identidades de proveedor. `VibeM3U` consume esa selección para incorporar los
+canales al orden local y resolverlos al iniciar la reproducción. El runner de
+`Lista M3U` usa las mismas identidades para localizar, validar y publicar el
+`tvg-id` canónico, la EPG y el logo correspondiente.
 
-La selección de TvVoo y Highfly es app-only: el runner puede reconciliar sus
+El uso de TvVoo y Highfly es app-only: el runner puede reconciliar sus
 identidades, EPG, logos y referencias de resolución, pero no los agrega a la
-membresía pública de `m3u.m3u`/`1.m3u`. VibeM3U incorpora esos canales localmente
-y renueva su fuente al iniciar la reproducción, evitando que una caída
-transitoria del proveedor obligue a regenerar la lista pública.
+membresía pública de `m3u.m3u`/`1.m3u`. VibeM3U incorpora los canales
+seleccionados localmente y renueva su fuente al iniciar la reproducción,
+evitando que una caída transitoria del proveedor obligue a regenerar la lista
+pública.
 
-La identidad que entregue VibeM3U debe permitir reconocer el mismo canal
+La identidad que publique el editor debe permitir reconocer el mismo canal
 después de una renovación del catálogo, un cambio de `leaf`, una actualización
 de la URL HLS, un cambio de logo o un cambio de posición.
 
@@ -108,7 +111,7 @@ venga con una etiqueta como `(FHD)` o `4K`.
 
 ### Canal nuevo que todavía no existe en Lista M3U
 
-VibeM3U debe entregar una identidad determinista. La prioridad es:
+El editor debe publicar una identidad determinista. La prioridad es:
 
 1. ID canónica proporcionada por Highfly, si existe.
 2. Alias canónico estable definido por el proyecto.
@@ -150,7 +153,7 @@ son datos de resolución, no de identidad.
 
 ## Formato del archivo de selección
 
-El archivo publicado por VibeM3U es:
+El archivo que publica el editor web y consume VibeM3U es:
 
 ```text
 data/vibem3u-selection.json
@@ -332,9 +335,9 @@ El `catalogKey` TvVoo tampoco debe confundirse con una URL HLS, un token o un
 alias temporal. El runner usará esa clave para conservar el `tvg-id`, la EPG y
 el logo publicados.
 
-## Checklist para VibeM3U
+## Checklist para el editor de selección
 
-Antes de publicar una selección, VibeM3U debe comprobar:
+Antes de publicar una selección, el editor web debe comprobar:
 
 - [ ] `provider` está permitido.
 - [ ] `catalogKey` existe y es estable.
@@ -380,35 +383,22 @@ falla sin publicar si la Lista 1 quedara vacía. Las exclusiones fuera del
 catálogo actual se mantienen como tombstones, sin tratarse como identidades
 de reproducción.
 
-Para incluir en el editor canales de proveedor todavía no seleccionados,
-VibeM3U puede exportar un archivo JSON descargable con este contrato:
+El editor descubre Highfly y TvVoo directamente desde sus catálogos públicos;
+no requiere importar un archivo generado por la aplicación ni llama a
+endpoints de reproducción. Para Highfly, los nombres se contrastan con el
+registro canónico de `channel-catalog.m3u`; las identidades nuevas o ambiguas
+se mantienen provisionales para que el runner no les asigne EPG o logo por
+aproximación. Los IDs de evento que no usan el prefijo persistente `leaf:` no
+se ofrecen como canales ordenables.
 
-```json
-{
-  "schemaVersion": 1,
-  "providers": [
-    {
-      "provider": "highfly",
-      "channels": [
-        {
-          "catalogKey": "SkySportsTennis.uk",
-          "providerResourceId": "leaf:now-sky-sports-tennis",
-          "resolverSlug": "now-sky-sports-tennis",
-          "name": "Sky Sports Tennis",
-          "group": "Deportes",
-          "category": "Tennis",
-          "countryKey": "uk",
-          "identityState": "canonical"
-        }
-      ]
-    }
-  ]
-}
-```
-
-Este catálogo de importación contiene solo metadatos editoriales y referencias
-de resolución del contrato. Debe excluir URLs HLS, tokens, credenciales,
-respuestas crudas y enlaces temporales del proveedor.
+Para TvVoo, el editor toma los catálogos regionales declarados por el
+manifiesto y selecciona un país por vez. Construye `catalogKey` con la misma
+normalización `countryKey|canonicalAlias` que `TvVooCatalogChannel` en
+VibeM3U; mantiene el alias en `aliases` y usa `catalogKey` como
+`providerResourceId`. Los logos remotos y las referencias de reproducción no
+se copian. El editor conserva las elecciones existentes y solo refresca
+`providerResourceId`/`resolverSlug` cuando Highfly rota una referencia para el
+mismo `catalogKey`.
 
 El editor escribe las elecciones de logo local en `presentation-overrides.json`
 como un mapa `logos` de identidad estable a ruta existente bajo `logos/`. Para

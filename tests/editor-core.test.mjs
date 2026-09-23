@@ -10,9 +10,19 @@ import {
   removePermanently,
   rowKey,
   setRowState,
+  summarizeChanges,
   validateLayout,
-  validateProviderCatalog,
 } from "../site/editor-core.mjs";
+import {
+  canonicalTvVooAlias,
+  highflyIdentity,
+  loadHighflyCatalog,
+  loadTvVooCatalog,
+  normalizeProviderName,
+  parseHighflyCatalog,
+  parseTvVooCatalog,
+  parseTvVooManifest,
+} from "../site/provider-catalog.mjs";
 
 globalThis.crypto ??= webcrypto;
 
@@ -102,24 +112,141 @@ test("M3U-only changes do not rewrite provider selection timestamps", async () =
   assert.equal(next.selectionSignature, original.selectionSignature);
 });
 
-test("provider import strips any field that is not part of the identity contract", () => {
-  const imported = validateProviderCatalog({
-    schemaVersion: 1,
-    providers: [{
-      provider: "highfly",
-      channels: [{
-        catalogKey: "SkySportsF1.uk",
-        providerResourceId: "leaf:f1-live",
-        resolverSlug: "f1-live",
-        identityState: "canonical",
-        name: "Sky Sports F1",
-        group: "Sports",
-        category: "Sports",
-        streamUrl: "https://example.invalid/private.m3u8",
-      }],
-    }],
+test("Highfly keeps a canonical catalogKey when its leaf reference rotates", () => {
+  const registry = [{ catalogKey: "SkySportsF1.uk", name: "Sky Sports F1" }];
+  const oldRows = parseHighflyCatalog({ metas: [{ id: "leaf:f1-old", name: "(FHD) : SKY SPORTS F1" }] }, registry);
+  const newRows = parseHighflyCatalog({ metas: [{ id: "leaf:f1-new", name: "(FHD) : SKY SPORTS F1", logo: "https://private.invalid/logo.png", streamUrl: "https://private.invalid/live.m3u8?token=secret" }] }, registry);
+
+  assert.equal(oldRows[0].catalogKey, "SkySportsF1.uk");
+  assert.equal(newRows[0].catalogKey, oldRows[0].catalogKey);
+  assert.equal(newRows[0].identityState, "canonical");
+  assert.equal(newRows[0].providerResourceId, "leaf:f1-new");
+  assert.equal(newRows[0].resolverSlug, "f1-new");
+  assert.equal(JSON.stringify(newRows).includes("private.invalid"), false);
+  assert.equal(JSON.stringify(newRows).includes("token="), false);
+  assert.deepEqual(validateLayout({ schemaVersion: 1, channels: [{ ...newRows[0], order: 1, number: 1, state: "active" }] }), []);
+});
+
+test("unknown Highfly names use deterministic provisional identities, never leaf IDs", () => {
+  const first = parseHighflyCatalog({ metas: [
+    { id: "leaf:rotating-1", name: "Canal Ñuevo" },
+    { id: "streamed:event-1", name: "Partido en vivo" },
+  ] });
+  const second = parseHighflyCatalog({ metas: [{ id: "leaf:rotating-2", name: "Canal Ñuevo" }] });
+  const ambiguous = highflyIdentity("Canal Ñuevo", [
+    { catalogKey: "CanalA.es", name: "Canal Ñuevo" },
+    { catalogKey: "CanalB.es", name: "Canal Ñuevo" },
+  ]);
+
+  assert.equal(normalizeProviderName("Canal Ñuevo"), "canalnuevo");
+  assert.equal(first[0].catalogKey, "Highfly.canalnuevo");
+  assert.equal(second[0].catalogKey, first[0].catalogKey);
+  assert.equal(first[0].identityState, "provisional");
+  assert.equal(ambiguous.catalogKey, "Highfly.canalnuevo");
+  assert.equal(ambiguous.identityState, "provisional");
+  assert.equal(highflyIdentity("Sky Sports Golf", []).catalogKey, "SkySportsGolf.uk");
+  assert.equal(highflyIdentity("Sky Sports Golf", []).identityState, "provisional");
+  assert.equal(first.length, 1, "event IDs are not persistent channel identities");
+});
+
+test("TvVoo country manifest omits search and keeps app-compatible country keys", () => {
+  const countries = parseTvVooManifest({ catalogs: [
+    { id: "vavoo_search_tv", name: "Search", type: "tv" },
+    { id: "vavoo_tv_uk", name: "Vavoo TV • United Kingdom", type: "tv" },
+    { id: "vavoo_tv_es", name: "Vavoo TV • Spain", type: "tv" },
+  ] });
+
+  assert.deepEqual(countries.map((country) => country.id), ["vavoo_tv_es", "vavoo_tv_uk"]);
+  assert.equal(countries[0].name, "España");
+  assert.equal(countries[1].countryKey, "unitedkingdom");
+});
+
+test("TvVoo aliases match VibeM3U encoding for raw, encoded, plus and percent values", () => {
+  assert.equal(canonicalTvVooAlias("vavoo_SKY%201|group:uk", "uk"), "vavoo_SKY%201%7Cgroup%3Auk");
+  assert.equal(canonicalTvVooAlias("vavoo_SKY%201%7Cgroup%3Auk", "uk"), "vavoo_SKY%201%7Cgroup%3Auk");
+  assert.equal(canonicalTvVooAlias("vavoo_CAN+%20NEWS|group:uk", "uk"), "vavoo_CAN%2B%20NEWS%7Cgroup%3Auk");
+  assert.equal(canonicalTvVooAlias("vavoo_100%25|group:uk", "uk"), "vavoo_100%25%7Cgroup%3Auk");
+});
+
+test("TvVoo catalog rows use country plus canonical alias and drop remote logo URLs", () => {
+  const country = { id: "vavoo_tv_es", code: "es", countryKey: "spain", name: "España" };
+  const rows = parseTvVooCatalog({ metas: [
+    { id: "vavoo_ESPN%201|group:es", name: "ESPN 1", logo: "https://private.invalid/espn.png" },
+  ] }, country);
+
+  assert.equal(rows[0].catalogKey, "spain|vavoo_ESPN%201%7Cgroup%3Aes");
+  assert.equal(rows[0].providerResourceId, rows[0].catalogKey);
+  assert.deepEqual(rows[0].aliases, ["vavoo_ESPN%201%7Cgroup%3Aes"]);
+  assert.equal(Object.hasOwn(rows[0], "logo"), false);
+  assert.equal(JSON.stringify(rows).includes("private.invalid"), false);
+  assert.deepEqual(validateLayout({ schemaVersion: 1, channels: [{ ...rows[0], order: 1, number: 1, state: "active" }] }), []);
+});
+
+test("provider fetches are fixed-origin, credential-free metadata GETs", async () => {
+  const calls = [];
+  const respond = (url, body) => ({
+    ok: true,
+    status: 200,
+    url,
+    headers: { get: () => null },
+    text: async () => JSON.stringify(body),
   });
-  assert.equal(imported.length, 1);
-  assert.equal(Object.hasOwn(imported[0], "streamUrl"), false);
-  assert.equal(validateLayout({ schemaVersion: 1, channels: [{ ...imported[0], order: 1, number: 1, state: "active" }] }).length, 0);
+  const fetchImpl = async (url, options) => {
+    calls.push({ url, options });
+    if (url === "https://sports.highfly.to/manifest.json") {
+      return respond(url, { resources: [{ name: "catalog" }], catalogs: [{ id: "sports_live" }] });
+    }
+    if (url === "https://sports.highfly.to/catalog/sport/sports_live.json") {
+      return respond(url, { metas: [{ id: "leaf:sample-one", name: "Sample One" }] });
+    }
+    throw new Error("Unexpected endpoint");
+  };
+
+  const rows = await loadHighflyCatalog({ fetchImpl });
+  assert.equal(rows[0].catalogKey, "Highfly.sampleone");
+  assert.deepEqual(calls.map((call) => call.url), [
+    "https://sports.highfly.to/manifest.json",
+    "https://sports.highfly.to/catalog/sport/sports_live.json",
+  ]);
+  for (const { options } of calls) {
+    assert.equal(options.method, "GET");
+    assert.equal(options.mode, "cors");
+    assert.equal(options.credentials, "omit");
+    assert.equal(options.cache, "no-store");
+    assert.equal(Object.hasOwn(options, "body"), false);
+  }
+});
+
+test("provider responses are size-limited before JSON parsing", async () => {
+  const oversized = new Response(
+    `${JSON.stringify({ resources: [{ name: "catalog" }], catalogs: [{ id: "sports_live" }] })}${" ".repeat(600 * 1024)}`,
+    { status: 200, headers: { "content-type": "application/json" } },
+  );
+
+  await assert.rejects(
+    loadHighflyCatalog({ fetchImpl: async () => oversized }),
+    /excede el tamaño permitido/,
+  );
+});
+
+test("TvVoo refuses a catalog outside its fixed country-catalog namespace", async () => {
+  let called = false;
+  await assert.rejects(
+    loadTvVooCatalog("https://attacker.invalid/manifest.json", { id: "https://attacker.invalid/manifest.json" }, {
+      fetchImpl: async () => { called = true; throw new Error("must not fetch"); },
+    }),
+    /no es válido/,
+  );
+  assert.equal(called, false);
+});
+
+test("change review counts Highfly locator rotations without counting new rows", () => {
+  const before = sampleLayout();
+  const after = structuredClone(before);
+  after.channels[1].providerResourceId = "leaf:f1-new";
+  after.channels[1].resolverSlug = "f1-new";
+  const summary = summarizeChanges(before, after, {}, {});
+
+  assert.equal(summary.providerReferenceChanges, 1);
+  assert.equal(summary.added, 0);
 });

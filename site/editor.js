@@ -15,8 +15,8 @@ import {
   stableId,
   summarizeChanges,
   validateLayout,
-  validateProviderCatalog,
 } from "./editor-core.mjs";
+import { loadHighflyCatalog, loadTvVooCatalog, loadTvVooManifest } from "./provider-catalog.mjs";
 
 const REPOSITORY = "SPxMM3R1/lista-m3u";
 const BRANCH = "main";
@@ -69,12 +69,23 @@ const elements = {
   addDialog: $("#add-dialog"),
   availableList: $("#available-list"),
   availableSearch: $("#available-search"),
-  providerFile: $("#provider-catalog-file"),
+  providerStatus: $("#provider-catalog-status"),
+  tvvooCountryField: $("#tvvoo-country-field"),
+  tvvooCountry: $("#tvvoo-country"),
+  refreshProviderCatalog: $("#refresh-provider-catalog"),
+};
+
+const PROVIDER_CACHE_MS = 10 * 60 * 1000;
+const providerCache = {
+  highfly: { rows: [], loadedAt: 0, status: "idle", error: "", pending: null },
+  tvvoo: { countries: [], loadedAt: 0, status: "idle", error: "", pending: null, catalogs: new Map() },
 };
 
 let state = null;
 let activeView = "active";
 let sourceFilter = "all";
+let addSource = "m3u";
+let selectedTvVooCatalogId = "vavoo_tv_es";
 let selectedKey = "";
 let tokenInMemory = "";
 let toastTimer = 0;
@@ -187,7 +198,7 @@ function normalizedLoadedLayout(layout, catalog, presentation) {
 
 async function initialize() {
   try {
-    const [catalog, logos, layout, selection, presentation, repository, runnerStatus] = await Promise.all([
+    const [catalog, logos, layout, selection, presentation, repository, runnerStatus, providerIdentities] = await Promise.all([
       loadJson("./data/catalog.json"),
       loadJson("./data/logos.json"),
       loadJson("./data/layout.json"),
@@ -195,6 +206,7 @@ async function initialize() {
       loadJson("./data/presentation.json"),
       loadJson("./data/repository.json"),
       loadJson("./data/runner-status.json"),
+      loadJson("./data/provider-identities.json"),
     ]);
     const normalizedLayout = normalizedLoadedLayout(layout, catalog, presentation);
     state = {
@@ -207,7 +219,7 @@ async function initialize() {
       originalPresentationBaseline: buildPresentationOverrides(normalizedLayout, presentation),
       repository,
       runnerStatus,
-      importedProviders: [],
+      providerIdentities: Array.isArray(providerIdentities.identities) ? providerIdentities.identities : [],
       numberDraft: "",
       loadingError: "",
     };
@@ -569,11 +581,80 @@ function renderLogos() {
   elements.logoGrid.replaceChildren(fragment);
 }
 
+function tvvooCatalogEntry(catalogId) {
+  if (!providerCache.tvvoo.catalogs.has(catalogId)) {
+    providerCache.tvvoo.catalogs.set(catalogId, { rows: [], loadedAt: 0, status: "idle", error: "", pending: null });
+  }
+  return providerCache.tvvoo.catalogs.get(catalogId);
+}
+
+function updateAvailableSourceControls() {
+  document.querySelectorAll("[data-add-source]").forEach((tab) => {
+    const active = tab.dataset.addSource === addSource;
+    tab.classList.toggle("is-active", active);
+    tab.setAttribute("aria-pressed", String(active));
+  });
+  elements.tvvooCountryField.hidden = addSource !== "tvvoo";
+  elements.refreshProviderCatalog.hidden = addSource === "m3u";
+  const directCount = state.catalog.filter((row) => row.kind === "m3u").length;
+  document.querySelector('[data-source-count="m3u"]').textContent = String(directCount);
+  document.querySelector('[data-source-count="highfly"]').textContent = providerCache.highfly.rows.length
+    ? String(providerCache.highfly.rows.length)
+    : providerCache.highfly.status === "loading" ? "…" : "—";
+  document.querySelector('[data-source-count="tvvoo"]').textContent = providerCache.tvvoo.countries.length
+    ? `${providerCache.tvvoo.countries.length} países`
+    : providerCache.tvvoo.status === "loading" ? "…" : "—";
+
+  if (addSource === "m3u") {
+    elements.providerStatus.textContent = `${directCount} canales de Lista 1 y Lista 2 disponibles en el catálogo del repositorio.`;
+    elements.providerStatus.dataset.state = "ready";
+    return;
+  }
+  if (addSource === "highfly") {
+    const source = providerCache.highfly;
+    elements.providerStatus.textContent = source.status === "loading"
+      ? "Consultando el catálogo en vivo de Highfly…"
+      : source.status === "error"
+        ? `${source.error} Usa “Actualizar catálogo” para volver a intentar.`
+        : source.rows.length
+          ? `${source.rows.length} señales disponibles. Las identidades provisionales requieren validación del runner.`
+          : "El catálogo Highfly se consultará automáticamente al abrir esta fuente.";
+    elements.providerStatus.dataset.state = source.status === "error" ? "error" : source.status;
+    elements.refreshProviderCatalog.disabled = source.status === "loading";
+    return;
+  }
+
+  const country = providerCache.tvvoo.countries.find((item) => item.id === selectedTvVooCatalogId);
+  const catalog = country ? providerCache.tvvoo.catalogs.get(country.id) : null;
+  elements.providerStatus.textContent = providerCache.tvvoo.status === "loading"
+    ? "Consultando los catálogos regionales de TvVoo…"
+    : providerCache.tvvoo.status === "error"
+      ? `${providerCache.tvvoo.error} Usa “Actualizar catálogo” para volver a intentar.`
+      : !country
+        ? "Elige un país cuando termine de cargar el manifiesto TvVoo."
+        : catalog?.status === "loading"
+          ? `Cargando señales de ${country.name}…`
+          : catalog?.status === "error"
+            ? `${catalog.error} Usa “Actualizar catálogo” para volver a intentar.`
+            : catalog?.rows.length
+              ? `${catalog.rows.length} canales de ${country.name}. Las señales se identifican por país y alias canónico.`
+              : "El catálogo del país se consultará automáticamente al elegir TvVoo.";
+  elements.providerStatus.dataset.state = providerCache.tvvoo.status === "error" || catalog?.status === "error"
+    ? "error"
+    : catalog?.status ?? providerCache.tvvoo.status;
+  elements.refreshProviderCatalog.disabled = providerCache.tvvoo.status === "loading" || catalog?.status === "loading";
+}
+
+function sourceCandidates() {
+  if (addSource === "m3u") return state.catalog.filter((row) => row.kind === "m3u");
+  if (addSource === "highfly") return providerCache.highfly.rows;
+  return tvvooCatalogEntry(selectedTvVooCatalogId).rows;
+}
+
 function availableRows() {
   const present = new Set(state.layout.channels.map(rowKey));
-  const candidates = [...state.catalog, ...state.importedProviders];
   const unique = new Map();
-  for (const row of candidates) {
+  for (const row of sourceCandidates()) {
     const key = rowKey(row);
     if (key && !present.has(key)) unique.set(key, row);
   }
@@ -582,16 +663,32 @@ function availableRows() {
 }
 
 function renderAvailable() {
+  updateAvailableSourceControls();
   const fragment = document.createDocumentFragment();
   const rows = availableRows();
-  if (!rows.length) {
-    fragment.append(node("p", "available-empty", "No hay canales disponibles con esa búsqueda. Para incorporar otros canales de Highfly o TvVoo, importa el catálogo exportado desde VibeM3U."));
+  const sourceState = addSource === "highfly"
+    ? providerCache.highfly
+    : addSource === "tvvoo"
+      ? (tvvooCatalogEntry(selectedTvVooCatalogId).status === "idle" ? providerCache.tvvoo : tvvooCatalogEntry(selectedTvVooCatalogId))
+      : null;
+  if (sourceState?.status === "loading") {
+    fragment.append(node("p", "available-empty catalog-loading", "Cargando canales del proveedor…"));
+  } else if (sourceState?.status === "error") {
+    fragment.append(node("p", "available-empty catalog-error", sourceState.error));
+  } else if (!rows.length) {
+    const emptyText = addSource === "m3u"
+      ? "No hay canales nuevos de las listas M3U con esa búsqueda."
+      : "No hay canales nuevos con esa búsqueda. Prueba otro nombre o país.";
+    fragment.append(node("p", "available-empty", emptyText));
   } else {
     rows.slice(0, 250).forEach((row) => {
       const item = node("div", "available-row");
       item.append(makeLogo(row));
       item.append(node("span", "available-name", row.name));
-      const source = node("span", "source-label", sourceName(row));
+      const sourceText = row.provider === "highfly" && row.identityState === "provisional"
+        ? "Highfly · provisional"
+        : sourceName(row);
+      const source = node("span", "source-label", sourceText);
       source.dataset.source = sourceFor(row);
       const add = button("Añadir", "button-secondary", () => {
         const next = addRow(state.layout, row);
@@ -613,31 +710,151 @@ function renderAvailable() {
   elements.availableList.replaceChildren(fragment);
 }
 
+function refreshHighflyReferences(rows) {
+  const latest = new Map(rows.map((row) => [row.catalogKey, row]));
+  const changed = clone(state.layout);
+  let updates = 0;
+  for (const row of changed.channels) {
+    if (row.kind !== "provider" || row.provider !== "highfly") continue;
+    const fresh = latest.get(row.catalogKey);
+    if (!fresh || (row.providerResourceId === fresh.providerResourceId && row.resolverSlug === fresh.resolverSlug)) continue;
+    row.providerResourceId = fresh.providerResourceId;
+    row.resolverSlug = fresh.resolverSlug;
+    updates++;
+  }
+  if (updates) {
+    changeLayout(changed);
+    showToast(`${updates} referencia(s) Highfly renovada(s); la identidad estable se conservó.`);
+  }
+  return updates;
+}
+
+async function ensureHighflyCatalog(force = false) {
+  const source = providerCache.highfly;
+  if (!force && source.pending) return source.pending;
+  if (!force && source.rows.length && Date.now() - source.loadedAt < PROVIDER_CACHE_MS) return source.rows;
+  source.status = "loading";
+  source.error = "";
+  renderAvailable();
+  source.pending = loadHighflyCatalog({ registry: state.providerIdentities })
+    .then((rows) => {
+      source.rows = rows;
+      source.loadedAt = Date.now();
+      source.status = "ready";
+      refreshHighflyReferences(rows);
+      return rows;
+    })
+    .catch((error) => {
+      source.status = "error";
+      source.error = error.message || "No se pudo leer el catálogo Highfly.";
+      throw error;
+    })
+    .finally(() => {
+      source.pending = null;
+      renderAvailable();
+    });
+  return source.pending;
+}
+
+async function ensureTvVooManifest(force = false) {
+  const source = providerCache.tvvoo;
+  if (!force && source.pending) return source.pending;
+  if (!force && source.countries.length && Date.now() - source.loadedAt < PROVIDER_CACHE_MS) return source.countries;
+  source.status = "loading";
+  source.error = "";
+  renderAvailable();
+  source.pending = loadTvVooManifest()
+    .then((countries) => {
+      source.countries = countries;
+      source.loadedAt = Date.now();
+      source.status = "ready";
+      if (!countries.some((item) => item.id === selectedTvVooCatalogId)) selectedTvVooCatalogId = countries[0].id;
+      elements.tvvooCountry.replaceChildren(...countries.map((country) => {
+        const option = node("option", "", country.name);
+        option.value = country.id;
+        return option;
+      }));
+      elements.tvvooCountry.value = selectedTvVooCatalogId;
+      return countries;
+    })
+    .catch((error) => {
+      source.status = "error";
+      source.error = error.message || "No se pudo leer el manifiesto TvVoo.";
+      throw error;
+    })
+    .finally(() => {
+      source.pending = null;
+      renderAvailable();
+    });
+  return source.pending;
+}
+
+async function ensureTvVooCatalog(catalogId = selectedTvVooCatalogId, force = false) {
+  await ensureTvVooManifest();
+  const country = providerCache.tvvoo.countries.find((item) => item.id === catalogId);
+  if (!country) throw new Error("El país TvVoo ya no está disponible. Actualiza su catálogo.");
+  const catalog = tvvooCatalogEntry(catalogId);
+  if (!force && catalog.pending) return catalog.pending;
+  if (!force && catalog.rows.length && Date.now() - catalog.loadedAt < PROVIDER_CACHE_MS) return catalog.rows;
+  catalog.status = "loading";
+  catalog.error = "";
+  renderAvailable();
+  catalog.pending = loadTvVooCatalog(catalogId, country)
+    .then((rows) => {
+      catalog.rows = rows;
+      catalog.loadedAt = Date.now();
+      catalog.status = "ready";
+      return rows;
+    })
+    .catch((error) => {
+      catalog.status = "error";
+      catalog.error = error.message || "No se pudo leer el catálogo TvVoo.";
+      throw error;
+    })
+    .finally(() => {
+      catalog.pending = null;
+      renderAvailable();
+    });
+  return catalog.pending;
+}
+
+async function selectAddSource(source) {
+  addSource = source;
+  elements.availableSearch.value = "";
+  renderAvailable();
+  try {
+    if (source === "highfly") await ensureHighflyCatalog();
+    else if (source === "tvvoo") {
+      await ensureTvVooManifest();
+      await ensureTvVooCatalog(selectedTvVooCatalogId);
+    }
+  } catch {
+    // The source panel renders the error and exposes an explicit retry action.
+  }
+}
+
+async function refreshSelectedProviderCatalog() {
+  try {
+    if (addSource === "highfly") await ensureHighflyCatalog(true);
+    else if (addSource === "tvvoo") {
+      await ensureTvVooManifest(true);
+      await ensureTvVooCatalog(selectedTvVooCatalogId, true);
+    }
+  } catch {
+    // Error copy is rendered in the dialog; do not hide it behind a toast.
+  }
+}
+
 function openAddDialog() {
   elements.availableSearch.value = "";
+  addSource = "m3u";
   renderAvailable();
   elements.addDialog.showModal();
   elements.availableSearch.focus();
-}
-
-function handleProviderCatalog(file) {
-  if (!file) return;
-  const reader = new FileReader();
-  reader.addEventListener("load", () => {
-    try {
-      const documentData = JSON.parse(String(reader.result));
-      const providerRows = validateProviderCatalog(documentData);
-      state.importedProviders = providerRows;
-      renderAvailable();
-      showToast(`Catálogo importado: ${providerRows.length} canales Highfly/TvVoo disponibles.`);
-    } catch (error) {
-      showToast(error.message || "El catálogo seleccionado no es válido.", true);
-    } finally {
-      elements.providerFile.value = "";
-    }
-  });
-  reader.addEventListener("error", () => showToast("No se pudo leer el archivo del catálogo.", true), { once: true });
-  reader.readAsText(file, "utf-8");
+  // Discover both providers without requiring a file import. TvVoo countries
+  // are loaded first; individual regional channel lists remain lazy.
+  void ensureHighflyCatalog().catch(() => {});
+  void ensureTvVooManifest().catch(() => {});
 }
 
 function showReview() {
@@ -653,6 +870,7 @@ function showReview() {
   if (summary.stateChanges) statements.push(`${summary.stateChanges} canal(es) ocultos, restaurados o enviados a papelera`);
   if (summary.numberChanges) statements.push(`${summary.numberChanges} número(s) de app modificados`);
   if (summary.logoChanges || summary.logoMapChanged) statements.push(`${Math.max(summary.logoChanges, 1)} elección(es) de logo modificadas`);
+  if (summary.providerReferenceChanges) statements.push(`${summary.providerReferenceChanges} referencia(s) de resolución Highfly renovada(s); la identidad estable no cambió`);
   const providerCount = doc.channels.filter((row) => row.kind === "provider" && row.state === "active").length;
   statements.push(`${providerCount} selección(es) Highfly/TvVoo activas; el runner volverá a validarlas`);
   if (validation.length) validation.forEach((issue) => statements.push(`No se puede publicar: ${issue}`));
@@ -694,6 +912,7 @@ async function showPublishDialog() {
   if (summary.stateChanges) lines.push(`${summary.stateChanges} cambio(s) de visibilidad o papelera`);
   if (summary.numberChanges) lines.push(`${summary.numberChanges} numeración(es) modificadas`);
   if (summary.logoChanges || summary.logoMapChanged) lines.push("Selección de logos actualizada");
+  if (summary.providerReferenceChanges) lines.push(`${summary.providerReferenceChanges} referencia(s) Highfly renovada(s); catalogKey conservado`);
   const activeProviders = state.layout.channels.filter((row) => row.kind === "provider" && row.state === "active").length;
   lines.push(`${activeProviders} canal(es) de Highfly/TvVoo se entregarán al runner`);
   elements.publishSummary.replaceChildren(...lines.map((line) => node("div", "", line)));
@@ -883,8 +1102,13 @@ elements.sourceFilter.addEventListener("change", () => { sourceFilter = elements
 $("#add-channel-button").addEventListener("click", openAddDialog);
 $("#renumber-button").addEventListener("click", () => changeLayout(renumber(state.layout)));
 $("#close-review").addEventListener("click", () => { elements.changeReview.hidden = true; });
-$("#import-catalog-button").addEventListener("click", () => elements.providerFile.click());
-elements.providerFile.addEventListener("change", () => handleProviderCatalog(elements.providerFile.files?.[0]));
+document.querySelectorAll("[data-add-source]").forEach((tab) => tab.addEventListener("click", () => selectAddSource(tab.dataset.addSource)));
+elements.tvvooCountry.addEventListener("change", () => {
+  selectedTvVooCatalogId = elements.tvvooCountry.value;
+  renderAvailable();
+  void ensureTvVooCatalog(selectedTvVooCatalogId).catch(() => {});
+});
+elements.refreshProviderCatalog.addEventListener("click", refreshSelectedProviderCatalog);
 elements.availableSearch.addEventListener("input", renderAvailable);
 elements.logoSearch.addEventListener("input", renderLogos);
 $("#clear-logo").addEventListener("click", () => {

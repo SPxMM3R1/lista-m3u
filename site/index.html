@@ -90,8 +90,6 @@
           <ol class="channel-list" id="channel-list" aria-label="Canales ordenados"></ol>
           <div class="list-footer">
             <span id="visible-range">Cargando catálogo…</span>
-            <button class="text-button import-button" id="import-catalog-button" type="button">Importar catálogo de VibeM3U</button>
-            <input id="provider-catalog-file" type="file" accept="application/json,.json" hidden>
           </div>
         </div>
 
@@ -146,15 +144,35 @@
     <dialog class="dialog add-dialog" id="add-dialog" aria-labelledby="add-dialog-title">
       <form method="dialog" class="dialog-shell">
         <div class="dialog-heading">
-          <div><h2 id="add-dialog-title">Añadir canales</h2><p>Agrega canales que no estén ya en el orden.</p></div>
+          <div><h2 id="add-dialog-title">Añadir canales</h2><p>Elige una fuente; los catálogos externos se consultan aquí.</p></div>
           <button class="icon-button" value="cancel" aria-label="Cerrar catálogo disponible">
             <svg aria-hidden="true" viewBox="0 0 20 20"><path d="m5 5 10 10M15 5 5 15"/></svg>
           </button>
         </div>
+        <div class="catalog-source-tabs" role="group" aria-label="Fuente de canales">
+          <button class="catalog-source is-active" type="button" data-add-source="m3u" aria-pressed="true">
+            <span>Listas M3U</span><span class="catalog-source-count" data-source-count="m3u">—</span>
+          </button>
+          <button class="catalog-source" type="button" data-add-source="highfly" aria-pressed="false">
+            <span>Highfly</span><span class="catalog-source-count" data-source-count="highfly">—</span>
+          </button>
+          <button class="catalog-source" type="button" data-add-source="tvvoo" aria-pressed="false">
+            <span>TvVoo</span><span class="catalog-source-count" data-source-count="tvvoo">—</span>
+          </button>
+        </div>
+        <div class="catalog-source-tools">
+          <label class="filter-select catalog-country" id="tvvoo-country-field" hidden>
+            <span class="visually-hidden">País del catálogo TvVoo</span>
+            <select id="tvvoo-country" aria-label="País del catálogo TvVoo"></select>
+            <svg aria-hidden="true" viewBox="0 0 20 20"><path d="m5 7.5 5 5 5-5"/></svg>
+          </label>
+          <button class="text-button catalog-refresh" id="refresh-provider-catalog" type="button" hidden>Actualizar catálogo</button>
+        </div>
+        <p class="catalog-status" id="provider-catalog-status" role="status" aria-live="polite"></p>
         <label class="search-field logo-search">
           <svg aria-hidden="true" viewBox="0 0 20 20"><circle cx="8.5" cy="8.5" r="5.25"/><path d="m12.5 12.5 4 4"/></svg>
           <span class="visually-hidden">Buscar canales disponibles</span>
-          <input id="available-search" type="search" placeholder="Buscar canales disponibles" autocomplete="off">
+          <input id="available-search" type="search" placeholder="Buscar en esta fuente" autocomplete="off">
         </label>
         <div class="available-list" id="available-list"></div>
         <div class="dialog-footer">

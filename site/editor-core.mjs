@@ -273,6 +273,7 @@ export function summarizeChanges(originalLayout, layout, originalPresentation, p
   let assignmentChanges = 0;
   let numberChanges = 0;
   let logoChanges = 0;
+  let providerReferenceChanges = 0;
   for (const [key, row] of after) {
     if (!before.has(key)) added++;
     else {
@@ -282,36 +283,17 @@ export function summarizeChanges(originalLayout, layout, originalPresentation, p
       if (old.sourceList !== row.sourceList) assignmentChanges++;
       if (old.number !== row.number) numberChanges++;
       if (old.logoOverride !== row.logoOverride) logoChanges++;
+      if (old.provider === "highfly" && row.provider === "highfly"
+        && (old.providerResourceId !== row.providerResourceId || old.resolverSlug !== row.resolverSlug)) {
+        providerReferenceChanges++;
+      }
     }
   }
   for (const key of before.keys()) if (!after.has(key)) removed++;
   const priorSelection = originalLayout.channels.filter((row) => row.kind === "provider" && row.state === "active").length;
   const nextSelection = layout.channels.filter((row) => row.kind === "provider" && row.state === "active").length;
   const logoMapChanged = JSON.stringify(originalPresentation?.logos ?? {}) !== JSON.stringify(presentation?.logos ?? {});
-  return { added, removed, reordered, stateChanges, assignmentChanges, numberChanges, logoChanges, providerSelectionChanged: priorSelection !== nextSelection, logoMapChanged };
-}
-
-export function validateProviderCatalog(document) {
-  if (document?.schemaVersion !== 1 || !Array.isArray(document.providers)) {
-    throw new Error("El archivo debe tener schemaVersion 1 y una lista providers[].");
-  }
-  const result = [];
-  const keys = new Set();
-  for (const providerRecord of document.providers) {
-    const provider = String(providerRecord?.provider ?? "").toLowerCase();
-    if (!["highfly", "tvvoo"].includes(provider) || !Array.isArray(providerRecord.channels)) {
-      throw new Error("El catálogo contiene una fuente distinta de Highfly o TvVoo.");
-    }
-    for (const raw of providerRecord.channels) {
-      const row = sanitizeRow({ ...raw, kind: "provider", provider });
-      const problems = validateLayout({ schemaVersion: 1, channels: [{ ...row, order: 1, number: 1, state: "active" }] });
-      if (problems.length) throw new Error(problems[0]);
-      const key = rowKey(row);
-      if (!keys.has(key)) result.push(row);
-      keys.add(key);
-    }
-  }
-  return result;
+  return { added, removed, reordered, stateChanges, assignmentChanges, numberChanges, logoChanges, providerReferenceChanges, providerSelectionChanged: priorSelection !== nextSelection, logoMapChanged };
 }
 
 export function formatJson(value) {

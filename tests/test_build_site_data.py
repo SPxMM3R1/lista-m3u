@@ -24,6 +24,34 @@ class BuildSiteDataTests(unittest.TestCase):
         self.assertNotIn("private.invalid", encoded)
         self.assertNotIn("token=", encoded)
 
+    def test_provider_identity_registry_exports_only_canonical_names_and_ids(self) -> None:
+        source = "\n".join(
+            (
+                "#EXTM3U",
+                '#EXTINF:-1 tvg-id="SkySportsF1.uk" tvg-name="Sky Sports F1" x-resolver="highfly" x-resolver-id="f1-live" x-resolver-manifest="https://secret.invalid/manifest",Sky Sports F1',
+                "https://secret.invalid/leaf/f1.m3u8?token=do-not-export",
+                '#EXTINF:-1 tvg-id="Channel.one" tvg-name="Channel One",Channel One',
+                "https://private.invalid/channel.m3u8",
+                '#EXTINF:-1 tvg-id="token=do-not-export" tvg-name="Leaked",Leaked',
+                '#EXTINF:-1 tvg-id="TvVoo.id@TvVoo" tvg-name="TvVoo Channel" x-resolver="tvvoo" x-resolver-id="vavoo_SECRET",TvVoo Channel',
+                "https://private.invalid/tvvoo.m3u8",
+            )
+        )
+
+        identities = build_site_data.parse_provider_identities(source)
+        encoded = json.dumps(identities)
+
+        self.assertEqual(
+            identities,
+            [
+                {"catalogKey": "SkySportsF1.uk", "name": "Sky Sports F1"},
+                {"catalogKey": "Channel.one", "name": "Channel One"},
+            ],
+        )
+        self.assertNotIn("secret.invalid", encoded)
+        self.assertNotIn("vavoo_SECRET", encoded)
+        self.assertNotIn("token=", encoded)
+
     def test_initial_layout_numbers_one_combined_order(self) -> None:
         layout = build_site_data.initial_layout(
             [
