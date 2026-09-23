@@ -1,0 +1,62 @@
+name: Publicar editor del catálogo
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "site/**"
+      - "scripts/build_site_data.py"
+      - "data/vibem3u-selection.json"
+      - "data/channel-editor-layout.json"
+      - "presentation-overrides.json"
+      - "1.m3u"
+      - "2.m3u"
+      - "channel-catalog.m3u"
+      - "logos/**"
+      - "VIBEM3U_ID_CONTRACT_EPG_LOGOS.md"
+      - "tests/**"
+      - ".github/workflows/deploy-site.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+      - name: Configurar Pages
+        uses: actions/configure-pages@v5
+      - name: Preparar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Preparar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Ejecutar pruebas del runner y editor
+        run: |
+          python -m unittest discover -s tests -p "test_*.py"
+          node --test tests/editor-core.test.mjs
+      - name: Construir sitio estático
+        run: python scripts/build_site_data.py
+      - name: Cargar artefacto de Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - name: Publicar en GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

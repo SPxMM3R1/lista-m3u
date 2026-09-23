@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <meta name="theme-color" content="#f4f6fa">
+    <meta name="description" content="Ordena y publica el catálogo de canales de Lista M3U y VibeM3U.">
+    <title>Canales · Lista M3U</title>
+    <link rel="preload" href="./assets/fonts/RobotoFlex-Variable.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="stylesheet" href="./styles.css">
+    <script type="module" src="./editor.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#channel-list">Saltar al catálogo</a>
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="Lista M3U, editor de canales">
+        <span class="brand-mark" aria-hidden="true">L</span>
+        <span>Lista M3U</span>
+      </a>
+      <div class="repo-context">
+        <span>Catálogo editorial</span>
+        <span class="context-divider" aria-hidden="true"></span>
+        <code>main</code>
+      </div>
+      <div class="top-actions">
+        <button class="button button-quiet" id="backup-button" type="button">Descargar respaldo</button>
+        <button class="button button-primary" id="publish-button" type="button" disabled>
+          <svg aria-hidden="true" viewBox="0 0 20 20"><path d="M10 13V3m0 0L6.5 6.5M10 3l3.5 3.5M4 11.5v4A1.5 1.5 0 0 0 5.5 17h9a1.5 1.5 0 0 0 1.5-1.5v-4"/></svg>
+          <span>Publicar en GitHub</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="page-shell">
+      <div class="page-heading">
+        <div>
+          <h1>Canales</h1>
+          <p class="page-intro">Arma un solo orden para Lista 1, Lista 2, Highfly y TvVoo.</p>
+        </div>
+        <div class="catalog-summary" id="catalog-summary" aria-live="polite">
+          <span class="summary-number" id="active-count">—</span>
+          <span>en la lista</span>
+        </div>
+      </div>
+
+      <section class="toolbar" aria-label="Herramientas del catálogo">
+        <label class="search-field">
+          <svg aria-hidden="true" viewBox="0 0 20 20"><circle cx="8.5" cy="8.5" r="5.25"/><path d="m12.5 12.5 4 4"/></svg>
+          <span class="visually-hidden">Buscar canales</span>
+          <input id="search-input" type="search" placeholder="Buscar canal o identidad" autocomplete="off">
+          <kbd>/</kbd>
+        </label>
+        <label class="filter-select">
+          <span class="visually-hidden">Filtrar por fuente</span>
+          <select id="source-filter">
+            <option value="all">Todas las fuentes</option>
+            <option value="1.m3u">Lista 1</option>
+            <option value="2.m3u">Lista 2</option>
+            <option value="highfly">Highfly</option>
+            <option value="tvvoo">TvVoo</option>
+          </select>
+          <svg aria-hidden="true" viewBox="0 0 20 20"><path d="m5 7.5 5 5 5-5"/></svg>
+        </label>
+        <button class="button button-secondary add-button" id="add-channel-button" type="button">
+          <svg aria-hidden="true" viewBox="0 0 20 20"><path d="M10 4v12M4 10h12"/></svg>
+          Añadir canal
+        </button>
+      </section>
+
+      <section class="workbench" aria-label="Editor del catálogo">
+        <div class="register-panel">
+          <div class="register-head">
+            <div class="view-tabs" role="group" aria-label="Estado de los canales">
+              <button class="view-tab is-active" id="tab-active" type="button" aria-pressed="true" data-view="active">
+                En la lista <span class="tab-count" id="active-tab-count">0</span>
+              </button>
+              <button class="view-tab" id="tab-hidden" type="button" aria-pressed="false" data-view="hidden">
+                Ocultos <span class="tab-count" id="hidden-tab-count">0</span>
+              </button>
+              <button class="view-tab" id="tab-deleted" type="button" aria-pressed="false" data-view="deleted">
+                Papelera <span class="tab-count" id="deleted-tab-count">0</span>
+              </button>
+            </div>
+            <button class="text-button" id="renumber-button" type="button">Renumerar</button>
+          </div>
+          <div class="list-column-labels" aria-hidden="true">
+            <span>N.º</span><span>Canal</span><span>Fuente</span><span>Orden</span>
+          </div>
+          <ol class="channel-list" id="channel-list" aria-label="Canales ordenados"></ol>
+          <div class="list-footer">
+            <span id="visible-range">Cargando catálogo…</span>
+            <button class="text-button import-button" id="import-catalog-button" type="button">Importar catálogo de VibeM3U</button>
+            <input id="provider-catalog-file" type="file" accept="application/json,.json" hidden>
+          </div>
+        </div>
+
+        <aside class="inspector" id="inspector" aria-label="Detalle del canal" aria-live="polite">
+          <div class="inspector-empty">
+            <div class="empty-rule" aria-hidden="true"></div>
+            <h2>Elige un canal</h2>
+            <p>Su identidad, logo y acciones aparecerán aquí.</p>
+          </div>
+        </aside>
+      </section>
+
+      <section class="change-review" id="change-review" aria-labelledby="review-title" hidden>
+        <div class="review-heading">
+          <div>
+            <h2 id="review-title">Cambios por publicar</h2>
+            <p>Revisa el resumen antes de crear el commit.</p>
+          </div>
+          <button class="icon-button" id="close-review" type="button" aria-label="Cerrar vista previa">
+            <svg aria-hidden="true" viewBox="0 0 20 20"><path d="m5 5 10 10M15 5 5 15"/></svg>
+          </button>
+        </div>
+        <ul class="review-list" id="review-list"></ul>
+      </section>
+
+      <p class="runner-note" id="runner-note">
+        Publicar guarda la selección en GitHub. El runner valida identidades y actualiza el catálogo; los canales pendientes seguirán marcados como tales.
+      </p>
+    </main>
+
+    <dialog class="dialog logo-dialog" id="logo-dialog" aria-labelledby="logo-dialog-title">
+      <form method="dialog" class="dialog-shell">
+        <div class="dialog-heading">
+          <div><h2 id="logo-dialog-title">Elegir logo</h2><p id="logo-dialog-channel">Para el canal seleccionado</p></div>
+          <button class="icon-button" value="cancel" aria-label="Cerrar selector de logos">
+            <svg aria-hidden="true" viewBox="0 0 20 20"><path d="m5 5 10 10M15 5 5 15"/></svg>
+          </button>
+        </div>
+        <label class="search-field logo-search">
+          <svg aria-hidden="true" viewBox="0 0 20 20"><circle cx="8.5" cy="8.5" r="5.25"/><path d="m12.5 12.5 4 4"/></svg>
+          <span class="visually-hidden">Buscar logo</span>
+          <input id="logo-search" type="search" placeholder="Buscar en los logos del repositorio" autocomplete="off">
+        </label>
+        <div class="logo-grid" id="logo-grid"></div>
+        <div class="dialog-footer">
+          <button class="button button-quiet" id="clear-logo" type="button">Usar logo del catálogo</button>
+          <button class="button button-secondary" value="cancel">Cancelar</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog class="dialog add-dialog" id="add-dialog" aria-labelledby="add-dialog-title">
+      <form method="dialog" class="dialog-shell">
+        <div class="dialog-heading">
+          <div><h2 id="add-dialog-title">Añadir canales</h2><p>Agrega canales que no estén ya en el orden.</p></div>
+          <button class="icon-button" value="cancel" aria-label="Cerrar catálogo disponible">
+            <svg aria-hidden="true" viewBox="0 0 20 20"><path d="m5 5 10 10M15 5 5 15"/></svg>
+          </button>
+        </div>
+        <label class="search-field logo-search">
+          <svg aria-hidden="true" viewBox="0 0 20 20"><circle cx="8.5" cy="8.5" r="5.25"/><path d="m12.5 12.5 4 4"/></svg>
+          <span class="visually-hidden">Buscar canales disponibles</span>
+          <input id="available-search" type="search" placeholder="Buscar canales disponibles" autocomplete="off">
+        </label>
+        <div class="available-list" id="available-list"></div>
+        <div class="dialog-footer">
+          <button class="button button-secondary" value="cancel">Listo</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog class="dialog publish-dialog" id="publish-dialog" aria-labelledby="publish-dialog-title">
+      <form method="dialog" class="dialog-shell" id="publish-form">
+        <div class="dialog-heading">
+          <div><h2 id="publish-dialog-title">Publicar catálogo</h2><p>Se creará un commit en <code>SPxMM3R1/lista-m3u · main</code>.</p></div>
+          <button class="icon-button" id="close-publish" type="button" aria-label="Cerrar publicación">
+            <svg aria-hidden="true" viewBox="0 0 20 20"><path d="m5 5 10 10M15 5 5 15"/></svg>
+          </button>
+        </div>
+        <div class="publish-summary" id="publish-summary"></div>
+        <label class="token-label" for="github-token">Token fine-grained de GitHub</label>
+        <input class="token-input" id="github-token" type="password" autocomplete="off" spellcheck="false" placeholder="ghp_… / github_pat_…" required>
+        <p class="token-help">Permiso requerido: Contents · Read and write, solo para este repositorio. El token se usa en esta pestaña y no se guarda.</p>
+        <p class="dialog-error" id="publish-error" role="alert" hidden></p>
+        <div class="dialog-footer">
+          <button class="button button-quiet" id="download-export" type="button">Descargar JSON</button>
+          <button class="button button-primary" id="confirm-publish" type="submit">Crear commit</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+  </body>
+</html>

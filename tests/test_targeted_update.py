@@ -198,6 +198,36 @@ class TargetedUpdateTest(unittest.TestCase):
             lines.index('#EXTINF:-1 tvg-id="one" group-title="News",One editado'),
         )
 
+    def test_presentation_logo_override_uses_repository_asset(self) -> None:
+        lines = [
+            "#EXTM3U",
+            '#EXTINF:-1 tvg-id="one" tvg-logo="https://old.example/one.png",One',
+            "https://example.test/one.m3u8",
+        ]
+
+        changed = update_m3u.apply_presentation_overrides(
+            lines,
+            "m3u.m3u",
+            {"logos": {"one": "logos/13c.png"}},
+        )
+
+        self.assertTrue(changed)
+        self.assertIn(
+            f'tvg-logo="{update_m3u.LOCAL_LOGOS_PUBLIC_BASE}/13c.png"',
+            lines[1],
+        )
+        self.assertNotIn("old.example", lines[1])
+
+    def test_presentation_logo_override_rejects_paths_outside_logo_directory(self) -> None:
+        lines = ["#EXTM3U", '#EXTINF:-1 tvg-id="one",One', "stream"]
+
+        with self.assertRaises(ValueError):
+            update_m3u.apply_presentation_overrides(
+                lines,
+                "m3u.m3u",
+                {"logos": {"one": "logos/../../outside.png"}},
+            )
+
     def test_stream_update_changes_only_requested_record(self) -> None:
         playlist = """#EXTM3U
 #EXTINF:-1 tvg-id="one",One

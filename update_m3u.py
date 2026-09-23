@@ -949,6 +949,8 @@ RED_BULL_CHILE_URL = (
 # El coordinador y el cron tienen cuatro ventanas diarias; tres horas es solo
 # el margen informativo para una guia que termina pronto, no una quinta ventana.
 EPG_REFRESH_INTERVAL = timedelta(hours=6)
+EPG_MAIN_MINIMUM_FUTURE = timedelta(days=7)
+EPG_MAIN_CONTINUITY_BUFFER = timedelta(days=8)
 HEALTH_FAILURE_THRESHOLD = 1
 # 13C es la unica senal de la lista principal que se administra con una
 # traslado temporal automatico. Se conserva en el catalogo y en la EPG; solo
@@ -3207,6 +3209,70 @@ def public_main_membership_ids(
     return frozenset(set(configured_main_ids) - set(app_only_ids))
 
 
+def apply_web_direct_membership(
+    configured_main_ids: Iterable[str],
+    app_only_ids: Iterable[str],
+    catalog_channels: Iterable[Channel],
+    overrides: dict[str, object],
+) -> tuple[frozenset[str], frozenset[str]]:
+    """Apply the editor's direct-list assignment and durable exclusions."""
+    orders = overrides.get("orders", {})
+    if not isinstance(orders, dict):
+        raise ValueError("manifiesto de presentacion: orders debe ser un objeto")
+    main_order = orders.get(DEFAULT_PLAYLIST.name, [])
+    external_order = orders.get(EXTERNAL_PLAYLIST.name, [])
+    if not isinstance(main_order, list) or not isinstance(external_order, list):
+        raise ValueError("manifiesto de presentacion: orden directo invalido")
+    main_ids = {str(channel_id).strip() for channel_id in main_order}
+    external_ids = {str(channel_id).strip() for channel_id in external_order}
+    excluded_value = overrides.get("excluded_m3u", [])
+    if not isinstance(excluded_value, list):
+        raise ValueError("manifiesto de presentacion: excluded_m3u debe ser una lista")
+    excluded_ids = {str(channel_id).strip() for channel_id in excluded_value}
+    catalog_ids = {
+        channel.tvg_id for channel in catalog_channels if channel.tvg_id
+    }
+    listed_ids = main_ids | external_ids
+    unknown = sorted(listed_ids - catalog_ids)
+    if unknown:
+        raise ValueError(
+            "el orden web directo contiene IDs fuera del catalogo: "
+            + ", ".join(unknown)
+        )
+    overlap = sorted(
+        (main_ids & external_ids)
+        | (main_ids & excluded_ids)
+        | (external_ids & excluded_ids)
+    )
+    if overlap:
+        raise ValueError(
+            "el manifiesto web asigna canales a listas incompatibles: "
+            + ", ".join(overlap)
+        )
+    managed_ids = listed_ids | (excluded_ids & catalog_ids)
+    desired_main = (set(configured_main_ids) - managed_ids) | main_ids
+    desired_main.difference_update(excluded_ids)
+    return public_main_membership_ids(desired_main, app_only_ids), frozenset(excluded_ids)
+
+
+def apply_provider_logo_overrides(
+    overrides: dict[str, object],
+    reconciliation: vibem3u_selection.SelectionReconciliation,
+) -> dict[str, object]:
+    """Translate selected provider catalog keys to their matched canonical IDs."""
+    raw_logos = overrides.get("logos", {})
+    if not isinstance(raw_logos, dict):
+        raise ValueError("manifiesto de presentacion: logos debe ser un objeto")
+    logos = dict(raw_logos)
+    for match in reconciliation.matched:
+        path = raw_logos.get(match.row.catalog_key)
+        if path:
+            logos[match.catalog_id] = path
+    updated = dict(overrides)
+    updated["logos"] = logos
+    return updated
+
+
 def load_vibem3u_selection(
     path: Path = VIBEM3U_SELECTION_PATH,
 ) -> vibem3u_selection.SelectionDocument:
@@ -3480,6 +3546,8 @@ def load_presentation_overrides(
         "schema": 1,
         "orders": {},
         "info_lines": {},
+        "logos": {},
+        "excluded_m3u": [],
         "assets": [],
     }
     if not path.exists():
@@ -3519,6 +3587,50 @@ def load_presentation_overrides(
         if not match or match.group(1) != stable_id:
             raise ValueError(f"{path.name}: info_line no coincide con {stable_id}")
         normalized_info[stable_id] = line
+    logos = presentation.get("logos", {})
+    if not isinstance(logos, dict):
+        raise ValueError(f"{path.name}: logos debe ser un objeto por tvg-id")
+    normalized_logos: dict[str, str] = {}
+    for channel_id, raw_logo in logos.items():
+        stable_id = str(channel_id).strip()
+        logo_path = str(raw_logo).replace("\\", "/").strip()
+        if (
+            not stable_id
+            or not logo_path.startswith("logos/")
+            or any(part in {"", ".", ".."} for part in logo_path.split("/"))
+        ):
+            raise ValueError(f"{path.name}: ruta de logo invalida para {channel_id}")
+        candidate = Path(__file__).parent / logo_path.replace("/", os.sep)
+        logo_root = (Path(__file__).parent / "logos").resolve()
+        try:
+            candidate.resolve().relative_to(logo_root)
+        except ValueError as error:
+            raise ValueError(
+                f"{path.name}: ruta de logo fuera de logos para {channel_id}"
+            ) from error
+        if not candidate.is_file():
+            raise ValueError(f"{path.name}: no existe el logo {logo_path}")
+        normalized_logos[stable_id] = logo_path
+    raw_excluded = presentation.get("excluded_m3u", [])
+    if not isinstance(raw_excluded, list):
+        raise ValueError(f"{path.name}: excluded_m3u debe ser una lista de tvg-id")
+    normalized_excluded: list[str] = []
+    for raw_id in raw_excluded:
+        if not isinstance(raw_id, str):
+            raise ValueError(f"{path.name}: excluded_m3u solo acepta tvg-id de texto")
+        stable_id = raw_id.strip()
+        if (
+            not stable_id
+            or len(stable_id) > 512
+            or "\n" in stable_id
+            or "\r" in stable_id
+            or "://" in stable_id
+            or stable_id.lower().endswith((".m3u", ".m3u8", ".mpd"))
+        ):
+            raise ValueError(f"{path.name}: tvg-id invalido en excluded_m3u")
+        if stable_id in normalized_excluded:
+            raise ValueError(f"{path.name}: tvg-id duplicado en excluded_m3u: {stable_id}")
+        normalized_excluded.append(stable_id)
     assets = presentation.get("assets", [])
     if not isinstance(assets, list) or any(not isinstance(asset, str) for asset in assets):
         raise ValueError(f"{path.name}: assets debe ser una lista de rutas")
@@ -3526,6 +3638,8 @@ def load_presentation_overrides(
         "schema": 1,
         "orders": normalized_orders,
         "info_lines": normalized_info,
+        "logos": normalized_logos,
+        "excluded_m3u": normalized_excluded,
         "assets": sorted({asset.replace("\\", "/") for asset in assets}),
     }
 
@@ -3566,20 +3680,60 @@ def apply_presentation_overrides(
     payload = overrides if overrides is not None else load_presentation_overrides()
     info_lines = payload.get("info_lines", {})
     orders = payload.get("orders", {})
-    if not isinstance(info_lines, dict) or not isinstance(orders, dict):
+    logos = payload.get("logos", {})
+    if (
+        not isinstance(info_lines, dict)
+        or not isinstance(orders, dict)
+        or not isinstance(logos, dict)
+    ):
         raise ValueError("manifiesto de presentacion invalido")
     changed = False
     channels = parse_channels(lines)
     for channel in channels:
         override = info_lines.get(channel.tvg_id)
-        if not override:
-            continue
-        updated = with_resolver_attributes(
-            str(override), resolver_attributes_for(channel)
-        )
-        if updated != lines[channel.info_line]:
-            lines[channel.info_line] = updated
-            changed = True
+        if override:
+            updated = with_resolver_attributes(
+                str(override), resolver_attributes_for(channel)
+            )
+            if updated != lines[channel.info_line]:
+                lines[channel.info_line] = updated
+                changed = True
+        logo_path = logos.get(channel.tvg_id)
+        if logo_path:
+            normalized = str(logo_path).replace("\\", "/").strip()
+            if not normalized.startswith("logos/") or any(
+                part in {"", ".", ".."} for part in normalized.split("/")
+            ):
+                raise ValueError(
+                    f"manifiesto de presentacion: ruta de logo invalida para {channel.tvg_id}"
+                )
+            logo_file = Path(__file__).parent / normalized.replace("/", os.sep)
+            logo_root = (Path(__file__).parent / "logos").resolve()
+            try:
+                logo_file.resolve().relative_to(logo_root)
+            except ValueError as error:
+                raise ValueError(
+                    f"manifiesto de presentacion: logo fuera de logos para {channel.tvg_id}"
+                ) from error
+            if not logo_file.is_file():
+                raise ValueError(
+                    f"manifiesto de presentacion: no existe el logo {normalized}"
+                )
+            logo_url = f"{LOCAL_LOGOS_PUBLIC_BASE}/{quote(normalized[6:], safe='/-._~')}"
+            original = lines[channel.info_line]
+            updated = re.sub(
+                r'(\btvg-logo=")[^"]*(")',
+                lambda match: f"{match.group(1)}{logo_url}{match.group(2)}",
+                original,
+                count=1,
+            )
+            if updated == original and not re.search(r'\btvg-logo="', original):
+                metadata, separator, display_name = original.rpartition(",")
+                if separator and metadata.startswith("#EXTINF:"):
+                    updated = f'{metadata} tvg-logo="{logo_url}",{display_name}'
+            if updated != original:
+                lines[channel.info_line] = updated
+                changed = True
     desired_ids = orders.get(playlist_name)
     if isinstance(desired_ids, list) and desired_ids:
         reordered = _reorder_lines_by_override(lines, desired_ids)
@@ -3980,6 +4134,7 @@ def validate_public_playlist_partition(
     external_lines: list[str],
     expected_main_ids: set[str] | frozenset[str],
     expected_external_ids: set[str] | frozenset[str] | None = None,
+    excluded_ids: set[str] | frozenset[str] = frozenset(),
 ) -> dict[str, int]:
     """Prove that both public lists match their explicit membership policy."""
     catalog_channels = parse_channels(catalog_lines)
@@ -4012,13 +4167,14 @@ def validate_public_playlist_partition(
         )
         external_channel_by_catalog_id[catalog_id] = channel
     catalog_ids = set(catalog)
+    visible_catalog_ids = catalog_ids - set(excluded_ids)
     expected_main = set(expected_main_ids)
     if not expected_main:
         raise ValueError("la membresia manual de m3u.m3u no puede estar vacia")
-    unknown_main = sorted(expected_main - catalog_ids)
+    unknown_main = sorted(expected_main - visible_catalog_ids)
     if unknown_main:
         raise ValueError(
-            "la lista principal manual contiene IDs fuera del catalogo: "
+            "la lista principal manual contiene IDs fuera del catalogo o excluidos: "
             + ", ".join(unknown_main)
         )
     if set(main) != expected_main:
@@ -4029,11 +4185,11 @@ def validate_public_playlist_partition(
             f"faltan={missing}, agregados={added}"
         )
     expected_external = (
-        catalog_ids - expected_main
+        visible_catalog_ids - expected_main
         if expected_external_ids is None
         else set(expected_external_ids)
     )
-    unknown_external = sorted(expected_external - catalog_ids)
+    unknown_external = sorted(expected_external - visible_catalog_ids)
     if unknown_external:
         raise ValueError(
             "la lista externa contiene IDs fuera del catalogo: "
@@ -4653,6 +4809,9 @@ def epg_status_from_xml(
     minimum_future: timedelta,
     allow_empty_ids: set[str] | None = None,
 ) -> dict:
+    if now.tzinfo is None:
+        now = now.replace(tzinfo=timezone.utc)
+    now = now.astimezone(timezone.utc).replace(microsecond=0)
     root = ET.fromstring(data)
     if root.tag != "tv":
         raise ValueError("la guia publicada no contiene una raiz XMLTV <tv>")
@@ -4766,6 +4925,118 @@ def epg_status_from_xml(
     }
 
 
+def epg_coverage_gaps(
+    data: bytes | ET.Element,
+    expected_ids: set[str],
+    *,
+    now: datetime,
+    minimum_future: timedelta,
+) -> list[tuple[str, datetime, datetime]]:
+    """Return uncovered intervals between now and the required EPG horizon."""
+    root = ET.fromstring(data) if isinstance(data, bytes) else data
+    current = (
+        now.astimezone(timezone.utc) if now.tzinfo else now.replace(tzinfo=timezone.utc)
+    ).replace(microsecond=0)
+    horizon = current + minimum_future
+    intervals: dict[str, list[tuple[datetime, datetime]]] = {
+        channel_id: [] for channel_id in expected_ids
+    }
+    for programme in root.findall("programme"):
+        channel_id = programme.get("channel", "")
+        if channel_id not in intervals:
+            continue
+        try:
+            start = xmltv_datetime(programme.get("start", ""))
+            stop = xmltv_datetime(programme.get("stop", ""))
+        except ValueError:
+            continue
+        if stop > start:
+            intervals[channel_id].append((start, stop))
+
+    gaps: list[tuple[str, datetime, datetime]] = []
+    for channel_id, channel_intervals in intervals.items():
+        cursor = current
+        for start, stop in sorted(channel_intervals):
+            if stop <= current or start >= horizon:
+                continue
+            start = max(start, current)
+            stop = min(stop, horizon)
+            if start > cursor:
+                gaps.append((channel_id, cursor, start))
+            cursor = max(cursor, stop)
+            if cursor >= horizon:
+                break
+        if cursor < horizon:
+            gaps.append((channel_id, cursor, horizon))
+    return gaps
+
+
+def fill_epg_coverage_gaps(
+    root: ET.Element,
+    required_ids: set[str],
+    *,
+    now: datetime,
+    minimum_future: timedelta,
+    formatter: Callable[[datetime], str] = xmltv_format_chile,
+) -> dict[str, int]:
+    """Fill only unlisted time with explicit technical ``Live`` EPG blocks."""
+    added_by_channel: dict[str, int] = {}
+    for channel_id, gap_start, gap_stop in epg_coverage_gaps(
+        root,
+        required_ids,
+        now=now,
+        minimum_future=minimum_future,
+    ):
+        cursor = gap_start
+        while cursor < gap_stop:
+            stop = min(cursor + timedelta(hours=6), gap_stop)
+            programme = ET.SubElement(
+                root,
+                "programme",
+                {
+                    "start": formatter(cursor),
+                    "stop": formatter(stop),
+                    "channel": channel_id,
+                },
+            )
+            ET.SubElement(programme, "title", {"lang": "es"}).text = "Live"
+            added_by_channel[channel_id] = added_by_channel.get(channel_id, 0) + 1
+            cursor = stop
+    return added_by_channel
+
+
+def extend_main_epg_coverage(
+    data: bytes,
+    required_ids: set[str],
+    *,
+    now: datetime,
+) -> tuple[bytes, dict[str, int]]:
+    """Keep an already valid guide continuous for a seven-day source outage."""
+    root = ET.fromstring(data)
+    added = fill_epg_coverage_gaps(
+        root,
+        required_ids,
+        now=now,
+        minimum_future=EPG_MAIN_CONTINUITY_BUFFER,
+    )
+    for channel in root.findall("channel"):
+        channel_id = channel.get("id", "")
+        if channel_id not in added:
+            continue
+        guide_type = channel.get("data-guide", "continuidad tecnica")
+        if "continuidad tecnica" not in guide_type.lower():
+            channel.set("data-guide", f"{guide_type} + continuidad tecnica")
+        if not channel.get("data-guide-source"):
+            channel.set("data-guide-source", "continuidad-tecnica")
+    root.set("data-continuity-policy", "technical-fill-unlisted-gaps")
+    root.set(
+        "data-main-continuity-hours",
+        str(int(EPG_MAIN_CONTINUITY_BUFFER.total_seconds() // 3600)),
+    )
+    ET.indent(root, space="  ")
+    return ET.tostring(root, encoding="utf-8", xml_declaration=True) + b"\n", added
+
+
 def validate_main_playlist_epg(
     channels: list[Channel],
     *,
@@ -4808,7 +5079,7 @@ def validate_main_playlist_epg(
         "scope": DEFAULT_PLAYLIST.name,
         "required_channels": len(principal_channels),
         "required_ids": sorted(expected_ids),
-        "minimum_future_hours": 24,
+        "minimum_future_hours": int(EPG_MAIN_MINIMUM_FUTURE.total_seconds() // 3600),
     }
     if missing_id_channels:
         return {
@@ -4854,17 +5125,40 @@ def validate_main_playlist_epg(
             data,
             expected_ids,
             now=current,
-            minimum_future=timedelta(hours=24),
+            minimum_future=EPG_MAIN_MINIMUM_FUTURE,
             allow_empty_ids=set(),
         )
     except (ET.ParseError, ValueError) as error:
+        detail = str(error)
+        if detail.startswith("programacion insuficiente"):
+            detail += " (horizonte exigido: 7 días)"
         return {
             **base,
             "ok": False,
-            "error": str(error),
+            "error": detail,
             "channels": 0,
             "programmes": 0,
             "technical_guides": [],
+        }
+    gaps = epg_coverage_gaps(
+        data,
+        expected_ids,
+        now=current,
+        minimum_future=EPG_MAIN_MINIMUM_FUTURE,
+    )
+    if gaps:
+        examples = "; ".join(
+            f"{channel_id} ({start.isoformat()}–{stop.isoformat()})"
+            for channel_id, start, stop in gaps[:8]
+        )
+        return {
+            **base,
+            "ok": False,
+            "error": "huecos de programación en los próximos 7 días: " + examples,
+            "channels": status.get("channels", 0),
+            "programmes": status.get("programmes", 0),
+            "technical_guides": [],
+            "coverage_gaps": len(gaps),
         }
     technical_guides = sorted(
         channel_id
@@ -4873,6 +5167,7 @@ def validate_main_playlist_epg(
     )
     status.update(base)
     status["technical_guides"] = technical_guides
+    status["coverage_gaps"] = 0
     status["coverage_percent"] = 100 if status.get("ok") else 0
     return status
 
@@ -7501,6 +7796,7 @@ def build_epg(
     red_bull_schedules: dict[str, list[dict]],
     *,
     now: datetime,
+    coverage_required_ids: set[str] | None = None,
 ) -> tuple[bytes, dict]:
     expected_ids = {channel.tvg_id for channel in channels if channel.tvg_id}
     if len(expected_ids) != len(channels):
@@ -7769,10 +8065,15 @@ def build_epg(
         if previous is None or stop > previous:
             last_stop_by_channel[channel_id] = stop
 
-    minimum_future = now + timedelta(hours=24)
     for channel_id, count in programmes_by_target.items():
         channel = channel_by_id[channel_id]
         last_stop = last_stop_by_channel.get(channel_id)
+        minimum_future = now + (
+            EPG_MAIN_CONTINUITY_BUFFER
+            if coverage_required_ids is not None
+            and channel_id in coverage_required_ids
+            else timedelta(hours=24)
+        )
         if count and last_stop is not None and last_stop >= minimum_future:
             continue
         if channel_id in FORCED_EPG_TITLES:
@@ -7849,6 +8150,40 @@ def build_epg(
     ET.indent(root, space="  ")
     output = ET.tostring(root, encoding="utf-8", xml_declaration=True) + b"\n"
     output = apply_epg_manual_overrides(output, allowed_ids=expected_ids)
+    root = ET.fromstring(output)
+    required_ids = (
+        expected_ids
+        if coverage_required_ids is None
+        else set(coverage_required_ids) & expected_ids
+    )
+    continuity_added = fill_epg_coverage_gaps(
+        root,
+        required_ids,
+        now=now,
+        minimum_future=(
+            EPG_MAIN_CONTINUITY_BUFFER
+            if coverage_required_ids is not None
+            else timedelta(hours=24)
+        ),
+    )
+    for channel_id in continuity_added:
+        existing_type = guide_types.get(channel_id, "")
+        if channel_id in guide_sources:
+            guide_types[channel_id] = (
+                existing_type
+                if "continuidad tecnica" in existing_type.lower()
+                else f"{existing_type or 'parrilla real'} + continuidad tecnica"
+            )
+        else:
+            guide_types[channel_id] = "continuidad tecnica"
+            guide_sources[channel_id] = "continuidad-tecnica"
+    for channel in root.findall("channel"):
+        channel_id = channel.get("id", "")
+        channel.set("data-guide", guide_types.get(channel_id, "senal continua"))
+        channel.set("data-guide-source", guide_sources.get(channel_id, ""))
+    root.set("data-continuity-policy", "technical-fill-unlisted-gaps")
+    ET.indent(root, space="  ")
+    output = ET.tostring(root, encoding="utf-8", xml_declaration=True) + b"\n"
     status = epg_status_from_xml(
         output,
         expected_ids,
@@ -7858,6 +8193,7 @@ def build_epg(
     )
     status["guide_types"] = guide_types
     status["guide_sources"] = guide_sources
+    status["continuity_blocks_added"] = sum(continuity_added.values())
     status["descriptions"] = {
         **description_status,
         "policy": "verified-source-only",
@@ -8047,6 +8383,11 @@ def refresh_epg(
     output_path = output_path or EPG_PATH
     now = datetime.now(timezone.utc)
     expected_ids = {channel.tvg_id for channel in channels if channel.tvg_id}
+    main_channels = (
+        parse_channels(DEFAULT_PLAYLIST.read_text(encoding="utf-8-sig").splitlines())
+        if DEFAULT_PLAYLIST.exists()
+        else []
+    )
     public_ids: set[str] | None = None
     public_playlist_paths = [
         path
@@ -8105,6 +8446,44 @@ def refresh_epg(
                 minimum_future=timedelta(hours=24),
                 allow_empty_ids=EPG_ALLOWED_EMPTY_IDS,
             )
+            if main_channels:
+                main_status = validate_main_playlist_epg(
+                    main_channels,
+                    required_channels=main_channels,
+                    data=existing_data,
+                    now=now,
+                )
+                if not main_status.get("ok"):
+                    existing_data, continuity_added = extend_main_epg_coverage(
+                        existing_data,
+                        {channel.tvg_id for channel in main_channels if channel.tvg_id},
+                        now=now,
+                    )
+                    main_status = validate_main_playlist_epg(
+                        main_channels,
+                        required_channels=main_channels,
+                        data=existing_data,
+                        now=now,
+                    )
+                    if not main_status.get("ok"):
+                        raise ValueError(
+                            "la EPG existente no cubre de forma continua Lista 1: "
+                            + str(main_status.get("error", "cobertura incompleta"))
+                        )
+                    existing_status = epg_status_from_xml(
+                        existing_data,
+                        expected_ids,
+                        now=now,
+                        minimum_future=timedelta(hours=24),
+                        allow_empty_ids=EPG_ALLOWED_EMPTY_IDS,
+                    )
+                    existing_status["main_playlist"] = main_status
+                    existing_status["continuity_blocks_added"] = sum(
+                        continuity_added.values()
+                    )
+                    temporary = output_path.with_suffix(".xml.tmp")
+                    temporary.write_bytes(existing_data)
+                    temporary.replace(output_path)
             generated_at = existing_status.get("generated_at")
             if generated_at and not force:
                 age = now - datetime.fromisoformat(generated_at)
@@ -8281,9 +8660,27 @@ def refresh_epg(
     if existing_status is not None and existing_data is not None:
         source_documents[PUBLISHED_EPG_FALLBACK_SOURCE] = existing_data
 
+    main_ids = {channel.tvg_id for channel in main_channels if channel.tvg_id}
     output, epg_status = build_epg(
-        source_documents, channels, red_bull_schedules, now=now
+        source_documents,
+        channels,
+        red_bull_schedules,
+        now=now,
+        coverage_required_ids=main_ids if main_channels else None,
     )
+    if main_channels:
+        main_status = validate_main_playlist_epg(
+            main_channels,
+            required_channels=main_channels,
+            data=output,
+            now=now,
+        )
+        if not main_status.get("ok"):
+            raise RuntimeError(
+                "la EPG generada no cubre de forma continua Lista 1: "
+                + str(main_status.get("error", "cobertura incompleta"))
+            )
+        epg_status["main_playlist"] = main_status
     temporary = output_path.with_suffix(".xml.tmp")
     temporary.write_bytes(output)
     temporary.replace(output_path)
@@ -10723,6 +11120,15 @@ def main() -> int:
         catalogue_before_update,
         lines,
     )
+    presentation_overrides = apply_provider_logo_overrides(
+        presentation_overrides,
+        selection_reconciliation,
+    )
+    apply_presentation_overrides(
+        lines,
+        source_playlist.name,
+        presentation_overrides,
+    )
     previous_vibem3u_ids = vibem3u_managed_main_ids(
         catalogue_before_update,
         membership_path,
@@ -10731,9 +11137,11 @@ def main() -> int:
     # mechanism.  TvVoo/Highfly rows are resolved in VibeM3U at playback time;
     # removing them here also protects the policy if an older m3u.m3u still
     # contains a manually published dynamic row.
-    manual_main_ids = public_main_membership_ids(
+    manual_main_ids, excluded_m3u_ids = apply_web_direct_membership(
         configured_manual_main_ids,
         app_only_ids,
+        catalogue_before_update,
+        presentation_overrides,
     )
     selection_changed = False
     selection_resource_updates = 0
@@ -10748,6 +11156,7 @@ def main() -> int:
     selection_report["selection_promotes_to_main"] = False
     selection_report["resource_updates"] = selection_resource_updates
     selection_report["effective_main_ids"] = sorted(manual_main_ids)
+    selection_report["excluded_m3u_ids"] = sorted(excluded_m3u_ids)
     if args.validate_vibem3u_selection:
         print(
             "Seleccion VibeM3U valida: "
@@ -10771,28 +11180,34 @@ def main() -> int:
     )
     if args.validate_public_lists_only:
         validate_resolver_contract(lines)
+        validation_catalog_ids = set(
+            stable_channel_ids(catalogue_before_update, label=CHANNEL_CATALOG_PATH.name)
+        )
+        validation_main_ids = frozenset(
+            set(manual_main_ids) - set(previous_auto_demoted_main_ids)
+        )
+        if not validation_main_ids:
+            raise ValueError("la membresia validada de m3u.m3u no puede estar vacia")
+        validation_external_ids = frozenset(
+            validation_catalog_ids - set(validation_main_ids) - set(excluded_m3u_ids)
+        )
         validate_public_playlist_partition(
             lines,
             DEFAULT_PLAYLIST.read_text(encoding="utf-8-sig").splitlines(),
             EXTERNAL_PLAYLIST.read_text(encoding="utf-8-sig").splitlines(),
-            manual_main_ids,
+            validation_main_ids,
             expected_external_ids=(
                 external_publication_channel_ids(
                     catalogue_before_update,
-                    frozenset(
-                        set(stable_channel_ids(catalogue_before_update, label="channel-catalog.m3u"))
-                        - set(manual_main_ids)
-                    ),
+                    validation_external_ids,
                     available_ids=external_available_ids_from_health(
                         catalogue_before_update,
-                        frozenset(
-                            set(stable_channel_ids(catalogue_before_update, label="channel-catalog.m3u"))
-                            - set(manual_main_ids)
-                        ),
+                        validation_external_ids,
                         previous_health_state,
                     ),
                 )
             ),
+            excluded_ids=excluded_m3u_ids,
         )
         return 0
     removed_channels = remove_permanently_removed_channels(
@@ -10821,9 +11236,32 @@ def main() -> int:
         if not channels:
             raise RuntimeError("el catalogo no contiene canales para la EPG")
         epg_status = refresh_epg(channels, force=True)
+        main_channels = (
+            parse_channels(DEFAULT_PLAYLIST.read_text(encoding="utf-8-sig").splitlines())
+            if DEFAULT_PLAYLIST.exists()
+            else []
+        )
+        if main_channels:
+            main_status = validate_main_playlist_epg(
+                main_channels,
+                required_channels=main_channels,
+                data=EPG_PATH.read_bytes(),
+            )
+            if not main_status.get("ok"):
+                print(
+                    "ERROR: la EPG no cubre continuamente todos los canales de Lista 1: "
+                    + str(main_status.get("error", "cobertura incompleta")),
+                    file=sys.stderr,
+                )
+                return 1
+            print(
+                "  [OK] Compuerta EPG de m3u.m3u: cobertura continua 100% para "
+                f"{main_status['required_channels']} canales"
+            )
         print(
             f"EPG actualizada: {epg_status['channels']} canales y "
-            f"{epg_status['programmes']} programas"
+            f"{epg_status['programmes']} programas; "
+            f"{epg_status.get('continuity_blocks_added', 0)} bloques técnicos agregados"
         )
         return 0
     if args.validate_resolvers_only:
@@ -11155,13 +11593,30 @@ def main() -> int:
                 f"  [AUTO] {channel_id}: {action} "
                 f"(umbral={AUTO_MAIN_DEMOTION_FAILURE_THRESHOLD})"
             )
+    excluded_catalog_ids = set(excluded_m3u_ids) & set(catalogue_ids)
+    effective_main_ids = frozenset(set(effective_main_ids) - excluded_catalog_ids)
+    new_automatic_demoted_main_ids = frozenset(
+        set(new_automatic_demoted_main_ids) - excluded_catalog_ids
+    )
+    automatic_partition_actions = {
+        channel_id: action
+        for channel_id, action in automatic_partition_actions.items()
+        if channel_id not in excluded_catalog_ids
+    }
+    selection_report["effective_main_ids"] = sorted(effective_main_ids)
     missing_manual_ids = sorted(set(manual_main_ids) - set(catalogue_ids))
     if missing_manual_ids:
         raise RuntimeError(
             "el reparador elimino canales de la lista principal manual: "
             + ", ".join(missing_manual_ids)
         )
-    external_ids = frozenset(set(catalogue_ids) - set(effective_main_ids))
+    if not effective_main_ids:
+        raise RuntimeError(
+            "la Lista 1 no puede quedar vacia: reactiva o reasigna al menos un canal"
+        )
+    external_ids = frozenset(
+        set(catalogue_ids) - set(effective_main_ids) - excluded_catalog_ids
+    )
     external_available_ids = {
         channel.tvg_id
         for channel, result in zip(final_channels, results)
@@ -11261,6 +11716,7 @@ def main() -> int:
         candidate_external_lines,
         effective_main_ids,
         expected_external_ids=external_publication_ids,
+        excluded_ids=excluded_catalog_ids,
     )
     main_working_count = sum(
         1

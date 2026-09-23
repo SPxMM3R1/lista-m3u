@@ -171,6 +171,12 @@ def _presentation_manifest_ids(text: str, *, path: str) -> set[str]:
         for order in orders.values():
             if isinstance(order, list):
                 ids.update(str(channel_id).strip() for channel_id in order)
+    logos = presentation.get("logos", {})
+    if isinstance(logos, dict):
+        ids.update(str(channel_id).strip() for channel_id in logos)
+    excluded = presentation.get("excluded_m3u", [])
+    if isinstance(excluded, list):
+        ids.update(str(channel_id).strip() for channel_id in excluded)
     ids.discard("")
     return ids
 
@@ -276,6 +282,10 @@ def classify_changes(
                     _presentation_manifest_ids(after[path], path=path)
                 )
                 presentation_changed = True
+            continue
+        if path == "data/channel-editor-layout.json":
+            # The editor's durable app layout accompanies the runner-facing
+            # presentation manifest. It is not itself a public playlist edit.
             continue
         if path == _EPG_MANUAL_OVERRIDES:
             if path not in after:

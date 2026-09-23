@@ -6,6 +6,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 import update_m3u
+import targeted_update
 
 
 def extinf(tvg_id: str, name: str, group: str = "legacy") -> str:
@@ -944,6 +945,99 @@ class PlaylistOrderTests(unittest.TestCase):
                 main_lines,
                 {"0104"},
             )
+
+    def test_web_editor_moves_direct_channels_and_excludes_hidden_or_purged_ids(self) -> None:
+        catalog_lines = [
+            "#EXTM3U",
+            extinf("one", "One", "News"),
+            "https://example.invalid/one.m3u8",
+            extinf("two", "Two", "Sports"),
+            "https://example.invalid/two.m3u8",
+            extinf("three", "Three", "Sports"),
+            "https://example.invalid/three.m3u8",
+        ]
+        channels = update_m3u.parse_channels(catalog_lines)
+        overrides = {
+            "orders": {"m3u.m3u": ["one", "two"], "m3u-externa.m3u": ["three"]},
+            "excluded_m3u": [],
+        }
+        main_ids, excluded = update_m3u.apply_web_direct_membership(
+            {"one", "two"}, set(), channels, overrides
+        )
+        self.assertEqual({"one", "two"}, main_ids)
+        self.assertEqual(frozenset(), excluded)
+
+        overrides["orders"]["m3u.m3u"] = ["two"]
+        overrides["orders"]["m3u-externa.m3u"] = ["one", "three"]
+        main_ids, excluded = update_m3u.apply_web_direct_membership(
+            {"one", "two"}, set(), channels, overrides
+        )
+        self.assertEqual({"two"}, main_ids)
+        self.assertEqual(frozenset(), excluded)
+
+        overrides["orders"]["m3u-externa.m3u"] = ["one"]
+        overrides["excluded_m3u"] = ["three"]
+        main_ids, excluded = update_m3u.apply_web_direct_membership(
+            {"two"}, set(), channels, overrides
+        )
+        main_lines = update_m3u.filter_playlist_to_channel_ids(catalog_lines, channels, main_ids)
+        external_ids = {"one"}
+        external_lines = update_m3u.filter_playlist_to_channel_ids(catalog_lines, channels, external_ids)
+        self.assertEqual(frozenset({"three"}), excluded)
+        update_m3u.validate_public_playlist_partition(
+            catalog_lines,
+            main_lines,
+            external_lines,
+            main_ids,
+            expected_external_ids=external_ids,
+            excluded_ids=excluded,
+        )
+
+    def test_targeted_editor_partition_preserves_health_demotions_and_exclusions(self) -> None:
+        catalog_lines = [
+            "#EXTM3U",
+            extinf("one", "One", "News"),
+            "https://example.invalid/one.m3u8",
+            extinf("two", "Two", "Sports"),
+            "https://example.invalid/two.m3u8",
+            extinf("three", "Three", "Sports"),
+            "https://example.invalid/three.m3u8",
+        ]
+        prior_main = ["#EXTM3U", extinf("one", "One", "News"), "https://example.invalid/one.m3u8"]
+        presentation = {
+            "orders": {"m3u.m3u": ["two"], "m3u-externa.m3u": ["one"]},
+            "excluded_m3u": ["three"],
+        }
+        with patch.object(update_m3u, "load_health_state", return_value={"channels": {}}):
+            main_ids, external_ids, excluded_ids = targeted_update._effective_editor_partition(
+                catalog_lines,
+                prior_main,
+                presentation,
+            )
+        self.assertEqual(frozenset({"two"}), main_ids)
+        self.assertEqual(frozenset({"one"}), external_ids)
+        self.assertEqual(frozenset({"three"}), excluded_ids)
+
+    def test_provider_logo_override_maps_catalog_key_only_after_a_runner_match(self) -> None:
+        from types import SimpleNamespace
+
+        reconciliation = SimpleNamespace(matched=(SimpleNamespace(
+            row=SimpleNamespace(catalog_key="spain|vavoo_ESPN%201%7Cgroup%3Aes"),
+            catalog_id="ESPN1.es@TvVoo",
+        ),))
+        result = update_m3u.apply_provider_logo_overrides(
+            {"logos": {"spain|vavoo_ESPN%201%7Cgroup%3Aes": "logos/espn.svg"}},
+            reconciliation,
+        )
+        self.assertEqual("logos/espn.svg", result["logos"]["ESPN1.es@TvVoo"])
+
+    def test_presentation_override_rejects_duplicate_and_locator_exclusions(self) -> None:
+        for excluded in (["one", "one"], ["https://example.invalid/live.m3u8"]):
+            with self.subTest(excluded=excluded), tempfile.TemporaryDirectory() as directory:
+                path = Path(directory) / "presentation-overrides.json"
+                path.write_text(json.dumps({"schema": 1, "excluded_m3u": excluded}), encoding="utf-8")
+                with self.assertRaisesRegex(ValueError, "excluded_m3u"):
+                    update_m3u.load_presentation_overrides(path)
 
     def test_selected_dynamic_channels_are_published_in_main(self) -> None:
         selected = [

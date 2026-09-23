@@ -50,7 +50,13 @@ concurrency:
 
 jobs:
   targeted:
-    if: github.event_name != 'push' || !contains(github.event.head_commit.message, '[skip ci]')
+    if: >-
+      github.event_name != 'push' || (
+        !contains(github.event.head_commit.message, '[skip ci]') &&
+        !contains(github.event.head_commit.modified, 'data/vibem3u-selection.json') &&
+        !contains(github.event.head_commit.added, 'data/vibem3u-selection.json') &&
+        !contains(github.event.head_commit.removed, 'data/vibem3u-selection.json')
+      )
     runs-on: ubuntu-latest
     steps:
       - name: Descargar repositorio

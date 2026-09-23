@@ -19,6 +19,7 @@ import xml.etree.ElementTree as ET
 
 import change_plan
 import update_m3u
+import vibem3u_selection
 
 
 PROJECT_ROOT = Path(__file__).resolve().parent
@@ -392,25 +393,67 @@ def _apply_playlist_updates(
     }
 
 
+def _effective_editor_partition(
+    catalog_lines: list[str],
+    configured_main_lines: list[str],
+    presentation_overrides: dict[str, object],
+) -> tuple[frozenset[str], frozenset[str], frozenset[str]]:
+    catalog_channels = update_m3u.parse_channels(catalog_lines)
+    catalog_by_id = {
+        channel.tvg_id: channel for channel in catalog_channels if channel.tvg_id
+    }
+    configured_main: set[str] = set()
+    for channel in update_m3u.parse_channels(configured_main_lines):
+        catalog_id = update_m3u.catalog_id_for_public_channel(channel, catalog_channels)
+        if catalog_id is None:
+            raise ValueError(f"{channel.tvg_id}: la Lista 1 contiene una identidad ajena al catálogo")
+        configured_main.add(catalog_id)
+    app_only_ids = update_m3u.app_only_resolver_channel_ids(catalog_channels)
+    desired_main, excluded_ids = update_m3u.apply_web_direct_membership(
+        configured_main,
+        app_only_ids,
+        catalog_channels,
+        presentation_overrides,
+    )
+    health = update_m3u.load_health_state()
+    demoted = update_m3u.automatic_demoted_main_ids(health, set(catalog_by_id))
+    expected_main = frozenset(set(desired_main) - set(demoted))
+    if not expected_main:
+        raise RuntimeError("La Lista 1 no puede quedar vacía; reactiva o reasigna un canal.")
+    current_catalog_ids = set(catalog_by_id)
+    excluded_current = frozenset(set(excluded_ids) & current_catalog_ids)
+    external_scope = frozenset(current_catalog_ids - set(expected_main) - set(excluded_current))
+    available = update_m3u.external_available_ids_from_health(
+        catalog_channels,
+        external_scope,
+        health,
+    )
+    expected_external = update_m3u.external_publication_channel_ids(
+        catalog_channels,
+        external_scope,
+        available_ids=available,
+    )
+    return expected_main, expected_external, excluded_current
+
+
 def _validate_partition(updated: dict[Path, list[str]]) -> None:
     catalog_lines = updated[PROJECT_ROOT / "channel-catalog.m3u"]
     main_lines = updated[PROJECT_ROOT / "m3u.m3u"]
     external_lines = updated[PROJECT_ROOT / "m3u-externa.m3u"]
-    catalog_channels = update_m3u.parse_channels(catalog_lines)
-    manual_ids = update_m3u.load_manual_main_channel_ids(
-        catalog_channels,
-        PROJECT_ROOT / "m3u.m3u",
+    presentation = update_m3u.load_presentation_overrides()
+    expected_main, expected_external, excluded_ids = _effective_editor_partition(
+        catalog_lines,
+        main_lines,
+        presentation,
     )
-    external_ids = {
-        channel.tvg_id for channel in update_m3u.parse_channels(external_lines)
-    }
     update_m3u.validate_resolver_contract(catalog_lines)
     update_m3u.validate_public_playlist_partition(
         catalog_lines,
         main_lines,
         external_lines,
-        manual_ids,
-        expected_external_ids=external_ids,
+        expected_main,
+        expected_external_ids=expected_external,
+        excluded_ids=excluded_ids,
     )
 
 
@@ -446,12 +489,50 @@ def apply_presentation(
                     if path in updated:
                         updated[path] = reorder_playlist_lines(updated[path], after_ids)
     presentation_overrides = update_m3u.load_presentation_overrides()
+    catalog_lines = updated[PROJECT_ROOT / "channel-catalog.m3u"]
+    catalog_channels = update_m3u.parse_channels(catalog_lines)
+    selection = update_m3u.load_vibem3u_selection()
+    reconciliation = vibem3u_selection.reconcile_selection(
+        selection,
+        catalog_channels,
+        catalog_lines,
+    )
+    presentation_overrides = update_m3u.apply_provider_logo_overrides(
+        presentation_overrides,
+        reconciliation,
+    )
     for path, lines in updated.items():
         update_m3u.apply_presentation_overrides(
             lines,
             path.name,
             presentation_overrides,
         )
+    expected_main, expected_external, excluded_ids = _effective_editor_partition(
+        catalog_lines,
+        updated[PROJECT_ROOT / "m3u.m3u"],
+        presentation_overrides,
+    )
+    updated[PROJECT_ROOT / "m3u.m3u"] = update_m3u.filter_playlist_to_channel_ids(
+        catalog_lines,
+        catalog_channels,
+        expected_main,
+    )
+    updated[PROJECT_ROOT / "m3u-externa.m3u"] = update_m3u.filter_playlist_to_channel_ids(
+        catalog_lines,
+        catalog_channels,
+        expected_external,
+    )
+    update_m3u.apply_presentation_overrides(
+        updated[PROJECT_ROOT / "m3u.m3u"], "m3u.m3u", presentation_overrides
+    )
+    update_m3u.apply_presentation_overrides(
+        updated[PROJECT_ROOT / "m3u-externa.m3u"], "m3u-externa.m3u", presentation_overrides
+    )
+    updated[PROJECT_ROOT / "m3u-externa.m3u"] = update_m3u.move_external_research_blocks_to_end(
+        updated[PROJECT_ROOT / "m3u-externa.m3u"],
+        update_m3u.EXTERNAL_RESEARCH_TAIL_CHANNEL_IDS,
+        update_m3u.EXTERNAL_DASH_TAIL_CHANNEL_IDS,
+    )
     _validate_partition(updated)
     for path in PROJECT_ROOT.joinpath("logos").glob("**/*"):
         if path.is_file() and path.stat().st_size == 0:

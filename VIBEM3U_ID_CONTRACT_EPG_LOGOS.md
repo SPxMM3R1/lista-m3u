@@ -349,3 +349,72 @@ Antes de publicar una selección, VibeM3U debe comprobar:
 
 La identidad debe ser útil para que Lista M3U encuentre EPG y logos sin tener
 que adivinar qué canal quiso seleccionar el usuario.
+
+## Catálogo editorial compartido con el editor web
+
+El orden de reproducción y la visibilidad que el usuario prepara en el editor
+se publica en `data/channel-editor-layout.json`, con `schemaVersion: 1`, una
+lista `channels` y la lista durable `excludedM3u` para identidades M3U
+eliminadas definitivamente de la vista editorial. Cada fila usa `tvgId` como identidad para M3U o `catalogKey`
+para Highfly/TvVoo; nunca usa el orden, número, `providerResourceId`,
+`resolverSlug` ni una URL como identidad.
+
+Una fila tiene `order` y `number` positivos, y `state` igual a `active`,
+`hidden` o `deleted`. Ocultar o enviar a papelera un canal Highfly/TvVoo lo
+retira de `data/vibem3u-selection.json`, pero la fila editorial se conserva
+para poder restaurarla. Eliminar definitivamente solo borra la fila editorial;
+no elimina un registro del catálogo fuente ni los artefactos originales de
+Lista M3U. Para una fila M3U purgada, `excludedM3u` conserva el `tvgId` como
+tombstone hasta que se vuelva a añadir desde el catálogo disponible. La app
+debe excluir esos IDs de su catálogo visible y ocultarlos también en el almacén
+local; debe mostrar únicamente filas `active` en el orden indicado, con
+respaldo a su catálogo integrado si el archivo aún no está disponible.
+
+La asignación directa a Lista 1 o Lista 2 se conserva en `sourceList` de cada
+fila M3U (`1.m3u` o `2.m3u`). El sitio exporta las filas activas a
+`presentation-overrides.json` en `orders.m3u.m3u` y
+`orders.m3u-externa.m3u`, y las filas M3U ocultas, en papelera o purgadas a
+`excluded_m3u`. El runner usa esas decisiones para actualizar la pertenencia
+de las dos salidas públicas, valida que ninguna exclusión aparezca en ellas y
+falla sin publicar si la Lista 1 quedara vacía. Las exclusiones fuera del
+catálogo actual se mantienen como tombstones, sin tratarse como identidades
+de reproducción.
+
+Para incluir en el editor canales de proveedor todavía no seleccionados,
+VibeM3U puede exportar un archivo JSON descargable con este contrato:
+
+```json
+{
+  "schemaVersion": 1,
+  "providers": [
+    {
+      "provider": "highfly",
+      "channels": [
+        {
+          "catalogKey": "SkySportsTennis.uk",
+          "providerResourceId": "leaf:now-sky-sports-tennis",
+          "resolverSlug": "now-sky-sports-tennis",
+          "name": "Sky Sports Tennis",
+          "group": "Deportes",
+          "category": "Tennis",
+          "countryKey": "uk",
+          "identityState": "canonical"
+        }
+      ]
+    }
+  ]
+}
+```
+
+Este catálogo de importación contiene solo metadatos editoriales y referencias
+de resolución del contrato. Debe excluir URLs HLS, tokens, credenciales,
+respuestas crudas y enlaces temporales del proveedor.
+
+El editor escribe las elecciones de logo local en `presentation-overrides.json`
+como un mapa `logos` de identidad estable a ruta existente bajo `logos/`. Para
+Highfly/TvVoo la clave es `catalogKey`; el runner solo traslada esa elección al
+`tvg-id` canónico después de una coincidencia confirmada. El runner valida la
+ruta y aplica la URL pública local al `tvg-logo`. El orden de cada playlist M3U
+se conserva en `presentation-overrides.json` bajo `orders`; el orden global
+combinado, las asignaciones Lista 1/2, los estados editoriales y los tombstones
+viven en `data/channel-editor-layout.json`.

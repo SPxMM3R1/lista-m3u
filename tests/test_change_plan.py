@@ -113,6 +113,19 @@ https://example.test/one.m3u8
         )
 
         self.assertEqual(ChangeKind.PRESENTATION, plan.kind)
+
+    def test_editor_layout_accompanying_presentation_does_not_force_a_full_run(self) -> None:
+        plan = classify_changes(
+            ["data/channel-editor-layout.json", "presentation-overrides.json"],
+            after={
+                "presentation-overrides.json": (
+                    '{"schema":1,"orders":{"m3u.m3u":["one"]},'
+                    '"excluded_m3u":["two"]}'
+                )
+            },
+        )
+        self.assertEqual(ChangeKind.PRESENTATION, plan.kind)
+        self.assertFalse(plan.full_run_required)
         self.assertEqual(("one", "two"), plan.channel_ids)
 
     def test_epg_manual_override_targets_only_its_channels(self) -> None:

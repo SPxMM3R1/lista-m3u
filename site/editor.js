@@ -1,0 +1,909 @@
+import {
+  addRow,
+  buildPresentationOverrides,
+  buildSelectionDocument,
+  compareRows,
+  formatJson,
+  gitBlobSha,
+  moveRow,
+  removePermanently,
+  renumber,
+  resequence,
+  rowKey,
+  sanitizeRow,
+  setRowState,
+  stableId,
+  summarizeChanges,
+  validateLayout,
+  validateProviderCatalog,
+} from "./editor-core.mjs";
+
+const REPOSITORY = "SPxMM3R1/lista-m3u";
+const BRANCH = "main";
+const API = `https://api.github.com/repos/${REPOSITORY}`;
+const RAW = `https://raw.githubusercontent.com/${REPOSITORY}/main`;
+const FILES = {
+  selection: "data/vibem3u-selection.json",
+  layout: "data/channel-editor-layout.json",
+  presentation: "presentation-overrides.json",
+};
+const SOURCE_LABELS = {
+  "1.m3u": "Lista 1",
+  "2.m3u": "Lista 2",
+  highfly: "Highfly",
+  tvvoo: "TvVoo",
+};
+const PENDING_REASONS = {
+  catalog_not_found: "El runner aún no encuentra esta identidad en el catálogo.",
+  identity_provisional: "La identidad es provisional; el runner no la resolverá automáticamente.",
+  catalog_identity_already_selected: "Esta identidad ya está vinculada a otro canal seleccionado.",
+  catalog_match_ambiguous: "Hay más de una coincidencia posible; no se eligió ninguna.",
+  catalog_missing_tvg_id: "La entrada del catálogo no tiene tvg-id.",
+};
+
+const $ = (selector) => document.querySelector(selector);
+const elements = {
+  activeCount: $("#active-count"),
+  activeTabCount: $("#active-tab-count"),
+  hiddenTabCount: $("#hidden-tab-count"),
+  deletedTabCount: $("#deleted-tab-count"),
+  search: $("#search-input"),
+  sourceFilter: $("#source-filter"),
+  list: $("#channel-list"),
+  inspector: $("#inspector"),
+  visibleRange: $("#visible-range"),
+  publish: $("#publish-button"),
+  publishDialog: $("#publish-dialog"),
+  publishForm: $("#publish-form"),
+  token: $("#github-token"),
+  confirmPublish: $("#confirm-publish"),
+  publishError: $("#publish-error"),
+  publishSummary: $("#publish-summary"),
+  changeReview: $("#change-review"),
+  reviewList: $("#review-list"),
+  toast: $("#toast"),
+  logoDialog: $("#logo-dialog"),
+  logoGrid: $("#logo-grid"),
+  logoSearch: $("#logo-search"),
+  logoTitle: $("#logo-dialog-channel"),
+  addDialog: $("#add-dialog"),
+  availableList: $("#available-list"),
+  availableSearch: $("#available-search"),
+  providerFile: $("#provider-catalog-file"),
+};
+
+let state = null;
+let activeView = "active";
+let sourceFilter = "all";
+let selectedKey = "";
+let tokenInMemory = "";
+let toastTimer = 0;
+
+function icon(name) {
+  const paths = {
+    up: '<path d="m5 12 5-5 5 5M10 7v10"/>',
+    down: '<path d="m5 8 5 5 5-5M10 3v10"/>',
+    plus: '<path d="M10 4v12M4 10h12"/>',
+    check: '<path d="m4 10 4 4 8-8"/>',
+    warning: '<path d="M10 3 2.5 16h15L10 3Z"/><path d="M10 7.5v4m0 2.2v.1"/>',
+    eye: '<path d="M2.5 10s2.7-4.5 7.5-4.5 7.5 4.5 7.5 4.5-2.7 4.5-7.5 4.5-7.5-4.5-7.5-4.5Z"/><circle cx="10" cy="10" r="1.8"/>',
+    bin: '<path d="M4 6h12m-10 0 .6 10h6.8L14 6M8 6V4h4v2m-3 3v4m2-4v4"/>',
+  };
+  return `<svg aria-hidden="true" viewBox="0 0 20 20">${paths[name] ?? paths.check}</svg>`;
+}
+
+function node(tag, className = "", text = "") {
+  const element = document.createElement(tag);
+  if (className) element.className = className;
+  if (text !== "") element.textContent = text;
+  return element;
+}
+
+function button(label, className, action, symbol = "") {
+  const element = document.createElement("button");
+  element.type = "button";
+  element.className = `button ${className}`.trim();
+  element.textContent = label;
+  if (symbol) element.insertAdjacentHTML("afterbegin", icon(symbol));
+  if (action) element.addEventListener("click", action);
+  return element;
+}
+
+function clone(value) {
+  return structuredClone(value);
+}
+
+function sourceFor(row) {
+  return row.kind === "provider" ? row.provider : row.sourceList;
+}
+
+function sourceName(row) {
+  return SOURCE_LABELS[sourceFor(row)] ?? "Sin fuente";
+}
+
+function imageUrl(path) {
+  if (!path || typeof path !== "string") return "";
+  return `${RAW}/${path.split("/").map(encodeURIComponent).join("/")}`;
+}
+
+function logoPathFor(row) {
+  return row.logoOverride || row.logoPath || "";
+}
+
+function makeLogo(row, className = "channel-logo") {
+  const path = logoPathFor(row);
+  if (!path) {
+    const fallback = node("span", "logo-fallback", String(row.name ?? "?").trim().slice(0, 1).toLocaleUpperCase("es"));
+    fallback.setAttribute("aria-hidden", "true");
+    return fallback;
+  }
+  const image = node("img", className);
+  image.src = imageUrl(path);
+  image.alt = "";
+  image.loading = "lazy";
+  image.addEventListener("error", () => image.replaceWith(node("span", "logo-fallback", String(row.name ?? "?").slice(0, 1).toLocaleUpperCase("es"))), { once: true });
+  return image;
+}
+
+function identityFor(row) {
+  return stableId(row);
+}
+
+function displayIdentity(row) {
+  return row.kind === "provider" ? row.catalogKey : row.tvgId;
+}
+
+function rowSearchText(row) {
+  return [row.name, row.group, row.category, row.provider, row.sourceList, stableId(row), row.country]
+    .filter(Boolean).join(" ").toLocaleLowerCase("es");
+}
+
+async function loadJson(path) {
+  const response = await fetch(path, { cache: "no-store", credentials: "omit" });
+  if (!response.ok) throw new Error(`No se pudo cargar ${path} (${response.status}).`);
+  return response.json();
+}
+
+function normalizedLoadedLayout(layout, catalog, presentation) {
+  const rows = Array.isArray(layout?.channels) ? layout.channels.map((row) => ({ ...row })) : [];
+  const metadataByKey = new Map((catalog?.channels ?? []).map((row) => [rowKey(row), row]));
+  const logoMap = (presentation?.presentation ?? presentation)?.logos ?? {};
+  return {
+    schemaVersion: 1,
+    excludedM3u: Array.isArray(layout?.excludedM3u) ? [...new Set(layout.excludedM3u.map(String))] : [],
+    channels: rows.map((row) => {
+      const metadata = metadataByKey.get(rowKey(row)) ?? {};
+      const merged = { ...metadata, ...row };
+      const identity = identityFor(merged);
+      if (!Object.hasOwn(merged, "logoOverride") && logoMap[identity]) merged.logoOverride = logoMap[identity];
+      if (!merged.logoPath && metadata.logoPath) merged.logoPath = metadata.logoPath;
+      if (!merged.order) merged.order = rows.indexOf(row) + 1;
+      if (!merged.number) merged.number = merged.order;
+      if (!merged.state) merged.state = "active";
+      return sanitizeRow(merged);
+    }),
+  };
+}
+
+async function initialize() {
+  try {
+    const [catalog, logos, layout, selection, presentation, repository, runnerStatus] = await Promise.all([
+      loadJson("./data/catalog.json"),
+      loadJson("./data/logos.json"),
+      loadJson("./data/layout.json"),
+      loadJson("./data/selection.json"),
+      loadJson("./data/presentation.json"),
+      loadJson("./data/repository.json"),
+      loadJson("./data/runner-status.json"),
+    ]);
+    const normalizedLayout = normalizedLoadedLayout(layout, catalog, presentation);
+    state = {
+      catalog: catalog.channels ?? [],
+      logos: logos.logos ?? [],
+      layout: normalizedLayout,
+      originalLayout: clone(normalizedLayout),
+      selection,
+      presentation,
+      originalPresentationBaseline: buildPresentationOverrides(normalizedLayout, presentation),
+      repository,
+      runnerStatus,
+      importedProviders: [],
+      numberDraft: "",
+      loadingError: "",
+    };
+    const first = state.layout.channels.filter((row) => row.state === "active").sort(compareRows)[0];
+    selectedKey = first ? rowKey(first) : "";
+    render();
+    document.addEventListener("keydown", handleGlobalKeydown);
+  } catch (error) {
+    state = { loadingError: error.message };
+    elements.visibleRange.textContent = "No se pudo cargar el catálogo.";
+    const message = node("li", "empty-state", error.message);
+    elements.list.replaceChildren(message);
+    showToast(error.message, true);
+  }
+}
+
+function allRows() {
+  if (!state) return [];
+  return state.layout.channels.slice().sort(compareRows);
+}
+
+function counts() {
+  const rows = allRows();
+  return {
+    active: rows.filter((row) => row.state === "active").length,
+    hidden: rows.filter((row) => row.state === "hidden").length,
+    deleted: rows.filter((row) => row.state === "deleted").length,
+  };
+}
+
+function layoutDocument() {
+  return {
+    schemaVersion: 1,
+    excludedM3u: [...new Set(state.layout.excludedM3u ?? [])].sort((a, b) => a.localeCompare(b)),
+    channels: state.layout.channels.map(sanitizeRow).sort(compareRows),
+  };
+}
+
+function currentPresentation() {
+  return buildPresentationOverrides(layoutDocument(), state.presentation);
+}
+
+function isDirty() {
+  if (!state || state.loadingError) return false;
+  const layoutChanged = JSON.stringify(layoutDocument()) !== JSON.stringify(state.originalLayout);
+  const presentationChanged = JSON.stringify(currentPresentation()) !== JSON.stringify(state.originalPresentationBaseline);
+  return layoutChanged || presentationChanged;
+}
+
+function sourceMatches(row) {
+  return sourceFilter === "all" || sourceFor(row) === sourceFilter;
+}
+
+function rowsForView() {
+  const query = elements.search.value.trim().toLocaleLowerCase("es");
+  return allRows().filter((row) => row.state === activeView && sourceMatches(row) && (!query || rowSearchText(row).includes(query)));
+}
+
+function render() {
+  if (!state || state.loadingError) return;
+  const total = counts();
+  elements.activeCount.textContent = String(total.active);
+  elements.activeTabCount.textContent = String(total.active);
+  elements.hiddenTabCount.textContent = String(total.hidden);
+  elements.deletedTabCount.textContent = String(total.deleted);
+  document.querySelectorAll(".view-tab").forEach((tab) => {
+    const active = tab.dataset.view === activeView;
+    tab.classList.toggle("is-active", active);
+    tab.setAttribute("aria-pressed", String(active));
+  });
+  renderRows();
+  renderInspector();
+  elements.publish.disabled = !isDirty();
+  elements.publish.setAttribute("aria-label", isDirty() ? "Publicar los cambios del catálogo en GitHub" : "No hay cambios por publicar");
+}
+
+function renderRows() {
+  const rows = rowsForView();
+  const fragment = document.createDocumentFragment();
+  if (!rows.length) {
+    const empty = node("li", "empty-state");
+    const heading = node("strong", "", activeView === "active" ? "No hay canales que coincidan" : activeView === "hidden" ? "No hay canales ocultos" : "La papelera está vacía");
+    const note = node("span", "", activeView === "active" ? "Prueba otra búsqueda o agrega canales disponibles." : "Cuando cambies el estado de un canal, aparecerá aquí.");
+    empty.append(heading, note);
+    fragment.append(empty);
+  } else {
+    rows.forEach((row) => fragment.append(renderRow(row)));
+  }
+  elements.list.replaceChildren(fragment);
+  const filtered = rows.length;
+  elements.visibleRange.textContent = `${filtered} ${filtered === 1 ? "canal" : "canales"} · ${activeView === "active" ? "ordenados" : activeView === "hidden" ? "ocultos" : "en papelera"}`;
+}
+
+function renderRow(row) {
+  const item = node("li", `channel-row${row.state === "hidden" ? " is-hidden" : row.state === "deleted" ? " is-deleted" : ""}${rowKey(row) === selectedKey ? " is-selected" : ""}`);
+  const number = node("span", "row-number", String(row.number));
+  const select = node("button", "channel-select");
+  select.type = "button";
+  select.setAttribute("aria-pressed", String(rowKey(row) === selectedKey));
+  select.setAttribute("aria-label", `Ver detalles de ${row.name}, número ${row.number}, ${sourceName(row)}`);
+  const labels = node("span", "channel-labels");
+  const name = node("span", "channel-name", row.name);
+  const subtitleText = row.kind === "provider" ? `${row.category || row.group || "Proveedor"}${row.identityState === "provisional" ? " · identidad provisional" : ""}` : (row.group || "Canal M3U");
+  labels.append(name, node("span", "channel-subtitle", subtitleText));
+  select.append(makeLogo(row), labels);
+  select.addEventListener("click", () => { selectedKey = rowKey(row); render(); });
+
+  const source = node("span", "source-label", sourceName(row));
+  source.dataset.source = sourceFor(row);
+  const order = node("span", "row-order");
+  const sequence = allRows().filter((item) => item.state === row.state).sort(compareRows);
+  const index = sequence.findIndex((item) => rowKey(item) === rowKey(row));
+  const up = node("button", "");
+  up.type = "button";
+  up.innerHTML = icon("up");
+  up.disabled = activeView !== "active" || index <= 0;
+  up.setAttribute("aria-label", `Subir ${row.name} un lugar`);
+  up.addEventListener("click", (event) => { event.stopPropagation(); changeLayout(moveRow(state.layout, rowKey(row), -1)); });
+  const down = node("button", "");
+  down.type = "button";
+  down.innerHTML = icon("down");
+  down.disabled = activeView !== "active" || index < 0 || index >= sequence.length - 1;
+  down.setAttribute("aria-label", `Bajar ${row.name} un lugar`);
+  down.addEventListener("click", (event) => { event.stopPropagation(); changeLayout(moveRow(state.layout, rowKey(row), 1)); });
+  order.append(up, down);
+  item.append(number, select, source, order);
+  return item;
+}
+
+function identityStatus(row) {
+  if (row.kind !== "provider") return { kind: "confirmed", text: "Identidad de la lista M3U", detail: "El tvg-id se conserva como identidad pública." };
+  const statuses = state.runnerStatus?.rows ?? [];
+  const result = statuses.find((item) => item.provider === row.provider && item.catalogKey === row.catalogKey);
+  if (result?.status === "matched") {
+    return { kind: "confirmed", text: "Identidad vinculada por el runner", detail: "La coincidencia de catálogo está confirmada; EPG y logo se verifican por separado." };
+  }
+  if (result?.status === "pending") {
+    return { kind: "pending", text: "Pendiente de resolver", detail: PENDING_REASONS[result.reason] ?? "El runner dejó esta identidad pendiente." };
+  }
+  if (row.identityState === "provisional") {
+    return { kind: "pending", text: "Identidad provisional", detail: "No se tratará el recurso del proveedor como identidad ni se adivinará una coincidencia." };
+  }
+  return { kind: "pending", text: "A la espera del runner", detail: "La identidad está declarada como estable; falta una validación publicada para esta selección." };
+}
+
+function detailPair(label, value, code = false) {
+  const wrapper = node("div", "detail-pair");
+  const term = node("dt", "", label);
+  const description = node("dd");
+  description.append(code ? node("code", "", String(value || "—")) : document.createTextNode(String(value || "—")));
+  wrapper.append(term, description);
+  return wrapper;
+}
+
+function renderInspector() {
+  const row = allRows().find((item) => rowKey(item) === selectedKey);
+  if (!row) {
+    elements.inspector.replaceChildren();
+    const empty = node("div", "inspector-empty");
+    empty.append(node("div", "empty-rule"), node("h2", "", "Elige un canal"), node("p", "", "Su identidad, logo y acciones aparecerán aquí."));
+    elements.inspector.append(empty);
+    return;
+  }
+  const fragment = document.createDocumentFragment();
+  const top = node("div", "inspector-top");
+  const logo = makeLogo(row, "inspector-logo");
+  const heading = node("div", "inspector-heading");
+  heading.append(node("h2", "specimen-name", row.name));
+  const chip = node("span", "source-chip", sourceName(row));
+  chip.dataset.source = sourceFor(row);
+  heading.append(chip);
+  top.append(logo, heading);
+  fragment.append(top);
+
+  const specimen = node("div", "specimen-control");
+  const sliderLabel = node("label", "control-heading", "Peso del nombre");
+  sliderLabel.htmlFor = "font-weight-slider";
+  const weightOutput = node("output", "", String(state.fontWeight ?? 560));
+  weightOutput.htmlFor = "font-weight-slider";
+  sliderLabel.append(weightOutput);
+  const range = node("input");
+  range.type = "range";
+  range.id = "font-weight-slider";
+  range.min = "360";
+  range.max = "760";
+  range.step = "20";
+  range.value = String(state.fontWeight ?? 560);
+  range.setAttribute("aria-label", "Peso tipográfico de los nombres del catálogo");
+  range.addEventListener("input", () => {
+    state.fontWeight = Number(range.value);
+    document.documentElement.style.setProperty("--font-weight", String(state.fontWeight));
+    weightOutput.value = String(state.fontWeight);
+    weightOutput.textContent = String(state.fontWeight);
+  });
+  const rangeEnds = node("div", "range-ends");
+  rangeEnds.append(node("span", "", "Ligero"), node("span", "", "Firme"));
+  specimen.append(sliderLabel, range, rangeEnds);
+  fragment.append(specimen);
+
+  const identity = identityStatus(row);
+  const stateBox = node("div", `identity-state${identity.kind === "pending" ? " is-pending" : ""}`);
+  stateBox.innerHTML = icon(identity.kind === "pending" ? "warning" : "check");
+  stateBox.append(node("span", "", `${identity.text}. ${identity.detail}`));
+  fragment.append(stateBox);
+
+  const identityGroup = node("section", "detail-group");
+  identityGroup.append(node("h3", "", "Identidad y orden"));
+  identityGroup.append(detailPair(row.kind === "provider" ? "catalogKey" : "tvg-id", displayIdentity(row), true));
+  if (row.group || row.category) identityGroup.append(detailPair("Categoría", row.category || row.group));
+  if (row.country || row.countryKey) identityGroup.append(detailPair("País", row.country || row.countryKey));
+  const numberEditor = node("div", "number-editor");
+  const numberLabel = node("label", "", "Número en la app");
+  numberLabel.htmlFor = "channel-number";
+  const numberInput = node("input");
+  numberInput.id = "channel-number";
+  numberInput.type = "number";
+  numberInput.min = "1";
+  numberInput.step = "1";
+  numberInput.value = String(row.number);
+  numberInput.setAttribute("aria-label", `Número de ${row.name} en VibeM3U`);
+  numberInput.addEventListener("change", () => {
+    const value = Number(numberInput.value);
+    if (!Number.isSafeInteger(value) || value < 1) {
+      showToast("El número debe ser un entero positivo.", true);
+      numberInput.value = String(row.number);
+      return;
+    }
+    const changed = clone(state.layout);
+    const target = changed.channels.find((item) => rowKey(item) === rowKey(row));
+    if (target) target.number = value;
+    changeLayout(changed);
+  });
+  numberEditor.append(numberLabel, numberInput);
+  identityGroup.append(numberEditor);
+  if (row.kind === "m3u") {
+    const sourceEditor = node("div", "source-editor");
+    const sourceLabel = node("label", "", "Lista de publicación");
+    sourceLabel.htmlFor = "channel-source-list";
+    const sourceSelect = node("select");
+    sourceSelect.id = "channel-source-list";
+    sourceSelect.setAttribute("aria-label", `Lista de publicación de ${row.name}`);
+    for (const [value, label] of [["1.m3u", "Lista 1 · principal"], ["2.m3u", "Lista 2 · externa"]]) {
+      const option = node("option", "", label);
+      option.value = value;
+      option.selected = row.sourceList === value;
+      sourceSelect.append(option);
+    }
+    sourceSelect.addEventListener("change", () => {
+      const changed = clone(state.layout);
+      const target = changed.channels.find((item) => rowKey(item) === rowKey(row));
+      if (target) target.sourceList = sourceSelect.value;
+      changeLayout(changed);
+    });
+    sourceEditor.append(sourceLabel, sourceSelect);
+    identityGroup.append(sourceEditor);
+  }
+  fragment.append(identityGroup);
+
+  const logoGroup = node("section", "detail-group");
+  logoGroup.append(node("h3", "", "Logo"));
+  const logoChoice = node("div", "logo-choice");
+  const logoButton = button("Elegir logo", "button-secondary", () => openLogoDialog(row), "");
+  const logoPath = node("span", "logo-path", row.logoOverride || row.logoPath || "Sin logo");
+  logoChoice.append(logoButton, logoPath);
+  logoGroup.append(logoChoice);
+  fragment.append(logoGroup);
+
+  if (row.kind === "m3u") {
+    const sourceGroup = node("section", "detail-group");
+    sourceGroup.append(node("h3", "", "Fuente de catálogo"));
+    sourceGroup.append(detailPair("Lista", sourceName(row)));
+    fragment.append(sourceGroup);
+  } else {
+    const details = node("details", "resolver-details");
+    details.append(node("summary", "", "Referencias de resolución"));
+    const detail = node("div");
+    detail.append(detailPair("providerResourceId", row.providerResourceId, true));
+    if (row.provider === "highfly") detail.append(detailPair("resolverSlug", row.resolverSlug, true));
+    details.append(detail);
+    fragment.append(details);
+  }
+
+  const actions = node("div", "inspector-actions");
+  if (row.state === "active") {
+    actions.append(button("Subir", "button-secondary", () => changeLayout(moveRow(state.layout, rowKey(row), -1)), "up"));
+    actions.append(button("Bajar", "button-secondary", () => changeLayout(moveRow(state.layout, rowKey(row), 1)), "down"));
+    actions.append(button("Ocultar", "button-secondary", () => setState(row, "hidden"), "eye"));
+    actions.append(button("A papelera", "button-danger", () => setState(row, "deleted"), "bin"));
+  } else if (row.state === "hidden") {
+    actions.append(button("Mostrar", "button-secondary", () => setState(row, "active"), "eye"));
+    actions.append(button("A papelera", "button-danger", () => setState(row, "deleted"), "bin"));
+  } else {
+    actions.append(button("Restaurar", "button-secondary", () => setState(row, "active"), "check"));
+    actions.append(button("Eliminar definitivamente", "button-danger", () => purgeRow(row), "bin"));
+  }
+  fragment.append(actions);
+  elements.inspector.replaceChildren(fragment);
+  document.documentElement.style.setProperty("--font-weight", String(state.fontWeight ?? 560));
+}
+
+function setState(row, nextState) {
+  activeView = nextState;
+  changeLayout(setRowState(state.layout, rowKey(row), nextState));
+}
+
+function purgeRow(row) {
+  const label = row.name || displayIdentity(row);
+  if (!window.confirm(`Eliminar definitivamente ${label} del catálogo editorial? La fuente original no se borra.`)) return;
+  const presentationRoot = state.presentation.presentation ?? state.presentation;
+  if (presentationRoot.logos) delete presentationRoot.logos[displayIdentity(row)];
+  changeLayout(removePermanently(state.layout, rowKey(row)));
+  selectedKey = "";
+}
+
+function changeLayout(layout) {
+  state.layout = layout;
+  render();
+}
+
+function openLogoDialog(row) {
+  selectedKey = rowKey(row);
+  elements.logoTitle.textContent = `Para ${row.name}`;
+  elements.logoSearch.value = "";
+  renderLogos();
+  elements.logoDialog.showModal();
+  elements.logoSearch.focus();
+}
+
+function renderLogos() {
+  const query = elements.logoSearch.value.trim().toLocaleLowerCase("es");
+  const options = state.logos.filter((path) => !query || path.split("/").at(-1).toLocaleLowerCase("es").includes(query));
+  const fragment = document.createDocumentFragment();
+  options.forEach((path) => {
+    const item = node("button", "logo-option");
+    item.type = "button";
+    item.setAttribute("aria-label", `Usar logo ${path.split("/").at(-1)}`);
+    const image = node("img");
+    image.src = imageUrl(path);
+    image.alt = "";
+    image.loading = "lazy";
+    image.addEventListener("error", () => item.remove(), { once: true });
+    item.append(image, node("span", "", path.split("/").at(-1)));
+    item.addEventListener("click", () => {
+      const row = allRows().find((candidate) => rowKey(candidate) === selectedKey);
+      if (row) {
+        const changed = clone(state.layout);
+        const target = changed.channels.find((candidate) => rowKey(candidate) === selectedKey);
+        if (target) target.logoOverride = path;
+        const presentationRoot = state.presentation.presentation ?? state.presentation;
+        presentationRoot.logos ??= {};
+        presentationRoot.logos[displayIdentity(row)] = path;
+        changeLayout(changed);
+      }
+      elements.logoDialog.close();
+    });
+    fragment.append(item);
+  });
+  if (!options.length) fragment.append(node("p", "available-empty", "No hay logos que coincidan con la búsqueda."));
+  elements.logoGrid.replaceChildren(fragment);
+}
+
+function availableRows() {
+  const present = new Set(state.layout.channels.map(rowKey));
+  const candidates = [...state.catalog, ...state.importedProviders];
+  const unique = new Map();
+  for (const row of candidates) {
+    const key = rowKey(row);
+    if (key && !present.has(key)) unique.set(key, row);
+  }
+  const query = elements.availableSearch.value.trim().toLocaleLowerCase("es");
+  return [...unique.values()].filter((row) => !query || rowSearchText(row).includes(query));
+}
+
+function renderAvailable() {
+  const fragment = document.createDocumentFragment();
+  const rows = availableRows();
+  if (!rows.length) {
+    fragment.append(node("p", "available-empty", "No hay canales disponibles con esa búsqueda. Para incorporar otros canales de Highfly o TvVoo, importa el catálogo exportado desde VibeM3U."));
+  } else {
+    rows.slice(0, 250).forEach((row) => {
+      const item = node("div", "available-row");
+      item.append(makeLogo(row));
+      item.append(node("span", "available-name", row.name));
+      const source = node("span", "source-label", sourceName(row));
+      source.dataset.source = sourceFor(row);
+      const add = button("Añadir", "button-secondary", () => {
+        const next = addRow(state.layout, row);
+        if (next !== state.layout) {
+          changeLayout(next);
+          const last = state.layout.channels.find((candidate) => rowKey(candidate) === rowKey(row));
+          selectedKey = last ? rowKey(last) : selectedKey;
+          activeView = "active";
+          render();
+          renderAvailable();
+          elements.addDialog.close();
+        }
+      });
+      item.append(source, add);
+      fragment.append(item);
+    });
+    if (rows.length > 250) fragment.append(node("p", "available-empty", `Hay ${rows.length} opciones; afina la búsqueda para verlas.`));
+  }
+  elements.availableList.replaceChildren(fragment);
+}
+
+function openAddDialog() {
+  elements.availableSearch.value = "";
+  renderAvailable();
+  elements.addDialog.showModal();
+  elements.availableSearch.focus();
+}
+
+function handleProviderCatalog(file) {
+  if (!file) return;
+  const reader = new FileReader();
+  reader.addEventListener("load", () => {
+    try {
+      const documentData = JSON.parse(String(reader.result));
+      const providerRows = validateProviderCatalog(documentData);
+      state.importedProviders = providerRows;
+      renderAvailable();
+      showToast(`Catálogo importado: ${providerRows.length} canales Highfly/TvVoo disponibles.`);
+    } catch (error) {
+      showToast(error.message || "El catálogo seleccionado no es válido.", true);
+    } finally {
+      elements.providerFile.value = "";
+    }
+  });
+  reader.addEventListener("error", () => showToast("No se pudo leer el archivo del catálogo.", true), { once: true });
+  reader.readAsText(file, "utf-8");
+}
+
+function showReview() {
+  const doc = layoutDocument();
+  const nextPresentation = buildPresentationOverrides(doc, state.presentation);
+  const summary = summarizeChanges(state.originalLayout, doc, state.presentation, nextPresentation);
+  const validation = validateLayout(doc);
+  const statements = [];
+  if (summary.added) statements.push(`${summary.added} canal(es) añadidos al orden`);
+  if (summary.removed) statements.push(`${summary.removed} canal(es) eliminados definitivamente del orden`);
+  if (summary.assignmentChanges) statements.push(`${summary.assignmentChanges} canal(es) movidos entre Lista 1 y Lista 2`);
+  if (summary.reordered) statements.push(`${summary.reordered} posición(es) cambiadas`);
+  if (summary.stateChanges) statements.push(`${summary.stateChanges} canal(es) ocultos, restaurados o enviados a papelera`);
+  if (summary.numberChanges) statements.push(`${summary.numberChanges} número(s) de app modificados`);
+  if (summary.logoChanges || summary.logoMapChanged) statements.push(`${Math.max(summary.logoChanges, 1)} elección(es) de logo modificadas`);
+  const providerCount = doc.channels.filter((row) => row.kind === "provider" && row.state === "active").length;
+  statements.push(`${providerCount} selección(es) Highfly/TvVoo activas; el runner volverá a validarlas`);
+  if (validation.length) validation.forEach((issue) => statements.push(`No se puede publicar: ${issue}`));
+  if (!statements.length) statements.push("No hay cambios respecto al catálogo cargado.");
+  elements.reviewList.replaceChildren(...statements.map((text) => node("li", "", text)));
+  elements.changeReview.hidden = false;
+  elements.changeReview.scrollIntoView({ behavior: "smooth", block: "start" });
+  if (validation.length) showToast(validation[0], true);
+  else if (!isDirty()) showToast("No hay cambios por publicar.");
+}
+
+async function currentDocuments() {
+  const layout = layoutDocument();
+  const selection = await buildSelectionDocument(layout, state.selection);
+  const presentation = buildPresentationOverrides(layout, state.presentation);
+  return {
+    [FILES.layout]: formatJson(layout),
+    [FILES.selection]: formatJson(selection),
+    [FILES.presentation]: formatJson(presentation),
+  };
+}
+
+async function showPublishDialog() {
+  const issues = validateLayout(layoutDocument());
+  if (issues.length) {
+    showReview();
+    return;
+  }
+  if (!isDirty()) {
+    showToast("No hay cambios por publicar.");
+    return;
+  }
+  const summary = summarizeChanges(state.originalLayout, layoutDocument(), state.presentation, currentPresentation());
+  const lines = [];
+  if (summary.added) lines.push(`${summary.added} canal(es) añadidos`);
+  if (summary.removed) lines.push(`${summary.removed} canal(es) retirados definitivamente`);
+  if (summary.assignmentChanges) lines.push(`${summary.assignmentChanges} canal(es) cambiados de Lista 1/Lista 2`);
+  if (summary.reordered) lines.push(`${summary.reordered} posición(es) cambiadas`);
+  if (summary.stateChanges) lines.push(`${summary.stateChanges} cambio(s) de visibilidad o papelera`);
+  if (summary.numberChanges) lines.push(`${summary.numberChanges} numeración(es) modificadas`);
+  if (summary.logoChanges || summary.logoMapChanged) lines.push("Selección de logos actualizada");
+  const activeProviders = state.layout.channels.filter((row) => row.kind === "provider" && row.state === "active").length;
+  lines.push(`${activeProviders} canal(es) de Highfly/TvVoo se entregarán al runner`);
+  elements.publishSummary.replaceChildren(...lines.map((line) => node("div", "", line)));
+  elements.publishError.hidden = true;
+  elements.token.value = "";
+  elements.publishDialog.showModal();
+  elements.token.focus();
+}
+
+function apiHeaders(token) {
+  return {
+    Accept: "application/vnd.github+json",
+    Authorization: `Bearer ${token}`,
+    "X-GitHub-Api-Version": "2022-11-28",
+    "Content-Type": "application/json",
+  };
+}
+
+async function apiRequest(path, token, options = {}) {
+  let response;
+  try {
+    response = await fetch(`${API}${path}`, {
+      ...options,
+      headers: { ...apiHeaders(token), ...(options.headers ?? {}) },
+      cache: "no-store",
+      credentials: "omit",
+    });
+  } catch {
+    throw new Error("No se pudo conectar con GitHub. Revisa la conexión e inténtalo de nuevo.");
+  }
+  if (!response.ok) {
+    if (response.status === 401 || response.status === 403) throw new Error("GitHub rechazó el token o le falta Contents: Read and write en este repositorio.");
+    if (response.status === 409 || response.status === 422) throw new Error("GitHub detectó un cambio concurrente. Recarga el catálogo antes de volver a publicar.");
+    throw new Error(`GitHub respondió con error ${response.status}. No se publicó ningún cambio.`);
+  }
+  return response.status === 204 ? null : response.json();
+}
+
+function apiPath(path) {
+  return path.split("/").map(encodeURIComponent).join("/");
+}
+
+async function currentBlobSha(path, token) {
+  try {
+    const data = await apiRequest(`/contents/${apiPath(path)}?ref=${encodeURIComponent(BRANCH)}`, token);
+    return data.sha;
+  } catch (error) {
+    if (String(error.message).includes("404")) return null;
+    throw error;
+  }
+}
+
+async function publishAtomically(documents, token) {
+  const ref = await apiRequest(`/git/ref/heads/${encodeURIComponent(BRANCH)}`, token);
+  const headSha = ref.object?.sha;
+  if (!headSha) throw new Error("No se pudo leer la referencia main de GitHub.");
+  const expected = state.repository?.fileShas ?? {};
+  for (const path of Object.keys(documents)) {
+    const actual = await currentBlobSha(path, token);
+    if ((expected[path] ?? null) !== actual) {
+      throw new Error("El catálogo cambió en GitHub desde que abriste esta página. Recarga antes de publicar para no sobrescribir trabajo ajeno.");
+    }
+  }
+  const baseCommit = await apiRequest(`/git/commits/${headSha}`, token);
+  const treeEntries = Object.entries(documents).map(([path, content]) => ({
+    path,
+    mode: "100644",
+    type: "blob",
+    content,
+  }));
+  const tree = await apiRequest("/git/trees", token, {
+    method: "POST",
+    body: JSON.stringify({ base_tree: baseCommit.tree.sha, tree: treeEntries }),
+  });
+  const commit = await apiRequest("/git/commits", token, {
+    method: "POST",
+    body: JSON.stringify({
+      message: "Actualiza selección y orden del catálogo VibeM3U",
+      tree: tree.sha,
+      parents: [headSha],
+    }),
+  });
+  await apiRequest(`/git/refs/heads/${encodeURIComponent(BRANCH)}`, token, {
+    method: "PATCH",
+    body: JSON.stringify({ sha: commit.sha, force: false }),
+  });
+  const blobs = new Map(await Promise.all(Object.entries(documents).map(async ([path, content]) => [
+    path,
+    await gitBlobSha(content),
+  ])));
+  return { sha: commit.sha, blobs };
+}
+
+async function handlePublish(event) {
+  event.preventDefault();
+  const issues = validateLayout(layoutDocument());
+  if (issues.length) {
+    elements.publishError.textContent = issues[0];
+    elements.publishError.hidden = false;
+    return;
+  }
+  tokenInMemory = elements.token.value.trim();
+  if (!tokenInMemory) return;
+  elements.confirmPublish.disabled = true;
+  elements.confirmPublish.textContent = "Publicando…";
+  elements.publishError.hidden = true;
+  try {
+    const documents = await currentDocuments();
+    const result = await publishAtomically(documents, tokenInMemory);
+    state.layout = layoutDocument();
+    state.originalLayout = clone(state.layout);
+    state.presentation = JSON.parse(documents[FILES.presentation]);
+    state.originalPresentationBaseline = clone(state.presentation);
+    state.selection = JSON.parse(documents[FILES.selection]);
+    for (const path of Object.keys(documents)) {
+      const sha = result.blobs.get(path);
+      if (sha) state.repository.fileShas[path] = sha;
+    }
+    state.repository.revision = result.sha;
+    elements.publishDialog.close();
+    render();
+    showToast("Catálogo publicado. GitHub Actions se encargará de validar la selección.");
+    window.setTimeout(() => {
+      const existing = $("#commit-link");
+      existing?.remove();
+      const link = node("a", "text-button", "Ver commit");
+      link.id = "commit-link";
+      link.href = `https://github.com/${REPOSITORY}/commit/${result.sha}`;
+      link.target = "_blank";
+      link.rel = "noreferrer";
+      link.style.position = "fixed";
+      link.style.right = "1.25rem";
+      link.style.bottom = "4.5rem";
+      document.body.append(link);
+      window.setTimeout(() => link.remove(), 8000);
+    }, 0);
+  } catch (error) {
+    elements.publishError.textContent = error.message || "No se pudo publicar. No se guardó el token.";
+    elements.publishError.hidden = false;
+  } finally {
+    tokenInMemory = "";
+    elements.token.value = "";
+    elements.confirmPublish.disabled = false;
+    elements.confirmPublish.textContent = "Crear commit";
+  }
+}
+
+async function downloadBackup() {
+  if (!state) return;
+  const documents = await currentDocuments();
+  const payload = {
+    exportedAt: new Date().toISOString(),
+    repository: REPOSITORY,
+    files: Object.fromEntries(Object.entries(documents).map(([path, content]) => [path, JSON.parse(content)])),
+  };
+  const blob = new Blob([formatJson(payload)], { type: "application/json;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "vibem3u-channel-editor-backup.json";
+  link.click();
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+function showToast(message, isError = false) {
+  elements.toast.textContent = message;
+  elements.toast.style.background = isError ? "#7b1e29" : "#1d2938";
+  elements.toast.classList.add("is-visible");
+  window.clearTimeout(toastTimer);
+  toastTimer = window.setTimeout(() => elements.toast.classList.remove("is-visible"), 4600);
+}
+
+function handleGlobalKeydown(event) {
+  if (event.key === "/" && !event.metaKey && !event.ctrlKey && !event.altKey && !["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement?.tagName)) {
+    event.preventDefault();
+    elements.search.focus();
+  }
+  if (event.key === "Escape" && elements.changeReview && !elements.changeReview.hidden) elements.changeReview.hidden = true;
+}
+
+document.querySelectorAll(".view-tab").forEach((tab) => tab.addEventListener("click", () => {
+  activeView = tab.dataset.view;
+  render();
+}));
+elements.search.addEventListener("input", renderRows);
+elements.sourceFilter.addEventListener("change", () => { sourceFilter = elements.sourceFilter.value; renderRows(); });
+$("#add-channel-button").addEventListener("click", openAddDialog);
+$("#renumber-button").addEventListener("click", () => changeLayout(renumber(state.layout)));
+$("#close-review").addEventListener("click", () => { elements.changeReview.hidden = true; });
+$("#import-catalog-button").addEventListener("click", () => elements.providerFile.click());
+elements.providerFile.addEventListener("change", () => handleProviderCatalog(elements.providerFile.files?.[0]));
+elements.availableSearch.addEventListener("input", renderAvailable);
+elements.logoSearch.addEventListener("input", renderLogos);
+$("#clear-logo").addEventListener("click", () => {
+  const row = allRows().find((candidate) => rowKey(candidate) === selectedKey);
+  if (row) {
+    const changed = clone(state.layout);
+    const target = changed.channels.find((candidate) => rowKey(candidate) === selectedKey);
+    if (target) target.logoOverride = "";
+    const presentationRoot = state.presentation.presentation ?? state.presentation;
+    if (presentationRoot.logos) delete presentationRoot.logos[displayIdentity(row)];
+    changeLayout(changed);
+  }
+  elements.logoDialog.close();
+});
+$("#publish-button").addEventListener("click", showPublishDialog);
+elements.publishForm.addEventListener("submit", handlePublish);
+$("#close-publish").addEventListener("click", () => elements.publishDialog.close());
+$("#backup-button").addEventListener("click", downloadBackup);
+$("#download-export").addEventListener("click", downloadBackup);
+elements.publishDialog.addEventListener("close", () => { tokenInMemory = ""; elements.token.value = ""; });
+
+initialize();
