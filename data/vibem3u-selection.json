@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "source": "vibem3u-android",
-  "selectionSignature": "sha256:9526133011faeb03a82d79eb86c8a5ff0d11702ca48b2215babc9056d6a85837",
-  "publishedAt": "2026-09-23T23:49:16.443Z",
+  "selectionSignature": "sha256:aa940dc51c86775a36178cdf68f6b725a063d3c80378af5cfcf2c31338339b6b",
+  "publishedAt": "2026-09-24T00:33:14.459Z",
   "sources": [
     {
       "provider": "tvvoo",
@@ -11,44 +11,8 @@
     },
     {
       "provider": "highfly",
-      "enabled": true,
-      "channels": [
-        {
-          "provider": "highfly",
-          "catalogKey": "SkySportsF1.uk",
-          "providerResourceId": "leaf:f1-3949409",
-          "name": "(FHD) : SKY SPORTS F1",
-          "group": "Highfly · Deportes",
-          "category": "Motor Sports",
-          "identityState": "canonical",
-          "order": 1,
-          "resolverSlug": "f1-3949409",
-          "countryKey": "uk"
-        },
-        {
-          "provider": "highfly",
-          "catalogKey": "SkySportsTennis.uk",
-          "providerResourceId": "leaf:uk-330030303",
-          "name": "(FHD) : SKY SPORTS TENNIS",
-          "group": "Highfly · Deportes",
-          "category": "Tennis",
-          "identityState": "canonical",
-          "order": 2,
-          "resolverSlug": "uk-330030303",
-          "countryKey": "uk"
-        },
-        {
-          "provider": "highfly",
-          "catalogKey": "Highfly.usespn",
-          "providerResourceId": "leaf:us-espn-hd-23993",
-          "name": "US : ESPN",
-          "group": "Highfly · Deportes",
-          "category": "Tennis",
-          "identityState": "provisional",
-          "order": 3,
-          "resolverSlug": "us-espn-hd-23993"
-        }
-      ],
+      "enabled": false,
+      "channels": [],
       "manifestUrl": "https://sports.highfly.to/manifest.json"
     }
   ]
