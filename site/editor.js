@@ -47,6 +47,7 @@ const PENDING_REASONS = {
   catalog_match_ambiguous: "Hay más de una coincidencia posible; no se eligió ninguna.",
   catalog_missing_tvg_id: "La entrada del catálogo no tiene tvg-id.",
 };
+const LOCAL_MODE = location.protocol === "http:" && ["127.0.0.1", "localhost", "::1"].includes(location.hostname);
 
 const $ = (selector) => document.querySelector(selector);
 const elements = {
@@ -63,8 +64,14 @@ const elements = {
   publishDialog: $("#publish-dialog"),
   publishForm: $("#publish-form"),
   token: $("#github-token"),
+  tokenLabel: $(".token-label"),
+  tokenHelp: $(".token-help"),
   confirmPublish: $("#confirm-publish"),
   publishError: $("#publish-error"),
+  localGithubAuth: $("#local-github-auth"),
+  localGithubStatus: $("#local-github-status"),
+  connectGithub: $("#connect-github"),
+  localMode: $("#local-mode-indicator"),
   publishSummary: $("#publish-summary"),
   changeReview: $("#change-review"),
   reviewList: $("#review-list"),
@@ -89,6 +96,10 @@ const elements = {
   tvvooManifestStatus: $("#tvvoo-manifest-status"),
   tvvooCatalogJson: $("#tvvoo-catalog-json"),
   tvvooJsonStatus: $("#tvvoo-json-status"),
+  previewDialog: $("#preview-dialog"),
+  previewVideo: $("#preview-video"),
+  previewStatus: $("#preview-status"),
+  previewError: $("#preview-error"),
 };
 
 const PROVIDER_CACHE_MS = 10 * 60 * 1000;
@@ -105,6 +116,10 @@ let selectedTvVooCatalogId = "vavoo_tv_es";
 let selectedKey = "";
 let tokenInMemory = "";
 let toastTimer = 0;
+let localGithubAuthenticated = false;
+let previewPlayer = null;
+let previewSessionId = "";
+let hlsLoadPromise = null;
 
 function icon(name) {
   const paths = {
@@ -115,6 +130,7 @@ function icon(name) {
     warning: '<path d="M10 3 2.5 16h15L10 3Z"/><path d="M10 7.5v4m0 2.2v.1"/>',
     eye: '<path d="M2.5 10s2.7-4.5 7.5-4.5 7.5 4.5 7.5 4.5-2.7 4.5-7.5 4.5-7.5-4.5-7.5-4.5Z"/><circle cx="10" cy="10" r="1.8"/>',
     bin: '<path d="M4 6h12m-10 0 .6 10h6.8L14 6M8 6V4h4v2m-3 3v4m2-4v4"/>',
+    play: '<path d="M6 4.5v11l9-5.5-9-5.5Z"/>',
   };
   return `<svg aria-hidden="true" viewBox="0 0 20 20">${paths[name] ?? paths.check}</svg>`;
 }
@@ -150,7 +166,25 @@ function sourceName(row) {
 
 function imageUrl(path) {
   if (!path || typeof path !== "string") return "";
-  return `${RAW}/${path.split("/").map(encodeURIComponent).join("/")}`;
+  const relative = path.split("/").map(encodeURIComponent).join("/");
+  return LOCAL_MODE ? `./${relative}` : `${RAW}/${relative}`;
+}
+
+function ensureLocalHlsClient() {
+  if (window.Hls) return Promise.resolve();
+  if (!hlsLoadPromise) {
+    hlsLoadPromise = new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      script.src = "./assets/vendor/hls.min.js";
+      script.onload = resolve;
+      script.onerror = () => reject(new Error("No se pudo cargar el reproductor HLS local."));
+      document.head.append(script);
+    }).catch((error) => {
+      hlsLoadPromise = null;
+      throw error;
+    });
+  }
+  return hlsLoadPromise;
 }
 
 function logoPathFor(row) {
@@ -214,6 +248,15 @@ function normalizedLoadedLayout(layout, catalog, presentation) {
 
 async function initialize() {
   try {
+    if (LOCAL_MODE) {
+      elements.localMode.hidden = false;
+      elements.tokenLabel.hidden = true;
+      elements.token.hidden = true;
+      elements.tokenHelp.hidden = true;
+      elements.token.required = false;
+      elements.localGithubAuth.hidden = false;
+      await refreshLocalStatus();
+    }
     const [catalog, logos, layout, selection, presentation, repository, runnerStatus, providerIdentities] = await Promise.all([
       loadJson("./data/catalog.json"),
       loadJson("./data/logos.json"),
@@ -520,6 +563,7 @@ function renderInspector() {
 
   const actions = node("div", "inspector-actions");
   if (row.state === "active") {
+    if (LOCAL_MODE) actions.append(button("Probar señal", "button-primary", () => previewChannel(row), "play"));
     actions.append(button("Subir", "button-secondary", () => changeLayout(moveRow(state.layout, rowKey(row), -1)), "up"));
     actions.append(button("Bajar", "button-secondary", () => changeLayout(moveRow(state.layout, rowKey(row), 1)), "down"));
     actions.append(button("Ocultar", "button-secondary", () => setState(row, "hidden"), "eye"));
@@ -553,6 +597,135 @@ function purgeRow(row) {
 function changeLayout(layout) {
   state.layout = layout;
   render();
+}
+
+async function previewChannel(row) {
+  if (!LOCAL_MODE) return;
+  await releasePreview();
+  elements.previewError.hidden = true;
+  elements.previewVideo.removeAttribute("src");
+  elements.previewVideo.load();
+  elements.previewVideo.muted = true;
+  elements.previewStatus.textContent = `Resolviendo ${row.name} con la implementación de VibeM3U…`;
+  elements.previewDialog.showModal();
+  try {
+    const response = await fetch("/api/resolve", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        channel: row,
+        sourceList: row.sourceList ?? "",
+        tvgId: row.tvgId ?? "",
+      }),
+      cache: "no-store",
+    });
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error || "No se pudo preparar este canal.");
+    previewSessionId = result.sessionId;
+    elements.previewStatus.textContent = result.resolver === "direct"
+      ? "Fuente de la lista. La dirección temporal se mantiene en el auxiliar local."
+      : `Resolución VibeM3U · ${result.resolver}. Reproducción temporal en memoria.`;
+    const video = elements.previewVideo;
+    await ensureLocalHlsClient();
+    if (window.Hls?.isSupported()) {
+      previewPlayer = new window.Hls({
+        enableWorker: true,
+        lowLatencyMode: true,
+        backBufferLength: 30,
+        maxBufferLength: 18,
+        maxMaxBufferLength: 30,
+      });
+      let mediaRecoveryTried = false;
+      let networkRecoveryTried = false;
+      previewPlayer.loadSource(result.mediaUrl);
+      previewPlayer.attachMedia(video);
+      previewPlayer.on(window.Hls.Events.MANIFEST_PARSED, () => {
+        video.play().catch(() => {
+          elements.previewStatus.textContent = "Señal lista. Pulsa reproducir; activa el sonido desde el control del vídeo.";
+        });
+      });
+      previewPlayer.on(window.Hls.Events.ERROR, (_event, data) => {
+        if (!data?.fatal) return;
+        if (data.type === window.Hls.ErrorTypes.MEDIA_ERROR && !mediaRecoveryTried) {
+          mediaRecoveryTried = true;
+          elements.previewStatus.textContent = "Intentando recuperar la decodificación…";
+          previewPlayer.recoverMediaError();
+          return;
+        }
+        if (data.type === window.Hls.ErrorTypes.NETWORK_ERROR && !networkRecoveryTried) {
+          networkRecoveryTried = true;
+          elements.previewStatus.textContent = "La conexión se interrumpió; intentando una vez más…";
+          previewPlayer.startLoad();
+          return;
+        }
+        const details = [data.type, data.details]
+          .filter((value) => typeof value === "string" && /^[a-zA-Z0-9_-]{1,64}$/.test(value))
+          .join(" · ");
+        const httpStatus = Number.isInteger(data.response?.code) && data.response.code > 0
+          ? ` · HTTP ${data.response.code}`
+          : "";
+        elements.previewError.textContent = `El navegador no pudo reproducir esta señal${details ? ` (${details})` : ""}${httpStatus}. Puede ser una caída del origen o un códec no compatible.`;
+        elements.previewError.hidden = false;
+        elements.previewStatus.textContent = "La reproducción se detuvo.";
+        previewPlayer?.destroy();
+        previewPlayer = null;
+      });
+    } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+      video.src = result.mediaUrl;
+      video.play().catch(() => {
+        elements.previewStatus.textContent = "Señal lista. Pulsa reproducir; activa el sonido desde el control del vídeo.";
+      });
+    } else {
+      throw new Error("Este navegador no tiene soporte HLS para reproducir la vista previa.");
+    }
+  } catch (error) {
+    elements.previewStatus.textContent = "No se pudo iniciar la prueba de señal.";
+    elements.previewError.textContent = error.message || "Comprueba conexión, identidad y estado del proveedor.";
+    elements.previewError.hidden = false;
+  }
+}
+
+async function refreshLocalStatus() {
+  if (!LOCAL_MODE) return false;
+  try {
+    const response = await fetch("/api/status", { cache: "no-store", credentials: "omit" });
+    if (!response.ok) throw new Error("No se pudo comprobar el auxiliar local.");
+    const status = await response.json();
+    localGithubAuthenticated = status.githubAuthenticated === true;
+    elements.localGithubStatus.textContent = localGithubAuthenticated
+      ? "GitHub CLI conectado. La página no recibe ni guarda tu credencial."
+      : "GitHub aún no está autorizado en este equipo. Conecta tu cuenta con la ventana segura de GitHub CLI.";
+    elements.connectGithub.textContent = localGithubAuthenticated ? "Comprobar GitHub" : "Conectar GitHub";
+    return localGithubAuthenticated;
+  } catch (error) {
+    localGithubAuthenticated = false;
+    elements.localGithubStatus.textContent = error.message || "No responde el auxiliar local.";
+    return false;
+  }
+}
+
+async function releasePreview() {
+  if (previewPlayer) {
+    previewPlayer.destroy();
+    previewPlayer = null;
+  }
+  elements.previewVideo?.pause();
+  elements.previewVideo?.removeAttribute("src");
+  elements.previewVideo?.load();
+  const sessionId = previewSessionId;
+  previewSessionId = "";
+  if (sessionId) {
+    try {
+      await fetch("/api/preview/close", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sessionId }),
+        cache: "no-store",
+      });
+    } catch {
+      // Session expiration is bounded on the local helper if the browser closes abruptly.
+    }
+  }
 }
 
 function openLogoDialog(row) {
@@ -1033,8 +1206,9 @@ async function showPublishDialog() {
   elements.publishSummary.replaceChildren(...lines.map((line) => node("div", "", line)));
   elements.publishError.hidden = true;
   elements.token.value = "";
+  if (LOCAL_MODE) await refreshLocalStatus();
   elements.publishDialog.showModal();
-  elements.token.focus();
+  (LOCAL_MODE ? elements.connectGithub : elements.token).focus();
 }
 
 function apiHeaders(token) {
@@ -1129,14 +1303,35 @@ async function handlePublish(event) {
     elements.publishError.hidden = false;
     return;
   }
-  tokenInMemory = elements.token.value.trim();
-  if (!tokenInMemory) return;
+  tokenInMemory = LOCAL_MODE ? "" : elements.token.value.trim();
+  if (!LOCAL_MODE && !tokenInMemory) return;
+  if (LOCAL_MODE && !(await refreshLocalStatus())) {
+    elements.publishError.textContent = "Conecta primero GitHub CLI en este equipo.";
+    elements.publishError.hidden = false;
+    return;
+  }
   elements.confirmPublish.disabled = true;
   elements.confirmPublish.textContent = "Publicando…";
   elements.publishError.hidden = true;
   try {
     const documents = await currentDocuments();
-    const result = await publishAtomically(documents, tokenInMemory);
+    let result;
+    if (LOCAL_MODE) {
+      const response = await fetch("/api/publish", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          documents,
+          expectedShas: state.repository?.fileShas ?? {},
+        }),
+        cache: "no-store",
+      });
+      const payload = await response.json();
+      if (!response.ok) throw new Error(payload.error || "No se pudo publicar el catálogo desde el auxiliar local.");
+      result = { sha: payload.sha, blobs: new Map(Object.entries(payload.blobs ?? {})) };
+    } else {
+      result = await publishAtomically(documents, tokenInMemory);
+    }
     state.layout = layoutDocument();
     state.originalLayout = clone(state.layout);
     state.presentation = JSON.parse(documents[FILES.presentation]);
@@ -1149,7 +1344,9 @@ async function handlePublish(event) {
     state.repository.revision = result.sha;
     elements.publishDialog.close();
     render();
-    showToast("Catálogo publicado. GitHub Actions se encargará de validar la selección.");
+    showToast(LOCAL_MODE
+      ? "Catálogo publicado por el auxiliar local. GitHub Actions validará la selección."
+      : "Catálogo publicado. GitHub Actions se encargará de validar la selección.");
     window.setTimeout(() => {
       const existing = $("#commit-link");
       existing?.remove();
@@ -1165,7 +1362,7 @@ async function handlePublish(event) {
       window.setTimeout(() => link.remove(), 8000);
     }, 0);
   } catch (error) {
-    elements.publishError.textContent = error.message || "No se pudo publicar. No se guardó el token.";
+    elements.publishError.textContent = error.message || (LOCAL_MODE ? "No se pudo publicar desde el auxiliar local." : "No se pudo publicar. No se guardó el token.");
     elements.publishError.hidden = false;
   } finally {
     tokenInMemory = "";
@@ -1247,6 +1444,25 @@ $("#clear-logo").addEventListener("click", () => {
 $("#publish-button").addEventListener("click", showPublishDialog);
 elements.publishForm.addEventListener("submit", handlePublish);
 $("#close-publish").addEventListener("click", () => elements.publishDialog.close());
+elements.connectGithub.addEventListener("click", async () => {
+  if (await refreshLocalStatus()) return;
+  try {
+    const response = await fetch("/api/auth/start", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: "{}",
+      cache: "no-store",
+    });
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error || "No se pudo abrir GitHub CLI.");
+    elements.localGithubStatus.textContent = "Se abrió GitHub CLI en una ventana local. Completa allí la autorización y vuelve a comprobarla.";
+    elements.connectGithub.textContent = "Comprobar GitHub";
+  } catch (error) {
+    elements.localGithubStatus.textContent = error.message || "No se pudo iniciar la autorización de GitHub.";
+  }
+});
+$("#close-preview").addEventListener("click", () => elements.previewDialog.close());
+elements.previewDialog.addEventListener("close", () => { void releasePreview(); });
 $("#backup-button").addEventListener("click", downloadBackup);
 $("#download-export").addEventListener("click", downloadBackup);
 elements.publishDialog.addEventListener("close", () => { tokenInMemory = ""; elements.token.value = ""; });

@@ -8,7 +8,7 @@ web
 
 ## Stack
 
-delegated: static HTML, CSS, and JavaScript, because this project is published from its existing GitHub repository and needs to run on GitHub Pages without a server.
+Static HTML, CSS, and JavaScript remain the frontend and GitHub Pages artifact. An optional Windows local mode serves the same frontend from loopback through a small Java helper in VibeM3U; it reuses VibeM3U resolver sources and GitHub CLI authentication without creating another hosted service or APK.
 
 ## Users
 
@@ -22,11 +22,11 @@ Success means an editor can understand exactly what will change, publish it safe
 
 ## Positioning
 
-The editor writes editorial intent only. GitHub stores that intent, and the existing Lista M3U runner remains responsible for validating stable identities and producing public EPG, logos, and catalogue outputs. The editor is not a stream resolver and never treats a resolver reference as a channel identity.
+The editor writes editorial intent only. GitHub stores that intent, and the existing Lista M3U runner remains responsible for validating stable identities and producing public EPG, logos, and catalogue outputs. Local mode may preview a selected stream through the original VibeM3U resolvers, but playback URLs, tokens, and resolver references never become editorial identity or published data.
 
 ## Operating Context
 
-Inferred by delegation: a static GitHub Pages site loads the public catalogue and selection manifest, while an authorized repository maintainer supplies a short-lived GitHub credential in the browser to publish a commit. The selection commit is processed by the existing GitHub Actions workflow. No server-side session or credential store is assumed.
+The static GitHub Pages site loads the public catalogue and selection manifest; an authorized maintainer can publish from that page with a short-lived credential held only in browser memory. On Windows, the optional local launcher builds a temporary frontend bundle and starts the Java helper on `127.0.0.1`; GitHub CLI performs publication outside the browser, and the helper keeps resolver URLs and request headers in memory for a bounded preview session. The selection commit is processed by the existing GitHub Actions workflow. No new hosted backend is introduced.
 
 ## Capabilities and Constraints
 
@@ -36,7 +36,8 @@ Inferred by delegation: a static GitHub Pages site loads the public catalogue an
 - Respect `VIBEM3U_ID_CONTRACT_EPG_LOGOS.md`; uncertain identities remain visibly pending instead of being guessed.
 - A publish operation must target only the declared selection/editor files and let the runner validate generated outputs.
 - Direct M3U outputs and app-only resolver selections remain separate unless the existing contracts explicitly bridge them.
-- Inferred by delegation: prefer a token held only in page memory for the active session; do not persist it in local or session storage.
+- Local resolver preview is loopback-only and supports the TVN, Meganoticias, Highfly, and TvVoo implementations already present in VibeM3U; temporary provider URLs stay out of the browser's application data and GitHub.
+- GitHub Pages keeps a token only in page memory for the active session; local mode delegates credential storage to GitHub CLI and never requests a pasted token.
 
 ## Brand Commitments
 
@@ -46,6 +47,7 @@ Use the existing Lista M3U and VibeM3U names. Interface copy is Spanish and dire
 
 - The repository's `channel-catalog.m3u`, `m3u.m3u`, `m3u-externa.m3u`, `1.m3u`, and `2.m3u`.
 - The contract at `VIBEM3U_ID_CONTRACT_EPG_LOGOS.md` and the manifest at `data/vibem3u-selection.json`.
+- The local launcher at `tools/Start-CatalogEditor.ps1` and the Java resolver bridge under VibeM3U's `local-catalog` module.
 - Existing curated logo assets in `logos/` and the Python runner/workflows in this repository.
 - No claims about stream uptime, EPG coverage, or provider availability may be invented by the interface.
 

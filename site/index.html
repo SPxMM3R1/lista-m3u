@@ -23,6 +23,7 @@
         <span class="context-divider" aria-hidden="true"></span>
         <code>main</code>
       </div>
+      <span class="local-mode-indicator" id="local-mode-indicator" hidden>Local · GitHub CLI</span>
       <div class="top-actions">
         <button class="button button-quiet" id="backup-button" type="button">Descargar respaldo</button>
         <button class="button button-primary" id="publish-button" type="button" disabled>
@@ -217,12 +218,30 @@
         <label class="token-label" for="github-token">Token fine-grained de GitHub</label>
         <input class="token-input" id="github-token" type="password" autocomplete="off" spellcheck="false" placeholder="ghp_… / github_pat_…" required>
         <p class="token-help">Permiso requerido: Contents · Read and write, solo para este repositorio. El token se usa en esta pestaña y no se guarda.</p>
+        <div class="local-github-auth" id="local-github-auth" hidden>
+          <p id="local-github-status">La cuenta se autoriza con GitHub CLI. La credencial no se entrega a esta página.</p>
+          <button class="button button-secondary" id="connect-github" type="button">Conectar o comprobar GitHub</button>
+        </div>
         <p class="dialog-error" id="publish-error" role="alert" hidden></p>
         <div class="dialog-footer">
           <button class="button button-quiet" id="download-export" type="button">Descargar JSON</button>
           <button class="button button-primary" id="confirm-publish" type="submit">Crear commit</button>
         </div>
       </form>
+    </dialog>
+
+    <dialog class="dialog preview-dialog" id="preview-dialog" aria-labelledby="preview-title">
+      <section class="dialog-shell preview-shell">
+        <div class="dialog-heading">
+          <div><h2 id="preview-title">Prueba de señal</h2><p id="preview-status">Preparando la fuente con los resolutores de VibeM3U…</p></div>
+          <button class="icon-button" id="close-preview" type="button" aria-label="Cerrar reproductor">
+            <svg aria-hidden="true" viewBox="0 0 20 20"><path d="m5 5 10 10M15 5 5 15"/></svg>
+          </button>
+        </div>
+        <video id="preview-video" controls playsinline preload="none" aria-label="Vista previa del canal"></video>
+        <p class="preview-error" id="preview-error" role="alert" hidden></p>
+        <div class="dialog-footer"><span class="preview-local-note">La URL temporal y los tokens permanecen en el auxiliar local.</span></div>
+      </section>
     </dialog>
 
     <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>

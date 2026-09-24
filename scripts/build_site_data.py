@@ -8,6 +8,7 @@ import hashlib
 import json
 import re
 import subprocess
+import tempfile
 import sys
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -376,7 +377,15 @@ def build_bundle(output: Path = DEFAULT_OUTPUT) -> Path:
     )
     out = output.resolve()
     if out != DEFAULT_OUTPUT.resolve():
-        raise ValueError(f"la salida del sitio debe ser el directorio de build {DEFAULT_OUTPUT}")
+        temp_root = Path(tempfile.gettempdir()).resolve()
+        try:
+            out.relative_to(temp_root)
+        except ValueError as exc:
+            raise ValueError(
+                f"la salida alternativa debe estar dentro de la carpeta temporal {temp_root}"
+            ) from exc
+        if out == temp_root:
+            raise ValueError("la salida alternativa no puede ser la carpeta temporal raíz")
     out.mkdir(parents=True, exist_ok=True)
     for source in SITE.rglob("*"):
         relative = source.relative_to(SITE)
