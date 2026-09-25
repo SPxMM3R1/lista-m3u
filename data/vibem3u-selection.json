@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "source": "vibem3u-android",
-  "selectionSignature": "sha256:aa940dc51c86775a36178cdf68f6b725a063d3c80378af5cfcf2c31338339b6b",
-  "publishedAt": "2026-09-24T00:33:14.459Z",
+  "selectionSignature": "sha256:9e6907d342143f507aff1f20dd3522a66ac97b82232271c68715c25eaae811c4",
+  "publishedAt": "2026-09-25T21:49:25.268Z",
   "sources": [
     {
       "provider": "tvvoo",
@@ -11,8 +11,20 @@
     },
     {
       "provider": "highfly",
-      "enabled": false,
-      "channels": [],
+      "enabled": true,
+      "channels": [
+        {
+          "provider": "highfly",
+          "catalogKey": "SkySportsF1.uk",
+          "providerResourceId": "leaf:4k-s34rrer",
+          "name": "SKY SPORTS F1",
+          "group": "Deportes",
+          "category": "Motor Sports",
+          "identityState": "canonical",
+          "order": 1,
+          "resolverSlug": "4k-s34rrer"
+        }
+      ],
       "manifestUrl": "https://sports.highfly.to/manifest.json"
     }
   ]

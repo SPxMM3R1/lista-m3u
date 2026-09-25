@@ -7,6 +7,7 @@
       "tvgId": "0104",
       "name": "TVN",
       "group": "Nacionales",
+      "country": "",
       "sourceList": "1.m3u",
       "logoPath": "logos/tvn.png",
       "order": 1,
@@ -18,6 +19,7 @@
       "tvgId": "0105",
       "name": "Mega",
       "group": "Nacionales",
+      "country": "",
       "sourceList": "1.m3u",
       "logoPath": "logos/mega.png",
       "order": 2,
@@ -29,6 +31,7 @@
       "tvgId": "0106",
       "name": "CHV",
       "group": "Nacionales",
+      "country": "",
       "sourceList": "1.m3u",
       "logoPath": "logos/chv.png",
       "order": 3,
@@ -40,6 +43,7 @@
       "tvgId": "0107",
       "name": "Canal 13",
       "group": "Nacionales",
+      "country": "",
       "sourceList": "1.m3u",
       "logoPath": "logos/canal13.png",
       "order": 4,
@@ -51,6 +55,7 @@
       "tvgId": "0102",
       "name": "La Red",
       "group": "Nacionales",
+      "country": "",
       "sourceList": "1.m3u",
       "logoPath": "logos/la-red.png",
       "order": 5,
@@ -62,6 +67,7 @@
       "tvgId": "0201",
       "name": "24 Horas",
       "group": "Noticias nacionales",
+      "country": "",
       "sourceList": "1.m3u",
       "logoPath": "logos/24-horas.svg",
       "order": 6,
@@ -73,6 +79,7 @@
       "tvgId": "Meganoticias.cl",
       "name": "Meganoticias",
       "group": "Noticias nacionales",
+      "country": "",
       "sourceList": "1.m3u",
       "logoPath": "logos/meganoticias.png",
       "order": 7,
@@ -84,6 +91,7 @@
       "tvgId": "1153",
       "name": "CHV Noticias",
       "group": "Noticias nacionales",
+      "country": "",
       "sourceList": "1.m3u",
       "logoPath": "logos/chv-noticias.svg",
       "order": 8,
@@ -95,6 +103,7 @@
       "tvgId": "0124",
       "name": "T13",
       "group": "Noticias nacionales",
+      "country": "",
       "sourceList": "1.m3u",
       "logoPath": "logos/t13.svg",
       "order": 9,
@@ -106,6 +115,7 @@
       "tvgId": "45",
       "name": "NTV",
       "group": "Misceláneos",
+      "country": "",
       "sourceList": "1.m3u",
       "logoPath": "logos/ntv.svg",
       "order": 10,
@@ -117,6 +127,7 @@
       "tvgId": "1437",
       "name": "TVN3",
       "group": "Misceláneos",
+      "country": "",
       "sourceList": "1.m3u",
       "logoPath": "logos/tvn3.svg",
       "order": 11,
@@ -140,6 +151,7 @@
       "tvgId": "RewindTV.cl@SD",
       "name": "RWND",
       "group": "Misceláneos",
+      "country": "",
       "sourceList": "1.m3u",
       "logoPath": "logos/rewind-v2.png",
       "order": 13,
@@ -151,6 +163,7 @@
       "tvgId": "DW.de",
       "name": "DW Español",
       "group": "Noticias internacionales",
+      "country": "",
       "sourceList": "1.m3u",
       "logoPath": "logos/dw.svg",
       "order": 14,
@@ -174,6 +187,7 @@
       "tvgId": "NHKWorldJapan.jp",
       "name": "NHK World Japan",
       "group": "Noticias internacionales",
+      "country": "",
       "sourceList": "1.m3u",
       "logoPath": "logos/nhk-world.svg",
       "order": 16,
@@ -185,6 +199,7 @@
       "tvgId": "ArirangTV.kr",
       "name": "Arirang TV",
       "group": "Noticias internacionales",
+      "country": "",
       "sourceList": "1.m3u",
       "logoPath": "logos/arirang.png",
       "order": 17,
@@ -196,6 +211,7 @@
       "tvgId": "France24.fr",
       "name": "France 24 Español",
       "group": "Noticias internacionales",
+      "country": "",
       "sourceList": "1.m3u",
       "logoPath": "logos/france24.svg",
       "order": 18,
@@ -207,6 +223,7 @@
       "tvgId": "AlJazeera.qa",
       "name": "Al Jazeera English",
       "group": "Noticias internacionales",
+      "country": "",
       "sourceList": "1.m3u",
       "logoPath": "logos/aljazeera.svg",
       "order": 19,
@@ -226,14 +243,30 @@
       "state": "active"
     },
     {
+      "kind": "provider",
+      "provider": "highfly",
+      "catalogKey": "SkySportsF1.uk",
+      "providerResourceId": "leaf:4k-s34rrer",
+      "resolverSlug": "4k-s34rrer",
+      "name": "SKY SPORTS F1",
+      "group": "Deportes",
+      "category": "Motor Sports",
+      "identityState": "canonical",
+      "logoOverride": "logos/history/sky-sports-f1--7f3e7410ed.png",
+      "order": 21,
+      "number": 21,
+      "state": "active"
+    },
+    {
       "kind": "m3u",
       "tvgId": "XITEHits.nl@Germany",
       "name": "XITE Hits",
       "group": "Música",
+      "country": "",
       "sourceList": "1.m3u",
       "logoPath": "logos/xite.svg",
-      "order": 21,
-      "number": 21,
+      "order": 22,
+      "number": 22,
       "state": "active"
     },
     {
@@ -244,8 +277,8 @@
       "country": "NL",
       "sourceList": "1.m3u",
       "logoPath": "logos/xite.svg",
-      "order": 22,
-      "number": 22,
+      "order": 23,
+      "number": 23,
       "state": "active"
     },
     {
@@ -256,8 +289,8 @@
       "country": "NL",
       "sourceList": "1.m3u",
       "logoPath": "logos/xite.svg",
-      "order": 23,
-      "number": 23,
+      "order": 24,
+      "number": 24,
       "state": "active"
     },
     {
@@ -265,10 +298,11 @@
       "tvgId": "XITE80sFlashback.us",
       "name": "XITE 80s Flashback",
       "group": "Música",
+      "country": "",
       "sourceList": "1.m3u",
       "logoPath": "logos/xite.svg",
-      "order": 24,
-      "number": 24,
+      "order": 25,
+      "number": 25,
       "state": "active"
     },
     {
@@ -276,10 +310,11 @@
       "tvgId": "XITE90sThrowback.us",
       "name": "XITE 90s Throwback",
       "group": "Música",
+      "country": "",
       "sourceList": "1.m3u",
       "logoPath": "logos/xite.svg",
-      "order": 25,
-      "number": 25,
+      "order": 26,
+      "number": 26,
       "state": "active"
     },
     {
@@ -290,8 +325,8 @@
       "country": "NL",
       "sourceList": "1.m3u",
       "logoPath": "logos/xite.svg",
-      "order": 26,
-      "number": 26,
+      "order": 27,
+      "number": 27,
       "state": "active"
     },
     {
@@ -302,8 +337,8 @@
       "country": "NL",
       "sourceList": "1.m3u",
       "logoPath": "logos/xite.svg",
-      "order": 27,
-      "number": 27,
+      "order": 28,
+      "number": 28,
       "state": "active"
     },
     {
@@ -314,8 +349,8 @@
       "country": "US",
       "sourceList": "1.m3u",
       "logoPath": "logos/mtv-biggest-pop.svg",
-      "order": 28,
-      "number": 28,
+      "order": 29,
+      "number": 29,
       "state": "active"
     },
     {
@@ -326,8 +361,8 @@
       "country": "US",
       "sourceList": "1.m3u",
       "logoPath": "logos/mtv-spankin-new.svg",
-      "order": 29,
-      "number": 29,
+      "order": 30,
+      "number": 30,
       "state": "active"
     },
     {
@@ -338,8 +373,8 @@
       "country": "US",
       "sourceList": "1.m3u",
       "logoPath": "logos/mtv-flow-latino.svg",
-      "order": 30,
-      "number": 30,
+      "order": 31,
+      "number": 31,
       "state": "active"
     },
     {
@@ -349,8 +384,9 @@
       "group": "Música",
       "country": "MX",
       "sourceList": "1.m3u",
-      "order": 31,
-      "number": 31,
+      "logoPath": null,
+      "order": 32,
+      "number": 32,
       "state": "active"
     },
     {
@@ -358,10 +394,11 @@
       "tvgId": "M1.ua@SD",
       "name": "M1",
       "group": "Música",
+      "country": "",
       "sourceList": "1.m3u",
       "logoPath": "logos/m1.png",
-      "order": 32,
-      "number": 32,
+      "order": 33,
+      "number": 33,
       "state": "active"
     },
     {
@@ -369,10 +406,11 @@
       "tvgId": "M2.ua@SD",
       "name": "M2",
       "group": "Música",
+      "country": "",
       "sourceList": "1.m3u",
       "logoPath": "logos/m2.png",
-      "order": 33,
-      "number": 33,
+      "order": 34,
+      "number": 34,
       "state": "active"
     },
     {
@@ -383,8 +421,8 @@
       "country": "CA",
       "sourceList": "1.m3u",
       "logoPath": "logos/qello.png",
-      "order": 34,
-      "number": 34,
+      "order": 35,
+      "number": 35,
       "state": "active"
     },
     {
@@ -395,8 +433,8 @@
       "country": "CA",
       "sourceList": "1.m3u",
       "logoPath": "logos/stingray-classica-official.svg",
-      "order": 35,
-      "number": 35,
+      "order": 36,
+      "number": 36,
       "state": "active"
     },
     {
@@ -406,8 +444,9 @@
       "group": "Misceláneos",
       "country": "ES",
       "sourceList": "1.m3u",
-      "order": 36,
-      "number": 36,
+      "logoPath": null,
+      "order": 37,
+      "number": 37,
       "state": "active"
     },
     {
@@ -418,8 +457,8 @@
       "country": "AT",
       "sourceList": "1.m3u",
       "logoPath": "logos/red-bull-tv.png",
-      "order": 37,
-      "number": 37,
+      "order": 38,
+      "number": 38,
       "state": "active"
     },
     {
@@ -430,8 +469,8 @@
       "country": "CL",
       "sourceList": "1.m3u",
       "logoPath": "logos/red-bull-tv.png",
-      "order": 38,
-      "number": 38,
+      "order": 39,
+      "number": 39,
       "state": "active"
     },
     {
@@ -442,8 +481,8 @@
       "country": "DE",
       "sourceList": "1.m3u",
       "logoPath": "logos/autentic-history.svg",
-      "order": 39,
-      "number": 39,
+      "order": 40,
+      "number": 40,
       "state": "active"
     },
     {
@@ -454,8 +493,8 @@
       "country": "US",
       "sourceList": "1.m3u",
       "logoPath": "logos/real-wild.png",
-      "order": 40,
-      "number": 40,
+      "order": 41,
+      "number": 41,
       "state": "active"
     },
     {
@@ -466,8 +505,8 @@
       "country": "FR",
       "sourceList": "2.m3u",
       "logoPath": "logos/france24.svg",
-      "order": 41,
-      "number": 41,
+      "order": 42,
+      "number": 42,
       "state": "active"
     },
     {
@@ -478,8 +517,8 @@
       "country": "CZ",
       "sourceList": "2.m3u",
       "logoPath": "logos/eurosport.svg",
-      "order": 42,
-      "number": 42,
+      "order": 43,
+      "number": 43,
       "state": "active"
     },
     {
@@ -489,8 +528,9 @@
       "group": "Deportes",
       "country": "US",
       "sourceList": "2.m3u",
-      "order": 43,
-      "number": 43,
+      "logoPath": null,
+      "order": 44,
+      "number": 44,
       "state": "active"
     },
     {
@@ -500,8 +540,9 @@
       "group": "Deportes",
       "country": "SK",
       "sourceList": "2.m3u",
-      "order": 44,
-      "number": 44,
+      "logoPath": null,
+      "order": 45,
+      "number": 45,
       "state": "active"
     },
     {
@@ -511,8 +552,9 @@
       "group": "Deportes",
       "country": "SK",
       "sourceList": "2.m3u",
-      "order": 45,
-      "number": 45,
+      "logoPath": null,
+      "order": 46,
+      "number": 46,
       "state": "active"
     },
     {
@@ -522,8 +564,9 @@
       "group": "Deportes",
       "country": "CZ",
       "sourceList": "2.m3u",
-      "order": 46,
-      "number": 46,
+      "logoPath": null,
+      "order": 47,
+      "number": 47,
       "state": "active"
     },
     {
@@ -533,8 +576,9 @@
       "group": "Deportes",
       "country": "HU",
       "sourceList": "2.m3u",
-      "order": 47,
-      "number": 47,
+      "logoPath": null,
+      "order": 48,
+      "number": 48,
       "state": "active"
     },
     {
@@ -544,8 +588,9 @@
       "group": "Deportes",
       "country": "ES",
       "sourceList": "2.m3u",
-      "order": 48,
-      "number": 48,
+      "logoPath": null,
+      "order": 49,
+      "number": 49,
       "state": "active"
     },
     {
@@ -555,8 +600,9 @@
       "group": "Deportes",
       "country": "HU",
       "sourceList": "2.m3u",
-      "order": 49,
-      "number": 49,
+      "logoPath": null,
+      "order": 50,
+      "number": 50,
       "state": "active"
     },
     {
@@ -566,8 +612,9 @@
       "group": "Deportes",
       "country": "HU",
       "sourceList": "2.m3u",
-      "order": 50,
-      "number": 50,
+      "logoPath": null,
+      "order": 51,
+      "number": 51,
       "state": "active"
     },
     {
@@ -577,8 +624,9 @@
       "group": "Deportes",
       "country": "CZ",
       "sourceList": "2.m3u",
-      "order": 51,
-      "number": 51,
+      "logoPath": null,
+      "order": 52,
+      "number": 52,
       "state": "active"
     },
     {
@@ -588,8 +636,9 @@
       "group": "Deportes",
       "country": "HU",
       "sourceList": "2.m3u",
-      "order": 52,
-      "number": 52,
+      "logoPath": null,
+      "order": 53,
+      "number": 53,
       "state": "active"
     },
     {
@@ -599,8 +648,9 @@
       "group": "Deportes",
       "country": "CZ",
       "sourceList": "2.m3u",
-      "order": 53,
-      "number": 53,
+      "logoPath": null,
+      "order": 54,
+      "number": 54,
       "state": "active"
     },
     {
@@ -610,8 +660,9 @@
       "group": "Deportes",
       "country": "HU",
       "sourceList": "2.m3u",
-      "order": 54,
-      "number": 54,
+      "logoPath": null,
+      "order": 55,
+      "number": 55,
       "state": "active"
     },
     {
@@ -621,8 +672,9 @@
       "group": "Deportes",
       "country": "IN",
       "sourceList": "2.m3u",
-      "order": 55,
-      "number": 55,
+      "logoPath": null,
+      "order": 56,
+      "number": 56,
       "state": "active"
     },
     {
@@ -633,8 +685,8 @@
       "country": "AR",
       "sourceList": "2.m3u",
       "logoPath": "logos/fox-sports.svg",
-      "order": 56,
-      "number": 56,
+      "order": 57,
+      "number": 57,
       "state": "active"
     },
     {
@@ -644,8 +696,9 @@
       "group": "Deportes",
       "country": "MN",
       "sourceList": "2.m3u",
-      "order": 57,
-      "number": 57,
+      "logoPath": null,
+      "order": 58,
+      "number": 58,
       "state": "active"
     },
     {
@@ -656,8 +709,8 @@
       "country": "US",
       "sourceList": "2.m3u",
       "logoPath": "logos/fox-sports.svg",
-      "order": 58,
-      "number": 58,
+      "order": 59,
+      "number": 59,
       "state": "active"
     },
     {
@@ -668,8 +721,8 @@
       "country": "US",
       "sourceList": "2.m3u",
       "logoPath": "logos/fox-sports.svg",
-      "order": 59,
-      "number": 59,
+      "order": 60,
+      "number": 60,
       "state": "active"
     },
     {
@@ -680,8 +733,8 @@
       "country": "US",
       "sourceList": "2.m3u",
       "logoPath": "logos/espn.svg",
-      "order": 60,
-      "number": 60,
+      "order": 61,
+      "number": 61,
       "state": "active"
     },
     {
@@ -692,8 +745,8 @@
       "country": "US",
       "sourceList": "2.m3u",
       "logoPath": "logos/espn.svg",
-      "order": 61,
-      "number": 61,
+      "order": 62,
+      "number": 62,
       "state": "active"
     },
     {
@@ -704,8 +757,8 @@
       "country": "US",
       "sourceList": "2.m3u",
       "logoPath": "logos/fox-sports.svg",
-      "order": 62,
-      "number": 62,
+      "order": 63,
+      "number": 63,
       "state": "active"
     },
     {
@@ -716,8 +769,8 @@
       "country": "BR",
       "sourceList": "2.m3u",
       "logoPath": "logos/espn.svg",
-      "order": 63,
-      "number": 63,
+      "order": 64,
+      "number": 64,
       "state": "active"
     },
     {
@@ -728,8 +781,8 @@
       "country": "BR",
       "sourceList": "2.m3u",
       "logoPath": "logos/espn.svg",
-      "order": 64,
-      "number": 64,
+      "order": 65,
+      "number": 65,
       "state": "active"
     },
     {
@@ -740,8 +793,8 @@
       "country": "US",
       "sourceList": "2.m3u",
       "logoPath": "logos/fox-sports.svg",
-      "order": 65,
-      "number": 65,
+      "order": 66,
+      "number": 66,
       "state": "active"
     },
     {
@@ -752,8 +805,8 @@
       "country": "US",
       "sourceList": "2.m3u",
       "logoPath": "logos/espn.svg",
-      "order": 66,
-      "number": 66,
+      "order": 67,
+      "number": 67,
       "state": "active"
     },
     {
@@ -763,8 +816,9 @@
       "group": "Deportes",
       "country": "US",
       "sourceList": "2.m3u",
-      "order": 67,
-      "number": 67,
+      "logoPath": null,
+      "order": 68,
+      "number": 68,
       "state": "active"
     },
     {
@@ -774,8 +828,9 @@
       "group": "Deportes",
       "country": "US",
       "sourceList": "2.m3u",
-      "order": 68,
-      "number": 68,
+      "logoPath": null,
+      "order": 69,
+      "number": 69,
       "state": "active"
     },
     {
@@ -785,8 +840,9 @@
       "group": "Deportes",
       "country": "US",
       "sourceList": "2.m3u",
-      "order": 69,
-      "number": 69,
+      "logoPath": null,
+      "order": 70,
+      "number": 70,
       "state": "active"
     },
     {
@@ -796,8 +852,9 @@
       "group": "Deportes",
       "country": "BR",
       "sourceList": "2.m3u",
-      "order": 70,
-      "number": 70,
+      "logoPath": null,
+      "order": 71,
+      "number": 71,
       "state": "active"
     },
     {
@@ -807,8 +864,9 @@
       "group": "Deportes",
       "country": "INT",
       "sourceList": "2.m3u",
-      "order": 71,
-      "number": 71,
+      "logoPath": null,
+      "order": 72,
+      "number": 72,
       "state": "active"
     },
     {
@@ -818,8 +876,9 @@
       "group": "Deportes",
       "country": "INT",
       "sourceList": "2.m3u",
-      "order": 72,
-      "number": 72,
+      "logoPath": null,
+      "order": 73,
+      "number": 73,
       "state": "active"
     },
     {
@@ -829,8 +888,9 @@
       "group": "Deportes",
       "country": "INT",
       "sourceList": "2.m3u",
-      "order": 73,
-      "number": 73,
+      "logoPath": null,
+      "order": 74,
+      "number": 74,
       "state": "active"
     },
     {
@@ -840,8 +900,8 @@
       "group": "Deportes",
       "country": "BY",
       "sourceList": "2.m3u",
-      "order": 74,
-      "number": 74,
+      "order": 75,
+      "number": 75,
       "state": "active"
     },
     {
@@ -851,8 +911,9 @@
       "group": "Deportes",
       "country": "TJ",
       "sourceList": "2.m3u",
-      "order": 75,
-      "number": 75,
+      "logoPath": null,
+      "order": 76,
+      "number": 76,
       "state": "active"
     },
     {
@@ -862,8 +923,9 @@
       "group": "Deportes",
       "country": "US",
       "sourceList": "2.m3u",
-      "order": 76,
-      "number": 76,
+      "logoPath": null,
+      "order": 77,
+      "number": 77,
       "state": "active"
     },
     {
@@ -873,8 +935,9 @@
       "group": "Deportes",
       "country": "US",
       "sourceList": "2.m3u",
-      "order": 77,
-      "number": 77,
+      "logoPath": null,
+      "order": 78,
+      "number": 78,
       "state": "active"
     },
     {
@@ -884,8 +947,9 @@
       "group": "Deportes",
       "country": "INT",
       "sourceList": "2.m3u",
-      "order": 78,
-      "number": 78,
+      "logoPath": null,
+      "order": 79,
+      "number": 79,
       "state": "active"
     },
     {
@@ -895,8 +959,9 @@
       "group": "Deportes",
       "country": "INT",
       "sourceList": "2.m3u",
-      "order": 79,
-      "number": 79,
+      "logoPath": null,
+      "order": 80,
+      "number": 80,
       "state": "active"
     },
     {
@@ -906,8 +971,9 @@
       "group": "Deportes",
       "country": "INT",
       "sourceList": "2.m3u",
-      "order": 80,
-      "number": 80,
+      "logoPath": null,
+      "order": 81,
+      "number": 81,
       "state": "active"
     },
     {
@@ -917,8 +983,9 @@
       "group": "Películas",
       "country": "CZ",
       "sourceList": "2.m3u",
-      "order": 81,
-      "number": 81,
+      "logoPath": null,
+      "order": 82,
+      "number": 82,
       "state": "active"
     },
     {
@@ -928,8 +995,9 @@
       "group": "Películas",
       "country": "HU",
       "sourceList": "2.m3u",
-      "order": 82,
-      "number": 82,
+      "logoPath": null,
+      "order": 83,
+      "number": 83,
       "state": "active"
     },
     {
@@ -939,8 +1007,9 @@
       "group": "Películas",
       "country": "HU",
       "sourceList": "2.m3u",
-      "order": 83,
-      "number": 83,
+      "logoPath": null,
+      "order": 84,
+      "number": 84,
       "state": "active"
     },
     {
@@ -950,8 +1019,9 @@
       "group": "Misceláneos",
       "country": "HU",
       "sourceList": "2.m3u",
-      "order": 84,
-      "number": 84,
+      "logoPath": null,
+      "order": 85,
+      "number": 85,
       "state": "active"
     },
     {
@@ -961,8 +1031,9 @@
       "group": "Misceláneos",
       "country": "CZ",
       "sourceList": "2.m3u",
-      "order": 85,
-      "number": 85,
+      "logoPath": null,
+      "order": 86,
+      "number": 86,
       "state": "active"
     },
     {
@@ -972,8 +1043,9 @@
       "group": "Misceláneos",
       "country": "HU",
       "sourceList": "2.m3u",
-      "order": 86,
-      "number": 86,
+      "logoPath": null,
+      "order": 87,
+      "number": 87,
       "state": "active"
     },
     {
@@ -983,8 +1055,9 @@
       "group": "Misceláneos",
       "country": "CZ",
       "sourceList": "2.m3u",
-      "order": 87,
-      "number": 87,
+      "logoPath": null,
+      "order": 88,
+      "number": 88,
       "state": "active"
     },
     {
@@ -994,8 +1067,9 @@
       "group": "Misceláneos",
       "country": "CZ",
       "sourceList": "2.m3u",
-      "order": 88,
-      "number": 88,
+      "logoPath": null,
+      "order": 89,
+      "number": 89,
       "state": "active"
     },
     {
@@ -1005,8 +1079,9 @@
       "group": "Misceláneos",
       "country": "HU",
       "sourceList": "2.m3u",
-      "order": 89,
-      "number": 89,
+      "logoPath": null,
+      "order": 90,
+      "number": 90,
       "state": "active"
     },
     {
@@ -1016,8 +1091,9 @@
       "group": "Misceláneos",
       "country": "CZ",
       "sourceList": "2.m3u",
-      "order": 90,
-      "number": 90,
+      "logoPath": null,
+      "order": 91,
+      "number": 91,
       "state": "active"
     },
     {
@@ -1027,8 +1103,9 @@
       "group": "Misceláneos",
       "country": "HU",
       "sourceList": "2.m3u",
-      "order": 91,
-      "number": 91,
+      "logoPath": null,
+      "order": 92,
+      "number": 92,
       "state": "active"
     },
     {
@@ -1038,8 +1115,9 @@
       "group": "Misceláneos",
       "country": "CZ",
       "sourceList": "2.m3u",
-      "order": 92,
-      "number": 92,
+      "logoPath": null,
+      "order": 93,
+      "number": 93,
       "state": "active"
     },
     {
@@ -1049,8 +1127,9 @@
       "group": "Misceláneos",
       "country": "HU",
       "sourceList": "2.m3u",
-      "order": 93,
-      "number": 93,
+      "logoPath": null,
+      "order": 94,
+      "number": 94,
       "state": "active"
     },
     {
@@ -1060,8 +1139,9 @@
       "group": "Misceláneos",
       "country": "CZ",
       "sourceList": "2.m3u",
-      "order": 94,
-      "number": 94,
+      "logoPath": null,
+      "order": 95,
+      "number": 95,
       "state": "active"
     },
     {
@@ -1071,8 +1151,9 @@
       "group": "Misceláneos",
       "country": "IN",
       "sourceList": "2.m3u",
-      "order": 95,
-      "number": 95,
+      "logoPath": null,
+      "order": 96,
+      "number": 96,
       "state": "active"
     },
     {
@@ -1082,8 +1163,9 @@
       "group": "Misceláneos",
       "country": "PK",
       "sourceList": "2.m3u",
-      "order": 96,
-      "number": 96,
+      "logoPath": null,
+      "order": 97,
+      "number": 97,
       "state": "active"
     },
     {
@@ -1093,8 +1175,9 @@
       "group": "Deportes",
       "country": "BR",
       "sourceList": "2.m3u",
-      "order": 97,
-      "number": 97,
+      "logoPath": null,
+      "order": 98,
+      "number": 98,
       "state": "active"
     }
   ]
