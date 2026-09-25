@@ -4,10 +4,8 @@
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import re
-import subprocess
 import tempfile
 import sys
 from pathlib import Path
@@ -22,7 +20,6 @@ import vibem3u_selection
 
 SITE = ROOT / "site"
 DEFAULT_OUTPUT = ROOT / "_site"
-REPOSITORY = "SPxMM3R1/lista-m3u"
 EXTINF_ATTRIBUTE = re.compile(r'([\w-]+)="([^"]*)"')
 UNSAFE_PROVIDER_TEXT = re.compile(
     r"https?://|\.m3u8?(?:\b|\?)|\.mpd(?:\b|\?)|access_token=|token=|signature=|hdnts=|[\r\n]",
@@ -44,11 +41,6 @@ def _read_json(path: Path, fallback: dict | None = None) -> dict:
     if not isinstance(payload, dict):
         raise ValueError(f"{path.relative_to(ROOT)} debe ser un objeto JSON")
     return payload
-
-
-def _blob_sha(content: bytes) -> str:
-    header = f"blob {len(content)}\0".encode("ascii")
-    return hashlib.sha1(header + content).hexdigest()
 
 
 def _logo_path(logo_value: str) -> str | None:
@@ -262,6 +254,14 @@ def validate_layout(layout: dict[str, object]) -> None:
             active_numbers.add(row["number"])
             if kind == "m3u" and identity in normalized_exclusions:
                 raise ValueError(f"layout: canal M3U activo pero excluido: {identity}")
+        display_name = row.get("displayName")
+        if display_name is not None and (
+            not isinstance(display_name, str)
+            or not display_name.strip()
+            or len(display_name.strip()) > 160
+            or UNSAFE_PROVIDER_TEXT.search(display_name.strip())
+        ):
+            raise ValueError(f"layout.channels[{index}].displayName invalido")
         if kind == "provider":
             provider = row.get("provider")
             if provider not in {"highfly", "tvvoo"}:
@@ -281,7 +281,13 @@ def validate_layout(layout: dict[str, object]) -> None:
                 raise ValueError(f"TvVoo debe conservar providerResourceId=catalogKey para {identity}")
             if provider == "tvvoo" and len(identity.split("|")) != 2:
                 raise ValueError(f"catalogKey TvVoo invalido para {identity}")
-        descriptive = (row.get("name"), row.get("group"), row.get("category"), row.get("country"))
+        descriptive = (
+            row.get("name"),
+            row.get("displayName"),
+            row.get("group"),
+            row.get("category"),
+            row.get("country"),
+        )
         if any(
             isinstance(value, str)
             and re.search(r"https?://|\.m3u8?(?:\b|\?)|access_token=|token=|signature=|hdnts=", value, re.I)
@@ -324,7 +330,7 @@ def build_bundle(output: Path = DEFAULT_OUTPUT) -> Path:
 
     presentation = _read_json(
         ROOT / PRESENTATION_PATH,
-        {"schema": 1, "orders": {}, "info_lines": {}, "logos": {}, "excluded_m3u": [], "assets": []},
+        {"schema": 1, "orders": {}, "info_lines": {}, "logos": {}, "names": {}, "excluded_m3u": [], "assets": []},
     )
     catalog = apply_saved_direct_order(direct_catalog, presentation)
 
@@ -368,13 +374,13 @@ def build_bundle(output: Path = DEFAULT_OUTPUT) -> Path:
         if key not in by_identity:
             catalog.append(dict(row))
 
-    logos = sorted(
-        {
-            f"logos/{path.relative_to(ROOT / 'logos').as_posix()}"
-            for path in (ROOT / "logos").rglob("*")
-            if path.is_file() and path.suffix.casefold() in ALLOWED_LOGO_EXTENSIONS
-        }
+    logo_root = ROOT / "logos"
+    logo_files = sorted(
+        path
+        for path in logo_root.rglob("*")
+        if path.is_file() and path.suffix.casefold() in ALLOWED_LOGO_EXTENSIONS
     )
+    logos = [f"logos/{path.relative_to(logo_root).as_posix()}" for path in logo_files]
     out = output.resolve()
     if out != DEFAULT_OUTPUT.resolve():
         temp_root = Path(tempfile.gettempdir()).resolve()
@@ -395,6 +401,10 @@ def build_bundle(output: Path = DEFAULT_OUTPUT) -> Path:
         else:
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_bytes(source.read_bytes())
+    for source in logo_files:
+        target = out / "logos" / source.relative_to(logo_root)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes(source.read_bytes())
     data_dir = out / "data"
     data_dir.mkdir(parents=True, exist_ok=True)
     (data_dir / "catalog.json").write_text(
@@ -425,20 +435,6 @@ def build_bundle(output: Path = DEFAULT_OUTPUT) -> Path:
     )
     (data_dir / "runner-status.json").write_text(
         json.dumps(runner_identity_status(selection), ensure_ascii=False, separators=(",", ":")) + "\n",
-        encoding="utf-8",
-    )
-    shas = {}
-    for path in (SELECTION_PATH, EDITOR_LAYOUT_PATH, PRESENTATION_PATH):
-        absolute = ROOT / path
-        shas[path.as_posix()] = _blob_sha(absolute.read_bytes()) if absolute.is_file() else None
-    try:
-        revision = subprocess.run(
-            ["git", "rev-parse", "HEAD"], cwd=ROOT, check=True, capture_output=True, text=True
-        ).stdout.strip()
-    except (OSError, subprocess.CalledProcessError):
-        revision = "local"
-    (data_dir / "repository.json").write_text(
-        json.dumps({"repository": REPOSITORY, "revision": revision, "fileShas": shas}, separators=(",", ":")) + "\n",
         encoding="utf-8",
     )
     print(f"Static editor bundle: {out} ({len(catalog)} channels, {len(logos)} logos)")

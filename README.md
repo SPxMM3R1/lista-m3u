@@ -32,10 +32,13 @@ su rama `main`.
 
 Highfly y TvVoo son fuentes de reproducción exclusivas de VibeM3U. Sus canales
 no pertenecen a la lista principal (`m3u.m3u`/`1.m3u`): sus identidades se
-conservan en `channel-catalog.m3u` y la aplicación los incorpora desde su
-selección local para resolverlos justo al reproducir. El catálogo público de
-Highfly solo se consulta para renovar en memoria los slugs declarados por la
-app; el runner no promueve una selección de VibeM3U a la membresía pública.
+conservan en `channel-catalog.m3u` y el orden, número, visibilidad, logo y nombre
+mostrado se administran desde el catálogo editorial web publicado en
+`data/channel-editor-layout.json`. `data/vibem3u-selection.json` es la
+declaración que consume el runner, no un selector local de la app. Highfly se
+reconcilia siempre por `catalogKey`; `providerResourceId`, `resolverSlug` y las
+URLs son solo referencias para resolver el stream. El runner no promueve una
+selección de VibeM3U a la membresía pública.
 
 Guia de programacion XMLTV:
 

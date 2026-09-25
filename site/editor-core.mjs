@@ -2,7 +2,7 @@ const LAYOUT_FIELDS = [
   "kind", "provider", "catalogKey", "providerResourceId", "resolverSlug",
   "tvgId", "name", "group", "category", "country", "countryKey",
   "aliases", "resolverAliases", "identityState", "sourceList", "logoPath",
-  "logoOverride", "order", "number", "state",
+  "logoOverride", "displayName", "order", "number", "state",
 ];
 
 export function stableId(row) {
@@ -66,6 +66,12 @@ export function validateLayout(layout) {
     else seenOrders.add(row.order);
     if (!Number.isInteger(row.number) || row.number < 1) problems.push(`${row.name || id}: número no válido.`);
     if (!["active", "hidden", "deleted"].includes(row.state)) problems.push(`${row.name || id}: estado no válido.`);
+    if (row.displayName !== undefined && (
+      typeof row.displayName !== "string"
+      || !row.displayName.trim()
+      || row.displayName.trim().length > 160
+      || /(?:https?:\/\/|\.m3u8?(?:\b|\?)|\.mpd(?:\b|\?)|access_token=|token=|signature=|hdnts=|[\r\n])/i.test(row.displayName)
+    )) problems.push(`${row.name || id}: el nombre visible en la app no es válido.`);
     if (row.kind === "provider") {
       if (!["highfly", "tvvoo"].includes(row.provider)) problems.push(`${row.name || id}: proveedor no permitido.`);
       if (row.provider === "highfly") {
@@ -92,7 +98,7 @@ export function validateLayout(layout) {
     } else if (!["1.m3u", "2.m3u"].includes(row.sourceList)) {
       problems.push(`${row.name || id}: selecciona Lista 1 o Lista 2.`);
     }
-    const visibleFields = [row.name, row.group, row.category, row.country, row.countryKey, row.alias, row.aliases, row.resolverAliases];
+    const visibleFields = [row.name, row.displayName, row.group, row.category, row.country, row.countryKey, row.alias, row.aliases, row.resolverAliases];
     const flatValues = visibleFields.flatMap((value) => Array.isArray(value) ? value : [value]);
     if (flatValues.some((value) => typeof value === "string" && /(https?:\/\/|\.m3u8?(?:\b|\?)|access_token=|token=|signature=|hdnts=)/i.test(value))) {
       problems.push(`${row.name || id}: no se permiten URLs de reproducción ni credenciales en el catálogo.`);
@@ -217,6 +223,8 @@ export async function buildSelectionDocument(layout, original, publishedAt = new
         provider,
         catalogKey: row.catalogKey,
         providerResourceId: row.providerResourceId,
+        // Keep the provider's canonical name in the resolver manifest.
+        // displayName is presentation-only and must not affect reconciliation.
         name: String(row.name).trim(),
         group: String(row.group || row.category).trim(),
         category: String(row.category || row.group || "").trim(),
@@ -261,8 +269,9 @@ export function buildPresentationOverrides(layout, original) {
   const result = structuredClone(original ?? { schema: 1, orders: {}, info_lines: {}, logos: {}, assets: [] });
   result.schema = 1;
   const root = result.presentation && typeof result.presentation === "object" ? result.presentation : result;
-  root.orders ??= {};
-  root.logos ??= {};
+  for (const field of ["orders", "logos", "names"]) {
+    if (!root[field] || typeof root[field] !== "object" || Array.isArray(root[field])) root[field] = {};
+  }
   const notPurged = layout.channels.slice().sort(compareRows);
   const channelIds = [...new Set(notPurged.map(stableId).filter(Boolean))];
   if (channelIds.length) root.orders["channel-catalog.m3u"] = channelIds;
@@ -285,6 +294,9 @@ export function buildPresentationOverrides(layout, original) {
     if (!id) continue;
     if (row.logoOverride) root.logos[id] = row.logoOverride;
     else if (row.logoOverride === "") delete root.logos[id];
+    const displayName = String(row.displayName ?? "").trim();
+    if (displayName && displayName !== String(row.name ?? "").trim()) root.names[id] = displayName;
+    else delete root.names[id];
   }
   return result;
 }
@@ -298,6 +310,7 @@ export function summarizeChanges(originalLayout, layout, originalPresentation, p
   let stateChanges = 0;
   let assignmentChanges = 0;
   let numberChanges = 0;
+  let nameChanges = 0;
   let logoChanges = 0;
   let providerReferenceChanges = 0;
   for (const [key, row] of after) {
@@ -308,6 +321,7 @@ export function summarizeChanges(originalLayout, layout, originalPresentation, p
       if (old.state !== row.state) stateChanges++;
       if (old.sourceList !== row.sourceList) assignmentChanges++;
       if (old.number !== row.number) numberChanges++;
+      if (String(old.displayName ?? old.name ?? "").trim() !== String(row.displayName ?? row.name ?? "").trim()) nameChanges++;
       if (old.logoOverride !== row.logoOverride) logoChanges++;
       if (old.provider === "highfly" && row.provider === "highfly"
         && (old.providerResourceId !== row.providerResourceId || old.resolverSlug !== row.resolverSlug)) {
@@ -319,21 +333,9 @@ export function summarizeChanges(originalLayout, layout, originalPresentation, p
   const priorSelection = originalLayout.channels.filter((row) => row.kind === "provider" && row.state === "active").length;
   const nextSelection = layout.channels.filter((row) => row.kind === "provider" && row.state === "active").length;
   const logoMapChanged = JSON.stringify(originalPresentation?.logos ?? {}) !== JSON.stringify(presentation?.logos ?? {});
-  return { added, removed, reordered, stateChanges, assignmentChanges, numberChanges, logoChanges, providerReferenceChanges, providerSelectionChanged: priorSelection !== nextSelection, logoMapChanged };
+  return { added, removed, reordered, stateChanges, assignmentChanges, numberChanges, nameChanges, logoChanges, providerReferenceChanges, providerSelectionChanged: priorSelection !== nextSelection, logoMapChanged };
 }
 
 export function formatJson(value) {
   return `${JSON.stringify(value, null, 2)}\n`;
-}
-
-export async function gitBlobSha(content) {
-  const body = new TextEncoder().encode(String(content));
-  const header = new TextEncoder().encode(`blob ${body.byteLength}\0`);
-  const blob = new Uint8Array(header.byteLength + body.byteLength);
-  blob.set(header, 0);
-  blob.set(body, header.byteLength);
-  const digest = await crypto.subtle.digest("SHA-1", blob);
-  return [...new Uint8Array(digest)]
-    .map((value) => value.toString(16).padStart(2, "0"))
-    .join("");
 }

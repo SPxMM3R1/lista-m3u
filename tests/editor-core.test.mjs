@@ -7,7 +7,6 @@ import {
   assignChannelPosition,
   addRow,
   compareRows,
-  gitBlobSha,
   moveRow,
   removePermanently,
   rowKey,
@@ -30,10 +29,6 @@ import {
 } from "../site/provider-catalog.mjs";
 
 globalThis.crypto ??= webcrypto;
-
-test("GitHub blob preflight hashes use Git's UTF-8 blob format", async () => {
-  assert.equal(await gitBlobSha(""), "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391");
-});
 
 function sampleLayout() {
   return {
@@ -73,6 +68,31 @@ test("selection keeps catalogKey separate from Highfly resolver references", asy
   assert.equal(tvvoo.catalogKey, tvvoo.providerResourceId);
   assert.match(selection.selectionSignature, /^sha256:[0-9a-f]{64}$/);
   assert.deepEqual(validateLayout(sampleLayout()), []);
+});
+
+test("custom provider labels affect presentation only, never resolver identity fields", async () => {
+  const layout = sampleLayout();
+  layout.channels[1].displayName = "Mi F1";
+  const selection = await buildSelectionDocument(layout, { schemaVersion: 1, sources: [] });
+  const highfly = selection.sources.find((source) => source.provider === "highfly").channels[0];
+  const presentation = buildPresentationOverrides(layout, { schema: 1, orders: {}, logos: {}, names: {} });
+
+  assert.equal(highfly.name, "Sky Sports F1");
+  assert.equal(highfly.catalogKey, "SkySportsF1.uk");
+  assert.equal(highfly.providerResourceId, "leaf:f1-live");
+  assert.equal(presentation.names["SkySportsF1.uk"], "Mi F1");
+});
+
+test("custom direct-list labels are stable-id keyed and validated", () => {
+  const layout = sampleLayout();
+  layout.channels[0].displayName = "Canal Uno HD";
+  const presentation = buildPresentationOverrides(layout, { schema: 1, orders: {}, logos: {}, names: {} });
+  assert.equal(presentation.names["0104"], "Canal Uno HD");
+  assert.deepEqual(validateLayout(layout), []);
+
+  for (const displayName of ["", "https://example.test/live.m3u8", "Canal\ninyectado"]) {
+    assert.notDeepEqual(validateLayout({ ...layout, channels: [{ ...layout.channels[0], displayName }] }), []);
+  }
 });
 
 test("presentation export writes stable order and local-logo references", () => {

@@ -1,12 +1,24 @@
 from __future__ import annotations
 
 import json
+from pathlib import Path
+import tempfile
 import unittest
 
 from scripts import build_site_data
 
 
 class BuildSiteDataTests(unittest.TestCase):
+    def test_local_bundle_copies_referenced_logo_assets(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="lista-editor-test-") as temporary:
+            output = Path(temporary) / "site"
+            build_site_data.build_bundle(output)
+
+            expected = build_site_data.ROOT / "logos" / "tvn.png"
+            copied = output / "logos" / "tvn.png"
+            self.assertTrue(copied.is_file())
+            self.assertEqual(copied.read_bytes(), expected.read_bytes())
+
     def test_playlist_export_contains_editorial_metadata_only(self) -> None:
         source = "\n".join(
             (
@@ -116,6 +128,19 @@ class BuildSiteDataTests(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             build_site_data.validate_layout(layout)
+
+    def test_layout_accepts_safe_display_name_and_rejects_stream_or_newline(self) -> None:
+        layout = build_site_data.initial_layout([
+            {"kind": "m3u", "tvgId": "one", "name": "Source", "sourceList": "1.m3u"},
+        ])
+        layout["channels"][0]["displayName"] = "Mi canal · HD"
+        build_site_data.validate_layout(layout)
+
+        for value in ("https://example.test/live.m3u8", "Canal\ninyectado"):
+            with self.subTest(value=value):
+                layout["channels"][0]["displayName"] = value
+                with self.assertRaisesRegex(ValueError, "displayName invalido"):
+                    build_site_data.validate_layout(layout)
 
     def test_layout_keeps_permanent_m3u_tombstones_out_of_active_rows(self) -> None:
         layout = build_site_data.initial_layout([

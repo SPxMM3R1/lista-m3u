@@ -1,15 +1,17 @@
 name: Actualizar EPG
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - "data/vibem3u-selection.json"
   schedule:
     # Primera EPG del dia a las 06:00; luego cada seis horas.
     - cron: "0 0,6,12,18 * * *"
       timezone: "America/Santiago"
   workflow_dispatch:
+  workflow_run:
+    workflows:
+      - Actualizar canales M3U
+    types:
+      - completed
+    branches:
+      - main
 permissions:
   contents: write
 concurrency:
@@ -17,7 +19,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   update:
-    if: github.event_name != 'push' || !contains(github.event.head_commit.message, '[skip ci]')
+    if: ${{ github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event != 'schedule') }}
     runs-on: ubuntu-latest
     env:
       # Use the Python tzdata package so America/Santiago follows DST even if

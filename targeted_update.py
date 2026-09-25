@@ -511,6 +511,10 @@ def apply_presentation(
         presentation_overrides,
         reconciliation,
     )
+    presentation_overrides = update_m3u.apply_provider_name_overrides(
+        presentation_overrides,
+        reconciliation,
+    )
     for path, lines in updated.items():
         update_m3u.apply_presentation_overrides(
             lines,

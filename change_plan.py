@@ -174,6 +174,9 @@ def _presentation_manifest_ids(text: str, *, path: str) -> set[str]:
     logos = presentation.get("logos", {})
     if isinstance(logos, dict):
         ids.update(str(channel_id).strip() for channel_id in logos)
+    names = presentation.get("names", {})
+    if isinstance(names, dict):
+        ids.update(str(channel_id).strip() for channel_id in names)
     excluded = presentation.get("excluded_m3u", [])
     if isinstance(excluded, list):
         ids.update(str(channel_id).strip() for channel_id in excluded)

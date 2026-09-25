@@ -5,7 +5,6 @@ import {
   assignChannelPosition,
   compareRows,
   formatJson,
-  gitBlobSha,
   moveRow,
   removePermanently,
   renumber,
@@ -195,10 +194,15 @@ function logoPathFor(row) {
   return row.logoOverride || row.logoPath || "";
 }
 
+function channelName(row) {
+  const edited = typeof row.displayName === "string" ? row.displayName.trim() : "";
+  return edited || String(row.name ?? stableId(row) ?? "Canal").trim();
+}
+
 function makeLogo(row, className = "channel-logo") {
   const path = logoPathFor(row);
   if (!path) {
-    const fallback = node("span", "logo-fallback", String(row.name ?? "?").trim().slice(0, 1).toLocaleUpperCase("es"));
+    const fallback = node("span", "logo-fallback", channelName(row).slice(0, 1).toLocaleUpperCase("es"));
     fallback.setAttribute("aria-hidden", "true");
     return fallback;
   }
@@ -206,7 +210,7 @@ function makeLogo(row, className = "channel-logo") {
   image.src = imageUrl(path);
   image.alt = "";
   image.loading = "lazy";
-  image.addEventListener("error", () => image.replaceWith(node("span", "logo-fallback", String(row.name ?? "?").slice(0, 1).toLocaleUpperCase("es"))), { once: true });
+  image.addEventListener("error", () => image.replaceWith(node("span", "logo-fallback", channelName(row).slice(0, 1).toLocaleUpperCase("es"))), { once: true });
   return image;
 }
 
@@ -219,7 +223,7 @@ function displayIdentity(row) {
 }
 
 function rowSearchText(row) {
-  return [row.name, row.group, row.category, row.provider, row.sourceList, stableId(row), row.country]
+  return [channelName(row), row.name, row.group, row.category, row.provider, row.sourceList, stableId(row), row.country]
     .filter(Boolean).join(" ").toLocaleLowerCase("es");
 }
 
@@ -232,7 +236,9 @@ async function loadJson(path) {
 function normalizedLoadedLayout(layout, catalog, presentation) {
   const rows = Array.isArray(layout?.channels) ? layout.channels.map((row) => ({ ...row })) : [];
   const metadataByKey = new Map((catalog?.channels ?? []).map((row) => [rowKey(row), row]));
-  const logoMap = (presentation?.presentation ?? presentation)?.logos ?? {};
+  const presentationRoot = presentation?.presentation ?? presentation;
+  const logoMap = presentationRoot?.logos ?? {};
+  const nameMap = presentationRoot?.names ?? {};
   return {
     schemaVersion: 1,
     excludedM3u: Array.isArray(layout?.excludedM3u) ? [...new Set(layout.excludedM3u.map(String))] : [],
@@ -241,6 +247,7 @@ function normalizedLoadedLayout(layout, catalog, presentation) {
       const merged = { ...metadata, ...row };
       const identity = identityFor(merged);
       if (!Object.hasOwn(merged, "logoOverride") && logoMap[identity]) merged.logoOverride = logoMap[identity];
+      if (!Object.hasOwn(merged, "displayName") && typeof nameMap[identity] === "string") merged.displayName = nameMap[identity];
       if (!merged.logoPath && metadata.logoPath) merged.logoPath = metadata.logoPath;
       if (!merged.order) merged.order = rows.indexOf(row) + 1;
       if (!merged.number) merged.number = merged.order;
@@ -261,13 +268,12 @@ async function initialize() {
       elements.localGithubAuth.hidden = false;
       await refreshLocalStatus();
     }
-    const [catalog, logos, layout, selection, presentation, repository, runnerStatus, providerIdentities] = await Promise.all([
+    const [catalog, logos, layout, selection, presentation, runnerStatus, providerIdentities] = await Promise.all([
       loadJson("./data/catalog.json"),
       loadJson("./data/logos.json"),
       loadJson("./data/layout.json"),
       loadJson("./data/selection.json"),
       loadJson("./data/presentation.json"),
-      loadJson("./data/repository.json"),
       loadJson("./data/runner-status.json"),
       loadJson("./data/provider-identities.json"),
     ]);
@@ -280,7 +286,6 @@ async function initialize() {
       selection,
       presentation,
       originalPresentationBaseline: buildPresentationOverrides(normalizedLayout, presentation),
-      repository,
       runnerStatus,
       providerIdentities: Array.isArray(providerIdentities.identities) ? providerIdentities.identities : [],
       numberDraft: "",
@@ -382,9 +387,9 @@ function renderRow(row) {
   const select = node("button", "channel-select");
   select.type = "button";
   select.setAttribute("aria-pressed", String(rowKey(row) === selectedKey));
-  select.setAttribute("aria-label", `Ver detalles de ${row.name}, número ${row.number}, ${sourceName(row)}`);
+  select.setAttribute("aria-label", `Ver detalles de ${channelName(row)}, número ${row.number}, ${sourceName(row)}`);
   const labels = node("span", "channel-labels");
-  const name = node("span", "channel-name", row.name);
+  const name = node("span", "channel-name", channelName(row));
   const subtitleText = row.kind === "provider" ? `${row.category || row.group || "Proveedor"}${row.identityState === "provisional" ? " · identidad provisional" : ""}` : (row.group || "Canal M3U");
   labels.append(name, node("span", "channel-subtitle", subtitleText));
   select.append(makeLogo(row), labels);
@@ -399,13 +404,13 @@ function renderRow(row) {
   up.type = "button";
   up.innerHTML = icon("up");
   up.disabled = activeView !== "active" || index <= 0;
-  up.setAttribute("aria-label", `Subir ${row.name} un lugar`);
+  up.setAttribute("aria-label", `Subir ${channelName(row)} un lugar`);
   up.addEventListener("click", (event) => { event.stopPropagation(); changeLayout(moveRow(state.layout, rowKey(row), -1)); });
   const down = node("button", "");
   down.type = "button";
   down.innerHTML = icon("down");
   down.disabled = activeView !== "active" || index < 0 || index >= sequence.length - 1;
-  down.setAttribute("aria-label", `Bajar ${row.name} un lugar`);
+  down.setAttribute("aria-label", `Bajar ${channelName(row)} un lugar`);
   down.addEventListener("click", (event) => { event.stopPropagation(); changeLayout(moveRow(state.layout, rowKey(row), 1)); });
   order.append(up, down);
   item.append(number, select, source, order);
@@ -450,7 +455,7 @@ function renderInspector() {
   const top = node("div", "inspector-top");
   const logo = makeLogo(row, "inspector-logo");
   const heading = node("div", "inspector-heading");
-  heading.append(node("h2", "specimen-name", row.name));
+  heading.append(node("h2", "specimen-name", channelName(row)));
   const chip = node("span", "source-chip", sourceName(row));
   chip.dataset.source = sourceFor(row);
   heading.append(chip);
@@ -488,6 +493,49 @@ function renderInspector() {
   stateBox.append(node("span", "", `${identity.text}. ${identity.detail}`));
   fragment.append(stateBox);
 
+  const displayNameGroup = node("section", "detail-group display-name-group");
+  displayNameGroup.append(node("h3", "", "Nombre mostrado en la app"));
+  const displayNameLabel = node("label", "visually-hidden", `Nombre de ${channelName(row)} en la app`);
+  displayNameLabel.htmlFor = "channel-display-name";
+  const displayNameInput = node("input", "display-name-input");
+  displayNameInput.id = "channel-display-name";
+  displayNameInput.type = "text";
+  displayNameInput.maxLength = 160;
+  displayNameInput.autocomplete = "off";
+  displayNameInput.spellcheck = false;
+  displayNameInput.value = channelName(row);
+  displayNameInput.setAttribute("aria-label", `Nombre mostrado en la app para ${channelName(row)}`);
+  const saveDisplayName = () => {
+    const value = displayNameInput.value.trim().replace(/\s+/gu, " ");
+    const current = state.layout.channels.find((item) => rowKey(item) === rowKey(row));
+    if (!current || value === String(current.displayName ?? current.name ?? "").trim()) return;
+    const changed = clone(state.layout);
+    const target = changed.channels.find((item) => rowKey(item) === rowKey(row));
+    if (!target) return;
+    if (value && value !== String(target.name ?? "").trim()) target.displayName = value;
+    else delete target.displayName;
+    changeLayout(changed);
+  };
+  displayNameInput.addEventListener("blur", saveDisplayName);
+  displayNameInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      displayNameInput.blur();
+    }
+  });
+  const displayNameEditor = node("div", "display-name-editor");
+  displayNameEditor.append(displayNameLabel, displayNameInput);
+  if (row.displayName) {
+    displayNameEditor.append(button("Restaurar nombre de origen", "button-quiet name-reset", () => {
+      const changed = clone(state.layout);
+      const target = changed.channels.find((item) => rowKey(item) === rowKey(row));
+      if (target) delete target.displayName;
+      changeLayout(changed);
+    }));
+  }
+  displayNameGroup.append(displayNameEditor, node("p", "field-hint", "El cambio solo altera el texto visible; tvg-id y catalogKey se conservan."));
+  fragment.append(displayNameGroup);
+
   const identityGroup = node("section", "detail-group");
   identityGroup.append(node("h3", "", "Identidad y orden"));
   identityGroup.append(detailPair(row.kind === "provider" ? "catalogKey" : "tvg-id", displayIdentity(row), true));
@@ -502,7 +550,7 @@ function renderInspector() {
   numberInput.min = "1";
   numberInput.step = "1";
   numberInput.value = String(row.number);
-  numberInput.setAttribute("aria-label", `Número de ${row.name} en VibeM3U`);
+  numberInput.setAttribute("aria-label", `Número de ${channelName(row)} en VibeM3U`);
   numberInput.disabled = row.state !== "active";
   numberInput.title = row.state === "active"
     ? "Al confirmar, la lista y su orden de publicación se actualizarán."
@@ -522,7 +570,7 @@ function renderInspector() {
     sourceLabel.htmlFor = "channel-source-list";
     const sourceSelect = node("select");
     sourceSelect.id = "channel-source-list";
-    sourceSelect.setAttribute("aria-label", `Lista de publicación de ${row.name}`);
+    sourceSelect.setAttribute("aria-label", `Lista de publicación de ${channelName(row)}`);
     for (const [value, label] of [["1.m3u", "Lista 1 · principal"], ["2.m3u", "Lista 2 · externa"]]) {
       const option = node("option", "", label);
       option.value = value;
@@ -589,10 +637,11 @@ function setState(row, nextState) {
 }
 
 function purgeRow(row) {
-  const label = row.name || displayIdentity(row);
+  const label = channelName(row) || displayIdentity(row);
   if (!window.confirm(`Eliminar definitivamente ${label} del catálogo editorial? La fuente original no se borra.`)) return;
   const presentationRoot = state.presentation.presentation ?? state.presentation;
   if (presentationRoot.logos) delete presentationRoot.logos[displayIdentity(row)];
+  if (presentationRoot.names) delete presentationRoot.names[displayIdentity(row)];
   changeLayout(removePermanently(state.layout, rowKey(row)));
   selectedKey = "";
 }
@@ -620,7 +669,7 @@ function requestPositionAssignment(row, input) {
   pendingPositionAssignment = {
     key: rowKey(row),
     input,
-    name: row.name,
+    name: channelName(row),
     oldNumber: Number(row.number),
     requestedNumber,
     displacedCount,
@@ -628,7 +677,7 @@ function requestPositionAssignment(row, input) {
   const displacedText = displacedCount
     ? `${displacedCount === 1 ? "El canal" : `Los ${displacedCount} canales`} con número ${requestedNumber} o superior ${displacedCount === 1 ? "se moverá" : "se moverán"} un puesto hacia adelante.`
     : `No hay canales con número ${requestedNumber} o superior que deban moverse.`;
-  elements.positionSummary.textContent = `${row.name} pasará del número ${row.number} al ${requestedNumber}. ${displacedText}`;
+  elements.positionSummary.textContent = `${channelName(row)} pasará del número ${row.number} al ${requestedNumber}. ${displacedText}`;
   elements.positionDialog.returnValue = "cancel";
   elements.positionDialog.showModal();
 }
@@ -661,7 +710,7 @@ async function previewChannel(row) {
   elements.previewVideo.removeAttribute("src");
   elements.previewVideo.load();
   elements.previewVideo.muted = true;
-  elements.previewStatus.textContent = `Resolviendo ${row.name} con la implementación de VibeM3U…`;
+  elements.previewStatus.textContent = `Resolviendo ${channelName(row)} con la implementación de VibeM3U…`;
   elements.previewDialog.showModal();
   try {
     const response = await fetch("/api/resolve", {
@@ -785,7 +834,7 @@ async function releasePreview() {
 
 function openLogoDialog(row) {
   selectedKey = rowKey(row);
-  elements.logoTitle.textContent = `Para ${row.name}`;
+  elements.logoTitle.textContent = `Para ${channelName(row)}`;
   elements.logoSearch.value = "";
   renderLogos();
   elements.logoDialog.showModal();
@@ -1212,6 +1261,7 @@ function showReview() {
   if (summary.reordered) statements.push(`${summary.reordered} posición(es) cambiadas`);
   if (summary.stateChanges) statements.push(`${summary.stateChanges} canal(es) ocultos, restaurados o enviados a papelera`);
   if (summary.numberChanges) statements.push(`${summary.numberChanges} número(s) de app modificados`);
+  if (summary.nameChanges) statements.push(`${summary.nameChanges} nombre(s) mostrado(s) en la app modificados`);
   if (summary.logoChanges || summary.logoMapChanged) statements.push(`${Math.max(summary.logoChanges, 1)} elección(es) de logo modificadas`);
   if (summary.providerReferenceChanges) statements.push(`${summary.providerReferenceChanges} referencia(s) de resolución Highfly renovada(s); la identidad estable no cambió`);
   const providerCount = doc.channels.filter((row) => row.kind === "provider" && row.state === "active").length;
@@ -1254,6 +1304,7 @@ async function showPublishDialog() {
   if (summary.reordered) lines.push(`${summary.reordered} posición(es) cambiadas`);
   if (summary.stateChanges) lines.push(`${summary.stateChanges} cambio(s) de visibilidad o papelera`);
   if (summary.numberChanges) lines.push(`${summary.numberChanges} numeración(es) modificadas`);
+  if (summary.nameChanges) lines.push(`${summary.nameChanges} nombre(s) mostrado(s) en la app modificados`);
   if (summary.logoChanges || summary.logoMapChanged) lines.push("Selección de logos actualizada");
   if (summary.providerReferenceChanges) lines.push(`${summary.providerReferenceChanges} referencia(s) Highfly renovada(s); catalogKey conservado`);
   const activeProviders = state.layout.channels.filter((row) => row.kind === "provider" && row.state === "active").length;
@@ -1289,65 +1340,56 @@ async function apiRequest(path, token, options = {}) {
   }
   if (!response.ok) {
     if (response.status === 401 || response.status === 403) throw new Error("GitHub rechazó el token o le falta Contents: Read and write en este repositorio.");
-    if (response.status === 409 || response.status === 422) throw new Error("GitHub detectó un cambio concurrente. Recarga el catálogo antes de volver a publicar.");
-    throw new Error(`GitHub respondió con error ${response.status}. No se publicó ningún cambio.`);
+    const error = new Error(response.status === 409 || response.status === 422
+      ? "GitHub cambió durante la publicación; se reintentará sobre la versión más reciente."
+      : `GitHub respondió con error ${response.status}. No se publicó ningún cambio.`);
+    error.status = response.status;
+    throw error;
   }
   return response.status === 204 ? null : response.json();
 }
 
-function apiPath(path) {
-  return path.split("/").map(encodeURIComponent).join("/");
-}
-
-async function currentBlobSha(path, token) {
-  try {
-    const data = await apiRequest(`/contents/${apiPath(path)}?ref=${encodeURIComponent(BRANCH)}`, token);
-    return data.sha;
-  } catch (error) {
-    if (String(error.message).includes("404")) return null;
-    throw error;
-  }
-}
-
 async function publishAtomically(documents, token) {
-  const ref = await apiRequest(`/git/ref/heads/${encodeURIComponent(BRANCH)}`, token);
-  const headSha = ref.object?.sha;
-  if (!headSha) throw new Error("No se pudo leer la referencia main de GitHub.");
-  const expected = state.repository?.fileShas ?? {};
-  for (const path of Object.keys(documents)) {
-    const actual = await currentBlobSha(path, token);
-    if ((expected[path] ?? null) !== actual) {
-      throw new Error("El catálogo cambió en GitHub desde que abriste esta página. Recarga antes de publicar para no sobrescribir trabajo ajeno.");
+  let commit;
+  for (let attempt = 1; attempt <= 6; attempt++) {
+    const ref = await apiRequest(`/git/ref/heads/${encodeURIComponent(BRANCH)}`, token);
+    const headSha = ref.object?.sha;
+    if (!headSha) throw new Error("No se pudo leer la referencia main de GitHub.");
+    const baseCommit = await apiRequest(`/git/commits/${headSha}`, token);
+    const treeEntries = Object.entries(documents).map(([path, content]) => ({
+      path,
+      mode: "100644",
+      type: "blob",
+      content,
+    }));
+    const tree = await apiRequest("/git/trees", token, {
+      method: "POST",
+      body: JSON.stringify({ base_tree: baseCommit.tree.sha, tree: treeEntries }),
+    });
+    commit = await apiRequest("/git/commits", token, {
+      method: "POST",
+      body: JSON.stringify({
+        message: "Actualiza catálogo editorial desde el editor local",
+        tree: tree.sha,
+        parents: [headSha],
+      }),
+    });
+    try {
+      await apiRequest(`/git/refs/heads/${encodeURIComponent(BRANCH)}`, token, {
+        method: "PATCH",
+        body: JSON.stringify({ sha: commit.sha, force: false }),
+      });
+      break;
+    } catch (error) {
+      if (![409, 422].includes(error.status)) throw error;
+      if (attempt === 6) {
+        throw new Error("GitHub siguió cambiando durante la publicación. Tu edición sigue abierta; vuelve a pulsar Publicar.");
+      }
+      await new Promise((resolve) => window.setTimeout(resolve, Math.min(120 * attempt, 600)));
     }
   }
-  const baseCommit = await apiRequest(`/git/commits/${headSha}`, token);
-  const treeEntries = Object.entries(documents).map(([path, content]) => ({
-    path,
-    mode: "100644",
-    type: "blob",
-    content,
-  }));
-  const tree = await apiRequest("/git/trees", token, {
-    method: "POST",
-    body: JSON.stringify({ base_tree: baseCommit.tree.sha, tree: treeEntries }),
-  });
-  const commit = await apiRequest("/git/commits", token, {
-    method: "POST",
-    body: JSON.stringify({
-      message: "Actualiza selección y orden del catálogo VibeM3U",
-      tree: tree.sha,
-      parents: [headSha],
-    }),
-  });
-  await apiRequest(`/git/refs/heads/${encodeURIComponent(BRANCH)}`, token, {
-    method: "PATCH",
-    body: JSON.stringify({ sha: commit.sha, force: false }),
-  });
-  const blobs = new Map(await Promise.all(Object.entries(documents).map(async ([path, content]) => [
-    path,
-    await gitBlobSha(content),
-  ])));
-  return { sha: commit.sha, blobs };
+  if (!commit?.sha) throw new Error("No se pudo crear el commit del catálogo.");
+  return { sha: commit.sha };
 }
 
 async function handlePublish(event) {
@@ -1377,13 +1419,12 @@ async function handlePublish(event) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           documents,
-          expectedShas: state.repository?.fileShas ?? {},
         }),
         cache: "no-store",
       });
       const payload = await response.json();
       if (!response.ok) throw new Error(payload.error || "No se pudo publicar el catálogo desde el auxiliar local.");
-      result = { sha: payload.sha, blobs: new Map(Object.entries(payload.blobs ?? {})) };
+      result = { sha: payload.sha };
     } else {
       result = await publishAtomically(documents, tokenInMemory);
     }
@@ -1392,16 +1433,9 @@ async function handlePublish(event) {
     state.presentation = JSON.parse(documents[FILES.presentation]);
     state.originalPresentationBaseline = clone(state.presentation);
     state.selection = JSON.parse(documents[FILES.selection]);
-    for (const path of Object.keys(documents)) {
-      const sha = result.blobs.get(path);
-      if (sha) state.repository.fileShas[path] = sha;
-    }
-    state.repository.revision = result.sha;
     elements.publishDialog.close();
     render();
-    showToast(LOCAL_MODE
-      ? "Catálogo publicado por el auxiliar local. GitHub Actions validará la selección."
-      : "Catálogo publicado. GitHub Actions se encargará de validar la selección.");
+    showToast("Commit creado. El runner de canales se forzará y la EPG se actualizará después.");
     window.setTimeout(() => {
       const existing = $("#commit-link");
       existing?.remove();

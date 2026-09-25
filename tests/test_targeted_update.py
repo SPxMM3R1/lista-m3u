@@ -252,6 +252,51 @@ class TargetedUpdateTest(unittest.TestCase):
         )
         self.assertNotIn("old.example", lines[1])
 
+    def test_presentation_name_override_changes_app_label_without_changing_identity(self) -> None:
+        lines = [
+            "#EXTM3U",
+            '#EXTINF:-1 tvg-id="one" tvg-name="Nombre fuente",Nombre fuente',
+            "https://example.test/one.m3u8",
+        ]
+
+        changed = update_m3u.apply_presentation_overrides(
+            lines,
+            "m3u.m3u",
+            {"names": {"one": "Mi canal favorito"}},
+        )
+
+        self.assertTrue(changed)
+        self.assertTrue(lines[1].endswith(",Mi canal favorito"))
+        parsed = update_m3u.parse_channels(lines)
+        self.assertEqual("one", parsed[0].tvg_id)
+        self.assertEqual("Mi canal favorito", parsed[0].display_name)
+
+    def test_provider_name_override_maps_only_after_identity_match(self) -> None:
+        from types import SimpleNamespace
+
+        reconciliation = SimpleNamespace(matched=(SimpleNamespace(
+            row=SimpleNamespace(catalog_key="spain|vavoo_ESPN%201%7Cgroup%3Aes"),
+            catalog_id="ESPN1.es@TvVoo",
+        ),))
+        result = update_m3u.apply_provider_name_overrides(
+            {"names": {"spain|vavoo_ESPN%201%7Cgroup%3Aes": "ESPN Deportes"}},
+            reconciliation,
+        )
+
+        self.assertEqual("ESPN Deportes", result["names"]["ESPN1.es@TvVoo"])
+        self.assertEqual(
+            "ESPN Deportes",
+            result["names"]["spain|vavoo_ESPN%201%7Cgroup%3Aes"],
+        )
+
+    def test_presentation_name_loader_rejects_newlines_and_urls(self) -> None:
+        for label in ("Canal\ninyectado", "https://example.test/live.m3u8"):
+            with self.subTest(label=label), tempfile.TemporaryDirectory() as directory:
+                path = Path(directory) / "presentation-overrides.json"
+                path.write_text(json.dumps({"schema": 1, "names": {"one": label}}), encoding="utf-8")
+                with self.assertRaisesRegex(ValueError, "nombre visible invalido"):
+                    update_m3u.load_presentation_overrides(path)
+
     def test_presentation_logo_override_rejects_paths_outside_logo_directory(self) -> None:
         lines = ["#EXTM3U", '#EXTINF:-1 tvg-id="one",One', "stream"]
 

@@ -6,6 +6,8 @@ on:
       - main
     paths:
       - "data/vibem3u-selection.json"
+      - "data/channel-editor-layout.json"
+      - "presentation-overrides.json"
       - "VIBEM3U_ID_CONTRACT_EPG_LOGOS.md"
   schedule:
     # Renovacion de canales dos horas antes de cada ventana de EPG.

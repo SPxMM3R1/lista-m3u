@@ -67,6 +67,10 @@ STREAM_OVERRIDES_PATH = Path(__file__).with_name("stream-overrides.json")
 PRESENTATION_OVERRIDES_PATH = Path(__file__).with_name(
     "presentation-overrides.json"
 )
+DISPLAY_NAME_UNSAFE_PATTERN = re.compile(
+    r"https?://|\.m3u8?(?:\b|\?)|\.mpd(?:\b|\?)|access_token=|token=|signature=|hdnts=|[\r\n]",
+    re.I,
+)
 REPORT_PATH = Path(__file__).with_name("channel-status.json")
 HEALTH_STATE_PATH = Path(__file__).with_name("channel-health-state.json")
 RESOLVER_CATALOG_PATH = Path(__file__).with_name("resolver-catalog.json")
@@ -3278,6 +3282,24 @@ def apply_provider_logo_overrides(
     return updated
 
 
+def apply_provider_name_overrides(
+    overrides: dict[str, object],
+    reconciliation: vibem3u_selection.SelectionReconciliation,
+) -> dict[str, object]:
+    """Translate stable app identities to matched M3U IDs for display labels."""
+    raw_names = overrides.get("names", {})
+    if not isinstance(raw_names, dict):
+        raise ValueError("manifiesto de presentacion: names debe ser un objeto")
+    names = dict(raw_names)
+    for match in reconciliation.matched:
+        label = raw_names.get(match.row.catalog_key)
+        if label:
+            names[match.catalog_id] = label
+    updated = dict(overrides)
+    updated["names"] = names
+    return updated
+
+
 def load_vibem3u_selection(
     path: Path = VIBEM3U_SELECTION_PATH,
 ) -> vibem3u_selection.SelectionDocument:
@@ -3543,6 +3565,23 @@ def with_resolver_attributes(line: str, attributes: dict[str, str]) -> str:
     return f"{metadata},{display_name}"
 
 
+def with_display_name(line: str, display_name: str) -> str:
+    """Set the app-visible EXTINF title while preserving its stable identity."""
+    metadata, separator, _ = line.rpartition(",")
+    label = display_name.strip()
+    if (
+        not separator
+        or not metadata.startswith("#EXTINF:")
+        or not label
+        or len(label) > 160
+        or "\n" in label
+        or "\r" in label
+        or DISPLAY_NAME_UNSAFE_PATTERN.search(label)
+    ):
+        raise ValueError("manifiesto de presentacion: nombre visible invalido")
+    return f"{metadata},{label}"
+
+
 def load_presentation_overrides(
     path: Path = PRESENTATION_OVERRIDES_PATH,
 ) -> dict[str, object]:
@@ -3552,6 +3591,7 @@ def load_presentation_overrides(
         "orders": {},
         "info_lines": {},
         "logos": {},
+        "names": {},
         "excluded_m3u": [],
         "assets": [],
     }
@@ -3616,6 +3656,24 @@ def load_presentation_overrides(
         if not candidate.is_file():
             raise ValueError(f"{path.name}: no existe el logo {logo_path}")
         normalized_logos[stable_id] = logo_path
+    raw_names = presentation.get("names", {})
+    if not isinstance(raw_names, dict):
+        raise ValueError(f"{path.name}: names debe ser un objeto por identidad")
+    normalized_names: dict[str, str] = {}
+    for channel_id, raw_name in raw_names.items():
+        stable_id = str(channel_id).strip()
+        if not isinstance(raw_name, str):
+            raise ValueError(f"{path.name}: nombre invalido para {channel_id}")
+        display_name = raw_name.strip()
+        if (
+            not stable_id
+            or len(stable_id) > 512
+            or not display_name
+            or len(display_name) > 160
+            or DISPLAY_NAME_UNSAFE_PATTERN.search(display_name)
+        ):
+            raise ValueError(f"{path.name}: nombre visible invalido para {channel_id}")
+        normalized_names[stable_id] = display_name
     raw_excluded = presentation.get("excluded_m3u", [])
     if not isinstance(raw_excluded, list):
         raise ValueError(f"{path.name}: excluded_m3u debe ser una lista de tvg-id")
@@ -3644,6 +3702,7 @@ def load_presentation_overrides(
         "orders": normalized_orders,
         "info_lines": normalized_info,
         "logos": normalized_logos,
+        "names": normalized_names,
         "excluded_m3u": normalized_excluded,
         "assets": sorted({asset.replace("\\", "/") for asset in assets}),
     }
@@ -3686,10 +3745,12 @@ def apply_presentation_overrides(
     info_lines = payload.get("info_lines", {})
     orders = payload.get("orders", {})
     logos = payload.get("logos", {})
+    names = payload.get("names", {})
     if (
         not isinstance(info_lines, dict)
         or not isinstance(orders, dict)
         or not isinstance(logos, dict)
+        or not isinstance(names, dict)
     ):
         raise ValueError("manifiesto de presentacion invalido")
     changed = False
@@ -3700,6 +3761,12 @@ def apply_presentation_overrides(
             updated = with_resolver_attributes(
                 str(override), resolver_attributes_for(channel)
             )
+            if updated != lines[channel.info_line]:
+                lines[channel.info_line] = updated
+                changed = True
+        display_name = names.get(channel.tvg_id)
+        if display_name:
+            updated = with_display_name(lines[channel.info_line], str(display_name))
             if updated != lines[channel.info_line]:
                 lines[channel.info_line] = updated
                 changed = True
@@ -11386,6 +11453,10 @@ def main() -> int:
         lines,
     )
     presentation_overrides = apply_provider_logo_overrides(
+        presentation_overrides,
+        selection_reconciliation,
+    )
+    presentation_overrides = apply_provider_name_overrides(
         presentation_overrides,
         selection_reconciliation,
     )

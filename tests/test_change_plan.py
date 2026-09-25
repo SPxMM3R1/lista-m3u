@@ -114,6 +114,21 @@ https://example.test/one.m3u8
 
         self.assertEqual(ChangeKind.PRESENTATION, plan.kind)
 
+    def test_custom_provider_name_is_a_presentation_change_on_stable_identity(self) -> None:
+        catalog_key = "spain|vavoo_ESPN%201%7Cgroup%3Aes"
+        plan = classify_changes(
+            ["presentation-overrides.json"],
+            after={
+                "presentation-overrides.json": (
+                    '{"schema":1,"orders":{},"logos":{},'
+                    f'"names":{{"{catalog_key}":"ESPN Deportes"}}}}'
+                )
+            },
+        )
+
+        self.assertEqual(ChangeKind.PRESENTATION, plan.kind)
+        self.assertEqual((catalog_key,), plan.channel_ids)
+
     def test_editor_layout_accompanying_presentation_does_not_force_a_full_run(self) -> None:
         plan = classify_changes(
             ["data/channel-editor-layout.json", "presentation-overrides.json"],
