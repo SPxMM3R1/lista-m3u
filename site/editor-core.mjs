@@ -165,6 +165,32 @@ export function renumber(layout) {
   return current;
 }
 
+export function assignChannelPosition(layout, key, requestedNumber) {
+  if (!Number.isSafeInteger(requestedNumber) || requestedNumber < 1) return layout;
+  const original = layout.channels.find((row) => rowKey(row) === key);
+  if (!original || original.state !== "active" || Number(original.number) === requestedNumber) {
+    return layout;
+  }
+
+  const current = structuredClone(layout);
+  const moving = current.channels.find((row) => rowKey(row) === key);
+  current.channels.forEach((row) => {
+    if (
+      row.state === "active"
+      && rowKey(row) !== key
+      && Number(row.number) >= requestedNumber
+    ) {
+      row.number = Number(row.number) + 1;
+    }
+  });
+  moving.number = requestedNumber;
+  const activeKeys = current.channels
+    .filter((row) => row.state === "active")
+    .sort((a, b) => Number(a.number) - Number(b.number) || compareRows(a, b))
+    .map(rowKey);
+  return resequence(current, activeKeys);
+}
+
 export function removePermanently(layout, key) {
   const current = structuredClone(layout);
   const removed = current.channels.find((row) => rowKey(row) === key);

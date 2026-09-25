@@ -423,6 +423,8 @@ input[type="range"] { width: 100%; height: 1.45rem; margin: 0; accent-color: var
 }
 .dialog::backdrop { background: rgb(19 28 44 / 48%); }
 .dialog-shell { display: flex; max-height: inherit; flex-direction: column; padding: 1.25rem; }
+.position-dialog { width: min(100% - 2rem, 34rem); }
+.position-summary { margin: 1.15rem 0; padding: 0.9rem 1rem; color: var(--ink-soft); background: var(--surface-low); border: 1px solid var(--line); border-radius: var(--radius-small); font-size: 0.94rem; line-height: 1.55; }
 .dialog-heading { display: flex; align-items: start; justify-content: space-between; gap: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--line); }
 .dialog-heading h2 { margin: 0 0 0.3rem; font-size: 1.3rem; letter-spacing: -0.02em; }
 .dialog-heading p { margin: 0; color: var(--muted); font-size: 0.9rem; }

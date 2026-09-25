@@ -4,7 +4,9 @@ import { webcrypto } from "node:crypto";
 import {
   buildPresentationOverrides,
   buildSelectionDocument,
+  assignChannelPosition,
   addRow,
+  compareRows,
   gitBlobSha,
   moveRow,
   removePermanently,
@@ -183,6 +185,37 @@ test("TvVoo catalog rows use country plus canonical alias and drop remote logo U
   assert.equal(Object.hasOwn(rows[0], "logo"), false);
   assert.equal(JSON.stringify(rows).includes("private.invalid"), false);
   assert.deepEqual(validateLayout({ schemaVersion: 1, channels: [{ ...rows[0], order: 1, number: 1, state: "active" }] }), []);
+});
+
+test("assigning a channel to an occupied number shifts that number and later channels", () => {
+  const layout = sampleLayout();
+  for (let number = 4; number <= 24; number += 1) {
+    layout.channels.push({
+      kind: "m3u",
+      tvgId: `channel.${number}`,
+      name: `Channel ${number}`,
+      sourceList: "1.m3u",
+      state: "active",
+      order: number,
+      number,
+    });
+  }
+  const selected = layout.channels[0];
+  const existingTwentyOne = layout.channels.find((row) => row.number === 21);
+  const existingTwentyTwo = layout.channels.find((row) => row.number === 22);
+  const moved = assignChannelPosition(layout, rowKey(selected), 21);
+
+  assert.equal(moved.channels.find((row) => rowKey(row) === rowKey(selected)).number, 21);
+  assert.equal(moved.channels.find((row) => rowKey(row) === rowKey(existingTwentyOne)).number, 22);
+  assert.equal(moved.channels.find((row) => rowKey(row) === rowKey(existingTwentyTwo)).number, 23);
+  assert.deepEqual(validateLayout(moved), []);
+  const ordered = moved.channels.filter((row) => row.state === "active").sort(compareRows);
+  assert.ok(ordered.indexOf(moved.channels.find((row) => rowKey(row) === rowKey(selected)))
+    < ordered.indexOf(moved.channels.find((row) => rowKey(row) === rowKey(existingTwentyOne))));
+  const publishedOrder = buildPresentationOverrides(moved, { schema: 1, orders: {}, logos: {} })
+    .orders["channel-catalog.m3u"];
+  assert.ok(publishedOrder.indexOf(selected.tvgId)
+    < publishedOrder.indexOf(existingTwentyOne.tvgId));
 });
 
 test("pasted Highfly and TvVoo JSON uses the same stable identity parsers", () => {

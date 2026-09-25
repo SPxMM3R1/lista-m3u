@@ -2,6 +2,7 @@ import {
   addRow,
   buildPresentationOverrides,
   buildSelectionDocument,
+  assignChannelPosition,
   compareRows,
   formatJson,
   gitBlobSha,
@@ -80,6 +81,8 @@ const elements = {
   logoGrid: $("#logo-grid"),
   logoSearch: $("#logo-search"),
   logoTitle: $("#logo-dialog-channel"),
+  positionDialog: $("#position-dialog"),
+  positionSummary: $("#position-summary"),
   addDialog: $("#add-dialog"),
   availableList: $("#available-list"),
   availableSearch: $("#available-search"),
@@ -120,6 +123,7 @@ let localGithubAuthenticated = false;
 let previewPlayer = null;
 let previewSessionId = "";
 let hlsLoadPromise = null;
+let pendingPositionAssignment = null;
 
 function icon(name) {
   const paths = {
@@ -499,18 +503,17 @@ function renderInspector() {
   numberInput.step = "1";
   numberInput.value = String(row.number);
   numberInput.setAttribute("aria-label", `Número de ${row.name} en VibeM3U`);
-  numberInput.addEventListener("change", () => {
-    const value = Number(numberInput.value);
-    if (!Number.isSafeInteger(value) || value < 1) {
-      showToast("El número debe ser un entero positivo.", true);
-      numberInput.value = String(row.number);
-      return;
+  numberInput.disabled = row.state !== "active";
+  numberInput.title = row.state === "active"
+    ? "Al confirmar, la lista y su orden de publicación se actualizarán."
+    : "Activa el canal antes de cambiar su posición en la app.";
+  numberInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      requestPositionAssignment(row, numberInput);
     }
-    const changed = clone(state.layout);
-    const target = changed.channels.find((item) => rowKey(item) === rowKey(row));
-    if (target) target.number = value;
-    changeLayout(changed);
   });
+  numberInput.addEventListener("blur", () => requestPositionAssignment(row, numberInput));
   numberEditor.append(numberLabel, numberInput);
   identityGroup.append(numberEditor);
   if (row.kind === "m3u") {
@@ -597,6 +600,58 @@ function purgeRow(row) {
 function changeLayout(layout) {
   state.layout = layout;
   render();
+}
+
+function requestPositionAssignment(row, input) {
+  if (!state || row.state !== "active" || elements.positionDialog.open || pendingPositionAssignment) return;
+  const requestedNumber = Number(input.value);
+  if (!Number.isSafeInteger(requestedNumber) || requestedNumber < 1) {
+    showToast("El número debe ser un entero positivo.", true);
+    input.value = String(row.number);
+    return;
+  }
+  if (requestedNumber === Number(row.number)) return;
+
+  const displacedCount = state.layout.channels.filter((item) => (
+    item.state === "active"
+    && rowKey(item) !== rowKey(row)
+    && Number(item.number) >= requestedNumber
+  )).length;
+  pendingPositionAssignment = {
+    key: rowKey(row),
+    input,
+    name: row.name,
+    oldNumber: Number(row.number),
+    requestedNumber,
+    displacedCount,
+  };
+  const displacedText = displacedCount
+    ? `${displacedCount === 1 ? "El canal" : `Los ${displacedCount} canales`} con número ${requestedNumber} o superior ${displacedCount === 1 ? "se moverá" : "se moverán"} un puesto hacia adelante.`
+    : `No hay canales con número ${requestedNumber} o superior que deban moverse.`;
+  elements.positionSummary.textContent = `${row.name} pasará del número ${row.number} al ${requestedNumber}. ${displacedText}`;
+  elements.positionDialog.returnValue = "cancel";
+  elements.positionDialog.showModal();
+}
+
+function finishPositionAssignment() {
+  const pending = pendingPositionAssignment;
+  pendingPositionAssignment = null;
+  if (!pending) return;
+  if (elements.positionDialog.returnValue !== "confirm") {
+    if (pending.input.isConnected) pending.input.value = String(pending.oldNumber);
+    return;
+  }
+  const updated = assignChannelPosition(
+    state.layout,
+    pending.key,
+    pending.requestedNumber,
+  );
+  if (updated === state.layout) return;
+  changeLayout(updated);
+  const displacedMessage = pending.displacedCount
+    ? `${pending.displacedCount === 1 ? "Se desplazó 1 canal" : `Se desplazaron ${pending.displacedCount} canales`} para abrir espacio.`
+    : "No fue necesario desplazar otros canales.";
+  showToast(`${pending.name} quedó en el número ${pending.requestedNumber}. ${displacedMessage}`);
 }
 
 async function previewChannel(row) {
@@ -1413,6 +1468,7 @@ elements.search.addEventListener("input", renderRows);
 elements.sourceFilter.addEventListener("change", () => { sourceFilter = elements.sourceFilter.value; renderRows(); });
 $("#add-channel-button").addEventListener("click", openAddDialog);
 $("#renumber-button").addEventListener("click", () => changeLayout(renumber(state.layout)));
+elements.positionDialog.addEventListener("close", finishPositionAssignment);
 $("#close-review").addEventListener("click", () => { elements.changeReview.hidden = true; });
 document.querySelectorAll("[data-add-source]").forEach((tab) => tab.addEventListener("click", () => selectAddSource(tab.dataset.addSource)));
 elements.tvvooCountry.addEventListener("change", () => {

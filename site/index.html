@@ -121,6 +121,25 @@
       </p>
     </main>
 
+    <dialog class="dialog position-dialog" id="position-dialog" aria-labelledby="position-dialog-title" aria-describedby="position-summary">
+      <form method="dialog" class="dialog-shell">
+        <div class="dialog-heading">
+          <div>
+            <h2 id="position-dialog-title">Confirmar nueva posición</h2>
+            <p>Se actualizará el orden que usa la app y que se publica en GitHub.</p>
+          </div>
+          <button class="icon-button" value="cancel" aria-label="Cancelar cambio de posición">
+            <svg aria-hidden="true" viewBox="0 0 20 20"><path d="m5 5 10 10M15 5 5 15"/></svg>
+          </button>
+        </div>
+        <p class="position-summary" id="position-summary" role="status" aria-live="polite"></p>
+        <div class="dialog-footer">
+          <button class="button button-secondary" value="cancel">Cancelar</button>
+          <button class="button button-primary" id="confirm-position" value="confirm" autofocus>Confirmar posición</button>
+        </div>
+      </form>
+    </dialog>
+
     <dialog class="dialog logo-dialog" id="logo-dialog" aria-labelledby="logo-dialog-title">
       <form method="dialog" class="dialog-shell">
         <div class="dialog-heading">
