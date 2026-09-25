@@ -4932,6 +4932,20 @@ def epg_status_from_xml(
     }
 
 
+def epg_generated_at(data: bytes) -> datetime | None:
+    """Return the UTC generation instant recorded in an XMLTV document."""
+    try:
+        value = ET.fromstring(data).get("data-generated-at", "")
+        if not value:
+            return None
+        generated_at = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except (ET.ParseError, ValueError):
+        return None
+    if generated_at.tzinfo is None:
+        generated_at = generated_at.replace(tzinfo=timezone.utc)
+    return generated_at.astimezone(timezone.utc)
+
+
 def epg_coverage_gaps(
     data: bytes | ET.Element,
     expected_ids: set[str],
@@ -8911,11 +8925,12 @@ def refresh_epg(
     if existing_status is not None and existing_data is not None:
         source_documents[PUBLISHED_EPG_FALLBACK_SOURCE] = existing_data
 
+    generation_now = datetime.now(timezone.utc).replace(microsecond=0)
     output, epg_status = build_epg(
         source_documents,
         channels,
         red_bull_schedules,
-        now=now,
+        now=generation_now,
         coverage_required_ids=main_ids if main_channels else None,
     )
     if main_channels:
@@ -8923,7 +8938,7 @@ def refresh_epg(
             main_channels,
             required_channels=main_channels,
             data=output,
-            now=now,
+            now=generation_now,
         )
         if not main_status.get("ok"):
             raise RuntimeError(
@@ -11492,10 +11507,13 @@ def main() -> int:
             else []
         )
         if main_channels:
+            published_data = EPG_PATH.read_bytes()
+            generated_at = epg_generated_at(published_data)
             main_status = validate_main_playlist_epg(
                 main_channels,
                 required_channels=main_channels,
-                data=EPG_PATH.read_bytes(),
+                data=published_data,
+                now=generated_at or datetime.now(timezone.utc),
             )
             if not main_status.get("ok"):
                 print(

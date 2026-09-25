@@ -21,6 +21,15 @@ def channel(name: str, tvg_id: str) -> update_m3u.Channel:
 
 
 class TvnEpgTests(unittest.TestCase):
+    def test_epg_generated_at_parses_xmltv_timestamp_as_utc(self) -> None:
+        root = ET.Element("tv", {"data-generated-at": "2026-08-28T18:00:00-04:00"})
+
+        self.assertEqual(
+            update_m3u.epg_generated_at(ET.tostring(root)),
+            datetime(2026, 8, 28, 22, tzinfo=timezone.utc),
+        )
+        self.assertIsNone(update_m3u.epg_generated_at(b"<tv"))
+
     def test_red_bull_spanish_uses_chile_regional_guide(self) -> None:
         self.assertEqual(
             "https://www.redbull.tv/es_CL/epg",
