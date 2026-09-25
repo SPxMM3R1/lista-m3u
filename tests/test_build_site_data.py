@@ -19,6 +19,24 @@ class BuildSiteDataTests(unittest.TestCase):
             self.assertTrue(copied.is_file())
             self.assertEqual(copied.read_bytes(), expected.read_bytes())
 
+    def test_local_bundle_includes_historical_logos_in_the_picker(self) -> None:
+        historical_assets = sorted(
+            path
+            for path in (build_site_data.ROOT / "logos" / "history").iterdir()
+            if path.is_file() and path.suffix.casefold() in build_site_data.ALLOWED_LOGO_EXTENSIONS
+        )
+        self.assertTrue(historical_assets)
+
+        with tempfile.TemporaryDirectory(prefix="lista-editor-test-history-") as temporary:
+            output = Path(temporary) / "site"
+            build_site_data.build_bundle(output)
+            logo_paths = json.loads((output / "data" / "logos.json").read_text(encoding="utf-8"))["logos"]
+            history_paths = [path for path in logo_paths if path.startswith("logos/history/")]
+
+            self.assertEqual(len(history_paths), len(historical_assets))
+            sample = Path(history_paths[0])
+            self.assertEqual((output / sample).read_bytes(), (build_site_data.ROOT / sample).read_bytes())
+
     def test_playlist_export_contains_editorial_metadata_only(self) -> None:
         source = "\n".join(
             (

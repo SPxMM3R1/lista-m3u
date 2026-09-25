@@ -80,6 +80,7 @@ const elements = {
   logoGrid: $("#logo-grid"),
   logoSearch: $("#logo-search"),
   logoTitle: $("#logo-dialog-channel"),
+  logoResults: $("#logo-results"),
   positionDialog: $("#position-dialog"),
   positionSummary: $("#position-summary"),
   addDialog: $("#add-dialog"),
@@ -116,6 +117,7 @@ let sourceFilter = "all";
 let addSource = "m3u";
 let selectedTvVooCatalogId = "vavoo_tv_es";
 let selectedKey = "";
+let activeLogoFilter = "current";
 let tokenInMemory = "";
 let toastTimer = 0;
 let localGithubAuthenticated = false;
@@ -843,18 +845,47 @@ function openLogoDialog(row) {
 
 function renderLogos() {
   const query = elements.logoSearch.value.trim().toLocaleLowerCase("es");
-  const options = state.logos.filter((path) => !query || path.split("/").at(-1).toLocaleLowerCase("es").includes(query));
+  const isHistoricalLogo = (path) => path.startsWith("logos/history/");
+  const allLogos = state.logos ?? [];
+  const historicalCount = allLogos.filter(isHistoricalLogo).length;
+  const currentCount = allLogos.length - historicalCount;
+  const counts = { all: allLogos.length, current: currentCount, history: historicalCount };
+  document.querySelectorAll("[data-logo-filter]").forEach((filterButton) => {
+    const filter = filterButton.dataset.logoFilter;
+    filterButton.setAttribute("aria-pressed", String(filter === activeLogoFilter));
+    filterButton.classList.toggle("is-active", filter === activeLogoFilter);
+    const count = document.querySelector(`#logo-count-${filter}`);
+    if (count) count.textContent = String(counts[filter] ?? 0);
+  });
+  const options = allLogos.filter((path) => {
+    const historical = isHistoricalLogo(path);
+    const passesFilter = activeLogoFilter === "all"
+      || (activeLogoFilter === "history" && historical)
+      || (activeLogoFilter === "current" && !historical);
+    const filename = path.split("/").at(-1);
+    const searchable = `${filename} ${historical ? "historico historial" : "vigente actual"}`.toLocaleLowerCase("es");
+    return passesFilter && (!query || searchable.includes(query));
+  });
   const fragment = document.createDocumentFragment();
   options.forEach((path) => {
+    const historical = isHistoricalLogo(path);
+    const filename = path.split("/").at(-1);
+    const version = historical ? filename.match(/--([a-f0-9]{10})(?=\.[^./]+$)/i)?.[1] : "";
+    const label = historical ? filename.replace(/--[a-f0-9]{10}(?=\.[^./]+$)/i, "") : filename;
     const item = node("button", "logo-option");
     item.type = "button";
-    item.setAttribute("aria-label", `Usar logo ${path.split("/").at(-1)}`);
+    item.setAttribute("aria-label", `Usar ${historical ? "logo histórico" : "logo vigente"} ${label}${version ? `, versión ${version}` : ""}`);
+    item.title = `${historical ? "Versión histórica" : "Logo vigente"}: ${label}${version ? ` · ${version}` : ""}`;
     const image = node("img");
     image.src = imageUrl(path);
     image.alt = "";
     image.loading = "lazy";
     image.addEventListener("error", () => item.remove(), { once: true });
-    item.append(image, node("span", "", path.split("/").at(-1)));
+    item.append(
+      image,
+      node("span", "logo-option-name", label),
+      node("small", "logo-option-version", historical ? `Histórico · ${version}` : "Vigente"),
+    );
     item.addEventListener("click", () => {
       const row = allRows().find((candidate) => rowKey(candidate) === selectedKey);
       if (row) {
@@ -871,6 +902,7 @@ function renderLogos() {
     fragment.append(item);
   });
   if (!options.length) fragment.append(node("p", "available-empty", "No hay logos que coincidan con la búsqueda."));
+  elements.logoResults.textContent = `${options.length} de ${counts[activeLogoFilter] ?? counts.all} logos · ${historicalCount} históricos disponibles`;
   elements.logoGrid.replaceChildren(fragment);
 }
 
@@ -1519,6 +1551,12 @@ $("#use-tvvoo-manifest-json").addEventListener("click", useTvVooManifestJson);
 $("#use-tvvoo-json").addEventListener("click", useTvVooJson);
 elements.availableSearch.addEventListener("input", renderAvailable);
 elements.logoSearch.addEventListener("input", renderLogos);
+document.querySelectorAll("[data-logo-filter]").forEach((filterButton) => {
+  filterButton.addEventListener("click", () => {
+    activeLogoFilter = filterButton.dataset.logoFilter ?? "all";
+    renderLogos();
+  });
+});
 $("#clear-logo").addEventListener("click", () => {
   const row = allRows().find((candidate) => rowKey(candidate) === selectedKey);
   if (row) {

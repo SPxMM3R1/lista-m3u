@@ -151,8 +151,14 @@
         <label class="search-field logo-search">
           <svg aria-hidden="true" viewBox="0 0 20 20"><circle cx="8.5" cy="8.5" r="5.25"/><path d="m12.5 12.5 4 4"/></svg>
           <span class="visually-hidden">Buscar logo</span>
-          <input id="logo-search" type="search" placeholder="Buscar en los logos del repositorio" autocomplete="off">
+          <input id="logo-search" type="search" placeholder="Buscar por nombre o versión" autocomplete="off">
         </label>
+        <div class="logo-filter-tabs" role="group" aria-label="Filtrar logos">
+          <button class="logo-filter" type="button" data-logo-filter="all" aria-pressed="false">Todos <span id="logo-count-all">0</span></button>
+          <button class="logo-filter is-active" type="button" data-logo-filter="current" aria-pressed="true">Vigentes <span id="logo-count-current">0</span></button>
+          <button class="logo-filter" type="button" data-logo-filter="history" aria-pressed="false">Históricos <span id="logo-count-history">0</span></button>
+        </div>
+        <p class="logo-results" id="logo-results" role="status" aria-live="polite"></p>
         <div class="logo-grid" id="logo-grid"></div>
         <div class="dialog-footer">
           <button class="button button-quiet" id="clear-logo" type="button">Usar logo del catálogo</button>

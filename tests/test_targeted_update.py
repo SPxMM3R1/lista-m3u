@@ -252,6 +252,32 @@ class TargetedUpdateTest(unittest.TestCase):
         )
         self.assertNotIn("old.example", lines[1])
 
+    def test_presentation_logo_override_can_use_historical_repository_asset(self) -> None:
+        history_root = Path(__file__).resolve().parents[1] / "logos" / "history"
+        supported_extensions = {".png", ".jpg", ".jpeg", ".webp", ".svg"}
+        historical_logo = next(
+            path
+            for path in sorted(history_root.iterdir())
+            if path.suffix.casefold() in supported_extensions
+        )
+        logo_path = historical_logo.relative_to(history_root.parents[1]).as_posix()
+        lines = [
+            "#EXTM3U",
+            '#EXTINF:-1 tvg-id="one" tvg-logo="https://old.example/one.png",One',
+            "https://example.test/one.m3u8",
+        ]
+
+        changed = update_m3u.apply_presentation_overrides(
+            lines,
+            "m3u.m3u",
+            {"logos": {"one": logo_path}},
+        )
+
+        self.assertTrue(changed)
+        self.assertIn(f"{update_m3u.LOCAL_LOGOS_PUBLIC_BASE}/history/", lines[1])
+        self.assertIn(historical_logo.name, lines[1])
+        self.assertNotIn("old.example", lines[1])
+
     def test_presentation_name_override_changes_app_label_without_changing_identity(self) -> None:
         lines = [
             "#EXTM3U",
