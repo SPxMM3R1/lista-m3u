@@ -949,8 +949,13 @@ RED_BULL_CHILE_URL = (
 # El coordinador y el cron tienen cuatro ventanas diarias; tres horas es solo
 # el margen informativo para una guia que termina pronto, no una quinta ventana.
 EPG_REFRESH_INTERVAL = timedelta(hours=6)
-EPG_MAIN_MINIMUM_FUTURE = timedelta(days=7)
-EPG_MAIN_CONTINUITY_BUFFER = timedelta(days=8)
+# Lista 1 is refreshed every six hours, so a twelve-hour window gives it one
+# full refresh interval of safety without inventing a week of "Live" entries.
+EPG_MAIN_MINIMUM_FUTURE = timedelta(hours=12)
+EPG_MAIN_CONTINUITY_BUFFER = timedelta(hours=12)
+EPG_NON_MAIN_MINIMUM_FUTURE = timedelta(hours=24)
+EPG_MAIN_FALLBACK_TITLE = "Programación por confirmar"
+EPG_MAIN_LIVE_CHANNEL_ID = "RewindTV.cl@SD"
 HEALTH_FAILURE_THRESHOLD = 1
 # 13C es la unica senal de la lista principal que se administra con una
 # traslado temporal automatico. Se conserva en el catalogo y en la EPG; solo
@@ -4808,6 +4813,7 @@ def epg_status_from_xml(
     now: datetime,
     minimum_future: timedelta,
     allow_empty_ids: set[str] | None = None,
+    minimum_future_by_channel: dict[str, timedelta] | None = None,
 ) -> dict:
     if now.tzinfo is None:
         now = now.replace(tzinfo=timezone.utc)
@@ -4876,7 +4882,8 @@ def epg_status_from_xml(
         channel_id
         for channel_id in expected_ids
         if channel_id not in allowed_empty
-        and last_by_channel.get(channel_id, now) < now + minimum_future
+        and last_by_channel.get(channel_id, now)
+        < now + (minimum_future_by_channel or {}).get(channel_id, minimum_future)
     )
     if expiring:
         raise ValueError("programacion insuficiente para: " + ", ".join(expiring))
@@ -4978,8 +4985,9 @@ def fill_epg_coverage_gaps(
     now: datetime,
     minimum_future: timedelta,
     formatter: Callable[[datetime], str] = xmltv_format_chile,
+    title_for_channel: Callable[[str], str] | None = None,
 ) -> dict[str, int]:
-    """Fill only unlisted time with explicit technical ``Live`` EPG blocks."""
+    """Fill uncovered time with clearly titled technical schedule blocks."""
     added_by_channel: dict[str, int] = {}
     for channel_id, gap_start, gap_stop in epg_coverage_gaps(
         root,
@@ -4999,10 +5007,127 @@ def fill_epg_coverage_gaps(
                     "channel": channel_id,
                 },
             )
-            ET.SubElement(programme, "title", {"lang": "es"}).text = "Live"
+            title = title_for_channel(channel_id) if title_for_channel else "Live"
+            ET.SubElement(programme, "title", {"lang": "es"}).text = title
             added_by_channel[channel_id] = added_by_channel.get(channel_id, 0) + 1
             cursor = stop
     return added_by_channel
+
+
+def main_epg_fallback_title(channel_id: str) -> str:
+    """Use the one explicitly requested continuous-stream exception in List 1."""
+    return "Live" if channel_id == EPG_MAIN_LIVE_CHANNEL_ID else EPG_MAIN_FALLBACK_TITLE
+
+
+def normalize_main_epg_schedule(
+    root: ET.Element,
+    required_ids: set[str],
+    *,
+    now: datetime,
+) -> tuple[set[str], bool]:
+    """Remove ambiguous Live/blank titles from List 1 without inventing shows."""
+    placeholder_channels: set[str] = set()
+    changed = False
+    current = (
+        now.astimezone(timezone.utc) if now.tzinfo else now.replace(tzinfo=timezone.utc)
+    ).replace(microsecond=0)
+    horizon = current + EPG_MAIN_MINIMUM_FUTURE
+    for programme in root.findall("programme"):
+        channel_id = programme.get("channel", "")
+        if channel_id not in required_ids:
+            continue
+        try:
+            start = xmltv_datetime(programme.get("start", ""))
+            stop = xmltv_datetime(programme.get("stop", ""))
+        except ValueError:
+            start = stop = None
+        if start is not None and stop is not None:
+            if start >= horizon:
+                root.remove(programme)
+                changed = True
+                continue
+            if stop > horizon:
+                programme.set("stop", xmltv_format_chile(horizon))
+                changed = True
+                stop = horizon
+            if stop <= start:
+                root.remove(programme)
+                changed = True
+                continue
+        titles = programme.findall("title")
+        if channel_id == EPG_MAIN_LIVE_CHANNEL_ID:
+            if not titles:
+                ET.SubElement(programme, "title", {"lang": "es"}).text = "Live"
+                changed = True
+            else:
+                for title in titles:
+                    if title.text != "Live":
+                        title.text = "Live"
+                        changed = True
+            continue
+
+        if not titles:
+            ET.SubElement(programme, "title", {"lang": "es"}).text = (
+                EPG_MAIN_FALLBACK_TITLE
+            )
+            placeholder_channels.add(channel_id)
+            changed = True
+            continue
+
+        has_real_title = any(
+            (title.text or "").strip()
+            and (title.text or "").strip().casefold() != "live"
+            for title in titles
+        )
+        for title in titles:
+            value = (title.text or "").strip()
+            if not value or value.casefold() == "live":
+                if title.text != EPG_MAIN_FALLBACK_TITLE:
+                    title.text = EPG_MAIN_FALLBACK_TITLE
+                    changed = True
+                placeholder_channels.add(channel_id)
+            elif value.casefold() == EPG_MAIN_FALLBACK_TITLE.casefold():
+                placeholder_channels.add(channel_id)
+        if not has_real_title:
+            placeholder_channels.add(channel_id)
+
+    for channel in root.findall("channel"):
+        channel_id = channel.get("id", "")
+        if channel_id not in required_ids:
+            continue
+        if channel_id == EPG_MAIN_LIVE_CHANNEL_ID:
+            if channel.get("data-guide") != "Live":
+                channel.set("data-guide", "Live")
+                changed = True
+            if channel.get("data-guide-source") != "rewind-continuous":
+                channel.set("data-guide-source", "rewind-continuous")
+                changed = True
+            continue
+        if channel_id not in placeholder_channels:
+            continue
+
+        guide = channel.get("data-guide", "")
+        if "continuidad tecnica" in guide.casefold():
+            guide = re.sub(
+                "continuidad tecnica",
+                EPG_MAIN_FALLBACK_TITLE,
+                guide,
+                flags=re.IGNORECASE,
+            )
+        elif EPG_MAIN_FALLBACK_TITLE.casefold() not in guide.casefold():
+            guide = (
+                f"{guide} + {EPG_MAIN_FALLBACK_TITLE}"
+                if guide
+                else EPG_MAIN_FALLBACK_TITLE
+            )
+        if channel.get("data-guide") != guide:
+            channel.set("data-guide", guide)
+            changed = True
+        if not channel.get("data-guide-source"):
+            channel.set("data-guide-source", "continuidad-tecnica")
+            changed = True
+
+    return placeholder_channels, changed
 
 
 def extend_main_epg_coverage(
@@ -5011,23 +5136,16 @@ def extend_main_epg_coverage(
     *,
     now: datetime,
 ) -> tuple[bytes, dict[str, int]]:
-    """Keep an already valid guide continuous for a seven-day source outage."""
+    """Keep List 1 continuous through its next twelve hours during an outage."""
     root = ET.fromstring(data)
     added = fill_epg_coverage_gaps(
         root,
         required_ids,
         now=now,
         minimum_future=EPG_MAIN_CONTINUITY_BUFFER,
+        title_for_channel=main_epg_fallback_title,
     )
-    for channel in root.findall("channel"):
-        channel_id = channel.get("id", "")
-        if channel_id not in added:
-            continue
-        guide_type = channel.get("data-guide", "continuidad tecnica")
-        if "continuidad tecnica" not in guide_type.lower():
-            channel.set("data-guide", f"{guide_type} + continuidad tecnica")
-        if not channel.get("data-guide-source"):
-            channel.set("data-guide-source", "continuidad-tecnica")
+    normalize_main_epg_schedule(root, required_ids, now=now)
     root.set("data-continuity-policy", "technical-fill-unlisted-gaps")
     root.set(
         "data-main-continuity-hours",
@@ -5131,13 +5249,51 @@ def validate_main_playlist_epg(
     except (ET.ParseError, ValueError) as error:
         detail = str(error)
         if detail.startswith("programacion insuficiente"):
-            detail += " (horizonte exigido: 7 días)"
+            detail += " (horizonte exigido: 12 horas)"
         return {
             **base,
             "ok": False,
             "error": detail,
             "channels": 0,
             "programmes": 0,
+            "technical_guides": [],
+        }
+    horizon = current + EPG_MAIN_MINIMUM_FUTURE
+    root = ET.fromstring(data)
+    invalid_titles: set[str] = set()
+    for programme in root.findall("programme"):
+        channel_id = programme.get("channel", "")
+        if channel_id not in expected_ids:
+            continue
+        try:
+            start = xmltv_datetime(programme.get("start", ""))
+            stop = xmltv_datetime(programme.get("stop", ""))
+        except ValueError:
+            continue
+        if stop <= current or start >= horizon:
+            continue
+        titles = [
+            (title.text or "").strip()
+            for title in programme.findall("title")
+        ]
+        if channel_id == EPG_MAIN_LIVE_CHANNEL_ID:
+            if not titles or any(title.casefold() != "live" for title in titles):
+                invalid_titles.add(channel_id)
+        elif not titles or any(
+            not title or title.casefold() == "live" for title in titles
+        ):
+            invalid_titles.add(channel_id)
+    if invalid_titles:
+        return {
+            **base,
+            "ok": False,
+            "error": (
+                "títulos vacíos o Live no permitido en Lista 1 durante las "
+                "próximas 12 horas: "
+                + ", ".join(sorted(invalid_titles))
+            ),
+            "channels": status.get("channels", 0),
+            "programmes": status.get("programmes", 0),
             "technical_guides": [],
         }
     gaps = epg_coverage_gaps(
@@ -5154,7 +5310,7 @@ def validate_main_playlist_epg(
         return {
             **base,
             "ok": False,
-            "error": "huecos de programación en los próximos 7 días: " + examples,
+            "error": "huecos de programación en las próximas 12 horas: " + examples,
             "channels": status.get("channels", 0),
             "programmes": status.get("programmes", 0),
             "technical_guides": [],
@@ -7731,28 +7887,40 @@ def add_continuous_programmes(
     now: datetime,
     start_at: datetime | None = None,
     technical: bool = False,
+    fallback_title: str | None = None,
+    stop_at: datetime | None = None,
     formatter: Callable[[datetime], str] = xmltv_format_chile,
 ) -> int:
-    day_aligned_technical = technical and start_at is None
+    current_utc = now.astimezone(timezone.utc).replace(microsecond=0)
+    day_aligned_technical = (
+        technical and start_at is None and fallback_title is None
+    )
     if day_aligned_technical:
         start = now.astimezone(CHILE_TIMEZONE).replace(
             hour=0, minute=0, second=0, microsecond=0
         ) - timedelta(days=1)
+    elif fallback_title is not None and start_at is None:
+        start = current_utc
     else:
         start = start_at or (
-            now.astimezone(timezone.utc).replace(
+            current_utc.replace(
                 hour=0, minute=0, second=0, microsecond=0
             )
             - timedelta(days=1)
         )
-    stop_limit = now.astimezone(timezone.utc) + timedelta(days=5)
+    stop_limit = (
+        stop_at.astimezone(timezone.utc).replace(microsecond=0)
+        if stop_at is not None
+        else current_utc + timedelta(days=5)
+    )
     count = 0
     while start < stop_limit:
-        stop = (
+        proposed_stop = (
             start + timedelta(days=1) - timedelta(minutes=1)
             if day_aligned_technical
             else start + timedelta(hours=6)
         )
+        stop = min(proposed_stop, stop_limit)
         programme = ET.SubElement(
             root,
             "programme",
@@ -7763,7 +7931,7 @@ def add_continuous_programmes(
             },
         )
         if technical:
-            title = "Live"
+            title = fallback_title or "Live"
             description = ""
         else:
             title, description = CONTINUOUS_PROGRAMME_DETAILS.get(
@@ -7801,6 +7969,7 @@ def build_epg(
     expected_ids = {channel.tvg_id for channel in channels if channel.tvg_id}
     if len(expected_ids) != len(channels):
         raise ValueError("todos los canales necesitan un tvg-id unico")
+    main_ids = set(coverage_required_ids or ()) & expected_ids
 
     root = ET.Element(
         "tv",
@@ -7832,6 +8001,7 @@ def build_epg(
     programmes_by_target = {channel_id: 0 for channel_id in expected_ids}
     real_last_stop_by_target: dict[str, datetime] = {}
     guide_sources: dict[str, str] = {}
+    continuity_blocks_by_channel: dict[str, int] = {}
     # Una fuente puede alimentar la identidad legacy del catalogo y una
     # referencia TvVoo estable de la lista publica al mismo tiempo.
     source_lookup: dict[tuple[str, str], set[str]] = {}
@@ -8068,22 +8238,27 @@ def build_epg(
     for channel_id, count in programmes_by_target.items():
         channel = channel_by_id[channel_id]
         last_stop = last_stop_by_channel.get(channel_id)
+        is_main_channel = channel_id in main_ids
         minimum_future = now + (
             EPG_MAIN_CONTINUITY_BUFFER
-            if coverage_required_ids is not None
-            and channel_id in coverage_required_ids
-            else timedelta(hours=24)
+            if is_main_channel
+            else EPG_NON_MAIN_MINIMUM_FUTURE
         )
         if count and last_stop is not None and last_stop >= minimum_future:
             continue
+        continuity_start = last_stop if count and last_stop is not None else None
+        if is_main_channel and continuity_start is not None:
+            current_start = now.astimezone(timezone.utc).replace(microsecond=0)
+            continuity_start = max(continuity_start, current_start)
         if channel_id in FORCED_EPG_TITLES:
             added = add_continuous_programmes(
                 root,
                 channel_id,
                 channel.name,
                 now=now,
-                start_at=last_stop if count and last_stop is not None else None,
+                start_at=continuity_start,
                 technical=False,
+                stop_at=now + EPG_MAIN_CONTINUITY_BUFFER if is_main_channel else None,
             )
             programmes_by_target[channel_id] += added
             guide_types[channel_id] = (
@@ -8099,15 +8274,29 @@ def build_epg(
             channel_id,
             channel.name,
             now=now,
-            start_at=last_stop if count and last_stop is not None else None,
+            start_at=continuity_start,
             technical=True,
+            fallback_title=(
+                main_epg_fallback_title(channel_id) if is_main_channel else None
+            ),
+            stop_at=now + EPG_MAIN_CONTINUITY_BUFFER if is_main_channel else None,
+        )
+        continuity_blocks_by_channel[channel_id] = (
+            continuity_blocks_by_channel.get(channel_id, 0) + added
         )
         programmes_by_target[channel_id] += added
-        guide_types[channel_id] = (
-            "parrilla real parcial + continuidad tecnica"
-            if count
-            else "continuidad tecnica"
-        )
+        if is_main_channel:
+            guide_types[channel_id] = (
+                f"parrilla real parcial + {EPG_MAIN_FALLBACK_TITLE}"
+                if count
+                else EPG_MAIN_FALLBACK_TITLE
+            )
+        else:
+            guide_types[channel_id] = (
+                "parrilla real parcial + continuidad tecnica"
+                if count
+                else "continuidad tecnica"
+            )
         if not count:
             guide_sources[channel_id] = "continuidad-tecnica"
 
@@ -8163,12 +8352,26 @@ def build_epg(
         minimum_future=(
             EPG_MAIN_CONTINUITY_BUFFER
             if coverage_required_ids is not None
-            else timedelta(hours=24)
+            else EPG_NON_MAIN_MINIMUM_FUTURE
+        ),
+        title_for_channel=(
+            main_epg_fallback_title if coverage_required_ids is not None else None
         ),
     )
     for channel_id in continuity_added:
+        continuity_blocks_by_channel[channel_id] = (
+            continuity_blocks_by_channel.get(channel_id, 0)
+            + continuity_added[channel_id]
+        )
         existing_type = guide_types.get(channel_id, "")
-        if channel_id in guide_sources:
+        if channel_id in main_ids:
+            guide_types[channel_id] = (
+                f"parrilla real parcial + {EPG_MAIN_FALLBACK_TITLE}"
+                if existing_type and "parrilla real" in existing_type.casefold()
+                else EPG_MAIN_FALLBACK_TITLE
+            )
+            guide_sources.setdefault(channel_id, "continuidad-tecnica")
+        elif channel_id in guide_sources:
             guide_types[channel_id] = (
                 existing_type
                 if "continuidad tecnica" in existing_type.lower()
@@ -8181,6 +8384,17 @@ def build_epg(
         channel_id = channel.get("id", "")
         channel.set("data-guide", guide_types.get(channel_id, "senal continua"))
         channel.set("data-guide-source", guide_sources.get(channel_id, ""))
+    if main_ids:
+        normalize_main_epg_schedule(root, main_ids, now=now)
+        for channel in root.findall("channel"):
+            channel_id = channel.get("id", "")
+            if channel_id in main_ids:
+                guide_types[channel_id] = channel.get("data-guide", "")
+                guide_sources[channel_id] = channel.get("data-guide-source", "")
+        root.set(
+            "data-main-continuity-hours",
+            str(int(EPG_MAIN_CONTINUITY_BUFFER.total_seconds() // 3600)),
+        )
     root.set("data-continuity-policy", "technical-fill-unlisted-gaps")
     ET.indent(root, space="  ")
     output = ET.tostring(root, encoding="utf-8", xml_declaration=True) + b"\n"
@@ -8188,12 +8402,15 @@ def build_epg(
         output,
         expected_ids,
         now=now,
-        minimum_future=timedelta(hours=24),
+        minimum_future=EPG_NON_MAIN_MINIMUM_FUTURE,
         allow_empty_ids=EPG_ALLOWED_EMPTY_IDS,
+        minimum_future_by_channel={
+            channel_id: EPG_MAIN_MINIMUM_FUTURE for channel_id in main_ids
+        },
     )
     status["guide_types"] = guide_types
     status["guide_sources"] = guide_sources
-    status["continuity_blocks_added"] = sum(continuity_added.values())
+    status["continuity_blocks_added"] = sum(continuity_blocks_by_channel.values())
     status["descriptions"] = {
         **description_status,
         "policy": "verified-source-only",
@@ -8388,6 +8605,10 @@ def refresh_epg(
         if DEFAULT_PLAYLIST.exists()
         else []
     )
+    main_ids = {channel.tvg_id for channel in main_channels if channel.tvg_id}
+    main_minimum_future_by_channel = {
+        channel_id: EPG_MAIN_MINIMUM_FUTURE for channel_id in main_ids
+    }
     public_ids: set[str] | None = None
     public_playlist_paths = [
         path
@@ -8439,12 +8660,41 @@ def refresh_epg(
                     "la guia publicada no contiene canales del catalogo: "
                     + ", ".join(sorted(missing_existing_ids))
                 )
+            if main_channels:
+                _, schedule_changed = normalize_main_epg_schedule(
+                    existing_root,
+                    main_ids,
+                    now=now,
+                )
+                main_hours = str(
+                    int(EPG_MAIN_CONTINUITY_BUFFER.total_seconds() // 3600)
+                )
+                if existing_root.get("data-main-continuity-hours") != main_hours:
+                    existing_root.set("data-main-continuity-hours", main_hours)
+                    schedule_changed = True
+                if schedule_changed:
+                    existing_root.set(
+                        "data-continuity-policy", "technical-fill-unlisted-gaps"
+                    )
+                    ET.indent(existing_root, space="  ")
+                    existing_data = (
+                        ET.tostring(
+                            existing_root,
+                            encoding="utf-8",
+                            xml_declaration=True,
+                        )
+                        + b"\n"
+                    )
+                    temporary = output_path.with_suffix(".xml.tmp")
+                    temporary.write_bytes(existing_data)
+                    temporary.replace(output_path)
             existing_status = epg_status_from_xml(
                 existing_data,
                 expected_ids,
                 now=now,
-                minimum_future=timedelta(hours=24),
+                minimum_future=EPG_NON_MAIN_MINIMUM_FUTURE,
                 allow_empty_ids=EPG_ALLOWED_EMPTY_IDS,
+                minimum_future_by_channel=main_minimum_future_by_channel,
             )
             if main_channels:
                 main_status = validate_main_playlist_epg(
@@ -8474,8 +8724,9 @@ def refresh_epg(
                         existing_data,
                         expected_ids,
                         now=now,
-                        minimum_future=timedelta(hours=24),
+                        minimum_future=EPG_NON_MAIN_MINIMUM_FUTURE,
                         allow_empty_ids=EPG_ALLOWED_EMPTY_IDS,
+                        minimum_future_by_channel=main_minimum_future_by_channel,
                     )
                     existing_status["main_playlist"] = main_status
                     existing_status["continuity_blocks_added"] = sum(
@@ -8660,7 +8911,6 @@ def refresh_epg(
     if existing_status is not None and existing_data is not None:
         source_documents[PUBLISHED_EPG_FALLBACK_SOURCE] = existing_data
 
-    main_ids = {channel.tvg_id for channel in main_channels if channel.tvg_id}
     output, epg_status = build_epg(
         source_documents,
         channels,
