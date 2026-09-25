@@ -8633,41 +8633,47 @@ def apply_epg_manual_overrides(
     return ET.tostring(root, encoding="utf-8", xml_declaration=True) + b"\n"
 
 
-def include_public_tvvoo_epg_aliases(channels: list[Channel]) -> list[Channel]:
-    """Include public TvVoo identities while retaining catalog identities.
+def main_playlist_channels() -> list[Channel]:
+    """Load the sole public EPG scope: the channels published in m3u.m3u."""
+    if not DEFAULT_PLAYLIST.is_file():
+        raise RuntimeError(f"no existe la lista principal {DEFAULT_PLAYLIST.name}")
+    channels = parse_channels(
+        DEFAULT_PLAYLIST.read_text(encoding="utf-8-sig").splitlines()
+    )
+    if not channels:
+        raise RuntimeError(f"{DEFAULT_PLAYLIST.name} no contiene canales para la EPG")
+    channel_ids = [channel.tvg_id for channel in channels]
+    if any(not channel_id for channel_id in channel_ids):
+        raise RuntimeError(
+            f"todos los canales de {DEFAULT_PLAYLIST.name} necesitan tvg-id"
+        )
+    if len(set(channel_ids)) != len(channel_ids):
+        raise RuntimeError(f"{DEFAULT_PLAYLIST.name} contiene tvg-id duplicados")
+    return channels
 
-    The app-owned reference carries a stable tvg-id that intentionally differs
-    from the legacy catalog id.  Reuse the legacy channel's EPG source by
-    matching the presentation name, then build one XMLTV channel/programme
-    block for each identity.
-    """
-    catalog_by_name = {channel.name: channel for channel in channels}
-    known_ids = {channel.tvg_id for channel in channels if channel.tvg_id}
-    aliases: list[Channel] = []
-    for playlist_path in (DEFAULT_PLAYLIST, EXTERNAL_PLAYLIST):
-        if not playlist_path.is_file():
-            continue
-        playlist_channels = parse_channels(
-            playlist_path.read_text(encoding="utf-8-sig").splitlines()
-        )
-        for reference in playlist_channels:
-            if not is_tvvoo_reference(reference) or reference.tvg_id in known_ids:
-                continue
-            catalog_channel = catalog_by_name.get(reference.name)
-            if catalog_channel is None or not catalog_channel.tvg_id:
-                continue
-            source = EPG_PROGRAMME_SOURCES.get(catalog_channel.tvg_id)
-            if source is None:
-                continue
-            EPG_PROGRAMME_SOURCES[reference.tvg_id] = source
-            aliases.append(reference)
-            known_ids.add(reference.tvg_id)
-    if aliases:
-        print(
-            "Aliases EPG TvVoo incluidos: "
-            + ", ".join(sorted(alias.tvg_id for alias in aliases))
-        )
-    return [*channels, *aliases]
+
+def filter_epg_to_channel_ids(
+    data: bytes,
+    allowed_ids: set[str],
+) -> tuple[bytes, bool]:
+    """Remove every XMLTV channel and programme outside the public list-1 IDs."""
+    root = ET.fromstring(data)
+    if root.tag != "tv":
+        raise ValueError("la guia publicada no contiene una raiz <tv>")
+    changed = root.get("data-epg-scope") != DEFAULT_PLAYLIST.name
+    root.set("data-epg-scope", DEFAULT_PLAYLIST.name)
+    for element in list(root.findall("channel")):
+        if element.get("id", "") not in allowed_ids:
+            root.remove(element)
+            changed = True
+    for element in list(root.findall("programme")):
+        if element.get("channel", "") not in allowed_ids:
+            root.remove(element)
+            changed = True
+    if not changed:
+        return data, False
+    ET.indent(root, space="  ")
+    return ET.tostring(root, encoding="utf-8", xml_declaration=True) + b"\n", True
 
 
 def refresh_epg(
@@ -8677,60 +8683,29 @@ def refresh_epg(
     output_path: Path | None = None,
 ) -> dict:
     apply_epg_overrides()
-    channels = include_public_tvvoo_epg_aliases(channels)
+    # `channels` is retained for call-site compatibility, but it must never
+    # widen EPG generation beyond the playlist the user actually watches.
+    channels = main_playlist_channels()
     output_path = output_path or EPG_PATH
     now = datetime.now(timezone.utc)
     expected_ids = {channel.tvg_id for channel in channels if channel.tvg_id}
-    main_channels = (
-        parse_channels(DEFAULT_PLAYLIST.read_text(encoding="utf-8-sig").splitlines())
-        if DEFAULT_PLAYLIST.exists()
-        else []
-    )
-    main_ids = {channel.tvg_id for channel in main_channels if channel.tvg_id}
+    main_channels = channels
+    main_ids = expected_ids
     main_minimum_future_by_channel = {
         channel_id: EPG_MAIN_MINIMUM_FUTURE for channel_id in main_ids
     }
-    public_ids: set[str] | None = None
-    public_playlist_paths = [
-        path
-        for path in (DEFAULT_PLAYLIST, EXTERNAL_PLAYLIST)
-        if path.exists()
-    ]
-    if CHANNEL_CATALOG_PATH.exists() and public_playlist_paths:
-        catalog_ids = {
-            channel.tvg_id
-            for channel in channels
-            if channel.tvg_id
-        }
-        public_ids: set[str] = set()
-        for public_playlist in public_playlist_paths:
-            public_ids.update(
-                channel.tvg_id
-                for channel in parse_channels(
-                    public_playlist.read_text(encoding="utf-8-sig").splitlines()
-                )
-                if channel.tvg_id
-            )
-        unpublished_ids = catalog_ids - public_ids
-        unknown_public_ids = public_ids - catalog_ids
-        print(
-            "EPG verificada contra las listas publicas y channel-catalog.m3u: "
-            f"{len(public_ids & catalog_ids)} presentes entre ambas listas, "
-            f"{len(unpublished_ids)} fuera de las salidas; "
-            "se procesara el catalogo completo"
-        )
-        if unknown_public_ids:
-            print(
-                "  [AVISO] M3U publica contiene IDs fuera del catalogo; "
-                "se ignoran para la EPG: "
-                + ", ".join(sorted(unknown_public_ids)),
-                file=sys.stderr,
-            )
+    print(
+        f"Alcance EPG: {DEFAULT_PLAYLIST.name} exclusivamente "
+        f"({len(expected_ids)} canales)"
+    )
     existing_status = None
     existing_data: bytes | None = None
     if output_path.exists():
         try:
             existing_data = output_path.read_bytes()
+            existing_data, scope_changed = filter_epg_to_channel_ids(
+                existing_data, expected_ids
+            )
             existing_root = ET.fromstring(existing_data)
             existing_channel_ids = {
                 channel.get("id", "") for channel in existing_root.findall("channel")
@@ -8741,34 +8716,34 @@ def refresh_epg(
                     "la guia publicada no contiene canales del catalogo: "
                     + ", ".join(sorted(missing_existing_ids))
                 )
-            if main_channels:
-                _, schedule_changed = normalize_main_epg_schedule(
-                    existing_root,
-                    main_ids,
-                    now=now,
+            _, schedule_changed = normalize_main_epg_schedule(
+                existing_root,
+                main_ids,
+                now=now,
+            )
+            main_hours = str(
+                int(EPG_MAIN_CONTINUITY_BUFFER.total_seconds() // 3600)
+            )
+            if existing_root.get("data-main-continuity-hours") != main_hours:
+                existing_root.set("data-main-continuity-hours", main_hours)
+                schedule_changed = True
+            if scope_changed or schedule_changed:
+                existing_root.set(
+                    "data-epg-scope", DEFAULT_PLAYLIST.name
                 )
-                main_hours = str(
-                    int(EPG_MAIN_CONTINUITY_BUFFER.total_seconds() // 3600)
+                existing_root.set(
+                    "data-continuity-policy", "technical-fill-unlisted-gaps"
                 )
-                if existing_root.get("data-main-continuity-hours") != main_hours:
-                    existing_root.set("data-main-continuity-hours", main_hours)
-                    schedule_changed = True
-                if schedule_changed:
-                    existing_root.set(
-                        "data-continuity-policy", "technical-fill-unlisted-gaps"
+                ET.indent(existing_root, space="  ")
+                existing_data = (
+                    ET.tostring(
+                        existing_root,
+                        encoding="utf-8",
+                        xml_declaration=True,
                     )
-                    ET.indent(existing_root, space="  ")
-                    existing_data = (
-                        ET.tostring(
-                            existing_root,
-                            encoding="utf-8",
-                            xml_declaration=True,
-                        )
-                        + b"\n"
-                    )
-                    temporary = output_path.with_suffix(".xml.tmp")
-                    temporary.write_bytes(existing_data)
-                    temporary.replace(output_path)
+                    + b"\n"
+                )
+            existing_changed = scope_changed or schedule_changed
             existing_status = epg_status_from_xml(
                 existing_data,
                 expected_ids,
@@ -8777,7 +8752,19 @@ def refresh_epg(
                 allow_empty_ids=EPG_ALLOWED_EMPTY_IDS,
                 minimum_future_by_channel=main_minimum_future_by_channel,
             )
-            if main_channels:
+            main_status = validate_main_playlist_epg(
+                main_channels,
+                required_channels=main_channels,
+                data=existing_data,
+                now=now,
+            )
+            continuity_added: dict[str, int] = {}
+            if not main_status.get("ok"):
+                existing_data, continuity_added = extend_main_epg_coverage(
+                    existing_data,
+                    main_ids,
+                    now=now,
+                )
                 main_status = validate_main_playlist_epg(
                     main_channels,
                     required_channels=main_channels,
@@ -8785,41 +8772,36 @@ def refresh_epg(
                     now=now,
                 )
                 if not main_status.get("ok"):
-                    existing_data, continuity_added = extend_main_epg_coverage(
-                        existing_data,
-                        {channel.tvg_id for channel in main_channels if channel.tvg_id},
-                        now=now,
+                    raise ValueError(
+                        "la EPG existente no cubre de forma continua Lista 1: "
+                        + str(main_status.get("error", "cobertura incompleta"))
                     )
-                    main_status = validate_main_playlist_epg(
-                        main_channels,
-                        required_channels=main_channels,
-                        data=existing_data,
-                        now=now,
-                    )
-                    if not main_status.get("ok"):
-                        raise ValueError(
-                            "la EPG existente no cubre de forma continua Lista 1: "
-                            + str(main_status.get("error", "cobertura incompleta"))
-                        )
-                    existing_status = epg_status_from_xml(
-                        existing_data,
-                        expected_ids,
-                        now=now,
-                        minimum_future=EPG_NON_MAIN_MINIMUM_FUTURE,
-                        allow_empty_ids=EPG_ALLOWED_EMPTY_IDS,
-                        minimum_future_by_channel=main_minimum_future_by_channel,
-                    )
-                    existing_status["main_playlist"] = main_status
-                    existing_status["continuity_blocks_added"] = sum(
-                        continuity_added.values()
-                    )
-                    temporary = output_path.with_suffix(".xml.tmp")
-                    temporary.write_bytes(existing_data)
-                    temporary.replace(output_path)
+                existing_status = epg_status_from_xml(
+                    existing_data,
+                    expected_ids,
+                    now=now,
+                    minimum_future=EPG_MAIN_MINIMUM_FUTURE,
+                    allow_empty_ids=EPG_ALLOWED_EMPTY_IDS,
+                    minimum_future_by_channel=main_minimum_future_by_channel,
+                )
+                existing_status["main_playlist"] = main_status
+                existing_status["continuity_blocks_added"] = sum(
+                    continuity_added.values()
+                )
+                existing_changed = True
+            existing_status["main_playlist"] = main_status
+            if existing_changed or continuity_added:
+                temporary = output_path.with_suffix(".xml.tmp")
+                temporary.write_bytes(existing_data)
+                temporary.replace(output_path)
             generated_at = existing_status.get("generated_at")
             if generated_at and not force:
                 age = now - datetime.fromisoformat(generated_at)
                 if age < EPG_REFRESH_INTERVAL:
+                    if existing_changed or continuity_added:
+                        temporary = output_path.with_suffix(".xml.tmp")
+                        temporary.write_bytes(existing_data)
+                        temporary.replace(output_path)
                     existing_status.update({"updated": False, "reused": True})
                     return existing_status
         except Exception:
@@ -8837,7 +8819,7 @@ def refresh_epg(
     )
     if skipped_epgshare_sources:
         print(
-            "Fuentes EPGShare no requeridas por el catalogo actual: "
+            "Fuentes EPGShare no requeridas por Lista 1: "
             + ", ".join(skipped_epgshare_sources)
         )
     for source_name, source_url in EPG_SOURCES.items():
@@ -8950,6 +8932,10 @@ def refresh_epg(
         }
     }
     if blocking_source_errors and existing_status is not None:
+        if existing_data is not None and output_path.read_bytes() != existing_data:
+            temporary = output_path.with_suffix(".xml.tmp")
+            temporary.write_bytes(existing_data)
+            temporary.replace(output_path)
         existing_status.update(
             {
                 "updated": False,
@@ -8998,21 +8984,22 @@ def refresh_epg(
         channels,
         red_bull_schedules,
         now=generation_now,
-        coverage_required_ids=main_ids if main_channels else None,
+        coverage_required_ids=main_ids,
     )
-    if main_channels:
-        main_status = validate_main_playlist_epg(
-            main_channels,
-            required_channels=main_channels,
-            data=output,
-            now=generation_now,
+    output, _ = filter_epg_to_channel_ids(output, expected_ids)
+    main_status = validate_main_playlist_epg(
+        main_channels,
+        required_channels=main_channels,
+        data=output,
+        now=generation_now,
+    )
+    if not main_status.get("ok"):
+        raise RuntimeError(
+            "la EPG generada no cubre de forma continua Lista 1: "
+            + str(main_status.get("error", "cobertura incompleta"))
         )
-        if not main_status.get("ok"):
-            raise RuntimeError(
-                "la EPG generada no cubre de forma continua Lista 1: "
-                + str(main_status.get("error", "cobertura incompleta"))
-            )
-        epg_status["main_playlist"] = main_status
+    epg_status["main_playlist"] = main_status
+    epg_status["channels"] = len(expected_ids)
     temporary = output_path.with_suffix(".xml.tmp")
     temporary.write_bytes(output)
     temporary.replace(output_path)
@@ -11406,7 +11393,7 @@ def main() -> int:
     mode_group.add_argument(
         "--refresh-epg-only",
         action="store_true",
-        help="fuerza y publica solo la EPG sobre el catalogo completo",
+        help="fuerza y publica solo la EPG de m3u.m3u (Lista 1)",
     )
     mode_group.add_argument(
         "--channels-only",
@@ -11426,6 +11413,34 @@ def main() -> int:
             )
             else 1
         )
+    if args.refresh_epg_only:
+        main_channels = main_playlist_channels()
+        epg_status = refresh_epg(main_channels, force=True)
+        published_data = EPG_PATH.read_bytes()
+        generated_at = epg_generated_at(published_data)
+        main_status = validate_main_playlist_epg(
+            main_channels,
+            required_channels=main_channels,
+            data=published_data,
+            now=generated_at or datetime.now(timezone.utc),
+        )
+        if not main_status.get("ok"):
+            print(
+                "ERROR: la EPG no cubre continuamente todos los canales de Lista 1: "
+                + str(main_status.get("error", "cobertura incompleta")),
+                file=sys.stderr,
+            )
+            return 1
+        print(
+            "  [OK] Compuerta EPG de m3u.m3u: cobertura continua 100% para "
+            f"{main_status['required_channels']} canales"
+        )
+        print(
+            f"EPG actualizada: {epg_status['channels']} canales y "
+            f"{epg_status['programmes']} programas; "
+            f"{epg_status.get('continuity_blocks_added', 0)} bloques técnicos agregados"
+        )
+        return 0
 
     source_playlist = (
         CHANNEL_CATALOG_PATH
@@ -11550,59 +11565,6 @@ def main() -> int:
         lines,
         protected_ids=set(manual_main_ids) | set(previous_auto_demoted_main_ids),
     )
-    if args.refresh_epg_only:
-        if removed_channels or selection_changed:
-            source_playlist.write_text(
-                "\n".join(lines) + "\n", encoding="utf-8", newline="\n"
-            )
-            print(
-                "Exclusiones permanentes retiradas del catalogo: "
-                + ", ".join(removed_channels)
-            )
-        epg_playlist = (
-            CHANNEL_CATALOG_PATH
-            if playlist == DEFAULT_PLAYLIST.resolve() and CHANNEL_CATALOG_PATH.exists()
-            else playlist
-        )
-        channels = parse_channels(
-            lines
-            if epg_playlist == source_playlist
-            else epg_playlist.read_text(encoding="utf-8-sig").splitlines()
-        )
-        if not channels:
-            raise RuntimeError("el catalogo no contiene canales para la EPG")
-        epg_status = refresh_epg(channels, force=True)
-        main_channels = (
-            parse_channels(DEFAULT_PLAYLIST.read_text(encoding="utf-8-sig").splitlines())
-            if DEFAULT_PLAYLIST.exists()
-            else []
-        )
-        if main_channels:
-            published_data = EPG_PATH.read_bytes()
-            generated_at = epg_generated_at(published_data)
-            main_status = validate_main_playlist_epg(
-                main_channels,
-                required_channels=main_channels,
-                data=published_data,
-                now=generated_at or datetime.now(timezone.utc),
-            )
-            if not main_status.get("ok"):
-                print(
-                    "ERROR: la EPG no cubre continuamente todos los canales de Lista 1: "
-                    + str(main_status.get("error", "cobertura incompleta")),
-                    file=sys.stderr,
-                )
-                return 1
-            print(
-                "  [OK] Compuerta EPG de m3u.m3u: cobertura continua 100% para "
-                f"{main_status['required_channels']} canales"
-            )
-        print(
-            f"EPG actualizada: {epg_status['channels']} canales y "
-            f"{epg_status['programmes']} programas; "
-            f"{epg_status.get('continuity_blocks_added', 0)} bloques técnicos agregados"
-        )
-        return 0
     if args.validate_resolvers_only:
         validate_resolver_contract(lines)
         return 0
@@ -12068,9 +12030,8 @@ def main() -> int:
         if channel.tvg_id in external_publication_ids and result.ok
     )
     # La membresia de la lista 1 sigue siendo manual salvo la excepcion
-    # automatica y reversible de 13C. La EPG se construye sobre el catalogo
-    # completo en el workflow independiente, por lo que un canal demovido
-    # conserva su guia lista para volver a la principal.
+    # automatica y reversible de 13C. La EPG independiente se limita a la
+    # lista principal; mover un canal a Lista 2 ya no publica su guia.
     playlist.write_text(
         "\n".join(candidate_main_lines) + "\n",
         encoding="utf-8",

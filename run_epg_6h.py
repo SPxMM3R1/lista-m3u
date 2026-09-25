@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Coordina la publicacion independiente de la EPG cada seis horas."""
+"""Coordina la EPG independiente de la lista principal cada seis horas."""
 
 from __future__ import annotations
 
@@ -98,7 +98,7 @@ def write_state(current: datetime, executor: str, next_run: datetime) -> None:
         "last_published_at": timestamp(current),
         "last_executor": executor,
         "next_scheduled_at": timestamp(next_run),
-        "schedule_basis": "EPG independiente cada 6 horas sobre catalogo completo",
+        "schedule_basis": "EPG independiente cada 6 horas para m3u.m3u (Lista 1)",
     }
     temporary = STATE_PATH.with_suffix(".json.tmp")
     temporary.write_text(
@@ -121,7 +121,7 @@ def run_updater() -> int:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Actualiza la EPG del catalogo completo cada seis horas."
+        description="Actualiza la EPG de m3u.m3u (Lista 1) cada seis horas."
     )
     parser.add_argument("--executor", choices=("local", "github"), required=True)
     parser.add_argument("--force", action="store_true", help="ignora el intervalo")

@@ -882,7 +882,7 @@ class TvnEpgTests(unittest.TestCase):
         self.assertEqual(la_red_epg.get("data-guide-source"), "continuidad-tecnica")
         self.assertGreater(status["programmes"], 0)
 
-    def test_epg_accepts_retired_channels_in_previous_publication(self) -> None:
+    def test_epg_reuses_only_main_playlist_ids_and_drops_retired_channels(self) -> None:
         now = datetime.now(timezone.utc).replace(microsecond=0)
         active = channel("Canal activo", "active.channel")
         retired = channel("Canal retirado", "retired.channel")
@@ -926,9 +926,19 @@ class TvnEpgTests(unittest.TestCase):
                 update_m3u, "DEFAULT_PLAYLIST", public_playlist
             ):
                 status = update_m3u.refresh_epg([active, retired])
+            published_root = ET.fromstring(epg_path.read_bytes())
 
         self.assertTrue(status["reused"])
-        self.assertEqual(status["channels"], 2)
+        self.assertEqual(status["channels"], 1)
+        self.assertEqual(
+            {item.get("id") for item in published_root.findall("channel")},
+            {"active.channel"},
+        )
+        self.assertEqual(
+            {item.get("channel") for item in published_root.findall("programme")},
+            {"active.channel"},
+        )
+        self.assertEqual(published_root.get("data-epg-scope"), "m3u.m3u")
 
     def test_main_playlist_epg_gate_requires_every_principal_channel(self) -> None:
         now = datetime(2026, 8, 29, 12, microsecond=914576, tzinfo=timezone.utc)
