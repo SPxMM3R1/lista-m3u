@@ -953,10 +953,11 @@ RED_BULL_CHILE_URL = (
 # El coordinador y el cron tienen cuatro ventanas diarias; tres horas es solo
 # el margen informativo para una guia que termina pronto, no una quinta ventana.
 EPG_REFRESH_INTERVAL = timedelta(hours=6)
-# Lista 1 is refreshed every six hours, so a twelve-hour window gives it one
-# full refresh interval of safety without inventing a week of "Live" entries.
+# Keep twelve hours usable at any point in the six-hour refresh cycle. The
+# published guide therefore carries the twelve-hour minimum plus one refresh
+# interval, rather than ending twelve hours after the last runner started.
 EPG_MAIN_MINIMUM_FUTURE = timedelta(hours=12)
-EPG_MAIN_CONTINUITY_BUFFER = timedelta(hours=12)
+EPG_MAIN_CONTINUITY_BUFFER = EPG_MAIN_MINIMUM_FUTURE + EPG_REFRESH_INTERVAL
 EPG_NON_MAIN_MINIMUM_FUTURE = timedelta(hours=24)
 EPG_MAIN_FALLBACK_TITLE = "Programación por confirmar"
 EPG_MAIN_LIVE_CHANNEL_ID = "RewindTV.cl@SD"
@@ -5106,13 +5107,13 @@ def normalize_main_epg_schedule(
     *,
     now: datetime,
 ) -> tuple[set[str], bool]:
-    """Remove ambiguous Live/blank titles from List 1 without inventing shows."""
+    """Normalize List 1 titles and retain its refresh-buffered horizon."""
     placeholder_channels: set[str] = set()
     changed = False
     current = (
         now.astimezone(timezone.utc) if now.tzinfo else now.replace(tzinfo=timezone.utc)
     ).replace(microsecond=0)
-    horizon = current + EPG_MAIN_MINIMUM_FUTURE
+    horizon = current + EPG_MAIN_CONTINUITY_BUFFER
     for programme in root.findall("programme"):
         channel_id = programme.get("channel", "")
         if channel_id not in required_ids:
@@ -5217,7 +5218,7 @@ def extend_main_epg_coverage(
     *,
     now: datetime,
 ) -> tuple[bytes, dict[str, int]]:
-    """Keep List 1 continuous through its next twelve hours during an outage."""
+    """Keep List 1 covered for 12h after the next six-hour refresh window."""
     root = ET.fromstring(data)
     added = fill_epg_coverage_gaps(
         root,
@@ -5234,6 +5235,38 @@ def extend_main_epg_coverage(
     )
     ET.indent(root, space="  ")
     return ET.tostring(root, encoding="utf-8", xml_declaration=True) + b"\n", added
+
+
+def ensure_main_epg_refresh_buffer(
+    data: bytes,
+    required_ids: set[str],
+    *,
+    now: datetime,
+) -> tuple[bytes, dict[str, int]]:
+    """Extend an existing List 1 guide through the next refresh window."""
+    gaps = epg_coverage_gaps(
+        data,
+        required_ids,
+        now=now,
+        minimum_future=EPG_MAIN_CONTINUITY_BUFFER,
+    )
+    if not gaps:
+        return data, {}
+
+    extended, added = extend_main_epg_coverage(data, required_ids, now=now)
+    remaining = epg_coverage_gaps(
+        extended,
+        required_ids,
+        now=now,
+        minimum_future=EPG_MAIN_CONTINUITY_BUFFER,
+    )
+    if remaining:
+        examples = ", ".join(channel_id for channel_id, _start, _stop in remaining[:8])
+        raise ValueError(
+            "no se pudo extender la EPG de Lista 1 hasta el proximo refresco: "
+            + examples
+        )
+    return extended, added
 
 
 def validate_main_playlist_epg(
@@ -8467,6 +8500,21 @@ def build_epg(
         channel.set("data-guide-source", guide_sources.get(channel_id, ""))
     if main_ids:
         normalize_main_epg_schedule(root, main_ids, now=now)
+        continuity_gaps = epg_coverage_gaps(
+            root,
+            main_ids,
+            now=now,
+            minimum_future=EPG_MAIN_CONTINUITY_BUFFER,
+        )
+        if continuity_gaps:
+            examples = ", ".join(
+                channel_id for channel_id, _start, _stop in continuity_gaps[:8]
+            )
+            raise ValueError(
+                "la EPG generada no conserva 12 horas utilizables hasta el "
+                "siguiente refresco: "
+                + examples
+            )
         for channel in root.findall("channel"):
             channel_id = channel.get("id", "")
             if channel_id in main_ids:
@@ -8759,12 +8807,21 @@ def refresh_epg(
                 now=now,
             )
             continuity_added: dict[str, int] = {}
-            if not main_status.get("ok"):
-                existing_data, continuity_added = extend_main_epg_coverage(
+            continuity_gaps = epg_coverage_gaps(
+                existing_data,
+                main_ids,
+                now=now,
+                minimum_future=EPG_MAIN_CONTINUITY_BUFFER,
+            )
+            if not main_status.get("ok") or continuity_gaps:
+                extended_data, continuity_added = ensure_main_epg_refresh_buffer(
                     existing_data,
                     main_ids,
                     now=now,
                 )
+                if extended_data != existing_data:
+                    existing_data = extended_data
+                    existing_changed = True
                 main_status = validate_main_playlist_epg(
                     main_channels,
                     required_channels=main_channels,
@@ -8775,6 +8832,16 @@ def refresh_epg(
                     raise ValueError(
                         "la EPG existente no cubre de forma continua Lista 1: "
                         + str(main_status.get("error", "cobertura incompleta"))
+                    )
+                remaining_continuity_gaps = epg_coverage_gaps(
+                    existing_data,
+                    main_ids,
+                    now=now,
+                    minimum_future=EPG_MAIN_CONTINUITY_BUFFER,
+                )
+                if remaining_continuity_gaps:
+                    raise ValueError(
+                        "la EPG existente no conserva el margen de refresco de Lista 1"
                     )
                 existing_status = epg_status_from_xml(
                     existing_data,
