@@ -4633,13 +4633,26 @@ def update_highfly_runtime_resolver_map(payload: bytes | str | dict) -> dict[str
 
     The public catalog can omit a leaf while still serving the rest of the
     catalogue. Merging prevents that partial response from erasing a slug
-    seeded from the checked-in M3U or updated earlier in the same run. A
-    later matching leaf still replaces the old value normally.
+    seeded from the checked-in M3U or updated earlier in the same run. When the
+    catalogue publishes several leaves for one channel, the editorial choice
+    already in RAM (selection or seed) is preserved while it remains published;
+    a leaf that disappeared is replaced by the current catalogue default.
     """
     resolver_map = parse_highfly_live_resolver_map(payload)
-    if resolver_map:
-        HIGHFLY_RUNTIME_RESOLVER_CHANNELS.update(resolver_map)
-    return resolver_map
+    published = {
+        slug
+        for slugs in parse_highfly_live_variants(payload).values()
+        for slug in slugs
+    }
+    effective: dict[str, str] = {}
+    for key, slug in resolver_map.items():
+        current = HIGHFLY_RUNTIME_RESOLVER_CHANNELS.get(key)
+        if current and current != slug and current in published:
+            effective[key] = current
+            continue
+        HIGHFLY_RUNTIME_RESOLVER_CHANNELS[key] = slug
+        effective[key] = slug
+    return effective
 
 
 def seed_highfly_runtime_resolver_map(lines: list[str]) -> dict[str, str]:

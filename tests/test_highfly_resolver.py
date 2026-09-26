@@ -306,5 +306,39 @@ class HighflyResolverTest(unittest.TestCase):
         )
 
 
+    def test_runtime_refresh_preserves_published_editorial_choice(self) -> None:
+        payload = {
+            "metas": [
+                {"id": "leaf:4k-s34rrer", "name": "(4K) : SKY SPORTS F1"},
+                {"id": "leaf:now-34343434", "name": "(FHD) : SKY SPORTS F1"},
+            ]
+        }
+
+        with patch.object(
+            update_m3u,
+            "HIGHFLY_RUNTIME_RESOLVER_CHANNELS",
+            {"SkySportsF1.uk": "now-34343434"},
+        ) as runtime:
+            effective = update_m3u.update_highfly_runtime_resolver_map(payload)
+            self.assertEqual({"SkySportsF1.uk": "now-34343434"}, effective)
+            self.assertEqual("now-34343434", runtime["SkySportsF1.uk"])
+
+    def test_runtime_refresh_adopts_new_leaf_after_rotation(self) -> None:
+        payload = {
+            "metas": [
+                {"id": "leaf:f1-9999", "name": "(FHD) : SKY SPORTS F1"},
+            ]
+        }
+
+        with patch.object(
+            update_m3u,
+            "HIGHFLY_RUNTIME_RESOLVER_CHANNELS",
+            {"SkySportsF1.uk": "old-f1-1234"},
+        ) as runtime:
+            effective = update_m3u.update_highfly_runtime_resolver_map(payload)
+            self.assertEqual({"SkySportsF1.uk": "f1-9999"}, effective)
+            self.assertEqual("f1-9999", runtime["SkySportsF1.uk"])
+
+
 if __name__ == "__main__":
     unittest.main()
