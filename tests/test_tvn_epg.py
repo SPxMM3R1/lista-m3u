@@ -1035,6 +1035,48 @@ class TvnEpgTests(unittest.TestCase):
         self.assertEqual(status["programmes"], 1)
         self.assertEqual(status["pending_channels"], ["0102"])
 
+    def test_la_red_reuses_last_published_guide_when_official_is_down(self) -> None:
+        now = datetime(2026, 8, 28, 12, tzinfo=timezone.utc)
+        la_red = channel("La Red", "0102")
+        published = ET.Element("tv")
+        programme = ET.SubElement(
+            published,
+            "programme",
+            {
+                "start": update_m3u.xmltv_format_chile(now - timedelta(hours=1)),
+                "stop": update_m3u.xmltv_format_chile(now + timedelta(hours=25)),
+                "channel": "0102",
+            },
+        )
+        ET.SubElement(programme, "title", {"lang": "es"}).text = "La Red publicada"
+
+        output, status = update_m3u.build_epg(
+            {
+                "cl": ET.tostring(
+                    ET.Element("tv"), encoding="utf-8", xml_declaration=True
+                ),
+                update_m3u.PUBLISHED_EPG_FALLBACK_SOURCE: ET.tostring(
+                    published, encoding="utf-8", xml_declaration=True
+                ),
+            },
+            [la_red],
+            {},
+            now=now,
+        )
+
+        root = ET.fromstring(output)
+        titles = [
+            item.findtext("title")
+            for item in root.findall("./programme[@channel='0102']")
+        ]
+        self.assertEqual(titles, ["La Red publicada"])
+        la_red_epg = root.find("./channel[@id='0102']")
+        self.assertEqual(
+            la_red_epg.get("data-guide-source"),
+            update_m3u.PUBLISHED_EPG_FALLBACK_SOURCE,
+        )
+        self.assertNotIn("0102", status["pending_channels"])
+
     def test_epg_reuses_only_main_playlist_ids_and_drops_retired_channels(self) -> None:
         now = datetime.now(timezone.utc).replace(microsecond=0)
         active = channel("Canal activo", "active.channel")

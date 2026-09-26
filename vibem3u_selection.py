@@ -194,6 +194,19 @@ def reconcile_selection(
         if not candidates:
             pending.append(_pending(row, "catalog_not_found"))
             continue
+        if len(candidates) > 1 and row.provider == "tvvoo":
+            # Una eleccion TvVoo suele existir tambien como fila espejo
+            # "@TvVoo" en la lista externa. La fila canonica del catalogo tiene
+            # prioridad para conservar EPG, logo y marcador de seleccion.
+            canonical = [
+                candidate
+                for candidate in candidates
+                if not str(getattr(channels[candidate[0]], "tvg_id", "")).endswith(
+                    "@TvVoo"
+                )
+            ]
+            if len(canonical) == 1:
+                candidates = canonical
         if len(candidates) > 1:
             pending.append(_pending(row, "catalog_match_ambiguous"))
             continue

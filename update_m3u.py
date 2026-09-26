@@ -8478,8 +8478,11 @@ def build_epg(
 
     for target_id in expected_ids - NO_EPG_CHANNEL_IDS:
         if target_id == "0102":
-            # La Red queda estrictamente en la fuente oficial. No se
-            # recicla una EPG antigua de EPGShare/Zapping como respaldo.
+            # La Red mantiene la fuente oficial como prioridad, pero nunca se
+            # deja sin guia: si su pagina falla se conserva la ultima parrilla
+            # real publicada. La EPG agregada/Zapping sigue prohibida.
+            if target_id not in fresh_targets and published_fallback is not None:
+                source_lookup[(PUBLISHED_EPG_FALLBACK_SOURCE, target_id)] = {target_id}
             continue
         required_future = now + (
             EPG_MAIN_CONTINUITY_BUFFER

@@ -64,6 +64,70 @@ class VibeM3USelectionTest(unittest.TestCase):
         self.assertEqual(frozenset({"SkySportsTennis.uk"}), result.selected_catalog_ids)
         self.assertEqual("catalogKey=tvg-id", result.matched[0].match)
 
+    def test_tvvoo_selection_prefers_canonical_row_over_external_mirror(self) -> None:
+        payload = {
+            "schemaVersion": 1,
+            "source": "vibem3u-android",
+            "selectionSignature": "a" * 64,
+            "sources": [
+                {
+                    "provider": "tvvoo",
+                    "enabled": True,
+                    "channels": [
+                        {
+                            "provider": "tvvoo",
+                            "catalogKey": (
+                                "uk|vavoo_SKY%20SPORTS%20F1%20FHD%7Cgroup%3Auk"
+                            ),
+                            "providerResourceId": (
+                                "uk|vavoo_SKY%20SPORTS%20F1%20FHD%7Cgroup%3Auk"
+                            ),
+                            "name": "SKY SPORTS F1",
+                            "group": "Deportes",
+                            "category": "Motor Sports",
+                            "identityState": "canonical",
+                            "order": 1,
+                        }
+                    ],
+                }
+            ],
+        }
+        document = vibem3u_selection.load_selection(self.write_manifest(payload))
+        lines = [
+            "#EXTM3U",
+            (
+                '#EXTINF:-1 tvg-id="Vavoo.uk.SKYSPORTSF1@TvVoo" x-resolver="tvvoo" '
+                'x-resolver-ids="vavoo_SKY%20SPORTS%20F1%20FHD%7Cgroup%3Auk",Sky F1 UK'
+            ),
+            "http://example.invalid/external.m3u8",
+            (
+                '#EXTINF:-1 tvg-id="SkySportsF1.uk" x-resolver="tvvoo" '
+                'x-resolver-ids="vavoo_SKY%20SPORTS%20F1%20FHD%7Cgroup%3Auk",Sky Sports F1'
+            ),
+            "http://example.invalid/managed.m3u8",
+        ]
+        mirror = SimpleNamespace(
+            tvg_id="Vavoo.uk.SKYSPORTSF1@TvVoo",
+            name="Sky F1 UK",
+            display_name="Sky F1 UK",
+            info_line=1,
+        )
+        managed = SimpleNamespace(
+            tvg_id="SkySportsF1.uk",
+            name="Sky Sports F1",
+            display_name="Sky Sports F1",
+            info_line=3,
+        )
+
+        result = vibem3u_selection.reconcile_selection(
+            document, [mirror, managed], lines
+        )
+
+        self.assertEqual(
+            frozenset({"SkySportsF1.uk"}), result.selected_catalog_ids
+        )
+        self.assertEqual("catalogKey=resolver-alias", result.matched[0].match)
+
     def test_empty_category_is_valid_editorial_metadata(self) -> None:
         payload = self.base_manifest(
             [

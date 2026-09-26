@@ -154,7 +154,7 @@ class HighflyResolverTest(unittest.TestCase):
             update_m3u.HIGHFLY_RUNTIME_RESOLVER_CHANNELS,
             {"SkySportsF1.uk": "f1-93930303"},
             clear=True,
-        ):
+        ), patch.dict(update_m3u.TVVOO_STREAM_RESOLVER_IDS, {}, clear=True):
             changed = update_m3u.sync_highfly_runtime_fallbacks(lines)
 
         self.assertTrue(changed)
@@ -284,7 +284,7 @@ class HighflyResolverTest(unittest.TestCase):
             {"skysportsf1": ["4k-s34rrer", "now-34343434"]},
         ), patch.object(
             update_m3u, "fetch_bytes", side_effect=fake_fetch
-        ) as fetch:
+        ) as fetch, patch.dict(update_m3u.TVVOO_STREAM_RESOLVER_IDS, {}, clear=True):
             runtime = update_m3u.HIGHFLY_RUNTIME_RESOLVER_CHANNELS
             urls = list(
                 update_m3u.fresh_highfly_stream_urls(channel, manifest_verified=True)
