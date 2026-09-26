@@ -8984,6 +8984,39 @@ def filter_epg_to_channel_ids(
     return ET.tostring(root, encoding="utf-8", xml_declaration=True) + b"\n", True
 
 
+def strip_epg_filler_programmes(data: bytes) -> bytes:
+    """Drop continuity placeholders so they are never recycled as real EPG.
+
+    La guia publicada anterior se usa como respaldo de parrilla real. Si esa
+    guia traia bloques tecnicos o "Programacion por confirmar", no deben
+    volver a publicarse como si fueran datos de una fuente.
+    """
+    root = ET.fromstring(data)
+    if root.tag != "tv":
+        return data
+    filler_titles = {
+        EPG_MAIN_FALLBACK_TITLE.casefold(),
+        "pendiente de guia",
+    }
+    filler_channels = {
+        element.get("id", "")
+        for element in root.findall("channel")
+        if element.get("data-guide-source", "") in {"continuidad-tecnica", "pendiente"}
+        or element.get("data-guide", "").strip().casefold() in filler_titles
+    }
+    removed = False
+    for programme in list(root.findall("programme")):
+        channel_id = programme.get("channel", "")
+        title = (programme.findtext("title", "") or "").strip().casefold()
+        if channel_id in filler_channels or title in filler_titles:
+            root.remove(programme)
+            removed = True
+    if not removed:
+        return data
+    ET.indent(root, space="  ")
+    return ET.tostring(root, encoding="utf-8", xml_declaration=True) + b"\n"
+
+
 def refresh_epg(
     channels: list[Channel],
     *,
@@ -9310,7 +9343,9 @@ def refresh_epg(
     if not source_documents:
         raise RuntimeError("ninguna fuente EPG respondio correctamente")
     if existing_status is not None and existing_data is not None:
-        source_documents[PUBLISHED_EPG_FALLBACK_SOURCE] = existing_data
+        source_documents[PUBLISHED_EPG_FALLBACK_SOURCE] = (
+            strip_epg_filler_programmes(existing_data)
+        )
 
     generation_now = datetime.now(timezone.utc).replace(microsecond=0)
     output, epg_status = build_epg(

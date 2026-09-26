@@ -1135,6 +1135,55 @@ class TvnEpgTests(unittest.TestCase):
 
 
 class EpgManagedScopeTest(unittest.TestCase):
+    def test_published_fallback_never_recycles_continuity_placeholders(self) -> None:
+        now = datetime(2026, 8, 28, 18, tzinfo=timezone.utc)
+        document = ET.Element("tv")
+        ET.SubElement(
+            document,
+            "channel",
+            {
+                "id": "1437",
+                "data-guide": update_m3u.EPG_MAIN_FALLBACK_TITLE,
+                "data-guide-source": "continuidad-tecnica",
+            },
+        )
+        filler = ET.SubElement(
+            document,
+            "programme",
+            {
+                "start": update_m3u.xmltv_format_chile(now - timedelta(hours=1)),
+                "stop": update_m3u.xmltv_format_chile(now + timedelta(hours=2)),
+                "channel": "1437",
+            },
+        )
+        ET.SubElement(filler, "title").text = update_m3u.EPG_MAIN_FALLBACK_TITLE
+        ET.SubElement(
+            document,
+            "channel",
+            {"id": "0104", "data-guide": "parrilla real", "data-guide-source": "tvn-oficial"},
+        )
+        real = ET.SubElement(
+            document,
+            "programme",
+            {
+                "start": update_m3u.xmltv_format_chile(now - timedelta(hours=1)),
+                "stop": update_m3u.xmltv_format_chile(now + timedelta(hours=25)),
+                "channel": "0104",
+            },
+        )
+        ET.SubElement(real, "title").text = "Programa real"
+
+        stripped = update_m3u.strip_epg_filler_programmes(
+            ET.tostring(document, encoding="utf-8")
+        )
+
+        root = ET.fromstring(stripped)
+        self.assertEqual(root.findall("./programme[@channel='1437']"), [])
+        self.assertEqual(
+            [item.findtext("title") for item in root.findall("./programme[@channel='0104']")],
+            ["Programa real"],
+        )
+
     def test_managed_catalog_channels_with_guide_source_join_the_scope(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "channel-catalog.m3u"
