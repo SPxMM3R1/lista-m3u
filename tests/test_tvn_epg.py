@@ -511,12 +511,17 @@ class TvnEpgTests(unittest.TestCase):
 
         self.assertIsNotNone(source)
         self.assertEqual(errors, {})
-        curl_run.assert_called_once()
-        curl_command = curl_run.call_args.args[0]
-        self.assertIn("--connect-to", curl_command)
+        self.assertEqual(2, curl_run.call_count)
+        now_playing_command = curl_run.call_args_list[0].args[0]
+        self.assertIn("--connect-to", now_playing_command)
         self.assertIn(
-            "charly.zappingtv.com:443:br-apig.zappingtv.com:443",
-            curl_command,
+            "charly.zappingtv.com:443:cl-apig.zappingtv.com:443",
+            now_playing_command,
+        )
+        page_command = curl_run.call_args_list[1].args[0]
+        self.assertIn(
+            "guia.zappingtv.com:443:cl-apig.zappingtv.com:443",
+            page_command,
         )
         root = ET.fromstring(source)
         programmes = root.findall("programme")
@@ -532,20 +537,30 @@ class TvnEpgTests(unittest.TestCase):
         )
         output_root = ET.fromstring(output)
         tvn3 = output_root.find("./channel[@id='1437']")
-        self.assertEqual(
-            tvn3.get("data-guide"), "parrilla real parcial + continuidad tecnica"
-        )
-        self.assertGreater(status["programmes"], 3)
+        self.assertEqual(tvn3.get("data-guide"), "parrilla real parcial")
+        self.assertEqual(status["programmes"], 3)
         self.assertNotIn(
             "TVN3",
             [item.findtext("title") for item in output_root.findall("programme")],
         )
 
-    def test_principal_channel_without_real_source_gets_refresh_buffered_coverage(self) -> None:
+    def test_principal_channel_without_real_source_stays_pending_without_filler(self) -> None:
         now = datetime(2026, 8, 28, 18, microsecond=914576, tzinfo=timezone.utc)
+        real = channel("TVN", "0104")
+        real_doc = ET.Element("tv")
+        programme = ET.SubElement(
+            real_doc,
+            "programme",
+            {
+                "start": update_m3u.xmltv_format_chile(now - timedelta(hours=1)),
+                "stop": update_m3u.xmltv_format_chile(now + timedelta(hours=25)),
+                "channel": "Canal.TVN.(Chile).cl",
+            },
+        )
+        ET.SubElement(programme, "title").text = "Programa real"
         output, status = update_m3u.build_epg(
-            {},
-            [channel("Canal sin fuente", "unknown.channel")],
+            {"cl": ET.tostring(real_doc)},
+            [channel("Canal sin fuente", "unknown.channel"), real],
             {},
             now=now,
             coverage_required_ids={"unknown.channel"},
@@ -554,42 +569,18 @@ class TvnEpgTests(unittest.TestCase):
         root = ET.fromstring(output)
         entry = root.find("./channel[@id='unknown.channel']")
         self.assertIsNotNone(entry)
-        self.assertEqual(
-            entry.get("data-guide"), update_m3u.EPG_MAIN_FALLBACK_TITLE
-        )
-        self.assertEqual(entry.get("data-guide-source"), "continuidad-tecnica")
+        self.assertEqual(entry.get("data-guide"), "pendiente de guia")
+        self.assertEqual(entry.get("data-guide-source"), "pendiente")
         programmes = root.findall("./programme[@channel='unknown.channel']")
-        self.assertGreater(len(programmes), 0)
-        self.assertEqual(
-            {item.findtext("title") for item in programmes},
-            {update_m3u.EPG_MAIN_FALLBACK_TITLE},
-        )
-        self.assertTrue(
-            all(
-                update_m3u.xmltv_datetime(item.get("stop", ""))
-                <= now + update_m3u.EPG_MAIN_CONTINUITY_BUFFER
-                for item in programmes
-            )
-        )
-        self.assertEqual(
-            update_m3u.epg_coverage_gaps(
-                root,
-                {"unknown.channel"},
-                now=now,
-                minimum_future=update_m3u.EPG_MAIN_CONTINUITY_BUFFER,
-            ),
-            [],
-        )
+        self.assertEqual(programmes, [])
+        self.assertEqual(status["pending_channels"], ["unknown.channel"])
+        self.assertEqual(status["continuity_blocks_added"], 0)
         main_status = update_m3u.validate_main_playlist_epg(
             [channel("Canal sin fuente", "unknown.channel")],
             data=output,
             now=now,
         )
-        self.assertTrue(main_status["ok"])
-        self.assertEqual(main_status["minimum_future_hours"], 12)
-        self.assertFalse(any(item.find("desc") is not None for item in programmes))
-        self.assertEqual(status["programmes"], len(programmes))
-        self.assertEqual(status["continuity_blocks_added"], len(programmes))
+        self.assertFalse(main_status["ok"])
 
     def test_existing_twelve_hour_guide_is_extended_for_the_next_refresh(self) -> None:
         now = datetime(2026, 8, 28, 18, tzinfo=timezone.utc)
@@ -706,7 +697,7 @@ class TvnEpgTests(unittest.TestCase):
             )["ok"]
         )
 
-    def test_build_epg_fills_internal_gaps_without_claiming_real_programmes(self) -> None:
+    def test_build_epg_leaves_internal_gaps_without_filler(self) -> None:
         now = datetime(2026, 8, 28, 18, tzinfo=timezone.utc)
         source_root = ET.Element("tv")
         for start, stop, title in (
@@ -733,15 +724,13 @@ class TvnEpgTests(unittest.TestCase):
 
         root = ET.fromstring(output)
         tvn = root.find("./channel[@id='0104']")
-        self.assertEqual(
-            tvn.get("data-guide"), "parrilla real + continuidad tecnica"
-        )
+        self.assertEqual(tvn.get("data-guide"), "parrilla real parcial")
         technical = root.findall(
             "./programme[@channel='0104']/title[.='Live']"
         )
-        self.assertEqual(len(technical), 1)
-        self.assertEqual(status["continuity_blocks_added"], 1)
-        self.assertEqual(
+        self.assertEqual(len(technical), 0)
+        self.assertEqual(status["continuity_blocks_added"], 0)
+        self.assertNotEqual(
             update_m3u.epg_coverage_gaps(
                 output,
                 {"0104"},
@@ -905,10 +894,10 @@ class TvnEpgTests(unittest.TestCase):
 
         output, status = update_m3u.build_epg(
             {
-                "cl": source("Canal.La.Red.(Chile).cl", "EPGShare no autorizada"),
+                "cl": source("Canal.TVN.(Chile).cl", "Programa real"),
                 update_m3u.ZAPPING_EPG_SOURCE: source("0102", "Zapping no autorizada"),
             },
-            [la_red],
+            [la_red, channel("TVN", "0104")],
             {},
             now=now,
         )
@@ -916,9 +905,11 @@ class TvnEpgTests(unittest.TestCase):
         root = ET.fromstring(output)
         titles = [item.findtext("title", "") for item in root.findall("programme")]
         self.assertFalse(any("no autorizada" in title for title in titles))
+        self.assertIn("Programa real", titles)
         la_red_epg = root.find("./channel[@id='0102']")
-        self.assertEqual(la_red_epg.get("data-guide-source"), "continuidad-tecnica")
-        self.assertGreater(status["programmes"], 0)
+        self.assertEqual(la_red_epg.get("data-guide-source"), "pendiente")
+        self.assertEqual(status["programmes"], 1)
+        self.assertEqual(status["pending_channels"], ["0102"])
 
     def test_epg_reuses_only_main_playlist_ids_and_drops_retired_channels(self) -> None:
         now = datetime.now(timezone.utc).replace(microsecond=0)

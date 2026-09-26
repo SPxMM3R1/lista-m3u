@@ -8,6 +8,7 @@ import json
 import os
 import subprocess
 import sys
+import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -16,7 +17,13 @@ PROJECT_ROOT = Path(__file__).resolve().parent
 UPDATE_SCRIPT = PROJECT_ROOT / "update_m3u.py"
 STATE_PATH = PROJECT_ROOT / "epg-run-state.json"
 EPG_PATH = PROJECT_ROOT / "epg.xml"
+PENDING_PATH = PROJECT_ROOT / "epg-pending.json"
 INTERVAL = timedelta(hours=6)
+# Mientras un canal quede sin fuente real, se reintenta la construccion de la
+# guia dentro de la misma corrida; el pendiente se conserva en
+# epg-pending.json para las corridas siguientes.
+MAX_SOURCE_RETRIES = 3
+SOURCE_RETRY_DELAY_SECONDS = 45
 
 
 def now_utc() -> datetime:
@@ -50,6 +57,20 @@ def load_state() -> dict:
     if not isinstance(state, dict):
         raise RuntimeError("epg-run-state.json no contiene un objeto JSON")
     return state
+
+
+def read_pending_channels() -> list[str]:
+    """Canales que quedaron sin fuente real en la ultima construccion."""
+    if not PENDING_PATH.exists():
+        return []
+    try:
+        payload = json.loads(PENDING_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return []
+    channels = payload.get("channels") if isinstance(payload, dict) else None
+    if not isinstance(channels, list):
+        return []
+    return [str(value) for value in channels]
 
 
 def last_published_at(state: dict) -> datetime | None:
@@ -166,6 +187,33 @@ def main() -> int:
             STATE_PATH.write_bytes(snapshot_state)
         print("La EPG fallo; se conservaron la guia y su estado anteriores.", file=sys.stderr)
         return return_code
+
+    for attempt in range(1, MAX_SOURCE_RETRIES + 1):
+        pending = read_pending_channels()
+        if not pending:
+            break
+        print(
+            f"Canales sin fuente real ({len(pending)}): {', '.join(pending)}; "
+            f"reintentando {attempt}/{MAX_SOURCE_RETRIES} en "
+            f"{SOURCE_RETRY_DELAY_SECONDS}s",
+            file=sys.stderr,
+        )
+        time.sleep(SOURCE_RETRY_DELAY_SECONDS)
+        retry_code = run_updater()
+        if retry_code != 0:
+            if snapshot_epg is None:
+                EPG_PATH.unlink(missing_ok=True)
+            else:
+                EPG_PATH.write_bytes(snapshot_epg)
+            if snapshot_state is None:
+                STATE_PATH.unlink(missing_ok=True)
+            else:
+                STATE_PATH.write_bytes(snapshot_state)
+            print(
+                "El reintento de fuentes EPG fallo; se conservaron las salidas anteriores.",
+                file=sys.stderr,
+            )
+            return retry_code
 
     published_at = now_utc()
     next_after_publish = next_scheduled_at(

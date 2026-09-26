@@ -74,6 +74,7 @@ DISPLAY_NAME_UNSAFE_PATTERN = re.compile(
 REPORT_PATH = Path(__file__).with_name("channel-status.json")
 HEALTH_STATE_PATH = Path(__file__).with_name("channel-health-state.json")
 RESOLVER_CATALOG_PATH = Path(__file__).with_name("resolver-catalog.json")
+EPG_PENDING_PATH = Path(__file__).with_name("epg-pending.json")
 # Alcance del mantenimiento de canales. Con ``main`` la validacion, renovacion,
 # reparacion, salud y logos corren solo sobre la lista principal; Lista 2 se
 # conserva como se publico y el catalogo igual recibe la reconciliacion
@@ -913,6 +914,7 @@ ZAPPING_NOWPLAYING_URL = "https://charly.zappingtv.com/v3/webplayer/nowplaying"
 # cambia solo el destino TCP: conserva la URL, Host y SNI de `charly`, por lo
 # que TLS sigue validandose normalmente y no se publica ningun token.
 ZAPPING_NOWPLAYING_CONNECT_HOSTS = (
+    "cl-apig.zappingtv.com",
     "br-apig.zappingtv.com",
     "ec-apig.zappingtv.com",
 )
@@ -934,6 +936,17 @@ ZAPPING_EPG_CHANNELS = {
     "13C.cl@SD": "13cable",
 }
 TECNOCENTRO_EPG_URL = "https://tecnocentro.cl/"
+# Respaldo real por canal cuando la fuente principal no entrega bloques.
+# Se consulta solo si el canal quedo sin parrilla fresca; nunca reemplaza a
+# una fuente oficial ni a Zapping.
+TECNOCENTRO_BACKUP_CHANNELS = {
+    "0104": "LCH1225",
+    "0105": "LCH497",
+    "0106": "LCH481",
+    "0107": "LCH482",
+    "0201": "LCH594",
+    "13C.cl@SD": "LCH5568",
+}
 try:
     CHILE_TIMEZONE = ZoneInfo("America/Santiago")
 except ZoneInfoNotFoundError:
@@ -959,6 +972,11 @@ RED_BULL_SPANISH_EPG_PAGE = "https://www.redbull.tv/es_CL/epg"
 RED_BULL_RELAY_EPG_URL = "https://nzxmltv.com/iptv/redbull.xml"
 RED_BULL_WORLD_ID = "RedBullWorldEnglish.int"
 RED_BULL_CHILE_ID = "RedBullChileEspanol.cl"
+# Respaldo verificable del canal Red Bull TV World cuando la API oficial no
+# responde desde el ejecutor (Pluto TV, feed que el runner ya descarga).
+PLUTO_BACKUP_CHANNELS = {
+    RED_BULL_WORLD_ID: "5e7cb84a172a0f0007da69e4",
+}
 RED_BULL_CHANNEL_LOCALES = {
     RED_BULL_WORLD_ID: "en",
     RED_BULL_CHILE_ID: "es",
@@ -7703,6 +7721,66 @@ def fetch_zapping_nowplaying_bytes() -> bytes:
     )
 
 
+def fetch_zapping_page_bytes(url: str) -> bytes:
+    """Fetch a public Zapping guide page, with regional fronts as fallback.
+
+    Zapping bloquea por pais: el acceso directo puede fallar fuera de Chile.
+    Los frontales regionales (hosts de la propia Zapping) mantienen TLS
+    verificado y se intentan solo si el acceso directo falla.
+    """
+    headers = {
+        "User-Agent": BROWSER_USER_AGENT,
+        "Accept": "text/html,application/xhtml+xml,*/*",
+    }
+    primary_error: Exception | None = None
+    try:
+        status, body, _ = fetch_bytes(url, headers, timeout=60, limit=6_000_000)
+        if status == 200:
+            return body
+        primary_error = ValueError(f"HTTP {status}")
+    except Exception as error:
+        primary_error = error
+
+    parsed = urlparse(url)
+    if parsed.hostname != "guia.zappingtv.com":
+        raise primary_error
+    curl_errors: list[str] = []
+    for connect_host in ZAPPING_NOWPLAYING_CONNECT_HOSTS:
+        try:
+            completed = subprocess.run(
+                [
+                    "curl",
+                    "--fail",
+                    "--silent",
+                    "--show-error",
+                    "--location",
+                    "--max-time",
+                    "30",
+                    "--connect-to",
+                    f"guia.zappingtv.com:443:{connect_host}:443",
+                    "--header",
+                    "Accept: text/html,application/xhtml+xml,*/*",
+                    url,
+                ],
+                check=True,
+                capture_output=True,
+                timeout=35,
+            )
+            if not completed.stdout:
+                raise ValueError("la guia Zapping respondio sin contenido")
+            if len(completed.stdout) > 6_000_000:
+                raise ValueError("la guia Zapping excede el limite de 6 MB")
+            return completed.stdout
+        except Exception as curl_error:
+            curl_errors.append(
+                f"{connect_host}: {type(curl_error).__name__}: {curl_error}"
+            )
+    raise RuntimeError(
+        f"directo: {type(primary_error).__name__}: {primary_error}; "
+        "curl regional: " + " | ".join(curl_errors)
+    )
+
+
 def fetch_zapping_epg(
     channels: list[Channel], now: datetime
 ) -> tuple[bytes | None, dict[str, str]]:
@@ -7773,17 +7851,7 @@ def fetch_zapping_epg(
     ) -> tuple[str, list[tuple[datetime, datetime, str]], str | None]:
         url = f"{ZAPPING_EPG_BASE_URL}/{slug}/"
         try:
-            status, body, _ = fetch_bytes(
-                url,
-                {
-                    "User-Agent": BROWSER_USER_AGENT,
-                    "Accept": "text/html,application/xhtml+xml,*/*",
-                },
-                timeout=60,
-                limit=4_000_000,
-            )
-            if status != 200:
-                raise ValueError(f"HTTP {status}")
+            body = fetch_zapping_page_bytes(url)
             rows = zapping_schedule_rows(decode_web_text(body))
             if len(rows) < 3:
                 raise ValueError("la guia Zapping contiene muy pocos bloques")
@@ -8356,33 +8424,52 @@ def build_epg(
     # anterior para ese canal. Nunca se mezcla con una fuente fresca ni se usa
     # para inventar continuidad genérica.
     published_fallback = source_roots.get(PUBLISHED_EPG_FALLBACK_SOURCE)
-    if published_fallback is not None:
-        fresh_targets: set[str] = set()
-        for source_name, source_root in source_roots.items():
-            if source_name == PUBLISHED_EPG_FALLBACK_SOURCE:
+    fresh_targets: set[str] = set()
+    for source_name, source_root in source_roots.items():
+        if source_name == PUBLISHED_EPG_FALLBACK_SOURCE:
+            continue
+        for programme in source_root.findall("programme"):
+            target_ids = source_lookup.get(
+                (source_name, programme.get("channel", ""))
+            )
+            if not target_ids:
                 continue
-            for programme in source_root.findall("programme"):
-                target_ids = source_lookup.get(
-                    (source_name, programme.get("channel", ""))
-                )
-                if not target_ids:
-                    continue
-                try:
-                    stop = xmltv_datetime(programme.get("stop", ""))
-                except ValueError:
-                    continue
-                if stop > now:
-                    fresh_targets.update(target_ids)
-        fresh_targets.update(
-            target_id
-            for target_id, cards in red_bull_schedules.items()
-            if target_id in expected_ids and cards
+            try:
+                stop = xmltv_datetime(programme.get("stop", ""))
+            except ValueError:
+                continue
+            if stop > now:
+                fresh_targets.update(target_ids)
+    fresh_targets.update(
+        target_id
+        for target_id, cards in red_bull_schedules.items()
+        if target_id in expected_ids and cards
+    )
+    tecnocentro_root = source_roots.get("tecnocentro")
+    pluto_root = source_roots.get("pluto")
+
+    def source_has_programmes(source_root: ET.Element | None, source_id: str) -> bool:
+        if source_root is None:
+            return False
+        return any(
+            programme.get("channel") == source_id
+            for programme in source_root.findall("programme")
         )
-        for target_id in expected_ids - fresh_targets - NO_EPG_CHANNEL_IDS:
-            if target_id == "0102":
-                # La Red queda estrictamente en la fuente oficial. No se
-                # recicla una EPG antigua de EPGShare/Zapping como respaldo.
-                continue
+
+    for target_id in expected_ids - fresh_targets - NO_EPG_CHANNEL_IDS:
+        if target_id == "0102":
+            # La Red queda estrictamente en la fuente oficial. No se
+            # recicla una EPG antigua de EPGShare/Zapping como respaldo.
+            continue
+        tecnocentro_id = TECNOCENTRO_BACKUP_CHANNELS.get(target_id)
+        if tecnocentro_id and source_has_programmes(tecnocentro_root, tecnocentro_id):
+            source_lookup[("tecnocentro", tecnocentro_id)] = {target_id}
+            continue
+        pluto_id = PLUTO_BACKUP_CHANNELS.get(target_id)
+        if pluto_id and source_has_programmes(pluto_root, pluto_id):
+            source_lookup[("pluto", pluto_id)] = {target_id}
+            continue
+        if published_fallback is not None:
             source_lookup[(PUBLISHED_EPG_FALLBACK_SOURCE, target_id)] = {target_id}
 
     for source_name, source_root in source_roots.items():
@@ -8475,15 +8562,7 @@ def build_epg(
                 if red_bull_id == RED_BULL_CHILE_ID
                 else "red-bull-oficial"
             )
-            programmes_by_target[red_bull_id] += add_continuous_programmes(
-                root,
-                red_bull_id,
-                channel_by_id[red_bull_id].name,
-                now=now,
-                start_at=red_bull_last_stop,
-                formatter=xmltv_format_chile,
-            )
-            guide_types[red_bull_id] = "parrilla oficial Red Bull + continuidad"
+            guide_types[red_bull_id] = "parrilla oficial Red Bull"
 
     last_stop_by_channel: dict[str, datetime] = {}
     for programme in root.findall("programme"):
@@ -8495,6 +8574,7 @@ def build_epg(
         if previous is None or stop > previous:
             last_stop_by_channel[channel_id] = stop
 
+    pending_channels: list[str] = []
     for channel_id, count in programmes_by_target.items():
         channel = channel_by_id[channel_id]
         last_stop = last_stop_by_channel.get(channel_id)
@@ -8529,36 +8609,34 @@ def build_epg(
             if not count:
                 guide_sources[channel_id] = "continuidad-diego-y-glot"
             continue
-        added = add_continuous_programmes(
-            root,
-            channel_id,
-            channel.name,
-            now=now,
-            start_at=continuity_start,
-            technical=True,
-            fallback_title=(
-                main_epg_fallback_title(channel_id) if is_main_channel else None
-            ),
-            stop_at=now + EPG_MAIN_CONTINUITY_BUFFER if is_main_channel else None,
-        )
-        continuity_blocks_by_channel[channel_id] = (
-            continuity_blocks_by_channel.get(channel_id, 0) + added
-        )
-        programmes_by_target[channel_id] += added
-        if is_main_channel:
-            guide_types[channel_id] = (
-                f"parrilla real parcial + {EPG_MAIN_FALLBACK_TITLE}"
-                if count
-                else EPG_MAIN_FALLBACK_TITLE
+        if channel_id == EPG_MAIN_LIVE_CHANNEL_ID:
+            # Rwnd/Rewind es la unica excepcion acordada: su bloque continuo
+            # queda publicado como Live.
+            added = add_continuous_programmes(
+                root,
+                channel_id,
+                channel.name,
+                now=now,
+                start_at=continuity_start,
+                technical=True,
+                fallback_title="Live",
+                stop_at=now + EPG_MAIN_CONTINUITY_BUFFER if is_main_channel else None,
             )
+            continuity_blocks_by_channel[channel_id] = (
+                continuity_blocks_by_channel.get(channel_id, 0) + added
+            )
+            programmes_by_target[channel_id] += added
+            guide_types[channel_id] = "Live"
+            guide_sources[channel_id] = "rewind-continuous"
+            continue
+        # Sin continuidad tecnica: si el canal no logro parrilla fresca
+        # completa, queda pendiente y visible en el reporte; nunca se rellena.
+        if count:
+            guide_types[channel_id] = "parrilla real parcial"
         else:
-            guide_types[channel_id] = (
-                "parrilla real parcial + continuidad tecnica"
-                if count
-                else "continuidad tecnica"
-            )
-        if not count:
-            guide_sources[channel_id] = "continuidad-tecnica"
+            guide_types[channel_id] = "pendiente de guia"
+            guide_sources[channel_id] = guide_sources.get(channel_id, "pendiente")
+            pending_channels.append(channel_id)
 
     # Algunas fuentes entregan títulos completos en mayúsculas. Normalizar
     # aquí, justo antes de publicar, cubre EPGShare, Zapping, fuentes oficiales
@@ -8605,87 +8683,91 @@ def build_epg(
         if coverage_required_ids is None
         else set(coverage_required_ids) & expected_ids
     )
-    continuity_added = fill_epg_coverage_gaps(
-        root,
-        required_ids,
-        now=now,
-        minimum_future=(
-            EPG_MAIN_CONTINUITY_BUFFER
-            if coverage_required_ids is not None
-            else EPG_NON_MAIN_MINIMUM_FUTURE
-        ),
-        title_for_channel=(
-            main_epg_fallback_title if coverage_required_ids is not None else None
-        ),
+    minimum_future = (
+        EPG_MAIN_CONTINUITY_BUFFER
+        if coverage_required_ids is not None
+        else EPG_NON_MAIN_MINIMUM_FUTURE
     )
-    for channel_id in continuity_added:
-        continuity_blocks_by_channel[channel_id] = (
-            continuity_blocks_by_channel.get(channel_id, 0)
-            + continuity_added[channel_id]
+    rwnd_ids = {
+        channel_id
+        for channel_id in required_ids
+        if channel_id == EPG_MAIN_LIVE_CHANNEL_ID
+    }
+    if rwnd_ids:
+        # Rwnd/Rewind es la unica excepcion acordada: su bloque continuo
+        # queda publicado como Live.
+        continuity_added = fill_epg_coverage_gaps(
+            root,
+            rwnd_ids,
+            now=now,
+            minimum_future=minimum_future,
+            title_for_channel=lambda _channel_id: "Live",
         )
+        for channel_id, added in continuity_added.items():
+            continuity_blocks_by_channel[channel_id] = (
+                continuity_blocks_by_channel.get(channel_id, 0) + added
+            )
+            guide_types[channel_id] = "Live"
+            guide_sources[channel_id] = "rewind-continuous"
+    for channel_id, _start, _stop in epg_coverage_gaps(
+        root,
+        required_ids - rwnd_ids,
+        now=now,
+        minimum_future=minimum_future,
+    ):
+        # Sin continuidad tecnica: si ya hay parrilla real, el canal queda
+        # como parcial; si no hay nada, queda pendiente y visible.
+        if channel_id not in pending_channels:
+            pending_channels.append(channel_id)
         existing_type = guide_types.get(channel_id, "")
-        if channel_id in main_ids:
-            guide_types[channel_id] = (
-                f"parrilla real parcial + {EPG_MAIN_FALLBACK_TITLE}"
-                if existing_type and "parrilla real" in existing_type.casefold()
-                else EPG_MAIN_FALLBACK_TITLE
-            )
-            guide_sources.setdefault(channel_id, "continuidad-tecnica")
-        elif channel_id in guide_sources:
-            guide_types[channel_id] = (
-                existing_type
-                if "continuidad tecnica" in existing_type.lower()
-                else f"{existing_type or 'parrilla real'} + continuidad tecnica"
-            )
-        else:
-            guide_types[channel_id] = "continuidad tecnica"
-            guide_sources[channel_id] = "continuidad-tecnica"
+        if "parrilla real" in existing_type.casefold():
+            guide_types[channel_id] = "parrilla real parcial"
+        elif not existing_type:
+            guide_types[channel_id] = "pendiente de guia"
+        if guide_sources.get(channel_id, "") in {"", "pendiente"}:
+            guide_sources[channel_id] = "pendiente"
     for channel in root.findall("channel"):
         channel_id = channel.get("id", "")
         channel.set("data-guide", guide_types.get(channel_id, "senal continua"))
         channel.set("data-guide-source", guide_sources.get(channel_id, ""))
     if main_ids:
         normalize_main_epg_schedule(root, main_ids, now=now)
-        continuity_gaps = epg_coverage_gaps(
-            root,
-            main_ids,
-            now=now,
-            minimum_future=EPG_MAIN_CONTINUITY_BUFFER,
-        )
-        if continuity_gaps:
-            examples = ", ".join(
-                channel_id for channel_id, _start, _stop in continuity_gaps[:8]
-            )
-            raise ValueError(
-                "la EPG generada no conserva 12 horas utilizables hasta el "
-                "siguiente refresco: "
-                + examples
-            )
         for channel in root.findall("channel"):
             channel_id = channel.get("id", "")
             if channel_id in main_ids:
-                guide_types[channel_id] = channel.get("data-guide", "")
-                guide_sources[channel_id] = channel.get("data-guide-source", "")
+                channel.set(
+                    "data-guide", guide_types.get(channel_id, "senal continua")
+                )
+                channel.set(
+                    "data-guide-source",
+                    guide_sources.get(channel_id, ""),
+                )
         root.set(
             "data-main-continuity-hours",
             str(int(EPG_MAIN_CONTINUITY_BUFFER.total_seconds() // 3600)),
         )
-    root.set("data-continuity-policy", "technical-fill-unlisted-gaps")
+    root.set("data-continuity-policy", "real-sources-only-except-rewind")
     ET.indent(root, space="  ")
     output = ET.tostring(root, encoding="utf-8", xml_declaration=True) + b"\n"
+    pending_set = set(pending_channels)
     status = epg_status_from_xml(
         output,
         expected_ids,
         now=now,
         minimum_future=EPG_NON_MAIN_MINIMUM_FUTURE,
-        allow_empty_ids=EPG_ALLOWED_EMPTY_IDS | set(optional_empty_ids or ()),
+        allow_empty_ids=(
+            EPG_ALLOWED_EMPTY_IDS | set(optional_empty_ids or ()) | pending_set
+        ),
         minimum_future_by_channel={
-            channel_id: EPG_MAIN_MINIMUM_FUTURE for channel_id in main_ids
+            channel_id: EPG_MAIN_MINIMUM_FUTURE
+            for channel_id in main_ids
+            if channel_id not in pending_set
         },
     )
     status["guide_types"] = guide_types
     status["guide_sources"] = guide_sources
     status["continuity_blocks_added"] = sum(continuity_blocks_by_channel.values())
+    status["pending_channels"] = sorted(pending_set)
     status["descriptions"] = {
         **description_status,
         "policy": "verified-source-only",
@@ -9061,7 +9143,11 @@ def refresh_epg(
     }
     source_documents: dict[str, bytes] = {}
     source_errors: dict[str, str] = {}
-    required_epgshare_sources = epgshare_source_names_for(channels)
+    required_epgshare_sources = set(epgshare_source_names_for(channels))
+    if any(target_id in expected_ids for target_id in PLUTO_BACKUP_CHANNELS):
+        # El respaldo Pluto del canal Red Bull solo existe si se descarga su
+        # feed; el runner ya lo usa para otros canales, aqui se asegura.
+        required_epgshare_sources.add("pluto")
     skipped_epgshare_sources = sorted(
         set(EPG_SOURCES) - set(required_epgshare_sources)
     )
@@ -11706,10 +11792,38 @@ def main() -> int:
                 "  [OK] Compuerta EPG de m3u.m3u: cobertura para "
                 f"{main_status['required_channels']} canales"
             )
+        pending_channels = list(epg_status.get("pending_channels") or [])
+        try:
+            EPG_PENDING_PATH.write_text(
+                json.dumps(
+                    {
+                        "schema": 1,
+                        "updated_at": datetime.now(timezone.utc)
+                        .isoformat()
+                        .replace("+00:00", "Z"),
+                        "channels": pending_channels,
+                    },
+                    indent=2,
+                    ensure_ascii=True,
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+        except OSError as error:
+            print(
+                f"AVISO: no se pudo escribir {EPG_PENDING_PATH.name}: {error}",
+                file=sys.stderr,
+            )
+        if pending_channels:
+            print(
+                "  [EPG-PENDIENTE] Canales sin fuente real: "
+                + ", ".join(pending_channels),
+                file=sys.stderr,
+            )
         print(
             f"EPG actualizada: {epg_status['channels']} canales y "
             f"{epg_status['programmes']} programas; "
-            f"{epg_status.get('continuity_blocks_added', 0)} bloques técnicos agregados"
+            f"{epg_status.get('continuity_blocks_added', 0)} bloques de continuidad"
         )
         return 0
 
