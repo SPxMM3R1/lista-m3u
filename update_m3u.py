@@ -9103,42 +9103,17 @@ def refresh_epg(
                 now=now,
             )
             continuity_added: dict[str, int] = {}
-            continuity_gaps = epg_coverage_gaps(
+            if not main_status.get("ok") or epg_coverage_gaps(
                 existing_data,
                 main_ids,
                 now=now,
                 minimum_future=EPG_MAIN_CONTINUITY_BUFFER,
-            )
-            if not main_status.get("ok") or continuity_gaps:
-                extended_data, continuity_added = ensure_main_epg_refresh_buffer(
-                    existing_data,
-                    main_ids,
-                    now=now,
+            ):
+                # La politica sin continuidad tecnica no extiende la guia
+                # anterior: si no cubre Lista 1 se reconstruye desde fuentes.
+                raise ValueError(
+                    "la guia existente no cubre Lista 1 sin continuidad tecnica"
                 )
-                if extended_data != existing_data:
-                    existing_data = extended_data
-                    existing_changed = True
-                main_status = validate_main_playlist_epg(
-                    main_channels,
-                    required_channels=main_channels,
-                    data=existing_data,
-                    now=now,
-                )
-                if not main_status.get("ok"):
-                    raise ValueError(
-                        "la EPG existente no cubre de forma continua Lista 1: "
-                        + str(main_status.get("error", "cobertura incompleta"))
-                    )
-                remaining_continuity_gaps = epg_coverage_gaps(
-                    existing_data,
-                    main_ids,
-                    now=now,
-                    minimum_future=EPG_MAIN_CONTINUITY_BUFFER,
-                )
-                if remaining_continuity_gaps:
-                    raise ValueError(
-                        "la EPG existente no conserva el margen de refresco de Lista 1"
-                    )
                 existing_status = epg_status_from_xml(
                     existing_data,
                     expected_ids,
@@ -9364,9 +9339,13 @@ def refresh_epg(
         now=generation_now,
     )
     if not main_status.get("ok"):
-        raise RuntimeError(
-            "la EPG generada no cubre de forma continua Lista 1: "
-            + str(main_status.get("error", "cobertura incompleta"))
+        # Sin continuidad tecnica, una cobertura parcial no impide publicar la
+        # guia: el detalle de canales pendientes queda en el reporte.
+        print(
+            "AVISO: la EPG publicada no cubre de forma continua Lista 1; "
+            "canales pendientes en el reporte: "
+            + str(main_status.get("error", "cobertura incompleta")),
+            file=sys.stderr,
         )
     epg_status["main_playlist"] = main_status
     epg_status["channels"] = len(expected_ids)
