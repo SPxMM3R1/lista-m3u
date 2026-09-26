@@ -3798,21 +3798,30 @@ def apply_presentation_overrides(
             if not normalized.startswith("logos/") or any(
                 part in {"", ".", ".."} for part in normalized.split("/")
             ):
-                raise ValueError(
-                    f"manifiesto de presentacion: ruta de logo invalida para {channel.tvg_id}"
+                print(
+                    "AVISO: ruta de logo invalida para "
+                    f"{channel.tvg_id}: {normalized}",
+                    file=sys.stderr,
                 )
+                continue
             logo_file = Path(__file__).parent / normalized.replace("/", os.sep)
             logo_root = (Path(__file__).parent / "logos").resolve()
             try:
                 logo_file.resolve().relative_to(logo_root)
-            except ValueError as error:
-                raise ValueError(
-                    f"manifiesto de presentacion: logo fuera de logos para {channel.tvg_id}"
-                ) from error
-            if not logo_file.is_file():
-                raise ValueError(
-                    f"manifiesto de presentacion: no existe el logo {normalized}"
+            except ValueError:
+                print(
+                    "AVISO: logo fuera de logos para "
+                    f"{channel.tvg_id}: {normalized}",
+                    file=sys.stderr,
                 )
+                continue
+            if not logo_file.is_file():
+                print(
+                    "AVISO: no existe el logo "
+                    f"{normalized} para {channel.tvg_id}",
+                    file=sys.stderr,
+                )
+                continue
             logo_url = f"{LOCAL_LOGOS_PUBLIC_BASE}/{quote(normalized[6:], safe='/-._~')}"
             original = lines[channel.info_line]
             updated = re.sub(
@@ -11639,16 +11648,27 @@ def main() -> int:
             now=generated_at or datetime.now(timezone.utc),
         )
         if not main_status.get("ok"):
+            # Un canal sin guia no debe impedir publicar la EPG del resto:
+            # el fallo queda aislado en el reporte y la guia disponible se
+            # publica igual.
             print(
-                "ERROR: la EPG no cubre continuamente todos los canales de Lista 1: "
+                "AVISO: la EPG no cubre todos los canales de Lista 1; "
+                "se publica la guia disponible y el fallo queda aislado por canal: "
                 + str(main_status.get("error", "cobertura incompleta")),
                 file=sys.stderr,
             )
-            return 1
-        print(
-            "  [OK] Compuerta EPG de m3u.m3u: cobertura continua 100% para "
-            f"{main_status['required_channels']} canales"
-        )
+            technical = main_status.get("technical_guides") or []
+            if technical:
+                print(
+                    "  [EPG] Canales sin datos confiables: "
+                    + ", ".join(str(value) for value in technical),
+                    file=sys.stderr,
+                )
+        else:
+            print(
+                "  [OK] Compuerta EPG de m3u.m3u: cobertura para "
+                f"{main_status['required_channels']} canales"
+            )
         print(
             f"EPG actualizada: {epg_status['channels']} canales y "
             f"{epg_status['programmes']} programas; "

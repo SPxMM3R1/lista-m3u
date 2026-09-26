@@ -1,3 +1,5 @@
+import contextlib
+import io
 import json
 import tempfile
 import unittest
@@ -323,15 +325,19 @@ class TargetedUpdateTest(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, "nombre visible invalido"):
                     update_m3u.load_presentation_overrides(path)
 
-    def test_presentation_logo_override_rejects_paths_outside_logo_directory(self) -> None:
+    def test_presentation_logo_override_ignores_paths_outside_logo_directory(self) -> None:
         lines = ["#EXTM3U", '#EXTINF:-1 tvg-id="one",One', "stream"]
+        original = lines[1]
 
-        with self.assertRaises(ValueError):
-            update_m3u.apply_presentation_overrides(
+        with contextlib.redirect_stderr(io.StringIO()):
+            changed = update_m3u.apply_presentation_overrides(
                 lines,
                 "m3u.m3u",
                 {"logos": {"one": "logos/../../outside.png"}},
             )
+
+        self.assertFalse(changed)
+        self.assertEqual(original, lines[1])
 
     def test_stream_update_changes_only_requested_record(self) -> None:
         playlist = """#EXTM3U
