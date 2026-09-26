@@ -12216,14 +12216,17 @@ def main() -> int:
     )
     main_publication = report["playlists"]["main"]
     external_publication = report["playlists"]["external"]
+    # El filtrado de salida siempre parte del catalogo completo: el alcance de
+    # mantenimiento limita la validacion, no la membresia publicada.
+    publication_catalogue_channels = parse_channels(final_lines)
     candidate_main_lines = filter_playlist_to_channel_ids(
         final_lines,
-        final_channels,
+        publication_catalogue_channels,
         effective_main_ids,
     )
     candidate_external_lines = filter_playlist_to_channel_ids(
         final_lines,
-        final_channels,
+        publication_catalogue_channels,
         external_publication_ids,
     )
     candidate_external_lines = move_external_research_blocks_to_end(
