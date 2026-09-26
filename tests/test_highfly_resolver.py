@@ -225,5 +225,86 @@ class HighflyResolverTest(unittest.TestCase):
             update_m3u.HIGHFLY_RUNTIME_RESOLVER_CHANNELS["SkySportsTennis.uk"],
         )
 
+    def test_highfly_variants_group_quality_leaves_by_channel(self) -> None:
+        payload = {
+            "metas": [
+                {"id": "leaf:4k-s34rrer", "name": "(4K) : SKY SPORTS F1"},
+                {"id": "leaf:now-34343434", "name": "(FHD) : SKY SPORTS F1"},
+                {"id": "leaf:de-skyf1", "name": "(FHD) : SKY SPORT F1"},
+                {"id": "streamed:sky-f1-event", "name": "SKY SPORTS F1"},
+            ]
+        }
+
+        variants = update_m3u.parse_highfly_live_variants(payload)
+
+        self.assertEqual(["4k-s34rrer", "now-34343434"], variants["skysportsf1"])
+        self.assertEqual(["de-skyf1"], variants["skysportf1"])
+
+    def test_fresh_highfly_falls_back_to_working_variant_and_repoints(self) -> None:
+        api = "https://sports.highfly.to/stream/sport/leaf:{slug}.json"
+        channel = update_m3u.Channel(
+            name="Sky Sports F1",
+            url="https://papacito.cfd/m3u/4k-s34rrer/live.m3u8",
+            url_line=2,
+            info_line=1,
+            tvg_id="SkySportsF1.uk",
+            display_name="Sky Sports F1",
+        )
+        lines = [
+            "#EXTM3U",
+            '#EXTINF:-1 tvg-id="SkySportsF1.uk" tvg-name="Sky Sports F1" '
+            'x-resolver="highfly" x-resolver-id="4k-s34rrer",Sky Sports F1',
+            "https://papacito.cfd/m3u/4k-s34rrer/live.m3u8",
+        ]
+
+        def fake_fetch(url, *args, **kwargs):
+            if "leaf:4k-s34rrer" in url:
+                payload = {
+                    "streams": [{"url": "https://www.google.com/accounts/upgrade"}]
+                }
+            else:
+                payload = {
+                    "streams": [
+                        {
+                            "url": (
+                                "https://papacito.cfd/m3u/now-34343434/live.m3u8"
+                            )
+                        }
+                    ]
+                }
+            return (200, json.dumps(payload).encode("utf-8"), url)
+
+        with patch.object(
+            update_m3u,
+            "HIGHFLY_RUNTIME_RESOLVER_CHANNELS",
+            {"SkySportsF1.uk": "4k-s34rrer"},
+        ), patch.object(
+            update_m3u,
+            "HIGHFLY_RUNTIME_VARIANTS",
+            {"skysportsf1": ["4k-s34rrer", "now-34343434"]},
+        ), patch.object(
+            update_m3u, "fetch_bytes", side_effect=fake_fetch
+        ) as fetch:
+            runtime = update_m3u.HIGHFLY_RUNTIME_RESOLVER_CHANNELS
+            urls = list(
+                update_m3u.fresh_highfly_stream_urls(channel, manifest_verified=True)
+            )
+            changed = update_m3u.sync_highfly_runtime_fallbacks(lines)
+
+        self.assertEqual(
+            ["https://papacito.cfd/m3u/now-34343434/live.m3u8"], urls
+        )
+        self.assertEqual("now-34343434", runtime["SkySportsF1.uk"])
+        self.assertEqual(api.format(slug="4k-s34rrer"), fetch.call_args_list[0].args[0])
+        self.assertEqual(
+            api.format(slug="now-34343434"), fetch.call_args_list[1].args[0]
+        )
+        self.assertTrue(changed)
+        self.assertIn('x-resolver-id="now-34343434"', lines[1])
+        self.assertEqual(
+            "https://papacito.cfd/m3u/now-34343434/live.m3u8", lines[2]
+        )
+
+
 if __name__ == "__main__":
     unittest.main()

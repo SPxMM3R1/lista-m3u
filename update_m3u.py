@@ -377,6 +377,10 @@ HIGHFLY_RESOLVER_CHANNELS = {
 # vive solo durante la corrida: el identificador canonico del canal no cambia
 # y nunca se escribe una URL de sesion dentro del catalogo de resolutores.
 HIGHFLY_RUNTIME_RESOLVER_CHANNELS: dict[str, str] = {}
+# Varias hojas pueden describir el mismo canal con distinta calidad. Este mapa
+# solo agrupa candidatos por nombre normalizado para renovar una hoja caida;
+# nunca crea identidad, EPG ni logo.
+HIGHFLY_RUNTIME_VARIANTS: dict[str, list[str]] = {}
 
 TEST_GROUP_PREFIX = "PRUEBA - "
 # Nombre corto mostrado por el reproductor -> nombre canonico que usa el
@@ -4449,14 +4453,8 @@ def _highfly_leaf_slug(value: object) -> str | None:
     return match.group("slug").lower() if match else None
 
 
-def parse_highfly_live_resolver_map(payload: bytes | str | dict) -> dict[str, str]:
-    """Map stable app IDs to the current public Highfly leaf slugs.
-
-    The public sports catalog is the source of current leaf slugs. Only allow-listed leaf
-    IDs are retained; event IDs and poster URLs are deliberately ignored. The
-    map is runtime state and is not a resolver credential or a permanent
-    channel identity.
-    """
+def _highfly_catalog_metas(payload: bytes | str | dict) -> list:
+    """Decode a Highfly catalogue payload and return its metas list."""
     decoded: object | None = None
     if isinstance(payload, bytes):
         raw_payload = payload.decode("utf-8-sig")
@@ -4479,6 +4477,101 @@ def parse_highfly_live_resolver_map(payload: bytes | str | dict) -> dict[str, st
     metas = decoded.get("metas")
     if not isinstance(metas, list):
         raise ValueError("catalogo Highfly no contiene metas")
+    return metas
+
+
+_HIGHFLY_QUALITY_TAG_PATTERN = re.compile(
+    r"\((?:SD|HD|FHD|UHD|4K|8K|HEVC|H\.?265|H\.?264|FULL\s*HD)\)",
+    re.IGNORECASE,
+)
+_HIGHFLY_QUALITY_WORD_PATTERN = re.compile(
+    r"\b(?:SD|HD|FHD|UHD|4K|8K|HEVC|H265|H264)\b",
+    re.IGNORECASE,
+)
+
+
+def highfly_catalog_name_key(value: object) -> str:
+    """Normalize a Highfly display name without its quality tag.
+
+    The key only locates alternative leaves that describe the same channel.
+    It is never published, never used as a channel identity and never replaces
+    a ``catalogKey``.
+    """
+    normalized = _highfly_catalog_text(value, 180)
+    normalized = _HIGHFLY_QUALITY_TAG_PATTERN.sub(" ", normalized)
+    normalized = _HIGHFLY_QUALITY_WORD_PATTERN.sub(" ", normalized)
+    return re.sub(r"[^a-z0-9]+", "", normalized.casefold())
+
+
+def parse_highfly_live_variants(payload: bytes | str | dict) -> dict[str, list[str]]:
+    """Map normalized channel names to every allow-listed leaf in the catalog.
+
+    Highfly can publish the same channel as several leaves (for example 4K and
+    FHD). Only leaf:* resources are kept and the provider order is preserved.
+    """
+    variants: dict[str, list[str]] = {}
+    for meta in _highfly_catalog_metas(payload)[:512]:
+        if not isinstance(meta, dict):
+            continue
+        slug = _highfly_leaf_slug(meta.get("id"))
+        if not slug:
+            continue
+        key = highfly_catalog_name_key(meta.get("name"))
+        if not key:
+            continue
+        bucket = variants.setdefault(key, [])
+        if slug not in bucket:
+            bucket.append(slug)
+    return variants
+
+
+def update_highfly_runtime_variants(
+    payload: bytes | str | dict,
+) -> dict[str, list[str]]:
+    """Merge current Highfly quality variants without changing any identity."""
+    variants = parse_highfly_live_variants(payload)
+    for key, slugs in variants.items():
+        current = HIGHFLY_RUNTIME_VARIANTS.setdefault(key, [])
+        for slug in slugs:
+            if slug not in current:
+                current.append(slug)
+    return variants
+
+
+def highfly_candidate_slugs(channel: Channel) -> list[str]:
+    """Return the ordered leaves to try for one channel.
+
+    The configured leaf stays first: the user's choice is only replaced by
+    another allow-listed leaf when the provider no longer serves a playable
+    candidate. Variants share the canonical identity, so the ``catalogKey``,
+    EPG and logo never change.
+    """
+    candidates: list[str] = []
+
+    def add(slug: str | None) -> None:
+        if slug and slug not in candidates:
+            candidates.append(slug)
+
+    add(highfly_slug_for(channel.tvg_id))
+    for value in (channel.display_name, channel.name):
+        key = highfly_catalog_name_key(value)
+        if not key:
+            continue
+        for slug in HIGHFLY_RUNTIME_VARIANTS.get(key, []):
+            add(slug)
+    add(HIGHFLY_RESOLVER_CHANNELS.get(channel.tvg_id or ""))
+    return candidates
+
+
+def parse_highfly_live_resolver_map(payload: bytes | str | dict) -> dict[str, str]:
+    """Map stable app IDs to the current public Highfly leaf slugs.
+
+    The public sports catalog is the source of current leaf slugs. Only allow-listed leaf
+    IDs are retained; event IDs and poster URLs are deliberately ignored. The
+    map is runtime state and is not a resolver credential or a permanent
+    channel identity.
+    """
+    metas = _highfly_catalog_metas(payload)
 
     resolver_map: dict[str, str] = {}
     for meta in metas[:512]:
@@ -4633,7 +4726,20 @@ def refresh_highfly_runtime_catalog() -> dict[str, str]:
         final_host = (urlparse(final_url).hostname or "").lower()
         if status != 200 or final_host != "sports.highfly.to":
             raise ValueError("catalogo Highfly no respondio desde el host esperado")
+        variants = update_highfly_runtime_variants(body)
         resolver_map = update_highfly_runtime_resolver_map(body)
+        if variants:
+            multi = {
+                key: slugs for key, slugs in variants.items() if len(slugs) > 1
+            }
+            if multi:
+                print(
+                    "Señales Highfly con más de una hoja: "
+                    + ", ".join(
+                        f"{key}=" + "|".join(slugs)
+                        for key, slugs in sorted(multi.items())
+                    )
+                )
         if resolver_map:
             print(
                 "Slugs Highfly renovados en memoria: "
@@ -10244,17 +10350,19 @@ def fetch_highfly_stream_urls_for_slug(slug: str) -> list[str]:
 def fresh_highfly_stream_urls(
     channel: Channel, *, manifest_verified: bool
 ) -> Iterable[str]:
-    """Return the current Highfly leaf, with a scoped direct fallback."""
-    slug = highfly_slug_for(channel.tvg_id)
-    if not slug:
+    """Return the current Highfly leaf, with renamed or downgraded fallbacks.
+
+    The configured leaf is tried first. When it publishes no allow-listed HLS
+    candidate anymore, the remaining leaves of the same channel are tried in
+    catalog order. The catalogKey, EPG and logo never change: only the volatile
+    leaf reference is updated in RAM so the caller can repoint the M3U.
+    """
+    candidate_slugs = highfly_candidate_slugs(channel)
+    if not candidate_slugs:
         raise ValueError(f"no hay slug Highfly para {channel.tvg_id or channel.name}")
     if not manifest_verified:
         raise RuntimeError("manifest Highfly no verificable en esta ejecucion")
 
-    candidate_slugs = [slug]
-    static_slug = HIGHFLY_RESOLVER_CHANNELS.get(channel.tvg_id)
-    if static_slug and static_slug not in candidate_slugs:
-        candidate_slugs.append(static_slug)
     for candidate_slug in candidate_slugs:
         try:
             fresh_urls = fetch_highfly_stream_urls_for_slug(
@@ -10263,13 +10371,15 @@ def fresh_highfly_stream_urls(
         except Exception:
             continue
         if fresh_urls:
+            if channel.tvg_id:
+                HIGHFLY_RUNTIME_RESOLVER_CHANNELS[channel.tvg_id] = candidate_slug
             yield from fresh_urls
             return
 
     # Keep the old contract-compatible URL as a last resort for external
     # players. The channel checker will reject it if Highfly has no worker;
     # this must never hide the API failure or be treated as a fresh success.
-    yield highfly_fallback_url(slug)
+    yield highfly_fallback_url(candidate_slugs[0])
 
 
 def load_health_state() -> dict:
@@ -11870,7 +11980,8 @@ def main() -> int:
             lines[channel.url_line] = outcome.resolved_url
             refreshed_channels.append(channel.name)
 
-    refresh_changed = bool(refreshed_channels)
+    highfly_variant_changed = sync_highfly_runtime_fallbacks(lines)
+    refresh_changed = bool(refreshed_channels) or highfly_variant_changed
     if refresh_changed:
         source_playlist.write_text(
             "\n".join(lines) + "\n", encoding="utf-8", newline="\n"

@@ -400,6 +400,13 @@ se copian. El editor conserva las elecciones existentes y solo refresca
 `providerResourceId`/`resolverSlug` cuando Highfly rota una referencia para el
 mismo `catalogKey`.
 
+Cuando el catálogo publica varias hojas para el mismo `catalogKey` (por
+ejemplo 4K y FHD del mismo canal), el editor muestra todas las opciones y
+guarda la elegida como `providerResourceId`/`resolverSlug`. El runner intenta
+primero esa hoja y solo la reemplaza por otra hoja permitida del mismo canal
+cuando la elegida deja de entregar HLS; el `catalogKey`, el `tvg-id`, la EPG y
+el logo nunca cambian por esa renovación.
+
 El editor escribe las elecciones de logo local en `presentation-overrides.json`
 como un mapa `logos` de identidad estable a ruta existente bajo `logos/`. Para
 Highfly/TvVoo la clave es `catalogKey`; el runner solo traslada esa elección al

@@ -87,29 +87,56 @@ export function highflyIdentity(name, registry = []) {
   return { catalogKey: `Highfly.${compact}`, identityState: "provisional" };
 }
 
+export function highflyQualityLabel(rawName) {
+  const match = /\((SD|HD|FHD|UHD|4K|8K|HEVC|H\.?265|H\.?264|FULL\s*HD)\)/i.exec(String(rawName ?? ""));
+  if (!match) return "Señal";
+  const label = match[1].toUpperCase().replace(/\s+/g, "");
+  return label.replace(/^H(265|264)$/, "H$1");
+}
+
 export function parseHighflyCatalog(document, registry = []) {
   const metas = Array.isArray(document?.metas) ? document.metas : [];
-  const result = [];
-  const seen = new Set();
+  const grouped = new Map();
   for (const meta of metas) {
     const resourceId = text(meta?.id, 140);
-    const name = cleanHighflyName(meta?.name);
+    const rawName = text(meta?.name);
+    const name = cleanHighflyName(rawName);
     if (!/^leaf:[a-z0-9][a-z0-9_-]{1,127}$/i.test(resourceId) || !name) continue;
     const identity = highflyIdentity(name, registry);
-    if (seen.has(identity.catalogKey)) continue;
-    seen.add(identity.catalogKey);
-    const genres = Array.isArray(meta?.genres) ? meta.genres.map((value) => text(value, 80)).filter(Boolean) : [];
-    const category = genres.find((value) => normalizeProviderName(value) !== "sportslive") ?? "";
+    let entry = grouped.get(identity.catalogKey);
+    if (!entry) {
+      const genres = Array.isArray(meta?.genres) ? meta.genres.map((value) => text(value, 80)).filter(Boolean) : [];
+      const category = genres.find((value) => normalizeProviderName(value) !== "sportslive") ?? "";
+      entry = {
+        kind: "provider",
+        provider: "highfly",
+        catalogKey: identity.catalogKey,
+        name,
+        group: "Deportes",
+        ...(category ? { category } : {}),
+        identityState: identity.identityState,
+        options: [],
+      };
+      grouped.set(identity.catalogKey, entry);
+    }
+    const slug = resourceId.slice("leaf:".length);
+    if (!entry.options.some((option) => option.resourceId === resourceId)) {
+      entry.options.push({
+        resourceId,
+        slug,
+        quality: highflyQualityLabel(rawName),
+        name,
+      });
+    }
+  }
+  const result = [];
+  for (const entry of grouped.values()) {
+    const [primary] = entry.options;
+    if (!primary) continue;
     result.push({
-      kind: "provider",
-      provider: "highfly",
-      catalogKey: identity.catalogKey,
-      providerResourceId: resourceId,
-      resolverSlug: resourceId.slice("leaf:".length),
-      name,
-      group: "Deportes",
-      ...(category ? { category } : {}),
-      identityState: identity.identityState,
+      ...entry,
+      providerResourceId: primary.resourceId,
+      resolverSlug: primary.slug,
     });
   }
   return result;

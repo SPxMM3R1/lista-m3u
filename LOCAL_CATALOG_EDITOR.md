@@ -16,6 +16,16 @@ El script construye una copia temporal de los datos de interfaz, inicia el auxil
 
 La primera vez, abre **Publicar catálogo → Conectar GitHub CLI** si GitHub aún no está autorizado en ese equipo. Se abre el flujo oficial de GitHub CLI en una ventana local; el token no se pega en la página. También puedes autorizarlo manualmente con `gh auth login --web --hostname github.com`.
 
+## Elección de señal Highfly
+
+Cuando Highfly publica más de una hoja para el mismo canal (por ejemplo 4K y
+FHD), el inspector del canal muestra un selector **Señal Highfly**. La elección
+se guarda como `providerResourceId`/`resolverSlug` en la selección publicada;
+la identidad (`catalogKey`), la EPG y el logo no cambian. Usa **Probar señal**
+para comprobar la hoja elegida antes de publicar. Si la hoja elegida deja de
+entregar HLS, el runner prueba las demás hojas publicadas del mismo canal y
+actualiza solo esa referencia de resolución.
+
 ## Reproducción y credenciales
 
 La página solicita una resolución usando `catalogKey` como identidad. El auxiliar lee la URL de Lista 1/2 o los datos Highfly/TvVoo del canal y llama a las implementaciones Java originales de TVN, Meganoticias, Highfly y TvVoo desde VibeM3U (sin duplicarlas). Luego entrega al navegador una ruta HLS local opaca. Las URL firmadas, cookies y cabeceras quedan en memoria del auxiliar; la sesión se descarta al cerrar el reproductor o caduca automáticamente. Las cabeceras de autenticación no se reenvían al cambiar de origen, y las listas HLS no pueden direccionar el relé a redes privadas. No se guardan resoluciones en JSON.

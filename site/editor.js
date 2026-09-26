@@ -107,7 +107,7 @@ const elements = {
 
 const PROVIDER_CACHE_MS = 10 * 60 * 1000;
 const providerCache = {
-  highfly: { rows: [], loadedAt: 0, status: "idle", error: "", pending: null, requestId: 0 },
+  highfly: { rows: [], loadedAt: 0, status: "idle", error: "", pending: null, requestId: 0, optionsByKey: new Map() },
   tvvoo: { countries: [], loadedAt: 0, status: "idle", error: "", pending: null, requestId: 0, catalogs: new Map() },
 };
 
@@ -297,6 +297,9 @@ async function initialize() {
     selectedKey = first ? rowKey(first) : "";
     render();
     document.addEventListener("keydown", handleGlobalKeydown);
+    // Warm the Highfly catalog so the signal picker is available as soon as an
+    // existing Highfly channel is opened.
+    void ensureHighflyCatalog().catch(() => {});
   } catch (error) {
     state = { loadingError: error.message };
     elements.visibleRange.textContent = "No se pudo cargar el catálogo.";
@@ -589,6 +592,46 @@ function renderInspector() {
     identityGroup.append(sourceEditor);
   }
   fragment.append(identityGroup);
+
+  if (row.kind === "provider" && row.provider === "highfly") {
+    const options = providerCache.highfly.optionsByKey?.get(row.catalogKey) ?? [];
+    if (options.length > 1) {
+      const variantGroup = node("section", "detail-group");
+      variantGroup.append(node("h3", "", "Señal Highfly"));
+      const variantEditor = node("div", "source-editor");
+      const variantLabel = node("label", "", "Enlace de resolución");
+      variantLabel.htmlFor = "channel-highfly-variant";
+      const variantSelect = node("select");
+      variantSelect.id = "channel-highfly-variant";
+      variantSelect.setAttribute("aria-label", `Señal Highfly de ${channelName(row)}`);
+      if (!options.some((option) => option.resourceId === row.providerResourceId)) {
+        const retired = node("option", "", `${row.resolverSlug} · fuera del catálogo actual`);
+        retired.value = String(row.providerResourceId ?? "");
+        retired.selected = true;
+        variantSelect.append(retired);
+      }
+      for (const option of options) {
+        const choice = node("option", "", `${option.quality} · ${option.resourceId}`);
+        choice.value = option.resourceId;
+        choice.selected = option.resourceId === row.providerResourceId;
+        variantSelect.append(choice);
+      }
+      variantSelect.addEventListener("change", () => {
+        const chosen = options.find((option) => option.resourceId === variantSelect.value);
+        if (!chosen) return;
+        const changed = clone(state.layout);
+        const target = changed.channels.find((item) => rowKey(item) === rowKey(row));
+        if (!target) return;
+        target.providerResourceId = chosen.resourceId;
+        target.resolverSlug = chosen.slug;
+        changeLayout(changed);
+      });
+      variantEditor.append(variantLabel, variantSelect);
+      variantGroup.append(variantEditor);
+      variantGroup.append(node("p", "field-hint", "Highfly publica más de una hoja para este canal. La elegida se publica como referencia de resolución; usa “Probar señal” para comprobarla antes de publicar. La identidad estable no cambia."));
+      fragment.append(variantGroup);
+    }
+  }
 
   const logoGroup = node("section", "detail-group");
   logoGroup.append(node("h3", "", "Logo"));
@@ -942,6 +985,7 @@ function useHighflyJson() {
     const source = providerCache.highfly;
     invalidateProviderRequest(source);
     source.rows = rows;
+    source.optionsByKey = new Map(rows.map((row) => [row.catalogKey, row.options ?? []]));
     source.loadedAt = Date.now();
     source.status = "manual";
     source.error = "";
@@ -1093,8 +1137,9 @@ function renderAvailable() {
       const item = node("div", "available-row");
       item.append(makeLogo(row));
       item.append(node("span", "available-name", row.name));
-      const sourceText = row.provider === "highfly" && row.identityState === "provisional"
-        ? "Highfly · provisional"
+      const variantCount = Array.isArray(row.options) ? row.options.length : 0;
+      const sourceText = row.provider === "highfly"
+        ? `${row.identityState === "provisional" ? "Highfly · provisional" : "Highfly"}${variantCount > 1 ? ` · ${variantCount} señales` : ""}`
         : sourceName(row);
       const source = node("span", "source-label", sourceText);
       source.dataset.source = sourceFor(row);
@@ -1125,7 +1170,15 @@ function refreshHighflyReferences(rows) {
   for (const row of changed.channels) {
     if (row.kind !== "provider" || row.provider !== "highfly") continue;
     const fresh = latest.get(row.catalogKey);
-    if (!fresh || (row.providerResourceId === fresh.providerResourceId && row.resolverSlug === fresh.resolverSlug)) continue;
+    if (!fresh) continue;
+    const options = fresh.options ?? [];
+    const stillPublished = options.some((option) => (
+      option.resourceId === row.providerResourceId && option.slug === row.resolverSlug
+    ));
+    // An explicit editorial choice is preserved while the provider still
+    // publishes that leaf. Only a retired reference is refreshed.
+    if (stillPublished) continue;
+    if (row.providerResourceId === fresh.providerResourceId && row.resolverSlug === fresh.resolverSlug) continue;
     row.providerResourceId = fresh.providerResourceId;
     row.resolverSlug = fresh.resolverSlug;
     updates++;
@@ -1150,6 +1203,7 @@ async function ensureHighflyCatalog(force = false) {
     .then((rows) => {
       if (source.requestId !== requestId) return source.rows;
       source.rows = rows;
+      source.optionsByKey = new Map(rows.map((row) => [row.catalogKey, row.options ?? []]));
       source.loadedAt = Date.now();
       source.status = "ready";
       refreshHighflyReferences(rows);
