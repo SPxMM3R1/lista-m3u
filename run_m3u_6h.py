@@ -142,6 +142,10 @@ def restore_outputs(snapshots: dict[Path, bytes | None]) -> None:
 
 def run_updater(force: bool = False) -> int:
     environment = os.environ.copy()
+    # El mantenimiento de canales se limita a la lista principal (m3u.m3u).
+    # Lista 2 se conserva como se publico y el catalogo igual recibe la
+    # reconciliacion editorial y de resolutores.
+    environment["M3U_MAINTENANCE_SCOPE"] = "main"
     # TVN y Meganoticias conservan sus masters para que la aplicacion resuelva
     # la autenticacion. El ejecutor local debe clasificar sus 401/403 igual que
     # Actions, sin sustituir la URL ni escribir tokens.

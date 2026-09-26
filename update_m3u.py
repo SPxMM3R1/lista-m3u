@@ -74,6 +74,23 @@ DISPLAY_NAME_UNSAFE_PATTERN = re.compile(
 REPORT_PATH = Path(__file__).with_name("channel-status.json")
 HEALTH_STATE_PATH = Path(__file__).with_name("channel-health-state.json")
 RESOLVER_CATALOG_PATH = Path(__file__).with_name("resolver-catalog.json")
+# Alcance del mantenimiento de canales. Con ``main`` la validacion, renovacion,
+# reparacion, salud y logos corren solo sobre la lista principal; Lista 2 se
+# conserva como se publico y el catalogo igual recibe la reconciliacion
+# editorial y de resolutores.
+MAINTENANCE_SCOPE = os.environ.get("M3U_MAINTENANCE_SCOPE", "").strip().casefold()
+MAINTENANCE_MAIN_ONLY = MAINTENANCE_SCOPE in {"main", "lista1", "list1", "1"}
+
+
+def restrict_channels_to_scope(
+    channels: list, scope: set | frozenset | None
+) -> list:
+    """Return only the channels inside an optional maintenance scope."""
+    if scope is None:
+        return channels
+    return [channel for channel in channels if channel.tvg_id in scope]
+
+
 PUBLIC_RAW_BASE = "https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main"
 EPG_PUBLIC_URL = f"{PUBLIC_RAW_BASE}/epg.xml"
 LOCAL_LOGOS_PUBLIC_BASE = f"{PUBLIC_RAW_BASE}/logos"
@@ -11089,6 +11106,13 @@ def write_report(
             )
         new_health_channels[key] = health_entry
 
+    if MAINTENANCE_MAIN_ONLY:
+        # El resto del catalogo no se valida en este alcance: su historial de
+        # salud se conserva tal como estaba.
+        for key, value in previous_channels.items():
+            if key not in new_health_channels and isinstance(value, dict):
+                new_health_channels[key] = value
+
     current_ids = set(new_health_channels)
     removed_channels = [
         {
@@ -11716,6 +11740,16 @@ def main() -> int:
         )
         if not validation_main_ids:
             raise ValueError("la membresia validada de m3u.m3u no puede estar vacia")
+        if MAINTENANCE_MAIN_ONLY:
+            validate_public_playlist_partition(
+                lines,
+                DEFAULT_PLAYLIST.read_text(encoding="utf-8-sig").splitlines(),
+                [],
+                validation_main_ids,
+                expected_external_ids=frozenset(),
+                excluded_ids=excluded_m3u_ids,
+            )
+            return 0
         validation_external_ids = frozenset(
             validation_catalog_ids - set(validation_main_ids) - set(excluded_m3u_ids)
         )
@@ -11826,6 +11860,18 @@ def main() -> int:
         raise RuntimeError("la lista no contiene canales activos")
     if load_manual_main_channel_ids(channels, membership_path) != configured_manual_main_ids:
         raise RuntimeError("la membresia manual principal cambio durante la preparacion")
+
+    maintenance_scope_ids: frozenset[str] | None = None
+    if args.channels_only and MAINTENANCE_MAIN_ONLY:
+        maintenance_scope_ids = frozenset(
+            (set(manual_main_ids) | set(previous_auto_demoted_main_ids))
+            - set(excluded_m3u_ids)
+        )
+        channels = restrict_channels_to_scope(channels, maintenance_scope_ids)
+        print(
+            "Alcance de mantenimiento: m3u.m3u exclusivamente "
+            f"({len(channels)} canales); Lista 2 se conserva sin cambios"
+        )
 
     # El mapa Highfly ya se actualizo antes de pin_resolver_metadata(). Se
     # conserva en RAM para que la renovacion y la validacion usen exactamente
@@ -11993,7 +12039,9 @@ def main() -> int:
         "de los candidatos ya validados"
     )
     final_lines = list(lines)
-    final_channels = parse_channels(final_lines)
+    final_channels = restrict_channels_to_scope(
+        parse_channels(final_lines), maintenance_scope_ids
+    )
     results = [results_by_name[channel.name] for channel in final_channels]
     repaired_results: dict[str, CheckResult] = {}
     repaired_channels = repair_failed_channels(
@@ -12009,7 +12057,9 @@ def main() -> int:
             "\n".join(final_lines) + "\n", encoding="utf-8", newline="\n"
         )
         final_lines = list(final_lines)
-        final_channels = parse_channels(final_lines)
+        final_channels = restrict_channels_to_scope(
+            parse_channels(final_lines), maintenance_scope_ids
+        )
         results_by_name.update(repaired_results)
         results = [results_by_name[channel.name] for channel in final_channels]
 
@@ -12025,7 +12075,9 @@ def main() -> int:
             "\n".join(final_lines) + "\n", encoding="utf-8", newline="\n"
         )
         final_lines = list(final_lines)
-        final_channels = parse_channels(final_lines)
+        final_channels = restrict_channels_to_scope(
+            parse_channels(final_lines), maintenance_scope_ids
+        )
         results = [results_by_name[channel.name] for channel in final_channels]
         refreshed_channels.extend(
             channel_name
@@ -12189,14 +12241,24 @@ def main() -> int:
         EXTERNAL_PLAYLIST.name,
         presentation_overrides,
     )
-    validate_public_playlist_partition(
-        final_lines,
-        candidate_main_lines,
-        candidate_external_lines,
-        effective_main_ids,
-        expected_external_ids=external_publication_ids,
-        excluded_ids=excluded_catalog_ids,
-    )
+    if MAINTENANCE_MAIN_ONLY:
+        validate_public_playlist_partition(
+            final_lines,
+            candidate_main_lines,
+            [],
+            effective_main_ids,
+            expected_external_ids=frozenset(),
+            excluded_ids=excluded_catalog_ids,
+        )
+    else:
+        validate_public_playlist_partition(
+            final_lines,
+            candidate_main_lines,
+            candidate_external_lines,
+            effective_main_ids,
+            expected_external_ids=external_publication_ids,
+            excluded_ids=excluded_catalog_ids,
+        )
     main_working_count = sum(
         1
         for channel, result in zip(final_channels, results)
@@ -12229,7 +12291,12 @@ def main() -> int:
             + str(main_publication.get("hold_reason", "validacion incompleta")),
             file=sys.stderr,
         )
-    if external_publication["publication_ready"]:
+    if MAINTENANCE_MAIN_ONLY:
+        print(
+            "M3U externa sin cambios: el mantenimiento de canales corre solo "
+            "sobre m3u.m3u (Lista 1)"
+        )
+    elif external_publication["publication_ready"]:
         EXTERNAL_PLAYLIST.write_text(
             "\n".join(candidate_external_lines) + "\n",
             encoding="utf-8",

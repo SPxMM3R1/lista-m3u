@@ -154,5 +154,37 @@ class TvVooReferenceTests(unittest.TestCase):
         self.assertEqual(1, result["main_channels"])
 
 
+    def test_main_only_scope_ignores_the_external_complement(self) -> None:
+        catalog_lines = [
+            "#EXTM3U",
+            '#EXTINF:-1 tvg-id="0104" group-title="Nacionales",TVN',
+            "https://example.invalid/tvn.m3u8",
+            '#EXTINF:-1 tvg-id="Vavoo.es.ESPN2@TvVoo" '
+            'x-resolver="tvvoo" x-resolver-ids="vavoo_ESPN%202%7Cgroup%3Aes",'
+            "ESPN 2 España",
+            "https://example.invalid/stale-espn2.m3u8",
+        ]
+        main_lines = [
+            "#EXTM3U",
+            '#EXTINF:-1 tvg-id="0104" group-title="Nacionales",TVN',
+            "https://example.invalid/tvn.m3u8",
+        ]
+
+        result = update_m3u.validate_public_playlist_partition(
+            catalog_lines,
+            main_lines,
+            [],
+            {"0104"},
+            expected_external_ids=frozenset(),
+        )
+
+        self.assertEqual(1, result["main_channels"])
+        self.assertEqual(0, result["external_channels"])
+        with self.assertRaises(ValueError):
+            update_m3u.validate_public_playlist_partition(
+                catalog_lines, main_lines, [], {"0104"}
+            )
+
+
 if __name__ == "__main__":
     unittest.main()
