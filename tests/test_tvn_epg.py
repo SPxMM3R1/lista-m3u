@@ -959,10 +959,17 @@ class TvnEpgTests(unittest.TestCase):
                 "https://example.invalid/live.m3u8\n",
                 encoding="utf-8",
             )
+            catalog_path = temporary / "channel-catalog.m3u"
+            catalog_path.write_text(
+                "#EXTM3U\n"
+                '#EXTINF:-1 tvg-id="active.channel",Canal activo\n'
+                "https://example.invalid/live.m3u8\n",
+                encoding="utf-8",
+            )
 
             with patch.object(update_m3u, "EPG_PATH", epg_path), patch.object(
                 update_m3u, "DEFAULT_PLAYLIST", public_playlist
-            ):
+            ), patch.object(update_m3u, "CHANNEL_CATALOG_PATH", catalog_path):
                 status = update_m3u.refresh_epg([active, retired])
             published_root = ET.fromstring(epg_path.read_bytes())
 
@@ -1134,6 +1141,33 @@ class TvnEpgTests(unittest.TestCase):
             extended_root.get("data-main-continuity-hours"),
             str(int(update_m3u.EPG_MAIN_CONTINUITY_BUFFER.total_seconds() // 3600)),
         )
+
+
+class EpgManagedScopeTest(unittest.TestCase):
+    def test_managed_catalog_channels_with_guide_source_join_the_scope(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "channel-catalog.m3u"
+            path.write_text(
+                "\n".join(
+                    [
+                        "#EXTM3U",
+                        '#EXTINF:-1 tvg-id="SkySportsF1.uk" '
+                        'x-vibem3u-selection="managed",Sky Sports F1',
+                        "https://example.invalid/f1.m3u8",
+                        '#EXTINF:-1 tvg-id="Highfly.Unmapped" '
+                        'x-vibem3u-selection="managed",Sin guia',
+                        "https://example.invalid/no-guide.m3u8",
+                        '#EXTINF:-1 tvg-id="0104",TVN',
+                        "https://example.invalid/tvn.m3u8",
+                    ]
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+
+            extras = update_m3u.epg_scope_extra_channels({"0104"}, path=path)
+
+        self.assertEqual(["SkySportsF1.uk"], [channel.tvg_id for channel in extras])
 
 
 if __name__ == "__main__":

@@ -8224,6 +8224,7 @@ def build_epg(
     *,
     now: datetime,
     coverage_required_ids: set[str] | None = None,
+    optional_empty_ids: set[str] | frozenset[str] | None = None,
 ) -> tuple[bytes, dict]:
     expected_ids = {channel.tvg_id for channel in channels if channel.tvg_id}
     if len(expected_ids) != len(channels):
@@ -8677,7 +8678,7 @@ def build_epg(
         expected_ids,
         now=now,
         minimum_future=EPG_NON_MAIN_MINIMUM_FUTURE,
-        allow_empty_ids=EPG_ALLOWED_EMPTY_IDS,
+        allow_empty_ids=EPG_ALLOWED_EMPTY_IDS | set(optional_empty_ids or ()),
         minimum_future_by_channel={
             channel_id: EPG_MAIN_MINIMUM_FUTURE for channel_id in main_ids
         },
@@ -8845,6 +8846,38 @@ def main_playlist_channels() -> list[Channel]:
     return channels
 
 
+def epg_scope_extra_channels(
+    main_ids: set[str] | frozenset[str] | None = None,
+    path: Path | None = None,
+) -> list[Channel]:
+    """Managed app-only channels that have a guide source mapped.
+
+    La app muestra estos canales aunque no pertenezcan a ``m3u.m3u``. Se suman
+    a la EPG como filas opcionales: si su fuente no entrega o no publica nada,
+    la guia principal se publica igual y el pendiente queda aislado.
+    """
+    catalog_path = path or CHANNEL_CATALOG_PATH
+    if not catalog_path.is_file():
+        return []
+    lines = catalog_path.read_text(encoding="utf-8-sig").splitlines()
+    covered = set(main_ids or ())
+    extras: list[Channel] = []
+    for channel in parse_channels(lines):
+        if not channel.tvg_id or channel.tvg_id in covered:
+            continue
+        if channel.info_line < 0:
+            continue
+        if not vibem3u_selection.selection_marker_is_managed(
+            lines[channel.info_line]
+        ):
+            continue
+        if channel.tvg_id not in EPG_PROGRAMME_SOURCES:
+            continue
+        covered.add(channel.tvg_id)
+        extras.append(channel)
+    return extras
+
+
 def filter_epg_to_channel_ids(
     data: bytes,
     allowed_ids: set[str],
@@ -8876,20 +8909,23 @@ def refresh_epg(
     output_path: Path | None = None,
 ) -> dict:
     apply_epg_overrides()
-    # `channels` is retained for call-site compatibility, but it must never
-    # widen EPG generation beyond the playlist the user actually watches.
-    channels = main_playlist_channels()
+    # `channels` is retained for call-site compatibility, but the effective
+    # scope is always Lista 1 plus the managed app-only channels.
+    main_channels = main_playlist_channels()
+    main_ids = {channel.tvg_id for channel in main_channels if channel.tvg_id}
+    extra_channels = epg_scope_extra_channels(main_ids)
+    extra_ids = {channel.tvg_id for channel in extra_channels if channel.tvg_id}
+    channels = main_channels + extra_channels
     output_path = output_path or EPG_PATH
     now = datetime.now(timezone.utc)
-    expected_ids = {channel.tvg_id for channel in channels if channel.tvg_id}
-    main_channels = channels
-    main_ids = expected_ids
+    expected_ids = main_ids | extra_ids
     main_minimum_future_by_channel = {
         channel_id: EPG_MAIN_MINIMUM_FUTURE for channel_id in main_ids
     }
+    optional_empty_ids = EPG_ALLOWED_EMPTY_IDS | extra_ids
     print(
-        f"Alcance EPG: {DEFAULT_PLAYLIST.name} exclusivamente "
-        f"({len(expected_ids)} canales)"
+        f"Alcance EPG: {DEFAULT_PLAYLIST.name} ({len(main_ids)} canales) + "
+        f"seleccion gestionada ({len(extra_ids)} canales opcionales)"
     )
     existing_status = None
     existing_data: bytes | None = None
@@ -8903,7 +8939,7 @@ def refresh_epg(
             existing_channel_ids = {
                 channel.get("id", "") for channel in existing_root.findall("channel")
             }
-            missing_existing_ids = expected_ids - existing_channel_ids
+            missing_existing_ids = set(main_ids) - existing_channel_ids
             if missing_existing_ids:
                 raise ValueError(
                     "la guia publicada no contiene canales del catalogo: "
@@ -8942,7 +8978,7 @@ def refresh_epg(
                 expected_ids,
                 now=now,
                 minimum_future=EPG_NON_MAIN_MINIMUM_FUTURE,
-                allow_empty_ids=EPG_ALLOWED_EMPTY_IDS,
+                allow_empty_ids=optional_empty_ids,
                 minimum_future_by_channel=main_minimum_future_by_channel,
             )
             main_status = validate_main_playlist_epg(
@@ -8993,7 +9029,7 @@ def refresh_epg(
                     expected_ids,
                     now=now,
                     minimum_future=EPG_MAIN_MINIMUM_FUTURE,
-                    allow_empty_ids=EPG_ALLOWED_EMPTY_IDS,
+                    allow_empty_ids=optional_empty_ids,
                     minimum_future_by_channel=main_minimum_future_by_channel,
                 )
                 existing_status["main_playlist"] = main_status
@@ -9197,6 +9233,7 @@ def refresh_epg(
         red_bull_schedules,
         now=generation_now,
         coverage_required_ids=main_ids,
+        optional_empty_ids=extra_ids,
     )
     output, _ = filter_epg_to_channel_ids(output, expected_ids)
     main_status = validate_main_playlist_epg(
