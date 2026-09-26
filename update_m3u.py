@@ -945,7 +945,7 @@ TECNOCENTRO_BACKUP_CHANNELS = {
     "0106": "LCH481",
     "0107": "LCH482",
     "0201": "LCH594",
-    "13C.cl@SD": "LCH5568",
+    "13Cultura.cl@DPS": "LCH5568",
 }
 try:
     CHILE_TIMEZONE = ZoneInfo("America/Santiago")
@@ -8098,19 +8098,23 @@ def tecnocentro_schedule_items(page_html: str) -> list[tuple[str, str, str]]:
 def fetch_tecnocentro_epg(
     channels: list[Channel], now: datetime
 ) -> tuple[bytes | None, dict[str, str]]:
+    available_ids = {channel.tvg_id for channel in channels if channel.tvg_id}
     target_ids = {
-        channel.tvg_id
-        for channel in channels
-        if channel.tvg_id and EPG_PROGRAMME_SOURCES.get(channel.tvg_id, ("", ""))[0]
-        == "tecnocentro"
+        target_id
+        for target_id in available_ids
+        if EPG_PROGRAMME_SOURCES.get(target_id, ("", ""))[0] == "tecnocentro"
     }
-    if not target_ids:
-        return None, {}
-
     source_ids = {
         target_id: EPG_PROGRAMME_SOURCES[target_id][1]
         for target_id in target_ids
     }
+    # Los respaldos TecnoCentro de canales con fuente oficial/agregada tambien
+    # se descargan: si su parrilla queda parcial, el respaldo la completa.
+    for target_id in sorted(available_ids & set(TECNOCENTRO_BACKUP_CHANNELS)):
+        source_ids.setdefault(target_id, TECNOCENTRO_BACKUP_CHANNELS[target_id])
+    target_ids = set(source_ids)
+    if not target_ids:
+        return None, {}
     root = ET.Element(
         "tv",
         {
@@ -8425,6 +8429,13 @@ def build_epg(
     # para inventar continuidad genérica.
     published_fallback = source_roots.get(PUBLISHED_EPG_FALLBACK_SOURCE)
     fresh_targets: set[str] = set()
+    fresh_last_stop_by_target: dict[str, datetime] = {}
+
+    def record_fresh_stop(target_id: str, stop: datetime) -> None:
+        previous = fresh_last_stop_by_target.get(target_id)
+        if previous is None or stop > previous:
+            fresh_last_stop_by_target[target_id] = stop
+
     for source_name, source_root in source_roots.items():
         if source_name == PUBLISHED_EPG_FALLBACK_SOURCE:
             continue
@@ -8440,11 +8451,20 @@ def build_epg(
                 continue
             if stop > now:
                 fresh_targets.update(target_ids)
-    fresh_targets.update(
-        target_id
-        for target_id, cards in red_bull_schedules.items()
-        if target_id in expected_ids and cards
-    )
+                for target_id in target_ids:
+                    record_fresh_stop(target_id, stop)
+    for target_id, cards in red_bull_schedules.items():
+        if target_id not in expected_ids or not cards:
+            continue
+        fresh_targets.add(target_id)
+        try:
+            last_stop = max(
+                datetime.fromisoformat(card["end_time"].replace("Z", "+00:00"))
+                for card in normalize_red_bull_schedule(cards)
+            )
+        except (KeyError, TypeError, ValueError):
+            continue
+        record_fresh_stop(target_id, last_stop)
     tecnocentro_root = source_roots.get("tecnocentro")
     pluto_root = source_roots.get("pluto")
 
@@ -8456,10 +8476,17 @@ def build_epg(
             for programme in source_root.findall("programme")
         )
 
-    for target_id in expected_ids - fresh_targets - NO_EPG_CHANNEL_IDS:
+    for target_id in expected_ids - NO_EPG_CHANNEL_IDS:
         if target_id == "0102":
             # La Red queda estrictamente en la fuente oficial. No se
             # recicla una EPG antigua de EPGShare/Zapping como respaldo.
+            continue
+        required_future = now + (
+            EPG_MAIN_CONTINUITY_BUFFER
+            if target_id in main_ids
+            else EPG_NON_MAIN_MINIMUM_FUTURE
+        )
+        if fresh_last_stop_by_target.get(target_id, now) >= required_future:
             continue
         tecnocentro_id = TECNOCENTRO_BACKUP_CHANNELS.get(target_id)
         if tecnocentro_id and source_has_programmes(tecnocentro_root, tecnocentro_id):
@@ -8469,8 +8496,31 @@ def build_epg(
         if pluto_id and source_has_programmes(pluto_root, pluto_id):
             source_lookup[("pluto", pluto_id)] = {target_id}
             continue
-        if published_fallback is not None:
+        if target_id not in fresh_targets and published_fallback is not None:
             source_lookup[(PUBLISHED_EPG_FALLBACK_SOURCE, target_id)] = {target_id}
+
+    # Un respaldo nunca debe duplicar ni superponerse con la parrilla real ya
+    # obtenida para el mismo canal: se conservan solo sus bloques nuevos.
+    backup_sources = {"tecnocentro", "pluto"}
+    backup_guard_intervals: dict[str, list[tuple[datetime, datetime]]] = {}
+    for source_name, source_root in source_roots.items():
+        if source_name in backup_sources:
+            continue
+        for programme in source_root.findall("programme"):
+            target_ids = source_lookup.get(
+                (source_name, programme.get("channel", ""))
+            )
+            if not target_ids:
+                continue
+            try:
+                start = xmltv_datetime(programme.get("start", ""))
+                stop = xmltv_datetime(programme.get("stop", ""))
+            except ValueError:
+                continue
+            if stop <= now:
+                continue
+            for target_id in target_ids:
+                backup_guard_intervals.setdefault(target_id, []).append((start, stop))
 
     for source_name, source_root in source_roots.items():
         seen_source_programmes: set[tuple[str, str, str, str]] = set()
@@ -8507,6 +8557,16 @@ def build_epg(
                     continue
                 if stop <= start:
                     continue
+                if source_name in backup_sources:
+                    guard_intervals = backup_guard_intervals.setdefault(
+                        target_id, []
+                    )
+                    if any(
+                        interval_start < stop and start < interval_stop
+                        for interval_start, interval_stop in guard_intervals
+                    ):
+                        continue
+                    guard_intervals.append((start, stop))
                 copied.set("channel", target_id)
                 root.append(copied)
                 programmes_by_target[target_id] += 1
@@ -9303,6 +9363,8 @@ def refresh_epg(
     tecnocentro_data, tecnocentro_errors = fetch_tecnocentro_epg(channels, now)
     if tecnocentro_data:
         source_documents["tecnocentro"] = tecnocentro_data
+    for target_id, error in sorted(tecnocentro_errors.items()):
+        print(f"AVISO TecnoCentro {target_id}: {error}", file=sys.stderr)
     source_errors.update(
         {f"tecnocentro:{target_id}": error for target_id, error in tecnocentro_errors.items()}
     )

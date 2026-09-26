@@ -582,6 +582,130 @@ class TvnEpgTests(unittest.TestCase):
         )
         self.assertFalse(main_status["ok"])
 
+    def test_partial_official_guide_uses_tecnocentro_backup(self) -> None:
+        now = datetime(2026, 9, 26, 18, tzinfo=timezone.utc)
+        tvn = channel("TVN", "0104")
+        official = ET.Element("tv")
+        official_programme = ET.SubElement(
+            official,
+            "programme",
+            {
+                "start": update_m3u.xmltv_format_chile(now - timedelta(hours=1)),
+                "stop": update_m3u.xmltv_format_chile(now + timedelta(hours=3)),
+                "channel": "Canal.TVN.(Chile).cl",
+            },
+        )
+        ET.SubElement(official_programme, "title", {"lang": "es"}).text = (
+            "Programa oficial"
+        )
+        tecnocentro = ET.Element("tv")
+        backup_programme = ET.SubElement(
+            tecnocentro,
+            "programme",
+            {
+                "start": update_m3u.xmltv_format_chile(now + timedelta(hours=3)),
+                "stop": update_m3u.xmltv_format_chile(now + timedelta(hours=20)),
+                "channel": "LCH1225",
+            },
+        )
+        ET.SubElement(backup_programme, "title", {"lang": "es"}).text = (
+            "Parrilla TecnoCentro"
+        )
+
+        output, status = update_m3u.build_epg(
+            {
+                "cl": ET.tostring(official),
+                "tecnocentro": ET.tostring(tecnocentro),
+            },
+            [tvn],
+            {},
+            now=now,
+            coverage_required_ids={tvn.tvg_id},
+        )
+
+        root = ET.fromstring(output)
+        titles = [
+            programme.findtext("title")
+            for programme in root.findall("./programme[@channel='0104']")
+        ]
+        self.assertIn("Programa oficial", titles)
+        self.assertIn("Parrilla TecnoCentro", titles)
+        self.assertNotIn("0104", status["pending_channels"])
+        entry = root.find("./channel[@id='0104']")
+        self.assertEqual(entry.get("data-guide-source"), "tecnocentro")
+
+    def test_backup_never_overlaps_real_guide_blocks(self) -> None:
+        now = datetime(2026, 9, 26, 18, tzinfo=timezone.utc)
+        tvn = channel("TVN", "0104")
+        official = ET.Element("tv")
+        official_programme = ET.SubElement(
+            official,
+            "programme",
+            {
+                "start": update_m3u.xmltv_format_chile(now - timedelta(hours=1)),
+                "stop": update_m3u.xmltv_format_chile(now + timedelta(hours=8)),
+                "channel": "Canal.TVN.(Chile).cl",
+            },
+        )
+        ET.SubElement(official_programme, "title", {"lang": "es"}).text = (
+            "Programa oficial"
+        )
+        tecnocentro = ET.Element("tv")
+        overlapping = ET.SubElement(
+            tecnocentro,
+            "programme",
+            {
+                "start": update_m3u.xmltv_format_chile(now + timedelta(hours=2)),
+                "stop": update_m3u.xmltv_format_chile(now + timedelta(hours=10)),
+                "channel": "LCH1225",
+            },
+        )
+        ET.SubElement(overlapping, "title", {"lang": "es"}).text = "Bloque repetido"
+
+        output, _ = update_m3u.build_epg(
+            {
+                "cl": ET.tostring(official),
+                "tecnocentro": ET.tostring(tecnocentro),
+            },
+            [tvn],
+            {},
+            now=now,
+            coverage_required_ids={tvn.tvg_id},
+        )
+
+        root = ET.fromstring(output)
+        titles = [
+            programme.findtext("title")
+            for programme in root.findall("./programme[@channel='0104']")
+        ]
+        self.assertEqual(titles, ["Programa oficial"])
+
+    def test_tecnocentro_backup_channels_are_downloaded(self) -> None:
+        now = datetime(2026, 9, 26, 18, tzinfo=timezone.utc)
+        calls: list[str] = []
+
+        def fake_fetch(url, headers, timeout=None, limit=None):
+            calls.append(url)
+            return 200, b"<html></html>", headers
+
+        with patch.object(
+            update_m3u, "fetch_bytes", side_effect=fake_fetch
+        ), patch.object(
+            update_m3u, "tecnocentro_schedule_items", return_value=[]
+        ):
+            data, errors = update_m3u.fetch_tecnocentro_epg(
+                [
+                    channel("TVN", "0104"),
+                    channel("Meganoticias", "Meganoticias.cl"),
+                ],
+                now,
+            )
+
+        self.assertIsNone(data)
+        self.assertTrue(any("channel=LCH1225" in url for url in calls))
+        self.assertTrue(any("channel=LCH7159" in url for url in calls))
+        self.assertIn("0104", errors)
+
     def test_existing_twelve_hour_guide_is_extended_for_the_next_refresh(self) -> None:
         now = datetime(2026, 8, 28, 18, tzinfo=timezone.utc)
         tvn = channel("TVN", "0104")
