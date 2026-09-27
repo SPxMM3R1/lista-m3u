@@ -1,5 +1,6 @@
 import {
   addRow,
+  suggestLogo,
   buildPresentationOverrides,
   buildSelectionDocument,
   assignChannelPosition,
@@ -200,6 +201,8 @@ function sourceName(row) {
 
 function imageUrl(path) {
   if (!path || typeof path !== "string") return "";
+  // Vista previa de logos externos de filas M3U (nunca se publican).
+  if (path.startsWith("https://")) return path;
   const relative = path.split("/").map(encodeURIComponent).join("/");
   return LOCAL_MODE ? `./${relative}` : `${RAW}/${relative}`;
 }
@@ -225,13 +228,38 @@ function logoPathFor(row) {
   return row.logoOverride || row.logoPath || "";
 }
 
+/** Logo para mostrar: el publicado o, en filas M3U sin logo local, el externo del catálogo. */
+function displayLogoFor(row) {
+  const path = logoPathFor(row);
+  if (path) return path;
+  if (row.kind === "m3u") return state?.catalogLogos?.remote?.[row.tvgId] ?? "";
+  return "";
+}
+
+function logoContext() {
+  return { catalogLogos: state?.catalogLogos ?? {}, logos: state?.logos ?? [] };
+}
+
+/** Rellena logoPath en filas sin logo con la sugerencia del catálogo o del pool histórico. */
+function withSuggestedLogos(layout, context) {
+  let suggested = 0;
+  const channels = layout.channels.map((row) => {
+    if (row.logoOverride || row.logoPath) return row;
+    const path = suggestLogo(row, context);
+    if (!path) return row;
+    suggested += 1;
+    return { ...row, logoPath: path };
+  });
+  return { layout: { ...layout, channels }, suggested };
+}
+
 function channelName(row) {
   const edited = typeof row.displayName === "string" ? row.displayName.trim() : "";
   return edited || String(row.name ?? stableId(row) ?? "Canal").trim();
 }
 
 function makeLogo(row, className = "channel-logo") {
-  const path = logoPathFor(row);
+  const path = displayLogoFor(row);
   if (!path) {
     const fallback = node("span", "logo-fallback", channelName(row).slice(0, 1).toLocaleUpperCase("es"));
     fallback.setAttribute("aria-hidden", "true");
@@ -299,7 +327,7 @@ async function initialize() {
       elements.localGithubAuth.hidden = false;
       await refreshLocalStatus();
     }
-    const [catalog, logos, layout, selection, presentation, runnerStatus, providerIdentities] = await Promise.all([
+    const [catalog, logos, layout, selection, presentation, runnerStatus, providerIdentities, catalogLogos] = await Promise.all([
       loadJson("./data/catalog.json"),
       loadJson("./data/logos.json"),
       loadJson("./data/layout.json"),
@@ -307,12 +335,19 @@ async function initialize() {
       loadJson("./data/presentation.json"),
       loadJson("./data/runner-status.json"),
       loadJson("./data/provider-identities.json"),
+      loadJson("./data/catalog-logos.json").catch(() => ({})),
     ]);
     const normalizedLayout = normalizedLoadedLayout(layout, catalog, presentation);
+    const logoSuggestions = withSuggestedLogos(normalizedLayout, {
+      catalogLogos: catalogLogos ?? {},
+      logos: logos.logos ?? [],
+    });
     state = {
       catalog: catalog.channels ?? [],
       logos: logos.logos ?? [],
-      layout: normalizedLayout,
+      catalogLogos: catalogLogos ?? {},
+      // La sugerencia de logos queda como cambio pendiente: se guarda al publicar.
+      layout: logoSuggestions.layout,
       originalLayout: clone(normalizedLayout),
       selection,
       presentation,
@@ -325,6 +360,9 @@ async function initialize() {
     const first = state.layout.channels.filter((row) => row.state === "active").sort(compareRows)[0];
     selectedKey = first ? rowKey(first) : "";
     render();
+    if (logoSuggestions.suggested) {
+      showToast(`Se asignaron ${countText(logoSuggestions.suggested, "logo", "logos")} del catálogo o del historial. Publica para guardarlos.`);
+    }
     document.addEventListener("keydown", handleGlobalKeydown);
     // Warm the Highfly catalog so the signal picker is available as soon as an
     // existing Highfly channel is opened.
@@ -1248,7 +1286,8 @@ function addSelectedChannels() {
   for (const row of selectedAvailableRows.values()) {
     const key = rowKey(row);
     if (layout.channels.some((candidate) => rowKey(candidate) === key)) continue;
-    layout = addRow(layout, row);
+    const logoPath = row.logoOverride || row.logoPath || suggestLogo(row, logoContext());
+    layout = addRow(layout, logoPath ? { ...row, logoPath } : row);
     addedKeys.push(key);
   }
   if (!addedKeys.length) {

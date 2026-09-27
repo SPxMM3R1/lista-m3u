@@ -9,7 +9,7 @@ import re
 import tempfile
 import sys
 from pathlib import Path
-from urllib.parse import urlsplit
+from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
@@ -96,6 +96,49 @@ def parse_playlist(text: str, source_list: str) -> list[dict[str, object]]:
             }
         )
     return channels
+
+
+# Hosts de logos externos que el editor puede mostrar como vista previa de una fila M3U.
+# No se publican: la app y el layout solo usan rutas locales bajo logos/.
+REMOTE_LOGO_PREVIEW_HOSTS = {
+    "raw.githubusercontent.com",
+    "i.imgur.com",
+    "upload.wikimedia.org",
+}
+
+
+def parse_catalog_logos(text: str) -> dict[str, dict[str, str]]:
+    """Logos del catálogo por identidad: tvg-id y alias TvVoo → ruta local; y vista remota."""
+    by_id: dict[str, str] = {}
+    by_alias: dict[str, str] = {}
+    remote: dict[str, str] = {}
+    remote_by_alias: dict[str, str] = {}
+    for line in text.lstrip("\ufeff").splitlines():
+        if not line.startswith("#EXTINF:"):
+            continue
+        metadata = line.rpartition(",")[0]
+        attrs = {key: value for key, value in EXTINF_ATTRIBUTE.findall(metadata)}
+        tvg_id = attrs.get("tvg-id", "").strip()
+        logo_value = attrs.get("tvg-logo", "").strip()
+        if not tvg_id or not logo_value:
+            continue
+        local = _logo_path(logo_value)
+        if local:
+            by_id.setdefault(tvg_id, local)
+            for alias in attrs.get("x-resolver-ids", "").split(";"):
+                alias = alias.strip()
+                if alias:
+                    by_alias.setdefault(alias, local)
+                    by_alias.setdefault(unquote(alias), local)
+        else:
+            parsed = urlsplit(logo_value)
+            if parsed.scheme == "https" and parsed.hostname in REMOTE_LOGO_PREVIEW_HOSTS:
+                remote.setdefault(tvg_id, logo_value)
+                for alias in attrs.get("x-resolver-ids", "").split(";"):
+                    alias = alias.strip()
+                    if alias:
+                        remote_by_alias.setdefault(unquote(alias), logo_value)
+    return {"byId": by_id, "byAlias": by_alias, "remote": remote, "remoteByAlias": remote_by_alias}
 
 
 def parse_provider_identities(text: str) -> list[dict[str, str]]:
@@ -415,6 +458,15 @@ def build_bundle(output: Path = DEFAULT_OUTPUT) -> Path:
     identities = parse_provider_identities(channel_catalog_path.read_text(encoding="utf-8-sig"))
     (data_dir / "provider-identities.json").write_text(
         json.dumps({"identities": identities}, ensure_ascii=False, separators=(",", ":")) + "\n",
+        encoding="utf-8",
+    )
+    (data_dir / "catalog-logos.json").write_text(
+        json.dumps(
+            parse_catalog_logos(channel_catalog_path.read_text(encoding="utf-8-sig")),
+            ensure_ascii=False,
+            separators=(",", ":"),
+        )
+        + "\n",
         encoding="utf-8",
     )
     (data_dir / "logos.json").write_text(

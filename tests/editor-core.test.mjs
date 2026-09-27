@@ -15,6 +15,8 @@ import {
   setRowState,
   summarizeChanges,
   validateLayout,
+  logoNameKey,
+  suggestLogo,
 } from "../site/editor-core.mjs";
 import {
   canonicalTvVooAlias,
@@ -456,4 +458,29 @@ test("change review counts Highfly locator rotations without counting new rows",
 
   assert.equal(summary.providerReferenceChanges, 1);
   assert.equal(summary.added, 0);
+});
+
+test("logoNameKey ignora calidad, respaldo, hash y variantes gráficas", () => {
+  assert.equal(logoNameKey("SKY SPORTS F1 FHD (BACKUP)"), "skysportsf1");
+  assert.equal(logoNameKey("logos/history/sky-sports-f1--7f3e7410ed.png"), "skysportsf1");
+  assert.equal(logoNameKey("logos/sky-sports-tennis-logopedia.svg"), "skysportstennis");
+  assert.equal(logoNameKey("MTV HITS HD"), "mtvhits");
+});
+
+test("suggestLogo usa el logo del catálogo para la identidad y después nombre vigente o histórico", () => {
+  const catalogLogos = {
+    byId: { "SkySportsF1.uk": "logos/sky-sports-f1.png", "0104": "logos/tvn.png" },
+    byAlias: { "vavoo_DAZN F1|group:es": "logos/dazn-f1.png" },
+  };
+  const logos = [
+    "logos/history/sky-sports-main-event--88f04817b9.png",
+    "logos/mtv-hits.png",
+    "logos/history/mtv-hits--b961bb1b5a.png",
+  ];
+  assert.equal(suggestLogo({ kind: "provider", provider: "highfly", catalogKey: "SkySportsF1.uk", name: "SKY SPORTS F1" }, { catalogLogos, logos }), "logos/sky-sports-f1.png");
+  assert.equal(suggestLogo({ kind: "provider", provider: "tvvoo", catalogKey: "spain|vavoo_DAZN%20F1%7Cgroup%3Aes", name: "DAZN F1" }, { catalogLogos, logos }), "logos/dazn-f1.png");
+  assert.equal(suggestLogo({ kind: "provider", provider: "tvvoo", catalogKey: "france|vavoo_MTV%20HITS%20HD%7Cgroup%3Afr", name: "MTV HITS HD" }, { catalogLogos, logos }), "logos/mtv-hits.png");
+  assert.equal(suggestLogo({ kind: "provider", provider: "highfly", catalogKey: "SkySportsMainEvent.uk", name: "SKY SPORTS MAIN EVENT" }, { catalogLogos, logos }), "logos/history/sky-sports-main-event--88f04817b9.png");
+  assert.equal(suggestLogo({ kind: "m3u", tvgId: "0104", name: "TVN" }, { catalogLogos, logos }), "logos/tvn.png");
+  assert.equal(suggestLogo({ kind: "provider", provider: "tvvoo", catalogKey: "russia|vavoo_X%7Cgroup%3Aru", name: "Canal sin logo" }, { catalogLogos, logos }), "");
 });

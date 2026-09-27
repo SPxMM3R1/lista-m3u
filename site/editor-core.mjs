@@ -364,3 +364,54 @@ export function summarizeChanges(originalLayout, layout, originalPresentation, p
 export function formatJson(value) {
   return `${JSON.stringify(value, null, 2)}\n`;
 }
+
+// Palabras que describen calidad, respaldo o variante gráfica: no cambian qué canal es.
+const LOGO_NOISE_WORDS = new Set([
+  "hd", "fhd", "uhd", "sd", "4k", "8k", "hevc", "backup", "logopedia", "transparent",
+  "mosca", "color", "dark", "light", "white", "black", "tvvoo",
+]);
+
+/** Clave de nombre para cruzar un canal con un archivo de logo ("SKY SPORTS F1 FHD" → "skysportsf1"). */
+export function logoNameKey(value) {
+  let text = String(value ?? "").trim();
+  const file = text.split("/").pop();
+  if (file !== text || /\.(png|svg|jpe?g|webp)$/i.test(text)) {
+    text = file.replace(/\.(png|svg|jpe?g|webp)$/i, "").replace(/--[0-9a-f]{6,}$/i, "");
+  }
+  const words = text
+    .normalize("NFD").replace(/\p{M}+/gu, "")
+    .toLowerCase()
+    .replace(/\([^)]*\)/g, " ")
+    .split(/[^a-z0-9]+/)
+    .filter((word) => word && !LOGO_NOISE_WORDS.has(word));
+  return words.join("");
+}
+
+/**
+ * Logo sugerido para una fila sin logo. Orden: logo local del catálogo para la misma identidad
+ * (catalogKey Highfly o alias TvVoo), después un logo vigente con el mismo nombre y por último
+ * uno histórico. Nunca devuelve URLs remotas: solo rutas bajo logos/.
+ */
+export function suggestLogo(row, { catalogLogos = {}, logos = [] } = {}) {
+  if (!row) return "";
+  const byId = catalogLogos.byId ?? {};
+  const byAlias = catalogLogos.byAlias ?? {};
+  if (row.kind === "m3u") return byId[row.tvgId] ?? "";
+  if (row.provider === "highfly" && byId[row.catalogKey]) return byId[row.catalogKey];
+  if (row.provider === "tvvoo") {
+    const alias = String(row.catalogKey ?? "").split("|", 2)[1] ?? "";
+    for (const candidate of [alias, ...(row.aliases ?? []), ...(row.resolverAliases ?? [])]) {
+      if (!candidate) continue;
+      let decoded = candidate;
+      try { decoded = decodeURIComponent(candidate); } catch { /* alias ya decodificado */ }
+      const path = byAlias[candidate] ?? byAlias[decoded];
+      if (path) return path;
+    }
+  }
+  const key = logoNameKey(row.name);
+  if (!key) return "";
+  const matches = logos.filter((path) => typeof path === "string" && logoNameKey(path) === key);
+  const rank = (path) => (path.startsWith("logos/history/") ? 1 : 0);
+  matches.sort((a, b) => rank(a) - rank(b) || a.length - b.length || a.localeCompare(b));
+  return matches[0] ?? "";
+}
