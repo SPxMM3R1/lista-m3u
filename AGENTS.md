@@ -1,5 +1,7 @@
 # AGENTS.md — Lista M3U
 
+> Antes de cambiar algo, lee `REGLAS.md`: reglas vigentes de identidad, EPG, logos, catálogo, publicación y versiones (manda sobre documentos antiguos).
+
 Guía para agentes de IA que trabajen en este repositorio (catálogo público, runner de canales/resolutores, EPG y editor web).
 
 ## Qué es este repositorio
