@@ -874,8 +874,22 @@ async function previewChannel(row) {
         maxBufferLength: 18,
         maxMaxBufferLength: 30,
       });
-      let mediaRecoveryTried = false;
+      // Algunas señales deportivas (p. ej. TvVoo entrelazado) traen cuadros que el
+      // decodificador del navegador rechaza; recuperar desde el siguiente keyframe permite
+      // seguir viendo la prueba. La app de TV usa ExoPlayer y no depende de esto.
+      const MAX_MEDIA_RECOVERIES = 10;
+      let mediaRecoveries = 0;
       let networkRecoveryTried = false;
+      const recoverDecode = () => {
+        if (!previewPlayer || mediaRecoveries >= MAX_MEDIA_RECOVERIES) return false;
+        mediaRecoveries += 1;
+        elements.previewStatus.textContent = "Recuperando la decodificación del navegador…";
+        previewPlayer.recoverMediaError();
+        video.play().catch(() => {});
+        return true;
+      };
+      // El decodificador puede fallar sin que hls.js lo marque como fatal.
+      video.onerror = () => { recoverDecode(); };
       previewPlayer.loadSource(result.mediaUrl);
       previewPlayer.attachMedia(video);
       previewPlayer.on(window.Hls.Events.MANIFEST_PARSED, () => {
@@ -885,12 +899,7 @@ async function previewChannel(row) {
       });
       previewPlayer.on(window.Hls.Events.ERROR, (_event, data) => {
         if (!data?.fatal) return;
-        if (data.type === window.Hls.ErrorTypes.MEDIA_ERROR && !mediaRecoveryTried) {
-          mediaRecoveryTried = true;
-          elements.previewStatus.textContent = "Intentando recuperar la decodificación…";
-          previewPlayer.recoverMediaError();
-          return;
-        }
+        if (data.type === window.Hls.ErrorTypes.MEDIA_ERROR && recoverDecode()) return;
         if (data.type === window.Hls.ErrorTypes.NETWORK_ERROR && !networkRecoveryTried) {
           networkRecoveryTried = true;
           elements.previewStatus.textContent = "La conexión se interrumpió; intentando una vez más…";
@@ -949,6 +958,7 @@ async function releasePreview() {
     previewPlayer = null;
   }
   elements.previewVideo?.pause();
+  if (elements.previewVideo) elements.previewVideo.onerror = null;
   elements.previewVideo?.removeAttribute("src");
   elements.previewVideo?.load();
   const sessionId = previewSessionId;
