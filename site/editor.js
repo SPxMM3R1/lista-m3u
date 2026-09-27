@@ -17,6 +17,7 @@ import {
   validateLayout,
 } from "./editor-core.mjs";
 import {
+  loadAllTvVooCatalogs,
   loadHighflyCatalog,
   loadTvVooCatalog,
   loadTvVooManifest,
@@ -108,6 +109,8 @@ const elements = {
 };
 
 const PROVIDER_CACHE_MS = 10 * 60 * 1000;
+const TVVOO_ALL_ID = "all";
+const TVVOO_ALL_LABEL = "Todos los países";
 const providerCache = {
   highfly: { rows: [], loadedAt: 0, status: "idle", error: "", pending: null, requestId: 0, optionsByKey: new Map() },
   tvvoo: { countries: [], loadedAt: 0, status: "idle", error: "", pending: null, requestId: 0, catalogs: new Map() },
@@ -997,7 +1000,7 @@ function renderLogos() {
 
 function tvvooCatalogEntry(catalogId) {
   if (!providerCache.tvvoo.catalogs.has(catalogId)) {
-    providerCache.tvvoo.catalogs.set(catalogId, { rows: [], loadedAt: 0, status: "idle", error: "", pending: null, requestId: 0 });
+    providerCache.tvvoo.catalogs.set(catalogId, { rows: [], loadedAt: 0, status: "idle", error: "", pending: null, requestId: 0, progress: null, failureCount: 0 });
   }
   return providerCache.tvvoo.catalogs.get(catalogId);
 }
@@ -1012,7 +1015,8 @@ function countText(count, singular, plural) {
 }
 
 function setTvVooCountries(countries) {
-  elements.tvvooCountry.replaceChildren(...countries.map((country) => {
+  const options = [{ id: TVVOO_ALL_ID, name: TVVOO_ALL_LABEL }, ...countries];
+  elements.tvvooCountry.replaceChildren(...options.map((country) => {
     const option = node("option", "", country.name);
     option.value = country.id;
     return option;
@@ -1052,7 +1056,7 @@ function useTvVooManifestJson() {
     source.loadedAt = Date.now();
     source.status = "manual";
     source.error = "";
-    if (!countries.some((country) => country.id === selectedTvVooCatalogId)) selectedTvVooCatalogId = countries[0].id;
+    if (selectedTvVooCatalogId !== TVVOO_ALL_ID && !countries.some((country) => country.id === selectedTvVooCatalogId)) selectedTvVooCatalogId = countries[0].id;
     setTvVooCountries(countries);
     setJsonStatus(elements.tvvooManifestStatus, `${countText(countries.length, "país cargado", "países cargados")} desde el manifiesto.`);
     renderAvailable();
@@ -1064,7 +1068,9 @@ function useTvVooManifestJson() {
 function useTvVooJson() {
   try {
     const country = providerCache.tvvoo.countries.find((item) => item.id === selectedTvVooCatalogId);
-    if (!country) throw new Error("Carga primero el manifiesto TvVoo o actualiza el catálogo para elegir un país.");
+    if (!country) throw new Error(selectedTvVooCatalogId === TVVOO_ALL_ID
+      ? "Elige un país concreto (no “Todos los países”) para pegar su JSON."
+      : "Carga primero el manifiesto TvVoo o actualiza el catálogo para elegir un país.");
     const rows = parseTvVooCatalogJson(elements.tvvooCatalogJson.value, country);
     const catalog = tvvooCatalogEntry(country.id);
     invalidateProviderRequest(catalog);
@@ -1120,23 +1126,32 @@ function updateAvailableSourceControls() {
     return;
   }
 
-  const country = providerCache.tvvoo.countries.find((item) => item.id === selectedTvVooCatalogId);
-  const catalog = country ? providerCache.tvvoo.catalogs.get(country.id) : null;
+  const allCountries = selectedTvVooCatalogId === TVVOO_ALL_ID;
+  const country = allCountries ? null : providerCache.tvvoo.countries.find((item) => item.id === selectedTvVooCatalogId);
+  const catalog = providerCache.tvvoo.catalogs.get(selectedTvVooCatalogId) ?? null;
+  const selectedLabel = allCountries ? "todos los países" : country?.name;
+  const failureNote = catalog?.failureCount
+    ? (catalog.failureCount === 1 ? " 1 país no respondió." : ` ${catalog.failureCount} países no respondieron.`)
+    : "";
   elements.providerStatus.textContent = providerCache.tvvoo.status === "loading"
     ? "Consultando los catálogos regionales de TvVoo…"
     : providerCache.tvvoo.status === "error"
       ? `${providerCache.tvvoo.error} Usa “Actualizar catálogo” para volver a intentar.`
-      : !country
+      : !selectedLabel
         ? "Carga el manifiesto TvVoo o actualiza el catálogo para elegir un país."
         : catalog?.status === "loading"
-            ? `Cargando señales de ${country.name}…`
+            ? (allCountries && catalog.progress
+                ? `Cargando ${catalog.progress.done} de ${catalog.progress.total} países…`
+                : `Cargando señales de ${selectedLabel}…`)
             : catalog?.status === "error"
               ? `${catalog.error} Usa “Actualizar catálogo” para volver a intentar.`
               : catalog?.status === "manual"
-                ? `${countText(catalog.rows.length, "canal cargado", "canales cargados")} de ${country.name} desde JSON pegado.`
+                ? `${countText(catalog.rows.length, "canal cargado", "canales cargados")} de ${selectedLabel} desde JSON pegado.`
               : catalog?.rows.length
-                ? `${countText(catalog.rows.length, "canal", "canales")} de ${country.name}. Las señales se identifican por país y alias canónico.`
-              : "El catálogo del país se consultará automáticamente al elegir TvVoo.";
+                ? `${countText(catalog.rows.length, "canal", "canales")} de ${selectedLabel}.${failureNote} Las señales se identifican por país y alias canónico.`
+              : allCountries
+                ? "Los catálogos de todos los países se consultarán automáticamente al elegir TvVoo."
+                : "El catálogo del país se consultará automáticamente al elegir TvVoo.";
   elements.providerStatus.dataset.state = providerCache.tvvoo.status === "error" || catalog?.status === "error"
     ? "error"
     : catalog?.status ?? providerCache.tvvoo.status;
@@ -1290,7 +1305,7 @@ async function ensureTvVooManifest(force = false) {
       source.countries = countries;
       source.loadedAt = Date.now();
       source.status = "ready";
-      if (!countries.some((item) => item.id === selectedTvVooCatalogId)) selectedTvVooCatalogId = countries[0].id;
+      if (selectedTvVooCatalogId !== TVVOO_ALL_ID && !countries.some((item) => item.id === selectedTvVooCatalogId)) selectedTvVooCatalogId = countries[0].id;
       setTvVooCountries(countries);
       return countries;
     })
@@ -1312,6 +1327,7 @@ async function ensureTvVooManifest(force = false) {
 
 async function ensureTvVooCatalog(catalogId = selectedTvVooCatalogId, force = false) {
   await ensureTvVooManifest();
+  if (catalogId === TVVOO_ALL_ID) return ensureAllTvVooCatalog(force);
   const country = providerCache.tvvoo.countries.find((item) => item.id === catalogId);
   if (!country) throw new Error("El país TvVoo ya no está disponible. Actualiza su catálogo.");
   const catalog = tvvooCatalogEntry(catalogId);
@@ -1328,6 +1344,50 @@ async function ensureTvVooCatalog(catalogId = selectedTvVooCatalogId, force = fa
       catalog.rows = rows;
       catalog.loadedAt = Date.now();
       catalog.status = "ready";
+      return rows;
+    })
+    .catch((error) => {
+      if (catalog.requestId !== requestId) return catalog.rows;
+      catalog.status = "error";
+      catalog.error = error.message || "No se pudo leer el catálogo TvVoo.";
+      throw error;
+    })
+    .finally(() => {
+      if (catalog.requestId === requestId && catalog.pending === pending) {
+        catalog.pending = null;
+        renderAvailable();
+      }
+    });
+  catalog.pending = pending;
+  return pending;
+}
+
+async function ensureAllTvVooCatalog(force = false) {
+  const source = providerCache.tvvoo;
+  const catalog = tvvooCatalogEntry(TVVOO_ALL_ID);
+  if (!force && catalog.pending) return catalog.pending;
+  if (!force && catalog.rows.length && Date.now() - catalog.loadedAt < PROVIDER_CACHE_MS) return catalog.rows;
+  if (!source.countries.length) throw new Error("Carga primero el manifiesto TvVoo o actualiza el catálogo para elegir un país.");
+  catalog.status = "loading";
+  catalog.error = "";
+  catalog.progress = { done: 0, total: source.countries.length };
+  renderAvailable();
+  const requestId = ++catalog.requestId;
+  let pending;
+  pending = loadAllTvVooCatalogs(source.countries, {
+    onProgress: (done, total) => {
+      if (catalog.requestId !== requestId) return;
+      catalog.progress = { done, total };
+      renderAvailable();
+    },
+  })
+    .then(({ rows, failures, total }) => {
+      if (catalog.requestId !== requestId) return catalog.rows;
+      catalog.rows = rows;
+      catalog.loadedAt = Date.now();
+      catalog.status = "ready";
+      catalog.failureCount = failures.length;
+      catalog.progress = { done: total, total };
       return rows;
     })
     .catch((error) => {

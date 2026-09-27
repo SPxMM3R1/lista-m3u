@@ -19,6 +19,7 @@ import {
 import {
   canonicalTvVooAlias,
   highflyIdentity,
+  loadAllTvVooCatalogs,
   loadHighflyCatalog,
   loadTvVooCatalog,
   normalizeProviderName,
@@ -377,6 +378,50 @@ test("deleting a channel frees its number for the following ones", () => {
   assert.deepEqual(
     hidden.channels.filter((row) => row.state === "active").map((row) => row.number),
     [1, 2, 3],
+  );
+});
+
+test("TvVoo loads every country at once and tolerates partial failures", async () => {
+  const countries = [
+    { id: "vavoo_tv_es", code: "es", countryKey: "spain", name: "España" },
+    { id: "vavoo_tv_uk", code: "uk", countryKey: "unitedkingdom", name: "Reino Unido" },
+    { id: "vavoo_tv_fr", code: "fr", countryKey: "france", name: "Francia" },
+  ];
+  const respond = (url, body) => ({
+    ok: true,
+    status: 200,
+    url,
+    headers: { get: () => null },
+    text: async () => JSON.stringify(body),
+  });
+  const fetchImpl = async (url) => {
+    if (url === "https://tvvoo.hayd.uk/catalog/tv/vavoo_tv_es.json") {
+      return respond(url, { metas: [{ id: "vavoo_ESPN%201|group:es", name: "ESPN 1" }] });
+    }
+    if (url === "https://tvvoo.hayd.uk/catalog/tv/vavoo_tv_uk.json") {
+      return respond(url, { metas: [{ id: "vavoo_SKY%20SPORTS%20F1|group:uk", name: "Sky Sports F1" }] });
+    }
+    throw new Error("country unavailable");
+  };
+  const progress = [];
+  const result = await loadAllTvVooCatalogs(countries, {
+    fetchImpl,
+    concurrency: 2,
+    onProgress: (done) => progress.push(done),
+  });
+
+  assert.equal(result.total, 3);
+  assert.deepEqual(result.failures, ["Francia"]);
+  assert.deepEqual(
+    result.rows.map((row) => `${row.country}: ${row.name}`).sort(),
+    ["España: ESPN 1", "Reino Unido: Sky Sports F1"].sort(),
+  );
+  assert.ok(result.rows.every((row) => row.identityState === "canonical"));
+  assert.equal(progress.length, 3);
+
+  await assert.rejects(
+    loadAllTvVooCatalogs(countries, { fetchImpl: async () => { throw new Error("offline"); } }),
+    /no entregó canales/,
   );
 });
 

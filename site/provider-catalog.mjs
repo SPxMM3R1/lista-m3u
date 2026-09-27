@@ -359,3 +359,41 @@ export async function loadTvVooCatalog(catalogId, country, { fetchImpl = globalT
   if (!Array.isArray(document?.metas)) throw new Error("TvVoo devolvió un catálogo sin canales reconocibles.");
   return parseTvVooCatalog(document, country);
 }
+
+export async function loadAllTvVooCatalogs(
+  countries,
+  { fetchImpl = globalThis.fetch, signal, concurrency = 6, onProgress } = {},
+) {
+  const list = Array.isArray(countries) ? countries.filter((country) => country?.id) : [];
+  if (!list.length) throw new Error("Carga primero el manifiesto TvVoo o actualiza el catálogo para elegir un país.");
+  const workers = Math.max(1, Math.min(Number(concurrency) || 6, list.length));
+  const rows = [];
+  const seen = new Set();
+  const failures = [];
+  let next = 0;
+  let completed = 0;
+  async function run() {
+    while (next < list.length) {
+      const country = list[next];
+      next += 1;
+      try {
+        const countryRows = await loadTvVooCatalog(country.id, country, { fetchImpl, signal });
+        for (const row of countryRows) {
+          if (seen.has(row.catalogKey)) continue;
+          seen.add(row.catalogKey);
+          rows.push(row);
+        }
+      } catch (error) {
+        if (signal?.aborted) throw error;
+        failures.push(country.name || country.id);
+      } finally {
+        completed += 1;
+        if (typeof onProgress === "function") onProgress(completed, list.length, country.name || country.id);
+      }
+    }
+  }
+  await Promise.all(Array.from({ length: workers }, run));
+  if (signal?.aborted) throw new Error("La carga de catálogos TvVoo se canceló.");
+  if (!rows.length) throw new Error("TvVoo no entregó canales para ningún país disponible.");
+  return { rows, failures, total: list.length };
+}
