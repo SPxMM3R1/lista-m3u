@@ -500,7 +500,10 @@ function toggleChecked(row, checked, extendRange) {
     checkedKeys.delete(key);
   }
   lastCheckedKey = key;
-  renderRows();
+  // El panel sigue a la casilla: así sus botones nunca actúan sobre otro canal
+  // (p. ej. el que se acababa de renumerar).
+  if (checked) selectedKey = key;
+  render();
 }
 
 function clearChecked() {
@@ -862,7 +865,12 @@ function renderInspector() {
   }
 
   const actions = node("div", "inspector-actions");
-  if (row.state === "active") {
+  if (checkedKeys.size > 1) {
+    // Con varios marcados, las acciones individuales del panel confundían: actuaban sobre
+    // el canal del panel y no sobre los marcados. Se usan las de la barra de la lista.
+    actions.append(node("p", "field-hint",
+      `${countText(checkedKeys.size, "canal marcado", "canales marcados")}: usa las acciones de la barra inferior de la lista.`));
+  } else if (row.state === "active") {
     if (LOCAL_MODE) actions.append(button("Probar señal", "button-primary", () => previewChannel(row), "play"));
     actions.append(button("Subir", "button-secondary", () => changeLayout(moveRowFiltered(state.layout, rowKey(row), -1, rowVisible)), "up"));
     actions.append(button("Bajar", "button-secondary", () => changeLayout(moveRowFiltered(state.layout, rowKey(row), 1, rowVisible)), "down"));
@@ -881,8 +889,14 @@ function renderInspector() {
 }
 
 function setState(row, nextState) {
-  activeView = nextState;
-  changeLayout(renumberFiltered(setRowState(state.layout, rowKey(row), nextState), rowVisible));
+  // Se queda en la pestaña actual: el canal sale de la vista y el panel queda libre
+  // (antes saltaba a la pestaña de destino con el mismo canal en el panel).
+  const key = rowKey(row);
+  checkedKeys.delete(key);
+  if (selectedKey === key) selectedKey = "";
+  changeLayout(renumberFiltered(setRowState(state.layout, key, nextState), rowVisible));
+  const verb = nextState === "active" ? "vuelve a la lista" : nextState === "hidden" ? "quedó oculto" : "pasó a la papelera";
+  showToast(`${channelName(row)} ${verb}.`);
 }
 
 function purgeRow(row) {
