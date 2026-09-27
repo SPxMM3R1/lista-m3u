@@ -17,6 +17,8 @@ import {
   validateLayout,
   logoNameKey,
   suggestLogo,
+  setRowsState,
+  removeRowsPermanently,
 } from "../site/editor-core.mjs";
 import {
   canonicalTvVooAlias,
@@ -483,4 +485,26 @@ test("suggestLogo usa el logo del catálogo para la identidad y después nombre 
   assert.equal(suggestLogo({ kind: "provider", provider: "highfly", catalogKey: "SkySportsMainEvent.uk", name: "SKY SPORTS MAIN EVENT" }, { catalogLogos, logos }), "logos/history/sky-sports-main-event--88f04817b9.png");
   assert.equal(suggestLogo({ kind: "m3u", tvgId: "0104", name: "TVN" }, { catalogLogos, logos }), "logos/tvn.png");
   assert.equal(suggestLogo({ kind: "provider", provider: "tvvoo", catalogKey: "russia|vavoo_X%7Cgroup%3Aru", name: "Canal sin logo" }, { catalogLogos, logos }), "");
+});
+
+test("setRowsState y removeRowsPermanently actúan sobre varias filas a la vez", () => {
+  const layout = {
+    schemaVersion: 1,
+    excludedM3u: [],
+    channels: [
+      { kind: "m3u", tvgId: "a", name: "A", sourceList: "1.m3u", order: 1, number: 1, state: "active" },
+      { kind: "m3u", tvgId: "b", name: "B", sourceList: "1.m3u", order: 2, number: 2, state: "active" },
+      { kind: "provider", provider: "highfly", catalogKey: "X.uk", providerResourceId: "leaf:x1", resolverSlug: "x1",
+        identityState: "canonical", name: "X", group: "Deportes", order: 3, number: 3, state: "active" },
+    ],
+  };
+  const trashed = setRowsState(layout, ["m3u:a", "provider:highfly:X.uk"], "deleted");
+  assert.deepEqual(trashed.channels.map((row) => [row.tvgId ?? row.catalogKey, row.state]),
+    [["b", "active"], ["a", "deleted"], ["X.uk", "deleted"]]);
+  assert.equal(layout.channels[0].state, "active", "no muta el layout original");
+
+  const purged = removeRowsPermanently(trashed, ["m3u:a", "provider:highfly:X.uk"]);
+  assert.deepEqual(purged.channels.map((row) => row.tvgId), ["b"]);
+  assert.deepEqual(purged.excludedM3u, ["a"]);
+  assert.deepEqual(purged.channels.map((row) => row.order), [1]);
 });

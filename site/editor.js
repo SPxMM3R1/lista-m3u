@@ -13,6 +13,8 @@ import {
   rowKey,
   sanitizeRow,
   setRowState,
+  setRowsState,
+  removeRowsPermanently,
   stableId,
   summarizeChanges,
   validateLayout,
@@ -66,6 +68,7 @@ const elements = {
   list: $("#channel-list"),
   inspector: $("#inspector"),
   visibleRange: $("#visible-range"),
+  bulkActions: $("#bulk-actions"),
   publish: $("#publish-button"),
   publishDialog: $("#publish-dialog"),
   publishForm: $("#publish-form"),
@@ -472,12 +475,123 @@ function renderRows() {
     rows.forEach((row) => fragment.append(renderRow(row)));
   }
   elements.list.replaceChildren(fragment);
+  renderBulkActions();
   const filtered = rows.length;
   elements.visibleRange.textContent = `${filtered} ${filtered === 1 ? "canal" : "canales"} · ${activeView === "active" ? "ordenados" : activeView === "hidden" ? "ocultos" : "en papelera"}`;
 }
 
+// Selección múltiple: claves marcadas en la vista actual (se limpia al cambiar de pestaña).
+const checkedKeys = new Set();
+let lastCheckedKey = "";
+
+function toggleChecked(row, checked, extendRange) {
+  const key = rowKey(row);
+  if (extendRange && lastCheckedKey && lastCheckedKey !== key) {
+    const visible = rowsForView().map(rowKey);
+    const from = visible.indexOf(lastCheckedKey);
+    const to = visible.indexOf(key);
+    if (from >= 0 && to >= 0) {
+      const [start, end] = from < to ? [from, to] : [to, from];
+      visible.slice(start, end + 1).forEach((item) => (checked ? checkedKeys.add(item) : checkedKeys.delete(item)));
+    }
+  } else if (checked) {
+    checkedKeys.add(key);
+  } else {
+    checkedKeys.delete(key);
+  }
+  lastCheckedKey = key;
+  renderRows();
+}
+
+function clearChecked() {
+  checkedKeys.clear();
+  lastCheckedKey = "";
+}
+
+function checkedRows() {
+  return rowsForView().filter((row) => checkedKeys.has(rowKey(row)));
+}
+
+function renderBulkActions() {
+  const rows = rowsForView();
+  const visibleKeys = new Set(rows.map(rowKey));
+  for (const key of [...checkedKeys]) if (!visibleKeys.has(key)) checkedKeys.delete(key);
+  const count = checkedKeys.size;
+  const all = $("#check-all");
+  if (all) {
+    all.checked = count > 0 && count === rows.length;
+    all.indeterminate = count > 0 && count < rows.length;
+    all.disabled = rows.length === 0;
+  }
+  elements.bulkActions.hidden = count === 0;
+  elements.visibleRange.hidden = count > 0;
+  if (!count) {
+    elements.bulkActions.replaceChildren();
+    return;
+  }
+  const label = node("span", "bulk-count", countText(count, "canal marcado", "canales marcados"));
+  const actions = [label];
+  if (activeView === "active") {
+    actions.push(button(`Ocultar (${count})`, "button-secondary", () => setCheckedState("hidden"), "eye"));
+    actions.push(button(`A papelera (${count})`, "button-danger", () => setCheckedState("deleted"), "bin"));
+  } else if (activeView === "hidden") {
+    actions.push(button(`Mostrar (${count})`, "button-secondary", () => setCheckedState("active"), "eye"));
+    actions.push(button(`A papelera (${count})`, "button-danger", () => setCheckedState("deleted"), "bin"));
+  } else {
+    actions.push(button(`Restaurar (${count})`, "button-secondary", () => setCheckedState("active"), "check"));
+    actions.push(button(`Eliminar definitivamente (${count})`, "button-danger", purgeChecked, "bin"));
+  }
+  actions.push(button("Quitar selección", "button-secondary", () => { clearChecked(); renderRows(); }, ""));
+  elements.bulkActions.replaceChildren(...actions);
+}
+
+function setCheckedState(nextState) {
+  const rows = checkedRows();
+  if (!rows.length) return;
+  const keys = rows.map(rowKey);
+  changeLayoutQuiet(renumberFiltered(setRowsState(state.layout, keys, nextState), rowVisible));
+  clearChecked();
+  if (keys.includes(selectedKey)) selectedKey = "";
+  render();
+  const verb = nextState === "active" ? "vuelven a la lista" : nextState === "hidden" ? "quedaron ocultos" : "pasaron a la papelera";
+  showToast(`${countText(keys.length, "canal", "canales")} ${verb}.`);
+}
+
+function purgeChecked() {
+  const rows = checkedRows();
+  if (!rows.length) return;
+  if (!window.confirm(`Eliminar definitivamente ${countText(rows.length, "canal", "canales")} del catálogo editorial? Las fuentes originales no se borran.`)) return;
+  const presentationRoot = state.presentation.presentation ?? state.presentation;
+  for (const row of rows) {
+    if (presentationRoot.logos) delete presentationRoot.logos[displayIdentity(row)];
+    if (presentationRoot.names) delete presentationRoot.names[displayIdentity(row)];
+  }
+  const keys = rows.map(rowKey);
+  changeLayoutQuiet(renumberFiltered(removeRowsPermanently(state.layout, keys), rowVisible));
+  clearChecked();
+  if (keys.includes(selectedKey)) selectedKey = "";
+  render();
+  showToast(`${countText(keys.length, "canal eliminado", "canales eliminados")} del catálogo editorial.`);
+}
+
+function changeLayoutQuiet(layout) {
+  state.layout = layout;
+}
+
 function renderRow(row) {
-  const item = node("li", `channel-row${row.state === "hidden" ? " is-hidden" : row.state === "deleted" ? " is-deleted" : ""}${rowKey(row) === selectedKey ? " is-selected" : ""}`);
+  const checked = checkedKeys.has(rowKey(row));
+  const item = node("li", `channel-row${row.state === "hidden" ? " is-hidden" : row.state === "deleted" ? " is-deleted" : ""}${rowKey(row) === selectedKey ? " is-selected" : ""}${checked ? " is-checked" : ""}`);
+  const checkLabel = node("label", "row-check");
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.checked = checked;
+  checkbox.setAttribute("aria-label", `Marcar ${channelName(row)}`);
+  checkbox.addEventListener("click", (event) => {
+    event.stopPropagation();
+    toggleChecked(row, checkbox.checked, event.shiftKey);
+  });
+  checkLabel.addEventListener("click", (event) => event.stopPropagation());
+  checkLabel.append(checkbox);
   const number = node("span", "row-number", String(row.number));
   const select = node("button", "channel-select");
   select.type = "button";
@@ -508,7 +622,7 @@ function renderRow(row) {
   down.setAttribute("aria-label", `Bajar ${channelName(row)} un lugar`);
   down.addEventListener("click", (event) => { event.stopPropagation(); changeLayout(moveRowFiltered(state.layout, rowKey(row), 1, rowVisible)); });
   order.append(up, down);
-  item.append(number, select, source, order);
+  item.append(checkLabel, number, select, source, order);
   return item;
 }
 
@@ -1774,12 +1888,23 @@ function handleGlobalKeydown(event) {
     elements.search.focus();
   }
   if (event.key === "Escape" && elements.changeReview && !elements.changeReview.hidden) elements.changeReview.hidden = true;
+  if (event.key === "Escape" && checkedKeys.size && !document.querySelector("dialog[open]")) {
+    clearChecked();
+    renderRows();
+  }
 }
 
 document.querySelectorAll(".view-tab").forEach((tab) => tab.addEventListener("click", () => {
+  if (activeView !== tab.dataset.view) clearChecked();
   activeView = tab.dataset.view;
   render();
 }));
+$("#check-all").addEventListener("change", (event) => {
+  const rows = rowsForView();
+  if (event.target.checked) rows.forEach((row) => checkedKeys.add(rowKey(row)));
+  else clearChecked();
+  renderRows();
+});
 elements.search.addEventListener("input", renderRows);
 elements.sourceFilter.addEventListener("change", () => { sourceFilter = elements.sourceFilter.value; renderRows(); });
 $("#add-channel-button").addEventListener("click", openAddDialog);

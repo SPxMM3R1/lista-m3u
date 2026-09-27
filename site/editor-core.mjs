@@ -415,3 +415,25 @@ export function suggestLogo(row, { catalogLogos = {}, logos = [] } = {}) {
   matches.sort((a, b) => rank(a) - rank(b) || a.length - b.length || a.localeCompare(b));
   return matches[0] ?? "";
 }
+
+/** Cambia el estado de varias filas a la vez (selección múltiple del editor). */
+export function setRowsState(layout, keys, state) {
+  const current = structuredClone(layout);
+  if (!["active", "hidden", "deleted"].includes(state)) return current;
+  const wanted = new Set(keys);
+  for (const row of current.channels) {
+    if (wanted.has(rowKey(row))) row.state = state;
+  }
+  // Igual que setRowState: activos, ocultos y papelera, conservando el orden relativo.
+  const byState = (name) => current.channels.filter((item) => item.state === name).sort(compareRows);
+  current.channels = [...byState("active"), ...byState("hidden"), ...byState("deleted")];
+  current.channels.forEach((item, index) => { item.order = index + 1; });
+  return current;
+}
+
+/** Elimina definitivamente varias filas; las M3U quedan como tombstone en excludedM3u. */
+export function removeRowsPermanently(layout, keys) {
+  let current = layout;
+  for (const key of new Set(keys)) current = removePermanently(current, key);
+  return current === layout ? structuredClone(layout) : current;
+}

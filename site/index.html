@@ -90,12 +90,16 @@
             </div>
             <button class="text-button" id="renumber-button" type="button">Renumerar</button>
           </div>
-          <div class="list-column-labels" aria-hidden="true">
-            <span>N.º</span><span>Canal</span><span>Fuente</span><span>Orden</span>
+          <div class="list-column-labels">
+            <label class="row-check" title="Marcar todos los canales visibles">
+              <input type="checkbox" id="check-all" aria-label="Marcar todos los canales visibles">
+            </label>
+            <span aria-hidden="true">N.º</span><span aria-hidden="true">Canal</span><span aria-hidden="true">Fuente</span><span aria-hidden="true">Orden</span>
           </div>
           <ol class="channel-list" id="channel-list" aria-label="Canales ordenados"></ol>
           <div class="list-footer">
             <span id="visible-range">Cargando catálogo…</span>
+            <div class="bulk-actions" id="bulk-actions" role="group" aria-label="Acciones para los canales marcados" hidden></div>
           </div>
         </div>
 
