@@ -14,8 +14,12 @@ on:
       - main
 permissions:
   contents: write
+# Grupo propio: la EPG solo publica epg.xml, epg-run-state.json y epg-pending.json,
+# que canales y cambios dirigidos no tocan. Compartir "m3u-publisher" hacia que
+# GitHub cancelara corridas en espera (solo admite una pendiente por grupo).
+# Si el otro proceso publica primero, publish_epg.py integra main y reintenta.
 concurrency:
-  group: m3u-publisher
+  group: m3u-epg
   cancel-in-progress: false
 jobs:
   update:

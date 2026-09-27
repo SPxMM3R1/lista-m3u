@@ -111,7 +111,21 @@ jobs:
           done
           git add -- "${stage_files[@]}"
           git commit -m "Publica cambio dirigido [skip ci]"
-          git push origin HEAD:main
+          pushed=false
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then
+              pushed=true
+              break
+            fi
+            if [ "$attempt" -eq 3 ]; then break; fi
+            echo "El remoto cambio durante el cambio dirigido; se integra y se reintenta la publicación."
+            git fetch origin main
+            git rebase origin/main
+          done
+          if [ "$pushed" != "true" ]; then
+            echo "No se pudo publicar el cambio dirigido después de integrar el estado remoto."
+            exit 1
+          fi
           echo "changed=true" >> "$GITHUB_OUTPUT"
           echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 

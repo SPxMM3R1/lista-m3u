@@ -15,13 +15,21 @@ def push_with_rebase() -> int:
     # construye. La EPG solo toca sus propios archivos, por lo que se puede
     # rebasar de forma segura sobre el main nuevo y reintentar sin mezclar
     # historiales ni perder el commit del otro proceso.
-    fetched = run("git", "fetch", "origin", "main")
-    if fetched.returncode != 0:
-        return first_push.returncode
-    rebased = run("git", "rebase", "origin/main")
-    if rebased.returncode != 0:
-        return rebased.returncode
-    return run("git", "push", "origin", "HEAD:main").returncode
+    # Con grupo de concurrencia propio, canales puede publicar en paralelo:
+    # se integra y reintenta hasta tres veces.
+    result = first_push.returncode
+    for _ in range(3):
+        fetched = run("git", "fetch", "origin", "main")
+        if fetched.returncode != 0:
+            return result
+        rebased = run("git", "rebase", "origin/main")
+        if rebased.returncode != 0:
+            run("git", "rebase", "--abort")
+            return rebased.returncode
+        result = run("git", "push", "origin", "HEAD:main").returncode
+        if result == 0:
+            return 0
+    return result
 
 
 def main() -> int:
