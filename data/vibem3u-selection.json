@@ -1,13 +1,29 @@
 {
   "schemaVersion": 1,
   "source": "vibem3u-android",
-  "selectionSignature": "sha256:aa940dc51c86775a36178cdf68f6b725a063d3c80378af5cfcf2c31338339b6b",
-  "publishedAt": "2026-09-26T20:51:05.843Z",
+  "selectionSignature": "sha256:269e41507fa68bef5d6c18c4e51e9d789240eb1987ba8b60f1cdb5f9d5ffdacd",
+  "publishedAt": "2026-09-27T03:01:20.051Z",
   "sources": [
     {
       "provider": "tvvoo",
-      "enabled": false,
-      "channels": []
+      "enabled": true,
+      "channels": [
+        {
+          "provider": "tvvoo",
+          "catalogKey": "unitedkingdom|vavoo_SKY%20SPORTS%20F1%20FHD%7Cgroup%3Auk",
+          "providerResourceId": "unitedkingdom|vavoo_SKY%20SPORTS%20F1%20FHD%7Cgroup%3Auk",
+          "name": "SKY SPORTS F1 FHD",
+          "group": "Deportes",
+          "category": "Motor Sports",
+          "identityState": "canonical",
+          "order": 1,
+          "country": "Reino Unido",
+          "countryKey": "unitedkingdom",
+          "aliases": [
+            "vavoo_SKY%20SPORTS%20F1%20FHD%7Cgroup%3Auk"
+          ]
+        }
+      ]
     },
     {
       "provider": "highfly",
