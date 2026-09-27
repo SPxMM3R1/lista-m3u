@@ -1035,6 +1035,33 @@ class TvnEpgTests(unittest.TestCase):
         self.assertEqual(status["programmes"], 1)
         self.assertEqual(status["pending_channels"], ["0102"])
 
+    def test_la_red_weekly_tabs_roll_forward_from_today(self) -> None:
+        # Domingo 27-09 22:00 en Chile: la pestaña "mon" es mañana, no el lunes pasado.
+        days = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
+        page = "".join(
+            f'<div class="tab_content shows-list {day}" id="{day}">'
+            + "".join(
+                f'<div class="item parent"><div class="hour"><p>{hour}</p></div>'
+                f'<p class="programa-name">{day} {hour}</p></div>'
+                for hour in ("07:00", "13:00", "21:00")
+            )
+            + "</div>"
+            for day in days
+        )
+        now = datetime(2026, 9, 27, 22, tzinfo=update_m3u.CHILE_TIMEZONE)
+        with patch.object(update_m3u, "fetch_bytes", return_value=(200, page.encode(), {})):
+            body, error = update_m3u.fetch_la_red_official_epg([channel("La Red", "0102")], now)
+
+        self.assertIsNone(error)
+        root = ET.fromstring(body)
+        starts = {
+            item.findtext("title"): item.get("start")
+            for item in root.findall("./programme[@channel='0102']")
+        }
+        self.assertTrue(starts["mon 07:00"].startswith("20260928070000"))
+        self.assertTrue(starts["sun 21:00"].startswith("20260927210000"))
+        self.assertTrue(starts["sat 21:00"].startswith("20261003210000"))
+
     def test_la_red_reuses_last_published_guide_when_official_is_down(self) -> None:
         now = datetime(2026, 8, 28, 12, tzinfo=timezone.utc)
         la_red = channel("La Red", "0102")

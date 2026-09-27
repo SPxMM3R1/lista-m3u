@@ -6105,10 +6105,15 @@ def fetch_la_red_official_epg(
             raise ValueError("La Red no publico una parrilla oficial suficiente")
 
         chile_today = now.astimezone(CHILE_TIMEZONE).date()
-        week_start = chile_today - timedelta(days=chile_today.weekday())
         starts: list[tuple[datetime, str]] = []
         for day_index, items in schedules.items():
-            schedule_day = week_start + timedelta(days=day_index)
+            # La página publica una parrilla semanal fija (pestañas lun..dom sin
+            # fecha, con la de hoy marcada). Cada pestaña es el próximo día con ese
+            # nombre a partir de hoy: el domingo en la noche "lunes" es mañana, no
+            # el lunes pasado; si no, la guía quedaba sin horas futuras y se descartaba.
+            schedule_day = chile_today + timedelta(
+                days=(day_index - chile_today.weekday()) % 7
+            )
             previous_start: datetime | None = None
             for start_clock, title in items:
                 start = datetime.combine(
