@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-generated-at="2026-09-27T18:53:17+00:00" data-description-policy="verified-source-only" data-description-programmes="2394" data-description-channels="28" data-next-refresh-at="2026-09-27T21:53:17+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u">
+<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-generated-at="2026-09-27T19:03:12+00:00" data-description-policy="verified-source-only" data-description-programmes="2398" data-description-channels="28" data-next-refresh-at="2026-09-27T22:03:12+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u">
   <channel id="0104" data-guide="parrilla real" data-guide-source="tecnocentro">
     <display-name>TVN</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvn.png" />
@@ -1137,11 +1137,21 @@
       <value>Apta</value>
     </rating>
   </programme>
-  <programme start="20260928090000 -0300" stop="20260928095317 -0300" channel="AlJazeera.qa">
+  <programme start="20260928090000 -0300" stop="20260928100000 -0300" channel="AlJazeera.qa">
     <title lang="es">Blood, Sweat and Sugar</title>
     <desc lang="es">Reportaje revelador sobre las terribles condiciones que enfrentan muchos de los diez millones de trabajadores asiáticos en el Golfo Pérsico, la mayoría procedentes de Bangladesh, India, Nepal, Pakistán y Sri Lanka.</desc>
     <date>2026</date>
     <icon src="https://cdn.sincroguia.tv/storage/images/118612/image.jpg" />
+    <rating system="ES">
+      <value>Apta</value>
+    </rating>
+  </programme>
+  <programme start="20260928100000 -0300" stop="20260928100312 -0300" channel="AlJazeera.qa">
+    <title lang="es">Newshour</title>
+    <desc lang="es">Boletín informativo que hace un repaso a las últimas noticias del día desde los distintos distintos centros internacionales que Al Jazeera tiene en Doha, Kuala Lumpur, Londres y Washington.</desc>
+    <date>2006</date>
+    <icon src="https://cdn.sincroguia.tv/storage/9336/c_newshour.jpeg" />
+    <country lang="es">Estado De Catar</country>
     <rating system="ES">
       <value>Apta</value>
     </rating>
@@ -3591,8 +3601,11 @@
   <programme start="20260928083000 -0300" stop="20260928090000 -0300" channel="TelehitMusica.mx@SD">
     <title lang="es">Playlist Telehit</title>
   </programme>
-  <programme start="20260928090000 -0300" stop="20260928095317 -0300" channel="TelehitMusica.mx@SD">
+  <programme start="20260928090000 -0300" stop="20260928095500 -0300" channel="TelehitMusica.mx@SD">
     <title lang="es">Top 10</title>
+  </programme>
+  <programme start="20260928095500 -0300" stop="20260928100312 -0300" channel="TelehitMusica.mx@SD">
+    <title lang="es">Reggaetown</title>
   </programme>
   <programme channel="France24.fr" start="20260925210000 -0300" stop="20260925212000 -0300">
     <title lang="fr">Noticias</title>
@@ -6038,13 +6051,30 @@
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/0/5/15194509.jpg" />
     <episode-num system="onscreen">E181</episode-num>
   </programme>
-  <programme channel="France24.fr" start="20260928093000 -0300" stop="20260928095317 -0300">
+  <programme channel="France24.fr" start="20260928093000 -0300" stop="20260928095400 -0300">
     <title lang="fr">Noticias</title>
     <category lang="fr">Journal</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/0/5/15194509.jpg" />
     <episode-num system="onscreen">E182</episode-num>
+  </programme>
+  <programme channel="France24.fr" start="20260928095400 -0300" stop="20260928100000 -0300">
+    <title lang="fr">En foco</title>
+    <category lang="fr">Magazine d'information</category>
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/4/5/15194545.jpg" />
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/9/4/15194496.jpg" />
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/1/5/15194515.jpg" />
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/4/3/15184348.jpg" />
+    <episode-num system="onscreen">E10</episode-num>
+  </programme>
+  <programme channel="France24.fr" start="20260928100000 -0300" stop="20260928100312 -0300">
+    <title lang="fr">Noticias</title>
+    <category lang="fr">Journal</category>
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/0/5/15194509.jpg" />
+    <episode-num system="onscreen">E183</episode-num>
   </programme>
   <programme channel="SkySportsPremierLeague.uk" start="20260925210000 -0300" stop="20260925230000 -0300">
     <title lang="en">PL Retro: Man Utd v Everton 2012</title>
@@ -11151,7 +11181,7 @@
       <value>TVG</value>
     </rating>
   </programme>
-  <programme channel="RewindTV.cl@SD" start="20260928093000 -0300" stop="20260928095317 -0300">
+  <programme channel="RewindTV.cl@SD" start="20260928093000 -0300" stop="20260928100000 -0300">
     <title lang="en">Live</title>
     <sub-title lang="en">Sky Flakes Keep Falling on My Head</sub-title>
     <desc lang="en">Exidor offers Mork and Mindy the use of his mountain retreat for a restful weekend, but it ends up out of this world.</desc>
@@ -11163,6 +11193,24 @@
     <category lang="en">Sitcom</category>
     <icon src="https://cdn.tvpassport.com/image/show/960x540/v2/p184152_b_v8_aa.jpg" />
     <episode-num system="onscreen">E16</episode-num>
+    <previously-shown />
+    <rating system="MPAA">
+      <value>TVG</value>
+    </rating>
+  </programme>
+  <programme channel="RewindTV.cl@SD" start="20260928100000 -0300" stop="20260928100312 -0300">
+    <title lang="en">Live</title>
+    <sub-title lang="en">Whose So-Called Life Is It Anyway?</sub-title>
+    <desc lang="en">Sabrina's (Melissa Joan Hart) spell turns Valerie (Lindsay Sloane) into a Sabrina clone; Salem finds fame as a painter.</desc>
+    <credits>
+      <actor>Melissa Joan Hart</actor>
+      <actor>Caroline Rhea</actor>
+      <actor>Beth Broderick</actor>
+    </credits>
+    <category lang="en">Sitcom</category>
+    <category lang="en">Comedy</category>
+    <icon src="https://cdn.tvpassport.com/image/show/960x540/v2/p184218_b_v8_ao.jpg" />
+    <episode-num system="onscreen">E62</episode-num>
     <previously-shown />
     <rating system="MPAA">
       <value>TVG</value>
@@ -12341,7 +12389,7 @@
     <icon src="http://dtil.tmsimg.com/assets/p25605204_b_h11_aa.jpg?w=960&amp;h=540" />
     <previously-shown />
   </programme>
-  <programme channel="TVEInternacionalAmerica.es@HD" start="20260928092000 -0300" stop="20260928095317 -0300">
+  <programme channel="TVEInternacionalAmerica.es@HD" start="20260928092000 -0300" stop="20260928095500 -0300">
     <title lang="es">Mañaneros 360</title>
     <desc lang="es">Programa de actualidad que tiene el afán de contar temas de interés para el ciudadano, desde la actualidad política a la crónica social.</desc>
     <credits>
@@ -12358,6 +12406,20 @@
     <category lang="es">News</category>
     <icon src="http://dtil.tmsimg.com/assets/p25605204_b_h11_aa.jpg?w=960&amp;h=540" />
     <previously-shown />
+  </programme>
+  <programme channel="TVEInternacionalAmerica.es@HD" start="20260928095500 -0300" stop="20260928100312 -0300">
+    <title lang="es">Telediario 1a edición</title>
+    <desc lang="es">Espacio de información audiovisual que hace un repaso diario a la actualidad general de España y el mundo.</desc>
+    <credits>
+      <actor>Alejandra Herranz</actor>
+      <actor>Mavi Doñate</actor>
+      <director>Pau Fons Álvaro</director>
+      <director>Amaia Pérez de Mendiola</director>
+    </credits>
+    <date>2010</date>
+    <category lang="es">News</category>
+    <icon src="http://dtil.tmsimg.com/assets/p8085562_b_h10_aa.jpg?w=960&amp;h=540" />
+    <premiere lang="es" />
   </programme>
   <programme channel="ArirangTV.kr" start="20260927020000 -0300" stop="20260927023000 -0300">
     <title lang="pl">Moo No Plan</title>
@@ -12591,9 +12653,13 @@
     <title lang="pl">K-culture Minutes: K-now</title>
     <episode-num system="onscreen">E39</episode-num>
   </programme>
-  <programme channel="ArirangTV.kr" start="20260928095000 -0300" stop="20260928095317 -0300">
+  <programme channel="ArirangTV.kr" start="20260928095000 -0300" stop="20260928100000 -0300">
     <title lang="pl">Smartbiz Accel 2</title>
     <episode-num system="onscreen">E464</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20260928100000 -0300" stop="20260928100312 -0300">
+    <title lang="pl">Ai Headline News 22:00</title>
+    <episode-num system="onscreen">E1</episode-num>
   </programme>
   <programme start="20260926210000 -0300" stop="20260926213000 -0300" channel="BBCNews.uk">
     <title lang="en">BBC News</title>
@@ -13170,7 +13236,26 @@
     <icon src="https://metadata-static.plex.tv/7/gracenote/712473cb32c42e7437f31aaba31cb62d.jpg" />
     <episode-num system="onscreen">S2026</episode-num>
   </programme>
-  <programme start="20260928093000 -0300" stop="20260928095317 -0300" channel="BBCNews.uk">
+  <programme start="20260928093000 -0300" stop="20260928095500 -0300" channel="BBCNews.uk">
+    <title lang="en">BBC News Now</title>
+    <desc lang="en">All the big stories, live as they happen, presented by Lucy Hockings.</desc>
+    <date>2026</date>
+    <icon src="https://metadata-static.plex.tv/7/gracenote/712473cb32c42e7437f31aaba31cb62d.jpg" />
+    <episode-num system="onscreen">S2026</episode-num>
+  </programme>
+  <programme start="20260928095500 -0300" stop="20260928100000 -0300" channel="BBCNews.uk">
+    <title lang="en">Tech Now</title>
+    <desc lang="en">Alasdair Keane visits Schiphol Airport to see how self-driving vehicles are being trialled; Nick Kwek is at the Imperial War Museum in London to hear how survivor stories are brought to life.</desc>
+    <date>2025</date>
+    <category lang="en">Documentary</category>
+    <category lang="en">Technology</category>
+    <category lang="en">Science</category>
+    <category lang="en">Entertainment</category>
+    <category lang="en">History + Science</category>
+    <icon src="https://metadata-static.plex.tv/b/gracenote/b9324c89f8fa40d16bbe924d8c2c56f6.jpg" />
+    <episode-num system="onscreen">S2025</episode-num>
+  </programme>
+  <programme start="20260928100000 -0300" stop="20260928100312 -0300" channel="BBCNews.uk">
     <title lang="en">BBC News Now</title>
     <desc lang="en">All the big stories, live as they happen, presented by Lucy Hockings.</desc>
     <date>2026</date>
@@ -13492,13 +13577,22 @@
     <icon src="https://d11hei8e1dyf6i.cloudfront.net/RWILD/Default_Thumbnail.jpg" />
     <episode-num system="onscreen">S1 E1</episode-num>
   </programme>
-  <programme start="20260928093100 -0300" stop="20260928095317 -0300" channel="RealWild.us">
+  <programme start="20260928093100 -0300" stop="20260928100100 -0300" channel="RealWild.us">
     <title lang="en">Shamwari Untamed</title>
     <desc lang="en">The wildlife team is in a race against time to find the black rhino calf which split up from its mother after.</desc>
     <date>2018</date>
     <category lang="en">Explore</category>
     <icon src="https://d11hei8e1dyf6i.cloudfront.net/RWILD/Default_Thumbnail.jpg" />
     <episode-num system="onscreen">S1 E2</episode-num>
+  </programme>
+  <programme start="20260928100100 -0300" stop="20260928100312 -0300" channel="RealWild.us">
+    <title lang="en">Myths Of The Congo</title>
+    <sub-title lang="en">Apes &amp; Aliens</sub-title>
+    <desc lang="en">The Congo River supports diverse wildlife, including three of four giant ape species in its jungles.</desc>
+    <date>2014</date>
+    <category lang="en">Explore</category>
+    <icon src="https://d11hei8e1dyf6i.cloudfront.net/RWILD/Default_Thumbnail.jpg" />
+    <episode-num system="onscreen">S1 E1</episode-num>
   </programme>
   <programme start="20260926210500 -0300" stop="20260926234300 -0300" channel="QelloConcertsbyStingray.ca">
     <title lang="en">Metallica - Orion Festival: Tour Through the Never</title>
@@ -13690,7 +13784,7 @@
       <value>TV-PG</value>
     </rating>
   </programme>
-  <programme start="20260928091900 -0300" stop="20260928095317 -0300" channel="QelloConcertsbyStingray.ca">
+  <programme start="20260928091900 -0300" stop="20260928100312 -0300" channel="QelloConcertsbyStingray.ca">
     <title lang="en">Rod Stewart - Live at Hyde Park</title>
     <desc lang="en">Experience the legendary Rod Stewart as he closes Radio 2's Annual Festival In A Day with a memorable performance in September 2015 at London's Hyde Park.</desc>
     <date>2026</date>
@@ -13826,7 +13920,7 @@
       <value>NR</value>
     </rating>
   </programme>
-  <programme start="20260928090000 -0300" stop="20260928095317 -0300" channel="XITE80sFlashback.us">
+  <programme start="20260928090000 -0300" stop="20260928100312 -0300" channel="XITE80sFlashback.us">
     <title lang="en">Wake Up And Go-Go</title>
     <desc lang="en">Let these 80s hits be your morning motivation.</desc>
     <category lang="en">Music</category>
@@ -13961,7 +14055,7 @@
       <value>NR</value>
     </rating>
   </programme>
-  <programme start="20260928090000 -0300" stop="20260928095317 -0300" channel="XITERockxMetal.nl">
+  <programme start="20260928090000 -0300" stop="20260928100312 -0300" channel="XITERockxMetal.nl">
     <title lang="en">Full Throttle Rock</title>
     <desc lang="en">Take charge of your day with these absolute Rock gems.</desc>
     <category lang="en">Music</category>
@@ -14096,7 +14190,7 @@
       <value>NR</value>
     </rating>
   </programme>
-  <programme start="20260928090000 -0300" stop="20260928095317 -0300" channel="XITE90sThrowback.us">
+  <programme start="20260928090000 -0300" stop="20260928100312 -0300" channel="XITE90sThrowback.us">
     <title lang="en">Wake Up With The 90s</title>
     <desc lang="en">Fuel up your morning with these 90s hits.</desc>
     <category lang="en">Music</category>
@@ -14204,11 +14298,20 @@
       <value>NR</value>
     </rating>
   </programme>
-  <programme start="20260928070000 -0300" stop="20260928095317 -0300" channel="XITEHits.nl@Germany">
+  <programme start="20260928070000 -0300" stop="20260928100000 -0300" channel="XITEHits.nl@Germany">
     <title lang="en">Rise &amp; Shine Hits</title>
     <desc lang="en">Struggling to rise and shine? Let these hits get you through the early hours.</desc>
     <category lang="en">Music</category>
     <icon src="https://demp3evtv0qgp.cloudfront.net/XITUS/glo-rise-shine-hits-16_9.png" />
+    <rating system="US">
+      <value>14</value>
+    </rating>
+  </programme>
+  <programme start="20260928100000 -0300" stop="20260928100312 -0300" channel="XITEHits.nl@Germany">
+    <title lang="en">Morning Motivation Hits</title>
+    <desc lang="en">A daily dose of uplifting videos to kickstart your morning.</desc>
+    <category lang="en">Music</category>
+    <icon src="https://demp3evtv0qgp.cloudfront.net/XITUS/glo-morning-motivation-hits-16_9.png" />
     <rating system="US">
       <value>14</value>
     </rating>
@@ -14379,7 +14482,7 @@
     <icon src="https://metadata-static.plex.tv/f/gracenote/f6302d5624bf6b064128557fbc22de07.jpg" />
     <episode-num system="onscreen">S2026</episode-num>
   </programme>
-  <programme start="20260928094900 -0300" stop="20260928095317 -0300" channel="StingrayClassica.ca">
+  <programme start="20260928094900 -0300" stop="20260928100312 -0300" channel="StingrayClassica.ca">
     <title lang="en">Works by Bach, Bartók, and Brahms</title>
     <desc lang="en">Iván Fischer leads his Budapest Festival Orchestra in a programme consisting of works by J. S. Bach, Béla Bartók and Johannes Brahms; the programme opens with Bach's Brandenburg Concerto No. 3 in G major, BWV 1048.</desc>
     <date>2026</date>
@@ -14512,7 +14615,7 @@
       <value>NR</value>
     </rating>
   </programme>
-  <programme start="20260928090000 -0300" stop="20260928095317 -0300" channel="XITEJustChill.nl">
+  <programme start="20260928090000 -0300" stop="20260928100312 -0300" channel="XITEJustChill.nl">
     <title lang="en">Easy Morning Vibes</title>
     <desc lang="en">Welcome the sun with these mellow music videos.</desc>
     <category lang="en">Music</category>
@@ -14665,7 +14768,7 @@
       <value>14</value>
     </rating>
   </programme>
-  <programme start="20260928090000 -0300" stop="20260928095317 -0300" channel="XITESiempreLatino.us">
+  <programme start="20260928090000 -0300" stop="20260928100312 -0300" channel="XITESiempreLatino.us">
     <title lang="en">Latin Morning Vibes</title>
     <desc lang="en">Memorable Latin hits from Reggaeton to Bachata, and everything in between.</desc>
     <category lang="en">Music</category>
@@ -14800,7 +14903,7 @@
       <value>TV-14</value>
     </rating>
   </programme>
-  <programme start="20260928090000 -0300" stop="20260928095317 -0300" channel="XITENuevoLatino.us">
+  <programme start="20260928090000 -0300" stop="20260928100312 -0300" channel="XITENuevoLatino.us">
     <title lang="en">Latin Sunrise</title>
     <desc lang="en">Wake up and groove to these infectious Latin rhythms.</desc>
     <category lang="en">Music</category>
@@ -15906,9 +16009,6 @@
   <programme start="20260928003000 -0300" stop="20260928023000 -0300" channel="0105">
     <title lang="es">Volverías con tu Ex? 2 (Lo mejor)</title>
   </programme>
-  <programme start="20260927153000 -0300" stop="20260927160000 -0300" channel="DWEnglish.de">
-    <title lang="en">REV: How much practical training do learner drivers really need?</title>
-  </programme>
   <programme start="20260927160000 -0300" stop="20260927161500 -0300" channel="DWEnglish.de">
     <title lang="en">DW News</title>
   </programme>
@@ -16020,6 +16120,9 @@
   <programme start="20260928031500 -0300" stop="20260928033000 -0300" channel="DWEnglish.de">
     <title lang="en">Shift: Reading 2.0: How AI is changing our books</title>
   </programme>
+  <programme start="20260928033000 -0300" stop="20260928040000 -0300" channel="DWEnglish.de">
+    <title lang="en">Eco Africa: A museum of herbal medicine on the move</title>
+  </programme>
   <programme start="20260927153000 -0300" stop="20260927160000 -0300" channel="DW.de">
     <title lang="es">Enlaces: ¿Llegó realmente la hora de los robots humanoides?</title>
   </programme>
@@ -16106,11 +16209,6 @@
   </programme>
   <programme start="20260928030000 -0300" stop="20260928033000 -0300" channel="DW.de">
     <title lang="es">Hecho en Alemania: Hacia soluciones más ecológicas</title>
-  </programme>
-  <programme start="20260927091000 -0300" stop="20260927100000 -0300" channel="NHKWorldJapan.jp">
-    <title lang="en">Hikikomori Pilgrimage</title>
-    <desc lang="en">Five young men from around Japan, once withdrawn from society - a phenomenon known as hikikomori - embark on a 1,200-kilometer pilgrimage around the island of Shikoku, on a journey of self-discovery.</desc>
-    <url>https://www3.nhk.or.jp/nhkworld/en/shows/hikipilgrimage/</url>
   </programme>
   <programme start="20260927100000 -0300" stop="20260927101000 -0300" channel="NHKWorldJapan.jp">
     <title lang="en">NHK Newsline</title>
@@ -16541,11 +16639,15 @@
     <title lang="en">Newsroom Tokyo</title>
     <desc lang="en">NEWSROOM TOKYO dives deeper into the day's news with insight and analysis, from the perspective of Japan and the rest of Asia. We put a spotlight on what you need to know to understand the issues.</desc>
   </programme>
-  <programme start="20260928093000 -0300" stop="20260928095317 -0300" channel="NHKWorldJapan.jp">
+  <programme start="20260928093000 -0300" stop="20260928100000 -0300" channel="NHKWorldJapan.jp">
     <title lang="en">Dive in Tokyo</title>
     <sub-title lang="en">Kodaira - Savoring a Taste of Country Life</sub-title>
     <desc lang="en">Home to blueberry farms and open gardens, Kodaira is a suburban getaway that offers a taste of rural living. We learn about the efforts of early settlers to bring life to what was a barren landscape.</desc>
     <url>https://www3.nhk.or.jp/nhkworld/en/shows/diveintokyo/</url>
+  </programme>
+  <programme start="20260928100000 -0300" stop="20260928100312 -0300" channel="NHKWorldJapan.jp">
+    <title lang="en">NHK Newsline</title>
+    <desc lang="en">NHK NEWSLINE brings you up to date with the latest from Japan, Asia and around the world. Our team covers breaking news and major developments, with trusted anchors to tie it all together.</desc>
   </programme>
   <programme start="20260927143000 -0300" stop="20260927165000 -0300" channel="0107">
     <title lang="es">Domingo de Películas: "Thelma y Louise"</title>
@@ -16591,11 +16693,11 @@
     <title lang="es">Teletrece AM</title>
     <category lang="es">[]</category>
   </programme>
-  <programme start="20260928075000 -0300" stop="20260928095317 -0300" channel="0107">
+  <programme start="20260928075000 -0300" stop="20260928100312 -0300" channel="0107">
     <title lang="es">Tu Día</title>
     <category lang="es">[]</category>
   </programme>
-  <programme start="20260927154426 -0300" stop="20260927164300 -0300" channel="13Cultura.cl@DPS">
+  <programme start="20260927155856 -0300" stop="20260927164300 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Cultura Indómita</title>
     <sub-title lang="es">Cultura Indómita | Resumen, Etnias - Parte 1</sub-title>
     <category lang="es">None</category>
@@ -16685,7 +16787,7 @@
     <sub-title lang="es">Cultura Indómita | Resumen, Ferias y Mercados</sub-title>
     <category lang="es">None</category>
   </programme>
-  <programme start="20260928094346 -0300" stop="20260928095317 -0300" channel="13Cultura.cl@DPS">
+  <programme start="20260928094346 -0300" stop="20260928100312 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Cultura Indómita</title>
     <sub-title lang="es">Cultura Indómita | Animales Salvajes</sub-title>
     <category lang="es">None</category>
@@ -16768,7 +16870,7 @@
   <programme start="20260928083033 -0300" stop="20260928092842 -0300" channel="AutenticHistory.de">
     <title lang="en">Children Of Dictators</title>
   </programme>
-  <programme start="20260928092842 -0300" stop="20260928095317 -0300" channel="AutenticHistory.de">
+  <programme start="20260928092842 -0300" stop="20260928100312 -0300" channel="AutenticHistory.de">
     <title lang="en">Children Of Dictators</title>
   </programme>
   <programme start="20260927083000 -0300" stop="20260927122000 -0300" channel="0106">
@@ -16786,10 +16888,7 @@
   <programme start="20260927202000 -0300" stop="20260927223000 -0300" channel="0106">
     <title lang="es">CHV Noticias central</title>
   </programme>
-  <programme start="20260927150000 -0300" stop="20260927153000 -0300" channel="0201">
-    <title lang="es">Reporte agrícola</title>
-  </programme>
-  <programme start="20260927153000 -0300" stop="20260927154500 -0300" channel="0201">
+  <programme start="20260927154100 -0300" stop="20260927154500 -0300" channel="0201">
     <title lang="es">Entrevistas 24</title>
   </programme>
   <programme start="20260927154500 -0300" stop="20260927160000 -0300" channel="0201">
@@ -16800,6 +16899,9 @@
   </programme>
   <programme start="20260927173000 -0300" stop="20260927183000 -0300" channel="0201">
     <title lang="es">24 Horas deportes</title>
+  </programme>
+  <programme start="20260927183000 -0300" stop="20260927190000 -0300" channel="0201">
+    <title lang="es">24 horas a la hora</title>
   </programme>
   <programme start="20260927084000 -0300" stop="20260927130000 -0300" channel="Meganoticias.cl">
     <title lang="es">Meganoticias Siempre Juntos</title>
@@ -16831,9 +16933,6 @@
   <programme start="20260927170000 -0300" stop="20260927180000 -0300" channel="1153">
     <title lang="es">Bolsillo CHV Noticias</title>
   </programme>
-  <programme start="20260927143000 -0300" stop="20260927150000 -0300" channel="0124">
-    <title lang="es">Sin intereses</title>
-  </programme>
   <programme start="20260927150000 -0300" stop="20260927154500 -0300" channel="0124">
     <title lang="es">Emprendedores T13</title>
   </programme>
@@ -16845,6 +16944,9 @@
   </programme>
   <programme start="20260927180000 -0300" stop="20260927190000 -0300" channel="0124">
     <title lang="es">Micrófono Abierto</title>
+  </programme>
+  <programme start="20260927190000 -0300" stop="20260927193000 -0300" channel="0124">
+    <title lang="es">Mercado en vivo</title>
   </programme>
   <programme start="20260927145000 -0300" stop="20260927150500 -0300" channel="45">
     <title lang="es">10 Cosas Que No Sabías De</title>
@@ -16903,9 +17005,6 @@
   <programme start="20260927223000 -0300" stop="20260928004500 -0300" channel="0106">
     <title lang="es">Fiebre de Canto</title>
   </programme>
-  <programme start="20260927090000 -0300" stop="20260927100000 -0300" channel="0201">
-    <title lang="es">24 horas a la hora</title>
-  </programme>
   <programme start="20260927100000 -0300" stop="20260927101500 -0300" channel="0201">
     <title lang="es">Entrevistas 24</title>
   </programme>
@@ -16942,8 +17041,8 @@
   <programme start="20260927153000 -0300" stop="20260927154500 -0300" channel="0201">
     <title lang="es">Entrevistas 24</title>
   </programme>
-  <programme start="20260927183000 -0300" stop="20260927190000 -0300" channel="0201">
-    <title lang="es">24 horas a la hora</title>
+  <programme start="20260927154500 -0300" stop="20260927160000 -0300" channel="0201">
+    <title lang="es">Economía DW</title>
   </programme>
   <programme start="20260927190000 -0300" stop="20260927193000 -0300" channel="0201">
     <title lang="es">El especialista responde</title>
@@ -16990,7 +17089,7 @@
   <programme start="20260928060000 -0300" stop="20260928080000 -0300" channel="0104">
     <title lang="es">24 horas tu mañana</title>
   </programme>
-  <programme start="20260928080000 -0300" stop="20260928095317 -0300" channel="0104">
+  <programme start="20260928080000 -0300" stop="20260928100312 -0300" channel="0104">
     <title lang="es">Buenos días a todos</title>
   </programme>
   <programme start="20260928023000 -0300" stop="20260928040000 -0300" channel="0105">
@@ -17002,7 +17101,7 @@
   <programme start="20260928054500 -0300" stop="20260928080000 -0300" channel="0105">
     <title lang="es">Meganoticias amanece</title>
   </programme>
-  <programme start="20260928080000 -0300" stop="20260928095317 -0300" channel="0105">
+  <programme start="20260928080000 -0300" stop="20260928100312 -0300" channel="0105">
     <title lang="es">Mucho gusto</title>
   </programme>
   <programme start="20260928004500 -0300" stop="20260928013000 -0300" channel="0106">
@@ -17023,7 +17122,7 @@
   <programme start="20260928063000 -0300" stop="20260928080000 -0300" channel="0106">
     <title lang="es">Contigo CHV Noticias A.M.</title>
   </programme>
-  <programme start="20260928080000 -0300" stop="20260928095317 -0300" channel="0106">
+  <programme start="20260928080000 -0300" stop="20260928100312 -0300" channel="0106">
     <title lang="es">Contigo en la mañana</title>
   </programme>
   <programme start="20260928000000 -0300" stop="20260928003000 -0300" channel="0201">
@@ -17068,7 +17167,7 @@
   <programme start="20260928080000 -0300" stop="20260928083000 -0300" channel="0201">
     <title lang="es">El especialista responde</title>
   </programme>
-  <programme start="20260928083000 -0300" stop="20260928095317 -0300" channel="0201">
+  <programme start="20260928083000 -0300" stop="20260928100312 -0300" channel="0201">
     <title lang="es">Mañana informativa</title>
   </programme>
   <programme start="20260927062500 -0300" stop="20260927130000 -0300" channel="M1.ua@SD">
@@ -17092,7 +17191,7 @@
   <programme start="20260928013000 -0300" stop="20260928020000 -0300" channel="M1.ua@SD">
     <title lang="uk">СвоєРідне. Шоубіз</title>
   </programme>
-  <programme start="20260928020000 -0300" stop="20260928095317 -0300" channel="M1.ua@SD">
+  <programme start="20260928020000 -0300" stop="20260928100312 -0300" channel="M1.ua@SD">
     <title lang="uk">M1 Hits</title>
   </programme>
   <programme start="20260927070000 -0300" stop="20260927120000 -0300" channel="M2.ua@SD">
@@ -17107,7 +17206,7 @@
   <programme start="20260927154000 -0300" stop="20260927180000 -0300" channel="M2.ua@SD">
     <title lang="uk">Хіти Нон-стоп</title>
   </programme>
-  <programme start="20260927180000 -0300" stop="20260928095317 -0300" channel="M2.ua@SD">
+  <programme start="20260927180000 -0300" stop="20260928100312 -0300" channel="M2.ua@SD">
     <title lang="uk">Хіти Нон-стоп</title>
   </programme>
   <programme start="20260927134538 -0300" stop="20260927155116 -0300" channel="RedBullChileEspanol.cl">
@@ -17178,7 +17277,7 @@
     <title lang="es">SURF: Inside Pro Surfing – Behind the Break</title>
     <desc lang="es">Perfect waves, crazy crowds and mind-blowing performances: the 2026 Gold Coast Pro was an instant classic.</desc>
   </programme>
-  <programme start="20260928093232 -0300" stop="20260928095317 -0300" channel="RedBullChileEspanol.cl">
+  <programme start="20260928093232 -0300" stop="20260928100312 -0300" channel="RedBullChileEspanol.cl">
     <title lang="es">SURF: Inside Pro Surfing – Behind the Break</title>
     <desc lang="es">The world's best surfers head to one of the world's best lefts, as Raglan hosts the New Zealand Pro.</desc>
   </programme>
