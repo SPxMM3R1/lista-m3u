@@ -152,10 +152,13 @@ def parse_provider_identities(text: str) -> list[dict[str, str]]:
         if not comma:
             continue
         attrs = {key: value for key, value in EXTINF_ATTRIBUTE.findall(metadata)}
-        if attrs.get("x-resolver", "").casefold() == "tvvoo":
-            continue
         catalog_key = attrs.get("tvg-id", "").strip()
         name = (attrs.get("tvg-name") or display).strip()
+        # Las identidades propias de TvVoo (``...@TvVoo``) no son claves Highfly. Una
+        # fila canónica que hoy resuelve TvVoo (Sky F1 desde el 26-09) sí lo es: si se
+        # excluye, el editor marca "provisional" a Highfly SKY SPORTS F1.
+        if attrs.get("x-resolver", "").casefold() == "tvvoo" and catalog_key.endswith("@TvVoo"):
+            continue
         if (
             not catalog_key
             or catalog_key.casefold().startswith("leaf:")

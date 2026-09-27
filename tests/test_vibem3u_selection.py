@@ -342,3 +342,35 @@ class VibeM3USelectionTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class HighflySelectionOverOtherResolverTest(unittest.TestCase):
+    """Sky F1: selección Highfly sobre una fila que el catálogo resuelve con TvVoo."""
+
+    def test_marks_managed_without_rewriting_the_catalog_resolver(self) -> None:
+        directory = tempfile.TemporaryDirectory()
+        self.addCleanup(directory.cleanup)
+        path = Path(directory.name) / "vibem3u-selection.json"
+        path.write_text(json.dumps({
+            "schemaVersion": 1,
+            "sources": [{"provider": "highfly", "enabled": True, "channels": [{
+                "provider": "highfly", "catalogKey": "SkySportsF1.uk",
+                "providerResourceId": "leaf:now-34343434", "resolverSlug": "now-34343434",
+                "name": "SKY SPORTS F1", "group": "Deportes", "identityState": "canonical", "order": 1,
+            }]}],
+        }), encoding="utf-8")
+        lines = [
+            "#EXTM3U",
+            '#EXTINF:-1 tvg-id="SkySportsF1.uk" tvg-name="Sky Sports F1" x-resolver="tvvoo" '
+            'x-resolver-ids="vavoo_SKY%20SPORTS%20F1%7Cgroup%3Auk",Sky Sports F1',
+            "http://example.test/f1",
+        ]
+        reconciliation = vibem3u_selection.reconcile_selection(
+            vibem3u_selection.load_selection(path), update_m3u.parse_channels(lines), lines
+        )
+
+        update_m3u.apply_vibem3u_selection(lines, reconciliation)
+
+        self.assertIn('x-vibem3u-selection="managed"', lines[1])
+        self.assertIn('x-resolver="tvvoo"', lines[1])
+        self.assertNotIn("now-34343434", lines[1])

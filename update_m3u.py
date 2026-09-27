@@ -3398,6 +3398,13 @@ def apply_vibem3u_selection(
         if item.row.provider != "highfly":
             continue
         channel = channels[item.catalog_index]
+        current_resolver = resolver_attributes_for(channel).get("x-resolver", "")
+        if current_resolver and current_resolver != "highfly":
+            # La fila del catálogo usa otro resolutor (p. ej. Sky F1 es TvVoo desde el
+            # 26-09). La selección Highfly la marca como gestionada para EPG y logo,
+            # pero no reescribe su resolutor: la app reproduce Highfly desde el layout
+            # y las listas públicas conservan el resolutor del catálogo.
+            continue
         HIGHFLY_RUNTIME_RESOLVER_CHANNELS[channel.tvg_id] = item.row.resolver_slug
         expected_attributes = {
             "x-resolver": "highfly",

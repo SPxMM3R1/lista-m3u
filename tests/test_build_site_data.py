@@ -65,6 +65,8 @@ class BuildSiteDataTests(unittest.TestCase):
                 '#EXTINF:-1 tvg-id="token=do-not-export" tvg-name="Leaked",Leaked',
                 '#EXTINF:-1 tvg-id="TvVoo.id@TvVoo" tvg-name="TvVoo Channel" x-resolver="tvvoo" x-resolver-id="vavoo_SECRET",TvVoo Channel',
                 "https://private.invalid/tvvoo.m3u8",
+                '#EXTINF:-1 tvg-id="SkySportsTennis.uk" tvg-name="Sky Sports Tennis" x-resolver="tvvoo" x-resolver-ids="vavoo_SECRET2",Sky Sports Tennis',
+                "https://private.invalid/tennis.m3u8",
             )
         )
 
@@ -76,6 +78,8 @@ class BuildSiteDataTests(unittest.TestCase):
             [
                 {"catalogKey": "SkySportsF1.uk", "name": "Sky Sports F1"},
                 {"catalogKey": "Channel.one", "name": "Channel One"},
+                # Canónica aunque hoy la resuelva TvVoo (caso Sky F1).
+                {"catalogKey": "SkySportsTennis.uk", "name": "Sky Sports Tennis"},
             ],
         )
         self.assertNotIn("secret.invalid", encoded)
