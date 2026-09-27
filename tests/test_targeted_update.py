@@ -299,6 +299,25 @@ class TargetedUpdateTest(unittest.TestCase):
         self.assertEqual("one", parsed[0].tvg_id)
         self.assertEqual("Mi canal favorito", parsed[0].display_name)
 
+    def test_name_override_keeps_catalog_name_of_name_keyed_tvvoo_channel(self) -> None:
+        lines = [
+            "#EXTM3U",
+            '#EXTINF:-1 tvg-id="SkySportsF1.uk" tvg-name="Sky Sports F1" '
+            'x-resolver="tvvoo",Sky Sports F1',
+            "https://example.test/f1.m3u8",
+        ]
+
+        changed = update_m3u.apply_presentation_overrides(
+            lines,
+            "channel-catalog.m3u",
+            {"names": {"SkySportsF1.uk": "SKY SPORTS F1"}},
+        )
+
+        self.assertFalse(changed)
+        channel = update_m3u.parse_channels(lines)[0]
+        self.assertEqual("Sky Sports F1", channel.name)
+        self.assertEqual("tvvoo", update_m3u.resolver_attributes_for(channel)["x-resolver"])
+
     def test_provider_name_override_maps_only_after_identity_match(self) -> None:
         from types import SimpleNamespace
 

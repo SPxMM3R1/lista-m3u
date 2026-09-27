@@ -3805,7 +3805,10 @@ def apply_presentation_overrides(
                 lines[channel.info_line] = updated
                 changed = True
         display_name = names.get(channel.tvg_id)
-        if display_name:
+        # TVVOO_STREAM_RESOLVER_IDS se indexa por el nombre del catalogo:
+        # renombrar esa linea le quitaria el resolutor y abortaria la
+        # validacion del contrato. La app toma el nombre visible del layout.
+        if display_name and channel.name not in TVVOO_STREAM_RESOLVER_IDS:
             updated = with_display_name(lines[channel.info_line], str(display_name))
             if updated != lines[channel.info_line]:
                 lines[channel.info_line] = updated
