@@ -1,18 +1,398 @@
 {
   "schemaVersion": 1,
   "source": "vibem3u-android",
-  "selectionSignature": "sha256:aa940dc51c86775a36178cdf68f6b725a063d3c80378af5cfcf2c31338339b6b",
-  "publishedAt": "2026-09-27T04:26:13.211Z",
+  "selectionSignature": "sha256:2f0ae0ef8bdc79a38ef9df7166bf42ca052e0c18f0c76d576031373f0172154b",
+  "publishedAt": "2026-09-27T17:07:13.536Z",
   "sources": [
     {
       "provider": "tvvoo",
-      "enabled": false,
-      "channels": []
+      "enabled": true,
+      "channels": [
+        {
+          "provider": "tvvoo",
+          "catalogKey": "spain|vavoo_EUROSPORT%201%7Cgroup%3Aes",
+          "providerResourceId": "spain|vavoo_EUROSPORT%201%7Cgroup%3Aes",
+          "name": "EUROSPORT 1",
+          "group": "España",
+          "category": "Sport",
+          "identityState": "canonical",
+          "order": 1,
+          "country": "España",
+          "countryKey": "spain",
+          "aliases": [
+            "vavoo_EUROSPORT%201%7Cgroup%3Aes"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "spain|vavoo_EUROSPORT%201%20HD%7Cgroup%3Aes",
+          "providerResourceId": "spain|vavoo_EUROSPORT%201%20HD%7Cgroup%3Aes",
+          "name": "EUROSPORT 1 HD",
+          "group": "España",
+          "category": "Sport",
+          "identityState": "canonical",
+          "order": 2,
+          "country": "España",
+          "countryKey": "spain",
+          "aliases": [
+            "vavoo_EUROSPORT%201%20HD%7Cgroup%3Aes"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "spain|vavoo_EUROSPORT%202%7Cgroup%3Aes",
+          "providerResourceId": "spain|vavoo_EUROSPORT%202%7Cgroup%3Aes",
+          "name": "EUROSPORT 2",
+          "group": "España",
+          "category": "Sport",
+          "identityState": "canonical",
+          "order": 3,
+          "country": "España",
+          "countryKey": "spain",
+          "aliases": [
+            "vavoo_EUROSPORT%202%7Cgroup%3Aes"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "spain|vavoo_EUROSPORT%202%20%28BACKUP%29%7Cgroup%3Aes",
+          "providerResourceId": "spain|vavoo_EUROSPORT%202%20%28BACKUP%29%7Cgroup%3Aes",
+          "name": "EUROSPORT 2 (BACKUP)",
+          "group": "España",
+          "category": "Sport",
+          "identityState": "canonical",
+          "order": 4,
+          "country": "España",
+          "countryKey": "spain",
+          "aliases": [
+            "vavoo_EUROSPORT%202%20%28BACKUP%29%7Cgroup%3Aes"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "spain|vavoo_DAZN%20F1%7Cgroup%3Aes",
+          "providerResourceId": "spain|vavoo_DAZN%20F1%7Cgroup%3Aes",
+          "name": "DAZN F1",
+          "group": "España",
+          "category": "Sport",
+          "identityState": "canonical",
+          "order": 5,
+          "country": "España",
+          "countryKey": "spain",
+          "aliases": [
+            "vavoo_DAZN%20F1%7Cgroup%3Aes"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "arabia|vavoo_TNT%20SPORTS%7Cgroup%3Aar",
+          "providerResourceId": "arabia|vavoo_TNT%20SPORTS%7Cgroup%3Aar",
+          "name": "TNT SPORTS",
+          "group": "Arabia",
+          "category": "Sport",
+          "identityState": "canonical",
+          "order": 6,
+          "country": "Arabia",
+          "countryKey": "arabia",
+          "aliases": [
+            "vavoo_TNT%20SPORTS%7Cgroup%3Aar"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "arabia|vavoo_TNT%20SPORTS%20PREMIUM%7Cgroup%3Aar",
+          "providerResourceId": "arabia|vavoo_TNT%20SPORTS%20PREMIUM%7Cgroup%3Aar",
+          "name": "TNT SPORTS PREMIUM",
+          "group": "Arabia",
+          "category": "Arabia",
+          "identityState": "canonical",
+          "order": 7,
+          "country": "Arabia",
+          "countryKey": "arabia",
+          "aliases": [
+            "vavoo_TNT%20SPORTS%20PREMIUM%7Cgroup%3Aar"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "unitedkingdom|vavoo_TNT%20SPORT%201%7Cgroup%3Auk",
+          "providerResourceId": "unitedkingdom|vavoo_TNT%20SPORT%201%7Cgroup%3Auk",
+          "name": "TNT SPORT 1",
+          "group": "Reino Unido",
+          "category": "Sport",
+          "identityState": "canonical",
+          "order": 8,
+          "country": "Reino Unido",
+          "countryKey": "unitedkingdom",
+          "aliases": [
+            "vavoo_TNT%20SPORT%201%7Cgroup%3Auk"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "unitedkingdom|vavoo_TNT%20SPORT%202%7Cgroup%3Auk",
+          "providerResourceId": "unitedkingdom|vavoo_TNT%20SPORT%202%7Cgroup%3Auk",
+          "name": "TNT SPORT 2",
+          "group": "Reino Unido",
+          "category": "Sport",
+          "identityState": "canonical",
+          "order": 9,
+          "country": "Reino Unido",
+          "countryKey": "unitedkingdom",
+          "aliases": [
+            "vavoo_TNT%20SPORT%202%7Cgroup%3Auk"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "unitedkingdom|vavoo_TNT%20SPORT%204%7Cgroup%3Auk",
+          "providerResourceId": "unitedkingdom|vavoo_TNT%20SPORT%204%7Cgroup%3Auk",
+          "name": "TNT SPORT 4",
+          "group": "Reino Unido",
+          "category": "Sport",
+          "identityState": "canonical",
+          "order": 10,
+          "country": "Reino Unido",
+          "countryKey": "unitedkingdom",
+          "aliases": [
+            "vavoo_TNT%20SPORT%204%7Cgroup%3Auk"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "unitedkingdom|vavoo_TNT%20SPORTS%203%7Cgroup%3Auk",
+          "providerResourceId": "unitedkingdom|vavoo_TNT%20SPORTS%203%7Cgroup%3Auk",
+          "name": "TNT SPORTS 3",
+          "group": "Reino Unido",
+          "category": "Sport",
+          "identityState": "canonical",
+          "order": 11,
+          "country": "Reino Unido",
+          "countryKey": "unitedkingdom",
+          "aliases": [
+            "vavoo_TNT%20SPORTS%203%7Cgroup%3Auk"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "unitedkingdom|vavoo_TNT%20SPORTS%203%20HD%7Cgroup%3Auk",
+          "providerResourceId": "unitedkingdom|vavoo_TNT%20SPORTS%203%20HD%7Cgroup%3Auk",
+          "name": "TNT SPORTS 3 HD",
+          "group": "Reino Unido",
+          "category": "Sport",
+          "identityState": "canonical",
+          "order": 12,
+          "country": "Reino Unido",
+          "countryKey": "unitedkingdom",
+          "aliases": [
+            "vavoo_TNT%20SPORTS%203%20HD%7Cgroup%3Auk"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "unitedkingdom|vavoo_TNT%20SPORTS%204%20HD%7Cgroup%3Auk",
+          "providerResourceId": "unitedkingdom|vavoo_TNT%20SPORTS%204%20HD%7Cgroup%3Auk",
+          "name": "TNT SPORTS 4 HD",
+          "group": "Reino Unido",
+          "category": "Sport",
+          "identityState": "canonical",
+          "order": 13,
+          "country": "Reino Unido",
+          "countryKey": "unitedkingdom",
+          "aliases": [
+            "vavoo_TNT%20SPORTS%204%20HD%7Cgroup%3Auk"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "unitedkingdom|vavoo_TNT%20SPORTS%20ESPN%7Cgroup%3Auk",
+          "providerResourceId": "unitedkingdom|vavoo_TNT%20SPORTS%20ESPN%7Cgroup%3Auk",
+          "name": "TNT SPORTS ESPN",
+          "group": "Reino Unido",
+          "category": "Sport",
+          "identityState": "canonical",
+          "order": 14,
+          "country": "Reino Unido",
+          "countryKey": "unitedkingdom",
+          "aliases": [
+            "vavoo_TNT%20SPORTS%20ESPN%7Cgroup%3Auk"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "russia|vavoo_TNT%20MUSIC%7Cgroup%3Aru",
+          "providerResourceId": "russia|vavoo_TNT%20MUSIC%7Cgroup%3Aru",
+          "name": "TNT MUSIC",
+          "group": "Rusia",
+          "category": "Music",
+          "identityState": "canonical",
+          "order": 15,
+          "country": "Rusia",
+          "countryKey": "russia",
+          "aliases": [
+            "vavoo_TNT%20MUSIC%7Cgroup%3Aru"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "balkans|vavoo_MTV%20HITS%7Cgroup%3Abk",
+          "providerResourceId": "balkans|vavoo_MTV%20HITS%7Cgroup%3Abk",
+          "name": "MTV HITS",
+          "group": "Balcanes",
+          "category": "Balcanes",
+          "identityState": "canonical",
+          "order": 16,
+          "country": "Balcanes",
+          "countryKey": "balkans",
+          "aliases": [
+            "vavoo_MTV%20HITS%7Cgroup%3Abk"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "france|vavoo_MTV%20HITS%20HD%7Cgroup%3Afr",
+          "providerResourceId": "france|vavoo_MTV%20HITS%20HD%7Cgroup%3Afr",
+          "name": "MTV HITS HD",
+          "group": "Francia",
+          "category": "Music",
+          "identityState": "canonical",
+          "order": 17,
+          "country": "Francia",
+          "countryKey": "france",
+          "aliases": [
+            "vavoo_MTV%20HITS%20HD%7Cgroup%3Afr"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "portugal|vavoo_MTV%2000S%7Cgroup%3Apt",
+          "providerResourceId": "portugal|vavoo_MTV%2000S%7Cgroup%3Apt",
+          "name": "MTV 00S",
+          "group": "Portugal",
+          "category": "Portugal",
+          "identityState": "canonical",
+          "order": 18,
+          "country": "Portugal",
+          "countryKey": "portugal",
+          "aliases": [
+            "vavoo_MTV%2000S%7Cgroup%3Apt"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "portugal|vavoo_MTV%20LIVE%7Cgroup%3Apt",
+          "providerResourceId": "portugal|vavoo_MTV%20LIVE%7Cgroup%3Apt",
+          "name": "MTV LIVE",
+          "group": "Portugal",
+          "category": "Portugal",
+          "identityState": "canonical",
+          "order": 19,
+          "country": "Portugal",
+          "countryKey": "portugal",
+          "aliases": [
+            "vavoo_MTV%20LIVE%7Cgroup%3Apt"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "netherlands|vavoo_MTV%2024%20MUSIC%7Cgroup%3Anl",
+          "providerResourceId": "netherlands|vavoo_MTV%2024%20MUSIC%7Cgroup%3Anl",
+          "name": "MTV 24 MUSIC",
+          "group": "Países Bajos",
+          "category": "Music",
+          "identityState": "canonical",
+          "order": 20,
+          "country": "Países Bajos",
+          "countryKey": "netherlands",
+          "aliases": [
+            "vavoo_MTV%2024%20MUSIC%7Cgroup%3Anl"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "netherlands|vavoo_MTV%20HITS%7Cgroup%3Anl",
+          "providerResourceId": "netherlands|vavoo_MTV%20HITS%7Cgroup%3Anl",
+          "name": "MTV HITS",
+          "group": "Países Bajos",
+          "category": "Países Bajos",
+          "identityState": "canonical",
+          "order": 21,
+          "country": "Países Bajos",
+          "countryKey": "netherlands",
+          "aliases": [
+            "vavoo_MTV%20HITS%7Cgroup%3Anl"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "netherlands|vavoo_MTV%20LIVE%7Cgroup%3Anl",
+          "providerResourceId": "netherlands|vavoo_MTV%20LIVE%7Cgroup%3Anl",
+          "name": "MTV LIVE",
+          "group": "Países Bajos",
+          "category": "Países Bajos",
+          "identityState": "canonical",
+          "order": 22,
+          "country": "Países Bajos",
+          "countryKey": "netherlands",
+          "aliases": [
+            "vavoo_MTV%20LIVE%7Cgroup%3Anl"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "germany|vavoo_MTV%20HD%20%28BACKUP%29%7Cgroup%3Ade",
+          "providerResourceId": "germany|vavoo_MTV%20HD%20%28BACKUP%29%7Cgroup%3Ade",
+          "name": "MTV HD (BACKUP)",
+          "group": "Alemania",
+          "category": "Alemania",
+          "identityState": "canonical",
+          "order": 23,
+          "country": "Alemania",
+          "countryKey": "germany",
+          "aliases": [
+            "vavoo_MTV%20HD%20%28BACKUP%29%7Cgroup%3Ade"
+          ]
+        }
+      ]
     },
     {
       "provider": "highfly",
-      "enabled": false,
-      "channels": [],
+      "enabled": true,
+      "channels": [
+        {
+          "provider": "highfly",
+          "catalogKey": "SkySportsF1.uk",
+          "providerResourceId": "leaf:now-34343434",
+          "name": "SKY SPORTS F1",
+          "group": "Deportes",
+          "category": "Motor Sports",
+          "identityState": "provisional",
+          "order": 1,
+          "resolverSlug": "now-34343434"
+        },
+        {
+          "provider": "highfly",
+          "catalogKey": "SkySportsPremierLeague.uk",
+          "providerResourceId": "leaf:now-545454545",
+          "name": "SKY SPORTS PREMIER LEAGUE",
+          "group": "Deportes",
+          "category": "Football",
+          "identityState": "canonical",
+          "order": 2,
+          "resolverSlug": "now-545454545"
+        },
+        {
+          "provider": "highfly",
+          "catalogKey": "SkySportsTennis.uk",
+          "providerResourceId": "leaf:now-sky-sports-tennis",
+          "name": "SKY SPORTS TENNIS",
+          "group": "Deportes",
+          "category": "Tennis",
+          "identityState": "canonical",
+          "order": 3,
+          "resolverSlug": "now-sky-sports-tennis"
+        }
+      ],
       "manifestUrl": "https://sports.highfly.to/manifest.json"
     }
   ]
