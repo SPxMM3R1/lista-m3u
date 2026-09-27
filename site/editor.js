@@ -60,6 +60,8 @@ const elements = {
   sourceFilter: $("#source-filter"),
   list1Toggle: $("#list1-toggle"),
   list2Toggle: $("#list2-toggle"),
+  addSelected: $("#add-selected-channels"),
+  availableSelectionNote: $("#available-selection-note"),
   list: $("#channel-list"),
   inspector: $("#inspector"),
   visibleRange: $("#visible-range"),
@@ -122,6 +124,7 @@ let sourceFilter = "all";
 let addSource = "m3u";
 let selectedTvVooCatalogId = "vavoo_tv_es";
 let selectedKey = "";
+const selectedAvailableRows = new Map();
 let activeLogoFilter = "current";
 let tokenInMemory = "";
 let toastTimer = 0;
@@ -1199,7 +1202,12 @@ function renderAvailable() {
     fragment.append(node("p", "available-empty", emptyText));
   } else {
     rows.slice(0, 250).forEach((row) => {
-      const item = node("div", "available-row");
+      const key = rowKey(row);
+      const selected = selectedAvailableRows.has(key);
+      const item = document.createElement("button");
+      item.type = "button";
+      item.className = `available-row${selected ? " is-checked" : ""}`;
+      item.setAttribute("aria-pressed", String(selected));
       item.append(makeLogo(row));
       item.append(node("span", "available-name", row.name));
       const variantCount = Array.isArray(row.options) ? row.options.length : 0;
@@ -1208,24 +1216,52 @@ function renderAvailable() {
         : sourceName(row);
       const source = node("span", "source-label", sourceText);
       source.dataset.source = sourceFor(row);
-      const add = button("Añadir", "button-secondary", () => {
-        const next = addRow(state.layout, row);
-        if (next !== state.layout) {
-          changeLayout(next);
-          const last = state.layout.channels.find((candidate) => rowKey(candidate) === rowKey(row));
-          selectedKey = last ? rowKey(last) : selectedKey;
-          activeView = "active";
-          render();
-          renderAvailable();
-          elements.addDialog.close();
-        }
+      const check = node("span", "available-check", selected ? "✓" : "");
+      check.setAttribute("aria-hidden", "true");
+      item.append(source, check);
+      item.addEventListener("click", () => {
+        if (selectedAvailableRows.has(key)) selectedAvailableRows.delete(key);
+        else selectedAvailableRows.set(key, row);
+        renderAvailable();
       });
-      item.append(source, add);
       fragment.append(item);
     });
     if (rows.length > 250) fragment.append(node("p", "available-empty", `Hay ${rows.length} opciones; afina la búsqueda para verlas.`));
   }
   elements.availableList.replaceChildren(fragment);
+  updateAvailableSelection();
+}
+
+function updateAvailableSelection() {
+  const count = selectedAvailableRows.size;
+  elements.addSelected.disabled = count === 0;
+  elements.addSelected.textContent = count ? `Añadir seleccionados (${count})` : "Añadir seleccionados";
+  elements.availableSelectionNote.textContent = count
+    ? `${countText(count, "canal marcado", "canales marcados")}. Pulsa “Añadir seleccionados” para incorporarlos.`
+    : "Toca los canales para marcarlos y añádelos juntos.";
+}
+
+function addSelectedChannels() {
+  if (!state || !selectedAvailableRows.size) return;
+  let layout = state.layout;
+  const addedKeys = [];
+  for (const row of selectedAvailableRows.values()) {
+    const key = rowKey(row);
+    if (layout.channels.some((candidate) => rowKey(candidate) === key)) continue;
+    layout = addRow(layout, row);
+    addedKeys.push(key);
+  }
+  if (!addedKeys.length) {
+    showToast("Esos canales ya están en el catálogo.", true);
+    return;
+  }
+  changeLayout(layout);
+  selectedKey = addedKeys[addedKeys.length - 1];
+  activeView = "active";
+  selectedAvailableRows.clear();
+  render();
+  elements.addDialog.close();
+  showToast(`${countText(addedKeys.length, "canal añadido", "canales añadidos")} al orden.`);
 }
 
 function refreshHighflyReferences(rows) {
@@ -1436,6 +1472,7 @@ async function refreshSelectedProviderCatalog() {
 function openAddDialog() {
   elements.availableSearch.value = "";
   addSource = "m3u";
+  selectedAvailableRows.clear();
   renderAvailable();
   elements.addDialog.showModal();
   elements.availableSearch.focus();
@@ -1716,6 +1753,7 @@ $("#use-highfly-json").addEventListener("click", useHighflyJson);
 $("#use-tvvoo-manifest-json").addEventListener("click", useTvVooManifestJson);
 $("#use-tvvoo-json").addEventListener("click", useTvVooJson);
 elements.availableSearch.addEventListener("input", renderAvailable);
+elements.addSelected.addEventListener("click", addSelectedChannels);
 elements.logoSearch.addEventListener("input", renderLogos);
 document.querySelectorAll("[data-logo-filter]").forEach((filterButton) => {
   filterButton.addEventListener("click", () => {

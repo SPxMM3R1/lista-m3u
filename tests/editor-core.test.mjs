@@ -425,6 +425,28 @@ test("TvVoo loads every country at once and tolerates partial failures", async (
   );
 });
 
+test("adding several channels at once numbers them in selection order", () => {
+  const layout = {
+    schemaVersion: 1,
+    channels: [
+      { kind: "m3u", tvgId: "a", name: "A", sourceList: "1.m3u", state: "active", order: 1, number: 1 },
+    ],
+  };
+  let next = layout;
+  for (const row of [
+    { kind: "m3u", tvgId: "b", name: "B", sourceList: "2.m3u" },
+    { kind: "m3u", tvgId: "c", name: "C", sourceList: "2.m3u" },
+  ]) next = addRow(next, row);
+
+  assert.deepEqual(
+    next.channels.filter((row) => row.state === "active").sort(compareRows).map((row) => [row.name, row.number]),
+    [["A", 1], ["B", 2], ["C", 3]],
+  );
+  const again = addRow(next, { kind: "m3u", tvgId: "b", name: "B", sourceList: "2.m3u" });
+  assert.equal(again.channels.length, next.channels.length);
+  assert.deepEqual(validateLayout(next), []);
+});
+
 test("change review counts Highfly locator rotations without counting new rows", () => {
   const before = sampleLayout();
   const after = structuredClone(before);
