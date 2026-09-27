@@ -5,9 +5,9 @@ import {
   assignChannelPosition,
   compareRows,
   formatJson,
-  moveRow,
+  moveRowFiltered,
   removePermanently,
-  renumber,
+  renumberFiltered,
   resequence,
   rowKey,
   sanitizeRow,
@@ -57,6 +57,8 @@ const elements = {
   deletedTabCount: $("#deleted-tab-count"),
   search: $("#search-input"),
   sourceFilter: $("#source-filter"),
+  list1Toggle: $("#list1-toggle"),
+  list2Toggle: $("#list2-toggle"),
   list: $("#channel-list"),
   inspector: $("#inspector"),
   visibleRange: $("#visible-range"),
@@ -125,6 +127,27 @@ let previewPlayer = null;
 let previewSessionId = "";
 let hlsLoadPromise = null;
 let pendingPositionAssignment = null;
+
+const HIDDEN_LISTS_KEY = "lista-m3u-editor-hidden-lists";
+
+function loadHiddenLists() {
+  try {
+    const stored = JSON.parse(window.localStorage.getItem(HIDDEN_LISTS_KEY) ?? "[]");
+    return Array.isArray(stored) ? stored.filter((listId) => listId === "1.m3u" || listId === "2.m3u") : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveHiddenLists() {
+  try {
+    window.localStorage.setItem(HIDDEN_LISTS_KEY, JSON.stringify([...hiddenLists]));
+  } catch {
+    return;
+  }
+}
+
+let hiddenLists = new Set(loadHiddenLists());
 
 function icon(name) {
   const paths = {
@@ -315,7 +338,7 @@ function allRows() {
 }
 
 function counts() {
-  const rows = allRows();
+  const rows = allRows().filter(rowVisible);
   return {
     active: rows.filter((row) => row.state === "active").length,
     hidden: rows.filter((row) => row.state === "hidden").length,
@@ -346,9 +369,22 @@ function sourceMatches(row) {
   return sourceFilter === "all" || sourceFor(row) === sourceFilter;
 }
 
+function rowVisible(row) {
+  return row.kind !== "m3u" || !hiddenLists.has(row.sourceList);
+}
+
+function setListVisibility(listId, visible) {
+  if (visible) hiddenLists.delete(listId);
+  else hiddenLists.add(listId);
+  saveHiddenLists();
+  render();
+}
+
 function rowsForView() {
   const query = elements.search.value.trim().toLocaleLowerCase("es");
-  return allRows().filter((row) => row.state === activeView && sourceMatches(row) && (!query || rowSearchText(row).includes(query)));
+  return allRows().filter((row) => (
+    row.state === activeView && rowVisible(row) && sourceMatches(row) && (!query || rowSearchText(row).includes(query))
+  ));
 }
 
 function render() {
@@ -363,6 +399,16 @@ function render() {
     tab.classList.toggle("is-active", active);
     tab.setAttribute("aria-pressed", String(active));
   });
+  elements.list1Toggle.checked = !hiddenLists.has("1.m3u");
+  elements.list2Toggle.checked = !hiddenLists.has("2.m3u");
+  for (const listId of ["1.m3u", "2.m3u"]) {
+    const option = elements.sourceFilter.querySelector(`option[value="${listId}"]`);
+    if (option) option.disabled = hiddenLists.has(listId);
+  }
+  if (sourceFilter !== "all" && hiddenLists.has(sourceFilter)) sourceFilter = "all";
+  elements.sourceFilter.value = sourceFilter;
+  const selectedRow = allRows().find((row) => rowKey(row) === selectedKey);
+  if (selectedRow && !rowVisible(selectedRow)) selectedKey = "";
   renderRows();
   renderInspector();
   elements.publish.disabled = !isDirty();
@@ -403,20 +449,20 @@ function renderRow(row) {
   const source = node("span", "source-label", sourceName(row));
   source.dataset.source = sourceFor(row);
   const order = node("span", "row-order");
-  const sequence = allRows().filter((item) => item.state === row.state).sort(compareRows);
+  const sequence = allRows().filter((item) => item.state === row.state && rowVisible(item)).sort(compareRows);
   const index = sequence.findIndex((item) => rowKey(item) === rowKey(row));
   const up = node("button", "");
   up.type = "button";
   up.innerHTML = icon("up");
   up.disabled = activeView !== "active" || index <= 0;
   up.setAttribute("aria-label", `Subir ${channelName(row)} un lugar`);
-  up.addEventListener("click", (event) => { event.stopPropagation(); changeLayout(moveRow(state.layout, rowKey(row), -1)); });
+  up.addEventListener("click", (event) => { event.stopPropagation(); changeLayout(moveRowFiltered(state.layout, rowKey(row), -1, rowVisible)); });
   const down = node("button", "");
   down.type = "button";
   down.innerHTML = icon("down");
   down.disabled = activeView !== "active" || index < 0 || index >= sequence.length - 1;
   down.setAttribute("aria-label", `Bajar ${channelName(row)} un lugar`);
-  down.addEventListener("click", (event) => { event.stopPropagation(); changeLayout(moveRow(state.layout, rowKey(row), 1)); });
+  down.addEventListener("click", (event) => { event.stopPropagation(); changeLayout(moveRowFiltered(state.layout, rowKey(row), 1, rowVisible)); });
   order.append(up, down);
   item.append(number, select, source, order);
   return item;
@@ -660,8 +706,8 @@ function renderInspector() {
   const actions = node("div", "inspector-actions");
   if (row.state === "active") {
     if (LOCAL_MODE) actions.append(button("Probar señal", "button-primary", () => previewChannel(row), "play"));
-    actions.append(button("Subir", "button-secondary", () => changeLayout(moveRow(state.layout, rowKey(row), -1)), "up"));
-    actions.append(button("Bajar", "button-secondary", () => changeLayout(moveRow(state.layout, rowKey(row), 1)), "down"));
+    actions.append(button("Subir", "button-secondary", () => changeLayout(moveRowFiltered(state.layout, rowKey(row), -1, rowVisible)), "up"));
+    actions.append(button("Bajar", "button-secondary", () => changeLayout(moveRowFiltered(state.layout, rowKey(row), 1, rowVisible)), "down"));
     actions.append(button("Ocultar", "button-secondary", () => setState(row, "hidden"), "eye"));
     actions.append(button("A papelera", "button-danger", () => setState(row, "deleted"), "bin"));
   } else if (row.state === "hidden") {
@@ -678,7 +724,7 @@ function renderInspector() {
 
 function setState(row, nextState) {
   activeView = nextState;
-  changeLayout(setRowState(state.layout, rowKey(row), nextState));
+  changeLayout(renumberFiltered(setRowState(state.layout, rowKey(row), nextState), rowVisible));
 }
 
 function purgeRow(row) {
@@ -687,7 +733,7 @@ function purgeRow(row) {
   const presentationRoot = state.presentation.presentation ?? state.presentation;
   if (presentationRoot.logos) delete presentationRoot.logos[displayIdentity(row)];
   if (presentationRoot.names) delete presentationRoot.names[displayIdentity(row)];
-  changeLayout(removePermanently(state.layout, rowKey(row)));
+  changeLayout(renumberFiltered(removePermanently(state.layout, rowKey(row)), rowVisible));
   selectedKey = "";
 }
 
@@ -1111,13 +1157,17 @@ function availableRows() {
     if (key && !present.has(key)) unique.set(key, row);
   }
   const query = elements.availableSearch.value.trim().toLocaleLowerCase("es");
-  return [...unique.values()].filter((row) => !query || rowSearchText(row).includes(query));
+  return [...unique.values()].filter(rowVisible).filter((row) => !query || rowSearchText(row).includes(query));
 }
 
 function renderAvailable() {
   updateAvailableSourceControls();
   const fragment = document.createDocumentFragment();
   const rows = availableRows();
+  const hiddenNames = ["1.m3u", "2.m3u"].filter((listId) => hiddenLists.has(listId)).map((listId) => SOURCE_LABELS[listId]);
+  if (addSource === "m3u" && hiddenNames.length) {
+    fragment.append(node("p", "available-empty", `${hiddenNames.join(" y ")} ${hiddenNames.length > 1 ? "están ocultas" : "está oculta"} en esta vista; actívala${hiddenNames.length > 1 ? "s" : ""} en la barra superior para ver sus canales.`));
+  }
   const sourceState = addSource === "highfly"
     ? providerCache.highfly
     : addSource === "tvvoo"
@@ -1587,7 +1637,9 @@ document.querySelectorAll(".view-tab").forEach((tab) => tab.addEventListener("cl
 elements.search.addEventListener("input", renderRows);
 elements.sourceFilter.addEventListener("change", () => { sourceFilter = elements.sourceFilter.value; renderRows(); });
 $("#add-channel-button").addEventListener("click", openAddDialog);
-$("#renumber-button").addEventListener("click", () => changeLayout(renumber(state.layout)));
+$("#renumber-button").addEventListener("click", () => changeLayout(renumberFiltered(state.layout, rowVisible)));
+elements.list1Toggle.addEventListener("change", () => setListVisibility("1.m3u", elements.list1Toggle.checked));
+elements.list2Toggle.addEventListener("change", () => setListVisibility("2.m3u", elements.list2Toggle.checked));
 elements.positionDialog.addEventListener("close", finishPositionAssignment);
 $("#close-review").addEventListener("click", () => { elements.changeReview.hidden = true; });
 document.querySelectorAll("[data-add-source]").forEach((tab) => tab.addEventListener("click", () => selectAddSource(tab.dataset.addSource)));

@@ -135,6 +135,20 @@ export function moveRow(layout, key, delta) {
   return resequence(layout, active.map(rowKey));
 }
 
+export function moveRowFiltered(layout, key, delta, isVisible = () => true) {
+  const active = layout.channels.filter((row) => row.state === "active").sort(compareRows);
+  const visible = active.filter((row) => isVisible(row));
+  const index = visible.findIndex((row) => rowKey(row) === key);
+  const next = index + delta;
+  if (index < 0 || next < 0 || next >= visible.length) return layout;
+  const moving = visible[index];
+  const target = visible[next];
+  const reordered = active.filter((row) => rowKey(row) !== key);
+  const targetIndex = reordered.findIndex((row) => rowKey(row) === rowKey(target));
+  reordered.splice(targetIndex + (delta > 0 ? 1 : 0), 0, moving);
+  return resequence(layout, reordered.map(rowKey));
+}
+
 export function setRowState(layout, key, state) {
   const current = structuredClone(layout);
   const row = current.channels.find((item) => rowKey(item) === key);
@@ -164,11 +178,22 @@ export function addRow(layout, source) {
   return current;
 }
 
-export function renumber(layout) {
+export function renumberFiltered(layout, isVisible = () => true) {
   const current = structuredClone(layout);
-  current.channels.filter((row) => row.state === "active").sort(compareRows)
-    .forEach((row, index) => { row.number = index + 1; });
+  const active = current.channels.filter((row) => row.state === "active").sort(compareRows);
+  const reserved = new Set(active.filter((row) => !isVisible(row)).map((row) => Number(row.number)));
+  let candidate = 1;
+  for (const row of active) {
+    if (!isVisible(row)) continue;
+    while (reserved.has(candidate)) candidate += 1;
+    row.number = candidate;
+    candidate += 1;
+  }
   return current;
+}
+
+export function renumber(layout) {
+  return renumberFiltered(layout);
 }
 
 export function assignChannelPosition(layout, key, requestedNumber) {

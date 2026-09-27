@@ -8,7 +8,9 @@ import {
   addRow,
   compareRows,
   moveRow,
+  moveRowFiltered,
   removePermanently,
+  renumberFiltered,
   rowKey,
   setRowState,
   summarizeChanges,
@@ -322,6 +324,60 @@ test("TvVoo refuses a catalog outside its fixed country-catalog namespace", asyn
     /no es válido/,
   );
   assert.equal(called, false);
+});
+
+test("work scope moves and renumbers only the visible rows", () => {
+  const layout = {
+    schemaVersion: 1,
+    channels: [
+      { kind: "m3u", tvgId: "a1", name: "A1", sourceList: "1.m3u", state: "active", order: 1, number: 3 },
+      { kind: "m3u", tvgId: "b1", name: "B1", sourceList: "2.m3u", state: "active", order: 2, number: 1 },
+      { kind: "m3u", tvgId: "a2", name: "A2", sourceList: "1.m3u", state: "active", order: 3, number: 2 },
+    ],
+  };
+  const visible = (row) => row.kind !== "m3u" || row.sourceList === "1.m3u";
+
+  const moved = moveRowFiltered(layout, rowKey(layout.channels[2]), -1, visible);
+  assert.deepEqual(
+    moved.channels.filter((row) => row.state === "active").sort(compareRows).map((row) => row.name),
+    ["A2", "A1", "B1"],
+  );
+  assert.equal(moved.channels.find((row) => row.tvgId === "b1").number, 1);
+  assert.equal(moved.channels.find((row) => row.tvgId === "b1").order, 3);
+  assert.equal(moved.channels.find((row) => row.tvgId === "a2").number, 2);
+  assert.equal(moveRowFiltered(layout, rowKey(layout.channels[1]), -1, visible), layout);
+
+  const renumbered = renumberFiltered(layout, visible);
+  assert.equal(renumbered.channels.find((row) => row.tvgId === "a1").number, 2);
+  assert.equal(renumbered.channels.find((row) => row.tvgId === "a2").number, 3);
+  assert.equal(renumbered.channels.find((row) => row.tvgId === "b1").number, 1);
+  assert.deepEqual(validateLayout(renumbered), []);
+});
+
+test("deleting a channel frees its number for the following ones", () => {
+  const layout = {
+    schemaVersion: 1,
+    channels: [
+      { kind: "m3u", tvgId: "a", name: "A", sourceList: "1.m3u", state: "active", order: 1, number: 1 },
+      { kind: "m3u", tvgId: "b", name: "B", sourceList: "1.m3u", state: "active", order: 2, number: 2 },
+      { kind: "m3u", tvgId: "c", name: "C", sourceList: "1.m3u", state: "active", order: 3, number: 3 },
+      { kind: "m3u", tvgId: "d", name: "D", sourceList: "1.m3u", state: "active", order: 4, number: 4 },
+    ],
+  };
+  const visible = () => true;
+
+  const trashed = renumberFiltered(setRowState(layout, rowKey(layout.channels[1]), "deleted"), visible);
+  assert.deepEqual(
+    trashed.channels.filter((row) => row.state === "active").map((row) => [row.name, row.number]),
+    [["A", 1], ["C", 2], ["D", 3]],
+  );
+  assert.deepEqual(validateLayout(trashed), []);
+
+  const hidden = renumberFiltered(setRowState(layout, rowKey(layout.channels[1]), "hidden"), visible);
+  assert.deepEqual(
+    hidden.channels.filter((row) => row.state === "active").map((row) => row.number),
+    [1, 2, 3],
+  );
 });
 
 test("change review counts Highfly locator rotations without counting new rows", () => {
