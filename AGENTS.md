@@ -19,12 +19,13 @@ Guía para agentes de IA que trabajen en este repositorio (catálogo público, r
 ## Cómo trabajar
 
 - Tests obligatorios antes de commitear:
-  - `python -m unittest discover -s tests -p "test_*.py"` (esperado: 177 en verde).
+  - `python -m unittest discover -s tests -p "test_*.py"` (esperado: 178 en verde).
   - `node --test tests/editor-core.test.mjs` (esperado: 24 en verde).
 - Validar el editor local sin tocar el repo: `python scripts/build_site_data.py --output <carpeta temp>` (solo acepta salidas dentro de la carpeta temporal).
 - Commits en español con prefijo: `feat(editor)`, `fix(resolvers)`, `feat(epg)`, `fix(catalogo)`, `chore(...)`.
 - Cambios del editor: primero `site/editor-core.mjs` (o `provider-catalog.mjs`) con test, después `site/editor.js`, `site/index.html` y `site/styles.css`.
 - `data/channel-editor-layout.json` (lo lee la app) y `data/vibem3u-selection.json` (lo lee el runner) deben declarar los mismos canales de proveedor activos; `tests/test_editorial_consistency.py` lo exige. Si se corrige un proveedor a mano, editar ambos en el mismo commit.
+- La app lee `data/channel-editor-layout.json` directo: un error ahí puede impedir que abra. Filas TvVoo con `countryKey` igual al prefijo de `catalogKey` (`country` es solo texto visible); generarlas con `site/editor-core.mjs` y publicar layout + selección + presentación en un solo commit. VibeM3U 0.5.29 o anterior cae al arrancar con cualquier fila TvVoo: la TV debe tener 0.5.30+ antes de publicar una (incidente 98ee25a, 27-09).
 - Verificación de publicaciones: el Raw de GitHub cachea minutos; comprobar con `git show origin/main:<archivo>` o raw fijado al SHA del commit.
 
 ## Publicación automática

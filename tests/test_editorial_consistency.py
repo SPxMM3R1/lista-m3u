@@ -42,6 +42,22 @@ class PublishedEditorialConsistencyTest(unittest.TestCase):
 
         self.assertEqual(active_layout_providers(layout), selected_providers(selection))
 
+    def test_tvvoo_layout_rows_carry_country_key_of_their_identity(self) -> None:
+        """La app lee el layout directo; VibeM3U <= 0.5.29 caia al arrancar
+        cuando una fila TvVoo no traia countryKey y usaba `country` (texto
+        visible, p. ej. "Reino Unido") como clave (incidente 98ee25a)."""
+        layout = json.loads(LAYOUT_PATH.read_text(encoding="utf-8"))
+
+        for row in layout.get("channels", []):
+            if row.get("kind") != "provider" or row.get("provider") != "tvvoo":
+                continue
+            key = str(row.get("catalogKey", ""))
+            with self.subTest(catalogKey=key):
+                country_key, separator, alias = key.partition("|")
+                self.assertTrue(separator and country_key and alias.startswith("vavoo_"))
+                self.assertEqual(country_key, row.get("countryKey"))
+                self.assertEqual(key, row.get("providerResourceId"))
+
     def test_selection_source_enabled_only_with_channels(self) -> None:
         selection = json.loads(SELECTION_PATH.read_text(encoding="utf-8"))
 
