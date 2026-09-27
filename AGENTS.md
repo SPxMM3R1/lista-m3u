@@ -21,7 +21,7 @@ Guía para agentes de IA que trabajen en este repositorio (catálogo público, r
 ## Cómo trabajar
 
 - Tests obligatorios antes de commitear:
-  - `python -m unittest discover -s tests -p "test_*.py"` (esperado: 185 en verde).
+  - `python -m unittest discover -s tests -p "test_*.py"` (esperado: 188 en verde).
   - `node --test tests/editor-core.test.mjs tests/layout-contract.test.mjs` (esperado: 34 en verde).
 - Validar el editor local sin tocar el repo: `python scripts/build_site_data.py --output <carpeta temp>` (solo acepta salidas dentro de la carpeta temporal).
 - Commits en español con prefijo: `feat(editor)`, `fix(resolvers)`, `feat(epg)`, `fix(catalogo)`, `chore(...)`.

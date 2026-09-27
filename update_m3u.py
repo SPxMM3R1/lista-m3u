@@ -9031,6 +9031,96 @@ def epg_scope_extra_channels(
     return extras
 
 
+def app_epg_alias_ids(
+    catalog_lines: list[str],
+    selection: vibem3u_selection.SelectionDocument,
+) -> dict[str, list[str]]:
+    """IDs de EPG que busca VibeM3U para cada canal TvVoo seleccionado.
+
+    La app identifica un canal TvVoo como ``countryKey|alias@TvVoo`` y busca su
+    guía con ese ID, mientras la EPG usa el ``tvg-id`` del catálogo (por ejemplo
+    ``DAZNF1.es@TvVoo``). Devuelve ``{tvg-id del catálogo: [ID de la app]}`` solo
+    para coincidencias confirmadas por la reconciliación de la selección.
+    """
+    reconciliation = vibem3u_selection.reconcile_selection(
+        selection, parse_channels(catalog_lines), catalog_lines
+    )
+    aliases: dict[str, list[str]] = {}
+    for match in reconciliation.matched:
+        if match.row.provider != "tvvoo":
+            continue
+        app_id = f"{match.row.catalog_key}@TvVoo"
+        if app_id != match.catalog_id:
+            aliases.setdefault(match.catalog_id, []).append(app_id)
+    return aliases
+
+
+def add_app_epg_aliases(
+    data: bytes,
+    catalog_path: Path | None = None,
+    selection_path: Path | None = None,
+) -> bytes:
+    """Publica la guía de cada canal TvVoo seleccionado también con el ID de la app.
+
+    Copia el ``<channel>`` y sus ``<programme>`` del catálogo bajo el ID que usa
+    VibeM3U. No inventa programación: solo duplica la guía ya asociada por
+    identidad confirmada. Si la selección no se puede leer, deja la EPG igual.
+    """
+    try:
+        catalog_lines = (catalog_path or CHANNEL_CATALOG_PATH).read_text(
+            encoding="utf-8-sig"
+        ).splitlines()
+        selection = (
+            vibem3u_selection.load_selection(selection_path)
+            if selection_path is not None
+            else load_vibem3u_selection()
+        )
+        aliases = app_epg_alias_ids(catalog_lines, selection)
+    except (OSError, ValueError) as error:
+        print(f"AVISO: EPG sin alias de la app: {error}", file=sys.stderr)
+        return data
+    if not aliases:
+        return data
+    root = ET.fromstring(data)
+    existing_ids = {channel.get("id") for channel in root.findall("channel")}
+    programmes_by_channel: dict[str, list[ET.Element]] = {}
+    for programme in root.findall("programme"):
+        programmes_by_channel.setdefault(programme.get("channel", ""), []).append(programme)
+    changed = False
+    for catalog_id, app_ids in aliases.items():
+        source_channel = next(
+            (item for item in root.findall("channel") if item.get("id") == catalog_id),
+            None,
+        )
+        programmes = programmes_by_channel.get(catalog_id, [])
+        if source_channel is None or not programmes:
+            continue
+        for app_id in app_ids:
+            if app_id in existing_ids:
+                continue
+            alias_channel = copy.deepcopy(source_channel)
+            alias_channel.set("id", app_id)
+            alias_channel.set("data-app-alias-of", catalog_id)
+            root.append(alias_channel)
+            for programme in programmes:
+                alias_programme = copy.deepcopy(programme)
+                alias_programme.set("channel", app_id)
+                root.append(alias_programme)
+            existing_ids.add(app_id)
+            changed = True
+    if not changed:
+        return data
+    # XMLTV: todos los <channel> antes de los <programme>.
+    channels = [item for item in root if item.tag == "channel"]
+    others = [item for item in root if item.tag != "channel"]
+    for item in list(root):
+        root.remove(item)
+    for item in channels + others:
+        root.append(item)
+    ET.indent(root, space="  ")
+    return ET.tostring(root, encoding="utf-8", xml_declaration=True) + b"\n"
+
+
 def filter_epg_to_channel_ids(
     data: bytes,
     allowed_ids: set[str],
@@ -9041,6 +9131,12 @@ def filter_epg_to_channel_ids(
         raise ValueError("la guia publicada no contiene una raiz <tv>")
     changed = root.get("data-epg-scope") != DEFAULT_PLAYLIST.name
     root.set("data-epg-scope", DEFAULT_PLAYLIST.name)
+    # Los alias con el ID de la app (add_app_epg_aliases) siguen a su canal de origen.
+    allowed_ids = set(allowed_ids) | {
+        element.get("id", "")
+        for element in root.findall("channel")
+        if element.get("data-app-alias-of", "") in allowed_ids
+    }
     for element in list(root.findall("channel")):
         if element.get("id", "") not in allowed_ids:
             root.remove(element)
@@ -9405,6 +9501,7 @@ def refresh_epg(
         optional_empty_ids=extra_ids,
     )
     output, _ = filter_epg_to_channel_ids(output, expected_ids)
+    output = add_app_epg_aliases(output)
     main_status = validate_main_playlist_epg(
         main_channels,
         required_channels=main_channels,
