@@ -384,8 +384,8 @@ HIGHFLY_MANIFEST_URL = (
 HIGHFLY_RESOLVER_CHANNELS = {
     # Fallbacks de hoja publicados por el catalogo actual. El mapa se
     # refresca desde sports_live.json cuando hay red, pero estos valores
-    # permiten resolver aun si el catalogo publico esta caido.
-    "SkySportsF1.uk": "f1-3949409",
+    # permiten resolver aun si el catalogo publico esta caido. Sky Sports F1
+    # ya no es Highfly: su senal se resuelve por TvVoo en la aplicacion.
     "SkySportsPremierLeague.uk": "now-4994949494",
     "SkySportsTennis.uk": "uk-330030303",
 }
