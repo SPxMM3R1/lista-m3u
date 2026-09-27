@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "description": "Casos compartidos del contrato de filas de proveedor. Los validan el editor (JS), el runner (Python), la app VibeM3U y el auxiliar local (Java). VibeM3U guarda una copia idéntica en app/src/test/resources/contracts/layout-provider-rows.json.",
+  "cases": [
+    {
+      "id": "tvvoo-visible-country-name",
+      "why": "Incidente 98ee25a: country es texto visible y la clave de país es countryKey.",
+      "valid": true,
+      "stableId": "unitedkingdom|vavoo_SKY%20SPORTS%20F1%20FHD%7Cgroup%3Auk",
+      "row": {
+        "kind": "provider", "provider": "tvvoo",
+        "catalogKey": "unitedkingdom|vavoo_SKY%20SPORTS%20F1%20FHD%7Cgroup%3Auk",
+        "providerResourceId": "unitedkingdom|vavoo_SKY%20SPORTS%20F1%20FHD%7Cgroup%3Auk",
+        "name": "SKY SPORTS F1 FHD", "group": "Deportes", "category": "Motor Sports",
+        "country": "Reino Unido", "countryKey": "unitedkingdom",
+        "aliases": ["vavoo_SKY%20SPORTS%20F1%20FHD%7Cgroup%3Auk"],
+        "resolverAliases": ["vavoo_SKY%20SPORTS%20F1%20FHD%7Cgroup%3Auk"],
+        "identityState": "canonical", "order": 1, "number": 21, "state": "active"
+      }
+    },
+    {
+      "id": "tvvoo-without-country-key",
+      "why": "Sin countryKey la clave de país sale del prefijo de catalogKey, nunca del nombre visible.",
+      "valid": true,
+      "stableId": "unitedkingdom|vavoo_TNT%20SPORT%201%7Cgroup%3Auk",
+      "row": {
+        "kind": "provider", "provider": "tvvoo",
+        "catalogKey": "unitedkingdom|vavoo_TNT%20SPORT%201%7Cgroup%3Auk",
+        "providerResourceId": "unitedkingdom|vavoo_TNT%20SPORT%201%7Cgroup%3Auk",
+        "name": "TNT SPORT 1", "group": "Reino Unido", "category": "Sport",
+        "country": "Reino Unido",
+        "aliases": ["vavoo_TNT%20SPORT%201%7Cgroup%3Auk"],
+        "identityState": "canonical", "order": 1, "number": 108, "state": "active"
+      }
+    },
+    {
+      "id": "tvvoo-country-key-mismatch",
+      "why": "countryKey debe ser igual al prefijo de catalogKey.",
+      "valid": false,
+      "row": {
+        "kind": "provider", "provider": "tvvoo",
+        "catalogKey": "unitedkingdom|vavoo_TNT%20SPORT%202%7Cgroup%3Auk",
+        "providerResourceId": "unitedkingdom|vavoo_TNT%20SPORT%202%7Cgroup%3Auk",
+        "name": "TNT SPORT 2", "group": "Reino Unido", "category": "Sport",
+        "country": "España", "countryKey": "spain",
+        "aliases": ["vavoo_TNT%20SPORT%202%7Cgroup%3Auk"],
+        "identityState": "canonical", "order": 1, "number": 109, "state": "active"
+      }
+    },
+    {
+      "id": "tvvoo-resource-differs-from-key",
+      "why": "En TvVoo providerResourceId es la misma clave estable.",
+      "valid": false,
+      "row": {
+        "kind": "provider", "provider": "tvvoo",
+        "catalogKey": "spain|vavoo_DAZN%20F1%7Cgroup%3Aes",
+        "providerResourceId": "spain|vavoo_DAZN%20F1%20HD%7Cgroup%3Aes",
+        "name": "DAZN F1", "group": "España", "category": "Sport",
+        "countryKey": "spain",
+        "aliases": ["vavoo_DAZN%20F1%7Cgroup%3Aes"],
+        "identityState": "canonical", "order": 1, "number": 105, "state": "active"
+      }
+    },
+    {
+      "id": "highfly-provisional-known-key",
+      "why": "Incidente F1 v0.6.0: identityState es asunto del runner; la fila se reproduce igual.",
+      "valid": true,
+      "stableId": "SkySportsF1.uk",
+      "row": {
+        "kind": "provider", "provider": "highfly",
+        "catalogKey": "SkySportsF1.uk",
+        "providerResourceId": "leaf:now-34343434", "resolverSlug": "now-34343434",
+        "name": "SKY SPORTS F1", "group": "Deportes", "category": "Motor Sports",
+        "identityState": "provisional", "order": 1, "number": 98, "state": "active"
+      }
+    },
+    {
+      "id": "highfly-slug-mismatch",
+      "why": "resolverSlug debe ser el leaf sin prefijo.",
+      "valid": false,
+      "row": {
+        "kind": "provider", "provider": "highfly",
+        "catalogKey": "SkySportsTennis.uk",
+        "providerResourceId": "leaf:now-sky-sports-tennis", "resolverSlug": "otra-hoja",
+        "name": "SKY SPORTS TENNIS", "group": "Deportes", "category": "Tennis",
+        "identityState": "canonical", "order": 1, "number": 100, "state": "active"
+      }
+    },
+    {
+      "id": "highfly-leaf-as-identity",
+      "why": "Un leaf rota; nunca es identidad.",
+      "valid": false,
+      "row": {
+        "kind": "provider", "provider": "highfly",
+        "catalogKey": "leaf:now-545454545",
+        "providerResourceId": "leaf:now-545454545", "resolverSlug": "now-545454545",
+        "name": "SKY SPORTS PREMIER LEAGUE", "group": "Deportes", "category": "Football",
+        "identityState": "canonical", "order": 1, "number": 99, "state": "active"
+      }
+    }
+  ]
+}

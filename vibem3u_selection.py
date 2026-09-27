@@ -282,6 +282,8 @@ def _parse_row(raw_row: object, provider: str, filename: str) -> SelectionRow:
         if resource != catalog_key:
             raise SelectionError(f"{filename}: TvVoo debe conservar providerResourceId=stableId")
         slug = ""
+        if country_key and country_key != catalog_key.split("|", 1)[0]:
+            raise SelectionError(f"{filename}: countryKey TvVoo no coincide con catalogKey {catalog_key}")
         stable_alias = catalog_key.split("|", 1)[1]
         if stable_alias not in aliases:
             aliases = (stable_alias,) + aliases

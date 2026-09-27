@@ -87,6 +87,9 @@ export function validateLayout(layout) {
       if (row.provider === "tvvoo" && id.split("|").length !== 2) {
         problems.push(`${row.name || id}: catalogKey TvVoo debe tener país y alias canónico.`);
       }
+      if (row.provider === "tvvoo" && row.countryKey && row.countryKey !== id.split("|", 1)[0]) {
+        problems.push(`${row.name || id}: countryKey TvVoo debe coincidir con el país de catalogKey.`);
+      }
       if (!String(row.identityState ?? "").match(/^(canonical|provisional)$/)) {
         problems.push(`${row.name || id}: falta indicar el estado de identidad.`);
       }

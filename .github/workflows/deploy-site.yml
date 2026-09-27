@@ -50,7 +50,7 @@ jobs:
       - name: Ejecutar pruebas del runner y editor
         run: |
           python -m unittest discover -s tests -p "test_*.py"
-          node --test tests/editor-core.test.mjs
+          node --test tests/editor-core.test.mjs tests/layout-contract.test.mjs
       - name: Construir sitio estático
         run: python scripts/build_site_data.py
       - name: Cargar artefacto de Pages
