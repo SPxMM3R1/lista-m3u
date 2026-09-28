@@ -43,6 +43,9 @@ class TvnEpgTests(unittest.TestCase):
             red_bull,
             "red_bull_page_schedule",
             side_effect=RuntimeError("pagina regional no disponible"),
+        ), patch.object(
+            # Conexion chilena: se lee la pagina en vivo (y aqui falla).
+            red_bull, "red_bull_request_country", return_value="cl"
         ), patch.object(red_bull, "red_bull_api_schedule") as global_api:
             schedules, sources, errors = update_m3u.fetch_red_bull_schedules(
                 {update_m3u.RED_BULL_CHILE_ID}, now
