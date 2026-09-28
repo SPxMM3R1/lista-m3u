@@ -262,7 +262,7 @@ def classify_changes(
     presentation_changed = False
 
     for path in normalized:
-        if path in _FULL_FILES or path.startswith(".github/") or path.startswith("scripts/"):
+        if path in _FULL_FILES or path.startswith((".github/", "scripts/", "epg_sources/")):
             full_reasons.append(f"{path} altera la logica o el contrato global")
             continue
         if path == _STREAM_MANIFEST:

@@ -8,6 +8,7 @@ from types import SimpleNamespace
 from unittest.mock import patch
 
 import update_m3u
+from epg_sources import chv, dw, la_red, red_bull, tecnocentro, tvn, zapping
 
 
 def channel(name: str, tvg_id: str) -> update_m3u.Channel:
@@ -39,10 +40,10 @@ class TvnEpgTests(unittest.TestCase):
     def test_red_bull_spanish_does_not_fallback_to_global_api(self) -> None:
         now = datetime(2026, 9, 12, 20, tzinfo=timezone.utc)
         with patch.object(
-            update_m3u,
+            red_bull,
             "red_bull_page_schedule",
             side_effect=RuntimeError("pagina regional no disponible"),
-        ), patch.object(update_m3u, "red_bull_api_schedule") as global_api:
+        ), patch.object(red_bull, "red_bull_api_schedule") as global_api:
             schedules, sources, errors = update_m3u.fetch_red_bull_schedules(
                 {update_m3u.RED_BULL_CHILE_ID}, now
             )
@@ -121,7 +122,7 @@ class TvnEpgTests(unittest.TestCase):
             for index, hour in enumerate((9, 10, 11, 12, 13, 14, 15))
         )
         with patch.object(
-            update_m3u,
+            chv,
             "fetch_bytes",
             return_value=(200, html.encode("utf-8"), update_m3u.CHV_PROGRAMMING_PAGE),
         ):
@@ -189,7 +190,7 @@ class TvnEpgTests(unittest.TestCase):
         self.assertEqual("DW News: World Update 0", slots[0][2])
 
         with patch.object(
-            update_m3u,
+            dw,
             "fetch_bytes",
             return_value=(
                 200,
@@ -227,7 +228,7 @@ class TvnEpgTests(unittest.TestCase):
         html = "<script>" + ",".join(records) + "</script>"
 
         with patch.object(
-            update_m3u,
+            dw,
             "fetch_bytes",
             return_value=(
                 200,
@@ -437,8 +438,8 @@ class TvnEpgTests(unittest.TestCase):
         def fake_rows(page_html: str):
             return tvn3_rows if page_html == "tvn3" else []
 
-        with patch.object(update_m3u, "fetch_bytes", side_effect=fake_fetch), patch.object(
-            update_m3u, "zapping_schedule_rows", side_effect=fake_rows
+        with patch.object(zapping, "fetch_bytes", side_effect=fake_fetch), patch.object(
+            zapping, "zapping_schedule_rows", side_effect=fake_rows
         ):
             source, errors = update_m3u.fetch_zapping_epg(channels, now)
 
@@ -503,7 +504,7 @@ class TvnEpgTests(unittest.TestCase):
             stdout=json.dumps(payload, ensure_ascii=False).encode()
         )
         with patch.object(
-            update_m3u, "fetch_bytes", side_effect=fake_fetch
+            zapping, "fetch_bytes", side_effect=fake_fetch
         ), patch.object(
             update_m3u.subprocess, "run", return_value=curl_result
         ) as curl_run:
@@ -689,9 +690,9 @@ class TvnEpgTests(unittest.TestCase):
             return 200, b"<html></html>", headers
 
         with patch.object(
-            update_m3u, "fetch_bytes", side_effect=fake_fetch
+            tecnocentro, "fetch_bytes", side_effect=fake_fetch
         ), patch.object(
-            update_m3u, "tecnocentro_schedule_items", return_value=[]
+            tecnocentro, "tecnocentro_schedule_items", return_value=[]
         ):
             data, errors = update_m3u.fetch_tecnocentro_epg(
                 [
@@ -914,7 +915,7 @@ class TvnEpgTests(unittest.TestCase):
         body = f"jsonp({json.dumps(items)});".encode()
 
         with patch.object(
-            update_m3u,
+            tvn,
             "fetch_bytes",
             return_value=(200, body, "https://estaticos.tvn.cl/epg/tvn/"),
         ):
@@ -1049,7 +1050,7 @@ class TvnEpgTests(unittest.TestCase):
             for day in days
         )
         now = datetime(2026, 9, 27, 22, tzinfo=update_m3u.CHILE_TIMEZONE)
-        with patch.object(update_m3u, "fetch_bytes", return_value=(200, page.encode(), {})):
+        with patch.object(la_red, "fetch_bytes", return_value=(200, page.encode(), {})):
             body, error = update_m3u.fetch_la_red_official_epg([channel("La Red", "0102")], now)
 
         self.assertIsNone(error)

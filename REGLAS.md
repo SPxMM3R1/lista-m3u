@@ -53,6 +53,10 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
 - **TVN3**: se usa Zapping aunque a veces no calza (decisión del usuario, 27-09).
 - No asignar EPG por posición, nombre parecido, bitrate ni URL; ante duda, pendiente.
 - La app lee la sinopsis (`<desc>`, máximo 600 caracteres) para el Detalle y la Guía.
+- Cada fuente vive en su archivo `epg_sources/<fuente>.py`; las oficiales se declaran en
+  `OFFICIAL_EPG_SOURCES` (`update_m3u.py`) con los canales que cubren. Una fuente que falla
+  (o revienta) solo afecta a sus canales, que caen a su respaldo. Solo un fallo de EPGShare
+  conserva la guía anterior completa. Fuente nueva = archivo nuevo + fila en la tabla + test.
 
 ## 5. Logos
 
