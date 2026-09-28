@@ -47,7 +47,8 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
   TecnoCentro (Red Bull con respaldo Pluto).
 - Sin relleno técnico: sin fuente real, el canal queda pendiente (`epg-pending.json`).
   Única excepción acordada: Rwnd = `Live`.
-- Procurar al menos 12 h por canal; los pendientes se reintentan en cada ciclo de 6 h.
+- Procurar al menos 12 h por canal (mínimo, no tope): se integra toda la guía real que publique
+  cada fuente, hasta 8 días. Los pendientes se reintentan en cada ciclo de 6 h.
 - **La Red**: solo su guía oficial (`lared.cl`), sin Zapping ni TecnoCentro. Si falla, se
   conserva la última parrilla real. Sus pestañas lun..dom son los próximos 7 días desde hoy.
 - **TVN3**: se usa Zapping aunque a veces no calza (decisión del usuario, 27-09).

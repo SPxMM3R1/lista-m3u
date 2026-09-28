@@ -41,7 +41,7 @@ def fetch_sky_official_epg(
         counts = {channel_id: 0 for channel_id in targets}
         seen: set[tuple[str, str, int]] = set()
         start_limit = now - timedelta(hours=6)
-        stop_limit = now + timedelta(days=5)
+        stop_limit = now + timedelta(days=8)
         query_sids = ",".join(sorted(set(targets.values())))
         headers = {
             "User-Agent": BROWSER_USER_AGENT,

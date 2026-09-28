@@ -265,7 +265,7 @@ def fetch_canal13_main_official_epg(
             raise ValueError("el JSON oficial de Canal 13 no contiene events")
 
         lower_limit = now - timedelta(hours=6)
-        upper_limit = now + timedelta(days=5)
+        upper_limit = now + timedelta(days=8)
         records: list[dict[str, object]] = []
         for event in events:
             if not isinstance(event, dict):
@@ -393,7 +393,7 @@ def fetch_13go_epg(
     try:
         root = epg_root("Canal 13 13Go EPG JSON oficial")
         minimum_start = now - timedelta(hours=6)
-        maximum_stop = now + timedelta(days=5)
+        maximum_stop = now + timedelta(days=8)
         counts = {channel_id: 0 for channel_id in targets}
         for channel_id, url in targets.items():
             status, body, _ = fetch_bytes(

@@ -96,7 +96,7 @@ def fetch_autentic_history_epg(
         if not session_token:
             raise ValueError("Whale TV+ no devolvio token de sesion")
         start_ms = int((now - timedelta(hours=6)).timestamp() * 1000)
-        end_ms = int((now + timedelta(days=5)).timestamp() * 1000)
+        end_ms = int((now + timedelta(days=8)).timestamp() * 1000)
         epg_url = (
             f"{api_base}/device/browser/v1/epg?"
             + urlencode(
@@ -131,7 +131,7 @@ def fetch_autentic_history_epg(
                     stop = datetime.fromtimestamp(int(item["prgEtm"]) / 1000, timezone.utc)
                 except (KeyError, TypeError, ValueError, OverflowError):
                     continue
-                if stop <= start or stop <= now - timedelta(hours=6) or start >= now + timedelta(days=5):
+                if stop <= start or stop <= now - timedelta(hours=6) or start >= now + timedelta(days=8):
                     continue
                 title = re.sub(r"\s+", " ", str(item.get("prgTitle", "")).strip())
                 if not title:

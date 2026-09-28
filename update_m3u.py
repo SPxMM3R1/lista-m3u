@@ -5293,13 +5293,16 @@ def normalize_main_epg_schedule(
     *,
     now: datetime,
 ) -> tuple[set[str], bool]:
-    """Normalize List 1 titles and retain its refresh-buffered horizon."""
+    """Normalize List 1 titles, keeping every real programme the sources sent.
+
+    The 12 h (+6 h) buffer is a minimum coverage check, not a ceiling: a
+    source that publishes the whole week is integrated in full.
+    """
     placeholder_channels: set[str] = set()
     changed = False
     current = (
         now.astimezone(timezone.utc) if now.tzinfo else now.replace(tzinfo=timezone.utc)
     ).replace(microsecond=0)
-    horizon = current + EPG_MAIN_CONTINUITY_BUFFER
     for programme in root.findall("programme"):
         channel_id = programme.get("channel", "")
         if channel_id not in required_ids:
@@ -5310,14 +5313,6 @@ def normalize_main_epg_schedule(
         except ValueError:
             start = stop = None
         if start is not None and stop is not None:
-            if start >= horizon:
-                root.remove(programme)
-                changed = True
-                continue
-            if stop > horizon:
-                programme.set("stop", xmltv_format_chile(horizon))
-                changed = True
-                stop = horizon
             if stop <= start:
                 root.remove(programme)
                 changed = True

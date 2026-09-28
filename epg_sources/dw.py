@@ -96,7 +96,7 @@ def fetch_dw_english_official_epg(
             slot
             for slot in slots
             if slot[1] > now - timedelta(hours=6)
-            and slot[0] < now + timedelta(days=2)
+            and slot[0] < now + timedelta(days=8)
         ]
         if len(current_slots) < 5:
             raise ValueError("DW English no publico suficientes bloques oficiales")
@@ -155,7 +155,7 @@ def fetch_dw_spanish_official_epg(
             slot
             for slot in slots
             if slot[1] > now - timedelta(hours=6)
-            and slot[0] < now + timedelta(days=2)
+            and slot[0] < now + timedelta(days=8)
         ]
         if len(current_slots) < 5:
             raise ValueError("DW Español no publico suficientes bloques oficiales")

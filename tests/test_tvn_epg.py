@@ -778,9 +778,9 @@ class TvnEpgTests(unittest.TestCase):
         )
         add_programme(
             "0104",
-            now + timedelta(hours=18),
-            now + timedelta(hours=19),
-            "Demasiado lejos",
+            now + timedelta(hours=40),
+            now + timedelta(hours=41),
+            "Programa de pasado mañana",
         )
         add_programme(
             update_m3u.EPG_MAIN_LIVE_CHANNEL_ID,
@@ -813,10 +813,16 @@ class TvnEpgTests(unittest.TestCase):
         self.assertTrue(
             all(item.findtext("title") == "Live" for item in rewind_programmes)
         )
+        # La guía real se integra completa: el margen de 18 h es un mínimo,
+        # no un tope. Solo el relleno Live de Rwnd se genera hasta el margen.
+        self.assertIn(
+            "Programa de pasado mañana",
+            [item.findtext("title") for item in tvn_programmes],
+        )
         self.assertTrue(
             all(
                 update_m3u.xmltv_datetime(item.get("stop", "")) <= horizon
-                for item in tvn_programmes + rewind_programmes
+                for item in rewind_programmes
             )
         )
         self.assertTrue(
