@@ -328,7 +328,9 @@ def _match_row(row: SelectionRow, channel: Any, lines: list[str]) -> str:
         info_line = lines[info_index]
     resolver_aliases = {
         unquote(alias)
-        for alias in re.findall(r'\bx-resolver-ids="([^"]*)"', info_line)
+        # x-tvvoo-aliases: alias TvVoo de una fila servida por otro resolutor
+        # (Sky F1 es Highfly). Solo sirve para encontrar la fila, no para resolver.
+        for alias in re.findall(r'\bx-(?:resolver-ids|tvvoo-aliases)="([^"]*)"', info_line)
         for alias in alias.split(";")
         if alias
     }

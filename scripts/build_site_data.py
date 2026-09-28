@@ -107,6 +107,13 @@ REMOTE_LOGO_PREVIEW_HOSTS = {
 }
 
 
+def _catalog_aliases(attrs: dict[str, str]) -> list[str]:
+    """Alias TvVoo de la fila, incluidos los de una fila Highfly (x-tvvoo-aliases)."""
+    return ";".join(
+        attrs.get(name, "") for name in ("x-resolver-ids", "x-tvvoo-aliases")
+    ).split(";")
+
+
 def parse_catalog_logos(text: str) -> dict[str, dict[str, str]]:
     """Logos del catálogo por identidad: tvg-id y alias TvVoo → ruta local; y vista remota."""
     by_id: dict[str, str] = {}
@@ -125,7 +132,7 @@ def parse_catalog_logos(text: str) -> dict[str, dict[str, str]]:
         local = _logo_path(logo_value)
         if local:
             by_id.setdefault(tvg_id, local)
-            for alias in attrs.get("x-resolver-ids", "").split(";"):
+            for alias in _catalog_aliases(attrs):
                 alias = alias.strip()
                 if alias:
                     by_alias.setdefault(alias, local)
@@ -134,7 +141,7 @@ def parse_catalog_logos(text: str) -> dict[str, dict[str, str]]:
             parsed = urlsplit(logo_value)
             if parsed.scheme == "https" and parsed.hostname in REMOTE_LOGO_PREVIEW_HOSTS:
                 remote.setdefault(tvg_id, logo_value)
-                for alias in attrs.get("x-resolver-ids", "").split(";"):
+                for alias in _catalog_aliases(attrs):
                     alias = alias.strip()
                     if alias:
                         remote_by_alias.setdefault(unquote(alias), logo_value)

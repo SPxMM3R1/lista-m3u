@@ -19,6 +19,10 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
 - `providerResourceId`, `resolverSlug`, `leaf:` y las URL HLS rotan: nunca son identidad.
 - TvVoo: `providerResourceId` = `catalogKey`; `countryKey` = prefijo de `catalogKey`.
   `country` es solo texto visible ("Reino Unido") y nunca se usa como clave.
+- Un canal con dos proveedores (Sky F1: Highfly y TvVoo) tiene **una** fila en el catálogo con
+  su resolutor real (`x-resolver="highfly"`) y los alias del otro en `x-tvvoo-aliases`. Esos
+  alias solo sirven para que una selección TvVoo encuentre la fila (EPG y logo); no la
+  vuelven TvVoo. La app reproduce cada selección con su propio proveedor desde el layout.
 - Highfly: `resolverSlug` = hoja sin `leaf:`. `identityState` (canonical/provisional) es para
   el runner (EPG y logo); no impide reproducir la fila.
 - **Contrato compartido**: `contracts/layout-provider-rows.json`. Lo validan el editor, el
@@ -97,6 +101,7 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
 | 26-09 | Sky F1 cambió de proveedor solo en la selección | Layout y selección juntos (§3) |
 | 27-09 | Fila TvVoo con `country` visible tumbó la app 0.5.29 | `countryKey` es la clave (§2) |
 | 27-09 | F1 Highfly `provisional` desapareció de la TV | `identityState` no bloquea (§2) |
+| 27-09 | Fila F1 etiquetada TvVoo siendo Highfly | Alias del otro proveedor aparte (§2) |
 | 27-09 | Versiones 0.6.x sin consultar | Solo último número (§7) |
 | 27-09 | EPG canceló corridas de canales en espera | Grupo propio de EPG (§6) |
 | 27-09 | La Red sin EPG un domingo | Pestañas desde hoy (§4) |

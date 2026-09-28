@@ -299,6 +299,10 @@ class TargetedUpdateTest(unittest.TestCase):
         self.assertEqual("one", parsed[0].tvg_id)
         self.assertEqual("Mi canal favorito", parsed[0].display_name)
 
+    @patch.dict(
+        update_m3u.TVVOO_STREAM_RESOLVER_IDS,
+        {"Sky Sports F1": ("vavoo_SKY%20SPORTS%20F1%7Cgroup%3Auk",)},
+    )
     def test_name_override_keeps_catalog_name_of_name_keyed_tvvoo_channel(self) -> None:
         lines = [
             "#EXTM3U",

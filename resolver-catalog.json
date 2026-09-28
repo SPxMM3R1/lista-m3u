@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "catalogVersion": "2026.09.01.17",
+  "catalogVersion": "2026.09.01.18",
   "providers": [
     {
       "id": "tvn",
@@ -68,11 +68,6 @@
         "maxExtractedStrings": 256
       },
       "compatibilityAliases": {
-        "Sky Sports F1": [
-          "vavoo_SKY%20SPORTS%20F1%20FHD%7Cgroup%3Auk",
-          "vavoo_SKY%20SPORTS%20F1%20HD%7Cgroup%3Auk",
-          "vavoo_SKY%20SPORTS%20F1%7Cgroup%3Auk"
-        ],
         "CNN": [
           "vavoo_CNN%7Cgroup%3Auk"
         ],
@@ -4887,6 +4882,7 @@
       "cacheTtlSeconds": 300,
       "match": {
         "tvgIds": [
+          "SkySportsF1.uk",
           "SkySportsPremierLeague.uk",
           "SkySportsTennis.uk"
         ],

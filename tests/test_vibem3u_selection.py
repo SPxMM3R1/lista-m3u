@@ -3,6 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 from types import SimpleNamespace
+from unittest import mock
 
 import update_m3u
 import vibem3u_selection
@@ -345,8 +346,12 @@ if __name__ == "__main__":
 
 
 class HighflySelectionOverOtherResolverTest(unittest.TestCase):
-    """Sky F1: selección Highfly sobre una fila que el catálogo resuelve con TvVoo."""
+    """Selección Highfly sobre una fila que el catálogo resuelve con TvVoo."""
 
+    @mock.patch.dict(
+        update_m3u.TVVOO_STREAM_RESOLVER_IDS,
+        {"Sky Sports F1": ("vavoo_SKY%20SPORTS%20F1%7Cgroup%3Auk",)},
+    )
     def test_marks_managed_without_rewriting_the_catalog_resolver(self) -> None:
         directory = tempfile.TemporaryDirectory()
         self.addCleanup(directory.cleanup)
@@ -374,3 +379,68 @@ class HighflySelectionOverOtherResolverTest(unittest.TestCase):
         self.assertIn('x-vibem3u-selection="managed"', lines[1])
         self.assertIn('x-resolver="tvvoo"', lines[1])
         self.assertNotIn("now-34343434", lines[1])
+
+
+class SkyF1ProviderSeparationTest(unittest.TestCase):
+    """Sky F1 es Highfly en el catálogo; sus alias TvVoo van en x-tvvoo-aliases.
+
+    Una selección Highfly y una TvVoo de F1 encuentran la misma fila (misma EPG y
+    logo), pero cada una conserva su proveedor: la fila no pasa a ser TvVoo.
+    """
+
+    ALIAS = "vavoo_SKY%20SPORTS%20F1%20FHD%7Cgroup%3Auk"
+
+    def lines(self) -> list[str]:
+        return [
+            "#EXTM3U",
+            '#EXTINF:-1 tvg-id="SkySportsF1.uk" tvg-name="Sky Sports F1" '
+            f'x-tvvoo-aliases="{self.ALIAS}" x-resolver="highfly" x-resolver-id="now-34343434" '
+            f'x-resolver-manifest="{update_m3u.HIGHFLY_MANIFEST_URL}" x-resolver-refresh="on_play",Sky Sports F1',
+            "https://papacito.cfd/m3u/now-34343434/live.m3u8",
+        ]
+
+    def reconcile(self, row: dict, lines: list[str]):
+        directory = tempfile.TemporaryDirectory()
+        self.addCleanup(directory.cleanup)
+        path = Path(directory.name) / "vibem3u-selection.json"
+        path.write_text(json.dumps({
+            "schemaVersion": 1,
+            "sources": [{"provider": row["provider"], "enabled": True, "channels": [row]}],
+        }), encoding="utf-8")
+        return vibem3u_selection.reconcile_selection(
+            vibem3u_selection.load_selection(path), update_m3u.parse_channels(lines), lines
+        )
+
+    def test_highfly_selection_keeps_the_highfly_row(self) -> None:
+        lines = self.lines()
+        reconciliation = self.reconcile({
+            "provider": "highfly", "catalogKey": "SkySportsF1.uk",
+            "providerResourceId": "leaf:now-34343434", "resolverSlug": "now-34343434",
+            "name": "SKY SPORTS F1", "group": "Deportes", "identityState": "canonical", "order": 1,
+        }, lines)
+
+        self.assertEqual(["SkySportsF1.uk"], [m.catalog_id for m in reconciliation.matched])
+        update_m3u.apply_vibem3u_selection(lines, reconciliation)
+        self.assertIn('x-resolver="highfly"', lines[1])
+        self.assertIn(f'x-tvvoo-aliases="{self.ALIAS}"', lines[1])
+
+    def test_tvvoo_selection_matches_through_the_separate_aliases(self) -> None:
+        lines = self.lines()
+        reconciliation = self.reconcile({
+            "provider": "tvvoo", "catalogKey": f"unitedkingdom|{self.ALIAS}",
+            "providerResourceId": f"unitedkingdom|{self.ALIAS}", "countryKey": "unitedkingdom",
+            "aliases": [self.ALIAS], "name": "SKY SPORTS F1 FHD", "group": "Reino Unido",
+            "identityState": "canonical", "order": 1,
+        }, lines)
+
+        self.assertEqual(["SkySportsF1.uk"], [m.catalog_id for m in reconciliation.matched])
+        update_m3u.apply_vibem3u_selection(lines, reconciliation)
+        self.assertIn('x-resolver="highfly"', lines[1])
+        self.assertEqual(
+            {"SkySportsF1.uk": [f"unitedkingdom|{self.ALIAS}@TvVoo"]},
+            update_m3u.app_epg_alias_ids(lines, reconciliation.document),
+        )
+
+    def test_separate_aliases_do_not_make_the_row_tvvoo(self) -> None:
+        channel = update_m3u.parse_channels(self.lines())[0]
+        self.assertEqual("highfly", update_m3u.resolver_engine_for(channel))

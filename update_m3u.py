@@ -385,7 +385,9 @@ HIGHFLY_RESOLVER_CHANNELS = {
     # Fallbacks de hoja publicados por el catalogo actual. El mapa se
     # refresca desde sports_live.json cuando hay red, pero estos valores
     # permiten resolver aun si el catalogo publico esta caido. Sky Sports F1
-    # ya no es Highfly: su senal se resuelve por TvVoo en la aplicacion.
+    # es Highfly; sus alias TvVoo viven aparte en x-tvvoo-aliases para que una
+    # seleccion TvVoo de F1 encuentre la misma fila sin mezclar resolutores.
+    "SkySportsF1.uk": "now-34343434",
     "SkySportsPremierLeague.uk": "now-4994949494",
     "SkySportsTennis.uk": "uk-330030303",
 }
@@ -3400,10 +3402,10 @@ def apply_vibem3u_selection(
         channel = channels[item.catalog_index]
         current_resolver = resolver_attributes_for(channel).get("x-resolver", "")
         if current_resolver and current_resolver != "highfly":
-            # La fila del catálogo usa otro resolutor (p. ej. Sky F1 es TvVoo desde el
-            # 26-09). La selección Highfly la marca como gestionada para EPG y logo,
-            # pero no reescribe su resolutor: la app reproduce Highfly desde el layout
-            # y las listas públicas conservan el resolutor del catálogo.
+            # La fila del catálogo usa otro resolutor. La selección Highfly la marca
+            # como gestionada para EPG y logo, pero no reescribe su resolutor: la app
+            # reproduce Highfly desde el layout y las listas públicas conservan el
+            # resolutor del catálogo.
             continue
         HIGHFLY_RUNTIME_RESOLVER_CHANNELS[channel.tvg_id] = item.row.resolver_slug
         expected_attributes = {
