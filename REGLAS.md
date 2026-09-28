@@ -96,6 +96,9 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
 - No hay SDK Android local: la app se valida en CI y en la TV.
 - Control: OK muestra el OSD; segundo OK o INFO, Detalle del programa; ◀ o GUIDE, Guía
   completa; ▶, fuentes y calidad; OK mantenido o MENU, Opciones.
+- Guía: OK corto abre el canal; OK mantenido programa o quita un recordatorio (campana cyan).
+  El aviso (300×52 dp, arriba a la derecha) llega con la app cerrada si tiene el permiso
+  «Mostrar sobre otras apps»; «Ver» cambia al canal. Se gestionan en Opciones › Interfaz.
 - El OSD ocupa el ancho de la pantalla menos 32dp por lado, alineado con el reloj. No se
   cambia su diseño ni su tamaño sin pedirlo el usuario.
 
