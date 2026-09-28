@@ -86,6 +86,24 @@ class BuildSiteDataTests(unittest.TestCase):
         self.assertNotIn("vavoo_SECRET", encoded)
         self.assertNotIn("token=", encoded)
 
+    def test_highfly_row_with_tvvoo_aliases_is_one_highfly_identity(self) -> None:
+        alias = "vavoo_SKY%20SPORTS%20F1%7Cgroup%3Auk"
+        source = "\n".join((
+            "#EXTM3U",
+            '#EXTINF:-1 tvg-id="SkySportsF1.uk" tvg-name="Sky Sports F1" '
+            'tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/sky-sports-f1.png" '
+            f'x-tvvoo-aliases="{alias}" x-resolver="highfly" x-resolver-id="now-1",Sky Sports F1',
+            "https://papacito.cfd/m3u/now-1/live.m3u8",
+        ))
+
+        identities = build_site_data.parse_provider_identities(source)
+        logos = build_site_data.parse_catalog_logos(source)
+
+        self.assertEqual([{"catalogKey": "SkySportsF1.uk", "name": "Sky Sports F1"}], identities)
+        # Una selección TvVoo de F1 recibe el mismo logo que la fila Highfly.
+        self.assertEqual("logos/sky-sports-f1.png", logos["byAlias"][alias])
+        self.assertEqual("logos/sky-sports-f1.png", logos["byId"]["SkySportsF1.uk"])
+
     def test_initial_layout_numbers_one_combined_order(self) -> None:
         layout = build_site_data.initial_layout(
             [

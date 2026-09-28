@@ -162,8 +162,8 @@ def parse_provider_identities(text: str) -> list[dict[str, str]]:
         catalog_key = attrs.get("tvg-id", "").strip()
         name = (attrs.get("tvg-name") or display).strip()
         # Las identidades propias de TvVoo (``...@TvVoo``) no son claves Highfly. Una
-        # fila canónica que hoy resuelve TvVoo (Sky F1 desde el 26-09) sí lo es: si se
-        # excluye, el editor marca "provisional" a Highfly SKY SPORTS F1.
+        # fila canónica sí lo es aunque la resuelva TvVoo; Sky F1 es Highfly y guarda
+        # sus alias TvVoo en x-tvvoo-aliases (una sola identidad, dos proveedores).
         if attrs.get("x-resolver", "").casefold() == "tvvoo" and catalog_key.endswith("@TvVoo"):
             continue
         if (
