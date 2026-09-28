@@ -1597,7 +1597,11 @@ def build_resolver_catalog(*, catalog_version: str | None = None) -> dict:
                 "cacheTtlSeconds": 0,
                 "match": {"tvgIds": ["0104"]},
                 "config": {
-                    "pageUrl": "https://live.tvn.cl/",
+                    # TVN movió su reproductor en vivo (2026-09); la app lee la
+                    # dirección vigente desde discoveryUrl y usa estas de respaldo.
+                    "pageUrl": "https://tvn-live-test-506364290967.southamerica-west1.run.app",
+                    "discoveryUrl": "https://www.tvn.cl/en-vivo",
+                    "fallbackPageUrls": "https://live.tvn.cl/?tvn_seccion=prehome",
                     "pageReferer": "https://www.tvn.cl/",
                     "playlistTemplate": (
                         "https://mdstrm.com/live-stream-playlist/"
@@ -4079,6 +4083,7 @@ def validate_resolver_catalog(path: Path = RESOLVER_CATALOG_PATH) -> dict:
     allowed_hosts = {
         "live.tvn.cl",
         "www.tvn.cl",
+        "tvn-live-test-506364290967.southamerica-west1.run.app",
         "mdstrm.com",
         "www.meganoticias.cl",
         "api.mega.cl",
