@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "source": "vibem3u-android",
-  "selectionSignature": "sha256:8be6cdb4c4cee9d96982f4acb82635d9ce65b046340bf5e924b44180461ddeb0",
-  "publishedAt": "2026-09-27T22:25:30.338Z",
+  "selectionSignature": "sha256:f581357d32e89893cb99c70288db81bdf6a8a45921f8daf0405df2247cf0b672",
+  "publishedAt": "2026-09-28T00:31:13.459Z",
   "sources": [
     {
       "provider": "tvvoo",
@@ -25,28 +25,13 @@
         },
         {
           "provider": "tvvoo",
-          "catalogKey": "spain|vavoo_EUROSPORT%201%7Cgroup%3Aes",
-          "providerResourceId": "spain|vavoo_EUROSPORT%201%7Cgroup%3Aes",
-          "name": "EUROSPORT 1",
-          "group": "España",
-          "category": "Sport",
-          "identityState": "canonical",
-          "order": 2,
-          "country": "España",
-          "countryKey": "spain",
-          "aliases": [
-            "vavoo_EUROSPORT%201%7Cgroup%3Aes"
-          ]
-        },
-        {
-          "provider": "tvvoo",
           "catalogKey": "unitedkingdom|vavoo_TNT%20SPORT%202%7Cgroup%3Auk",
           "providerResourceId": "unitedkingdom|vavoo_TNT%20SPORT%202%7Cgroup%3Auk",
           "name": "TNT SPORT 2",
           "group": "Reino Unido",
           "category": "Sport",
           "identityState": "canonical",
-          "order": 3,
+          "order": 2,
           "country": "Reino Unido",
           "countryKey": "unitedkingdom",
           "aliases": [
@@ -61,11 +46,26 @@
           "group": "Reino Unido",
           "category": "Sport",
           "identityState": "canonical",
-          "order": 4,
+          "order": 3,
           "country": "Reino Unido",
           "countryKey": "unitedkingdom",
           "aliases": [
             "vavoo_TNT%20SPORTS%203%20HD%7Cgroup%3Auk"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "unitedkingdom|vavoo_TNT%20SPORT%204%7Cgroup%3Auk",
+          "providerResourceId": "unitedkingdom|vavoo_TNT%20SPORT%204%7Cgroup%3Auk",
+          "name": "TNT SPORT 4",
+          "group": "Reino Unido",
+          "category": "Sport",
+          "identityState": "canonical",
+          "order": 4,
+          "country": "Reino Unido",
+          "countryKey": "unitedkingdom",
+          "aliases": [
+            "vavoo_TNT%20SPORT%204%7Cgroup%3Auk"
           ]
         },
         {
@@ -85,17 +85,17 @@
         },
         {
           "provider": "tvvoo",
-          "catalogKey": "unitedkingdom|vavoo_TNT%20SPORT%204%7Cgroup%3Auk",
-          "providerResourceId": "unitedkingdom|vavoo_TNT%20SPORT%204%7Cgroup%3Auk",
-          "name": "TNT SPORT 4",
-          "group": "Reino Unido",
+          "catalogKey": "spain|vavoo_EUROSPORT%201%7Cgroup%3Aes",
+          "providerResourceId": "spain|vavoo_EUROSPORT%201%7Cgroup%3Aes",
+          "name": "EUROSPORT 1",
+          "group": "España",
           "category": "Sport",
           "identityState": "canonical",
           "order": 6,
-          "country": "Reino Unido",
-          "countryKey": "unitedkingdom",
+          "country": "España",
+          "countryKey": "spain",
           "aliases": [
-            "vavoo_TNT%20SPORT%204%7Cgroup%3Auk"
+            "vavoo_EUROSPORT%201%7Cgroup%3Aes"
           ]
         },
         {
@@ -111,21 +111,6 @@
           "countryKey": "spain",
           "aliases": [
             "vavoo_EUROSPORT%202%7Cgroup%3Aes"
-          ]
-        },
-        {
-          "provider": "tvvoo",
-          "catalogKey": "spain|vavoo_DAZN%20F1%7Cgroup%3Aes",
-          "providerResourceId": "spain|vavoo_DAZN%20F1%7Cgroup%3Aes",
-          "name": "DAZN F1",
-          "group": "España",
-          "category": "Sport",
-          "identityState": "canonical",
-          "order": 8,
-          "country": "España",
-          "countryKey": "spain",
-          "aliases": [
-            "vavoo_DAZN%20F1%7Cgroup%3Aes"
           ]
         }
       ]

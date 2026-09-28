@@ -275,13 +275,17 @@
       "state": "active"
     },
     {
-      "kind": "m3u",
-      "tvgId": "XITEHits.nl@Germany",
-      "name": "XITE Hits",
-      "group": "Música",
-      "country": "",
-      "sourceList": "1.m3u",
-      "logoPath": "logos/xite.svg",
+      "kind": "provider",
+      "provider": "highfly",
+      "catalogKey": "SkySportsPremierLeague.uk",
+      "providerResourceId": "leaf:now-545454545",
+      "resolverSlug": "now-545454545",
+      "name": "SKY SPORTS PREMIER LEAGUE",
+      "group": "Deportes",
+      "category": "Football",
+      "identityState": "canonical",
+      "logoPath": "logos/sky-sports-premier-league.png",
+      "displayName": "Sky Sports Premier League",
       "order": 23,
       "number": 23,
       "state": "active"
@@ -312,29 +316,6 @@
     {
       "kind": "provider",
       "provider": "tvvoo",
-      "catalogKey": "spain|vavoo_EUROSPORT%201%7Cgroup%3Aes",
-      "providerResourceId": "spain|vavoo_EUROSPORT%201%7Cgroup%3Aes",
-      "name": "EUROSPORT 1",
-      "group": "España",
-      "category": "Sport",
-      "country": "España",
-      "countryKey": "spain",
-      "aliases": [
-        "vavoo_EUROSPORT%201%7Cgroup%3Aes"
-      ],
-      "resolverAliases": [
-        "vavoo_EUROSPORT%201%7Cgroup%3Aes"
-      ],
-      "identityState": "canonical",
-      "logoPath": "logos/eurosport.svg",
-      "displayName": "Eurosports 1",
-      "order": 25,
-      "number": 26,
-      "state": "active"
-    },
-    {
-      "kind": "provider",
-      "provider": "tvvoo",
       "catalogKey": "unitedkingdom|vavoo_TNT%20SPORT%202%7Cgroup%3Auk",
       "providerResourceId": "unitedkingdom|vavoo_TNT%20SPORT%202%7Cgroup%3Auk",
       "name": "TNT SPORT 2",
@@ -351,7 +332,7 @@
       "identityState": "canonical",
       "logoPath": "logos/tvvoo/tnt-sports-2-uk.png",
       "displayName": "TNT Sports 2",
-      "order": 26,
+      "order": 25,
       "number": 25,
       "state": "active"
     },
@@ -373,8 +354,30 @@
       ],
       "identityState": "canonical",
       "logoPath": "logos/tnt-sports-3.png",
+      "order": 26,
+      "number": 26,
+      "state": "active"
+    },
+    {
+      "kind": "provider",
+      "provider": "tvvoo",
+      "catalogKey": "unitedkingdom|vavoo_TNT%20SPORT%204%7Cgroup%3Auk",
+      "providerResourceId": "unitedkingdom|vavoo_TNT%20SPORT%204%7Cgroup%3Auk",
+      "name": "TNT SPORT 4",
+      "group": "Reino Unido",
+      "category": "Sport",
+      "country": "Reino Unido",
+      "countryKey": "unitedkingdom",
+      "aliases": [
+        "vavoo_TNT%20SPORT%204%7Cgroup%3Auk"
+      ],
+      "resolverAliases": [
+        "vavoo_TNT%20SPORT%204%7Cgroup%3Auk"
+      ],
+      "identityState": "canonical",
+      "logoPath": "logos/tvvoo/tnt-sports-4-uk.png",
       "order": 27,
-      "number": 29,
+      "number": 27,
       "state": "active"
     },
     {
@@ -402,23 +405,24 @@
     {
       "kind": "provider",
       "provider": "tvvoo",
-      "catalogKey": "unitedkingdom|vavoo_TNT%20SPORT%204%7Cgroup%3Auk",
-      "providerResourceId": "unitedkingdom|vavoo_TNT%20SPORT%204%7Cgroup%3Auk",
-      "name": "TNT SPORT 4",
-      "group": "Reino Unido",
+      "catalogKey": "spain|vavoo_EUROSPORT%201%7Cgroup%3Aes",
+      "providerResourceId": "spain|vavoo_EUROSPORT%201%7Cgroup%3Aes",
+      "name": "EUROSPORT 1",
+      "group": "España",
       "category": "Sport",
-      "country": "Reino Unido",
-      "countryKey": "unitedkingdom",
+      "country": "España",
+      "countryKey": "spain",
       "aliases": [
-        "vavoo_TNT%20SPORT%204%7Cgroup%3Auk"
+        "vavoo_EUROSPORT%201%7Cgroup%3Aes"
       ],
       "resolverAliases": [
-        "vavoo_TNT%20SPORT%204%7Cgroup%3Auk"
+        "vavoo_EUROSPORT%201%7Cgroup%3Aes"
       ],
       "identityState": "canonical",
-      "logoPath": "logos/tvvoo/tnt-sports-4-uk.png",
+      "logoPath": "logos/eurosport.svg",
+      "displayName": "Eurosports 1",
       "order": 29,
-      "number": 27,
+      "number": 29,
       "state": "active"
     },
     {
@@ -445,17 +449,13 @@
       "state": "active"
     },
     {
-      "kind": "provider",
-      "provider": "highfly",
-      "catalogKey": "SkySportsPremierLeague.uk",
-      "providerResourceId": "leaf:now-545454545",
-      "resolverSlug": "now-545454545",
-      "name": "SKY SPORTS PREMIER LEAGUE",
-      "group": "Deportes",
-      "category": "Football",
-      "identityState": "canonical",
-      "logoPath": "logos/sky-sports-premier-league.png",
-      "displayName": "Sky Sports Premier League",
+      "kind": "m3u",
+      "tvgId": "XITEHits.nl@Germany",
+      "name": "XITE Hits",
+      "group": "Música",
+      "country": "",
+      "sourceList": "1.m3u",
+      "logoPath": "logos/xite.svg",
       "order": 31,
       "number": 31,
       "state": "active"
@@ -1392,7 +1392,7 @@
       "logoPath": "logos/dazn-f1.png",
       "order": 108,
       "number": 51,
-      "state": "active"
+      "state": "deleted"
     },
     {
       "kind": "provider",
