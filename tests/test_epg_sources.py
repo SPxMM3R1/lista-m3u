@@ -1,8 +1,5 @@
-import json
-import tempfile
 import unittest
 from datetime import datetime, timezone
-from pathlib import Path
 from unittest.mock import patch
 
 import update_m3u
@@ -81,53 +78,35 @@ class OfficialEpgSourcesTest(unittest.TestCase):
 
 
 class RedBullChileTest(unittest.TestCase):
-    """Red Bull reparte la parrilla por país de la IP: fuera de Chile se usa la copia chilena."""
+    """Red Bull reparte la parrilla por país: se pide como visita chilena."""
 
-    def snapshot(self, country: str = "cl") -> Path:
-        directory = tempfile.TemporaryDirectory()
-        self.addCleanup(directory.cleanup)
-        path = Path(directory.name) / "redbull-cl-epg.json"
-        path.write_text(json.dumps({"schema": 1, "country": country, "programmes": [
-            {"start_time": "2026-09-27T11:00:00Z", "end_time": "2026-09-27T13:00:00Z", "title": "Erzbergrodeo"},
-            {"start_time": "2026-09-27T13:00:00Z", "end_time": "2026-09-27T14:00:00Z", "title": "Soapbox"},
-        ]}), encoding="utf-8")
-        return path
+    def test_page_and_session_are_requested_as_a_chilean_visit(self) -> None:
+        headers = []
 
-    def test_chilean_connection_reads_the_live_page(self) -> None:
+        def fake_fetch(url, request_headers, **_kwargs):
+            headers.append(request_headers)
+            return 200, b'{"country_code": "cl"}', {}
+
+        with patch.object(red_bull, "fetch_bytes", side_effect=fake_fetch):
+            self.assertEqual("cl", red_bull.red_bull_request_country())
+        self.assertEqual(
+            update_m3u.RED_BULL_CHILE_FORWARDED_FOR, headers[0]["X-Forwarded-For"]
+        )
+
+    def test_chilean_visit_reads_the_live_page(self) -> None:
         with patch.object(red_bull, "red_bull_request_country", return_value="cl"), patch.object(
             red_bull, "red_bull_page_schedule", return_value=["pagina"]
         ) as page:
             self.assertEqual(["pagina"], red_bull.red_bull_chile_schedule(NOW))
         page.assert_called_once()
 
-    def test_foreign_connection_uses_the_chilean_snapshot_not_the_page(self) -> None:
-        path = self.snapshot()
+    def test_other_country_publishes_nothing(self) -> None:
         with patch.object(red_bull, "red_bull_request_country", return_value="us"), patch.object(
             red_bull, "red_bull_page_schedule"
-        ) as page, patch.object(red_bull, "RED_BULL_CHILE_EPG_SNAPSHOT_PATH", path), patch.object(
-            red_bull.red_bull_chile_snapshot_schedule, "__defaults__", (path,)
-        ):
-            schedule = red_bull.red_bull_chile_schedule(NOW)
-        page.assert_not_called()
-        self.assertEqual(["Erzbergrodeo", "Soapbox"], [item["title"] for item in schedule])
-
-    def test_foreign_connection_without_snapshot_publishes_nothing(self) -> None:
-        missing = Path(tempfile.gettempdir()) / "no-existe-redbull-cl.json"
-        with patch.object(red_bull, "red_bull_request_country", return_value="us"), patch.object(
-            red_bull.red_bull_chile_snapshot_schedule, "__defaults__", (missing,)
-        ):
+        ) as page:
             with self.assertRaisesRegex(ValueError, "'us'"):
                 red_bull.red_bull_chile_schedule(NOW)
-
-    def test_snapshot_from_another_country_is_rejected(self) -> None:
-        with self.assertRaisesRegex(ValueError, "no es de Chile"):
-            red_bull.red_bull_chile_snapshot_schedule(NOW, self.snapshot("us"))
-
-    def test_expired_snapshot_is_rejected(self) -> None:
-        later = datetime(2026, 9, 28, 12, tzinfo=timezone.utc)
-        with self.assertRaisesRegex(ValueError, "vigentes"):
-            red_bull.red_bull_chile_snapshot_schedule(later, self.snapshot())
-
+        page.assert_not_called()
 
 if __name__ == "__main__":
     unittest.main()

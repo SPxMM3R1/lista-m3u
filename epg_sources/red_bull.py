@@ -1,7 +1,7 @@
 """Red Bull TV: página oficial, API y relay.
 
-La página es_CL depende del país de la IP: sin IP chilena se usa la copia
-subida desde Chile (data/redbull-cl-epg.json)."""
+La página es_CL depende del país del visitante: se pide con una IP chilena en
+X-Forwarded-For y se comprueba que Red Bull la acepte."""
 
 from __future__ import annotations
 
@@ -9,12 +9,11 @@ import json
 import re
 import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta
-from pathlib import Path
 
 from update_m3u import (
     BROWSER_USER_AGENT,
     RED_BULL_CHANNEL_LOCALES,
-    RED_BULL_CHILE_EPG_SNAPSHOT_PATH,
+    RED_BULL_CHILE_FORWARDED_FOR,
     RED_BULL_CHILE_ID,
     RED_BULL_OFFICIAL_EPG_URL,
     RED_BULL_RELAY_EPG_URL,
@@ -29,7 +28,6 @@ __all__ = [
     "normalize_red_bull_schedule",
     "red_bull_page_schedule",
     "red_bull_request_country",
-    "red_bull_chile_snapshot_schedule",
     "red_bull_chile_schedule",
     "red_bull_api_schedule",
     "red_bull_relay_schedule",
@@ -80,6 +78,7 @@ def red_bull_page_schedule(now: datetime) -> list[dict]:
             "User-Agent": BROWSER_USER_AGENT,
             "Accept": "text/html,application/xhtml+xml,*/*",
             "Accept-Language": "es-CL,es;q=0.9",
+            "X-Forwarded-For": RED_BULL_CHILE_FORWARDED_FOR,
         },
         timeout=90,
         limit=30_000_000,
@@ -153,10 +152,14 @@ def red_bull_page_schedule(now: datetime) -> list[dict]:
 
 
 def red_bull_request_country() -> str:
-    """País que Red Bull asigna a esta conexión (lo decide por la IP)."""
+    """País que Red Bull asigna a la visita chilena (misma cabecera que la página)."""
     status, body, _ = fetch_bytes(
         f"{RED_BULL_SESSION_URL}&locale=es",
-        {"User-Agent": BROWSER_USER_AGENT, "Accept": "application/json"},
+        {
+            "User-Agent": BROWSER_USER_AGENT,
+            "Accept": "application/json",
+            "X-Forwarded-For": RED_BULL_CHILE_FORWARDED_FOR,
+        },
         timeout=60,
         limit=1_048_576,
     )
@@ -165,43 +168,15 @@ def red_bull_request_country() -> str:
     return str(json.loads(body).get("country_code", "")).strip().lower()
 
 
-def red_bull_chile_snapshot_schedule(
-    now: datetime, path: Path = RED_BULL_CHILE_EPG_SNAPSHOT_PATH
-) -> list[dict]:
-    """Parrilla de Red Bull Chile subida desde una IP chilena."""
-    if not path.is_file():
-        raise ValueError("no hay copia chilena de la parrilla Red Bull")
-    payload = json.loads(path.read_text(encoding="utf-8"))
-    if payload.get("country") != "cl":
-        raise ValueError("la copia de Red Bull no es de Chile")
-    schedule = normalize_red_bull_schedule(
-        [
-            {**item, "lang": "es"}
-            for item in payload.get("programmes", [])
-            if isinstance(item, dict)
-        ]
-    )
-    upcoming = [
-        item
-        for item in schedule
-        if datetime.fromisoformat(item["end_time"].replace("Z", "+00:00")) > now
-    ]
-    if not upcoming:
-        raise ValueError("la copia chilena de Red Bull ya no tiene programas vigentes")
-    return schedule
-
-
 def red_bull_chile_schedule(now: datetime) -> list[dict]:
-    """Red Bull Chile: la página en vivo solo si Red Bull nos ve en Chile."""
+    """Red Bull Chile: solo si Red Bull acepta la visita como chilena.
+
+    Si deja de respetar X-Forwarded-For, no se publica la parrilla de otro país.
+    """
     country = red_bull_request_country()
-    if country == "cl":
-        return red_bull_page_schedule(now)
-    try:
-        return red_bull_chile_snapshot_schedule(now)
-    except ValueError as error:
-        raise ValueError(
-            f"Red Bull ve esta conexion como '{country}' y {error}"
-        ) from error
+    if country != "cl":
+        raise ValueError(f"Red Bull no acepto la visita chilena (ve '{country}')")
+    return red_bull_page_schedule(now)
 
 
 def red_bull_api_schedule(locale: str) -> list[dict]:
