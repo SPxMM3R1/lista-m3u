@@ -1,6 +1,7 @@
 """Red Bull TV: página oficial, API y relay.
 
-Movido desde update_m3u.py sin cambios de lógica."""
+La página es_CL depende del país de la IP: sin IP chilena se usa la copia
+subida desde Chile (data/redbull-cl-epg.json)."""
 
 from __future__ import annotations
 
@@ -8,10 +9,12 @@ import json
 import re
 import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta
+from pathlib import Path
 
 from update_m3u import (
     BROWSER_USER_AGENT,
     RED_BULL_CHANNEL_LOCALES,
+    RED_BULL_CHILE_EPG_SNAPSHOT_PATH,
     RED_BULL_CHILE_ID,
     RED_BULL_OFFICIAL_EPG_URL,
     RED_BULL_RELAY_EPG_URL,
@@ -25,6 +28,9 @@ from update_m3u import (
 __all__ = [
     "normalize_red_bull_schedule",
     "red_bull_page_schedule",
+    "red_bull_request_country",
+    "red_bull_chile_snapshot_schedule",
+    "red_bull_chile_schedule",
     "red_bull_api_schedule",
     "red_bull_relay_schedule",
     "fetch_red_bull_schedules",
@@ -144,6 +150,58 @@ def red_bull_page_schedule(now: datetime) -> list[dict]:
     if len(schedule) < 5:
         raise ValueError("pagina EPG Red Bull entrego una parrilla demasiado corta")
     return schedule
+
+
+def red_bull_request_country() -> str:
+    """País que Red Bull asigna a esta conexión (lo decide por la IP)."""
+    status, body, _ = fetch_bytes(
+        f"{RED_BULL_SESSION_URL}&locale=es",
+        {"User-Agent": BROWSER_USER_AGENT, "Accept": "application/json"},
+        timeout=60,
+        limit=1_048_576,
+    )
+    if status != 200:
+        raise ValueError(f"sesion Red Bull HTTP {status}")
+    return str(json.loads(body).get("country_code", "")).strip().lower()
+
+
+def red_bull_chile_snapshot_schedule(
+    now: datetime, path: Path = RED_BULL_CHILE_EPG_SNAPSHOT_PATH
+) -> list[dict]:
+    """Parrilla de Red Bull Chile subida desde una IP chilena."""
+    if not path.is_file():
+        raise ValueError("no hay copia chilena de la parrilla Red Bull")
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    if payload.get("country") != "cl":
+        raise ValueError("la copia de Red Bull no es de Chile")
+    schedule = normalize_red_bull_schedule(
+        [
+            {**item, "lang": "es"}
+            for item in payload.get("programmes", [])
+            if isinstance(item, dict)
+        ]
+    )
+    upcoming = [
+        item
+        for item in schedule
+        if datetime.fromisoformat(item["end_time"].replace("Z", "+00:00")) > now
+    ]
+    if not upcoming:
+        raise ValueError("la copia chilena de Red Bull ya no tiene programas vigentes")
+    return schedule
+
+
+def red_bull_chile_schedule(now: datetime) -> list[dict]:
+    """Red Bull Chile: la página en vivo solo si Red Bull nos ve en Chile."""
+    country = red_bull_request_country()
+    if country == "cl":
+        return red_bull_page_schedule(now)
+    try:
+        return red_bull_chile_snapshot_schedule(now)
+    except ValueError as error:
+        raise ValueError(
+            f"Red Bull ve esta conexion como '{country}' y {error}"
+        ) from error
 
 
 def red_bull_api_schedule(locale: str) -> list[dict]:
@@ -269,7 +327,7 @@ def fetch_red_bull_schedules(
             continue
         if channel_id == RED_BULL_CHILE_ID:
             try:
-                schedules[channel_id] = red_bull_page_schedule(now)
+                schedules[channel_id] = red_bull_chile_schedule(now)
                 source_names.add("red-bull-es-oficial-page")
                 continue
             except Exception as page_error:

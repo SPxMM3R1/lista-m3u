@@ -974,6 +974,10 @@ RED_BULL_OFFICIAL_EPG_URL = "https://api.redbull.tv/v3/epg?complete=true"
 # different regional schedule; do not use the global v3 EPG as the primary
 # source for RedBullChileEspanol.cl.
 RED_BULL_SPANISH_EPG_PAGE = "https://www.redbull.tv/es_CL/epg"
+# Red Bull entrega la parrilla según el país de la IP (la ruta es_CL no basta):
+# desde GitHub (EE. UU.) la página trae otra región. Sin IP chilena se usa la
+# copia que sube tools/push_redbull_cl_epg.py desde Chile.
+RED_BULL_CHILE_EPG_SNAPSHOT_PATH = Path(__file__).with_name("data") / "redbull-cl-epg.json"
 # Este relay esta documentado por iptv-org/epg, pero se usa solo como respaldo:
 # su disponibilidad depende de la actualizacion diaria del proveedor.
 RED_BULL_RELAY_EPG_URL = "https://nzxmltv.com/iptv/redbull.xml"
