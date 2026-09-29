@@ -83,6 +83,9 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
 - EPG: cron `0 0,6,12,18` America/Santiago y tras un commit editorial o disparo manual de
   canales (no tras el cron de canales). Grupo propio `m3u-epg`: publica solo archivos de EPG.
 - Todos los push integran `main` y reintentan; nunca force-push.
+- Highfly: `update-highfly.yml` corre cada 30 min (y al cambiar el layout) y publica
+  `data/highfly-live.json` con la hoja que hoy entrega señal y su enlace directo (sin token).
+  La app lo abre al tiro; si falla porque la hoja rotó, usa su resolutor.
 - El Raw de GitHub cachea minutos: verificar con `git show origin/main:<archivo>`.
 
 ## 7. App VibeM3U

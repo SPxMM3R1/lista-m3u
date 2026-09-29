@@ -1,0 +1,43 @@
+name: Actualizar enlaces Highfly
+on:
+  schedule:
+    # Highfly rota sus hojas: se revisa cada 30 minutos (tarda segundos).
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "data/channel-editor-layout.json"
+permissions:
+  contents: write
+# Grupo propio: solo publica data/highfly-live.json.
+concurrency:
+  group: m3u-highfly
+  cancel-in-progress: false
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --disable-pip-version-check --no-input tzdata
+      - run: python -m unittest tests.test_highfly_live
+      - run: python highfly_live.py
+      - name: Publicar enlaces Highfly
+        shell: bash
+        run: |
+          if git diff --quiet -- data/highfly-live.json && git ls-files --error-unmatch data/highfly-live.json >/dev/null 2>&1; then
+            echo "Enlaces Highfly sin cambios"; exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/highfly-live.json
+          git commit -m "Actualiza enlaces Highfly [skip ci]"
+          for attempt in 1 2 3 4 5; do
+            if git push; then exit 0; fi
+            git pull --rebase
+          done
+          exit 1
