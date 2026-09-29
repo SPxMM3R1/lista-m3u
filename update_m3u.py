@@ -2644,6 +2644,158 @@ class DynamicRefreshOutcome:
     check_result: CheckResult | None = None
 
 
+# Partes de canales: cada proveedor se verifica y renueva en su propio job y el
+# job final arma las listas con esos resultados. Una parte ausente, dañada o de
+# un canal cuya URL cambió se verifica de nuevo en el job final (como antes).
+CHANNEL_PART_NAMES: tuple[str, ...] = ("direct", "tvn", "meganoticias", "highfly", "tvvoo")
+CHANNEL_PART_SCHEMA = 1
+
+
+@dataclass(frozen=True)
+class ChannelPartEntry:
+    """Resultado de un canal en su parte: URL revisada, validación y renovación."""
+
+    url: str
+    result: CheckResult
+    outcome: DynamicRefreshOutcome | None = None
+
+
+def channel_part_path(directory: Path, name: str) -> Path:
+    return directory / f"{name}.json"
+
+
+def _check_result_payload(result: CheckResult | None) -> dict | None:
+    if result is None:
+        return None
+    return {"channel": result.channel, "url": result.url, "ok": result.ok, "detail": result.detail}
+
+
+def _check_result_from(payload: dict | None) -> CheckResult | None:
+    if payload is None:
+        return None
+    return CheckResult(
+        str(payload["channel"]), str(payload["url"]), bool(payload["ok"]), str(payload["detail"])
+    )
+
+
+def write_channel_part(
+    directory: Path,
+    name: str,
+    channels: list[Channel],
+    results_by_name: dict[str, CheckResult],
+    outcomes: list[DynamicRefreshOutcome],
+) -> Path:
+    outcomes_by_name = {outcome.channel: outcome for outcome in outcomes}
+    entries = {}
+    for channel in channels:
+        result = results_by_name.get(channel.name)
+        if result is None:
+            continue
+        outcome = outcomes_by_name.get(channel.name)
+        entries[channel.name] = {
+            "url": channel.url,
+            "result": _check_result_payload(result),
+            "outcome": None if outcome is None else {
+                "resolver": outcome.resolver,
+                "accepted": outcome.accepted,
+                "changed": outcome.changed,
+                "skipped": outcome.skipped,
+                "detail": outcome.detail,
+                "resolvedUrl": outcome.resolved_url,
+                "checkResult": _check_result_payload(outcome.check_result),
+            },
+        }
+    payload = {
+        "schema": CHANNEL_PART_SCHEMA,
+        "name": name,
+        "generatedAt": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+        "channels": entries,
+    }
+    directory.mkdir(parents=True, exist_ok=True)
+    path = channel_part_path(directory, name)
+    temporary = path.with_name(path.name + ".tmp")
+    temporary.write_text(json.dumps(payload, ensure_ascii=True, indent=1) + "\n", encoding="utf-8")
+    temporary.replace(path)
+    return path
+
+
+def read_channel_part(directory: Path, name: str) -> dict[str, ChannelPartEntry] | None:
+    """Lee la parte de un proveedor; None si falta o está dañada."""
+    path = channel_part_path(directory, name)
+    if not path.exists():
+        return None
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        if payload.get("schema") != CHANNEL_PART_SCHEMA or payload.get("name") != name:
+            raise ValueError("esquema o nombre inesperado")
+        entries: dict[str, ChannelPartEntry] = {}
+        for channel_name, item in dict(payload.get("channels") or {}).items():
+            outcome_payload = item.get("outcome")
+            outcome = None
+            if outcome_payload is not None:
+                outcome = DynamicRefreshOutcome(
+                    channel=channel_name,
+                    resolver=str(outcome_payload["resolver"]),
+                    accepted=bool(outcome_payload["accepted"]),
+                    changed=bool(outcome_payload["changed"]),
+                    skipped=bool(outcome_payload["skipped"]),
+                    detail=str(outcome_payload["detail"]),
+                    resolved_url=outcome_payload.get("resolvedUrl"),
+                    check_result=_check_result_from(outcome_payload.get("checkResult")),
+                )
+            entries[channel_name] = ChannelPartEntry(
+                url=str(item["url"]),
+                result=_check_result_from(item["result"]),
+                outcome=outcome,
+            )
+        return entries
+    except (OSError, ValueError, TypeError, KeyError, AttributeError) as error:
+        print(f"AVISO parte de canales {name} dañada: {error}", file=sys.stderr)
+        return None
+
+
+def load_channel_parts(
+    directory: Path | None, channels: list[Channel]
+) -> dict[str, ChannelPartEntry]:
+    """Resultados utilizables de las partes: solo si el canal sigue con la misma URL."""
+    if directory is None:
+        return {}
+    usable: dict[str, ChannelPartEntry] = {}
+    loaded = {name: read_channel_part(directory, name) for name in CHANNEL_PART_NAMES}
+    for name, entries in loaded.items():
+        if entries is None:
+            print(f"AVISO: falta la parte de canales {name}; se verifica aqui", file=sys.stderr)
+    for channel in channels:
+        entries = loaded.get(resolver_engine_for(channel))
+        entry = entries.get(channel.name) if entries else None
+        if entry is not None and entry.url == channel.url:
+            usable[channel.name] = entry
+    return usable
+
+
+def verify_with_channel_parts(
+    channels: list[Channel],
+    parts: dict[str, ChannelPartEntry],
+    *,
+    allow_ci_geo_block: bool,
+) -> list[CheckResult]:
+    """Usa los resultados de las partes y verifica aquí solo lo que falte."""
+    pending = [channel for channel in channels if channel.name not in parts]
+    if parts:
+        print(
+            f"Partes de canales: {len(channels) - len(pending)} resultados reutilizados, "
+            f"{len(pending)} por verificar aqui"
+        )
+    verified = {
+        result.channel: result
+        for result in verify_all(pending, allow_ci_geo_block=allow_ci_geo_block)
+    }
+    return [
+        parts[channel.name].result if channel.name in parts else verified[channel.name]
+        for channel in channels
+    ]
+
+
 @dataclass(frozen=True)
 class LogoResult:
     channel: str
@@ -9484,6 +9636,24 @@ def main() -> int:
         action="store_true",
         help="las partes ausentes conservan la guia publicada (corrida parcial)",
     )
+    parser.add_argument(
+        "--list-channel-parts",
+        action="store_true",
+        help="imprime en JSON los proveedores que se verifican por separado",
+    )
+    parser.add_argument(
+        "--fetch-channel-part",
+        metavar="PROVEEDOR",
+        help="verifica y renueva solo ese proveedor y deja su parte en --channel-parts-dir",
+    )
+    parser.add_argument(
+        "--channel-parts-dir",
+        type=Path,
+        default=Path(os.environ["M3U_CHANNEL_PARTS_DIR"])
+        if os.environ.get("M3U_CHANNEL_PARTS_DIR")
+        else None,
+        help="carpeta de partes de canales ya verificadas (M3U_CHANNEL_PARTS_DIR)",
+    )
     mode_group = parser.add_mutually_exclusive_group()
     mode_group.add_argument(
         "--refresh-epg-only",
@@ -9498,6 +9668,22 @@ def main() -> int:
     args = parser.parse_args()
 
     playlist = args.playlist.resolve()
+    if args.list_channel_parts:
+        print(json.dumps(list(CHANNEL_PART_NAMES)))
+        return 0
+    channel_part = args.fetch_channel_part
+    if channel_part:
+        if channel_part not in CHANNEL_PART_NAMES:
+            print(f"ERROR: proveedor desconocido: {channel_part}", file=sys.stderr)
+            return 2
+        if args.channel_parts_dir is None:
+            parser.error("--fetch-channel-part requiere --channel-parts-dir")
+        if args.refresh_epg_only:
+            parser.error("--fetch-channel-part no se combina con --refresh-epg-only")
+        # Una parte recorre la preparación y la validación del mantenimiento de
+        # canales, pero se detiene antes de escribir listas o estado.
+        args.channels_only = True
+    channel_parts_dir = None if channel_part else args.channel_parts_dir
     if args.list_epg_parts:
         print(json.dumps(epg_part_names()))
         return 0
@@ -9818,6 +10004,12 @@ def main() -> int:
             f"({len(channels)} canales); Lista 2 se conserva sin cambios"
         )
 
+    if channel_part:
+        channels = [
+            channel for channel in channels if resolver_engine_for(channel) == channel_part
+        ]
+        print(f"Parte de canales {channel_part}: {len(channels)} canales")
+
     # El mapa Highfly ya se actualizo antes de pin_resolver_metadata(). Se
     # conserva en RAM para que la renovacion y la validacion usen exactamente
     # los mismos slugs que quedaron en la M3U.
@@ -9866,8 +10058,9 @@ def main() -> int:
         "Validacion paralela inicial por pool de origen; la salud no cambia "
         "la membresia manual de las listas"
     )
-    initial_results = verify_all(
-        channels, allow_ci_geo_block=allow_geo_restricted
+    channel_parts = load_channel_parts(channel_parts_dir, channels)
+    initial_results = verify_with_channel_parts(
+        channels, channel_parts, allow_ci_geo_block=allow_geo_restricted
     )
     results_by_name = {result.channel: result for result in initial_results}
     validation_now = datetime.now(timezone.utc)
@@ -9894,6 +10087,12 @@ def main() -> int:
             continue
         if channel.tvg_id in manual_stream_ids:
             print(f"  [MANUAL] {channel.name}: stream fijado por override")
+            continue
+        part_entry = channel_parts.get(channel.name)
+        if part_entry is not None and part_entry.outcome is not None:
+            # El job del proveedor ya renovó este canal.
+            dynamic_outcomes.append(part_entry.outcome)
+            cached_dynamic_names.add(channel.name)
             continue
         current_result = results_by_name[channel.name]
         if has_tvvoo_reference_scheme(channel):
@@ -9957,6 +10156,20 @@ def main() -> int:
             allow_ci_geo_block=allow_geo_restricted,
         )
     )
+    if channel_part:
+        path = write_channel_part(
+            args.channel_parts_dir,
+            channel_part,
+            channels,
+            {result.channel: result for result in initial_results},
+            dynamic_outcomes,
+        )
+        failed = sum(1 for result in initial_results if not result.ok)
+        print(
+            f"Parte de canales {channel_part}: {len(channels)} canales, "
+            f"{failed} con fallo inicial, {len(dynamic_outcomes)} renovaciones -> {path}"
+        )
+        return 0
     dynamic_outcomes_by_name = {
         outcome.channel: outcome for outcome in dynamic_outcomes
     }

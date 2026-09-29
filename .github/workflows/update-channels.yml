@@ -29,8 +29,40 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  update:
+  # Cada proveedor se verifica y renueva en su propio job. Si uno falla, el job
+  # final verifica esos canales por su cuenta y el resto usa lo ya hecho.
+  parts:
     if: github.event_name != 'push' || !contains(github.event.head_commit.message, '[skip ci]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        provider: [direct, tvn, meganoticias, highfly, tvvoo]
+    name: proveedor ${{ matrix.provider }}
+    env:
+      M3U_MAINTENANCE_SCOPE: main
+      M3U_ALLOW_GEO_RESTRICTED: "true"
+      M3U_FORCE_DYNAMIC_REFRESH: ${{ (inputs.force_run || github.event_name == 'push' || github.event_name == 'schedule') && 'true' || 'false' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Sincronizar contrato de resolutores
+        run: python update_m3u.py --sync-resolver-contract
+      - name: Verificar y renovar ${{ matrix.provider }}
+        run: python update_m3u.py --fetch-channel-part "${{ matrix.provider }}" --channel-parts-dir channel-parts
+      - uses: actions/upload-artifact@v4
+        with:
+          name: channel-part-${{ matrix.provider }}
+          path: channel-parts/
+          retention-days: 2
+          if-no-files-found: error
+
+  update:
+    needs: parts
+    if: ${{ always() && (github.event_name != 'push' || !contains(github.event.head_commit.message, '[skip ci]')) }}
     runs-on: ubuntu-latest
     env:
       RAW_BASE: https://raw.githubusercontent.com/${{ github.repository }}/main
@@ -64,9 +96,19 @@ jobs:
             echo "El contrato cambió; las dos listas adoptarán los nuevos metadatos sin cambiar su membresía."
           fi
 
+      - name: Reunir partes por proveedor
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          pattern: channel-part-*
+          path: channel-parts
+          merge-multiple: true
+
       - name: Ejecutar mantenimiento independiente de canales
         id: updater
         shell: bash
+        env:
+          M3U_CHANNEL_PARTS_DIR: channel-parts
         run: |
           args=(run_m3u_6h.py --executor github)
           # Cada ventana del cron es una oportunidad real de renovar enlaces
