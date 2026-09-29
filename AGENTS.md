@@ -21,7 +21,7 @@ Guía para agentes de IA que trabajen en este repositorio (catálogo público, r
 ## Cómo trabajar
 
 - Tests obligatorios antes de commitear:
-  - `python -m unittest discover -s tests -p "test_*.py"` (esperado: 207 en verde).
+  - `python -m unittest discover -s tests -p "test_*.py"` (esperado: 214 en verde).
   - `node --test tests/editor-core.test.mjs tests/layout-contract.test.mjs` (esperado: 34 en verde).
 - Validar el editor local sin tocar el repo: `python scripts/build_site_data.py --output <carpeta temp>` (solo acepta salidas dentro de la carpeta temporal).
 - Commits en español con prefijo: `feat(editor)`, `fix(resolvers)`, `feat(epg)`, `fix(catalogo)`, `chore(...)`.
@@ -36,6 +36,7 @@ Guía para agentes de IA que trabajen en este repositorio (catálogo público, r
 - Push de un commit editorial (layout/selección/presentación) dispara `update-channels.yml` con `M3U_MAINTENANCE_SCOPE=main` (Lista 2 se conserva; el catálogo recibe igual la reconciliación). Al terminar bien, `update-epg.yml` corre por `workflow_run` (también tras un disparo manual; no tras el cron de canales, porque la EPG tiene su propio cron).
 - Canales por cron: `0 4,10,16,22` America/Santiago. EPG por cron: `0 0,6,12,18` America/Santiago, forzada (`EPG_FORCE_REFRESH=true`).
 - Puede dispararse a mano: `gh workflow run update-channels.yml -f force_run=true` y `gh workflow run update-epg.yml`.
+- La EPG corre por partes: un job por fuente (`python update_m3u.py --list-epg-parts`), cada uno con 3 intentos, y un job final que arma y publica. Una parte que falla no frena a las demás: sus canales conservan la última parrilla publicada (EPGShare, compartida, conserva la guía completa). Renovar solo algunas: `gh workflow run update-epg.yml -f fuentes=tvn-oficial,red-bull`.
 - `deploy-site.yml` publica el editor en GitHub Pages cuando cambian `site/**` o `scripts/build_site_data.py`.
 
 ## Reglas funcionales vigentes

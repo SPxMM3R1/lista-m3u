@@ -5,6 +5,12 @@ on:
     - cron: "0 0,6,12,18 * * *"
       timezone: "America/Santiago"
   workflow_dispatch:
+    inputs:
+      fuentes:
+        description: "Partes a renovar separadas por coma (vacío = todas). Ej: tvn-oficial,red-bull"
+        required: false
+        default: ""
+        type: string
   workflow_run:
     workflows:
       - Actualizar canales M3U
@@ -22,8 +28,69 @@ concurrency:
   group: m3u-epg
   cancel-in-progress: false
 jobs:
-  update:
+  plan:
     if: ${{ github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event != 'schedule') }}
+    runs-on: ubuntu-latest
+    outputs:
+      parts: ${{ steps.parts.outputs.parts }}
+      partial: ${{ steps.parts.outputs.partial }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --disable-pip-version-check --no-input tzdata
+      - run: python -m unittest discover -s tests -p "test_*.py"
+      - name: Elegir partes
+        id: parts
+        env:
+          FUENTES: ${{ inputs.fuentes }}
+        run: |
+          python - <<'EOF'
+          import json, os, subprocess, sys
+          every = json.loads(subprocess.check_output([sys.executable, "update_m3u.py", "--list-epg-parts"], text=True))
+          wanted = [p.strip() for p in os.environ.get("FUENTES", "").split(",") if p.strip()]
+          unknown = sorted(set(wanted) - set(every))
+          if unknown:
+              sys.exit("Partes desconocidas: " + ", ".join(unknown) + ". Validas: " + ", ".join(every))
+          parts = [p for p in every if p in wanted] if wanted else every
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as out:
+              out.write(f"parts={json.dumps(parts)}\n")
+              out.write(f"partial={'true' if wanted else 'false'}\n")
+          print("Partes:", ", ".join(parts))
+          EOF
+
+  fetch:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      max-parallel: 8
+      matrix:
+        part: ${{ fromJSON(needs.plan.outputs.parts) }}
+    name: fuente ${{ matrix.part }}
+    env:
+      PYTHONTZPATH: ""
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --disable-pip-version-check --no-input tzdata
+      - name: Descargar ${{ matrix.part }}
+        run: python update_m3u.py --fetch-epg-part "${{ matrix.part }}" --epg-parts-dir epg-parts
+      - uses: actions/upload-artifact@v4
+        with:
+          name: epg-part-${{ matrix.part }}
+          path: epg-parts/
+          retention-days: 2
+          if-no-files-found: error
+
+  update:
+    needs: [plan, fetch]
+    # Se arma aunque alguna fuente haya fallado: sus canales usan respaldo.
+    if: ${{ always() && needs.plan.result == 'success' }}
     runs-on: ubuntu-latest
     env:
       # Use the Python tzdata package so America/Santiago follows DST even if
@@ -39,8 +106,19 @@ jobs:
         run: python -m pip install --disable-pip-version-check --no-input tzdata
       - name: Comprobar zona horaria de Chile
         run: python -c "from datetime import datetime, timezone; from zoneinfo import ZoneInfo; now=datetime.now(timezone.utc).astimezone(ZoneInfo('America/Santiago')); print(now.isoformat()); assert now.utcoffset() is not None"
-      - run: python -m unittest discover -s tests -p "test_*.py"
-      - run: python run_epg_6h.py --executor github --force
+      - name: Reunir partes descargadas
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          pattern: epg-part-*
+          path: epg-parts
+          merge-multiple: true
+      - name: Armar EPG
+        run: |
+          ls -la epg-parts || true
+          args=(run_epg_6h.py --executor github --force --parts-dir epg-parts)
+          if [ "${{ needs.plan.outputs.partial }}" = "true" ]; then args+=(--parts-only); fi
+          python "${args[@]}"
       - name: Publicar EPG
         id: publish
         shell: bash

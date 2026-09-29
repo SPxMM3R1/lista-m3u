@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import base64
 import copy
 import gzip
 import hashlib
@@ -21,7 +22,7 @@ import urllib.request
 import xml.etree.ElementTree as ET
 from collections.abc import Callable, Iterable
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import parse_qsl, quote, unquote, urlencode, urljoin, urlparse
@@ -5775,6 +5776,242 @@ def fetch_official_epg_sources(
     return documents, errors
 
 
+EPGSHARE_PART = "epgshare"
+RED_BULL_PART = "red-bull"
+TECNOCENTRO_PART = "tecnocentro"
+UKRAINIAN_PART = "ukrainian-official"
+EPG_PART_SCHEMA = 1
+EPG_PART_ATTEMPTS = 3
+EPG_PART_RETRY_DELAY_SECONDS = 30
+
+
+@dataclass
+class EpgPart:
+    """Resultado de descargar una parte de la EPG (una fuente o grupo de feeds)."""
+
+    documents: dict[str, bytes] = field(default_factory=dict)
+    errors: dict[str, str] = field(default_factory=dict)
+    red_bull_schedules: dict[str, list[dict]] = field(default_factory=dict)
+    red_bull_source_names: list[str] = field(default_factory=list)
+
+
+def epg_part_names() -> list[str]:
+    """Partes que el runner descarga por separado, en orden de construcción."""
+    return [
+        EPGSHARE_PART,
+        *(source.name for source in OFFICIAL_EPG_SOURCES),
+        RED_BULL_PART,
+        ZAPPING_EPG_SOURCE,
+        TECNOCENTRO_PART,
+        UKRAINIAN_PART,
+    ]
+
+
+def missing_epg_part(name: str) -> EpgPart:
+    """Parte que no llegó (su job falló): se registra como error de esa fuente."""
+    detail = "parte no disponible en esta corrida"
+    if name == RED_BULL_PART:
+        return EpgPart(errors={"red_bull:todas": detail})
+    if name in {ZAPPING_EPG_SOURCE, TECNOCENTRO_PART, UKRAINIAN_PART}:
+        return EpgPart(errors={f"{name}:todas": detail})
+    return EpgPart(errors={name: detail})
+
+
+def fetch_epgshare_part(channels: list[Channel], expected_ids: set[str]) -> EpgPart:
+    headers = {
+        "User-Agent": BROWSER_USER_AGENT,
+        "Accept": "application/gzip,application/octet-stream,*/*",
+    }
+    part = EpgPart()
+    required = set(epgshare_source_names_for(channels))
+    if any(target_id in expected_ids for target_id in PLUTO_BACKUP_CHANNELS):
+        # El respaldo Pluto del canal Red Bull solo existe si se descarga su
+        # feed; el runner ya lo usa para otros canales, aqui se asegura.
+        required.add("pluto")
+    skipped = sorted(set(EPG_SOURCES) - required)
+    if skipped:
+        print("Fuentes EPGShare no requeridas por Lista 1: " + ", ".join(skipped))
+    for source_name, source_url in EPG_SOURCES.items():
+        if source_name not in required:
+            continue
+        try:
+            status, compressed, _ = fetch_bytes(
+                source_url, headers, timeout=60, limit=10_485_760
+            )
+            if status != 200 or not compressed.startswith(b"\x1f\x8b"):
+                raise ValueError(f"HTTP {status} sin contenido gzip")
+            part.documents[source_name] = gzip.decompress(compressed)
+        except Exception as error:
+            part.errors[source_name] = str(error)
+    return part
+
+
+def fetch_epg_part(
+    name: str, channels: list[Channel], expected_ids: set[str], now: datetime
+) -> EpgPart:
+    """Descarga una sola parte; una excepción queda como error de esa parte."""
+    if name == EPGSHARE_PART:
+        return fetch_epgshare_part(channels, expected_ids)
+    official = {source.name: source for source in OFFICIAL_EPG_SOURCES}
+    if name in official:
+        source = official[name]
+        result, crash = run_epg_source(source.name, globals()[source.fetch], channels, now)
+        data, error = result if result is not None else (None, crash)
+        return EpgPart(
+            documents={name: data} if data else {},
+            errors={name: error} if error else {},
+        )
+    if name == RED_BULL_PART:
+        result, crash = run_epg_source(
+            "red-bull", fetch_red_bull_schedules, expected_ids, now
+        )
+        schedules, source_names, errors = result or (
+            {}, [], {"red_bull:todas": crash}
+        )
+        return EpgPart(
+            errors=dict(errors),
+            red_bull_schedules=dict(schedules),
+            red_bull_source_names=list(source_names),
+        )
+    fetchers = {
+        ZAPPING_EPG_SOURCE: fetch_zapping_epg,
+        TECNOCENTRO_PART: fetch_tecnocentro_epg,
+        UKRAINIAN_PART: fetch_ukrainian_music_epg,
+    }
+    if name not in fetchers:
+        raise ValueError(f"parte EPG desconocida: {name}")
+    result, crash = run_epg_source(name, fetchers[name], channels, now)
+    data, errors = result or (None, {"todas": crash})
+    if name == TECNOCENTRO_PART:
+        for target_id, error in sorted(errors.items()):
+            print(f"AVISO TecnoCentro {target_id}: {error}", file=sys.stderr)
+    # Los fallos de Zapping, TecnoCentro y la fuente ucraniana son por canal y
+    # nunca bloquean la guía: ese canal cae a su respaldo.
+    return EpgPart(
+        documents={name: data} if data else {},
+        errors={f"{name}:{target_id}": error for target_id, error in errors.items()},
+    )
+
+
+def epg_part_path(directory: Path, name: str) -> Path:
+    return directory / f"{name}.json.gz"
+
+
+def write_epg_part(directory: Path, name: str, part: EpgPart) -> Path:
+    payload = {
+        "schema": EPG_PART_SCHEMA,
+        "name": name,
+        "generatedAt": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+        "documents": {
+            source: base64.b64encode(data).decode("ascii")
+            for source, data in part.documents.items()
+        },
+        "errors": part.errors,
+        "redBullSchedules": part.red_bull_schedules,
+        "redBullSourceNames": part.red_bull_source_names,
+    }
+    directory.mkdir(parents=True, exist_ok=True)
+    path = epg_part_path(directory, name)
+    temporary = path.with_name(path.name + ".tmp")
+    temporary.write_bytes(
+        gzip.compress(json.dumps(payload, ensure_ascii=True).encode("utf-8"))
+    )
+    temporary.replace(path)
+    return path
+
+
+def read_epg_part(directory: Path, name: str) -> EpgPart | None:
+    """Lee una parte descargada; None si falta o está dañada."""
+    path = epg_part_path(directory, name)
+    if not path.exists():
+        return None
+    try:
+        payload = json.loads(gzip.decompress(path.read_bytes()).decode("utf-8"))
+        if payload.get("schema") != EPG_PART_SCHEMA or payload.get("name") != name:
+            raise ValueError("esquema o nombre inesperado")
+        return EpgPart(
+            documents={
+                source: base64.b64decode(data)
+                for source, data in dict(payload.get("documents") or {}).items()
+            },
+            errors={str(k): str(v) for k, v in dict(payload.get("errors") or {}).items()},
+            red_bull_schedules=dict(payload.get("redBullSchedules") or {}),
+            red_bull_source_names=list(payload.get("redBullSourceNames") or []),
+        )
+    except (OSError, ValueError, TypeError, AttributeError, EOFError) as error:
+        print(f"AVISO EPG parte {name} dañada: {error}", file=sys.stderr)
+        return None
+
+
+def collect_epg_parts(
+    channels: list[Channel],
+    expected_ids: set[str],
+    now: datetime,
+    *,
+    parts_dir: Path | None = None,
+    parts_only: bool = False,
+) -> dict[str, EpgPart]:
+    """Todas las partes de la guía: descargadas aquí o leídas de ``parts_dir``.
+
+    Con ``parts_only`` (corrida de una sola fuente) las partes ausentes no son
+    errores: sus canales conservan la guía publicada.
+    """
+    parts: dict[str, EpgPart] = {}
+    for name in epg_part_names():
+        if parts_dir is None:
+            parts[name] = fetch_epg_part(name, channels, expected_ids, now)
+            continue
+        part = read_epg_part(parts_dir, name)
+        if part is not None:
+            parts[name] = part
+        elif not parts_only:
+            print(f"AVISO EPG: falta la parte {name}; sus canales usan respaldo", file=sys.stderr)
+            parts[name] = missing_epg_part(name)
+    return parts
+
+
+def epg_scope_channels() -> tuple[list[Channel], set[str]]:
+    """Canales de la EPG (Lista 1 + selección gestionada) y sus ids."""
+    apply_epg_overrides()
+    main_channels = main_playlist_channels()
+    main_ids = {channel.tvg_id for channel in main_channels if channel.tvg_id}
+    extra_channels = epg_scope_extra_channels(main_ids)
+    channels = main_channels + extra_channels
+    return channels, {channel.tvg_id for channel in channels if channel.tvg_id}
+
+
+def fetch_epg_part_to_dir(name: str, directory: Path) -> int:
+    """Descarga una parte (con reintentos si falla) y la deja en ``directory``."""
+    if name not in epg_part_names():
+        print(f"ERROR: parte EPG desconocida: {name}", file=sys.stderr)
+        return 2
+    channels, expected_ids = epg_scope_channels()
+    best: EpgPart | None = None
+    for attempt in range(1, EPG_PART_ATTEMPTS + 1):
+        part = fetch_epg_part(name, channels, expected_ids, datetime.now(timezone.utc))
+        if best is None or len(part.errors) < len(best.errors):
+            best = part
+        if not best.errors:
+            break
+        if attempt < EPG_PART_ATTEMPTS:
+            print(
+                f"AVISO EPG {name}: {len(part.errors)} error(es); reintento "
+                f"{attempt}/{EPG_PART_ATTEMPTS - 1} en {EPG_PART_RETRY_DELAY_SECONDS}s",
+                file=sys.stderr,
+            )
+            time.sleep(EPG_PART_RETRY_DELAY_SECONDS)
+    assert best is not None
+    path = write_epg_part(directory, name, best)
+    print(
+        f"Parte EPG {name}: {len(best.documents)} documento(s), "
+        f"{sum(len(v) for v in best.red_bull_schedules.values())} tarjetas Red Bull, "
+        f"{len(best.errors)} error(es) -> {path}"
+    )
+    for key, error in sorted(best.errors.items()):
+        print(f"  {key}: {error}", file=sys.stderr)
+    return 0
+
+
 def prefer_official_epg_sources(
     source_lookup: dict[tuple[str, str], set[str]],
     available_sources: Iterable[str],
@@ -6631,6 +6868,8 @@ def refresh_epg(
     *,
     force: bool = False,
     output_path: Path | None = None,
+    parts_dir: Path | None = None,
+    parts_only: bool = False,
 ) -> dict:
     apply_epg_overrides()
     # `channels` is retained for call-site compatibility, but the effective
@@ -6754,59 +6993,23 @@ def refresh_epg(
         except Exception:
             existing_status = None
 
-    headers = {
-        "User-Agent": BROWSER_USER_AGENT,
-        "Accept": "application/gzip,application/octet-stream,*/*",
-    }
+    parts = collect_epg_parts(
+        channels, expected_ids, now, parts_dir=parts_dir, parts_only=parts_only
+    )
     source_documents: dict[str, bytes] = {}
     source_errors: dict[str, str] = {}
-    required_epgshare_sources = set(epgshare_source_names_for(channels))
-    if any(target_id in expected_ids for target_id in PLUTO_BACKUP_CHANNELS):
-        # El respaldo Pluto del canal Red Bull solo existe si se descarga su
-        # feed; el runner ya lo usa para otros canales, aqui se asegura.
-        required_epgshare_sources.add("pluto")
-    skipped_epgshare_sources = sorted(
-        set(EPG_SOURCES) - set(required_epgshare_sources)
-    )
-    if skipped_epgshare_sources:
-        print(
-            "Fuentes EPGShare no requeridas por Lista 1: "
-            + ", ".join(skipped_epgshare_sources)
-        )
-    for source_name, source_url in EPG_SOURCES.items():
-        if source_name not in required_epgshare_sources:
-            continue
-        try:
-            status, compressed, _ = fetch_bytes(
-                source_url, headers, timeout=60, limit=10_485_760
-            )
-            if status != 200 or not compressed.startswith(b"\x1f\x8b"):
-                raise ValueError(f"HTTP {status} sin contenido gzip")
-            source_documents[source_name] = gzip.decompress(compressed)
-        except Exception as error:
-            source_errors[source_name] = str(error)
+    red_bull_schedules: dict[str, list[dict]] = {}
+    red_bull_source_names: list[str] = []
+    for part in parts.values():
+        source_documents.update(part.documents)
+        source_errors.update(part.errors)
+        red_bull_schedules.update(part.red_bull_schedules)
+        red_bull_source_names.extend(part.red_bull_source_names)
 
-    official_documents, official_errors = fetch_official_epg_sources(channels, now)
-    source_documents.update(official_documents)
-    source_errors.update(official_errors)
-
-    red_bull_result, red_bull_crash = run_epg_source(
-        "red-bull", fetch_red_bull_schedules, expected_ids, now
-    )
-    red_bull_schedules, red_bull_source_names, red_bull_errors = (
-        red_bull_result or ({}, [], {"red_bull:todas": red_bull_crash})
-    )
-    source_errors.update(red_bull_errors)
-
-    blocking_source_errors = {
-        source_name: error
-        for source_name, error in source_errors.items()
-        # Solo EPGShare (fuente compartida por muchos canales) conserva la guía
-        # anterior completa. Las fuentes por canal fallan solas: ese canal cae
-        # a su respaldo y el resto se actualiza igual.
-        if source_name not in {source.name for source in OFFICIAL_EPG_SOURCES}
-        and not source_name.startswith("red_bull:")
-    }
+    # Solo EPGShare (fuente compartida por muchos canales) conserva la guía
+    # anterior completa. Las fuentes por canal fallan solas: ese canal cae
+    # a su respaldo y el resto se actualiza igual.
+    blocking_source_errors = dict(parts[EPGSHARE_PART].errors) if EPGSHARE_PART in parts else {}
     if blocking_source_errors and existing_status is not None:
         if existing_data is not None and output_path.read_bytes() != existing_data:
             temporary = output_path.with_suffix(".xml.tmp")
@@ -6822,47 +7025,11 @@ def refresh_epg(
         )
         return existing_status
 
-    zapping_result, zapping_crash = run_epg_source(
-        ZAPPING_EPG_SOURCE, fetch_zapping_epg, channels, now
-    )
-    zapping_data, zapping_errors = zapping_result or (None, {"todas": zapping_crash})
-    source_errors.update(
-        {
-            f"{ZAPPING_EPG_SOURCE}:{target_id}": error
-            for target_id, error in zapping_errors.items()
-        }
-    )
-    if zapping_data:
-        source_documents[ZAPPING_EPG_SOURCE] = zapping_data
-    # Un fallo de Zapping es por canal y no debe abortar la actualizacion:
-    # build_epg conserva EPGShare01/TecnoCentro como tercera opcion.
-
-    tecnocentro_result, tecnocentro_crash = run_epg_source(
-        "tecnocentro", fetch_tecnocentro_epg, channels, now
-    )
-    tecnocentro_data, tecnocentro_errors = tecnocentro_result or (
-        None, {"todas": tecnocentro_crash}
-    )
-    if tecnocentro_data:
-        source_documents["tecnocentro"] = tecnocentro_data
-    for target_id, error in sorted(tecnocentro_errors.items()):
-        print(f"AVISO TecnoCentro {target_id}: {error}", file=sys.stderr)
-    source_errors.update(
-        {f"tecnocentro:{target_id}": error for target_id, error in tecnocentro_errors.items()}
-    )
-    ukrainian_result, ukrainian_crash = run_epg_source(
-        "ukrainian-official", fetch_ukrainian_music_epg, channels, now
-    )
-    ukrainian_data, ukrainian_errors = ukrainian_result or (None, {"todas": ukrainian_crash})
-    if ukrainian_data:
-        source_documents["ukrainian-official"] = ukrainian_data
-    source_errors.update(
-        {
-            f"ukrainian-official:{target_id}": error
-            for target_id, error in ukrainian_errors.items()
-        }
-    )
-    if not source_documents:
+    if parts_only and (existing_status is None or existing_data is None):
+        raise RuntimeError(
+            "una corrida de fuentes sueltas necesita una guia publicada valida"
+        )
+    if not source_documents and not parts_only:
         raise RuntimeError("ninguna fuente EPG respondio correctamente")
     if existing_status is not None and existing_data is not None:
         source_documents[PUBLISHED_EPG_FALLBACK_SOURCE] = (
@@ -9297,6 +9464,26 @@ def main() -> int:
         action="store_true",
         help="valida offline la seleccion publicada por VibeM3U",
     )
+    parser.add_argument(
+        "--list-epg-parts",
+        action="store_true",
+        help="imprime en JSON las partes de la EPG que se descargan por separado",
+    )
+    parser.add_argument(
+        "--fetch-epg-part",
+        metavar="PARTE",
+        help="descarga solo esa parte de la EPG en --epg-parts-dir",
+    )
+    parser.add_argument(
+        "--epg-parts-dir",
+        type=Path,
+        help="carpeta de partes EPG ya descargadas (construye sin descargar)",
+    )
+    parser.add_argument(
+        "--epg-parts-only",
+        action="store_true",
+        help="las partes ausentes conservan la guia publicada (corrida parcial)",
+    )
     mode_group = parser.add_mutually_exclusive_group()
     mode_group.add_argument(
         "--refresh-epg-only",
@@ -9311,6 +9498,13 @@ def main() -> int:
     args = parser.parse_args()
 
     playlist = args.playlist.resolve()
+    if args.list_epg_parts:
+        print(json.dumps(epg_part_names()))
+        return 0
+    if args.fetch_epg_part:
+        if args.epg_parts_dir is None:
+            parser.error("--fetch-epg-part requiere --epg-parts-dir")
+        return fetch_epg_part_to_dir(args.fetch_epg_part, args.epg_parts_dir)
     if args.verify_published:
         return 0 if verify_published_copy(args.verify_published, playlist) else 1
     if args.verify_epg_published:
@@ -9323,7 +9517,12 @@ def main() -> int:
         )
     if args.refresh_epg_only:
         main_channels = main_playlist_channels()
-        epg_status = refresh_epg(main_channels, force=True)
+        epg_status = refresh_epg(
+            main_channels,
+            force=True,
+            parts_dir=args.epg_parts_dir,
+            parts_only=args.epg_parts_only,
+        )
         published_data = EPG_PATH.read_bytes()
         generated_at = epg_generated_at(published_data)
         main_status = validate_main_playlist_epg(

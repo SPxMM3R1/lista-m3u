@@ -128,11 +128,16 @@ def write_state(current: datetime, executor: str, next_run: datetime) -> None:
     temporary.replace(STATE_PATH)
 
 
-def run_updater() -> int:
+def run_updater(parts_dir: Path | None = None, parts_only: bool = False) -> int:
     environment = os.environ.copy()
     environment["EPG_FORCE_REFRESH"] = "true"
+    command = [sys.executable, str(UPDATE_SCRIPT), "--refresh-epg-only"]
+    if parts_dir is not None:
+        command += ["--epg-parts-dir", str(parts_dir)]
+        if parts_only:
+            command.append("--epg-parts-only")
     completed = subprocess.run(
-        [sys.executable, str(UPDATE_SCRIPT), "--refresh-epg-only"],
+        command,
         cwd=PROJECT_ROOT,
         env=environment,
         check=False,
@@ -147,6 +152,16 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--executor", choices=("local", "github"), required=True)
     parser.add_argument("--force", action="store_true", help="ignora el intervalo")
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument(
+        "--parts-dir",
+        type=Path,
+        help="construye con partes ya descargadas por fuente (cada una reintenta sola)",
+    )
+    parser.add_argument(
+        "--parts-only",
+        action="store_true",
+        help="corrida de fuentes sueltas: el resto conserva la guia publicada",
+    )
     return parser.parse_args()
 
 
@@ -175,7 +190,7 @@ def main() -> int:
     snapshot_epg = EPG_PATH.read_bytes() if EPG_PATH.exists() else None
     snapshot_state = STATE_PATH.read_bytes() if STATE_PATH.exists() else None
     print(f"Ejecutando EPG independiente con {args.executor} a las {timestamp(current)}")
-    return_code = run_updater()
+    return_code = run_updater(args.parts_dir, args.parts_only)
     if return_code != 0:
         if snapshot_epg is None:
             EPG_PATH.unlink(missing_ok=True)
@@ -188,7 +203,10 @@ def main() -> int:
         print("La EPG fallo; se conservaron la guia y su estado anteriores.", file=sys.stderr)
         return return_code
 
-    for attempt in range(1, MAX_SOURCE_RETRIES + 1):
+    # Con partes, cada fuente ya reintento en su propio job: repetir la
+    # construccion con las mismas partes no cambiaria el resultado.
+    retries = 0 if args.parts_dir is not None else MAX_SOURCE_RETRIES
+    for attempt in range(1, retries + 1):
         pending = read_pending_channels()
         if not pending:
             break
