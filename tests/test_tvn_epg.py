@@ -636,7 +636,8 @@ class TvnEpgTests(unittest.TestCase):
         self.assertIn("Parrilla TecnoCentro", titles)
         self.assertNotIn("0104", status["pending_channels"])
         entry = root.find("./channel[@id='0104']")
-        self.assertEqual(entry.get("data-guide-source"), "tecnocentro")
+        # La fuente informada es la de más prioridad que aportó programas.
+        self.assertEqual(entry.get("data-guide-source"), "cl")
 
     def test_backup_never_overlaps_real_guide_blocks(self) -> None:
         now = datetime(2026, 9, 26, 18, tzinfo=timezone.utc)
@@ -742,21 +743,107 @@ class TvnEpgTests(unittest.TestCase):
                     update_m3u.TECNOCENTRO_BACKUP_CHANNELS.get(target_id), source_id, target_id
                 )
 
-    def test_backup_start_after_guard_rules(self) -> None:
-        base = datetime(2026, 9, 30, 3, 15, tzinfo=timezone.utc)
+    def test_free_segments_fill_before_between_and_after(self) -> None:
+        base = datetime(2026, 9, 30, 3, 0, tzinfo=timezone.utc)
         hour = timedelta(hours=1)
-        guard = [(base - 2 * hour, base)]
-        start_after = update_m3u.backup_start_after_guard
+        covered = [(base, base + hour), (base + 2 * hour, base + 3 * hour)]
+        segments = update_m3u.free_segments
 
-        # Mega: «Dale play» 01:00-02:45 frente a la oficial que termina 02:15.
-        self.assertEqual(start_after(base - hour, base + hour / 2, guard), base)
-        self.assertEqual(start_after(base, base + hour, guard), base)
-        self.assertIsNone(start_after(base - hour, base - hour / 2, guard))
-        self.assertIsNone(start_after(base - hour, base + timedelta(minutes=3), guard))
-        # Si cruza otra parrilla oficial, solo queda la cola posterior a todo.
         self.assertEqual(
-            start_after(base - hour, base + 3 * hour, guard + [(base + hour, base + 2 * hour)]),
-            base + 2 * hour,
+            segments(base - hour, base + 4 * hour, covered),
+            [(base - hour, base), (base + hour, base + 2 * hour), (base + 3 * hour, base + 4 * hour)],
+        )
+        self.assertEqual(segments(base, base + hour, covered), [])
+        self.assertEqual(
+            segments(base + hour / 2, base + hour + hour / 2, covered),
+            [(base + hour, base + hour + hour / 2)],
+        )
+        # Menos de un minuto libre no se publica.
+        self.assertEqual(
+            segments(base - timedelta(seconds=30), base + hour, covered), []
+        )
+
+    def _merge(self, now, documents):
+        output, status = update_m3u.build_epg(
+            {name: ET.tostring(root) for name, root in documents.items()},
+            [channel("TVN", "0104")],
+            {},
+            now=now,
+            coverage_required_ids={"0104"},
+        )
+        return sorted(
+            (
+                update_m3u.xmltv_datetime(item.get("start")),
+                update_m3u.xmltv_datetime(item.get("stop")),
+                item.findtext("title"),
+            )
+            for item in ET.fromstring(output).findall("./programme[@channel='0104']")
+        ), status
+
+    @staticmethod
+    def _guide(channel_id, now, slots):
+        root = ET.Element("tv")
+        for start, stop, title in slots:
+            programme = ET.SubElement(root, "programme", {
+                "start": update_m3u.xmltv_format_chile(now + timedelta(hours=start)),
+                "stop": update_m3u.xmltv_format_chile(now + timedelta(hours=stop)),
+                "channel": channel_id,
+            })
+            ET.SubElement(programme, "title").text = title
+        return root
+
+    def test_lower_sources_fill_gaps_around_the_official_guide(self) -> None:
+        now = datetime(2026, 9, 26, 18, tzinfo=timezone.utc)
+        official = self._guide("0104", now, [(0, 2, "Oficial A"), (4, 6, "Oficial B")])
+        tecnocentro = self._guide("LCH1225", now, [(-1, 1, "Respaldo 1"), (1, 5, "Respaldo 2"), (5, 30, "Respaldo 3")])
+
+        programmes, status = self._merge(
+            now, {update_m3u.TVN_OFFICIAL_EPG_SOURCE: official, "tecnocentro": tecnocentro}
+        )
+
+        self.assertEqual(
+            [(round((a - now).total_seconds() / 3600), round((b - now).total_seconds() / 3600), t)
+             for a, b, t in programmes],
+            [(-1, 0, "Respaldo 1"), (0, 2, "Oficial A"), (2, 4, "Respaldo 2"),
+             (4, 6, "Oficial B"), (6, 30, "Respaldo 3")],
+        )
+        self.assertNotIn("0104", status["pending_channels"])
+
+    def test_returning_official_guide_replaces_the_published_fallback(self) -> None:
+        now = datetime(2026, 9, 26, 18, tzinfo=timezone.utc)
+        published = self._guide("0104", now, [(-12, -7, "Muy viejo"), (-2, 10, "Publicado"), (10, 24, "Publicado 2")])
+        official = self._guide("0104", now, [(-1, 3, "Oficial nuevo")])
+
+        programmes, _status = self._merge(
+            now,
+            {
+                update_m3u.TVN_OFFICIAL_EPG_SOURCE: official,
+                update_m3u.PUBLISHED_EPG_FALLBACK_SOURCE: published,
+            },
+        )
+
+        self.assertEqual(
+            [(round((a - now).total_seconds() / 3600), round((b - now).total_seconds() / 3600), t)
+             for a, b, t in programmes],
+            [(-2, -1, "Publicado"), (-1, 3, "Oficial nuevo"), (3, 10, "Publicado"), (10, 24, "Publicado 2")],
+        )
+
+    def test_la_red_never_uses_forbidden_sources(self) -> None:
+        chain = update_m3u.epg_source_chain("0102")
+        self.assertEqual(chain[0], (update_m3u.LA_RED_OFFICIAL_EPG_SOURCE, "0102"))
+        self.assertNotIn(("cl", "Canal.La.Red.(Chile).cl"), chain)
+        self.assertNotIn((update_m3u.ZAPPING_EPG_SOURCE, "0102"), chain)
+        self.assertEqual(chain[-1], (update_m3u.PUBLISHED_EPG_FALLBACK_SOURCE, "0102"))
+
+    def test_source_chain_priority_for_a_zapping_channel(self) -> None:
+        chain = update_m3u.epg_source_chain("Meganoticias.cl")
+        self.assertEqual(
+            chain,
+            [
+                (update_m3u.ZAPPING_EPG_SOURCE, "Meganoticias.cl"),
+                ("tecnocentro", "LCH7159"),
+                (update_m3u.PUBLISHED_EPG_FALLBACK_SOURCE, "Meganoticias.cl"),
+            ],
         )
 
     def test_tecnocentro_backup_channels_are_downloaded(self) -> None:

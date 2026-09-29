@@ -41,40 +41,17 @@ class OfficialEpgSourcesTest(unittest.TestCase):
             {update_m3u.TVN_OFFICIAL_EPG_SOURCE: "RuntimeError: caida"}, errors
         )
 
-    def test_la_red_replaces_only_its_listed_sources(self) -> None:
-        lookup = {
-            ("cl", "Canal.La.Red.(Chile).cl"): {"0102"},
-            (update_m3u.ZAPPING_EPG_SOURCE, "0102"): {"0102"},
-            ("otra", "compartida"): {"0102", "0999"},
-        }
-        update_m3u.prefer_official_epg_sources(
-            lookup, [update_m3u.LA_RED_OFFICIAL_EPG_SOURCE], {"0102", "0999"}
-        )
-        self.assertEqual(
-            {
-                ("otra", "compartida"): {"0102", "0999"},
-                (update_m3u.LA_RED_OFFICIAL_EPG_SOURCE, "0102"): {"0102"},
-            },
-            lookup,
-        )
+    def test_official_source_leads_the_chain_and_others_fill(self) -> None:
+        chain = update_m3u.epg_source_chain("0104")
+        self.assertEqual(chain[0], (update_m3u.TVN_OFFICIAL_EPG_SOURCE, "0104"))
+        self.assertIn(("tecnocentro", "LCH1225"), chain)
+        self.assertEqual(chain[-1], (update_m3u.PUBLISHED_EPG_FALLBACK_SOURCE, "0104"))
 
-    def test_exclusive_source_replaces_every_other_source_of_the_channel(self) -> None:
-        lookup = {("cl", "TVN"): {"0104"}, ("cl", "Mega"): {"0105"}}
-        update_m3u.prefer_official_epg_sources(
-            lookup, [update_m3u.TVN_OFFICIAL_EPG_SOURCE], {"0104", "0105"}
+    def test_replaced_keys_are_never_used(self) -> None:
+        self.assertNotIn(("cl", "Canal.NHK.World.cl"), update_m3u.epg_source_chain("NHKWorldJapan.jp"))
+        self.assertNotIn(
+            (update_m3u.ZAPPING_EPG_SOURCE, "13C.cl@SD"), update_m3u.epg_source_chain("13C.cl@SD")
         )
-        self.assertEqual(
-            {
-                ("cl", "Mega"): {"0105"},
-                (update_m3u.TVN_OFFICIAL_EPG_SOURCE, "0104"): {"0104"},
-            },
-            lookup,
-        )
-
-    def test_unavailable_source_keeps_the_fallback(self) -> None:
-        lookup = {("cl", "TVN"): {"0104"}}
-        update_m3u.prefer_official_epg_sources(lookup, [], {"0104"})
-        self.assertEqual({("cl", "TVN"): {"0104"}}, lookup)
 
 
 class RedBullChileTest(unittest.TestCase):

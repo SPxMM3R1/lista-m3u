@@ -6181,27 +6181,71 @@ def fetch_epg_part_to_dir(name: str, directory: Path) -> int:
     return 0
 
 
-def prefer_official_epg_sources(
-    source_lookup: dict[tuple[str, str], set[str]],
-    available_sources: Iterable[str],
-    expected_ids: set[str],
-) -> None:
-    """Hace que cada fuente oficial disponible sea la guía de sus canales."""
-    available = set(available_sources)
-    for source in OFFICIAL_EPG_SOURCES:
-        if source.name not in available:
-            continue
-        for target_id, source_id in source.targets.items():
-            if target_id not in expected_ids:
+def epg_source_chain(target_id: str) -> list[tuple[str, str]]:
+    """Fuentes de un canal de mayor a menor prioridad, como (fuente, id).
+
+    La primera manda donde tiene programas; cada siguiente solo rellena lo que
+    las anteriores no cubren (antes, entre medio o después). Así, cuando una
+    fuente oficial vuelve, recupera sus tramos y el respaldo se corre solo.
+    Las claves de ``OfficialEpgSource.replaces`` quedan prohibidas para ese
+    canal (La Red nunca usa la EPG agregada ni Zapping).
+    """
+    chain: list[tuple[str, str]] = []
+    forbidden: set[tuple[str, str]] = set()
+    # Una fuente oficial posterior en la tabla gana si dos cubren el canal.
+    for source in reversed(OFFICIAL_EPG_SOURCES):
+        if target_id in source.targets:
+            chain.append((source.name, source.targets[target_id]))
+            if source.replaces is not None:
+                forbidden.update(source.replaces)
+    if target_id in ZAPPING_EPG_CHANNELS:
+        chain.append((ZAPPING_EPG_SOURCE, target_id))
+    if target_id in EPG_PROGRAMME_SOURCES:
+        chain.append(EPG_PROGRAMME_SOURCES[target_id])
+    if target_id not in NO_EPG_CHANNEL_IDS:
+        if target_id in TECNOCENTRO_BACKUP_CHANNELS:
+            chain.append(("tecnocentro", TECNOCENTRO_BACKUP_CHANNELS[target_id]))
+        if target_id in PLUTO_BACKUP_CHANNELS:
+            chain.append(("pluto", PLUTO_BACKUP_CHANNELS[target_id]))
+        if target_id in EPGSHARE_BACKUP_CHANNELS:
+            chain.append(EPGSHARE_BACKUP_CHANNELS[target_id])
+        # La última guía publicada solo rellena lo que ninguna fuente fresca trae.
+        chain.append((PUBLISHED_EPG_FALLBACK_SOURCE, target_id))
+    unique: list[tuple[str, str]] = []
+    for key in chain:
+        if key not in forbidden and key not in unique:
+            unique.append(key)
+    return unique
+
+
+EPG_MINIMUM_FILL_BLOCK = timedelta(minutes=1)
+# La guía publicada anterior no recicla su pasado lejano en cada corrida.
+EPG_PUBLISHED_FALLBACK_PAST = timedelta(hours=6)
+
+
+def free_segments(
+    start: datetime,
+    stop: datetime,
+    covered: list[tuple[datetime, datetime]],
+) -> list[tuple[datetime, datetime]]:
+    """Partes de [start, stop) que ninguna fuente de más prioridad cubre."""
+    segments = [(start, stop)]
+    for covered_start, covered_stop in sorted(covered):
+        next_segments: list[tuple[datetime, datetime]] = []
+        for segment_start, segment_stop in segments:
+            if covered_stop <= segment_start or segment_stop <= covered_start:
+                next_segments.append((segment_start, segment_stop))
                 continue
-            if source.replaces is None:
-                for lookup_key, lookup_target in list(source_lookup.items()):
-                    if target_id in lookup_target:
-                        source_lookup.pop(lookup_key, None)
-            else:
-                for lookup_key in source.replaces:
-                    source_lookup.pop(lookup_key, None)
-            source_lookup[(source.name, source_id)] = {target_id}
+            if segment_start < covered_start:
+                next_segments.append((segment_start, covered_start))
+            if covered_stop < segment_stop:
+                next_segments.append((covered_stop, segment_stop))
+        segments = next_segments
+    return [
+        (segment_start, segment_stop)
+        for segment_start, segment_stop in segments
+        if segment_stop - segment_start >= EPG_MINIMUM_FILL_BLOCK
+    ]
 
 
 def epgshare_source_names_for(
@@ -6214,33 +6258,6 @@ def epgshare_source_names_for(
         for target_id, (source_name, _source_id) in EPG_PROGRAMME_SOURCES.items()
         if target_id in expected_ids and source_name in EPG_SOURCES
     )
-
-
-BACKUP_MINIMUM_TRIMMED_BLOCK = timedelta(minutes=5)
-
-
-def backup_start_after_guard(
-    start: datetime,
-    stop: datetime,
-    guard_intervals: list[tuple[datetime, datetime]],
-) -> datetime | None:
-    """Inicio utilizable de un bloque de respaldo frente a la parrilla principal.
-
-    Sin solape devuelve ``start``. Si se solapa, devuelve el fin de la última
-    parrilla principal que toca: la cola del bloque llena la transición. Si
-    esa cola dura menos de cinco minutos (bloque cubierto), devuelve None.
-    """
-    overlapping = [
-        (interval_start, interval_stop)
-        for interval_start, interval_stop in guard_intervals
-        if interval_start < stop and start < interval_stop
-    ]
-    if not overlapping:
-        return start
-    trimmed = max(interval_stop for _start, interval_stop in overlapping)
-    if stop - trimmed < BACKUP_MINIMUM_TRIMMED_BLOCK:
-        return None
-    return trimmed
 
 
 def build_epg(
@@ -6288,198 +6305,11 @@ def build_epg(
     real_last_stop_by_target: dict[str, datetime] = {}
     guide_sources: dict[str, str] = {}
     continuity_blocks_by_channel: dict[str, int] = {}
-    # Una fuente puede alimentar la identidad legacy del catalogo y una
-    # referencia TvVoo estable de la lista publica al mismo tiempo.
-    source_lookup: dict[tuple[str, str], set[str]] = {}
-    for target_id, (source_name, source_id) in EPG_PROGRAMME_SOURCES.items():
-        if target_id in expected_ids:
-            source_lookup.setdefault((source_name, source_id), set()).add(target_id)
-    if ZAPPING_EPG_SOURCE in source_roots:
-        zapping_target_ids = {
-            programme.get("channel", "")
-            for programme in source_roots[ZAPPING_EPG_SOURCE].findall("programme")
-        }
-        for target_id in sorted(zapping_target_ids & set(ZAPPING_EPG_CHANNELS)):
-            for lookup_key, lookup_target in list(source_lookup.items()):
-                if target_id in lookup_target:
-                    source_lookup.pop(lookup_key, None)
-            source_lookup[(ZAPPING_EPG_SOURCE, target_id)] = {target_id}
-    prefer_official_epg_sources(source_lookup, source_roots, expected_ids)
+    # Cada canal mezcla sus fuentes por prioridad: la de más arriba manda donde
+    # tiene programas y las siguientes solo rellenan huecos, antes o después.
+    covered_by_target: dict[str, list[tuple[datetime, datetime]]] = {}
 
-    # Si una fuente opcional por canal desaparece durante una renovación
-    # forzada, conservar únicamente la parrilla real vigente de la publicación
-    # anterior para ese canal. Nunca se mezcla con una fuente fresca ni se usa
-    # para inventar continuidad genérica.
-    published_fallback = source_roots.get(PUBLISHED_EPG_FALLBACK_SOURCE)
-    fresh_targets: set[str] = set()
-    fresh_last_stop_by_target: dict[str, datetime] = {}
-
-    def record_fresh_stop(target_id: str, stop: datetime) -> None:
-        previous = fresh_last_stop_by_target.get(target_id)
-        if previous is None or stop > previous:
-            fresh_last_stop_by_target[target_id] = stop
-
-    for source_name, source_root in source_roots.items():
-        if source_name == PUBLISHED_EPG_FALLBACK_SOURCE:
-            continue
-        for programme in source_root.findall("programme"):
-            target_ids = source_lookup.get(
-                (source_name, programme.get("channel", ""))
-            )
-            if not target_ids:
-                continue
-            try:
-                stop = xmltv_datetime(programme.get("stop", ""))
-            except ValueError:
-                continue
-            if stop > now:
-                fresh_targets.update(target_ids)
-                for target_id in target_ids:
-                    record_fresh_stop(target_id, stop)
-    for target_id, cards in red_bull_schedules.items():
-        if target_id not in expected_ids or not cards:
-            continue
-        fresh_targets.add(target_id)
-        try:
-            last_stop = max(
-                datetime.fromisoformat(card["end_time"].replace("Z", "+00:00"))
-                for card in normalize_red_bull_schedule(cards)
-            )
-        except (KeyError, TypeError, ValueError):
-            continue
-        record_fresh_stop(target_id, last_stop)
-    tecnocentro_root = source_roots.get("tecnocentro")
-    pluto_root = source_roots.get("pluto")
-
-    def source_has_programmes(source_root: ET.Element | None, source_id: str) -> bool:
-        if source_root is None:
-            return False
-        return any(
-            programme.get("channel") == source_id
-            for programme in source_root.findall("programme")
-        )
-
-    # (fuente, canal) que actúan como respaldo aunque la fuente sea principal
-    # para otros canales (EPGShare continuando una guía oficial).
-    backup_pairs: set[tuple[str, str]] = set()
-    for target_id in expected_ids - NO_EPG_CHANNEL_IDS:
-        if target_id == "0102":
-            # La Red mantiene la fuente oficial como prioridad, pero nunca se
-            # deja sin guia: si su pagina falla se conserva la ultima parrilla
-            # real publicada. La EPG agregada/Zapping sigue prohibida.
-            if target_id not in fresh_targets and published_fallback is not None:
-                source_lookup[(PUBLISHED_EPG_FALLBACK_SOURCE, target_id)] = {target_id}
-            continue
-        required_future = now + (
-            EPG_MAIN_CONTINUITY_BUFFER
-            if target_id in main_ids
-            else EPG_NON_MAIN_MINIMUM_FUTURE
-        )
-        if fresh_last_stop_by_target.get(target_id, now) >= required_future:
-            continue
-        tecnocentro_id = TECNOCENTRO_BACKUP_CHANNELS.get(target_id)
-        if tecnocentro_id and source_has_programmes(tecnocentro_root, tecnocentro_id):
-            source_lookup[("tecnocentro", tecnocentro_id)] = {target_id}
-            continue
-        pluto_id = PLUTO_BACKUP_CHANNELS.get(target_id)
-        if pluto_id and source_has_programmes(pluto_root, pluto_id):
-            source_lookup[("pluto", pluto_id)] = {target_id}
-            continue
-        epgshare_backup = EPGSHARE_BACKUP_CHANNELS.get(target_id)
-        if epgshare_backup and source_has_programmes(
-            source_roots.get(epgshare_backup[0]), epgshare_backup[1]
-        ):
-            source_lookup.setdefault(epgshare_backup, set()).add(target_id)
-            backup_pairs.add((epgshare_backup[0], target_id))
-            continue
-        if target_id not in fresh_targets and published_fallback is not None:
-            source_lookup[(PUBLISHED_EPG_FALLBACK_SOURCE, target_id)] = {target_id}
-
-    # Un respaldo nunca debe duplicar ni superponerse con la parrilla real ya
-    # obtenida para el mismo canal, tampoco en el pasado reciente (la guía de
-    # la app lo muestra): se conservan solo sus bloques nuevos.
-    backup_sources = {"tecnocentro", "pluto"}
-    backup_guard_intervals: dict[str, list[tuple[datetime, datetime]]] = {}
-    for source_name, source_root in source_roots.items():
-        if source_name in backup_sources:
-            continue
-        for programme in source_root.findall("programme"):
-            target_ids = source_lookup.get(
-                (source_name, programme.get("channel", ""))
-            )
-            if not target_ids:
-                continue
-            try:
-                start = xmltv_datetime(programme.get("start", ""))
-                stop = xmltv_datetime(programme.get("stop", ""))
-            except ValueError:
-                continue
-            for target_id in target_ids:
-                if (source_name, target_id) in backup_pairs:
-                    continue
-                backup_guard_intervals.setdefault(target_id, []).append((start, stop))
-
-    for source_name, source_root in source_roots.items():
-        seen_source_programmes: set[tuple[str, str, str, str]] = set()
-        for programme in source_root.findall("programme"):
-            target_ids = source_lookup.get((source_name, programme.get("channel", "")))
-            if not target_ids:
-                continue
-            if source_name == "pluto":
-                # Pluto's public XML sometimes repeats the same card verbatim
-                # at a boundary. Keep one copy so XMLTV remains non-overlapping.
-                duplicate_key = (
-                    programme.get("channel", ""),
-                    programme.get("start", ""),
-                    programme.get("stop", ""),
-                    programme.findtext("title", ""),
-                )
-                if duplicate_key in seen_source_programmes:
-                    continue
-                seen_source_programmes.add(duplicate_key)
-            for target_id in sorted(target_ids):
-                copied = localize_xmltv_programme(programme)
-                forced_title = FORCED_EPG_TITLES.get(target_id)
-                if forced_title:
-                    title_element = copied.find("title")
-                    if title_element is None:
-                        title_element = ET.SubElement(copied, "title", {"lang": "es"})
-                    title_element.text = forced_title
-                    for subtitle in copied.findall("sub-title"):
-                        copied.remove(subtitle)
-                try:
-                    start = xmltv_datetime(copied.get("start", ""))
-                    stop = xmltv_datetime(copied.get("stop", ""))
-                except ValueError:
-                    continue
-                if stop <= start:
-                    continue
-                if source_name in backup_sources or (source_name, target_id) in backup_pairs:
-                    guard_intervals = backup_guard_intervals.setdefault(
-                        target_id, []
-                    )
-                    trimmed_start = backup_start_after_guard(start, stop, guard_intervals)
-                    if trimmed_start is None:
-                        continue
-                    if trimmed_start != start:
-                        # El bloque ya estaba al aire cuando termina la parrilla
-                        # principal: se publica desde ahí, sin dejar hueco.
-                        start = trimmed_start
-                        copied.set("start", xmltv_format_chile(start))
-                    guard_intervals.append((start, stop))
-                copied.set("channel", target_id)
-                root.append(copied)
-                programmes_by_target[target_id] += 1
-                guide_types[target_id] = (
-                    "parrilla real conservada"
-                    if source_name == PUBLISHED_EPG_FALLBACK_SOURCE
-                    else "parrilla real"
-                )
-                guide_sources[target_id] = source_name
-                previous_stop = real_last_stop_by_target.get(target_id)
-                if previous_stop is None or stop > previous_stop:
-                    real_last_stop_by_target[target_id] = stop
-
+    # Red Bull (API oficial) va primero: sus tarjetas nunca se recortan.
     for red_bull_id, red_bull_cards in red_bull_schedules.items():
         if red_bull_id not in expected_ids:
             continue
@@ -6509,6 +6339,7 @@ def build_epg(
             if description:
                 ET.SubElement(programme, "desc", {"lang": language}).text = description
             programmes_by_target[red_bull_id] += 1
+            covered_by_target.setdefault(red_bull_id, []).append((start, stop))
             red_bull_last_stop = (
                 stop
                 if red_bull_last_stop is None or stop > red_bull_last_stop
@@ -6523,6 +6354,80 @@ def build_epg(
                 else "red-bull-oficial"
             )
             guide_types[red_bull_id] = "parrilla oficial Red Bull"
+
+    # Programas de cada (fuente, id) ordenados por inicio.
+    programmes_by_key: dict[tuple[str, str], list[tuple[datetime, datetime, ET.Element]]] = {}
+    for source_name, source_root in source_roots.items():
+        seen_source_programmes: set[tuple[str, str, str, str]] = set()
+        for programme in source_root.findall("programme"):
+            source_id = programme.get("channel", "")
+            # Algunas fuentes (Pluto) repiten la misma tarjeta en un borde.
+            duplicate_key = (
+                source_id,
+                programme.get("start", ""),
+                programme.get("stop", ""),
+                programme.findtext("title", ""),
+            )
+            if duplicate_key in seen_source_programmes:
+                continue
+            seen_source_programmes.add(duplicate_key)
+            try:
+                start = xmltv_datetime(programme.get("start", ""))
+                stop = xmltv_datetime(programme.get("stop", ""))
+            except ValueError:
+                continue
+            if stop <= start:
+                continue
+            if (
+                source_name == PUBLISHED_EPG_FALLBACK_SOURCE
+                and stop <= now - EPG_PUBLISHED_FALLBACK_PAST
+            ):
+                continue
+            programmes_by_key.setdefault((source_name, source_id), []).append(
+                (start, stop, programme)
+            )
+    for items in programmes_by_key.values():
+        items.sort(key=lambda item: (item[0], item[1]))
+
+    for target_id in sorted(expected_ids):
+        covered = covered_by_target.setdefault(target_id, [])
+        for source_name, source_id in epg_source_chain(target_id):
+            items = programmes_by_key.get((source_name, source_id))
+            if not items:
+                continue
+            added = 0
+            for start, stop, programme in items:
+                for segment_start, segment_stop in free_segments(start, stop, covered):
+                    copied = localize_xmltv_programme(programme)
+                    if segment_start != start:
+                        # Ya estaba al aire cuando termina la fuente de más prioridad.
+                        copied.set("start", xmltv_format_chile(segment_start))
+                    if segment_stop != stop:
+                        copied.set("stop", xmltv_format_chile(segment_stop))
+                    forced_title = FORCED_EPG_TITLES.get(target_id)
+                    if forced_title:
+                        title_element = copied.find("title")
+                        if title_element is None:
+                            title_element = ET.SubElement(copied, "title", {"lang": "es"})
+                        title_element.text = forced_title
+                        for subtitle in copied.findall("sub-title"):
+                            copied.remove(subtitle)
+                    copied.set("channel", target_id)
+                    root.append(copied)
+                    covered.append((segment_start, segment_stop))
+                    added += 1
+                    programmes_by_target[target_id] += 1
+                    previous_stop = real_last_stop_by_target.get(target_id)
+                    if previous_stop is None or segment_stop > previous_stop:
+                        real_last_stop_by_target[target_id] = segment_stop
+            if added and target_id not in guide_sources:
+                # La fuente principal del canal es la de más prioridad que aportó.
+                guide_sources[target_id] = source_name
+                guide_types[target_id] = (
+                    "parrilla real conservada"
+                    if source_name == PUBLISHED_EPG_FALLBACK_SOURCE
+                    else "parrilla real"
+                )
 
     last_stop_by_channel: dict[str, datetime] = {}
     for programme in root.findall("programme"):

@@ -21,7 +21,7 @@ Guía para agentes de IA que trabajen en este repositorio (catálogo público, r
 ## Cómo trabajar
 
 - Tests obligatorios antes de commitear:
-  - `python -m unittest discover -s tests -p "test_*.py"` (esperado: 223 en verde).
+  - `python -m unittest discover -s tests -p "test_*.py"` (esperado: 226 en verde).
   - `node --test tests/editor-core.test.mjs tests/layout-contract.test.mjs` (esperado: 34 en verde).
 - Validar el editor local sin tocar el repo: `python scripts/build_site_data.py --output <carpeta temp>` (solo acepta salidas dentro de la carpeta temporal).
 - Commits en español con prefijo: `feat(editor)`, `fix(resolvers)`, `feat(epg)`, `fix(catalogo)`, `chore(...)`.
@@ -43,6 +43,7 @@ Guía para agentes de IA que trabajen en este repositorio (catálogo público, r
 ## Reglas funcionales vigentes
 
 - EPG solo para Lista 1 más canales gestionados con fuente (aislados y opcionales): prioridad oficial → Zapping (frontales `*-apig.zappingtv.com` con `curl --connect-to`) → TecnoCentro; Red Bull con respaldo Pluto. Sin relleno técnico: si no hay fuente, el canal queda pendiente diagnosticado; única excepción acordada: Rwnd = `Live`.
+- Mezcla por prioridad (`epg_source_chain`): Red Bull → oficial → Zapping → fuente base → TecnoCentro → Pluto → EPGShare de respaldo → guía publicada anterior (solo 6 h hacia atrás). La de más arriba manda donde tiene programas y cada siguiente solo rellena huecos (antes, entre medio o después, recortando bloques que ya estaban al aire). Si una oficial vuelve, recupera sus tramos en la corrida siguiente. Las claves de `replaces` quedan prohibidas para ese canal (La Red solo usa su oficial y lo ya publicado).
 - Procurar al menos 12 h de programación por canal en cada corrida; los pendientes se reintentan por canal dentro de la corrida y en cada ciclo de 6 h.
 - El runner no inventa programación, EPG ni coincidencias: ante ambigüedad, dejar pendiente.
 
