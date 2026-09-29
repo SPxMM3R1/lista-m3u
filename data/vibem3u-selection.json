@@ -1,13 +1,239 @@
 {
   "schemaVersion": 1,
   "source": "vibem3u-android",
-  "selectionSignature": "sha256:9ae0013d40e3545525c979421db345517a4d8c493b01b9ec142095b89ba2bea9",
-  "publishedAt": "2026-09-28T02:57:31.375Z",
+  "selectionSignature": "sha256:37d7f903cc6e19664946120179dfd0d6ed2ae5b4efe0b5827d5873e5180658b9",
+  "publishedAt": "2026-09-29T00:38:17.926Z",
   "sources": [
     {
       "provider": "tvvoo",
-      "enabled": false,
-      "channels": []
+      "enabled": true,
+      "channels": [
+        {
+          "provider": "tvvoo",
+          "catalogKey": "germany|vavoo_SKY%20SPORTS%20F1%7Cgroup%3Ade",
+          "providerResourceId": "germany|vavoo_SKY%20SPORTS%20F1%7Cgroup%3Ade",
+          "name": "SKY SPORTS F1",
+          "group": "Alemania",
+          "category": "Sport",
+          "identityState": "canonical",
+          "order": 1,
+          "country": "Alemania",
+          "countryKey": "germany",
+          "aliases": [
+            "vavoo_SKY%20SPORTS%20F1%7Cgroup%3Ade"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "italy|vavoo_SKY%20SPORTS%20F1%7Cgroup%3Ait",
+          "providerResourceId": "italy|vavoo_SKY%20SPORTS%20F1%7Cgroup%3Ait",
+          "name": "SKY SPORTS F1",
+          "group": "Italia",
+          "category": "Sport",
+          "identityState": "canonical",
+          "order": 2,
+          "country": "Italia",
+          "countryKey": "italy",
+          "aliases": [
+            "vavoo_SKY%20SPORTS%20F1%7Cgroup%3Ait"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "unitedkingdom|vavoo_SKY%20SPORTS%20F1%20%28BACKUP%29%7Cgroup%3Auk",
+          "providerResourceId": "unitedkingdom|vavoo_SKY%20SPORTS%20F1%20%28BACKUP%29%7Cgroup%3Auk",
+          "name": "SKY SPORTS F1 (BACKUP)",
+          "group": "Reino Unido",
+          "category": "Sport",
+          "identityState": "canonical",
+          "order": 3,
+          "country": "Reino Unido",
+          "countryKey": "unitedkingdom",
+          "aliases": [
+            "vavoo_SKY%20SPORTS%20F1%20%28BACKUP%29%7Cgroup%3Auk"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "unitedkingdom|vavoo_SKY%20SPORTS%20F1%20FHD%7Cgroup%3Auk",
+          "providerResourceId": "unitedkingdom|vavoo_SKY%20SPORTS%20F1%20FHD%7Cgroup%3Auk",
+          "name": "SKY SPORTS F1 FHD",
+          "group": "Reino Unido",
+          "category": "Reino Unido",
+          "identityState": "canonical",
+          "order": 4,
+          "country": "Reino Unido",
+          "countryKey": "unitedkingdom",
+          "aliases": [
+            "vavoo_SKY%20SPORTS%20F1%20FHD%7Cgroup%3Auk"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "unitedkingdom|vavoo_SKY%20SPORTS%20F1%20FHD%20%28BACKUP%29%7Cgroup%3Auk",
+          "providerResourceId": "unitedkingdom|vavoo_SKY%20SPORTS%20F1%20FHD%20%28BACKUP%29%7Cgroup%3Auk",
+          "name": "SKY SPORTS F1 FHD (BACKUP)",
+          "group": "Reino Unido",
+          "category": "Sport",
+          "identityState": "canonical",
+          "order": 5,
+          "country": "Reino Unido",
+          "countryKey": "unitedkingdom",
+          "aliases": [
+            "vavoo_SKY%20SPORTS%20F1%20FHD%20%28BACKUP%29%7Cgroup%3Auk"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "unitedkingdom|vavoo_SKY%20SPORTS%20F1%20HD%7Cgroup%3Auk",
+          "providerResourceId": "unitedkingdom|vavoo_SKY%20SPORTS%20F1%20HD%7Cgroup%3Auk",
+          "name": "SKY SPORTS F1 HD",
+          "group": "Reino Unido",
+          "category": "Sport",
+          "identityState": "canonical",
+          "order": 6,
+          "country": "Reino Unido",
+          "countryKey": "unitedkingdom",
+          "aliases": [
+            "vavoo_SKY%20SPORTS%20F1%20HD%7Cgroup%3Auk"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "unitedkingdom|vavoo_SKY%20SPORTS%20MAIN%20EVENT%7Cgroup%3Auk",
+          "providerResourceId": "unitedkingdom|vavoo_SKY%20SPORTS%20MAIN%20EVENT%7Cgroup%3Auk",
+          "name": "SKY SPORTS MAIN EVENT",
+          "group": "Reino Unido",
+          "category": "Sport",
+          "identityState": "canonical",
+          "order": 7,
+          "country": "Reino Unido",
+          "countryKey": "unitedkingdom",
+          "aliases": [
+            "vavoo_SKY%20SPORTS%20MAIN%20EVENT%7Cgroup%3Auk"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "unitedkingdom|vavoo_SKY%20SPORTS%20MAIN%20EVENT%20HD%7Cgroup%3Auk",
+          "providerResourceId": "unitedkingdom|vavoo_SKY%20SPORTS%20MAIN%20EVENT%20HD%7Cgroup%3Auk",
+          "name": "SKY SPORTS MAIN EVENT HD",
+          "group": "Reino Unido",
+          "category": "Sport",
+          "identityState": "canonical",
+          "order": 8,
+          "country": "Reino Unido",
+          "countryKey": "unitedkingdom",
+          "aliases": [
+            "vavoo_SKY%20SPORTS%20MAIN%20EVENT%20HD%7Cgroup%3Auk"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "unitedkingdom|vavoo_SKY%20SPORTS%20MIX%7Cgroup%3Auk",
+          "providerResourceId": "unitedkingdom|vavoo_SKY%20SPORTS%20MIX%7Cgroup%3Auk",
+          "name": "SKY SPORTS MIX",
+          "group": "Reino Unido",
+          "category": "Sport",
+          "identityState": "canonical",
+          "order": 9,
+          "country": "Reino Unido",
+          "countryKey": "unitedkingdom",
+          "aliases": [
+            "vavoo_SKY%20SPORTS%20MIX%7Cgroup%3Auk"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "unitedkingdom|vavoo_SKY%20SPORTS%20MIX%20%28BACKUP%29%7Cgroup%3Auk",
+          "providerResourceId": "unitedkingdom|vavoo_SKY%20SPORTS%20MIX%20%28BACKUP%29%7Cgroup%3Auk",
+          "name": "SKY SPORTS MIX (BACKUP)",
+          "group": "Reino Unido",
+          "category": "Reino Unido",
+          "identityState": "canonical",
+          "order": 10,
+          "country": "Reino Unido",
+          "countryKey": "unitedkingdom",
+          "aliases": [
+            "vavoo_SKY%20SPORTS%20MIX%20%28BACKUP%29%7Cgroup%3Auk"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "unitedkingdom|vavoo_SKY%20SPORTS%20MIX%20FHD%7Cgroup%3Auk",
+          "providerResourceId": "unitedkingdom|vavoo_SKY%20SPORTS%20MIX%20FHD%7Cgroup%3Auk",
+          "name": "SKY SPORTS MIX FHD",
+          "group": "Reino Unido",
+          "category": "Sport",
+          "identityState": "canonical",
+          "order": 11,
+          "country": "Reino Unido",
+          "countryKey": "unitedkingdom",
+          "aliases": [
+            "vavoo_SKY%20SPORTS%20MIX%20FHD%7Cgroup%3Auk"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "unitedkingdom|vavoo_SKY%20SPORTS%20MIX%20HD%7Cgroup%3Auk",
+          "providerResourceId": "unitedkingdom|vavoo_SKY%20SPORTS%20MIX%20HD%7Cgroup%3Auk",
+          "name": "SKY SPORTS MIX HD",
+          "group": "Reino Unido",
+          "category": "Sport",
+          "identityState": "canonical",
+          "order": 12,
+          "country": "Reino Unido",
+          "countryKey": "unitedkingdom",
+          "aliases": [
+            "vavoo_SKY%20SPORTS%20MIX%20HD%7Cgroup%3Auk"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "unitedkingdom|vavoo_SKY%20SPORTS%20TENNIS%7Cgroup%3Auk",
+          "providerResourceId": "unitedkingdom|vavoo_SKY%20SPORTS%20TENNIS%7Cgroup%3Auk",
+          "name": "SKY SPORTS TENNIS",
+          "group": "Reino Unido",
+          "category": "Reino Unido",
+          "identityState": "canonical",
+          "order": 13,
+          "country": "Reino Unido",
+          "countryKey": "unitedkingdom",
+          "aliases": [
+            "vavoo_SKY%20SPORTS%20TENNIS%7Cgroup%3Auk"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "unitedkingdom|vavoo_SKY%20SPORTS%20TENNIS%20%28BACKUP%29%7Cgroup%3Auk",
+          "providerResourceId": "unitedkingdom|vavoo_SKY%20SPORTS%20TENNIS%20%28BACKUP%29%7Cgroup%3Auk",
+          "name": "SKY SPORTS TENNIS (BACKUP)",
+          "group": "Reino Unido",
+          "category": "Reino Unido",
+          "identityState": "canonical",
+          "order": 14,
+          "country": "Reino Unido",
+          "countryKey": "unitedkingdom",
+          "aliases": [
+            "vavoo_SKY%20SPORTS%20TENNIS%20%28BACKUP%29%7Cgroup%3Auk"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "unitedkingdom|vavoo_SKY%20SPORTS%20TENNIS%20FHD%7Cgroup%3Auk",
+          "providerResourceId": "unitedkingdom|vavoo_SKY%20SPORTS%20TENNIS%20FHD%7Cgroup%3Auk",
+          "name": "SKY SPORTS TENNIS FHD",
+          "group": "Reino Unido",
+          "category": "Reino Unido",
+          "identityState": "canonical",
+          "order": 15,
+          "country": "Reino Unido",
+          "countryKey": "unitedkingdom",
+          "aliases": [
+            "vavoo_SKY%20SPORTS%20TENNIS%20FHD%7Cgroup%3Auk"
+          ]
+        }
+      ]
     },
     {
       "provider": "highfly",
@@ -16,13 +242,13 @@
         {
           "provider": "highfly",
           "catalogKey": "SkySportsF1.uk",
-          "providerResourceId": "leaf:now-545445",
+          "providerResourceId": "leaf:now-34343434",
           "name": "SKY SPORTS F1",
           "group": "Deportes",
           "category": "Motor Sports",
           "identityState": "canonical",
           "order": 1,
-          "resolverSlug": "now-545445"
+          "resolverSlug": "now-34343434"
         },
         {
           "provider": "highfly",
