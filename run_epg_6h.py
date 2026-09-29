@@ -60,7 +60,7 @@ def load_state() -> dict:
 
 
 def read_pending_channels() -> list[str]:
-    """Canales que quedaron sin fuente real en la ultima construccion."""
+    """Canales con guia incompleta (sin fuente, poco horizonte o huecos) en la ultima construccion."""
     if not PENDING_PATH.exists():
         return []
     try:
@@ -211,7 +211,7 @@ def main() -> int:
         if not pending:
             break
         print(
-            f"Canales sin fuente real ({len(pending)}): {', '.join(pending)}; "
+            f"Canales con guia incompleta ({len(pending)}): {', '.join(pending)}; "
             f"reintentando {attempt}/{MAX_SOURCE_RETRIES} en "
             f"{SOURCE_RETRY_DELAY_SECONDS}s",
             file=sys.stderr,

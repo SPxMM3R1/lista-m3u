@@ -954,6 +954,12 @@ TECNOCENTRO_BACKUP_CHANNELS = {
     "0107": "LCH482",
     "0201": "LCH594",
     "13Cultura.cl@DPS": "LCH5568",
+    # Zapping (nowplaying) solo trae el programa actual y los siguientes: estos
+    # canales siguen con TecnoCentro después del último bloque de Zapping.
+    "Meganoticias.cl": "LCH7159",
+    "0124": "LCH6525",
+    "1153": "LCH7017",
+    "45": "LCH4087",
 }
 try:
     CHILE_TIMEZONE = ZoneInfo("America/Santiago")
@@ -990,6 +996,12 @@ RED_BULL_CHILE_ID = "RedBullChileEspanol.cl"
 # responde desde el ejecutor (Pluto TV, feed que el runner ya descarga).
 PLUTO_BACKUP_CHANNELS = {
     RED_BULL_WORLD_ID: "5e7cb84a172a0f0007da69e4",
+}
+# Feeds EPGShare que continúan una guía oficial corta: la oficial manda y el
+# respaldo solo aporta lo que viene después de su último programa.
+EPGSHARE_BACKUP_CHANNELS: dict[str, tuple[str, str]] = {
+    "DW.de": ("mx1", "Canal.DW.(Latinoamérica).mx"),
+    "DWEnglish.de": ("fr", "DW-TV.fr"),
 }
 RED_BULL_CHANNEL_LOCALES = {
     RED_BULL_WORLD_ID: "en",
@@ -5980,6 +5992,11 @@ def fetch_epgshare_part(channels: list[Channel], expected_ids: set[str]) -> EpgP
         # El respaldo Pluto del canal Red Bull solo existe si se descarga su
         # feed; el runner ya lo usa para otros canales, aqui se asegura.
         required.add("pluto")
+    required.update(
+        source_name
+        for target_id, (source_name, _source_id) in EPGSHARE_BACKUP_CHANNELS.items()
+        if target_id in expected_ids and source_name in EPG_SOURCES
+    )
     skipped = sorted(set(EPG_SOURCES) - required)
     if skipped:
         print("Fuentes EPGShare no requeridas por Lista 1: " + ", ".join(skipped))
@@ -6199,6 +6216,33 @@ def epgshare_source_names_for(
     )
 
 
+BACKUP_MINIMUM_TRIMMED_BLOCK = timedelta(minutes=5)
+
+
+def backup_start_after_guard(
+    start: datetime,
+    stop: datetime,
+    guard_intervals: list[tuple[datetime, datetime]],
+) -> datetime | None:
+    """Inicio utilizable de un bloque de respaldo frente a la parrilla principal.
+
+    Sin solape devuelve ``start``. Si se solapa, devuelve el fin de la última
+    parrilla principal que toca: la cola del bloque llena la transición. Si
+    esa cola dura menos de cinco minutos (bloque cubierto), devuelve None.
+    """
+    overlapping = [
+        (interval_start, interval_stop)
+        for interval_start, interval_stop in guard_intervals
+        if interval_start < stop and start < interval_stop
+    ]
+    if not overlapping:
+        return start
+    trimmed = max(interval_stop for _start, interval_stop in overlapping)
+    if stop - trimmed < BACKUP_MINIMUM_TRIMMED_BLOCK:
+        return None
+    return trimmed
+
+
 def build_epg(
     source_documents: dict[str, bytes],
     channels: list[Channel],
@@ -6315,6 +6359,9 @@ def build_epg(
             for programme in source_root.findall("programme")
         )
 
+    # (fuente, canal) que actúan como respaldo aunque la fuente sea principal
+    # para otros canales (EPGShare continuando una guía oficial).
+    backup_pairs: set[tuple[str, str]] = set()
     for target_id in expected_ids - NO_EPG_CHANNEL_IDS:
         if target_id == "0102":
             # La Red mantiene la fuente oficial como prioridad, pero nunca se
@@ -6338,11 +6385,19 @@ def build_epg(
         if pluto_id and source_has_programmes(pluto_root, pluto_id):
             source_lookup[("pluto", pluto_id)] = {target_id}
             continue
+        epgshare_backup = EPGSHARE_BACKUP_CHANNELS.get(target_id)
+        if epgshare_backup and source_has_programmes(
+            source_roots.get(epgshare_backup[0]), epgshare_backup[1]
+        ):
+            source_lookup.setdefault(epgshare_backup, set()).add(target_id)
+            backup_pairs.add((epgshare_backup[0], target_id))
+            continue
         if target_id not in fresh_targets and published_fallback is not None:
             source_lookup[(PUBLISHED_EPG_FALLBACK_SOURCE, target_id)] = {target_id}
 
     # Un respaldo nunca debe duplicar ni superponerse con la parrilla real ya
-    # obtenida para el mismo canal: se conservan solo sus bloques nuevos.
+    # obtenida para el mismo canal, tampoco en el pasado reciente (la guía de
+    # la app lo muestra): se conservan solo sus bloques nuevos.
     backup_sources = {"tecnocentro", "pluto"}
     backup_guard_intervals: dict[str, list[tuple[datetime, datetime]]] = {}
     for source_name, source_root in source_roots.items():
@@ -6359,9 +6414,9 @@ def build_epg(
                 stop = xmltv_datetime(programme.get("stop", ""))
             except ValueError:
                 continue
-            if stop <= now:
-                continue
             for target_id in target_ids:
+                if (source_name, target_id) in backup_pairs:
+                    continue
                 backup_guard_intervals.setdefault(target_id, []).append((start, stop))
 
     for source_name, source_root in source_roots.items():
@@ -6399,15 +6454,18 @@ def build_epg(
                     continue
                 if stop <= start:
                     continue
-                if source_name in backup_sources:
+                if source_name in backup_sources or (source_name, target_id) in backup_pairs:
                     guard_intervals = backup_guard_intervals.setdefault(
                         target_id, []
                     )
-                    if any(
-                        interval_start < stop and start < interval_stop
-                        for interval_start, interval_stop in guard_intervals
-                    ):
+                    trimmed_start = backup_start_after_guard(start, stop, guard_intervals)
+                    if trimmed_start is None:
                         continue
+                    if trimmed_start != start:
+                        # El bloque ya estaba al aire cuando termina la parrilla
+                        # principal: se publica desde ahí, sin dejar hueco.
+                        start = trimmed_start
+                        copied.set("start", xmltv_format_chile(start))
                     guard_intervals.append((start, stop))
                 copied.set("channel", target_id)
                 root.append(copied)
@@ -9763,7 +9821,7 @@ def main() -> int:
             )
         if pending_channels:
             print(
-                "  [EPG-PENDIENTE] Canales sin fuente real: "
+                "  [EPG-PENDIENTE] Canales con guia incompleta (poco horizonte o huecos): "
                 + ", ".join(pending_channels),
                 file=sys.stderr,
             )

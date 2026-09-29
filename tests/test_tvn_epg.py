@@ -678,11 +678,86 @@ class TvnEpgTests(unittest.TestCase):
         )
 
         root = ET.fromstring(output)
-        titles = [
-            programme.findtext("title")
-            for programme in root.findall("./programme[@channel='0104']")
-        ]
-        self.assertEqual(titles, ["Programa oficial"])
+        programmes = root.findall("./programme[@channel='0104']")
+        titles = [programme.findtext("title") for programme in programmes]
+        # El respaldo solo aporta lo que queda después de la parrilla oficial,
+        # recortado a su fin: sin solape y sin hueco.
+        self.assertEqual(titles, ["Programa oficial", "Bloque repetido"])
+        self.assertEqual(programmes[0].get("stop"), programmes[1].get("start"))
+        self.assertEqual(
+            update_m3u.xmltv_datetime(programmes[1].get("start")),
+            now + timedelta(hours=8),
+        )
+
+    def test_backup_blocks_inside_the_real_guide_are_dropped_even_in_the_past(self) -> None:
+        now = datetime(2026, 9, 26, 18, tzinfo=timezone.utc)
+        slots = [(-10, -6), (-6, -1), (-1, 3)]
+        official = ET.Element("tv")
+        for start, stop in slots:
+            programme = ET.SubElement(official, "programme", {
+                "start": update_m3u.xmltv_format_chile(now + timedelta(hours=start)),
+                "stop": update_m3u.xmltv_format_chile(now + timedelta(hours=stop)),
+                "channel": "Canal.TVN.(Chile).cl",
+            })
+            ET.SubElement(programme, "title").text = f"Oficial {start}"
+        tecnocentro = ET.Element("tv")
+        for start, stop in [(-9, -5), (-5, -1), (2, 30)]:
+            programme = ET.SubElement(tecnocentro, "programme", {
+                "start": update_m3u.xmltv_format_chile(now + timedelta(hours=start)),
+                "stop": update_m3u.xmltv_format_chile(now + timedelta(hours=stop)),
+                "channel": "LCH1225",
+            })
+            ET.SubElement(programme, "title").text = f"Respaldo {start}"
+
+        output, _ = update_m3u.build_epg(
+            {"cl": ET.tostring(official), "tecnocentro": ET.tostring(tecnocentro)},
+            [channel("TVN", "0104")],
+            {},
+            now=now,
+            coverage_required_ids={"0104"},
+        )
+
+        programmes = sorted(
+            (
+                update_m3u.xmltv_datetime(item.get("start")),
+                update_m3u.xmltv_datetime(item.get("stop")),
+                item.findtext("title"),
+            )
+            for item in ET.fromstring(output).findall("./programme[@channel='0104']")
+        )
+        self.assertEqual(
+            [title for _start, _stop, title in programmes],
+            ["Oficial -10", "Oficial -6", "Oficial -1", "Respaldo 2"],
+        )
+        for previous, current in zip(programmes, programmes[1:]):
+            self.assertLessEqual(previous[1], current[0])
+        self.assertEqual(programmes[-1][0], now + timedelta(hours=3))
+
+    def test_zapping_channels_with_tecnocentro_guide_keep_it_as_continuation(self) -> None:
+        # Zapping solo publica el programa actual y los siguientes: si el canal
+        # tiene parrilla TecnoCentro, esta debe quedar como continuación.
+        for target_id, (source_name, source_id) in update_m3u.EPG_PROGRAMME_SOURCES.items():
+            if source_name == "tecnocentro" and target_id in update_m3u.ZAPPING_EPG_CHANNELS:
+                self.assertEqual(
+                    update_m3u.TECNOCENTRO_BACKUP_CHANNELS.get(target_id), source_id, target_id
+                )
+
+    def test_backup_start_after_guard_rules(self) -> None:
+        base = datetime(2026, 9, 30, 3, 15, tzinfo=timezone.utc)
+        hour = timedelta(hours=1)
+        guard = [(base - 2 * hour, base)]
+        start_after = update_m3u.backup_start_after_guard
+
+        # Mega: «Dale play» 01:00-02:45 frente a la oficial que termina 02:15.
+        self.assertEqual(start_after(base - hour, base + hour / 2, guard), base)
+        self.assertEqual(start_after(base, base + hour, guard), base)
+        self.assertIsNone(start_after(base - hour, base - hour / 2, guard))
+        self.assertIsNone(start_after(base - hour, base + timedelta(minutes=3), guard))
+        # Si cruza otra parrilla oficial, solo queda la cola posterior a todo.
+        self.assertEqual(
+            start_after(base - hour, base + 3 * hour, guard + [(base + hour, base + 2 * hour)]),
+            base + 2 * hour,
+        )
 
     def test_tecnocentro_backup_channels_are_downloaded(self) -> None:
         now = datetime(2026, 9, 26, 18, tzinfo=timezone.utc)

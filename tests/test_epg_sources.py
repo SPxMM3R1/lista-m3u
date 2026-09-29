@@ -110,3 +110,16 @@ class RedBullChileTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class Canal13GoTimesTest(unittest.TestCase):
+    def test_13go_seconds_round_to_contiguous_minutes(self) -> None:
+        from epg_sources.canal13 import round_to_minute
+
+        end = datetime(2026, 9, 30, 0, 58, 22, tzinfo=timezone.utc)
+        next_start = datetime(2026, 9, 30, 0, 58, 23, tzinfo=timezone.utc)
+        self.assertEqual(round_to_minute(end), round_to_minute(next_start))
+        self.assertEqual(
+            round_to_minute(datetime(2026, 9, 30, 0, 59, 30, tzinfo=timezone.utc)),
+            datetime(2026, 9, 30, 1, 0, tzinfo=timezone.utc),
+        )

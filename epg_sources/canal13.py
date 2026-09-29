@@ -64,6 +64,12 @@ CANAL13_MONTH_INDEX = {
 }
 
 
+def round_to_minute(value: datetime) -> datetime:
+    """Redondea al minuto más cercano (30 s o más suben)."""
+    floored = value.replace(second=0, microsecond=0)
+    return floored + timedelta(minutes=1) if value - floored >= timedelta(seconds=30) else floored
+
+
 def canal13_official_payload(page_html: str) -> dict:
     """Extract the JSON object embedded by the official 13C guide page."""
     match = re.search(
@@ -417,8 +423,10 @@ def fetch_13go_epg(
                 if not isinstance(event, dict):
                     continue
                 try:
-                    start = external_epg_datetime(event["beginTime"])
-                    stop = external_epg_datetime(event["endTime"])
+                    # 13Go publica segundos (21:58:22 -> 21:58:23); al minuto
+                    # los bloques quedan contiguos, sin huecos de un segundo.
+                    start = round_to_minute(external_epg_datetime(event["beginTime"]))
+                    stop = round_to_minute(external_epg_datetime(event["endTime"]))
                 except (KeyError, TypeError, ValueError):
                     continue
                 if stop <= minimum_start or start >= maximum_stop or stop <= start:
