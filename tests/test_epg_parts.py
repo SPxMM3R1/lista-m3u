@@ -108,5 +108,34 @@ class EpgPartsTest(unittest.TestCase):
             )
 
 
+class EpgPendingDetailsTest(unittest.TestCase):
+    def test_pending_channels_are_classified_by_what_is_missing(self) -> None:
+        from datetime import timedelta
+        import xml.etree.ElementTree as ET
+
+        root = ET.Element("tv")
+
+        def programme(channel_id, start_h, stop_h):
+            ET.SubElement(root, "programme", {
+                "channel": channel_id,
+                "start": update_m3u.xmltv_format_chile(NOW + timedelta(hours=start_h)),
+                "stop": update_m3u.xmltv_format_chile(NOW + timedelta(hours=stop_h)),
+            })
+
+        programme("corta", -1, 3)
+        programme("hueco", 1, 40)  # fuera del aire la primera hora
+        details = update_m3u.epg_pending_details(
+            root, ["corta", "hueco", "vacia"], now=NOW, main_ids={"corta", "hueco", "vacia"}
+        )
+
+        self.assertEqual(details["vacia"]["kind"], "sin-guia")
+        self.assertEqual(details["corta"]["kind"], "guia-corta")
+        self.assertEqual(details["corta"]["futureHours"], 3.0)
+        self.assertEqual(details["corta"]["gaps"], [])
+        self.assertEqual(details["hueco"]["kind"], "hueco")
+        self.assertEqual(details["hueco"]["gaps"], [["2026-09-29T12:00:00Z", "2026-09-29T13:00:00Z"]])
+        self.assertEqual(details["hueco"]["requiredHours"], 18.0)
+
+
 if __name__ == "__main__":
     unittest.main()

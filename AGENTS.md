@@ -40,7 +40,7 @@ agente debe poder retomar el trabajo solo con lo que está en el repositorio.
 ## Cómo trabajar
 
 - Tests obligatorios antes de commitear:
-  - `python -m unittest discover -s tests -p "test_*.py"` (esperado: 227 en verde).
+  - `python -m unittest discover -s tests -p "test_*.py"` (esperado: 229 en verde).
   - `node --test tests/editor-core.test.mjs tests/layout-contract.test.mjs` (esperado: 34 en verde).
 - Validar el editor local sin tocar el repo: `python scripts/build_site_data.py --output <carpeta temp>` (solo acepta salidas dentro de la carpeta temporal).
 - Commits en español con prefijo: `feat(editor)`, `fix(resolvers)`, `feat(epg)`, `fix(catalogo)`, `chore(...)`.
@@ -57,6 +57,8 @@ agente debe poder retomar el trabajo solo con lo que está en el repositorio.
 - Puede dispararse a mano: `gh workflow run update-channels.yml -f force_run=true` y `gh workflow run update-epg.yml`.
 - Los canales también corren por partes: un job por proveedor (`direct`, `tvn`, `meganoticias`, `highfly`, `tvvoo`; `python update_m3u.py --fetch-channel-part <proveedor> --channel-parts-dir <dir>`) que verifica y renueva solo sus canales; el job final arma listas, salud y reportes con esas partes (`M3U_CHANNEL_PARTS_DIR`). Si falta una parte, o la URL de un canal cambió, el job final verifica ese canal por su cuenta.
 - La EPG corre por partes: un job por fuente (`python update_m3u.py --list-epg-parts`), cada uno con 3 intentos, y un job final que arma y publica. Una parte que falla no frena a las demás: sus canales conservan la última parrilla publicada (EPGShare, compartida, conserva la guía completa). Renovar solo algunas: `gh workflow run update-epg.yml -f fuentes=tvn-oficial,red-bull`.
+- `update-highfly.yml` pide cron cada 30 min, pero GitHub retrasa los cron frecuentes (en la práctica corre cada 4-6 h); por eso también corre al terminar canales y EPG (`workflow_run`). `data/highfly-live.json` renueva su `generatedAt` cada 3 h aunque los enlaces no cambien: la app lo descarta con más de 24 h.
+- `epg-pending.json` trae `channels` (lo usa el coordinador para reintentar) y `details` por canal: `sin-guia`, `guia-corta` (horas que tiene y que se exigen) o `hueco` (tramos sin programa, por ejemplo fuera del aire).
 - `deploy-site.yml` publica el editor en GitHub Pages cuando cambian `site/**` o `scripts/build_site_data.py`.
 
 ## Reglas funcionales vigentes

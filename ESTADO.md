@@ -20,13 +20,17 @@
 - **EPG**: 47 canales. Cada canal mezcla sus fuentes por prioridad (`epg_source_chain`): la de
   más arriba manda donde tiene programas y las demás solo rellenan huecos. Horizonte típico
   30–190 h.
-- **Tests**: 227 Python (`python -m unittest discover -s tests -p "test_*.py"`) y 34 JS
+- **Tests**: 229 Python (`python -m unittest discover -s tests -p "test_*.py"`) y 34 JS
   (`node --test tests/editor-core.test.mjs tests/layout-contract.test.mjs`).
 
 ## Pendientes y decisiones abiertas
 
 - **EPG pendiente (límite de la fuente, no del runner)**:
-  - TVN3 (`1437`): solo existe en Zapping, que desde GitHub entrega ~3 h.
+  - TVN3 (`1437`): solo existe en Zapping, que desde GitHub entrega ~3 h. Buscado el
+    2026-09-30 sin éxito: la página de TVN3 no expone su programación, `estaticos.tvn.cl/epg`
+    no tiene ruta para TVN3 y TecnoCentro solo lista «TVN» y «TVN HD».
+  - La Red (`0102`) puede figurar como `hueco`: tiene más de 160 h, pero no transmite de
+    madrugada. No es falta de guía.
   - MTV Biggest Pop, Flow Latino y Spankin' New: Pluto publica ~13 h y se exigen 24 h.
 - **Zapping bloquea a GitHub (403)**: la guía completa (hoy + mañana) no responde ni con
   `X-Forwarded-For` chileno ni por su frontal `cl-apig`. El runner usa el endpoint
@@ -64,6 +68,12 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-09-30 (estabilidad, tras una revisión externa de Sol)**:
+  - `epg-pending.json` distingue `sin-guia`, `guia-corta` y `hueco`.
+  - Highfly renueva la fecha de `highfly-live.json` cada 3 h (la app lo descartaba con más de
+    24 h aunque los enlaces siguieran vigentes) y corre también al terminar canales y EPG,
+    porque GitHub ejecutaba el cron de 30 min cada 4-6 h.
+  - Búsqueda de una segunda fuente para TVN3, sin resultado.
 - **2026-09-30**: `AGENTS.md` y este `ESTADO.md` pasan a ser la puesta al día obligatoria;
   punteros `CLAUDE.md`, `GEMINI.md` y `.github/copilot-instructions.md` para cualquier
   proveedor de IA. Codex y OpenCode leen `AGENTS.md` directo; `opencode.json`

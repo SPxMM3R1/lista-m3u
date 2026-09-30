@@ -55,6 +55,18 @@ class HighflyLiveTest(unittest.TestCase):
             self.assertFalse(highfly_live.write_if_changed(later, path))
             self.assertEqual("2026-09-28T12:00:00Z", json.loads(path.read_text(encoding="utf-8"))["generatedAt"])
 
+    def test_unchanged_links_renew_the_timestamp_every_three_hours(self) -> None:
+        # La app deja de usar el archivo con más de 24 h: la fecha no puede quedarse pegada.
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "highfly-live.json"
+            first = highfly_live.build_document([row()], fetch=lambda slug: ["ok"],
+                                                now=datetime(2026, 9, 28, 12, tzinfo=timezone.utc))
+            highfly_live.write_if_changed(first, path)
+            later = highfly_live.build_document([row()], fetch=lambda slug: ["ok"],
+                                                now=datetime(2026, 9, 28, 15, tzinfo=timezone.utc))
+            self.assertTrue(highfly_live.write_if_changed(later, path))
+            self.assertEqual("2026-09-28T15:00:00Z", json.loads(path.read_text(encoding="utf-8"))["generatedAt"])
+
 
 if __name__ == "__main__":
     unittest.main()

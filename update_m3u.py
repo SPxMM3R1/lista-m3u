@@ -5370,6 +5370,60 @@ def epg_generated_at(data: bytes) -> datetime | None:
     return generated_at.astimezone(timezone.utc)
 
 
+def epg_pending_details(
+    data: bytes | ET.Element,
+    pending_ids: Iterable[str],
+    *,
+    now: datetime,
+    main_ids: set[str] | frozenset[str],
+) -> dict[str, dict]:
+    """Clasifica cada canal pendiente para el reporte.
+
+    - ``sin-guia``: no tiene ningún programa.
+    - ``guia-corta``: la guía termina antes del horizonte exigido.
+    - ``hueco``: llega al horizonte, pero tiene tramos sin programa (por ejemplo, un canal
+      fuera del aire de madrugada).
+    """
+    root = ET.fromstring(data) if isinstance(data, bytes) else data
+    current = now.astimezone(timezone.utc).replace(microsecond=0)
+    details: dict[str, dict] = {}
+    for channel_id in sorted(set(pending_ids)):
+        horizon = (
+            EPG_MAIN_CONTINUITY_BUFFER if channel_id in main_ids else EPG_NON_MAIN_MINIMUM_FUTURE
+        )
+        stops = []
+        for programme in root.findall("programme"):
+            if programme.get("channel", "") != channel_id:
+                continue
+            try:
+                stops.append(xmltv_datetime(programme.get("stop", "")))
+            except ValueError:
+                continue
+        required_hours = round(horizon.total_seconds() / 3600, 1)
+        if not stops:
+            details[channel_id] = {"kind": "sin-guia", "futureHours": 0.0,
+                                   "requiredHours": required_hours, "gaps": []}
+            continue
+        last_stop = max(stops)
+        limit = current + horizon
+        gaps = [
+            [start.astimezone(timezone.utc).isoformat().replace("+00:00", "Z"),
+             stop.astimezone(timezone.utc).isoformat().replace("+00:00", "Z")]
+            for _channel, start, stop in epg_coverage_gaps(
+                root, {channel_id}, now=current, minimum_future=horizon
+            )
+            # El tramo final (después del último programa) es «guía corta», no un hueco.
+            if not (stop >= limit and start >= last_stop)
+        ]
+        details[channel_id] = {
+            "kind": "guia-corta" if last_stop < limit else "hueco",
+            "futureHours": round(max(0.0, (last_stop - current).total_seconds()) / 3600, 1),
+            "requiredHours": required_hours,
+            "gaps": gaps[:5],
+        }
+    return details
+
+
 def epg_coverage_gaps(
     data: bytes | ET.Element,
     expected_ids: set[str],
@@ -6649,6 +6703,9 @@ def build_epg(
     status["guide_sources"] = guide_sources
     status["continuity_blocks_added"] = sum(continuity_blocks_by_channel.values())
     status["pending_channels"] = sorted(pending_set)
+    status["pending_details"] = epg_pending_details(
+        root, pending_set, now=now, main_ids=set(main_ids)
+    )
     status["descriptions"] = {
         **description_status,
         "policy": "verified-source-only",
@@ -9727,7 +9784,10 @@ def main() -> int:
                         "updated_at": datetime.now(timezone.utc)
                         .isoformat()
                         .replace("+00:00", "Z"),
+                        # «channels» lo usa run_epg_6h.py para reintentar; «details»
+                        # distingue sin guía, guía corta y huecos.
                         "channels": pending_channels,
+                        "details": epg_status.get("pending_details") or {},
                     },
                     indent=2,
                     ensure_ascii=True,
@@ -9741,11 +9801,17 @@ def main() -> int:
                 file=sys.stderr,
             )
         if pending_channels:
-            print(
-                "  [EPG-PENDIENTE] Canales con guia incompleta (poco horizonte o huecos): "
-                + ", ".join(pending_channels),
-                file=sys.stderr,
-            )
+            labels = {"sin-guia": "sin guía", "guia-corta": "guía corta", "hueco": "con huecos"}
+            details = epg_status.get("pending_details") or {}
+            for kind, label in labels.items():
+                ids = [
+                    f"{channel_id} ({details[channel_id]['futureHours']} h de "
+                    f"{details[channel_id]['requiredHours']} h)"
+                    for channel_id in pending_channels
+                    if details.get(channel_id, {}).get("kind") == kind
+                ]
+                if ids:
+                    print(f"  [EPG-PENDIENTE] {label}: " + ", ".join(ids), file=sys.stderr)
         print(
             f"EPG actualizada: {epg_status['channels']} canales y "
             f"{epg_status['programmes']} programas; "

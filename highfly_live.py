@@ -15,7 +15,7 @@ from __future__ import annotations
 
 import argparse
 import json
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import update_m3u
@@ -86,12 +86,31 @@ def build_document(rows: list[dict], fetch=None, now: datetime | None = None) ->
     return {"schema": SCHEMA, "generatedAt": moment.isoformat().replace("+00:00", "Z"), "channels": channels}
 
 
+# La app descarta el archivo si su generatedAt tiene más de 24 h. Aunque los enlaces
+# no cambien, la fecha se renueva cada 3 h para que un enlace vigente siga usándose.
+TIMESTAMP_REFRESH = timedelta(hours=3)
+
+
+def _parse_timestamp(value: object) -> datetime | None:
+    try:
+        return datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+    except ValueError:
+        return None
+
+
 def write_if_changed(document: dict, path: Path = OUTPUT_PATH) -> bool:
-    """Solo reescribe si cambian los enlaces; la hora sola no genera commits."""
+    """Reescribe si cambian los enlaces o si la fecha publicada ya tiene 3 h o más."""
     if path.is_file():
         try:
             previous = json.loads(path.read_text(encoding="utf-8"))
-            if previous.get("channels") == document["channels"]:
+            previous_at = _parse_timestamp(previous.get("generatedAt"))
+            current_at = _parse_timestamp(document.get("generatedAt"))
+            fresh = (
+                previous_at is not None
+                and current_at is not None
+                and current_at - previous_at < TIMESTAMP_REFRESH
+            )
+            if previous.get("channels") == document["channels"] and fresh:
                 return False
         except (json.JSONDecodeError, OSError):
             pass

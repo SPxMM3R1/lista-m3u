@@ -1,8 +1,18 @@
 name: Actualizar enlaces Highfly
 on:
   schedule:
-    # Highfly rota sus hojas: se revisa cada 30 minutos (tarda segundos).
+    # Highfly rota sus hojas: se pide cada 30 minutos (tarda segundos). GitHub retrasa los
+    # cron frecuentes (en la práctica corre cada 4-6 h), por eso también corre al terminar
+    # canales y EPG.
     - cron: "*/30 * * * *"
+  workflow_run:
+    workflows:
+      - Actualizar canales M3U
+      - Actualizar EPG
+    types:
+      - completed
+    branches:
+      - main
   workflow_dispatch:
   push:
     branches:
