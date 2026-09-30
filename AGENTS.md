@@ -19,8 +19,9 @@ agente debe poder retomar el trabajo solo con lo que está en el repositorio.
    - si cambió una regla compartida, actualiza `REGLAS.md` (en Lista M3U).
 3. **Nunca** dejes información solo en el chat o en la memoria de una herramienta: si otro
    agente la necesitará, va a estos archivos.
-4. `CLAUDE.md`, `GEMINI.md` y `.github/copilot-instructions.md` solo apuntan aquí; no se
-   agregan reglas en ellos.
+4. Codex y OpenCode leen este `AGENTS.md` directo; `opencode.json` además hace que OpenCode
+   cargue siempre `ESTADO.md`. `CLAUDE.md`, `GEMINI.md` y `.github/copilot-instructions.md`
+   solo apuntan aquí. No se agregan reglas en ninguno de ellos.
 
 ## Qué es este repositorio
 

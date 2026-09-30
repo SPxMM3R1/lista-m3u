@@ -66,7 +66,8 @@
 
 - **2026-09-30**: `AGENTS.md` y este `ESTADO.md` pasan a ser la puesta al día obligatoria;
   punteros `CLAUDE.md`, `GEMINI.md` y `.github/copilot-instructions.md` para cualquier
-  proveedor de IA.
+  proveedor de IA. Codex y OpenCode leen `AGENTS.md` directo; `opencode.json`
+  hace que OpenCode cargue también `ESTADO.md`.
 - **2026-09-29**:
   - CHV: la oficial pasa a relleno detrás de Zapping y TecnoCentro (el noticiero aparecía como
     «Plan Perfecto»).
