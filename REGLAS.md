@@ -2,7 +2,7 @@
 
 Documento único y corto con las reglas que rigen hoy. El detalle vive en los documentos
 enlazados; si algo de aquí contradice un documento antiguo, manda este. Última revisión:
-2026-09-27.
+2026-09-30. El estado de hoy y la bitácora están en `ESTADO.md` de cada repositorio.
 
 ## 1. Repositorios y límites
 
@@ -43,15 +43,23 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
 
 ## 4. EPG
 
-- Solo Lista 1 más los canales gestionados con fuente. Prioridad: oficial → Zapping →
-  TecnoCentro (Red Bull con respaldo Pluto).
+- Solo Lista 1 más los canales gestionados con fuente.
+- Cada canal mezcla sus fuentes por prioridad (`epg_source_chain`): Red Bull → oficial →
+  Zapping → fuente base → TecnoCentro → Pluto → EPGShare de respaldo → guía publicada anterior
+  (6 h de pasado máximo). La de más arriba manda donde tiene programas; las demás solo
+  rellenan huecos antes, entre medio o después, y un bloque que ya estaba al aire se recorta
+  desde donde termina la anterior. Si una oficial vuelve, recupera sus tramos en la corrida
+  siguiente.
+- **CHV**: su oficial no publica los noticieros; queda como relleno detrás de Zapping y
+  TecnoCentro (`EPG_INCOMPLETE_OFFICIAL_IDS`).
 - Sin relleno técnico: sin fuente real, el canal queda pendiente (`epg-pending.json`).
   Única excepción acordada: Rwnd = `Live`.
 - Procurar al menos 12 h por canal (mínimo, no tope): se integra toda la guía real que publique
   cada fuente, hasta 8 días. Los pendientes se reintentan en cada ciclo de 6 h.
 - **La Red**: solo su guía oficial (`lared.cl`), sin Zapping ni TecnoCentro. Si falla, se
   conserva la última parrilla real. Sus pestañas lun..dom son los próximos 7 días desde hoy.
-- **TVN3**: se usa Zapping aunque a veces no calza (decisión del usuario, 27-09).
+- **TVN3**: se usa Zapping aunque a veces no calza (decisión del usuario, 27-09). Desde GitHub
+  Zapping solo entrega su `nowplaying` (~3 h): la guía completa responde 403.
 - No asignar EPG por posición, nombre parecido, bitrate ni URL; ante duda, pendiente.
 - La app lee la sinopsis (`<desc>`, máximo 600 caracteres) para el Detalle y la Guía.
 - Cada fuente vive en su archivo `epg_sources/<fuente>.py`; las oficiales se declaran en
@@ -82,6 +90,8 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
   concurrencia `m3u-publisher` (compartido con cambios dirigidos).
 - EPG: cron `0 0,6,12,18` America/Santiago y tras un commit editorial o disparo manual de
   canales (no tras el cron de canales). Grupo propio `m3u-epg`: publica solo archivos de EPG.
+- Canales y EPG corren por partes: un job por proveedor y un job por fuente, más un job final
+  que arma y publica. Una parte caída no frena al resto (sus canales usan respaldo).
 - Todos los push integran `main` y reintentan; nunca force-push.
 - Highfly: `update-highfly.yml` corre cada 30 min (y al cambiar el layout) y publica
   `data/highfly-live.json` con la hoja que hoy entrega señal y su enlace directo (sin token).
@@ -102,8 +112,15 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
 - Guía: OK corto abre el canal; OK mantenido programa o quita un recordatorio (campana cyan).
   El aviso (300×52 dp, arriba a la derecha) llega con la app cerrada si tiene el permiso
   «Mostrar sobre otras apps»; «Ver» cambia al canal. Se gestionan en Opciones › Interfaz.
-- El OSD ocupa el ancho de la pantalla menos 32dp por lado, alineado con el reloj. No se
-  cambia su diseño ni su tamaño sin pedirlo el usuario.
+- En la Guía, ◀ ▶ mueven el velo cyan entre programas (el canal no se marca) y ▲ desde el
+  primer canal va a los filtros por categoría.
+- Estilo vigente (0.5.43) en la Guía, el OSD y los menús:
+  - fondo oscuro con el video asomando a la derecha;
+  - filas tenues y foco con velo cyan;
+  - píldoras (lo activo en cyan);
+  - reloj con fecha en recuadro gris;
+  - logos con tamaño óptico (`LogoFit`).
+- No se cambia el diseño sin mockup aprobado con «aplícalo».
 
 ## 8. Incidentes que originaron reglas
 
@@ -116,3 +133,7 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
 | 27-09 | Versiones 0.6.x sin consultar | Solo último número (§7) |
 | 27-09 | EPG canceló corridas de canales en espera | Grupo propio de EPG (§6) |
 | 27-09 | La Red sin EPG un domingo | Pestañas desde hoy (§4) |
+| 28-09 | Host nuevo de TVN fuera de la lista permitida: la 0.5.37 perdió todos los resolutores | Host nuevo en el mismo cambio + test del catálogo (§7) |
+| 29-09 | CHV mostraba «Plan Perfecto» durante el noticiero | Oficial incompleta = relleno (§4) |
+| 29-09 | Mega con hueco y programas duplicados al mezclar oficial y respaldo | Mezcla por prioridad con recorte (§4) |
+| 30-09 | Cambio de proveedor de IA sin contexto | `AGENTS.md` + `ESTADO.md` siempre al día (ver `AGENTS.md`) |

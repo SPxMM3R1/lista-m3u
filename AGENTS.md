@@ -4,6 +4,24 @@
 
 Guía para agentes de IA que trabajen en este repositorio (catálogo público, runner de canales/resolutores, EPG y editor web).
 
+## Protocolo de traspaso (obligatorio para cualquier agente)
+
+El usuario cambia de proveedor de IA (Codex, Claude, Gemini, Copilot…) sin aviso: cualquier
+agente debe poder retomar el trabajo solo con lo que está en el repositorio.
+
+1. **Al empezar**: lee este archivo, `ESTADO.md` (cómo está todo hoy, pendientes,
+   preferencias del usuario y bitácora) y ``REGLAS.md``.
+2. **Con cada cambio**, en el mismo commit:
+   - actualiza `ESTADO.md`: la sección «Hoy» si cambió el estado y una línea nueva en
+     «Bitácora» con la fecha;
+   - actualiza este `AGENTS.md` si cambió la forma de trabajar, un comando, un test esperado o
+     una regla;
+   - si cambió una regla compartida, actualiza `REGLAS.md` (en Lista M3U).
+3. **Nunca** dejes información solo en el chat o en la memoria de una herramienta: si otro
+   agente la necesitará, va a estos archivos.
+4. `CLAUDE.md`, `GEMINI.md` y `.github/copilot-instructions.md` solo apuntan aquí; no se
+   agregan reglas en ellos.
+
 ## Qué es este repositorio
 
 - Catálogo público que consume VibeM3U (Android TV): `channel-catalog.m3u` (inventario canónico), `m3u.m3u`/`1.m3u` (Lista 1), `m3u-externa.m3u`/`2.m3u` (Lista 2), `epg.xml`, `epg-pending.json`, `resolver-catalog.json`, `logos/`.
@@ -21,7 +39,7 @@ Guía para agentes de IA que trabajen en este repositorio (catálogo público, r
 ## Cómo trabajar
 
 - Tests obligatorios antes de commitear:
-  - `python -m unittest discover -s tests -p "test_*.py"` (esperado: 226 en verde).
+  - `python -m unittest discover -s tests -p "test_*.py"` (esperado: 227 en verde).
   - `node --test tests/editor-core.test.mjs tests/layout-contract.test.mjs` (esperado: 34 en verde).
 - Validar el editor local sin tocar el repo: `python scripts/build_site_data.py --output <carpeta temp>` (solo acepta salidas dentro de la carpeta temporal).
 - Commits en español con prefijo: `feat(editor)`, `fix(resolvers)`, `feat(epg)`, `fix(catalogo)`, `chore(...)`.
@@ -42,13 +60,15 @@ Guía para agentes de IA que trabajen en este repositorio (catálogo público, r
 
 ## Reglas funcionales vigentes
 
-- EPG solo para Lista 1 más canales gestionados con fuente (aislados y opcionales): prioridad oficial → Zapping (frontales `*-apig.zappingtv.com` con `curl --connect-to`) → TecnoCentro; Red Bull con respaldo Pluto. Sin relleno técnico: si no hay fuente, el canal queda pendiente diagnosticado; única excepción acordada: Rwnd = `Live`.
-- Mezcla por prioridad (`epg_source_chain`): Red Bull → oficial → Zapping → fuente base → TecnoCentro → Pluto → EPGShare de respaldo → guía publicada anterior (solo 6 h hacia atrás). La de más arriba manda donde tiene programas y cada siguiente solo rellena huecos (antes, entre medio o después, recortando bloques que ya estaban al aire). Si una oficial vuelve, recupera sus tramos en la corrida siguiente. Las claves de `replaces` quedan prohibidas para ese canal (La Red solo usa su oficial y lo ya publicado).
+- EPG solo para Lista 1 más canales gestionados con fuente (aislados y opcionales). Sin relleno técnico: si no hay fuente, el canal queda pendiente diagnosticado; única excepción acordada: Rwnd = `Live`.
+- Zapping bloquea a GitHub (403, también con `X-Forwarded-For` y por `cl-apig`): el runner usa su endpoint `nowplaying` (~5 programas) y TecnoCentro continúa esos canales (`TECNOCENTRO_BACKUP_CHANNELS`). Red Bull Chile se consulta como visita chilena (`X-Forwarded-For`), sin usar el PC del usuario.
+- Mezcla por prioridad (`epg_source_chain`): Red Bull → oficial → Zapping → fuente base → TecnoCentro → Pluto → EPGShare de respaldo → guía publicada anterior (solo 6 h hacia atrás). La de más arriba manda donde tiene programas y cada siguiente solo rellena huecos (antes, entre medio o después, recortando bloques que ya estaban al aire). Si una oficial vuelve, recupera sus tramos en la corrida siguiente. Las claves de `replaces` quedan prohibidas para ese canal (La Red solo usa su oficial y lo ya publicado). Si una oficial omite bloques (CHV no publica sus noticieros), se agrega a `EPG_INCOMPLETE_OFFICIAL_IDS` y queda como relleno detrás de Zapping y TecnoCentro. EPGShare continúa guías oficiales cortas vía `EPGSHARE_BACKUP_CHANNELS` (DW).
 - Procurar al menos 12 h de programación por canal en cada corrida; los pendientes se reintentan por canal dentro de la corrida y en cada ciclo de 6 h.
 - El runner no inventa programación, EPG ni coincidencias: ante ambigüedad, dejar pendiente.
 
 ## Documentos de referencia
 
+- `ESTADO.md` (puesta al día: estado de hoy, pendientes, preferencias del usuario y bitácora).
 - `VIBEM3U_ID_CONTRACT_EPG_LOGOS.md` (contrato de identidad, EPG y logos).
 - `RESOLVER_RECIPE_CONTRACT.md` y `VAVOO_TVVOO_SOLUCIONES_VIBEM3U.md`.
 - `LOCAL_CATALOG_EDITOR.md` (editor local y auxiliar).

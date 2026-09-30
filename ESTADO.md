@@ -1,0 +1,94 @@
+# ESTADO.md — Lista M3U: puesta al día para cualquier agente
+
+> Léelo completo antes de trabajar, junto con `AGENTS.md` (cómo trabajar) y `REGLAS.md`
+> (reglas vigentes de ambos proyectos). App hermana: `SPxMM3R1/vibem3u` (su `ESTADO.md`
+> cubre la app). **Al terminar cualquier cambio, actualiza este archivo en el mismo commit**:
+> la sección «Hoy» si cambió el estado y una línea nueva en «Bitácora».
+
+Última actualización: **2026-09-30**.
+
+## Hoy, en una mirada
+
+- **Qué es**: catálogo público de canales, guía EPG y logos que consume la app VibeM3U
+  (Android TV), más el runner que los mantiene y el editor web (`site/`).
+- **Publicación**: todo corre en GitHub Actions; ningún proceso usa el PC del usuario.
+  - Canales: `update-channels.yml`, un job por proveedor (`direct`, `tvn`, `meganoticias`,
+    `highfly`, `tvvoo`) y un job final que arma listas y publica.
+  - EPG: `update-epg.yml`, un job por fuente (17 partes, `--list-epg-parts`) y un job final.
+  - Highfly: `update-highfly.yml` cada 30 min publica `data/highfly-live.json` (enlace directo
+    vigente, sin token). La app lo abre al tiro y usa su resolutor si falla.
+- **EPG**: 47 canales. Cada canal mezcla sus fuentes por prioridad (`epg_source_chain`): la de
+  más arriba manda donde tiene programas y las demás solo rellenan huecos. Horizonte típico
+  30–190 h.
+- **Tests**: 227 Python (`python -m unittest discover -s tests -p "test_*.py"`) y 34 JS
+  (`node --test tests/editor-core.test.mjs tests/layout-contract.test.mjs`).
+
+## Pendientes y decisiones abiertas
+
+- **EPG pendiente (límite de la fuente, no del runner)**:
+  - TVN3 (`1437`): solo existe en Zapping, que desde GitHub entrega ~3 h.
+  - MTV Biggest Pop, Flow Latino y Spankin' New: Pluto publica ~13 h y se exigen 24 h.
+- **Zapping bloquea a GitHub (403)**: la guía completa (hoy + mañana) no responde ni con
+  `X-Forwarded-For` chileno ni por su frontal `cl-apig`. El runner usa el endpoint
+  `nowplaying` (anterior, actual y siguientes: ~5 programas). Probado el 2026-09-29.
+- **CHV**: su página oficial no publica los noticieros. La oficial solo rellena detrás de
+  Zapping y TecnoCentro (`EPG_INCOMPLETE_OFFICIAL_IDS`). Más allá de ~30 h todavía puede
+  aparecer un programa estirado sobre el noticiero.
+- **Logos**: pendiente de decidir si la coincidencia por nombre exige país (`REGLAS.md` §5).
+- Carpeta `experiments/direct_links_lab/` **del usuario, sin commitear**: no tocarla, no
+  incluirla en commits y no usar `git stash -u` (se la llevó una vez el 2026-09-29).
+
+## Cómo trabaja el usuario (válido para ambos proyectos)
+
+- Responder siempre en **español de Chile, tuteando**. Nunca en inglés.
+- **Diseño**: primero mockup (imagen), y solo con «aplícalo» se toca código, se compila o se
+  publica. «Sí» a una pregunta no es «aplícalo».
+- **No usar el PC del usuario para automatizar** (nada de tareas programadas ni servicios
+  locales): todo en GitHub Actions. Para diagnosticar desde fuera de Chile, usar una rama
+  temporal con un workflow `on: push` y borrarla después.
+- Antes de afirmar que un canal o fuente «no funciona», comprobarlo más de una vez y decir
+  «en este momento».
+- Nunca force-push; acciones destructivas solo con confirmación; nunca publicar tokens,
+  credenciales ni URL firmadas.
+- Versiones de la app: solo sube el último número salvo que el usuario decida otra cosa.
+
+## Entorno de trabajo
+
+- Windows, repos en `D:\Users\SP4MM3R\Documents\Codex\` (`Lista M3U` y `VibeM3U`). Git Bash y
+  PowerShell; `gh` CLI autenticado.
+- **2026-09-30: el disco D: quedó lleno (0 GB libres)** y git no podía escribir. Si un commit
+  falla por espacio, avisar al usuario; no borrar nada suyo para liberar espacio.
+- Mockups: HTML renderizado con Edge headless. Lo confiable es PowerShell con
+  `Start-Process msedge.exe --headless=new --screenshot=... -Wait` y un `--user-data-dir`
+  nuevo por captura.
+
+## Bitácora (más reciente arriba)
+
+- **2026-09-30**: `AGENTS.md` y este `ESTADO.md` pasan a ser la puesta al día obligatoria;
+  punteros `CLAUDE.md`, `GEMINI.md` y `.github/copilot-instructions.md` para cualquier
+  proveedor de IA.
+- **2026-09-29**:
+  - CHV: la oficial pasa a relleno detrás de Zapping y TecnoCentro (el noticiero aparecía como
+    «Plan Perfecto»).
+  - Mezcla general de fuentes por prioridad para todos los canales; la guía anterior solo
+    rellena (6 h de pasado máximo); TVN y Mega pasan de ~29 h a ~73 h.
+  - Respaldos que continúan guías cortas sin huecos ni duplicados: TecnoCentro continúa a
+    Zapping en T13, CHV Noticias, NTV y Meganoticias; EPGShare continúa a DW; 13Go se
+    redondea al minuto. Pendientes: de 12 a 4.
+  - Runners por partes: canales por proveedor y EPG por fuente.
+- **2026-09-28**:
+  - Highfly: el runner publica el enlace directo vigente de cada canal (`highfly-live.json`).
+  - TVN movió su reproductor fuera de `live.tvn.cl` (host nuevo `*.run.app`).
+- **2026-09-27**:
+  - EPG sin tope de 18 h (se integra toda la guía real, hasta 8 días).
+  - Red Bull Chile vía `X-Forwarded-For` chileno (sin PC).
+  - Cada fuente EPG en `epg_sources/<fuente>.py`, con fallos aislados.
+  - Sky F1 vuelve a Highfly con alias TvVoo aparte.
+  - `REGLAS.md` como documento único de reglas; contrato compartido de filas de proveedor.
+  - Grupo propio de concurrencia para la EPG.
+- **2026-09-26**:
+  - Mantenimiento de canales solo sobre Lista 1.
+  - EPG oficial → Zapping → TecnoCentro sin relleno técnico.
+  - Editor con selección múltiple.
+- **2026-09-25 y antes**: editor web local, logos históricos, Highfly y TvVoo gestionados
+  desde el editor, listas 1 y 2.
