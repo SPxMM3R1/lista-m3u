@@ -149,10 +149,9 @@ class TvnEpgTests(unittest.TestCase):
 
         output, status = update_m3u.build_epg(
             {
+                # Zapping y TecnoCentro mandan en CHV (la oficial omite los
+                # noticieros); sin ellos, la oficial sigue ganándole a la agregada.
                 "cl": ET.tostring(aggregated, encoding="utf-8"),
-                update_m3u.ZAPPING_EPG_SOURCE: ET.tostring(
-                    aggregated, encoding="utf-8"
-                ),
                 update_m3u.CHV_OFFICIAL_EPG_SOURCE: official,
             },
             [channel("CHV", "0106")],

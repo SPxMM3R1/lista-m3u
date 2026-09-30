@@ -6181,6 +6181,12 @@ def fetch_epg_part_to_dir(name: str, directory: Path) -> int:
     return 0
 
 
+# Canales cuya guía oficial omite bloques (la de Chilevisión no publica sus
+# noticieros y su importador estira el programa anterior hasta el siguiente):
+# ahí la oficial pasa a relleno detrás de Zapping y TecnoCentro.
+EPG_INCOMPLETE_OFFICIAL_IDS = frozenset({"0106"})
+
+
 def epg_source_chain(target_id: str) -> list[tuple[str, str]]:
     """Fuentes de un canal de mayor a menor prioridad, como (fuente, id).
 
@@ -6192,14 +6198,24 @@ def epg_source_chain(target_id: str) -> list[tuple[str, str]]:
     """
     chain: list[tuple[str, str]] = []
     forbidden: set[tuple[str, str]] = set()
+    official: list[tuple[str, str]] = []
     # Una fuente oficial posterior en la tabla gana si dos cubren el canal.
     for source in reversed(OFFICIAL_EPG_SOURCES):
         if target_id in source.targets:
-            chain.append((source.name, source.targets[target_id]))
+            official.append((source.name, source.targets[target_id]))
             if source.replaces is not None:
                 forbidden.update(source.replaces)
+    official_is_fill = target_id in EPG_INCOMPLETE_OFFICIAL_IDS
+    if not official_is_fill:
+        chain.extend(official)
     if target_id in ZAPPING_EPG_CHANNELS:
         chain.append((ZAPPING_EPG_SOURCE, target_id))
+    if official_is_fill and target_id in TECNOCENTRO_BACKUP_CHANNELS:
+        # La oficial omite bloques: Zapping y TecnoCentro mandan y la oficial
+        # solo cubre los días que ellos no alcanzan.
+        chain.append(("tecnocentro", TECNOCENTRO_BACKUP_CHANNELS[target_id]))
+    if official_is_fill:
+        chain.extend(official)
     if target_id in EPG_PROGRAMME_SOURCES:
         chain.append(EPG_PROGRAMME_SOURCES[target_id])
     if target_id not in NO_EPG_CHANNEL_IDS:

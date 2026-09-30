@@ -47,6 +47,13 @@ class OfficialEpgSourcesTest(unittest.TestCase):
         self.assertIn(("tecnocentro", "LCH1225"), chain)
         self.assertEqual(chain[-1], (update_m3u.PUBLISHED_EPG_FALLBACK_SOURCE, "0104"))
 
+    def test_incomplete_official_guide_only_fills_after_zapping_and_tecnocentro(self) -> None:
+        chain = update_m3u.epg_source_chain("0106")
+        self.assertEqual(chain[0], (update_m3u.ZAPPING_EPG_SOURCE, "0106"))
+        self.assertEqual(chain[1], ("tecnocentro", "LCH481"))
+        self.assertEqual(chain[2], (update_m3u.CHV_OFFICIAL_EPG_SOURCE, "0106"))
+        self.assertEqual(chain[-1], (update_m3u.PUBLISHED_EPG_FALLBACK_SOURCE, "0106"))
+
     def test_replaced_keys_are_never_used(self) -> None:
         self.assertNotIn(("cl", "Canal.NHK.World.cl"), update_m3u.epg_source_chain("NHKWorldJapan.jp"))
         self.assertNotIn(
