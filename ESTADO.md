@@ -68,6 +68,7 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-09-30**: logo de Sky Sports Premier League con las proporciones del logo real en pantalla (foto del usuario, perspectiva corregida): bloque «Premier League» 727×136 centrado y león dentro del marco. Mismo archivo 870×377, mismo estilo blanco con marco que el resto de Sky.
 - **2026-09-30 (estabilidad, tras una revisión externa de Sol)**:
   - `epg-pending.json` distingue `sin-guia`, `guia-corta` y `hueco`.
   - Highfly renueva la fecha de `highfly-live.json` cada 3 h (la app lo descartaba con más de
