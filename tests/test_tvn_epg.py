@@ -329,9 +329,9 @@ class TvnEpgTests(unittest.TestCase):
         programmes = self._donation_epg("Miami Vice", "El auto fantástico")
         self.assertTrue(all(desc is None for title, desc in programmes if title == "Miami Vice"))
 
-    def test_synopsis_is_not_donated_without_enough_overlap(self) -> None:
+    def test_synopsis_is_not_donated_from_another_day(self) -> None:
         programmes = self._donation_epg(
-            "El Auto Fantástico", "El auto fantástico", shift=timedelta(minutes=70)
+            "El Auto Fantástico", "El auto fantástico", shift=timedelta(hours=24)
         )
         self.assertTrue(all(desc is None for title, desc in programmes if title == "El Auto Fantástico"))
 

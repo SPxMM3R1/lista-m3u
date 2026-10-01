@@ -76,6 +76,12 @@
   con la guía del día: 321 programas pasan a tener sinopsis. Se corrigió además que `dwe` de
   Zapping (DW Español) rellenaba la parrilla de DW English. Siguen sin sinopsis: Arirang
   (Zapping no la publica), Autentic History, M1, M2 y Telehit.
+  - Misma fecha: la guía de Zapping da 403 desde GitHub, así que en Actions no llegaban
+    sinopsis. Se suma Claro Video (`claro-sinopsis`), que sí responde desde Actions
+    (verificado con una rama temporal ya borrada). Con Claro sola, en las próximas 24 h:
+    TVN 12/17, Mega 14/18, T13 23/27, 24 Horas 24/30, 13 Cultura 21/25, DW Español 42/50,
+    France 24 Español 93/108, Canal 13 10/16. Bajos: CHV, Meganoticias, NTV y La Red
+    (Claro tiene otra parrilla para La Red).
 - **2026-10-01**: TNT Sports 1–4 (TvVoo Reino Unido) agregados como canales 124–127 con
   `editor-core`. TvVoo publica varias variantes por número; se eligió la que hoy entrega
   video (HLS y segmento verificados): `TNT SPORT 1`, `TNT SPORT 2`, `TNT SPORTS 3`,

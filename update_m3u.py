@@ -953,6 +953,25 @@ ZAPPING_DESCRIPTION_CHANNELS = {
     "DW.de": "dwe",
 }
 ZAPPING_DESCRIPTION_ID_PREFIX = "sinopsis:"
+# Claro Video (guía pública) publica sinopsis por programa para casi todos los
+# canales chilenos. Solo dona descripciones (``epg_sources/claro.py``); la clave
+# es ``group_id`` de su API, única por canal.
+CLARO_SYNOPSIS_PART = "claro-sinopsis"
+CLARO_SYNOPSIS_CHANNELS = {
+    "0104": "908389",  # TVN CHILE
+    "0105": "793481",  # MEGA
+    "0106": "793442",  # CHILEVISION HD
+    "0107": "793523",  # CANAL13 CHILE HD
+    "0102": "908404",  # LA RED HD
+    "0201": "793269",  # CANAL 24 HORAS
+    "0124": "1326688",  # T 13 EN VIVO
+    "Meganoticias.cl": "1326690",  # MEGA NOTICIAS
+    "1437": "1313001",  # TVN 3
+    "45": "908362",  # NTV
+    "13Cultura.cl@DPS": "1326687",  # 13 CULTURA
+    "DW.de": "1028753",  # DEUTSCHE WELLE HD (en castellano)
+    "France24.fr": "898467",  # FRANCE24 HD (en castellano)
+}
 TECNOCENTRO_EPG_URL = "https://tecnocentro.cl/"
 # Respaldo real por canal cuando la fuente principal no entrega bloques.
 # Se consulta solo si el canal quedo sin parrilla fresca; nunca reemplaza a
@@ -6032,6 +6051,7 @@ def epg_part_names() -> list[str]:
         ZAPPING_EPG_SOURCE,
         TECNOCENTRO_PART,
         UKRAINIAN_PART,
+        CLARO_SYNOPSIS_PART,
     ]
 
 
@@ -6040,7 +6060,7 @@ def missing_epg_part(name: str) -> EpgPart:
     detail = "parte no disponible en esta corrida"
     if name == RED_BULL_PART:
         return EpgPart(errors={"red_bull:todas": detail})
-    if name in {ZAPPING_EPG_SOURCE, TECNOCENTRO_PART, UKRAINIAN_PART}:
+    if name in {ZAPPING_EPG_SOURCE, TECNOCENTRO_PART, UKRAINIAN_PART, CLARO_SYNOPSIS_PART}:
         return EpgPart(errors={f"{name}:todas": detail})
     return EpgPart(errors={name: detail})
 
@@ -6110,6 +6130,7 @@ def fetch_epg_part(
         ZAPPING_EPG_SOURCE: fetch_zapping_epg,
         TECNOCENTRO_PART: fetch_tecnocentro_epg,
         UKRAINIAN_PART: fetch_ukrainian_music_epg,
+        CLARO_SYNOPSIS_PART: fetch_claro_synopsis_epg,
     }
     if name not in fetchers:
         raise ValueError(f"parte EPG desconocida: {name}")
@@ -6299,6 +6320,7 @@ def epg_source_chain(target_id: str) -> list[tuple[str, str]]:
 
 
 EPG_MINIMUM_FILL_BLOCK = timedelta(minutes=1)
+EPG_DESCRIPTION_TIME_TOLERANCE = timedelta(hours=3)
 EPG_TITLE_NOISE = re.compile(
     r"\((?:estreno|en vivo|vivo|directo|repeticion|r|hd|lo mejor)\)|\bestreno\b"
 )
@@ -6342,7 +6364,7 @@ def donate_epg_descriptions(
 
     La parrilla de cada canal la decide ``epg_source_chain``; aquí no se mueve
     ningún horario. Si el programa publicado no trae descripción, se toma la de
-    otra fuente del mismo canal (o de Zapping, solo para sinopsis) cuando el
+    otra fuente del mismo canal (o de Zapping y Claro Video, solo sinopsis) cuando el
     mismo programa se superpone al menos a la mitad y el título coincide. No se
     inventa texto: sin una coincidencia así, el programa queda sin descripción.
     """
@@ -6350,6 +6372,7 @@ def donate_epg_descriptions(
     for target_id in expected_ids:
         keys = list(epg_source_chain(target_id))
         keys.append((ZAPPING_EPG_SOURCE, ZAPPING_DESCRIPTION_ID_PREFIX + target_id))
+        keys.append((CLARO_SYNOPSIS_PART, ZAPPING_DESCRIPTION_ID_PREFIX + target_id))
         donors: list[tuple[datetime, datetime, str, str]] = []
         for key in keys:
             for start, stop, programme in programmes_by_key.get(key, []):
@@ -6386,6 +6409,19 @@ def donate_epg_descriptions(
                 continue
             if best is None or overlap > best[0]:
                 best = (overlap, text)
+        if best is None:
+            # Algunas guías (Claro) tienen la parrilla corrida una hora o más:
+            # mismo título a menos de 3 h es la misma emisión, nunca la de otro día.
+            nearest: tuple[timedelta, str] | None = None
+            for donor_start, _donor_stop, donor_title, text in donors:
+                distance = abs(donor_start - start)
+                if distance > EPG_DESCRIPTION_TIME_TOLERANCE:
+                    continue
+                if not epg_titles_match(title, donor_title):
+                    continue
+                if nearest is None or distance < nearest[0]:
+                    nearest = (distance, text)
+            best = nearest
         if best is None:
             continue
         for element in programme.findall("desc"):
@@ -10708,6 +10744,7 @@ from epg_sources.autentic import *  # noqa: E402,F401,F403
 from epg_sources.zapping import *  # noqa: E402,F401,F403
 from epg_sources.ukrainian import *  # noqa: E402,F401,F403
 from epg_sources.tecnocentro import *  # noqa: E402,F401,F403
+from epg_sources.claro import *  # noqa: E402,F401,F403
 
 
 if __name__ == "__main__":
