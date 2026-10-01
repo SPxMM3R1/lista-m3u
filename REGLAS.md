@@ -43,6 +43,7 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
 
 ## 4. EPG
 
+- Sinopsis (`donate_epg_descriptions`): la parrilla no cambia, pero si el programa publicado no trae descripción se toma la de otra fuente del mismo canal cuando se superpone al menos a la mitad y el título coincide (sin tildes ni marcas como «(estreno)»; «Chilevisión» = «CHV»; mismo nombre antes de «:» o « - »). Zapping aporta sinopsis reales de su guía; para La Red, Arirang, France 24 Español y DW Español (`ZAPPING_DESCRIPTION_CHANNELS`, ids `sinopsis:`) se usa solo como donante y nunca entra a su parrilla. Sin coincidencia, el programa queda sin descripción: no se inventa texto. `dwe` de Zapping es DW Español, no DW English.
 - Solo Lista 1 más los canales gestionados con fuente.
 - Cada canal mezcla sus fuentes por prioridad (`epg_source_chain`): Red Bull → oficial →
   Zapping → fuente base → TecnoCentro → Pluto → EPGShare de respaldo → guía publicada anterior

@@ -266,36 +266,87 @@ class TvnEpgTests(unittest.TestCase):
         )
         self.assertGreater(status["programmes"], 0)
 
-    def test_dw_english_uses_zapping_dwe_when_official_is_unavailable(self) -> None:
-        self.assertEqual("dwe", update_m3u.ZAPPING_EPG_CHANNELS["DWEnglish.de"])
+    def test_zapping_dwe_is_dw_spanish_and_only_gives_synopses(self) -> None:
+        # ``dwe`` publica DW Español: no rellena la parrilla de DW English.
+        self.assertNotIn("DWEnglish.de", update_m3u.ZAPPING_EPG_CHANNELS)
+        self.assertEqual("dwe", update_m3u.ZAPPING_DESCRIPTION_CHANNELS["DW.de"])
+        self.assertNotIn(
+            update_m3u.ZAPPING_EPG_SOURCE,
+            [source for source, _ in update_m3u.epg_source_chain("DW.de")],
+        )
+
+    def _donation_epg(self, official_title: str, zapping_title: str, *, shift=timedelta(0)):
         now = datetime(2026, 8, 24, 12, tzinfo=timezone.utc)
-        source_root = ET.Element("tv")
+        start = now - timedelta(minutes=30)
+        stop = now + timedelta(hours=1)
+        official = ET.Element("tv")
         programme = ET.SubElement(
-            source_root,
+            official,
             "programme",
             {
-                "start": update_m3u.xmltv_format_chile(now - timedelta(minutes=30)),
-                "stop": update_m3u.xmltv_format_chile(now + timedelta(hours=2)),
-                "channel": "DWEnglish.de",
+                "start": update_m3u.xmltv_format_chile(start),
+                "stop": update_m3u.xmltv_format_chile(stop),
+                "channel": "0102",
             },
         )
-        ET.SubElement(programme, "title").text = "DW NEWS ENGLISH"
-
-        output, status = update_m3u.build_epg(
-            {update_m3u.ZAPPING_EPG_SOURCE: ET.tostring(source_root, encoding="utf-8")},
-            [channel("DW English", "DWEnglish.de")],
+        ET.SubElement(programme, "title").text = official_title
+        zapping = ET.Element("tv")
+        donor = ET.SubElement(
+            zapping,
+            "programme",
+            {
+                "start": update_m3u.xmltv_format_chile(start + shift),
+                "stop": update_m3u.xmltv_format_chile(stop + shift),
+                "channel": update_m3u.ZAPPING_DESCRIPTION_ID_PREFIX + "0102",
+            },
+        )
+        ET.SubElement(donor, "title").text = zapping_title
+        ET.SubElement(donor, "desc").text = "Michael Knight y KITT luchan contra el crimen."
+        la_red = next(s for s in update_m3u.OFFICIAL_EPG_SOURCES if "0102" in s.targets)
+        output, _ = update_m3u.build_epg(
+            {
+                la_red.name: ET.tostring(official, encoding="utf-8"),
+                update_m3u.ZAPPING_EPG_SOURCE: ET.tostring(zapping, encoding="utf-8"),
+            },
+            [channel("La Red", "0102")],
             {},
             now=now,
         )
-
         root = ET.fromstring(output)
-        dw_channel = root.find("./channel[@id='DWEnglish.de']")
-        self.assertEqual(update_m3u.ZAPPING_EPG_SOURCE, dw_channel.get("data-guide-source"))
-        self.assertEqual(
-            "DW News English",
-            root.find("./programme[@channel='DWEnglish.de']").findtext("title"),
+        return [
+            (item.findtext("title"), item.findtext("desc"))
+            for item in root.findall("./programme[@channel='0102']")
+        ]
+
+    def test_synopsis_is_donated_when_time_and_title_match(self) -> None:
+        programmes = self._donation_epg("El Auto Fantástico (estreno)", "El auto fantástico")
+        self.assertIn(
+            ("El Auto Fantástico (estreno)", "Michael Knight y KITT luchan contra el crimen."),
+            programmes,
         )
-        self.assertGreater(status["programmes"], 0)
+
+    def test_synopsis_is_not_donated_to_another_programme(self) -> None:
+        programmes = self._donation_epg("Miami Vice", "El auto fantástico")
+        self.assertTrue(all(desc is None for title, desc in programmes if title == "Miami Vice"))
+
+    def test_synopsis_is_not_donated_without_enough_overlap(self) -> None:
+        programmes = self._donation_epg(
+            "El Auto Fantástico", "El auto fantástico", shift=timedelta(minutes=70)
+        )
+        self.assertTrue(all(desc is None for title, desc in programmes if title == "El Auto Fantástico"))
+
+    def test_description_only_programmes_never_enter_the_schedule(self) -> None:
+        programmes = self._donation_epg("Miami Vice", "El auto fantástico")
+        self.assertNotIn("El auto fantástico", [title for title, _ in programmes])
+
+    def test_title_matching_handles_brand_and_series_names(self) -> None:
+        match = update_m3u.epg_titles_match
+        self.assertTrue(match("Chilevisión noticias central", "CHV Noticias central"))
+        self.assertTrue(match("Teletrece AM", "Teletrece A.M."))
+        self.assertTrue(match("A fondo: Guerra en Ucrania", "A fondo - Debates sin rodeos"))
+        self.assertTrue(match("ZonaDocu", "Zona docu"))
+        self.assertFalse(match("24 Horas Central", "24 Horas al día"))
+        self.assertFalse(match("El tiempo", "Detrás del muro"))
 
     def test_final_epg_titles_are_not_all_uppercase(self) -> None:
         now = datetime(2026, 8, 24, 12, tzinfo=timezone.utc)

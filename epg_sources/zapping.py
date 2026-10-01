@@ -18,6 +18,8 @@ from epg_sources.common import decode_web_text
 from update_m3u import (
     BROWSER_USER_AGENT,
     Channel,
+    ZAPPING_DESCRIPTION_CHANNELS,
+    ZAPPING_DESCRIPTION_ID_PREFIX,
     ZAPPING_EPG_BASE_URL,
     ZAPPING_EPG_CHANNELS,
     ZAPPING_NOWPLAYING_CONNECT_HOSTS,
@@ -29,6 +31,7 @@ from update_m3u import (
 __all__ = [
     "zapping_html_text",
     "zapping_schedule_rows",
+    "zapping_schedule_descriptions",
     "fetch_zapping_nowplaying_bytes",
     "fetch_zapping_page_bytes",
     "fetch_zapping_epg",
@@ -87,6 +90,37 @@ def zapping_schedule_rows(page_html: str) -> list[tuple[datetime, str]]:
     for start, title in rows:
         unique.setdefault(start, title)
     return sorted(unique.items())
+
+
+def zapping_schedule_descriptions(page_html: str) -> dict[datetime, str]:
+    """Sinopsis reales de cada programa de la guía, por inicio absoluto.
+
+    Cada tarjeta ``epg-item`` trae su descripción completa. La del programa al
+    aire viene recortada con «...»: se conserva solo hasta la última oración
+    completa, o se descarta si no queda ninguna.
+    """
+    descriptions: dict[datetime, str] = {}
+    block_pattern = re.compile(
+        r'href=["\']info/(\d+)["\'](.*?)(?=href=["\']info/\d+["\']|$)',
+        re.IGNORECASE | re.DOTALL,
+    )
+    description_pattern = re.compile(
+        r'class=["\'][^"\']*\bprogram-description\b[^"\']*["\'][^>]*>(.*?)</(?:div|p)\s*>',
+        re.IGNORECASE | re.DOTALL,
+    )
+    for match in block_pattern.finditer(page_html):
+        found = description_pattern.search(match.group(2))
+        if not found:
+            continue
+        text = zapping_html_text(found.group(1))
+        if text.endswith(("...", "…")):
+            cut = max(text.rfind(". "), text.rfind("! "), text.rfind("? "))
+            text = text[: cut + 1] if cut > 0 else ""
+        if len(text) < 20:
+            continue
+        start = datetime.fromtimestamp(int(match.group(1)), timezone.utc)
+        descriptions.setdefault(start, text)
+    return descriptions
 
 
 def fetch_zapping_nowplaying_bytes() -> bytes:
@@ -219,8 +253,18 @@ def fetch_zapping_epg(
         for channel in channels
         if channel.tvg_id in ZAPPING_EPG_CHANNELS
     ]
+    # Canales cuya parrilla viene de otra fuente: de Zapping solo se toman las
+    # sinopsis, publicadas con otro id para que nunca entren a la parrilla.
+    description_targets = [
+        (ZAPPING_DESCRIPTION_ID_PREFIX + channel.tvg_id, ZAPPING_DESCRIPTION_CHANNELS[channel.tvg_id])
+        for channel in channels
+        if channel.tvg_id in ZAPPING_DESCRIPTION_CHANNELS
+        and channel.tvg_id not in ZAPPING_EPG_CHANNELS
+    ]
+    targets += description_targets
     if not targets:
         return None, {}
+    descriptions_by_target: dict[str, dict[datetime, str]] = {}
 
     root = ET.Element(
         "tv",
@@ -282,7 +326,9 @@ def fetch_zapping_epg(
         url = f"{ZAPPING_EPG_BASE_URL}/{slug}/"
         try:
             body = fetch_zapping_page_bytes(url)
-            rows = zapping_schedule_rows(decode_web_text(body))
+            page = decode_web_text(body)
+            rows = zapping_schedule_rows(page)
+            descriptions_by_target[target_id] = zapping_schedule_descriptions(page)
             if len(rows) < 3:
                 raise ValueError("la guia Zapping contiene muy pocos bloques")
 
@@ -302,6 +348,9 @@ def fetch_zapping_epg(
                 raise ValueError("la guia Zapping no publico bloques utilizables")
             return target_id, blocks, None
         except Exception as error:
+            if target_id.startswith(ZAPPING_DESCRIPTION_ID_PREFIX):
+                # Sin la página no hay sinopsis; nowplaying no las trae.
+                return target_id, [], f"{type(error).__name__}: {error}"
             fallback = nowplaying_blocks.get(target_id, [])
             if fallback:
                 return target_id, fallback, None
@@ -339,13 +388,10 @@ def fetch_zapping_epg(
                 },
             )
             ET.SubElement(programme, "title", {"lang": "es"}).text = title
-            description = (
-                "Parrilla publica de Zapping Chile y Simply.TV para TVN3, "
-                "senal oficial de TVN."
-                if target_id == "1437"
-                else "Programacion publica consultada en la guia de Zapping Chile."
-            )
-            ET.SubElement(programme, "desc", {"lang": "es"}).text = description
+            # Solo sinopsis reales de la guía; sin ella, el programa va sin desc.
+            description = descriptions_by_target.get(target_id, {}).get(start)
+            if description:
+                ET.SubElement(programme, "desc", {"lang": "es"}).text = description
 
     # La fuente es opcional y se selecciona por canal. Una pagina que falle no
     # invalida los bloques validos de las otras paginas; build_epg usa esos

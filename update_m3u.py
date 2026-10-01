@@ -933,16 +933,26 @@ ZAPPING_EPG_CHANNELS = {
     "0107": "canal13",
     "0201": "24horas",
     "Meganoticias.cl": "meganoticias",
-    # Zapping identifica esta señal como ``dwe`` (DW English), no como la
-    # parrilla alemana ``DW-TV``. La página oficial de DW conserva prioridad;
-    # Zapping queda como fallback real antes del feed EPGShare francés.
-    "DWEnglish.de": "dwe",
+    # ``dwe`` de Zapping es DW Español (títulos en castellano), no DW English:
+    # ya no rellena la parrilla de DW English y solo aporta sinopsis a DW.de
+    # (``ZAPPING_DESCRIPTION_CHANNELS``).
     "1153": "chvnoticias",
     "0124": "t13",
     "45": "ntv",
     "1437": "tvn3",
     "13C.cl@SD": "13cable",
 }
+# Canales cuya parrilla manda otra fuente (La Red, solo su oficial; Arirang y
+# France 24, EPGShare) pero que en Zapping tienen sinopsis reales. De Zapping se
+# toma solo la descripción, y solo cuando coinciden hora y título
+# (``donate_epg_descriptions``): nunca entra a su parrilla.
+ZAPPING_DESCRIPTION_CHANNELS = {
+    "0102": "lared",
+    "ArirangTV.kr": "arirang",
+    "France24.fr": "fr24es",
+    "DW.de": "dwe",
+}
+ZAPPING_DESCRIPTION_ID_PREFIX = "sinopsis:"
 TECNOCENTRO_EPG_URL = "https://tecnocentro.cl/"
 # Respaldo real por canal cuando la fuente principal no entrega bloques.
 # Se consulta solo si el canal quedo sin parrilla fresca; nunca reemplaza a
@@ -6289,6 +6299,104 @@ def epg_source_chain(target_id: str) -> list[tuple[str, str]]:
 
 
 EPG_MINIMUM_FILL_BLOCK = timedelta(minutes=1)
+EPG_TITLE_NOISE = re.compile(
+    r"\((?:estreno|en vivo|vivo|directo|repeticion|r|hd|lo mejor)\)|\bestreno\b"
+)
+# Mismo programa con otro nombre de marca según la fuente.
+EPG_TITLE_SYNONYMS = {"chilevision": "chv"}
+
+
+def epg_title_key(title: str) -> str:
+    """Título comparable entre fuentes: sin tildes, mayúsculas ni marcas de emisión."""
+    folded = _fold_epg_description(title or "").casefold()
+    folded = EPG_TITLE_NOISE.sub(" ", folded).replace(".", "")
+    words = (EPG_TITLE_SYNONYMS.get(word, word) for word in re.findall(r"[a-z0-9]+", folded))
+    return " ".join(words)
+
+
+def epg_titles_match(left: str, right: str) -> bool:
+    a, b = epg_title_key(left), epg_title_key(right)
+    if not a or not b:
+        return False
+    if a == b or a.replace(" ", "") == b.replace(" ", ""):
+        return True
+    # «A fondo: Guerra en Ucrania» y «A fondo - Debates sin rodeos»: mismo programa
+    # si coincide el nombre antes del episodio (al menos 6 letras).
+    head_a = epg_title_key(re.split(r":| - | – ", left or "", maxsplit=1)[0])
+    head_b = epg_title_key(re.split(r":| - | – ", right or "", maxsplit=1)[0])
+    if len(head_a) >= 6 and head_a.replace(" ", "") == head_b.replace(" ", ""):
+        return True
+    shorter, longer = sorted((a, b), key=len)
+    if len(shorter) >= 6 and (longer.startswith(shorter + " ") or f" {shorter} " in f" {longer} "):
+        return True
+    words_a, words_b = set(a.split()), set(b.split())
+    return len(words_a & words_b) / len(words_a | words_b) >= 0.6
+
+
+def donate_epg_descriptions(
+    root: ET.Element,
+    programmes_by_key: dict[tuple[str, str], list[tuple[datetime, datetime, ET.Element]]],
+    expected_ids: set[str],
+) -> int:
+    """Completa la sinopsis de los programas que no la tienen.
+
+    La parrilla de cada canal la decide ``epg_source_chain``; aquí no se mueve
+    ningún horario. Si el programa publicado no trae descripción, se toma la de
+    otra fuente del mismo canal (o de Zapping, solo para sinopsis) cuando el
+    mismo programa se superpone al menos a la mitad y el título coincide. No se
+    inventa texto: sin una coincidencia así, el programa queda sin descripción.
+    """
+    donors_by_target: dict[str, list[tuple[datetime, datetime, str, str]]] = {}
+    for target_id in expected_ids:
+        keys = list(epg_source_chain(target_id))
+        keys.append((ZAPPING_EPG_SOURCE, ZAPPING_DESCRIPTION_ID_PREFIX + target_id))
+        donors: list[tuple[datetime, datetime, str, str]] = []
+        for key in keys:
+            for start, stop, programme in programmes_by_key.get(key, []):
+                text = ""
+                for element in programme.findall("desc"):
+                    text = normalize_epg_description(element.text)
+                    if text:
+                        break
+                if text:
+                    donors.append((start, stop, programme.findtext("title", ""), text))
+        if donors:
+            donors_by_target[target_id] = donors
+
+    donated = 0
+    for programme in root.findall("programme"):
+        donors = donors_by_target.get(programme.get("channel", ""))
+        if not donors:
+            continue
+        if any(normalize_epg_description(element.text) for element in programme.findall("desc")):
+            continue
+        try:
+            start = xmltv_datetime(programme.get("start", ""))
+            stop = xmltv_datetime(programme.get("stop", ""))
+        except ValueError:
+            continue
+        title = programme.findtext("title", "")
+        best: tuple[timedelta, str] | None = None
+        for donor_start, donor_stop, donor_title, text in donors:
+            overlap = min(stop, donor_stop) - max(start, donor_start)
+            shortest = min(stop - start, donor_stop - donor_start)
+            if overlap <= timedelta(0) or overlap * 2 < shortest:
+                continue
+            if not epg_titles_match(title, donor_title):
+                continue
+            if best is None or overlap > best[0]:
+                best = (overlap, text)
+        if best is None:
+            continue
+        for element in programme.findall("desc"):
+            programme.remove(element)
+        description = ET.Element("desc", {"lang": "es"})
+        description.text = best[1]
+        # XMLTV: la descripción va después del título y del subtítulo.
+        anchors = [index for index, child in enumerate(programme) if child.tag in ("title", "sub-title")]
+        programme.insert(anchors[-1] + 1 if anchors else 0, description)
+        donated += 1
+    return donated
 # La guía publicada anterior no recicla su pasado lejano en cada corrida.
 EPG_PUBLISHED_FALLBACK_PAST = timedelta(hours=6)
 
@@ -6498,6 +6606,8 @@ def build_epg(
                     if source_name == PUBLISHED_EPG_FALLBACK_SOURCE
                     else "parrilla real"
                 )
+
+    donate_epg_descriptions(root, programmes_by_key, expected_ids)
 
     last_stop_by_channel: dict[str, datetime] = {}
     for programme in root.findall("programme"):

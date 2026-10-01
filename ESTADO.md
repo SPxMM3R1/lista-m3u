@@ -68,6 +68,14 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-01**: sinopsis para la programación que no tenía. Las oficiales chilenas solo
+  dejaban un texto técnico (se borra al publicar), así que TVN, Mega, CHV, Canal 13, La Red,
+  24 Horas, T13, CHV Noticias, Meganoticias, NTV, DW Español y France 24 Español no tenían
+  ninguna descripción. Ahora Zapping guarda la sinopsis real de cada programa y
+  `donate_epg_descriptions` la pasa al programa publicado si coinciden hora y título. Prueba
+  con la guía del día: 321 programas pasan a tener sinopsis. Se corrigió además que `dwe` de
+  Zapping (DW Español) rellenaba la parrilla de DW English. Siguen sin sinopsis: Arirang
+  (Zapping no la publica), Autentic History, M1, M2 y Telehit.
 - **2026-10-01**: TNT Sports 1–4 (TvVoo Reino Unido) agregados como canales 124–127 con
   `editor-core`. TvVoo publica varias variantes por número; se eligió la que hoy entrega
   video (HLS y segmento verificados): `TNT SPORT 1`, `TNT SPORT 2`, `TNT SPORTS 3`,
