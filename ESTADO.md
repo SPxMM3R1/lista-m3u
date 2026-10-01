@@ -5,7 +5,7 @@
 > cubre la app). **Al terminar cualquier cambio, actualiza este archivo en el mismo commit**:
 > la sección «Hoy» si cambió el estado y una línea nueva en «Bitácora».
 
-Última actualización: **2026-09-30**.
+Última actualización: **2026-10-01**.
 
 ## Hoy, en una mirada
 
@@ -68,6 +68,13 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-01**: TNT Sports 1–4 (TvVoo Reino Unido) agregados como canales 124–127 con
+  `editor-core`. TvVoo publica varias variantes por número; se eligió la que hoy entrega
+  video (HLS y segmento verificados): `TNT SPORT 1`, `TNT SPORT 2`, `TNT SPORTS 3`,
+  `TNT SPORT 4`. Esas variantes se sumaron primero a `x-resolver-ids` de las filas del
+  catálogo (`TNTSports1.uk`, `Vavoo.uk.TNTSPORTS2`, `TNTSports3.uk`,
+  `Vavoo.uk.TNTSPORTS4`) para que la selección encuentre su fila y su EPG (EPGShare UK).
+  TNT 2 respondió con cortes en las pruebas.
 - **2026-09-30**: logo de Sky Sports Premier League con las proporciones del logo real en pantalla (foto del usuario, perspectiva corregida): bloque «Premier League» 727×136 centrado y león dentro del marco. Mismo archivo 870×377, mismo estilo blanco con marco que el resto de Sky.
 - **2026-09-30 (estabilidad, tras una revisión externa de Sol)**:
   - `epg-pending.json` distingue `sin-guia`, `guia-corta` y `hueco`.
