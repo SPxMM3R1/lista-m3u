@@ -24,7 +24,7 @@
 - **EPG**: 47 canales. Cada canal mezcla sus fuentes por prioridad (`epg_source_chain`): la de
   más arriba manda donde tiene programas y las demás solo rellenan huecos. Horizonte típico
   30–190 h.
-- **Tests**: 266 Python (`python -m unittest discover -s tests -p "test_*.py"`) y 34 JS
+- **Tests**: 269 Python (`python -m unittest discover -s tests -p "test_*.py"`) y 34 JS
   (`node --test tests/editor-core.test.mjs tests/layout-contract.test.mjs`).
 
 ## Pendientes y decisiones abiertas
@@ -71,6 +71,13 @@
   nuevo por captura.
 
 ## Bitácora (más reciente arriba)
+
+- **2026-10-02**: aplicado el cambio de color aprobado de Qello Concerts: las letras
+  negras pasan a blanco mediante `fill="#FFFFFF"` en el grupo del SVG original;
+  la clase cyan `#03A4D9`, los trazados y la transparencia se conservan. Se regenera
+  `logos/qello.png` al tamaño original para que la app y el editor lo consuman por
+  la misma ruta. Tres regresiones protegen colores, los 24 trazados originales y
+  el tamaño RGBA de 1000×424. No cambia identidad, selección, EPG, numeración ni APK.
 
 - **2026-10-02**: equivalencias BT/TNT UK verificadas con fotogramas reales antes de
   incorporarlas a los respaldos de TNT 1–4. Lista cerrada por país y nombre exacto;
