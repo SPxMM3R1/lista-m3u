@@ -62,6 +62,69 @@ class TvVooVariantRules(unittest.TestCase):
         )
 
 
+class TvVooUkVerifiedSignals(unittest.TestCase):
+    def siblings(self, chosen, *candidates, code="uk"):
+        catalog = entries(code, chosen, *candidates)
+        names = dict(catalog)
+        return [names[alias] for alias in tv.siblings_for(catalog[0][0], catalog, code)]
+
+    def test_tnt_one_has_only_verified_bt_backups(self):
+        self.assertEqual(["BT SPORT 1", "BT SPORT 1 (BACKUP)"], self.siblings(
+            "TNT SPORT 1", "BT SPORT 1", "BT SPORT 1 (BACKUP)", "BT SPORT 1 HD", "BT SPORT 2"))
+
+    def test_tnt_two_has_bt_two_and_hd_but_not_unverified_backup(self):
+        self.assertEqual(["BT SPORT 2 HD", "BT SPORT 2"], self.siblings(
+            "TNT SPORT 2", "BT SPORT 2", "BT SPORT 2 HD", "BT SPORT 2 (BACKUP)"))
+
+    def test_tnt_three_rejects_bt_hd_with_different_program(self):
+        self.assertEqual(["TNT SPORTS 3 HD", "BT SPORT 3"], self.siblings(
+            "TNT SPORTS 3", "BT SPORT 3", "TNT SPORTS 3 HD", "BT SPORT 3 HD", "BT SPORT 3 (BACKUP)"))
+
+    def test_bt_espn_is_tnt_four_not_espn_us(self):
+        self.assertEqual(["TNT SPORTS 4 HD", "BT SPORT ESPN HD", "BT SPORT ESPN"], self.siblings(
+            "TNT SPORT 4", "TNT SPORTS 4 HD", "BT SPORT ESPN", "BT SPORT ESPN HD",
+            "TNT SPORTS ESPN", "BT SPORT 1", "TNT SPORTS 5"))
+
+    def test_exception_does_not_apply_in_germany_or_italy(self):
+        for code in ("de", "it"):
+            self.assertEqual([], self.siblings("TNT SPORT 1", "BT SPORT 1", code=code))
+            self.assertEqual([], self.siblings("SKY SPORT F1", "SKY SPORTS F1 HD", code=code))
+
+    def test_wrong_alias_country_or_name_is_rejected(self):
+        chosen = entries("uk", "TNT SPORT 2")[0][0]
+        candidates = entries("de", "BT SPORT 2 HD") + entries("uk", "BT SPORT 3")
+        candidates.append((entries("uk", "BT SPORT 2 HD")[0][0], "BT SPORT 3 HD"))
+        self.assertEqual([], tv.siblings_for(chosen, candidates, "uk"))
+
+    def test_selected_entry_missing_from_catalog_keeps_verified_backups(self):
+        chosen = entries("uk", "TNT SPORT 1")[0][0]
+        candidates = entries("uk", "BT SPORT 1", "BT SPORT 1 HD")
+        self.assertEqual([candidates[0][0]], tv.siblings_for(chosen, candidates, "uk"))
+
+    def test_unverified_selected_bt_variant_does_not_inherit_verified_signal(self):
+        self.assertEqual([], self.siblings("BT SPORT 3 HD", "BT SPORT 3", "TNT SPORTS 3"))
+
+    def test_retention_never_restores_rejected_signal_even_on_catalog_failure(self):
+        chosen = entries("uk", "TNT SPORTS 3")[0][0]
+        key = "unitedkingdom|" + chosen
+        valid, rejected = [alias for alias, _ in entries("uk", "BT SPORT 3", "BT SPORT 3 HD")]
+        for failed in (set(), {"unitedkingdom"}):
+            merged, _ = tv.merge_with_previous({}, {"channels": {key: [valid, rejected]}}, {key}, failed)
+            self.assertEqual({key: [valid]}, merged)
+
+    def test_build_uses_uk_rule_without_changing_selection_identity(self):
+        chosen = entries("uk", "TNT SPORT 4")[0][0]
+        key = "unitedkingdom|" + chosen
+        layout = {"channels": [{"kind": "provider", "provider": "tvvoo", "state": "active",
+                                "countryKey": "unitedkingdom", "catalogKey": key}]}
+        catalog = {"metas": [{"id": alias, "name": name} for alias, name in entries(
+            "uk", "TNT SPORT 4", "BT SPORT ESPN", "TNT SPORTS ESPN")]}
+        channels, errors = tv.build_variants(layout, fetch=lambda code: catalog)
+        self.assertEqual({}, errors)
+        self.assertEqual({key: [entries("uk", "BT SPORT ESPN")[0][0]]}, channels)
+        self.assertEqual(key, layout["channels"][0]["catalogKey"])
+
+
 class TvVooVariantPersistence(unittest.TestCase):
     key = "unitedkingdom|vavoo_A%7Cgroup%3Auk"
 

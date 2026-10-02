@@ -15,6 +15,8 @@ Reglas (decididas con el usuario, 2026-10-01):
   «SKY SPORTS F1» la inglesa; mezclarlas cambiaría el idioma.
 - Entradas dudosas no son hermanas: «(MATCH TIME)», «[LIVE DURING EVENTS ONLY]»,
   «(LOCAL)» y «RAW» pueden tener otro contenido o estar apagadas.
+- Excepción UK: BT/TNT se unen solo mediante nombres exactos verificados con
+  fotogramas (2026-10-02, TVVOO_UK_EQUIVALENCIAS.md), no por parecido de nombre.
 
 El archivo solo lleva alias del catálogo público de TvVoo: ni URL de reproducción ni tokens.
 """
@@ -54,6 +56,37 @@ _VARIANT_SUFFIX = re.compile(
     r"(?:\s*\((?:BACKUP(?:\s*\d+)?|H\.?265)\)|\s+(?:FHD|UHD|4K|HD\+|HD|SD|HEVC|H\.?265))$"
 )
 _NOT_A_SIBLING = re.compile(r"\(MATCH TIME\)|\[LIVE DURING EVENTS ONLY\]|\(LOCAL\)|\bRAW\b")
+
+# Lista cerrada: no extender a HD/BACKUP sin comprobar su señal y programación.
+# TNT SPORT 1 es la identidad elegida; hoy entrega una placa de error, no video real.
+UK_VERIFIED_SIGNALS = {
+    "TNT SPORT 1": 1, "BT SPORT 1": 1, "BT SPORT 1 (BACKUP)": 1,
+    "TNT SPORT 2": 2, "BT SPORT 2": 2, "BT SPORT 2 HD": 2,
+    "TNT SPORTS 3": 3, "TNT SPORTS 3 HD": 3, "BT SPORT 3": 3,
+    "TNT SPORT 4": 4, "TNT SPORTS 4 HD": 4,
+    "BT SPORT ESPN": 4, "BT SPORT ESPN HD": 4,
+}
+UK_VERIFIED_FAMILIES = {"BT SPORT 1", "BT SPORT 2", "BT SPORT 3", "BT SPORT ESPN",
+                        "TNT SPORT 1", "TNT SPORT 2", "TNT SPORTS 3", "TNT SPORT 4",
+                        "TNT SPORTS 4"}
+
+
+def alias_name(alias: str) -> str:
+    decoded = unquote(alias[len("vavoo_"):]) if alias.startswith("vavoo_") else ""
+    return decoded.split("|", 1)[0]
+
+
+def verified_uk_signal(alias: str, name: str, code: str | None) -> int | None:
+    if code != "uk" or not alias.startswith("vavoo_"):
+        return None
+    decoded = unquote(alias[len("vavoo_"):])
+    if not decoded.lower().endswith("|group:uk"):
+        return None
+    normalized = re.sub(r"\s+", " ", name.strip().upper())
+    # El nombre visible y el alias deben representar la misma entrada verificada.
+    if normalized != re.sub(r"\s+", " ", alias_name(alias).strip().upper()):
+        return None
+    return UK_VERIFIED_SIGNALS.get(normalized)
 
 
 def base_name(name: str) -> str | None:
@@ -111,20 +144,26 @@ def catalog_entries(document: dict, code: str) -> list[tuple[str, str]]:
     return entries
 
 
-def siblings_for(selected_alias: str, entries: list[tuple[str, str]]) -> list[str]:
+def siblings_for(selected_alias: str, entries: list[tuple[str, str]], code: str | None = None) -> list[str]:
     names = {alias: name for alias, name in entries}
     selected_name = names.get(selected_alias)
     if selected_name is None:
         # La versión elegida ya no figura en el catálogo: su nombre sale del alias.
-        decoded = unquote(selected_alias[len("vavoo_"):]) if selected_alias.startswith("vavoo_") else ""
-        selected_name = decoded.split("|", 1)[0]
+        selected_name = alias_name(selected_alias)
     base = base_name(selected_name)
     if not base:
+        return []
+    protected_uk = code == "uk" and base in UK_VERIFIED_FAMILIES
+    signal = verified_uk_signal(selected_alias, selected_name, code)
+    if protected_uk and signal is None:
         return []
     candidates = [
         (variant_rank(name), index, alias)
         for index, (alias, name) in enumerate(entries)
-        if alias != selected_alias and base_name(name) == base
+        if alias != selected_alias and (
+            verified_uk_signal(alias, name, code) == signal if protected_uk
+            else base_name(name) == base
+        )
     ]
     return [alias for _, _, alias in sorted(candidates)[:MAX_SIBLINGS]]
 
@@ -168,7 +207,7 @@ def build_variants(layout: dict, fetch=fetch_catalog) -> tuple[dict[str, list[st
         if code not in entries_by_code:
             continue
         selected = str(row["catalogKey"]).split("|", 1)[1]
-        siblings = siblings_for(selected, entries_by_code[code])
+        siblings = siblings_for(selected, entries_by_code[code], code)
         if siblings:
             channels[str(row["catalogKey"])] = siblings
     return channels, errors
@@ -193,6 +232,13 @@ def merge_with_previous(
         for alias in aliases:
             if alias in current:
                 continue
+            # Una entrada rechazada por evidencia no se conserva tres corridas ni
+            # se recupera si el catálogo falla. No altera la retención del resto.
+            selected = key.split("|", 1)[1]
+            if country == "unitedkingdom" and base_name(alias_name(selected)) in UK_VERIFIED_FAMILIES:
+                signal = verified_uk_signal(selected, alias_name(selected), "uk")
+                if signal is None or verified_uk_signal(alias, alias_name(alias), "uk") != signal:
+                    continue
             marker = f"{key} {alias}"
             runs = 0 if country in failed_countries else previous_missing.get(marker, 0) + 1
             if runs < MISSING_RUNS_BEFORE_DROP:

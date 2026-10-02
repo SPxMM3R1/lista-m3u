@@ -14,6 +14,8 @@
 - **Publicación**: todo corre en GitHub Actions; ningún proceso usa el PC del usuario.
   - Variantes TvVoo: la fecha se renueva cada 24 h tras una consulta correcta aunque
     los alias no cambien, para que la app no descarte respaldos vigentes a los 7 días.
+    BT/TNT UK tienen equivalencias explícitas verificadas por imagen; BT ESPN es TNT 4,
+    no TNT 1. Rechazados TNT SPORTS ESPN y BT 3 HD (ver `TVVOO_UK_EQUIVALENCIAS.md`).
   - Canales: `update-channels.yml`, un job por proveedor (`direct`, `tvn`, `meganoticias`,
     `highfly`, `tvvoo`) y un job final que arma listas y publica.
   - EPG: `update-epg.yml`, un job por fuente (17 partes, `--list-epg-parts`) y un job final.
@@ -22,7 +24,7 @@
 - **EPG**: 47 canales. Cada canal mezcla sus fuentes por prioridad (`epg_source_chain`): la de
   más arriba manda donde tiene programas y las demás solo rellenan huecos. Horizonte típico
   30–190 h.
-- **Tests**: 256 Python (`python -m unittest discover -s tests -p "test_*.py"`) y 34 JS
+- **Tests**: 266 Python (`python -m unittest discover -s tests -p "test_*.py"`) y 34 JS
   (`node --test tests/editor-core.test.mjs tests/layout-contract.test.mjs`).
 
 ## Pendientes y decisiones abiertas
@@ -69,6 +71,17 @@
   nuevo por captura.
 
 ## Bitácora (más reciente arriba)
+
+- **2026-10-02**: equivalencias BT/TNT UK verificadas con fotogramas reales antes de
+  incorporarlas a los respaldos de TNT 1–4. Lista cerrada por país y nombre exacto;
+  diez regresiones nuevas. BT SPORT ESPN/HD muestran TNT 4. TNT SPORTS ESPN muestra
+  ESPN US y BT SPORT 3 HD rugby en vez del snooker de TNT 3: excluidos. Tres variantes
+  BT sin fotograma siguen pendientes. TNT SPORT 1 entrega una placa de error que
+  decodifica como video: añadir respaldos no demuestra detección automática de esa
+  placa en la app. Evidencia y límites en `TVVOO_UK_EQUIVALENCIAS.md`. Sin cambios de
+  selección, numeración, EPG, logos ni APK; VibeM3U 0.5.52 consume el mismo esquema.
+  Validados: 266 Python + 34 JS + 3 JVM en verde; parser actual de la app acepta
+  el JSON real con 2/2/2/3 respaldos para TNT 1/2/3/4. Sin prueba en la TV.
 
 - **2026-10-02**: corregida la caducidad silenciosa de las variantes TvVoo. El runner
   renueva `generatedAt` cada 24 h aunque los alias sean idénticos; una consulta fallida
