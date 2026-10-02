@@ -68,6 +68,13 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-01**: respaldo real entre versiones del mismo canal TvVoo. TvVoo lista varias
+  entradas por canal (MIX, MIX HD, MIX FHD, MIX (BACKUP)), cada una con fuente propia en Vavoo,
+  pero la app solo probaba la elegida. `tvvoo_variants.py` publica las hermanas de cada canal
+  elegido en `data/tvvoo-variantes.json` (VibeM3U 0.5.50 las usa como respaldo). Reglas por país
+  acordadas con el usuario: SPORT ≠ SPORTS. Además, el aviso «Esta identidad ya está vinculada»
+  desaparece: las versiones comparten la guía; Sky Sports Tennis suma su alias TvVoo en el
+  catálogo. Quedan sin guía «SKY SPORTS F1» de los grupos DE e IT (sin hermana en su país).
 - **2026-10-01**: sinopsis para la programación que no tenía. Las oficiales chilenas solo
   dejaban un texto técnico (se borra al publicar), así que TVN, Mega, CHV, Canal 13, La Red,
   24 Horas, T13, CHV Noticias, Meganoticias, NTV, DW Español y France 24 Español no tenían

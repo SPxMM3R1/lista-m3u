@@ -32,6 +32,7 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
 
 ## 3. Catálogo editorial
 
+- **Versiones hermanas TvVoo** (`tvvoo_variants.py` → `data/tvvoo-variantes.json`, en el workflow de Highfly): por cada canal TvVoo elegido, las otras entradas del mismo canal y país (HD, FHD, UHD, 4K, SD, HD+, HEVC, H265, (BACKUP n)). La app las prueba si la elegida no entrega video. SPORT y SPORTS no se igualan (en DE/IT «SKY SPORT» es la señal local y «SKY SPORTS» la inglesa); (MATCH TIME), [LIVE DURING EVENTS ONLY], (LOCAL) y RAW no son hermanas; nunca se cruzan países. Una hermana que falta en el catálogo se conserva 3 corridas (TvVoo omite entradas de una consulta a otra). Varias versiones elegidas comparten la ficha del catálogo (guía y logo; nombre/logo personalizado de la primera) y una versión sin ficha usa la de su hermana.
 - `data/channel-editor-layout.json`: lo lee **la app directo** (orden, número, visibilidad,
   nombre y logo). Un error ahí puede impedir que la app abra.
 - `data/vibem3u-selection.json`: lo lee **el runner**. Debe declarar los mismos canales de

@@ -21,7 +21,7 @@ on:
       - "data/channel-editor-layout.json"
 permissions:
   contents: write
-# Grupo propio: solo publica data/highfly-live.json.
+# Grupo propio: solo publica data/highfly-live.json y data/tvvoo-variantes.json.
 concurrency:
   group: m3u-highfly
   cancel-in-progress: false
@@ -34,18 +34,22 @@ jobs:
         with:
           python-version: "3.12"
       - run: python -m pip install --disable-pip-version-check --no-input tzdata
-      - run: python -m unittest tests.test_highfly_live
+      - run: python -m unittest tests.test_highfly_live tests.test_tvvoo_variants
       - run: python highfly_live.py
+      # Versiones hermanas de cada canal TvVoo elegido (respaldo en la app). Si TvVoo no
+      # responde, se conserva lo publicado y los enlaces Highfly se publican igual.
+      - run: python tvvoo_variants.py || echo "AVISO: variantes TvVoo sin actualizar"
       - name: Publicar enlaces Highfly
         shell: bash
         run: |
-          if git diff --quiet -- data/highfly-live.json && git ls-files --error-unmatch data/highfly-live.json >/dev/null 2>&1; then
-            echo "Enlaces Highfly sin cambios"; exit 0
+          git add -N data/tvvoo-variantes.json 2>/dev/null || true
+          if git diff --quiet -- data/highfly-live.json data/tvvoo-variantes.json               && git ls-files --error-unmatch data/highfly-live.json >/dev/null 2>&1; then
+            echo "Enlaces Highfly y variantes TvVoo sin cambios"; exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/highfly-live.json
-          git commit -m "Actualiza enlaces Highfly [skip ci]"
+          git add data/highfly-live.json data/tvvoo-variantes.json
+          git commit -m "Actualiza enlaces Highfly y variantes TvVoo [skip ci]"
           for attempt in 1 2 3 4 5; do
             if git push; then exit 0; fi
             git pull --rebase

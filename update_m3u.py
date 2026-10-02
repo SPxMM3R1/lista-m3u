@@ -3524,10 +3524,13 @@ def apply_provider_logo_overrides(
     if not isinstance(raw_logos, dict):
         raise ValueError("manifiesto de presentacion: logos debe ser un objeto")
     logos = dict(raw_logos)
+    assigned: set[str] = set()
     for match in reconciliation.matched:
         path = raw_logos.get(match.row.catalog_key)
-        if path:
+        # Si varias versiones comparten la ficha, manda la primera elegida.
+        if path and match.catalog_id not in assigned:
             logos[match.catalog_id] = path
+            assigned.add(match.catalog_id)
     updated = dict(overrides)
     updated["logos"] = logos
     return updated
@@ -3542,10 +3545,12 @@ def apply_provider_name_overrides(
     if not isinstance(raw_names, dict):
         raise ValueError("manifiesto de presentacion: names debe ser un objeto")
     names = dict(raw_names)
+    assigned: set[str] = set()
     for match in reconciliation.matched:
         label = raw_names.get(match.row.catalog_key)
-        if label:
+        if label and match.catalog_id not in assigned:
             names[match.catalog_id] = label
+            assigned.add(match.catalog_id)
     updated = dict(overrides)
     updated["names"] = names
     return updated

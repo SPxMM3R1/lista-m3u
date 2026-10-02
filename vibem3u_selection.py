@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import json
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 from typing import Any, Iterable
 from urllib.parse import parse_qsl, unquote, urlparse
@@ -171,17 +171,37 @@ def load_selection(path: Path) -> SelectionDocument:
     )
 
 
+TVVOO_VARIANTS_PATH = Path(__file__).resolve().parent / "data" / "tvvoo-variantes.json"
+
+
+def load_tvvoo_variants(path: Path = TVVOO_VARIANTS_PATH) -> dict[str, tuple[str, ...]]:
+    """Hermanas de cada canal TvVoo elegido (``tvvoo_variants.py``); vacío si falta."""
+    try:
+        document = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+    channels = document.get("channels") if isinstance(document, dict) else None
+    if not isinstance(channels, dict):
+        return {}
+    return {
+        str(key): tuple(str(alias) for alias in aliases if isinstance(alias, str))
+        for key, aliases in channels.items()
+        if isinstance(aliases, list)
+    }
+
+
 def reconcile_selection(
     document: SelectionDocument,
     catalog_channels: Iterable[Any],
     catalog_lines: list[str],
+    tvvoo_variants: dict[str, tuple[str, ...]] | None = None,
 ) -> SelectionReconciliation:
     """Match selection rows to exactly one existing canonical catalogue row."""
+    variants = load_tvvoo_variants() if tvvoo_variants is None else tvvoo_variants
 
     channels = list(catalog_channels)
     matched: list[ResolvedSelection] = []
     pending: list[dict[str, str]] = []
-    used_catalog_indexes: set[int] = set()
     for row in document.rows:
         if row.identity_state != "canonical":
             pending.append(_pending(row, "identity_provisional"))
@@ -191,6 +211,14 @@ def reconcile_selection(
             match = _match_row(row, channel, catalog_lines)
             if match:
                 candidates.append((index, match))
+        if not candidates and row.provider == "tvvoo" and variants.get(row.catalog_key):
+            # «SKY SPORTS MIX (BACKUP)» no figura en el catálogo, pero su hermana
+            # «SKY SPORTS MIX» sí: es el mismo canal y comparte su ficha (guía y logo).
+            widened = replace(row, aliases=row.aliases + variants[row.catalog_key])
+            for index, channel in enumerate(channels):
+                match = _match_row(widened, channel, catalog_lines)
+                if match:
+                    candidates.append((index, "catalogKey=variant-alias"))
         if not candidates:
             pending.append(_pending(row, "catalog_not_found"))
             continue
@@ -211,10 +239,9 @@ def reconcile_selection(
             pending.append(_pending(row, "catalog_match_ambiguous"))
             continue
         index, match = candidates[0]
-        if index in used_catalog_indexes:
-            pending.append(_pending(row, "catalog_identity_already_selected"))
-            continue
-        used_catalog_indexes.add(index)
+        # Varias versiones elegidas del mismo canal (TvVoo «MIX», «MIX HD», «MIX FHD»
+        # o la fila Highfly y su alias TvVoo) comparten la ficha del catálogo: la misma
+        # guía y el mismo logo. Cada una sigue reproduciendo su propia fuente.
         catalog_id = str(getattr(channels[index], "tvg_id", "")).strip()
         if not catalog_id:
             pending.append(_pending(row, "catalog_missing_tvg_id"))
