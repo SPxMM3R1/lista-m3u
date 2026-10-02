@@ -68,6 +68,11 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-02**: TNT Sports 1, 2 y 4 sin guía. Una corrida de canales (19b0b2d) les borró
+  la marca `x-vibem3u-selection="managed"` y la EPG solo incluía canales con esa marca. Ahora
+  `epg_scope_extra_channels` usa la selección vigente (reconciliada) además de la marca, así una
+  marca perdida no deja canales elegidos sin guía. Pendiente: averiguar qué paso del runner de
+  canales borra la marca. TNT Sports 1 además está caído en la fuente en este momento.
 - **2026-10-01**: respaldo real entre versiones del mismo canal TvVoo. TvVoo lista varias
   entradas por canal (MIX, MIX HD, MIX FHD, MIX (BACKUP)), cada una con fuente propia en Vavoo,
   pero la app solo probaba la elegida. `tvvoo_variants.py` publica las hermanas de cada canal

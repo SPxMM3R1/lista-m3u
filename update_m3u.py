@@ -7033,12 +7033,23 @@ def epg_scope_extra_channels(
     lines = catalog_path.read_text(encoding="utf-8-sig").splitlines()
     covered = set(main_ids or ())
     extras: list[Channel] = []
-    for channel in parse_channels(lines):
+    channels = parse_channels(lines)
+    # La selección vigente manda, no solo la marca del catálogo: una corrida de
+    # canales borró la marca de TNT Sports 1, 2 y 4 (2026-10-01) y se quedaron sin
+    # guía aunque seguían elegidos en el editor.
+    try:
+        selected = vibem3u_selection.reconcile_selection(
+            load_vibem3u_selection(), channels, lines
+        ).selected_catalog_ids
+    except Exception as error:  # la EPG nunca se cae por la selección
+        print(f"AVISO EPG: selección VibeM3U ilegible: {error}", file=sys.stderr)
+        selected = frozenset()
+    for channel in channels:
         if not channel.tvg_id or channel.tvg_id in covered:
             continue
         if channel.info_line < 0:
             continue
-        if not vibem3u_selection.selection_marker_is_managed(
+        if channel.tvg_id not in selected and not vibem3u_selection.selection_marker_is_managed(
             lines[channel.info_line]
         ):
             continue
