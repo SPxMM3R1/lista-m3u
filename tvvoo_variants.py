@@ -25,7 +25,7 @@ import json
 import re
 import sys
 import urllib.request
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import quote, unquote
 
@@ -40,6 +40,9 @@ MAX_SIBLINGS = 7
 # HD» faltó en una consulta y volvió en la siguiente). Una hermana publicada se conserva
 # hasta que falte en esta cantidad de corridas seguidas.
 MISSING_RUNS_BEFORE_DROP = 3
+# La app descarta variantes con más de 7 días. Una comprobación correcta renueva
+# su fecha al menos cada 24 h, aunque los alias no cambien, sin un commit por cron.
+TIMESTAMP_REFRESH = timedelta(hours=24)
 # Igual que COUNTRY_KEYS de site/provider-catalog.mjs.
 COUNTRY_CODES = {
     "albania": "al", "arabia": "ar", "bulgaria": "bg", "balkans": "bk", "germany": "de",
@@ -201,6 +204,18 @@ def merge_with_previous(
     return {key: aliases[:MAX_SIBLINGS] for key, aliases in merged.items()}, missing
 
 
+def timestamp_refresh_due(previous: dict, now: datetime) -> bool:
+    """Fecha ausente/inválida o con 24 h: hay que renovar tras consultar con éxito."""
+    try:
+        generated_at = datetime.fromisoformat(str(previous.get("generatedAt", "")).replace("Z", "+00:00"))
+        if generated_at.tzinfo is None:
+            return True
+        age = now - generated_at
+        return age < timedelta(0) or age >= TIMESTAMP_REFRESH
+    except (ValueError, TypeError):
+        return True
+
+
 def main() -> int:
     layout = json.loads(LAYOUT_PATH.read_text(encoding="utf-8"))
     channels, errors = build_variants(layout)
@@ -215,12 +230,17 @@ def main() -> int:
     active_keys = {str(row["catalogKey"]) for row in active_tvvoo_rows(layout)}
     failed_countries = {country for country, code in COUNTRY_CODES.items() if code in errors}
     channels, missing = merge_with_previous(channels, previous, active_keys, failed_countries)
-    if previous.get("channels") == channels and (previous.get("missing") or {}) == missing:
+    now = datetime.now(timezone.utc).replace(microsecond=0)
+    # No rejuvenecer un respaldo conservado solo porque el proveedor está caído.
+    refresh_timestamp = bool(channels) and not errors and timestamp_refresh_due(previous, now)
+    if (previous.get("channels") == channels
+            and (previous.get("missing") or {}) == missing
+            and not refresh_timestamp):
         print("Variantes TvVoo sin cambios")
         return 0
     document = {
         "schema": 1,
-        "generatedAt": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
+        "generatedAt": now.isoformat().replace("+00:00", "Z"),
         "channels": dict(sorted(channels.items())),
         # Corridas seguidas en que cada hermana conservada faltó en el catálogo.
         "missing": dict(sorted(missing.items())),

@@ -40,7 +40,7 @@ agente debe poder retomar el trabajo solo con lo que está en el repositorio.
 ## Cómo trabajar
 
 - Tests obligatorios antes de commitear:
-  - `python -m unittest discover -s tests -p "test_*.py"` (esperado: 229 en verde).
+  - `python -m unittest discover -s tests -p "test_*.py"` (esperado: 256 en verde).
   - `node --test tests/editor-core.test.mjs tests/layout-contract.test.mjs` (esperado: 34 en verde).
 - Validar el editor local sin tocar el repo: `python scripts/build_site_data.py --output <carpeta temp>` (solo acepta salidas dentro de la carpeta temporal).
 - Commits en español con prefijo: `feat(editor)`, `fix(resolvers)`, `feat(epg)`, `fix(catalogo)`, `chore(...)`.
@@ -50,6 +50,9 @@ agente debe poder retomar el trabajo solo con lo que está en el repositorio.
 - La app lee `data/channel-editor-layout.json` directo: un error ahí puede impedir que abra. Filas TvVoo con `countryKey` igual al prefijo de `catalogKey` (`country` es solo texto visible); generarlas con `site/editor-core.mjs` y publicar layout + selección + presentación en un solo commit. VibeM3U 0.5.29 o anterior cae al arrancar con cualquier fila TvVoo: la TV debe tener 0.5.30+ antes de publicar una (incidente 98ee25a, 27-09).
 - Contrato compartido de filas de proveedor: `contracts/layout-provider-rows.json`. Lo validan el editor (`tests/layout-contract.test.mjs`), el runner (`tests/test_layout_contract.py`), la app y el auxiliar local de VibeM3U (copia idéntica en `VibeM3U/app/src/test/resources/contracts/`). Al cambiar una regla de filas de proveedor, agregar el caso aquí, copiarlo a VibeM3U y dejar los cuatro en verde; `test_vibem3u_copy_is_identical` avisa si las copias difieren.
 - Verificación de publicaciones: el Raw de GitHub cachea minutos; comprobar con `git show origin/main:<archivo>` o raw fijado al SHA del commit.
+- Vigencia de variantes TvVoo: `generatedAt` se renueva cada 24 h tras consultar con éxito
+  los catálogos aunque no cambien los alias (la app descarta el archivo a los 7 días).
+  No renovar por fecha solamente si hay errores del proveedor; conservar los respaldos.
 
 ## Publicación automática
 

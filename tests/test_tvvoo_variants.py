@@ -1,4 +1,9 @@
+import json
+import tempfile
 import unittest
+from datetime import datetime, timedelta, timezone
+from pathlib import Path
+from unittest.mock import patch
 
 import tvvoo_variants as tv
 
@@ -77,6 +82,82 @@ class TvVooVariantPersistence(unittest.TestCase):
         previous = {"channels": {self.key: ["vavoo_A%20HD"]}}
         merged, _ = tv.merge_with_previous({}, previous, set(), set())
         self.assertEqual({}, merged)
+
+
+class TvVooVariantFreshness(unittest.TestCase):
+    now = datetime(2026, 10, 2, 12, 0, tzinfo=timezone.utc)
+    key = "unitedkingdom|vavoo_A%7Cgroup%3Auk"
+    alias = "vavoo_A%20HD%7Cgroup%3Auk"
+
+    def previous(self, age: timedelta) -> dict:
+        return {
+            "schema": 1,
+            "generatedAt": (self.now - age).isoformat().replace("+00:00", "Z"),
+            "channels": {self.key: [self.alias]},
+            "missing": {},
+        }
+
+    def run_main(self, previous: dict, errors: dict | None = None, channels: dict | None = None) -> dict:
+        layout = {"channels": [{
+            "kind": "provider", "provider": "tvvoo", "state": "active",
+            "countryKey": "unitedkingdom", "catalogKey": self.key,
+        }]}
+        current = previous["channels"] if channels is None else channels
+        with tempfile.TemporaryDirectory() as directory:
+            layout_path = Path(directory) / "layout.json"
+            output_path = Path(directory) / "variants.json"
+            layout_path.write_text(json.dumps(layout), encoding="utf-8")
+            output_path.write_text(json.dumps(previous), encoding="utf-8")
+            with (patch.object(tv, "LAYOUT_PATH", layout_path),
+                  patch.object(tv, "OUTPUT_PATH", output_path),
+                  patch.object(tv, "build_variants", return_value=(current, errors or {})),
+                  patch.object(tv, "datetime", wraps=datetime) as clock):
+                clock.now.return_value = self.now
+                self.assertEqual(0, tv.main())
+            return json.loads(output_path.read_text(encoding="utf-8"))
+
+    def test_unchanged_eight_day_old_variants_are_refreshed(self) -> None:
+        previous = self.previous(timedelta(days=8))
+        published = self.run_main(previous)
+        self.assertEqual("2026-10-02T12:00:00Z", published["generatedAt"])
+        self.assertEqual(previous["channels"], published["channels"])
+        self.assertEqual(previous["missing"], published["missing"])
+
+    def test_timestamp_is_refreshed_at_twenty_four_hours(self) -> None:
+        published = self.run_main(self.previous(timedelta(hours=24)))
+        self.assertEqual("2026-10-02T12:00:00Z", published["generatedAt"])
+
+    def test_fresh_unchanged_variants_do_not_create_a_timestamp_only_update(self) -> None:
+        previous = self.previous(timedelta(hours=23, minutes=59))
+        self.assertEqual(previous, self.run_main(previous))
+
+    def test_failed_catalog_does_not_refresh_retained_variants(self) -> None:
+        previous = self.previous(timedelta(days=8))
+        self.assertEqual(previous, self.run_main(previous, errors={"uk": "TimeoutError"}, channels={}))
+
+    def test_partial_catalog_failure_does_not_refresh_unchanged_variants(self) -> None:
+        previous = self.previous(timedelta(days=8))
+        self.assertEqual(previous, self.run_main(previous, errors={"de": "TimeoutError"}))
+
+    def test_missing_invalid_naive_or_future_timestamp_is_repaired(self) -> None:
+        for timestamp in (None, "invalid", "2026-10-01T12:00:00", "2026-10-03T12:00:00Z"):
+            with self.subTest(timestamp=timestamp):
+                previous = self.previous(timedelta(days=8))
+                previous["generatedAt"] = timestamp
+                published = self.run_main(previous)
+                self.assertEqual("2026-10-02T12:00:00Z", published["generatedAt"])
+
+    def test_empty_variants_do_not_need_a_heartbeat(self) -> None:
+        previous = self.previous(timedelta(days=8))
+        previous["channels"] = {}
+        self.assertEqual(previous, self.run_main(previous))
+
+    def test_changed_variants_are_written_even_before_twenty_four_hours(self) -> None:
+        previous = self.previous(timedelta(hours=1))
+        new_alias = "vavoo_A%20FHD%7Cgroup%3Auk"
+        published = self.run_main(previous, channels={self.key: [new_alias, self.alias]})
+        self.assertEqual("2026-10-02T12:00:00Z", published["generatedAt"])
+        self.assertEqual([new_alias, self.alias], published["channels"][self.key])
 
 
 if __name__ == "__main__":
