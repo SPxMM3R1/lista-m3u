@@ -38,12 +38,14 @@ jobs:
       - run: python highfly_live.py
       # Versiones hermanas de cada canal TvVoo elegido (respaldo en la app). Si TvVoo no
       # responde, se conserva lo publicado y los enlaces Highfly se publican igual.
-      - run: python tvvoo_variants.py || echo "AVISO: variantes TvVoo sin actualizar"
+      - name: Variantes TvVoo
+        run: python tvvoo_variants.py || echo "AVISO - variantes TvVoo sin actualizar"
       - name: Publicar enlaces Highfly
         shell: bash
         run: |
           git add -N data/tvvoo-variantes.json 2>/dev/null || true
-          if git diff --quiet -- data/highfly-live.json data/tvvoo-variantes.json               && git ls-files --error-unmatch data/highfly-live.json >/dev/null 2>&1; then
+          if git diff --quiet -- data/highfly-live.json data/tvvoo-variantes.json \
+              && git ls-files --error-unmatch data/highfly-live.json >/dev/null 2>&1; then
             echo "Enlaces Highfly y variantes TvVoo sin cambios"; exit 0
           fi
           git config user.name "github-actions[bot]"
