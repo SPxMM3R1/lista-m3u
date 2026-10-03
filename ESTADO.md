@@ -72,6 +72,17 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-03**: los 38 canales TvVoo que solo llegaban por `2.m3u`/`m3u-externa.m3u`
+  (formato antiguo: tvg-id `…@TvVoo` con varios `x-resolver-ids`) pasan al editor como filas
+  de proveedor, con la misma `addRow` del generador y la fila del catálogo oficial de TvVoo de
+  cada país (números 141–178, en el orden de la M3U). No cambia ningún número existente: el
+  script lo verifica fila por fila. Se conserva el nombre y el logo que mostraban; los logos
+  externos de tv-logo se copiaron a `logos/tvvoo/` (algunos son genéricos o de otro país, como
+  estaban). Otros 6 ya tenían fila en el editor (2 de ellas borradas por el usuario: Sky F1 UK
+  y Sky Sports Mix, que no se reactivaron). Sky Sport 9 Alemania y Eurosport 1 Alemania quedaron
+  con su versión vigente («HD (BACKUP)» y «HD»). Pendientes de antes, sin fila en el catálogo
+  (sin guía): ESPN, ESPN 3 y ESPN 4 Países Bajos, Fox Sports 3 España, Fox Sports Premium y TNT
+  Sports Premium Arabia.
 - **2026-10-03**: agregado TNT Sports 5 (TvVoo Reino Unido,
   `unitedkingdom|vavoo_TNT%20SPORTS%205%7Cgroup%3Auk`, número 140) con fila de catálogo
   `Vavoo.uk.TNTSPORTS5@TvVoo` (marca managed) y guía de EPGShare UK1 `TNT.Sports.5.HD.uk`.
