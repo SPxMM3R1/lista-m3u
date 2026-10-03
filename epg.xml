@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-generated-at="2026-10-03T20:38:13+00:00" data-description-policy="verified-source-only" data-description-programmes="4163" data-description-channels="59" data-next-refresh-at="2026-10-03T23:38:13+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u">
+<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-generated-at="2026-10-03T22:25:52+00:00" data-description-policy="verified-source-only" data-description-programmes="4282" data-description-channels="60" data-next-refresh-at="2026-10-04T01:25:52+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u">
   <channel id="0104" data-guide="parrilla real" data-guide-source="tvn-oficial">
     <display-name>TVN</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvn.png" />
@@ -172,6 +172,10 @@
   <channel id="SkySportsPremierLeague.uk" data-guide="parrilla real" data-guide-source="uk1">
     <display-name>Sky Sports Premier League</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/sky-sports-premier-league.png" />
+  </channel>
+  <channel id="SkySportsF1UHD.uk" data-guide="parrilla real" data-guide-source="uk1">
+    <display-name>Sky Sports F1 UHD</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/sky-sports-f1-uhd.png" />
   </channel>
   <channel id="SkySportsMainEvent.uk@TvVoo" data-guide="parrilla real" data-guide-source="uk1">
     <display-name>Sky Sports Main Event</display-name>
@@ -705,18 +709,6 @@
     <sub-title lang="en">Take the Title S1E1</sub-title>
     <desc lang="en">Explore the dance culture in South Africa and take a look at how Red Bull Dance Your Style was established.</desc>
   </programme>
-  <programme start="20261003155233 -0300" stop="20261003165322 -0300" channel="RedBullChileEspanol.cl">
-    <title lang="es">Fabio Wibmer – Video Game: detrás de cámaras</title>
-    <desc lang="es">Fabio Wibmer y su equipo revelan el proceso detrás de Video Game, una de las producciones de bike más creativas de 2022, filmada durante 70 días y llena de retos técnicos y visuales.</desc>
-  </programme>
-  <programme start="20261003165322 -0300" stop="20261003174838 -0300" channel="RedBullChileEspanol.cl">
-    <title lang="es">Ludwig's Streamer Games 2026 - Highlights</title>
-    <desc lang="es">Disfruta de los mejores momentos del mayor evento deportivo del mundo impulsado por creadores.</desc>
-  </programme>
-  <programme start="20261003174838 -0300" stop="20261003181401 -0300" channel="RedBullChileEspanol.cl">
-    <title lang="es">Paradigm – el lado más extremo del MTB</title>
-    <desc lang="es">Thomas Genon, Szymon Godziek, Emil Johansson y Kade Edwards muestran el lado más extremo del MTB, desde la precisión del slopestyle hasta el freeride y la velocidad del descenso.</desc>
-  </programme>
   <programme start="20261003181401 -0300" stop="20261003190146 -0300" channel="RedBullChileEspanol.cl">
     <title lang="es">Red Bull Rampage – Las bajadas más salvajes del evento</title>
     <desc lang="es">Dale un vistazo a los 100 momentos más alucinantes del Red Bull Rampage, el evento de freeride de alta montaña que rompe todos los límites.</desc>
@@ -793,8 +785,13 @@
     <title lang="es">Red Bull Stalen Ros Series | Las bicicletas más locas</title>
     <desc lang="es">Una bici con diseño de serpiente, una de caja de herramientas y un duelo entre bicis de montaña y de carretera personalizadas: ¿cuál podrá superar el reto?</desc>
   </programme>
-  <programme start="20261003110000 -0300" stop="20261003120000 -0300" channel="0102">
-    <title lang="es">Plaza Sésamo</title>
+  <programme start="20261004175326 -0300" stop="20261004182527 -0300" channel="RedBullChileEspanol.cl">
+    <title lang="es">Las bicis más creativas se enfrentan en Copenhagen</title>
+    <desc lang="es">Competencia de bicis personalizadas y una pista de obstáculos. Con tres premios diferentes en juego, el público va a disfrutar de un buen espectáculo, pero ¿quién acabará en lo más alto?</desc>
+  </programme>
+  <programme start="20261004182527 -0300" stop="20261004213651 -0300" channel="RedBullChileEspanol.cl">
+    <title lang="es">Red Bull Batalla 2025 Final Nacional de España</title>
+    <desc lang="es">En el año del 20º aniversario de Red Bull Batalla, los mejores MCs de España se enfrentan en la Final Nacional 2025 para definir quién representará al país en la Final Internacional 2026.</desc>
   </programme>
   <programme start="20261003120000 -0300" stop="20261003140000 -0300" channel="0102">
     <title lang="es">Al fondo hay sitio</title>
@@ -1081,10 +1078,6 @@
   <programme start="20261010003000 -0300" stop="20261010023000 -0300" channel="0102">
     <title lang="es">Cierre de transmisiones</title>
   </programme>
-  <programme start="20261003103000 -0300" stop="20261003130000 -0300" channel="0104">
-    <title lang="es">El Chavo Del 8</title>
-    <desc lang="es">Las vivencias de El Chavo (Roberto Gómez Bolaños), Kiko (Carlos Villagrán), la Chilindrina (María Antonieta de las Nieves), Ñoño (Édgar Vivar) que juntos hacen un sinfín de travesuras a Doña Florinda (Florinda Meza), Don Ramón (Ramón Valdés), Doña Clotilde (Angelines Fernández), el Señor Barriga (Édgar Vivar) y el Profesor Jirafales (Rubén Aguirre).</desc>
-  </programme>
   <programme start="20261003130000 -0300" stop="20261003144500 -0300" channel="0104">
     <title lang="es">24 Horas Al Dia</title>
   </programme>
@@ -1218,6 +1211,19 @@
   <programme start="20261003083000 -0300" stop="20261003103000 -0300" channel="0104">
     <title lang="es">Chilenos de norte a sur</title>
   </programme>
+  <programme start="20261003103000 -0300" stop="20261003130000 -0300" channel="0104">
+    <title lang="es">El Chavo del Ocho</title>
+    <desc lang="es">Las vivencias de El Chavo (Roberto Gómez Bolaños), Kiko (Carlos Villagrán), la Chilindrina (María Antonieta de las Nieves), Ñoño (Édgar Vivar) que juntos hacen un sinfín de travesuras a Doña Florinda (Florinda Meza), Don Ramón (Ramón Valdés), Doña Clotilde (Angelines Fernández), el Señor Barriga (Édgar Vivar) y el Profesor Jirafales (Rubén Aguirre).</desc>
+    <date>1972</date>
+    <category lang="es">Comedia</category>
+    <icon src="https://imagenes.gatotv.com/categorias/programas/miniatura/el_chavo_del_ocho.jpg" />
+    <rating system="MX">
+      <value>TV-PG</value>
+    </rating>
+    <star-rating system="MX">
+      <value>9.0</value>
+    </star-rating>
+  </programme>
   <programme start="20261004050000 -0300" stop="20261004054500 -0300" channel="0104">
     <title lang="es">La Vida Es una Lotería</title>
     <desc lang="es">Conoce las historias reales de varios ganadores de Kino, Imán y Boleto Lotería y cómo la alegría que estos juegos de azar hacen que sus vidas cambien por completo.</desc>
@@ -1252,6 +1258,7 @@
   </programme>
   <programme start="20261004150000 -0300" stop="20261004191500 -0300" channel="0104">
     <title lang="es">Chile conectado</title>
+    <desc lang="es">Programa de información y noticias sobre Chile y los chilenos realizado desde regiones</desc>
   </programme>
   <programme start="20261004191500 -0300" stop="20261004210000 -0300" channel="0104">
     <title lang="es">Zona de control</title>
@@ -1345,11 +1352,9 @@
   </programme>
   <programme start="20261003080000 -0300" stop="20261003140000 -0300" channel="0105">
     <title lang="es">Meganoticias Siempre Juntos</title>
-    <desc lang="es">El periodista Luis Ugalde, analiza y comenta las principales noticias de Chile y el mundo.</desc>
   </programme>
   <programme start="20261003140000 -0300" stop="20261003144500 -0300" channel="0105">
     <title lang="es">Meganoticias Actualiza</title>
-    <desc lang="es">Noticiero con las informaciones más relevantes de Chile y el mundo.</desc>
   </programme>
   <programme start="20261003144500 -0300" stop="20261003160000 -0300" channel="0105">
     <title lang="es">Mi humano y yo</title>
@@ -1418,6 +1423,7 @@
   </programme>
   <programme start="20261004150000 -0300" stop="20261004175000 -0300" channel="0105">
     <title lang="es">De Paseo</title>
+    <desc lang="es">Coté nos invita a un divertido recorrido por lugares emblemáticos de Chile.</desc>
   </programme>
   <programme start="20261004175000 -0300" stop="20261004183500 -0300" channel="0105">
     <title lang="es">Clásico Ricardo Lyon Club Hípico</title>
@@ -1479,9 +1485,6 @@
   <programme start="20261005203000 -0300" stop="20261005211200 -0300" channel="0105">
     <title lang="es">Como la vida misma</title>
   </programme>
-  <programme start="20261003083000 -0300" stop="20261003123500 -0300" channel="0106">
-    <title lang="es">CHV Noticias AM - Fin de semana</title>
-  </programme>
   <programme start="20261003123500 -0300" stop="20261003150000 -0300" channel="0106">
     <title lang="es">CHV Noticias tarde</title>
   </programme>
@@ -1496,7 +1499,11 @@
   <programme start="20261003202000 -0300" stop="20261003223000 -0300" channel="0106">
     <title lang="es">CHV Noticias central</title>
   </programme>
-  <programme start="20261003223000 -0300" stop="20261004010500 -0300" channel="0106">
+  <programme start="20261003223000 -0300" stop="20261003224500 -0300" channel="0106">
+    <title lang="es">El Tiempo</title>
+    <desc lang="es">Últimas noticias del tiempo, tormentas, huracanes, tornados, cambio climático y otras noticias</desc>
+  </programme>
+  <programme start="20261003224500 -0300" stop="20261004010500 -0300" channel="0106">
     <title lang="es">La divina comida</title>
     <desc lang="es">Desafio Duplas. Cuatro famosos tendrán que ser anfitriones por una noche y preparar una cena entrada, plato de fondo y postre para los demás participantes. Cada uno en cuatro distintas noches. Luego serán juzgados por los participantes, quienes pondrán una nota del 1 al 7. El participante que obtenga el mayor puntaje ganara el título de Mejor Anfitrión, mientras que el que obtenga un puntaje más bajo se castiga con lavar los platos.</desc>
   </programme>
@@ -1530,9 +1537,11 @@
   </programme>
   <programme start="20261004150000 -0300" stop="20261004180000 -0300" channel="0106">
     <title lang="es">Sabingo</title>
+    <desc lang="es">Programa familiar que se te acompañará las tardes de sábado y domingo. En la conducción Millaray Viera y Juan Pablo Queraltó</desc>
   </programme>
   <programme start="20261004180000 -0300" stop="20261004203000 -0300" channel="0106">
     <title lang="es">Sabingo</title>
+    <desc lang="es">Programa familiar que se te acompañará las tardes de sábado y domingo. En la conducción Millaray Viera y Juan Pablo Queraltó</desc>
   </programme>
   <programme start="20261004203000 -0300" stop="20261004223500 -0300" channel="0106">
     <title lang="es">Chilevisión noticias central</title>
@@ -1540,7 +1549,7 @@
   <programme start="20261004223500 -0300" stop="20261005010000 -0300" channel="0106">
     <title lang="es">Primer plano</title>
   </programme>
-  <programme start="20261002223000 -0300" stop="20261003083000 -0300" channel="0106">
+  <programme start="20261002223000 -0300" stop="20261003123500 -0300" channel="0106">
     <title lang="es">Primer Plano</title>
   </programme>
   <programme start="20261002030500 -0300" stop="20261002054500 -0300" channel="0106">
@@ -1593,10 +1602,6 @@
   </programme>
   <programme start="20261005203000 -0300" stop="20261005224500 -0300" channel="0106">
     <title lang="es">Chilevisión noticias central</title>
-  </programme>
-  <programme start="20261003172530 -0300" stop="20261003191012 -0300" channel="0107">
-    <title lang="es">Lugares que Hablan</title>
-    <category lang="es">[]</category>
   </programme>
   <programme start="20261003191012 -0300" stop="20261003210000 -0300" channel="0107">
     <title lang="es">Lugares que Hablan</title>
@@ -1760,12 +1765,12 @@
     <title lang="es">Vecinos al Límite Extra</title>
     <category lang="es">[]</category>
   </programme>
-  <programme start="20261003140000 -0300" stop="20261003150500 -0300" channel="0107">
-    <title lang="es">Recomiendo Chile</title>
-  </programme>
   <programme start="20261003150500 -0300" stop="20261003172500 -0300" channel="0107">
     <title lang="es">Yo antes de ti</title>
     <desc lang="es">A veces el amor te lleva a donde nunca esperabas ir… Louisa "Lou" Clark (Emilia Clarke) vive en el campo inglés. Sin una dirección clara en su vida, la estrafalaria y creativa de 26 años pasa de un trabajo a otro para ayudar a su familia a finalizar el mes. Sin embargo, su actitud normalmente alegre se pone a prueba cuando se enfrenta a su destino profesional más reciente: un trabajo como cuidadora y compañera de Will Traynor (Sam Claflin), un rico banquero joven que quedó en silla de ruedas tras un accidente y cuyo mundo ha cambiado drásticamente en un abrir y cerrar de ojos. Ya no es un alma venturera, ahora es hombre cínico con su voluntad casi rendida. Hasta que Lou decide mostrarle que la vida vale la pena vivir. Embarcados en una serie de aventuras, Lou y Will obtienen más de lo que esperaban, y descubren que sus vidas y corazones cambian de una manera que ninguno podría haber imaginado.</desc>
+  </programme>
+  <programme start="20261003172500 -0300" stop="20261003191000 -0300" channel="0107">
+    <title lang="es">Lugares que hablan</title>
   </programme>
   <programme start="20261002025000 -0300" stop="20261002040000 -0300" channel="0107">
     <title lang="es">Vecinos al límite</title>
@@ -1830,11 +1835,42 @@
   <programme start="20261003130000 -0300" stop="20261003140000 -0300" channel="0107">
     <title lang="es">Teletrece</title>
     <sub-title lang="es">Tarde</sub-title>
-    <desc lang="es">Cuando ya ha terminado la mañana, este informativo presenta las informaciones más importantes que están en desarrollo, con móviles en directo y comentarios que dan más contexto a la jornada.</desc>
+  </programme>
+  <programme start="20261003140000 -0300" stop="20261003150000 -0300" channel="0107">
+    <title lang="es">Recomiendo Chile</title>
+  </programme>
+  <programme start="20261003150000 -0300" stop="20261003150500 -0300" channel="0107">
+    <title lang="es">Yo Antes de Ti</title>
+    <desc lang="es">A veces el amor te lleva a donde nunca esperabas ir… Louisa "Lou" Clark (Emilia Clarke) vive en el campo inglés. Sin una dirección clara en su vida, la estrafalaria y creativa de 26 años pasa de un trabajo a otro para ayudar a su familia a finalizar el mes. Sin embargo, su actitud normalmente alegre se pone a prueba cuando se enfrenta a su destino profesional más reciente: un trabajo como cuidadora y compañera de Will Traynor (Sam Claflin), un rico banquero joven que quedó en silla de ruedas tras un accidente y cuyo mundo ha cambiado drásticamente en un abrir y cerrar de ojos. Ya no es un alma venturera, ahora es hombre cínico con su voluntad casi rendida. Hasta que Lou decide mostrarle que la vida vale la pena vivir. Embarcados en una serie de aventuras, Lou y Will obtienen más de lo que esperaban, y descubren que sus vidas y corazones cambian de una manera que ninguno podría haber imaginado.</desc>
+    <credits>
+      <director>Thea Sharrock</director>
+      <actor>Emilia Clarke</actor>
+      <actor>Sam Claflin</actor>
+      <actor>Jenna Coleman</actor>
+      <actor>Charles Dance</actor>
+      <actor>Janet McTeer</actor>
+      <actor>Matthew Lewis</actor>
+      <actor>Brendan Coyle</actor>
+      <actor>Vanessa Kirby</actor>
+      <producer>Karen Rosenfelt</producer>
+      <producer>Alison Owen</producer>
+      <composer>Craig Armstrong</composer>
+    </credits>
+    <date>2016</date>
+    <category lang="es">Drama</category>
+    <category lang="es">Romance</category>
+    <category lang="es">Película</category>
+    <icon src="https://imagenes.gatotv.com/categorias/peliculas/miniatura/yo_antes_de_ti.jpg" />
+    <country lang="es">Reino Unido</country>
+    <rating system="MX">
+      <value>PG-13</value>
+    </rating>
+    <star-rating system="MX">
+      <value>7.0</value>
+    </star-rating>
   </programme>
   <programme start="20261003153000 -0300" stop="20261003160000 -0300" channel="0124">
     <title lang="es">Vida y Salud</title>
-    <desc lang="es">Espacio de noticias vinculadas con el emprendimiento, postulaciones y tips asociados con la innovación y las Pymes.</desc>
   </programme>
   <programme start="20261003160000 -0300" stop="20261003170000 -0300" channel="0124">
     <title lang="es">Informe T13</title>
@@ -1851,9 +1887,6 @@
     <title lang="es">Teletrece</title>
     <desc lang="es">Los mejores y más interesantes reportajes de la actualidad nacional e internacional.</desc>
   </programme>
-  <programme start="20261003080000 -0300" stop="20261003130000 -0300" channel="0124">
-    <title lang="es">T13 Finde</title>
-  </programme>
   <programme start="20261003130000 -0300" stop="20261003140000 -0300" channel="0124">
     <title lang="es">Teletrece tarde</title>
   </programme>
@@ -1862,11 +1895,9 @@
   </programme>
   <programme start="20261003143000 -0300" stop="20261003150000 -0300" channel="0124">
     <title lang="es">Más 100cia</title>
-    <desc lang="es">En una conversación deslenguada, nuestros invitados nos cuentan sus aciertos y errores financieros ¿cuál es el tuyo?</desc>
   </programme>
   <programme start="20261003150000 -0300" stop="20261003153000 -0300" channel="0124">
     <title lang="es">#Emprendedores</title>
-    <desc lang="es">Programa donde se busca destacar en televisión casos nacionales de emprendimientos científicos.</desc>
   </programme>
   <programme start="20261003221000 -0300" stop="20261003222000 -0300" channel="0124">
     <title lang="es">El tiempo</title>
@@ -1942,12 +1973,15 @@
   </programme>
   <programme start="20261004150000 -0300" stop="20261004153000 -0300" channel="0124">
     <title lang="es">#Emprendedores</title>
+    <desc lang="es">En una conversación deslenguada, nuestros invitados nos cuentan sus aciertos y errores financieros ¿cuál es el tuyo?</desc>
   </programme>
   <programme start="20261004153000 -0300" stop="20261004160000 -0300" channel="0124">
     <title lang="es">Vida y salud</title>
+    <desc lang="es">Espacio de noticias vinculadas con el emprendimiento, postulaciones y tips asociados con la innovación y las Pymes.</desc>
   </programme>
   <programme start="20261004160000 -0300" stop="20261004180000 -0300" channel="0124">
     <title lang="es">Informe T13</title>
+    <desc lang="es">Abordamos diferentes temas de salud en donde entrevistamos a un médico en particular para hablar sobre el tema.</desc>
   </programme>
   <programme start="20261004180000 -0300" stop="20261004190000 -0300" channel="0124">
     <title lang="es">Micrófono abierto</title>
@@ -1970,24 +2004,25 @@
   <programme start="20261004225000 -0300" stop="20261005010000 -0300" channel="0124">
     <title lang="es">Mesa central</title>
   </programme>
-  <programme start="20261003154700 -0300" stop="20261003160200 -0300" channel="0201">
-    <title lang="es">Entrevistas 24</title>
-  </programme>
-  <programme start="20261003160200 -0300" stop="20261003173000 -0300" channel="0201">
-    <title lang="es">24 horas a la hora</title>
-    <desc lang="es">Noticiero, con despachos en directo y corresponsalías en todo el mundo.</desc>
-  </programme>
-  <programme start="20261003173000 -0300" stop="20261003183000 -0300" channel="0201">
-    <title lang="es">24 Horas deportes</title>
-    <desc lang="es">Lo más destacado del día en diferentes disciplinas. Sigue la actualidad deportiva nacional e internacional a través de TVN.</desc>
-  </programme>
-  <programme start="20261003183000 -0300" stop="20261003190000 -0300" channel="0201">
-    <title lang="es">24 horas a la hora</title>
-    <desc lang="es">Noticiero, con despachos en directo y corresponsalías en todo el mundo.</desc>
-  </programme>
-  <programme start="20261003190000 -0300" stop="20261003191500 -0300" channel="0201">
+  <programme start="20261003190000 -0300" stop="20261003190900 -0300" channel="0201">
     <title lang="es">Conciencia 24/7</title>
     <desc lang="es">Un nuevo espacio multiplataforma, creado para visibilizar historias de innovación, desarrollo y de futuro que están sucediendo a lo largo de Chile.</desc>
+  </programme>
+  <programme start="20261003190900 -0300" stop="20261003192400 -0300" channel="0201">
+    <title lang="es">Entrevistas 24</title>
+    <desc lang="es">Espacio en el que conversamos con un invitado especial quien nos habla de la situación política, social, económica de Chile, o de tan variados temas de interés general para el ciudadano común.</desc>
+  </programme>
+  <programme start="20261003192400 -0300" stop="20261003200000 -0300" channel="0201">
+    <title lang="es">Más Motor</title>
+    <desc lang="es">Noticias y análisis de todo lo que sucede en los diferentes torneos internacionales de automovilismo, como el campeonato RallyMobil, la Fórmula Uno y el Mundial de Rally, junto con los lanzamientos más destacados de la industria automotriz nacional y mundial.</desc>
+  </programme>
+  <programme start="20261003200000 -0300" stop="20261003203000 -0300" channel="0201">
+    <title lang="es">24 horas a la hora</title>
+    <desc lang="es">Noticiero, con despachos en directo y corresponsalías en todo el mundo.</desc>
+  </programme>
+  <programme start="20261003203000 -0300" stop="20261003210000 -0300" channel="0201">
+    <title lang="es">Especialista Responde</title>
+    <desc lang="es">Un espacio que aborda diversos temas relacionados con la salud a través de consejos, tips y reflexiones de especialistas.</desc>
   </programme>
   <programme start="20261002023000 -0300" stop="20261002031500 -0300" channel="0201">
     <title lang="es">24 Horas a la Hora</title>
@@ -2130,24 +2165,20 @@
   <programme start="20261003111500 -0300" stop="20261003153000 -0300" channel="0201">
     <title lang="es">Parada Militar</title>
   </programme>
-  <programme start="20261003153000 -0300" stop="20261003154700 -0300" channel="0201">
+  <programme start="20261003153000 -0300" stop="20261003170000 -0300" channel="0201">
     <title lang="es">24 Horas Central</title>
   </programme>
-  <programme start="20261003191500 -0300" stop="20261003193000 -0300" channel="0201">
-    <title lang="es">Entrevistas 24</title>
-    <desc lang="es">Espacio en el que conversamos con un invitado especial quien nos habla de la situación política, social, económica de Chile, o de tan variados temas de interés general para el ciudadano común.</desc>
-  </programme>
-  <programme start="20261003193000 -0300" stop="20261003200000 -0300" channel="0201">
-    <title lang="es">Más motor</title>
-    <desc lang="es">Noticias y análisis de todo lo que sucede en los diferentes torneos internacionales de automovilismo, como el campeonato RallyMobil, la Fórmula Uno y el Mundial de Rally, junto con los lanzamientos más destacados de la industria automotriz nacional y mundial.</desc>
-  </programme>
-  <programme start="20261003200000 -0300" stop="20261003203000 -0300" channel="0201">
-    <title lang="es">24 Horas a la Hora</title>
-    <desc lang="es">Noticiero, con despachos en directo y corresponsalías en todo el mundo.</desc>
-  </programme>
-  <programme start="20261003203000 -0300" stop="20261003210000 -0300" channel="0201">
+  <programme start="20261003170000 -0300" stop="20261003173000 -0300" channel="0201">
     <title lang="es">El especialista responde</title>
     <desc lang="es">Un espacio que aborda diversos temas relacionados con la salud a través de consejos, tips y reflexiones de especialistas.</desc>
+  </programme>
+  <programme start="20261003173000 -0300" stop="20261003183000 -0300" channel="0201">
+    <title lang="es">24 Horas Deportes</title>
+    <desc lang="es">Lo más destacado del día en diferentes disciplinas. Sigue la actualidad deportiva nacional e internacional a través de TVN.</desc>
+  </programme>
+  <programme start="20261003183000 -0300" stop="20261003190000 -0300" channel="0201">
+    <title lang="es">24 Horas a la Hora</title>
+    <desc lang="es">Noticiero, con despachos en directo y corresponsalías en todo el mundo.</desc>
   </programme>
   <programme start="20261003210000 -0300" stop="20261003224500 -0300" channel="0201">
     <title lang="es">24 Horas Central</title>
@@ -2270,12 +2301,14 @@
   </programme>
   <programme start="20261004160000 -0300" stop="20261004170000 -0300" channel="0201">
     <title lang="es">24 Horas a la Hora</title>
+    <desc lang="es">Noticiero, con despachos en directo y corresponsalías en todo el mundo.</desc>
   </programme>
   <programme start="20261004170000 -0300" stop="20261004173000 -0300" channel="0201">
     <title lang="es">¿Cuál es tu huella?</title>
   </programme>
   <programme start="20261004173000 -0300" stop="20261004183000 -0300" channel="0201">
     <title lang="es">24 Horas a la Hora</title>
+    <desc lang="es">Noticiero, con despachos en directo y corresponsalías en todo el mundo.</desc>
   </programme>
   <programme start="20261004183000 -0300" stop="20261004193000 -0300" channel="0201">
     <title lang="es">Sin miedo</title>
@@ -2376,23 +2409,20 @@
   <programme start="20261005201500 -0300" stop="20261005210000 -0300" channel="0201">
     <title lang="es">Sin miedo</title>
   </programme>
-  <programme start="20261003153000 -0300" stop="20261003163000 -0300" channel="1153">
-    <title lang="es">CHV Futuro</title>
-  </programme>
-  <programme start="20261003163000 -0300" stop="20261003170000 -0300" channel="1153">
-    <title lang="es">Team Chile al Día</title>
-  </programme>
-  <programme start="20261003170000 -0300" stop="20261003180000 -0300" channel="1153">
-    <title lang="es">Bolsillo CHV Noticias</title>
-  </programme>
-  <programme start="20261003180000 -0300" stop="20261003183000 -0300" channel="1153">
-    <title lang="es">La Entrevista de Macarena Pizarro</title>
-  </programme>
-  <programme start="20261003183000 -0300" stop="20261003190000 -0300" channel="1153">
+  <programme start="20261003183000 -0300" stop="20261003185000 -0300" channel="1153">
     <title lang="es">Hoy en el Mundo: resumen semanal</title>
   </programme>
-  <programme start="20261003083000 -0300" stop="20261003130000 -0300" channel="1153">
-    <title lang="es">CHV Noticias A.M. Fin de semana</title>
+  <programme start="20261003185000 -0300" stop="20261003192000 -0300" channel="1153">
+    <title lang="es">Pelota al Piso</title>
+  </programme>
+  <programme start="20261003192000 -0300" stop="20261003202000 -0300" channel="1153">
+    <title lang="es">CHV Futuro</title>
+  </programme>
+  <programme start="20261003202000 -0300" stop="20261003223000 -0300" channel="1153">
+    <title lang="es">CHV Noticias central</title>
+  </programme>
+  <programme start="20261003223000 -0300" stop="20261003230000 -0300" channel="1153">
+    <title lang="es">La Entrevista de Daniel Matamala</title>
   </programme>
   <programme start="20261003130000 -0300" stop="20261003150000 -0300" channel="1153">
     <title lang="es">CHV Noticias tarde</title>
@@ -2400,17 +2430,17 @@
   <programme start="20261003150000 -0300" stop="20261003153000 -0300" channel="1153">
     <title lang="es">CHV Noticias te ayuda</title>
   </programme>
-  <programme start="20261003190000 -0300" stop="20261003193000 -0300" channel="1153">
-    <title lang="es">Pelota al piso</title>
-  </programme>
-  <programme start="20261003193000 -0300" stop="20261003202000 -0300" channel="1153">
+  <programme start="20261003153000 -0300" stop="20261003163000 -0300" channel="1153">
     <title lang="es">CHV futuro</title>
   </programme>
-  <programme start="20261003202000 -0300" stop="20261003223000 -0300" channel="1153">
-    <title lang="es">Chilevisión noticias central</title>
+  <programme start="20261003163000 -0300" stop="20261003170000 -0300" channel="1153">
+    <title lang="es">Team Chile al día</title>
   </programme>
-  <programme start="20261003223000 -0300" stop="20261003230000 -0300" channel="1153">
-    <title lang="es">La entrevista de Daniel Matamala</title>
+  <programme start="20261003170000 -0300" stop="20261003180000 -0300" channel="1153">
+    <title lang="es">Bolsillo CHV</title>
+  </programme>
+  <programme start="20261003180000 -0300" stop="20261003183000 -0300" channel="1153">
+    <title lang="es">La entrevista de Macarena Pizarro : María Inés Barría</title>
   </programme>
   <programme start="20261003230000 -0300" stop="20261004000000 -0300" channel="1153">
     <title lang="es">Reportajes: CHV Noticias</title>
@@ -2493,19 +2523,7 @@
   <programme start="20261004230000 -0300" stop="20261005000000 -0300" channel="1153">
     <title lang="es">Reportajes: CHV Noticias</title>
   </programme>
-  <programme start="20261003170300 -0300" stop="20261003175500 -0300" channel="13Cultura.cl@DPS">
-    <title lang="es">Plato Único</title>
-    <sub-title lang="es">Plato Único | Los pescados</sub-title>
-    <desc lang="es">Un recorrido por los sabores clásicos de Chile.</desc>
-    <category lang="es">['documentary', 'food']</category>
-  </programme>
-  <programme start="20261003175500 -0300" stop="20261003185600 -0300" channel="13Cultura.cl@DPS">
-    <title lang="es">Plato Único</title>
-    <sub-title lang="es">Plato Único | La sanguchería</sub-title>
-    <desc lang="es">Un recorrido por los sabores clásicos de Chile.</desc>
-    <category lang="es">['documentary', 'food']</category>
-  </programme>
-  <programme start="20261003185600 -0300" stop="20261003195600 -0300" channel="13Cultura.cl@DPS">
+  <programme start="20261003190400 -0300" stop="20261003195600 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Plato Único</title>
     <sub-title lang="es">Plato Único | Los Sanguches</sub-title>
     <desc lang="es">Un recorrido por los sabores clásicos de Chile.</desc>
@@ -2637,22 +2655,26 @@
     <desc lang="es">Un recorrido por los sabores clásicos de Chile.</desc>
     <category lang="es">['documentary', 'food']</category>
   </programme>
-  <programme start="20261003113000 -0300" stop="20261003120000 -0300" channel="13Cultura.cl@DPS">
-    <title lang="es">Hacedores de pan</title>
+  <programme start="20261004165800 -0300" stop="20261004180200 -0300" channel="13Cultura.cl@DPS">
+    <title lang="es">Plato Único</title>
+    <sub-title lang="es">Plato Único | Los pescados</sub-title>
+    <desc lang="es">Un recorrido por los sabores clásicos de Chile.</desc>
+    <category lang="es">['documentary', 'food']</category>
   </programme>
-  <programme start="20261003120000 -0300" stop="20261003130000 -0300" channel="13Cultura.cl@DPS">
-    <title lang="es">Carlo cocina, vive sustentable</title>
+  <programme start="20261004180200 -0300" stop="20261004190300 -0300" channel="13Cultura.cl@DPS">
+    <title lang="es">Plato Único</title>
+    <sub-title lang="es">Plato Único | La sanguchería</sub-title>
+    <desc lang="es">Un recorrido por los sabores clásicos de Chile.</desc>
+    <category lang="es">['documentary', 'food']</category>
   </programme>
   <programme start="20261003130000 -0300" stop="20261003133000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Vamos mujer</title>
   </programme>
   <programme start="20261003133000 -0300" stop="20261003140000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Seafood lovers</title>
-    <desc lang="es">T1 -Ep.8: Más Fresco, Imposible. Un hombre apasionado por los productos deliciosos que nos entrega la flora y fauna marina recorre las costas de Chile explorando los distintos platos que utilizan productos marinos, provenientes de la pesca artesanal.</desc>
   </programme>
   <programme start="20261003140000 -0300" stop="20261003150000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Recomiendo Chile</title>
-    <desc lang="es">T13 -Ep.13: Ruta Escenica Lagos Y Volcanes. Recomiendo Chile es una serie documental que aporta una mirada moderna hacia la gastronomía tradicional de nuestro país.</desc>
   </programme>
   <programme start="20261003150000 -0300" stop="20261003160000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Al sur del mundo : Colono en Tierra del Fuego</title>
@@ -2665,23 +2687,23 @@
     <title lang="es">Audaces</title>
     <desc lang="es">T1 -Ep.5: Audaces. Audaces es un programa de televisión que visibiliza las historias de emprendedores, creativos y agentes de cambio que están transformando la sociedad a través de la innovación, el arte y la educación.</desc>
   </programme>
-  <programme start="20261003170000 -0300" stop="20261003170300 -0300" channel="13Cultura.cl@DPS">
+  <programme start="20261003170000 -0300" stop="20261003173000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Te quiero verde : Gemma Botánica</title>
     <desc lang="es">T1 -Ep.6: Gemma Botánica. En te quiero verde Javiera Diaz de valdés nos invita a conocer el mundo de las plantas domésticas y la importancia de ellas en nuestra vida cotidiana.</desc>
   </programme>
-  <programme start="20261004165800 -0300" stop="20261004170000 -0300" channel="13Cultura.cl@DPS">
-    <title lang="es">Audaces</title>
-  </programme>
-  <programme start="20261004170000 -0300" stop="20261004173000 -0300" channel="13Cultura.cl@DPS">
-    <title lang="es">Te quiero verde : Resumen</title>
-  </programme>
-  <programme start="20261004173000 -0300" stop="20261004180000 -0300" channel="13Cultura.cl@DPS">
+  <programme start="20261003173000 -0300" stop="20261003180000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">La gracia de viajar</title>
+    <desc lang="es">T4 -Ep.11: La Gracia De Viajar. Viajar es la oportunidad de explorar el mundo con todos los sentidos, dejándote llevar por la emoción de lo desconocido, una aventura que nos desafía a salir de nuestra zona de confort y abrazar lo que la vida tiene para ofrecer. Viaja junto a la fotógrafa María Gracia Subercaseaux a los destinos más exóticos, descubriendo los rincones del mundo, su cultura, su gente, música y gastronomía, y explorar el mundo desde otra perspectiva.</desc>
   </programme>
-  <programme start="20261004180000 -0300" stop="20261004183000 -0300" channel="13Cultura.cl@DPS">
+  <programme start="20261003180000 -0300" stop="20261003183000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Desafío 2030</title>
+    <desc lang="es">T1 -Ep.6: Energía Limpia. Docuserie de inspiración en desarrollo sostenible.</desc>
   </programme>
-  <programme start="20261004183000 -0300" stop="20261004193000 -0300" channel="13Cultura.cl@DPS">
+  <programme start="20261003183000 -0300" stop="20261003190400 -0300" channel="13Cultura.cl@DPS">
+    <title lang="es">Energía Infinita</title>
+    <desc lang="es">T2 -Ep.4: Geotérmica. Serie documental donde reflexionaremos como la energía se ha convertido en una de los causantes del cambio climático, pero también cómo ésta se puede transformar en renovable y limpia, posicionando a Chile como un gran ejemplo de esta transición. En esta nueva temporada hablaremos sobre cómo adaptarnos en la utilización de una energía más limpia</desc>
+  </programme>
+  <programme start="20261004190300 -0300" stop="20261004193000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Energía Infinita</title>
   </programme>
   <programme start="20261004193000 -0300" stop="20261004203000 -0300" channel="13Cultura.cl@DPS">
@@ -2705,10 +2727,10 @@
   <programme start="20261003152000 -0300" stop="20261003160000 -0300" channel="1437">
     <title lang="es">Patiperros</title>
   </programme>
-  <programme start="20261003160000 -0300" stop="20261003170000 -0300" channel="1437">
+  <programme start="20261003160000 -0300" stop="20261003174500 -0300" channel="1437">
     <title lang="es">Patiperros</title>
   </programme>
-  <programme start="20261003170000 -0300" stop="20261003210000 -0300" channel="1437">
+  <programme start="20261003174500 -0300" stop="20261003210000 -0300" channel="1437">
     <title lang="es">¿Dónde está Elisa?</title>
   </programme>
   <programme start="20261003210000 -0300" stop="20261003221500 -0300" channel="1437">
@@ -2716,13 +2738,6 @@
   </programme>
   <programme start="20261003221500 -0300" stop="20261003231500 -0300" channel="1437">
     <title lang="es">Mea Culpa</title>
-  </programme>
-  <programme start="20261003154000 -0300" stop="20261003161000 -0300" channel="45">
-    <title lang="es">Cuestión Demente</title>
-  </programme>
-  <programme start="20261003161000 -0300" stop="20261003170000 -0300" channel="45">
-    <title lang="es">Locos Lab</title>
-    <desc lang="es">Descubre las locas aventuras de Nina y su tío Dr. C junto con sus amigos Niko, el cavernícola ,Mauf, el odioso gato y su maternal vaca quienes tratarán de cumplir los roles de una familia común y silvestre</desc>
   </programme>
   <programme start="20261003170000 -0300" stop="20261003180000 -0300" channel="45">
     <title lang="es">Puerto Papel</title>
@@ -2735,14 +2750,12 @@
   <programme start="20261003190000 -0300" stop="20261003200000 -0300" channel="45">
     <title lang="es">Lo Mejor ¿Qué Sucede? Inhumanamente Hablando Con El Profesor Zork</title>
   </programme>
-  <programme start="20261003113000 -0300" stop="20261003120000 -0300" channel="45">
-    <title lang="es">Petit</title>
+  <programme start="20261003200000 -0300" stop="20261003210000 -0300" channel="45">
+    <title lang="es">Deportes sin límites</title>
+    <desc lang="es">Espacio conducido por la periodista Natalia Pereda, quien nos exhibe y nos invita a ser parte de grandes historias de disciplinas deportivas de alto riesgo.</desc>
   </programme>
-  <programme start="20261003120000 -0300" stop="20261003123000 -0300" channel="45">
-    <title lang="es">Caleuchístico</title>
-  </programme>
-  <programme start="20261003123000 -0300" stop="20261003130000 -0300" channel="45">
-    <title lang="es">Microterrícolas</title>
+  <programme start="20261003210000 -0300" stop="20261003220000 -0300" channel="45">
+    <title lang="es">Entrada Liberada Voces De Mujeres</title>
   </programme>
   <programme start="20261003130000 -0300" stop="20261003133000 -0300" channel="45">
     <title lang="es">Bocas abiertas</title>
@@ -2752,23 +2765,16 @@
   </programme>
   <programme start="20261003143000 -0300" stop="20261003150000 -0300" channel="45">
     <title lang="es">Zander</title>
-    <desc lang="es">Serie que nos muestra la historia de un grupo de perfectos desconocidos que piensan que no tienen nada en común, pero, irán descubriendo la importancia de conocerse los unos a los otros</desc>
   </programme>
   <programme start="20261003150000 -0300" stop="20261003153000 -0300" channel="45">
     <title lang="es">Boca sucia</title>
   </programme>
-  <programme start="20261003153000 -0300" stop="20261003154000 -0300" channel="45">
+  <programme start="20261003153000 -0300" stop="20261003160000 -0300" channel="45">
     <title lang="es">Cuestión de mente</title>
   </programme>
-  <programme start="20261003200000 -0300" stop="20261003210000 -0300" channel="45">
-    <title lang="es">Deportes sin límites</title>
-    <desc lang="es">Espacio conducido por la periodista Natalia Pereda, quien nos exhibe y nos invita a ser parte de grandes historias de disciplinas deportivas de alto riesgo.</desc>
-  </programme>
-  <programme start="20261003210000 -0300" stop="20261003213000 -0300" channel="45">
-    <title lang="es">Entrada Liberada</title>
-  </programme>
-  <programme start="20261003213000 -0300" stop="20261003220000 -0300" channel="45">
-    <title lang="es">Voces de mujeres</title>
+  <programme start="20261003160000 -0300" stop="20261003170000 -0300" channel="45">
+    <title lang="es">Locos lab</title>
+    <desc lang="es">Descubre las locas aventuras de Nina y su tío Dr. C junto con sus amigos Niko, el cavernícola ,Mauf, el odioso gato y su maternal vaca quienes tratarán de cumplir los roles de una familia común y silvestre</desc>
   </programme>
   <programme start="20261003220000 -0300" stop="20261003230000 -0300" channel="45">
     <title lang="es">Selva viva: Patagonia</title>
@@ -5302,12 +5308,6 @@
   <programme channel="ArirangTV.kr" start="20261008010000 -0300" stop="20261008020000 -0300">
     <title lang="pl">Simply K-pop Gateway To Korea</title>
     <episode-num system="onscreen">E5</episode-num>
-  </programme>
-  <programme start="20261003111431 -0300" stop="20261003120849 -0300" channel="AutenticHistory.de">
-    <title lang="en">The Wannsee Conference</title>
-  </programme>
-  <programme start="20261003120849 -0300" stop="20261003130445 -0300" channel="AutenticHistory.de">
-    <title lang="en">Mafia Queens</title>
   </programme>
   <programme start="20261003130445 -0300" stop="20261003140112 -0300" channel="AutenticHistory.de">
     <title lang="en">Mafia Queens</title>
@@ -8112,25 +8112,6 @@
     <country lang="es">Malasia</country>
     <episode-num system="onscreen">S2026</episode-num>
   </programme>
-  <programme start="20261003173000 -0300" stop="20261003180000 -0300" channel="DW.de">
-    <title lang="es">¿Cómo te afecta?: La crisis de los "terceros lugares": más conectados, más solos</title>
-  </programme>
-  <programme start="20261003180000 -0300" stop="20261003181500 -0300" channel="DW.de">
-    <title lang="es">Economía: Noticias</title>
-    <desc lang="es">Una mirada europea al mundo de la economía y los negocios. Hechos, análisis y las historias reales desde las principales plazas financieras, los mercados clave y las empresas líderes.</desc>
-  </programme>
-  <programme start="20261003181500 -0300" stop="20261003183000 -0300" channel="DW.de">
-    <title lang="es">Transformar la Economía: Qué son las baterías de flujo y cómo ayudan a la transición energética</title>
-    <desc lang="es">Una mirada europea al mundo de la economía y los negocios. Hechos, análisis y las historias reales desde las principales plazas financieras, los mercados clave y las empresas líderes.</desc>
-  </programme>
-  <programme start="20261003183000 -0300" stop="20261003190000 -0300" channel="DW.de">
-    <title lang="es">ZonaDocu: Empresas emergentes alemanas - Tecnología punta para el mercado mundial</title>
-    <desc lang="es">Agricultura Diferente - Apicultura Consciente. La apicultura está de moda: el número de jóvenes apicultores se dispara. Durante años se pensó que trabajar con abejas era una afición de jubilados en peligro de extinción.</desc>
-  </programme>
-  <programme start="20261003190000 -0300" stop="20261003191500 -0300" channel="DW.de">
-    <title lang="es">DW Noticias: Noticias</title>
-    <desc lang="es">Explicaciones detalladas, análisis competentes, cobertura de la actualidad mundial: política, negocios, deporte y cultura. Perspectivas fascinantes más allá de los titulares. DW noticias: atando cabos para espectadores de todo el mundo.</desc>
-  </programme>
   <programme start="20261003191500 -0300" stop="20261003193000 -0300" channel="DW.de">
     <title lang="es">El reportero: Compraventa de esposas en India: las mujeres como mercancía</title>
     <desc lang="es">Con cámara en mano los reporteros de DW registran los sucesos de actualidad, los acontecimientos internacionales o las curiosidades de la vida cotidiana. Experimentan y relatan de cerca cómo cambian Alemania, Europa y el mundo ante sus ojos.</desc>
@@ -8225,6 +8206,24 @@
   </programme>
   <programme start="20261004050000 -0300" stop="20261004053000 -0300" channel="DW.de">
     <title lang="es">En forma: Vasos sanguíneos sanos para un cuerpo sano</title>
+  </programme>
+  <programme start="20261004053000 -0300" stop="20261004060000 -0300" channel="DW.de">
+    <title lang="es">Euromaxx: Vivir para el Papa: el día a día de un guardia suizo</title>
+    <desc lang="es">Europa en toda su diversidad y fascinación: estilos de vida, tendencias, cultura, sociedad y glamour. Euromaxx es un programa diario de DW siete días a la semana, 365 días al año. Euromaxx, el espacio sobre la vida cotidiana y la cultura de Europa.</desc>
+  </programme>
+  <programme start="20261004060000 -0300" stop="20261004061500 -0300" channel="DW.de">
+    <title lang="es">DW Actualidad en Análisis: Tulum se queda sin turistas</title>
+  </programme>
+  <programme start="20261004061500 -0300" stop="20261004063000 -0300" channel="DW.de">
+    <title lang="es">El reportero: Compraventa de esposas en India: las mujeres como mercancía</title>
+    <desc lang="es">Con cámara en mano los reporteros de DW registran los sucesos de actualidad, los acontecimientos internacionales o las curiosidades de la vida cotidiana. Experimentan y relatan de cerca cómo cambian Alemania, Europa y el mundo ante sus ojos.</desc>
+  </programme>
+  <programme start="20261004063000 -0300" stop="20261004070000 -0300" channel="DW.de">
+    <title lang="es">¡Escápate!: Descubrir Creta sin agobios</title>
+  </programme>
+  <programme start="20261004070000 -0300" stop="20261004071500 -0300" channel="DW.de">
+    <title lang="es">DW Analiza: ¿Está abandonando Estados Unidos a su principal aliado en Oriente Medio?</title>
+    <desc lang="es">DW Analiza pone en contexto las noticias de actualidad internacional, analiza el trasfondo de los hechos y habla con expertos para conocer todos los ángulos de la noticia.</desc>
   </programme>
   <programme start="20261002021500 -0300" stop="20261002030000 -0300" channel="DW.de">
     <title lang="es">A fondo</title>
@@ -8457,7 +8456,6 @@
   </programme>
   <programme start="20261003140000 -0300" stop="20261003141500 -0300" channel="DW.de">
     <title lang="es">Economía</title>
-    <desc lang="es">Una mirada europea al mundo de la economía y los negocios. Hechos, análisis y las historias reales desde las principales plazas financieras, los mercados clave y las empresas líderes.</desc>
   </programme>
   <programme start="20261003141500 -0300" stop="20261003150000 -0300" channel="DW.de">
     <title lang="es">DocFilm</title>
@@ -8472,7 +8470,6 @@
   </programme>
   <programme start="20261003153000 -0300" stop="20261003160000 -0300" channel="DW.de">
     <title lang="es">Enfoque Europa: Países, gente, destinos</title>
-    <desc lang="es">El magacín informa sobre la variedad de los pueblos, culturas y paisajes; sobre la convivencia y los conflictos de los europeos. Enfoque Europa presenta historias de la vida de la gente de diferentes países, estratos sociales y profesiones. Los reporteros de Enfoque Europa informan desde todo el continente. En ediciones especiales, un país o un acontecimiento destacado será objeto central del programa. Enfoque Europa: una mirada cercana, interesante y objetiva.</desc>
   </programme>
   <programme start="20261003160000 -0300" stop="20261003161500 -0300" channel="DW.de">
     <title lang="es">Economía</title>
@@ -8490,23 +8487,24 @@
     <title lang="es">Todo deporte</title>
     <desc lang="es">Todo deporte les trae las grandes y las pequeñas historias en torno al deporte en todo el mundo. Les mostramos cómo el deporte es capaz de cambiar la vida y cómo es un espejo de nuestra existencia.</desc>
   </programme>
-  <programme start="20261004053000 -0300" stop="20261004060000 -0300" channel="DW.de">
-    <title lang="es">Euromaxx - vida y cultura en Europa</title>
-    <desc lang="es">Europa en toda su diversidad y fascinación: estilos de vida, tendencias, cultura, sociedad y glamour. Euromaxx es un programa diario de DW siete días a la semana, 365 días al año. Euromaxx, el espacio sobre la vida cotidiana y la cultura de Europa.</desc>
+  <programme start="20261003173000 -0300" stop="20261003180000 -0300" channel="DW.de">
+    <title lang="es">¿Cómo te afecta?</title>
   </programme>
-  <programme start="20261004060000 -0300" stop="20261004061500 -0300" channel="DW.de">
-    <title lang="es">Actualidad en análisis</title>
+  <programme start="20261003180000 -0300" stop="20261003181500 -0300" channel="DW.de">
+    <title lang="es">Economía</title>
+    <desc lang="es">Una mirada europea al mundo de la economía y los negocios. Hechos, análisis y las historias reales desde las principales plazas financieras, los mercados clave y las empresas líderes.</desc>
   </programme>
-  <programme start="20261004061500 -0300" stop="20261004063000 -0300" channel="DW.de">
-    <title lang="es">El reportero</title>
-    <desc lang="es">Con cámara en mano los reporteros de DW registran los sucesos de actualidad, los acontecimientos internacionales o las curiosidades de la vida cotidiana. Experimentan y relatan de cerca cómo cambian Alemania, Europa y el mundo ante sus ojos.</desc>
+  <programme start="20261003181500 -0300" stop="20261003183000 -0300" channel="DW.de">
+    <title lang="es">Transformar la economía</title>
+    <desc lang="es">Una mirada europea al mundo de la economía y los negocios. Hechos, análisis y las historias reales desde las principales plazas financieras, los mercados clave y las empresas líderes.</desc>
   </programme>
-  <programme start="20261004063000 -0300" stop="20261004070000 -0300" channel="DW.de">
-    <title lang="es">¡Escápate!</title>
+  <programme start="20261003183000 -0300" stop="20261003190000 -0300" channel="DW.de">
+    <title lang="es">Zona docu</title>
+    <desc lang="es">Agricultura Diferente - Apicultura Consciente. La apicultura está de moda: el número de jóvenes apicultores se dispara. Durante años se pensó que trabajar con abejas era una afición de jubilados en peligro de extinción.</desc>
   </programme>
-  <programme start="20261004070000 -0300" stop="20261004071500 -0300" channel="DW.de">
-    <title lang="es">DW analiza</title>
-    <desc lang="es">DW Analiza pone en contexto las noticias de actualidad internacional, analiza el trasfondo de los hechos y habla con expertos para conocer todos los ángulos de la noticia.</desc>
+  <programme start="20261003190000 -0300" stop="20261003191500 -0300" channel="DW.de">
+    <title lang="es">DW Noticias</title>
+    <desc lang="es">Explicaciones detalladas, análisis competentes, cobertura de la actualidad mundial: política, negocios, deporte y cultura. Perspectivas fascinantes más allá de los titulares. DW noticias: atando cabos para espectadores de todo el mundo.</desc>
   </programme>
   <programme start="20261004071500 -0300" stop="20261004080000 -0300" channel="DW.de">
     <title lang="es">DocFilm</title>
@@ -8568,6 +8566,7 @@
   </programme>
   <programme start="20261004140000 -0300" stop="20261004141500 -0300" channel="DW.de">
     <title lang="es">DW analiza</title>
+    <desc lang="es">DW Analiza pone en contexto las noticias de actualidad internacional, analiza el trasfondo de los hechos y habla con expertos para conocer todos los ángulos de la noticia.</desc>
   </programme>
   <programme start="20261004141500 -0300" stop="20261004150000 -0300" channel="DW.de">
     <title lang="es">Zona docu</title>
@@ -8582,10 +8581,11 @@
   </programme>
   <programme start="20261004153000 -0300" stop="20261004160000 -0300" channel="DW.de">
     <title lang="es">Enlaces: Ventana Abierta Al Mundo Digital</title>
+    <desc lang="es">Cómo influye y cambia Internet nuestra vida? El magacín informa sobre las últimas tendencias en la cultura de la red y presenta curiosas ideas de usuarios y profesionales de Internet. Nuestro viaje semanal al mundo digital.</desc>
   </programme>
   <programme start="20261004160000 -0300" stop="20261004163000 -0300" channel="DW.de">
     <title lang="es">Zona docu</title>
-    <desc lang="es">Los Ríos Voladores Del Amazonas. Las masas de nubes sobre la selva amazónica contienen más agua que el mismo río Amazonas. Cuando estos ríos voladores llegan a los Andes, son empujados hacia el Sur y se precipitan en forma de lluvia sobre las ciudades de Sudamérica.</desc>
+    <desc lang="es">Calculo, Luego Existo - Inteligencia Artificial E Identidad Humana. Creatividad, emociones..La inteligencia artificial avanza hacia dominios profundamente humanos. Y se plantea una pregunta existencial: qué es lo que nos hace ser lo que somos cuando se cuestiona la unicidad del ser humano?</desc>
   </programme>
   <programme start="20261004163000 -0300" stop="20261004170000 -0300" channel="DW.de">
     <title lang="es">Eco Latinoamérica</title>
@@ -8608,6 +8608,7 @@
   </programme>
   <programme start="20261004190000 -0300" stop="20261004191500 -0300" channel="DW.de">
     <title lang="es">DW Noticias</title>
+    <desc lang="es">Explicaciones detalladas, análisis competentes, cobertura de la actualidad mundial: política, negocios, deporte y cultura. Perspectivas fascinantes más allá de los titulares. DW noticias: atando cabos para espectadores de todo el mundo.</desc>
   </programme>
   <programme start="20261004191500 -0300" stop="20261004193000 -0300" channel="DW.de">
     <title lang="es">Actualidad en análisis</title>
@@ -8813,23 +8814,6 @@
   <programme start="20261006013000 -0300" stop="20261006020000 -0300" channel="DW.de">
     <title lang="es">Visión futuro</title>
   </programme>
-  <programme start="20261003173000 -0300" stop="20261003180000 -0300" channel="DWEnglish.de">
-    <title lang="en">Afrimaxx: Shaping Identity: Africa's New Creative Voices</title>
-  </programme>
-  <programme start="20261003180000 -0300" stop="20261003180200 -0300" channel="DWEnglish.de">
-    <title lang="en">DW News</title>
-    <desc lang="es">Our deep dive format explains the stories that matter - with clarity, context and journalistic rigor. Each segment goes beyond the headlines to uncover what's driving key developments around the world, featuring sharp analysis, expert voices and exclusive on the ground insights from where events are unfolding.</desc>
-  </programme>
-  <programme start="20261003180200 -0300" stop="20261003183000 -0300" channel="DWEnglish.de">
-    <title lang="en">Global Us: Jakarta: Feeding one of the world's largest cities</title>
-  </programme>
-  <programme start="20261003183000 -0300" stop="20261003190000 -0300" channel="DWEnglish.de">
-    <title lang="en">DW News: Africa</title>
-  </programme>
-  <programme start="20261003190000 -0300" stop="20261003190300 -0300" channel="DWEnglish.de">
-    <title lang="en">DW News</title>
-    <desc lang="es">Our deep dive format explains the stories that matter - with clarity, context and journalistic rigor. Each segment goes beyond the headlines to uncover what's driving key developments around the world, featuring sharp analysis, expert voices and exclusive on the ground insights from where events are unfolding.</desc>
-  </programme>
   <programme start="20261003190300 -0300" stop="20261003200000 -0300" channel="DWEnglish.de">
     <title lang="en">DocFilm: Mao — China's Red Emperor - Part 1: The Long March</title>
   </programme>
@@ -8943,6 +8927,28 @@
   <programme start="20261004050200 -0300" stop="20261004051500 -0300" channel="DWEnglish.de">
     <title lang="en">Sports Life: Twerking - How Dancing Builds Resilience</title>
     <desc lang="es">Donjeta Sadiku is a supremely talented boxer with multiple titles to her name. But there is a problem: Donjeta comes from Kosovo, a state whose sovereignty many other countries refuse to recognize. That means she can't compete everywhere, which is impacting her international career. Donjeta doesn't only face opposition in the ring, but also outside of it due to politics.</desc>
+  </programme>
+  <programme start="20261004051500 -0300" stop="20261004060000 -0300" channel="DWEnglish.de">
+    <title lang="en">DocFilm: Visionary or Fraud? - Rudolf Steiner and His Waldorf Philosophy</title>
+    <desc lang="es">Rudolf Steiner is synonymous with Waldorf education - and its controversial teachings. This documentary explores the impact his ideas have had, and why they continue to draw both supporters and critics, to this day.</desc>
+  </programme>
+  <programme start="20261004060000 -0300" stop="20261004060200 -0300" channel="DWEnglish.de">
+    <title lang="en">DW News</title>
+    <desc lang="es">Our deep dive format explains the stories that matter - with clarity, context and journalistic rigor. Each segment goes beyond the headlines to uncover what's driving key developments around the world, featuring sharp analysis, expert voices and exclusive on the ground insights from where events are unfolding.</desc>
+  </programme>
+  <programme start="20261004060200 -0300" stop="20261004061500 -0300" channel="DWEnglish.de">
+    <title lang="en">DW News: Understand the world, one story at a time</title>
+  </programme>
+  <programme start="20261004061500 -0300" stop="20261004063000 -0300" channel="DWEnglish.de">
+    <title lang="en">Shift: How is AI changing opportunities for women?</title>
+  </programme>
+  <programme start="20261004063000 -0300" stop="20261004070000 -0300" channel="DWEnglish.de">
+    <title lang="en">The 77 Percent: Inside the world of 'Yahoo boys': Africa's scam industry</title>
+    <desc lang="es">In this week's show, we explore the complex issue of tribalism. We travel to Kenya to meet a couple whose love defies societal norms. Our resident rapper, Killa Ace, shares his heartbreak after being prohibited from marrying the woman he loves due to their different tribes. In our Street Debate, we hear from Nigerian youths who are breaking free from tribalism.</desc>
+  </programme>
+  <programme start="20261004070000 -0300" stop="20261004070200 -0300" channel="DWEnglish.de">
+    <title lang="en">DW News</title>
+    <desc lang="es">Our deep dive format explains the stories that matter - with clarity, context and journalistic rigor. Each segment goes beyond the headlines to uncover what's driving key developments around the world, featuring sharp analysis, expert voices and exclusive on the ground insights from where events are unfolding.</desc>
   </programme>
   <programme channel="DWEnglish.de" start="20261001210000 -0300" stop="20261001210200 -0300">
     <title lang="fr">DW News</title>
@@ -10007,14 +10013,14 @@
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/1/1/8/15215811.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/8/7/15215788.jpg" />
   </programme>
-  <programme channel="DWEnglish.de" start="20261004051500 -0300" stop="20261004060000 -0300">
-    <title lang="fr">Visionary or Fraud? - Rudolf Steiner and His Waldorf Philosophy</title>
-    <sub-title lang="fr">Anthroposoph, Okkultist, Influencer?</sub-title>
-    <desc lang="fr">Rudolf Steiner is synonymous with Waldorf education - and its controversial teachings. This documentary explores the impact his ideas have had, and why they continue to draw both supporters and critics, to this day.</desc>
-    <category lang="fr">Documentaire</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/0/8/15176804.jpg" />
+  <programme channel="DWEnglish.de" start="20261003173000 -0300" stop="20261003180000 -0300">
+    <title lang="fr">Afrimaxx</title>
+    <category lang="fr">Magazine de découvertes</category>
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/0/4/15216404.jpg" />
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/3/0/4/15216403.jpg" />
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/0/0/4/15216400.jpg" />
   </programme>
-  <programme channel="DWEnglish.de" start="20261004060000 -0300" stop="20261004060200 -0300">
+  <programme channel="DWEnglish.de" start="20261003180000 -0300" stop="20261003180200 -0300">
     <title lang="fr">DW News</title>
     <desc lang="es">Our deep dive format explains the stories that matter - with clarity, context and journalistic rigor. Each segment goes beyond the headlines to uncover what's driving key developments around the world, featuring sharp analysis, expert voices and exclusive on the ground insights from where events are unfolding.</desc>
     <category lang="fr">Journal</category>
@@ -10023,32 +10029,24 @@
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/9/6/15708695.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/3/8/7/15215783.jpg" />
   </programme>
-  <programme channel="DWEnglish.de" start="20261004060200 -0300" stop="20261004061500 -0300">
-    <title lang="fr">DW News Focus</title>
-    <desc lang="fr">Our deep dive format explains the stories that matter - with clarity, context and journalistic rigor. Each segment goes beyond the headlines to uncover what's driving key developments around the world, featuring sharp analysis, expert voices and exclusive on the ground insights from where events are unfolding.</desc>
+  <programme channel="DWEnglish.de" start="20261003180200 -0300" stop="20261003183000 -0300">
+    <title lang="fr">Global 3000</title>
+    <category lang="fr">Magazine d'information</category>
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/4/8/15215845.jpg" />
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/0/2/8/15215820.jpg" />
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/0/8/15215808.jpg" />
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/3/8/15215836.jpg" />
+  </programme>
+  <programme channel="DWEnglish.de" start="20261003183000 -0300" stop="20261003190000 -0300">
+    <title lang="fr">DW News</title>
+    <desc lang="es">Our deep dive format explains the stories that matter - with clarity, context and journalistic rigor. Each segment goes beyond the headlines to uncover what's driving key developments around the world, featuring sharp analysis, expert voices and exclusive on the ground insights from where events are unfolding.</desc>
     <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/2/8/15215825.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/1/1/8/15215811.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/8/7/15215788.jpg" />
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/0/7/15708705.jpg" />
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/9/6/15708698.jpg" />
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/9/6/15708695.jpg" />
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/3/8/7/15215783.jpg" />
   </programme>
-  <programme channel="DWEnglish.de" start="20261004061500 -0300" stop="20261004063000 -0300">
-    <title lang="fr">Shift</title>
-    <sub-title lang="fr">Living in the Digital Age</sub-title>
-    <category lang="fr">Magazine scientifique</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/3/4/8/15215843.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/0/8/15215809.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/7/9/15204975.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/2/8/15215826.jpg" />
-  </programme>
-  <programme channel="DWEnglish.de" start="20261004063000 -0300" stop="20261004070000 -0300">
-    <title lang="fr">The 77 Percent</title>
-    <sub-title lang="fr">#EndSARS Special - Two years after</sub-title>
-    <desc lang="fr">In this week's show, we explore the complex issue of tribalism. We travel to Kenya to meet a couple whose love defies societal norms. Our resident rapper, Killa Ace, shares his heartbreak after being prohibited from marrying the woman he loves due to their different tribes. In our Street Debate, we hear from Nigerian youths who are breaking free from tribalism.</desc>
-    <category lang="fr">Magazine de société</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/0/2/15702204.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/0/2/15702206.jpg" />
-  </programme>
-  <programme channel="DWEnglish.de" start="20261004070000 -0300" stop="20261004070200 -0300">
+  <programme channel="DWEnglish.de" start="20261003190000 -0300" stop="20261003190300 -0300">
     <title lang="fr">DW News</title>
     <desc lang="es">Our deep dive format explains the stories that matter - with clarity, context and journalistic rigor. Each segment goes beyond the headlines to uncover what's driving key developments around the world, featuring sharp analysis, expert voices and exclusive on the ground insights from where events are unfolding.</desc>
     <category lang="fr">Journal</category>
@@ -13965,7 +13963,6 @@
   </programme>
   <programme channel="France24.fr" start="20261003120000 -0300" stop="20261003121500 -0300">
     <title lang="fr">Noticias</title>
-    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
     <category lang="fr">Journal</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
@@ -13990,7 +13987,6 @@
   </programme>
   <programme channel="France24.fr" start="20261003130000 -0300" stop="20261003131500 -0300">
     <title lang="fr">Noticias</title>
-    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
     <category lang="fr">Journal</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
@@ -14017,7 +14013,6 @@
   </programme>
   <programme channel="France24.fr" start="20261003133000 -0300" stop="20261003134500 -0300">
     <title lang="fr">Noticias</title>
-    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
     <category lang="fr">Journal</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
@@ -14058,7 +14053,6 @@
   </programme>
   <programme channel="France24.fr" start="20261003144500 -0300" stop="20261003150000 -0300">
     <title lang="fr">Ellas hoy</title>
-    <desc lang="es">El programa de quienes impulsan el cambio en un mundo todavía dominado por los hombres. Iniciativas de hombres y de mujeres que luchan por sociedades con mayor igualdad de género.</desc>
     <category lang="fr">Magazine de société</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/3/6/15194635.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/0/2/6/15194620.jpg" />
@@ -14077,7 +14071,6 @@
   </programme>
   <programme channel="France24.fr" start="20261003151500 -0300" stop="20261003153000 -0300">
     <title lang="fr">En primera plana</title>
-    <desc lang="es">Cada semana, analistas y corresponsales de la prensa extranjera basados en París comentan lo más candente de la actualidad. Una mirada aguda desde la Ciudad de la Luz.</desc>
     <category lang="fr">Magazine d'information</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/2/7/15194729.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/1/2/7/15194721.jpg" />
@@ -14096,7 +14089,6 @@
   </programme>
   <programme channel="France24.fr" start="20261003154500 -0300" stop="20261003160000 -0300">
     <title lang="fr">En primera plana</title>
-    <desc lang="es">Cada semana, analistas y corresponsales de la prensa extranjera basados en París comentan lo más candente de la actualidad. Una mirada aguda desde la Ciudad de la Luz.</desc>
     <category lang="fr">Magazine d'information</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/2/7/15194729.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/1/2/7/15194721.jpg" />
@@ -15145,6 +15137,7 @@
   </programme>
   <programme channel="France24.fr" start="20261004144500 -0300" stop="20261004150000 -0300">
     <title lang="fr">Corresponsales</title>
+    <desc lang="es">Una invitación a dar una vuelta al mundo de la mano de las mejores producciones de nuestra red global de corresponsales.</desc>
     <category lang="fr">Magazine d'information</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/2/3/6/15194632.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/2/6/15194624.jpg" />
@@ -15162,6 +15155,7 @@
   </programme>
   <programme channel="France24.fr" start="20261004151500 -0300" stop="20261004153000 -0300">
     <title lang="fr">Escala en París</title>
+    <desc lang="es">Una cita semanal con personalidades de las artes, la ciencia, la política y el deporte que viven en París o la visitan. Más que una escala, un puente entre París y América Latina.</desc>
     <category lang="fr">Magazine d'information</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/0/3/6/15194630.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/8/4/15701486.jpg" />
@@ -15178,6 +15172,7 @@
   </programme>
   <programme channel="France24.fr" start="20261004154500 -0300" stop="20261004160000 -0300">
     <title lang="fr">Aquí América</title>
+    <desc lang="es">Toda la información del continente americano, de norte a sur, enriquecida con la mirada de los corresponsales de France 24.</desc>
     <category lang="fr">Magazine de découvertes</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/0/7/15194709.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/1/6/15703616.jpg" />
@@ -15194,6 +15189,7 @@
   </programme>
   <programme channel="France24.fr" start="20261004161500 -0300" stop="20261004163000 -0300">
     <title lang="fr">En primera plana</title>
+    <desc lang="es">Cada semana, analistas y corresponsales de la prensa extranjera basados en París comentan lo más candente de la actualidad. Una mirada aguda desde la Ciudad de la Luz.</desc>
     <category lang="fr">Magazine d'information</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/2/7/15194729.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/1/2/7/15194721.jpg" />
@@ -15212,6 +15208,7 @@
   </programme>
   <programme channel="France24.fr" start="20261004164500 -0300" stop="20261004170000 -0300">
     <title lang="fr">En primera plana</title>
+    <desc lang="es">Cada semana, analistas y corresponsales de la prensa extranjera basados en París comentan lo más candente de la actualidad. Una mirada aguda desde la Ciudad de la Luz.</desc>
     <category lang="fr">Magazine d'information</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/2/7/15194729.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/1/2/7/15194721.jpg" />
@@ -15248,6 +15245,7 @@
   </programme>
   <programme channel="France24.fr" start="20261004173000 -0300" stop="20261004174500 -0300">
     <title lang="fr">Noticias</title>
+    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
     <category lang="fr">Journal</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
@@ -15263,6 +15261,7 @@
   </programme>
   <programme channel="France24.fr" start="20261004180000 -0300" stop="20261004181500 -0300">
     <title lang="fr">Noticias</title>
+    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
     <category lang="fr">Journal</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
@@ -15289,6 +15288,7 @@
   </programme>
   <programme channel="France24.fr" start="20261004183000 -0300" stop="20261004184600 -0300">
     <title lang="fr">Noticias</title>
+    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
     <category lang="fr">Journal</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
@@ -15305,6 +15305,7 @@
   </programme>
   <programme channel="France24.fr" start="20261004190000 -0300" stop="20261004191500 -0300">
     <title lang="fr">Noticias</title>
+    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
     <category lang="fr">Journal</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
@@ -16302,9 +16303,6 @@
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/2/7/6/15194672.jpg" />
     <episode-num system="onscreen">E11</episode-num>
   </programme>
-  <programme start="20261003070000 -0300" stop="20261003130000 -0300" channel="M1.ua@SD">
-    <title lang="uk">M1 Hits</title>
-  </programme>
   <programme start="20261003130000 -0300" stop="20261003140000 -0300" channel="M1.ua@SD">
     <title lang="uk">Час кохати</title>
   </programme>
@@ -16419,11 +16417,11 @@
   <programme start="20261008170000 -0300" stop="20261008175000 -0300" channel="M1.ua@SD">
     <title lang="uk">Час кохати</title>
   </programme>
-  <programme start="20261003070000 -0300" stop="20261003120000 -0300" channel="M2.ua@SD">
-    <title lang="uk">Хіти Нон-стоп</title>
+  <programme start="20261008175000 -0300" stop="20261008180000 -0300" channel="M1.ua@SD">
+    <title lang="uk">M1 Hits</title>
   </programme>
-  <programme start="20261003120000 -0300" stop="20261003130000 -0300" channel="M2.ua@SD">
-    <title lang="uk">M2 Fresh</title>
+  <programme start="20261008180000 -0300" stop="20261009010000 -0300" channel="M1.ua@SD">
+    <title lang="uk">M1 Hits</title>
   </programme>
   <programme start="20261003130000 -0300" stop="20261003133000 -0300" channel="M2.ua@SD">
     <title lang="uk">Ірина Федишин. Цвіте калина</title>
@@ -16479,38 +16477,8 @@
   <programme start="20261008134500 -0300" stop="20261008180000 -0300" channel="M2.ua@SD">
     <title lang="uk">Хіти Нон-стоп</title>
   </programme>
-  <programme channel="MTVBiggestPop.us" start="20261003141500 -0300" stop="20261003151500 -0300">
-    <title>MTV Biggest Pop</title>
-    <live />
-    <episode-num system="original-air-date">20261003171500 +0000</episode-num>
-    <desc>¡Checa esto! MTV BIGGEST POP es tu destino para la mejor música, las más brillantes estrellas y los hits más bailables de la actualidad. Desde Drake y Miley, pasando por Beyoncé y Gaga.</desc>
-    <icon src="https://images.pluto.tv/series/609d8b003029660007d932ba/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">609d8b003029660007d932ba</series-id>
-    <category>Musical</category>
-    <category>Series</category>
-  </programme>
-  <programme channel="MTVBiggestPop.us" start="20261003151500 -0300" stop="20261003161500 -0300">
-    <title>MTV Biggest Pop</title>
-    <live />
-    <episode-num system="original-air-date">20261003181500 +0000</episode-num>
-    <desc>¡Checa esto! MTV BIGGEST POP es tu destino para la mejor música, las más brillantes estrellas y los hits más bailables de la actualidad. Desde Drake y Miley, pasando por Beyoncé y Gaga.</desc>
-    <icon src="https://images.pluto.tv/series/609d8b003029660007d932ba/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">609d8b003029660007d932ba</series-id>
-    <category>Musical</category>
-    <category>Series</category>
-  </programme>
-  <programme channel="MTVBiggestPop.us" start="20261003161500 -0300" stop="20261003171500 -0300">
-    <title>MTV Biggest Pop</title>
-    <live />
-    <episode-num system="original-air-date">20261003191500 +0000</episode-num>
-    <desc>¡Checa esto! MTV BIGGEST POP es tu destino para la mejor música, las más brillantes estrellas y los hits más bailables de la actualidad. Desde Drake y Miley, pasando por Beyoncé y Gaga.</desc>
-    <icon src="https://images.pluto.tv/series/609d8b003029660007d932ba/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">609d8b003029660007d932ba</series-id>
-    <category>Musical</category>
-    <category>Series</category>
+  <programme start="20261008180000 -0300" stop="20261009134500 -0300" channel="M2.ua@SD">
+    <title lang="uk">Хіти Нон-стоп</title>
   </programme>
   <programme channel="MTVBiggestPop.us" start="20261003171500 -0300" stop="20261003181500 -0300">
     <title>MTV Biggest Pop</title>
@@ -16520,8 +16488,8 @@
     <icon src="https://images.pluto.tv/series/609d8b003029660007d932ba/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">609d8b003029660007d932ba</series-id>
-    <category>Musical</category>
     <category>Series</category>
+    <category>Musical</category>
   </programme>
   <programme channel="MTVBiggestPop.us" start="20261003181500 -0300" stop="20261003191500 -0300">
     <title>MTV Biggest Pop</title>
@@ -16531,8 +16499,8 @@
     <icon src="https://images.pluto.tv/series/609d8b003029660007d932ba/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">609d8b003029660007d932ba</series-id>
-    <category>Musical</category>
     <category>Series</category>
+    <category>Musical</category>
   </programme>
   <programme channel="MTVBiggestPop.us" start="20261003191500 -0300" stop="20261003201500 -0300">
     <title>MTV Biggest Pop</title>
@@ -16542,8 +16510,8 @@
     <icon src="https://images.pluto.tv/series/609d8b003029660007d932ba/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">609d8b003029660007d932ba</series-id>
-    <category>Musical</category>
     <category>Series</category>
+    <category>Musical</category>
   </programme>
   <programme channel="MTVBiggestPop.us" start="20261003201500 -0300" stop="20261003211500 -0300">
     <title>MTV Biggest Pop</title>
@@ -16553,8 +16521,8 @@
     <icon src="https://images.pluto.tv/series/609d8b003029660007d932ba/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">609d8b003029660007d932ba</series-id>
-    <category>Musical</category>
     <category>Series</category>
+    <category>Musical</category>
   </programme>
   <programme channel="MTVBiggestPop.us" start="20261003211500 -0300" stop="20261003221500 -0300">
     <title>MTV Biggest Pop</title>
@@ -16564,8 +16532,8 @@
     <icon src="https://images.pluto.tv/series/609d8b003029660007d932ba/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">609d8b003029660007d932ba</series-id>
-    <category>Musical</category>
     <category>Series</category>
+    <category>Musical</category>
   </programme>
   <programme channel="MTVBiggestPop.us" start="20261003221500 -0300" stop="20261003231500 -0300">
     <title>MTV Biggest Pop</title>
@@ -16575,8 +16543,8 @@
     <icon src="https://images.pluto.tv/series/609d8b003029660007d932ba/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">609d8b003029660007d932ba</series-id>
-    <category>Musical</category>
     <category>Series</category>
+    <category>Musical</category>
   </programme>
   <programme channel="MTVBiggestPop.us" start="20261003231500 -0300" stop="20261004001500 -0300">
     <title>MTV Biggest Pop</title>
@@ -16586,8 +16554,8 @@
     <icon src="https://images.pluto.tv/series/609d8b003029660007d932ba/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">609d8b003029660007d932ba</series-id>
-    <category>Musical</category>
     <category>Series</category>
+    <category>Musical</category>
   </programme>
   <programme channel="MTVBiggestPop.us" start="20261004001500 -0300" stop="20261004011500 -0300">
     <title>MTV Biggest Pop</title>
@@ -16597,8 +16565,8 @@
     <icon src="https://images.pluto.tv/series/609d8b003029660007d932ba/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">609d8b003029660007d932ba</series-id>
-    <category>Musical</category>
     <category>Series</category>
+    <category>Musical</category>
   </programme>
   <programme channel="MTVBiggestPop.us" start="20261004011500 -0300" stop="20261004021500 -0300">
     <title>MTV Biggest Pop</title>
@@ -16608,8 +16576,8 @@
     <icon src="https://images.pluto.tv/series/609d8b003029660007d932ba/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">609d8b003029660007d932ba</series-id>
-    <category>Musical</category>
     <category>Series</category>
+    <category>Musical</category>
   </programme>
   <programme channel="MTVBiggestPop.us" start="20261004021500 -0300" stop="20261004031500 -0300">
     <title>MTV Biggest Pop</title>
@@ -16619,8 +16587,8 @@
     <icon src="https://images.pluto.tv/series/609d8b003029660007d932ba/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">609d8b003029660007d932ba</series-id>
-    <category>Musical</category>
     <category>Series</category>
+    <category>Musical</category>
   </programme>
   <programme channel="MTVBiggestPop.us" start="20261004031500 -0300" stop="20261004041500 -0300">
     <title>MTV Biggest Pop</title>
@@ -16630,8 +16598,8 @@
     <icon src="https://images.pluto.tv/series/609d8b003029660007d932ba/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">609d8b003029660007d932ba</series-id>
-    <category>Musical</category>
     <category>Series</category>
+    <category>Musical</category>
   </programme>
   <programme channel="MTVBiggestPop.us" start="20261004041500 -0300" stop="20261004051500 -0300">
     <title>MTV Biggest Pop</title>
@@ -16641,8 +16609,8 @@
     <icon src="https://images.pluto.tv/series/609d8b003029660007d932ba/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">609d8b003029660007d932ba</series-id>
-    <category>Musical</category>
     <category>Series</category>
+    <category>Musical</category>
   </programme>
   <programme channel="MTVBiggestPop.us" start="20261004051500 -0300" stop="20261004061500 -0300">
     <title>MTV Biggest Pop</title>
@@ -16652,8 +16620,8 @@
     <icon src="https://images.pluto.tv/series/609d8b003029660007d932ba/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">609d8b003029660007d932ba</series-id>
-    <category>Musical</category>
     <category>Series</category>
+    <category>Musical</category>
   </programme>
   <programme channel="MTVBiggestPop.us" start="20261004061500 -0300" stop="20261004071500 -0300">
     <title>MTV Biggest Pop</title>
@@ -16663,20 +16631,41 @@
     <icon src="https://images.pluto.tv/series/609d8b003029660007d932ba/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">609d8b003029660007d932ba</series-id>
+    <category>Series</category>
     <category>Musical</category>
-    <category>Series</category>
   </programme>
-  <programme channel="MTVFlowLatino.us" start="20261003150000 -0300" stop="20261003170000 -0300">
-    <title>MTV Flow Latino</title>
+  <programme channel="MTVBiggestPop.us" start="20261004071500 -0300" stop="20261004081500 -0300">
+    <title>MTV Biggest Pop</title>
     <live />
-    <episode-num system="original-air-date">20261003180000 +0000</episode-num>
-    <desc>Sumérgete en los ritmos que te aceleran el corazón y las melodías vibrantes de las estrellas más grandes de la música latina.</desc>
-    <icon src="https://images.pluto.tv/series/6504879f0f28f00008692cc5/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <episode-num system="original-air-date">20261004101500 +0000</episode-num>
+    <desc>¡Checa esto! MTV BIGGEST POP es tu destino para la mejor música, las más brillantes estrellas y los hits más bailables de la actualidad. Desde Drake y Miley, pasando por Beyoncé y Gaga.</desc>
+    <icon src="https://images.pluto.tv/series/609d8b003029660007d932ba/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
-    <series-id system="pluto">6504879f0f28f00008692cc5</series-id>
-    <category>Music</category>
+    <series-id system="pluto">609d8b003029660007d932ba</series-id>
     <category>Series</category>
-    <category>Latino</category>
+    <category>Musical</category>
+  </programme>
+  <programme channel="MTVBiggestPop.us" start="20261004081500 -0300" stop="20261004091500 -0300">
+    <title>MTV Biggest Pop</title>
+    <live />
+    <episode-num system="original-air-date">20261004111500 +0000</episode-num>
+    <desc>¡Checa esto! MTV BIGGEST POP es tu destino para la mejor música, las más brillantes estrellas y los hits más bailables de la actualidad. Desde Drake y Miley, pasando por Beyoncé y Gaga.</desc>
+    <icon src="https://images.pluto.tv/series/609d8b003029660007d932ba/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
+    <series-id system="pluto">609d8b003029660007d932ba</series-id>
+    <category>Series</category>
+    <category>Musical</category>
+  </programme>
+  <programme channel="MTVBiggestPop.us" start="20261004091500 -0300" stop="20261004101500 -0300">
+    <title>MTV Biggest Pop</title>
+    <live />
+    <episode-num system="original-air-date">20261004121500 +0000</episode-num>
+    <desc>¡Checa esto! MTV BIGGEST POP es tu destino para la mejor música, las más brillantes estrellas y los hits más bailables de la actualidad. Desde Drake y Miley, pasando por Beyoncé y Gaga.</desc>
+    <icon src="https://images.pluto.tv/series/609d8b003029660007d932ba/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
+    <series-id system="pluto">609d8b003029660007d932ba</series-id>
+    <category>Series</category>
+    <category>Musical</category>
   </programme>
   <programme channel="MTVFlowLatino.us" start="20261003170000 -0300" stop="20261003190000 -0300">
     <title>MTV Flow Latino</title>
@@ -16686,8 +16675,8 @@
     <icon src="https://images.pluto.tv/series/6504879f0f28f00008692cc5/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">6504879f0f28f00008692cc5</series-id>
-    <category>Music</category>
     <category>Series</category>
+    <category>Music</category>
     <category>Latino</category>
   </programme>
   <programme channel="MTVFlowLatino.us" start="20261003190000 -0300" stop="20261003210000 -0300">
@@ -16698,8 +16687,8 @@
     <icon src="https://images.pluto.tv/series/6504879f0f28f00008692cc5/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">6504879f0f28f00008692cc5</series-id>
-    <category>Music</category>
     <category>Series</category>
+    <category>Music</category>
     <category>Latino</category>
   </programme>
   <programme channel="MTVFlowLatino.us" start="20261003210000 -0300" stop="20261003230000 -0300">
@@ -16710,8 +16699,8 @@
     <icon src="https://images.pluto.tv/series/6504879f0f28f00008692cc5/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">6504879f0f28f00008692cc5</series-id>
-    <category>Music</category>
     <category>Series</category>
+    <category>Music</category>
     <category>Latino</category>
   </programme>
   <programme channel="MTVFlowLatino.us" start="20261003230000 -0300" stop="20261004010000 -0300">
@@ -16722,8 +16711,8 @@
     <icon src="https://images.pluto.tv/series/6504879f0f28f00008692cc5/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">6504879f0f28f00008692cc5</series-id>
-    <category>Music</category>
     <category>Series</category>
+    <category>Music</category>
     <category>Latino</category>
   </programme>
   <programme channel="MTVFlowLatino.us" start="20261004010000 -0300" stop="20261004030000 -0300">
@@ -16734,8 +16723,8 @@
     <icon src="https://images.pluto.tv/series/6504879f0f28f00008692cc5/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">6504879f0f28f00008692cc5</series-id>
-    <category>Music</category>
     <category>Series</category>
+    <category>Music</category>
     <category>Latino</category>
   </programme>
   <programme channel="MTVFlowLatino.us" start="20261004030000 -0300" stop="20261004050000 -0300">
@@ -16746,8 +16735,8 @@
     <icon src="https://images.pluto.tv/series/6504879f0f28f00008692cc5/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">6504879f0f28f00008692cc5</series-id>
-    <category>Music</category>
     <category>Series</category>
+    <category>Music</category>
     <category>Latino</category>
   </programme>
   <programme channel="MTVFlowLatino.us" start="20261004050000 -0300" stop="20261004070000 -0300">
@@ -16758,8 +16747,8 @@
     <icon src="https://images.pluto.tv/series/6504879f0f28f00008692cc5/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">6504879f0f28f00008692cc5</series-id>
-    <category>Music</category>
     <category>Series</category>
+    <category>Music</category>
     <category>Latino</category>
   </programme>
   <programme channel="MTVFlowLatino.us" start="20261004070000 -0300" stop="20261004090000 -0300">
@@ -16770,81 +16759,21 @@
     <icon src="https://images.pluto.tv/series/6504879f0f28f00008692cc5/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">6504879f0f28f00008692cc5</series-id>
-    <category>Music</category>
     <category>Series</category>
+    <category>Music</category>
     <category>Latino</category>
   </programme>
-  <programme channel="MTVSpankinNew.us" start="20261003150000 -0300" stop="20261003153000 -0300">
-    <title>MTV Spankin’ New</title>
+  <programme channel="MTVFlowLatino.us" start="20261004090000 -0300" stop="20261004110000 -0300">
+    <title>MTV Flow Latino</title>
     <live />
-    <episode-num system="original-air-date">20261003180000 +0000</episode-num>
-    <desc>You hear it first! MTV SPANKIN’ NEW is the place to discover new artists before they become household names. It’s the ultimate music experience to stay ahead of the trends.</desc>
-    <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <episode-num system="original-air-date">20261004120000 +0000</episode-num>
+    <desc>Sumérgete en los ritmos que te aceleran el corazón y las melodías vibrantes de las estrellas más grandes de la música latina.</desc>
+    <icon src="https://images.pluto.tv/series/6504879f0f28f00008692cc5/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
-    <series-id system="pluto">65450e3059dd91000863e04e</series-id>
-    <category>Music</category>
-    <category>Pop</category>
+    <series-id system="pluto">6504879f0f28f00008692cc5</series-id>
     <category>Series</category>
-  </programme>
-  <programme channel="MTVSpankinNew.us" start="20261003153000 -0300" stop="20261003160000 -0300">
-    <title>MTV Spankin’ New</title>
-    <live />
-    <episode-num system="original-air-date">20261003183000 +0000</episode-num>
-    <desc>You hear it first! MTV SPANKIN’ NEW is the place to discover new artists before they become household names. It’s the ultimate music experience to stay ahead of the trends.</desc>
-    <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">65450e3059dd91000863e04e</series-id>
     <category>Music</category>
-    <category>Pop</category>
-    <category>Series</category>
-  </programme>
-  <programme channel="MTVSpankinNew.us" start="20261003160000 -0300" stop="20261003163000 -0300">
-    <title>MTV Spankin’ New</title>
-    <live />
-    <episode-num system="original-air-date">20261003190000 +0000</episode-num>
-    <desc>You hear it first! MTV SPANKIN’ NEW is the place to discover new artists before they become household names. It’s the ultimate music experience to stay ahead of the trends.</desc>
-    <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">65450e3059dd91000863e04e</series-id>
-    <category>Music</category>
-    <category>Pop</category>
-    <category>Series</category>
-  </programme>
-  <programme channel="MTVSpankinNew.us" start="20261003163000 -0300" stop="20261003170000 -0300">
-    <title>MTV Spankin’ New</title>
-    <live />
-    <episode-num system="original-air-date">20261003193000 +0000</episode-num>
-    <desc>You hear it first! MTV SPANKIN’ NEW is the place to discover new artists before they become household names. It’s the ultimate music experience to stay ahead of the trends.</desc>
-    <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">65450e3059dd91000863e04e</series-id>
-    <category>Music</category>
-    <category>Pop</category>
-    <category>Series</category>
-  </programme>
-  <programme channel="MTVSpankinNew.us" start="20261003170000 -0300" stop="20261003173000 -0300">
-    <title>MTV Spankin’ New</title>
-    <live />
-    <episode-num system="original-air-date">20261003200000 +0000</episode-num>
-    <desc>You hear it first! MTV SPANKIN’ NEW is the place to discover new artists before they become household names. It’s the ultimate music experience to stay ahead of the trends.</desc>
-    <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">65450e3059dd91000863e04e</series-id>
-    <category>Music</category>
-    <category>Pop</category>
-    <category>Series</category>
-  </programme>
-  <programme channel="MTVSpankinNew.us" start="20261003173000 -0300" stop="20261003180000 -0300">
-    <title>MTV Spankin’ New</title>
-    <live />
-    <episode-num system="original-air-date">20261003203000 +0000</episode-num>
-    <desc>You hear it first! MTV SPANKIN’ NEW is the place to discover new artists before they become household names. It’s the ultimate music experience to stay ahead of the trends.</desc>
-    <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">65450e3059dd91000863e04e</series-id>
-    <category>Music</category>
-    <category>Pop</category>
-    <category>Series</category>
+    <category>Latino</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261003180000 -0300" stop="20261003183000 -0300">
     <title>MTV Spankin’ New</title>
@@ -16854,9 +16783,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Series</category>
     <category>Music</category>
     <category>Pop</category>
-    <category>Series</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261003183000 -0300" stop="20261003190000 -0300">
     <title>MTV Spankin’ New</title>
@@ -16866,9 +16795,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Series</category>
     <category>Music</category>
     <category>Pop</category>
-    <category>Series</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261003190000 -0300" stop="20261003193000 -0300">
     <title>MTV Spankin’ New</title>
@@ -16878,9 +16807,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Series</category>
     <category>Music</category>
     <category>Pop</category>
-    <category>Series</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261003193000 -0300" stop="20261003200000 -0300">
     <title>MTV Spankin’ New</title>
@@ -16890,9 +16819,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Series</category>
     <category>Music</category>
     <category>Pop</category>
-    <category>Series</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261003200000 -0300" stop="20261003203000 -0300">
     <title>MTV Spankin’ New</title>
@@ -16902,9 +16831,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Series</category>
     <category>Music</category>
     <category>Pop</category>
-    <category>Series</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261003203000 -0300" stop="20261003210000 -0300">
     <title>MTV Spankin’ New</title>
@@ -16914,9 +16843,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Series</category>
     <category>Music</category>
     <category>Pop</category>
-    <category>Series</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261003210000 -0300" stop="20261003213000 -0300">
     <title>MTV Spankin’ New</title>
@@ -16926,9 +16855,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Series</category>
     <category>Music</category>
     <category>Pop</category>
-    <category>Series</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261003213000 -0300" stop="20261003220000 -0300">
     <title>MTV Spankin’ New</title>
@@ -16938,9 +16867,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Series</category>
     <category>Music</category>
     <category>Pop</category>
-    <category>Series</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261003220000 -0300" stop="20261003223000 -0300">
     <title>MTV Spankin’ New</title>
@@ -16950,9 +16879,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Series</category>
     <category>Music</category>
     <category>Pop</category>
-    <category>Series</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261003223000 -0300" stop="20261003230000 -0300">
     <title>MTV Spankin’ New</title>
@@ -16962,9 +16891,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Series</category>
     <category>Music</category>
     <category>Pop</category>
-    <category>Series</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261003230000 -0300" stop="20261003233000 -0300">
     <title>MTV Spankin’ New</title>
@@ -16974,9 +16903,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Series</category>
     <category>Music</category>
     <category>Pop</category>
-    <category>Series</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261003233000 -0300" stop="20261004000000 -0300">
     <title>MTV Spankin’ New</title>
@@ -16986,9 +16915,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Series</category>
     <category>Music</category>
     <category>Pop</category>
-    <category>Series</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261004000000 -0300" stop="20261004003000 -0300">
     <title>MTV Spankin’ New</title>
@@ -16998,9 +16927,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Series</category>
     <category>Music</category>
     <category>Pop</category>
-    <category>Series</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261004003000 -0300" stop="20261004010000 -0300">
     <title>MTV Spankin’ New</title>
@@ -17010,9 +16939,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Series</category>
     <category>Music</category>
     <category>Pop</category>
-    <category>Series</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261004010000 -0300" stop="20261004013000 -0300">
     <title>MTV Spankin’ New</title>
@@ -17022,9 +16951,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Series</category>
     <category>Music</category>
     <category>Pop</category>
-    <category>Series</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261004013000 -0300" stop="20261004020000 -0300">
     <title>MTV Spankin’ New</title>
@@ -17034,9 +16963,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Series</category>
     <category>Music</category>
     <category>Pop</category>
-    <category>Series</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261004020000 -0300" stop="20261004023000 -0300">
     <title>MTV Spankin’ New</title>
@@ -17046,9 +16975,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Series</category>
     <category>Music</category>
     <category>Pop</category>
-    <category>Series</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261004023000 -0300" stop="20261004030000 -0300">
     <title>MTV Spankin’ New</title>
@@ -17058,9 +16987,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Series</category>
     <category>Music</category>
     <category>Pop</category>
-    <category>Series</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261004030000 -0300" stop="20261004033000 -0300">
     <title>MTV Spankin’ New</title>
@@ -17070,9 +16999,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Series</category>
     <category>Music</category>
     <category>Pop</category>
-    <category>Series</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261004033000 -0300" stop="20261004040000 -0300">
     <title>MTV Spankin’ New</title>
@@ -17082,9 +17011,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Series</category>
     <category>Music</category>
     <category>Pop</category>
-    <category>Series</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261004040000 -0300" stop="20261004043000 -0300">
     <title>MTV Spankin’ New</title>
@@ -17094,9 +17023,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Series</category>
     <category>Music</category>
     <category>Pop</category>
-    <category>Series</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261004043000 -0300" stop="20261004050000 -0300">
     <title>MTV Spankin’ New</title>
@@ -17106,9 +17035,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Series</category>
     <category>Music</category>
     <category>Pop</category>
-    <category>Series</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261004050000 -0300" stop="20261004053000 -0300">
     <title>MTV Spankin’ New</title>
@@ -17118,9 +17047,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Series</category>
     <category>Music</category>
     <category>Pop</category>
-    <category>Series</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261004053000 -0300" stop="20261004060000 -0300">
     <title>MTV Spankin’ New</title>
@@ -17130,9 +17059,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Series</category>
     <category>Music</category>
     <category>Pop</category>
-    <category>Series</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261004060000 -0300" stop="20261004063000 -0300">
     <title>MTV Spankin’ New</title>
@@ -17142,9 +17071,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Series</category>
     <category>Music</category>
     <category>Pop</category>
-    <category>Series</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261004063000 -0300" stop="20261004070000 -0300">
     <title>MTV Spankin’ New</title>
@@ -17154,9 +17083,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Series</category>
     <category>Music</category>
     <category>Pop</category>
-    <category>Series</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261004070000 -0300" stop="20261004073000 -0300">
     <title>MTV Spankin’ New</title>
@@ -17166,16 +17095,84 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Series</category>
     <category>Music</category>
     <category>Pop</category>
-    <category>Series</category>
   </programme>
-  <programme start="20261003083000 -0300" stop="20261003130000 -0300" channel="Meganoticias.cl">
-    <title lang="es">Meganoticias Siempre Juntos</title>
+  <programme channel="MTVSpankinNew.us" start="20261004073000 -0300" stop="20261004080000 -0300">
+    <title>MTV Spankin’ New</title>
+    <live />
+    <episode-num system="original-air-date">20261004103000 +0000</episode-num>
+    <desc>You hear it first! MTV SPANKIN’ NEW is the place to discover new artists before they become household names. It’s the ultimate music experience to stay ahead of the trends.</desc>
+    <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
+    <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Series</category>
+    <category>Music</category>
+    <category>Pop</category>
+  </programme>
+  <programme channel="MTVSpankinNew.us" start="20261004080000 -0300" stop="20261004083000 -0300">
+    <title>MTV Spankin’ New</title>
+    <live />
+    <episode-num system="original-air-date">20261004110000 +0000</episode-num>
+    <desc>You hear it first! MTV SPANKIN’ NEW is the place to discover new artists before they become household names. It’s the ultimate music experience to stay ahead of the trends.</desc>
+    <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
+    <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Series</category>
+    <category>Music</category>
+    <category>Pop</category>
+  </programme>
+  <programme channel="MTVSpankinNew.us" start="20261004083000 -0300" stop="20261004090000 -0300">
+    <title>MTV Spankin’ New</title>
+    <live />
+    <episode-num system="original-air-date">20261004113000 +0000</episode-num>
+    <desc>You hear it first! MTV SPANKIN’ NEW is the place to discover new artists before they become household names. It’s the ultimate music experience to stay ahead of the trends.</desc>
+    <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
+    <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Series</category>
+    <category>Music</category>
+    <category>Pop</category>
+  </programme>
+  <programme channel="MTVSpankinNew.us" start="20261004090000 -0300" stop="20261004093000 -0300">
+    <title>MTV Spankin’ New</title>
+    <live />
+    <episode-num system="original-air-date">20261004120000 +0000</episode-num>
+    <desc>You hear it first! MTV SPANKIN’ NEW is the place to discover new artists before they become household names. It’s the ultimate music experience to stay ahead of the trends.</desc>
+    <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
+    <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Series</category>
+    <category>Music</category>
+    <category>Pop</category>
+  </programme>
+  <programme channel="MTVSpankinNew.us" start="20261004093000 -0300" stop="20261004100000 -0300">
+    <title>MTV Spankin’ New</title>
+    <live />
+    <episode-num system="original-air-date">20261004123000 +0000</episode-num>
+    <desc>You hear it first! MTV SPANKIN’ NEW is the place to discover new artists before they become household names. It’s the ultimate music experience to stay ahead of the trends.</desc>
+    <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
+    <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Series</category>
+    <category>Music</category>
+    <category>Pop</category>
+  </programme>
+  <programme channel="MTVSpankinNew.us" start="20261004100000 -0300" stop="20261004103000 -0300">
+    <title>MTV Spankin’ New</title>
+    <live />
+    <episode-num system="original-air-date">20261004130000 +0000</episode-num>
+    <desc>You hear it first! MTV SPANKIN’ NEW is the place to discover new artists before they become household names. It’s the ultimate music experience to stay ahead of the trends.</desc>
+    <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
+    <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Series</category>
+    <category>Music</category>
+    <category>Pop</category>
   </programme>
   <programme start="20261003130000 -0300" stop="20261003150000 -0300" channel="Meganoticias.cl">
     <title lang="es">Meganoticias actualiza</title>
-    <desc lang="es">Un noticiero que busca entregar la mejor y más detallada información de todo el acontecer nacional, de lo que ocurre en Chile y en el mundo minuto a minuto, de una forma ágil y dinámica.</desc>
   </programme>
   <programme start="20261003150000 -0300" stop="20261003203000 -0300" channel="Meganoticias.cl">
     <title lang="es">Megainvestiga</title>
@@ -17224,43 +17221,7 @@
   </programme>
   <programme start="20261004150000 -0300" stop="20261004203000 -0300" channel="Meganoticias.cl">
     <title lang="es">Megainvestiga</title>
-  </programme>
-  <programme start="20261003113500 -0300" stop="20261003114000 -0300" channel="NHKWorldJapan.jp">
-    <title lang="en">Time-lapse Journey</title>
-    <sub-title lang="en">Kyoto</sub-title>
-    <desc lang="en">Kyoto in the autumn: the old capital is even more beautiful when dressed in fall colors. Witness the contemplative and quiet beauty of Kyoto through time-lapse photography.</desc>
-  </programme>
-  <programme start="20261003114000 -0300" stop="20261003115000 -0300" channel="NHKWorldJapan.jp">
-    <title lang="en">u&amp;i</title>
-    <sub-title lang="en">It's Sad That She Can't Hear</sub-title>
-    <desc lang="en">This show for kids promotes a greater understanding for people with difficulties and helps develop empathy. With the help of two fairies, the main character thinks about what can be done to help.</desc>
-    <url>https://www3.nhk.or.jp/nhkworld/en/shows/u_and_i/</url>
-  </programme>
-  <programme start="20261003115000 -0300" stop="20261003120000 -0300" channel="NHKWorldJapan.jp">
-    <title lang="en">Viewpoint Science</title>
-    <sub-title lang="en">#8 Try to Sort Them</sub-title>
-    <desc lang="en">The proactive science education program which encourages primary and lower secondary school children to discover and investigate the mysteries which puzzle them.</desc>
-    <url>https://www3.nhk.or.jp/nhkworld/en/shows/viewpoint/</url>
-  </programme>
-  <programme start="20261003120000 -0300" stop="20261003121000 -0300" channel="NHKWorldJapan.jp">
-    <title lang="en">NHK Newsline</title>
-    <desc lang="en">NHK NEWSLINE brings you up to date with the latest from Japan, Asia and around the world. Our team covers breaking news and major developments, with trusted anchors to tie it all together.</desc>
-  </programme>
-  <programme start="20261003121000 -0300" stop="20261003125500 -0300" channel="NHKWorldJapan.jp">
-    <title lang="en">Train Cruise</title>
-    <sub-title lang="en">Life, Art and Connections in Shimane</sub-title>
-    <desc lang="en">Journey through the tranquil rustic landscape of Shimane Pref. Traditional fishermen catch clams. One temple offers blessing for eye ailments. And, residents make unusual sculptures for the deities.</desc>
-    <url>https://www3.nhk.or.jp/nhkworld/en/shows/traincruise/</url>
-  </programme>
-  <programme start="20261003125500 -0300" stop="20261003130000 -0300" channel="NHKWorldJapan.jp">
-    <title lang="en">Japanology Plus mini</title>
-    <sub-title lang="en">Torii</sub-title>
-    <desc lang="en">Torii are gateways to Shinto shrines where deities are worshipped. We look at torii around Japan, as well as efforts to rebuild them after a tsunami, and examine their role and what they represent.</desc>
-    <url>https://www3.nhk.or.jp/nhkworld/en/shows/japanologymini/</url>
-  </programme>
-  <programme start="20261003130000 -0300" stop="20261003131000 -0300" channel="NHKWorldJapan.jp">
-    <title lang="en">NHK Newsline</title>
-    <desc lang="en">NHK NEWSLINE brings you up to date with the latest from Japan, Asia and around the world. Our team covers breaking news and major developments, with trusted anchors to tie it all together.</desc>
+    <desc lang="es">Encuentre aquí todas las noticias de mega investiga en videos, artículos, fotos, virales y las últimas noticias de mega investiga que suceden en Chile.</desc>
   </programme>
   <programme start="20261003131000 -0300" stop="20261003134000 -0300" channel="NHKWorldJapan.jp">
     <title lang="en">YOKAI:Exploring Hidden Japanese Folklore</title>
@@ -20032,6 +19993,46 @@
     <sub-title lang="en">Shizuoka - Energy of the Forest</sub-title>
     <desc lang="en">Shizuoka has everything from beaches to mountains, but this time our road takes us through its deep forests, from wild rides on timber trails to a wild taste experience in the birthplace of wasabi.</desc>
   </programme>
+  <programme start="20261011174000 -0300" stop="20261011180000 -0300" channel="NHKWorldJapan.jp">
+    <title lang="en">The Wakey Show</title>
+    <sub-title lang="en">#7</sub-title>
+    <desc lang="en">This episode features "Become an Athlete for three minutes," with soccer exercises. In addition, Mosso brings us, "Not the Same" and Wakey sings "The Songs Song." It energizes kids.</desc>
+    <url>https://www3.nhk.or.jp/nhkworld/en/shows/wakeyshow/</url>
+  </programme>
+  <programme start="20261011180000 -0300" stop="20261011181000 -0300" channel="NHKWorldJapan.jp">
+    <title lang="en">NHK Newsline</title>
+    <desc lang="en">NHK NEWSLINE brings you up to date with the latest from Japan, Asia and around the world. Our team covers breaking news and major developments, with trusted anchors to tie it all together.</desc>
+  </programme>
+  <programme start="20261011181000 -0300" stop="20261011184000 -0300" channel="NHKWorldJapan.jp">
+    <title lang="en">J-melo</title>
+    <url>https://www3.nhk.or.jp/nhkworld/en/shows/j-melo/</url>
+  </programme>
+  <programme start="20261011184000 -0300" stop="20261011185000 -0300" channel="NHKWorldJapan.jp">
+    <title lang="en">Little Charo</title>
+    <sub-title lang="en">season2-5</sub-title>
+    <desc lang="en">Little Charo is an animation series about a Japanese dog who got lost in NY. "I want to see my owner again!" Charo starts his adventure back home. Season 2-5.</desc>
+  </programme>
+  <programme start="20261011185000 -0300" stop="20261011185500 -0300" channel="NHKWorldJapan.jp">
+    <title lang="en">Japanology Plus mini</title>
+    <sub-title lang="en">Natto</sub-title>
+    <desc lang="en">Highly nutritious and increasingly popular overseas, natto is a traditional Japanese food linked to longevity. Now, there are even hopes that it could help solve environmental issues.</desc>
+    <url>https://www3.nhk.or.jp/nhkworld/en/shows/japanologymini/</url>
+  </programme>
+  <programme start="20261011185500 -0300" stop="20261011190000 -0300" channel="NHKWorldJapan.jp">
+    <title lang="en">A Cat's-Eye View of Japan</title>
+    <sub-title lang="en">Hokkaido:Furano's Play Areas</sub-title>
+    <desc lang="en">Furano is full of vast wheat fields. For a local farmer's cat, it's the perfect place to hunt or go for a run. We meet two cats who live at an inn and love to play on the exposed hot water pipes.</desc>
+  </programme>
+  <programme start="20261011190000 -0300" stop="20261011191000 -0300" channel="NHKWorldJapan.jp">
+    <title lang="en">NHK Newsline</title>
+    <desc lang="en">NHK NEWSLINE brings you up to date with the latest from Japan, Asia and around the world. Our team covers breaking news and major developments, with trusted anchors to tie it all together.</desc>
+  </programme>
+  <programme start="20261011191000 -0300" stop="20261011192500 -0300" channel="NHKWorldJapan.jp">
+    <title lang="en">Ekiben Japan</title>
+    <sub-title lang="en">The Ocean and the Lives Behind Every Bite</sub-title>
+    <desc lang="en">Beyond each bite of this ekiben for a Sea of Japan journey is a story: a father and son diving for mozuku, a fisher collecting turban shells, and a hotel duo preserving its flavors.</desc>
+    <url>https://www3.nhk.or.jp/nhkworld/en/shows/ekibenjapan/</url>
+  </programme>
   <programme start="20261002210900 -0300" stop="20261002221300 -0300" channel="QelloConcertsbyStingray.ca">
     <title lang="en">Tom Petty &amp; The Heartbreakers - Live at Soundstage</title>
     <desc lang="en">Filmed live from the Vic Theatre, Chicago, Illinois, USA in April 2003 for the 'Soundstage' TV series.</desc>
@@ -21411,29 +21412,6 @@
     <date>2020</date>
     <category lang="en">Explore</category>
     <icon src="https://d11hei8e1dyf6i.cloudfront.net/RWILD/Default_Thumbnail.jpg" />
-  </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261003142500 -0300" stop="20261003161400 -0300">
-    <title>Born To Windsurf - Björn Dunkerbeck</title>
-    <live />
-    <episode-num system="original-air-date">20261003172500 +0000</episode-num>
-    <desc>Bjørn Dunkerbeck zählt mit 42 Weltmeistertiteln zu den erfolgreichsten Profisportlern. Mit 52 Jahren kämpft er sich zurück an die Weltspitze des Windsurfens. 2021 setzt er sich das Ziel, in Namibia den Weltrekord im Windsurf-Speed zu brechen.</desc>
-    <icon src="https://images.pluto.tv/series/6a981013da71d9a75f01de26/tile_1790751836122.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">6a981013da71d9a75f01de26</series-id>
-    <category>Series</category>
-    <category>Sports</category>
-  </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261003161400 -0300" stop="20261003162817 -0300">
-    <title>Skate Tales</title>
-    <live />
-    <episode-num system="original-air-date">20261003191400 +0000</episode-num>
-    <desc>Madars und Nico Hiraga erleben, wie San Francisco die neue Generation des Skateboardens formt.</desc>
-    <icon src="https://images.pluto.tv/series/6853f51bb54a02bbc47d5fb4/tile_1759552965298.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">6853f51bb54a02bbc47d5fb4</series-id>
-    <sub-title>Hill Bombing in San Francisco mit Nico Hiraga</sub-title>
-    <category>Series</category>
-    <category>Sports</category>
   </programme>
   <programme channel="RewindTV.cl@SD" start="20261002070000 -0300" stop="20261002073000 -0300">
     <title lang="en">Live</title>
@@ -31766,6 +31744,1043 @@
     </rating>
   </programme>
   <programme channel="SkySportsF1.uk" start="20261005180000 -0300" stop="20261005200000 -0300">
+    <title lang="en">GTWC Highlights</title>
+    <desc lang="en">Sprint Cup highlights from the 2026 season of the GT World Challenge Europe as Barcelona staged the penultimate round of the year.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/3e0547c1-a369-4fb5-9c09-16724f69a982/16-9" />
+    <episode-num system="xmltv_ns">.13.</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261001213000 -0300" stop="20261001220000 -0300">
+    <title lang="en">F1 Paddock Uncut: Bahrain</title>
+    <desc lang="en">Join Sky F1's leading voices as they discuss the top stories coming out of media day in the build-up to the Bahrain Grand Prix in Malaysia.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/932d9352-ee40-4f27-b8a6-871f92e68312/16-9" />
+    <episode-num system="xmltv_ns">.22.</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261001220000 -0300" stop="20261001224500 -0300">
+    <title lang="en">F1 Drivers' Press Conference</title>
+    <desc lang="en">Ahead of the Bahrain Grand Prix in Malaysia, the drivers sit down to answer questions from the world's media.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/79c6181c-eb04-4928-b5ea-c8ec1af73ca6/16-9" />
+    <episode-num system="xmltv_ns">.22.</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261001224500 -0300" stop="20261001234500 -0300">
+    <title lang="en">Azerbaijan F1 GP Highlights</title>
+    <sub-title lang="en">It's lights out in Baku</sub-title>
+    <desc lang="en">George Russell starts in P1 for the 12th time in his career as Charles Leclerc and Oscar Piastri complete the top three. Kimi Antonelli begins down in 16th. (26.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/1356c88b-383d-401e-bc36-daff17163b89/16-9" />
+    <episode-num system="onscreen">09</episode-num>
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261001234500 -0300" stop="20261002001500 -0300">
+    <title lang="en">F1 Paddock Uncut: Bahrain</title>
+    <desc lang="en">Join Sky F1's leading voices as they discuss the top stories coming out of media day in the build-up to the Bahrain Grand Prix in Malaysia.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/932d9352-ee40-4f27-b8a6-871f92e68312/16-9" />
+    <episode-num system="xmltv_ns">.22.</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261002001500 -0300" stop="20261002010000 -0300">
+    <title lang="en">F1 Drivers' Press Conference</title>
+    <desc lang="en">Ahead of the Bahrain Grand Prix in Malaysia, the drivers sit down to answer questions from the world's media.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/79c6181c-eb04-4928-b5ea-c8ec1af73ca6/16-9" />
+    <episode-num system="xmltv_ns">.22.</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261002010000 -0300" stop="20261002030000 -0300">
+    <title lang="en">Live Bahrain F1 GP: Practice 1</title>
+    <desc lang="en">As the lights go green for free practice one, Malaysia's Sepang International Circuit makes its return to the calendar as stand-in host for the 2026 Bahrain Grand Prix.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/a59c1eba-90f6-43f6-93c3-628897d9a46a/16-9" />
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261002030000 -0300" stop="20261002031500 -0300">
+    <title lang="en">Naomi Hot Laps with Kimi Antonelli</title>
+    <desc lang="en">Mercedes driver Kimi Antonelli takes Sky F1's Naomi Schiff on a hot lap of the Miami circuit.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/83af1c8f-b901-4fda-aa05-541d5d3b2dcb/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261002031500 -0300" stop="20261002033000 -0300">
+    <title lang="en">At Home with Liam Lawson Pt1</title>
+    <desc lang="en">Find out what Racing Bulls driver Liam Lawson does on a day off in this two-part special, as the New Zealander shows his breakfast, workout, life in Monaco and golfing skills. (1 of.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/5153cba5-398f-4cb0-b50a-c964713b61ad/16-9" />
+    <episode-num system="onscreen">2</episode-num>
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261002033000 -0300" stop="20261002040000 -0300">
+    <title lang="en">Live Team Principal's Press Conf'</title>
+    <desc lang="en">Formula 1 team bosses sit down to answer questions from the media ahead of the Bahrain Grand Prix in Malaysia.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/0a019de6-e4d8-4794-acb1-5f9caa4fea93/16-9" />
+    <episode-num system="xmltv_ns">.324.</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261002040000 -0300" stop="20261002042000 -0300">
+    <title lang="en">Chasing The Dream</title>
+    <desc lang="en">Step behind the scenes of Formula 2 in this captivating series. Here, a look at all the action from Baku in Azerbaijan.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/22602af4-a93c-4518-b2ab-bd2d8c7d008f/16-9" />
+    <episode-num system="xmltv_ns">7.12.</episode-num>
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261002042000 -0300" stop="20261002043000 -0300">
+    <title lang="en">Martin Brundle with Lando Norris</title>
+    <desc lang="en">Sky F1's Martin Brundle joins the reigning Formula 1 world champion Lando Norris for an extended, two-part chat. (1 of.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/d4531689-e61e-4eac-9820-c6dbf95a3466/16-9" />
+    <episode-num system="onscreen">2</episode-num>
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261002043000 -0300" stop="20261002044500 -0300">
+    <title lang="en">Naomi Hot Laps with Kimi Antonelli</title>
+    <desc lang="en">Mercedes driver Kimi Antonelli takes Sky F1's Naomi Schiff on a hot lap of the Miami circuit.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/83af1c8f-b901-4fda-aa05-541d5d3b2dcb/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261002044500 -0300" stop="20261002061500 -0300">
+    <title lang="en">Live Bahrain F1 GP: Practice 2</title>
+    <desc lang="en">F1 practice continues at Sepang International Circuit as the lights go green for FP2 in the build-up to the Bahrain Grand Prix in Malaysia. Max Verstappen set the pace during first practice.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/f2ec756f-9481-4711-a4c8-098cf3057e1a/16-9" />
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261002061500 -0300" stop="20261002071500 -0300">
+    <title lang="en">Live The F1 Show: Bahrain</title>
+    <desc lang="en">The F1 Show positions itself at the centre of the Bahrain Grand Prix in Malaysia, providing a sneak peek of the paddock and the personalities involved at the heart of the race.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/c0b008f7-088d-4794-b984-509a6427d782/16-9" />
+    <episode-num system="xmltv_ns">.214.</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261002071500 -0300" stop="20261002072000 -0300">
+    <title lang="en">Leclerc Blind Lap of Monza</title>
+    <desc lang="en">Ferrari's Monegasque superstar Charles Leclerc delivers a blind lap of Monza - the scene of his famous 2019 and 2024 wins for the Scuderia.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/326e7f43-6499-470e-8c12-ad0f24fd3b5c/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261002072000 -0300" stop="20261002073000 -0300">
+    <title lang="en">Carlos Sainz IV</title>
+    <desc lang="en">Sky F1's Ted Kravitz joins Williams driver Carlos Sainz for a chat ahead of his home race in Madrid.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/a9ef4ab0-9a5d-48a6-b63f-fb461528bde5/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261002073000 -0300" stop="20261002084500 -0300">
+    <title lang="en">Bahrain F1 GP: Practice 1</title>
+    <desc lang="en">As the lights go green for free practice one, Malaysia's Sepang International Circuit makes its return to the calendar as stand-in host for the 2026 Bahrain Grand Prix. (02.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/e43486fc-f5f4-49f8-8e2b-b9da8aaacd95/16-9" />
+    <episode-num system="onscreen">10</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261002084500 -0300" stop="20261002100000 -0300">
+    <title lang="en">Bahrain F1 GP: Practice 2</title>
+    <desc lang="en">Practice continues at Sepang International Circuit as the lights go green for FP2 in the build-up to the Bahrain Grand Prix in Malaysia. Max Verstappen set the pace earlier. (02.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/2aabc4cb-61c2-49e0-9d1a-6409d95f35fa/16-9" />
+    <episode-num system="onscreen">10</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261002100000 -0300" stop="20261002110000 -0300">
+    <title lang="en">The F1 Show: Bahrain</title>
+    <desc lang="en">The F1 Show positions itself at the centre of the Bahrain Grand Prix in Malaysia, providing a sneak peek of the paddock and the personalities involved at the heart of the race.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/c0b008f7-088d-4794-b984-509a6427d782/16-9" />
+    <episode-num system="xmltv_ns">.214.</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261002110000 -0300" stop="20261002121500 -0300">
+    <title lang="en">Bahrain F1 GP: Practice 1</title>
+    <desc lang="en">As the lights go green for free practice one, Malaysia's Sepang International Circuit makes its return to the calendar as stand-in host for the 2026 Bahrain Grand Prix. (02.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/e43486fc-f5f4-49f8-8e2b-b9da8aaacd95/16-9" />
+    <episode-num system="onscreen">10</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261002121500 -0300" stop="20261002133000 -0300">
+    <title lang="en">Bahrain F1 GP: Practice 2</title>
+    <desc lang="en">Practice continues at Sepang International Circuit as the lights go green for FP2 in the build-up to the Bahrain Grand Prix in Malaysia. Max Verstappen set the pace earlier. (02.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/2aabc4cb-61c2-49e0-9d1a-6409d95f35fa/16-9" />
+    <episode-num system="onscreen">10</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261002133000 -0300" stop="20261002143000 -0300">
+    <title lang="en">The F1 Show: Bahrain</title>
+    <desc lang="en">The F1 Show positions itself at the centre of the Bahrain Grand Prix in Malaysia, providing a sneak peek of the paddock and the personalities involved at the heart of the race.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/c0b008f7-088d-4794-b984-509a6427d782/16-9" />
+    <episode-num system="xmltv_ns">.214.</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261002143000 -0300" stop="20261002154500 -0300">
+    <title lang="en">Bahrain F1 GP: Practice 2</title>
+    <desc lang="en">Practice continues at Sepang International Circuit as the lights go green for FP2 in the build-up to the Bahrain Grand Prix in Malaysia. Max Verstappen set the pace earlier. (02.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/2aabc4cb-61c2-49e0-9d1a-6409d95f35fa/16-9" />
+    <episode-num system="onscreen">10</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261002154500 -0300" stop="20261002164500 -0300">
+    <title lang="en">The F1 Show: Bahrain</title>
+    <desc lang="en">The F1 Show positions itself at the centre of the Bahrain Grand Prix in Malaysia, providing a sneak peek of the paddock and the personalities involved at the heart of the race.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/c0b008f7-088d-4794-b984-509a6427d782/16-9" />
+    <episode-num system="xmltv_ns">.214.</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261002164500 -0300" stop="20261002170500 -0300">
+    <title lang="en">Chasing The Dream</title>
+    <desc lang="en">Step behind the scenes of Formula 2 in this captivating series. Here, a look at all the action from Baku in Azerbaijan.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/22602af4-a93c-4518-b2ab-bd2d8c7d008f/16-9" />
+    <episode-num system="xmltv_ns">7.12.</episode-num>
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261002170500 -0300" stop="20261002171500 -0300">
+    <title lang="en">Martin Brundle with Lando Norris</title>
+    <desc lang="en">Sky F1's Martin Brundle joins the reigning Formula 1 world champion Lando Norris for an extended, two-part chat. (1 of.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/d4531689-e61e-4eac-9820-c6dbf95a3466/16-9" />
+    <episode-num system="onscreen">2</episode-num>
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261002171500 -0300" stop="20261002181500 -0300">
+    <title lang="en">The F1 Show: Bahrain</title>
+    <desc lang="en">The F1 Show positions itself at the centre of the Bahrain Grand Prix in Malaysia, providing a sneak peek of the paddock and the personalities involved at the heart of the race.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/c0b008f7-088d-4794-b984-509a6427d782/16-9" />
+    <episode-num system="xmltv_ns">.214.</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261002181500 -0300" stop="20261002193000 -0300">
+    <title lang="en">Bahrain F1 GP: Practice 1</title>
+    <desc lang="en">As the lights go green for free practice one, Malaysia's Sepang International Circuit makes its return to the calendar as stand-in host for the 2026 Bahrain Grand Prix. (02.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/e43486fc-f5f4-49f8-8e2b-b9da8aaacd95/16-9" />
+    <episode-num system="onscreen">10</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261002193000 -0300" stop="20261002204500 -0300">
+    <title lang="en">Bahrain F1 GP: Practice 2</title>
+    <desc lang="en">Practice continues at Sepang International Circuit as the lights go green for FP2 in the build-up to the Bahrain Grand Prix in Malaysia. Max Verstappen set the pace earlier. (02.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/2aabc4cb-61c2-49e0-9d1a-6409d95f35fa/16-9" />
+    <episode-num system="onscreen">10</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261002204500 -0300" stop="20261002214500 -0300">
+    <title lang="en">The F1 Show: Bahrain</title>
+    <desc lang="en">The F1 Show positions itself at the centre of the Bahrain Grand Prix in Malaysia, providing a sneak peek of the paddock and the personalities involved at the heart of the race.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/c0b008f7-088d-4794-b984-509a6427d782/16-9" />
+    <episode-num system="xmltv_ns">.214.</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261002214500 -0300" stop="20261002230000 -0300">
+    <title lang="en">Bahrain F1 GP: Practice 1</title>
+    <desc lang="en">As the lights go green for free practice one, Malaysia's Sepang International Circuit makes its return to the calendar as stand-in host for the 2026 Bahrain Grand Prix. (02.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/e43486fc-f5f4-49f8-8e2b-b9da8aaacd95/16-9" />
+    <episode-num system="onscreen">10</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261002230000 -0300" stop="20261003001500 -0300">
+    <title lang="en">Bahrain F1 GP: Practice 2</title>
+    <desc lang="en">Practice continues at Sepang International Circuit as the lights go green for FP2 in the build-up to the Bahrain Grand Prix in Malaysia. Max Verstappen set the pace earlier. (02.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/2aabc4cb-61c2-49e0-9d1a-6409d95f35fa/16-9" />
+    <episode-num system="onscreen">10</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261003001500 -0300" stop="20261003011500 -0300">
+    <title lang="en">The F1 Show: Bahrain</title>
+    <desc lang="en">The F1 Show positions itself at the centre of the Bahrain Grand Prix in Malaysia, providing a sneak peek of the paddock and the personalities involved at the heart of the race.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/c0b008f7-088d-4794-b984-509a6427d782/16-9" />
+    <episode-num system="xmltv_ns">.214.</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261003011500 -0300" stop="20261003024500 -0300">
+    <title lang="en">Live Bahrain F1 GP: Practice 3</title>
+    <desc lang="en">The final F1 practice session ahead of qualifying. Red Bull showed strong pace yesterday as Max Verstappen topped the opening session before Charles Leclerc ended Friday's running fastest.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/88b265f5-5b2a-4eee-be92-a6d768db3971/16-9" />
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261003024500 -0300" stop="20261003030000 -0300">
+    <title lang="en">Naomi Hot Laps with Kimi Antonelli</title>
+    <desc lang="en">Mercedes driver Kimi Antonelli takes Sky F1's Naomi Schiff on a hot lap of the Miami circuit.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/83af1c8f-b901-4fda-aa05-541d5d3b2dcb/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261003030000 -0300" stop="20261003033000 -0300">
+    <title lang="en">Ferrari Challenge UK Highlights</title>
+    <desc lang="en">Catch up on the highlights from the Donington Park stop on the 2026 calendar of the Ferrari Challenge UK.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/a60b93a7-2d2d-44d9-bc84-d7b60123bf5c/16-9" />
+    <episode-num system="xmltv_ns">.33.</episode-num>
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261003033000 -0300" stop="20261003035000 -0300">
+    <title lang="en">Chasing The Dream</title>
+    <desc lang="en">Step behind the scenes of Formula 2 in this captivating series. Here, a look at all the action from Baku in Azerbaijan.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/22602af4-a93c-4518-b2ab-bd2d8c7d008f/16-9" />
+    <episode-num system="xmltv_ns">7.12.</episode-num>
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261003035000 -0300" stop="20261003040000 -0300">
+    <title lang="en">Martin Brundle with Lando Norris</title>
+    <desc lang="en">Sky F1's Martin Brundle joins the reigning Formula 1 world champion Lando Norris for an extended, two-part chat. (2 of.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/bf1e0af4-b394-4a8d-9366-a2b9674d125c/16-9" />
+    <episode-num system="onscreen">2</episode-num>
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261003040000 -0300" stop="20261003070000 -0300">
+    <title lang="en">Live Bahrain F1 GP: Qualifying</title>
+    <desc lang="en">The starting grid for the Bahrain Grand Prix in Malaysia is set with F1 qualifying as the drivers attempt to battle their way through to the Q3 top-10 shootout for a shot at pole.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/6adec60e-7743-4641-b9f6-962b67e3ba07/16-9" />
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261003070000 -0300" stop="20261003090000 -0300">
+    <title lang="en">Bahrain F1 GP: Qualifying</title>
+    <desc lang="en">The starting grid for the Bahrain Grand Prix in Malaysia is set with F1 qualifying as the drivers attempt to battle their way through to the Q3 top-shootout for a shot at pole. (03.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/a1e9111a-a1c8-42e3-a2ca-a6defa3a62bb/16-9" />
+    <episode-num system="onscreen">10</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261003090000 -0300" stop="20261003093000 -0300">
+    <title lang="en">Ferrari Challenge UK Highlights</title>
+    <desc lang="en">Catch up on the highlights from the Donington Park stop on the 2026 calendar of the Ferrari Challenge UK.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/a60b93a7-2d2d-44d9-bc84-d7b60123bf5c/16-9" />
+    <episode-num system="xmltv_ns">.33.</episode-num>
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261003093000 -0300" stop="20261003095000 -0300">
+    <title lang="en">Chasing The Dream</title>
+    <desc lang="en">Step behind the scenes of Formula 2 in this captivating series. Here, a look at all the action from Baku in Azerbaijan.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/22602af4-a93c-4518-b2ab-bd2d8c7d008f/16-9" />
+    <episode-num system="xmltv_ns">7.12.</episode-num>
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261003095000 -0300" stop="20261003100000 -0300">
+    <title lang="en">Martin Brundle with Lando Norris</title>
+    <desc lang="en">Sky F1's Martin Brundle joins the reigning Formula 1 world champion Lando Norris for an extended, two-part chat. (2 of.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/bf1e0af4-b394-4a8d-9366-a2b9674d125c/16-9" />
+    <episode-num system="onscreen">2</episode-num>
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261003100000 -0300" stop="20261003120000 -0300">
+    <title lang="en">Bahrain F1 GP: Qualifying</title>
+    <desc lang="en">The starting grid for the Bahrain Grand Prix in Malaysia is set with F1 qualifying as the drivers attempt to battle their way through to the Q3 top-shootout for a shot at pole. (03.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/a1e9111a-a1c8-42e3-a2ca-a6defa3a62bb/16-9" />
+    <episode-num system="onscreen">10</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261003120000 -0300" stop="20261003123000 -0300">
+    <title lang="en">Ferrari Challenge UK Highlights</title>
+    <desc lang="en">Catch up on the highlights from the Donington Park stop on the 2026 calendar of the Ferrari Challenge UK.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/a60b93a7-2d2d-44d9-bc84-d7b60123bf5c/16-9" />
+    <episode-num system="xmltv_ns">.33.</episode-num>
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261003123000 -0300" stop="20261003142000 -0300">
+    <title lang="en">GTWC Barcelona: Race 1</title>
+    <desc lang="en">Sprint Cup action from the 2026 season of the GT World Challenge Europe as Barcelona stages the penultimate round of the year.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/84972c06-0645-4826-b0f1-9f1a969fe4eb/16-9" />
+    <episode-num system="xmltv_ns">.12.</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261003142000 -0300" stop="20261003143000 -0300">
+    <title lang="en">Ferrari at Home in Monza</title>
+    <desc lang="en">With the Tifosi set to deck out the grandstands of the Temple of Speed, take a look at Ferrari and their home grand prix at Monza.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/913e84c8-a480-4d5d-9019-c8f6cc1bf67b/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261003143000 -0300" stop="20261003163000 -0300">
+    <title lang="en">Bahrain F1 GP: Qualifying</title>
+    <desc lang="en">The starting grid for the Bahrain Grand Prix in Malaysia is set with F1 qualifying as the drivers attempt to battle their way through to the Q3 top-shootout for a shot at pole. (03.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/a1e9111a-a1c8-42e3-a2ca-a6defa3a62bb/16-9" />
+    <episode-num system="onscreen">10</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261003163000 -0300" stop="20261003165000 -0300">
+    <title lang="en">Chasing The Dream</title>
+    <desc lang="en">Step behind the scenes of Formula 2 in this captivating series. Here, a look at all the action from Baku in Azerbaijan.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/22602af4-a93c-4518-b2ab-bd2d8c7d008f/16-9" />
+    <episode-num system="xmltv_ns">7.12.</episode-num>
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261003165000 -0300" stop="20261003170000 -0300">
+    <title lang="en">Martin Brundle with Lando Norris</title>
+    <desc lang="en">Sky F1's Martin Brundle joins the reigning Formula 1 world champion Lando Norris for an extended, two-part chat. (2 of.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/bf1e0af4-b394-4a8d-9366-a2b9674d125c/16-9" />
+    <episode-num system="onscreen">2</episode-num>
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261003170000 -0300" stop="20261003190000 -0300">
+    <title lang="en">Bahrain F1 GP: Qualifying</title>
+    <desc lang="en">The starting grid for the Bahrain Grand Prix in Malaysia is set with F1 qualifying as the drivers attempt to battle their way through to the Q3 top-shootout for a shot at pole. (03.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/a1e9111a-a1c8-42e3-a2ca-a6defa3a62bb/16-9" />
+    <episode-num system="onscreen">10</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261003190000 -0300" stop="20261003193000 -0300">
+    <title lang="en">Ferrari Challenge UK Highlights</title>
+    <desc lang="en">Catch up on the highlights from the Donington Park stop on the 2026 calendar of the Ferrari Challenge UK.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/a60b93a7-2d2d-44d9-bc84-d7b60123bf5c/16-9" />
+    <episode-num system="xmltv_ns">.33.</episode-num>
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261003193000 -0300" stop="20261003213000 -0300">
+    <title lang="en">Bahrain F1 GP: Qualifying</title>
+    <desc lang="en">The starting grid for the Bahrain Grand Prix in Malaysia is set with F1 qualifying as the drivers attempt to battle their way through to the Q3 top-shootout for a shot at pole. (03.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/a1e9111a-a1c8-42e3-a2ca-a6defa3a62bb/16-9" />
+    <episode-num system="onscreen">10</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261003213000 -0300" stop="20261003224500 -0300">
+    <title lang="en">Bahrain F1 GP: Practice 3</title>
+    <desc lang="en">The final F1 practice session ahead of qualifying. Red Bull showed pace yesterday as Max Verstappen topped the opening session before Charles Leclerc ended Friday's running fastest. (03.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/2c077fe9-14f7-4ce2-a019-b9f0319d1f5a/16-9" />
+    <episode-num system="onscreen">10</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261003224500 -0300" stop="20261003225000 -0300">
+    <title lang="en">Strange F1 Race Absences</title>
+    <desc lang="en">Sky F1 commentator Harry Benjamin examines strange absences that have caused F1 drivers to miss races.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/92fff8cd-e625-452f-9496-8908332bc53a/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261003225000 -0300" stop="20261003230000 -0300">
+    <title lang="en">George Russell IV</title>
+    <desc lang="en">Sky F1's Martin Brundle joins fellow King's Lynn man George Russell for a chat about his 2026 Formula 1 season so far.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/30993fe7-49c1-422d-8e77-aa83ee984610/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261003230000 -0300" stop="20261004010000 -0300">
+    <title lang="en">Bahrain F1 GP: Qualifying</title>
+    <desc lang="en">The starting grid for the Bahrain Grand Prix in Malaysia is set with F1 qualifying as the drivers attempt to battle their way through to the Q3 top-shootout for a shot at pole. (03.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/a1e9111a-a1c8-42e3-a2ca-a6defa3a62bb/16-9" />
+    <episode-num system="onscreen">10</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261004010000 -0300" stop="20261004011500 -0300">
+    <title lang="en">Naomi Hot Laps with Kimi Antonelli</title>
+    <desc lang="en">Mercedes driver Kimi Antonelli takes Sky F1's Naomi Schiff on a hot lap of the Miami circuit.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/83af1c8f-b901-4fda-aa05-541d5d3b2dcb/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261004011500 -0300" stop="20261004013000 -0300">
+    <title lang="en">At Home with Liam Lawson Pt1</title>
+    <desc lang="en">Find out what Racing Bulls driver Liam Lawson does on a day off in this two-part special, as the New Zealander shows his breakfast, workout, life in Monaco and golfing skills. (1 of.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/5153cba5-398f-4cb0-b50a-c964713b61ad/16-9" />
+    <episode-num system="onscreen">2</episode-num>
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261004013000 -0300" stop="20261004014500 -0300">
+    <title lang="en">The Cornwall Air Ambulance</title>
+    <desc lang="en">Sky F1's Karun Chandhok looks at how F1 teams are helping the Cornwall Air Ambulance save lives.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/c7246bbf-9c57-4f4a-912c-30284cfcc59e/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261004014500 -0300" stop="20261004020000 -0300">
+    <title lang="en">At Home with Liam Lawson Pt1</title>
+    <desc lang="en">Find out what Racing Bulls driver Liam Lawson does on a day off in this two-part special, as the New Zealander shows his breakfast, workout, life in Monaco and golfing skills. (1 of.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/5153cba5-398f-4cb0-b50a-c964713b61ad/16-9" />
+    <episode-num system="onscreen">2</episode-num>
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261004020000 -0300" stop="20261004021000 -0300">
+    <title lang="en">Martin Brundle with Lando Norris</title>
+    <desc lang="en">Sky F1's Martin Brundle joins the reigning Formula 1 world champion Lando Norris for an extended, two-part chat. (2 of.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/bf1e0af4-b394-4a8d-9366-a2b9674d125c/16-9" />
+    <episode-num system="onscreen">2</episode-num>
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261004021000 -0300" stop="20261004023000 -0300">
+    <title lang="en">Chasing The Dream</title>
+    <desc lang="en">Step behind the scenes of Formula 2 in this captivating series. Here, a look at all the action from Baku in Azerbaijan.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/22602af4-a93c-4518-b2ab-bd2d8c7d008f/16-9" />
+    <episode-num system="xmltv_ns">7.12.</episode-num>
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261004023000 -0300" stop="20261004035500 -0300">
+    <title lang="en">Live Grand Prix Sunday: Bahrain</title>
+    <desc lang="en">Join Sky Sports F1 on the grid ahead of the start of the race at the Bahrain Grand Prix in Malaysia.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/2e70bc47-0b10-4774-9177-2ce765809257/16-9" />
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261004035500 -0300" stop="20261004060000 -0300">
+    <title lang="en">Live Bahrain F1 Grand Prix</title>
+    <desc lang="en">It's lights out for the Bahrain Grand Prix in Malaysia. Oscar Piastri was the previous Bahrain race winner, but the last time F1 took to Malaysia, a young Max Verstappen took the top step.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/86639a7b-7c98-4e45-a3d8-13ceae82d0b1/16-9" />
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261004060000 -0300" stop="20261004070000 -0300">
+    <title lang="en">Live Chequered Flag: Bahrain</title>
+    <desc lang="en">As the chequered flag comes down on the Bahrain Grand Prix in Malaysia, join Sky Sports F1 for all the reaction and analysis.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/fc4a8df9-ff86-4b4e-949a-588a3ba5a6b4/16-9" />
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261004070000 -0300" stop="20261004072500 -0300">
+    <title lang="en">Grand Prix Sunday: Bahrain</title>
+    <desc lang="en">Join Sky Sports F1 on the grid ahead of the start of the race at the Bahrain Grand Prix in Malaysia.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/9930198a-8a83-4d8e-99dd-3c20bf0b13a4/16-9" />
+    <episode-num system="xmltv_ns">.198.</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261004072500 -0300" stop="20261004093000 -0300">
+    <title lang="en">Bahrain F1 Grand Prix</title>
+    <desc lang="en">It's lights out for the Bahrain Grand Prix in Malaysia. Oscar Piastri was the previous Bahrain race winner, but the last time F1 took to Malaysia, a young Max Verstappen took the top step.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/86639a7b-7c98-4e45-a3d8-13ceae82d0b1/16-9" />
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261004093000 -0300" stop="20261004103000 -0300">
+    <title lang="en">Bahrain F1 GP Highlights</title>
+    <desc lang="en">It's lights out for the Bahrain Grand Prix in Malaysia. Oscar Piastri was the previous Bahrain race winner, but the last time F1 took to Malaysia, Max Verstappen took the top step. (04.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/0bcf2cad-43a7-4d86-8af5-2d9d04cae2dc/16-9" />
+    <episode-num system="onscreen">10</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261004103000 -0300" stop="20261004110000 -0300">
+    <title lang="en">Ferrari Challenge UK Highlights</title>
+    <desc lang="en">Catch up on the highlights from the Donington Park stop on the 2026 calendar of the Ferrari Challenge UK.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/a60b93a7-2d2d-44d9-bc84-d7b60123bf5c/16-9" />
+    <episode-num system="xmltv_ns">.33.</episode-num>
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261004110000 -0300" stop="20261004120000 -0300">
+    <title lang="en">Bahrain F1 GP Highlights</title>
+    <desc lang="en">It's lights out for the Bahrain Grand Prix in Malaysia. Oscar Piastri was the previous Bahrain race winner, but the last time F1 took to Malaysia, Max Verstappen took the top step. (04.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/0bcf2cad-43a7-4d86-8af5-2d9d04cae2dc/16-9" />
+    <episode-num system="onscreen">10</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261004120000 -0300" stop="20261004122000 -0300">
+    <title lang="en">Chasing The Dream</title>
+    <desc lang="en">Step behind the scenes of Formula 2 in this captivating series. Here, a look at all the action from Baku in Azerbaijan.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/22602af4-a93c-4518-b2ab-bd2d8c7d008f/16-9" />
+    <episode-num system="xmltv_ns">7.12.</episode-num>
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261004122000 -0300" stop="20261004123000 -0300">
+    <title lang="en">Martin Brundle with Lando Norris</title>
+    <desc lang="en">Sky F1's Martin Brundle joins the reigning Formula 1 world champion Lando Norris for an extended, two-part chat. (2 of.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/bf1e0af4-b394-4a8d-9366-a2b9674d125c/16-9" />
+    <episode-num system="onscreen">2</episode-num>
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261004123000 -0300" stop="20261004125500 -0300">
+    <title lang="en">Grand Prix Sunday: Bahrain</title>
+    <desc lang="en">Join Sky Sports F1 on the grid ahead of the start of the race at the Bahrain Grand Prix in Malaysia.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/9930198a-8a83-4d8e-99dd-3c20bf0b13a4/16-9" />
+    <episode-num system="xmltv_ns">.198.</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261004125500 -0300" stop="20261004150000 -0300">
+    <title lang="en">Bahrain F1 Grand Prix</title>
+    <desc lang="en">It's lights out for the Bahrain Grand Prix in Malaysia. Oscar Piastri was the previous Bahrain race winner, but the last time F1 took to Malaysia, a young Max Verstappen took the top step.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/86639a7b-7c98-4e45-a3d8-13ceae82d0b1/16-9" />
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261004150000 -0300" stop="20261004160000 -0300">
+    <title lang="en">Bahrain F1 GP Highlights</title>
+    <desc lang="en">It's lights out for the Bahrain Grand Prix in Malaysia. Oscar Piastri was the previous Bahrain race winner, but the last time F1 took to Malaysia, Max Verstappen took the top step. (04.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/0bcf2cad-43a7-4d86-8af5-2d9d04cae2dc/16-9" />
+    <episode-num system="onscreen">10</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261004160000 -0300" stop="20261004175000 -0300">
+    <title lang="en">GTWC Barcelona: Race 2</title>
+    <desc lang="en">Sprint Cup action from the 2026 season of the GT World Challenge Europe as Barcelona stages the penultimate round of the year.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/9811e0ba-709f-407c-84a5-f695aa31839c/16-9" />
+    <episode-num system="xmltv_ns">.13.</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261004175000 -0300" stop="20261004180000 -0300">
+    <title lang="en">Carlos Sainz IV</title>
+    <desc lang="en">Sky F1's Ted Kravitz joins Williams driver Carlos Sainz for a chat ahead of his home race in Madrid.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/a9ef4ab0-9a5d-48a6-b63f-fb461528bde5/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261004180000 -0300" stop="20261004201500 -0300">
+    <title lang="en">Bahrain F1 Grand Prix</title>
+    <desc lang="en">It's lights out for the Bahrain Grand Prix in Malaysia. Oscar Piastri was the previous Bahrain race winner, but the last time F1 took to Malaysia, Max Verstappen took the top step. (04.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/fadafadd-6b99-4000-9f3e-a3c9a91e58af/16-9" />
+    <episode-num system="onscreen">10</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261004201500 -0300" stop="20261004202000 -0300">
+    <title lang="en">Carlos Sainz Sr &amp; Bernie Collins</title>
+    <desc lang="en">Sky F1's Bernie Collins joins Carlos Sainz Sr - father to Williams driver Carlos Sainz - for a hot lap.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/0ea556eb-7f93-4d4b-a4aa-165cd5cbd749/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261004202000 -0300" stop="20261004203000 -0300">
+    <title lang="en">Kimi Antonelli &amp; Ferrari</title>
+    <desc lang="en">A look at young F1 star Kimi Antonelli and the close ties he shares with Ferrari.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/0689d95d-ad61-4343-b0f4-3bd2d63c8c86/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261004203000 -0300" stop="20261004204500 -0300">
+    <title lang="en">The Best of Japan 2026</title>
+    <desc lang="en">A round-up of the leading stories and features with Sky's Formula 1 presenters during the 2026 Japanese Grand Prix.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/ed59a4b8-0354-4bde-a572-7e8718ea4c7d/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261004204500 -0300" stop="20261004210000 -0300">
+    <title lang="en">At Home with Liam Lawson Pt2</title>
+    <desc lang="en">Find out what Racing Bulls driver Liam Lawson does on a day off in this two-part special, as the New Zealander shows his breakfast, workout, life in Monaco and golfing skills. (2 of.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/72aaa66f-22ba-4d62-b11e-9f078e44f4b2/16-9" />
+    <episode-num system="onscreen">2</episode-num>
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261004210000 -0300" stop="20261004212500 -0300">
+    <title lang="en">The Best of Australia 2026</title>
+    <desc lang="en">A round-up of the leading stories and features with Sky's Formula 1 presenters during the season-opening Australian Grand Prix.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/4253a97b-6531-4cea-84ce-4bdc48c1a814/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261004212500 -0300" stop="20261004220000 -0300">
+    <title lang="en">The Best of China 2026</title>
+    <desc lang="en">A round-up of the leading stories and features with Sky's Formula 1 presenters during the 2026 Chinese Grand Prix in Shanghai.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/06c1779b-1c80-432f-833a-7643c26905a4/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261004220000 -0300" stop="20261004221500 -0300">
+    <title lang="en">The Best of Japan 2026</title>
+    <desc lang="en">A round-up of the leading stories and features with Sky's Formula 1 presenters during the 2026 Japanese Grand Prix.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/ed59a4b8-0354-4bde-a572-7e8718ea4c7d/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261004221500 -0300" stop="20261004230000 -0300">
+    <title lang="en">The Best of Miami 2026</title>
+    <desc lang="en">A round-up of the leading stories and features with Sky's Formula 1 presenters during the 2026 Miami Grand Prix.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/a5efcfb6-dacf-4aa6-979f-4b5947ab2a19/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261004230000 -0300" stop="20261004233000 -0300">
+    <title lang="en">The Best of Canada 2026</title>
+    <desc lang="en">A round-up of the leading stories and features with Sky's Formula 1 presenters during the 2026 Canadian Grand Prix.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/92dba463-7123-4a4a-b6bd-22c66d64a2af/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261004233000 -0300" stop="20261005000000 -0300">
+    <title lang="en">The Best of Monaco 2026</title>
+    <desc lang="en">A round-up of the leading stories and features with Sky's Formula 1 presenters during the 2026 Monaco Grand Prix.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/472e3c77-a04f-4c89-b4fa-ea92d1998b92/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261005000000 -0300" stop="20261005003000 -0300">
+    <title lang="en">The Best of Barcelona 2026</title>
+    <desc lang="en">A round-up of the leading stories and features with Sky's Formula 1 presenters during the 2026 Barcelona-Catalunya Grand Prix.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/0eb60a1a-c17f-4c5c-ad37-80fd874c18dd/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261005003000 -0300" stop="20261005010000 -0300">
+    <title lang="en">The Best of Austria 2026</title>
+    <desc lang="en">A round-up of the leading stories and features with Sky's Formula 1 presenters during the 2026 Austrian Grand Prix.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/3a494020-7472-40c5-870d-9e9ab33b29d0/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261005010000 -0300" stop="20261005013500 -0300">
+    <title lang="en">The Best of Britain 2026</title>
+    <desc lang="en">A round-up of the leading stories and features with Sky's Formula 1 presenters during the 2026 British Grand Prix.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/96939cb7-53b6-4e9c-b92b-b6326d00ff7d/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261005013500 -0300" stop="20261005020000 -0300">
+    <title lang="en">The Best of Hungary 2026</title>
+    <desc lang="en">A round-up of the leading stories and features with Sky's Formula 1 presenters during the 2026 Hungarian Grand Prix.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/e5a28cf0-4945-4f5c-8f57-d61033205707/16-9" />
+    <episode-num system="xmltv_ns">.114.</episode-num>
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261005020000 -0300" stop="20261005032500 -0300">
+    <title lang="en">Grand Prix Sunday: Bahrain</title>
+    <desc lang="en">Join Sky Sports F1 on the grid ahead of the start of the race at the Bahrain Grand Prix in Malaysia.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/2e70bc47-0b10-4774-9177-2ce765809257/16-9" />
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261005032500 -0300" stop="20261005053000 -0300">
+    <title lang="en">Bahrain F1 Grand Prix</title>
+    <desc lang="en">It's lights out for the Bahrain Grand Prix in Malaysia. Oscar Piastri was the previous Bahrain race winner, but the last time F1 took to Malaysia, a young Max Verstappen took the top step.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/86639a7b-7c98-4e45-a3d8-13ceae82d0b1/16-9" />
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261005053000 -0300" stop="20261005063000 -0300">
+    <title lang="en">Chequered Flag: Bahrain</title>
+    <desc lang="en">As the chequered flag comes down on the Bahrain Grand Prix in Malaysia, join Sky Sports F1 for all the reaction and analysis.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/fc4a8df9-ff86-4b4e-949a-588a3ba5a6b4/16-9" />
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261005063000 -0300" stop="20261005064000 -0300">
+    <title lang="en">Yuki Tsonada at the Skypad</title>
+    <desc lang="en">Red Bull Racing reserve driver Yuki Tsunoda unpacks his fastest lap at the SkyPad with Sky F1's Anthony Davidson.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/dc00d171-d91c-4557-8cc0-b3700264c409/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261005064000 -0300" stop="20261005065000 -0300">
+    <title lang="en">Carlos Sainz IV</title>
+    <desc lang="en">Sky F1's Ted Kravitz joins Williams driver Carlos Sainz for a chat ahead of his home race in Madrid.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/a9ef4ab0-9a5d-48a6-b63f-fb461528bde5/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261005065000 -0300" stop="20261005070000 -0300">
+    <title lang="en">George Russell IV</title>
+    <desc lang="en">Sky F1's Martin Brundle joins fellow King's Lynn man George Russell for a chat about his 2026 Formula 1 season so far.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/30993fe7-49c1-422d-8e77-aa83ee984610/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261005070000 -0300" stop="20261005081500 -0300">
+    <title lang="en">Bahrain F1 GP: Practice 1</title>
+    <desc lang="en">As the lights go green for free practice one, Malaysia's Sepang International Circuit makes its return to the calendar as stand-in host for the 2026 Bahrain Grand Prix. (02.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/e43486fc-f5f4-49f8-8e2b-b9da8aaacd95/16-9" />
+    <episode-num system="onscreen">10</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261005081500 -0300" stop="20261005093000 -0300">
+    <title lang="en">Bahrain F1 GP: Practice 2</title>
+    <desc lang="en">Practice continues at Sepang International Circuit as the lights go green for FP2 in the build-up to the Bahrain Grand Prix in Malaysia. Max Verstappen set the pace earlier. (02.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/2aabc4cb-61c2-49e0-9d1a-6409d95f35fa/16-9" />
+    <episode-num system="onscreen">10</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261005093000 -0300" stop="20261005103000 -0300">
+    <title lang="en">The F1 Show: Bahrain</title>
+    <desc lang="en">The F1 Show positions itself at the centre of the Bahrain Grand Prix in Malaysia, providing a sneak peek of the paddock and the personalities involved at the heart of the race.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/c0b008f7-088d-4794-b984-509a6427d782/16-9" />
+    <episode-num system="xmltv_ns">.214.</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261005103000 -0300" stop="20261005114500 -0300">
+    <title lang="en">Bahrain F1 GP: Practice 3</title>
+    <desc lang="en">The final F1 practice session ahead of qualifying. Red Bull showed pace yesterday as Max Verstappen topped the opening session before Charles Leclerc ended Friday's running fastest. (03.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/2c077fe9-14f7-4ce2-a019-b9f0319d1f5a/16-9" />
+    <episode-num system="onscreen">10</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261005114500 -0300" stop="20261005115000 -0300">
+    <title lang="en">Carlos Sainz Sr &amp; Bernie Collins</title>
+    <desc lang="en">Sky F1's Bernie Collins joins Carlos Sainz Sr - father to Williams driver Carlos Sainz - for a hot lap.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/0ea556eb-7f93-4d4b-a4aa-165cd5cbd749/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261005115000 -0300" stop="20261005120000 -0300">
+    <title lang="en">Kimi Antonelli &amp; Ferrari</title>
+    <desc lang="en">A look at young F1 star Kimi Antonelli and the close ties he shares with Ferrari.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/0689d95d-ad61-4343-b0f4-3bd2d63c8c86/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261005120000 -0300" stop="20261005140000 -0300">
+    <title lang="en">Bahrain F1 GP: Qualifying</title>
+    <desc lang="en">The starting grid for the Bahrain Grand Prix in Malaysia is set with F1 qualifying as the drivers attempt to battle their way through to the Q3 top-shootout for a shot at pole. (03.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/a1e9111a-a1c8-42e3-a2ca-a6defa3a62bb/16-9" />
+    <episode-num system="onscreen">10</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261005140000 -0300" stop="20261005142000 -0300">
+    <title lang="en">Chasing The Dream</title>
+    <desc lang="en">Step behind the scenes of Formula 2 in this captivating series. Here, a look at all the action from Baku in Azerbaijan.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/22602af4-a93c-4518-b2ab-bd2d8c7d008f/16-9" />
+    <episode-num system="xmltv_ns">7.12.</episode-num>
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261005142000 -0300" stop="20261005143000 -0300">
+    <title lang="en">Crofty Hot Laps with Franc Colapin</title>
+    <desc lang="en">Sky F1 commentator Crofty joins Alpine's Franco Colapinto for some hot laps.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/720ec65e-887d-4bc2-a550-dac626a89d95/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261005143000 -0300" stop="20261005150000 -0300">
+    <title lang="en">Ferrari Challenge UK Highlights</title>
+    <desc lang="en">Catch up on the highlights from the Donington Park stop on the 2026 calendar of the Ferrari Challenge UK.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/a60b93a7-2d2d-44d9-bc84-d7b60123bf5c/16-9" />
+    <episode-num system="xmltv_ns">.33.</episode-num>
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261005150000 -0300" stop="20261005171500 -0300">
+    <title lang="en">Bahrain F1 Grand Prix</title>
+    <desc lang="en">It's lights out for the Bahrain Grand Prix in Malaysia. Oscar Piastri was the previous Bahrain race winner, but the last time F1 took to Malaysia, Max Verstappen took the top step. (04.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/fadafadd-6b99-4000-9f3e-a3c9a91e58af/16-9" />
+    <episode-num system="onscreen">10</episode-num>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261005171500 -0300" stop="20261005174500 -0300">
+    <title lang="en">Ferrari Challenge UK Highlights</title>
+    <desc lang="en">Catch up on the highlights from the Donington Park stop on the 2026 calendar of the Ferrari Challenge UK.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/a60b93a7-2d2d-44d9-bc84-d7b60123bf5c/16-9" />
+    <episode-num system="xmltv_ns">.33.</episode-num>
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261005174500 -0300" stop="20261005180000 -0300">
+    <title lang="en">The Cornwall Air Ambulance</title>
+    <desc lang="en">Sky F1's Karun Chandhok looks at how F1 teams are helping the Cornwall Air Ambulance save lives.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/c7246bbf-9c57-4f4a-912c-30284cfcc59e/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsF1UHD.uk" start="20261005180000 -0300" stop="20261005200000 -0300">
     <title lang="en">GTWC Highlights</title>
     <desc lang="en">Sprint Cup highlights from the 2026 season of the GT World Challenge Europe as Barcelona staged the penultimate round of the year.</desc>
     <category lang="en">Sports</category>
