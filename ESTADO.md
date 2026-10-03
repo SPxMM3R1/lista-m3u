@@ -5,7 +5,7 @@
 > cubre la app). **Al terminar cualquier cambio, actualiza este archivo en el mismo commit**:
 > la sección «Hoy» si cambió el estado y una línea nueva en «Bitácora».
 
-Última actualización: **2026-10-02**.
+Última actualización: **2026-10-03**.
 
 ## Hoy, en una mirada
 
@@ -72,6 +72,11 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-03**: agregado TNT Sports ESPN (TvVoo Reino Unido,
+  `unitedkingdom|vavoo_TNT%20SPORTS%20ESPN%7Cgroup%3Auk`, número 139) como alternativa mientras
+  TNT Sports 1 está caído en el origen de Vavoo (502). Reconcilia con `Vavoo.uk.TNTSPORTESPN@TvVoo`.
+  Sin guía: EPGShare UK1 no publica un canal TNT Sports ESPN (solo TNT Sports 1–10), así que no se
+  le asignó EPG ajena. TNT Sports 5 existe en TvVoo UK pero respondió de forma intermitente; no se agregó.
 - **2026-10-02**: aplicado el cambio de color aprobado de Qello Concerts: las letras
   negras pasan a blanco mediante `fill="#FFFFFF"` en el grupo del SVG original;
   la clase cyan `#03A4D9`, los trazados y la transparencia se conservan. Se regenera
