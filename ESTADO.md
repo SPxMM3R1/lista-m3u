@@ -72,6 +72,11 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-03**: agregado TNT Sports 5 (TvVoo Reino Unido,
+  `unitedkingdom|vavoo_TNT%20SPORTS%205%7Cgroup%3Auk`, número 140) con fila de catálogo
+  `Vavoo.uk.TNTSPORTS5@TvVoo` (marca managed) y guía de EPGShare UK1 `TNT.Sports.5.HD.uk`.
+  Logo `logos/tvvoo/tnt-sports-5-uk.png` (tv-logo). Comprobado que entrega video en este momento.
+  Hecho desde una copia en C: porque el disco D: del usuario quedó lleno.
 - **2026-10-03**: agregado TNT Sports ESPN (TvVoo Reino Unido,
   `unitedkingdom|vavoo_TNT%20SPORTS%20ESPN%7Cgroup%3Auk`, número 139) como alternativa mientras
   TNT Sports 1 está caído en el origen de Vavoo (502). Reconcilia con `Vavoo.uk.TNTSPORTESPN@TvVoo`.

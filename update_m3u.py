@@ -878,6 +878,7 @@ EPG_PROGRAMME_SOURCES.update({
     "Vavoo.uk.BBCFOUR@TvVoo": ("uk1", "BBC.Four.HD.uk"),
     "Vavoo.uk.TNTSPORTS2@TvVoo": ("uk1", "TNT.Sports.2.HD.uk"),
     "Vavoo.uk.TNTSPORTS4@TvVoo": ("uk1", "TNT.Sports.4.HD.uk"),
+    "Vavoo.uk.TNTSPORTS5@TvVoo": ("uk1", "TNT.Sports.5.HD.uk"),
     "Vavoo.it.BLOOMBERGTV@TvVoo": ("it1", "Bloomberg.it"),
     "Vavoo.it.EUROSPORT1@TvVoo": ("it1", "Eurosport.Italia.it"),
     "Vavoo.it.SKYSPORTF1@TvVoo": ("it1", "Sky.Sport.F1.it"),
