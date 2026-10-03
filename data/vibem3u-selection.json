@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "source": "vibem3u-android",
-  "selectionSignature": "sha256:96b8d61968d3c0a2369657cca7f94c93a5c6190bb3eaeafb8aa1c3b336e07779",
-  "publishedAt": "2026-10-03T22:29:20.408Z",
+  "selectionSignature": "sha256:c4ea0d680dedcf6ac5c8d9546696d3303c87853e1d0f183d5445e52e6ed7ecd7",
+  "publishedAt": "2026-10-03T23:00:29.950Z",
   "sources": [
     {
       "provider": "tvvoo",
@@ -1077,36 +1077,25 @@
         },
         {
           "provider": "highfly",
-          "catalogKey": "SkySportsTennis.uk",
-          "providerResourceId": "leaf:now-sky-sports-tennis",
-          "name": "SKY SPORTS TENNIS",
-          "group": "Deportes",
-          "category": "Tennis",
-          "identityState": "canonical",
-          "order": 2,
-          "resolverSlug": "now-sky-sports-tennis"
-        },
-        {
-          "provider": "highfly",
-          "catalogKey": "SkySportsPremierLeague.uk",
-          "providerResourceId": "leaf:now-234243234234",
-          "name": "SKY SPORTS PREMIER LEAGUE",
-          "group": "Deportes",
-          "category": "Football",
-          "identityState": "canonical",
-          "order": 3,
-          "resolverSlug": "now-234243234234"
-        },
-        {
-          "provider": "highfly",
           "catalogKey": "SkySportsF1UHD.uk",
           "providerResourceId": "leaf:now-34343434",
           "name": "SKY SPORTS F1 UHD",
           "group": "Deportes",
           "category": "Motor Sports",
           "identityState": "canonical",
-          "order": 4,
+          "order": 2,
           "resolverSlug": "now-34343434"
+        },
+        {
+          "provider": "highfly",
+          "catalogKey": "SkySportsTennis.uk",
+          "providerResourceId": "leaf:now-sky-sports-tennis",
+          "name": "SKY SPORTS TENNIS",
+          "group": "Deportes",
+          "category": "Tennis",
+          "identityState": "canonical",
+          "order": 3,
+          "resolverSlug": "now-sky-sports-tennis"
         },
         {
           "provider": "highfly",
@@ -1116,8 +1105,19 @@
           "group": "Deportes",
           "category": "Sports",
           "identityState": "canonical",
-          "order": 5,
+          "order": 4,
           "resolverSlug": "now-srr343434"
+        },
+        {
+          "provider": "highfly",
+          "catalogKey": "SkySportsPremierLeague.uk",
+          "providerResourceId": "leaf:now-234243234234",
+          "name": "SKY SPORTS PREMIER LEAGUE",
+          "group": "Deportes",
+          "category": "Football",
+          "identityState": "canonical",
+          "order": 5,
+          "resolverSlug": "now-234243234234"
         }
       ],
       "manifestUrl": "https://sports.highfly.to/manifest.json"

@@ -72,6 +72,10 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-03**: el editor ordena por `order`, no por `number`: al mover F1 UHD (22) y Main
+  Event UHD (24) solo cambié el número y quedaron al final. Ahora `order` sigue al número en
+  todos los activos (ocultos y papelera después). Al reubicar canales por script, actualizar
+  ambos campos (o usar `assignChannelPosition` del editor).
 - **2026-10-03**: orden pedido por el usuario: 21 Sky Sports F1 · 22 F1 UHD · 23 Tennis ·
   24 **Sky Sports Main Event UHD** (Highfly 4K `now-srr343434`, `SkySportsMainEventUHD.uk`,
   logo recuperado del historial, guía de Main Event) · 25 Premier League y el resto corrido +2.
