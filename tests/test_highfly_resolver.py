@@ -320,7 +320,11 @@ class HighflyResolverTest(unittest.TestCase):
             {"SkySportsF1.uk": "now-34343434"},
         ) as runtime:
             effective = update_m3u.update_highfly_runtime_resolver_map(payload)
-            self.assertEqual({"SkySportsF1.uk": "now-34343434"}, effective)
+            # La hoja 4K es su propio canal (Sky Sports F1 UHD) y no toca la elección FHD.
+            self.assertEqual(
+                {"SkySportsF1.uk": "now-34343434", "SkySportsF1UHD.uk": "4k-s34rrer"},
+                effective,
+            )
             self.assertEqual("now-34343434", runtime["SkySportsF1.uk"])
 
     def test_runtime_refresh_adopts_new_leaf_after_rotation(self) -> None:

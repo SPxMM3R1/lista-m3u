@@ -393,7 +393,9 @@ HIGHFLY_RESOLVER_CHANNELS = {
     # permiten resolver aun si el catalogo publico esta caido. Sky Sports F1
     # es Highfly; sus alias TvVoo viven aparte en x-tvvoo-aliases para que una
     # seleccion TvVoo de F1 encuentre la misma fila sin mezclar resolutores.
-    "SkySportsF1.uk": "now-34343434",
+    "SkySportsF1.uk": "now-545445",
+    # 4K de Highfly: canal propio (Premium); su respaldo gratuito es la hoja FHD.
+    "SkySportsF1UHD.uk": "now-34343434",
     "SkySportsPremierLeague.uk": "now-4994949494",
     "SkySportsTennis.uk": "uk-330030303",
 }
@@ -735,6 +737,7 @@ EPG_PROGRAMME_SOURCES = {
     "RewindTV.cl@SD": ("us2", "Rewind.TV.us2"),
     "TyCSports.ar": ("ar1", "Canal.TyC.Sports.ar"),
     "SkySportsF1.uk": ("uk1", "SkySp.F1.HD.uk"),
+    "SkySportsF1UHD.uk": ("uk1", "SkySp.F1.HD.uk"),
     "SkySportsPremierLeague.uk": ("uk1", "SkySp.PL.HD.uk"),
     "SkySportsTennis.uk": ("uk1", "SkySp.Tennis.HD.uk"),
     "SkySportsMix.uk@TvVoo": (SKY_OFFICIAL_EPG_SOURCE, "4091"),
@@ -4871,7 +4874,13 @@ def parse_highfly_live_resolver_map(payload: bytes | str | dict) -> dict[str, st
             )
         )
         stable_id: str | None = None
-        if is_sky_f1:
+        is_uhd = bool(re.search(r"\((?:4k|uhd|8k)\)|\b(?:4k|uhd|8k)\b", searchable))
+        if is_sky_f1 and is_uhd:
+            # La hoja 4K es otro canal (Sky Sports F1 UHD, Premium): no reemplaza a la FHD.
+            stable_id = "SkySportsF1UHD.uk"
+        elif is_uhd:
+            stable_id = None
+        elif is_sky_f1:
             stable_id = "SkySportsF1.uk"
         elif is_sky_tennis:
             stable_id = "SkySportsTennis.uk"

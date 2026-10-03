@@ -94,15 +94,38 @@ export function highflyQualityLabel(rawName) {
   return label.replace(/^H(265|264)$/, "H$1");
 }
 
+/** «(4K)», «UHD» u «8K»: Highfly los ofrece como canal Premium aparte de la versión FHD. */
+export function isUltraHighflyName(rawName) {
+  return /\((?:4K|UHD|8K)\)|\b(?:4K|UHD|8K)\b/i.test(String(rawName ?? ""));
+}
+
+/** Identidad de la versión UHD: «SkySportsF1.uk» → «SkySportsF1UHD.uk». */
+export function ultraHighflyIdentity(identity) {
+  const key = identity.catalogKey;
+  const dot = key.lastIndexOf(".");
+  const ultra = key.startsWith("Highfly.") || dot <= 0
+    ? `${key}uhd`
+    : `${key.slice(0, dot)}UHD${key.slice(dot)}`;
+  return { catalogKey: ultra, identityState: identity.identityState };
+}
+
 export function parseHighflyCatalog(document, registry = []) {
   const metas = Array.isArray(document?.metas) ? document.metas : [];
   const grouped = new Map();
   for (const meta of metas) {
     const resourceId = text(meta?.id, 140);
     const rawName = text(meta?.name);
-    const name = cleanHighflyName(rawName);
-    if (!/^leaf:[a-z0-9][a-z0-9_-]{1,127}$/i.test(resourceId) || !name) continue;
-    const identity = highflyIdentity(name, registry);
+    const baseName = cleanHighflyName(rawName);
+    if (!/^leaf:[a-z0-9][a-z0-9_-]{1,127}$/i.test(resourceId) || !baseName) continue;
+    // La 4K no reemplaza a la FHD: son dos canales (la UHD es Premium y la FHD su respaldo).
+    const ultra = isUltraHighflyName(rawName);
+    const name = ultra ? `${baseName} UHD` : baseName;
+    let identity = highflyIdentity(baseName, registry);
+    if (ultra) {
+      identity = ultraHighflyIdentity(identity);
+      const known = (Array.isArray(registry) ? registry : []).some((row) => row?.catalogKey === identity.catalogKey);
+      identity = { ...identity, identityState: known ? "canonical" : "provisional" };
+    }
     let entry = grouped.get(identity.catalogKey);
     if (!entry) {
       const genres = Array.isArray(meta?.genres) ? meta.genres.map((value) => text(value, 80)).filter(Boolean) : [];

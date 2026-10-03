@@ -508,3 +508,16 @@ test("setRowsState y removeRowsPermanently actúan sobre varias filas a la vez",
   assert.deepEqual(purged.excludedM3u, ["a"]);
   assert.deepEqual(purged.channels.map((row) => row.order), [1]);
 });
+
+test("Highfly 4K/UHD es un canal propio y no reemplaza la versión FHD", () => {
+  const registry = [{ catalogKey: "SkySportsF1.uk", name: "Sky Sports F1" }, { catalogKey: "SkySportsF1UHD.uk", name: "Sky Sports F1 UHD" }];
+  const rows = parseHighflyCatalog({ metas: [
+    { id: "leaf:now-34343434", name: "(4k) : SKY SPORTS F1" },
+    { id: "leaf:now-545445", name: "(FHD) : SKY SPORTS F1" },
+  ] }, registry);
+  const byKey = new Map(rows.map((row) => [row.catalogKey, row]));
+  assert.equal(byKey.get("SkySportsF1.uk").resolverSlug, "now-545445");
+  assert.equal(byKey.get("SkySportsF1UHD.uk").resolverSlug, "now-34343434");
+  assert.equal(byKey.get("SkySportsF1UHD.uk").identityState, "canonical");
+  assert.equal(byKey.get("SkySportsF1UHD.uk").name, "SKY SPORTS F1 UHD");
+});

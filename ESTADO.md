@@ -72,6 +72,14 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-03**: Sky Sports F1 y **Sky Sports F1 UHD** son canales distintos. El editor
+  agrupaba «(4k) SKY SPORTS F1» con la FHD y dejó F1 en la hoja 4K, que sin Premium solo entrega
+  un aviso «🔒 Upgrade to Premium». Ahora la calidad 4K/UHD/8K de Highfly es una identidad
+  propia (`isUltraHighflyName`/`ultraHighflyIdentity` en el editor y `is_uhd` en
+  `parse_highfly_live_resolver_map`): F1 vuelve a `now-545445` (FHD gratuita) y F1 UHD
+  (`SkySportsF1UHD.uk`, número 179, `now-34343434`) recupera el logo borrado el 13-09. Su
+  respaldo gratuito sale solo: el runner publica para la fila UHD la primera hoja con señal de
+  sus variantes (la FHD), y la app con Premium prueba antes la 4K. Guía: la misma de F1.
 - **2026-10-03**: los 38 canales TvVoo que solo llegaban por `2.m3u`/`m3u-externa.m3u`
   (formato antiguo: tvg-id `…@TvVoo` con varios `x-resolver-ids`) pasan al editor como filas
   de proveedor, con la misma `addRow` del generador y la fila del catálogo oficial de TvVoo de
