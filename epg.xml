@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-generated-at="2026-10-03T22:25:52+00:00" data-description-policy="verified-source-only" data-description-programmes="4282" data-description-channels="60" data-next-refresh-at="2026-10-04T01:25:52+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u">
+<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-generated-at="2026-10-03T22:35:25+00:00" data-description-policy="verified-source-only" data-description-programmes="4338" data-description-channels="61" data-next-refresh-at="2026-10-04T01:35:25+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u">
   <channel id="0104" data-guide="parrilla real" data-guide-source="tvn-oficial">
     <display-name>TVN</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvn.png" />
@@ -176,6 +176,10 @@
   <channel id="SkySportsF1UHD.uk" data-guide="parrilla real" data-guide-source="uk1">
     <display-name>Sky Sports F1 UHD</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/sky-sports-f1-uhd.png" />
+  </channel>
+  <channel id="SkySportsMainEventUHD.uk" data-guide="parrilla real" data-guide-source="uk1">
+    <display-name>Sky Sports Main Event UHD</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/sky-sports-main-event-uhd.png" />
   </channel>
   <channel id="SkySportsMainEvent.uk@TvVoo" data-guide="parrilla real" data-guide-source="uk1">
     <display-name>Sky Sports Main Event</display-name>
@@ -2667,9 +2671,6 @@
     <desc lang="es">Un recorrido por los sabores clásicos de Chile.</desc>
     <category lang="es">['documentary', 'food']</category>
   </programme>
-  <programme start="20261003130000 -0300" stop="20261003133000 -0300" channel="13Cultura.cl@DPS">
-    <title lang="es">Vamos mujer</title>
-  </programme>
   <programme start="20261003133000 -0300" stop="20261003140000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Seafood lovers</title>
   </programme>
@@ -2756,9 +2757,6 @@
   </programme>
   <programme start="20261003210000 -0300" stop="20261003220000 -0300" channel="45">
     <title lang="es">Entrada Liberada Voces De Mujeres</title>
-  </programme>
-  <programme start="20261003130000 -0300" stop="20261003133000 -0300" channel="45">
-    <title lang="es">Bocas abiertas</title>
   </programme>
   <programme start="20261003133000 -0300" stop="20261003143000 -0300" channel="45">
     <title lang="es">Historias de la casa del árbol</title>
@@ -8950,6 +8948,9 @@
     <title lang="en">DW News</title>
     <desc lang="es">Our deep dive format explains the stories that matter - with clarity, context and journalistic rigor. Each segment goes beyond the headlines to uncover what's driving key developments around the world, featuring sharp analysis, expert voices and exclusive on the ground insights from where events are unfolding.</desc>
   </programme>
+  <programme start="20261004070200 -0300" stop="20261004073000 -0300" channel="DWEnglish.de">
+    <title lang="en">Eco India: Climate solutions: From innovation to action</title>
+  </programme>
   <programme channel="DWEnglish.de" start="20261001210000 -0300" stop="20261001210200 -0300">
     <title lang="fr">DW News</title>
     <category lang="fr">Journal</category>
@@ -10054,15 +10055,6 @@
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/9/6/15708698.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/9/6/15708695.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/3/8/7/15215783.jpg" />
-  </programme>
-  <programme channel="DWEnglish.de" start="20261004070200 -0300" stop="20261004073000 -0300">
-    <title lang="fr">Eco India</title>
-    <sub-title lang="fr">The Environment Magazine</sub-title>
-    <category lang="fr">Magazine de la nature</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/3/0/1/15216103.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/9/0/15216098.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/1/0/2/15702201.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/9/0/15216094.jpg" />
   </programme>
   <programme channel="DWEnglish.de" start="20261004073000 -0300" stop="20261004080000 -0300">
     <title lang="fr">Rev</title>
@@ -14107,7 +14099,6 @@
   </programme>
   <programme channel="France24.fr" start="20261003161500 -0300" stop="20261003163000 -0300">
     <title lang="fr">Corresponsales</title>
-    <desc lang="es">Una invitación a dar una vuelta al mundo de la mano de las mejores producciones de nuestra red global de corresponsales.</desc>
     <category lang="fr">Magazine d'information</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/2/3/6/15194632.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/2/6/15194624.jpg" />
@@ -16422,9 +16413,6 @@
   </programme>
   <programme start="20261008180000 -0300" stop="20261009010000 -0300" channel="M1.ua@SD">
     <title lang="uk">M1 Hits</title>
-  </programme>
-  <programme start="20261003130000 -0300" stop="20261003133000 -0300" channel="M2.ua@SD">
-    <title lang="uk">Ірина Федишин. Цвіте калина</title>
   </programme>
   <programme start="20261003133000 -0300" stop="20261003180000 -0300" channel="M2.ua@SD">
     <title lang="uk">Хіти Нон-стоп</title>
@@ -20032,6 +20020,16 @@
     <sub-title lang="en">The Ocean and the Lives Behind Every Bite</sub-title>
     <desc lang="en">Beyond each bite of this ekiben for a Sea of Japan journey is a story: a father and son diving for mozuku, a fisher collecting turban shells, and a hotel duo preserving its flavors.</desc>
     <url>https://www3.nhk.or.jp/nhkworld/en/shows/ekibenjapan/</url>
+  </programme>
+  <programme start="20261011192500 -0300" stop="20261011193000 -0300" channel="NHKWorldJapan.jp">
+    <title lang="en">Core Kyoto mini</title>
+    <sub-title lang="en">Maki-e: A sumptuous world of gold and black</sub-title>
+    <desc lang="en">The Maki-e lacquering technique uses gold dust on a jet-black background to dazzling effect.</desc>
+  </programme>
+  <programme start="20261011193000 -0300" stop="20261011194500 -0300" channel="NHKWorldJapan.jp">
+    <title lang="en">Easy Japanese for Work</title>
+    <sub-title lang="en">#41 Words of support for a coworker</sub-title>
+    <desc lang="en">Today: words of support for a coworker. Nguyen Thi Thuy Trang, from Vietnam, works at a paper products company. In a roleplay challenge, she must reach out to a coworker to offer support.</desc>
   </programme>
   <programme start="20261002210900 -0300" stop="20261002221300 -0300" channel="QelloConcertsbyStingray.ca">
     <title lang="en">Tom Petty &amp; The Heartbreakers - Live at Soundstage</title>
@@ -34152,6 +34150,447 @@
     <episode-num system="xmltv_ns">.45.</episode-num>
   </programme>
   <programme channel="SkySportsMainEvent.uk@TvVoo" start="20261005190000 -0300" stop="20261005200000 -0300">
+    <title lang="en">Sky Sports News</title>
+    <desc lang="en">Round-up of the sports news with live analysis and comments, plus extended interviews with the headline makers.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Baseball</category>
+    <icon src="https://images.metadata.sky.com/pd-image/7fb214c0-9e2d-4bd4-95bb-2dde71a9f41a/16-9" />
+    <episode-num system="xmltv_ns">.65.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261002011500 -0300" stop="20261002030000 -0300">
+    <title lang="en">Live Bahrain F1 GP: Practice 1</title>
+    <desc lang="en">As the lights go green for free practice one, Malaysia's Sepang International Circuit makes its return to the calendar as stand-in host for the 2026 Bahrain Grand Prix.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/a59c1eba-90f6-43f6-93c3-628897d9a46a/16-9" />
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261002030000 -0300" stop="20261002040000 -0300">
+    <title lang="en">Sky Sports Breakfast</title>
+    <desc lang="en">Stay across the biggest sports stories this morning with a wrap-up of the headlines.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Baseball</category>
+    <icon src="https://images.metadata.sky.com/pd-image/b8994510-cacf-4d37-87f9-5fe5b165c644/16-9" />
+    <episode-num system="xmltv_ns">.62.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261002040000 -0300" stop="20261002043000 -0300">
+    <title lang="en">Sky Sports Breakfast</title>
+    <desc lang="en">Stay across the biggest sports stories this morning with a wrap-up of the headlines.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Baseball</category>
+    <icon src="https://images.metadata.sky.com/pd-image/b8994510-cacf-4d37-87f9-5fe5b165c644/16-9" />
+    <episode-num system="xmltv_ns">.62.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261002043000 -0300" stop="20261002050000 -0300">
+    <title lang="en">Lost Grounds</title>
+    <desc lang="en">In the hunt for lost grounds, we ask: why is there a North Korean monument in Middlesbrough and which ground stood frozen in time? With visits to the Baseball Ground and Filbert Street.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Football</category>
+    <icon src="https://images.metadata.sky.com/pd-image/1b11b0b8-eedc-4671-adbd-8f8766fa1dc9/16-9" />
+    <episode-num system="xmltv_ns">0.1.</episode-num>
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261002050000 -0300" stop="20261002061500 -0300">
+    <title lang="en">Live Bahrain F1 GP: Practice 2</title>
+    <desc lang="en">F1 practice continues at Sepang International Circuit as the lights go green for FP2 in the build-up to the Bahrain Grand Prix in Malaysia. Max Verstappen set the pace during first practice.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/f2ec756f-9481-4711-a4c8-098cf3057e1a/16-9" />
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261002061500 -0300" stop="20261002071500 -0300">
+    <title lang="en">Live The F1 Show: Bahrain</title>
+    <desc lang="en">The F1 Show positions itself at the centre of the Bahrain Grand Prix in Malaysia, providing a sneak peek of the paddock and the personalities involved at the heart of the race.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/c0b008f7-088d-4794-b984-509a6427d782/16-9" />
+    <episode-num system="xmltv_ns">.214.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261002071500 -0300" stop="20261002080000 -0300">
+    <title lang="en">Live: Sky Sports FC</title>
+    <desc lang="en">Have your say on the big talking points in this interactive show covering the major football headlines.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Football</category>
+    <icon src="https://images.metadata.sky.com/pd-image/a9daab28-faf7-4839-bb0e-67a636b96009/16-9" />
+    <episode-num system="xmltv_ns">.44.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261002080000 -0300" stop="20261002130000 -0300">
+    <title lang="en">Live DP World Tour Golf</title>
+    <desc lang="en">The 2026 edition of the Alfred Dunhill Links Championship continues. Scotland's own Bob MacIntyre closed out a memorable week a year ago with victory, sealed on the iconic 18th green.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Golf</category>
+    <icon src="https://images.metadata.sky.com/pd-image/13782cf7-70e2-4cdf-9549-09d17eec69ce/16-9" />
+    <episode-num system="xmltv_ns">.134.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261002130000 -0300" stop="20261002150000 -0300">
+    <title lang="en">Live PGA Tour Featured Groups</title>
+    <desc lang="en">Join the featured groups on day two of the 2026 Bank of Utah Championship, taking place at Black Desert Resort. On his first PGA Tour start a year ago, Michael Brennan claimed victory.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Golf</category>
+    <icon src="https://images.metadata.sky.com/pd-image/a86ccf01-11c5-43e5-9bdc-b8d43786b075/16-9" />
+    <episode-num system="xmltv_ns">.111.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261002150000 -0300" stop="20261002190000 -0300">
+    <title lang="en">Live World Grand Prix Darts Q/Fs</title>
+    <desc lang="en">It's World Grand Prix quarter-finals night as Luke Humphries plays Niels Zonneveld, Gerwyn Price faces Jonny Clayton, Gian van Veen meets James Wade and Nathan Aspinall battles Ryan Joyce.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Darts</category>
+    <icon src="https://images.metadata.sky.com/pd-image/cd116e6d-c1d9-425f-a2b6-380dd9a17a9f/16-9" />
+    <episode-num system="xmltv_ns">.4.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261002190000 -0300" stop="20261002210000 -0300">
+    <title lang="en">Live PGA Tour Golf</title>
+    <desc lang="en">Day two of the 2026 Bank of Utah Championship, taking place at Black Desert Resort. On his first PGA Tour start a year ago, Michael Brennan claimed victory.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Golf</category>
+    <icon src="https://images.metadata.sky.com/pd-image/75b265d5-5590-4888-af72-44472c5f0710/16-9" />
+    <episode-num system="xmltv_ns">.137.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261002210000 -0300" stop="20261003000000 -0300">
+    <title lang="en">Live LPGA Tour Golf</title>
+    <desc lang="en">The second day of the 2026 LOTTE Championship - an LPGA event previously won by Youmin Hwang, who in victory became the 26th competitor of 2025 to claim a tour win.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Golf</category>
+    <icon src="https://images.metadata.sky.com/pd-image/d6f17462-00ff-4151-b204-91347b2dcbc0/16-9" />
+    <episode-num system="xmltv_ns">.83.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261003000000 -0300" stop="20261003010000 -0300">
+    <title lang="en">Sky Sports News</title>
+    <desc lang="en">Round-up of the sports news with live analysis and comments, plus extended interviews with the headline makers.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Baseball</category>
+    <icon src="https://images.metadata.sky.com/pd-image/261bcf4e-0605-4e53-b037-7586c8e1fa1d/16-9" />
+    <episode-num system="xmltv_ns">.62.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261003010000 -0300" stop="20261003011500 -0300">
+    <title lang="en">Sky Sports News</title>
+    <desc lang="en">Round-up of the sports news with live analysis and comments, plus extended interviews with the headline makers.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Baseball</category>
+    <icon src="https://images.metadata.sky.com/pd-image/261bcf4e-0605-4e53-b037-7586c8e1fa1d/16-9" />
+    <episode-num system="xmltv_ns">.62.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261003011500 -0300" stop="20261003024500 -0300">
+    <title lang="en">Live Bahrain F1 GP: Practice 3</title>
+    <desc lang="en">The final F1 practice session ahead of qualifying. Red Bull showed strong pace yesterday as Max Verstappen topped the opening session before Charles Leclerc ended Friday's running fastest.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/88b265f5-5b2a-4eee-be92-a6d768db3971/16-9" />
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261003024500 -0300" stop="20261003030000 -0300">
+    <title lang="en">Naomi Hot Laps with Kimi Antonelli</title>
+    <desc lang="en">Mercedes driver Kimi Antonelli takes Sky F1's Naomi Schiff on a hot lap of the Miami circuit.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/83af1c8f-b901-4fda-aa05-541d5d3b2dcb/16-9" />
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261003030000 -0300" stop="20261003040000 -0300">
+    <title lang="en">Sky Sports Breakfast</title>
+    <desc lang="en">Stay across the biggest sports stories this morning with a wrap-up of the headlines.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Baseball</category>
+    <icon src="https://images.metadata.sky.com/pd-image/aae38e1f-a297-4769-9f11-7794a566a9a8/16-9" />
+    <episode-num system="xmltv_ns">.63.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261003040000 -0300" stop="20261003070000 -0300">
+    <title lang="en">Live Bahrain F1 GP: Qualifying</title>
+    <desc lang="en">The starting grid for the Bahrain Grand Prix in Malaysia is set with F1 qualifying as the drivers attempt to battle their way through to the Q3 top-10 shootout for a shot at pole.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/6adec60e-7743-4641-b9f6-962b67e3ba07/16-9" />
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261003070000 -0300" stop="20261003080000 -0300">
+    <title lang="en">Sky Sports News</title>
+    <desc lang="en">Round-up of the sports news with live analysis and comments, plus extended interviews with the headline makers.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Baseball</category>
+    <icon src="https://images.metadata.sky.com/pd-image/edcdea12-ff7b-41c8-a07a-67f779120aea/16-9" />
+    <episode-num system="xmltv_ns">.63.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261003080000 -0300" stop="20261003110000 -0300">
+    <title lang="en">Live EFL: Chesterfield v Tranmere</title>
+    <desc lang="en">Chesterfield and Tranmere Rovers, separated by goal difference in 10th and 11th, get the weekend's Sky Bet League Two fixtures underway with a lunchtime kick-off at the SMH Group Stadium.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Football</category>
+    <icon src="https://images.metadata.sky.com/pd-image/13f67a25-fd2e-4df6-bd7f-30727aae8e87/16-9" />
+    <episode-num system="xmltv_ns">.3.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261003110000 -0300" stop="20261003130000 -0300">
+    <title lang="en">Live DP World Tour Golf</title>
+    <desc lang="en">Day three of the Alfred Dunhill Links Championship. Scotland's Bob MacIntyre closed out a memorable week a year ago with victory.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Golf</category>
+    <icon src="https://images.metadata.sky.com/pd-image/f4a1f45d-6bec-46b7-a1f3-9a57462604bf/16-9" />
+    <episode-num system="xmltv_ns">.135.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261003130000 -0300" stop="20261003164500 -0300">
+    <title lang="en">Live S/Lge: Grand Final</title>
+    <desc lang="en">In a first major final meeting between the two, Warrington Wolves and Wakefield Trinity contest the 2026 Betfred Super League Grand Final under the Old Trafford lights.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Rugby</category>
+    <icon src="https://images.metadata.sky.com/pd-image/96906885-6763-4f04-8f6b-430d336a2c8b/16-9" />
+    <episode-num system="xmltv_ns">.195.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261003164500 -0300" stop="20261003190000 -0300">
+    <title lang="en">Live World Grand Prix Darts SF's</title>
+    <desc lang="en">The semi-finals of the 2026 World Grand Prix get underway at Leicester's Mattioli Arena.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Darts</category>
+    <icon src="https://images.metadata.sky.com/pd-image/67c44de4-4a95-40df-9a40-7a42084e2cc5/16-9" />
+    <episode-num system="xmltv_ns">.5.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261003190000 -0300" stop="20261003210000 -0300">
+    <title lang="en">Live PGA Tour Golf</title>
+    <desc lang="en">Day three of the 2026 Bank of Utah Championship, taking place at Black Desert Resort. On his first PGA Tour start a year ago, Michael Brennan claimed victory.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Golf</category>
+    <icon src="https://images.metadata.sky.com/pd-image/3cc5e9e6-207c-4deb-a96a-8dbefc6af06a/16-9" />
+    <episode-num system="xmltv_ns">.138.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261003210000 -0300" stop="20261004000000 -0300">
+    <title lang="en">Live LPGA Tour Golf</title>
+    <desc lang="en">The third day of the 2026 LOTTE Championship - an LPGA event previously won by Youmin Hwang, who in victory became the 26th competitor of 2025 to claim a tour win.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Golf</category>
+    <icon src="https://images.metadata.sky.com/pd-image/9a66689c-8b37-4730-b4c8-b194f4be9b7f/16-9" />
+    <episode-num system="xmltv_ns">.84.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261004000000 -0300" stop="20261004010000 -0300">
+    <title lang="en">Sky Sports News</title>
+    <desc lang="en">Round-up of the sports news with live analysis and comments, plus extended interviews with the headline makers.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Baseball</category>
+    <icon src="https://images.metadata.sky.com/pd-image/edcdea12-ff7b-41c8-a07a-67f779120aea/16-9" />
+    <episode-num system="xmltv_ns">.63.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261004010000 -0300" stop="20261004020000 -0300">
+    <title lang="en">Sky Sports News</title>
+    <desc lang="en">Round-up of the sports news with live analysis and comments, plus extended interviews with the headline makers.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Baseball</category>
+    <icon src="https://images.metadata.sky.com/pd-image/edcdea12-ff7b-41c8-a07a-67f779120aea/16-9" />
+    <episode-num system="xmltv_ns">.63.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261004020000 -0300" stop="20261004023000 -0300">
+    <title lang="en">Sky Sports News</title>
+    <desc lang="en">Round-up of the sports news with live analysis and comments, plus extended interviews with the headline makers.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Baseball</category>
+    <icon src="https://images.metadata.sky.com/pd-image/edcdea12-ff7b-41c8-a07a-67f779120aea/16-9" />
+    <episode-num system="xmltv_ns">.63.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261004023000 -0300" stop="20261004035500 -0300">
+    <title lang="en">Live Grand Prix Sunday: Bahrain</title>
+    <desc lang="en">Join Sky Sports F1 on the grid ahead of the start of the race at the Bahrain Grand Prix in Malaysia.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/2e70bc47-0b10-4774-9177-2ce765809257/16-9" />
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261004035500 -0300" stop="20261004060000 -0300">
+    <title lang="en">Live Bahrain F1 Grand Prix</title>
+    <desc lang="en">It's lights out for the Bahrain Grand Prix in Malaysia. Oscar Piastri was the previous Bahrain race winner, but the last time F1 took to Malaysia, a young Max Verstappen took the top step.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/86639a7b-7c98-4e45-a3d8-13ceae82d0b1/16-9" />
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261004060000 -0300" stop="20261004070000 -0300">
+    <title lang="en">Live Chequered Flag: Bahrain</title>
+    <desc lang="en">As the chequered flag comes down on the Bahrain Grand Prix in Malaysia, join Sky Sports F1 for all the reaction and analysis.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Motor Sports</category>
+    <icon src="https://images.metadata.sky.com/pd-image/fc4a8df9-ff86-4b4e-949a-588a3ba5a6b4/16-9" />
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261004070000 -0300" stop="20261004073000 -0300">
+    <title lang="en">Sky Sports News</title>
+    <desc lang="en">Round-up of the sports news with live analysis and comments, plus extended interviews with the headline makers.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Baseball</category>
+    <icon src="https://images.metadata.sky.com/pd-image/ebb79fed-cdcb-4154-8361-8479a78b05ad/16-9" />
+    <episode-num system="xmltv_ns">.64.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261004073000 -0300" stop="20261004093000 -0300">
+    <title lang="en">Live DP World Tour Golf</title>
+    <desc lang="en">The fourth and final day of the Alfred Dunhill Links Championship. Scotland's Bob MacIntyre closed out a memorable week a year ago with victory.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Golf</category>
+    <icon src="https://images.metadata.sky.com/pd-image/11554bd5-cdba-4e1d-afcb-f99178d6dc61/16-9" />
+    <episode-num system="xmltv_ns">.136.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261004093000 -0300" stop="20261004121500 -0300">
+    <title lang="en">Live WSL: West Ham v Chelsea</title>
+    <desc lang="en">Unbeaten Chelsea meet more London opposition in the Barclays WSL following last weekend's win over Arsenal, as Sonia Bompastor's side travel to face rivals West Ham.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Football</category>
+    <icon src="https://images.metadata.sky.com/pd-image/82cdede1-86db-4ecb-882b-365fc6f2f025/16-9" />
+    <episode-num system="xmltv_ns">.8.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261004121500 -0300" stop="20261004143000 -0300">
+    <title lang="en">Live WSL: Man City v Arsenal</title>
+    <desc lang="en">Just four weeks into the Barclays WSL campaign, Arsenal are on the back foot as the Gunners - beaten by Chelsea last weekend - visit leaders City looking to close a seven-point gap.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Football</category>
+    <icon src="https://images.metadata.sky.com/pd-image/1e43b267-2e8c-42df-bffc-245550916829/16-9" />
+    <episode-num system="xmltv_ns">.9.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261004143000 -0300" stop="20261004160000 -0300">
+    <title lang="en">Live NFL Rams @ Eagles</title>
+    <desc lang="en">Shut down by the Chicago Bears last time out, Jalen Hurts and the Philadelphia Eagles eye a return to form in the NFL against the 1-2 Los Angeles Rams.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">American Football</category>
+    <icon src="https://images.metadata.sky.com/pd-image/62e80aa7-aa13-48ee-a664-dc9d5d652e6f/16-9" />
+    <episode-num system="xmltv_ns">.3.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261004160000 -0300" stop="20261004190000 -0300">
+    <title lang="en">Live World Grand Prix Darts Final</title>
+    <desc lang="en">The 2026 World Grand Prix champion is crowned in the final at Leicester's Mattioli Arena.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Darts</category>
+    <icon src="https://images.metadata.sky.com/pd-image/03ff877a-5866-4c3d-9d4c-78cf70a0e286/16-9" />
+    <episode-num system="xmltv_ns">.6.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261004190000 -0300" stop="20261004203000 -0300">
+    <title lang="en">Live NFL Chiefs @ Raiders</title>
+    <desc lang="en">The Kansas City Chiefs hit the road for an NFL match-up during week four against AFC West rivals Las Vegas Raiders. Whose perfect start to the 2026 season ends here at Allegiant Stadium.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">American Football</category>
+    <icon src="https://images.metadata.sky.com/pd-image/e3160985-8e28-4177-8a53-1db5d2adc312/16-9" />
+    <episode-num system="xmltv_ns">.3.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261004203000 -0300" stop="20261004211000 -0300">
+    <title lang="en">Live NFL Football Night</title>
+    <desc lang="en">During week four of the season, the Football Night in America team preview Detroit's trip to Carolina and look back on a weekend of NFL action.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">American Football</category>
+    <icon src="https://images.metadata.sky.com/pd-image/dc0bdaa4-8a26-4371-b063-fc262fc4804a/16-9" />
+    <episode-num system="xmltv_ns">.6.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261004211000 -0300" stop="20261005004500 -0300">
+    <title lang="en">Live NFL Lions @ Panthers</title>
+    <desc lang="en">Improving to 2-1 last weekend with victory on home soil over the New York Jets, Detroit's next NFL test comes on the road as Jahmyr Gibbs and co take on the Carolina Panthers.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">American Football</category>
+    <icon src="https://images.metadata.sky.com/pd-image/8930598e-d4ca-49c4-b4d0-ee8b83b57772/16-9" />
+    <episode-num system="xmltv_ns">.3.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261005004500 -0300" stop="20261005020000 -0300">
+    <title lang="en">Live: WTA Beijing</title>
+    <desc lang="en">Enjoy live action from the ATP and WTA Tours.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <icon src="https://images.metadata.sky.com/pd-image/dc926fbc-de62-4c3c-9f01-a08cd500e832/16-9" />
+    <episode-num system="xmltv_ns">.15.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261005020000 -0300" stop="20261005040000 -0300">
+    <title lang="en">Live: WTA Beijing</title>
+    <desc lang="en">Enjoy live action from the ATP and WTA Tours.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <icon src="https://images.metadata.sky.com/pd-image/dc926fbc-de62-4c3c-9f01-a08cd500e832/16-9" />
+    <episode-num system="xmltv_ns">.15.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261005040000 -0300" stop="20261005080000 -0300">
+    <title lang="en">Live: ATP/WTA Tennis</title>
+    <desc lang="en">Enjoy live action from the ATP and WTA Tours.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <icon src="https://images.metadata.sky.com/pd-image/8567a556-b400-494d-8ea6-2746a60a1a35/16-9" />
+    <episode-num system="xmltv_ns">.16.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261005080000 -0300" stop="20261005100000 -0300">
+    <title lang="en">Live ATP Beijing Semi-Final</title>
+    <desc lang="en">Enjoy live action from the ATP and WTA Tours.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <icon src="https://images.metadata.sky.com/pd-image/d6c8f118-d241-427e-a69f-eb7fd6db79e7/16-9" />
+    <episode-num system="xmltv_ns">.18.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261005100000 -0300" stop="20261005120000 -0300">
+    <title lang="en">Live WTA Beijing</title>
+    <desc lang="en">Enjoy live action from the ATP and WTA Tours.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Tennis</category>
+    <icon src="https://images.metadata.sky.com/pd-image/6bbb3bc0-7591-4f88-92a9-d3ee07f3ddc7/16-9" />
+    <episode-num system="xmltv_ns">.19.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261005120000 -0300" stop="20261005130000 -0300">
+    <title lang="en">Sports Desk</title>
+    <desc lang="en">A breakdown of the stories hitting the news desk this afternoon, with live analysis and comment plus extended interviews with the headline makers.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Baseball</category>
+    <icon src="https://images.metadata.sky.com/pd-image/117ad785-4356-4f6c-833f-1eade0489546/16-9" />
+    <episode-num system="xmltv_ns">.45.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261005130000 -0300" stop="20261005140000 -0300">
+    <title lang="en">Live: The Premier League Show</title>
+    <desc lang="en">Your essential daily guide to the Premier League. With exclusive interviews, topical debate and the latest news from all 20 top-flight clubs.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Football</category>
+    <icon src="https://images.metadata.sky.com/pd-image/a0ad5844-cf67-49d9-a4ee-44728bdd92d6/16-9" />
+    <episode-num system="xmltv_ns">.124.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261005140000 -0300" stop="20261005150000 -0300">
+    <title lang="en">Live: The Premier League Show</title>
+    <desc lang="en">Your essential daily guide to the Premier League. With exclusive interviews, topical debate and the latest news from all 20 top-flight clubs.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Football</category>
+    <icon src="https://images.metadata.sky.com/pd-image/a0ad5844-cf67-49d9-a4ee-44728bdd92d6/16-9" />
+    <episode-num system="xmltv_ns">.124.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261005150000 -0300" stop="20261005160000 -0300">
+    <title lang="en">Sports Centre</title>
+    <desc lang="en">Round-up of the sports news with live analysis and comments, plus extended interviews with the headline makers.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Baseball</category>
+    <icon src="https://images.metadata.sky.com/pd-image/c35a33be-4d6a-42d6-984a-63a29b0da942/16-9" />
+    <episode-num system="xmltv_ns">.45.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261005160000 -0300" stop="20261005170000 -0300">
+    <title lang="en">Sports Centre</title>
+    <desc lang="en">Round-up of the sports news with live analysis and comments, plus extended interviews with the headline makers.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Baseball</category>
+    <icon src="https://images.metadata.sky.com/pd-image/c35a33be-4d6a-42d6-984a-63a29b0da942/16-9" />
+    <episode-num system="xmltv_ns">.45.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261005170000 -0300" stop="20261005173000 -0300">
+    <title lang="en">Sports Centre</title>
+    <desc lang="en">Round-up of the sports news with live analysis and comments, plus extended interviews with the headline makers.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Baseball</category>
+    <icon src="https://images.metadata.sky.com/pd-image/c35a33be-4d6a-42d6-984a-63a29b0da942/16-9" />
+    <episode-num system="xmltv_ns">.45.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261005173000 -0300" stop="20261005180000 -0300">
+    <title lang="en">Lost Grounds</title>
+    <desc lang="en">What does Fat Boy Slim like most about Brighton's old stadiums? Plus, we drop in at the Dell and the Den, while visiting an abandoned amusement arcade in Southend.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Football</category>
+    <icon src="https://images.metadata.sky.com/pd-image/c6236c8b-466b-4b08-bf7d-fb4a4b5be9c1/16-9" />
+    <episode-num system="xmltv_ns">0.3.</episode-num>
+    <rating system="UK">
+      <value>U</value>
+    </rating>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261005180000 -0300" stop="20261005183000 -0300">
+    <title lang="en">Ssn @ 10</title>
+    <desc lang="en">Join the Sky Sports News team for an evening round up of the day's biggest stories.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Baseball</category>
+    <icon src="https://images.metadata.sky.com/pd-image/d327c615-a686-47e8-b463-2c76b8aae07b/16-9" />
+    <episode-num system="xmltv_ns">.44.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261005183000 -0300" stop="20261005190000 -0300">
+    <title lang="en">Paper Talk</title>
+    <desc lang="en">A look at the big stories dominating the news headlines, with discussion and analysis of sport's major topics.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Baseball</category>
+    <icon src="https://images.metadata.sky.com/pd-image/ed7f957e-fbe4-4369-9404-b5e61186b87d/16-9" />
+    <episode-num system="xmltv_ns">.45.</episode-num>
+  </programme>
+  <programme channel="SkySportsMainEventUHD.uk" start="20261005190000 -0300" stop="20261005200000 -0300">
     <title lang="en">Sky Sports News</title>
     <desc lang="en">Round-up of the sports news with live analysis and comments, plus extended interviews with the headline makers.</desc>
     <category lang="en">Sports</category>
