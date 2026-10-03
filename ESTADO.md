@@ -72,6 +72,11 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-03**: orden pedido por el usuario: 21 Sky Sports F1 · 22 F1 UHD · 23 Tennis ·
+  24 **Sky Sports Main Event UHD** (Highfly 4K `now-srr343434`, `SkySportsMainEventUHD.uk`,
+  logo recuperado del historial, guía de Main Event) · 25 Premier League y el resto corrido +2.
+  Main Event solo existe en 4K en Highfly: sin Premium no tiene respaldo gratuito dentro de
+  Highfly (la versión TvVoo sigue aparte en el 26).
 - **2026-10-03**: Sky Sports F1 y **Sky Sports F1 UHD** son canales distintos. El editor
   agrupaba «(4k) SKY SPORTS F1» con la FHD y dejó F1 en la hoja 4K, que sin Premium solo entrega
   un aviso «🔒 Upgrade to Premium». Ahora la calidad 4K/UHD/8K de Highfly es una identidad

@@ -61,6 +61,7 @@ function appCompatibleHighflyIdentity(name) {
   if (normalized.includes("skysportstennis") || normalized.includes("skytennis")) return "SkySportsTennis.uk";
   if (normalized.includes("skysportspremierleague") || normalized.includes("skypremierleague")) return "SkySportsPremierLeague.uk";
   if (normalized.includes("skysportsgolf") || normalized.includes("skygolf")) return "SkySportsGolf.uk";
+  if (normalized.includes("skysportsmainevent")) return "SkySportsMainEvent.uk";
   if (normalized === "espn") return "ESPN.us";
   if (normalized === "marqueesportsnetwork") return "MarqueeSportsNetwork.us";
   if (normalized === "skysport1") return "SkySport1.nz";
