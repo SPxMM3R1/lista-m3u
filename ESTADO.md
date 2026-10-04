@@ -72,6 +72,7 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-04**: ESPN 3 Sur (033) usa `logos/espn-3.png` (`logoOverride`).
 - **2026-10-04**: a pedido del usuario, 63 canales a la papelera (34, 37, 39, 63–66, 70–72, 76, 78,
   80, 82–84, 87–116, 120–123, 125, 127–138; el «165» pedido se tomó como 135). Sin renumerar:
   quedan 72 activos, 16 en prueba; Lista 1 = 58.
