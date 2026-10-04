@@ -1386,6 +1386,29 @@
     {
       "kind": "provider",
       "provider": "tvvoo",
+      "catalogKey": "spain|vavoo_EUROSPORT%202%7Cgroup%3Aes",
+      "providerResourceId": "spain|vavoo_EUROSPORT%202%7Cgroup%3Aes",
+      "name": "EUROSPORT 2",
+      "group": "España",
+      "category": "Sport",
+      "country": "España",
+      "countryKey": "spain",
+      "aliases": [
+        "vavoo_EUROSPORT%202%7Cgroup%3Aes"
+      ],
+      "resolverAliases": [
+        "vavoo_EUROSPORT%202%7Cgroup%3Aes"
+      ],
+      "identityState": "canonical",
+      "logoPath": "logos/eurosport-2.png",
+      "displayName": "Eurosport 2 España",
+      "state": "active",
+      "order": 109,
+      "number": 117
+    },
+    {
+      "kind": "provider",
+      "provider": "tvvoo",
       "catalogKey": "spain|vavoo_DAZN%20F1%7Cgroup%3Aes",
       "providerResourceId": "spain|vavoo_DAZN%20F1%7Cgroup%3Aes",
       "name": "DAZN F1",
@@ -1401,8 +1424,8 @@
       ],
       "identityState": "canonical",
       "logoPath": "logos/dazn-f1.png",
-      "order": 109,
-      "number": 117,
+      "order": 110,
+      "number": 118,
       "state": "active"
     },
     {
@@ -1416,15 +1439,17 @@
       "country": "España",
       "countryKey": "spain",
       "aliases": [
-        "vavoo_ESPN%202%7Cgroup%3Aes"
+        "vavoo_ESPN%202%7Cgroup%3Aes",
+        "vavoo_ESPN%202%7Cgroup%3Aar"
       ],
       "resolverAliases": [
-        "vavoo_ESPN%202%7Cgroup%3Aes"
+        "vavoo_ESPN%202%7Cgroup%3Aes",
+        "vavoo_ESPN%202%7Cgroup%3Aar"
       ],
       "identityState": "canonical",
-      "logoPath": "logos/espn.svg",
-      "order": 110,
-      "number": 118,
+      "logoPath": "logos/espn-2.png",
+      "order": 111,
+      "number": 119,
       "state": "active",
       "displayName": "ESPN 2 Latam"
     },
@@ -1445,31 +1470,9 @@
       ],
       "identityState": "canonical",
       "logoPath": "logos/espn.svg",
-      "order": 111,
-      "number": 119,
-      "state": "active"
-    },
-    {
-      "kind": "provider",
-      "provider": "tvvoo",
-      "catalogKey": "arabia|vavoo_ESPN%202%7Cgroup%3Aar",
-      "providerResourceId": "arabia|vavoo_ESPN%202%7Cgroup%3Aar",
-      "name": "ESPN 2",
-      "group": "Arabia",
-      "country": "Arabia",
-      "countryKey": "arabia",
-      "aliases": [
-        "vavoo_ESPN%202%7Cgroup%3Aar"
-      ],
-      "resolverAliases": [
-        "vavoo_ESPN%202%7Cgroup%3Aar"
-      ],
-      "identityState": "canonical",
       "order": 112,
       "number": 120,
-      "state": "active",
-      "displayName": "ESPN 2 Latam",
-      "logoPath": "logos/espn.svg"
+      "state": "active"
     },
     {
       "kind": "provider",
@@ -1489,7 +1492,7 @@
       "identityState": "canonical",
       "logoPath": "logos/espn-3.png",
       "order": 113,
-      "number": 121,
+      "number": 122,
       "state": "active"
     },
     {
@@ -1510,7 +1513,7 @@
       "identityState": "canonical",
       "logoPath": "logos/espn.svg",
       "order": 114,
-      "number": 122,
+      "number": 123,
       "state": "active"
     },
     {
@@ -1531,7 +1534,7 @@
       "identityState": "canonical",
       "logoPath": "logos/espn.svg",
       "order": 115,
-      "number": 123,
+      "number": 124,
       "state": "active"
     },
     {
@@ -1551,7 +1554,7 @@
       ],
       "identityState": "canonical",
       "order": 116,
-      "number": 124,
+      "number": 125,
       "state": "active"
     },
     {
@@ -1572,7 +1575,7 @@
       "identityState": "canonical",
       "logoPath": "logos/espn-3.png",
       "order": 117,
-      "number": 125,
+      "number": 126,
       "state": "active"
     },
     {
@@ -1592,7 +1595,7 @@
       ],
       "identityState": "canonical",
       "order": 118,
-      "number": 126,
+      "number": 127,
       "state": "active"
     },
     {
@@ -1613,7 +1616,7 @@
       ],
       "identityState": "canonical",
       "order": 119,
-      "number": 127,
+      "number": 128,
       "state": "active"
     },
     {
@@ -1634,31 +1637,30 @@
       ],
       "identityState": "canonical",
       "order": 120,
-      "number": 128,
+      "number": 129,
       "state": "active"
     },
     {
       "kind": "provider",
       "provider": "tvvoo",
-      "catalogKey": "spain|vavoo_EUROSPORT%202%7Cgroup%3Aes",
-      "providerResourceId": "spain|vavoo_EUROSPORT%202%7Cgroup%3Aes",
-      "name": "EUROSPORT 2",
-      "group": "España",
-      "category": "Sport",
-      "country": "España",
-      "countryKey": "spain",
+      "catalogKey": "arabia|vavoo_ESPN%202%7Cgroup%3Aar",
+      "providerResourceId": "arabia|vavoo_ESPN%202%7Cgroup%3Aar",
+      "name": "ESPN 2",
+      "group": "Arabia",
+      "country": "Arabia",
+      "countryKey": "arabia",
       "aliases": [
-        "vavoo_EUROSPORT%202%7Cgroup%3Aes"
+        "vavoo_ESPN%202%7Cgroup%3Aar"
       ],
       "resolverAliases": [
-        "vavoo_EUROSPORT%202%7Cgroup%3Aes"
+        "vavoo_ESPN%202%7Cgroup%3Aar"
       ],
       "identityState": "canonical",
-      "logoPath": "logos/eurosport.svg",
-      "displayName": "Eurosport 2 España",
-      "state": "active",
       "order": 121,
-      "number": 163
+      "number": 121,
+      "state": "deleted",
+      "displayName": "ESPN 2 Latam",
+      "logoPath": "logos/espn.svg"
     },
     {
       "kind": "provider",

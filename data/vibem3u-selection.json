@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "source": "vibem3u-android",
-  "selectionSignature": "sha256:c3d61d662dff55c0fd0270df55202640308a5f92ea0d950a1d132bc191b0bc3f",
-  "publishedAt": "2026-10-04T01:40:35.781Z",
+  "selectionSignature": "sha256:af6d468cb68f12f197715d9de677431ee124645d50e922be744b8f19e2cc3355",
+  "publishedAt": "2026-10-04T03:34:44.743Z",
   "sources": [
     {
       "provider": "tvvoo",
@@ -100,13 +100,28 @@
         },
         {
           "provider": "tvvoo",
+          "catalogKey": "spain|vavoo_EUROSPORT%202%7Cgroup%3Aes",
+          "providerResourceId": "spain|vavoo_EUROSPORT%202%7Cgroup%3Aes",
+          "name": "EUROSPORT 2",
+          "group": "España",
+          "category": "Sport",
+          "identityState": "canonical",
+          "order": 7,
+          "country": "España",
+          "countryKey": "spain",
+          "aliases": [
+            "vavoo_EUROSPORT%202%7Cgroup%3Aes"
+          ]
+        },
+        {
+          "provider": "tvvoo",
           "catalogKey": "spain|vavoo_DAZN%20F1%7Cgroup%3Aes",
           "providerResourceId": "spain|vavoo_DAZN%20F1%7Cgroup%3Aes",
           "name": "DAZN F1",
           "group": "España",
           "category": "Sport",
           "identityState": "canonical",
-          "order": 7,
+          "order": 8,
           "country": "España",
           "countryKey": "spain",
           "aliases": [
@@ -121,11 +136,12 @@
           "group": "España",
           "category": "Sport",
           "identityState": "canonical",
-          "order": 8,
+          "order": 9,
           "country": "España",
           "countryKey": "spain",
           "aliases": [
-            "vavoo_ESPN%202%7Cgroup%3Aes"
+            "vavoo_ESPN%202%7Cgroup%3Aes",
+            "vavoo_ESPN%202%7Cgroup%3Aar"
           ]
         },
         {
@@ -136,26 +152,11 @@
           "group": "Arabia",
           "category": "Arabia",
           "identityState": "canonical",
-          "order": 9,
-          "country": "Arabia",
-          "countryKey": "arabia",
-          "aliases": [
-            "vavoo_ESPN%7Cgroup%3Aar"
-          ]
-        },
-        {
-          "provider": "tvvoo",
-          "catalogKey": "arabia|vavoo_ESPN%202%7Cgroup%3Aar",
-          "providerResourceId": "arabia|vavoo_ESPN%202%7Cgroup%3Aar",
-          "name": "ESPN 2",
-          "group": "Arabia",
-          "category": "Arabia",
-          "identityState": "canonical",
           "order": 10,
           "country": "Arabia",
           "countryKey": "arabia",
           "aliases": [
-            "vavoo_ESPN%202%7Cgroup%3Aar"
+            "vavoo_ESPN%7Cgroup%3Aar"
           ]
         },
         {
@@ -276,21 +277,6 @@
           "countryKey": "spain",
           "aliases": [
             "vavoo_BEIN%20SPORTS%20N%7Cgroup%3Aes"
-          ]
-        },
-        {
-          "provider": "tvvoo",
-          "catalogKey": "spain|vavoo_EUROSPORT%202%7Cgroup%3Aes",
-          "providerResourceId": "spain|vavoo_EUROSPORT%202%7Cgroup%3Aes",
-          "name": "EUROSPORT 2",
-          "group": "España",
-          "category": "Sport",
-          "identityState": "canonical",
-          "order": 19,
-          "country": "España",
-          "countryKey": "spain",
-          "aliases": [
-            "vavoo_EUROSPORT%202%7Cgroup%3Aes"
           ]
         }
       ]
