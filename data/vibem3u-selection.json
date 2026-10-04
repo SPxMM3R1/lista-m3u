@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "source": "vibem3u-android",
-  "selectionSignature": "sha256:af6d468cb68f12f197715d9de677431ee124645d50e922be744b8f19e2cc3355",
-  "publishedAt": "2026-10-04T03:34:44.743Z",
+  "selectionSignature": "sha256:7e945e6771947ad2d194be8c3126879dcfd2768814594504638df333d86b36dc",
+  "publishedAt": "2026-10-04T15:52:30.058Z",
   "sources": [
     {
       "provider": "tvvoo",
@@ -25,13 +25,28 @@
         },
         {
           "provider": "tvvoo",
+          "catalogKey": "spain|vavoo_DAZN%20F1%7Cgroup%3Aes",
+          "providerResourceId": "spain|vavoo_DAZN%20F1%7Cgroup%3Aes",
+          "name": "DAZN F1",
+          "group": "España",
+          "category": "Sport",
+          "identityState": "canonical",
+          "order": 2,
+          "country": "España",
+          "countryKey": "spain",
+          "aliases": [
+            "vavoo_DAZN%20F1%7Cgroup%3Aes"
+          ]
+        },
+        {
+          "provider": "tvvoo",
           "catalogKey": "unitedkingdom|vavoo_TNT%20SPORT%201%7Cgroup%3Auk",
           "providerResourceId": "unitedkingdom|vavoo_TNT%20SPORT%201%7Cgroup%3Auk",
           "name": "TNT SPORT 1",
           "group": "Reino Unido",
           "category": "Sport",
           "identityState": "canonical",
-          "order": 2,
+          "order": 3,
           "country": "Reino Unido",
           "countryKey": "unitedkingdom",
           "aliases": [
@@ -46,7 +61,7 @@
           "group": "Reino Unido",
           "category": "Sport",
           "identityState": "canonical",
-          "order": 3,
+          "order": 4,
           "country": "Reino Unido",
           "countryKey": "unitedkingdom",
           "aliases": [
@@ -61,7 +76,7 @@
           "group": "Reino Unido",
           "category": "Sport",
           "identityState": "canonical",
-          "order": 4,
+          "order": 5,
           "country": "Reino Unido",
           "countryKey": "unitedkingdom",
           "aliases": [
@@ -76,11 +91,87 @@
           "group": "Reino Unido",
           "category": "Sport",
           "identityState": "canonical",
-          "order": 5,
+          "order": 6,
           "country": "Reino Unido",
           "countryKey": "unitedkingdom",
           "aliases": [
             "vavoo_TNT%20SPORT%204%7Cgroup%3Auk"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "spain|vavoo_ESPN%202%7Cgroup%3Aes",
+          "providerResourceId": "spain|vavoo_ESPN%202%7Cgroup%3Aes",
+          "name": "ESPN 2",
+          "group": "España",
+          "category": "Sport",
+          "identityState": "canonical",
+          "order": 7,
+          "country": "España",
+          "countryKey": "spain",
+          "aliases": [
+            "vavoo_ESPN%202%7Cgroup%3Aes",
+            "vavoo_ESPN%202%7Cgroup%3Aar"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "arabia|vavoo_ESPN%203%7Cgroup%3Aar",
+          "providerResourceId": "arabia|vavoo_ESPN%203%7Cgroup%3Aar",
+          "name": "ESPN 3",
+          "group": "Arabia",
+          "category": "Arabia",
+          "identityState": "canonical",
+          "order": 8,
+          "country": "Arabia",
+          "countryKey": "arabia",
+          "aliases": [
+            "vavoo_ESPN%203%7Cgroup%3Aar"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "netherlands|vavoo_ESPN%204%7Cgroup%3Anl",
+          "providerResourceId": "netherlands|vavoo_ESPN%204%7Cgroup%3Anl",
+          "name": "ESPN 4",
+          "group": "Países Bajos",
+          "category": "Países Bajos",
+          "identityState": "canonical",
+          "order": 9,
+          "country": "Países Bajos",
+          "countryKey": "netherlands",
+          "aliases": [
+            "vavoo_ESPN%204%7Cgroup%3Anl"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "arabia|vavoo_ESPN%20EXTRA%7Cgroup%3Aar",
+          "providerResourceId": "arabia|vavoo_ESPN%20EXTRA%7Cgroup%3Aar",
+          "name": "ESPN EXTRA",
+          "group": "Arabia",
+          "category": "Arabia",
+          "identityState": "canonical",
+          "order": 10,
+          "country": "Arabia",
+          "countryKey": "arabia",
+          "aliases": [
+            "vavoo_ESPN%20EXTRA%7Cgroup%3Aar"
+          ]
+        },
+        {
+          "provider": "tvvoo",
+          "catalogKey": "arabia|vavoo_ESPN%7Cgroup%3Aar",
+          "providerResourceId": "arabia|vavoo_ESPN%7Cgroup%3Aar",
+          "name": "ESPN",
+          "group": "Arabia",
+          "category": "Arabia",
+          "identityState": "canonical",
+          "order": 11,
+          "country": "Arabia",
+          "countryKey": "arabia",
+          "aliases": [
+            "vavoo_ESPN%7Cgroup%3Aar"
           ]
         },
         {
@@ -91,7 +182,7 @@
           "group": "España",
           "category": "Sport",
           "identityState": "canonical",
-          "order": 6,
+          "order": 12,
           "country": "España",
           "countryKey": "spain",
           "aliases": [
@@ -106,177 +197,11 @@
           "group": "España",
           "category": "Sport",
           "identityState": "canonical",
-          "order": 7,
+          "order": 13,
           "country": "España",
           "countryKey": "spain",
           "aliases": [
             "vavoo_EUROSPORT%202%7Cgroup%3Aes"
-          ]
-        },
-        {
-          "provider": "tvvoo",
-          "catalogKey": "spain|vavoo_DAZN%20F1%7Cgroup%3Aes",
-          "providerResourceId": "spain|vavoo_DAZN%20F1%7Cgroup%3Aes",
-          "name": "DAZN F1",
-          "group": "España",
-          "category": "Sport",
-          "identityState": "canonical",
-          "order": 8,
-          "country": "España",
-          "countryKey": "spain",
-          "aliases": [
-            "vavoo_DAZN%20F1%7Cgroup%3Aes"
-          ]
-        },
-        {
-          "provider": "tvvoo",
-          "catalogKey": "spain|vavoo_ESPN%202%7Cgroup%3Aes",
-          "providerResourceId": "spain|vavoo_ESPN%202%7Cgroup%3Aes",
-          "name": "ESPN 2",
-          "group": "España",
-          "category": "Sport",
-          "identityState": "canonical",
-          "order": 9,
-          "country": "España",
-          "countryKey": "spain",
-          "aliases": [
-            "vavoo_ESPN%202%7Cgroup%3Aes",
-            "vavoo_ESPN%202%7Cgroup%3Aar"
-          ]
-        },
-        {
-          "provider": "tvvoo",
-          "catalogKey": "arabia|vavoo_ESPN%7Cgroup%3Aar",
-          "providerResourceId": "arabia|vavoo_ESPN%7Cgroup%3Aar",
-          "name": "ESPN",
-          "group": "Arabia",
-          "category": "Arabia",
-          "identityState": "canonical",
-          "order": 10,
-          "country": "Arabia",
-          "countryKey": "arabia",
-          "aliases": [
-            "vavoo_ESPN%7Cgroup%3Aar"
-          ]
-        },
-        {
-          "provider": "tvvoo",
-          "catalogKey": "arabia|vavoo_ESPN%203%7Cgroup%3Aar",
-          "providerResourceId": "arabia|vavoo_ESPN%203%7Cgroup%3Aar",
-          "name": "ESPN 3",
-          "group": "Arabia",
-          "category": "Arabia",
-          "identityState": "canonical",
-          "order": 11,
-          "country": "Arabia",
-          "countryKey": "arabia",
-          "aliases": [
-            "vavoo_ESPN%203%7Cgroup%3Aar"
-          ]
-        },
-        {
-          "provider": "tvvoo",
-          "catalogKey": "arabia|vavoo_ESPN%20EXTRA%7Cgroup%3Aar",
-          "providerResourceId": "arabia|vavoo_ESPN%20EXTRA%7Cgroup%3Aar",
-          "name": "ESPN EXTRA",
-          "group": "Arabia",
-          "category": "Arabia",
-          "identityState": "canonical",
-          "order": 12,
-          "country": "Arabia",
-          "countryKey": "arabia",
-          "aliases": [
-            "vavoo_ESPN%20EXTRA%7Cgroup%3Aar"
-          ]
-        },
-        {
-          "provider": "tvvoo",
-          "catalogKey": "netherlands|vavoo_ESPN%7Cgroup%3Anl",
-          "providerResourceId": "netherlands|vavoo_ESPN%7Cgroup%3Anl",
-          "name": "ESPN",
-          "group": "Países Bajos",
-          "category": "Países Bajos",
-          "identityState": "canonical",
-          "order": 13,
-          "country": "Países Bajos",
-          "countryKey": "netherlands",
-          "aliases": [
-            "vavoo_ESPN%7Cgroup%3Anl"
-          ]
-        },
-        {
-          "provider": "tvvoo",
-          "catalogKey": "netherlands|vavoo_ESPN%202%7Cgroup%3Anl",
-          "providerResourceId": "netherlands|vavoo_ESPN%202%7Cgroup%3Anl",
-          "name": "ESPN 2",
-          "group": "Países Bajos",
-          "category": "Países Bajos",
-          "identityState": "canonical",
-          "order": 14,
-          "country": "Países Bajos",
-          "countryKey": "netherlands",
-          "aliases": [
-            "vavoo_ESPN%202%7Cgroup%3Anl"
-          ]
-        },
-        {
-          "provider": "tvvoo",
-          "catalogKey": "netherlands|vavoo_ESPN%203%7Cgroup%3Anl",
-          "providerResourceId": "netherlands|vavoo_ESPN%203%7Cgroup%3Anl",
-          "name": "ESPN 3",
-          "group": "Países Bajos",
-          "category": "Países Bajos",
-          "identityState": "canonical",
-          "order": 15,
-          "country": "Países Bajos",
-          "countryKey": "netherlands",
-          "aliases": [
-            "vavoo_ESPN%203%7Cgroup%3Anl"
-          ]
-        },
-        {
-          "provider": "tvvoo",
-          "catalogKey": "netherlands|vavoo_ESPN%204%7Cgroup%3Anl",
-          "providerResourceId": "netherlands|vavoo_ESPN%204%7Cgroup%3Anl",
-          "name": "ESPN 4",
-          "group": "Países Bajos",
-          "category": "Países Bajos",
-          "identityState": "canonical",
-          "order": 16,
-          "country": "Países Bajos",
-          "countryKey": "netherlands",
-          "aliases": [
-            "vavoo_ESPN%204%7Cgroup%3Anl"
-          ]
-        },
-        {
-          "provider": "tvvoo",
-          "catalogKey": "spain|vavoo_FOX%20SPORTS%203%7Cgroup%3Aes",
-          "providerResourceId": "spain|vavoo_FOX%20SPORTS%203%7Cgroup%3Aes",
-          "name": "FOX SPORTS 3",
-          "group": "España",
-          "category": "Sport",
-          "identityState": "canonical",
-          "order": 17,
-          "country": "España",
-          "countryKey": "spain",
-          "aliases": [
-            "vavoo_FOX%20SPORTS%203%7Cgroup%3Aes"
-          ]
-        },
-        {
-          "provider": "tvvoo",
-          "catalogKey": "spain|vavoo_BEIN%20SPORTS%20N%7Cgroup%3Aes",
-          "providerResourceId": "spain|vavoo_BEIN%20SPORTS%20N%7Cgroup%3Aes",
-          "name": "BEIN SPORTS N",
-          "group": "España",
-          "category": "Sport",
-          "identityState": "canonical",
-          "order": 18,
-          "country": "España",
-          "countryKey": "spain",
-          "aliases": [
-            "vavoo_BEIN%20SPORTS%20N%7Cgroup%3Aes"
           ]
         }
       ]
