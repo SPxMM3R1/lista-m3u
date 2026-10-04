@@ -127,10 +127,6 @@ http://23.237.104.106:8080/USA_FOX_DEPORTES/index.m3u8
 http://38.44.109.41:8003/play/a0gs/index.m3u8
 #EXTINF:-1 tvg-id="TVN.cl@Direct45" tvg-name="TVN [IP 45]" tvg-country="CL" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvn.png" group-title="Misceláneos",TVN [IP 45]
 http://45.173.231.22:8000/play/a06l/index.m3u8
-#EXTINF:-1 tvg-id="Mega.cl@VTR" tvg-name="Mega [VTR]" tvg-country="CL" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/mega.png" group-title="Misceláneos",Mega [VTR]
-http://tr.live.clarovtrcdn.vtrplay.com/megahdchi/vxfmt=dp/playlist.m3u8?device_profile=STB_HLS_VCAS_LIVE_HD
-#EXTINF:-1 tvg-id="Mega.cl@Movistar" tvg-name="Mega [Movistar]" tvg-country="CL" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/mega.png" group-title="Misceláneos",Mega [Movistar]
-https://pantera1-100gb-cl-movistar.dps.live/mega/mega.smil/playlist.m3u8
 #EXTINF:-1 tvg-id="Canal13.cl@Direct187" tvg-name="Canal 13 [IP 187]" tvg-country="CL" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/canal13.png" group-title="Misceláneos",Canal 13 [IP 187]
 http://187.102.208.209:8000/play/a099/index.m3u8
 #EXTINF:-1 tvg-id="TVN3.cl@Mediastream" tvg-name="TVN3 [Mediastream]" tvg-country="CL" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvn3.svg" group-title="Misceláneos",TVN3 [Mediastream]
@@ -147,6 +143,14 @@ http://15.204.146.163:8002/play/a00g/index.m3u8
 http://38.187.7.252:8000/play/a03d/index.m3u8
 #EXTINF:-1 tvg-id="DSports2.us@Direct187" tvg-name="DSports 2 [IP 187]" tvg-country="US" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/DIRECTV_Sports_2_Latin_America_%282018%29.svg/960px-DIRECTV_Sports_2_Latin_America_%282018%29.svg.png" group-title="Deportes",DSports 2 [IP 187]
 http://187.102.208.209:8000/play/a0bq/index.m3u8
+
+# Misceláneos
+#EXTINF:-1 tvg-id="Mega.cl@VTR" tvg-name="Mega [VTR]" tvg-country="CL" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/mega.png" group-title="Misceláneos",Mega [VTR]
+http://tr.live.clarovtrcdn.vtrplay.com/megahdchi/vxfmt=dp/playlist.m3u8?device_profile=STB_HLS_VCAS_LIVE_HD
+#EXTINF:-1 tvg-id="Mega.cl@Movistar" tvg-name="Mega [Movistar]" tvg-country="CL" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/mega.png" group-title="Misceláneos",Mega [Movistar]
+https://pantera1-100gb-cl-movistar.dps.live/mega/mega.smil/playlist.m3u8
+
+# Deportes
 #EXTINF:-1 tvg-id="FoxSports1.us@Direct190" tvg-name="Fox Sports 1 [IP 190]" tvg-country="US" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/fox-sports.svg" group-title="Deportes",Fox Sports 1 [IP 190]
 http://190.11.225.124:5000/live/fs1_hd/playlist.m3u8
 #EXTINF:-1 tvg-id="FoxSports.us@Cloudfront" tvg-name="Fox Sports [Cloudfront]" tvg-country="US" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/fox-sports.svg" group-title="Deportes",Fox Sports [Cloudfront]

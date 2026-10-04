@@ -72,6 +72,7 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-04**: 75 (Mega [VTR]) y 77 (Mega [Movistar]) a la papelera; 70 activos, Lista 1 = 56.
 - **2026-10-04**: ESPN 5 Sur (035) con `logos/espn-5.png` (tv-logos Brasil, recoloreado al rojo de
   `espn-3.png`).
 - **2026-10-04**: ESPN 3 Sur (033) usa `logos/espn-3.png` (`logoOverride`).
