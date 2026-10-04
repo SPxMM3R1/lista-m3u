@@ -72,6 +72,8 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-04**: los 69 canales nuevos de Lista 2 (iptv-org, tlink y 13C) entran a la grilla del
+  editor como filas M3U de Lista 2, activas, del 68 al 136 (tras los 67 que dejó el usuario).
 - **2026-10-04**: a pedido del usuario, también a Lista 2 las 20 transmisiones de iptv-org en
   tlink.cl (fallaban desde EE. UU.; probablemente solo responden en Chile): nacionales, Mega 2,
   Mega Ficción, Meganoticias Ahora, Megatiempo, CDO, ETC TV y otras, con tvg-id `…@tlink`. Y 13C
