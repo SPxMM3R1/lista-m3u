@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-generated-at="2026-10-04T14:39:15+00:00" data-description-policy="verified-source-only" data-description-programmes="3326" data-description-channels="47" data-next-refresh-at="2026-10-04T17:39:15+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u">
+<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-generated-at="2026-10-04T14:44:47+00:00" data-description-policy="verified-source-only" data-description-programmes="3339" data-description-channels="48" data-next-refresh-at="2026-10-04T17:44:47+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u">
   <channel id="0104" data-guide="parrilla real" data-guide-source="tvn-oficial">
     <display-name>TVN</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvn.png" />
@@ -209,6 +209,10 @@
     <display-name>TNT Sports 2 Reino Unido</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tnt-sports-1.png" />
   </channel>
+  <channel id="Vavoo.es.ESPN2@TvVoo" data-guide="parrilla real" data-guide-source="cl">
+    <display-name>ESPN 2 España</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn.svg" />
+  </channel>
   <channel id="Vavoo.uk.TNTSPORTS4@TvVoo" data-guide="parrilla real" data-guide-source="uk1">
     <display-name>TNT Sports 4 Reino Unido</display-name>
     <icon src="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/tnt-sports-4-uk.png" />
@@ -245,24 +249,10 @@
     <display-name>DAZN F1</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/dazn-f1.png" />
   </channel>
-  <programme start="20261004073108 -0300" stop="20261004082902 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">Program information unavailable at this time</title>
-  </programme>
-  <programme start="20261004082902 -0300" stop="20261004085201 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">Skate the Museum</title>
-    <sub-title lang="en">Turning a museum into an epic skatepark</sub-title>
-    <desc lang="en">Leticia Bufoni, Margy Didal, Lore Bruggeman and Aldana Bertran let loose in London's Natural History Museum.</desc>
-  </programme>
-  <programme start="20261004085201 -0300" stop="20261004091731 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">ABC of... Climbing</title>
-    <sub-title lang="en">ABC of... S2E1</sub-title>
-    <desc lang="en">Join Sasha DiGiulian as she takes you on an expedition around the globe with some of the world's top climbers.</desc>
-  </programme>
-  <programme start="20261004091731 -0300" stop="20261004094508 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">Janja Garnbret vs her 10th world title</title>
-    <sub-title lang="en">Natural Heights S1E1</sub-title>
-    <desc lang="en">With another title in sight Janja Garnbret shifts her focus outdoors, is it new motivation or added pressure?</desc>
-  </programme>
+  <channel id="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo" data-guide="parrilla real" data-guide-source="cl" data-app-alias-of="Vavoo.es.ESPN2@TvVoo">
+    <display-name>ESPN 2 España</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn.svg" />
+  </channel>
   <programme start="20261004094508 -0300" stop="20261004100913 -0300" channel="RedBullWorldEnglish.int">
     <title lang="en">Jakob Schubert sends a 9c route</title>
     <sub-title lang="en">Natural Heights S1E2</sub-title>
@@ -542,6 +532,26 @@
     <sub-title lang="en">Red Bull Rapids 2022</sub-title>
     <desc lang="en">In this wild whitewater race teams create their own man-made vessels and race down a 234m rapids course.</desc>
   </programme>
+  <programme start="20261005101719 -0300" stop="20261005104319 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">Kiteboarding</title>
+    <sub-title lang="en">Pushing Progression S1E5</sub-title>
+    <desc lang="en">Explore the evolution of kiteboarding and see how events like Red Bull King of the Air push its progression.</desc>
+  </programme>
+  <programme start="20261005104319 -0300" stop="20261005112407 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">How Luke Czepiela Landed a Plane on a Tiny Helipad</title>
+    <sub-title lang="en">The story behind Luke Czepiela’s iconic skyscraper plane landing</sub-title>
+    <desc lang="en">See rare BTS footage of an aviation marvel: landing a plane on Dubai’s Burj Al Arab tiny helipad.</desc>
+  </programme>
+  <programme start="20261005112407 -0300" stop="20261005115007 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">Freeride mountain biking</title>
+    <sub-title lang="en">Pushing Progression S1E4</sub-title>
+    <desc lang="en">Learn how Red Bull Red Bull Rampage and Formation have pushed the boundaries of progression in freeride MTB.</desc>
+  </programme>
+  <programme start="20261005115007 -0300" stop="20261005125413 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">Red Bull Straight Rhythm</title>
+    <sub-title lang="en">Red Bull Signature Series S2017E10</sub-title>
+    <desc lang="en">This new racing format pitted a field of 32 riders in a head-to-head showdown of pure MX racing.</desc>
+  </programme>
   <programme start="20261004103330 -0300" stop="20261004110000 -0300" channel="RedBullChileEspanol.cl">
     <title lang="es">Padel Life – Conociendo a las estrellas del juego</title>
     <desc lang="es">Cuatro figuras del pádel —Arturo Coello, Ariana Sánchez, Fede Chingotto y Ale Salazar— comparten sus viajes, sacrificios y la pasión que impulsa su éxito dentro y fuera de la pista.</desc>
@@ -601,6 +611,30 @@
   <programme start="20261005062239 -0300" stop="20261005070720 -0300" channel="RedBullChileEspanol.cl">
     <title lang="es">Red Bull Batalla Nueva Historia: 20 Años de Rimas</title>
     <desc lang="es">20 años de freestyle en español, desde la primera Final Internacional de Red Bull Batalla hasta el aniversario celebrado en Buenos Aires.</desc>
+  </programme>
+  <programme start="20261005070720 -0300" stop="20261005074511 -0300" channel="RedBullChileEspanol.cl">
+    <title lang="es">Volando en parapente sobre la montaña K2 en Pakistán</title>
+    <desc lang="es">Tom de Dorlodot y Horacio Llorens, pilotos de parapente, surcaron los cielos de Pakistán, sobrevolando cuatro picos, incluido el K2, la segunda montaña más alta del mundo.</desc>
+  </programme>
+  <programme start="20261005074511 -0300" stop="20261005091009 -0300" channel="RedBullChileEspanol.cl">
+    <title lang="es">The Last Ascent: El regreso de Will Gadd al Kilimanjaro</title>
+    <desc lang="es">Will Gadd regresa al Kilimanjaro para un último ascenso a sus torres de hielo, mientras las capas de hielo de la montaña desaparecen.</desc>
+  </programme>
+  <programme start="20261005091009 -0300" stop="20261005101058 -0300" channel="RedBullChileEspanol.cl">
+    <title lang="es">Fabio Wibmer – Video Game: detrás de cámaras</title>
+    <desc lang="es">Fabio Wibmer y su equipo revelan el proceso detrás de Video Game, una de las producciones de bike más creativas de 2022, filmada durante 70 días y llena de retos técnicos y visuales.</desc>
+  </programme>
+  <programme start="20261005101058 -0300" stop="20261005105737 -0300" channel="RedBullChileEspanol.cl">
+    <title lang="es">Inside Pro Surfing – legendarias olas australianas</title>
+    <desc lang="es">Los mejores surfistas compiten en el Rip Curl Pro Bells Beach, una parada icónica del circuito mundial donde buscan dominar las legendarias olas australianas.</desc>
+  </programme>
+  <programme start="20261005105737 -0300" stop="20261005111949 -0300" channel="RedBullChileEspanol.cl">
+    <title lang="es">Reel Rock: Mallorca, España</title>
+    <desc lang="es">La prodigio australiana de la escalada Angie Scarth-Johnson y Hazel Findlay exploran las rutas en solitario en aguas profundas de Mallorca.</desc>
+  </programme>
+  <programme start="20261005111949 -0300" stop="20261005113935 -0300" channel="RedBullChileEspanol.cl">
+    <title lang="es">Reel Rock: Mallorca, España - Parte 2</title>
+    <desc lang="es">La escaladora Angie Scarth-Johnson se enfrenta al reto mental de la competición de escalada en psicobloc, superando los miedos a las aguas profundas.</desc>
   </programme>
   <programme start="20261004070000 -0300" stop="20261004080000 -0300" channel="0102">
     <title lang="es">Problemas y Soluciones</title>
@@ -13179,7 +13213,6 @@
   </programme>
   <programme channel="France24.fr" start="20261004053000 -0300" stop="20261004054000 -0300">
     <title lang="fr">Noticias</title>
-    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
     <category lang="fr">Journal</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
@@ -20871,6 +20904,30 @@
     <date>2018</date>
     <category lang="en">Explore</category>
     <icon src="https://d11hei8e1dyf6i.cloudfront.net/RWILD/Default_Thumbnail.jpg" />
+  </programme>
+  <programme channel="RedBullWorldEnglish.int" start="20261004083200 -0300" stop="20261004091900 -0300">
+    <title>Unrideable</title>
+    <live />
+    <episode-num system="original-air-date">20261004113200 +0000</episode-num>
+    <desc>Billy Bolt kehrt zurück, während Mario Román seinem Traum von einem Titel nachjagt.</desc>
+    <icon src="https://images.pluto.tv/series/68c05dec99a2f3e74ad8b51e/tile_1761033696054.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
+    <series-id system="pluto">68c05dec99a2f3e74ad8b51e</series-id>
+    <sub-title>Opfer bringen</sub-title>
+    <category>Sports</category>
+    <category>Series</category>
+  </programme>
+  <programme channel="RedBullWorldEnglish.int" start="20261004091900 -0300" stop="20261004094508 -0300">
+    <title>Race Tapes</title>
+    <live />
+    <episode-num system="original-air-date">20261004121900 +0000</episode-num>
+    <desc>Die Sendung zeigt die wilden Fahrten der UCI-Mountainbike-Weltcup-Saison im Jahr 2022.</desc>
+    <icon src="https://images.pluto.tv/series/6877beb4a53444ef2af2b377/tile_1752678107436.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
+    <series-id system="pluto">6877beb4a53444ef2af2b377</series-id>
+    <sub-title>Französische Renaissance</sub-title>
+    <category>Sports</category>
+    <category>Series</category>
   </programme>
   <programme channel="RewindTV.cl@SD" start="20261003070000 -0300" stop="20261003073000 -0300">
     <title lang="en">Live</title>
@@ -32661,6 +32718,313 @@
   <programme start="20261007013500 -0300" stop="20261007023000 -0300" channel="TelehitMusica.mx@SD">
     <title lang="es">Suena el Dembow</title>
   </programme>
+  <programme start="20261003023000 -0300" stop="20261003040000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">ESPN F Show</title>
+  </programme>
+  <programme start="20261003040000 -0300" stop="20261003060000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">Fútbol UEFA Nations League</title>
+  </programme>
+  <programme start="20261003060000 -0300" stop="20261003072500 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">ESPN F Show</title>
+  </programme>
+  <programme start="20261003072500 -0300" stop="20261003085000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">ESPN F90</title>
+  </programme>
+  <programme start="20261003085000 -0300" stop="20261003095000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">Automovilismo Fórmula 1</title>
+  </programme>
+  <programme start="20261003095000 -0300" stop="20261003105000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">UEFA Nations League: Match Day Highlights</title>
+  </programme>
+  <programme start="20261003105000 -0300" stop="20261003125500 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">Bielorrusia vs. San Marino</title>
+    <sub-title lang="es">Fútbol UEFA Nations League</sub-title>
+  </programme>
+  <programme start="20261003125500 -0300" stop="20261003150000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">SportsCenter+</title>
+  </programme>
+  <programme start="20261003150000 -0300" stop="20261003193000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">ESPN Knockout</title>
+  </programme>
+  <programme start="20261003193000 -0300" stop="20261003200000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">UEFA Women's Champions League Highlight Show</title>
+  </programme>
+  <programme start="20261003200000 -0300" stop="20261003223000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">Baloncesto NBA</title>
+  </programme>
+  <programme start="20261003223000 -0300" stop="20261004030000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">Campeonato mundial de MotoGP</title>
+  </programme>
+  <programme start="20261004030000 -0300" stop="20261004040000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">Fútbol UEFA Nations League</title>
+  </programme>
+  <programme start="20261004040000 -0300" stop="20261004050000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">Fútbol UEFA Nations League</title>
+  </programme>
+  <programme start="20261004050000 -0300" stop="20261004052000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">Futbol Internacional</title>
+  </programme>
+  <programme start="20261004052000 -0300" stop="20261004055000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">UEFA Women's Champions League Highlight Show</title>
+  </programme>
+  <programme start="20261004055000 -0300" stop="20261004075000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">ESPN Knockout</title>
+  </programme>
+  <programme start="20261004075000 -0300" stop="20261004085000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">UEFA Nations League: Match Day Highlights</title>
+  </programme>
+  <programme start="20261004085000 -0300" stop="20261004095000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">UEFA Nations League: Match Day Highlights</title>
+  </programme>
+  <programme start="20261004095000 -0300" stop="20261004120000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">Azerbaiyán vs. Lituania</title>
+    <sub-title lang="es">Fútbol UEFA Nations League</sub-title>
+  </programme>
+  <programme start="20261004120000 -0300" stop="20261004125500 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">Fútbol UEFA Nations League</title>
+  </programme>
+  <programme start="20261004125500 -0300" stop="20261004150000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">Automovilismo Fórmula 1</title>
+  </programme>
+  <programme start="20261004150000 -0300" stop="20261004153000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">UEFA Women's Champions League Highlight Show</title>
+  </programme>
+  <programme start="20261004153000 -0300" stop="20261004174500 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">Grecia vs. Alemania</title>
+    <sub-title lang="es">Fútbol UEFA Nations League</sub-title>
+  </programme>
+  <programme start="20261004174500 -0300" stop="20261004184500 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">Campeonato mundial de MotoGP</title>
+  </programme>
+  <programme start="20261004184500 -0300" stop="20261004194500 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">ESPN Compact</title>
+  </programme>
+  <programme start="20261004194500 -0300" stop="20261004200100 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">Tales of Valentino</title>
+  </programme>
+  <programme start="20261004200100 -0300" stop="20261004210000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">Campeonato mundial de MotoGP</title>
+  </programme>
+  <programme start="20261004210000 -0300" stop="20261005003000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">Detroit Lions vs. Carolina Panthers</title>
+    <sub-title lang="es">Fútbol Americano NFL</sub-title>
+  </programme>
+  <programme start="20261005003000 -0300" stop="20261005013000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">Fútbol UEFA Nations League</title>
+  </programme>
+  <programme start="20261005013000 -0300" stop="20261005020000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">UEFA Champions League Weekly</title>
+  </programme>
+  <programme start="20261005020000 -0300" stop="20261005030000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">ESPN Compact</title>
+  </programme>
+  <programme start="20261005030000 -0300" stop="20261005040000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">ESPN Compact</title>
+  </programme>
+  <programme start="20261005040000 -0300" stop="20261005050000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">Fútbol UEFA Nations League</title>
+  </programme>
+  <programme start="20261005050000 -0300" stop="20261005060000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">Fútbol UEFA Nations League</title>
+  </programme>
+  <programme start="20261005060000 -0300" stop="20261005070000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">Fútbol UEFA Nations League</title>
+  </programme>
+  <programme start="20261005070000 -0300" stop="20261005080000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">Grecia vs. Alemania</title>
+    <sub-title lang="es">Fútbol UEFA Nations League</sub-title>
+  </programme>
+  <programme start="20261005080000 -0300" stop="20261005085800 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">ESPN Compact</title>
+  </programme>
+  <programme start="20261005085800 -0300" stop="20261005095600 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">ESPN Compact</title>
+  </programme>
+  <programme start="20261005095600 -0300" stop="20261005105400 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">UEFA Nations League: Match Day Highlights</title>
+  </programme>
+  <programme start="20261005105400 -0300" stop="20261005115200 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">Fútbol UEFA Nations League</title>
+  </programme>
+  <programme start="20261005115200 -0300" stop="20261005125000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">Grecia vs. Alemania</title>
+    <sub-title lang="es">Fútbol UEFA Nations League</sub-title>
+  </programme>
+  <programme start="20261005125000 -0300" stop="20261005150000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">Chipre vs. Letonia</title>
+    <sub-title lang="es">Fútbol UEFA Nations League</sub-title>
+  </programme>
+  <programme start="20261005150000 -0300" stop="20261005153000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">UEFA Champions League Weekly</title>
+  </programme>
+  <programme start="20261005153000 -0300" stop="20261005174500 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">Fútbol UEFA Nations League</title>
+  </programme>
+  <programme start="20261005174500 -0300" stop="20261005184500 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">UEFA Nations League: Match Day Highlights</title>
+  </programme>
+  <programme start="20261005184500 -0300" stop="20261005190000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">F2: Chasing the Dream</title>
+  </programme>
+  <programme start="20261005190000 -0300" stop="20261005203000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
+    <category lang="es">Deporte</category>
+    <category lang="es">Fútbol Americano</category>
+    <category lang="es">Baloncesto</category>
+    <category lang="es">Béisbol</category>
+    <category lang="es">Básquetbol</category>
+    <category lang="es">Fútbol Italiano</category>
+    <category lang="es">Major League Baseball</category>
+    <category lang="es">Fútbol Mexicano</category>
+    <category lang="es">MLB</category>
+    <category lang="es">NBA</category>
+    <category lang="es">Noticias</category>
+    <category lang="es">NFL</category>
+    <category lang="es">Fútbol</category>
+    <category lang="es">UEFA</category>
+    <category lang="es">Fútbol Español</category>
+    <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
+  </programme>
+  <programme start="20261005203000 -0300" stop="20261005210000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">ATP Tour Uncovered</title>
+  </programme>
+  <programme start="20261005210000 -0300" stop="20261006001500 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">Atlanta Falcons vs. New Orleans Saints</title>
+    <sub-title lang="es">Fútbol Americano NFL</sub-title>
+  </programme>
+  <programme start="20261006001500 -0300" stop="20261006011500 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">Fútbol UEFA Nations League</title>
+  </programme>
+  <programme start="20261006011500 -0300" stop="20261006024000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">ESPN F90</title>
+  </programme>
+  <programme start="20261006024000 -0300" stop="20261006040500 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">ESPN F Show</title>
+  </programme>
+  <programme start="20261006040500 -0300" stop="20261006043300 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">FIM Road Racing World Championship Highlights</title>
+  </programme>
+  <programme start="20261006043300 -0300" stop="20261006050200 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">UEFA Champions League Weekly</title>
+  </programme>
+  <programme start="20261006050200 -0300" stop="20261006060000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">Fútbol UEFA Nations League</title>
+  </programme>
+  <programme start="20261006060000 -0300" stop="20261006070000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
+    <category lang="es">Deporte</category>
+    <category lang="es">Fútbol Americano</category>
+    <category lang="es">Baloncesto</category>
+    <category lang="es">Béisbol</category>
+    <category lang="es">Básquetbol</category>
+    <category lang="es">Fútbol Italiano</category>
+    <category lang="es">Major League Baseball</category>
+    <category lang="es">Fútbol Mexicano</category>
+    <category lang="es">MLB</category>
+    <category lang="es">NBA</category>
+    <category lang="es">Noticias</category>
+    <category lang="es">NFL</category>
+    <category lang="es">Fútbol</category>
+    <category lang="es">UEFA</category>
+    <category lang="es">Fútbol Español</category>
+    <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
+  </programme>
+  <programme start="20261006070000 -0300" stop="20261006075500 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
+    <category lang="es">Deporte</category>
+    <category lang="es">Fútbol Americano</category>
+    <category lang="es">Baloncesto</category>
+    <category lang="es">Béisbol</category>
+    <category lang="es">Básquetbol</category>
+    <category lang="es">Fútbol Italiano</category>
+    <category lang="es">Major League Baseball</category>
+    <category lang="es">Fútbol Mexicano</category>
+    <category lang="es">MLB</category>
+    <category lang="es">NBA</category>
+    <category lang="es">Noticias</category>
+    <category lang="es">NFL</category>
+    <category lang="es">Fútbol</category>
+    <category lang="es">UEFA</category>
+    <category lang="es">Fútbol Español</category>
+    <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
+  </programme>
+  <programme start="20261006075500 -0300" stop="20261006085000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
+    <category lang="es">Deporte</category>
+    <category lang="es">Fútbol Americano</category>
+    <category lang="es">Baloncesto</category>
+    <category lang="es">Béisbol</category>
+    <category lang="es">Básquetbol</category>
+    <category lang="es">Fútbol Italiano</category>
+    <category lang="es">Major League Baseball</category>
+    <category lang="es">Fútbol Mexicano</category>
+    <category lang="es">MLB</category>
+    <category lang="es">NBA</category>
+    <category lang="es">Noticias</category>
+    <category lang="es">NFL</category>
+    <category lang="es">Fútbol</category>
+    <category lang="es">UEFA</category>
+    <category lang="es">Fútbol Español</category>
+    <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
+  </programme>
+  <programme start="20261006085000 -0300" stop="20261006095000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">Fútbol UEFA Nations League</title>
+  </programme>
+  <programme start="20261006095000 -0300" stop="20261006105000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">UEFA Nations League: Match Day Highlights</title>
+  </programme>
+  <programme start="20261006105000 -0300" stop="20261006130000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">Kazajistán vs. Islas Feroe</title>
+    <sub-title lang="es">Fútbol UEFA Nations League</sub-title>
+  </programme>
+  <programme start="20261006130000 -0300" stop="20261006140000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">Campeonato mundial de MotoGP</title>
+  </programme>
+  <programme start="20261006140000 -0300" stop="20261006143000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">FIM Road Racing World Championship Highlights</title>
+  </programme>
+  <programme start="20261006143000 -0300" stop="20261006153000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">Fútbol UEFA Nations League</title>
+  </programme>
+  <programme start="20261006153000 -0300" stop="20261006174500 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">Fútbol UEFA Nations League</title>
+  </programme>
+  <programme start="20261006174500 -0300" stop="20261006184500 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">UEFA Nations League: Match Day Highlights</title>
+  </programme>
+  <programme start="20261006184500 -0300" stop="20261006190000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">Futbol Internacional</title>
+  </programme>
+  <programme start="20261006190000 -0300" stop="20261006203000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
+    <category lang="es">Deporte</category>
+    <category lang="es">Fútbol Americano</category>
+    <category lang="es">Baloncesto</category>
+    <category lang="es">Béisbol</category>
+    <category lang="es">Básquetbol</category>
+    <category lang="es">Fútbol Italiano</category>
+    <category lang="es">Major League Baseball</category>
+    <category lang="es">Fútbol Mexicano</category>
+    <category lang="es">MLB</category>
+    <category lang="es">NBA</category>
+    <category lang="es">Noticias</category>
+    <category lang="es">NFL</category>
+    <category lang="es">Fútbol</category>
+    <category lang="es">UEFA</category>
+    <category lang="es">Fútbol Español</category>
+    <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
+  </programme>
+  <programme start="20261006203000 -0300" stop="20261006210000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">UEFA Champions League Weekly</title>
+  </programme>
+  <programme start="20261006210000 -0300" stop="20261006220000 -0300" channel="Vavoo.es.ESPN2@TvVoo">
+    <title lang="es">ESPN 2 Sur</title>
+  </programme>
   <programme start="20261002194500 -0300" stop="20261002203000 -0300" channel="Vavoo.es.EUROSPORT1@TvVoo">
     <title lang="es">Copa del mundo de bicicleta de montaña - Lake Placid</title>
     <sub-title lang="es">Campo a través pista corta M</sub-title>
@@ -41839,5 +42203,312 @@
     <rating system="ES">
       <value>Apta</value>
     </rating>
+  </programme>
+  <programme start="20261003023000 -0300" stop="20261003040000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">ESPN F Show</title>
+  </programme>
+  <programme start="20261003040000 -0300" stop="20261003060000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">Fútbol UEFA Nations League</title>
+  </programme>
+  <programme start="20261003060000 -0300" stop="20261003072500 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">ESPN F Show</title>
+  </programme>
+  <programme start="20261003072500 -0300" stop="20261003085000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">ESPN F90</title>
+  </programme>
+  <programme start="20261003085000 -0300" stop="20261003095000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">Automovilismo Fórmula 1</title>
+  </programme>
+  <programme start="20261003095000 -0300" stop="20261003105000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">UEFA Nations League: Match Day Highlights</title>
+  </programme>
+  <programme start="20261003105000 -0300" stop="20261003125500 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">Bielorrusia vs. San Marino</title>
+    <sub-title lang="es">Fútbol UEFA Nations League</sub-title>
+  </programme>
+  <programme start="20261003125500 -0300" stop="20261003150000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">SportsCenter+</title>
+  </programme>
+  <programme start="20261003150000 -0300" stop="20261003193000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">ESPN Knockout</title>
+  </programme>
+  <programme start="20261003193000 -0300" stop="20261003200000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">UEFA Women's Champions League Highlight Show</title>
+  </programme>
+  <programme start="20261003200000 -0300" stop="20261003223000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">Baloncesto NBA</title>
+  </programme>
+  <programme start="20261003223000 -0300" stop="20261004030000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">Campeonato mundial de MotoGP</title>
+  </programme>
+  <programme start="20261004030000 -0300" stop="20261004040000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">Fútbol UEFA Nations League</title>
+  </programme>
+  <programme start="20261004040000 -0300" stop="20261004050000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">Fútbol UEFA Nations League</title>
+  </programme>
+  <programme start="20261004050000 -0300" stop="20261004052000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">Futbol Internacional</title>
+  </programme>
+  <programme start="20261004052000 -0300" stop="20261004055000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">UEFA Women's Champions League Highlight Show</title>
+  </programme>
+  <programme start="20261004055000 -0300" stop="20261004075000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">ESPN Knockout</title>
+  </programme>
+  <programme start="20261004075000 -0300" stop="20261004085000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">UEFA Nations League: Match Day Highlights</title>
+  </programme>
+  <programme start="20261004085000 -0300" stop="20261004095000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">UEFA Nations League: Match Day Highlights</title>
+  </programme>
+  <programme start="20261004095000 -0300" stop="20261004120000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">Azerbaiyán vs. Lituania</title>
+    <sub-title lang="es">Fútbol UEFA Nations League</sub-title>
+  </programme>
+  <programme start="20261004120000 -0300" stop="20261004125500 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">Fútbol UEFA Nations League</title>
+  </programme>
+  <programme start="20261004125500 -0300" stop="20261004150000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">Automovilismo Fórmula 1</title>
+  </programme>
+  <programme start="20261004150000 -0300" stop="20261004153000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">UEFA Women's Champions League Highlight Show</title>
+  </programme>
+  <programme start="20261004153000 -0300" stop="20261004174500 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">Grecia vs. Alemania</title>
+    <sub-title lang="es">Fútbol UEFA Nations League</sub-title>
+  </programme>
+  <programme start="20261004174500 -0300" stop="20261004184500 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">Campeonato mundial de MotoGP</title>
+  </programme>
+  <programme start="20261004184500 -0300" stop="20261004194500 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">ESPN Compact</title>
+  </programme>
+  <programme start="20261004194500 -0300" stop="20261004200100 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">Tales of Valentino</title>
+  </programme>
+  <programme start="20261004200100 -0300" stop="20261004210000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">Campeonato mundial de MotoGP</title>
+  </programme>
+  <programme start="20261004210000 -0300" stop="20261005003000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">Detroit Lions vs. Carolina Panthers</title>
+    <sub-title lang="es">Fútbol Americano NFL</sub-title>
+  </programme>
+  <programme start="20261005003000 -0300" stop="20261005013000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">Fútbol UEFA Nations League</title>
+  </programme>
+  <programme start="20261005013000 -0300" stop="20261005020000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">UEFA Champions League Weekly</title>
+  </programme>
+  <programme start="20261005020000 -0300" stop="20261005030000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">ESPN Compact</title>
+  </programme>
+  <programme start="20261005030000 -0300" stop="20261005040000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">ESPN Compact</title>
+  </programme>
+  <programme start="20261005040000 -0300" stop="20261005050000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">Fútbol UEFA Nations League</title>
+  </programme>
+  <programme start="20261005050000 -0300" stop="20261005060000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">Fútbol UEFA Nations League</title>
+  </programme>
+  <programme start="20261005060000 -0300" stop="20261005070000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">Fútbol UEFA Nations League</title>
+  </programme>
+  <programme start="20261005070000 -0300" stop="20261005080000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">Grecia vs. Alemania</title>
+    <sub-title lang="es">Fútbol UEFA Nations League</sub-title>
+  </programme>
+  <programme start="20261005080000 -0300" stop="20261005085800 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">ESPN Compact</title>
+  </programme>
+  <programme start="20261005085800 -0300" stop="20261005095600 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">ESPN Compact</title>
+  </programme>
+  <programme start="20261005095600 -0300" stop="20261005105400 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">UEFA Nations League: Match Day Highlights</title>
+  </programme>
+  <programme start="20261005105400 -0300" stop="20261005115200 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">Fútbol UEFA Nations League</title>
+  </programme>
+  <programme start="20261005115200 -0300" stop="20261005125000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">Grecia vs. Alemania</title>
+    <sub-title lang="es">Fútbol UEFA Nations League</sub-title>
+  </programme>
+  <programme start="20261005125000 -0300" stop="20261005150000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">Chipre vs. Letonia</title>
+    <sub-title lang="es">Fútbol UEFA Nations League</sub-title>
+  </programme>
+  <programme start="20261005150000 -0300" stop="20261005153000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">UEFA Champions League Weekly</title>
+  </programme>
+  <programme start="20261005153000 -0300" stop="20261005174500 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">Fútbol UEFA Nations League</title>
+  </programme>
+  <programme start="20261005174500 -0300" stop="20261005184500 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">UEFA Nations League: Match Day Highlights</title>
+  </programme>
+  <programme start="20261005184500 -0300" stop="20261005190000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">F2: Chasing the Dream</title>
+  </programme>
+  <programme start="20261005190000 -0300" stop="20261005203000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
+    <category lang="es">Deporte</category>
+    <category lang="es">Fútbol Americano</category>
+    <category lang="es">Baloncesto</category>
+    <category lang="es">Béisbol</category>
+    <category lang="es">Básquetbol</category>
+    <category lang="es">Fútbol Italiano</category>
+    <category lang="es">Major League Baseball</category>
+    <category lang="es">Fútbol Mexicano</category>
+    <category lang="es">MLB</category>
+    <category lang="es">NBA</category>
+    <category lang="es">Noticias</category>
+    <category lang="es">NFL</category>
+    <category lang="es">Fútbol</category>
+    <category lang="es">UEFA</category>
+    <category lang="es">Fútbol Español</category>
+    <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
+  </programme>
+  <programme start="20261005203000 -0300" stop="20261005210000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">ATP Tour Uncovered</title>
+  </programme>
+  <programme start="20261005210000 -0300" stop="20261006001500 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">Atlanta Falcons vs. New Orleans Saints</title>
+    <sub-title lang="es">Fútbol Americano NFL</sub-title>
+  </programme>
+  <programme start="20261006001500 -0300" stop="20261006011500 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">Fútbol UEFA Nations League</title>
+  </programme>
+  <programme start="20261006011500 -0300" stop="20261006024000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">ESPN F90</title>
+  </programme>
+  <programme start="20261006024000 -0300" stop="20261006040500 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">ESPN F Show</title>
+  </programme>
+  <programme start="20261006040500 -0300" stop="20261006043300 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">FIM Road Racing World Championship Highlights</title>
+  </programme>
+  <programme start="20261006043300 -0300" stop="20261006050200 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">UEFA Champions League Weekly</title>
+  </programme>
+  <programme start="20261006050200 -0300" stop="20261006060000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">Fútbol UEFA Nations League</title>
+  </programme>
+  <programme start="20261006060000 -0300" stop="20261006070000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
+    <category lang="es">Deporte</category>
+    <category lang="es">Fútbol Americano</category>
+    <category lang="es">Baloncesto</category>
+    <category lang="es">Béisbol</category>
+    <category lang="es">Básquetbol</category>
+    <category lang="es">Fútbol Italiano</category>
+    <category lang="es">Major League Baseball</category>
+    <category lang="es">Fútbol Mexicano</category>
+    <category lang="es">MLB</category>
+    <category lang="es">NBA</category>
+    <category lang="es">Noticias</category>
+    <category lang="es">NFL</category>
+    <category lang="es">Fútbol</category>
+    <category lang="es">UEFA</category>
+    <category lang="es">Fútbol Español</category>
+    <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
+  </programme>
+  <programme start="20261006070000 -0300" stop="20261006075500 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
+    <category lang="es">Deporte</category>
+    <category lang="es">Fútbol Americano</category>
+    <category lang="es">Baloncesto</category>
+    <category lang="es">Béisbol</category>
+    <category lang="es">Básquetbol</category>
+    <category lang="es">Fútbol Italiano</category>
+    <category lang="es">Major League Baseball</category>
+    <category lang="es">Fútbol Mexicano</category>
+    <category lang="es">MLB</category>
+    <category lang="es">NBA</category>
+    <category lang="es">Noticias</category>
+    <category lang="es">NFL</category>
+    <category lang="es">Fútbol</category>
+    <category lang="es">UEFA</category>
+    <category lang="es">Fútbol Español</category>
+    <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
+  </programme>
+  <programme start="20261006075500 -0300" stop="20261006085000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
+    <category lang="es">Deporte</category>
+    <category lang="es">Fútbol Americano</category>
+    <category lang="es">Baloncesto</category>
+    <category lang="es">Béisbol</category>
+    <category lang="es">Básquetbol</category>
+    <category lang="es">Fútbol Italiano</category>
+    <category lang="es">Major League Baseball</category>
+    <category lang="es">Fútbol Mexicano</category>
+    <category lang="es">MLB</category>
+    <category lang="es">NBA</category>
+    <category lang="es">Noticias</category>
+    <category lang="es">NFL</category>
+    <category lang="es">Fútbol</category>
+    <category lang="es">UEFA</category>
+    <category lang="es">Fútbol Español</category>
+    <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
+  </programme>
+  <programme start="20261006085000 -0300" stop="20261006095000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">Fútbol UEFA Nations League</title>
+  </programme>
+  <programme start="20261006095000 -0300" stop="20261006105000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">UEFA Nations League: Match Day Highlights</title>
+  </programme>
+  <programme start="20261006105000 -0300" stop="20261006130000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">Kazajistán vs. Islas Feroe</title>
+    <sub-title lang="es">Fútbol UEFA Nations League</sub-title>
+  </programme>
+  <programme start="20261006130000 -0300" stop="20261006140000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">Campeonato mundial de MotoGP</title>
+  </programme>
+  <programme start="20261006140000 -0300" stop="20261006143000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">FIM Road Racing World Championship Highlights</title>
+  </programme>
+  <programme start="20261006143000 -0300" stop="20261006153000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">Fútbol UEFA Nations League</title>
+  </programme>
+  <programme start="20261006153000 -0300" stop="20261006174500 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">Fútbol UEFA Nations League</title>
+  </programme>
+  <programme start="20261006174500 -0300" stop="20261006184500 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">UEFA Nations League: Match Day Highlights</title>
+  </programme>
+  <programme start="20261006184500 -0300" stop="20261006190000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">Futbol Internacional</title>
+  </programme>
+  <programme start="20261006190000 -0300" stop="20261006203000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
+    <category lang="es">Deporte</category>
+    <category lang="es">Fútbol Americano</category>
+    <category lang="es">Baloncesto</category>
+    <category lang="es">Béisbol</category>
+    <category lang="es">Básquetbol</category>
+    <category lang="es">Fútbol Italiano</category>
+    <category lang="es">Major League Baseball</category>
+    <category lang="es">Fútbol Mexicano</category>
+    <category lang="es">MLB</category>
+    <category lang="es">NBA</category>
+    <category lang="es">Noticias</category>
+    <category lang="es">NFL</category>
+    <category lang="es">Fútbol</category>
+    <category lang="es">UEFA</category>
+    <category lang="es">Fútbol Español</category>
+    <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
+  </programme>
+  <programme start="20261006203000 -0300" stop="20261006210000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">UEFA Champions League Weekly</title>
+  </programme>
+  <programme start="20261006210000 -0300" stop="20261006220000 -0300" channel="spain|vavoo_ESPN%202%7Cgroup%3Aes@TvVoo">
+    <title lang="es">ESPN 2 Sur</title>
   </programme>
 </tv>
