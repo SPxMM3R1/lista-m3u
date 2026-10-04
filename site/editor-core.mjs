@@ -2,7 +2,7 @@ const LAYOUT_FIELDS = [
   "kind", "provider", "catalogKey", "providerResourceId", "resolverSlug",
   "tvgId", "name", "group", "category", "country", "countryKey",
   "aliases", "resolverAliases", "identityState", "sourceList", "logoPath",
-  "logoOverride", "displayName", "order", "number", "state", "trial",
+  "logoOverride", "displayName", "order", "number", "state", "trial", "backupTvVoo",
 ];
 
 export function stableId(row) {
@@ -69,6 +69,11 @@ export function validateLayout(layout) {
     if (row.trial !== undefined && (row.trial !== true || row.kind !== "m3u")) {
       problems.push(`${row.name || id}: solo un canal M3U puede estar en prueba.`);
     }
+    if (row.backupTvVoo !== undefined && (
+      row.kind !== "m3u"
+      || typeof row.backupTvVoo !== "string"
+      || !/^[a-z]+\|vavoo_[^|\s]+%7Cgroup%3A[a-z]{2}$/i.test(row.backupTvVoo)
+    )) problems.push(`${row.name || id}: el respaldo TvVoo no es una identidad TvVoo válida.`);
     if (row.displayName !== undefined && (
       typeof row.displayName !== "string"
       || !row.displayName.trim()
@@ -334,6 +339,16 @@ export function buildPresentationOverrides(layout, original) {
     else delete root.names[id];
   }
   return result;
+}
+
+/** Respaldo TvVoo de un canal directo (catalogKey de la misma señal); vacío lo quita. */
+export function setBackupTvVoo(layout, key, catalogKey) {
+  const current = structuredClone(layout);
+  const row = current.channels.find((item) => rowKey(item) === key);
+  if (!row || row.kind !== "m3u") return current;
+  if (catalogKey) row.backupTvVoo = catalogKey;
+  else delete row.backupTvVoo;
+  return current;
 }
 
 /** Marca o quita la marca «en prueba» de un canal M3U. */

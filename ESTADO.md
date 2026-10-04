@@ -72,6 +72,13 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-04**: ESPN 3 Sur en un solo canal: el directo «Win Sports [IP 181]» (033, «ESPN 3 Sur»)
+  lleva `backupTvVoo` = `arabia|vavoo_ESPN%203%7Cgroup%3Aar`; la fila TvVoo suelta va a la papelera
+  y el 036 queda libre. Necesita VibeM3U 0.5.64 (antes se ve solo el directo). «Win+ Fútbol [IP 181]»
+  es «ESPN 5 Sur». EPG: ESPN 3 Sur = `Canal.ESPN.3.(Chile).cl` (Argentina de relleno); ESPN 5 Sur =
+  `[ESPN5SD].ESPN.5.uy` (nueva fuente `uy1`; el otro ESPN 5 de Uruguay coincide con Colombia/México).
+  Títulos EPG: siglas cortas con números quedan en mayúsculas («A3D», «4K») y se suman siglas
+  deportivas (NFL, NBA, UFC…); tras «: » la letra va en mayúscula. Editor: campo «Respaldo TvVoo».
 - **2026-10-04**: canales «en prueba» y Lista 2 vacía, a pedido del usuario. Todo lo directo de
   Lista 2 pasa a Lista 1 con `trial: true` (75 activos + 13C; los 46 que el usuario tenía en la
   papelera siguen ahí). Lista 1 = 118 (42 oficiales + 76 en prueba); `m3u-externa.m3u`/`2.m3u`

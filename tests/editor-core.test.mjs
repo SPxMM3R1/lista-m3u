@@ -19,6 +19,7 @@ import {
   suggestLogo,
   setRowsState,
   setTrial,
+  setBackupTvVoo,
   removeRowsPermanently,
 } from "../site/editor-core.mjs";
 import {
@@ -550,4 +551,21 @@ test("only M3U rows can be in trial", () => {
     ],
   };
   assert.ok(validateLayout(layout).some((problem) => problem.includes("prueba")));
+});
+
+test("a direct row can carry a TvVoo backup of the same signal", () => {
+  const layout = {
+    schemaVersion: 1,
+    excludedM3u: [],
+    channels: [
+      { kind: "m3u", tvgId: "WinSports.co@Direct181", name: "Win Sports [IP 181]", sourceList: "1.m3u", order: 1, number: 33, state: "active" },
+    ],
+  };
+  const withBackup = setBackupTvVoo(layout, "m3u:WinSports.co@Direct181", "arabia|vavoo_ESPN%203%7Cgroup%3Aar");
+  assert.equal(withBackup.channels[0].backupTvVoo, "arabia|vavoo_ESPN%203%7Cgroup%3Aar");
+  assert.deepEqual(validateLayout(withBackup), []);
+  const broken = structuredClone(withBackup);
+  broken.channels[0].backupTvVoo = "https://example.invalid/live.m3u8";
+  assert.ok(validateLayout(broken).some((problem) => problem.includes("respaldo TvVoo")));
+  assert.equal(setBackupTvVoo(withBackup, "m3u:WinSports.co@Direct181", "").channels[0].backupTvVoo, undefined);
 });

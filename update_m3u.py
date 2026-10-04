@@ -682,6 +682,7 @@ EPG_SOURCES = {
     "de": "https://epgshare01.online/epgshare01/epg_ripper_DE1.xml.gz",
     "uk1": "https://epgshare01.online/epgshare01/epg_ripper_UK1.xml.gz",
     "ar1": "https://epgshare01.online/epgshare01/epg_ripper_AR1.xml.gz",
+    "uy1": "https://epgshare01.online/epgshare01/epg_ripper_UY1.xml.gz",
     "pt1": "https://epgshare01.online/epgshare01/epg_ripper_PT1.xml.gz",
     "nz1": "https://epgshare01.online/epgshare01/epg_ripper_NZ1.xml.gz",
     "us2": "https://epgshare01.online/epgshare01/epg_ripper_US2.xml.gz",
@@ -883,6 +884,11 @@ EPG_PROGRAMME_SOURCES.update({
     "Vavoo.uk.TNTSPORTS2@TvVoo": ("uk1", "TNT.Sports.2.HD.uk"),
     "Vavoo.uk.TNTSPORTS4@TvVoo": ("uk1", "TNT.Sports.4.HD.uk"),
     "Vavoo.uk.TNTSPORTS5@TvVoo": ("uk1", "TNT.Sports.5.HD.uk"),
+    # Directos de Lista 1 identificados por el usuario (2026-10-04): «Win Sports [IP 181]»
+    # es ESPN 3 Sur y «Win+ Fútbol [IP 181]» es ESPN 5 Sur. En Uruguay hay dos ESPN 5:
+    # el de NFL coincide con Colombia/México (norte); el otro es el sur.
+    "WinSports.co@Direct181": ("cl", "Canal.ESPN.3.(Chile).cl"),
+    "WinPlusFutbol.co@Direct181": ("uy1", "[ESPN5SD].ESPN.5.uy"),
     # 118 y 120 son la misma señal: ESPN 2 Latinoamérica (feed sur), confirmado por el usuario.
     "Vavoo.es.ESPN2@TvVoo": ("cl", "Canal.ESPN.2.(Chile).cl"),
     "Vavoo.ar.ESPN2@TvVoo": ("cl", "Canal.ESPN.2.(Chile).cl"),
@@ -1042,6 +1048,7 @@ EPGSHARE_BACKUP_CHANNELS: dict[str, tuple[str, str]] = {
     # ESPN 2 Latinoamérica: la grilla de Bolivia es la misma y rellena huecos de la de Chile.
     "Vavoo.es.ESPN2@TvVoo": ("ar1", "Canal.ESPN.2.(Bolivia).ar"),
     "Vavoo.ar.ESPN2@TvVoo": ("ar1", "Canal.ESPN.2.(Bolivia).ar"),
+    "WinSports.co@Direct181": ("ar1", "Canal.ESPN.3.(Argentina).ar"),
 }
 RED_BULL_CHANNEL_LOCALES = {
     RED_BULL_WORLD_ID: "en",
@@ -5192,8 +5199,43 @@ EPG_TITLE_ACRONYMS = frozenset(
         "TVN",
         "UHD",
         "XITE",
+        "ATP",
+        "WTA",
+        "NBA",
+        "NFL",
+        "MLB",
+        "NHL",
+        "UFC",
+        "WWE",
+        "MMA",
+        "UEFA",
+        "FIFA",
+        "CONMEBOL",
+        "ANFP",
+        "TNT",
+        "DAZN",
+        "TV",
+        "TYC",
+        "USA",
+        "EE.UU.",
     }
 )
+# Mayúscula tras «:» (2026-10-04): «Fútbol: la final» → «Fútbol: La final». Solo con un
+# espacio después, para no tocar horas como «20:30».
+EPG_TITLE_AFTER_COLON = re.compile(r"(:\s+)([^\W\d_])")
+
+
+def _is_short_code(core: str) -> bool:
+    """Sigla corta con números («A3D», «4K», «MTV2»): se deja entera en mayúsculas."""
+    has_digit = any(character.isdigit() for character in core)
+    has_letter = any(character.isalpha() for character in core)
+    return has_digit and has_letter and len(core) <= 6
+
+
+def _capitalize_after_colon(title: str) -> str:
+    return EPG_TITLE_AFTER_COLON.sub(
+        lambda match: match.group(1) + match.group(2).upper(), title
+    )
 
 
 def normalize_epg_title(value: object) -> str:
@@ -5201,7 +5243,7 @@ def normalize_epg_title(value: object) -> str:
     title = html.unescape(re.sub(r"\s+", " ", str(value or ""))).strip()
     letters = [character for character in title if character.isalpha()]
     if not title or not letters or not all(character.isupper() for character in letters):
-        return title
+        return _capitalize_after_colon(title)
 
     normalized_parts: list[str] = []
     for part in re.split(r"(\s+)", title):
@@ -5215,7 +5257,7 @@ def normalize_epg_title(value: object) -> str:
         prefix = match.group("prefix")
         core = match.group("core")
         suffix = match.group("suffix")
-        if core.upper() in EPG_TITLE_ACRONYMS:
+        if core.upper() in EPG_TITLE_ACRONYMS or _is_short_code(core):
             display_core = core.upper()
         else:
             display_core = core.casefold().capitalize()
@@ -5224,7 +5266,7 @@ def normalize_epg_title(value: object) -> str:
     # A title made only of acronyms (for example "F1") is intentionally kept
     # as the channel/program brand. Multiword all-uppercase text is always
     # converted to a readable sentence/title form above.
-    return normalized
+    return _capitalize_after_colon(normalized)
 
 
 EPG_DESCRIPTION_METADATA_PATTERNS = (

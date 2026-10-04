@@ -19,6 +19,7 @@ import {
   summarizeChanges,
   validateLayout,
   setTrial,
+  setBackupTvVoo,
 } from "./editor-core.mjs";
 import {
   loadAllTvVooCatalogs,
@@ -605,6 +606,11 @@ function renderRow(row) {
   const name = node("span", "channel-name", channelName(row));
   const subtitleText = row.kind === "provider" ? `${row.category || row.group || "Proveedor"}${row.identityState === "provisional" ? " · identidad provisional" : ""}` : (row.group || "Canal M3U");
   labels.append(name, node("span", "channel-subtitle", subtitleText));
+  if (row.backupTvVoo) {
+    const backupBadge = node("span", "backup-badge", "+ TvVoo");
+    backupBadge.title = "Con respaldo TvVoo de la misma señal";
+    name.append(backupBadge);
+  }
   if (row.trial) {
     const badge = node("span", "trial-badge", "Prueba");
     badge.title = "En prueba: sin guía ni mantenimiento del actualizador";
@@ -710,6 +716,29 @@ function renderInspector() {
   stateBox.innerHTML = icon(identity.kind === "pending" ? "warning" : "check");
   stateBox.append(node("span", "", `${identity.text}. ${identity.detail}`));
   fragment.append(stateBox);
+
+  if (row.kind === "m3u") {
+    // Respaldo TvVoo: la misma señal en TvVoo; la app la usa si el directo falla.
+    const backupGroup = node("section", "detail-group backup-group");
+    backupGroup.append(node("h3", "", "Respaldo TvVoo"));
+    const backupSelect = node("select", "backup-select");
+    backupSelect.setAttribute("aria-label", `Respaldo TvVoo de ${channelName(row)}`);
+    const none = node("option", "", "Sin respaldo");
+    none.value = "";
+    backupSelect.append(none);
+    const tvvooRows = state.layout.channels
+      .filter((item) => item.kind === "provider" && item.provider === "tvvoo")
+      .sort((a, b) => channelName(a).localeCompare(channelName(b), "es"));
+    for (const item of tvvooRows) {
+      const option = node("option", "", `${channelName(item)} · ${item.country || item.countryKey || "TvVoo"}${item.state === "active" ? "" : " (fuera de la lista)"}`);
+      option.value = item.catalogKey;
+      option.selected = row.backupTvVoo === item.catalogKey;
+      backupSelect.append(option);
+    }
+    backupSelect.addEventListener("change", () => changeLayout(setBackupTvVoo(state.layout, rowKey(row), backupSelect.value)));
+    backupGroup.append(backupSelect, node("p", "backup-note", "Si el directo no se recupera, la app pasa sola a esta señal; en «Fuentes y calidades» aparecen las dos."));
+    fragment.append(backupGroup);
+  }
 
   if (row.kind === "m3u" && row.trial) {
     const trialBox = node("div", "trial-state");
