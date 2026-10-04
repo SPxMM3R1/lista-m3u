@@ -235,6 +235,16 @@ def reconcile_selection(
             ]
             if len(canonical) == 1:
                 candidates = canonical
+        if len(candidates) > 1 and row.provider == "tvvoo":
+            # Una fila con varias versiones de otros paises (ESPN 2 Latam: ES y AR,
+            # 2026-10-04) toca varias fichas; manda la de su alias estable.
+            stable = [
+                candidate
+                for candidate in candidates
+                if _matches_stable_alias(row, channels[candidate[0]], catalog_lines)
+            ]
+            if len(stable) == 1:
+                candidates = stable
         if len(candidates) > 1:
             pending.append(_pending(row, "catalog_match_ambiguous"))
             continue
@@ -365,6 +375,21 @@ def _match_row(row: SelectionRow, channel: Any, lines: list[str]) -> str:
     if stable_aliases.intersection(resolver_aliases) or resolver_aliases.intersection(row_aliases):
         return "catalogKey=resolver-alias"
     return ""
+
+
+def _matches_stable_alias(row: SelectionRow, channel: Any, lines: list[str]) -> bool:
+    """La ficha resuelve con el alias del catalogKey (no con una version extra)."""
+    stable_alias = row.catalog_key.split("|", 1)[1]
+    info_index = getattr(channel, "info_line", -1)
+    if not isinstance(info_index, int) or not 0 <= info_index < len(lines):
+        return False
+    resolver_aliases = {
+        unquote(alias)
+        for value in re.findall(r'\bx-resolver-ids="([^"]*)"', lines[info_index])
+        for alias in value.split(";")
+        if alias
+    }
+    return unquote(stable_alias) in resolver_aliases
 
 
 def _pending(row: SelectionRow, reason: str) -> dict[str, str]:

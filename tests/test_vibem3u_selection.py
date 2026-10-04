@@ -224,6 +224,60 @@ class VibeM3USelectionTest(unittest.TestCase):
         self.assertEqual({"Sky1.uk@TvVoo"}, set(result.selected_catalog_ids))
         self.assertEqual("catalogKey=resolver-alias", result.matched[0].match)
 
+    def test_extra_country_version_does_not_make_the_row_ambiguous(self) -> None:
+        # ESPN 2 Latam (2026-10-04): una fila con las versiones ES y AR toca dos fichas;
+        # manda la del alias del catalogKey, para no perder su guía.
+        stable_id = "spain|vavoo_ESPN%202%7Cgroup%3Aes"
+        path = self.write_manifest(
+            {
+                "schemaVersion": 1,
+                "sources": [
+                    {
+                        "provider": "tvvoo",
+                        "enabled": True,
+                        "channels": [
+                            {
+                                "provider": "tvvoo",
+                                "catalogKey": stable_id,
+                                "providerResourceId": stable_id,
+                                "name": "ESPN 2",
+                                "group": "España",
+                                "category": "Sport",
+                                "countryKey": "spain",
+                                "aliases": [
+                                    "vavoo_ESPN%202%7Cgroup%3Aes",
+                                    "vavoo_ESPN%202%7Cgroup%3Aar",
+                                ],
+                                "identityState": "canonical",
+                                "order": 1,
+                            }
+                        ],
+                    }
+                ],
+            }
+        )
+        document = vibem3u_selection.load_selection(path)
+        spain = SimpleNamespace(tvg_id="Vavoo.es.ESPN2@TvVoo", name="ESPN 2",
+                                display_name="ESPN 2", info_line=1)
+        arabia = SimpleNamespace(tvg_id="Vavoo.ar.ESPN2@TvVoo", name="ESPN 2",
+                                 display_name="ESPN 2", info_line=3)
+        result = vibem3u_selection.reconcile_selection(
+            document,
+            [spain, arabia],
+            [
+                "#EXTM3U",
+                '#EXTINF:-1 tvg-id="Vavoo.es.ESPN2@TvVoo" '
+                'x-resolver-ids="vavoo_ESPN%202%7Cgroup%3Aes",ESPN 2',
+                "https://example.invalid/es.m3u8",
+                '#EXTINF:-1 tvg-id="Vavoo.ar.ESPN2@TvVoo" '
+                'x-resolver-ids="vavoo_ESPN%202%7Cgroup%3Aar",ESPN 2',
+                "https://example.invalid/ar.m3u8",
+            ],
+            tvvoo_variants={},
+        )
+        self.assertEqual({"Vavoo.es.ESPN2@TvVoo"}, set(result.selected_catalog_ids))
+        self.assertEqual([], list(result.pending))
+
     def test_provisional_and_missing_rows_stay_pending(self) -> None:
         path = self.write_manifest(
             self.base_manifest(
