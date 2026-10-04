@@ -72,6 +72,9 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-03**: a pedido del usuario, 51 filas TvVoo a la papelera del editor (129–180 salvo
+  163 Eurosport 2 España; incluye TNT Sports ESPN y TNT Sports 5). Sin renumerar: quedan 121
+  activos, último 163. Eurosport 1 (116) usa `logos/eurosport-1.png` (el logo del ex 179).
 - **2026-10-03**: Main Event como F1 (normal y luego UHD): 24 Sky Sports Main Event (TvVoo),
   25 Main Event UHD, 26 Premier League. Nada más cambió de número.
 - **2026-10-03**: el editor ordena por `order`, no por `number`: al mover F1 UHD (22) y Main
