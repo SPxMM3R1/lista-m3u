@@ -2,7 +2,7 @@ const LAYOUT_FIELDS = [
   "kind", "provider", "catalogKey", "providerResourceId", "resolverSlug",
   "tvgId", "name", "group", "category", "country", "countryKey",
   "aliases", "resolverAliases", "identityState", "sourceList", "logoPath",
-  "logoOverride", "displayName", "order", "number", "state", "trial", "backupTvVoo",
+  "logoOverride", "displayName", "order", "number", "state", "trial", "backupTvVoo", "preferredM3u",
 ];
 
 export function stableId(row) {
@@ -74,6 +74,12 @@ export function validateLayout(layout) {
       || typeof row.backupTvVoo !== "string"
       || !/^[a-z]+\|vavoo_[^|\s]+%7Cgroup%3A[a-z]{2}$/i.test(row.backupTvVoo)
     )) problems.push(`${row.name || id}: el respaldo TvVoo no es una identidad TvVoo válida.`);
+    if (row.preferredM3u !== undefined) {
+      const target = layout.channels.find((item) => item.kind === "m3u" && item.tvgId === row.preferredM3u);
+      if (row.kind !== "m3u" || typeof row.preferredM3u !== "string" || row.preferredM3u === row.tvgId || !target) {
+        problems.push(`${row.name || id}: la señal preferida debe ser otro canal M3U de la lista.`);
+      }
+    }
     if (row.displayName !== undefined && (
       typeof row.displayName !== "string"
       || !row.displayName.trim()
@@ -339,6 +345,16 @@ export function buildPresentationOverrides(layout, original) {
     else delete root.names[id];
   }
   return result;
+}
+
+/** Señal preferida de un canal directo: otra fila M3U de la misma señal que se abre primero. */
+export function setPreferredM3u(layout, key, tvgId) {
+  const current = structuredClone(layout);
+  const row = current.channels.find((item) => rowKey(item) === key);
+  if (!row || row.kind !== "m3u") return current;
+  if (tvgId && tvgId !== row.tvgId) row.preferredM3u = tvgId;
+  else delete row.preferredM3u;
+  return current;
 }
 
 /** Respaldo TvVoo de un canal directo (catalogKey de la misma señal); vacío lo quita. */

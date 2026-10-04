@@ -20,6 +20,7 @@ import {
   validateLayout,
   setTrial,
   setBackupTvVoo,
+  setPreferredM3u,
 } from "./editor-core.mjs";
 import {
   loadAllTvVooCatalogs,
@@ -606,6 +607,17 @@ function renderRow(row) {
   const name = node("span", "channel-name", channelName(row));
   const subtitleText = row.kind === "provider" ? `${row.category || row.group || "Proveedor"}${row.identityState === "provisional" ? " · identidad provisional" : ""}` : (row.group || "Canal M3U");
   labels.append(name, node("span", "channel-subtitle", subtitleText));
+  if (row.preferredM3u) {
+    const preferredBadge = node("span", "backup-badge", "+ señal preferida");
+    preferredBadge.title = "Abre primero otra señal de este canal";
+    name.append(preferredBadge);
+  }
+  const owner = row.kind === "m3u" && state.layout.channels.find((item) => item.state === "active" && item.preferredM3u === row.tvgId);
+  if (owner) {
+    const insideBadge = node("span", "trial-badge", `Dentro de ${String(owner.number).padStart(3, "0")}`);
+    insideBadge.title = "Esta señal se usa dentro de otro canal; en la app no aparece sola";
+    name.append(insideBadge);
+  }
   if (row.backupTvVoo) {
     const backupBadge = node("span", "backup-badge", "+ TvVoo");
     backupBadge.title = "Con respaldo TvVoo de la misma señal";
@@ -738,6 +750,27 @@ function renderInspector() {
     backupSelect.addEventListener("change", () => changeLayout(setBackupTvVoo(state.layout, rowKey(row), backupSelect.value)));
     backupGroup.append(backupSelect, node("p", "backup-note", "Si el directo no se recupera, la app pasa sola a esta señal; en «Fuentes y calidades» aparecen las dos."));
     fragment.append(backupGroup);
+
+    // Señal preferida: otra fila M3U de la misma señal (mejor calidad) que se abre primero.
+    const preferredGroup = node("section", "detail-group backup-group");
+    preferredGroup.append(node("h3", "", "Señal preferida"));
+    const preferredSelect = node("select", "backup-select");
+    preferredSelect.setAttribute("aria-label", `Señal preferida de ${channelName(row)}`);
+    const own = node("option", "", "Su propia señal");
+    own.value = "";
+    preferredSelect.append(own);
+    const m3uRows = state.layout.channels
+      .filter((item) => item.kind === "m3u" && item.tvgId !== row.tvgId && item.state === "active")
+      .sort((a, b) => Number(a.number) - Number(b.number));
+    for (const item of m3uRows) {
+      const option = node("option", "", `${String(item.number).padStart(3, "0")} · ${channelName(item)}`);
+      option.value = item.tvgId;
+      option.selected = row.preferredM3u === item.tvgId;
+      preferredSelect.append(option);
+    }
+    preferredSelect.addEventListener("change", () => changeLayout(setPreferredM3u(state.layout, rowKey(row), preferredSelect.value)));
+    preferredGroup.append(preferredSelect, node("p", "backup-note", "La app abre primero esa señal y, si falla, la de este canal. El canal elegido deja de verse solo en la app."));
+    fragment.append(preferredGroup);
   }
 
   if (row.kind === "m3u" && row.trial) {

@@ -60,6 +60,7 @@ agente debe poder retomar el trabajo solo con lo que está en el repositorio.
 
 ## Publicación automática
 
+- **Señal preferida** (2026-10-04): una fila M3U puede llevar `preferredM3u` (tvg-id de otra fila M3U activa de la misma señal; campo «Señal preferida» en el editor). La app 0.5.65+ abre esa señal primero, usa la propia de respaldo y no muestra la otra fila sola. Solo es del layout; el runner no lo usa.
 - **Respaldo TvVoo** (2026-10-04): una fila M3U puede llevar `backupTvVoo` (catalogKey de la misma señal en TvVoo; campo «Respaldo TvVoo» en el editor). Es solo del layout: la app 0.5.64+ abre el directo y pasa a TvVoo si falla. El runner no lo usa.
 - Títulos EPG (`normalize_epg_title`): los títulos en mayúsculas pasan a mayúscula inicial por palabra, salvo siglas (`EPG_TITLE_ACRONYMS`) y códigos cortos con números («A3D»); en todos, la letra tras «: » va en mayúscula.
 - **Canales en prueba** (2026-10-04): una fila M3U con `trial: true` en `data/channel-editor-layout.json` (botón «Oficializar» en el editor) se publica en `presentation-overrides.json` como `trial_m3u`. El runner la publica tal cual en Lista 1 pero la deja fuera del mantenimiento (no la valida, repara, degrada ni cuenta en la salud), de la EPG (`main_playlist_channels` la excluye) y de la compuerta EPG de Lista 1. `external_list_disabled: true` en el manifiesto deja Lista 2 vacía (`m3u-externa.m3u`/`2.m3u` solo con cabecera). Un nombre visible no puede repetir el nombre de un canal con resolutor (p. ej. «ESPN 3»): rompe el contrato de resolutores.
