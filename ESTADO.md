@@ -72,6 +72,10 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-04**: a pedido del usuario, también a Lista 2 las 20 transmisiones de iptv-org en
+  tlink.cl (fallaban desde EE. UU.; probablemente solo responden en Chile): nacionales, Mega 2,
+  Mega Ficción, Meganoticias Ahora, Megatiempo, CDO, ETC TV y otras, con tvg-id `…@tlink`. Y 13C
+  (`13C.cl@SD`, ya en el catálogo) pasa a Lista 2.
 - **2026-10-04**: 48 transmisiones de iptv-org a Lista 2 (`m3u-externa.m3u`/`2.m3u`) y al
   catálogo, para revisarlas en el editor: respaldos de nacionales (TVN, Mega, Canal 13, 24 Horas,
   TVN3), canales chilenos nuevos (13 Realities, 13 Festival, 13T, T13 En Vivo, TV+, Bío Bío, UCV,
