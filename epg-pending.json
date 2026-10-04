@@ -1,34 +1,46 @@
 {
   "schema": 1,
-  "updated_at": "2026-10-04T02:16:25.412197Z",
+  "updated_at": "2026-10-04T03:40:57.431834Z",
   "channels": [
+    "0102",
     "1437",
     "MTVBiggestPop.us",
     "MTVFlowLatino.us",
     "MTVSpankinNew.us"
   ],
   "details": {
+    "0102": {
+      "kind": "hueco",
+      "futureHours": 169.8,
+      "requiredHours": 18.0,
+      "gaps": [
+        [
+          "2026-10-04T03:40:27Z",
+          "2026-10-04T10:00:00Z"
+        ]
+      ]
+    },
     "1437": {
       "kind": "guia-corta",
-      "futureHours": 2.0,
+      "futureHours": 2.6,
       "requiredHours": 18.0,
       "gaps": []
     },
     "MTVBiggestPop.us": {
       "kind": "guia-corta",
-      "futureHours": 14.0,
+      "futureHours": 12.6,
       "requiredHours": 18.0,
       "gaps": []
     },
     "MTVFlowLatino.us": {
       "kind": "guia-corta",
-      "futureHours": 15.7,
+      "futureHours": 14.3,
       "requiredHours": 18.0,
       "gaps": []
     },
     "MTVSpankinNew.us": {
       "kind": "guia-corta",
-      "futureHours": 14.2,
+      "futureHours": 12.8,
       "requiredHours": 18.0,
       "gaps": []
     }
