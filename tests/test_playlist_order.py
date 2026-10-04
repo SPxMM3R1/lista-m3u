@@ -590,6 +590,10 @@ class PlaylistOrderTests(unittest.TestCase):
         self.assertTrue(
             all(channel.tvg_id not in {item.tvg_id for item in main_channels} for channel in restored)
         )
+        if update_m3u.external_list_disabled():
+            # Lista 2 vacía por decisión editorial (2026-10-04): nada se publica ahí.
+            self.assertEqual([], external_channels)
+            return
         external_ids = update_m3u.external_publication_channel_ids(
             catalog_channels,
             {

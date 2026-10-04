@@ -3867,6 +3867,8 @@ def load_presentation_overrides(
         "logos": {},
         "names": {},
         "excluded_m3u": [],
+        "trial_m3u": [],
+        "external_list_disabled": False,
         "assets": [],
     }
     if not path.exists():
@@ -3968,6 +3970,21 @@ def load_presentation_overrides(
         if stable_id in normalized_excluded:
             raise ValueError(f"{path.name}: tvg-id duplicado en excluded_m3u: {stable_id}")
         normalized_excluded.append(stable_id)
+    raw_trial = presentation.get("trial_m3u", [])
+    if not isinstance(raw_trial, list) or any(
+        not isinstance(item, str)
+        or not item.strip()
+        or len(item) > 512
+        or "://" in item
+        or "\n" in item
+        or "\r" in item
+        for item in raw_trial
+    ):
+        raise ValueError(f"{path.name}: trial_m3u debe ser una lista de tvg-id")
+    normalized_trial = sorted({item.strip() for item in raw_trial})
+    external_disabled = presentation.get("external_list_disabled", False)
+    if not isinstance(external_disabled, bool):
+        raise ValueError(f"{path.name}: external_list_disabled debe ser true o false")
     assets = presentation.get("assets", [])
     if not isinstance(assets, list) or any(not isinstance(asset, str) for asset in assets):
         raise ValueError(f"{path.name}: assets debe ser una lista de rutas")
@@ -3978,8 +3995,28 @@ def load_presentation_overrides(
         "logos": normalized_logos,
         "names": normalized_names,
         "excluded_m3u": normalized_excluded,
+        "trial_m3u": normalized_trial,
+        "external_list_disabled": external_disabled,
         "assets": sorted({asset.replace("\\", "/") for asset in assets}),
     }
+
+
+def trial_m3u_ids(overrides: dict[str, object] | None = None) -> frozenset[str]:
+    """Canales de Lista 1 en prueba (2026-10-04).
+
+    Se publican tal cual en m3u.m3u, pero quedan fuera del mantenimiento: no se
+    validan ni se reparan, no cuentan en la salud ni en la compuerta EPG y no
+    se les busca guía. Los marca el editor (``trial_m3u``) hasta oficializarlos.
+    """
+    source = load_presentation_overrides() if overrides is None else overrides
+    value = source.get("trial_m3u", []) if isinstance(source, dict) else []
+    return frozenset(str(item) for item in value) if isinstance(value, list) else frozenset()
+
+
+def external_list_disabled(overrides: dict[str, object] | None = None) -> bool:
+    """Lista 2 vacía por decisión editorial (``external_list_disabled``)."""
+    source = load_presentation_overrides() if overrides is None else overrides
+    return isinstance(source, dict) and source.get("external_list_disabled") is True
 
 
 def _reorder_lines_by_override(lines: list[str], desired_ids: list[str]) -> list[str]:
@@ -7034,6 +7071,14 @@ def main_playlist_channels() -> list[Channel]:
         )
     if len(set(channel_ids)) != len(channel_ids):
         raise RuntimeError(f"{DEFAULT_PLAYLIST.name} contiene tvg-id duplicados")
+    # Los canales en prueba se publican, pero no tienen guía ni entran a su compuerta.
+    trial_ids = trial_m3u_ids()
+    if trial_ids:
+        channels = [channel for channel in channels if channel.tvg_id not in trial_ids]
+        if not channels:
+            raise RuntimeError(
+                f"{DEFAULT_PLAYLIST.name} solo tiene canales en prueba; oficializa al menos uno"
+            )
     return channels
 
 
@@ -10067,6 +10112,11 @@ def main() -> int:
     selection_report["resource_updates"] = selection_resource_updates
     selection_report["effective_main_ids"] = sorted(manual_main_ids)
     selection_report["excluded_m3u_ids"] = sorted(excluded_m3u_ids)
+    trial_main_ids = frozenset(
+        trial_m3u_ids(presentation_overrides) & set(manual_main_ids)
+    )
+    selection_report["trial_m3u_ids"] = sorted(trial_main_ids)
+    external_disabled = external_list_disabled(presentation_overrides)
     if args.validate_vibem3u_selection:
         print(
             "Seleccion VibeM3U valida: "
@@ -10094,7 +10144,8 @@ def main() -> int:
             stable_channel_ids(catalogue_before_update, label=CHANNEL_CATALOG_PATH.name)
         )
         validation_main_ids = frozenset(
-            set(manual_main_ids) - set(previous_auto_demoted_main_ids)
+            set(manual_main_ids)
+            - (set(previous_auto_demoted_main_ids) - set(trial_main_ids))
         )
         if not validation_main_ids:
             raise ValueError("la membresia validada de m3u.m3u no puede estar vacia")
@@ -10117,7 +10168,9 @@ def main() -> int:
             EXTERNAL_PLAYLIST.read_text(encoding="utf-8-sig").splitlines(),
             validation_main_ids,
             expected_external_ids=(
-                external_publication_channel_ids(
+                frozenset()
+                if external_disabled
+                else external_publication_channel_ids(
                     catalogue_before_update,
                     validation_external_ids,
                     available_ids=external_available_ids_from_health(
@@ -10229,6 +10282,19 @@ def main() -> int:
         print(
             "Alcance de mantenimiento: m3u.m3u exclusivamente "
             f"({len(channels)} canales); Lista 2 se conserva sin cambios"
+        )
+    if trial_main_ids:
+        # En prueba: se publican tal cual; no se validan, reparan ni cuentan.
+        base_scope = (
+            maintenance_scope_ids
+            if maintenance_scope_ids is not None
+            else frozenset(channel.tvg_id for channel in channels if channel.tvg_id)
+        )
+        maintenance_scope_ids = frozenset(set(base_scope) - set(trial_main_ids))
+        channels = restrict_channels_to_scope(channels, maintenance_scope_ids)
+        print(
+            f"Canales en prueba fuera del mantenimiento: {len(trial_main_ids)} "
+            "(se publican sin validar, sin guía y sin reparaciones)"
         )
 
     if channel_part:
@@ -10509,6 +10575,12 @@ def main() -> int:
                 f"  [AUTO] {channel_id}: {action} "
                 f"(umbral={AUTO_MAIN_DEMOTION_FAILURE_THRESHOLD})"
             )
+    if trial_main_ids:
+        # Un canal en prueba no se valida, así que tampoco se degrada a Lista 2.
+        effective_main_ids = frozenset(set(effective_main_ids) | set(trial_main_ids))
+        new_automatic_demoted_main_ids = frozenset(
+            set(new_automatic_demoted_main_ids) - set(trial_main_ids)
+        )
     excluded_catalog_ids = set(excluded_m3u_ids) & set(catalogue_ids)
     effective_main_ids = frozenset(set(effective_main_ids) - excluded_catalog_ids)
     new_automatic_demoted_main_ids = frozenset(
@@ -10520,7 +10592,9 @@ def main() -> int:
         if channel_id not in excluded_catalog_ids
     }
     selection_report["effective_main_ids"] = sorted(effective_main_ids)
-    missing_manual_ids = sorted(set(manual_main_ids) - set(catalogue_ids))
+    missing_manual_ids = sorted(
+        set(manual_main_ids) - set(catalogue_ids) - set(trial_main_ids)
+    )
     if missing_manual_ids:
         raise RuntimeError(
             "el reparador elimino canales de la lista principal manual: "
@@ -10538,10 +10612,14 @@ def main() -> int:
         for channel, result in zip(final_channels, results)
         if result.ok
     }
-    external_publication_ids = external_publication_channel_ids(
-        final_channels,
-        external_ids,
-        available_ids=external_available_ids,
+    external_publication_ids = (
+        frozenset()
+        if external_disabled
+        else external_publication_channel_ids(
+            final_channels,
+            external_ids,
+            available_ids=external_available_ids,
+        )
     )
     main_publication_channels = [
         channel

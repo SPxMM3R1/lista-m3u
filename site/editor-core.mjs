@@ -2,7 +2,7 @@ const LAYOUT_FIELDS = [
   "kind", "provider", "catalogKey", "providerResourceId", "resolverSlug",
   "tvgId", "name", "group", "category", "country", "countryKey",
   "aliases", "resolverAliases", "identityState", "sourceList", "logoPath",
-  "logoOverride", "displayName", "order", "number", "state",
+  "logoOverride", "displayName", "order", "number", "state", "trial",
 ];
 
 export function stableId(row) {
@@ -66,6 +66,9 @@ export function validateLayout(layout) {
     else seenOrders.add(row.order);
     if (!Number.isInteger(row.number) || row.number < 1) problems.push(`${row.name || id}: número no válido.`);
     if (!["active", "hidden", "deleted"].includes(row.state)) problems.push(`${row.name || id}: estado no válido.`);
+    if (row.trial !== undefined && (row.trial !== true || row.kind !== "m3u")) {
+      problems.push(`${row.name || id}: solo un canal M3U puede estar en prueba.`);
+    }
     if (row.displayName !== undefined && (
       typeof row.displayName !== "string"
       || !row.displayName.trim()
@@ -308,6 +311,10 @@ export function buildPresentationOverrides(layout, original) {
   const directExternal = directActive.filter((row) => row.sourceList === "2.m3u").map(stableId);
   root.orders["m3u.m3u"] = [...new Set(directMain)];
   root.orders["m3u-externa.m3u"] = [...new Set(directExternal)];
+  // Canales en prueba (2026-10-04): se publican en su lista, pero el runner no les busca
+  // guía, no los revisa ni los repara hasta que se oficializan.
+  root.trial_m3u = [...new Set(directActive.filter((row) => row.trial === true).map(stableId))]
+    .sort((a, b) => a.localeCompare(b));
   const excluded = new Set((Array.isArray(root.excluded_m3u) ? root.excluded_m3u : []).map(String));
   for (const id of Array.isArray(layout.excludedM3u) ? layout.excludedM3u : []) excluded.add(String(id));
   for (const row of layout.channels) {
@@ -327,6 +334,16 @@ export function buildPresentationOverrides(layout, original) {
     else delete root.names[id];
   }
   return result;
+}
+
+/** Marca o quita la marca «en prueba» de un canal M3U. */
+export function setTrial(layout, key, trial) {
+  const current = structuredClone(layout);
+  const row = current.channels.find((item) => rowKey(item) === key);
+  if (!row || row.kind !== "m3u") return current;
+  if (trial) row.trial = true;
+  else delete row.trial;
+  return current;
 }
 
 export function summarizeChanges(originalLayout, layout, originalPresentation, presentation) {

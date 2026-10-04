@@ -72,6 +72,14 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-04**: canales «en prueba» y Lista 2 vacía, a pedido del usuario. Todo lo directo de
+  Lista 2 pasa a Lista 1 con `trial: true` (75 activos + 13C; los 46 que el usuario tenía en la
+  papelera siguen ahí). Lista 1 = 118 (42 oficiales + 76 en prueba); `m3u-externa.m3u`/`2.m3u`
+  quedan con solo la cabecera (`external_list_disabled`). Los 46 espejos TvVoo/Highfly salen de
+  Lista 2 (la app los toma de los proveedores). En prueba = sin EPG, sin validación ni reparación,
+  fuera de la compuerta EPG; «Oficializar» en el editor los vuelve normales. Arreglado de paso: el
+  guardado de las 17:39 nombró «ESPN 3» a Win Sports [IP 181], que choca con el canal TvVoo «ESPN 3»
+  y rompía canales y cambios dirigidos; queda «ESPN 3 [IP 181]».
 - **2026-10-04**: los 69 canales nuevos de Lista 2 (iptv-org, tlink y 13C) entran a la grilla del
   editor como filas M3U de Lista 2, activas, del 68 al 136 (tras los 67 que dejó el usuario).
 - **2026-10-04**: a pedido del usuario, también a Lista 2 las 20 transmisiones de iptv-org en

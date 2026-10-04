@@ -427,7 +427,9 @@ def _effective_editor_partition(
     )
     health = update_m3u.load_health_state()
     demoted = update_m3u.automatic_demoted_main_ids(health, set(catalog_by_id))
-    expected_main = frozenset(set(desired_main) - set(demoted))
+    # Los canales en prueba no se validan: tampoco se degradan.
+    trial = update_m3u.trial_m3u_ids(presentation_overrides)
+    expected_main = frozenset(set(desired_main) - (set(demoted) - set(trial)))
     if not expected_main:
         raise RuntimeError("La Lista 1 no puede quedar vacía; reactiva o reasigna un canal.")
     current_catalog_ids = set(catalog_by_id)
@@ -438,10 +440,14 @@ def _effective_editor_partition(
         external_scope,
         health,
     )
-    expected_external = update_m3u.external_publication_channel_ids(
-        catalog_channels,
-        external_scope,
-        available_ids=available,
+    expected_external = (
+        frozenset()
+        if update_m3u.external_list_disabled(presentation_overrides)
+        else update_m3u.external_publication_channel_ids(
+            catalog_channels,
+            external_scope,
+            available_ids=available,
+        )
     )
     return expected_main, expected_external, excluded_current
 

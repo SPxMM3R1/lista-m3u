@@ -60,6 +60,7 @@ agente debe poder retomar el trabajo solo con lo que está en el repositorio.
 
 ## Publicación automática
 
+- **Canales en prueba** (2026-10-04): una fila M3U con `trial: true` en `data/channel-editor-layout.json` (botón «Oficializar» en el editor) se publica en `presentation-overrides.json` como `trial_m3u`. El runner la publica tal cual en Lista 1 pero la deja fuera del mantenimiento (no la valida, repara, degrada ni cuenta en la salud), de la EPG (`main_playlist_channels` la excluye) y de la compuerta EPG de Lista 1. `external_list_disabled: true` en el manifiesto deja Lista 2 vacía (`m3u-externa.m3u`/`2.m3u` solo con cabecera). Un nombre visible no puede repetir el nombre de un canal con resolutor (p. ej. «ESPN 3»): rompe el contrato de resolutores.
 - Push de un commit editorial (layout/selección/presentación) dispara `update-channels.yml` con `M3U_MAINTENANCE_SCOPE=main` (Lista 2 se conserva; el catálogo recibe igual la reconciliación). Al terminar bien, `update-epg.yml` corre por `workflow_run` (también tras un disparo manual; no tras el cron de canales, porque la EPG tiene su propio cron).
 - Canales por cron: `0 4,10,16,22` America/Santiago. EPG por cron: `0 0,6,12,18` America/Santiago, forzada (`EPG_FORCE_REFRESH=true`).
 - Puede dispararse a mano: `gh workflow run update-channels.yml -f force_run=true` y `gh workflow run update-epg.yml`.

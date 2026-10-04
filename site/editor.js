@@ -18,6 +18,7 @@ import {
   stableId,
   summarizeChanges,
   validateLayout,
+  setTrial,
 } from "./editor-core.mjs";
 import {
   loadAllTvVooCatalogs,
@@ -604,6 +605,11 @@ function renderRow(row) {
   const name = node("span", "channel-name", channelName(row));
   const subtitleText = row.kind === "provider" ? `${row.category || row.group || "Proveedor"}${row.identityState === "provisional" ? " · identidad provisional" : ""}` : (row.group || "Canal M3U");
   labels.append(name, node("span", "channel-subtitle", subtitleText));
+  if (row.trial) {
+    const badge = node("span", "trial-badge", "Prueba");
+    badge.title = "En prueba: sin guía ni mantenimiento del actualizador";
+    name.append(badge);
+  }
   select.append(makeLogo(row), labels);
   select.addEventListener("click", () => { selectedKey = rowKey(row); render(); });
 
@@ -704,6 +710,18 @@ function renderInspector() {
   stateBox.innerHTML = icon(identity.kind === "pending" ? "warning" : "check");
   stateBox.append(node("span", "", `${identity.text}. ${identity.detail}`));
   fragment.append(stateBox);
+
+  if (row.kind === "m3u" && row.trial) {
+    const trialBox = node("div", "trial-state");
+    trialBox.append(
+      node("strong", "", "En prueba"),
+      node("p", "", "Se ve en la app, pero el actualizador no le busca guía, no lo revisa ni lo repara."),
+      node("p", "trial-note", "Al oficializarlo pasa a ser un canal normal: necesita guía, o la Lista 1 deja de actualizarse."),
+    );
+    const promote = button("Oficializar", "button-secondary", () => changeLayout(setTrial(state.layout, rowKey(row), false)), "check");
+    trialBox.append(promote);
+    fragment.append(trialBox);
+  }
 
   const displayNameGroup = node("section", "detail-group display-name-group");
   displayNameGroup.append(node("h3", "", "Nombre mostrado en la app"));

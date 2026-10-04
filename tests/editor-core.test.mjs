@@ -18,6 +18,7 @@ import {
   logoNameKey,
   suggestLogo,
   setRowsState,
+  setTrial,
   removeRowsPermanently,
 } from "../site/editor-core.mjs";
 import {
@@ -520,4 +521,33 @@ test("Highfly 4K/UHD es un canal propio y no reemplaza la versión FHD", () => {
   assert.equal(byKey.get("SkySportsF1UHD.uk").resolverSlug, "now-34343434");
   assert.equal(byKey.get("SkySportsF1UHD.uk").identityState, "canonical");
   assert.equal(byKey.get("SkySportsF1UHD.uk").name, "SKY SPORTS F1 UHD");
+});
+
+test("trial M3U rows are published as trial_m3u and can be promoted", () => {
+  const layout = {
+    schemaVersion: 1,
+    excludedM3u: [],
+    channels: [
+      { kind: "m3u", tvgId: "TVN.cl@tlink", name: "TVN [tlink]", sourceList: "1.m3u", order: 1, number: 1, state: "active", trial: true },
+      { kind: "m3u", tvgId: "0104", name: "TVN", sourceList: "1.m3u", order: 2, number: 2, state: "active" },
+    ],
+  };
+  assert.deepEqual(validateLayout(layout), []);
+  const presentation = buildPresentationOverrides(layout, null);
+  assert.deepEqual(presentation.trial_m3u, ["TVN.cl@tlink"]);
+  assert.deepEqual(presentation.orders["m3u.m3u"], ["TVN.cl@tlink", "0104"]);
+  const promoted = setTrial(layout, "m3u:TVN.cl@tlink", false);
+  assert.equal(promoted.channels[0].trial, undefined);
+  assert.deepEqual(buildPresentationOverrides(promoted, presentation).trial_m3u, []);
+});
+
+test("only M3U rows can be in trial", () => {
+  const layout = {
+    schemaVersion: 1,
+    excludedM3u: [],
+    channels: [
+      { kind: "provider", provider: "tvvoo", catalogKey: "spain|vavoo_X%7Cgroup%3Aes", providerResourceId: "spain|vavoo_X%7Cgroup%3Aes", name: "X", group: "España", countryKey: "spain", identityState: "canonical", order: 1, number: 1, state: "active", trial: true },
+    ],
+  };
+  assert.ok(validateLayout(layout).some((problem) => problem.includes("prueba")));
 });
