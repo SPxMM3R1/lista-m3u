@@ -72,6 +72,8 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-03**: Main Event como F1 (normal y luego UHD): 24 Sky Sports Main Event (TvVoo),
+  25 Main Event UHD, 26 Premier League. Nada más cambió de número.
 - **2026-10-03**: el editor ordena por `order`, no por `number`: al mover F1 UHD (22) y Main
   Event UHD (24) solo cambié el número y quedaron al final. Ahora `order` sigue al número en
   todos los activos (ocultos y papelera después). Al reubicar canales por script, actualizar
