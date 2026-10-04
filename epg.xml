@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-generated-at="2026-10-04T23:04:22+00:00" data-description-policy="verified-source-only" data-description-programmes="3437" data-description-channels="50" data-next-refresh-at="2026-10-05T02:04:22+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u">
+<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-generated-at="2026-10-04T23:44:42+00:00" data-description-policy="verified-source-only" data-description-programmes="3439" data-description-channels="50" data-next-refresh-at="2026-10-05T02:44:42+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u">
   <channel id="0104" data-guide="parrilla real" data-guide-source="tvn-oficial">
     <display-name>TVN</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvn.png" />
@@ -1344,9 +1344,6 @@
   <programme start="20261007200000 -0300" stop="20261007210500 -0300" channel="0105">
     <title lang="es">Meganoticias Prime</title>
   </programme>
-  <programme start="20261004121500 -0300" stop="20261004150000 -0300" channel="0106">
-    <title lang="es">CHV Noticias tarde</title>
-  </programme>
   <programme start="20261004150000 -0300" stop="20261004180000 -0300" channel="0106">
     <title lang="es">Sabingo</title>
     <desc lang="es">Programa familiar que se te acompañará las tardes de sábado y domingo. En la conducción Millaray Viera y Juan Pablo Queraltó</desc>
@@ -1362,7 +1359,14 @@
     <title lang="es">El Tiempo</title>
     <desc lang="es">Últimas noticias del tiempo, tormentas, huracanes, tornados, cambio climático y otras noticias</desc>
   </programme>
-  <programme start="20261004224500 -0300" stop="20261005010000 -0300" channel="0106">
+  <programme start="20261004224500 -0300" stop="20261005004500 -0300" channel="0106">
+    <title lang="es">Fiebre de canto</title>
+    <desc lang="es">Competencia musical donde participantes muestran su talento vocal frente a un jurado y público en vivo.</desc>
+  </programme>
+  <programme start="20261004130000 -0300" stop="20261004150000 -0300" channel="0106">
+    <title lang="es">Chilevisión noticias tarde</title>
+  </programme>
+  <programme start="20261005004500 -0300" stop="20261005010000 -0300" channel="0106">
     <title lang="es">Primer plano</title>
   </programme>
   <programme start="20261005010000 -0300" stop="20261005053000 -0300" channel="0106">
@@ -1409,7 +1413,7 @@
   <programme start="20261004074500 -0300" stop="20261004083000 -0300" channel="0106">
     <title lang="es">Sabingo A.M.</title>
   </programme>
-  <programme start="20261004083000 -0300" stop="20261004121500 -0300" channel="0106">
+  <programme start="20261004083000 -0300" stop="20261004130000 -0300" channel="0106">
     <title lang="es">CHV Noticias</title>
     <sub-title lang="es">A.M. - Fin de semana</sub-title>
   </programme>
@@ -1710,9 +1714,6 @@
     <title lang="es">El tiempo</title>
     <desc lang="es">El informativo central de Canal 13 entrega cada noche una mirada panorámica de la actualidad noticiosa de Chile y el mundo, con notas en profundidad y reportajes que dan cuenta del amplio despliegue informativo.</desc>
   </programme>
-  <programme start="20261004130000 -0300" stop="20261004143000 -0300" channel="0124">
-    <title lang="es">Teletrece tarde</title>
-  </programme>
   <programme start="20261004143000 -0300" stop="20261004150000 -0300" channel="0124">
     <title lang="es">Sin intereses</title>
   </programme>
@@ -1829,11 +1830,7 @@
   <programme start="20261005235000 -0300" stop="20261006005000 -0300" channel="0124">
     <title lang="es">Micrófono abierto</title>
   </programme>
-  <programme start="20261004193500 -0300" stop="20261004194500 -0300" channel="0201">
-    <title lang="es">Conciencia 24/7</title>
-    <desc lang="es">Un nuevo espacio multiplataforma, creado para visibilizar historias de innovación, desarrollo y de futuro que están sucediendo a lo largo de Chile.</desc>
-  </programme>
-  <programme start="20261004194500 -0300" stop="20261004200000 -0300" channel="0201">
+  <programme start="20261004195700 -0300" stop="20261004200000 -0300" channel="0201">
     <title lang="es">Entrevistas 24</title>
     <desc lang="es">Espacio en el que conversamos con un invitado especial quien nos habla de la situación política, social, económica de Chile, o de tan variados temas de interés general para el ciudadano común.</desc>
   </programme>
@@ -1848,6 +1845,10 @@
   <programme start="20261004204500 -0300" stop="20261004210000 -0300" channel="0201">
     <title lang="es">Entrevistas 24</title>
     <desc lang="es">Espacio en el que conversamos con un invitado especial quien nos habla de la situación política, social, económica de Chile, o de tan variados temas de interés general para el ciudadano común.</desc>
+  </programme>
+  <programme start="20261004210000 -0300" stop="20261004224500 -0300" channel="0201">
+    <title lang="es">24 horas central</title>
+    <desc lang="es">Noticiero central, con despachos en directo y corresponsalías en todo el mundo.</desc>
   </programme>
   <programme start="20261004023000 -0300" stop="20261004030000 -0300" channel="0201">
     <title lang="es">24 Horas a la Hora</title>
@@ -1934,13 +1935,13 @@
     <title lang="es">El especialista responde</title>
     <desc lang="es">Un espacio que aborda diversos temas relacionados con la salud a través de consejos, tips y reflexiones de especialistas.</desc>
   </programme>
-  <programme start="20261004193000 -0300" stop="20261004193500 -0300" channel="0201">
+  <programme start="20261004193000 -0300" stop="20261004194500 -0300" channel="0201">
     <title lang="es">Conciencia 24-7</title>
     <desc lang="es">Un nuevo espacio multiplataforma, creado para visibilizar historias de innovación, desarrollo y de futuro que están sucediendo a lo largo de Chile.</desc>
   </programme>
-  <programme start="20261004210000 -0300" stop="20261004224500 -0300" channel="0201">
-    <title lang="es">24 Horas Central</title>
-    <desc lang="es">Noticiero central, con despachos en directo y corresponsalías en todo el mundo.</desc>
+  <programme start="20261004194500 -0300" stop="20261004195700 -0300" channel="0201">
+    <title lang="es">Entrevistas 24</title>
+    <desc lang="es">Espacio en el que conversamos con un invitado especial quien nos habla de la situación política, social, económica de Chile, o de tan variados temas de interés general para el ciudadano común.</desc>
   </programme>
   <programme start="20261004224500 -0300" stop="20261004234500 -0300" channel="0201">
     <title lang="es">Estado Nacional</title>
@@ -2217,9 +2218,6 @@
   <programme start="20261007200000 -0300" stop="20261007210000 -0300" channel="0201">
     <title lang="es">24 Horas Deportes</title>
   </programme>
-  <programme start="20261004183000 -0300" stop="20261004185000 -0300" channel="1153">
-    <title lang="es">Hoy en el Mundo: Resumen semanal</title>
-  </programme>
   <programme start="20261004185000 -0300" stop="20261004192000 -0300" channel="1153">
     <title lang="es">Pelota al Piso</title>
   </programme>
@@ -2231,6 +2229,9 @@
   </programme>
   <programme start="20261004223000 -0300" stop="20261004230000 -0300" channel="1153">
     <title lang="es">La Entrevista de Macarena Pizarro</title>
+  </programme>
+  <programme start="20261004230000 -0300" stop="20261005000000 -0300" channel="1153">
+    <title lang="es">Reportajes CHV Noticias</title>
   </programme>
   <programme start="20261004130000 -0300" stop="20261004150000 -0300" channel="1153">
     <title lang="es">CHV Noticias tarde</title>
@@ -2250,8 +2251,8 @@
   <programme start="20261004180000 -0300" stop="20261004183000 -0300" channel="1153">
     <title lang="es">La entrevista de Daniel Matamala</title>
   </programme>
-  <programme start="20261004230000 -0300" stop="20261005000000 -0300" channel="1153">
-    <title lang="es">Reportajes: CHV Noticias</title>
+  <programme start="20261004183000 -0300" stop="20261004185000 -0300" channel="1153">
+    <title lang="es">Hoy en el mundo: Resumen semanal</title>
   </programme>
   <programme start="20261005000000 -0300" stop="20261005003000 -0300" channel="1153">
     <title lang="es">Team Chile al día</title>
@@ -2331,13 +2332,7 @@
   <programme start="20261005231000 -0300" stop="20261006003000 -0300" channel="1153">
     <title lang="es">Chilevisión noticias informa</title>
   </programme>
-  <programme start="20261004190600 -0300" stop="20261004200000 -0300" channel="13Cultura.cl@DPS">
-    <title lang="es">Siempre hay un chileno</title>
-    <sub-title lang="es">Siempre hay un chileno | T3 | Chipre</sub-title>
-    <desc lang="es">Recorremos diferentes partes del mundo, ciudades y pueblos, donde siempre, pero siempre, hay un chileno.</desc>
-    <category lang="es">['travel-tourism']</category>
-  </programme>
-  <programme start="20261004200000 -0300" stop="20261004205500 -0300" channel="13Cultura.cl@DPS">
+  <programme start="20261004200600 -0300" stop="20261004205500 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Siempre hay un chileno</title>
     <sub-title lang="es">Siempre hay un chileno | T3 | Estambul</sub-title>
     <desc lang="es">Recorremos diferentes partes del mundo, ciudades y pueblos, donde siempre, pero siempre, hay un chileno.</desc>
@@ -2475,6 +2470,12 @@
     <desc lang="es">Recorremos diferentes partes del mundo, ciudades y pueblos, donde siempre, pero siempre, hay un chileno.</desc>
     <category lang="es">['travel-tourism']</category>
   </programme>
+  <programme start="20261005190100 -0300" stop="20261005200400 -0300" channel="13Cultura.cl@DPS">
+    <title lang="es">Siempre hay un chileno</title>
+    <sub-title lang="es">Siempre hay un chileno | T3 | Chipre</sub-title>
+    <desc lang="es">Recorremos diferentes partes del mundo, ciudades y pueblos, donde siempre, pero siempre, hay un chileno.</desc>
+    <category lang="es">['travel-tourism']</category>
+  </programme>
   <programme start="20261004140000 -0300" stop="20261004150000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Recomiendo Chile</title>
   </programme>
@@ -2483,7 +2484,6 @@
   </programme>
   <programme start="20261004160000 -0300" stop="20261004163000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Diario de antojos</title>
-    <desc lang="es">T2 -Ep.11: Diario De Antojos. El blog de Lore Salinas llega a la TV. Dicen que la comida sabe mejor cuando se come con las manos, y queremos comprobarlo. Con recetas dulces y saladas, Lore nos muestra que hay un goce especial en cocinar para compartir.</desc>
   </programme>
   <programme start="20261004163000 -0300" stop="20261004170000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Audaces</title>
@@ -2501,18 +2501,19 @@
     <title lang="es">Desafío 2030</title>
     <desc lang="es">T1 -Ep.7: Innovaciones Y Calidad De Vida. Docuserie de inspiración en desarrollo sostenible.</desc>
   </programme>
-  <programme start="20261004183000 -0300" stop="20261004190600 -0300" channel="13Cultura.cl@DPS">
+  <programme start="20261004183000 -0300" stop="20261004193000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Energía Infinita</title>
     <desc lang="es">T4 -Ep.1: Energía Infinita. Serie documental donde reflexionaremos como la energía se ha convertido en una de los causantes del cambio climático, pero también cómo ésta se puede transformar en renovable y limpia, posicionando a Chile como un gran ejemplo de esta transición. En esta nueva temporada hablaremos sobre cómo adaptarnos en la utilización de una energía más limpia</desc>
+  </programme>
+  <programme start="20261004193000 -0300" stop="20261004200600 -0300" channel="13Cultura.cl@DPS">
+    <title lang="es">City Tour</title>
+    <desc lang="es">T17 -Ep.31: City Tour. Acompaña a Federico Sánchez y Marcelo Comparini en su vuelta a 13C. Recorreran la ciudad en busca de historias, referentes y anécdotas.</desc>
   </programme>
   <programme start="20261005060000 -0300" stop="20261005060100 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Recomiendo Chile</title>
     <desc lang="es">T13 -Ep.11: Mejillón Chileno. Recomiendo Chile es una serie documental que aporta una mirada moderna hacia la gastronomía tradicional de nuestro país.</desc>
   </programme>
-  <programme start="20261005190100 -0300" stop="20261005200000 -0300" channel="13Cultura.cl@DPS">
-    <title lang="es">Mi segundo tiempo</title>
-  </programme>
-  <programme start="20261005200000 -0300" stop="20261005203000 -0300" channel="13Cultura.cl@DPS">
+  <programme start="20261005200400 -0300" stop="20261005203000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Vamos mujer</title>
   </programme>
   <programme start="20261005203000 -0300" stop="20261005210000 -0300" channel="13Cultura.cl@DPS">
@@ -2548,10 +2549,6 @@
     <title lang="es">Mea Culpa</title>
     <desc lang="es">Programa que recrea algunos de los crímenes más impactantes de Chile. Conducido por Carlos Pinto</desc>
   </programme>
-  <programme start="20261004180500 -0300" stop="20261004190000 -0300" channel="45">
-    <title lang="es">31 minutos</title>
-    <desc lang="es">El noticiero más veraz de la televisión.</desc>
-  </programme>
   <programme start="20261004190000 -0300" stop="20261004193000 -0300" channel="45">
     <title lang="es">Mágica Ciencia</title>
   </programme>
@@ -2564,8 +2561,9 @@
   <programme start="20261004210000 -0300" stop="20261004220000 -0300" channel="45">
     <title lang="es">Tesoros Naturales</title>
   </programme>
-  <programme start="20261004133000 -0300" stop="20261004143000 -0300" channel="45">
-    <title lang="es">Animales chilenos superasombrosos</title>
+  <programme start="20261004220000 -0300" stop="20261004230000 -0300" channel="45">
+    <title lang="es">Cocina Lab</title>
+    <desc lang="es">Programa que muestra la ciencia que hay cuando cocinamos.</desc>
   </programme>
   <programme start="20261004143000 -0300" stop="20261004153000 -0300" channel="45">
     <title lang="es">10 cosas que no sabías</title>
@@ -2573,11 +2571,12 @@
   <programme start="20261004153000 -0300" stop="20261004180000 -0300" channel="45">
     <title lang="es">Maratón</title>
   </programme>
-  <programme start="20261004180000 -0300" stop="20261004180500 -0300" channel="45">
+  <programme start="20261004180000 -0300" stop="20261004183000 -0300" channel="45">
     <title lang="es">Inhumanamente hablando con el profesor Zork</title>
   </programme>
-  <programme start="20261004220000 -0300" stop="20261004230000 -0300" channel="45">
-    <title lang="es">Hora 25</title>
+  <programme start="20261004183000 -0300" stop="20261004190000 -0300" channel="45">
+    <title lang="es">31 minutos</title>
+    <desc lang="es">El noticiero más veraz de la televisión.</desc>
   </programme>
   <programme start="20261004230000 -0300" stop="20261005000000 -0300" channel="45">
     <title lang="es">En la rueda</title>
@@ -2663,6 +2662,7 @@
   </programme>
   <programme start="20261005172000 -0300" stop="20261005173000 -0300" channel="45">
     <title lang="es">Inhumanamente hablando con el profesor Zork</title>
+    <desc lang="es">La serie que nos ayuda a entender a los humanos</desc>
   </programme>
   <programme start="20261005173000 -0300" stop="20261005200000 -0300" channel="45">
     <title lang="es">Efecto N</title>
@@ -5159,9 +5159,6 @@
   <programme channel="ArirangTV.kr" start="20261009010000 -0300" stop="20261009020000 -0300">
     <title lang="pl">Simply K-pop</title>
     <episode-num system="onscreen">E5</episode-num>
-  </programme>
-  <programme start="20261004131814 -0300" stop="20261004140948 -0300" channel="AutenticHistory.de">
-    <title lang="en">Eva Braun - Live And Death With The Fuehrer</title>
   </programme>
   <programme start="20261004140948 -0300" stop="20261004150421 -0300" channel="AutenticHistory.de">
     <title lang="en">Eva Braun - Live And Death With The Fuehrer</title>
@@ -7999,18 +7996,6 @@
       <value>Apta</value>
     </rating>
   </programme>
-  <programme start="20261004193000 -0300" stop="20261004200000 -0300" channel="DW.de">
-    <title lang="es">ZonaDocu: Empresas emergentes alemanas - Tecnología punta para el mercado mundial</title>
-    <desc lang="es">Calculo, Luego Existo - Inteligencia Artificial E Identidad Humana. Creatividad, emociones..La inteligencia artificial avanza hacia dominios profundamente humanos. Y se plantea una pregunta existencial: qué es lo que nos hace ser lo que somos cuando se cuestiona la unicidad del ser humano?</desc>
-  </programme>
-  <programme start="20261004200000 -0300" stop="20261004201500 -0300" channel="DW.de">
-    <title lang="es">DW Noticias: Noticias</title>
-    <desc lang="es">Explicaciones detalladas, análisis competentes, cobertura de la actualidad mundial: política, negocios, deporte y cultura. Perspectivas fascinantes más allá de los titulares. DW noticias: atando cabos para espectadores de todo el mundo.</desc>
-  </programme>
-  <programme start="20261004201500 -0300" stop="20261004203000 -0300" channel="DW.de">
-    <title lang="es">DW Analiza: ¿Está abandonando Estados Unidos a su principal aliado en Oriente Medio?</title>
-    <desc lang="es">DW Analiza pone en contexto las noticias de actualidad internacional, analiza el trasfondo de los hechos y habla con expertos para conocer todos los ángulos de la noticia.</desc>
-  </programme>
   <programme start="20261004203000 -0300" stop="20261004210000 -0300" channel="DW.de">
     <title lang="es">Visión futuro: Cómo enfriar las ciudades con áreas verdes</title>
     <desc lang="es">La emisión de DW sobre ciencia. Dirigido a todos los que se interesan por la ciencia y la investigación en Alemania y Europa. En un lenguaje asequible, con una atractiva presentación y siempre al tanto de las nuevas tendencias.</desc>
@@ -8096,6 +8081,12 @@
   </programme>
   <programme start="20261005070000 -0300" stop="20261005071500 -0300" channel="DW.de">
     <title lang="es">DW Actualidad en Análisis: Tulum se queda sin turistas</title>
+  </programme>
+  <programme start="20261005071500 -0300" stop="20261005080000 -0300" channel="DW.de">
+    <title lang="es">ZonaDocu: Trump y el poder - Una profunda grieta en los Estados Unidos</title>
+  </programme>
+  <programme start="20261005080000 -0300" stop="20261005083000 -0300" channel="DW.de">
+    <title lang="es">Visión futuro: Cómo enfriar las ciudades con áreas verdes</title>
   </programme>
   <programme start="20261004021500 -0300" stop="20261004023000 -0300" channel="DW.de">
     <title lang="es">El reportero</title>
@@ -8230,11 +8221,17 @@
   <programme start="20261004191500 -0300" stop="20261004193000 -0300" channel="DW.de">
     <title lang="es">Actualidad en análisis</title>
   </programme>
-  <programme start="20261005071500 -0300" stop="20261005080000 -0300" channel="DW.de">
+  <programme start="20261004193000 -0300" stop="20261004200000 -0300" channel="DW.de">
     <title lang="es">Zona docu</title>
+    <desc lang="es">Calculo, Luego Existo - Inteligencia Artificial E Identidad Humana. Creatividad, emociones..La inteligencia artificial avanza hacia dominios profundamente humanos. Y se plantea una pregunta existencial: qué es lo que nos hace ser lo que somos cuando se cuestiona la unicidad del ser humano?</desc>
   </programme>
-  <programme start="20261005080000 -0300" stop="20261005083000 -0300" channel="DW.de">
-    <title lang="es">Visión futuro</title>
+  <programme start="20261004200000 -0300" stop="20261004201500 -0300" channel="DW.de">
+    <title lang="es">DW Noticias</title>
+    <desc lang="es">Explicaciones detalladas, análisis competentes, cobertura de la actualidad mundial: política, negocios, deporte y cultura. Perspectivas fascinantes más allá de los titulares. DW noticias: atando cabos para espectadores de todo el mundo.</desc>
+  </programme>
+  <programme start="20261004201500 -0300" stop="20261004203000 -0300" channel="DW.de">
+    <title lang="es">DW analiza</title>
+    <desc lang="es">DW Analiza pone en contexto las noticias de actualidad internacional, analiza el trasfondo de los hechos y habla con expertos para conocer todos los ángulos de la noticia.</desc>
   </programme>
   <programme start="20261005083000 -0300" stop="20261005090000 -0300" channel="DW.de">
     <title lang="es">Global es</title>
@@ -8657,16 +8654,6 @@
   <programme start="20261008013000 -0300" stop="20261008020000 -0300" channel="DW.de">
     <title lang="es">Aquí estoy</title>
   </programme>
-  <programme start="20261004200000 -0300" stop="20261004200200 -0300" channel="DWEnglish.de">
-    <title lang="en">DW News</title>
-    <desc lang="es">Our deep dive format explains the stories that matter - with clarity, context and journalistic rigor. Each segment goes beyond the headlines to uncover what's driving key developments around the world, featuring sharp analysis, expert voices and exclusive on the ground insights from where events are unfolding.</desc>
-  </programme>
-  <programme start="20261004200200 -0300" stop="20261004201500 -0300" channel="DWEnglish.de">
-    <title lang="en">DW News: Understand the world, one story at a time</title>
-  </programme>
-  <programme start="20261004201500 -0300" stop="20261004203000 -0300" channel="DWEnglish.de">
-    <title lang="en">Shift: How is AI changing opportunities for women?</title>
-  </programme>
   <programme start="20261004203000 -0300" stop="20261004210000 -0300" channel="DWEnglish.de">
     <title lang="en">REV: Is China shaping Africa's mobility future?</title>
   </programme>
@@ -8785,6 +8772,13 @@
   <programme start="20261005071500 -0300" stop="20261005080000 -0300" channel="DWEnglish.de">
     <title lang="en">DocFilm: Visionary or Fraud? - Rudolf Steiner and His Waldorf Philosophy</title>
     <desc lang="es">Rudolf Steiner is synonymous with Waldorf education - and its controversial teachings. This documentary explores the impact his ideas have had, and why they continue to draw both supporters and critics, to this day.</desc>
+  </programme>
+  <programme start="20261005080000 -0300" stop="20261005080200 -0300" channel="DWEnglish.de">
+    <title lang="en">DW News</title>
+    <desc lang="es">Our deep dive format explains the stories that matter - with clarity, context and journalistic rigor. Each segment goes beyond the headlines to uncover what's driving key developments around the world, featuring sharp analysis, expert voices and exclusive on the ground insights from where events are unfolding.</desc>
+  </programme>
+  <programme start="20261005080200 -0300" stop="20261005083000 -0300" channel="DWEnglish.de">
+    <title lang="en">Eco Africa: Harare gets its teeth into Berlin's bread waste problem</title>
   </programme>
   <programme channel="DWEnglish.de" start="20261002210000 -0300" stop="20261002210200 -0300">
     <title lang="fr">DW News</title>
@@ -9966,6 +9960,32 @@
     <category lang="fr">Débat</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/2/3/15216325.jpg" />
   </programme>
+  <programme channel="DWEnglish.de" start="20261004200000 -0300" stop="20261004200200 -0300">
+    <title lang="fr">DW News</title>
+    <desc lang="es">Our deep dive format explains the stories that matter - with clarity, context and journalistic rigor. Each segment goes beyond the headlines to uncover what's driving key developments around the world, featuring sharp analysis, expert voices and exclusive on the ground insights from where events are unfolding.</desc>
+    <category lang="fr">Journal</category>
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/0/7/15708705.jpg" />
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/9/6/15708698.jpg" />
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/9/6/15708695.jpg" />
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/3/8/7/15215783.jpg" />
+  </programme>
+  <programme channel="DWEnglish.de" start="20261004200200 -0300" stop="20261004201500 -0300">
+    <title lang="fr">DW News Focus</title>
+    <desc lang="fr">Our deep dive format explains the stories that matter - with clarity, context and journalistic rigor. Each segment goes beyond the headlines to uncover what's driving key developments around the world, featuring sharp analysis, expert voices and exclusive on the ground insights from where events are unfolding.</desc>
+    <category lang="fr">Journal</category>
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/2/8/15215825.jpg" />
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/1/1/8/15215811.jpg" />
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/8/7/15215788.jpg" />
+  </programme>
+  <programme channel="DWEnglish.de" start="20261004201500 -0300" stop="20261004203000 -0300">
+    <title lang="fr">Shift</title>
+    <sub-title lang="fr">Living in the Digital Age</sub-title>
+    <category lang="fr">Magazine scientifique</category>
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/3/4/8/15215843.jpg" />
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/0/8/15215809.jpg" />
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/7/9/15204975.jpg" />
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/2/8/15215826.jpg" />
+  </programme>
   <programme channel="DWEnglish.de" start="20261005000000 -0300" stop="20261005000200 -0300">
     <title lang="fr">DW News</title>
     <desc lang="es">Our deep dive format explains the stories that matter - with clarity, context and journalistic rigor. Each segment goes beyond the headlines to uncover what's driving key developments around the world, featuring sharp analysis, expert voices and exclusive on the ground insights from where events are unfolding.</desc>
@@ -9983,21 +10003,6 @@
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/9/6/15708698.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/9/6/15708695.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/3/8/7/15215783.jpg" />
-  </programme>
-  <programme channel="DWEnglish.de" start="20261005080000 -0300" stop="20261005080200 -0300">
-    <title lang="fr">DW News</title>
-    <desc lang="es">Our deep dive format explains the stories that matter - with clarity, context and journalistic rigor. Each segment goes beyond the headlines to uncover what's driving key developments around the world, featuring sharp analysis, expert voices and exclusive on the ground insights from where events are unfolding.</desc>
-    <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/0/7/15708705.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/9/6/15708698.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/9/6/15708695.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/3/8/7/15215783.jpg" />
-  </programme>
-  <programme channel="DWEnglish.de" start="20261005080200 -0300" stop="20261005083000 -0300">
-    <title lang="fr">Eco Africa</title>
-    <sub-title lang="fr">The Environment Magazine</sub-title>
-    <category lang="fr">Magazine de la nature</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/2/9/7/15215792.jpg" />
   </programme>
   <programme channel="DWEnglish.de" start="20261005083000 -0300" stop="20261005090000 -0300">
     <title lang="fr">The Dip</title>
@@ -13363,7 +13368,6 @@
   </programme>
   <programme channel="France24.fr" start="20261004140000 -0300" stop="20261004141500 -0300">
     <title lang="fr">Noticias</title>
-    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
     <category lang="fr">Journal</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
@@ -13379,7 +13383,6 @@
   </programme>
   <programme channel="France24.fr" start="20261004143000 -0300" stop="20261004144500 -0300">
     <title lang="fr">Noticias</title>
-    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
     <category lang="fr">Journal</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
@@ -13473,7 +13476,6 @@
   </programme>
   <programme channel="France24.fr" start="20261004171500 -0300" stop="20261004172400 -0300">
     <title lang="fr">Los observadores</title>
-    <desc lang="es">Un programa colaborativo realizado a partir de videos, fotografías y testimonios enviados por testigos de primera mano, que se verifican en la redacción de France 24. Un programa emblemático por su dimensión humana y participativa.</desc>
     <category lang="fr">Magazine d'information</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/1/6/6/15194661.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/4/6/15194648.jpg" />
@@ -14497,6 +14499,7 @@
   </programme>
   <programme channel="France24.fr" start="20261005172100 -0300" stop="20261005173000 -0300">
     <title lang="fr">Invitado del día</title>
+    <desc lang="es">Cada día en nuestra franja matinal, conversamos con variedad de expertos para que nos ayuden a ampliar la perspectiva sobre los grandes temas de la jornada.</desc>
     <category lang="fr">Interview</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/3/4/6/15194643.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/3/6/15194638.jpg" />
@@ -14550,6 +14553,7 @@
   </programme>
   <programme channel="France24.fr" start="20261005184500 -0300" stop="20261005185300 -0300">
     <title lang="fr">En foco</title>
+    <desc lang="es">Un reportaje único sobre temas que a menudo están por fuera de las noticias.</desc>
     <category lang="fr">Magazine d'information</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/4/5/15194545.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/9/4/15194496.jpg" />
@@ -15502,9 +15506,6 @@
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/0/1/7/15194710.jpg" />
     <episode-num system="onscreen">E1</episode-num>
   </programme>
-  <programme start="20261004134000 -0300" stop="20261004142000 -0300" channel="M1.ua@SD">
-    <title lang="uk">Хіт-парад «СвоєРідне»</title>
-  </programme>
   <programme start="20261004142000 -0300" stop="20261004180000 -0300" channel="M1.ua@SD">
     <title lang="uk">M1 Hits</title>
   </programme>
@@ -16391,21 +16392,6 @@
   <programme start="20261005033000 -0300" stop="20261005040000 -0300" channel="Meganoticias.cl">
     <title lang="es">Megainvestiga</title>
     <desc lang="es">Encuentre aquí todas las noticias de mega investiga en videos, artículos, fotos, virales y las últimas noticias de mega investiga que suceden en Chile.</desc>
-  </programme>
-  <programme start="20261004140000 -0300" stop="20261004141000 -0300" channel="NHKWorldJapan.jp">
-    <title lang="en">NHK Newsline</title>
-    <desc lang="en">NHK NEWSLINE brings you up to date with the latest from Japan, Asia and around the world. Our team covers breaking news and major developments, with trusted anchors to tie it all together.</desc>
-  </programme>
-  <programme start="20261004141000 -0300" stop="20261004142500 -0300" channel="NHKWorldJapan.jp">
-    <title lang="en">Laugh Then Think: Japan's Offbeat Science</title>
-    <sub-title lang="en">DIY Colonoscopy</sub-title>
-    <desc lang="en">DIY Colonoscopy: Gastroenterologist Horiuchi Akira strives to make colonoscopies more accessible, and has even worked on self-testing while seated.</desc>
-    <url>https://www3.nhk.or.jp/nhkworld/en/shows/laughthink/</url>
-  </programme>
-  <programme start="20261004142500 -0300" stop="20261004143000 -0300" channel="NHKWorldJapan.jp">
-    <title lang="en">Core Kyoto mini</title>
-    <sub-title lang="en">Stone Jizo: Neighborhood guardians watch over children</sub-title>
-    <desc lang="en">In summer, children gather at the street corners where Jizo statues stand for lively festivities. People pray for the health and success of their children during this cornerstone of faith.</desc>
   </programme>
   <programme start="20261004143000 -0300" stop="20261004144500 -0300" channel="NHKWorldJapan.jp">
     <title lang="en">Easy Japanese for Work</title>
@@ -19351,6 +19337,19 @@
   <programme start="20261012200000 -0300" stop="20261012201500 -0300" channel="NHKWorldJapan.jp">
     <title lang="en">NHK Newsline</title>
     <desc lang="en">NHK NEWSLINE brings you up to date with the latest from Japan, Asia and around the world. Our team covers breaking news and major developments, with trusted anchors to tie it all together.</desc>
+  </programme>
+  <programme start="20261012201500 -0300" stop="20261012202500 -0300" channel="NHKWorldJapan.jp">
+    <title lang="en">Herbal Symphony</title>
+    <sub-title lang="en">Spring The Wisdom of Herbs</sub-title>
+    <desc lang="en">In Uda, discover Japan's oldest private medicinal herb garden, where the natural landscape from 300 years ago is preserved in a botanical time capsule, a sanctuary of the local culture and history.</desc>
+  </programme>
+  <programme start="20261012202500 -0300" stop="20261012203000 -0300" channel="NHKWorldJapan.jp">
+    <title lang="en">JAPAN DELISH 5min.</title>
+    <sub-title lang="en">Curry Rice</sub-title>
+    <desc lang="en">"Curry rice," one of Japan's most iconic national dishes. How did Jimbocho, Tokyo become a curry town?</desc>
+  </programme>
+  <programme start="20261012203000 -0300" stop="20261012205700 -0300" channel="NHKWorldJapan.jp">
+    <title lang="en">Hometown Stories</title>
   </programme>
   <programme start="20261003210600 -0300" stop="20261003230800 -0300" channel="QelloConcertsbyStingray.ca">
     <title lang="en">Elton John: Live in London 2013</title>
