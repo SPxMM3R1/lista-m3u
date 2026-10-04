@@ -72,6 +72,14 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-04**: 48 transmisiones de iptv-org a Lista 2 (`m3u-externa.m3u`/`2.m3u`) y al
+  catálogo, para revisarlas en el editor: respaldos de nacionales (TVN, Mega, Canal 13, 24 Horas,
+  TVN3), canales chilenos nuevos (13 Realities, 13 Festival, 13T, T13 En Vivo, TV+, Bío Bío, UCV,
+  Vía X, Telecanal, TV Chile, Teletrak, Turf Móvil) y deportes (DSports, DSports 2, Claro Sports,
+  TyC, Win Sports, Win+ Fútbol, Movistar Deportes PE, L1 Max, Tigo Sports PY/GT, beIN XTRA ES,
+  Golf Channel LA, Azteca Deportes). Solo las que entregaron segmento en una prueba desde GitHub
+  Actions (EE. UU.); tvg-id `<id iptv-org>@<origen>`. Las de tlink.cl fallaron desde EE. UU. y no
+  se agregaron. Cinco ya existían en el catálogo con otro ID y no se duplicaron.
 - **2026-10-04**: ESPN 2 Latam (119) perdió su EPG desde la unión ES+AR: la reconciliación veía
   dos fichas (`Vavoo.es.ESPN2` y `Vavoo.ar.ESPN2`) y dejaba la fila «catalog_match_ambiguous».
   Ahora, si una fila TvVoo toca varias fichas, manda la de su alias estable
