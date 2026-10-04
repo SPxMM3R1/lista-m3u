@@ -607,7 +607,6 @@ NO_EPG_CHANNEL_IDS.update({
     "Vavoo.pt.EUROSPORT1@TvVoo",
     "Vavoo.pt.MTVPORTUGAL@TvVoo",
     "Vavoo.pt.STINGRAYICONCERTS@TvVoo",
-    "Vavoo.es.ESPN2@TvVoo",
     "Vavoo.es.DAZN4@TvVoo",
     "Vavoo.es.EUROSPORT1@TvVoo",
     "Vavoo.pl.BBCEARTH@TvVoo",
@@ -884,6 +883,9 @@ EPG_PROGRAMME_SOURCES.update({
     "Vavoo.uk.TNTSPORTS2@TvVoo": ("uk1", "TNT.Sports.2.HD.uk"),
     "Vavoo.uk.TNTSPORTS4@TvVoo": ("uk1", "TNT.Sports.4.HD.uk"),
     "Vavoo.uk.TNTSPORTS5@TvVoo": ("uk1", "TNT.Sports.5.HD.uk"),
+    # 118 y 120 son la misma señal: ESPN 2 Latinoamérica (feed sur), confirmado por el usuario.
+    "Vavoo.es.ESPN2@TvVoo": ("cl", "Canal.ESPN.2.(Chile).cl"),
+    "Vavoo.ar.ESPN2@TvVoo": ("cl", "Canal.ESPN.2.(Chile).cl"),
     "Vavoo.it.BLOOMBERGTV@TvVoo": ("it1", "Bloomberg.it"),
     "Vavoo.it.EUROSPORT1@TvVoo": ("it1", "Eurosport.Italia.it"),
     "Vavoo.it.SKYSPORTF1@TvVoo": ("it1", "Sky.Sport.F1.it"),
@@ -1037,6 +1039,9 @@ PLUTO_BACKUP_CHANNELS = {
 EPGSHARE_BACKUP_CHANNELS: dict[str, tuple[str, str]] = {
     "DW.de": ("mx1", "Canal.DW.(Latinoamérica).mx"),
     "DWEnglish.de": ("fr", "DW-TV.fr"),
+    # ESPN 2 Latinoamérica: la grilla de Bolivia es la misma y rellena huecos de la de Chile.
+    "Vavoo.es.ESPN2@TvVoo": ("ar1", "Canal.ESPN.2.(Bolivia).ar"),
+    "Vavoo.ar.ESPN2@TvVoo": ("ar1", "Canal.ESPN.2.(Bolivia).ar"),
 }
 RED_BULL_CHANNEL_LOCALES = {
     RED_BULL_WORLD_ID: "en",
