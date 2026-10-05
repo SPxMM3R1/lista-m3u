@@ -9,7 +9,7 @@
 
 ## Hoy, en una mirada
 
-- **CNCVerse**: contrato del motor incorporado; la resolución ocurre en VibeM3U/auxiliar local, no en el runner. Solo se publican referencias de búsqueda sin claves (`sportsworld|grupo|señal`), con `tvg-id` independiente terminado en `@CNCVerse`. No se incorporaron canales ni se alteró la selección. Las futuras entradas requieren app 0.5.67+ y comienzan como prueba (sin mantenimiento/EPG). TNT Sports 3 entregó video decodificado en la prueba Java, con logo TNT SPORTS 3 y snooker; no equivale a prueba en TV.
+- **CNCVerse**: 15 señales de prueba al final de Lista 1 y del orden activo de la app, números 121–135: TNT Sports 1–4, TSN 1–4, D Sports Chile/Argentina, CBS Sports Golazo Network, Premier Sports 1, Fubo Sports 1, FS1 y Tennis Channel 2. Referencias exactas en `contracts/cncverse-trial-channels.json`, sin IDs opacos ni claves; app mínima 0.5.67 (motor ya publicado, commit hermano `f35f874`). Marcadas `trial: true`, sin mantenimiento ni EPG hasta oficialización acordada. Solo logos locales existentes de TNT 1/3 y Premier 1; las demás sin logo asignado. Se conservan las filas previas, números, visibilidad y selección Highfly/TvVoo. Las 15 entregaron fotograma en el diagnóstico del 2026-10-05 UTC y sus etiquetas se reconsultaron antes de incorporarlas; no equivale a prueba en TV, estabilidad o validación del país anunciado.
 - **Qué es**: catálogo público de canales, guía EPG y logos que consume la app VibeM3U
   (Android TV), más el runner que los mantiene y el editor web (`site/`).
 - **Publicación**: todo corre en GitHub Actions; ningún proceso usa el PC del usuario.
@@ -25,7 +25,7 @@
 - **EPG**: 47 canales. Cada canal mezcla sus fuentes por prioridad (`epg_source_chain`): la de
   más arriba manda donde tiene programas y las demás solo rellenan huecos. Horizonte típico
   30–190 h.
-- **Tests**: 287 Python (`python -m unittest discover -s tests -p "test_*.py"`) y 39 JS
+- **Tests**: 290 Python (`python -m unittest discover -s tests -p "test_*.py"`) y 39 JS
   (`node --test tests/editor-core.test.mjs tests/layout-contract.test.mjs`).
 
 ## Pendientes y decisiones abiertas
@@ -73,6 +73,8 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-05** (UTC): incorporadas por petición del usuario 15 señales CNCVerse como pruebas al final de Lista 1 (121–135). Inventario, ambas copias de Lista 1, layout y presentación coordinados mediante `site/editor-core.mjs`; fixture de etiquetas exactas y tres regresiones para orden/numeración, contrato y exclusión EPG. D Sports conserva las banderas del proveedor y Golazo/Tennis Channel 2 usan `Link 1`. Sin tocar Lista 2, selección Highfly/TvVoo, app, resolutores ni canales anteriores. Motor hermano VibeM3U `f35f874` / v0.5.67, ya publicado.
+  - Validaciones locales: 290 Python y 39 JS en verde, contrato CNCVerse de 15 referencias correcto; parser M3U y proyección de layout del código publicado de app 0.5.67 aceptan las 15 al final con números 121–135 y no descartan filas de proveedor. No es prueba en dispositivo físico. Los órdenes de presentación de `1.m3u` y `m3u.m3u` permanecen iguales.
 - **2026-10-05** (UTC): CNCVerse declarado en `resolver-catalog.json` y validado por el runner (`tests/test_cncverse_contract.py`). Contrato coordinado con VibeM3U `cf106e8` (motor app/auxiliar) y `bde1201` (versión 0.5.67). Sin copiar Bridge ni extensión Cloudstream, sin ID opaco/ClearKey/HLS temporal público; sin cambios de membresía, EPG, logos, Highfly o TvVoo. 287 tests Python/39 JS en verde antes de las pruebas de app; publicación en commits separados. Auxiliar recompilado con Gradle offline; APK se verifica en CI/Release de VibeM3U.
 - **2026-10-04**: revisión de F1 UHD (22) y Main Event UHD (25): Highfly exige Premium para las
   dos hojas 4K (`now-34343434`, `now-srr343434`); su API gratuita entrega un marcador
