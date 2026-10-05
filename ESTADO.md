@@ -74,6 +74,8 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-05**: a pedido del usuario, el 38 (Fox Sports 1, `FoxSports1.us@Direct`, en prueba) va
+  a la papelera con `setRowState` del editor; el resto conserva número y orden.
 - **2026-10-05**: a pedido del usuario, el 120 (Sky Sports F1 UK de TvVoo, agregado el 04-10 para
   comparar con Highfly; daba lo mismo) va a la papelera con `setRowState` del editor. Los activos
   conservan número y orden; las filas en papelera que estaban intercaladas quedan al final (la
