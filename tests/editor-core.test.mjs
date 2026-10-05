@@ -105,6 +105,16 @@ test("custom direct-list labels are stable-id keyed and validated", () => {
   }
 });
 
+test("short list aliases keep the same order as their long names", () => {
+  const layout = sampleLayout();
+  const original = { schema: 1, orders: { "1.m3u": ["stale"], "2.m3u": ["stale"] }, logos: {}, names: {} };
+  const presentation = buildPresentationOverrides(layout, original);
+  assert.deepEqual(presentation.orders["1.m3u"], presentation.orders["m3u.m3u"]);
+  assert.deepEqual(presentation.orders["2.m3u"], presentation.orders["m3u-externa.m3u"]);
+  const withoutAliases = buildPresentationOverrides(layout, { schema: 1, orders: {}, logos: {}, names: {} });
+  assert.equal("1.m3u" in withoutAliases.orders, false);
+});
+
 test("presentation export writes stable order and local-logo references", () => {
   const layout = sampleLayout();
   layout.channels[0].logoOverride = "logos/tvn.png";

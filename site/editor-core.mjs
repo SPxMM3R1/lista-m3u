@@ -322,6 +322,10 @@ export function buildPresentationOverrides(layout, original) {
   const directExternal = directActive.filter((row) => row.sourceList === "2.m3u").map(stableId);
   root.orders["m3u.m3u"] = [...new Set(directMain)];
   root.orders["m3u-externa.m3u"] = [...new Set(directExternal)];
+  // 1.m3u y 2.m3u son alias cortos de las mismas listas: el publicador dirigido guarda su
+  // orden aparte y el contrato exige que sea idéntico. Si quedan desfasados, falla la publicación.
+  if ("1.m3u" in root.orders) root.orders["1.m3u"] = [...root.orders["m3u.m3u"]];
+  if ("2.m3u" in root.orders) root.orders["2.m3u"] = [...root.orders["m3u-externa.m3u"]];
   // Canales en prueba (2026-10-04): se publican en su lista, pero el runner no les busca
   // guía, no los revisa ni los repara hasta que se oficializan.
   root.trial_m3u = [...new Set(directActive.filter((row) => row.trial === true).map(stableId))]

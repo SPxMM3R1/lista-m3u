@@ -74,6 +74,11 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-05**: el cambio dirigido del 38 falló en `test_cncverse_contract`: `presentation-overrides`
+  guarda también `orders["1.m3u"]`/`["2.m3u"]` (alias que escribe el publicador dirigido) y el
+  contrato exige que igualen a `m3u.m3u`/`m3u-externa.m3u`; `buildPresentationOverrides` solo
+  actualizaba los nombres largos, así que cualquier cambio del editor (también el web) rompía la
+  publicación. Ahora copia el orden a los alias cuando existen (prueba nueva en editor-core).
 - **2026-10-05**: a pedido del usuario, el 38 (Fox Sports 1, `FoxSports1.us@Direct`, en prueba) va
   a la papelera con `setRowState` del editor; el resto conserva número y orden.
 - **2026-10-05**: a pedido del usuario, el 120 (Sky Sports F1 UK de TvVoo, agregado el 04-10 para
