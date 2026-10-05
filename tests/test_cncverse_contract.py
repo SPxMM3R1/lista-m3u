@@ -67,10 +67,37 @@ class CncVerseContractTest(unittest.TestCase):
         path = runner.CHANNEL_CATALOG_PATH.parent / "contracts/cncverse-link-audit-20261005.json"
         return json.loads(path.read_text(encoding="utf-8"))
 
+    def not247_exclusions(self):
+        path = runner.CHANNEL_CATALOG_PATH.parent / "contracts/cncverse-not247-exclusions.json"
+        return json.loads(path.read_text(encoding="utf-8"))
+
+    def removed_trial_ids(self):
+        failed = {row["tvgId"] for row in self.link_audit()["channels"]
+                  if row["decision"].startswith("removed_")}
+        requested = {row["tvgId"] for row in self.not247_exclusions()["channels"]}
+        return failed | requested
+
     def trial_specs(self):
-        removed = {row["tvgId"] for row in self.link_audit()["channels"]
-                   if row["decision"].startswith("removed_")}
+        removed = self.removed_trial_ids()
         return [spec for spec in self.all_trial_specs() if spec["tvgId"] not in removed]
+
+    def test_user_not247_exclusions_are_exact_and_separate_from_link_failures(self):
+        exclusions = self.not247_exclusions()
+        self.assertEqual("removed_by_user_not_247", exclusions["decision"])
+        self.assertEqual(12, exclusions["removed"])
+        self.assertEqual(190, exclusions["remainingCncVerse"])
+        self.assertEqual([140, 156, 204, 208, 227, 228, 229, 243, 247, 251, 258, 265],
+                         sorted(row["number"] for row in exclusions["channels"]))
+        requested = {row["tvgId"] for row in exclusions["channels"]}
+        self.assertEqual(12, len(requested))
+        previously_retained = {row["tvgId"] for row in self.link_audit()["channels"]
+                               if row["decision"] == "retained_active_link" and row["not247"]}
+        self.assertEqual(previously_retained, requested)
+        specs = {spec["tvgId"]: spec for spec in self.all_trial_specs()}
+        for row in exclusions["channels"]:
+            self.assertEqual(specs[row["tvgId"]]["name"], row["name"])
+            self.assertIn("[Not 24/7]", row["name"])
+        self.assertTrue(all("[Not 24/7]" not in spec["name"] for spec in self.trial_specs()))
 
     def test_link_audit_requires_fresh_recheck_before_removal(self):
         audit = self.link_audit()
@@ -105,8 +132,7 @@ class CncVerseContractTest(unittest.TestCase):
 
     def test_removed_trials_are_purged_not_hidden_and_cannot_be_reimported(self):
         root = runner.CHANNEL_CATALOG_PATH.parent
-        removed = {row["tvgId"] for row in self.link_audit()["channels"]
-                   if row["decision"].startswith("removed_")}
+        removed = self.removed_trial_ids()
         self.assertTrue(removed)
         layout = json.loads((root / "data/channel-editor-layout.json").read_text(encoding="utf-8"))
         presentation = json.loads((root / "presentation-overrides.json").read_text(encoding="utf-8"))
@@ -124,7 +150,7 @@ class CncVerseContractTest(unittest.TestCase):
         root = runner.CHANNEL_CATALOG_PATH.parent
         specs = self.trial_specs()
         expected = [spec["tvgId"] for spec in specs]
-        self.assertEqual(self.link_audit()["retained"], len(set(expected)))
+        self.assertEqual(self.not247_exclusions()["remainingCncVerse"], len(set(expected)))
         main = (root / "m3u.m3u").read_text(encoding="utf-8")
         self.assertEqual(main, (root / "1.m3u").read_text(encoding="utf-8"))
         channels = runner.parse_channels(main.splitlines())
