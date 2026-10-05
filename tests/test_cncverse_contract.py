@@ -58,16 +58,73 @@ class CncVerseContractTest(unittest.TestCase):
         ]
         self.assertEqual(existing + 1, runner.validate_playlist_resolvers(lines)["cncverse"])
 
-    def trial_specs(self):
+    def all_trial_specs(self):
         root = runner.CHANNEL_CATALOG_PATH.parent / "contracts"
         return [spec for filename in ["cncverse-trial-channels.json", "cncverse-chile-trial-channels.json"]
                 for spec in json.loads((root / filename).read_text(encoding="utf-8"))["channels"]]
+
+    def link_audit(self):
+        path = runner.CHANNEL_CATALOG_PATH.parent / "contracts/cncverse-link-audit-20261005.json"
+        return json.loads(path.read_text(encoding="utf-8"))
+
+    def trial_specs(self):
+        removed = {row["tvgId"] for row in self.link_audit()["channels"]
+                   if row["decision"].startswith("removed_")}
+        return [spec for spec in self.all_trial_specs() if spec["tvgId"] not in removed]
+
+    def test_link_audit_requires_fresh_recheck_before_removal(self):
+        audit = self.link_audit()
+        original_ids = {spec["tvgId"] for spec in self.all_trial_specs()}
+        self.assertEqual(258, len(original_ids))
+        self.assertEqual(original_ids, {row["tvgId"] for row in audit["channels"]})
+        self.assertEqual(258, audit["checked"])
+        self.assertEqual(258, len(audit["channels"]))
+        removed = []
+        for row in audit["channels"]:
+            attempts = row["attempts"]
+            self.assertTrue(attempts)
+            for attempt in attempts:
+                self.assertTrue(attempt["startedAtUtc"].endswith("Z"))
+                self.assertIsInstance(attempt["hlsValidated"], bool)
+            if row["decision"].startswith("removed_"):
+                removed.append(row["tvgId"])
+                self.assertEqual([1, 2], [attempt["round"] for attempt in attempts])
+                if row["decision"] == "removed_no_active_link":
+                    self.assertTrue(all(not attempt["hlsValidated"] for attempt in attempts))
+                else:
+                    self.assertEqual("removed_no_signal_plate", row["decision"])
+                    self.assertTrue(all(attempt["decodedFrame"] and attempt["noSignalPlate"]
+                                        for attempt in attempts))
+            else:
+                self.assertEqual("retained_active_link", row["decision"])
+                self.assertTrue(any(attempt["hlsValidated"] for attempt in attempts))
+        self.assertEqual(len(removed), audit["removed"])
+        self.assertEqual(258 - len(removed), audit["retained"])
+        for forbidden in ["https://", "token=", "clearkey", "/proxy/"]:
+            self.assertNotIn(forbidden, json.dumps(audit).lower())
+
+    def test_removed_trials_are_purged_not_hidden_and_cannot_be_reimported(self):
+        root = runner.CHANNEL_CATALOG_PATH.parent
+        removed = {row["tvgId"] for row in self.link_audit()["channels"]
+                   if row["decision"].startswith("removed_")}
+        self.assertTrue(removed)
+        layout = json.loads((root / "data/channel-editor-layout.json").read_text(encoding="utf-8"))
+        presentation = json.loads((root / "presentation-overrides.json").read_text(encoding="utf-8"))
+        self.assertFalse(removed & {row.get("tvgId") for row in layout["channels"]})
+        self.assertTrue(removed <= set(layout["excludedM3u"]))
+        self.assertTrue(removed <= set(presentation["excluded_m3u"]))
+        for filename in ["channel-catalog.m3u", "m3u.m3u", "1.m3u"]:
+            ids = {channel.tvg_id for channel in runner.parse_channels(
+                (root / filename).read_text(encoding="utf-8").splitlines())}
+            self.assertFalse(removed & ids)
+        for order in presentation["orders"].values():
+            self.assertFalse(removed & set(order))
 
     def test_trials_are_the_tail_of_both_main_aliases_and_exist_in_inventory(self):
         root = runner.CHANNEL_CATALOG_PATH.parent
         specs = self.trial_specs()
         expected = [spec["tvgId"] for spec in specs]
-        self.assertEqual(258, len(set(expected)))
+        self.assertEqual(self.link_audit()["retained"], len(set(expected)))
         main = (root / "m3u.m3u").read_text(encoding="utf-8")
         self.assertEqual(main, (root / "1.m3u").read_text(encoding="utf-8"))
         channels = runner.parse_channels(main.splitlines())
@@ -84,7 +141,7 @@ class CncVerseContractTest(unittest.TestCase):
                 self.assertEqual(channel.url, inventory[channel.tvg_id].url)
                 self.assertEqual(spec["name"], channel.name)
         # The validator requires the full resolver inventory, not a public partition.
-        self.assertEqual(258, runner.validate_playlist_resolvers(
+        self.assertEqual(len(specs), runner.validate_playlist_resolvers(
             runner.CHANNEL_CATALOG_PATH.read_text(encoding="utf-8").splitlines())["cncverse"])
 
     def test_trials_have_active_editorial_rows_and_numbers_at_the_end(self):
@@ -94,7 +151,10 @@ class CncVerseContractTest(unittest.TestCase):
                         key=lambda row: row["order"])
         specs = self.trial_specs()
         self.assertEqual([spec["tvgId"] for spec in specs], [row["tvgId"] for row in active[-len(specs):]])
-        self.assertEqual(list(range(121, 379)), [row["number"] for row in active[-len(specs):]])
+        original_numbers = {spec["tvgId"]: 121 + index
+                            for index, spec in enumerate(self.all_trial_specs())}
+        self.assertEqual([original_numbers[spec["tvgId"]] for spec in specs],
+                         [row["number"] for row in active[-len(specs):]])
         for row in active[-len(specs):]:
             self.assertEqual("m3u", row["kind"])
             self.assertEqual("1.m3u", row["sourceList"])
