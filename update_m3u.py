@@ -104,8 +104,8 @@ LOCAL_LOGOS_PUBLIC_BASE = f"{PUBLIC_RAW_BASE}/logos"
 RESOLVER_SCHEMA_VERSION = 1
 # This is the base version of the checked-in resolver rules. The writer keeps
 # the patch component monotonic when the checked-in alias map changes.
-RESOLVER_CATALOG_VERSION = "2026.09.01.4"
-ALLOWED_RESOLVER_ENGINES = {"tvn", "meganoticias", "tvvoo", "highfly"}
+RESOLVER_CATALOG_VERSION = "2026.10.05.1"
+ALLOWED_RESOLVER_ENGINES = {"tvn", "meganoticias", "tvvoo", "highfly", "cncverse"}
 TVVOO_RECIPE_ID = "bounded-payload-v1"
 TVVOO_VALIDATION_MODE = "media-signature-v1"
 MAIN_PLAYLIST_RESOLVERS = frozenset({"direct", "tvn", "meganoticias"})
@@ -1736,6 +1736,15 @@ def build_resolver_catalog(*, catalog_version: str | None = None) -> dict:
                     ),
                     "manifestUrl": HIGHFLY_MANIFEST_URL,
                     "allowHttpFallback": True,
+                },
+            },
+            {
+                "id": "cncverse", "name": "CNCVerse", "engine": "cncverse",
+                "enabledByDefault": True, "cacheTtlSeconds": 120,
+                "match": {"tvgIdSuffixes": ["@CNCVerse"]},
+                "config": {
+                    "manifestUrl": "https://cncverse.dpdns.org/u/p_0md89st1e5th/manifest.json",
+                    "resolutionBudgetMs": 20000,
                 },
             },
         ],
@@ -3661,7 +3670,28 @@ def apply_vibem3u_selection(
     return changed, resource_updates
 
 
+def cncverse_reference_id(url: str) -> str:
+    """Only editorial names are durable; opaque Bridge ids/URLs stay in RAM."""
+    parsed = urlparse(url)
+    if parsed.scheme != "vibem3u" or parsed.netloc != "resolver" or parsed.query or parsed.fragment:
+        return ""
+    if not parsed.path.startswith("/cncverse/") or "/" in parsed.path[len("/cncverse/"):]:
+        return ""
+    reference = unquote(parsed.path[len("/cncverse/"):])
+    parts = reference.split("|")
+    if len(parts) != 3 or parts[0] != "sportsworld" or len(reference) > 256:
+        return ""
+    if any(not part.strip() or part != part.strip() for part in parts):
+        return ""
+    if any(ord(c) < 32 or ord(c) == 127 or c in '/\\?#=\"' for c in reference):
+        return ""
+    return reference
+
+
 def resolver_attributes_for(channel: Channel) -> dict[str, str]:
+    if (reference := cncverse_reference_id(channel.url)):
+        return {"x-resolver": "cncverse", "x-resolver-id": reference,
+                "x-resolver-refresh": "on_play"}
     if has_tvvoo_reference_scheme(channel):
         # The EXTINF line is authoritative for a reference.  Its aliases,
         # logo and any presentation fields must survive a catalogue update;
@@ -4346,6 +4376,7 @@ def validate_resolver_catalog(path: Path = RESOLVER_CATALOG_PATH) -> dict:
         "papacito.cfd",
         "sports.highfly.to",
         "raw.githubusercontent.com",
+        "cncverse.dpdns.org",
     }
     for url in iter_catalog_urls(catalog):
         parsed = urlparse(url.replace("{streamId}", "stream").replace("{id}", "id"))
@@ -4394,6 +4425,12 @@ def validate_playlist_resolvers(lines: list[str]) -> dict[str, int]:
             for name in RESOLVER_ATTRIBUTE_NAMES
             if (match := re.search(rf'\b{re.escape(name)}="([^"]*)"', line))
         }
+        if urlparse(channel.url).scheme == "vibem3u":
+            expected = resolver_attributes_for(channel)
+            if not expected or attrs != expected or not channel.tvg_id.endswith("@CNCVerse"):
+                raise ValueError(f"{channel.name}: referencia CNCVerse fuera del contrato")
+            counts["cncverse"] += 1
+            continue
         if has_tvvoo_reference_scheme(channel):
             if not is_tvvoo_reference(channel):
                 raise ValueError(f"{channel.name}: referencia TvVoo invalida")

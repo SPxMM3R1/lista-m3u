@@ -29,6 +29,7 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
   runner, la app y el auxiliar (copia idéntica en VibeM3U). Cualquier regla nueva de filas
   de proveedor se agrega ahí primero.
 - Detalle: `VIBEM3U_ID_CONTRACT_EPG_LOGOS.md`.
+- CNCVerse: `tvg-id` es identidad pública, `sportsworld|grupo|señal` es localizador editorial de búsqueda exacta. IDs opacos Stremio, ClearKey y enlaces del proxy solo en RAM. No distribuir código propietario del Bridge/extensión; cliente HTTP independiente. Las futuras filas CNCVerse requieren app 0.5.67+ y nacen en prueba (`trial: true`), sin mantenimiento/EPG hasta acordar su oficialización. Agregar un motor no autoriza incorporar canales por cuenta propia.
 
 ## 3. Catálogo editorial
 

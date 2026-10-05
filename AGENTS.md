@@ -40,8 +40,8 @@ agente debe poder retomar el trabajo solo con lo que está en el repositorio.
 ## Cómo trabajar
 
 - Tests obligatorios antes de commitear:
-  - `python -m unittest discover -s tests -p "test_*.py"` (esperado: 269 en verde).
-  - `node --test tests/editor-core.test.mjs tests/layout-contract.test.mjs` (esperado: 34 en verde).
+  - `python -m unittest discover -s tests -p "test_*.py"` (287 pruebas, incluidos CNCVerse y diagnóstico Premium).
+  - `node --test tests/editor-core.test.mjs tests/layout-contract.test.mjs` (39 pruebas).
 - Validar el editor local sin tocar el repo: `python scripts/build_site_data.py --output <carpeta temp>` (solo acepta salidas dentro de la carpeta temporal).
 - Commits en español con prefijo: `feat(editor)`, `fix(resolvers)`, `feat(epg)`, `fix(catalogo)`, `chore(...)`.
 - Cambios del editor: primero `site/editor-core.mjs` (o `provider-catalog.mjs`) con test, después `site/editor.js`, `site/index.html` y `site/styles.css`.
@@ -60,6 +60,7 @@ agente debe poder retomar el trabajo solo con lo que está en el repositorio.
 
 ## Publicación automática
 
+- **CNCVerse** (2026-10-05): `resolver-catalog.json` declara el motor y `update_m3u.py` valida referencias `vibem3u://resolver/cncverse/<ref codificada>`, con `ref = sportsworld|<grupo>|<señal>`. Solo nombres de búsqueda, nunca IDs opacos Stremio, ClearKeys ni enlaces proxy. `tvg-id` termina en `@CNCVerse` y sigue siendo identidad pública. Exige VibeM3U 0.5.67+; esta integración NO cambia canales ni agrega un catálogo automáticamente. Las futuras entradas deben comenzar como `trial: true`: quedan fuera del mantenimiento y EPG hasta validar su fuente y acordar oficialización. No pasar fuentes CNCVerse al job directo ni guardar resultados del puente.
 - **Señal preferida** (2026-10-04): una fila M3U puede llevar `preferredM3u` (tvg-id de otra fila M3U activa de la misma señal; campo «Señal preferida» en el editor). La app 0.5.65+ abre esa señal primero, usa la propia de respaldo y no muestra la otra fila sola. Solo es del layout; el runner no lo usa.
 - **Respaldo TvVoo** (2026-10-04): una fila M3U puede llevar `backupTvVoo` (catalogKey de la misma señal en TvVoo; campo «Respaldo TvVoo» en el editor). Es solo del layout: la app 0.5.64+ abre el directo y pasa a TvVoo si falla. El runner no lo usa.
 - Títulos EPG (`normalize_epg_title`): los títulos en mayúsculas pasan a mayúscula inicial por palabra, salvo siglas (`EPG_TITLE_ACRONYMS`) y códigos cortos con números («A3D»); en todos, la letra tras «: » va en mayúscula.

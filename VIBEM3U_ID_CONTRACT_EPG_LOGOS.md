@@ -29,6 +29,25 @@ URL HLS          = resultado temporal de reproducción; nunca es una identidad
 
 ## Regla obligatoria para Highfly
 
+### Extensión CNCVerse (2026-10-05)
+
+CNCVerse conserva la misma separación entre identidad y resolución: `tvg-id`
+estable terminado en `@CNCVerse` para la fila M3U, y referencia editorial
+`sportsworld|<nombre exacto del grupo>|<etiqueta exacta de la señal>` para buscarla.
+Se publica codificada en `vibem3u://resolver/cncverse/<referencia>` y se declara
+con `x-resolver="cncverse"`, `x-resolver-id` y `x-resolver-refresh="on_play"`.
+Cambiar el nombre visible no cambia la referencia de búsqueda ni el `tvg-id`.
+
+Los `metas[].id` de Stremio pueden contener material sensible: se descubren
+de nuevo al abrir y nunca se persisten ni se usan como identidad. ClearKeys,
+cabeceras y URLs temporales solo viven en RAM. La app/auxiliar usa el HLS del
+proxy CNCVerse (HTTPS, master conservado para no perder audio separado); no
+incluye código del Bridge ni implementa un servidor de descifrado.
+
+No hay importación automática de este catálogo. Las primeras entradas requieren
+app 0.5.67+ y `trial: true`; no se asigna EPG/identidad de otro feed por parecido
+de nombres. Un grupo ambiguo o una señal ausente falla sin seleccionar otra.
+
 Para Highfly, `catalogKey` es la identidad estable que se utilizará para
 relacionar el canal con el catálogo público, la EPG y el logo.
 

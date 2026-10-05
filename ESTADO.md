@@ -5,10 +5,11 @@
 > cubre la app). **Al terminar cualquier cambio, actualiza este archivo en el mismo commit**:
 > la sección «Hoy» si cambió el estado y una línea nueva en «Bitácora».
 
-Última actualización: **2026-10-04**.
+Última actualización: **2026-10-05** (UTC).
 
 ## Hoy, en una mirada
 
+- **CNCVerse**: contrato del motor incorporado; la resolución ocurre en VibeM3U/auxiliar local, no en el runner. Solo se publican referencias de búsqueda sin claves (`sportsworld|grupo|señal`), con `tvg-id` independiente terminado en `@CNCVerse`. No se incorporaron canales ni se alteró la selección. Las futuras entradas requieren app 0.5.67+ y comienzan como prueba (sin mantenimiento/EPG). TNT Sports 3 entregó video decodificado en la prueba Java, con logo TNT SPORTS 3 y snooker; no equivale a prueba en TV.
 - **Qué es**: catálogo público de canales, guía EPG y logos que consume la app VibeM3U
   (Android TV), más el runner que los mantiene y el editor web (`site/`).
 - **Publicación**: todo corre en GitHub Actions; ningún proceso usa el PC del usuario.
@@ -24,7 +25,7 @@
 - **EPG**: 47 canales. Cada canal mezcla sus fuentes por prioridad (`epg_source_chain`): la de
   más arriba manda donde tiene programas y las demás solo rellenan huecos. Horizonte típico
   30–190 h.
-- **Tests**: 269 Python (`python -m unittest discover -s tests -p "test_*.py"`) y 34 JS
+- **Tests**: 287 Python (`python -m unittest discover -s tests -p "test_*.py"`) y 39 JS
   (`node --test tests/editor-core.test.mjs tests/layout-contract.test.mjs`).
 
 ## Pendientes y decisiones abiertas
@@ -72,6 +73,7 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-05** (UTC): CNCVerse declarado en `resolver-catalog.json` y validado por el runner (`tests/test_cncverse_contract.py`). Contrato coordinado con VibeM3U `cf106e8` (motor app/auxiliar) y `bde1201` (versión 0.5.67). Sin copiar Bridge ni extensión Cloudstream, sin ID opaco/ClearKey/HLS temporal público; sin cambios de membresía, EPG, logos, Highfly o TvVoo. 287 tests Python/39 JS en verde antes de las pruebas de app; publicación en commits separados. Auxiliar recompilado con Gradle offline; APK se verifica en CI/Release de VibeM3U.
 - **2026-10-04**: revisión de F1 UHD (22) y Main Event UHD (25): Highfly exige Premium para las
   dos hojas 4K (`now-34343434`, `now-srr343434`); su API gratuita entrega un marcador
   (`url` www.google.com, «🔒 Upgrade to Premium») en vez de HLS. El runner no estaba roto:
