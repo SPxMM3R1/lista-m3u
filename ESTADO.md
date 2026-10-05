@@ -5,7 +5,7 @@
 > cubre la app). **Al terminar cualquier cambio, actualiza este archivo en el mismo commit**:
 > la sección «Hoy» si cambió el estado y una línea nueva en «Bitácora».
 
-Última actualización: **2026-10-03**.
+Última actualización: **2026-10-04**.
 
 ## Hoy, en una mirada
 
@@ -72,6 +72,15 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-04**: revisión de F1 UHD (22) y Main Event UHD (25): Highfly exige Premium para las
+  dos hojas 4K (`now-34343434`, `now-srr343434`); su API gratuita entrega un marcador
+  (`url` www.google.com, «🔒 Upgrade to Premium») en vez de HLS. El runner no estaba roto:
+  F1 UHD sigue publicando la FHD gratuita (`now-545445`) como respaldo, según lo decidido el
+  03-10; Main Event UHD no tiene hoja gratuita y solo funciona con Premium vinculado en la app
+  (Main Event de TvVoo está en el 24). Cambio: `fetch_highfly_stream_urls_for_slug` falla con
+  «hoja Highfly bloqueada por Premium» (`highfly_payload_premium_locked`) y `highfly_live.py`
+  muestra en el log el motivo de cada hoja sin señal. Hosts Premium (`premium*.highfly.to`)
+  responden normal (401 con token de prueba).
 - **2026-10-04**: Canal 13 (004) con `preferredM3u` = `Canal13.cl@Direct187` (079, misma señal en
   mejor calidad): VibeM3U 0.5.65 abre primero la 079 y, si falla, la propia del 004; la 079 deja de
   verse sola en la app (sigue publicada en Lista 1, en prueba). Sky Sports F1 UK de TvVoo (FHD, con

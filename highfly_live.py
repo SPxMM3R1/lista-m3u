@@ -58,14 +58,16 @@ def candidate_slugs(row: dict) -> list[str]:
     return candidates
 
 
-def live_slug(row: dict, fetch=None) -> str | None:
+def live_slug(row: dict, fetch=None, reasons: list[str] | None = None) -> str | None:
     """Primera hoja del canal que Highfly entrega con señal en este momento."""
     fetch = fetch or update_m3u.fetch_highfly_stream_urls_for_slug
     for slug in candidate_slugs(row):
         try:
             if fetch(slug):
                 return slug
-        except Exception:  # noqa: BLE001 - una hoja caída no detiene las demás
+        except Exception as error:  # noqa: BLE001 - una hoja caída no detiene las demás
+            if reasons is not None:
+                reasons.append(f"{slug}: {error}")
             continue
     return None
 
@@ -73,9 +75,11 @@ def live_slug(row: dict, fetch=None) -> str | None:
 def build_document(rows: list[dict], fetch=None, now: datetime | None = None) -> dict:
     channels = []
     for row in rows:
-        slug = live_slug(row, fetch)
+        reasons: list[str] = []
+        slug = live_slug(row, fetch, reasons)
         if not slug:
-            print(f"  [--] {row.get('name')}: Highfly sin señal ahora; la app usará su resolutor")
+            detail = f" ({'; '.join(reasons)})" if reasons else ""
+            print(f"  [--] {row.get('name')}: Highfly sin señal ahora{detail}; la app usará su resolutor")
             continue
         url = update_m3u.highfly_fallback_url(slug)
         if not update_m3u.is_highfly_leaf_url(url):

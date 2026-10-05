@@ -30,6 +30,21 @@ class HighflyLiveTest(unittest.TestCase):
                 [row()], fetch=lambda slug: [] if slug == "now-545445" else ["ok"])
         self.assertEqual("now-34343434", document["channels"][0]["slug"])
 
+    def test_uhd_channel_falls_back_to_the_free_fhd_leaf(self) -> None:
+        # Decisión 2026-10-03: sin Premium, la fila UHD publica la FHD gratuita como respaldo.
+        uhd = row(key="SkySportsF1UHD.uk", name="SKY SPORTS F1 UHD", slug="now-34343434")
+        with patch.dict(update_m3u.HIGHFLY_RUNTIME_VARIANTS, {"skysportsf1": ["now-34343434", "now-545445"]}, clear=True):
+            document = highfly_live.build_document(
+                [uhd], fetch=lambda slug: [] if slug == "now-34343434" else ["ok"])
+        self.assertEqual("now-545445", document["channels"][0]["slug"])
+
+    def test_premium_locked_leaf_is_reported(self) -> None:
+        reasons = []
+        def fetch(slug):
+            raise ValueError("hoja Highfly bloqueada por Premium")
+        self.assertIsNone(highfly_live.live_slug(row(), fetch, reasons))
+        self.assertIn("Premium", reasons[0])
+
     def test_channel_without_signal_is_not_published(self) -> None:
         document = highfly_live.build_document([row()], fetch=lambda slug: [])
         self.assertEqual([], document["channels"])

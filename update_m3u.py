@@ -4816,6 +4816,18 @@ _HIGHFLY_QUALITY_WORD_PATTERN = re.compile(
 )
 
 
+def highfly_payload_premium_locked(payload: object) -> bool:
+    """Highfly devuelve un marcador (sin HLS) cuando la hoja exige Premium."""
+    streams = payload.get("streams") if isinstance(payload, dict) else None
+    if not isinstance(streams, list):
+        return False
+    return any(
+        isinstance(stream, dict)
+        and "premium" in f"{stream.get('name', '')} {stream.get('title', '')}".casefold()
+        for stream in streams[:32]
+    )
+
+
 def highfly_catalog_name_key(value: object) -> str:
     """Normalize a Highfly display name without its quality tag.
 
@@ -8692,7 +8704,10 @@ def fetch_highfly_stream_urls_for_slug(slug: str) -> list[str]:
         payload = json.loads(body.decode("utf-8-sig"))
     except json.JSONDecodeError as error:
         raise ValueError("respuesta Highfly no es JSON valido") from error
-    return highfly_stream_urls_from_payload(payload)
+    urls = highfly_stream_urls_from_payload(payload)
+    if not urls and highfly_payload_premium_locked(payload):
+        raise ValueError("hoja Highfly bloqueada por Premium")
+    return urls
 
 
 def fresh_highfly_stream_urls(
