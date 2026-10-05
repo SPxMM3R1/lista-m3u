@@ -21,6 +21,7 @@ import {
   setTrial,
   setBackupTvVoo,
   setPreferredM3u,
+  setBackupM3u,
   removeRowsPermanently,
 } from "../site/editor-core.mjs";
 import {
@@ -597,4 +598,23 @@ test("a direct row can prefer another M3U row of the same signal", () => {
   broken.channels[0].preferredM3u = "NoExiste";
   assert.ok(validateLayout(broken).some((problem) => problem.includes("señal preferida")));
   assert.equal(setPreferredM3u(linked, "m3u:0107", "").channels[0].preferredM3u, undefined);
+});
+
+test("a direct row keeps an ordered list of backup M3U rows", () => {
+  const layout = {
+    schemaVersion: 1,
+    excludedM3u: [],
+    channels: [
+      { kind: "m3u", tvgId: "0104", name: "TVN", sourceList: "1.m3u", order: 1, number: 1, state: "active" },
+      { kind: "m3u", tvgId: "TVN.cl@Direct38b", name: "TVN [IP 38]", sourceList: "1.m3u", order: 2, number: 73, state: "active" },
+      { kind: "m3u", tvgId: "TVN.cl@Direct45", name: "TVN [IP 45]", sourceList: "1.m3u", order: 3, number: 74, state: "active" },
+    ],
+  };
+  const linked = setBackupM3u(layout, "m3u:0104", ["TVN.cl@Direct38b", "TVN.cl@Direct45", "0104", "TVN.cl@Direct45"]);
+  assert.deepEqual(linked.channels[0].backupm3u, ["TVN.cl@Direct38b", "TVN.cl@Direct45"]);
+  assert.deepEqual(validateLayout(linked), []);
+  const broken = structuredClone(linked);
+  broken.channels[0].backupm3u = ["NoExiste"];
+  assert.ok(validateLayout(broken).some((problem) => problem.includes("respaldos")));
+  assert.equal(setBackupM3u(linked, "m3u:0104", []).channels[0].backupm3u, undefined);
 });

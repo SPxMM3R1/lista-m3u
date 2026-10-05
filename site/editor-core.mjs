@@ -2,7 +2,7 @@ const LAYOUT_FIELDS = [
   "kind", "provider", "catalogKey", "providerResourceId", "resolverSlug",
   "tvgId", "name", "group", "category", "country", "countryKey",
   "aliases", "resolverAliases", "identityState", "sourceList", "logoPath",
-  "logoOverride", "displayName", "order", "number", "state", "trial", "backupTvVoo", "preferredM3u",
+  "logoOverride", "displayName", "order", "number", "state", "trial", "backupTvVoo", "preferredM3u", "backupm3u",
 ];
 
 export function stableId(row) {
@@ -79,6 +79,14 @@ export function validateLayout(layout) {
       if (row.kind !== "m3u" || typeof row.preferredM3u !== "string" || row.preferredM3u === row.tvgId || !target) {
         problems.push(`${row.name || id}: la señal preferida debe ser otro canal M3U de la lista.`);
       }
+    }
+    if (row.backupm3u !== undefined) {
+      const ids = Array.isArray(row.backupm3u) ? row.backupm3u : [];
+      const valid = row.kind === "m3u" && Array.isArray(row.backupm3u) && ids.length > 0 && ids.length <= 8
+        && new Set(ids).size === ids.length
+        && ids.every((value) => typeof value === "string" && value !== row.tvgId && value !== row.preferredM3u
+          && layout.channels.some((item) => item.kind === "m3u" && item.tvgId === value));
+      if (!valid) problems.push(`${row.name || id}: los respaldos deben ser otros canales M3U de la lista (hasta 8, sin repetir).`);
     }
     if (row.displayName !== undefined && (
       typeof row.displayName !== "string"
@@ -358,6 +366,20 @@ export function setPreferredM3u(layout, key, tvgId) {
   if (!row || row.kind !== "m3u") return current;
   if (tvgId && tvgId !== row.tvgId) row.preferredM3u = tvgId;
   else delete row.preferredM3u;
+  return current;
+}
+
+/**
+ * Respaldos directos de un canal (0.5.72): otras filas M3U de la misma señal, en el orden en que
+ * la app las prueba después de la propia. Una lista vacía los quita.
+ */
+export function setBackupM3u(layout, key, tvgIds) {
+  const current = structuredClone(layout);
+  const row = current.channels.find((item) => rowKey(item) === key);
+  if (!row || row.kind !== "m3u") return current;
+  const ids = [...new Set((tvgIds ?? []).filter((value) => value && value !== row.tvgId && value !== row.preferredM3u))];
+  if (ids.length) row.backupm3u = ids.slice(0, 8);
+  else delete row.backupm3u;
   return current;
 }
 

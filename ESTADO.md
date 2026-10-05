@@ -74,6 +74,13 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-05**: respaldos directos múltiples (`backupm3u` en el layout, app 0.5.72): lista ordenada
+  de tvg-id de otras filas M3U de la misma señal que la app prueba después de la propia (y de la
+  preferida, si hay). Editor: `setBackupM3u`, validación (hasta 8, sin repetir, filas M3U
+  existentes), sección «Respaldos directos» en el inspector y etiquetas «+ N respaldos» / «Dentro
+  de NNN». A pedido del usuario: TVN (01) ← 73 y 74; Canal 13 (004) ← 85 (después del 079 y su
+  propia señal). El runner no cambia: las filas siguen publicadas en Lista 1 (en prueba) y la app
+  las oculta.
 - **2026-10-05**: el cambio dirigido del 38 falló en `test_cncverse_contract`: `presentation-overrides`
   guarda también `orders["1.m3u"]`/`["2.m3u"]` (alias que escribe el publicador dirigido) y el
   contrato exige que igualen a `m3u.m3u`/`m3u-externa.m3u`; `buildPresentationOverrides` solo
