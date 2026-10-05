@@ -1,7 +1,8 @@
 {
   "schema": 1,
-  "updated_at": "2026-10-05T02:34:10.523467Z",
+  "updated_at": "2026-10-05T03:16:13.977334Z",
   "channels": [
+    "0102",
     "1437",
     "MTVBiggestPop.us",
     "MTVFlowLatino.us",
@@ -9,35 +10,51 @@
     "Meganoticias.cl"
   ],
   "details": {
+    "0102": {
+      "kind": "hueco",
+      "futureHours": 170.2,
+      "requiredHours": 18.0,
+      "gaps": [
+        [
+          "2026-10-05T03:15:48Z",
+          "2026-10-05T10:00:00Z"
+        ]
+      ]
+    },
     "1437": {
       "kind": "guia-corta",
-      "futureHours": 5.7,
+      "futureHours": 5.0,
       "requiredHours": 18.0,
       "gaps": []
     },
     "MTVBiggestPop.us": {
       "kind": "guia-corta",
-      "futureHours": 13.7,
+      "futureHours": 13.0,
       "requiredHours": 18.0,
       "gaps": []
     },
     "MTVFlowLatino.us": {
       "kind": "guia-corta",
-      "futureHours": 15.4,
+      "futureHours": 14.7,
       "requiredHours": 18.0,
       "gaps": []
     },
     "MTVSpankinNew.us": {
       "kind": "guia-corta",
-      "futureHours": 13.9,
+      "futureHours": 13.2,
       "requiredHours": 18.0,
       "gaps": []
     },
     "Meganoticias.cl": {
-      "kind": "guia-corta",
-      "futureHours": 6.2,
+      "kind": "hueco",
+      "futureHours": 47.7,
       "requiredHours": 18.0,
-      "gaps": []
+      "gaps": [
+        [
+          "2026-10-05T08:45:00Z",
+          "2026-10-05T21:15:48Z"
+        ]
+      ]
     }
   }
 }
