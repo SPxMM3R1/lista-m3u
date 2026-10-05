@@ -33,6 +33,7 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
 
 ## 3. Catálogo editorial
 
+- CNCVerse Chile TV requiere VibeM3U 0.5.68+: `chiletv|nombre exacto de metadata|auto` resuelve solo HLS de esa entrada única, no grupos deportivos ni entradas vecinas. La anotación literal `[Not 24/7]` va percent-encoded. Sin altas automáticas ni DRM crudo; destinos públicos validados, URLs/IDs opacos solo RAM. TSN 5 y las 242 entradas autorizadas van al final de Lista 1 como pruebas, sin alterar las filas previas ni asignar EPG por parecido. Fixture editorial `contracts/cncverse-chile-trial-channels.json`; sus IDs no cambian si hay que corregir un localizador.
 - Excepción explícita BT/TNT **solo UK**: lista cerrada de nombres completos y
   `group:uk`, comprobada con fotogramas el 02-10-2026. Ver
   `TVVOO_UK_EQUIVALENCIAS.md`. BT ESPN → TNT 4; TNT SPORTS ESPN (ESPN US) y BT 3 HD
@@ -118,7 +119,7 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
 - `versionCode` siempre mayor al anterior (Android lo exige).
 - Release: commit `chore(release): bump VibeM3U a X.Y.Z` → push → CI verde → tag `vX.Y.Z` →
   workflow "Publicar APK" → verificar tamaño y SHA-256.
-- No hay SDK Android local: la app se valida en CI y en la TV.
+- SDK Android local 35/36 confirmado el 05-10 (`android info sdk`); la app se publica únicamente tras CI completo y APK verificado. Una validación JVM no sustituye prueba Android/TV.
 - Control: OK muestra el OSD; segundo OK o INFO, Detalle del programa; ◀ o GUIDE, Guía
   completa; ▶, fuentes y calidad; OK mantenido o MENU, Opciones.
 - Guía: OK corto abre el canal; OK mantenido programa o quita un recordatorio (campana cyan).

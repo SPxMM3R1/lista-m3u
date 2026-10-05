@@ -8,6 +8,15 @@ import update_m3u as runner
 
 
 class CncVerseContractTest(unittest.TestCase):
+    def test_chile_exact_channel_auto_mode_and_not_247_annotation(self):
+        for ref in ["chiletv|13C (1080p)|auto", "chiletv|Holvoet TV (720p) [Not 24/7]|auto"]:
+            self.assertEqual(ref, runner.cncverse_reference_id(
+                "vibem3u://resolver/cncverse/" + quote(ref, safe="")))
+        for ref in ["chiletv|13C|other", "chiletv|http://local|auto", "unknown|13C|auto",
+                    "chiletv|13C?token=a|auto", "sportsworld|TV [Not 24/7]|auto"]:
+            self.assertEqual("", runner.cncverse_reference_id(
+                "vibem3u://resolver/cncverse/" + quote(ref, safe="")))
+
     def test_reference_contains_only_editorial_group_and_signal(self):
         ref = "sportsworld|TNT Sports UK|TNT Sports 1"
         uri = "vibem3u://resolver/cncverse/" + quote(ref, safe="")
@@ -50,31 +59,32 @@ class CncVerseContractTest(unittest.TestCase):
         self.assertEqual(existing + 1, runner.validate_playlist_resolvers(lines)["cncverse"])
 
     def trial_specs(self):
-        path = runner.CHANNEL_CATALOG_PATH.parent / "contracts/cncverse-trial-channels.json"
-        return json.loads(path.read_text(encoding="utf-8"))["channels"]
+        root = runner.CHANNEL_CATALOG_PATH.parent / "contracts"
+        return [spec for filename in ["cncverse-trial-channels.json", "cncverse-chile-trial-channels.json"]
+                for spec in json.loads((root / filename).read_text(encoding="utf-8"))["channels"]]
 
     def test_trials_are_the_tail_of_both_main_aliases_and_exist_in_inventory(self):
         root = runner.CHANNEL_CATALOG_PATH.parent
         specs = self.trial_specs()
         expected = [spec["tvgId"] for spec in specs]
-        self.assertEqual(15, len(set(expected)))
+        self.assertEqual(258, len(set(expected)))
         main = (root / "m3u.m3u").read_text(encoding="utf-8")
         self.assertEqual(main, (root / "1.m3u").read_text(encoding="utf-8"))
         channels = runner.parse_channels(main.splitlines())
-        self.assertEqual(expected, [channel.tvg_id for channel in channels[-15:]])
+        self.assertEqual(expected, [channel.tvg_id for channel in channels[-len(expected):]])
         presentation = json.loads((root / "presentation-overrides.json").read_text(encoding="utf-8"))
         self.assertEqual(presentation["orders"]["1.m3u"], presentation["orders"]["m3u.m3u"])
-        self.assertEqual(expected, presentation["orders"]["m3u.m3u"][-15:])
+        self.assertEqual(expected, presentation["orders"]["m3u.m3u"][-len(expected):])
         inventory = {channel.tvg_id: channel for channel in runner.parse_channels(
             runner.CHANNEL_CATALOG_PATH.read_text(encoding="utf-8").splitlines())}
-        for spec, channel in zip(specs, channels[-15:]):
+        for spec, channel in zip(specs, channels[-len(expected):]):
             with self.subTest(tvgId=spec["tvgId"]):
-                ref = f'sportsworld|{spec["group"]}|{spec["label"]}'
+                ref = f'{spec.get("catalog", "sportsworld")}|{spec["group"]}|{spec["label"]}'
                 self.assertEqual(ref, runner.cncverse_reference_id(channel.url))
                 self.assertEqual(channel.url, inventory[channel.tvg_id].url)
                 self.assertEqual(spec["name"], channel.name)
         # The validator requires the full resolver inventory, not a public partition.
-        self.assertEqual(15, runner.validate_playlist_resolvers(
+        self.assertEqual(258, runner.validate_playlist_resolvers(
             runner.CHANNEL_CATALOG_PATH.read_text(encoding="utf-8").splitlines())["cncverse"])
 
     def test_trials_have_active_editorial_rows_and_numbers_at_the_end(self):
@@ -83,9 +93,9 @@ class CncVerseContractTest(unittest.TestCase):
         active = sorted((row for row in layout["channels"] if row["state"] == "active"),
                         key=lambda row: row["order"])
         specs = self.trial_specs()
-        self.assertEqual([spec["tvgId"] for spec in specs], [row["tvgId"] for row in active[-15:]])
-        self.assertEqual(list(range(121, 136)), [row["number"] for row in active[-15:]])
-        for row in active[-15:]:
+        self.assertEqual([spec["tvgId"] for spec in specs], [row["tvgId"] for row in active[-len(specs):]])
+        self.assertEqual(list(range(121, 379)), [row["number"] for row in active[-len(specs):]])
+        for row in active[-len(specs):]:
             self.assertEqual("m3u", row["kind"])
             self.assertEqual("1.m3u", row["sourceList"])
             self.assertIs(True, row["trial"])
@@ -109,6 +119,21 @@ class CncVerseContractTest(unittest.TestCase):
         ]
         with self.assertRaisesRegex(ValueError, "fuera del contrato"):
             runner.validate_playlist_resolvers(lines)
+
+    def test_chile_fixture_is_242_exact_names_and_tsn5_without_provider_ids(self):
+        root = runner.CHANNEL_CATALOG_PATH.parent
+        fixture = json.loads((root / "contracts/cncverse-chile-trial-channels.json").read_text(encoding="utf-8"))
+        self.assertEqual("0.5.68", fixture["minimumAppVersion"])
+        self.assertEqual("TSN5.ca@CNCVerse", fixture["channels"][0]["tvgId"])
+        chile = fixture["channels"][1:]
+        self.assertEqual(242, len(chile))
+        self.assertEqual(242, len({s["group"] for s in chile}))
+        self.assertEqual(242, len({s["tvgId"] for s in chile}))
+        for spec in chile:
+            self.assertEqual("chiletv", spec["catalog"])
+            self.assertEqual("auto", spec["label"])
+            self.assertEqual({"tvgId", "name", "catalog", "group", "label", "logoPath"}, set(spec))
+            self.assertTrue(spec["tvgId"].startswith("CNCVerse.Chile."))
 
 
 if __name__ == "__main__":

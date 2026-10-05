@@ -44,6 +44,18 @@ cabeceras y URLs temporales solo viven en RAM. La app/auxiliar usa el HLS del
 proxy CNCVerse (HTTPS, master conservado para no perder audio separado); no
 incluye código del Bridge ni implementa un servidor de descifrado.
 
+CHILE TV (app/auxiliar 0.5.68+) añade el localizador
+`chiletv|<nombre exacto de metas[].name>|auto`. Aquí cada metadata identifica una
+sola entrada, no un grupo deportivo: `auto` valida únicamente sus variantes HLS,
+sin buscar otra entrada por parecido. La anotación literal `[Not 24/7]` se conserva
+y la URI completa va codificada; no permite barras arbitrarias. Solo destinos HTTP(S)
+con DNS/IP públicas, sin DRM crudo, DASH ni credenciales en userinfo; enlaces HTTP
+con query se rechazan y el proxy CNCVerse siempre usa HTTPS. Master y audio se conservan.
+Los IDs públicos de Chile se fijan editorialmente (slug + hash del nombre, nunca del
+ID opaco). Si cambia el nombre upstream, se corrige el localizador, no la identidad.
+Las 242 entradas son la instantánea elegida por el usuario; no se importan automáticamente
+canales futuros ni se asigna país/EPG/logo por pertenecer al catálogo CHILE TV.
+
 No hay importación automática de este catálogo. Las primeras entradas requieren
 app 0.5.67+ y `trial: true`; no se asigna EPG/identidad de otro feed por parecido
 de nombres. Un grupo ambiguo o una señal ausente falla sin seleccionar otra.

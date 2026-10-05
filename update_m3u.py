@@ -3679,11 +3679,14 @@ def cncverse_reference_id(url: str) -> str:
         return ""
     reference = unquote(parsed.path[len("/cncverse/"):])
     parts = reference.split("|")
-    if len(parts) != 3 or parts[0] != "sportsworld" or len(reference) > 256:
+    if len(parts) != 3 or parts[0] not in {"sportsworld", "chiletv"} or len(reference) > 256:
+        return ""
+    if parts[0] == "chiletv" and parts[2] != "auto":
         return ""
     if any(not part.strip() or part != part.strip() for part in parts):
         return ""
-    if any(ord(c) < 32 or ord(c) == 127 or c in '/\\?#=\"' for c in reference):
+    checked = reference.replace("[Not 24/7]", "[Not 24-7]") if parts[0] == "chiletv" else reference
+    if any(ord(c) < 32 or ord(c) == 127 or c in '/\\?#=\"' for c in checked):
         return ""
     return reference
 
