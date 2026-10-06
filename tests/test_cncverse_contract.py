@@ -75,7 +75,37 @@ class CncVerseContractTest(unittest.TestCase):
         failed = {row["tvgId"] for row in self.link_audit()["channels"]
                   if row["decision"].startswith("removed_")}
         requested = {row["tvgId"] for row in self.not247_exclusions()["channels"]}
-        return failed | requested
+        numbered = {row["tvgId"] for row in self.number_exclusions()["channels"]}
+        return failed | requested | numbered
+
+    def number_exclusions(self):
+        path = runner.CHANNEL_CATALOG_PATH.parent / "contracts/channel-number-exclusions-20261006.json"
+        return json.loads(path.read_text(encoding="utf-8"))
+
+    def test_requested_number_exclusions_are_exact_and_preserve_historical_decisions(self):
+        manifest = self.number_exclusions()
+        self.assertEqual("removed_by_user_numbers", manifest["decision"])
+        self.assertEqual(152, len(set(manifest["requestedNumbers"])))
+        self.assertEqual([188], manifest["alreadyAbsentNumbers"])
+        self.assertEqual(151, manifest["removed"])
+        self.assertEqual(151, len(manifest["channels"]))
+        self.assertEqual(151, len({r["tvgId"] for r in manifest["channels"]}))
+        self.assertEqual(set(manifest["requestedNumbers"]) - {188},
+                         {r["number"] for r in manifest["channels"]})
+        original = {spec["tvgId"]: (121 + i, spec["name"])
+                    for i, spec in enumerate(self.all_trial_specs())}
+        cnc = [r for r in manifest["channels"] if r["tvgId"].endswith("@CNCVerse")]
+        self.assertEqual(150, manifest["removedCncVerse"])
+        self.assertEqual(150, len(cnc))
+        for row in cnc:
+            self.assertEqual(original[row["tvgId"]], (row["number"], row["name"]))
+        self.assertEqual([{"number": 86, "name": "TV+ [DPS]", "tvgId": "TVPlus.cl@DPS"}],
+                         [r for r in manifest["channels"] if not r["tvgId"].endswith("@CNCVerse")])
+        previous = {r["tvgId"] for r in self.link_audit()["channels"]
+                    if r["decision"].startswith("removed_")}
+        previous |= {r["tvgId"] for r in self.not247_exclusions()["channels"]}
+        self.assertFalse(previous & {r["tvgId"] for r in manifest["channels"]})
+        self.assertEqual(40, manifest["remainingCncVerse"])
 
     def trial_specs(self):
         removed = self.removed_trial_ids()
@@ -150,7 +180,7 @@ class CncVerseContractTest(unittest.TestCase):
         root = runner.CHANNEL_CATALOG_PATH.parent
         specs = self.trial_specs()
         expected = [spec["tvgId"] for spec in specs]
-        self.assertEqual(self.not247_exclusions()["remainingCncVerse"], len(set(expected)))
+        self.assertEqual(self.number_exclusions()["remainingCncVerse"], len(set(expected)))
         main = (root / "m3u.m3u").read_text(encoding="utf-8")
         self.assertEqual(main, (root / "1.m3u").read_text(encoding="utf-8"))
         channels = runner.parse_channels(main.splitlines())

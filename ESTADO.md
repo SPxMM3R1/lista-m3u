@@ -5,11 +5,11 @@
 > cubre la app). **Al terminar cualquier cambio, actualiza este archivo en el mismo commit**:
 > la sección «Hoy» si cambió el estado y una línea nueva en «Bitácora».
 
-Última actualización: **2026-10-05** (UTC).
+Última actualización: **2026-10-06** (UTC).
 
 ## Hoy, en una mirada
 
-- **Estado CNCVerse vigente: 190 entradas**. El usuario pidió retirar los 12 `[Not 24/7]` que quedaban después de la limpieza anterior. Eliminados definitivamente del inventario, Lista 1/alias, layout y presentación, no ocultos/papelera; exclusiones durables por ID y números originales preservados. Registro editorial `contracts/cncverse-not247-exclusions.json`, separado de la auditoría histórica (que sigue contando 202 retenidos en aquella pasada). No se afirma que estas 12 fallaron: su baja obedece a preferencia explícita. Sin cambios de app, resolutores, EPG, logos, Lista 2 ni selección Highfly/TvVoo. Validados 295 Python/41 JS, contrato, bundle temporal y código de lectura de app 0.5.72 (`b07c640`): 190 CNCVerse, 255 visibles; sin APK nuevo. La publicación se verifica por SHA y workflows, no por caché Raw.
+- **Estado vigente: 40 CNCVerse y 103 visibles en la proyección de app**. La última orden pide eliminar 152 números: purgadas 151 filas (TV+ [DPS] 86 y 150 CNCVerse); 188 ya estaba ausente. Registro exacto en `contracts/channel-number-exclusions-20261006.json`. No renumerar los restantes, no ocultar/papelera; IDs excluidos permanentemente evitan reposición. Layout, inventario, Lista 1/alias y presentación sincronizados, demás campos/estados conservados. Los registros de 202 retenidos tras auditoría y 190 tras baja Not 24/7 son históricos, no la membresía actual. Sin cambios de app, selección Highfly/TvVoo, resolutores, Lista 2 ni logos. Validados 296 Python (una copia omitida por ubicación y comparada aparte con CRLF normalizado), 41 JS, contrato, bundle temporal y parser/proyección de app 0.5.72 (`b07c640`); sin APK nuevo. Publicación: comprobar SHA remoto y workflows, no caché Raw.
 - **Depuración CNCVerse solicitada por el usuario**: 258 entradas comprobadas con el resolutor Java real de la app 0.5.72 (`b07c640`), enlaces renovados y validación HLS/segmento; repetidos los 57 fallos iniciales. Eliminadas 56 filas (55 sin enlace en ambos intentos y UATV con placa «NO SIGNAL» repetida); quedan 202 CNCVerse. Solo TV, ClickTV y Polar TV se conservaron tras recuperarse. 185 de las retenidas entregaron contenido decodificado observado, 17 solo validaron enlace/segmento dentro del tiempo acotado; no se promete estabilidad continua ni prueba en TV. Números originales preservados (quedan huecos), eliminación permanente, no filas ocultas/papelera; tombstones evitan reimportación. Históricos de 258 altas conservados, bajas documentadas en `contracts/cncverse-link-audit-20261005.json`. No cambios en app, resolutores, EPG, logos ni selección Highfly/TvVoo. Validación local: 294 Python, 41 JS, contrato de resolutores, bundle del editor en temporal y parser/proyección de la app con 202 CNCVerse y 267 canales visibles. Publicación: comprobar el commit remoto y la ejecución de canales/EPG antes de darla por completada.
 - **Chile TV y TSN 5 (CNCVerse)**: añadidas las 242 entradas del catálogo elegido por el usuario, más TSN 5. Números 136 (TSN 5) y 137–378 (Chile TV), al final y `trial: true`; fixture exacto `contracts/cncverse-chile-trial-channels.json`, app mínima 0.5.68. Las 15 pruebas anteriores quedan 121–135; sin cambiar filas previas, selección Highfly/TvVoo ni Lista 2. Referencias de búsqueda sin IDs opacos/URL/claves. Sin EPG/país/logo inferidos; no todas las 242 se han probado con video y varias son `[Not 24/7]`. El catálogo reúne regionales, radios con video y señales internacionales además de nacionales, no 242 emisoras nacionales distintas.
 - **CNCVerse**: 15 señales de prueba al final de Lista 1 y del orden activo de la app, números 121–135: TNT Sports 1–4, TSN 1–4, D Sports Chile/Argentina, CBS Sports Golazo Network, Premier Sports 1, Fubo Sports 1, FS1 y Tennis Channel 2. Referencias exactas en `contracts/cncverse-trial-channels.json`, sin IDs opacos ni claves; app mínima 0.5.67 (motor ya publicado, commit hermano `f35f874`). Marcadas `trial: true`, sin mantenimiento ni EPG hasta oficialización acordada. Solo logos locales existentes de TNT 1/3 y Premier 1; las demás sin logo asignado. Se conservan las filas previas, números, visibilidad y selección Highfly/TvVoo. Las 15 entregaron fotograma en el diagnóstico del 2026-10-05 UTC y sus etiquetas se reconsultaron antes de incorporarlas; no equivale a prueba en TV, estabilidad o validación del país anunciado.
@@ -28,7 +28,7 @@
 - **EPG**: 47 canales. Cada canal mezcla sus fuentes por prioridad (`epg_source_chain`): la de
   más arriba manda donde tiene programas y las demás solo rellenan huecos. Horizonte típico
   30–190 h.
-- **Tests**: 295 Python (`python -m unittest discover -s tests -p "test_*.py"`) y 41 JS
+- **Tests**: 296 Python (`python -m unittest discover -s tests -p "test_*.py"`) y 41 JS
   (`node --test tests/editor-core.test.mjs tests/layout-contract.test.mjs`).
 
 ## Pendientes y decisiones abiertas
@@ -70,12 +70,18 @@
   PowerShell; `gh` CLI autenticado.
 - **2026-09-30: el disco D: quedó lleno (0 GB libres)** y git no podía escribir. Si un commit
   falla por espacio, avisar al usuario; no borrar nada suyo para liberar espacio.
+- **2026-10-06 UTC**: D: vuelve a estar sin espacio; fetch falló sin poder escribir objetos.
+  Baja por números trabajada y validada en clon de Lista M3U en C:
+  `C:/Users/SP4MM3R/Documents/Codex/2026-09-20/este-chat-coordina-los-proyectos-lista/work/lista-m3u-bajas-numeros-20261006`.
+  El checkout original de D: no está sincronizado con esta publicación; conserva el experimento
+  no seguido `experiments/direct_links_lab/`. No tocarlo ni asumir que una copia antigua es autoridad.
 - Mockups: HTML renderizado con Edge headless. Lo confiable es PowerShell con
   `Start-Process msedge.exe --headless=new --screenshot=... -Wait` y un `--user-data-dir`
   nuevo por captura.
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-06 UTC (05 en Santiago)**: baja explícita por 152 números actuales: 151 eliminados permanentemente, 188 ya ausente. TV+ [DPS] (86) y 150 CNCVerse, sin dependencias de respaldo; quedan 40 CNC y 103 visibles en parser/proyección real de app 0.5.72 `b07c640`. Registro exacto `contracts/channel-number-exclusions-20261006.json`, no nueva clasificación de fallos. Editor-core coordina purga, exclusiones, órdenes y alias; comparación contra HEAD demuestra números, estados, campos y bloques de los restantes conservados. Selección Highfly/TvVoo, Lista 2, resolutores, EPG, logos y auditorías anteriores intactos. 296 Python (1 comparación omitida por ruta del clon y pasada aparte), 41 JS, contrato y bundle temporal correctos. AGENTS actualizado. Trabajo aislado en C: por D: lleno; sin commit hermano ni APK nuevo. Publicar y verificar remoto/workflows en el mismo flujo, sin force push.
 - **2026-10-05**: a pedido del usuario, el 81 (TVN3 [Mediastream], `TVN3.cl@Mediastream`, en prueba) va
   a la papelera: era el mismo stream de TVN3 (011) sin el sufijo `?PlaylistM3UCL`.
 - **2026-10-05**: orden explícita «Elimina esos not 24 7»: purgadas las 12 CNCVerse restantes anotadas así, números 140, 156, 204, 208, 227, 228, 229, 243, 247, 251, 258 y 265. Quedan 190 CNC y 255 visibles en proyección de app, sin renumerar ni ocultar. Manifest de bajas editoriales separado, auditoría de enlaces intacta; test nuevo y purga/tombstones ampliada a ambas decisiones. 295 Python/41 JS correctos, contrato y editor temporal correctos; contraparte VibeM3U `b07c640`, sin commit de app. No alterar el parser de esas referencias ni borrar canales de otras fuentes por parecido de nombre. Cambios realizados con editor-core, inventario y alias sincronizados; experimento del usuario intacto.
