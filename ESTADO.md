@@ -76,6 +76,8 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-05**: a pedido del usuario, el 81 (TVN3 [Mediastream], `TVN3.cl@Mediastream`, en prueba) va
+  a la papelera: era el mismo stream de TVN3 (011) sin el sufijo `?PlaylistM3UCL`.
 - **2026-10-05**: orden explícita «Elimina esos not 24 7»: purgadas las 12 CNCVerse restantes anotadas así, números 140, 156, 204, 208, 227, 228, 229, 243, 247, 251, 258 y 265. Quedan 190 CNC y 255 visibles en proyección de app, sin renumerar ni ocultar. Manifest de bajas editoriales separado, auditoría de enlaces intacta; test nuevo y purga/tombstones ampliada a ambas decisiones. 295 Python/41 JS correctos, contrato y editor temporal correctos; contraparte VibeM3U `b07c640`, sin commit de app. No alterar el parser de esas referencias ni borrar canales de otras fuentes por parecido de nombre. Cambios realizados con editor-core, inventario y alias sincronizados; experimento del usuario intacto.
 - **2026-10-05**: depuración CNCVerse tras auditar 258 señales, repetir las que fallan y examinar fotogramas. 56 bajas permanentes, 202 retenidas; UATV solo mostró «NO SIGNAL» dos veces, Polar TV volvió y no se borró. Inventario + Lista 1/alias + layout + presentación coherentes; números y selección Highfly/TvVoo intactos, fixtures originales históricos. Auditoría saneada por identidad/resultado en `contracts/cncverse-link-audit-20261005.json`, dos tests nuevos de repetición y purga/tombstone (294 Python/41 JS). Contraparte de lectura/resolución: app 0.5.72 `b07c640`, sin commit ni APK nuevo en VibeM3U. No se tocaron archivos del experimento del usuario.
 - **2026-10-05**: respaldos directos múltiples (`backupm3u` en el layout, app 0.5.72): lista ordenada
