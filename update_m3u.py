@@ -884,11 +884,13 @@ EPG_PROGRAMME_SOURCES.update({
     "Vavoo.uk.TNTSPORTS2@TvVoo": ("uk1", "TNT.Sports.2.HD.uk"),
     "Vavoo.uk.TNTSPORTS4@TvVoo": ("uk1", "TNT.Sports.4.HD.uk"),
     "Vavoo.uk.TNTSPORTS5@TvVoo": ("uk1", "TNT.Sports.5.HD.uk"),
-    # Directos de Lista 1 identificados por el usuario (2026-10-04): «Win Sports [IP 181]»
-    # es ESPN 3 Sur y «Win+ Fútbol [IP 181]» es ESPN 5 Sur. En Uruguay hay dos ESPN 5:
-    # el de NFL coincide con Colombia/México (norte); el otro es el sur.
+    # Directos de Lista 1 identificados por el usuario: «Win Sports [IP 181]»
+    # es ESPN 3 Sur y «Win+ Fútbol [IP 181]» muestra ESPN 5 en español.
+    # Verificado el 2026-10-06 UTC con Francia–Bélgica y luego Rumanía–Suecia:
+    # ESPN.5.HD.uy coincide; [ESPN5SD].ESPN.5.uy trae programación brasileña.
+    # No inferir la región por el sufijo SD/HD ni desplazar los horarios.
     "WinSports.co@Direct181": ("cl", "Canal.ESPN.3.(Chile).cl"),
-    "WinPlusFutbol.co@Direct181": ("uy1", "[ESPN5SD].ESPN.5.uy"),
+    "WinPlusFutbol.co@Direct181": ("uy1", "ESPN.5.HD.uy"),
     # 118 y 120 son la misma señal: ESPN 2 Latinoamérica (feed sur), confirmado por el usuario.
     "Vavoo.es.ESPN2@TvVoo": ("cl", "Canal.ESPN.2.(Chile).cl"),
     "Vavoo.ar.ESPN2@TvVoo": ("cl", "Canal.ESPN.2.(Chile).cl"),

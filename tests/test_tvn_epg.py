@@ -22,6 +22,46 @@ def channel(name: str, tvg_id: str) -> update_m3u.Channel:
 
 
 class TvnEpgTests(unittest.TestCase):
+    def test_espn5_uses_verified_spanish_feed_not_portuguese_sd_entry(self) -> None:
+        target = "WinPlusFutbol.co@Direct181"
+        self.assertEqual(("uy1", "ESPN.5.HD.uy"), update_m3u.EPG_PROGRAMME_SOURCES[target])
+        self.assertIn(("uy1", "ESPN.5.HD.uy"), update_m3u.epg_source_chain(target))
+        self.assertNotIn(("uy1", "[ESPN5SD].ESPN.5.uy"), update_m3u.epg_source_chain(target))
+        self.assertEqual(frozenset({"uy1"}), update_m3u.epgshare_source_names_for(
+            [channel("ESPN 5 Sur", target)]))
+
+    def test_espn5_fresh_correct_feed_replaces_wrong_published_guide_without_time_shift(self) -> None:
+        target = "WinPlusFutbol.co@Direct181"
+        fresh = ET.Element("tv")
+        previous = ET.Element("tv")
+        slots = [
+            ("20261006000000 +0000", "20261006020000 +0000", "Francia vs. Bélgica"),
+            ("20261006020000 +0000", "20261006040000 +0000", "Rumania vs. Suecia"),
+        ]
+        for start, stop, subtitle in slots:
+            good = ET.SubElement(fresh, "programme", {
+                "channel": "ESPN.5.HD.uy", "start": start, "stop": stop})
+            ET.SubElement(good, "title", {"lang": "es"}).text = "UEFA Nations League"
+            ET.SubElement(good, "sub-title", {"lang": "es"}).text = subtitle
+            for root, source in [(fresh, "[ESPN5SD].ESPN.5.uy"), (previous, target)]:
+                wrong = ET.SubElement(root, "programme", {
+                    "channel": source, "start": start, "stop": stop})
+                ET.SubElement(wrong, "title", {"lang": "pt"}).text = "Boxe Internacional"
+        output, status = update_m3u.build_epg(
+            {"uy1": ET.tostring(fresh), update_m3u.PUBLISHED_EPG_FALLBACK_SOURCE: ET.tostring(previous)},
+            [channel("ESPN 5 Sur", target)], {},
+            now=datetime(2026, 10, 6, 2, 5, tzinfo=timezone.utc))
+        published = ET.fromstring(output)
+        programmes = published.findall("programme")
+        self.assertEqual(2, len(programmes))
+        self.assertEqual([pair[2] for pair in slots], [p.findtext("sub-title") for p in programmes])
+        self.assertTrue(all(p.get("channel") == target for p in programmes))
+        self.assertTrue(all(p.findtext("title") == "UEFA Nations League" for p in programmes))
+        for programme, (start, stop, _) in zip(programmes, slots):
+            self.assertEqual(update_m3u.xmltv_datetime(start), update_m3u.xmltv_datetime(programme.get("start")))
+            self.assertEqual(update_m3u.xmltv_datetime(stop), update_m3u.xmltv_datetime(programme.get("stop")))
+        self.assertEqual("uy1", status["guide_sources"][target])
+
     def test_epg_generated_at_parses_xmltv_timestamp_as_utc(self) -> None:
         root = ET.Element("tv", {"data-generated-at": "2026-08-28T18:00:00-04:00"})
 
