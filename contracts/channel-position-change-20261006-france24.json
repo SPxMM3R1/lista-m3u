@@ -1,0 +1,336 @@
+{
+  "schemaVersion": 1,
+  "decision": "move_existing_france24_english_after_spanish",
+  "movedId": "France24.fr@English",
+  "afterId": "France24.fr",
+  "fromNumber": 62,
+  "toNumber": 19,
+  "numberShift": {
+    "fromInclusive": 19,
+    "delta": 1
+  },
+  "preserveTrial": true,
+  "counterpartAppCommit": "94dd35b",
+  "changes": [
+    {
+      "key": "m3u:France24.fr@English",
+      "from": 62,
+      "to": 19
+    },
+    {
+      "key": "m3u:AlJazeera.qa",
+      "from": 19,
+      "to": 20
+    },
+    {
+      "key": "m3u:BBCNews.uk",
+      "from": 20,
+      "to": 21
+    },
+    {
+      "key": "provider:highfly:SkySportsF1.uk",
+      "from": 21,
+      "to": 22
+    },
+    {
+      "key": "provider:highfly:SkySportsF1UHD.uk",
+      "from": 22,
+      "to": 23
+    },
+    {
+      "key": "provider:highfly:SkySportsTennis.uk",
+      "from": 23,
+      "to": 24
+    },
+    {
+      "key": "provider:tvvoo:unitedkingdom|vavoo_SKY%20SPORTS%20MAIN%20EVENT%7Cgroup%3Auk",
+      "from": 24,
+      "to": 25
+    },
+    {
+      "key": "provider:highfly:SkySportsMainEventUHD.uk",
+      "from": 25,
+      "to": 26
+    },
+    {
+      "key": "provider:highfly:SkySportsPremierLeague.uk",
+      "from": 26,
+      "to": 27
+    },
+    {
+      "key": "provider:tvvoo:spain|vavoo_DAZN%20F1%7Cgroup%3Aes",
+      "from": 27,
+      "to": 28
+    },
+    {
+      "key": "provider:tvvoo:unitedkingdom|vavoo_TNT%20SPORT%201%7Cgroup%3Auk",
+      "from": 28,
+      "to": 29
+    },
+    {
+      "key": "provider:tvvoo:unitedkingdom|vavoo_TNT%20SPORT%202%7Cgroup%3Auk",
+      "from": 29,
+      "to": 30
+    },
+    {
+      "key": "provider:tvvoo:unitedkingdom|vavoo_TNT%20SPORTS%203%7Cgroup%3Auk",
+      "from": 30,
+      "to": 31
+    },
+    {
+      "key": "provider:tvvoo:unitedkingdom|vavoo_TNT%20SPORT%204%7Cgroup%3Auk",
+      "from": 31,
+      "to": 32
+    },
+    {
+      "key": "provider:tvvoo:spain|vavoo_ESPN%202%7Cgroup%3Aes",
+      "from": 32,
+      "to": 33
+    },
+    {
+      "key": "m3u:WinSports.co@Direct181",
+      "from": 33,
+      "to": 34
+    },
+    {
+      "key": "m3u:WinPlusFutbol.co@Direct181",
+      "from": 35,
+      "to": 36
+    },
+    {
+      "key": "m3u:XITEHits.nl@Germany",
+      "from": 40,
+      "to": 41
+    },
+    {
+      "key": "m3u:XITENuevoLatino.us",
+      "from": 41,
+      "to": 42
+    },
+    {
+      "key": "m3u:XITESiempreLatino.us",
+      "from": 42,
+      "to": 43
+    },
+    {
+      "key": "m3u:XITE80sFlashback.us",
+      "from": 43,
+      "to": 44
+    },
+    {
+      "key": "m3u:XITE90sThrowback.us",
+      "from": 44,
+      "to": 45
+    },
+    {
+      "key": "m3u:XITERockxMetal.nl",
+      "from": 45,
+      "to": 46
+    },
+    {
+      "key": "m3u:XITEJustChill.nl",
+      "from": 46,
+      "to": 47
+    },
+    {
+      "key": "m3u:MTVBiggestPop.us",
+      "from": 47,
+      "to": 48
+    },
+    {
+      "key": "m3u:MTVSpankinNew.us",
+      "from": 48,
+      "to": 49
+    },
+    {
+      "key": "m3u:MTVFlowLatino.us",
+      "from": 49,
+      "to": 50
+    },
+    {
+      "key": "m3u:TelehitMusica.mx@SD",
+      "from": 50,
+      "to": 51
+    },
+    {
+      "key": "m3u:M1.ua@SD",
+      "from": 51,
+      "to": 52
+    },
+    {
+      "key": "m3u:M2.ua@SD",
+      "from": 52,
+      "to": 53
+    },
+    {
+      "key": "m3u:QelloConcertsbyStingray.ca",
+      "from": 53,
+      "to": 54
+    },
+    {
+      "key": "m3u:StingrayClassica.ca",
+      "from": 54,
+      "to": 55
+    },
+    {
+      "key": "m3u:TVEInternacionalAmerica.es@HD",
+      "from": 55,
+      "to": 56
+    },
+    {
+      "key": "m3u:RedBullWorldEnglish.int",
+      "from": 56,
+      "to": 57
+    },
+    {
+      "key": "m3u:RedBullChileEspanol.cl",
+      "from": 57,
+      "to": 58
+    },
+    {
+      "key": "m3u:AutenticHistory.de",
+      "from": 58,
+      "to": 59
+    },
+    {
+      "key": "m3u:RealWild.us",
+      "from": 59,
+      "to": 60
+    },
+    {
+      "key": "provider:tvvoo:spain|vavoo_EUROSPORT%201%7Cgroup%3Aes",
+      "from": 60,
+      "to": 61
+    },
+    {
+      "key": "provider:tvvoo:spain|vavoo_EUROSPORT%202%7Cgroup%3Aes",
+      "from": 61,
+      "to": 62
+    },
+    {
+      "key": "m3u:ESPN.us@Direct181",
+      "from": 67,
+      "to": 68
+    },
+    {
+      "key": "m3u:ESPN4.br@Direct181",
+      "from": 68,
+      "to": 69
+    },
+    {
+      "key": "m3u:FoxDeportes.us@Direct23",
+      "from": 69,
+      "to": 70
+    },
+    {
+      "key": "m3u:TVN.cl@Direct38b",
+      "from": 73,
+      "to": 74
+    },
+    {
+      "key": "m3u:TVN.cl@Direct45",
+      "from": 74,
+      "to": 75
+    },
+    {
+      "key": "m3u:Canal13.cl@Direct187",
+      "from": 79,
+      "to": 80
+    },
+    {
+      "key": "m3u:T13EnVivo.cl@DPS",
+      "from": 85,
+      "to": 86
+    },
+    {
+      "key": "m3u:DSports.us@Direct15",
+      "from": 117,
+      "to": 118
+    },
+    {
+      "key": "m3u:DSports2.us@Direct187",
+      "from": 119,
+      "to": 120
+    },
+    {
+      "key": "m3u:TNTSports1.uk@CNCVerse",
+      "from": 121,
+      "to": 122
+    },
+    {
+      "key": "m3u:TNTSports2.uk@CNCVerse",
+      "from": 122,
+      "to": 123
+    },
+    {
+      "key": "m3u:TNTSports3.uk@CNCVerse",
+      "from": 123,
+      "to": 124
+    },
+    {
+      "key": "m3u:TNTSports4.uk@CNCVerse",
+      "from": 124,
+      "to": 125
+    },
+    {
+      "key": "m3u:TSN1.ca@CNCVerse",
+      "from": 125,
+      "to": 126
+    },
+    {
+      "key": "m3u:TSN2.ca@CNCVerse",
+      "from": 126,
+      "to": 127
+    },
+    {
+      "key": "m3u:TSN3.ca@CNCVerse",
+      "from": 127,
+      "to": 128
+    },
+    {
+      "key": "m3u:TSN4.ca@CNCVerse",
+      "from": 128,
+      "to": 129
+    },
+    {
+      "key": "m3u:DSportsChile.cl@CNCVerse",
+      "from": 129,
+      "to": 130
+    },
+    {
+      "key": "m3u:DSportsArgentina.ar@CNCVerse",
+      "from": 130,
+      "to": 131
+    },
+    {
+      "key": "m3u:CBSSportsGolazoNetwork.us@CNCVerse",
+      "from": 131,
+      "to": 132
+    },
+    {
+      "key": "m3u:PremierSports1.uk@CNCVerse",
+      "from": 132,
+      "to": 133
+    },
+    {
+      "key": "m3u:FuboSports1.us@CNCVerse",
+      "from": 133,
+      "to": 134
+    },
+    {
+      "key": "m3u:TSN5.ca@CNCVerse",
+      "from": 136,
+      "to": 137
+    },
+    {
+      "key": "m3u:CNCVerse.Chile.13t-720p-f3aee15604@CNCVerse",
+      "from": 190,
+      "to": 191
+    },
+    {
+      "key": "m3u:CNCVerse.Chile.t13-en-vivo-1080p-50f5d7c89f@CNCVerse",
+      "from": 217,
+      "to": 218
+    }
+  ]
+}

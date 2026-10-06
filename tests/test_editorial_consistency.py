@@ -43,13 +43,16 @@ class PublishedEditorialConsistencyTest(unittest.TestCase):
         layout = json.loads(LAYOUT_PATH.read_text(encoding="utf-8"))
         presentation = json.loads((ROOT / "presentation-overrides.json").read_text(encoding="utf-8"))
         self.assertFalse(any(row.get("tvgId") == removed_id for row in layout["channels"]))
-        self.assertFalse(any(row["state"] == "active" and row["number"] == 118
+        # La baja conserva su identidad; la inserción posterior de France 24
+        # inglés (19) desplazó el hueco del antiguo 118 al 119.
+        shift = json.loads((ROOT / "contracts/channel-position-change-20261006-france24.json").read_text(encoding="utf-8"))["numberShift"]["delta"]
+        self.assertFalse(any(row["state"] == "active" and row["number"] == 118 + shift
                              for row in layout["channels"]))
         self.assertIn(removed_id, layout["excludedM3u"])
         self.assertIn(removed_id, presentation["excluded_m3u"])
         following = next(row for row in layout["channels"]
                          if row.get("tvgId") == "DSports2.us@Direct187")
-        self.assertEqual((119, "active"), (following["number"], following["state"]))
+        self.assertEqual((119 + shift, "active"), (following["number"], following["state"]))
         for filename in ["channel-catalog.m3u", "m3u.m3u", "1.m3u"]:
             with self.subTest(filename=filename):
                 ids = {channel.tvg_id for channel in runner.parse_channels(

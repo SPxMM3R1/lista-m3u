@@ -107,7 +107,8 @@ class CncVerseContractTest(unittest.TestCase):
         by_id = {r.get("tvgId"): r for r in layout["channels"]}
         owner, backup = by_id["0124"], by_id[manifest["backup"]["backupId"]]
         self.assertEqual((9, "T13", "active"), (owner["number"], owner["name"], owner["state"]))
-        self.assertEqual((217, "active", True), (backup["number"], backup["state"], backup["trial"]))
+        shift = json.loads((root / "contracts/channel-position-change-20261006-france24.json").read_text(encoding="utf-8"))["numberShift"]["delta"]
+        self.assertEqual((217 + shift, "active", True), (backup["number"], backup["state"], backup["trial"]))
         self.assertIn(backup["tvgId"], owner["backupm3u"])
         self.assertNotIn(backup["tvgId"], layout["excludedM3u"])
         self.assertEqual("0.5.73", manifest["minimumBackupAppVersion"])
@@ -246,7 +247,9 @@ class CncVerseContractTest(unittest.TestCase):
         self.assertEqual([spec["tvgId"] for spec in specs], [row["tvgId"] for row in active[-len(specs):]])
         original_numbers = {spec["tvgId"]: 121 + index
                             for index, spec in enumerate(self.all_trial_specs())}
-        self.assertEqual([original_numbers[spec["tvgId"]] for spec in specs],
+        # Números históricos de las altas + inserción editorial posterior.
+        shift = json.loads((root / "contracts/channel-position-change-20261006-france24.json").read_text(encoding="utf-8"))["numberShift"]["delta"]
+        self.assertEqual([original_numbers[spec["tvgId"]] + shift for spec in specs],
                          [row["number"] for row in active[-len(specs):]])
         for row in active[-len(specs):]:
             self.assertEqual("m3u", row["kind"])
