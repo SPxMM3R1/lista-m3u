@@ -891,9 +891,12 @@ EPG_PROGRAMME_SOURCES.update({
     # No inferir la región por el sufijo SD/HD ni desplazar los horarios.
     "WinSports.co@Direct181": ("cl", "Canal.ESPN.3.(Chile).cl"),
     "WinPlusFutbol.co@Direct181": ("uy1", "ESPN.5.HD.uy"),
-    # 118 y 120 son la misma señal: ESPN 2 Latinoamérica (feed sur), confirmado por el usuario.
-    "Vavoo.es.ESPN2@TvVoo": ("cl", "Canal.ESPN.2.(Chile).cl"),
-    "Vavoo.ar.ESPN2@TvVoo": ("cl", "Canal.ESPN.2.(Chile).cl"),
+    # ESPN 2 Sur: foto del usuario el 2026-10-06 a las 18:20 Chile,
+    # Tapia/Coello–Stupaczuk/Sanz. [ESP2LS] anuncia esa final de Rotterdam
+    # 17:45–18:45 en su descripción de ESPN Compact; CL anuncia fútbol y
+    # ESPN.2.HD.uy tenis. No confundir entradas ni desplazar horarios.
+    "Vavoo.es.ESPN2@TvVoo": ("uy1", "[ESP2LS].ESPN.2.uy"),
+    "Vavoo.ar.ESPN2@TvVoo": ("uy1", "[ESP2LS].ESPN.2.uy"),
     "Vavoo.it.BLOOMBERGTV@TvVoo": ("it1", "Bloomberg.it"),
     "Vavoo.it.EUROSPORT1@TvVoo": ("it1", "Eurosport.Italia.it"),
     "Vavoo.it.SKYSPORTF1@TvVoo": ("it1", "Sky.Sport.F1.it"),
@@ -1047,9 +1050,8 @@ PLUTO_BACKUP_CHANNELS = {
 EPGSHARE_BACKUP_CHANNELS: dict[str, tuple[str, str]] = {
     "DW.de": ("mx1", "Canal.DW.(Latinoamérica).mx"),
     "DWEnglish.de": ("fr", "DW-TV.fr"),
-    # ESPN 2 Latinoamérica: la grilla de Bolivia es la misma y rellena huecos de la de Chile.
-    "Vavoo.es.ESPN2@TvVoo": ("ar1", "Canal.ESPN.2.(Bolivia).ar"),
-    "Vavoo.ar.ESPN2@TvVoo": ("ar1", "Canal.ESPN.2.(Bolivia).ar"),
+    # ESPN 2 TvVoo usa solo [ESP2LS] y la última guía publicada: no hay
+    # otro feed regional confirmado para rellenar sus huecos.
     "WinSports.co@Direct181": ("ar1", "Canal.ESPN.3.(Argentina).ar"),
 }
 RED_BULL_CHANNEL_LOCALES = {
