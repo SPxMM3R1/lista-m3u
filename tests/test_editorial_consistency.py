@@ -36,6 +36,28 @@ class PublishedEditorialConsistencyTest(unittest.TestCase):
     deja a la app y al runner con canales de proveedor distintos.
     """
 
+    def test_requested_118_is_permanently_removed_without_renumbering(self) -> None:
+        import update_m3u as runner
+
+        removed_id = "DSports.us@Direct38"
+        layout = json.loads(LAYOUT_PATH.read_text(encoding="utf-8"))
+        presentation = json.loads((ROOT / "presentation-overrides.json").read_text(encoding="utf-8"))
+        self.assertFalse(any(row.get("tvgId") == removed_id for row in layout["channels"]))
+        self.assertFalse(any(row["state"] == "active" and row["number"] == 118
+                             for row in layout["channels"]))
+        self.assertIn(removed_id, layout["excludedM3u"])
+        self.assertIn(removed_id, presentation["excluded_m3u"])
+        following = next(row for row in layout["channels"]
+                         if row.get("tvgId") == "DSports2.us@Direct187")
+        self.assertEqual((119, "active"), (following["number"], following["state"]))
+        for filename in ["channel-catalog.m3u", "m3u.m3u", "1.m3u"]:
+            with self.subTest(filename=filename):
+                ids = {channel.tvg_id for channel in runner.parse_channels(
+                    (ROOT / filename).read_text(encoding="utf-8").splitlines())}
+                self.assertNotIn(removed_id, ids)
+        for order in presentation["orders"].values():
+            self.assertNotIn(removed_id, order)
+
     def test_layout_provider_rows_match_selection(self) -> None:
         layout = json.loads(LAYOUT_PATH.read_text(encoding="utf-8"))
         selection = json.loads(SELECTION_PATH.read_text(encoding="utf-8"))
