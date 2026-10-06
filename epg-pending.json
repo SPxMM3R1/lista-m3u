@@ -1,46 +1,48 @@
 {
   "schema": 1,
-  "updated_at": "2026-10-06T19:56:54.108790Z",
+  "updated_at": "2026-10-06T21:41:43.749595Z",
   "channels": [
-    "1153",
+    "0102",
     "1437",
     "MTVBiggestPop.us",
     "MTVFlowLatino.us",
-    "MTVSpankinNew.us"
+    "MTVSpankinNew.us",
+    "RedBullWorldEnglish.int"
   ],
   "details": {
-    "1153": {
-      "kind": "hueco",
-      "futureHours": 31.6,
+    "0102": {
+      "kind": "sin-guia",
+      "futureHours": 0.0,
       "requiredHours": 18.0,
-      "gaps": [
-        [
-          "2026-10-06T21:00:00Z",
-          "2026-10-07T02:00:00Z"
-        ]
-      ]
+      "gaps": []
     },
     "1437": {
       "kind": "guia-corta",
-      "futureHours": 3.1,
+      "futureHours": 3.3,
       "requiredHours": 18.0,
       "gaps": []
     },
     "MTVBiggestPop.us": {
       "kind": "guia-corta",
-      "futureHours": 14.3,
+      "futureHours": 12.6,
       "requiredHours": 18.0,
       "gaps": []
     },
     "MTVFlowLatino.us": {
       "kind": "guia-corta",
-      "futureHours": 16.1,
+      "futureHours": 14.3,
       "requiredHours": 18.0,
       "gaps": []
     },
     "MTVSpankinNew.us": {
       "kind": "guia-corta",
-      "futureHours": 14.6,
+      "futureHours": 12.8,
+      "requiredHours": 18.0,
+      "gaps": []
+    },
+    "RedBullWorldEnglish.int": {
+      "kind": "guia-corta",
+      "futureHours": 13.1,
       "requiredHours": 18.0,
       "gaps": []
     }
