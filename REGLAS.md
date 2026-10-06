@@ -2,7 +2,7 @@
 
 Documento único y corto con las reglas que rigen hoy. El detalle vive en los documentos
 enlazados; si algo de aquí contradice un documento antiguo, manda este. Última revisión:
-2026-10-02. El estado de hoy y la bitácora están en `ESTADO.md` de cada repositorio.
+2026-10-06. El estado de hoy y la bitácora están en `ESTADO.md` de cada repositorio.
 
 ## 1. Repositorios y límites
 
@@ -49,6 +49,12 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
 - Canales M3U agregados conservan su lista de origen (Lista 1 o 2). Highfly y TvVoo no van a
   ninguna M3U: viven en el layout y la selección.
 - Un cambio editorial no requiere APK nueva.
+- Excepción de compatibilidad de respaldo CNCVerse: `backupm3u` mantiene la fila del respaldo
+  activa en layout/Lista 1 para resolución, sin mostrarla aparte en la app. VibeM3U 0.5.73+
+  admite sus referencias internas validadas además de HTTP(S); la 0.5.72 las descartaba.
+  Mantener tvg-id de respaldo como identidad de resolución/caché y la identidad/número/EPG/logo
+  del canal principal como presentación. No publicar la asociación antes del APK compatible;
+  nunca sustituirla por un HLS temporal. Caso autorizado: T13 (9) ← 217, no Canal 13 (4).
 - Vigencia de variantes TvVoo: tras una consulta correcta, renovar `generatedAt` cada
   24 h aunque las variantes no cambien (la app las descarta a los 7 días). Si falló
   algún catálogo, no renovar por fecha solamente un documento sin cambios conservado.
