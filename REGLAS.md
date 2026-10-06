@@ -72,7 +72,10 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
 - **CHV**: su oficial no publica los noticieros; queda como relleno detrás de Zapping y
   TecnoCentro (`EPG_INCOMPLETE_OFFICIAL_IDS`).
 - Sin relleno técnico: sin fuente real, el canal queda pendiente (`epg-pending.json`).
-  Única excepción acordada: Rwnd = `Live`.
+  Única excepción acordada: Rwnd (`RewindTV.cl@SD`) = solo continuidad `Live`,
+  sin fuente EPG, sin fallback de programación y sin descripción, subtítulos,
+  categorías ni metadatos de programas. No asociar a Rewind TV de Estados Unidos;
+  ni donantes de sinopsis ni bloqueos manuales pueden reintroducir esa guía.
 - Procurar al menos 12 h por canal (mínimo, no tope): se integra toda la guía real que publique
   cada fuente, hasta 8 días. Los pendientes se reintentan en cada ciclo de 6 h.
 - **La Red**: solo su guía oficial (`lared.cl`), sin Zapping ni TecnoCentro. Si falla, se

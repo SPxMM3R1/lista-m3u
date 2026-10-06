@@ -735,7 +735,6 @@ EPG_PROGRAMME_SOURCES = {
     # prioridad durante cada actualización.
     "DWEnglish.de": ("fr", "DW-TV.fr"),
     "France24.fr@English": ("fr", "France.24.Anglais.fr"),
-    "RewindTV.cl@SD": ("us2", "Rewind.TV.us2"),
     "TyCSports.ar": ("ar1", "Canal.TyC.Sports.ar"),
     "SkySportsF1.uk": ("uk1", "SkySp.F1.HD.uk"),
     "SkySportsF1UHD.uk": ("uk1", "SkySp.F1.HD.uk"),
@@ -5732,6 +5731,12 @@ def normalize_main_epg_schedule(
                 continue
         titles = programme.findall("title")
         if channel_id == EPG_MAIN_LIVE_CHANNEL_ID:
+            # Rwnd no tiene parrilla: tampoco conservar sinopsis, subtítulos,
+            # categorías u otros metadatos de una guía publicada anteriormente.
+            for child in list(programme):
+                if child.tag != "title":
+                    programme.remove(child)
+                    changed = True
             if not titles:
                 ET.SubElement(programme, "title", {"lang": "es"}).text = "Live"
                 changed = True
@@ -6441,6 +6446,10 @@ def epg_source_chain(target_id: str) -> list[tuple[str, str]]:
     Las claves de ``OfficialEpgSource.replaces`` quedan prohibidas para ese
     canal (La Red nunca usa la EPG agregada ni Zapping).
     """
+    # Excepción editorial explícita: solo continuidad Live. Rewind TV de EE.UU.
+    # no es una guía del canal chileno; tampoco reutilizar la guía anterior.
+    if target_id == EPG_MAIN_LIVE_CHANNEL_ID:
+        return []
     chain: list[tuple[str, str]] = []
     forbidden: set[tuple[str, str]] = set()
     official: list[tuple[str, str]] = []
@@ -6530,6 +6539,8 @@ def donate_epg_descriptions(
     """
     donors_by_target: dict[str, list[tuple[datetime, datetime, str, str]]] = {}
     for target_id in expected_ids:
+        if target_id == EPG_MAIN_LIVE_CHANNEL_ID:
+            continue
         keys = list(epg_source_chain(target_id))
         keys.append((ZAPPING_EPG_SOURCE, ZAPPING_DESCRIPTION_ID_PREFIX + target_id))
         keys.append((CLARO_SYNOPSIS_PART, ZAPPING_DESCRIPTION_ID_PREFIX + target_id))
@@ -6630,7 +6641,9 @@ def epgshare_source_names_for(
     return frozenset(
         source_name
         for target_id, (source_name, _source_id) in EPG_PROGRAMME_SOURCES.items()
-        if target_id in expected_ids and source_name in EPG_SOURCES
+        if target_id in expected_ids
+        and target_id != EPG_MAIN_LIVE_CHANNEL_ID
+        and source_name in EPG_SOURCES
     )
 
 
@@ -7112,6 +7125,8 @@ def apply_epg_manual_overrides(
     }
     if allowed_ids is not None:
         channel_ids.intersection_update(allowed_ids)
+    # Ni un bloqueo manual puede reintroducir programación en Rwnd.
+    channel_ids.discard(EPG_MAIN_LIVE_CHANNEL_ID)
     if not channel_ids:
         return document
     replacement_channels = {
