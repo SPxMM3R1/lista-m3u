@@ -8,7 +8,11 @@ por cada canal TvVoo activo del catálogo editorial, los alias de sus hermanas e
 
 Reglas (decididas con el usuario, 2026-10-01):
 
-- Solo dentro del mismo país (grupo TvVoo). Nunca se cruzan países.
+- Solo dentro del mismo país (grupo TvVoo). No se cruzan países por parecido de nombre.
+- Excepción editorial (2026-10-06): una fila TvVoo con ``backupCountries`` (lista de
+  countryKey en orden, pedida por el usuario para Eurosport 1 y 2) suma, después de sus
+  hermanas, el mismo canal de cada uno de esos países: una entrada por país, con el mismo
+  nombre base, la de mejor calidad y nunca un (BACKUP). Es otro idioma de la misma señal.
 - El nombre base debe coincidir exacto. Solo se quitan marcas de calidad o respaldo
   (HD, FHD, UHD, 4K, SD, HD+, HEVC, H265, (BACKUP), (BACKUP 2)...).
 - «SPORT» y «SPORTS» NO se igualan: en Alemania «SKY SPORT F1» es la señal alemana y
@@ -191,9 +195,45 @@ def fetch_catalog(code: str) -> dict:
     return json.loads(body.decode("utf-8"))
 
 
+def backup_countries(row: dict) -> list[str]:
+    """countryKey de ``backupCountries`` válidos, sin repetir ni incluir el propio país."""
+    own = str(row.get("countryKey") or "")
+    result: list[str] = []
+    for value in row.get("backupCountries") or []:
+        country = str(value or "")
+        if country in COUNTRY_CODES and country != own and country not in result:
+            result.append(country)
+    return result
+
+
+def cross_country_aliases(selected_alias: str, selected_name: str | None,
+                          entries_by_code: dict[str, list[tuple[str, str]]],
+                          countries: list[str]) -> list[str]:
+    """El mismo canal en otros países (uno por país), en el orden pedido."""
+    base = base_name(selected_name or alias_name(selected_alias))
+    if not base:
+        return []
+    result: list[str] = []
+    for country in countries:
+        entries = entries_by_code.get(COUNTRY_CODES[country])
+        if not entries:
+            continue
+        candidates = [
+            (variant_rank(name), index, alias)
+            for index, (alias, name) in enumerate(entries)
+            if base_name(name) == base and "BACKUP" not in name.upper()
+        ]
+        if candidates:
+            result.append(min(candidates)[2])
+    return result
+
+
 def build_variants(layout: dict, fetch=fetch_catalog) -> tuple[dict[str, list[str]], dict[str, str]]:
     rows = active_tvvoo_rows(layout)
-    codes = sorted({COUNTRY_CODES.get(str(row.get("countryKey") or ""), "") for row in rows} - {""})
+    countries = {str(row.get("countryKey") or "") for row in rows}
+    for row in rows:
+        countries.update(backup_countries(row))
+    codes = sorted({COUNTRY_CODES.get(country, "") for country in countries} - {""})
     entries_by_code: dict[str, list[tuple[str, str]]] = {}
     errors: dict[str, str] = {}
     for code in codes:
@@ -208,8 +248,14 @@ def build_variants(layout: dict, fetch=fetch_catalog) -> tuple[dict[str, list[st
             continue
         selected = str(row["catalogKey"]).split("|", 1)[1]
         siblings = siblings_for(selected, entries_by_code[code], code)
+        extra = backup_countries(row)
+        if extra:
+            # Las hermanas del país primero, pero dejando lugar a un idioma por país.
+            names = dict(entries_by_code[code])
+            cross = cross_country_aliases(selected, names.get(selected), entries_by_code, extra)
+            siblings = siblings[:max(1, MAX_SIBLINGS - len(cross))] + cross
         if siblings:
-            channels[str(row["catalogKey"])] = siblings
+            channels[str(row["catalogKey"])] = siblings[:MAX_SIBLINGS]
     return channels, errors
 
 
@@ -240,7 +286,11 @@ def merge_with_previous(
                 if signal is None or verified_uk_signal(alias, alias_name(alias), "uk") != signal:
                     continue
             marker = f"{key} {alias}"
-            runs = 0 if country in failed_countries else previous_missing.get(marker, 0) + 1
+            # Un respaldo de otro país depende del catálogo de ese país, no del propio.
+            group = re.search(r"%7Cgroup%3A([a-z]{2})$", alias, re.IGNORECASE)
+            alias_country = next((name for name, code in COUNTRY_CODES.items()
+                                  if group and code == group.group(1).lower()), country)
+            runs = 0 if alias_country in failed_countries else previous_missing.get(marker, 0) + 1
             if runs < MISSING_RUNS_BEFORE_DROP:
                 current.append(alias)
                 if runs:

@@ -10,7 +10,7 @@ ES, EN = "France24.fr", "France24.fr@English"
 
 
 class France24OrderTests(unittest.TestCase):
-    def test_existing_english_row_is_adjacent_without_duplicate_or_officialization(self):
+    def test_existing_english_row_is_adjacent_without_duplicate(self):
         layout = json.loads((ROOT / "data/channel-editor-layout.json").read_text(encoding="utf-8"))
         rows = sorted((r for r in layout["channels"] if r["state"] == "active"), key=lambda r: r["order"])
         spanish = next(r for r in rows if r.get("tvgId") == ES)
@@ -19,7 +19,8 @@ class France24OrderTests(unittest.TestCase):
         self.assertEqual((18, 19), (spanish["number"], english["number"]))
         self.assertEqual(english, rows[rows.index(spanish) + 1])
         self.assertEqual("1.m3u", english["sourceList"])
-        self.assertIs(True, english["trial"])
+        # 2026-10-06: el usuario pidió que tenga guía: ya no está en prueba.
+        self.assertNotIn("trial", english)
         self.assertEqual("logos/france24.svg", english["logoPath"])
         self.assertNotIn(EN, layout["excludedM3u"])
 
@@ -36,8 +37,8 @@ class France24OrderTests(unittest.TestCase):
                 self.assertEqual("https://live.france24.com/hls/live/2037218/F24_EN_HI_HLS/master_5000.m3u8",
                                  next(c.url for c in channels if c.tvg_id == EN))
         self.assertEqual((ROOT / "m3u.m3u").read_bytes(), (ROOT / "1.m3u").read_bytes())
-        self.assertIn(EN, presentation["trial_m3u"])
-        self.assertNotIn(EN, {c.tvg_id for c in runner.main_playlist_channels()})
+        self.assertNotIn(EN, presentation["trial_m3u"])
+        self.assertIn(EN, {c.tvg_id for c in runner.main_playlist_channels()})
 
     def test_recorded_number_changes_match_without_rewriting_historical_removals(self):
         manifest = json.loads((ROOT / "contracts/channel-position-change-20261006-france24.json").read_text(encoding="utf-8"))
@@ -48,8 +49,13 @@ class France24OrderTests(unittest.TestCase):
         layout = json.loads((ROOT / "data/channel-editor-layout.json").read_text(encoding="utf-8"))
         by_key = {f'provider:{r["provider"]}:{r["catalogKey"]}' if r["kind"] == "provider"
                   else f'm3u:{r["tvgId"]}': r for r in layout["channels"]}
+        # Movidos después por pedido del usuario (2026-10-06): DSports 118→37 y 120→38.
+        later_moves = {"m3u:DSports.us@Direct15": 37, "m3u:DSports2.us@Direct187": 38}
         for change in manifest["changes"]:
             row = by_key[change["key"]]
+            if change["key"] in later_moves:
+                self.assertEqual((later_moves[change["key"]], "active"), (row["number"], row["state"]))
+                continue
             self.assertEqual(change["to"], row["number"])
             self.assertEqual("active", row["state"])
             self.assertEqual(19 if change["key"] == f"m3u:{EN}" else change["from"] + 1, change["to"])

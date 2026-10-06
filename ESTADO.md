@@ -92,6 +92,17 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-06**: pedidos del usuario.
+  - Eurosport 1 (63) y 2 (64) de TvVoo España: `backupCountries` = portugal, unitedkingdom,
+    france, italy, germany, netherlands. `tvvoo_variants.py` suma, después de las hermanas del
+    país, el mismo canal de cada país (uno por país, mejor calidad, nunca BACKUP); la app ya los
+    prueba en orden (resuelve por alias, que trae el país). Excepción editorial a «no cruzar países».
+  - France 24 English (19) deja de estar en prueba: recibe la guía `France.24.Anglais.fr` ya
+    configurada. DSports [IP 15] (118→37) y DSports 2 [IP 187] (120→38) pasan antes de los XITE
+    (números libres, nada más se renumera), oficiales y con guía de Colombia (`co1`):
+    `DSPORTS.(COL).(DTSC).co` y `DSPORTS.2.HD(DTV2HD).co`, elegidas comparando cuadros de las
+    señales (20:34) con la parrilla: son el feed andino. Las pruebas que fijaban el estado
+    anterior (France 24 en prueba, DSports 2 en el 120) se actualizaron a este pedido.
 - **2026-10-06, cierre France 24**: código editorial `1073380f3c4e22885ec7201e79e49151b0cce305` publicado main, cuatro archivos Raw fijados al SHA iguales a sus blobs Git y lector/proyector 0.5.73 correcto. Runner de canales `37539066258` success: generó `c76d52f` solo para salud/estado; posición/streams/layout/selección sin cambios. Editor web `37539066224` success y EPG habitual `37539349779` disparada, sin oficializar France 24 inglés. Git limpio tras integrar main; documentación de cierre publicada sin force push. No validación física de reproducción ni APK nueva, se reutiliza la fuente existente.
 - **2026-10-06, France 24 inglés**: usuario pide incorporarlo después del español; ya existía activo/en prueba en el 62, por lo que se reubica al 19 con editor-core, sin duplicar ni alterar prueba/stream/logo/identidad/membresía. Se informa en el chat antes de aplicar que se conserva prueba; no se interpreta como autorización de oficialización/EPG. Número 18 español conserva posición y activos siguientes suben +1 (incluidos proveedores, respaldo T13 ahora 218), orden editorial y M3U coherentes. Registro `contracts/channel-position-change-20261006-france24.json`; los fixtures históricos de bajas/altas no se reescriben. Tres regresiones nuevas y adaptación de expectativas de números históricos a esta inserción. 312 Python/41 JS, bundle temporal y contrato correctos; lector/proyector real VibeM3U 0.5.73 `94dd35b`: 77 visibles, France24 consecutivos 18/19, sin proveedores descartados y mismo T13/respaldo. Solo Lista M3U, selección y app sin cambios. Publicar en main y verificar runner y archivos remotos; sin APK nueva.
 - **2026-10-06, cierre Rwnd**: `45c217f` publicado y todas las fuentes/armado/publicación/verificación Raw de `37537954410` correctos. XML remoto `43d110ad924341d33a9267dfd95fee6bafc0fc53`; hash blob Raw/Git idéntico `6dc7dabb73794ba2c6ea0737f38c3d462990f312`. Tres bloques Live de seis horas, sin sinopsis ni otros metadatos, cobertura futura casi 18 h. Lectura real de EpgParser/EpgProgramme 0.5.73 correcta; no APK, no test en TV física ni renovación de caché observada. Orden validado runner → lector app → publicación/regeneración → XML remoto/lector. Documentación de cierre se publica en el mismo flujo, sin force push ni modificación de los repos originales de D:.

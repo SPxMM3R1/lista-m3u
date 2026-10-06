@@ -683,6 +683,8 @@ EPG_SOURCES = {
     "uk1": "https://epgshare01.online/epgshare01/epg_ripper_UK1.xml.gz",
     "ar1": "https://epgshare01.online/epgshare01/epg_ripper_AR1.xml.gz",
     "uy1": "https://epgshare01.online/epgshare01/epg_ripper_UY1.xml.gz",
+    # DSports andino (Colombia): coincide con las señales 118 y 120 (cuadros 2026-10-06).
+    "co1": "https://epgshare01.online/epgshare01/epg_ripper_CO1.xml.gz",
     "pt1": "https://epgshare01.online/epgshare01/epg_ripper_PT1.xml.gz",
     "nz1": "https://epgshare01.online/epgshare01/epg_ripper_NZ1.xml.gz",
     "us2": "https://epgshare01.online/epgshare01/epg_ripper_US2.xml.gz",
@@ -735,6 +737,10 @@ EPG_PROGRAMME_SOURCES = {
     # prioridad durante cada actualización.
     "DWEnglish.de": ("fr", "DW-TV.fr"),
     "France24.fr@English": ("fr", "France.24.Anglais.fr"),
+    # Feed andino de DSports: comparado con cuadros de la señal el 2026-10-06 20:34
+    # («Messi en la selección argentina» y «Supercopa 2023: River vs. Talleres»).
+    "DSports.us@Direct15": ("co1", "DSPORTS.(COL).(DTSC).co"),
+    "DSports2.us@Direct187": ("co1", "DSPORTS.2.HD(DTV2HD).co"),
     "TyCSports.ar": ("ar1", "Canal.TyC.Sports.ar"),
     "SkySportsF1.uk": ("uk1", "SkySp.F1.HD.uk"),
     "SkySportsF1UHD.uk": ("uk1", "SkySp.F1.HD.uk"),

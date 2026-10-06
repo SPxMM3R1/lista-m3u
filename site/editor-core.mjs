@@ -2,7 +2,7 @@ const LAYOUT_FIELDS = [
   "kind", "provider", "catalogKey", "providerResourceId", "resolverSlug",
   "tvgId", "name", "group", "category", "country", "countryKey",
   "aliases", "resolverAliases", "identityState", "sourceList", "logoPath",
-  "logoOverride", "displayName", "order", "number", "state", "trial", "backupTvVoo", "preferredM3u", "backupm3u",
+  "logoOverride", "displayName", "order", "number", "state", "trial", "backupTvVoo", "preferredM3u", "backupm3u", "backupCountries",
 ];
 
 export function stableId(row) {
@@ -79,6 +79,15 @@ export function validateLayout(layout) {
       if (row.kind !== "m3u" || typeof row.preferredM3u !== "string" || row.preferredM3u === row.tvgId || !target) {
         problems.push(`${row.name || id}: la señal preferida debe ser otro canal M3U de la lista.`);
       }
+    }
+    if (row.backupCountries !== undefined) {
+      const countries = Array.isArray(row.backupCountries) ? row.backupCountries : [];
+      const known = ["albania", "arabia", "bulgaria", "balkans", "germany", "spain", "france", "italy",
+        "netherlands", "poland", "portugal", "romania", "russia", "turkey", "unitedkingdom"];
+      const valid = row.kind === "provider" && row.provider === "tvvoo" && countries.length > 0 && countries.length <= 6
+        && new Set(countries).size === countries.length
+        && countries.every((value) => known.includes(value) && value !== row.countryKey);
+      if (!valid) problems.push(`${row.name || id}: los países de respaldo deben ser países TvVoo distintos del propio (hasta 6).`);
     }
     if (row.backupm3u !== undefined) {
       const ids = Array.isArray(row.backupm3u) ? row.backupm3u : [];

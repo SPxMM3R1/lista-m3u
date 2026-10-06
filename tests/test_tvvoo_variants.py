@@ -112,6 +112,26 @@ class TvVooUkVerifiedSignals(unittest.TestCase):
             merged, _ = tv.merge_with_previous({}, {"channels": {key: [valid, rejected]}}, {key}, failed)
             self.assertEqual({key: [valid]}, merged)
 
+    def test_backup_countries_add_one_entry_per_country_after_siblings(self) -> None:
+        chosen = entries("es", "EUROSPORT 1")[0][0]
+        layout = {"channels": [{
+            "kind": "provider", "provider": "tvvoo", "state": "active", "countryKey": "spain",
+            "catalogKey": "spain|" + chosen,
+            "backupCountries": ["portugal", "germany", "spain", "nowhere", "unitedkingdom"],
+        }]}
+        catalogs = {code: {"metas": [{"id": alias, "name": name} for alias, name in entries(code, *names)]}
+                    for code, names in {
+                        "es": ("EUROSPORT 1", "EUROSPORT 1 HD", "EUROSPORT 2"),
+                        "pt": ("EUROSPORT 1", "EUROSPORT 1 HD", "EUROSPORT 1 (BACKUP)"),
+                        "de": ("EUROSPORT 1 HD (BACKUP)", "EUROSPORT 1 DEUTSCHLAND",
+                               "EUROSPORT 1 [LIVE DURING EVENTS ONLY]"),
+                        "uk": ("EUROSPORT 2", "EUROSPORT 1"),
+                    }.items()}
+        channels, errors = tv.build_variants(layout, fetch=lambda code: catalogs[code])
+        self.assertEqual({}, errors)
+        self.assertEqual([entries("es", "EUROSPORT 1 HD")[0][0], entries("pt", "EUROSPORT 1 HD")[0][0],
+                          entries("uk", "EUROSPORT 1")[0][0]], channels["spain|" + chosen])
+
     def test_build_uses_uk_rule_without_changing_selection_identity(self):
         chosen = entries("uk", "TNT SPORT 4")[0][0]
         key = "unitedkingdom|" + chosen
