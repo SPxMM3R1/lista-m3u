@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-generated-at="2026-10-06T23:43:37+00:00" data-description-policy="verified-source-only" data-description-programmes="3445" data-description-channels="49" data-next-refresh-at="2026-10-07T02:43:37+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u">
+<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-generated-at="2026-10-07T00:16:02+00:00" data-description-policy="verified-source-only" data-description-programmes="3440" data-description-channels="49" data-next-refresh-at="2026-10-07T03:16:02+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u">
   <channel id="0104" data-guide="parrilla real" data-guide-source="tvn-oficial">
     <display-name>TVN</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvn.png" />
@@ -181,6 +181,14 @@
     <display-name>Real Wild</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/real-wild.png" />
   </channel>
+  <channel id="ESPN.us@Direct181" data-guide="pendiente de guia" data-guide-source="pendiente">
+    <display-name>ESPN</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn.svg" />
+  </channel>
+  <channel id="ESPN4.br@Direct181" data-guide="parrilla real" data-guide-source="pa1">
+    <display-name>ESPN 4 Brasil [IP 181]</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn.svg" />
+  </channel>
   <channel id="SkySportsF1.uk" data-guide="parrilla real" data-guide-source="uk1">
     <display-name>Sky Sports F1</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/sky-sports-f1.png" />
@@ -273,6 +281,14 @@
     <display-name>Eurosport 2 España</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/eurosport.svg" />
   </channel>
+  <programme start="20261006165622 -0300" stop="20261006182043 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">One Extraordinary Year</title>
+    <sub-title lang="en">Athletes who weren't derailed from their dreams</sub-title>
+    <desc lang="en">Follow the inspiring stories of six elite athletes in their determination to win gold in a challenging year.</desc>
+  </programme>
+  <programme start="20261006182043 -0300" stop="20261006193148 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">Program information unavailable at this time</title>
+  </programme>
   <programme start="20261006193148 -0300" stop="20261006200303 -0300" channel="RedBullWorldEnglish.int">
     <title lang="en">Milestone</title>
     <sub-title lang="en">An intimate portrayal of snowboarder Eero Ettala</sub-title>
@@ -521,31 +537,6 @@
     <sub-title lang="en">The rise of downhill prodigy Vali Höll</sub-title>
     <desc lang="en">Vali Höll steps up to elite level, after a dominant junior career. How will she fare against the world’s best?</desc>
   </programme>
-  <programme start="20261007200651 -0300" stop="20261007203528 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">Shapes in the City</title>
-    <sub-title lang="en">A surrealist BMX photo project comes to life</sub-title>
-    <desc lang="en">Meet South African rider Murray Loubser and get a look at the team that brought this project to life.</desc>
-  </programme>
-  <programme start="20261007203528 -0300" stop="20261007205929 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">Kenya</title>
-    <sub-title lang="en">Rob Warner’s Wild Rides S1E1</sub-title>
-    <desc lang="en">Former World Cup racer Rob Warner heads to Kenya with freeride pro Matt Jones to ride Mount Kenya.</desc>
-  </programme>
-  <programme start="20261007205929 -0300" stop="20261007212407 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">Nepal</title>
-    <sub-title lang="en">Rob Warner’s Wild Rides S1E4</sub-title>
-    <desc lang="en">Rob Warner and downhill pro Olly Wilkins ride around the world's tallest mountain range.</desc>
-  </programme>
-  <programme start="20261007212407 -0300" stop="20261007214647 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">Smile and fight</title>
-    <sub-title lang="en">Reel Rock S9E1</sub-title>
-    <desc lang="en">Can big wall climber Natalia Grossman handle the pressure of defending her IFSC World Cup Champion title?</desc>
-  </programme>
-  <programme start="20261007214647 -0300" stop="20261007221105 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">Burning the flame part 1</title>
-    <sub-title lang="en">Reel Rock S9E2</sub-title>
-    <desc lang="en">Elite power duo Babsi and Jacopo attempt a coveted free ascent of the Nameless Tower in Pakistan.</desc>
-  </programme>
   <programme start="20261006191813 -0300" stop="20261006212015 -0300" channel="RedBullChileEspanol.cl">
     <title lang="es">Against Gravity – la historia del surfer Leon Glatzer</title>
     <desc lang="es">La historia de vida del surfista profesional Leon Glatzer y cómo el mar moldeó su vida.</desc>
@@ -661,21 +652,6 @@
   <programme start="20261007155910 -0300" stop="20261007165422 -0300" channel="RedBullChileEspanol.cl">
     <title lang="es">Las estrellas del ciclismo se enfrentan cara a cara</title>
     <desc lang="es">Pogačar, Vingegaard, Roglič y Del Toro se enfrentan en Andorra mientras las cámaras muestran momentos dentro y fuera de la carretera y una faceta más personal de cuatro figuras del ciclismo mundial.</desc>
-  </programme>
-  <programme start="20261007165422 -0300" stop="20261007172513 -0300" channel="RedBullChileEspanol.cl">
-    <title lang="es">El ABC de Mountain Biking - Todo lo que necesitas saber</title>
-    <desc lang="es">Descubre todo lo esencial sobre el mountain biking. Adéntrate en su historia, terminología y los héroes que han marcado este deporte, para entender y disfrutar al máximo del mundo del MTB.</desc>
-  </programme>
-  <programme start="20261007172513 -0300" stop="20261007174611 -0300" channel="RedBullChileEspanol.cl">
-    <title lang="es">GAMING: Los límites de la puntería – TenZ and iiTzTimmy</title>
-    <desc lang="es">¿Hasta dónde puede llegar la puntería de un jugador profesional? TenZ e iiTzTimmy afrontan un desafío que pondrá a prueba su precisión al alejarse cada vez más del monitor.</desc>
-  </programme>
-  <programme start="20261007174611 -0300" stop="20261007193757 -0300" channel="RedBullChileEspanol.cl">
-    <title lang="es">50 años desafiando los límites de la escalada</title>
-    <desc lang="es">Durante más de 50 años, generaciones de escaladores llevan la escalada en roca de Yosemite a nuevos límites mientras construyen un estilo de vida contracultural en el parque.</desc>
-  </programme>
-  <programme start="20261006140000 -0300" stop="20261006150000 -0300" channel="0102">
-    <title lang="es">Hudson &amp; Rex</title>
   </programme>
   <programme start="20261006150000 -0300" stop="20261006160000 -0300" channel="0102">
     <title lang="es">El Hombre Nuclear</title>
@@ -960,9 +936,6 @@
   <programme start="20261013003000 -0300" stop="20261013023000 -0300" channel="0102">
     <title lang="es">Cierre de transmisiones</title>
   </programme>
-  <programme start="20261006130000 -0300" stop="20261006150000 -0300" channel="0104">
-    <title lang="es">24 Horas Al Dia</title>
-  </programme>
   <programme start="20261006150000 -0300" stop="20261006161500 -0300" channel="0104">
     <title lang="es">Pampa Ilusión</title>
   </programme>
@@ -1021,6 +994,9 @@
   </programme>
   <programme start="20261006110000 -0300" stop="20261006130000 -0300" channel="0104">
     <title lang="es">El Medio Día</title>
+  </programme>
+  <programme start="20261006130000 -0300" stop="20261006150000 -0300" channel="0104">
+    <title lang="es">24 Horas al Día</title>
   </programme>
   <programme start="20261007050000 -0300" stop="20261007053000 -0300" channel="0104">
     <title lang="es">Hora 24</title>
@@ -1242,6 +1218,7 @@
   </programme>
   <programme start="20261007180000 -0300" stop="20261007194500 -0300" channel="0105">
     <title lang="es">Dale Play</title>
+    <desc lang="es">Con la llegada del verano vuelve Dale Play Verano, uno de los programas musicales más icónicos de Mega</desc>
   </programme>
   <programme start="20261007194500 -0300" stop="20261007200000 -0300" channel="0105">
     <title lang="es">Volvamos a creer</title>
@@ -1415,11 +1392,6 @@
   <programme start="20261006060000 -0300" stop="20261006080000 -0300" channel="0106">
     <title lang="es">Contigo CHV Noticias A.M.</title>
   </programme>
-  <programme start="20261006191500 -0300" stop="20261006210000 -0300" channel="0107">
-    <title lang="es">¡Qué Dice Chile!</title>
-    <desc lang="es">Dos grupos de cuatro personas competirán entre sí para nombrar las respuestas más populares de una encuesta con el fin de ganar un premio en dinero. Un duelo de memoria, rapidez e ingenio donde los equipos competirán para descifrar el verdadero pensamiento de los chilenos.</desc>
-    <category lang="es">[]</category>
-  </programme>
   <programme start="20261006210000 -0300" stop="20261006224000 -0300" channel="0107">
     <title lang="es">Teletrece Central</title>
     <desc lang="es">El informativo central de Canal 13 entrega cada noche una mirada panorámica de la actualidad noticiosa de Chile y el mundo, con notas en profundidad y reportajes que dan cuenta del amplio despliegue informativo.</desc>
@@ -1574,13 +1546,10 @@
     <title lang="es">Vecinos al Límite Extra</title>
     <category lang="es">[]</category>
   </programme>
-  <programme start="20261006153700 -0300" stop="20261006165500 -0300" channel="0107">
-    <title lang="es">Vale Todo</title>
-  </programme>
-  <programme start="20261006165500 -0300" stop="20261006190500 -0300" channel="0107">
+  <programme start="20261006165500 -0300" stop="20261006191500 -0300" channel="0107">
     <title lang="es">Alfombra Roja</title>
   </programme>
-  <programme start="20261006190500 -0300" stop="20261006191500 -0300" channel="0107">
+  <programme start="20261006191500 -0300" stop="20261006210000 -0300" channel="0107">
     <title lang="es">Qué Dice Chile</title>
     <desc lang="es">Dos grupos de cuatro personas competirán entre sí para nombrar las respuestas más populares de una encuesta con el fin de ganar un premio en dinero. Un duelo de memoria, rapidez e ingenio donde los equipos competirán para descifrar el verdadero pensamiento de los chilenos.</desc>
   </programme>
@@ -1607,12 +1576,8 @@
   <programme start="20261006152000 -0300" stop="20261006153000 -0300" channel="0107">
     <title lang="es">El tiempo</title>
   </programme>
-  <programme start="20261006153000 -0300" stop="20261006153700 -0300" channel="0107">
+  <programme start="20261006153000 -0300" stop="20261006165500 -0300" channel="0107">
     <title lang="es">Vale Todo</title>
-  </programme>
-  <programme start="20261006190000 -0300" stop="20261006193500 -0300" channel="0124">
-    <title lang="es">Hablemos a las 12</title>
-    <desc lang="es">El prestigioso periodista abordará con un entrevistado temáticas de contingencia y actualidad.</desc>
   </programme>
   <programme start="20261006193500 -0300" stop="20261006203500 -0300" channel="0124">
     <title lang="es">Estamos en Vivo</title>
@@ -1630,6 +1595,10 @@
     <title lang="es">El tiempo</title>
     <desc lang="es">Información climatológica de Chile</desc>
   </programme>
+  <programme start="20261006225000 -0300" stop="20261006230000 -0300" channel="0124">
+    <title lang="es">Raya para la suma</title>
+    <desc lang="es">Programa conducido por Cristián Pino que tiene como objetivo poner sobre la mesa los temas económicos, hablamos de manera fácil y sencilla que sucede con la inflación, UF, dolar y todo lo que afecta a nuestro país en materia económica, pero también a nivel mundial</desc>
+  </programme>
   <programme start="20261006130000 -0300" stop="20261006152000 -0300" channel="0124">
     <title lang="es">Teletrece tarde</title>
   </programme>
@@ -1638,22 +1607,25 @@
   </programme>
   <programme start="20261006153000 -0300" stop="20261006170000 -0300" channel="0124">
     <title lang="es">En Vivo</title>
-    <desc lang="es">Durante la tarde, todas las noticias mas relevantes de la actualidad.</desc>
   </programme>
   <programme start="20261006170000 -0300" stop="20261006172000 -0300" channel="0124">
     <title lang="es">Raya para la suma</title>
   </programme>
   <programme start="20261006172000 -0300" stop="20261006180000 -0300" channel="0124">
     <title lang="es">En Vivo</title>
-    <desc lang="es">Durante la tarde, todas las noticias mas relevantes de la actualidad.</desc>
+    <desc lang="es">Completa revisión de lo que está sucediendo al minuto en las calles de Santiago y en las regiones de Chile. Además, tendrá un invitado en estudio para profundizar sobre algún tema periodístico de interés.</desc>
   </programme>
   <programme start="20261006180000 -0300" stop="20261006190000 -0300" channel="0124">
     <title lang="es">Me enteré por la prensa</title>
     <desc lang="es">Me enteré por la prensa es un espacio diario de actualidad política emitido en vivo y en directo. Conducido por la periodista Mónica Pérez, el programa aborda la contingencia nacional a través de debates con panelistas, entrevistas a invitados y un despliegue periodístico en terreno con móviles en directo desde los principales centros del acontecer político, como el Palacio de La Moneda y el Congreso Nacional.</desc>
   </programme>
-  <programme start="20261006225000 -0300" stop="20261006230000 -0300" channel="0124">
-    <title lang="es">Raya para la suma</title>
-    <desc lang="es">Programa conducido por Cristián Pino que tiene como objetivo poner sobre la mesa los temas económicos, hablamos de manera fácil y sencilla que sucede con la inflación, UF, dolar y todo lo que afecta a nuestro país en materia económica, pero también a nivel mundial</desc>
+  <programme start="20261006190000 -0300" stop="20261006193000 -0300" channel="0124">
+    <title lang="es">Hablemos a las 12</title>
+    <desc lang="es">El prestigioso periodista abordará con un entrevistado temáticas de contingencia y actualidad.</desc>
+  </programme>
+  <programme start="20261006193000 -0300" stop="20261006193500 -0300" channel="0124">
+    <title lang="es">Estamos en vivo</title>
+    <desc lang="es">Completa revisión de lo que está sucediendo al minuto en las calles de Santiago y en las regiones de Chile. Además, tendrá un invitado en estudio para profundizar sobre algún tema periodístico de interés.</desc>
   </programme>
   <programme start="20261006230000 -0300" stop="20261006235000 -0300" channel="0124">
     <title lang="es">Me enteré por la prensa</title>
@@ -1736,9 +1708,11 @@
   </programme>
   <programme start="20261007175000 -0300" stop="20261007180000 -0300" channel="0124">
     <title lang="es">Gran Angular</title>
+    <desc lang="es">Entrevista enfocada siempre a temas de tecnología, avances, innovación, en donde un experto o experta nos ayuda a responder las preguntas que surgen en base al tema de la semana.</desc>
   </programme>
   <programme start="20261007180000 -0300" stop="20261007190000 -0300" channel="0124">
     <title lang="es">Me enteré por la prensa</title>
+    <desc lang="es">Me enteré por la prensa es un espacio diario de actualidad política emitido en vivo y en directo. Conducido por la periodista Mónica Pérez, el programa aborda la contingencia nacional a través de debates con panelistas, entrevistas a invitados y un despliegue periodístico en terreno con móviles en directo desde los principales centros del acontecer político, como el Palacio de La Moneda y el Congreso Nacional.</desc>
   </programme>
   <programme start="20261007190000 -0300" stop="20261007193000 -0300" channel="0124">
     <title lang="es">Hablemos a las 12</title>
@@ -1761,10 +1735,6 @@
   <programme start="20261007235000 -0300" stop="20261008002000 -0300" channel="0124">
     <title lang="es">Sin intereses</title>
   </programme>
-  <programme start="20261006180000 -0300" stop="20261006190000 -0300" channel="0201">
-    <title lang="es">Noticias 24 Radar</title>
-    <desc lang="es">Noticias 24 es el noticiero central del canal 24 Horas de TVN Chile, la señal de noticias 24/7 de Televisión Nacional de Chile.</desc>
-  </programme>
   <programme start="20261006190000 -0300" stop="20261006195500 -0300" channel="0201">
     <title lang="es">Noticias 24 Claves Del Día</title>
     <desc lang="es">Noticias 24 es el noticiero central del canal 24 Horas de TVN Chile, la señal de noticias 24/7 de Televisión Nacional de Chile.</desc>
@@ -1780,6 +1750,10 @@
   <programme start="20261006224500 -0300" stop="20261006230000 -0300" channel="0201">
     <title lang="es">Página 24</title>
     <desc lang="es">Programa de variedades y entretenimiento.</desc>
+  </programme>
+  <programme start="20261006230000 -0300" stop="20261007000000 -0300" channel="0201">
+    <title lang="es">Via Pública</title>
+    <desc lang="es">Un programa de debate y análisis sobre temas de actualidad.</desc>
   </programme>
   <programme start="20261006023000 -0300" stop="20261006031500 -0300" channel="0201">
     <title lang="es">24 Horas a la Hora</title>
@@ -1833,9 +1807,9 @@
     <title lang="es">Noticias 24</title>
     <desc lang="es">Noticias 24 es el noticiero central del canal 24 Horas de TVN Chile, la señal de noticias 24/7 de Televisión Nacional de Chile.</desc>
   </programme>
-  <programme start="20261006230000 -0300" stop="20261007000000 -0300" channel="0201">
-    <title lang="es">Vía Pública</title>
-    <desc lang="es">Un programa de debate y análisis sobre temas de actualidad.</desc>
+  <programme start="20261006180000 -0300" stop="20261006190000 -0300" channel="0201">
+    <title lang="es">Noticias 24</title>
+    <desc lang="es">Noticias 24 es el noticiero central del canal 24 Horas de TVN Chile, la señal de noticias 24/7 de Televisión Nacional de Chile.</desc>
   </programme>
   <programme start="20261007000000 -0300" stop="20261007003000 -0300" channel="0201">
     <title lang="es">24 Horas a la Hora</title>
@@ -2101,13 +2075,7 @@
   <programme start="20261007230000 -0300" stop="20261008003000 -0300" channel="1153">
     <title lang="es">Chilevisión noticias informa</title>
   </programme>
-  <programme start="20261006200100 -0300" stop="20261006204300 -0300" channel="13Cultura.cl@DPS">
-    <title lang="es">Cultura Indómita</title>
-    <sub-title lang="es">Cultura Indómita | Capítulo 19 | Ecuador Parque Nacional Parque Yasuni</sub-title>
-    <desc lang="es">T1 -Ep.7: Cayo Cochino En Honduras. Cultura Indómita será un recorrido por los destinos más fascinantes de Sudamérica.</desc>
-    <category lang="es">None</category>
-  </programme>
-  <programme start="20261006204300 -0300" stop="20261006214900 -0300" channel="13Cultura.cl@DPS">
+  <programme start="20261006210100 -0300" stop="20261006214900 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">City Tour On Tour: USA</title>
     <sub-title lang="es">City Tour On Tour: USA | New Haven y Georgetown</sub-title>
     <desc lang="es">Acompaña a Federico Sánchez y Marcelo Comparini a recorrer Estados Unidos.</desc>
@@ -2236,15 +2204,16 @@
     <sub-title lang="es">Recomiendo América | Capítulo 02 | Guayaquil, Ecuador</sub-title>
     <category lang="es">None</category>
   </programme>
-  <programme start="20261006140000 -0300" stop="20261006150000 -0300" channel="13Cultura.cl@DPS">
-    <title lang="es">Recomiendo Chile : Cochrane</title>
+  <programme start="20261007195600 -0300" stop="20261007204600 -0300" channel="13Cultura.cl@DPS">
+    <title lang="es">Cultura Indómita</title>
+    <sub-title lang="es">Cultura Indómita | Capítulo 19 | Ecuador Parque Nacional Parque Yasuni</sub-title>
+    <category lang="es">None</category>
   </programme>
   <programme start="20261006150000 -0300" stop="20261006160000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Al sur del mundo : La minga que movió la vieja iglesia de Tey</title>
   </programme>
   <programme start="20261006160000 -0300" stop="20261006170000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Descendientes, ecos de una colonización</title>
-    <desc lang="es">Un viaje íntimo y emotivo por la memoria viva de la colonización alemana en la cuenca del Lago Llanquihue. A través de los relatos de sus protagonistas -descendientes directos de los primeros colonos- este documental reconstruye historias personales que dialogan con la historia colectiva, mostrando cómo la identidad, la cultura y las tradiciones se transmiten generación tras generación, y cómo esas raíces han marcado también las vidas, oficios y caminos que cada uno ha construido.</desc>
   </programme>
   <programme start="20261006170000 -0300" stop="20261006180000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">En Vivo</title>
@@ -2262,14 +2231,19 @@
     <title lang="es">Carnaval del Sur</title>
     <desc lang="es">Documental que cubre el Carnaval del Sur, el que celebra con la comunidad la identidad de la gente que vive en la zona, combinando artes escénicas y la divulgación científica con una puesta en valor de su patrimonio natural y cultural.</desc>
   </programme>
-  <programme start="20261006193000 -0300" stop="20261006200100 -0300" channel="13Cultura.cl@DPS">
+  <programme start="20261006193000 -0300" stop="20261006203000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">La montaña imaginaria : Paredes de granito</title>
     <desc lang="es">T1 -Ep.1: Paredes De Gratino. Sumérgete en las alturas de La Montaña Imaginaria, donde exploraremos la revolucionaria travesía de un grupo audaz de montañistas chilenos durante las décadas de los 60 a los 80.</desc>
   </programme>
-  <programme start="20261007195600 -0300" stop="20261007200000 -0300" channel="13Cultura.cl@DPS">
-    <title lang="es">Mi segundo tiempo</title>
+  <programme start="20261006203000 -0300" stop="20261006210000 -0300" channel="13Cultura.cl@DPS">
+    <title lang="es">La gracia de viajar</title>
+    <desc lang="es">T4 -Ep.12: La Gracia De Viajar. Viajar es la oportunidad de explorar el mundo con todos los sentidos, dejándote llevar por la emoción de lo desconocido, una aventura que nos desafía a salir de nuestra zona de confort y abrazar lo que la vida tiene para ofrecer. Viaja junto a la fotógrafa María Gracia Subercaseaux a los destinos más exóticos, descubriendo los rincones del mundo, su cultura, su gente, música y gastronomía, y explorar el mundo desde otra perspectiva.</desc>
   </programme>
-  <programme start="20261007200000 -0300" stop="20261007210000 -0300" channel="13Cultura.cl@DPS">
+  <programme start="20261006210000 -0300" stop="20261006210100 -0300" channel="13Cultura.cl@DPS">
+    <title lang="es">Cultura indómita : Cayos Cochinos</title>
+    <desc lang="es">T1 -Ep.7: Cayo Cochino En Honduras. Cultura Indómita será un recorrido por los destinos más fascinantes de Sudamérica.</desc>
+  </programme>
+  <programme start="20261007204600 -0300" stop="20261007210000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">City Tour</title>
   </programme>
   <programme start="20261007210000 -0300" stop="20261007220000 -0300" channel="13Cultura.cl@DPS">
@@ -2283,10 +2257,6 @@
   </programme>
   <programme start="20261007233000 -0300" stop="20261008003000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Energía infinita : Nuevas generaciones y oportunidades</title>
-  </programme>
-  <programme start="20261006170000 -0300" stop="20261006181500 -0300" channel="1437">
-    <title lang="es">Pasiones</title>
-    <desc lang="es">Los casos más interesantes de personas con problemas amorosos, relatados por sus protagonistas quienes reciben consejos de la audiencia y un panel de expertos.</desc>
   </programme>
   <programme start="20261006181500 -0300" stop="20261006200000 -0300" channel="1437">
     <title lang="es">Calle 7</title>
@@ -2304,8 +2274,9 @@
     <title lang="es">Mea Culpa</title>
     <desc lang="es">Programa que recrea algunos de los crímenes más impactantes de Chile. Conducido por Carlos Pinto</desc>
   </programme>
-  <programme start="20261006173000 -0300" stop="20261006200000 -0300" channel="45">
-    <title lang="es">Efecto N</title>
+  <programme start="20261006230000 -0300" stop="20261007000000 -0300" channel="1437">
+    <title lang="es">Mea culpa</title>
+    <desc lang="es">Programa que recrea algunos de los crímenes más impactantes de Chile. Conducido por Carlos Pinto</desc>
   </programme>
   <programme start="20261006200000 -0300" stop="20261006204000 -0300" channel="45">
     <title lang="es">10 Min Nota ¿Qué Sucede? Ideas Rompe-Cráneos</title>
@@ -2320,8 +2291,8 @@
   <programme start="20261006213000 -0300" stop="20261006220000 -0300" channel="45">
     <title lang="es">Extraordinarias</title>
   </programme>
-  <programme start="20261006143000 -0300" stop="20261006150000 -0300" channel="45">
-    <title lang="es">Historias de la casa del árbol</title>
+  <programme start="20261006220000 -0300" stop="20261006223000 -0300" channel="45">
+    <title lang="es">Tricao Mágico</title>
   </programme>
   <programme start="20261006150000 -0300" stop="20261006160000 -0300" channel="45">
     <title lang="es">Cuestión de mente</title>
@@ -2335,8 +2306,8 @@
   <programme start="20261006170000 -0300" stop="20261006173000 -0300" channel="45">
     <title lang="es">Quique H detective</title>
   </programme>
-  <programme start="20261006220000 -0300" stop="20261006223000 -0300" channel="45">
-    <title lang="es">Tricao mágico</title>
+  <programme start="20261006173000 -0300" stop="20261006200000 -0300" channel="45">
+    <title lang="es">Efecto N</title>
   </programme>
   <programme start="20261006223000 -0300" stop="20261006233000 -0300" channel="45">
     <title lang="es">Chile circular</title>
@@ -7979,10 +7950,6 @@
     <category lang="es">default</category>
     <icon src="https://d355knccl7z6vu.cloudfront.net/programs/DTH/EP010694370023/images/IMG-4E66C57C-2451-450C-ACF4-61CB590F264C.jpeg" />
   </programme>
-  <programme start="20261006203000 -0300" stop="20261006210000 -0300" channel="DW.de">
-    <title lang="es">Fuerza Latina: Entre escombros y retazos nació una comunidad</title>
-    <desc lang="es">Encuentros inspiradores con mujeres que transforman el mundo. Natalia Orozco y Yoani Sánchez conversan con mujeres de América Latina, protagonistas de excepcionales historias.</desc>
-  </programme>
   <programme start="20261006210000 -0300" stop="20261006213000 -0300" channel="DW.de">
     <title lang="es">DW Noticias: Noticias</title>
     <desc lang="es">Explicaciones detalladas, análisis competentes, cobertura de la actualidad mundial: política, negocios, deporte y cultura. Perspectivas fascinantes más allá de los titulares. DW noticias: atando cabos para espectadores de todo el mundo.</desc>
@@ -8069,6 +8036,9 @@
   <programme start="20261007080000 -0300" stop="20261007083000 -0300" channel="DW.de">
     <title lang="es">Fuerza Latina: Entre escombros y retazos nació una comunidad</title>
     <desc lang="es">Encuentros inspiradores con mujeres que transforman el mundo. Natalia Orozco y Yoani Sánchez conversan con mujeres de América Latina, protagonistas de excepcionales historias.</desc>
+  </programme>
+  <programme start="20261007083000 -0300" stop="20261007090000 -0300" channel="DW.de">
+    <title lang="es">RPM: ¿Está conquistando China la movilidad en África?</title>
   </programme>
   <programme start="20261006021500 -0300" stop="20261006024500 -0300" channel="DW.de">
     <title lang="es">Primer Plano</title>
@@ -8159,11 +8129,9 @@
   </programme>
   <programme start="20261006143000 -0300" stop="20261006150000 -0300" channel="DW.de">
     <title lang="es">Primer Plano</title>
-    <desc lang="es">La noticia de cerca y con todos sus aspectos. Media hora de información de trasfondo sobre temas de política y actualidad. No nos limitamos a narrar acontecimientos, ahondamos en las causas y la evolución. Primer plano: interesante, impactante, informativo.</desc>
   </programme>
   <programme start="20261006150000 -0300" stop="20261006153000 -0300" channel="DW.de">
     <title lang="es">DW Noticias</title>
-    <desc lang="es">Explicaciones detalladas, análisis competentes, cobertura de la actualidad mundial: política, negocios, deporte y cultura. Perspectivas fascinantes más allá de los titulares. DW noticias: atando cabos para espectadores de todo el mundo.</desc>
   </programme>
   <programme start="20261006153000 -0300" stop="20261006160000 -0300" channel="DW.de">
     <title lang="es">¡Escápate!</title>
@@ -8181,7 +8149,6 @@
   </programme>
   <programme start="20261006173000 -0300" stop="20261006180000 -0300" channel="DW.de">
     <title lang="es">Primer Plano</title>
-    <desc lang="es">La noticia de cerca y con todos sus aspectos. Media hora de información de trasfondo sobre temas de política y actualidad. No nos limitamos a narrar acontecimientos, ahondamos en las causas y la evolución. Primer plano: interesante, impactante, informativo.</desc>
   </programme>
   <programme start="20261006180000 -0300" stop="20261006181500 -0300" channel="DW.de">
     <title lang="es">DW analiza</title>
@@ -8207,9 +8174,9 @@
     <title lang="es">Economía</title>
     <desc lang="es">Una mirada europea al mundo de la economía y los negocios. Hechos, análisis y las historias reales desde las principales plazas financieras, los mercados clave y las empresas líderes.</desc>
   </programme>
-  <programme start="20261007083000 -0300" stop="20261007090000 -0300" channel="DW.de">
-    <title lang="es">Rpm</title>
-    <desc lang="es">El mundo del auto y de la movilidad. Pruebas mecánicas y tecnologías respetuosas con el clima, ideas sorprendentes y visiones futuristas. RPM lo mantiene a la vanguardia a altas revoluciones.</desc>
+  <programme start="20261006203000 -0300" stop="20261006210000 -0300" channel="DW.de">
+    <title lang="es">Fuerza latina, mujeres inspiradoras de América Latina</title>
+    <desc lang="es">Encuentros inspiradores con mujeres que transforman el mundo. Natalia Orozco y Yoani Sánchez conversan con mujeres de América Latina, protagonistas de excepcionales historias.</desc>
   </programme>
   <programme start="20261007090000 -0300" stop="20261007093000 -0300" channel="DW.de">
     <title lang="es">En Forma</title>
@@ -8281,6 +8248,7 @@
   </programme>
   <programme start="20261007180000 -0300" stop="20261007181500 -0300" channel="DW.de">
     <title lang="es">El reportero</title>
+    <desc lang="es">Con cámara en mano los reporteros de DW registran los sucesos de actualidad, los acontecimientos internacionales o las curiosidades de la vida cotidiana. Experimentan y relatan de cerca cómo cambian Alemania, Europa y el mundo ante sus ojos.</desc>
   </programme>
   <programme start="20261007181500 -0300" stop="20261007190000 -0300" channel="DW.de">
     <title lang="es">Zona docu</title>
@@ -8304,6 +8272,7 @@
   </programme>
   <programme start="20261007210000 -0300" stop="20261007213000 -0300" channel="DW.de">
     <title lang="es">DW Noticias</title>
+    <desc lang="es">Explicaciones detalladas, análisis competentes, cobertura de la actualidad mundial: política, negocios, deporte y cultura. Perspectivas fascinantes más allá de los titulares. DW noticias: atando cabos para espectadores de todo el mundo.</desc>
   </programme>
   <programme start="20261007213000 -0300" stop="20261007220000 -0300" channel="DW.de">
     <title lang="es">Enfoque Europa: Países, gente, destinos</title>
@@ -8641,12 +8610,6 @@
   <programme start="20261010013000 -0300" stop="20261010020000 -0300" channel="DW.de">
     <title lang="es">Global es</title>
   </programme>
-  <programme start="20261006203000 -0300" stop="20261006210000 -0300" channel="DWEnglish.de">
-    <title lang="en">Global Us: The superplant giving the Baltic Sea a second chance</title>
-  </programme>
-  <programme start="20261006210000 -0300" stop="20261006210200 -0300" channel="DWEnglish.de">
-    <title lang="en">DW News</title>
-  </programme>
   <programme start="20261006210200 -0300" stop="20261006213000 -0300" channel="DWEnglish.de">
     <title lang="en">The Day: News in Review</title>
   </programme>
@@ -8765,6 +8728,12 @@
   </programme>
   <programme start="20261007080200 -0300" stop="20261007083000 -0300" channel="DWEnglish.de">
     <title lang="en">DocFilm: Young Startups - Germany's Next Tech Champions?</title>
+  </programme>
+  <programme start="20261007083000 -0300" stop="20261007090000 -0300" channel="DWEnglish.de">
+    <title lang="en">Made in Germany: Germany’s economy faces pressure from industry to agriculture</title>
+  </programme>
+  <programme start="20261007090000 -0300" stop="20261007090200 -0300" channel="DWEnglish.de">
+    <title lang="en">DW News</title>
   </programme>
   <programme channel="DWEnglish.de" start="20261004210000 -0300" stop="20261004210200 -0300">
     <title lang="fr">DW News</title>
@@ -9898,12 +9867,15 @@
     <category lang="fr">Documentaire de société</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/2/6/5/15202562.jpg" />
   </programme>
-  <programme channel="DWEnglish.de" start="20261007083000 -0300" stop="20261007090000 -0300">
-    <title lang="fr">Made in Germany</title>
+  <programme channel="DWEnglish.de" start="20261006203000 -0300" stop="20261006210000 -0300">
+    <title lang="fr">Global 3000</title>
     <category lang="fr">Magazine d'information</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/2/0/1/15216102.jpg" />
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/4/8/15215845.jpg" />
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/0/2/8/15215820.jpg" />
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/0/8/15215808.jpg" />
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/3/8/15215836.jpg" />
   </programme>
-  <programme channel="DWEnglish.de" start="20261007090000 -0300" stop="20261007090200 -0300">
+  <programme channel="DWEnglish.de" start="20261006210000 -0300" stop="20261006210200 -0300">
     <title lang="fr">DW News</title>
     <category lang="fr">Journal</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/0/7/15708705.jpg" />
@@ -10704,6 +10676,114 @@
     <desc lang="fr">Select DW podcasts enrich the program with current analyses of world politics and its influence on our daily lives. There will also be space in the program for lively discussions about social standards and taboos.</desc>
     <category lang="fr">Débat</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/2/3/15216325.jpg" />
+  </programme>
+  <programme start="20261006021500 -0300" stop="20261006023000 -0300" channel="ESPN4.br@Direct181">
+    <title lang="es">Lo mejor de MotoGP</title>
+  </programme>
+  <programme start="20261006023000 -0300" stop="20261006030000 -0300" channel="ESPN4.br@Direct181">
+    <title lang="es">Jalisco</title>
+    <sub-title lang="es">México épico</sub-title>
+  </programme>
+  <programme start="20261006030000 -0300" stop="20261006040000 -0300" channel="ESPN4.br@Direct181">
+    <title lang="es">Equipo F Centroamérica</title>
+  </programme>
+  <programme start="20261006040000 -0300" stop="20261006050000 -0300" channel="ESPN4.br@Direct181">
+    <title lang="es">ESPN Fc</title>
+  </programme>
+  <programme start="20261006050000 -0300" stop="20261006070000 -0300" channel="ESPN4.br@Direct181">
+    <title lang="es">NFL</title>
+    <sub-title lang="es">Los Angeles Chargers vs. Seattle Seahawks, Fecha 4, Lumen Field</sub-title>
+  </programme>
+  <programme start="20261006070000 -0300" stop="20261006073000 -0300" channel="ESPN4.br@Direct181">
+    <title lang="es">Lo mejor de MotoGP</title>
+  </programme>
+  <programme start="20261006073000 -0300" stop="20261006080000 -0300" channel="ESPN4.br@Direct181">
+    <title lang="es">Jalisco</title>
+    <sub-title lang="es">México épico</sub-title>
+  </programme>
+  <programme start="20261006080000 -0300" stop="20261006100000 -0300" channel="ESPN4.br@Direct181">
+    <title lang="es">MLB</title>
+    <sub-title lang="es">New York Yankees vs. Tampa Bay Rays, Temporada regular, Tropicana Field</sub-title>
+  </programme>
+  <programme start="20261006100000 -0300" stop="20261006110000 -0300" channel="ESPN4.br@Direct181">
+    <title lang="es">ESPN Fc</title>
+  </programme>
+  <programme start="20261006110000 -0300" stop="20261006130000 -0300" channel="ESPN4.br@Direct181">
+    <title lang="es">NFL</title>
+    <sub-title lang="es">Atlanta Falcons vs. New Orleans Saints, Fecha 4, Caesars Superdome</sub-title>
+  </programme>
+  <programme start="20261006130000 -0300" stop="20261006150000 -0300" channel="ESPN4.br@Direct181">
+    <title lang="es">MLB</title>
+    <sub-title lang="es">Chicago White Sox vs. Cleveland Guardians, Temporada regular, Progressive Field</sub-title>
+  </programme>
+  <programme start="20261006150000 -0300" stop="20261006160000 -0300" channel="ESPN4.br@Direct181">
+    <title lang="es">Big Day with Peter Schrager</title>
+  </programme>
+  <programme start="20261006160000 -0300" stop="20261006170000 -0300" channel="ESPN4.br@Direct181">
+    <title lang="es">NBA Today</title>
+  </programme>
+  <programme start="20261006170000 -0300" stop="20261006180000 -0300" channel="ESPN4.br@Direct181">
+    <title lang="es">NFL Live</title>
+  </programme>
+  <programme start="20261006180000 -0300" stop="20261006210000 -0300" channel="ESPN4.br@Direct181">
+    <title lang="es">NFL</title>
+    <sub-title lang="es">Denver Broncos vs. San Francisco 49ers, Fecha 4, Levi's Stadium</sub-title>
+  </programme>
+  <programme start="20261006210000 -0300" stop="20261007000000 -0300" channel="ESPN4.br@Direct181">
+    <title lang="es">Southern Miss vs. Troy</title>
+    <sub-title lang="es">NCAA Football</sub-title>
+  </programme>
+  <programme start="20261007000000 -0300" stop="20261007020000 -0300" channel="ESPN4.br@Direct181">
+    <title lang="es">NFL</title>
+    <sub-title lang="es">New England Patriots vs. Buffalo Bills, Fecha 4, Highmark Stadium</sub-title>
+  </programme>
+  <programme start="20261007020000 -0300" stop="20261007030000 -0300" channel="ESPN4.br@Direct181">
+    <title lang="es">NFL semanal</title>
+  </programme>
+  <programme start="20261007030000 -0300" stop="20261007040000 -0300" channel="ESPN4.br@Direct181">
+    <title lang="es">Equipo F Centroamérica</title>
+  </programme>
+  <programme start="20261007040000 -0300" stop="20261007050000 -0300" channel="ESPN4.br@Direct181">
+    <title lang="es">ESPN Fc</title>
+  </programme>
+  <programme start="20261007050000 -0300" stop="20261007070000 -0300" channel="ESPN4.br@Direct181">
+    <title lang="es">NFL</title>
+    <sub-title lang="es">Denver Broncos vs. San Francisco 49ers, Fecha 4, Levi's Stadium</sub-title>
+  </programme>
+  <programme start="20261007070000 -0300" stop="20261007080000 -0300" channel="ESPN4.br@Direct181">
+    <title lang="es">NFL semanal</title>
+  </programme>
+  <programme start="20261007080000 -0300" stop="20261007100000 -0300" channel="ESPN4.br@Direct181">
+    <title lang="es">Southern Miss vs. Troy</title>
+    <sub-title lang="es">NCAA Football</sub-title>
+  </programme>
+  <programme start="20261007100000 -0300" stop="20261007110000 -0300" channel="ESPN4.br@Direct181">
+    <title lang="es">ESPN Fc</title>
+  </programme>
+  <programme start="20261007110000 -0300" stop="20261007130000 -0300" channel="ESPN4.br@Direct181">
+    <title lang="es">Wnba</title>
+    <sub-title lang="es">Juego 1, Semifinal</sub-title>
+  </programme>
+  <programme start="20261007130000 -0300" stop="20261007150000 -0300" channel="ESPN4.br@Direct181">
+    <title lang="es">ESPN Knockout</title>
+    <sub-title lang="es">Jose Russell vs. Rene Calixto Bibiano</sub-title>
+  </programme>
+  <programme start="20261007150000 -0300" stop="20261007160000 -0300" channel="ESPN4.br@Direct181">
+    <title lang="es">Big Day with Peter Schrager</title>
+  </programme>
+  <programme start="20261007160000 -0300" stop="20261007170000 -0300" channel="ESPN4.br@Direct181">
+    <title lang="es">NBA Today</title>
+  </programme>
+  <programme start="20261007170000 -0300" stop="20261007180000 -0300" channel="ESPN4.br@Direct181">
+    <title lang="es">NFL Live</title>
+  </programme>
+  <programme start="20261007180000 -0300" stop="20261007200000 -0300" channel="ESPN4.br@Direct181">
+    <title lang="es">NFL</title>
+    <sub-title lang="es">New England Patriots vs. Buffalo Bills, Fecha 4, Highmark Stadium</sub-title>
+  </programme>
+  <programme start="20261007200000 -0300" stop="20261007220000 -0300" channel="ESPN4.br@Direct181">
+    <title lang="es">NCAA Women's Volleyball</title>
+    <sub-title lang="es">Texas A&amp;M vs. Oklahoma, McCasland Field House, Norman, OK, USA</sub-title>
   </programme>
   <programme start="20261004203000 -0300" stop="20261004220000 -0300" channel="Eurosport2.es@TvVoo">
     <title lang="es">Abierto de Shenzhen de snooker</title>
@@ -14178,6 +14258,7 @@
   </programme>
   <programme channel="France24.fr" start="20261007174500 -0300" stop="20261007175300 -0300">
     <title lang="fr">En 5 minutos</title>
+    <desc lang="es">Entrevistas variadas a expertos, analistas y protagonistas de las noticias con la marca de France 24.</desc>
     <category lang="fr">Journal</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/2/1/6/15194612.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/0/6/5/15194560.jpg" />
@@ -14187,6 +14268,7 @@
   </programme>
   <programme channel="France24.fr" start="20261007175300 -0300" stop="20261007180000 -0300">
     <title lang="fr">Migrantes</title>
+    <desc lang="es">Un programa dedicado a las tribulaciones -y también los logros y las alegrías- de millones de personas que, en América Latina y en el mundo, dejan sus países en busca de una vida mejor.</desc>
     <category lang="fr">Magazine de société</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/7/6/15194674.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/0/7/6/15194670.jpg" />
@@ -14288,6 +14370,7 @@
   </programme>
   <programme channel="France24.fr" start="20261007203000 -0300" stop="20261007204000 -0300">
     <title lang="fr">Noticias</title>
+    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
     <category lang="fr">Journal</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
@@ -14323,6 +14406,7 @@
   </programme>
   <programme channel="France24.fr" start="20261007210000 -0300" stop="20261007212000 -0300">
     <title lang="fr">Noticias</title>
+    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
     <category lang="fr">Journal</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
@@ -19887,9 +19971,6 @@
   <programme start="20261006230000 -0300" stop="20261006233000 -0300" channel="Meganoticias.cl">
     <title lang="es">Con Peras y Manzanas</title>
   </programme>
-  <programme start="20261006130000 -0300" stop="20261006150500 -0300" channel="Meganoticias.cl">
-    <title lang="es">Meganoticias alerta</title>
-  </programme>
   <programme start="20261006150500 -0300" stop="20261006161000 -0300" channel="Meganoticias.cl">
     <title lang="es">MegaDeportes</title>
   </programme>
@@ -19979,12 +20060,6 @@
   </programme>
   <programme start="20261007233000 -0300" stop="20261008003000 -0300" channel="Meganoticias.cl">
     <title lang="es">Meganoticias hora cero</title>
-  </programme>
-  <programme start="20261006143000 -0300" stop="20261006150000 -0300" channel="NHKWorldJapan.jp">
-    <title lang="en">Dining with the Chef</title>
-    <sub-title lang="en">Rika's Tokyo Cuisine/ Hand-rolled Sushi</sub-title>
-    <desc lang="en">Chef Rika shares a gorgeous, yet easy-to-make platter that's perfect for a house party: hand-rolled sushi. Following her techniques, you can create your own tasty sushi at home.</desc>
-    <url>https://www3.nhk.or.jp/nhkworld/en/shows/dwc/</url>
   </programme>
   <programme start="20261006150000 -0300" stop="20261006152800 -0300" channel="NHKWorldJapan.jp">
     <title lang="en">Newsroom Tokyo</title>
@@ -22841,6 +22916,10 @@
     <title lang="en">NHK Newsline</title>
     <desc lang="en">NHK NEWSLINE brings you up to date with the latest from Japan, Asia and around the world. Our team covers breaking news and major developments, with trusted anchors to tie it all together.</desc>
   </programme>
+  <programme start="20261014210000 -0300" stop="20261014213000 -0300" channel="NHKWorldJapan.jp">
+    <title lang="en">NHK Newsline</title>
+    <desc lang="en">NHK NEWSLINE brings you up to date with the latest from Japan, Asia and around the world. Our team covers breaking news and major developments, with trusted anchors to tie it all together.</desc>
+  </programme>
   <programme start="20261005214500 -0300" stop="20261006010000 -0300" channel="QelloConcertsbyStingray.ca">
     <title lang="en">Carlos Santana - Greatest Hits: Live at Montreux 2011</title>
     <desc lang="en">Masterfully filmed in Montreux in July of 2011, this epic show captures the band performing their classics hits such as Jingo, Evil Ways and Black Magic Woman their later No.1 hits Maria, Maria and Smooth. Music video by Carlos Santana __© 2011 Montreux Sounds (/RTS), under exclusive license to Eagle Rock Entertainment Ltd.</desc>
@@ -24163,29 +24242,6 @@
     <category lang="en">Explore</category>
     <icon src="https://d11hei8e1dyf6i.cloudfront.net/RWILD/Default_Thumbnail.jpg" />
     <episode-num system="onscreen">S1 E2</episode-num>
-  </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261006174800 -0300" stop="20261006184500 -0300">
-    <title>Red Bull Rampage</title>
-    <live />
-    <episode-num system="original-air-date">20261006204800 +0000</episode-num>
-    <desc>Diese Sendung zeigt „Red Bull Rampage", ein Freeride Mountainbike-Event in Utah.</desc>
-    <icon src="https://images.pluto.tv/series/6853f522b54a02bbc47d6cf3/tile_1779001214216.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">6853f522b54a02bbc47d6cf3</series-id>
-    <category>Series</category>
-    <category>Sports</category>
-  </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261006184500 -0300" stop="20261006193148 -0300">
-    <title>Cliff Diving</title>
-    <live />
-    <episode-num system="original-air-date">20261006214500 +0000</episode-num>
-    <desc>Der ehemalige World Series Champion Aidan Heslop steht vor dem härtesten Comeback seiner Karriere: In nur 44 Tagen will der Brite zurück an die Weltspitze und seinen Platz auf 27 m zurückerobern.</desc>
-    <icon src="https://images.pluto.tv/series/6a108bfd0eeacb3723f66ae7/tile_1779469310021.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">6a108bfd0eeacb3723f66ae7</series-id>
-    <sub-title>444 Days - Aidan Heslops Comeback</sub-title>
-    <category>Series</category>
-    <category>Sports</category>
   </programme>
   <programme channel="SkySportsF1.uk" start="20261005210000 -0300" stop="20261005213000 -0300">
     <title lang="en">The Best of Canada 2026</title>
@@ -39912,13 +39968,13 @@
       <value>14</value>
     </rating>
   </programme>
-  <programme start="20261006204337 -0300" stop="20261007024337 -0300" channel="RewindTV.cl@SD">
+  <programme start="20261006211602 -0300" stop="20261007031602 -0300" channel="RewindTV.cl@SD">
     <title lang="es">Live</title>
   </programme>
-  <programme start="20261007024337 -0300" stop="20261007084337 -0300" channel="RewindTV.cl@SD">
+  <programme start="20261007031602 -0300" stop="20261007091602 -0300" channel="RewindTV.cl@SD">
     <title lang="es">Live</title>
   </programme>
-  <programme start="20261007084337 -0300" stop="20261007144337 -0300" channel="RewindTV.cl@SD">
+  <programme start="20261007091602 -0300" stop="20261007151602 -0300" channel="RewindTV.cl@SD">
     <title lang="es">Live</title>
   </programme>
   <programme channel="unitedkingdom|vavoo_SKY%20SPORTS%20MAIN%20EVENT%7Cgroup%3Auk@TvVoo" start="20261005210000 -0300" stop="20261006003000 -0300">
