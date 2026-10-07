@@ -1,55 +1,67 @@
 {
   "schema": 1,
-  "updated_at": "2026-10-07T00:16:37.076038Z",
+  "updated_at": "2026-10-07T09:33:54.599559Z",
   "channels": [
+    "0102",
     "1437",
     "DSports.us@Direct15",
     "DSports2.us@Direct187",
-    "ESPN.us@Direct181",
+    "ESPN4.br@Direct181",
     "MTVBiggestPop.us",
     "MTVFlowLatino.us",
     "MTVSpankinNew.us"
   ],
   "details": {
+    "0102": {
+      "kind": "hueco",
+      "futureHours": 163.9,
+      "requiredHours": 18.0,
+      "gaps": [
+        [
+          "2026-10-07T09:33:31Z",
+          "2026-10-07T10:00:00Z"
+        ]
+      ]
+    },
     "1437": {
       "kind": "guia-corta",
-      "futureHours": 2.7,
+      "futureHours": 3.4,
       "requiredHours": 18.0,
       "gaps": []
     },
     "DSports.us@Direct15": {
       "kind": "guia-corta",
-      "futureHours": 6.2,
+      "futureHours": 0.0,
       "requiredHours": 18.0,
       "gaps": []
     },
     "DSports2.us@Direct187": {
       "kind": "guia-corta",
-      "futureHours": 5.7,
+      "futureHours": 0.0,
       "requiredHours": 18.0,
       "gaps": []
     },
-    "ESPN.us@Direct181": {
-      "kind": "sin-guia",
-      "futureHours": 0.0,
+    "ESPN4.br@Direct181": {
+      "kind": "guia-corta",
+      "futureHours": 15.4,
       "requiredHours": 18.0,
       "gaps": []
     },
     "MTVBiggestPop.us": {
       "kind": "guia-corta",
-      "futureHours": 13.0,
+      "futureHours": 12.7,
       "requiredHours": 18.0,
       "gaps": []
     },
     "MTVFlowLatino.us": {
       "kind": "guia-corta",
-      "futureHours": 13.7,
+      "futureHours": 14.4,
       "requiredHours": 18.0,
       "gaps": []
     },
     "MTVSpankinNew.us": {
       "kind": "guia-corta",
-      "futureHours": 13.2,
+      "futureHours": 12.9,
       "requiredHours": 18.0,
       "gaps": []
     }
