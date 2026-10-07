@@ -92,6 +92,11 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-06**: a pedido del usuario, el 68 («ESPN», `ESPN.us@Direct181`) va a la papelera y el
+  69 (`ESPN4.br@Direct181`) pasa al 35 como «ESPN 4», oficial y con logo `logos/espn-4.png`
+  (tv-logos Brasil recoloreado al rojo de ESPN 3/5). No es Brasil: es ESPN 4 Norte (barra en
+  español con horarios MÉX/PAN). Guía `pa1` `Canal.ESPN.4.(Panamá).pa`, comprobada con dos
+  cuadros (20:45 NFL, 21:09 Southern Miss vs. Troy); las guías ESPN 4 de UY/CO son del feed Sur.
 - **2026-10-06**: pedidos del usuario.
   - Eurosport 1 (63) y 2 (64) de TvVoo España: `backupCountries` = portugal, unitedkingdom,
     france, italy, germany, netherlands. `tvvoo_variants.py` suma, después de las hermanas del

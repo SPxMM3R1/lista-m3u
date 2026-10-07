@@ -685,6 +685,8 @@ EPG_SOURCES = {
     "uy1": "https://epgshare01.online/epgshare01/epg_ripper_UY1.xml.gz",
     # DSports andino (Colombia): coincide con las señales 118 y 120 (cuadros 2026-10-06).
     "co1": "https://epgshare01.online/epgshare01/epg_ripper_CO1.xml.gz",
+    # ESPN 4 del feed Norte (México/Centroamérica): coincide con el 69 (cuadros 2026-10-06).
+    "pa1": "https://epgshare01.online/epgshare01/epg_ripper_PA1.xml.gz",
     "pt1": "https://epgshare01.online/epgshare01/epg_ripper_PT1.xml.gz",
     "nz1": "https://epgshare01.online/epgshare01/epg_ripper_NZ1.xml.gz",
     "us2": "https://epgshare01.online/epgshare01/epg_ripper_US2.xml.gz",
@@ -741,6 +743,9 @@ EPG_PROGRAMME_SOURCES = {
     # («Messi en la selección argentina» y «Supercopa 2023: River vs. Talleres»).
     "DSports.us@Direct15": ("co1", "DSPORTS.(COL).(DTSC).co"),
     "DSports2.us@Direct187": ("co1", "DSPORTS.2.HD(DTV2HD).co"),
+    # El 69 es ESPN 4 Norte (barra con horarios MÉX/PAN). Comparado con dos cuadros el
+    # 2026-10-06: NFL a las 20:45 y «Southern Miss vs. Troy» a las 21:09, igual que la guía.
+    "ESPN4.br@Direct181": ("pa1", "Canal.ESPN.4.(Panamá).pa"),
     "TyCSports.ar": ("ar1", "Canal.TyC.Sports.ar"),
     "SkySportsF1.uk": ("uk1", "SkySp.F1.HD.uk"),
     "SkySportsF1UHD.uk": ("uk1", "SkySp.F1.HD.uk"),
