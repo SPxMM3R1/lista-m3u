@@ -63,6 +63,8 @@ https://papacito.cfd/m3u/now-srr343434/live.m3u8
 https://papacito.cfd/m3u/now-234243234234/live.m3u8
 #EXTINF:-1 tvg-id="WinSports.co@Direct181" tvg-name="Win Sports [IP 181]" tvg-country="CO" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-3.png" group-title="Deportes",ESPN 3 Sur
 http://181.78.12.119:16123/play/ch18/index.m3u8
+#EXTINF:-1 tvg-id="ESPN4.br@Direct181" tvg-name="ESPN 4 Brasil [IP 181]" tvg-country="BR" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-4.png" group-title="Deportes",ESPN 4
+http://181.78.197.59:8000/play/a07n/index.m3u8
 #EXTINF:-1 tvg-id="WinPlusFutbol.co@Direct181" tvg-name="Win+ Fútbol [IP 181]" tvg-country="CO" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-5.png" group-title="Deportes",ESPN 5 Sur
 http://181.78.12.119:16123/play/ch19/index.m3u8
 #EXTINF:-1 tvg-id="DSports.us@Direct15" tvg-name="DSports [IP 15]" tvg-country="US" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/DirecTV_Sports_Latin_America_%282018%29.png/960px-DirecTV_Sports_Latin_America_%282018%29.png" group-title="Deportes",DSports [IP 15]
@@ -115,10 +117,6 @@ https://9e754fa707344ccca6d84955c8fcaf36.mediatailor.us-east-1.amazonaws.com/v1/
 https://lds-realwild-vizio.amagi.tv/playlist.m3u8
 
 # Deportes
-#EXTINF:-1 tvg-id="ESPN.us@Direct181" tvg-name="ESPN" tvg-country="BR" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn.svg" group-title="Deportes",ESPN
-http://181.78.197.59:8000/play/a07z/index.m3u8
-#EXTINF:-1 tvg-id="ESPN4.br@Direct181" tvg-name="ESPN 4 Brasil [IP 181]" tvg-country="BR" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn.svg" group-title="Deportes",ESPN 4 Brasil [IP 181]
-http://181.78.197.59:8000/play/a07n/index.m3u8
 #EXTINF:-1 tvg-id="FoxDeportes.us@Direct23" tvg-name="Fox Deportes [IP 23]" tvg-country="US" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/fox-sports.svg" group-title="Deportes",Fox Deportes [IP 23]
 http://23.237.104.106:8080/USA_FOX_DEPORTES/index.m3u8
 
@@ -167,6 +165,12 @@ vibem3u://resolver/cncverse/sportsworld%7CTSN%7CTSN%205
 vibem3u://resolver/cncverse/chiletv%7C13T%20(720p)%7Cauto
 #EXTINF:-1 tvg-id="CNCVerse.Chile.t13-en-vivo-1080p-50f5d7c89f@CNCVerse" tvg-name="T13 En Vivo (1080p) [CNCVerse Chile]" tvg-logo="" group-title="Misceláneos" x-resolver="cncverse" x-resolver-id="chiletv|T13 En Vivo (1080p)|auto" x-resolver-refresh="on_play",T13 En Vivo (1080p) [CNCVerse Chile]
 vibem3u://resolver/cncverse/chiletv%7CT13%20En%20Vivo%20(1080p)%7Cauto
+
+# Deportes
+#EXTINF:-1 tvg-id="ESPN.us@Direct181" tvg-name="ESPN" tvg-country="BR" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn.svg" group-title="Deportes",ESPN
+http://181.78.197.59:8000/play/a07z/index.m3u8
+
+# Misceláneos
 #EXTINF:-1 tvg-id="TVN3.cl@Mediastream" tvg-name="TVN3 [Mediastream]" tvg-country="CL" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvn3.svg" group-title="Misceláneos",TVN3 [Mediastream]
 https://mdstrm.com/live-stream-playlist/5653641561b4eba30a7e4929.m3u8
 
