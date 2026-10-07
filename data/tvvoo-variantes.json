@@ -1,24 +1,24 @@
 {
   "schema": 1,
-  "generatedAt": "2026-10-06T23:39:44Z",
+  "generatedAt": "2026-10-07T04:37:48Z",
   "channels": {
     "spain|vavoo_EUROSPORT%201%7Cgroup%3Aes": [
       "vavoo_EUROSPORT%201%20HD%7Cgroup%3Aes",
       "vavoo_EUROSPORT%201%20HD%7Cgroup%3Apt",
-      "vavoo_EUROSPORT%201%20HD%7Cgroup%3Auk",
+      "vavoo_EUROSPORT%201%7Cgroup%3Auk",
       "vavoo_EUROSPORT%201%20FHD%7Cgroup%3Afr",
       "vavoo_EUROSPORT%201%7Cgroup%3Ait",
       "vavoo_EUROSPORT%201%20HD%7Cgroup%3Ade",
       "vavoo_EUROSPORT%201%7Cgroup%3Anl"
     ],
     "spain|vavoo_EUROSPORT%202%7Cgroup%3Aes": [
-      "vavoo_EUROSPORT%202%20%28BACKUP%29%7Cgroup%3Aes",
       "vavoo_EUROSPORT%202%7Cgroup%3Apt",
       "vavoo_EUROSPORT%202%20HD%7Cgroup%3Auk",
       "vavoo_EUROSPORT%202%20HD%7Cgroup%3Afr",
       "vavoo_EUROSPORT%202%7Cgroup%3Ait",
       "vavoo_EUROSPORT%202%20FHD%7Cgroup%3Ade",
-      "vavoo_EUROSPORT%202%7Cgroup%3Anl"
+      "vavoo_EUROSPORT%202%7Cgroup%3Anl",
+      "vavoo_EUROSPORT%202%20%28BACKUP%29%7Cgroup%3Aes"
     ],
     "unitedkingdom|vavoo_SKY%20SPORTS%20MAIN%20EVENT%7Cgroup%3Auk": [
       "vavoo_SKY%20SPORTS%20MAIN%20EVENT%20HD%7Cgroup%3Auk",
@@ -38,8 +38,12 @@
       "vavoo_BT%20SPORT%20ESPN%7Cgroup%3Auk"
     ],
     "unitedkingdom|vavoo_TNT%20SPORTS%203%7Cgroup%3Auk": [
+      "vavoo_TNT%20SPORTS%203%20HD%7Cgroup%3Auk",
       "vavoo_BT%20SPORT%203%7Cgroup%3Auk"
     ]
   },
-  "missing": {}
+  "missing": {
+    "spain|vavoo_EUROSPORT%201%7Cgroup%3Aes vavoo_EUROSPORT%201%20HD%7Cgroup%3Auk": 1,
+    "spain|vavoo_EUROSPORT%202%7Cgroup%3Aes vavoo_EUROSPORT%202%20%28BACKUP%29%7Cgroup%3Aes": 1
+  }
 }
