@@ -2,7 +2,7 @@
 
 Documento único y corto con las reglas que rigen hoy. El detalle vive en los documentos
 enlazados; si algo de aquí contradice un documento antiguo, manda este. Última revisión:
-2026-10-06. El estado de hoy y la bitácora están en `ESTADO.md` de cada repositorio.
+2026-10-07. El estado de hoy y la bitácora están en `ESTADO.md` de cada repositorio.
 
 ## 1. Repositorios y límites
 
@@ -33,6 +33,7 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
 
 ## 3. Catálogo editorial
 
+- Decisión explícita del 07-10: incorporar el inventario CNCVerse conocido como pruebas al final de Lista 1. `contracts/cncverse-inventory-trials-20261007.json` registra altas/reincorporaciones exactas, fechas de evidencia y pendientes; las bajas anteriores permanecen históricas, pero los IDs presentes en `reintroducedIds` ya no son exclusiones actuales. No extender esta excepción a entradas nuevas futuras, a otros proveedores ni a grupos ambiguos. No es oficialización: `trial: true`, sin EPG/mantenimiento y sin garantía de funcionamiento/24/7. Estado de publicación real en ESTADO.md.
 - CNCVerse Chile TV requiere VibeM3U 0.5.68+: `chiletv|nombre exacto de metadata|auto` resuelve solo HLS de esa entrada única, no grupos deportivos ni entradas vecinas. La anotación literal `[Not 24/7]` va percent-encoded. Sin altas automáticas ni DRM crudo; destinos públicos validados, URLs/IDs opacos solo RAM. TSN 5 y las 242 entradas autorizadas van al final de Lista 1 como pruebas, sin alterar las filas previas ni asignar EPG por parecido. Fixture editorial `contracts/cncverse-chile-trial-channels.json`; sus IDs no cambian si hay que corregir un localizador.
 - Excepción explícita BT/TNT **solo UK**: lista cerrada de nombres completos y
   `group:uk`, comprobada con fotogramas el 02-10-2026. Ver

@@ -5,10 +5,11 @@
 > cubre la app). **Al terminar cualquier cambio, actualiza este archivo en el mismo commit**:
 > la sección «Hoy» si cambió el estado y una línea nueva en «Bitácora».
 
-Última actualización: **2026-10-06** (UTC).
+Última actualización: **2026-10-07** (UTC).
 
 ## Hoy, en una mirada
 
+- **Última petición CNCVerse: inventario completo conocido como pruebas, PUBLICACIÓN EN CURSO**. 236 entradas Chile + 74 señales/opciones deportivas, de 31 grupos. 16 estaban activas: se agregan 294 al final, 219–512; 310 CNC activos. Las 228 reincorporaciones antes excluidas responden a esta orden explícita y tienen registro separado, sin alterar auditorías/bajas históricas. 68 grupos deportivos siguen sin localizador identificable o son ambiguos (dos Sky Sports); no se incorporaron como canales ficticios. Todas las nuevas filas `trial: true`, sin EPG ni mantenimiento. Las referencias históricas del 04-10 siguen fechadas; no se garantiza reproducción ni 24/7. Baseline 269 filas previas idéntico, selección/EPG/Lista 2/motores/logos/app intactos. 319 Python/41 JS/bundle y proyección real JVM: 361 M3U, 370 visibles, 310 CNC, T13 respaldado y ninguna fila de proveedor descartada. La generación de bytecode informa un fallo ZIPFS al cerrar el compilador; la ejecución JVM sí pasó, no hubo build APK ni prueba física. Base Lista actualizada fast-forward a `fbc6252` (EPG automática), contraparte app `826ae676` / 0.5.79. Acceso CLI restaurado en esta sesión del 07-10; dry-run de push correcto y pruebas locales repetidas sin fallos. Aún sin commit/push en este punto. Pendiente: publicar los archivos previstos juntos, comprobar SHA remoto y runners/editor/EPG sin ampliar su alcance.
 - **France 24 inglés publicado y verificado**: cambio `1073380`, runner `37539066258` success, estado `c76d52f`; no modificó catálogo/streams ni membresía. Raw/blob iguales para ambas listas/layout/presentación, proyección app antes y después: 18 Español → 19 English, mismos 77 visibles y T13 respaldado. Editor web `37539066224` success. EPG automática `37539349779` disparada con el alcance habitual; inglés conserva prueba/sin EPG. Sin APK. Cierra el pendiente de la entrada siguiente.
 - **France 24 inglés reubicado**: la fila existente activa/en prueba `France24.fr@English` pasa del 62 al 19, inmediatamente después de Español (18); Al Jazeera = 20, BBC = 21. `assignChannelPosition` desplaza +1 todos los demás activos con número anterior >=19, también Highfly/TvVoo y respaldo T13 (histórico 217, ahora 218); vínculos por identidad intactos. No duplica, no oficializa ni agrega EPG; estado de prueba, stream y logo conservados. Layout/presentación/Lista 1/alias/inventario sincronizados y selección idéntica. Históricos intactos, registro separado de inserción. 312 Python/41 JS, bundle/contrato y proyección real app 0.5.73 `94dd35b`: mismos 77 visibles, proveedor y respaldo correctos. Sin APK nueva. Pendiente en este punto: publicar y comprobar salida remota/runner.
 - **Rwnd ya publicado y verificado**: código `45c217f`; workflow completo `37537954410` success; XML `43d110a`, generación 22:04:37 UTC. Raw fijado al SHA coincide con blob Git: solo 3 bloques Live, 0 descripciones/subtítulos/otros metadatos, 17,98 h futuras al verificar 22:05:31 UTC. El lector XMLTV real de app 0.5.73 muestra Live con sinopsis vacía. Sin APK nueva ni prueba física; caché de TV no observado, revalidación mínima de EpgRepository 5 minutos. Esta entrada cierra el pendiente de la siguiente; no se reparó Meganoticias/007 aquí.
@@ -39,7 +40,7 @@
 - **EPG**: 47 canales. Cada canal mezcla sus fuentes por prioridad (`epg_source_chain`): la de
   más arriba manda donde tiene programas y las demás solo rellenan huecos. Horizonte típico
   30–190 h.
-- **Tests**: 312 Python (`python -m unittest discover -s tests -p "test_*.py"`) y 41 JS
+- **Tests**: 319 Python (`python -m unittest discover -s tests -p "test_*.py"`) y 41 JS
   (`node --test tests/editor-core.test.mjs tests/layout-contract.test.mjs`).
 
 ## Pendientes y decisiones abiertas
@@ -92,6 +93,7 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-07, local**: petición explícita de añadir todo el inventario CNCVerse conocido al final de Lista 1 como pruebas sin EPG. Fixture nuevo `contracts/cncverse-inventory-trials-20261007.json`: baseline inmutable de filas, localizadores exactos/fechas, 294 altas 219–512, 228 reincorporaciones explícitas y 68 grupos pendientes. Dos nombres Sky Sports indistinguibles para el resolutor actual se excluyen, donaciones no son canales y opciones SERVER/Link no se presentan como emisoras distintas. No se persisten metas.id, HLS, claves ni tokens. Cambios vía editor-core + apply_patch: catálogo/ambas Lista 1/layout/presentación; tests históricos descuentan solo las reincorporaciones autorizadas y seis nuevas regresiones cubren baseline, numeración final, 236 Chile, exclusión EPG, tombstones y privacidad. 319 Python, 41 JS, bundle de 563 filas; contrato compartido idéntico por SHA256. Después del runner se ejecutó lector/proyector JVM de app: 361 M3U, 310 CNC, 370 visibles, T13/respaldos preservados. Compilador con error de cierre ZIPFS, ejecución JVM satisfactoria; no Android/TV físico. Sin cambios de VibeM3U ni APK/commit hermano nuevo; cambios de caché de la app ya presentes en el worktree siguen ajenos a esta tarea. Publicación pendiente por autenticación/permisos; no se creó commit sin capacidad de publicar.
 - **2026-10-06**: a pedido del usuario, el 68 («ESPN», `ESPN.us@Direct181`) va a la papelera y el
   69 (`ESPN4.br@Direct181`) pasa al 35 como «ESPN 4», oficial y con logo `logos/espn-4.png`
   (tv-logos Brasil recoloreado al rojo de ESPN 3/5). No es Brasil: es ESPN 4 Norte (barra en

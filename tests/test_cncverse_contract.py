@@ -77,7 +77,13 @@ class CncVerseContractTest(unittest.TestCase):
         requested = {row["tvgId"] for row in self.not247_exclusions()["channels"]}
         numbered = {row["tvgId"] for row in self.number_exclusions()["channels"]}
         supplemental = {row["tvgId"] for row in self.t13_exclusions()["channels"]}
-        return failed | requested | numbered | supplemental
+        # Las bajas siguen siendo historia; solo la nueva orden explícita puede revertirlas.
+        restored = set(self.inventory_request()["reintroducedIds"])
+        return (failed | requested | numbered | supplemental) - restored
+
+    def inventory_request(self):
+        path = runner.CHANNEL_CATALOG_PATH.parent / "contracts/cncverse-inventory-trials-20261007.json"
+        return json.loads(path.read_text(encoding="utf-8"))
 
     def t13_exclusions(self):
         path = runner.CHANNEL_CATALOG_PATH.parent / "contracts/channel-number-exclusions-20261006-t13.json"
@@ -146,8 +152,7 @@ class CncVerseContractTest(unittest.TestCase):
         self.assertEqual(40, manifest["remainingCncVerse"])
 
     def trial_specs(self):
-        removed = self.removed_trial_ids()
-        return [spec for spec in self.all_trial_specs() if spec["tvgId"] not in removed]
+        return self.inventory_request()["activeChannels"]
 
     def test_user_not247_exclusions_are_exact_and_separate_from_link_failures(self):
         exclusions = self.not247_exclusions()
@@ -165,7 +170,10 @@ class CncVerseContractTest(unittest.TestCase):
         for row in exclusions["channels"]:
             self.assertEqual(specs[row["tvgId"]]["name"], row["name"])
             self.assertIn("[Not 24/7]", row["name"])
-        self.assertTrue(all("[Not 24/7]" not in spec["name"] for spec in self.trial_specs()))
+        # La nueva petición de todo el inventario admite también las pruebas Not 24/7.
+        approved = {spec["tvgId"] for spec in self.inventory_request()["addedChannels"]}
+        self.assertTrue({spec["tvgId"] for spec in self.trial_specs()
+                         if "[Not 24/7]" in spec["name"]} <= approved)
 
     def test_link_audit_requires_fresh_recheck_before_removal(self):
         audit = self.link_audit()
@@ -218,7 +226,7 @@ class CncVerseContractTest(unittest.TestCase):
         root = runner.CHANNEL_CATALOG_PATH.parent
         specs = self.trial_specs()
         expected = [spec["tvgId"] for spec in specs]
-        self.assertEqual(self.t13_exclusions()["remainingCncVerse"], len(set(expected)))
+        self.assertEqual(len(self.inventory_request()["activeCncIds"]), len(set(expected)))
         main = (root / "m3u.m3u").read_text(encoding="utf-8")
         self.assertEqual(main, (root / "1.m3u").read_text(encoding="utf-8"))
         channels = runner.parse_channels(main.splitlines())
@@ -245,11 +253,8 @@ class CncVerseContractTest(unittest.TestCase):
                         key=lambda row: row["order"])
         specs = self.trial_specs()
         self.assertEqual([spec["tvgId"] for spec in specs], [row["tvgId"] for row in active[-len(specs):]])
-        original_numbers = {spec["tvgId"]: 121 + index
-                            for index, spec in enumerate(self.all_trial_specs())}
-        # Números históricos de las altas + inserción editorial posterior.
-        shift = json.loads((root / "contracts/channel-position-change-20261006-france24.json").read_text(encoding="utf-8"))["numberShift"]["delta"]
-        self.assertEqual([original_numbers[spec["tvgId"]] + shift for spec in specs],
+        # Mantener números previos; únicamente las altas explícitas usan el nuevo rango final.
+        self.assertEqual([spec["number"] for spec in specs],
                          [row["number"] for row in active[-len(specs):]])
         for row in active[-len(specs):]:
             self.assertEqual("m3u", row["kind"])
