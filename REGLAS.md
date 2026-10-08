@@ -29,12 +29,9 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
   runner, la app y el auxiliar (copia idéntica en VibeM3U). Cualquier regla nueva de filas
   de proveedor se agrega ahí primero.
 - Detalle: `VIBEM3U_ID_CONTRACT_EPG_LOGOS.md`.
-- CNCVerse: `tvg-id` es identidad pública, `sportsworld|grupo|señal` es localizador editorial de búsqueda exacta. IDs opacos Stremio, ClearKey y enlaces del proxy solo en RAM. No distribuir código propietario del Bridge/extensión; cliente HTTP independiente. Las futuras filas CNCVerse requieren app 0.5.67+ y nacen en prueba (`trial: true`), sin mantenimiento/EPG hasta acordar su oficialización. Agregar un motor no autoriza incorporar canales por cuenta propia.
 
 ## 3. Catálogo editorial
 
-- Decisión explícita del 07-10: incorporar el inventario CNCVerse conocido como pruebas al final de Lista 1. `contracts/cncverse-inventory-trials-20261007.json` registra altas/reincorporaciones exactas, fechas de evidencia y pendientes; las bajas anteriores permanecen históricas, pero los IDs presentes en `reintroducedIds` ya no son exclusiones actuales. No extender esta excepción a entradas nuevas futuras, a otros proveedores ni a grupos ambiguos. No es oficialización: `trial: true`, sin EPG/mantenimiento y sin garantía de funcionamiento/24/7. Estado de publicación real en ESTADO.md.
-- CNCVerse Chile TV requiere VibeM3U 0.5.68+: `chiletv|nombre exacto de metadata|auto` resuelve solo HLS de esa entrada única, no grupos deportivos ni entradas vecinas. La anotación literal `[Not 24/7]` va percent-encoded. Sin altas automáticas ni DRM crudo; destinos públicos validados, URLs/IDs opacos solo RAM. TSN 5 y las 242 entradas autorizadas van al final de Lista 1 como pruebas, sin alterar las filas previas ni asignar EPG por parecido. Fixture editorial `contracts/cncverse-chile-trial-channels.json`; sus IDs no cambian si hay que corregir un localizador.
 - Excepción explícita BT/TNT **solo UK**: lista cerrada de nombres completos y
   `group:uk`, comprobada con fotogramas el 02-10-2026. Ver
   `TVVOO_UK_EQUIVALENCIAS.md`. BT ESPN → TNT 4; TNT SPORTS ESPN (ESPN US) y BT 3 HD
@@ -50,12 +47,6 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
 - Canales M3U agregados conservan su lista de origen (Lista 1 o 2). Highfly y TvVoo no van a
   ninguna M3U: viven en el layout y la selección.
 - Un cambio editorial no requiere APK nueva.
-- Excepción de compatibilidad de respaldo CNCVerse: `backupm3u` mantiene la fila del respaldo
-  activa en layout/Lista 1 para resolución, sin mostrarla aparte en la app. VibeM3U 0.5.73+
-  admite sus referencias internas validadas además de HTTP(S); la 0.5.72 las descartaba.
-  Mantener tvg-id de respaldo como identidad de resolución/caché y la identidad/número/EPG/logo
-  del canal principal como presentación. No publicar la asociación antes del APK compatible;
-  nunca sustituirla por un HLS temporal. Caso autorizado: T13 (9) ← 217, no Canal 13 (4).
 - Vigencia de variantes TvVoo: tras una consulta correcta, renovar `generatedAt` cada
   24 h aunque las variantes no cambien (la app las descarta a los 7 días). Si falló
   algún catálogo, no renovar por fecha solamente un documento sin cambios conservado.

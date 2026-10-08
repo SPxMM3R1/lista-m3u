@@ -65,8 +65,6 @@ class France24OrderTests(unittest.TestCase):
             self.assertEqual(change["to"], row["number"])
             self.assertEqual("active", row["state"])
             self.assertEqual(19 if change["key"] == f"m3u:{EN}" else change["from"] + 1, change["to"])
-        removed = json.loads((ROOT / "contracts/channel-number-exclusions-20261006-t13.json").read_text(encoding="utf-8"))
-        self.assertEqual(217, removed["backup"]["backupNumber"])
 
 
 if __name__ == "__main__":
