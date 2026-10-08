@@ -46,7 +46,10 @@ class PublishedEditorialConsistencyTest(unittest.TestCase):
         # La baja conserva su identidad; la inserción posterior de France 24
         # inglés (19) desplazó el hueco del antiguo 118 al 119.
         shift = json.loads((ROOT / "contracts/channel-position-change-20261006-france24.json").read_text(encoding="utf-8"))["numberShift"]["delta"]
+        # La importación Nauta posterior puede ocupar este número libre; la baja
+        # protege la identidad y los números anteriores, no reserva huecos para siempre.
         self.assertFalse(any(row["state"] == "active" and row["number"] == 118 + shift
+                             and not row.get("tvgId", "").endswith("@Nauta")
                              for row in layout["channels"]))
         self.assertIn(removed_id, layout["excludedM3u"])
         self.assertIn(removed_id, presentation["excluded_m3u"])

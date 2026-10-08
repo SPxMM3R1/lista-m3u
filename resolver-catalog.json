@@ -1,7 +1,22 @@
 {
   "schemaVersion": 1,
-  "catalogVersion": "2026.10.05.1",
+  "catalogVersion": "2026.10.05.2",
   "providers": [
+    {
+      "id": "nauta",
+      "name": "Nauta",
+      "engine": "nauta",
+      "enabledByDefault": true,
+      "cacheTtlSeconds": 300,
+      "match": {
+        "tvgIdSuffixes": [
+          "@Nauta"
+        ]
+      },
+      "config": {
+        "endpointBase": "https://stremio-addon-wheat.vercel.app"
+      }
+    },
     {
       "id": "tvn",
       "name": "TVN",

@@ -15,6 +15,8 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
 
 ## 2. Identidad de canales
 
+- Nauta: importación explícita en Lista 1 como M3U en prueba. Identidad editorial determinista por nombre exacto con región/calidad original; localizador tokenless catálogo + nombre, nunca el ID opaco del addon ni el enlace HLS. La app consulta los recursos actuales en RAM y valida HLS/segmento. No incorpora canales no publicados. Sin EPG ni logos inferidos; exige APK 0.5.81+.
+
 - Identidad estable: `tvg-id` (M3U), `catalogKey` (Highfly) y `countryKey|alias` (TvVoo).
 - `providerResourceId`, `resolverSlug`, `leaf:` y las URL HLS rotan: nunca son identidad.
 - TvVoo: `providerResourceId` = `catalogKey`; `countryKey` = prefijo de `catalogKey`.

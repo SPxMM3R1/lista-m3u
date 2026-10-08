@@ -2,6 +2,21 @@
 
 ## Objetivo
 
+### Extensión Nauta (2026-10-07)
+
+Nauta se importa explícitamente como filas M3U de Lista 1 en prueba, no como selección
+Highfly/TvVoo. `tvg-id` = `Nauta.` + primeros 24 caracteres hexadecimales del SHA256 UTF-8
+del nombre exacto original + `@Nauta`. Incluye región/calidad literal; no implica identidad
+EPG canónica. URI interna: `vibem3u://resolver/nauta/` + percent-encoding de
+`catalogId|nombre exacto`. Esa referencia es un localizador público, no un recurso opaco
+del addon. Cambiar categoría, ID interno o URL no cambia el tvg-id editorial. Un cambio de
+nombre del proveedor exige reconciliación explícita; cambiar el nombre visible en la web
+no cambia el localizador. Duplicados exactos del mismo nombre se prueban como alternativas;
+no se igualan nombres parecidos ni regiones. Se publican solo nombres/categorías/identidades,
+sin posters externos, credenciales, IDs opacos ni respuestas completas. Todas las nuevas
+filas quedan `trial: true`, sin EPG/mantenimiento, hasta decisión editorial. Requiere
+VibeM3U 0.5.81 antes de publicar. No aplica la regla app-only de Highfly/TvVoo a Nauta.
+
 El editor web de `Lista M3U` crea y publica la selección de canales y sus
 identidades de proveedor. `VibeM3U` consume esa selección para incorporar los
 canales al orden local y resolverlos al iniciar la reproducción. El runner de

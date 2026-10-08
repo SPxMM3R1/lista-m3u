@@ -39,8 +39,10 @@ agente debe poder retomar el trabajo solo con lo que está en el repositorio.
 
 ## Cómo trabajar
 
+- Nauta (2026-10-07): filas M3U en prueba al final de Lista 1, referencias `vibem3u://resolver/nauta/<catálogo|nombre exacto>` codificadas; `nauta_reference.py` valida el contrato. `tvg-id` = `Nauta.<SHA256(nombre exacto)[:24]>@Nauta`, independiente de recurso/URL/posición. No añadir IDs opacos ni enlaces del proveedor. APK compatible 0.5.81 antes de publicar el catálogo. `tests/test_nauta_reference.py` protege alcance sin EPG, integridad y filas anteriores. Los duplicados exactos de nombre son alternativas, no altas automáticas de la app.
+
 - Tests obligatorios antes de commitear:
-  - `python -m unittest discover -s tests -p "test_*.py"` (297 pruebas, incluida continuidad Rwnd y orden France 24; verificar aparte la copia del contrato si el clon está en otra ruta).
+  - `python -m unittest discover -s tests -p "test_*.py"` (301 pruebas, incluida importación Nauta, continuidad Rwnd y orden France 24; verificar aparte la copia del contrato si el clon está en otra ruta).
   - `node --test tests/editor-core.test.mjs tests/layout-contract.test.mjs` (41 pruebas).
 - Validar el editor local sin tocar el repo: `python scripts/build_site_data.py --output <carpeta temp>` (solo acepta salidas dentro de la carpeta temporal).
 - Commits en español con prefijo: `feat(editor)`, `fix(resolvers)`, `feat(epg)`, `fix(catalogo)`, `chore(...)`.
@@ -60,6 +62,8 @@ agente debe poder retomar el trabajo solo con lo que está en el repositorio.
   Las exclusiones se aplican también al conservar variantes publicadas antes.
 
 ## Publicación automática
+
+- **Nauta compatible verificado antes del catálogo**: VibeM3U funcional `e3d2ee2`, versión/tag `0ef0331` / `v0.5.81` (190). CI `37717793042` y Release `37718148346` success; APK público no draft, 2.720.775 bytes, SHA256 `dfb24e1a397aa4b029d41ba082414787beee0076ded5869e7c2c00258c1f2ca5`, descarga y firma compatible verificadas. Importar/publicar snapshot 533, 87–619, en prueba/sin EPG; no asegurar que todos estén operativos. Prueba física pendiente. `NautaCatalogProbe` confirma parser/proyección 533, 594 visibles totales y 0 proveedores descartados.
 
 - **Cierre France 24 verificado**: cambio `1073380`, runner de canales `37539066258` success y estado generado `c76d52f` (solo salud/estado, catálogo y streams intactos). Raw fijado al SHA comprobado contra blobs de `m3u.m3u`, `1.m3u`, layout y presentación; proyección real de app confirma 18 Español → 19 English y 77 visibles, antes y después del runner. Editor publicado `37539066224` success. EPG automática `37539349779` disparada sin modificar su alcance; inglés sigue en prueba/sin EPG. Sin APK ni commit hermano nuevo; documentación de cierre publicada en el mismo flujo.
 - **France 24 inglés después del español (2026-10-06)**: mover fila existente `France24.fr@English`, activa/en prueba, del 62 al 19 mediante `assignChannelPosition`; Español conserva 18, Al Jazeera pasa a 20, BBC a 21. Todos los demás activos con número anterior >=19 suben uno, incluyendo proveedores y respaldo T13 (217 histórico → 218 actual). Se conserva estado en prueba (sin EPG/mantenimiento), membresía, identidad, logo y URL; no oficializar sin orden. Layout/presentación/Lista 1/alias/inventario sincronizados; selección Highfly/TvVoo idéntica. Registro independiente `contracts/channel-position-change-20261006-france24.json`; históricos de bajas/altas intactos, tests de números aplican la inserción posterior. 312 Python/41 JS, bundle temporal, contrato y proyección real de app 0.5.73 (`94dd35b`): 77 visibles, sin descartes de proveedor, T13 respaldado. Solo Lista M3U; sin APK ni commit hermano nuevo. Publicar y verificar catálogos remotos/runner.

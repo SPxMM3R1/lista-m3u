@@ -29,6 +29,7 @@ from urllib.parse import parse_qsl, quote, unquote, urlencode, urljoin, urlparse
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 import vibem3u_selection
+import nauta_reference
 
 if __name__ == "__main__":
     # epg_sources importa desde update_m3u: al ejecutarse como script debe
@@ -105,7 +106,7 @@ RESOLVER_SCHEMA_VERSION = 1
 # This is the base version of the checked-in resolver rules. The writer keeps
 # the patch component monotonic when the checked-in alias map changes.
 RESOLVER_CATALOG_VERSION = "2026.10.05.1"
-ALLOWED_RESOLVER_ENGINES = {"tvn", "meganoticias", "tvvoo", "highfly"}
+ALLOWED_RESOLVER_ENGINES = {"tvn", "meganoticias", "tvvoo", "highfly", "nauta"}
 TVVOO_RECIPE_ID = "bounded-payload-v1"
 TVVOO_VALIDATION_MODE = "media-signature-v1"
 MAIN_PLAYLIST_RESOLVERS = frozenset({"direct", "tvn", "meganoticias"})
@@ -1663,6 +1664,12 @@ def build_resolver_catalog(*, catalog_version: str | None = None) -> dict:
         "schemaVersion": RESOLVER_SCHEMA_VERSION,
         "catalogVersion": catalog_version or RESOLVER_CATALOG_VERSION,
         "providers": [
+            {
+                "id": "nauta", "name": "Nauta", "engine": "nauta",
+                "enabledByDefault": True, "cacheTtlSeconds": 300,
+                "match": {"tvgIdSuffixes": ["@Nauta"]},
+                "config": {"endpointBase": "https://stremio-addon-wheat.vercel.app"},
+            },
             {
                 "id": "tvn",
                 "name": "TVN",
@@ -3676,6 +3683,8 @@ def apply_vibem3u_selection(
 
 
 def resolver_attributes_for(channel: Channel) -> dict[str, str]:
+    if nauta_reference.parse_reference(channel.url):
+        return {"x-resolver": "nauta", "x-resolver-refresh": "on_play"}
     if has_tvvoo_reference_scheme(channel):
         # The EXTINF line is authoritative for a reference.  Its aliases,
         # logo and any presentation fields must survive a catalogue update;
@@ -4349,6 +4358,7 @@ def validate_resolver_catalog(path: Path = RESOLVER_CATALOG_PATH) -> dict:
     if any(marker in lowered for marker in forbidden):
         raise ValueError("el catalogo contiene una clave, token o URL de sesion")
     allowed_hosts = {
+        "stremio-addon-wheat.vercel.app",
         "live.tvn.cl",
         "www.tvn.cl",
         "tvn-live-test-506364290967.southamerica-west1.run.app",
@@ -4408,6 +4418,14 @@ def validate_playlist_resolvers(lines: list[str]) -> dict[str, int]:
             for name in RESOLVER_ATTRIBUTE_NAMES
             if (match := re.search(rf'\b{re.escape(name)}="([^"]*)"', line))
         }
+        if urlparse(channel.url).scheme == "vibem3u":
+            reference = nauta_reference.parse_reference(channel.url)
+            if not reference or channel.tvg_id != nauta_reference.channel_id(reference[1]):
+                raise ValueError(f"{channel.name}: referencia Nauta inválida")
+            if attrs != {"x-resolver": "nauta", "x-resolver-refresh": "on_play"}:
+                raise ValueError(f"{channel.name}: contrato Nauta inválido")
+            counts["nauta"] += 1
+            continue
         if has_tvvoo_reference_scheme(channel):
             if not is_tvvoo_reference(channel):
                 raise ValueError(f"{channel.name}: referencia TvVoo invalida")
@@ -7582,6 +7600,10 @@ def check_channel(
     *,
     allow_ci_geo_block: bool = False,
 ) -> CheckResult:
+    if urlparse(channel.url).scheme == "vibem3u":
+        valid = nauta_reference.parse_reference(channel.url) is not None
+        return CheckResult(channel.name, channel.url, valid,
+                           "referencia Nauta; resolución exclusiva en app" if valid else "referencia interna inválida")
     if has_tvvoo_reference_scheme(channel):
         valid = is_tvvoo_reference(channel)
         return CheckResult(
