@@ -42,3 +42,7 @@ Reincorporar no equivale a reparar ni garantizar disponibilidad. La reprueba del
 | 617 | WWE Network | 0/3 |
 
 Auditoría y reporte de bajas originales conservados sin reescribir sus hechos; registro nuevo `contracts/nauta-restoration-20261008-sports.json`. VibeM3U compatible: `e3d2ee2` / v0.5.81, sin commit hermano ni APK nueva. Publicar solo Lista M3U y verificar que el runner conserve las 34 altas y las 105 exclusiones.
+
+## Publicación verificada
+
+Editorial `cd4d66e`; runner de canales `37852531718`, editor `37852531767` y dirigido `37852531793` correctos. Estado generado `bc448ce`: mantiene 428 Nauta, las 34 altas y las 105 bajas restantes. Siete archivos Raw fijados al SHA comprobados contra blobs Git y layout del editor publicado idéntico. Nueve pruebas Nauta repetidas y lector/proyección real de app: 428 Nauta/489 visibles, cero descartes; las 647 filas existentes y selección siguen intactas. EPG sin Nauta; no nueva APK ni garantía de disponibilidad de las señales.
