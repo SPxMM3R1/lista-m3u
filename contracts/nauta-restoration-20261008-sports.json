@@ -1,0 +1,1345 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-08",
+  "authorization": "User: Agrega todos, following the list of 32 deleted sports signals, match 108 and generic Evento 2 (295).",
+  "scope": "Restore only the 34 enumerated Nauta entries, in List 1 as trials without EPG; preserve all other rows and exclusions. Editorial restoration is not a claim of current availability.",
+  "sourceCatalogSha": "1666cf01a778722030853d891a94f5b9d31cfe34",
+  "originalCleanupSha256": "9abccf2a55361fe4683572c478d2db6c30ebe0b35cca7f69e4d53ce9031cc7f3",
+  "originalSnapshotSha256": "4294cf7694761961ebad1171dd2c2023aeeb68534780379e656c7ad090d84b99",
+  "originalRemovalReportSha256": "624273fcb82664f19f028ce475e88c6dcbc9d5821cec6b19f2166b38fbb6c44d",
+  "retestStartedAtUtc": "2026-10-08T21:56:56.120661+00:00",
+  "retestFinishedAtUtc": "2026-10-08T22:02:04.575947+00:00",
+  "appCompatibility": "Existing VibeM3U v0.5.81, functional commit e3d2ee2b817657cc5b70f935a6251ad3c5d7f00b; no new app/APK.",
+  "evidenceLimits": "Only four of these 34 had video in any main retest round: 295/306/308/320. 306 failed an additional opening; 295 only passed once. 308/320 have two different visually examined frames. Others remain unverified/nonworking in that retest; no physical TV or long-term stability proof.",
+  "restored": 34,
+  "remainingRemoved": 105,
+  "activeNauta": 428,
+  "channels": [
+    {
+      "tvgId": "Nauta.87d610d53643783f2f35a777@Nauta",
+      "originalNumber": 108,
+      "name": "Atlético Nacional vs Deportes Tolima",
+      "catalog": "cat_400",
+      "editorialRow": {
+        "kind": "m3u",
+        "tvgId": "Nauta.87d610d53643783f2f35a777@Nauta",
+        "name": "Atlético Nacional vs Deportes Tolima [Nauta]",
+        "group": "Nauta · Eventos",
+        "sourceList": "1.m3u",
+        "trial": true,
+        "state": "active",
+        "order": 275,
+        "number": 108
+      },
+      "initialRemovalReason": "provider_name_missing",
+      "retestChecks": [
+        {
+          "atUtc": "2026-10-08T21:57:02.957364+00:00",
+          "status": "provider_name_missing",
+          "appResolved": false,
+          "decoded": false
+        },
+        {
+          "atUtc": "2026-10-08T21:58:41.917543+00:00",
+          "status": "provider_name_missing",
+          "appResolved": false,
+          "decoded": false
+        },
+        {
+          "atUtc": "2026-10-08T22:00:44.773318+00:00",
+          "status": "provider_name_missing",
+          "appResolved": false,
+          "decoded": false
+        }
+      ],
+      "videoPasses": 0
+    },
+    {
+      "tvgId": "Nauta.9088bf3e17c94aff804df6cd@Nauta",
+      "originalNumber": 114,
+      "name": "AyM Sports",
+      "catalog": "cat_4",
+      "editorialRow": {
+        "kind": "m3u",
+        "tvgId": "Nauta.9088bf3e17c94aff804df6cd@Nauta",
+        "name": "AyM Sports [Nauta]",
+        "group": "Nauta · Deportes",
+        "sourceList": "1.m3u",
+        "trial": true,
+        "state": "active",
+        "order": 281,
+        "number": 114
+      },
+      "initialRemovalReason": "provider_update_slate",
+      "retestChecks": [
+        {
+          "atUtc": "2026-10-08T21:57:04.692804+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        },
+        {
+          "atUtc": "2026-10-08T21:58:43.033389+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        },
+        {
+          "atUtc": "2026-10-08T22:00:46.643522+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        }
+      ],
+      "videoPasses": 0
+    },
+    {
+      "tvgId": "Nauta.c5318bcbb557b58ceab9b78a@Nauta",
+      "originalNumber": 165,
+      "name": "CDN Sportsmax",
+      "catalog": "cat_4",
+      "editorialRow": {
+        "kind": "m3u",
+        "tvgId": "Nauta.c5318bcbb557b58ceab9b78a@Nauta",
+        "name": "CDN Sportsmax [Nauta]",
+        "group": "Nauta · Deportes",
+        "sourceList": "1.m3u",
+        "trial": true,
+        "state": "active",
+        "order": 332,
+        "number": 165
+      },
+      "initialRemovalReason": "provider_update_slate",
+      "retestChecks": [
+        {
+          "atUtc": "2026-10-08T21:57:15.405225+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        },
+        {
+          "atUtc": "2026-10-08T21:59:02.981672+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        },
+        {
+          "atUtc": "2026-10-08T22:00:55.407009+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        }
+      ],
+      "videoPasses": 0
+    },
+    {
+      "tvgId": "Nauta.a77d002eae77e658695b73eb@Nauta",
+      "originalNumber": 204,
+      "name": "Claro Sports",
+      "catalog": "cat_4",
+      "editorialRow": {
+        "kind": "m3u",
+        "tvgId": "Nauta.a77d002eae77e658695b73eb@Nauta",
+        "name": "Claro Sports [Nauta]",
+        "group": "Nauta · Deportes",
+        "sourceList": "1.m3u",
+        "trial": true,
+        "state": "active",
+        "order": 371,
+        "number": 204
+      },
+      "initialRemovalReason": "playback_connection_error",
+      "retestChecks": [
+        {
+          "atUtc": "2026-10-08T21:57:22.845413+00:00",
+          "status": "playback_connection_error",
+          "appResolved": false,
+          "decoded": false
+        },
+        {
+          "atUtc": "2026-10-08T21:59:09.329170+00:00",
+          "status": "playback_connection_error",
+          "appResolved": false,
+          "decoded": false
+        },
+        {
+          "atUtc": "2026-10-08T22:00:57.032864+00:00",
+          "status": "playback_connection_error",
+          "appResolved": false,
+          "decoded": false
+        }
+      ],
+      "videoPasses": 0
+    },
+    {
+      "tvgId": "Nauta.a4652186abdef064e39f95d9@Nauta",
+      "originalNumber": 205,
+      "name": "Claro Sports 3 HD",
+      "catalog": "cat_4",
+      "editorialRow": {
+        "kind": "m3u",
+        "tvgId": "Nauta.a4652186abdef064e39f95d9@Nauta",
+        "name": "Claro Sports 3 HD [Nauta]",
+        "group": "Nauta · Deportes",
+        "sourceList": "1.m3u",
+        "trial": true,
+        "state": "active",
+        "order": 372,
+        "number": 205
+      },
+      "initialRemovalReason": "playback_connection_error",
+      "retestChecks": [
+        {
+          "atUtc": "2026-10-08T21:57:24.620405+00:00",
+          "status": "playback_connection_error",
+          "appResolved": false,
+          "decoded": false
+        },
+        {
+          "atUtc": "2026-10-08T21:59:29.666367+00:00",
+          "status": "playback_connection_error",
+          "appResolved": false,
+          "decoded": false
+        },
+        {
+          "atUtc": "2026-10-08T22:00:58.854226+00:00",
+          "status": "playback_connection_error",
+          "appResolved": false,
+          "decoded": false
+        }
+      ],
+      "videoPasses": 0
+    },
+    {
+      "tvgId": "Nauta.a294efd706510be0076aad29@Nauta",
+      "originalNumber": 216,
+      "name": "Deportes TVC | Honduras",
+      "catalog": "cat_4",
+      "editorialRow": {
+        "kind": "m3u",
+        "tvgId": "Nauta.a294efd706510be0076aad29@Nauta",
+        "name": "Deportes TVC | Honduras [Nauta]",
+        "group": "Nauta · Deportes",
+        "sourceList": "1.m3u",
+        "trial": true,
+        "state": "active",
+        "order": 383,
+        "number": 216
+      },
+      "initialRemovalReason": "provider_update_slate",
+      "retestChecks": [
+        {
+          "atUtc": "2026-10-08T21:57:25.113982+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        },
+        {
+          "atUtc": "2026-10-08T21:59:15.944357+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        },
+        {
+          "atUtc": "2026-10-08T22:00:58.394043+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        }
+      ],
+      "videoPasses": 0
+    },
+    {
+      "tvgId": "Nauta.3baf55f87dfc8e6ede94a323@Nauta",
+      "originalNumber": 271,
+      "name": "ESPN (Ahorro de datos)",
+      "catalog": "cat_4",
+      "editorialRow": {
+        "kind": "m3u",
+        "tvgId": "Nauta.3baf55f87dfc8e6ede94a323@Nauta",
+        "name": "ESPN (Ahorro de datos) [Nauta]",
+        "group": "Nauta · Deportes",
+        "sourceList": "1.m3u",
+        "trial": true,
+        "state": "active",
+        "order": 438,
+        "number": 271
+      },
+      "initialRemovalReason": "provider_update_slate",
+      "retestChecks": [
+        {
+          "atUtc": "2026-10-08T21:57:28.258760+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        },
+        {
+          "atUtc": "2026-10-08T21:59:24.086406+00:00",
+          "status": "video_decode_error",
+          "appResolved": false,
+          "decoded": false
+        },
+        {
+          "atUtc": "2026-10-08T22:01:03.721018+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        }
+      ],
+      "videoPasses": 0
+    },
+    {
+      "tvgId": "Nauta.deed67c5e933ee7037f21faf@Nauta",
+      "originalNumber": 277,
+      "name": "ESPN 2 HD",
+      "catalog": "cat_32",
+      "editorialRow": {
+        "kind": "m3u",
+        "tvgId": "Nauta.deed67c5e933ee7037f21faf@Nauta",
+        "name": "ESPN 2 HD [Nauta]",
+        "group": "Nauta · HD",
+        "sourceList": "1.m3u",
+        "trial": true,
+        "state": "active",
+        "order": 444,
+        "number": 277
+      },
+      "initialRemovalReason": "playback_connection_error",
+      "retestChecks": [
+        {
+          "atUtc": "2026-10-08T21:57:32.117299+00:00",
+          "status": "playback_connection_error",
+          "appResolved": false,
+          "decoded": false
+        },
+        {
+          "atUtc": "2026-10-08T21:59:44.047546+00:00",
+          "status": "playback_connection_error",
+          "appResolved": false,
+          "decoded": false
+        },
+        {
+          "atUtc": "2026-10-08T22:01:12.789358+00:00",
+          "status": "playback_connection_error",
+          "appResolved": false,
+          "decoded": false
+        }
+      ],
+      "videoPasses": 0
+    },
+    {
+      "tvgId": "Nauta.186e958f3f02a74d7688630c@Nauta",
+      "originalNumber": 295,
+      "name": "Evento 2",
+      "catalog": "nautatv_catalog",
+      "editorialRow": {
+        "kind": "m3u",
+        "tvgId": "Nauta.186e958f3f02a74d7688630c@Nauta",
+        "name": "Evento 2 [Nauta]",
+        "group": "Nauta · Todos los Canales",
+        "sourceList": "1.m3u",
+        "trial": true,
+        "state": "active",
+        "order": 462,
+        "number": 295
+      },
+      "initialRemovalReason": "provider_name_missing",
+      "retestChecks": [
+        {
+          "atUtc": "2026-10-08T21:57:28.162404+00:00",
+          "status": "provider_name_missing",
+          "appResolved": false,
+          "decoded": false
+        },
+        {
+          "atUtc": "2026-10-08T21:59:29.666367+00:00",
+          "status": "provider_name_missing",
+          "appResolved": false,
+          "decoded": false
+        },
+        {
+          "atUtc": "2026-10-08T22:01:07.209818+00:00",
+          "status": "video_ok",
+          "appResolved": true,
+          "decoded": true
+        }
+      ],
+      "videoPasses": 1
+    },
+    {
+      "tvgId": "Nauta.ef535880f5fa20a60817269d@Nauta",
+      "originalNumber": 306,
+      "name": "Fox Sports 1 | HD Sur",
+      "catalog": "cat_32",
+      "editorialRow": {
+        "kind": "m3u",
+        "tvgId": "Nauta.ef535880f5fa20a60817269d@Nauta",
+        "name": "Fox Sports 1 | HD Sur [Nauta]",
+        "group": "Nauta · HD",
+        "sourceList": "1.m3u",
+        "trial": true,
+        "state": "active",
+        "order": 473,
+        "number": 306
+      },
+      "initialRemovalReason": "playback_connection_error",
+      "retestChecks": [
+        {
+          "atUtc": "2026-10-08T21:57:30.175265+00:00",
+          "status": "video_ok",
+          "appResolved": true,
+          "decoded": true
+        },
+        {
+          "atUtc": "2026-10-08T21:59:31.211970+00:00",
+          "status": "video_ok",
+          "appResolved": true,
+          "decoded": true
+        },
+        {
+          "atUtc": "2026-10-08T22:01:08.879622+00:00",
+          "status": "video_ok",
+          "appResolved": true,
+          "decoded": true
+        }
+      ],
+      "videoPasses": 3
+    },
+    {
+      "tvgId": "Nauta.2ab1a684a78721b1e1a98425@Nauta",
+      "originalNumber": 308,
+      "name": "Fox Sports 1 | Sur",
+      "catalog": "cat_4",
+      "editorialRow": {
+        "kind": "m3u",
+        "tvgId": "Nauta.2ab1a684a78721b1e1a98425@Nauta",
+        "name": "Fox Sports 1 | Sur [Nauta]",
+        "group": "Nauta · Deportes",
+        "sourceList": "1.m3u",
+        "trial": true,
+        "state": "active",
+        "order": 475,
+        "number": 308
+      },
+      "initialRemovalReason": "playback_connection_error",
+      "retestChecks": [
+        {
+          "atUtc": "2026-10-08T21:57:34.389298+00:00",
+          "status": "video_ok",
+          "appResolved": true,
+          "decoded": true
+        },
+        {
+          "atUtc": "2026-10-08T21:59:31.159957+00:00",
+          "status": "video_ok",
+          "appResolved": true,
+          "decoded": true
+        },
+        {
+          "atUtc": "2026-10-08T22:01:10.816092+00:00",
+          "status": "video_ok",
+          "appResolved": true,
+          "decoded": true
+        }
+      ],
+      "videoPasses": 3
+    },
+    {
+      "tvgId": "Nauta.6c78e8e8cee41c38fbb9a9cf@Nauta",
+      "originalNumber": 309,
+      "name": "Fox Sports 2 | Chile",
+      "catalog": "cat_4",
+      "editorialRow": {
+        "kind": "m3u",
+        "tvgId": "Nauta.6c78e8e8cee41c38fbb9a9cf@Nauta",
+        "name": "Fox Sports 2 | Chile [Nauta]",
+        "group": "Nauta · Deportes",
+        "sourceList": "1.m3u",
+        "trial": true,
+        "state": "active",
+        "order": 476,
+        "number": 309
+      },
+      "initialRemovalReason": "playback_connection_error",
+      "retestChecks": [
+        {
+          "atUtc": "2026-10-08T21:57:36.568742+00:00",
+          "status": "playback_connection_error",
+          "appResolved": false,
+          "decoded": false
+        },
+        {
+          "atUtc": "2026-10-08T21:59:34.508019+00:00",
+          "status": "playback_connection_error",
+          "appResolved": false,
+          "decoded": false
+        },
+        {
+          "atUtc": "2026-10-08T22:01:12.789358+00:00",
+          "status": "playback_connection_error",
+          "appResolved": false,
+          "decoded": false
+        }
+      ],
+      "videoPasses": 0
+    },
+    {
+      "tvgId": "Nauta.ae6e635daea03bd1abbc6806@Nauta",
+      "originalNumber": 311,
+      "name": "Fox Sports 2 | HD Sur",
+      "catalog": "cat_32",
+      "editorialRow": {
+        "kind": "m3u",
+        "tvgId": "Nauta.ae6e635daea03bd1abbc6806@Nauta",
+        "name": "Fox Sports 2 | HD Sur [Nauta]",
+        "group": "Nauta · HD",
+        "sourceList": "1.m3u",
+        "trial": true,
+        "state": "active",
+        "order": 478,
+        "number": 311
+      },
+      "initialRemovalReason": "provider_update_slate",
+      "retestChecks": [
+        {
+          "atUtc": "2026-10-08T21:57:32.117299+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        },
+        {
+          "atUtc": "2026-10-08T21:59:35.232171+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        },
+        {
+          "atUtc": "2026-10-08T22:01:12.802362+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        }
+      ],
+      "videoPasses": 0
+    },
+    {
+      "tvgId": "Nauta.31f1dbd82d70952554b966db@Nauta",
+      "originalNumber": 315,
+      "name": "Fox Sports 3 | Mexico",
+      "catalog": "cat_4",
+      "editorialRow": {
+        "kind": "m3u",
+        "tvgId": "Nauta.31f1dbd82d70952554b966db@Nauta",
+        "name": "Fox Sports 3 | Mexico [Nauta]",
+        "group": "Nauta · Deportes",
+        "sourceList": "1.m3u",
+        "trial": true,
+        "state": "active",
+        "order": 482,
+        "number": 315
+      },
+      "initialRemovalReason": "playback_connection_error",
+      "retestChecks": [
+        {
+          "atUtc": "2026-10-08T21:57:33.273713+00:00",
+          "status": "playback_connection_error",
+          "appResolved": false,
+          "decoded": false
+        },
+        {
+          "atUtc": "2026-10-08T21:59:37.245134+00:00",
+          "status": "playback_connection_error",
+          "appResolved": false,
+          "decoded": false
+        },
+        {
+          "atUtc": "2026-10-08T22:01:12.789358+00:00",
+          "status": "playback_connection_error",
+          "appResolved": false,
+          "decoded": false
+        }
+      ],
+      "videoPasses": 0
+    },
+    {
+      "tvgId": "Nauta.db333e83f5f0c086006c2a1e@Nauta",
+      "originalNumber": 319,
+      "name": "Fox Sports Premium HD",
+      "catalog": "cat_32",
+      "editorialRow": {
+        "kind": "m3u",
+        "tvgId": "Nauta.db333e83f5f0c086006c2a1e@Nauta",
+        "name": "Fox Sports Premium HD [Nauta]",
+        "group": "Nauta · HD",
+        "sourceList": "1.m3u",
+        "trial": true,
+        "state": "active",
+        "order": 486,
+        "number": 319
+      },
+      "initialRemovalReason": "provider_update_slate",
+      "retestChecks": [
+        {
+          "atUtc": "2026-10-08T21:57:32.817006+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        },
+        {
+          "atUtc": "2026-10-08T21:59:35.380759+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        },
+        {
+          "atUtc": "2026-10-08T22:01:12.789358+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        }
+      ],
+      "videoPasses": 0
+    },
+    {
+      "tvgId": "Nauta.ce1580586a531d205ccfc107@Nauta",
+      "originalNumber": 320,
+      "name": "Fox Sports Sur",
+      "catalog": "cat_4",
+      "editorialRow": {
+        "kind": "m3u",
+        "tvgId": "Nauta.ce1580586a531d205ccfc107@Nauta",
+        "name": "Fox Sports Sur [Nauta]",
+        "group": "Nauta · Deportes",
+        "sourceList": "1.m3u",
+        "trial": true,
+        "state": "active",
+        "order": 487,
+        "number": 320
+      },
+      "initialRemovalReason": "playback_connection_error",
+      "retestChecks": [
+        {
+          "atUtc": "2026-10-08T21:57:33.273713+00:00",
+          "status": "video_ok",
+          "appResolved": true,
+          "decoded": true
+        },
+        {
+          "atUtc": "2026-10-08T21:59:35.843763+00:00",
+          "status": "video_ok",
+          "appResolved": true,
+          "decoded": true
+        },
+        {
+          "atUtc": "2026-10-08T22:01:18.157820+00:00",
+          "status": "video_ok",
+          "appResolved": true,
+          "decoded": true
+        }
+      ],
+      "videoPasses": 3
+    },
+    {
+      "tvgId": "Nauta.db7401e1a5e6ca60853f2ce7@Nauta",
+      "originalNumber": 323,
+      "name": "FS2 USA HD",
+      "catalog": "cat_31",
+      "editorialRow": {
+        "kind": "m3u",
+        "tvgId": "Nauta.db7401e1a5e6ca60853f2ce7@Nauta",
+        "name": "FS2 USA HD [Nauta]",
+        "group": "Nauta · USA",
+        "sourceList": "1.m3u",
+        "trial": true,
+        "state": "active",
+        "order": 490,
+        "number": 323
+      },
+      "initialRemovalReason": "playback_connection_error",
+      "retestChecks": [
+        {
+          "atUtc": "2026-10-08T21:57:36.447862+00:00",
+          "status": "playback_connection_error",
+          "appResolved": false,
+          "decoded": false
+        },
+        {
+          "atUtc": "2026-10-08T21:59:39.352266+00:00",
+          "status": "playback_connection_error",
+          "appResolved": false,
+          "decoded": false
+        },
+        {
+          "atUtc": "2026-10-08T22:01:13.975213+00:00",
+          "status": "playback_connection_error",
+          "appResolved": false,
+          "decoded": false
+        }
+      ],
+      "videoPasses": 0
+    },
+    {
+      "tvgId": "Nauta.f5a9da835ca48687fee2b5d4@Nauta",
+      "originalNumber": 325,
+      "name": "Futv | Costa Rica",
+      "catalog": "cat_4",
+      "editorialRow": {
+        "kind": "m3u",
+        "tvgId": "Nauta.f5a9da835ca48687fee2b5d4@Nauta",
+        "name": "Futv | Costa Rica [Nauta]",
+        "group": "Nauta · Deportes",
+        "sourceList": "1.m3u",
+        "trial": true,
+        "state": "active",
+        "order": 492,
+        "number": 325
+      },
+      "initialRemovalReason": "provider_update_slate",
+      "retestChecks": [
+        {
+          "atUtc": "2026-10-08T21:57:39.011083+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        },
+        {
+          "atUtc": "2026-10-08T21:59:46.162585+00:00",
+          "status": "playback_connection_error",
+          "appResolved": false,
+          "decoded": false
+        },
+        {
+          "atUtc": "2026-10-08T22:01:18.958821+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        }
+      ],
+      "videoPasses": 0
+    },
+    {
+      "tvgId": "Nauta.41cf3d29cfd895e78db98a69@Nauta",
+      "originalNumber": 337,
+      "name": "Gol Peru",
+      "catalog": "cat_4",
+      "editorialRow": {
+        "kind": "m3u",
+        "tvgId": "Nauta.41cf3d29cfd895e78db98a69@Nauta",
+        "name": "Gol Peru [Nauta]",
+        "group": "Nauta · Deportes",
+        "sourceList": "1.m3u",
+        "trial": true,
+        "state": "active",
+        "order": 504,
+        "number": 337
+      },
+      "initialRemovalReason": "playback_connection_error",
+      "retestChecks": [
+        {
+          "atUtc": "2026-10-08T21:57:41.378791+00:00",
+          "status": "playback_connection_error",
+          "appResolved": false,
+          "decoded": false
+        },
+        {
+          "atUtc": "2026-10-08T21:59:40.264544+00:00",
+          "status": "playback_connection_error",
+          "appResolved": false,
+          "decoded": false
+        },
+        {
+          "atUtc": "2026-10-08T22:01:24.314299+00:00",
+          "status": "playback_connection_error",
+          "appResolved": false,
+          "decoded": false
+        }
+      ],
+      "videoPasses": 0
+    },
+    {
+      "tvgId": "Nauta.d872673131beafe036920e61@Nauta",
+      "originalNumber": 394,
+      "name": "Liga de Campeones 2",
+      "catalog": "cat_4",
+      "editorialRow": {
+        "kind": "m3u",
+        "tvgId": "Nauta.d872673131beafe036920e61@Nauta",
+        "name": "Liga de Campeones 2 [Nauta]",
+        "group": "Nauta · Deportes",
+        "sourceList": "1.m3u",
+        "trial": true,
+        "state": "active",
+        "order": 561,
+        "number": 394
+      },
+      "initialRemovalReason": "provider_update_slate",
+      "retestChecks": [
+        {
+          "atUtc": "2026-10-08T21:57:46.778053+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        },
+        {
+          "atUtc": "2026-10-08T21:59:46.162585+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        },
+        {
+          "atUtc": "2026-10-08T22:01:31.015312+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        }
+      ],
+      "videoPasses": 0
+    },
+    {
+      "tvgId": "Nauta.f0da4d1292f3ef3a83699b55@Nauta",
+      "originalNumber": 424,
+      "name": "Movistar Deportes | Peru",
+      "catalog": "cat_4",
+      "editorialRow": {
+        "kind": "m3u",
+        "tvgId": "Nauta.f0da4d1292f3ef3a83699b55@Nauta",
+        "name": "Movistar Deportes | Peru [Nauta]",
+        "group": "Nauta · Deportes",
+        "sourceList": "1.m3u",
+        "trial": true,
+        "state": "active",
+        "order": 591,
+        "number": 424
+      },
+      "initialRemovalReason": "playback_connection_error",
+      "retestChecks": [
+        {
+          "atUtc": "2026-10-08T21:57:53.689967+00:00",
+          "status": "playback_connection_error",
+          "appResolved": false,
+          "decoded": false
+        },
+        {
+          "atUtc": "2026-10-08T21:59:55.820045+00:00",
+          "status": "playback_connection_error",
+          "appResolved": false,
+          "decoded": false
+        },
+        {
+          "atUtc": "2026-10-08T22:01:43.885006+00:00",
+          "status": "playback_connection_error",
+          "appResolved": false,
+          "decoded": false
+        }
+      ],
+      "videoPasses": 0
+    },
+    {
+      "tvgId": "Nauta.c09b525c8da63c1873092cfa@Nauta",
+      "originalNumber": 463,
+      "name": "PAC12 HD",
+      "catalog": "cat_4",
+      "editorialRow": {
+        "kind": "m3u",
+        "tvgId": "Nauta.c09b525c8da63c1873092cfa@Nauta",
+        "name": "PAC12 HD [Nauta]",
+        "group": "Nauta · Deportes",
+        "sourceList": "1.m3u",
+        "trial": true,
+        "state": "active",
+        "order": 630,
+        "number": 463
+      },
+      "initialRemovalReason": "provider_update_slate",
+      "retestChecks": [
+        {
+          "atUtc": "2026-10-08T21:57:56.856084+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        },
+        {
+          "atUtc": "2026-10-08T21:59:59.692957+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        },
+        {
+          "atUtc": "2026-10-08T22:01:44.945353+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        }
+      ],
+      "videoPasses": 0
+    },
+    {
+      "tvgId": "Nauta.811b1c909481a65139a1d84b@Nauta",
+      "originalNumber": 476,
+      "name": "PX TV",
+      "catalog": "cat_4",
+      "editorialRow": {
+        "kind": "m3u",
+        "tvgId": "Nauta.811b1c909481a65139a1d84b@Nauta",
+        "name": "PX TV [Nauta]",
+        "group": "Nauta · Deportes",
+        "sourceList": "1.m3u",
+        "trial": true,
+        "state": "active",
+        "order": 643,
+        "number": 476
+      },
+      "initialRemovalReason": "provider_update_slate",
+      "retestChecks": [
+        {
+          "atUtc": "2026-10-08T21:57:58.047585+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        },
+        {
+          "atUtc": "2026-10-08T22:00:02.851128+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        },
+        {
+          "atUtc": "2026-10-08T22:01:46.855593+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        }
+      ],
+      "videoPasses": 0
+    },
+    {
+      "tvgId": "Nauta.7c1c72f31761185b706c130c@Nauta",
+      "originalNumber": 545,
+      "name": "Tigo Sports Guatemala",
+      "catalog": "cat_4",
+      "editorialRow": {
+        "kind": "m3u",
+        "tvgId": "Nauta.7c1c72f31761185b706c130c@Nauta",
+        "name": "Tigo Sports Guatemala [Nauta]",
+        "group": "Nauta · Deportes",
+        "sourceList": "1.m3u",
+        "trial": true,
+        "state": "active",
+        "order": 712,
+        "number": 545
+      },
+      "initialRemovalReason": "provider_update_slate",
+      "retestChecks": [
+        {
+          "atUtc": "2026-10-08T21:58:04.353190+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        },
+        {
+          "atUtc": "2026-10-08T22:00:12.128719+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        },
+        {
+          "atUtc": "2026-10-08T22:01:56.372940+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        }
+      ],
+      "videoPasses": 0
+    },
+    {
+      "tvgId": "Nauta.ccdcdedca33fdc014604ed40@Nauta",
+      "originalNumber": 562,
+      "name": "TNT Sports  HD | Argentina",
+      "catalog": "cat_4",
+      "editorialRow": {
+        "kind": "m3u",
+        "tvgId": "Nauta.ccdcdedca33fdc014604ed40@Nauta",
+        "name": "TNT Sports  HD | Argentina [Nauta]",
+        "group": "Nauta · Deportes",
+        "sourceList": "1.m3u",
+        "trial": true,
+        "state": "active",
+        "order": 729,
+        "number": 562
+      },
+      "initialRemovalReason": "provider_update_slate",
+      "retestChecks": [
+        {
+          "atUtc": "2026-10-08T21:58:07.690161+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        },
+        {
+          "atUtc": "2026-10-08T22:00:13.361600+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        },
+        {
+          "atUtc": "2026-10-08T22:01:57.701167+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        }
+      ],
+      "videoPasses": 0
+    },
+    {
+      "tvgId": "Nauta.bbe3b94dba1717068cfcb99c@Nauta",
+      "originalNumber": 563,
+      "name": "TNT Sports | Argentina",
+      "catalog": "cat_4",
+      "editorialRow": {
+        "kind": "m3u",
+        "tvgId": "Nauta.bbe3b94dba1717068cfcb99c@Nauta",
+        "name": "TNT Sports | Argentina [Nauta]",
+        "group": "Nauta · Deportes",
+        "sourceList": "1.m3u",
+        "trial": true,
+        "state": "active",
+        "order": 730,
+        "number": 563
+      },
+      "initialRemovalReason": "playback_connection_error",
+      "retestChecks": [
+        {
+          "atUtc": "2026-10-08T21:58:07.690161+00:00",
+          "status": "playback_connection_error",
+          "appResolved": false,
+          "decoded": false
+        },
+        {
+          "atUtc": "2026-10-08T22:00:13.778748+00:00",
+          "status": "playback_connection_error",
+          "appResolved": false,
+          "decoded": false
+        },
+        {
+          "atUtc": "2026-10-08T22:01:57.705169+00:00",
+          "status": "playback_connection_error",
+          "appResolved": false,
+          "decoded": false
+        }
+      ],
+      "videoPasses": 0
+    },
+    {
+      "tvgId": "Nauta.d8f0c35fbae064eae054fd1f@Nauta",
+      "originalNumber": 564,
+      "name": "TNT Sports | Chile",
+      "catalog": "cat_4",
+      "editorialRow": {
+        "kind": "m3u",
+        "tvgId": "Nauta.d8f0c35fbae064eae054fd1f@Nauta",
+        "name": "TNT Sports | Chile [Nauta]",
+        "group": "Nauta · Deportes",
+        "sourceList": "1.m3u",
+        "trial": true,
+        "state": "active",
+        "order": 731,
+        "number": 564
+      },
+      "initialRemovalReason": "playback_connection_error",
+      "retestChecks": [
+        {
+          "atUtc": "2026-10-08T21:58:09.979051+00:00",
+          "status": "playback_connection_error",
+          "appResolved": false,
+          "decoded": false
+        },
+        {
+          "atUtc": "2026-10-08T22:00:13.778748+00:00",
+          "status": "playback_connection_error",
+          "appResolved": false,
+          "decoded": false
+        },
+        {
+          "atUtc": "2026-10-08T22:01:58.854949+00:00",
+          "status": "playback_connection_error",
+          "appResolved": false,
+          "decoded": false
+        }
+      ],
+      "videoPasses": 0
+    },
+    {
+      "tvgId": "Nauta.10a2e4f61576881691523b2b@Nauta",
+      "originalNumber": 573,
+      "name": "TUDN HD",
+      "catalog": "cat_32",
+      "editorialRow": {
+        "kind": "m3u",
+        "tvgId": "Nauta.10a2e4f61576881691523b2b@Nauta",
+        "name": "TUDN HD [Nauta]",
+        "group": "Nauta · HD",
+        "sourceList": "1.m3u",
+        "trial": true,
+        "state": "active",
+        "order": 740,
+        "number": 573
+      },
+      "initialRemovalReason": "playback_connection_error",
+      "retestChecks": [
+        {
+          "atUtc": "2026-10-08T21:58:10.924431+00:00",
+          "status": "playback_connection_error",
+          "appResolved": false,
+          "decoded": false
+        },
+        {
+          "atUtc": "2026-10-08T22:00:15.195697+00:00",
+          "status": "playback_connection_error",
+          "appResolved": false,
+          "decoded": false
+        },
+        {
+          "atUtc": "2026-10-08T22:01:59.413531+00:00",
+          "status": "playback_connection_error",
+          "appResolved": false,
+          "decoded": false
+        }
+      ],
+      "videoPasses": 0
+    },
+    {
+      "tvgId": "Nauta.edde528cd5ad5207ed585662@Nauta",
+      "originalNumber": 584,
+      "name": "UFC Network",
+      "catalog": "cat_4",
+      "editorialRow": {
+        "kind": "m3u",
+        "tvgId": "Nauta.edde528cd5ad5207ed585662@Nauta",
+        "name": "UFC Network [Nauta]",
+        "group": "Nauta · Deportes",
+        "sourceList": "1.m3u",
+        "trial": true,
+        "state": "active",
+        "order": 751,
+        "number": 584
+      },
+      "initialRemovalReason": "provider_update_slate",
+      "retestChecks": [
+        {
+          "atUtc": "2026-10-08T21:58:11.148034+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        },
+        {
+          "atUtc": "2026-10-08T22:00:16.265931+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        },
+        {
+          "atUtc": "2026-10-08T22:01:59.793243+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        }
+      ],
+      "videoPasses": 0
+    },
+    {
+      "tvgId": "Nauta.909cfb06b3b33ff37cec6a93@Nauta",
+      "originalNumber": 597,
+      "name": "Univisión Deportes",
+      "catalog": "cat_4",
+      "editorialRow": {
+        "kind": "m3u",
+        "tvgId": "Nauta.909cfb06b3b33ff37cec6a93@Nauta",
+        "name": "Univisión Deportes [Nauta]",
+        "group": "Nauta · Deportes",
+        "sourceList": "1.m3u",
+        "trial": true,
+        "state": "active",
+        "order": 764,
+        "number": 597
+      },
+      "initialRemovalReason": "provider_update_slate",
+      "retestChecks": [
+        {
+          "atUtc": "2026-10-08T21:58:12.022088+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        },
+        {
+          "atUtc": "2026-10-08T22:00:16.602696+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        },
+        {
+          "atUtc": "2026-10-08T22:02:00.080730+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        }
+      ],
+      "videoPasses": 0
+    },
+    {
+      "tvgId": "Nauta.5c25676451fabc3d01c99124@Nauta",
+      "originalNumber": 598,
+      "name": "Univisión TDN",
+      "catalog": "cat_4",
+      "editorialRow": {
+        "kind": "m3u",
+        "tvgId": "Nauta.5c25676451fabc3d01c99124@Nauta",
+        "name": "Univisión TDN [Nauta]",
+        "group": "Nauta · Deportes",
+        "sourceList": "1.m3u",
+        "trial": true,
+        "state": "active",
+        "order": 765,
+        "number": 598
+      },
+      "initialRemovalReason": "provider_update_slate",
+      "retestChecks": [
+        {
+          "atUtc": "2026-10-08T21:58:12.362398+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        },
+        {
+          "atUtc": "2026-10-08T22:00:17.199412+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        },
+        {
+          "atUtc": "2026-10-08T22:02:00.579012+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        }
+      ],
+      "videoPasses": 0
+    },
+    {
+      "tvgId": "Nauta.251567a97cddce98313b36bb@Nauta",
+      "originalNumber": 607,
+      "name": "VTV Plus HD",
+      "catalog": "cat_4",
+      "editorialRow": {
+        "kind": "m3u",
+        "tvgId": "Nauta.251567a97cddce98313b36bb@Nauta",
+        "name": "VTV Plus HD [Nauta]",
+        "group": "Nauta · Deportes",
+        "sourceList": "1.m3u",
+        "trial": true,
+        "state": "active",
+        "order": 774,
+        "number": 607
+      },
+      "initialRemovalReason": "provider_update_slate",
+      "retestChecks": [
+        {
+          "atUtc": "2026-10-08T21:58:13.458010+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        },
+        {
+          "atUtc": "2026-10-08T22:00:18.620037+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        },
+        {
+          "atUtc": "2026-10-08T22:02:01.168609+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        }
+      ],
+      "videoPasses": 0
+    },
+    {
+      "tvgId": "Nauta.09bca55df9bf9c8fe7939efd@Nauta",
+      "originalNumber": 608,
+      "name": "VTV Plus | Uruguay",
+      "catalog": "cat_4",
+      "editorialRow": {
+        "kind": "m3u",
+        "tvgId": "Nauta.09bca55df9bf9c8fe7939efd@Nauta",
+        "name": "VTV Plus | Uruguay [Nauta]",
+        "group": "Nauta · Deportes",
+        "sourceList": "1.m3u",
+        "trial": true,
+        "state": "active",
+        "order": 775,
+        "number": 608
+      },
+      "initialRemovalReason": "provider_update_slate",
+      "retestChecks": [
+        {
+          "atUtc": "2026-10-08T21:58:14.002062+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        },
+        {
+          "atUtc": "2026-10-08T22:00:18.737009+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        },
+        {
+          "atUtc": "2026-10-08T22:02:01.185614+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        }
+      ],
+      "videoPasses": 0
+    },
+    {
+      "tvgId": "Nauta.57a05f69b330905c6733a166@Nauta",
+      "originalNumber": 617,
+      "name": "WWE Network",
+      "catalog": "cat_4",
+      "editorialRow": {
+        "kind": "m3u",
+        "tvgId": "Nauta.57a05f69b330905c6733a166@Nauta",
+        "name": "WWE Network [Nauta]",
+        "group": "Nauta · Deportes",
+        "sourceList": "1.m3u",
+        "trial": true,
+        "state": "active",
+        "order": 784,
+        "number": 617
+      },
+      "initialRemovalReason": "provider_update_slate",
+      "retestChecks": [
+        {
+          "atUtc": "2026-10-08T21:58:14.535619+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        },
+        {
+          "atUtc": "2026-10-08T22:00:20.078264+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        },
+        {
+          "atUtc": "2026-10-08T22:02:02.445901+00:00",
+          "status": "provider_update_slate",
+          "appResolved": false,
+          "decoded": true
+        }
+      ],
+      "videoPasses": 0
+    }
+  ]
+}

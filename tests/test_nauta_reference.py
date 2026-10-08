@@ -9,6 +9,11 @@ import update_m3u as runner
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def authorized_restorations():
+    record = json.loads((ROOT/"contracts/nauta-restoration-20261008-sports.json").read_text(encoding="utf-8"))
+    return {r["tvgId"] for r in record["channels"]}
+
+
 class NautaReferenceTest(unittest.TestCase):
     def test_roundtrip_exact_name_with_region_and_slashes(self):
         for name in ["ESPN 1 | Chile", "South Park 24/7", "TUDN ", "El canal, HD"]:
@@ -26,6 +31,7 @@ class NautaReferenceTest(unittest.TestCase):
         self.assertGreaterEqual(fixture["providerEntries"], len(ids))
         audit = json.loads((ROOT/"contracts/nauta-validation-20261008.json").read_text(encoding="utf-8"))
         removed = {r["tvgId"] for r in audit["channels"] if r["decision"] == "remove"}
+        removed -= authorized_restorations()
         ids -= removed
         layout = json.loads((ROOT/"data/channel-editor-layout.json").read_text(encoding="utf-8"))
         new = [r for r in layout["channels"] if r.get("tvgId") in ids]
@@ -78,6 +84,8 @@ class NautaReferenceTest(unittest.TestCase):
                     self.assertTrue(all(c["mediaHttpCodes"] and set(c["mediaHttpCodes"]) == {404} for c in checks))
                 else:
                     self.assertEqual("provider_name_missing", row["reason"])
+        # Cleanup facts remain immutable; this later editorial authorization restores a closed subset.
+        removed -= authorized_restorations()
         layout = json.loads((ROOT/"data/channel-editor-layout.json").read_text(encoding="utf-8"))
         presentation = json.loads((ROOT/"presentation-overrides.json").read_text(encoding="utf-8"))
         self.assertTrue(removed.issubset(layout["excludedM3u"]))
@@ -108,3 +116,59 @@ class NautaReferenceTest(unittest.TestCase):
         allowed = {"atUtc", "status", "appResolved", "decoded", "audioDetected", "mediaHttpCodes", "apiHttpCodes", "frameSha256"}
         self.assertTrue(all(set(c).issubset(allowed) for r in audit["channels"] for c in r["checks"]))
         self.assertTrue(all(not c["apiHttpCodes"] for r in audit["channels"] for c in r["checks"]))
+
+    def test_sports_restoration_is_exactly_authorized_and_preserves_history(self):
+        record = json.loads((ROOT/"contracts/nauta-restoration-20261008-sports.json").read_text(encoding="utf-8"))
+        expected_numbers = {108,114,165,204,205,216,271,277,295,306,308,309,311,315,319,320,323,325,337,394,424,463,476,545,562,563,564,573,584,597,598,607,608,617}
+        self.assertEqual(expected_numbers, {r["originalNumber"] for r in record["channels"]})
+        self.assertEqual(34, len(record["channels"]))
+        self.assertEqual(34, len(authorized_restorations()))
+        self.assertEqual((34,105,428), (record["restored"], record["remainingRemoved"], record["activeNauta"]))
+        for file, field in [("contracts/nauta-validation-20261008.json", "originalCleanupSha256"),
+                            ("contracts/nauta-trial-channels-20261007.json", "originalSnapshotSha256"),
+                            ("NAUTA_CANALES_ELIMINADOS_20261008.md", "originalRemovalReportSha256")]:
+            self.assertEqual(record[field], hashlib.sha256((ROOT/file).read_bytes()).hexdigest())
+        audit = json.loads((ROOT/"contracts/nauta-validation-20261008.json").read_text(encoding="utf-8"))
+        removed = {r["tvgId"] for r in audit["channels"] if r["decision"] == "remove"}
+        self.assertTrue(authorized_restorations().issubset(removed))
+
+    def test_restored_rows_have_original_numbers_trial_refs_and_no_tombstones(self):
+        record = json.loads((ROOT/"contracts/nauta-restoration-20261008-sports.json").read_text(encoding="utf-8"))
+        layout = json.loads((ROOT/"data/channel-editor-layout.json").read_text(encoding="utf-8"))
+        presentation = json.loads((ROOT/"presentation-overrides.json").read_text(encoding="utf-8"))
+        restored = authorized_restorations()
+        rows = {r.get("tvgId"): r for r in layout["channels"] if r.get("tvgId") in restored}
+        self.assertEqual(restored, set(rows))
+        self.assertEqual(681, len(layout["channels"]))
+        self.assertTrue(restored.isdisjoint(layout["excludedM3u"]))
+        self.assertTrue(restored.isdisjoint(presentation["excluded_m3u"]))
+        self.assertTrue(restored.issubset(presentation["trial_m3u"]))
+        for row in record["channels"]:
+            current = rows[row["tvgId"]]
+            self.assertEqual(row["editorialRow"], current)
+            self.assertEqual("active", current["state"])
+            self.assertTrue(current["trial"])
+            self.assertEqual("1.m3u", current["sourceList"])
+            self.assertEqual(row["tvgId"], nauta_reference.channel_id(row["name"]))
+        for file in ["1.m3u", "m3u.m3u", "channel-catalog.m3u"]:
+            channels = [c for c in runner.parse_channels((ROOT/file).read_text(encoding="utf-8").splitlines()) if c.tvg_id in restored]
+            self.assertEqual(restored, {c.tvg_id for c in channels})
+            self.assertEqual(34, len(channels))
+            for c in channels:
+                original = next(r for r in record["channels"] if r["tvgId"] == c.tvg_id)
+                self.assertEqual((original["catalog"], original["name"]), nauta_reference.parse_reference(c.url))
+            self.assertTrue(restored.issubset(presentation["orders"][file]))
+        self.assertEqual(0, len(restored & {c.tvg_id for c in runner.main_playlist_channels()}))
+
+    def test_restoration_reports_failure_and_retest_separately_without_secrets(self):
+        record = json.loads((ROOT/"contracts/nauta-restoration-20261008-sports.json").read_text(encoding="utf-8"))
+        allowed = {"atUtc", "status", "appResolved", "decoded"}
+        for row in record["channels"]:
+            self.assertEqual(3, len(row["retestChecks"]))
+            self.assertTrue(all(set(c) == allowed for c in row["retestChecks"]))
+            self.assertEqual(sum(c["status"] == "video_ok" for c in row["retestChecks"]), row["videoPasses"])
+        passed = {r["originalNumber"]: r["videoPasses"] for r in record["channels"] if r["videoPasses"]}
+        self.assertEqual({295:1,306:3,308:3,320:3}, passed)
+        text = json.dumps(record)
+        for secret in [".m3u8", "http://", "https://", "Authorization", "Cookie", "token=", "sourceUrl"]:
+            self.assertNotIn(secret, text)
