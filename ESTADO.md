@@ -9,6 +9,8 @@
 
 ## Hoy, en una mirada
 
+- **Nauta publicado y comprobado después del runner**: importación `b33cebf`, runner `37718537821` success, estado generado `a5081dd`; Raw fijado al SHA coincide con listas/layout/presentación. Conservadas las 533 filas en prueba y números 87–619; proyección real de app: 594 visibles, 0 descartes. Pruebas Nauta repetidas después del runner: cuatro correctas; EPG 46/0 Nauta. Editor web `37718537777` success. APK 0.5.81/190 y firma/checksum ya verificados antes del catálogo. EPG automática `37718727029` en curso al comprobar, sin ampliar alcance; no se necesita para Nauta. Cierra los pendientes de las entradas siguientes; disponibilidad de todas las señales y TV física no demostradas.
+
 - **APK Nauta publicada y verificada antes de este catálogo**: VibeM3U `e3d2ee2`, versión/tag `0ef0331` / `v0.5.81` (190); CI `37717793042` y Release `37718148346` success. Release pública no draft/prerelease, APK 2.720.775 bytes, SHA256 `dfb24e1a397aa4b029d41ba082414787beee0076ded5869e7c2c00258c1f2ca5`, descarga/firma compatible verificadas. Nuevas referencias requieren actualizar la TV a 0.5.81+. Publicar este catálogo ahora; comprobar estado remoto y conservación de las filas tras el runner. Sin prueba física local: ADB sin dispositivo y no hay ejecutable emulator en el SDK C: verificado.
 
 - **Validación Nauta**: 301 Python (una prueba de copia omitida por ubicación del clon; hashes idénticos comprobados aparte), 41 JS y bundle temporal correctos. Parser real VibeM3U + catálogo integrado acepta 533 referencias, 0 incompatibles. Alcance EPG conservado en 46 canales (ningún Nauta). Java real + FFmpeg dieron contenido ESPN 1 Chile 360p24 y DSports 2 HD 720p60; TV Pública/South Park devolvieron placa de actualización, no señal válida. El resolver excluye temporalmente ese origen. Catálogo completo no significa todas las señales operativas; sin estabilidad ni TV física demostradas. Contraparte funcional VibeM3U `e3d2ee2`; entregar APK 0.5.81/190 antes de estas filas.
@@ -91,6 +93,8 @@
   nuevo por captura.
 
 ## Bitácora (más reciente arriba)
+
+- **2026-10-07, cierre remoto Nauta**: catálogo `b33cebf` publicado después del APK, editor `37718537777` y runner completo `37718537821` verdes. `a5081dd` conserva 533 referencias, estado en prueba, números y layout; Raw y proyección de clases reales comprobados otra vez. EPG conserva 46 canales sin Nauta; runner automático de EPG disparado, no forma parte de la validación de nuevos canales en prueba. App contraparte `e3d2ee2`, tag `0ef0331`, documentación `2bfa14b`. Este cierre documental se publica también, sin cambio de app/catálogo/EPG.
 
 - **2026-10-07, compuerta APK cumplida**: Release Nauta `37718148346` success; APK exacta descargada de GitHub y comprobada con apksigner/aapt/SHA256 (0.5.81/190, firma estable). Se habilita publicación de las 533 filas en el commit separado de Lista M3U, manteniendo la EPG previa y todos los nuevos en prueba.
 
