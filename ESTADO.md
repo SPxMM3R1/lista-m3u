@@ -5,9 +5,11 @@
 > cubre la app). **Al terminar cualquier cambio, actualiza este archivo en el mismo commit**:
 > la sección «Hoy» si cambió el estado y una línea nueva en «Bitácora».
 
-Última actualización: **2026-10-07** (UTC).
+Última actualización: **2026-10-08** (UTC).
 
 ## Hoy, en una mirada
+
+- **Limpieza completa Nauta preparada y validada**: 533 revisados con resolver real de APK v0.5.81 y decodificación FFmpeg; tres rondas independientes para fallos, controles ESPN 1 Chile/DSports 2 HD correctos en las tres. 394 conservados, 139 retirados permanentemente (39 HTTP 404, 4 nombres ausentes y 96 placas de actualización, no señal válida). Fox Deportes (304) y HBO Xtreme (361) se recuperaron y se conservaron. Informe completo `NAUTA_CANALES_ELIMINADOS_20261008.md`, evidencia segura `contracts/nauta-validation-20261008.json`; snapshot inicial intacto. Layout/inventario/listas/presentación sincronizados, bajas excluidas contra reaparición, sin ocultar ni renumerar supervivientes. 253 filas anteriores/selección/presentación no Nauta intactas; EPG conserva alcance 46/0 Nauta. 303 Python (copia del contrato omitida por ruta, hashes iguales aparte), 41 JS, contrato 394 Nauta y bundle correctos. Proyección real con catálogo integrado de app: 394 Nauta/455 visibles/0 descartes. Sin cambios de app/APK (contraparte `e3d2ee2` / v0.5.81). Pendiente en esta entrada: push main y comprobar runner/estado remoto. Disponibilidad puntual desde PC, no garantía futura ni prueba de TV física.
 
 - **Nauta publicado y comprobado después del runner**: importación `b33cebf`, runner `37718537821` success, estado generado `a5081dd`; Raw fijado al SHA coincide con listas/layout/presentación. Conservadas las 533 filas en prueba y números 87–619; proyección real de app: 594 visibles, 0 descartes. Pruebas Nauta repetidas después del runner: cuatro correctas; EPG 46/0 Nauta. Editor web `37718537777` success. APK 0.5.81/190 y firma/checksum ya verificados antes del catálogo. EPG automática `37718727029` en curso al comprobar, sin ampliar alcance; no se necesita para Nauta. Cierra los pendientes de las entradas siguientes; disponibilidad de todas las señales y TV física no demostradas.
 
@@ -93,6 +95,8 @@
   nuevo por captura.
 
 ## Bitácora (más reciente arriba)
+
+- **2026-10-08, depuración Nauta autorizada**: auditoría completa 21:01–21:07 UTC, sin guardar URLs/IDs opacos/headers/credenciales. Prueba HLS y vídeo, descartando placas mediante huellas de cuatro imágenes con título visualmente examinado. 394 disponibles / 139 bajas comprobadas tres veces; entradas retiradas, no ocultas, numeración y resto editorial preservados. Evidencia completa y lista pública de bajas versionadas, seis tests Nauta incluidos en 303 Python; 41 JS y parser/proyección real de app correctos. Orden runner → app → publicación y verificación de runner automático; app sin commit nuevo ni release. Un intento diagnóstico de parser con `resolver-catalog.json` remoto excedió el límite de aliases de la app; la app carga exclusivamente `app/src/main/assets/resolver_catalog.json`, que pasó la comprobación. No se afirma fallo de producción por ese diagnóstico ni se modifica fuera de alcance.
 
 - **2026-10-07, cierre remoto Nauta**: catálogo `b33cebf` publicado después del APK, editor `37718537777` y runner completo `37718537821` verdes. `a5081dd` conserva 533 referencias, estado en prueba, números y layout; Raw y proyección de clases reales comprobados otra vez. EPG conserva 46 canales sin Nauta; runner automático de EPG disparado, no forma parte de la validación de nuevos canales en prueba. App contraparte `e3d2ee2`, tag `0ef0331`, documentación `2bfa14b`. Este cierre documental se publica también, sin cambio de app/catálogo/EPG.
 
