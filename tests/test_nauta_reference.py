@@ -14,6 +14,11 @@ def authorized_restorations():
     return {r["tvgId"] for r in record["channels"]}
 
 
+def authorized_followup_deletions():
+    record = json.loads((ROOT/"contracts/nauta-247-cleanup-20261008.json").read_text(encoding="utf-8"))
+    return {r["tvgId"] for r in record["channels"]}
+
+
 class NautaReferenceTest(unittest.TestCase):
     def test_roundtrip_exact_name_with_region_and_slashes(self):
         for name in ["ESPN 1 | Chile", "South Park 24/7", "TUDN ", "El canal, HD"]:
@@ -32,6 +37,7 @@ class NautaReferenceTest(unittest.TestCase):
         audit = json.loads((ROOT/"contracts/nauta-validation-20261008.json").read_text(encoding="utf-8"))
         removed = {r["tvgId"] for r in audit["channels"] if r["decision"] == "remove"}
         removed -= authorized_restorations()
+        removed |= authorized_followup_deletions()
         ids -= removed
         layout = json.loads((ROOT/"data/channel-editor-layout.json").read_text(encoding="utf-8"))
         new = [r for r in layout["channels"] if r.get("tvgId") in ids]
@@ -86,6 +92,9 @@ class NautaReferenceTest(unittest.TestCase):
                     self.assertEqual("provider_name_missing", row["reason"])
         # Cleanup facts remain immutable; this later editorial authorization restores a closed subset.
         removed -= authorized_restorations()
+        followup_removed = authorized_followup_deletions()
+        removed |= followup_removed
+        retained -= followup_removed
         layout = json.loads((ROOT/"data/channel-editor-layout.json").read_text(encoding="utf-8"))
         presentation = json.loads((ROOT/"presentation-overrides.json").read_text(encoding="utf-8"))
         self.assertTrue(removed.issubset(layout["excludedM3u"]))
@@ -97,7 +106,9 @@ class NautaReferenceTest(unittest.TestCase):
         for file in ["1.m3u", "m3u.m3u", "channel-catalog.m3u", "2.m3u", "m3u-externa.m3u"]:
             self.assertTrue(removed.isdisjoint(c.tvg_id for c in runner.parse_channels((ROOT/file).read_text(encoding="utf-8").splitlines())))
         expected = {r["tvgId"]: (r["number"], r["order"]) for r in audit["preservedRows"]}
-        self.assertEqual(expected, {r["tvgId"]: (r["number"], r["order"]) for r in layout["channels"] if r.get("tvgId") in retained})
+        self.assertEqual(expected.keys() - followup_removed, {r["tvgId"] for r in layout["channels"] if r.get("tvgId") in retained})
+        self.assertEqual({id: value for id, value in expected.items() if id not in followup_removed},
+                         {r["tvgId"]: (r["number"], r["order"]) for r in layout["channels"] if r.get("tvgId") in retained})
         for name in ["ESPN 1 | Chile", "DSports 2 HD"]:
             control = next(r for r in audit["channels"] if r["name"] == name)
             self.assertEqual(["video_ok"] * 3, [c["status"] for c in control["checks"]])
@@ -137,13 +148,17 @@ class NautaReferenceTest(unittest.TestCase):
         layout = json.loads((ROOT/"data/channel-editor-layout.json").read_text(encoding="utf-8"))
         presentation = json.loads((ROOT/"presentation-overrides.json").read_text(encoding="utf-8"))
         restored = authorized_restorations()
-        rows = {r.get("tvgId"): r for r in layout["channels"] if r.get("tvgId") in restored}
-        self.assertEqual(restored, set(rows))
-        self.assertEqual(681, len(layout["channels"]))
-        self.assertTrue(restored.isdisjoint(layout["excludedM3u"]))
-        self.assertTrue(restored.isdisjoint(presentation["excluded_m3u"]))
-        self.assertTrue(restored.issubset(presentation["trial_m3u"]))
+        deleted = authorized_followup_deletions()
+        surviving = restored - deleted
+        rows = {r.get("tvgId"): r for r in layout["channels"] if r.get("tvgId") in surviving}
+        self.assertEqual(surviving, set(rows))
+        self.assertEqual(606, len(layout["channels"]))
+        self.assertTrue(surviving.isdisjoint(layout["excludedM3u"]))
+        self.assertTrue(surviving.isdisjoint(presentation["excluded_m3u"]))
+        self.assertTrue(surviving.issubset(presentation["trial_m3u"]))
         for row in record["channels"]:
+            if row["tvgId"] in deleted:
+                continue
             current = rows[row["tvgId"]]
             self.assertEqual(row["editorialRow"], current)
             self.assertEqual("active", current["state"])
@@ -151,14 +166,14 @@ class NautaReferenceTest(unittest.TestCase):
             self.assertEqual("1.m3u", current["sourceList"])
             self.assertEqual(row["tvgId"], nauta_reference.channel_id(row["name"]))
         for file in ["1.m3u", "m3u.m3u", "channel-catalog.m3u"]:
-            channels = [c for c in runner.parse_channels((ROOT/file).read_text(encoding="utf-8").splitlines()) if c.tvg_id in restored]
-            self.assertEqual(restored, {c.tvg_id for c in channels})
-            self.assertEqual(34, len(channels))
+            channels = [c for c in runner.parse_channels((ROOT/file).read_text(encoding="utf-8").splitlines()) if c.tvg_id in surviving]
+            self.assertEqual(surviving, {c.tvg_id for c in channels})
+            self.assertEqual(len(surviving), len(channels))
             for c in channels:
                 original = next(r for r in record["channels"] if r["tvgId"] == c.tvg_id)
                 self.assertEqual((original["catalog"], original["name"]), nauta_reference.parse_reference(c.url))
-            self.assertTrue(restored.issubset(presentation["orders"][file]))
-        self.assertEqual(0, len(restored & {c.tvg_id for c in runner.main_playlist_channels()}))
+            self.assertTrue(surviving.issubset(presentation["orders"][file]))
+        self.assertEqual(0, len(surviving & {c.tvg_id for c in runner.main_playlist_channels()}))
 
     def test_restoration_reports_failure_and_retest_separately_without_secrets(self):
         record = json.loads((ROOT/"contracts/nauta-restoration-20261008-sports.json").read_text(encoding="utf-8"))
@@ -169,6 +184,46 @@ class NautaReferenceTest(unittest.TestCase):
             self.assertEqual(sum(c["status"] == "video_ok" for c in row["retestChecks"]), row["videoPasses"])
         passed = {r["originalNumber"]: r["videoPasses"] for r in record["channels"] if r["videoPasses"]}
         self.assertEqual({295:1,306:3,308:3,320:3}, passed)
+        text = json.dumps(record)
+        for secret in [".m3u8", "http://", "https://", "Authorization", "Cookie", "token=", "sourceUrl"]:
+            self.assertNotIn(secret, text)
+
+    def test_requested_positions_and_every_24_7_title_are_removed_exactly_once(self):
+        record = json.loads((ROOT/"contracts/nauta-247-cleanup-20261008.json").read_text(encoding="utf-8"))
+        explicit = {271,306,308,309,311,321}
+        removed = {r["tvgId"] for r in record["channels"]}
+        self.assertEqual((6,70,75), (record["resultingCounts"]["explicitPositions"], record["resultingCounts"]["titleMatches24_7"], len(removed)))
+        self.assertEqual((428,353,681,606), (record["resultingCounts"]["activeNautaBefore"], record["resultingCounts"]["activeNautaAfter"], record["resultingCounts"]["editorialRowsBefore"], record["resultingCounts"]["editorialRowsAfter"]))
+        self.assertEqual(explicit, {r["numberAtRemoval"] for r in record["channels"] if r["userSpecifiedPosition"]})
+        titleMatches = {r["tvgId"] for r in record["channels"] if "name_contains_24_7" in r["requestedReasons"]}
+        self.assertEqual(70, len(titleMatches))
+        self.assertIn(321, {r["numberAtRemoval"] for r in record["channels"] if "name_contains_24_7" in r["requestedReasons"]})
+        self.assertTrue(all(r["kind"] == "m3u" and r["sourceList"] == "1.m3u" for r in record["channels"]))
+        self.assertTrue(all(r["tvgId"] == nauta_reference.channel_id(r["name"].removesuffix(" [Nauta]")) for r in record["channels"]))
+
+    def test_requested_deletions_are_tombstoned_absent_and_other_numbers_preserved(self):
+        record = json.loads((ROOT/"contracts/nauta-247-cleanup-20261008.json").read_text(encoding="utf-8"))
+        layout = json.loads((ROOT/"data/channel-editor-layout.json").read_text(encoding="utf-8"))
+        presentation = json.loads((ROOT/"presentation-overrides.json").read_text(encoding="utf-8"))
+        removed = authorized_followup_deletions()
+        self.assertEqual(75, len(removed))
+        self.assertTrue(removed.issubset(layout["excludedM3u"]))
+        self.assertTrue(removed.issubset(presentation["excluded_m3u"]))
+        self.assertTrue(removed.isdisjoint({r.get("tvgId") for r in layout["channels"]}))
+        self.assertTrue(removed.isdisjoint(presentation["trial_m3u"]))
+        self.assertTrue(all(removed.isdisjoint(order) for order in presentation["orders"].values()))
+        self.assertEqual(353, sum(r["kind"] == "m3u" and r["sourceList"] == "1.m3u" and r["tvgId"].endswith("@Nauta") for r in layout["channels"]))
+        self.assertFalse(any((r.get("tvgId") or "").endswith("@Nauta") and "24/7" in r.get("name", "") for r in layout["channels"]))
+        expected_numbers = {r["tvgId"]: r["number"] for r in record["preservedRows"]}
+        self.assertEqual(expected_numbers, {r["tvgId"]: r["number"] for r in layout["channels"] if r.get("tvgId") in expected_numbers})
+        for file in ["1.m3u", "m3u.m3u", "channel-catalog.m3u"]:
+            found = {c.tvg_id for c in runner.parse_channels((ROOT/file).read_text(encoding="utf-8").splitlines())}
+            self.assertTrue(removed.isdisjoint(found))
+            self.assertEqual((ROOT/"m3u.m3u").read_bytes(), (ROOT/"1.m3u").read_bytes())
+
+    def test_nauta_followup_delete_manifest_has_no_secret_material(self):
+        record = json.loads((ROOT/"contracts/nauta-247-cleanup-20261008.json").read_text(encoding="utf-8"))
+        self.assertEqual(75, len(record["channels"]))
         text = json.dumps(record)
         for secret in [".m3u8", "http://", "https://", "Authorization", "Cookie", "token=", "sourceUrl"]:
             self.assertNotIn(secret, text)

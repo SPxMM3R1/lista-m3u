@@ -9,6 +9,8 @@
 
 ## Hoy, en una mirada
 
+- **Bajas Nauta 24/7 y posiciones solicitadas (pendiente de publicar/verificar runner)**: se retiraron permanentemente 75 filas únicas de Lista 1: 70 nombres con «24/7» y posiciones 271, 306, 308, 309, 311 y 321 (321 coincide). Quedan 353 Nauta activos y 606 filas editoriales; se mantienen los números/órdenes supervivientes y las bajas quedaron excluidas del runner/editor para que no reaparezcan. Registro `contracts/nauta-247-cleanup-20261008.json` e informe `NAUTA_CANAL_24_7_Y_POSICIONES_ELIMINADOS_20261008.md`. Pruebas locales: 309 Python (1 omitida), 41 JS, guardia de resolutores válida y bundle 606/380; parser real VibeM3U 0.5.81: 353 Nauta/414 visibles/0 incompatibles. Selección y archivos EPG sin cambios; alcance EPG calculado 60/0 Nauta. No se modificó VibeM3U ni su APK. Siguiente paso: publicar Lista M3U y verificar salida del runner/Raw antes de cerrar.
+
 - **Reincorporación Nauta publicada y verificada**: editorial `cd4d66e`, estado generado `bc448ce`; canales `37852531718`, editor `37852531767` y dirigido `37852531793` success. Conservados 34 recuperados/428 Nauta activos/105 bajas excluidas y las 647 filas previas. Raw fijado al SHA coincide con siete blobs y el layout publicado en Pages es idéntico. Nueve pruebas Nauta y contrato correctos después del runner; lector/proyección real de app: 428 Nauta/489 visibles/0 descartes. EPG base Lista 1 46, total con gestionados 60, 0 Nauta; corrida automática `37852688070` disparada con alcance habitual, no requerida para los nuevos en prueba. Sin cambio/app/APK. Este cierre cumple el pendiente de la entrada siguiente; la documentación se publica en el mismo flujo. Reincorporación editorial no demuestra operatividad de las 34 señales.
 
 - **Reincorporación editorial Nauta autorizada**: el usuario pide «Agrega todos» tras listar 32 deportivos y dos eventos (108/295); vuelven esas 34 entradas con números/órdenes originales, activas en Lista 1 y en prueba/sin EPG. Total 428 Nauta/681 filas editoriales; otras 105 bajas y las 647 filas previas intactas. Registro nuevo `contracts/nauta-restoration-20261008-sports.json` e informe `NAUTA_CANALES_REINCORPORADOS_20261008.md`; históricos no reescritos. Solo 295/306/308/320 dieron vídeo en alguna ronda de la reprueba 21:56:56–22:02:04 UTC; 306 falló apertura adicional, 295 intermitente. Reincorporación no implica reparación/disponibilidad ni identificación deportiva de Evento 2. App/resolver sin cambios, contraparte `e3d2ee2` / v0.5.81, sin APK nueva. Validado: 306 Python (una copia omitida por ruta y verificada aparte con SHA256 idéntico), 41 JS, bundle 681 filas/380 logos, referencias 428 válidas, diff y preservación de 647 filas/selección correctos. Proyección real de app: 428 Nauta/489 visibles/0 descartes. EPG completa 60 (base Lista 1 + gestionados), 0 Nauta. Pendiente de cierre: push y comprobación de runner/Raw/proyección posterior.
@@ -49,7 +51,7 @@
 - **EPG**: 47 canales. Cada canal mezcla sus fuentes por prioridad (`epg_source_chain`): la de
   más arriba manda donde tiene programas y las demás solo rellenan huecos. Horizonte típico
   30–190 h.
-- **Tests**: 319 Python (`python -m unittest discover -s tests -p "test_*.py"`) y 41 JS
+- **Tests**: 309 Python (`python -m unittest discover -s tests -p "test_*.py"`; 1 omitida) y 41 JS
   (`node --test tests/editor-core.test.mjs tests/layout-contract.test.mjs`).
 
 ## Pendientes y decisiones abiertas
@@ -101,6 +103,8 @@
   nuevo por captura.
 
 ## Bitácora (más reciente arriba)
+
+- **2026-10-08, bajas Nauta 24/7 y seis posiciones (publicación pendiente)**: se borraron 75 identidades activas de Lista 1 (70 títulos con «24/7», seis números solicitados, una coincidencia), sincronizando `1.m3u`/`m3u.m3u` (idénticas), `channel-catalog.m3u`, layout y presentación; las identidades quedan excluidas para evitar reimportación. 353 Nauta/606 filas; números y órdenes de quienes sobreviven preservados. Se añadió informe y contrato de bajas; no se tocaron selección, EPG, resolutores ni app. Validación local: 309 Python (1 omitida), 41 JS, guardia y bundle 606/380; proyección real de app 0.5.81: 353/414 visibles/0 incompatibles. Pendiente publicar y confirmar workflows, blobs y ausencia de resurrección tras el runner.
 
 - **2026-10-08, cierre reincorporación Nauta**: `cd4d66e` publicado, runner `37852531718` y salida `bc448ce` correctos, editor y dirigido verdes. Repetidas pruebas Nauta/contrato y proyección real de app; 428 Nauta/489 visibles, ningún descarte. Raw/blob de siete archivos y layout de Pages verificados; otras filas, selección y exclusiones restantes intactas. La EPG habitual corre aparte y excluye todas las filas Nauta en prueba. Publicar cierre documental también; no mover versión/tag de VibeM3U ni retirar guardas de origen. Disponibilidad de las 34 no garantizada.
 
