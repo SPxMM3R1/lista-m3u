@@ -160,7 +160,11 @@ class NautaReferenceTest(unittest.TestCase):
             if row["tvgId"] in deleted:
                 continue
             current = rows[row["tvgId"]]
-            self.assertEqual(row["editorialRow"], current)
+            # El respaldo base→HD se añade como relación de reproducción, sin
+            # reescribir los campos editoriales históricos de la fila restaurada.
+            current_editorial = dict(current)
+            current_editorial.pop("backupm3u", None)
+            self.assertEqual(row["editorialRow"], current_editorial)
             self.assertEqual("active", current["state"])
             self.assertTrue(current["trial"])
             self.assertEqual("1.m3u", current["sourceList"])

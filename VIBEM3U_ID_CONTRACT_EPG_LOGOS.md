@@ -17,6 +17,16 @@ sin posters externos, credenciales, IDs opacos ni respuestas completas. Todas la
 filas quedan `trial: true`, sin EPG/mantenimiento, hasta decisión editorial. Requiere
 VibeM3U 0.5.81 antes de publicar. No aplica la regla app-only de Highfly/TvVoo a Nauta.
 
+### Respaldo M3U Nauta (2026-10-08)
+
+Una fila M3U Nauta puede referenciar en `backupm3u` el `tvg-id` de otra fila Nauta del
+mismo catálogo editorial. Para los pares base→HD, la fila HD conserva la identidad, nombre
+y número principal; la fila base permanece activa en Lista 1 y en la M3U publicada para que
+VibeM3U pueda reconstruir el localizador dinámico Nauta al intentar el respaldo. La app la
+oculta como canal independiente al incorporarla al respaldo. No publicar URL de emisión ni
+ID opaco, no excluir/eliminar la fila base y no inferir EPG. Esta extensión requiere VibeM3U
+0.5.83 o posterior; las referencias de reproducción siguen siendo localizadores, no identidad.
+
 El editor web de `Lista M3U` crea y publica la selección de canales y sus
 identidades de proveedor. `VibeM3U` consume esa selección para incorporar los
 canales al orden local y resolverlos al iniciar la reproducción. El runner de
