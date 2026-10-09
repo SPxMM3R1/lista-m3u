@@ -54,6 +54,14 @@ class OfficialEpgSourcesTest(unittest.TestCase):
         self.assertEqual(chain[2], (update_m3u.CHV_OFFICIAL_EPG_SOURCE, "0106"))
         self.assertEqual(chain[-1], (update_m3u.PUBLISHED_EPG_FALLBACK_SOURCE, "0106"))
 
+    def test_dsports_continues_with_the_uruguayan_feed_after_the_andean_one(self) -> None:
+        chain = update_m3u.epg_source_chain("DSports.us@Direct15")
+        andean = ("co1", "DSPORTS.(COL).(DTSC).co")
+        uruguayan = ("uy1", "[SPOARHD].DSports.Argentina.HD.uy")
+        self.assertIn(andean, chain)
+        self.assertIn(uruguayan, chain)
+        self.assertLess(chain.index(andean), chain.index(uruguayan))
+
     def test_replaced_keys_are_never_used(self) -> None:
         self.assertNotIn(("cl", "Canal.NHK.World.cl"), update_m3u.epg_source_chain("NHKWorldJapan.jp"))
         self.assertNotIn(

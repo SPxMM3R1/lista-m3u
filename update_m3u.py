@@ -1064,6 +1064,11 @@ EPGSHARE_BACKUP_CHANNELS: dict[str, tuple[str, str]] = {
     "DWEnglish.de": ("fr", "DW-TV.fr"),
     # ESPN 2 TvVoo usa solo [ESP2LS] y la última guía publicada: no hay
     # otro feed regional confirmado para rellenar sus huecos.
+    # DSports (CO1, feed andino) dejó de publicar el día en curso el 2026-10-09;
+    # UY1 trae «DSports Argentina HD» con días por delante. Es otro feed regional:
+    # solo rellena después del último programa de CO1, nunca lo reemplaza.
+    # DSports 2 no tiene un feed equivalente en ninguna fuente revisada.
+    "DSports.us@Direct15": ("uy1", "[SPOARHD].DSports.Argentina.HD.uy"),
     "WinSports.co@Direct181": ("ar1", "Canal.ESPN.3.(Argentina).ar"),
 }
 RED_BULL_CHANNEL_LOCALES = {
@@ -6676,8 +6681,12 @@ def donate_epg_descriptions(
         programme.insert(anchors[-1] + 1 if anchors else 0, description)
         donated += 1
     return donated
-# La guía publicada anterior no recicla su pasado lejano en cada corrida.
-EPG_PUBLISHED_FALLBACK_PAST = timedelta(hours=6)
+# Ninguna fuente aporta programas que terminaron hace más de 6 h: las fuentes
+# EPGShare traen días anteriores y la guía crecía con pasado que nadie mira
+# (2026-10-09: 562 de 3.527 programas ya habían terminado, algunos hace 3 días).
+EPG_PAST_RETENTION = timedelta(hours=6)
+# Nombre anterior: la guía publicada fue la primera fuente con este recorte.
+EPG_PUBLISHED_FALLBACK_PAST = EPG_PAST_RETENTION
 
 
 def free_segments(
@@ -6776,6 +6785,8 @@ def build_epg(
         for card in normalize_red_bull_schedule(red_bull_cards):
             start = datetime.fromisoformat(card["start_time"].replace("Z", "+00:00"))
             stop = datetime.fromisoformat(card["end_time"].replace("Z", "+00:00"))
+            if stop <= now - EPG_PAST_RETENTION:
+                continue
             programme = ET.SubElement(
                 root,
                 "programme",
@@ -6837,10 +6848,7 @@ def build_epg(
                 continue
             if stop <= start:
                 continue
-            if (
-                source_name == PUBLISHED_EPG_FALLBACK_SOURCE
-                and stop <= now - EPG_PUBLISHED_FALLBACK_PAST
-            ):
+            if stop <= now - EPG_PAST_RETENTION:
                 continue
             programmes_by_key.setdefault((source_name, source_id), []).append(
                 (start, stop, programme)
@@ -6857,6 +6865,9 @@ def build_epg(
             added = 0
             for start, stop, programme in items:
                 for segment_start, segment_stop in free_segments(start, stop, covered):
+                    # Un respaldo no rellena el pasado que se recortó de la fuente principal.
+                    if segment_stop <= now - EPG_PAST_RETENTION:
+                        continue
                     copied = localize_xmltv_programme(programme)
                     if segment_start != start:
                         # Ya estaba al aire cuando termina la fuente de más prioridad.

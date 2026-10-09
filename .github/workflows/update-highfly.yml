@@ -54,6 +54,18 @@ jobs:
           git commit -m "Actualiza enlaces Highfly y variantes TvVoo [skip ci]"
           for attempt in 1 2 3 4 5; do
             if git push; then exit 0; fi
-            git pull --rebase
+            # Otra corrida publicó los mismos archivos mientras tanto (2026-10-09: dos
+            # disparos workflow_run casi juntos chocaban en el rebase). No se mezcla:
+            # se parte de lo publicado y se vuelve a generar.
+            git fetch origin main
+            git reset --hard origin/main
+            python highfly_live.py
+            python tvvoo_variants.py || echo "AVISO - variantes TvVoo sin actualizar"
+            git add -N data/tvvoo-variantes.json 2>/dev/null || true
+            if git diff --quiet -- data/highfly-live.json data/tvvoo-variantes.json; then
+              echo "La otra corrida ya publicó estos enlaces"; exit 0
+            fi
+            git add data/highfly-live.json data/tvvoo-variantes.json
+            git commit -m "Actualiza enlaces Highfly y variantes TvVoo [skip ci]"
           done
           exit 1

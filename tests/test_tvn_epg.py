@@ -816,13 +816,40 @@ class TvnEpgTests(unittest.TestCase):
             )
             for item in ET.fromstring(output).findall("./programme[@channel='0104']")
         )
+        # «Oficial -10» terminó hace 6 h: queda fuera por EPG_PAST_RETENTION.
         self.assertEqual(
             [title for _start, _stop, title in programmes],
-            ["Oficial -10", "Oficial -6", "Oficial -1", "Respaldo 2"],
+            ["Oficial -6", "Oficial -1", "Respaldo 2"],
         )
         for previous, current in zip(programmes, programmes[1:]):
             self.assertLessEqual(previous[1], current[0])
         self.assertEqual(programmes[-1][0], now + timedelta(hours=3))
+
+    def test_programmes_that_ended_long_ago_are_not_published(self) -> None:
+        now = datetime(2026, 10, 9, 18, tzinfo=timezone.utc)
+        source = ET.Element("tv")
+        for start, stop in [(-72, -70), (-8, -7), (-7, -2), (-2, 30)]:
+            programme = ET.SubElement(source, "programme", {
+                "start": update_m3u.xmltv_format_chile(now + timedelta(hours=start)),
+                "stop": update_m3u.xmltv_format_chile(now + timedelta(hours=stop)),
+                "channel": "Canal.TVN.(Chile).cl",
+            })
+            ET.SubElement(programme, "title").text = f"Programa {start}"
+
+        output, _ = update_m3u.build_epg(
+            {"cl": ET.tostring(source)},
+            [channel("TVN", "0104")],
+            {},
+            now=now,
+            coverage_required_ids={"0104"},
+        )
+
+        titles = [item.findtext("title")
+                  for item in ET.fromstring(output).findall("./programme[@channel='0104']")]
+        self.assertNotIn("Programa -72", titles)
+        self.assertNotIn("Programa -8", titles)
+        self.assertIn("Programa -7", titles)
+        self.assertIn("Programa -2", titles)
 
     def test_zapping_channels_with_tecnocentro_guide_keep_it_as_continuation(self) -> None:
         # Zapping solo publica el programa actual y los siguientes: si el canal
