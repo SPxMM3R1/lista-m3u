@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-generated-at="2026-10-09T09:50:14+00:00" data-description-policy="verified-source-only" data-description-programmes="3363" data-description-channels="50" data-next-refresh-at="2026-10-09T12:50:14+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u">
+<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-generated-at="2026-10-09T10:40:15+00:00" data-description-policy="verified-source-only" data-description-programmes="3352" data-description-channels="50" data-next-refresh-at="2026-10-09T13:40:15+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u">
   <channel id="0104" data-guide="parrilla real" data-guide-source="tvn-oficial">
     <display-name>TVN</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvn.png" />
@@ -16,7 +16,7 @@
     <display-name>Canal 13</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/canal13.png" />
   </channel>
-  <channel id="0102" data-guide="parrilla real parcial" data-guide-source="la-red-oficial">
+  <channel id="0102" data-guide="parrilla real" data-guide-source="la-red-oficial">
     <display-name>La Red</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/la-red.png" />
   </channel>
@@ -920,6 +920,7 @@
   </programme>
   <programme start="20261010031500 -0300" stop="20261010041500 -0300" channel="0104">
     <title lang="es">El Cuento Del Tío</title>
+    <desc lang="es">El conductor Carlos Pinto presenta recreaciones de casos de estafas ocurridos en Chile. Así el programa busca conscientizar para que el público no se deje engañar a la vez que se abordan situaciones dramáticas desde el humor.</desc>
   </programme>
   <programme start="20261010041500 -0300" stop="20261010050000 -0300" channel="0104">
     <title lang="es">La Vida Es Una Lotería</title>
@@ -1182,7 +1183,6 @@
   </programme>
   <programme start="20261009030000 -0300" stop="20261009040000 -0300" channel="0105">
     <title lang="es">Reunión De Superados</title>
-    <desc lang="es">Un grupo de WhatsApp de apoderados del establecimiento Thomas Campbell School, liderado por el profesor jefe Rubén, invita a los padres estar comunicados, en donde se vivirarán intensos momentos .</desc>
   </programme>
   <programme start="20261009040000 -0300" stop="20261009054500 -0300" channel="0105">
     <title lang="es">Meganoticias Ahora | En Vivo</title>
@@ -1345,9 +1345,6 @@
   <programme start="20261010223500 -0300" stop="20261011011500 -0300" channel="0106">
     <title lang="es">Divina comida: Desafío duplas</title>
   </programme>
-  <programme start="20261008223000 -0300" stop="20261009004500 -0300" channel="0106">
-    <title lang="es">Club De La Comedia</title>
-  </programme>
   <programme start="20261011011500 -0300" stop="20261011150000 -0300" channel="0106">
     <title lang="es">La Divina Comida</title>
   </programme>
@@ -1378,8 +1375,11 @@
   <programme start="20261008170000 -0300" stop="20261008200000 -0300" channel="0106">
     <title lang="es">Plan perfecto</title>
   </programme>
-  <programme start="20261008200000 -0300" stop="20261008223000 -0300" channel="0106">
+  <programme start="20261008200000 -0300" stop="20261008223500 -0300" channel="0106">
     <title lang="es">Chilevisión noticias central</title>
+  </programme>
+  <programme start="20261008223500 -0300" stop="20261009004500 -0300" channel="0106">
+    <title lang="es">El club de la comedia</title>
   </programme>
   <programme start="20261009060000 -0300" stop="20261009075000 -0300" channel="0107">
     <title lang="es">Teletrece AM</title>
@@ -1617,7 +1617,6 @@
   <programme start="20261009020000 -0300" stop="20261009030000 -0300" channel="0107">
     <title lang="es">Teletrece</title>
     <sub-title lang="es">Noche</sub-title>
-    <desc lang="es">Informativo en el que se presentan las noticias más importantes del día y se entrevista a personajes relevantes del acontecer nacional.</desc>
   </programme>
   <programme start="20261009030000 -0300" stop="20261009040000 -0300" channel="0107">
     <title lang="es">Vecinos al límite</title>
@@ -1642,10 +1641,6 @@
     <title lang="es">La mañana en vivo</title>
     <desc lang="es">De lunes a viernes, entre 08:30 a 09:30 horas, Natalia López y Polo Ramírez profundizan en las noticias y los temas que marcarán la pauta informativa desde una mirada más cercana. ¿El propósito? comenzar el día bien informados.</desc>
   </programme>
-  <programme start="20261009005000 -0300" stop="20261009012000 -0300" channel="0124">
-    <title lang="es">Informe T13</title>
-    <desc lang="es">Las principales informaciones del país.</desc>
-  </programme>
   <programme start="20261009012000 -0300" stop="20261009020000 -0300" channel="0124">
     <title lang="es">Conversaciones T13</title>
     <desc lang="es">Entrevistas con los protagonistas de la noticia. Contingencia nacional e internacional analizada en profundidad con los profesionales de T13. Diversas emisiones durante la jornada.</desc>
@@ -1655,7 +1650,6 @@
   </programme>
   <programme start="20261009030000 -0300" stop="20261009040000 -0300" channel="0124">
     <title lang="es">Informe T13</title>
-    <desc lang="es">Las principales informaciones del país.</desc>
   </programme>
   <programme start="20261009093000 -0300" stop="20261009100000 -0300" channel="0124">
     <title lang="es">Conversaciones T13</title>
@@ -1747,12 +1741,15 @@
   </programme>
   <programme start="20261010040000 -0300" stop="20261010043000 -0300" channel="0124">
     <title lang="es">El Mundo Hoy</title>
+    <desc lang="es">El periodista, cientista político y analista internacional, Libardo Buitrago, profundiza en la realidad que viven otros países, sus crisis y cómo pueden afectar el escenario mundial. Además, con gráficas y material audiovisual, analiza el impacto que podría traer para Chile. Todos los martes a las 16:00 horas por T13 en vivo.</desc>
   </programme>
   <programme start="20261010043000 -0300" stop="20261010050000 -0300" channel="0124">
     <title lang="es">Transmisión conjunta 13</title>
+    <desc lang="es">Programas, informativos, cultura, noticias, espectaculos.</desc>
   </programme>
   <programme start="20261010050000 -0300" stop="20261010063000 -0300" channel="0124">
     <title lang="es">Transmisión conjunta 13</title>
+    <desc lang="es">Programas, informativos, cultura, noticias, espectaculos.</desc>
   </programme>
   <programme start="20261010063000 -0300" stop="20261010070000 -0300" channel="0124">
     <title lang="es">Informe T13</title>
@@ -1911,7 +1908,6 @@
   </programme>
   <programme start="20261009000000 -0300" stop="20261009003000 -0300" channel="0201">
     <title lang="es">24 Horas a la Hora</title>
-    <desc lang="es">Noticiero, con despachos en directo y corresponsalías en todo el mundo.</desc>
   </programme>
   <programme start="20261009003000 -0300" stop="20261009004500 -0300" channel="0201">
     <title lang="es">DW analiza</title>
@@ -1927,19 +1923,15 @@
   </programme>
   <programme start="20261009020000 -0300" stop="20261009023000 -0300" channel="0201">
     <title lang="es">24 Horas a la Hora</title>
-    <desc lang="es">Noticiero, con despachos en directo y corresponsalías en todo el mundo.</desc>
   </programme>
   <programme start="20261009023000 -0300" stop="20261009031500 -0300" channel="0201">
     <title lang="es">24 Horas a la Hora</title>
-    <desc lang="es">Noticiero, con despachos en directo y corresponsalías en todo el mundo.</desc>
   </programme>
   <programme start="20261009031500 -0300" stop="20261009034500 -0300" channel="0201">
     <title lang="es">24 Horas a la Hora</title>
-    <desc lang="es">Noticiero, con despachos en directo y corresponsalías en todo el mundo.</desc>
   </programme>
   <programme start="20261009034500 -0300" stop="20261009043000 -0300" channel="0201">
     <title lang="es">24 Horas a la Hora</title>
-    <desc lang="es">Noticiero, con despachos en directo y corresponsalías en todo el mundo.</desc>
   </programme>
   <programme start="20261009043000 -0300" stop="20261009050000 -0300" channel="0201">
     <title lang="es">24 Horas Deportes</title>
@@ -2273,12 +2265,6 @@
   <programme start="20261009093000 -0300" stop="20261009130000 -0300" channel="1153">
     <title lang="es">Alerta CHV Noticias AM</title>
   </programme>
-  <programme start="20261009003000 -0300" stop="20261009010000 -0300" channel="1153">
-    <title lang="es">Deportes en CHV Noticias</title>
-  </programme>
-  <programme start="20261009010000 -0300" stop="20261009013000 -0300" channel="1153">
-    <title lang="es">Hoy en el mundo</title>
-  </programme>
   <programme start="20261009013000 -0300" stop="20261009030000 -0300" channel="1153">
     <title lang="es">Reportajes: CHV Noticias</title>
   </programme>
@@ -2393,148 +2379,144 @@
   <programme start="20261010230000 -0300" stop="20261011000000 -0300" channel="1153">
     <title lang="es">Reportajes: CHV Noticias</title>
   </programme>
-  <programme start="20261009061600 -0300" stop="20261009065800 -0300" channel="13Cultura.cl@DPS">
-    <title lang="es">Cultura Indómita</title>
-    <sub-title lang="es">Cultura Indómita | Capítulo 2 | Honduras, Ruinas de Copan</sub-title>
-    <desc lang="es">T1 -Ep.9: Cabo De La Vela, Colombia. Cultura Indómita será un recorrido por los destinos más fascinantes de Sudamérica.</desc>
-    <category lang="es">None</category>
-  </programme>
-  <programme start="20261009065800 -0300" stop="20261009080700 -0300" channel="13Cultura.cl@DPS">
+  <programme start="20261009070000 -0300" stop="20261009080100 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Siempre hay un chileno</title>
-    <sub-title lang="es">Siempre hay un chileno | T4 | Berlín</sub-title>
+    <sub-title lang="es">Siempre hay un chileno | T4 | Islas Canarias</sub-title>
     <desc lang="es">Recorremos diferentes partes del mundo, ciudades y pueblos, donde siempre, pero siempre, hay un chileno.</desc>
     <category lang="es">['travel-tourism']</category>
   </programme>
-  <programme start="20261009080700 -0300" stop="20261009091500 -0300" channel="13Cultura.cl@DPS">
+  <programme start="20261009080100 -0300" stop="20261009090100 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Lugares que Hablan</title>
-    <sub-title lang="es">Lugares Que Hablan | Futaleufú, Naturaleza Imponente</sub-title>
+    <sub-title lang="es">Lugares Que Hablan | Lago Lleu Lleu</sub-title>
     <category lang="es">None</category>
   </programme>
-  <programme start="20261009091500 -0300" stop="20261009101400 -0300" channel="13Cultura.cl@DPS">
+  <programme start="20261009090100 -0300" stop="20261009095500 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Recomiendo América</title>
-    <sub-title lang="es">Recomiendo América | Capítulo 04 | San José de Costa Rica</sub-title>
+    <sub-title lang="es">Recomiendo América | Capítulo 05 | El Caribe de Costa Rica</sub-title>
     <category lang="es">None</category>
   </programme>
-  <programme start="20261009101400 -0300" stop="20261009110100 -0300" channel="13Cultura.cl@DPS">
+  <programme start="20261009095500 -0300" stop="20261009104900 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Cultura Indómita</title>
-    <sub-title lang="es">Cultura Indómita | Capítulo 2 | Honduras, Ruinas de Copan</sub-title>
+    <sub-title lang="es">Cultura Indómita | Capítulo 11 | Valle del Colca y Pampachiri</sub-title>
     <desc lang="es">T1 -Ep.9: Cabo De La Vela, Colombia. Cultura Indómita será un recorrido por los destinos más fascinantes de Sudamérica.</desc>
     <category lang="es">None</category>
   </programme>
-  <programme start="20261009110100 -0300" stop="20261009115200 -0300" channel="13Cultura.cl@DPS">
+  <programme start="20261009104900 -0300" stop="20261009115000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">City Tour On Tour: USA</title>
-    <sub-title lang="es">City Tour On Tour: USA | Washington</sub-title>
+    <sub-title lang="es">City Tour On Tour: USA | Miami</sub-title>
     <desc lang="es">Acompaña a Federico Sánchez y Marcelo Comparini a recorrer Estados Unidos.</desc>
     <category lang="es">['travel-tourism']</category>
   </programme>
-  <programme start="20261009115200 -0300" stop="20261009130700 -0300" channel="13Cultura.cl@DPS">
+  <programme start="20261009115000 -0300" stop="20261009130100 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Siempre hay un chileno</title>
-    <sub-title lang="es">Siempre hay un chileno | T4 | Berlín</sub-title>
+    <sub-title lang="es">Siempre hay un chileno | T4 | Islas Canarias</sub-title>
     <desc lang="es">Recorremos diferentes partes del mundo, ciudades y pueblos, donde siempre, pero siempre, hay un chileno.</desc>
     <category lang="es">['travel-tourism']</category>
   </programme>
-  <programme start="20261009130700 -0300" stop="20261009141500 -0300" channel="13Cultura.cl@DPS">
+  <programme start="20261009130100 -0300" stop="20261009140200 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Lugares que Hablan</title>
-    <sub-title lang="es">Lugares Que Hablan | Futaleufú, Naturaleza Imponente</sub-title>
+    <sub-title lang="es">Lugares Que Hablan | Lago Lleu Lleu</sub-title>
     <desc lang="es">T4 -Ep.15: Los Habitantes De Alto El Loa. Acompaña a Pancho Saavedra en una nueva temporada de Lugares de hablan.</desc>
     <category lang="es">None</category>
   </programme>
-  <programme start="20261009141500 -0300" stop="20261009151400 -0300" channel="13Cultura.cl@DPS">
+  <programme start="20261009140200 -0300" stop="20261009145500 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Recomiendo América</title>
-    <sub-title lang="es">Recomiendo América | Capítulo 04 | San José de Costa Rica</sub-title>
+    <sub-title lang="es">Recomiendo América | Capítulo 05 | El Caribe de Costa Rica</sub-title>
     <category lang="es">None</category>
   </programme>
-  <programme start="20261009151400 -0300" stop="20261009160100 -0300" channel="13Cultura.cl@DPS">
+  <programme start="20261009145500 -0300" stop="20261009154900 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Cultura Indómita</title>
-    <sub-title lang="es">Cultura Indómita | Capítulo 2 | Honduras, Ruinas de Copan</sub-title>
+    <sub-title lang="es">Cultura Indómita | Capítulo 11 | Valle del Colca y Pampachiri</sub-title>
     <category lang="es">None</category>
   </programme>
-  <programme start="20261009160100 -0300" stop="20261009165200 -0300" channel="13Cultura.cl@DPS">
+  <programme start="20261009154900 -0300" stop="20261009165000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">City Tour On Tour: USA</title>
-    <sub-title lang="es">City Tour On Tour: USA | Washington</sub-title>
+    <sub-title lang="es">City Tour On Tour: USA | Miami</sub-title>
     <desc lang="es">Acompaña a Federico Sánchez y Marcelo Comparini a recorrer Estados Unidos.</desc>
     <category lang="es">['travel-tourism']</category>
   </programme>
-  <programme start="20261009165200 -0300" stop="20261009180700 -0300" channel="13Cultura.cl@DPS">
+  <programme start="20261009165000 -0300" stop="20261009180100 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Siempre hay un chileno</title>
-    <sub-title lang="es">Siempre hay un chileno | T4 | Berlín</sub-title>
+    <sub-title lang="es">Siempre hay un chileno | T4 | Islas Canarias</sub-title>
     <desc lang="es">Recorremos diferentes partes del mundo, ciudades y pueblos, donde siempre, pero siempre, hay un chileno.</desc>
     <category lang="es">['travel-tourism']</category>
   </programme>
-  <programme start="20261009180700 -0300" stop="20261009191500 -0300" channel="13Cultura.cl@DPS">
+  <programme start="20261009180100 -0300" stop="20261009190200 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Lugares que Hablan</title>
-    <sub-title lang="es">Lugares Que Hablan | Futaleufú, Naturaleza Imponente</sub-title>
+    <sub-title lang="es">Lugares Que Hablan | Lago Lleu Lleu</sub-title>
     <category lang="es">None</category>
   </programme>
-  <programme start="20261009191500 -0300" stop="20261009201400 -0300" channel="13Cultura.cl@DPS">
+  <programme start="20261009190200 -0300" stop="20261009195500 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Recomiendo América</title>
-    <sub-title lang="es">Recomiendo América | Capítulo 04 | San José de Costa Rica</sub-title>
+    <sub-title lang="es">Recomiendo América | Capítulo 05 | El Caribe de Costa Rica</sub-title>
     <category lang="es">None</category>
   </programme>
-  <programme start="20261009201400 -0300" stop="20261009210100 -0300" channel="13Cultura.cl@DPS">
+  <programme start="20261009195500 -0300" stop="20261009204900 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Cultura Indómita</title>
-    <sub-title lang="es">Cultura Indómita | Capítulo 2 | Honduras, Ruinas de Copan</sub-title>
+    <sub-title lang="es">Cultura Indómita | Capítulo 11 | Valle del Colca y Pampachiri</sub-title>
     <desc lang="es">T1 -Ep.10: Amazonas Peruano. Cultura Indómita será un recorrido por los destinos más fascinantes de Sudamérica.</desc>
     <category lang="es">None</category>
   </programme>
-  <programme start="20261009210100 -0300" stop="20261009215200 -0300" channel="13Cultura.cl@DPS">
+  <programme start="20261009204900 -0300" stop="20261009215000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">City Tour On Tour: USA</title>
-    <sub-title lang="es">City Tour On Tour: USA | Washington</sub-title>
+    <sub-title lang="es">City Tour On Tour: USA | Miami</sub-title>
     <desc lang="es">Acompaña a Federico Sánchez y Marcelo Comparini a recorrer Estados Unidos.</desc>
     <category lang="es">['travel-tourism']</category>
   </programme>
-  <programme start="20261009215200 -0300" stop="20261009230700 -0300" channel="13Cultura.cl@DPS">
+  <programme start="20261009215000 -0300" stop="20261009230200 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Siempre hay un chileno</title>
-    <sub-title lang="es">Siempre hay un chileno | T4 | Berlín</sub-title>
+    <sub-title lang="es">Siempre hay un chileno | T4 | Islas Canarias</sub-title>
     <desc lang="es">Recorremos diferentes partes del mundo, ciudades y pueblos, donde siempre, pero siempre, hay un chileno.</desc>
     <category lang="es">['travel-tourism']</category>
   </programme>
-  <programme start="20261009230700 -0300" stop="20261010001500 -0300" channel="13Cultura.cl@DPS">
+  <programme start="20261009230200 -0300" stop="20261010000200 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Lugares que Hablan</title>
-    <sub-title lang="es">Lugares Que Hablan | Futaleufú, Naturaleza Imponente</sub-title>
+    <sub-title lang="es">Lugares Que Hablan | Lago Lleu Lleu</sub-title>
     <category lang="es">None</category>
   </programme>
-  <programme start="20261010001500 -0300" stop="20261010011400 -0300" channel="13Cultura.cl@DPS">
+  <programme start="20261010000200 -0300" stop="20261010005500 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Recomiendo América</title>
-    <sub-title lang="es">Recomiendo América | Capítulo 04 | San José de Costa Rica</sub-title>
+    <sub-title lang="es">Recomiendo América | Capítulo 05 | El Caribe de Costa Rica</sub-title>
     <category lang="es">None</category>
   </programme>
-  <programme start="20261010011400 -0300" stop="20261010020100 -0300" channel="13Cultura.cl@DPS">
+  <programme start="20261010005500 -0300" stop="20261010014900 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Cultura Indómita</title>
-    <sub-title lang="es">Cultura Indómita | Capítulo 2 | Honduras, Ruinas de Copan</sub-title>
+    <sub-title lang="es">Cultura Indómita | Capítulo 11 | Valle del Colca y Pampachiri</sub-title>
+    <desc lang="es">T1 -Ep.10: Amazonas Peruano. Cultura Indómita será un recorrido por los destinos más fascinantes de Sudamérica.</desc>
     <category lang="es">None</category>
   </programme>
-  <programme start="20261010020100 -0300" stop="20261010025200 -0300" channel="13Cultura.cl@DPS">
+  <programme start="20261010014900 -0300" stop="20261010025100 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">City Tour On Tour: USA</title>
-    <sub-title lang="es">City Tour On Tour: USA | Washington</sub-title>
+    <sub-title lang="es">City Tour On Tour: USA | Miami</sub-title>
     <desc lang="es">Acompaña a Federico Sánchez y Marcelo Comparini a recorrer Estados Unidos.</desc>
     <category lang="es">['travel-tourism']</category>
   </programme>
-  <programme start="20261010025200 -0300" stop="20261010040700 -0300" channel="13Cultura.cl@DPS">
+  <programme start="20261010025100 -0300" stop="20261010040200 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Siempre hay un chileno</title>
-    <sub-title lang="es">Siempre hay un chileno | T4 | Berlín</sub-title>
+    <sub-title lang="es">Siempre hay un chileno | T4 | Islas Canarias</sub-title>
     <desc lang="es">Recorremos diferentes partes del mundo, ciudades y pueblos, donde siempre, pero siempre, hay un chileno.</desc>
     <category lang="es">['travel-tourism']</category>
   </programme>
-  <programme start="20261010040700 -0300" stop="20261010051500 -0300" channel="13Cultura.cl@DPS">
+  <programme start="20261010040200 -0300" stop="20261010050200 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Lugares que Hablan</title>
-    <sub-title lang="es">Lugares Que Hablan | Futaleufú, Naturaleza Imponente</sub-title>
+    <sub-title lang="es">Lugares Que Hablan | Lago Lleu Lleu</sub-title>
     <category lang="es">None</category>
   </programme>
-  <programme start="20261010051500 -0300" stop="20261010061400 -0300" channel="13Cultura.cl@DPS">
+  <programme start="20261010050200 -0300" stop="20261010055600 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Recomiendo América</title>
-    <sub-title lang="es">Recomiendo América | Capítulo 04 | San José de Costa Rica</sub-title>
+    <sub-title lang="es">Recomiendo América | Capítulo 05 | El Caribe de Costa Rica</sub-title>
     <category lang="es">None</category>
   </programme>
-  <programme start="20261009003000 -0300" stop="20261009010000 -0300" channel="13Cultura.cl@DPS">
-    <title lang="es">Depto. 401</title>
+  <programme start="20261010055600 -0300" stop="20261010064900 -0300" channel="13Cultura.cl@DPS">
+    <title lang="es">Cultura Indómita</title>
+    <sub-title lang="es">Cultura Indómita | Capítulo 11 | Valle del Colca y Pampachiri</sub-title>
+    <category lang="es">None</category>
   </programme>
   <programme start="20261009010000 -0300" stop="20261009020000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Al sur del mundo : Los cazadores del fin del mundo</title>
   </programme>
   <programme start="20261009020000 -0300" stop="20261009030000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Cultura indómita : Cabo de la Vela, Colombia</title>
-    <desc lang="es">T1 -Ep.9: Cabo De La Vela, Colombia. Cultura Indómita será un recorrido por los destinos más fascinantes de Sudamérica.</desc>
   </programme>
   <programme start="20261009030000 -0300" stop="20261009040000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Recomiendo Chile</title>
@@ -2548,12 +2530,13 @@
     <title lang="es">Cultura indómita : Cabo de la Vela, Colombia</title>
     <desc lang="es">T1 -Ep.9: Cabo De La Vela, Colombia. Cultura Indómita será un recorrido por los destinos más fascinantes de Sudamérica.</desc>
   </programme>
-  <programme start="20261009060000 -0300" stop="20261009061600 -0300" channel="13Cultura.cl@DPS">
+  <programme start="20261009060000 -0300" stop="20261009070000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Recomiendo Chile</title>
     <desc lang="es">T14 -Ep.4: Los Vilos. Recomiendo Chile es una serie documental que aporta una mirada moderna hacia la gastronomía tradicional de nuestro país.</desc>
   </programme>
-  <programme start="20261010061400 -0300" stop="20261010070000 -0300" channel="13Cultura.cl@DPS">
+  <programme start="20261010064900 -0300" stop="20261010070000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Recomiendo Chile</title>
+    <desc lang="es">T14 -Ep.2: Cochrane. Recomiendo Chile es una serie documental que aporta una mirada moderna hacia la gastronomía tradicional de nuestro país.</desc>
   </programme>
   <programme start="20261010070000 -0300" stop="20261010080000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Lugares que hablan : Los habitantes de Alto el Loa</title>
@@ -2647,47 +2630,38 @@
     <title lang="es">¿Dónde está Elisa?</title>
     <desc lang="es">Dónde Está Elisa? es la adaptación de la telenovela chilena del mismo nombre cuya trama se desenvuelve tras la desaparición de Elisa durante una noche de fiesta.</desc>
   </programme>
-  <programme start="20261009060100 -0300" stop="20261009062600 -0300" channel="45">
-    <title lang="es">El Payaso Plim Plim</title>
+  <programme start="20261009070800 -0300" stop="20261009072700 -0300" channel="45">
+    <title lang="es">Numberblocks</title>
   </programme>
-  <programme start="20261009062600 -0300" stop="20261009063000 -0300" channel="45">
-    <title lang="es">Un Cuento Para Soñar Cantando Aprendo A Leer</title>
+  <programme start="20261009072700 -0300" stop="20261009073000 -0300" channel="45">
+    <title lang="es">Alfadeca</title>
+    <desc lang="es">Leer y escribir puede ser todo un desafío, pero también puede ser un gran juego. Vocales, consonantes, sílabas y palabras con esas letras aparecerán como entretenidos desafíos</desc>
+  </programme>
+  <programme start="20261009073000 -0300" stop="20261009080000 -0300" channel="45">
+    <title lang="es">Mi Perro Chocolo</title>
+    <desc lang="es">Serie infantil que desde los escenarios naturales chilenos y la musicalidad de las distintas regiones del país, crea un mundo muy cercano a los niños y niñas en edad preescolar</desc>
+  </programme>
+  <programme start="20261009080000 -0300" stop="20261009083000 -0300" channel="45">
+    <title lang="es">Ntv Sorpresa</title>
+  </programme>
+  <programme start="20261009083000 -0300" stop="20261009100000 -0300" channel="45">
+    <title lang="es">Guitarra Y Tambor Canciones Momonsters</title>
+  </programme>
+  <programme start="20261009010000 -0300" stop="20261009060000 -0300" channel="45">
+    <title lang="es">Fuera del aire</title>
+  </programme>
+  <programme start="20261009060000 -0300" stop="20261009061500 -0300" channel="45">
+    <title lang="es">El payaso Plim Plim</title>
+  </programme>
+  <programme start="20261009061500 -0300" stop="20261009063000 -0300" channel="45">
+    <title lang="es">Un cuento para soñar</title>
   </programme>
   <programme start="20261009063000 -0300" stop="20261009070000 -0300" channel="45">
     <title lang="es">Bluey</title>
     <desc lang="es">Serie animada infantil para la primera infancia. Cuenta las aventuras de una perrita llena de energía, curiosidad e imaginación</desc>
   </programme>
-  <programme start="20261009070000 -0300" stop="20261009072000 -0300" channel="45">
+  <programme start="20261009070000 -0300" stop="20261009070800 -0300" channel="45">
     <title lang="es">Numberblocks</title>
-  </programme>
-  <programme start="20261009072000 -0300" stop="20261009073000 -0300" channel="45">
-    <title lang="es">Alfadeca</title>
-    <desc lang="es">Leer y escribir puede ser todo un desafío, pero también puede ser un gran juego. Vocales, consonantes, sílabas y palabras con esas letras aparecerán como entretenidos desafíos</desc>
-  </programme>
-  <programme start="20261009001000 -0300" stop="20261009010000 -0300" channel="45">
-    <title lang="es">NTV presenta prime</title>
-  </programme>
-  <programme start="20261009010000 -0300" stop="20261009060000 -0300" channel="45">
-    <title lang="es">Fuera del aire</title>
-  </programme>
-  <programme start="20261009060000 -0300" stop="20261009060100 -0300" channel="45">
-    <title lang="es">El payaso Plim Plim</title>
-  </programme>
-  <programme start="20261009073000 -0300" stop="20261009080000 -0300" channel="45">
-    <title lang="es">Mi perro Chocolo</title>
-    <desc lang="es">Serie infantil que desde los escenarios naturales chilenos y la musicalidad de las distintas regiones del país, crea un mundo muy cercano a los niños y niñas en edad preescolar</desc>
-  </programme>
-  <programme start="20261009080000 -0300" stop="20261009083000 -0300" channel="45">
-    <title lang="es">Hora NTV sorpresa</title>
-  </programme>
-  <programme start="20261009083000 -0300" stop="20261009090000 -0300" channel="45">
-    <title lang="es">Guitarra y Tambor</title>
-  </programme>
-  <programme start="20261009090000 -0300" stop="20261009093000 -0300" channel="45">
-    <title lang="es">Canciones NTV</title>
-  </programme>
-  <programme start="20261009093000 -0300" stop="20261009100000 -0300" channel="45">
-    <title lang="es">Momonsters</title>
   </programme>
   <programme start="20261009100000 -0300" stop="20261009104500 -0300" channel="45">
     <title lang="es">Bluey</title>
@@ -5304,9 +5278,6 @@
   <programme channel="ArirangTV.kr" start="20261013010000 -0300" stop="20261013020000 -0300">
     <title lang="pl">Gugak The Music Of Korea</title>
     <episode-num system="onscreen">E143</episode-num>
-  </programme>
-  <programme start="20261008231711 -0300" stop="20261009010016 -0300" channel="AutenticHistory.de">
-    <title lang="en">Napoleon - The Beginning Of The End</title>
   </programme>
   <programme start="20261009010016 -0300" stop="20261009015427 -0300" channel="AutenticHistory.de">
     <title lang="en">Hitler's Court</title>
@@ -8390,14 +8361,6 @@
     <category lang="es">Series</category>
     <icon src="https://d355knccl7z6vu.cloudfront.net/programs/DTH/EP010619740022/images/IMG-F920C9DD-6599-4FC7-A55E-B86DF0B9E456.jpeg" />
   </programme>
-  <programme start="20261009063000 -0300" stop="20261009070000 -0300" channel="DW.de">
-    <title lang="es">Fuerza Latina: Entre escombros y retazos nació una comunidad</title>
-    <desc lang="es">Encuentros inspiradores con mujeres que transforman el mundo. Natalia Orozco y Yoani Sánchez conversan con mujeres de América Latina, protagonistas de excepcionales historias.</desc>
-  </programme>
-  <programme start="20261009070000 -0300" stop="20261009071500 -0300" channel="DW.de">
-    <title lang="es">Patrimonio Mundial: La iglesia de Boyana, Bulgaria</title>
-    <desc lang="es">Ciudad De México: Urbe Azteca, Urbe Española, México. La ciudad de México es hoy la mayor metrópoli del mundo. Dos culturas se fundieron en ella: la azteca y la española. En 1521 Hernán Cortés conquistó México-Tenochtitlán, y sus soldados la destruyeron hasta los cimientos. Sobre las ruinas de la capital del imperio azteca se edificó una de las mayores ciudades del Nuevo Mundo: México, capital del virreinato de Nueva España.</desc>
-  </programme>
   <programme start="20261009071500 -0300" stop="20261009080000 -0300" channel="DW.de">
     <title lang="es">A fondo: Elecciones de medio mandato en EE.UU.: ¿Tambalea Trump?</title>
     <desc lang="es">Opiniones fuertes, argumentos claros, una mirada internacional: tres periodistas o expertos y nuestras moderadoras hablan a fondo sobre un tema actual e internacional. Nuestros invitados se interrumpen, se contradicen o se complementan sobre los asuntos que importan a personas de diferentes partes del mundo.</desc>
@@ -8479,6 +8442,14 @@
   <programme start="20261009180000 -0300" stop="20261009181500 -0300" channel="DW.de">
     <title lang="es">Patrimonio Mundial: Delos - La isla de la luz sagrada, Grecia</title>
     <desc lang="es">Jongmyo - El Santuario De Los Reyes, Corea Del Sur. En las laderas montañosas del norte de Corea del Sur se erigieron tres grandes palacios reales y el Jongmyo, el santuario de los reyes. En 1395, y tan solo tras diez meses de construcción, quedó finalizado el Jongmyo. Estaba dedicado al culto de los antepasados reales. En 1592 el complejo fue pasto de las llamas, pero se reconstruyó, y ha sido transformado en diferentes ocasiones.</desc>
+  </programme>
+  <programme start="20261009181500 -0300" stop="20261009190000 -0300" channel="DW.de">
+    <title lang="es">ZonaDocu: Los Dolomitas - Verano en los Alpes italianos</title>
+    <desc lang="es">Princesa Por Un Día - Una Boda En Marruecos. Una boda en Marruecos es como un cuento de Las mil y una noches. Durante uno o dos días la novia puede sentirse como una auténtica princesa. La fiesta ha de ser multitudinaria, los vestidos y joyas lujosos y la comida selecta.</desc>
+  </programme>
+  <programme start="20261009190000 -0300" stop="20261009193000 -0300" channel="DW.de">
+    <title lang="es">DW Noticias: Noticias</title>
+    <desc lang="es">Explicaciones detalladas, análisis competentes, cobertura de la actualidad mundial: política, negocios, deporte y cultura. Perspectivas fascinantes más allá de los titulares. DW noticias: atando cabos para espectadores de todo el mundo.</desc>
   </programme>
   <programme start="20261008033000 -0300" stop="20261008040000 -0300" channel="DW.de">
     <title lang="es">Enfoque Europa: Países, gente, destinos</title>
@@ -8625,7 +8596,6 @@
   </programme>
   <programme start="20261009020000 -0300" stop="20261009021500 -0300" channel="DW.de">
     <title lang="es">Economía</title>
-    <desc lang="es">Una mirada europea al mundo de la economía y los negocios. Hechos, análisis y las historias reales desde las principales plazas financieras, los mercados clave y las empresas líderes.</desc>
   </programme>
   <programme start="20261009021500 -0300" stop="20261009030000 -0300" channel="DW.de">
     <title lang="es">A fondo</title>
@@ -8637,11 +8607,9 @@
   </programme>
   <programme start="20261009033000 -0300" stop="20261009040000 -0300" channel="DW.de">
     <title lang="es">Rpm</title>
-    <desc lang="es">El mundo del auto y de la movilidad. Pruebas mecánicas y tecnologías respetuosas con el clima, ideas sorprendentes y visiones futuristas. RPM lo mantiene a la vanguardia a altas revoluciones.</desc>
   </programme>
   <programme start="20261009040000 -0300" stop="20261009041500 -0300" channel="DW.de">
     <title lang="es">Economía</title>
-    <desc lang="es">Una mirada europea al mundo de la economía y los negocios. Hechos, análisis y las historias reales desde las principales plazas financieras, los mercados clave y las empresas líderes.</desc>
   </programme>
   <programme start="20261009041500 -0300" stop="20261009050000 -0300" channel="DW.de">
     <title lang="es">A fondo</title>
@@ -8659,13 +8627,15 @@
     <title lang="es">Global es</title>
     <desc lang="es">8.000 millones de personas poblamos la Tierra. Y nunca hemos estado tan conectadas. Cómo abordarlo? Global 3000 se convierte en Global Es, porque ahora más que nunca es necesaria una coexistencia consciente. Cómo enfrentar los urgentes problemas mundiales?</desc>
   </programme>
-  <programme start="20261009181500 -0300" stop="20261009190000 -0300" channel="DW.de">
-    <title lang="es">Zona docu</title>
-    <desc lang="es">Princesa Por Un Día - Una Boda En Marruecos. Una boda en Marruecos es como un cuento de Las mil y una noches. Durante uno o dos días la novia puede sentirse como una auténtica princesa. La fiesta ha de ser multitudinaria, los vestidos y joyas lujosos y la comida selecta.</desc>
+  <programme start="20261009063000 -0300" stop="20261009070000 -0300" channel="DW.de">
+    <title lang="es">Fuerza latina, mujeres inspiradoras de América Latina</title>
+    <desc lang="es">Encuentros inspiradores con mujeres que transforman el mundo. Natalia Orozco y Yoani Sánchez conversan con mujeres de América Latina, protagonistas de excepcionales historias.</desc>
   </programme>
-  <programme start="20261009190000 -0300" stop="20261009193000 -0300" channel="DW.de">
-    <title lang="es">DW Noticias</title>
-    <desc lang="es">Explicaciones detalladas, análisis competentes, cobertura de la actualidad mundial: política, negocios, deporte y cultura. Perspectivas fascinantes más allá de los titulares. DW noticias: atando cabos para espectadores de todo el mundo.</desc>
+  <programme start="20261009070000 -0300" stop="20261009071500 -0300" channel="DW.de">
+    <title lang="es">Patrimonio mundial</title>
+    <sub-title lang="es">La Iglesia de Boyana, Bulgaria</sub-title>
+    <desc lang="es">Ciudad De México: Urbe Azteca, Urbe Española, México. La ciudad de México es hoy la mayor metrópoli del mundo. Dos culturas se fundieron en ella: la azteca y la española. En 1521 Hernán Cortés conquistó México-Tenochtitlán, y sus soldados la destruyeron hasta los cimientos. Sobre las ruinas de la capital del imperio azteca se edificó una de las mayores ciudades del Nuevo Mundo: México, capital del virreinato de Nueva España.</desc>
+    <episode-num system="onscreen">S2012</episode-num>
   </programme>
   <programme start="20261009193000 -0300" stop="20261009200000 -0300" channel="DW.de">
     <title lang="es">¿Cómo te afecta?</title>
@@ -8742,7 +8712,7 @@
   </programme>
   <programme start="20261010041500 -0300" stop="20261010050000 -0300" channel="DW.de">
     <title lang="es">Zona docu</title>
-    <desc lang="es">En El Mekong A Través De Laos. La región alrededor del río Mekong es una joya de Asia debido a su diversidad biológica. El Mekong también es llamado la madre del agua. Es vía de transporte, proveedora de agua y fuente de alimento para millones de personas.</desc>
+    <desc lang="es">Princesa Por Un Día - Una Boda En Marruecos. Una boda en Marruecos es como un cuento de Las mil y una noches. Durante uno o dos días la novia puede sentirse como una auténtica princesa. La fiesta ha de ser multitudinaria, los vestidos y joyas lujosos y la comida selecta.</desc>
   </programme>
   <programme start="20261010050000 -0300" stop="20261010053000 -0300" channel="DW.de">
     <title lang="es">Rpm</title>
@@ -9085,15 +9055,6 @@
   <programme start="20261012013000 -0300" stop="20261012020000 -0300" channel="DW.de">
     <title lang="es">¿Cómo te afecta?</title>
   </programme>
-  <programme start="20261009064500 -0300" stop="20261009070000 -0300" channel="DWEnglish.de">
-    <title lang="en">DW News</title>
-  </programme>
-  <programme start="20261009070000 -0300" stop="20261009070200 -0300" channel="DWEnglish.de">
-    <title lang="en">DW News</title>
-  </programme>
-  <programme start="20261009070200 -0300" stop="20261009071500 -0300" channel="DWEnglish.de">
-    <title lang="en">DW News</title>
-  </programme>
   <programme start="20261009071500 -0300" stop="20261009080000 -0300" channel="DWEnglish.de">
     <title lang="en">DocFilm: The Dolomites - Summer in the Italian Alps</title>
   </programme>
@@ -9188,6 +9149,15 @@
   </programme>
   <programme start="20261009180200 -0300" stop="20261009181500 -0300" channel="DWEnglish.de">
     <title lang="en">DW News</title>
+  </programme>
+  <programme start="20261009181500 -0300" stop="20261009190000 -0300" channel="DWEnglish.de">
+    <title lang="en">DocFilm: My Body, My Skin</title>
+  </programme>
+  <programme start="20261009190000 -0300" stop="20261009190200 -0300" channel="DWEnglish.de">
+    <title lang="en">DW News</title>
+  </programme>
+  <programme start="20261009190200 -0300" stop="20261009193000 -0300" channel="DWEnglish.de">
+    <title lang="en">The Day: News in Review</title>
   </programme>
   <programme channel="DWEnglish.de" start="20261007210000 -0300" stop="20261007210200 -0300">
     <title lang="fr">DW News</title>
@@ -9966,19 +9936,13 @@
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/1/1/8/15215811.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/8/7/15215788.jpg" />
   </programme>
-  <programme channel="DWEnglish.de" start="20261009061500 -0300" stop="20261009064500 -0300">
+  <programme channel="DWEnglish.de" start="20261009061500 -0300" stop="20261009070000 -0300">
     <title lang="fr">Mein Körper</title>
     <sub-title lang="fr">Meine Haut. Makellose Haut - (wie) geht das?</sub-title>
     <category lang="fr">Documentaire de société</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/0/8/0/15916080.jpg" />
   </programme>
-  <programme channel="DWEnglish.de" start="20261009181500 -0300" stop="20261009190000 -0300">
-    <title lang="fr">Mein Körper</title>
-    <sub-title lang="fr">Meine Haut. Makellose Haut - (wie) geht das?</sub-title>
-    <category lang="fr">Documentaire de société</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/0/8/0/15916080.jpg" />
-  </programme>
-  <programme channel="DWEnglish.de" start="20261009190000 -0300" stop="20261009190200 -0300">
+  <programme channel="DWEnglish.de" start="20261009070000 -0300" stop="20261009070200 -0300">
     <title lang="fr">DW News</title>
     <category lang="fr">Journal</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/0/7/15708705.jpg" />
@@ -9986,13 +9950,12 @@
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/9/6/15708695.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/3/8/7/15215783.jpg" />
   </programme>
-  <programme channel="DWEnglish.de" start="20261009190200 -0300" stop="20261009193000 -0300">
-    <title lang="fr">The Day</title>
+  <programme channel="DWEnglish.de" start="20261009070200 -0300" stop="20261009071500 -0300">
+    <title lang="fr">DW News Focus</title>
     <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/3/5/8/15215853.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/4/8/15215846.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/2/6/6/15713662.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/2/0/2/15702202.jpg" />
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/2/8/15215825.jpg" />
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/1/1/8/15215811.jpg" />
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/8/7/15215788.jpg" />
   </programme>
   <programme channel="DWEnglish.de" start="20261009193000 -0300" stop="20261009200000 -0300">
     <title lang="fr">Eco India</title>
@@ -13302,7 +13265,6 @@
   </programme>
   <programme channel="France24.fr" start="20261009010000 -0300" stop="20261009011000 -0300">
     <title lang="fr">Noticias</title>
-    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
     <category lang="fr">Journal</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
@@ -13427,7 +13389,6 @@
   </programme>
   <programme channel="France24.fr" start="20261009034600 -0300" stop="20261009040000 -0300">
     <title lang="fr">Expreso de Oriente</title>
-    <desc lang="es">Las ultimas noticias politicas y sociales de Medio Oriente con informes de nuestros corresponsales en terreno.</desc>
     <category lang="fr">Magazine d'information</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/9/4/15194498.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/8/4/15701488.jpg" />
@@ -13444,7 +13405,6 @@
   </programme>
   <programme channel="France24.fr" start="20261009041000 -0300" stop="20261009041600 -0300">
     <title lang="fr">Ciencia y Tecnología</title>
-    <desc lang="es">Los descubrimientos, los protagonistas y el acelerado ritmo de nuevas tecnologías que día a día sorprenden al mundo.</desc>
     <category lang="fr">Magazine scientifique</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/1/6/15194619.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/9/5/15194594.jpg" />
@@ -13454,7 +13414,6 @@
   </programme>
   <programme channel="France24.fr" start="20261009041600 -0300" stop="20261009043000 -0300">
     <title lang="fr">Africa 7 días</title>
-    <desc lang="es">La actualidad política, social y cultural del continente africano, con análisis y reportajes exclusivos.</desc>
     <category lang="fr">Magazine de découvertes</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/3/0/7/15194703.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/9/6/15194698.jpg" />
@@ -14435,6 +14394,7 @@
   </programme>
   <programme channel="France24.fr" start="20261010041000 -0300" stop="20261010041600 -0300">
     <title lang="fr">Cultura</title>
+    <desc lang="es">Cómo nos relatan el mundo los cineastas, los novelistas, los artistas? France 24 sale al encuentro de una cultura comprometida con su época.</desc>
     <category lang="fr">Magazine culturel</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/7/6/6/15194667.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/6/6/15194664.jpg" />
@@ -14444,6 +14404,7 @@
   </programme>
   <programme channel="France24.fr" start="20261010041600 -0300" stop="20261010043000 -0300">
     <title lang="fr">Carrusel de las artes</title>
+    <desc lang="es">Cómo ven el mundo los artistas? Cada quince días encontramos cineastas, escritores, fotógrafos, músicos y asistimos a muestras y exposiciones para llevarle toda la vibrante actualidad cultural de París y de Francia.</desc>
     <category lang="fr">Magazine culturel</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/0/8/8/15195880.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/7/8/15195878.jpg" />
@@ -14555,6 +14516,7 @@
   </programme>
   <programme channel="France24.fr" start="20261010063000 -0300" stop="20261010064000 -0300">
     <title lang="fr">Noticias</title>
+    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
     <category lang="fr">Journal</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
@@ -14563,6 +14525,7 @@
   </programme>
   <programme channel="France24.fr" start="20261010064000 -0300" stop="20261010064600 -0300">
     <title lang="fr">Cultura</title>
+    <desc lang="es">Cómo nos relatan el mundo los cineastas, los novelistas, los artistas? France 24 sale al encuentro de una cultura comprometida con su época.</desc>
     <category lang="fr">Magazine culturel</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/7/6/6/15194667.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/6/6/15194664.jpg" />
@@ -14581,6 +14544,7 @@
   </programme>
   <programme channel="France24.fr" start="20261010070000 -0300" stop="20261010071000 -0300">
     <title lang="fr">Noticias</title>
+    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
     <category lang="fr">Journal</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
@@ -14607,6 +14571,7 @@
   </programme>
   <programme channel="France24.fr" start="20261010073000 -0300" stop="20261010074000 -0300">
     <title lang="fr">Noticias</title>
+    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
     <category lang="fr">Journal</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
@@ -19876,12 +19841,6 @@
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/2/2/15220226.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/0/6/2/15220260.jpg" />
   </programme>
-  <programme start="20261008180000 -0300" stop="20261009010000 -0300" channel="M1.ua@SD">
-    <title lang="uk">M1 Hits</title>
-  </programme>
-  <programme start="20261009010000 -0300" stop="20261009013000 -0300" channel="M1.ua@SD">
-    <title lang="uk">Collection M1</title>
-  </programme>
   <programme start="20261009013000 -0300" stop="20261009020000 -0300" channel="M1.ua@SD">
     <title lang="uk">СвоєРідне. Шоубіз</title>
   </programme>
@@ -20071,39 +20030,6 @@
   <programme start="20261013180000 -0300" stop="20261014120000 -0300" channel="M2.ua@SD">
     <title lang="uk">Хіти Нон-стоп</title>
   </programme>
-  <programme channel="MTVBiggestPop.us" start="20261009021500 -0300" stop="20261009031500 -0300">
-    <title>MTV Biggest Pop</title>
-    <live />
-    <episode-num system="original-air-date">20261009051500 +0000</episode-num>
-    <desc>¡Checa esto! MTV BIGGEST POP es tu destino para la mejor música, las más brillantes estrellas y los hits más bailables de la actualidad. Desde Drake y Miley, pasando por Beyoncé y Gaga.</desc>
-    <icon src="https://images.pluto.tv/series/609d8b003029660007d932ba/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">609d8b003029660007d932ba</series-id>
-    <category>Series</category>
-    <category>Musical</category>
-  </programme>
-  <programme channel="MTVBiggestPop.us" start="20261009031500 -0300" stop="20261009041500 -0300">
-    <title>MTV Biggest Pop</title>
-    <live />
-    <episode-num system="original-air-date">20261009061500 +0000</episode-num>
-    <desc>¡Checa esto! MTV BIGGEST POP es tu destino para la mejor música, las más brillantes estrellas y los hits más bailables de la actualidad. Desde Drake y Miley, pasando por Beyoncé y Gaga.</desc>
-    <icon src="https://images.pluto.tv/series/609d8b003029660007d932ba/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">609d8b003029660007d932ba</series-id>
-    <category>Series</category>
-    <category>Musical</category>
-  </programme>
-  <programme channel="MTVBiggestPop.us" start="20261009041500 -0300" stop="20261009051500 -0300">
-    <title>MTV Biggest Pop</title>
-    <live />
-    <episode-num system="original-air-date">20261009071500 +0000</episode-num>
-    <desc>¡Checa esto! MTV BIGGEST POP es tu destino para la mejor música, las más brillantes estrellas y los hits más bailables de la actualidad. Desde Drake y Miley, pasando por Beyoncé y Gaga.</desc>
-    <icon src="https://images.pluto.tv/series/609d8b003029660007d932ba/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">609d8b003029660007d932ba</series-id>
-    <category>Series</category>
-    <category>Musical</category>
-  </programme>
   <programme channel="MTVBiggestPop.us" start="20261009051500 -0300" stop="20261009061500 -0300">
     <title>MTV Biggest Pop</title>
     <live />
@@ -20258,17 +20184,38 @@
     <category>Series</category>
     <category>Musical</category>
   </programme>
-  <programme channel="MTVFlowLatino.us" start="20261009030000 -0300" stop="20261009050000 -0300">
-    <title>MTV Flow Latino</title>
+  <programme channel="MTVBiggestPop.us" start="20261009191500 -0300" stop="20261009201500 -0300">
+    <title>MTV Biggest Pop</title>
     <live />
-    <episode-num system="original-air-date">20261009060000 +0000</episode-num>
-    <desc>Sumérgete en los ritmos que te aceleran el corazón y las melodías vibrantes de las estrellas más grandes de la música latina.</desc>
-    <icon src="https://images.pluto.tv/series/6504879f0f28f00008692cc5/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <episode-num system="original-air-date">20261009221500 +0000</episode-num>
+    <desc>¡Checa esto! MTV BIGGEST POP es tu destino para la mejor música, las más brillantes estrellas y los hits más bailables de la actualidad. Desde Drake y Miley, pasando por Beyoncé y Gaga.</desc>
+    <icon src="https://images.pluto.tv/series/609d8b003029660007d932ba/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
-    <series-id system="pluto">6504879f0f28f00008692cc5</series-id>
+    <series-id system="pluto">609d8b003029660007d932ba</series-id>
     <category>Series</category>
-    <category>Music</category>
-    <category>Latino</category>
+    <category>Musical</category>
+  </programme>
+  <programme channel="MTVBiggestPop.us" start="20261009201500 -0300" stop="20261009211500 -0300">
+    <title>MTV Biggest Pop</title>
+    <live />
+    <episode-num system="original-air-date">20261009231500 +0000</episode-num>
+    <desc>¡Checa esto! MTV BIGGEST POP es tu destino para la mejor música, las más brillantes estrellas y los hits más bailables de la actualidad. Desde Drake y Miley, pasando por Beyoncé y Gaga.</desc>
+    <icon src="https://images.pluto.tv/series/609d8b003029660007d932ba/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
+    <series-id system="pluto">609d8b003029660007d932ba</series-id>
+    <category>Series</category>
+    <category>Musical</category>
+  </programme>
+  <programme channel="MTVBiggestPop.us" start="20261009211500 -0300" stop="20261009221500 -0300">
+    <title>MTV Biggest Pop</title>
+    <live />
+    <episode-num system="original-air-date">20261010001500 +0000</episode-num>
+    <desc>¡Checa esto! MTV BIGGEST POP es tu destino para la mejor música, las más brillantes estrellas y los hits más bailables de la actualidad. Desde Drake y Miley, pasando por Beyoncé y Gaga.</desc>
+    <icon src="https://images.pluto.tv/series/609d8b003029660007d932ba/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
+    <series-id system="pluto">609d8b003029660007d932ba</series-id>
+    <category>Series</category>
+    <category>Musical</category>
   </programme>
   <programme channel="MTVFlowLatino.us" start="20261009050000 -0300" stop="20261009070000 -0300">
     <title>MTV Flow Latino</title>
@@ -20366,77 +20313,17 @@
     <category>Music</category>
     <category>Latino</category>
   </programme>
-  <programme channel="MTVSpankinNew.us" start="20261009030000 -0300" stop="20261009033000 -0300">
-    <title>MTV Spankin’ New</title>
+  <programme channel="MTVFlowLatino.us" start="20261009210000 -0300" stop="20261009230000 -0300">
+    <title>MTV Flow Latino</title>
     <live />
-    <episode-num system="original-air-date">20261009060000 +0000</episode-num>
-    <desc>You hear it first! MTV SPANKIN’ NEW is the place to discover new artists before they become household names. It’s the ultimate music experience to stay ahead of the trends.</desc>
-    <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <episode-num system="original-air-date">20261010000000 +0000</episode-num>
+    <desc>Sumérgete en los ritmos que te aceleran el corazón y las melodías vibrantes de las estrellas más grandes de la música latina.</desc>
+    <icon src="https://images.pluto.tv/series/6504879f0f28f00008692cc5/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
-    <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <series-id system="pluto">6504879f0f28f00008692cc5</series-id>
     <category>Series</category>
     <category>Music</category>
-    <category>Pop</category>
-  </programme>
-  <programme channel="MTVSpankinNew.us" start="20261009033000 -0300" stop="20261009040000 -0300">
-    <title>MTV Spankin’ New</title>
-    <live />
-    <episode-num system="original-air-date">20261009063000 +0000</episode-num>
-    <desc>You hear it first! MTV SPANKIN’ NEW is the place to discover new artists before they become household names. It’s the ultimate music experience to stay ahead of the trends.</desc>
-    <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">65450e3059dd91000863e04e</series-id>
-    <category>Series</category>
-    <category>Music</category>
-    <category>Pop</category>
-  </programme>
-  <programme channel="MTVSpankinNew.us" start="20261009040000 -0300" stop="20261009043000 -0300">
-    <title>MTV Spankin’ New</title>
-    <live />
-    <episode-num system="original-air-date">20261009070000 +0000</episode-num>
-    <desc>You hear it first! MTV SPANKIN’ NEW is the place to discover new artists before they become household names. It’s the ultimate music experience to stay ahead of the trends.</desc>
-    <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">65450e3059dd91000863e04e</series-id>
-    <category>Series</category>
-    <category>Music</category>
-    <category>Pop</category>
-  </programme>
-  <programme channel="MTVSpankinNew.us" start="20261009043000 -0300" stop="20261009050000 -0300">
-    <title>MTV Spankin’ New</title>
-    <live />
-    <episode-num system="original-air-date">20261009073000 +0000</episode-num>
-    <desc>You hear it first! MTV SPANKIN’ NEW is the place to discover new artists before they become household names. It’s the ultimate music experience to stay ahead of the trends.</desc>
-    <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">65450e3059dd91000863e04e</series-id>
-    <category>Series</category>
-    <category>Music</category>
-    <category>Pop</category>
-  </programme>
-  <programme channel="MTVSpankinNew.us" start="20261009050000 -0300" stop="20261009053000 -0300">
-    <title>MTV Spankin’ New</title>
-    <live />
-    <episode-num system="original-air-date">20261009080000 +0000</episode-num>
-    <desc>You hear it first! MTV SPANKIN’ NEW is the place to discover new artists before they become household names. It’s the ultimate music experience to stay ahead of the trends.</desc>
-    <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">65450e3059dd91000863e04e</series-id>
-    <category>Series</category>
-    <category>Music</category>
-    <category>Pop</category>
-  </programme>
-  <programme channel="MTVSpankinNew.us" start="20261009053000 -0300" stop="20261009060000 -0300">
-    <title>MTV Spankin’ New</title>
-    <live />
-    <episode-num system="original-air-date">20261009083000 +0000</episode-num>
-    <desc>You hear it first! MTV SPANKIN’ NEW is the place to discover new artists before they become household names. It’s the ultimate music experience to stay ahead of the trends.</desc>
-    <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">65450e3059dd91000863e04e</series-id>
-    <category>Series</category>
-    <category>Music</category>
-    <category>Pop</category>
+    <category>Latino</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261009060000 -0300" stop="20261009063000 -0300">
     <title>MTV Spankin’ New</title>
@@ -20446,9 +20333,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Pop</category>
     <category>Series</category>
     <category>Music</category>
-    <category>Pop</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261009063000 -0300" stop="20261009070000 -0300">
     <title>MTV Spankin’ New</title>
@@ -20458,9 +20345,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Pop</category>
     <category>Series</category>
     <category>Music</category>
-    <category>Pop</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261009070000 -0300" stop="20261009073000 -0300">
     <title>MTV Spankin’ New</title>
@@ -20470,9 +20357,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Pop</category>
     <category>Series</category>
     <category>Music</category>
-    <category>Pop</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261009073000 -0300" stop="20261009080000 -0300">
     <title>MTV Spankin’ New</title>
@@ -20482,9 +20369,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Pop</category>
     <category>Series</category>
     <category>Music</category>
-    <category>Pop</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261009080000 -0300" stop="20261009083000 -0300">
     <title>MTV Spankin’ New</title>
@@ -20494,9 +20381,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Pop</category>
     <category>Series</category>
     <category>Music</category>
-    <category>Pop</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261009083000 -0300" stop="20261009090000 -0300">
     <title>MTV Spankin’ New</title>
@@ -20506,9 +20393,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Pop</category>
     <category>Series</category>
     <category>Music</category>
-    <category>Pop</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261009090000 -0300" stop="20261009093000 -0300">
     <title>MTV Spankin’ New</title>
@@ -20518,9 +20405,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Pop</category>
     <category>Series</category>
     <category>Music</category>
-    <category>Pop</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261009093000 -0300" stop="20261009100000 -0300">
     <title>MTV Spankin’ New</title>
@@ -20530,9 +20417,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Pop</category>
     <category>Series</category>
     <category>Music</category>
-    <category>Pop</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261009100000 -0300" stop="20261009103000 -0300">
     <title>MTV Spankin’ New</title>
@@ -20542,9 +20429,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Pop</category>
     <category>Series</category>
     <category>Music</category>
-    <category>Pop</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261009103000 -0300" stop="20261009110000 -0300">
     <title>MTV Spankin’ New</title>
@@ -20554,9 +20441,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Pop</category>
     <category>Series</category>
     <category>Music</category>
-    <category>Pop</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261009110000 -0300" stop="20261009113000 -0300">
     <title>MTV Spankin’ New</title>
@@ -20566,9 +20453,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Pop</category>
     <category>Series</category>
     <category>Music</category>
-    <category>Pop</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261009113000 -0300" stop="20261009120000 -0300">
     <title>MTV Spankin’ New</title>
@@ -20578,9 +20465,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Pop</category>
     <category>Series</category>
     <category>Music</category>
-    <category>Pop</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261009120000 -0300" stop="20261009123000 -0300">
     <title>MTV Spankin’ New</title>
@@ -20590,9 +20477,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Pop</category>
     <category>Series</category>
     <category>Music</category>
-    <category>Pop</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261009123000 -0300" stop="20261009130000 -0300">
     <title>MTV Spankin’ New</title>
@@ -20602,9 +20489,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Pop</category>
     <category>Series</category>
     <category>Music</category>
-    <category>Pop</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261009130000 -0300" stop="20261009133000 -0300">
     <title>MTV Spankin’ New</title>
@@ -20614,9 +20501,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Pop</category>
     <category>Series</category>
     <category>Music</category>
-    <category>Pop</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261009133000 -0300" stop="20261009140000 -0300">
     <title>MTV Spankin’ New</title>
@@ -20626,9 +20513,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Pop</category>
     <category>Series</category>
     <category>Music</category>
-    <category>Pop</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261009140000 -0300" stop="20261009143000 -0300">
     <title>MTV Spankin’ New</title>
@@ -20638,9 +20525,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Pop</category>
     <category>Series</category>
     <category>Music</category>
-    <category>Pop</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261009143000 -0300" stop="20261009150000 -0300">
     <title>MTV Spankin’ New</title>
@@ -20650,9 +20537,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Pop</category>
     <category>Series</category>
     <category>Music</category>
-    <category>Pop</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261009150000 -0300" stop="20261009153000 -0300">
     <title>MTV Spankin’ New</title>
@@ -20662,9 +20549,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Pop</category>
     <category>Series</category>
     <category>Music</category>
-    <category>Pop</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261009153000 -0300" stop="20261009160000 -0300">
     <title>MTV Spankin’ New</title>
@@ -20674,9 +20561,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Pop</category>
     <category>Series</category>
     <category>Music</category>
-    <category>Pop</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261009160000 -0300" stop="20261009163000 -0300">
     <title>MTV Spankin’ New</title>
@@ -20686,9 +20573,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Pop</category>
     <category>Series</category>
     <category>Music</category>
-    <category>Pop</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261009163000 -0300" stop="20261009170000 -0300">
     <title>MTV Spankin’ New</title>
@@ -20698,9 +20585,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Pop</category>
     <category>Series</category>
     <category>Music</category>
-    <category>Pop</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261009170000 -0300" stop="20261009173000 -0300">
     <title>MTV Spankin’ New</title>
@@ -20710,9 +20597,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Pop</category>
     <category>Series</category>
     <category>Music</category>
-    <category>Pop</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261009173000 -0300" stop="20261009180000 -0300">
     <title>MTV Spankin’ New</title>
@@ -20722,9 +20609,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Pop</category>
     <category>Series</category>
     <category>Music</category>
-    <category>Pop</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261009180000 -0300" stop="20261009183000 -0300">
     <title>MTV Spankin’ New</title>
@@ -20734,9 +20621,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Pop</category>
     <category>Series</category>
     <category>Music</category>
-    <category>Pop</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261009183000 -0300" stop="20261009190000 -0300">
     <title>MTV Spankin’ New</title>
@@ -20746,9 +20633,9 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Pop</category>
     <category>Series</category>
     <category>Music</category>
-    <category>Pop</category>
   </programme>
   <programme channel="MTVSpankinNew.us" start="20261009190000 -0300" stop="20261009193000 -0300">
     <title>MTV Spankin’ New</title>
@@ -20758,9 +20645,81 @@
     <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Pop</category>
     <category>Series</category>
     <category>Music</category>
+  </programme>
+  <programme channel="MTVSpankinNew.us" start="20261009193000 -0300" stop="20261009200000 -0300">
+    <title>MTV Spankin’ New</title>
+    <live />
+    <episode-num system="original-air-date">20261009223000 +0000</episode-num>
+    <desc>You hear it first! MTV SPANKIN’ NEW is the place to discover new artists before they become household names. It’s the ultimate music experience to stay ahead of the trends.</desc>
+    <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
+    <series-id system="pluto">65450e3059dd91000863e04e</series-id>
     <category>Pop</category>
+    <category>Series</category>
+    <category>Music</category>
+  </programme>
+  <programme channel="MTVSpankinNew.us" start="20261009200000 -0300" stop="20261009203000 -0300">
+    <title>MTV Spankin’ New</title>
+    <live />
+    <episode-num system="original-air-date">20261009230000 +0000</episode-num>
+    <desc>You hear it first! MTV SPANKIN’ NEW is the place to discover new artists before they become household names. It’s the ultimate music experience to stay ahead of the trends.</desc>
+    <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
+    <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Pop</category>
+    <category>Series</category>
+    <category>Music</category>
+  </programme>
+  <programme channel="MTVSpankinNew.us" start="20261009203000 -0300" stop="20261009210000 -0300">
+    <title>MTV Spankin’ New</title>
+    <live />
+    <episode-num system="original-air-date">20261009233000 +0000</episode-num>
+    <desc>You hear it first! MTV SPANKIN’ NEW is the place to discover new artists before they become household names. It’s the ultimate music experience to stay ahead of the trends.</desc>
+    <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
+    <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Pop</category>
+    <category>Series</category>
+    <category>Music</category>
+  </programme>
+  <programme channel="MTVSpankinNew.us" start="20261009210000 -0300" stop="20261009213000 -0300">
+    <title>MTV Spankin’ New</title>
+    <live />
+    <episode-num system="original-air-date">20261010000000 +0000</episode-num>
+    <desc>You hear it first! MTV SPANKIN’ NEW is the place to discover new artists before they become household names. It’s the ultimate music experience to stay ahead of the trends.</desc>
+    <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
+    <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Pop</category>
+    <category>Series</category>
+    <category>Music</category>
+  </programme>
+  <programme channel="MTVSpankinNew.us" start="20261009213000 -0300" stop="20261009220000 -0300">
+    <title>MTV Spankin’ New</title>
+    <live />
+    <episode-num system="original-air-date">20261010003000 +0000</episode-num>
+    <desc>You hear it first! MTV SPANKIN’ NEW is the place to discover new artists before they become household names. It’s the ultimate music experience to stay ahead of the trends.</desc>
+    <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
+    <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Pop</category>
+    <category>Series</category>
+    <category>Music</category>
+  </programme>
+  <programme channel="MTVSpankinNew.us" start="20261009220000 -0300" stop="20261009223000 -0300">
+    <title>MTV Spankin’ New</title>
+    <live />
+    <episode-num system="original-air-date">20261010010000 +0000</episode-num>
+    <desc>You hear it first! MTV SPANKIN’ NEW is the place to discover new artists before they become household names. It’s the ultimate music experience to stay ahead of the trends.</desc>
+    <icon src="https://images.pluto.tv/series/65450e3059dd91000863e04e/tile.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
+    <series-id system="pluto">65450e3059dd91000863e04e</series-id>
+    <category>Pop</category>
+    <category>Series</category>
+    <category>Music</category>
   </programme>
   <programme start="20261009040000 -0300" stop="20261009052500 -0300" channel="Meganoticias.cl">
     <title lang="es">Megainvestiga</title>
@@ -20780,15 +20739,8 @@
   <programme start="20261009123000 -0300" stop="20261009130000 -0300" channel="Meganoticias.cl">
     <title lang="es">Megatiempo al Día AM</title>
   </programme>
-  <programme start="20261009003000 -0300" stop="20261009010000 -0300" channel="Meganoticias.cl">
-    <title lang="es">Megatiempo</title>
-  </programme>
-  <programme start="20261009010000 -0300" stop="20261009011500 -0300" channel="Meganoticias.cl">
-    <title lang="es">Meganoticias ahora noche</title>
-  </programme>
   <programme start="20261009011500 -0300" stop="20261009021500 -0300" channel="Meganoticias.cl">
     <title lang="es">Megainvestiga</title>
-    <desc lang="es">Encuentre aquí todas las noticias de mega investiga en videos, artículos, fotos, virales y las últimas noticias de mega investiga que suceden en Chile.</desc>
   </programme>
   <programme start="20261009021500 -0300" stop="20261009024500 -0300" channel="Meganoticias.cl">
     <title lang="es">Meganoticias ahora noche</title>
@@ -20913,16 +20865,6 @@
   </programme>
   <programme start="20261010223000 -0300" stop="20261011000000 -0300" channel="Meganoticias.cl">
     <title lang="es">Megainvestiga</title>
-  </programme>
-  <programme start="20261009003000 -0300" stop="20261009010000 -0300" channel="NHKWorldJapan.jp">
-    <title lang="en">Japan Railway Journal</title>
-    <sub-title lang="en">Battling the Snow: Japan's Northern Railways</sub-title>
-    <desc lang="en">In regions that experience heavy snowfall, railways use snowplows in combination with other systems to keep the trains running. See how the railways maintain service in Japan's snow country.</desc>
-    <url>https://www3.nhk.or.jp/nhkworld/en/shows/japanrailway/</url>
-  </programme>
-  <programme start="20261009010000 -0300" stop="20261009013000 -0300" channel="NHKWorldJapan.jp">
-    <title lang="en">NHK Newsline</title>
-    <desc lang="en">NHK NEWSLINE brings you up to date with the latest from Japan, Asia and around the world. Our team covers breaking news and major developments, with trusted anchors to tie it all together.</desc>
   </programme>
   <programme start="20261009013000 -0300" stop="20261009020000 -0300" channel="NHKWorldJapan.jp">
     <title lang="en">Seasoning the Seasons</title>
@@ -21756,7 +21698,7 @@
     <title lang="en">NHK Newsline</title>
     <desc lang="en">NHK NEWSLINE brings you up to date with the latest from Japan, Asia and around the world. Our team covers breaking news and major developments, with trusted anchors to tie it all together.</desc>
   </programme>
-  <programme start="20261011091000 -0300" stop="20261011095930 -0300" channel="NHKWorldJapan.jp">
+  <programme start="20261011091000 -0300" stop="20261011100000 -0300" channel="NHKWorldJapan.jp">
     <title lang="en">Indictment</title>
     <sub-title lang="en">Survivors of Sexual Violence in Kosovo 25 Years Later</sub-title>
     <desc lang="en">Vasfije Krasniqi Goodman was the first woman to speak publicly about sexual violence during the Kosovo War. This documentary portrays the survivors' struggles and pursuit of justice 25 years later.</desc>
@@ -22020,7 +21962,7 @@
   <programme start="20261011225500 -0300" stop="20261011230000 -0300" channel="NHKWorldJapan.jp">
     <title lang="en">Hello!nhk World Japan</title>
     <sub-title lang="en">Programs About Aichi in September</sub-title>
-    <desc lang="en">We intorduce the contents and activities of NHK WORLD-JAPAN to make the station and programs known to more people all over the world. This is the window of the station to the world.</desc>
+    <desc lang="en">In September, NHK WORLD-JAPAN focuses on Aichi. "Traveling the Season of Japan" captures its scenery over a year. "Treasure Box Japan" was made by local cable TV companies.</desc>
     <url>https://www3.nhk.or.jp/nhkworld/en/shows/hello_nwj/</url>
   </programme>
   <programme start="20261011230000 -0300" stop="20261011231000 -0300" channel="NHKWorldJapan.jp">
@@ -22150,7 +22092,7 @@
   <programme start="20261012035500 -0300" stop="20261012040000 -0300" channel="NHKWorldJapan.jp">
     <title lang="en">Hello!nhk World Japan</title>
     <sub-title lang="en">Programs About Aichi in September</sub-title>
-    <desc lang="en">We intorduce the contents and activities of NHK WORLD-JAPAN to make the station and programs known to more people all over the world. This is the window of the station to the world.</desc>
+    <desc lang="en">In September, NHK WORLD-JAPAN focuses on Aichi. "Traveling the Season of Japan" captures its scenery over a year. "Treasure Box Japan" was made by local cable TV companies.</desc>
     <url>https://www3.nhk.or.jp/nhkworld/en/shows/hello_nwj/</url>
   </programme>
   <programme start="20261012040000 -0300" stop="20261012041000 -0300" channel="NHKWorldJapan.jp">
@@ -22268,7 +22210,7 @@
   <programme start="20261012085500 -0300" stop="20261012090000 -0300" channel="NHKWorldJapan.jp">
     <title lang="en">Hello!nhk World Japan</title>
     <sub-title lang="en">Programs About Aichi in September</sub-title>
-    <desc lang="en">We intorduce the contents and activities of NHK WORLD-JAPAN to make the station and programs known to more people all over the world. This is the window of the station to the world.</desc>
+    <desc lang="en">In September, NHK WORLD-JAPAN focuses on Aichi. "Traveling the Season of Japan" captures its scenery over a year. "Treasure Box Japan" was made by local cable TV companies.</desc>
     <url>https://www3.nhk.or.jp/nhkworld/en/shows/hello_nwj/</url>
   </programme>
   <programme start="20261012090000 -0300" stop="20261012091500 -0300" channel="NHKWorldJapan.jp">
@@ -22418,7 +22360,7 @@
   <programme start="20261012145500 -0300" stop="20261012150000 -0300" channel="NHKWorldJapan.jp">
     <title lang="en">Hello!nhk World Japan</title>
     <sub-title lang="en">Programs About Aichi in September</sub-title>
-    <desc lang="en">We intorduce the contents and activities of NHK WORLD-JAPAN to make the station and programs known to more people all over the world. This is the window of the station to the world.</desc>
+    <desc lang="en">In September, NHK WORLD-JAPAN focuses on Aichi. "Traveling the Season of Japan" captures its scenery over a year. "Treasure Box Japan" was made by local cable TV companies.</desc>
     <url>https://www3.nhk.or.jp/nhkworld/en/shows/hello_nwj/</url>
   </programme>
   <programme start="20261012150000 -0300" stop="20261012151000 -0300" channel="NHKWorldJapan.jp">
@@ -22549,7 +22491,7 @@
   <programme start="20261012195500 -0300" stop="20261012200000 -0300" channel="NHKWorldJapan.jp">
     <title lang="en">Hello!nhk World Japan</title>
     <sub-title lang="en">Programs About Aichi in September</sub-title>
-    <desc lang="en">We intorduce the contents and activities of NHK WORLD-JAPAN to make the station and programs known to more people all over the world. This is the window of the station to the world.</desc>
+    <desc lang="en">In September, NHK WORLD-JAPAN focuses on Aichi. "Traveling the Season of Japan" captures its scenery over a year. "Treasure Box Japan" was made by local cable TV companies.</desc>
     <url>https://www3.nhk.or.jp/nhkworld/en/shows/hello_nwj/</url>
   </programme>
   <programme start="20261012200000 -0300" stop="20261012201500 -0300" channel="NHKWorldJapan.jp">
@@ -23806,6 +23748,21 @@
     <title lang="en">The New Adventures of Rockie and Her Friends</title>
     <sub-title lang="en">The Mushroom Witch Returns</sub-title>
     <desc lang="en">Puppet action show for children. In a distant post-human future where surviving creatures have formed a community, new-breed dinosaur girl Rockie sets out on hilarious adventures with her schoolmates.</desc>
+  </programme>
+  <programme start="20261017065000 -0300" stop="20261017070000 -0300" channel="NHKWorldJapan.jp">
+    <title lang="en">Take Tech</title>
+    <sub-title lang="en">Organize Information</sub-title>
+    <desc lang="en">A program for upper primary to lower secondary school children to explore the everyday technologies all around them. Each episode takes a piece of familiar tech to find out what it does and how.</desc>
+  </programme>
+  <programme start="20261017070000 -0300" stop="20261017071000 -0300" channel="NHKWorldJapan.jp">
+    <title lang="en">NHK Newsline</title>
+    <desc lang="es">NHK NEWSLINE brings you up to date with the latest from Japan, Asia and around the world. Our team covers breaking news and major developments, with trusted anchors to tie it all together.</desc>
+  </programme>
+  <programme start="20261017071000 -0300" stop="20261017080000 -0300" channel="NHKWorldJapan.jp">
+    <title lang="en">Cycle Around Japan</title>
+    <sub-title lang="en">Goto Islands - Chain of Hospitality</sub-title>
+    <desc lang="en">We visit the Goto Islands on Japan's western tip, meeting people with hospitality, like a couple passing on the history of hidden Christians and islanders trying to preserve their small community.</desc>
+    <url>https://www3.nhk.or.jp/nhkworld/en/shows/cycle/</url>
   </programme>
   <programme start="20261008210000 -0300" stop="20261008230100 -0300" channel="QelloConcertsbyStingray.ca">
     <title lang="en">Elton John: Live in London 2013</title>
@@ -25197,63 +25154,6 @@
     <category lang="en">Explore</category>
     <icon src="https://d11hei8e1dyf6i.cloudfront.net/RWILD/Default_Thumbnail.jpg" />
   </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261009025900 -0300" stop="20261009031300 -0300">
-    <title>Red Bull Show 100</title>
-    <live />
-    <episode-num system="original-air-date">20261009055900 +0000</episode-num>
-    <desc>Österreichs "AUT of ORDA" stellt sich der Herausforderung, ihre allererste gemeinsame Show in nur 100 Stunden zu organisieren und nach Ablauf des Countdowns auf der Bühne zu performen. Na h den 100 Stunden steigt die Show in der Wiener Marx Halle.</desc>
-    <icon src="https://images.pluto.tv/series/68e659746fe1b6a13de27d6a/tile_1759926653396.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">68e659746fe1b6a13de27d6a</series-id>
-    <category>Series</category>
-    <category>Sports</category>
-  </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261009031300 -0300" stop="20261009033400 -0300">
-    <title>Red Bull Durchgespielt</title>
-    <live />
-    <episode-num system="original-air-date">20261009061300 +0000</episode-num>
-    <desc>Deutschrapper zocken am Spieltisch, um sich in Richtung Legendenstatus zu bewegen.</desc>
-    <icon src="https://images.pluto.tv/series/6a0af1995992de5f722bfdc4/tile_1779109321293.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">6a0af1995992de5f722bfdc4</series-id>
-    <category>Series</category>
-    <category>Sports</category>
-  </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261009033400 -0300" stop="20261009040800 -0300">
-    <title>Red Bull TV</title>
-    <live />
-    <episode-num system="original-air-date">20261009063400 +0000</episode-num>
-    <desc>In Beiträgen wird über die weltweit härtesten Extremsport-Events von Red Bull berichtet.</desc>
-    <icon src="https://plut.tmsimg.com/assets/p19897998_i_s2_aa.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">6853f538b54a02bbc47d9d6d</series-id>
-    <sub-title>TenZ The King of VALORANT - Price of Greatness</sub-title>
-    <category>Series</category>
-    <category>Sports</category>
-  </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261009040800 -0300" stop="20261009043800 -0300">
-    <title>Making of: Red Bull Symphonic mit Camo &amp; Krooked</title>
-    <live />
-    <episode-num system="original-air-date">20261009070800 +0000</episode-num>
-    <desc>Es wird ein Blick hinter die Kulissen von "Red Bull Symphonic" geworfen. Die Musikproduzenten "Camo &amp; Krooked" entwickeln gemeinsam mit einem Orchester neue Klangwelten und zeigen, wie elektronische Musik sinfonisch neu interpretiert wird.</desc>
-    <icon src="https://images.pluto.tv/series/69415f09779bf41d1d964f4c/tile_1789574624694.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">69415f09779bf41d1d964f4c</series-id>
-    <category>Series</category>
-    <category>Sports</category>
-  </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261009043800 -0300" stop="20261009051700 -0300">
-    <title>Red Bull Films</title>
-    <live />
-    <episode-num system="original-air-date">20261009073800 +0000</episode-num>
-    <desc>B-Boys und B-Girls berichten von ihren Erfolgen bei einem der größten Breakdance-Wettbewerbe.</desc>
-    <icon src="https://images.pluto.tv/series/6ab67ec978e140e3e4bef852/tile_1790344906686.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">6ab67ec978e140e3e4bef852</series-id>
-    <sub-title>DANCE: Desi Breaks - 10 years of Red Bull BC One India</sub-title>
-    <category>Series</category>
-    <category>Sports</category>
-  </programme>
   <programme channel="RedBullWorldEnglish.int" start="20261009051700 -0300" stop="20261009055207 -0300">
     <title>Red Bull Symphonic: Reezy</title>
     <live />
@@ -25262,8 +25162,8 @@
     <icon src="https://images.pluto.tv/series/69fca231163f32533500e361/tile_1778164274185.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
     <date>19700101</date>
     <series-id system="pluto">69fca231163f32533500e361</series-id>
-    <category>Series</category>
     <category>Sports</category>
+    <category>Series</category>
   </programme>
   <programme channel="SkySportsF1.uk" start="20261007213000 -0300" stop="20261007220000 -0300">
     <title lang="en">The Best of Monaco 2026</title>
@@ -40338,13 +40238,13 @@
       <value>14</value>
     </rating>
   </programme>
-  <programme start="20261009065014 -0300" stop="20261009125014 -0300" channel="RewindTV.cl@SD">
+  <programme start="20261009074015 -0300" stop="20261009134015 -0300" channel="RewindTV.cl@SD">
     <title lang="es">Live</title>
   </programme>
-  <programme start="20261009125014 -0300" stop="20261009185014 -0300" channel="RewindTV.cl@SD">
+  <programme start="20261009134015 -0300" stop="20261009194015 -0300" channel="RewindTV.cl@SD">
     <title lang="es">Live</title>
   </programme>
-  <programme start="20261009185014 -0300" stop="20261010005014 -0300" channel="RewindTV.cl@SD">
+  <programme start="20261009194015 -0300" stop="20261010014015 -0300" channel="RewindTV.cl@SD">
     <title lang="es">Live</title>
   </programme>
   <programme channel="unitedkingdom|vavoo_SKY%20SPORTS%20MAIN%20EVENT%7Cgroup%3Auk@TvVoo" start="20261007210000 -0300" stop="20261007220000 -0300">
