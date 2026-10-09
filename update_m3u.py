@@ -48,6 +48,7 @@ SHORT_PLAYLIST_ALIASES = (
     (EXTERNAL_PLAYLIST, SHORT_EXTERNAL_PLAYLIST),
 )
 CHANNEL_CATALOG_PATH = Path(__file__).with_name("channel-catalog.m3u")
+CHANNEL_EDITOR_LAYOUT_PATH = Path(__file__).with_name("data") / "channel-editor-layout.json"
 VIBEM3U_SELECTION_PATH = Path(__file__).with_name("data") / "vibem3u-selection.json"
 # Highfly solo resuelve canales que ya pertenecen manualmente a las listas
 # publicas. Su catalogo se consulta para renovar slugs en memoria; nunca
@@ -3715,6 +3716,88 @@ def resolver_attributes_for(channel: Channel) -> dict[str, str]:
             "x-resolver-refresh": "on_play",
         }
     return {}
+
+
+def apply_editor_nauta_channels(
+    lines: list[str],
+    layout_path: Path = CHANNEL_EDITOR_LAYOUT_PATH,
+) -> bool:
+    """Materialize Nauta rows created by the local editor in the canonical inventory.
+
+    Only tokenless category/name locators cross this boundary. Provider resource IDs and stream
+    URLs are deliberately ignored; Nauta remains a List 1 trial source without EPG scope.
+    """
+    if not layout_path.is_file():
+        return False
+    try:
+        payload = json.loads(layout_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise ValueError(f"{layout_path.name} no es JSON valido: {error}") from error
+    rows = payload.get("channels") if isinstance(payload, dict) else None
+    if not isinstance(rows, list):
+        raise ValueError(f"{layout_path.name}: channels debe ser una lista")
+
+    existing: dict[str, Channel] = {}
+    for channel in parse_channels(lines):
+        if channel.tvg_id in existing:
+            raise ValueError(f"{layout_path.name}: ID duplicado en el catalogo Nauta: {channel.tvg_id}")
+        if channel.tvg_id:
+            existing[channel.tvg_id] = channel
+
+    additions: list[tuple[str, str, str, str]] = []
+    for row in rows:
+        if not isinstance(row, dict) or row.get("kind") != "m3u":
+            continue
+        has_catalog = "nautaCatalog" in row
+        has_name = "nautaName" in row
+        if not has_catalog and not has_name:
+            continue
+        if has_catalog != has_name:
+            raise ValueError("Una fila Nauta debe incluir categoria y nombre exacto")
+        catalog = row.get("nautaCatalog")
+        exact_name = row.get("nautaName")
+        channel_id = str(row.get("tvgId", "")).strip()
+        display_name = row.get("name")
+        if not isinstance(catalog, str) or not isinstance(exact_name, str):
+            raise ValueError("La referencia Nauta debe contener texto valido")
+        try:
+            nauta_reference.locator(catalog, exact_name)
+        except ValueError as error:
+            raise ValueError("La referencia Nauta de la fuente local no es valida") from error
+        if channel_id != nauta_reference.channel_id(exact_name):
+            raise ValueError("El tvg-id Nauta no coincide con el nombre exacto")
+        if row.get("sourceList") != "1.m3u" or row.get("trial") is not True:
+            raise ValueError("Nauta se agrega solo a Lista 1 y en prueba, sin alcance EPG")
+        if not isinstance(display_name, str) or not display_name.strip() or len(display_name) > 240 \
+                or re.search(r"[\r\n\x00-\x1f\x7f]", display_name):
+            raise ValueError("El nombre visible del canal Nauta no es valido")
+        if row.get("state") not in {"active", "hidden", "deleted"}:
+            raise ValueError("El estado editorial del canal Nauta no es valido")
+        additions.append((channel_id, catalog, exact_name, display_name.strip()))
+
+    changed = False
+    for channel_id, catalog, exact_name, display_name in additions:
+        current = existing.get(channel_id)
+        if current is not None:
+            if nauta_reference.parse_reference(current.url) != (catalog, exact_name):
+                raise ValueError(f"{channel_id}: el tvg-id Nauta ya existe con otra referencia")
+            continue
+        url = nauta_reference.reference(catalog, exact_name)
+        lines.extend((
+            f'#EXTINF:-1 tvg-id="{channel_id}" group-title="Nauta" '
+            f'x-resolver="nauta" x-resolver-refresh="on_play",{display_name}',
+            url,
+        ))
+        existing[channel_id] = Channel(
+            tvg_id=channel_id,
+            name=display_name,
+            url=url,
+            group="Nauta",
+            info_line=len(lines) - 2,
+            url_line=len(lines) - 1,
+        )
+        changed = True
+    return changed
 
 
 def resolver_engine_for(channel: Channel) -> str:
@@ -10161,6 +10244,8 @@ def main() -> int:
         else playlist
     )
     lines = source_playlist.read_text(encoding="utf-8-sig").splitlines()
+    if source_playlist.resolve() == CHANNEL_CATALOG_PATH.resolve():
+        apply_editor_nauta_channels(lines)
     presentation_overrides = load_presentation_overrides()
     apply_presentation_overrides(lines, source_playlist.name, presentation_overrides)
     catalogue_before_update = parse_channels(lines)

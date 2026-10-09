@@ -179,7 +179,7 @@
     <dialog class="dialog add-dialog" id="add-dialog" aria-labelledby="add-dialog-title">
       <form method="dialog" class="dialog-shell">
         <div class="dialog-heading">
-          <div><h2 id="add-dialog-title">Añadir canales</h2><p>Elige una fuente; Highfly y TvVoo también aceptan catálogos pegados.</p></div>
+          <div><h2 id="add-dialog-title">Añadir canales</h2><p>M3U, Highfly y TvVoo; Nauta consulta sus categorías desde el editor local.</p></div>
           <button class="icon-button" value="cancel" aria-label="Cerrar catálogo disponible">
             <svg aria-hidden="true" viewBox="0 0 20 20"><path d="m5 5 10 10M15 5 5 15"/></svg>
           </button>
@@ -194,11 +194,19 @@
           <button class="catalog-source" type="button" data-add-source="tvvoo" aria-pressed="false">
             <span>TvVoo</span><span class="catalog-source-count" data-source-count="tvvoo">—</span>
           </button>
+          <button class="catalog-source" type="button" data-add-source="nauta" aria-pressed="false">
+            <span>Nauta</span><span class="catalog-source-count" data-source-count="nauta">—</span>
+          </button>
         </div>
         <div class="catalog-source-tools">
           <label class="filter-select catalog-country" id="tvvoo-country-field" hidden>
             <span class="visually-hidden">País del catálogo TvVoo</span>
             <select id="tvvoo-country" aria-label="País del catálogo TvVoo"></select>
+            <svg aria-hidden="true" viewBox="0 0 20 20"><path d="m5 7.5 5 5 5-5"/></svg>
+          </label>
+          <label class="filter-select catalog-country" id="nauta-category-field" hidden>
+            <span class="visually-hidden">Categoría del catálogo Nauta</span>
+            <select id="nauta-category" aria-label="Categoría del catálogo Nauta"></select>
             <svg aria-hidden="true" viewBox="0 0 20 20"><path d="m5 7.5 5 5 5-5"/></svg>
           </label>
           <button class="text-button catalog-refresh" id="refresh-provider-catalog" type="button" hidden>Actualizar catálogo</button>

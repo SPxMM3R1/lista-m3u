@@ -17,7 +17,7 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
 
 - Nauta: importación explícita en Lista 1 como M3U en prueba. Identidad editorial determinista por nombre exacto con región/calidad original; localizador tokenless catálogo + nombre, nunca el ID opaco del addon ni el enlace HLS. La app consulta los recursos actuales en RAM y valida HLS/segmento. No incorpora canales no publicados. Sin EPG ni logos inferidos; exige APK 0.5.81+.
 
-- **Respaldo Nauta base→HD**: solo emparejar filas M3U activas de Lista 1 cuando sus números sean consecutivos y el nombre base coincida exactamente, quitando `[Nauta]` y el sufijo final `HD` de la fila principal. `backupm3u` va en la fila HD y contiene el `tvg-id` estable de la base. Ambas filas se conservan activas, en prueba y publicadas en M3U: VibeM3U necesita la fila base para resolver el respaldo y la oculta como canal independiente al proyectar el catálogo. No excluirla ni borrar su fila. Esta referencia dinámica requiere VibeM3U 0.5.83+; no ampliar el emparejamiento a otros resolutores automáticamente ni asignar EPG.
+- Nauta base y HD son filas independientes; no emparejarlas ni ocultar una como respaldo de la otra. El localizador Nauta sirve para resolver esa fila al reproducir, no es una URL directa de respaldo.
 
 - Identidad estable: `tvg-id` (M3U), `catalogKey` (Highfly) y `countryKey|alias` (TvVoo).
 - `providerResourceId`, `resolverSlug`, `leaf:` y las URL HLS rotan: nunca son identidad.
@@ -50,9 +50,9 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
 - Publicar layout + selección + presentación juntos, siempre desde el editor (`editor-core`).
 - Canales M3U agregados conservan su lista de origen (Lista 1 o 2). Highfly y TvVoo no van a
   ninguna M3U: viven en el layout y la selección.
-- Los respaldos M3U usan identidades estables (`tvg-id`) en `backupm3u`, nunca enlaces HLS
-  firmados. Para referencias dinámicas Nauta, publicar primero VibeM3U 0.5.83+ y conservar
-  la fila de respaldo en su lista para que la app pueda volver a resolverla.
+- Los respaldos directos M3U usan identidades estables (`tvg-id`) en `backupm3u`, nunca enlaces HLS
+  firmados. Solo se permite como destino otra fila M3U reproducible por HTTP(S); las referencias
+  dinámicas de resolutor, incluida Nauta, no son respaldos directos y no deben ocultar una fila.
 - Un cambio editorial no requiere APK nueva.
 - Vigencia de variantes TvVoo: tras una consulta correcta, renovar `generatedAt` cada
   24 h aunque las variantes no cambien (la app las descarta a los 7 días). Si falló

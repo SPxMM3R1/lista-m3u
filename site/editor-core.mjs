@@ -1,9 +1,13 @@
 const LAYOUT_FIELDS = [
   "kind", "provider", "catalogKey", "providerResourceId", "resolverSlug",
   "tvgId", "name", "group", "category", "country", "countryKey",
-  "aliases", "resolverAliases", "identityState", "sourceList", "logoPath",
+  "aliases", "resolverAliases", "identityState", "sourceList", "nautaCatalog", "nautaName", "logoPath",
   "logoOverride", "displayName", "order", "number", "state", "trial", "backupTvVoo", "preferredM3u", "backupm3u", "backupCountries",
 ];
+
+function isNautaM3uRow(row) {
+  return row?.kind === "m3u" && (row.nautaCatalog !== undefined || /^Nauta\./i.test(String(row.tvgId ?? "")));
+}
 
 export function stableId(row) {
   const value = row?.kind === "provider" ? row.catalogKey : row?.tvgId;
@@ -94,8 +98,8 @@ export function validateLayout(layout) {
       const valid = row.kind === "m3u" && Array.isArray(row.backupm3u) && ids.length > 0 && ids.length <= 8
         && new Set(ids).size === ids.length
         && ids.every((value) => typeof value === "string" && value !== row.tvgId && value !== row.preferredM3u
-          && layout.channels.some((item) => item.kind === "m3u" && item.tvgId === value));
-      if (!valid) problems.push(`${row.name || id}: los respaldos deben ser otros canales M3U de la lista (hasta 8, sin repetir).`);
+          && layout.channels.some((item) => item.kind === "m3u" && !isNautaM3uRow(item) && item.tvgId === value));
+      if (!valid) problems.push(String(row.name || id) + ": los respaldos directos deben ser otras filas M3U con dirección HTTP(S) (hasta 8, sin repetir).");
     }
     if (row.displayName !== undefined && (
       typeof row.displayName !== "string"
@@ -132,7 +136,16 @@ export function validateLayout(layout) {
     } else if (!["1.m3u", "2.m3u"].includes(row.sourceList)) {
       problems.push(`${row.name || id}: selecciona Lista 1 o Lista 2.`);
     }
-    const visibleFields = [row.name, row.displayName, row.group, row.category, row.country, row.countryKey, row.alias, row.aliases, row.resolverAliases];
+    if (row.nautaCatalog !== undefined || row.nautaName !== undefined) {
+      const validNauta = row.kind === "m3u"
+        && /^(?:cat_[0-9]+|nautatv_catalog)$/.test(row.nautaCatalog ?? "")
+        && typeof row.nautaName === "string" && row.nautaName.trim().length > 0 && row.nautaName.length <= 200
+        && !/[\u0000-\u001f\u007f\\?#]/.test(row.nautaName) && !row.nautaName.includes("://")
+        && /^Nauta\.[a-f0-9]{24}@Nauta$/.test(row.tvgId ?? "")
+        && row.sourceList === "1.m3u" && row.trial === true;
+      if (!validNauta) problems.push(`${row.name || id}: la referencia Nauta requiere identidad estable, Lista 1 y estado de prueba.`);
+    }
+    const visibleFields = [row.name, row.displayName, row.group, row.category, row.country, row.countryKey, row.nautaName, row.alias, row.aliases, row.resolverAliases];
     const flatValues = visibleFields.flatMap((value) => Array.isArray(value) ? value : [value]);
     if (flatValues.some((value) => typeof value === "string" && /(https?:\/\/|\.m3u8?(?:\b|\?)|access_token=|token=|signature=|hdnts=)/i.test(value))) {
       problems.push(`${row.name || id}: no se permiten URLs de reproducción ni credenciales en el catálogo.`);
@@ -386,7 +399,11 @@ export function setBackupM3u(layout, key, tvgIds) {
   const current = structuredClone(layout);
   const row = current.channels.find((item) => rowKey(item) === key);
   if (!row || row.kind !== "m3u") return current;
-  const ids = [...new Set((tvgIds ?? []).filter((value) => value && value !== row.tvgId && value !== row.preferredM3u))];
+  const directIds = new Set(current.channels
+    .filter((item) => item.kind === "m3u" && !isNautaM3uRow(item))
+    .map((item) => item.tvgId));
+  const ids = [...new Set((tvgIds ?? []).filter((value) => directIds.has(value)
+    && value !== row.tvgId && value !== row.preferredM3u))];
   if (ids.length) row.backupm3u = ids.slice(0, 8);
   else delete row.backupm3u;
   return current;

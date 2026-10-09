@@ -30,6 +30,8 @@ import {
   loadAllTvVooCatalogs,
   loadHighflyCatalog,
   loadTvVooCatalog,
+  parseNautaCategories,
+  parseNautaCatalog,
   normalizeProviderName,
   parseHighflyCatalog,
   parseHighflyCatalogJson,
@@ -465,6 +467,42 @@ test("adding several channels at once numbers them in selection order", () => {
   assert.deepEqual(validateLayout(next), []);
 });
 
+test("Nauta source creates stable trial rows for Lista 1 without exposing provider resources", () => {
+  const categories = parseNautaCategories({ categories: [
+    { id: "nautatv_catalog", name: "Todos los canales" },
+    { id: "cat_4", name: "Deportes" },
+    { id: "opaque-category", name: "No compatible" },
+  ] });
+  assert.deepEqual(categories, [
+    { id: "nautatv_catalog", name: "Todos los canales" },
+    { id: "cat_4", name: "Deportes" },
+  ]);
+
+  const rows = parseNautaCatalog({
+    category: { id: "cat_4", name: "Deportes" },
+    channels: [
+      { tvgId: "Nauta.0123456789abcdef01234567@Nauta", name: " ESPN 1 | Chile", categoryId: "cat_4", opaqueId: "must-not-survive" },
+      { tvgId: "Nauta.0123456789abcdef01234567@Nauta", name: " ESPN 1 | Chile", categoryId: "cat_4" },
+      { tvgId: "invalid", name: "No identity", categoryId: "cat_4" },
+      { tvgId: "Nauta.aaaaaaaaaaaaaaaaaaaaaaaa@Nauta", name: "wrong group", categoryId: "cat_11" },
+    ],
+  }, categories[1]);
+  assert.equal(rows.length, 1);
+  assert.equal(rows[0].name, "ESPN 1 | Chile [Nauta]");
+  assert.equal(rows[0].nautaName, " ESPN 1 | Chile");
+  assert.equal(rows[0].nautaCatalog, "cat_4");
+  assert.equal(rows[0].sourceList, "1.m3u");
+  assert.equal(rows[0].trial, true);
+  assert.equal(JSON.stringify(rows).includes("must-not-survive"), false);
+
+  const next = addRow({ schemaVersion: 1, channels: [] }, rows[0]);
+  assert.deepEqual(validateLayout(next), []);
+  assert.equal(next.channels[0].nautaName, " ESPN 1 | Chile");
+  const presentation = buildPresentationOverrides(next, { schema: 1, orders: {}, trial_m3u: [] });
+  assert.deepEqual(presentation.orders["m3u.m3u"], [rows[0].tvgId]);
+  assert.deepEqual(presentation.trial_m3u, [rows[0].tvgId]);
+});
+
 test("change review counts Highfly locator rotations without counting new rows", () => {
   const before = sampleLayout();
   const after = structuredClone(before);
@@ -617,4 +655,22 @@ test("a direct row keeps an ordered list of backup M3U rows", () => {
   broken.channels[0].backupm3u = ["NoExiste"];
   assert.ok(validateLayout(broken).some((problem) => problem.includes("respaldos")));
   assert.equal(setBackupM3u(linked, "m3u:0104", []).channels[0].backupm3u, undefined);
+});
+
+test("Nauta resolver rows cannot be configured as direct M3U backups", () => {
+  const layout = {
+    schemaVersion: 1,
+    excludedM3u: [],
+    channels: [
+      { kind: "m3u", tvgId: "0104", name: "TVN", sourceList: "1.m3u", order: 1, number: 1, state: "active" },
+      // Real rows added before Nauta editor metadata existed are still recognizable
+      // by their established public identity prefix.
+      { kind: "m3u", tvgId: "Nauta.0123456789abcdef01234567@Nauta", name: "Canal X [Nauta]", sourceList: "1.m3u", order: 2, number: 2, state: "active", trial: true },
+    ],
+  };
+  const linked = setBackupM3u(layout, "m3u:0104", [layout.channels[1].tvgId]);
+  assert.equal(linked.channels[0].backupm3u, undefined);
+  const broken = structuredClone(layout);
+  broken.channels[0].backupm3u = [layout.channels[1].tvgId];
+  assert.ok(validateLayout(broken).some((problem) => problem.includes("HTTP(S)")));
 });

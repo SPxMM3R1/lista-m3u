@@ -496,7 +496,7 @@ input[type="range"] { width: 100%; height: 1.45rem; margin: 0; accent-color: var
 .logo-option img { width: 3rem; height: 3rem; object-fit: contain; }
 .logo-option-name { width: 100%; overflow: hidden; color: var(--ink-soft); font-size: 0.75rem; text-align: center; text-overflow: ellipsis; white-space: nowrap; }
 .logo-option-version { max-width: 100%; overflow: hidden; color: var(--muted); font-size: 0.66rem; font-variant-numeric: tabular-nums; text-overflow: ellipsis; white-space: nowrap; }
-.catalog-source-tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.35rem; margin-top: 1rem; padding: 0.25rem; background: var(--surface-low); border-radius: var(--radius-small); }
+.catalog-source-tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.35rem; margin-top: 1rem; padding: 0.25rem; background: var(--surface-low); border-radius: var(--radius-small); }
 .catalog-source { display: flex; min-width: 0; min-height: 2.55rem; align-items: center; justify-content: center; gap: 0.45rem; padding: 0.35rem 0.55rem; color: var(--ink-soft); background: transparent; border: 1px solid transparent; border-radius: 5px; cursor: pointer; font-size: 0.87rem; font-weight: 630; }
 .catalog-source:hover { background: rgb(255 255 255 / 70%); }
 .catalog-source.is-active { color: var(--blue-deep); background: var(--surface); border-color: var(--line); }
