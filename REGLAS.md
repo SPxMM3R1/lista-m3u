@@ -2,7 +2,7 @@
 
 Documento único y corto con las reglas que rigen hoy. El detalle vive en los documentos
 enlazados; si algo de aquí contradice un documento antiguo, manda este. Última revisión:
-2026-10-08. El estado de hoy y la bitácora están en `ESTADO.md` de cada repositorio.
+2026-10-09. El estado de hoy y la bitácora están en `ESTADO.md` de cada repositorio.
 
 ## 1. Repositorios y límites
 
@@ -15,7 +15,7 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
 
 ## 2. Identidad de canales
 
-- Nauta: importación explícita en Lista 1 como M3U en prueba. Identidad editorial determinista por nombre exacto con región/calidad original; localizador tokenless catálogo + nombre, nunca el ID opaco del addon ni el enlace HLS. La app consulta los recursos actuales en RAM y valida HLS/segmento. No incorpora canales no publicados. Sin EPG ni logos inferidos; exige APK 0.5.81+.
+- Nauta es una fuente candidata del editor **local** y solo se incorpora de forma explícita, un canal por vez; no se importa en bloque ni se repone automáticamente. Mientras no se seleccione individualmente, no figura en el layout, inventario canónico, Lista 1/2 ni EPG. Al añadirse: Lista 1, en prueba y sin EPG. ID editorial determinista por nombre exacto con región/calidad original (`Nauta.<SHA256(nombre exacto)[:24]>@Nauta`); localizador tokenless catálogo + nombre, nunca el ID opaco del addon ni enlace HLS. Las exclusiones de membresía de la lista publicada no deben tombstonear candidatos; las bajas históricas explícitas sí permanecen excluidas del selector. La app consulta los recursos actuales en RAM y valida HLS/segmento. No se infieren logos ni EPG. Compatible con VibeM3U 0.5.81+.
 
 - Nauta base y HD son filas independientes; no emparejarlas ni ocultar una como respaldo de la otra. El localizador Nauta sirve para resolver esa fila al reproducir, no es una URL directa de respaldo.
 

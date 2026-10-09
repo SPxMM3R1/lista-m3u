@@ -23,6 +23,7 @@ import {
   setPreferredM3u,
   setBackupM3u,
   removeRowsPermanently,
+  toggleSelectedAvailableRow,
 } from "../site/editor-core.mjs";
 import {
   canonicalTvVooAlias,
@@ -467,6 +468,19 @@ test("adding several channels at once numbers them in selection order", () => {
   assert.deepEqual(validateLayout(next), []);
 });
 
+test("Nauta selection is one-at-a-time while other source selections remain multi-select", () => {
+  const first = { kind: "m3u", tvgId: "Nauta.one", name: "Primero" };
+  const second = { kind: "m3u", tvgId: "Nauta.two", name: "Segundo" };
+  const one = toggleSelectedAvailableRow(new Map(), first, { single: true });
+  const replaced = toggleSelectedAvailableRow(one, second, { single: true });
+  const multiple = toggleSelectedAvailableRow(one, second);
+  const cleared = toggleSelectedAvailableRow(replaced, second, { single: true });
+
+  assert.deepEqual([...replaced.values()], [second]);
+  assert.equal(multiple.size, 2);
+  assert.equal(cleared.size, 0);
+});
+
 test("Nauta source creates stable trial rows for Lista 1 without exposing provider resources", () => {
   const categories = parseNautaCategories({ categories: [
     { id: "nautatv_catalog", name: "Todos los canales" },
@@ -498,9 +512,15 @@ test("Nauta source creates stable trial rows for Lista 1 without exposing provid
   const next = addRow({ schemaVersion: 1, channels: [] }, rows[0]);
   assert.deepEqual(validateLayout(next), []);
   assert.equal(next.channels[0].nautaName, " ESPN 1 | Chile");
-  const presentation = buildPresentationOverrides(next, { schema: 1, orders: {}, trial_m3u: [] });
+  const presentation = buildPresentationOverrides(next, {
+    schema: 1,
+    orders: {},
+    trial_m3u: [],
+    excluded_m3u: [rows[0].tvgId],
+  });
   assert.deepEqual(presentation.orders["m3u.m3u"], [rows[0].tvgId]);
   assert.deepEqual(presentation.trial_m3u, [rows[0].tvgId]);
+  assert.equal(presentation.excluded_m3u.includes(rows[0].tvgId), false);
 });
 
 test("change review counts Highfly locator rotations without counting new rows", () => {

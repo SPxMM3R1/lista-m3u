@@ -19,6 +19,19 @@ export function rowKey(row) {
   return row?.kind === "provider" ? `provider:${row.provider}:${id}` : `m3u:${id}`;
 }
 
+export function toggleSelectedAvailableRow(selectedRows, row, { single = false } = {}) {
+  const next = new Map(selectedRows ?? []);
+  const key = rowKey(row);
+  if (!key || key === "m3u:") return next;
+  if (next.has(key)) {
+    next.delete(key);
+    return next;
+  }
+  if (single) next.clear();
+  next.set(key, row);
+  return next;
+}
+
 export function compareRows(a, b) {
   return (Number(a.order) || 0) - (Number(b.order) || 0) || rowKey(a).localeCompare(rowKey(b));
 }

@@ -1,72 +1,62 @@
 import json
-import re
 import unittest
 from pathlib import Path
+
+import update_m3u as runner
 
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def _editorial_name(value):
-    return re.sub(r"\s*\[Nauta\]\s*$", "", str(value or ""), flags=re.IGNORECASE).strip()
+def current_nauta_ids():
+    snapshot = json.loads((ROOT / "contracts/nauta-trial-channels-20261007.json").read_text(encoding="utf-8"))
+    audit = json.loads((ROOT / "contracts/nauta-validation-20261008.json").read_text(encoding="utf-8"))
+    restorations = json.loads((ROOT / "contracts/nauta-restoration-20261008-sports.json").read_text(encoding="utf-8"))
+    followup = json.loads((ROOT / "contracts/nauta-247-cleanup-20261008.json").read_text(encoding="utf-8"))
+    snapshot_ids = {row["tvgId"] for row in snapshot["channels"]}
+    removed = {row["tvgId"] for row in audit["channels"] if row["decision"] == "remove"}
+    removed -= {row["tvgId"] for row in restorations["channels"]}
+    removed |= {row["tvgId"] for row in followup["channels"]}
+    return snapshot_ids - removed
 
 
-def _adjacent_base_hd_pairs(rows):
-    by_number = {row["number"]: row for row in rows}
-    pairs = []
-    for base in rows:
-        hd = by_number.get(base["number"] + 1)
-        if hd is None:
-            continue
-        base_name = _editorial_name(base["name"])
-        hd_name = _editorial_name(hd["name"])
-        if not re.search(r"\s+HD$", hd_name, flags=re.IGNORECASE):
-            continue
-        name_without_hd = re.sub(r"\s+HD$", "", hd_name, flags=re.IGNORECASE).strip()
-        if base_name.casefold() == name_without_hd.casefold():
-            pairs.append((base, hd))
-    return pairs
-
-
-class NautaChannelsRemainIndependentTest(unittest.TestCase):
+class NautaChannelsAreOptInTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.layout = json.loads((ROOT / "data/channel-editor-layout.json").read_text(encoding="utf-8"))
         cls.presentation = json.loads((ROOT / "presentation-overrides.json").read_text(encoding="utf-8"))
-        cls.active_list1 = [
-            row for row in cls.layout["channels"]
-            if row.get("kind") == "m3u"
-            and row.get("sourceList") == "1.m3u"
-            and row.get("state") == "active"
-        ]
-        cls.nauta_rows = [
-            row for row in cls.active_list1 if row.get("tvgId", "").startswith("Nauta.")
-        ]
-        cls.pairs = _adjacent_base_hd_pairs(cls.active_list1)
+        cls.nauta_ids = current_nauta_ids()
 
-    def test_adjacent_base_and_hd_rows_stay_independent(self):
-        self.assertEqual(55, len(self.pairs))
-        presentation = self.presentation
-        trial_ids = set(presentation["trial_m3u"])
-        excluded_ids = set(self.layout["excludedM3u"]) | set(presentation["excluded_m3u"])
-        for base, hd in self.pairs:
-            with self.subTest(base=base["number"], primary=hd["number"], name=hd["name"]):
-                self.assertTrue(base["tvgId"].startswith("Nauta."))
-                self.assertTrue(hd["tvgId"].startswith("Nauta."))
-                self.assertTrue(base.get("trial"))
-                self.assertTrue(hd.get("trial"))
-                self.assertNotIn("backupm3u", hd)
-                self.assertIn(base["tvgId"], trial_ids)
-                self.assertIn(hd["tvgId"], trial_ids)
-                self.assertNotIn(base["tvgId"], excluded_ids)
-                self.assertNotIn(hd["tvgId"], excluded_ids)
-                for key in ("m3u.m3u", "1.m3u", "channel-catalog.m3u"):
-                    self.assertIn(base["tvgId"], presentation["orders"][key])
-                    self.assertIn(hd["tvgId"], presentation["orders"][key])
+    def test_current_nauta_is_absent_from_working_catalog_and_can_be_readded(self):
+        self.assertEqual(353, len(self.nauta_ids))
+        self.assertTrue(self.nauta_ids.isdisjoint(row.get("tvgId") for row in self.layout["channels"]))
+        self.assertTrue(self.nauta_ids.issubset(self.presentation["excluded_m3u"]))
+        # These are publication exclusions, not trash/tombstones: the live Nauta tab
+        # checks layout.excludedM3u, so the previously active 353 remain selectable.
+        self.assertTrue(self.nauta_ids.isdisjoint(self.layout["excludedM3u"]))
+        self.assertTrue(self.nauta_ids.isdisjoint(self.presentation["trial_m3u"]))
+        for order in self.presentation["orders"].values():
+            self.assertTrue(self.nauta_ids.isdisjoint(order))
+        for filename in ["channel-catalog.m3u", "m3u.m3u", "1.m3u", "m3u-externa.m3u", "2.m3u"]:
+            channels = runner.parse_channels((ROOT / filename).read_text(encoding="utf-8").splitlines())
+            self.assertTrue(self.nauta_ids.isdisjoint(channel.tvg_id for channel in channels), filename)
+        self.assertEqual((ROOT / "m3u.m3u").read_bytes(), (ROOT / "1.m3u").read_bytes())
 
-    def test_no_nauta_row_declares_an_m3u_backup(self):
-        self.assertEqual(353, len(self.nauta_rows))
-        self.assertTrue(all(not row.get("backupm3u") for row in self.nauta_rows))
+    def test_no_active_nauta_rows_or_nauta_backup_links_remain(self):
+        nauta_rows = [row for row in self.layout["channels"] if str(row.get("tvgId", "")).startswith("Nauta.")]
+        self.assertEqual([], nauta_rows)
+        self.assertTrue(all(
+            not str(backup).startswith("Nauta.")
+            for row in self.layout["channels"]
+            for backup in row.get("backupm3u", [])
+        ))
+
+    def test_runner_does_not_repopulate_candidates_without_editor_rows(self):
+        lines = (ROOT / "channel-catalog.m3u").read_text(encoding="utf-8").splitlines()
+        self.assertFalse(runner.apply_editor_nauta_channels(lines))
+        self.assertTrue(self.nauta_ids.isdisjoint(
+            channel.tvg_id for channel in runner.parse_channels(lines)
+        ))
 
     def test_existing_http_backups_are_preserved(self):
         rows = {

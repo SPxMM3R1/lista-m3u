@@ -22,6 +22,7 @@ import {
   setBackupTvVoo,
   setPreferredM3u,
   setBackupM3u,
+  toggleSelectedAvailableRow,
 } from "./editor-core.mjs";
 import {
   loadAllTvVooCatalogs,
@@ -138,7 +139,7 @@ let addSource = "m3u";
 let selectedTvVooCatalogId = "vavoo_tv_es";
 let selectedNautaCategoryId = "nautatv_catalog";
 let selectedKey = "";
-const selectedAvailableRows = new Map();
+let selectedAvailableRows = new Map();
 let activeLogoFilter = "current";
 let tokenInMemory = "";
 let toastTimer = 0;
@@ -1469,7 +1470,7 @@ function updateAvailableSourceControls() {
             : catalog?.status === "error"
               ? `${catalog.error} Usa “Actualizar catálogo” para volver a intentar.`
               : catalog?.rows.length
-                ? `${countText(catalog.rows.length, "canal disponible", "canales disponibles")} de ${category?.name ?? "Nauta"}. Se agregan a Lista 1 en prueba, sin EPG.`
+                ? `${countText(catalog.rows.length, "canal disponible", "canales disponibles")} de ${category?.name ?? "Nauta"}. Añádelos de a uno a Lista 1 en prueba, sin EPG.`
                 : category
                   ? `Fuente Nauta · ${category.name}. Los nombres exactos se conservarán para resolverlos al reproducir.`
                   : "Carga el catálogo Nauta para elegir una categoría.";
@@ -1582,8 +1583,8 @@ function renderAvailable() {
       check.setAttribute("aria-hidden", "true");
       item.append(source, check);
       item.addEventListener("click", () => {
-        if (selectedAvailableRows.has(key)) selectedAvailableRows.delete(key);
-        else selectedAvailableRows.set(key, row);
+        // Nauta se agrega de a uno; las demás fuentes mantienen selección múltiple.
+        selectedAvailableRows = toggleSelectedAvailableRow(selectedAvailableRows, row, { single: addSource === "nauta" });
         renderAvailable();
       });
       fragment.append(item);
@@ -1596,7 +1597,16 @@ function renderAvailable() {
 
 function updateAvailableSelection() {
   const count = selectedAvailableRows.size;
+  const isNauta = addSource === "nauta";
+  const selectedRow = isNauta ? selectedAvailableRows.values().next().value : null;
   elements.addSelected.disabled = count === 0;
+  if (isNauta) {
+    elements.addSelected.textContent = count ? "Añadir este canal" : "Añadir canal";
+    elements.availableSelectionNote.textContent = count
+      ? `Se agregará «${selectedRow?.name ?? "este canal"}» a Lista 1, en prueba y sin EPG.`
+      : "Selecciona un canal para agregarlo individualmente a Lista 1, en prueba y sin EPG.";
+    return;
+  }
   elements.addSelected.textContent = count ? `Añadir seleccionados (${count})` : "Añadir seleccionados";
   elements.availableSelectionNote.textContent = count
     ? `${countText(count, "canal marcado", "canales marcados")}. Pulsa “Añadir seleccionados” para incorporarlos.`
@@ -1912,6 +1922,7 @@ async function ensureNautaCatalog(categoryId = selectedNautaCategoryId, force = 
 }
 
 async function selectAddSource(source) {
+  selectedAvailableRows.clear();
   addSource = source;
   elements.availableSearch.value = "";
   renderAvailable();
@@ -2232,6 +2243,7 @@ elements.tvvooCountry.addEventListener("change", () => {
   void ensureTvVooCatalog(selectedTvVooCatalogId).catch(() => {});
 });
 elements.nautaCategory.addEventListener("change", () => {
+  selectedAvailableRows.clear();
   selectedNautaCategoryId = elements.nautaCategory.value;
   renderAvailable();
   void ensureNautaCatalog(selectedNautaCategoryId).catch(() => {});

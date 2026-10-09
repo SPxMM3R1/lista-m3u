@@ -2,7 +2,6 @@ import json
 from pathlib import Path
 import hashlib
 import unittest
-from unittest import mock
 import nauta_reference
 import update_m3u as runner
 
@@ -19,6 +18,16 @@ def authorized_followup_deletions():
     return {r["tvgId"] for r in record["channels"]}
 
 
+def previously_listed_nauta_ids():
+    fixture = json.loads((ROOT/"contracts/nauta-trial-channels-20261007.json").read_text(encoding="utf-8"))
+    audit = json.loads((ROOT/"contracts/nauta-validation-20261008.json").read_text(encoding="utf-8"))
+    ids = {row["tvgId"] for row in fixture["channels"]}
+    removed = {row["tvgId"] for row in audit["channels"] if row["decision"] == "remove"}
+    removed -= authorized_restorations()
+    removed |= authorized_followup_deletions()
+    return ids - removed
+
+
 class NautaReferenceTest(unittest.TestCase):
     def test_roundtrip_exact_name_with_region_and_slashes(self):
         for name in ["ESPN 1 | Chile", "South Park 24/7", "TUDN ", "El canal, HD"]:
@@ -29,40 +38,32 @@ class NautaReferenceTest(unittest.TestCase):
                     "vibem3u://resolver/nauta/opaque-provider-id", "vibem3u://resolver/nauta/cat_4%7Chttps%3A%2F%2Fhost"]:
             self.assertIsNone(nauta_reference.parse_reference(url))
 
-    def test_complete_snapshot_matches_list_layout_and_trial_epg_exclusion(self):
+    def test_currently_listed_nauta_is_opt_in_from_the_live_editor_catalog(self):
         fixture = json.loads((ROOT/"contracts/nauta-trial-channels-20261007.json").read_text(encoding="utf-8"))
-        ids = {r["tvgId"] for r in fixture["channels"]}
-        self.assertEqual(fixture["distinctNames"], len(ids))
+        snapshot_ids = {r["tvgId"] for r in fixture["channels"]}
+        ids = previously_listed_nauta_ids()
+        self.assertEqual(fixture["distinctNames"], len(snapshot_ids))
+        self.assertEqual(353, len(ids))
         self.assertGreaterEqual(fixture["providerEntries"], len(ids))
-        audit = json.loads((ROOT/"contracts/nauta-validation-20261008.json").read_text(encoding="utf-8"))
-        removed = {r["tvgId"] for r in audit["channels"] if r["decision"] == "remove"}
-        removed -= authorized_restorations()
-        removed |= authorized_followup_deletions()
-        ids -= removed
         layout = json.loads((ROOT/"data/channel-editor-layout.json").read_text(encoding="utf-8"))
-        new = [r for r in layout["channels"] if r.get("tvgId") in ids]
-        self.assertEqual(len(ids), len(new))
-        self.assertTrue(all(r["trial"] and r["state"] == "active" and r["sourceList"] == "1.m3u" for r in new))
-        self.assertTrue(ids.issubset(runner.trial_m3u_ids()))
-        self.assertTrue(ids.isdisjoint(c.tvg_id for c in runner.main_playlist_channels()))
-        first = min(r["number"] for r in new)
-        self.assertGreater(first, max(r["number"] for r in layout["channels"] if r["state"] == "active" and r.get("tvgId") not in ids))
+        presentation = json.loads((ROOT/"presentation-overrides.json").read_text(encoding="utf-8"))
+        self.assertTrue(ids.isdisjoint(r.get("tvgId") for r in layout["channels"]))
+        self.assertTrue(ids.issubset(presentation["excluded_m3u"]))
+        self.assertTrue(ids.isdisjoint(layout["excludedM3u"]))
+        self.assertTrue(ids.isdisjoint(presentation["trial_m3u"]))
+        for order in presentation["orders"].values():
+            self.assertTrue(ids.isdisjoint(order))
         for file in ["m3u.m3u", "1.m3u", "channel-catalog.m3u"]:
             lines = (ROOT/file).read_text(encoding="utf-8").splitlines()
             channels = [c for c in runner.parse_channels(lines) if c.tvg_id in ids]
-            self.assertEqual(ids, {c.tvg_id for c in channels})
-            for c in channels:
-                ref = nauta_reference.parse_reference(c.url)
-                self.assertIsNotNone(ref)
-                self.assertEqual(c.tvg_id, nauta_reference.channel_id(ref[1]))
-                with mock.patch.object(runner, "fetch_channel_bytes", side_effect=AssertionError("No network")):
-                    self.assertTrue(runner.check_channel(c).ok)
+            self.assertEqual([], channels)
         self.assertEqual((ROOT/"m3u.m3u").read_bytes(), (ROOT/"1.m3u").read_bytes())
 
     def test_no_old_editorial_row_or_selection_was_changed(self):
         # Snapshot digest also works in Actions' shallow checkout, without Git history.
         current = json.loads((ROOT/"data/channel-editor-layout.json").read_text(encoding="utf-8"))
-        current["channels"] = current["channels"][:253]
+        current["channels"] = [row for row in current["channels"]
+                               if not str(row.get("tvgId", "")).startswith("Nauta.")]
         current["excludedM3u"] = [id for id in current["excludedM3u"] if not id.endswith("@Nauta")]
         digest = hashlib.sha256(json.dumps(current, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
         self.assertEqual("ef4897616000212013a446e89f51f6c688945724c004b309767f2bbb88b5494b", digest)
@@ -106,9 +107,13 @@ class NautaReferenceTest(unittest.TestCase):
         for file in ["1.m3u", "m3u.m3u", "channel-catalog.m3u", "2.m3u", "m3u-externa.m3u"]:
             self.assertTrue(removed.isdisjoint(c.tvg_id for c in runner.parse_channels((ROOT/file).read_text(encoding="utf-8").splitlines())))
         expected = {r["tvgId"]: (r["number"], r["order"]) for r in audit["preservedRows"]}
-        self.assertEqual(expected.keys() - followup_removed, {r["tvgId"] for r in layout["channels"] if r.get("tvgId") in retained})
-        self.assertEqual({id: value for id, value in expected.items() if id not in followup_removed},
-                         {r["tvgId"]: (r["number"], r["order"]) for r in layout["channels"] if r.get("tvgId") in retained})
+        unselected = previously_listed_nauta_ids()
+        expected_current = expected.keys() - followup_removed - unselected
+        current_rows = {r["tvgId"]: (r["number"], r["order"]) for r in layout["channels"]
+                        if r.get("tvgId") in retained and r.get("tvgId") not in unselected}
+        self.assertEqual(expected_current, current_rows.keys())
+        self.assertEqual({id: value for id, value in expected.items()
+                          if id not in followup_removed and id not in unselected}, current_rows)
         for name in ["ESPN 1 | Chile", "DSports 2 HD"]:
             control = next(r for r in audit["channels"] if r["name"] == name)
             self.assertEqual(["video_ok"] * 3, [c["status"] for c in control["checks"]])
@@ -151,29 +156,20 @@ class NautaReferenceTest(unittest.TestCase):
         deleted = authorized_followup_deletions()
         surviving = restored - deleted
         rows = {r.get("tvgId"): r for r in layout["channels"] if r.get("tvgId") in surviving}
-        self.assertEqual(surviving, set(rows))
-        self.assertEqual(606, len(layout["channels"]))
+        self.assertEqual(set(), set(rows))
+        self.assertEqual(253, len(layout["channels"]))
         self.assertTrue(surviving.isdisjoint(layout["excludedM3u"]))
-        self.assertTrue(surviving.isdisjoint(presentation["excluded_m3u"]))
-        self.assertTrue(surviving.issubset(presentation["trial_m3u"]))
+        self.assertTrue(surviving.issubset(presentation["excluded_m3u"]))
+        self.assertTrue(surviving.isdisjoint(presentation["trial_m3u"]))
+        self.assertTrue(surviving.issubset(previously_listed_nauta_ids()))
         for row in record["channels"]:
             if row["tvgId"] in deleted:
                 continue
-            current = rows[row["tvgId"]]
-            self.assertEqual(row["editorialRow"], current)
-            self.assertNotIn("backupm3u", current)
-            self.assertEqual("active", current["state"])
-            self.assertTrue(current["trial"])
-            self.assertEqual("1.m3u", current["sourceList"])
             self.assertEqual(row["tvgId"], nauta_reference.channel_id(row["name"]))
         for file in ["1.m3u", "m3u.m3u", "channel-catalog.m3u"]:
             channels = [c for c in runner.parse_channels((ROOT/file).read_text(encoding="utf-8").splitlines()) if c.tvg_id in surviving]
-            self.assertEqual(surviving, {c.tvg_id for c in channels})
-            self.assertEqual(len(surviving), len(channels))
-            for c in channels:
-                original = next(r for r in record["channels"] if r["tvgId"] == c.tvg_id)
-                self.assertEqual((original["catalog"], original["name"]), nauta_reference.parse_reference(c.url))
-            self.assertTrue(surviving.issubset(presentation["orders"][file]))
+            self.assertEqual([], channels)
+            self.assertTrue(surviving.isdisjoint(presentation["orders"][file]))
         self.assertEqual(0, len(surviving & {c.tvg_id for c in runner.main_playlist_channels()}))
 
     def test_restoration_reports_failure_and_retest_separately_without_secrets(self):
@@ -213,10 +209,12 @@ class NautaReferenceTest(unittest.TestCase):
         self.assertTrue(removed.isdisjoint({r.get("tvgId") for r in layout["channels"]}))
         self.assertTrue(removed.isdisjoint(presentation["trial_m3u"]))
         self.assertTrue(all(removed.isdisjoint(order) for order in presentation["orders"].values()))
-        self.assertEqual(353, sum(r["kind"] == "m3u" and r["sourceList"] == "1.m3u" and r["tvgId"].endswith("@Nauta") for r in layout["channels"]))
+        self.assertEqual(0, sum(r["kind"] == "m3u" and r["sourceList"] == "1.m3u" and r["tvgId"].endswith("@Nauta") for r in layout["channels"]))
         self.assertFalse(any((r.get("tvgId") or "").endswith("@Nauta") and "24/7" in r.get("name", "") for r in layout["channels"]))
         expected_numbers = {r["tvgId"]: r["number"] for r in record["preservedRows"]}
-        self.assertEqual(expected_numbers, {r["tvgId"]: r["number"] for r in layout["channels"] if r.get("tvgId") in expected_numbers})
+        unselected = previously_listed_nauta_ids()
+        self.assertEqual({id: number for id, number in expected_numbers.items() if id not in unselected},
+                         {r["tvgId"]: r["number"] for r in layout["channels"] if r.get("tvgId") in expected_numbers})
         for file in ["1.m3u", "m3u.m3u", "channel-catalog.m3u"]:
             found = {c.tvg_id for c in runner.parse_channels((ROOT/file).read_text(encoding="utf-8").splitlines())}
             self.assertTrue(removed.isdisjoint(found))
