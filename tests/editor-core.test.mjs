@@ -468,17 +468,29 @@ test("adding several channels at once numbers them in selection order", () => {
   assert.deepEqual(validateLayout(next), []);
 });
 
-test("Nauta selection is one-at-a-time while other source selections remain multi-select", () => {
+test("Nauta candidates can be selected together and toggled independently", () => {
   const first = { kind: "m3u", tvgId: "Nauta.one", name: "Primero" };
   const second = { kind: "m3u", tvgId: "Nauta.two", name: "Segundo" };
-  const one = toggleSelectedAvailableRow(new Map(), first, { single: true });
-  const replaced = toggleSelectedAvailableRow(one, second, { single: true });
-  const multiple = toggleSelectedAvailableRow(one, second);
-  const cleared = toggleSelectedAvailableRow(replaced, second, { single: true });
+  const both = toggleSelectedAvailableRow(toggleSelectedAvailableRow(new Map(), first), second);
+  const oneRemoved = toggleSelectedAvailableRow(both, first);
 
-  assert.deepEqual([...replaced.values()], [second]);
-  assert.equal(multiple.size, 2);
-  assert.equal(cleared.size, 0);
+  assert.deepEqual([...both.values()], [first, second]);
+  assert.deepEqual([...oneRemoved.values()], [second]);
+});
+
+test("multiple selected Nauta rows are appended as trial channels in Lista 1", () => {
+  const candidates = [
+    { kind: "m3u", tvgId: "Nauta.aaaaaaaaaaaaaaaaaaaaaaaa@Nauta", name: "Uno [Nauta]", sourceList: "1.m3u", nautaCatalog: "cat_4", nautaName: "Uno", trial: true },
+    { kind: "m3u", tvgId: "Nauta.bbbbbbbbbbbbbbbbbbbbbbbb@Nauta", name: "Dos [Nauta]", sourceList: "1.m3u", nautaCatalog: "cat_4", nautaName: "Dos", trial: true },
+  ];
+  const selected = candidates.reduce(toggleSelectedAvailableRow, new Map());
+  const layout = [...selected.values()].reduce(addRow, { schemaVersion: 1, channels: [] });
+
+  assert.deepEqual(validateLayout(layout), []);
+  assert.deepEqual(layout.channels.map(({ tvgId, number, sourceList, trial }) => [tvgId, number, sourceList, trial]), [
+    [candidates[0].tvgId, 1, "1.m3u", true],
+    [candidates[1].tvgId, 2, "1.m3u", true],
+  ]);
 });
 
 test("Nauta source creates stable trial rows for Lista 1 without exposing provider resources", () => {

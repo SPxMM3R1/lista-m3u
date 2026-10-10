@@ -19,7 +19,7 @@ export function rowKey(row) {
   return row?.kind === "provider" ? `provider:${row.provider}:${id}` : `m3u:${id}`;
 }
 
-export function toggleSelectedAvailableRow(selectedRows, row, { single = false } = {}) {
+export function toggleSelectedAvailableRow(selectedRows, row) {
   const next = new Map(selectedRows ?? []);
   const key = rowKey(row);
   if (!key || key === "m3u:") return next;
@@ -27,7 +27,6 @@ export function toggleSelectedAvailableRow(selectedRows, row, { single = false }
     next.delete(key);
     return next;
   }
-  if (single) next.clear();
   next.set(key, row);
   return next;
 }

@@ -1470,7 +1470,7 @@ function updateAvailableSourceControls() {
             : catalog?.status === "error"
               ? `${catalog.error} Usa “Actualizar catálogo” para volver a intentar.`
               : catalog?.rows.length
-                ? `${countText(catalog.rows.length, "canal disponible", "canales disponibles")} de ${category?.name ?? "Nauta"}. Añádelos de a uno a Lista 1 en prueba, sin EPG.`
+                ? `${countText(catalog.rows.length, "canal disponible", "canales disponibles")} de ${category?.name ?? "Nauta"}. Puedes seleccionar varios y añadirlos juntos a Lista 1 en prueba, sin EPG.`
                 : category
                   ? `Fuente Nauta · ${category.name}. Los nombres exactos se conservarán para resolverlos al reproducir.`
                   : "Carga el catálogo Nauta para elegir una categoría.";
@@ -1583,8 +1583,7 @@ function renderAvailable() {
       check.setAttribute("aria-hidden", "true");
       item.append(source, check);
       item.addEventListener("click", () => {
-        // Nauta se agrega de a uno; las demás fuentes mantienen selección múltiple.
-        selectedAvailableRows = toggleSelectedAvailableRow(selectedAvailableRows, row, { single: addSource === "nauta" });
+        selectedAvailableRows = toggleSelectedAvailableRow(selectedAvailableRows, row);
         renderAvailable();
       });
       fragment.append(item);
@@ -1598,13 +1597,12 @@ function renderAvailable() {
 function updateAvailableSelection() {
   const count = selectedAvailableRows.size;
   const isNauta = addSource === "nauta";
-  const selectedRow = isNauta ? selectedAvailableRows.values().next().value : null;
   elements.addSelected.disabled = count === 0;
   if (isNauta) {
-    elements.addSelected.textContent = count ? "Añadir este canal" : "Añadir canal";
+    elements.addSelected.textContent = count ? `Añadir seleccionados (${count})` : "Añadir seleccionados";
     elements.availableSelectionNote.textContent = count
-      ? `Se agregará «${selectedRow?.name ?? "este canal"}» a Lista 1, en prueba y sin EPG.`
-      : "Selecciona un canal para agregarlo individualmente a Lista 1, en prueba y sin EPG.";
+      ? `${countText(count, "canal Nauta marcado", "canales Nauta marcados")}. ${count === 1 ? "Se añadirá" : "Se añadirán juntos"} a Lista 1, en prueba y sin EPG.`
+      : "Selecciona uno o varios canales Nauta para añadirlos juntos a Lista 1, en prueba y sin EPG.";
     return;
   }
   elements.addSelected.textContent = count ? `Añadir seleccionados (${count})` : "Añadir seleccionados";
