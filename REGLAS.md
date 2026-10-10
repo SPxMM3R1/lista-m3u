@@ -17,6 +17,8 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
 
 - Nauta es una fuente candidata del editor **local** y se incorpora solo cuando el usuario selecciona explícitamente uno o varios canales candidatos en una acción; no se importa el catálogo completo ni se repone automáticamente. Los no seleccionados no figuran en el layout, inventario canónico, Lista 1/2 ni EPG. Al añadirlos: Lista 1, en prueba y sin EPG. ID editorial determinista por nombre exacto con región/calidad original (`Nauta.<SHA256(nombre exacto)[:24]>@Nauta`); localizador tokenless catálogo + nombre, nunca el ID opaco del addon ni enlace HLS. Las exclusiones de membresía de la lista publicada no deben tombstonear candidatos; las bajas históricas explícitas sí permanecen excluidas del selector. La app consulta los recursos actuales en RAM y valida HLS/segmento. No se infieren logos ni EPG. Compatible con VibeM3U 0.5.81+.
 
+- La vista «Todos los canales» de Nauta reúne todos los catálogos TV del manifiesto y conserva en cada candidato su categoría real para resolverlo. Las bajas históricas pueden verse identificadas como retiradas, pero no seleccionarse; esto no equivale a restaurarlas. Si falla alguna categoría, la vista completa muestra el error y pide reintentar.
+
 - Nauta base y HD son filas independientes; no emparejarlas ni ocultar una como respaldo de la otra. El localizador Nauta sirve para resolver esa fila al reproducir, no es una URL directa de respaldo.
 
 - Identidad estable: `tvg-id` (M3U), `catalogKey` (Highfly) y `countryKey|alias` (TvVoo).

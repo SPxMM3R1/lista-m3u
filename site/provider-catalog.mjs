@@ -101,6 +101,48 @@ export function parseNautaCatalog(document, category) {
   return rows;
 }
 
+export async function loadAllNautaCatalogs(
+  categories,
+  { loadCatalog, concurrency = 4, onProgress } = {},
+) {
+  const list = Array.isArray(categories) ? categories.filter((item) => NAUTA_CATEGORY_ID.test(item?.id)) : [];
+  if (!list.length || typeof loadCatalog !== "function") {
+    throw new Error("Carga primero las categorías Nauta para consultar el catálogo completo.");
+  }
+  const results = new Array(list.length);
+  const failures = [];
+  const workers = Math.max(1, Math.min(Number(concurrency) || 4, list.length));
+  let next = 0;
+  let completed = 0;
+  async function run() {
+    while (next < list.length) {
+      const index = next++;
+      const category = list[index];
+      try {
+        const rows = await loadCatalog(category);
+        if (!Array.isArray(rows) || rows.some((row) => row.nautaCatalog !== category.id)) {
+          throw new Error("Nauta devolvió canales de otra categoría.");
+        }
+        results[index] = rows;
+      } catch {
+        failures.push(category.name || category.id);
+      } finally {
+        completed++;
+        onProgress?.(completed, list.length);
+      }
+    }
+  }
+  await Promise.all(Array.from({ length: workers }, run));
+  if (failures.length) {
+    throw new Error(`No se completó el catálogo Nauta: fallaron ${failures.length} de ${list.length} categorías (${failures.join(", ")}). Actualiza el catálogo para reintentar.`);
+  }
+  const unique = new Map();
+  for (const rows of results) {
+    for (const row of rows) if (!unique.has(row.tvgId)) unique.set(row.tvgId, row);
+  }
+  return [...unique.values()].sort((left, right) => left.nautaName.localeCompare(right.nautaName, "es", { numeric: true, sensitivity: "base" }));
+}
+
 export function normalizeProviderName(value) {
   return text(value, 512).normalize("NFD").replace(/\p{M}+/gu, "").toLowerCase().replace(/[^a-z0-9]+/g, "");
 }

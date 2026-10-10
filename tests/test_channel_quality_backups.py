@@ -26,37 +26,48 @@ class NautaChannelsAreOptInTest(unittest.TestCase):
         cls.layout = json.loads((ROOT / "data/channel-editor-layout.json").read_text(encoding="utf-8"))
         cls.presentation = json.loads((ROOT / "presentation-overrides.json").read_text(encoding="utf-8"))
         cls.nauta_ids = current_nauta_ids()
+        cls.selected_nauta = {
+            row["tvgId"]: row for row in cls.layout["channels"]
+            if str(row.get("tvgId", "")).startswith("Nauta.")
+        }
 
-    def test_current_nauta_is_absent_from_working_catalog_and_can_be_readded(self):
+    def test_unselected_nauta_remains_opt_in_and_selected_rows_are_trial(self):
         self.assertEqual(353, len(self.nauta_ids))
-        self.assertTrue(self.nauta_ids.isdisjoint(row.get("tvgId") for row in self.layout["channels"]))
-        self.assertTrue(self.nauta_ids.issubset(self.presentation["excluded_m3u"]))
+        unselected = self.nauta_ids - self.selected_nauta.keys()
+        self.assertTrue(unselected.isdisjoint(row.get("tvgId") for row in self.layout["channels"]))
+        self.assertTrue(unselected.issubset(self.presentation["excluded_m3u"]))
         # These are publication exclusions, not trash/tombstones: the live Nauta tab
-        # checks layout.excludedM3u, so the previously active 353 remain selectable.
-        self.assertTrue(self.nauta_ids.isdisjoint(self.layout["excludedM3u"]))
-        self.assertTrue(self.nauta_ids.isdisjoint(self.presentation["trial_m3u"]))
+        # checks layout.excludedM3u, so previously active unselected rows remain selectable.
+        self.assertTrue(unselected.isdisjoint(self.layout["excludedM3u"]))
+        self.assertTrue(unselected.isdisjoint(self.presentation["trial_m3u"]))
+        self.assertTrue(all(row["state"] == "active" and row["trial"] and row["sourceList"] == "1.m3u"
+                            for row in self.selected_nauta.values()))
+        self.assertTrue(self.selected_nauta.keys() <= set(self.presentation["trial_m3u"]))
+        self.assertTrue(self.selected_nauta.keys().isdisjoint(self.presentation["excluded_m3u"]))
         for order in self.presentation["orders"].values():
-            self.assertTrue(self.nauta_ids.isdisjoint(order))
+            self.assertTrue(unselected.isdisjoint(order))
         for filename in ["channel-catalog.m3u", "m3u.m3u", "1.m3u", "m3u-externa.m3u", "2.m3u"]:
             channels = runner.parse_channels((ROOT / filename).read_text(encoding="utf-8").splitlines())
-            self.assertTrue(self.nauta_ids.isdisjoint(channel.tvg_id for channel in channels), filename)
+            self.assertTrue(unselected.isdisjoint(channel.tvg_id for channel in channels), filename)
         self.assertEqual((ROOT / "m3u.m3u").read_bytes(), (ROOT / "1.m3u").read_bytes())
 
-    def test_no_active_nauta_rows_or_nauta_backup_links_remain(self):
+    def test_nauta_rows_are_explicit_and_not_backup_links(self):
         nauta_rows = [row for row in self.layout["channels"] if str(row.get("tvgId", "")).startswith("Nauta.")]
-        self.assertEqual([], nauta_rows)
+        self.assertEqual(set(self.selected_nauta), {row["tvgId"] for row in nauta_rows})
         self.assertTrue(all(
             not str(backup).startswith("Nauta.")
             for row in self.layout["channels"]
             for backup in row.get("backupm3u", [])
         ))
 
-    def test_runner_does_not_repopulate_candidates_without_editor_rows(self):
+    def test_runner_materializes_only_explicit_editor_rows(self):
         lines = (ROOT / "channel-catalog.m3u").read_text(encoding="utf-8").splitlines()
-        self.assertFalse(runner.apply_editor_nauta_channels(lines))
-        self.assertTrue(self.nauta_ids.isdisjoint(
-            channel.tvg_id for channel in runner.parse_channels(lines)
-        ))
+        before = {channel.tvg_id for channel in runner.parse_channels(lines)}
+        changed = runner.apply_editor_nauta_channels(lines)
+        after = {channel.tvg_id for channel in runner.parse_channels(lines)}
+        self.assertEqual(bool(self.selected_nauta.keys() - before), changed)
+        self.assertEqual(self.selected_nauta.keys() - before, after - before)
+        self.assertTrue((self.nauta_ids - self.selected_nauta.keys()).isdisjoint(after))
 
     def test_existing_http_backups_are_preserved(self):
         rows = {

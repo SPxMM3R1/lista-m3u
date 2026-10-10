@@ -28,6 +28,7 @@ import {
 import {
   canonicalTvVooAlias,
   highflyIdentity,
+  loadAllNautaCatalogs,
   loadAllTvVooCatalogs,
   loadHighflyCatalog,
   loadTvVooCatalog,
@@ -122,9 +123,11 @@ test("short list aliases keep the same order as their long names", () => {
 test("presentation export writes stable order and local-logo references", () => {
   const layout = sampleLayout();
   layout.channels[0].logoOverride = "logos/tvn.png";
-  const result = buildPresentationOverrides(layout, { schema: 1, orders: {}, info_lines: {}, logos: {}, assets: [] });
+  const result = buildPresentationOverrides(layout, {
+    schema: 1, orders: { "channel-catalog.m3u": ["catalog-only", "0104"] }, info_lines: {}, logos: {}, assets: [],
+  });
   assert.deepEqual(result.orders["m3u.m3u"], ["0104"]);
-  assert.ok(result.orders["channel-catalog.m3u"].includes("SkySportsF1.uk"));
+  assert.deepEqual(result.orders["channel-catalog.m3u"], ["catalog-only", "0104"]);
   assert.equal(result.logos["0104"], "logos/tvn.png");
 });
 
@@ -257,7 +260,7 @@ test("assigning a channel to an occupied number shifts that number and later cha
   assert.ok(ordered.indexOf(moved.channels.find((row) => rowKey(row) === rowKey(selected)))
     < ordered.indexOf(moved.channels.find((row) => rowKey(row) === rowKey(existingTwentyOne))));
   const publishedOrder = buildPresentationOverrides(moved, { schema: 1, orders: {}, logos: {} })
-    .orders["channel-catalog.m3u"];
+    .orders["m3u.m3u"];
   assert.ok(publishedOrder.indexOf(selected.tvgId)
     < publishedOrder.indexOf(existingTwentyOne.tvgId));
 });
@@ -533,6 +536,60 @@ test("Nauta source creates stable trial rows for Lista 1 without exposing provid
   assert.deepEqual(presentation.orders["m3u.m3u"], [rows[0].tvgId]);
   assert.deepEqual(presentation.trial_m3u, [rows[0].tvgId]);
   assert.equal(presentation.excluded_m3u.includes(rows[0].tvgId), false);
+});
+
+test("the complete Nauta view combines every category without truncation or changing locators", async () => {
+  const categories = [
+    { id: "nautatv_catalog", name: "Portada" },
+    { id: "cat_1", name: "Entretenimiento" },
+    { id: "cat_4", name: "Deportes" },
+  ];
+  const makeRows = (category, offset) => Array.from({ length: 170 }, (_, index) => {
+    const ordinal = index + offset;
+    return {
+      tvgId: `Nauta.${String(ordinal).padStart(24, "0")}@Nauta`,
+      nautaName: `Canal ${ordinal}`,
+      nautaCatalog: category.id,
+    };
+  });
+  const byCategory = new Map([
+    ["nautatv_catalog", makeRows(categories[0], 0)],
+    ["cat_1", makeRows(categories[1], 169)],
+    ["cat_4", makeRows(categories[2], 339)],
+  ]);
+  const progress = [];
+  let active = 0;
+  let maximumActive = 0;
+  const rows = await loadAllNautaCatalogs(categories, {
+    concurrency: 2,
+    loadCatalog: async (category) => {
+      active++;
+      maximumActive = Math.max(maximumActive, active);
+      await new Promise((resolve) => setTimeout(resolve, category.id === "nautatv_catalog" ? 10 : 1));
+      active--;
+      return byCategory.get(category.id);
+    },
+    onProgress: (done, total) => progress.push([done, total]),
+  });
+  assert.equal(rows.length, 509);
+  assert.equal(maximumActive, 2);
+  assert.deepEqual(progress.at(-1), [3, 3]);
+  assert.equal(rows.find((row) => row.nautaName === "Canal 169").nautaCatalog, "nautatv_catalog");
+  assert.equal(rows.find((row) => row.nautaName === "Canal 508").nautaCatalog, "cat_4");
+  assert.equal(rows[0].nautaName, "Canal 0");
+});
+
+test("the complete Nauta view fails visibly when any category is unavailable", async () => {
+  const categories = [
+    { id: "nautatv_catalog", name: "Portada" },
+    { id: "cat_4", name: "Deportes" },
+  ];
+  await assert.rejects(loadAllNautaCatalogs(categories, {
+    loadCatalog: async (category) => {
+      if (category.id === "cat_4") throw new Error("Sin conexión");
+      return [{ tvgId: "Nauta.aaaaaaaaaaaaaaaaaaaaaaaa@Nauta", nautaName: "Uno", nautaCatalog: category.id }];
+    },
+  }), /fallaron 1 de 2 categorías \(Deportes\)/);
 });
 
 test("change review counts Highfly locator rotations without counting new rows", () => {

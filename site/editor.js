@@ -26,6 +26,7 @@ import {
 } from "./editor-core.mjs";
 import {
   loadAllTvVooCatalogs,
+  loadAllNautaCatalogs,
   loadHighflyCatalog,
   loadTvVooCatalog,
   loadTvVooManifest,
@@ -137,7 +138,8 @@ let activeView = "active";
 let sourceFilter = "all";
 let addSource = "m3u";
 let selectedTvVooCatalogId = "vavoo_tv_es";
-let selectedNautaCategoryId = "nautatv_catalog";
+const NAUTA_ALL_ID = "all-nauta-categories";
+let selectedNautaCategoryId = NAUTA_ALL_ID;
 let selectedKey = "";
 let selectedAvailableRows = new Map();
 let activeLogoFilter = "current";
@@ -374,6 +376,7 @@ async function initialize() {
     const first = state.layout.channels.filter((row) => row.state === "active").sort(compareRows)[0];
     selectedKey = first ? rowKey(first) : "";
     render();
+    $("#add-channel-button").disabled = false;
     if (logoSuggestions.suggested) {
       showToast(`Se asignaron ${countText(logoSuggestions.suggested, "logo", "logos")} del catálogo o del historial. Publica para guardarlos.`);
     }
@@ -1316,7 +1319,7 @@ function tvvooCatalogEntry(catalogId) {
 
 function nautaCatalogEntry(catalogId) {
   if (!providerCache.nauta.catalogs.has(catalogId)) {
-    providerCache.nauta.catalogs.set(catalogId, { rows: [], loadedAt: 0, status: "idle", error: "", pending: null, requestId: 0 });
+    providerCache.nauta.catalogs.set(catalogId, { rows: [], loadedAt: 0, status: "idle", error: "", pending: null, requestId: 0, progress: null });
   }
   return providerCache.nauta.catalogs.get(catalogId);
 }
@@ -1341,12 +1344,17 @@ function setTvVooCountries(countries) {
 }
 
 function setNautaCategories(categories) {
-  elements.nautaCategory.replaceChildren(...categories.map((category) => {
-    const option = node("option", "", category.name);
+  const options = [{ id: NAUTA_ALL_ID, name: "Todos los canales · catálogo completo" }, ...categories];
+  elements.nautaCategory.replaceChildren(...options.map((category) => {
+    const option = node("option", "", nautaCategoryLabel(category));
     option.value = category.id;
     return option;
   }));
   elements.nautaCategory.value = selectedNautaCategoryId;
+}
+
+function nautaCategoryLabel(category) {
+  return category.id === "nautatv_catalog" ? "Portada Nauta" : category.name;
 }
 
 function invalidateProviderRequest(source) {
@@ -1430,7 +1438,10 @@ function updateAvailableSourceControls() {
   document.querySelector('[data-source-count="tvvoo"]').textContent = providerCache.tvvoo.countries.length
     ? `${providerCache.tvvoo.countries.length} países`
     : providerCache.tvvoo.status === "loading" ? "…" : "—";
-  document.querySelector('[data-source-count="nauta"]').textContent = providerCache.nauta.categories.length
+  const nautaAll = providerCache.nauta.catalogs.get(NAUTA_ALL_ID);
+  document.querySelector('[data-source-count="nauta"]').textContent = nautaAll?.status === "ready"
+    ? `${nautaAll.rows.length} canales`
+    : providerCache.nauta.categories.length
     ? `${providerCache.nauta.categories.length} cat.`
     : providerCache.nauta.status === "loading" ? "…" : "—";
 
@@ -1458,7 +1469,10 @@ function updateAvailableSourceControls() {
   if (addSource === "nauta") {
     const source = providerCache.nauta;
     const catalog = source.catalogs.get(selectedNautaCategoryId) ?? null;
-    const category = source.categories.find((item) => item.id === selectedNautaCategoryId);
+    const category = selectedNautaCategoryId === NAUTA_ALL_ID
+      ? { name: "todas las categorías" }
+      : source.categories.find((item) => item.id === selectedNautaCategoryId);
+    const categoryLabel = category ? nautaCategoryLabel(category) : "Nauta";
     elements.providerStatus.textContent = !LOCAL_MODE
       ? "Nauta solo se consulta desde el editor local. Abre la web con el auxiliar de VibeM3U."
       : source.status === "loading"
@@ -1466,13 +1480,15 @@ function updateAvailableSourceControls() {
         : source.status === "error"
           ? `${source.error} Usa “Actualizar catálogo” para volver a intentar.`
           : catalog?.status === "loading"
-            ? `Cargando canales de ${category?.name ?? "Nauta"}…`
+            ? catalog.progress
+              ? `Cargando ${catalog.progress.done} de ${catalog.progress.total} categorías Nauta…`
+              : `Cargando canales de ${categoryLabel}…`
             : catalog?.status === "error"
               ? `${catalog.error} Usa “Actualizar catálogo” para volver a intentar.`
               : catalog?.rows.length
-                ? `${countText(catalog.rows.length, "canal disponible", "canales disponibles")} de ${category?.name ?? "Nauta"}. Puedes seleccionar varios y añadirlos juntos a Lista 1 en prueba, sin EPG.`
+                ? `${countText(catalog.rows.length, "canal encontrado", "canales encontrados")} en ${categoryLabel}. Los ya agregados o retirados se muestran sin poder seleccionarse; puedes añadir varios de los demás a Lista 1 en prueba, sin EPG.`
                 : category
-                  ? `Fuente Nauta · ${category.name}. Los nombres exactos se conservarán para resolverlos al reproducir.`
+                  ? `Fuente Nauta · ${categoryLabel}. Los nombres exactos se conservarán para resolverlos al reproducir.`
                   : "Carga el catálogo Nauta para elegir una categoría.";
     elements.providerStatus.dataset.state = !LOCAL_MODE || source.status === "error" || catalog?.status === "error"
       ? "error"
@@ -1522,17 +1538,15 @@ function sourceCandidates() {
 
 function availableRows() {
   const present = new Set(state.layout.channels.map(rowKey));
-  const existingM3uIds = new Set(state.catalog.filter((row) => row.kind === "m3u").map((row) => row.tvgId));
-  const excludedM3uIds = new Set(state.layout.excludedM3u ?? []);
   const unique = new Map();
   for (const row of sourceCandidates()) {
     const key = rowKey(row);
-    if (!key || present.has(key)) continue;
-    if (addSource === "nauta" && (existingM3uIds.has(row.tvgId) || excludedM3uIds.has(row.tvgId))) continue;
+    if (!key || (addSource !== "nauta" && present.has(key))) continue;
     unique.set(key, row);
   }
   const query = elements.availableSearch.value.trim().toLocaleLowerCase("es");
-  return [...unique.values()].filter(rowVisible).filter((row) => !query || rowSearchText(row).includes(query));
+  return [...unique.values()].filter((row) => addSource === "nauta" || rowVisible(row))
+    .filter((row) => !query || rowSearchText(row).includes(query));
 }
 
 function renderAvailable() {
@@ -1562,18 +1576,28 @@ function renderAvailable() {
         : "No hay canales nuevos con esa búsqueda. Prueba otro nombre o país.";
     fragment.append(node("p", "available-empty", emptyText));
   } else {
-    rows.slice(0, 250).forEach((row) => {
+    const nautaPresent = new Set(state.layout.channels.map((row) => row.tvgId));
+    const nautaPublished = new Set(state.catalog.filter((row) => row.kind === "m3u").map((row) => row.tvgId));
+    const nautaRetired = new Set(state.layout.excludedM3u ?? []);
+    const displayedRows = addSource === "nauta" ? rows : rows.slice(0, 250);
+    displayedRows.forEach((row) => {
       const key = rowKey(row);
-      const selected = selectedAvailableRows.has(key);
+      const unavailable = row.nautaCatalog
+        ? nautaPresent.has(row.tvgId) ? "Ya agregado"
+          : nautaPublished.has(row.tvgId) ? "Ya publicado"
+          : nautaRetired.has(row.tvgId) ? "Retirado anteriormente" : ""
+        : "";
+      const selected = !unavailable && selectedAvailableRows.has(key);
       const item = document.createElement("button");
       item.type = "button";
-      item.className = `available-row${selected ? " is-checked" : ""}`;
+      item.className = `available-row${selected ? " is-checked" : ""}${unavailable ? " is-unavailable" : ""}`;
+      item.disabled = Boolean(unavailable);
       item.setAttribute("aria-pressed", String(selected));
       item.append(makeLogo(row));
       item.append(node("span", "available-name", row.name));
       const variantCount = Array.isArray(row.options) ? row.options.length : 0;
       const sourceText = row.nautaCatalog
-        ? "Nauta · en prueba"
+        ? unavailable || `Nauta · ${row.nautaCatalog === "nautatv_catalog" ? "Portada" : row.category}`
         : row.provider === "highfly"
         ? `${row.identityState === "provisional" ? "Highfly · provisional" : "Highfly"}${variantCount > 1 ? ` · ${variantCount} señales` : ""}`
         : sourceName(row);
@@ -1588,7 +1612,7 @@ function renderAvailable() {
       });
       fragment.append(item);
     });
-    if (rows.length > 250) fragment.append(node("p", "available-empty", `Hay ${rows.length} opciones; afina la búsqueda para verlas.`));
+    if (addSource !== "nauta" && rows.length > 250) fragment.append(node("p", "available-empty", `Hay ${rows.length} opciones; afina la búsqueda para verlas.`));
   }
   elements.availableList.replaceChildren(fragment);
   updateAvailableSelection();
@@ -1618,6 +1642,7 @@ function addSelectedChannels() {
   for (const row of selectedAvailableRows.values()) {
     const key = rowKey(row);
     if (layout.channels.some((candidate) => rowKey(candidate) === key)) continue;
+    if (row.nautaCatalog && (layout.excludedM3u ?? []).includes(row.tvgId)) continue;
     const logoPath = row.logoOverride || row.logoPath || suggestLogo(row, logoContext());
     layout = addRow(layout, logoPath ? { ...row, logoPath } : row);
     addedKeys.push(key);
@@ -1860,8 +1885,8 @@ async function ensureNautaCategories(force = false) {
       source.categories = categories;
       source.loadedAt = Date.now();
       source.status = "ready";
-      if (!categories.some((item) => item.id === selectedNautaCategoryId)) {
-        selectedNautaCategoryId = categories.find((item) => item.id === "nautatv_catalog")?.id ?? categories[0].id;
+      if (selectedNautaCategoryId !== NAUTA_ALL_ID && !categories.some((item) => item.id === selectedNautaCategoryId)) {
+        selectedNautaCategoryId = NAUTA_ALL_ID;
       }
       setNautaCategories(categories);
       return categories;
@@ -1884,29 +1909,46 @@ async function ensureNautaCategories(force = false) {
 
 async function ensureNautaCatalog(categoryId = selectedNautaCategoryId, force = false) {
   await ensureNautaCategories();
-  const category = providerCache.nauta.categories.find((item) => item.id === categoryId);
+  const allCategories = categoryId === NAUTA_ALL_ID;
+  const category = allCategories
+    ? { id: NAUTA_ALL_ID, name: "todas las categorías" }
+    : providerCache.nauta.categories.find((item) => item.id === categoryId);
   if (!category) throw new Error("La categoría Nauta ya no está disponible. Actualiza la fuente.");
   const catalog = nautaCatalogEntry(categoryId);
   if (!force && catalog.pending) return catalog.pending;
   if (!force && catalog.rows.length && Date.now() - catalog.loadedAt < PROVIDER_CACHE_MS) return catalog.rows;
   catalog.status = "loading";
   catalog.error = "";
+  catalog.progress = allCategories ? { done: 0, total: providerCache.nauta.categories.length } : null;
   renderAvailable();
   const requestId = ++catalog.requestId;
   let pending;
-  pending = fetchLocalNauta(`/api/nauta/catalog?category=${encodeURIComponent(categoryId)}`)
-    .then((document) => parseNautaCatalog(document, category))
+  const loadOne = (item) => fetchLocalNauta(`/api/nauta/catalog?category=${encodeURIComponent(item.id)}`)
+    .then((document) => parseNautaCatalog(document, item));
+  const loading = allCategories
+    ? loadAllNautaCatalogs(providerCache.nauta.categories, {
+      loadCatalog: loadOne,
+      onProgress(done, total) {
+        if (catalog.requestId !== requestId) return;
+        catalog.progress = { done, total };
+        renderAvailable();
+      },
+    })
+    : loadOne(category);
+  pending = loading
     .then((rows) => {
       if (catalog.requestId !== requestId) return catalog.rows;
       catalog.rows = rows;
       catalog.loadedAt = Date.now();
       catalog.status = "ready";
+      catalog.progress = null;
       return rows;
     })
     .catch((error) => {
       if (catalog.requestId !== requestId) return catalog.rows;
       catalog.status = "error";
       catalog.error = error.message || "No se pudo leer el catálogo Nauta.";
+      catalog.progress = null;
       throw error;
     })
     .finally(() => {
@@ -1954,6 +1996,7 @@ async function refreshSelectedProviderCatalog() {
 }
 
 function openAddDialog() {
+  if (!state?.layout || !Array.isArray(state.catalog)) return;
   elements.availableSearch.value = "";
   addSource = "m3u";
   selectedAvailableRows.clear();

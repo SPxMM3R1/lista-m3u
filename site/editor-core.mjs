@@ -357,8 +357,8 @@ export function buildPresentationOverrides(layout, original) {
     if (!root[field] || typeof root[field] !== "object" || Array.isArray(root[field])) root[field] = {};
   }
   const notPurged = layout.channels.slice().sort(compareRows);
-  const channelIds = [...new Set(notPurged.map(stableId).filter(Boolean))];
-  if (channelIds.length) root.orders["channel-catalog.m3u"] = channelIds;
+  // channel-catalog.m3u is the runner's full canonical inventory, not the
+  // reduced set of rows selected in this editor. Preserve its independent order.
   const directActive = notPurged.filter((row) => row.kind === "m3u" && row.state === "active");
   const directMain = directActive.filter((row) => row.sourceList === "1.m3u").map(stableId);
   const directExternal = directActive.filter((row) => row.sourceList === "2.m3u").map(stableId);
