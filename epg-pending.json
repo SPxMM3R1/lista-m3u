@@ -1,10 +1,11 @@
 {
   "schema": 1,
-  "updated_at": "2026-10-10T17:08:41.219684Z",
+  "updated_at": "2026-10-10T19:06:16.700249Z",
   "channels": [
     "1437",
     "AlJazeera.qa",
     "DSports2.us@Direct187",
+    "DWEnglish.de",
     "MTVBiggestPop.us",
     "MTVFlowLatino.us",
     "MTVSpankinNew.us",
@@ -13,13 +14,13 @@
   "details": {
     "1437": {
       "kind": "guia-corta",
-      "futureHours": 1.9,
+      "futureHours": 6.2,
       "requiredHours": 18.0,
       "gaps": []
     },
     "AlJazeera.qa": {
       "kind": "guia-corta",
-      "futureHours": 3.9,
+      "futureHours": 1.9,
       "requiredHours": 18.0,
       "gaps": []
     },
@@ -29,21 +30,32 @@
       "requiredHours": 18.0,
       "gaps": []
     },
+    "DWEnglish.de": {
+      "kind": "hueco",
+      "futureHours": 52.9,
+      "requiredHours": 18.0,
+      "gaps": [
+        [
+          "2026-10-11T11:30:00Z",
+          "2026-10-11T12:00:00Z"
+        ]
+      ]
+    },
     "MTVBiggestPop.us": {
       "kind": "guia-corta",
-      "futureHours": 14.1,
+      "futureHours": 12.2,
       "requiredHours": 18.0,
       "gaps": []
     },
     "MTVFlowLatino.us": {
       "kind": "guia-corta",
-      "futureHours": 14.9,
+      "futureHours": 12.9,
       "requiredHours": 18.0,
       "gaps": []
     },
     "MTVSpankinNew.us": {
       "kind": "guia-corta",
-      "futureHours": 14.4,
+      "futureHours": 12.4,
       "requiredHours": 18.0,
       "gaps": []
     },
