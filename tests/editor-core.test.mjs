@@ -681,6 +681,20 @@ test("trial M3U rows are published as trial_m3u and can be promoted", () => {
   assert.deepEqual(buildPresentationOverrides(promoted, presentation).trial_m3u, []);
 });
 
+test("only the exact verified Nauta ESPN 7 reference may be official", () => {
+  const row = {
+    kind: "m3u", tvgId: "Nauta.52bb87a2e2911ed34f7ae3bc@Nauta",
+    name: "ESPN 7 HD [Nauta]", displayName: "ESPN 7", sourceList: "1.m3u",
+    nautaCatalog: "nautatv_catalog", nautaName: "ESPN 7 HD",
+    order: 1, number: 37, state: "active",
+  };
+  const layout = { schemaVersion: 1, excludedM3u: [], channels: [row] };
+  assert.deepEqual(validateLayout(layout), []);
+  assert.deepEqual(buildPresentationOverrides(layout, null).trial_m3u, []);
+  assert.ok(validateLayout({ ...layout, channels: [{ ...row, tvgId: "Nauta.aaaaaaaaaaaaaaaaaaaaaaaa@Nauta" }] }).length);
+  assert.ok(validateLayout({ ...layout, channels: [{ ...row, nautaCatalog: "cat_4" }] }).length);
+});
+
 test("only M3U rows can be in trial", () => {
   const layout = {
     schemaVersion: 1,

@@ -55,8 +55,8 @@ class PublishedEditorialConsistencyTest(unittest.TestCase):
         self.assertIn(removed_id, presentation["excluded_m3u"])
         following = next(row for row in layout["channels"]
                          if row.get("tvgId") == "DSports2.us@Direct187")
-        # 2026-10-06: DSports 2 pasó al 38, antes de los XITE, por pedido del usuario.
-        self.assertEqual((38, "active"), (following["number"], following["state"]))
+        # ESPN 7 se insertó después del 36 el 2026-10-10 y desplaza este canal al 39.
+        self.assertEqual((39, "active"), (following["number"], following["state"]))
         for filename in ["channel-catalog.m3u", "m3u.m3u", "1.m3u"]:
             with self.subTest(filename=filename):
                 ids = {channel.tvg_id for channel in runner.parse_channels(

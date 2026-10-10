@@ -60,6 +60,21 @@ class NautaEditorSourceTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "solo a Lista 1 y en prueba"):
             runner.apply_editor_nauta_channels(["#EXTM3U"], self.layout_path)
 
+        row = dict(self.row)
+        del row["trial"]
+        self.write_layout(row)
+        with self.assertRaisesRegex(ValueError, "salvo ESPN 7"):
+            runner.apply_editor_nauta_channels(["#EXTM3U"], self.layout_path)
+
+    def test_only_verified_espn7_reference_may_be_official(self):
+        row = dict(self.row, tvgId="Nauta.52bb87a2e2911ed34f7ae3bc@Nauta",
+                   nautaCatalog="nautatv_catalog", nautaName="ESPN 7 HD", name="ESPN 7")
+        del row["trial"]
+        self.write_layout(row)
+        lines = ["#EXTM3U"]
+        self.assertTrue(runner.apply_editor_nauta_channels(lines, self.layout_path))
+        self.assertEqual("ESPN 7", runner.parse_channels(lines)[0].name)
+
     def test_existing_matching_reference_is_not_duplicated_or_rewritten(self):
         self.write_layout()
         original = [

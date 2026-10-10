@@ -9,6 +9,10 @@ function isNautaM3uRow(row) {
   return row?.kind === "m3u" && (row.nautaCatalog !== undefined || /^Nauta\./i.test(String(row.tvgId ?? "")));
 }
 
+const OFFICIAL_NAUTA_REFERENCES = new Set([
+  "Nauta.52bb87a2e2911ed34f7ae3bc@Nauta|nautatv_catalog|ESPN 7 HD",
+]);
+
 export function stableId(row) {
   const value = row?.kind === "provider" ? row.catalogKey : row?.tvgId;
   return typeof value === "string" ? value : "";
@@ -154,8 +158,10 @@ export function validateLayout(layout) {
         && typeof row.nautaName === "string" && row.nautaName.trim().length > 0 && row.nautaName.length <= 200
         && !/[\u0000-\u001f\u007f\\?#]/.test(row.nautaName) && !row.nautaName.includes("://")
         && /^Nauta\.[a-f0-9]{24}@Nauta$/.test(row.tvgId ?? "")
-        && row.sourceList === "1.m3u" && row.trial === true;
-      if (!validNauta) problems.push(`${row.name || id}: la referencia Nauta requiere identidad estable, Lista 1 y estado de prueba.`);
+        && row.sourceList === "1.m3u"
+        && (row.trial === true || (row.trial === undefined
+          && OFFICIAL_NAUTA_REFERENCES.has(`${row.tvgId}|${row.nautaCatalog}|${row.nautaName}`)));
+      if (!validNauta) problems.push(`${row.name || id}: la referencia Nauta requiere identidad estable, Lista 1 y estado de prueba (salvo ESPN 7 verificado).`);
     }
     const visibleFields = [row.name, row.displayName, row.group, row.category, row.country, row.countryKey, row.nautaName, row.alias, row.aliases, row.resolverAliases];
     const flatValues = visibleFields.flatMap((value) => Array.isArray(value) ? value : [value]);

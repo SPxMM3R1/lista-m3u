@@ -6,6 +6,7 @@ import update_m3u as runner
 
 
 ROOT = Path(__file__).resolve().parents[1]
+OFFICIAL_ESPN7 = "Nauta.52bb87a2e2911ed34f7ae3bc@Nauta"
 
 
 def current_nauta_ids():
@@ -31,7 +32,7 @@ class NautaChannelsAreOptInTest(unittest.TestCase):
             if str(row.get("tvgId", "")).startswith("Nauta.")
         }
 
-    def test_unselected_nauta_remains_opt_in_and_selected_rows_are_trial(self):
+    def test_unselected_nauta_remains_opt_in_and_only_espn7_is_official(self):
         self.assertEqual(353, len(self.nauta_ids))
         unselected = self.nauta_ids - self.selected_nauta.keys()
         self.assertTrue(unselected.isdisjoint(row.get("tvgId") for row in self.layout["channels"]))
@@ -40,9 +41,18 @@ class NautaChannelsAreOptInTest(unittest.TestCase):
         # checks layout.excludedM3u, so previously active unselected rows remain selectable.
         self.assertTrue(unselected.isdisjoint(self.layout["excludedM3u"]))
         self.assertTrue(unselected.isdisjoint(self.presentation["trial_m3u"]))
-        self.assertTrue(all(row["state"] == "active" and row["trial"] and row["sourceList"] == "1.m3u"
+        self.assertTrue(all(row["state"] == "active" and row["sourceList"] == "1.m3u"
                             for row in self.selected_nauta.values()))
-        self.assertTrue(self.selected_nauta.keys() <= set(self.presentation["trial_m3u"]))
+        self.assertEqual({OFFICIAL_ESPN7}, {key for key, row in self.selected_nauta.items() if "trial" not in row})
+        self.assertEqual(self.selected_nauta.keys() - {OFFICIAL_ESPN7},
+                         set(self.presentation["trial_m3u"]) & self.selected_nauta.keys())
+        self.assertEqual("ESPN 7", self.selected_nauta[OFFICIAL_ESPN7]["displayName"])
+        self.assertEqual(37, self.selected_nauta[OFFICIAL_ESPN7]["number"])
+        self.assertEqual("logos/espn-7.png", self.selected_nauta[OFFICIAL_ESPN7]["logoOverride"])
+        self.assertEqual("ESPN 7", self.presentation["names"][OFFICIAL_ESPN7])
+        self.assertEqual("logos/espn-7.png", self.presentation["logos"][OFFICIAL_ESPN7])
+        self.assertIn(OFFICIAL_ESPN7, {c.tvg_id for c in runner.main_playlist_channels()})
+        self.assertIn(("co1", "ESPN.7.HD.co"), runner.epg_source_chain(OFFICIAL_ESPN7))
         self.assertTrue(self.selected_nauta.keys().isdisjoint(self.presentation["excluded_m3u"]))
         for order in self.presentation["orders"].values():
             self.assertTrue(unselected.isdisjoint(order))

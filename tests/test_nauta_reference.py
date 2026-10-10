@@ -72,6 +72,13 @@ class NautaReferenceTest(unittest.TestCase):
         current["channels"] = [row for row in current["channels"]
                                if not str(row.get("tvgId", "")).startswith("Nauta.")]
         current["excludedM3u"] = sorted(id for id in current["excludedM3u"] if not id.endswith("@Nauta"))
+        # Deshacer solo la inserción editorial ESPN 7 del 10-10 antes de comparar
+        # con el snapshot previo; los registros históricos no se reescriben.
+        for row in current["channels"]:
+            if 38 <= row["order"] <= 261:
+                row["order"] -= 1
+            if row["state"] == "active" and 38 <= row["number"] <= 94:
+                row["number"] -= 1
         digest = hashlib.sha256(json.dumps(current, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
         # The local editor sorts exclusion IDs on publication; their order is not semantic.
         self.assertEqual("74a2e50a8ee7282367ee8a6bd1eb562741b41d551bdd26494eaacad6739f63a2", digest)
@@ -227,7 +234,9 @@ class NautaReferenceTest(unittest.TestCase):
         expected_numbers = {r["tvgId"]: r["number"] for r in record["preservedRows"]}
         unselected = previously_listed_nauta_ids()
         selected = selected_nauta_rows(layout)
-        self.assertEqual({id: number for id, number in expected_numbers.items()
+        current_by_id = {r.get("tvgId"): r for r in layout["channels"]}
+        self.assertEqual({id: number + (1 if 37 <= number <= 93 and current_by_id[id]["state"] == "active" else 0)
+                          for id, number in expected_numbers.items()
                           if id not in unselected and id not in selected},
                          {r["tvgId"]: r["number"] for r in layout["channels"]
                           if r.get("tvgId") in expected_numbers and r.get("tvgId") not in selected})

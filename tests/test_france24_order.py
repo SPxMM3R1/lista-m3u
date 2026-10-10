@@ -51,7 +51,7 @@ class France24OrderTests(unittest.TestCase):
                   else f'm3u:{r["tvgId"]}': r for r in layout["channels"]}
         # Cambios posteriores pedidos por el usuario (2026-10-06): DSports 118→37 y 120→38,
         # ESPN 4 (69→35) y el 68 (ESPN) a la papelera.
-        later_moves = {"m3u:DSports.us@Direct15": 37, "m3u:DSports2.us@Direct187": 38,
+        later_moves = {"m3u:DSports.us@Direct15": 38, "m3u:DSports2.us@Direct187": 39,
                        "m3u:ESPN4.br@Direct181": 35}
         later_deleted = {"m3u:ESPN.us@Direct181"}
         for change in manifest["changes"]:
@@ -62,7 +62,8 @@ class France24OrderTests(unittest.TestCase):
             if change["key"] in later_moves:
                 self.assertEqual((later_moves[change["key"]], "active"), (row["number"], row["state"]))
                 continue
-            self.assertEqual(change["to"], row["number"])
+            expected = change["to"] + (1 if 37 <= change["to"] <= 93 else 0)
+            self.assertEqual(expected, row["number"])
             self.assertEqual("active", row["state"])
             self.assertEqual(19 if change["key"] == f"m3u:{EN}" else change["from"] + 1, change["to"])
 

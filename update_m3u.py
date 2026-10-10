@@ -724,6 +724,9 @@ AUTENTIC_HISTORY_EPG_SOURCE = "autentic-history-oficial"
 AUTENTIC_HISTORY_PAGE = "https://watch.whaletvplus.com/"
 AUTENTIC_HISTORY_CHANNEL_ID = "931186243466302968"
 EPG_PROGRAMME_SOURCES = {
+    # ESPN 7 Sudamérica: la identidad Nauta permanece fija aunque el recurso rote.
+    # EPGShare CO1/UY1 publican la misma parrilla; CO1 ofrece este ID vigente.
+    "Nauta.52bb87a2e2911ed34f7ae3bc@Nauta": ("co1", "ESPN.7.HD.co"),
     "0104": ("cl", "Canal.TVN.(Chile).cl"),
     "0105": ("cl", "Canal.Mega.(Chile).cl"),
     "0106": ("cl", "Canal.Chilevisi\u00f3n.(CHV).cl"),
@@ -3730,7 +3733,7 @@ def apply_editor_nauta_channels(
     """Materialize Nauta rows created by the local editor in the canonical inventory.
 
     Only tokenless category/name locators cross this boundary. Provider resource IDs and stream
-    URLs are deliberately ignored; Nauta remains a List 1 trial source without EPG scope.
+    URLs are deliberately ignored; only the verified ESPN 7 reference may leave trial.
     """
     if not layout_path.is_file():
         return False
@@ -3771,8 +3774,14 @@ def apply_editor_nauta_channels(
             raise ValueError("La referencia Nauta de la fuente local no es valida") from error
         if channel_id != nauta_reference.channel_id(exact_name):
             raise ValueError("El tvg-id Nauta no coincide con el nombre exacto")
-        if row.get("sourceList") != "1.m3u" or row.get("trial") is not True:
-            raise ValueError("Nauta se agrega solo a Lista 1 y en prueba, sin alcance EPG")
+        official_espn7 = (
+            channel_id == "Nauta.52bb87a2e2911ed34f7ae3bc@Nauta"
+            and catalog == "nautatv_catalog"
+            and exact_name == "ESPN 7 HD"
+            and "trial" not in row
+        )
+        if row.get("sourceList") != "1.m3u" or (row.get("trial") is not True and not official_espn7):
+            raise ValueError("Nauta se agrega solo a Lista 1 y en prueba, salvo ESPN 7 verificado")
         if not isinstance(display_name, str) or not display_name.strip() or len(display_name) > 240 \
                 or re.search(r"[\r\n\x00-\x1f\x7f]", display_name):
             raise ValueError("El nombre visible del canal Nauta no es valido")
