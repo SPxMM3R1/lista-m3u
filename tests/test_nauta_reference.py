@@ -135,13 +135,23 @@ class NautaReferenceTest(unittest.TestCase):
 
     def test_cleanup_preserves_other_presentation_and_contains_no_secrets(self):
         audit = json.loads((ROOT/"contracts/nauta-validation-20261008.json").read_text(encoding="utf-8"))
+        presentation = json.loads((ROOT/"presentation-overrides.json").read_text(encoding="utf-8"))
+        nauta_logos = presentation.get("logos", {})
+        nauta_asset_paths = {path for channel_id, path in nauta_logos.items()
+                             if str(channel_id).endswith("@Nauta")}
+        non_nauta_asset_paths = {path for channel_id, path in nauta_logos.items()
+                                 if not str(channel_id).endswith("@Nauta")}
+        nauta_only_assets = nauta_asset_paths - non_nauta_asset_paths
+
         def strip_nauta(value):
             if isinstance(value, list):
-                return [strip_nauta(v) for v in value if not (isinstance(v, str) and v.endswith("@Nauta"))]
+                return [strip_nauta(v) for v in value
+                        if not (isinstance(v, str) and
+                                (v.endswith("@Nauta") or v in nauta_only_assets))]
             if isinstance(value, dict):
                 return {k: strip_nauta(v) for k, v in value.items() if not k.endswith("@Nauta")}
             return value
-        presentation = json.loads((ROOT/"presentation-overrides.json").read_text(encoding="utf-8"))
+
         digest = hashlib.sha256(json.dumps(strip_nauta(presentation), ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
         self.assertEqual(audit["nonNautaPresentationSha256"], digest)
         allowed = {"atUtc", "status", "appResolved", "decoded", "audioDetected", "mediaHttpCodes", "apiHttpCodes", "frameSha256"}
