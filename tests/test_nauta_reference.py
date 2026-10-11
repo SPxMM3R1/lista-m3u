@@ -81,7 +81,7 @@ class NautaReferenceTest(unittest.TestCase):
                 row["number"] -= 1
         digest = hashlib.sha256(json.dumps(current, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
         # The local editor sorts exclusion IDs on publication; their order is not semantic.
-        self.assertEqual("74a2e50a8ee7282367ee8a6bd1eb562741b41d551bdd26494eaacad6739f63a2", digest)
+        self.assertEqual("0ee4c782d0663f27fb6dd5642abb43a7d4edcf97f5908ead317db322dcfbb344", digest)
         text = (ROOT/"data/vibem3u-selection.json").read_text(encoding="utf-8")
         self.assertEqual("66117ce417497d4ca3c3098ada8b74b93dba7353a3a794c062e690761dc96736", hashlib.sha256(text.encode()).hexdigest())
 

@@ -85,7 +85,18 @@ class NautaChannelsAreOptInTest(unittest.TestCase):
             if row.get("kind") == "m3u" and row.get("tvgId")
         }
         self.assertEqual(["TVN.cl@Direct38b", "TVN.cl@Direct45"], rows["0104"]["backupm3u"])
-        self.assertEqual(["T13EnVivo.cl@DPS"], rows["0107"]["backupm3u"])
+
+    def test_canal13_uses_official_signal_first_then_ordered_backups(self):
+        rows = {
+            row["tvgId"]: row for row in self.layout["channels"]
+            if row.get("kind") == "m3u" and row.get("tvgId")
+        }
+        canal13 = rows["0107"]
+        self.assertEqual("Canal 13", canal13["name"])
+        self.assertEqual("active", canal13["state"])
+        self.assertEqual("1.m3u", canal13["sourceList"])
+        self.assertNotIn("preferredM3u", canal13)
+        self.assertEqual(["Canal13.cl@Direct187", "T13EnVivo.cl@DPS"], canal13["backupm3u"])
 
 
 if __name__ == "__main__":

@@ -5,9 +5,11 @@
 > cubre la app). **Al terminar cualquier cambio, actualiza este archivo en el mismo commit**:
 > la sección «Hoy» si cambió el estado y una línea nueva en «Bitácora».
 
-Última actualización: **2026-10-10** (America/Santiago).
+Última actualización: **2026-10-11** (America/Santiago).
 
 ## Hoy, en una mirada
+
+- **Canal 13 oficial como predeterminado**: la fila `0107` permanece en el número 4 y reproduce su señal propia primero. `Canal13.cl@Direct187` pasa a primer respaldo y `T13EnVivo.cl@DPS` queda segundo. La guía oficial, el nombre, logo, número, membresía y app no cambian; un test editorial protege el orden. Validación: 321 Python (1 omitida) y 48 JS.
 
 - **ESPN 7 después del 36 — publicado**: el Nauta antes número 94 está activo en el 37, mostrado como `ESPN 7`, sin `trial`, con logo local y guía en Lista 1; la referencia de reproducción permanece `nautatv_catalog|ESPN 7 HD`. Commit editorial `f22c009`; runner original `38089626317` success y EPG `38089703472` success. El fallo posterior de test en `38090017826` se reparó en `0f41b99`: el digest de presentación no Nauta quita logos de assets solo cuando pertenecen exclusivamente a filas Nauta, preservando rutas compartidas. Validación: 320 pruebas Python (1 omitida) y 48 JS; Pages `38090653457` success. Runner revalidado `38090677815` success; commits generados `f65584c` y `03ef421`. EPG revalidada `38090766510` success, salida `616ba41`: 35 programas CO1, `parrilla real`, no pendiente, hasta el 12-10 22:00 CL; `epg.xml` SHA256 `69003b8417cad6177a516e33641acdac4e1748b7cc8268b256e158803403f716`. El fotograma Nauta decodificado el 10-10 mostró PSG–Arsenal mientras la guía de ese instante indicaba ESPN KnockOut: la guía publicada no demuestra sincronía exacta con esa muestra. Sin cambios en app ni resolutor. VibeM3U `0.5.88` (`e6dcb3a`) sin cambios; `:app:testDebugUnitTest` pasó.
 
@@ -115,6 +117,8 @@
   nuevo por captura.
 
 ## Bitácora (más reciente arriba)
+
+- **2026-10-11 / Canal 13 oficial como predeterminado**: se retiró `preferredM3u=Canal13.cl@Direct187` de `0107`; ahora la señal propia oficial abre primero y conserva los respaldos en orden `Canal13.cl@Direct187` → `T13EnVivo.cl@DPS`. Las tres filas permanecen activas en Lista 1, pero la app agrupa las referencias bajo Canal 13. No se modificaron M3U/EPG/selección, identidad, presentación ni VibeM3U; se agregó una regresión editorial. Suite completa: 321 pruebas Python (1 omitida) y 48 JS, todas las ejecutables en verde.
 
 - **2026-10-10 / reparación de test y republicación ESPN 7**: se corrigió `test_cleanup_preserves_other_presentation_and_contains_no_secrets`; la huella de preservación excluye el asset asociado a filas Nauta solo cuando ninguna identidad no Nauta lo comparte. La corrida previa `38090017826` había fallado en esa prueba, no al resolver/publicar ESPN 7. Commit `0f41b99` publicado; Pages `38090653457` pasó todas las pruebas. El runner relanzado `38090677815` pasó sus cinco proveedores, suite del runner, membresía y publicación; sus salidas `f65584c` y `03ef421` preservan ESPN 7 como #37. EPG automática `38090766510` pasó y generó `616ba41`; ESPN 7 queda con 35 programas CO1, fuente `parrilla real`, no pendiente y EPG con SHA256 `69003b8417cad6177a516e33641acdac4e1748b7cc8268b256e158803403f716`. Suite local tras esos outputs: 320 Python (1 omitida) y 48 JS. La muestra de vídeo antigua PSG–Arsenal aún no basta para asegurar alineación temporal perfecta con la guía.
 - **2026-10-10 / ESPN 7**: solicitud cumplida y publicada en el commit `f22c009`: canal 94 → 37, después del 36; nombre `ESPN 7`, definitivo, logo local y guía CO1 solo en Lista 1. Runner de canales `38089626317` success/salida `59be701`; EPG `38089703472` success/salida `4be7110`, 35 programas reales, no pendiente. 320 pruebas Python (1 omitida), 48 JS, validador de listas y guardia de resolutores en verde. VibeM3U 0.5.88 permaneció sin cambios; `:app:testDebugUnitTest` pasó. La discrepancia de un fotograma PSG–Arsenal frente a ESPN KnockOut se mantiene como salvedad: programación publicada no demuestra por sí sola que esa emisión Nauta estuviera alineada en ese instante.
