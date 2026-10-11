@@ -1,68 +1,113 @@
 {
   "schema": 1,
-  "updated_at": "2026-10-11T00:00:45.605628Z",
+  "updated_at": "2026-10-11T09:31:24.686434Z",
   "channels": [
+    "0102",
     "1437",
     "AlJazeera.qa",
+    "DAZNF1.es@TvVoo",
     "DSports2.us@Direct187",
     "DWEnglish.de",
+    "Eurosport2.es@TvVoo",
     "MTVBiggestPop.us",
     "MTVFlowLatino.us",
     "MTVSpankinNew.us",
-    "RedBullWorldEnglish.int"
+    "Meganoticias.cl",
+    "RedBullWorldEnglish.int",
+    "Vavoo.es.EUROSPORT1@TvVoo"
   ],
   "details": {
+    "0102": {
+      "kind": "hueco",
+      "futureHours": 164.0,
+      "requiredHours": 18.0,
+      "gaps": [
+        [
+          "2026-10-11T09:30:58Z",
+          "2026-10-11T10:00:00Z"
+        ]
+      ]
+    },
     "1437": {
       "kind": "guia-corta",
-      "futureHours": 2.2,
+      "futureHours": 3.0,
       "requiredHours": 18.0,
       "gaps": []
     },
     "AlJazeera.qa": {
+      "kind": "sin-guia",
+      "futureHours": 0.0,
+      "requiredHours": 18.0,
+      "gaps": []
+    },
+    "DAZNF1.es@TvVoo": {
+      "kind": "sin-guia",
+      "futureHours": 0.0,
+      "requiredHours": 24.0,
+      "gaps": []
+    },
+    "DSports2.us@Direct187": {
       "kind": "guia-corta",
       "futureHours": 0.0,
       "requiredHours": 18.0,
       "gaps": []
     },
-    "DSports2.us@Direct187": {
-      "kind": "guia-corta",
-      "futureHours": 6.5,
-      "requiredHours": 18.0,
-      "gaps": []
-    },
     "DWEnglish.de": {
       "kind": "hueco",
-      "futureHours": 48.0,
+      "futureHours": 62.5,
       "requiredHours": 18.0,
       "gaps": [
         [
-          "2026-10-11T11:30:00Z",
-          "2026-10-11T12:00:00Z"
+          "2026-10-12T01:15:00Z",
+          "2026-10-12T01:45:00Z"
         ]
       ]
     },
+    "Eurosport2.es@TvVoo": {
+      "kind": "sin-guia",
+      "futureHours": 0.0,
+      "requiredHours": 24.0,
+      "gaps": []
+    },
     "MTVBiggestPop.us": {
       "kind": "guia-corta",
-      "futureHours": 13.2,
+      "futureHours": 12.7,
       "requiredHours": 18.0,
       "gaps": []
     },
     "MTVFlowLatino.us": {
       "kind": "guia-corta",
-      "futureHours": 14.0,
+      "futureHours": 14.5,
       "requiredHours": 18.0,
       "gaps": []
     },
     "MTVSpankinNew.us": {
       "kind": "guia-corta",
-      "futureHours": 13.5,
+      "futureHours": 13.0,
       "requiredHours": 18.0,
       "gaps": []
     },
+    "Meganoticias.cl": {
+      "kind": "hueco",
+      "futureHours": 21.5,
+      "requiredHours": 18.0,
+      "gaps": [
+        [
+          "2026-10-11T23:30:00Z",
+          "2026-10-12T02:00:00Z"
+        ]
+      ]
+    },
     "RedBullWorldEnglish.int": {
       "kind": "guia-corta",
-      "futureHours": 17.5,
+      "futureHours": 13.3,
       "requiredHours": 18.0,
+      "gaps": []
+    },
+    "Vavoo.es.EUROSPORT1@TvVoo": {
+      "kind": "sin-guia",
+      "futureHours": 0.0,
+      "requiredHours": 24.0,
       "gaps": []
     }
   }
