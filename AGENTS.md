@@ -119,6 +119,8 @@ agente debe poder retomar el trabajo solo con lo que está en el repositorio.
 - Procurar al menos 12 h de programación por canal en cada corrida; los pendientes se reintentan por canal dentro de la corrida y en cada ciclo de 6 h.
 - El runner no inventa programación, EPG ni coincidencias: ante ambigüedad, dejar pendiente.
 
+- Pedidos de la app (desde 2026-10-11): `data/app-requests/*.json` solo los escribe VibeM3U (papelera desde la TV) y los consume `app-requests.yml`. No agregar acciones nuevas sin la contraparte en la app ni aplicar los cambios a mano: todo pasa por `scripts/apply_app_requests.mjs`, que usa editor-core.
+
 ## Documentos de referencia
 
 - `ESTADO.md` (puesta al día: estado de hoy, pendientes, preferencias del usuario y bitácora).
