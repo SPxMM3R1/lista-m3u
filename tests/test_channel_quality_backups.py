@@ -72,7 +72,7 @@ class NautaChannelsAreOptInTest(unittest.TestCase):
         self.assertEqual(self.selected_nauta.keys() - official - APP_TRASHED_NAUTA,
                          set(self.presentation["trial_m3u"]) & self.selected_nauta.keys())
         self.assertEqual("ESPN 7", self.selected_nauta[OFFICIAL_ESPN7]["displayName"])
-        self.assertEqual(37, self.selected_nauta[OFFICIAL_ESPN7]["number"])
+        self.assertEqual(39, self.selected_nauta[OFFICIAL_ESPN7]["number"])
         self.assertEqual("logos/espn-7.png", self.selected_nauta[OFFICIAL_ESPN7]["logoOverride"])
         self.assertEqual("ESPN 7", self.presentation["names"][OFFICIAL_ESPN7])
         self.assertEqual("logos/espn-7.png", self.presentation["logos"][OFFICIAL_ESPN7])

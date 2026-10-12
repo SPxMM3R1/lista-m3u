@@ -2,7 +2,7 @@
 
 Documento único y corto con las reglas que rigen hoy. El detalle vive en los documentos
 enlazados; si algo de aquí contradice un documento antiguo, manda este. Última revisión:
-2026-10-11. El estado de hoy y la bitácora están en `ESTADO.md` de cada repositorio.
+2026-10-12. El estado de hoy y la bitácora están en `ESTADO.md` de cada repositorio.
 
 ## 1. Repositorios y límites
 
@@ -15,7 +15,7 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
 
 ## 2. Identidad de canales
 
-- Nauta es una fuente candidata del editor **local** y se incorpora solo cuando el usuario selecciona explícitamente uno o varios canales candidatos en una acción; no se importa el catálogo completo ni se repone automáticamente. Los no seleccionados no figuran en el layout, inventario canónico, Lista 1/2 ni EPG. Al añadirlos: Lista 1, en prueba y sin EPG. **Excepción cerrada**: `Nauta.52bb87a2e2911ed34f7ae3bc@Nauta` (`nautatv_catalog|ESPN 7 HD`) puede estar definitivo y entrar a la EPG de Lista 1 tras la promoción editorial del 10-10; los demás Nauta siguen en prueba. ID editorial determinista por nombre exacto con región/calidad original (`Nauta.<SHA256(nombre exacto)[:24]>@Nauta`); localizador tokenless catálogo + nombre, nunca el ID opaco del addon ni enlace HLS. Las exclusiones de membresía de la lista publicada no deben tombstonear candidatos; las bajas históricas explícitas sí permanecen excluidas del selector. La app consulta los recursos actuales en RAM y valida HLS/segmento. No se infieren logos ni EPG para altas nuevas. Compatible con VibeM3U 0.5.81+.
+- Nauta es una fuente candidata del editor **local** y se incorpora solo cuando el usuario selecciona explícitamente uno o varios canales candidatos en una acción; no se importa el catálogo completo ni se repone automáticamente. Los no seleccionados no figuran en el layout, inventario canónico, Lista 1/2 ni EPG. Al añadirlos: Lista 1, en prueba y sin EPG. **Excepción cerrada de oficiales verificados**: `Nauta.52bb87a2e2911ed34f7ae3bc@Nauta` (`nautatv_catalog|ESPN 7 HD`), `Nauta.4dec2794ee77cb450b79aa5b@Nauta` (`nautatv_catalog|ESPN 1 | Argentina`), `Nauta.267720adcfe18e0c87fca46c@Nauta` (`nautatv_catalog|ESPN 1 | Mexico`) y `Nauta.d6c4cf31e1a88709b605ac8f@Nauta` (`cat_7|MTV Live`) pueden estar definitivos y entrar a la EPG de Lista 1. La lista exacta vive también en `site/editor-core.mjs` y `update_m3u.py`; no ampliarla sin verificación y petición editorial. Los demás Nauta siguen en prueba. ID editorial determinista por nombre exacto con región/calidad original (`Nauta.<SHA256(nombre exacto)[:24]>@Nauta`); localizador tokenless catálogo + nombre, nunca el ID opaco del addon ni enlace HLS. Las exclusiones de membresía de la lista publicada no deben tombstonear candidatos; las bajas históricas explícitas sí permanecen excluidas del selector. La app consulta los recursos actuales en RAM y valida HLS/segmento. No se infieren logos ni EPG para altas nuevas. Compatible con VibeM3U 0.5.81+.
 
 - La vista «Todos los canales» de Nauta reúne todos los catálogos TV del manifiesto y conserva en cada candidato su categoría real para resolverlo. Las bajas históricas pueden verse identificadas como retiradas, pero no seleccionarse; esto no equivale a restaurarlas. Si falla alguna categoría, la vista completa muestra el error y pide reintentar.
 

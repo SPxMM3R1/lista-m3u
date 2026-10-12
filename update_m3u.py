@@ -3734,6 +3734,16 @@ def resolver_attributes_for(channel: Channel) -> dict[str, str]:
     return {}
 
 
+# Nauta stays trial-only by default. These exact, editorially verified references
+# are the complete allowlist that may be promoted; it must match editor-core.mjs.
+VERIFIED_NAUTA_OFFICIAL_REFERENCES = {
+    "Nauta.52bb87a2e2911ed34f7ae3bc@Nauta": ("nautatv_catalog", "ESPN 7 HD"),
+    "Nauta.4dec2794ee77cb450b79aa5b@Nauta": ("nautatv_catalog", "ESPN 1 | Argentina"),
+    "Nauta.267720adcfe18e0c87fca46c@Nauta": ("nautatv_catalog", "ESPN 1 | Mexico"),
+    "Nauta.d6c4cf31e1a88709b605ac8f@Nauta": ("cat_7", "MTV Live"),
+}
+
+
 def apply_editor_nauta_channels(
     lines: list[str],
     layout_path: Path = CHANNEL_EDITOR_LAYOUT_PATH,
@@ -3741,7 +3751,8 @@ def apply_editor_nauta_channels(
     """Materialize Nauta rows created by the local editor in the canonical inventory.
 
     Only tokenless category/name locators cross this boundary. Provider resource IDs and stream
-    URLs are deliberately ignored; only the verified ESPN 7 reference may leave trial.
+    URLs are deliberately ignored; only exact references in the verified-official
+    allowlist may leave trial.
     """
     if not layout_path.is_file():
         return False
@@ -3782,14 +3793,12 @@ def apply_editor_nauta_channels(
             raise ValueError("La referencia Nauta de la fuente local no es valida") from error
         if channel_id != nauta_reference.channel_id(exact_name):
             raise ValueError("El tvg-id Nauta no coincide con el nombre exacto")
-        official_espn7 = (
-            channel_id == "Nauta.52bb87a2e2911ed34f7ae3bc@Nauta"
-            and catalog == "nautatv_catalog"
-            and exact_name == "ESPN 7 HD"
+        verified_official = (
+            VERIFIED_NAUTA_OFFICIAL_REFERENCES.get(channel_id) == (catalog, exact_name)
             and "trial" not in row
         )
-        if row.get("sourceList") != "1.m3u" or (row.get("trial") is not True and not official_espn7):
-            raise ValueError("Nauta se agrega solo a Lista 1 y en prueba, salvo ESPN 7 verificado")
+        if row.get("sourceList") != "1.m3u" or (row.get("trial") is not True and not verified_official):
+            raise ValueError("Nauta se agrega solo a Lista 1 y en prueba, salvo referencias oficiales verificadas")
         if not isinstance(display_name, str) or not display_name.strip() or len(display_name) > 240 \
                 or re.search(r"[\r\n\x00-\x1f\x7f]", display_name):
             raise ValueError("El nombre visible del canal Nauta no es valido")

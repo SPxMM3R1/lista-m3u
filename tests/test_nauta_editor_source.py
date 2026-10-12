@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+import re
 import tempfile
 import unittest
 
@@ -63,17 +64,53 @@ class NautaEditorSourceTest(unittest.TestCase):
         row = dict(self.row)
         del row["trial"]
         self.write_layout(row)
-        with self.assertRaisesRegex(ValueError, "salvo ESPN 7"):
+        with self.assertRaisesRegex(ValueError, "referencias oficiales verificadas"):
             runner.apply_editor_nauta_channels(["#EXTM3U"], self.layout_path)
 
-    def test_only_verified_espn7_reference_may_be_official(self):
-        row = dict(self.row, tvgId="Nauta.52bb87a2e2911ed34f7ae3bc@Nauta",
-                   nautaCatalog="nautatv_catalog", nautaName="ESPN 7 HD", name="ESPN 7")
-        del row["trial"]
-        self.write_layout(row)
-        lines = ["#EXTM3U"]
-        self.assertTrue(runner.apply_editor_nauta_channels(lines, self.layout_path))
-        self.assertEqual("ESPN 7", runner.parse_channels(lines)[0].name)
+    def test_only_exact_verified_official_nauta_references_may_leave_trial(self):
+        for channel_id, (catalog, exact_name) in runner.VERIFIED_NAUTA_OFFICIAL_REFERENCES.items():
+            with self.subTest(channel_id=channel_id):
+                row = dict(
+                    self.row,
+                    tvgId=channel_id,
+                    nautaCatalog=catalog,
+                    nautaName=exact_name,
+                    name=exact_name,
+                )
+                del row["trial"]
+                self.write_layout(row)
+                lines = ["#EXTM3U"]
+                self.assertTrue(runner.apply_editor_nauta_channels(lines, self.layout_path))
+                self.assertEqual(exact_name, runner.parse_channels(lines)[0].name)
+
+    def test_python_official_allowlist_matches_editor_allowlist(self):
+        source = (Path(__file__).resolve().parents[1] / "site/editor-core.mjs").read_text(encoding="utf-8")
+        match = re.search(r"const OFFICIAL_NAUTA_REFERENCES = new Set\(\[(.*?)\]\);", source, re.DOTALL)
+        self.assertIsNotNone(match)
+        editor_references = set(re.findall(r'"([^"\n]+)"', match.group(1)))
+        runner_references = {
+            f"{channel_id}|{catalog}|{exact_name}"
+            for channel_id, (catalog, exact_name) in runner.VERIFIED_NAUTA_OFFICIAL_REFERENCES.items()
+        }
+        self.assertEqual(editor_references, runner_references)
+
+    def test_unlisted_or_mismatched_official_reference_stays_trial_only(self):
+        unauthorized = dict(self.row)
+        del unauthorized["trial"]
+        self.write_layout(unauthorized)
+        with self.assertRaisesRegex(ValueError, "referencias oficiales verificadas"):
+            runner.apply_editor_nauta_channels(["#EXTM3U"], self.layout_path)
+
+        wrong_reference = dict(
+            self.row,
+            tvgId="Nauta.52bb87a2e2911ed34f7ae3bc@Nauta",
+            nautaCatalog="cat_4",
+            nautaName="ESPN 7 HD",
+        )
+        del wrong_reference["trial"]
+        self.write_layout(wrong_reference)
+        with self.assertRaisesRegex(ValueError, "referencias oficiales verificadas"):
+            runner.apply_editor_nauta_channels(["#EXTM3U"], self.layout_path)
 
     def test_existing_matching_reference_is_not_duplicated_or_rewritten(self):
         self.write_layout()
