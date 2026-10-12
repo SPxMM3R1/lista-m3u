@@ -7621,6 +7621,9 @@ def refresh_epg(
     )
     existing_status = None
     existing_data: bytes | None = None
+    # Guía publicada legible aunque ya no cubra el horizonte: una corrida de
+    # fuentes sueltas la usa de respaldo en vez de abortar (2026-10-12).
+    readable_published: bytes | None = None
     if output_path.exists():
         try:
             existing_data = output_path.read_bytes()
@@ -7628,6 +7631,7 @@ def refresh_epg(
                 existing_data, expected_ids
             )
             existing_root = ET.fromstring(existing_data)
+            readable_published = existing_data
             existing_channel_ids = {
                 channel.get("id", "") for channel in existing_root.findall("channel")
             }
@@ -7754,15 +7758,21 @@ def refresh_epg(
         )
         return existing_status
 
-    if parts_only and (existing_status is None or existing_data is None):
+    if parts_only and readable_published is None:
         raise RuntimeError(
-            "una corrida de fuentes sueltas necesita una guia publicada valida"
+            "una corrida de fuentes sueltas necesita una guia publicada legible"
         )
     if not source_documents and not parts_only:
         raise RuntimeError("ninguna fuente EPG respondio correctamente")
     if existing_status is not None and existing_data is not None:
         source_documents[PUBLISHED_EPG_FALLBACK_SOURCE] = (
             strip_epg_filler_programmes(existing_data)
+        )
+    elif parts_only:
+        # La guía anterior quedó corta (p. ej. runners detenidos): se renuevan las
+        # fuentes pedidas y el resto conserva lo que ya estaba publicado.
+        source_documents[PUBLISHED_EPG_FALLBACK_SOURCE] = (
+            strip_epg_filler_programmes(readable_published)
         )
 
     generation_now = datetime.now(timezone.utc).replace(microsecond=0)

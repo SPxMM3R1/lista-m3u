@@ -1462,6 +1462,43 @@ class TvnEpgTests(unittest.TestCase):
         )
         self.assertEqual(published_root.get("data-epg-scope"), "m3u.m3u")
 
+    def test_single_source_run_extends_a_stale_published_guide(self) -> None:
+        # 2026-10-12: con los runners detenidos la guía publicada quedó corta y las
+        # corridas de una sola fuente abortaban. Ahora la usan de respaldo.
+        now = datetime.now(timezone.utc).replace(microsecond=0)
+        active = channel("Canal activo", "active.channel")
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            temporary = Path(temporary_directory)
+            epg_path = temporary / "epg.xml"
+            root = ET.Element("tv", {"data-generated-at": (now - timedelta(hours=12)).isoformat()})
+            ET.SubElement(root, "channel", {"id": active.tvg_id})
+            programme = ET.SubElement(root, "programme", {
+                "start": update_m3u.xmltv_format_chile(now - timedelta(hours=12)),
+                "stop": update_m3u.xmltv_format_chile(now + timedelta(hours=2)),
+                "channel": active.tvg_id,
+            })
+            ET.SubElement(programme, "title").text = "Programa publicado"
+            epg_path.write_bytes(ET.tostring(root, encoding="utf-8", xml_declaration=True))
+            playlist = temporary / "m3u.m3u"
+            playlist.write_text(
+                "#EXTM3U\n"
+                '#EXTINF:-1 tvg-id="active.channel",Canal activo\n'
+                "https://example.invalid/live.m3u8\n",
+                encoding="utf-8",
+            )
+            with patch.object(update_m3u, "EPG_PATH", epg_path), patch.object(
+                update_m3u, "DEFAULT_PLAYLIST", playlist
+            ), patch.object(update_m3u, "CHANNEL_CATALOG_PATH", playlist), patch.object(
+                update_m3u, "collect_epg_parts",
+                lambda *args, **kwargs: {"tvn-oficial": update_m3u.EpgPart()},
+            ):
+                update_m3u.refresh_epg([active], force=True, parts_only=True)
+            published = ET.fromstring(epg_path.read_bytes())
+
+        titles = [item.findtext("title") for item in published.findall("programme")
+                  if item.get("channel") == active.tvg_id]
+        self.assertIn("Programa publicado", titles)
+
     def test_main_playlist_epg_gate_requires_every_principal_channel(self) -> None:
         now = datetime(2026, 8, 29, 12, microsecond=914576, tzinfo=timezone.utc)
         principal = [channel("TVN", "0104"), channel("Meganoticias", "Meganoticias.cl")]
