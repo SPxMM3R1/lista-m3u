@@ -1,36 +1,61 @@
 {
   "schema": 1,
-  "updated_at": "2026-10-12T01:40:37.662672Z",
+  "updated_at": "2026-10-12T13:35:22.258290Z",
   "channels": [
+    "0124",
+    "1153",
+    "13Cultura.cl@DPS",
     "1437",
+    "45",
     "DSports2.us@Direct187",
     "DWEnglish.de",
     "MTVBiggestPop.us",
     "MTVFlowLatino.us",
     "MTVSpankinNew.us",
     "Meganoticias.cl",
-    "Nauta.4ad5525f8e38f0915deaa561@Nauta",
-    "Nauta.6186c37c4a108ec7eb171697@Nauta",
-    "Nauta.8297a7fa0389cc7cf1d200dd@Nauta",
-    "Nauta.d3d2698fec772d9095f5ed4d@Nauta",
+    "RedBullChileEspanol.cl",
     "RedBullWorldEnglish.int"
   ],
   "details": {
-    "1437": {
+    "0124": {
       "kind": "guia-corta",
-      "futureHours": 2.6,
+      "futureHours": 14.2,
+      "requiredHours": 18.0,
+      "gaps": []
+    },
+    "1153": {
+      "kind": "guia-corta",
+      "futureHours": 13.4,
+      "requiredHours": 18.0,
+      "gaps": []
+    },
+    "13Cultura.cl@DPS": {
+      "kind": "guia-corta",
+      "futureHours": 13.9,
+      "requiredHours": 18.0,
+      "gaps": []
+    },
+    "1437": {
+      "kind": "sin-guia",
+      "futureHours": 0.0,
+      "requiredHours": 18.0,
+      "gaps": []
+    },
+    "45": {
+      "kind": "guia-corta",
+      "futureHours": 13.4,
       "requiredHours": 18.0,
       "gaps": []
     },
     "DSports2.us@Direct187": {
-      "kind": "guia-corta",
-      "futureHours": 3.3,
+      "kind": "sin-guia",
+      "futureHours": 0.0,
       "requiredHours": 18.0,
       "gaps": []
     },
     "DWEnglish.de": {
       "kind": "hueco",
-      "futureHours": 70.3,
+      "futureHours": 58.4,
       "requiredHours": 18.0,
       "gaps": [
         [
@@ -41,55 +66,37 @@
     },
     "MTVBiggestPop.us": {
       "kind": "guia-corta",
-      "futureHours": 14.6,
+      "futureHours": 2.7,
       "requiredHours": 18.0,
       "gaps": []
     },
     "MTVFlowLatino.us": {
       "kind": "guia-corta",
-      "futureHours": 16.3,
+      "futureHours": 4.4,
       "requiredHours": 18.0,
       "gaps": []
     },
     "MTVSpankinNew.us": {
       "kind": "guia-corta",
-      "futureHours": 14.8,
+      "futureHours": 2.9,
       "requiredHours": 18.0,
       "gaps": []
     },
     "Meganoticias.cl": {
+      "kind": "sin-guia",
+      "futureHours": 0.0,
+      "requiredHours": 18.0,
+      "gaps": []
+    },
+    "RedBullChileEspanol.cl": {
       "kind": "guia-corta",
-      "futureHours": 5.3,
-      "requiredHours": 18.0,
-      "gaps": []
-    },
-    "Nauta.4ad5525f8e38f0915deaa561@Nauta": {
-      "kind": "sin-guia",
-      "futureHours": 0.0,
-      "requiredHours": 18.0,
-      "gaps": []
-    },
-    "Nauta.6186c37c4a108ec7eb171697@Nauta": {
-      "kind": "sin-guia",
-      "futureHours": 0.0,
-      "requiredHours": 18.0,
-      "gaps": []
-    },
-    "Nauta.8297a7fa0389cc7cf1d200dd@Nauta": {
-      "kind": "sin-guia",
-      "futureHours": 0.0,
-      "requiredHours": 18.0,
-      "gaps": []
-    },
-    "Nauta.d3d2698fec772d9095f5ed4d@Nauta": {
-      "kind": "sin-guia",
-      "futureHours": 0.0,
+      "futureHours": 12.2,
       "requiredHours": 18.0,
       "gaps": []
     },
     "RedBullWorldEnglish.int": {
       "kind": "guia-corta",
-      "futureHours": 15.5,
+      "futureHours": 3.6,
       "requiredHours": 18.0,
       "gaps": []
     }
