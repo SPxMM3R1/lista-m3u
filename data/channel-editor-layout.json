@@ -3392,36 +3392,12 @@
     },
     {
       "kind": "m3u",
-      "tvgId": "PublicDirect.e0f380b2d4c18d38f573fd1c",
-      "name": "Exa TV [IP 190.61.90.17]",
-      "group": "Música",
-      "sourceList": "1.m3u",
-      "logoPath": "",
-      "order": 240,
-      "number": 300,
-      "state": "active",
-      "trial": true
-    },
-    {
-      "kind": "m3u",
-      "tvgId": "PublicDirect.40a9df02ca1b8b8bf0764d4e",
-      "name": "Exitosa TV [IP 170.244.209.30]",
-      "group": "Noticias internacionales",
-      "sourceList": "1.m3u",
-      "logoPath": "",
-      "order": 241,
-      "number": 301,
-      "state": "active",
-      "trial": true
-    },
-    {
-      "kind": "m3u",
       "tvgId": "PublicDirect.14f7394fd3035a67afe61be9",
       "name": "Golden [IP 181.224.200.5]",
       "group": "Películas",
       "sourceList": "1.m3u",
       "logoPath": "",
-      "order": 242,
+      "order": 240,
       "number": 305,
       "state": "active",
       "trial": true
@@ -3433,7 +3409,7 @@
       "group": "Películas",
       "sourceList": "1.m3u",
       "logoPath": "",
-      "order": 243,
+      "order": 241,
       "number": 308,
       "state": "active",
       "trial": true
@@ -3445,9 +3421,33 @@
       "group": "Películas",
       "sourceList": "1.m3u",
       "logoPath": "",
-      "order": 244,
+      "order": 242,
       "number": 309,
       "state": "active",
+      "trial": true
+    },
+    {
+      "kind": "m3u",
+      "tvgId": "PublicDirect.e0f380b2d4c18d38f573fd1c",
+      "name": "Exa TV [IP 190.61.90.17]",
+      "group": "Música",
+      "sourceList": "1.m3u",
+      "logoPath": "",
+      "order": 243,
+      "number": 300,
+      "state": "deleted",
+      "trial": true
+    },
+    {
+      "kind": "m3u",
+      "tvgId": "PublicDirect.40a9df02ca1b8b8bf0764d4e",
+      "name": "Exitosa TV [IP 170.244.209.30]",
+      "group": "Noticias internacionales",
+      "sourceList": "1.m3u",
+      "logoPath": "",
+      "order": 244,
+      "number": 301,
+      "state": "deleted",
       "trial": true
     },
     {
@@ -7603,6 +7603,6 @@
   ],
   "approval": {
     "source": "app",
-    "sha256": "2787c128530f20fb84fa2efcbc97fd70e709fa9b3f1d5419fbb17663404a82fd"
+    "sha256": "747d1f626fbec36d0c26916cac3dcc3f146fe2d898643988d2eac9fa047dbab9"
   }
 }
