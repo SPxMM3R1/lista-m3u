@@ -791,9 +791,9 @@ function renderInspector() {
     preferredGroup.append(preferredSelect, node("p", "backup-note", "La app abre primero esa señal y, si falla, la de este canal. El canal elegido deja de verse solo en la app."));
     fragment.append(preferredGroup);
 
-    // Respaldos directos: otras filas M3U de la misma señal que la app prueba en orden.
+    // Respaldos M3U: la app los resuelve en orden, incluidas referencias Nauta estables.
     const backupsGroup = node("section", "detail-group backup-group");
-    backupsGroup.append(node("h3", "", "Respaldos directos"));
+    backupsGroup.append(node("h3", "", "Respaldos del canal"));
     const current = Array.isArray(row.backupm3u) ? row.backupm3u : [];
     const label = (tvgId) => {
       const item = state.layout.channels.find((candidate) => candidate.kind === "m3u" && candidate.tvgId === tvgId);
@@ -814,8 +814,11 @@ function renderInspector() {
     const placeholder = node("option", "", current.length ? "Agregar otro respaldo…" : "Sin respaldos · agregar…");
     placeholder.value = "";
     addSelect.append(placeholder);
-    for (const item of m3uRows.filter((candidate) => !candidate.nautaCatalog
-      && !/^Nauta\./i.test(String(candidate.tvgId ?? "")))) {
+    for (const item of m3uRows.filter((candidate) => {
+      const stableNauta = /^Nauta\.[0-9a-f]{24}@Nauta$/i.test(String(candidate.tvgId ?? ""));
+      const isNauta = candidate.nautaCatalog !== undefined || /^Nauta\./i.test(String(candidate.tvgId ?? ""));
+      return !isNauta || stableNauta;
+    })) {
       if (current.includes(item.tvgId) || item.tvgId === row.preferredM3u) continue;
       const option = node("option", "", `${String(item.number).padStart(3, "0")} · ${channelName(item)}`);
       option.value = item.tvgId;
@@ -824,7 +827,7 @@ function renderInspector() {
     addSelect.addEventListener("change", () => {
       if (addSelect.value) changeLayout(setBackupM3u(state.layout, rowKey(row), [...current, addSelect.value]));
     });
-    backupsGroup.append(addSelect, node("p", "backup-note", "Si la señal del canal falla, la app pasa a estas en orden. Los canales elegidos dejan de verse solos en la app."));
+    backupsGroup.append(addSelect, node("p", "backup-note", "Si falla la señal, la app pasa a estas en orden. Los canales enlazados no aparecen solos; Nauta se resuelve al reproducir."));
     fragment.append(backupsGroup);
   }
 

@@ -9,8 +9,15 @@ function isNautaM3uRow(row) {
   return row?.kind === "m3u" && (row.nautaCatalog !== undefined || /^Nauta\./i.test(String(row.tvgId ?? "")));
 }
 
+function isStableNautaId(value) {
+  return typeof value === "string" && /^Nauta\.[0-9a-f]{24}@Nauta$/i.test(value);
+}
+
 const OFFICIAL_NAUTA_REFERENCES = new Set([
   "Nauta.52bb87a2e2911ed34f7ae3bc@Nauta|nautatv_catalog|ESPN 7 HD",
+  "Nauta.4dec2794ee77cb450b79aa5b@Nauta|nautatv_catalog|ESPN 1 | Argentina",
+  "Nauta.267720adcfe18e0c87fca46c@Nauta|nautatv_catalog|ESPN 1 | Mexico",
+  "Nauta.d6c4cf31e1a88709b605ac8f@Nauta|cat_7|MTV Live",
 ]);
 
 export function stableId(row) {
@@ -114,8 +121,9 @@ export function validateLayout(layout) {
       const valid = row.kind === "m3u" && Array.isArray(row.backupm3u) && ids.length > 0 && ids.length <= 8
         && new Set(ids).size === ids.length
         && ids.every((value) => typeof value === "string" && value !== row.tvgId && value !== row.preferredM3u
-          && layout.channels.some((item) => item.kind === "m3u" && !isNautaM3uRow(item) && item.tvgId === value));
-      if (!valid) problems.push(String(row.name || id) + ": los respaldos directos deben ser otras filas M3U con dirección HTTP(S) (hasta 8, sin repetir).");
+          && layout.channels.some((item) => item.kind === "m3u" && item.tvgId === value
+            && (!isNautaM3uRow(item) || (isStableNautaId(item.tvgId) && item.state === "active"))));
+      if (!valid) problems.push(String(row.name || id) + ": los respaldos deben ser otras filas M3U reproducibles, con HTTP(S) o identidad Nauta estable activa (hasta 8, sin repetir).");
     }
     if (row.displayName !== undefined && (
       typeof row.displayName !== "string"
@@ -438,7 +446,8 @@ export function setBackupM3u(layout, key, tvgIds) {
   const row = current.channels.find((item) => rowKey(item) === key);
   if (!row || row.kind !== "m3u") return current;
   const directIds = new Set(current.channels
-    .filter((item) => item.kind === "m3u" && !isNautaM3uRow(item))
+    .filter((item) => item.kind === "m3u" && (!isNautaM3uRow(item)
+      || (isStableNautaId(item.tvgId) && item.state === "active")))
     .map((item) => item.tvgId));
   const ids = [...new Set((tvgIds ?? []).filter((value) => directIds.has(value)
     && value !== row.tvgId && value !== row.preferredM3u))];

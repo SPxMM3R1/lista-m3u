@@ -1,0 +1,69 @@
+{
+  "date": "2026-10-12",
+  "scope": "Lista 1; publication data plus VibeM3U playback contract",
+  "channels": [
+    {
+      "tvgId": "Nauta.4dec2794ee77cb450b79aa5b@Nauta",
+      "beforeNumber": 88,
+      "number": 33,
+      "displayName": "ESPN 1 Argentina",
+      "state": "active",
+      "trial": false,
+      "logo": "logos/espn.svg",
+      "epgCandidate": { "source": "ar1", "sourceId": "Canal.ESPN.(Argentina).ar" },
+      "backups": [
+        "Nauta.dac26a78f5bdf111bc9b9ffc@Nauta",
+        "Nauta.81dc69c20557da0672921475@Nauta"
+      ]
+    },
+    {
+      "tvgId": "Nauta.267720adcfe18e0c87fca46c@Nauta",
+      "beforeNumber": 91,
+      "number": 34,
+      "displayName": "ESPN 1 MX",
+      "state": "active",
+      "trial": false,
+      "logo": "logos/espn.svg",
+      "epgCandidate": { "source": "mx1", "sourceId": "ESPN.MX.mx" }
+    },
+    {
+      "tvgId": "Nauta.52bb87a2e2911ed34f7ae3bc@Nauta",
+      "beforeNumber": 37,
+      "number": 39,
+      "displayName": "ESPN 7",
+      "state": "active",
+      "trial": false,
+      "logo": "logos/espn-7.png",
+      "epgCandidate": { "source": "co1", "sourceId": "ESPN.7.HD.co" }
+    },
+    {
+      "tvgId": "Nauta.7437112a4b992980a550d16a@Nauta",
+      "beforeNumber": 150,
+      "number": 40,
+      "displayName": "ESPN HD [Nauta]",
+      "state": "active",
+      "trial": true,
+      "note": "Movido detrás del bloque ESPN por petición del usuario; no promovido ni agregado a EPG."
+    },
+    {
+      "tvgId": "Nauta.d6c4cf31e1a88709b605ac8f@Nauta",
+      "beforeNumber": 154,
+      "number": 52,
+      "displayName": "MTV Live",
+      "state": "active",
+      "trial": false,
+      "logo": "logos/tvvoo/mtv-live-hd-nl.png",
+      "epgCandidate": { "source": "us2", "sourceId": "MTVLIVE.us2" },
+      "note": "Queda al comienzo del bloque MTV, después de las inserciones anteriores del bloque ESPN."
+    }
+  ],
+  "backupPolicy": {
+    "primary": "Nauta.4dec2794ee77cb450b79aa5b@Nauta",
+    "backupIds": [
+      "Nauta.dac26a78f5bdf111bc9b9ffc@Nauta",
+      "Nauta.81dc69c20557da0672921475@Nauta"
+    ],
+    "state": "active source rows, non-independent in VibeM3U from 0.5.93; both remain trial and without EPG",
+    "identityRule": "Keep each stable Nauta tvg-id and resolve its tokenless locator through NautaStreamResolver; never persist provider URLs, signed HLS URLs, or tokens."
+  }
+}

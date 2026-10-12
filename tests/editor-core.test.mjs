@@ -681,16 +681,32 @@ test("trial M3U rows are published as trial_m3u and can be promoted", () => {
   assert.deepEqual(buildPresentationOverrides(promoted, presentation).trial_m3u, []);
 });
 
-test("only the exact verified Nauta ESPN 7 reference may be official", () => {
+test("only the exact approved Nauta rows may be permanent", () => {
+  const approved = [
+    ["Nauta.52bb87a2e2911ed34f7ae3bc@Nauta", "nautatv_catalog", "ESPN 7 HD"],
+    ["Nauta.4dec2794ee77cb450b79aa5b@Nauta", "nautatv_catalog", "ESPN 1 | Argentina"],
+    ["Nauta.267720adcfe18e0c87fca46c@Nauta", "nautatv_catalog", "ESPN 1 | Mexico"],
+    ["Nauta.d6c4cf31e1a88709b605ac8f@Nauta", "cat_7", "MTV Live"],
+  ];
+  for (const [tvgId, nautaCatalog, nautaName] of approved) {
+    const layout = {
+      schemaVersion: 1,
+      excludedM3u: [],
+      channels: [{
+        kind: "m3u", tvgId, name: `${nautaName} [Nauta]`, displayName: nautaName,
+        sourceList: "1.m3u", nautaCatalog, nautaName,
+        order: 1, number: 37, state: "active",
+      }],
+    };
+    assert.deepEqual(validateLayout(layout), [], tvgId);
+    assert.deepEqual(buildPresentationOverrides(layout, null).trial_m3u, [], tvgId);
+  }
   const row = {
-    kind: "m3u", tvgId: "Nauta.52bb87a2e2911ed34f7ae3bc@Nauta",
-    name: "ESPN 7 HD [Nauta]", displayName: "ESPN 7", sourceList: "1.m3u",
-    nautaCatalog: "nautatv_catalog", nautaName: "ESPN 7 HD",
+    kind: "m3u", tvgId: approved[1][0], name: "ESPN 1 | Argentina [Nauta]",
+    sourceList: "1.m3u", nautaCatalog: approved[1][1], nautaName: approved[1][2],
     order: 1, number: 37, state: "active",
   };
   const layout = { schemaVersion: 1, excludedM3u: [], channels: [row] };
-  assert.deepEqual(validateLayout(layout), []);
-  assert.deepEqual(buildPresentationOverrides(layout, null).trial_m3u, []);
   assert.ok(validateLayout({ ...layout, channels: [{ ...row, tvgId: "Nauta.aaaaaaaaaaaaaaaaaaaaaaaa@Nauta" }] }).length);
   assert.ok(validateLayout({ ...layout, channels: [{ ...row, nautaCatalog: "cat_4" }] }).length);
 });
@@ -760,20 +776,23 @@ test("a direct row keeps an ordered list of backup M3U rows", () => {
   assert.equal(setBackupM3u(linked, "m3u:0104", []).channels[0].backupm3u, undefined);
 });
 
-test("Nauta resolver rows cannot be configured as direct M3U backups", () => {
+test("only stable active Nauta rows can be configured as dynamic M3U backups", () => {
   const layout = {
     schemaVersion: 1,
     excludedM3u: [],
     channels: [
       { kind: "m3u", tvgId: "0104", name: "TVN", sourceList: "1.m3u", order: 1, number: 1, state: "active" },
-      // Real rows added before Nauta editor metadata existed are still recognizable
-      // by their established public identity prefix.
-      { kind: "m3u", tvgId: "Nauta.0123456789abcdef01234567@Nauta", name: "Canal X [Nauta]", sourceList: "1.m3u", order: 2, number: 2, state: "active", trial: true },
+      { kind: "m3u", tvgId: "Nauta.0123456789abcdef01234567@Nauta", name: "Canal X [Nauta]", sourceList: "1.m3u", nautaCatalog: "cat_4", nautaName: "Canal X", order: 2, number: 2, state: "active", trial: true },
     ],
   };
   const linked = setBackupM3u(layout, "m3u:0104", [layout.channels[1].tvgId]);
-  assert.equal(linked.channels[0].backupm3u, undefined);
+  assert.deepEqual(linked.channels[0].backupm3u, [layout.channels[1].tvgId]);
+  assert.deepEqual(validateLayout(linked), []);
   const broken = structuredClone(layout);
-  broken.channels[0].backupm3u = [layout.channels[1].tvgId];
-  assert.ok(validateLayout(broken).some((problem) => problem.includes("HTTP(S)")));
+  broken.channels[1].tvgId = "Nauta.not-a-stable-id@Nauta";
+  broken.channels[0].backupm3u = [broken.channels[1].tvgId];
+  assert.ok(validateLayout(broken).some((problem) => problem.includes("identidad Nauta estable")));
+  const inactive = structuredClone(layout);
+  inactive.channels[1].state = "deleted";
+  assert.equal(setBackupM3u(inactive, "m3u:0104", [inactive.channels[1].tvgId]).channels[0].backupm3u, undefined);
 });

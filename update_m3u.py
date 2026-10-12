@@ -727,6 +727,14 @@ EPG_PROGRAMME_SOURCES = {
     # ESPN 7 Sudamérica: la identidad Nauta permanece fija aunque el recurso rote.
     # EPGShare CO1/UY1 publican la misma parrilla; CO1 ofrece este ID vigente.
     "Nauta.52bb87a2e2911ed34f7ae3bc@Nauta": ("co1", "ESPN.7.HD.co"),
+    # ESPN 1 Nauta: fuentes regionales exactas; los IDs públicos permanecen estables.
+    "Nauta.4dec2794ee77cb450b79aa5b@Nauta": ("ar1", "Canal.ESPN.(Argentina).ar"),
+    # La guía MX es regional; puede describir bloques/eventos sin que un fotograma promo
+    # aislado coincida con el título actual. Mantener la fuente exacta, sin desplazar horarios.
+    "Nauta.267720adcfe18e0c87fca46c@Nauta": ("mx1", "ESPN.MX.mx"),
+    # MTV Live Nauta: MTVLIVE.us2 publica la parrilla musical «Epic.Awesome.Videos»;
+    # se verificó el logo MTV LIVE y contenido musical en cuadros contemporáneos.
+    "Nauta.d6c4cf31e1a88709b605ac8f@Nauta": ("us2", "MTVLIVE.us2"),
     "0104": ("cl", "Canal.TVN.(Chile).cl"),
     "0105": ("cl", "Canal.Mega.(Chile).cl"),
     "0106": ("cl", "Canal.Chilevisi\u00f3n.(CHV).cl"),
