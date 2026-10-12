@@ -3440,24 +3440,12 @@
     },
     {
       "kind": "m3u",
-      "tvgId": "PublicDirect.a1739324579c6d11be629427",
-      "name": "Fox Sports [IP 138.59.227.20]",
-      "group": "Deportes",
-      "sourceList": "1.m3u",
-      "logoPath": "",
-      "order": 244,
-      "number": 304,
-      "state": "active",
-      "trial": true
-    },
-    {
-      "kind": "m3u",
       "tvgId": "PublicDirect.14f7394fd3035a67afe61be9",
       "name": "Golden [IP 181.224.200.5]",
       "group": "Películas",
       "sourceList": "1.m3u",
       "logoPath": "",
-      "order": 245,
+      "order": 244,
       "number": 305,
       "state": "active",
       "trial": true
@@ -3469,7 +3457,7 @@
       "group": "Películas",
       "sourceList": "1.m3u",
       "logoPath": "",
-      "order": 246,
+      "order": 245,
       "number": 308,
       "state": "active",
       "trial": true
@@ -3481,9 +3469,21 @@
       "group": "Películas",
       "sourceList": "1.m3u",
       "logoPath": "",
-      "order": 247,
+      "order": 246,
       "number": 309,
       "state": "active",
+      "trial": true
+    },
+    {
+      "kind": "m3u",
+      "tvgId": "PublicDirect.a1739324579c6d11be629427",
+      "name": "Fox Sports [IP 138.59.227.20]",
+      "group": "Deportes",
+      "sourceList": "1.m3u",
+      "logoPath": "",
+      "order": 247,
+      "number": 304,
+      "state": "deleted",
       "trial": true
     },
     {
@@ -7603,6 +7603,6 @@
   ],
   "approval": {
     "source": "app",
-    "sha256": "a0c44e7d0a7f1ff6bc6d68f16ebc9e209c5261fe369d77183be8c80dc6bad141"
+    "sha256": "7bb23d65ab1735c4769746bc1626cc4ebb00b831faeac776f68e4b76f267dd4f"
   }
 }
