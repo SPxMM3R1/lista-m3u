@@ -23,6 +23,7 @@ class CatalogApprovalTest(unittest.TestCase):
         stamped = {**FIXTURE, "approval": {"source": "editor", "sha256": DIGEST}}
         self.assertTrue(catalog_approval.approved_by_user(stamped))
         self.assertTrue(catalog_approval.approved_by_user({**stamped, "approval": {"source": "app", "sha256": DIGEST}}))
+        self.assertTrue(catalog_approval.approved_by_user({**stamped, "approval": {"source": "chat", "sha256": DIGEST}}))
         self.assertFalse(catalog_approval.approved_by_user({**stamped, "approval": {"source": "agente", "sha256": DIGEST}}))
         self.assertFalse(catalog_approval.approved_by_user(FIXTURE))
         edited = {**stamped, "channels": [{**FIXTURE["channels"][0], "number": 2}]}

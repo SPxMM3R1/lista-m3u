@@ -8,6 +8,8 @@ otra vía (un script o un agente); no deben estorbar las decisiones del usuario.
 - Layout sellado por el editor o por la papelera de la app (campo «approval» con el SHA-256
   de su contenido, ver approveLayout en site/editor-core.mjs): se saltan; lo publicado es
   la decisión vigente del usuario y no hay que actualizar ninguna base a mano.
+- Sello «chat»: un agente aplicó un cambio que el usuario pidió explícitamente en el chat
+  (el commit lo cita). Mismo efecto que el editor; nunca para silenciar una prueba.
 - Layout sin sello o con un sello que no coincide (alguien lo editó por fuera): corren.
 """
 import hashlib
@@ -34,7 +36,7 @@ def layout_approval_digest(layout):
 def approved_by_user(layout):
     approval = layout.get("approval")
     return (isinstance(approval, dict)
-            and approval.get("source") in {"editor", "app"}
+            and approval.get("source") in {"editor", "app", "chat"}
             and approval.get("sha256") == layout_approval_digest(layout))
 
 
