@@ -723,6 +723,8 @@ SKY_OFFICIAL_EPG_CHANNELS = {
 AUTENTIC_HISTORY_EPG_SOURCE = "autentic-history-oficial"
 AUTENTIC_HISTORY_PAGE = "https://watch.whaletvplus.com/"
 AUTENTIC_HISTORY_CHANNEL_ID = "931186243466302968"
+FRANCE24_ENGLISH_EPG_CHANNEL_ID = "France24.fr@English"
+FRANCE24_ENGLISH_MARKER = re.compile(r"\s*\(\s*EN\s*\)\s*", re.IGNORECASE)
 EPG_PROGRAMME_SOURCES = {
     # ESPN 7 Sudamérica: la identidad Nauta permanece fija aunque el recurso rote.
     # EPGShare CO1/UY1 publican la misma parrilla; CO1 ofrece este ID vigente.
@@ -5885,6 +5887,21 @@ def main_epg_fallback_title(channel_id: str) -> str:
     return "Live" if channel_id == EPG_MAIN_LIVE_CHANNEL_ID else EPG_MAIN_FALLBACK_TITLE
 
 
+def strip_france24_english_marker(programme: ET.Element) -> bool:
+    """Remove the source language marker from France 24 English's visible EPG fields."""
+    changed = False
+    for element in programme.iter():
+        if element.tag not in {"title", "sub-title", "desc", "category"} or not element.text:
+            continue
+        cleaned = FRANCE24_ENGLISH_MARKER.sub(" ", element.text)
+        cleaned = re.sub(r"\s+([,.;:!?])", r"\1", cleaned)
+        cleaned = re.sub(r"\s+", " ", cleaned).strip()
+        if cleaned != element.text:
+            element.text = cleaned
+            changed = True
+    return changed
+
+
 def normalize_main_epg_schedule(
     root: ET.Element,
     required_ids: set[str],
@@ -5903,6 +5920,8 @@ def normalize_main_epg_schedule(
     ).replace(microsecond=0)
     for programme in root.findall("programme"):
         channel_id = programme.get("channel", "")
+        if channel_id == FRANCE24_ENGLISH_EPG_CHANNEL_ID:
+            changed |= strip_france24_english_marker(programme)
         if channel_id not in required_ids:
             continue
         try:
