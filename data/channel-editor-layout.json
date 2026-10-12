@@ -3416,36 +3416,12 @@
     },
     {
       "kind": "m3u",
-      "tvgId": "PublicDirect.87c81c1c69ef2af4eb284946",
-      "name": "Film & Arts [IP 200.115.120.1]",
-      "group": "Películas",
-      "sourceList": "1.m3u",
-      "logoPath": "",
-      "order": 242,
-      "number": 302,
-      "state": "active",
-      "trial": true
-    },
-    {
-      "kind": "m3u",
-      "tvgId": "PublicDirect.b897b0ce6cbb3b5fc3859f5d",
-      "name": "Food Network [IP 168.196.127.137]",
-      "group": "Misceláneos",
-      "sourceList": "1.m3u",
-      "logoPath": "",
-      "order": 243,
-      "number": 303,
-      "state": "active",
-      "trial": true
-    },
-    {
-      "kind": "m3u",
       "tvgId": "PublicDirect.14f7394fd3035a67afe61be9",
       "name": "Golden [IP 181.224.200.5]",
       "group": "Películas",
       "sourceList": "1.m3u",
       "logoPath": "",
-      "order": 244,
+      "order": 242,
       "number": 305,
       "state": "active",
       "trial": true
@@ -3457,7 +3433,7 @@
       "group": "Películas",
       "sourceList": "1.m3u",
       "logoPath": "",
-      "order": 245,
+      "order": 243,
       "number": 308,
       "state": "active",
       "trial": true
@@ -3469,9 +3445,33 @@
       "group": "Películas",
       "sourceList": "1.m3u",
       "logoPath": "",
-      "order": 246,
+      "order": 244,
       "number": 309,
       "state": "active",
+      "trial": true
+    },
+    {
+      "kind": "m3u",
+      "tvgId": "PublicDirect.87c81c1c69ef2af4eb284946",
+      "name": "Film & Arts [IP 200.115.120.1]",
+      "group": "Películas",
+      "sourceList": "1.m3u",
+      "logoPath": "",
+      "order": 245,
+      "number": 302,
+      "state": "deleted",
+      "trial": true
+    },
+    {
+      "kind": "m3u",
+      "tvgId": "PublicDirect.b897b0ce6cbb3b5fc3859f5d",
+      "name": "Food Network [IP 168.196.127.137]",
+      "group": "Misceláneos",
+      "sourceList": "1.m3u",
+      "logoPath": "",
+      "order": 246,
+      "number": 303,
+      "state": "deleted",
       "trial": true
     },
     {
@@ -7603,6 +7603,6 @@
   ],
   "approval": {
     "source": "app",
-    "sha256": "7bb23d65ab1735c4769746bc1626cc4ebb00b831faeac776f68e4b76f267dd4f"
+    "sha256": "2787c128530f20fb84fa2efcbc97fd70e709fa9b3f1d5419fbb17663404a82fd"
   }
 }
