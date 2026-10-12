@@ -39,6 +39,8 @@ agente debe poder retomar el trabajo solo con lo que está en el repositorio.
 
 ## Cómo trabajar
 
+- **Descubrimiento directo ampliado (2026-10-12)**: 120 señales directas adicionales en prueba, números 226–345; búsqueda pública ampliada y vídeo/audio decodificados, revisión visual y exclusión de placas/negras/identidad ambigua. Conservados los 62 Total Conexión previos, todas las filas anteriores, sus números y tombstones; Highfly/TvVoo/selección, EPG, resolutores y app no cambian. Registro: contracts/public-direct-discovery-20261012.json. Nombres/regiones de fuentes públicas no equivalen a identidad EPG confirmada; sin logos asignados a ciegas. Sin APK ni commit hermano requerido. Usar endpoints exactos publicados; no explorar IP/puertos ni enumerar rutas. Identidades PublicDirect deterministas; conservarlas aunque se renombre en el editor.
+
 - **RWND a la hora en punto (2026-10-11)**: mantener su única entrada de guía como `Live`, sin
   programa real ni metadatos. `replace_rewind_live_schedule` reconstruye bloques contiguos
   desde la hora actual hasta el buffer redondeado hacia arriba, en tramos de máximo seis horas;
