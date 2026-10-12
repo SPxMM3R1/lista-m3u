@@ -55,7 +55,13 @@ def selection_without_trash(selection, trashed):
     return current
 
 
+# Copias de las líneas #EXTINF publicadas: las regeneran los runners y cambios dirigidos.
+DERIVED_PRESENTATION_KEYS = {"info_lines"}
+
+
 def presentation_without_trash(presentation, trashed_ids):
+    presentation = {k: v for k, v in presentation.items() if k not in DERIVED_PRESENTATION_KEYS}
+
     def strip(value):
         if isinstance(value, list):
             return [strip(v) for v in value if not (isinstance(v, str) and v in trashed_ids)]
