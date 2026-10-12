@@ -34,7 +34,7 @@ def push_with_rebase() -> int:
 
 def main() -> int:
     subprocess.run(
-        ["git", "add", "-A", "--", "epg.xml", "epg-run-state.json", "epg-pending.json"],
+        ["git", "add", "-A", "--", "epg.xml", "epg", "epg-run-state.json", "epg-pending.json"],
         check=True,
     )
     subprocess.run(["git", "config", "user.name", "Actualizador"], check=True)

@@ -62,6 +62,8 @@ _IGNORED_PREFIXES = (
     "docs/",
     "tests/",
     ".codex-remote-attachments/",
+    # Guía por canal: fragmentos, correcciones manuales y estado los une el workflow de EPG.
+    "epg/",
 )
 _FULL_FILES = {
     "update_m3u.py",

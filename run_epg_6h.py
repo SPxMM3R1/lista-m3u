@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Coordina la EPG independiente de la lista principal cada seis horas."""
+"""Coordina la EPG independiente de la lista principal cada seis horas.
+
+Heredado (2026-10-12): GitHub usa la guía por canal (epg_dispatch.py + --build-epg-fragments).
+Este script escribe epg.xml completo; úsalo solo en local y publica después con
+``python update_m3u.py --assemble-epg`` tras pasar sus cambios a los fragmentos.
+"""
 
 from __future__ import annotations
 

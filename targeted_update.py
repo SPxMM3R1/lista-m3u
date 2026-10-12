@@ -739,6 +739,14 @@ def apply_epg(
     temporary_output = EPG_PATH.with_suffix(".xml.tmp")
     temporary_output.write_bytes(merged)
     temporary_output.replace(EPG_PATH)
+    # Guía por canal (2026-10-12): el cambio dirigido también queda en el fragmento de cada
+    # canal; si no, la próxima unión lo pisaría con la guía anterior.
+    fragments = update_m3u.epg_fragments.split_epg(merged)
+    for channel_id in plan.channel_ids:
+        if channel_id in fragments:
+            update_m3u.epg_fragments.write_fragment(
+                update_m3u.EPG_FRAGMENTS_DIR, channel_id, fragments[channel_id]
+            )
     print(
         "EPG dirigida publicada sin reconstruir otros canales: "
         + ", ".join(plan.channel_ids)

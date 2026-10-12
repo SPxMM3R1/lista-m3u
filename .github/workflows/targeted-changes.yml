@@ -96,7 +96,7 @@ jobs:
         id: publish
         shell: bash
         run: |
-          files=(m3u.m3u m3u-externa.m3u 1.m3u 2.m3u channel-catalog.m3u epg.xml stream-overrides.json epg-overrides.json presentation-overrides.json epg-manual-overrides.xml)
+          files=(m3u.m3u m3u-externa.m3u 1.m3u 2.m3u channel-catalog.m3u epg.xml epg stream-overrides.json epg-overrides.json presentation-overrides.json epg-manual-overrides.xml)
           if [ -d logos ]; then files+=(logos); fi
           if [ -z "$(git status --porcelain -- "${files[@]}")" ]; then
             echo "No hay artefactos dirigidos nuevos para publicar."

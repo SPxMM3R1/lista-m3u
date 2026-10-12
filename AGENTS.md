@@ -26,7 +26,7 @@ agente debe poder retomar el trabajo solo con lo que está en el repositorio.
 ## Qué es este repositorio
 
 - Catálogo público que consume VibeM3U (Android TV): `channel-catalog.m3u` (inventario canónico), `m3u.m3u`/`1.m3u` (Lista 1), `m3u-externa.m3u`/`2.m3u` (Lista 2), `epg.xml`, `epg-pending.json`, `resolver-catalog.json`, `logos/`.
-- Runner: `update_m3u.py` (canales y resolutores; incluye `build_epg`/`refresh_epg` y la tabla `OFFICIAL_EPG_SOURCES`), `epg_sources/` (una fuente EPG por archivo), `run_m3u_6h.py`, `run_epg_6h.py`, `publish_epg.py`, `targeted_update.py`, `change_plan.py`, `scripts/build_site_data.py`.
+- Runner: `update_m3u.py` (canales y resolutores; incluye `build_epg`/`refresh_epg` y la tabla `OFFICIAL_EPG_SOURCES`), `epg_sources/` (una fuente EPG por archivo), `epg_fragments.py` y `epg_dispatch.py` (guía por canal), `run_m3u_6h.py`, `run_epg_6h.py` (heredado, solo local), `publish_epg.py`, `targeted_update.py`, `change_plan.py`, `scripts/build_site_data.py`.
 - Editor web: `site/` (JS puro). La lógica pura vive en `site/editor-core.mjs` y `site/provider-catalog.mjs` con tests en `tests/editor-core.test.mjs`. Se sirve con el auxiliar `VibeM3U/local-catalog`.
 - Datos editoriales publicados: `data/channel-editor-layout.json` (orden, número, visibilidad y logos que lee la app), `data/vibem3u-selection.json` (declaración de proveedores para el runner) y `presentation-overrides.json` (órdenes y exclusiones).
 
@@ -34,6 +34,7 @@ agente debe poder retomar el trabajo solo con lo que está en el repositorio.
 
 - No modificar el checkout de VibeM3U desde aquí ni mover archivos entre repositorios. Un commit por repositorio.
 - La identidad pública es `catalogKey` (Highfly) o `countryKey|alias` (TvVoo). `providerResourceId`, `resolverSlug` y las URL HLS son referencias que pueden rotar; nunca usarlas como identidad.
+- **Guía por canal (desde 2026-10-12)**: cada canal guarda su guía automática en `epg/canales/<id>.xml` (nombre `epg_fragments.fragment_filename`) y sus correcciones por tramo en `epg/manual/<id>.xml` (XMLTV con `<programme>`; cada uno reemplaza solo su horario). `epg.xml` se une SIN red con `python update_m3u.py --assemble-epg` (fragmentos + manual + alias de la app + alcance de Lista 1); nunca editar `epg.xml` a mano esperando que dure: la próxima unión lo rehace. `update-epg.yml` corre cada 30 min: `epg_dispatch.py plan` elige las fuentes vencidas (ritmo por fuente en `PART_INTERVALS`, reintentos 30 min→1 h→2 h… en `epg/estado.json`), solo esas se descargan, `--build-epg-fragments` reconstruye y reescribe únicamente los canales cuyas fuentes se descargaron (`epg_channel_parts`); un canal cuya guía nueva queda en relleno conserva su fragmento real (`should_replace`). Un canal que falla en `build_epg`/`donate_epg_descriptions` se descarta solo él. Un push a `epg/manual/**` solo une. El bloqueo manual antiguo (`epg-manual-overrides.xml`) sigue aplicándose dentro de la construcción, y el modo `epg` de cambios dirigidos escribe también los fragmentos de sus canales. Forzar fuentes: dispatch con `fuentes=a,b` o `fuentes=todas`.
 - Nunca escribir tokens, credenciales, URL firmadas ni secretos en JSON, M3U, EPG, logs o commits.
 - No publicar sin: tests en verde, diff revisado y estado remoto verificado.
 

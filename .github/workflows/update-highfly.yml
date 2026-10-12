@@ -8,7 +8,6 @@ on:
   workflow_run:
     workflows:
       - Actualizar canales M3U
-      - Actualizar EPG
     types:
       - completed
     branches:

@@ -28,6 +28,7 @@ from pathlib import Path
 from urllib.parse import parse_qsl, quote, unquote, urlencode, urljoin, urlparse
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
+import epg_fragments
 import vibem3u_selection
 import nauta_reference
 
@@ -69,6 +70,11 @@ HIGHFLY_BITRATE_PATTERN = re.compile(
     re.IGNORECASE,
 )
 EPG_PATH = Path(__file__).with_name("epg.xml")
+# Guía por canal (2026-10-12): fragmentos automáticos y correcciones manuales por canal.
+EPG_DATA_DIR = Path(__file__).with_name("epg")
+EPG_FRAGMENTS_DIR = EPG_DATA_DIR / epg_fragments.FRAGMENTS_DIRNAME
+EPG_MANUAL_DIR = EPG_DATA_DIR / epg_fragments.MANUAL_DIRNAME
+EPG_ROOT_META_PATH = EPG_DATA_DIR / "raiz.json"
 EPG_OVERRIDES_PATH = Path(__file__).with_name("epg-overrides.json")
 EPG_MANUAL_OVERRIDES_PATH = Path(__file__).with_name("epg-manual-overrides.xml")
 STREAM_OVERRIDES_PATH = Path(__file__).with_name("stream-overrides.json")
@@ -6789,7 +6795,11 @@ def donate_epg_descriptions(
     for target_id in expected_ids:
         if target_id == EPG_MAIN_LIVE_CHANNEL_ID:
             continue
-        keys = list(epg_source_chain(target_id))
+        try:
+            keys = list(epg_source_chain(target_id))
+        except Exception as error:  # noqa: BLE001 (un canal roto no corta las sinopsis del resto)
+            print(f"AVISO EPG: sin sinopsis donadas para {target_id}: {error}", file=sys.stderr)
+            continue
         keys.append((ZAPPING_EPG_SOURCE, ZAPPING_DESCRIPTION_ID_PREFIX + target_id))
         keys.append((CLARO_SYNOPSIS_PART, ZAPPING_DESCRIPTION_ID_PREFIX + target_id))
         donors: list[tuple[datetime, datetime, str, str]] = []
@@ -7028,47 +7038,63 @@ def build_epg(
         items.sort(key=lambda item: (item[0], item[1]))
 
     for target_id in sorted(expected_ids):
-        covered = covered_by_target.setdefault(target_id, [])
-        for source_name, source_id in epg_source_chain(target_id):
-            items = programmes_by_key.get((source_name, source_id))
-            if not items:
-                continue
-            added = 0
-            for start, stop, programme in items:
-                for segment_start, segment_stop in free_segments(start, stop, covered):
-                    # Un respaldo no rellena el pasado que se recortó de la fuente principal.
-                    if segment_stop <= now - EPG_PAST_RETENTION:
-                        continue
-                    copied = localize_xmltv_programme(programme)
-                    if segment_start != start:
-                        # Ya estaba al aire cuando termina la fuente de más prioridad.
-                        copied.set("start", xmltv_format_chile(segment_start))
-                    if segment_stop != stop:
-                        copied.set("stop", xmltv_format_chile(segment_stop))
-                    forced_title = FORCED_EPG_TITLES.get(target_id)
-                    if forced_title:
-                        title_element = copied.find("title")
-                        if title_element is None:
-                            title_element = ET.SubElement(copied, "title", {"lang": "es"})
-                        title_element.text = forced_title
-                        for subtitle in copied.findall("sub-title"):
-                            copied.remove(subtitle)
-                    copied.set("channel", target_id)
-                    root.append(copied)
-                    covered.append((segment_start, segment_stop))
-                    added += 1
-                    programmes_by_target[target_id] += 1
-                    previous_stop = real_last_stop_by_target.get(target_id)
-                    if previous_stop is None or segment_stop > previous_stop:
-                        real_last_stop_by_target[target_id] = segment_stop
-            if added and target_id not in guide_sources:
-                # La fuente principal del canal es la de más prioridad que aportó.
-                guide_sources[target_id] = source_name
-                guide_types[target_id] = (
-                    "parrilla real conservada"
-                    if source_name == PUBLISHED_EPG_FALLBACK_SOURCE
-                    else "parrilla real"
-                )
+        # Cada canal en su propio intento (2026-10-12): si uno falla, se descarta solo lo
+        # suyo y los demás siguen. Su fragmento anterior lo conserva la guía por canal.
+        mark = len(root)
+        count_before = programmes_by_target[target_id]
+        covered_before = list(covered_by_target.get(target_id, []))
+        try:
+            covered = covered_by_target.setdefault(target_id, [])
+            for source_name, source_id in epg_source_chain(target_id):
+                items = programmes_by_key.get((source_name, source_id))
+                if not items:
+                    continue
+                added = 0
+                for start, stop, programme in items:
+                    for segment_start, segment_stop in free_segments(start, stop, covered):
+                        # Un respaldo no rellena el pasado que se recortó de la fuente principal.
+                        if segment_stop <= now - EPG_PAST_RETENTION:
+                            continue
+                        copied = localize_xmltv_programme(programme)
+                        if segment_start != start:
+                            # Ya estaba al aire cuando termina la fuente de más prioridad.
+                            copied.set("start", xmltv_format_chile(segment_start))
+                        if segment_stop != stop:
+                            copied.set("stop", xmltv_format_chile(segment_stop))
+                        forced_title = FORCED_EPG_TITLES.get(target_id)
+                        if forced_title:
+                            title_element = copied.find("title")
+                            if title_element is None:
+                                title_element = ET.SubElement(copied, "title", {"lang": "es"})
+                            title_element.text = forced_title
+                            for subtitle in copied.findall("sub-title"):
+                                copied.remove(subtitle)
+                        copied.set("channel", target_id)
+                        root.append(copied)
+                        covered.append((segment_start, segment_stop))
+                        added += 1
+                        programmes_by_target[target_id] += 1
+                        previous_stop = real_last_stop_by_target.get(target_id)
+                        if previous_stop is None or segment_stop > previous_stop:
+                            real_last_stop_by_target[target_id] = segment_stop
+                if added and target_id not in guide_sources:
+                    # La fuente principal del canal es la de más prioridad que aportó.
+                    guide_sources[target_id] = source_name
+                    guide_types[target_id] = (
+                        "parrilla real conservada"
+                        if source_name == PUBLISHED_EPG_FALLBACK_SOURCE
+                        else "parrilla real"
+                    )
+
+        except Exception as error:  # noqa: BLE001
+            print(f"AVISO EPG: el canal {target_id} falló al combinar fuentes: {error}", file=sys.stderr)
+            for element in list(root)[mark:]:
+                root.remove(element)
+            programmes_by_target[target_id] = count_before
+            covered_by_target[target_id] = covered_before
+            guide_sources.pop(target_id, None)
+            guide_types.pop(target_id, None)
+            real_last_stop_by_target.pop(target_id, None)
 
     donate_epg_descriptions(root, programmes_by_key, expected_ids)
 
@@ -7635,6 +7661,7 @@ def refresh_epg(
     output_path: Path | None = None,
     parts_dir: Path | None = None,
     parts_only: bool = False,
+    preserve_on_shared_failure: bool = True,
 ) -> dict:
     apply_epg_overrides()
     # `channels` is retained for call-site compatibility, but the effective
@@ -7779,7 +7806,7 @@ def refresh_epg(
     # anterior completa. Las fuentes por canal fallan solas: ese canal cae
     # a su respaldo y el resto se actualiza igual.
     blocking_source_errors = dict(parts[EPGSHARE_PART].errors) if EPGSHARE_PART in parts else {}
-    if blocking_source_errors and existing_status is not None:
+    if blocking_source_errors and existing_status is not None and preserve_on_shared_failure:
         if existing_data is not None and output_path.read_bytes() != existing_data:
             temporary = output_path.with_suffix(".xml.tmp")
             temporary.write_bytes(existing_data)
@@ -7850,6 +7877,209 @@ def refresh_epg(
         }
     )
     return epg_status
+
+
+EPG_FILLER_TITLES = frozenset({EPG_MAIN_FALLBACK_TITLE.casefold(), "pendiente de guia"})
+EPG_DEFAULT_ROOT_ATTRIBUTES = {
+    "generator-info-name": "lista-m3u updater",
+    "source-info-name": "EPGShare01, Zapping, TecnoCentro, fuentes oficiales y relay GitHub",
+}
+
+
+def epg_part_for_source(source_name: str) -> str | None:
+    """Parte del runner que descarga una fuente de la cadena de un canal."""
+    if source_name in {source.name for source in OFFICIAL_EPG_SOURCES}:
+        return source_name
+    if source_name in EPG_SOURCES:
+        return EPGSHARE_PART
+    if source_name in {ZAPPING_EPG_SOURCE, TECNOCENTRO_PART, UKRAINIAN_PART}:
+        return source_name
+    return None
+
+
+def epg_channel_parts(channel_id: str) -> set[str]:
+    """Partes de las que depende la guía de un canal (su cadena de fuentes)."""
+    parts = {epg_part_for_source(name) for name, _ in epg_source_chain(channel_id)}
+    parts.discard(None)
+    if channel_id in RED_BULL_CHANNEL_LOCALES:
+        parts.add(RED_BULL_PART)
+    return parts  # type: ignore[return-value]
+
+
+def epg_scope_order() -> tuple[list[str], set[str]]:
+    """Ids de la EPG en el orden de Lista 1 + selección gestionada, y los de Lista 1."""
+    channels, _ = epg_scope_channels()
+    main_ids = {channel.tvg_id for channel in main_playlist_channels() if channel.tvg_id}
+    seen: set[str] = set()
+    order = []
+    for channel in channels:
+        if channel.tvg_id and channel.tvg_id not in seen:
+            seen.add(channel.tvg_id)
+            order.append(channel.tvg_id)
+    return order, main_ids
+
+
+def epg_root_attributes() -> dict[str, str]:
+    try:
+        stored = json.loads(EPG_ROOT_META_PATH.read_text(encoding="utf-8"))
+        if isinstance(stored, dict) and stored:
+            return {str(k): str(v) for k, v in stored.items()}
+    except (OSError, ValueError):
+        pass
+    return dict(EPG_DEFAULT_ROOT_ATTRIBUTES)
+
+
+def epg_assembled_pending(data: bytes, scope_ids: list[str], main_ids: set[str],
+                          now: datetime) -> tuple[list[str], dict[str, dict]]:
+    """Pendientes por canal sobre la guía unida, sin cortar nada si un canal está vacío."""
+    root = ET.fromstring(data)
+    filler_channels = {
+        element.get("id", "")
+        for element in root.findall("channel")
+        if element.get("data-guide-source", "") in epg_fragments.FILLER_GUIDE_SOURCES
+    }
+    pending = []
+    for channel_id in scope_ids:
+        if channel_id in EPG_ALLOWED_EMPTY_IDS or channel_id == EPG_MAIN_LIVE_CHANNEL_ID:
+            continue
+        horizon = EPG_MAIN_CONTINUITY_BUFFER if channel_id in main_ids else EPG_NON_MAIN_MINIMUM_FUTURE
+        if channel_id in filler_channels or epg_coverage_gaps(
+            root, {channel_id}, now=now, minimum_future=horizon
+        ):
+            pending.append(channel_id)
+    return pending, epg_pending_details(root, pending, now=now, main_ids=main_ids)
+
+
+def assemble_epg_from_fragments(
+    *,
+    include_manual: bool = True,
+    output_path: Path | None = None,
+    now: datetime | None = None,
+) -> dict:
+    """Une fragmentos (y correcciones manuales) en el epg.xml que lee la app. Sin red."""
+    now = (now or datetime.now(timezone.utc)).replace(microsecond=0)
+    output_path = output_path or EPG_PATH
+    scope_ids, main_ids = epg_scope_order()
+    fragments = epg_fragments.read_dir(EPG_FRAGMENTS_DIR)
+    manual = epg_fragments.read_dir(EPG_MANUAL_DIR) if include_manual else {}
+    data, missing = epg_fragments.assemble(
+        fragments,
+        manual,
+        scope_ids,
+        root_attributes=epg_root_attributes(),
+        now=now,
+        past_retention=EPG_PAST_RETENTION,
+    )
+    if include_manual:
+        data = add_app_epg_aliases(data)
+    data, _ = filter_epg_to_channel_ids(data, set(scope_ids))
+    temporary = output_path.with_suffix(".xml.tmp")
+    temporary.write_bytes(data)
+    temporary.replace(output_path)
+    pending, details = epg_assembled_pending(data, scope_ids, main_ids, now)
+    root = ET.fromstring(data)
+    return {
+        "channels": len(scope_ids),
+        "programmes": len(root.findall("programme")),
+        "missing_fragments": missing,
+        "manual_channels": sorted(set(manual) & set(scope_ids)),
+        "pending_channels": pending,
+        "pending_details": details,
+    }
+
+
+def build_epg_fragments(
+    parts_dir: Path | None,
+    *,
+    fetched_parts: set[str] | None = None,
+    now: datetime | None = None,
+) -> dict:
+    """Reconstruye los canales con las partes recién descargadas y guarda un fragmento por canal.
+
+    La guía anterior de cada canal (sus fragmentos, sin correcciones manuales) es el respaldo
+    de la construcción. Un canal cuya nueva guía quedó en relleno conserva su fragmento real.
+    Si la construcción completa falla, no se toca ningún fragmento.
+    """
+    import tempfile
+
+    now = (now or datetime.now(timezone.utc)).replace(microsecond=0)
+    with tempfile.TemporaryDirectory() as temporary_dir:
+        base = Path(temporary_dir) / "base.xml"
+        assemble_epg_from_fragments(include_manual=False, output_path=base, now=now)
+        try:
+            status = refresh_epg(
+                main_playlist_channels(),
+                force=True,
+                output_path=base,
+                parts_dir=parts_dir,
+                parts_only=True,
+                preserve_on_shared_failure=False,
+            )
+            built = base.read_bytes()
+        except Exception as error:  # noqa: BLE001
+            print(f"AVISO EPG: la construcción no terminó; se conservan todos los fragmentos: {error}",
+                  file=sys.stderr)
+            return {"built": False, "error": str(error), "changed": [], "kept": []}
+    changed, kept = [], []
+    old = epg_fragments.read_dir(EPG_FRAGMENTS_DIR)
+    if fetched_parts is None and parts_dir is not None:
+        fetched_parts = {path.name.split(".")[0] for path in parts_dir.glob("*.json.gz")}
+    # Las sinopsis de Claro se donan a cualquier canal: con esa parte, todos se rehacen.
+    all_channels = fetched_parts is None or CLARO_SYNOPSIS_PART in fetched_parts
+    for channel_id, fragment in epg_fragments.split_epg(built).items():
+        touched = all_channels or bool(epg_channel_parts(channel_id) & fetched_parts)
+        if channel_id in old and not touched:
+            continue  # Ninguna de sus fuentes se descargó: su fragmento no se toca.
+        if epg_fragments.should_replace(old.get(channel_id), fragment, now, EPG_FILLER_TITLES):
+            if epg_fragments.write_fragment(EPG_FRAGMENTS_DIR, channel_id, fragment):
+                changed.append(channel_id)
+        else:
+            kept.append(channel_id)
+    attributes = {
+        key: value
+        for key, value in ET.fromstring(built).attrib.items()
+        if key not in {"data-generated-at"}
+    }
+    EPG_ROOT_META_PATH.parent.mkdir(parents=True, exist_ok=True)
+    EPG_ROOT_META_PATH.write_text(json.dumps(attributes, indent=2, ensure_ascii=False) + "\n",
+                                  encoding="utf-8")
+    return {"built": True, "changed": changed, "kept": kept,
+            "source_errors": status.get("source_errors", {})}
+
+
+def write_epg_pending(pending_channels: list[str], details: dict) -> None:
+    try:
+        EPG_PENDING_PATH.write_text(
+            json.dumps(
+                {
+                    "schema": 1,
+                    "updated_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+                    # «channels» lo usa run_epg_6h.py para reintentar; «details»
+                    # distingue sin guía, guía corta y huecos.
+                    "channels": pending_channels,
+                    "details": details or {},
+                },
+                indent=2,
+                ensure_ascii=True,
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+    except OSError as error:
+        print(f"AVISO: no se pudo escribir {EPG_PENDING_PATH.name}: {error}", file=sys.stderr)
+
+
+def report_epg_pending(pending_channels: list[str], details: dict) -> None:
+    labels = {"sin-guia": "sin guía", "guia-corta": "guía corta", "hueco": "con huecos"}
+    for kind, label in labels.items():
+        ids = [
+            f"{channel_id} ({details[channel_id]['futureHours']} h de "
+            f"{details[channel_id]['requiredHours']} h)"
+            for channel_id in pending_channels
+            if details.get(channel_id, {}).get("kind") == kind
+        ]
+        if ids:
+            print(f"  [EPG-PENDIENTE] {label}: " + ", ".join(ids), file=sys.stderr)
 
 
 def check_channel(
@@ -10291,6 +10521,16 @@ def main() -> int:
         help="fuerza y publica solo la EPG de m3u.m3u (Lista 1)",
     )
     mode_group.add_argument(
+        "--build-epg-fragments",
+        action="store_true",
+        help="reconstruye por canal con las partes de --epg-parts-dir y une epg.xml",
+    )
+    mode_group.add_argument(
+        "--assemble-epg",
+        action="store_true",
+        help="une epg.xml desde epg/canales y epg/manual, sin consultar fuentes",
+    )
+    mode_group.add_argument(
         "--channels-only",
         action="store_true",
         help="actualiza solo canales, resolutores y salud; no toca la EPG",
@@ -10331,6 +10571,29 @@ def main() -> int:
             )
             else 1
         )
+    if args.build_epg_fragments or args.assemble_epg:
+        if args.build_epg_fragments:
+            built = build_epg_fragments(args.epg_parts_dir)
+            print(
+                f"Guía por canal: {len(built['changed'])} fragmento(s) nuevos, "
+                f"{len(built['kept'])} conservado(s) por falla de su fuente"
+                + ("" if built["built"] else " (construcción fallida: sin cambios)")
+            )
+            if built["kept"]:
+                print("  [EPG] Conservan su guía anterior: " + ", ".join(sorted(built["kept"])),
+                      file=sys.stderr)
+        assembled = assemble_epg_from_fragments()
+        write_epg_pending(assembled["pending_channels"], assembled["pending_details"])
+        report_epg_pending(assembled["pending_channels"], assembled["pending_details"])
+        if assembled["missing_fragments"]:
+            print("  [EPG] Sin fragmento todavía: " + ", ".join(assembled["missing_fragments"]),
+                  file=sys.stderr)
+        print(
+            f"EPG unida: {assembled['channels']} canales, {assembled['programmes']} programas; "
+            f"correcciones manuales en {len(assembled['manual_channels'])} canal(es)"
+        )
+        return 0
+
     if args.refresh_epg_only:
         main_channels = main_playlist_channels()
         epg_status = refresh_epg(

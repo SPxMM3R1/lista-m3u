@@ -1,72 +1,68 @@
 name: Actualizar EPG
+# Guía por canal (2026-10-12). Cada 30 min un despachador decide qué fuentes vencieron (cada
+# una con su ritmo y reintentos con espera creciente); solo esas se descargan, en jobs
+# separados. Cada canal guarda su guía en epg/canales/<id>.xml y solo se reescribe si una de
+# sus fuentes se descargó; si su fuente falla conserva su última guía buena. epg.xml se une
+# sin red desde los fragmentos y las correcciones de epg/manual/: no puede caerse por una
+# fuente. Las pruebas del repo corren en cada push de código, no aquí.
 on:
   schedule:
-    # Primera EPG del dia a las 06:00; luego cada seis horas.
-    - cron: "0 0,6,12,18 * * *"
-      timezone: "America/Santiago"
+    - cron: "*/30 * * * *"
   workflow_dispatch:
     inputs:
       fuentes:
-        description: "Partes a renovar separadas por coma (vacío = todas). Ej: tvn-oficial,red-bull"
+        description: "Partes a renovar ya, separadas por coma (vacío = solo las vencidas; «todas» = todas). Ej: tvn-oficial,red-bull"
         required: false
         default: ""
         type: string
   workflow_run:
+    # Si cambia Lista 1, los canales nuevos piden sus fuentes y la unión respeta el alcance.
     workflows:
       - Actualizar canales M3U
     types:
       - completed
     branches:
       - main
+  push:
+    # Correcciones manuales desde el editor: solo unir, en segundos.
+    branches:
+      - main
+    paths:
+      - "epg/manual/**"
 permissions:
   contents: write
-# Grupo propio: la EPG solo publica epg.xml, epg-run-state.json y epg-pending.json,
-# que canales y cambios dirigidos no tocan. Compartir "m3u-publisher" hacia que
-# GitHub cancelara corridas en espera (solo admite una pendiente por grupo).
-# Si el otro proceso publica primero, publish_epg.py integra main y reintenta.
+# Grupo propio: la EPG solo publica epg.xml, epg/, epg-run-state.json y epg-pending.json,
+# que canales y cambios dirigidos no tocan. Si otro proceso publica primero,
+# publish_epg.py integra main y reintenta.
 concurrency:
   group: m3u-epg
   cancel-in-progress: false
 jobs:
   plan:
-    if: ${{ github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event != 'schedule') }}
     runs-on: ubuntu-latest
     outputs:
-      parts: ${{ steps.parts.outputs.parts }}
-      partial: ${{ steps.parts.outputs.partial }}
+      parts: ${{ steps.plan.outputs.parts }}
+      any: ${{ steps.plan.outputs.any }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - run: python -m pip install --disable-pip-version-check --no-input tzdata
-      - name: Probar importadores EPG
-        # Las pruebas del catálogo publicado se saltan: este runner no publica listas
-        # y no debe quedar bloqueado por una baja que el runner de canales aún no aplicó.
-        env:
-          M3U_RUNNER_TESTS: "1"
-        run: python -m unittest discover -s tests -p "test_*.py"
-      - name: Elegir partes
-        id: parts
+      - name: Elegir fuentes vencidas
+        id: plan
         env:
           FUENTES: ${{ inputs.fuentes }}
+          EVENT: ${{ github.event_name }}
+        shell: bash
         run: |
-          python - <<'EOF'
-          import json, os, subprocess, sys
-          every = json.loads(subprocess.check_output([sys.executable, "update_m3u.py", "--list-epg-parts"], text=True))
-          wanted = [p.strip() for p in os.environ.get("FUENTES", "").split(",") if p.strip()]
-          unknown = sorted(set(wanted) - set(every))
-          if unknown:
-              sys.exit("Partes desconocidas: " + ", ".join(unknown) + ". Validas: " + ", ".join(every))
-          parts = [p for p in every if p in wanted] if wanted else every
-          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as out:
-              out.write(f"parts={json.dumps(parts)}\n")
-              out.write(f"partial={'true' if wanted else 'false'}\n")
-          print("Partes:", ", ".join(parts))
-          EOF
+          args=(plan)
+          if [ "$FUENTES" = "todas" ]; then args+=(--all); elif [ -n "$FUENTES" ]; then args+=(--force "$FUENTES"); fi
+          python epg_dispatch.py "${args[@]}"
 
   fetch:
     needs: plan
+    if: needs.plan.outputs.any == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 25
     strategy:
@@ -94,14 +90,13 @@ jobs:
 
   update:
     needs: [plan, fetch]
-    # Se arma aunque alguna fuente haya fallado: sus canales usan respaldo.
+    # Corre aunque falle alguna fuente (o no haya ninguna vencida): une igual.
     if: ${{ always() && needs.plan.result == 'success' }}
     runs-on: ubuntu-latest
     env:
       # Use the Python tzdata package so America/Santiago follows DST even if
       # the runner image has an older system timezone database.
       PYTHONTZPATH: ""
-      EPG_FORCE_REFRESH: "true"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -111,19 +106,24 @@ jobs:
         run: python -m pip install --disable-pip-version-check --no-input tzdata
       - name: Comprobar zona horaria de Chile
         run: python -c "from datetime import datetime, timezone; from zoneinfo import ZoneInfo; now=datetime.now(timezone.utc).astimezone(ZoneInfo('America/Santiago')); print(now.isoformat()); assert now.utcoffset() is not None"
-      - name: Reunir partes descargadas
+      - name: Reunir fuentes descargadas
+        if: needs.plan.outputs.any == 'true'
         continue-on-error: true
         uses: actions/download-artifact@v4
         with:
           pattern: epg-part-*
           path: epg-parts
           merge-multiple: true
-      - name: Armar EPG
+      - name: Construir por canal y unir
+        shell: bash
         run: |
-          ls -la epg-parts || true
-          args=(run_epg_6h.py --executor github --force --parts-dir epg-parts)
-          if [ "${{ needs.plan.outputs.partial }}" = "true" ]; then args+=(--parts-only); fi
-          python "${args[@]}"
+          mkdir -p epg-parts
+          if [ "${{ needs.plan.outputs.any }}" = "true" ]; then
+            python update_m3u.py --build-epg-fragments --epg-parts-dir epg-parts
+            python epg_dispatch.py record --planned '${{ needs.plan.outputs.parts }}' --parts-dir epg-parts
+          else
+            python update_m3u.py --assemble-epg
+          fi
       - name: Publicar EPG
         id: publish
         shell: bash
