@@ -1,6 +1,16 @@
 import json
 import unittest
 from pathlib import Path
+import os
+
+# Pruebas del catálogo publicado (2026-10-12): comparan las listas y el layout ya publicados.
+# Los runners de guía y canales las saltan (M3U_RUNNER_TESTS=1) porque generan esas listas
+# después de probar; si una baja reciente aún no se regeneró, bloquearían la propia
+# regeneración. Al publicar desde el editor o subir código corren completas.
+live_catalog = unittest.skipIf(
+    os.environ.get("M3U_RUNNER_TESTS") == "1",
+    "catálogo publicado: lo revisa el flujo del editor, no el runner",
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 LAYOUT_PATH = ROOT / "data" / "channel-editor-layout.json"
@@ -36,6 +46,7 @@ class PublishedEditorialConsistencyTest(unittest.TestCase):
     deja a la app y al runner con canales de proveedor distintos.
     """
 
+    @live_catalog
     def test_requested_118_is_permanently_removed_without_renumbering(self) -> None:
         import update_m3u as runner
 

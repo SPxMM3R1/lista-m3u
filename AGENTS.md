@@ -67,7 +67,7 @@ agente debe poder retomar el trabajo solo con lo que está en el repositorio.
 
 - Tests obligatorios antes de commitear:
   - `python -m unittest discover -s tests -p "test_*.py"` (324 pruebas, una omitida; incluye contrato, regresiones Nauta/editor y RWND).
-  - `node --test tests/app-requests.test.mjs tests/editor-core.test.mjs tests/layout-contract.test.mjs` (52 pruebas; incluye el flujo de pedidos de la app).
+  - `node --test tests/app-requests.test.mjs tests/editor-core.test.mjs tests/layout-contract.test.mjs` (53 pruebas; incluye el flujo de pedidos de la app y la fusión de bajas en el editor).
 - Validar el editor local sin tocar el repo: `python scripts/build_site_data.py --output <carpeta temp>` (solo acepta salidas dentro de la carpeta temporal).
 - Commits en español con prefijo: `feat(editor)`, `fix(resolvers)`, `feat(epg)`, `fix(catalogo)`, `chore(...)`.
 - Cambios del editor: primero `site/editor-core.mjs` (o `provider-catalog.mjs`) con test, después `site/editor.js`, `site/index.html` y `site/styles.css`.
@@ -127,7 +127,8 @@ agente debe poder retomar el trabajo solo con lo que está en el repositorio.
 - Procurar al menos 12 h de programación por canal en cada corrida; los pendientes se reintentan por canal dentro de la corrida y en cada ciclo de 6 h.
 - El runner no inventa programación, EPG ni coincidencias: ante ambigüedad, dejar pendiente.
 
-- Pedidos de la app (desde 2026-10-11): `data/app-requests/*.json` solo los escribe VibeM3U (papelera desde la TV) y los consume `app-requests.yml`. No agregar acciones nuevas sin la contraparte en la app ni aplicar los cambios a mano: todo pasa por `scripts/apply_app_requests.mjs`, que usa editor-core.
+- Pedidos de la app (desde 2026-10-11): `data/app-requests/*.json` solo los escribe VibeM3U (papelera desde la TV) y los consume `app-requests.yml`. No agregar acciones nuevas sin la contraparte en la app ni aplicar los cambios a mano: todo pasa por `scripts/apply_app_requests.mjs`, que usa editor-core. El workflow regenera las listas sin red en el mismo commit y no encola runners completos; el editor web conserva esas bajas al publicar (`mergeRemoteDeletions`).
+- Pruebas del catálogo publicado (desde 2026-10-12): las que leen layout/listas/presentación reales llevan `@live_catalog`; los runners de canales y EPG y el despliegue del editor corren con `M3U_RUNNER_TESTS=1` (completas en `targeted-changes` en cada push de código) y las saltan para no bloquear su propia regeneración. No fijar hashes ni conjuntos de bajas a mano: comparar contra `contracts/editorial-baseline-20261012.json` con `tests/catalog_baseline.py`, que descuenta las filas que el usuario envió después a la papelera. Un cambio editorial que no sea baja (mover, renombrar, agregar) sí exige actualizar esa base en el mismo commit.
 
 ## Documentos de referencia
 

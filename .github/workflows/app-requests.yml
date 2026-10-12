@@ -1,8 +1,9 @@
 name: Pedidos de la app
 
 # VibeM3U 0.5.90+: «Enviar a la papelera» desde la TV deja un JSON en data/app-requests/.
-# Aquí se aplica con las mismas funciones del editor web, se borra el pedido y se relanzan la
-# actualización de canales y de enlaces (un push con GITHUB_TOKEN no dispara otros workflows).
+# Aquí se aplica con las mismas funciones del editor web y las listas públicas se regeneran
+# sin red (modo presentation), todo en un solo commit. No se relanza el runner completo de
+# canales: los runners programados siguen a su hora sin pedidos extra en cola.
 on:
   push:
     branches:
@@ -22,6 +23,7 @@ concurrency:
 jobs:
   apply:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     env:
       GH_TOKEN: ${{ github.token }}
     steps:
@@ -29,28 +31,41 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
       - run: node --test tests/app-requests.test.mjs tests/editor-core.test.mjs
-      - name: Aplicar y publicar
+      - name: Aplicar, regenerar listas y publicar
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          files=(data/app-requests data/channel-editor-layout.json data/vibem3u-selection.json presentation-overrides.json
+                 m3u.m3u m3u-externa.m3u 1.m3u 2.m3u channel-catalog.m3u resolver-catalog.json)
           for attempt in 1 2 3 4 5; do
             summary=$(node scripts/apply_app_requests.mjs | tail -n 1)
             echo "$summary"
-            git add -A data/app-requests data/channel-editor-layout.json data/vibem3u-selection.json presentation-overrides.json
-            if git diff --cached --quiet; then echo "Sin pedidos pendientes"; echo "APPLIED=0" >> "$GITHUB_ENV"; exit 0; fi
-            names=$(node -e 'const s=JSON.parse(process.argv[1]);console.log(s.applied.map(a=>a.name).join(", ")||"pedidos inválidos")' "$summary")
+            if [ -z "$(git status --porcelain -- data/app-requests)" ]; then echo "Sin pedidos pendientes"; exit 0; fi
             applied=$(node -e 'console.log(JSON.parse(process.argv[1]).applied.length)' "$summary")
+            if [ "$applied" != "0" ]; then
+              # Igual que un cambio editorial dirigido: sin consultar proveedores.
+              python update_m3u.py --sync-resolver-contract
+              python targeted_update.py --mode presentation
+            fi
+            git add -A -- "${files[@]}"
+            names=$(node -e 'const s=JSON.parse(process.argv[1]);console.log(s.applied.map(a=>a.name).join(", ")||"pedidos inválidos")' "$summary")
             git commit -q -m "Papelera desde la app: $names"
-            if git push; then echo "APPLIED=$applied" >> "$GITHUB_ENV"; exit 0; fi
+            if git push; then
+              if [ "$applied" != "0" ]; then echo "APPLIED=$applied" >> "$GITHUB_ENV"; fi
+              exit 0
+            fi
             # Otro cambio llegó antes: se parte de lo publicado y se vuelve a aplicar.
             git fetch origin main
             git reset -q --hard origin/main
           done
           exit 1
-      - name: Actualizar canales y enlaces
-        if: env.APPLIED != '0'
-        run: |
-          gh workflow run update-channels.yml --ref main
-          gh workflow run update-highfly.yml --ref main
+      - name: Actualizar el editor web
+        # Un push con GITHUB_TOKEN no dispara otros workflows; sin esto el editor seguiría
+        # mostrando el layout anterior a la baja.
+        if: env.APPLIED != ''
+        run: gh workflow run deploy-site.yml --ref main

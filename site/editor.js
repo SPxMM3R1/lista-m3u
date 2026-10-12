@@ -13,6 +13,7 @@ import {
   rowKey,
   sanitizeRow,
   setRowState,
+  mergeRemoteDeletions,
   setRowsState,
   removeRowsPermanently,
   stableId,
@@ -2035,6 +2036,29 @@ function showReview() {
   else if (!isDirty()) showToast("No hay cambios por publicar.");
 }
 
+async function publishedLayout() {
+  // API de contenidos (sin caché de raw) sobre main; el repositorio es público.
+  const response = await fetch(`${API}/contents/${FILES.layout}?ref=${BRANCH}`, {
+    headers: { Accept: "application/vnd.github.raw+json" },
+    cache: "no-store",
+    credentials: "omit",
+  });
+  if (!response.ok) throw new Error(`layout publicado ${response.status}`);
+  return response.json();
+}
+
+async function adoptRemoteDeletions() {
+  let remote;
+  try {
+    remote = await publishedLayout();
+  } catch {
+    return []; // Sin red hacia la API se publica como antes.
+  }
+  const { layout, applied } = mergeRemoteDeletions(state.originalLayout, state.layout, remote);
+  if (applied.length) state.layout = layout;
+  return applied;
+}
+
 async function currentDocuments() {
   const layout = layoutDocument();
   const selection = await buildSelectionDocument(layout, state.selection);
@@ -2171,6 +2195,7 @@ async function handlePublish(event) {
   elements.confirmPublish.textContent = "Publicando…";
   elements.publishError.hidden = true;
   try {
+    const remoteDeletions = await adoptRemoteDeletions();
     const documents = await currentDocuments();
     let result;
     if (LOCAL_MODE) {
@@ -2195,7 +2220,9 @@ async function handlePublish(event) {
     state.selection = JSON.parse(documents[FILES.selection]);
     elements.publishDialog.close();
     render();
-    showToast("Commit creado. El runner de canales se forzará y la EPG se actualizará después.");
+    showToast(remoteDeletions.length
+      ? `Commit creado. Se mantuvieron ${remoteDeletions.length} baja(s) hechas desde la app.`
+      : "Commit creado. El runner de canales se forzará y la EPG se actualizará después.");
     window.setTimeout(() => {
       const existing = $("#commit-link");
       existing?.remove();

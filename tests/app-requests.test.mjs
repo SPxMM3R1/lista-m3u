@@ -61,3 +61,26 @@ test("parseRequest rechaza claves con formato ajeno al editor", () => {
   assert.equal(typeof parseRequest(request("provider:nauta:x")), "string");
   assert.deepEqual(parseRequest(request("m3u:0104")), { rowKey: "m3u:0104", name: "x" });
 });
+
+test("publicar desde el editor conserva las bajas hechas en la app mientras estaba abierto", async () => {
+  const { mergeRemoteDeletions } = await import("../site/editor-core.mjs");
+  const original = documents().layout;
+  const local = structuredClone(original);
+  local.channels[1].displayName = "Mega HD"; // edición del editor en otra fila
+  local.channels[2].state = "hidden"; // el editor decidió otra cosa para EUROSPORT 2
+  local.channels.push({ kind: "m3u", tvgId: "0200", name: "Nuevo", group: "x", sourceList: "1.m3u",
+    order: 4, number: 4, state: "active" });
+  const { layout: remote } = await applyRequests(documents(), [
+    { file: "a.json", text: request("m3u:0104") },
+    { file: "b.json", text: request("provider:tvvoo:spain|vavoo_EUROSPORT%202%7Cgroup%3Aes") },
+  ]);
+  remote.channels.push({ ...local.channels[3], state: "deleted" });
+  const { layout, applied } = mergeRemoteDeletions(original, local, remote);
+  const state = (id) => layout.channels.find((row) => (row.tvgId ?? row.catalogKey).startsWith(id)).state;
+  assert.deepEqual(applied, ["TVN"]);
+  assert.equal(state("0104"), "deleted");
+  assert.equal(state("spain"), "hidden", "lo decidido en esta sesión gana");
+  assert.equal(state("0200"), "active", "una fila nueva del editor no se toca");
+  assert.equal(layout.channels.find((row) => row.tvgId === "0105").displayName, "Mega HD");
+  assert.equal(layout.channels.find((row) => row.tvgId === "0104").number, 1);
+});

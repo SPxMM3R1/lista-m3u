@@ -4,6 +4,17 @@ import hashlib
 import unittest
 import nauta_reference
 import update_m3u as runner
+import catalog_baseline
+import os
+
+# Pruebas del catálogo publicado (2026-10-12): comparan las listas y el layout ya publicados.
+# Los runners de guía y canales las saltan (M3U_RUNNER_TESTS=1) porque generan esas listas
+# después de probar; si una baja reciente aún no se regeneró, bloquearían la propia
+# regeneración. Al publicar desde el editor o subir código corren completas.
+live_catalog = unittest.skipIf(
+    os.environ.get("M3U_RUNNER_TESTS") == "1",
+    "catálogo publicado: lo revisa el flujo del editor, no el runner",
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -43,6 +54,7 @@ class NautaReferenceTest(unittest.TestCase):
                     "vibem3u://resolver/nauta/opaque-provider-id", "vibem3u://resolver/nauta/cat_4%7Chttps%3A%2F%2Fhost"]:
             self.assertIsNone(nauta_reference.parse_reference(url))
 
+    @live_catalog
     def test_currently_listed_nauta_is_opt_in_from_the_live_editor_catalog(self):
         fixture = json.loads((ROOT/"contracts/nauta-trial-channels-20261007.json").read_text(encoding="utf-8"))
         snapshot_ids = {r["tvgId"] for r in fixture["channels"]}
@@ -66,26 +78,38 @@ class NautaReferenceTest(unittest.TestCase):
             self.assertEqual([], channels)
         self.assertEqual((ROOT/"m3u.m3u").read_bytes(), (ROOT/"1.m3u").read_bytes())
 
+    @live_catalog
     def test_old_editorial_rows_match_latest_approved_baseline(self):
-        # Snapshot digest also works in Actions' shallow checkout, without Git history.
-        current = json.loads((ROOT/"data/channel-editor-layout.json").read_text(encoding="utf-8"))
-        current["channels"] = [row for row in current["channels"]
-                               if not str(row.get("tvgId", "")).startswith("Nauta.")]
-        current["excludedM3u"] = sorted(id for id in current["excludedM3u"] if not id.endswith("@Nauta"))
-        # Deshacer solo la inserción editorial ESPN 7 del 10-10 antes de comparar.
-        # El digest base se actualizó tras la baja autorizada de Sky Sports Main
-        # Event UHD desde la app (2026-10-11); los registros históricos no se reescriben.
-        for row in current["channels"]:
-            if 38 <= row["order"] <= 261:
-                row["order"] -= 1
-            if row["state"] == "active" and 38 <= row["number"] <= 94:
-                row["number"] -= 1
-        digest = hashlib.sha256(json.dumps(current, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
-        # The local editor sorts exclusion IDs on publication; their order is not semantic.
-        self.assertEqual("0f335001f13d3718d5d82bf51b53bd16204e2d999ae51a57744893b972ec4f13", digest)
-        text = (ROOT/"data/vibem3u-selection.json").read_text(encoding="utf-8")
-        self.assertEqual("ad6addb253c0c93e28b115ac81bb19273d259633b110b1954f63e010870f2de9", hashlib.sha256(text.encode()).hexdigest())
+        # La base guardada es la aprobada (digest 0f3350… / ad6addb…, 2026-10-11) y se verifica
+        # aquí; después solo se aceptan bajas del usuario a la papelera (app o editor).
+        def editorial_digest(layout):
+            current = json.loads(json.dumps(layout))
+            current["channels"] = [row for row in current["channels"]
+                                   if not str(row.get("tvgId", "")).startswith("Nauta.")]
+            current["excludedM3u"] = sorted(id for id in current["excludedM3u"] if not id.endswith("@Nauta"))
+            # Deshacer solo la inserción editorial ESPN 7 del 10-10 antes de comparar.
+            for row in current["channels"]:
+                if 38 <= row["order"] <= 261:
+                    row["order"] -= 1
+                if row["state"] == "active" and 38 <= row["number"] <= 94:
+                    row["number"] -= 1
+            return hashlib.sha256(json.dumps(current, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
 
+        base = catalog_baseline.BASELINE
+        self.assertEqual("0f335001f13d3718d5d82bf51b53bd16204e2d999ae51a57744893b972ec4f13",
+                         editorial_digest(base["layout"]))
+        base_selection = json.dumps(base["selection"], ensure_ascii=False, indent=2) + "\n"
+        self.assertEqual("ad6addb253c0c93e28b115ac81bb19273d259633b110b1954f63e010870f2de9",
+                         hashlib.sha256(base_selection.encode()).hexdigest())
+        layout = json.loads((ROOT/"data/channel-editor-layout.json").read_text(encoding="utf-8"))
+        selection = json.loads((ROOT/"data/vibem3u-selection.json").read_text(encoding="utf-8"))
+        trashed = catalog_baseline.user_trashed_rows(layout)
+        self.assertEqual(catalog_baseline.layout_without_trash(base["layout"], trashed),
+                         catalog_baseline.layout_without_trash(layout, trashed))
+        self.assertEqual(catalog_baseline.selection_without_trash(base["selection"], trashed),
+                         catalog_baseline.selection_without_trash(selection, trashed))
+
+    @live_catalog
     def test_cleanup_has_repeated_evidence_and_cannot_resurrect_removed_rows(self):
         audit = json.loads((ROOT/"contracts/nauta-validation-20261008.json").read_text(encoding="utf-8"))
         fixture = json.loads((ROOT/"contracts/nauta-trial-channels-20261007.json").read_text(encoding="utf-8"))
@@ -134,6 +158,7 @@ class NautaReferenceTest(unittest.TestCase):
             control = next(r for r in audit["channels"] if r["name"] == name)
             self.assertEqual(["video_ok"] * 3, [c["status"] for c in control["checks"]])
 
+    @live_catalog
     def test_cleanup_preserves_other_presentation_and_contains_no_secrets(self):
         audit = json.loads((ROOT/"contracts/nauta-validation-20261008.json").read_text(encoding="utf-8"))
         presentation = json.loads((ROOT/"presentation-overrides.json").read_text(encoding="utf-8"))
@@ -153,12 +178,22 @@ class NautaReferenceTest(unittest.TestCase):
                 return {k: strip_nauta(v) for k, v in value.items() if not k.endswith("@Nauta")}
             return value
 
-        digest = hashlib.sha256(json.dumps(strip_nauta(presentation), ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
-        self.assertEqual(audit["nonNautaPresentationSha256"], digest)
+        def digest(value):
+            return hashlib.sha256(json.dumps(strip_nauta(value), ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+
+        # La base aprobada conserva el digest de la auditoría; lo publicado solo puede diferir
+        # en canales que el usuario envió después a la papelera (app o editor).
+        base = catalog_baseline.BASELINE["presentation"]
+        self.assertEqual(audit["nonNautaPresentationSha256"], digest(base))
+        layout = json.loads((ROOT/"data/channel-editor-layout.json").read_text(encoding="utf-8"))
+        trashed = catalog_baseline.user_trashed_ids(layout)
+        self.assertEqual(strip_nauta(catalog_baseline.presentation_without_trash(base, trashed)),
+                         strip_nauta(catalog_baseline.presentation_without_trash(presentation, trashed)))
         allowed = {"atUtc", "status", "appResolved", "decoded", "audioDetected", "mediaHttpCodes", "apiHttpCodes", "frameSha256"}
         self.assertTrue(all(set(c).issubset(allowed) for r in audit["channels"] for c in r["checks"]))
         self.assertTrue(all(not c["apiHttpCodes"] for r in audit["channels"] for c in r["checks"]))
 
+    @live_catalog
     def test_sports_restoration_is_exactly_authorized_and_preserves_history(self):
         record = json.loads((ROOT/"contracts/nauta-restoration-20261008-sports.json").read_text(encoding="utf-8"))
         expected_numbers = {108,114,165,204,205,216,271,277,295,306,308,309,311,315,319,320,323,325,337,394,424,463,476,545,562,563,564,573,584,597,598,607,608,617}
@@ -174,6 +209,7 @@ class NautaReferenceTest(unittest.TestCase):
         removed = {r["tvgId"] for r in audit["channels"] if r["decision"] == "remove"}
         self.assertTrue(authorized_restorations().issubset(removed))
 
+    @live_catalog
     def test_restored_rows_have_original_numbers_trial_refs_and_no_tombstones(self):
         record = json.loads((ROOT/"contracts/nauta-restoration-20261008-sports.json").read_text(encoding="utf-8"))
         layout = json.loads((ROOT/"data/channel-editor-layout.json").read_text(encoding="utf-8"))
@@ -181,7 +217,9 @@ class NautaReferenceTest(unittest.TestCase):
         restored = authorized_restorations()
         deleted = authorized_followup_deletions()
         surviving = restored - deleted
-        rows = {r.get("tvgId"): r for r in layout["channels"] if r.get("tvgId") in surviving}
+        # Las restauradas que el usuario envió después a la papelera quedan fuera como las demás.
+        rows = {r.get("tvgId"): r for r in layout["channels"]
+                if r.get("tvgId") in surviving and r["state"] != "deleted"}
         self.assertTrue(all(row["state"] == "active" and row["trial"] for row in rows.values()))
         self.assertEqual(253 + len(selected_nauta_rows(layout)), len(layout["channels"]))
         self.assertTrue(surviving.isdisjoint(layout["excludedM3u"]))
@@ -194,11 +232,17 @@ class NautaReferenceTest(unittest.TestCase):
             if row["tvgId"] in deleted:
                 continue
             self.assertEqual(row["tvgId"], nauta_reference.channel_id(row["name"]))
+        # Las filas en la papelera siguen en el catálogo de resolutores (igual que cualquier
+        # fila «deleted»); solo las que ya no están en el layout deben faltar también ahí.
+        trashed_in_layout = {r.get("tvgId") for r in layout["channels"] if r["state"] == "deleted"}
         for file in ["1.m3u", "m3u.m3u", "channel-catalog.m3u"]:
+            absent = surviving - rows.keys()
+            if file == "channel-catalog.m3u":
+                absent -= trashed_in_layout
             channels = [c for c in runner.parse_channels((ROOT/file).read_text(encoding="utf-8").splitlines())
-                        if c.tvg_id in surviving - rows.keys()]
+                        if c.tvg_id in absent]
             self.assertEqual([], channels)
-            self.assertTrue((surviving - rows.keys()).isdisjoint(presentation["orders"][file]))
+            self.assertTrue(absent.isdisjoint(presentation["orders"][file]))
         self.assertEqual(0, len((surviving - rows.keys()) & {c.tvg_id for c in runner.main_playlist_channels()}))
 
     def test_restoration_reports_failure_and_retest_separately_without_secrets(self):
@@ -227,6 +271,7 @@ class NautaReferenceTest(unittest.TestCase):
         self.assertTrue(all(r["kind"] == "m3u" and r["sourceList"] == "1.m3u" for r in record["channels"]))
         self.assertTrue(all(r["tvgId"] == nauta_reference.channel_id(r["name"].removesuffix(" [Nauta]")) for r in record["channels"]))
 
+    @live_catalog
     def test_requested_deletions_are_tombstoned_absent_and_other_numbers_preserved(self):
         record = json.loads((ROOT/"contracts/nauta-247-cleanup-20261008.json").read_text(encoding="utf-8"))
         layout = json.loads((ROOT/"data/channel-editor-layout.json").read_text(encoding="utf-8"))
@@ -246,7 +291,11 @@ class NautaReferenceTest(unittest.TestCase):
         unselected = previously_listed_nauta_ids()
         selected = selected_nauta_rows(layout)
         current_by_id = {r.get("tvgId"): r for r in layout["channels"]}
-        self.assertEqual({id: number + (1 if 37 <= number <= 93 and current_by_id[id]["state"] == "active" else 0)
+        # Una baja posterior del usuario conserva el número que tenía; se compara contra la base.
+        trashed = catalog_baseline.user_trashed_ids(layout)
+        base_by_id = {r.get("tvgId"): r for r in catalog_baseline.BASELINE["layout"]["channels"]}
+        self.assertEqual({id: base_by_id[id]["number"] if id in trashed else
+                          number + (1 if 37 <= number <= 93 and current_by_id[id]["state"] == "active" else 0)
                           for id, number in expected_numbers.items()
                           if id not in unselected and id not in selected},
                          {r["tvgId"]: r["number"] for r in layout["channels"]

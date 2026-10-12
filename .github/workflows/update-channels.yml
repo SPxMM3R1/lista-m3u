@@ -79,6 +79,10 @@ jobs:
           python-version: "3.12"
 
       - name: Probar importadores EPG
+        # Las pruebas del catálogo publicado se saltan aquí: este runner es el que regenera
+        # las listas, y una baja aún no aplicada no debe impedir aplicarla.
+        env:
+          M3U_RUNNER_TESTS: "1"
         run: python -m unittest discover -s tests -p "test_*.py"
 
       - name: Sincronizar cambios del contrato de resolutores

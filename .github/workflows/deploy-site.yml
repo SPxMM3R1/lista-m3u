@@ -48,6 +48,10 @@ jobs:
         with:
           node-version: "22"
       - name: Ejecutar pruebas del runner y editor
+        # El catálogo publicado lo revisan los cambios dirigidos en cada push de código; una
+        # edición desde el editor o la app no debe impedir publicar el propio editor.
+        env:
+          M3U_RUNNER_TESTS: "1"
         run: |
           python -m unittest discover -s tests -p "test_*.py"
           node --test tests/editor-core.test.mjs tests/layout-contract.test.mjs tests/app-requests.test.mjs

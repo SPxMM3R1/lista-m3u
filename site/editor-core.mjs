@@ -227,6 +227,26 @@ export function setRowState(layout, key, state) {
   return current;
 }
 
+/**
+ * Bajas publicadas por otra vía (papelera de la app) desde que se abrió el editor.
+ * Se aplican sobre la edición local salvo que esta sesión haya cambiado el estado de
+ * esa fila; así publicar desde el editor no revive canales borrados desde la TV.
+ */
+export function mergeRemoteDeletions(original, current, remote) {
+  const before = new Map((original?.channels ?? []).map((row) => [rowKey(row), row.state]));
+  const now = new Map((current?.channels ?? []).map((row) => [rowKey(row), row.state]));
+  let layout = current;
+  const applied = [];
+  for (const row of remote?.channels ?? []) {
+    const key = rowKey(row);
+    if (row.state !== "deleted" || !now.has(key)) continue;
+    if (before.get(key) === "deleted" || now.get(key) !== before.get(key)) continue;
+    layout = setRowState(layout, key, "deleted");
+    applied.push(row.displayName || row.name || key);
+  }
+  return { layout, applied };
+}
+
 export function addRow(layout, source) {
   const current = structuredClone(layout);
   const key = rowKey(source);
