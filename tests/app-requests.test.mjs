@@ -84,3 +84,17 @@ test("publicar desde el editor conserva las bajas hechas en la app mientras esta
   assert.equal(layout.channels.find((row) => row.tvgId === "0105").displayName, "Mega HD");
   assert.equal(layout.channels.find((row) => row.tvgId === "0104").number, 1);
 });
+
+test("el sello del layout coincide con el de las pruebas Python y se renueva al publicar", async () => {
+  const { approveLayout, layoutApprovalDigest } = await import("../site/editor-core.mjs");
+  const fixture = {
+    schemaVersion: 1,
+    excludedM3u: ["Nauta.x@Nauta"],
+    channels: [{ kind: "m3u", tvgId: "0104", name: "TVN «HD» ñandú | 24/7", group: "Nacionales",
+      sourceList: "1.m3u", order: 1, number: 1, state: "deleted" }],
+  };
+  const digest = "adb879b4c6a25b3aa1e76ffac96886dc4466b5e75dd681464a2985846dcb8281";
+  assert.equal(await layoutApprovalDigest(fixture), digest);
+  const stale = { ...fixture, approval: { source: "app", sha256: "viejo" } };
+  assert.deepEqual((await approveLayout(stale, "editor")).approval, { source: "editor", sha256: digest });
+});

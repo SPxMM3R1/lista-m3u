@@ -14,6 +14,7 @@ import {
   sanitizeRow,
   setRowState,
   mergeRemoteDeletions,
+  approveLayout,
   setRowsState,
   removeRowsPermanently,
   stableId,
@@ -2060,7 +2061,8 @@ async function adoptRemoteDeletions() {
 }
 
 async function currentDocuments() {
-  const layout = layoutDocument();
+  // Lo publicado desde el editor es decisión del usuario: va sellado (ver approveLayout).
+  const layout = await approveLayout(layoutDocument(), "editor");
   const selection = await buildSelectionDocument(layout, state.selection);
   const presentation = buildPresentationOverrides(layout, state.presentation);
   return {

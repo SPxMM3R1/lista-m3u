@@ -7,14 +7,7 @@ import update_m3u as runner
 import catalog_baseline
 import os
 
-# Pruebas del catálogo publicado (2026-10-12): comparan las listas y el layout ya publicados.
-# Los runners de guía y canales las saltan (M3U_RUNNER_TESTS=1) porque generan esas listas
-# después de probar; si una baja reciente aún no se regeneró, bloquearían la propia
-# regeneración. Al publicar desde el editor o subir código corren completas.
-live_catalog = unittest.skipIf(
-    os.environ.get("M3U_RUNNER_TESTS") == "1",
-    "catálogo publicado: lo revisa el flujo del editor, no el runner",
-)
+from catalog_approval import live_catalog  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 

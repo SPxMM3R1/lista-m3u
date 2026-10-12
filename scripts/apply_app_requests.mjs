@@ -12,6 +12,7 @@ import { join } from "node:path";
 import {
   buildPresentationOverrides,
   buildSelectionDocument,
+  approveLayout,
   compareRows,
   formatJson,
   rowKey,
@@ -107,7 +108,8 @@ async function main() {
   const requests = files.map((file) => ({ file, text: readFileSync(join(dir, file), "utf8") }));
   const result = await applyRequests(documents, requests);
   if (result.applied.length) {
-    writeFileSync(join(root, FILES.layout), formatJson(result.layout));
+    // Pedido del usuario desde su TV: se sella igual que una publicación del editor.
+    writeFileSync(join(root, FILES.layout), formatJson(await approveLayout(result.layout, "app")));
     writeFileSync(join(root, FILES.presentation), formatJson(result.presentation));
     writeFileSync(join(root, FILES.selection), formatJson(result.selection));
   }

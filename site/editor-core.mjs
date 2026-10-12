@@ -502,6 +502,26 @@ export function summarizeChanges(originalLayout, layout, originalPresentation, p
   return { added, removed, reordered, stateChanges, assignmentChanges, numberChanges, nameChanges, logoChanges, providerReferenceChanges, providerSelectionChanged: priorSelection !== nextSelection, logoMapChanged };
 }
 
+/**
+ * Sello de aprobación (2026-10-12): el editor y los pedidos de la app firman el contenido del
+ * layout que publican. Las pruebas del catálogo publicado comparan con fotos fijas solo cuando
+ * el layout NO lleva un sello válido, es decir, cuando alguien lo cambió por otra vía.
+ */
+export async function layoutApprovalDigest(layout) {
+  const content = JSON.stringify({
+    schemaVersion: layout?.schemaVersion,
+    excludedM3u: layout?.excludedM3u ?? [],
+    channels: layout?.channels ?? [],
+  });
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(content));
+  return [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, "0")).join("");
+}
+
+export async function approveLayout(layout, source) {
+  const { approval: _previous, ...content } = layout ?? {};
+  return { ...content, approval: { source, sha256: await layoutApprovalDigest(content) } };
+}
+
 export function formatJson(value) {
   return `${JSON.stringify(value, null, 2)}\n`;
 }
