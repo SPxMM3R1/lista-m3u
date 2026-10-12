@@ -51,6 +51,10 @@ https://live-hls-apps-aje-v3-fa.getaj.net/AJE/index.m3u8
 https://vs-hls-push-ww-live.akamaized.net/x=4/i=urn:bbc:pips:service:bbc_news_channel_hd/mobile_wifi_main_hd_abr_v2.m3u8
 
 # Deportes
+#EXTINF:-1 tvg-id="Nauta.4dec2794ee77cb450b79aa5b@Nauta" group-title="Deportes" x-resolver="nauta" x-resolver-refresh="on_play" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn.svg",ESPN 1 Argentina
+vibem3u://resolver/nauta/nautatv_catalog%7CESPN%201%20%7C%20Argentina
+#EXTINF:-1 tvg-id="Nauta.267720adcfe18e0c87fca46c@Nauta" group-title="Deportes" x-resolver="nauta" x-resolver-refresh="on_play" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn.svg",ESPN 1 MX
+vibem3u://resolver/nauta/nautatv_catalog%7CESPN%201%20%7C%20Mexico
 #EXTINF:-1 tvg-id="WinSports.co@Direct181" tvg-name="Win Sports [IP 181]" tvg-country="CO" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-3.png" group-title="Deportes",ESPN 3 Sur
 http://181.78.12.119:16123/play/ch18/index.m3u8
 #EXTINF:-1 tvg-id="ESPN4.br@Direct181" tvg-name="ESPN 4 Brasil [IP 181]" tvg-country="BR" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-4.png" group-title="Deportes",ESPN 4
@@ -59,6 +63,8 @@ http://181.78.197.59:8000/play/a07n/index.m3u8
 http://181.78.12.119:16123/play/ch19/index.m3u8
 #EXTINF:-1 tvg-id="Nauta.52bb87a2e2911ed34f7ae3bc@Nauta" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-7.png" x-resolver="nauta" x-resolver-refresh="on_play",ESPN 7
 vibem3u://resolver/nauta/nautatv_catalog%7CESPN%207%20HD
+#EXTINF:-1 tvg-id="Nauta.7b8890eac450f9cc89b06b84@Nauta" group-title="Deportes" x-resolver="nauta" x-resolver-refresh="on_play",Fox Sports 2 | HD [Nauta]
+vibem3u://resolver/nauta/cat_32%7CFox%20Sports%202%20%7C%20HD
 #EXTINF:-1 tvg-id="DSports.us@Direct15" tvg-name="DSports [IP 15]" tvg-country="US" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/DirecTV_Sports_Latin_America_%282018%29.png/960px-DirecTV_Sports_Latin_America_%282018%29.png" group-title="Deportes",DSports [IP 15]
 http://15.204.146.163:8002/play/a00g/index.m3u8
 #EXTINF:-1 tvg-id="DSports2.us@Direct187" tvg-name="DSports 2 [IP 187]" tvg-country="US" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/DIRECTV_Sports_2_Latin_America_%282018%29.svg/960px-DIRECTV_Sports_2_Latin_America_%282018%29.svg.png" group-title="Deportes",DSports 2 [IP 187]
@@ -79,6 +85,8 @@ https://d284aawtm5vi48.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68
 https://d198ro05q94rc4.cloudfront.net/XITE_Rock_On.m3u8
 #EXTINF:-1 tvg-id="XITEJustChill.nl" tvg-name="XITE Just Chill" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/xite.svg" tvg-country="NL" group-title="Música",XITE Just Chill
 https://dvnftgdlbnemm.cloudfront.net/XITE_Just_Chill.m3u8
+#EXTINF:-1 tvg-id="Nauta.d6c4cf31e1a88709b605ac8f@Nauta" group-title="Música" x-resolver="nauta" x-resolver-refresh="on_play" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvvoo/mtv-live-hd-nl.png",MTV Live
+vibem3u://resolver/nauta/cat_7%7CMTV%20Live
 #EXTINF:-1 tvg-id="MTVBiggestPop.us" tvg-name="MTV Biggest Pop" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/mtv-biggest-pop.svg" tvg-country="US" group-title="Música",MTV Biggest Pop
 https://jmp2.uk/plu-6047fabfce6e8e00070bcc9f.m3u8
 #EXTINF:-1 tvg-id="MTVSpankinNew.us" tvg-name="MTV Spankin' New" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/mtv-spankin-new.svg" tvg-country="US" group-title="Música",MTV Spankin' New
@@ -117,10 +125,6 @@ http://187.102.208.209:8000/play/a099/index.m3u8
 https://redirector.dps.live/hls/t13/playlist.m3u8
 
 # Deportes
-#EXTINF:-1 tvg-id="Nauta.4dec2794ee77cb450b79aa5b@Nauta" group-title="Deportes" x-resolver="nauta" x-resolver-refresh="on_play",ESPN 1 | Argentina [Nauta]
-vibem3u://resolver/nauta/nautatv_catalog%7CESPN%201%20%7C%20Argentina
-#EXTINF:-1 tvg-id="Nauta.267720adcfe18e0c87fca46c@Nauta" group-title="Deportes" x-resolver="nauta" x-resolver-refresh="on_play",ESPN 1 | Mexico [Nauta]
-vibem3u://resolver/nauta/nautatv_catalog%7CESPN%201%20%7C%20Mexico
 #EXTINF:-1 tvg-id="Nauta.dac26a78f5bdf111bc9b9ffc@Nauta" group-title="Deportes" x-resolver="nauta" x-resolver-refresh="on_play",ESPN 1 | Sur [Nauta]
 vibem3u://resolver/nauta/nautatv_catalog%7CESPN%201%20%7C%20Sur
 #EXTINF:-1 tvg-id="Nauta.e6476d31570fd56f3abf640c@Nauta" group-title="Deportes" x-resolver="nauta" x-resolver-refresh="on_play",ESPN Premium HD [Nauta]
@@ -213,14 +217,8 @@ vibem3u://resolver/nauta/cat_32%7CESPN%20HD
 vibem3u://resolver/nauta/cat_32%7CESPN%203%20HD
 #EXTINF:-1 tvg-id="Nauta.c89a873414ec166795c59f26@Nauta" group-title="Deportes" x-resolver="nauta" x-resolver-refresh="on_play",ESPN 4 | Sur [Nauta]
 vibem3u://resolver/nauta/cat_1%7CESPN%204%20%7C%20Sur
-#EXTINF:-1 tvg-id="Nauta.7b8890eac450f9cc89b06b84@Nauta" group-title="Deportes" x-resolver="nauta" x-resolver-refresh="on_play",Fox Sports 2 | HD [Nauta]
-vibem3u://resolver/nauta/cat_32%7CFox%20Sports%202%20%7C%20HD
 #EXTINF:-1 tvg-id="Nauta.57d13b9b10bcbdc51d4dab10@Nauta" group-title="Deportes" x-resolver="nauta" x-resolver-refresh="on_play",Fox Sports HD [Nauta]
 vibem3u://resolver/nauta/cat_32%7CFox%20Sports%20HD
-
-# Música
-#EXTINF:-1 tvg-id="Nauta.d6c4cf31e1a88709b605ac8f@Nauta" group-title="Música" x-resolver="nauta" x-resolver-refresh="on_play",MTV Live [Nauta]
-vibem3u://resolver/nauta/cat_7%7CMTV%20Live
 
 # Misceláneos
 #EXTINF:-1 tvg-id="Nauta.a87610ac946968a5f280ec57@Nauta" group-title="Misceláneos" x-resolver="nauta" x-resolver-refresh="on_play",Star Channel HD [Nauta]
