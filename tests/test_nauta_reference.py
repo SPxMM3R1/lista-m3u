@@ -66,14 +66,15 @@ class NautaReferenceTest(unittest.TestCase):
             self.assertEqual([], channels)
         self.assertEqual((ROOT/"m3u.m3u").read_bytes(), (ROOT/"1.m3u").read_bytes())
 
-    def test_no_old_editorial_row_or_selection_was_changed(self):
+    def test_old_editorial_rows_match_latest_approved_baseline(self):
         # Snapshot digest also works in Actions' shallow checkout, without Git history.
         current = json.loads((ROOT/"data/channel-editor-layout.json").read_text(encoding="utf-8"))
         current["channels"] = [row for row in current["channels"]
                                if not str(row.get("tvgId", "")).startswith("Nauta.")]
         current["excludedM3u"] = sorted(id for id in current["excludedM3u"] if not id.endswith("@Nauta"))
-        # Deshacer solo la inserción editorial ESPN 7 del 10-10 antes de comparar
-        # con el snapshot previo; los registros históricos no se reescriben.
+        # Deshacer solo la inserción editorial ESPN 7 del 10-10 antes de comparar.
+        # El digest base se actualizó tras la baja autorizada de Sky Sports Main
+        # Event UHD desde la app (2026-10-11); los registros históricos no se reescriben.
         for row in current["channels"]:
             if 38 <= row["order"] <= 261:
                 row["order"] -= 1
@@ -81,9 +82,9 @@ class NautaReferenceTest(unittest.TestCase):
                 row["number"] -= 1
         digest = hashlib.sha256(json.dumps(current, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
         # The local editor sorts exclusion IDs on publication; their order is not semantic.
-        self.assertEqual("0ee4c782d0663f27fb6dd5642abb43a7d4edcf97f5908ead317db322dcfbb344", digest)
+        self.assertEqual("0f335001f13d3718d5d82bf51b53bd16204e2d999ae51a57744893b972ec4f13", digest)
         text = (ROOT/"data/vibem3u-selection.json").read_text(encoding="utf-8")
-        self.assertEqual("66117ce417497d4ca3c3098ada8b74b93dba7353a3a794c062e690761dc96736", hashlib.sha256(text.encode()).hexdigest())
+        self.assertEqual("ad6addb253c0c93e28b115ac81bb19273d259633b110b1954f63e010870f2de9", hashlib.sha256(text.encode()).hexdigest())
 
     def test_cleanup_has_repeated_evidence_and_cannot_resurrect_removed_rows(self):
         audit = json.loads((ROOT/"contracts/nauta-validation-20261008.json").read_text(encoding="utf-8"))

@@ -50,10 +50,14 @@ class France24OrderTests(unittest.TestCase):
         by_key = {f'provider:{r["provider"]}:{r["catalogKey"]}' if r["kind"] == "provider"
                   else f'm3u:{r["tvgId"]}': r for r in layout["channels"]}
         # Cambios posteriores pedidos por el usuario (2026-10-06): DSports 118→37 y 120→38,
-        # ESPN 4 (69→35) y el 68 (ESPN) a la papelera.
+        # ESPN 4 (69→35) y el 68 (ESPN) a la papelera. El 11-10 también se envió
+        # Sky Sports Main Event UHD a la papelera desde la app.
         later_moves = {"m3u:DSports.us@Direct15": 38, "m3u:DSports2.us@Direct187": 39,
                        "m3u:ESPN4.br@Direct181": 35}
-        later_deleted = {"m3u:ESPN.us@Direct181"}
+        later_deleted = {
+            "m3u:ESPN.us@Direct181",
+            "provider:highfly:SkySportsMainEventUHD.uk",
+        }
         for change in manifest["changes"]:
             row = by_key[change["key"]]
             if change["key"] in later_deleted:

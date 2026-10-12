@@ -27,6 +27,38 @@ def programme(root, channel_id, title="Programa ajeno"):
 
 
 class RwndContinuityTests(unittest.TestCase):
+    def assert_rounded_live_schedule(self, data: bytes, now: datetime) -> list[ET.Element]:
+        root = ET.fromstring(data)
+        items = sorted(
+            root.findall(f"./programme[@channel='{TARGET}']"),
+            key=lambda item: update_m3u.xmltv_datetime(item.get("start", "")),
+        )
+        self.assertTrue(items)
+        parsed = [
+            (
+                update_m3u.xmltv_datetime(item.get("start", "")),
+                update_m3u.xmltv_datetime(item.get("stop", "")),
+            )
+            for item in items
+        ]
+        self.assertLessEqual(parsed[0][0], now)
+        self.assertGreaterEqual(
+            parsed[-1][1], now + update_m3u.EPG_MAIN_CONTINUITY_BUFFER
+        )
+        for index, (start, stop) in enumerate(parsed):
+            self.assertEqual((0, 0, 0), (start.minute, start.second, start.microsecond))
+            self.assertEqual((0, 0, 0), (stop.minute, stop.second, stop.microsecond))
+            duration_hours = (stop - start).total_seconds() / 3600
+            self.assertGreater(duration_hours, 0)
+            self.assertLessEqual(duration_hours, 6)
+            self.assertEqual(duration_hours, int(duration_hours))
+            self.assertEqual(["title"], [child.tag for child in items[index]])
+            self.assertEqual("Live", items[index].findtext("title"))
+            self.assertEqual({"lang": "es"}, items[index].find("title").attrib)
+            if index:
+                self.assertEqual(parsed[index - 1][1], start)
+        return items
+
     def test_no_source_or_epgshare_download_even_with_source_override(self):
         self.assertNotIn(TARGET, update_m3u.EPG_PROGRAMME_SOURCES)
         channel = update_m3u.Channel(name="RWND", tvg_id=TARGET,
@@ -59,6 +91,85 @@ class RwndContinuityTests(unittest.TestCase):
         self.assertEqual("rewind-continuous", status["guide_sources"][TARGET])
         self.assertEqual([], update_m3u.epg_coverage_gaps(
             root, {TARGET}, now=NOW, minimum_future=update_m3u.EPG_MAIN_MINIMUM_FUTURE))
+
+    def test_build_rounds_rewind_continuity_to_whole_hours(self):
+        now = NOW + timedelta(minutes=18, seconds=13, microseconds=987654)
+        foreign, previous = ET.Element("tv"), ET.Element("tv")
+        programme(foreign, "Rewind.TV.us2")
+        programme(previous, TARGET)
+        channel = update_m3u.Channel(
+            name="RWND", tvg_id=TARGET,
+            url="https://example.invalid/live.m3u8", url_line=0,
+        )
+
+        output, status = update_m3u.build_epg(
+            {"us2": ET.tostring(foreign),
+             update_m3u.PUBLISHED_EPG_FALLBACK_SOURCE: ET.tostring(previous)},
+            [channel], {}, now=now, coverage_required_ids={TARGET},
+        )
+        items = self.assert_rounded_live_schedule(output, now)
+
+        self.assertEqual(4, len(items))
+        self.assertEqual("rewind-continuous", status["guide_sources"][TARGET])
+        self.assertEqual([], update_m3u.epg_coverage_gaps(
+            ET.fromstring(output), {TARGET}, now=now,
+            minimum_future=update_m3u.EPG_MAIN_CONTINUITY_BUFFER,
+        ))
+        self.assertTrue(update_m3u.validate_main_playlist_epg(
+            [channel], data=output, now=now
+        )["ok"])
+
+    def test_ensure_rebuilds_nonrounded_live_even_if_coverage_is_full(self):
+        now = NOW + timedelta(minutes=18, seconds=13)
+        channel = update_m3u.Channel(
+            name="RWND", tvg_id=TARGET,
+            url="https://example.invalid/live.m3u8", url_line=0,
+        )
+        root = ET.Element("tv")
+        ET.SubElement(root, "channel", {"id": TARGET})
+        old = ET.SubElement(root, "programme", {
+            "start": update_m3u.xmltv_format_chile(now - timedelta(hours=1)),
+            "stop": update_m3u.xmltv_format_chile(
+                now + update_m3u.EPG_MAIN_CONTINUITY_BUFFER + timedelta(hours=1)
+            ),
+            "channel": TARGET,
+        })
+        ET.SubElement(old, "title", {"lang": "es"}).text = "Live"
+
+        output, added = update_m3u.ensure_main_epg_refresh_buffer(
+            ET.tostring(root), {TARGET}, now=now
+        )
+
+        items = self.assert_rounded_live_schedule(output, now)
+        self.assertEqual(4, len(items))
+        self.assertEqual(4, added[TARGET])
+
+    def test_main_epg_gate_rejects_nonrounded_rewind_times(self):
+        channel = update_m3u.Channel(
+            name="RWND", tvg_id=TARGET,
+            url="https://example.invalid/live.m3u8", url_line=0,
+        )
+        root = ET.Element("tv")
+        ET.SubElement(root, "channel", {"id": TARGET})
+        valid = ET.SubElement(root, "programme", {
+            "start": update_m3u.xmltv_format_chile(NOW),
+            "stop": update_m3u.xmltv_format_chile(NOW + timedelta(hours=24)),
+            "channel": TARGET,
+        })
+        ET.SubElement(valid, "title", {"lang": "es"}).text = "Live"
+        unrounded = ET.SubElement(root, "programme", {
+            "start": update_m3u.xmltv_format_chile(NOW + timedelta(hours=30, minutes=5)),
+            "stop": update_m3u.xmltv_format_chile(NOW + timedelta(hours=36, minutes=5)),
+            "channel": TARGET,
+        })
+        ET.SubElement(unrounded, "title", {"lang": "es"}).text = "Live"
+
+        status = update_m3u.validate_main_playlist_epg(
+            [channel], data=ET.tostring(root), now=NOW
+        )
+
+        self.assertFalse(status["ok"])
+        self.assertIn("hora en punto", status["error"])
 
     def test_reused_guide_is_cleaned_idempotently_without_touching_other_channels(self):
         root = ET.Element("tv")

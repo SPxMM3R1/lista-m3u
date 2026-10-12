@@ -5780,6 +5780,89 @@ def fill_epg_coverage_gaps(
     return added_by_channel
 
 
+def replace_rewind_live_schedule(
+    root: ET.Element,
+    *,
+    now: datetime,
+    minimum_future: timedelta = EPG_MAIN_CONTINUITY_BUFFER,
+    formatter: Callable[[datetime], str] = xmltv_format_chile,
+) -> tuple[int, bool]:
+    """Replace Rwnd's placeholder with continuous Live blocks on whole hours.
+
+    The schedule is not programme data: every entry remains the explicitly
+    requested ``Live`` marker. Start/end boundaries are rounded to the local
+    clock hour and blocks are at most six hours long, independent of the exact
+    minute/second when a runner happens to execute.
+    """
+    current = now.astimezone(timezone.utc) if now.tzinfo else now.replace(
+        tzinfo=timezone.utc
+    )
+    start = current.replace(minute=0, second=0, microsecond=0)
+    horizon = current + minimum_future
+    stop_limit = horizon.replace(minute=0, second=0, microsecond=0)
+    if stop_limit < horizon:
+        stop_limit += timedelta(hours=1)
+
+    expected: list[tuple[datetime, datetime]] = []
+    cursor = start
+    while cursor < stop_limit:
+        stop = min(cursor + timedelta(hours=6), stop_limit)
+        expected.append((cursor, stop))
+        cursor = stop
+
+    existing = [
+        programme
+        for programme in root.findall("programme")
+        if programme.get("channel") == EPG_MAIN_LIVE_CHANNEL_ID
+    ]
+    existing_by_time: list[tuple[datetime, datetime, bool]] = []
+    for programme in existing:
+        try:
+            item_start = xmltv_datetime(programme.get("start", ""))
+            item_stop = xmltv_datetime(programme.get("stop", ""))
+        except ValueError:
+            existing_by_time.append((start, stop_limit, False))
+            continue
+        canonical_metadata = (
+            programme.attrib
+            == {
+                "start": formatter(item_start),
+                "stop": formatter(item_stop),
+                "channel": EPG_MAIN_LIVE_CHANNEL_ID,
+            }
+            and len(programme) == 1
+            and programme[0].tag == "title"
+            and programme[0].attrib == {"lang": "es"}
+            and programme[0].text == "Live"
+        )
+        existing_by_time.append((item_start, item_stop, canonical_metadata))
+
+    canonical_existing = sorted(existing_by_time, key=lambda item: item[0])
+    if len(canonical_existing) == len(expected) and all(
+        item_start == expected_start
+        and item_stop == expected_stop
+        and canonical_metadata
+        for (item_start, item_stop, canonical_metadata), (expected_start, expected_stop)
+        in zip(canonical_existing, expected)
+    ):
+        return len(expected), False
+
+    for programme in existing:
+        root.remove(programme)
+    for item_start, item_stop in expected:
+        programme = ET.SubElement(
+            root,
+            "programme",
+            {
+                "start": formatter(item_start),
+                "stop": formatter(item_stop),
+                "channel": EPG_MAIN_LIVE_CHANNEL_ID,
+            },
+        )
+        ET.SubElement(programme, "title", {"lang": "es"}).text = "Live"
+    return len(expected), True
+
+
 def main_epg_fallback_title(channel_id: str) -> str:
     """Use the one explicitly requested continuous-stream exception in List 1."""
     return "Live" if channel_id == EPG_MAIN_LIVE_CHANNEL_ID else EPG_MAIN_FALLBACK_TITLE
@@ -5894,6 +5977,14 @@ def normalize_main_epg_schedule(
             channel.set("data-guide-source", "continuidad-tecnica")
             changed = True
 
+    if EPG_MAIN_LIVE_CHANNEL_ID in required_ids:
+        _count, rewind_changed = replace_rewind_live_schedule(
+            root,
+            now=now,
+            minimum_future=EPG_MAIN_CONTINUITY_BUFFER,
+        )
+        changed |= rewind_changed
+
     return placeholder_channels, changed
 
 
@@ -5905,13 +5996,22 @@ def extend_main_epg_coverage(
 ) -> tuple[bytes, dict[str, int]]:
     """Keep List 1 covered for 12h after the next six-hour refresh window."""
     root = ET.fromstring(data)
-    added = fill_epg_coverage_gaps(
+    rewind_ids = required_ids & {EPG_MAIN_LIVE_CHANNEL_ID}
+    added: dict[str, int] = {}
+    for channel_id in rewind_ids:
+        count, _changed = replace_rewind_live_schedule(
+            root,
+            now=now,
+            minimum_future=EPG_MAIN_CONTINUITY_BUFFER,
+        )
+        added[channel_id] = count
+    added.update(fill_epg_coverage_gaps(
         root,
-        required_ids,
+        required_ids - rewind_ids,
         now=now,
         minimum_future=EPG_MAIN_CONTINUITY_BUFFER,
         title_for_channel=main_epg_fallback_title,
-    )
+    ))
     normalize_main_epg_schedule(root, required_ids, now=now)
     root.set("data-continuity-policy", "technical-fill-unlisted-gaps")
     root.set(
@@ -5935,7 +6035,7 @@ def ensure_main_epg_refresh_buffer(
         now=now,
         minimum_future=EPG_MAIN_CONTINUITY_BUFFER,
     )
-    if not gaps:
+    if not gaps and EPG_MAIN_LIVE_CHANNEL_ID not in required_ids:
         return data, {}
 
     extended, added = extend_main_epg_coverage(data, required_ids, now=now)
@@ -6060,6 +6160,7 @@ def validate_main_playlist_epg(
     horizon = current + EPG_MAIN_MINIMUM_FUTURE
     root = ET.fromstring(data)
     invalid_titles: set[str] = set()
+    unrounded_rewind_times: set[str] = set()
     for programme in root.findall("programme"):
         channel_id = programme.get("channel", "")
         if channel_id not in expected_ids:
@@ -6069,6 +6170,18 @@ def validate_main_playlist_epg(
             stop = xmltv_datetime(programme.get("stop", ""))
         except ValueError:
             continue
+        if channel_id == EPG_MAIN_LIVE_CHANNEL_ID and any(
+            value != 0
+            for value in (
+                start.minute,
+                start.second,
+                start.microsecond,
+                stop.minute,
+                stop.second,
+                stop.microsecond,
+            )
+        ):
+            unrounded_rewind_times.add(channel_id)
         if stop <= current or start >= horizon:
             continue
         titles = [
@@ -6082,6 +6195,19 @@ def validate_main_playlist_epg(
             not title or title.casefold() == "live" for title in titles
         ):
             invalid_titles.add(channel_id)
+    if unrounded_rewind_times:
+        return {
+            **base,
+            "ok": False,
+            "error": (
+                "los bloques Live de RWND deben comenzar y terminar a la hora "
+                "en punto: "
+                + ", ".join(sorted(unrounded_rewind_times))
+            ),
+            "channels": status.get("channels", 0),
+            "programmes": status.get("programmes", 0),
+            "technical_guides": [],
+        }
     if invalid_titles:
         return {
             **base,
@@ -6956,22 +7082,8 @@ def build_epg(
                 guide_sources[channel_id] = "continuidad-diego-y-glot"
             continue
         if channel_id == EPG_MAIN_LIVE_CHANNEL_ID:
-            # Rwnd/Rewind es la unica excepcion acordada: su bloque continuo
-            # queda publicado como Live.
-            added = add_continuous_programmes(
-                root,
-                channel_id,
-                channel.name,
-                now=now,
-                start_at=continuity_start,
-                technical=True,
-                fallback_title="Live",
-                stop_at=now + EPG_MAIN_CONTINUITY_BUFFER if is_main_channel else None,
-            )
-            continuity_blocks_by_channel[channel_id] = (
-                continuity_blocks_by_channel.get(channel_id, 0) + added
-            )
-            programmes_by_target[channel_id] += added
+            # El calendario canónico de Live se reconstruye al final, con
+            # límites alineados a la hora, independientemente de la corrida.
             guide_types[channel_id] = "Live"
             guide_sources[channel_id] = "rewind-continuous"
             continue
@@ -7040,19 +7152,16 @@ def build_epg(
         if channel_id == EPG_MAIN_LIVE_CHANNEL_ID
     }
     if rwnd_ids:
-        # Rwnd/Rewind es la unica excepcion acordada: su bloque continuo
-        # queda publicado como Live.
-        continuity_added = fill_epg_coverage_gaps(
-            root,
-            rwnd_ids,
-            now=now,
-            minimum_future=minimum_future,
-            title_for_channel=lambda _channel_id: "Live",
-        )
-        for channel_id, added in continuity_added.items():
-            continuity_blocks_by_channel[channel_id] = (
-                continuity_blocks_by_channel.get(channel_id, 0) + added
+        # Sustituir cualquier intervalo previo por continuidad canónica:
+        # solo título Live, sin datos de programa, con horas cerradas.
+        for channel_id in rwnd_ids:
+            added, _changed = replace_rewind_live_schedule(
+                root,
+                now=now,
+                minimum_future=EPG_MAIN_CONTINUITY_BUFFER,
             )
+            continuity_blocks_by_channel[channel_id] = added
+            programmes_by_target[channel_id] = added
             guide_types[channel_id] = "Live"
             guide_sources[channel_id] = "rewind-continuous"
     for channel_id, _start, _stop in epg_coverage_gaps(

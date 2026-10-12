@@ -2,7 +2,7 @@
 
 Documento único y corto con las reglas que rigen hoy. El detalle vive en los documentos
 enlazados; si algo de aquí contradice un documento antiguo, manda este. Última revisión:
-2026-10-10. El estado de hoy y la bitácora están en `ESTADO.md` de cada repositorio.
+2026-10-11. El estado de hoy y la bitácora están en `ESTADO.md` de cada repositorio.
 
 ## 1. Repositorios y límites
 
@@ -75,8 +75,10 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
 - Sin relleno técnico: sin fuente real, el canal queda pendiente (`epg-pending.json`).
   Única excepción acordada: Rwnd (`RewindTV.cl@SD`) = solo continuidad `Live`,
   sin fuente EPG, sin fallback de programación y sin descripción, subtítulos,
-  categorías ni metadatos de programas. No asociar a Rewind TV de Estados Unidos;
-  ni donantes de sinopsis ni bloqueos manuales pueden reintroducir esa guía.
+  categorías ni metadatos de programas. Sus tramos `Live` empiezan y terminan a la
+  hora en punto local, en bloques contiguos de hasta seis horas; el horizonte se
+  redondea hacia arriba para mantener la cobertura. No asociar a Rewind TV de Estados
+  Unidos; ni donantes de sinopsis ni bloqueos manuales pueden reintroducir esa guía.
 - Procurar al menos 12 h por canal (mínimo, no tope): se integra toda la guía real que publique
   cada fuente, hasta 8 días. Los pendientes se reintentan en cada ciclo de 6 h.
 - **La Red**: solo su guía oficial (`lared.cl`), sin Zapping ni TecnoCentro. Si falla, se

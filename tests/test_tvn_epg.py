@@ -1093,17 +1093,21 @@ class TvnEpgTests(unittest.TestCase):
             all(item.findtext("title") == "Live" for item in rewind_programmes)
         )
         # La guía real se integra completa: el margen de 18 h es un mínimo,
-        # no un tope. Solo el relleno Live de Rwnd se genera hasta el margen.
+        # no un tope. El Live de Rwnd redondea su final a la hora siguiente.
         self.assertIn(
             "Programa de pasado mañana",
             [item.findtext("title") for item in tvn_programmes],
         )
-        self.assertTrue(
-            all(
-                update_m3u.xmltv_datetime(item.get("stop", "")) <= horizon
-                for item in rewind_programmes
-            )
+        rewind_last_stop = max(
+            update_m3u.xmltv_datetime(item.get("stop", ""))
+            for item in rewind_programmes
         )
+        self.assertGreaterEqual(rewind_last_stop, horizon)
+        self.assertEqual((0, 0, 0), (
+            rewind_last_stop.minute,
+            rewind_last_stop.second,
+            rewind_last_stop.microsecond,
+        ))
         self.assertTrue(
             update_m3u.validate_main_playlist_epg(
                 [tvn, rewind], data=extended, now=now
