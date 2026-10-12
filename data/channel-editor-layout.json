@@ -2864,24 +2864,12 @@
     },
     {
       "kind": "m3u",
-      "tvgId": "PublicDirect.3fabeab54c5678221590ed52",
-      "name": "Chikitoonz [IP 45.70.201.81]",
-      "group": "Misceláneos",
-      "sourceList": "1.m3u",
-      "logoPath": "",
-      "order": 196,
-      "number": 281,
-      "state": "active",
-      "trial": true
-    },
-    {
-      "kind": "m3u",
       "tvgId": "PublicDirect.dcfe21bb7cda0e289ff23c1d",
       "name": "CNN Chile [IP 190.110.96.238]",
       "group": "Noticias nacionales",
       "sourceList": "1.m3u",
       "logoPath": "",
-      "order": 197,
+      "order": 196,
       "number": 286,
       "state": "active",
       "trial": true
@@ -2893,7 +2881,7 @@
       "group": "Misceláneos",
       "sourceList": "1.m3u",
       "logoPath": "",
-      "order": 198,
+      "order": 197,
       "number": 291,
       "state": "active",
       "trial": true
@@ -2905,7 +2893,7 @@
       "group": "Misceláneos",
       "sourceList": "1.m3u",
       "logoPath": "",
-      "order": 199,
+      "order": 198,
       "number": 292,
       "state": "active",
       "trial": true
@@ -2917,7 +2905,7 @@
       "group": "Deportes",
       "sourceList": "1.m3u",
       "logoPath": "",
-      "order": 200,
+      "order": 199,
       "number": 298,
       "state": "active",
       "trial": true
@@ -2929,7 +2917,7 @@
       "group": "Deportes",
       "sourceList": "1.m3u",
       "logoPath": "",
-      "order": 201,
+      "order": 200,
       "number": 299,
       "state": "active",
       "trial": true
@@ -2941,7 +2929,7 @@
       "group": "Películas",
       "sourceList": "1.m3u",
       "logoPath": "",
-      "order": 202,
+      "order": 201,
       "number": 305,
       "state": "active",
       "trial": true
@@ -2953,7 +2941,7 @@
       "group": "Películas",
       "sourceList": "1.m3u",
       "logoPath": "",
-      "order": 203,
+      "order": 202,
       "number": 308,
       "state": "active",
       "trial": true
@@ -2965,9 +2953,21 @@
       "group": "Películas",
       "sourceList": "1.m3u",
       "logoPath": "",
-      "order": 204,
+      "order": 203,
       "number": 309,
       "state": "active",
+      "trial": true
+    },
+    {
+      "kind": "m3u",
+      "tvgId": "PublicDirect.3fabeab54c5678221590ed52",
+      "name": "Chikitoonz [IP 45.70.201.81]",
+      "group": "Misceláneos",
+      "sourceList": "1.m3u",
+      "logoPath": "",
+      "order": 204,
+      "number": 281,
+      "state": "deleted",
       "trial": true
     },
     {
@@ -7603,6 +7603,6 @@
   ],
   "approval": {
     "source": "app",
-    "sha256": "87942c3e4d70c93f960877764edcfe2363a32e59395114c0155b06fbbe310cda"
+    "sha256": "d34f5553e1bee3fd690072c89ce02f87bc22c75f43a0dd325cdcdfd3560acc84"
   }
 }
