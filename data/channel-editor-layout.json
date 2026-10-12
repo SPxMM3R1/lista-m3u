@@ -3356,24 +3356,12 @@
     },
     {
       "kind": "m3u",
-      "tvgId": "PublicDirect.07f02afe0726cce5358cc49f",
-      "name": "Encuentro [IP 138.59.227.20]",
-      "group": "Misceláneos",
-      "sourceList": "1.m3u",
-      "logoPath": "",
-      "order": 237,
-      "number": 297,
-      "state": "active",
-      "trial": true
-    },
-    {
-      "kind": "m3u",
       "tvgId": "PublicDirect.d38819f8984595baeae1a6b5",
       "name": "ESPN 2 [IP 190.61.47.54]",
       "group": "Deportes",
       "sourceList": "1.m3u",
       "logoPath": "",
-      "order": 238,
+      "order": 237,
       "number": 298,
       "state": "active",
       "trial": true
@@ -3385,7 +3373,7 @@
       "group": "Deportes",
       "sourceList": "1.m3u",
       "logoPath": "",
-      "order": 239,
+      "order": 238,
       "number": 299,
       "state": "active",
       "trial": true
@@ -3397,7 +3385,7 @@
       "group": "Películas",
       "sourceList": "1.m3u",
       "logoPath": "",
-      "order": 240,
+      "order": 239,
       "number": 305,
       "state": "active",
       "trial": true
@@ -3409,7 +3397,7 @@
       "group": "Películas",
       "sourceList": "1.m3u",
       "logoPath": "",
-      "order": 241,
+      "order": 240,
       "number": 308,
       "state": "active",
       "trial": true
@@ -3421,9 +3409,21 @@
       "group": "Películas",
       "sourceList": "1.m3u",
       "logoPath": "",
-      "order": 242,
+      "order": 241,
       "number": 309,
       "state": "active",
+      "trial": true
+    },
+    {
+      "kind": "m3u",
+      "tvgId": "PublicDirect.07f02afe0726cce5358cc49f",
+      "name": "Encuentro [IP 138.59.227.20]",
+      "group": "Misceláneos",
+      "sourceList": "1.m3u",
+      "logoPath": "",
+      "order": 242,
+      "number": 297,
+      "state": "deleted",
       "trial": true
     },
     {
@@ -7603,6 +7603,6 @@
   ],
   "approval": {
     "source": "app",
-    "sha256": "747d1f626fbec36d0c26916cac3dcc3f146fe2d898643988d2eac9fa047dbab9"
+    "sha256": "dd6dd381b4df4cd93f6eca345ec4be4ab3fb34ed52447dc84648339ed24b3ce4"
   }
 }
