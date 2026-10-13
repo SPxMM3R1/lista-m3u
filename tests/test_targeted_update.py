@@ -211,6 +211,31 @@ class TargetedUpdateTest(unittest.TestCase):
         self.assertIn("# Sports", reordered)
         self.assertIn("# News", reordered)
 
+    def test_catalog_filter_reparses_line_offsets_after_presentation_reorder(self) -> None:
+        lines = [
+            "#EXTM3U",
+            '#EXTINF:-1 tvg-id="one" group-title="News",One',
+            "https://example.test/one.m3u8",
+            '#EXTINF:-1 tvg-id="two" group-title="Sports",Two',
+            "https://example.test/two.m3u8",
+            '#EXTINF:-1 tvg-id="three" group-title="News",Three',
+            "https://example.test/three.m3u8",
+        ]
+        stale_offsets = update_m3u.parse_channels(lines)
+        self.assertEqual(["one", "two", "three"], [row.tvg_id for row in stale_offsets])
+        update_m3u.apply_presentation_overrides(
+            lines,
+            "channel-catalog.m3u",
+            {"orders": {"channel-catalog.m3u": ["three", "two", "one"]}},
+        )
+
+        filtered = targeted_update._filter_catalog_membership(lines, {"one", "three"})
+
+        self.assertEqual(
+            {"one", "three"},
+            {row.tvg_id for row in update_m3u.parse_channels(filtered)},
+        )
+
     def test_scheduled_runner_reapplies_presentation_order_and_metadata(self) -> None:
         lines = [
             "#EXTM3U",

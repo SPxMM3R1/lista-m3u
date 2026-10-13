@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "decision": "permanently_remove_former_tvn_canal13_backups",
+  "date": "2026-10-13",
+  "sourceList": "1.m3u",
+  "removed": 4,
+  "backupDependents": 0,
+  "epgIds": [],
+  "reason": "Tras dejar TVN #001 y Canal 13 #004 con su señal oficial, el usuario pidió eliminar las cuatro antiguas filas de respaldo en vez de conservarlas como canales independientes.",
+  "channels": [
+    {
+      "formerNumber": 79,
+      "name": "TVN [IP 38]",
+      "tvgId": "TVN.cl@Direct38b",
+      "formerBackupOf": "0104"
+    },
+    {
+      "formerNumber": 80,
+      "name": "TVN [IP 45]",
+      "tvgId": "TVN.cl@Direct45",
+      "formerBackupOf": "0104"
+    },
+    {
+      "formerNumber": 85,
+      "name": "Canal 13 [IP 187]",
+      "tvgId": "Canal13.cl@Direct187",
+      "formerBackupOf": "0107"
+    },
+    {
+      "formerNumber": 91,
+      "name": "T13 En Vivo [DPS]",
+      "tvgId": "T13EnVivo.cl@DPS",
+      "formerBackupOf": "0107"
+    }
+  ]
+}

@@ -75,6 +75,38 @@ class PublishedEditorialConsistencyTest(unittest.TestCase):
 
         self.assertEqual(active_layout_providers(layout), selected_providers(selection))
 
+    def test_tvn_and_canal13_former_backups_are_permanently_removed(self) -> None:
+        import update_m3u as runner
+
+        removed_ids = {
+            "TVN.cl@Direct38b",
+            "TVN.cl@Direct45",
+            "Canal13.cl@Direct187",
+            "T13EnVivo.cl@DPS",
+        }
+        layout = json.loads(LAYOUT_PATH.read_text(encoding="utf-8"))
+        presentation = json.loads((ROOT / "presentation-overrides.json").read_text(encoding="utf-8"))
+        self.assertTrue(removed_ids.isdisjoint(row.get("tvgId") for row in layout["channels"]))
+        self.assertTrue(removed_ids.issubset(layout["excludedM3u"]))
+        self.assertTrue(removed_ids.issubset(presentation["excluded_m3u"]))
+        self.assertTrue(removed_ids.issubset(runner.PERMANENTLY_REMOVED_CHANNEL_IDS))
+        for filename in ["channel-catalog.m3u", "m3u.m3u", "1.m3u"]:
+            with self.subTest(filename=filename):
+                ids = {channel.tvg_id for channel in runner.parse_channels(
+                    (ROOT / filename).read_text(encoding="utf-8").splitlines())}
+                self.assertTrue(removed_ids.isdisjoint(ids))
+        for order in presentation["orders"].values():
+            self.assertTrue(removed_ids.isdisjoint(order))
+        lines = ["#EXTM3U"]
+        for index, channel_id in enumerate(sorted(removed_ids), start=1):
+            lines.extend((
+                f'#EXTINF:-1 tvg-id="{channel_id}",Former backup {index}',
+                f"https://example.invalid/removed-{index}.m3u8",
+            ))
+        removed = runner.remove_permanently_removed_channels(lines)
+        self.assertEqual(4, len(removed))
+        self.assertEqual(["#EXTM3U"], lines)
+
     def test_tvvoo_layout_rows_carry_country_key_of_their_identity(self) -> None:
         """La app lee el layout directo; VibeM3U <= 0.5.29 caia al arrancar
         cuando una fila TvVoo no traia countryKey y usaba `country` (texto

@@ -134,14 +134,22 @@ class NautaChannelsAreOptInTest(unittest.TestCase):
         self.assertEqual(self.selected_nauta.keys() - before, after - before)
         self.assertTrue((self.nauta_ids - self.selected_nauta.keys()).isdisjoint(after))
 
-    def test_existing_http_backups_are_preserved(self):
+    def test_tvn_uses_only_its_official_row(self):
         rows = {
             row["tvgId"]: row for row in self.layout["channels"]
             if row.get("kind") == "m3u" and row.get("tvgId")
         }
-        self.assertEqual(["TVN.cl@Direct38b", "TVN.cl@Direct45"], rows["0104"]["backupm3u"])
+        tvn = rows["0104"]
+        self.assertEqual(1, tvn["number"])
+        self.assertEqual("active", tvn["state"])
+        self.assertFalse(tvn.get("preferredM3u"))
+        self.assertFalse(tvn.get("backupm3u"))
+        self.assertFalse(tvn.get("backupTvVoo"))
+        playlist = (ROOT / "m3u.m3u").read_text(encoding="utf-8").splitlines()
+        tvn_entry = next(line for line in playlist if line.startswith("#EXTINF") and 'tvg-id="0104"' in line)
+        self.assertIn('x-resolver="tvn"', tvn_entry)
 
-    def test_canal13_uses_official_signal_first_then_ordered_backups(self):
+    def test_canal13_uses_only_its_official_row(self):
         rows = {
             row["tvgId"]: row for row in self.layout["channels"]
             if row.get("kind") == "m3u" and row.get("tvgId")
@@ -151,7 +159,27 @@ class NautaChannelsAreOptInTest(unittest.TestCase):
         self.assertEqual("active", canal13["state"])
         self.assertEqual("1.m3u", canal13["sourceList"])
         self.assertNotIn("preferredM3u", canal13)
-        self.assertEqual(["Canal13.cl@Direct187", "T13EnVivo.cl@DPS"], canal13["backupm3u"])
+        self.assertFalse(canal13.get("backupm3u"))
+        self.assertFalse(canal13.get("backupTvVoo"))
+        playlist = (ROOT / "m3u.m3u").read_text(encoding="utf-8").splitlines()
+        canal13_index = next(index for index, line in enumerate(playlist)
+                             if line.startswith("#EXTINF") and 'tvg-id="0107"' in line)
+        self.assertEqual("https://redirector.dps.live/hls/13cl/playlist.m3u8", playlist[canal13_index + 1])
+
+        former_backups = {
+            "TVN.cl@Direct38b",
+            "TVN.cl@Direct45",
+            "Canal13.cl@Direct187",
+            "T13EnVivo.cl@DPS",
+        }
+        self.assertTrue(former_backups.isdisjoint(rows))
+        self.assertTrue(former_backups.issubset(self.layout["excludedM3u"]))
+        self.assertTrue(former_backups.issubset(self.presentation["excluded_m3u"]))
+        self.assertTrue(former_backups.issubset(runner.PERMANENTLY_REMOVED_CHANNEL_IDS))
+        for filename in ["channel-catalog.m3u", "m3u.m3u", "1.m3u"]:
+            active_ids = {channel.tvg_id for channel in runner.parse_channels(
+                (ROOT / filename).read_text(encoding="utf-8").splitlines())}
+            self.assertTrue(former_backups.isdisjoint(active_ids), filename)
 
 
 if __name__ == "__main__":

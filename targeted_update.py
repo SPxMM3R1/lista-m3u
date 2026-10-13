@@ -388,6 +388,18 @@ def reorder_playlist_lines(lines: list[str], desired_ids: list[str]) -> list[str
     return result
 
 
+def _filter_catalog_membership(
+    catalog_lines: list[str], selected_ids: set[str] | frozenset[str]
+) -> list[str]:
+    """Filter using offsets parsed after presentation may have reordered the catalogue."""
+    catalog_channels = update_m3u.parse_channels(catalog_lines)
+    return update_m3u.filter_playlist_to_channel_ids(
+        catalog_lines,
+        catalog_channels,
+        selected_ids,
+    )
+
+
 def _apply_playlist_updates(
     url_updates: dict[str, str],
     info_updates: dict[str, str],
@@ -532,14 +544,12 @@ def apply_presentation(
         updated[PROJECT_ROOT / "m3u.m3u"],
         presentation_overrides,
     )
-    updated[PROJECT_ROOT / "m3u.m3u"] = update_m3u.filter_playlist_to_channel_ids(
+    updated[PROJECT_ROOT / "m3u.m3u"] = _filter_catalog_membership(
         catalog_lines,
-        catalog_channels,
         expected_main,
     )
-    updated[PROJECT_ROOT / "m3u-externa.m3u"] = update_m3u.filter_playlist_to_channel_ids(
+    updated[PROJECT_ROOT / "m3u-externa.m3u"] = _filter_catalog_membership(
         catalog_lines,
-        catalog_channels,
         expected_external,
     )
     update_m3u.apply_presentation_overrides(

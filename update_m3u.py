@@ -505,6 +505,10 @@ PERMANENTLY_REMOVED_CHANNEL_IDS = frozenset(
         "NationalGeographicLatinAmerica.us@Panregional",
         "HistoryLatinAmerica.us@Panregional",
         "ZonaLatina.cl@SD",
+        "Canal13.cl@Direct187",
+        "T13EnVivo.cl@DPS",
+        "TVN.cl@Direct38b",
+        "TVN.cl@Direct45",
     }
 )
 
