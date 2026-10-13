@@ -146,6 +146,27 @@ class DispatcherTest(unittest.TestCase):
         self.assertEqual([], epg_dispatch.due_parts(state, ["a", "b"], NOW + timedelta(minutes=5),
                                                     needed={"b"}))
 
+    def test_short_guides_leave_a_notice_and_renew_before_running_out(self):
+        index = {"channels": [
+            {"id": "corto", "name": "Corto", "lastStop": "2026-10-12T19:30:00Z"},
+            {"id": "medio", "name": "Medio", "lastStop": "2026-10-12T22:00:00Z"},
+            {"id": "largo", "name": "Largo", "lastStop": "2026-10-13T18:00:00Z"},
+            {"id": "vacio", "name": "Vacío", "lastStop": None},
+            {"id": "live", "name": "Rewind", "lastStop": None},
+        ]}
+        notices = epg_dispatch.build_notices(epg_dispatch.channel_horizons(index, NOW, {"live"}))
+        self.assertEqual({"corto", "medio", "vacio"}, set(notices))
+        self.assertEqual(1.5, notices["corto"]["hours"])
+        self.assertEqual("vigilar", notices["medio"]["action"])
+        self.assertEqual({"corto", "vacio"}, epg_dispatch.urgent_channels(notices))
+
+    def test_tvn3_uses_claro_schedule_after_zapping(self):
+        self.assertEqual(
+            [("zapping-guia-publica", "1437"), ("claro-sinopsis", "sinopsis:1437")],
+            update_m3u.epg_source_chain("1437")[:2])
+        self.assertEqual({"zapping-guia-publica", "claro-sinopsis"}, update_m3u.epg_channel_parts("1437"))
+        self.assertNotIn("1437", update_m3u.EPG_ALLOWED_EMPTY_IDS)
+
     def test_backoff_never_exceeds_the_normal_rhythm(self):
         self.assertEqual(timedelta(hours=2), epg_dispatch.retry_after("red-bull", 9))
         self.assertEqual(timedelta(hours=6), epg_dispatch.retry_after("tvn-oficial", 9))

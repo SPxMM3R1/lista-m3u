@@ -644,9 +644,13 @@ NO_EPG_CHANNEL_IDS.difference_update(PERMANENTLY_REMOVED_CHANNEL_IDS)
 # quedar temporalmente sin bloques. En ese caso se publica "sin guía" en vez
 # de inventar continuidad o bloquear toda la actualización. Se vuelven a
 # consultar normalmente en cada ejecución.
-OPTIONAL_EPG_CHANNEL_IDS = {
-    "1437",  # TVN3: Zapping/TecnoCentro cuando entregan bloques exactos.
-}
+OPTIONAL_EPG_CHANNEL_IDS: set[str] = set()
+# Canales cuya parrilla de Claro Video coincide en horario con la fuente principal y
+# se usa como respaldo de horario (no solo sinopsis). TVN3 (2026-10-13): Zapping solo
+# publica el programa actual y los siguientes; Claro trae la semana con los mismos
+# horarios (verificado: Aquelarre 19:00, ¿Dónde está Elisa? 20:00, Mea Culpa 21:00).
+# TVN3 deja de ser opcional: si se queda sin guía, se informa como pendiente.
+CLARO_SCHEDULE_FALLBACK_IDS = frozenset({"1437"})
 NHK_MASTER_URL = "https://masterpl.hls.nhkworld.jp/hls/w/live/smarttv.m3u8"
 # EPGShare01 no entregó una parrilla actual para estas pruebas; se mantienen
 # sin guía en vez de rellenarlas con continuidad genérica.
@@ -6720,6 +6724,8 @@ def epg_source_chain(target_id: str) -> list[tuple[str, str]]:
         chain.extend(official)
     if target_id in ZAPPING_EPG_CHANNELS:
         chain.append((ZAPPING_EPG_SOURCE, target_id))
+    if target_id in CLARO_SCHEDULE_FALLBACK_IDS:
+        chain.append((CLARO_SYNOPSIS_PART, ZAPPING_DESCRIPTION_ID_PREFIX + target_id))
     if official_is_fill and target_id in TECNOCENTRO_BACKUP_CHANNELS:
         # La oficial omite bloques: Zapping y TecnoCentro mandan y la oficial
         # solo cubre los días que ellos no alcanzan.
@@ -7894,7 +7900,7 @@ def epg_part_for_source(source_name: str) -> str | None:
         return source_name
     if source_name in EPG_SOURCES:
         return EPGSHARE_PART
-    if source_name in {ZAPPING_EPG_SOURCE, TECNOCENTRO_PART, UKRAINIAN_PART}:
+    if source_name in {ZAPPING_EPG_SOURCE, TECNOCENTRO_PART, UKRAINIAN_PART, CLARO_SYNOPSIS_PART}:
         return source_name
     return None
 

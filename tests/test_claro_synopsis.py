@@ -29,7 +29,12 @@ class ClaroSynopsisTests(unittest.TestCase):
         self.assertEqual(["Caso Cerrado"], [title for _, _, title, _ in result["0104"]])
 
     def test_claro_channels_are_description_only(self) -> None:
+        # Excepción cerrada (2026-10-13): TVN3 usa la parrilla de Claro como respaldo de
+        # horario porque coincide con Zapping; el resto sigue solo con sinopsis.
+        self.assertEqual(frozenset({"1437"}), update_m3u.CLARO_SCHEDULE_FALLBACK_IDS)
         for target_id in update_m3u.CLARO_SYNOPSIS_CHANNELS:
+            if target_id in update_m3u.CLARO_SCHEDULE_FALLBACK_IDS:
+                continue
             self.assertNotIn(
                 update_m3u.CLARO_SYNOPSIS_PART,
                 [source for source, _ in update_m3u.epg_source_chain(target_id)],

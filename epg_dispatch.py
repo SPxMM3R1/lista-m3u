@@ -28,6 +28,11 @@ PART_INTERVALS = {
     "red-bull": timedelta(hours=2),
 }
 FIRST_RETRY = timedelta(minutes=30)
+INDEX_PATH = ROOT / "epg" / "indice.json"
+# Aviso y renovación anticipada por canal (2026-10-13): con menos de AVISO_HORIZON de guía
+# queda un aviso; con RENEW_LEAD o menos, sus fuentes se adelantan antes de quedar sin guía.
+AVISO_HORIZON = timedelta(hours=6)
+RENEW_LEAD = timedelta(hours=2)
 
 
 def now_utc() -> datetime:
@@ -98,6 +103,55 @@ def due_parts(
     return due
 
 
+def channel_horizons(index: dict, now: datetime, skip: set[str] = frozenset()) -> dict[str, dict]:
+    """Horas de guía que le quedan a cada canal del índice (None: sin guía)."""
+    horizons = {}
+    for entry in index.get("channels", []):
+        channel_id = entry.get("id")
+        if not channel_id or channel_id in skip:
+            continue
+        stop = parse(entry.get("lastStop"))
+        hours = None if stop is None else max(0.0, (stop - now).total_seconds() / 3600)
+        horizons[channel_id] = {"name": entry.get("name") or channel_id,
+                                "lastStop": entry.get("lastStop"), "hours": hours}
+    return horizons
+
+
+def build_notices(horizons: dict[str, dict]) -> dict[str, dict]:
+    """Avisos: canales con poca guía por delante, y si se renuevan ya."""
+    notices = {}
+    for channel_id, info in horizons.items():
+        hours = info["hours"]
+        if hours is not None and hours >= AVISO_HORIZON.total_seconds() / 3600:
+            continue
+        urgent = hours is None or hours <= RENEW_LEAD.total_seconds() / 3600
+        notices[channel_id] = {
+            "name": info["name"],
+            "hours": None if hours is None else round(hours, 1),
+            "lastStop": info["lastStop"],
+            "action": "renovar ya" if urgent else "vigilar",
+        }
+    return notices
+
+
+def urgent_channels(notices: dict[str, dict]) -> set[str]:
+    return {channel_id for channel_id, notice in notices.items() if notice["action"] == "renovar ya"}
+
+
+def print_notices(notices: dict[str, dict]) -> None:
+    for channel_id, notice in sorted(notices.items(), key=lambda item: (item[1]["hours"] is not None, item[1]["hours"] or 0)):
+        left = "sin guía" if notice["hours"] is None else f"{notice['hours']} h de guía"
+        print(f"  [EPG-AVISO] {notice['name']} ({channel_id}): {left} · {notice['action']}")
+
+
+def load_index(path: Path = INDEX_PATH) -> dict:
+    try:
+        index = json.loads(path.read_text(encoding="utf-8"))
+        return index if isinstance(index, dict) else {}
+    except (OSError, ValueError):
+        return {}
+
+
 def record(state: dict, planned: list[str], results: dict[str, bool], now: datetime) -> dict:
     for part in planned:
         entry = dict(state["parts"].get(part, {}))
@@ -138,6 +192,12 @@ def command_plan(args: argparse.Namespace) -> int:
         for channel_id in scope_ids:
             if channel_id not in existing:
                 needed |= update_m3u.epg_channel_parts(channel_id)
+        # Renovación anticipada: canales a punto de quedarse sin guía adelantan sus fuentes.
+        skip = set(update_m3u.EPG_ALLOWED_EMPTY_IDS) | {update_m3u.EPG_MAIN_LIVE_CHANNEL_ID}
+        notices = build_notices(channel_horizons(load_index(), now_utc(), skip))
+        print_notices(notices)
+        for channel_id in urgent_channels(notices) & set(scope_ids):
+            needed |= update_m3u.epg_channel_parts(channel_id)
     except Exception as error:  # noqa: BLE001 (sin alcance, se planifica por ritmo)
         print(f"AVISO: no se pudo revisar canales sin fragmento: {error}", file=sys.stderr)
     parts = due_parts(load_state(), all_parts, now_utc(), needed=needed, forced=forced)
@@ -150,14 +210,19 @@ def command_plan(args: argparse.Namespace) -> int:
 def command_record(args: argparse.Namespace) -> int:
     import update_m3u  # noqa: PLC0415
 
-    planned = [p for p in json.loads(args.planned or "[]")] if args.planned.startswith("[") else [
-        p.strip() for p in args.planned.split(",") if p.strip()]
+    raw = (args.planned or "").strip()
+    planned = json.loads(raw) if raw.startswith("[") else [p.strip() for p in raw.split(",") if p.strip()]
     results = {}
     for part in planned:
         loaded = update_m3u.read_epg_part(args.parts_dir, part) if args.parts_dir else None
         results[part] = bool(loaded and (loaded.documents or loaded.red_bull_schedules))
     now = now_utc()
     state = record(load_state(), planned, results, now)
+    # Avisos sobre la guía recién unida: quedan en el estado y en el log de la corrida.
+    skip = set(update_m3u.EPG_ALLOWED_EMPTY_IDS) | {update_m3u.EPG_MAIN_LIVE_CHANNEL_ID}
+    notices = build_notices(channel_horizons(load_index(), now, skip))
+    state["avisos"] = {"updatedAt": stamp(now), "channels": notices}
+    print_notices(notices)
     save_state(state)
     failed = sorted(part for part in planned if not results[part])
     if failed:

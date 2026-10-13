@@ -120,10 +120,13 @@ jobs:
           mkdir -p epg-parts
           if [ "${{ needs.plan.outputs.any }}" = "true" ]; then
             python update_m3u.py --build-epg-fragments --epg-parts-dir epg-parts
-            python epg_dispatch.py record --planned '${{ needs.plan.outputs.parts }}' --parts-dir epg-parts
+            planned='${{ needs.plan.outputs.parts }}'
           else
             python update_m3u.py --assemble-epg
+            planned='[]'
           fi
+          # Registra cada fuente y deja los avisos de canales con poca guía por delante.
+          python epg_dispatch.py record --planned "$planned" --parts-dir epg-parts
       - name: Publicar EPG
         id: publish
         shell: bash
