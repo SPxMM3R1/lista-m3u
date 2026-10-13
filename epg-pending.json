@@ -1,41 +1,49 @@
 {
   "schema": 1,
-  "updated_at": "2026-10-12T23:44:01.134806Z",
+  "updated_at": "2026-10-13T01:02:19.043295Z",
   "channels": [
     "Meganoticias.cl",
     "DSports2.us@Direct187",
     "MTVBiggestPop.us",
     "MTVSpankinNew.us",
-    "MTVFlowLatino.us"
+    "MTVFlowLatino.us",
+    "Vavoo.es.EUROSPORT1@TvVoo",
+    "Eurosport2.es@TvVoo"
   ],
   "details": {
     "DSports2.us@Direct187": {
       "kind": "guia-corta",
-      "futureHours": 5.3,
+      "futureHours": 4.0,
       "requiredHours": 18.0,
+      "gaps": []
+    },
+    "Eurosport2.es@TvVoo": {
+      "kind": "guia-corta",
+      "futureHours": 24.0,
+      "requiredHours": 24.0,
       "gaps": []
     },
     "MTVBiggestPop.us": {
       "kind": "guia-corta",
-      "futureHours": 13.5,
+      "futureHours": 12.2,
       "requiredHours": 18.0,
       "gaps": []
     },
     "MTVFlowLatino.us": {
       "kind": "guia-corta",
-      "futureHours": 14.3,
+      "futureHours": 13.0,
       "requiredHours": 18.0,
       "gaps": []
     },
     "MTVSpankinNew.us": {
       "kind": "guia-corta",
-      "futureHours": 13.8,
+      "futureHours": 12.5,
       "requiredHours": 18.0,
       "gaps": []
     },
     "Meganoticias.cl": {
       "kind": "hueco",
-      "futureHours": 27.3,
+      "futureHours": 26.0,
       "requiredHours": 18.0,
       "gaps": [
         [
@@ -43,6 +51,12 @@
           "2026-10-13T03:00:00Z"
         ]
       ]
+    },
+    "Vavoo.es.EUROSPORT1@TvVoo": {
+      "kind": "guia-corta",
+      "futureHours": 24.0,
+      "requiredHours": 24.0,
+      "gaps": []
     }
   }
 }
