@@ -18,8 +18,22 @@
     "MTVSpankinNew.us",
     "MTVFlowLatino.us"
   ],
-  "epgFilesModified": false,
-  "epgNote": "Al publicar, el workflow de EPG posterior al runner de canales debe volver a ensamblar la guía según la nueva Lista 1. Los fragmentos individuales se conservan; no son filas visibles del catálogo.",
+  "epgFilesModifiedInEditorialCommit": false,
+  "epgNote": "El workflow EPG posterior al runner reensambló la guía según Lista 1. Los fragmentos individuales se conservan; no son filas visibles del catálogo.",
+  "publication": {
+    "catalogCommit": "92216aa525607bad6576dd80b882398ef4431b00",
+    "editorWorkflowRun": 38483182819,
+    "targetedWorkflowRun": 38483182866,
+    "channelRunnerWorkflowRun": 38483182878,
+    "epgWorkflowRun": 38483378088,
+    "epgConclusion": "success",
+    "verifiedMainSha": "4def1f060952a76db21a55ff3d99de06c513ae1b",
+    "rawList1Channels": 117,
+    "rawCatalogChannels": 1881,
+    "targetIdsInPublishedEpg": 0,
+    "targetIdsInPublishedIndex": 0,
+    "targetIdsInPublishedPending": 0
+  },
   "channels": [
     { "number": 34, "name": "ESPN 1 | Mexico [Nauta]", "tvgId": "Nauta.267720adcfe18e0c87fca46c@Nauta" },
     { "number": 42, "name": "DSports 2 [IP 187]", "tvgId": "DSports2.us@Direct187" },
