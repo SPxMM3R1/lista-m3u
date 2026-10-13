@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "decision": "removed_by_user_numbers",
+  "requestedNumbers": [
+    298, 34, 42, 53, 54, 55, 102, 104, 173, 174, 175, 176, 177, 181, 179, 180, 181, 182, 183, 184,
+    185, 186, 187, 188
+  ],
+  "duplicateNumbers": [181],
+  "alreadyRemovedNumbers": [185, 186, 187, 188],
+  "removed": 19,
+  "reason": "Baja permanente solicitada para las filas activas de esas posiciones en Lista 1. Se conservan las posiciones y URLs de los canales supervivientes; no se modifican resolutores ni VibeM3U.",
+  "sourceList": "1.m3u",
+  "backupDependents": 0,
+  "existingEpgIds": [
+    "Nauta.267720adcfe18e0c87fca46c@Nauta",
+    "DSports2.us@Direct187",
+    "MTVBiggestPop.us",
+    "MTVSpankinNew.us",
+    "MTVFlowLatino.us"
+  ],
+  "epgFilesModified": false,
+  "epgNote": "Al publicar, el workflow de EPG posterior al runner de canales debe volver a ensamblar la guía según la nueva Lista 1. Los fragmentos individuales se conservan; no son filas visibles del catálogo.",
+  "channels": [
+    { "number": 34, "name": "ESPN 1 | Mexico [Nauta]", "tvgId": "Nauta.267720adcfe18e0c87fca46c@Nauta" },
+    { "number": 42, "name": "DSports 2 [IP 187]", "tvgId": "DSports2.us@Direct187" },
+    { "number": 53, "name": "MTV Biggest Pop", "tvgId": "MTVBiggestPop.us" },
+    { "number": 54, "name": "MTV Spankin' New", "tvgId": "MTVSpankinNew.us" },
+    { "number": 55, "name": "MTV Flow Latino", "tvgId": "MTVFlowLatino.us" },
+    { "number": 102, "name": "ESPN 2 HD [Nauta]", "tvgId": "Nauta.deed67c5e933ee7037f21faf@Nauta" },
+    { "number": 104, "name": "ESPN 3 | Sur [Nauta]", "tvgId": "Nauta.1142f9e4409f4a96540ff06a@Nauta" },
+    { "number": 173, "name": "Canal Institucional [IP 181]", "tvgId": "CanalInstitucional.co@Direct181" },
+    { "number": 174, "name": "Trece [IP 181]", "tvgId": "Trece.co@Direct181" },
+    { "number": 175, "name": "Canal Capital [IP 181]", "tvgId": "CanalCapital.co@Direct181" },
+    { "number": 176, "name": "Teleantioquia [IP 181]", "tvgId": "Teleantioquia.co@Direct181" },
+    { "number": 177, "name": "Telepacífico [IP 181]", "tvgId": "Telepacifico.co@Direct181" },
+    { "number": 179, "name": "Telecaribe [IP 181]", "tvgId": "Telecaribe.co@Direct181" },
+    { "number": 180, "name": "TRO [IP 181]", "tvgId": "TRO.co@Direct181" },
+    { "number": 181, "name": "Telemedellín [IP 181]", "tvgId": "Telemedellin.co@Direct181" },
+    { "number": 182, "name": "Teleislas [IP 181]", "tvgId": "Teleislas.co@Direct181" },
+    { "number": 183, "name": "Canal Congreso [IP 181]", "tvgId": "CanalCongreso.co@Direct181" },
+    { "number": 184, "name": "Zoom [IP 181]", "tvgId": "ZoomTV.co@Direct181" },
+    { "number": 298, "name": "ESPN 2 [IP 190.61.47.54]", "tvgId": "PublicDirect.d38819f8984595baeae1a6b5" }
+  ]
+}
