@@ -607,3 +607,120 @@ export function removeRowsPermanently(layout, keys) {
   for (const key of new Set(keys)) current = removePermanently(current, key);
   return current === layout ? structuredClone(layout) : current;
 }
+
+// ---------------------------------------------------------------------------
+// Guía por canal (2026-10-12): correcciones manuales de epg/manual/<canal>.xml.
+// Mismas reglas que epg_fragments.assemble: cada programa manual reemplaza solo su
+// horario y lo automático que queda fuera se conserva.
+
+const XML_ENTITIES = { "&amp;": "&", "&lt;": "<", "&gt;": ">", "&quot;": '"', "&apos;": "'" };
+
+export function unescapeXml(value) {
+  return String(value ?? "")
+    .replace(/&#(\d+);/g, (_m, code) => String.fromCodePoint(Number(code)))
+    .replace(/&#x([0-9a-f]+);/gi, (_m, code) => String.fromCodePoint(parseInt(code, 16)))
+    .replace(/&(amp|lt|gt|quot|apos);/g, (entity) => XML_ENTITIES[entity]);
+}
+
+export function escapeXml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;").replace(/'/g, "&apos;");
+}
+
+/** «20261012210000 -0300» → Date (UTC correcto según el desfase). */
+export function parseXmltvTime(value) {
+  const match = /^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})(?:\s*([+-])(\d{2})(\d{2}))?/.exec(String(value ?? "").trim());
+  if (!match) return null;
+  const [, y, mo, d, h, mi, s, sign = "+", oh = "00", om = "00"] = match;
+  const utc = Date.UTC(+y, +mo - 1, +d, +h, +mi, +s);
+  const offset = (sign === "-" ? -1 : 1) * (Number(oh) * 60 + Number(om)) * 60000;
+  return new Date(utc - offset);
+}
+
+/** Date → XMLTV en UTC (+0000): sin depender del horario de verano del navegador. */
+export function formatXmltvTime(date) {
+  const pad = (number) => String(number).padStart(2, "0");
+  return `${date.getUTCFullYear()}${pad(date.getUTCMonth() + 1)}${pad(date.getUTCDate())}`
+    + `${pad(date.getUTCHours())}${pad(date.getUTCMinutes())}${pad(date.getUTCSeconds())} +0000`;
+}
+
+function attribute(tag, name) {
+  const match = new RegExp(`\\s${name}="([^"]*)"`).exec(tag) ?? new RegExp(`\\s${name}='([^']*)'`).exec(tag);
+  return match ? unescapeXml(match[1]) : "";
+}
+
+function childText(body, name) {
+  const match = new RegExp(`<${name}(?:\\s[^>]*)?>([\\s\\S]*?)</${name}>`).exec(body);
+  return match ? unescapeXml(match[1]).trim() : "";
+}
+
+/** Programas de un XMLTV (fragmento o corrección), ordenados por inicio. */
+export function parseGuideProgrammes(xml) {
+  const items = [];
+  const pattern = /<programme\b([^>]*?)(?:\/>|>([\s\S]*?)<\/programme>)/g;
+  let match;
+  while ((match = pattern.exec(String(xml ?? "")))) {
+    const tag = match[1];
+    const body = match[2] ?? "";
+    const start = parseXmltvTime(attribute(tag, "start"));
+    const stop = parseXmltvTime(attribute(tag, "stop"));
+    if (!start || !stop || stop <= start) continue;
+    items.push({ start, stop, title: childText(body, "title"), desc: childText(body, "desc") });
+  }
+  return items.sort((a, b) => a.start - b.start || a.stop - b.stop);
+}
+
+/** Un tramo manual válido: horario coherente, título y sin cruzarse con otro manual. */
+export function validateManualItem(item, others = []) {
+  if (!(item?.start instanceof Date) || Number.isNaN(item.start.getTime())) return "Falta la hora de inicio.";
+  if (!(item?.stop instanceof Date) || Number.isNaN(item.stop.getTime())) return "Falta la hora de término.";
+  if (item.stop <= item.start) return "El término debe ser después del inicio.";
+  if (item.stop - item.start > 24 * 3600 * 1000) return "Un tramo no puede durar más de 24 horas.";
+  if (!String(item.title ?? "").trim()) return "Escribe un título.";
+  const clash = others.find((other) => other.start < item.stop && item.start < other.stop);
+  if (clash) return `Se cruza con otra corrección manual («${clash.title}»).`;
+  return "";
+}
+
+/** XML de epg/manual/<canal>.xml con los tramos manuales. */
+export function serializeManualGuide(channelId, items) {
+  const lines = ['<?xml version="1.0" encoding="utf-8"?>', `<tv data-manual-of="${escapeXml(channelId)}">`];
+  for (const item of [...items].sort((a, b) => a.start - b.start)) {
+    lines.push(`  <programme start="${formatXmltvTime(item.start)}" stop="${formatXmltvTime(item.stop)}" channel="${escapeXml(channelId)}">`);
+    lines.push(`    <title lang="es">${escapeXml(String(item.title).trim())}</title>`);
+    if (String(item.desc ?? "").trim()) lines.push(`    <desc lang="es">${escapeXml(String(item.desc).trim())}</desc>`);
+    lines.push("  </programme>");
+  }
+  lines.push("</tv>", "");
+  return lines.join("\n");
+}
+
+/** Guía que verá la TV: lo automático recortado por los tramos manuales, más los manuales. */
+export function mergeGuideForDisplay(auto, manual, { from = null } = {}) {
+  const result = [];
+  for (const item of auto) {
+    let segments = [[item.start, item.stop]];
+    for (const cut of manual) {
+      segments = segments.flatMap(([start, stop]) => {
+        if (cut.stop <= start || cut.start >= stop) return [[start, stop]];
+        const pieces = [];
+        if (start < cut.start) pieces.push([start, cut.start]);
+        if (cut.stop < stop) pieces.push([cut.stop, stop]);
+        return pieces;
+      });
+    }
+    for (const [start, stop] of segments) {
+      if (stop - start >= 60000) result.push({ ...item, start, stop, kind: "auto" });
+    }
+  }
+  for (const item of manual) result.push({ ...item, kind: "manual" });
+  return result
+    .filter((item) => !from || item.stop > from)
+    .sort((a, b) => a.start - b.start || a.stop - b.stop);
+}
+
+/** Programas automáticos que un tramo manual taparía (total o parcialmente). */
+export function overlappedProgrammes(auto, start, stop) {
+  return auto.filter((item) => item.start < stop && start < item.stop);
+}

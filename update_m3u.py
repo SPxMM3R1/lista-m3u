@@ -75,6 +75,8 @@ EPG_DATA_DIR = Path(__file__).with_name("epg")
 EPG_FRAGMENTS_DIR = EPG_DATA_DIR / epg_fragments.FRAGMENTS_DIRNAME
 EPG_MANUAL_DIR = EPG_DATA_DIR / epg_fragments.MANUAL_DIRNAME
 EPG_ROOT_META_PATH = EPG_DATA_DIR / "raiz.json"
+# Índice para el editor web: canal de la guía → archivo, nombre y claves de fila del editor.
+EPG_INDEX_PATH = EPG_DATA_DIR / "indice.json"
 EPG_OVERRIDES_PATH = Path(__file__).with_name("epg-overrides.json")
 EPG_MANUAL_OVERRIDES_PATH = Path(__file__).with_name("epg-manual-overrides.xml")
 STREAM_OVERRIDES_PATH = Path(__file__).with_name("stream-overrides.json")
@@ -7977,6 +7979,11 @@ def assemble_epg_from_fragments(
     temporary.write_bytes(data)
     temporary.replace(output_path)
     pending, details = epg_assembled_pending(data, scope_ids, main_ids, now)
+    if include_manual and output_path == EPG_PATH:
+        try:
+            write_epg_index(data, scope_ids, now)
+        except Exception as error:  # noqa: BLE001 (el índice no bloquea la guía)
+            print(f"AVISO: no se pudo escribir {EPG_INDEX_PATH.name}: {error}", file=sys.stderr)
     root = ET.fromstring(data)
     return {
         "channels": len(scope_ids),
@@ -7986,6 +7993,58 @@ def assemble_epg_from_fragments(
         "pending_channels": pending,
         "pending_details": details,
     }
+
+
+def epg_editor_keys(scope_ids: list[str]) -> dict[str, list[str]]:
+    """Claves de fila del editor (``m3u:<id>``, ``provider:<p>:<clave>``) por id de guía."""
+    keys = {channel_id: [f"m3u:{channel_id}"] for channel_id in scope_ids}
+    try:
+        catalog_lines = CHANNEL_CATALOG_PATH.read_text(encoding="utf-8-sig").splitlines()
+        reconciliation = vibem3u_selection.reconcile_selection(
+            load_vibem3u_selection(), parse_channels(catalog_lines), catalog_lines
+        )
+        for match in reconciliation.matched:
+            if match.catalog_id in keys:
+                keys[match.catalog_id].append(
+                    f"provider:{match.row.provider}:{match.row.catalog_key}"
+                )
+    except (OSError, ValueError) as error:
+        print(f"AVISO: índice de guía sin filas TvVoo/Highfly: {error}", file=sys.stderr)
+    return keys
+
+
+def write_epg_index(data: bytes, scope_ids: list[str], now: datetime) -> None:
+    root = ET.fromstring(data)
+    channels = {element.get("id", ""): element for element in root.findall("channel")}
+    last_stop: dict[str, datetime] = {}
+    for programme in root.findall("programme"):
+        try:
+            stop = xmltv_datetime(programme.get("stop", ""))
+        except ValueError:
+            continue
+        channel_id = programme.get("channel", "")
+        if stop > last_stop.get(channel_id, stop - timedelta(seconds=1)):
+            last_stop[channel_id] = stop
+    keys = epg_editor_keys(scope_ids)
+    entries = []
+    for channel_id in scope_ids:
+        element = channels.get(channel_id)
+        entries.append({
+            "id": channel_id,
+            "file": epg_fragments.fragment_filename(channel_id),
+            "name": (element.findtext("display-name", "") if element is not None else "") or channel_id,
+            "keys": keys.get(channel_id, []),
+            "guideSource": element.get("data-guide-source", "") if element is not None else "",
+            "manual": element is not None and element.get("data-manual") == "true",
+            "lastStop": last_stop[channel_id].astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
+            if channel_id in last_stop else None,
+        })
+    EPG_INDEX_PATH.parent.mkdir(parents=True, exist_ok=True)
+    EPG_INDEX_PATH.write_text(json.dumps({
+        "schema": 1,
+        "generatedAt": now.astimezone(timezone.utc).isoformat().replace("+00:00", "Z"),
+        "channels": entries,
+    }, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
 def build_epg_fragments(

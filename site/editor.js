@@ -15,6 +15,11 @@ import {
   setRowState,
   mergeRemoteDeletions,
   approveLayout,
+  parseGuideProgrammes,
+  serializeManualGuide,
+  mergeGuideForDisplay,
+  overlappedProgrammes,
+  validateManualItem,
   setRowsState,
   removeRowsPermanently,
   stableId,
@@ -986,6 +991,12 @@ function renderInspector() {
   logoChoice.append(logoButton, logoPath);
   logoGroup.append(logoChoice);
   fragment.append(logoGroup);
+
+  // Guía por canal (2026-10-12): lo que verá la TV y correcciones por tramo.
+  const guideGroup = node("section", "detail-group");
+  guideGroup.append(node("h3", "", "Guía"));
+  guideGroup.append(button("Ver y corregir guía", "button-secondary", () => openGuideDialog(row), ""));
+  fragment.append(guideGroup);
 
   if (row.kind === "m3u") {
     const sourceGroup = node("section", "detail-group");
@@ -2138,7 +2149,7 @@ async function apiRequest(path, token, options = {}) {
   return response.status === 204 ? null : response.json();
 }
 
-async function publishAtomically(documents, token) {
+async function publishAtomically(documents, token, message = "Actualiza catálogo editorial desde el editor local") {
   let commit;
   for (let attempt = 1; attempt <= 6; attempt++) {
     const ref = await apiRequest(`/git/ref/heads/${encodeURIComponent(BRANCH)}`, token);
@@ -2158,7 +2169,7 @@ async function publishAtomically(documents, token) {
     commit = await apiRequest("/git/commits", token, {
       method: "POST",
       body: JSON.stringify({
-        message: "Actualiza catálogo editorial desde el editor local",
+        message,
         tree: tree.sha,
         parents: [headSha],
       }),
@@ -2376,3 +2387,287 @@ $("#download-export").addEventListener("click", downloadBackup);
 elements.publishDialog.addEventListener("close", () => { tokenInMemory = ""; elements.token.value = ""; });
 
 initialize();
+
+// ---------------------------------------------------------------------------
+// Guía por canal (2026-10-12): ver lo que mostrará la TV y corregir tramos.
+// Publica solo epg/manual/<canal>.xml; el workflow de EPG une la guía en ~1 minuto.
+
+const GUIDE_INDEX_TTL_MS = 2 * 60 * 1000;
+const guideState = { row: null, entry: null, auto: [], manual: [], editingIndex: -1, index: null, indexLoadedAt: 0 };
+const guideElements = {
+  dialog: $("#guide-dialog"),
+  title: $("#guide-dialog-title"),
+  sub: $("#guide-dialog-sub"),
+  status: $("#guide-status"),
+  message: $("#guide-message"),
+  layout: $("#guide-layout"),
+  list: $("#guide-list"),
+  newButton: $("#guide-new"),
+  onlyManual: $("#guide-only-manual"),
+  form: $("#guide-form"),
+  formTitle: $("#guide-form-title"),
+  start: $("#guide-start"),
+  stop: $("#guide-stop"),
+  titleInput: $("#guide-title"),
+  desc: $("#guide-desc"),
+  overlap: $("#guide-overlap"),
+  tokenField: $("#guide-token-field"),
+  token: $("#guide-token"),
+  error: $("#guide-error"),
+  save: $("#guide-save"),
+  cancel: $("#guide-cancel"),
+  remove: $("#guide-remove"),
+};
+
+function repoPath(path) {
+  return path.split("/").map(encodeURIComponent).join("/");
+}
+
+/** Lee un archivo de main sin la caché de raw (API de contenidos); si falla, usa raw. */
+async function fetchRepoText(path) {
+  try {
+    const response = await fetch(`${API}/contents/${repoPath(path)}?ref=${BRANCH}`, {
+      headers: { Accept: "application/vnd.github.raw+json" },
+      cache: "no-store",
+      credentials: "omit",
+    });
+    if (response.status === 404) return null;
+    if (response.ok) return await response.text();
+  } catch {
+    // Sin API (límite o red): se intenta raw.
+  }
+  const response = await fetch(`${RAW}/${repoPath(path)}?t=${Date.now()}`, { cache: "no-store", credentials: "omit" });
+  if (response.status === 404) return null;
+  if (!response.ok) throw new Error(`No se pudo leer ${path} (${response.status}).`);
+  return response.text();
+}
+
+async function loadGuideIndex() {
+  if (guideState.index && Date.now() - guideState.indexLoadedAt < GUIDE_INDEX_TTL_MS) return guideState.index;
+  const text = await fetchRepoText("epg/indice.json");
+  if (!text) throw new Error("Todavía no hay índice de la guía por canal en GitHub.");
+  guideState.index = JSON.parse(text);
+  guideState.indexLoadedAt = Date.now();
+  return guideState.index;
+}
+
+const guideTimeFormat = new Intl.DateTimeFormat("es-CL", { hour: "2-digit", minute: "2-digit", hour12: false });
+const guideDayFormat = new Intl.DateTimeFormat("es-CL", { weekday: "long", day: "numeric", month: "long" });
+const guideShortDayFormat = new Intl.DateTimeFormat("es-CL", { weekday: "long", day: "numeric" });
+
+function guideTime(date) {
+  return guideTimeFormat.format(date);
+}
+
+function guideDayLabel(date) {
+  const day = (value) => new Date(value.getFullYear(), value.getMonth(), value.getDate()).getTime();
+  const diff = Math.round((day(date) - day(new Date())) / 86400000);
+  const label = guideShortDayFormat.format(date);
+  if (diff === 0) return `Hoy · ${label}`;
+  if (diff === 1) return `Mañana · ${label}`;
+  return guideDayFormat.format(date);
+}
+
+function toLocalInput(date) {
+  const pad = (value) => String(value).padStart(2, "0");
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+}
+
+function setGuideMessage(text) {
+  guideElements.message.textContent = text;
+}
+
+function showGuideError(text) {
+  guideElements.error.textContent = text;
+  guideElements.error.hidden = !text;
+}
+
+async function openGuideDialog(row) {
+  guideState.row = row;
+  guideState.entry = null;
+  guideState.auto = [];
+  guideState.manual = [];
+  guideElements.title.textContent = `${channelName(row)} · Guía`;
+  guideElements.sub.textContent = "Programación que verá la TV";
+  guideElements.status.replaceChildren();
+  guideElements.list.replaceChildren();
+  guideElements.layout.hidden = true;
+  guideElements.form.hidden = true;
+  guideElements.onlyManual.checked = false;
+  guideElements.tokenField.hidden = LOCAL_MODE;
+  setGuideMessage("Cargando guía…");
+  if (!guideElements.dialog.open) guideElements.dialog.showModal();
+  try {
+    const index = await loadGuideIndex();
+    const entry = (index.channels ?? []).find((item) => (item.keys ?? []).includes(rowKey(row)));
+    if (guideState.row !== row) return;
+    if (!entry) {
+      setGuideMessage("Este canal no está en la guía publicada: los canales en prueba o sin EPG no tienen guía. Las correcciones se aplican solo a canales de la guía.");
+      return;
+    }
+    const [autoText, manualText] = await Promise.all([
+      fetchRepoText(`epg/canales/${entry.file}`),
+      fetchRepoText(`epg/manual/${entry.file}`),
+    ]);
+    if (guideState.row !== row) return;
+    guideState.entry = entry;
+    guideState.auto = parseGuideProgrammes(autoText ?? "");
+    guideState.manual = parseGuideProgrammes(manualText ?? "");
+    guideElements.sub.textContent = `Fuente ${entry.guideSource || "sin fuente"} · ${entry.id}`;
+    setGuideMessage(autoText ? "" : "Este canal aún no tiene guía automática; puedes cargar sus programas a mano.");
+    guideElements.layout.hidden = false;
+    renderGuide();
+  } catch (error) {
+    if (guideState.row === row) setGuideMessage(error.message || "No se pudo cargar la guía.");
+  }
+}
+
+function renderGuide() {
+  const { entry, auto, manual } = guideState;
+  if (!entry) return;
+  const chips = [];
+  const lastStop = [...auto, ...manual].reduce((latest, item) => (item.stop > latest ? item.stop : latest), new Date(0));
+  if (lastStop.getTime() > Date.now()) {
+    chips.push(["is-ok", `Guía hasta el ${guideShortDayFormat.format(lastStop)} ${guideTime(lastStop)}`]);
+  } else {
+    chips.push(["", "Sin programación vigente"]);
+  }
+  if (manual.length) chips.push(["is-manual", countText(manual.length, "corrección manual", "correcciones manuales")]);
+  guideElements.status.replaceChildren(...chips.map(([kind, text]) => node("span", `guide-chip ${kind}`.trim(), text)));
+
+  const from = new Date(Date.now() - 2 * 3600 * 1000);
+  const items = mergeGuideForDisplay(auto, manual, { from })
+    .filter((item) => !guideElements.onlyManual.checked || item.kind === "manual");
+  const now = Date.now();
+  const fragment = document.createDocumentFragment();
+  let currentDay = "";
+  for (const item of items) {
+    const day = guideDayLabel(item.start);
+    if (day !== currentDay) {
+      fragment.append(node("div", "guide-day", day));
+      currentDay = day;
+    }
+    const row = node("div", `guide-row${item.kind === "manual" ? " is-manual" : ""}${item.start <= now && now < item.stop ? " is-now" : ""}`);
+    const text = node("div");
+    text.append(node("div", "guide-title", item.title || "Sin título"));
+    if (item.desc) text.append(node("div", "guide-desc", item.desc));
+    const chip = node("span", `guide-chip${item.kind === "manual" ? " is-manual" : ""}`, item.kind === "manual" ? "Manual" : "Automática");
+    if (item.kind === "manual") {
+      const edit = node("button", "guide-edit", "editar");
+      edit.type = "button";
+      edit.addEventListener("click", () => openGuideForm(manual.indexOf(manual.find((value) => value.start.getTime() === item.start.getTime() && value.stop.getTime() === item.stop.getTime()))));
+      chip.append(" · ", edit);
+    }
+    row.append(node("span", "guide-time", `${guideTime(item.start)} – ${guideTime(item.stop)}`), text, chip);
+    fragment.append(row);
+  }
+  if (!items.length) {
+    fragment.append(node("p", "field-hint", guideElements.onlyManual.checked ? "Este canal no tiene correcciones manuales." : "Sin programas desde hace dos horas en adelante."));
+  }
+  guideElements.list.replaceChildren(fragment);
+}
+
+function openGuideForm(index = -1) {
+  guideState.editingIndex = index;
+  const item = index >= 0 ? guideState.manual[index] : null;
+  const start = item?.start ?? new Date(Math.ceil(Date.now() / 3600000) * 3600000);
+  const stop = item?.stop ?? new Date(start.getTime() + 3600000);
+  guideElements.formTitle.textContent = item ? "Editar corrección" : "Corregir un tramo";
+  guideElements.start.value = toLocalInput(start);
+  guideElements.stop.value = toLocalInput(stop);
+  guideElements.titleInput.value = item?.title ?? "";
+  guideElements.desc.value = item?.desc ?? "";
+  guideElements.remove.hidden = !item;
+  guideElements.form.hidden = false;
+  showGuideError("");
+  updateGuideOverlap();
+  guideElements.titleInput.focus();
+}
+
+function guideFormItem() {
+  return {
+    start: guideElements.start.value ? new Date(guideElements.start.value) : null,
+    stop: guideElements.stop.value ? new Date(guideElements.stop.value) : null,
+    title: guideElements.titleInput.value.trim(),
+    desc: guideElements.desc.value.trim(),
+  };
+}
+
+function updateGuideOverlap() {
+  const item = guideFormItem();
+  if (!item.start || !item.stop || item.stop <= item.start) {
+    guideElements.overlap.hidden = true;
+    return;
+  }
+  const hit = overlappedProgrammes(guideState.auto, item.start, item.stop);
+  guideElements.overlap.hidden = !hit.length;
+  guideElements.overlap.textContent = hit.length
+    ? `Se cruza con ${hit.slice(0, 3).map((value) => `«${value.title}» (${guideTime(value.start)} – ${guideTime(value.stop)})`).join(", ")}${hit.length > 3 ? ` y ${hit.length - 3} más` : ""}. Esos tramos se ocultan; el resto se conserva.`
+    : "";
+}
+
+async function publishGuideFile(path, content, channelLabel) {
+  if (LOCAL_MODE) {
+    if (!(await refreshLocalStatus())) throw new Error("Conecta primero GitHub CLI en este equipo.");
+    const response = await fetch("/api/publish-epg-manual", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ path, content, channel: channelLabel }),
+      cache: "no-store",
+    });
+    const payload = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(payload.error || "El auxiliar local no pudo publicar la corrección.");
+    return payload.sha;
+  }
+  const token = guideElements.token.value.trim() || tokenInMemory;
+  if (!token) throw new Error("Pega un token de GitHub con permiso Contents: Read and write.");
+  const result = await publishAtomically({ [path]: content }, token, `Guía manual desde el editor: ${channelLabel}`);
+  tokenInMemory = token;
+  return result.sha;
+}
+
+async function saveGuideManual(nextManual, successMessage) {
+  const { entry, row } = guideState;
+  if (!entry) return;
+  guideElements.save.disabled = true;
+  guideElements.remove.disabled = true;
+  showGuideError("");
+  try {
+    const content = serializeManualGuide(entry.id, nextManual);
+    await publishGuideFile(`epg/manual/${entry.file}`, content, channelName(row));
+    guideState.manual = nextManual;
+    guideElements.form.hidden = true;
+    renderGuide();
+    showToast(successMessage);
+  } catch (error) {
+    showGuideError(error.message || "No se pudo publicar la corrección.");
+  } finally {
+    guideElements.save.disabled = false;
+    guideElements.remove.disabled = false;
+  }
+}
+
+guideElements.form.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const item = guideFormItem();
+  const others = guideState.manual.filter((_value, index) => index !== guideState.editingIndex);
+  const problem = validateManualItem(item, others);
+  if (problem) {
+    showGuideError(problem);
+    return;
+  }
+  saveGuideManual([...others, item], "Corrección publicada. La guía se actualiza en la TV en unos minutos.");
+});
+guideElements.remove.addEventListener("click", () => {
+  if (guideState.editingIndex < 0) return;
+  const next = guideState.manual.filter((_value, index) => index !== guideState.editingIndex);
+  saveGuideManual(next, "Corrección quitada. Vuelve la guía automática en ese tramo.");
+});
+guideElements.newButton.addEventListener("click", () => openGuideForm(-1));
+guideElements.cancel.addEventListener("click", () => {
+  guideElements.form.hidden = true;
+  showGuideError("");
+});
+guideElements.onlyManual.addEventListener("change", renderGuide);
+for (const input of [guideElements.start, guideElements.stop]) input.addEventListener("input", updateGuideOverlap);
+$("#close-guide").addEventListener("click", () => guideElements.dialog.close());

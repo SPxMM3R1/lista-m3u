@@ -199,5 +199,19 @@ class RunnerIntegrationTest(unittest.TestCase):
         self.assertEqual("lista-m3u updater", root.get("generator-info-name"))
 
 
+    def test_index_links_editor_rows_to_guide_files(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            index_path = Path(temporary) / "indice.json"
+            data = guide({"0104": [(0, 30, "TVN")], "X@TvVoo": [(0, 30, "Sky")]})
+            with patch.object(update_m3u, "EPG_INDEX_PATH", index_path),                     patch.object(update_m3u, "epg_editor_keys",
+                                 lambda ids: {"0104": ["m3u:0104"],
+                                              "X@TvVoo": ["m3u:X@TvVoo", "provider:tvvoo:clave"]}):
+                update_m3u.write_epg_index(data, ["0104", "X@TvVoo"], NOW)
+            index = json.loads(index_path.read_text(encoding="utf-8"))
+        by_id = {entry["id"]: entry for entry in index["channels"]}
+        self.assertEqual("0104.xml", by_id["0104"]["file"])
+        self.assertIn("provider:tvvoo:clave", by_id["X@TvVoo"]["keys"])
+        self.assertEqual("2026-10-14T00:00:00Z", by_id["0104"]["lastStop"])
+
 if __name__ == "__main__":
     unittest.main()

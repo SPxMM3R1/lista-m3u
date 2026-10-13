@@ -796,3 +796,26 @@ test("only stable active Nauta rows can be configured as dynamic M3U backups", (
   inactive.channels[1].state = "deleted";
   assert.equal(setBackupM3u(inactive, "m3u:0104", [inactive.channels[1].tvgId]).channels[0].backupm3u, undefined);
 });
+
+test("guía manual: horas XMLTV, combinación y XML igual que el ensamblador", async () => {
+  const core = await import("../site/editor-core.mjs");
+  const at = (hours) => new Date(Date.UTC(2026, 9, 13, hours));
+  assert.equal(core.parseXmltvTime("20261012210000 -0300").toISOString(), "2026-10-13T00:00:00.000Z");
+  assert.equal(core.formatXmltvTime(at(0)), "20261013000000 +0000");
+  const fragment = `<tv><channel id="0104"/>
+    <programme start="${core.formatXmltvTime(at(0))}" stop="${core.formatXmltvTime(at(4))}" channel="0104"><title lang="es">Auto &amp; más</title></programme></tv>`;
+  const auto = core.parseGuideProgrammes(fragment);
+  assert.equal(auto[0].title, "Auto & más");
+  const manual = [{ start: at(1), stop: at(2), title: "Partido <en vivo>", desc: "" }];
+  const merged = core.mergeGuideForDisplay(auto, manual);
+  assert.deepEqual(merged.map((item) => [item.kind, item.title, item.start.getUTCHours(), item.stop.getUTCHours()]), [
+    ["auto", "Auto & más", 0, 1], ["manual", "Partido <en vivo>", 1, 2], ["auto", "Auto & más", 2, 4],
+  ]);
+  const xml = core.serializeManualGuide("0104", manual);
+  assert.match(xml, /<title lang="es">Partido &lt;en vivo&gt;<\/title>/);
+  assert.deepEqual(core.parseGuideProgrammes(xml).map((item) => item.title), ["Partido <en vivo>"]);
+  assert.equal(core.overlappedProgrammes(auto, at(1), at(2)).length, 1);
+  assert.equal(core.validateManualItem({ start: at(2), stop: at(1), title: "x" }), "El término debe ser después del inicio.");
+  assert.match(core.validateManualItem({ start: at(1), stop: at(3), title: "y" }, manual), /Se cruza/);
+  assert.equal(core.validateManualItem({ start: at(5), stop: at(6), title: "z" }, manual), "");
+});

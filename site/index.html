@@ -176,6 +176,46 @@
       </form>
     </dialog>
 
+    <dialog class="dialog guide-dialog" id="guide-dialog" aria-labelledby="guide-dialog-title">
+      <div class="dialog-shell">
+        <div class="dialog-heading">
+          <div><h2 id="guide-dialog-title">Guía</h2><p id="guide-dialog-sub">Programación que verá la TV</p></div>
+          <button class="icon-button" id="close-guide" type="button" aria-label="Cerrar guía">
+            <svg aria-hidden="true" viewBox="0 0 20 20"><path d="m5 5 10 10M15 5 5 15"/></svg>
+          </button>
+        </div>
+        <div class="guide-status" id="guide-status"></div>
+        <p class="guide-message" id="guide-message" role="status" aria-live="polite"></p>
+        <div class="guide-layout" id="guide-layout" hidden>
+          <section class="guide-list-panel" aria-label="Programación">
+            <div class="guide-list" id="guide-list"></div>
+            <div class="guide-list-actions">
+              <button class="button button-primary" id="guide-new" type="button">Corregir un tramo</button>
+              <label class="list-chip"><input type="checkbox" id="guide-only-manual"><span>Ver solo correcciones</span></label>
+            </div>
+          </section>
+          <form class="guide-form" id="guide-form" hidden>
+            <h3 id="guide-form-title">Corregir un tramo</h3>
+            <p class="field-hint">Reemplaza lo automático solo en este horario. El resto del día sigue igual.</p>
+            <div class="guide-two">
+              <label class="guide-field">Desde<input type="datetime-local" id="guide-start" required></label>
+              <label class="guide-field">Hasta<input type="datetime-local" id="guide-stop" required></label>
+            </div>
+            <label class="guide-field">Título<input id="guide-title" maxlength="160" autocomplete="off" required></label>
+            <label class="guide-field">Descripción (opcional)<textarea id="guide-desc" rows="3" maxlength="600"></textarea></label>
+            <p class="guide-overlap" id="guide-overlap" hidden></p>
+            <label class="guide-field" id="guide-token-field">Token de GitHub (Contents: Read and write)<input type="password" id="guide-token" autocomplete="off" spellcheck="false" placeholder="ghp_… / github_pat_…"></label>
+            <p class="dialog-error" id="guide-error" role="alert" hidden></p>
+            <div class="guide-form-actions">
+              <button class="button button-primary" id="guide-save" type="submit">Guardar corrección</button>
+              <button class="button button-secondary" id="guide-cancel" type="button">Cancelar</button>
+              <button class="button button-quiet guide-remove" id="guide-remove" type="button" hidden>Quitar corrección</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </dialog>
+
     <dialog class="dialog add-dialog" id="add-dialog" aria-labelledby="add-dialog-title">
       <form method="dialog" class="dialog-shell">
         <div class="dialog-heading">
