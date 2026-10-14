@@ -1,0 +1,4930 @@
+{
+  "schemaVersion": 1,
+  "atUtc": "2026-10-14T01:09:29.291Z",
+  "previousHead": "3b47952878f0d4e4bc185d2cb7beabe553d17b00",
+  "authorization": "Usuario: «agrega todo lo enontraste», después del informe de 179 muestras con video, audio y contenido real. Alta de todas las señales verificadas al final de Lista 1, en prueba.",
+  "research": {
+    "atUtc": "2026-10-14T00:59:33.063150+00:00",
+    "inventoryHostnames": 119,
+    "catalogueRequests": 78,
+    "successfulCatalogues": 61,
+    "catalogueRows": 8782,
+    "distinctCatalogueNames": 2913,
+    "newDirectCatalogueNames": 2757,
+    "tested": 372,
+    "videoDecoded": 184,
+    "videoAndAudioDecoded": 183,
+    "testedHostPorts": 61,
+    "visuallyReviewedAudioVideoSamples": 183,
+    "realContentSamples": 179,
+    "brandingMismatchSamples": 9,
+    "repoHead": "3b42db34718f265dcf20758567d1ff80d12e30a9",
+    "limitations": [
+      "Catalogue records are not unique channels; names and feeds may be duplicated or wrong.",
+      "Decoded video samples need visual identity review; no long-term stability or TV hardware proof.",
+      "Large public proxy catalogues are indexed, not all their entries are playback-tested.",
+      "Unavailable server catalogues do not prove that a server has no other channels."
+    ]
+  },
+  "identityPolicy": "PublicDirect creado una sola vez por referencia de descubrimiento, host y ruta; el tvg-id permanece estable al renombrar o renovar el enlace.",
+  "scope": "Sólo los 179 enlaces comprobados; los 8.782 registros anunciados no son altas. No se restauran URLs/identidades retiradas ni se enlazan respaldos automáticamente.",
+  "verification": "Muestra HLS, segmento, video y audio decodificados; fotogramas revisados. Región, EPG, disponibilidad 24/7 y estabilidad prolongada no inferidas.",
+  "counterpart": "VibeM3U mínimo compatible 0.5.93 (682b1b5), tag actual de prueba v0.5.95 (e395b9d); sin modificación Android ni APK nueva.",
+  "skipped": [],
+  "channels": [
+    {
+      "tvgId": "PublicDirect.ca5aa7867d5a6678df1e8798",
+      "name": "Claro Cinema [IP 45.171.64.30]",
+      "announcedName": "Claro Cinema",
+      "group": "Películas",
+      "number": 310,
+      "order": 451,
+      "url": "http://45.171.64.30:6060/play/a039/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:07.343310+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-0.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.f6c3d13d7a52c1616b8a4123",
+      "name": "Claro Musica [IP 45.171.64.30]",
+      "announcedName": "Claro Musica",
+      "group": "Música",
+      "number": 311,
+      "order": 452,
+      "url": "http://45.171.64.30:6060/play/a010/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:07.344880+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 720,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-2.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.f9423761d966ce3d0fd5b162",
+      "name": "RHEMA TV [IP 45.171.64.30]",
+      "announcedName": "RHEMA TV",
+      "group": "Misceláneos",
+      "number": 312,
+      "order": 453,
+      "url": "http://45.171.64.30:6060/play/a04k/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:10.390983+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-4.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.a84d272d82351c313e421803",
+      "name": "Space [IP 45.171.64.30]",
+      "announcedName": "Space",
+      "group": "Películas",
+      "number": 313,
+      "order": 454,
+      "url": "http://45.171.64.30:6060/play/a04n/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:11.200990+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-5.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.00be13e7561217fc741c398f",
+      "name": "Cartoonito [IP 181.78.12.119]",
+      "announcedName": "Cartoonito",
+      "group": "Misceláneos",
+      "number": 314,
+      "order": 455,
+      "url": "http://181.78.12.119:16123/play/a0cq/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:12.251673+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 720,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "Cartoonito",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-6.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.9d293a93a25a9a655c8c1de2",
+      "name": "TNT Novelas HD [IP 181.78.12.119]",
+      "announcedName": "TNT Novelas HD",
+      "group": "Películas",
+      "number": 315,
+      "order": 456,
+      "url": "http://181.78.12.119:16123/play/a0a1/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:14.304330+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "TNT Novelas",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-9.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.ed69a6b5e1637d6e1cb760c0",
+      "name": "CNC [IP 181.78.12.119]",
+      "announcedName": "CNC",
+      "group": "Misceláneos",
+      "number": 316,
+      "order": 457,
+      "url": "http://181.78.12.119:16123/play/a0ae/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:14.800510+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1280,
+        "height": 720
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "44100"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-10.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.95d769b11198d2c83e958f73",
+      "name": "COD Space HD [IP 181.78.12.119]",
+      "announcedName": "COD Space HD",
+      "group": "Películas",
+      "number": 317,
+      "order": 458,
+      "url": "http://181.78.12.119:16123/play/ch200/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:16.361552+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-11.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.2c3dc51c6c190120d48ad14f",
+      "name": "Caracol ERICSON [IP 181.78.12.119]",
+      "announcedName": "Caracol ERICSON",
+      "group": "Misceláneos",
+      "number": 318,
+      "order": 459,
+      "url": "http://181.78.12.119:16123/play/ch58b/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:16.943222+00:00",
+      "video": {
+        "codec": "mpeg2video",
+        "width": 720,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-12.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.12fb89d0f0001e9c4a2e7c7e",
+      "name": "City TV [IP 181.78.12.119]",
+      "announcedName": "City TV",
+      "group": "Misceláneos",
+      "number": 319,
+      "order": 460,
+      "url": "http://181.78.12.119:16123/play/ch42a/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:17.051177+00:00",
+      "video": {
+        "codec": "mpeg2video",
+        "width": 720,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-13.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.cb7dc4d2d35c7f028eb472ab",
+      "name": "ESPN CO sd [IP 181.78.12.119]",
+      "announcedName": "ESPN CO sd",
+      "group": "Deportes",
+      "number": 320,
+      "order": 461,
+      "url": "http://181.78.12.119:16123/play/a0du/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:19.025263+00:00",
+      "video": {
+        "codec": "mpeg2video",
+        "width": 720,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-15.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.98cc55e4b37f8463cc1dddbc",
+      "name": "Nuestra Tele [IP 181.78.12.119]",
+      "announcedName": "Nuestra Tele",
+      "group": "Misceláneos",
+      "number": 321,
+      "order": 462,
+      "url": "http://181.78.12.119:16123/play/a0aq/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:19.776219+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-18.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.fe47cb68de9f2d084afd7bf3",
+      "name": "RCN (clone) [IP 181.78.12.119]",
+      "announcedName": "RCN (clone)",
+      "group": "Misceláneos",
+      "number": 322,
+      "order": 463,
+      "url": "http://181.78.12.119:16123/play/a0el/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:21.383109+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 720,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-20.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.8afbf965360abace09de8ff8",
+      "name": "SRT A&E [IP 181.78.12.119]",
+      "announcedName": "SRT A&E",
+      "group": "Misceláneos",
+      "number": 323,
+      "order": 464,
+      "url": "http://181.78.12.119:16123/play/a0dc/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:21.667821+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "A&E",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-21.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.af0854658bb038c80c657ea5",
+      "name": "SRT AXN [IP 181.78.12.119]",
+      "announcedName": "SRT AXN",
+      "group": "Películas",
+      "number": 324,
+      "order": 465,
+      "url": "http://181.78.12.119:16123/play/a0d9/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:22.187280+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-22.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.5218fd5abba92fea1b812142",
+      "name": "SRT E! [IP 181.78.12.119]",
+      "announcedName": "SRT E!",
+      "group": "Misceláneos",
+      "number": 325,
+      "order": 466,
+      "url": "http://181.78.12.119:16123/play/a0dg/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:24.267712+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 720,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "E!",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-23.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.b1df48227d3800ef893c4676",
+      "name": "SRT HISTORY [IP 181.78.12.119]",
+      "announcedName": "SRT HISTORY",
+      "group": "Misceláneos",
+      "number": 326,
+      "order": 467,
+      "url": "http://181.78.12.119:16123/play/a0dd/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:24.946779+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "History",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-25.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.8a8e460eebdbc3e9a8f067db",
+      "name": "SRT SONY [IP 181.78.12.119]",
+      "announcedName": "SRT SONY",
+      "group": "Películas",
+      "number": 327,
+      "order": 468,
+      "url": "http://181.78.12.119:16123/play/a0d8/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:25.021260+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-26.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.dfb814f1d8534e6fbbedbe92",
+      "name": "SRT SONY MOVIES [IP 181.78.12.119]",
+      "announcedName": "SRT SONY MOVIES",
+      "group": "Películas",
+      "number": 328,
+      "order": 469,
+      "url": "http://181.78.12.119:16123/play/a0de/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:26.575766+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 720,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-27.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.36a879c02cd2241bb94ff8dc",
+      "name": "SRT lifetime [IP 181.78.12.119]",
+      "announcedName": "SRT lifetime",
+      "group": "Películas",
+      "number": 329,
+      "order": 470,
+      "url": "http://181.78.12.119:16123/play/a0db/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:29.919293+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 720,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "Lifetime",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-31.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.5115d498eded77306b17f1e3",
+      "name": "SRT televid [IP 181.78.12.119]",
+      "announcedName": "SRT televid",
+      "group": "Misceláneos",
+      "number": 330,
+      "order": 471,
+      "url": "http://181.78.12.119:16123/play/a0e7/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:30.589679+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1280,
+        "height": 720
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-32.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.af76ff6e42d192f1ecb51aab",
+      "name": "Space HD [IP 181.78.12.119]",
+      "announcedName": "Space HD",
+      "group": "Películas",
+      "number": 331,
+      "order": 472,
+      "url": "http://181.78.12.119:16123/play/a0be/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:33.183486+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-35.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.d0ff393b5e69a7926553f135",
+      "name": "TNT HD [IP 181.78.12.119]",
+      "announcedName": "TNT HD",
+      "group": "Películas",
+      "number": 332,
+      "order": 473,
+      "url": "http://181.78.12.119:16123/play/a08i/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:33.376444+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-36.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.f9a42403dbbacc104a68e54d",
+      "name": "Ve plus [IP 181.78.12.119]",
+      "announcedName": "Ve plus",
+      "group": "Misceláneos",
+      "number": 333,
+      "order": 474,
+      "url": "http://181.78.12.119:16123/play/a0dm/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:36.971888+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1280,
+        "height": 720
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-39.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.a88a7ce758428e326d0b5354",
+      "name": "srt E-SPORTS MAX [IP 181.78.12.119]",
+      "announcedName": "srt E-SPORTS MAX",
+      "group": "Deportes",
+      "number": 334,
+      "order": 475,
+      "url": "http://181.78.12.119:16123/play/a0dy/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:38.283469+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "eSports Max",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-40.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.130b51ce6ddcd5e4f22013e7",
+      "name": "srt PLOUS TV [IP 181.78.12.119]",
+      "announcedName": "srt PLOUS TV",
+      "group": "Misceláneos",
+      "number": 335,
+      "order": 476,
+      "url": "http://181.78.12.119:16123/play/a0dz/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:38.453179+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "44100"
+        }
+      ],
+      "visibleBrand": "Plous TV",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-41.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.2a99698e9a5c88855c7a7190",
+      "name": "el mundo del campo [IP 181.78.12.119]",
+      "announcedName": "el mundo del campo",
+      "group": "Misceláneos",
+      "number": 336,
+      "order": 477,
+      "url": "http://181.78.12.119:16123/play/a0dp/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:42.154040+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1280,
+        "height": 720
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-42.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.3a66c79fa4392ed25661a666",
+      "name": "rcn novelas [IP 181.78.12.119]",
+      "announcedName": "rcn novelas",
+      "group": "Misceláneos",
+      "number": 337,
+      "order": 478,
+      "url": "http://181.78.12.119:16123/play/a0ar/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:42.501829+00:00",
+      "video": {
+        "codec": "mpeg2video",
+        "width": 720,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-43.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.05078f0b4d89add3c8d44a20",
+      "name": "Caracol HD (clone) [IP 181.78.12.119]",
+      "announcedName": "Caracol HD (clone)",
+      "group": "Misceláneos",
+      "number": 338,
+      "order": 479,
+      "url": "http://181.78.12.119:16123/play/ch58a/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:43.924855+00:00",
+      "video": {
+        "codec": "mpeg2video",
+        "width": 720,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-45.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.24a90bad8783bef2cc14f935",
+      "name": "ZOOM (clone) [IP 181.78.12.119]",
+      "announcedName": "ZOOM (clone)",
+      "group": "Misceláneos",
+      "number": 339,
+      "order": 480,
+      "url": "http://181.78.12.119:16123/play/ch71a/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:47.297731+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "44100"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-49.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.c6bd3a96018cbeb2a0f28f3b",
+      "name": "A&E [IP 45.171.64.30]",
+      "announcedName": "A&E",
+      "group": "Misceláneos",
+      "number": 340,
+      "order": 481,
+      "url": "http://45.171.64.30:6060/play/a04y/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:49.201515+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-53.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.d9973a3bfb28634698473218",
+      "name": "A&E HD [IP 45.171.64.30]",
+      "announcedName": "A&E HD",
+      "group": "Misceláneos",
+      "number": 341,
+      "order": 482,
+      "url": "http://45.171.64.30:6060/play/a02g/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:49.225770+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "A&E",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-54.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.154bdf2110d43b7d5ecf798c",
+      "name": "AMC [IP 45.171.64.30]",
+      "announcedName": "AMC",
+      "group": "Películas",
+      "number": 342,
+      "order": 483,
+      "url": "http://45.171.64.30:6060/play/a051/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:49.914592+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-55.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.8918c13cf06dc2f7416879f2",
+      "name": "AMC HD [IP 45.171.64.30]",
+      "announcedName": "AMC HD",
+      "group": "Películas",
+      "number": 343,
+      "order": 484,
+      "url": "http://45.171.64.30:6060/play/a02h/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:51.461759+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 1,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 1,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "AMC",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-56.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.e17934e0e48749cee7c26401",
+      "name": "AXN [IP 45.171.64.30]",
+      "announcedName": "AXN",
+      "group": "Películas",
+      "number": 344,
+      "order": 485,
+      "url": "http://45.171.64.30:6060/play/a01y/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:51.949042+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-57.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.1162bcbccc1aa298b25757a3",
+      "name": "AXN HD [IP 45.171.64.30]",
+      "announcedName": "AXN HD",
+      "group": "Películas",
+      "number": 345,
+      "order": 486,
+      "url": "http://45.171.64.30:6060/play/a04m/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:52.425346+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-58.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.be7d7ad8f89857467f93cb8e",
+      "name": "AZ click HD [IP 45.171.64.30]",
+      "announcedName": "AZ click HD",
+      "group": "Misceláneos",
+      "number": 346,
+      "order": 487,
+      "url": "http://45.171.64.30:6060/play/a02n/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:54.205678+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-60.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.5551093bff52d29b38509588",
+      "name": "Animal Planet [IP 45.171.64.30]",
+      "announcedName": "Animal Planet",
+      "group": "Misceláneos",
+      "number": 347,
+      "order": 488,
+      "url": "http://45.171.64.30:6060/play/a033/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:54.393041+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-61.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.e6a2bc5a013c1c5b9656d441",
+      "name": "Animal Planet HD [IP 45.171.64.30]",
+      "announcedName": "Animal Planet HD",
+      "group": "Misceláneos",
+      "number": 348,
+      "order": 489,
+      "url": "http://45.171.64.30:6060/play/a02d/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:55.616568+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "Animal Planet",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-62.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.8955d88c9214c0b2a89cd340",
+      "name": "Azcorazon [IP 45.171.64.30]",
+      "announcedName": "Azcorazon",
+      "group": "Misceláneos",
+      "number": 349,
+      "order": 490,
+      "url": "http://45.171.64.30:6060/play/a01p/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:56.830702+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-63.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.5f8a1a274086481eddc57367",
+      "name": "Azmundo [IP 45.171.64.30]",
+      "announcedName": "Azmundo",
+      "group": "Misceláneos",
+      "number": 350,
+      "order": 491,
+      "url": "http://45.171.64.30:6060/play/a02w/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:57.446360+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-64.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.717555651a1f37739ace1076",
+      "name": "BBC World [IP 45.171.64.30]",
+      "announcedName": "BBC World",
+      "group": "Noticias internacionales",
+      "number": 351,
+      "order": 492,
+      "url": "http://45.171.64.30:6060/play/a022/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:59.526125+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "BBC News",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-65.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.7c6b3fe651f063bda7e51a6a",
+      "name": "Baby First [IP 45.171.64.30]",
+      "announcedName": "Baby First",
+      "group": "Misceláneos",
+      "number": 352,
+      "order": 493,
+      "url": "http://45.171.64.30:6060/play/a00p/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:50:59.862772+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "BabyFirst",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-66.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.9840c70e010eb35fb900c6b4",
+      "name": "CINECANAL HD [IP 45.171.64.30]",
+      "announcedName": "CINECANAL HD",
+      "group": "Películas",
+      "number": 353,
+      "order": 494,
+      "url": "http://45.171.64.30:6060/play/a03d/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:02.199510+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "Cinecanal",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-70.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.77c5a323d8aaed78570df3bd",
+      "name": "CNN Internacional [IP 45.171.64.30]",
+      "announcedName": "CNN Internacional",
+      "group": "Noticias internacionales",
+      "number": 354,
+      "order": 495,
+      "url": "http://45.171.64.30:6060/play/a054/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:02.986052+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "CNN",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-71.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.5417589c8c430cab0ba0df74",
+      "name": "CNNE [IP 45.171.64.30]",
+      "announcedName": "CNNE",
+      "group": "Noticias internacionales",
+      "number": 355,
+      "order": 496,
+      "url": "http://45.171.64.30:6060/play/a021/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:03.247266+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "CNN en Espanol",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-72.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.7a597c8a2d6c1e6c97015c28",
+      "name": "Canal 13-GUA-e1 [IP 45.171.64.30]",
+      "announcedName": "Canal 13-GUA-e1",
+      "group": "Misceláneos",
+      "number": 356,
+      "order": 497,
+      "url": "http://45.171.64.30:6060/play/a00m/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:06.901041+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-75.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.43557d465d973d608c6bb19a",
+      "name": "Canal 3 - GUA [IP 45.171.64.30]",
+      "announcedName": "Canal 3 - GUA",
+      "group": "Misceláneos",
+      "number": 357,
+      "order": 498,
+      "url": "http://45.171.64.30:6060/play/a02u/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:08.140952+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-76.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.563319274daa44463f7c9f6c",
+      "name": "Canal 7 - GUA [IP 45.171.64.30]",
+      "announcedName": "Canal 7 - GUA",
+      "group": "Misceláneos",
+      "number": 358,
+      "order": 499,
+      "url": "http://45.171.64.30:6060/play/a060/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:09.404837+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-77.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.eb3b17bc3573e55b2c56cf95",
+      "name": "Canal Antigua - GUA [IP 45.171.64.30]",
+      "announcedName": "Canal Antigua - GUA",
+      "group": "Misceláneos",
+      "number": 359,
+      "order": 500,
+      "url": "http://45.171.64.30:6060/play/a02r/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:11.807078+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-79.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.1351317d6c3f201ad2b4c44f",
+      "name": "Cartoon Network [IP 45.171.64.30]",
+      "announcedName": "Cartoon Network",
+      "group": "Misceláneos",
+      "number": 360,
+      "order": 501,
+      "url": "http://45.171.64.30:6060/play/a01h/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:12.910144+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "32000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "32000"
+        }
+      ],
+      "visibleBrand": "Cartoon Network",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-82.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.1657bd8e8c7410b0a128ea30",
+      "name": "Cine Latino [IP 45.171.64.30]",
+      "announcedName": "Cine Latino",
+      "group": "Películas",
+      "number": 361,
+      "order": 502,
+      "url": "http://45.171.64.30:6060/play/a049/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:14.593133+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "Cine Latino",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-84.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.9f74e4c4a28acde00c25d4a7",
+      "name": "CineCanal [IP 45.171.64.30]",
+      "announcedName": "CineCanal",
+      "group": "Películas",
+      "number": 362,
+      "order": 503,
+      "url": "http://45.171.64.30:6060/play/a04c/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:15.552918+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-85.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.0f8b28b872547b18b7bda979",
+      "name": "CineMax [IP 45.171.64.30]",
+      "announcedName": "CineMax",
+      "group": "Películas",
+      "number": 363,
+      "order": 504,
+      "url": "http://45.171.64.30:6060/play/a04a/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:15.793735+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "Cinemax",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-86.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.835094fef82435ce5947b9c2",
+      "name": "Kanal D Drama [IP 45.171.64.30]",
+      "announcedName": "Comedy Central HD",
+      "group": "Películas",
+      "number": 364,
+      "order": 505,
+      "url": "http://45.171.64.30:6060/play/a03m/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:20.587284+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "Kanal D Drama",
+      "nameCorrected": true,
+      "evidence": "outputs/direct-host-audit-20261013/frame-88.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.2a81d81719e1692d22f45cdd",
+      "name": "Concert Channel [IP 45.171.64.30]",
+      "announcedName": "Concert Channel",
+      "group": "Música",
+      "number": 365,
+      "order": 506,
+      "url": "http://45.171.64.30:6060/play/a045/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:20.629641+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "Concert Channel",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-89.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.8218b29b717b76d2a6d6d7b2",
+      "name": "DHE [IP 45.171.64.30]",
+      "announcedName": "DHE",
+      "group": "Películas",
+      "number": 366,
+      "order": 507,
+      "url": "http://45.171.64.30:6060/play/a00d/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:21.269062+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "DHE",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-92.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.1b124c1b77d597781052232a",
+      "name": "DHE HD [IP 45.171.64.30]",
+      "announcedName": "DHE HD",
+      "group": "Películas",
+      "number": 367,
+      "order": 508,
+      "url": "http://45.171.64.30:6060/play/a02m/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:23.456710+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "DHE",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-93.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.73f723df5a9d1193862f0d33",
+      "name": "DISC THEATHER HD [IP 45.171.64.30]",
+      "announcedName": "DISC THEATHER HD",
+      "group": "Misceláneos",
+      "number": 368,
+      "order": 509,
+      "url": "http://45.171.64.30:6060/play/a03j/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:24.160658+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "Discovery Theater",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-94.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.b9e80edee2c430a6354ef4b8",
+      "name": "Discovery Home & Health [IP 45.171.64.30]",
+      "announcedName": "Discovery Home & Health",
+      "group": "Misceláneos",
+      "number": 369,
+      "order": 510,
+      "url": "http://45.171.64.30:6060/play/a040/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:25.019858+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "Discovery Home & Health",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-95.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.89cae6ff507906ff8501bcb0",
+      "name": "Discovery Kids [IP 45.171.64.30]",
+      "announcedName": "Discovery Kids",
+      "group": "Misceláneos",
+      "number": 370,
+      "order": 511,
+      "url": "http://45.171.64.30:6060/play/a03v/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:27.962131+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "Discovery Kids",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-97.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.602db5a8e67bf15f610e9370",
+      "name": "Discovery Turbo [IP 45.171.64.30]",
+      "announcedName": "Discovery Turbo",
+      "group": "Misceláneos",
+      "number": 371,
+      "order": 512,
+      "url": "http://45.171.64.30:6060/play/a03z/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:29.104556+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "Discovery Turbo",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-98.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.56a9657c934115ec2f1481ae",
+      "name": "Disney [IP 45.171.64.30]",
+      "announcedName": "Disney",
+      "group": "Misceláneos",
+      "number": 372,
+      "order": 513,
+      "url": "http://45.171.64.30:6060/play/a03x/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:29.240808+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-99.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.f44c42892b6e8efa54aea954",
+      "name": "Disney JR [IP 45.171.64.30]",
+      "announcedName": "Disney JR",
+      "group": "Misceláneos",
+      "number": 373,
+      "order": 514,
+      "url": "http://45.171.64.30:6060/play/a01k/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:31.154157+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-100.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.4a3ee6122f85ca98215b6c15",
+      "name": "E! [IP 45.171.64.30]",
+      "announcedName": "E!",
+      "group": "Misceláneos",
+      "number": 374,
+      "order": 515,
+      "url": "http://45.171.64.30:6060/play/a02z/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:32.423880+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-101.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.332ea6dacea78829fcc244e9",
+      "name": "E! Entertairment HD [IP 45.171.64.30]",
+      "announcedName": "E! Entertairment HD",
+      "group": "Misceláneos",
+      "number": 375,
+      "order": 516,
+      "url": "http://45.171.64.30:6060/play/a02e/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:33.302202+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-102.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.925c763ee4a3a76ffc02cca6",
+      "name": "ESPN [IP 45.171.64.30]",
+      "announcedName": "ESPN",
+      "group": "Deportes",
+      "number": 376,
+      "order": 517,
+      "url": "http://45.171.64.30:6060/play/a036/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:33.520568+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 720,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-103.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.abfc3ae43e2088dfcceeaf6b",
+      "name": "ESPN 4 HD [IP 45.171.64.30]",
+      "announcedName": "ESPN 4 HD",
+      "group": "Deportes",
+      "number": 377,
+      "order": 518,
+      "url": "http://45.171.64.30:6060/play/a05p/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:34.877704+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "ESPN 4",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-104.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.971215bf53db3488f848d6c6",
+      "name": "ESPN 2 [IP 45.171.64.30]",
+      "announcedName": "ESPN 2",
+      "group": "Deportes",
+      "number": 378,
+      "order": 519,
+      "url": "http://45.171.64.30:6060/play/a037/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:36.576292+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "ESPN 2",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-105.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.4c4f25512dc26528b8133d9f",
+      "name": "ESPN 2 HD [IP 45.171.64.30]",
+      "announcedName": "ESPN 2 HD",
+      "group": "Deportes",
+      "number": 379,
+      "order": 520,
+      "url": "http://45.171.64.30:6060/play/a05l/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:37.350591+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-106.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.3d519bc9027bf3427d250d7c",
+      "name": "ESPN 3 [IP 45.171.64.30]",
+      "announcedName": "ESPN 3",
+      "group": "Deportes",
+      "number": 380,
+      "order": 521,
+      "url": "http://45.171.64.30:6060/play/a00x/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:38.053563+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-107.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.9fc08fec9b53b602b7ce875e",
+      "name": "ESPN 3 HD [IP 45.171.64.30]",
+      "announcedName": "ESPN 3 HD",
+      "group": "Deportes",
+      "number": 381,
+      "order": 522,
+      "url": "http://45.171.64.30:6060/play/a05m/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:39.752563+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "ESPN 3",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-108.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.2f248d6579ad8e31cef9c950",
+      "name": "ESPN 6 [IP 45.171.64.30]",
+      "announcedName": "ESPN 6",
+      "group": "Deportes",
+      "number": 382,
+      "order": 523,
+      "url": "http://45.171.64.30:6060/play/a05o/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:41.652246+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-109.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.68696bca1787ea6c42d08166",
+      "name": "ESPN 6 HD [IP 45.171.64.30]",
+      "announcedName": "ESPN 6 HD",
+      "group": "Deportes",
+      "number": 383,
+      "order": 524,
+      "url": "http://45.171.64.30:6060/play/a05n/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:42.885172+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "ESPN 6",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-110.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.56d928ddd65198f71d50e805",
+      "name": "EWTN [IP 45.171.64.30]",
+      "announcedName": "EWTN",
+      "group": "Misceláneos",
+      "number": 384,
+      "order": 525,
+      "url": "http://45.171.64.30:6060/play/a025/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:45.220075+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-113.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.87ba434b81d9f9eac87e7f81",
+      "name": "El Gourmet [IP 45.171.64.30]",
+      "announcedName": "El Gourmet",
+      "group": "Misceláneos",
+      "number": 385,
+      "order": 526,
+      "url": "http://45.171.64.30:6060/play/a00u/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:47.056213+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "El Gourmet",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-114.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.dcf280ba951d54163fb67121",
+      "name": "Exa TV [IP 45.171.64.30]",
+      "announcedName": "Exa TV",
+      "group": "Música",
+      "number": 386,
+      "order": 527,
+      "url": "http://45.171.64.30:6060/play/a038/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:48.734916+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "Exa TV",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-117.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.d0f959013c7d64b49621375a",
+      "name": "FX [IP 45.171.64.30]",
+      "announcedName": "FX",
+      "group": "Películas",
+      "number": 387,
+      "order": 528,
+      "url": "http://45.171.64.30:6060/play/a00q/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:49.931313+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-118.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.a90b6470c5abcd5d43a21f04",
+      "name": "FX HD [IP 45.171.64.30]",
+      "announcedName": "FX HD",
+      "group": "Películas",
+      "number": 388,
+      "order": 529,
+      "url": "http://45.171.64.30:6060/play/a02j/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:50.797971+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-119.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.305dbd0140ddeb2995c9cd16",
+      "name": "Film & Arts [IP 45.171.64.30]",
+      "announcedName": "Film & Arts",
+      "group": "Misceláneos",
+      "number": 389,
+      "order": 530,
+      "url": "http://45.171.64.30:6060/play/a00c/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:51.560024+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "Film & Arts",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-121.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.7eddab771710fba70f46bb14",
+      "name": "Film & arts HD [IP 45.171.64.30]",
+      "announcedName": "Film & arts HD",
+      "group": "Misceláneos",
+      "number": 390,
+      "order": 531,
+      "url": "http://45.171.64.30:6060/play/a02f/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:53.154882+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-122.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.f01cdfce2a440e1aac5e8c70",
+      "name": "ESPN 6 [IP 45.171.64.30] · señal 2",
+      "announcedName": "Fox Sport 3",
+      "group": "Deportes",
+      "number": 391,
+      "order": 532,
+      "url": "http://45.171.64.30:6060/play/a01v/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:53.857870+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "ESPN 6",
+      "nameCorrected": true,
+      "evidence": "outputs/direct-host-audit-20261013/frame-123.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.796c17a762ce69be57ec714d",
+      "name": "France24 [IP 45.171.64.30]",
+      "announcedName": "France24",
+      "group": "Noticias internacionales",
+      "number": 392,
+      "order": 533,
+      "url": "http://45.171.64.30:6060/play/a023/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:54.958784+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "France 24; Spanish visible text",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-124.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.2986363464e32a02d69a65dd",
+      "name": "Golden [IP 45.171.64.30]",
+      "announcedName": "Golden",
+      "group": "Películas",
+      "number": 393,
+      "order": 534,
+      "url": "http://45.171.64.30:6060/play/a013/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:56.945521+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-125.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.44f9d286f6768740b06eaad9",
+      "name": "Golf Channel HD [IP 45.171.64.30]",
+      "announcedName": "Golf Channel HD",
+      "group": "Deportes",
+      "number": 394,
+      "order": 535,
+      "url": "http://45.171.64.30:6060/play/a02p/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:57.098603+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "Golf Channel",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-126.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.407a6cdf00bb64c25fb341f4",
+      "name": "Guatevision - GUA [IP 45.171.64.30]",
+      "announcedName": "Guatevision - GUA",
+      "group": "Misceláneos",
+      "number": 395,
+      "order": 536,
+      "url": "http://45.171.64.30:6060/play/a01g/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:59.262889+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-128.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.0ef1ce174fa5aaee3811b04f",
+      "name": "H2 [IP 45.171.64.30]",
+      "announcedName": "H2",
+      "group": "Misceláneos",
+      "number": 396,
+      "order": 537,
+      "url": "http://45.171.64.30:6060/play/a00t/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:00.234700+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-129.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.8db5a974dc4b6ed483cf2bf9",
+      "name": "HBO XTREME [IP 45.171.64.30]",
+      "announcedName": "HBO XTREME",
+      "group": "Películas",
+      "number": 397,
+      "order": 538,
+      "url": "http://45.171.64.30:6060/play/a00l/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:02.542767+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "HBO; Xtreme subfeed not established by this frame alone",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-132.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.c1ed48f37448ded5dca7e8bd",
+      "name": "History Channel [IP 45.171.64.30]",
+      "announcedName": "History Channel",
+      "group": "Misceláneos",
+      "number": 398,
+      "order": 539,
+      "url": "http://45.171.64.30:6060/play/a034/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:04.288191+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "History",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-134.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.459d3dc3761d20aa0f17806a",
+      "name": "History HD [IP 45.171.64.30]",
+      "announcedName": "History HD",
+      "group": "Misceláneos",
+      "number": 399,
+      "order": 540,
+      "url": "http://45.171.64.30:6060/play/a026/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:05.309766+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-135.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.eab9850053533285f56d213a",
+      "name": "Home Garden Latino [IP 45.171.64.30]",
+      "announcedName": "Home Garden Latino",
+      "group": "Misceláneos",
+      "number": 400,
+      "order": 541,
+      "url": "http://45.171.64.30:6060/play/a006/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:07.795038+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-138.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.c242c1f1773acbfff4232e28",
+      "name": "LIFE TIME [IP 45.171.64.30]",
+      "announcedName": "LIFE TIME",
+      "group": "Películas",
+      "number": 401,
+      "order": 542,
+      "url": "http://45.171.64.30:6060/play/a01u/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:09.687914+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "Lifetime",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-142.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.a712127b104cc2260c6fedc0",
+      "name": "La voz de Maria [IP 45.171.64.30]",
+      "announcedName": "La voz de Maria",
+      "group": "Misceláneos",
+      "number": 402,
+      "order": 543,
+      "url": "http://45.171.64.30:6060/play/a042/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:09.759389+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-143.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.7e481ae905cfde3a83c3ccfe",
+      "name": "AyM Sports [IP 45.171.64.30]",
+      "announcedName": "Latin America Sport",
+      "group": "Deportes",
+      "number": 403,
+      "order": 544,
+      "url": "http://45.171.64.30:6060/play/a00z/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:10.055223+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "AyM Sports",
+      "nameCorrected": true,
+      "evidence": "outputs/direct-host-audit-20261013/frame-144.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.7d829b68f0e63dbdd397a468",
+      "name": "Multicinema [IP 45.171.64.30]",
+      "announcedName": "Multicinema",
+      "group": "Películas",
+      "number": 404,
+      "order": 545,
+      "url": "http://45.171.64.30:6060/play/a05q/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:16.159886+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-155.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.cbbf16d047322fe020949bf8",
+      "name": "Fox Sports [IP 45.171.64.30]",
+      "announcedName": "Nick SIM HD",
+      "group": "Deportes",
+      "number": 405,
+      "order": 546,
+      "url": "http://45.171.64.30:6060/play/a03g/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:20.370888+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "Fox Sports",
+      "nameCorrected": true,
+      "evidence": "outputs/direct-host-audit-20261013/frame-162.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.747adbe6694514eee98e7ed5",
+      "name": "A3Cine [IP 45.171.64.30]",
+      "announcedName": "Paramount",
+      "group": "Películas",
+      "number": 406,
+      "order": 547,
+      "url": "http://45.171.64.30:6060/play/a00e/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:21.432784+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "A3Cine",
+      "nameCorrected": true,
+      "evidence": "outputs/direct-host-audit-20261013/frame-164.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.3ee2b2a286f1ba55a0be9723",
+      "name": "Pasiones HD [IP 45.171.64.30]",
+      "announcedName": "Pasiones HD",
+      "group": "Misceláneos",
+      "number": 407,
+      "order": 548,
+      "url": "http://45.171.64.30:6060/play/a04t/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:22.394755+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "Pasiones",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-165.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.c6f31bbf9b3a8d4f6dbca07d",
+      "name": "Pregon Infirmativo [IP 45.171.64.30]",
+      "announcedName": "Pregon Infirmativo",
+      "group": "Misceláneos",
+      "number": 408,
+      "order": 549,
+      "url": "http://45.171.64.30:6060/play/a05j/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:24.035005+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "44100"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-168.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.be33d60d2f78170c97c37514",
+      "name": "La Red TV [IP 45.171.64.30]",
+      "announcedName": "RCN - GUA",
+      "group": "Misceláneos",
+      "number": 409,
+      "order": 550,
+      "url": "http://45.171.64.30:6060/play/a05b/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:24.108823+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "La Red TV; do not infer Chile",
+      "nameCorrected": true,
+      "evidence": "outputs/direct-host-audit-20261013/frame-169.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.51b11c161840f9db76a04904",
+      "name": "RCN Novelas [IP 45.171.64.30]",
+      "announcedName": "RCN Novelas",
+      "group": "Misceláneos",
+      "number": 410,
+      "order": 551,
+      "url": "http://45.171.64.30:6060/play/a00r/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:26.664474+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-170.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.1a0c2a31bd9c634459c58380",
+      "name": "Radio renecer [IP 45.171.64.30]",
+      "announcedName": "Radio renecer",
+      "group": "Misceláneos",
+      "number": 411,
+      "order": 552,
+      "url": "http://45.171.64.30:6060/play/a066/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:27.833920+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-171.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.1efd0c13d73c9caaf88077f4",
+      "name": "SEMILLITAS [IP 45.171.64.30]",
+      "announcedName": "SEMILLITAS",
+      "group": "Misceláneos",
+      "number": 412,
+      "order": 553,
+      "url": "http://45.171.64.30:6060/play/a01m/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:31.212282+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "Semillitas",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-177.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.6d1b04a9ccdf4197fbbc3ef6",
+      "name": "SONY [IP 45.171.64.30]",
+      "announcedName": "SONY",
+      "group": "Películas",
+      "number": 413,
+      "order": 554,
+      "url": "http://45.171.64.30:6060/play/a02x/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:31.790902+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-178.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.1426399def5c52eee57f4bb0",
+      "name": "SPACE [IP 45.171.64.30]",
+      "announcedName": "SPACE",
+      "group": "Películas",
+      "number": 414,
+      "order": 555,
+      "url": "http://45.171.64.30:6060/play/a01q/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:33.571230+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-180.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.0d0b3a195eb01f1ab454cd75",
+      "name": "Sony Movies HD [IP 45.171.64.30]",
+      "announcedName": "Sony Movies HD",
+      "group": "Películas",
+      "number": 415,
+      "order": 556,
+      "url": "http://45.171.64.30:6060/play/a02l/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:35.793739+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "Sony Movies",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-183.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.590828755b8ac040706c8575",
+      "name": "Studio Universal [IP 45.171.64.30]",
+      "announcedName": "Studio Universal",
+      "group": "Películas",
+      "number": 416,
+      "order": 557,
+      "url": "http://45.171.64.30:6060/play/a04b/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:37.832282+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "Studio Universal",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-185.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.52f6bff32710f7c83abeda34",
+      "name": "Studio Universal HD [IP 45.171.64.30]",
+      "announcedName": "Studio Universal HD",
+      "group": "Películas",
+      "number": 417,
+      "order": 558,
+      "url": "http://45.171.64.30:6060/play/a02b/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:39.079487+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "Studio Universal",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-186.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.ba69f9b8ca828f79a3b8b9cf",
+      "name": "TBN Enlace [IP 45.171.64.30]",
+      "announcedName": "TBN Enlace",
+      "group": "Misceláneos",
+      "number": 418,
+      "order": 559,
+      "url": "http://45.171.64.30:6060/play/a024/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:42.816154+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-190.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.ae75ddaa5bf1de03760155d8",
+      "name": "TNT Novelas [IP 45.171.64.30]",
+      "announcedName": "TBS",
+      "group": "Películas",
+      "number": 419,
+      "order": 560,
+      "url": "http://45.171.64.30:6060/play/a01s/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:44.048597+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "TNT Novelas",
+      "nameCorrected": true,
+      "evidence": "outputs/direct-host-audit-20261013/frame-191.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.1592ac20e79b21ae24514be4",
+      "name": "TD+2 HD CR [IP 45.171.64.30]",
+      "announcedName": "TD+2 HD CR",
+      "group": "Deportes",
+      "number": 420,
+      "order": 561,
+      "url": "http://45.171.64.30:6060/play/a01d/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:44.504461+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "TD+2",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-192.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.60b05b1433d087260f3b5c2d",
+      "name": "TD+HD CR [IP 45.171.64.30]",
+      "announcedName": "TD+HD CR",
+      "group": "Deportes",
+      "number": 421,
+      "order": 562,
+      "url": "http://45.171.64.30:6060/play/a01c/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:46.236346+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-193.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.9233d81ff5fd6c6c02c26e15",
+      "name": "TLC [IP 45.171.64.30]",
+      "announcedName": "TLC",
+      "group": "Misceláneos",
+      "number": 422,
+      "order": 563,
+      "url": "http://45.171.64.30:6060/play/a035/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:48.095454+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "TLC",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-194.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.796284d305206eaee4223955",
+      "name": "Discovery Channel [IP 45.171.64.30] · señal 2",
+      "announcedName": "TNT",
+      "group": "Misceláneos",
+      "number": 423,
+      "order": 564,
+      "url": "http://45.171.64.30:6060/play/a01z/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:48.457384+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "Discovery Channel",
+      "nameCorrected": true,
+      "evidence": "outputs/direct-host-audit-20261013/frame-195.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.db00a6066635f39312f74380",
+      "name": "TNT Series [IP 45.171.64.30]",
+      "announcedName": "TNT Series",
+      "group": "Películas",
+      "number": 424,
+      "order": 565,
+      "url": "http://45.171.64.30:6060/play/a01r/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:50.010376+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "TNT Series",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-196.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.b8b5b69e22a2787006d8bf21",
+      "name": "Telemundo [IP 45.171.64.30]",
+      "announcedName": "Telemundo",
+      "group": "Misceláneos",
+      "number": 425,
+      "order": 566,
+      "url": "http://45.171.64.30:6060/play/a01o/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:51.021998+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-199.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.67f76c9db1d9d67dc2af39fb",
+      "name": "Telemundo HD [IP 45.171.64.30]",
+      "announcedName": "Telemundo HD",
+      "group": "Misceláneos",
+      "number": 426,
+      "order": 567,
+      "url": "http://45.171.64.30:6060/play/a02i/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:51.226073+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "Telemundo",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-200.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.58d292da8d99dd4d16ed3b57",
+      "name": "Televida RD [IP 45.171.64.30]",
+      "announcedName": "Televida RD",
+      "group": "Misceláneos",
+      "number": 427,
+      "order": 568,
+      "url": "http://45.171.64.30:6060/play/a04r/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:53.034724+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-201.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.760b2c3b1354cd82b8a647bc",
+      "name": "UNIVERSAL COMEDY HD [IP 45.171.64.30]",
+      "announcedName": "UNIVERSAL COMEDY HD",
+      "group": "Películas",
+      "number": 428,
+      "order": 569,
+      "url": "http://45.171.64.30:6060/play/a03t/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:56.303748+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "Universal Comedy",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-204.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.d48635571a0af3b28d47db03",
+      "name": "UNIVERSAL CRIME HD [IP 45.171.64.30]",
+      "announcedName": "UNIVERSAL CRIME HD",
+      "group": "Películas",
+      "number": 429,
+      "order": 570,
+      "url": "http://45.171.64.30:6060/play/a03s/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:56.398978+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "Universal Crime",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-205.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.9193ba6e85578f4486a958d7",
+      "name": "UNIVERSAL PREMIERE HD [IP 45.171.64.30]",
+      "announcedName": "UNIVERSAL PREMIERE HD",
+      "group": "Películas",
+      "number": 430,
+      "order": 571,
+      "url": "http://45.171.64.30:6060/play/a03p/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:56.969460+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "Universal Premiere",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-206.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.fe8012537d4b52a34d2778bd",
+      "name": "UNIVERSAL PREMIERE O HD [IP 45.171.64.30]",
+      "announcedName": "UNIVERSAL PREMIERE O HD",
+      "group": "Películas",
+      "number": 431,
+      "order": 572,
+      "url": "http://45.171.64.30:6060/play/a03q/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:58.865142+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-207.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.391630d2ff5eec427fa516f1",
+      "name": "Universal [IP 45.171.64.30]",
+      "announcedName": "Universal",
+      "group": "Películas",
+      "number": 432,
+      "order": 573,
+      "url": "http://45.171.64.30:6060/play/a046/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:53:00.416215+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-209.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.6d8f767d72df832a0dcaf1b3",
+      "name": "Univision HD [IP 45.171.64.30]",
+      "announcedName": "Univision HD",
+      "group": "Misceláneos",
+      "number": 433,
+      "order": 574,
+      "url": "http://45.171.64.30:6060/play/a04u/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:53:01.943972+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "Univision",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-210.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.69012de99c76e56342a01748",
+      "name": "WARNER HD [IP 45.171.64.30]",
+      "announcedName": "WARNER HD",
+      "group": "Películas",
+      "number": 434,
+      "order": 575,
+      "url": "http://45.171.64.30:6060/play/a03b/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:53:03.100418+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-211.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.f9808c1fb908d67ec8947603",
+      "name": "Warner [IP 45.171.64.30]",
+      "announcedName": "Warner",
+      "group": "Películas",
+      "number": 435,
+      "order": 576,
+      "url": "http://45.171.64.30:6060/play/a02y/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:53:04.687053+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "Warner",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-212.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.0510f8f0aabe61f8241b9762",
+      "name": "ZooMoo [IP 45.171.64.30]",
+      "announcedName": "ZooMoo",
+      "group": "Misceláneos",
+      "number": 436,
+      "order": 577,
+      "url": "http://45.171.64.30:6060/play/a004/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:53:06.649269+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-214.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.3fc4f122d9bf76d0c301c794",
+      "name": "ctv [IP 45.171.64.30]",
+      "announcedName": "ctv",
+      "group": "Misceláneos",
+      "number": 437,
+      "order": 578,
+      "url": "http://45.171.64.30:6060/play/a05f/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:53:08.008197+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-216.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.792c9413cb2a98e7c3d972f6",
+      "name": "la liga [IP 45.171.64.30]",
+      "announcedName": "la liga",
+      "group": "Deportes",
+      "number": 438,
+      "order": 579,
+      "url": "http://45.171.64.30:6060/play/a05i/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:53:08.801698+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1280,
+        "height": 720
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "32000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-217.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.305177fef9fa178063075ed3",
+      "name": "Discovery World HD [IP 168.196.127.137]",
+      "announcedName": "Discovery World HD",
+      "group": "Misceláneos",
+      "number": 439,
+      "order": 580,
+      "url": "http://168.196.127.137:6001/play/a097/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:53:11.395617+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-219.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.40703ab258f1cecdcb1b3033",
+      "name": "TELEHIT LATINIO [IP 190.61.47.54]",
+      "announcedName": "TELEHIT LATINIO",
+      "group": "Música",
+      "number": 440,
+      "order": 581,
+      "url": "http://190.61.47.54:8000/play/a029/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:53:12.780320+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1280,
+        "height": 720
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "Telehit",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-222.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.dc6e0b858cd050a0ba64b515",
+      "name": "UNIVERSAL CINEMA ESTE HD [IP 168.196.127.137]",
+      "announcedName": "UNIVERSAL CINEMA ESTE HD",
+      "group": "Películas",
+      "number": 441,
+      "order": 582,
+      "url": "http://168.196.127.137:6001/play/a09b/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:53:13.839969+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "Universal Cinema",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-224.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.19fbfbd8b220cd0fb65ac244",
+      "name": "A&E-IXP [IP 138.59.177.78]",
+      "announcedName": "A&E-IXP",
+      "group": "Misceláneos",
+      "number": 442,
+      "order": 583,
+      "url": "http://138.59.177.78:9999/play/a08h/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:53:25.189421+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-297.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.5c8f98d3876cb07b0c0884f6",
+      "name": "AMC-IXP [IP 138.59.177.78]",
+      "announcedName": "AMC-IXP",
+      "group": "Películas",
+      "number": 443,
+      "order": 584,
+      "url": "http://138.59.177.78:9999/play/a08o/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:53:25.449964+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 1,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 1,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-299.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.21d595905b477139407f7250",
+      "name": "ANIMAL PLANET-IXP [IP 138.59.177.78]",
+      "announcedName": "ANIMAL PLANET-IXP",
+      "group": "Misceláneos",
+      "number": 444,
+      "order": 585,
+      "url": "http://138.59.177.78:9999/play/a09c/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:53:25.751085+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-300.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.01717cb57d90b7cd8ece5331",
+      "name": "BABY TV-IXP [IP 138.59.177.78]",
+      "announcedName": "BABY TV-IXP",
+      "group": "Misceláneos",
+      "number": 445,
+      "order": 586,
+      "url": "http://138.59.177.78:9999/play/a00k/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:53:27.712443+00:00",
+      "video": {
+        "codec": "hevc",
+        "width": 1280,
+        "height": 720
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "Baby TV",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-301.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.b4a12e148b15b71efbcda5e7",
+      "name": "CINEMAX-IXP [IP 138.59.177.78]",
+      "announcedName": "CINEMAX-IXP",
+      "group": "Películas",
+      "number": 446,
+      "order": 587,
+      "url": "http://138.59.177.78:9999/play/a08p/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:53:28.050475+00:00",
+      "video": {
+        "codec": "mpeg2video",
+        "width": 720,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "Cinemax",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-303.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.d13b3c8e60056f9124a6e2dc",
+      "name": "Galavision [IP 138.59.177.78]",
+      "announcedName": "COMEDY CENTRAL-IXP",
+      "group": "Películas",
+      "number": 447,
+      "order": 588,
+      "url": "http://138.59.177.78:9999/play/a08x/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:53:28.275988+00:00",
+      "video": {
+        "codec": "hevc",
+        "width": 1280,
+        "height": 720
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "Galavision",
+      "nameCorrected": true,
+      "evidence": "outputs/direct-host-audit-20261013/frame-304.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.76f85d8e18ca914171dde970",
+      "name": "DISCOVERY CHANNEL-IXP [IP 138.59.177.78]",
+      "announcedName": "DISCOVERY CHANNEL-IXP",
+      "group": "Misceláneos",
+      "number": 448,
+      "order": 589,
+      "url": "http://138.59.177.78:9999/play/a09p/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:53:29.923151+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "Discovery Channel",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-306.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.e687f4926b0240629f249807",
+      "name": "DISCOVERY KIDS-IXP [IP 138.59.177.78]",
+      "announcedName": "DISCOVERY KIDS-IXP",
+      "group": "Misceláneos",
+      "number": 449,
+      "order": 590,
+      "url": "http://138.59.177.78:9999/play/a093/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:53:30.053437+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "Discovery Kids",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-307.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.e7eacb4779e7c1b75e062879",
+      "name": "DISCOVERY WORLD-IXP [IP 138.59.177.78]",
+      "announcedName": "DISCOVERY WORLD-IXP",
+      "group": "Misceláneos",
+      "number": 450,
+      "order": 591,
+      "url": "http://138.59.177.78:9999/play/a09q/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:53:30.579587+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-308.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.c530989e33722dc0a90c75d7",
+      "name": "DISNEY JR-IXP [IP 138.59.177.78]",
+      "announcedName": "DISNEY JR-IXP",
+      "group": "Misceláneos",
+      "number": 451,
+      "order": 592,
+      "url": "http://138.59.177.78:9999/play/a00o/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:53:32.770966+00:00",
+      "video": {
+        "codec": "hevc",
+        "width": 1280,
+        "height": 720
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-310.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.e41239d2e107fc7a8d6b06e7",
+      "name": "DISNEY-IXP [IP 138.59.177.78]",
+      "announcedName": "DISNEY-IXP",
+      "group": "Misceláneos",
+      "number": 452,
+      "order": 593,
+      "url": "http://138.59.177.78:9999/play/a00n/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:53:32.785643+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-311.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.3203195c3727b87c5c19dec8",
+      "name": "ESPN 1 EZ-TRA [IP 138.59.177.78]",
+      "announcedName": "ESPN 1 EZ-TRA",
+      "group": "Deportes",
+      "number": 453,
+      "order": 594,
+      "url": "http://138.59.177.78:9999/play/a0m1/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:53:33.054618+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1280,
+        "height": 720
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-312.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.3c93c3a97d11cf503ad2345f",
+      "name": "ESPN 1 IXP [IP 138.59.177.78]",
+      "announcedName": "ESPN 1 IXP",
+      "group": "Deportes",
+      "number": 454,
+      "order": 595,
+      "url": "http://138.59.177.78:9999/play/a003/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:53:34.554207+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-313.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.20dbc798fdf0b22b5aed6a1d",
+      "name": "ESPN 2 IXP [IP 138.59.177.78]",
+      "announcedName": "ESPN 2 IXP",
+      "group": "Deportes",
+      "number": 455,
+      "order": 596,
+      "url": "http://138.59.177.78:9999/play/a004/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:53:35.208052+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-315.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.54a0e2628bd72606025da8fe",
+      "name": "ESPN 4 EZ-TRA [IP 138.59.177.78]",
+      "announcedName": "ESPN 4 EZ-TRA",
+      "group": "Deportes",
+      "number": 456,
+      "order": 597,
+      "url": "http://138.59.177.78:9999/play/a0kd/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:53:44.088324+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "ESPN 4",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/frame-318.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.2fc769332eb883d4716d83ab",
+      "name": "HBO [IP 138.59.227.20]",
+      "announcedName": "HBO",
+      "group": "Películas",
+      "number": 457,
+      "order": 598,
+      "url": "http://138.59.227.20:8000/play/a07m/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:52.479076+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 528,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "44100"
+        }
+      ],
+      "visibleBrand": "HBO",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/host-samples/frame-0.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.3ad2ef9940e2175f07ba53b9",
+      "name": "ESPN 1 ENVIO [IP 138.94.3.106]",
+      "announcedName": "ESPN 1 ENVIO",
+      "group": "Deportes",
+      "number": 458,
+      "order": 599,
+      "url": "http://138.94.3.106:8000/play/a02l/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:52.479835+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1280,
+        "height": 720
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "44100"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/host-samples/frame-1.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.a8b59c546c1a10f16dad3f74",
+      "name": "HBO [IP 158.172.217.18]",
+      "announcedName": "HBO",
+      "group": "Películas",
+      "number": 459,
+      "order": 600,
+      "url": "http://158.172.217.18:8000/play/a001/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:53.046659+00:00",
+      "video": {
+        "codec": "mpeg2video",
+        "width": 720,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "HBO",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/host-samples/frame-3.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.2affda2231a6914ce695dc44",
+      "name": "HBO HD [IP 167.249.23.102]",
+      "announcedName": "HBO HD",
+      "group": "Películas",
+      "number": 460,
+      "order": 601,
+      "url": "http://167.249.23.102:8000/play/HBOHD/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:55.610852+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "HBO",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/host-samples/frame-4.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.f51c6e85b7cccaf868e66474",
+      "name": "HBO HD [IP 170.244.209.30]",
+      "announcedName": "HBO HD",
+      "group": "Películas",
+      "number": 461,
+      "order": 602,
+      "url": "http://170.244.209.30:8000/play/a028/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:57.364437+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "HBO",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/host-samples/frame-5.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.e909c3249ae9d6531e728bb8",
+      "name": "MPTS 2 ESPN 7 [IP 177.234.218.66]",
+      "announcedName": "MPTS 2 ESPN 7",
+      "group": "Deportes",
+      "number": 462,
+      "order": 603,
+      "url": "http://177.234.218.66:8084/play/a00h/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:57.660481+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1280,
+        "height": 720
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/host-samples/frame-6.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.109486b1dd576033b06b5a62",
+      "name": "HBO HD [IP 181.119.177.253]",
+      "announcedName": "HBO HD",
+      "group": "Películas",
+      "number": 463,
+      "order": 604,
+      "url": "http://181.119.177.253:8000/play/a00x/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:51:59.765446+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "HBO",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/host-samples/frame-7.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.d6cca6d4aa23a69d50439c22",
+      "name": "ESPN 2 HD [IP 181.224.200.5]",
+      "announcedName": "ESPN 2 HD",
+      "group": "Deportes",
+      "number": 464,
+      "order": 605,
+      "url": "http://181.224.200.5:2277/play/a02c/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:00.373824+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1280,
+        "height": 720
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/host-samples/frame-8.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.25d4f6f1219d47df7b4af9d1",
+      "name": "ESPN [IP 181.78.106.127]",
+      "announcedName": "ESPN",
+      "group": "Deportes",
+      "number": 465,
+      "order": 606,
+      "url": "http://181.78.106.127:5000/play/a0qf/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:02.739103+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 720,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/host-samples/frame-10.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.f40c652d704b68169874ad00",
+      "name": "HBO HD [IP 181.78.197.59]",
+      "announcedName": "HBO HD",
+      "group": "Películas",
+      "number": 466,
+      "order": 607,
+      "url": "http://181.78.197.59:8000/play/a07d/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:05.960503+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "HBO",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/host-samples/frame-14.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.122a2e09dd1071caa02f5885",
+      "name": "ESPN 2 [IP 181.78.211.244]",
+      "announcedName": "ESPN 2",
+      "group": "Deportes",
+      "number": 467,
+      "order": 608,
+      "url": "http://181.78.211.244:8000/play/a0b7/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:07.419899+00:00",
+      "video": {
+        "codec": "mpeg2video",
+        "width": 720,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/host-samples/frame-15.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.24df37c251a5094ba40d76dc",
+      "name": "ESPN 2 [IP 181.78.211.244] · señal 2",
+      "announcedName": "ESPN 2",
+      "group": "Deportes",
+      "number": 468,
+      "order": 609,
+      "url": "http://181.78.211.244:8005/play/a0b7/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:08.365044+00:00",
+      "video": {
+        "codec": "mpeg2video",
+        "width": 720,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/host-samples/frame-16.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.cb15627abb48f22217500563",
+      "name": "ESPN 1 [IP 181.78.8.199]",
+      "announcedName": "ESPN 1",
+      "group": "Deportes",
+      "number": 469,
+      "order": 610,
+      "url": "http://181.78.8.199:8000/play/a0b1/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:09.810597+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1280,
+        "height": 720
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "44100"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/host-samples/frame-18.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.d55cbc0d421f9ac9d4d95ab3",
+      "name": "HBO HD [IP 181.78.82.130]",
+      "announcedName": "HBO HD",
+      "group": "Películas",
+      "number": 470,
+      "order": 611,
+      "url": "http://181.78.82.130:8000/play/a0os/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:10.999312+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "HBO",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/host-samples/frame-19.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.4ded1fad9c0f880605cfe8fa",
+      "name": "ESPN 1 ENVIO [IP 181.79.86.130]",
+      "announcedName": "ESPN 1 ENVIO",
+      "group": "Deportes",
+      "number": 471,
+      "order": 612,
+      "url": "http://181.79.86.130:8000/play/a02l/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:13.187216+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1280,
+        "height": 720
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "44100"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/host-samples/frame-20.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.09a0d74b65cbafffa6247b3c",
+      "name": "HBO HD [IP 187.245.231.226]",
+      "announcedName": "HBO HD",
+      "group": "Películas",
+      "number": 472,
+      "order": 613,
+      "url": "http://187.245.231.226:8000/play/a0mq/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:16.474836+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "HBO",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/host-samples/frame-24.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.1023e1d1e839c3a7671fabbb",
+      "name": "HBO HD [IP 190.108.83.69]",
+      "announcedName": "HBO HD",
+      "group": "Películas",
+      "number": 473,
+      "order": 614,
+      "url": "http://190.108.83.69:8000/play/a035/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:20.375880+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "HBO",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/host-samples/frame-25.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.469f87d178c1423e1875a4f2",
+      "name": "HBO HD [IP 190.108.91.206]",
+      "announcedName": "HBO HD",
+      "group": "Películas",
+      "number": 474,
+      "order": 615,
+      "url": "http://190.108.91.206:9050/play/a035/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:21.477140+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "HBO",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/host-samples/frame-26.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.f8e4632a5e24aa718e14688e",
+      "name": "Z05-TNT Sports [IP 190.110.96.238]",
+      "announcedName": "Z05-TNT Sports",
+      "group": "Deportes",
+      "number": 475,
+      "order": 616,
+      "url": "http://190.110.96.238:8000/play/a0ev/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:23.352872+00:00",
+      "video": {
+        "codec": "mpeg2video",
+        "width": 720,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "TNT Sports; visible Chilean coverage and tntsports.cl",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/host-samples/frame-28.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.040907f0b53543efbb545695",
+      "name": "Red Uno LPZ HD [IP 190.181.61.93]",
+      "announcedName": "Red Uno LPZ HD",
+      "group": "Misceláneos",
+      "number": 476,
+      "order": 617,
+      "url": "http://190.181.61.93:8000/play/a003/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:27.074848+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/host-samples/frame-32.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.d46f782059b83ba7bacf7664",
+      "name": "HBO HD [IP 190.234.82.52]",
+      "announcedName": "HBO HD",
+      "group": "Películas",
+      "number": 477,
+      "order": 618,
+      "url": "http://190.234.82.52:8000/play/a0iy/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:30.230219+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "HBO",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/host-samples/frame-33.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.4000e460fceb0d24722961a4",
+      "name": "HBO HD [IP 190.60.46.228]",
+      "announcedName": "HBO HD",
+      "group": "Películas",
+      "number": 478,
+      "order": 619,
+      "url": "http://190.60.46.228:8888/play/a04n/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:31.683680+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "HBO",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/host-samples/frame-34.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.da98ca63747a3429dd17f069",
+      "name": "HISTORY CHANNEL [IP 190.61.114.186]",
+      "announcedName": "HISTORY CHANNEL",
+      "group": "Misceláneos",
+      "number": 479,
+      "order": 620,
+      "url": "http://190.61.114.186:8000/play/a044/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:32.363333+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/host-samples/frame-35.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.572cb669462bffbd79e7f655",
+      "name": "HBO HD [IP 190.61.90.17]",
+      "announcedName": "HBO HD",
+      "group": "Películas",
+      "number": 480,
+      "order": 621,
+      "url": "http://190.61.90.17:40000/play/a0l2/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:32.868223+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "HBO",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/host-samples/frame-37.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.9c65e9ef8275d6cfbd771bd2",
+      "name": "HBO [IP 200.115.120.1]",
+      "announcedName": "HBO",
+      "group": "Películas",
+      "number": 481,
+      "order": 622,
+      "url": "http://200.115.120.1:8000/play/ca038/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:35.229665+00:00",
+      "video": {
+        "codec": "mpeg2video",
+        "width": 544,
+        "height": 480
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "HBO",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/host-samples/frame-38.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.9b9f29e6c29d69e00e4a6053",
+      "name": "CANAL 1 [IP 200.122.223.13]",
+      "announcedName": "CANAL 1",
+      "group": "Misceláneos",
+      "number": 482,
+      "order": 623,
+      "url": "http://200.122.223.13:55000/play/canal-1-tdt/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:35.358769+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/host-samples/frame-39.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.b26acb4b5bb79352c371a791",
+      "name": "HBO HD [IP 200.7.99.59]",
+      "announcedName": "HBO HD",
+      "group": "Películas",
+      "number": 483,
+      "order": 624,
+      "url": "http://200.7.99.59:8000/play/a0jt/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:35.869121+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "HBO",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/host-samples/frame-41.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.b846a996ccc3404a033e13e1",
+      "name": "ESPN [IP 38.87.224.19]",
+      "announcedName": "ESPN",
+      "group": "Deportes",
+      "number": 484,
+      "order": 625,
+      "url": "http://38.87.224.19:2220/play/a00w/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:44.644117+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/host-samples/frame-45.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.1756e7adec9079ba3e80634f",
+      "name": "HBO HD [IP 45.166.93.156]",
+      "announcedName": "HBO HD",
+      "group": "Películas",
+      "number": 485,
+      "order": 626,
+      "url": "http://45.166.93.156:9999/play/a0im/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:46.404617+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "HBO",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/host-samples/frame-46.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.74cd09e94a60c0d1f37a6d21",
+      "name": "HBO HD [IP 45.173.231.22]",
+      "announcedName": "HBO HD",
+      "group": "Películas",
+      "number": 486,
+      "order": 627,
+      "url": "http://45.173.231.22:8000/play/a08k/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:51.135021+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "HBO",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/host-samples/frame-49.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.dcd8868ec2ff980d13c48e61",
+      "name": "ESPN (145) [IP 45.189.151.7]",
+      "announcedName": "ESPN (145)",
+      "group": "Deportes",
+      "number": 487,
+      "order": 628,
+      "url": "http://45.189.151.7:8000/play/a06i/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:52:57.243306+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1280,
+        "height": 720
+      },
+      "audio": [
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "mp2",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": null,
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/host-samples/frame-51.jpg"
+    },
+    {
+      "tvgId": "PublicDirect.0e207487c6a9b2b103dbeef6",
+      "name": "HBO HD [IP 72.1.184.5]",
+      "announcedName": "HBO HD",
+      "group": "Películas",
+      "number": 488,
+      "order": 629,
+      "url": "http://72.1.184.5:8089/play/a07o/index.m3u8",
+      "sampleAtUtc": "2026-10-14T00:53:00.827582+00:00",
+      "video": {
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080
+      },
+      "audio": [
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        },
+        {
+          "codec": "aac",
+          "channels": 2,
+          "sampleRate": "48000"
+        }
+      ],
+      "visibleBrand": "HBO",
+      "nameCorrected": false,
+      "evidence": "outputs/direct-host-audit-20261013/host-samples/frame-52.jpg"
+    }
+  ],
+  "validation": {
+    "pythonTests": 351,
+    "pythonSkipped": 19,
+    "javascriptTests": 55,
+    "list1": 292,
+    "list2": 0,
+    "canonical": 2056,
+    "layout": 629,
+    "logos": 381,
+    "oldRowsPreserved": 450,
+    "epgScopeUnchanged": 45,
+    "addedTrialIdsExcludedFromEpg": 179,
+    "appProjectionNewRows": 179,
+    "appVisibleTotal": 264,
+    "providerDiscards": 0,
+    "sourceTag": "v0.5.95",
+    "sourceCommit": "e395b9d18857fe19e77e2c7a429051bd2a896f1b",
+    "limits": "Prueba de parser/proyección pura Java con dependencias existentes. Sin build Android ni prueba física de TV; muestras de emisión no garantizan estabilidad prolongada."
+  }
+}
