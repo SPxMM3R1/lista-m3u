@@ -12,6 +12,12 @@ Región de Total Conexión: SDT/operador colombiano documentado en la investigac
 
 Validación complementaria local completada el 2026-10-14. El estado editorial «definitivo» no acredita que las 247 filas tengan guía ni logo: siguen pendientes 13 logos y 191 mapas de EPG. Los cinco mapas guatemaltecos se probaron con el runner real a partir del XMLTV consultado hoy; esa prueba de subconjunto no sustituye la generación consolidada ni la ejecución remota.
 
+## Seguimiento de publicación — 2026-10-14
+
+El workflow automático `Actualizar EPG` 38553076460 terminó success, pero su plan seleccionó cero fuentes y solo volvió a unir fragmentos. La comprobación directa de `origin/main:epg.xml` encontró las cinco identidades GT todavía con `data-guide="pendiente de guia"` y sin programas; ese éxito no confirma su cobertura. Tras publicar el sello corregido, se debe ejecutar `Actualizar EPG` manualmente con `fuentes=gt`, comprobar al menos 12 horas continuas para cada identidad y verificar GitHub Raw.
+
+El workflow `Publicar cambios dirigidos` 38552828375 falló con pruebas históricas de catálogo (incluidos `KeyError: 'trial'` y desajustes respecto del baseline) porque `data/channel-editor-layout.json` conservaba un `approval.sha256` obsoleto tras añadir los logos. El sello se recalculó con `tests.catalog_approval.layout_approval_digest`; valor almacenado y calculado coinciden localmente y la suite CI-parity pasó (355 pruebas, 19 omitidas). Publicar y revalidar remotamente antes de considerar cerrado el seguimiento. Esta corrección no altera datos editoriales.
+
 | Número | Canal | Logo | EPG |
 |---:|---|---|---|
 | 40 | Fox Sports 2 \| HD [Nauta] | logos/catalogue/fox-sports-2-lam.png | PENDIENTE: regional_feed_not_identified |
