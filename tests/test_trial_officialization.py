@@ -28,7 +28,7 @@ class TrialOfficializationTest(unittest.TestCase):
         audit=json.loads(AUDIT.read_text(encoding='utf-8'))
         matched={r['tvgId']:r['epg'] for r in audit['channels'] if r['epg']['status']=='matched'}
         pending=[r for r in audit['channels'] if r['epg']['status']=='pending']
-        self.assertEqual(57,len(matched));self.assertEqual(190,len(pending))
+        self.assertEqual(62,len(matched));self.assertEqual(185,len(pending))
         self.assertTrue(all(not r['epg'].get('source') and r['epg']['reason'] for r in pending))
         self.assertTrue(all(g['source'] in runner.EPG_SOURCES and g['coverageHours']>=12 and g['evidence'] for g in matched.values()))
         with tempfile.TemporaryDirectory() as tmp:
@@ -40,6 +40,36 @@ class TrialOfficializationTest(unittest.TestCase):
                 applied=runner.apply_epg_overrides(path)
                 self.assertEqual({id:(g['source'],g['source_id']) for id,g in matched.items()},applied)
                 self.assertFalse(any(r['tvgId'] in applied for r in pending))
+            finally:
+                runner.EPG_PROGRAMME_SOURCES.clear();runner.EPG_PROGRAMME_SOURCES.update(before)
+
+    def test_emulator_confirmed_guides_have_exact_sources_and_coverage(self):
+        audit=json.loads(AUDIT.read_text(encoding='utf-8'))
+        expected={
+            'Nauta.080d3c6ad99b6cbcad144a59@Nauta':('cl','Canal.AXN.(Chile).cl','NCIS: Los Ángeles'),
+            'Nauta.547c2a892ba50d5ca20e2851@Nauta':('mx1','Canal.Cinemax.(México).mx','Master Z The Ip Man Legacy'),
+            'Nauta.7437112a4b992980a550d16a@Nauta':('mx1','ESPN.MX.mx','FIFA Eliminatorias de la Copa Mundial Femenina 2027'),
+            'Nauta.a87610ac946968a5f280ec57@Nauta':('co1','STAR.CHANNEL.co','El exótico Hotel Marigold'),
+            'PublicDirect.749260224cb34a60ab4d8755':('co1','Sony.co','My Wife and Kids'),
+        }
+        rows={r['tvgId']:r for r in audit['channels']}
+        for tvg_id,(source,source_id,evidence_token) in expected.items():
+            guide=rows[tvg_id]['epg']
+            self.assertEqual('matched',guide['status'])
+            self.assertEqual((source,source_id),(guide['source'],guide['source_id']))
+            self.assertGreaterEqual(guide['coverageHours'],12)
+            self.assertIn(evidence_token,guide['evidence'])
+        with tempfile.TemporaryDirectory() as tmp:
+            path=Path(tmp)/'epg-overrides.json'
+            path.write_text(json.dumps({'channels':{id:{'source':source,'source_id':source_id} for id,(source,source_id,_) in expected.items()}}),encoding='utf-8')
+            before=dict(runner.EPG_PROGRAMME_SOURCES)
+            try:
+                runner.apply_epg_overrides(path)
+                channels_by_id={channel.tvg_id:channel for channel in runner.main_playlist_channels()}
+                for tvg_id,(source,source_id,_) in expected.items():
+                    self.assertEqual((source,source_id),runner.EPG_PROGRAMME_SOURCES[tvg_id])
+                    self.assertIn((source,source_id),runner.epg_source_chain(tvg_id))
+                    self.assertEqual(frozenset({source}),runner.epgshare_source_names_for([channels_by_id[tvg_id]]))
             finally:
                 runner.EPG_PROGRAMME_SOURCES.clear();runner.EPG_PROGRAMME_SOURCES.update(before)
 

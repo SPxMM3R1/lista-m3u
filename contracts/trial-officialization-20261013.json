@@ -1,18 +1,18 @@
 {
   "schemaVersion": 1,
-  "atUtc": "2026-10-14T02:02:43.934Z",
+  "atUtc": "2026-10-14T18:11:32.975Z",
   "baseHead": "4efa5286f661204bc90c98d14e5a94c4ae3d624b",
   "authorization": "Usuario: «puedes pasar todos los canales ... a definitivo y darles logo y EPG»; aclaración: «Todas las pruebas» = todos los activos en prueba de Lista 1, no ocultos/papelera ni todo el inventario.",
   "scope": "247 promociones editoriales. No se agregan canales ni se cambian nombres, identidad, números, orden, origen, estado activo, selección o respaldos. 38 Nauta añadidos a la excepción cerrada por referencia exacta; futuras altas Nauta siguen en prueba.",
-  "epgLimits": "Matched means exact curated national/regional source with continuous 12h at validation; Total Conexion region is supported by prior SDT/operator evidence. Not proof of synchrony of every programme in physical TV. Unknown regional feeds remain pending. 190 guías pendientes: no se asigna otra región por similitud ni se publica continuidad Live. El estado definitivo es editorial, no una afirmación de disponibilidad/guía completa.",
+  "epgLimits": "Matched means exact curated national/regional source with continuous 12h at validation; Total Conexion region is supported by prior SDT/operator evidence. Not proof of synchrony of every programme in physical TV. Five additional emulator-confirmed mappings are recorded locally (2026-10-14); CO1/CL1 duplicate the same Star Channel schedule and CO1/PA1 duplicate the same Sony schedule, so these assignments identify a matching guide, not the physical region of those streams. 185 guides remain pending; no region is assigned by similarity and no Live continuity is fabricated. Current local mappings are not published until the EPG workflow succeeds. Definitive is an editorial state, not a claim of guide completeness.",
   "counterpart": "Sin cambios de VibeM3U ni APK; mismo contrato de layout/M3U/logos/XMLTV.",
   "counts": {
     "promoted": 247,
     "nautaApproved": 38,
     "logos": 234,
     "logoPending": 13,
-    "epgMatched": 57,
-    "epgPending": 190
+    "epgMatched": 62,
+    "epgPending": 185
   },
   "assets": [
     {
@@ -1390,9 +1390,11 @@
         "number": 143,
         "tvgId": "Nauta.080d3c6ad99b6cbcad144a59@Nauta",
         "name": "AXN HD [Nauta]",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 6
+        "source": "cl",
+        "source_id": "Canal.AXN.(Chile).cl",
+        "evidence": "Fotograma del emulador 2026-10-14 17:33 UTC: AXN muestra a los dos protagonistas reconocibles de NCIS: Los Ángeles en un entorno portuario; XMLTV CL1 programa NCIS: Los Ángeles de 17:30 a 18:20 UTC. Las parrillas MX/AR/CO consultadas no coinciden. Cobertura continua futura de 54,62 h al validar.",
+        "coverageHours": 54.62,
+        "status": "matched"
       }
     },
     {
@@ -1408,9 +1410,11 @@
         "number": 145,
         "tvgId": "Nauta.547c2a892ba50d5ca20e2851@Nauta",
         "name": "Cinemax HD [Nauta]",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 7
+        "source": "mx1",
+        "source_id": "Canal.Cinemax.(México).mx",
+        "evidence": "Fotograma del emulador 2026-10-14 17:34 UTC: Cinemax muestra a una mujer en vestido azul y perlas en el bar; XMLTV MX1 programa Master Z The Ip Man Legacy (16:38–18:34 UTC), coincidente con la escena observada. Los horarios de CL/UY/CO consultados tenían películas distintas. Cobertura continua futura de 62,38 h al validar.",
+        "coverageHours": 62.38,
+        "status": "matched"
       }
     },
     {
@@ -1524,9 +1528,11 @@
         "number": 151,
         "tvgId": "Nauta.7437112a4b992980a550d16a@Nauta",
         "name": "ESPN HD [Nauta]",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 5
+        "source": "mx1",
+        "source_id": "ESPN.MX.mx",
+        "evidence": "Fotograma del emulador 2026-10-14 17:39 UTC: Inglaterra–Grecia femenino, 4-0 al 72:53 y 7-1 global; el zócalo marca 4 PM MEX. XMLTV MX1 programa FIFA Eliminatorias de la Copa Mundial Femenina 2027 de 16:00 a 18:00 UTC. Cobertura continua futura de 63,35 h al validar.",
+        "coverageHours": 63.35,
+        "status": "matched"
       }
     },
     {
@@ -1596,9 +1602,11 @@
         "number": 160,
         "tvgId": "Nauta.a87610ac946968a5f280ec57@Nauta",
         "name": "Star Channel HD [Nauta]",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 5
+        "source": "co1",
+        "source_id": "STAR.CHANNEL.co",
+        "evidence": "Fotograma del emulador 2026-10-14 17:49 UTC: logo STAR CHANNEL y rótulo explícito «Estás viendo El exótico Hotel Marigold». XMLTV CO1 marca el mismo título de 16:26 a 18:56 UTC y mantiene más de 12 h continuas; CL1 duplica esa misma secuencia en el horizonte validado, por lo que se usa CO1 como guía equivalente ya empleada por Star Channel [IP 181] (#195). Cobertura continua futura de 56,08 h.",
+        "coverageHours": 56.08,
+        "status": "matched"
       }
     },
     {
@@ -2058,9 +2066,11 @@
         "number": 252,
         "tvgId": "PublicDirect.749260224cb34a60ab4d8755",
         "name": "Sony Channel Andes [IP 181.119.66.28]",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 0
+        "source": "co1",
+        "source_id": "Sony.co",
+        "evidence": "Fotograma del emulador 2026-10-14 18:04 UTC: logo SONY CHANNEL y escena doméstica con la pareja protagonista de My Wife and Kids. XMLTV CO1 Sony.co programa My Wife and Kids de 17:45 a 18:15 UTC; PA1 ofrece el mismo bloque, pero el nombre editorial Andes favorece la guía CO1. La secuencia CO1 tiene 55,10 h continuas y la parrilla posterior coincide con PA1 en el horizonte validado.",
+        "coverageHours": 55.1,
+        "status": "matched"
       }
     },
     {

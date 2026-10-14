@@ -1,6 +1,6 @@
 # Oficialización de pruebas — 2026-10-13
 
-Pedido «Todas las pruebas»: 247 activos en prueba de Lista 1 pasan a definitivos sin mover ni borrar filas ni alterar respaldos; 38 referencias Nauta exactas se agregan a la excepción cerrada (42 con las cuatro históricas). Tras Guatemala y la verificación visual de Fox Sports 2 México (#40): logos comprobados para 234, 13 pendientes; EPG curada para 57 con cobertura continua de al menos 12 h al validar, 190 pendientes por identidad regional no comprobada o fuente insuficiente. No afirmar EPG/logo completo: definitivo es estado editorial, no prueba de guía/estabilidad. Sin Live inventado, canales nuevos, selector Android, cambios de app ni APK. Contrato contracts/trial-officialization-20261013.json; pendientes por identidad en esta bitácora. Mantener futuras altas en prueba y no oficializar referencias Nauta fuera de las 42 exactas sin pedido explícito.
+Pedido «Todas las pruebas»: 247 activos en prueba de Lista 1 pasan a definitivos sin mover ni borrar filas ni alterar respaldos; 38 referencias Nauta exactas se agregan a la excepción cerrada (42 con las cuatro históricas). A 2026-10-14, los logos comprobados son 234 y 13 siguen pendientes. La base publicada tras Guatemala y Fox #40 tenía 57 guías y 190 pendientes; cinco coincidencias adicionales de emulador se documentaron localmente, con lo que el contrato local registra 62 asignadas y 185 pendientes, aún sujeto a publicación y verificación del runner. No afirmar EPG/logo completo: definitivo es estado editorial, no prueba de guía/estabilidad. Sin Live inventado, canales nuevos, selector Android, cambios de app ni APK. Contrato contracts/trial-officialization-20261013.json; pendientes por identidad en esta bitácora. Mantener futuras altas en prueba y no oficializar referencias Nauta fuera de las 42 exactas sin pedido explícito.
 
 ## Alcance y límites
 
@@ -10,9 +10,23 @@ Matched means exact curated national/regional source with continuous 12h at vali
 
 Región de Total Conexión: SDT/operador colombiano documentado en la investigación del 12-10, no inferida por geolocalización de IP. Para canales panregionales de Discovery se compararon CL/MX y coincidieron todos los tramos/títulos de las próximas 12 h. No es prueba contemporánea del contenido de todos los programas en cada señal ni TV física. Logos reales PNG/SVG, archivos sin modificar; referencias/hashes en el contrato. No se publican tokens ni enlaces temporales.
 
-Validación complementaria local y publicación remota parcial completadas el 2026-10-14. El estado editorial «definitivo» no acredita que las 247 filas tengan guía ni logo: tras sumar la asignación visual confirmada de #40, Raw confirma 234 logos y 57 mapas EPG; siguen pendientes 13 logos y 190 mapas por falta de identidad/fuente exacta. Los resultados consolidados y límites se detallan en el seguimiento de publicación más abajo.
+Validación complementaria local y publicación remota parcial completadas el 2026-10-14. El estado editorial «definitivo» no acredita que las 247 filas tengan guía ni logo: GitHub Raw confirma 234 logos; quedan 13 pendientes. La publicación EPG anterior tenía 57 mapas y 190 pendientes. La continuación visual local agrega cinco asignaciones, elevando el contrato a 62 y 185 pendientes, pero aún no está publicada/verificada por Raw. Los resultados y límites se detallan abajo.
 
 ## Seguimiento de publicación — 2026-10-14
+
+### Continuación de verificación visual — cinco coincidencias adicionales
+
+En una nueva tanda del emulador se cotejó el fotograma en UTC con XMLTV de las fuentes que el runner realmente consume y se midió cobertura futura continua. El contrato local ahora registra 62/247 fuentes EPG asignadas y 185 pendientes; las cinco asignaciones nuevas aún requieren publicación y comprobación en GitHub Raw.
+
+| N.º | Señal y guía asignada | Evidencia del emulador/XMLTV | Cobertura comprobada |
+| --- | --- | --- | ---: |
+| 143 | AXN HD [Nauta] → `cl / Canal.AXN.(Chile).cl` | 17:33 UTC; escena portuaria de *NCIS: Los Ángeles*, en XMLTV 17:30–18:20; las parrillas MX/AR/CO consultadas tenían otro contenido. | 54,62 h |
+| 145 | Cinemax HD [Nauta] → `mx1 / Canal.Cinemax.(México).mx` | 17:34 UTC; escena de mujer con vestido azul y perlas en un bar, compatible con *Master Z: The Ip Man Legacy* (MX1, 16:38–18:34); CL/UY/CO listaban otras películas. | 62,38 h |
+| 151 | ESPN HD [Nauta] → `mx1 / ESPN.MX.mx` | 17:39 UTC; Inglaterra–Grecia femenino, 4–0 al 72:53 / 7–1 global, rótulo `4 PM MEX`; MX1 lista eliminatorias femeninas 16:00–18:00. | 63,35 h |
+| 160 | Star Channel HD [Nauta] → `co1 / STAR.CHANNEL.co` | 17:49 UTC; logo y rótulo explícito «Estás viendo El exótico Hotel Marigold», coincidente con XMLTV 16:26–18:56. CL1 duplica la secuencia; se elige CO1 para reutilizar la guía del Star Channel #195, no como prueba de región física. | 56,08 h |
+| 252 | Sony Channel Andes → `co1 / Sony.co` | 18:04 UTC; logo Sony y escena doméstica de *My Wife and Kids*, en XMLTV 17:45–18:15. PA1 ofrece la misma secuencia; CO1 se elige como guía equivalente, no como prueba de región física. | 55,10 h |
+
+Pendientes deliberados tras la inspección: #153 ESPN 4 Sur (boxeo, sin feed Sur inequívoco; no se asigna el candidato Panamá), #156 Fox Sports (resumen de Messi sin coincidencia regional comprobada), #161 Studio Universal (animación sin título/versión identificable), #162–163 Telehit (videos musicales sin título EPG identificable), #200 Golden Edge (fotograma no coincide con las películas candidatas), y #299 ESPN Premium (fútbol juvenil argentino sin canal ESPN Premium correspondiente en la guía AR1 disponible). El #107 ESPN Plus HD también continúa pendiente por la misma falta de ID regional exacto. Ninguno se “completa” por aproximación.
 
 ### Verificación visual adicional — Fox Sports 2 México
 
@@ -51,18 +65,18 @@ La salida inicial GitHub Raw `8189e53` contenía 9.697 programas totales; sus 56
 | 140 | HBO Pop [Nauta] | logos/catalogue/hbopoplatinamerica-us.png | PENDIENTE: regional_feed_not_identified |
 | 141 | HBO Xtreme [Nauta] | logos/catalogue/hboxtremelatinamerica-us.png | PENDIENTE: regional_feed_not_identified |
 | 142 | HBO Xtreme HD [Nauta] | logos/catalogue/hboxtremelatinamerica-us.png | PENDIENTE: regional_feed_not_identified |
-| 143 | AXN HD [Nauta] | logos/catalogue/axnlatinamerica-us.png | PENDIENTE: regional_feed_not_identified |
-| 145 | Cinemax HD [Nauta] | logos/catalogue/cinemaxlatinamerica-us.png | PENDIENTE: regional_feed_not_identified |
+| 143 | AXN HD [Nauta] | logos/catalogue/axnlatinamerica-us.png | cl/Canal.AXN.(Chile).cl (54,62 h) |
+| 145 | Cinemax HD [Nauta] | logos/catalogue/cinemaxlatinamerica-us.png | mx1/Canal.Cinemax.(México).mx (62,38 h) |
 | 146 | Discovery Channel HD [Nauta] | logos/catalogue/discoverychannellatinamerica-us.png | PENDIENTE: regional_feed_not_identified |
 | 147 | Discovery Theater HD [Nauta] | logos/catalogue/discoverytheaterlatinamerica-us.png | cl/Canal.Discovery.Theater.(Latinoamérica).cl |
 | 148 | Discovery Turbo [Nauta] | logos/catalogue/discoveryturbolatinamerica-us.png | cl/Canal.Discovery.Turbo.(Latinoamérica).cl |
 | 149 | Discovery Turbo HD [Nauta] | logos/catalogue/discoveryturbolatinamerica-us.png | cl/Canal.Discovery.Turbo.(Latinoamérica).cl |
 | 150 | Discovery World [Nauta] | logos/catalogue/discoveryworld-us.png | cl/Canal.Discovery.World.Latinoamérica.cl |
-| 151 | ESPN HD [Nauta] | logos/espn.svg | PENDIENTE: regional_feed_not_identified |
+| 151 | ESPN HD [Nauta] | logos/espn.svg | mx1/ESPN.MX.mx (63,35 h) |
 | 152 | ESPN 3 HD [Nauta] | logos/espn-3.png | PENDIENTE: regional_feed_not_identified |
 | 153 | ESPN 4 \| Sur [Nauta] | logos/espn-4.png | PENDIENTE: regional_feed_not_identified |
 | 156 | Fox Sports HD [Nauta] | logos/fox-sports.svg | PENDIENTE: regional_feed_not_identified |
-| 160 | Star Channel HD [Nauta] | logos/catalogue/starchannellatinamerica-us.png | PENDIENTE: regional_feed_not_identified |
+| 160 | Star Channel HD [Nauta] | logos/catalogue/starchannellatinamerica-us.png | co1/STAR.CHANNEL.co (56,08 h; horario duplicado en CL1) |
 | 161 | Studio Universal HD [Nauta] | logos/catalogue/studiouniversallatinamerica-us.png | PENDIENTE: regional_feed_not_identified |
 | 162 | Telehit [Nauta] | logos/catalogue/telehit-mx.png | PENDIENTE: regional_feed_not_identified |
 | 163 | Telehit HD [Nauta] | logos/catalogue/telehit-mx.png | PENDIENTE: regional_feed_not_identified |
@@ -88,7 +102,7 @@ La salida inicial GitHub Raw `8189e53` contenía 9.697 programas totales; sus 56
 | 210 | El Gourmet HD [IP 181] | logos/catalogue/elgourmet-ar.png | co1/El.Gourmet.co |
 | 212 | National Geographic [IP 181] | logos/catalogue/nationalgeographiclatinamerica-us.png | co1/National.Geographic.co |
 | 226 | AXN [IP 181.78.8.199] | logos/catalogue/axnlatinamerica-us.png | PENDIENTE: regional_feed_not_identified |
-| 252 | Sony Channel Andes [IP 181.119.66.28] | logos/catalogue/sonychannelandes-us.png | PENDIENTE: regional_feed_not_identified |
+| 252 | Sony Channel Andes [IP 181.119.66.28] | logos/catalogue/sonychannelandes-us.png | co1/Sony.co (55,10 h; horario duplicado en PA1) |
 | 286 | CNN Chile [IP 190.110.96.238] | logos/catalogue/cnnchile-cl.png | cl/Canal.CNN.Chile.cl |
 | 291 | Discovery Theater [IP 181.224.200.5] | logos/catalogue/discoverytheaterlatinamerica-us.png | cl/Canal.Discovery.Theater.(Latinoamérica).cl |
 | 292 | Discovery Turbo [IP 38.134.250.110] | logos/catalogue/discoveryturbolatinamerica-us.png | cl/Canal.Discovery.Turbo.(Latinoamérica).cl |
@@ -278,12 +292,12 @@ La salida inicial GitHub Raw `8189e53` contenía 9.697 programas totales; sus 56
 
 ## Validación local (2026-10-14)
 
-- 357 pruebas Python, 19 omitidas previstas por `M3U_RUNNER_TESTS=1`; 55 pruebas JavaScript.
+- 358 pruebas Python, 19 omitidas previstas por `M3U_RUNNER_TESTS=1`; el recuento incluye la nueva regresión para las cinco guías confirmadas en emulador. No se modificó JavaScript.
 - `update_m3u.py --validate-public-lists-only`: partición válida de Lista 1 292, Lista 2 0 y catálogo canónico 2.056.
 - Bundle temporal del editor: 629 filas y 487 logos. Los 106 archivos registrados para esta oficialización mantienen los SHA-256 del contrato.
 - Comparación editorial contra `4efa5286`: exactamente las 247 marcas de prueba se retiraron; los demás campos, orden, nombres, identidad, altas/bajas, respaldos y selección se conservaron.
 - Smoke JVM de la primera publicación usando el parser y catálogo del tag publicado VibeM3U `v0.5.95` (incluida la clase `DynamicSourceReference` de `e395b9d`): las 247 identidades, nombres y URLs entran una sola vez y la proyección queda en 303 canales visibles. Ese smoke precede a los dos PNG de Guatemala; no se compiló una APK ni se repitió el smoke de app para esos assets, tampoco se probó en TV física.
-- Las 51 fuentes EPG de la primera validación produjeron 4.017 programas reales. Con Guatemala, un build local aislado sobre cinco IDs exactos produjo 537 programas sin relleno `Live`. Luego, la captura del emulador de Fox Sports 2 México (#40) a las 09:16 Santiago / 12:16 UTC mostró `#FOXGOL`/CONCACAF W; el feed MX1 coincidió con `Fox Gol Femenil`. El commit `dfa52e1` asignó `Canal.Fox.Sports.2.(México).mx`; `Actualizar EPG` run `38565913595` terminó success y publicó la salida `56d27af`. GitHub Raw confirma el canal con fuente `mx1`, 60 programas y fuera de `epg-pending.json`. Total: 57/247 canales oficializados con guía y 190 pendientes de identidad regional/fuente fiable; no se publican títulos `Live` inventados.
+- Las 51 fuentes EPG de la primera validación produjeron 4.017 programas reales. Con Guatemala, un build local aislado sobre cinco IDs exactos produjo 537 programas sin relleno `Live`. Luego, la captura del emulador de Fox Sports 2 México (#40) a las 09:16 Santiago / 12:16 UTC mostró `#FOXGOL`/CONCACAF W; el feed MX1 coincidió con `Fox Gol Femenil`. El commit `dfa52e1` asignó `Canal.Fox.Sports.2.(México).mx`; `Actualizar EPG` run `38565913595` terminó success y publicó la salida `56d27af`. GitHub Raw confirma el canal con fuente `mx1`, 60 programas y fuera de `epg-pending.json`. La continuación local asigna otras cinco identidades exactas (detalladas arriba), llevando el contrato a 62/247 y dejando 185 pendientes; el workflow todavía debe publicar esta tanda y Raw debe confirmarla. No se publican títulos `Live` inventados.
 - No se modificaron la aplicación ni la selección de resolutores. La rama se actualizó desde `aec3847` para incorporar cinco commits automáticos del runner antes de la publicación.
 
 ## Publicación
