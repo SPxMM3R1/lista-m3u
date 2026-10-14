@@ -1,9 +1,25 @@
 <?xml version='1.0' encoding='utf-8'?>
 <tv data-fragment-of="0105">
-  <channel id="0105" data-guide="parrilla real" data-guide-source="cl">
+  <channel id="0105" data-guide="parrilla real" data-guide-source="zapping-guia-publica">
     <display-name>Mega</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/mega.png" />
   </channel>
+  <programme start="20261014154500 -0300" stop="20261014164500 -0300" channel="0105">
+    <title lang="es">Carmen Gloria: Fuerte &amp; Claro</title>
+    <desc lang="es">Programa conducido por Carmen Gloria Arroyo, que combinará contingencia, casos reales y análisis de actualidad.</desc>
+  </programme>
+  <programme start="20261014164500 -0300" stop="20261014173000 -0300" channel="0105">
+    <title lang="es">La Baronesa</title>
+    <desc lang="es">Aurora Valdés es una mujer que hará todo por proteger el legado de su familia. Pero los secretos, el poder y el control pondrán a prueba los vínculos que durante años creyó inquebrantables.</desc>
+  </programme>
+  <programme start="20261014173000 -0300" stop="20261014181500 -0300" channel="0105">
+    <title lang="es">La Baronesa</title>
+    <desc lang="es">Aurora Valdés es una mujer que hará todo por proteger el legado de su familia. Pero los secretos, el poder y el control pondrán a prueba los vínculos que durante años creyó inquebrantables.</desc>
+  </programme>
+  <programme start="20261014181500 -0300" stop="20261014200000 -0300" channel="0105">
+    <title lang="es">Dale Play</title>
+    <desc lang="es">Con la llegada del verano vuelve Dale Play Verano, uno de los programas musicales más icónicos de Mega</desc>
+  </programme>
   <programme start="20261014080000 -0300" stop="20261014130000 -0300" channel="0105">
     <title lang="es">Mucho gusto</title>
     <desc lang="es">Entretención, actualidad, conversación y muchas risas para acompañar tus mañanas con el panel más entretenido de la TV.</desc>
@@ -20,24 +36,8 @@
     <title lang="es">La hora de jugar</title>
     <desc lang="es">Mucho gusto, en una alianza con Lotería, preparan un programa donde la consigna es pasarlo bien y ganar suculentos premios.</desc>
   </programme>
-  <programme start="20261014154500 -0300" stop="20261014164500 -0300" channel="0105">
-    <title lang="es">Carmen Gloria Fuerte y claro</title>
-    <desc lang="es">Programa conducido por Carmen Gloria Arroyo, que combinará contingencia, casos reales y análisis de actualidad.</desc>
-  </programme>
-  <programme start="20261014164500 -0300" stop="20261014173000 -0300" channel="0105">
-    <title lang="es">La Baronesa</title>
-    <desc lang="es">Aurora Valdés es una mujer que hará todo por proteger el legado de su familia. Pero los secretos, el poder y el control pondrán a prueba los vínculos que durante años creyó inquebrantables.</desc>
-  </programme>
-  <programme start="20261014173000 -0300" stop="20261014181500 -0300" channel="0105">
-    <title lang="es">La Baronesa</title>
-    <desc lang="es">Aurora Valdés es una mujer que hará todo por proteger el legado de su familia. Pero los secretos, el poder y el control pondrán a prueba los vínculos que durante años creyó inquebrantables.</desc>
-  </programme>
-  <programme start="20261014181500 -0300" stop="20261014200000 -0300" channel="0105">
-    <title lang="es">Dale Play</title>
-    <desc lang="es">Con la llegada del verano vuelve Dale Play Verano, uno de los programas musicales más icónicos de Mega</desc>
-  </programme>
   <programme start="20261014200000 -0300" stop="20261014210500 -0300" channel="0105">
-    <title lang="es">Meganoticias Prime</title>
+    <title lang="es">Meganoticias prime</title>
     <desc lang="es">Noticiero con las informaciones más relevantes de Chile y el mundo.</desc>
   </programme>
   <programme start="20261014210500 -0300" stop="20261014211000 -0300" channel="0105">
@@ -45,7 +45,7 @@
     <desc lang="es">Toda la informacion meteorológica del país.</desc>
   </programme>
   <programme start="20261014211000 -0300" stop="20261014220000 -0300" channel="0105">
-    <title lang="es">Reunión de superados</title>
+    <title lang="es">Reunión de superados : Estreno</title>
     <desc lang="es">T1 -Ep.207. Un grupo de WhatsApp de apoderados del establecimiento Thomas Campbell School, liderado por el profesor jefe Rubén, invita a los padres estar comunicados, en donde se vivirarán intensos momentos .</desc>
   </programme>
   <programme start="20261014220000 -0300" stop="20261014224500 -0300" channel="0105">
@@ -61,7 +61,7 @@
     <desc lang="es">Mucho gusto, en una alianza con Lotería, preparan un programa donde la consigna es pasarlo bien y ganar suculentos premios.</desc>
   </programme>
   <programme start="20261015011500 -0300" stop="20261015030000 -0300" channel="0105">
-    <title lang="es">Dale Play</title>
+    <title lang="es">Dale play</title>
     <desc lang="es">Con la llegada del verano vuelve Dale Play Verano, uno de los programas musicales más icónicos de Mega</desc>
   </programme>
   <programme start="20261015030000 -0300" stop="20261015040000 -0300" channel="0105">
@@ -78,9 +78,11 @@
   </programme>
   <programme start="20261015080000 -0300" stop="20261015130000 -0300" channel="0105">
     <title lang="es">Mucho gusto</title>
+    <desc lang="es">Entretención, actualidad, conversación y muchas risas para acompañar tus mañanas con el panel más entretenido de la TV.</desc>
   </programme>
   <programme start="20261015130000 -0300" stop="20261015145500 -0300" channel="0105">
-    <title lang="es">Meganoticias Alerta</title>
+    <title lang="es">Meganoticias alerta</title>
+    <desc lang="es">Noticiero con las informaciones más relevantes de Chile y el mundo.</desc>
   </programme>
   <programme start="20261015145500 -0300" stop="20261015150000 -0300" channel="0105">
     <title lang="es">El tiempo</title>
@@ -89,7 +91,7 @@
     <title lang="es">La hora de jugar</title>
   </programme>
   <programme start="20261015154500 -0300" stop="20261015164500 -0300" channel="0105">
-    <title lang="es">Carmen Gloria Fuerte y claro</title>
+    <title lang="es">Carmen Gloria: Fuerte y claro</title>
   </programme>
   <programme start="20261015164500 -0300" stop="20261015173000 -0300" channel="0105">
     <title lang="es">La Baronesa</title>
@@ -98,16 +100,16 @@
     <title lang="es">La Baronesa</title>
   </programme>
   <programme start="20261015181500 -0300" stop="20261015200000 -0300" channel="0105">
-    <title lang="es">Dale Play</title>
+    <title lang="es">Dale play</title>
   </programme>
   <programme start="20261015200000 -0300" stop="20261015210500 -0300" channel="0105">
-    <title lang="es">Meganoticias Prime</title>
+    <title lang="es">Meganoticias prime</title>
   </programme>
   <programme start="20261015210500 -0300" stop="20261015211000 -0300" channel="0105">
     <title lang="es">El tiempo</title>
   </programme>
   <programme start="20261015211000 -0300" stop="20261015220000 -0300" channel="0105">
-    <title lang="es">Reunión de superados</title>
+    <title lang="es">Reunión de superados : Estreno</title>
   </programme>
   <programme start="20261015220000 -0300" stop="20261015224500 -0300" channel="0105">
     <title lang="es">Prohibida obsesión</title>
