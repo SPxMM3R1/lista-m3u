@@ -28,7 +28,7 @@ class TrialOfficializationTest(unittest.TestCase):
         audit=json.loads(AUDIT.read_text(encoding='utf-8'))
         matched={r['tvgId']:r['epg'] for r in audit['channels'] if r['epg']['status']=='matched'}
         pending=[r for r in audit['channels'] if r['epg']['status']=='pending']
-        self.assertEqual(56,len(matched));self.assertEqual(191,len(pending))
+        self.assertEqual(57,len(matched));self.assertEqual(190,len(pending))
         self.assertTrue(all(not r['epg'].get('source') and r['epg']['reason'] for r in pending))
         self.assertTrue(all(g['source'] in runner.EPG_SOURCES and g['coverageHours']>=12 and g['evidence'] for g in matched.values()))
         with tempfile.TemporaryDirectory() as tmp:
@@ -42,6 +42,26 @@ class TrialOfficializationTest(unittest.TestCase):
                 self.assertFalse(any(r['tvgId'] in applied for r in pending))
             finally:
                 runner.EPG_PROGRAMME_SOURCES.clear();runner.EPG_PROGRAMME_SOURCES.update(before)
+
+    def test_fox_sports_2_uses_the_visual_confirmed_mexico_feed(self):
+        audit=json.loads(AUDIT.read_text(encoding='utf-8'))
+        stable_id='Nauta.7b8890eac450f9cc89b06b84@Nauta'
+        row=next(r for r in audit['channels'] if r['tvgId']==stable_id)
+        guide=row['epg']
+        expected=('mx1','Canal.Fox.Sports.2.(México).mx')
+        self.assertEqual('matched',guide['status'])
+        self.assertEqual(expected,(guide['source'],guide['source_id']))
+        self.assertGreaterEqual(guide['coverageHours'],12)
+        self.assertIn('#FOXGOL',guide['evidence'])
+        before=dict(runner.EPG_PROGRAMME_SOURCES)
+        try:
+            runner.apply_epg_overrides()
+            self.assertEqual(expected,runner.EPG_PROGRAMME_SOURCES[stable_id])
+            self.assertIn(expected,runner.epg_source_chain(stable_id))
+            channel=next(c for c in runner.main_playlist_channels() if c.tvg_id==stable_id)
+            self.assertEqual(frozenset({'mx1'}),runner.epgshare_source_names_for([channel]))
+        finally:
+            runner.EPG_PROGRAMME_SOURCES.clear();runner.EPG_PROGRAMME_SOURCES.update(before)
 
     def test_guatemala_feed_maps_only_the_five_explicit_guatemala_channels(self):
         audit=json.loads(AUDIT.read_text(encoding='utf-8'))

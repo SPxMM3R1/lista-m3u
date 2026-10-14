@@ -4,15 +4,15 @@
   "baseHead": "4efa5286f661204bc90c98d14e5a94c4ae3d624b",
   "authorization": "Usuario: «puedes pasar todos los canales ... a definitivo y darles logo y EPG»; aclaración: «Todas las pruebas» = todos los activos en prueba de Lista 1, no ocultos/papelera ni todo el inventario.",
   "scope": "247 promociones editoriales. No se agregan canales ni se cambian nombres, identidad, números, orden, origen, estado activo, selección o respaldos. 38 Nauta añadidos a la excepción cerrada por referencia exacta; futuras altas Nauta siguen en prueba.",
-  "epgLimits": "Matched means exact curated national/regional source with continuous 12h at validation; Total Conexion region is supported by prior SDT/operator evidence. Not proof of synchrony of every programme in physical TV. Unknown regional feeds remain pending. 191 guías pendientes: no se asigna otra región por similitud ni se publica continuidad Live. El estado definitivo es editorial, no una afirmación de disponibilidad/guía completa.",
+  "epgLimits": "Matched means exact curated national/regional source with continuous 12h at validation; Total Conexion region is supported by prior SDT/operator evidence. Not proof of synchrony of every programme in physical TV. Unknown regional feeds remain pending. 190 guías pendientes: no se asigna otra región por similitud ni se publica continuidad Live. El estado definitivo es editorial, no una afirmación de disponibilidad/guía completa.",
   "counterpart": "Sin cambios de VibeM3U ni APK; mismo contrato de layout/M3U/logos/XMLTV.",
   "counts": {
     "promoted": 247,
     "nautaApproved": 38,
     "logos": 234,
     "logoPending": 13,
-    "epgMatched": 56,
-    "epgPending": 191
+    "epgMatched": 57,
+    "epgPending": 190
   },
   "assets": [
     {
@@ -968,9 +968,11 @@
         "number": 40,
         "tvgId": "Nauta.7b8890eac450f9cc89b06b84@Nauta",
         "name": "Fox Sports 2 | HD [Nauta]",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 2
+        "source": "mx1",
+        "source_id": "Canal.Fox.Sports.2.(México).mx",
+        "evidence": "Captura real del emulador el 2026-10-14 12:16 UTC: logo FOX SPORTS 2, grafica #FOXGOL y CONCACAF W Championship 2026; el feed MX1 programa Fox Gol Femenil en ese mismo tramo. XMLTV con 64.44 h continuas al validar.",
+        "coverageHours": 64.44,
+        "status": "matched"
       }
     },
     {
@@ -5099,7 +5101,7 @@
   "validation": {
     "status": "remote_partial_verified",
     "atLocalDate": "2026-10-14",
-    "pythonTestsPassed": 356,
+    "pythonTestsPassed": 357,
     "pythonTestsSkipped": 19,
     "javascriptTestsPassed": 55,
     "publicListValidation": {

@@ -9,6 +9,8 @@
 
 ## Hoy, en una mirada
 
+- **EPG visual en progreso (2026-10-14)**: la captura del emulador identifica Fox Sports 2 México (#40) con `#FOXGOL`/CONCACAF W; asignado localmente a `mx1 / Canal.Fox.Sports.2.(México).mx`, guía continua de 64,44 h. Ahora son 57 de 247 asignados y 190 pendientes. ESPN Plus HD (#107) muestra ESPN Premium en una repetición LPF, pero el feed AR1 no contiene esa identidad, así que sigue pendiente. El cambio ya tiene prueba y documentación; falta publicar y comprobar la guía en Raw.
+
 **Corrección de una cifra histórica:** en la entrada del 13-10 se anotaron 264 canales visibles a partir de un classpath JVM que cargó primero una copia antigua de `DynamicSourceReference` y omitió Nauta. El smoke corregido con la clase del tag publicado v0.5.95 da **303 visibles**. No hubo una pérdida de canales en la aplicación; ver la nota de corrección en `AGENTS.md`.
 
 - **Seguimiento EPG/logos de pruebas (2026-10-14)**: FreeEPG Guatemala asigna cinco IDs XMLTV exactos a canales GUA (356–359, 395); Raw actual `8189e53` contiene 111/76/75/147/126 programas, 108,74–109,49 h continuas, cero relleno `Live` y cero pendientes. Los dos logos nuevos están enlazados en ambas listas. Totales: 234/247 logos y 56/247 EPG; quedan 13 logos y 191 guías. Los 56 mapas tienen 4.492 programas publicados, mínimo 36,94 h futuras, cero pendientes y cero relleno `Live`; XML total 9.697 programas. La EPG de datos se descargó en `38553994846` (`epgshare`), se verificó en Raw; reensamblado sin fuentes `38555183783` también success y solo limpió programas ya vencidos. La corrida duplicada `38554055881` falló al rebasar SHA viejo `7752d65` sobre `02696d5`; fix `27e35e1` fija los tres checkout a `main`, añade test estático y el dispatch posterior pasó. Dirigida `38555121021` y editor `38555121054` success. Suites: 356 Python/19 omitidas, 55 JS; lista 292/0/2056 y bundle 629/487. Corrección de sello `e123850`. No inferir país por IP ni afirmar que las 247 guías/logos están completas. Ver contrato y `OFICIALIZACION_PRUEBAS_20261013.md`.
@@ -147,6 +149,8 @@
   nuevo por captura.
 
 ## Bitácora (más reciente arriba)
+
+- **2026-10-14 / identificación visual de Fox Sports 2 México**: con VibeM3U en el emulador, la captura del canal 40 a las 09:16 Santiago / 12:16 UTC muestra logo FOX SPORTS 2 y gráfica `#FOXGOL` de CONCACAF W Championship. El feed MX1 publica `Fox Gol Femenil` en ese horario y produce 64,44 h continuas; mapeo exacto a `Canal.Fox.Sports.2.(México).mx`. En el canal 107 se vio ESPN Premium con una repetición ALD–SAR de LPF; AR1 no ofrece ESPN Premium en EPGShare, así que no se asigna una guía similar. El dispatch y Raw siguen pendientes en esta entrada.
 
 - **2026-10-14 / seguimiento de EPG y logos de pruebas**: FreeEPG Guatemala se añadió solo para los cinco IDs con etiqueta GUA explícita; dos PNG existentes se enlazaron a las filas 356/357. El subset real descargado por `epgshare` produjo 535 programas publicados entre esos cinco IDs, 108,74–109,49 h continuas, cero pendientes y cero relleno `Live`. Raw `8189e53` verifica el conjunto EPG publicado completo: 56 de 247 IDs mapeados, 4.492 programas, mínimo 36,94 h futuras y 9.697 programas XML totales; faltan 191 mapas y 13 logos. Python 356 (19 omitidas), JavaScript 55, validación de listas 292/0/2056 y bundle 629/487 pasan. El workflow EPG fijado a `main` pasó despacho manual y verificó Raw; no se reejecutó el evento real `workflow_run`. No se infiere región por IP, ni se afirma cobertura total. Ver `OFICIALIZACION_PRUEBAS_20261013.md`.
 

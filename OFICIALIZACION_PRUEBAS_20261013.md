@@ -14,6 +14,12 @@ Validación complementaria local y publicación remota parcial completadas el 20
 
 ## Seguimiento de publicación — 2026-10-14
 
+### Verificación visual adicional — Fox Sports 2 México
+
+El emulador mostró el #40 a las 09:16 Santiago / 12:16 UTC con la marca FOX SPORTS 2 y la gráfica `#FOXGOL` de CONCACAF W Championship 2026. El feed MX1 `Canal.Fox.Sports.2.(México).mx` publica `Fox Gol Femenil` en el mismo tramo y, al generar en memoria, el runner produjo 60 programas, 64,44 h futuras, fuente real y cero canales pendientes. Se actualiza el total a 57/247 asignados y 190 pendientes; después de este commit se debe forzar `epgshare` y verificar GitHub Raw.
+
+El #107 ESPN Plus HD presentó en el emulador ESPN Premium y la repetición del encuentro ALD–SAR de la LPF; es un partido finalizado, no una transmisión en vivo de la jornada actual. La guía AR1 disponible no incluye ESPN Premium, y una cartelera externa encontrada no es una fuente de runner vigente. Se mantiene pendiente sin asignar programación por aproximación.
+
 El workflow automático `Actualizar EPG` 38553076460 terminó success, pero su plan seleccionó cero fuentes y solo volvió a unir fragmentos. La comprobación directa encontró las cinco identidades GT sin programas. El primer dispatch manual 38553817527 falló porque `gt` no es una parte válida; los XMLTV gzip de `EPG_SOURCES` se descargan dentro de la parte compartida `epgshare`. El dispatch correcto `fuentes=epgshare` (38553994846) pasó, publicó y verificó Raw en el commit `02696d5`. Los cinco IDs tienen respectivamente 111/76/75/147/126 programas, entre 108,89 y 109,64 horas futuras continuas, cero títulos/descripciones `Live` y ninguno está pendiente.
 
 El workflow `Publicar cambios dirigidos` 38552828375 falló con pruebas históricas de catálogo (incluidos `KeyError: 'trial'` y desajustes frente al baseline) porque el layout conservaba un sello obsoleto tras añadir logos. Se recalculó `approval.sha256`; la suite CI-parity pasó y el reintento `38553811967` terminó success. Una corrida EPG automática duplicada `38554055881` construyó, pero no publicó: `workflow_run` tomó el SHA antiguo `7752d65`, chocó con `02696d5` y no pudo rebasar. No revirtió la EPG ya publicada. El fix `27e35e1` fija los tres checkout EPG a `main` y añade `tests/test_epg_workflow_checkout.py`; la prueba estática pasa (356 Python/19 omitidas), y el dispatch de control 38555183783 (sin fuentes vencidas) pasó en los tres jobs y verificó Raw. No se provocó otro evento `workflow_run` real, así que ese tipo exacto de disparador aún no se volvió a ejercer.
@@ -22,7 +28,7 @@ Tras el reensamblado, GitHub Raw `8189e53` contiene 9.697 programas totales; los
 
 | Número | Canal | Logo | EPG |
 |---:|---|---|---|
-| 40 | Fox Sports 2 \| HD [Nauta] | logos/catalogue/fox-sports-2-lam.png | PENDIENTE: regional_feed_not_identified |
+| 40 | Fox Sports 2 \| HD [Nauta] | logos/catalogue/fox-sports-2-lam.png | mx1/Canal.Fox.Sports.2.(México).mx; `Fox Gol Femenil`, 64,44 h |
 | 96 | ESPN 1 \| Sur [Nauta] | logos/espn.svg | ar1/Canal.ESPN.(Argentina).ar |
 | 98 | ESPN 1 \| Chile [Nauta] | logos/espn.svg | cl/Canal.ESPN.(Chile).cl |
 | 103 | ESPN HD \| Colombia [Nauta] | logos/espn.svg | co1/ESPN.co |
