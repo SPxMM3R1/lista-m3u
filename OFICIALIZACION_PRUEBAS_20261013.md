@@ -1,16 +1,16 @@
 # Oficialización de pruebas — 2026-10-13
 
-Pedido «Todas las pruebas»: 247 activos en prueba de Lista 1 pasan a definitivos sin mover ni borrar filas ni alterar respaldos; 38 referencias Nauta exactas se agregan a la excepción cerrada (42 con las cuatro históricas). Logos comprobados para 232, 15 pendientes; EPG curada para 51 con cobertura continua de 12 h al validar, 196 pendientes por feed/región no identificada o fuente insuficiente. No afirmar EPG/logo completo: definitivo es estado editorial, no prueba de guía/estabilidad. Sin Live inventado, canales nuevos, selector Android, cambios de app ni APK. Contrato contracts/trial-officialization-20261013.json; pendientes por identidad en OFICIALIZACION_PRUEBAS_20261013.md. Mantener futuras altas en prueba y no oficializar referencias Nauta fuera de las 42 exactas sin pedido explícito.
+Pedido «Todas las pruebas»: 247 activos en prueba de Lista 1 pasan a definitivos sin mover ni borrar filas ni alterar respaldos; 38 referencias Nauta exactas se agregan a la excepción cerrada (42 con las cuatro históricas). Tras la comprobación adicional de Guatemala: logos comprobados para 234, 13 pendientes; EPG curada para 56 con cobertura continua de al menos 12 h al validar, 191 pendientes por identidad regional no comprobada o fuente insuficiente. No afirmar EPG/logo completo: definitivo es estado editorial, no prueba de guía/estabilidad. Sin Live inventado, canales nuevos, selector Android, cambios de app ni APK. Contrato contracts/trial-officialization-20261013.json; pendientes por identidad en esta bitácora. Mantener futuras altas en prueba y no oficializar referencias Nauta fuera de las 42 exactas sin pedido explícito.
 
 ## Alcance y límites
 
 Usuario: «puedes pasar todos los canales ... a definitivo y darles logo y EPG»; aclaración: «Todas las pruebas» = todos los activos en prueba de Lista 1, no ocultos/papelera ni todo el inventario.
 
-Matched means exact curated national/regional source with continuous 12h at validation; Total Conexion region is supported by prior SDT/operator evidence. Not proof of synchrony of every programme in physical TV. Unknown regional feeds remain pending. 196 guías pendientes: no se asigna otra región por similitud ni se publica continuidad Live. El estado definitivo es editorial, no una afirmación de disponibilidad/guía completa.
+Matched means exact curated national/regional source with continuous 12h at validation; Total Conexion region is supported by prior SDT/operator evidence. A FreeEPG Guatemala feed was fetched on 2026-10-14; its current XML had 155 channel IDs, including exact current IDs for Canal 13/Trecevisión, Canal 3, Canal 7/Televisiete, Canal Antigua and Guatevisión, each with 109.39–110.14 continuous hours. The five local names explicitly contain GUA; no region was inferred from IP. The FreeEPG country page lists 160 channels and itself cautions there is no completeness guarantee: https://free-epg.de/countries/gt. The feed also had stale duplicate IDs for four channels; only the IDs with continuous current data were mapped. This is not proof of synchrony of every programme in physical TV. Other unknown regional feeds remain pending; no other region is assigned by similarity and no continuity Live is fabricated. Definitive remains an editorial state, not proof of availability or complete guide.
 
 Región de Total Conexión: SDT/operador colombiano documentado en la investigación del 12-10, no inferida por geolocalización de IP. Para canales panregionales de Discovery se compararon CL/MX y coincidieron todos los tramos/títulos de las próximas 12 h. No es prueba contemporánea del contenido de todos los programas en cada señal ni TV física. Logos reales PNG/SVG, archivos sin modificar; referencias/hashes en el contrato. No se publican tokens ni enlaces temporales.
 
-Validación local cerrada el 2026-10-14; publicación remota y ejecución de los workflows de canales, Pages y EPG pendientes. El estado editorial «definitivo» no acredita que las 247 filas tengan guía ni logo; ver los pendientes de cada fila en la tabla.
+Validación complementaria local completada el 2026-10-14. El estado editorial «definitivo» no acredita que las 247 filas tengan guía ni logo: siguen pendientes 13 logos y 191 mapas de EPG. Los cinco mapas guatemaltecos se probaron con el runner real a partir del XMLTV consultado hoy; esa prueba de subconjunto no sustituye la generación consolidada ni la ejecución remota.
 
 | Número | Canal | Logo | EPG |
 |---:|---|---|---|
@@ -128,10 +128,10 @@ Validación local cerrada el 2026-10-14; publicación remota y ejecución de los
 | 353 | CINECANAL HD [IP 45.171.64.30] | logos/catalogue/cinecanal-us.png | PENDIENTE: regional_feed_not_identified |
 | 354 | CNN Internacional [IP 45.171.64.30] | logos/catalogue/cnninternational-us.png | PENDIENTE: regional_feed_not_identified |
 | 355 | CNNE [IP 45.171.64.30] | logos/catalogue/cnnenespanol-us.svg | PENDIENTE: regional_feed_not_identified |
-| 356 | Canal 13-GUA-e1 [IP 45.171.64.30] | PENDIENTE | PENDIENTE: regional_feed_not_identified |
-| 357 | Canal 3 - GUA [IP 45.171.64.30] | PENDIENTE | PENDIENTE: regional_feed_not_identified |
-| 358 | Canal 7 - GUA [IP 45.171.64.30] | logos/catalogue/canal7-gt.png | PENDIENTE: regional_feed_not_identified |
-| 359 | Canal Antigua - GUA [IP 45.171.64.30] | logos/catalogue/canalantigua-gt.png | PENDIENTE: regional_feed_not_identified |
+| 356 | Canal 13-GUA-e1 [IP 45.171.64.30] | logos/catalogue/canal13-gt.png | gt/Canal13-Trecevision.gt (109.39 h) |
+| 357 | Canal 3 - GUA [IP 45.171.64.30] | logos/catalogue/canal3-gt.png | gt/Canal3.gt (110.14 h) |
+| 358 | Canal 7 - GUA [IP 45.171.64.30] | logos/catalogue/canal7-gt.png | gt/Canal7-Televisiete.gt (109.39 h) |
+| 359 | Canal Antigua - GUA [IP 45.171.64.30] | logos/catalogue/canalantigua-gt.png | gt/CanalAntigua.gt (109.39 h) |
 | 360 | Cartoon Network [IP 45.171.64.30] | logos/catalogue/cartoonnetworklatinamerica-us.png | PENDIENTE: regional_feed_not_identified |
 | 361 | Cine Latino [IP 45.171.64.30] | logos/catalogue/cinelatino-mx.png | PENDIENTE: regional_feed_not_identified |
 | 362 | CineCanal [IP 45.171.64.30] | logos/catalogue/cinecanal-us.png | PENDIENTE: regional_feed_not_identified |
@@ -167,7 +167,7 @@ Validación local cerrada el 2026-10-14; publicación remota y ejecución de los
 | 392 | France24 [IP 45.171.64.30] | logos/france24.svg | PENDIENTE: regional_feed_not_identified |
 | 393 | Golden [IP 45.171.64.30] | logos/catalogue/golden-mx.png | PENDIENTE: regional_feed_not_identified |
 | 394 | Golf Channel HD [IP 45.171.64.30] | logos/catalogue/golfchannellatinamerica-us.png | PENDIENTE: regional_feed_not_identified |
-| 395 | Guatevision - GUA [IP 45.171.64.30] | logos/catalogue/guatevision-gt.png | PENDIENTE: regional_feed_not_identified |
+| 395 | Guatevision - GUA [IP 45.171.64.30] | logos/catalogue/guatevision-gt.png | gt/Guatevision.gt (109.39 h) |
 | 396 | H2 [IP 45.171.64.30] | logos/catalogue/history2latinamerica-us.png | PENDIENTE: regional_feed_not_identified |
 | 397 | HBO XTREME [IP 45.171.64.30] | logos/catalogue/hboxtremelatinamerica-us.png | PENDIENTE: regional_feed_not_identified |
 | 398 | History Channel [IP 45.171.64.30] | logos/catalogue/history-channel-lam.png | PENDIENTE: regional_feed_not_identified |
@@ -264,14 +264,14 @@ Validación local cerrada el 2026-10-14; publicación remota y ejecución de los
 
 ## Validación local (2026-10-14)
 
-- 354 pruebas Python, 19 omitidas previstas; 55 pruebas JavaScript.
+- 355 pruebas Python, 19 omitidas previstas por `M3U_RUNNER_TESTS=1`; 55 pruebas JavaScript.
 - `update_m3u.py --validate-public-lists-only`: partición válida de Lista 1 292, Lista 2 0 y catálogo canónico 2.056.
-- Bundle temporal del editor: 629 filas y 485 logos. Los 104 archivos nuevos mantienen los SHA-256 del contrato.
+- Bundle temporal del editor: 629 filas y 487 logos. Los 106 archivos registrados para esta oficialización mantienen los SHA-256 del contrato.
 - Comparación editorial contra `4efa5286`: exactamente las 247 marcas de prueba se retiraron; los demás campos, orden, nombres, identidad, altas/bajas, respaldos y selección se conservaron.
-- Smoke JVM usando el parser y catálogo del tag publicado VibeM3U `v0.5.95` (incluida la clase `DynamicSourceReference` de `e395b9d`): las 247 identidades, nombres y URLs entran una sola vez, 232 llevan logo; la proyección queda en 303 canales visibles y conserva números, respaldos y proveedores. No se compiló una APK ni se probó en TV física.
-- La compilación local de las 51 fuentes EPG asignadas produjo 4.017 programas reales para los IDs mapeados, con horizonte continuo de 12 horas y sin títulos `Live` inventados. Los otros 196 canales siguen pendientes de fuente/región fiable.
+- Smoke JVM de la primera publicación usando el parser y catálogo del tag publicado VibeM3U `v0.5.95` (incluida la clase `DynamicSourceReference` de `e395b9d`): las 247 identidades, nombres y URLs entran una sola vez y la proyección queda en 303 canales visibles. Ese smoke precede a los dos PNG de Guatemala; no se compiló una APK ni se repitió el smoke de app para esos assets, tampoco se probó en TV física.
+- Las 51 fuentes EPG de la primera validación produjeron 4.017 programas reales. Con la fuente Guatemala, un build local aislado del runner sobre los cinco IDs exactos produjo 537 programas, sin canales pendientes ni títulos/descripciones `Live` de relleno. El test confirma que esos IDs activan solo el feed `gt`. El build consolidado de los 56 mapas todavía debe confirmarse en el workflow; 191 canales siguen pendientes de identidad regional/fuente fiable, y no se publican títulos `Live` inventados.
 - No se modificaron la aplicación ni la selección de resolutores. La rama se actualizó desde `aec3847` para incorporar cinco commits automáticos del runner antes de la publicación.
 
 ## Publicación
 
-Commit, push y resultados remotos pendientes. La verificación final deberá comprobar los 247 estados definitivos, los 232 logos, los 51 mapas EPG y los 196 casos pendientes después de que terminen los workflows.
+Commit, push y resultados remotos pendientes. La verificación final deberá comprobar los 247 estados definitivos, los 234 logos, los 56 mapas EPG y los 191 casos pendientes después de que terminen los workflows.

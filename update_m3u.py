@@ -690,8 +690,9 @@ NHK_OFFICIAL_EPG_SOURCE = "nhk-world-oficial"
 FRANCE24_ES_1080_URL = (
     "https://live.france24.com/hls/live/2037220/F24_ES_HI_HLS/master_5000.m3u8"
 )
-# EPGShare es un agregador de respaldo. Las fuentes oficiales especificas se
-# incorporan en refresh_epg y tienen prioridad cuando publican una parrilla.
+# EPGShare es un agregador de respaldo. Se usa el feed FreeEPG de Guatemala
+# solo para las cinco identidades GUA confirmadas. Las fuentes oficiales
+# especificas se incorporan en refresh_epg y tienen prioridad.
 EPG_SOURCES = {
     "cl": "https://epgshare01.online/epgshare01/epg_ripper_CL1.xml.gz",
     "es": "https://epgshare01.online/epgshare01/epg_ripper_ES1.xml.gz",
@@ -705,6 +706,8 @@ EPG_SOURCES = {
     "co1": "https://epgshare01.online/epgshare01/epg_ripper_CO1.xml.gz",
     # ESPN 4 del feed Norte (México/Centroamérica): coincide con el 69 (cuadros 2026-10-06).
     "pa1": "https://epgshare01.online/epgshare01/epg_ripper_PA1.xml.gz",
+    # FreeEPG Guatemala: solo se mapean identidades con sufijo GUA confirmado.
+    "gt": "https://free-epg.de/api/epg/gt.xml.gz",
     "pt1": "https://epgshare01.online/epgshare01/epg_ripper_PT1.xml.gz",
     "nz1": "https://epgshare01.online/epgshare01/epg_ripper_NZ1.xml.gz",
     "us2": "https://epgshare01.online/epgshare01/epg_ripper_US2.xml.gz",
@@ -6979,7 +6982,7 @@ def build_epg(
         {
             "generator-info-name": "lista-m3u updater",
             "source-info-name": (
-                "EPGShare01, Zapping, TecnoCentro, fuentes oficiales y relay GitHub"
+                "EPGShare01, FreeEPG, Zapping, TecnoCentro, fuentes oficiales y relay GitHub"
             ),
             "data-generated-at": now.astimezone(timezone.utc).isoformat(),
         },

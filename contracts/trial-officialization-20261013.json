@@ -9,10 +9,10 @@
   "counts": {
     "promoted": 247,
     "nautaApproved": 38,
-    "logos": 232,
-    "logoPending": 15,
-    "epgMatched": 51,
-    "epgPending": 196
+    "logos": 234,
+    "logoPending": 13,
+    "epgMatched": 56,
+    "epgPending": 191
   },
   "assets": [
     {
@@ -934,6 +934,24 @@
       "sha256": "522e55538f0894de1f7ebbec75304db602ab4af9c8ae45d1d708bbbf72079351",
       "bytes": 5434,
       "source": "tv-logo/tv-logos; exact curated network/file from repository tree, unchanged PNG"
+    },
+    {
+      "path": "logos/catalogue/canal13-gt.png",
+      "channel": "Canal13-Trecevision.gt",
+      "url": "https://free-epg.de/api/epg/gt.xml.gz",
+      "sha256": "ec7bceb067af50591f457160aa0228c960b37e3722de1fbdbb9e0681cf4f18a1",
+      "bytes": 21669,
+      "inUse": true,
+      "feed": "FreeEPG Guatemala XMLTV channel icon"
+    },
+    {
+      "path": "logos/catalogue/canal3-gt.png",
+      "channel": "Canal3.gt",
+      "url": "https://free-epg.de/api/epg/gt.xml.gz",
+      "sha256": "19625c7ecb7d0e7a2cd27e5ffbcfbc626fb20b5de26185844dda49ba55505c29",
+      "bytes": 14548,
+      "inUse": true,
+      "feed": "FreeEPG Guatemala XMLTV channel icon"
     }
   ],
   "channels": [
@@ -2933,14 +2951,16 @@
       "name": "Canal 13-GUA-e1 [IP 45.171.64.30]",
       "previousTrial": true,
       "trial": false,
-      "logoPath": "",
+      "logoPath": "logos/catalogue/canal13-gt.png",
       "epg": {
         "number": 356,
         "tvgId": "PublicDirect.7a597c8a2d6c1e6c97015c28",
         "name": "Canal 13-GUA-e1 [IP 45.171.64.30]",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 0
+        "source": "gt",
+        "source_id": "Canal13-Trecevision.gt",
+        "evidence": "explicit_GUA_name_and_exact_FreeEPG_Guatemala_channel; 109.39h continuous in current feed",
+        "coverageHours": 109.39,
+        "status": "matched"
       }
     },
     {
@@ -2949,14 +2969,16 @@
       "name": "Canal 3 - GUA [IP 45.171.64.30]",
       "previousTrial": true,
       "trial": false,
-      "logoPath": "",
+      "logoPath": "logos/catalogue/canal3-gt.png",
       "epg": {
         "number": 357,
         "tvgId": "PublicDirect.43557d465d973d608c6bb19a",
         "name": "Canal 3 - GUA [IP 45.171.64.30]",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 0
+        "source": "gt",
+        "source_id": "Canal3.gt",
+        "evidence": "explicit_GUA_name_and_exact_FreeEPG_Guatemala_channel; 110.14h continuous in current feed",
+        "coverageHours": 110.14,
+        "status": "matched"
       }
     },
     {
@@ -2970,9 +2992,11 @@
         "number": 358,
         "tvgId": "PublicDirect.563319274daa44463f7c9f6c",
         "name": "Canal 7 - GUA [IP 45.171.64.30]",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 0
+        "source": "gt",
+        "source_id": "Canal7-Televisiete.gt",
+        "evidence": "explicit_GUA_name_and_exact_FreeEPG_Guatemala_channel; 109.39h continuous in current feed",
+        "coverageHours": 109.39,
+        "status": "matched"
       }
     },
     {
@@ -2986,9 +3010,11 @@
         "number": 359,
         "tvgId": "PublicDirect.eb3b17bc3573e55b2c56cf95",
         "name": "Canal Antigua - GUA [IP 45.171.64.30]",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 0
+        "source": "gt",
+        "source_id": "CanalAntigua.gt",
+        "evidence": "explicit_GUA_name_and_exact_FreeEPG_Guatemala_channel; 109.39h continuous in current feed",
+        "coverageHours": 109.39,
+        "status": "matched"
       }
     },
     {
@@ -3566,9 +3592,11 @@
         "number": 395,
         "tvgId": "PublicDirect.407a6cdf00bb64c25fb341f4",
         "name": "Guatevision - GUA [IP 45.171.64.30]",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 0
+        "source": "gt",
+        "source_id": "Guatevision.gt",
+        "evidence": "explicit_GUA_name_and_exact_FreeEPG_Guatemala_channel; 109.39h continuous in current feed",
+        "coverageHours": 109.39,
+        "status": "matched"
       }
     },
     {
@@ -5071,7 +5099,7 @@
   "validation": {
     "status": "local_ok_remote_pending",
     "atLocalDate": "2026-10-14",
-    "pythonTestsPassed": 354,
+    "pythonTestsPassed": 355,
     "pythonTestsSkipped": 19,
     "javascriptTestsPassed": 55,
     "publicListValidation": {
@@ -5081,14 +5109,22 @@
     },
     "editorBundle": {
       "channels": 629,
-      "logos": 485
+      "logos": 487
     },
     "epgBuild": {
-      "mappedChannels": 51,
-      "programmes": 4017,
+      "mappedChannels": 56,
+      "programmes": null,
       "continuousHours": 12,
-      "unmappedPending": 196,
+      "unmappedPending": 191,
       "inventedLive": 0
+    },
+    "guatemalaSubsetBuild": {
+      "source": "gt",
+      "channels": 5,
+      "programmes": 537,
+      "pendingChannels": 0,
+      "fillerLiveTitlesOrDescriptions": 0,
+      "scope": "five explicit GUA tvg-ids only; runner build from the current FreeEPG XMLTV snapshot"
     },
     "appJvmSmoke": {
       "sourceTag": "v0.5.95",

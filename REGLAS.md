@@ -2,7 +2,7 @@
 
 Documento único y corto con las reglas que rigen hoy. El detalle vive en los documentos
 enlazados; si algo de aquí contradice un documento antiguo, manda este. Última revisión:
-2026-10-12. El estado de hoy y la bitácora están en `ESTADO.md` de cada repositorio.
+2026-10-14. El estado de hoy y la bitácora están en `ESTADO.md` de cada repositorio.
 
 ## 1. Repositorios y límites
 
@@ -92,10 +92,16 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
   Zapping solo entrega su `nowplaying` (~3 h): la guía completa responde 403.
 - No asignar EPG por posición, nombre parecido, bitrate ni URL; ante duda, pendiente.
 - La app lee la sinopsis (`<desc>`, máximo 600 caracteres) para el Detalle y la Guía.
-- Cada fuente vive en su archivo `epg_sources/<fuente>.py`; las oficiales se declaran en
-  `OFFICIAL_EPG_SOURCES` (`update_m3u.py`) con los canales que cubren. Una fuente que falla
-  (o revienta) solo afecta a sus canales, que caen a su respaldo. Solo un fallo de EPGShare
-  conserva la guía anterior completa. Fuente nueva = archivo nuevo + fila en la tabla + test.
+- Las fuentes con adaptador propio viven en `epg_sources/<fuente>.py`; las oficiales se
+  declaran en `OFFICIAL_EPG_SOURCES` (`update_m3u.py`) con los canales que cubren. Los feeds
+  gzip XMLTV usan la lista común `EPG_SOURCES`. Una fuente que falla (o revienta) solo afecta
+  a sus canales, que caen a su respaldo. Solo un fallo del bloque de feeds XMLTV conserva la
+  guía anterior completa. Fuente nueva = adaptador o entrada XMLTV + fila de identidad + test.
+- FreeEPG Guatemala se incorpora como XMLTV gzip de respaldo (`EPG_SOURCES["gt"]`) solo para
+  los cinco IDs exactos documentados en `epg-overrides.json` con identidad GUA explícita
+  (posiciones 356–359 y 395). El feed advierte que no garantiza completitud; no extender a
+  más canales por IP, nombre parecido ni país supuesto. Se valida la cobertura actual antes
+  de asignar y, si deja de cubrir 12 h, no publicar `Live` como sustituto.
 
 ## 5. Logos
 
