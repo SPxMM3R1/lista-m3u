@@ -4,7 +4,7 @@
   "baseHead": "4efa5286f661204bc90c98d14e5a94c4ae3d624b",
   "authorization": "Usuario: «puedes pasar todos los canales ... a definitivo y darles logo y EPG»; aclaración: «Todas las pruebas» = todos los activos en prueba de Lista 1, no ocultos/papelera ni todo el inventario.",
   "scope": "247 promociones editoriales. No se agregan canales ni se cambian nombres, identidad, números, orden, origen, estado activo, selección o respaldos. 38 Nauta añadidos a la excepción cerrada por referencia exacta; futuras altas Nauta siguen en prueba.",
-  "epgLimits": "Matched means exact curated national/regional source with continuous 12h at validation; Total Conexion region is supported by prior SDT/operator evidence. Not proof of synchrony of every programme in physical TV. Unknown regional feeds remain pending. 196 guías pendientes: no se asigna otra región por similitud ni se publica continuidad Live. El estado definitivo es editorial, no una afirmación de disponibilidad/guía completa.",
+  "epgLimits": "Matched means exact curated national/regional source with continuous 12h at validation; Total Conexion region is supported by prior SDT/operator evidence. Not proof of synchrony of every programme in physical TV. Unknown regional feeds remain pending. 191 guías pendientes: no se asigna otra región por similitud ni se publica continuidad Live. El estado definitivo es editorial, no una afirmación de disponibilidad/guía completa.",
   "counterpart": "Sin cambios de VibeM3U ni APK; mismo contrato de layout/M3U/logos/XMLTV.",
   "counts": {
     "promoted": 247,
@@ -5097,7 +5097,7 @@
     }
   ],
   "validation": {
-    "status": "remote_partial_verified_checkout_fix_pending",
+    "status": "remote_partial_verified",
     "atLocalDate": "2026-10-14",
     "pythonTestsPassed": 356,
     "pythonTestsSkipped": 19,
@@ -5113,11 +5113,12 @@
     },
     "epgBuild": {
       "mappedChannels": 56,
-      "programmes": 4495,
+      "programmes": 4492,
       "continuousHours": 12,
       "unmappedPending": 191,
       "inventedLive": 0,
-      "minimumPublishedFutureHours": 37.01
+      "minimumPublishedFutureHours": 36.94,
+      "publishedXmlProgrammesTotal": 9697
     },
     "guatemalaSubsetBuild": {
       "source": "gt",
@@ -5127,11 +5128,17 @@
       "fillerLiveTitlesOrDescriptions": 0,
       "publishedProgrammes": 535,
       "publishedFutureHours": {
-        "min": 108.89,
-        "max": 109.64
+        "min": 108.74,
+        "max": 109.49
       },
-      "publishedRawVerifiedByRun": 38553994846,
+      "publishedRawVerifiedByRun": 38555183783,
       "scope": "five explicit GUA tvg-ids only; runner build from the current FreeEPG XMLTV snapshot"
+    },
+    "epgWorkflowCheckout": {
+      "allJobsUseMain": true,
+      "staticRegressionTestPassed": true,
+      "manualRun": 38555183783,
+      "workflowRunEventRetested": false
     },
     "appJvmSmoke": {
       "sourceTag": "v0.5.95",
@@ -5146,8 +5153,8 @@
   },
   "publication": {
     "status": "partial_published_remaining_channels_pending",
-    "commit": "39c756ea49f56de49254c8da3c264600040eaeec (GT EPG/logo mappings); e1238504b6568ed9caa6e388d96bb0726b3c7570 (layout approval correction)",
-    "remoteSha": "02696d5c57122963a04d829ab79292b2f59fb698",
+    "commit": "39c756ea49f56de49254c8da3c264600040eaeec (GT EPG/logo mappings); e1238504b6568ed9caa6e388d96bb0726b3c7570 (layout approval correction); 27e35e18092446168ec18074d2d50fb7eb1b2223 (EPG checkout race fix)",
+    "remoteSha": "8189e533efaa4223296cd1548a34eb69ff6fb716",
     "workflows": [
       {
         "name": "Publicar cambios dirigidos",
@@ -5165,7 +5172,25 @@
         "name": "Actualizar EPG duplicada tras workflow_run",
         "runId": 38554055881,
         "status": "failure",
-        "reason": "Checkout desde SHA antiguo 7752d653 y conflicto al publicar sobre 02696d5; checkout ref=main añadido en local, pendiente Actions remoto"
+        "reason": "Checkout desde SHA antiguo 7752d653 y conflicto al publicar sobre 02696d5; corregido por 27e35e1"
+      },
+      {
+        "name": "Actualizar EPG sin fuentes vencidas tras el fix de checkout",
+        "runId": 38555183783,
+        "status": "success",
+        "publishedCommit": "8189e533efaa4223296cd1548a34eb69ff6fb716",
+        "rawVerified": true,
+        "sourcesDownloaded": false
+      },
+      {
+        "name": "Publicar cambios dirigidos",
+        "runId": 38555121021,
+        "status": "success"
+      },
+      {
+        "name": "Publicar editor del catálogo",
+        "runId": 38555121054,
+        "status": "success"
       }
     ]
   }
