@@ -4926,5 +4926,49 @@
     "sourceTag": "v0.5.95",
     "sourceCommit": "e395b9d18857fe19e77e2c7a429051bd2a896f1b",
     "limits": "Prueba de parser/proyección pura Java con dependencias existentes. Sin build Android ni prueba física de TV; muestras de emisión no garantizan estabilidad prolongada."
+  },
+  "publication": {
+    "implementationCommit": "9053ff89169903a10758da17f8df91adf70e28d3",
+    "runnerOutputCommit": "c0fed20ba411618277ea7304e06793ce8148f707",
+    "workflows": {
+      "channels": {
+        "runId": 38494918876,
+        "conclusion": "success",
+        "url": "https://github.com/SPxMM3R1/lista-m3u/actions/runs/38494918876"
+      },
+      "editor": {
+        "runId": 38494918827,
+        "conclusion": "success",
+        "url": "https://github.com/SPxMM3R1/lista-m3u/actions/runs/38494918827"
+      },
+      "targeted": {
+        "runId": 38494918861,
+        "conclusion": "success",
+        "url": "https://github.com/SPxMM3R1/lista-m3u/actions/runs/38494918861"
+      },
+      "highfly": {
+        "runId": 38494918782,
+        "conclusion": "success",
+        "url": "https://github.com/SPxMM3R1/lista-m3u/actions/runs/38494918782"
+      },
+      "epg": {
+        "runId": 38495072716,
+        "conclusion": "success",
+        "url": "https://github.com/SPxMM3R1/lista-m3u/actions/runs/38495072716"
+      }
+    },
+    "rawFiles": [
+      "1.m3u",
+      "data/channel-editor-layout.json",
+      "presentation-overrides.json",
+      "contracts/public-direct-discovery-20261013.json"
+    ],
+    "pagesVerified": {
+      "addedRows": 179,
+      "totalLayoutRows": 629,
+      "firstNumber": 310,
+      "lastNumber": 488
+    },
+    "scope": "179 nuevas señales en prueba sin EPG, no cambia la app ni APK; muestras no garantizan estabilidad prolongada"
   }
 }
