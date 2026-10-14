@@ -1,8 +1,9 @@
 {
   "schema": 1,
-  "updated_at": "2026-10-14T10:56:56.012480Z",
+  "updated_at": "2026-10-14T11:05:59.091563Z",
   "channels": [
     "1437",
+    "13Cultura.cl@DPS",
     "DWEnglish.de",
     "Nauta.7b8890eac450f9cc89b06b84@Nauta",
     "RedBullWorldEnglish.int",
@@ -74,10 +75,6 @@
     "PublicDirect.9840c70e010eb35fb900c6b4",
     "PublicDirect.77c5a323d8aaed78570df3bd",
     "PublicDirect.5417589c8c430cab0ba0df74",
-    "PublicDirect.7a597c8a2d6c1e6c97015c28",
-    "PublicDirect.43557d465d973d608c6bb19a",
-    "PublicDirect.563319274daa44463f7c9f6c",
-    "PublicDirect.eb3b17bc3573e55b2c56cf95",
     "PublicDirect.1351317d6c3f201ad2b4c44f",
     "PublicDirect.1657bd8e8c7410b0a128ea30",
     "PublicDirect.9f74e4c4a28acde00c25d4a7",
@@ -111,7 +108,6 @@
     "PublicDirect.796c17a762ce69be57ec714d",
     "PublicDirect.2986363464e32a02d69a65dd",
     "PublicDirect.44f9d286f6768740b06eaad9",
-    "PublicDirect.407a6cdf00bb64c25fb341f4",
     "PublicDirect.0ef1ce174fa5aaee3811b04f",
     "PublicDirect.8db5a974dc4b6ed483cf2bf9",
     "PublicDirect.c1ed48f37448ded5dca7e8bd",
@@ -203,15 +199,26 @@
     "PublicDirect.0e207487c6a9b2b103dbeef6"
   ],
   "details": {
+    "13Cultura.cl@DPS": {
+      "kind": "hueco",
+      "futureHours": 40.4,
+      "requiredHours": 18.0,
+      "gaps": [
+        [
+          "2026-10-15T05:02:00Z",
+          "2026-10-15T05:05:55Z"
+        ]
+      ]
+    },
     "1437": {
       "kind": "guia-corta",
-      "futureHours": 16.1,
+      "futureHours": 15.9,
       "requiredHours": 18.0,
       "gaps": []
     },
     "DWEnglish.de": {
       "kind": "hueco",
-      "futureHours": 61.1,
+      "futureHours": 60.9,
       "requiredHours": 18.0,
       "gaps": [
         [
@@ -718,18 +725,6 @@
       "requiredHours": 18.0,
       "gaps": []
     },
-    "PublicDirect.407a6cdf00bb64c25fb341f4": {
-      "kind": "sin-guia",
-      "futureHours": 0.0,
-      "requiredHours": 18.0,
-      "gaps": []
-    },
-    "PublicDirect.43557d465d973d608c6bb19a": {
-      "kind": "sin-guia",
-      "futureHours": 0.0,
-      "requiredHours": 18.0,
-      "gaps": []
-    },
     "PublicDirect.44f9d286f6768740b06eaad9": {
       "kind": "sin-guia",
       "futureHours": 0.0,
@@ -791,12 +786,6 @@
       "gaps": []
     },
     "PublicDirect.5551093bff52d29b38509588": {
-      "kind": "sin-guia",
-      "futureHours": 0.0,
-      "requiredHours": 18.0,
-      "gaps": []
-    },
-    "PublicDirect.563319274daa44463f7c9f6c": {
       "kind": "sin-guia",
       "futureHours": 0.0,
       "requiredHours": 18.0,
@@ -935,12 +924,6 @@
       "gaps": []
     },
     "PublicDirect.796c17a762ce69be57ec714d": {
-      "kind": "sin-guia",
-      "futureHours": 0.0,
-      "requiredHours": 18.0,
-      "gaps": []
-    },
-    "PublicDirect.7a597c8a2d6c1e6c97015c28": {
       "kind": "sin-guia",
       "futureHours": 0.0,
       "requiredHours": 18.0,
@@ -1324,12 +1307,6 @@
       "requiredHours": 18.0,
       "gaps": []
     },
-    "PublicDirect.eb3b17bc3573e55b2c56cf95": {
-      "kind": "sin-guia",
-      "futureHours": 0.0,
-      "requiredHours": 18.0,
-      "gaps": []
-    },
     "PublicDirect.ed69a6b5e1637d6e1cb760c0": {
       "kind": "sin-guia",
       "futureHours": 0.0,
@@ -1398,7 +1375,7 @@
     },
     "RedBullWorldEnglish.int": {
       "kind": "guia-corta",
-      "futureHours": 15.8,
+      "futureHours": 15.7,
       "requiredHours": 18.0,
       "gaps": []
     }
