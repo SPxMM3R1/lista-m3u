@@ -5097,9 +5097,9 @@
     }
   ],
   "validation": {
-    "status": "local_ok_remote_pending",
+    "status": "remote_partial_verified_checkout_fix_pending",
     "atLocalDate": "2026-10-14",
-    "pythonTestsPassed": 355,
+    "pythonTestsPassed": 356,
     "pythonTestsSkipped": 19,
     "javascriptTestsPassed": 55,
     "publicListValidation": {
@@ -5113,10 +5113,11 @@
     },
     "epgBuild": {
       "mappedChannels": 56,
-      "programmes": null,
+      "programmes": 4495,
       "continuousHours": 12,
       "unmappedPending": 191,
-      "inventedLive": 0
+      "inventedLive": 0,
+      "minimumPublishedFutureHours": 37.01
     },
     "guatemalaSubsetBuild": {
       "source": "gt",
@@ -5124,6 +5125,12 @@
       "programmes": 537,
       "pendingChannels": 0,
       "fillerLiveTitlesOrDescriptions": 0,
+      "publishedProgrammes": 535,
+      "publishedFutureHours": {
+        "min": 108.89,
+        "max": 109.64
+      },
+      "publishedRawVerifiedByRun": 38553994846,
       "scope": "five explicit GUA tvg-ids only; runner build from the current FreeEPG XMLTV snapshot"
     },
     "appJvmSmoke": {
@@ -5138,9 +5145,28 @@
     "runnerBase": "aec3847"
   },
   "publication": {
-    "status": "pending",
-    "commit": null,
-    "remoteSha": null,
-    "workflows": []
+    "status": "partial_published_remaining_channels_pending",
+    "commit": "39c756ea49f56de49254c8da3c264600040eaeec (GT EPG/logo mappings); e1238504b6568ed9caa6e388d96bb0726b3c7570 (layout approval correction)",
+    "remoteSha": "02696d5c57122963a04d829ab79292b2f59fb698",
+    "workflows": [
+      {
+        "name": "Publicar cambios dirigidos",
+        "runId": 38553811967,
+        "status": "success"
+      },
+      {
+        "name": "Actualizar EPG",
+        "runId": 38553994846,
+        "status": "success",
+        "publishedCommit": "02696d5c57122963a04d829ab79292b2f59fb698",
+        "rawVerified": true
+      },
+      {
+        "name": "Actualizar EPG duplicada tras workflow_run",
+        "runId": 38554055881,
+        "status": "failure",
+        "reason": "Checkout desde SHA antiguo 7752d653 y conflicto al publicar sobre 02696d5; checkout ref=main añadido en local, pendiente Actions remoto"
+      }
+    ]
   }
 }

@@ -17,6 +17,8 @@ on:
         type: string
   workflow_run:
     # Si cambia Lista 1, los canales nuevos piden sus fuentes y la unión respeta el alcance.
+    # workflow_run trae el SHA del runner que terminó; los jobs deben leer main actual,
+    # no ese snapshot potencialmente obsoleto, para evitar colisiones al publicar EPG.
     workflows:
       - Actualizar canales M3U
     types:
@@ -45,6 +47,8 @@ jobs:
       any: ${{ steps.plan.outputs.any }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -75,6 +79,8 @@ jobs:
       PYTHONTZPATH: ""
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -99,6 +105,8 @@ jobs:
       PYTHONTZPATH: ""
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
