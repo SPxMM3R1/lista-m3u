@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "atUtc": "2026-10-14T18:11:32.975Z",
+  "atUtc": "2026-10-14T18:18:10.932Z",
   "baseHead": "4efa5286f661204bc90c98d14e5a94c4ae3d624b",
   "authorization": "Usuario: «puedes pasar todos los canales ... a definitivo y darles logo y EPG»; aclaración: «Todas las pruebas» = todos los activos en prueba de Lista 1, no ocultos/papelera ni todo el inventario.",
   "scope": "247 promociones editoriales. No se agregan canales ni se cambian nombres, identidad, números, orden, origen, estado activo, selección o respaldos. 38 Nauta añadidos a la excepción cerrada por referencia exacta; futuras altas Nauta siguen en prueba.",
-  "epgLimits": "Matched means exact curated national/regional source with continuous 12h at validation; Total Conexion region is supported by prior SDT/operator evidence. Not proof of synchrony of every programme in physical TV. Five additional emulator-confirmed mappings are recorded locally (2026-10-14); CO1/CL1 duplicate the same Star Channel schedule and CO1/PA1 duplicate the same Sony schedule, so these assignments identify a matching guide, not the physical region of those streams. 185 guides remain pending; no region is assigned by similarity and no Live continuity is fabricated. Current local mappings are not published until the EPG workflow succeeds. Definitive is an editorial state, not a claim of guide completeness.",
+  "epgLimits": "Matched means exact curated national/regional source with continuous 12h at validation; Total Conexion region is supported by prior SDT/operator evidence. Not proof of synchrony of every programme in physical TV. Five emulator-confirmed mappings were published in EPG output 09e19e6 (2026-10-14); CO1/CL1 duplicate the same Star Channel schedule and CO1/PA1 duplicate the same Sony schedule, so these assignments identify a matching guide, not the physical region of those streams. Raw fragments and epg.xml were independently verified and all five IDs are absent from epg-pending.json. 185 guides remain pending; no region is assigned by similarity and no Live continuity is fabricated. Definitive is an editorial state, not a claim of guide completeness.",
   "counterpart": "Sin cambios de VibeM3U ni APK; mismo contrato de layout/M3U/logos/XMLTV.",
   "counts": {
     "promoted": 247,
@@ -5165,8 +5165,8 @@
   },
   "publication": {
     "status": "partial_published_remaining_channels_pending",
-    "commit": "39c756ea49f56de49254c8da3c264600040eaeec (GT EPG/logo mappings); e1238504b6568ed9caa6e388d96bb0726b3c7570 (layout approval correction); 27e35e18092446168ec18074d2d50fb7eb1b2223 (EPG checkout race fix)",
-    "remoteSha": "8189e533efaa4223296cd1548a34eb69ff6fb716",
+    "commit": "39c756ea49f56de49254c8da3c264600040eaeec (GT EPG/logo mappings); e1238504b6568ed9caa6e388d96bb0726b3c7570 (layout approval correction); 27e35e18092446168ec18074d2d50fb7eb1b2223 (EPG checkout race fix); 4bf7ef940b7a253a0ee84c1e3a1d944fe03b9c0d (five emulator-confirmed guide maps)",
+    "remoteSha": "09e19e6d46b3352d066aaa27251ea6320ae37d45",
     "workflows": [
       {
         "name": "Publicar cambios dirigidos",
@@ -5203,6 +5203,20 @@
         "name": "Publicar editor del catálogo",
         "runId": 38555121054,
         "status": "success"
+      },
+      {
+        "name": "Actualizar EPG tras cinco mapas visuales",
+        "runId": 38613423120,
+        "status": "success",
+        "publishedCommit": "09e19e6d46b3352d066aaa27251ea6320ae37d45",
+        "rawVerified": true,
+        "guides": {
+          "Nauta.080d3c6ad99b6cbcad144a59@Nauta": {"programmes": 73, "continuousHoursAtVerification": 53.88, "pending": false},
+          "Nauta.547c2a892ba50d5ca20e2851@Nauta": {"programmes": 36, "continuousHoursAtVerification": 61.67, "pending": false},
+          "Nauta.7437112a4b992980a550d16a@Nauta": {"programmes": 61, "continuousHoursAtVerification": 62.72, "pending": false},
+          "Nauta.a87610ac946968a5f280ec57@Nauta": {"programmes": 38, "continuousHoursAtVerification": 55.62, "pending": false},
+          "PublicDirect.749260224cb34a60ab4d8755": {"programmes": 66, "continuousHoursAtVerification": 54.88, "pending": false}
+        }
       }
     ]
   }
