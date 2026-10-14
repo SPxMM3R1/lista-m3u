@@ -3752,13 +3752,52 @@ def resolver_attributes_for(channel: Channel) -> dict[str, str]:
     return {}
 
 
-# Nauta stays trial-only by default. These exact, editorially verified references
-# are the complete allowlist that may be promoted; it must match editor-core.mjs.
+# Nauta defaults to trial. Only these exact editorially approved references may
+# leave trial (2026-10-13: all 38 existing trials explicitly selected by the user).
+# Approval of status/identity does not invent or certify a regional programme feed.
 VERIFIED_NAUTA_OFFICIAL_REFERENCES = {
     "Nauta.52bb87a2e2911ed34f7ae3bc@Nauta": ("nautatv_catalog", "ESPN 7 HD"),
     "Nauta.4dec2794ee77cb450b79aa5b@Nauta": ("nautatv_catalog", "ESPN 1 | Argentina"),
     "Nauta.267720adcfe18e0c87fca46c@Nauta": ("nautatv_catalog", "ESPN 1 | Mexico"),
     "Nauta.d6c4cf31e1a88709b605ac8f@Nauta": ("cat_7", "MTV Live"),
+    "Nauta.7b8890eac450f9cc89b06b84@Nauta": ("cat_32", "Fox Sports 2 | HD"),
+    "Nauta.dac26a78f5bdf111bc9b9ffc@Nauta": ("nautatv_catalog", "ESPN 1 | Sur"),
+    "Nauta.81dc69c20557da0672921475@Nauta": ("nautatv_catalog", "ESPN 1 | Chile"),
+    "Nauta.4b4253b78f7157b8904ec72c@Nauta": ("nautatv_catalog", "ESPN HD | Colombia"),
+    "Nauta.53db56d7f89e01787fcc2212@Nauta": ("nautatv_catalog", "ESPN Plus HD"),
+    "Nauta.62dfd1657568e0d60c81317a@Nauta": ("cat_4", "DSports"),
+    "Nauta.2e4fdeff5f4d1b547b864b23@Nauta": ("cat_4", "DSports HD"),
+    "Nauta.ce1580586a531d205ccfc107@Nauta": ("cat_4", "Fox Sports Sur"),
+    "Nauta.1dac8e0993a937726c21cc09@Nauta": ("cat_4", "DSports 2 HD"),
+    "Nauta.45ff33783b4d83062083ddb7@Nauta": ("cat_4", "DSports 2"),
+    "Nauta.05e59597043a9182d2a7fc0b@Nauta": ("nautatv_catalog", "HBO"),
+    "Nauta.4b191940bee2bd4c855de777@Nauta": ("nautatv_catalog", "HBO 2"),
+    "Nauta.5e0764312e17cd8dbca87fbe@Nauta": ("nautatv_catalog", "HBO 2 HD"),
+    "Nauta.4cc2aa2f00babf217d641fd6@Nauta": ("nautatv_catalog", "HBO Family"),
+    "Nauta.2c79f52754dcec190b01cd93@Nauta": ("nautatv_catalog", "HBO Family HD"),
+    "Nauta.69a2d4671c91e6eb2081468e@Nauta": ("nautatv_catalog", "HBO HD"),
+    "Nauta.2543531f37454701c960421c@Nauta": ("cat_3", "HBO Mundi"),
+    "Nauta.8c5a91e0b8d25e158a9afa6f@Nauta": ("nautatv_catalog", "HBO Plus"),
+    "Nauta.b5a185bf8235a26035237746@Nauta": ("nautatv_catalog", "HBO Plus HD"),
+    "Nauta.b0e158ffa085b177eadaaca6@Nauta": ("cat_32", "HBO Plus Oeste HD"),
+    "Nauta.14fae38bc645c4c8b6315d89@Nauta": ("nautatv_catalog", "HBO Pop"),
+    "Nauta.5108e1f90fd559d0c4387658@Nauta": ("nautatv_catalog", "HBO Xtreme"),
+    "Nauta.19ade992e1408ad4cbf1d4d8@Nauta": ("nautatv_catalog", "HBO Xtreme HD"),
+    "Nauta.080d3c6ad99b6cbcad144a59@Nauta": ("nautatv_catalog", "AXN HD"),
+    "Nauta.547c2a892ba50d5ca20e2851@Nauta": ("cat_32", "Cinemax HD"),
+    "Nauta.5f7d8d7874eeaacd4c3233ad@Nauta": ("nautatv_catalog", "Discovery Channel HD"),
+    "Nauta.33b5775c2e5269c09297139c@Nauta": ("cat_5", "Discovery Theater HD"),
+    "Nauta.dc823421ba8a32dea334cd9c@Nauta": ("nautatv_catalog", "Discovery Turbo"),
+    "Nauta.0615fb29ef6cee14db5b3c78@Nauta": ("cat_32", "Discovery Turbo HD"),
+    "Nauta.9716fec189bb7b466e1bd9af@Nauta": ("nautatv_catalog", "Discovery World"),
+    "Nauta.7437112a4b992980a550d16a@Nauta": ("cat_32", "ESPN HD"),
+    "Nauta.ed0ed0370e182f10a4e96f3d@Nauta": ("cat_32", "ESPN 3 HD"),
+    "Nauta.c89a873414ec166795c59f26@Nauta": ("cat_1", "ESPN 4 | Sur"),
+    "Nauta.57d13b9b10bcbdc51d4dab10@Nauta": ("cat_32", "Fox Sports HD"),
+    "Nauta.a87610ac946968a5f280ec57@Nauta": ("cat_32", "Star Channel HD"),
+    "Nauta.b9df5eea317035bd5bda31cf@Nauta": ("cat_32", "Studio Universal HD"),
+    "Nauta.bbe4eb27708b3113521f61fe@Nauta": ("cat_7", "Telehit"),
+    "Nauta.7d15e6854c48e815dea1edf7@Nauta": ("cat_32", "Telehit HD"),
 }
 
 

@@ -1,0 +1,5110 @@
+{
+  "schemaVersion": 1,
+  "atUtc": "2026-10-14T02:02:43.934Z",
+  "baseHead": "4efa5286f661204bc90c98d14e5a94c4ae3d624b",
+  "authorization": "Usuario: «puedes pasar todos los canales ... a definitivo y darles logo y EPG»; aclaración: «Todas las pruebas» = todos los activos en prueba de Lista 1, no ocultos/papelera ni todo el inventario.",
+  "scope": "247 promociones editoriales. No se agregan canales ni se cambian nombres, identidad, números, orden, origen, estado activo, selección o respaldos. 38 Nauta añadidos a la excepción cerrada por referencia exacta; futuras altas Nauta siguen en prueba.",
+  "epgLimits": "Matched means exact curated national/regional source with continuous 12h at validation; Total Conexion region is supported by prior SDT/operator evidence. Not proof of synchrony of every programme in physical TV. Unknown regional feeds remain pending. 196 guías pendientes: no se asigna otra región por similitud ni se publica continuidad Live. El estado definitivo es editorial, no una afirmación de disponibilidad/guía completa.",
+  "counterpart": "Sin cambios de VibeM3U ni APK; mismo contrato de layout/M3U/logos/XMLTV.",
+  "counts": {
+    "promoted": 247,
+    "nautaApproved": 38,
+    "logos": 232,
+    "logoPending": 15,
+    "epgMatched": 51,
+    "epgPending": 196
+  },
+  "assets": [
+    {
+      "path": "logos/catalogue/hbolatinamerica-us.png",
+      "channel": "HBOLatinAmerica.us",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/HBO_logo.svg/960px-HBO_logo.svg.png",
+      "sha256": "33ffa429b962ae872272cf580abf361dd68625654fc0317d17328e709f0e873c",
+      "bytes": 12810,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/hbo2latinamerica-us.png",
+      "channel": "HBO2LatinAmerica.us",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/HBO2_logo.svg/960px-HBO2_logo.svg.png",
+      "sha256": "ce01cee671720b3009e5a89be8b11178bf69e75c00c137c233029fc3971ac9b4",
+      "bytes": 21402,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/hbofamilylatinamerica-us.png",
+      "channel": "HBOFamilyLatinAmerica.us",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/HBO_Family.svg/960px-HBO_Family.svg.png",
+      "sha256": "51bcc4ca121254b1279e4b0a51c2c1fdfb34d8354de95d164ca65fdd21e02dc0",
+      "bytes": 29260,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/hbomundilatinamerica-us.png",
+      "channel": "HBOMundiLatinAmerica.us",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/HBO_Mundi.svg/960px-HBO_Mundi.svg.png",
+      "sha256": "973615502094b80eac180d30c212f327e31df097d702b65220bd318e1ff68876",
+      "bytes": 20771,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/hbopluslatinamerica-us.png",
+      "channel": "HBOPlusLatinAmerica.us",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Logohboplus2019.svg/960px-Logohboplus2019.svg.png",
+      "sha256": "530fac862c24a4b016e8b1406006fe4fece7c184fde0d55dff9a30e32f268bd5",
+      "bytes": 18013,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/hbopoplatinamerica-us.png",
+      "channel": "HBOPopLatinAmerica.us",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/HBO_Pop.svg/960px-HBO_Pop.svg.png",
+      "sha256": "d6528beac08081f5922202adca87845f67968840831fb1991e4a6128a0c5f3b1",
+      "bytes": 20351,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/hboxtremelatinamerica-us.png",
+      "channel": "HBOXtremeLatinAmerica.us",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/HBO_Xtreme.svg/960px-HBO_Xtreme.svg.png",
+      "sha256": "b22fb56297cae9f075ef6017c67cf4df0e5f8218aa010168a504e0d8f425ec77",
+      "bytes": 27040,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/axnlatinamerica-us.png",
+      "channel": "AXNLatinAmerica.us",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/AXN_logo_%282015%29.svg/960px-AXN_logo_%282015%29.svg.png",
+      "sha256": "347e66792471b4b27549d3a1d90ed0586a1dd92751954df06bb5a5c6404e4839",
+      "bytes": 5597,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/cinemaxlatinamerica-us.png",
+      "channel": "CinemaxLatinAmerica.us",
+      "url": "https://i.imgur.com/cZWoJWD.png",
+      "sha256": "fcb28c1c04a19e7845347fc4d7992618a348c135ae2e3ec196f6d29c9c83cc7b",
+      "bytes": 47520,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/discoverychannellatinamerica-us.png",
+      "channel": "DiscoveryChannelLatinAmerica.us",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/2019_Discovery_logo.svg/960px-2019_Discovery_logo.svg.png",
+      "sha256": "6d42cd67796a2a723561637ac866cebce6ccbea58cbb66454921637494508f83",
+      "bytes": 15670,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/discoverytheaterlatinamerica-us.png",
+      "channel": "DiscoveryTheaterLatinAmerica.us",
+      "url": "https://i.imgur.com/AqR0Jkn.png",
+      "sha256": "b230989a2f787adbd96e6cdefb88457e62019bf4031db5de9c1ba419db44ba01",
+      "bytes": 10698,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/discoveryturbolatinamerica-us.png",
+      "channel": "DiscoveryTurboLatinAmerica.us",
+      "url": "https://i.imgur.com/1pQPxu3.png",
+      "sha256": "76658a1b70ed8e79da49dafbb623f0f3bdf255022ad67eaf4d2ec389a6ed8d0f",
+      "bytes": 13132,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/discoveryworld-us.png",
+      "channel": "DiscoveryWorld.us",
+      "url": "https://i.imgur.com/yNFmUkE.png",
+      "sha256": "c9020603b32b08b23cbf2be525ef53fe4fb3c882429f0f216783f99ad40aae60",
+      "bytes": 13428,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/starchannellatinamerica-us.png",
+      "channel": "StarChannelLatinAmerica.us",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Star_Channel_2020.svg/960px-Star_Channel_2020.svg.png",
+      "sha256": "b3a4de81be127d073cc0990e3c1efc56772634fd602793cc71d911d6c8087136",
+      "bytes": 43996,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/studiouniversallatinamerica-us.png",
+      "channel": "StudioUniversalLatinAmerica.us",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/StudioUniversal2016.png/960px-StudioUniversal2016.png",
+      "sha256": "5bf03323a08e5b8e95db8bcdaf628a63fbc96ad069e8a15f59ebfde2d757da4c",
+      "bytes": 29030,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/telehit-mx.png",
+      "channel": "TeleHit.mx",
+      "url": "https://i.imgur.com/NVxHxJn.png",
+      "sha256": "b6df427344f4987db0d238b8e5b482628e2c09279354382addd77a90b7f40819",
+      "bytes": 9376,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/telecafe-co.png",
+      "channel": "Telecafe.co",
+      "url": "https://i.imgur.com/28XmS1J.png",
+      "sha256": "416b565c8d5ced6c9eae8ddbbf2ad7b37e524ac425e69f661b49eb7930a9b6a3",
+      "bytes": 41139,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/cartoonnetworklatinamerica-us.png",
+      "channel": "CartoonNetworkLatinAmerica.us",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Cartoon_Network_2010_logo.svg/960px-Cartoon_Network_2010_logo.svg.png",
+      "sha256": "dea066a08fbed902c08aa2fea0d642f4bd0ce8c80e87e16e12e0f67047cb6cc4",
+      "bytes": 19736,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/adultswimlatinamerica-us.png",
+      "channel": "AdultSwimLatinAmerica.us",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Adult_Swim_2003_logo.svg/960px-Adult_Swim_2003_logo.svg.png",
+      "sha256": "4b8467cdb22e5f8b7e3338f72b382bc25a4ba78313d51664050d6baa58077841",
+      "bytes": 8852,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/fxlatinamerica-us.png",
+      "channel": "FXLatinAmerica.us",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/FX_International_logo.svg/960px-FX_International_logo.svg.png",
+      "sha256": "a45a294253044cf25c4ad9e0b5365c2c0d32499c8f3c5a6fa8b7cf397354411e",
+      "bytes": 10196,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/cinecanal-us.png",
+      "channel": "Cinecanal.us",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/CinecanalLA.png/960px-CinecanalLA.png",
+      "sha256": "b92de53a1ba1b86ebce940d5a1578adbc7ec227bdb2bc65ac3f393c7de945236",
+      "bytes": 23167,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/amclatinamerica-us.png",
+      "channel": "AMCLatinAmerica.us",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/AMC_logo_2019.svg/960px-AMC_logo_2019.svg.png",
+      "sha256": "6da084f825659b4e7d0e462fee3275f3139e1c75415d6ca65e66022d446d90f0",
+      "bytes": 12806,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/golden-mx.png",
+      "channel": "Golden.mx",
+      "url": "https://i.imgur.com/NNd1lYl.png",
+      "sha256": "264cc12ceb8e9cef52579448e8c2946f8b790433a53ce87aab13e03be5b87e6b",
+      "bytes": 10774,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/goldenedge-mx.png",
+      "channel": "GoldenEdge.mx",
+      "url": "https://i.imgur.com/SlSbcp3.png",
+      "sha256": "9b0fe77c76b89ff3e2b2fa58d5d66f51f26d2e6839179aeb60a688767788e31c",
+      "bytes": 19471,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/investigationdiscoverylatinamerica-us.png",
+      "channel": "InvestigationDiscoveryLatinAmerica.us",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/InvestigationDiscoveryLogo2020.svg/960px-InvestigationDiscoveryLogo2020.svg.png",
+      "sha256": "810c402cdf75a057dfe1cfe1ad91ac2bdc91e9be3a231875e5774d514c395cb1",
+      "bytes": 27434,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/discoveryhomehealthlatinamerica-mx.png",
+      "channel": "DiscoveryHomeHealthLatinAmerica.mx",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Discovery_H%26H_Logo_2022.webp/960px-Discovery_H%26H_Logo_2022.webp.png",
+      "sha256": "cb5239c12ce03184c8bf50d3cc9bec9bc1204fd5331314ac97d9492e08ef6c46",
+      "bytes": 215947,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/tlclatinamerica-us.png",
+      "channel": "TLCLatinAmerica.us",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/TLC_Logo.svg/960px-TLC_Logo.svg.png",
+      "sha256": "65166094b50be01a24702b480ea5a289ce34f24c5d8b117517c94dcdddfc7984",
+      "bytes": 15324,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/elgourmet-ar.png",
+      "channel": "ElGourmet.ar",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/b/b2/El_Gourmet_logo.png",
+      "sha256": "cd796ab04268c3ccb4fa68d063240e6e179ce13cb6485de98a5c91285b36d2a4",
+      "bytes": 3990,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/nationalgeographiclatinamerica-us.png",
+      "channel": "NationalGeographicLatinAmerica.us",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Natgeologo.svg/960px-Natgeologo.svg.png",
+      "sha256": "562182afb02a2d1b2fb16496fde207d70e8f845425ea66c95caaebd986602990",
+      "bytes": 19589,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/sonychannelandes-us.png",
+      "channel": "SonyChannelAndes.us",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Sony_Channel_Logo.png/960px-Sony_Channel_Logo.png",
+      "sha256": "61a7ee5a9a86caa329e48539fcf1ba5a22aec62808c66f4917321ba194e01c88",
+      "bytes": 352821,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/cnnchile-cl.png",
+      "channel": "CNNChile.cl",
+      "url": "https://i.imgur.com/t4EXijz.png",
+      "sha256": "466c7d9d4c3f8e318d76dddffaf2e0e94f02292af076b15e4c6a681b143d7b56",
+      "bytes": 66737,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/claromusicatv-co.png",
+      "channel": "ClaroMusicaTV.co",
+      "url": "https://i.imgur.com/vrSFUwv.png",
+      "sha256": "43e4d5bf9c1757a75e8a1abf29838f068b78303f5a2f439e431b3b783968f49f",
+      "bytes": 6457,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/rhematv-gt.png",
+      "channel": "RhemaTV.gt",
+      "url": "https://i.imgur.com/5o821rT.png",
+      "sha256": "d05ed1f948c9b07d1124d7c444f84ee80a7e2a546f5b6a41962007adb8ec436b",
+      "bytes": 148306,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/space-ar.png",
+      "channel": "Space.ar",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/SpaceLogo.svg/960px-SpaceLogo.svg.png",
+      "sha256": "38d2381a8ace06238e2f944facc246d395592e450ed8f1a609f6367b4f4851b8",
+      "bytes": 25595,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/cartoonitolatinamerica-us.png",
+      "channel": "CartoonitoLatinAmerica.us",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Cartoonito_-_Logo_2021.svg/960px-Cartoonito_-_Logo_2021.svg.png",
+      "sha256": "186695d0e85e8f43d1bd269d25a886859046dfa9c4b5fde257b4010467b505a6",
+      "bytes": 18054,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/tntnovelas-us.png",
+      "channel": "TNTNovelas.us",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/TNT_Novelas_2025.svg/1920px-TNT_Novelas_2025.svg.png",
+      "sha256": "7931ec9f29ff4f86895abdb767b585b978155374f7955b4b0b003b20dd23ee43",
+      "bytes": 46337,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/caracoltv-co.png",
+      "channel": "CaracolTV.co",
+      "url": "https://i.imgur.com/WbfdJbk.png",
+      "sha256": "8afec451d534ea06480c1364d396915e21b8b514f5add3a9863d41ea0a29775a",
+      "bytes": 32505,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/nuestrateleinternacional-co.png",
+      "channel": "NuestraTeleInternacional.co",
+      "url": "https://i.imgur.com/JoGQqmP.png",
+      "sha256": "aff8e5bc655972287424458718ac28995f799bb273bee92c55b661654fdcc2c7",
+      "bytes": 12789,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/canalrcn-co.png",
+      "channel": "CanalRCN.co",
+      "url": "https://i.imgur.com/5PhTaHp.png",
+      "sha256": "22c3dc080d505e23a7d102f37f1ad087590fc8ce3f215d5fb3e28076820e6e27",
+      "bytes": 27417,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/elatinamerica-us.png",
+      "channel": "ELatinAmerica.us",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/E%21_Logo_2012.svg/500px-E%21_Logo_2012.svg.png",
+      "sha256": "3e352e646006efcebb0633eb85d4a1bef91be8e0e35b75f3f3f01bf095850c70",
+      "bytes": 107105,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/sonymovieslatinamerica-us.png",
+      "channel": "SonyMoviesLatinAmerica.us",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Sony_Movies_Logo.svg/500px-Sony_Movies_Logo.svg.png",
+      "sha256": "76e902c6d49ae76b2f26d9d08d1b01a3f8c0dc54cfc21f1f967b5bca02006b66",
+      "bytes": 96860,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/lifetimelatinamerica-us.png",
+      "channel": "LifetimeLatinAmerica.us",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Logo_Lifetime_2020.svg/960px-Logo_Lifetime_2020.svg.png",
+      "sha256": "1bcb173aa43113f7e237e8e5ae02c2aa62fd5badfcf5ec96b3d167349df1393a",
+      "bytes": 36357,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/televid-co.png",
+      "channel": "TeleVid.co",
+      "url": "https://i.imgur.com/kVHJU5V.png",
+      "sha256": "8d6a7ebf8c2b29401bf278d7dca23a577e3c802155ffdae8690b725c543d8705",
+      "bytes": 20260,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/tntlatinamerica-us.png",
+      "channel": "TNTLatinAmerica.us",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/TNT_Logo_2016.svg/960px-TNT_Logo_2016.svg.png",
+      "sha256": "38ed8af47d56121247d0782ad62d767725434c4857ed586c38d43a67da17a4b8",
+      "bytes": 16602,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/veplus-ve.png",
+      "channel": "VePlus.ve",
+      "url": "https://i.imgur.com/uc3zqcP.png",
+      "sha256": "c09b909970c9bd9ffcd3b8eeed5c4645f693490e15e5a951cb661b219179ab5e",
+      "bytes": 8738,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/esportsmaxtv-ve.png",
+      "channel": "eSportsMaxTV.ve",
+      "url": "https://i.imgur.com/OprRgQN.png",
+      "sha256": "7c8103c31ea00c5a1a0782e849ec6073e83beae4c7d1d3ece604df4a34813d4b",
+      "bytes": 70221,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/ploustv-ve.png",
+      "channel": "PlousTV.ve",
+      "url": "https://i.imgur.com/OSet4en.png",
+      "sha256": "78129c84699032248bcf4014945dd3adf3f4eee86bea9399761ae3b33d2d6091",
+      "bytes": 16908,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/rcnnovelas-co.png",
+      "channel": "RCNNovelas.co",
+      "url": "https://i.imgur.com/9wxdWNQ.png",
+      "sha256": "8d1c95b33704087880ad58b69c88074782014d862aae4678c15340d11a088d5a",
+      "bytes": 31309,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/zoom-co.png",
+      "channel": "Zoom.co",
+      "url": "https://i.imgur.com/euy5zp6.png",
+      "sha256": "1b3446200a8c9bc3ae8d440f46cb426e1fdd4a757457c7255ae8a9c055e8b0ba",
+      "bytes": 4132,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/azclic-mx.png",
+      "channel": "AzClic.mx",
+      "url": "https://i.imgur.com/ClqIQ4M.png",
+      "sha256": "fec784e18c55e563d98208096bef23a4032ff83b304c0c0c8dc93f1a4659b188",
+      "bytes": 3796,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/animalplanetlatinamerica-us.png",
+      "channel": "AnimalPlanetLatinAmerica.us",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/2018_Animal_Planet_logo.svg/960px-2018_Animal_Planet_logo.svg.png",
+      "sha256": "464514a7806510e97cba52383c09f2a2893ad71dd744f440ea9aac0c64f8a170",
+      "bytes": 26889,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/azcorazon-mx.png",
+      "channel": "AzCorazon.mx",
+      "url": "https://i.imgur.com/KIpSdQC.png",
+      "sha256": "406a0e75a4446089f849741ed730de2913b6f3a152e6bfc514298abd8d041ca3",
+      "bytes": 4963,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/azmundo-mx.png",
+      "channel": "AzMundo.mx",
+      "url": "https://i.imgur.com/a7Ejid0.png",
+      "sha256": "d2adccd7889c188f0df9bfe2553b2a4d52622d20fc8dbd53f400ddbeefd1d99d",
+      "bytes": 3281,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/bbcnews-uk.png",
+      "channel": "BBCNews.uk",
+      "url": "https://i.imgur.com/vSz2WEp.png",
+      "sha256": "49f336ffc8e765a54aca6016468eb47c7a7d1dca86fd6a853e59bbe8213272f4",
+      "bytes": 24600,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/babyfirst-us.png",
+      "channel": "BabyFirst.us",
+      "url": "https://i.imgur.com/WxLHBwu.png",
+      "sha256": "53eff0b89554fd47fa91213cb45e33a3f83394278469991dac7fe2bd4cb7f766",
+      "bytes": 14715,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/cnninternational-us.png",
+      "channel": "CNNInternational.us",
+      "url": "https://i.imgur.com/dfxefQw.png",
+      "sha256": "fa0dc09e6af3f3066da8767897742353a2d2336368f889bd71ed2da867f2e3af",
+      "bytes": 52690,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/cnnenespanol-us.svg",
+      "channel": "CNNenEspanol.us",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/b/b6/Logo_de_CNN_en_Espa%C3%B1ol_%282010-2015%29.svg",
+      "sha256": "1e52b79ffb037736a94ade535d7bf1e06ddadc59ec804ee7d83f75b761b5f5ca",
+      "bytes": 9075,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/canal7-gt.png",
+      "channel": "Canal7.gt",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/0/05/Canal_7_Guatemala_2022.png",
+      "sha256": "c37f95c10b70199cd4eea3107a16c3abba3e18e26d040c0e44cd592ee742d2a3",
+      "bytes": 82271,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/canalantigua-gt.png",
+      "channel": "CanalAntigua.gt",
+      "url": "https://i.imgur.com/edZjzbS.png",
+      "sha256": "8d207cfcab96099edbccc71d2201b6c2605764f5ce6148ab9d8cc048d3e42bed",
+      "bytes": 9565,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/cinelatino-mx.png",
+      "channel": "CineLatino.mx",
+      "url": "https://i.imgur.com/2V0R0xT.png",
+      "sha256": "5fa4dfc264672175903e61864397093e690e5df76fc5e33195d1da2b4ea1fe79",
+      "bytes": 24725,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/concertchannel-us.png",
+      "channel": "ConcertChannel.us",
+      "url": "https://i.imgur.com/u2irADf.png",
+      "sha256": "0222296785970d778d2e99f6f6c156372b7b9897ad65f302cb90f6c90b4f65c2",
+      "bytes": 11854,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/dhe-us.png",
+      "channel": "DHE.us",
+      "url": "https://i.imgur.com/nsttoEa.png",
+      "sha256": "a43c6ca19f1725d21ab36e16816afd73b56a9ce80311d356c4034929a41ad435",
+      "bytes": 6696,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/discoverykidslatinamerica-us.png",
+      "channel": "DiscoveryKidsLatinAmerica.us",
+      "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7f/Discovery_Kids_2021_2D_sin_wordmark.svg/960px-Discovery_Kids_2021_2D_sin_wordmark.svg.png",
+      "sha256": "387f33e09217edbbf2c30a3975ae7569f5ddd4dabea37d5563090811cf31cbd9",
+      "bytes": 48882,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/disneychannellatinamerica-ar.svg",
+      "channel": "DisneyChannelLatinAmerica.ar",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/f/ff/2024_Disney_Channel_text_logo.svg",
+      "sha256": "1b160711f200f90f70b15061b24c98e9f48e983b7c588e9e4520654bcc799746",
+      "bytes": 13343,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/disneyjrlatinamerica-ar.svg",
+      "channel": "DisneyJrLatinAmerica.ar",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/e/e3/2024_Disney_Jr._Logo.svg",
+      "sha256": "044dc1f3664ee8cd8eb8aeae2e3e2f546c2fa486b9b2c9c88c2ef6d16dd27acc",
+      "bytes": 7167,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/ewtn-us.png",
+      "channel": "EWTN.us",
+      "url": "https://i.imgur.com/sua70RO.png",
+      "sha256": "bc657700b536012788df6acd640d46be0bcd67d7cb94e36fa21e18704ba8fca1",
+      "bytes": 15516,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/exatv-mx.png",
+      "channel": "ExaTV.mx",
+      "url": "https://i.imgur.com/JWOqr1a.png",
+      "sha256": "80dcdaf0a232b3a16a717c9bc05727956e0de7fceb0e4ffb52df8c128dd7cadf",
+      "bytes": 13902,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/filmarts-ar.png",
+      "channel": "FilmArts.ar",
+      "url": "https://i.imgur.com/ukdmEKD.png",
+      "sha256": "e40e5a8bacb975dc16e5b409fcd415f0e086590485ddb5becbc84b81b7b25622",
+      "bytes": 5130,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/golfchannellatinamerica-us.png",
+      "channel": "GolfChannelLatinAmerica.us",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Golf_Channel_Logo_2018.png/960px-Golf_Channel_Logo_2018.png",
+      "sha256": "29952bfe063df59a8a9a5caa9ed96c14dfd28c39ac8997c55bf45c9e65ed4f93",
+      "bytes": 129693,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/guatevision-gt.png",
+      "channel": "Guatevision.gt",
+      "url": "https://i.imgur.com/mbmHPnO.png",
+      "sha256": "8392b45b4dfcad54a9e8d325b6b63141f37c84cdbf317db1d6d9790adfb0f64e",
+      "bytes": 61580,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/history2latinamerica-us.png",
+      "channel": "History2LatinAmerica.us",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/History2_logo_%282022%29.svg/500px-History2_logo_%282022%29.svg.png",
+      "sha256": "af8465f38faea445714e5a4dc724a6520f42884d64c5a72d33f2ab40cb9d9308",
+      "bytes": 30490,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/hgtvlatinamerica-us.png",
+      "channel": "HGTVLatinAmerica.us",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/HGTV_US_Logo_2015.svg/960px-HGTV_US_Logo_2015.svg.png",
+      "sha256": "320e3852b98beb11761dbde17ad9239e61f2e23f7918f3056bc2f091c3bf7dc3",
+      "bytes": 19335,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/lavozdemaria-do.png",
+      "channel": "LaVozdeMaria.do",
+      "url": "https://i.imgur.com/Zv8CxZX.png",
+      "sha256": "3cd947331ba9699c5880725837f1af58c7be2a54df51c0bd5d723b343423d476",
+      "bytes": 6370,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/aymsports-mx.png",
+      "channel": "AyMSports.mx",
+      "url": "https://i.imgur.com/yu3Bpbd.png",
+      "sha256": "5a1982930fb9dc8c8b1bbaa7ac02642564437145b61dfb3b605b7b555f49368c",
+      "bytes": 184569,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/pasioneslatinamerica-us.png",
+      "channel": "PasionesLatinAmerica.us",
+      "url": "https://i.imgur.com/VGnbWjO.png",
+      "sha256": "3f1104fdf3aa961269191d59c01f8b30a8edfd97e8692a8fe48c2327fa331ffb",
+      "bytes": 22660,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/laredtv-gt.png",
+      "channel": "LaRedTV.gt",
+      "url": "https://i.imgur.com/chc8x4a.png",
+      "sha256": "c80cfb9f313af725a7a9e88e82484250407d40042c6c183b0da84af135f8e047",
+      "bytes": 30743,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/semillitastv-us.png",
+      "channel": "SemillitasTV.us",
+      "url": "https://i.imgur.com/u3yujUd.png",
+      "sha256": "369d46d767cbdb46719ac8ed0dd07c31851a4d2ac907d21e3be7b02786db809d",
+      "bytes": 4571,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/enlace-cr.png",
+      "channel": "Enlace.cr",
+      "url": "https://i.imgur.com/YwUVTmS.png",
+      "sha256": "904dafc3ca755927f624b6d23a86570459bf203800080f070b2d94aaa466671b",
+      "bytes": 7954,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/tdmas2-cr.png",
+      "channel": "TDMas2.cr",
+      "url": "https://i.imgur.com/zIYrbeX.png",
+      "sha256": "e64a908624efbe4a495b07163997619dc690baf54a708f891ec271960f17d045",
+      "bytes": 16548,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/tdmas-cr.png",
+      "channel": "TDMas.cr",
+      "url": "https://i.imgur.com/xr9BP5W.png",
+      "sha256": "6e28859b5838fe295d80cda7cafcf850eb1a88479eb39091f8b64bce72c2bfd4",
+      "bytes": 14941,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/tntserieslatinamerica-us.png",
+      "channel": "TNTSeriesLatinAmerica.us",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/TNT_Series_2025.svg/1920px-TNT_Series_2025.svg.png",
+      "sha256": "48cd06ed8605c31bbf9c8730ad86ac3e603c06be00f9fbbfc47f577d035a5b9f",
+      "bytes": 19509,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/telemundointernacional-us.png",
+      "channel": "TelemundoInternacional.us",
+      "url": "https://i.imgur.com/j2O4ndp.png",
+      "sha256": "e59a8a290883a78a6bf99883438d49d5c010933d8c11f86536d9131258168822",
+      "bytes": 61242,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/televida-do.png",
+      "channel": "Televida.do",
+      "url": "https://i.imgur.com/S8Zdn41.png",
+      "sha256": "d384bf5cb099c2764acb9035faea9302faba80020061bb3bd121032dfd1a94d3",
+      "bytes": 7575,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/universalcomedy-us.png",
+      "channel": "UniversalComedy.us",
+      "url": "https://i.imgur.com/avBL8pQ.png",
+      "sha256": "d95eac43ef6a241bd56b9346e1408acc224ec391930a4e2b1ee7211e19acd440",
+      "bytes": 32067,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/universalcrime-us.png",
+      "channel": "UniversalCrime.us",
+      "url": "https://i.imgur.com/OwSlGMu.png",
+      "sha256": "de62fbf437360c58391561d929bc45fc2b9cc33c3bc35a00a02712ea2c357ab3",
+      "bytes": 30514,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/universalpremiere-us.png",
+      "channel": "UniversalPremiere.us",
+      "url": "https://i.imgur.com/KdFk80C.png",
+      "sha256": "5dd060603a5f2a07d0bb2a5b2b54711801af516cd4145ef2f8c505487830575b",
+      "bytes": 31248,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/universaltvlatinamerica-us.png",
+      "channel": "UniversalTVLatinAmerica.us",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Universal_TV_logo.svg/960px-Universal_TV_logo.svg.png",
+      "sha256": "c18e195a025676f5278555281687d66fe2fa2aad3611e71eebb9a831b664ce86",
+      "bytes": 44090,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/univisionlatinamerica-mx.png",
+      "channel": "UnivisionLatinAmerica.mx",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Logo_Univision_2019.svg/960px-Logo_Univision_2019.svg.png",
+      "sha256": "7c6065c4054f8f3e15577a504dcf4307c038f3d3d80d06b5ac7d732df765560d",
+      "bytes": 46112,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/warnerchannel-us.png",
+      "channel": "WarnerChannel.us",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Warner_Channel_2026.svg/960px-Warner_Channel_2026.svg.png",
+      "sha256": "6872c0cf2a1de83824eec499fe93853401ae659e9601aa0bfb00322f2d3d65aa",
+      "bytes": 35302,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/zoomoo-sg.png",
+      "channel": "ZooMoo.sg",
+      "url": "https://i.imgur.com/ciTJrnl.png",
+      "sha256": "b735c650d58c9dd89dce10d1c41e4b0b3e3c702d07717806351fc955d14f66b1",
+      "bytes": 17478,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/telehitmusica-mx.png",
+      "channel": "TelehitMusica.mx",
+      "url": "https://i.imgur.com/CofYjWh.png",
+      "sha256": "b858eeddf4f1e4ea657d6c3ecb9ca9f7532561e85594c9082a2123a44e155153",
+      "bytes": 23602,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/universalcinema-us.png",
+      "channel": "UniversalCinema.us",
+      "url": "https://i.imgur.com/XxfET68.png",
+      "sha256": "414d1fc054ae1f4ec35f58f6bc83bbac49500359c00bea7d57df2d66e30301f1",
+      "bytes": 30913,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/babytv-uk.png",
+      "channel": "BabyTV.uk",
+      "url": "https://i.imgur.com/4BDJ5FT.png",
+      "sha256": "69bf073e12c3917994ea11139b71bb7cc8a4e2d9f3bd5cf06cfd309d80922cce",
+      "bytes": 130619,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/galavision-us.png",
+      "channel": "Galavision.us",
+      "url": "https://i.ibb.co/zThkPg23/IMG-2277.png",
+      "sha256": "1290e530dafc774ae2b9af3927cfebccc2946d5b911333e38e8367a5b1d6bf0c",
+      "bytes": 2835,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/reduno-bo.svg",
+      "channel": "RedUno.bo",
+      "url": "https://static.wikia.nocookie.net/logopedia/images/a/ae/Red_Uno.svg",
+      "sha256": "d662d8c7abfc9e6c3a941418a478806d36e3971ea5aa57faf6bfc04119692084",
+      "bytes": 3452,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/canal1-co.png",
+      "channel": "Canal1.co",
+      "url": "https://i.imgur.com/YFywPLC.png",
+      "sha256": "0d82db755dfaa30001d3112032aaabddf84eb40a33436c43c329592ba6330d56",
+      "bytes": 39225,
+      "inUse": true,
+      "feed": null
+    },
+    {
+      "path": "logos/catalogue/fox-sports-2-lam.png",
+      "url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/world-latin-america/fox-sports-2-lam.png",
+      "sha256": "445511552cb006728d395779a9b6a5aeff1a328424a96e8121bdc87e7c802e0a",
+      "bytes": 76160,
+      "source": "tv-logo/tv-logos; exact curated network/file from repository tree, unchanged PNG"
+    },
+    {
+      "path": "logos/catalogue/dsports-lam.png",
+      "url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/world-latin-america/dsports-lam.png",
+      "sha256": "625ed0b672c6c1f31a3e48f6f2d343b9a81a04996c79fb056e5d46d8bd3f541c",
+      "bytes": 5444,
+      "source": "tv-logo/tv-logos; exact curated network/file from repository tree, unchanged PNG"
+    },
+    {
+      "path": "logos/catalogue/dsports2-lam.png",
+      "url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/world-latin-america/dsports2-lam.png",
+      "sha256": "3603dc2953144c9915176d827c23f581f0d0c27479fd447bdc171c809cb69e86",
+      "bytes": 5121,
+      "source": "tv-logo/tv-logos; exact curated network/file from repository tree, unchanged PNG"
+    },
+    {
+      "path": "logos/catalogue/espn-6-lam.png",
+      "url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/world-latin-america/espn-6-lam.png",
+      "sha256": "9d365a55715558c76bd7191ea1ea7240fc84182da623b9029cc83fd59a927543",
+      "bytes": 3914,
+      "source": "tv-logo/tv-logos; exact curated network/file from repository tree, unchanged PNG"
+    },
+    {
+      "path": "logos/catalogue/espn-premium-ar.png",
+      "url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/argentina/espn-premium-ar.png",
+      "sha256": "1f1ae55e9b0a290860eb164cf71ec0c5e36e1d36a2ba9ca168f00f11286d79ee",
+      "bytes": 4348,
+      "source": "tv-logo/tv-logos; exact curated network/file from repository tree, unchanged PNG"
+    },
+    {
+      "path": "logos/catalogue/history-channel-lam.png",
+      "url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/world-latin-america/history-channel-lam.png",
+      "sha256": "b23d5b174dc28099271ce21a9713a31b1fe02d9835fba8681a8a68d6be79023d",
+      "bytes": 15914,
+      "source": "tv-logo/tv-logos; exact curated network/file from repository tree, unchanged PNG"
+    },
+    {
+      "path": "logos/catalogue/espn-lam.png",
+      "url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/world-latin-america/espn-lam.png",
+      "sha256": "d970e9f18da911644f3e346fdfabbe2a6b23ad97988785fd5e86d4a78aff9cf4",
+      "bytes": 4125,
+      "source": "tv-logo/tv-logos; exact curated network/file from repository tree, unchanged PNG"
+    },
+    {
+      "path": "logos/catalogue/a-and-e-ar.png",
+      "url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/argentina/a-and-e-ar.png",
+      "sha256": "522e55538f0894de1f7ebbec75304db602ab4af9c8ae45d1d708bbbf72079351",
+      "bytes": 5434,
+      "source": "tv-logo/tv-logos; exact curated network/file from repository tree, unchanged PNG"
+    }
+  ],
+  "channels": [
+    {
+      "tvgId": "Nauta.7b8890eac450f9cc89b06b84@Nauta",
+      "number": 40,
+      "name": "Fox Sports 2 | HD [Nauta]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/fox-sports-2-lam.png",
+      "nautaCatalog": "cat_32",
+      "nautaName": "Fox Sports 2 | HD",
+      "epg": {
+        "number": 40,
+        "tvgId": "Nauta.7b8890eac450f9cc89b06b84@Nauta",
+        "name": "Fox Sports 2 | HD [Nauta]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 2
+      }
+    },
+    {
+      "tvgId": "Nauta.dac26a78f5bdf111bc9b9ffc@Nauta",
+      "number": 96,
+      "name": "ESPN 1 | Sur [Nauta]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/espn.svg",
+      "nautaCatalog": "nautatv_catalog",
+      "nautaName": "ESPN 1 | Sur",
+      "epg": {
+        "number": 96,
+        "tvgId": "Nauta.dac26a78f5bdf111bc9b9ffc@Nauta",
+        "name": "ESPN 1 | Sur [Nauta]",
+        "source": "ar1",
+        "source_id": "Canal.ESPN.(Argentina).ar",
+        "evidence": "explicit_Sur_backup_of_Argentina",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "Nauta.81dc69c20557da0672921475@Nauta",
+      "number": 98,
+      "name": "ESPN 1 | Chile [Nauta]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/espn.svg",
+      "nautaCatalog": "nautatv_catalog",
+      "nautaName": "ESPN 1 | Chile",
+      "epg": {
+        "number": 98,
+        "tvgId": "Nauta.81dc69c20557da0672921475@Nauta",
+        "name": "ESPN 1 | Chile [Nauta]",
+        "source": "cl",
+        "source_id": "Canal.ESPN.(Chile).cl",
+        "evidence": "explicit_Nauta_Chile_reference",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "Nauta.4b4253b78f7157b8904ec72c@Nauta",
+      "number": 103,
+      "name": "ESPN HD | Colombia [Nauta]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/espn.svg",
+      "nautaCatalog": "nautatv_catalog",
+      "nautaName": "ESPN HD | Colombia",
+      "epg": {
+        "number": 103,
+        "tvgId": "Nauta.4b4253b78f7157b8904ec72c@Nauta",
+        "name": "ESPN HD | Colombia [Nauta]",
+        "source": "co1",
+        "source_id": "ESPN.co",
+        "evidence": "explicit_Nauta_Colombia_reference",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "Nauta.53db56d7f89e01787fcc2212@Nauta",
+      "number": 107,
+      "name": "ESPN Plus HD [Nauta]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "",
+      "nautaCatalog": "nautatv_catalog",
+      "nautaName": "ESPN Plus HD",
+      "epg": {
+        "number": 107,
+        "tvgId": "Nauta.53db56d7f89e01787fcc2212@Nauta",
+        "name": "ESPN Plus HD [Nauta]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "Nauta.62dfd1657568e0d60c81317a@Nauta",
+      "number": 108,
+      "name": "DSports [Nauta]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/dsports-lam.png",
+      "nautaCatalog": "cat_4",
+      "nautaName": "DSports",
+      "epg": {
+        "number": 108,
+        "tvgId": "Nauta.62dfd1657568e0d60c81317a@Nauta",
+        "name": "DSports [Nauta]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 5
+      }
+    },
+    {
+      "tvgId": "Nauta.2e4fdeff5f4d1b547b864b23@Nauta",
+      "number": 109,
+      "name": "DSports HD [Nauta]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/dsports-lam.png",
+      "nautaCatalog": "cat_4",
+      "nautaName": "DSports HD",
+      "epg": {
+        "number": 109,
+        "tvgId": "Nauta.2e4fdeff5f4d1b547b864b23@Nauta",
+        "name": "DSports HD [Nauta]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 5
+      }
+    },
+    {
+      "tvgId": "Nauta.ce1580586a531d205ccfc107@Nauta",
+      "number": 110,
+      "name": "Fox Sports Sur [Nauta]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/fox-sports.svg",
+      "nautaCatalog": "cat_4",
+      "nautaName": "Fox Sports Sur",
+      "epg": {
+        "number": 110,
+        "tvgId": "Nauta.ce1580586a531d205ccfc107@Nauta",
+        "name": "Fox Sports Sur [Nauta]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "Nauta.1dac8e0993a937726c21cc09@Nauta",
+      "number": 118,
+      "name": "DSports 2 HD [Nauta]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/dsports2-lam.png",
+      "nautaCatalog": "cat_4",
+      "nautaName": "DSports 2 HD",
+      "epg": {
+        "number": 118,
+        "tvgId": "Nauta.1dac8e0993a937726c21cc09@Nauta",
+        "name": "DSports 2 HD [Nauta]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 2
+      }
+    },
+    {
+      "tvgId": "Nauta.45ff33783b4d83062083ddb7@Nauta",
+      "number": 121,
+      "name": "DSports 2 [Nauta]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/dsports2-lam.png",
+      "nautaCatalog": "cat_4",
+      "nautaName": "DSports 2",
+      "epg": {
+        "number": 121,
+        "tvgId": "Nauta.45ff33783b4d83062083ddb7@Nauta",
+        "name": "DSports 2 [Nauta]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 2
+      }
+    },
+    {
+      "tvgId": "Nauta.05e59597043a9182d2a7fc0b@Nauta",
+      "number": 130,
+      "name": "HBO [Nauta]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/hbolatinamerica-us.png",
+      "nautaCatalog": "nautatv_catalog",
+      "nautaName": "HBO",
+      "epg": {
+        "number": 130,
+        "tvgId": "Nauta.05e59597043a9182d2a7fc0b@Nauta",
+        "name": "HBO [Nauta]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 6
+      }
+    },
+    {
+      "tvgId": "Nauta.4b191940bee2bd4c855de777@Nauta",
+      "number": 131,
+      "name": "HBO 2 [Nauta]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/hbo2latinamerica-us.png",
+      "nautaCatalog": "nautatv_catalog",
+      "nautaName": "HBO 2",
+      "epg": {
+        "number": 131,
+        "tvgId": "Nauta.4b191940bee2bd4c855de777@Nauta",
+        "name": "HBO 2 [Nauta]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 9
+      }
+    },
+    {
+      "tvgId": "Nauta.5e0764312e17cd8dbca87fbe@Nauta",
+      "number": 132,
+      "name": "HBO 2 HD [Nauta]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/hbo2latinamerica-us.png",
+      "nautaCatalog": "nautatv_catalog",
+      "nautaName": "HBO 2 HD",
+      "epg": {
+        "number": 132,
+        "tvgId": "Nauta.5e0764312e17cd8dbca87fbe@Nauta",
+        "name": "HBO 2 HD [Nauta]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 9
+      }
+    },
+    {
+      "tvgId": "Nauta.4cc2aa2f00babf217d641fd6@Nauta",
+      "number": 133,
+      "name": "HBO Family [Nauta]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/hbofamilylatinamerica-us.png",
+      "nautaCatalog": "nautatv_catalog",
+      "nautaName": "HBO Family",
+      "epg": {
+        "number": 133,
+        "tvgId": "Nauta.4cc2aa2f00babf217d641fd6@Nauta",
+        "name": "HBO Family [Nauta]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 4
+      }
+    },
+    {
+      "tvgId": "Nauta.2c79f52754dcec190b01cd93@Nauta",
+      "number": 134,
+      "name": "HBO Family HD [Nauta]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/hbofamilylatinamerica-us.png",
+      "nautaCatalog": "nautatv_catalog",
+      "nautaName": "HBO Family HD",
+      "epg": {
+        "number": 134,
+        "tvgId": "Nauta.2c79f52754dcec190b01cd93@Nauta",
+        "name": "HBO Family HD [Nauta]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 4
+      }
+    },
+    {
+      "tvgId": "Nauta.69a2d4671c91e6eb2081468e@Nauta",
+      "number": 135,
+      "name": "HBO HD [Nauta]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/hbolatinamerica-us.png",
+      "nautaCatalog": "nautatv_catalog",
+      "nautaName": "HBO HD",
+      "epg": {
+        "number": 135,
+        "tvgId": "Nauta.69a2d4671c91e6eb2081468e@Nauta",
+        "name": "HBO HD [Nauta]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 6
+      }
+    },
+    {
+      "tvgId": "Nauta.2543531f37454701c960421c@Nauta",
+      "number": 136,
+      "name": "HBO Mundi [Nauta]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/hbomundilatinamerica-us.png",
+      "nautaCatalog": "cat_3",
+      "nautaName": "HBO Mundi",
+      "epg": {
+        "number": 136,
+        "tvgId": "Nauta.2543531f37454701c960421c@Nauta",
+        "name": "HBO Mundi [Nauta]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 3
+      }
+    },
+    {
+      "tvgId": "Nauta.8c5a91e0b8d25e158a9afa6f@Nauta",
+      "number": 137,
+      "name": "HBO Plus [Nauta]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/hbopluslatinamerica-us.png",
+      "nautaCatalog": "nautatv_catalog",
+      "nautaName": "HBO Plus",
+      "epg": {
+        "number": 137,
+        "tvgId": "Nauta.8c5a91e0b8d25e158a9afa6f@Nauta",
+        "name": "HBO Plus [Nauta]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 2
+      }
+    },
+    {
+      "tvgId": "Nauta.b5a185bf8235a26035237746@Nauta",
+      "number": 138,
+      "name": "HBO Plus HD [Nauta]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/hbopluslatinamerica-us.png",
+      "nautaCatalog": "nautatv_catalog",
+      "nautaName": "HBO Plus HD",
+      "epg": {
+        "number": 138,
+        "tvgId": "Nauta.b5a185bf8235a26035237746@Nauta",
+        "name": "HBO Plus HD [Nauta]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 2
+      }
+    },
+    {
+      "tvgId": "Nauta.b0e158ffa085b177eadaaca6@Nauta",
+      "number": 139,
+      "name": "HBO Plus Oeste HD [Nauta]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/hbopluslatinamerica-us.png",
+      "nautaCatalog": "cat_32",
+      "nautaName": "HBO Plus Oeste HD",
+      "epg": {
+        "number": 139,
+        "tvgId": "Nauta.b0e158ffa085b177eadaaca6@Nauta",
+        "name": "HBO Plus Oeste HD [Nauta]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "Nauta.14fae38bc645c4c8b6315d89@Nauta",
+      "number": 140,
+      "name": "HBO Pop [Nauta]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/hbopoplatinamerica-us.png",
+      "nautaCatalog": "nautatv_catalog",
+      "nautaName": "HBO Pop",
+      "epg": {
+        "number": 140,
+        "tvgId": "Nauta.14fae38bc645c4c8b6315d89@Nauta",
+        "name": "HBO Pop [Nauta]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 6
+      }
+    },
+    {
+      "tvgId": "Nauta.5108e1f90fd559d0c4387658@Nauta",
+      "number": 141,
+      "name": "HBO Xtreme [Nauta]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/hboxtremelatinamerica-us.png",
+      "nautaCatalog": "nautatv_catalog",
+      "nautaName": "HBO Xtreme",
+      "epg": {
+        "number": 141,
+        "tvgId": "Nauta.5108e1f90fd559d0c4387658@Nauta",
+        "name": "HBO Xtreme [Nauta]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 4
+      }
+    },
+    {
+      "tvgId": "Nauta.19ade992e1408ad4cbf1d4d8@Nauta",
+      "number": 142,
+      "name": "HBO Xtreme HD [Nauta]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/hboxtremelatinamerica-us.png",
+      "nautaCatalog": "nautatv_catalog",
+      "nautaName": "HBO Xtreme HD",
+      "epg": {
+        "number": 142,
+        "tvgId": "Nauta.19ade992e1408ad4cbf1d4d8@Nauta",
+        "name": "HBO Xtreme HD [Nauta]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 4
+      }
+    },
+    {
+      "tvgId": "Nauta.080d3c6ad99b6cbcad144a59@Nauta",
+      "number": 143,
+      "name": "AXN HD [Nauta]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/axnlatinamerica-us.png",
+      "nautaCatalog": "nautatv_catalog",
+      "nautaName": "AXN HD",
+      "epg": {
+        "number": 143,
+        "tvgId": "Nauta.080d3c6ad99b6cbcad144a59@Nauta",
+        "name": "AXN HD [Nauta]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 6
+      }
+    },
+    {
+      "tvgId": "Nauta.547c2a892ba50d5ca20e2851@Nauta",
+      "number": 145,
+      "name": "Cinemax HD [Nauta]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/cinemaxlatinamerica-us.png",
+      "nautaCatalog": "cat_32",
+      "nautaName": "Cinemax HD",
+      "epg": {
+        "number": 145,
+        "tvgId": "Nauta.547c2a892ba50d5ca20e2851@Nauta",
+        "name": "Cinemax HD [Nauta]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 7
+      }
+    },
+    {
+      "tvgId": "Nauta.5f7d8d7874eeaacd4c3233ad@Nauta",
+      "number": 146,
+      "name": "Discovery Channel HD [Nauta]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/discoverychannellatinamerica-us.png",
+      "nautaCatalog": "nautatv_catalog",
+      "nautaName": "Discovery Channel HD",
+      "epg": {
+        "number": 146,
+        "tvgId": "Nauta.5f7d8d7874eeaacd4c3233ad@Nauta",
+        "name": "Discovery Channel HD [Nauta]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 4
+      }
+    },
+    {
+      "tvgId": "Nauta.33b5775c2e5269c09297139c@Nauta",
+      "number": 147,
+      "name": "Discovery Theater HD [Nauta]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/discoverytheaterlatinamerica-us.png",
+      "nautaCatalog": "cat_5",
+      "nautaName": "Discovery Theater HD",
+      "epg": {
+        "number": 147,
+        "tvgId": "Nauta.33b5775c2e5269c09297139c@Nauta",
+        "name": "Discovery Theater HD [Nauta]",
+        "source": "cl",
+        "source_id": "Canal.Discovery.Theater.(Latinoamérica).cl",
+        "evidence": "explicit_panregional_feed_identical_12h_in_CL_and_MX",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "Nauta.dc823421ba8a32dea334cd9c@Nauta",
+      "number": 148,
+      "name": "Discovery Turbo [Nauta]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/discoveryturbolatinamerica-us.png",
+      "nautaCatalog": "nautatv_catalog",
+      "nautaName": "Discovery Turbo",
+      "epg": {
+        "number": 148,
+        "tvgId": "Nauta.dc823421ba8a32dea334cd9c@Nauta",
+        "name": "Discovery Turbo [Nauta]",
+        "source": "cl",
+        "source_id": "Canal.Discovery.Turbo.(Latinoamérica).cl",
+        "evidence": "explicit_panregional_feed_identical_12h_in_CL_and_MX",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "Nauta.0615fb29ef6cee14db5b3c78@Nauta",
+      "number": 149,
+      "name": "Discovery Turbo HD [Nauta]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/discoveryturbolatinamerica-us.png",
+      "nautaCatalog": "cat_32",
+      "nautaName": "Discovery Turbo HD",
+      "epg": {
+        "number": 149,
+        "tvgId": "Nauta.0615fb29ef6cee14db5b3c78@Nauta",
+        "name": "Discovery Turbo HD [Nauta]",
+        "source": "cl",
+        "source_id": "Canal.Discovery.Turbo.(Latinoamérica).cl",
+        "evidence": "explicit_panregional_feed_identical_12h_in_CL_and_MX",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "Nauta.9716fec189bb7b466e1bd9af@Nauta",
+      "number": 150,
+      "name": "Discovery World [Nauta]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/discoveryworld-us.png",
+      "nautaCatalog": "nautatv_catalog",
+      "nautaName": "Discovery World",
+      "epg": {
+        "number": 150,
+        "tvgId": "Nauta.9716fec189bb7b466e1bd9af@Nauta",
+        "name": "Discovery World [Nauta]",
+        "source": "cl",
+        "source_id": "Canal.Discovery.World.Latinoamérica.cl",
+        "evidence": "explicit_panregional_feed_identical_12h_in_CL_and_MX",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "Nauta.7437112a4b992980a550d16a@Nauta",
+      "number": 151,
+      "name": "ESPN HD [Nauta]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/espn.svg",
+      "nautaCatalog": "cat_32",
+      "nautaName": "ESPN HD",
+      "epg": {
+        "number": 151,
+        "tvgId": "Nauta.7437112a4b992980a550d16a@Nauta",
+        "name": "ESPN HD [Nauta]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 5
+      }
+    },
+    {
+      "tvgId": "Nauta.ed0ed0370e182f10a4e96f3d@Nauta",
+      "number": 152,
+      "name": "ESPN 3 HD [Nauta]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/espn-3.png",
+      "nautaCatalog": "cat_32",
+      "nautaName": "ESPN 3 HD",
+      "epg": {
+        "number": 152,
+        "tvgId": "Nauta.ed0ed0370e182f10a4e96f3d@Nauta",
+        "name": "ESPN 3 HD [Nauta]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 6
+      }
+    },
+    {
+      "tvgId": "Nauta.c89a873414ec166795c59f26@Nauta",
+      "number": 153,
+      "name": "ESPN 4 | Sur [Nauta]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/espn-4.png",
+      "nautaCatalog": "cat_1",
+      "nautaName": "ESPN 4 | Sur",
+      "epg": {
+        "number": 153,
+        "tvgId": "Nauta.c89a873414ec166795c59f26@Nauta",
+        "name": "ESPN 4 | Sur [Nauta]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "Nauta.57d13b9b10bcbdc51d4dab10@Nauta",
+      "number": 156,
+      "name": "Fox Sports HD [Nauta]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/fox-sports.svg",
+      "nautaCatalog": "cat_32",
+      "nautaName": "Fox Sports HD",
+      "epg": {
+        "number": 156,
+        "tvgId": "Nauta.57d13b9b10bcbdc51d4dab10@Nauta",
+        "name": "Fox Sports HD [Nauta]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 2
+      }
+    },
+    {
+      "tvgId": "Nauta.a87610ac946968a5f280ec57@Nauta",
+      "number": 160,
+      "name": "Star Channel HD [Nauta]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/starchannellatinamerica-us.png",
+      "nautaCatalog": "cat_32",
+      "nautaName": "Star Channel HD",
+      "epg": {
+        "number": 160,
+        "tvgId": "Nauta.a87610ac946968a5f280ec57@Nauta",
+        "name": "Star Channel HD [Nauta]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 5
+      }
+    },
+    {
+      "tvgId": "Nauta.b9df5eea317035bd5bda31cf@Nauta",
+      "number": 161,
+      "name": "Studio Universal HD [Nauta]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/studiouniversallatinamerica-us.png",
+      "nautaCatalog": "cat_32",
+      "nautaName": "Studio Universal HD",
+      "epg": {
+        "number": 161,
+        "tvgId": "Nauta.b9df5eea317035bd5bda31cf@Nauta",
+        "name": "Studio Universal HD [Nauta]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 5
+      }
+    },
+    {
+      "tvgId": "Nauta.bbe4eb27708b3113521f61fe@Nauta",
+      "number": 162,
+      "name": "Telehit [Nauta]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/telehit-mx.png",
+      "nautaCatalog": "cat_7",
+      "nautaName": "Telehit",
+      "epg": {
+        "number": 162,
+        "tvgId": "Nauta.bbe4eb27708b3113521f61fe@Nauta",
+        "name": "Telehit [Nauta]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 1
+      }
+    },
+    {
+      "tvgId": "Nauta.7d15e6854c48e815dea1edf7@Nauta",
+      "number": 163,
+      "name": "Telehit HD [Nauta]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/telehit-mx.png",
+      "nautaCatalog": "cat_32",
+      "nautaName": "Telehit HD",
+      "epg": {
+        "number": 163,
+        "tvgId": "Nauta.7d15e6854c48e815dea1edf7@Nauta",
+        "name": "Telehit HD [Nauta]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 1
+      }
+    },
+    {
+      "tvgId": "ESPN.co@Direct181",
+      "number": 164,
+      "name": "ESPN HD [IP 181]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/espn.svg",
+      "epg": {
+        "number": 164,
+        "tvgId": "ESPN.co@Direct181",
+        "name": "ESPN HD [IP 181]",
+        "source": "co1",
+        "source_id": "ESPN.co",
+        "evidence": "Total_Conexion_Colombia_SDT_and_exact_regional_name",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "ESPN2.co@Direct181",
+      "number": 165,
+      "name": "ESPN 2 HD [IP 181]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/espn-2.png",
+      "epg": {
+        "number": 165,
+        "tvgId": "ESPN2.co@Direct181",
+        "name": "ESPN 2 HD [IP 181]",
+        "source": "co1",
+        "source_id": "ESPN.2.co",
+        "evidence": "Total_Conexion_Colombia_SDT_and_exact_regional_name",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "ESPN4.co@Direct181",
+      "number": 166,
+      "name": "ESPN 4 HD [IP 181]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/espn-4.png",
+      "epg": {
+        "number": 166,
+        "tvgId": "ESPN4.co@Direct181",
+        "name": "ESPN 4 HD [IP 181]",
+        "source": "co1",
+        "source_id": "ESPN.4.co",
+        "evidence": "Total_Conexion_Colombia_SDT_and_exact_regional_name",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "ESPN6.co@Direct181",
+      "number": 167,
+      "name": "ESPN 6 [IP 181]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/espn-6-lam.png",
+      "epg": {
+        "number": 167,
+        "tvgId": "ESPN6.co@Direct181",
+        "name": "ESPN 6 [IP 181]",
+        "source": "co1",
+        "source_id": "ESPN.6.HD.co",
+        "evidence": "Total_Conexion_Colombia_SDT_and_exact_regional_name",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "ESPN7.co@Direct181",
+      "number": 168,
+      "name": "ESPN 7 [IP 181]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/espn-7.png",
+      "epg": {
+        "number": 168,
+        "tvgId": "ESPN7.co@Direct181",
+        "name": "ESPN 7 [IP 181]",
+        "source": "co1",
+        "source_id": "ESPN.7.HD.co",
+        "evidence": "Total_Conexion_Colombia_SDT_and_exact_regional_name",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "Telecafe.co@Direct181",
+      "number": 178,
+      "name": "Telecafé [IP 181]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/telecafe-co.png",
+      "epg": {
+        "number": 178,
+        "tvgId": "Telecafe.co@Direct181",
+        "name": "Telecafé [IP 181]",
+        "source": "co1",
+        "source_id": "Telecafé.co",
+        "evidence": "unique_national_broadcaster_identity",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "CartoonNetwork.co@Direct181",
+      "number": 192,
+      "name": "Cartoon Network [IP 181]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/cartoonnetworklatinamerica-us.png",
+      "epg": {
+        "number": 192,
+        "tvgId": "CartoonNetwork.co@Direct181",
+        "name": "Cartoon Network [IP 181]",
+        "source": "co1",
+        "source_id": "Cartoon.Network.co",
+        "evidence": "Total_Conexion_Colombia_SDT_and_exact_regional_name",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "AdultSwim.co@Direct181",
+      "number": 194,
+      "name": "Adult Swim [IP 181]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/adultswimlatinamerica-us.png",
+      "epg": {
+        "number": 194,
+        "tvgId": "AdultSwim.co@Direct181",
+        "name": "Adult Swim [IP 181]",
+        "source": "co1",
+        "source_id": "AdultSwim.co",
+        "evidence": "Total_Conexion_Colombia_SDT_and_exact_regional_name",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "StarChannel.co@Direct181",
+      "number": 195,
+      "name": "Star Channel [IP 181]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/starchannellatinamerica-us.png",
+      "epg": {
+        "number": 195,
+        "tvgId": "StarChannel.co@Direct181",
+        "name": "Star Channel [IP 181]",
+        "source": "co1",
+        "source_id": "STAR.CHANNEL.co",
+        "evidence": "Total_Conexion_Colombia_SDT_and_exact_regional_name",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "FX.co@Direct181",
+      "number": 196,
+      "name": "FX [IP 181]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/fxlatinamerica-us.png",
+      "epg": {
+        "number": 196,
+        "tvgId": "FX.co@Direct181",
+        "name": "FX [IP 181]",
+        "source": "co1",
+        "source_id": "FX.co",
+        "evidence": "Total_Conexion_Colombia_SDT_and_exact_regional_name",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "Cinecanal.co@Direct181",
+      "number": 197,
+      "name": "Cinecanal [IP 181]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/cinecanal-us.png",
+      "epg": {
+        "number": 197,
+        "tvgId": "Cinecanal.co@Direct181",
+        "name": "Cinecanal [IP 181]",
+        "source": "co1",
+        "source_id": "Cinecanal.co",
+        "evidence": "Total_Conexion_Colombia_SDT_and_exact_regional_name",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "AMC.co@Direct181",
+      "number": 198,
+      "name": "AMC [IP 181]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/amclatinamerica-us.png",
+      "epg": {
+        "number": 198,
+        "tvgId": "AMC.co@Direct181",
+        "name": "AMC [IP 181]",
+        "source": "co1",
+        "source_id": "AMC.co",
+        "evidence": "Total_Conexion_Colombia_SDT_and_exact_regional_name",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "Golden.co@Direct181",
+      "number": 199,
+      "name": "Golden [IP 181]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/golden-mx.png",
+      "epg": {
+        "number": 199,
+        "tvgId": "Golden.co@Direct181",
+        "name": "Golden [IP 181]",
+        "source": "co1",
+        "source_id": "GOLDEN.HD.co",
+        "evidence": "Total_Conexion_Colombia_SDT_and_exact_regional_name",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "GoldenEdge.co@Direct181",
+      "number": 200,
+      "name": "Golden Edge [IP 181]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/goldenedge-mx.png",
+      "epg": {
+        "number": 200,
+        "tvgId": "GoldenEdge.co@Direct181",
+        "name": "Golden Edge [IP 181]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 2
+      }
+    },
+    {
+      "tvgId": "Discovery.co@Direct181",
+      "number": 205,
+      "name": "Discovery Channel [IP 181]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/discoverychannellatinamerica-us.png",
+      "epg": {
+        "number": 205,
+        "tvgId": "Discovery.co@Direct181",
+        "name": "Discovery Channel [IP 181]",
+        "source": "co1",
+        "source_id": "Discovery.Channel.co",
+        "evidence": "Total_Conexion_Colombia_SDT_and_exact_regional_name",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "ID.co@Direct181",
+      "number": 206,
+      "name": "Investigation Discovery [IP 181]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/investigationdiscoverylatinamerica-us.png",
+      "epg": {
+        "number": 206,
+        "tvgId": "ID.co@Direct181",
+        "name": "Investigation Discovery [IP 181]",
+        "source": "co1",
+        "source_id": "ID.-.Investigation.Discovery.co",
+        "evidence": "Total_Conexion_Colombia_SDT_and_exact_regional_name",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "Turbo.co@Direct181",
+      "number": 207,
+      "name": "Discovery Turbo [IP 181]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/discoveryturbolatinamerica-us.png",
+      "epg": {
+        "number": 207,
+        "tvgId": "Turbo.co@Direct181",
+        "name": "Discovery Turbo [IP 181]",
+        "source": "co1",
+        "source_id": "Discovery.Turbo.co",
+        "evidence": "Total_Conexion_Colombia_SDT_and_exact_regional_name",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "DiscoveryHH.co@Direct181",
+      "number": 208,
+      "name": "Discovery Home & Health [IP 181]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/discoveryhomehealthlatinamerica-mx.png",
+      "epg": {
+        "number": 208,
+        "tvgId": "DiscoveryHH.co@Direct181",
+        "name": "Discovery Home & Health [IP 181]",
+        "source": "co1",
+        "source_id": "Discovery.H&H.co",
+        "evidence": "Total_Conexion_Colombia_SDT_and_exact_regional_name",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "TLC.co@Direct181",
+      "number": 209,
+      "name": "TLC [IP 181]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/tlclatinamerica-us.png",
+      "epg": {
+        "number": 209,
+        "tvgId": "TLC.co@Direct181",
+        "name": "TLC [IP 181]",
+        "source": "co1",
+        "source_id": "TLC.co",
+        "evidence": "Total_Conexion_Colombia_SDT_and_exact_regional_name",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "ElGourmet.co@Direct181",
+      "number": 210,
+      "name": "El Gourmet HD [IP 181]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/elgourmet-ar.png",
+      "epg": {
+        "number": 210,
+        "tvgId": "ElGourmet.co@Direct181",
+        "name": "El Gourmet HD [IP 181]",
+        "source": "co1",
+        "source_id": "El.Gourmet.co",
+        "evidence": "Total_Conexion_Colombia_SDT_and_exact_regional_name",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "NatGeo.co@Direct181",
+      "number": 212,
+      "name": "National Geographic [IP 181]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/nationalgeographiclatinamerica-us.png",
+      "epg": {
+        "number": 212,
+        "tvgId": "NatGeo.co@Direct181",
+        "name": "National Geographic [IP 181]",
+        "source": "co1",
+        "source_id": "National.Geographic.co",
+        "evidence": "Total_Conexion_Colombia_SDT_and_exact_regional_name",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "PublicDirect.07595a53d0527c27f68b4e29",
+      "number": 226,
+      "name": "AXN [IP 181.78.8.199]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/axnlatinamerica-us.png",
+      "epg": {
+        "number": 226,
+        "tvgId": "PublicDirect.07595a53d0527c27f68b4e29",
+        "name": "AXN [IP 181.78.8.199]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 6
+      }
+    },
+    {
+      "tvgId": "PublicDirect.749260224cb34a60ab4d8755",
+      "number": 252,
+      "name": "Sony Channel Andes [IP 181.119.66.28]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/sonychannelandes-us.png",
+      "epg": {
+        "number": 252,
+        "tvgId": "PublicDirect.749260224cb34a60ab4d8755",
+        "name": "Sony Channel Andes [IP 181.119.66.28]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.dcfe21bb7cda0e289ff23c1d",
+      "number": 286,
+      "name": "CNN Chile [IP 190.110.96.238]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/cnnchile-cl.png",
+      "epg": {
+        "number": 286,
+        "tvgId": "PublicDirect.dcfe21bb7cda0e289ff23c1d",
+        "name": "CNN Chile [IP 190.110.96.238]",
+        "source": "cl",
+        "source_id": "Canal.CNN.Chile.cl",
+        "evidence": "unique_national_broadcaster_identity",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "PublicDirect.ffd0a47cadbd147671a8a045",
+      "number": 291,
+      "name": "Discovery Theater [IP 181.224.200.5]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/discoverytheaterlatinamerica-us.png",
+      "epg": {
+        "number": 291,
+        "tvgId": "PublicDirect.ffd0a47cadbd147671a8a045",
+        "name": "Discovery Theater [IP 181.224.200.5]",
+        "source": "cl",
+        "source_id": "Canal.Discovery.Theater.(Latinoamérica).cl",
+        "evidence": "explicit_panregional_feed_identical_12h_in_CL_and_MX",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "PublicDirect.a5ab4fb07b0b3f13f591b009",
+      "number": 292,
+      "name": "Discovery Turbo [IP 38.134.250.110]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/discoveryturbolatinamerica-us.png",
+      "epg": {
+        "number": 292,
+        "tvgId": "PublicDirect.a5ab4fb07b0b3f13f591b009",
+        "name": "Discovery Turbo [IP 38.134.250.110]",
+        "source": "cl",
+        "source_id": "Canal.Discovery.Turbo.(Latinoamérica).cl",
+        "evidence": "explicit_panregional_feed_identical_12h_in_CL_and_MX",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "PublicDirect.12ad760b64a1a68eeb39fe70",
+      "number": 299,
+      "name": "ESPN Premium [IP 190.128.214.97]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/espn-premium-ar.png",
+      "epg": {
+        "number": 299,
+        "tvgId": "PublicDirect.12ad760b64a1a68eeb39fe70",
+        "name": "ESPN Premium [IP 190.128.214.97]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.14f7394fd3035a67afe61be9",
+      "number": 305,
+      "name": "Golden [IP 181.224.200.5]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/golden-mx.png",
+      "epg": {
+        "number": 305,
+        "tvgId": "PublicDirect.14f7394fd3035a67afe61be9",
+        "name": "Golden [IP 181.224.200.5]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 3
+      }
+    },
+    {
+      "tvgId": "PublicDirect.853a40a707cc09dae16e8205",
+      "number": 308,
+      "name": "HBO 2 [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/hbo2latinamerica-us.png",
+      "epg": {
+        "number": 308,
+        "tvgId": "PublicDirect.853a40a707cc09dae16e8205",
+        "name": "HBO 2 [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 9
+      }
+    },
+    {
+      "tvgId": "PublicDirect.be7f7ba12ab6004903c96227",
+      "number": 309,
+      "name": "HBO Family [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/hbofamilylatinamerica-us.png",
+      "epg": {
+        "number": 309,
+        "tvgId": "PublicDirect.be7f7ba12ab6004903c96227",
+        "name": "HBO Family [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 4
+      }
+    },
+    {
+      "tvgId": "PublicDirect.ca5aa7867d5a6678df1e8798",
+      "number": 310,
+      "name": "Claro Cinema [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "",
+      "epg": {
+        "number": 310,
+        "tvgId": "PublicDirect.ca5aa7867d5a6678df1e8798",
+        "name": "Claro Cinema [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.f6c3d13d7a52c1616b8a4123",
+      "number": 311,
+      "name": "Claro Musica [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/claromusicatv-co.png",
+      "epg": {
+        "number": 311,
+        "tvgId": "PublicDirect.f6c3d13d7a52c1616b8a4123",
+        "name": "Claro Musica [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.f9423761d966ce3d0fd5b162",
+      "number": 312,
+      "name": "RHEMA TV [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/rhematv-gt.png",
+      "epg": {
+        "number": 312,
+        "tvgId": "PublicDirect.f9423761d966ce3d0fd5b162",
+        "name": "RHEMA TV [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.a84d272d82351c313e421803",
+      "number": 313,
+      "name": "Space [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/space-ar.png",
+      "epg": {
+        "number": 313,
+        "tvgId": "PublicDirect.a84d272d82351c313e421803",
+        "name": "Space [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 6
+      }
+    },
+    {
+      "tvgId": "PublicDirect.00be13e7561217fc741c398f",
+      "number": 314,
+      "name": "Cartoonito [IP 181.78.12.119]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/cartoonitolatinamerica-us.png",
+      "epg": {
+        "number": 314,
+        "tvgId": "PublicDirect.00be13e7561217fc741c398f",
+        "name": "Cartoonito [IP 181.78.12.119]",
+        "source": "co1",
+        "source_id": "CARTOONITO.co",
+        "evidence": "Total_Conexion_Colombia_SDT_and_exact_regional_name",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "PublicDirect.9d293a93a25a9a655c8c1de2",
+      "number": 315,
+      "name": "TNT Novelas HD [IP 181.78.12.119]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/tntnovelas-us.png",
+      "epg": {
+        "number": 315,
+        "tvgId": "PublicDirect.9d293a93a25a9a655c8c1de2",
+        "name": "TNT Novelas HD [IP 181.78.12.119]",
+        "source": "co1",
+        "source_id": "TNT.Novelas.co",
+        "evidence": "Total_Conexion_Colombia_SDT_and_exact_regional_name",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "PublicDirect.ed69a6b5e1637d6e1cb760c0",
+      "number": 316,
+      "name": "CNC [IP 181.78.12.119]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "",
+      "epg": {
+        "number": 316,
+        "tvgId": "PublicDirect.ed69a6b5e1637d6e1cb760c0",
+        "name": "CNC [IP 181.78.12.119]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.95d769b11198d2c83e958f73",
+      "number": 317,
+      "name": "COD Space HD [IP 181.78.12.119]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/space-ar.png",
+      "epg": {
+        "number": 317,
+        "tvgId": "PublicDirect.95d769b11198d2c83e958f73",
+        "name": "COD Space HD [IP 181.78.12.119]",
+        "source": "co1",
+        "source_id": "Space.co",
+        "evidence": "Total_Conexion_Colombia_SDT_and_exact_regional_name",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "PublicDirect.2c3dc51c6c190120d48ad14f",
+      "number": 318,
+      "name": "Caracol ERICSON [IP 181.78.12.119]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/caracoltv-co.png",
+      "epg": {
+        "number": 318,
+        "tvgId": "PublicDirect.2c3dc51c6c190120d48ad14f",
+        "name": "Caracol ERICSON [IP 181.78.12.119]",
+        "status": "pending",
+        "reason": "source_missing_or_under_12h",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.12fb89d0f0001e9c4a2e7c7e",
+      "number": 319,
+      "name": "City TV [IP 181.78.12.119]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "",
+      "epg": {
+        "number": 319,
+        "tvgId": "PublicDirect.12fb89d0f0001e9c4a2e7c7e",
+        "name": "City TV [IP 181.78.12.119]",
+        "source": "ar1",
+        "source_id": "Canal.City.TV.ar",
+        "evidence": "unique_national_broadcaster_identity",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "PublicDirect.cb7dc4d2d35c7f028eb472ab",
+      "number": 320,
+      "name": "ESPN CO sd [IP 181.78.12.119]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/espn.svg",
+      "epg": {
+        "number": 320,
+        "tvgId": "PublicDirect.cb7dc4d2d35c7f028eb472ab",
+        "name": "ESPN CO sd [IP 181.78.12.119]",
+        "source": "co1",
+        "source_id": "ESPN.co",
+        "evidence": "Total_Conexion_Colombia_SDT_and_exact_regional_name",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "PublicDirect.98cc55e4b37f8463cc1dddbc",
+      "number": 321,
+      "name": "Nuestra Tele [IP 181.78.12.119]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/nuestrateleinternacional-co.png",
+      "epg": {
+        "number": 321,
+        "tvgId": "PublicDirect.98cc55e4b37f8463cc1dddbc",
+        "name": "Nuestra Tele [IP 181.78.12.119]",
+        "source": "co1",
+        "source_id": "NUESTRA.TELE.co",
+        "evidence": "unique_national_broadcaster_identity",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "PublicDirect.fe47cb68de9f2d084afd7bf3",
+      "number": 322,
+      "name": "RCN (clone) [IP 181.78.12.119]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/canalrcn-co.png",
+      "epg": {
+        "number": 322,
+        "tvgId": "PublicDirect.fe47cb68de9f2d084afd7bf3",
+        "name": "RCN (clone) [IP 181.78.12.119]",
+        "source": "co1",
+        "source_id": "RCN.co",
+        "evidence": "unique_national_broadcaster_identity",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "PublicDirect.8afbf965360abace09de8ff8",
+      "number": 323,
+      "name": "SRT A&E [IP 181.78.12.119]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/a-and-e-ar.png",
+      "epg": {
+        "number": 323,
+        "tvgId": "PublicDirect.8afbf965360abace09de8ff8",
+        "name": "SRT A&E [IP 181.78.12.119]",
+        "source": "co1",
+        "source_id": "A&E.co",
+        "evidence": "Total_Conexion_Colombia_SDT_and_exact_regional_name",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "PublicDirect.af0854658bb038c80c657ea5",
+      "number": 324,
+      "name": "SRT AXN [IP 181.78.12.119]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/axnlatinamerica-us.png",
+      "epg": {
+        "number": 324,
+        "tvgId": "PublicDirect.af0854658bb038c80c657ea5",
+        "name": "SRT AXN [IP 181.78.12.119]",
+        "source": "co1",
+        "source_id": "AXN.co",
+        "evidence": "Total_Conexion_Colombia_SDT_and_exact_regional_name",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "PublicDirect.5218fd5abba92fea1b812142",
+      "number": 325,
+      "name": "SRT E! [IP 181.78.12.119]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/elatinamerica-us.png",
+      "epg": {
+        "number": 325,
+        "tvgId": "PublicDirect.5218fd5abba92fea1b812142",
+        "name": "SRT E! [IP 181.78.12.119]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 1
+      }
+    },
+    {
+      "tvgId": "PublicDirect.b1df48227d3800ef893c4676",
+      "number": 326,
+      "name": "SRT HISTORY [IP 181.78.12.119]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/history-channel-lam.png",
+      "epg": {
+        "number": 326,
+        "tvgId": "PublicDirect.b1df48227d3800ef893c4676",
+        "name": "SRT HISTORY [IP 181.78.12.119]",
+        "source": "co1",
+        "source_id": "History.Channel.co",
+        "evidence": "Total_Conexion_Colombia_SDT_and_exact_regional_name",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "PublicDirect.8a8e460eebdbc3e9a8f067db",
+      "number": 327,
+      "name": "SRT SONY [IP 181.78.12.119]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/sonychannelandes-us.png",
+      "epg": {
+        "number": 327,
+        "tvgId": "PublicDirect.8a8e460eebdbc3e9a8f067db",
+        "name": "SRT SONY [IP 181.78.12.119]",
+        "source": "co1",
+        "source_id": "Sony.co",
+        "evidence": "Total_Conexion_Colombia_SDT_and_exact_regional_name",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "PublicDirect.dfb814f1d8534e6fbbedbe92",
+      "number": 328,
+      "name": "SRT SONY MOVIES [IP 181.78.12.119]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/sonymovieslatinamerica-us.png",
+      "epg": {
+        "number": 328,
+        "tvgId": "PublicDirect.dfb814f1d8534e6fbbedbe92",
+        "name": "SRT SONY MOVIES [IP 181.78.12.119]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 1
+      }
+    },
+    {
+      "tvgId": "PublicDirect.36a879c02cd2241bb94ff8dc",
+      "number": 329,
+      "name": "SRT lifetime [IP 181.78.12.119]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/lifetimelatinamerica-us.png",
+      "epg": {
+        "number": 329,
+        "tvgId": "PublicDirect.36a879c02cd2241bb94ff8dc",
+        "name": "SRT lifetime [IP 181.78.12.119]",
+        "status": "pending",
+        "reason": "source_missing_or_under_12h",
+        "candidateCount": 4
+      }
+    },
+    {
+      "tvgId": "PublicDirect.5115d498eded77306b17f1e3",
+      "number": 330,
+      "name": "SRT televid [IP 181.78.12.119]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/televid-co.png",
+      "epg": {
+        "number": 330,
+        "tvgId": "PublicDirect.5115d498eded77306b17f1e3",
+        "name": "SRT televid [IP 181.78.12.119]",
+        "source": "co1",
+        "source_id": "TELEVID.co",
+        "evidence": "unique_national_broadcaster_identity",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "PublicDirect.af76ff6e42d192f1ecb51aab",
+      "number": 331,
+      "name": "Space HD [IP 181.78.12.119]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/space-ar.png",
+      "epg": {
+        "number": 331,
+        "tvgId": "PublicDirect.af76ff6e42d192f1ecb51aab",
+        "name": "Space HD [IP 181.78.12.119]",
+        "source": "co1",
+        "source_id": "Space.co",
+        "evidence": "Total_Conexion_Colombia_SDT_and_exact_regional_name",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "PublicDirect.d0ff393b5e69a7926553f135",
+      "number": 332,
+      "name": "TNT HD [IP 181.78.12.119]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/tntlatinamerica-us.png",
+      "epg": {
+        "number": 332,
+        "tvgId": "PublicDirect.d0ff393b5e69a7926553f135",
+        "name": "TNT HD [IP 181.78.12.119]",
+        "source": "co1",
+        "source_id": "TNT.co",
+        "evidence": "Total_Conexion_Colombia_SDT_and_exact_regional_name",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "PublicDirect.f9a42403dbbacc104a68e54d",
+      "number": 333,
+      "name": "Ve plus [IP 181.78.12.119]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/veplus-ve.png",
+      "epg": {
+        "number": 333,
+        "tvgId": "PublicDirect.f9a42403dbbacc104a68e54d",
+        "name": "Ve plus [IP 181.78.12.119]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 2
+      }
+    },
+    {
+      "tvgId": "PublicDirect.a88a7ce758428e326d0b5354",
+      "number": 334,
+      "name": "srt E-SPORTS MAX [IP 181.78.12.119]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/esportsmaxtv-ve.png",
+      "epg": {
+        "number": 334,
+        "tvgId": "PublicDirect.a88a7ce758428e326d0b5354",
+        "name": "srt E-SPORTS MAX [IP 181.78.12.119]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.130b51ce6ddcd5e4f22013e7",
+      "number": 335,
+      "name": "srt PLOUS TV [IP 181.78.12.119]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/ploustv-ve.png",
+      "epg": {
+        "number": 335,
+        "tvgId": "PublicDirect.130b51ce6ddcd5e4f22013e7",
+        "name": "srt PLOUS TV [IP 181.78.12.119]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.2a99698e9a5c88855c7a7190",
+      "number": 336,
+      "name": "el mundo del campo [IP 181.78.12.119]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "",
+      "epg": {
+        "number": 336,
+        "tvgId": "PublicDirect.2a99698e9a5c88855c7a7190",
+        "name": "el mundo del campo [IP 181.78.12.119]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.3a66c79fa4392ed25661a666",
+      "number": 337,
+      "name": "rcn novelas [IP 181.78.12.119]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/rcnnovelas-co.png",
+      "epg": {
+        "number": 337,
+        "tvgId": "PublicDirect.3a66c79fa4392ed25661a666",
+        "name": "rcn novelas [IP 181.78.12.119]",
+        "source": "co1",
+        "source_id": "RCN.Novelas.co",
+        "evidence": "unique_national_broadcaster_identity",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "PublicDirect.05078f0b4d89add3c8d44a20",
+      "number": 338,
+      "name": "Caracol HD (clone) [IP 181.78.12.119]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/caracoltv-co.png",
+      "epg": {
+        "number": 338,
+        "tvgId": "PublicDirect.05078f0b4d89add3c8d44a20",
+        "name": "Caracol HD (clone) [IP 181.78.12.119]",
+        "status": "pending",
+        "reason": "source_missing_or_under_12h",
+        "candidateCount": 1
+      }
+    },
+    {
+      "tvgId": "PublicDirect.24a90bad8783bef2cc14f935",
+      "number": 339,
+      "name": "ZOOM (clone) [IP 181.78.12.119]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/zoom-co.png",
+      "epg": {
+        "number": 339,
+        "tvgId": "PublicDirect.24a90bad8783bef2cc14f935",
+        "name": "ZOOM (clone) [IP 181.78.12.119]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.c6bd3a96018cbeb2a0f28f3b",
+      "number": 340,
+      "name": "A&E [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/a-and-e-ar.png",
+      "epg": {
+        "number": 340,
+        "tvgId": "PublicDirect.c6bd3a96018cbeb2a0f28f3b",
+        "name": "A&E [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 2
+      }
+    },
+    {
+      "tvgId": "PublicDirect.d9973a3bfb28634698473218",
+      "number": 341,
+      "name": "A&E HD [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/a-and-e-ar.png",
+      "epg": {
+        "number": 341,
+        "tvgId": "PublicDirect.d9973a3bfb28634698473218",
+        "name": "A&E HD [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 2
+      }
+    },
+    {
+      "tvgId": "PublicDirect.154bdf2110d43b7d5ecf798c",
+      "number": 342,
+      "name": "AMC [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/amclatinamerica-us.png",
+      "epg": {
+        "number": 342,
+        "tvgId": "PublicDirect.154bdf2110d43b7d5ecf798c",
+        "name": "AMC [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 8
+      }
+    },
+    {
+      "tvgId": "PublicDirect.8918c13cf06dc2f7416879f2",
+      "number": 343,
+      "name": "AMC HD [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/amclatinamerica-us.png",
+      "epg": {
+        "number": 343,
+        "tvgId": "PublicDirect.8918c13cf06dc2f7416879f2",
+        "name": "AMC HD [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 8
+      }
+    },
+    {
+      "tvgId": "PublicDirect.e17934e0e48749cee7c26401",
+      "number": 344,
+      "name": "AXN [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/axnlatinamerica-us.png",
+      "epg": {
+        "number": 344,
+        "tvgId": "PublicDirect.e17934e0e48749cee7c26401",
+        "name": "AXN [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 6
+      }
+    },
+    {
+      "tvgId": "PublicDirect.1162bcbccc1aa298b25757a3",
+      "number": 345,
+      "name": "AXN HD [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/axnlatinamerica-us.png",
+      "epg": {
+        "number": 345,
+        "tvgId": "PublicDirect.1162bcbccc1aa298b25757a3",
+        "name": "AXN HD [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 6
+      }
+    },
+    {
+      "tvgId": "PublicDirect.be7d7ad8f89857467f93cb8e",
+      "number": 346,
+      "name": "AZ click HD [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/azclic-mx.png",
+      "epg": {
+        "number": 346,
+        "tvgId": "PublicDirect.be7d7ad8f89857467f93cb8e",
+        "name": "AZ click HD [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.5551093bff52d29b38509588",
+      "number": 347,
+      "name": "Animal Planet [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/animalplanetlatinamerica-us.png",
+      "epg": {
+        "number": 347,
+        "tvgId": "PublicDirect.5551093bff52d29b38509588",
+        "name": "Animal Planet [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 8
+      }
+    },
+    {
+      "tvgId": "PublicDirect.e6a2bc5a013c1c5b9656d441",
+      "number": 348,
+      "name": "Animal Planet HD [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/animalplanetlatinamerica-us.png",
+      "epg": {
+        "number": 348,
+        "tvgId": "PublicDirect.e6a2bc5a013c1c5b9656d441",
+        "name": "Animal Planet HD [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 8
+      }
+    },
+    {
+      "tvgId": "PublicDirect.8955d88c9214c0b2a89cd340",
+      "number": 349,
+      "name": "Azcorazon [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/azcorazon-mx.png",
+      "epg": {
+        "number": 349,
+        "tvgId": "PublicDirect.8955d88c9214c0b2a89cd340",
+        "name": "Azcorazon [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.5f8a1a274086481eddc57367",
+      "number": 350,
+      "name": "Azmundo [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/azmundo-mx.png",
+      "epg": {
+        "number": 350,
+        "tvgId": "PublicDirect.5f8a1a274086481eddc57367",
+        "name": "Azmundo [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.717555651a1f37739ace1076",
+      "number": 351,
+      "name": "BBC World [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/bbcnews-uk.png",
+      "epg": {
+        "number": 351,
+        "tvgId": "PublicDirect.717555651a1f37739ace1076",
+        "name": "BBC World [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.7c6b3fe651f063bda7e51a6a",
+      "number": 352,
+      "name": "Baby First [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/babyfirst-us.png",
+      "epg": {
+        "number": 352,
+        "tvgId": "PublicDirect.7c6b3fe651f063bda7e51a6a",
+        "name": "Baby First [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.9840c70e010eb35fb900c6b4",
+      "number": 353,
+      "name": "CINECANAL HD [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/cinecanal-us.png",
+      "epg": {
+        "number": 353,
+        "tvgId": "PublicDirect.9840c70e010eb35fb900c6b4",
+        "name": "CINECANAL HD [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 5
+      }
+    },
+    {
+      "tvgId": "PublicDirect.77c5a323d8aaed78570df3bd",
+      "number": 354,
+      "name": "CNN Internacional [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/cnninternational-us.png",
+      "epg": {
+        "number": 354,
+        "tvgId": "PublicDirect.77c5a323d8aaed78570df3bd",
+        "name": "CNN Internacional [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.5417589c8c430cab0ba0df74",
+      "number": 355,
+      "name": "CNNE [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/cnnenespanol-us.svg",
+      "epg": {
+        "number": 355,
+        "tvgId": "PublicDirect.5417589c8c430cab0ba0df74",
+        "name": "CNNE [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.7a597c8a2d6c1e6c97015c28",
+      "number": 356,
+      "name": "Canal 13-GUA-e1 [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "",
+      "epg": {
+        "number": 356,
+        "tvgId": "PublicDirect.7a597c8a2d6c1e6c97015c28",
+        "name": "Canal 13-GUA-e1 [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.43557d465d973d608c6bb19a",
+      "number": 357,
+      "name": "Canal 3 - GUA [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "",
+      "epg": {
+        "number": 357,
+        "tvgId": "PublicDirect.43557d465d973d608c6bb19a",
+        "name": "Canal 3 - GUA [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.563319274daa44463f7c9f6c",
+      "number": 358,
+      "name": "Canal 7 - GUA [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/canal7-gt.png",
+      "epg": {
+        "number": 358,
+        "tvgId": "PublicDirect.563319274daa44463f7c9f6c",
+        "name": "Canal 7 - GUA [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.eb3b17bc3573e55b2c56cf95",
+      "number": 359,
+      "name": "Canal Antigua - GUA [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/canalantigua-gt.png",
+      "epg": {
+        "number": 359,
+        "tvgId": "PublicDirect.eb3b17bc3573e55b2c56cf95",
+        "name": "Canal Antigua - GUA [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.1351317d6c3f201ad2b4c44f",
+      "number": 360,
+      "name": "Cartoon Network [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/cartoonnetworklatinamerica-us.png",
+      "epg": {
+        "number": 360,
+        "tvgId": "PublicDirect.1351317d6c3f201ad2b4c44f",
+        "name": "Cartoon Network [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 8
+      }
+    },
+    {
+      "tvgId": "PublicDirect.1657bd8e8c7410b0a128ea30",
+      "number": 361,
+      "name": "Cine Latino [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/cinelatino-mx.png",
+      "epg": {
+        "number": 361,
+        "tvgId": "PublicDirect.1657bd8e8c7410b0a128ea30",
+        "name": "Cine Latino [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 1
+      }
+    },
+    {
+      "tvgId": "PublicDirect.9f74e4c4a28acde00c25d4a7",
+      "number": 362,
+      "name": "CineCanal [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/cinecanal-us.png",
+      "epg": {
+        "number": 362,
+        "tvgId": "PublicDirect.9f74e4c4a28acde00c25d4a7",
+        "name": "CineCanal [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 5
+      }
+    },
+    {
+      "tvgId": "PublicDirect.0f8b28b872547b18b7bda979",
+      "number": 363,
+      "name": "CineMax [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/cinemaxlatinamerica-us.png",
+      "epg": {
+        "number": 363,
+        "tvgId": "PublicDirect.0f8b28b872547b18b7bda979",
+        "name": "CineMax [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 7
+      }
+    },
+    {
+      "tvgId": "PublicDirect.835094fef82435ce5947b9c2",
+      "number": 364,
+      "name": "Kanal D Drama [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "",
+      "epg": {
+        "number": 364,
+        "tvgId": "PublicDirect.835094fef82435ce5947b9c2",
+        "name": "Kanal D Drama [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 1
+      }
+    },
+    {
+      "tvgId": "PublicDirect.2a81d81719e1692d22f45cdd",
+      "number": 365,
+      "name": "Concert Channel [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/concertchannel-us.png",
+      "epg": {
+        "number": 365,
+        "tvgId": "PublicDirect.2a81d81719e1692d22f45cdd",
+        "name": "Concert Channel [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 1
+      }
+    },
+    {
+      "tvgId": "PublicDirect.8218b29b717b76d2a6d6d7b2",
+      "number": 366,
+      "name": "DHE [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/dhe-us.png",
+      "epg": {
+        "number": 366,
+        "tvgId": "PublicDirect.8218b29b717b76d2a6d6d7b2",
+        "name": "DHE [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 1
+      }
+    },
+    {
+      "tvgId": "PublicDirect.1b124c1b77d597781052232a",
+      "number": 367,
+      "name": "DHE HD [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/dhe-us.png",
+      "epg": {
+        "number": 367,
+        "tvgId": "PublicDirect.1b124c1b77d597781052232a",
+        "name": "DHE HD [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 1
+      }
+    },
+    {
+      "tvgId": "PublicDirect.73f723df5a9d1193862f0d33",
+      "number": 368,
+      "name": "DISC THEATHER HD [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/discoverytheaterlatinamerica-us.png",
+      "epg": {
+        "number": 368,
+        "tvgId": "PublicDirect.73f723df5a9d1193862f0d33",
+        "name": "DISC THEATHER HD [IP 45.171.64.30]",
+        "source": "cl",
+        "source_id": "Canal.Discovery.Theater.(Latinoamérica).cl",
+        "evidence": "explicit_panregional_feed_identical_12h_in_CL_and_MX",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "PublicDirect.b9e80edee2c430a6354ef4b8",
+      "number": 369,
+      "name": "Discovery Home & Health [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/discoveryhomehealthlatinamerica-mx.png",
+      "epg": {
+        "number": 369,
+        "tvgId": "PublicDirect.b9e80edee2c430a6354ef4b8",
+        "name": "Discovery Home & Health [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 1
+      }
+    },
+    {
+      "tvgId": "PublicDirect.89cae6ff507906ff8501bcb0",
+      "number": 370,
+      "name": "Discovery Kids [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/discoverykidslatinamerica-us.png",
+      "epg": {
+        "number": 370,
+        "tvgId": "PublicDirect.89cae6ff507906ff8501bcb0",
+        "name": "Discovery Kids [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 7
+      }
+    },
+    {
+      "tvgId": "PublicDirect.602db5a8e67bf15f610e9370",
+      "number": 371,
+      "name": "Discovery Turbo [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/discoveryturbolatinamerica-us.png",
+      "epg": {
+        "number": 371,
+        "tvgId": "PublicDirect.602db5a8e67bf15f610e9370",
+        "name": "Discovery Turbo [IP 45.171.64.30]",
+        "source": "cl",
+        "source_id": "Canal.Discovery.Turbo.(Latinoamérica).cl",
+        "evidence": "explicit_panregional_feed_identical_12h_in_CL_and_MX",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "PublicDirect.56a9657c934115ec2f1481ae",
+      "number": 372,
+      "name": "Disney [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/disneychannellatinamerica-ar.svg",
+      "epg": {
+        "number": 372,
+        "tvgId": "PublicDirect.56a9657c934115ec2f1481ae",
+        "name": "Disney [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 4
+      }
+    },
+    {
+      "tvgId": "PublicDirect.f44c42892b6e8efa54aea954",
+      "number": 373,
+      "name": "Disney JR [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/disneyjrlatinamerica-ar.svg",
+      "epg": {
+        "number": 373,
+        "tvgId": "PublicDirect.f44c42892b6e8efa54aea954",
+        "name": "Disney JR [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 3
+      }
+    },
+    {
+      "tvgId": "PublicDirect.4a3ee6122f85ca98215b6c15",
+      "number": 374,
+      "name": "E! [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/elatinamerica-us.png",
+      "epg": {
+        "number": 374,
+        "tvgId": "PublicDirect.4a3ee6122f85ca98215b6c15",
+        "name": "E! [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 1
+      }
+    },
+    {
+      "tvgId": "PublicDirect.332ea6dacea78829fcc244e9",
+      "number": 375,
+      "name": "E! Entertairment HD [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/elatinamerica-us.png",
+      "epg": {
+        "number": 375,
+        "tvgId": "PublicDirect.332ea6dacea78829fcc244e9",
+        "name": "E! Entertairment HD [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.925c763ee4a3a76ffc02cca6",
+      "number": 376,
+      "name": "ESPN [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/espn.svg",
+      "epg": {
+        "number": 376,
+        "tvgId": "PublicDirect.925c763ee4a3a76ffc02cca6",
+        "name": "ESPN [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 5
+      }
+    },
+    {
+      "tvgId": "PublicDirect.abfc3ae43e2088dfcceeaf6b",
+      "number": 377,
+      "name": "ESPN 4 HD [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/espn-4.png",
+      "epg": {
+        "number": 377,
+        "tvgId": "PublicDirect.abfc3ae43e2088dfcceeaf6b",
+        "name": "ESPN 4 HD [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 3
+      }
+    },
+    {
+      "tvgId": "PublicDirect.971215bf53db3488f848d6c6",
+      "number": 378,
+      "name": "ESPN 2 [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/espn-2.png",
+      "epg": {
+        "number": 378,
+        "tvgId": "PublicDirect.971215bf53db3488f848d6c6",
+        "name": "ESPN 2 [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 9
+      }
+    },
+    {
+      "tvgId": "PublicDirect.4c4f25512dc26528b8133d9f",
+      "number": 379,
+      "name": "ESPN 2 HD [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/espn-2.png",
+      "epg": {
+        "number": 379,
+        "tvgId": "PublicDirect.4c4f25512dc26528b8133d9f",
+        "name": "ESPN 2 HD [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 9
+      }
+    },
+    {
+      "tvgId": "PublicDirect.3d519bc9027bf3427d250d7c",
+      "number": 380,
+      "name": "ESPN 3 [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/espn-3.png",
+      "epg": {
+        "number": 380,
+        "tvgId": "PublicDirect.3d519bc9027bf3427d250d7c",
+        "name": "ESPN 3 [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 6
+      }
+    },
+    {
+      "tvgId": "PublicDirect.9fc08fec9b53b602b7ce875e",
+      "number": 381,
+      "name": "ESPN 3 HD [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/espn-3.png",
+      "epg": {
+        "number": 381,
+        "tvgId": "PublicDirect.9fc08fec9b53b602b7ce875e",
+        "name": "ESPN 3 HD [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 6
+      }
+    },
+    {
+      "tvgId": "PublicDirect.2f248d6579ad8e31cef9c950",
+      "number": 382,
+      "name": "ESPN 6 [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/espn-6-lam.png",
+      "epg": {
+        "number": 382,
+        "tvgId": "PublicDirect.2f248d6579ad8e31cef9c950",
+        "name": "ESPN 6 [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 5
+      }
+    },
+    {
+      "tvgId": "PublicDirect.68696bca1787ea6c42d08166",
+      "number": 383,
+      "name": "ESPN 6 HD [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/espn-6-lam.png",
+      "epg": {
+        "number": 383,
+        "tvgId": "PublicDirect.68696bca1787ea6c42d08166",
+        "name": "ESPN 6 HD [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 5
+      }
+    },
+    {
+      "tvgId": "PublicDirect.56d928ddd65198f71d50e805",
+      "number": 384,
+      "name": "EWTN [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/ewtn-us.png",
+      "epg": {
+        "number": 384,
+        "tvgId": "PublicDirect.56d928ddd65198f71d50e805",
+        "name": "EWTN [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 3
+      }
+    },
+    {
+      "tvgId": "PublicDirect.87ba434b81d9f9eac87e7f81",
+      "number": 385,
+      "name": "El Gourmet [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/elgourmet-ar.png",
+      "epg": {
+        "number": 385,
+        "tvgId": "PublicDirect.87ba434b81d9f9eac87e7f81",
+        "name": "El Gourmet [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 5
+      }
+    },
+    {
+      "tvgId": "PublicDirect.dcf280ba951d54163fb67121",
+      "number": 386,
+      "name": "Exa TV [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/exatv-mx.png",
+      "epg": {
+        "number": 386,
+        "tvgId": "PublicDirect.dcf280ba951d54163fb67121",
+        "name": "Exa TV [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.d0f959013c7d64b49621375a",
+      "number": 387,
+      "name": "FX [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/fxlatinamerica-us.png",
+      "epg": {
+        "number": 387,
+        "tvgId": "PublicDirect.d0f959013c7d64b49621375a",
+        "name": "FX [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 7
+      }
+    },
+    {
+      "tvgId": "PublicDirect.a90b6470c5abcd5d43a21f04",
+      "number": 388,
+      "name": "FX HD [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/fxlatinamerica-us.png",
+      "epg": {
+        "number": 388,
+        "tvgId": "PublicDirect.a90b6470c5abcd5d43a21f04",
+        "name": "FX HD [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 7
+      }
+    },
+    {
+      "tvgId": "PublicDirect.305dbd0140ddeb2995c9cd16",
+      "number": 389,
+      "name": "Film & Arts [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/filmarts-ar.png",
+      "epg": {
+        "number": 389,
+        "tvgId": "PublicDirect.305dbd0140ddeb2995c9cd16",
+        "name": "Film & Arts [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 4
+      }
+    },
+    {
+      "tvgId": "PublicDirect.7eddab771710fba70f46bb14",
+      "number": 390,
+      "name": "Film & arts HD [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/filmarts-ar.png",
+      "epg": {
+        "number": 390,
+        "tvgId": "PublicDirect.7eddab771710fba70f46bb14",
+        "name": "Film & arts HD [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 4
+      }
+    },
+    {
+      "tvgId": "PublicDirect.f01cdfce2a440e1aac5e8c70",
+      "number": 391,
+      "name": "ESPN 6 [IP 45.171.64.30] · señal 2",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/espn-6-lam.png",
+      "epg": {
+        "number": 391,
+        "tvgId": "PublicDirect.f01cdfce2a440e1aac5e8c70",
+        "name": "ESPN 6 [IP 45.171.64.30] · señal 2",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 5
+      }
+    },
+    {
+      "tvgId": "PublicDirect.796c17a762ce69be57ec714d",
+      "number": 392,
+      "name": "France24 [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/france24.svg",
+      "epg": {
+        "number": 392,
+        "tvgId": "PublicDirect.796c17a762ce69be57ec714d",
+        "name": "France24 [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 3
+      }
+    },
+    {
+      "tvgId": "PublicDirect.2986363464e32a02d69a65dd",
+      "number": 393,
+      "name": "Golden [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/golden-mx.png",
+      "epg": {
+        "number": 393,
+        "tvgId": "PublicDirect.2986363464e32a02d69a65dd",
+        "name": "Golden [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 3
+      }
+    },
+    {
+      "tvgId": "PublicDirect.44f9d286f6768740b06eaad9",
+      "number": 394,
+      "name": "Golf Channel HD [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/golfchannellatinamerica-us.png",
+      "epg": {
+        "number": 394,
+        "tvgId": "PublicDirect.44f9d286f6768740b06eaad9",
+        "name": "Golf Channel HD [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 2
+      }
+    },
+    {
+      "tvgId": "PublicDirect.407a6cdf00bb64c25fb341f4",
+      "number": 395,
+      "name": "Guatevision - GUA [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/guatevision-gt.png",
+      "epg": {
+        "number": 395,
+        "tvgId": "PublicDirect.407a6cdf00bb64c25fb341f4",
+        "name": "Guatevision - GUA [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.0ef1ce174fa5aaee3811b04f",
+      "number": 396,
+      "name": "H2 [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/history2latinamerica-us.png",
+      "epg": {
+        "number": 396,
+        "tvgId": "PublicDirect.0ef1ce174fa5aaee3811b04f",
+        "name": "H2 [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 2
+      }
+    },
+    {
+      "tvgId": "PublicDirect.8db5a974dc4b6ed483cf2bf9",
+      "number": 397,
+      "name": "HBO XTREME [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/hboxtremelatinamerica-us.png",
+      "epg": {
+        "number": 397,
+        "tvgId": "PublicDirect.8db5a974dc4b6ed483cf2bf9",
+        "name": "HBO XTREME [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 4
+      }
+    },
+    {
+      "tvgId": "PublicDirect.c1ed48f37448ded5dca7e8bd",
+      "number": 398,
+      "name": "History Channel [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/history-channel-lam.png",
+      "epg": {
+        "number": 398,
+        "tvgId": "PublicDirect.c1ed48f37448ded5dca7e8bd",
+        "name": "History Channel [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 2
+      }
+    },
+    {
+      "tvgId": "PublicDirect.459d3dc3761d20aa0f17806a",
+      "number": 399,
+      "name": "History HD [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/history-channel-lam.png",
+      "epg": {
+        "number": 399,
+        "tvgId": "PublicDirect.459d3dc3761d20aa0f17806a",
+        "name": "History HD [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 5
+      }
+    },
+    {
+      "tvgId": "PublicDirect.eab9850053533285f56d213a",
+      "number": 400,
+      "name": "Home Garden Latino [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/hgtvlatinamerica-us.png",
+      "epg": {
+        "number": 400,
+        "tvgId": "PublicDirect.eab9850053533285f56d213a",
+        "name": "Home Garden Latino [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.c242c1f1773acbfff4232e28",
+      "number": 401,
+      "name": "LIFE TIME [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/lifetimelatinamerica-us.png",
+      "epg": {
+        "number": 401,
+        "tvgId": "PublicDirect.c242c1f1773acbfff4232e28",
+        "name": "LIFE TIME [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 4
+      }
+    },
+    {
+      "tvgId": "PublicDirect.a712127b104cc2260c6fedc0",
+      "number": 402,
+      "name": "La voz de Maria [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/lavozdemaria-do.png",
+      "epg": {
+        "number": 402,
+        "tvgId": "PublicDirect.a712127b104cc2260c6fedc0",
+        "name": "La voz de Maria [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.7e481ae905cfde3a83c3ccfe",
+      "number": 403,
+      "name": "AyM Sports [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/aymsports-mx.png",
+      "epg": {
+        "number": 403,
+        "tvgId": "PublicDirect.7e481ae905cfde3a83c3ccfe",
+        "name": "AyM Sports [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.7d829b68f0e63dbdd397a468",
+      "number": 404,
+      "name": "Multicinema [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "",
+      "epg": {
+        "number": 404,
+        "tvgId": "PublicDirect.7d829b68f0e63dbdd397a468",
+        "name": "Multicinema [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.cbbf16d047322fe020949bf8",
+      "number": 405,
+      "name": "Fox Sports [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/fox-sports.svg",
+      "epg": {
+        "number": 405,
+        "tvgId": "PublicDirect.cbbf16d047322fe020949bf8",
+        "name": "Fox Sports [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 2
+      }
+    },
+    {
+      "tvgId": "PublicDirect.747adbe6694514eee98e7ed5",
+      "number": 406,
+      "name": "A3Cine [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "",
+      "epg": {
+        "number": 406,
+        "tvgId": "PublicDirect.747adbe6694514eee98e7ed5",
+        "name": "A3Cine [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 1
+      }
+    },
+    {
+      "tvgId": "PublicDirect.3ee2b2a286f1ba55a0be9723",
+      "number": 407,
+      "name": "Pasiones HD [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/pasioneslatinamerica-us.png",
+      "epg": {
+        "number": 407,
+        "tvgId": "PublicDirect.3ee2b2a286f1ba55a0be9723",
+        "name": "Pasiones HD [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 1
+      }
+    },
+    {
+      "tvgId": "PublicDirect.c6f31bbf9b3a8d4f6dbca07d",
+      "number": 408,
+      "name": "Pregon Infirmativo [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "",
+      "epg": {
+        "number": 408,
+        "tvgId": "PublicDirect.c6f31bbf9b3a8d4f6dbca07d",
+        "name": "Pregon Infirmativo [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.be33d60d2f78170c97c37514",
+      "number": 409,
+      "name": "La Red TV [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/laredtv-gt.png",
+      "epg": {
+        "number": 409,
+        "tvgId": "PublicDirect.be33d60d2f78170c97c37514",
+        "name": "La Red TV [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.51b11c161840f9db76a04904",
+      "number": 410,
+      "name": "RCN Novelas [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/rcnnovelas-co.png",
+      "epg": {
+        "number": 410,
+        "tvgId": "PublicDirect.51b11c161840f9db76a04904",
+        "name": "RCN Novelas [IP 45.171.64.30]",
+        "source": "co1",
+        "source_id": "RCN.Novelas.co",
+        "evidence": "unique_national_broadcaster_identity",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "PublicDirect.1a0c2a31bd9c634459c58380",
+      "number": 411,
+      "name": "Radio renecer [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "",
+      "epg": {
+        "number": 411,
+        "tvgId": "PublicDirect.1a0c2a31bd9c634459c58380",
+        "name": "Radio renecer [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.1efd0c13d73c9caaf88077f4",
+      "number": 412,
+      "name": "SEMILLITAS [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/semillitastv-us.png",
+      "epg": {
+        "number": 412,
+        "tvgId": "PublicDirect.1efd0c13d73c9caaf88077f4",
+        "name": "SEMILLITAS [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.6d1b04a9ccdf4197fbbc3ef6",
+      "number": 413,
+      "name": "SONY [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/sonychannelandes-us.png",
+      "epg": {
+        "number": 413,
+        "tvgId": "PublicDirect.6d1b04a9ccdf4197fbbc3ef6",
+        "name": "SONY [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 4
+      }
+    },
+    {
+      "tvgId": "PublicDirect.1426399def5c52eee57f4bb0",
+      "number": 414,
+      "name": "SPACE [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/space-ar.png",
+      "epg": {
+        "number": 414,
+        "tvgId": "PublicDirect.1426399def5c52eee57f4bb0",
+        "name": "SPACE [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 6
+      }
+    },
+    {
+      "tvgId": "PublicDirect.0d0b3a195eb01f1ab454cd75",
+      "number": 415,
+      "name": "Sony Movies HD [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/sonymovieslatinamerica-us.png",
+      "epg": {
+        "number": 415,
+        "tvgId": "PublicDirect.0d0b3a195eb01f1ab454cd75",
+        "name": "Sony Movies HD [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 1
+      }
+    },
+    {
+      "tvgId": "PublicDirect.590828755b8ac040706c8575",
+      "number": 416,
+      "name": "Studio Universal [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/studiouniversallatinamerica-us.png",
+      "epg": {
+        "number": 416,
+        "tvgId": "PublicDirect.590828755b8ac040706c8575",
+        "name": "Studio Universal [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 5
+      }
+    },
+    {
+      "tvgId": "PublicDirect.52f6bff32710f7c83abeda34",
+      "number": 417,
+      "name": "Studio Universal HD [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/studiouniversallatinamerica-us.png",
+      "epg": {
+        "number": 417,
+        "tvgId": "PublicDirect.52f6bff32710f7c83abeda34",
+        "name": "Studio Universal HD [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 5
+      }
+    },
+    {
+      "tvgId": "PublicDirect.ba69f9b8ca828f79a3b8b9cf",
+      "number": 418,
+      "name": "TBN Enlace [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/enlace-cr.png",
+      "epg": {
+        "number": 418,
+        "tvgId": "PublicDirect.ba69f9b8ca828f79a3b8b9cf",
+        "name": "TBN Enlace [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.ae75ddaa5bf1de03760155d8",
+      "number": 419,
+      "name": "TNT Novelas [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/tntnovelas-us.png",
+      "epg": {
+        "number": 419,
+        "tvgId": "PublicDirect.ae75ddaa5bf1de03760155d8",
+        "name": "TNT Novelas [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 3
+      }
+    },
+    {
+      "tvgId": "PublicDirect.1592ac20e79b21ae24514be4",
+      "number": 420,
+      "name": "TD+2 HD CR [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/tdmas2-cr.png",
+      "epg": {
+        "number": 420,
+        "tvgId": "PublicDirect.1592ac20e79b21ae24514be4",
+        "name": "TD+2 HD CR [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.60b05b1433d087260f3b5c2d",
+      "number": 421,
+      "name": "TD+HD CR [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/tdmas-cr.png",
+      "epg": {
+        "number": 421,
+        "tvgId": "PublicDirect.60b05b1433d087260f3b5c2d",
+        "name": "TD+HD CR [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.9233d81ff5fd6c6c02c26e15",
+      "number": 422,
+      "name": "TLC [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/tlclatinamerica-us.png",
+      "epg": {
+        "number": 422,
+        "tvgId": "PublicDirect.9233d81ff5fd6c6c02c26e15",
+        "name": "TLC [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 7
+      }
+    },
+    {
+      "tvgId": "PublicDirect.796284d305206eaee4223955",
+      "number": 423,
+      "name": "Discovery Channel [IP 45.171.64.30] · señal 2",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/discoverychannellatinamerica-us.png",
+      "epg": {
+        "number": 423,
+        "tvgId": "PublicDirect.796284d305206eaee4223955",
+        "name": "Discovery Channel [IP 45.171.64.30] · señal 2",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 4
+      }
+    },
+    {
+      "tvgId": "PublicDirect.db00a6066635f39312f74380",
+      "number": 424,
+      "name": "TNT Series [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/tntserieslatinamerica-us.png",
+      "epg": {
+        "number": 424,
+        "tvgId": "PublicDirect.db00a6066635f39312f74380",
+        "name": "TNT Series [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 5
+      }
+    },
+    {
+      "tvgId": "PublicDirect.b8b5b69e22a2787006d8bf21",
+      "number": 425,
+      "name": "Telemundo [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/telemundointernacional-us.png",
+      "epg": {
+        "number": 425,
+        "tvgId": "PublicDirect.b8b5b69e22a2787006d8bf21",
+        "name": "Telemundo [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 4
+      }
+    },
+    {
+      "tvgId": "PublicDirect.67f76c9db1d9d67dc2af39fb",
+      "number": 426,
+      "name": "Telemundo HD [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/telemundointernacional-us.png",
+      "epg": {
+        "number": 426,
+        "tvgId": "PublicDirect.67f76c9db1d9d67dc2af39fb",
+        "name": "Telemundo HD [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 4
+      }
+    },
+    {
+      "tvgId": "PublicDirect.58d292da8d99dd4d16ed3b57",
+      "number": 427,
+      "name": "Televida RD [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/televida-do.png",
+      "epg": {
+        "number": 427,
+        "tvgId": "PublicDirect.58d292da8d99dd4d16ed3b57",
+        "name": "Televida RD [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.760b2c3b1354cd82b8a647bc",
+      "number": 428,
+      "name": "UNIVERSAL COMEDY HD [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/universalcomedy-us.png",
+      "epg": {
+        "number": 428,
+        "tvgId": "PublicDirect.760b2c3b1354cd82b8a647bc",
+        "name": "UNIVERSAL COMEDY HD [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 3
+      }
+    },
+    {
+      "tvgId": "PublicDirect.d48635571a0af3b28d47db03",
+      "number": 429,
+      "name": "UNIVERSAL CRIME HD [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/universalcrime-us.png",
+      "epg": {
+        "number": 429,
+        "tvgId": "PublicDirect.d48635571a0af3b28d47db03",
+        "name": "UNIVERSAL CRIME HD [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 4
+      }
+    },
+    {
+      "tvgId": "PublicDirect.9193ba6e85578f4486a958d7",
+      "number": 430,
+      "name": "UNIVERSAL PREMIERE HD [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/universalpremiere-us.png",
+      "epg": {
+        "number": 430,
+        "tvgId": "PublicDirect.9193ba6e85578f4486a958d7",
+        "name": "UNIVERSAL PREMIERE HD [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 3
+      }
+    },
+    {
+      "tvgId": "PublicDirect.fe8012537d4b52a34d2778bd",
+      "number": 431,
+      "name": "UNIVERSAL PREMIERE O HD [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/universalpremiere-us.png",
+      "epg": {
+        "number": 431,
+        "tvgId": "PublicDirect.fe8012537d4b52a34d2778bd",
+        "name": "UNIVERSAL PREMIERE O HD [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.391630d2ff5eec427fa516f1",
+      "number": 432,
+      "name": "Universal [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/universaltvlatinamerica-us.png",
+      "epg": {
+        "number": 432,
+        "tvgId": "PublicDirect.391630d2ff5eec427fa516f1",
+        "name": "Universal [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 1
+      }
+    },
+    {
+      "tvgId": "PublicDirect.6d8f767d72df832a0dcaf1b3",
+      "number": 433,
+      "name": "Univision HD [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/univisionlatinamerica-mx.png",
+      "epg": {
+        "number": 433,
+        "tvgId": "PublicDirect.6d8f767d72df832a0dcaf1b3",
+        "name": "Univision HD [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 1
+      }
+    },
+    {
+      "tvgId": "PublicDirect.69012de99c76e56342a01748",
+      "number": 434,
+      "name": "WARNER HD [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/warnerchannel-us.png",
+      "epg": {
+        "number": 434,
+        "tvgId": "PublicDirect.69012de99c76e56342a01748",
+        "name": "WARNER HD [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 3
+      }
+    },
+    {
+      "tvgId": "PublicDirect.f9808c1fb908d67ec8947603",
+      "number": 435,
+      "name": "Warner [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/warnerchannel-us.png",
+      "epg": {
+        "number": 435,
+        "tvgId": "PublicDirect.f9808c1fb908d67ec8947603",
+        "name": "Warner [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 3
+      }
+    },
+    {
+      "tvgId": "PublicDirect.0510f8f0aabe61f8241b9762",
+      "number": 436,
+      "name": "ZooMoo [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/zoomoo-sg.png",
+      "epg": {
+        "number": 436,
+        "tvgId": "PublicDirect.0510f8f0aabe61f8241b9762",
+        "name": "ZooMoo [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 2
+      }
+    },
+    {
+      "tvgId": "PublicDirect.3fc4f122d9bf76d0c301c794",
+      "number": 437,
+      "name": "ctv [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "",
+      "epg": {
+        "number": 437,
+        "tvgId": "PublicDirect.3fc4f122d9bf76d0c301c794",
+        "name": "ctv [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.792c9413cb2a98e7c3d972f6",
+      "number": 438,
+      "name": "la liga [IP 45.171.64.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "",
+      "epg": {
+        "number": 438,
+        "tvgId": "PublicDirect.792c9413cb2a98e7c3d972f6",
+        "name": "la liga [IP 45.171.64.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.305177fef9fa178063075ed3",
+      "number": 439,
+      "name": "Discovery World HD [IP 168.196.127.137]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/discoveryworld-us.png",
+      "epg": {
+        "number": 439,
+        "tvgId": "PublicDirect.305177fef9fa178063075ed3",
+        "name": "Discovery World HD [IP 168.196.127.137]",
+        "source": "cl",
+        "source_id": "Canal.Discovery.World.Latinoamérica.cl",
+        "evidence": "explicit_panregional_feed_identical_12h_in_CL_and_MX",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "PublicDirect.40703ab258f1cecdcb1b3033",
+      "number": 440,
+      "name": "TELEHIT LATINIO [IP 190.61.47.54]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/telehitmusica-mx.png",
+      "epg": {
+        "number": 440,
+        "tvgId": "PublicDirect.40703ab258f1cecdcb1b3033",
+        "name": "TELEHIT LATINIO [IP 190.61.47.54]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.dc6e0b858cd050a0ba64b515",
+      "number": 441,
+      "name": "UNIVERSAL CINEMA ESTE HD [IP 168.196.127.137]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/universalcinema-us.png",
+      "epg": {
+        "number": 441,
+        "tvgId": "PublicDirect.dc6e0b858cd050a0ba64b515",
+        "name": "UNIVERSAL CINEMA ESTE HD [IP 168.196.127.137]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.19fbfbd8b220cd0fb65ac244",
+      "number": 442,
+      "name": "A&E-IXP [IP 138.59.177.78]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/a-and-e-ar.png",
+      "epg": {
+        "number": 442,
+        "tvgId": "PublicDirect.19fbfbd8b220cd0fb65ac244",
+        "name": "A&E-IXP [IP 138.59.177.78]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.5c8f98d3876cb07b0c0884f6",
+      "number": 443,
+      "name": "AMC-IXP [IP 138.59.177.78]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/amclatinamerica-us.png",
+      "epg": {
+        "number": 443,
+        "tvgId": "PublicDirect.5c8f98d3876cb07b0c0884f6",
+        "name": "AMC-IXP [IP 138.59.177.78]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.21d595905b477139407f7250",
+      "number": 444,
+      "name": "ANIMAL PLANET-IXP [IP 138.59.177.78]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/animalplanetlatinamerica-us.png",
+      "epg": {
+        "number": 444,
+        "tvgId": "PublicDirect.21d595905b477139407f7250",
+        "name": "ANIMAL PLANET-IXP [IP 138.59.177.78]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.01717cb57d90b7cd8ece5331",
+      "number": 445,
+      "name": "BABY TV-IXP [IP 138.59.177.78]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/babytv-uk.png",
+      "epg": {
+        "number": 445,
+        "tvgId": "PublicDirect.01717cb57d90b7cd8ece5331",
+        "name": "BABY TV-IXP [IP 138.59.177.78]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.b4a12e148b15b71efbcda5e7",
+      "number": 446,
+      "name": "CINEMAX-IXP [IP 138.59.177.78]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/cinemaxlatinamerica-us.png",
+      "epg": {
+        "number": 446,
+        "tvgId": "PublicDirect.b4a12e148b15b71efbcda5e7",
+        "name": "CINEMAX-IXP [IP 138.59.177.78]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.d13b3c8e60056f9124a6e2dc",
+      "number": 447,
+      "name": "Galavision [IP 138.59.177.78]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/galavision-us.png",
+      "epg": {
+        "number": 447,
+        "tvgId": "PublicDirect.d13b3c8e60056f9124a6e2dc",
+        "name": "Galavision [IP 138.59.177.78]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.76f85d8e18ca914171dde970",
+      "number": 448,
+      "name": "DISCOVERY CHANNEL-IXP [IP 138.59.177.78]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/discoverychannellatinamerica-us.png",
+      "epg": {
+        "number": 448,
+        "tvgId": "PublicDirect.76f85d8e18ca914171dde970",
+        "name": "DISCOVERY CHANNEL-IXP [IP 138.59.177.78]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.e687f4926b0240629f249807",
+      "number": 449,
+      "name": "DISCOVERY KIDS-IXP [IP 138.59.177.78]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/discoverykidslatinamerica-us.png",
+      "epg": {
+        "number": 449,
+        "tvgId": "PublicDirect.e687f4926b0240629f249807",
+        "name": "DISCOVERY KIDS-IXP [IP 138.59.177.78]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.e7eacb4779e7c1b75e062879",
+      "number": 450,
+      "name": "DISCOVERY WORLD-IXP [IP 138.59.177.78]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/discoveryworld-us.png",
+      "epg": {
+        "number": 450,
+        "tvgId": "PublicDirect.e7eacb4779e7c1b75e062879",
+        "name": "DISCOVERY WORLD-IXP [IP 138.59.177.78]",
+        "source": "cl",
+        "source_id": "Canal.Discovery.World.Latinoamérica.cl",
+        "evidence": "explicit_panregional_feed_identical_12h_in_CL_and_MX",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "PublicDirect.c530989e33722dc0a90c75d7",
+      "number": 451,
+      "name": "DISNEY JR-IXP [IP 138.59.177.78]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/disneyjrlatinamerica-ar.svg",
+      "epg": {
+        "number": 451,
+        "tvgId": "PublicDirect.c530989e33722dc0a90c75d7",
+        "name": "DISNEY JR-IXP [IP 138.59.177.78]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.e41239d2e107fc7a8d6b06e7",
+      "number": 452,
+      "name": "DISNEY-IXP [IP 138.59.177.78]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/disneychannellatinamerica-ar.svg",
+      "epg": {
+        "number": 452,
+        "tvgId": "PublicDirect.e41239d2e107fc7a8d6b06e7",
+        "name": "DISNEY-IXP [IP 138.59.177.78]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.3203195c3727b87c5c19dec8",
+      "number": 453,
+      "name": "ESPN 1 EZ-TRA [IP 138.59.177.78]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/espn-lam.png",
+      "epg": {
+        "number": 453,
+        "tvgId": "PublicDirect.3203195c3727b87c5c19dec8",
+        "name": "ESPN 1 EZ-TRA [IP 138.59.177.78]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.3c93c3a97d11cf503ad2345f",
+      "number": 454,
+      "name": "ESPN 1 IXP [IP 138.59.177.78]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/espn.svg",
+      "epg": {
+        "number": 454,
+        "tvgId": "PublicDirect.3c93c3a97d11cf503ad2345f",
+        "name": "ESPN 1 IXP [IP 138.59.177.78]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.20dbc798fdf0b22b5aed6a1d",
+      "number": 455,
+      "name": "ESPN 2 IXP [IP 138.59.177.78]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/espn-2.png",
+      "epg": {
+        "number": 455,
+        "tvgId": "PublicDirect.20dbc798fdf0b22b5aed6a1d",
+        "name": "ESPN 2 IXP [IP 138.59.177.78]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.54a0e2628bd72606025da8fe",
+      "number": 456,
+      "name": "ESPN 4 EZ-TRA [IP 138.59.177.78]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/espn-4.png",
+      "epg": {
+        "number": 456,
+        "tvgId": "PublicDirect.54a0e2628bd72606025da8fe",
+        "name": "ESPN 4 EZ-TRA [IP 138.59.177.78]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.2fc769332eb883d4716d83ab",
+      "number": 457,
+      "name": "HBO [IP 138.59.227.20]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/hbolatinamerica-us.png",
+      "epg": {
+        "number": 457,
+        "tvgId": "PublicDirect.2fc769332eb883d4716d83ab",
+        "name": "HBO [IP 138.59.227.20]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 6
+      }
+    },
+    {
+      "tvgId": "PublicDirect.3ad2ef9940e2175f07ba53b9",
+      "number": 458,
+      "name": "ESPN 1 ENVIO [IP 138.94.3.106]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/espn-lam.png",
+      "epg": {
+        "number": 458,
+        "tvgId": "PublicDirect.3ad2ef9940e2175f07ba53b9",
+        "name": "ESPN 1 ENVIO [IP 138.94.3.106]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.a8b59c546c1a10f16dad3f74",
+      "number": 459,
+      "name": "HBO [IP 158.172.217.18]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/hbolatinamerica-us.png",
+      "epg": {
+        "number": 459,
+        "tvgId": "PublicDirect.a8b59c546c1a10f16dad3f74",
+        "name": "HBO [IP 158.172.217.18]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 6
+      }
+    },
+    {
+      "tvgId": "PublicDirect.2affda2231a6914ce695dc44",
+      "number": 460,
+      "name": "HBO HD [IP 167.249.23.102]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/hbolatinamerica-us.png",
+      "epg": {
+        "number": 460,
+        "tvgId": "PublicDirect.2affda2231a6914ce695dc44",
+        "name": "HBO HD [IP 167.249.23.102]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 6
+      }
+    },
+    {
+      "tvgId": "PublicDirect.f51c6e85b7cccaf868e66474",
+      "number": 461,
+      "name": "HBO HD [IP 170.244.209.30]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/hbolatinamerica-us.png",
+      "epg": {
+        "number": 461,
+        "tvgId": "PublicDirect.f51c6e85b7cccaf868e66474",
+        "name": "HBO HD [IP 170.244.209.30]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 6
+      }
+    },
+    {
+      "tvgId": "PublicDirect.e909c3249ae9d6531e728bb8",
+      "number": 462,
+      "name": "MPTS 2 ESPN 7 [IP 177.234.218.66]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/espn-7.png",
+      "epg": {
+        "number": 462,
+        "tvgId": "PublicDirect.e909c3249ae9d6531e728bb8",
+        "name": "MPTS 2 ESPN 7 [IP 177.234.218.66]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 5
+      }
+    },
+    {
+      "tvgId": "PublicDirect.109486b1dd576033b06b5a62",
+      "number": 463,
+      "name": "HBO HD [IP 181.119.177.253]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/hbolatinamerica-us.png",
+      "epg": {
+        "number": 463,
+        "tvgId": "PublicDirect.109486b1dd576033b06b5a62",
+        "name": "HBO HD [IP 181.119.177.253]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 6
+      }
+    },
+    {
+      "tvgId": "PublicDirect.d6cca6d4aa23a69d50439c22",
+      "number": 464,
+      "name": "ESPN 2 HD [IP 181.224.200.5]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/espn-2.png",
+      "epg": {
+        "number": 464,
+        "tvgId": "PublicDirect.d6cca6d4aa23a69d50439c22",
+        "name": "ESPN 2 HD [IP 181.224.200.5]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 9
+      }
+    },
+    {
+      "tvgId": "PublicDirect.25d4f6f1219d47df7b4af9d1",
+      "number": 465,
+      "name": "ESPN [IP 181.78.106.127]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/espn.svg",
+      "epg": {
+        "number": 465,
+        "tvgId": "PublicDirect.25d4f6f1219d47df7b4af9d1",
+        "name": "ESPN [IP 181.78.106.127]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 5
+      }
+    },
+    {
+      "tvgId": "PublicDirect.f40c652d704b68169874ad00",
+      "number": 466,
+      "name": "HBO HD [IP 181.78.197.59]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/hbolatinamerica-us.png",
+      "epg": {
+        "number": 466,
+        "tvgId": "PublicDirect.f40c652d704b68169874ad00",
+        "name": "HBO HD [IP 181.78.197.59]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 6
+      }
+    },
+    {
+      "tvgId": "PublicDirect.122a2e09dd1071caa02f5885",
+      "number": 467,
+      "name": "ESPN 2 [IP 181.78.211.244]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/espn-2.png",
+      "epg": {
+        "number": 467,
+        "tvgId": "PublicDirect.122a2e09dd1071caa02f5885",
+        "name": "ESPN 2 [IP 181.78.211.244]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 9
+      }
+    },
+    {
+      "tvgId": "PublicDirect.24df37c251a5094ba40d76dc",
+      "number": 468,
+      "name": "ESPN 2 [IP 181.78.211.244] · señal 2",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/espn-2.png",
+      "epg": {
+        "number": 468,
+        "tvgId": "PublicDirect.24df37c251a5094ba40d76dc",
+        "name": "ESPN 2 [IP 181.78.211.244] · señal 2",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 9
+      }
+    },
+    {
+      "tvgId": "PublicDirect.cb15627abb48f22217500563",
+      "number": 469,
+      "name": "ESPN 1 [IP 181.78.8.199]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/espn.svg",
+      "epg": {
+        "number": 469,
+        "tvgId": "PublicDirect.cb15627abb48f22217500563",
+        "name": "ESPN 1 [IP 181.78.8.199]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.d55cbc0d421f9ac9d4d95ab3",
+      "number": 470,
+      "name": "HBO HD [IP 181.78.82.130]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/hbolatinamerica-us.png",
+      "epg": {
+        "number": 470,
+        "tvgId": "PublicDirect.d55cbc0d421f9ac9d4d95ab3",
+        "name": "HBO HD [IP 181.78.82.130]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 6
+      }
+    },
+    {
+      "tvgId": "PublicDirect.4ded1fad9c0f880605cfe8fa",
+      "number": 471,
+      "name": "ESPN 1 ENVIO [IP 181.79.86.130]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/espn-lam.png",
+      "epg": {
+        "number": 471,
+        "tvgId": "PublicDirect.4ded1fad9c0f880605cfe8fa",
+        "name": "ESPN 1 ENVIO [IP 181.79.86.130]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.09a0d74b65cbafffa6247b3c",
+      "number": 472,
+      "name": "HBO HD [IP 187.245.231.226]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/hbolatinamerica-us.png",
+      "epg": {
+        "number": 472,
+        "tvgId": "PublicDirect.09a0d74b65cbafffa6247b3c",
+        "name": "HBO HD [IP 187.245.231.226]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 6
+      }
+    },
+    {
+      "tvgId": "PublicDirect.1023e1d1e839c3a7671fabbb",
+      "number": 473,
+      "name": "HBO HD [IP 190.108.83.69]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/hbolatinamerica-us.png",
+      "epg": {
+        "number": 473,
+        "tvgId": "PublicDirect.1023e1d1e839c3a7671fabbb",
+        "name": "HBO HD [IP 190.108.83.69]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 6
+      }
+    },
+    {
+      "tvgId": "PublicDirect.469f87d178c1423e1875a4f2",
+      "number": 474,
+      "name": "HBO HD [IP 190.108.91.206]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/hbolatinamerica-us.png",
+      "epg": {
+        "number": 474,
+        "tvgId": "PublicDirect.469f87d178c1423e1875a4f2",
+        "name": "HBO HD [IP 190.108.91.206]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 6
+      }
+    },
+    {
+      "tvgId": "PublicDirect.f8e4632a5e24aa718e14688e",
+      "number": 475,
+      "name": "Z05-TNT Sports [IP 190.110.96.238]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "",
+      "epg": {
+        "number": 475,
+        "tvgId": "PublicDirect.f8e4632a5e24aa718e14688e",
+        "name": "Z05-TNT Sports [IP 190.110.96.238]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.040907f0b53543efbb545695",
+      "number": 476,
+      "name": "Red Uno LPZ HD [IP 190.181.61.93]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/reduno-bo.svg",
+      "epg": {
+        "number": 476,
+        "tvgId": "PublicDirect.040907f0b53543efbb545695",
+        "name": "Red Uno LPZ HD [IP 190.181.61.93]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.d46f782059b83ba7bacf7664",
+      "number": 477,
+      "name": "HBO HD [IP 190.234.82.52]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/hbolatinamerica-us.png",
+      "epg": {
+        "number": 477,
+        "tvgId": "PublicDirect.d46f782059b83ba7bacf7664",
+        "name": "HBO HD [IP 190.234.82.52]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 6
+      }
+    },
+    {
+      "tvgId": "PublicDirect.4000e460fceb0d24722961a4",
+      "number": 478,
+      "name": "HBO HD [IP 190.60.46.228]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/hbolatinamerica-us.png",
+      "epg": {
+        "number": 478,
+        "tvgId": "PublicDirect.4000e460fceb0d24722961a4",
+        "name": "HBO HD [IP 190.60.46.228]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 6
+      }
+    },
+    {
+      "tvgId": "PublicDirect.da98ca63747a3429dd17f069",
+      "number": 479,
+      "name": "HISTORY CHANNEL [IP 190.61.114.186]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/history-channel-lam.png",
+      "epg": {
+        "number": 479,
+        "tvgId": "PublicDirect.da98ca63747a3429dd17f069",
+        "name": "HISTORY CHANNEL [IP 190.61.114.186]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 2
+      }
+    },
+    {
+      "tvgId": "PublicDirect.572cb669462bffbd79e7f655",
+      "number": 480,
+      "name": "HBO HD [IP 190.61.90.17]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/hbolatinamerica-us.png",
+      "epg": {
+        "number": 480,
+        "tvgId": "PublicDirect.572cb669462bffbd79e7f655",
+        "name": "HBO HD [IP 190.61.90.17]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 6
+      }
+    },
+    {
+      "tvgId": "PublicDirect.9c65e9ef8275d6cfbd771bd2",
+      "number": 481,
+      "name": "HBO [IP 200.115.120.1]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/hbolatinamerica-us.png",
+      "epg": {
+        "number": 481,
+        "tvgId": "PublicDirect.9c65e9ef8275d6cfbd771bd2",
+        "name": "HBO [IP 200.115.120.1]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 6
+      }
+    },
+    {
+      "tvgId": "PublicDirect.9b9f29e6c29d69e00e4a6053",
+      "number": 482,
+      "name": "CANAL 1 [IP 200.122.223.13]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/canal1-co.png",
+      "epg": {
+        "number": 482,
+        "tvgId": "PublicDirect.9b9f29e6c29d69e00e4a6053",
+        "name": "CANAL 1 [IP 200.122.223.13]",
+        "source": "co1",
+        "source_id": "Canal.1.co",
+        "evidence": "unique_national_broadcaster_identity",
+        "coverageHours": 12,
+        "status": "matched"
+      }
+    },
+    {
+      "tvgId": "PublicDirect.b26acb4b5bb79352c371a791",
+      "number": 483,
+      "name": "HBO HD [IP 200.7.99.59]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/hbolatinamerica-us.png",
+      "epg": {
+        "number": 483,
+        "tvgId": "PublicDirect.b26acb4b5bb79352c371a791",
+        "name": "HBO HD [IP 200.7.99.59]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 6
+      }
+    },
+    {
+      "tvgId": "PublicDirect.b846a996ccc3404a033e13e1",
+      "number": 484,
+      "name": "ESPN [IP 38.87.224.19]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/espn.svg",
+      "epg": {
+        "number": 484,
+        "tvgId": "PublicDirect.b846a996ccc3404a033e13e1",
+        "name": "ESPN [IP 38.87.224.19]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 5
+      }
+    },
+    {
+      "tvgId": "PublicDirect.1756e7adec9079ba3e80634f",
+      "number": 485,
+      "name": "HBO HD [IP 45.166.93.156]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/hbolatinamerica-us.png",
+      "epg": {
+        "number": 485,
+        "tvgId": "PublicDirect.1756e7adec9079ba3e80634f",
+        "name": "HBO HD [IP 45.166.93.156]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 6
+      }
+    },
+    {
+      "tvgId": "PublicDirect.74cd09e94a60c0d1f37a6d21",
+      "number": 486,
+      "name": "HBO HD [IP 45.173.231.22]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/hbolatinamerica-us.png",
+      "epg": {
+        "number": 486,
+        "tvgId": "PublicDirect.74cd09e94a60c0d1f37a6d21",
+        "name": "HBO HD [IP 45.173.231.22]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 6
+      }
+    },
+    {
+      "tvgId": "PublicDirect.dcd8868ec2ff980d13c48e61",
+      "number": 487,
+      "name": "ESPN (145) [IP 45.189.151.7]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/espn.svg",
+      "epg": {
+        "number": 487,
+        "tvgId": "PublicDirect.dcd8868ec2ff980d13c48e61",
+        "name": "ESPN (145) [IP 45.189.151.7]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 5
+      }
+    },
+    {
+      "tvgId": "PublicDirect.0e207487c6a9b2b103dbeef6",
+      "number": 488,
+      "name": "HBO HD [IP 72.1.184.5]",
+      "previousTrial": true,
+      "trial": false,
+      "logoPath": "logos/catalogue/hbolatinamerica-us.png",
+      "epg": {
+        "number": 488,
+        "tvgId": "PublicDirect.0e207487c6a9b2b103dbeef6",
+        "name": "HBO HD [IP 72.1.184.5]",
+        "status": "pending",
+        "reason": "regional_feed_not_identified",
+        "candidateCount": 6
+      }
+    }
+  ],
+  "validation": {
+    "status": "local_ok_remote_pending",
+    "atLocalDate": "2026-10-14",
+    "pythonTestsPassed": 354,
+    "pythonTestsSkipped": 19,
+    "javascriptTestsPassed": 55,
+    "publicListValidation": {
+      "list1": 292,
+      "list2": 0,
+      "canonical": 2056
+    },
+    "editorBundle": {
+      "channels": 629,
+      "logos": 485
+    },
+    "epgBuild": {
+      "mappedChannels": 51,
+      "programmes": 4017,
+      "continuousHours": 12,
+      "unmappedPending": 196,
+      "inventedLive": 0
+    },
+    "appJvmSmoke": {
+      "sourceTag": "v0.5.95",
+      "dynamicSourceReferenceCommit": "e395b9d18857fe19e77e2c7a429051bd2a896f1b",
+      "visibleChannelsBeforeAndAfter": 303,
+      "promotedRowsAcceptedOnce": 247,
+      "logoUrls": 232,
+      "numbersBackupsAndProvidersPreserved": true,
+      "apkOrHardwareTest": false
+    },
+    "runnerBase": "aec3847"
+  },
+  "publication": {
+    "status": "pending",
+    "commit": null,
+    "remoteSha": null,
+    "workflows": []
+  }
+}
