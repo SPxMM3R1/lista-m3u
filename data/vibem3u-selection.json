@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "source": "vibem3u-android",
-  "selectionSignature": "sha256:760dcc69b79bb9da4c896131b82afc56ae98b7ff7d4309b53a232e0baa7b3eb2",
-  "publishedAt": "2026-10-12T01:10:29.354Z",
+  "selectionSignature": "sha256:823045f03b24647b9d1b2142216242940af1ae129360d64ffe6686b897eb640f",
+  "publishedAt": "2026-10-15T00:07:35.195Z",
   "sources": [
     {
       "provider": "tvvoo",
@@ -185,13 +185,24 @@
         },
         {
           "provider": "highfly",
+          "catalogKey": "SkySportsMainEventUHD.uk",
+          "providerResourceId": "leaf:now-srr343434",
+          "name": "SKY SPORTS MAIN EVENT UHD",
+          "group": "Deportes",
+          "category": "Sports",
+          "identityState": "canonical",
+          "order": 4,
+          "resolverSlug": "now-srr343434"
+        },
+        {
+          "provider": "highfly",
           "catalogKey": "SkySportsPremierLeague.uk",
           "providerResourceId": "leaf:now-234243234234",
           "name": "SKY SPORTS PREMIER LEAGUE",
           "group": "Deportes",
           "category": "Football",
           "identityState": "canonical",
-          "order": 4,
+          "order": 5,
           "resolverSlug": "now-234243234234"
         }
       ],
