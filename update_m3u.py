@@ -403,10 +403,12 @@ HIGHFLY_RESOLVER_CHANNELS = {
     # permiten resolver aun si el catalogo publico esta caido. Sky Sports F1
     # es Highfly; sus alias TvVoo viven aparte en x-tvvoo-aliases para que una
     # seleccion TvVoo de F1 encuentre la misma fila sin mezclar resolutores.
-    "SkySportsF1.uk": "now-545445",
+    # Actualizados 2026-10-15 (Highfly renombró las hojas); highfly_live.py los mantiene
+    # al día en el layout en cada corrida.
+    "SkySportsF1.uk": "now-344343",
     # 4K de Highfly: canal propio (Premium); su respaldo gratuito es la hoja FHD.
-    "SkySportsF1UHD.uk": "now-34343434",
-    "SkySportsMainEventUHD.uk": "now-srr343434",
+    "SkySportsF1UHD.uk": "now-4344344",
+    "SkySportsMainEventUHD.uk": "now-sky-sports-main-event",
     "SkySportsPremierLeague.uk": "now-4994949494",
     "SkySportsTennis.uk": "uk-330030303",
 }

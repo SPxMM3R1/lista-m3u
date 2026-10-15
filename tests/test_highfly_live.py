@@ -15,6 +15,51 @@ def row(key="SkySportsF1.uk", name="SKY SPORTS F1", slug="now-545445", state="ac
 
 
 class HighflyLiveTest(unittest.TestCase):
+    def test_sync_updates_stale_slug_and_keeps_a_valid_approval(self) -> None:
+        from tests.catalog_approval import approved_by_user, layout_approval_digest
+        layout = {"schemaVersion": 1, "excludedM3u": [], "channels": [
+            row(key="SkySportsF1UHD.uk", name="SKY SPORTS F1 UHD", slug="now-34343434")]}
+        layout["approval"] = {"source": "editor", "sha256": layout_approval_digest(layout)}
+        changes = highfly_live.sync_layout_document(layout, {"SkySportsF1UHD.uk": "now-4344344"})
+        self.assertEqual(["SkySportsF1UHD.uk: now-34343434 → now-4344344"], changes)
+        self.assertEqual("now-4344344", layout["channels"][0]["resolverSlug"])
+        self.assertEqual("leaf:now-4344344", layout["channels"][0]["providerResourceId"])
+        self.assertTrue(approved_by_user(layout))
+        self.assertEqual("editor", layout["approval"]["source"])
+
+    def test_sync_never_stamps_an_unapproved_layout(self) -> None:
+        layout = {"schemaVersion": 1, "excludedM3u": [], "channels": [row(slug="now-545445")]}
+        highfly_live.sync_layout_document(layout, {"SkySportsF1.uk": "now-344343"})
+        self.assertNotIn("approval", layout)
+
+    def test_sync_ignores_invalid_or_equal_slugs_and_other_providers(self) -> None:
+        rows = [row(slug="now-344343"), {"provider": "tvvoo", "catalogKey": "SkySportsF1.uk"}]
+        self.assertEqual([], highfly_live.sync_slugs(rows, {"SkySportsF1.uk": "now-344343"}))
+        self.assertEqual([], highfly_live.sync_slugs([row()], {"SkySportsF1.uk": "../evil"}))
+        self.assertEqual("now-545445", row()["resolverSlug"])
+
+    def test_sync_files_writes_layout_and_selection_in_the_same_format(self) -> None:
+        layout = {"schemaVersion": 1, "excludedM3u": [], "channels": [row(slug="now-545445")]}
+        selection = {"schemaVersion": 1, "sources": [{"provider": "highfly", "channels": [
+            {"provider": "highfly", "catalogKey": "SkySportsF1.uk", "resolverSlug": "now-545445",
+             "providerResourceId": "leaf:now-545445", "order": 1}]}]}
+        with tempfile.TemporaryDirectory() as tmp:
+            lp, sp = Path(tmp) / "layout.json", Path(tmp) / "selection.json"
+            lp.write_text(highfly_live._dump(layout), encoding="utf-8")
+            sp.write_text(highfly_live._dump(selection), encoding="utf-8")
+            applied = highfly_live.sync_files({"SkySportsF1.uk": "now-344343"}, lp, sp)
+            self.assertEqual(2, len(applied))
+            self.assertEqual("now-344343", json.loads(lp.read_text(encoding="utf-8"))["channels"][0]["resolverSlug"])
+            saved = json.loads(sp.read_text(encoding="utf-8"))
+            self.assertEqual("leaf:now-344343", saved["sources"][0]["channels"][0]["providerResourceId"])
+
+    def test_sync_files_skips_a_file_with_an_unexpected_format(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            lp = Path(tmp) / "layout.json"
+            lp.write_text(json.dumps({"channels": [row()]}), encoding="utf-8")
+            self.assertEqual([], highfly_live.sync_files({"SkySportsF1.uk": "now-344343"}, lp, Path(tmp) / "no.json"))
+            self.assertIn("now-545445", lp.read_text(encoding="utf-8"))
+
     def test_publishes_the_editor_leaf_when_it_has_signal(self) -> None:
         document = highfly_live.build_document(
             [row()], fetch=lambda slug: ["https://papacito.cfd/m3u/x/live.m3u8"],

@@ -20,7 +20,8 @@ on:
       - "data/channel-editor-layout.json"
 permissions:
   contents: write
-# Grupo propio: solo publica data/highfly-live.json y data/tvvoo-variantes.json.
+# Grupo propio: publica data/highfly-live.json y data/tvvoo-variantes.json y, si Highfly
+# renombró una hoja, el id nuevo en el layout y la selección (2026-10-15).
 concurrency:
   group: m3u-highfly
   cancel-in-progress: false
@@ -44,12 +45,14 @@ jobs:
         run: |
           git add -N data/tvvoo-variantes.json 2>/dev/null || true
           if git diff --quiet -- data/highfly-live.json data/tvvoo-variantes.json \
+                data/channel-editor-layout.json data/vibem3u-selection.json \
               && git ls-files --error-unmatch data/highfly-live.json >/dev/null 2>&1; then
             echo "Enlaces Highfly y variantes TvVoo sin cambios"; exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/highfly-live.json data/tvvoo-variantes.json
+          git add data/highfly-live.json data/tvvoo-variantes.json \
+            data/channel-editor-layout.json data/vibem3u-selection.json
           git commit -m "Actualiza enlaces Highfly y variantes TvVoo [skip ci]"
           for attempt in 1 2 3 4 5; do
             if git push; then exit 0; fi
@@ -61,10 +64,12 @@ jobs:
             python highfly_live.py
             python tvvoo_variants.py || echo "AVISO - variantes TvVoo sin actualizar"
             git add -N data/tvvoo-variantes.json 2>/dev/null || true
-            if git diff --quiet -- data/highfly-live.json data/tvvoo-variantes.json; then
+            if git diff --quiet -- data/highfly-live.json data/tvvoo-variantes.json \
+                data/channel-editor-layout.json data/vibem3u-selection.json; then
               echo "La otra corrida ya publicó estos enlaces"; exit 0
             fi
-            git add data/highfly-live.json data/tvvoo-variantes.json
+            git add data/highfly-live.json data/tvvoo-variantes.json \
+              data/channel-editor-layout.json data/vibem3u-selection.json
             git commit -m "Actualiza enlaces Highfly y variantes TvVoo [skip ci]"
           done
           exit 1
