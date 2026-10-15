@@ -5263,8 +5263,9 @@
   },
   "publication": {
     "status": "partial_published_remaining_channels_pending",
-    "commit": "39c756ea49f56de49254c8da3c264600040eaeec (GT EPG/logo mappings); e1238504b6568ed9caa6e388d96bb0726b3c7570 (layout approval correction); 27e35e18092446168ec18074d2d50fb7eb1b2223 (EPG checkout race fix); 4bf7ef940b7a253a0ee84c1e3a1d944fe03b9c0d (five emulator-confirmed guide maps); 890b27ac1c492ef2dba2a21a6eb4927bb09c083e (scheduled EPG run 38667200138); 70580389b780701243abe8a002feef4f6abacf4b (workflow_run EPG 38668568796, refreshed 31 PublicDirect guides)",
+    "commit": "39c756ea49f56de49254c8da3c264600040eaeec (GT EPG/logo mappings); e1238504b6568ed9caa6e388d96bb0726b3c7570 (layout approval correction); 27e35e18092446168ec18074d2d50fb7eb1b2223 (EPG checkout race fix); 4bf7ef940b7a253a0ee84c1e3a1d944fe03b9c0d (five emulator-confirmed guide maps); 890b27ac1c492ef2dba2a21a6eb4927bb09c083e (scheduled EPG run 38667200138); 70580389b780701243abe8a002feef4f6abacf4b (workflow_run EPG 38668568796, refreshed 31 PublicDirect guides); eb726b82dcb30fb1526840470763d0db9e5d7358 (targeted EPG validation fix)",
     "remoteSha": "70580389b780701243abe8a002feef4f6abacf4b",
+    "repositoryHeadSha": "eb726b82dcb30fb1526840470763d0db9e5d7358",
     "workflows": [
       {
         "name": "Publicar cambios dirigidos",
@@ -5341,6 +5342,18 @@
         "continuousHoursRangeAtVerification": [22.31, 80.01],
         "pending": 0,
         "generatedAt": "2026-10-15T01:59:25Z"
+      },
+      {
+        "name": "Publicar cambios dirigidos",
+        "runId": 38669252771,
+        "status": "success",
+        "headSha": "eb726b82dcb30fb1526840470763d0db9e5d7358"
+      },
+      {
+        "name": "Publicar editor del catálogo",
+        "runId": 38669252801,
+        "status": "success",
+        "headSha": "eb726b82dcb30fb1526840470763d0db9e5d7358"
       }
     ]
   }
