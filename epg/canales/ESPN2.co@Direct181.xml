@@ -1,18 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 <tv data-fragment-of="ESPN2.co@Direct181">
-  <channel id="ESPN2.co@Direct181" data-guide="parrilla real conservada" data-guide-source="epg-publicada-conservada">
+  <channel id="ESPN2.co@Direct181" data-guide="parrilla real" data-guide-source="co1">
     <display-name>ESPN 2 HD [IP 181]</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-2.png" />
   </channel>
-  <programme start="20261014110000 -0300" stop="20261014133000 -0300" channel="ESPN2.co@Direct181">
-    <title lang="es">Tenis ATP Rolex Shanghai Masters 2026</title>
-    <sub-title lang="es">Octavos de final</sub-title>
-    <desc lang="es">Cobertura de los octavos de final del Shangai Masters 2026. Desde la Qizhong Forest Sports City Arena.</desc>
-    <date>2026</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
   <programme start="20261014133000 -0300" stop="20261014154000 -0300" channel="ESPN2.co@Direct181">
     <title lang="es">Fútbol UEFA Champions League</title>
     <sub-title lang="es">Feyenoord vs. Como</sub-title>
@@ -58,13 +49,23 @@
       <value>AGE228</value>
     </rating>
   </programme>
-  <programme start="20261014210000 -0300" stop="20261014230000 -0300" channel="ESPN2.co@Direct181">
-    <title lang="es">Baloncesto WNBA</title>
-    <sub-title lang="es">New York Liberty vs. Atlanta Dream</sub-title>
-    <desc lang="es">Juego 5, semifinales de la WNBA 2026.</desc>
+  <programme start="20261014210000 -0300" stop="20261014220000 -0300" channel="ESPN2.co@Direct181">
+    <title lang="es">ESPN Compact</title>
+    <sub-title lang="es">UEFA Champions League: AS Roma vs. Real Madrid</sub-title>
+    <desc lang="es">Compacto de la jornada 2 de la fase de liga de la UEFA Champions League 2026-27. Disputado el 14 de octubre de 2026.</desc>
     <date>2026</date>
+    <episode-num system="onscreen">E362</episode-num>
     <rating system="MJColombia">
       <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261014220000 -0300" stop="20261014230000 -0300" channel="ESPN2.co@Direct181">
+    <title lang="es">Fútbol UEFA Champions League</title>
+    <sub-title lang="es">FK Bodø/Glimt vs. Borussia Dortmund</sub-title>
+    <desc lang="es">Jornada 2 de la fase de liga de la UEFA Champions League 2026-27. Bodo busca sus primeros puntos y Dortmund su segunda victoria al hilo.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>TE</value>
     </rating>
   </programme>
   <programme start="20261014230000 -0300" stop="20261015000000 -0300" channel="ESPN2.co@Direct181">
@@ -228,7 +229,7 @@
     <desc lang="es">Un análisis completo con los momentos destacados de los últimos partidos de la UEFA Europa League, la segunda competición internacional de fútbol europeo más importante.</desc>
     <date>2009</date>
     <rating system="MJColombia">
-      <value>AGE228</value>
+      <value>TE</value>
     </rating>
   </programme>
   <programme start="20261016000000 -0300" stop="20261016003000 -0300" channel="ESPN2.co@Direct181">
@@ -263,7 +264,7 @@
     <date>2026</date>
     <episode-num system="onscreen">E366</episode-num>
     <rating system="MJColombia">
-      <value>TE</value>
+      <value>AGE228</value>
     </rating>
   </programme>
   <programme start="20261016050000 -0300" stop="20261016060000 -0300" channel="ESPN2.co@Direct181">
@@ -348,7 +349,7 @@
     <desc lang="es">Un análisis completo con los momentos destacados de los últimos partidos de la UEFA Europa League, la segunda competición internacional de fútbol europeo más importante.</desc>
     <date>2009</date>
     <rating system="MJColombia">
-      <value>AGE228</value>
+      <value>TE</value>
     </rating>
   </programme>
   <programme start="20261016190000 -0300" stop="20261016203000 -0300" channel="ESPN2.co@Direct181">
@@ -363,6 +364,168 @@
     <title lang="es">ESPN KnockOut</title>
     <desc lang="es">Ciclo de boxeo con los mejores combates en directo y en español para toda Latinoamérica en ESPN.</desc>
     <date>2019</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261016213000 -0300" stop="20261016223000 -0300" channel="ESPN2.co@Direct181">
+    <title lang="es">El Show de la F1</title>
+    <desc lang="es">Transmisión en vivo con el equipo Sky Sports F1 del Gran Premio.</desc>
+    <date>2012</date>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261016223000 -0300" stop="20261016230000 -0300" channel="ESPN2.co@Direct181">
+    <title lang="es">Premier League Preview Show</title>
+    <desc lang="es">Adelanto de próximos partidos de la Liga Premier.</desc>
+    <date>1998</date>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261016230000 -0300" stop="20261016233000 -0300" channel="ESPN2.co@Direct181">
+    <title lang="es">UEFA Champions League Weekly</title>
+    <desc lang="es">Momentos destacados, entrevistas y toda la información de la jornada semanal de la UEFA Champions League.</desc>
+    <date>2004</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261016233000 -0300" stop="20261017020000 -0300" channel="ESPN2.co@Direct181">
+    <title lang="es">Baloncesto NBA</title>
+    <sub-title lang="es">Denver Nuggets vs. Los Angeles Lakers</sub-title>
+    <desc lang="es">Cobertura del partido de la pretemporada 2026-27 de la NBA. Denver Nuggets visita a Los Angeles Lakers. Desde el Crypto.com Arena, en Los Ángeles, California.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261017020000 -0300" stop="20261017040000 -0300" channel="ESPN2.co@Direct181">
+    <title lang="es">ESPN F90</title>
+    <desc lang="es">Un clásico de la televisión con toda la actualidad, el mejor análisis y un muy rico debate futbolístico.</desc>
+    <date>2021</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261017040000 -0300" stop="20261017050000 -0300" channel="ESPN2.co@Direct181">
+    <title lang="es">Fútbol UEFA Europa League</title>
+    <sub-title lang="es">RC Celta vs. Juventus</sub-title>
+    <desc lang="es">Segunda jornada de la UEFA Europa League 2026-27. RC Celta se enfrenta a Juventus. Desde el Estadio Abanca-Balaídos, en Vigo, España.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261017050000 -0300" stop="20261017053000 -0300" channel="ESPN2.co@Direct181">
+    <title lang="es">Premier League Preview Show</title>
+    <desc lang="es">Adelanto de próximos partidos de la Liga Premier.</desc>
+    <date>1998</date>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261017053000 -0300" stop="20261017080000 -0300" channel="ESPN2.co@Direct181">
+    <title lang="es">2026 Rolex Shanghai Masters Tennis</title>
+    <sub-title lang="es">Semifinals</sub-title>
+    <desc lang="es">Acción de las semifinales del Shanghai Masters 2026 de la ATP 1000. Desde la Qizhong Forest Sports City Arena.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261017080000 -0300" stop="20261017100000 -0300" channel="ESPN2.co@Direct181">
+    <title lang="es">2026 Rolex Shanghai Masters Tennis</title>
+    <sub-title lang="es">Semifinals</sub-title>
+    <desc lang="es">Acción de las semifinales del Shanghai Masters 2026 de la ATP 1000. Desde la Qizhong Forest Sports City Arena.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261017100000 -0300" stop="20261017102500 -0300" channel="ESPN2.co@Direct181">
+    <title lang="es">SportsCenter+</title>
+    <desc lang="es">Programación exclusiva del noticiero deportivo más visto en el mundo.</desc>
+    <date>2023</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261017102500 -0300" stop="20261017110000 -0300" channel="ESPN2.co@Direct181">
+    <title lang="es">UEFA Champions League Weekly</title>
+    <desc lang="es">Momentos destacados, entrevistas y toda la información de la jornada semanal de la UEFA Champions League.</desc>
+    <date>2004</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261017110000 -0300" stop="20261017131500 -0300" channel="ESPN2.co@Direct181">
+    <title lang="es">Fútbol LaLiga</title>
+    <sub-title lang="es">Villarreal CF vs. Elche</sub-title>
+    <desc lang="es">Jornada 9 de la temporada 2026-27 de LaLiga. Villarreal se enfrenta a Elche. Desde el estadio de la Cerámica.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261017131500 -0300" stop="20261017153000 -0300" channel="ESPN2.co@Direct181">
+    <title lang="es">Fútbol Premier League</title>
+    <sub-title lang="es">Newcastle United vs. Aston Villa</sub-title>
+    <desc lang="es">Jornada 7 de la temporada 2026-27 de la Premier League. Newcastle United se enfrenta a Aston Villa. Desde el estadio St. James' Park.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261017153000 -0300" stop="20261017174500 -0300" channel="ESPN2.co@Direct181">
+    <title lang="es">Fútbol Serie A</title>
+    <sub-title lang="es">Roma vs. Genoa</sub-title>
+    <desc lang="es">Acción de la fecha 7. Roma enfrenta a Genoa. Desde el Stadio Olimpico. Los locales están a la caza del liderato.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261017174500 -0300" stop="20261017184500 -0300" channel="ESPN2.co@Direct181">
+    <title lang="es">ESPN KnockOut</title>
+    <desc lang="es">Ciclo de boxeo con los mejores combates en directo y en español para toda Latinoamérica en ESPN.</desc>
+    <date>2019</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261017184500 -0300" stop="20261017191500 -0300" channel="ESPN2.co@Direct181">
+    <title lang="es">El show de la Copa Libertadores</title>
+    <desc lang="es">Momentos más destacados de la Copa Libertadores.</desc>
+    <date>2023</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261017191500 -0300" stop="20261017201500 -0300" channel="ESPN2.co@Direct181">
+    <title lang="es">ESPN Compact</title>
+    <sub-title lang="es">ATP Masters 1000: Rolex Shanghai Masters, semifinal 1</sub-title>
+    <desc lang="es">Los momentos más destacados de la primera semifinal del Rolex Shanghai Masters 2026, parte del ATP Masters 1000. Desde el Qizhong Forest Sports City Arena, en Shanghái, China. Disputado el 16 de octubre de 2026.</desc>
+    <date>2026</date>
+    <episode-num system="onscreen">E367</episode-num>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261017201500 -0300" stop="20261017203000 -0300" channel="ESPN2.co@Direct181">
+    <title lang="es">Fútbol internacional</title>
+    <sub-title lang="es">FA Community Shield 2026: Arsenal Campeón</sub-title>
+    <desc lang="es">Los momentos más destacados de la rivalidad Arsenal-Manchester City se presentan en la final de la Community Shield 2026. Desde el Millennium Stadium, en Cardiff, Gales. Disputado el 16 de agosto del 2026.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261017203000 -0300" stop="20261017210000 -0300" channel="ESPN2.co@Direct181">
+    <title lang="es">UEFA Champions League Weekly</title>
+    <desc lang="es">Momentos destacados, entrevistas y toda la información de la jornada semanal de la UEFA Champions League.</desc>
+    <date>2004</date>
     <rating system="MJColombia">
       <value>TE</value>
     </rating>
