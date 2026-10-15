@@ -93,28 +93,392 @@ https://rtvelivestream-rtveplayplus.rtve.es/rtvesec/int/tvei_ame_main_1080.m3u8
 https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master.m3u8
 #EXTINF:-1 tvg-id="RedBullChileEspanol.cl" tvg-name="RedBull TV Español" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/red-bull-tv.png" tvg-country="CL" group-title="Misceláneos",RedBull TV Español
 https://freqsyndlin.redbull.com/957/rbtv/hls/master/playlist.m3u8
-#EXTINF:-1 tvg-id="AutenticHistory.de" tvg-name="Autentic History" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/autentic-history.svg" tvg-country="DE" group-title="Misceláneos",Autentic History
-https://9e754fa707344ccca6d84955c8fcaf36.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/RlaxxTV-eu_AutenticHistory/playlist.m3u8
-#EXTINF:-1 tvg-id="RealWild.us" tvg-name="Real Wild" tvg-country="US" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/real-wild.png" group-title="Misceláneos",Real Wild
-https://lds-realwild-vizio.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.c6bd3a96018cbeb2a0f28f3b" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/a-and-e-ar.png",A&E [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a04y/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.d9973a3bfb28634698473218" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/a-and-e-ar.png",A&E HD [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a02g/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.19fbfbd8b220cd0fb65ac244" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/a-and-e-ar.png",A&E-IXP [IP 138.59.177.78]
+http://138.59.177.78:9999/play/a08h/index.m3u8
 
-# Deportes
-#EXTINF:-1 tvg-id="Nauta.dac26a78f5bdf111bc9b9ffc@Nauta" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn.svg" x-resolver="nauta" x-resolver-refresh="on_play",ESPN 1 | Sur [Nauta]
-vibem3u://resolver/nauta/nautatv_catalog%7CESPN%201%20%7C%20Sur
-#EXTINF:-1 tvg-id="Nauta.81dc69c20557da0672921475@Nauta" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn.svg" x-resolver="nauta" x-resolver-refresh="on_play",ESPN 1 | Chile [Nauta]
-vibem3u://resolver/nauta/nautatv_catalog%7CESPN%201%20%7C%20Chile
-#EXTINF:-1 tvg-id="Nauta.53db56d7f89e01787fcc2212@Nauta" group-title="Deportes" x-resolver="nauta" x-resolver-refresh="on_play",ESPN Plus HD [Nauta]
-vibem3u://resolver/nauta/nautatv_catalog%7CESPN%20Plus%20HD
+# Películas
+#EXTINF:-1 tvg-id="PublicDirect.747adbe6694514eee98e7ed5" group-title="Películas",A3Cine [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a00e/index.m3u8
+
+# Adultos
+#EXTINF:-1 tvg-id="AdultSwim.co@Direct181" tvg-name="Adult Swim [IP 181]" tvg-country="CO" group-title="Adultos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/adultswimlatinamerica-us.png",Adult Swim [IP 181]
+http://181.78.12.119:16123/play/ch75/index.m3u8
+
+# Películas
+#EXTINF:-1 tvg-id="PublicDirect.154bdf2110d43b7d5ecf798c" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/amclatinamerica-us.png",AMC [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a051/index.m3u8
+#EXTINF:-1 tvg-id="AMC.co@Direct181" tvg-name="AMC [IP 181]" tvg-country="CO" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/amclatinamerica-us.png",AMC [IP 181]
+http://181.78.12.119:16123/play/ch13/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.8918c13cf06dc2f7416879f2" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/amclatinamerica-us.png",AMC HD [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a02h/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.5c8f98d3876cb07b0c0884f6" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/amclatinamerica-us.png",AMC-IXP [IP 138.59.177.78]
+http://138.59.177.78:9999/play/a08o/index.m3u8
 
 # Misceláneos
+#EXTINF:-1 tvg-id="PublicDirect.5551093bff52d29b38509588" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/animalplanetlatinamerica-us.png",Animal Planet [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a033/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.e6a2bc5a013c1c5b9656d441" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/animalplanetlatinamerica-us.png",Animal Planet HD [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a02d/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.21d595905b477139407f7250" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/animalplanetlatinamerica-us.png",ANIMAL PLANET-IXP [IP 138.59.177.78]
+http://138.59.177.78:9999/play/a09c/index.m3u8
+#EXTINF:-1 tvg-id="AutenticHistory.de" tvg-name="Autentic History" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/autentic-history.svg" tvg-country="DE" group-title="Misceláneos",Autentic History
+https://9e754fa707344ccca6d84955c8fcaf36.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/RlaxxTV-eu_AutenticHistory/playlist.m3u8
+
+# Películas
+#EXTINF:-1 tvg-id="PublicDirect.e17934e0e48749cee7c26401" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/axnlatinamerica-us.png",AXN [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a01y/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.07595a53d0527c27f68b4e29" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/axnlatinamerica-us.png",AXN [IP 181.78.8.199]
+http://181.78.8.199:8000/play/a0cu/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.1162bcbccc1aa298b25757a3" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/axnlatinamerica-us.png",AXN HD [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a04m/index.m3u8
+
+# Misceláneos
+#EXTINF:-1 tvg-id="Nauta.080d3c6ad99b6cbcad144a59@Nauta" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/axnlatinamerica-us.png" x-resolver="nauta" x-resolver-refresh="on_play",AXN HD [Nauta]
+vibem3u://resolver/nauta/nautatv_catalog%7CAXN%20HD
+
+# Deportes
+#EXTINF:-1 tvg-id="PublicDirect.7e481ae905cfde3a83c3ccfe" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/aymsports-mx.png",AyM Sports [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a00z/index.m3u8
+
+# Misceláneos
+#EXTINF:-1 tvg-id="PublicDirect.be7d7ad8f89857467f93cb8e" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/azclic-mx.png",AZ click HD [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a02n/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.8955d88c9214c0b2a89cd340" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/azcorazon-mx.png",Azcorazon [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a01p/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.5f8a1a274086481eddc57367" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/azmundo-mx.png",Azmundo [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a02w/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.7c6b3fe651f063bda7e51a6a" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/babyfirst-us.png",Baby First [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a00p/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.01717cb57d90b7cd8ece5331" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/babytv-uk.png",BABY TV-IXP [IP 138.59.177.78]
+http://138.59.177.78:9999/play/a00k/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.717555651a1f37739ace1076" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/bbcnews-uk.png",BBC World [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a022/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.9b9f29e6c29d69e00e4a6053" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/canal1-co.png",CANAL 1 [IP 200.122.223.13]
+http://200.122.223.13:55000/play/canal-1-tdt/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.43557d465d973d608c6bb19a" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/canal3-gt.png",Canal 3 - GUA [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a02u/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.563319274daa44463f7c9f6c" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/canal7-gt.png",Canal 7 - GUA [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a060/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.7a597c8a2d6c1e6c97015c28" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/canal13-gt.png",Canal 13-GUA-e1 [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a00m/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.eb3b17bc3573e55b2c56cf95" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/canalantigua-gt.png",Canal Antigua - GUA [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a02r/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.2c3dc51c6c190120d48ad14f" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/caracoltv-co.png",Caracol ERICSON [IP 181.78.12.119]
+http://181.78.12.119:16123/play/ch58b/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.05078f0b4d89add3c8d44a20" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/caracoltv-co.png",Caracol HD (clone) [IP 181.78.12.119]
+http://181.78.12.119:16123/play/ch58a/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.1351317d6c3f201ad2b4c44f" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/cartoonnetworklatinamerica-us.png",Cartoon Network [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a01h/index.m3u8
+#EXTINF:-1 tvg-id="CartoonNetwork.co@Direct181" tvg-name="Cartoon Network [IP 181]" tvg-country="CO" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/cartoonnetworklatinamerica-us.png",Cartoon Network [IP 181]
+http://181.78.12.119:16123/play/ch09/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.00be13e7561217fc741c398f" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/cartoonitolatinamerica-us.png",Cartoonito [IP 181.78.12.119]
+http://181.78.12.119:16123/play/a0cq/index.m3u8
+
+# Películas
+#EXTINF:-1 tvg-id="PublicDirect.1657bd8e8c7410b0a128ea30" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/cinelatino-mx.png",Cine Latino [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a049/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.9f74e4c4a28acde00c25d4a7" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/cinecanal-us.png",CineCanal [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a04c/index.m3u8
+#EXTINF:-1 tvg-id="Cinecanal.co@Direct181" tvg-name="Cinecanal [IP 181]" tvg-country="CO" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/cinecanal-us.png",Cinecanal [IP 181]
+http://181.78.12.119:16123/play/ch10/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.9840c70e010eb35fb900c6b4" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/cinecanal-us.png",CINECANAL HD [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a03d/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.0f8b28b872547b18b7bda979" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/cinemaxlatinamerica-us.png",CineMax [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a04a/index.m3u8
+#EXTINF:-1 tvg-id="Nauta.547c2a892ba50d5ca20e2851@Nauta" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/cinemaxlatinamerica-us.png" x-resolver="nauta" x-resolver-refresh="on_play",Cinemax HD [Nauta]
+vibem3u://resolver/nauta/cat_32%7CCinemax%20HD
+#EXTINF:-1 tvg-id="PublicDirect.b4a12e148b15b71efbcda5e7" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/cinemaxlatinamerica-us.png",CINEMAX-IXP [IP 138.59.177.78]
+http://138.59.177.78:9999/play/a08p/index.m3u8
+
+# Misceláneos
+#EXTINF:-1 tvg-id="PublicDirect.12fb89d0f0001e9c4a2e7c7e" group-title="Misceláneos",City TV [IP 181.78.12.119]
+http://181.78.12.119:16123/play/ch42a/index.m3u8
+
+# Películas
+#EXTINF:-1 tvg-id="PublicDirect.ca5aa7867d5a6678df1e8798" group-title="Películas",Claro Cinema [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a039/index.m3u8
+
+# Música
+#EXTINF:-1 tvg-id="PublicDirect.f6c3d13d7a52c1616b8a4123" group-title="Música" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/claromusicatv-co.png",Claro Musica [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a010/index.m3u8
+
+# Misceláneos
+#EXTINF:-1 tvg-id="PublicDirect.ed69a6b5e1637d6e1cb760c0" group-title="Misceláneos",CNC [IP 181.78.12.119]
+http://181.78.12.119:16123/play/a0ae/index.m3u8
+
+# Noticias internacionales
+#EXTINF:-1 tvg-id="PublicDirect.dcfe21bb7cda0e289ff23c1d" group-title="Noticias internacionales" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/cnnchile-cl.png",CNN Chile [IP 190.110.96.238]
+http://190.110.96.238:8000/play/a0f5/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.77c5a323d8aaed78570df3bd" group-title="Noticias internacionales" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/cnninternational-us.png",CNN Internacional [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a054/index.m3u8
+
+# Misceláneos
+#EXTINF:-1 tvg-id="PublicDirect.5417589c8c430cab0ba0df74" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/cnnenespanol-us.svg",CNNE [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a021/index.m3u8
+
+# Películas
+#EXTINF:-1 tvg-id="PublicDirect.95d769b11198d2c83e958f73" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/space-ar.png",COD Space HD [IP 181.78.12.119]
+http://181.78.12.119:16123/play/ch200/index.m3u8
+
+# Música
+#EXTINF:-1 tvg-id="PublicDirect.2a81d81719e1692d22f45cdd" group-title="Música" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/concertchannel-us.png",Concert Channel [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a045/index.m3u8
+
+# Misceláneos
+#EXTINF:-1 tvg-id="PublicDirect.3fc4f122d9bf76d0c301c794" group-title="Misceláneos",ctv [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a05f/index.m3u8
+
+# Películas
+#EXTINF:-1 tvg-id="PublicDirect.8218b29b717b76d2a6d6d7b2" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/dhe-us.png",DHE [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a00d/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.1b124c1b77d597781052232a" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/dhe-us.png",DHE HD [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a02m/index.m3u8
+
+# Misceláneos
+#EXTINF:-1 tvg-id="PublicDirect.73f723df5a9d1193862f0d33" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoverytheaterlatinamerica-us.png",DISC THEATHER HD [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a03j/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.796284d305206eaee4223955" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoverychannellatinamerica-us.png",Discovery Channel [IP 45.171.64.30] · señal 2
+http://45.171.64.30:6060/play/a01z/index.m3u8
+#EXTINF:-1 tvg-id="Discovery.co@Direct181" tvg-name="Discovery Channel [IP 181]" tvg-country="CO" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoverychannellatinamerica-us.png",Discovery Channel [IP 181]
+http://181.78.12.119:16123/play/ch22/index.m3u8
+#EXTINF:-1 tvg-id="Nauta.5f7d8d7874eeaacd4c3233ad@Nauta" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoverychannellatinamerica-us.png" x-resolver="nauta" x-resolver-refresh="on_play",Discovery Channel HD [Nauta]
+vibem3u://resolver/nauta/nautatv_catalog%7CDiscovery%20Channel%20HD
+#EXTINF:-1 tvg-id="PublicDirect.76f85d8e18ca914171dde970" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoverychannellatinamerica-us.png",DISCOVERY CHANNEL-IXP [IP 138.59.177.78]
+http://138.59.177.78:9999/play/a09p/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.b9e80edee2c430a6354ef4b8" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoveryhomehealthlatinamerica-mx.png",Discovery Home & Health [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a040/index.m3u8
+#EXTINF:-1 tvg-id="DiscoveryHH.co@Direct181" tvg-name="Discovery Home & Health [IP 181]" tvg-country="CO" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoveryhomehealthlatinamerica-mx.png",Discovery Home & Health [IP 181]
+http://181.78.12.119:16123/play/ch25/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.89cae6ff507906ff8501bcb0" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoverykidslatinamerica-us.png",Discovery Kids [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a03v/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.e687f4926b0240629f249807" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoverykidslatinamerica-us.png",DISCOVERY KIDS-IXP [IP 138.59.177.78]
+http://138.59.177.78:9999/play/a093/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.ffd0a47cadbd147671a8a045" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoverytheaterlatinamerica-us.png",Discovery Theater [IP 181.224.200.5]
+http://181.224.200.5:2277/play/a0bj/index.m3u8
+#EXTINF:-1 tvg-id="Nauta.33b5775c2e5269c09297139c@Nauta" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoverytheaterlatinamerica-us.png" x-resolver="nauta" x-resolver-refresh="on_play",Discovery Theater HD [Nauta]
+vibem3u://resolver/nauta/cat_5%7CDiscovery%20Theater%20HD
+#EXTINF:-1 tvg-id="PublicDirect.a5ab4fb07b0b3f13f591b009" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoveryturbolatinamerica-us.png",Discovery Turbo [IP 38.134.250.110]
+http://38.134.250.110:8000/play/a01y/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.602db5a8e67bf15f610e9370" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoveryturbolatinamerica-us.png",Discovery Turbo [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a03z/index.m3u8
+#EXTINF:-1 tvg-id="Turbo.co@Direct181" tvg-name="Discovery Turbo [IP 181]" tvg-country="CO" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoveryturbolatinamerica-us.png",Discovery Turbo [IP 181]
+http://181.78.12.119:16123/play/ch24/index.m3u8
+#EXTINF:-1 tvg-id="Nauta.dc823421ba8a32dea334cd9c@Nauta" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoveryturbolatinamerica-us.png" x-resolver="nauta" x-resolver-refresh="on_play",Discovery Turbo [Nauta]
+vibem3u://resolver/nauta/nautatv_catalog%7CDiscovery%20Turbo
+#EXTINF:-1 tvg-id="Nauta.0615fb29ef6cee14db5b3c78@Nauta" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoveryturbolatinamerica-us.png" x-resolver="nauta" x-resolver-refresh="on_play",Discovery Turbo HD [Nauta]
+vibem3u://resolver/nauta/cat_32%7CDiscovery%20Turbo%20HD
+#EXTINF:-1 tvg-id="Nauta.9716fec189bb7b466e1bd9af@Nauta" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoveryworld-us.png" x-resolver="nauta" x-resolver-refresh="on_play",Discovery World [Nauta]
+vibem3u://resolver/nauta/nautatv_catalog%7CDiscovery%20World
+#EXTINF:-1 tvg-id="PublicDirect.305177fef9fa178063075ed3" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoveryworld-us.png",Discovery World HD [IP 168.196.127.137]
+http://168.196.127.137:6001/play/a097/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.e7eacb4779e7c1b75e062879" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoveryworld-us.png",DISCOVERY WORLD-IXP [IP 138.59.177.78]
+http://138.59.177.78:9999/play/a09q/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.56a9657c934115ec2f1481ae" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/disneychannellatinamerica-ar.svg",Disney [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a03x/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.f44c42892b6e8efa54aea954" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/disneyjrlatinamerica-ar.svg",Disney JR [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a01k/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.c530989e33722dc0a90c75d7" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/disneyjrlatinamerica-ar.svg",DISNEY JR-IXP [IP 138.59.177.78]
+http://138.59.177.78:9999/play/a00o/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.e41239d2e107fc7a8d6b06e7" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/disneychannellatinamerica-ar.svg",DISNEY-IXP [IP 138.59.177.78]
+http://138.59.177.78:9999/play/a00n/index.m3u8
 #EXTINF:-1 tvg-id="Nauta.45ff33783b4d83062083ddb7@Nauta" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/dsports2-lam.png" x-resolver="nauta" x-resolver-refresh="on_play",DSports 2 [Nauta]
 vibem3u://resolver/nauta/cat_4%7CDSports%202
+#EXTINF:-1 tvg-id="PublicDirect.4a3ee6122f85ca98215b6c15" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/elatinamerica-us.png",E! [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a02z/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.332ea6dacea78829fcc244e9" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/elatinamerica-us.png",E! Entertairment HD [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a02e/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.87ba434b81d9f9eac87e7f81" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/elgourmet-ar.png",El Gourmet [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a00u/index.m3u8
+#EXTINF:-1 tvg-id="ElGourmet.co@Direct181" tvg-name="El Gourmet HD [IP 181]" tvg-country="CO" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/elgourmet-ar.png",El Gourmet HD [IP 181]
+http://181.78.12.119:16123/play/ch27/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.2a99698e9a5c88855c7a7190" group-title="Misceláneos",el mundo del campo [IP 181.78.12.119]
+http://181.78.12.119:16123/play/a0dp/index.m3u8
+
+# Deportes
+#EXTINF:-1 tvg-id="PublicDirect.dcd8868ec2ff980d13c48e61" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn.svg",ESPN (145) [IP 45.189.151.7]
+http://45.189.151.7:8000/play/a06i/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.b846a996ccc3404a033e13e1" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn.svg",ESPN [IP 38.87.224.19]
+http://38.87.224.19:2220/play/a00w/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.925c763ee4a3a76ffc02cca6" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn.svg",ESPN [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a036/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.25d4f6f1219d47df7b4af9d1" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn.svg",ESPN [IP 181.78.106.127]
+http://181.78.106.127:5000/play/a0qf/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.cb15627abb48f22217500563" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn.svg",ESPN 1 [IP 181.78.8.199]
+http://181.78.8.199:8000/play/a0b1/index.m3u8
+#EXTINF:-1 tvg-id="Nauta.81dc69c20557da0672921475@Nauta" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn.svg" x-resolver="nauta" x-resolver-refresh="on_play",ESPN 1 | Chile [Nauta]
+vibem3u://resolver/nauta/nautatv_catalog%7CESPN%201%20%7C%20Chile
+#EXTINF:-1 tvg-id="Nauta.dac26a78f5bdf111bc9b9ffc@Nauta" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn.svg" x-resolver="nauta" x-resolver-refresh="on_play",ESPN 1 | Sur [Nauta]
+vibem3u://resolver/nauta/nautatv_catalog%7CESPN%201%20%7C%20Sur
+#EXTINF:-1 tvg-id="PublicDirect.3ad2ef9940e2175f07ba53b9" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/espn-lam.png",ESPN 1 ENVIO [IP 138.94.3.106]
+http://138.94.3.106:8000/play/a02l/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.4ded1fad9c0f880605cfe8fa" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/espn-lam.png",ESPN 1 ENVIO [IP 181.79.86.130]
+http://181.79.86.130:8000/play/a02l/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.3203195c3727b87c5c19dec8" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/espn-lam.png",ESPN 1 EZ-TRA [IP 138.59.177.78]
+http://138.59.177.78:9999/play/a0m1/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.3c93c3a97d11cf503ad2345f" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn.svg",ESPN 1 IXP [IP 138.59.177.78]
+http://138.59.177.78:9999/play/a003/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.971215bf53db3488f848d6c6" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-2.png",ESPN 2 [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a037/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.122a2e09dd1071caa02f5885" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-2.png",ESPN 2 [IP 181.78.211.244]
+http://181.78.211.244:8000/play/a0b7/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.24df37c251a5094ba40d76dc" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-2.png",ESPN 2 [IP 181.78.211.244] · señal 2
+http://181.78.211.244:8005/play/a0b7/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.4c4f25512dc26528b8133d9f" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-2.png",ESPN 2 HD [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a05l/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.d6cca6d4aa23a69d50439c22" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-2.png",ESPN 2 HD [IP 181.224.200.5]
+http://181.224.200.5:2277/play/a02c/index.m3u8
+#EXTINF:-1 tvg-id="ESPN2.co@Direct181" tvg-name="ESPN 2 HD [IP 181]" tvg-country="CO" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-2.png" group-title="Deportes",ESPN 2 HD [IP 181]
+http://181.78.12.119:16123/play/ch17/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.20dbc798fdf0b22b5aed6a1d" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-2.png",ESPN 2 IXP [IP 138.59.177.78]
+http://138.59.177.78:9999/play/a004/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.3d519bc9027bf3427d250d7c" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-3.png",ESPN 3 [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a00x/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.9fc08fec9b53b602b7ce875e" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-3.png",ESPN 3 HD [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a05m/index.m3u8
+#EXTINF:-1 tvg-id="Nauta.ed0ed0370e182f10a4e96f3d@Nauta" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-3.png" x-resolver="nauta" x-resolver-refresh="on_play",ESPN 3 HD [Nauta]
+vibem3u://resolver/nauta/cat_32%7CESPN%203%20HD
+#EXTINF:-1 tvg-id="Nauta.c89a873414ec166795c59f26@Nauta" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-4.png" x-resolver="nauta" x-resolver-refresh="on_play",ESPN 4 | Sur [Nauta]
+vibem3u://resolver/nauta/cat_1%7CESPN%204%20%7C%20Sur
+#EXTINF:-1 tvg-id="PublicDirect.54a0e2628bd72606025da8fe" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-4.png",ESPN 4 EZ-TRA [IP 138.59.177.78]
+http://138.59.177.78:9999/play/a0kd/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.abfc3ae43e2088dfcceeaf6b" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-4.png",ESPN 4 HD [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a05p/index.m3u8
+#EXTINF:-1 tvg-id="ESPN4.co@Direct181" tvg-name="ESPN 4 HD [IP 181]" tvg-country="CO" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-4.png" group-title="Deportes",ESPN 4 HD [IP 181]
+http://181.78.12.119:16123/play/ch90/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.2f248d6579ad8e31cef9c950" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/espn-6-lam.png",ESPN 6 [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a05o/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.f01cdfce2a440e1aac5e8c70" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/espn-6-lam.png",ESPN 6 [IP 45.171.64.30] · señal 2
+http://45.171.64.30:6060/play/a01v/index.m3u8
+#EXTINF:-1 tvg-id="ESPN6.co@Direct181" tvg-name="ESPN 6 [IP 181]" tvg-country="CO" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/espn-6-lam.png",ESPN 6 [IP 181]
+http://181.78.12.119:16123/play/ch20/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.68696bca1787ea6c42d08166" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/espn-6-lam.png",ESPN 6 HD [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a05n/index.m3u8
+#EXTINF:-1 tvg-id="ESPN7.co@Direct181" tvg-name="ESPN 7 [IP 181]" tvg-country="CO" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-7.png" group-title="Deportes",ESPN 7 [IP 181]
+http://181.78.12.119:16123/play/ch21/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.cb7dc4d2d35c7f028eb472ab" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn.svg",ESPN CO sd [IP 181.78.12.119]
+http://181.78.12.119:16123/play/a0du/index.m3u8
+#EXTINF:-1 tvg-id="ESPN.co@Direct181" tvg-name="ESPN HD [IP 181]" tvg-country="CO" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn.svg" group-title="Deportes",ESPN HD [IP 181]
+http://181.78.12.119:16123/play/ch16/index.m3u8
+#EXTINF:-1 tvg-id="Nauta.7437112a4b992980a550d16a@Nauta" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn.svg" x-resolver="nauta" x-resolver-refresh="on_play",ESPN HD [Nauta]
+vibem3u://resolver/nauta/cat_32%7CESPN%20HD
+#EXTINF:-1 tvg-id="Nauta.53db56d7f89e01787fcc2212@Nauta" group-title="Deportes" x-resolver="nauta" x-resolver-refresh="on_play",ESPN Plus HD [Nauta]
+vibem3u://resolver/nauta/nautatv_catalog%7CESPN%20Plus%20HD
+#EXTINF:-1 tvg-id="PublicDirect.12ad760b64a1a68eeb39fe70" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/espn-premium-ar.png",ESPN Premium [IP 190.128.214.97]
+http://190.128.214.97:64333/play/a02i/index.m3u8
+
+# Misceláneos
+#EXTINF:-1 tvg-id="PublicDirect.56d928ddd65198f71d50e805" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/ewtn-us.png",EWTN [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a025/index.m3u8
+
+# Música
+#EXTINF:-1 tvg-id="PublicDirect.dcf280ba951d54163fb67121" group-title="Música" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/exatv-mx.png",Exa TV [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a038/index.m3u8
+
+# Películas
+#EXTINF:-1 tvg-id="PublicDirect.305dbd0140ddeb2995c9cd16" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/filmarts-ar.png",Film & Arts [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a00c/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.7eddab771710fba70f46bb14" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/filmarts-ar.png",Film & arts HD [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a02f/index.m3u8
+
+# Deportes
+#EXTINF:-1 tvg-id="PublicDirect.cbbf16d047322fe020949bf8" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/fox-sports.svg",Fox Sports [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a03g/index.m3u8
+#EXTINF:-1 tvg-id="Nauta.57d13b9b10bcbdc51d4dab10@Nauta" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/fox-sports.svg" x-resolver="nauta" x-resolver-refresh="on_play",Fox Sports HD [Nauta]
+vibem3u://resolver/nauta/cat_32%7CFox%20Sports%20HD
+
+# Noticias internacionales
+#EXTINF:-1 tvg-id="PublicDirect.796c17a762ce69be57ec714d" group-title="Noticias internacionales" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/france24.svg",France24 [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a023/index.m3u8
+
+# Películas
+#EXTINF:-1 tvg-id="PublicDirect.d0f959013c7d64b49621375a" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/fxlatinamerica-us.png",FX [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a00q/index.m3u8
+#EXTINF:-1 tvg-id="FX.co@Direct181" tvg-name="FX [IP 181]" tvg-country="CO" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/fxlatinamerica-us.png",FX [IP 181]
+http://181.78.12.119:16123/play/ch08/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.a90b6470c5abcd5d43a21f04" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/fxlatinamerica-us.png",FX HD [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a02j/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.d13b3c8e60056f9124a6e2dc" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/galavision-us.png",Galavision [IP 138.59.177.78]
+http://138.59.177.78:9999/play/a08x/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.2986363464e32a02d69a65dd" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/golden-mx.png",Golden [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a013/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.14f7394fd3035a67afe61be9" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/golden-mx.png",Golden [IP 181.224.200.5]
+http://181.224.200.5:2277/play/a0do/index.m3u8
+#EXTINF:-1 tvg-id="Golden.co@Direct181" tvg-name="Golden [IP 181]" tvg-country="CO" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/golden-mx.png",Golden [IP 181]
+http://181.78.12.119:16123/play/ch46/index.m3u8
+#EXTINF:-1 tvg-id="GoldenEdge.co@Direct181" tvg-name="Golden Edge [IP 181]" tvg-country="CO" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/goldenedge-mx.png",Golden Edge [IP 181]
+http://181.78.12.119:16123/play/ch47/index.m3u8
+
+# Deportes
+#EXTINF:-1 tvg-id="PublicDirect.44f9d286f6768740b06eaad9" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/golfchannellatinamerica-us.png",Golf Channel HD [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a02p/index.m3u8
+
+# Misceláneos
+#EXTINF:-1 tvg-id="PublicDirect.407a6cdf00bb64c25fb341f4" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/guatevision-gt.png",Guatevision - GUA [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a01g/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.0ef1ce174fa5aaee3811b04f" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/history2latinamerica-us.png",H2 [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a00t/index.m3u8
+
+# Películas
+#EXTINF:-1 tvg-id="PublicDirect.2fc769332eb883d4716d83ab" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbolatinamerica-us.png",HBO [IP 138.59.227.20]
+http://138.59.227.20:8000/play/a07m/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.a8b59c546c1a10f16dad3f74" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbolatinamerica-us.png",HBO [IP 158.172.217.18]
+http://158.172.217.18:8000/play/a001/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.9c65e9ef8275d6cfbd771bd2" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbolatinamerica-us.png",HBO [IP 200.115.120.1]
+http://200.115.120.1:8000/play/ca038/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.853a40a707cc09dae16e8205" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbo2latinamerica-us.png",HBO 2 [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a00i/index.m3u8
+
+# Misceláneos
 #EXTINF:-1 tvg-id="Nauta.5e0764312e17cd8dbca87fbe@Nauta" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbo2latinamerica-us.png" x-resolver="nauta" x-resolver-refresh="on_play",HBO 2 HD [Nauta]
 vibem3u://resolver/nauta/nautatv_catalog%7CHBO%202%20HD
+
+# Películas
+#EXTINF:-1 tvg-id="PublicDirect.be7f7ba12ab6004903c96227" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbofamilylatinamerica-us.png",HBO Family [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a00k/index.m3u8
+
+# Misceláneos
 #EXTINF:-1 tvg-id="Nauta.4cc2aa2f00babf217d641fd6@Nauta" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbofamilylatinamerica-us.png" x-resolver="nauta" x-resolver-refresh="on_play",HBO Family [Nauta]
 vibem3u://resolver/nauta/nautatv_catalog%7CHBO%20Family
 #EXTINF:-1 tvg-id="Nauta.2c79f52754dcec190b01cd93@Nauta" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbofamilylatinamerica-us.png" x-resolver="nauta" x-resolver-refresh="on_play",HBO Family HD [Nauta]
 vibem3u://resolver/nauta/nautatv_catalog%7CHBO%20Family%20HD
+
+# Películas
+#EXTINF:-1 tvg-id="PublicDirect.1756e7adec9079ba3e80634f" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbolatinamerica-us.png",HBO HD [IP 45.166.93.156]
+http://45.166.93.156:9999/play/a0im/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.74cd09e94a60c0d1f37a6d21" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbolatinamerica-us.png",HBO HD [IP 45.173.231.22]
+http://45.173.231.22:8000/play/a08k/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.0e207487c6a9b2b103dbeef6" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbolatinamerica-us.png",HBO HD [IP 72.1.184.5]
+http://72.1.184.5:8089/play/a07o/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.2affda2231a6914ce695dc44" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbolatinamerica-us.png",HBO HD [IP 167.249.23.102]
+http://167.249.23.102:8000/play/HBOHD/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.f51c6e85b7cccaf868e66474" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbolatinamerica-us.png",HBO HD [IP 170.244.209.30]
+http://170.244.209.30:8000/play/a028/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.d55cbc0d421f9ac9d4d95ab3" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbolatinamerica-us.png",HBO HD [IP 181.78.82.130]
+http://181.78.82.130:8000/play/a0os/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.f40c652d704b68169874ad00" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbolatinamerica-us.png",HBO HD [IP 181.78.197.59]
+http://181.78.197.59:8000/play/a07d/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.109486b1dd576033b06b5a62" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbolatinamerica-us.png",HBO HD [IP 181.119.177.253]
+http://181.119.177.253:8000/play/a00x/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.09a0d74b65cbafffa6247b3c" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbolatinamerica-us.png",HBO HD [IP 187.245.231.226]
+http://187.245.231.226:8000/play/a0mq/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.4000e460fceb0d24722961a4" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbolatinamerica-us.png",HBO HD [IP 190.60.46.228]
+http://190.60.46.228:8888/play/a04n/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.572cb669462bffbd79e7f655" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbolatinamerica-us.png",HBO HD [IP 190.61.90.17]
+http://190.61.90.17:40000/play/a0l2/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.1023e1d1e839c3a7671fabbb" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbolatinamerica-us.png",HBO HD [IP 190.108.83.69]
+http://190.108.83.69:8000/play/a035/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.469f87d178c1423e1875a4f2" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbolatinamerica-us.png",HBO HD [IP 190.108.91.206]
+http://190.108.91.206:9050/play/a035/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.d46f782059b83ba7bacf7664" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbolatinamerica-us.png",HBO HD [IP 190.234.82.52]
+http://190.234.82.52:8000/play/a0iy/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.b26acb4b5bb79352c371a791" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbolatinamerica-us.png",HBO HD [IP 200.7.99.59]
+http://200.7.99.59:8000/play/a0jt/index.m3u8
+
+# Misceláneos
 #EXTINF:-1 tvg-id="Nauta.69a2d4671c91e6eb2081468e@Nauta" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbolatinamerica-us.png" x-resolver="nauta" x-resolver-refresh="on_play",HBO HD [Nauta]
 vibem3u://resolver/nauta/nautatv_catalog%7CHBO%20HD
 #EXTINF:-1 tvg-id="Nauta.2543531f37454701c960421c@Nauta" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbomundilatinamerica-us.png" x-resolver="nauta" x-resolver-refresh="on_play",HBO Mundi [Nauta]
@@ -130,173 +494,93 @@ vibem3u://resolver/nauta/cat_32%7CHBO%20Plus%20Oeste%20HD
 #EXTINF:-1 tvg-id="Nauta.14fae38bc645c4c8b6315d89@Nauta" group-title="Música" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbopoplatinamerica-us.png" x-resolver="nauta" x-resolver-refresh="on_play",HBO Pop [Nauta]
 vibem3u://resolver/nauta/nautatv_catalog%7CHBO%20Pop
 
+# Películas
+#EXTINF:-1 tvg-id="PublicDirect.8db5a974dc4b6ed483cf2bf9" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hboxtremelatinamerica-us.png",HBO XTREME [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a00l/index.m3u8
+
 # Misceláneos
 #EXTINF:-1 tvg-id="Nauta.5108e1f90fd559d0c4387658@Nauta" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hboxtremelatinamerica-us.png" x-resolver="nauta" x-resolver-refresh="on_play",HBO Xtreme [Nauta]
 vibem3u://resolver/nauta/nautatv_catalog%7CHBO%20Xtreme
 #EXTINF:-1 tvg-id="Nauta.19ade992e1408ad4cbf1d4d8@Nauta" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hboxtremelatinamerica-us.png" x-resolver="nauta" x-resolver-refresh="on_play",HBO Xtreme HD [Nauta]
 vibem3u://resolver/nauta/nautatv_catalog%7CHBO%20Xtreme%20HD
-#EXTINF:-1 tvg-id="Nauta.080d3c6ad99b6cbcad144a59@Nauta" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/axnlatinamerica-us.png" x-resolver="nauta" x-resolver-refresh="on_play",AXN HD [Nauta]
-vibem3u://resolver/nauta/nautatv_catalog%7CAXN%20HD
-
-# Películas
-#EXTINF:-1 tvg-id="Nauta.547c2a892ba50d5ca20e2851@Nauta" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/cinemaxlatinamerica-us.png" x-resolver="nauta" x-resolver-refresh="on_play",Cinemax HD [Nauta]
-vibem3u://resolver/nauta/cat_32%7CCinemax%20HD
-
-# Misceláneos
-#EXTINF:-1 tvg-id="Nauta.5f7d8d7874eeaacd4c3233ad@Nauta" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoverychannellatinamerica-us.png" x-resolver="nauta" x-resolver-refresh="on_play",Discovery Channel HD [Nauta]
-vibem3u://resolver/nauta/nautatv_catalog%7CDiscovery%20Channel%20HD
-#EXTINF:-1 tvg-id="Nauta.33b5775c2e5269c09297139c@Nauta" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoverytheaterlatinamerica-us.png" x-resolver="nauta" x-resolver-refresh="on_play",Discovery Theater HD [Nauta]
-vibem3u://resolver/nauta/cat_5%7CDiscovery%20Theater%20HD
-#EXTINF:-1 tvg-id="Nauta.dc823421ba8a32dea334cd9c@Nauta" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoveryturbolatinamerica-us.png" x-resolver="nauta" x-resolver-refresh="on_play",Discovery Turbo [Nauta]
-vibem3u://resolver/nauta/nautatv_catalog%7CDiscovery%20Turbo
-#EXTINF:-1 tvg-id="Nauta.0615fb29ef6cee14db5b3c78@Nauta" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoveryturbolatinamerica-us.png" x-resolver="nauta" x-resolver-refresh="on_play",Discovery Turbo HD [Nauta]
-vibem3u://resolver/nauta/cat_32%7CDiscovery%20Turbo%20HD
-#EXTINF:-1 tvg-id="Nauta.9716fec189bb7b466e1bd9af@Nauta" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoveryworld-us.png" x-resolver="nauta" x-resolver-refresh="on_play",Discovery World [Nauta]
-vibem3u://resolver/nauta/nautatv_catalog%7CDiscovery%20World
-
-# Deportes
-#EXTINF:-1 tvg-id="Nauta.7437112a4b992980a550d16a@Nauta" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn.svg" x-resolver="nauta" x-resolver-refresh="on_play",ESPN HD [Nauta]
-vibem3u://resolver/nauta/cat_32%7CESPN%20HD
-#EXTINF:-1 tvg-id="Nauta.ed0ed0370e182f10a4e96f3d@Nauta" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-3.png" x-resolver="nauta" x-resolver-refresh="on_play",ESPN 3 HD [Nauta]
-vibem3u://resolver/nauta/cat_32%7CESPN%203%20HD
-#EXTINF:-1 tvg-id="Nauta.c89a873414ec166795c59f26@Nauta" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-4.png" x-resolver="nauta" x-resolver-refresh="on_play",ESPN 4 | Sur [Nauta]
-vibem3u://resolver/nauta/cat_1%7CESPN%204%20%7C%20Sur
-#EXTINF:-1 tvg-id="Nauta.57d13b9b10bcbdc51d4dab10@Nauta" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/fox-sports.svg" x-resolver="nauta" x-resolver-refresh="on_play",Fox Sports HD [Nauta]
-vibem3u://resolver/nauta/cat_32%7CFox%20Sports%20HD
-
-# Misceláneos
-#EXTINF:-1 tvg-id="Nauta.a87610ac946968a5f280ec57@Nauta" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/starchannellatinamerica-us.png" x-resolver="nauta" x-resolver-refresh="on_play",Star Channel HD [Nauta]
-vibem3u://resolver/nauta/cat_32%7CStar%20Channel%20HD
-#EXTINF:-1 tvg-id="Nauta.b9df5eea317035bd5bda31cf@Nauta" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/studiouniversallatinamerica-us.png" x-resolver="nauta" x-resolver-refresh="on_play",Studio Universal HD [Nauta]
-vibem3u://resolver/nauta/cat_32%7CStudio%20Universal%20HD
-#EXTINF:-1 tvg-id="Nauta.bbe4eb27708b3113521f61fe@Nauta" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/telehit-mx.png" x-resolver="nauta" x-resolver-refresh="on_play",Telehit [Nauta]
-vibem3u://resolver/nauta/cat_7%7CTelehit
-#EXTINF:-1 tvg-id="Nauta.7d15e6854c48e815dea1edf7@Nauta" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/telehit-mx.png" x-resolver="nauta" x-resolver-refresh="on_play",Telehit HD [Nauta]
-vibem3u://resolver/nauta/cat_32%7CTelehit%20HD
-
-# Deportes
-#EXTINF:-1 tvg-id="ESPN.co@Direct181" tvg-name="ESPN HD [IP 181]" tvg-country="CO" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn.svg" group-title="Deportes",ESPN HD [IP 181]
-http://181.78.12.119:16123/play/ch16/index.m3u8
-#EXTINF:-1 tvg-id="ESPN2.co@Direct181" tvg-name="ESPN 2 HD [IP 181]" tvg-country="CO" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-2.png" group-title="Deportes",ESPN 2 HD [IP 181]
-http://181.78.12.119:16123/play/ch17/index.m3u8
-#EXTINF:-1 tvg-id="ESPN4.co@Direct181" tvg-name="ESPN 4 HD [IP 181]" tvg-country="CO" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-4.png" group-title="Deportes",ESPN 4 HD [IP 181]
-http://181.78.12.119:16123/play/ch90/index.m3u8
-#EXTINF:-1 tvg-id="ESPN6.co@Direct181" tvg-name="ESPN 6 [IP 181]" tvg-country="CO" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/espn-6-lam.png",ESPN 6 [IP 181]
-http://181.78.12.119:16123/play/ch20/index.m3u8
-#EXTINF:-1 tvg-id="ESPN7.co@Direct181" tvg-name="ESPN 7 [IP 181]" tvg-country="CO" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-7.png" group-title="Deportes",ESPN 7 [IP 181]
-http://181.78.12.119:16123/play/ch21/index.m3u8
-
-# Misceláneos
-#EXTINF:-1 tvg-id="CartoonNetwork.co@Direct181" tvg-name="Cartoon Network [IP 181]" tvg-country="CO" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/cartoonnetworklatinamerica-us.png",Cartoon Network [IP 181]
-http://181.78.12.119:16123/play/ch09/index.m3u8
-
-# Adultos
-#EXTINF:-1 tvg-id="AdultSwim.co@Direct181" tvg-name="Adult Swim [IP 181]" tvg-country="CO" group-title="Adultos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/adultswimlatinamerica-us.png",Adult Swim [IP 181]
-http://181.78.12.119:16123/play/ch75/index.m3u8
-
-# Películas
-#EXTINF:-1 tvg-id="StarChannel.co@Direct181" tvg-name="Star Channel [IP 181]" tvg-country="CO" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/starchannellatinamerica-us.png",Star Channel [IP 181]
-http://181.78.12.119:16123/play/ch07/index.m3u8
-#EXTINF:-1 tvg-id="FX.co@Direct181" tvg-name="FX [IP 181]" tvg-country="CO" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/fxlatinamerica-us.png",FX [IP 181]
-http://181.78.12.119:16123/play/ch08/index.m3u8
-#EXTINF:-1 tvg-id="Cinecanal.co@Direct181" tvg-name="Cinecanal [IP 181]" tvg-country="CO" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/cinecanal-us.png",Cinecanal [IP 181]
-http://181.78.12.119:16123/play/ch10/index.m3u8
-#EXTINF:-1 tvg-id="AMC.co@Direct181" tvg-name="AMC [IP 181]" tvg-country="CO" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/amclatinamerica-us.png",AMC [IP 181]
-http://181.78.12.119:16123/play/ch13/index.m3u8
-#EXTINF:-1 tvg-id="Golden.co@Direct181" tvg-name="Golden [IP 181]" tvg-country="CO" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/golden-mx.png",Golden [IP 181]
-http://181.78.12.119:16123/play/ch46/index.m3u8
-#EXTINF:-1 tvg-id="GoldenEdge.co@Direct181" tvg-name="Golden Edge [IP 181]" tvg-country="CO" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/goldenedge-mx.png",Golden Edge [IP 181]
-http://181.78.12.119:16123/play/ch47/index.m3u8
-
-# Misceláneos
-#EXTINF:-1 tvg-id="Discovery.co@Direct181" tvg-name="Discovery Channel [IP 181]" tvg-country="CO" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoverychannellatinamerica-us.png",Discovery Channel [IP 181]
-http://181.78.12.119:16123/play/ch22/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.c1ed48f37448ded5dca7e8bd" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/history-channel-lam.png",History Channel [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a034/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.da98ca63747a3429dd17f069" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/history-channel-lam.png",HISTORY CHANNEL [IP 190.61.114.186]
+http://190.61.114.186:8000/play/a044/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.459d3dc3761d20aa0f17806a" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/history-channel-lam.png",History HD [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a026/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.eab9850053533285f56d213a" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hgtvlatinamerica-us.png",Home Garden Latino [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a006/index.m3u8
 #EXTINF:-1 tvg-id="ID.co@Direct181" tvg-name="Investigation Discovery [IP 181]" tvg-country="CO" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/investigationdiscoverylatinamerica-us.png",Investigation Discovery [IP 181]
 http://181.78.12.119:16123/play/ch23/index.m3u8
-#EXTINF:-1 tvg-id="Turbo.co@Direct181" tvg-name="Discovery Turbo [IP 181]" tvg-country="CO" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoveryturbolatinamerica-us.png",Discovery Turbo [IP 181]
-http://181.78.12.119:16123/play/ch24/index.m3u8
-#EXTINF:-1 tvg-id="DiscoveryHH.co@Direct181" tvg-name="Discovery Home & Health [IP 181]" tvg-country="CO" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoveryhomehealthlatinamerica-mx.png",Discovery Home & Health [IP 181]
-http://181.78.12.119:16123/play/ch25/index.m3u8
-#EXTINF:-1 tvg-id="TLC.co@Direct181" tvg-name="TLC [IP 181]" tvg-country="CO" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/tlclatinamerica-us.png",TLC [IP 181]
-http://181.78.12.119:16123/play/ch26/index.m3u8
-#EXTINF:-1 tvg-id="ElGourmet.co@Direct181" tvg-name="El Gourmet HD [IP 181]" tvg-country="CO" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/elgourmet-ar.png",El Gourmet HD [IP 181]
-http://181.78.12.119:16123/play/ch27/index.m3u8
+
+# Películas
+#EXTINF:-1 tvg-id="PublicDirect.835094fef82435ce5947b9c2" group-title="Películas",Kanal D Drama [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a03m/index.m3u8
+
+# Deportes
+#EXTINF:-1 tvg-id="PublicDirect.792c9413cb2a98e7c3d972f6" group-title="Deportes",la liga [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a05i/index.m3u8
+
+# Misceláneos
+#EXTINF:-1 tvg-id="PublicDirect.be33d60d2f78170c97c37514" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/laredtv-gt.png",La Red TV [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a05b/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.a712127b104cc2260c6fedc0" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/lavozdemaria-do.png",La voz de Maria [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a042/index.m3u8
+
+# Películas
+#EXTINF:-1 tvg-id="PublicDirect.c242c1f1773acbfff4232e28" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/lifetimelatinamerica-us.png",LIFE TIME [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a01u/index.m3u8
+
+# Deportes
+#EXTINF:-1 tvg-id="PublicDirect.e909c3249ae9d6531e728bb8" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-7.png",MPTS 2 ESPN 7 [IP 177.234.218.66]
+http://177.234.218.66:8084/play/a00h/index.m3u8
+
+# Películas
+#EXTINF:-1 tvg-id="PublicDirect.7d829b68f0e63dbdd397a468" group-title="Películas",Multicinema [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a05q/index.m3u8
+
+# Misceláneos
 #EXTINF:-1 tvg-id="NatGeo.co@Direct181" tvg-name="National Geographic [IP 181]" tvg-country="CO" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/nationalgeographiclatinamerica-us.png",National Geographic [IP 181]
 http://181.78.12.119:16123/play/ch30/index.m3u8
-
-# Películas
-#EXTINF:-1 tvg-id="PublicDirect.07595a53d0527c27f68b4e29" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/axnlatinamerica-us.png",AXN [IP 181.78.8.199]
-http://181.78.8.199:8000/play/a0cu/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.749260224cb34a60ab4d8755" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/sonychannelandes-us.png",Sony Channel Andes [IP 181.119.66.28]
-http://181.119.66.28:8081/SONY-HD/index.m3u8
-
-# Noticias internacionales
-#EXTINF:-1 tvg-id="PublicDirect.dcfe21bb7cda0e289ff23c1d" group-title="Noticias internacionales" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/cnnchile-cl.png",CNN Chile [IP 190.110.96.238]
-http://190.110.96.238:8000/play/a0f5/index.m3u8
-
-# Misceláneos
-#EXTINF:-1 tvg-id="PublicDirect.ffd0a47cadbd147671a8a045" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoverytheaterlatinamerica-us.png",Discovery Theater [IP 181.224.200.5]
-http://181.224.200.5:2277/play/a0bj/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.a5ab4fb07b0b3f13f591b009" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoveryturbolatinamerica-us.png",Discovery Turbo [IP 38.134.250.110]
-http://38.134.250.110:8000/play/a01y/index.m3u8
-
-# Deportes
-#EXTINF:-1 tvg-id="PublicDirect.12ad760b64a1a68eeb39fe70" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/espn-premium-ar.png",ESPN Premium [IP 190.128.214.97]
-http://190.128.214.97:64333/play/a02i/index.m3u8
-
-# Películas
-#EXTINF:-1 tvg-id="PublicDirect.14f7394fd3035a67afe61be9" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/golden-mx.png",Golden [IP 181.224.200.5]
-http://181.224.200.5:2277/play/a0do/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.853a40a707cc09dae16e8205" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbo2latinamerica-us.png",HBO 2 [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a00i/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.be7f7ba12ab6004903c96227" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbofamilylatinamerica-us.png",HBO Family [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a00k/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.ca5aa7867d5a6678df1e8798" group-title="Películas",Claro Cinema [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a039/index.m3u8
-
-# Música
-#EXTINF:-1 tvg-id="PublicDirect.f6c3d13d7a52c1616b8a4123" group-title="Música" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/claromusicatv-co.png",Claro Musica [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a010/index.m3u8
-
-# Misceláneos
-#EXTINF:-1 tvg-id="PublicDirect.f9423761d966ce3d0fd5b162" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/rhematv-gt.png",RHEMA TV [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a04k/index.m3u8
-
-# Películas
-#EXTINF:-1 tvg-id="PublicDirect.a84d272d82351c313e421803" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/space-ar.png",Space [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a04n/index.m3u8
-
-# Misceláneos
-#EXTINF:-1 tvg-id="PublicDirect.00be13e7561217fc741c398f" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/cartoonitolatinamerica-us.png",Cartoonito [IP 181.78.12.119]
-http://181.78.12.119:16123/play/a0cq/index.m3u8
-
-# Películas
-#EXTINF:-1 tvg-id="PublicDirect.9d293a93a25a9a655c8c1de2" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/tntnovelas-us.png",TNT Novelas HD [IP 181.78.12.119]
-http://181.78.12.119:16123/play/a0a1/index.m3u8
-
-# Misceláneos
-#EXTINF:-1 tvg-id="PublicDirect.ed69a6b5e1637d6e1cb760c0" group-title="Misceláneos",CNC [IP 181.78.12.119]
-http://181.78.12.119:16123/play/a0ae/index.m3u8
-
-# Películas
-#EXTINF:-1 tvg-id="PublicDirect.95d769b11198d2c83e958f73" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/space-ar.png",COD Space HD [IP 181.78.12.119]
-http://181.78.12.119:16123/play/ch200/index.m3u8
-
-# Misceláneos
-#EXTINF:-1 tvg-id="PublicDirect.2c3dc51c6c190120d48ad14f" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/caracoltv-co.png",Caracol ERICSON [IP 181.78.12.119]
-http://181.78.12.119:16123/play/ch58b/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.12fb89d0f0001e9c4a2e7c7e" group-title="Misceláneos",City TV [IP 181.78.12.119]
-http://181.78.12.119:16123/play/ch42a/index.m3u8
-
-# Deportes
-#EXTINF:-1 tvg-id="PublicDirect.cb7dc4d2d35c7f028eb472ab" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn.svg",ESPN CO sd [IP 181.78.12.119]
-http://181.78.12.119:16123/play/a0du/index.m3u8
-
-# Misceláneos
 #EXTINF:-1 tvg-id="PublicDirect.98cc55e4b37f8463cc1dddbc" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/nuestrateleinternacional-co.png",Nuestra Tele [IP 181.78.12.119]
 http://181.78.12.119:16123/play/a0aq/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.3ee2b2a286f1ba55a0be9723" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/pasioneslatinamerica-us.png",Pasiones HD [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a04t/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.c6f31bbf9b3a8d4f6dbca07d" group-title="Misceláneos",Pregon Infirmativo [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a05j/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.1a0c2a31bd9c634459c58380" group-title="Misceláneos",Radio renecer [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a066/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.fe47cb68de9f2d084afd7bf3" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/canalrcn-co.png",RCN (clone) [IP 181.78.12.119]
 http://181.78.12.119:16123/play/a0el/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.51b11c161840f9db76a04904" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/rcnnovelas-co.png",RCN Novelas [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a00r/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.3a66c79fa4392ed25661a666" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/rcnnovelas-co.png",rcn novelas [IP 181.78.12.119]
+http://181.78.12.119:16123/play/a0ar/index.m3u8
+#EXTINF:-1 tvg-id="RealWild.us" tvg-name="Real Wild" tvg-country="US" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/real-wild.png" group-title="Misceláneos",Real Wild
+https://lds-realwild-vizio.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.040907f0b53543efbb545695" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/reduno-bo.svg",Red Uno LPZ HD [IP 190.181.61.93]
+http://190.181.61.93:8000/play/a003/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.f9423761d966ce3d0fd5b162" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/rhematv-gt.png",RHEMA TV [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a04k/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.1efd0c13d73c9caaf88077f4" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/semillitastv-us.png",SEMILLITAS [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a01m/index.m3u8
+
+# Películas
+#EXTINF:-1 tvg-id="PublicDirect.6d1b04a9ccdf4197fbbc3ef6" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/sonychannelandes-us.png",SONY [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a02x/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.749260224cb34a60ab4d8755" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/sonychannelandes-us.png",Sony Channel Andes [IP 181.119.66.28]
+http://181.119.66.28:8081/SONY-HD/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.0d0b3a195eb01f1ab454cd75" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/sonymovieslatinamerica-us.png",Sony Movies HD [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a02l/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.1426399def5c52eee57f4bb0" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/space-ar.png",SPACE [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a01q/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.a84d272d82351c313e421803" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/space-ar.png",Space [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a04n/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.af76ff6e42d192f1ecb51aab" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/space-ar.png",Space HD [IP 181.78.12.119]
+http://181.78.12.119:16123/play/a0be/index.m3u8
+
+# Misceláneos
 #EXTINF:-1 tvg-id="PublicDirect.8afbf965360abace09de8ff8" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/a-and-e-ar.png",SRT A&E [IP 181.78.12.119]
 http://181.78.12.119:16123/play/a0dc/index.m3u8
 
@@ -305,268 +589,46 @@ http://181.78.12.119:16123/play/a0dc/index.m3u8
 http://181.78.12.119:16123/play/a0d9/index.m3u8
 
 # Misceláneos
-#EXTINF:-1 tvg-id="PublicDirect.5218fd5abba92fea1b812142" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/elatinamerica-us.png",SRT E! [IP 181.78.12.119]
-http://181.78.12.119:16123/play/a0dg/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.b1df48227d3800ef893c4676" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/history-channel-lam.png",SRT HISTORY [IP 181.78.12.119]
 http://181.78.12.119:16123/play/a0dd/index.m3u8
+
+# Películas
+#EXTINF:-1 tvg-id="PublicDirect.36a879c02cd2241bb94ff8dc" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/lifetimelatinamerica-us.png",SRT lifetime [IP 181.78.12.119]
+http://181.78.12.119:16123/play/a0db/index.m3u8
+
+# Misceláneos
+#EXTINF:-1 tvg-id="PublicDirect.130b51ce6ddcd5e4f22013e7" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/ploustv-ve.png",srt PLOUS TV [IP 181.78.12.119]
+http://181.78.12.119:16123/play/a0dz/index.m3u8
 
 # Películas
 #EXTINF:-1 tvg-id="PublicDirect.8a8e460eebdbc3e9a8f067db" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/sonychannelandes-us.png",SRT SONY [IP 181.78.12.119]
 http://181.78.12.119:16123/play/a0d8/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.dfb814f1d8534e6fbbedbe92" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/sonymovieslatinamerica-us.png",SRT SONY MOVIES [IP 181.78.12.119]
 http://181.78.12.119:16123/play/a0de/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.36a879c02cd2241bb94ff8dc" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/lifetimelatinamerica-us.png",SRT lifetime [IP 181.78.12.119]
-http://181.78.12.119:16123/play/a0db/index.m3u8
 
 # Misceláneos
 #EXTINF:-1 tvg-id="PublicDirect.5115d498eded77306b17f1e3" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/televid-co.png",SRT televid [IP 181.78.12.119]
 http://181.78.12.119:16123/play/a0e7/index.m3u8
 
 # Películas
-#EXTINF:-1 tvg-id="PublicDirect.af76ff6e42d192f1ecb51aab" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/space-ar.png",Space HD [IP 181.78.12.119]
-http://181.78.12.119:16123/play/a0be/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.d0ff393b5e69a7926553f135" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/tntlatinamerica-us.png",TNT HD [IP 181.78.12.119]
-http://181.78.12.119:16123/play/a08i/index.m3u8
+#EXTINF:-1 tvg-id="StarChannel.co@Direct181" tvg-name="Star Channel [IP 181]" tvg-country="CO" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/starchannellatinamerica-us.png",Star Channel [IP 181]
+http://181.78.12.119:16123/play/ch07/index.m3u8
 
 # Misceláneos
-#EXTINF:-1 tvg-id="PublicDirect.f9a42403dbbacc104a68e54d" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/veplus-ve.png",Ve plus [IP 181.78.12.119]
-http://181.78.12.119:16123/play/a0dm/index.m3u8
-
-# Deportes
-#EXTINF:-1 tvg-id="PublicDirect.a88a7ce758428e326d0b5354" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/esportsmaxtv-ve.png",srt E-SPORTS MAX [IP 181.78.12.119]
-http://181.78.12.119:16123/play/a0dy/index.m3u8
-
-# Misceláneos
-#EXTINF:-1 tvg-id="PublicDirect.130b51ce6ddcd5e4f22013e7" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/ploustv-ve.png",srt PLOUS TV [IP 181.78.12.119]
-http://181.78.12.119:16123/play/a0dz/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.2a99698e9a5c88855c7a7190" group-title="Misceláneos",el mundo del campo [IP 181.78.12.119]
-http://181.78.12.119:16123/play/a0dp/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.3a66c79fa4392ed25661a666" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/rcnnovelas-co.png",rcn novelas [IP 181.78.12.119]
-http://181.78.12.119:16123/play/a0ar/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.05078f0b4d89add3c8d44a20" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/caracoltv-co.png",Caracol HD (clone) [IP 181.78.12.119]
-http://181.78.12.119:16123/play/ch58a/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.24a90bad8783bef2cc14f935" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/zoom-co.png",ZOOM (clone) [IP 181.78.12.119]
-http://181.78.12.119:16123/play/ch71a/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.c6bd3a96018cbeb2a0f28f3b" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/a-and-e-ar.png",A&E [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a04y/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.d9973a3bfb28634698473218" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/a-and-e-ar.png",A&E HD [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a02g/index.m3u8
+#EXTINF:-1 tvg-id="Nauta.a87610ac946968a5f280ec57@Nauta" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/starchannellatinamerica-us.png" x-resolver="nauta" x-resolver-refresh="on_play",Star Channel HD [Nauta]
+vibem3u://resolver/nauta/cat_32%7CStar%20Channel%20HD
 
 # Películas
-#EXTINF:-1 tvg-id="PublicDirect.154bdf2110d43b7d5ecf798c" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/amclatinamerica-us.png",AMC [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a051/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.8918c13cf06dc2f7416879f2" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/amclatinamerica-us.png",AMC HD [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a02h/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.e17934e0e48749cee7c26401" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/axnlatinamerica-us.png",AXN [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a01y/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.1162bcbccc1aa298b25757a3" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/axnlatinamerica-us.png",AXN HD [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a04m/index.m3u8
-
-# Misceláneos
-#EXTINF:-1 tvg-id="PublicDirect.be7d7ad8f89857467f93cb8e" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/azclic-mx.png",AZ click HD [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a02n/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.5551093bff52d29b38509588" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/animalplanetlatinamerica-us.png",Animal Planet [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a033/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.e6a2bc5a013c1c5b9656d441" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/animalplanetlatinamerica-us.png",Animal Planet HD [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a02d/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.8955d88c9214c0b2a89cd340" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/azcorazon-mx.png",Azcorazon [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a01p/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.5f8a1a274086481eddc57367" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/azmundo-mx.png",Azmundo [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a02w/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.717555651a1f37739ace1076" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/bbcnews-uk.png",BBC World [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a022/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.7c6b3fe651f063bda7e51a6a" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/babyfirst-us.png",Baby First [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a00p/index.m3u8
-
-# Películas
-#EXTINF:-1 tvg-id="PublicDirect.9840c70e010eb35fb900c6b4" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/cinecanal-us.png",CINECANAL HD [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a03d/index.m3u8
-
-# Noticias internacionales
-#EXTINF:-1 tvg-id="PublicDirect.77c5a323d8aaed78570df3bd" group-title="Noticias internacionales" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/cnninternational-us.png",CNN Internacional [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a054/index.m3u8
-
-# Misceláneos
-#EXTINF:-1 tvg-id="PublicDirect.5417589c8c430cab0ba0df74" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/cnnenespanol-us.svg",CNNE [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a021/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.7a597c8a2d6c1e6c97015c28" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/canal13-gt.png",Canal 13-GUA-e1 [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a00m/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.43557d465d973d608c6bb19a" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/canal3-gt.png",Canal 3 - GUA [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a02u/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.563319274daa44463f7c9f6c" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/canal7-gt.png",Canal 7 - GUA [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a060/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.eb3b17bc3573e55b2c56cf95" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/canalantigua-gt.png",Canal Antigua - GUA [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a02r/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.1351317d6c3f201ad2b4c44f" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/cartoonnetworklatinamerica-us.png",Cartoon Network [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a01h/index.m3u8
-
-# Películas
-#EXTINF:-1 tvg-id="PublicDirect.1657bd8e8c7410b0a128ea30" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/cinelatino-mx.png",Cine Latino [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a049/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.9f74e4c4a28acde00c25d4a7" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/cinecanal-us.png",CineCanal [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a04c/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.0f8b28b872547b18b7bda979" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/cinemaxlatinamerica-us.png",CineMax [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a04a/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.835094fef82435ce5947b9c2" group-title="Películas",Kanal D Drama [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a03m/index.m3u8
-
-# Música
-#EXTINF:-1 tvg-id="PublicDirect.2a81d81719e1692d22f45cdd" group-title="Música" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/concertchannel-us.png",Concert Channel [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a045/index.m3u8
-
-# Películas
-#EXTINF:-1 tvg-id="PublicDirect.8218b29b717b76d2a6d6d7b2" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/dhe-us.png",DHE [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a00d/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.1b124c1b77d597781052232a" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/dhe-us.png",DHE HD [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a02m/index.m3u8
-
-# Misceláneos
-#EXTINF:-1 tvg-id="PublicDirect.73f723df5a9d1193862f0d33" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoverytheaterlatinamerica-us.png",DISC THEATHER HD [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a03j/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.b9e80edee2c430a6354ef4b8" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoveryhomehealthlatinamerica-mx.png",Discovery Home & Health [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a040/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.89cae6ff507906ff8501bcb0" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoverykidslatinamerica-us.png",Discovery Kids [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a03v/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.602db5a8e67bf15f610e9370" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoveryturbolatinamerica-us.png",Discovery Turbo [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a03z/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.56a9657c934115ec2f1481ae" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/disneychannellatinamerica-ar.svg",Disney [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a03x/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.f44c42892b6e8efa54aea954" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/disneyjrlatinamerica-ar.svg",Disney JR [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a01k/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.4a3ee6122f85ca98215b6c15" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/elatinamerica-us.png",E! [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a02z/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.332ea6dacea78829fcc244e9" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/elatinamerica-us.png",E! Entertairment HD [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a02e/index.m3u8
-
-# Deportes
-#EXTINF:-1 tvg-id="PublicDirect.925c763ee4a3a76ffc02cca6" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn.svg",ESPN [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a036/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.abfc3ae43e2088dfcceeaf6b" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-4.png",ESPN 4 HD [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a05p/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.971215bf53db3488f848d6c6" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-2.png",ESPN 2 [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a037/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.4c4f25512dc26528b8133d9f" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-2.png",ESPN 2 HD [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a05l/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.3d519bc9027bf3427d250d7c" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-3.png",ESPN 3 [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a00x/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.9fc08fec9b53b602b7ce875e" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-3.png",ESPN 3 HD [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a05m/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.2f248d6579ad8e31cef9c950" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/espn-6-lam.png",ESPN 6 [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a05o/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.68696bca1787ea6c42d08166" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/espn-6-lam.png",ESPN 6 HD [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a05n/index.m3u8
-
-# Misceláneos
-#EXTINF:-1 tvg-id="PublicDirect.56d928ddd65198f71d50e805" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/ewtn-us.png",EWTN [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a025/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.87ba434b81d9f9eac87e7f81" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/elgourmet-ar.png",El Gourmet [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a00u/index.m3u8
-
-# Música
-#EXTINF:-1 tvg-id="PublicDirect.dcf280ba951d54163fb67121" group-title="Música" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/exatv-mx.png",Exa TV [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a038/index.m3u8
-
-# Películas
-#EXTINF:-1 tvg-id="PublicDirect.d0f959013c7d64b49621375a" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/fxlatinamerica-us.png",FX [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a00q/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.a90b6470c5abcd5d43a21f04" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/fxlatinamerica-us.png",FX HD [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a02j/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.305dbd0140ddeb2995c9cd16" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/filmarts-ar.png",Film & Arts [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a00c/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.7eddab771710fba70f46bb14" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/filmarts-ar.png",Film & arts HD [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a02f/index.m3u8
-
-# Deportes
-#EXTINF:-1 tvg-id="PublicDirect.f01cdfce2a440e1aac5e8c70" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/espn-6-lam.png",ESPN 6 [IP 45.171.64.30] · señal 2
-http://45.171.64.30:6060/play/a01v/index.m3u8
-
-# Noticias internacionales
-#EXTINF:-1 tvg-id="PublicDirect.796c17a762ce69be57ec714d" group-title="Noticias internacionales" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/france24.svg",France24 [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a023/index.m3u8
-
-# Películas
-#EXTINF:-1 tvg-id="PublicDirect.2986363464e32a02d69a65dd" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/golden-mx.png",Golden [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a013/index.m3u8
-
-# Deportes
-#EXTINF:-1 tvg-id="PublicDirect.44f9d286f6768740b06eaad9" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/golfchannellatinamerica-us.png",Golf Channel HD [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a02p/index.m3u8
-
-# Misceláneos
-#EXTINF:-1 tvg-id="PublicDirect.407a6cdf00bb64c25fb341f4" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/guatevision-gt.png",Guatevision - GUA [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a01g/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.0ef1ce174fa5aaee3811b04f" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/history2latinamerica-us.png",H2 [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a00t/index.m3u8
-
-# Películas
-#EXTINF:-1 tvg-id="PublicDirect.8db5a974dc4b6ed483cf2bf9" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hboxtremelatinamerica-us.png",HBO XTREME [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a00l/index.m3u8
-
-# Misceláneos
-#EXTINF:-1 tvg-id="PublicDirect.c1ed48f37448ded5dca7e8bd" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/history-channel-lam.png",History Channel [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a034/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.459d3dc3761d20aa0f17806a" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/history-channel-lam.png",History HD [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a026/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.eab9850053533285f56d213a" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hgtvlatinamerica-us.png",Home Garden Latino [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a006/index.m3u8
-
-# Películas
-#EXTINF:-1 tvg-id="PublicDirect.c242c1f1773acbfff4232e28" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/lifetimelatinamerica-us.png",LIFE TIME [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a01u/index.m3u8
-
-# Misceláneos
-#EXTINF:-1 tvg-id="PublicDirect.a712127b104cc2260c6fedc0" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/lavozdemaria-do.png",La voz de Maria [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a042/index.m3u8
-
-# Deportes
-#EXTINF:-1 tvg-id="PublicDirect.7e481ae905cfde3a83c3ccfe" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/aymsports-mx.png",AyM Sports [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a00z/index.m3u8
-
-# Películas
-#EXTINF:-1 tvg-id="PublicDirect.7d829b68f0e63dbdd397a468" group-title="Películas",Multicinema [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a05q/index.m3u8
-
-# Deportes
-#EXTINF:-1 tvg-id="PublicDirect.cbbf16d047322fe020949bf8" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/fox-sports.svg",Fox Sports [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a03g/index.m3u8
-
-# Películas
-#EXTINF:-1 tvg-id="PublicDirect.747adbe6694514eee98e7ed5" group-title="Películas",A3Cine [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a00e/index.m3u8
-
-# Misceláneos
-#EXTINF:-1 tvg-id="PublicDirect.3ee2b2a286f1ba55a0be9723" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/pasioneslatinamerica-us.png",Pasiones HD [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a04t/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.c6f31bbf9b3a8d4f6dbca07d" group-title="Misceláneos",Pregon Infirmativo [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a05j/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.be33d60d2f78170c97c37514" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/laredtv-gt.png",La Red TV [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a05b/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.51b11c161840f9db76a04904" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/rcnnovelas-co.png",RCN Novelas [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a00r/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.1a0c2a31bd9c634459c58380" group-title="Misceláneos",Radio renecer [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a066/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.1efd0c13d73c9caaf88077f4" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/semillitastv-us.png",SEMILLITAS [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a01m/index.m3u8
-
-# Películas
-#EXTINF:-1 tvg-id="PublicDirect.6d1b04a9ccdf4197fbbc3ef6" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/sonychannelandes-us.png",SONY [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a02x/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.1426399def5c52eee57f4bb0" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/space-ar.png",SPACE [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a01q/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.0d0b3a195eb01f1ab454cd75" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/sonymovieslatinamerica-us.png",Sony Movies HD [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a02l/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.590828755b8ac040706c8575" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/studiouniversallatinamerica-us.png",Studio Universal [IP 45.171.64.30]
 http://45.171.64.30:6060/play/a04b/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.52f6bff32710f7c83abeda34" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/studiouniversallatinamerica-us.png",Studio Universal HD [IP 45.171.64.30]
 http://45.171.64.30:6060/play/a02b/index.m3u8
 
 # Misceláneos
+#EXTINF:-1 tvg-id="Nauta.b9df5eea317035bd5bda31cf@Nauta" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/studiouniversallatinamerica-us.png" x-resolver="nauta" x-resolver-refresh="on_play",Studio Universal HD [Nauta]
+vibem3u://resolver/nauta/cat_32%7CStudio%20Universal%20HD
 #EXTINF:-1 tvg-id="PublicDirect.ba69f9b8ca828f79a3b8b9cf" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/enlace-cr.png",TBN Enlace [IP 45.171.64.30]
 http://45.171.64.30:6060/play/a024/index.m3u8
-
-# Películas
-#EXTINF:-1 tvg-id="PublicDirect.ae75ddaa5bf1de03760155d8" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/tntnovelas-us.png",TNT Novelas [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a01s/index.m3u8
 
 # Deportes
 #EXTINF:-1 tvg-id="PublicDirect.1592ac20e79b21ae24514be4" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/tdmas2-cr.png",TD+2 HD CR [IP 45.171.64.30]
@@ -575,14 +637,14 @@ http://45.171.64.30:6060/play/a01d/index.m3u8
 http://45.171.64.30:6060/play/a01c/index.m3u8
 
 # Misceláneos
-#EXTINF:-1 tvg-id="PublicDirect.9233d81ff5fd6c6c02c26e15" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/tlclatinamerica-us.png",TLC [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a035/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.796284d305206eaee4223955" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoverychannellatinamerica-us.png",Discovery Channel [IP 45.171.64.30] · señal 2
-http://45.171.64.30:6060/play/a01z/index.m3u8
+#EXTINF:-1 tvg-id="Nauta.bbe4eb27708b3113521f61fe@Nauta" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/telehit-mx.png" x-resolver="nauta" x-resolver-refresh="on_play",Telehit [Nauta]
+vibem3u://resolver/nauta/cat_7%7CTelehit
+#EXTINF:-1 tvg-id="Nauta.7d15e6854c48e815dea1edf7@Nauta" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/telehit-mx.png" x-resolver="nauta" x-resolver-refresh="on_play",Telehit HD [Nauta]
+vibem3u://resolver/nauta/cat_32%7CTelehit%20HD
 
-# Películas
-#EXTINF:-1 tvg-id="PublicDirect.db00a6066635f39312f74380" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/tntserieslatinamerica-us.png",TNT Series [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a01r/index.m3u8
+# Música
+#EXTINF:-1 tvg-id="PublicDirect.40703ab258f1cecdcb1b3033" group-title="Música" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/telehitmusica-mx.png",TELEHIT LATINIO [IP 190.61.47.54]
+http://190.61.47.54:8000/play/a029/index.m3u8
 
 # Misceláneos
 #EXTINF:-1 tvg-id="PublicDirect.b8b5b69e22a2787006d8bf21" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/telemundointernacional-us.png",Telemundo [IP 45.171.64.30]
@@ -591,8 +653,24 @@ http://45.171.64.30:6060/play/a01o/index.m3u8
 http://45.171.64.30:6060/play/a02i/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.58d292da8d99dd4d16ed3b57" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/televida-do.png",Televida RD [IP 45.171.64.30]
 http://45.171.64.30:6060/play/a04r/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.9233d81ff5fd6c6c02c26e15" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/tlclatinamerica-us.png",TLC [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a035/index.m3u8
+#EXTINF:-1 tvg-id="TLC.co@Direct181" tvg-name="TLC [IP 181]" tvg-country="CO" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/tlclatinamerica-us.png",TLC [IP 181]
+http://181.78.12.119:16123/play/ch26/index.m3u8
 
 # Películas
+#EXTINF:-1 tvg-id="PublicDirect.d0ff393b5e69a7926553f135" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/tntlatinamerica-us.png",TNT HD [IP 181.78.12.119]
+http://181.78.12.119:16123/play/a08i/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.ae75ddaa5bf1de03760155d8" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/tntnovelas-us.png",TNT Novelas [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a01s/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.9d293a93a25a9a655c8c1de2" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/tntnovelas-us.png",TNT Novelas HD [IP 181.78.12.119]
+http://181.78.12.119:16123/play/a0a1/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.db00a6066635f39312f74380" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/tntserieslatinamerica-us.png",TNT Series [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a01r/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.391630d2ff5eec427fa516f1" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/universaltvlatinamerica-us.png",Universal [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a046/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.dc6e0b858cd050a0ba64b515" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/universalcinema-us.png",UNIVERSAL CINEMA ESTE HD [IP 168.196.127.137]
+http://168.196.127.137:6001/play/a09b/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.760b2c3b1354cd82b8a647bc" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/universalcomedy-us.png",UNIVERSAL COMEDY HD [IP 45.171.64.30]
 http://45.171.64.30:6060/play/a03t/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.d48635571a0af3b28d47db03" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/universalcrime-us.png",UNIVERSAL CRIME HD [IP 45.171.64.30]
@@ -601,187 +679,25 @@ http://45.171.64.30:6060/play/a03s/index.m3u8
 http://45.171.64.30:6060/play/a03p/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.fe8012537d4b52a34d2778bd" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/universalpremiere-us.png",UNIVERSAL PREMIERE O HD [IP 45.171.64.30]
 http://45.171.64.30:6060/play/a03q/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.391630d2ff5eec427fa516f1" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/universaltvlatinamerica-us.png",Universal [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a046/index.m3u8
 
 # Misceláneos
 #EXTINF:-1 tvg-id="PublicDirect.6d8f767d72df832a0dcaf1b3" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/univisionlatinamerica-mx.png",Univision HD [IP 45.171.64.30]
 http://45.171.64.30:6060/play/a04u/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.f9a42403dbbacc104a68e54d" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/veplus-ve.png",Ve plus [IP 181.78.12.119]
+http://181.78.12.119:16123/play/a0dm/index.m3u8
 
 # Películas
-#EXTINF:-1 tvg-id="PublicDirect.69012de99c76e56342a01748" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/warnerchannel-us.png",WARNER HD [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a03b/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.f9808c1fb908d67ec8947603" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/warnerchannel-us.png",Warner [IP 45.171.64.30]
 http://45.171.64.30:6060/play/a02y/index.m3u8
-
-# Misceláneos
-#EXTINF:-1 tvg-id="PublicDirect.0510f8f0aabe61f8241b9762" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/zoomoo-sg.png",ZooMoo [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a004/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.3fc4f122d9bf76d0c301c794" group-title="Misceláneos",ctv [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a05f/index.m3u8
-
-# Deportes
-#EXTINF:-1 tvg-id="PublicDirect.792c9413cb2a98e7c3d972f6" group-title="Deportes",la liga [IP 45.171.64.30]
-http://45.171.64.30:6060/play/a05i/index.m3u8
-
-# Misceláneos
-#EXTINF:-1 tvg-id="PublicDirect.305177fef9fa178063075ed3" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoveryworld-us.png",Discovery World HD [IP 168.196.127.137]
-http://168.196.127.137:6001/play/a097/index.m3u8
-
-# Música
-#EXTINF:-1 tvg-id="PublicDirect.40703ab258f1cecdcb1b3033" group-title="Música" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/telehitmusica-mx.png",TELEHIT LATINIO [IP 190.61.47.54]
-http://190.61.47.54:8000/play/a029/index.m3u8
-
-# Películas
-#EXTINF:-1 tvg-id="PublicDirect.dc6e0b858cd050a0ba64b515" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/universalcinema-us.png",UNIVERSAL CINEMA ESTE HD [IP 168.196.127.137]
-http://168.196.127.137:6001/play/a09b/index.m3u8
-
-# Misceláneos
-#EXTINF:-1 tvg-id="PublicDirect.19fbfbd8b220cd0fb65ac244" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/a-and-e-ar.png",A&E-IXP [IP 138.59.177.78]
-http://138.59.177.78:9999/play/a08h/index.m3u8
-
-# Películas
-#EXTINF:-1 tvg-id="PublicDirect.5c8f98d3876cb07b0c0884f6" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/amclatinamerica-us.png",AMC-IXP [IP 138.59.177.78]
-http://138.59.177.78:9999/play/a08o/index.m3u8
-
-# Misceláneos
-#EXTINF:-1 tvg-id="PublicDirect.21d595905b477139407f7250" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/animalplanetlatinamerica-us.png",ANIMAL PLANET-IXP [IP 138.59.177.78]
-http://138.59.177.78:9999/play/a09c/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.01717cb57d90b7cd8ece5331" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/babytv-uk.png",BABY TV-IXP [IP 138.59.177.78]
-http://138.59.177.78:9999/play/a00k/index.m3u8
-
-# Películas
-#EXTINF:-1 tvg-id="PublicDirect.b4a12e148b15b71efbcda5e7" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/cinemaxlatinamerica-us.png",CINEMAX-IXP [IP 138.59.177.78]
-http://138.59.177.78:9999/play/a08p/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.d13b3c8e60056f9124a6e2dc" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/galavision-us.png",Galavision [IP 138.59.177.78]
-http://138.59.177.78:9999/play/a08x/index.m3u8
-
-# Misceláneos
-#EXTINF:-1 tvg-id="PublicDirect.76f85d8e18ca914171dde970" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoverychannellatinamerica-us.png",DISCOVERY CHANNEL-IXP [IP 138.59.177.78]
-http://138.59.177.78:9999/play/a09p/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.e687f4926b0240629f249807" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoverykidslatinamerica-us.png",DISCOVERY KIDS-IXP [IP 138.59.177.78]
-http://138.59.177.78:9999/play/a093/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.e7eacb4779e7c1b75e062879" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoveryworld-us.png",DISCOVERY WORLD-IXP [IP 138.59.177.78]
-http://138.59.177.78:9999/play/a09q/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.c530989e33722dc0a90c75d7" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/disneyjrlatinamerica-ar.svg",DISNEY JR-IXP [IP 138.59.177.78]
-http://138.59.177.78:9999/play/a00o/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.e41239d2e107fc7a8d6b06e7" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/disneychannellatinamerica-ar.svg",DISNEY-IXP [IP 138.59.177.78]
-http://138.59.177.78:9999/play/a00n/index.m3u8
-
-# Deportes
-#EXTINF:-1 tvg-id="PublicDirect.3203195c3727b87c5c19dec8" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/espn-lam.png",ESPN 1 EZ-TRA [IP 138.59.177.78]
-http://138.59.177.78:9999/play/a0m1/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.3c93c3a97d11cf503ad2345f" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn.svg",ESPN 1 IXP [IP 138.59.177.78]
-http://138.59.177.78:9999/play/a003/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.20dbc798fdf0b22b5aed6a1d" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-2.png",ESPN 2 IXP [IP 138.59.177.78]
-http://138.59.177.78:9999/play/a004/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.54a0e2628bd72606025da8fe" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-4.png",ESPN 4 EZ-TRA [IP 138.59.177.78]
-http://138.59.177.78:9999/play/a0kd/index.m3u8
-
-# Películas
-#EXTINF:-1 tvg-id="PublicDirect.2fc769332eb883d4716d83ab" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbolatinamerica-us.png",HBO [IP 138.59.227.20]
-http://138.59.227.20:8000/play/a07m/index.m3u8
-
-# Deportes
-#EXTINF:-1 tvg-id="PublicDirect.3ad2ef9940e2175f07ba53b9" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/espn-lam.png",ESPN 1 ENVIO [IP 138.94.3.106]
-http://138.94.3.106:8000/play/a02l/index.m3u8
-
-# Películas
-#EXTINF:-1 tvg-id="PublicDirect.a8b59c546c1a10f16dad3f74" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbolatinamerica-us.png",HBO [IP 158.172.217.18]
-http://158.172.217.18:8000/play/a001/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.2affda2231a6914ce695dc44" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbolatinamerica-us.png",HBO HD [IP 167.249.23.102]
-http://167.249.23.102:8000/play/HBOHD/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.f51c6e85b7cccaf868e66474" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbolatinamerica-us.png",HBO HD [IP 170.244.209.30]
-http://170.244.209.30:8000/play/a028/index.m3u8
-
-# Deportes
-#EXTINF:-1 tvg-id="PublicDirect.e909c3249ae9d6531e728bb8" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-7.png",MPTS 2 ESPN 7 [IP 177.234.218.66]
-http://177.234.218.66:8084/play/a00h/index.m3u8
-
-# Películas
-#EXTINF:-1 tvg-id="PublicDirect.109486b1dd576033b06b5a62" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbolatinamerica-us.png",HBO HD [IP 181.119.177.253]
-http://181.119.177.253:8000/play/a00x/index.m3u8
-
-# Deportes
-#EXTINF:-1 tvg-id="PublicDirect.d6cca6d4aa23a69d50439c22" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-2.png",ESPN 2 HD [IP 181.224.200.5]
-http://181.224.200.5:2277/play/a02c/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.25d4f6f1219d47df7b4af9d1" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn.svg",ESPN [IP 181.78.106.127]
-http://181.78.106.127:5000/play/a0qf/index.m3u8
-
-# Películas
-#EXTINF:-1 tvg-id="PublicDirect.f40c652d704b68169874ad00" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbolatinamerica-us.png",HBO HD [IP 181.78.197.59]
-http://181.78.197.59:8000/play/a07d/index.m3u8
-
-# Deportes
-#EXTINF:-1 tvg-id="PublicDirect.122a2e09dd1071caa02f5885" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-2.png",ESPN 2 [IP 181.78.211.244]
-http://181.78.211.244:8000/play/a0b7/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.24df37c251a5094ba40d76dc" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-2.png",ESPN 2 [IP 181.78.211.244] · señal 2
-http://181.78.211.244:8005/play/a0b7/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.cb15627abb48f22217500563" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn.svg",ESPN 1 [IP 181.78.8.199]
-http://181.78.8.199:8000/play/a0b1/index.m3u8
-
-# Películas
-#EXTINF:-1 tvg-id="PublicDirect.d55cbc0d421f9ac9d4d95ab3" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbolatinamerica-us.png",HBO HD [IP 181.78.82.130]
-http://181.78.82.130:8000/play/a0os/index.m3u8
-
-# Deportes
-#EXTINF:-1 tvg-id="PublicDirect.4ded1fad9c0f880605cfe8fa" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/espn-lam.png",ESPN 1 ENVIO [IP 181.79.86.130]
-http://181.79.86.130:8000/play/a02l/index.m3u8
-
-# Películas
-#EXTINF:-1 tvg-id="PublicDirect.09a0d74b65cbafffa6247b3c" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbolatinamerica-us.png",HBO HD [IP 187.245.231.226]
-http://187.245.231.226:8000/play/a0mq/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.1023e1d1e839c3a7671fabbb" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbolatinamerica-us.png",HBO HD [IP 190.108.83.69]
-http://190.108.83.69:8000/play/a035/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.469f87d178c1423e1875a4f2" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbolatinamerica-us.png",HBO HD [IP 190.108.91.206]
-http://190.108.91.206:9050/play/a035/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.69012de99c76e56342a01748" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/warnerchannel-us.png",WARNER HD [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a03b/index.m3u8
 
 # Deportes
 #EXTINF:-1 tvg-id="PublicDirect.f8e4632a5e24aa718e14688e" group-title="Deportes",Z05-TNT Sports [IP 190.110.96.238]
 http://190.110.96.238:8000/play/a0ev/index.m3u8
 
 # Misceláneos
-#EXTINF:-1 tvg-id="PublicDirect.040907f0b53543efbb545695" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/reduno-bo.svg",Red Uno LPZ HD [IP 190.181.61.93]
-http://190.181.61.93:8000/play/a003/index.m3u8
-
-# Películas
-#EXTINF:-1 tvg-id="PublicDirect.d46f782059b83ba7bacf7664" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbolatinamerica-us.png",HBO HD [IP 190.234.82.52]
-http://190.234.82.52:8000/play/a0iy/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.4000e460fceb0d24722961a4" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbolatinamerica-us.png",HBO HD [IP 190.60.46.228]
-http://190.60.46.228:8888/play/a04n/index.m3u8
-
-# Misceláneos
-#EXTINF:-1 tvg-id="PublicDirect.da98ca63747a3429dd17f069" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/history-channel-lam.png",HISTORY CHANNEL [IP 190.61.114.186]
-http://190.61.114.186:8000/play/a044/index.m3u8
-
-# Películas
-#EXTINF:-1 tvg-id="PublicDirect.572cb669462bffbd79e7f655" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbolatinamerica-us.png",HBO HD [IP 190.61.90.17]
-http://190.61.90.17:40000/play/a0l2/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.9c65e9ef8275d6cfbd771bd2" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbolatinamerica-us.png",HBO [IP 200.115.120.1]
-http://200.115.120.1:8000/play/ca038/index.m3u8
-
-# Misceláneos
-#EXTINF:-1 tvg-id="PublicDirect.9b9f29e6c29d69e00e4a6053" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/canal1-co.png",CANAL 1 [IP 200.122.223.13]
-http://200.122.223.13:55000/play/canal-1-tdt/index.m3u8
-
-# Películas
-#EXTINF:-1 tvg-id="PublicDirect.b26acb4b5bb79352c371a791" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbolatinamerica-us.png",HBO HD [IP 200.7.99.59]
-http://200.7.99.59:8000/play/a0jt/index.m3u8
-
-# Deportes
-#EXTINF:-1 tvg-id="PublicDirect.b846a996ccc3404a033e13e1" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn.svg",ESPN [IP 38.87.224.19]
-http://38.87.224.19:2220/play/a00w/index.m3u8
-
-# Películas
-#EXTINF:-1 tvg-id="PublicDirect.1756e7adec9079ba3e80634f" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbolatinamerica-us.png",HBO HD [IP 45.166.93.156]
-http://45.166.93.156:9999/play/a0im/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.74cd09e94a60c0d1f37a6d21" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbolatinamerica-us.png",HBO HD [IP 45.173.231.22]
-http://45.173.231.22:8000/play/a08k/index.m3u8
-
-# Deportes
-#EXTINF:-1 tvg-id="PublicDirect.dcd8868ec2ff980d13c48e61" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn.svg",ESPN (145) [IP 45.189.151.7]
-http://45.189.151.7:8000/play/a06i/index.m3u8
-
-# Películas
-#EXTINF:-1 tvg-id="PublicDirect.0e207487c6a9b2b103dbeef6" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/hbolatinamerica-us.png",HBO HD [IP 72.1.184.5]
-http://72.1.184.5:8089/play/a07o/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.24a90bad8783bef2cc14f935" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/zoom-co.png",ZOOM (clone) [IP 181.78.12.119]
+http://181.78.12.119:16123/play/ch71a/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.0510f8f0aabe61f8241b9762" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/zoomoo-sg.png",ZooMoo [IP 45.171.64.30]
+http://45.171.64.30:6060/play/a004/index.m3u8
