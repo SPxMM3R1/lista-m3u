@@ -9565,6 +9565,30 @@ def _health_without_timestamps(state: dict) -> dict:
     }
 
 
+def keep_unchanged_health_timestamps(previous: dict, current: dict, now: datetime) -> dict:
+    """Un canal sin cambios (fuera de sus horas) conserva sus horas anteriores mientras tengan
+    menos de 24 h. Así el commit solo trae los canales que cambiaron y no ~290 horas nuevas."""
+    merged = {}
+    for key, entry in current.items():
+        old = previous.get(key) if isinstance(previous, dict) else None
+        if not isinstance(entry, dict) or not isinstance(old, dict):
+            merged[key] = entry
+            continue
+        strip = lambda value: {f: v for f, v in value.items() if f not in HEALTH_TIMESTAMP_FIELDS}
+        try:
+            checked = datetime.fromisoformat(str(old.get("last_checked_at", "")).replace("Z", "+00:00"))
+            if checked.tzinfo is None:
+                checked = checked.replace(tzinfo=timezone.utc)
+            age = now.astimezone(timezone.utc) - checked.astimezone(timezone.utc)
+        except ValueError:
+            age = HEALTH_TIMESTAMP_REFRESH
+        if strip(old) == strip(entry) and timedelta(0) <= age < HEALTH_TIMESTAMP_REFRESH:
+            merged[key] = {**entry, **{f: old[f] for f in HEALTH_TIMESTAMP_FIELDS if f in old}}
+        else:
+            merged[key] = entry
+    return merged
+
+
 def health_state_needs_write(previous: dict, current: dict, now: datetime) -> bool:
     """True si cambió algo más que las horas de revisión, o si esas horas tienen ≥ 24 h.
 
@@ -10164,6 +10188,9 @@ def write_report(
         if key not in current_ids
     ]
 
+    new_health_channels = keep_unchanged_health_timestamps(
+        previous_channels, new_health_channels, generated_at
+    )
     health_state = {
         "schema": 1,
         "updated_at": checked_at,

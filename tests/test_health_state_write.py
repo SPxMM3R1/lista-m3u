@@ -50,6 +50,27 @@ class HealthStateWriteTest(unittest.TestCase):
         self.assertTrue(update_m3u.health_state_needs_write({}, current, NOW))
         self.assertTrue(update_m3u.health_state_needs_write(state("x", "x"), state("y", "y"), NOW))
 
+    def test_unchanged_channels_keep_recent_timestamps(self):
+        previous = state("2026-10-15T06:00:00Z", "2026-10-15T06:00:00Z")["channels"]
+        previous["0105"] = dict(previous["0104"], name="Mega")
+        current = state("2026-10-15T12:00:00Z", "2026-10-15T12:00:00Z")["channels"]
+        current["0105"] = dict(current["0104"], name="Mega", status="temporarily_unavailable",
+                               consecutive_failures=1)
+        merged = update_m3u.keep_unchanged_health_timestamps(previous, current, NOW)
+        self.assertEqual("2026-10-15T06:00:00Z", merged["0104"]["last_checked_at"])
+        self.assertEqual("2026-10-15T12:00:00Z", merged["0105"]["last_checked_at"])
+        self.assertEqual("temporarily_unavailable", merged["0105"]["status"])
+
+    def test_old_timestamps_are_renewed(self):
+        previous = state("2026-10-14T06:00:00Z", "2026-10-14T06:00:00Z")["channels"]
+        current = state("2026-10-15T12:00:00Z", "2026-10-15T12:00:00Z")["channels"]
+        merged = update_m3u.keep_unchanged_health_timestamps(previous, current, NOW)
+        self.assertEqual("2026-10-15T12:00:00Z", merged["0104"]["last_ok_at"])
+
+    def test_new_channels_are_kept_as_is(self):
+        current = state("2026-10-15T12:00:00Z", "2026-10-15T12:00:00Z")["channels"]
+        self.assertEqual(current, update_m3u.keep_unchanged_health_timestamps({}, current, NOW))
+
 
 if __name__ == "__main__":
     unittest.main()
