@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import argparse
 import copy
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 import json
 import os
 from pathlib import Path
@@ -706,29 +706,72 @@ def _persist_epg_manual_overrides(replacement: bytes, target_ids: set[str]) -> N
     EPG_MANUAL_OVERRIDES_PATH.write_bytes(merged)
 
 
+def _epg_target_scope(channel_ids: set[str]) -> tuple[set[str], set[str]]:
+    """Return main-playlist and managed optional targets; reject catalog-only rows."""
+    if not channel_ids:
+        raise RuntimeError("EPG dirigida: no se especificaron canales objetivo")
+    main_channels = update_m3u.main_playlist_channels()
+    main_ids = {channel.tvg_id for channel in main_channels if channel.tvg_id}
+    _scope_channels, scope_ids = update_m3u.epg_scope_channels()
+    outside_scope = channel_ids - scope_ids
+    if outside_scope:
+        raise RuntimeError(
+            "EPG dirigida: canales fuera del alcance publicado (Lista 1 + "
+            "seleccion gestionada): " + ", ".join(sorted(outside_scope))
+        )
+    return channel_ids & main_ids, channel_ids - main_ids
+
+
+def _validate_targeted_epg(
+    document: bytes,
+    target_ids: set[str],
+    main_target_ids: set[str],
+    optional_target_ids: set[str],
+) -> None:
+    """Validate only the refreshed channels, using the runner's horizons.
+
+    The canonical channel catalog also contains inactive rows and is not the
+    expected scope of the published EPG. Validating it here made every
+    targeted update fail on unrelated catalog-only channels.
+    """
+    update_m3u.epg_status_from_xml(
+        _epg_subset(document, target_ids),
+        target_ids,
+        now=datetime.now(timezone.utc),
+        minimum_future=update_m3u.EPG_NON_MAIN_MINIMUM_FUTURE,
+        allow_empty_ids=update_m3u.EPG_ALLOWED_EMPTY_IDS | optional_target_ids,
+        minimum_future_by_channel={
+            channel_id: update_m3u.EPG_MAIN_MINIMUM_FUTURE
+            for channel_id in main_target_ids
+        },
+    )
+
+
 def apply_epg(
     plan: change_plan.ChangePlan,
     after: dict[str, str],
 ) -> None:
     if not EPG_PATH.exists():
         raise RuntimeError("no existe epg.xml para hacer una actualizacion parcial")
+    target_ids = set(plan.channel_ids)
+    main_target_ids, optional_target_ids = _epg_target_scope(target_ids)
     catalog_lines = (PROJECT_ROOT / "channel-catalog.m3u").read_text(
         encoding="utf-8-sig"
     ).splitlines()
     catalog_channels = update_m3u.parse_channels(catalog_lines)
-    selected = [channel for channel in catalog_channels if channel.tvg_id in plan.channel_ids]
-    if len(selected) != len(plan.channel_ids):
-        missing = sorted(set(plan.channel_ids) - {channel.tvg_id for channel in selected})
+    selected = [channel for channel in catalog_channels if channel.tvg_id in target_ids]
+    if len(selected) != len(target_ids):
+        missing = sorted(target_ids - {channel.tvg_id for channel in selected})
         raise RuntimeError("EPG dirigida: faltan canales: " + ", ".join(missing))
     existing = EPG_PATH.read_bytes()
     if "epg.xml" in plan.changed_files and "epg.xml" in after:
         replacement = _epg_subset(
             after["epg.xml"].encode("utf-8"),
-            set(plan.channel_ids),
+            target_ids,
         )
-        _persist_epg_manual_overrides(replacement, set(plan.channel_ids))
+        _persist_epg_manual_overrides(replacement, target_ids)
     else:
-        _apply_epg_manifest(after, set(plan.channel_ids))
+        _apply_epg_manifest(after, target_ids)
         temporary = EPG_PATH.with_name(".epg-targeted.xml")
         temporary.write_bytes(existing)
         try:
@@ -737,14 +780,12 @@ def apply_epg(
         finally:
             temporary.unlink(missing_ok=True)
             temporary.with_suffix(".xml.tmp").unlink(missing_ok=True)
-    merged = merge_epg_xml(existing, replacement, set(plan.channel_ids))
-    expected_ids = {channel.tvg_id for channel in catalog_channels if channel.tvg_id}
-    update_m3u.epg_status_from_xml(
+    merged = merge_epg_xml(existing, replacement, target_ids)
+    _validate_targeted_epg(
         merged,
-        expected_ids,
-        now=datetime.now(timezone.utc),
-        minimum_future=timedelta(hours=24),
-        allow_empty_ids=update_m3u.EPG_ALLOWED_EMPTY_IDS,
+        target_ids,
+        main_target_ids,
+        optional_target_ids,
     )
     temporary_output = EPG_PATH.with_suffix(".xml.tmp")
     temporary_output.write_bytes(merged)
@@ -752,14 +793,14 @@ def apply_epg(
     # Guía por canal (2026-10-12): el cambio dirigido también queda en el fragmento de cada
     # canal; si no, la próxima unión lo pisaría con la guía anterior.
     fragments = update_m3u.epg_fragments.split_epg(merged)
-    for channel_id in plan.channel_ids:
+    for channel_id in target_ids:
         if channel_id in fragments:
             update_m3u.epg_fragments.write_fragment(
                 update_m3u.EPG_FRAGMENTS_DIR, channel_id, fragments[channel_id]
             )
     print(
         "EPG dirigida publicada sin reconstruir otros canales: "
-        + ", ".join(plan.channel_ids)
+        + ", ".join(sorted(target_ids))
     )
 
 

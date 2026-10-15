@@ -4,7 +4,7 @@
   "baseHead": "4efa5286f661204bc90c98d14e5a94c4ae3d624b",
   "authorization": "Usuario: «puedes pasar todos los canales ... a definitivo y darles logo y EPG»; aclaración: «Todas las pruebas» = todos los activos en prueba de Lista 1, no ocultos/papelera ni todo el inventario.",
   "scope": "247 promociones editoriales. No se agregan canales ni se cambian nombres, identidad, números, orden, origen, estado activo, selección o respaldos. 38 Nauta añadidos a la excepción cerrada por referencia exacta; futuras altas Nauta siguen en prueba.",
-  "epgLimits": "Matched requires exact on-screen programme evidence and a curated national/regional XMLTV source with at least 12 continuous future hours at validation; normalize all XMLTV offsets to emulator UTC. Equivalent schedule matches do not prove physical stream region, long-term playback stability, or future synchrony. GitHub Raw currently contains 62 of 247 assignments; 31 additional assignments are verified locally but not published. Current contract totals are 93 mapped and 154 pending; detailed per-channel evidence is recorded in channels[] and OFICIALIZACION_PRUEBAS_20261013.md. No guide is assigned by IP, name, logo or category alone, and no Live continuity is fabricated. Definitive is an editorial state, not a claim of EPG or logo completeness.",
+  "epgLimits": "Matched requires exact on-screen programme evidence and a curated national/regional XMLTV source with at least 12 continuous future hours at validation; normalize all XMLTV offsets to emulator UTC. Equivalent schedule matches do not prove physical stream region, long-term playback stability, or future synchrony. GitHub main currently contains 93 of 247 assignments; 62 were previously verified in Raw, and the 31 PublicDirect fragments from scheduled EPG runs 38667200138 and 38668568796 were verified through GitHub Contents API, with 0 pending and at least 12 continuous hours at the 2026-10-15T01:59:25Z index timestamp. Contract totals remain 93 mapped and 154 pending; detailed per-channel evidence is recorded in channels[] and OFICIALIZACION_PRUEBAS_20261013.md. No guide is assigned by IP, name, logo or category alone, and no Live continuity is fabricated. Definitive is an editorial state, not a claim of EPG or logo completeness.",
   "requestedCloseout": "After the visual audit is complete, compare normalized complete guide entries for exact schedule equality and report channel pairs that could be considered as one-to-one backups. Do not create or merge backup links without separate user approval.",
   "counterpart": "Sin cambios de VibeM3U ni APK; mismo contrato de layout/M3U/logos/XMLTV.",
   "counts": {
@@ -5263,8 +5263,8 @@
   },
   "publication": {
     "status": "partial_published_remaining_channels_pending",
-    "commit": "39c756ea49f56de49254c8da3c264600040eaeec (GT EPG/logo mappings); e1238504b6568ed9caa6e388d96bb0726b3c7570 (layout approval correction); 27e35e18092446168ec18074d2d50fb7eb1b2223 (EPG checkout race fix); 4bf7ef940b7a253a0ee84c1e3a1d944fe03b9c0d (five emulator-confirmed guide maps)",
-    "remoteSha": "09e19e6d46b3352d066aaa27251ea6320ae37d45",
+    "commit": "39c756ea49f56de49254c8da3c264600040eaeec (GT EPG/logo mappings); e1238504b6568ed9caa6e388d96bb0726b3c7570 (layout approval correction); 27e35e18092446168ec18074d2d50fb7eb1b2223 (EPG checkout race fix); 4bf7ef940b7a253a0ee84c1e3a1d944fe03b9c0d (five emulator-confirmed guide maps); 890b27ac1c492ef2dba2a21a6eb4927bb09c083e (scheduled EPG run 38667200138); 70580389b780701243abe8a002feef4f6abacf4b (workflow_run EPG 38668568796, refreshed 31 PublicDirect guides)",
+    "remoteSha": "70580389b780701243abe8a002feef4f6abacf4b",
     "workflows": [
       {
         "name": "Publicar cambios dirigidos",
@@ -5315,6 +5315,32 @@
           "Nauta.a87610ac946968a5f280ec57@Nauta": {"programmes": 38, "continuousHoursAtVerification": 55.62, "pending": false},
           "PublicDirect.749260224cb34a60ab4d8755": {"programmes": 66, "continuousHoursAtVerification": 54.88, "pending": false}
         }
+      },
+      {
+        "name": "Actualizar EPG dirigida en corrida programada",
+        "runId": 38667200138,
+        "status": "success",
+        "triggerHeadSha": "6d1f1e3cf35ee8228c0842b84db313344037de12",
+        "publishedCommit": "890b27ac1c492ef2dba2a21a6eb4927bb09c083e",
+        "githubContentsApiVerified": true,
+        "guideCount": 31,
+        "programmes": 2231,
+        "continuousHoursRangeAtVerification": [22.55, 80.25],
+        "pending": 0,
+        "generatedAt": "2026-10-15T01:44:59Z"
+      },
+      {
+        "name": "Actualizar EPG tras actualización Highfly",
+        "runId": 38668568796,
+        "status": "success",
+        "triggerHeadSha": "3b8e4e693204ddf140a1f384d833573ef13a851c",
+        "publishedCommit": "70580389b780701243abe8a002feef4f6abacf4b",
+        "githubContentsApiVerified": true,
+        "guideCount": 31,
+        "programmes": 2231,
+        "continuousHoursRangeAtVerification": [22.31, 80.01],
+        "pending": 0,
+        "generatedAt": "2026-10-15T01:59:25Z"
       }
     ]
   }

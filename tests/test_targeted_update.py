@@ -191,6 +191,58 @@ class TargetedUpdateTest(unittest.TestCase):
                 else:
                     update_m3u.EPG_PROGRAMME_SOURCES["temporary"] = previous
 
+    def test_targeted_epg_validation_uses_only_refreshed_channels(self) -> None:
+        document = (
+            b'<tv><channel id="active"/><channel id="inactive"/>'
+            b'<programme channel="active" start="20261014000000 +0000" '
+            b'stop="20261014130000 +0000"><title>Active</title></programme>'
+            b'<programme channel="inactive" start="20261014000000 +0000" '
+            b'stop="20261014130000 +0000"><title>Inactive</title></programme></tv>'
+        )
+        target_ids = {"active"}
+        with patch.object(update_m3u, "epg_status_from_xml") as validate:
+            targeted_update._validate_targeted_epg(
+                document,
+                target_ids,
+                main_target_ids=target_ids,
+                optional_target_ids=set(),
+            )
+
+        validated_document, expected_ids = validate.call_args.args
+        validation_options = validate.call_args.kwargs
+        self.assertEqual(target_ids, expected_ids)
+        self.assertIn(b'id="active"', validated_document)
+        self.assertNotIn(b'id="inactive"', validated_document)
+        self.assertEqual(
+            update_m3u.EPG_NON_MAIN_MINIMUM_FUTURE,
+            validation_options["minimum_future"],
+        )
+        self.assertEqual(
+            {"active": update_m3u.EPG_MAIN_MINIMUM_FUTURE},
+            validation_options["minimum_future_by_channel"],
+        )
+
+    def test_targeted_epg_rejects_channels_outside_published_scope(self) -> None:
+        active = update_m3u.Channel("Active", "", 0, tvg_id="active")
+        managed = update_m3u.Channel("Managed", "", 0, tvg_id="managed")
+        with (
+            patch.object(update_m3u, "main_playlist_channels", return_value=[active]),
+            patch.object(
+                update_m3u,
+                "epg_scope_channels",
+                return_value=([active, managed], {"active", "managed"}),
+            ),
+        ):
+            main_targets, optional_targets = targeted_update._epg_target_scope(
+                {"active", "managed"}
+            )
+            self.assertEqual({"active"}, main_targets)
+            self.assertEqual({"managed"}, optional_targets)
+            with self.assertRaisesRegex(RuntimeError, "no se especificaron"):
+                targeted_update._epg_target_scope(set())
+            with self.assertRaisesRegex(RuntimeError, "fuera del alcance publicado"):
+                targeted_update._epg_target_scope({"inactive"})
+
     def test_reorder_keeps_records_and_rebuilds_group_headers(self) -> None:
         lines = [
             "#EXTM3U",
