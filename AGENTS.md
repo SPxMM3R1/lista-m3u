@@ -29,6 +29,8 @@ agente debe poder retomar el trabajo solo con lo que está en el repositorio.
 - Runner: `update_m3u.py` (canales y resolutores; incluye `build_epg`/`refresh_epg`, `EPG_SOURCES` para feeds XMLTV gzip y la tabla `OFFICIAL_EPG_SOURCES`), `epg_sources/` (adaptadores EPG específicos), `epg_fragments.py` y `epg_dispatch.py` (guía por canal), `run_m3u_6h.py`, `run_epg_6h.py` (heredado, solo local), `publish_epg.py`, `targeted_update.py`, `change_plan.py`, `scripts/build_site_data.py`.
 - Editor web: `site/` (JS puro). La lógica pura vive en `site/editor-core.mjs` y `site/provider-catalog.mjs` con tests en `tests/editor-core.test.mjs`. Se sirve con el auxiliar `VibeM3U/local-catalog`.
 - Datos editoriales publicados: `data/channel-editor-layout.json` (orden, número, visibilidad y logos que lee la app), `data/vibem3u-selection.json` (declaración de proveedores para el runner) y `presentation-overrides.json` (órdenes y exclusiones).
+- **Orden alfabético después de Red Bull (2026-10-15)**: la vista de canales conserva las filas 1–51 y sus posiciones; las filas activas desde la 52 se ordenan alfabéticamente por nombre visible, tanto M3U como Highfly/TvVoo. Se conservan los números de canal y las filas eliminadas.
+- **Pruebas de guías para canales retirados**: un mapeo EPG puede conservarse tras borrar su fila. La comprobación que requiere un objeto de `main_playlist_channels()` debe ejecutarse solo si la fila vuelve a estar activa; el mapeo y su cadena de fuentes se validan aunque esté retirada.
 
 ## Límites
 

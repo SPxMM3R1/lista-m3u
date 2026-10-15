@@ -155,8 +155,9 @@ class TrialOfficializationTest(unittest.TestCase):
             runner.apply_epg_overrides()
             self.assertEqual(expected,runner.EPG_PROGRAMME_SOURCES[stable_id])
             self.assertIn(expected,runner.epg_source_chain(stable_id))
-            channel=next(c for c in runner.main_playlist_channels() if c.tvg_id==stable_id)
-            self.assertEqual(frozenset({'mx1'}),runner.epgshare_source_names_for([channel]))
+            channel=next((c for c in runner.main_playlist_channels() if c.tvg_id==stable_id),None)
+            if channel is not None:
+                self.assertEqual(frozenset({'mx1'}),runner.epgshare_source_names_for([channel]))
         finally:
             runner.EPG_PROGRAMME_SOURCES.clear();runner.EPG_PROGRAMME_SOURCES.update(before)
 
