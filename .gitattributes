@@ -1,3 +1,6 @@
 # Los contratos se verifican por SHA-256 de sus bytes: sin conversión de fin de línea.
 contracts/*.json -text
 NAUTA_CANALES_ELIMINADOS_20261008.md -text
+# Logos: la app y los contratos los verifican por SHA-256 de sus bytes; un SVG con fin de
+# línea convertido (checkout en Windows) cambia de hash (2026-10-15).
+logos/** -text

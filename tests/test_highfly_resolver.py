@@ -217,6 +217,9 @@ class HighflyResolverTest(unittest.TestCase):
             ),
         ):
             update_m3u.HIGHFLY_RUNTIME_RESOLVER_CHANNELS.clear()
+            # El mapa en memoria es global: sin limpiarlo, las pruebas siguientes veían este id
+            # de prueba en vez del estático (2026-10-15).
+            self.addCleanup(update_m3u.HIGHFLY_RUNTIME_RESOLVER_CHANNELS.clear)
             mapping = update_m3u.refresh_highfly_runtime_catalog()
 
         self.assertEqual({"SkySportsTennis.uk": "uk-330030303"}, mapping)

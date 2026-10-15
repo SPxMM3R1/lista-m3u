@@ -89,6 +89,11 @@ DISPLAY_NAME_UNSAFE_PATTERN = re.compile(
 )
 REPORT_PATH = Path(__file__).with_name("channel-status.json")
 HEALTH_STATE_PATH = Path(__file__).with_name("channel-health-state.json")
+# Auditoría 2026-10-15: cada corrida reescribía las ~290 horas de revisión aunque ningún canal
+# cambiara de estado, y ese commit de solo horas (0,9 MB) se repetía ~7 veces al día. Si solo
+# cambian estas horas, el archivo se conserva; se renuevan al menos una vez cada 24 h.
+HEALTH_TIMESTAMP_FIELDS = frozenset({"last_checked_at", "last_ok_at", "last_resolver_validated_at"})
+HEALTH_TIMESTAMP_REFRESH = timedelta(hours=24)
 RESOLVER_CATALOG_PATH = Path(__file__).with_name("resolver-catalog.json")
 EPG_PENDING_PATH = Path(__file__).with_name("epg-pending.json")
 # Alcance del mantenimiento de canales. Con ``main`` la validacion, renovacion,
@@ -410,7 +415,7 @@ HIGHFLY_RESOLVER_CHANNELS = {
     "SkySportsF1UHD.uk": "now-4344344",
     "SkySportsMainEventUHD.uk": "now-sky-sports-main-event",
     "SkySportsPremierLeague.uk": "now-4994949494",
-    "SkySportsTennis.uk": "uk-330030303",
+    "SkySportsTennis.uk": "now-s34434",
 }
 
 
@@ -9546,6 +9551,38 @@ def dynamic_validation_is_fresh(
     return entry.get("resolver_url_hash") == resolver_url_fingerprint(channel.url)
 
 
+def _health_without_timestamps(state: dict) -> dict:
+    channels = state.get("channels", {})
+    return {
+        **{key: value for key, value in state.items() if key not in {"updated_at", "channels"}},
+        "channels": {
+            key: (
+                {field: item for field, item in value.items() if field not in HEALTH_TIMESTAMP_FIELDS}
+                if isinstance(value, dict) else value
+            )
+            for key, value in (channels.items() if isinstance(channels, dict) else [])
+        },
+    }
+
+
+def health_state_needs_write(previous: dict, current: dict, now: datetime) -> bool:
+    """True si cambió algo más que las horas de revisión, o si esas horas tienen ≥ 24 h.
+
+    Conservar una hora anterior solo puede adelantar una revalidación (los TTL de resolutor
+    miran ``last_resolver_validated_at``); nunca la salta.
+    """
+    if not previous or _health_without_timestamps(previous) != _health_without_timestamps(current):
+        return True
+    try:
+        updated = datetime.fromisoformat(str(previous.get("updated_at", "")).replace("Z", "+00:00"))
+    except ValueError:
+        return True
+    if updated.tzinfo is None:
+        updated = updated.replace(tzinfo=timezone.utc)
+    age = now.astimezone(timezone.utc) - updated.astimezone(timezone.utc)
+    return age < timedelta(0) or age >= HEALTH_TIMESTAMP_REFRESH
+
+
 def iter_fresh_tvvoo_stream_urls(channel_name: str) -> Iterable[str]:
     """Yield current TvVoo HLS URLs lazily, without storing provider tokens."""
     resolver_ids = TVVOO_STREAM_RESOLVER_IDS.get(channel_name)
@@ -10140,10 +10177,13 @@ def write_report(
         },
         "channels": new_health_channels,
     }
-    HEALTH_STATE_PATH.write_text(
-        json.dumps(health_state, indent=2, ensure_ascii=True) + "\n",
-        encoding="utf-8",
-    )
+    if health_state_needs_write(previous_state, health_state, generated_at):
+        HEALTH_STATE_PATH.write_text(
+            json.dumps(health_state, indent=2, ensure_ascii=True) + "\n",
+            encoding="utf-8",
+        )
+    else:
+        print("Salud de canales: ningún estado cambió; se conservan las horas anteriores.")
 
     logos = logo_results or []
     main_epg = main_epg_status if main_epg_status is not None else (epg_status or {})

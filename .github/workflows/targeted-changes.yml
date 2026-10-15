@@ -66,7 +66,11 @@ jobs:
       - name: Descargar repositorio
         uses: actions/checkout@v4
         with:
+          # Historial completo sin contenidos viejos (2026-10-15): targeted_update.py lee archivos de un commit anterior (git show/diff), pero bajar
+          # todas las versiones de epg.xml y del catálogo eran ~90 MB por corrida. Git trae
+          # bajo demanda solo los archivos que se piden.
           fetch-depth: 0
+          filter: blob:none
 
       - name: Preparar Python
         uses: actions/setup-python@v5
