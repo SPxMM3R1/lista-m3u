@@ -28,7 +28,7 @@ class TrialOfficializationTest(unittest.TestCase):
         audit=json.loads(AUDIT.read_text(encoding='utf-8'))
         matched={r['tvgId']:r['epg'] for r in audit['channels'] if r['epg']['status']=='matched'}
         pending=[r for r in audit['channels'] if r['epg']['status']=='pending']
-        self.assertEqual(62,len(matched));self.assertEqual(185,len(pending))
+        self.assertEqual(93,len(matched));self.assertEqual(154,len(pending))
         self.assertTrue(all(not r['epg'].get('source') and r['epg']['reason'] for r in pending))
         self.assertTrue(all(g['source'] in runner.EPG_SOURCES and g['coverageHours']>=12 and g['evidence'] for g in matched.values()))
         with tempfile.TemporaryDirectory() as tmp:
@@ -51,6 +51,38 @@ class TrialOfficializationTest(unittest.TestCase):
             'Nauta.7437112a4b992980a550d16a@Nauta':('mx1','ESPN.MX.mx','FIFA Eliminatorias de la Copa Mundial Femenina 2027'),
             'Nauta.a87610ac946968a5f280ec57@Nauta':('co1','STAR.CHANNEL.co','El exótico Hotel Marigold'),
             'PublicDirect.749260224cb34a60ab4d8755':('co1','Sony.co','My Wife and Kids'),
+            'PublicDirect.be7f7ba12ab6004903c96227':('co1','HBO.Family.co','Andrew Garfield'),
+            'PublicDirect.5218fd5abba92fea1b812142':('co1','E!.Entertainment.TV.co','Vanderpump Rules'),
+            'PublicDirect.36a879c02cd2241bb94ff8dc':('ar1','Canal.Lifetime.(Argentina).ar','República Argentina'),
+            'PublicDirect.c6bd3a96018cbeb2a0f28f3b':('co1','A&E.co','Orígenes de un crimen'),
+            'PublicDirect.d9973a3bfb28634698473218':('co1','A&E.co','Orígenes de un crimen'),
+            'PublicDirect.5551093bff52d29b38509588':('co1','Animal.Planet.co','Guardianes al rescate'),
+            'PublicDirect.e6a2bc5a013c1c5b9656d441':('co1','Animal.Planet.co','Guardianes al rescate'),
+            'PublicDirect.9840c70e010eb35fb900c6b4':('co1','Cinecanal.co','Eco en el cañón'),
+            'PublicDirect.56a9657c934115ec2f1481ae':('cl','Canal.Disney.Channel.(Chile).cl','Star vs. Las Fuerzas del Mal'),
+            'PublicDirect.971215bf53db3488f848d6c6':('ar1','Canal.ESPN.2.(Bolivia).ar','Manchester City vs. Paris Saint-Germain'),
+            'PublicDirect.3d519bc9027bf3427d250d7c':('mx1','ESPN.3.mx','NBA discussion'),
+            'PublicDirect.9fc08fec9b53b602b7ce875e':('mx1','ESPN.3.mx','NBA discussion'),
+            'PublicDirect.f01cdfce2a440e1aac5e8c70':('co1','ESPN.6.HD.co','SHK 1-1 AEK'),
+            'PublicDirect.796c17a762ce69be57ec714d':('fr','France.24.Espanol.fr','Invitado del día'),
+            'PublicDirect.0ef1ce174fa5aaee3811b04f':('cl','Canal.History.2.(Chile).cl','El código de Dios'),
+            'PublicDirect.8db5a974dc4b6ed483cf2bf9':('cl','Canal.HBO.Xtreme.cl','Te van a matar'),
+            'PublicDirect.c1ed48f37448ded5dca7e8bd':('pa1','Canal.History.(Panamá).pa','Misterios inexplorados con Danny Trejo'),
+            'PublicDirect.747adbe6694514eee98e7ed5':('es','A3CINE.es','Ninette'),
+            'PublicDirect.51b11c161840f9db76a04904':('co1','RCN.Novelas.co',"Lala's spa"),
+            'PublicDirect.590828755b8ac040706c8575':('co1','Studio.Universal.co','Spider-Man: Un nuevo universo'),
+            'PublicDirect.52f6bff32710f7c83abeda34':('co1','Studio.Universal.co','Spider-Man: Into the Spider-Verse'),
+            'PublicDirect.ae75ddaa5bf1de03760155d8':('co1','TNT.Novelas.co','Quiéreme siempre'),
+            'PublicDirect.b8b5b69e22a2787006d8bf21':('co1','Telemundo.co','Caso Cerrado'),
+            'PublicDirect.67f76c9db1d9d67dc2af39fb':('co1','Telemundo.co','Caso cerrado'),
+            'PublicDirect.d48635571a0af3b28d47db03':('uy1','[UNICR].Universal.Crime.uy','Kristen Wagner'),
+            'PublicDirect.9193ba6e85578f4486a958d7':('uy1','[UNIPR].Universal.Premiere.uy','El futuro es promisorio'),
+            'PublicDirect.fe8012537d4b52a34d2778bd':('uy1','[UNIPRMH].UNIPRMH.uy','House M.D.'),
+            'PublicDirect.6d8f767d72df832a0dcaf1b3':('uy1','UNIVISION.HD.uy','La historia de Juana'),
+            'PublicDirect.792c9413cb2a98e7c3d972f6':('mx1','Canal.Sky.Sports.16.mx','Deportivo Alavés vs. Atlético de Madrid'),
+            'PublicDirect.5c8f98d3876cb07b0c0884f6':('co1','AMC.co','John Lake'),
+            'PublicDirect.21d595905b477139407f7250':('cl','Canal.Animal.Planet.(Chile).cl','El acuario'),
+            'PublicDirect.b4a12e148b15b71efbcda5e7':('pa1','Canal.Cinemax.(Panamá).pa','Master Z'),
         }
         rows={r['tvgId']:r for r in audit['channels']}
         for tvg_id,(source,source_id,evidence_token) in expected.items():
@@ -72,6 +104,41 @@ class TrialOfficializationTest(unittest.TestCase):
                     self.assertEqual(frozenset({source}),runner.epgshare_source_names_for([channels_by_id[tvg_id]]))
             finally:
                 runner.EPG_PROGRAMME_SOURCES.clear();runner.EPG_PROGRAMME_SOURCES.update(before)
+
+    def test_unidentified_channels_stay_pending_after_emulator_review(self):
+        audit=json.loads(AUDIT.read_text(encoding='utf-8'))
+        rows={r['tvgId']:r for r in audit['channels']}
+        reviewed={
+            'PublicDirect.3ee2b2a286f1ba55a0be9723':'repeat the same scene',
+            'PublicDirect.c6f31bbf9b3a8d4f6dbca07d':'no programme title',
+            'PublicDirect.be33d60d2f78170c97c37514':'runner has no configured sv XMLTV part',
+            'PublicDirect.1a0c2a31bd9c634459c58380':'no programme title',
+            'PublicDirect.1efd0c13d73c9caaf88077f4':'no matching Semillitas XMLTV source',
+            'PublicDirect.6d1b04a9ccdf4197fbbc3ef6':'no programme title',
+            'PublicDirect.1426399def5c52eee57f4bb0':'no programme title',
+            'PublicDirect.0d0b3a195eb01f1ab454cd75':'no programme title',
+            'PublicDirect.ba69f9b8ca828f79a3b8b9cf':'No current-programme title is visible',
+            'PublicDirect.1592ac20e79b21ae24514be4':'No programme title is visible',
+            'PublicDirect.60b05b1433d087260f3b5c2d':'no configured Costa Rica/TD+/TDMAX XMLTV schedule',
+            'PublicDirect.9233d81ff5fd6c6c02c26e15':'none can be selected without an exact current-programme title',
+            'PublicDirect.58d292da8d99dd4d16ed3b57':'candidateCount 0 for Dominican Televida',
+            'PublicDirect.796284d305206eaee4223955':'no exact programme title is visible',
+            'PublicDirect.db00a6066635f39312f74380':'no programme title appears',
+            'PublicDirect.760b2c3b1354cd82b8a647bc':'no exact title can be matched',
+            'PublicDirect.391630d2ff5eec427fa516f1':'Play with Fire Part 2',
+            'PublicDirect.19fbfbd8b220cd0fb65ac244':'promo for El precio de la historia',
+        }
+        for tvg_id,evidence_token in reviewed.items():
+            guide=rows[tvg_id]['epg']
+            self.assertEqual('pending',guide['status'])
+            self.assertFalse(guide.get('source'))
+            self.assertIn(evidence_token,guide['evidence'])
+        svu=rows['PublicDirect.391630d2ff5eec427fa516f1']['epg']
+        self.assertEqual('no_exact_current_programme_match',svu['reason'])
+        self.assertEqual(5,svu['candidateCount'])
+        ae=rows['PublicDirect.19fbfbd8b220cd0fb65ac244']['epg']
+        self.assertEqual('no_exact_current_programme_match',ae['reason'])
+        self.assertEqual(5,ae['candidateCount'])
 
     def test_fox_sports_2_uses_the_visual_confirmed_mexico_feed(self):
         audit=json.loads(AUDIT.read_text(encoding='utf-8'))
@@ -118,6 +185,51 @@ class TrialOfficializationTest(unittest.TestCase):
                 self.assertEqual(frozenset({'gt'}),runner.epgshare_source_names_for([channels_by_id[tvg_id]]))
         finally:
             runner.EPG_PROGRAMME_SOURCES.clear();runner.EPG_PROGRAMME_SOURCES.update(before)
+
+    def test_lum_devotional_without_exact_current_programme_stays_pending(self):
+        audit=json.loads(AUDIT.read_text(encoding='utf-8'))
+        row=next(r for r in audit['channels'] if r['tvgId']=='PublicDirect.a712127b104cc2260c6fedc0')
+        guide=row['epg']
+        self.assertEqual('pending',guide['status'])
+        self.assertEqual('no_exact_current_programme_match',guide['reason'])
+        self.assertEqual(0,guide['candidateCount'])
+        self.assertFalse(guide.get('source'))
+        self.assertIn('3er Plan de Salvación',guide['evidence'])
+        self.assertIn('at least 12 continuous future hours',guide['evidence'])
+
+    def test_aym_baseball_without_exact_event_stays_pending(self):
+        audit=json.loads(AUDIT.read_text(encoding='utf-8'))
+        row=next(r for r in audit['channels'] if r['tvgId']=='PublicDirect.7e481ae905cfde3a83c3ccfe')
+        guide=row['epg']
+        self.assertEqual('pending',guide['status'])
+        self.assertEqual('regional_feed_not_identified',guide['reason'])
+        self.assertEqual(0,guide['candidateCount'])
+        self.assertFalse(guide.get('source'))
+        self.assertIn('baseball game',guide['evidence'])
+        self.assertIn('exact current event/feed',guide['evidence'])
+
+    def test_multicinema_without_movie_title_stays_pending(self):
+        audit=json.loads(AUDIT.read_text(encoding='utf-8'))
+        row=next(r for r in audit['channels'] if r['tvgId']=='PublicDirect.7d829b68f0e63dbdd397a468')
+        guide=row['epg']
+        self.assertEqual('pending',guide['status'])
+        self.assertEqual('programme_title_not_identified',guide['reason'])
+        self.assertEqual(0,guide['candidateCount'])
+        self.assertFalse(guide.get('source'))
+        self.assertIn('HLS reopening/retry 3/3',guide['evidence'])
+        self.assertIn('544x480 and 6.9 FPS',guide['evidence'])
+
+    def test_fox_sports_el_salvador_match_has_no_exact_epg_candidate(self):
+        audit=json.loads(AUDIT.read_text(encoding='utf-8'))
+        row=next(r for r in audit['channels'] if r['tvgId']=='PublicDirect.cbbf16d047322fe020949bf8')
+        guide=row['epg']
+        self.assertEqual('pending',guide['status'])
+        self.assertEqual('no_exact_current_programme_match',guide['reason'])
+        self.assertEqual(2,guide['candidateCount'])
+        self.assertFalse(guide.get('source'))
+        self.assertIn('Liga de Ascenso de El Salvador',guide['evidence'])
+        self.assertIn('Fox Gol Femenil',guide['evidence'])
+        self.assertIn('AEW Collision',guide['evidence'])
 
     def test_new_assets_are_local_originals_with_the_recorded_hash(self):
         audit=json.loads(AUDIT.read_text(encoding='utf-8'))

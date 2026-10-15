@@ -1,18 +1,19 @@
 {
   "schemaVersion": 1,
-  "atUtc": "2026-10-14T18:18:10.932Z",
+  "atUtc": "2026-10-15T00:47:00Z",
   "baseHead": "4efa5286f661204bc90c98d14e5a94c4ae3d624b",
   "authorization": "Usuario: «puedes pasar todos los canales ... a definitivo y darles logo y EPG»; aclaración: «Todas las pruebas» = todos los activos en prueba de Lista 1, no ocultos/papelera ni todo el inventario.",
   "scope": "247 promociones editoriales. No se agregan canales ni se cambian nombres, identidad, números, orden, origen, estado activo, selección o respaldos. 38 Nauta añadidos a la excepción cerrada por referencia exacta; futuras altas Nauta siguen en prueba.",
-  "epgLimits": "Matched means exact curated national/regional source with continuous 12h at validation; Total Conexion region is supported by prior SDT/operator evidence. Not proof of synchrony of every programme in physical TV. Five emulator-confirmed mappings were published in EPG output 09e19e6 (2026-10-14); CO1/CL1 duplicate the same Star Channel schedule and CO1/PA1 duplicate the same Sony schedule, so these assignments identify a matching guide, not the physical region of those streams. Raw fragments and epg.xml were independently verified and all five IDs are absent from epg-pending.json. 185 guides remain pending; no region is assigned by similarity and no Live continuity is fabricated. Definitive is an editorial state, not a claim of guide completeness.",
+  "epgLimits": "Matched requires exact on-screen programme evidence and a curated national/regional XMLTV source with at least 12 continuous future hours at validation; normalize all XMLTV offsets to emulator UTC. Equivalent schedule matches do not prove physical stream region, long-term playback stability, or future synchrony. GitHub Raw currently contains 62 of 247 assignments; 31 additional assignments are verified locally but not published. Current contract totals are 93 mapped and 154 pending; detailed per-channel evidence is recorded in channels[] and OFICIALIZACION_PRUEBAS_20261013.md. No guide is assigned by IP, name, logo or category alone, and no Live continuity is fabricated. Definitive is an editorial state, not a claim of EPG or logo completeness.",
+  "requestedCloseout": "After the visual audit is complete, compare normalized complete guide entries for exact schedule equality and report channel pairs that could be considered as one-to-one backups. Do not create or merge backup links without separate user approval.",
   "counterpart": "Sin cambios de VibeM3U ni APK; mismo contrato de layout/M3U/logos/XMLTV.",
   "counts": {
     "promoted": 247,
     "nautaApproved": 38,
     "logos": 234,
     "logoPending": 13,
-    "epgMatched": 62,
-    "epgPending": 185
+    "epgMatched": 93,
+    "epgPending": 154
   },
   "assets": [
     {
@@ -1050,7 +1051,7 @@
         "name": "ESPN Plus HD [Nauta]",
         "status": "pending",
         "reason": "regional_feed_not_identified",
-        "candidateCount": 0
+      "candidateCount": 0
       }
     },
     {
@@ -1658,6 +1659,7 @@
         "number": 163,
         "tvgId": "Nauta.7d15e6854c48e815dea1edf7@Nauta",
         "name": "Telehit HD [Nauta]",
+        "status": "matched",
         "status": "pending",
         "reason": "regional_feed_not_identified",
         "candidateCount": 1
@@ -1766,8 +1768,8 @@
         "name": "Telecafé [IP 181]",
         "source": "co1",
         "source_id": "Telecafé.co",
-        "evidence": "unique_national_broadcaster_identity",
-        "coverageHours": 12,
+        "evidence": "Captures 256-257 show different frames from RCN Novelas, confirming decoded moving video. At 21:54 UTC, the OSD labels the current programme Lala's spa (21:00-22:00 UTC) and next Así es la Vida at 22:00. The published Raw epg.xml fragment for this same ID and source co1 / RCN.Novelas.co lists Lala's spa at 21:00-22:00, then continues without gaps through 13:00 UTC on 2026-10-15 (15.08 continuous future hours). Exact visual and schedule match; no physical-region inference.",
+        "coverageHours": 15.08,
         "status": "matched"
       }
     },
@@ -2186,9 +2188,11 @@
         "number": 309,
         "tvgId": "PublicDirect.be7f7ba12ab6004903c96227",
         "name": "HBO Family [IP 45.171.64.30]",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 4
+        "source": "co1",
+        "source_id": "HBO.Family.co",
+        "evidence": "Fotograma del emulador 2026-10-14 18:33 UTC: logo HBO Family y Andrew Garfield reconocible; la fuente XMLTV CO1 HBO.Family.co programa El sorprendente Hombre Araña de 17:47 a 20:06 UTC. La misma película y secuencia de programación aparecen en varios feeds regionales, así que CO1 es una guía coincidente, no una afirmación de la región física de la señal. La programación CO1 observada desde la captura cubre 13,2 h continuas.",
+        "coverageHours": 13.2,
+        "status": "matched"
       }
     },
     {
@@ -2460,9 +2464,11 @@
         "number": 325,
         "tvgId": "PublicDirect.5218fd5abba92fea1b812142",
         "name": "SRT E! [IP 181.78.12.119]",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 1
+        "source": "co1",
+        "source_id": "E!.Entertainment.TV.co",
+        "evidence": "Fotograma del emulador 2026-10-14 18:42 UTC: logo E! y segmento de reality con subtítulo de entrevista sobre México. XMLTV CO1 E!.Entertainment.TV.co programa Vanderpump Rules a las 17:50–20:30 UTC en tres episodios contiguos; CL, MX, PA, UY y GT muestran la misma secuencia. CO1 se elige como guía coincidente, no como afirmación de la región física de la señal. La fuente tiene 12,72 h continuas desde la captura.",
+        "coverageHours": 12.72,
+        "status": "matched"
       }
     },
     {
@@ -2528,9 +2534,11 @@
         "number": 329,
         "tvgId": "PublicDirect.36a879c02cd2241bb94ff8dc",
         "name": "SRT lifetime [IP 181.78.12.119]",
-        "status": "pending",
-        "reason": "source_missing_or_under_12h",
-        "candidateCount": 4
+        "source": "ar1",
+        "source_id": "Canal.Lifetime.(Argentina).ar",
+        "evidence": "Emulador 2026-10-14 18:49 UTC: logo Lifetime Danette y aviso explícito ‘Pauta exclusiva para la República Argentina’; identifica el feed orientado a Argentina, no el título de la película. El XMLTV AR1 marca No dejes que él te encuentre (17:54–19:27 UTC); AR1 ofrece 14,18 h continuas desde la captura.",
+        "coverageHours": 14.18,
+        "status": "matched"
       }
     },
     {
@@ -2712,9 +2720,11 @@
         "number": 340,
         "tvgId": "PublicDirect.c6bd3a96018cbeb2a0f28f3b",
         "name": "A&E [IP 45.171.64.30]",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 2
+        "source": "co1",
+        "source_id": "A&E.co",
+        "evidence": "Emulador 2026-10-14 18:55 UTC: el cuadro del canal dice ‘Estás viendo Orígenes de un crimen’. XMLTV CO1 A&E.co lo programa de 18:33 a 19:29 UTC y entrega 14,57 h continuas; GT también coincide, así que CO1 se usa como guía equivalente, no como región física.",
+        "coverageHours": 14.57,
+        "status": "matched"
       }
     },
     {
@@ -2728,9 +2738,11 @@
         "number": 341,
         "tvgId": "PublicDirect.d9973a3bfb28634698473218",
         "name": "A&E HD [IP 45.171.64.30]",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 2
+        "source": "co1",
+        "source_id": "A&E.co",
+        "evidence": "Emulador 2026-10-14 18:56 UTC: el cuadro del canal dice ‘Estás viendo Orígenes de un crimen’. XMLTV CO1 A&E.co lo programa de 18:33 a 19:29 UTC y entrega 14,57 h continuas; GT también coincide, así que CO1 se usa como guía equivalente, no como región física.",
+        "coverageHours": 14.57,
+        "status": "matched"
       }
     },
     {
@@ -2824,9 +2836,11 @@
         "number": 347,
         "tvgId": "PublicDirect.5551093bff52d29b38509588",
         "name": "Animal Planet [IP 45.171.64.30]",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 8
+        "source": "co1",
+        "source_id": "Animal.Planet.co",
+        "evidence": "Emulador 2026-10-14 ~19:03 UTC: rótulo visible ‘Guardianes al rescate’. XMLTV CO1 Animal.Planet.co muestra ese título desde 19:00 a 19:48 UTC y entrega 14,32 h continuas; CO1 es guía coincidente, no afirmación de región física.",
+        "coverageHours": 14.32,
+        "status": "matched"
       }
     },
     {
@@ -2840,9 +2854,11 @@
         "number": 348,
         "tvgId": "PublicDirect.e6a2bc5a013c1c5b9656d441",
         "name": "Animal Planet HD [IP 45.171.64.30]",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 8
+        "source": "co1",
+        "source_id": "Animal.Planet.co",
+        "evidence": "Emulador 2026-10-14 19:05 UTC: rótulo visible ‘Guardianes al rescate’. XMLTV CO1 Animal.Planet.co muestra ese título desde 19:00 a 19:48 UTC y entrega 14,32 h continuas; CO1 es guía coincidente, no afirmación de región física.",
+        "coverageHours": 14.32,
+        "status": "matched"
       }
     },
     {
@@ -2920,9 +2936,11 @@
         "number": 353,
         "tvgId": "PublicDirect.9840c70e010eb35fb900c6b4",
         "name": "CINECANAL HD [IP 45.171.64.30]",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 5
+        "source": "co1",
+        "source_id": "Cinecanal.co",
+        "evidence": "Emulador 2026-10-14 19:08 UTC: el cuadro del canal dice ‘Estás viendo Eco en el cañón’. XMLTV CO1 Cinecanal.co programa la película de 17:59 a 19:53 UTC y entrega 14,35 h continuas; GT duplica ese horario, así que CO1 es guía coincidente, no afirmación de región física.",
+        "coverageHours": 14.35,
+        "status": "matched"
       }
     },
     {
@@ -3236,9 +3254,11 @@
         "number": 372,
         "tvgId": "PublicDirect.56a9657c934115ec2f1481ae",
         "name": "Disney [IP 45.171.64.30]",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 4
+        "source": "cl",
+        "source_id": "Canal.Disney.Channel.(Chile).cl",
+        "evidence": "emulator 163 at 2026-10-14 19:33 UTC shows Disney Channel bug and Star vs. Las Fuerzas del Mal; CL XMLTV 2026-10-14 14:30-14:59 -0500 normalizes to 19:30-19:59 UTC with the same title; continuous future coverage 52.45h; guide-equivalent, not physical-region claim",
+        "coverageHours": 52.45,
+        "status": "matched"
       }
     },
     {
@@ -3332,9 +3352,11 @@
         "number": 378,
         "tvgId": "PublicDirect.971215bf53db3488f848d6c6",
         "name": "ESPN 2 [IP 45.171.64.30]",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 9
+        "source": "ar1",
+        "source_id": "Canal.ESPN.2.(Bolivia).ar",
+        "evidence": "emulator 176 at 2026-10-14 19:43 UTC shows Manchester City vs. Paris Saint-Germain, 0-3 at 39:44; AR1 XMLTV 2026-10-14 13:40-15:55 -0500 normalizes to 18:40-20:55 UTC with the same match; continuous future coverage 52.78h; guide-equivalent, not physical-region claim",
+        "coverageHours": 52.78,
+        "status": "matched"
       }
     },
     {
@@ -3364,9 +3386,11 @@
         "number": 380,
         "tvgId": "PublicDirect.3d519bc9027bf3427d250d7c",
         "name": "ESPN 3 [IP 45.171.64.30]",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 6
+        "source": "mx1",
+        "source_id": "ESPN.3.mx",
+        "evidence": "emulator 180 at 2026-10-14 19:47 UTC shows ESPN 3 VIVO Step to It NBA discussion (Dylan Harper/Spurs); MX1 XMLTV 2026-10-14 14:00-15:00 -0500 normalizes to 19:00-20:00 UTC NBA Today; continuous future coverage 57.22h; guide-equivalent, not physical-region claim",
+        "coverageHours": 57.22,
+        "status": "matched"
       }
     },
     {
@@ -3380,9 +3404,11 @@
         "number": 381,
         "tvgId": "PublicDirect.9fc08fec9b53b602b7ce875e",
         "name": "ESPN 3 HD [IP 45.171.64.30]",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 6
+        "source": "mx1",
+        "source_id": "ESPN.3.mx",
+        "evidence": "emulator 182 at 2026-10-14 19:49 UTC shows ESPN 3 VIVO Step to It NBA discussion (Kevin Durant/Rockets); MX1 XMLTV 2026-10-14 14:00-15:00 -0500 normalizes to 19:00-20:00 UTC NBA Today; continuous future coverage 57.18h; guide-equivalent, not physical-region claim",
+        "coverageHours": 57.18,
+        "status": "matched"
       }
     },
     {
@@ -3540,9 +3566,11 @@
         "number": 391,
         "tvgId": "PublicDirect.f01cdfce2a440e1aac5e8c70",
         "name": "ESPN 6 [IP 45.171.64.30] · señal 2",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 5
+        "source": "co1",
+        "source_id": "ESPN.6.HD.co",
+        "evidence": "Emulator screenshot 202-channel391-osd.png at 2026-10-14 20:16 UTC shows ESPN 6 signal 2, decoded UEFA Champions League broadcast and SHK 1-1 AEK at 57:42. CO1 XMLTV ESPN.6.HD.co lists UEFA Champions League 18:40-21:00 UTC; description explicitly names Shakhtar and AEK. Subsequent continuous CO1 schedule extends to 2026-10-15 13:00 UTC (16.73h future coverage); exact event match, not a physical-region claim.",
+        "coverageHours": 16.73,
+        "status": "matched"
       }
     },
     {
@@ -3556,9 +3584,11 @@
         "number": 392,
         "tvgId": "PublicDirect.796c17a762ce69be57ec714d",
         "name": "France24 [IP 45.171.64.30]",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 3
+        "source": "fr",
+        "source_id": "France.24.Espanol.fr",
+        "evidence": "Emulator screenshot 204-channel392-later.png at 2026-10-14 20:25 UTC shows decoded France 24 Spanish video, Spanish lower-third and on-screen label 'INVITAD@ DEL...'. The fr XMLTV France.24.Espanol.fr lists 'Invitado del día' from 20:21 to 20:30 UTC, matching the visible segment; continuous future coverage is 14.08h. Exact guide/content match, not a physical-region claim.",
+        "coverageHours": 14.08,
+        "status": "matched"
       }
     },
     {
@@ -3573,7 +3603,7 @@
         "tvgId": "PublicDirect.2986363464e32a02d69a65dd",
         "name": "Golden [IP 45.171.64.30]",
         "status": "pending",
-        "reason": "regional_feed_not_identified",
+        "reason": "no_decoded_frame_at_validation",
         "candidateCount": 3
       }
     },
@@ -3589,7 +3619,7 @@
         "tvgId": "PublicDirect.44f9d286f6768740b06eaad9",
         "name": "Golf Channel HD [IP 45.171.64.30]",
         "status": "pending",
-        "reason": "regional_feed_not_identified",
+        "reason": "unstable_playback_and_content_guide_conflict",
         "candidateCount": 2
       }
     },
@@ -3606,8 +3636,8 @@
         "name": "Guatevision - GUA [IP 45.171.64.30]",
         "source": "gt",
         "source_id": "Guatevision.gt",
-        "evidence": "explicit_GUA_name_and_exact_FreeEPG_Guatemala_channel; 109.39h continuous in current feed",
-        "coverageHours": 109.39,
+        "evidence": "Explicit GUA name and exact FreeEPG Guatemala channel. Revalidated on emulator 2026-10-14 20:34-20:35 UTC: decoded Guatevision picture/logo and OSD program 'Manos a la obra' (20:30-21:30 UTC), matching Guatevision.gt. XMLTV remains continuous for 99.32h from the recheck. Playback later returned to initial-segment validation; this does not alter guide identity.",
+        "coverageHours": 99.32,
         "status": "matched"
       }
     },
@@ -3622,9 +3652,11 @@
         "number": 396,
         "tvgId": "PublicDirect.0ef1ce174fa5aaee3811b04f",
         "name": "H2 [IP 45.171.64.30]",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 2
+        "source": "cl",
+        "source_id": "Canal.History.2.(Chile).cl",
+        "evidence": "Emulator screenshot 213-channel396-first.png at 2026-10-14 20:37 UTC shows H2 logo and on-screen program title 'El código de Dios'. CL XMLTV Canal.History.2.(Chile).cl lists the exact title 20:05-21:40 UTC; MX1, AR1, CO1, PA1 and GT H2 schedules show the same block and subsequent sequence. CL is used only as an equivalent schedule, not to infer the stream's physical region. Continuous future coverage from 20:40 UTC is 28.32h.",
+        "coverageHours": 28.32,
+        "status": "matched"
       }
     },
     {
@@ -3638,9 +3670,11 @@
         "number": 397,
         "tvgId": "PublicDirect.8db5a974dc4b6ed483cf2bf9",
         "name": "HBO XTREME [IP 45.171.64.30]",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 4
+        "source": "cl",
+        "source_id": "Canal.HBO.Xtreme.cl",
+        "evidence": "Emulator screenshots 217-channel397-after-wait.png and 218-channel397-second-frame.png at 2026-10-14 20:44-20:48 UTC show HBO Xtreme branding and changing decoded scenes: hooded residents around a flame, then bloodied hands. The CL XMLTV event is Te van a matar (19:20-20:58 UTC at recheck); MX1, AR1, PA1 and GT provide the same Spanish title and subsequent sequence; CO1 identifies it as They Will Kill You. The plot synopsis and scenes are consistent with the film's cult setting. CL is selected only as a schedule-equivalent guide, not as a physical-region claim. Continuous future coverage from 20:48 UTC is 58.13h.",
+        "coverageHours": 58.13,
+        "status": "matched"
       }
     },
     {
@@ -3654,9 +3688,11 @@
         "number": 398,
         "tvgId": "PublicDirect.c1ed48f37448ded5dca7e8bd",
         "name": "History Channel [IP 45.171.64.30]",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 2
+        "status": "matched",
+        "source": "pa1",
+        "source_id": "Canal.History.(Panamá).pa",
+        "coverageHours": 27.42,
+        "evidence": "Captures 220 and 221 show decoded History Channel video and on-screen title Misterios inexplorados con Danny Trejo at 20:55-20:58 UTC. pa1 has the exact-title current event 20:55-21:45 UTC and 27.42 h continuous coverage from validation. Other regional History feeds schedule different programmes at that hour; no physical region is inferred. Playback freezes in later frames, so this verifies guide identity, not stream stability."
       }
     },
     {
@@ -3671,8 +3707,9 @@
         "tvgId": "PublicDirect.459d3dc3761d20aa0f17806a",
         "name": "History HD [IP 45.171.64.30]",
         "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 5
+        "reason": "no_exact_current_programme_match",
+        "candidateCount": 5,
+        "evidence": "Captures 223-226 show decoded History HD scenes without an on-screen programme title; captures 225 and 226 repeat the same frame about 40 seconds apart. Current regional XMLTV schedules differ (CL Ciudades Ocultas; MX1/GT Cazadores de tesoros; CO1 La evidencia está entre nosotros; PA1 Misterios inexplorados con Danny Trejo), so no exact match can be defended."
       }
     },
     {
@@ -3687,8 +3724,9 @@
         "tvgId": "PublicDirect.eab9850053533285f56d213a",
         "name": "Home Garden Latino [IP 45.171.64.30]",
         "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 0
+        "reason": "no_exact_current_programme_match",
+        "candidateCount": 0,
+        "evidence": "Captures 227-229 show decoded HGTV scenes of a wooded lakeside house, but no programme title. Captures 228 and 229 repeat the same frame about 68 seconds apart. At 21:07 UTC the available schedules diverge: CO1 HGTV.co lists Nuestro hogar en las Bahamas; US2 HGTV Pacific lists Scariest House in America and US2 HGTV lists Zillow Gone Wild. The visual evidence does not identify which programme is on air; no exact match can be defended."
       }
     },
     {
@@ -3703,8 +3741,9 @@
         "tvgId": "PublicDirect.c242c1f1773acbfff4232e28",
         "name": "LIFE TIME [IP 45.171.64.30]",
         "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 4
+        "reason": "only_advertisement_content_at_validation",
+        "candidateCount": 4,
+        "evidence": "Captures 230-233 show a Lifetime promo labelled AMERICA followed by TeveCompras Argentina advertisements; no title identifies the programme currently airing. AR1, CL, PA1 and GT schedule Medicina mortal at 21:12 UTC, while MX1 and US feeds differ, but the ad break does not establish that event. Keep pending until programme content can be identified."
       }
     },
     {
@@ -3719,8 +3758,9 @@
         "tvgId": "PublicDirect.a712127b104cc2260c6fedc0",
         "name": "La voz de Maria [IP 45.171.64.30]",
         "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 0
+        "reason": "no_exact_current_programme_match",
+        "candidateCount": 0,
+        "evidence": "Captures 234-235 (21:15 UTC) decode changing frames from a LUM-branded devotional segment with the visible label/logo 3er Plan de Salvación; no programme title or episode beyond the segment branding is visible. The EPGShare snapshot generated 2026-10-14T18:14:37Z contains no Dominican Republic source/channel matching La Voz de Maria and no exact active XMLTV programme matching the visible text at validation (candidateCount 0). The moving decoded feed confirms a live picture, not the programme schedule. Keep pending until an exact current programme and at least 12 continuous future hours are evidenced."
       }
     },
     {
@@ -3736,7 +3776,8 @@
         "name": "AyM Sports [IP 45.171.64.30]",
         "status": "pending",
         "reason": "regional_feed_not_identified",
-        "candidateCount": 0
+        "candidateCount": 0,
+        "evidence": "Captures 236-237 (21:21-21:22 UTC) decode changing frames of a baseball game with the AyM Sports watermark and a 0-2 score; the small scoreboard text does not identify both teams/event reliably. In the EPGShare snapshot generated 2026-10-14T18:14:37Z, no active programme near validation names AyM, the visible teams, or a matching baseball event, and no AyM-specific source/channel is present (candidateCount 0). The official Yaquis schedule lists Mayos vs Yaquis for October 14 at 19:10 local, but the screenshot is not sufficiently legible to establish that this feed carries that event. Keep pending until the exact current event/feed and at least 12 continuous future hours are confirmed."
       }
     },
     {
@@ -3751,8 +3792,9 @@
         "tvgId": "PublicDirect.7d829b68f0e63dbdd397a468",
         "name": "Multicinema [IP 45.171.64.30]",
         "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 0
+        "reason": "programme_title_not_identified",
+        "candidateCount": 0,
+        "evidence": "Captures 238-240 show changing film scenes under the MC watermark; the player OSD identifies only channel 404 / Películas, not the movie title. Capture 239 reports HLS reopening/retry 3/3; capture 240 recovers at 544x480 and 6.9 FPS, but still has no title. No exact current programme can be matched to the available XMLTV snapshot and there is no source-region identity for this direct feed. Keep pending until the film title/feed is identified and at least 12 continuous future hours are verified."
       }
     },
     {
@@ -3767,8 +3809,9 @@
         "tvgId": "PublicDirect.cbbf16d047322fe020949bf8",
         "name": "Fox Sports [IP 45.171.64.30]",
         "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 2
+        "reason": "no_exact_current_programme_match",
+        "candidateCount": 2,
+        "evidence": "Captures 241-242 (21:29-21:32 UTC) show FOX VIVO with a Liga de Ascenso de El Salvador soccer scorebug, ARU 0-0 IIL, while the player OSD identifies channel 405 / Fox Sports. The EPGShare snapshot generated 2026-10-14T18:14:37Z has no El Salvador source or matching active event. Its MX1 Fox Sports candidate is on Fox Gol Femenil; MX1 Fox Sports 2 and GT Fox Sports 2 are on AEW Collision, so neither provides an exact current match. The decoded video changes, but the player stats fall to 0.8 FPS/red in capture 242; this is not proof of stable playback. Keep pending until a matching regional event feed and at least 12 continuous future hours are found."
       }
     },
     {
@@ -3782,9 +3825,11 @@
         "number": 406,
         "tvgId": "PublicDirect.747adbe6694514eee98e7ed5",
         "name": "A3Cine [IP 45.171.64.30]",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 1
+        "status": "matched",
+        "source": "es",
+        "source_id": "A3CINE.es",
+        "coverageHours": 84.38,
+        "evidence": "Captures 243 (21:36 UTC) and 244 (21:37 UTC) show the A3Cine watermark and #406 OSD. Capture 244 contains a distinctive composition: a blonde woman in a red/white striped top at left, an older bald man seated center, a woman standing behind him, and a younger man in a red sweater at right. This matches the Ninette film frame described in the Fancine 2005 PDF; the official ICAA film record identifies Ninette as the 2005 José Luis Garci adaptation starring Elsa Pataky. EPGShare source es / A3CINE.es lists Ninette from 21:00-23:00 UTC at validation; 84.38 h continuous future coverage through 2026-10-18T10:00:00Z. Exact visual programme match; no physical-region inference."
       }
     },
     {
@@ -3800,7 +3845,8 @@
         "name": "Pasiones HD [IP 45.171.64.30]",
         "status": "pending",
         "reason": "regional_feed_not_identified",
-        "candidateCount": 1
+        "candidateCount": 1,
+        "evidence": "Captures 245-248 show the Pasiones branding. Capture 246 reports HLS reopening and 0.6 FPS; captures 247-248 repeat the same scene, with no programme title or identifying on-screen text. The image is insufficient to choose the regional Pasiones schedule; leave pending."
       }
     },
     {
@@ -3816,7 +3862,8 @@
         "name": "Pregon Infirmativo [IP 45.171.64.30]",
         "status": "pending",
         "reason": "regional_feed_not_identified",
-        "candidateCount": 0
+        "candidateCount": 0,
+        "evidence": "Captures 249-252 show the PIT logo and changing monochrome footage; the OSD confirms Pregon Infirmativo but shows no programme title. A decoded image and channel identity do not distinguish an XMLTV programme; leave pending."
       }
     },
     {
@@ -3832,7 +3879,8 @@
         "name": "La Red TV [IP 45.171.64.30]",
         "status": "pending",
         "reason": "regional_feed_not_identified",
-        "candidateCount": 0
+        "candidateCount": 0,
+        "evidence": "Captures 253-255 show a La Red TV-branded interview and a feed clock advancing 15:47 to 15:48; the app OSD confirms channel 409 but has no programme title. A public Guatemala listing has a plausible schedule slot, but neither the interview nor the channel mark alone proves the exact programme, and the runner has no configured sv XMLTV part. Keep pending until an exact programme/source with 12 hours of coverage is available."
       }
     },
     {
@@ -3848,8 +3896,8 @@
         "name": "RCN Novelas [IP 45.171.64.30]",
         "source": "co1",
         "source_id": "RCN.Novelas.co",
-        "evidence": "unique_national_broadcaster_identity",
-        "coverageHours": 12,
+        "evidence": "Captures 256-257 show different frames from RCN Novelas, confirming decoded moving video. At 21:54 UTC, the OSD labels the current programme Lala's spa (21:00-22:00 UTC) and next Así es la Vida at 22:00. The published Raw epg.xml fragment for this same ID and source co1 / RCN.Novelas.co lists Lala's spa at 21:00-22:00, then continues without gaps through 13:00 UTC on 2026-10-15 (15.08 continuous future hours). Exact visual and schedule match; no physical-region inference.",
+        "coverageHours": 15.08,
         "status": "matched"
       }
     },
@@ -3866,7 +3914,8 @@
         "name": "Radio renecer [IP 45.171.64.30]",
         "status": "pending",
         "reason": "regional_feed_not_identified",
-        "candidateCount": 0
+      "candidateCount": 0,
+      "evidence": "Captures 258-259 show the Tv Renacer logo and audiovisual content. The OSD confirms channel 411 Radio renecer and category Miscellaneous but gives no programme title; the visible scene does not identify an exact current programme or regional XMLTV source. Leave pending until exact programme/source evidence and at least 12 continuous future hours are available."
       }
     },
     {
@@ -3882,7 +3931,8 @@
         "name": "SEMILLITAS [IP 45.171.64.30]",
         "status": "pending",
         "reason": "regional_feed_not_identified",
-        "candidateCount": 0
+      "candidateCount": 0,
+      "evidence": "Captures 260-263 show Semillitas branding and cartoon imagery. The channel OSD at capture 263 is in HLS-reopen state at 0.9 FPS and has no programme title; the configured EPG candidate set has no matching Semillitas XMLTV source. Leave pending until the exact programme/source is identified and at least 12 continuous future hours are verified."
       }
     },
     {
@@ -3897,8 +3947,9 @@
         "tvgId": "PublicDirect.6d1b04a9ccdf4197fbbc3ef6",
         "name": "SONY [IP 45.171.64.30]",
         "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 4
+      "reason": "no_exact_current_programme_match",
+      "candidateCount": 4,
+      "evidence": "Captures 264-267 show Sony-branded movie scenes and decoded video; the OSD identifies only the channel/category Peliculas and provides no programme title. Four regional XMLTV candidates remain indistinguishable without an exact current programme match. Keep pending until the title/source is identified and at least 12 continuous future hours are verified."
       }
     },
     {
@@ -3913,8 +3964,9 @@
         "tvgId": "PublicDirect.1426399def5c52eee57f4bb0",
         "name": "SPACE [IP 45.171.64.30]",
         "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 6
+      "reason": "no_exact_current_programme_match",
+      "candidateCount": 6,
+      "evidence": "Captures 268-269 show a Space-branded commercial followed by an unidentified dramatic scene. The OSD gives only the Peliculas category, with no programme title; six regional candidates remain indistinguishable. Keep pending until an exact current programme and a source with at least 12 continuous future hours are demonstrated."
       }
     },
     {
@@ -3929,8 +3981,9 @@
         "tvgId": "PublicDirect.0d0b3a195eb01f1ab454cd75",
         "name": "Sony Movies HD [IP 45.171.64.30]",
         "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 1
+      "reason": "no_exact_current_programme_match",
+      "candidateCount": 1,
+      "evidence": "Captures 270-271 show Sony Movies branding and changing movie scenes; the OSD reports only the Peliculas category and no programme title. The single available regional candidate cannot be confirmed from the image, so keep pending until exact programme/source evidence and at least 12 continuous future hours are available."
       }
     },
     {
@@ -3944,9 +3997,12 @@
         "number": 416,
         "tvgId": "PublicDirect.590828755b8ac040706c8575",
         "name": "Studio Universal [IP 45.171.64.30]",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 5
+      "candidateCount": 5,
+      "status": "matched",
+      "source": "co1",
+      "source_id": "Studio.Universal.co",
+      "coverageHours": 12.9,
+      "evidence": "Captures 272-274 show Studio Universal animated end credits. Capture 275 from the HD simulcast lists soundtrack cues explicitly credited to Spider-Man: Into the Spider-Verse; capture 273 OSD confirms channel 416 Studio Universal and category Peliculas. The configured co1 XMLTV entry Studio.Universal.co schedules Spider-Man: Un nuevo universo from 20:15 to 22:25 UTC on 2026-10-14, covering validation capture at 22:06 UTC. Its contiguous schedule reaches 11:00 UTC on 2026-10-15, 12.9 h after validation. This is a programme/guide match, not proof of physical region or long-term stream stability."
       }
     },
     {
@@ -3960,9 +4016,11 @@
         "number": 417,
         "tvgId": "PublicDirect.52f6bff32710f7c83abeda34",
         "name": "Studio Universal HD [IP 45.171.64.30]",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 5
+      "status": "matched",
+      "source": "co1",
+      "source_id": "Studio.Universal.co",
+      "coverageHours": 12.85,
+      "evidence": "Captures 275-276 show Studio Universal HD end credits; capture 275 explicitly credits multiple songs to Spider-Man: Into the Spider-Verse, and capture 276 OSD confirms channel 417, Studio Universal HD. The configured co1 XMLTV entry Studio.Universal.co schedules Spider-Man: Un nuevo universo from 20:15 to 22:25 UTC on 2026-10-14, covering the validation capture at 22:09 UTC. Its contiguous schedule reaches 11:00 UTC on 2026-10-15, 12.85 h after validation. This is a programme/guide match, not proof of physical region or long-term stream stability; the OSD capture indicates one HLS retry."
       }
     },
     {
@@ -3978,7 +4036,8 @@
         "name": "TBN Enlace [IP 45.171.64.30]",
         "status": "pending",
         "reason": "regional_feed_not_identified",
-        "candidateCount": 0
+        "candidateCount": 0,
+        "evidence": "Captures 281-285 show a Costa Rica-scoped Ancient Nutrition commercial followed by an Enlace interstitial reading 'Desde Bogotá, Colombia / 11:30 AM'; capture 282 OSD confirms channel 418 TBN Enlace and only the category Misceláneos. No current-programme title is visible after 40 seconds of observation, and the runner has no configured TBN/Enlace XMLTV entry to test against exact on-screen content. Keep pending; do not infer feed region from ad/interstitial text."
       }
     },
     {
@@ -3992,9 +4051,12 @@
         "number": 419,
         "tvgId": "PublicDirect.ae75ddaa5bf1de03760155d8",
         "name": "TNT Novelas [IP 45.171.64.30]",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 3
+        "status": "matched",
+        "source": "co1",
+        "source_id": "TNT.Novelas.co",
+        "coverageHours": 50.08,
+        "candidateCount": 5,
+        "evidence": "Capture 290 at 22:31 UTC shows the TNT Novelas logo and the on-screen title QUIEREME SIEMPRE; the OSD simultaneously confirms channel 419 TNT Novelas. The configured co1 XMLTV ID TNT.Novelas.co lists Quiéreme siempre from 21:50 to 22:43 UTC, covering the capture; contiguous co1 listings extend to 00:36 UTC on 2026-10-17 (50.08 h from validation). CL, MX1, AR1 and PA1 XMLTV also list the same title/current window, so this is an equivalent programme-guide match and does not establish the physical stream region. co1 is used consistently with the already curated TNT Novelas HD reference. Initial playback failed once (4007003); a retry decoded the programme, so this does not prove long-term stream stability."
       }
     },
     {
@@ -4010,7 +4072,8 @@
         "name": "TD+2 HD CR [IP 45.171.64.30]",
         "status": "pending",
         "reason": "regional_feed_not_identified",
-        "candidateCount": 0
+        "candidateCount": 0,
+        "evidence": "Captures 291-293 show a sports-talk/interview segment with a visible VISION logo on TD+2; capture 292 OSD confirms channel 420 and category Deportes. No programme title is visible in the OSD; the separate VISION graphic is not enough to establish the scheduled programme, and the runner has no configured Costa Rica/TD+ XMLTV source with a 12-hour schedule to compare. Keep pending."
       }
     },
     {
@@ -4026,7 +4089,8 @@
         "name": "TD+HD CR [IP 45.171.64.30]",
         "status": "pending",
         "reason": "regional_feed_not_identified",
-        "candidateCount": 0
+        "candidateCount": 0,
+        "evidence": "Captures 294-296 show a TDMAX sports studio; capture 294 carries the graphic 'EL ROL DEL MEDIOCENTRO', capture 295 OSD confirms channel 421 and category Deportes, and capture 296 shows the interview continuing. The graphic may identify a segment, but no configured Costa Rica/TD+/TDMAX XMLTV schedule with at least 12 continuous future hours is available to validate the current programme. Keep pending rather than treating a segment graphic as a full guide match."
       }
     },
     {
@@ -4042,7 +4106,8 @@
         "name": "TLC [IP 45.171.64.30]",
         "status": "pending",
         "reason": "regional_feed_not_identified",
-        "candidateCount": 7
+        "candidateCount": 7,
+        "evidence": "Captures 297-300 show a TLC-branded dramatic scene followed by advertising; capture 298 OSD confirms channel 422 and only the category Misceláneos, and the stream reports an HLS reopen. Seven regional XMLTV candidates remain, but none can be selected without an exact current-programme title from the video/OSD. Keep pending rather than infer from genre or scene."
       }
     },
     {
@@ -4058,7 +4123,8 @@
         "name": "Discovery Channel [IP 45.171.64.30] · señal 2",
         "status": "pending",
         "reason": "regional_feed_not_identified",
-        "candidateCount": 4
+        "candidateCount": 4,
+        "evidence": "Emulator captures 301-303 show a woman in a white hat, a close-up under a TNT watermark, then a Protex advertisement. Capture 302 OSD confirms channel 423 and only category Misceláneos; no exact programme title is visible, and the TNT watermark conflicts with the Discovery label rather than identifying the regional feed. Four XMLTV candidates remain; keep pending without an exact current-title match and 12 continuous future hours."
       }
     },
     {
@@ -4074,7 +4140,8 @@
         "name": "TNT Series [IP 45.171.64.30]",
         "status": "pending",
         "reason": "regional_feed_not_identified",
-        "candidateCount": 5
+        "candidateCount": 5,
+        "evidence": "Emulator captures 304-306 show an advertisement followed by an unidentified living-room scene. Capture 305 OSD confirms channel 424 TNT Series and only category Películas; no programme title appears. Five regional XMLTV candidates remain, so keep pending without an exact current-title match and 12 continuous future hours."
       }
     },
     {
@@ -4088,9 +4155,12 @@
         "number": 425,
         "tvgId": "PublicDirect.b8b5b69e22a2787006d8bf21",
         "name": "Telemundo [IP 45.171.64.30]",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 4
+        "status": "matched",
+        "source": "co1",
+        "source_id": "Telemundo.co",
+        "coverageHours": 73.18,
+        "candidateCount": 4,
+        "evidence": "Emulator capture 307 at 2026-10-14 22:54:10 UTC shows the Telemundo Internacional frame with the distinctive CC/Caso Cerrado mark and the lower-third 'DEMANDANTE Dayamit'; capture 308 continues the same courtroom segment. CO1 XMLTV Telemundo.co has 'Caso cerrado' from 22:10 to 23:05 UTC at that time and continuous programming through 2026-10-18 00:05 UTC (73.18 future hours). CL1, MX1 and PA1 also show the equivalent Caso Cerrado block, so region is not inferred. The configured US2 Telemundo Satellite Feed instead schedules Noticias Telemundo at 22:30-23:00 UTC and does not match this frame; use the exact CO1 programme match for this public-direct ID."
       }
     },
     {
@@ -4104,9 +4174,12 @@
         "number": 426,
         "tvgId": "PublicDirect.67f76c9db1d9d67dc2af39fb",
         "name": "Telemundo HD [IP 45.171.64.30]",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 4
+        "status": "matched",
+        "source": "co1",
+        "source_id": "Telemundo.co",
+        "coverageHours": 73.07,
+        "candidateCount": 4,
+        "evidence": "Emulator capture 311 at 23:00 UTC confirms Telemundo HD channel 426 and shows the same Telemundo Internacional courtroom segment, presenter and participants seen on the SD sibling #425 at 22:54:10 UTC, whose CC/Caso Cerrado mark and 'DEMANDANTE Dayamit' lower-third identify the programme; capture 312 at 23:01 UTC continues the same segment. CO1 XMLTV Telemundo.co lists 'Caso cerrado' through 23:05 UTC, with 73.07 continuous future hours at the HD capture time. CL1, MX1 and PA1 carry equivalent schedule blocks; no physical region is inferred. US2 instead lists Top Chef VIP from 23:00 UTC and does not match these frames. The local CO1 override applies to this public-direct HD ID; stream stability is not claimed."
       }
     },
     {
@@ -4122,7 +4195,8 @@
         "name": "Televida RD [IP 45.171.64.30]",
         "status": "pending",
         "reason": "regional_feed_not_identified",
-        "candidateCount": 0
+        "candidateCount": 0,
+        "evidence": "Emulator captures 313-315 show a Catholic Mass and the Televida logo. Capture 314 OSD confirms channel 427 Televida RD and category Misceláneos at 23:04 UTC. No programme title or named segment is visible, and the current curated source inventory has candidateCount 0 for Dominican Televida; do not infer 'Santa Misa' or fabricate continuity."
       }
     },
     {
@@ -4138,7 +4212,8 @@
         "name": "UNIVERSAL COMEDY HD [IP 45.171.64.30]",
         "status": "pending",
         "reason": "regional_feed_not_identified",
-        "candidateCount": 3
+        "candidateCount": 3,
+        "evidence": "Emulator captures 316-319 and current-state capture at OSD 23:12 UTC confirm channel 428 Universal Comedy HD; the OSD shows only category Películas. Capture 317 reports playback error 5009005; a retry decodes a police-station scene at 0.9 FPS and capture 319 shows only producer credit Richard H. Prince, not a programme title. The current MX1 Universal Comedy candidate Superstore (22:55-23:20 UTC) is not visually identifiable from these frames; no exact title can be matched and the short unstable playback does not establish a feed. Keep pending; do not infer from channel branding, genre, IP or producer credit."
       }
     },
     {
@@ -4152,9 +4227,12 @@
         "number": 429,
         "tvgId": "PublicDirect.d48635571a0af3b28d47db03",
         "name": "UNIVERSAL CRIME HD [IP 45.171.64.30]",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 4
+        "status": "matched",
+        "source": "uy1",
+        "source_id": "[UNICR].Universal.Crime.uy",
+        "coverageHours": 12.77,
+        "candidateCount": 4,
+        "evidence": "Emulator capture 321 at 23:14 UTC confirms channel 429 Universal Crime HD. Capture 322 shows Facebook posts naming Jim Bidwell and Kristen Wagner; capture 323 shows Monroe County administrative offices; capture 324 shows the forensic record for Kristen Wagner, including hanging and Stroud Township/Crowe Road. The official Oxygen page identifies the Kristen Wagner/Jim Bidwell Facebook-messages case as Accident, Suicide, or Murder Season 4 Episode 16 (https://www.oxygen.com/accident-suicide-or-murder/season-4/episode-16/videos/kristen-wagners-sister-uncovers-facebook); its case explainer independently confirms the junkyard/autopsy details (https://www.oxygen.com/accident-suicide-or-murder/james-bidwell-killed-kristen-wagner-why-case-explainer). UY1 XMLTV [UNICR] Universal Crime schedules 'Accidente, suicidio o asesinato' / 'Escena del crimen cargada' at 22:30-23:15 UTC and the same series / 'Secretos en el depósito de chatarra' at 23:15-00:00 UTC, matching the documented case and capture boundary. Its real schedule remains continuous to 12:00 UTC on 2026-10-15 (12.77 future hours from the OSD anchor); no Live filler is used. MX1 instead lists Parejas asesinas / Jennifer Smith y Dale Moneypenny and US2 lists Columbo / Short Fuse at the anchor time, neither matching the case. The UY1 guide is selected by exact schedule match, not an inference of the stream's physical region. Playback is unstable: HLS retry/reopen and errors 5009005 and 3005416 are documented in captures 323-326; no stability claim is made."
       }
     },
     {
@@ -4168,9 +4246,12 @@
         "number": 430,
         "tvgId": "PublicDirect.9193ba6e85578f4486a958d7",
         "name": "UNIVERSAL PREMIERE HD [IP 45.171.64.30]",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 3
+        "status": "matched",
+        "source": "uy1",
+        "source_id": "[UNIPR].Universal.Premiere.uy",
+        "coverageHours": 14.15,
+        "candidateCount": 3,
+        "evidence": "Emulator capture 328 confirms channel 430 Universal Premiere HD at 23:20 UTC; capture 331 anchors the OSD at 23:21 UTC. Captures 329 and 332 show FBI identification on a jacket and an FBI agent. Capture 334 at 23:24 shows a case board identifying Keith Edmonds as a missing UK citizen, a retired public-school teacher from Bristol, and describing an online romance scam targeting elderly men and luring them abroad. This matches the plot of FBI: International S4E5, El futuro es promisorio: an American man is kidnapped in Warsaw alongside a Ukrainian woman he met through a dating app, and the Fly Team investigates the site (https://tv.apple.com/mx/episode/el-futuro-es-promisorio/umc.cmc.5ffwegcxttj858m3t86nfsp3d). At 23:21 UTC UY1 [UNIPR] lists FBI: International / El futuro es promisorio; its subsequent real programmes are contiguous in 45-minute blocks through 13:30 UTC on 2026-10-15, 14.15 future hours. The other two catalogued candidates at the anchor, MX1 Canal.Universal.Premiere.mx and UY1 [UNIPRMH].UNIPRMH.uy, list House MD / House M.D. and do not fit the FBI case evidence. Assignment is based on the visible FBI case and matching episode guide, not channel name, logo, IP or assumed region. Capture 333 records playback failure 3005416 after the scene; no stability claim is made."
       }
     },
     {
@@ -4184,9 +4265,12 @@
         "number": 431,
         "tvgId": "PublicDirect.fe8012537d4b52a34d2778bd",
         "name": "UNIVERSAL PREMIERE O HD [IP 45.171.64.30]",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 0
+        "status": "matched",
+        "source": "uy1",
+        "source_id": "[UNIPRMH].UNIPRMH.uy",
+        "coverageHours": 14.07,
+        "candidateCount": 3,
+        "evidence": "Emulator captures 335 and 336 confirm channel 431 Universal Premiere O HD at 23:26-23:27 UTC and show Hugh Laurie as Dr. Gregory House in a scene from House M.D. UY1 [UNIPRMH].UNIPRMH.uy lists House M.D. / El regreso at 23:15-00:00 UTC; the episode-level synopsis is not readable in the frame, so the confirmed title is the series, not an independently verified episode subtitle. MX1 Canal.Universal.Premiere.mx also lists House MD at the same time; the UY1 listing includes the episode subtitle and continues in contiguous 45-minute blocks through 13:30 UTC on 2026-10-15, 14.07 future hours. The selected UY1 schedule is based on the exact visible series match and its current programme, not a region inference. Captures 337-338 show a later HLS error 3005416 and segment revalidation; no stream-stability claim is made."
       }
     },
     {
@@ -4201,8 +4285,9 @@
         "tvgId": "PublicDirect.391630d2ff5eec427fa516f1",
         "name": "Universal [IP 45.171.64.30]",
         "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 1
+        "reason": "no_exact_current_programme_match",
+        "candidateCount": 5,
+        "evidence": "Emulator captures 339 and 342 anchor channel 432 at 23:29-23:30 UTC; capture 343 decodes an end-card credit identifying Cassie Reyes and Sean O'Brien in Brooklyn, with police-detective context visible in captures 340-341. NBC/Peacock identifies those credited characters in Law & Order: SVU S26E19, Play with Fire Part 2; the official Peacock season listing distinguishes S26E21, Aperture (XMLTV Spanish: Apertura). UY1 [UNTVAR].Universal.TV.uy lists SVU / Apertura at the anchor, which is the wrong episode; the other four candidate listings (UY1 [UNTVM], MX1, CO1 and PA1) list Chicago Fire, also inconsistent. No curated candidate matches the exact current episode, so the channel remains pending despite identifying the broadcast. Later HLS retry/segment errors are documented in capture 333; no stability claim is made."
       }
     },
     {
@@ -4216,9 +4301,12 @@
         "number": 433,
         "tvgId": "PublicDirect.6d8f767d72df832a0dcaf1b3",
         "name": "Univision HD [IP 45.171.64.30]",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 1
+        "status": "matched",
+        "source": "uy1",
+        "source_id": "UNIVISION.HD.uy",
+        "coverageHours": 15.43,
+        "candidateCount": 4,
+        "evidence": "Emulator captures 349-351 anchor channel 433 at 23:33-23:34 UTC; capture 351 shows Univision branding and the end credits Yigael Yadin, Roger Montes and Pancho Tello. These credits identify La historia de Juana (cast credits: https://www.imdb.com/es-es/title/tt31511583/fullcredits/; official Univision series page: https://www.univision.com/shows/la-historia-de-juana/la-historia-de-juana-personajes-actores-elenco-novela-univision). At the 23:34 UTC anchor, UY1 UNIVISION.HD.uy and CL Canal.Univision.(Chile).cl both list La historia de Juana (23:00-00:45 UTC) and identical contiguous real schedules through 15:00 UTC on 2026-10-15, 15.43 future hours. UY1 is selected by its exact UNIVISION HD channel entry; CL corroborates the same schedule, without inferring the physical region. US2 Univision Network lists La rosa de Guadalupe at the same time and is rejected. The guide confirms the series, not an episode subtitle. Capture 351 reports only 0.6 FPS/retry 3 of 3; content decodes, but no stability claim is made."
       }
     },
     {
@@ -4296,9 +4384,11 @@
         "number": 438,
         "tvgId": "PublicDirect.792c9413cb2a98e7c3d972f6",
         "name": "la liga [IP 45.171.64.30]",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 0
+        "source": "mx1",
+        "source_id": "Canal.Sky.Sports.16.mx",
+        "evidence": "Emulator capture 371 anchors the channel at 23:54 UTC on 2026-10-14. The on-screen hashtag #AlavesAtleti and score Alavés 1–1 Atlético at 58:26 identify Deportivo Alavés vs. Atlético de Madrid. MX1 Canal.Sky.Sports.16.mx lists that exact fixture from 23:00 to 01:00 UTC and then has continuous LaLiga programmes through 12:00 UTC on 2026-10-15, for 12.12 future hours. The stream identity/physical region is not inferred.",
+        "coverageHours": 12.12,
+        "status": "matched"
       }
     },
     {
@@ -4363,8 +4453,9 @@
         "tvgId": "PublicDirect.19fbfbd8b220cd0fb65ac244",
         "name": "A&E-IXP [IP 138.59.177.78]",
         "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 0
+        "reason": "no_exact_current_programme_match",
+        "candidateCount": 5,
+        "evidence": "Emulator captures 376-382 anchor 00:28-00:30 UTC on 2026-10-15. Capture 379 shows only a promo for El precio de la historia; capture 381 has a corrupted/retrying frame with a partial ¿Quién da más? overlay and capture 382 ends with stream error 3004404. Current XMLTV candidates conflict: CL/CO1/PA1 list ¿Quién da más? (CL says Miami; CO1/PA1 say La pista de Barry), while MX1/UY1 list Escuadrón de homicidios. The video never establishes the full current title or a unique feed; do not assign by the promo or IP."
       }
     },
     {
@@ -4378,9 +4469,11 @@
         "number": 443,
         "tvgId": "PublicDirect.5c8f98d3876cb07b0c0884f6",
         "name": "AMC-IXP [IP 138.59.177.78]",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 0
+        "source": "co1",
+        "source_id": "AMC.co",
+        "evidence": "Emulator captures 383 and 385-386 show AMC and the on-screen CCTV identities John Lake and Andre Daniels at OSD 00:32 UTC on 2026-10-15; these characters identify RoboCop (2014). CO1 AMC.co lists RoboCop from 2026-10-14 22:55 to 2026-10-15 01:00 UTC, then contiguous real programmes through 13:00 UTC, giving 12.47 future hours. Other AMC guides at that time list different titles and do not match the identified film. Reconnection/retry overlay is visible; guide match does not certify stream stability. See https://www.imdb.com/title/tt1234721/ for the character cast identification.",
+        "coverageHours": 12.47,
+        "status": "matched"
       }
     },
     {
@@ -4394,9 +4487,11 @@
         "number": 444,
         "tvgId": "PublicDirect.21d595905b477139407f7250",
         "name": "ANIMAL PLANET-IXP [IP 138.59.177.78]",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 0
+        "status": "matched",
+        "source": "cl",
+        "source_id": "Canal.Animal.Planet.(Chile).cl",
+        "evidence": "Emulator capture 389 confirms channel 444 at OSD 00:39 UTC on 2026-10-15, with Animal Planet logo and on-screen title 'el acuario'. The current CL XMLTV event is 'El acuario / El trato de la foca' from 00:36 to 01:24 UTC; the following real events are contiguous through 13:24 UTC, providing 12.75 future hours from the OSD anchor. AR1 and PA1 offer the same schedule; CO1 and UY1 show the same title and episode but shifted event boundaries, while MX1 is showing a different programme. This supports an equivalent schedule mapping only, not physical feed region. The video is visibly degraded, so the mapping does not certify playback stability. See outputs/epg-audit-20261014-followup/389-channel444-later.png.",
+        "coverageHours": 12.75
       }
     },
     {
@@ -4411,8 +4506,9 @@
         "tvgId": "PublicDirect.01717cb57d90b7cd8ece5331",
         "name": "BABY TV-IXP [IP 138.59.177.78]",
         "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 0
+        "reason": "no_exact_current_programme_match",
+        "candidateCount": 0,
+        "evidence": "Emulator captures 390-392 show channel 445 and BabyTV identity while the player remains on 'Validando segmento inicial'. After reopening the channel, capture 393 decodes a BabyTV cartoon frame but displays 'Reabriendo fuente HLS'; capture 394 has returned to initial-segment validation. No programme or episode title is visible, so the channel brand/cartoon imagery cannot distinguish an XMLTV feed. The intermittent frame does not establish stable playback. See outputs/epg-audit-20261014-followup/390-channel445-start.png through 394-channel445-later.png."
       }
     },
     {
@@ -4426,9 +4522,11 @@
         "number": 446,
         "tvgId": "PublicDirect.b4a12e148b15b71efbcda5e7",
         "name": "CINEMAX-IXP [IP 138.59.177.78]",
-        "status": "pending",
-        "reason": "regional_feed_not_identified",
-        "candidateCount": 0
+        "status": "matched",
+        "source": "pa1",
+        "source_id": "Canal.Cinemax.(Panamá).pa",
+        "evidence": "Emulator capture 395 confirms OSD channel 446, category Movies and UTC 00:47 on 2026-10-15. Capture 396 shows the final meal scene with three characters, and capture 397 immediately shows the Cinemax 'A continuación: Ip Man 4: El final' transition. The Master Z: The Ip Man Legacy plot ends with Tin-Chi, his son and Julia sharing a meal; thus the programme identification is an inference from this distinctive ending plus the observed next-title bumper, corroborated by PA1 XMLTV's sequence Master Z (22:36-00:49 UTC) then Ip Man 4 (00:49-03:00 UTC). CL, CO1, GT and MX1 also carry Master Z immediately before Ip Man 4 but with different event boundaries; PA1 is the closest schedule transition to the observed bumper. Real contiguous PA1 programming continues through 15:09 UTC, 14.37 future hours from the OSD anchor. This selects an equivalent schedule only and does not infer the physical feed region or certify playback stability. See outputs/epg-audit-20261014-followup/395-channel446-start.png, 396-channel446-retry.png and 397-channel446-later.png; plot cross-check: https://en.wikipedia.org/wiki/Master_Z:_Ip_Man_Legacy.",
+        "coverageHours": 14.37
       }
     },
     {

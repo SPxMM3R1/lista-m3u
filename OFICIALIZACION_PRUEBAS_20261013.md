@@ -1,6 +1,6 @@
 # Oficialización de pruebas — 2026-10-13
 
-Pedido «Todas las pruebas»: 247 activos en prueba de Lista 1 pasan a definitivos sin mover ni borrar filas ni alterar respaldos; 38 referencias Nauta exactas se agregan a la excepción cerrada (42 con las cuatro históricas). A 2026-10-14, los logos comprobados son 234 y 13 siguen pendientes. Cinco nuevas coincidencias de EPG confirmadas en emulador se publicaron y verificaron en Raw: la cifra sube de 57 a 62 asignadas y quedan 185 pendientes. No afirmar EPG/logo completo: definitivo es estado editorial, no prueba de guía/estabilidad. Sin Live de relleno, canales nuevos, selector Android, cambios de app ni APK. Contrato contracts/trial-officialization-20261013.json; pendientes por identidad en esta bitácora. Mantener futuras altas en prueba y no oficializar referencias Nauta fuera de las 42 exactas sin pedido explícito.
+Pedido «Todas las pruebas»: 247 activos en prueba de Lista 1 pasan a definitivos sin mover ni borrar filas ni alterar respaldos; 38 referencias Nauta exactas se agregan a la excepción cerrada (42 con las cuatro históricas). A 2026-10-15, los logos comprobados son 234 y 13 siguen pendientes. GitHub Raw confirma 62/247 guías publicadas; el contrato local suma 31 asignaciones verificadas pero aún no publicadas, para 93/247 y 154 pendientes. No afirmar EPG/logo completo: definitivo es estado editorial, no prueba de guía/estabilidad. Sin Live de relleno, canales nuevos, selector Android, cambios de app ni APK. Contrato contracts/trial-officialization-20261013.json; pendientes por identidad en esta bitácora. Mantener futuras altas en prueba y no oficializar referencias Nauta fuera de las 42 exactas sin pedido explícito.
 
 ## Alcance y límites
 
@@ -10,9 +10,163 @@ Matched means exact curated national/regional source with continuous 12h at vali
 
 Región de Total Conexión: SDT/operador colombiano documentado en la investigación del 12-10, no inferida por geolocalización de IP. Para canales panregionales de Discovery se compararon CL/MX y coincidieron todos los tramos/títulos de las próximas 12 h. No es prueba contemporánea del contenido de todos los programas en cada señal ni TV física. Logos reales PNG/SVG, archivos sin modificar; referencias/hashes en el contrato. No se publican tokens ni enlaces temporales.
 
-Validación complementaria local y publicación remota parcial completadas el 2026-10-14. El estado editorial «definitivo» no acredita que las 247 filas tengan guía ni logo: GitHub Raw confirma 234 logos; quedan 13 pendientes. La publicación EPG anterior tenía 57 mapas y 190 pendientes. La continuación visual agregó cinco asignaciones: el contrato cuenta 62 guías y 185 pendientes; run `38613423120` publicó salida `09e19e6` y Raw confirmó los cinco IDs en `epg.xml` y fuera de `epg-pending.json`.
+Validación complementaria local y publicación remota parcial completadas el 2026-10-14. El estado editorial «definitivo» no acredita que las 247 filas tengan guía ni logo: GitHub Raw confirma 234 logos; quedan 13 pendientes. La publicación EPG anterior tenía 57 mapas y 190 pendientes. La primera continuación visual agregó cinco asignaciones: el contrato llegó a 62 guías y 185 pendientes; run `38613423120` publicó salida `09e19e6` y Raw confirmó los cinco IDs en `epg.xml` y fuera de `epg-pending.json`.
 
 ## Seguimiento de publicación — 2026-10-14
+
+### Continuación visual local — diez nuevas coincidencias; publicación pendiente
+
+Se volvieron a revisar las capturas originales y el XMLTV `epgshare` generado a las 18:14 UTC. El emulador está en GMT; las horas XMLTV con `-0500` se convierten primero a UTC. Las nueve asignaciones verificadas desde ese corte quedan así:
+
+| N.º | Señal → guía | Evidencia y normalización XMLTV | Cobertura continua |
+| ---: | --- | --- | ---: |
+| 372 | Disney → `cl / Canal.Disney.Channel.(Chile).cl` | Captura `163-channel372-decoded.png`, 19:33 UTC, logo Disney Channel y *Star vs. Las Fuerzas del Mal*. XMLTV 14:30–14:59 `-0500` = 19:30–19:59 UTC; mismo título. Guía equivalente, no región física. | 52,45 h |
+| 378 | ESPN 2 → `ar1 / Canal.ESPN.2.(Bolivia).ar` | Captura `176-channel378-later.png`, 19:43 UTC, marcador MCI 0–3 PSG, 39:44. XMLTV 13:40–15:55 `-0500` = 18:40–20:55 UTC; Manchester City vs. Paris Saint-Germain. Guía equivalente, no región física. | 52,78 h |
+| 380 | ESPN 3 → `mx1 / ESPN.3.mx` | Capturas `179-next-channel-confirm.png` y `180-channel380-later.png`, 19:47 UTC; ESPN 3 VIVO, segmento Step to It sobre Dylan Harper/Spurs. MX1 lleva NBA Today 14:00–15:00 `-0500` = 19:00–20:00 UTC. Guía equivalente. | 57,22 h |
+| 381 | ESPN 3 HD → `mx1 / ESPN.3.mx` | Capturas `181-next-channel-confirm.png` y `182-channel381-later.png`, 19:49 UTC; ESPN 3 VIVO, segmento Step to It sobre Kevin Durant/Rockets. Mismo bloque MX1 NBA Today. Guía equivalente. | 57,18 h |
+| 391 | ESPN 6 · señal 2 → `co1 / ESPN.6.HD.co` | Captura `202-channel391-osd.png`, 20:16 UTC; el OSD confirma canal/número y el fotograma decodificado muestra gráfica UEFA y SHK 1–1 AEK a 57:42. CO1 cubre `Fútbol UEFA Champions League` 18:40–21:00 UTC y la descripción identifica Shakhtar y AEK; parrilla continua hasta 13:00 UTC del 15-10. Coincidencia del evento; no se infiere región física. | 16,73 h |
+| 392 | France24 → `fr / France.24.Espanol.fr` | Captura `204-channel392-later.png`, 20:25 UTC; imagen decodificada con rótulo español «INVITAD@ DEL…». XMLTV `France.24.Espanol.fr` indica «Invitado del día» 20:21–20:30 UTC y cobertura continua 14,08 h. Coincidencia del programa; no se infiere región física. | 14,08 h |
+| 396 | H2 → `cl / Canal.History.2.(Chile).cl` | Captura `213-channel396-first.png`, 20:37 UTC, logo H2 y rótulo «EL CÓDIGO DE DIOS». CL ofrece el mismo título 20:05–21:40 UTC; MX1, AR1, CO1, PA1 y GT muestran ese bloque y la misma secuencia. Se usa CL solo como guía equivalente, no como inferencia de región física. | 28,32 h |
+| 397 | HBO Xtreme → `cl / Canal.HBO.Xtreme.cl` | Capturas `216-channel397-first.png` y `218-channel397-second-frame.png`, 20:44 UTC; logo HBO Xtreme y escenas distintas de película. La parrilla CL identifica `Te van a matar` (19:20–20:58 UTC); MX1, AR1, PA1 y GT comparten la secuencia/título y CO1 usa el título inglés. CL es guía equivalente, no inferencia de región física. | 58,13 h |
+| 398 | History Channel → `pa1 / Canal.History.(Panamá).pa` | Capturas `220-channel398-after-wait.png` y `221-channel398-confirm-current.png`; logo History y rótulo de emisión «MISTERIOS INEXPLORADOS CON DANNY TREJO» en el evento XMLTV exacto 20:55–21:45 UTC. Otros feeds regionales History muestran programas distintos a esa hora; PA1 se usa como guía equivalente, no inferencia de región física. La imagen posterior se congela, así que la asignación no acredita estabilidad. | 27,42 h |
+| 406 | A3Cine → `es / A3CINE.es` | Capturas `243-channel406-first.png` y `244-channel406-after-wait.png`; la segunda muestra una composición de escena que coincide con el fotograma descrito para *Ninette* en [Fancine 2005](https://ibdigital.uib.es/greenstone/sites/localsite/collect/fancine/index/assoc/Fancine_/2005_008.dir/Fancine_2005_008.pdf); la ficha oficial de [ICAA](https://infoicaa.mcu.es/CatalogoICAA/es-es/Peliculas/Detalle?Pelicula=126004&q=true) confirma película, año y reparto. XMLTV `A3CINE.es` ofrece *Ninette* 21:00–23:00 UTC al capturar; 84,38 h continuas futuras. Coincidencia visual exacta; no se infiere región física. | 84,38 h |
+
+Estas diez asignaciones verificadas desde el corte anterior se añaden a los ocho confirmados localmente en el lote anterior (#309, #325, #329, #340, #341, #347, #348 y #353). En aquel corte el contrato quedó en 80 asignadas/167 pendientes; 62 estaban en Raw y 18 locales. Desde entonces se agregaron dos coincidencias locales más, descritas abajo. El uso explícito del offset es obligatorio: comparar solo los primeros 14 dígitos sin zona desplaza el evento cinco horas y puede falsear una coincidencia.
+
+**Revalidación de una guía publicada — #410 RCN Novelas:** capturas 256–257 (21:54 UTC) muestran movimiento entre fotogramas y el OSD dice *Lala's spa*, 21:00–22:00 UTC, seguido de *Así es la Vida* a las 22:00. El `epg.xml` de `origin/main` contiene el mismo programa a la misma hora en `co1 / RCN.Novelas.co`, y mantiene horarios contiguos hasta las 13:00 UTC del 15-10 (15,08 h futuras). La asignación ya está publicada; esta prueba confirma su correspondencia visual.
+
+### Dos coincidencias locales nuevas — #416 y #417 Studio Universal
+
+Las capturas 272–274 muestran los créditos animados de Studio Universal; la secuencia continúa en la versión HD #417, donde la captura 275 acredita explícitamente canciones de *Spider-Man: Into the Spider-Verse*. La captura 273 confirma por OSD el canal #416; la 276 confirma #417 (con un reintento HLS al mostrar el OSD). El XMLTV configurado `co1 / Studio.Universal.co` ubica *Spider-Man: Un nuevo universo* de 20:15 a 22:25 UTC del 14-10, por lo que cubre los fotogramas de 22:06 (#416) y 22:09 (#417). La secuencia XMLTV continúa sin huecos hasta las 11:00 UTC del 15-10: 12,90 h desde #416 y 12,85 h desde #417. Son coincidencias de programa/guía, no prueba de región física ni de estabilidad prolongada. Se añaden al contrato y a `epg-overrides.json`; todavía no están publicadas.
+
+### #418 TBN Enlace queda pendiente
+
+Las capturas 281–285 muestran primero un anuncio de Ancient Nutrition dirigido a Costa Rica y luego una cortina de Enlace que dice «Desde Bogotá, Colombia / 11:30 AM». La captura 282 confirma por OSD el canal #418 y solo la categoría «Misceláneos»; tras unos 40 segundos no apareció un título de emisión. No hay fuente XMLTV TBN/Enlace configurada para contrastar un título exacto y la cortina no identifica el programa ni la procedencia del feed. Se conserva `regional_feed_not_identified`; no se asigna guía por la IP ni por el texto regional de la cortina.
+
+### Coincidencia local #419 — TNT Novelas
+
+La señal falló en el primer intento con el error 4007003 (captura 288); al reintentar, el video volvió a decodificar y la captura 290 (22:31 UTC) muestra TNT Novelas y el rótulo en pantalla «QUIEREME SIEMPRE», mientras el OSD confirma el canal #419. El XMLTV configurado `co1 / TNT.Novelas.co` anuncia *Quiéreme siempre* entre 21:50 y 22:43 UTC, cubriendo el fotograma; la programación contigua llega hasta 00:36 UTC del 17-10, 50,08 h desde la validación. CL1, MX1, AR1 y PA1 también contienen el mismo título/evento vigente, por lo que el cotejo no identifica la región física. Se conserva CO1 de manera coherente con la asignación curada del TNT Novelas HD #315; esto es coincidencia de guía, no prueba de origen geográfico ni de estabilidad (el reintento sí queda documentado). La asignación local sigue sin publicar.
+
+### #420 TD+2 HD CR y #421 TD+HD CR permanecen pendientes
+
+#420: capturas 291–293 muestran un panel de conversación deportiva con una gráfica «VISION»; el OSD de la 292 confirma canal 420 y categoría «Deportes», pero no da el título del programa. #421: capturas 294–296 muestran el estudio TDMAX y la gráfica «EL ROL DEL MEDIOCENTRO»; el OSD de la 295 confirma canal 421 y la categoría, pero no demuestra que el texto gráfico sea el título de la emisión completa. El runner no configura una guía XMLTV costarricense/TD+/TDMAX con 12 h futuras para validar cualquiera de las dos. Se conservan pendientes, sin asignar guía solo por categoría o identidad visual del canal.
+
+### #422 TLC permanece pendiente
+
+Capturas 297–300 muestran una escena dramática sin elementos identificadores y después anuncios; la captura 298 OSD confirma canal #422 y únicamente «Misceláneos», con reapertura HLS. Hay siete XMLTV regionales candidatos, pero sin título exacto visible no es posible escoger uno de forma defendible. No se completa por género ni por similitud de escenas.
+
+### #423 Discovery Channel señal 2 y #424 TNT Series permanecen pendientes
+
+En #423, capturas 301–303 muestran una mujer con sombrero blanco, un primer plano con marca TNT y después un anuncio de Protex. La captura 302 confirma por OSD el número 423 y solo la categoría «Misceláneos»; la marca TNT contradice la etiqueta Discovery, pero no identifica por sí sola el feed ni su parrilla. De cuatro XMLTV regionales candidatas no se puede elegir una sin título exacto de emisión y 12 horas futuras continuas.
+
+En #424, capturas 304–306 muestran primero publicidad y luego una escena doméstica sin rótulo/título identificable. El OSD de la captura 305 confirma TNT Series y únicamente la categoría «Películas». Hay cinco parrillas regionales candidatas, ninguna demostrable con el fotograma observado. Ambos canales siguen `regional_feed_not_identified`; no se asigna por IP, logo o categoría.
+
+### Coincidencia local #425 — Telemundo
+
+La captura 307 (22:54:10 UTC) muestra la marca de programa CC/Caso Cerrado y el cintillo «DEMANDANTE Dayamit»; la 308 conserva el mismo segmento. El OSD de la captura 309 confirma el canal 425 y la categoría «Misceláneos», aunque la reproducción ya estaba renegociando el segmento inicial. El XMLTV `co1 / Telemundo.co` ubica *Caso cerrado* de 22:10 a 23:05 UTC y entrega 73,18 h continuas desde el fotograma. CL1, MX1 y PA1 también tienen el bloque equivalente, por lo que no se infiere región física. El feed US2 `Telemundo.Satellite.Feed.us2` no coincide a esa hora (lista «Noticias Telemundo» de 22:30 a 23:00); para el ID público directo #425 se incorpora el override local CO1. No se presenta como prueba de estabilidad del stream, que más tarde mostró una reapertura HLS.
+
+### Coincidencia local #426 — Telemundo HD
+
+Las capturas 310–312 muestran el mismo estudio, presentadora y participantes que el canal SD #425. El OSD de 311 confirma Telemundo HD #426 a las 23:00 UTC, y la 312 a las 23:01 UTC mantiene el juicio; el #425 había mostrado la marca CC/Caso Cerrado y el cintillo «DEMANDANTE Dayamit» seis minutos antes. `co1 / Telemundo.co` mantiene *Caso cerrado* hasta 23:05 UTC y 73,07 h de programación continua desde la validación; CL1/MX1/PA1 contienen bloques equivalentes. US2 presenta *Top Chef VIP* desde las 23:00 UTC y contradice el vídeo. Se aplica la misma fuente coincidente al ID HD, sin inferir región física ni estabilidad del stream.
+
+### #427 Televida RD permanece pendiente
+
+Capturas 313–315 muestran una misa católica con el logo de Televida. El OSD de la 314 confirma el canal #427 y solo la categoría «Misceláneos» (23:04 UTC); no se ve título ni nombre de segmento. El inventario XMLTV curado actual arroja cero fuentes candidatas dominicanas para Televida. Se mantiene `regional_feed_not_identified`: no se asigna «Santa Misa» por inferencia ni se genera continuidad artificial.
+
+### #428 Universal Comedy HD permanece pendiente
+
+Capturas 316–319 y la captura de estado actual confirman por OSD el canal #428; la categoría es solo «Películas». El primer intento muestra el error 5009005 y el reintento alcanza a decodificar una escena policial a 0,9 FPS; los créditos muestran únicamente al productor Richard H. Prince, no el nombre del programa. MX1 programa *Superstore* entre 22:55 y 23:20 UTC, pero no hay elemento visual que permita identificarlo como el contenido del fotograma. Con tres candidatas regionales y reproducción breve/inestable, no se confirma ninguna parrilla; se mantiene `regional_feed_not_identified`, sin asignar por marca, categoría, IP ni crédito parcial.
+
+Al cierre completo de esta auditoría se compararán los registros de programación XMLTV normalizados en todo el horizonte disponible; el usuario pidió recibir pares cuya guía completa sea exactamente idéntica para evaluar respaldos uno a uno. Esta comparación no autoriza a cambiar `backupm3u` ni fusionar filas.
+
+### Coincidencia local #429 — Universal Crime HD
+
+El OSD de la captura 321 confirma #429 a las 23:14 UTC. La secuencia de capturas 322–324 muestra publicaciones de Facebook con los nombres Jim Bidwell y Kristen Wagner, las oficinas administrativas de Monroe County y una ficha forense de Kristen Wagner que indica muerte por ahorcamiento y Stroud Township/Crowe Road. El clip oficial de [Oxygen identifica el caso de Kristen Wagner y Jim Bidwell como *Accident, Suicide, or Murder*, temporada 4, episodio 16](https://www.oxygen.com/accident-suicide-or-murder/season-4/episode-16/videos/kristen-wagners-sister-uncovers-facebook); su [explicación oficial confirma los detalles del depósito de chatarra y la autopsia](https://www.oxygen.com/accident-suicide-or-murder/james-bidwell-killed-kristen-wagner-why-case-explainer).
+
+La XMLTV `uy1 / [UNICR].Universal.Crime.uy` pone *Accidente, suicidio o asesinato* / *Escena del crimen cargada* entre 22:30–23:15 UTC y el mismo programa / *Secretos en el depósito de chatarra* entre 23:15–00:00 UTC, en línea con el caso visible. La parrilla real continúa sin huecos hasta las 12:00 UTC del 15-10: cobertura futura de 12,77 h desde el OSD de 23:14. MX1 lista *Parejas asesinas: Jennifer Smith y Dale Moneypenny* y US2 *Columbo: Short Fuse* a esa hora; ambos se descartan por tratarse de otros casos. Se añade override local UY1 por coincidencia de título/caso, sin inferir ubicación física ni estabilidad. Capturas 323–326 registran reapertura HLS y errores 5009005/3005416; la guía queda asignada, pero el stream no se considera estable.
+
+### Coincidencia local #430 — Universal Premiere HD
+
+El OSD confirma el #430 en la captura 328 (23:20 UTC), y de nuevo en la 331 (23:21 UTC). Las capturas 329 y 332 muestran una chaqueta con identificación FBI y un agente; la captura 334 (23:24 UTC) enseña un tablero de caso: Keith Edmonds, ciudadano británico desaparecido, profesor retirado de Bristol, y una investigación de una estafa romántica en línea que atraía a hombres mayores al extranjero. El resumen de [FBI: International S4E5, «El futuro es promisorio»](https://tv.apple.com/mx/episode/el-futuro-es-promisorio/umc.cmc.5ffwegcxttj858m3t86nfsp3d) describe una trama de secuestro transnacional originada en una aplicación de citas y la investigación del Fly Team; coincide con la evidencia narrativa visible.
+
+De las tres candidatas catalogadas, solo uy1 / [UNIPR].Universal.Premiere.uy lista FBI: International / El futuro es promisorio a las 23:15–00:00 UTC. MX1 Canal.Universal.Premiere.mx y UY1 [UNIPRMH].UNIPRMH.uy listan House MD / House M.D. a la hora ancla, incompatibles con el caso FBI. La guía UY1 continúa en bloques reales contiguos de 45 minutos hasta las 13:30 UTC del 15-10: 14,15 h futuras desde la captura OSD 331. Se añade el override UY1 por coincidencia del caso y del episodio, sin inferir región física. La captura 333 muestra que luego el reproductor falló con 3005416; esta asignación no afirma estabilidad del stream. Evidencia y capturas 327–334 en outputs/epg-audit-20261014-followup/.
+
+### Coincidencia local #431 — Universal Premiere O HD
+
+Las capturas 335–336 confirman por OSD el canal #431 a las 23:26–23:27 UTC y muestran a Hugh Laurie como Gregory House dentro de una escena de House M.D.; el logo de emisión dice Universal Premiere West. La XMLTV UY1 [UNIPRMH].UNIPRMH.uy lista House M.D. / El regreso entre 23:15–00:00 UTC. MX1 Canal.Universal.Premiere.mx también lista House MD en el mismo bloque; la variante UY1 incluye subtítulo de episodio y ofrece una secuencia real sin huecos cada 45 minutos hasta las 13:30 UTC del 15-10 (14,07 h desde el OSD de 23:26). Se asigna UY1 por la coincidencia visible del programa y el detalle actual de su guía, no por inferencia de región. El fotograma no permite verificar por separado el subtítulo El regreso, por lo que queda registrada esa limitación. Capturas 337–338 muestran que luego el stream falló con 3005416 y revalidó el segmento inicial; no se afirma estabilidad.
+
+### #432 Universal permanece pendiente pese a identificar el episodio
+
+Las capturas 339/342 fijan el OSD #432 a las 23:29–23:30 UTC; la 343 decodifica el crédito final «Cassie Reyes and Sean O'Brien» con dirección en Brooklyn. NBC/Peacock identifica ambos personajes en *Law & Order: SVU* S26E19, *Play with Fire Part 2*. El candidato UY1 `[UNTVAR].Universal.TV.uy` ofrece *La ley y el orden: Unidad de Víctimas Especiales / Apertura*; la ficha oficial distingue *Aperture* (S26E21) de *Play with Fire Part 2* (S26E19), por lo que «Apertura» es otro episodio. Las otras cuatro candidatas UY1 `[UNTVM]`, MX1, CO1 y PA1 proponen *Chicago Fire*. Se registra `no_exact_current_programme_match` y no se asigna una guía aproximada. La captura 333 documenta el fallo HLS posterior.
+
+### Coincidencia local #433 — Univision HD
+
+Capturas 349–351 mantienen el canal #433; la 351 muestra el logo Univision y los créditos finales «Yigael Yadin», «Roger Montes» y «Pancho Tello». Los créditos de la serie identifican *La historia de Juana*; UY1 `UNIVISION.HD.uy` y CL `Canal.Univision.(Chile).cl` muestran el título vigente 23:00–00:45 UTC y la misma secuencia continua hasta 15:00 UTC del 15-10: 15,43 h futuras desde el OSD 23:34. Se selecciona UY1 por su identidad exacta «UNIVISION HD» y la coincidencia del programa; CL corrobora el horario equivalente, sin inferir región. US2 `Univision Network HD` lista *La rosa de Guadalupe* y se descarta. Se confirma la serie, no un subtítulo de episodio. La imagen decodifica, pero el reproductor indica 0,6 FPS/reintento 3/3: no se afirma estabilidad. Referencias: [créditos de la serie](https://www.imdb.com/es-es/title/tt31511583/fullcredits/) y [ficha oficial de Univision](https://www.univision.com/shows/la-historia-de-juana/la-historia-de-juana-personajes-actores-elenco-novela-univision).
+
+### Coincidencia local #438 — La Liga
+
+Las capturas `370-channel438-start.png` y `371-channel438-osd-anchor.png` muestran el hashtag `#AlavesAtleti`, el marcador Alavés 1–1 Atlético al minuto 58:26 y el OSD #438 a las 23:54 UTC del 14-10. MX1 `Canal.Sky.Sports.16.mx` contiene exactamente Deportivo Alavés–Atlético de Madrid entre 23:00 y 01:00 UTC; a continuación da Barcelona–Getafe, resúmenes y partidos de LaLiga sin huecos hasta las 12:00 UTC del 15-10. Cobertura futura calculada en la fuente: 12,12 h. Se añade override local por coincidencia del evento; no se infiere la región física ni estabilidad.
+
+### #442 A&E-IXP permanece pendiente
+
+Capturas 376–382 sitúan el OSD a las 00:28–00:30 UTC del 15-10. La 379 solo muestra una promo de *El precio de la historia*; la 381 contiene imagen muy dañada, reintento y un rótulo parcial que parece «¿Quién da más?», y la 382 termina con el error 3004404. Las cinco fuentes A&E disponibles se contradicen en el programa vigente: CL/CO1/PA1 indican *¿Quién da más?* (CL añade Miami; CO1/PA1, *La pista de Barry*), mientras MX1/UY1 tienen *Escuadrón de homicidios*. La promo no identifica el programa en emisión y el fallo impide una segunda comprobación; permanece `no_exact_current_programme_match`, sin asignar por IP.
+
+### Coincidencia local #443 — AMC-IXP / *RoboCop* (2014)
+
+Las capturas `383-channel443-start.png` y `385-channel443-followup.png` muestran la marca AMC y, en la primera, los nombres John Lake y Andre Daniels sobre una pantalla CCTV; el OSD de la segunda confirma #443 a las 00:32 UTC del 15-10. La identificación de esos dos personajes corresponde a *RoboCop* (2014), según los créditos de reparto de [IMDb](https://www.imdb.com/title/tt1234721/). La guía CO1 `AMC.co` programa *RoboCop* de 22:55 UTC del 14-10 a 01:00 UTC del 15-10, seguido de eventos XMLTV contiguos hasta las 13:00 UTC; son 12,47 h futuras. Las guías MX1/UY1 anuncian *Rocky V*, y la AMC Series MX1 contiene otra serie, incompatibles con los nombres y la escena del fotograma. Se añade el override CO1 como guía coincidente, sin inferir ubicación. El player mostró reapertura/reintento HLS; esta asignación no acredita estabilidad.
+
+### Coincidencia local #444 — Animal Planet-IXP / *El acuario*
+
+La captura `389-channel444-later.png` confirma el OSD #444 a las 00:39 UTC del 15-10, el logo Animal Planet Discovery y el rótulo de emisión «el acuario». La fuente CL `Canal.Animal.Planet.(Chile).cl` tiene vigente *El acuario / El trato de la foca* entre 00:36 y 01:24 UTC, y parrilla XMLTV real contigua hasta 13:24 UTC (12,75 h futuras desde la captura). AR1 y PA1 presentan la misma programación; CO1/UY1 también identifican el título y episodio, aunque sus límites horarios están corridos unos 18 minutos; MX1 muestra otro programa y se descarta. Se registra CL como horario equivalente por título/episodio y continuidad, sin inferir la región física del stream. El fotograma está visiblemente degradado; el mapeo no certifica estabilidad de reproducción.
+
+### Coincidencia local #446 — Cinemax-IXP / *Master Z: El legado de Ip Man*
+
+La captura `395-channel446-start.png` confirma OSD #446, «Películas», a las 00:47 UTC del 15-10. `396-channel446-retry.png` muestra la escena final de una comida entre tres personajes; `397-channel446-later.png` presenta el bumper «A continuación: Ip Man 4: El final». La identificación del título actual es una inferencia visual específica: la sinopsis de *Master Z: The Ip Man Legacy* concluye con Tin-Chi, Julia y el hijo compartiendo una comida, y XMLTV PA1 coloca *Master Z El legado de Ip Man* inmediatamente antes de *Ip Man 4 El Final* en el mismo horario (22:36–00:49 y 00:49–03:00 UTC). CL, CO1, GT y MX1 corroboran la misma secuencia, aunque con límites horarios distintos; el bumper próximo encaja mejor con el cambio PA1/GT a 00:49. La guía PA1 ofrece programación contigua hasta 15:09 UTC, 14,37 h futuras desde el OSD. Se escoge como calendario equivalente, no como afirmación de región física. La reproducción se reabrió al menos una vez y la asignación no certifica estabilidad. Referencia del final de la película: [sinopsis de Master Z](https://en.wikipedia.org/wiki/Master_Z:_Ip_Man_Legacy).
+
+### #445 Baby TV-IXP permanece pendiente
+
+Capturas `390`–`392` confirman el OSD #445 y logo BabyTV, pero el reproductor permanece validando el segmento inicial. Tras reabrir el canal, la captura `393` decodifica un fotograma de dibujos animados bajo «Reabriendo fuente HLS»; la `394` vuelve a negro/validación. No hay nombre de programa o episodio visible que permita distinguir la guía correcta por encima de la marca y el género, y una imagen intermitente no acredita estabilidad. Sigue `no_exact_current_programme_match`, sin fuente asignada.
+
+### Capturas revisadas que permanecen pendientes
+
+- #393 Golden [IP 45.171.64.30]: capturas 206, 207 y 208 permanecen en negro con «Validando segmento inicial» tras más de 35 s. No hay fotograma para identificar el programa; queda sin guía.
+- #394 Golf Channel HD [IP 45.171.64.30]: captura 209 muestra logo Golf, pero el cintillo informa sobre explotación en Groenlandia y el reproductor avisa que reabre HLS; captura 210 vuelve a validar el segmento inicial. Playback inestable y contenido sin correspondencia defendible; queda sin guía.
+
+- #399 History HD: capturas 223–226 muestran logo History y escenas distintas, pero sin rótulo/título; 225 y 226 repiten el mismo fotograma congelado. Alrededor de 21:02 UTC, CL ofrece «Ciudades Ocultas», MX1/GT «Cazadores de tesoros», CO1 «La evidencia está entre nosotros» y PA1 «Misterios inexplorados con Danny Trejo». Como no se identifica qué feed/programa corresponde, permanece pendiente; no mapear solo por marca.
+
+- #400 Home Garden Latino: capturas 227–229 muestran HGTV y escenas de casa junto a un lago, sin título de programa; 228 y 229 repiten la misma imagen tras ~68 s. A las 21:07 UTC, CO1 HGTV ofrece «Nuestro hogar en las Bahamas», US2 Pacific «Scariest House in America» y US2 «Zillow Gone Wild». No hay prueba visual para elegir entre esas parrillas; queda pendiente.
+
+- #401 LIFE TIME: capturas 230–233 muestran una promo «AMERICA» seguida de anuncios TeveCompras Argentina; no se identifica el programa que interrumpe. AR1/CL/PA1/GT listan «Medicina mortal» a las 21:12 UTC, pero la publicidad local no prueba que ese sea el contenido. Se deja pendiente.
+
+- #402 La voz de Maria: capturas 234–235 (21:15 UTC) muestran fotogramas distintos de un segmento devocional con logo LUM y la marca «3er Plan de Salvación», sin título del programa o episodio. El snapshot EPGShare disponible (generado 18:14:37 UTC) no contiene fuente/canal de República Dominicana ni programa XMLTV activo que coincida exactamente con lo visible; candidateCount 0. La imagen en movimiento confirma que el feed entrega vídeo, pero no permite asignar una parrilla con 12 h futuras. Permanece pendiente; no inferir guía por el logo, el rótulo de segmento ni la IP.
+
+- #403 AyM Sports: capturas 236–237 (21:21–21:22 UTC) muestran distintos fotogramas de un partido de béisbol con marca AyM Sports y marcador 0–2, pero el rótulo es ilegible para confirmar ambos equipos/evento. El snapshot EPGShare (18:14:37 UTC) no contiene una emisión activa que identifique AyM, equipos o evento de béisbol coincidente; candidateCount 0. El [calendario oficial de Yaquis](https://www.yaquis.com.mx/roldejuegos) lista Mayos–Yaquis el 14 de octubre a las 19:10 local, pero la imagen no permite comprobar que se trate de ese juego. Sin fuente/feed exacto y 12 h futuras, queda pendiente.
+
+- #404 Multicinema: capturas 238–240 muestran escenas distintas de una película con marca MC; el OSD solo indica la categoría «Películas», no el título. La captura 239 presenta reintento HLS 3/3 y la 240 recupera a 544×480 / 6,9 FPS, todavía sin título. No se puede vincular a un programa XMLTV ni definir región/fuente; queda pendiente hasta identificar título/feed y comprobar 12 h continuas.
+
+- #405 Fox Sports: capturas 241–242 (21:29–21:32 UTC) muestran FOX VIVO y el rótulo «LIGA DE ASCENSO DE EL SALVADOR», ARU 0–0 IIL; el OSD identifica Fox Sports / Deportes. En EPGShare, la opción MX1 Fox Sports está en «Fox Gol Femenil», y Fox Sports 2 de MX1/GT está en AEW Collision; ninguna coincide con el partido, y no hay fuente XMLTV salvadoreña en el snapshot. El vídeo cambia, pero la captura 242 indica 0,8 FPS/estado rojo, por lo que tampoco acredita estabilidad. Sigue pendiente, sin asignar por marca Fox ni categoría Deportes.
+- #407 Pasiones HD: capturas 245–248 muestran la marca Pasiones y dos fases de reapertura HLS. La captura 246 marca 0,6 FPS; después el contenido reaparece, pero las capturas 247–248 repiten exactamente la misma escena y no muestran título/subtítulo que identifique la novela. Sin distinguir el programa ni el feed regional, queda pendiente.
+- #408 Pregon Infirmativo: capturas 249–252 muestran escenas monocromáticas distintas y el logo PIT; el OSD confirma el canal 408 y categoría Misceláneos, no el programa. La imagen decodificada no basta para elegir una guía; pendiente.
+- #409 La Red TV: capturas 253–255 muestran una entrevista con marca «LA RED TV» y reloj del feed 15:47–15:48; el OSD confirma canal 409, pero no da título de programa. El listado de [La Red TV Guatemala](https://www.gatotv.com/canal/la_red_tv_guatemala) sugiere el bloque «Garra felina - Previa» a las 15:00–16:00 locales el 14-10, pero la entrevista no prueba que ese sea el programa. Tampoco está configurado `sv` como parte XMLTV en el runner, así que no se puede registrar una guía operativa equivalente sin incorporar y validar esa fuente. Pendiente.
+- #411 Radio renecer [IP 45.171.64.30]: capturas 258–259 muestran el logo del feed Tv Renacer y contenido audiovisual; el OSD identifica canal 411 y la categoría «Misceláneos», pero no el programa. No hay coincidencia exacta ni una fuente XMLTV regional comprobada con 12 h futuras; permanece pendiente.
+- #412 Semillitas [IP 45.171.64.30]: capturas 260–263 muestran la marca Semillitas y dibujos animados. La captura 263 tiene la indicación «Reabriendo fuente HLS», 0,9 FPS y ningún título de programa; el runner no ofrece un candidato XMLTV Semillitas. Queda pendiente hasta identificar el programa/feed y comprobar 12 h futuras.
+- #413 Sony [IP 45.171.64.30]: capturas 264–267 muestran escenas de una película con marca Sony. El OSD identifica «Películas», no el título; existen cuatro candidatos regionales, pero no hay evidencia visual para escoger uno. Permanece pendiente.
+- #414 Space [IP 45.171.64.30]: capturas 268–269 muestran un anuncio y después una escena de ficción sin título. El OSD solo indica «Películas»; seis parrillas regionales no se pueden distinguir. Pendiente.
+- #415 Sony Movies HD [IP 45.171.64.30]: capturas 270–271 muestran escenas de película con marca Sony Movies, pero ningún título. La única parrilla regional candidata no queda confirmada visualmente; pendiente.
+
+Revalidación #395: captura 211 muestra el logo Guatevisión y dos presentadoras en una cocina; a las 20:35 UTC el OSD de la captura 212 muestra «Manos a la obra», coincidente con GT / Guatevision.gt entre 20:30 y 21:30 UTC. Desde el corte de 20:40 UTC, el feed conserva 99,32 h continuas. La asignación ya existente se confirma, aunque el playback luego vuelve a validar el segmento inicial.
+
+- #382 ESPN 6: capturas `184-channel382-later.png` y `185-channel382-second-look.png`; hay una promo y fútbol en vivo, pero no marcador/rótulo que identifique el partido. Las parrillas candidatas disponibles no coinciden a esa hora; pendiente.
+- #383 ESPN 6 HD: `186-next-channel-after-382.png` confirma número/nombre; `187-channel383-later.png` muestra promo y “Reabriendo fuente HLS”, no un programa identificable; pendiente.
+- #384 EWTN: `188-next-channel-after-383.png` confirma canal; `189-channel384-later.png` muestra Adoración Eucarística en la capilla, pero el snapshot XMLTV no contiene una guía EWTN válida para asignar. No se inventa continuidad Live (solo Rwnd tiene esa excepción); pendiente.
+- #385 El Gourmet: `190-next-channel-after-384.png` identifica el canal, pero `191-channel385-later.png` pasa de anuncio a una marca AMC Series; conflicto entre identidad del OSD y contenido, pendiente.
+- #386 Exa TV: `192-next-channel-after-385.png` muestra el videoclip de Santana y Grupo Frontera, “Me Retiro”; `193-channel386-later.png` es un anuncio. No identifica el bloque de programación; pendiente.
+- #387 FX: `194-next-channel-after-386.png` y `195-channel387-later.png` son promociones cinematográficas sin título de la emisión; pendiente.
+- #388 FX HD: `196-next-channel-after-387.png` muestra promo de Cars; `197-channel388-later.png` sigue con promoción cinematográfica y llega a reintento 3/3 (“Reabriendo fuente HLS”); pendiente.
+- #389 Film & Arts: `198-next-channel-after-388.png`/`199-channel389-later.png` muestran una película, sin título legible; AR1/MX1 indican *Hunters* y UY1 *Licorice Pizza*. La escena no permite decidir entre fuentes; pendiente.
+- #390 Film & Arts HD: `200-next-channel-after-389.png` confirma el canal; `201-channel390-later.png` decodifica una escena de época sin título. Guías disponibles contradictorias; pendiente.
+
+Las capturas están en `outputs/epg-audit-20261014-followup/`. Estas comprobaciones no modifican la M3U ni el catálogo de canales; son evidencia de guía y disponibilidad puntual, no garantía de continuidad futura.
 
 ### Continuación de verificación visual — cinco coincidencias adicionales
 
@@ -193,22 +347,20 @@ La salida inicial GitHub Raw `8189e53` contenía 9.697 programas totales; sus 56
 | 388 | FX HD [IP 45.171.64.30] | logos/catalogue/fxlatinamerica-us.png | PENDIENTE: regional_feed_not_identified |
 | 389 | Film & Arts [IP 45.171.64.30] | logos/catalogue/filmarts-ar.png | PENDIENTE: regional_feed_not_identified |
 | 390 | Film & arts HD [IP 45.171.64.30] | logos/catalogue/filmarts-ar.png | PENDIENTE: regional_feed_not_identified |
-| 391 | ESPN 6 [IP 45.171.64.30] · señal 2 | logos/catalogue/espn-6-lam.png | PENDIENTE: regional_feed_not_identified |
-| 392 | France24 [IP 45.171.64.30] | logos/france24.svg | PENDIENTE: regional_feed_not_identified |
 | 393 | Golden [IP 45.171.64.30] | logos/catalogue/golden-mx.png | PENDIENTE: regional_feed_not_identified |
 | 394 | Golf Channel HD [IP 45.171.64.30] | logos/catalogue/golfchannellatinamerica-us.png | PENDIENTE: regional_feed_not_identified |
 | 395 | Guatevision - GUA [IP 45.171.64.30] | logos/catalogue/guatevision-gt.png | gt/Guatevision.gt (109.39 h) |
-| 396 | H2 [IP 45.171.64.30] | logos/catalogue/history2latinamerica-us.png | PENDIENTE: regional_feed_not_identified |
-| 397 | HBO XTREME [IP 45.171.64.30] | logos/catalogue/hboxtremelatinamerica-us.png | PENDIENTE: regional_feed_not_identified |
-| 398 | History Channel [IP 45.171.64.30] | logos/catalogue/history-channel-lam.png | PENDIENTE: regional_feed_not_identified |
-| 399 | History HD [IP 45.171.64.30] | logos/catalogue/history-channel-lam.png | PENDIENTE: regional_feed_not_identified |
-| 400 | Home Garden Latino [IP 45.171.64.30] | logos/catalogue/hgtvlatinamerica-us.png | PENDIENTE: regional_feed_not_identified |
-| 401 | LIFE TIME [IP 45.171.64.30] | logos/catalogue/lifetimelatinamerica-us.png | PENDIENTE: regional_feed_not_identified |
-| 402 | La voz de Maria [IP 45.171.64.30] | logos/catalogue/lavozdemaria-do.png | PENDIENTE: regional_feed_not_identified |
+| 396 | H2 [IP 45.171.64.30] | logos/catalogue/history2latinamerica-us.png | cl/Canal.History.2.(Chile).cl (28,32 h) |
+| 397 | HBO XTREME [IP 45.171.64.30] | logos/catalogue/hboxtremelatinamerica-us.png | cl/Canal.HBO.Xtreme.cl (58,13 h) |
+| 398 | History Channel [IP 45.171.64.30] | logos/catalogue/history-channel-lam.png | pa1/Canal.History.(Panamá).pa (27,42 h) |
+| 399 | History HD [IP 45.171.64.30] | logos/catalogue/history-channel-lam.png | PENDIENTE: no_exact_current_programme_match |
+| 400 | Home Garden Latino [IP 45.171.64.30] | logos/catalogue/hgtvlatinamerica-us.png | PENDIENTE: no_exact_current_programme_match |
+| 401 | LIFE TIME [IP 45.171.64.30] | logos/catalogue/lifetimelatinamerica-us.png | PENDIENTE: only_advertisement_content_at_validation |
+| 402 | La voz de Maria [IP 45.171.64.30] | logos/catalogue/lavozdemaria-do.png | PENDIENTE: no_exact_current_programme_match |
 | 403 | AyM Sports [IP 45.171.64.30] | logos/catalogue/aymsports-mx.png | PENDIENTE: regional_feed_not_identified |
-| 404 | Multicinema [IP 45.171.64.30] | PENDIENTE | PENDIENTE: regional_feed_not_identified |
-| 405 | Fox Sports [IP 45.171.64.30] | logos/fox-sports.svg | PENDIENTE: regional_feed_not_identified |
-| 406 | A3Cine [IP 45.171.64.30] | PENDIENTE | PENDIENTE: regional_feed_not_identified |
+| 404 | Multicinema [IP 45.171.64.30] | PENDIENTE | PENDIENTE: programme_title_not_identified |
+| 405 | Fox Sports [IP 45.171.64.30] | logos/fox-sports.svg | PENDIENTE: no_exact_current_programme_match |
+| 406 | A3Cine [IP 45.171.64.30] | PENDIENTE | es/A3CINE.es (*Ninette*, 84,38 h) |
 | 407 | Pasiones HD [IP 45.171.64.30] | logos/catalogue/pasioneslatinamerica-us.png | PENDIENTE: regional_feed_not_identified |
 | 408 | Pregon Infirmativo [IP 45.171.64.30] | PENDIENTE | PENDIENTE: regional_feed_not_identified |
 | 409 | La Red TV [IP 45.171.64.30] | logos/catalogue/laredtv-gt.png | PENDIENTE: regional_feed_not_identified |
@@ -218,37 +370,37 @@ La salida inicial GitHub Raw `8189e53` contenía 9.697 programas totales; sus 56
 | 413 | SONY [IP 45.171.64.30] | logos/catalogue/sonychannelandes-us.png | PENDIENTE: regional_feed_not_identified |
 | 414 | SPACE [IP 45.171.64.30] | logos/catalogue/space-ar.png | PENDIENTE: regional_feed_not_identified |
 | 415 | Sony Movies HD [IP 45.171.64.30] | logos/catalogue/sonymovieslatinamerica-us.png | PENDIENTE: regional_feed_not_identified |
-| 416 | Studio Universal [IP 45.171.64.30] | logos/catalogue/studiouniversallatinamerica-us.png | PENDIENTE: regional_feed_not_identified |
-| 417 | Studio Universal HD [IP 45.171.64.30] | logos/catalogue/studiouniversallatinamerica-us.png | PENDIENTE: regional_feed_not_identified |
-| 418 | TBN Enlace [IP 45.171.64.30] | logos/catalogue/enlace-cr.png | PENDIENTE: regional_feed_not_identified |
-| 419 | TNT Novelas [IP 45.171.64.30] | logos/catalogue/tntnovelas-us.png | PENDIENTE: regional_feed_not_identified |
-| 420 | TD+2 HD CR [IP 45.171.64.30] | logos/catalogue/tdmas2-cr.png | PENDIENTE: regional_feed_not_identified |
-| 421 | TD+HD CR [IP 45.171.64.30] | logos/catalogue/tdmas-cr.png | PENDIENTE: regional_feed_not_identified |
-| 422 | TLC [IP 45.171.64.30] | logos/catalogue/tlclatinamerica-us.png | PENDIENTE: regional_feed_not_identified |
-| 423 | Discovery Channel [IP 45.171.64.30] · señal 2 | logos/catalogue/discoverychannellatinamerica-us.png | PENDIENTE: regional_feed_not_identified |
-| 424 | TNT Series [IP 45.171.64.30] | logos/catalogue/tntserieslatinamerica-us.png | PENDIENTE: regional_feed_not_identified |
-| 425 | Telemundo [IP 45.171.64.30] | logos/catalogue/telemundointernacional-us.png | PENDIENTE: regional_feed_not_identified |
-| 426 | Telemundo HD [IP 45.171.64.30] | logos/catalogue/telemundointernacional-us.png | PENDIENTE: regional_feed_not_identified |
-| 427 | Televida RD [IP 45.171.64.30] | logos/catalogue/televida-do.png | PENDIENTE: regional_feed_not_identified |
+| 416 | Studio Universal [IP 45.171.64.30] | logos/catalogue/studiouniversallatinamerica-us.png | co1/Studio.Universal.co (*Spider-Man: Un nuevo universo*, 12,90 h) |
+| 417 | Studio Universal HD [IP 45.171.64.30] | logos/catalogue/studiouniversallatinamerica-us.png | co1/Studio.Universal.co (*Spider-Man: Un nuevo universo*, 12,85 h) |
+| 418 | TBN Enlace [IP 45.171.64.30] | logos/catalogue/enlace-cr.png | PENDIENTE: regional_feed_not_identified; capturas 281–285 sin título de emisión |
+| 419 | TNT Novelas [IP 45.171.64.30] | logos/catalogue/tntnovelas-us.png | co1/TNT.Novelas.co (*Quiéreme siempre*, 50,08 h; captura 290; región física no inferida) |
+| 420 | TD+2 HD CR [IP 45.171.64.30] | logos/catalogue/tdmas2-cr.png | PENDIENTE: sin título exacto ni fuente XMLTV CR/TD+ con 12 h; capturas 291–293 |
+| 421 | TD+HD CR [IP 45.171.64.30] | logos/catalogue/tdmas-cr.png | PENDIENTE: «El rol del mediocentro» no se valida como emisión completa ni hay fuente XMLTV CR/TD+; capturas 294–296 |
+| 422 | TLC [IP 45.171.64.30] | logos/catalogue/tlclatinamerica-us.png | PENDIENTE: 7 parrillas candidatas; falta título exacto en pantalla; capturas 297–300 |
+| 423 | Discovery Channel [IP 45.171.64.30] · señal 2 | logos/catalogue/discoverychannellatinamerica-us.png | PENDIENTE: 4 parrillas candidatas; OSD «Misceláneos», marca TNT y anuncio posterior, sin título exacto; capturas 301–303 |
+| 424 | TNT Series [IP 45.171.64.30] | logos/catalogue/tntserieslatinamerica-us.png | PENDIENTE: 5 parrillas candidatas; OSD «Películas», anuncios/escena sin título; capturas 304–306 |
+| 425 | Telemundo [IP 45.171.64.30] | logos/catalogue/telemundointernacional-us.png | co1/Telemundo.co (*Caso cerrado*, 73,18 h; captura 307; guías CL1/MX1/PA1 equivalentes, región física no inferida) |
+| 426 | Telemundo HD [IP 45.171.64.30] | logos/catalogue/telemundointernacional-us.png | co1/Telemundo.co (*Caso cerrado*, 73,07 h; misma escena del #425; captura 311) |
+| 427 | Televida RD [IP 45.171.64.30] | logos/catalogue/televida-do.png | PENDIENTE: cero fuentes XMLTV dominicanas candidatas y sin título visible; OSD «Misceláneos»; capturas 313–315 |
 | 428 | UNIVERSAL COMEDY HD [IP 45.171.64.30] | logos/catalogue/universalcomedy-us.png | PENDIENTE: regional_feed_not_identified |
 | 429 | UNIVERSAL CRIME HD [IP 45.171.64.30] | logos/catalogue/universalcrime-us.png | PENDIENTE: regional_feed_not_identified |
 | 430 | UNIVERSAL PREMIERE HD [IP 45.171.64.30] | logos/catalogue/universalpremiere-us.png | PENDIENTE: regional_feed_not_identified |
 | 431 | UNIVERSAL PREMIERE O HD [IP 45.171.64.30] | logos/catalogue/universalpremiere-us.png | PENDIENTE: regional_feed_not_identified |
-| 432 | Universal [IP 45.171.64.30] | logos/catalogue/universaltvlatinamerica-us.png | PENDIENTE: regional_feed_not_identified |
-| 433 | Univision HD [IP 45.171.64.30] | logos/catalogue/univisionlatinamerica-mx.png | PENDIENTE: regional_feed_not_identified |
+| 432 | Universal [IP 45.171.64.30] | logos/catalogue/universaltvlatinamerica-us.png | PENDIENTE: episodio visible *SVU S26E19 Play with Fire Part 2*; UY1 lista S26E21 *Apertura* y otras 4 candidatas *Chicago Fire*; capturas 339–343 |
+| 433 | Univision HD [IP 45.171.64.30] | logos/catalogue/univisionlatinamerica-mx.png | uy1/UNIVISION.HD.uy (*La historia de Juana*, 15,43 h; captura 351; CL confirma horario equivalente) |
 | 434 | WARNER HD [IP 45.171.64.30] | logos/catalogue/warnerchannel-us.png | PENDIENTE: regional_feed_not_identified |
 | 435 | Warner [IP 45.171.64.30] | logos/catalogue/warnerchannel-us.png | PENDIENTE: regional_feed_not_identified |
 | 436 | ZooMoo [IP 45.171.64.30] | logos/catalogue/zoomoo-sg.png | PENDIENTE: regional_feed_not_identified |
 | 437 | ctv [IP 45.171.64.30] | PENDIENTE | PENDIENTE: regional_feed_not_identified |
-| 438 | la liga [IP 45.171.64.30] | PENDIENTE | PENDIENTE: regional_feed_not_identified |
+| 438 | la liga [IP 45.171.64.30] | — | mx1/Canal.Sky.Sports.16.mx (Deportivo Alavés–Atlético de Madrid; 12,12 h; captura 371) |
 | 439 | Discovery World HD [IP 168.196.127.137] | logos/catalogue/discoveryworld-us.png | cl/Canal.Discovery.World.Latinoamérica.cl |
 | 440 | TELEHIT LATINIO [IP 190.61.47.54] | logos/catalogue/telehitmusica-mx.png | PENDIENTE: regional_feed_not_identified |
 | 441 | UNIVERSAL CINEMA ESTE HD [IP 168.196.127.137] | logos/catalogue/universalcinema-us.png | PENDIENTE: regional_feed_not_identified |
-| 442 | A&E-IXP [IP 138.59.177.78] | logos/catalogue/a-and-e-ar.png | PENDIENTE: regional_feed_not_identified |
-| 443 | AMC-IXP [IP 138.59.177.78] | logos/catalogue/amclatinamerica-us.png | PENDIENTE: regional_feed_not_identified |
-| 444 | ANIMAL PLANET-IXP [IP 138.59.177.78] | logos/catalogue/animalplanetlatinamerica-us.png | PENDIENTE: regional_feed_not_identified |
-| 445 | BABY TV-IXP [IP 138.59.177.78] | logos/catalogue/babytv-uk.png | PENDIENTE: regional_feed_not_identified |
-| 446 | CINEMAX-IXP [IP 138.59.177.78] | logos/catalogue/cinemaxlatinamerica-us.png | PENDIENTE: regional_feed_not_identified |
+| 442 | A&E-IXP [IP 138.59.177.78] | logos/catalogue/a-and-e-ar.png | PENDIENTE: 5 fuentes A&E discrepan; promo no confirma emisión y el stream terminó en error 3004404; capturas 376–382 |
+| 443 | AMC-IXP [IP 138.59.177.78] | logos/catalogue/amclatinamerica-us.png | co1/AMC.co (*RoboCop*, 12,47 h; nombres John Lake y Andre Daniels en la captura 383; OSD 00:32 en 385) |
+| 444 | ANIMAL PLANET-IXP [IP 138.59.177.78] | logos/catalogue/animalplanetlatinamerica-us.png | cl/Canal.Animal.Planet.(Chile).cl (*El acuario / El trato de la foca*; 12,75 h; captura 389) |
+| 445 | BABY TV-IXP [IP 138.59.177.78] | logos/catalogue/babytv-uk.png | PENDIENTE: sin título exacto visible; validación inicial/reapertura HLS en capturas 390–394 |
+| 446 | CINEMAX-IXP [IP 138.59.177.78] | logos/catalogue/cinemaxlatinamerica-us.png | pa1/Canal.Cinemax.(Panamá).pa (*Master Z: El legado de Ip Man*; 14,37 h; capturas 395–397; inferido por escena final + bumper del siguiente programa) |
 | 447 | Galavision [IP 138.59.177.78] | logos/catalogue/galavision-us.png | PENDIENTE: regional_feed_not_identified |
 | 448 | DISCOVERY CHANNEL-IXP [IP 138.59.177.78] | logos/catalogue/discoverychannellatinamerica-us.png | PENDIENTE: regional_feed_not_identified |
 | 449 | DISCOVERY KIDS-IXP [IP 138.59.177.78] | logos/catalogue/discoverykidslatinamerica-us.png | PENDIENTE: regional_feed_not_identified |
@@ -294,12 +446,12 @@ La salida inicial GitHub Raw `8189e53` contenía 9.697 programas totales; sus 56
 
 ## Validación local (2026-10-14)
 
-- 358 pruebas Python, 19 omitidas previstas por `M3U_RUNNER_TESTS=1`; el recuento incluye la nueva regresión para las cinco guías confirmadas en emulador. No se modificó JavaScript.
+- Las pruebas Python y JavaScript se vuelven a ejecutar tras registrar #406 y los canales #407–409; ver el resultado final de esta pasada en el siguiente corte de `ESTADO.md`.
 - `update_m3u.py --validate-public-lists-only`: partición válida de Lista 1 292, Lista 2 0 y catálogo canónico 2.056.
 - Bundle temporal del editor: 629 filas y 487 logos. Los 106 archivos registrados para esta oficialización mantienen los SHA-256 del contrato.
 - Comparación editorial contra `4efa5286`: exactamente las 247 marcas de prueba se retiraron; los demás campos, orden, nombres, identidad, altas/bajas, respaldos y selección se conservaron.
 - Smoke JVM de la primera publicación usando el parser y catálogo del tag publicado VibeM3U `v0.5.95` (incluida la clase `DynamicSourceReference` de `e395b9d`): las 247 identidades, nombres y URLs entran una sola vez y la proyección queda en 303 canales visibles. Ese smoke precede a los dos PNG de Guatemala; no se compiló una APK ni se repitió el smoke de app para esos assets, tampoco se probó en TV física.
-- Las 51 fuentes EPG de la primera validación produjeron 4.017 programas reales. Con Guatemala, un build local aislado sobre cinco IDs exactos produjo 537 programas sin relleno `Live`. Luego, la captura del emulador de Fox Sports 2 México (#40) a las 09:16 Santiago / 12:16 UTC mostró `#FOXGOL`/CONCACAF W; el feed MX1 coincidió con `Fox Gol Femenil`. El commit `dfa52e1` asignó `Canal.Fox.Sports.2.(México).mx`; `Actualizar EPG` run `38565913595` terminó success y publicó la salida `56d27af`. GitHub Raw confirma el canal con fuente `mx1`, 60 programas y fuera de `epg-pending.json`. La continuación local asigna otras cinco identidades exactas (detalladas arriba), llevando el contrato a 62/247 y dejando 185 pendientes; el workflow todavía debe publicar esta tanda y Raw debe confirmarla. No se publican títulos `Live` inventados.
+- Las 51 fuentes EPG de la primera validación produjeron 4.017 programas reales. Con Guatemala, un build local aislado sobre cinco IDs exactos produjo 537 programas sin relleno `Live`. Luego, la captura del emulador de Fox Sports 2 México (#40) a las 09:16 Santiago / 12:16 UTC mostró `#FOXGOL`/CONCACAF W; el feed MX1 coincidió con `Fox Gol Femenil`. El commit `dfa52e1` asignó `Canal.Fox.Sports.2.(México).mx`; `Actualizar EPG` run `38565913595` terminó success y publicó la salida `56d27af`. GitHub Raw confirma el canal con fuente `mx1`, 60 programas y fuera de `epg-pending.json`. En el corte de 20:16 UTC el contrato local contiene trece asignaciones posteriores verificadas (detalladas arriba y en la bitácora), para 75/247 y 172 pendientes; 62 están publicados y estas trece esperan commit, runner y comprobación Raw. No se publican títulos `Live` inventados.
 - No se modificaron la aplicación ni la selección de resolutores. La rama se actualizó desde `aec3847` para incorporar cinco commits automáticos del runner antes de la publicación.
 
 ## Publicación
