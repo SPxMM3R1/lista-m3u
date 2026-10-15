@@ -12,9 +12,9 @@ Documento de continuidad para reanudar la auditoría en otra sesión. Es un cort
 
 ## Punto de reanudación
 
-- Repositorio aislado: `work/lista-remove-positions-isolated`.
-- Rama: `remove-channel-positions-20261013`; `HEAD` observado: `a86ecb6a85a37c68bf92c680f05c03ace6527abb`, igual a `origin/main` en este corte. Los cambios de auditoría están sin commit.
-- Total: 247 canales; 93 tienen guía asignada en el contrato (62 ya presentes en GitHub Raw y 31 verificadas localmente, todavía sin publicar); 154 siguen pendientes.
+- Repositorio aislado: `work/lista-remove-positions-isolated` (solo Lista M3U; no tocar VibeM3U).
+- Rama: `remove-channel-positions-20261013`; commit publicado `13f003e1c85f0303f2c7d4b5734d83439d4a2828` en `main`.
+- Total del contrato: 247 canales; 93 tienen una fuente asignada y 154 siguen pendientes. De los 31 casos documentados en este tramo, sus valores `source/source_id` ya estaban semánticamente en `epg-overrides.json` del `main` anterior (`8a4ec62`); el commit `13f003e` publica el informe/contrato/evidencia, no 31 valores nuevos del manifiesto.
 - **Quedan 42 canales por inspeccionar visualmente: #447–#488.** Este número no es igual a los 154 pendientes: varios pendientes ya se vieron, pero no hubo evidencia bastante para elegir una guía.
 - El último canal revisado es #446. El siguiente es:
 
@@ -24,6 +24,14 @@ Documento de continuidad para reanudar la auditoría en otra sesión. Es un cort
 | 448 | DISCOVERY CHANNEL-IXP [IP 138.59.177.78] | `PublicDirect.76f85d8e18ca914171dde970` | Pendiente; región/feed no identificados |
 | 449 | DISCOVERY KIDS-IXP [IP 138.59.177.78] | `PublicDirect.e687f4926b0240629f249807` | Pendiente; región/feed no identificados |
 | 450 | DISCOVERY WORLD-IXP [IP 138.59.177.78] | `PublicDirect.e7eacb4779e7c1b75e062879` | Ya asignado localmente a `cl / Canal.Discovery.World.Latinoamérica.cl`; no volver a contarlo como pendiente de inspección |
+
+## Publicación y estado del runner (2026-10-15)
+
+- El commit `13f003e1c85f0303f2c7d4b5734d83439d4a2828` está en GitHub `main`; `git ls-remote` confirmó el mismo SHA. No se cambió VibeM3U.
+- El push creó Actions `38664592864` (`Publicar cambios dirigidos`), que pasó sus pruebas offline. El plan informó `full_run_required=true` por los archivos de documentación/contrato y dejó el cambio «diferido a la próxima ventana completa»; no hubo artefactos dirigidos nuevos.
+- El `epg.xml` de ese `main` tiene nodos `<channel>` para los 31 IDs `PublicDirect` de la tanda auditada, pero **cero elementos `<programme>`** para ellos al corte 2026-10-15 01:17 UTC. Están en `1.m3u` y `channel-catalog.m3u`; no contarlos como programación cubierta.
+- Se intentó el refresh dirigido solo para esos 31 IDs con Actions `38664866636`. Las pruebas offline pasaron; falló `Aplicar cambio dirigido manual` tras 2m07s, después de informar el alcance global de Lista 1. El log termina en `Process completed with exit code 1`, sin traceback ni causa explícita; no se publicó ningún XML nuevo. La causa sigue sin confirmar.
+- Código observado: `refresh_epg()` vuelve a fijar su alcance a toda Lista 1 más selección gestionada aun cuando el llamador entregue canales seleccionados; por eso esa ruta puede recolectar más fuentes que las 31 solicitadas y luego `apply_epg()` solo fusiona los IDs objetivo. Esto es contexto para investigar, no causa confirmada del fallo.
 
 ## Última tanda documentada
 
@@ -45,7 +53,7 @@ Cambios existentes que deben preservarse:
 - `tests/test_trial_officialization.py`
 - `outputs/` (capturas y datos de evidencia)
 
-**Estado al preparar este handoff:** aún no había commit ni push de esta auditoría. No descartar, resetear ni reescribir los cambios. Las 31 asignaciones nuevas todavía no estaban en GitHub Raw; los 62 mapas preexistentes sí. Después, verificar el commit/Raw más reciente antes de continuar.
+**Estado actual del handoff:** informe, contrato y este documento están publicados en `13f003e`. Las capturas PNG y el material de evidencia de `outputs/` permanecen locales y sin seguimiento Git para no inflar el repositorio; preservarlos en esta máquina. El árbol puede mostrar esos PNG como untracked. No resetear ni borrarlos. Al reanudar, verificar primero el `main` actual, el resultado de Actions `38664866636` y la disponibilidad del emulador.
 
 ## Validación al preparar este handoff
 
@@ -56,7 +64,7 @@ python -m unittest discover -s tests -p test_trial_officialization.py -q
 git diff --check
 ```
 
-Resultado: **11 tests OK** y `git diff --check` sin errores. Una primera ejecución accidental desde la carpeta coordinadora falló al importar `nauta_reference`; repetirla desde la raíz correcta del checkout pasó. No fue un fallo del test ni del código.
+Resultado del corte anterior: **11 tests OK** y `git diff --check` sin errores. Para el commit publicado se volvió a ejecutar la suite Python completa: **363 tests, 19 skips previstos, OK**, y `node --test tests/editor-core.test.mjs`: **42/42 OK**. Las pruebas offline de Actions del push también pasaron. La ejecución EPG manual fallida no alteró el XML publicado.
 
 ## Emulador y cómo reanudar
 
@@ -74,4 +82,4 @@ Resultado: **11 tests OK** y `git diff --check` sin errores. Una primera ejecuci
 2. Dejar los casos no identificables como `pending`; no relajar la regla de evidencia exacta ni el mínimo de 12 horas.
 3. Ejecutar las pruebas específicas y las validaciones de catálogo/runner/EPG aplicables. Revisar `git diff` y estado remoto antes de cualquier publicación.
 4. Comparar la guía completa normalizada, no solo el programa actual, para proponer pares exactamente iguales. Entregar la lista sin crear respaldos automáticamente.
-5. No hacer commit/publicación hasta completar la auditoría y sus validaciones; si se crea commit, publicar en el mismo flujo y verificar SHA remoto/artefactos conforme a las instrucciones del repositorio.
+5. La publicación parcial `13f003e` fue solicitada por el usuario y no significa que la auditoría esté terminada. Para cambios siguientes, alinear contrato, manifiesto, informe, `AGENTS.md`, `ESTADO.md` y tests; ejecutar las validaciones, revisar diff/estado remoto y, si se crea commit, publicarlo en el mismo flujo y comprobar SHA y artefactos. No marcar como cubierta una guía hasta confirmar `<programme>` real y al menos 12 h futuras continuas.
