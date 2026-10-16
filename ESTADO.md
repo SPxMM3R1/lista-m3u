@@ -9,6 +9,7 @@
 
 ## Hoy, en una mirada
 
+- **ESPN 4 HD #37 después de ESPN 3 Sur #36 (2026-10-15)**: `ESPN4.co@Direct181` pasa del #166 al #37, inmediatamente después de `WinSports.co@Direct181` («ESPN 3 Sur»). El #37 estaba libre: solo cambia el número de este canal; #166 queda libre y se preservan los demás números, la identidad, URL, logo y EPG. Se actualizan el orden editorial y las M3U de Lista 1.
 - **ESPN 2 #34 después de ESPN #33 (2026-10-15)**: `PublicDirect.d6cca6d4aa23a69d50439c22`, antes numerado #464 y mostrado como «ESPN 2 HD», pasa a mostrarse «ESPN 2» en el #34, inmediatamente después de `ESPN.co@Direct181`. El #165 `ESPN2.co@Direct181` queda como su respaldo unidireccional por `tvg-id`; conserva su fila y número en la M3U, pero la app no lo muestra como canal independiente. Se conservan identidad, URL, logo y EPG de ambos; no se renumeran otros canales.
 - **ESPN #33 después de TNT Sports 4 y guía chilena (2026-10-15)**: `ESPN.co@Direct181` se muestra como «ESPN» y queda inmediatamente después de TNT Sports 4 #32. Se conserva la identidad/URL; el hueco #33 se reutiliza y no se renumeran los demás canales. El override de EPG pasa de `co1 / ESPN.co` a `cl / Canal.ESPN.(Chile).cl`.
 - **Respaldos directos de canales (2026-10-15)**: cada vínculo es principal→respaldos, no recíproco; siguiendo el ejemplo previo de conservar HD como principal, quedan A&E HD #341 → #442, AMC HD #343 → #198 y #443 (en ese orden), Animal Planet HD #348 → #444, AXN HD #345 → #226 y Cinecanal HD #353 → #197. Se guardan `tvg-id` estables en `backupm3u`; las filas de respaldo permanecen activas en Lista 1 pero la app no las muestra como canales separados. No se tocaron números, nombres, URLs, EPG ni resolutores.
@@ -178,6 +179,8 @@
   nuevo por captura.
 
 ## Bitácora (más reciente arriba)
+
+- **2026-10-15 / ESPN 4 tras ESPN 3 Sur**: `ESPN4.co@Direct181` se mueve de #166 al hueco #37, justo después de `WinSports.co@Direct181` («ESPN 3 Sur» #36). El #166 queda libre; no se modifica el número de otro canal. El orden editorial y las salidas M3U de Lista 1 se regeneran; identidad, nombre, URL, logo y EPG se conservan.
 
 - **2026-10-15 / respaldo de ESPN 2**: el ESPN 2 #34 (`PublicDirect.d6cca6d4aa23a69d50439c22`) queda enlazado al #165 (`ESPN2.co@Direct181`) mediante `backupm3u`, en dirección principal→respaldo. La fila #165 permanece activa y con el mismo número en Lista 1, pero la app la consume como respaldo y no como canal independiente. No se cambia URL, logo, EPG, nombre ni numeración. La prueba de vínculos directos ahora cubre seis relaciones.
 

@@ -288,5 +288,31 @@ class Espn2PlacementTest(unittest.TestCase):
             self.assertEqual("ESPN 2", next(channel.name for channel in channels if channel.tvg_id == self.TARGET_ID))
 
 
+class Espn4PlacementTest(unittest.TestCase):
+    TARGET_ID = "ESPN4.co@Direct181"
+    ESPN3_ID = "WinSports.co@Direct181"
+
+    def test_espn4_166_is_after_espn3_sur_at_number_37(self):
+        layout = json.loads((ROOT / "data/channel-editor-layout.json").read_text(encoding="utf-8"))
+        rows = [row for row in layout["channels"] if row.get("state") == "active"]
+        target = next(row for row in rows if row.get("tvgId") == self.TARGET_ID)
+        espn3 = next(row for row in rows if row.get("tvgId") == self.ESPN3_ID)
+        ordered = sorted(rows, key=lambda row: row["order"])
+        self.assertEqual(37, target["number"])
+        self.assertEqual(36, espn3["number"])
+        self.assertEqual("ESPN 4 HD", target["displayName"])
+        self.assertEqual(target, ordered[ordered.index(espn3) + 1])
+        self.assertNotIn(166, {row["number"] for row in rows})
+        self.assertEqual(len(rows), len({row["number"] for row in rows}))
+
+        presentation = json.loads((ROOT / "presentation-overrides.json").read_text(encoding="utf-8"))
+        for playlist_name in ("1.m3u", "m3u.m3u"):
+            order = presentation["orders"][playlist_name]
+            target_index = order.index(self.TARGET_ID)
+            self.assertEqual(self.ESPN3_ID, order[target_index - 1])
+            channels = runner.parse_channels((ROOT / playlist_name).read_text(encoding="utf-8").splitlines())
+            self.assertEqual("ESPN 4 HD", next(channel.name for channel in channels if channel.tvg_id == self.TARGET_ID))
+
+
 if __name__ == "__main__":
     unittest.main()
