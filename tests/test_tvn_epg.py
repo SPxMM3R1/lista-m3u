@@ -22,6 +22,19 @@ def channel(name: str, tvg_id: str) -> update_m3u.Channel:
 
 
 class TvnEpgTests(unittest.TestCase):
+    def test_direct_espn_181_uses_the_chilean_guide(self) -> None:
+        target = "ESPN.co@Direct181"
+        source = ("cl", "Canal.ESPN.(Chile).cl")
+        overrides = json.loads(Path("epg-overrides.json").read_text(encoding="utf-8"))
+        self.assertEqual(
+            {"source": source[0], "source_id": source[1]},
+            overrides["channels"][target],
+        )
+        with patch.dict(update_m3u.EPG_PROGRAMME_SOURCES, {target: source}):
+            chain = update_m3u.epg_source_chain(target)
+            self.assertEqual(source, chain[0])
+            self.assertNotIn(("co1", "ESPN.co"), chain)
+
     def test_espn5_uses_verified_spanish_feed_not_portuguese_sd_entry(self) -> None:
         target = "WinPlusFutbol.co@Direct181"
         self.assertEqual(("uy1", "ESPN.5.HD.uy"), update_m3u.EPG_PROGRAMME_SOURCES[target])

@@ -38,6 +38,7 @@ agente debe poder retomar el trabajo solo con lo que está en el repositorio.
 
 ## Excepción editorial puntual
 
+- **ESPN directo con guía chilena (2026-10-15)**: `ESPN.co@Direct181` se presenta como «ESPN» en Lista 1, puesto #33, inmediatamente después de TNT Sports 4 #32. Su identidad y URL no cambian. La guía explícita es `cl / Canal.ESPN.(Chile).cl`, no `co1 / ESPN.co`. Mantener las regresiones en `tests/test_channel_quality_backups.py` y `tests/test_tvn_epg.py`; al mover una fila, actualizar el layout y las órdenes generadas preservando los demás números existentes si el nuevo número estaba libre.
 - **Marcador numérico `(145)` (2026-10-15)**: el usuario aclaró que debía eliminarse también del campo `name`, no solo del nombre visible. Se quitó del nombre de origen de `PublicDirect.dcd8868ec2ff980d13c48e61` (ESPN #487) en layout e inventario canónico y de `presentation-overrides.info_lines`; `tvg-id`, URL e IP se preservan. No extrapolar a nombres exactos de proveedor Nauta/Highfly/TvVoo ni a otros metadatos técnicos sin instrucción.
 
 ## Límites

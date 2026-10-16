@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, FreeEPG, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-description-policy="verified-source-only" data-description-programmes="6068" data-description-channels="97" data-next-refresh-at="2026-10-16T15:25:57.400000+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u" data-generated-at="2026-10-15T23:47:21+00:00">
+<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, FreeEPG, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-description-policy="verified-source-only" data-description-programmes="5432" data-description-channels="89" data-next-refresh-at="2026-10-16T15:25:57.400000+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u" data-generated-at="2026-10-16T02:07:04+00:00">
   <channel id="0104" data-guide="parrilla real" data-guide-source="cl">
     <display-name>TVN</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvn.png" />
@@ -387,10 +387,6 @@
   </channel>
   <channel id="PublicDirect.cb7dc4d2d35c7f028eb472ab" data-guide="parrilla real" data-guide-source="co1">
     <display-name>ESPN CO sd [IP 181.78.12.119]</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn.svg" />
-  </channel>
-  <channel id="ESPN.co@Direct181" data-guide="parrilla real" data-guide-source="co1">
-    <display-name>ESPN HD [IP 181]</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn.svg" />
   </channel>
   <channel id="Nauta.7437112a4b992980a550d16a@Nauta" data-guide="parrilla real" data-guide-source="mx1">
@@ -881,6 +877,10 @@
   <channel id="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" data-guide="parrilla real parcial" data-guide-source="es" data-app-alias-of="Eurosport2.es@TvVoo">
     <display-name>Eurosport 2 España</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/eurosport.svg" />
+  </channel>
+  <channel id="ESPN.co@Direct181" data-guide="parrilla real" data-guide-source="cl">
+    <display-name>ESPN</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn.svg" />
   </channel>
   <programme start="20261015140000 -0300" stop="20261015150000 -0300" channel="0102">
     <title lang="es">Hudson &amp; Rex</title>
@@ -15221,453 +15221,6 @@
     <desc lang="es">En la sabana africana, los supervivientes de Naked and Afraid Brasil se dividen en tribus. Se acerca la noche y necesitan fuego, agua y refugio. La tensión va en aumento. ¿Podrán aguantar todos hasta el día 30.</desc>
     <date>2025</date>
     <episode-num system="onscreen">E1</episode-num>
-    <rating system="MJColombia">
-      <value>AGE228</value>
-    </rating>
-  </programme>
-  <programme start="20261015133000 -0300" stop="20261015154000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">Fútbol UEFA Europa League</title>
-    <sub-title lang="es">Red Bull Salzburg vs. AC Milan</sub-title>
-    <desc lang="es">Segunda jornada de la UEFA Europa League 2026-27. Red Bull Salzburg se enfrenta a AC Milan. Desde el Red Bull Arena, en Salzburgo, Austria.</desc>
-    <date>2026</date>
-    <rating system="MJColombia">
-      <value>AGE228</value>
-    </rating>
-  </programme>
-  <programme start="20261015154000 -0300" stop="20261015175500 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">Fútbol UEFA Europa League</title>
-    <sub-title lang="es">RC Celta vs. Juventus</sub-title>
-    <desc lang="es">Segunda jornada de la UEFA Europa League 2026-27. RC Celta se enfrenta a Juventus. Desde el Estadio Abanca-Balaídos, en Vigo, España.</desc>
-    <date>2026</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261015175500 -0300" stop="20261015193000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">Balón dividido</title>
-    <desc lang="es">El análisis y la actualidad del fútbol de Colombia, a cargo de grandes especialistas. Además, los informes con la última información de cada equipo y la palabra de los protagonistas.</desc>
-    <date>2010</date>
-    <rating system="MJColombia">
-      <value>AGE228</value>
-    </rating>
-  </programme>
-  <programme start="20261015193000 -0300" stop="20261015210000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">ESPN F360</title>
-    <desc lang="es">Análisis, debate y comentarios de las noticias más relevantes del fútbol nacional, así como a nivel mundial.</desc>
-    <date>2025</date>
-    <rating system="MJColombia">
-      <value>AGE228</value>
-    </rating>
-  </programme>
-  <programme start="20261015210000 -0300" stop="20261015233000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">Fútbol CONMEBOL Copa Libertadores</title>
-    <sub-title lang="es">Estudiantes vs. Flamengo</sub-title>
-    <desc lang="es">Estudiantes de La Plata recibe a Flamengo en el Estadio UNO por la semifinal de ida de la CONMEBOL Copa Libertadores 2026. El Fla llega con una hegemonía reciente tras imponerse en 3 de los últimos 4 enfrentamientos directos sobre El Pincha.</desc>
-    <date>2026</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261015233000 -0300" stop="20261016010000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">ESPN F90</title>
-    <desc lang="es">Un clásico de la televisión con toda la actualidad, el mejor análisis y un muy rico debate futbolístico.</desc>
-    <date>2021</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261016010000 -0300" stop="20261016020000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">SportsCenter</title>
-    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
-    <date>1979</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261016020000 -0300" stop="20261016030000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">SportsCenter</title>
-    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
-    <date>1979</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261016030000 -0300" stop="20261016040000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">SportsCenter</title>
-    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
-    <date>1979</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261016040000 -0300" stop="20261016050000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">SportsCenter</title>
-    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
-    <date>1979</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261016050000 -0300" stop="20261016060000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">SportsCenter</title>
-    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
-    <date>1979</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261016060000 -0300" stop="20261016070000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">SportsCenter</title>
-    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
-    <date>1979</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261016070000 -0300" stop="20261016090000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">Tenis ATP Rolex Shanghai Masters 2026</title>
-    <sub-title lang="es">Cuartos de final</sub-title>
-    <desc lang="es">Cobertura de los cuartos de final del Shangai Masters 2026. Desde la Qizhong Forest Sports City Arena.</desc>
-    <date>2026</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261016090000 -0300" stop="20261016110000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">Tenis ATP Rolex Shanghai Masters 2026</title>
-    <sub-title lang="es">Cuartos de final</sub-title>
-    <desc lang="es">Cobertura de los cuartos de final del Shangai Masters 2026. Desde la Qizhong Forest Sports City Arena.</desc>
-    <date>2026</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261016110000 -0300" stop="20261016120000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">SportsCenter</title>
-    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
-    <date>1979</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261016120000 -0300" stop="20261016130000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">UEFA Europa League Highlights</title>
-    <desc lang="es">Un análisis completo con los momentos destacados de los últimos partidos de la UEFA Europa League, la segunda competición internacional de fútbol europeo más importante.</desc>
-    <date>2009</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261016130000 -0300" stop="20261016140000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">SportsCenter</title>
-    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
-    <date>1979</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261016140000 -0300" stop="20261016170000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">SportsCenter</title>
-    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
-    <date>1979</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261016170000 -0300" stop="20261016190000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">Balón dividido</title>
-    <desc lang="es">El análisis y la actualidad del fútbol de Colombia, a cargo de grandes especialistas. Además, los informes con la última información de cada equipo y la palabra de los protagonistas.</desc>
-    <date>2010</date>
-    <rating system="MJColombia">
-      <value>AGE228</value>
-    </rating>
-  </programme>
-  <programme start="20261016190000 -0300" stop="20261016211500 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">ESPN F360</title>
-    <desc lang="es">Análisis, debate y comentarios de las noticias más relevantes del fútbol nacional, así como a nivel mundial.</desc>
-    <date>2025</date>
-    <rating system="MJColombia">
-      <value>AGE228</value>
-    </rating>
-  </programme>
-  <programme start="20261016211500 -0300" stop="20261016232500 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">Fútbol Argentino Primera División</title>
-    <sub-title lang="es">Boca Juniors vs. Talleres (C)</sub-title>
-    <desc lang="es">Encuentros de la Asociación de Fútbol Argentino de la Primera División.</desc>
-    <date>2026</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261016232500 -0300" stop="20261017010000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">ESPN F90</title>
-    <desc lang="es">Un clásico de la televisión con toda la actualidad, el mejor análisis y un muy rico debate futbolístico.</desc>
-    <date>2021</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261017010000 -0300" stop="20261017020000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">SportsCenter</title>
-    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
-    <date>1979</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261017020000 -0300" stop="20261017025800 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">SportsCenter</title>
-    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
-    <date>1979</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261017025800 -0300" stop="20261017035500 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">SportsCenter</title>
-    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
-    <date>1979</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261017035500 -0300" stop="20261017045300 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">SportsCenter</title>
-    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
-    <date>1979</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261017045300 -0300" stop="20261017055000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">SportsCenter</title>
-    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
-    <date>1979</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261017055000 -0300" stop="20261017062000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">Premier League Preview Show</title>
-    <desc lang="es">Adelanto de próximos partidos de la Liga Premier.</desc>
-    <date>1998</date>
-    <rating system="MJColombia">
-      <value>AGE228</value>
-    </rating>
-  </programme>
-  <programme start="20261017062000 -0300" stop="20261017072000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">SportsCenter</title>
-    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
-    <date>1979</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261017072000 -0300" stop="20261017082000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">SportsCenter</title>
-    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
-    <date>1979</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261017082000 -0300" stop="20261017102500 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">Fútbol Premier League</title>
-    <sub-title lang="es">Everton vs. Chelsea</sub-title>
-    <desc lang="es">Jornada 7 de la temporada 2026-27 de la Premier League. Desde el estadio Hill Dickinson. El conjunto londinense llega con la intención de vengar la derrota por 3-0 sufrida en marzo, tras haber ganado tres de los últimos cinco enfrentamientos.</desc>
-    <date>2026</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261017102500 -0300" stop="20261017105000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">SportsCenter+</title>
-    <desc lang="es">Programación exclusiva del noticiero deportivo más visto en el mundo.</desc>
-    <date>2023</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261017105000 -0300" stop="20261017125500 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">Fútbol Premier League</title>
-    <sub-title lang="es">Manchester City vs. Ipswich Town</sub-title>
-    <desc lang="es">Jornada 7 de la temporada 2026-27 de la Premier League. Desde el estadio Etihad. El líder de la liga venció al Liverpool por 3-0 a domicilio el fin de semana pasado. El Ipswich ganó 2-1 al Fulham en su último encuentro.</desc>
-    <date>2026</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261017125500 -0300" stop="20261017131500 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">SportsCenter+</title>
-    <desc lang="es">Programación exclusiva del noticiero deportivo más visto en el mundo.</desc>
-    <date>2023</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261017131500 -0300" stop="20261017153000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">Fútbol Bundesliga</title>
-    <sub-title lang="es">Bayern Munich vs. RB Leipzig</sub-title>
-    <desc lang="es">Acción de la jornada 6 de la Bundesliga 2026-27. Los Bávaros buscan el liderato y Leipzig su segunda victoria al hilo.</desc>
-    <date>2026</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261017153000 -0300" stop="20261017174500 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">SportsCenter</title>
-    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
-    <date>1979</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261017174500 -0300" stop="20261017192500 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">SportsCenter</title>
-    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
-    <date>1979</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261017192500 -0300" stop="20261017210000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">SportsCenter</title>
-    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
-    <date>1979</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261017210000 -0300" stop="20261018000000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">ESPN KnockOut</title>
-    <sub-title lang="es">Sebastian Fundora vs. Ermal Hadribeaj</sub-title>
-    <desc lang="es">Pelea por el título WBC de peso superwélter. Sebastian Fundora cruza puños con Ermal Hadribeaj. Desde The Cosmopolitan, en Las Vegas.</desc>
-    <date>2026</date>
-    <rating system="MJColombia">
-      <value>AGE228</value>
-    </rating>
-  </programme>
-  <programme start="20261018000000 -0300" stop="20261018010000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">SportsCenter</title>
-    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
-    <date>1979</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261018010000 -0300" stop="20261018020000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">SportsCenter</title>
-    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
-    <date>1979</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261018020000 -0300" stop="20261018030000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">SportsCenter</title>
-    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
-    <date>1979</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261018030000 -0300" stop="20261018040000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">SportsCenter</title>
-    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
-    <date>1979</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261018040000 -0300" stop="20261018043000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">UEFA Champions League Weekly</title>
-    <desc lang="es">Momentos destacados, entrevistas y toda la información de la jornada semanal de la UEFA Champions League.</desc>
-    <date>2004</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261018043000 -0300" stop="20261018053000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">SportsCenter</title>
-    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
-    <date>1979</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261018053000 -0300" stop="20261018073000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">Tenis ATP Rolex Shanghai Masters 2026</title>
-    <sub-title lang="es">Final</sub-title>
-    <desc lang="es">Cobertura de la gran final del Shangai Masters 2026 de la ATP. Desde la Qizhong Forest Sports City Arena.</desc>
-    <date>2026</date>
-    <rating system="MJColombia">
-      <value>AGE228</value>
-    </rating>
-  </programme>
-  <programme start="20261018073000 -0300" stop="20261018095000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">SportsCenter+</title>
-    <desc lang="es">Programación exclusiva del noticiero deportivo más visto en el mundo.</desc>
-    <date>2023</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261018095000 -0300" stop="20261018115500 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">Fútbol Premier League</title>
-    <sub-title lang="es">Brighton &amp; Hove Albion vs. Crystal Palace</sub-title>
-    <desc lang="es">Jornada 7 de la temporada 2026-27 de la Premier League. Brighton se enfrenta a Crystal Palace. Desde el estadio American Express.</desc>
-    <date>2026</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261018115500 -0300" stop="20261018122000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">SportsCenter+</title>
-    <desc lang="es">Programación exclusiva del noticiero deportivo más visto en el mundo.</desc>
-    <date>2023</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261018122000 -0300" stop="20261018143000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">Fútbol Premier League</title>
-    <sub-title lang="es">Nottingham Forest vs. Arsenal</sub-title>
-    <desc lang="es">Jornada 7 de la temporada 2026-27 de la Premier League. Nottingham Forest se enfrenta a Arsenal. Desde el estadio City Ground.</desc>
-    <date>2026</date>
-    <rating system="MJColombia">
-      <value>AGE228</value>
-    </rating>
-  </programme>
-  <programme start="20261018143000 -0300" stop="20261018155000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">SportsCenter</title>
-    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
-    <date>1979</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261018155000 -0300" stop="20261018175500 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">Fútbol LaLiga</title>
-    <sub-title lang="es">Real Madrid vs. Sevilla</sub-title>
-    <desc lang="es">Jornada 9 de la temporada 2026-27 de LaLiga. Real Madrid se enfrenta a Sevilla. Desde el estadio Santiago Bernabéu.</desc>
-    <date>2026</date>
-    <rating system="MJColombia">
-      <value>AGE228</value>
-    </rating>
-  </programme>
-  <programme start="20261018175500 -0300" stop="20261018200000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">SportsCenter</title>
-    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
-    <date>1979</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261018200000 -0300" stop="20261018221000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">Fútbol Argentino Primera División</title>
-    <sub-title lang="es">Belgrano vs. River Plate</sub-title>
-    <desc lang="es">Encuentros de la Asociación de Fútbol Argentino de la Primera División.</desc>
-    <date>2026</date>
     <rating system="MJColombia">
       <value>AGE228</value>
     </rating>
@@ -82565,5 +82118,647 @@
     <rating system="ES">
       <value>Apta</value>
     </rating>
+  </programme>
+  <programme start="20261015144000 -0400" stop="20261015165500 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">Celta de Vigo vs. Juventus</title>
+    <sub-title lang="es">Fútbol UEFA Europa League</sub-title>
+  </programme>
+  <programme start="20261015165500 -0400" stop="20261015190000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">ESPN F360</title>
+  </programme>
+  <programme start="20261015190000 -0400" stop="20261015200000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
+    <category lang="es">Deporte</category>
+    <category lang="es">Fútbol Americano</category>
+    <category lang="es">Baloncesto</category>
+    <category lang="es">Béisbol</category>
+    <category lang="es">Básquetbol</category>
+    <category lang="es">Fútbol Italiano</category>
+    <category lang="es">Major League Baseball</category>
+    <category lang="es">Fútbol Mexicano</category>
+    <category lang="es">MLB</category>
+    <category lang="es">NBA</category>
+    <category lang="es">Noticias</category>
+    <category lang="es">NFL</category>
+    <category lang="es">Fútbol</category>
+    <category lang="es">UEFA</category>
+    <category lang="es">Fútbol Español</category>
+    <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
+  </programme>
+  <programme start="20261015200000 -0400" stop="20261015213000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">ESPN F90</title>
+  </programme>
+  <programme start="20261015213000 -0400" stop="20261015230000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">ESPN F Show</title>
+  </programme>
+  <programme start="20261015230000 -0400" stop="20261016000000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
+    <category lang="es">Deporte</category>
+    <category lang="es">Fútbol Americano</category>
+    <category lang="es">Baloncesto</category>
+    <category lang="es">Béisbol</category>
+    <category lang="es">Básquetbol</category>
+    <category lang="es">Fútbol Italiano</category>
+    <category lang="es">Major League Baseball</category>
+    <category lang="es">Fútbol Mexicano</category>
+    <category lang="es">MLB</category>
+    <category lang="es">NBA</category>
+    <category lang="es">Noticias</category>
+    <category lang="es">NFL</category>
+    <category lang="es">Fútbol</category>
+    <category lang="es">UEFA</category>
+    <category lang="es">Fútbol Español</category>
+    <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
+  </programme>
+  <programme start="20261016000000 -0400" stop="20261016010000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
+    <category lang="es">Deporte</category>
+    <category lang="es">Fútbol Americano</category>
+    <category lang="es">Baloncesto</category>
+    <category lang="es">Béisbol</category>
+    <category lang="es">Básquetbol</category>
+    <category lang="es">Fútbol Italiano</category>
+    <category lang="es">Major League Baseball</category>
+    <category lang="es">Fútbol Mexicano</category>
+    <category lang="es">MLB</category>
+    <category lang="es">NBA</category>
+    <category lang="es">Noticias</category>
+    <category lang="es">NFL</category>
+    <category lang="es">Fútbol</category>
+    <category lang="es">UEFA</category>
+    <category lang="es">Fútbol Español</category>
+    <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
+  </programme>
+  <programme start="20261016010000 -0400" stop="20261016020000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
+    <category lang="es">Deporte</category>
+    <category lang="es">Fútbol Americano</category>
+    <category lang="es">Baloncesto</category>
+    <category lang="es">Béisbol</category>
+    <category lang="es">Básquetbol</category>
+    <category lang="es">Fútbol Italiano</category>
+    <category lang="es">Major League Baseball</category>
+    <category lang="es">Fútbol Mexicano</category>
+    <category lang="es">MLB</category>
+    <category lang="es">NBA</category>
+    <category lang="es">Noticias</category>
+    <category lang="es">NFL</category>
+    <category lang="es">Fútbol</category>
+    <category lang="es">UEFA</category>
+    <category lang="es">Fútbol Español</category>
+    <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
+  </programme>
+  <programme start="20261016020000 -0400" stop="20261016030000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
+    <category lang="es">Deporte</category>
+    <category lang="es">Fútbol Americano</category>
+    <category lang="es">Baloncesto</category>
+    <category lang="es">Béisbol</category>
+    <category lang="es">Básquetbol</category>
+    <category lang="es">Fútbol Italiano</category>
+    <category lang="es">Major League Baseball</category>
+    <category lang="es">Fútbol Mexicano</category>
+    <category lang="es">MLB</category>
+    <category lang="es">NBA</category>
+    <category lang="es">Noticias</category>
+    <category lang="es">NFL</category>
+    <category lang="es">Fútbol</category>
+    <category lang="es">UEFA</category>
+    <category lang="es">Fútbol Español</category>
+    <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
+  </programme>
+  <programme start="20261016030000 -0400" stop="20261016040000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
+    <category lang="es">Deporte</category>
+    <category lang="es">Fútbol Americano</category>
+    <category lang="es">Baloncesto</category>
+    <category lang="es">Béisbol</category>
+    <category lang="es">Básquetbol</category>
+    <category lang="es">Fútbol Italiano</category>
+    <category lang="es">Major League Baseball</category>
+    <category lang="es">Fútbol Mexicano</category>
+    <category lang="es">MLB</category>
+    <category lang="es">NBA</category>
+    <category lang="es">Noticias</category>
+    <category lang="es">NFL</category>
+    <category lang="es">Fútbol</category>
+    <category lang="es">UEFA</category>
+    <category lang="es">Fútbol Español</category>
+    <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
+  </programme>
+  <programme start="20261016040000 -0400" stop="20261016050000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
+    <category lang="es">Deporte</category>
+    <category lang="es">Fútbol Americano</category>
+    <category lang="es">Baloncesto</category>
+    <category lang="es">Béisbol</category>
+    <category lang="es">Básquetbol</category>
+    <category lang="es">Fútbol Italiano</category>
+    <category lang="es">Major League Baseball</category>
+    <category lang="es">Fútbol Mexicano</category>
+    <category lang="es">MLB</category>
+    <category lang="es">NBA</category>
+    <category lang="es">Noticias</category>
+    <category lang="es">NFL</category>
+    <category lang="es">Fútbol</category>
+    <category lang="es">UEFA</category>
+    <category lang="es">Fútbol Español</category>
+    <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
+  </programme>
+  <programme start="20261016050000 -0400" stop="20261016060000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
+    <category lang="es">Deporte</category>
+    <category lang="es">Fútbol Americano</category>
+    <category lang="es">Baloncesto</category>
+    <category lang="es">Béisbol</category>
+    <category lang="es">Básquetbol</category>
+    <category lang="es">Fútbol Italiano</category>
+    <category lang="es">Major League Baseball</category>
+    <category lang="es">Fútbol Mexicano</category>
+    <category lang="es">MLB</category>
+    <category lang="es">NBA</category>
+    <category lang="es">Noticias</category>
+    <category lang="es">NFL</category>
+    <category lang="es">Fútbol</category>
+    <category lang="es">UEFA</category>
+    <category lang="es">Fútbol Español</category>
+    <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
+  </programme>
+  <programme start="20261016060000 -0400" stop="20261016080000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">Tenis ATP Rolex Shanghai Masters 2026</title>
+  </programme>
+  <programme start="20261016080000 -0400" stop="20261016100000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">Tenis ATP Rolex Shanghai Masters 2026</title>
+  </programme>
+  <programme start="20261016100000 -0400" stop="20261016110000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
+    <category lang="es">Deporte</category>
+    <category lang="es">Fútbol Americano</category>
+    <category lang="es">Baloncesto</category>
+    <category lang="es">Béisbol</category>
+    <category lang="es">Básquetbol</category>
+    <category lang="es">Fútbol Italiano</category>
+    <category lang="es">Major League Baseball</category>
+    <category lang="es">Fútbol Mexicano</category>
+    <category lang="es">MLB</category>
+    <category lang="es">NBA</category>
+    <category lang="es">Noticias</category>
+    <category lang="es">NFL</category>
+    <category lang="es">Fútbol</category>
+    <category lang="es">UEFA</category>
+    <category lang="es">Fútbol Español</category>
+    <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
+  </programme>
+  <programme start="20261016110000 -0400" stop="20261016125500 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
+    <category lang="es">Deporte</category>
+    <category lang="es">Fútbol Americano</category>
+    <category lang="es">Baloncesto</category>
+    <category lang="es">Béisbol</category>
+    <category lang="es">Básquetbol</category>
+    <category lang="es">Fútbol Italiano</category>
+    <category lang="es">Major League Baseball</category>
+    <category lang="es">Fútbol Mexicano</category>
+    <category lang="es">MLB</category>
+    <category lang="es">NBA</category>
+    <category lang="es">Noticias</category>
+    <category lang="es">NFL</category>
+    <category lang="es">Fútbol</category>
+    <category lang="es">UEFA</category>
+    <category lang="es">Fútbol Español</category>
+    <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
+  </programme>
+  <programme start="20261016125500 -0400" stop="20261016145000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
+    <category lang="es">Deporte</category>
+    <category lang="es">Fútbol Americano</category>
+    <category lang="es">Baloncesto</category>
+    <category lang="es">Béisbol</category>
+    <category lang="es">Básquetbol</category>
+    <category lang="es">Fútbol Italiano</category>
+    <category lang="es">Major League Baseball</category>
+    <category lang="es">Fútbol Mexicano</category>
+    <category lang="es">MLB</category>
+    <category lang="es">NBA</category>
+    <category lang="es">Noticias</category>
+    <category lang="es">NFL</category>
+    <category lang="es">Fútbol</category>
+    <category lang="es">UEFA</category>
+    <category lang="es">Fútbol Español</category>
+    <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
+  </programme>
+  <programme start="20261016145000 -0400" stop="20261016170000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">Deportivo La Coruña vs. Levante</title>
+    <sub-title lang="es">Fútbol LaLiga</sub-title>
+  </programme>
+  <programme start="20261016170000 -0400" stop="20261016190000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">ESPN F360</title>
+  </programme>
+  <programme start="20261016190000 -0400" stop="20261016200000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
+    <category lang="es">Deporte</category>
+    <category lang="es">Fútbol Americano</category>
+    <category lang="es">Baloncesto</category>
+    <category lang="es">Béisbol</category>
+    <category lang="es">Básquetbol</category>
+    <category lang="es">Fútbol Italiano</category>
+    <category lang="es">Major League Baseball</category>
+    <category lang="es">Fútbol Mexicano</category>
+    <category lang="es">MLB</category>
+    <category lang="es">NBA</category>
+    <category lang="es">Noticias</category>
+    <category lang="es">NFL</category>
+    <category lang="es">Fútbol</category>
+    <category lang="es">UEFA</category>
+    <category lang="es">Fútbol Español</category>
+    <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
+  </programme>
+  <programme start="20261016200000 -0400" stop="20261016213000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">ESPN F90</title>
+  </programme>
+  <programme start="20261016213000 -0400" stop="20261016230000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">ESPN F Show</title>
+  </programme>
+  <programme start="20261016230000 -0400" stop="20261017000000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
+    <category lang="es">Deporte</category>
+    <category lang="es">Fútbol Americano</category>
+    <category lang="es">Baloncesto</category>
+    <category lang="es">Béisbol</category>
+    <category lang="es">Básquetbol</category>
+    <category lang="es">Fútbol Italiano</category>
+    <category lang="es">Major League Baseball</category>
+    <category lang="es">Fútbol Mexicano</category>
+    <category lang="es">MLB</category>
+    <category lang="es">NBA</category>
+    <category lang="es">Noticias</category>
+    <category lang="es">NFL</category>
+    <category lang="es">Fútbol</category>
+    <category lang="es">UEFA</category>
+    <category lang="es">Fútbol Español</category>
+    <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
+  </programme>
+  <programme start="20261017000000 -0400" stop="20261017010000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
+    <category lang="es">Deporte</category>
+    <category lang="es">Fútbol Americano</category>
+    <category lang="es">Baloncesto</category>
+    <category lang="es">Béisbol</category>
+    <category lang="es">Básquetbol</category>
+    <category lang="es">Fútbol Italiano</category>
+    <category lang="es">Major League Baseball</category>
+    <category lang="es">Fútbol Mexicano</category>
+    <category lang="es">MLB</category>
+    <category lang="es">NBA</category>
+    <category lang="es">Noticias</category>
+    <category lang="es">NFL</category>
+    <category lang="es">Fútbol</category>
+    <category lang="es">UEFA</category>
+    <category lang="es">Fútbol Español</category>
+    <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
+  </programme>
+  <programme start="20261017010000 -0400" stop="20261017020000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
+    <category lang="es">Deporte</category>
+    <category lang="es">Fútbol Americano</category>
+    <category lang="es">Baloncesto</category>
+    <category lang="es">Béisbol</category>
+    <category lang="es">Básquetbol</category>
+    <category lang="es">Fútbol Italiano</category>
+    <category lang="es">Major League Baseball</category>
+    <category lang="es">Fútbol Mexicano</category>
+    <category lang="es">MLB</category>
+    <category lang="es">NBA</category>
+    <category lang="es">Noticias</category>
+    <category lang="es">NFL</category>
+    <category lang="es">Fútbol</category>
+    <category lang="es">UEFA</category>
+    <category lang="es">Fútbol Español</category>
+    <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
+  </programme>
+  <programme start="20261017020000 -0400" stop="20261017030000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
+    <category lang="es">Deporte</category>
+    <category lang="es">Fútbol Americano</category>
+    <category lang="es">Baloncesto</category>
+    <category lang="es">Béisbol</category>
+    <category lang="es">Básquetbol</category>
+    <category lang="es">Fútbol Italiano</category>
+    <category lang="es">Major League Baseball</category>
+    <category lang="es">Fútbol Mexicano</category>
+    <category lang="es">MLB</category>
+    <category lang="es">NBA</category>
+    <category lang="es">Noticias</category>
+    <category lang="es">NFL</category>
+    <category lang="es">Fútbol</category>
+    <category lang="es">UEFA</category>
+    <category lang="es">Fútbol Español</category>
+    <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
+  </programme>
+  <programme start="20261017030000 -0400" stop="20261017040000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
+    <category lang="es">Deporte</category>
+    <category lang="es">Fútbol Americano</category>
+    <category lang="es">Baloncesto</category>
+    <category lang="es">Béisbol</category>
+    <category lang="es">Básquetbol</category>
+    <category lang="es">Fútbol Italiano</category>
+    <category lang="es">Major League Baseball</category>
+    <category lang="es">Fútbol Mexicano</category>
+    <category lang="es">MLB</category>
+    <category lang="es">NBA</category>
+    <category lang="es">Noticias</category>
+    <category lang="es">NFL</category>
+    <category lang="es">Fútbol</category>
+    <category lang="es">UEFA</category>
+    <category lang="es">Fútbol Español</category>
+    <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
+  </programme>
+  <programme start="20261017040000 -0400" stop="20261017045500 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
+    <category lang="es">Deporte</category>
+    <category lang="es">Fútbol Americano</category>
+    <category lang="es">Baloncesto</category>
+    <category lang="es">Béisbol</category>
+    <category lang="es">Básquetbol</category>
+    <category lang="es">Fútbol Italiano</category>
+    <category lang="es">Major League Baseball</category>
+    <category lang="es">Fútbol Mexicano</category>
+    <category lang="es">MLB</category>
+    <category lang="es">NBA</category>
+    <category lang="es">Noticias</category>
+    <category lang="es">NFL</category>
+    <category lang="es">Fútbol</category>
+    <category lang="es">UEFA</category>
+    <category lang="es">Fútbol Español</category>
+    <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
+  </programme>
+  <programme start="20261017045500 -0400" stop="20261017055000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
+    <category lang="es">Deporte</category>
+    <category lang="es">Fútbol Americano</category>
+    <category lang="es">Baloncesto</category>
+    <category lang="es">Béisbol</category>
+    <category lang="es">Básquetbol</category>
+    <category lang="es">Fútbol Italiano</category>
+    <category lang="es">Major League Baseball</category>
+    <category lang="es">Fútbol Mexicano</category>
+    <category lang="es">MLB</category>
+    <category lang="es">NBA</category>
+    <category lang="es">Noticias</category>
+    <category lang="es">NFL</category>
+    <category lang="es">Fútbol</category>
+    <category lang="es">UEFA</category>
+    <category lang="es">Fútbol Español</category>
+    <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
+  </programme>
+  <programme start="20261017055000 -0400" stop="20261017062000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">Premier League Preview Show</title>
+  </programme>
+  <programme start="20261017062000 -0400" stop="20261017072000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
+    <category lang="es">Deporte</category>
+    <category lang="es">Fútbol Americano</category>
+    <category lang="es">Baloncesto</category>
+    <category lang="es">Béisbol</category>
+    <category lang="es">Básquetbol</category>
+    <category lang="es">Fútbol Italiano</category>
+    <category lang="es">Major League Baseball</category>
+    <category lang="es">Fútbol Mexicano</category>
+    <category lang="es">MLB</category>
+    <category lang="es">NBA</category>
+    <category lang="es">Noticias</category>
+    <category lang="es">NFL</category>
+    <category lang="es">Fútbol</category>
+    <category lang="es">UEFA</category>
+    <category lang="es">Fútbol Español</category>
+    <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
+  </programme>
+  <programme start="20261017072000 -0400" stop="20261017092500 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">Everton vs. Chelsea</title>
+    <sub-title lang="es">Fútbol: Premier League</sub-title>
+  </programme>
+  <programme start="20261017092500 -0400" stop="20261017095000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">SportsCenter+</title>
+  </programme>
+  <programme start="20261017095000 -0400" stop="20261017115500 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">Manchester City vs. Ipswich Town</title>
+    <sub-title lang="es">Fútbol: Premier League</sub-title>
+  </programme>
+  <programme start="20261017115500 -0400" stop="20261017121500 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">SportsCenter+</title>
+  </programme>
+  <programme start="20261017121500 -0400" stop="20261017143000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">Newcastle United vs. Aston Villa</title>
+    <sub-title lang="es">Fútbol: Premier League</sub-title>
+  </programme>
+  <programme start="20261017143000 -0400" stop="20261017161500 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">ESPN Chile</title>
+  </programme>
+  <programme start="20261017161500 -0400" stop="20261017182500 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
+    <category lang="es">Deporte</category>
+    <category lang="es">Fútbol Americano</category>
+    <category lang="es">Baloncesto</category>
+    <category lang="es">Béisbol</category>
+    <category lang="es">Básquetbol</category>
+    <category lang="es">Fútbol Italiano</category>
+    <category lang="es">Major League Baseball</category>
+    <category lang="es">Fútbol Mexicano</category>
+    <category lang="es">MLB</category>
+    <category lang="es">NBA</category>
+    <category lang="es">Noticias</category>
+    <category lang="es">NFL</category>
+    <category lang="es">Fútbol</category>
+    <category lang="es">UEFA</category>
+    <category lang="es">Fútbol Español</category>
+    <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
+  </programme>
+  <programme start="20261017182500 -0400" stop="20261017200000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
+    <category lang="es">Deporte</category>
+    <category lang="es">Fútbol Americano</category>
+    <category lang="es">Baloncesto</category>
+    <category lang="es">Béisbol</category>
+    <category lang="es">Básquetbol</category>
+    <category lang="es">Fútbol Italiano</category>
+    <category lang="es">Major League Baseball</category>
+    <category lang="es">Fútbol Mexicano</category>
+    <category lang="es">MLB</category>
+    <category lang="es">NBA</category>
+    <category lang="es">Noticias</category>
+    <category lang="es">NFL</category>
+    <category lang="es">Fútbol</category>
+    <category lang="es">UEFA</category>
+    <category lang="es">Fútbol Español</category>
+    <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
+  </programme>
+  <programme start="20261017200000 -0400" stop="20261017230000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">ESPN Knockout</title>
+  </programme>
+  <programme start="20261017230000 -0400" stop="20261018000000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">ESPN Compact</title>
+  </programme>
+  <programme start="20261018000000 -0400" stop="20261018010000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
+    <category lang="es">Deporte</category>
+    <category lang="es">Fútbol Americano</category>
+    <category lang="es">Baloncesto</category>
+    <category lang="es">Béisbol</category>
+    <category lang="es">Básquetbol</category>
+    <category lang="es">Fútbol Italiano</category>
+    <category lang="es">Major League Baseball</category>
+    <category lang="es">Fútbol Mexicano</category>
+    <category lang="es">MLB</category>
+    <category lang="es">NBA</category>
+    <category lang="es">Noticias</category>
+    <category lang="es">NFL</category>
+    <category lang="es">Fútbol</category>
+    <category lang="es">UEFA</category>
+    <category lang="es">Fútbol Español</category>
+    <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
+  </programme>
+  <programme start="20261018010000 -0400" stop="20261018020000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
+    <category lang="es">Deporte</category>
+    <category lang="es">Fútbol Americano</category>
+    <category lang="es">Baloncesto</category>
+    <category lang="es">Béisbol</category>
+    <category lang="es">Básquetbol</category>
+    <category lang="es">Fútbol Italiano</category>
+    <category lang="es">Major League Baseball</category>
+    <category lang="es">Fútbol Mexicano</category>
+    <category lang="es">MLB</category>
+    <category lang="es">NBA</category>
+    <category lang="es">Noticias</category>
+    <category lang="es">NFL</category>
+    <category lang="es">Fútbol</category>
+    <category lang="es">UEFA</category>
+    <category lang="es">Fútbol Español</category>
+    <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
+  </programme>
+  <programme start="20261018020000 -0400" stop="20261018030000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
+    <category lang="es">Deporte</category>
+    <category lang="es">Fútbol Americano</category>
+    <category lang="es">Baloncesto</category>
+    <category lang="es">Béisbol</category>
+    <category lang="es">Básquetbol</category>
+    <category lang="es">Fútbol Italiano</category>
+    <category lang="es">Major League Baseball</category>
+    <category lang="es">Fútbol Mexicano</category>
+    <category lang="es">MLB</category>
+    <category lang="es">NBA</category>
+    <category lang="es">Noticias</category>
+    <category lang="es">NFL</category>
+    <category lang="es">Fútbol</category>
+    <category lang="es">UEFA</category>
+    <category lang="es">Fútbol Español</category>
+    <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
+  </programme>
+  <programme start="20261018030000 -0400" stop="20261018033000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">UEFA Champions League Weekly</title>
+  </programme>
+  <programme start="20261018033000 -0400" stop="20261018043000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
+    <category lang="es">Deporte</category>
+    <category lang="es">Fútbol Americano</category>
+    <category lang="es">Baloncesto</category>
+    <category lang="es">Béisbol</category>
+    <category lang="es">Básquetbol</category>
+    <category lang="es">Fútbol Italiano</category>
+    <category lang="es">Major League Baseball</category>
+    <category lang="es">Fútbol Mexicano</category>
+    <category lang="es">MLB</category>
+    <category lang="es">NBA</category>
+    <category lang="es">Noticias</category>
+    <category lang="es">NFL</category>
+    <category lang="es">Fútbol</category>
+    <category lang="es">UEFA</category>
+    <category lang="es">Fútbol Español</category>
+    <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
+  </programme>
+  <programme start="20261018043000 -0400" stop="20261018063000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">Tenis ATP Rolex Shanghai Masters 2026</title>
+  </programme>
+  <programme start="20261018063000 -0400" stop="20261018085000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">SportsCenter+</title>
+    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
+  </programme>
+  <programme start="20261018085000 -0400" stop="20261018105500 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">Brighton vs. Crystal Palace</title>
+    <sub-title lang="es">Fútbol: Premier League</sub-title>
+  </programme>
+  <programme start="20261018105500 -0400" stop="20261018112000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">SportsCenter+</title>
+    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
+  </programme>
+  <programme start="20261018112000 -0400" stop="20261018132500 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">Nottingham Forest vs. Arsenal</title>
+    <sub-title lang="es">Fútbol: Premier League</sub-title>
+  </programme>
+  <programme start="20261018132500 -0400" stop="20261018145000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
+    <category lang="es">Deporte</category>
+    <category lang="es">Fútbol Americano</category>
+    <category lang="es">Baloncesto</category>
+    <category lang="es">Béisbol</category>
+    <category lang="es">Básquetbol</category>
+    <category lang="es">Fútbol Italiano</category>
+    <category lang="es">Major League Baseball</category>
+    <category lang="es">Fútbol Mexicano</category>
+    <category lang="es">MLB</category>
+    <category lang="es">NBA</category>
+    <category lang="es">Noticias</category>
+    <category lang="es">NFL</category>
+    <category lang="es">Fútbol</category>
+    <category lang="es">UEFA</category>
+    <category lang="es">Fútbol Español</category>
+    <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
+  </programme>
+  <programme start="20261018145000 -0400" stop="20261018165500 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">Real Madrid vs. Sevilla</title>
+    <sub-title lang="es">Fútbol LaLiga</sub-title>
+    <desc lang="es">Desde el estadio Santiago Bernabéu en la ciudad de Madrid, España, se enfrentan los equipos Real Madrid Club de Fútbol versus el Sevilla Fútbol Club.</desc>
+    <category lang="es">Deporte</category>
+    <category lang="es">Fútbol</category>
+    <category lang="es">Fútbol Español</category>
+    <icon src="https://imagenes.gatotv.com/categorias/deportes/miniatura/real_madrid_vs_sevilla.png" />
+  </programme>
+  <programme start="20261018165500 -0400" stop="20261018170000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">ESPN Chile</title>
+  </programme>
+  <programme start="20261018170000 -0400" stop="20261018190000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">ESPN Chile</title>
+  </programme>
+  <programme start="20261018190000 -0400" stop="20261018211000 -0400" channel="ESPN.co@Direct181">
+    <title lang="es">Fútbol argentino Primera División</title>
   </programme>
 </tv>

@@ -9,6 +9,7 @@
 
 ## Hoy, en una mirada
 
+- **ESPN #33 después de TNT Sports 4 y guía chilena (2026-10-15)**: `ESPN.co@Direct181` se muestra como «ESPN» y queda inmediatamente después de TNT Sports 4 #32. Se conserva la identidad/URL; el hueco #33 se reutiliza y no se renumeran los demás canales. El override de EPG pasa de `co1 / ESPN.co` a `cl / Canal.ESPN.(Chile).cl`.
 - **Respaldos directos de canales (2026-10-15)**: cada vínculo es principal→respaldos, no recíproco; siguiendo el ejemplo previo de conservar HD como principal, quedan A&E HD #341 → #442, AMC HD #343 → #198 y #443 (en ese orden), Animal Planet HD #348 → #444, AXN HD #345 → #226 y Cinecanal HD #353 → #197. Se guardan `tvg-id` estables en `backupm3u`; las filas de respaldo permanecen activas en Lista 1 pero la app no las muestra como canales separados. No se tocaron números, nombres, URLs, EPG ni resolutores.
 - **Limpieza de etiquetas de canal (2026-10-15)**: se retiraron de 436 nombres los marcadores técnicos de origen/posición (158 activos y 278 eliminados), mediante `displayName` y `presentation-overrides.json`; el único cambio a nombre de origen fue quitar `(145)` de ESPN #487 (`PublicDirect.dcd8868ec2ff980d13c48e61`). IDs, URLs, selección, EPG, membresía, orden, números y backups se conservaron. La regeneración `python targeted_update.py --mode presentation` ya pasó: Lista 1=200, Lista 2=0, catálogo=2.056. Se corrigió el falso TvVoo de ESPN 3 haciendo que el contrato use identidad estable por `tvg-id`, sin quitar ningún alias legítimo; la prueba de candidatos restaurados también usa IDs, porque el título limpio puede coincidir con el de una fila de otro proveedor. Se ajustaron dos expectativas EPG para verificar que las filas retiradas sigan `deleted`, sin reactivarlas.
 - **Limpieza anterior ya publicada**: el commit `502bad7` se empujó y el bot publicó la normalización posterior; `main` está verificado en `684181d164ff029fdc845d4a57ff4df76644d5f6`. El título ESPN #487 está como `ESPN` en Raw.
@@ -176,6 +177,8 @@
   nuevo por captura.
 
 ## Bitácora (más reciente arriba)
+
+- **2026-10-15 / ESPN directo**: `ESPN.co@Direct181` se movió de #164 al puesto #33, justo tras TNT Sports 4 #32; `ESPN 3 Sur` queda a continuación como #36, sin renumerar otras filas porque #33 estaba libre tras una baja. Nombre visible «ESPN». Se cambió la fuente EPG exacta de Colombia (`co1 / ESPN.co`) a Chile (`cl / Canal.ESPN.(Chile).cl`) y se regeneró solo su guía dirigida. La guía dirigida quedó con 56 programas, sin pendientes y cobertura hasta el 2026-10-19 01:10 UTC (más de 12 horas). La validación pasó: `python -m unittest discover -s tests` (387, 19 omitidos), `node --test tests/*.test.mjs` (55/55), layout y sello válidos, `git diff --check` limpio.
 
 - **2026-10-15 / respaldos directos**: a partir de la lista indicada por el usuario, se conservan las variantes HD como entrada principal y los directos SD/IXP como respaldo en `backupm3u`: #341 ← #442; #343 ← #198, #443 (orden); #348 ← #444; #345 ← #226; #353 ← #197. El sentido refleja la decisión anterior de que el canal no-HD respalde a la versión HD. Los enlaces son por identidad estable, unidireccionales y sin ciclos; no cambian Lista 1 ni el orden/número, ni asignan EPG/logo.
 

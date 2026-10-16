@@ -231,5 +231,31 @@ class ExplicitDirectBackupLinksTest(unittest.TestCase):
         self.assertEqual(len(linked_ids), len(set(linked_ids)))
 
 
+class EspnChilePlacementTest(unittest.TestCase):
+    TARGET_ID = "ESPN.co@Direct181"
+
+    def test_espn_is_after_tnt_sports_4_at_the_matching_number(self):
+        layout = json.loads((ROOT / "data/channel-editor-layout.json").read_text(encoding="utf-8"))
+        rows = [row for row in layout["channels"] if row.get("state") == "active"]
+        target = next(row for row in rows if row.get("tvgId") == self.TARGET_ID)
+        tnt4 = next(row for row in rows if row.get("kind") == "provider" and row.get("displayName") == "TNT Sports 4")
+        ordered = sorted(rows, key=lambda row: row["order"])
+        self.assertEqual(33, target["number"])
+        self.assertEqual(32, tnt4["number"])
+        self.assertEqual("ESPN", target["displayName"])
+        self.assertEqual(target, ordered[ordered.index(tnt4) + 1])
+        self.assertEqual(len(rows), len({row["number"] for row in rows}))
+
+        presentation = json.loads((ROOT / "presentation-overrides.json").read_text(encoding="utf-8"))
+        self.assertEqual("ESPN", presentation["names"][self.TARGET_ID])
+        for playlist_name in ("1.m3u", "m3u.m3u", "channel-catalog.m3u"):
+            order = presentation["orders"][playlist_name]
+            target_index = order.index(self.TARGET_ID)
+            if playlist_name != "channel-catalog.m3u":
+                self.assertEqual("WinSports.co@Direct181", order[target_index + 1])
+            channels = runner.parse_channels((ROOT / playlist_name).read_text(encoding="utf-8").splitlines())
+            self.assertEqual("ESPN", next(channel.name for channel in channels if channel.tvg_id == self.TARGET_ID))
+
+
 if __name__ == "__main__":
     unittest.main()
