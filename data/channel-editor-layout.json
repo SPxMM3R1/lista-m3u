@@ -2993,19 +2993,6 @@
     },
     {
       "kind": "m3u",
-      "tvgId": "PublicDirect.760b2c3b1354cd82b8a647bc",
-      "name": "UNIVERSAL COMEDY HD [IP 45.171.64.30]",
-      "group": "Películas",
-      "sourceList": "1.m3u",
-      "logoPath": "logos/catalogue/universalcomedy-us.png",
-      "logoOverride": "logos/catalogue/universalcomedy-us.png",
-      "displayName": "UNIVERSAL COMEDY HD",
-      "order": 197,
-      "number": 428,
-      "state": "active"
-    },
-    {
-      "kind": "m3u",
       "tvgId": "PublicDirect.d48635571a0af3b28d47db03",
       "name": "UNIVERSAL CRIME HD [IP 45.171.64.30]",
       "group": "Películas",
@@ -3013,7 +3000,7 @@
       "logoPath": "logos/catalogue/universalcrime-us.png",
       "logoOverride": "logos/catalogue/universalcrime-us.png",
       "displayName": "UNIVERSAL CRIME HD",
-      "order": 198,
+      "order": 197,
       "number": 429,
       "state": "active"
     },
@@ -3026,7 +3013,7 @@
       "logoPath": "logos/catalogue/universalpremiere-us.png",
       "logoOverride": "logos/catalogue/universalpremiere-us.png",
       "displayName": "UNIVERSAL PREMIERE HD",
-      "order": 199,
+      "order": 198,
       "number": 430,
       "state": "active"
     },
@@ -3039,7 +3026,7 @@
       "logoPath": "logos/catalogue/universalpremiere-us.png",
       "logoOverride": "logos/catalogue/universalpremiere-us.png",
       "displayName": "UNIVERSAL PREMIERE O HD",
-      "order": 200,
+      "order": 199,
       "number": 431,
       "state": "active"
     },
@@ -3052,9 +3039,22 @@
       "logoPath": "logos/catalogue/warnerchannel-us.png",
       "logoOverride": "logos/catalogue/warnerchannel-us.png",
       "displayName": "WARNER HD",
-      "order": 201,
+      "order": 200,
       "number": 434,
       "state": "active"
+    },
+    {
+      "kind": "m3u",
+      "tvgId": "PublicDirect.760b2c3b1354cd82b8a647bc",
+      "name": "UNIVERSAL COMEDY HD [IP 45.171.64.30]",
+      "group": "Películas",
+      "sourceList": "1.m3u",
+      "logoPath": "logos/catalogue/universalcomedy-us.png",
+      "logoOverride": "logos/catalogue/universalcomedy-us.png",
+      "displayName": "UNIVERSAL COMEDY HD",
+      "order": 201,
+      "number": 428,
+      "state": "deleted"
     },
     {
       "kind": "m3u",
@@ -9533,6 +9533,6 @@
   ],
   "approval": {
     "source": "app",
-    "sha256": "6800e6bc3f63faadc32fd3c7cb645c852e0f21154538f845c804dc6dccb7c897"
+    "sha256": "fa39214363a39e29e5ca3557f5c705163b70c512b11035182a2ac187910185ef"
   }
 }
