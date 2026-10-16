@@ -5,12 +5,12 @@
 > cubre la app). **Al terminar cualquier cambio, actualiza este archivo en el mismo commit**:
 > la sección «Hoy» si cambió el estado y una línea nueva en «Bitácora».
 
-Última actualización: **2026-10-15** (America/Santiago).
+Última actualización: **2026-10-16** (America/Santiago).
 
 ## Hoy, en una mirada
 
 - **ESPN 4 HD #37 después de ESPN 3 Sur #36 (2026-10-15)**: `ESPN4.co@Direct181` pasa del #166 al #37, inmediatamente después de `WinSports.co@Direct181` («ESPN 3 Sur»). El #37 estaba libre: solo cambia el número de este canal; #166 queda libre y se preservan los demás números, la identidad, URL, logo y EPG. Se actualizan el orden editorial y las M3U de Lista 1.
-- **ESPN 2 #34 después de ESPN #33 (2026-10-15)**: `PublicDirect.d6cca6d4aa23a69d50439c22`, antes numerado #464 y mostrado como «ESPN 2 HD», pasa a mostrarse «ESPN 2» en el #34, inmediatamente después de `ESPN.co@Direct181`. El #165 `ESPN2.co@Direct181` queda como su respaldo unidireccional por `tvg-id`; conserva su fila y número en la M3U, pero la app no lo muestra como canal independiente. Se conservan identidad, URL, logo y EPG de ambos; no se renumeran otros canales.
+- **ESPN 2: feeds separados (2026-10-16)**: el #34 `PublicDirect.d6cca6d4aa23a69d50439c22` muestra fútbol Deportivo–Levante; el #165 `ESPN2.co@Direct181` muestra tenis. Se elimina el vínculo de respaldo entre ellos para que ambos aparezcan como canales independientes en la app. Se conservan IDs, nombres visibles («ESPN 2» y «ESPN 2 HD»), URLs, EPG, logos, orden y numeración.
 - **ESPN #33 después de TNT Sports 4 y guía chilena (2026-10-15)**: `ESPN.co@Direct181` se muestra como «ESPN» y queda inmediatamente después de TNT Sports 4 #32. Se conserva la identidad/URL; el hueco #33 se reutiliza y no se renumeran los demás canales. El override de EPG pasa de `co1 / ESPN.co` a `cl / Canal.ESPN.(Chile).cl`.
 - **Respaldos directos de canales (2026-10-15)**: cada vínculo es principal→respaldos, no recíproco; siguiendo el ejemplo previo de conservar HD como principal, quedan A&E HD #341 → #442, AMC HD #343 → #198 y #443 (en ese orden), Animal Planet HD #348 → #444, AXN HD #345 → #226 y Cinecanal HD #353 → #197. Se guardan `tvg-id` estables en `backupm3u`; las filas de respaldo permanecen activas en Lista 1 pero la app no las muestra como canales separados. No se tocaron números, nombres, URLs, EPG ni resolutores.
 - **Limpieza de etiquetas de canal (2026-10-15)**: se retiraron de 436 nombres los marcadores técnicos de origen/posición (158 activos y 278 eliminados), mediante `displayName` y `presentation-overrides.json`; el único cambio a nombre de origen fue quitar `(145)` de ESPN #487 (`PublicDirect.dcd8868ec2ff980d13c48e61`). IDs, URLs, selección, EPG, membresía, orden, números y backups se conservaron. La regeneración `python targeted_update.py --mode presentation` ya pasó: Lista 1=200, Lista 2=0, catálogo=2.056. Se corrigió el falso TvVoo de ESPN 3 haciendo que el contrato use identidad estable por `tvg-id`, sin quitar ningún alias legítimo; la prueba de candidatos restaurados también usa IDs, porque el título limpio puede coincidir con el de una fila de otro proveedor. Se ajustaron dos expectativas EPG para verificar que las filas retiradas sigan `deleted`, sin reactivarlas.
@@ -180,9 +180,11 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-16 / separar los dos feeds ESPN 2**: se revisaron fotogramas reales del #34 (`PublicDirect.d6cca6d4aa23a69d50439c22`, fútbol Deportivo–Levante) y del #165 (`ESPN2.co@Direct181`, tenis). Eran feeds distintos, no respaldos de la misma señal; se retiró solo `backupm3u` del #34. Quedan ambos activos y visibles de forma independiente en la app, con sus identidades, nombres, URLs, EPG, logos, orden y números intactos. Se actualizó la regresión de `Espn2PlacementTest`; no requiere cambios del runner ni de VibeM3U/APK.
+
 - **2026-10-15 / ESPN 4 tras ESPN 3 Sur**: `ESPN4.co@Direct181` se mueve de #166 al hueco #37, justo después de `WinSports.co@Direct181` («ESPN 3 Sur» #36). El #166 queda libre; no se modifica el número de otro canal. El orden editorial y las salidas M3U de Lista 1 se regeneran; identidad, nombre, URL, logo y EPG se conservan.
 
-- **2026-10-15 / respaldo de ESPN 2**: el ESPN 2 #34 (`PublicDirect.d6cca6d4aa23a69d50439c22`) queda enlazado al #165 (`ESPN2.co@Direct181`) mediante `backupm3u`, en dirección principal→respaldo. La fila #165 permanece activa y con el mismo número en Lista 1, pero la app la consume como respaldo y no como canal independiente. No se cambia URL, logo, EPG, nombre ni numeración. La prueba de vínculos directos ahora cubre seis relaciones.
+- **2026-10-15 / respaldo temporal de ESPN 2 (retirado el 2026-10-16)**: inicialmente el ESPN 2 #34 (`PublicDirect.d6cca6d4aa23a69d50439c22`) quedó enlazado al #165 (`ESPN2.co@Direct181`) mediante `backupm3u`. La revisión de los feeds confirmó que son señales distintas; la entrada siguiente registra que se retiró esa relación y ambos quedan independientes.
 
 - **2026-10-15 / ESPN 2 directo**: la fila `PublicDirect.d6cca6d4aa23a69d50439c22` se movió de #464 al #34, inmediatamente después de `ESPN.co@Direct181` («ESPN» #33). El nombre visible queda «ESPN 2»; se conservaron ID, URL, logo y EPG. El #34 estaba libre, por lo que no se cambió el número de los demás canales. Se regeneraron las órdenes/presentaciones de Lista 1. Validación: layout sin errores y sello aprobado; `git diff --check` limpio; Python 388 pruebas (19 omitidas) y JavaScript 55/55.
 

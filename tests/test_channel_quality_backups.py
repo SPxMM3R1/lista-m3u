@@ -200,9 +200,6 @@ class ExplicitDirectBackupLinksTest(unittest.TestCase):
         "PublicDirect.9840c70e010eb35fb900c6b4": [
             "Cinecanal.co@Direct181",
         ],
-        "PublicDirect.d6cca6d4aa23a69d50439c22": [
-            "ESPN2.co@Direct181",
-        ],
     }
 
     def test_requested_hd_rows_use_only_the_explicit_direct_backups(self):
@@ -264,16 +261,21 @@ class Espn2PlacementTest(unittest.TestCase):
     TARGET_ID = "PublicDirect.d6cca6d4aa23a69d50439c22"
     ESPN_ID = "ESPN.co@Direct181"
 
-    def test_espn_2_464_is_after_espn_at_number_34(self):
+    def test_espn_2_feeds_are_independent_at_numbers_34_and_165(self):
         layout = json.loads((ROOT / "data/channel-editor-layout.json").read_text(encoding="utf-8"))
         rows = [row for row in layout["channels"] if row.get("state") == "active"]
         target = next(row for row in rows if row.get("tvgId") == self.TARGET_ID)
+        second_feed = next(row for row in rows if row.get("tvgId") == "ESPN2.co@Direct181")
         espn = next(row for row in rows if row.get("tvgId") == self.ESPN_ID)
         ordered = sorted(rows, key=lambda row: row["order"])
         self.assertEqual(34, target["number"])
         self.assertEqual(33, espn["number"])
         self.assertEqual("ESPN 2", target["displayName"])
-        self.assertEqual(["ESPN2.co@Direct181"], target["backupm3u"])
+        self.assertNotIn("backupm3u", target)
+        self.assertEqual(165, second_feed["number"])
+        self.assertEqual("ESPN 2 HD", second_feed["displayName"])
+        self.assertEqual("active", second_feed["state"])
+        self.assertFalse(any(second_feed["tvgId"] in row.get("backupm3u", []) for row in rows))
         self.assertEqual(target, ordered[ordered.index(espn) + 1])
         self.assertEqual(len(rows), len({row["number"] for row in rows}))
 
