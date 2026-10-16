@@ -200,6 +200,9 @@ class ExplicitDirectBackupLinksTest(unittest.TestCase):
         "PublicDirect.9840c70e010eb35fb900c6b4": [
             "Cinecanal.co@Direct181",
         ],
+        "PublicDirect.d6cca6d4aa23a69d50439c22": [
+            "ESPN2.co@Direct181",
+        ],
     }
 
     def test_requested_hd_rows_use_only_the_explicit_direct_backups(self):
@@ -270,6 +273,7 @@ class Espn2PlacementTest(unittest.TestCase):
         self.assertEqual(34, target["number"])
         self.assertEqual(33, espn["number"])
         self.assertEqual("ESPN 2", target["displayName"])
+        self.assertEqual(["ESPN2.co@Direct181"], target["backupm3u"])
         self.assertEqual(target, ordered[ordered.index(espn) + 1])
         self.assertEqual(len(rows), len({row["number"] for row in rows}))
 
