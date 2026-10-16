@@ -182,5 +182,54 @@ class NautaChannelsAreOptInTest(unittest.TestCase):
             self.assertTrue(former_backups.isdisjoint(active_ids), filename)
 
 
+class ExplicitDirectBackupLinksTest(unittest.TestCase):
+    EXPECTED = {
+        "PublicDirect.d9973a3bfb28634698473218": [
+            "PublicDirect.19fbfbd8b220cd0fb65ac244",
+        ],
+        "PublicDirect.8918c13cf06dc2f7416879f2": [
+            "AMC.co@Direct181",
+            "PublicDirect.5c8f98d3876cb07b0c0884f6",
+        ],
+        "PublicDirect.e6a2bc5a013c1c5b9656d441": [
+            "PublicDirect.21d595905b477139407f7250",
+        ],
+        "PublicDirect.1162bcbccc1aa298b25757a3": [
+            "PublicDirect.07595a53d0527c27f68b4e29",
+        ],
+        "PublicDirect.9840c70e010eb35fb900c6b4": [
+            "Cinecanal.co@Direct181",
+        ],
+    }
+
+    def test_requested_hd_rows_use_only_the_explicit_direct_backups(self):
+        layout = json.loads((ROOT / "data/channel-editor-layout.json").read_text(encoding="utf-8"))
+        rows = {row["tvgId"]: row for row in layout["channels"] if row.get("tvgId")}
+        active_playlist_ids = {
+            channel.tvg_id
+            for channel in runner.parse_channels(
+                (ROOT / "m3u.m3u").read_text(encoding="utf-8").splitlines()
+            )
+        }
+        linked_ids = []
+
+        for primary_id, backup_ids in self.EXPECTED.items():
+            with self.subTest(primary=primary_id):
+                primary = rows[primary_id]
+                self.assertEqual("m3u", primary["kind"])
+                self.assertEqual("active", primary["state"])
+                self.assertEqual(backup_ids, primary["backupm3u"])
+                self.assertIn(primary_id, active_playlist_ids)
+                for backup_id in backup_ids:
+                    backup = rows[backup_id]
+                    self.assertEqual("m3u", backup["kind"])
+                    self.assertEqual("active", backup["state"])
+                    self.assertIn(backup_id, active_playlist_ids)
+                    self.assertFalse(backup.get("backupm3u"), "no bidirectional backup cycle")
+                    linked_ids.append(backup_id)
+
+        self.assertEqual(len(linked_ids), len(set(linked_ids)))
+
+
 if __name__ == "__main__":
     unittest.main()
