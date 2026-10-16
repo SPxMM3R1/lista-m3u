@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, FreeEPG, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-description-policy="verified-source-only" data-description-programmes="5487" data-description-channels="90" data-next-refresh-at="2026-10-16T16:00:00+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u" data-generated-at="2026-10-16T02:14:46+00:00">
+<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, FreeEPG, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-description-policy="verified-source-only" data-description-programmes="5487" data-description-channels="90" data-next-refresh-at="2026-10-16T16:00:00+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u" data-generated-at="2026-10-16T02:19:16+00:00">
   <channel id="0104" data-guide="parrilla real" data-guide-source="cl">
     <display-name>TVN</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvn.png" />
@@ -88,6 +88,10 @@
   <channel id="ESPN.co@Direct181" data-guide="parrilla real" data-guide-source="cl">
     <display-name>ESPN</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn.svg" />
+  </channel>
+  <channel id="PublicDirect.d6cca6d4aa23a69d50439c22" data-guide="pendiente de guia" data-guide-source="pendiente">
+    <display-name>ESPN 2 HD [IP 181.224.200.5]</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-2.png" />
   </channel>
   <channel id="WinSports.co@Direct181" data-guide="parrilla real" data-guide-source="cl">
     <display-name>ESPN 3 Sur</display-name>
@@ -327,10 +331,6 @@
   </channel>
   <channel id="PublicDirect.4c4f25512dc26528b8133d9f" data-guide="pendiente de guia" data-guide-source="pendiente">
     <display-name>ESPN 2 HD [IP 45.171.64.30]</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-2.png" />
-  </channel>
-  <channel id="PublicDirect.d6cca6d4aa23a69d50439c22" data-guide="pendiente de guia" data-guide-source="pendiente">
-    <display-name>ESPN 2 HD [IP 181.224.200.5]</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-2.png" />
   </channel>
   <channel id="ESPN2.co@Direct181" data-guide="parrilla real" data-guide-source="co1">
@@ -11600,18 +11600,6 @@
       <value>TE</value>
     </rating>
   </programme>
-  <programme start="20261015164500 -0300" stop="20261015171500 -0300" channel="DAZNF1.es@TvVoo">
-    <title lang="es">Código F1</title>
-    <sub-title lang="es">Abu Dabi</sub-title>
-    <desc lang="es">Una crónica experta y provocativa con una visión totalmente nueva e integrada de lo que ha sido el GP de Fórmula 1. Tomás Slafer analiza en profundidad todas las imágenes que no se han visto y desmenuza el fin de semana del gran circo del motor.</desc>
-    <date>2025</date>
-    <icon src="https://cdn.sincroguia.tv/storage/7242/c_codigo_f1_s2025.jpeg" />
-    <country lang="es">España</country>
-    <episode-num system="onscreen">S2025 E24</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
-  </programme>
   <programme start="20261015171500 -0300" stop="20261015174500 -0300" channel="DAZNF1.es@TvVoo">
     <title lang="es">Gearbox</title>
     <desc lang="es">Los fanáticos de la conducción tienen una cita en 'Gearbox', donde los volantes del presente, del pasado y del futuro se ponen en las manos de los mejores expertos.</desc>
@@ -17616,15 +17604,6 @@
       <value>AGE229</value>
     </rating>
   </programme>
-  <programme channel="France24.fr" start="20261015170000 -0300" stop="20261015171500 -0300">
-    <title lang="fr">Noticias</title>
-    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
-    <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/0/5/15194509.jpg" />
-    <episode-num system="onscreen">E35</episode-num>
-  </programme>
   <programme channel="France24.fr" start="20261015171500 -0300" stop="20261015172100 -0300">
     <title lang="fr">En foco</title>
     <desc lang="es">Un reportaje único sobre temas que a menudo están por fuera de las noticias.</desc>
@@ -19766,14 +19745,6 @@
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/0/1/5/15194510.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/9/4/15194494.jpg" />
     <episode-num system="onscreen">E1</episode-num>
-  </programme>
-  <programme channel="France24.fr@English" start="20261015170000 -0300" stop="20261015171500 -0300">
-    <title lang="fr">Le journal France 24</title>
-    <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/0/2/15220206.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/6/1/15220164.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/6/1/15220169.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/0/5/15194509.jpg" />
   </programme>
   <programme channel="France24.fr@English" start="20261015171500 -0300" stop="20261015172100 -0300">
     <title lang="fr">Business</title>
@@ -36169,61 +36140,6 @@
   <programme start="20261019000000 -0300" stop="20261019021500 -0300" channel="PublicDirect.8db5a974dc4b6ed483cf2bf9">
     <title lang="es">El robo perfecto Pantera</title>
   </programme>
-  <programme start="20261015163000 -0300" stop="20261015171500 -0300" channel="PublicDirect.9193ba6e85578f4486a958d7">
-    <title lang="en">House M.D.</title>
-    <sub-title lang="en">Cambios</sub-title>
-    <desc lang="es">Las licencias médicas de Cuddy y House están en peligro cuando la madre de Cuddy amenaza con demandar al hospital por negligencia. El equipo toma el caso de un ganador de la lotería que sufre una parálisis facial mientras busca a un viejo amor.</desc>
-    <credits>
-      <director>David Straiton</director>
-      <actor>Hugh Laurie</actor>
-      <actor>Lisa Edelstein</actor>
-      <actor>Robert Sean Leonard</actor>
-    </credits>
-    <date>2011</date>
-    <category lang="en">Series</category>
-    <category lang="en">Drama</category>
-    <category lang="en">Mystery</category>
-    <category lang="en">Medical</category>
-    <icon src="http://dtil.tmsimg.com/assets/p185044_b_h8_aa.jpg?w=960&amp;h=540" />
-    <episode-num system="onscreen">S7 E20</episode-num>
-    <previously-shown />
-    <rating system="USA Parental Rating">
-      <value>TV14</value>
-    </rating>
-    <rating system="Freiwillige Selbstkontrolle Fernsehen">
-      <value>16</value>
-    </rating>
-    <rating system="Canadian Parental Rating">
-      <value>14+</value>
-    </rating>
-    <rating system="Australian Classification Board">
-      <value>M 15+</value>
-    </rating>
-    <rating system="Mediakasvatus- ja kuvaohjelmayksikkö">
-      <value>K12</value>
-    </rating>
-    <rating system="Dirección General de Radio, Televisión y Cinematografía">
-      <value>B</value>
-    </rating>
-    <rating system="Freiwillige Selbstkontrolle der Filmwirtschaft">
-      <value>12</value>
-    </rating>
-    <rating system="Kijkwijzer">
-      <value>12</value>
-    </rating>
-    <rating system="Krajowa Rada Radiofonii i Telewizji">
-      <value>12</value>
-    </rating>
-    <rating system="방송통신심의위원회">
-      <value>15</value>
-    </rating>
-    <rating system="Arcom">
-      <value>-10</value>
-    </rating>
-    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
-      <value>14</value>
-    </rating>
-  </programme>
   <programme start="20261015171500 -0300" stop="20261015180000 -0300" channel="PublicDirect.9193ba6e85578f4486a958d7">
     <title lang="en">House M.D.</title>
     <sub-title lang="en">La apuesta</sub-title>
@@ -43829,16 +43745,6 @@
       <value>AGE227</value>
     </rating>
   </programme>
-  <programme start="20261015162500 -0300" stop="20261015171500 -0300" channel="PublicDirect.b1df48227d3800ef893c4676">
-    <title lang="es">Expedientes desclasificados con David Duchovny</title>
-    <sub-title lang="es">Armas extrañas</sub-title>
-    <desc lang="es">Oscilando entre lo apocalíptico y lo absurdo, los registros desclasificados revelarán los programas de armas ultrasecretos que intentaron derribar al mundo, descubriendo la prueba atómica soviética que sacudió la Tierra.</desc>
-    <date>2025</date>
-    <episode-num system="onscreen">E4</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
   <programme start="20261015171500 -0300" stop="20261015180500 -0300" channel="PublicDirect.b1df48227d3800ef893c4676">
     <title lang="es">Lo mejor de Cazadores de tesoros</title>
     <sub-title lang="es">Cosas bien patrióticas</sub-title>
@@ -46393,44 +46299,6 @@
     <country lang="es">Estados Unidos</country>
     <rating system="MJColombia">
       <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261015163000 -0300" stop="20261015171500 -0300" channel="PublicDirect.d48635571a0af3b28d47db03">
-    <title lang="es">Parejas asesinas</title>
-    <sub-title lang="es">Ilene Lazar y Francis Riccio</sub-title>
-    <desc lang="es">Tras el descubrimiento de los restos de una anciana en Florida, los investigadores buscan a sospechosos en una compleja dinámica familiar. La mujer protagonista cuenta su historia por primera vez y revela detalles del desgarrador crimen.</desc>
-    <credits>
-      <director>Christopher Mitchell</director>
-      <director>Matt Brewster</director>
-      <actor>Anna Vocino</actor>
-    </credits>
-    <date>2023</date>
-    <category lang="es">Series</category>
-    <category lang="es">Docudrama</category>
-    <category lang="es">Crime</category>
-    <icon src="http://dtil.tmsimg.com/assets/p9784443_b_h8_au.jpg?w=960&amp;h=540" />
-    <episode-num system="onscreen">S17 E8</episode-num>
-    <previously-shown />
-    <rating system="Canadian Parental Rating">
-      <value>PG</value>
-    </rating>
-    <rating system="Australian Classification Board">
-      <value>MA 15+</value>
-    </rating>
-    <rating system="USA Parental Rating">
-      <value>TV14</value>
-    </rating>
-    <rating system="Freiwillige Selbstkontrolle der Filmwirtschaft">
-      <value>16</value>
-    </rating>
-    <rating system="Dirección General de Radio, Televisión y Cinematografía">
-      <value>C</value>
-    </rating>
-    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
-      <value>16</value>
-    </rating>
-    <rating system="Kijkwijzer">
-      <value>12</value>
     </rating>
   </programme>
   <programme start="20261015171500 -0300" stop="20261015180000 -0300" channel="PublicDirect.d48635571a0af3b28d47db03">
@@ -53706,48 +53574,6 @@
       <value>TE</value>
     </rating>
   </programme>
-  <programme start="20261015163000 -0300" stop="20261015171500 -0300" channel="PublicDirect.fe8012537d4b52a34d2778bd">
-    <title lang="en">SurrealEstate</title>
-    <sub-title lang="en">Soltar</sub-title>
-    <desc lang="es">Una Susan cambiada regresa a la Agencia. Luke debe usar sus poderes recuperados para salvar al equipo.</desc>
-    <credits>
-      <director>Melanie Scrofano</director>
-      <actor>Tim Rozon</actor>
-      <actor>Sarah Levy</actor>
-      <actor>Adam Korson</actor>
-    </credits>
-    <date>2023</date>
-    <category lang="en">Series</category>
-    <category lang="en">Science fiction</category>
-    <category lang="en">Fantasy</category>
-    <category lang="en">Mystery</category>
-    <category lang="en">Paranormal</category>
-    <category lang="en">Thriller</category>
-    <icon src="http://dtil.tmsimg.com/assets/p20056146_b_h8_ak.jpg?w=960&amp;h=540" />
-    <episode-num system="onscreen">S2 E10</episode-num>
-    <previously-shown />
-    <rating system="USA Parental Rating">
-      <value>TV14</value>
-    </rating>
-    <rating system="Canadian Parental Rating">
-      <value>14+</value>
-    </rating>
-    <rating system="Freiwillige Selbstkontrolle der Filmwirtschaft">
-      <value>12</value>
-    </rating>
-    <rating system="Régie du cinéma">
-      <value>13+</value>
-    </rating>
-    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
-      <value>A14</value>
-    </rating>
-    <rating system="Dirección General de Radio, Televisión y Cinematografía">
-      <value>B</value>
-    </rating>
-    <rating system="Australian Classification Board">
-      <value>MA 15+</value>
-    </rating>
-  </programme>
   <programme start="20261015171500 -0300" stop="20261015180000 -0300" channel="PublicDirect.fe8012537d4b52a34d2778bd">
     <title lang="en">Hotel Costiera</title>
     <sub-title lang="en">Sheryl</sub-title>
@@ -59890,11 +59716,6 @@
     <title lang="es">Las mujeres rompen fronteras en Red Bull Rampage</title>
     <desc lang="es">Las riders de mountain bike de élite rompen barreras en el freeride al enfrentarse a los terrenos más desafiantes del Red Bull Rampage, mientras luchan por la igualdad y dejan un legado en su deporte.</desc>
   </programme>
-  <programme start="20261015164419 -0300" stop="20261015171510 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">Black Pearl</title>
-    <sub-title lang="en">Reel Rock S10E5</sub-title>
-    <desc lang="en">At 42, Chris Sharma conquers Black Pearl in Mallorca – his toughest deep water solo climb yet.</desc>
-  </programme>
   <programme start="20261015171510 -0300" stop="20261015173412 -0300" channel="RedBullWorldEnglish.int">
     <title lang="en">The puzzle</title>
     <sub-title lang="en">Reel Rock S10E6</sub-title>
@@ -65957,22 +65778,6 @@
     <sub-title lang="en">The latest news and updates from Europe's premier club football competition</sub-title>
     <desc lang="en">The latest news and updates from Europe's premier club football competition.</desc>
     <icon src="https://tv.assets.pressassociation.io/10b9c6d2-6831-550e-b398-3ec92210a07f.jpg" />
-  </programme>
-  <programme channel="TVEInternacionalAmerica.es@HD" start="20261015164500 -0300" stop="20261015171500 -0300">
-    <title lang="es">Cifras y letras</title>
-    <desc lang="es">Concurso cuyas pruebas deben superarse jugando con cifras y letras, donde en cada entrega, los concursantes luchan por llevarse el gran premio acumulado.</desc>
-    <credits>
-      <actor>Aitor Albizua</actor>
-      <actor>David Calle</actor>
-      <actor>Elena Herraiz</actor>
-      <director>Alfredo Alcelay</director>
-      <director>Mikel Ciganda</director>
-    </credits>
-    <date>2024</date>
-    <category lang="es">Game show</category>
-    <category lang="es">Entertainment</category>
-    <icon src="http://dtil.tmsimg.com/assets/p26531363_b_h10_aa.jpg?w=960&amp;h=540" />
-    <previously-shown />
   </programme>
   <programme channel="TVEInternacionalAmerica.es@HD" start="20261015171500 -0300" stop="20261015174500 -0300">
     <title lang="es">Cifras y letras</title>
@@ -72695,18 +72500,6 @@
     <category lang="en">American Football</category>
     <icon src="https://images.metadata.sky.com/pd-image/cb3c8ae5-2c29-43e4-b4fa-7f342c74ceb8/16-9" />
     <episode-num system="xmltv_ns">.5.</episode-num>
-  </programme>
-  <programme start="20261015164500 -0300" stop="20261015171500 -0300" channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Código F1</title>
-    <sub-title lang="es">Abu Dabi</sub-title>
-    <desc lang="es">Una crónica experta y provocativa con una visión totalmente nueva e integrada de lo que ha sido el GP de Fórmula 1. Tomás Slafer analiza en profundidad todas las imágenes que no se han visto y desmenuza el fin de semana del gran circo del motor.</desc>
-    <date>2025</date>
-    <icon src="https://cdn.sincroguia.tv/storage/7242/c_codigo_f1_s2025.jpeg" />
-    <country lang="es">España</country>
-    <episode-num system="onscreen">S2025 E24</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
   <programme start="20261015171500 -0300" stop="20261015174500 -0300" channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo">
     <title lang="es">Gearbox</title>
