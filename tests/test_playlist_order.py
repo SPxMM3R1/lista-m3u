@@ -580,7 +580,7 @@ class PlaylistOrderTests(unittest.TestCase):
         restored = [
             channel
             for channel in catalog_channels
-            if channel.name in update_m3u.RESTORED_EXTERNAL_CHANNEL_NAMES
+            if channel.tvg_id in update_m3u.RESTORED_EXTERNAL_CHANNEL_IDS
         ]
 
         self.assertEqual(

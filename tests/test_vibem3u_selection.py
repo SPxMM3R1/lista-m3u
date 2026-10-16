@@ -406,6 +406,10 @@ class HighflySelectionOverOtherResolverTest(unittest.TestCase):
         update_m3u.TVVOO_STREAM_RESOLVER_IDS,
         {"Sky Sports F1": ("vavoo_SKY%20SPORTS%20F1%7Cgroup%3Auk",)},
     )
+    @mock.patch.dict(
+        update_m3u.TVVOO_STREAM_RESOLVER_IDS_BY_TVG_ID,
+        {"SkySportsF1.uk": ("vavoo_SKY%20SPORTS%20F1%7Cgroup%3Auk",)},
+    )
     def test_marks_managed_without_rewriting_the_catalog_resolver(self) -> None:
         directory = tempfile.TemporaryDirectory()
         self.addCleanup(directory.cleanup)

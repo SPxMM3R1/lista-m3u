@@ -1693,9 +1693,38 @@ def load_checked_in_tvvoo_aliases(
     return aliases
 
 
+def load_checked_in_tvvoo_aliases_by_tvg_id(
+    path: Path = CHANNEL_CATALOG_PATH,
+) -> dict[str, tuple[str, ...]]:
+    """Load TvVoo aliases by stable row identity, never by mutable display name."""
+    if not path.is_file():
+        return {}
+    aliases: dict[str, tuple[str, ...]] = {}
+    for line in path.read_text(encoding="utf-8-sig").splitlines():
+        if not line.startswith("#EXTINF:") or 'x-resolver="tvvoo"' not in line:
+            continue
+        attributes = dict(_M3U_ATTRIBUTE_PATTERN.findall(line))
+        tvg_id = attributes.get("tvg-id", "")
+        values = tuple(
+            alias
+            for alias in attributes.get("x-resolver-ids", "").split(";")
+            if alias
+        )
+        if not tvg_id or not values:
+            continue
+        previous = aliases.get(tvg_id)
+        if previous is not None and previous != values:
+            raise ValueError(
+                f"channel-catalog.m3u: aliases TvVoo distintos para {tvg_id}"
+            )
+        aliases[tvg_id] = values
+    return aliases
+
+
 _checked_in_tvvoo_aliases = load_checked_in_tvvoo_aliases()
 if _checked_in_tvvoo_aliases:
     TVVOO_STREAM_RESOLVER_IDS = _checked_in_tvvoo_aliases
+TVVOO_STREAM_RESOLVER_IDS_BY_TVG_ID = load_checked_in_tvvoo_aliases_by_tvg_id()
 
 
 def build_resolver_catalog(*, catalog_version: str | None = None) -> dict:
@@ -3742,7 +3771,14 @@ def resolver_attributes_for(channel: Channel) -> dict[str, str]:
             "x-resolver": "meganoticias",
             "x-resolver-refresh": "on_play",
         }
-    resolver_ids = TVVOO_STREAM_RESOLVER_IDS.get(channel.name)
+    resolver_ids = TVVOO_STREAM_RESOLVER_IDS_BY_TVG_ID.get(channel.tvg_id)
+    if resolver_ids is None and (
+        channel.tvg_id.endswith("@TvVoo") or not CHANNEL_CATALOG_PATH.is_file()
+    ):
+        # The name-keyed table remains useful for a TvVoo stable identity whose
+        # row is not in this checkout. It must never turn a direct M3U row into
+        # TvVoo merely because an editor changed that row's visible name.
+        resolver_ids = TVVOO_STREAM_RESOLVER_IDS.get(channel.name)
     if resolver_ids:
         return {
             "x-resolver": "tvvoo",
@@ -4278,19 +4314,20 @@ def apply_presentation_overrides(
     changed = False
     channels = parse_channels(lines)
     for channel in channels:
+        resolver_attributes = resolver_attributes_for(channel)
         override = info_lines.get(channel.tvg_id)
         if override:
             updated = with_resolver_attributes(
-                str(override), resolver_attributes_for(channel)
+                str(override), resolver_attributes
             )
             if updated != lines[channel.info_line]:
                 lines[channel.info_line] = updated
                 changed = True
         display_name = names.get(channel.tvg_id)
-        # TVVOO_STREAM_RESOLVER_IDS se indexa por el nombre del catalogo:
-        # renombrar esa linea le quitaria el resolutor y abortaria la
-        # validacion del contrato. La app toma el nombre visible del layout.
-        if display_name and channel.name not in TVVOO_STREAM_RESOLVER_IDS:
+        # Solo el nombre de presentación de un resolutor TvVoo conserva el
+        # título canónico. Una fila directa no se vuelve TvVoo por compartir
+        # una etiqueta visible con una clave del mapa del proveedor.
+        if display_name and resolver_attributes.get("x-resolver") != "tvvoo":
             updated = with_display_name(lines[channel.info_line], str(display_name))
             if updated != lines[channel.info_line]:
                 lines[channel.info_line] = updated
@@ -4679,7 +4716,9 @@ def validate_playlist_resolvers(lines: list[str]) -> dict[str, int]:
             aliases = attrs.get("x-resolver-ids", "").split(";")
             if not aliases or any(not alias for alias in aliases):
                 raise ValueError(f"{channel.name}: TvVoo sin aliases estables")
-            if tuple(aliases) != TVVOO_STREAM_RESOLVER_IDS[channel.name]:
+            expected_aliases = expected.get("x-resolver-ids", "").split(";")
+            expected_aliases = [alias for alias in expected_aliases if alias]
+            if tuple(aliases) != tuple(expected_aliases):
                 raise ValueError(f"{channel.name}: aliases TvVoo fuera de orden")
             if attrs.get("x-resolver-recipe") != TVVOO_RECIPE_ID:
                 raise ValueError(f"{channel.name}: receta TvVoo ausente o desconocida")

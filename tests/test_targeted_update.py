@@ -384,6 +384,10 @@ class TargetedUpdateTest(unittest.TestCase):
         update_m3u.TVVOO_STREAM_RESOLVER_IDS,
         {"Sky Sports F1": ("vavoo_SKY%20SPORTS%20F1%7Cgroup%3Auk",)},
     )
+    @patch.dict(
+        update_m3u.TVVOO_STREAM_RESOLVER_IDS_BY_TVG_ID,
+        {"SkySportsF1.uk": ("vavoo_SKY%20SPORTS%20F1%7Cgroup%3Auk",)},
+    )
     def test_name_override_keeps_catalog_name_of_name_keyed_tvvoo_channel(self) -> None:
         lines = [
             "#EXTM3U",
@@ -402,6 +406,36 @@ class TargetedUpdateTest(unittest.TestCase):
         channel = update_m3u.parse_channels(lines)[0]
         self.assertEqual("Sky Sports F1", channel.name)
         self.assertEqual("tvvoo", update_m3u.resolver_attributes_for(channel)["x-resolver"])
+
+    @patch.dict(
+        update_m3u.TVVOO_STREAM_RESOLVER_IDS,
+        {"ESPN 3": ("vavoo_ESPN%203%7Cgroup%3Aar",)},
+    )
+    def test_direct_channel_display_name_does_not_inherit_tvvoo_identity(self) -> None:
+        tvg_id = "PublicDirect.3d519bc9027bf3427d250d7c"
+        lines = [
+            "#EXTM3U",
+            '#EXTINF:-1 tvg-id="PublicDirect.3d519bc9027bf3427d250d7c" '
+            'group-title="Deportes",ESPN 3 [IP source]',
+            "https://direct.example/espn3.m3u8",
+        ]
+        stale_info_line = (
+            '#EXTINF:-1 tvg-id="PublicDirect.3d519bc9027bf3427d250d7c" '
+            'group-title="Deportes" x-resolver="tvvoo" '
+            'x-resolver-ids="vavoo_ESPN%203%7Cgroup%3Aar",ESPN 3'
+        )
+        overrides = {
+            "info_lines": {tvg_id: stale_info_line},
+            "names": {tvg_id: "ESPN 3"},
+        }
+
+        update_m3u.apply_presentation_overrides(lines, "channel-catalog.m3u", overrides)
+        update_m3u.apply_presentation_overrides(lines, "channel-catalog.m3u", overrides)
+
+        channel = update_m3u.parse_channels(lines)[0]
+        self.assertEqual("ESPN 3", channel.name)
+        self.assertEqual({}, update_m3u.resolver_attributes_for(channel))
+        self.assertNotIn('x-resolver="tvvoo"', lines[1])
 
     def test_provider_name_override_maps_only_after_identity_match(self) -> None:
         from types import SimpleNamespace

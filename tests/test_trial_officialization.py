@@ -98,10 +98,16 @@ class TrialOfficializationTest(unittest.TestCase):
             try:
                 runner.apply_epg_overrides(path)
                 channels_by_id={channel.tvg_id:channel for channel in runner.main_playlist_channels()}
+                layout=json.loads((ROOT/'data/channel-editor-layout.json').read_text(encoding='utf-8'))
+                layout_by_id={row['tvgId']:row for row in layout['channels'] if row.get('tvgId')}
                 for tvg_id,(source,source_id,_) in expected.items():
                     self.assertEqual((source,source_id),runner.EPG_PROGRAMME_SOURCES[tvg_id])
                     self.assertIn((source,source_id),runner.epg_source_chain(tvg_id))
-                    self.assertEqual(frozenset({source}),runner.epgshare_source_names_for([channels_by_id[tvg_id]]))
+                    channel=channels_by_id.get(tvg_id)
+                    if channel is None:
+                        self.assertEqual('deleted',layout_by_id[tvg_id]['state'])
+                    else:
+                        self.assertEqual(frozenset({source}),runner.epgshare_source_names_for([channel]))
             finally:
                 runner.EPG_PROGRAMME_SOURCES.clear();runner.EPG_PROGRAMME_SOURCES.update(before)
 
@@ -177,13 +183,19 @@ class TrialOfficializationTest(unittest.TestCase):
         try:
             runner.apply_epg_overrides()
             channels_by_id={channel.tvg_id:channel for channel in runner.main_playlist_channels()}
+            layout=json.loads((ROOT/'data/channel-editor-layout.json').read_text(encoding='utf-8'))
+            layout_by_id={row['tvgId']:row for row in layout['channels'] if row.get('tvgId')}
             for tvg_id,source_id in expected.items():
                 row=next(r for r in audit['channels'] if r['tvgId']==tvg_id)
                 self.assertIn('GUA',row['name'].upper())
                 self.assertEqual('matched',row['epg']['status'])
                 self.assertGreaterEqual(row['epg']['coverageHours'],12)
                 self.assertIn(('gt',source_id),runner.epg_source_chain(tvg_id))
-                self.assertEqual(frozenset({'gt'}),runner.epgshare_source_names_for([channels_by_id[tvg_id]]))
+                channel=channels_by_id.get(tvg_id)
+                if channel is None:
+                    self.assertEqual('deleted',layout_by_id[tvg_id]['state'])
+                else:
+                    self.assertEqual(frozenset({'gt'}),runner.epgshare_source_names_for([channel]))
         finally:
             runner.EPG_PROGRAMME_SOURCES.clear();runner.EPG_PROGRAMME_SOURCES.update(before)
 
