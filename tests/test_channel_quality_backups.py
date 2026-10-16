@@ -252,9 +252,36 @@ class EspnChilePlacementTest(unittest.TestCase):
             order = presentation["orders"][playlist_name]
             target_index = order.index(self.TARGET_ID)
             if playlist_name != "channel-catalog.m3u":
-                self.assertEqual("WinSports.co@Direct181", order[target_index + 1])
+                self.assertEqual("PublicDirect.d6cca6d4aa23a69d50439c22", order[target_index + 1])
             channels = runner.parse_channels((ROOT / playlist_name).read_text(encoding="utf-8").splitlines())
             self.assertEqual("ESPN", next(channel.name for channel in channels if channel.tvg_id == self.TARGET_ID))
+
+
+class Espn2PlacementTest(unittest.TestCase):
+    TARGET_ID = "PublicDirect.d6cca6d4aa23a69d50439c22"
+    ESPN_ID = "ESPN.co@Direct181"
+
+    def test_espn_2_464_is_after_espn_at_number_34(self):
+        layout = json.loads((ROOT / "data/channel-editor-layout.json").read_text(encoding="utf-8"))
+        rows = [row for row in layout["channels"] if row.get("state") == "active"]
+        target = next(row for row in rows if row.get("tvgId") == self.TARGET_ID)
+        espn = next(row for row in rows if row.get("tvgId") == self.ESPN_ID)
+        ordered = sorted(rows, key=lambda row: row["order"])
+        self.assertEqual(34, target["number"])
+        self.assertEqual(33, espn["number"])
+        self.assertEqual("ESPN 2", target["displayName"])
+        self.assertEqual(target, ordered[ordered.index(espn) + 1])
+        self.assertEqual(len(rows), len({row["number"] for row in rows}))
+
+        presentation = json.loads((ROOT / "presentation-overrides.json").read_text(encoding="utf-8"))
+        self.assertEqual("ESPN 2", presentation["names"][self.TARGET_ID])
+        for playlist_name in ("1.m3u", "m3u.m3u", "channel-catalog.m3u"):
+            order = presentation["orders"][playlist_name]
+            target_index = order.index(self.TARGET_ID)
+            if playlist_name != "channel-catalog.m3u":
+                self.assertEqual(self.ESPN_ID, order[target_index - 1])
+            channels = runner.parse_channels((ROOT / playlist_name).read_text(encoding="utf-8").splitlines())
+            self.assertEqual("ESPN 2", next(channel.name for channel in channels if channel.tvg_id == self.TARGET_ID))
 
 
 if __name__ == "__main__":
