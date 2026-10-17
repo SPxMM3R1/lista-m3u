@@ -205,12 +205,14 @@ class ExplicitDirectBackupLinksTest(unittest.TestCase):
     def test_requested_hd_rows_use_only_the_explicit_direct_backups(self):
         layout = json.loads((ROOT / "data/channel-editor-layout.json").read_text(encoding="utf-8"))
         rows = {row["tvgId"]: row for row in layout["channels"] if row.get("tvgId")}
-        active_playlist_ids = {
-            channel.tvg_id
-            for channel in runner.parse_channels(
-                (ROOT / "m3u.m3u").read_text(encoding="utf-8").splitlines()
-            )
-        }
+        published_ids = set()
+        for name in ("m3u.m3u", "m3u-externa.m3u"):
+            published_ids |= {
+                channel.tvg_id
+                for channel in runner.parse_channels(
+                    (ROOT / name).read_text(encoding="utf-8").splitlines()
+                )
+            }
         linked_ids = []
 
         for primary_id, backup_ids in self.EXPECTED.items():
@@ -219,12 +221,12 @@ class ExplicitDirectBackupLinksTest(unittest.TestCase):
                 self.assertEqual("m3u", primary["kind"])
                 self.assertEqual("active", primary["state"])
                 self.assertEqual(backup_ids, primary["backupm3u"])
-                self.assertIn(primary_id, active_playlist_ids)
+                self.assertIn(primary_id, published_ids)
                 for backup_id in backup_ids:
                     backup = rows[backup_id]
                     self.assertEqual("m3u", backup["kind"])
                     self.assertEqual("active", backup["state"])
-                    self.assertIn(backup_id, active_playlist_ids)
+                    self.assertIn(backup_id, published_ids)
                     self.assertFalse(backup.get("backupm3u"), "no bidirectional backup cycle")
                     linked_ids.append(backup_id)
 

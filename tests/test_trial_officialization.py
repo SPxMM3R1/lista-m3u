@@ -105,7 +105,12 @@ class TrialOfficializationTest(unittest.TestCase):
                     self.assertIn((source,source_id),runner.epg_source_chain(tvg_id))
                     channel=channels_by_id.get(tvg_id)
                     if channel is None:
-                        self.assertEqual('deleted',layout_by_id[tvg_id]['state'])
+                        row=layout_by_id[tvg_id]
+                        if row['state']=='active':
+                            # Lista 2 no publica guía; la fila puede seguir activa allí.
+                            self.assertEqual('2.m3u',row.get('sourceList'))
+                        else:
+                            self.assertEqual('deleted',row['state'])
                     else:
                         self.assertEqual(frozenset({source}),runner.epgshare_source_names_for([channel]))
             finally:

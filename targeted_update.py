@@ -539,6 +539,15 @@ def apply_presentation(
             path.name,
             presentation_overrides,
         )
+    # La materializacion de la seleccion tambien fija el marcador VibeM3U y el
+    # slug vigente del proveedor; el runner completo lo hace en update_m3u.main.
+    # Sin esto, la Lista 2 publicada (complemento del catalogo) divergiria del
+    # catalogo en las filas de proveedor gestionadas.
+    if selection.present:
+        update_m3u.apply_vibem3u_selection(
+            updated[PROJECT_ROOT / "channel-catalog.m3u"],
+            reconciliation,
+        )
     expected_main, expected_external, excluded_ids = _effective_editor_partition(
         catalog_lines,
         updated[PROJECT_ROOT / "m3u.m3u"],

@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "atUtc": "2026-10-17T23:20:00Z",
+  "authorization": "Usuario: «ya todo despes de ese mejor» (el límite es el canal 065, Real Wild) y «Si publica».",
+  "boundary": {
+    "rule": "Filas M3U activas con number > 65 pasan a sourceList 2.m3u; Lista 1 conserva las de number <= 65.",
+    "referenceChannel": { "number": 65, "tvgId": "RealWild.us", "displayName": "Real Wild" }
+  },
+  "hardRuleKept": "Nauta nunca se publica en Lista 2: las filas Nauta se exceptúan del movimiento y permanecen en Lista 1 en prueba.",
+  "list1": { "m3uRows": 66, "directRows": 43, "nautaRowsInTrial": 23 },
+  "list2": {
+    "publishedRows": 4649,
+    "movedRows": 4628,
+    "complementExtras": 21,
+    "externalListDisabled": false,
+    "trialRows": 4524
+  },
+  "toolFix": "targeted_update.apply_presentation reaplica apply_vibem3u_selection sobre el catálogo (marcador x-vibem3u-selection y slug vigente del proveedor) antes de filtrar listas, igual que update_m3u.main. Se retiraron dos entradas info_lines obsoletas (SkySportsMainEventUHD.uk sin marcador; Vavoo.es.ESPN2@TvVoo ya no gestionado) y se alinearon sus líneas canónicas.",
+  "testsAdjusted": [
+    "tests/test_channel_quality_backups.py: los respaldos directos verifican publicación en Lista 1 o Lista 2.",
+    "tests/test_trial_officialization.py: una guía confirmada puede faltar de Lista 1 si la fila activa está en Lista 2 (esa lista no publica guía)."
+  ],
+  "verification": {
+    "python": "389 pruebas (19 omitidas)",
+    "javascript": "55 pruebas",
+    "partition": "principal=66, externa=4649, catalogo=6580",
+    "validator": "update_m3u.py --validate-public-lists-only OK"
+  },
+  "consequence": "La próxima unión EPG limita la guía a Lista 1 (66) y canales gestionados; las filas movidas a Lista 2 dejan de publicar guía. Sin cambios de app ni APK (VibeM3U v0.5.95).",
+  "counterpart": "VibeM3U v0.5.95 (e395b9d); sin commit hermano."
+}
