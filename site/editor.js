@@ -26,6 +26,7 @@ import {
   summarizeChanges,
   validateLayout,
   setTrial,
+  acceptsTvVooBackup,
   setBackupTvVoo,
   setPreferredM3u,
   setBackupM3u,
@@ -753,8 +754,8 @@ function renderInspector() {
   stateBox.append(node("span", "", `${identity.text}. ${identity.detail}`));
   fragment.append(stateBox);
 
-  if (row.kind === "m3u") {
-    // Respaldo TvVoo: la misma señal en TvVoo; la app la usa si el directo falla.
+  if (acceptsTvVooBackup(row)) {
+    // Respaldo TvVoo: la misma señal en TvVoo; la app la usa si el directo o Highfly falla.
     const backupGroup = node("section", "detail-group backup-group");
     backupGroup.append(node("h3", "", "Respaldo TvVoo"));
     const backupSelect = node("select", "backup-select");
@@ -771,10 +772,19 @@ function renderInspector() {
       option.selected = row.backupTvVoo === item.catalogKey;
       backupSelect.append(option);
     }
+    if (row.backupTvVoo && !tvvooRows.some((item) => item.catalogKey === row.backupTvVoo)) {
+      // Respaldo de un canal TvVoo que no está en la lista: se muestra igual para no perderlo.
+      const alias = decodeURIComponent(row.backupTvVoo.split("|")[1] ?? "").replace(/^vavoo_/, "").replace(/\|group:.*/, "");
+      const kept = node("option", "", `${alias || row.backupTvVoo} · TvVoo (fuera de la lista)`);
+      kept.value = row.backupTvVoo;
+      kept.selected = true;
+      backupSelect.append(kept);
+    }
     backupSelect.addEventListener("change", () => changeLayout(setBackupTvVoo(state.layout, rowKey(row), backupSelect.value)));
-    backupGroup.append(backupSelect, node("p", "backup-note", "Si el directo no se recupera, la app pasa sola a esta señal; en «Fuentes y calidades» aparecen las dos."));
+    backupGroup.append(backupSelect, node("p", "backup-note", "Si la señal principal no se recupera, la app pasa sola a esta; en «Fuentes y calidades» aparecen las dos."));
     fragment.append(backupGroup);
-
+  }
+  if (row.kind === "m3u") {
     // Señal preferida: otra fila M3U de la misma señal (mejor calidad) que se abre primero.
     const preferredGroup = node("section", "detail-group backup-group");
     preferredGroup.append(node("h3", "", "Señal preferida"));

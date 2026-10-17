@@ -136,7 +136,7 @@ export function validateLayout(layout) {
       problems.push(`${row.name || id}: solo un canal M3U puede estar en prueba.`);
     }
     if (row.backupTvVoo !== undefined && (
-      row.kind !== "m3u"
+      !acceptsTvVooBackup(row)
       || typeof row.backupTvVoo !== "string"
       || !/^[a-z]+\|vavoo_[^|\s]+%7Cgroup%3A[a-z]{2}$/i.test(row.backupTvVoo)
     )) problems.push(`${row.name || id}: el respaldo TvVoo no es una identidad TvVoo válida.`);
@@ -495,11 +495,16 @@ export function setBackupM3u(layout, key, tvgIds) {
   return current;
 }
 
-/** Respaldo TvVoo de un canal directo (catalogKey de la misma señal); vacío lo quita. */
+/** Canales que pueden llevar respaldo TvVoo: directos (M3U) y Highfly (2026-10-17). */
+export function acceptsTvVooBackup(row) {
+  return row?.kind === "m3u" || (row?.kind === "provider" && row?.provider === "highfly");
+}
+
+/** Respaldo TvVoo de un canal directo o Highfly (catalogKey de la misma señal); vacío lo quita. */
 export function setBackupTvVoo(layout, key, catalogKey) {
   const current = structuredClone(layout);
   const row = current.channels.find((item) => rowKey(item) === key);
-  if (!row || row.kind !== "m3u") return current;
+  if (!row || !acceptsTvVooBackup(row)) return current;
   if (catalogKey) row.backupTvVoo = catalogKey;
   else delete row.backupTvVoo;
   return current;

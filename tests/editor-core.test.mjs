@@ -739,6 +739,25 @@ test("a direct row can carry a TvVoo backup of the same signal", () => {
   assert.equal(setBackupTvVoo(withBackup, "m3u:WinSports.co@Direct181", "").channels[0].backupTvVoo, undefined);
 });
 
+test("a Highfly row can carry a TvVoo backup, a TvVoo row cannot", () => {
+  const layout = {
+    schemaVersion: 1,
+    excludedM3u: [],
+    channels: [
+      { kind: "provider", provider: "highfly", catalogKey: "SkySportsF1.uk", providerResourceId: "leaf:now-344343", resolverSlug: "now-344343", name: "SKY SPORTS F1", identityState: "canonical", order: 1, number: 22, state: "active" },
+      { kind: "provider", provider: "tvvoo", catalogKey: "spain|vavoo_DAZN%20F1%7Cgroup%3Aes", providerResourceId: "spain|vavoo_DAZN%20F1%7Cgroup%3Aes", name: "DAZN F1", order: 2, number: 28, state: "active" },
+    ],
+  };
+  const backup = "unitedkingdom|vavoo_SKY%20SPORTS%20F1%7Cgroup%3Auk";
+  const withBackup = setBackupTvVoo(layout, "provider:highfly:SkySportsF1.uk", backup);
+  assert.equal(withBackup.channels[0].backupTvVoo, backup);
+  assert.ok(!validateLayout(withBackup).some((problem) => problem.includes("respaldo TvVoo")));
+  assert.equal(setBackupTvVoo(layout, "provider:tvvoo:spain|vavoo_DAZN%20F1%7Cgroup%3Aes", backup).channels[1].backupTvVoo, undefined);
+  const tvvooWithBackup = structuredClone(layout);
+  tvvooWithBackup.channels[1].backupTvVoo = backup;
+  assert.ok(validateLayout(tvvooWithBackup).some((problem) => problem.includes("respaldo TvVoo")));
+});
+
 test("a direct row can prefer another M3U row of the same signal", () => {
   const layout = {
     schemaVersion: 1,
