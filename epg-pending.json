@@ -1,9 +1,10 @@
 {
   "schema": 1,
-  "updated_at": "2026-10-17T21:09:33.624835Z",
+  "updated_at": "2026-10-17T21:41:14.345779Z",
   "channels": [
     "AlJazeera.qa",
     "PublicDirect.d6cca6d4aa23a69d50439c22",
+    "RedBullWorldEnglish.int",
     "PublicDirect.19fbfbd8b220cd0fb65ac244",
     "PublicDirect.8918c13cf06dc2f7416879f2",
     "PublicDirect.07595a53d0527c27f68b4e29",
@@ -564,6 +565,17 @@
       "futureHours": 0.0,
       "requiredHours": 18.0,
       "gaps": []
+    },
+    "RedBullWorldEnglish.int": {
+      "kind": "hueco",
+      "futureHours": 24.8,
+      "requiredHours": 18.0,
+      "gaps": [
+        [
+          "2026-10-18T11:24:00Z",
+          "2026-10-18T11:24:16Z"
+        ]
+      ]
     },
     "Vavoo.es.EUROSPORT1@TvVoo": {
       "kind": "sin-guia",
