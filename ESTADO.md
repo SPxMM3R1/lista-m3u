@@ -5,10 +5,11 @@
 > cubre la app). **Al terminar cualquier cambio, actualiza este archivo en el mismo commit**:
 > la sección «Hoy» si cambió el estado y una línea nueva en «Bitácora».
 
-Última actualización: **2026-10-16** (America/Santiago).
+Última actualización: **2026-10-17** (America/Santiago).
 
 ## Hoy, en una mirada
 
+- **Catálogo comunitario: 14 señales nuevas en prueba (2026-10-17)**: del barrido del gist comunitario `ac1a002b5c442908f134dd4958579ec2` (`iptv.m3u`; CSV saneado de 85 candidatos) quedaron 14 altas verificadas con video y audio decodificados, agregadas al final de Lista 1 en prueba, números 489–502, sin EPG ni mantenimiento automático. 45 candidatos ya estaban publicados con el mismo endpoint en `channel-catalog.m3u` y 26 no decodificaron video en dos intentos; ambos grupos solo quedan documentados. Se conservan todas las filas, números, exclusiones y selección. Los fotogramas quedan fuera de Git en `outputs/direct-ip-expansion-20261017T023049Z/verify-20261017/`. Registro: `contracts/community-catalogue-expansion-20261017.json`; informe: `CANALES_DIRECTOS_ADICIONALES_20261017.md`. Validación local: 389 Python (19 omitidas), 55 JS y partición 184/0/2.070 con `targeted_update.py --mode presentation`. VibeM3U existente v0.5.95 (e395b9d); sin APK ni commit hermano. Publicación y verificación remota pendientes.
 - **ESPN 4 HD #37 después de ESPN 3 Sur #36 (2026-10-15)**: `ESPN4.co@Direct181` pasa del #166 al #37, inmediatamente después de `WinSports.co@Direct181` («ESPN 3 Sur»). El #37 estaba libre: solo cambia el número de este canal; #166 queda libre y se preservan los demás números, la identidad, URL, logo y EPG. Se actualizan el orden editorial y las M3U de Lista 1.
 - **ESPN 2: feeds separados (2026-10-16)**: el #34 `PublicDirect.d6cca6d4aa23a69d50439c22` muestra fútbol Deportivo–Levante; el #165 `ESPN2.co@Direct181` muestra tenis. Se elimina el vínculo de respaldo entre ellos para que ambos aparezcan como canales independientes en la app. Se conservan IDs, nombres visibles («ESPN 2» y «ESPN 2 HD»), URLs, EPG, logos, orden y numeración.
 - **ESPN #33 después de TNT Sports 4 y guía chilena (2026-10-15)**: `ESPN.co@Direct181` se muestra como «ESPN» y queda inmediatamente después de TNT Sports 4 #32. Se conserva la identidad/URL; el hueco #33 se reutiliza y no se renumeran los demás canales. El override de EPG pasa de `co1 / ESPN.co` a `cl / Canal.ESPN.(Chile).cl`.
@@ -179,6 +180,8 @@
   nuevo por captura.
 
 ## Bitácora (más reciente arriba)
+
+- **2026-10-17 / catálogo comunitario en prueba**: barrido del gist comunitario contra hosts numéricos ya presentes en `m3u.m3u`; de 85 candidatos saneados, 45 endpoints ya existían en el inventario y 26 no decodificaron video en dos pasadas. Las 14 restantes decodificaron video y audio (ffmpeg, fotogramas revisados en mosaico) y se dieron de alta al final de Lista 1 en prueba: números 489–502, sin EPG ni mantenimiento. Identidad `PublicDirect` por etiqueta|host|ruta; altas por `editor-core.addRow` con sello `chat`, presentación y `orders["channel-catalog.m3u"]` sincronizados, y `targeted_update.py --mode presentation` regeneró las listas sin red (Lista 1=184, Lista 2=0, catálogo=2.070). Suites: 389 Python (19 omitidas) y 55 JS. Sin cambios de app, EPG ni resolutores; publicación y runner pendientes de verificar.
 
 - **2026-10-16 / separar los dos feeds ESPN 2**: se revisaron fotogramas reales del #34 (`PublicDirect.d6cca6d4aa23a69d50439c22`, fútbol Deportivo–Levante) y del #165 (`ESPN2.co@Direct181`, tenis). Eran feeds distintos, no respaldos de la misma señal; se retiró solo `backupm3u` del #34. Quedan ambos activos y visibles de forma independiente en la app, con sus identidades, nombres, URLs, EPG, logos, orden y números intactos. Se actualizó la regresión de `Espn2PlacementTest`; no requiere cambios del runner ni de VibeM3U/APK.
 

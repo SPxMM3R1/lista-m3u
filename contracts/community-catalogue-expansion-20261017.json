@@ -1,0 +1,636 @@
+{
+  "schemaVersion": 1,
+  "atUtc": "2026-10-17T18:22:00.846Z",
+  "previousHead": "b481f934d79f8b36b55fef23f7d1723063aa43a8",
+  "authorization": "Usuario: «Agrega eso al final de la lista en modalidad pruebas», tras el barrido comunitario del 2026-10-17 (community-candidates-sanitized.csv). Alta de las señales verificadas al final de Lista 1, en prueba.",
+  "source": {
+    "gistId": "ac1a002b5c442908f134dd4958579ec2",
+    "gistFile": "iptv.m3u",
+    "scanScript": "outputs/direct-ip-expansion-20261017T023049Z/community-catalogue-scan.ps1",
+    "probeScripts": [
+      "outputs/direct-ip-expansion-20261017T023049Z/verify-candidates-main.ps1",
+      "outputs/direct-ip-expansion-20261017T023049Z/retry-candidates-main.ps1"
+    ],
+    "candidatesCsv": "outputs/direct-ip-expansion-20261017T023049Z/community-candidates-sanitized.csv",
+    "resultsCsv": [
+      "outputs/direct-ip-expansion-20261017T023049Z/verify-results-working.csv",
+      "outputs/direct-ip-expansion-20261017T023049Z/retry-results-working.csv"
+    ],
+    "contactSheet": "outputs/direct-ip-expansion-20261017T023049Z/contact-add-20261017.jpg"
+  },
+  "identityPolicy": "PublicDirect creado una sola vez por la etiqueta del catálogo comunitario, host y ruta: SHA256(etiqueta|''|host|ruta)[:24]; el tvg-id permanece estable al renombrar o renovar el enlace.",
+  "scope": "Solo las 14 señales con video y audio decodificados en dos pasadas que además faltan en channel-catalog.m3u; 45 candidatos ya publicados en el inventario (mismo endpoint) y 26 sin video no son altas.",
+  "verification": "Muestra HLS con fotograma decodificado, audio decodificado y revisión visual del mosaico. No se infiere EPG, región ni disponibilidad 24/7; 401/403 no se sortean.",
+  "counterpart": "VibeM3U existente v0.5.95 (e395b9d); sin modificación Android ni APK nueva.",
+  "channels": [
+    {
+      "tvgId": "PublicDirect.1fc256a12df7a0a9a3fb2cdc",
+      "name": "CNC Medellin [IP 138.94.3.106]",
+      "displayName": "CNC Medellin",
+      "announcedLabel": "CNC Medellin (1080p)",
+      "group": "Misceláneos",
+      "number": 489,
+      "order": 630,
+      "url": "http://138.94.3.106:8000/play/a02o/index.m3u8",
+      "verifiedAtUtc": "2026-10-17T18:22:00.846Z",
+      "video": {
+        "codec": "h264",
+        "resolution": "1280x720"
+      },
+      "audio": "decodificado",
+      "frame": "outputs/direct-ip-expansion-20261017T023049Z/verify-20261017/verify-03.jpg",
+      "frameBrandingNote": null
+    },
+    {
+      "tvgId": "PublicDirect.d46d5979ce0d7046bf22a514",
+      "name": "History Latin America [IP 15.204.246.24]",
+      "displayName": "History Latin America",
+      "announcedLabel": "History Latin America (1080p)",
+      "group": "Misceláneos",
+      "number": 490,
+      "order": 631,
+      "url": "http://15.204.246.24:8080/HistoryHD/index.m3u8",
+      "verifiedAtUtc": "2026-10-17T18:22:00.846Z",
+      "video": {
+        "codec": "h264",
+        "resolution": "1920x1080"
+      },
+      "audio": "decodificado",
+      "frame": "outputs/direct-ip-expansion-20261017T023049Z/verify-20261017/verify-16.jpg",
+      "frameBrandingNote": null
+    },
+    {
+      "tvgId": "PublicDirect.bd673fdb55bacd995d97f153",
+      "name": "Caracol Internacional [IP 167.249.23.102]",
+      "displayName": "Caracol Internacional",
+      "announcedLabel": "Caracol Internacional (1080p)",
+      "group": "Misceláneos",
+      "number": 491,
+      "order": 632,
+      "url": "http://167.249.23.102:8000/play/a0ax/index.m3u8",
+      "verifiedAtUtc": "2026-10-17T18:22:00.846Z",
+      "video": {
+        "codec": "h264",
+        "resolution": "720x480"
+      },
+      "audio": "decodificado",
+      "frame": "outputs/direct-ip-expansion-20261017T023049Z/verify-20261017/verify-29.jpg",
+      "frameBrandingNote": "Fotograma de Noticias Caracol en exteriores; marca WIN en sobreimpresión"
+    },
+    {
+      "tvgId": "PublicDirect.7e088a5af48d892c96226ba8",
+      "name": "BabyFirst Spanish [IP 168.196.127.137]",
+      "displayName": "BabyFirst Spanish",
+      "announcedLabel": "BabyFirst Spanish (1080p)",
+      "group": "Misceláneos",
+      "number": 492,
+      "order": 633,
+      "url": "http://168.196.127.137:6001/play/a06j/index.m3u8",
+      "verifiedAtUtc": "2026-10-17T18:22:00.846Z",
+      "video": {
+        "codec": "h264",
+        "resolution": "544x480"
+      },
+      "audio": "decodificado",
+      "frame": "outputs/direct-ip-expansion-20261017T023049Z/verify-20261017/verify-31.jpg",
+      "frameBrandingNote": null
+    },
+    {
+      "tvgId": "PublicDirect.9b0fd9ab795d608586e77cdd",
+      "name": "Semillitas TV [IP 168.196.127.137]",
+      "displayName": "Semillitas TV",
+      "announcedLabel": "Semillitas TV (1080p)",
+      "group": "Misceláneos",
+      "number": 493,
+      "order": 634,
+      "url": "http://168.196.127.137:6001/play/a04y/index.m3u8",
+      "verifiedAtUtc": "2026-10-17T18:22:00.846Z",
+      "video": {
+        "codec": "h264",
+        "resolution": "544x480"
+      },
+      "audio": "decodificado",
+      "frame": "outputs/direct-ip-expansion-20261017T023049Z/verify-20261017/verify-35.jpg",
+      "frameBrandingNote": null
+    },
+    {
+      "tvgId": "PublicDirect.12c61cc794dbadb40a1a1d19",
+      "name": "Tigo Sports (Honduras) [IP 168.196.127.137]",
+      "displayName": "Tigo Sports (Honduras)",
+      "announcedLabel": "Tigo Sports (Honduras) (1080p)",
+      "group": "Deportes",
+      "number": 494,
+      "order": 635,
+      "url": "http://168.196.127.137:6001/play/a0ay/index.m3u8",
+      "verifiedAtUtc": "2026-10-17T18:22:00.846Z",
+      "video": {
+        "codec": "h264",
+        "resolution": "720x480"
+      },
+      "audio": "decodificado",
+      "frame": "outputs/direct-ip-expansion-20261017T023049Z/verify-20261017/verify-37.jpg",
+      "frameBrandingNote": "Fotograma deportivo con marcas FOX/NCAA; no confirma programa ni región"
+    },
+    {
+      "tvgId": "PublicDirect.af547ea343a94a270eb61af1",
+      "name": "Discovery Kids Latin America [IP 181.224.200.5]",
+      "displayName": "Discovery Kids Latin America",
+      "announcedLabel": "Discovery Kids Latin America (1080p)",
+      "group": "Misceláneos",
+      "number": 495,
+      "order": 636,
+      "url": "http://181.224.200.5:2277/play/a00o/index.m3u8",
+      "verifiedAtUtc": "2026-10-17T18:22:00.846Z",
+      "video": {
+        "codec": "h264",
+        "resolution": "1920x1080"
+      },
+      "audio": "decodificado",
+      "frame": "outputs/direct-ip-expansion-20261017T023049Z/verify-20261017/verify-40.jpg",
+      "frameBrandingNote": null
+    },
+    {
+      "tvgId": "PublicDirect.b4f1cec6f65654bcc7260bff",
+      "name": "Cablenoticias [IP 181.78.211.244]",
+      "displayName": "Cablenoticias",
+      "announcedLabel": "Cablenoticias (1080p)",
+      "group": "Noticias internacionales",
+      "number": 496,
+      "order": 637,
+      "url": "http://181.78.211.244:8005/play/a09u/index.m3u8",
+      "verifiedAtUtc": "2026-10-17T18:22:00.846Z",
+      "video": {
+        "codec": "h264",
+        "resolution": "1920x1080"
+      },
+      "audio": "decodificado",
+      "frame": "outputs/direct-ip-expansion-20261017T023049Z/verify-20261017/verify-44.jpg",
+      "frameBrandingNote": null
+    },
+    {
+      "tvgId": "PublicDirect.122ca0aae2b653a4fb460af5",
+      "name": "TNT Latin America Colombia [IP 181.78.211.244]",
+      "displayName": "TNT Latin America Colombia",
+      "announcedLabel": "TNT Latin America Colombia (1080p)",
+      "group": "Películas",
+      "number": 497,
+      "order": 638,
+      "url": "http://181.78.211.244:8005/play/a09g/index.m3u8",
+      "verifiedAtUtc": "2026-10-17T18:22:00.846Z",
+      "video": {
+        "codec": "mpeg2video",
+        "resolution": "720x480"
+      },
+      "audio": "decodificado",
+      "frame": "outputs/direct-ip-expansion-20261017T023049Z/verify-20261017/verify-46.jpg",
+      "frameBrandingNote": "Fotograma de película sin marca clara"
+    },
+    {
+      "tvgId": "PublicDirect.e24b329b8f1e2f20376398f6",
+      "name": "Galavision West [IP 200.115.120.1]",
+      "displayName": "Galavision West",
+      "announcedLabel": "Galavision West (720p)",
+      "group": "Películas",
+      "number": 498,
+      "order": 639,
+      "url": "http://200.115.120.1:8000/play/ca128/index.m3u8",
+      "verifiedAtUtc": "2026-10-17T18:22:00.846Z",
+      "video": {
+        "codec": "mpeg2video",
+        "resolution": "720x480"
+      },
+      "audio": "decodificado",
+      "frame": "outputs/direct-ip-expansion-20261017T023049Z/verify-20261017/verify-63.jpg",
+      "frameBrandingNote": "El fotograma muestra la marca TU MÚSICA; se conserva el nombre del catálogo comunitario, sin corregir ni inferir identidad"
+    },
+    {
+      "tvgId": "PublicDirect.5ea927493c11b7a92388685b",
+      "name": "Guatevision [IP 200.115.120.1]",
+      "displayName": "Guatevision",
+      "announcedLabel": "Guatevision (1080p)",
+      "group": "Misceláneos",
+      "number": 499,
+      "order": 640,
+      "url": "http://200.115.120.1:8000/play/ca066/index.m3u8",
+      "verifiedAtUtc": "2026-10-17T18:22:00.846Z",
+      "video": {
+        "codec": "h264",
+        "resolution": "544x480"
+      },
+      "audio": "decodificado",
+      "frame": "outputs/direct-ip-expansion-20261017T023049Z/verify-20261017/verify-64.jpg",
+      "frameBrandingNote": null
+    },
+    {
+      "tvgId": "PublicDirect.13898216f4421e8d6028381e",
+      "name": "Telefe Internacional [IP 200.115.120.1]",
+      "displayName": "Telefe Internacional",
+      "announcedLabel": "Telefe Internacional (1080p)",
+      "group": "Misceláneos",
+      "number": 500,
+      "order": 641,
+      "url": "http://200.115.120.1:8000/play/ca016/index.m3u8",
+      "verifiedAtUtc": "2026-10-17T18:22:00.846Z",
+      "video": {
+        "codec": "h264",
+        "resolution": "544x480"
+      },
+      "audio": "decodificado",
+      "frame": "outputs/direct-ip-expansion-20261017T023049Z/verify-20261017/verify-65.jpg",
+      "frameBrandingNote": null
+    },
+    {
+      "tvgId": "PublicDirect.3e66aca73cb962ab4f31bd3b",
+      "name": "Disney Channel Latin America Mexico [IP 45.166.93.156]",
+      "displayName": "Disney Channel Latin America Mexico",
+      "announcedLabel": "Disney Channel Latin America Mexico (720p)",
+      "group": "Misceláneos",
+      "number": 501,
+      "order": 642,
+      "url": "http://45.166.93.156:9999/play/a0f3/index.m3u8",
+      "verifiedAtUtc": "2026-10-17T18:22:00.846Z",
+      "video": {
+        "codec": "h264",
+        "resolution": "544x480"
+      },
+      "audio": "decodificado",
+      "frame": "outputs/direct-ip-expansion-20261017T023049Z/verify-20261017/verify-74.jpg",
+      "frameBrandingNote": null
+    },
+    {
+      "tvgId": "PublicDirect.865f59d64682acc4edf236f2",
+      "name": "Nuestra Tele Internacional [IP 45.173.231.22]",
+      "displayName": "Nuestra Tele Internacional",
+      "announcedLabel": "Nuestra Tele Internacional (1080p)",
+      "group": "Misceláneos",
+      "number": 502,
+      "order": 643,
+      "url": "http://45.173.231.22:8000/play/a0cr/index.m3u8",
+      "verifiedAtUtc": "2026-10-17T18:22:00.846Z",
+      "video": {
+        "codec": "h264",
+        "resolution": "720x480"
+      },
+      "audio": "decodificado",
+      "frame": "outputs/direct-ip-expansion-20261017T023049Z/verify-20261017/verify-83.jpg",
+      "frameBrandingNote": null
+    }
+  ],
+  "skipped": [
+    {
+      "announcedLabel": "A24 (1080p)",
+      "host": "138.59.227.20",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "Encuentro (720p)",
+      "host": "138.59.227.20",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "Cartoon Network Latin America South Atlantic (1080p)",
+      "host": "158.172.217.18",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "Claro Cinema (1080p)",
+      "host": "158.172.217.18",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "AyM Sports (1080p)",
+      "host": "168.196.127.137",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "Claro Sports (1080p)",
+      "host": "168.196.127.137",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "Food Network Latin America (1080p)",
+      "host": "168.196.127.137",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "MC (1080p)",
+      "host": "168.196.127.137",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "Sun Channel (720p)",
+      "host": "168.196.127.137",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "TNT Series Latin America (1080p)",
+      "host": "168.196.127.137",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "Distrito Comedia (1080p)",
+      "host": "181.119.66.28",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "Discovery Theater Latin America (1080p)",
+      "host": "181.224.200.5",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "Bandamax (1080p)",
+      "host": "181.78.106.127",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "Vea Canal (720p)",
+      "host": "181.78.106.127",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "Telesur (1080p)",
+      "host": "181.78.211.244",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "AXN Latin America Andes (1080p)",
+      "host": "181.78.8.199",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "Disney Channel Latin America Center (1080p)",
+      "host": "181.78.8.199",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "Globovision (576p)",
+      "host": "181.78.8.199",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "La Tele Tuya (576p)",
+      "host": "181.78.8.199",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "Meridiano TV (576p)",
+      "host": "181.78.8.199",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "Venevision (576p)",
+      "host": "181.78.8.199",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "Azteca 7 (1080p)",
+      "host": "187.245.231.226",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "Popu TV (1080p)",
+      "host": "190.108.83.69",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "Animal Planet Latin America (1080p)",
+      "host": "190.128.214.97",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "Canal 4 Posadas (1080p)",
+      "host": "190.128.214.97",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "Educanal (1080p)",
+      "host": "190.128.214.97",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "Productiva TV (1080p)",
+      "host": "190.128.214.97",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "TV Aire (1080p)",
+      "host": "190.128.214.97",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "Ve Plus Panregional (1080p)",
+      "host": "190.61.114.186",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "Exa TV",
+      "host": "190.61.90.17",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "Az Corazon (720p)",
+      "host": "200.115.120.1",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "Discovery Kids Latin America Colombia (1080p)",
+      "host": "38.134.250.110",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "Discovery Turbo Latin America (1080p)",
+      "host": "38.134.250.110",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "TLC Latin America (1080p)",
+      "host": "38.134.250.110",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "HGTV Latin America (1080p)",
+      "host": "38.87.224.19",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "AMC Series Latin America (1080p)",
+      "host": "45.171.64.30",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "Discovery Channel Latin America (1080p)",
+      "host": "45.171.64.30",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "Discovery Science Latin America (720p)",
+      "host": "45.171.64.30",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "HBO 2 Latin America HD (1080p)",
+      "host": "45.171.64.30",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "HBO Family Latin America (1080p)",
+      "host": "45.171.64.30",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "Rhema TV (1080p)",
+      "host": "45.171.64.30",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "TCM Latin America South (1080p)",
+      "host": "45.171.64.30",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "TNT Latin America (1080p)",
+      "host": "45.171.64.30",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "Telefe (1080p)",
+      "host": "45.173.231.22",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "E! Latin America Mexico (720p)",
+      "host": "72.1.184.5",
+      "reason": "endpoint_already_in_catalogue"
+    },
+    {
+      "announcedLabel": "AMC Latin America (1080p)",
+      "host": "15.204.246.24",
+      "reason": "sin_video_decodificado_en_dos_intentos"
+    },
+    {
+      "announcedLabel": "Animal Planet Latin America HD (720p) [Geo-blocked]",
+      "host": "15.204.246.24",
+      "reason": "sin_video_decodificado_en_dos_intentos"
+    },
+    {
+      "announcedLabel": "Cartoon Network Latin America Brazil (720p) [Geo-blocked]",
+      "host": "15.204.246.24",
+      "reason": "sin_video_decodificado_en_dos_intentos"
+    },
+    {
+      "announcedLabel": "ChileVision (1080p)",
+      "host": "15.204.246.24",
+      "reason": "sin_video_decodificado_en_dos_intentos"
+    },
+    {
+      "announcedLabel": "Discovery Kids Latin America Brazil (720p) [Geo-blocked]",
+      "host": "15.204.246.24",
+      "reason": "sin_video_decodificado_en_dos_intentos"
+    },
+    {
+      "announcedLabel": "Discovery World Brazil (720p) [Geo-blocked]",
+      "host": "15.204.246.24",
+      "reason": "sin_video_decodificado_en_dos_intentos"
+    },
+    {
+      "announcedLabel": "Disney Channel Latin America (1080p)",
+      "host": "15.204.246.24",
+      "reason": "sin_video_decodificado_en_dos_intentos"
+    },
+    {
+      "announcedLabel": "El Gourmet (1080p)",
+      "host": "15.204.246.24",
+      "reason": "sin_video_decodificado_en_dos_intentos"
+    },
+    {
+      "announcedLabel": "El Nueve (1080p)",
+      "host": "15.204.246.24",
+      "reason": "sin_video_decodificado_en_dos_intentos"
+    },
+    {
+      "announcedLabel": "FX Latin America (1080p)",
+      "host": "15.204.246.24",
+      "reason": "sin_video_decodificado_en_dos_intentos"
+    },
+    {
+      "announcedLabel": "Golf Channel Latin America (1080p)",
+      "host": "15.204.246.24",
+      "reason": "sin_video_decodificado_en_dos_intentos"
+    },
+    {
+      "announcedLabel": "HBO+ Latin America (720p) [Geo-blocked]",
+      "host": "15.204.246.24",
+      "reason": "sin_video_decodificado_en_dos_intentos"
+    },
+    {
+      "announcedLabel": "Hola! TV Latin America (1080p)",
+      "host": "15.204.246.24",
+      "reason": "sin_video_decodificado_en_dos_intentos"
+    },
+    {
+      "announcedLabel": "Las Estrellas Latin America (1080p)",
+      "host": "15.204.246.24",
+      "reason": "sin_video_decodificado_en_dos_intentos"
+    },
+    {
+      "announcedLabel": "Mega 2 (1080p)",
+      "host": "15.204.246.24",
+      "reason": "sin_video_decodificado_en_dos_intentos"
+    },
+    {
+      "announcedLabel": "MTV Latin America (1080p)",
+      "host": "15.204.246.24",
+      "reason": "sin_video_decodificado_en_dos_intentos"
+    },
+    {
+      "announcedLabel": "National Geographic Latin America (1080p)",
+      "host": "15.204.246.24",
+      "reason": "sin_video_decodificado_en_dos_intentos"
+    },
+    {
+      "announcedLabel": "Pasiones Latin America (1080p)",
+      "host": "15.204.246.24",
+      "reason": "sin_video_decodificado_en_dos_intentos"
+    },
+    {
+      "announcedLabel": "Star Channel Latin America (1080p)",
+      "host": "15.204.246.24",
+      "reason": "sin_video_decodificado_en_dos_intentos"
+    },
+    {
+      "announcedLabel": "Studio Universal Latin America (1080p)",
+      "host": "15.204.246.24",
+      "reason": "sin_video_decodificado_en_dos_intentos"
+    },
+    {
+      "announcedLabel": "TNT Latin America Brazil (720p) [Geo-blocked]",
+      "host": "15.204.246.24",
+      "reason": "sin_video_decodificado_en_dos_intentos"
+    },
+    {
+      "announcedLabel": "Universal TV Latin America (1080p)",
+      "host": "15.204.246.24",
+      "reason": "sin_video_decodificado_en_dos_intentos"
+    },
+    {
+      "announcedLabel": "TeleNostalgia (1080p)",
+      "host": "38.134.250.110",
+      "reason": "sin_video_decodificado_en_dos_intentos"
+    },
+    {
+      "announcedLabel": "Televen (1080p)",
+      "host": "38.134.250.110",
+      "reason": "sin_video_decodificado_en_dos_intentos"
+    },
+    {
+      "announcedLabel": "Universal TV Latin America Colombia (1080p)",
+      "host": "38.134.250.110",
+      "reason": "sin_video_decodificado_en_dos_intentos"
+    },
+    {
+      "announcedLabel": "Warner Channel Colombia (1080p)",
+      "host": "38.134.250.110",
+      "reason": "sin_video_decodificado_en_dos_intentos"
+    }
+  ]
+}
