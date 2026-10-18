@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "atUtc": "2026-10-19T00:40:00Z",
+  "authorization": "Usuario: «Elimina todos los: telemundo, univision, pasionnes. Todo lo que diga novelas, todo lo azteca, todo lo en categoria colombia que me diste, peru, ecuador, bolivia, telenovelas».",
+  "scope": "Solo Lista 2 (filas m3u activas con sourceList 2.m3u). Lista 1 no se toca: filas, orden y numeros identicos.",
+  "action": "Papelera reversible (state=deleted) con las funciones del editor (setRowsState + normalizeLists + approveLayout chat); las identidades quedan en excluded_m3u via buildPresentationOverrides. No es baja permanente: se pueden restaurar desde el editor.",
+  "rules": [
+    { "rule": "telemundo", "matches": 49 },
+    { "rule": "univision", "matches": 25 },
+    { "rule": "pasiones", "matches": 27 },
+    { "rule": "novelas (tlnovelas, tnt novelas, rcn novelas, telenovelas, 13 novelas, etc.)", "matches": 79 },
+    { "rule": "azteca (uno, 7, internacional, corazon, click, cinema, deportes, GUA/HON)", "matches": 30 },
+    { "rule": "colombia (caracol, rcn, canal uno, senal colombia, canal capital, teleantioquia, telecaribe, telepacifico, citytv)", "matches": 173 },
+    { "rule": "peru (latina, panamericana, tv peru, willax)", "matches": 29 },
+    { "rule": "ecuador (ecuavisa, rts, tc television, gamavision)", "matches": 21 },
+    { "rule": "bolivia (bolivision, red uno)", "matches": 3 }
+  ],
+  "removedRows": 416,
+  "removedSampleNumbers": [57, 184, 185, 187, 430, 431, 432, 433, 434, 435, 436, 437],
+  "countsAfter": {
+    "list1": 56,
+    "list2Published": 4485,
+    "catalog": 6599
+  },
+  "verification": {
+    "python": "399 pruebas (18 omitidas; la copia del contrato compartido en VibeM3U queda pendiente de sincronizar, test local `test_vibem3u_copy_is_identical`)",
+    "javascript": "57 pruebas",
+    "partition": "principal=56, externa=4485, catalogo=6599",
+    "list1": "m3u.m3u/1.m3u sin cambios y layout L1 identico a HEAD",
+    "leftovers": "0 coincidencias de las reglas en Lista 2 publicada"
+  },
+  "pending": "Push, runner de canales y verificacion remota en esta entrada."
+}
