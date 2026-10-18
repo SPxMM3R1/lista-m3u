@@ -3900,8 +3900,8 @@ def apply_editor_nauta_channels(
             VERIFIED_NAUTA_OFFICIAL_REFERENCES.get(channel_id) == (catalog, exact_name)
             and "trial" not in row
         )
-        if row.get("sourceList") != "1.m3u" or (row.get("trial") is not True and not verified_official):
-            raise ValueError("Nauta se agrega solo a Lista 1 y en prueba, salvo referencias oficiales verificadas")
+        if row.get("sourceList") not in {"1.m3u", "2.m3u"} or (row.get("trial") is not True and not verified_official):
+            raise ValueError("Nauta se publica solo en Lista 1 o Lista 2 y en prueba, salvo referencias oficiales verificadas")
         if not isinstance(display_name, str) or not display_name.strip() or len(display_name) > 240 \
                 or re.search(r"[\r\n\x00-\x1f\x7f]", display_name):
             raise ValueError("El nombre visible del canal Nauta no es valido")

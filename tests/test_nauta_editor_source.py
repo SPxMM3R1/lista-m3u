@@ -55,10 +55,15 @@ class NautaEditorSourceTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "no coincide con el nombre exacto"):
             runner.apply_editor_nauta_channels(["#EXTM3U"], self.layout_path)
 
-    def test_requires_list1_and_trial_to_keep_nauta_out_of_epg_scope(self):
+    def test_requires_public_list_and_trial_to_keep_nauta_out_of_epg_scope(self):
         row = dict(self.row, sourceList="2.m3u")
         self.write_layout(row)
-        with self.assertRaisesRegex(ValueError, "solo a Lista 1 y en prueba"):
+        lines = ["#EXTM3U"]
+        self.assertTrue(runner.apply_editor_nauta_channels(lines, self.layout_path))
+
+        row = dict(self.row, sourceList="3.m3u")
+        self.write_layout(row)
+        with self.assertRaisesRegex(ValueError, "solo en Lista 1 o Lista 2"):
             runner.apply_editor_nauta_channels(["#EXTM3U"], self.layout_path)
 
         row = dict(self.row)

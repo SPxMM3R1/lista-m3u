@@ -205,10 +205,10 @@ export function validateLayout(layout) {
         && typeof row.nautaName === "string" && row.nautaName.trim().length > 0 && row.nautaName.length <= 200
         && !/[\u0000-\u001f\u007f\\?#]/.test(row.nautaName) && !row.nautaName.includes("://")
         && /^Nauta\.[a-f0-9]{24}@Nauta$/.test(row.tvgId ?? "")
-        && row.sourceList === "1.m3u"
+        && (row.sourceList === "1.m3u" || row.sourceList === "2.m3u")
         && (row.trial === true || (row.trial === undefined
           && OFFICIAL_NAUTA_REFERENCES.has(`${row.tvgId}|${row.nautaCatalog}|${row.nautaName}`)));
-      if (!validNauta) problems.push(`${row.name || id}: la referencia Nauta requiere identidad estable, Lista 1 y estado de prueba (salvo ESPN 7 verificado).`);
+      if (!validNauta) problems.push(`${row.name || id}: la referencia Nauta requiere identidad estable, Lista 1 o 2 y estado en prueba (salvo referencias oficiales).`);
     }
     const visibleFields = [row.name, row.displayName, row.group, row.category, row.country, row.countryKey, row.nautaName, row.alias, row.aliases, row.resolverAliases];
     const flatValues = visibleFields.flatMap((value) => Array.isArray(value) ? value : [value]);
