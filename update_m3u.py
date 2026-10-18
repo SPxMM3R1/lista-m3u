@@ -3968,10 +3968,20 @@ def publication_playlist_for(
 
 
 def is_tvvoo_ar_channel(channel: Channel) -> bool:
-    """Identify the requested ar group by its resolver aliases, not its name."""
+    """Identify the requested ar group by its resolver aliases, not its name.
+
+    La identidad estable manda: una fila directa cuyo nombre visible coincide
+    con el de un candidato TvVoo (por ejemplo «ESPN 3») no debe heredar sus
+    alias ni caer del filtro de salud de la lista externa.
+    """
+    aliases = TVVOO_STREAM_RESOLVER_IDS_BY_TVG_ID.get(channel.tvg_id)
+    if aliases is None and (
+        channel.tvg_id.endswith("@TvVoo") or not CHANNEL_CATALOG_PATH.is_file()
+    ):
+        aliases = TVVOO_STREAM_RESOLVER_IDS.get(channel.name, ())
     return any(
         unquote(alias).endswith("|group:ar")
-        for alias in TVVOO_STREAM_RESOLVER_IDS.get(channel.name, ())
+        for alias in (aliases or ())
     )
 
 

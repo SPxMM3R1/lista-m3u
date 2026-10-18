@@ -276,7 +276,9 @@ class Espn2PlacementTest(unittest.TestCase):
         self.assertEqual("ESPN 2", target["displayName"])
         self.assertNotIn("backupm3u", target)
         self.assertEqual(167, second_feed["number"])
-        self.assertEqual("ESPN 2 HD", second_feed["displayName"])
+        # La limpieza de Lista 2 (2026-10-18) quitó "HD" del nombre visible; la
+        # independencia sigue garantizada por la identidad estable (tvg-id).
+        self.assertEqual("ESPN 2", second_feed["displayName"])
         self.assertEqual("active", second_feed["state"])
         self.assertFalse(any(second_feed["tvgId"] in row.get("backupm3u", []) for row in rows))
         self.assertEqual(target, ordered[ordered.index(espn) + 1])
