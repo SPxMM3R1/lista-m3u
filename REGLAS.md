@@ -52,8 +52,18 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
 - `data/vibem3u-selection.json`: lo lee **el runner**. Debe declarar los mismos canales de
   proveedor activos que el layout (`tests/test_editorial_consistency.py`).
 - Publicar layout + selección + presentación juntos, siempre desde el editor (`editor-core`).
-- Canales M3U agregados conservan su lista de origen (Lista 1 o 2). Highfly y TvVoo no van a
-  ninguna M3U: viven en el layout y la selección.
+- **Solo existen Lista 1 y Lista 2 (2026-10-18, pedido del usuario: «Quiero que ahora existan
+  solo lista 1 y lista 2 … y que de ahora en adelante siempre sea así»)**. Toda fila del layout,
+  M3U o Highfly/TvVoo, tiene `sourceList` `1.m3u` o `2.m3u` (`validateLayout`), y su canal queda
+  **escrito** en el archivo de esa lista: las filas de proveedor van en `orders` con su
+  `catalogKey`, el runner las traduce a la entrada del catálogo que les corresponde
+  (`apply_provider_order_overrides`) y las publica con su referencia `x-resolver` (TvVoo además
+  con `x-resolver-stable-id` = `catalogKey`, para que la app les dé número y orden). La regla
+  «solo app» de TvVoo/Highfly queda únicamente para identidades que nadie asignó a una lista.
+  La app ya no agrega canales que ninguna lista encendida trae.
+- **Numeración sin huecos**: activos de Lista 1 (por orden) del 1 en adelante y luego Lista 2,
+  sin huecos (`normalizeLists`, aplicado al publicar desde el editor, en la papelera de la app y
+  al dar de alta). Una fila no cruza de lista por su número: se cambia con «Lista de publicación».
 - Los respaldos M3U usan identidades estables (`tvg-id`) en `backupm3u`, nunca enlaces HLS firmados.
   Se admiten filas HTTP(S) y referencias Nauta activas `Nauta.<24 hex>@Nauta` explícitamente enlazadas
   (soporte de app desde 0.5.93). Las referencias de otros resolutores no se admiten. La app oculta

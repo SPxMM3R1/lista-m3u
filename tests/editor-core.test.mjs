@@ -24,6 +24,8 @@ import {
   setBackupM3u,
   removeRowsPermanently,
   toggleSelectedAvailableRow,
+  normalizeLists,
+  stableId,
 } from "../site/editor-core.mjs";
 import {
   canonicalTvVooAlias,
@@ -50,8 +52,8 @@ function sampleLayout() {
     schemaVersion: 1,
     channels: [
       { kind: "m3u", tvgId: "0104", name: "TVN", sourceList: "1.m3u", state: "active", order: 1, number: 1 },
-      { kind: "provider", provider: "highfly", catalogKey: "SkySportsF1.uk", providerResourceId: "leaf:f1-live", resolverSlug: "f1-live", identityState: "canonical", name: "Sky Sports F1", group: "Sports", category: "Sports", state: "active", order: 2, number: 2 },
-      { kind: "provider", provider: "tvvoo", catalogKey: "spain|vavoo_ESPN%201%7Cgroup%3Aes", providerResourceId: "spain|vavoo_ESPN%201%7Cgroup%3Aes", identityState: "canonical", name: "ESPN 1", group: "Sports", category: "Sports", aliases: ["vavoo_ESPN%201%7Cgroup%3Aes"], state: "active", order: 3, number: 3 },
+      { kind: "provider", sourceList: "1.m3u", provider: "highfly", catalogKey: "SkySportsF1.uk", providerResourceId: "leaf:f1-live", resolverSlug: "f1-live", identityState: "canonical", name: "Sky Sports F1", group: "Sports", category: "Sports", state: "active", order: 2, number: 2 },
+      { kind: "provider", sourceList: "1.m3u", provider: "tvvoo", catalogKey: "spain|vavoo_ESPN%201%7Cgroup%3Aes", providerResourceId: "spain|vavoo_ESPN%201%7Cgroup%3Aes", identityState: "canonical", name: "ESPN 1", group: "Sports", category: "Sports", aliases: ["vavoo_ESPN%201%7Cgroup%3Aes"], state: "active", order: 3, number: 3 },
     ],
   };
 }
@@ -126,7 +128,8 @@ test("presentation export writes stable order and local-logo references", () => 
   const result = buildPresentationOverrides(layout, {
     schema: 1, orders: { "channel-catalog.m3u": ["catalog-only", "0104"] }, info_lines: {}, logos: {}, assets: [],
   });
-  assert.deepEqual(result.orders["m3u.m3u"], ["0104"]);
+  // Las filas de proveedor de la Lista 1 van en su orden con su catalogKey (2026-10-18).
+  assert.deepEqual(result.orders["m3u.m3u"], ["0104", "SkySportsF1.uk", "spain|vavoo_ESPN%201%7Cgroup%3Aes"]);
   assert.deepEqual(result.orders["channel-catalog.m3u"], ["catalog-only", "0104"]);
   assert.equal(result.logos["0104"], "logos/tvn.png");
 });
@@ -136,7 +139,7 @@ test("direct M3U assignment, visibility, and permanent deletion reach runner out
   const direct = layout.channels[0];
   direct.sourceList = "2.m3u";
   let presentation = buildPresentationOverrides(layout, { schema: 1, orders: {}, logos: {} });
-  assert.deepEqual(presentation.orders["m3u.m3u"], []);
+  assert.deepEqual(presentation.orders["m3u.m3u"], ["SkySportsF1.uk", "spain|vavoo_ESPN%201%7Cgroup%3Aes"]);
   assert.deepEqual(presentation.orders["m3u-externa.m3u"], ["0104"]);
   assert.deepEqual(presentation.excluded_m3u, []);
 
@@ -176,7 +179,8 @@ test("Highfly keeps a canonical catalogKey when its leaf reference rotates", () 
   assert.equal(newRows[0].resolverSlug, "f1-new");
   assert.equal(JSON.stringify(newRows).includes("private.invalid"), false);
   assert.equal(JSON.stringify(newRows).includes("token="), false);
-  assert.deepEqual(validateLayout({ schemaVersion: 1, channels: [{ ...newRows[0], order: 1, number: 1, state: "active" }] }), []);
+  // Al darla de alta, addRow la deja en la Lista 1 si no trae lista (2026-10-18).
+  assert.deepEqual(validateLayout({ schemaVersion: 1, channels: [{ ...newRows[0], sourceList: "1.m3u", order: 1, number: 1, state: "active" }] }), []);
 });
 
 test("unknown Highfly names use deterministic provisional identities, never leaf IDs", () => {
@@ -231,7 +235,7 @@ test("TvVoo catalog rows use country plus canonical alias and drop remote logo U
   assert.deepEqual(rows[0].aliases, ["vavoo_ESPN%201%7Cgroup%3Aes"]);
   assert.equal(Object.hasOwn(rows[0], "logo"), false);
   assert.equal(JSON.stringify(rows).includes("private.invalid"), false);
-  assert.deepEqual(validateLayout({ schemaVersion: 1, channels: [{ ...rows[0], order: 1, number: 1, state: "active" }] }), []);
+  assert.deepEqual(validateLayout({ schemaVersion: 1, channels: [{ ...rows[0], sourceList: "1.m3u", order: 1, number: 1, state: "active" }] }), []);
 });
 
 test("assigning a channel to an occupied number shifts that number and later channels", () => {
@@ -635,7 +639,7 @@ test("setRowsState y removeRowsPermanently actúan sobre varias filas a la vez",
     channels: [
       { kind: "m3u", tvgId: "a", name: "A", sourceList: "1.m3u", order: 1, number: 1, state: "active" },
       { kind: "m3u", tvgId: "b", name: "B", sourceList: "1.m3u", order: 2, number: 2, state: "active" },
-      { kind: "provider", provider: "highfly", catalogKey: "X.uk", providerResourceId: "leaf:x1", resolverSlug: "x1",
+      { kind: "provider", sourceList: "1.m3u", provider: "highfly", catalogKey: "X.uk", providerResourceId: "leaf:x1", resolverSlug: "x1",
         identityState: "canonical", name: "X", group: "Deportes", order: 3, number: 3, state: "active" },
     ],
   };
@@ -716,7 +720,7 @@ test("only M3U rows can be in trial", () => {
     schemaVersion: 1,
     excludedM3u: [],
     channels: [
-      { kind: "provider", provider: "tvvoo", catalogKey: "spain|vavoo_X%7Cgroup%3Aes", providerResourceId: "spain|vavoo_X%7Cgroup%3Aes", name: "X", group: "España", countryKey: "spain", identityState: "canonical", order: 1, number: 1, state: "active", trial: true },
+      { kind: "provider", sourceList: "1.m3u", provider: "tvvoo", catalogKey: "spain|vavoo_X%7Cgroup%3Aes", providerResourceId: "spain|vavoo_X%7Cgroup%3Aes", name: "X", group: "España", countryKey: "spain", identityState: "canonical", order: 1, number: 1, state: "active", trial: true },
     ],
   };
   assert.ok(validateLayout(layout).some((problem) => problem.includes("prueba")));
@@ -744,8 +748,8 @@ test("a Highfly row can carry a TvVoo backup, a TvVoo row cannot", () => {
     schemaVersion: 1,
     excludedM3u: [],
     channels: [
-      { kind: "provider", provider: "highfly", catalogKey: "SkySportsF1.uk", providerResourceId: "leaf:now-344343", resolverSlug: "now-344343", name: "SKY SPORTS F1", identityState: "canonical", order: 1, number: 22, state: "active" },
-      { kind: "provider", provider: "tvvoo", catalogKey: "spain|vavoo_DAZN%20F1%7Cgroup%3Aes", providerResourceId: "spain|vavoo_DAZN%20F1%7Cgroup%3Aes", name: "DAZN F1", order: 2, number: 28, state: "active" },
+      { kind: "provider", sourceList: "1.m3u", provider: "highfly", catalogKey: "SkySportsF1.uk", providerResourceId: "leaf:now-344343", resolverSlug: "now-344343", name: "SKY SPORTS F1", identityState: "canonical", order: 1, number: 22, state: "active" },
+      { kind: "provider", sourceList: "1.m3u", provider: "tvvoo", catalogKey: "spain|vavoo_DAZN%20F1%7Cgroup%3Aes", providerResourceId: "spain|vavoo_DAZN%20F1%7Cgroup%3Aes", name: "DAZN F1", order: 2, number: 28, state: "active" },
     ],
   };
   const backup = "unitedkingdom|vavoo_SKY%20SPORTS%20F1%7Cgroup%3Auk";
@@ -837,4 +841,27 @@ test("guía manual: horas XMLTV, combinación y XML igual que el ensamblador", a
   assert.equal(core.validateManualItem({ start: at(2), stop: at(1), title: "x" }), "El término debe ser después del inicio.");
   assert.match(core.validateManualItem({ start: at(1), stop: at(3), title: "y" }, manual), /Se cruza/);
   assert.equal(core.validateManualItem({ start: at(5), stop: at(6), title: "z" }, manual), "");
+});
+
+test("solo Lista 1 y Lista 2: proveedores en su lista y números sin huecos (2026-10-18)", () => {
+  const layout = { schemaVersion: 1, excludedM3u: [], channels: [
+    { kind: "m3u", tvgId: "a", name: "A", group: "G", sourceList: "1.m3u", state: "active", order: 1, number: 1 },
+    { kind: "m3u", tvgId: "b", name: "B", group: "G", sourceList: "2.m3u", state: "active", order: 2, number: 41 },
+    { kind: "provider", provider: "tvvoo", sourceList: "1.m3u", catalogKey: "spain|vavoo_X%7Cgroup%3Aes",
+      providerResourceId: "spain|vavoo_X%7Cgroup%3Aes", identityState: "canonical", name: "X", group: "G",
+      state: "active", order: 3, number: 22 },
+    { kind: "m3u", tvgId: "c", name: "C", group: "G", sourceList: "1.m3u", state: "deleted", order: 4, number: 9 },
+    { kind: "m3u", tvgId: "d", name: "D", group: "G", sourceList: "1.m3u", state: "active", order: 5, number: 56 },
+  ] };
+  const normalized = normalizeLists(layout);
+  const active = normalized.channels.filter((row) => row.state === "active");
+  assert.deepEqual(active.map((row) => [stableId(row), row.number]),
+    [["a", 1], ["spain|vavoo_X%7Cgroup%3Aes", 2], ["d", 3], ["b", 4]]);
+  assert.deepEqual(normalizeLists(normalized), normalized, "es idempotente");
+  const presentation = buildPresentationOverrides(normalized, { schema: 1, orders: {}, logos: {} });
+  assert.deepEqual(presentation.orders["m3u.m3u"], ["a", "spain|vavoo_X%7Cgroup%3Aes", "d"]);
+  assert.deepEqual(presentation.orders["m3u-externa.m3u"], ["b"]);
+  const withoutList = structuredClone(normalized);
+  delete withoutList.channels.find((row) => row.kind === "provider").sourceList;
+  assert.ok(validateLayout(withoutList).some((problem) => problem.includes("Lista 1 o Lista 2")));
 });

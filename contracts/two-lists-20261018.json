@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-18",
+  "request": [
+    "Ya no quiero esa esa lógica. Quiero que ahora existan solo lista 1 y lista 2. Y todo lo que hoy día está en li, en lista 1, sea real o virtual, pásalo a la lista 1. Y modifica toda la lógica necesaria para que de ahora en adelante siempre sea así. Y también eh, reajusta los números para que no hayan huecos.",
+    "Si es necesario que los canales virtuales tengan solo una referencia en la lista 1, me da igual, pero necesito que esté escrito."
+  ],
+  "decisions": {
+    "providerRowsToList1": 13,
+    "providerNumbers": "22-34 (sin cambio)",
+    "nautaInList2KeptThere": ["ESPN 7 HD", "DSports", "MTV Live"],
+    "list1": {"channels": 56, "numbers": "1-56"},
+    "list2": {"layoutRows": 4860, "numbers": "57-4916"},
+    "renumberedActiveRows": 4878,
+    "list2ComplementDeduplicated": "4890 -> 4882"
+  },
+  "rules": {
+    "sourceListRequired": "toda fila M3U o de proveedor",
+    "numbering": "normalizeLists: Lista 1 por orden, luego Lista 2; activos 1..N",
+    "providerPublication": "orders con catalogKey -> apply_provider_order_overrides -> entrada del catálogo con x-resolver (TvVoo + x-resolver-stable-id)",
+    "app": "VibeM3U 0.6.15: el catálogo web ya no agrega canales que ninguna lista trae"
+  }
+}

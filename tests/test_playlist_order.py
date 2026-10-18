@@ -23,16 +23,83 @@ class PlaylistOrderTests(unittest.TestCase):
             self.assertTrue(alias.is_file(), alias)
             self.assertEqual(alias.read_bytes(), canonical.read_bytes())
 
-    def test_main_playlists_exclude_app_only_resolvers(self) -> None:
+    def test_main_playlists_only_carry_editor_assigned_resolvers(self) -> None:
+        # Desde 2026-10-18 los TvVoo/Highfly que el editor asigna a la Lista 1 se escriben en
+        # ella; ninguna otra identidad dinámica entra sin esa asignación.
         for playlist in (
             update_m3u.DEFAULT_PLAYLIST,
             update_m3u.SHORT_DIRECT_PLAYLIST,
         ):
-            channels = update_m3u.parse_channels(
-                playlist.read_text(encoding="utf-8-sig").splitlines()
-            )
+            lines = playlist.read_text(encoding="utf-8-sig").splitlines()
+            channels = update_m3u.parse_channels(lines)
             app_only = update_m3u.app_only_resolver_channel_ids(channels)
-            self.assertEqual(set(), app_only)
+            unmanaged = {
+                channel.tvg_id
+                for channel in channels
+                if channel.tvg_id in app_only
+                and 'x-vibem3u-selection="managed"' not in lines[channel.info_line]
+            }
+            self.assertEqual(set(), unmanaged)
+            for channel in channels:
+                if channel.tvg_id in app_only and channel.tvg_id.endswith("@TvVoo"):
+                    self.assertIn("x-resolver-stable-id=", lines[channel.info_line])
+
+    def test_editor_assignment_brings_provider_rows_into_the_main_list(self) -> None:
+        lines = [
+            "#EXTM3U",
+            extinf("0104", "TVN", "Nacionales"),
+            "https://example.invalid/tvn.m3u8",
+            '#EXTINF:-1 tvg-id="SkySportsF1.uk" x-resolver="highfly",Sky Sports F1',
+            "https://example.invalid/highfly.m3u8",
+            '#EXTINF:-1 tvg-id="SkySportsMainEvent.uk@TvVoo" '
+            'x-resolver="tvvoo",Sky Sports Main Event',
+            "https://example.invalid/tvvoo.m3u8",
+        ]
+        channels = update_m3u.parse_channels(lines)
+        app_only = update_m3u.app_only_resolver_channel_ids(channels)
+        overrides = {
+            "orders": {"m3u.m3u": ["0104", "SkySportsF1.uk"], "m3u-externa.m3u": []},
+            "excluded_m3u": [],
+        }
+        main_ids, _ = update_m3u.apply_web_direct_membership(
+            {"0104"}, app_only, channels, overrides
+        )
+        self.assertEqual({"0104", "SkySportsF1.uk"}, set(main_ids))
+
+    def test_provider_catalog_keys_are_translated_in_list_orders(self) -> None:
+        class Row:
+            def __init__(self, provider, key):
+                self.provider = provider
+                self.catalog_key = key
+
+        class Match:
+            def __init__(self, provider, key, catalog_id):
+                self.row = Row(provider, key)
+                self.catalog_id = catalog_id
+
+        class Reconciliation:
+            matched = (
+                Match("tvvoo", "unitedkingdom|vavoo_X%7Cgroup%3Auk", "X.uk@TvVoo"),
+            )
+            pending = ({"catalogKey": "spain|vavoo_Y%7Cgroup%3Aes"},)
+
+        overrides = {"orders": {
+            "m3u.m3u": ["0104", "unitedkingdom|vavoo_X%7Cgroup%3Auk", "spain|vavoo_Y%7Cgroup%3Aes"],
+            "channel-catalog.m3u": ["unitedkingdom|vavoo_X%7Cgroup%3Auk"],
+        }}
+        translated = update_m3u.apply_provider_order_overrides(overrides, Reconciliation())
+        self.assertEqual(["0104", "X.uk@TvVoo"], translated["orders"]["m3u.m3u"])
+        # El orden del catálogo completo no se toca.
+        self.assertEqual(
+            ["unitedkingdom|vavoo_X%7Cgroup%3Auk"], translated["orders"]["channel-catalog.m3u"]
+        )
+
+    def test_stable_id_attribute_is_set_and_removed(self) -> None:
+        line = '#EXTINF:-1 tvg-id="X.uk@TvVoo" x-resolver="tvvoo",X'
+        marked = update_m3u.with_stable_id_attribute(line, "unitedkingdom|vavoo_X%7Cgroup%3Auk")
+        self.assertIn('x-resolver-stable-id="unitedkingdom|vavoo_X%7Cgroup%3Auk",X', marked)
+        self.assertEqual(marked, update_m3u.with_stable_id_attribute(marked, "unitedkingdom|vavoo_X%7Cgroup%3Auk"))
+        self.assertEqual(line, update_m3u.with_stable_id_attribute(marked, ""))
 
     def test_app_only_resolver_ids_are_removed_from_main_membership(self) -> None:
         lines = [

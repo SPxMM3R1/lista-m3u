@@ -13,7 +13,7 @@ function documents() {
       channels: [
         { kind: "m3u", tvgId: "0104", name: "TVN", group: "Nacionales", sourceList: "1.m3u", order: 1, number: 1, state: "active" },
         { kind: "m3u", tvgId: "0105", name: "Mega", group: "Nacionales", sourceList: "1.m3u", order: 2, number: 2, state: "active" },
-        { kind: "provider", provider: "tvvoo", catalogKey: "spain|vavoo_EUROSPORT%202%7Cgroup%3Aes",
+        { kind: "provider", sourceList: "1.m3u", provider: "tvvoo", catalogKey: "spain|vavoo_EUROSPORT%202%7Cgroup%3Aes",
           providerResourceId: "spain|vavoo_EUROSPORT%202%7Cgroup%3Aes", identityState: "canonical",
           name: "EUROSPORT 2", group: "España", order: 3, number: 3, state: "active" },
       ],
@@ -31,8 +31,9 @@ test("un pedido de papelera deja la fila en «deleted» igual que el editor", as
   const tvn = result.layout.channels.find((row) => row.tvgId === "0104");
   assert.equal(tvn.state, "deleted");
   assert.equal(tvn.number, 1, "el número del canal no cambia");
-  assert.deepEqual(result.presentation.orders["m3u.m3u"], ["0105"]);
-  assert.deepEqual(result.presentation.orders["1.m3u"], ["0105"]);
+  // Desde 2026-10-18 las filas TvVoo/Highfly también van en el orden de su lista.
+  assert.deepEqual(result.presentation.orders["m3u.m3u"], ["0105", "spain|vavoo_EUROSPORT%202%7Cgroup%3Aes"]);
+  assert.deepEqual(result.presentation.orders["1.m3u"], ["0105", "spain|vavoo_EUROSPORT%202%7Cgroup%3Aes"]);
   assert.ok(result.presentation.excluded_m3u.includes("0104"));
 });
 

@@ -431,6 +431,17 @@ def _effective_editor_partition(
             raise ValueError(f"{channel.tvg_id}: la Lista 1 contiene una identidad ajena al catálogo")
         configured_main.add(catalog_id)
     app_only_ids = update_m3u.app_only_resolver_channel_ids(catalog_channels)
+    # Filas TvVoo/Highfly del editor (2026-10-18): su catalogKey del orden pasa a la entrada
+    # del catálogo para que se escriban en la lista que eligió el usuario.
+    reconciliation = vibem3u_selection.reconcile_selection(
+        update_m3u.load_vibem3u_selection(),
+        catalog_channels,
+        catalog_lines,
+    )
+    presentation_overrides = update_m3u.apply_provider_order_overrides(
+        presentation_overrides,
+        reconciliation,
+    )
     desired_main, excluded_ids = update_m3u.apply_web_direct_membership(
         configured_main,
         app_only_ids,
@@ -530,6 +541,10 @@ def apply_presentation(
         reconciliation,
     )
     presentation_overrides = update_m3u.apply_provider_name_overrides(
+        presentation_overrides,
+        reconciliation,
+    )
+    presentation_overrides = update_m3u.apply_provider_order_overrides(
         presentation_overrides,
         reconciliation,
     )

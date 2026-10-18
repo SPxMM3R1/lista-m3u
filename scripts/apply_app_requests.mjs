@@ -15,6 +15,7 @@ import {
   approveLayout,
   compareRows,
   formatJson,
+  normalizeLists,
   rowKey,
   sanitizeRow,
   setRowState,
@@ -48,11 +49,12 @@ export function parseRequest(text) {
 
 /** El mismo documento que publica el editor web (layoutDocument). */
 export function editorLayoutDocument(layout) {
-  return {
+  // Igual que el editor: Lista 1 y luego Lista 2, numeradas sin huecos (2026-10-18).
+  return normalizeLists({
     schemaVersion: 1,
     excludedM3u: [...new Set(layout.excludedM3u ?? [])].sort((a, b) => a.localeCompare(b)),
     channels: layout.channels.map(sanitizeRow).sort(compareRows),
-  };
+  });
 }
 
 /** Aplica los pedidos a los documentos; no toca el disco. */

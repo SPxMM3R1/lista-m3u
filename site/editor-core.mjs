@@ -194,6 +194,11 @@ export function validateLayout(layout) {
       if (!String(row.name ?? "").trim() || !String(row.group ?? row.category ?? "").trim()) {
         problems.push(`${row.name || id}: falta nombre o grupo del proveedor.`);
       }
+      // Desde 2026-10-18 los canales TvVoo/Highfly también pertenecen a una lista y quedan
+      // escritos en su archivo (ya no son canales «virtuales» fuera de las listas).
+      if (!["1.m3u", "2.m3u"].includes(row.sourceList)) {
+        problems.push(`${row.name || id}: selecciona Lista 1 o Lista 2.`);
+      }
     } else if (row.kind !== "m3u" || !String(row.tvgId ?? "").trim()) {
       problems.push(`${row.name || id}: entrada M3U sin tvg-id estable.`);
     } else if (!["1.m3u", "2.m3u"].includes(row.sourceList)) {
@@ -222,6 +227,26 @@ export function validateLayout(layout) {
     activeNumbers.add(number);
   }
   return [...new Set(problems)];
+}
+
+/**
+ * Orden y números canónicos (2026-10-18, pedido del usuario): solo existen Lista 1 y Lista 2.
+ * Activos de Lista 1 por su orden, luego activos de Lista 2, luego ocultos y papelera; los
+ * activos se numeran 1..N sin huecos. Es idempotente: se aplica al publicar desde el editor,
+ * al aplicar la papelera de la app y al dar de alta.
+ */
+export function normalizeLists(layout) {
+  const current = structuredClone(layout);
+  const listRank = (row) => (row.sourceList === "1.m3u" ? 0 : row.sourceList === "2.m3u" ? 1 : 2);
+  const byOrder = (a, b) => listRank(a) - listRank(b) || compareRows(a, b);
+  const active = current.channels.filter((row) => row.state === "active").sort(byOrder);
+  const hidden = current.channels.filter((row) => row.state === "hidden").sort(compareRows);
+  const deleted = current.channels.filter((row) => row.state === "deleted").sort(compareRows);
+  const others = current.channels.filter((row) => !["active", "hidden", "deleted"].includes(row.state));
+  current.channels = [...active, ...hidden, ...deleted, ...others];
+  current.channels.forEach((row, index) => { row.order = index + 1; });
+  active.forEach((row, index) => { row.number = index + 1; });
+  return current;
 }
 
 export function resequence(layout, orderedKeys) {
@@ -303,6 +328,7 @@ export function addRow(layout, source) {
   next.state = "active";
   next.order = current.channels.length + 1;
   next.number = Math.max(0, ...active.map((row) => Number(row.number) || 0)) + 1;
+  if (next.kind === "provider" && !["1.m3u", "2.m3u"].includes(next.sourceList)) next.sourceList = "1.m3u";
   current.channels.push(next);
   if (next.kind === "m3u") {
     current.excludedM3u = (current.excludedM3u ?? []).filter((id) => id !== stableId(next));
@@ -433,8 +459,11 @@ export function buildPresentationOverrides(layout, original) {
   // channel-catalog.m3u is the runner's full canonical inventory, not the
   // reduced set of rows selected in this editor. Preserve its independent order.
   const directActive = notPurged.filter((row) => row.kind === "m3u" && row.state === "active");
-  const directMain = directActive.filter((row) => row.sourceList === "1.m3u").map(stableId);
-  const directExternal = directActive.filter((row) => row.sourceList === "2.m3u").map(stableId);
+  // Filas TvVoo/Highfly (2026-10-18): van en el orden de su lista con su catalogKey; el runner
+  // las traduce a la entrada del catálogo que les corresponde y las escribe en ese archivo.
+  const listed = notPurged.filter((row) => row.state === "active" && (row.kind === "m3u" || row.kind === "provider"));
+  const directMain = listed.filter((row) => row.sourceList === "1.m3u").map(stableId);
+  const directExternal = listed.filter((row) => row.sourceList === "2.m3u").map(stableId);
   root.orders["m3u.m3u"] = [...new Set(directMain)];
   root.orders["m3u-externa.m3u"] = [...new Set(directExternal)];
   // 1.m3u y 2.m3u son alias cortos de las mismas listas: el publicador dirigido guarda su

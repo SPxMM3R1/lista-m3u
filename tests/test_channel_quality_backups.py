@@ -264,7 +264,7 @@ class Espn2PlacementTest(unittest.TestCase):
     TARGET_ID = "PublicDirect.d6cca6d4aa23a69d50439c22"
     ESPN_ID = "ESPN.co@Direct181"
 
-    def test_espn_2_feeds_are_independent_at_numbers_36_and_167(self):
+    def test_espn_2_feeds_are_independent_at_36_and_in_list_2(self):
         layout = json.loads((ROOT / "data/channel-editor-layout.json").read_text(encoding="utf-8"))
         rows = [row for row in layout["channels"] if row.get("state") == "active"]
         target = next(row for row in rows if row.get("tvgId") == self.TARGET_ID)
@@ -275,7 +275,10 @@ class Espn2PlacementTest(unittest.TestCase):
         self.assertEqual(35, espn["number"])
         self.assertEqual("ESPN 2", target["displayName"])
         self.assertNotIn("backupm3u", target)
-        self.assertEqual(167, second_feed["number"])
+        # Renumeración sin huecos (2026-10-18): la segunda señal sigue en la Lista 2, después de
+        # los 56 canales de la Lista 1.
+        self.assertEqual("2.m3u", second_feed["sourceList"])
+        self.assertGreater(second_feed["number"], 56)
         # La limpieza de Lista 2 (2026-10-18) quitó "HD" del nombre visible; la
         # independencia sigue garantizada por la identidad estable (tvg-id).
         self.assertEqual("ESPN 2", second_feed["displayName"])
@@ -299,17 +302,17 @@ class Espn4PlacementTest(unittest.TestCase):
     TARGET_ID = "ESPN4.co@Direct181"
     ESPN3_ID = "WinSports.co@Direct181"
 
-    def test_espn4_is_after_espn3_sur_at_number_39(self):
+    def test_espn4_is_after_espn3_sur_at_number_38(self):
         layout = json.loads((ROOT / "data/channel-editor-layout.json").read_text(encoding="utf-8"))
         rows = [row for row in layout["channels"] if row.get("state") == "active"]
         target = next(row for row in rows if row.get("tvgId") == self.TARGET_ID)
         espn3 = next(row for row in rows if row.get("tvgId") == self.ESPN3_ID)
         ordered = sorted(rows, key=lambda row: row["order"])
-        self.assertEqual(39, target["number"])
-        self.assertEqual(38, espn3["number"])
+        # Renumeración sin huecos (2026-10-18): el hueco del 37 desapareció.
+        self.assertEqual(38, target["number"])
+        self.assertEqual(37, espn3["number"])
         self.assertEqual("ESPN 4 HD", target["displayName"])
         self.assertEqual(target, ordered[ordered.index(espn3) + 1])
-        self.assertNotIn(166, {row["number"] for row in rows})
         self.assertEqual(len(rows), len({row["number"] for row in rows}))
 
         presentation = json.loads((ROOT / "presentation-overrides.json").read_text(encoding="utf-8"))

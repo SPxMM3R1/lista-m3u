@@ -3625,7 +3625,13 @@ def apply_web_direct_membership(
     managed_ids = listed_ids | (excluded_ids & catalog_ids)
     desired_main = (set(configured_main_ids) - managed_ids) | main_ids
     desired_main.difference_update(excluded_ids)
-    return public_main_membership_ids(desired_main, app_only_ids), frozenset(excluded_ids)
+    # Desde 2026-10-18 los canales TvVoo/Highfly que el editor asigna a la Lista 1 se escriben
+    # en m3u.m3u (pedido del usuario: solo existen Lista 1 y Lista 2). La regla «solo app» queda
+    # para las identidades dinámicas que nadie asignó a esa lista.
+    return (
+        public_main_membership_ids(desired_main, set(app_only_ids) - main_ids),
+        frozenset(excluded_ids),
+    )
 
 
 def apply_provider_logo_overrides(
@@ -3646,6 +3652,47 @@ def apply_provider_logo_overrides(
             assigned.add(match.catalog_id)
     updated = dict(overrides)
     updated["logos"] = logos
+    return updated
+
+
+PROVIDER_ORDER_LISTS = ("m3u.m3u", "m3u-externa.m3u", "1.m3u", "2.m3u")
+
+
+def apply_provider_order_overrides(
+    overrides: dict[str, object],
+    reconciliation: vibem3u_selection.SelectionReconciliation,
+) -> dict[str, object]:
+    """Translate provider catalog keys in the list orders to their catalogue IDs.
+
+    Desde 2026-10-18 el editor pone las filas TvVoo/Highfly en el orden de su lista con su
+    ``catalogKey``; aquí pasan a la entrada del catálogo que les corresponde. Una fila que no
+    coincide con el catálogo (pendiente) se quita del orden: no hay entrada que publicar.
+    """
+    raw_orders = overrides.get("orders", {})
+    if not isinstance(raw_orders, dict):
+        raise ValueError("manifiesto de presentacion: orders debe ser un objeto")
+    translation = {
+        item.row.catalog_key: item.catalog_id for item in reconciliation.matched
+    }
+    unmatched = {
+        str(item.get("catalogKey", "")) for item in reconciliation.pending
+    } - set(translation)
+    orders = dict(raw_orders)
+    for name in PROVIDER_ORDER_LISTS:
+        values = raw_orders.get(name)
+        if not isinstance(values, list):
+            continue
+        translated: list[str] = []
+        for value in values:
+            key = str(value)
+            if key in unmatched:
+                continue
+            target = translation.get(key, key)
+            if target not in translated:
+                translated.append(target)
+        orders[name] = translated
+    updated = dict(overrides)
+    updated["orders"] = orders
     return updated
 
 
@@ -3711,6 +3758,11 @@ def apply_vibem3u_selection(
     changed = False
     resource_updates = 0
     selected_ids = set(reconciliation.selected_catalog_ids)
+    tvvoo_stable_ids = {
+        item.catalog_id: item.row.catalog_key
+        for item in reconciliation.matched
+        if item.row.provider == "tvvoo"
+    }
     channels = parse_channels(lines)
     for channel in channels:
         desired = channel.tvg_id in selected_ids
@@ -3721,6 +3773,14 @@ def apply_vibem3u_selection(
             lines[channel.info_line] = vibem3u_selection.with_selection_marker(
                 lines[channel.info_line], desired
             )
+            changed = True
+        # La app reconoce la fila TvVoo del editor por su catalogKey (2026-10-18): sin esto
+        # la entrada escrita en la lista no recibe el número ni el orden del editor.
+        updated_info = with_stable_id_attribute(
+            lines[channel.info_line], tvvoo_stable_ids.get(channel.tvg_id, "")
+        )
+        if updated_info != lines[channel.info_line]:
+            lines[channel.info_line] = updated_info
             changed = True
 
     for item in reconciliation.matched:
@@ -4080,6 +4140,26 @@ def is_direct_probe(channel: Channel) -> bool:
     )
 
 
+STABLE_ID_ATTRIBUTE = "x-resolver-stable-id"
+
+
+def with_stable_id_attribute(line: str, stable_id: str) -> str:
+    """Set or remove ``x-resolver-stable-id`` (clave TvVoo del editor) on an EXTINF line."""
+    metadata, separator, display_name = line.rpartition(",")
+    if not separator or not metadata.startswith("#EXTINF:"):
+        raise ValueError(f"linea #EXTINF invalida: {line[:120]}")
+    if stable_id and ('"' in stable_id or "://" in stable_id or len(stable_id) > 256):
+        raise ValueError(f"identidad TvVoo invalida: {stable_id[:80]}")
+    stripped = re.sub(
+        rf'\s+{re.escape(STABLE_ID_ATTRIBUTE)}="[^"]*"',
+        "",
+        metadata,
+    )
+    if stable_id:
+        stripped = f'{stripped} {STABLE_ID_ATTRIBUTE}="{stable_id}"'
+    return f"{stripped},{display_name}"
+
+
 def with_resolver_attributes(line: str, attributes: dict[str, str]) -> str:
     metadata, separator, display_name = line.rpartition(",")
     if not separator or not metadata.startswith("#EXTINF:"):
@@ -4329,6 +4409,14 @@ def apply_presentation_overrides(
         if override:
             updated = with_resolver_attributes(
                 str(override), resolver_attributes
+            )
+            # La clave TvVoo del editor la escribe el runner (2026-10-18), no la presentación:
+            # una línea guardada no debe borrarla.
+            stable_match = re.search(
+                rf'\b{re.escape(STABLE_ID_ATTRIBUTE)}="([^"]*)"', lines[channel.info_line]
+            )
+            updated = with_stable_id_attribute(
+                updated, stable_match.group(1) if stable_match else ""
             )
             if updated != lines[channel.info_line]:
                 lines[channel.info_line] = updated
@@ -10937,6 +11025,10 @@ def main() -> int:
         selection_reconciliation,
     )
     presentation_overrides = apply_provider_name_overrides(
+        presentation_overrides,
+        selection_reconciliation,
+    )
+    presentation_overrides = apply_provider_order_overrides(
         presentation_overrides,
         selection_reconciliation,
     )

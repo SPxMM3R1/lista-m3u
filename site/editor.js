@@ -8,7 +8,7 @@ import {
   formatJson,
   moveRowFiltered,
   removePermanently,
-  renumberFiltered,
+  normalizeLists,
   resequence,
   rowKey,
   sanitizeRow,
@@ -416,11 +416,12 @@ function counts() {
 }
 
 function layoutDocument() {
-  return {
+  // Lo que se revisa y publica va siempre con Lista 1 y luego Lista 2, numeradas sin huecos.
+  return normalizeLists({
     schemaVersion: 1,
     excludedM3u: [...new Set(state.layout.excludedM3u ?? [])].sort((a, b) => a.localeCompare(b)),
     channels: state.layout.channels.map(sanitizeRow).sort(compareRows),
-  };
+  });
 }
 
 function currentPresentation() {
@@ -439,7 +440,8 @@ function sourceMatches(row) {
 }
 
 function rowVisible(row) {
-  return row.kind !== "m3u" || !hiddenLists.has(row.sourceList);
+  // Desde 2026-10-18 las filas TvVoo/Highfly también pertenecen a una lista.
+  return !hiddenLists.has(row.sourceList);
 }
 
 function setListVisibility(listId, visible) {
@@ -574,7 +576,7 @@ function setCheckedState(nextState) {
   const rows = checkedRows();
   if (!rows.length) return;
   const keys = rows.map(rowKey);
-  changeLayoutQuiet(renumberFiltered(setRowsState(state.layout, keys, nextState), rowVisible));
+  changeLayoutQuiet(normalizeLists(setRowsState(state.layout, keys, nextState)));
   clearChecked();
   if (keys.includes(selectedKey)) selectedKey = "";
   render();
@@ -592,7 +594,7 @@ function purgeChecked() {
     if (presentationRoot.names) delete presentationRoot.names[displayIdentity(row)];
   }
   const keys = rows.map(rowKey);
-  changeLayoutQuiet(renumberFiltered(removeRowsPermanently(state.layout, keys), rowVisible));
+  changeLayoutQuiet(normalizeLists(removeRowsPermanently(state.layout, keys)));
   clearChecked();
   if (keys.includes(selectedKey)) selectedKey = "";
   render();
@@ -929,7 +931,7 @@ function renderInspector() {
   numberInput.addEventListener("blur", () => requestPositionAssignment(row, numberInput));
   numberEditor.append(numberLabel, numberInput);
   identityGroup.append(numberEditor);
-  if (row.kind === "m3u") {
+  if (row.kind === "m3u" || row.kind === "provider") {
     const sourceEditor = node("div", "source-editor");
     const sourceLabel = node("label", "", "Lista de publicación");
     sourceLabel.htmlFor = "channel-source-list";
@@ -946,7 +948,7 @@ function renderInspector() {
       const changed = clone(state.layout);
       const target = changed.channels.find((item) => rowKey(item) === rowKey(row));
       if (target) target.sourceList = sourceSelect.value;
-      changeLayout(changed);
+      changeLayout(normalizeLists(changed));
     });
     sourceEditor.append(sourceLabel, sourceSelect);
     identityGroup.append(sourceEditor);
@@ -1053,7 +1055,7 @@ function setState(row, nextState) {
   const key = rowKey(row);
   checkedKeys.delete(key);
   if (selectedKey === key) selectedKey = "";
-  changeLayout(renumberFiltered(setRowState(state.layout, key, nextState), rowVisible));
+  changeLayout(normalizeLists(setRowState(state.layout, key, nextState)));
   const verb = nextState === "active" ? "vuelve a la lista" : nextState === "hidden" ? "quedó oculto" : "pasó a la papelera";
   showToast(`${channelName(row)} ${verb}.`);
 }
@@ -1064,7 +1066,7 @@ function purgeRow(row) {
   const presentationRoot = state.presentation.presentation ?? state.presentation;
   if (presentationRoot.logos) delete presentationRoot.logos[displayIdentity(row)];
   if (presentationRoot.names) delete presentationRoot.names[displayIdentity(row)];
-  changeLayout(renumberFiltered(removePermanently(state.layout, rowKey(row)), rowVisible));
+  changeLayout(normalizeLists(removePermanently(state.layout, rowKey(row))));
   selectedKey = "";
 }
 
@@ -1677,7 +1679,7 @@ function addSelectedChannels() {
     showToast("Esos canales ya están en el catálogo.", true);
     return;
   }
-  changeLayout(layout);
+  changeLayout(normalizeLists(layout));
   selectedKey = addedKeys[addedKeys.length - 1];
   activeView = "active";
   selectedAvailableRows.clear();
@@ -2325,7 +2327,7 @@ $("#check-all").addEventListener("change", (event) => {
 elements.search.addEventListener("input", renderRows);
 elements.sourceFilter.addEventListener("change", () => { sourceFilter = elements.sourceFilter.value; renderRows(); });
 $("#add-channel-button").addEventListener("click", openAddDialog);
-$("#renumber-button").addEventListener("click", () => changeLayout(renumberFiltered(state.layout, rowVisible)));
+$("#renumber-button").addEventListener("click", () => changeLayout(normalizeLists(state.layout)));
 elements.list1Toggle.addEventListener("change", () => setListVisibility("1.m3u", elements.list1Toggle.checked));
 elements.list2Toggle.addEventListener("change", () => setListVisibility("2.m3u", elements.list2Toggle.checked));
 elements.positionDialog.addEventListener("close", finishPositionAssignment);
