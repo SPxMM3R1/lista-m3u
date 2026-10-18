@@ -97,24 +97,31 @@ class TrialOfficializationTest(unittest.TestCase):
             before=dict(runner.EPG_PROGRAMME_SOURCES)
             try:
                 runner.apply_epg_overrides(path)
-                channels_by_id={channel.tvg_id:channel for channel in runner.main_playlist_channels()}
                 layout=json.loads((ROOT/'data/channel-editor-layout.json').read_text(encoding='utf-8'))
                 layout_by_id={row['tvgId']:row for row in layout['channels'] if row.get('tvgId')}
                 for tvg_id,(source,source_id,_) in expected.items():
                     self.assertEqual((source,source_id),runner.EPG_PROGRAMME_SOURCES[tvg_id])
                     self.assertIn((source,source_id),runner.epg_source_chain(tvg_id))
-                    channel=channels_by_id.get(tvg_id)
-                    if channel is None:
-                        row=layout_by_id[tvg_id]
-                        if row['state']=='active':
-                            # Lista 2 no publica guía; la fila puede seguir activa allí.
-                            self.assertEqual('2.m3u',row.get('sourceList'))
-                        else:
-                            self.assertEqual('deleted',row['state'])
+                    row=layout_by_id[tvg_id]
+                    if row['state']=='active':
+                        # Lista 2 no publica guía; la fila activa vive allí.
+                        self.assertEqual('2.m3u',row.get('sourceList'))
                     else:
-                        self.assertEqual(frozenset({source}),runner.epgshare_source_names_for([channel]))
+                        self.assertEqual('deleted',row['state'])
             finally:
                 runner.EPG_PROGRAMME_SOURCES.clear();runner.EPG_PROGRAMME_SOURCES.update(before)
+            real=dict(runner.EPG_PROGRAMME_SOURCES)
+            try:
+                runner.apply_epg_overrides()
+                for tvg_id in expected:
+                    lrow=layout_by_id[tvg_id]
+                    if lrow['state']=='active' and lrow.get('sourceList')=='2.m3u':
+                        self.assertFalse(
+                            any(name!='epg-publicada-conservada' for name,_ in runner.epg_source_chain(tvg_id)),
+                            'la purga de Lista 2 ya no debe conservar fuentes',
+                        )
+            finally:
+                runner.EPG_PROGRAMME_SOURCES.clear();runner.EPG_PROGRAMME_SOURCES.update(real)
 
     def test_unidentified_channels_stay_pending_after_emulator_review(self):
         audit=json.loads(AUDIT.read_text(encoding='utf-8'))
@@ -184,30 +191,38 @@ class TrialOfficializationTest(unittest.TestCase):
         mapped={r['tvgId']:r['epg']['source_id'] for r in audit['channels'] if r['epg'].get('source')=='gt'}
         self.assertEqual(expected,mapped)
         self.assertIn('gt',runner.EPG_SOURCES)
-        before=dict(runner.EPG_PROGRAMME_SOURCES)
-        try:
-            runner.apply_epg_overrides()
-            channels_by_id={channel.tvg_id:channel for channel in runner.main_playlist_channels()}
-            layout=json.loads((ROOT/'data/channel-editor-layout.json').read_text(encoding='utf-8'))
-            layout_by_id={row['tvgId']:row for row in layout['channels'] if row.get('tvgId')}
-            for tvg_id,source_id in expected.items():
-                row=next(r for r in audit['channels'] if r['tvgId']==tvg_id)
-                self.assertIn('GUA',row['name'].upper())
-                self.assertEqual('matched',row['epg']['status'])
-                self.assertGreaterEqual(row['epg']['coverageHours'],12)
-                self.assertIn(('gt',source_id),runner.epg_source_chain(tvg_id))
-                channel=channels_by_id.get(tvg_id)
-                if channel is None:
-                    row=layout_by_id[tvg_id]
-                    if row['state']=='active':
-                        # Lista 2 no publica guía; la fila puede seguir activa allí.
-                        self.assertEqual('2.m3u',row.get('sourceList'))
+        with tempfile.TemporaryDirectory() as tmp:
+            path=Path(tmp)/'epg-overrides.json'
+            path.write_text(json.dumps({'channels':{id:{'source':'gt','source_id':source_id} for id,source_id in expected.items()}}),encoding='utf-8')
+            before=dict(runner.EPG_PROGRAMME_SOURCES)
+            try:
+                runner.apply_epg_overrides(path)
+                layout=json.loads((ROOT/'data/channel-editor-layout.json').read_text(encoding='utf-8'))
+                layout_by_id={row['tvgId']:row for row in layout['channels'] if row.get('tvgId')}
+                for tvg_id,source_id in expected.items():
+                    row=next(r for r in audit['channels'] if r['tvgId']==tvg_id)
+                    self.assertIn('GUA',row['name'].upper())
+                    self.assertEqual('matched',row['epg']['status'])
+                    self.assertGreaterEqual(row['epg']['coverageHours'],12)
+                    self.assertIn(('gt',source_id),runner.epg_source_chain(tvg_id))
+                    lrow=layout_by_id[tvg_id]
+                    if lrow['state']=='active':
+                        # Lista 2 no publica guía; la fila activa vive allí.
+                        self.assertEqual('2.m3u',lrow.get('sourceList'))
                     else:
-                        self.assertEqual('deleted',row['state'])
-                else:
-                    self.assertEqual(frozenset({'gt'}),runner.epgshare_source_names_for([channel]))
-        finally:
-            runner.EPG_PROGRAMME_SOURCES.clear();runner.EPG_PROGRAMME_SOURCES.update(before)
+                        self.assertEqual('deleted',lrow['state'])
+            finally:
+                runner.EPG_PROGRAMME_SOURCES.clear();runner.EPG_PROGRAMME_SOURCES.update(before)
+            real=dict(runner.EPG_PROGRAMME_SOURCES)
+            try:
+                runner.apply_epg_overrides()
+                for tvg_id in expected:
+                    self.assertFalse(
+                        any(name=='gt' for name,_ in runner.epg_source_chain(tvg_id)),
+                        'la purga de Lista 2 ya no debe conservar fuentes gt',
+                    )
+            finally:
+                runner.EPG_PROGRAMME_SOURCES.clear();runner.EPG_PROGRAMME_SOURCES.update(real)
 
     def test_lum_devotional_without_exact_current_programme_stays_pending(self):
         audit=json.loads(AUDIT.read_text(encoding='utf-8'))
