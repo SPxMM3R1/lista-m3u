@@ -30,6 +30,7 @@ from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 import epg_fragments
 import vibem3u_selection
+import m6foot_reference
 import nauta_reference
 
 if __name__ == "__main__":
@@ -120,7 +121,7 @@ RESOLVER_SCHEMA_VERSION = 1
 # This is the base version of the checked-in resolver rules. The writer keeps
 # the patch component monotonic when the checked-in alias map changes.
 RESOLVER_CATALOG_VERSION = "2026.10.05.1"
-ALLOWED_RESOLVER_ENGINES = {"tvn", "meganoticias", "tvvoo", "highfly", "nauta"}
+ALLOWED_RESOLVER_ENGINES = {"tvn", "meganoticias", "tvvoo", "highfly", "nauta", "m6foot"}
 TVVOO_RECIPE_ID = "bounded-payload-v1"
 TVVOO_VALIDATION_MODE = "media-signature-v1"
 MAIN_PLAYLIST_RESOLVERS = frozenset({"direct", "tvn", "meganoticias"})
@@ -1743,6 +1744,16 @@ def build_resolver_catalog(*, catalog_version: str | None = None) -> dict:
                 "enabledByDefault": True, "cacheTtlSeconds": 300,
                 "match": {"tvgIdSuffixes": ["@Nauta"]},
                 "config": {"endpointBase": "https://stremio-addon-wheat.vercel.app"},
+            },
+            {
+                "id": "m6foot", "name": "M6Foot", "engine": "m6foot",
+                "enabledByDefault": True, "cacheTtlSeconds": 300,
+                "match": {"tvgIdSuffixes": ["@M6Foot"]},
+                "config": {
+                    "pageBase": "https://m6foot.click/player/3/",
+                    "embedBase": "https://navytitle.net/embed/",
+                    "embedReferer": "https://navytitle.net/",
+                },
             },
             {
                 "id": "tvn",
@@ -3819,6 +3830,8 @@ def apply_vibem3u_selection(
 def resolver_attributes_for(channel: Channel) -> dict[str, str]:
     if nauta_reference.parse_reference(channel.url):
         return {"x-resolver": "nauta", "x-resolver-refresh": "on_play"}
+    if m6foot_reference.parse_reference(channel.url):
+        return {"x-resolver": "m6foot", "x-resolver-refresh": "on_play"}
     if has_tvvoo_reference_scheme(channel):
         # The EXTINF line is authoritative for a reference.  Its aliases,
         # logo and any presentation fields must survive a catalogue update;
@@ -4686,6 +4699,8 @@ def validate_resolver_catalog(path: Path = RESOLVER_CATALOG_PATH) -> dict:
         "papacito.cfd",
         "sports.highfly.to",
         "raw.githubusercontent.com",
+        "m6foot.click",
+        "navytitle.net",
     }
     for url in iter_catalog_urls(catalog):
         parsed = urlparse(url.replace("{streamId}", "stream").replace("{id}", "id"))
@@ -4736,11 +4751,19 @@ def validate_playlist_resolvers(lines: list[str]) -> dict[str, int]:
         }
         if urlparse(channel.url).scheme == "vibem3u":
             reference = nauta_reference.parse_reference(channel.url)
-            if not reference or channel.tvg_id != nauta_reference.channel_id(reference[1]):
-                raise ValueError(f"{channel.name}: referencia Nauta inválida")
-            if attrs != {"x-resolver": "nauta", "x-resolver-refresh": "on_play"}:
-                raise ValueError(f"{channel.name}: contrato Nauta inválido")
-            counts["nauta"] += 1
+            if reference:
+                if channel.tvg_id != nauta_reference.channel_id(reference[1]):
+                    raise ValueError(f"{channel.name}: referencia Nauta inválida")
+                if attrs != {"x-resolver": "nauta", "x-resolver-refresh": "on_play"}:
+                    raise ValueError(f"{channel.name}: contrato Nauta inválido")
+                counts["nauta"] += 1
+                continue
+            player_id = m6foot_reference.parse_reference(channel.url)
+            if not player_id or channel.tvg_id != m6foot_reference.channel_id(player_id):
+                raise ValueError(f"{channel.name}: referencia M6Foot inválida")
+            if attrs != {"x-resolver": "m6foot", "x-resolver-refresh": "on_play"}:
+                raise ValueError(f"{channel.name}: contrato M6Foot inválido")
+            counts["m6foot"] += 1
             continue
         if has_tvvoo_reference_scheme(channel):
             if not is_tvvoo_reference(channel):

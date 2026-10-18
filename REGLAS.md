@@ -23,6 +23,8 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
 
 - Las filas Nauta son independientes por defecto: no importar ni enlazar parejas masivamente. Excepción editorial cerrada, habilitada desde VibeM3U 0.5.93: ESPN 1 Sur (`Nauta.dac26a78f5bdf111bc9b9ffc@Nauta`) y ESPN 1 Chile (`Nauta.81dc69c20557da0672921475@Nauta`) son respaldos de ESPN 1 Argentina (`Nauta.4dec2794ee77cb450b79aa5b@Nauta`). `backupm3u` almacena sus identidades estables, no URLs; la app usa los localizadores Nauta tokenless y el resolutor normal. No restaurar los 55 vínculos base→HD anteriores ni ampliar esta pareja sin petición explícita.
 
+- **M6Foot (2026-10-18, solo Lista 2)**: las 19 señales del addon «Canales Deportivos» viven en Lista 2 (`M6Foot.<id>@M6Foot`), en prueba y sin EPG. La identidad es el ID de reproductor y la URI es tokenless `vibem3u://resolver/m6foot/<id>`. VibeM3U 0.6.15+ resuelve en RAM (página del reproductor, embed, `_econfig`, HLS firmado) y usa `Referer: https://navytitle.net/` para los segmentos; nunca se publican URLs firmadas. Lista 1 no se toca. Es un agregador de terceros: puede bloquear IPs o cambiar; ante fallo, el canal queda sin señal y no se rellena por parecido.
+
 - Identidad estable: `tvg-id` (M3U), `catalogKey` (Highfly) y `countryKey|alias` (TvVoo).
 - `providerResourceId`, `resolverSlug`, `leaf:` y las URL HLS rotan: nunca son identidad.
 - TvVoo: `providerResourceId` = `catalogKey`; `countryKey` = prefijo de `catalogKey`.

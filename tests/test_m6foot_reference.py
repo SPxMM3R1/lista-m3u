@@ -1,0 +1,143 @@
+"""Referencias tokenless M6Foot y las 19 filas editoriales de Lista 2 (2026-10-18)."""
+import json
+import re
+import unittest
+import unicodedata
+from pathlib import Path
+
+import catalog_approval
+import m6foot_reference
+import update_m3u
+
+ROOT = Path(__file__).resolve().parents[1]
+LAYOUT_PATH = ROOT / "data/channel-editor-layout.json"
+CATALOG_PATH = ROOT / "channel-catalog.m3u"
+EXTERNAL_PATH = ROOT / "m3u-externa.m3u"
+
+EXPECTED = {
+    "49": "Movistar LaLiga ES",
+    "71": "ESPN Deportes",
+    "75": "TNT Sports Premium",
+    "76": "ESPN Premium",
+    "77": "TyC Sports",
+    "78": "Fox Sports ARG",
+    "79": "Fox Sport 2 ARG",
+    "80": "Fox Sports 3 ARG",
+    "87": "ESPN ARG",
+    "88": "ESPN 2 ARG",
+    "89": "ESPN 3",
+    "90": "ESPN 4",
+    "91": "ESPN 5",
+    "92": "ESPN 6",
+    "93": "ESPN 7",
+    "94": "DirecTV Sports",
+    "95": "DirecTV Sports 2",
+    "96": "DirecTV Sports Plus",
+    "106": "TUDN",
+}
+
+
+def layout():
+    return json.loads(LAYOUT_PATH.read_text(encoding="utf-8"))
+
+
+def sort_key(row):
+    name = str(row.get("displayName") or row.get("name") or "")
+    folded = unicodedata.normalize("NFD", name)
+    folded = "".join(character for character in folded if not unicodedata.combining(character)).casefold()
+    return (re.sub(r"^[^a-z0-9]+", "", folded), str(row.get("tvgId") or row.get("catalogKey") or ""))
+
+
+class M6FootReferenceTest(unittest.TestCase):
+    def test_reference_roundtrip_is_tokenless(self):
+        for player_id in EXPECTED:
+            url = m6foot_reference.reference(player_id)
+            self.assertEqual("vibem3u://resolver/m6foot/" + player_id, url)
+            self.assertEqual(player_id, m6foot_reference.parse_reference(url))
+            self.assertEqual("M6Foot." + player_id + "@M6Foot", m6foot_reference.channel_id(player_id))
+            for secret in (".m3u8", "http://", "https://", "token=", "?s="):
+                self.assertNotIn(secret, url)
+
+    def test_reference_rejects_non_player_ids(self):
+        for bad in (
+            "vibem3u://resolver/m6foot/abc",
+            "vibem3u://resolver/m6foot/",
+            "vibem3u://resolver/m6foot/12?token=x",
+            "vibem3u://resolver/nauta/12",
+            "vibem3u://user@resolver/m6foot/12",
+            "https://m6foot.click/player/3/90",
+        ):
+            self.assertIsNone(m6foot_reference.parse_reference(bad))
+
+    def test_catalog_has_the_m6foot_provider(self):
+        catalog = update_m3u.validate_resolver_catalog()
+        provider = next((item for item in catalog["providers"] if item["id"] == "m6foot"), None)
+        self.assertIsNotNone(provider)
+        self.assertEqual("m6foot", provider["engine"])
+        self.assertEqual(["@M6Foot"], provider["match"]["tvgIdSuffixes"])
+        self.assertEqual(
+            {
+                "pageBase": "https://m6foot.click/player/3/",
+                "embedBase": "https://navytitle.net/embed/",
+                "embedReferer": "https://navytitle.net/",
+            },
+            provider["config"],
+        )
+
+    def test_playlist_contract_accepts_the_tokenless_rows(self):
+        lines = CATALOG_PATH.read_text(encoding="utf-8-sig").splitlines()
+        counts = update_m3u.validate_playlist_resolvers(lines)
+        self.assertEqual(len(EXPECTED), counts["m6foot"])
+        tampered = list(lines)
+        for index, line in enumerate(tampered):
+            if 'tvg-id="M6Foot.90@M6Foot"' in line:
+                tampered[index] = line.replace("M6Foot.90@M6Foot", "M6Foot.91@M6Foot")
+                break
+        with self.assertRaises(ValueError):
+            update_m3u.validate_playlist_resolvers(tampered)
+
+    def test_layout_rows_are_trial_list2_and_sorted(self):
+        document = layout()
+        rows = [row for row in document["channels"] if str(row.get("tvgId", "")).startswith("M6Foot.")]
+        self.assertEqual(len(EXPECTED), len(rows))
+        ids = set()
+        numbers = set()
+        for row in rows:
+            player_id = row["tvgId"].removeprefix("M6Foot.").removesuffix("@M6Foot")
+            self.assertIn(player_id, EXPECTED)
+            self.assertEqual(EXPECTED[player_id], row["name"])
+            self.assertEqual("2.m3u", row["sourceList"])
+            self.assertIs(True, row["trial"])
+            self.assertEqual("active", row["state"])
+            self.assertEqual("Deportes", row["group"])
+            ids.add(row["tvgId"])
+            numbers.add(row["number"])
+        self.assertEqual(len(EXPECTED), len(ids))
+        self.assertEqual(len(EXPECTED), len(numbers))
+        self.assertEqual(document["channels"], sorted(document["channels"], key=lambda row: row["order"]))
+        block = [
+            row
+            for row in document["channels"]
+            if row["state"] == "active" and row.get("sourceList") == "2.m3u"
+        ]
+        self.assertEqual([sort_key(row) for row in block], sorted(sort_key(row) for row in block))
+
+    def test_layout_is_sealed_and_rows_reach_lista_2(self):
+        document = layout()
+        self.assertTrue(catalog_approval.approved_by_user(document))
+        catalog_ids = set(re.findall(r'tvg-id="([^"]+)"', CATALOG_PATH.read_text(encoding="utf-8-sig")))
+        external_ids = set(re.findall(r'tvg-id="([^"]+)"', EXTERNAL_PATH.read_text(encoding="utf-8-sig")))
+        for player_id in EXPECTED:
+            channel_id = m6foot_reference.channel_id(player_id)
+            self.assertIn(channel_id, catalog_ids)
+            self.assertIn(channel_id, external_ids)
+
+    def test_no_signed_url_or_provider_host_reaches_the_repository(self):
+        for path in (CATALOG_PATH, EXTERNAL_PATH, ROOT / "m3u.m3u", LAYOUT_PATH, ROOT / "presentation-overrides.json"):
+            text = path.read_text(encoding="utf-8-sig")
+            for forbidden in ("m6foot.click", "navytitle", "?s=", "&s=", "?t=", "&t="):
+                self.assertNotIn(forbidden, text, path.name)
+
+
+if __name__ == "__main__":
+    unittest.main()

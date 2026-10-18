@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "atUtc": "2026-10-19T00:05:00Z",
+  "authorization": "Usuario: «B» (resolutor tokenless en la app) y «Agrega todos a la lista 2. Ordena por orden alfabetico, elimina todos lo que apunten a la misma URL exacta». Acotado a Lista 2: Lista 1 la maneja otro agente.",
+  "source": {
+    "addon": "Stremio «Canales Deportivos» (com.github.baireskid.sports v1.0.2, lolamentoquepaso)",
+    "resolver": "VibeM3U 0.6.15+ resuelve en RAM: m6foot.click/player/3/<id> -> navytitle.net/embed/<token> -> _econfig (base64 en 4 partes, reorden [2,0,3,1]) -> stream_url firmado; segmentos con Referer https://navytitle.net/",
+    "signedUrlsPersisted": false
+  },
+  "identity": {
+    "tvgId": "M6Foot.<id>@M6Foot",
+    "uri": "vibem3u://resolver/m6foot/<id>",
+    "sourceList": "2.m3u",
+    "trial": true,
+    "epg": false
+  },
+  "channels": [
+    { "playerId": "94", "tvgId": "M6Foot.94@M6Foot", "name": "DirecTV Sports", "number": 1506 },
+    { "playerId": "95", "tvgId": "M6Foot.95@M6Foot", "name": "DirecTV Sports 2", "number": 1508 },
+    { "playerId": "96", "tvgId": "M6Foot.96@M6Foot", "name": "DirecTV Sports Plus", "number": 1509 },
+    { "playerId": "88", "tvgId": "M6Foot.88@M6Foot", "name": "ESPN 2 ARG", "number": 2058 },
+    { "playerId": "89", "tvgId": "M6Foot.89@M6Foot", "name": "ESPN 3", "number": 2063 },
+    { "playerId": "90", "tvgId": "M6Foot.90@M6Foot", "name": "ESPN 4", "number": 2105 },
+    { "playerId": "91", "tvgId": "M6Foot.91@M6Foot", "name": "ESPN 5", "number": 2142 },
+    { "playerId": "92", "tvgId": "M6Foot.92@M6Foot", "name": "ESPN 6", "number": 2173 },
+    { "playerId": "93", "tvgId": "M6Foot.93@M6Foot", "name": "ESPN 7", "number": 2212 },
+    { "playerId": "87", "tvgId": "M6Foot.87@M6Foot", "name": "ESPN ARG", "number": 2231 },
+    { "playerId": "71", "tvgId": "M6Foot.71@M6Foot", "name": "ESPN Deportes", "number": 2236 },
+    { "playerId": "76", "tvgId": "M6Foot.76@M6Foot", "name": "ESPN Premium", "number": 2239 },
+    { "playerId": "79", "tvgId": "M6Foot.79@M6Foot", "name": "Fox Sport 2 ARG", "number": 2417 },
+    { "playerId": "80", "tvgId": "M6Foot.80@M6Foot", "name": "Fox Sports 3 ARG", "number": 2434 },
+    { "playerId": "78", "tvgId": "M6Foot.78@M6Foot", "name": "Fox Sports ARG", "number": 2435 },
+    { "playerId": "49", "tvgId": "M6Foot.49@M6Foot", "name": "Movistar LaLiga ES", "number": 3172 },
+    { "playerId": "75", "tvgId": "M6Foot.75@M6Foot", "name": "TNT Sports Premium", "number": 4491 },
+    { "playerId": "106", "tvgId": "M6Foot.106@M6Foot", "name": "TUDN", "number": 4552 },
+    { "playerId": "77", "tvgId": "M6Foot.77@M6Foot", "name": "TyC Sports", "number": 4644 }
+  ],
+  "ordering": "El bloque 2.m3u se ordena por nombre visible sin acentos ni prefijos no alfanumericos (desempate por tvg-id) y normalizeLists renumera 1..N. Las 19 filas nuevas se insertan en su lugar alfabetico; 74 filas existentes de Lista 2 cambiaron de posicion relativa por diferencias de mayusculas/puntuacion. Lista 1 (56 filas, 1-56) no se modifica.",
+  "deduplication": "Lista 2 no tenia URLs exactas duplicadas (0) y las 19 referencias M6Foot son unicas; no hubo bajas por duplicado.",
+  "counts": {
+    "list1": 56,
+    "list2Layout": 4879,
+    "list2Published": 4901,
+    "catalog": 6599,
+    "m6footRows": 19
+  },
+  "verification": {
+    "app": "VibeM3U 0.6.15/224; release v0.6.15 publico y verificado; APK 2.843.323 bytes; SHA-256 1724cb49a5402707809a0122941d275eb5c4f3044cd64f11c485e49d013c569e",
+    "python": "399 pruebas (19 omitidas previstas; la copia del contrato compartido no esta en el checkout CI)",
+    "javascript": "57 pruebas",
+    "partition": "principal=56, externa=4901, catalogo=6599",
+    "validator": "update_m3u.py --validate-resolvers-only y --validate-public-lists-only OK",
+    "list1": "Sin cambios: m3u.m3u/1.m3u byte-identicos, filas y orden de Lista 1 identicos a HEAD en el layout",
+    "signedUrls": "No hay URLs firmadas ni hosts de origen en layout, catalogo, listas ni presentacion; prueba en tests/test_m6foot_reference.py"
+  },
+  "limits": "La fuente es un agregador de terceros: puede bloquear IPs, rotar dominios o cambiar el reproductor. La app resuelve en RAM y no persiste la URL firmada; si falla, el canal queda sin senal. Verificacion en TV fisica pendiente."
+}
