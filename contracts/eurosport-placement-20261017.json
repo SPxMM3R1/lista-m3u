@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "atUtc": "2026-10-18T01:10:00Z",
+  "authorization": "Usuario: «Los eurosports pasalos a la lista 1 despues de los tnt sports».",
+  "change": "Los dos canales TvVoo de Eurosport España (Eurosport 1 y Eurosport 2 España) quedan en Lista 1 como filas de proveedor en los números 33 y 34, inmediatamente después de TNT Sports 4 (32).",
+  "numberShift": "Todas las filas activas con número >= 33 suben +2 (ESPN 33->35, ESPN 2 34->36, ESPN 3 Sur 36->38, ESPN 4 HD 37->39, ESPN 5 Sur 38->40, ESPN 7 39->41, ESPN 2 HD 165->167, etc.). Los números 66/67 anteriores de los Eurosport quedan libres.",
+  "orderChange": "Resecuencia del orden editorial con los dos Eurosport insertados inmediatamente después de TNT Sports 4 en la secuencia por `order`; Lista 1 y Lista 2 conservan su orden relativo (Lista 2 sigue alfabética; el bloque restaurado sigue al final).",
+  "testsUpdated": [
+    "EspnChilePlacementTest: ESPN en #35 y tercero tras TNT Sports 4 (los Eurosport ocupan 33/34).",
+    "Espn2PlacementTest: ESPN 2 en #36 y su segundo feed en #167.",
+    "Espn4PlacementTest: ESPN 4 HD en #39, ESL 3 Sur en #38, #166 sigue libre."
+  ],
+  "verification": {
+    "partition": "principal=66, externa=4855, catalogo=6580",
+    "python": "389 pruebas (19 omitidas)",
+    "javascript": "56 pruebas"
+  },
+  "pending": "Las 23 filas Nauta que aún quedan después del 065 no pueden asignarse a Lista 2 (regla dura del runner: Nauta solo Lista 1 en prueba o referencia oficial). Decisión del usuario pendiente: papelera o dejarlas.",
+  "counterpart": "VibeM3U v0.5.95 (e395b9d); sin APK."
+}

@@ -242,10 +242,11 @@ class EspnChilePlacementTest(unittest.TestCase):
         target = next(row for row in rows if row.get("tvgId") == self.TARGET_ID)
         tnt4 = next(row for row in rows if row.get("kind") == "provider" and row.get("displayName") == "TNT Sports 4")
         ordered = sorted(rows, key=lambda row: row["order"])
-        self.assertEqual(33, target["number"])
+        self.assertEqual(35, target["number"])
         self.assertEqual(32, tnt4["number"])
         self.assertEqual("ESPN", target["displayName"])
-        self.assertEqual(target, ordered[ordered.index(tnt4) + 1])
+        # Tras TNT Sports 4 quedan los dos Eurosport España (33/34) y luego ESPN.
+        self.assertEqual(target, ordered[ordered.index(tnt4) + 3])
         self.assertEqual(len(rows), len({row["number"] for row in rows}))
 
         presentation = json.loads((ROOT / "presentation-overrides.json").read_text(encoding="utf-8"))
@@ -263,18 +264,18 @@ class Espn2PlacementTest(unittest.TestCase):
     TARGET_ID = "PublicDirect.d6cca6d4aa23a69d50439c22"
     ESPN_ID = "ESPN.co@Direct181"
 
-    def test_espn_2_feeds_are_independent_at_numbers_34_and_165(self):
+    def test_espn_2_feeds_are_independent_at_numbers_36_and_167(self):
         layout = json.loads((ROOT / "data/channel-editor-layout.json").read_text(encoding="utf-8"))
         rows = [row for row in layout["channels"] if row.get("state") == "active"]
         target = next(row for row in rows if row.get("tvgId") == self.TARGET_ID)
         second_feed = next(row for row in rows if row.get("tvgId") == "ESPN2.co@Direct181")
         espn = next(row for row in rows if row.get("tvgId") == self.ESPN_ID)
         ordered = sorted(rows, key=lambda row: row["order"])
-        self.assertEqual(34, target["number"])
-        self.assertEqual(33, espn["number"])
+        self.assertEqual(36, target["number"])
+        self.assertEqual(35, espn["number"])
         self.assertEqual("ESPN 2", target["displayName"])
         self.assertNotIn("backupm3u", target)
-        self.assertEqual(165, second_feed["number"])
+        self.assertEqual(167, second_feed["number"])
         self.assertEqual("ESPN 2 HD", second_feed["displayName"])
         self.assertEqual("active", second_feed["state"])
         self.assertFalse(any(second_feed["tvgId"] in row.get("backupm3u", []) for row in rows))
@@ -296,14 +297,14 @@ class Espn4PlacementTest(unittest.TestCase):
     TARGET_ID = "ESPN4.co@Direct181"
     ESPN3_ID = "WinSports.co@Direct181"
 
-    def test_espn4_166_is_after_espn3_sur_at_number_37(self):
+    def test_espn4_is_after_espn3_sur_at_number_39(self):
         layout = json.loads((ROOT / "data/channel-editor-layout.json").read_text(encoding="utf-8"))
         rows = [row for row in layout["channels"] if row.get("state") == "active"]
         target = next(row for row in rows if row.get("tvgId") == self.TARGET_ID)
         espn3 = next(row for row in rows if row.get("tvgId") == self.ESPN3_ID)
         ordered = sorted(rows, key=lambda row: row["order"])
-        self.assertEqual(37, target["number"])
-        self.assertEqual(36, espn3["number"])
+        self.assertEqual(39, target["number"])
+        self.assertEqual(38, espn3["number"])
         self.assertEqual("ESPN 4 HD", target["displayName"])
         self.assertEqual(target, ordered[ordered.index(espn3) + 1])
         self.assertNotIn(166, {row["number"] for row in rows})
