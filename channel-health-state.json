@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-10-18T00:14:01Z",
+  "updated_at": "2026-10-18T01:55:29Z",
   "failure_threshold": 1,
   "automatic_partition": {
     "schema": 1,
@@ -379,8 +379,8 @@
       "playlist": "main",
       "resolver": "direct",
       "status": "temporarily_unavailable",
-      "consecutive_failures": 11,
-      "last_checked_at": "2026-10-18T00:14:01Z",
+      "consecutive_failures": 12,
+      "last_checked_at": "2026-10-18T01:55:29Z",
       "last_ok_at": "2026-10-16T05:14:23Z",
       "identity_only": false
     },
@@ -390,10 +390,10 @@
       "group": "M\u00fasica",
       "playlist": "main",
       "resolver": "direct",
-      "status": "recovered",
+      "status": "functional",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-10-18T00:14:01Z",
-      "last_ok_at": "2026-10-18T00:14:01Z",
+      "last_checked_at": "2026-10-18T01:55:29Z",
+      "last_ok_at": "2026-10-18T01:55:29Z",
       "identity_only": false
     },
     "M2.ua@SD": {
@@ -514,6 +514,18 @@
       "consecutive_failures": 0,
       "last_checked_at": "2026-10-17T21:54:50Z",
       "last_ok_at": "2026-10-17T21:54:50Z",
+      "identity_only": false
+    },
+    "PublicDirect.d6cca6d4aa23a69d50439c22": {
+      "name": "ESPN 2",
+      "tvg_id": "PublicDirect.d6cca6d4aa23a69d50439c22",
+      "group": "Deportes",
+      "playlist": "main",
+      "resolver": "direct",
+      "status": "functional",
+      "consecutive_failures": 0,
+      "last_checked_at": "2026-10-17T05:09:32Z",
+      "last_ok_at": "2026-10-17T05:09:32Z",
       "identity_only": false
     },
     "Nauta.dac26a78f5bdf111bc9b9ffc@Nauta": {
@@ -790,18 +802,6 @@
       "consecutive_failures": 0,
       "last_checked_at": "2026-10-17T21:54:50Z",
       "last_ok_at": "2026-10-17T21:54:50Z",
-      "identity_only": false
-    },
-    "PublicDirect.d6cca6d4aa23a69d50439c22": {
-      "name": "ESPN 2",
-      "tvg_id": "PublicDirect.d6cca6d4aa23a69d50439c22",
-      "group": "Deportes",
-      "playlist": "main",
-      "resolver": "direct",
-      "status": "functional",
-      "consecutive_failures": 0,
-      "last_checked_at": "2026-10-17T05:09:32Z",
-      "last_ok_at": "2026-10-17T05:09:32Z",
       "identity_only": false
     },
     "ESPN2.co@Direct181": {
