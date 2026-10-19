@@ -4186,6 +4186,12 @@ def with_resolver_attributes(line: str, attributes: dict[str, str]) -> str:
     if attributes:
         encoded = " ".join(f'{name}="{value}"' for name, value in attributes.items())
         metadata = f"{metadata} {encoded}"
+    # x-resolver-stable-id (2026-10-18) va siempre al final: las listas se comparan con el
+    # catálogo como texto exacto y no debe cambiar de lugar al rehacer los metadatos.
+    stable_match = re.search(rf'\s+{re.escape(STABLE_ID_ATTRIBUTE)}="([^"]*)"', metadata)
+    if stable_match:
+        metadata = metadata[: stable_match.start()] + metadata[stable_match.end():]
+        metadata = f'{metadata} {STABLE_ID_ATTRIBUTE}="{stable_match.group(1)}"'
     return f"{metadata},{display_name}"
 
 

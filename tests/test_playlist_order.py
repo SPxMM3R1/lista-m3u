@@ -94,6 +94,18 @@ class PlaylistOrderTests(unittest.TestCase):
             ["unitedkingdom|vavoo_X%7Cgroup%3Auk"], translated["orders"]["channel-catalog.m3u"]
         )
 
+    def test_resolver_rewrite_keeps_stable_id_at_the_end(self) -> None:
+        # La sincronización del contrato rehace x-resolver*: la clave TvVoo no cambia de lugar,
+        # porque las listas se comparan con el catálogo como texto exacto (falla CI 2026-10-18).
+        line = (
+            '#EXTINF:-1 tvg-id="A@TvVoo" x-resolver="tvvoo" x-resolver-ids="a" '
+            'x-resolver-stable-id="k|v",A'
+        )
+        rewritten = update_m3u.with_resolver_attributes(
+            line, {"x-resolver": "tvvoo", "x-resolver-ids": "a"}
+        )
+        self.assertEqual(line, rewritten)
+
     def test_stable_id_attribute_is_set_and_removed(self) -> None:
         line = '#EXTINF:-1 tvg-id="X.uk@TvVoo" x-resolver="tvvoo",X'
         marked = update_m3u.with_stable_id_attribute(line, "unitedkingdom|vavoo_X%7Cgroup%3Auk")
