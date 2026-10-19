@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, FreeEPG, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-description-policy="verified-source-only" data-description-programmes="2573" data-description-channels="50" data-next-refresh-at="2026-10-20T11:48:00+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u" data-generated-at="2026-10-19T18:12:57+00:00">
+<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, FreeEPG, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-description-policy="verified-source-only" data-description-programmes="2705" data-description-channels="50" data-next-refresh-at="2026-10-20T11:48:00+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u" data-generated-at="2026-10-19T18:28:34+00:00">
   <channel id="0104" data-guide="parrilla real" data-guide-source="cl">
     <display-name>TVN</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvn.png" />
@@ -157,6 +157,10 @@
     <display-name>ESPN 5 Sur</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-5.png" />
   </channel>
+  <channel id="PublicDirect.ac1fca2303c88b6a69359958" data-guide="parrilla real" data-guide-source="uy1">
+    <display-name>ESPN 7</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-7.png" />
+  </channel>
   <channel id="XITEHits.nl@Germany" data-guide="parrilla real" data-guide-source="plex1">
     <display-name>XITE Hits</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/xite.svg" />
@@ -209,11 +213,11 @@
     <display-name>TVE Internacional</display-name>
     <icon src="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/international/tve-internacional-int.png" />
   </channel>
-  <channel id="RedBullWorldEnglish.int" data-guide="parrilla real" data-guide-source="pluto">
+  <channel id="RedBullWorldEnglish.int" data-guide="parrilla oficial Red Bull" data-guide-source="red-bull-oficial">
     <display-name>RedBull TV World</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/red-bull-tv.png" />
   </channel>
-  <channel id="RedBullChileEspanol.cl" data-guide="parrilla real conservada" data-guide-source="epg-publicada-conservada">
+  <channel id="RedBullChileEspanol.cl" data-guide="parrilla oficial Red Bull" data-guide-source="red-bull-es-oficial-page">
     <display-name>RedBull TV Español</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/red-bull-tv.png" />
   </channel>
@@ -260,10 +264,6 @@
   <channel id="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" data-guide="parrilla real" data-guide-source="es" data-app-alias-of="Eurosport2.es@TvVoo">
     <display-name>Eurosport 2 España</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/eurosport.svg" />
-  </channel>
-  <channel id="PublicDirect.ac1fca2303c88b6a69359958" data-guide="parrilla real" data-guide-source="uy1">
-    <display-name>ESPN 7</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-7.png" />
   </channel>
   <programme start="20261019080000 -0300" stop="20261019100000 -0300" channel="0102">
     <title lang="es">Spot Central</title>
@@ -1599,9 +1599,6 @@
   <programme start="20261020230000 -0300" stop="20261021003000 -0300" channel="1153">
     <title lang="es">Chilevisión noticias informa</title>
   </programme>
-  <programme start="20261019080000 -0300" stop="20261019090000 -0300" channel="13Cultura.cl@DPS">
-    <title lang="es">Cultura indómita : Isla Amantaní, Perú</title>
-  </programme>
   <programme start="20261019090000 -0300" stop="20261019100000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Carlo cocina, vive sustentable</title>
   </programme>
@@ -1802,10 +1799,6 @@
   </programme>
   <programme start="20261020233000 -0300" stop="20261021000000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Seafood lovers : Almejas</title>
-  </programme>
-  <programme start="20261019080000 -0300" stop="20261019091500 -0300" channel="1437">
-    <title lang="es">Aquelarre</title>
-    <desc lang="es">Telenovela, aborda una historia de misterios y amores apasionados que se desarrollan en un mágico ambiente en la zona central de Chile. Pueblo donde nacen solo mujeres.</desc>
   </programme>
   <programme start="20261019091500 -0300" stop="20261019100000 -0300" channel="1437">
     <title lang="es">¿Dónde está Elisa?</title>
@@ -2080,16 +2073,6 @@
   </programme>
   <programme start="20261020233000 -0300" stop="20261021000000 -0300" channel="45">
     <title lang="es">Voces de mujeres</title>
-  </programme>
-  <programme start="20261019083000 -0300" stop="20261019090000 -0300" channel="AlJazeera.qa">
-    <title lang="es">Inside Story</title>
-    <desc lang="es">Inside Story is a flagship daily current affairs programme from Al Jazeera Media Network that brings together influential policymakers, regional experts, journalists, and academics to debate the world's most urgent issues. Covering geopolitics, conflict, economics, climate change, elections, and human rights, the show goes beyond headlines to unpack context, competing narratives, and consequences. Through incisive questioning and diverse global perspectives, it challenges assumptions and helps audiences better understand the forces reshaping societies and international relations.</desc>
-    <date>2023</date>
-    <icon src="https://cdn.sincroguia.tv/storage/9330/c_inside_story_1.jpeg" />
-    <country lang="es">Estado De Catar</country>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
   <programme start="20261019090000 -0300" stop="20261019100000 -0300" channel="AlJazeera.qa">
     <title lang="es">Head to Head</title>
@@ -2592,10 +2575,6 @@
     <rating system="ES">
       <value>Apta</value>
     </rating>
-  </programme>
-  <programme channel="ArirangTV.kr" start="20261019083000 -0300" stop="20261019090000 -0300">
-    <title lang="pl">Within The Frame</title>
-    <episode-num system="onscreen">E1</episode-num>
   </programme>
   <programme channel="ArirangTV.kr" start="20261019090000 -0300" stop="20261019093000 -0300">
     <title lang="pl">K-culture Dive</title>
@@ -3605,9 +3584,6 @@
     <title lang="pl">Smartbiz Accelerators</title>
     <episode-num system="onscreen">E257</episode-num>
   </programme>
-  <programme start="20261019080318 -0300" stop="20261019090151 -0300" channel="AutenticHistory.de">
-    <title lang="en">The Stolen Childhood - Trauma Third Reich</title>
-  </programme>
   <programme start="20261019090151 -0300" stop="20261019095953 -0300" channel="AutenticHistory.de">
     <title lang="en">The Stolen Childhood - Trauma Third Reich</title>
   </programme>
@@ -4000,13 +3976,6 @@
   </programme>
   <programme start="20261024205156 -0300" stop="20261024215248 -0300" channel="AutenticHistory.de">
     <title lang="en">Black Eagles</title>
-  </programme>
-  <programme start="20261019083000 -0300" stop="20261019090000 -0300" channel="BBCNews.uk">
-    <title lang="en">BBC News Now</title>
-    <desc lang="en">All the big stories, live as they happen, presented by Lucy Hockings.</desc>
-    <date>2026</date>
-    <icon src="https://metadata-static.plex.tv/7/gracenote/712473cb32c42e7437f31aaba31cb62d.jpg" />
-    <episode-num system="onscreen">S2026</episode-num>
   </programme>
   <programme start="20261019090000 -0300" stop="20261019093000 -0300" channel="BBCNews.uk">
     <title lang="en">BBC News Now</title>
@@ -5792,9 +5761,6 @@
       <value>Apta</value>
     </rating>
   </programme>
-  <programme start="20261019083000 -0300" stop="20261019090000 -0300" channel="DW.de">
-    <title lang="es">Global es</title>
-  </programme>
   <programme start="20261019090000 -0300" stop="20261019093000 -0300" channel="DW.de">
     <title lang="es">Euromaxx - vida y cultura en Europa</title>
   </programme>
@@ -6258,30 +6224,6 @@
   </programme>
   <programme start="20261022013000 -0300" stop="20261022020000 -0300" channel="DW.de">
     <title lang="es">Aquí estoy</title>
-  </programme>
-  <programme channel="DWEnglish.de" start="20261019083000 -0300" stop="20261019090000 -0300">
-    <title lang="fr">The Dip</title>
-    <sub-title lang="fr">Business Podcast</sub-title>
-    <desc lang="fr">The Dip is a weekly business and economics podcast from Deutsche Welle that connects the dots on global money, power, and geopolitical consequences. Hosted by DW, the show delves into major issues like Europe's digital sovereignty, critical supply chains, and the shift in the continent's industrial and defense sectors.</desc>
-    <category lang="fr">Débat</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/0/1/8/15215810.jpg" />
-  </programme>
-  <programme channel="DWEnglish.de" start="20261019090000 -0300" stop="20261019090200 -0300">
-    <title lang="fr">DW News</title>
-    <desc lang="es">Our deep dive format explains the stories that matter - with clarity, context and journalistic rigor. Each segment goes beyond the headlines to uncover what's driving key developments around the world, featuring sharp analysis, expert voices and exclusive on the ground insights from where events are unfolding.</desc>
-    <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/0/7/15708705.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/9/6/15708698.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/9/6/15708695.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/3/8/7/15215783.jpg" />
-  </programme>
-  <programme channel="DWEnglish.de" start="20261019090200 -0300" stop="20261019091500 -0300">
-    <title lang="fr">DW News Focus</title>
-    <desc lang="es">Our deep dive format explains the stories that matter - with clarity, context and journalistic rigor. Each segment goes beyond the headlines to uncover what's driving key developments around the world, featuring sharp analysis, expert voices and exclusive on the ground insights from where events are unfolding.</desc>
-    <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/2/8/15215825.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/1/1/8/15215811.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/8/7/15215788.jpg" />
   </programme>
   <programme channel="DWEnglish.de" start="20261019091500 -0300" stop="20261019100000 -0300">
     <title lang="fr">Terrorfinanzierung</title>
@@ -7659,9 +7601,6 @@
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/1/2/15216218.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/1/2/15216216.jpg" />
   </programme>
-  <programme start="20261019080000 -0300" stop="20261019090000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">ESPN Compact</title>
-  </programme>
   <programme start="20261019090000 -0300" stop="20261019100000 -0300" channel="ESPN.co@Direct181">
     <title lang="es">Real Madrid vs. Sevilla</title>
     <sub-title lang="es">Fútbol LaLiga</sub-title>
@@ -8249,15 +8188,6 @@
     <title lang="es">Montevideo City Torque vs. Mineiro</title>
     <sub-title lang="es">Fútbol Conmebol Copa Sudamericana</sub-title>
   </programme>
-  <programme start="20261019070000 -0300" stop="20261019090000 -0300" channel="ESPN4.co@Direct181">
-    <title lang="es">Fútbol LaLiga</title>
-    <sub-title lang="es">Villarreal CF vs. Elche</sub-title>
-    <desc lang="es">Jornada 9 de la temporada 2026-27 de LaLiga. Desde el estadio de la Cerámica. El Villarreal cayó 2-1 ante el Real Madrid, mientras que el Elche firmó un empate 1-1 en casa frente al Celta de Vigo.</desc>
-    <date>2026</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
   <programme start="20261019090000 -0300" stop="20261019100000 -0300" channel="ESPN4.co@Direct181">
     <title lang="es">ESPN Compact</title>
     <desc lang="es">Los mejores resúmenes y momentos destacados de los eventos deportivos más importantes a nivel mundial.</desc>
@@ -8681,18 +8611,6 @@
       <value>AGE228</value>
     </rating>
   </programme>
-  <programme start="20261019070000 -0300" stop="20261019090000 -0300" channel="Eurosport2.es@TvVoo">
-    <title lang="es">Mundial de ciclismo en carretera</title>
-    <sub-title lang="es">Ruta F</sub-title>
-    <desc lang="es">Montreal se viste de arcoíris con el Mundial de Ciclismo en carretera. Del 20 al 27 de septiembre, cerca de mil ciclistas pelean por 13 títulos en contrarreloj, ruta y relevos mixtos. El exigente circuito del Mont-Royal pone a prueba a pelotones júnior, sub-23 y élite.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/84/41.jpg" />
-    <country lang="es">Canadá</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
-  </programme>
   <programme start="20261019090000 -0300" stop="20261019103000 -0300" channel="Eurosport2.es@TvVoo">
     <title lang="es">Maratón de Ámsterdam</title>
     <desc lang="es">El TCS Amsterdam Marathon se celebra el 18 de octubre en la capital de los Países Bajos. Con salida y meta en el histórico Estadio Olímpico, destaca por su circuito extremadamente llano y rápido, ideal para buscar récords personales.</desc>
@@ -8912,22 +8830,6 @@
     <rating system="ES">
       <value>Apta</value>
     </rating>
-  </programme>
-  <programme channel="France24.fr" start="20261019084000 -0300" stop="20261019084600 -0300">
-    <title lang="fr">Desinformando</title>
-    <desc lang="es">Encuentra los últimos artículos y mira programas de televisión y informes relacionados con Desinformación en France 24.</desc>
-    <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/0/7/15194708.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/0/1/7/15194710.jpg" />
-    <episode-num system="onscreen">E2</episode-num>
-  </programme>
-  <programme channel="France24.fr" start="20261019084600 -0300" stop="20261019090000 -0300">
-    <title lang="fr">Escala en París</title>
-    <desc lang="es">Una cita semanal con personalidades de las artes, la ciencia, la política y el deporte que viven en París o la visitan. Más que una escala, un puente entre París y América Latina.</desc>
-    <category lang="fr">Magazine d'information</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/0/3/6/15194630.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/8/4/15701486.jpg" />
-    <episode-num system="onscreen">E2</episode-num>
   </programme>
   <programme channel="France24.fr" start="20261019090000 -0300" stop="20261019093000 -0300">
     <title lang="fr">Noticias</title>
@@ -11203,46 +11105,6 @@
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/1/5/15194519.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/1/1/6/15703611.jpg" />
     <episode-num system="onscreen">E2</episode-num>
-  </programme>
-  <programme channel="France24.fr@English" start="20261019084000 -0300" stop="20261019084500 -0300">
-    <title lang="fr">Focus (France 24 Eng)</title>
-    <category lang="fr">Magazine d'information</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/4/2/15220245.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/2/7/1/15220172.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/0/2/15220208.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/4/3/15184348.jpg" />
-  </programme>
-  <programme channel="France24.fr@English" start="20261019084500 -0300" stop="20261019085100 -0300">
-    <title lang="fr">Down to Earth</title>
-    <category lang="fr">Magazine de la nature</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/3/3/15220338.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/0/3/15220305.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/2/0/5/15184502.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/7/2/3/15220327.jpg" />
-  </programme>
-  <programme channel="France24.fr@English" start="20261019085100 -0300" stop="20261019085200 -0300">
-    <title lang="fr">Le journal France 24</title>
-    <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/0/2/15220206.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/6/1/15220164.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/6/1/15220169.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/0/5/15194509.jpg" />
-  </programme>
-  <programme channel="France24.fr@English" start="20261019085200 -0300" stop="20261019090000 -0300">
-    <title lang="fr">Sport (France 24 English)</title>
-    <category lang="fr">Magazine sportif</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/4/2/15220246.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/7/1/15220174.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/2/0/2/15220202.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/0/5/3/15184350.jpg" />
-  </programme>
-  <programme channel="France24.fr@English" start="20261019090000 -0300" stop="20261019091500 -0300">
-    <title lang="fr">Le journal France 24</title>
-    <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/0/2/15220206.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/6/1/15220164.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/6/1/15220169.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/0/5/15194509.jpg" />
   </programme>
   <programme channel="France24.fr@English" start="20261019091500 -0300" stop="20261019093000 -0300">
     <title lang="fr">Culture Critics</title>
@@ -13811,18 +13673,6 @@
   </programme>
   <programme start="20261020233000 -0300" stop="20261021000000 -0300" channel="Meganoticias.cl">
     <title lang="es">Meganoticias hora cero</title>
-  </programme>
-  <programme start="20261019084300 -0300" stop="20261019085500 -0300" channel="NHKWorldJapan.jp">
-    <title lang="en">Culture Crossroads</title>
-    <sub-title lang="en">Diversity for Disaster Resilience</sub-title>
-    <desc lang="en">Bosai Leaders' promote mutual resident support before and during disasters, and these days foreign participants are playing a significant role. We introduce those being trained in Nakano Ward, Tokyo.</desc>
-    <url>https://www3.nhk.or.jp/nhkworld/en/shows/culturecrossroads/</url>
-  </programme>
-  <programme start="20261019085500 -0300" stop="20261019090000 -0300" channel="NHKWorldJapan.jp">
-    <title lang="en">Hello!nhk World Japan</title>
-    <sub-title lang="en">Programs Newly Translated into English</sub-title>
-    <desc lang="en">English version of "The Garden Way" and "The Business Keyhole" will be shown from 2026. We discuss translation techniques, and hear from the series' international audience.</desc>
-    <url>https://www3.nhk.or.jp/nhkworld/en/shows/hello_nwj/</url>
   </programme>
   <programme start="20261019090000 -0300" stop="20261019093000 -0300" channel="NHKWorldJapan.jp">
     <title lang="en">Newsroom Tokyo</title>
@@ -16453,17 +16303,6 @@
     <title lang="en">NHK Newsline</title>
     <desc lang="en">NHK NEWSLINE brings you up to date with the latest from Japan, Asia and around the world. Our team covers breaking news and major developments, with trusted anchors to tie it all together.</desc>
   </programme>
-  <programme start="20261019082500 -0300" stop="20261019084800 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Jiraiya Y La Olimpiada Ninja</title>
-    <desc lang="es">Una banda de ladrones ninja disfrazados de gatos atacan museos y robaron joyas en la oscuridad. Jiraiya debe rastrear a los Devil Cats antes de que entreguen su botín al Clan de los Hechiceros.</desc>
-  </programme>
-  <programme start="20261019084800 -0300" stop="20261019090200 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Music Videos</title>
-  </programme>
-  <programme start="20261019090200 -0300" stop="20261019092700 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Saint Seiya: The Lost Canvas - Hades Mythology</title>
-    <desc lang="es">El poderoso Santo de Acuario, Dégel, hace su aparición para proteger el Santuario. Su cosmo helado es tan intenso que puede congelar hasta el alma de sus enemigos.</desc>
-  </programme>
   <programme start="20261019092700 -0300" stop="20261019095100 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
     <title lang="es">Saint Seiya: The Lost Canvas - Hades Mythology</title>
     <desc lang="es">Dégel enfrenta a los espectros de Hades en una batalla glacial y despiadada. Su lealtad al Santuario es inquebrantable, aunque ello le cueste la vida.</desc>
@@ -16709,13 +16548,416 @@
     <title lang="es">One Piece Silvermine</title>
     <desc lang="es">Luffy promete traer a Sanji de vuelta cueste lo que cueste.</desc>
   </programme>
-  <programme start="20261019080000 -0300" stop="20261019090000 -0300" channel="PublicDirect.d6cca6d4aa23a69d50439c22">
+  <programme start="20261019090000 -0300" stop="20261019093000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Aguas arriba</title>
+    <desc lang="es">La experiencia de la pesca con mosca en Latinoamérica. La búsqueda de truchas en la Patagonia, "sea trout" y salmones en Chile, dorados en el norte de Argentina y las magníficas especies como "bonefish", "permit" y "tarpon" de Centroamérica y Caribe.</desc>
+    <credits>
+      <actor>Pablo Rodrigo Pérez</actor>
+    </credits>
+    <date>2018</date>
+    <category lang="es">Fishing</category>
+    <icon src="http://dtil.tmsimg.com/assets/p16225204_b_h8_aa.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261019093000 -0300" stop="20261019100000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="en">UEFA Champions League Weekly</title>
+    <desc lang="es">Momentos destacados, entrevistas y toda la información de la jornada semanal de la UEFA Champions League.</desc>
+    <date>2004</date>
+    <category lang="en">Sports talk</category>
+    <category lang="en">Soccer</category>
+    <icon src="http://dtil.tmsimg.com/assets/p519458_b_h10_aa.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261019100000 -0300" stop="20261019120000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Fútbol EFL Championship</title>
+    <desc lang="es">Acción de la jornada 11 de la EFL temporada 2026-27. Watford busca salir de la zona de descenso y Charlton Athletic romper su racha de dos empates.</desc>
+    <category lang="es">Sports</category>
+    <category lang="es">Soccer</category>
+    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG00391XTE.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261019120000 -0300" stop="20261019140000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Fútbol Bundesliga</title>
+    <desc lang="es">Acción de la jornada 6 de la Bundesliga 2026-27. Los Bávaros buscan el liderato y Leipzig su segunda victoria al hilo.</desc>
+    <category lang="es">Sports</category>
+    <category lang="es">Soccer</category>
+    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003B004L.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261019140000 -0300" stop="20261019160000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Tenis ATP Rolex Shanghai Masters 2026</title>
+    <desc lang="es">Cobertura de la gran final del Shangai Masters 2026 de la ATP. Desde la Qizhong Forest Sports City Arena.</desc>
+    <category lang="es">Sports</category>
+    <category lang="es">Tennis</category>
+    <icon src="http://dtil.tmsimg.com/assets/p33511409_b_h10_ag.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261019160000 -0300" stop="20261019170000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
     <title lang="en">ESPN Compact</title>
-    <desc lang="es">Compacto de la jornada 7 de la Premier League inglesa de la temporada 2026-27. Disputado el 18 de octubre de 2026.</desc>
+    <desc lang="es">Resumen de la semifinal femenina de Premier Padel Milán P1. Disputado el 17 de octubre de 2026, en el Allianz Cloud, en Milán, Italia.</desc>
     <category lang="en">Sports</category>
     <category lang="en">Classic Sport Event</category>
     <icon src="http://dtil.tmsimg.com/assets/p9595055_b_h10_ac.jpg?w=960&amp;h=540" />
-    <episode-num system="onscreen">E375</episode-num>
+    <episode-num system="onscreen">E369</episode-num>
+    <previously-shown />
+  </programme>
+  <programme start="20261019170000 -0300" stop="20261019180000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="en">ESPN Compact</title>
+    <desc lang="es">Resumen de la semifinal masculina de Premier Padel Milán P1. Disputado el 17 de octubre de 2026, en el Allianz Cloud, en Milán, Italia.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Classic Sport Event</category>
+    <icon src="http://dtil.tmsimg.com/assets/p9595055_b_h10_ac.jpg?w=960&amp;h=540" />
+    <episode-num system="onscreen">E370</episode-num>
+    <previously-shown />
+  </programme>
+  <programme start="20261019180000 -0300" stop="20261019200000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Fútbol EFL Championship</title>
+    <desc lang="es">Acción de la jornada 11 de la EFL temporada 2026-27. Watford busca salir de la zona de descenso y Charlton Athletic romper su racha de dos empates.</desc>
+    <category lang="es">Sports</category>
+    <category lang="es">Soccer</category>
+    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG00391XTE.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261019200000 -0300" stop="20261019220000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Fútbol Bundesliga</title>
+    <desc lang="es">Acción de la jornada 6 de la Bundesliga 2026-27. Los Bávaros buscan el liderato y Leipzig su segunda victoria al hilo.</desc>
+    <category lang="es">Sports</category>
+    <category lang="es">Soccer</category>
+    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003B004L.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261019220000 -0300" stop="20261019230000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="en">Bundesliga Highlights Show</title>
+    <desc lang="es">Disfruta los juegos de las 34 jornadas de una de las ligas más prestigiosas a nivel mundial.</desc>
+    <date>2020</date>
+    <category lang="en">Soccer</category>
+    <icon src="http://dtil.tmsimg.com/assets/p18849671_b_h8_ab.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <rating system="USA Parental Rating">
+      <value>TVG</value>
+    </rating>
+    <rating system="Régie du cinéma">
+      <value>G</value>
+    </rating>
+    <rating system="Canadian Parental Rating">
+      <value>G</value>
+    </rating>
+  </programme>
+  <programme start="20261019230000 -0300" stop="20261020000000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="en">UEFA Europa &amp; Conference League Magazine</title>
+    <desc lang="es">Noticias, entrevistas, momentos destacados, historias y análisis de los equipos de la UEFA Europa League y la UEFA Conference League.</desc>
+    <date>2021</date>
+    <category lang="en">Soccer</category>
+    <category lang="en">Sports talk</category>
+    <icon src="http://dtil.tmsimg.com/assets/p20628666_b_h8_ab.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <rating system="Ministero della Cultura">
+      <value>T</value>
+    </rating>
+  </programme>
+  <programme start="20261020000000 -0300" stop="20261020020000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Fútbol Eredivisie</title>
+    <desc lang="es">Fecha 9 de la Eredivisie temporada 2026-27. Groningen, en sexto lugar del torneo, busca aprovechar la localía para superar a Ajax, en quinto. Desde el Euroborg, en Groningen.</desc>
+    <category lang="es">Sports</category>
+    <category lang="es">Soccer</category>
+    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG0038KM7V.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261020020000 -0300" stop="20261020030000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="en">Bundesliga Highlights Show</title>
+    <desc lang="es">Disfruta los juegos de las 34 jornadas de una de las ligas más prestigiosas a nivel mundial.</desc>
+    <date>2020</date>
+    <category lang="en">Soccer</category>
+    <icon src="http://dtil.tmsimg.com/assets/p18849671_b_h8_ab.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <rating system="USA Parental Rating">
+      <value>TVG</value>
+    </rating>
+    <rating system="Régie du cinéma">
+      <value>G</value>
+    </rating>
+    <rating system="Canadian Parental Rating">
+      <value>G</value>
+    </rating>
+  </programme>
+  <programme start="20261020030000 -0300" stop="20261020033000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="en">UEFA Champions League Weekly</title>
+    <desc lang="es">Momentos destacados, entrevistas y toda la información de la jornada semanal de la UEFA Champions League.</desc>
+    <date>2004</date>
+    <category lang="en">Sports talk</category>
+    <category lang="en">Soccer</category>
+    <icon src="http://dtil.tmsimg.com/assets/p519458_b_h10_aa.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261020033000 -0300" stop="20261020040000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="en">FIM Road Racing World Championship Highlights</title>
+    <desc lang="es">Recopilación de los momentos más emocionantes de las carreras del campeonato mundial de motociclismo.</desc>
+    <date>2005</date>
+    <category lang="en">Motorcycle racing</category>
+    <category lang="en">Motorcycle</category>
+    <category lang="en">Motorsports</category>
+    <icon src="http://dtil.tmsimg.com/assets/p383182_b_h10_ab.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261020040000 -0300" stop="20261020050000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="en">ESPN Compact</title>
+    <desc lang="es">Resumen de la final femenina de Premier Padel Milán P1. Disputado el 18 de octubre de 2026, en el Allianz Cloud, en Milán, Italia.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Classic Sport Event</category>
+    <icon src="http://dtil.tmsimg.com/assets/p9595055_b_h10_ac.jpg?w=960&amp;h=540" />
+    <episode-num system="onscreen">E377</episode-num>
+    <previously-shown />
+  </programme>
+  <programme start="20261020050000 -0300" stop="20261020060000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="en">ESPN Compact</title>
+    <desc lang="es">Resumen de la final masculina de Premier Padel Milán P1. Disputado el 18 de octubre de 2026, en el Allianz Cloud, en Milán, Italia.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Classic Sport Event</category>
+    <icon src="http://dtil.tmsimg.com/assets/p9595055_b_h10_ac.jpg?w=960&amp;h=540" />
+    <episode-num system="onscreen">E374</episode-num>
+    <previously-shown />
+  </programme>
+  <programme start="20261020060000 -0300" stop="20261020090000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Fútbol Americano NFL</title>
+    <desc lang="es">Semana 6 de la temporada regular 2026 de la NFL. Desde el Mercedes Benz-Stadium, en Atlanta. Chicago Bears lidera la serie histórica 16-14. En la campaña pasada, Atlanta Falcons mantuvo una marca de 7-5 ante equipos de la Conferencia Nacional.</desc>
+    <category lang="es">Sports</category>
+    <category lang="es">Football</category>
+    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG0039LE6Q.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261020090000 -0300" stop="20261020093000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Aguas arriba</title>
+    <desc lang="es">La experiencia de la pesca con mosca en Latinoamérica. La búsqueda de truchas en la Patagonia, "sea trout" y salmones en Chile, dorados en el norte de Argentina y las magníficas especies como "bonefish", "permit" y "tarpon" de Centroamérica y Caribe.</desc>
+    <credits>
+      <actor>Pablo Rodrigo Pérez</actor>
+    </credits>
+    <date>2018</date>
+    <category lang="es">Fishing</category>
+    <icon src="http://dtil.tmsimg.com/assets/p16225204_b_h8_aa.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261020093000 -0300" stop="20261020100000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="en">FIM Road Racing World Championship Highlights</title>
+    <desc lang="es">Recopilación de los momentos más emocionantes de las carreras del campeonato mundial de motociclismo.</desc>
+    <date>2005</date>
+    <category lang="en">Motorcycle racing</category>
+    <category lang="en">Motorcycle</category>
+    <category lang="en">Motorsports</category>
+    <icon src="http://dtil.tmsimg.com/assets/p383182_b_h10_ab.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261020100000 -0300" stop="20261020120000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Fútbol EFL Championship</title>
+    <desc lang="es">Acción de la jornada 11 de la EFL temporada 2026-27. Watford busca salir de la zona de descenso y Charlton Athletic romper su racha de dos empates.</desc>
+    <category lang="es">Sports</category>
+    <category lang="es">Soccer</category>
+    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG00391XTE.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261020120000 -0300" stop="20261020130000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="en">ESPN Compact</title>
+    <desc lang="es">Resumen de la final femenina de Premier Padel Milán P1. Disputado el 18 de octubre de 2026, en el Allianz Cloud, en Milán, Italia.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Classic Sport Event</category>
+    <icon src="http://dtil.tmsimg.com/assets/p9595055_b_h10_ac.jpg?w=960&amp;h=540" />
+    <episode-num system="onscreen">E377</episode-num>
+    <previously-shown />
+  </programme>
+  <programme start="20261020130000 -0300" stop="20261020140000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="en">ESPN Compact</title>
+    <desc lang="es">Resumen de la semifinal masculina de Premier Padel Milán P1. Disputado el 17 de octubre de 2026, en el Allianz Cloud, en Milán, Italia.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Classic Sport Event</category>
+    <icon src="http://dtil.tmsimg.com/assets/p9595055_b_h10_ac.jpg?w=960&amp;h=540" />
+    <episode-num system="onscreen">E370</episode-num>
+    <previously-shown />
+  </programme>
+  <programme start="20261020140000 -0300" stop="20261020150000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="en">ESPN Compact</title>
+    <desc lang="es">Resumen de la final masculina de Premier Padel Milán P1. Disputado el 18 de octubre de 2026, en el Allianz Cloud, en Milán, Italia.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Classic Sport Event</category>
+    <icon src="http://dtil.tmsimg.com/assets/p9595055_b_h10_ac.jpg?w=960&amp;h=540" />
+    <episode-num system="onscreen">E374</episode-num>
+    <previously-shown />
+  </programme>
+  <programme start="20261020150000 -0300" stop="20261020153000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="en">FIM Road Racing World Championship Highlights</title>
+    <desc lang="es">Recopilación de los momentos más emocionantes de las carreras del campeonato mundial de motociclismo.</desc>
+    <date>2005</date>
+    <category lang="en">Motorcycle racing</category>
+    <category lang="en">Motorcycle</category>
+    <category lang="en">Motorsports</category>
+    <icon src="http://dtil.tmsimg.com/assets/p383182_b_h10_ab.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261020153000 -0300" stop="20261020154000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="en">Premier Padel Tennis</title>
+    <desc lang="es">Los mejores momentos del Mundial de Pádel 2024. Realizado del 28 de octubre al 2 de noviembre de 2024, en Doha, Catar.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Racquet</category>
+    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003NZYDF.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261020154000 -0300" stop="20261020180000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Live: Fútbol UEFA Champions League</title>
+    <desc lang="es">Acción de la jornada 3 de la fase de liga de la UEFA Champions League 2026-27. Stuttgart busca su tercera victoria y el Atleti mantenerse en zona de clasificación.</desc>
+    <category lang="es">Sports</category>
+    <category lang="es">Soccer</category>
+    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003M0X65.jpg?w=960&amp;h=540" />
+    <premiere />
+  </programme>
+  <programme start="20261020180000 -0300" stop="20261020200000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Fútbol Bundesliga</title>
+    <desc lang="es">Acción de la jornada 6 de la Bundesliga 2026-27. Leverkusen busca su tercera victoria al hilo y Freiburg retener el liderato.</desc>
+    <category lang="es">Sports</category>
+    <category lang="es">Soccer</category>
+    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003B0DNW.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261020200000 -0300" stop="20261020210000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="en">Bundesliga Highlights Show</title>
+    <desc lang="es">Disfruta los juegos de las 34 jornadas de una de las ligas más prestigiosas a nivel mundial.</desc>
+    <date>2020</date>
+    <category lang="en">Soccer</category>
+    <icon src="http://dtil.tmsimg.com/assets/p18849671_b_h8_ab.jpg?w=960&amp;h=540" />
+    <previously-shown />
+    <rating system="USA Parental Rating">
+      <value>TVG</value>
+    </rating>
+    <rating system="Régie du cinéma">
+      <value>G</value>
+    </rating>
+    <rating system="Canadian Parental Rating">
+      <value>G</value>
+    </rating>
+  </programme>
+  <programme start="20261020210000 -0300" stop="20261020220000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">NFL Semanal</title>
+    <desc lang="es">La mejor cobertura y toda la acción del fútbol americano.</desc>
+    <date>2002</date>
+    <category lang="es">Football</category>
+    <icon src="http://dtil.tmsimg.com/assets/p448795_b_h12_aa.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261020220000 -0300" stop="20261021000000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Fútbol UEFA Champions League</title>
+    <desc lang="es">Acción de la jornada 3 de la fase de liga de la UEFA Champions League 2026-27. Sabah busca su segunda victoria al hilo y Dortmund mantenerse en zona de clasificación.</desc>
+    <category lang="es">Sports</category>
+    <category lang="es">Soccer</category>
+    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003M0QC2.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261021000000 -0300" stop="20261021020000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Tenis ATP Rolex Shanghai Masters 2026</title>
+    <desc lang="es">Cobertura de la gran final del Shangai Masters 2026 de la ATP. Desde la Qizhong Forest Sports City Arena.</desc>
+    <category lang="es">Sports</category>
+    <category lang="es">Tennis</category>
+    <icon src="http://dtil.tmsimg.com/assets/p33511409_b_h10_ag.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261021020000 -0300" stop="20261021040000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Fútbol UEFA Champions League</title>
+    <desc lang="es">Acción de la jornada 3 de la fase de liga de la UEFA Champions League 2026-27. Stuttgart busca su tercera victoria y el Atleti mantenerse en zona de clasificación.</desc>
+    <category lang="es">Sports</category>
+    <category lang="es">Soccer</category>
+    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003M0X65.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261021040000 -0300" stop="20261021060000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Fútbol UEFA Champions League</title>
+    <desc lang="es">Acción de la jornada 3 de la fase de liga de la UEFA Champions League 2026-27. Fenerbahce busca su primera victoria y Slavia Praga sus primeros puntos.</desc>
+    <category lang="es">Sports</category>
+    <category lang="es">Soccer</category>
+    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003PXNZ0.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261021060000 -0300" stop="20261021090000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Fútbol Americano NFL</title>
+    <desc lang="es">Green Bay Packers recibe a Dallas Cowboys en la semana 6 de la NFL. La semana pasada, Green Bay venció a Chicago por 31-7 y acumula dos victorias consecutivas. Dallas llega tras una derrota por 24-16 ante Tampa Bay.</desc>
+    <category lang="es">Sports</category>
+    <category lang="es">Football</category>
+    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG0039KDH8.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261021090000 -0300" stop="20261021100000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="en">UEFA Champions League Highlights</title>
+    <desc lang="es">Resultados y las mejores jugadas de la Copa UEFA de clubes Campeones.</desc>
+    <date>2004</date>
+    <category lang="en">Soccer</category>
+    <icon src="http://dtil.tmsimg.com/assets/p969764_b_h10_ac.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261021100000 -0300" stop="20261021120000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Fútbol UEFA Champions League</title>
+    <desc lang="es">Acción de la jornada 3 de la fase de liga de la UEFA Champions League 2026-27. Porto busca sus primeros puntos y PSV su primera victoria.</desc>
+    <category lang="es">Sports</category>
+    <category lang="es">Soccer</category>
+    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003M1NVT.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261021120000 -0300" stop="20261021130000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">NFL Semanal</title>
+    <desc lang="es">La mejor cobertura y toda la acción del fútbol americano.</desc>
+    <date>2002</date>
+    <category lang="es">Football</category>
+    <icon src="http://dtil.tmsimg.com/assets/p448795_b_h12_aa.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261021130000 -0300" stop="20261021131000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="en">Premier Padel Tennis</title>
+    <desc lang="es">Los mejores momentos del Mundial de Pádel 2024. Realizado del 28 de octubre al 2 de noviembre de 2024, en Doha, Catar.</desc>
+    <category lang="en">Sports</category>
+    <category lang="en">Racquet</category>
+    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003NZYDF.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261021131000 -0300" stop="20261021154000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Hockey NHL</title>
+    <desc lang="es">Desde T-Mobile Arena, en Las Vegas, Estados Unidos.</desc>
+    <category lang="es">Sports</category>
+    <category lang="es">Hockey</category>
+    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003MFQ0K.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261021154000 -0300" stop="20261021180000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Live: Fútbol UEFA Champions League</title>
+    <desc lang="es">Acción de la jornada 3 de la fase de liga de la UEFA Champions League 2026-27. Brujas busca su segunda victoria al hilo y Lens mantenerse en zona de clasificación.</desc>
+    <category lang="es">Sports</category>
+    <category lang="es">Soccer</category>
+    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003M16GM.jpg?w=960&amp;h=540" />
+    <premiere />
+  </programme>
+  <programme start="20261021180000 -0300" stop="20261021200000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Fútbol UEFA Champions League</title>
+    <desc lang="es">Acción de la jornada 3 de la fase de liga de la UEFA Champions League 2026-27. Como y Manchester United buscan ganar tras perder.</desc>
+    <category lang="es">Sports</category>
+    <category lang="es">Soccer</category>
+    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003JE1CE.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261021200000 -0300" stop="20261021220000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Fútbol UEFA Champions League</title>
+    <desc lang="es">Acción de la jornada 3 de la fase de liga de la UEFA Champions League 2026-27. Los Bávaros buscan ganar tras empatar y los Gunners su tercera victoria al hilo.</desc>
+    <category lang="es">Sports</category>
+    <category lang="es">Soccer</category>
+    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003M1BVY.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261021220000 -0300" stop="20261022000000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Fútbol UEFA Champions League</title>
+    <desc lang="es">Acción de la jornada 3 de la fase de liga de la UEFA Champions League 2026-27. Lille y Galatasaray buscan sus primeros puntos.</desc>
+    <category lang="es">Sports</category>
+    <category lang="es">Soccer</category>
+    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003M151W.jpg?w=960&amp;h=540" />
+    <previously-shown />
+  </programme>
+  <programme start="20261022000000 -0300" stop="20261022020000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Fútbol UEFA Champions League</title>
+    <desc lang="es">Acción de la jornada 3 de la fase de liga de la UEFA Champions League 2026-27. Duelo por el liderato.</desc>
+    <category lang="es">Sports</category>
+    <category lang="es">Soccer</category>
+    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003M0V1R.jpg?w=960&amp;h=540" />
     <previously-shown />
   </programme>
   <programme start="20261019090000 -0300" stop="20261019100000 -0300" channel="PublicDirect.d6cca6d4aa23a69d50439c22">
@@ -17851,13 +18093,6 @@
       <value>TV-PG</value>
     </rating>
   </programme>
-  <programme start="20261019073100 -0300" stop="20261019090100 -0300" channel="RealWild.us">
-    <title lang="en">In The Land Of The Moose</title>
-    <desc lang="en">Follow the story of a moose mother fiercely defending her calf from danger.</desc>
-    <date>2011</date>
-    <category lang="en">Explore</category>
-    <icon src="https://d11hei8e1dyf6i.cloudfront.net/RWILD/HEWITLS001EP003.jpg" />
-  </programme>
   <programme start="20261019090100 -0300" stop="20261019093000 -0300" channel="RealWild.us">
     <title lang="en">Shark Gordon</title>
     <sub-title lang="en">Great white Sharks: The Ultimate Predator</sub-title>
@@ -18811,10 +19046,6 @@
     <icon src="https://d11hei8e1dyf6i.cloudfront.net/RWILD/Default_Thumbnail.jpg" />
     <episode-num system="onscreen">S1 E2</episode-num>
   </programme>
-  <programme start="20261019083235 -0300" stop="20261019091430 -0300" channel="RedBullChileEspanol.cl">
-    <title lang="es">Gigante de Pedra - Felipe Camargo escala en PETAR</title>
-    <desc lang="es">Felipe Camargo, el mejor escalador brasileño, conquista la boca de la cueva más grande del mundo en PETAR, São Paulo, logrando la ascensión más difícil jamás realizada en Brasil.</desc>
-  </programme>
   <programme start="20261019091430 -0300" stop="20261019094737 -0300" channel="RedBullChileEspanol.cl">
     <title lang="es">Skimboard Nazaré</title>
     <desc lang="es">El campeón mundial de skimboard Lucas Fink se reta en Portugal al enfrentarse a la icónica ola de Nazaré con su tabla, llevando el deporte a un nuevo nivel.</desc>
@@ -18911,15 +19142,25 @@
     <title lang="es">And Two If By Sea - rivalidad de gemelos en el surf</title>
     <desc lang="es">Los gemelos CJ y Damien Hobgood enfrentan una rivalidad en el surf profesional mientras buscan diferenciarse y construir su propio camino dentro del mismo deporte.</desc>
   </programme>
-  <programme start="20261019083039 -0300" stop="20261019085004 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">The Hurt: Alex Honnold in Nevada Part 2</title>
-    <sub-title lang="en">Reel Rock S9E10</sub-title>
-    <desc lang="en">Alex Honnold gears up for the hardest section of his Red Rock Canyon climb so far just in time for nightfall.</desc>
+  <programme start="20261020122954 -0300" stop="20261020130410 -0300" channel="RedBullChileEspanol.cl">
+    <title lang="es">Beyond the ROX - Las emociones de los atletas</title>
+    <desc lang="es">La alegría y la presión se contagian entre atletas y seres queridos, mientras rivalidades se intensifican y Lucy Procter irrumpe en la escena al entrar en la Elite 15 de HYROX.</desc>
   </programme>
-  <programme start="20261019085004 -0300" stop="20261019092717 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">Veeco: A Volcom Filmmaking Documentary</title>
-    <sub-title lang="en">Veeco unveiled – untold stories behind groundbreaking films</sub-title>
-    <desc lang="en">Discover untold stories behind Volcom's groundbreaking films, from inception to adrenaline-fuelled execution.</desc>
+  <programme start="20261020130410 -0300" stop="20261020133557 -0300" channel="RedBullChileEspanol.cl">
+    <title lang="es">Beyond the ROX - Los atletas</title>
+    <desc lang="es">Sadiq Elfitouri explica el cambio del fútbol al HYROX, e Ida Mathilde, Campeona del Mundo de OCR, hace un debut espectacular en la competencia.</desc>
+  </programme>
+  <programme start="20261020133557 -0300" stop="20261020140911 -0300" channel="RedBullChileEspanol.cl">
+    <title lang="es">Beyond the ROX - El ascenso de las mujeres en HYROX</title>
+    <desc lang="es">Jake Dearden clasifica para la Final Mundial de HYROX, mientras nuevos competidores desafían a los veteranos y el crecimiento del campo femenino demuestra el impacto del entrenamiento experto.</desc>
+  </programme>
+  <programme start="20261020140911 -0300" stop="20261020143959 -0300" channel="RedBullChileEspanol.cl">
+    <title lang="es">Beyond the ROX - El entrenamiento fuera de temporada</title>
+    <desc lang="es">Los atletas de HYROX entrenan fuera de temporada para equilibrar su vida personal con la ambición, resistencia, recuperación y fuerza mental y física necesarias para competir con los 15 de élite.</desc>
+  </programme>
+  <programme start="20261020143959 -0300" stop="20261020151908 -0300" channel="RedBullChileEspanol.cl">
+    <title lang="es">Beyond the ROX: Jake Dearden llega a la Elite 15</title>
+    <desc lang="es">Tras años de esfuerzo, Jake Dearden llega a la Elite 15 y enfrenta el reto de medirse con los mejores del mundo en la temporada 2024/25.</desc>
   </programme>
   <programme start="20261019092717 -0300" stop="20261019095318 -0300" channel="RedBullWorldEnglish.int">
     <title lang="en">Freestyle football</title>
@@ -18946,283 +19187,192 @@
     <sub-title lang="en">Pushing Progression S1E4</sub-title>
     <desc lang="en">Learn how Red Bull Red Bull Rampage and Formation have pushed the boundaries of progression in freeride MTB.</desc>
   </programme>
-  <programme start="20261019115007 -0300" stop="20261019123500 -0300" channel="RedBullWorldEnglish.int">
+  <programme start="20261019115007 -0300" stop="20261019125413 -0300" channel="RedBullWorldEnglish.int">
     <title lang="en">Red Bull Straight Rhythm</title>
     <sub-title lang="en">Red Bull Signature Series S2017E10</sub-title>
     <desc lang="en">This new racing format pitted a field of 32 riders in a head-to-head showdown of pure MX racing.</desc>
   </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261019123500 -0300" stop="20261019131100 -0300">
-    <title>SURF: Brasiliens nächste Surflegende</title>
-    <live />
-    <episode-num system="original-air-date">20261019153500 +0000</episode-num>
-    <desc>Top-Platzierungen und bittere Niederlagen: João Chianca, der neue Star des brasilianischen Surfsports, lernt schnell die Höhen und Tiefen eines Pros auf der WSL Championship Tour kennen.</desc>
-    <icon src="https://images.pluto.tv/series/69d902c63312e3048ed02af1/tile_1776679316736.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">69d902c63312e3048ed02af1</series-id>
-    <category>Series</category>
-    <category>Sports</category>
+  <programme start="20261019125413 -0300" stop="20261019133815 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">Red Bull Solus</title>
+    <sub-title lang="en">Red Bull Signature Series S2020E5</sub-title>
+    <desc lang="en">Thirteen of the world's leading skateboarders meet at Ryan Sheckler’s private skatepark for Red Bull Solus.</desc>
   </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261019131100 -0300" stop="20261019132500 -0300">
-    <title>Red Bull Show 100</title>
-    <live />
-    <episode-num system="original-air-date">20261019161100 +0000</episode-num>
-    <desc>Österreichs "AUT of ORDA" stellt sich der Herausforderung, ihre allererste gemeinsame Show in nur 100 Stunden zu organisieren und nach Ablauf des Countdowns auf der Bühne zu performen. Na h den 100 Stunden steigt die Show in der Wiener Marx Halle.</desc>
-    <icon src="https://images.pluto.tv/series/68e659746fe1b6a13de27d6a/tile_1759926653396.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">68e659746fe1b6a13de27d6a</series-id>
-    <category>Series</category>
-    <category>Sports</category>
+  <programme start="20261019133815 -0300" stop="20261019142218 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">Red Bull Imagination</title>
+    <sub-title lang="en">Red Bull Signature Series S2020E9</sub-title>
+    <desc lang="en">The world’s best freeriders descend on Tyler Bereman’s unique course to showcase their slopestyle creativity.</desc>
   </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261019132500 -0300" stop="20261019140100 -0300">
-    <title>Pro Footballers vs Impossible 100 Ball Challenge</title>
-    <live />
-    <episode-num system="original-air-date">20261019162500 +0000</episode-num>
-    <desc>Jürgen Klopp fordert Neymar Jr., Endrick, Richard Ríos, Dominik Szoboszlai, Séan Garnier und Nicolas Seiwald zur Red Bull Ultimate Football Challenge" heraus - schaffen sie es mit nur 100 Bällen?</desc>
-    <icon src="https://images.pluto.tv/series/6a981010da71d9a75f01c233/tile_1788350481562.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">6a981010da71d9a75f01c233</series-id>
-    <category>Series</category>
-    <category>Sports</category>
+  <programme start="20261019142218 -0300" stop="20261019144620 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">Nepal</title>
+    <sub-title lang="en">Rob Warner’s Wild Rides S1E4</sub-title>
+    <desc lang="en">Rob Warner and downhill pro Olly Wilkins ride around the world's tallest mountain range.</desc>
   </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261019140100 -0300" stop="20261019141700 -0300">
-    <title>Race Tapes</title>
-    <live />
-    <episode-num system="original-air-date">20261019170100 +0000</episode-num>
-    <desc>Einfach weiter gewinnen! Ganz einfach, oder? Vali Höll und Jackson Goldstone erleben die Höhen des Erfolgs bei den Junioren und wagen den Sprung auf die Strecke des Elite-Mountainbike-Weltcups. Sie brauchen alle Fähigkeiten, um zu gewinnen.</desc>
-    <icon src="https://images.pluto.tv/series/6877beb4a53444ef2af2b377/tile_1752678107436.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">6877beb4a53444ef2af2b377</series-id>
-    <sub-title>Elterlicher Rat erwünscht</sub-title>
-    <category>Series</category>
-    <category>Sports</category>
+  <programme start="20261019144620 -0300" stop="20261019152526 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">Reign and rise</title>
+    <sub-title lang="en">Unrideable S1E1</sub-title>
+    <desc lang="en">At Red Bull Erzbergrodeo, 2023's winner – Manuel Lettenbichler – faces rising star Mitch Brightmore.</desc>
   </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261019141700 -0300" stop="20261019150800 -0300">
-    <title>Power in Every Rep: Together We Rise - Horváth</title>
-    <live />
-    <episode-num system="original-air-date">20261019171700 +0000</episode-num>
-    <desc>From family roots to global champion: the story behind Laura Horváth's rise in elite functional fitness.</desc>
-    <icon src="https://images.pluto.tv/series/6a9558484996e40ab27903a5/tile_1788246267744.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">6a9558484996e40ab27903a5</series-id>
-    <category>Series</category>
-    <category>Sports</category>
+  <programme start="20261019152526 -0300" stop="20261019160708 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">Changing perspectives</title>
+    <sub-title lang="en">Unrideable S1E2</sub-title>
+    <desc lang="en">Wade Young gives his all as a privateer in the 2024 Xross Hard Enduro Rally and Red Bull Romaniacs.</desc>
   </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261019150800 -0300" stop="20261019153100 -0300">
-    <title>Red Bull Durchgespielt</title>
-    <live />
-    <episode-num system="original-air-date">20261019180800 +0000</episode-num>
-    <desc>Persönlichkeiten aus der Deutschrap-Welt treten an einem Spieltisch gegeneinander an. Zwischen Quiz, Battles, Fans und Karma-Feldern zocken unter anderem Aria und Jerrvsan.</desc>
-    <icon src="https://images.pluto.tv/series/6a0af1995992de5f722bfdc4/tile_1779109321293.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">6a0af1995992de5f722bfdc4</series-id>
-    <sub-title>Das Deutschrap-Quiz</sub-title>
-    <category>Series</category>
-    <category>Sports</category>
+  <programme start="20261019160708 -0300" stop="20261019164716 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">Sacrifices</title>
+    <sub-title lang="en">Unrideable S1E4</sub-title>
+    <desc lang="en">Hard Enduro rivals Billy Bolt and Mario Román battle it out in Türkiye at the scenic 2024 Sea to Sky event.</desc>
   </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261019153100 -0300" stop="20261019160300 -0300">
-    <title>Mountainbike Highlights</title>
-    <live />
-    <episode-num system="original-air-date">20261019183100 +0000</episode-num>
-    <desc>Downhill Mountainbike-Rennen.</desc>
-    <icon src="https://images.pluto.tv/series/68750dc79017101f05cf5451/tile_1752517736075.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">68750dc79017101f05cf5451</series-id>
-    <sub-title>Red Bull Cerro Abajo Valparaiso</sub-title>
-    <category>Series</category>
-    <category>Sports</category>
+  <programme start="20261019164716 -0300" stop="20261019172533 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">Through the pain</title>
+    <sub-title lang="en">Unrideable S1E5</sub-title>
+    <desc lang="en">Watch the drama as the FIM Hard Enduro World Championship 2024 finale plays out at 24MX Hixpania Hard Enduro.</desc>
   </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261019160300 -0300" stop="20261019163600 -0300">
-    <title>Uncharted: SailGP</title>
-    <live />
-    <episode-num system="original-air-date">20261019190300 +0000</episode-num>
-    <desc>Im Jahr 2013 hat Jimmy Smith mit einem furiosen Comeback im America's Cup Geschichte geschrieben. Zehn Jahre später will er das US-amerikanische SailGP-Team zu Titelanwärtern transformieren - doch wird dabei von den Besitzern des Teams ausgebremst.</desc>
-    <icon src="https://images.pluto.tv/series/6a35367e87a403a7cf9704be/tile_1781872255619.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">6a35367e87a403a7cf9704be</series-id>
-    <sub-title>Man Overboard</sub-title>
-    <category>Series</category>
-    <category>Sports</category>
+  <programme start="20261019172533 -0300" stop="20261019175133 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">From soapbox madness to skydiving with an FMX bike</title>
+    <sub-title lang="en">For Reals S1E9</sub-title>
+    <desc lang="en">Red Bull athletes do it all, from skydiving with a motocross bike to riding rally cars on frozen lakes.</desc>
   </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261019163600 -0300" stop="20261019165900 -0300">
-    <title>All You Need is a Ball</title>
-    <live />
-    <episode-num system="original-air-date">20261019193600 +0000</episode-num>
-    <desc>Die Fußballstars aus dem Jahr 2022 wissen zu gut, wie schwer der Weg zum Erfolg sein kann. Sie wollen ihrem Nachwuchs den Weg erleichtern. Besonders der Fußball ist ein entscheidendes Sprungbrett für junge, motivierte Sportler.</desc>
-    <icon src="https://images.pluto.tv/series/686bdb6dfd92ab53e80c6e8f/tile_1751898992290.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">686bdb6dfd92ab53e80c6e8f</series-id>
-    <category>Series</category>
-    <category>Sports</category>
+  <programme start="20261019175133 -0300" stop="20261019181733 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">From F1 soapbox racing to breaking world records</title>
+    <sub-title lang="en">For Reals S1E2</sub-title>
+    <desc lang="en">Breaking records: all in a day's work! See Baumgartner jump from space, 65 women skydive and a BMXer loop big.</desc>
   </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261019165900 -0300" stop="20261019183100 -0300">
-    <title>Red Bull Cliff Diving World Series</title>
-    <live />
-    <episode-num system="original-air-date">20261019195900 +0000</episode-num>
-    <desc>Zum Saisonauftakt der Red Bull Cliff Diving World Series in Bali, Indonesien, beweisen die Athleten Nervenstärke. Aus einer Höhe von über 20 Metern stürzen sie sich mit akrobatischen Manövern von den Klippen ins türkisfarbene Meer.</desc>
-    <icon src="https://images.pluto.tv/series/687fa104265d8a2eac70a878/tile_1763491912187.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">687fa104265d8a2eac70a878</series-id>
-    <sub-title>Indonesia 2026 - Highlights</sub-title>
-    <category>Series</category>
-    <category>Sports</category>
+  <programme start="20261019181733 -0300" stop="20261019184333 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">From a paper plane contest to diving off ruins</title>
+    <sub-title lang="en">For Reals S1E5</sub-title>
+    <desc lang="en">Red Bull athletes do it all, from diving off ancient ruins to acing a paper plane competition.</desc>
   </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261019183100 -0300" stop="20261019192100 -0300">
-    <title>Red Bull Soapbox Race</title>
-    <live />
-    <episode-num system="original-air-date">20261019213100 +0000</episode-num>
-    <desc>In Toulouse stellt das Red Bull Seifenkistenrennen Teams vor die ultimative Herausforderung: Zwischen Tempo, Kreativität und Chaos entscheidet sich, wer den Kurs am besten meistert.</desc>
-    <icon src="https://images.pluto.tv/series/6853f51fb54a02bbc47d68a8/tile_1756170079193.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">6853f51fb54a02bbc47d68a8</series-id>
-    <sub-title>Toulouse</sub-title>
-    <category>Series</category>
-    <category>Sports</category>
+  <programme start="20261019184333 -0300" stop="20261019191009 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">From F1 desert racing to a skatepark in the sky</title>
+    <sub-title lang="en">For Reals S1E1</sub-title>
+    <desc lang="en">Red Bull athletes do it all, from riding a skatepark under a hot air balloon to F1 drivers racing on water.</desc>
   </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261019192100 -0300" stop="20261019212300 -0300">
-    <title>Red Bull Cliff Diving World Series</title>
-    <live />
-    <episode-num system="original-air-date">20261019222100 +0000</episode-num>
-    <desc>Der zweite Stopp der Red Bull Cliff Diving Serie findet in den USA statt, wo die Athletinnen in St. Petersburg, Florida, von 21 und 27 Metern springen.</desc>
-    <icon src="https://images.pluto.tv/series/688107b4cb15389834f512d0/tile_1779001210414.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">688107b4cb15389834f512d0</series-id>
-    <sub-title>St. Petersburg, Florida</sub-title>
-    <category>Series</category>
-    <category>Sports</category>
+  <programme start="20261019191009 -0300" stop="20261019193609 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">From skateboarding out a plane to 180m wall climb</title>
+    <sub-title lang="en">For Reals S1E6</sub-title>
+    <desc lang="en">Red Bull athletes do it all, from freerunning through an airport to building a skatepark in the forest.</desc>
   </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261019212300 -0300" stop="20261019221400 -0300">
-    <title>Red Bull Soapbox Race</title>
-    <live />
-    <episode-num system="original-air-date">20261020002300 +0000</episode-num>
-    <desc>Im indischen Hyderabad entfacht das Red Bull Seifenkistenrennen das absolute Chaos.</desc>
-    <icon src="https://images.pluto.tv/series/6853f51fb54a02bbc47d68a8/tile_1756170079193.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">6853f51fb54a02bbc47d68a8</series-id>
-    <sub-title>Hyderabad 2024</sub-title>
-    <category>Series</category>
-    <category>Sports</category>
+  <programme start="20261019193609 -0300" stop="20261019200209 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">From skydiving with skis to flying into a volcano</title>
+    <sub-title lang="en">For Reals S1E4</sub-title>
+    <desc lang="en">Red Bull athletes do it all, from wingsuit flying over an active volcano to skydiving on skis.</desc>
   </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261019221400 -0300" stop="20261019230400 -0300">
-    <title>Red Bull Soapbox Race</title>
-    <live />
-    <episode-num system="original-air-date">20261020011400 +0000</episode-num>
-    <desc>In Melbourne sorgt das Red Bull Seifenkistenrennen für einen absoluten Ausnahmezustand: Kreative Teams schicken ihre verrückten Konstruktionen ins Rennen - mit Action, Humor und jeder Menge Chaos wird Down Under unsicher gemacht.</desc>
-    <icon src="https://images.pluto.tv/series/6853f51fb54a02bbc47d68a8/tile_1756170079193.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">6853f51fb54a02bbc47d68a8</series-id>
-    <sub-title>Melbourne</sub-title>
-    <category>Series</category>
-    <category>Sports</category>
+  <programme start="20261019200209 -0300" stop="20261019212631 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">One Extraordinary Year</title>
+    <sub-title lang="en">Athletes who weren't derailed from their dreams</sub-title>
+    <desc lang="en">Follow the inspiring stories of six elite athletes in their determination to win gold in a challenging year.</desc>
   </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261019230400 -0300" stop="20261019233500 -0300">
-    <title>Adventures Unpacked mit Beau Miles</title>
-    <live />
-    <episode-num system="original-air-date">20261020020400 +0000</episode-num>
-    <desc>Jérémie Heitz blickt zurück auf seine Steilhang-Ski-Expeditionen mit Sam Anthamatten.</desc>
-    <icon src="https://images.pluto.tv/series/69665ea2f65a7c96c6386110/tile_1768327294999.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">69665ea2f65a7c96c6386110</series-id>
-    <sub-title>Skifahren auf 6000 Meter hohen Gipfeln</sub-title>
-    <category>Series</category>
-    <category>Sports</category>
+  <programme start="20261019212631 -0300" stop="20261019223553 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">The Art of Flight</title>
+    <sub-title lang="en">Travis Rice and Curt Morgan's iconic snowboard film</sub-title>
+    <desc lang="en">Travis Rice and Curt Morgan's follow-up to That's It, That's All raises the bar of snowboarding – again.</desc>
   </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261019233500 -0300" stop="20261020000400 -0300">
-    <title>Mountainbike Highlights</title>
-    <live />
-    <episode-num system="original-air-date">20261020023500 +0000</episode-num>
-    <desc>Stuttgarts Straßen werden zur spektakulären Downhill-Arena: Die globale MTB-Elite jagt mit rasantem Tempo durch Parks, Treppen und vorbei an Denkmälern - wer schnappt sich die Cerro-Abajo-Krone 2026?</desc>
-    <icon src="https://images.pluto.tv/series/68750dc79017101f05cf5451/tile_1752517736075.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">68750dc79017101f05cf5451</series-id>
-    <sub-title>Red Bull Stuttgart Cerro Abajo</sub-title>
-    <category>Series</category>
-    <category>Sports</category>
+  <programme start="20261019223553 -0300" stop="20261019230708 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">Milestone</title>
+    <sub-title lang="en">An intimate portrayal of snowboarder Eero Ettala</sub-title>
+    <desc lang="en">Follow snowboarder Eero Ettala behind the scenes as he works on a video part while balancing family life.</desc>
   </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261020000400 -0300" stop="20261020005100 -0300">
-    <title>Unrideable</title>
-    <live />
-    <episode-num system="original-air-date">20261020030400 +0000</episode-num>
-    <desc>Billy Bolt kehrt zurück, während Mario Román seinem Traum von einem Titel nachjagt.</desc>
-    <icon src="https://images.pluto.tv/series/68c05dec99a2f3e74ad8b51e/tile_1761033696054.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">68c05dec99a2f3e74ad8b51e</series-id>
-    <sub-title>Opfer bringen</sub-title>
-    <category>Series</category>
-    <category>Sports</category>
+  <programme start="20261019230708 -0300" stop="20261019233406 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">Highlights from Red Bull Erzbergrodeo 2025</title>
+    <sub-title lang="en">Red Bull Erzbergrodeo 2025</sub-title>
+    <desc lang="en">Catch up on the highlights of the toughest Hard Enduro race on the planet - Red Bull Erzbergrodeo.</desc>
   </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261020005100 -0300" stop="20261020010000 -0300">
-    <title>Dedicate</title>
-    <live />
-    <episode-num system="original-air-date">20261020035100 +0000</episode-num>
-    <desc>Der Südafrikaner Ryan Sandes versucht, den 100-Meilen-Ausdauerlauf der Western States in Rekordzeit zu gewinnen. Im Vorfeld des Rennens 2017 treibt sich Sandes an, indem er unter verschiedenen extremen Bedingungen trainiert.</desc>
-    <icon src="https://images.pluto.tv/series/6853f511b54a02bbc47d4d2a/tile_1750332852078.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">6853f511b54a02bbc47d4d2a</series-id>
-    <sub-title>100 Meilen im Westen</sub-title>
-    <category>Series</category>
-    <category>Sports</category>
+  <programme start="20261019233406 -0300" stop="20261019235931 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">Moto Rider vs Enduro Race</title>
+    <sub-title lang="en">Carson Brown's epic ride at Red Bull Erzbergrodeo</sub-title>
+    <desc lang="en">Carson Brown returns to Red Bull Erzbergrodeo in 2025. Join his epic ride over rock faces and sharp sections.</desc>
   </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261020010000 -0300" stop="20261020030100 -0300">
-    <title>Red Bull Cliff Diving World Series</title>
-    <live />
-    <episode-num system="original-air-date">20261020040000 +0000</episode-num>
-    <desc>Der zweite Stopp der Red Bull Cliff Diving Serie findet in den USA statt, wo die Athletinnen in St. Petersburg, Florida, von 21 und 27 Metern springen.</desc>
-    <icon src="https://images.pluto.tv/series/688107b4cb15389834f512d0/tile_1779001210414.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">688107b4cb15389834f512d0</series-id>
-    <sub-title>St. Petersburg, Florida</sub-title>
-    <category>Series</category>
-    <category>Sports</category>
+  <programme start="20261019235931 -0300" stop="20261020000641 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">From Castle to Castle</title>
+    <sub-title lang="en">F1 road trip from Czech Republic to Slovakia</sub-title>
+    <desc lang="en">David Coulthard takes a unique road trip from the castles of the Czech Republic to the castles of Slovakia.</desc>
   </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261020030100 -0300" stop="20261020032900 -0300">
-    <title>Premier Padel Highlights</title>
-    <live />
-    <episode-num system="original-air-date">20261020060100 +0000</episode-num>
-    <desc>Italien macht aus Padel ein Spektakel: Beim Major 2026 kippen Matches in Sekunden, Favoriten geraten ins Wanken und jeder Punkt kann den Weg zum Titel neu schreiben.</desc>
-    <icon src="https://images.pluto.tv/series/6880dd111210c6c91988e561/tile_1753275667390.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">6880dd111210c6c91988e561</series-id>
-    <sub-title>talien Major 2026</sub-title>
-    <category>Series</category>
-    <category>Sports</category>
+  <programme start="20261020000641 -0300" stop="20261020001724 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">F1 drivers cross the USA</title>
+    <sub-title lang="en">Red Bull Racing Road Trips S1E2</sub-title>
+    <desc lang="en">Join F1 drivers Daniel Ricciardo and Max Verstappen on a road trip across the USA from California to Florida.</desc>
   </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261020032900 -0300" stop="20261020040000 -0300">
-    <title>Premier Padel Highlights</title>
-    <live />
-    <episode-num system="original-air-date">20261020062900 +0000</episode-num>
-    <desc>Verfolgen Sie die Action vom Miami Premier Padel P1, da es zum ersten Mal im Jahr 2025 am Padel-Turnier teilnimmt.</desc>
-    <icon src="https://images.pluto.tv/series/6880dd111210c6c91988e561/tile_1753275667390.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">6880dd111210c6c91988e561</series-id>
-    <sub-title>Miami P1 Highlights</sub-title>
-    <category>Series</category>
-    <category>Sports</category>
+  <programme start="20261020001724 -0300" stop="20261020003251 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">Formula Schnitzeljagd</title>
+    <sub-title lang="en">F1 tries out new modes of transportation</sub-title>
+    <desc lang="en">A special race through Austria: F1 drivers tackle challenges on their way as a warm-up for the Austrian GPs.</desc>
   </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261020040000 -0300" stop="20261020043100 -0300">
-    <title>Premier Padel Highlights</title>
-    <live />
-    <episode-num system="original-air-date">20261020070000 +0000</episode-num>
-    <desc>Bordeaux serviert Padel auf Topniveau: Beim P2 2026 sorgen die größten Stars der Tour mit langen Ballwechseln, harten Smashes und spektakulären Wendungen für große Momente.</desc>
-    <icon src="https://images.pluto.tv/series/6880dd111210c6c91988e561/tile_1753275667390.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">6880dd111210c6c91988e561</series-id>
-    <sub-title>Bordeaux P2 2026</sub-title>
-    <category>Series</category>
-    <category>Sports</category>
+  <programme start="20261020003251 -0300" stop="20261020003856 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">Red Bull Racing vs Best of British</title>
+    <sub-title lang="en">Red Bull Racing Road Trips S1E8</sub-title>
+    <desc lang="en">Watch eight quintessentially British vehicles take on the ultimate motorsports challenge: dodging traffic.</desc>
   </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261020043100 -0300" stop="20261020050200 -0300">
-    <title>Premier Padel Highlights</title>
-    <live />
-    <episode-num system="original-air-date">20261020073100 +0000</episode-num>
-    <desc>In Chiles Hauptstadt kämpfen die weltbesten Padel-Athleten auf hohem Niveau - wortwörtlich. Der P1-Stopp in Santiago bringt Emotion, Energie und taktische Meisterleistungen auf dem Court.</desc>
-    <icon src="https://images.pluto.tv/series/6880dd111210c6c91988e561/tile_1753275667390.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">6880dd111210c6c91988e561</series-id>
-    <sub-title>Santiago P1, Highlights</sub-title>
-    <category>Series</category>
-    <category>Sports</category>
+  <programme start="20261020003856 -0300" stop="20261020010225 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">Taking to the skies</title>
+    <sub-title lang="en">Giving it Gears with Jason Goliath S1E1</sub-title>
+    <desc lang="en">Jason and Nick find themselves in the Eastern Cape where they visit legend of the skies Patrick Davidson.</desc>
   </programme>
-  <programme start="20261020050200 -0300" stop="20261020050352 -0300" channel="RedBullWorldEnglish.int">
+  <programme start="20261020010225 -0300" stop="20261020013225 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">Dune racing with Kirsten Landman</title>
+    <sub-title lang="en">Giving it Gears with Jason Goliath S1E3</sub-title>
+    <desc lang="en">Jason and Nick track down endurance motorcyclist Kirsten Landman on sun-scorched dunes in Cape Town.</desc>
+  </programme>
+  <programme start="20261020013225 -0300" stop="20261020014238 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">2018's fan-favourite teams</title>
+    <sub-title lang="en">Red Bull Soapbox Race S4E5</sub-title>
+    <desc lang="en">Creativity and soapbox building improve every year and 2018 featured some of the best racers yet to wow fans.</desc>
+  </programme>
+  <programme start="20261020014238 -0300" stop="20261020015258 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">2017's best runs</title>
+    <sub-title lang="en">Red Bull Soapbox Race S1E4</sub-title>
+    <desc lang="en">Every year the racers get faster. In 2017 the gadgets included the fastest musical drum set in history.</desc>
+  </programme>
+  <programme start="20261020015258 -0300" stop="20261020020312 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">2015's top car designs</title>
+    <sub-title lang="en">Red Bull Soapbox Race S2E2</sub-title>
+    <desc lang="en">From an uncanny Indiana Jones tribute to a truly genius Albert Einstein soapbox, these were 2015's top racers.</desc>
+  </programme>
+  <programme start="20261020020312 -0300" stop="20261020021438 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">2016's best crashes and smashes</title>
+    <sub-title lang="en">Red Bull Soapbox Race S3E3</sub-title>
+    <desc lang="en">The steepest hill ever in Ireland and the aptly named Death Roller made sure 2016 delivered epic crashes.</desc>
+  </programme>
+  <programme start="20261020021438 -0300" stop="20261020022510 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">Red Bull Flugtag</title>
+    <sub-title lang="en">A flying contest like no other...</sub-title>
+    <desc lang="en">A flying contest where anyone and everyone can launch their homemade masterpieces into the abyss.</desc>
+  </programme>
+  <programme start="20261020022510 -0300" stop="20261020023556 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">F1 drivers race soapboxes in Montreal</title>
+    <sub-title lang="en">Welcome to the fastest soapbox race on Earth</sub-title>
+    <desc lang="en">F1 drivers Max Verstappen and Sergio Pérez race soapbox karts against Yuki Tsunoda and Daniel Ricciardo.</desc>
+  </programme>
+  <programme start="20261020023556 -0300" stop="20261020024655 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">2019's best runs</title>
+    <sub-title lang="en">Red Bull Soapbox Race S1E6</sub-title>
+    <desc lang="en">With racing on four continents, 2019's races showcased some ultra-fast runs, but who won these wacky races?</desc>
+  </programme>
+  <programme start="20261020024655 -0300" stop="20261020030119 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">Red Bull Soapbox Race</title>
+    <sub-title lang="en">The 7 Greatest Crashes</sub-title>
+    <desc lang="en">A race of pure fun and creativity entertains us with incredible costumes and brilliant design.</desc>
+  </programme>
+  <programme start="20261020030119 -0300" stop="20261020032239 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">Smile and fight</title>
+    <sub-title lang="en">Reel Rock S9E1</sub-title>
+    <desc lang="en">Can big wall climber Natalia Grossman handle the pressure of defending her IFSC World Cup Champion title?</desc>
+  </programme>
+  <programme start="20261020032239 -0300" stop="20261020034657 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">Burning the flame part 1</title>
+    <sub-title lang="en">Reel Rock S9E2</sub-title>
+    <desc lang="en">Elite power duo Babsi and Jacopo attempt a coveted free ascent of the Nameless Tower in Pakistan.</desc>
+  </programme>
+  <programme start="20261020034657 -0300" stop="20261020041254 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">Burning the flame part 2</title>
+    <sub-title lang="en">Reel Rock S9E3</sub-title>
+    <desc lang="en">Babsi Zangerl and Jacopo Larcher’s two-year big wall climbing quest comes down to one short weather window.</desc>
+  </programme>
+  <programme start="20261020041254 -0300" stop="20261020043813 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">Dna</title>
+    <sub-title lang="en">Reel Rock S9E4</sub-title>
+    <desc lang="en">French phenom Seb Bouin tackles what may be the world’s hardest sport climb in the Verdon Gorge.</desc>
+  </programme>
+  <programme start="20261020043813 -0300" stop="20261020050352 -0300" channel="RedBullWorldEnglish.int">
     <title lang="en">House of the gods part 1</title>
     <sub-title lang="en">Reel Rock S9E6</sub-title>
     <desc lang="en">Leo Houlding, Anna Taylor and Waldo Etherington attempt a new route up Mount Roraima in the Amazonian Jungle.</desc>
@@ -19318,17 +19468,6 @@
   </programme>
   <programme start="20261020080000 -0300" stop="20261020090000 -0300" channel="RewindTV.cl@SD">
     <title lang="es">Live</title>
-  </programme>
-  <programme channel="SkySportsF1.uk" start="20261019080000 -0300" stop="20261019090000 -0300">
-    <title lang="en">British Kart Champs Highlights</title>
-    <desc lang="en">Highlights from the 2026 season of the British Kart Championship, with the 10th round emanating from Silverstone.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Motor Sports</category>
-    <icon src="https://images.metadata.sky.com/pd-image/1be88244-69e9-47dd-ba28-837476b5eec9/16-9" />
-    <episode-num system="xmltv_ns">.9.</episode-num>
-    <rating system="UK">
-      <value>U</value>
-    </rating>
   </programme>
   <programme channel="SkySportsF1.uk" start="20261019090000 -0300" stop="20261019112500 -0300">
     <title lang="en">Singapore F1 Grand Prix</title>
@@ -20025,17 +20164,6 @@
     <category lang="en">Sports</category>
     <category lang="en">Motor Sports</category>
     <icon src="https://images.metadata.sky.com/pd-image/5bf9fdd0-da54-4ed2-b9e2-499774bdad64/16-9" />
-    <episode-num system="xmltv_ns">.9.</episode-num>
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme channel="SkySportsF1UHD.uk" start="20261019080000 -0300" stop="20261019090000 -0300">
-    <title lang="en">British Kart Champs Highlights</title>
-    <desc lang="en">Highlights from the 2026 season of the British Kart Championship, with the 10th round emanating from Silverstone.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Motor Sports</category>
-    <icon src="https://images.metadata.sky.com/pd-image/1be88244-69e9-47dd-ba28-837476b5eec9/16-9" />
     <episode-num system="xmltv_ns">.9.</episode-num>
     <rating system="UK">
       <value>U</value>
@@ -21220,17 +21348,6 @@
     <category lang="en">Baseball</category>
     <icon src="https://images.metadata.sky.com/pd-image/45453377-7941-4aa5-b6cf-d2975702b9c3/16-9" />
     <episode-num system="xmltv_ns">.81.</episode-num>
-  </programme>
-  <programme channel="SkySportsPremierLeague.uk" start="20261019083000 -0300" stop="20261019090000 -0300">
-    <title lang="en">PL: Brentford v Liverpool Hlts</title>
-    <desc lang="en">Following a humbling 3-0 defeat at home to Manchester City, Andoni Iraola's Liverpool face a stern test away from home against the unbeaten Brentford in the Premier League. (17.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Football</category>
-    <icon src="https://images.metadata.sky.com/pd-image/982c725e-58d7-4bc1-8126-2ae577e25e71/16-9" />
-    <episode-num system="onscreen">10</episode-num>
-    <rating system="UK">
-      <value>U</value>
-    </rating>
   </programme>
   <programme channel="SkySportsPremierLeague.uk" start="20261019090000 -0300" stop="20261019093000 -0300">
     <title lang="en">PL: Man City v Ipswich Town Hlts</title>
@@ -22791,12 +22908,6 @@
     <icon src="https://metadata-static.plex.tv/8/gracenote/8e5ae91a0d97f094d5961a4fc89a6b97.jpg" />
     <episode-num system="onscreen">S2026</episode-num>
   </programme>
-  <programme channel="TNTSports1.uk@TvVoo" start="20261019083000 -0300" stop="20261019090000 -0300">
-    <title lang="en">Premier League - The Big Interview</title>
-    <sub-title lang="en">Leeds United's Noah Okafor reflects on last season's encounter at Old Trafford</sub-title>
-    <desc lang="en">Ahead of Leeds United's crunch match against Manchester United, Noah Okafor reflects on last season's encounter at Old Trafford, when a brace secured his name in the history books.</desc>
-    <icon src="https://tv.assets.pressassociation.io/3ba18bee-7c74-5570-a1d5-a444e6bc7cd1.jpg" />
-  </programme>
   <programme channel="TNTSports1.uk@TvVoo" start="20261019090000 -0300" stop="20261019110000 -0300">
     <title lang="en">Live: Northern Ireland Open Snooker</title>
     <sub-title lang="en">Further coverage of the first round on the second day of the tournament</sub-title>
@@ -23132,12 +23243,6 @@
     <sub-title lang="en">A fast-paced look at matchday seven of the top flight</sub-title>
     <desc lang="en">A fast-paced look at matchday seven of the top flight, featuring Everton v Chelsea, Manchester City v Ipswich Town, Leeds United v Manchester United, and more.</desc>
     <icon src="https://tv.assets.pressassociation.io/92dfde0e-5bea-5a9f-ae82-b849e2174d2d.jpg" />
-  </programme>
-  <programme channel="TNTSports3.uk@TvVoo" start="20261019080000 -0300" stop="20261019090000 -0300">
-    <title lang="en">International T20 Cricket Highlights</title>
-    <sub-title lang="en">India v West Indies</sub-title>
-    <desc lang="en">India v West Indiesv. Action from the fourth T20 in the five-match series from Rajiv Gandhi International Stadium, Hyderabad.</desc>
-    <icon src="https://tv.assets.pressassociation.io/98460194-882e-544d-9705-eebf1658bcd8.jpg" />
   </programme>
   <programme channel="TNTSports3.uk@TvVoo" start="20261019090000 -0300" stop="20261019100000 -0300">
     <title lang="en">International T20 Cricket Highlights</title>
@@ -23606,24 +23711,6 @@
     <sub-title lang="en">All the best moments from matchday seven of the Italian top flight</sub-title>
     <desc lang="en">All the best moments from matchday seven of the Italian top flight, including Bologna v Inter Milan, Venezia v Napoli, Juventus v Lazio, and AC Milan v Atalanta.</desc>
     <icon src="https://tv.assets.pressassociation.io/1731c1d2-44f6-5119-b04c-77686e1b1ca7.jpg" />
-  </programme>
-  <programme channel="TVEInternacionalAmerica.es@HD" start="20261019053500 -0300" stop="20261019092000 -0300">
-    <title lang="es">Mañaneros 360</title>
-    <desc lang="es">Programa de actualidad que tiene el afán de contar temas de interés para el ciudadano, desde la actualidad política a la crónica social.</desc>
-    <credits>
-      <actor>Jaime Cantizano</actor>
-      <actor>Miriam Moreno</actor>
-      <actor>Marc Santandreu</actor>
-      <director>Eduardo Blanco</director>
-      <director>Azucena Rubiato</director>
-      <director>Rosa Balsera</director>
-      <director>Daniel Fern</director>
-    </credits>
-    <date>2023</date>
-    <category lang="es">Entertainment</category>
-    <category lang="es">News</category>
-    <icon src="http://dtil.tmsimg.com/assets/p25605204_b_h11_aa.jpg?w=960&amp;h=540" />
-    <previously-shown />
   </programme>
   <programme channel="TVEInternacionalAmerica.es@HD" start="20261019092000 -0300" stop="20261019095500 -0300">
     <title lang="es">Mañaneros 360</title>
@@ -25135,9 +25222,6 @@
     <icon src="http://dtil.tmsimg.com/assets/p31423383_b_h10_aa.jpg?w=960&amp;h=540" />
     <previously-shown />
   </programme>
-  <programme start="20261019083000 -0300" stop="20261019090000 -0300" channel="TelehitMusica.mx@SD">
-    <title lang="es">Playlist Telehit</title>
-  </programme>
   <programme start="20261019090000 -0300" stop="20261019095500 -0300" channel="TelehitMusica.mx@SD">
     <title lang="es">Top 10</title>
   </programme>
@@ -25366,17 +25450,6 @@
   <programme start="20261022013500 -0300" stop="20261022023000 -0300" channel="TelehitMusica.mx@SD">
     <title lang="es">Suena el Dembow</title>
   </programme>
-  <programme start="20261019070000 -0300" stop="20261019090000 -0300" channel="Vavoo.es.EUROSPORT1@TvVoo">
-    <title lang="es">Abierto de Irlanda del Norte de snooker</title>
-    <sub-title lang="es">Día 1 - Primera ronda</sub-title>
-    <desc lang="es">El Abierto de Irlanda del Norte de snooker se disputa del 18 al 25 de octubre en el Waterfront Hall de Belfast. Es un torneo clave de las Home Nations Series donde la élite busca el trofeo Alex Higgins. El inglés Jack Lisowski se impuso en 2025.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/84/41.jpg" />
-    <episode-num system="onscreen">S2627</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
-  </programme>
   <programme start="20261019090000 -0300" stop="20261019130000 -0300" channel="Vavoo.es.EUROSPORT1@TvVoo">
     <title lang="es">Abierto de Irlanda del Norte de snooker</title>
     <sub-title lang="es">Día 2 - Primera ronda</sub-title>
@@ -25557,12 +25630,6 @@
     <rating system="ES">
       <value>Apta</value>
     </rating>
-  </programme>
-  <programme channel="Vavoo.uk.TNTSPORTS2@TvVoo" start="20261019083000 -0300" stop="20261019090000 -0300">
-    <title lang="en">Cyclocross</title>
-    <sub-title lang="en">Action from the men's exact cross race in Meulebeke, Belgium</sub-title>
-    <desc lang="en">Action from the men's exact cross race in Meulebeke, Belgium.</desc>
-    <icon src="https://tv.assets.pressassociation.io/60bf622f-465f-5d3c-82a2-36f9337f47a6.jpg" />
   </programme>
   <programme channel="Vavoo.uk.TNTSPORTS2@TvVoo" start="20261019090000 -0300" stop="20261019100000 -0300">
     <title lang="en">Men's Cycling World Tour</title>
@@ -26001,12 +26068,6 @@
     <sub-title lang="en">The best bits from TNT Sports over the last week</sub-title>
     <desc lang="en">The best bits from TNT Sports over the last week, including exclusive interviews, top action, and more.</desc>
     <icon src="https://tv.assets.pressassociation.io/373b3062-f90c-512a-bc81-6c2e6fc73b80.jpg" />
-  </programme>
-  <programme channel="Vavoo.uk.TNTSPORTS4@TvVoo" start="20261019080000 -0300" stop="20261019090000 -0300">
-    <title lang="en">UEFA Europa League &amp; Conference League Highlights Show</title>
-    <sub-title lang="en">All the best action from the latest round of fixtures</sub-title>
-    <desc lang="en">All the best action from the latest round of fixtures.</desc>
-    <icon src="https://tv.assets.pressassociation.io/caecccc9-4e6f-54b8-b9c6-20f137b8e549.jpg" />
   </programme>
   <programme channel="Vavoo.uk.TNTSPORTS4@TvVoo" start="20261019090000 -0300" stop="20261019110000 -0300">
     <title lang="en">Live: Northern Ireland Open Snooker</title>
@@ -26723,10 +26784,6 @@
     <country lang="es">México</country>
     <episode-num system="onscreen">S0</episode-num>
   </programme>
-  <programme start="20261019070000 -0300" stop="20261019090000 -0300" channel="WinSports.co@Direct181">
-    <title lang="es">Fiorentina vs. Como</title>
-    <sub-title lang="es">Fútbol: Serie A</sub-title>
-  </programme>
   <programme start="20261019090000 -0300" stop="20261019110000 -0300" channel="WinSports.co@Direct181">
     <title lang="es">Osasuna vs. Racing de Santander</title>
     <sub-title lang="es">Fútbol LaLiga</sub-title>
@@ -26886,15 +26943,6 @@
   <programme start="20261021190000 -0300" stop="20261021210000 -0300" channel="WinSports.co@Direct181">
     <title lang="es">Real Betis vs. Feyenoord</title>
     <sub-title lang="es">Fútbol UEFA Champions League</sub-title>
-  </programme>
-  <programme start="20261019070000 -0300" stop="20261019090000 -0300" channel="XITE80sFlashback.us">
-    <title lang="en">Wide Awake 80s</title>
-    <desc lang="en">Get your day started with these 80s music videos.</desc>
-    <category lang="en">Music</category>
-    <icon src="https://demp3evtv0qgp.cloudfront.net/F80BK/80s-flashback-wide-awake-80s.png" />
-    <rating system="US">
-      <value>NR</value>
-    </rating>
   </programme>
   <programme start="20261019090000 -0300" stop="20261019130000 -0300" channel="XITE80sFlashback.us">
     <title lang="en">Wake Up And Go-Go</title>
@@ -27162,15 +27210,6 @@
     <desc lang="en">Simply the best 80s music video hits.</desc>
     <category lang="en">Music</category>
     <icon src="https://demp3evtv0qgp.cloudfront.net/F80BK/80s-flashback.png" />
-    <rating system="US">
-      <value>NR</value>
-    </rating>
-  </programme>
-  <programme start="20261019070000 -0300" stop="20261019090000 -0300" channel="XITE90sThrowback.us">
-    <title lang="en">90s Mornings</title>
-    <desc lang="en">Rise and shine with these 90s music videos.</desc>
-    <category lang="en">Music</category>
-    <icon src="https://demp3evtv0qgp.cloudfront.net/T90BK/90-s-mornings-16_9.png" />
     <rating system="US">
       <value>NR</value>
     </rating>
@@ -27697,15 +27736,6 @@
       <value>14</value>
     </rating>
   </programme>
-  <programme start="20261019070000 -0300" stop="20261019090000 -0300" channel="XITEJustChill.nl">
-    <title lang="en">Mellow Music Sunrise</title>
-    <desc lang="en">Start the day in harmony with these serene music videos.</desc>
-    <category lang="en">Music</category>
-    <icon src="https://demp3evtv0qgp.cloudfront.net/mellow-music-sunrise-16_9.png" />
-    <rating system="US">
-      <value>NR</value>
-    </rating>
-  </programme>
   <programme start="20261019090000 -0300" stop="20261019130000 -0300" channel="XITEJustChill.nl">
     <title lang="en">Easy Morning Vibes</title>
     <desc lang="en">Welcome the sun with these mellow music videos.</desc>
@@ -27974,15 +28004,6 @@
     <icon src="https://demp3evtv0qgp.cloudfront.net/lean-back-hits-16_9.png" />
     <rating system="US">
       <value>NR</value>
-    </rating>
-  </programme>
-  <programme start="20261019050000 -0300" stop="20261019090000 -0300" channel="XITENuevoLatino.us">
-    <title lang="en">Latin Night Hits</title>
-    <desc lang="en">Ignite your late-night vibes with these Latin hits.</desc>
-    <category lang="en">Music</category>
-    <icon src="https://demp3evtv0qgp.cloudfront.net/XNULA/latin-night-hits-16-9.png" />
-    <rating system="US">
-      <value>TV-14</value>
     </rating>
   </programme>
   <programme start="20261019090000 -0300" stop="20261019110000 -0300" channel="XITENuevoLatino.us">
@@ -28255,15 +28276,6 @@
       <value>TV-14</value>
     </rating>
   </programme>
-  <programme start="20261019070000 -0300" stop="20261019090000 -0300" channel="XITERockxMetal.nl">
-    <title lang="en">Rise &amp; Rock</title>
-    <desc lang="en">Embrace the power of Rock and Metal as daybreak ignites your fierce spirit.</desc>
-    <category lang="en">Music</category>
-    <icon src="https://demp3evtv0qgp.cloudfront.net/XITRK/rise-rock-16_9.png" />
-    <rating system="US">
-      <value>NR</value>
-    </rating>
-  </programme>
   <programme start="20261019090000 -0300" stop="20261019130000 -0300" channel="XITERockxMetal.nl">
     <title lang="en">Full Throttle Rock</title>
     <desc lang="en">Take charge of your day with these absolute Rock gems.</desc>
@@ -28532,15 +28544,6 @@
     <icon src="https://demp3evtv0qgp.cloudfront.net/XITRK/amplified-anthems-16_9.png" />
     <rating system="US">
       <value>NR</value>
-    </rating>
-  </programme>
-  <programme start="20261019070000 -0300" stop="20261019090000 -0300" channel="XITESiempreLatino.us">
-    <title lang="en">Esencia Latina</title>
-    <desc lang="en">Step through the eras with these nostalgic Latin hits.</desc>
-    <category lang="en">Music</category>
-    <icon src="https://demp3evtv0qgp.cloudfront.net/XITSL/esencia-latina-16_9.png" />
-    <rating system="US">
-      <value>14</value>
     </rating>
   </programme>
   <programme start="20261019090000 -0300" stop="20261019130000 -0300" channel="XITESiempreLatino.us">
@@ -29342,12 +29345,6 @@
       <value>Apta</value>
     </rating>
   </programme>
-  <programme channel="unitedkingdom|vavoo_TNT%20SPORT%201%7Cgroup%3Auk@TvVoo" start="20261019083000 -0300" stop="20261019090000 -0300">
-    <title lang="en">Premier League - The Big Interview</title>
-    <sub-title lang="en">Leeds United's Noah Okafor reflects on last season's encounter at Old Trafford</sub-title>
-    <desc lang="en">Ahead of Leeds United's crunch match against Manchester United, Noah Okafor reflects on last season's encounter at Old Trafford, when a brace secured his name in the history books.</desc>
-    <icon src="https://tv.assets.pressassociation.io/3ba18bee-7c74-5570-a1d5-a444e6bc7cd1.jpg" />
-  </programme>
   <programme channel="unitedkingdom|vavoo_TNT%20SPORT%201%7Cgroup%3Auk@TvVoo" start="20261019090000 -0300" stop="20261019110000 -0300">
     <title lang="en">Live: Northern Ireland Open Snooker</title>
     <sub-title lang="en">Further coverage of the first round on the second day of the tournament</sub-title>
@@ -29683,12 +29680,6 @@
     <sub-title lang="en">A fast-paced look at matchday seven of the top flight</sub-title>
     <desc lang="en">A fast-paced look at matchday seven of the top flight, featuring Everton v Chelsea, Manchester City v Ipswich Town, Leeds United v Manchester United, and more.</desc>
     <icon src="https://tv.assets.pressassociation.io/92dfde0e-5bea-5a9f-ae82-b849e2174d2d.jpg" />
-  </programme>
-  <programme channel="unitedkingdom|vavoo_TNT%20SPORT%202%7Cgroup%3Auk@TvVoo" start="20261019083000 -0300" stop="20261019090000 -0300">
-    <title lang="en">Cyclocross</title>
-    <sub-title lang="en">Action from the men's exact cross race in Meulebeke, Belgium</sub-title>
-    <desc lang="en">Action from the men's exact cross race in Meulebeke, Belgium.</desc>
-    <icon src="https://tv.assets.pressassociation.io/60bf622f-465f-5d3c-82a2-36f9337f47a6.jpg" />
   </programme>
   <programme channel="unitedkingdom|vavoo_TNT%20SPORT%202%7Cgroup%3Auk@TvVoo" start="20261019090000 -0300" stop="20261019100000 -0300">
     <title lang="en">Men's Cycling World Tour</title>
@@ -30127,12 +30118,6 @@
     <sub-title lang="en">The best bits from TNT Sports over the last week</sub-title>
     <desc lang="en">The best bits from TNT Sports over the last week, including exclusive interviews, top action, and more.</desc>
     <icon src="https://tv.assets.pressassociation.io/373b3062-f90c-512a-bc81-6c2e6fc73b80.jpg" />
-  </programme>
-  <programme channel="unitedkingdom|vavoo_TNT%20SPORTS%203%7Cgroup%3Auk@TvVoo" start="20261019080000 -0300" stop="20261019090000 -0300">
-    <title lang="en">International T20 Cricket Highlights</title>
-    <sub-title lang="en">India v West Indies</sub-title>
-    <desc lang="en">India v West Indiesv. Action from the fourth T20 in the five-match series from Rajiv Gandhi International Stadium, Hyderabad.</desc>
-    <icon src="https://tv.assets.pressassociation.io/98460194-882e-544d-9705-eebf1658bcd8.jpg" />
   </programme>
   <programme channel="unitedkingdom|vavoo_TNT%20SPORTS%203%7Cgroup%3Auk@TvVoo" start="20261019090000 -0300" stop="20261019100000 -0300">
     <title lang="en">International T20 Cricket Highlights</title>
@@ -30602,12 +30587,6 @@
     <desc lang="en">All the best moments from matchday seven of the Italian top flight, including Bologna v Inter Milan, Venezia v Napoli, Juventus v Lazio, and AC Milan v Atalanta.</desc>
     <icon src="https://tv.assets.pressassociation.io/1731c1d2-44f6-5119-b04c-77686e1b1ca7.jpg" />
   </programme>
-  <programme channel="unitedkingdom|vavoo_TNT%20SPORT%204%7Cgroup%3Auk@TvVoo" start="20261019080000 -0300" stop="20261019090000 -0300">
-    <title lang="en">UEFA Europa League &amp; Conference League Highlights Show</title>
-    <sub-title lang="en">All the best action from the latest round of fixtures</sub-title>
-    <desc lang="en">All the best action from the latest round of fixtures.</desc>
-    <icon src="https://tv.assets.pressassociation.io/caecccc9-4e6f-54b8-b9c6-20f137b8e549.jpg" />
-  </programme>
   <programme channel="unitedkingdom|vavoo_TNT%20SPORT%204%7Cgroup%3Auk@TvVoo" start="20261019090000 -0300" stop="20261019110000 -0300">
     <title lang="en">Live: Northern Ireland Open Snooker</title>
     <sub-title lang="en">Further coverage of the first round on the second day of the tournament</sub-title>
@@ -30932,17 +30911,6 @@
     <desc lang="en">Action from Salt Lake City, USA.</desc>
     <icon src="https://tv.assets.pressassociation.io/385a6d28-8087-5a25-989b-f85095eac787.jpg" />
   </programme>
-  <programme start="20261019070000 -0300" stop="20261019090000 -0300" channel="spain|vavoo_EUROSPORT%201%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Abierto de Irlanda del Norte de snooker</title>
-    <sub-title lang="es">Día 1 - Primera ronda</sub-title>
-    <desc lang="es">El Abierto de Irlanda del Norte de snooker se disputa del 18 al 25 de octubre en el Waterfront Hall de Belfast. Es un torneo clave de las Home Nations Series donde la élite busca el trofeo Alex Higgins. El inglés Jack Lisowski se impuso en 2025.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/84/41.jpg" />
-    <episode-num system="onscreen">S2627</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
-  </programme>
   <programme start="20261019090000 -0300" stop="20261019130000 -0300" channel="spain|vavoo_EUROSPORT%201%7Cgroup%3Aes@TvVoo">
     <title lang="es">Abierto de Irlanda del Norte de snooker</title>
     <sub-title lang="es">Día 2 - Primera ronda</sub-title>
@@ -31120,18 +31088,6 @@
     <date>2026</date>
     <icon src="https://cdn.sincroguia.tv/storage/84/41.jpg" />
     <episode-num system="onscreen">S2627</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
-  </programme>
-  <programme start="20261019070000 -0300" stop="20261019090000 -0300" channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Mundial de ciclismo en carretera</title>
-    <sub-title lang="es">Ruta F</sub-title>
-    <desc lang="es">Montreal se viste de arcoíris con el Mundial de Ciclismo en carretera. Del 20 al 27 de septiembre, cerca de mil ciclistas pelean por 13 títulos en contrarreloj, ruta y relevos mixtos. El exigente circuito del Mont-Royal pone a prueba a pelotones júnior, sub-23 y élite.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/84/41.jpg" />
-    <country lang="es">Canadá</country>
-    <episode-num system="onscreen">S2026</episode-num>
     <rating system="ES">
       <value>Apta</value>
     </rating>
@@ -31355,417 +31311,5 @@
     <rating system="ES">
       <value>Apta</value>
     </rating>
-  </programme>
-  <programme start="20261019090000 -0300" stop="20261019093000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="es">Aguas arriba</title>
-    <desc lang="es">La experiencia de la pesca con mosca en Latinoamérica. La búsqueda de truchas en la Patagonia, "sea trout" y salmones en Chile, dorados en el norte de Argentina y las magníficas especies como "bonefish", "permit" y "tarpon" de Centroamérica y Caribe.</desc>
-    <credits>
-      <actor>Pablo Rodrigo Pérez</actor>
-    </credits>
-    <date>2018</date>
-    <category lang="es">Fishing</category>
-    <icon src="http://dtil.tmsimg.com/assets/p16225204_b_h8_aa.jpg?w=960&amp;h=540" />
-    <previously-shown />
-  </programme>
-  <programme start="20261019093000 -0300" stop="20261019100000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="en">UEFA Champions League Weekly</title>
-    <desc lang="es">Momentos destacados, entrevistas y toda la información de la jornada semanal de la UEFA Champions League.</desc>
-    <date>2004</date>
-    <category lang="en">Sports talk</category>
-    <category lang="en">Soccer</category>
-    <icon src="http://dtil.tmsimg.com/assets/p519458_b_h10_aa.jpg?w=960&amp;h=540" />
-    <previously-shown />
-  </programme>
-  <programme start="20261019100000 -0300" stop="20261019120000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="es">Fútbol EFL Championship</title>
-    <desc lang="es">Acción de la jornada 11 de la EFL temporada 2026-27. Watford busca salir de la zona de descenso y Charlton Athletic romper su racha de dos empates.</desc>
-    <category lang="es">Sports</category>
-    <category lang="es">Soccer</category>
-    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG00391XTE.jpg?w=960&amp;h=540" />
-    <previously-shown />
-  </programme>
-  <programme start="20261019120000 -0300" stop="20261019140000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="es">Fútbol Bundesliga</title>
-    <desc lang="es">Acción de la jornada 6 de la Bundesliga 2026-27. Los Bávaros buscan el liderato y Leipzig su segunda victoria al hilo.</desc>
-    <category lang="es">Sports</category>
-    <category lang="es">Soccer</category>
-    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003B004L.jpg?w=960&amp;h=540" />
-    <previously-shown />
-  </programme>
-  <programme start="20261019140000 -0300" stop="20261019160000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="es">Tenis ATP Rolex Shanghai Masters 2026</title>
-    <desc lang="es">Cobertura de la gran final del Shangai Masters 2026 de la ATP. Desde la Qizhong Forest Sports City Arena.</desc>
-    <category lang="es">Sports</category>
-    <category lang="es">Tennis</category>
-    <icon src="http://dtil.tmsimg.com/assets/p33511409_b_h10_ag.jpg?w=960&amp;h=540" />
-    <previously-shown />
-  </programme>
-  <programme start="20261019160000 -0300" stop="20261019170000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="en">ESPN Compact</title>
-    <desc lang="es">Resumen de la semifinal femenina de Premier Padel Milán P1. Disputado el 17 de octubre de 2026, en el Allianz Cloud, en Milán, Italia.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Classic Sport Event</category>
-    <icon src="http://dtil.tmsimg.com/assets/p9595055_b_h10_ac.jpg?w=960&amp;h=540" />
-    <episode-num system="onscreen">E369</episode-num>
-    <previously-shown />
-  </programme>
-  <programme start="20261019170000 -0300" stop="20261019180000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="en">ESPN Compact</title>
-    <desc lang="es">Resumen de la semifinal masculina de Premier Padel Milán P1. Disputado el 17 de octubre de 2026, en el Allianz Cloud, en Milán, Italia.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Classic Sport Event</category>
-    <icon src="http://dtil.tmsimg.com/assets/p9595055_b_h10_ac.jpg?w=960&amp;h=540" />
-    <episode-num system="onscreen">E370</episode-num>
-    <previously-shown />
-  </programme>
-  <programme start="20261019180000 -0300" stop="20261019200000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="es">Fútbol EFL Championship</title>
-    <desc lang="es">Acción de la jornada 11 de la EFL temporada 2026-27. Watford busca salir de la zona de descenso y Charlton Athletic romper su racha de dos empates.</desc>
-    <category lang="es">Sports</category>
-    <category lang="es">Soccer</category>
-    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG00391XTE.jpg?w=960&amp;h=540" />
-    <previously-shown />
-  </programme>
-  <programme start="20261019200000 -0300" stop="20261019220000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="es">Fútbol Bundesliga</title>
-    <desc lang="es">Acción de la jornada 6 de la Bundesliga 2026-27. Los Bávaros buscan el liderato y Leipzig su segunda victoria al hilo.</desc>
-    <category lang="es">Sports</category>
-    <category lang="es">Soccer</category>
-    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003B004L.jpg?w=960&amp;h=540" />
-    <previously-shown />
-  </programme>
-  <programme start="20261019220000 -0300" stop="20261019230000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="en">Bundesliga Highlights Show</title>
-    <desc lang="es">Disfruta los juegos de las 34 jornadas de una de las ligas más prestigiosas a nivel mundial.</desc>
-    <date>2020</date>
-    <category lang="en">Soccer</category>
-    <icon src="http://dtil.tmsimg.com/assets/p18849671_b_h8_ab.jpg?w=960&amp;h=540" />
-    <previously-shown />
-    <rating system="USA Parental Rating">
-      <value>TVG</value>
-    </rating>
-    <rating system="Régie du cinéma">
-      <value>G</value>
-    </rating>
-    <rating system="Canadian Parental Rating">
-      <value>G</value>
-    </rating>
-  </programme>
-  <programme start="20261019230000 -0300" stop="20261020000000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="en">UEFA Europa &amp; Conference League Magazine</title>
-    <desc lang="es">Noticias, entrevistas, momentos destacados, historias y análisis de los equipos de la UEFA Europa League y la UEFA Conference League.</desc>
-    <date>2021</date>
-    <category lang="en">Soccer</category>
-    <category lang="en">Sports talk</category>
-    <icon src="http://dtil.tmsimg.com/assets/p20628666_b_h8_ab.jpg?w=960&amp;h=540" />
-    <previously-shown />
-    <rating system="Ministero della Cultura">
-      <value>T</value>
-    </rating>
-  </programme>
-  <programme start="20261020000000 -0300" stop="20261020020000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="es">Fútbol Eredivisie</title>
-    <desc lang="es">Fecha 9 de la Eredivisie temporada 2026-27. Groningen, en sexto lugar del torneo, busca aprovechar la localía para superar a Ajax, en quinto. Desde el Euroborg, en Groningen.</desc>
-    <category lang="es">Sports</category>
-    <category lang="es">Soccer</category>
-    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG0038KM7V.jpg?w=960&amp;h=540" />
-    <previously-shown />
-  </programme>
-  <programme start="20261020020000 -0300" stop="20261020030000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="en">Bundesliga Highlights Show</title>
-    <desc lang="es">Disfruta los juegos de las 34 jornadas de una de las ligas más prestigiosas a nivel mundial.</desc>
-    <date>2020</date>
-    <category lang="en">Soccer</category>
-    <icon src="http://dtil.tmsimg.com/assets/p18849671_b_h8_ab.jpg?w=960&amp;h=540" />
-    <previously-shown />
-    <rating system="USA Parental Rating">
-      <value>TVG</value>
-    </rating>
-    <rating system="Régie du cinéma">
-      <value>G</value>
-    </rating>
-    <rating system="Canadian Parental Rating">
-      <value>G</value>
-    </rating>
-  </programme>
-  <programme start="20261020030000 -0300" stop="20261020033000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="en">UEFA Champions League Weekly</title>
-    <desc lang="es">Momentos destacados, entrevistas y toda la información de la jornada semanal de la UEFA Champions League.</desc>
-    <date>2004</date>
-    <category lang="en">Sports talk</category>
-    <category lang="en">Soccer</category>
-    <icon src="http://dtil.tmsimg.com/assets/p519458_b_h10_aa.jpg?w=960&amp;h=540" />
-    <previously-shown />
-  </programme>
-  <programme start="20261020033000 -0300" stop="20261020040000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="en">FIM Road Racing World Championship Highlights</title>
-    <desc lang="es">Recopilación de los momentos más emocionantes de las carreras del campeonato mundial de motociclismo.</desc>
-    <date>2005</date>
-    <category lang="en">Motorcycle racing</category>
-    <category lang="en">Motorcycle</category>
-    <category lang="en">Motorsports</category>
-    <icon src="http://dtil.tmsimg.com/assets/p383182_b_h10_ab.jpg?w=960&amp;h=540" />
-    <previously-shown />
-  </programme>
-  <programme start="20261020040000 -0300" stop="20261020050000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="en">ESPN Compact</title>
-    <desc lang="es">Resumen de la final femenina de Premier Padel Milán P1. Disputado el 18 de octubre de 2026, en el Allianz Cloud, en Milán, Italia.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Classic Sport Event</category>
-    <icon src="http://dtil.tmsimg.com/assets/p9595055_b_h10_ac.jpg?w=960&amp;h=540" />
-    <episode-num system="onscreen">E377</episode-num>
-    <previously-shown />
-  </programme>
-  <programme start="20261020050000 -0300" stop="20261020060000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="en">ESPN Compact</title>
-    <desc lang="es">Resumen de la final masculina de Premier Padel Milán P1. Disputado el 18 de octubre de 2026, en el Allianz Cloud, en Milán, Italia.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Classic Sport Event</category>
-    <icon src="http://dtil.tmsimg.com/assets/p9595055_b_h10_ac.jpg?w=960&amp;h=540" />
-    <episode-num system="onscreen">E374</episode-num>
-    <previously-shown />
-  </programme>
-  <programme start="20261020060000 -0300" stop="20261020090000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="es">Fútbol Americano NFL</title>
-    <desc lang="es">Semana 6 de la temporada regular 2026 de la NFL. Desde el Mercedes Benz-Stadium, en Atlanta. Chicago Bears lidera la serie histórica 16-14. En la campaña pasada, Atlanta Falcons mantuvo una marca de 7-5 ante equipos de la Conferencia Nacional.</desc>
-    <category lang="es">Sports</category>
-    <category lang="es">Football</category>
-    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG0039LE6Q.jpg?w=960&amp;h=540" />
-    <previously-shown />
-  </programme>
-  <programme start="20261020090000 -0300" stop="20261020093000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="es">Aguas arriba</title>
-    <desc lang="es">La experiencia de la pesca con mosca en Latinoamérica. La búsqueda de truchas en la Patagonia, "sea trout" y salmones en Chile, dorados en el norte de Argentina y las magníficas especies como "bonefish", "permit" y "tarpon" de Centroamérica y Caribe.</desc>
-    <credits>
-      <actor>Pablo Rodrigo Pérez</actor>
-    </credits>
-    <date>2018</date>
-    <category lang="es">Fishing</category>
-    <icon src="http://dtil.tmsimg.com/assets/p16225204_b_h8_aa.jpg?w=960&amp;h=540" />
-    <previously-shown />
-  </programme>
-  <programme start="20261020093000 -0300" stop="20261020100000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="en">FIM Road Racing World Championship Highlights</title>
-    <desc lang="es">Recopilación de los momentos más emocionantes de las carreras del campeonato mundial de motociclismo.</desc>
-    <date>2005</date>
-    <category lang="en">Motorcycle racing</category>
-    <category lang="en">Motorcycle</category>
-    <category lang="en">Motorsports</category>
-    <icon src="http://dtil.tmsimg.com/assets/p383182_b_h10_ab.jpg?w=960&amp;h=540" />
-    <previously-shown />
-  </programme>
-  <programme start="20261020100000 -0300" stop="20261020120000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="es">Fútbol EFL Championship</title>
-    <desc lang="es">Acción de la jornada 11 de la EFL temporada 2026-27. Watford busca salir de la zona de descenso y Charlton Athletic romper su racha de dos empates.</desc>
-    <category lang="es">Sports</category>
-    <category lang="es">Soccer</category>
-    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG00391XTE.jpg?w=960&amp;h=540" />
-    <previously-shown />
-  </programme>
-  <programme start="20261020120000 -0300" stop="20261020130000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="en">ESPN Compact</title>
-    <desc lang="es">Resumen de la final femenina de Premier Padel Milán P1. Disputado el 18 de octubre de 2026, en el Allianz Cloud, en Milán, Italia.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Classic Sport Event</category>
-    <icon src="http://dtil.tmsimg.com/assets/p9595055_b_h10_ac.jpg?w=960&amp;h=540" />
-    <episode-num system="onscreen">E377</episode-num>
-    <previously-shown />
-  </programme>
-  <programme start="20261020130000 -0300" stop="20261020140000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="en">ESPN Compact</title>
-    <desc lang="es">Resumen de la semifinal masculina de Premier Padel Milán P1. Disputado el 17 de octubre de 2026, en el Allianz Cloud, en Milán, Italia.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Classic Sport Event</category>
-    <icon src="http://dtil.tmsimg.com/assets/p9595055_b_h10_ac.jpg?w=960&amp;h=540" />
-    <episode-num system="onscreen">E370</episode-num>
-    <previously-shown />
-  </programme>
-  <programme start="20261020140000 -0300" stop="20261020150000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="en">ESPN Compact</title>
-    <desc lang="es">Resumen de la final masculina de Premier Padel Milán P1. Disputado el 18 de octubre de 2026, en el Allianz Cloud, en Milán, Italia.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Classic Sport Event</category>
-    <icon src="http://dtil.tmsimg.com/assets/p9595055_b_h10_ac.jpg?w=960&amp;h=540" />
-    <episode-num system="onscreen">E374</episode-num>
-    <previously-shown />
-  </programme>
-  <programme start="20261020150000 -0300" stop="20261020153000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="en">FIM Road Racing World Championship Highlights</title>
-    <desc lang="es">Recopilación de los momentos más emocionantes de las carreras del campeonato mundial de motociclismo.</desc>
-    <date>2005</date>
-    <category lang="en">Motorcycle racing</category>
-    <category lang="en">Motorcycle</category>
-    <category lang="en">Motorsports</category>
-    <icon src="http://dtil.tmsimg.com/assets/p383182_b_h10_ab.jpg?w=960&amp;h=540" />
-    <previously-shown />
-  </programme>
-  <programme start="20261020153000 -0300" stop="20261020154000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="en">Premier Padel Tennis</title>
-    <desc lang="es">Los mejores momentos del Mundial de Pádel 2024. Realizado del 28 de octubre al 2 de noviembre de 2024, en Doha, Catar.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Racquet</category>
-    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003NZYDF.jpg?w=960&amp;h=540" />
-    <previously-shown />
-  </programme>
-  <programme start="20261020154000 -0300" stop="20261020180000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="es">Live: Fútbol UEFA Champions League</title>
-    <desc lang="es">Acción de la jornada 3 de la fase de liga de la UEFA Champions League 2026-27. Stuttgart busca su tercera victoria y el Atleti mantenerse en zona de clasificación.</desc>
-    <category lang="es">Sports</category>
-    <category lang="es">Soccer</category>
-    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003M0X65.jpg?w=960&amp;h=540" />
-    <premiere />
-  </programme>
-  <programme start="20261020180000 -0300" stop="20261020200000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="es">Fútbol Bundesliga</title>
-    <desc lang="es">Acción de la jornada 6 de la Bundesliga 2026-27. Leverkusen busca su tercera victoria al hilo y Freiburg retener el liderato.</desc>
-    <category lang="es">Sports</category>
-    <category lang="es">Soccer</category>
-    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003B0DNW.jpg?w=960&amp;h=540" />
-    <previously-shown />
-  </programme>
-  <programme start="20261020200000 -0300" stop="20261020210000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="en">Bundesliga Highlights Show</title>
-    <desc lang="es">Disfruta los juegos de las 34 jornadas de una de las ligas más prestigiosas a nivel mundial.</desc>
-    <date>2020</date>
-    <category lang="en">Soccer</category>
-    <icon src="http://dtil.tmsimg.com/assets/p18849671_b_h8_ab.jpg?w=960&amp;h=540" />
-    <previously-shown />
-    <rating system="USA Parental Rating">
-      <value>TVG</value>
-    </rating>
-    <rating system="Régie du cinéma">
-      <value>G</value>
-    </rating>
-    <rating system="Canadian Parental Rating">
-      <value>G</value>
-    </rating>
-  </programme>
-  <programme start="20261020210000 -0300" stop="20261020220000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="es">NFL Semanal</title>
-    <desc lang="es">La mejor cobertura y toda la acción del fútbol americano.</desc>
-    <date>2002</date>
-    <category lang="es">Football</category>
-    <icon src="http://dtil.tmsimg.com/assets/p448795_b_h12_aa.jpg?w=960&amp;h=540" />
-    <previously-shown />
-  </programme>
-  <programme start="20261020220000 -0300" stop="20261021000000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="es">Fútbol UEFA Champions League</title>
-    <desc lang="es">Acción de la jornada 3 de la fase de liga de la UEFA Champions League 2026-27. Sabah busca su segunda victoria al hilo y Dortmund mantenerse en zona de clasificación.</desc>
-    <category lang="es">Sports</category>
-    <category lang="es">Soccer</category>
-    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003M0QC2.jpg?w=960&amp;h=540" />
-    <previously-shown />
-  </programme>
-  <programme start="20261021000000 -0300" stop="20261021020000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="es">Tenis ATP Rolex Shanghai Masters 2026</title>
-    <desc lang="es">Cobertura de la gran final del Shangai Masters 2026 de la ATP. Desde la Qizhong Forest Sports City Arena.</desc>
-    <category lang="es">Sports</category>
-    <category lang="es">Tennis</category>
-    <icon src="http://dtil.tmsimg.com/assets/p33511409_b_h10_ag.jpg?w=960&amp;h=540" />
-    <previously-shown />
-  </programme>
-  <programme start="20261021020000 -0300" stop="20261021040000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="es">Fútbol UEFA Champions League</title>
-    <desc lang="es">Acción de la jornada 3 de la fase de liga de la UEFA Champions League 2026-27. Stuttgart busca su tercera victoria y el Atleti mantenerse en zona de clasificación.</desc>
-    <category lang="es">Sports</category>
-    <category lang="es">Soccer</category>
-    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003M0X65.jpg?w=960&amp;h=540" />
-    <previously-shown />
-  </programme>
-  <programme start="20261021040000 -0300" stop="20261021060000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="es">Fútbol UEFA Champions League</title>
-    <desc lang="es">Acción de la jornada 3 de la fase de liga de la UEFA Champions League 2026-27. Fenerbahce busca su primera victoria y Slavia Praga sus primeros puntos.</desc>
-    <category lang="es">Sports</category>
-    <category lang="es">Soccer</category>
-    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003PXNZ0.jpg?w=960&amp;h=540" />
-    <previously-shown />
-  </programme>
-  <programme start="20261021060000 -0300" stop="20261021090000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="es">Fútbol Americano NFL</title>
-    <desc lang="es">Green Bay Packers recibe a Dallas Cowboys en la semana 6 de la NFL. La semana pasada, Green Bay venció a Chicago por 31-7 y acumula dos victorias consecutivas. Dallas llega tras una derrota por 24-16 ante Tampa Bay.</desc>
-    <category lang="es">Sports</category>
-    <category lang="es">Football</category>
-    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG0039KDH8.jpg?w=960&amp;h=540" />
-    <previously-shown />
-  </programme>
-  <programme start="20261021090000 -0300" stop="20261021100000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="en">UEFA Champions League Highlights</title>
-    <desc lang="es">Resultados y las mejores jugadas de la Copa UEFA de clubes Campeones.</desc>
-    <date>2004</date>
-    <category lang="en">Soccer</category>
-    <icon src="http://dtil.tmsimg.com/assets/p969764_b_h10_ac.jpg?w=960&amp;h=540" />
-    <previously-shown />
-  </programme>
-  <programme start="20261021100000 -0300" stop="20261021120000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="es">Fútbol UEFA Champions League</title>
-    <desc lang="es">Acción de la jornada 3 de la fase de liga de la UEFA Champions League 2026-27. Porto busca sus primeros puntos y PSV su primera victoria.</desc>
-    <category lang="es">Sports</category>
-    <category lang="es">Soccer</category>
-    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003M1NVT.jpg?w=960&amp;h=540" />
-    <previously-shown />
-  </programme>
-  <programme start="20261021120000 -0300" stop="20261021130000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="es">NFL Semanal</title>
-    <desc lang="es">La mejor cobertura y toda la acción del fútbol americano.</desc>
-    <date>2002</date>
-    <category lang="es">Football</category>
-    <icon src="http://dtil.tmsimg.com/assets/p448795_b_h12_aa.jpg?w=960&amp;h=540" />
-    <previously-shown />
-  </programme>
-  <programme start="20261021130000 -0300" stop="20261021131000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="en">Premier Padel Tennis</title>
-    <desc lang="es">Los mejores momentos del Mundial de Pádel 2024. Realizado del 28 de octubre al 2 de noviembre de 2024, en Doha, Catar.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Racquet</category>
-    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003NZYDF.jpg?w=960&amp;h=540" />
-    <previously-shown />
-  </programme>
-  <programme start="20261021131000 -0300" stop="20261021154000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="es">Hockey NHL</title>
-    <desc lang="es">Desde T-Mobile Arena, en Las Vegas, Estados Unidos.</desc>
-    <category lang="es">Sports</category>
-    <category lang="es">Hockey</category>
-    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003MFQ0K.jpg?w=960&amp;h=540" />
-    <previously-shown />
-  </programme>
-  <programme start="20261021154000 -0300" stop="20261021180000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="es">Live: Fútbol UEFA Champions League</title>
-    <desc lang="es">Acción de la jornada 3 de la fase de liga de la UEFA Champions League 2026-27. Brujas busca su segunda victoria al hilo y Lens mantenerse en zona de clasificación.</desc>
-    <category lang="es">Sports</category>
-    <category lang="es">Soccer</category>
-    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003M16GM.jpg?w=960&amp;h=540" />
-    <premiere />
-  </programme>
-  <programme start="20261021180000 -0300" stop="20261021200000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="es">Fútbol UEFA Champions League</title>
-    <desc lang="es">Acción de la jornada 3 de la fase de liga de la UEFA Champions League 2026-27. Como y Manchester United buscan ganar tras perder.</desc>
-    <category lang="es">Sports</category>
-    <category lang="es">Soccer</category>
-    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003JE1CE.jpg?w=960&amp;h=540" />
-    <previously-shown />
-  </programme>
-  <programme start="20261021200000 -0300" stop="20261021220000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="es">Fútbol UEFA Champions League</title>
-    <desc lang="es">Acción de la jornada 3 de la fase de liga de la UEFA Champions League 2026-27. Los Bávaros buscan ganar tras empatar y los Gunners su tercera victoria al hilo.</desc>
-    <category lang="es">Sports</category>
-    <category lang="es">Soccer</category>
-    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003M1BVY.jpg?w=960&amp;h=540" />
-    <previously-shown />
-  </programme>
-  <programme start="20261021220000 -0300" stop="20261022000000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="es">Fútbol UEFA Champions League</title>
-    <desc lang="es">Acción de la jornada 3 de la fase de liga de la UEFA Champions League 2026-27. Lille y Galatasaray buscan sus primeros puntos.</desc>
-    <category lang="es">Sports</category>
-    <category lang="es">Soccer</category>
-    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003M151W.jpg?w=960&amp;h=540" />
-    <previously-shown />
-  </programme>
-  <programme start="20261022000000 -0300" stop="20261022020000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="es">Fútbol UEFA Champions League</title>
-    <desc lang="es">Acción de la jornada 3 de la fase de liga de la UEFA Champions League 2026-27. Duelo por el liderato.</desc>
-    <category lang="es">Sports</category>
-    <category lang="es">Soccer</category>
-    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003M0V1R.jpg?w=960&amp;h=540" />
-    <previously-shown />
   </programme>
 </tv>
