@@ -1,20 +1,27 @@
 {
   "schema": 1,
-  "updated_at": "2026-10-19T18:28:36.979127Z",
+  "updated_at": "2026-10-19T21:37:46.492694Z",
   "channels": [
-    "Meganoticias.cl"
+    "Meganoticias.cl",
+    "PublicDirect.3ba5922c6040fadb816835b1"
   ],
   "details": {
     "Meganoticias.cl": {
       "kind": "hueco",
-      "futureHours": 32.5,
+      "futureHours": 29.4,
       "requiredHours": 18.0,
       "gaps": [
         [
-          "2026-10-19T18:30:00Z",
+          "2026-10-19T23:00:00Z",
           "2026-10-20T03:00:00Z"
         ]
       ]
+    },
+    "PublicDirect.3ba5922c6040fadb816835b1": {
+      "kind": "guia-corta",
+      "futureHours": 17.2,
+      "requiredHours": 18.0,
+      "gaps": []
     }
   }
 }
