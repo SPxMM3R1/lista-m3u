@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "atUtc": "2026-10-19T21:28:30Z",
+  "authorization": "Usuario: ?Elimina todos los TLC?.",
+  "change": "Todas las filas activas llamadas TLC pasan a la papelera reversible (no tombstones).",
+  "deleted": [
+    {
+      "tvgId": "PublicDirect.931e01927375c4e7027f2087",
+      "name": "DISCOVERY TLC",
+      "number": 388
+    },
+    {
+      "tvgId": "PublicDirect.c319f5dc4275be9919e888be",
+      "name": "TLC",
+      "number": 1241
+    }
+  ],
+  "alreadyInTrash": "24 filas TLC ya estaban en papelera, incluidas las que la app mando ese mismo dia (commits 7b296495 y 76e378ea); no se reactivan.",
+  "list1": "Sin cambios de membresia (66 filas, incluidos los respaldos ESPN 7); todos los TLC eran de Lista 2.",
+  "counts": {
+    "antes": {
+      "list1Publicada": 66,
+      "list2Publicada": 1419,
+      "list2LayoutActivos": 1396,
+      "catalogo": 6599
+    },
+    "despues": {
+      "list1Publicada": 66,
+      "list2Publicada": 1417,
+      "list2LayoutActivos": 1394,
+      "catalogo": 6599
+    }
+  },
+  "mecanismo": "setRowsState(..., 'deleted') + normalizeLists + sello chat + buildPresentationOverrides; targeted_update --mode presentation regenera las listas sin red. La app puede restaurarlas desde la papelera del editor.",
+  "tests": "401 Python (18 omitidas; unico fallo local ajeno: copia del contrato compartido en VibeM3U) y 58 JS.",
+  "pendiente": "Push y verificacion remota."
+}
