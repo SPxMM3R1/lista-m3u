@@ -1,9 +1,12 @@
 <?xml version='1.0' encoding='utf-8'?>
 <tv data-fragment-of="45">
-  <channel id="45" data-guide="parrilla real" data-guide-source="zapping-guia-publica">
+  <channel id="45" data-guide="parrilla real conservada" data-guide-source="epg-publicada-conservada">
     <display-name>NTV</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/ntv.svg" />
   </channel>
+  <programme start="20261018153000 -0300" stop="20261018180000 -0300" channel="45">
+    <title lang="es">Maratón</title>
+  </programme>
   <programme start="20261018180000 -0300" stop="20261018190000 -0300" channel="45">
     <title lang="es">31 minutos</title>
     <desc lang="es">El noticiero más veraz de la televisión.</desc>
@@ -19,18 +22,6 @@
   </programme>
   <programme start="20261018220000 -0300" stop="20261018230000 -0300" channel="45">
     <title lang="es">Chile Circular</title>
-  </programme>
-  <programme start="20261018133000 -0300" stop="20261018143000 -0300" channel="45">
-    <title lang="es">Tripulantes, ¡a jugar!</title>
-  </programme>
-  <programme start="20261018143000 -0300" stop="20261018150000 -0300" channel="45">
-    <title lang="es">10 cosas que no sabías</title>
-  </programme>
-  <programme start="20261018150000 -0300" stop="20261018153000 -0300" channel="45">
-    <title lang="es">Quiero saber</title>
-  </programme>
-  <programme start="20261018153000 -0300" stop="20261018180000 -0300" channel="45">
-    <title lang="es">Maratón</title>
   </programme>
   <programme start="20261018230000 -0300" stop="20261019000000 -0300" channel="45">
     <title lang="es">Hacedor de hambre patrimonial</title>
@@ -117,6 +108,7 @@
   </programme>
   <programme start="20261019172000 -0300" stop="20261019173000 -0300" channel="45">
     <title lang="es">Inhumanamente hablando con el profesor Zork</title>
+    <desc lang="es">La serie que nos ayuda a entender a los humanos</desc>
   </programme>
   <programme start="20261019173000 -0300" stop="20261019200000 -0300" channel="45">
     <title lang="es">Efecto N</title>
@@ -126,6 +118,7 @@
   </programme>
   <programme start="20261019203000 -0300" stop="20261019210000 -0300" channel="45">
     <title lang="es">Ideas Rompe-cráneos</title>
+    <desc lang="es">Serie de animación que presenta los descubrimientos técnicos y científicos más asombrosos que modificaron el rumbo de la humanidad.</desc>
   </programme>
   <programme start="20261019210000 -0300" stop="20261019213000 -0300" channel="45">
     <title lang="es">Chile conectado</title>
