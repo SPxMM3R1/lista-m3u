@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "atUtc": "2026-10-19T00:50:00Z",
+  "authorization": "Usuario: «Primero elimina todo lo que sea resolusion 480p, seria muy dificil de acer?»",
+  "scope": "Solo Lista 2 (filas m3u activas con sourceList 2.m3u). Lista 1 no se toca: m3u.m3u/1.m3u sin cambios y layout L1 identico.",
+  "method": "Resolucion real por tvg-id de las verificaciones ffmpeg del escaneo 2026-10-17: contracts/server-catalogues-expansion-20261017.json (4.510), contracts/community-catalogue-expansion-20261017.json (14) y contracts/public-direct-discovery-20261013.json (179). Se mandan a la papelera reversible (state=deleted) las filas activas con altura <=480 (incluye 214/282/290/360/404).",
+  "removedRows": 1893,
+  "breakdown": {
+    "exactamente480p": 1874,
+    "menorA480p": 19,
+    "candidatasPanRegionales": 940,
+    "copiasDeMarcasPanYChilenas": 953
+  },
+  "heldForReview": {
+    "rows": 3,
+    "detail": "24 HORAS (#57) y Canal 24 Horas (#653-654), 720x480; retenidas por posible TVN 24 Horas chileno (excepcion chilena)."
+  },
+  "notClassifiedRemain": {
+    "rows": 322,
+    "detail": "Copias del catalogo previo (A&E, AMC, Animal Planet, etc.) sin verificacion ffmpeg del 17-10; quedan activas. Se pueden medir con una corrida ffmpeg en Actions si se pide."
+  },
+  "leftForDecision": {
+    "rows": 26,
+    "detail": "Filas activas entre 540p y 614p que no se tocaron: Cinemax #1115 (540), CNN Espanol #1204 (540), Cochabamba_PGM #1230 (540), Eurosport2 #2119 (540), La Paz_PGM #2822 (540), Bloonberg #494 (576), Canal 29 Plan Network #662 (576), ESPN 3 #1921 (576), Hispan TV x3 (576), MPT #2944 (576), Playboy #3190 (576), Sextreme #3358 (576), TV #4059 (576), Urbana TV #4244 (576), Vea canal #4267 (576), Venus #4284 (576), Teleuniverso - RD x6 (580), Canal 99 Television Chichicasteca #816 (600), Apokalipsis #313 (614)."
+  },
+  "countsAfter": {
+    "list1": 56,
+    "list2Published": 2463,
+    "layoutL2Activos": 2441,
+    "catalog": 6599,
+    "panCandidatesAfter": 1049
+  },
+  "verification": {
+    "python": "400 pruebas (18 omitidas; unico fallo local ajeno: copia del contrato compartido en VibeM3U)",
+    "javascript": "57",
+    "partition": "principal=56, externa=2463, catalogo=6599",
+    "remain480": "solo las 3 filas retenidas",
+    "list1": "sin cambios"
+  },
+  "pending": "Push, runner y verificacion remota en esta entrada."
+}
