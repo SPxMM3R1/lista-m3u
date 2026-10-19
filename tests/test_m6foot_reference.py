@@ -36,6 +36,9 @@ EXPECTED = {
     "106": "TUDN",
 }
 
+# La papelera desde la app retira filas M6Foot con el tiempo (ESPN Deportes, ESPN ARG, ESPN 7, TUDN…):
+# una fila `deleted` es una baja editorial válida; las activas deben cumplir el contrato completo.
+
 
 def layout():
     return json.loads(LAYOUT_PATH.read_text(encoding="utf-8"))
@@ -107,13 +110,14 @@ class M6FootReferenceTest(unittest.TestCase):
             self.assertIn(player_id, EXPECTED)
             self.assertEqual(EXPECTED[player_id], row["name"])
             self.assertEqual("2.m3u", row["sourceList"])
-            self.assertIs(True, row["trial"])
-            self.assertEqual("active", row["state"])
             self.assertEqual("Deportes", row["group"])
+            self.assertIn(row["state"], ("active", "deleted"))
+            if row["state"] == "active":
+                self.assertIs(True, row["trial"])
+                numbers.add(row["number"])
             ids.add(row["tvgId"])
-            numbers.add(row["number"])
         self.assertEqual(len(EXPECTED), len(ids))
-        self.assertEqual(len(EXPECTED), len(numbers))
+        self.assertEqual(sum(1 for row in rows if row["state"] == "active"), len(numbers))
         self.assertEqual(document["channels"], sorted(document["channels"], key=lambda row: row["order"]))
         block = [
             row
@@ -127,10 +131,14 @@ class M6FootReferenceTest(unittest.TestCase):
         self.assertTrue(catalog_approval.approved_by_user(document))
         catalog_ids = set(re.findall(r'tvg-id="([^"]+)"', CATALOG_PATH.read_text(encoding="utf-8-sig")))
         external_ids = set(re.findall(r'tvg-id="([^"]+)"', EXTERNAL_PATH.read_text(encoding="utf-8-sig")))
+        states = {row.get("tvgId"): row.get("state") for row in document["channels"]}
         for player_id in EXPECTED:
             channel_id = m6foot_reference.channel_id(player_id)
             self.assertIn(channel_id, catalog_ids)
-            self.assertIn(channel_id, external_ids)
+            if states.get(channel_id) == "active":
+                self.assertIn(channel_id, external_ids)
+            else:
+                self.assertNotIn(channel_id, external_ids)
 
     def test_no_signed_url_or_provider_host_reaches_the_repository(self):
         for path in (CATALOG_PATH, EXTERNAL_PATH, ROOT / "m3u.m3u", LAYOUT_PATH, ROOT / "presentation-overrides.json"):
