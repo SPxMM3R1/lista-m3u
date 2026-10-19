@@ -77,7 +77,10 @@ class NautaChannelsAreOptInTest(unittest.TestCase):
         self.assertEqual("ESPN 7", self.presentation["names"][OFFICIAL_ESPN7])
         self.assertEqual("logos/espn-7.png", self.presentation["logos"][OFFICIAL_ESPN7])
         self.assertIn(OFFICIAL_ESPN7, {c.tvg_id for c in runner.main_playlist_channels()})
-        self.assertIn(("co1", "ESPN.7.HD.co"), runner.epg_source_chain(OFFICIAL_ESPN7))
+        chain = runner.epg_source_chain(OFFICIAL_ESPN7)
+        self.assertEqual(("uy1", "[ESPN7SS].ESPN.7.uy"), chain[0])
+        self.assertIn(("uy1", "ESPN.7.HD.uy"), chain)
+        self.assertNotIn(("co1", "ESPN.7.HD.co"), chain)
         rows = self.selected_nauta
         self.assertEqual("ESPN 1 Argentina", rows[OFFICIAL_ESPN1_AR]["displayName"])
         self.assertEqual("logos/espn.svg", rows[OFFICIAL_ESPN1_AR]["logoOverride"])

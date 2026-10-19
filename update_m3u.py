@@ -1115,6 +1115,10 @@ EPGSHARE_BACKUP_CHANNELS: dict[str, tuple[str, str]] = {
     # DSports 2 no tiene un feed equivalente en ninguna fuente revisada.
     "DSports.us@Direct15": ("uy1", "[SPOARHD].DSports.Argentina.HD.uy"),
     "WinSports.co@Direct181": ("ar1", "Canal.ESPN.3.(Argentina).ar"),
+    # ESPN 7 (2026-10-19): la señal daba el Masters de Shanghái 15:00 Chile; CO1
+    # ESPN.7.HD.co decía «ESPN 7 Sur» y un bloque de 8 h. [ESPN7SS] (UY1) manda;
+    # ESPN.7.HD.uy trae la misma parrilla y solo rellena después.
+    "PublicDirect.ac1fca2303c88b6a69359958": ("uy1", "ESPN.7.HD.uy"),
 }
 RED_BULL_CHANNEL_LOCALES = {
     RED_BULL_WORLD_ID: "en",
