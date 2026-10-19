@@ -314,7 +314,7 @@ class Espn4PlacementTest(unittest.TestCase):
         # Renumeración sin huecos (2026-10-18): el hueco del 37 desapareció.
         self.assertEqual(38, target["number"])
         self.assertEqual(37, espn3["number"])
-        self.assertEqual("ESPN 4 HD", target["displayName"])
+        self.assertEqual("ESPN 4", target["displayName"])
         self.assertEqual(target, ordered[ordered.index(espn3) + 1])
         self.assertEqual(len(rows), len({row["number"] for row in rows}))
 
@@ -324,7 +324,7 @@ class Espn4PlacementTest(unittest.TestCase):
             target_index = order.index(self.TARGET_ID)
             self.assertEqual(self.ESPN3_ID, order[target_index - 1])
             channels = runner.parse_channels((ROOT / playlist_name).read_text(encoding="utf-8").splitlines())
-            self.assertEqual("ESPN 4 HD", next(channel.name for channel in channels if channel.tvg_id == self.TARGET_ID))
+            self.assertEqual("ESPN 4", next(channel.name for channel in channels if channel.tvg_id == self.TARGET_ID))
 
 
 if __name__ == "__main__":
