@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "atUtc": "2026-10-19T22:03:21Z",
+  "authorization": "Usuario: ?El 657, Sera ESPN 6, ponlo entre ESPN 5 y ESPN 7 en la lista 1. Dale EPG y logo.? y ?Ahora es el 655?.",
+  "change": "ESPN7.co@Direct181 (fila que era #655 de Lista 2, mostrada ?ESPN 7?) pasa a Lista 1 como ?ESPN 6? en el #40, entre ESPN 5 (#39) y ESPN 7 (#41): definitivo (sin trial), logo logos/espn-6.png y gu?a CO1 ESPN.6.HD.co.",
+  "identidad": "El tvg-id se conserva: ESPN7.co@Direct181 (server Total Conexi?n 181.78.12.119:16123, play/ch21).",
+  "verificacion": {
+    "contenido": "Fotogramas del propio feed (19-10 21:52Z): bug en pantalla ?ESPN 6? y final femenina del Premier Padel Mil?n P1 (S?nchez/Ustero vs Josemar?a/Gonz?lez) ? exactamente lo que anuncia co1 / ESPN.6.HD.co (desc ?Resumen de la final femenina de Premier Padel Mil?n P1?).",
+    "nota": "La fila #657 de esos minutos era otra (PublicDirect.b570149d?, ?ESPN EXTRA?), que emite con bug ?ESPN 4?/Queens League; se descarta y NO se toca.",
+    "control": "Capturas de control a las 22:05Z y 23:04Z para revalidar el bloque siguiente (Eredivisie)."
+  },
+  "logo": {
+    "path": "logos/espn-6.png",
+    "origen": "tv-logo/tv-logos countries/world-latin-america/espn-6-lam.png (misma fuente que la familia), recoloreado a #E52534, lienzo 512?97 y bloques de esquina 3?3 alfa 12 (est?ndar VibeM3U 0.6.19, igual que espn-{2,3,4,5,7}.png).",
+    "sha256": "52fe3ffb5a5822b88ba975f951938ce030dd8371d9e27f5c10142d5f0d2f8027"
+  },
+  "epg": {
+    "override": "epg-overrides.json: ESPN7.co@Direct181 -> co1 / ESPN.6.HD.co",
+    "resultado": "38 programas en el fragmento y en epg.xml; 49,97 h futuras al construir; sin pendiente."
+  },
+  "counts": {
+    "antes": {
+      "list1Publicada": 66,
+      "list2Publicada": 1405,
+      "list1LayoutActivos": 66,
+      "list2LayoutActivos": 1382,
+      "catalogo": 6599
+    },
+    "despues": {
+      "list1Publicada": 67,
+      "list2Publicada": 1404,
+      "list1LayoutActivos": 67,
+      "list2LayoutActivos": 1381,
+      "catalogo": 6599
+    }
+  },
+  "validacion": {
+    "validateLayout": "sin problemas",
+    "suites": "401 Python (18 omitidas; ?nico fallo local ajeno: copia del contrato compartido en VibeM3U) y 58 JS.",
+    "gate": "main_playlist_channels incluye el nuevo canal (no trial); la gu?a dirigida cubre >12 h."
+  },
+  "pendiente": "Push y verificaci?n remota."
+}
