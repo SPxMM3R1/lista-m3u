@@ -73,7 +73,12 @@ def _useful_synopsis(title: str, text: str) -> str:
 def claro_synopsis_programmes(
     payload: dict, wanted: dict[str, str]
 ) -> dict[str, list[tuple[datetime, datetime, str, str]]]:
-    """Programas con sinopsis útil por tvg-id, desde la respuesta de la API."""
+    """Programas por tvg-id desde la respuesta de la API.
+
+    Se conservan todos los bloques con titulo (aunque no tengan sinopsis util,
+    como los «Music Videos» de ETC TV): la parrilla de Claro tambien alimenta
+    horarios (CLARO_SCHEDULE_FALLBACK_IDS) y sin ellos quedarian huecos.
+    """
     channels = payload.get("response", {}).get("channels", [])
     by_group = {str(channel.get("group_id")): channel for channel in channels if isinstance(channel, dict)}
     result: dict[str, list[tuple[datetime, datetime, str, str]]] = {}
@@ -90,7 +95,9 @@ def claro_synopsis_programmes(
                 continue
             title = str(event.get("name") or "").strip()
             synopsis = _useful_synopsis(title, str(event.get("description") or ""))
-            if title and synopsis and stop > start:
+            # Los bloques sin sinopsis util (p. ej. «Music Videos») son parte de
+            # la parrilla: se conservan con descripcion vacia.
+            if title and stop > start:
                 items.append((start, stop, title, synopsis))
         if items:
             result[target_id] = items
@@ -150,5 +157,6 @@ def fetch_claro_synopsis_epg(
                 "channel": ZAPPING_DESCRIPTION_ID_PREFIX + target_id,
             })
             ET.SubElement(programme, "title", {"lang": "es"}).text = title
-            ET.SubElement(programme, "desc", {"lang": "es"}).text = synopsis
+            if synopsis:
+                ET.SubElement(programme, "desc", {"lang": "es"}).text = synopsis
     return ET.tostring(root, encoding="utf-8", xml_declaration=True), errors

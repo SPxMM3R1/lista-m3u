@@ -18,7 +18,9 @@ def event(start: datetime, minutes: int, name: str, description: str) -> dict:
 class ClaroSynopsisTests(unittest.TestCase):
     now = datetime(2026, 10, 1, 20, tzinfo=timezone.utc)
 
-    def test_only_useful_synopses_are_kept(self) -> None:
+    def test_titled_events_are_kept_and_synopsis_only_when_useful(self) -> None:
+        # Los bloques con título siempre entran (p. ej. «Music Videos» de ETC TV
+        # llenan la parrilla); la sinopsis se conserva solo si es útil.
         payload = {"response": {"channels": [{"group_id": "908389", "events": [
             event(self.now, 60, "Caso Cerrado", "La doctora Ana María Polo resuelve casos legales reales."),
             event(self.now, 60, "Cine La Red", "Cine La Red"),
@@ -26,7 +28,12 @@ class ClaroSynopsisTests(unittest.TestCase):
             event(self.now, 60, "Corto", "Muy breve."),
         ]}]}}
         result = claro.claro_synopsis_programmes(payload, {"0104": "908389"})
-        self.assertEqual(["Caso Cerrado"], [title for _, _, title, _ in result["0104"]])
+        self.assertEqual(
+            ["Caso Cerrado", "Cine La Red", "CNN Chile", "Corto"],
+            [title for _, _, title, _ in result["0104"]],
+        )
+        self.assertTrue(result["0104"][0][3])
+        self.assertEqual("", result["0104"][1][3])
 
     def test_claro_channels_are_description_only(self) -> None:
         # Excepción cerrada (2026-10-13 TVN3; 2026-10-18 ETC TV): TVN3 usa la
