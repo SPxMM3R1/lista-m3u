@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "atUtc": "2026-10-19T02:30:00Z",
+  "authorization": "Usuario: «Pasa etc tv 744 a la lista 1», «Dejalo al final de la lista 1» y «Cuando pase a lista 1, pasalos a definitivo con logo y epg».",
+  "change": "ETC TV (PublicDirect.3ba5922c6040fadb816835b1) pasa de Lista 2 al final de Lista 1, sin trial (definitivo), con logo local y EPG.",
+  "before": {
+    "list2Number": 704,
+    "publishedPositionLista2": 647,
+    "trial": true,
+    "logo": null,
+    "epg": null
+  },
+  "after": {
+    "list1Number": 57,
+    "posicion": "ultima de Lista 1",
+    "trial": false,
+    "logoPath": "logos/etc-tv.png",
+    "epg": "claro-sinopsis (Claro 793354 'ETC TV HD')"
+  },
+  "logo": {
+    "path": "logos/etc-tv.png",
+    "source": "Wikimedia Commons (Etc-logo-2026-2.png, ficha actual del articulo ETC)",
+    "formato": "PNG 1039x413, ~14 KB",
+    "canales": "presentation-overrides.logos + assets (360); la linea M3U y el catalogo llevan tvg-logo"
+  },
+  "epg": {
+    "fuente": "claro",
+    "sourceId": "793354",
+    "wiring": [
+      "CLARO_SYNOPSIS_CHANNELS",
+      "CLARO_SCHEDULE_FALLBACK_IDS"
+    ],
+    "chain": [
+      "claro-sinopsis"
+    ],
+    "verificacion": [
+      "Fotogramas del propio stream (02:05, 02:12 y 02:18 UTC) muestran serie japonesa live-action con subtitulos, consistente con el bloque 'Jiraiya Y La Olimpiada Ninja' de Claro (02:02-03:45 UTC).",
+      "La guia completa de Zapping (pagina guia.zappingtv.com/etc/, accesible solo desde Chile) NO coincide con la senal: a las 02:05-04:07 anuncia 'Erase una vez en China' (pelicula HK). Zapping queda excluido para este id.",
+      "Capturas de contorno programadas a las 02:48:40 (Music Videos segun Claro) y 02:59:40 UTC para confirmar los cortes de bloque."
+    ],
+    "zappingExcluido": true
+  },
+  "countsAfter": {
+    "list1": 57,
+    "list2LayoutActivos": 1449,
+    "list2Published": 1472,
+    "catalog": 6599
+  },
+  "untouched": "Identidad (tvg-id), URL, nombre y grupo intactos; las 56 filas previas de Lista 1 quedan identicas (verificado).",
+  "tests": "401 Python (18 omitidas; unico fallo local ajeno: copia del contrato compartido en VibeM3U) y 57 JS; nuevos tests del encadenado Claro de ETC en test_claro_synopsis/test_epg_fragments.",
+  "pending": "Push, publicacion dirigida, corrida EPG dirigida y verificacion remota."
+}

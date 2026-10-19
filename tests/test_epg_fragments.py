@@ -167,6 +167,17 @@ class DispatcherTest(unittest.TestCase):
         self.assertEqual({"zapping-guia-publica", "claro-sinopsis"}, update_m3u.epg_channel_parts("1437"))
         self.assertNotIn("1437", update_m3u.EPG_ALLOWED_EMPTY_IDS)
 
+    def test_etc_tv_uses_claro_schedule_without_zapping(self):
+        # ETC TV (2026-10-18): Claro es la fuente principal, verificada con
+        # fotogramas del stream. Zapping queda fuera: su guía para este id no
+        # coincide con la señal (se comprobó contra el propio canal en vivo).
+        etc_id = "PublicDirect.3ba5922c6040fadb816835b1"
+        self.assertEqual(
+            [("claro-sinopsis", "sinopsis:" + etc_id)],
+            update_m3u.epg_source_chain(etc_id)[:1])
+        self.assertEqual({"claro-sinopsis"}, update_m3u.epg_channel_parts(etc_id))
+        self.assertNotIn(etc_id, update_m3u.ZAPPING_EPG_CHANNELS)
+
     def test_backoff_never_exceeds_the_normal_rhythm(self):
         self.assertEqual(timedelta(hours=2), epg_dispatch.retry_after("red-bull", 9))
         self.assertEqual(timedelta(hours=6), epg_dispatch.retry_after("tvn-oficial", 9))

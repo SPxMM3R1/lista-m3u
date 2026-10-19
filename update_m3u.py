@@ -662,7 +662,9 @@ OPTIONAL_EPG_CHANNEL_IDS: set[str] = set()
 # publica el programa actual y los siguientes; Claro trae la semana con los mismos
 # horarios (verificado: Aquelarre 19:00, ¿Dónde está Elisa? 20:00, Mea Culpa 21:00).
 # TVN3 deja de ser opcional: si se queda sin guía, se informa como pendiente.
-CLARO_SCHEDULE_FALLBACK_IDS = frozenset({"1437"})
+# Excepción cerrada: TVN3 (2026-10-13, respaldo tras Zapping) y ETC TV
+# (2026-10-18, fuente principal verificada con fotogramas del stream).
+CLARO_SCHEDULE_FALLBACK_IDS = frozenset({"1437", "PublicDirect.3ba5922c6040fadb816835b1"})
 NHK_MASTER_URL = "https://masterpl.hls.nhkworld.jp/hls/w/live/smarttv.m3u8"
 # EPGShare01 no entregó una parrilla actual para estas pruebas; se mantienen
 # sin guía en vez de rellenarlas con continuidad genérica.
@@ -1042,6 +1044,9 @@ CLARO_SYNOPSIS_CHANNELS = {
     "13Cultura.cl@DPS": "1326687",  # 13 CULTURA
     "DW.de": "1028753",  # DEUTSCHE WELLE HD (en castellano)
     "France24.fr": "898467",  # FRANCE24 HD (en castellano)
+    # ETC TV: verificado con fotogramas del stream el 2026-10-18; la guía de
+    # Zapping para este id no coincide con la señal, así que Claro es la fuente.
+    "PublicDirect.3ba5922c6040fadb816835b1": "793354",  # ETC TV HD
 }
 TECNOCENTRO_EPG_URL = "https://tecnocentro.cl/"
 # Respaldo real por canal cuando la fuente principal no entrega bloques.

@@ -29,9 +29,14 @@ class ClaroSynopsisTests(unittest.TestCase):
         self.assertEqual(["Caso Cerrado"], [title for _, _, title, _ in result["0104"]])
 
     def test_claro_channels_are_description_only(self) -> None:
-        # Excepción cerrada (2026-10-13): TVN3 usa la parrilla de Claro como respaldo de
-        # horario porque coincide con Zapping; el resto sigue solo con sinopsis.
-        self.assertEqual(frozenset({"1437"}), update_m3u.CLARO_SCHEDULE_FALLBACK_IDS)
+        # Excepción cerrada (2026-10-13 TVN3; 2026-10-18 ETC TV): TVN3 usa la
+        # parrilla de Claro como respaldo de horario (coincide con Zapping);
+        # ETC TV la usa como fuente principal (verificada con fotogramas del
+        # stream: la guía de Zapping para ETC no coincide con la señal).
+        self.assertEqual(
+            frozenset({"1437", "PublicDirect.3ba5922c6040fadb816835b1"}),
+            update_m3u.CLARO_SCHEDULE_FALLBACK_IDS,
+        )
         for target_id in update_m3u.CLARO_SYNOPSIS_CHANNELS:
             if target_id in update_m3u.CLARO_SCHEDULE_FALLBACK_IDS:
                 continue
