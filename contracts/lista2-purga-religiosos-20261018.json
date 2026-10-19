@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "atUtc": "2026-10-19T01:05:00Z",
+  "authorization": "Usuario: «Dame una lista de canales religiosos en la lista 2» y luego «Elimina todo» (todos los religiosos listados).",
+  "scope": "Solo Lista 2 (filas m3u activas con sourceList 2.m3u). Lista 1 no se toca: filas, orden y numeros identicos.",
+  "action": "Papelera reversible (state=deleted) con las funciones del editor (setRowsState + normalizeLists + approveLayout chat); las identidades quedan en excluded_m3u via buildPresentationOverrides. Se pueden restaurar desde el editor.",
+  "rules": "Coincidencia por nombre (sin acentos): enlace, TBN, EWTN, catolico, cristo/cristian, evangel, iglesia, nuevo tiempo, maria vision, voz de maria, rhema, bethel, daystar, televida, creofe, dios (palabra), jesucristo, sanacion, biblia, adoracion, alabanza, palabra, mision, esperanza, virgen, guadalupe, shalom, manantial, restauracion, salvacion, fe (palabra), cosmovision, izavision, santa rosa, santa cruz, san cristobal, vida tv, teleamiga, sol de, voz de la, nueva vida, vida nueva.",
+  "removedRows": 129,
+  "removedNames": [
+    "Bethel", "Bethel One Second", "Bethel TV", "Canal 100 (TBN Enlace)", "Canal 2 Evangelico",
+    "Canal 4 Catolico", "Conectados Con Dios", "Cosmovision", "CreoFe", "Cristo TV",
+    "Cristovision", "Cristovision SD", "Daystar", "Dios TV Kids", "Enlace", "Enlace Juvenil",
+    "EWTN", "EWTN SD", "EWTN Spanish Int'l AC3", "EWTN Spanish International", "Izavision",
+    "La voz de Maria", "Maria Vision", "Maria Vision Tv", "Nuevo Tiempo", "Rhema TV",
+    "RJF V Jesucristo TV", "San Cristobal Tv", "Santa Rosa Radio TV", "TBN Enlace", "Teleamiga",
+    "Televida RD", "TV Nuevo Tiempo", "TvCatolico_CO", "Vida TV"
+  ],
+  "countsAfter": {
+    "list1": 56,
+    "list2Published": 4356,
+    "catalog": 6599
+  },
+  "verification": {
+    "python": "399 pruebas (18 omitidas; el fallo local `test_vibem3u_copy_is_identical` es la copia del contrato compartido en VibeM3U, ajena a este cambio)",
+    "javascript": "57 pruebas",
+    "partition": "principal=56, externa=4356, catalogo=6599",
+    "list1": "m3u.m3u/1.m3u sin cambios y layout L1 identico a HEAD",
+    "leftovers": "0 coincidencias de las reglas en Lista 2 publicada"
+  },
+  "pending": "Push, runner de canales y verificacion remota en esta entrada."
+}
