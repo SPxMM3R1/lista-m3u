@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, FreeEPG, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-description-policy="verified-source-only" data-description-programmes="2757" data-description-channels="49" data-next-refresh-at="2026-10-19T09:00:00+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u" data-generated-at="2026-10-19T02:50:11+00:00">
+<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, FreeEPG, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-description-policy="verified-source-only" data-description-programmes="2906" data-description-channels="49" data-next-refresh-at="2026-10-19T09:00:00+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u" data-generated-at="2026-10-19T03:07:03+00:00">
   <channel id="0104" data-guide="parrilla real conservada" data-guide-source="epg-publicada-conservada">
     <display-name>TVN</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvn.png" />
@@ -225,6 +225,10 @@
     <display-name>Real Wild</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/real-wild.png" />
   </channel>
+  <channel id="PublicDirect.3ba5922c6040fadb816835b1" data-guide="parrilla real" data-guide-source="claro-sinopsis">
+    <display-name>ETC TV</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/etc-tv.png" />
+  </channel>
   <channel id="unitedkingdom|vavoo_SKY%20SPORTS%20MAIN%20EVENT%7Cgroup%3Auk@TvVoo" data-guide="parrilla real conservada" data-guide-source="epg-publicada-conservada" data-app-alias-of="SkySportsMainEvent.uk@TvVoo">
     <display-name>Sky Sports Main Event</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/sky-sports-main-event.png" />
@@ -256,10 +260,6 @@
   <channel id="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" data-guide="parrilla real conservada" data-guide-source="epg-publicada-conservada" data-app-alias-of="Eurosport2.es@TvVoo">
     <display-name>Eurosport 2 España</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/eurosport.svg" />
-  </channel>
-  <channel id="PublicDirect.3ba5922c6040fadb816835b1" data-guide="parrilla real" data-guide-source="claro-sinopsis">
-    <display-name>ETC TV</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/etc-tv.png" />
   </channel>
   <programme start="20261018150000 -0300" stop="20261018200000 -0300" channel="0102">
     <title lang="es">A3D</title>
@@ -1170,10 +1170,6 @@
   <programme start="20261021191500 -0300" stop="20261021210000 -0300" channel="0107">
     <title lang="es">Que dice Chile</title>
   </programme>
-  <programme start="20261018160000 -0300" stop="20261018180000 -0300" channel="0124">
-    <title lang="es">Informe T13</title>
-    <desc lang="es">Las principales informaciones del país.</desc>
-  </programme>
   <programme start="20261018180000 -0300" stop="20261018190000 -0300" channel="0124">
     <title lang="es">Micrófono abierto</title>
     <desc lang="es">Programa deportivo en vivo y en directo, donde hablamos de todo el acontecer nacional e internacional deportivo y con entrevistas a destacados personajes de todo ámbito.</desc>
@@ -1634,9 +1630,6 @@
   <programme start="20261021200000 -0300" stop="20261021210000 -0300" channel="0201">
     <title lang="es">24 Horas Deportes</title>
   </programme>
-  <programme start="20261018170000 -0300" stop="20261018180000 -0300" channel="1153">
-    <title lang="es">Bolsillo CHV</title>
-  </programme>
   <programme start="20261018180000 -0300" stop="20261018183000 -0300" channel="1153">
     <title lang="es">CHV Noticias te ayuda</title>
   </programme>
@@ -1729,10 +1722,6 @@
   </programme>
   <programme start="20261019230000 -0300" stop="20261020003000 -0300" channel="1153">
     <title lang="es">Chilevisión noticias informa</title>
-  </programme>
-  <programme start="20261018173000 -0300" stop="20261018180000 -0300" channel="13Cultura.cl@DPS">
-    <title lang="es">La gracia de viajar</title>
-    <desc lang="es">T4 -Ep.14: La Gracia De Viajar. Viajar es la oportunidad de explorar el mundo con todos los sentidos, dejándote llevar por la emoción de lo desconocido, una aventura que nos desafía a salir de nuestra zona de confort y abrazar lo que la vida tiene para ofrecer. Viaja junto a la fotógrafa María Gracia Subercaseaux a los destinos más exóticos, descubriendo los rincones del mundo, su cultura, su gente, música y gastronomía, y explorar el mundo desde otra perspectiva.</desc>
   </programme>
   <programme start="20261018180000 -0300" stop="20261018183000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Carnaval del Sur</title>
@@ -1988,9 +1977,6 @@
     <title lang="es">Aquelarre</title>
     <desc lang="es">Telenovela, aborda una historia de misterios y amores apasionados que se desarrollan en un mágico ambiente en la zona central de Chile. Pueblo donde nacen solo mujeres.</desc>
   </programme>
-  <programme start="20261018153000 -0300" stop="20261018180000 -0300" channel="45">
-    <title lang="es">Maratón</title>
-  </programme>
   <programme start="20261018180000 -0300" stop="20261018190000 -0300" channel="45">
     <title lang="es">31 minutos</title>
     <desc lang="es">El noticiero más veraz de la televisión.</desc>
@@ -2115,16 +2101,6 @@
   </programme>
   <programme start="20261019233000 -0300" stop="20261020000000 -0300" channel="45">
     <title lang="es">Aquí te las traigo Peter</title>
-  </programme>
-  <programme start="20261018170000 -0300" stop="20261018180000 -0300" channel="AlJazeera.qa">
-    <title lang="es">Head to Head</title>
-    <desc lang="es">Captivating programme in which host Mehdi Hasan, British political journalist, broadcaster and author interviews and challenges various influental people from around the world- leaders, politicians, advisers, activists,... He asks straightforward and hard-hitting questions and goes head to head with a special guest in each episode, tackling some of the most important issues of our time in front of a live audience.</desc>
-    <date>2025</date>
-    <icon src="https://cdn.sincroguia.tv/storage/41746/c_head_to_head.jpeg" />
-    <country lang="es">Estado De Catar</country>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
   <programme start="20261018180000 -0300" stop="20261018190000 -0300" channel="AlJazeera.qa">
     <title lang="es">Newshour</title>
@@ -2867,10 +2843,6 @@
     <rating system="ES">
       <value>Apta</value>
     </rating>
-  </programme>
-  <programme channel="ArirangTV.kr" start="20261018173000 -0300" stop="20261018180000 -0300">
-    <title lang="pl">Moo No Plan</title>
-    <episode-num system="onscreen">E2</episode-num>
   </programme>
   <programme channel="ArirangTV.kr" start="20261018180000 -0300" stop="20261018183000 -0300">
     <title lang="pl">Moo No Plan</title>
@@ -3796,9 +3768,6 @@
     <title lang="pl">Show K-pop</title>
     <episode-num system="onscreen">E1</episode-num>
   </programme>
-  <programme start="20261018165848 -0300" stop="20261018175740 -0300" channel="AutenticHistory.de">
-    <title lang="en">Stalking Hitler's Generals</title>
-  </programme>
   <programme start="20261018175740 -0300" stop="20261018185158 -0300" channel="AutenticHistory.de">
     <title lang="en">The Wannsee Conference</title>
   </programme>
@@ -4167,13 +4136,6 @@
   </programme>
   <programme start="20261023200456 -0300" stop="20261023210542 -0300" channel="AutenticHistory.de">
     <title lang="en">Viking Women</title>
-  </programme>
-  <programme start="20261018170000 -0300" stop="20261018180000 -0300" channel="BBCNews.uk">
-    <title lang="en">BBC News</title>
-    <desc lang="en">Twenty-four hours a day, the latest national and international stories as they break.</desc>
-    <date>2026</date>
-    <icon src="https://metadata-static.plex.tv/f/gracenote/f0527239204291325874b6359444b839.jpg" />
-    <episode-num system="onscreen">S2026</episode-num>
   </programme>
   <programme start="20261018180000 -0300" stop="20261018190000 -0300" channel="BBCNews.uk">
     <title lang="en">BBC News</title>
@@ -5910,10 +5872,6 @@
       <value>Apta</value>
     </rating>
   </programme>
-  <programme start="20261018173000 -0300" stop="20261018180000 -0300" channel="DW.de">
-    <title lang="es">Cultura.21</title>
-    <desc lang="es">Descubra la cultura. Alemania se ha convertido en el punto de encuentro del mundo creativo del siglo XXI. El mundo toma nota de las ideas que surgen en Berlín y otras ciudades.</desc>
-  </programme>
   <programme start="20261018180000 -0300" stop="20261018183000 -0300" channel="DW.de">
     <title lang="es">Visión futuro</title>
     <desc lang="es">La emisión de DW sobre ciencia. Dirigido a todos los que se interesan por la ciencia y la investigación en Alemania y Europa. En un lenguaje asequible, con una atractiva presentación y siempre al tanto de las nuevas tendencias.</desc>
@@ -6459,24 +6417,6 @@
   </programme>
   <programme start="20261022013000 -0300" stop="20261022020000 -0300" channel="DW.de">
     <title lang="es">Aquí estoy</title>
-  </programme>
-  <programme channel="DWEnglish.de" start="20261018173000 -0300" stop="20261018180000 -0300">
-    <title lang="fr">DW News</title>
-    <desc lang="es">Our deep dive format explains the stories that matter - with clarity, context and journalistic rigor. Each segment goes beyond the headlines to uncover what's driving key developments around the world, featuring sharp analysis, expert voices and exclusive on the ground insights from where events are unfolding.</desc>
-    <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/0/7/15708705.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/9/6/15708698.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/9/6/15708695.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/3/8/7/15215783.jpg" />
-  </programme>
-  <programme channel="DWEnglish.de" start="20261018180000 -0300" stop="20261018180200 -0300">
-    <title lang="fr">DW News</title>
-    <desc lang="es">Our deep dive format explains the stories that matter - with clarity, context and journalistic rigor. Each segment goes beyond the headlines to uncover what's driving key developments around the world, featuring sharp analysis, expert voices and exclusive on the ground insights from where events are unfolding.</desc>
-    <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/0/7/15708705.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/9/6/15708698.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/9/6/15708695.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/3/8/7/15215783.jpg" />
   </programme>
   <programme channel="DWEnglish.de" start="20261018180200 -0300" stop="20261018181500 -0300">
     <title lang="fr">Best of DW-online Content</title>
@@ -7704,15 +7644,6 @@
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/0/2/8/15215820.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/0/8/15215808.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/3/8/15215836.jpg" />
-  </programme>
-  <programme start="20261018155000 -0300" stop="20261018175500 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">Real Madrid vs. Sevilla</title>
-    <sub-title lang="es">Fútbol LaLiga</sub-title>
-    <desc lang="es">Desde el estadio Santiago Bernabéu en la ciudad de Madrid, España, se enfrentan los equipos Real Madrid Club de Fútbol versus el Sevilla Fútbol Club.</desc>
-    <category lang="es">Deporte</category>
-    <category lang="es">Fútbol</category>
-    <category lang="es">Fútbol Español</category>
-    <icon src="https://imagenes.gatotv.com/categorias/deportes/miniatura/real_madrid_vs_sevilla.png" />
   </programme>
   <programme start="20261018175500 -0300" stop="20261018200000 -0300" channel="ESPN.co@Direct181">
     <title lang="es">SportsCenter</title>
@@ -9009,18 +8940,6 @@
       <value>AGE228</value>
     </rating>
   </programme>
-  <programme start="20261018170000 -0300" stop="20261018180000 -0300" channel="Eurosport2.es@TvVoo">
-    <title lang="es">Mundial de ciclismo en pista</title>
-    <sub-title lang="es">Día 5</sub-title>
-    <desc lang="es">El Mundial de ciclismo en pista llega a su 123.ª edición. Del 14 al 18 de octubre, el Velódromo de Chongming en Shanghái, acoge el evento. Reúne a los mejores especialistas del planeta para disputar un total de 22 títulos mundiales (11 masculinos y 11 femeninos).</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/42731/c_uci_track_world_championships.jpeg" />
-    <country lang="es">China</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
-  </programme>
   <programme start="20261018180000 -0300" stop="20261018190000 -0300" channel="Eurosport2.es@TvVoo">
     <title lang="es">Maratón de Ámsterdam</title>
     <desc lang="es">El TCS Amsterdam Marathon se celebra el 18 de octubre en la capital de los Países Bajos. Con salida y meta en el histórico Estadio Olímpico, destaca por su circuito extremadamente llano y rápido, ideal para buscar récords personales.</desc>
@@ -9354,23 +9273,6 @@
     <rating system="ES">
       <value>Apta</value>
     </rating>
-  </programme>
-  <programme channel="France24.fr" start="20261018173000 -0300" stop="20261018174500 -0300">
-    <title lang="fr">Noticias</title>
-    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
-    <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/0/5/15194509.jpg" />
-    <episode-num system="onscreen">E21</episode-num>
-  </programme>
-  <programme channel="France24.fr" start="20261018174500 -0300" stop="20261018180000 -0300">
-    <title lang="fr">Expreso de Oriente</title>
-    <desc lang="es">Las ultimas noticias politicas y sociales de Medio Oriente con informes de nuestros corresponsales en terreno.</desc>
-    <category lang="fr">Magazine d'information</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/9/4/15194498.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/8/4/15701488.jpg" />
-    <episode-num system="onscreen">E1</episode-num>
   </programme>
   <programme channel="France24.fr" start="20261018180000 -0300" stop="20261018181500 -0300">
     <title lang="fr">Noticias</title>
@@ -11434,22 +11336,6 @@
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/0/1/7/15194710.jpg" />
     <episode-num system="onscreen">E2</episode-num>
   </programme>
-  <programme channel="France24.fr@English" start="20261018173000 -0300" stop="20261018174500 -0300">
-    <title lang="fr">Le journal France 24</title>
-    <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/0/2/15220206.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/6/1/15220164.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/6/1/15220169.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/0/5/15194509.jpg" />
-  </programme>
-  <programme channel="France24.fr@English" start="20261018174500 -0300" stop="20261018180000 -0300">
-    <title lang="fr">A Week in France</title>
-    <category lang="fr">Magazine d'information</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/3/8/1/15221183.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/2/7/1/15221172.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/6/1/15221164.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/7/7/1/15221177.jpg" />
-  </programme>
   <programme channel="France24.fr@English" start="20261018180000 -0300" stop="20261018181500 -0300">
     <title lang="fr">Le journal France 24</title>
     <category lang="fr">Journal</category>
@@ -13475,9 +13361,6 @@
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/2/2/15220226.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/0/6/2/15220260.jpg" />
   </programme>
-  <programme start="20261018142000 -0300" stop="20261018180000 -0300" channel="M1.ua@SD">
-    <title lang="uk">M1 Hits</title>
-  </programme>
   <programme start="20261018180000 -0300" stop="20261019010000 -0300" channel="M1.ua@SD">
     <title lang="uk">M1 Hits</title>
   </programme>
@@ -13595,9 +13478,6 @@
   <programme start="20261023180000 -0300" stop="20261024040000 -0300" channel="M1.ua@SD">
     <title lang="uk">M1 Hits</title>
   </programme>
-  <programme start="20261018154000 -0300" stop="20261018180000 -0300" channel="M2.ua@SD">
-    <title lang="uk">Хіти Нон-стоп</title>
-  </programme>
   <programme start="20261018180000 -0300" stop="20261019134500 -0300" channel="M2.ua@SD">
     <title lang="uk">Хіти Нон-стоп</title>
   </programme>
@@ -13700,24 +13580,6 @@
   </programme>
   <programme start="20261019080000 -0300" stop="20261019090000 -0300" channel="Meganoticias.cl">
     <title lang="es">Meganoticias update</title>
-  </programme>
-  <programme start="20261018171000 -0300" stop="20261018174000 -0300" channel="NHKWorldJapan.jp">
-    <title lang="en">Anime Manga Explosion</title>
-    <sub-title lang="en">#34 Detective Conan Special</sub-title>
-    <desc lang="en">Detective Conan, a mystery loved for over 30 years. Discover the manga's appeal, the studio behind the anime, how mysteries become animation, and the meetings that lead to the original stories.</desc>
-    <url>https://www3.nhk.or.jp/nhkworld/en/shows/anime_manga/</url>
-  </programme>
-  <programme start="20261018174000 -0300" stop="20261018175000 -0300" channel="NHKWorldJapan.jp">
-    <title lang="en">I Love 'Mee'</title>
-    <sub-title lang="en">Whose Fault Is It That You Can't Do It?</sub-title>
-    <desc lang="en">Mee has set her sights on becoming a kendama master, like the heroine of a TV series. Mee gives it a shot, but it's a real challenge! So, Mee gives up right away and blames it on other things.</desc>
-    <url>https://www3.nhk.or.jp/nhkworld/en/shows/ilovemee/</url>
-  </programme>
-  <programme start="20261018175000 -0300" stop="20261018180000 -0300" channel="NHKWorldJapan.jp">
-    <title lang="en">Design Ah neo</title>
-    <sub-title lang="en">Ears</sub-title>
-    <desc lang="en">Design is fun! Design feels good! Cutting-edge images and music guide children to enjoy exploring the ideas and tweaks in the designs all around us. An episode on Ears.</desc>
-    <url>https://www3.nhk.or.jp/nhkworld/en/shows/ah-neo/</url>
   </programme>
   <programme start="20261018180000 -0300" stop="20261018181000 -0300" channel="NHKWorldJapan.jp">
     <title lang="en">NHK Newsline</title>
@@ -16422,13 +16284,227 @@
     <title lang="en">NHK Newsline</title>
     <desc lang="en">NHK NEWSLINE brings you up to date with the latest from Japan, Asia and around the world. Our team covers breaking news and major developments, with trusted anchors to tie it all together.</desc>
   </programme>
-  <programme start="20261018155000 -0300" stop="20261018175500 -0300" channel="PublicDirect.d6cca6d4aa23a69d50439c22">
-    <title lang="es">Live: Fútbol LaLiga</title>
-    <desc lang="es">Jornada 9 de la temporada 2026-27 de LaLiga. Desde el estadio Santiago Bernabéu. El Real Madrid se impuso 2-1 como local ante el Villarreal, mientras que el Sevilla FC logró un importante triunfo 2-3 a domicilio frente al Levante.</desc>
-    <category lang="es">Sports</category>
-    <category lang="es">Soccer</category>
-    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003BEWDY.jpg?w=960&amp;h=540" />
-    <premiere />
+  <programme start="20261018204600 -0300" stop="20261018210000 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Music Videos</title>
+  </programme>
+  <programme start="20261018210000 -0300" stop="20261018212400 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Detective Conan Hd</title>
+    <desc lang="es">Una joya desaparece y alguien muere. Conan encuentra al culpable entre los sospechosos.</desc>
+  </programme>
+  <programme start="20261018212400 -0300" stop="20261018214900 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Detective Conan Hd</title>
+    <desc lang="es">Un crimen ocurre en un teatro vacío. Conan reconstruye los hechos a partir de pistas mínimas.</desc>
+  </programme>
+  <programme start="20261018214900 -0300" stop="20261018215900 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Music Videos</title>
+  </programme>
+  <programme start="20261018215900 -0300" stop="20261018222400 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Detective Conan Hd</title>
+    <desc lang="es">Un cliente muere durante la ceremonia de té. Conan descubre el motivo oculto entre los invitados.</desc>
+  </programme>
+  <programme start="20261018222400 -0300" stop="20261018224900 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Detective Conan Hd</title>
+    <desc lang="es">Un mensaje críptico conduce al asesino. Conan descifra la información justo a tiempo.</desc>
+  </programme>
+  <programme start="20261018224900 -0300" stop="20261018230200 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Music Videos</title>
+  </programme>
+  <programme start="20261018230200 -0300" stop="20261018232500 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Jiraiya Y La Olimpiada Ninja</title>
+    <desc lang="es">Wild regresa como músico errante con su guitarra, ahora perseguido por agentes del clan que quieren su poder eléctrico. Jiraiya lo protege mientras Wild descubre que la amistad vale más que la libertad solitaria.</desc>
+  </programme>
+  <programme start="20261018232500 -0300" stop="20261018234800 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Jiraiya Y La Olimpiada Ninja</title>
+    <desc lang="es">El Clan de los Hechiceros invoca una bestia colosal que amenaza con destruir una ciudad entera. Jiraiya debe enfrentarla con todo lo que tiene en la batalla más destructiva de la serie hasta ahora.</desc>
+  </programme>
+  <programme start="20261018234800 -0300" stop="20261018235900 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Music Videos</title>
+  </programme>
+  <programme start="20261018235900 -0300" stop="20261019002200 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Jiraiya Y La Olimpiada Ninja</title>
+    <desc lang="es">El poderoso robot Jiraishin, vehículo de combate de Jiraiya, despega por primera vez al límite de sus capacidades. La batalla aérea contra el clan define una nueva era en la guerra ninja.</desc>
+  </programme>
+  <programme start="20261019002200 -0300" stop="20261019004500 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Jiraiya Y La Olimpiada Ninja</title>
+    <desc lang="es">Una banda de ladrones ninja disfrazados de gatos atacan museos y robaron joyas en la oscuridad. Jiraiya debe rastrear a los Devil Cats antes de que entreguen su botín al Clan de los Hechiceros.</desc>
+  </programme>
+  <programme start="20261019004500 -0300" stop="20261019010000 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Music Videos</title>
+  </programme>
+  <programme start="20261019010000 -0300" stop="20261019012500 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Saint Seiya: The Lost Canvas - Hades Mythology</title>
+    <desc lang="es">El poderoso Santo de Acuario, Dégel, hace su aparición para proteger el Santuario. Su cosmo helado es tan intenso que puede congelar hasta el alma de sus enemigos.</desc>
+  </programme>
+  <programme start="20261019012500 -0300" stop="20261019014900 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Saint Seiya: The Lost Canvas - Hades Mythology</title>
+    <desc lang="es">El poderoso Santo de Acuario, Dégel, hace su aparición para proteger el Santuario. Su cosmo helado es tan intenso que puede congelar hasta el alma de sus enemigos.</desc>
+  </programme>
+  <programme start="20261019014900 -0300" stop="20261019020200 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Music Videos</title>
+  </programme>
+  <programme start="20261019020200 -0300" stop="20261019022600 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">One Piece Silvermine</title>
+    <desc lang="es">La tripulación se acerca al dominio de Big Mom.</desc>
+  </programme>
+  <programme start="20261019022600 -0300" stop="20261019025000 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">One Piece Silvermine</title>
+    <desc lang="es">Se revela más información sobre la familia de Sanji.</desc>
+  </programme>
+  <programme start="20261019025000 -0300" stop="20261019030200 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Music Videos</title>
+  </programme>
+  <programme start="20261019030200 -0300" stop="20261019040500 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Abogado Sin Ley</title>
+    <desc lang="es">Sangpil cae en la trampa de Ohju y es acusado del asesinato de su tío Daewoong sus aliados luchan desesperadamente para probar su inocencia ante un tribunal hostil. Para empeorar las cosas, un viejo conocido aparece y pone en riesgo la vida de Sangpil.</desc>
+  </programme>
+  <programme start="20261019040500 -0300" stop="20261019051000 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Mi Mentiroso Adorable</title>
+    <desc lang="es">Doha le cuenta a Solhee la historia de la muerte de su ex novia. Los secretos del pasado salen a la luz y la verdad sobre aquella noche trágica comienza a tomar forma.</desc>
+  </programme>
+  <programme start="20261019051000 -0300" stop="20261019053400 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Brave 10</title>
+    <desc lang="es">Un ataque sorpresa pone en peligro la fortaleza de Yukimura. Los Valientes luchan para defender su territorio.</desc>
+  </programme>
+  <programme start="20261019053400 -0300" stop="20261019055800 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Brave 10</title>
+    <desc lang="es">Saizo se enfrenta a un enemigo casi invencible. La batalla pone a prueba sus límites físicos y mentales.</desc>
+  </programme>
+  <programme start="20261019055800 -0300" stop="20261019060000 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Music Videos</title>
+  </programme>
+  <programme start="20261019060000 -0300" stop="20261019062300 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">All Out !!</title>
+    <desc lang="es">Kanagawa juega su primer partido oficial del torneo prefectural con una mezcla de nervios, caos y momentos de brillantez inesperada. Gion encuentra en la presión del partido real una concentración que nunca había demostrado en los entrenamientos.</desc>
+  </programme>
+  <programme start="20261019062300 -0300" stop="20261019064700 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">All Out !!</title>
+    <desc lang="es">Iwashimizu enfrenta en el torneo una situación que replica el momento traumático de su pasado, obligándolo a elegir entre huir o superarlo definitivamente. Su decisión en ese instante es el clímax de su arco personal y uno de los momentos más aplaudidos de toda la serie.</desc>
+  </programme>
+  <programme start="20261019064700 -0300" stop="20261019070100 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Music Videos</title>
+  </programme>
+  <programme start="20261019070100 -0300" stop="20261019072600 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Detective Conan Hd</title>
+    <desc lang="es">Un cliente muere durante la ceremonia de té. Conan descubre el motivo oculto entre los invitados.</desc>
+  </programme>
+  <programme start="20261019072600 -0300" stop="20261019075100 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Detective Conan Hd</title>
+    <desc lang="es">Un mensaje críptico conduce al asesino. Conan descifra la información justo a tiempo.</desc>
+  </programme>
+  <programme start="20261019075100 -0300" stop="20261019080100 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Music Videos</title>
+  </programme>
+  <programme start="20261019080100 -0300" stop="20261019082500 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Jiraiya Y La Olimpiada Ninja</title>
+    <desc lang="es">El poderoso robot Jiraishin, vehículo de combate de Jiraiya, despega por primera vez al límite de sus capacidades. La batalla aérea contra el clan define una nueva era en la guerra ninja.</desc>
+  </programme>
+  <programme start="20261019082500 -0300" stop="20261019084800 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Jiraiya Y La Olimpiada Ninja</title>
+    <desc lang="es">Una banda de ladrones ninja disfrazados de gatos atacan museos y robaron joyas en la oscuridad. Jiraiya debe rastrear a los Devil Cats antes de que entreguen su botín al Clan de los Hechiceros.</desc>
+  </programme>
+  <programme start="20261019084800 -0300" stop="20261019090200 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Music Videos</title>
+  </programme>
+  <programme start="20261019090200 -0300" stop="20261019092700 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Saint Seiya: The Lost Canvas - Hades Mythology</title>
+    <desc lang="es">El poderoso Santo de Acuario, Dégel, hace su aparición para proteger el Santuario. Su cosmo helado es tan intenso que puede congelar hasta el alma de sus enemigos.</desc>
+  </programme>
+  <programme start="20261019092700 -0300" stop="20261019095100 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Saint Seiya: The Lost Canvas - Hades Mythology</title>
+    <desc lang="es">Dégel enfrenta a los espectros de Hades en una batalla glacial y despiadada. Su lealtad al Santuario es inquebrantable, aunque ello le cueste la vida.</desc>
+  </programme>
+  <programme start="20261019095100 -0300" stop="20261019100100 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Music Videos</title>
+  </programme>
+  <programme start="20261019100100 -0300" stop="20261019102600 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Saint Seiya: The Lost Canvas - Hades Mythology</title>
+    <desc lang="es">Yo, el espectro de Pisces, ataca a los Santos con su temible poder ilusorio. Tenma debe superar sus miedos internos para vencer a este poderoso enemigo.</desc>
+  </programme>
+  <programme start="20261019102600 -0300" stop="20261019105000 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Saint Seiya: The Lost Canvas - Hades Mythology</title>
+    <desc lang="es">Los Santos se adentran en las profundidades del reino de Hades. Allí descubren las almas perdidas de guerreros caídos que claman por la libertad.</desc>
+  </programme>
+  <programme start="20261019105000 -0300" stop="20261019110100 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Music Videos</title>
+  </programme>
+  <programme start="20261019110100 -0300" stop="20261019112400 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">One Piece Silvermine</title>
+    <desc lang="es">La tripulación se acerca al dominio de Big Mom.</desc>
+  </programme>
+  <programme start="20261019112400 -0300" stop="20261019114800 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">One Piece Silvermine</title>
+    <desc lang="es">Se revela más información sobre la familia de Sanji.</desc>
+  </programme>
+  <programme start="20261019114800 -0300" stop="20261019120000 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Music Videos</title>
+  </programme>
+  <programme start="20261019120000 -0300" stop="20261019122400 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">One Piece Silvermine</title>
+    <desc lang="es">La tripulación comprende el poder del Yonkou.</desc>
+  </programme>
+  <programme start="20261019122400 -0300" stop="20261019124800 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">One Piece Silvermine</title>
+    <desc lang="es">Luffy promete traer a Sanji de vuelta cueste lo que cueste.</desc>
+  </programme>
+  <programme start="20261019124800 -0300" stop="20261019130300 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Music Videos</title>
+  </programme>
+  <programme start="20261019130300 -0300" stop="20261019140600 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Abogado Sin Ley</title>
+    <desc lang="es">Sangpil cae en la trampa de Ohju y es acusado del asesinato de su tío Daewoong sus aliados luchan desesperadamente para probar su inocencia ante un tribunal hostil. Para empeorar las cosas, un viejo conocido aparece y pone en riesgo la vida de Sangpil.</desc>
+  </programme>
+  <programme start="20261019140600 -0300" stop="20261019151000 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Abogado Sin Ley</title>
+    <desc lang="es">Jaeyi visita a Sangpil en el hospital, angustiada por sus heridas, mientras el juicio por el asesinato de Daewoong continúa con giros inesperados. Se forman nuevas alianzas en la sombra y el testigo más impredecible toma la palabra en el estrado.</desc>
+  </programme>
+  <programme start="20261019151000 -0300" stop="20261019161400 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Mi Mentiroso Adorable</title>
+    <desc lang="es">Doha le cuenta a Solhee la historia de la muerte de su ex novia. Los secretos del pasado salen a la luz y la verdad sobre aquella noche trágica comienza a tomar forma.</desc>
+  </programme>
+  <programme start="20261019161400 -0300" stop="20261019172000 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Mi Mentiroso Adorable</title>
+    <desc lang="es">Doha no quiere que Kangmin arreste a Eomho, esperando que él haya encontrado el perdón. Los sentimientos entre Solhee y Doha se profundizan mientras la investigación avanza.</desc>
+  </programme>
+  <programme start="20261019172000 -0300" stop="20261019174400 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Brave 10</title>
+    <desc lang="es">Un ataque sorpresa pone en peligro la fortaleza de Yukimura. Los Valientes luchan para defender su territorio.</desc>
+  </programme>
+  <programme start="20261019174400 -0300" stop="20261019180800 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Brave 10</title>
+    <desc lang="es">Saizo se enfrenta a un enemigo casi invencible. La batalla pone a prueba sus límites físicos y mentales.</desc>
+  </programme>
+  <programme start="20261019180800 -0300" stop="20261019183100 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Brave 10</title>
+    <desc lang="es">El poder de Isanami se descontrola y amenaza a aliados y enemigos. Saizo intenta salvarla antes de que sea demasiado tarde.</desc>
+  </programme>
+  <programme start="20261019183100 -0300" stop="20261019185500 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Brave 10</title>
+    <desc lang="es">Los Valientes consolidan su lealtad a Yukimura. Se preparan para la confrontación final contra sus enemigos.</desc>
+  </programme>
+  <programme start="20261019185500 -0300" stop="20261019190000 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Music Videos</title>
+  </programme>
+  <programme start="20261019190000 -0300" stop="20261019192300 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">All Out !!</title>
+    <desc lang="es">Kanagawa juega su primer partido oficial del torneo prefectural con una mezcla de nervios, caos y momentos de brillantez inesperada. Gion encuentra en la presión del partido real una concentración que nunca había demostrado en los entrenamientos.</desc>
+  </programme>
+  <programme start="20261019192300 -0300" stop="20261019194700 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">All Out !!</title>
+    <desc lang="es">Iwashimizu enfrenta en el torneo una situación que replica el momento traumático de su pasado, obligándolo a elegir entre huir o superarlo definitivamente. Su decisión en ese instante es el clímax de su arco personal y uno de los momentos más aplaudidos de toda la serie.</desc>
+  </programme>
+  <programme start="20261019194700 -0300" stop="20261019195900 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Music Videos</title>
+  </programme>
+  <programme start="20261019195900 -0300" stop="20261019202200 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">All Out !!</title>
+    <desc lang="es">El equipo avanza en el torneo superando rivales que los subestiman por su falta de experiencia y su apariencia desorganizada. Cada victoria revela una faceta nueva del equipo y consolida la confianza colectiva que los entrenamientos solos no podían haber construido.</desc>
+  </programme>
+  <programme start="20261019202200 -0300" stop="20261019204600 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">All Out !!</title>
+    <desc lang="es">Las lesiones y el agotamiento acumulado empiezan a pasarle factura al equipo en la fase avanzada del torneo. El tema de jugar con dolor y de conocer los propios límites se aborda con una honestidad que distingue a esta serie de otros animes deportivos más fantásticos.</desc>
+  </programme>
+  <programme start="20261019204600 -0300" stop="20261019210000 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
+    <title lang="es">Music Videos</title>
   </programme>
   <programme start="20261018175500 -0300" stop="20261018183000 -0300" channel="PublicDirect.d6cca6d4aa23a69d50439c22">
     <title lang="en">ATP Tour Uncovered</title>
@@ -17627,13 +17703,6 @@
       <value>TV-PG</value>
     </rating>
   </programme>
-  <programme start="20261018163500 -0300" stop="20261018174400 -0300" channel="RealWild.us">
-    <title lang="en">Chile: A Wild Journey</title>
-    <desc lang="en">Journey through wild nature, from cougar cubs to desert blooms, bats, and blue whales.</desc>
-    <date>2017</date>
-    <category lang="en">Explore</category>
-    <icon src="https://d11hei8e1dyf6i.cloudfront.net/RWILD/Default_Thumbnail.jpg" />
-  </programme>
   <programme start="20261018174400 -0300" stop="20261018184200 -0300" channel="RealWild.us">
     <title lang="en">Bucket List South America</title>
     <desc lang="en">South America has diverse lands, wildlife, Andes mountains, rich flora, rivers, and large mammals.</desc>
@@ -18544,11 +18613,6 @@
   <programme start="20261019232332 -0300" stop="20261019234610 -0300" channel="RedBullChileEspanol.cl">
     <title lang="es">Los inicios de Jonathan Paredes en el Cliff Diving</title>
     <desc lang="es">Antes de la Serie Mundial de Cliff Diving 2016, Jonathan Paredes regresa a su natal México para revivir los lugares y personas que marcaron su camino desde Acapulco hasta la élite mundial.</desc>
-  </programme>
-  <programme start="20261018163520 -0300" stop="20261018174413 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">The Old World</title>
-    <sub-title lang="en">A cinematic celebration of European biking culture</sub-title>
-    <desc lang="en">Traverse iconic European locations in a celebration of biking culture that unites MTB and BMX.</desc>
   </programme>
   <programme start="20261018174413 -0300" stop="20261018180824 -0300" channel="RedBullWorldEnglish.int">
     <title lang="en">UnBRAKEable</title>
@@ -21303,25 +21367,6 @@
     <icon src="https://images.metadata.sky.com/pd-image/45453377-7941-4aa5-b6cf-d2975702b9c3/16-9" />
     <episode-num system="xmltv_ns">.81.</episode-num>
   </programme>
-  <programme channel="SkySportsPremierLeague.uk" start="20261018164500 -0300" stop="20261018174500 -0300">
-    <title lang="en">Behind The Scenes: Brighton</title>
-    <desc lang="en">On a tour of Brighton's training ground, Jamie Redknapp chats to contributors at the club, from owner Tony Bloom to manager Fabian Hurzerler, finding out how they have become an elite club.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Football</category>
-    <icon src="https://images.metadata.sky.com/pd-image/05f60ab2-064b-4dd3-b5b8-fde45ccd5b01/16-9" />
-    <episode-num system="xmltv_ns">.0.</episode-num>
-  </programme>
-  <programme channel="SkySportsPremierLeague.uk" start="20261018174500 -0300" stop="20261018180000 -0300">
-    <title lang="en">Black History Month: Leadership</title>
-    <desc lang="en">This Black History Month, celebrate leaders and captains who have helped pave the way for others. Hear Wes Morgan's story, experiences and leadership lessons in his own words.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Football</category>
-    <icon src="https://images.metadata.sky.com/pd-image/fcdc398f-63f9-4c68-9fde-b6402ad348c8/16-9" />
-    <episode-num system="xmltv_ns">.2.</episode-num>
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
   <programme channel="SkySportsPremierLeague.uk" start="20261018180000 -0300" stop="20261018183000 -0300">
     <title lang="en">PL: Brighton v Crystal Palace Hlts</title>
     <desc lang="en">Rivals Brighton and Palace meet on Super Sunday. Fabian Hurzeler's Seagulls continue to go from strength to strength, while the Eagles' outlook also improved by beating Forest 3-1. (18.</desc>
@@ -23144,18 +23189,6 @@
     <icon src="https://metadata-static.plex.tv/d/gracenote/d5a4e8ae9b4272030e275b23cb4740ab.jpg" />
     <episode-num system="onscreen">S2026</episode-num>
   </programme>
-  <programme channel="TNTSports1.uk@TvVoo" start="20261018153000 -0300" stop="20261018174500 -0300">
-    <title lang="en">Live: Serie A</title>
-    <sub-title lang="en">Juventus v Lazio (Kick-off 7.45pm)</sub-title>
-    <desc lang="en">Juventus v Lazio (Kick-off 7.45pm). Coverage of the Italian top-flight match from Allianz Stadium.</desc>
-    <icon src="https://tv.assets.pressassociation.io/a15f96fb-9427-5ff5-9e18-54e19339627d.jpg" />
-  </programme>
-  <programme channel="TNTSports1.uk@TvVoo" start="20261018174500 -0300" stop="20261018180000 -0300">
-    <title lang="en">Roll the Tape</title>
-    <sub-title lang="en">Featuring Brighton and Hove Albion star Fran Kirby</sub-title>
-    <desc lang="en">Featuring Brighton and Hove Albion star Fran Kirby.</desc>
-    <icon src="https://tv.assets.pressassociation.io/90065d3d-0330-576d-ba10-26adc2db88b1.jpg" />
-  </programme>
   <programme channel="TNTSports1.uk@TvVoo" start="20261018180000 -0300" stop="20261018201500 -0300">
     <title lang="en">Live: NWSL</title>
     <sub-title lang="en">Bay FC v Portland Thorns (Kick-off 10.00pm)</sub-title>
@@ -24145,19 +24178,6 @@
     <sub-title lang="en">All the best moments from matchday seven of the Italian top flight</sub-title>
     <desc lang="en">All the best moments from matchday seven of the Italian top flight, including Bologna v Inter Milan, Venezia v Napoli, Juventus v Lazio, and AC Milan v Atalanta.</desc>
     <icon src="https://tv.assets.pressassociation.io/1731c1d2-44f6-5119-b04c-77686e1b1ca7.jpg" />
-  </programme>
-  <programme channel="TVEInternacionalAmerica.es@HD" start="20261018165500 -0300" stop="20261018174200 -0300">
-    <title lang="es">La vuelta al mundo en 80 likes</title>
-    <desc lang="es">La periodista Eva Rojas y el creador de contenido Carlo Cuñado visitan varias ciudades en busca de los lugares más virales.</desc>
-    <credits>
-      <actor>Eva Rojas</actor>
-      <actor>Carlo Cuñado</actor>
-      <director>Nahúm Varas</director>
-    </credits>
-    <date>2026</date>
-    <category lang="es">Travel</category>
-    <icon src="http://dtil.tmsimg.com/assets/p32150053_b_h11_aa.jpg?w=960&amp;h=540" />
-    <previously-shown />
   </programme>
   <programme channel="TVEInternacionalAmerica.es@HD" start="20261018174200 -0300" stop="20261018183500 -0300">
     <title lang="es">La vuelta al mundo en 80 likes</title>
@@ -25904,9 +25924,6 @@
     <icon src="http://dtil.tmsimg.com/assets/p31423383_b_h10_aa.jpg?w=960&amp;h=540" />
     <previously-shown />
   </programme>
-  <programme start="20261018165000 -0300" stop="20261018174500 -0300" channel="TelehitMusica.mx@SD">
-    <title lang="es">Ranking</title>
-  </programme>
   <programme start="20261018174500 -0300" stop="20261018184000 -0300" channel="TelehitMusica.mx@SD">
     <title lang="es">Reggaetown</title>
   </programme>
@@ -26482,12 +26499,6 @@
     <rating system="ES">
       <value>Apta</value>
     </rating>
-  </programme>
-  <programme channel="Vavoo.uk.TNTSPORTS2@TvVoo" start="20261018164500 -0300" stop="20261018174500 -0300">
-    <title lang="en">Men's Cycling Pro Series</title>
-    <sub-title lang="en">Action from the fifth and final stage of the 2026 Eneco Tour</sub-title>
-    <desc lang="en">Action from the fifth and final stage of the 2026 Eneco Tour.</desc>
-    <icon src="https://tv.assets.pressassociation.io/cce26703-438c-505b-9cfa-4dcb0c98c941.jpg" />
   </programme>
   <programme channel="Vavoo.uk.TNTSPORTS2@TvVoo" start="20261018174500 -0300" stop="20261018184500 -0300">
     <title lang="en">Men's Cycling Pro Series</title>
@@ -27952,10 +27963,6 @@
     <icon src="http://www.reportv.com.ar/buscador/img/Programas/1988716102.jpg" />
     <country lang="es">México</country>
     <episode-num system="onscreen">S0</episode-num>
-  </programme>
-  <programme start="20261018160000 -0300" stop="20261018175500 -0300" channel="WinSports.co@Direct181">
-    <title lang="es">Udinese vs. Lecce</title>
-    <sub-title lang="es">Fútbol: Serie A</sub-title>
   </programme>
   <programme start="20261018175500 -0300" stop="20261018190000 -0300" channel="WinSports.co@Direct181">
     <title lang="es">Queens League Americas</title>
@@ -30587,18 +30594,6 @@
       <value>Apta</value>
     </rating>
   </programme>
-  <programme channel="unitedkingdom|vavoo_TNT%20SPORT%201%7Cgroup%3Auk@TvVoo" start="20261018153000 -0300" stop="20261018174500 -0300">
-    <title lang="en">Live: Serie A</title>
-    <sub-title lang="en">Juventus v Lazio (Kick-off 7.45pm)</sub-title>
-    <desc lang="en">Juventus v Lazio (Kick-off 7.45pm). Coverage of the Italian top-flight match from Allianz Stadium.</desc>
-    <icon src="https://tv.assets.pressassociation.io/a15f96fb-9427-5ff5-9e18-54e19339627d.jpg" />
-  </programme>
-  <programme channel="unitedkingdom|vavoo_TNT%20SPORT%201%7Cgroup%3Auk@TvVoo" start="20261018174500 -0300" stop="20261018180000 -0300">
-    <title lang="en">Roll the Tape</title>
-    <sub-title lang="en">Featuring Brighton and Hove Albion star Fran Kirby</sub-title>
-    <desc lang="en">Featuring Brighton and Hove Albion star Fran Kirby.</desc>
-    <icon src="https://tv.assets.pressassociation.io/90065d3d-0330-576d-ba10-26adc2db88b1.jpg" />
-  </programme>
   <programme channel="unitedkingdom|vavoo_TNT%20SPORT%201%7Cgroup%3Auk@TvVoo" start="20261018180000 -0300" stop="20261018201500 -0300">
     <title lang="en">Live: NWSL</title>
     <sub-title lang="en">Bay FC v Portland Thorns (Kick-off 10.00pm)</sub-title>
@@ -31030,12 +31025,6 @@
     <sub-title lang="en">A fast-paced look at matchday seven of the top flight</sub-title>
     <desc lang="en">A fast-paced look at matchday seven of the top flight, featuring Everton v Chelsea, Manchester City v Ipswich Town, Leeds United v Manchester United, and more.</desc>
     <icon src="https://tv.assets.pressassociation.io/92dfde0e-5bea-5a9f-ae82-b849e2174d2d.jpg" />
-  </programme>
-  <programme channel="unitedkingdom|vavoo_TNT%20SPORT%202%7Cgroup%3Auk@TvVoo" start="20261018164500 -0300" stop="20261018174500 -0300">
-    <title lang="en">Men's Cycling Pro Series</title>
-    <sub-title lang="en">Action from the fifth and final stage of the 2026 Eneco Tour</sub-title>
-    <desc lang="en">Action from the fifth and final stage of the 2026 Eneco Tour.</desc>
-    <icon src="https://tv.assets.pressassociation.io/cce26703-438c-505b-9cfa-4dcb0c98c941.jpg" />
   </programme>
   <programme channel="unitedkingdom|vavoo_TNT%20SPORT%202%7Cgroup%3Auk@TvVoo" start="20261018174500 -0300" stop="20261018184500 -0300">
     <title lang="en">Men's Cycling Pro Series</title>
@@ -32885,18 +32874,6 @@
       <value>Apta</value>
     </rating>
   </programme>
-  <programme start="20261018170000 -0300" stop="20261018180000 -0300" channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Mundial de ciclismo en pista</title>
-    <sub-title lang="es">Día 5</sub-title>
-    <desc lang="es">El Mundial de ciclismo en pista llega a su 123.ª edición. Del 14 al 18 de octubre, el Velódromo de Chongming en Shanghái, acoge el evento. Reúne a los mejores especialistas del planeta para disputar un total de 22 títulos mundiales (11 masculinos y 11 femeninos).</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/42731/c_uci_track_world_championships.jpeg" />
-    <country lang="es">China</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
-  </programme>
   <programme start="20261018180000 -0300" stop="20261018190000 -0300" channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo">
     <title lang="es">Maratón de Ámsterdam</title>
     <desc lang="es">El TCS Amsterdam Marathon se celebra el 18 de octubre en la capital de los Países Bajos. Con salida y meta en el histórico Estadio Olímpico, destaca por su circuito extremadamente llano y rápido, ideal para buscar récords personales.</desc>
@@ -33230,227 +33207,5 @@
     <rating system="ES">
       <value>Apta</value>
     </rating>
-  </programme>
-  <programme start="20261018204600 -0300" stop="20261018210000 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Music Videos</title>
-  </programme>
-  <programme start="20261018210000 -0300" stop="20261018212400 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Detective Conan Hd</title>
-    <desc lang="es">Una joya desaparece y alguien muere. Conan encuentra al culpable entre los sospechosos.</desc>
-  </programme>
-  <programme start="20261018212400 -0300" stop="20261018214900 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Detective Conan Hd</title>
-    <desc lang="es">Un crimen ocurre en un teatro vacío. Conan reconstruye los hechos a partir de pistas mínimas.</desc>
-  </programme>
-  <programme start="20261018214900 -0300" stop="20261018215900 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Music Videos</title>
-  </programme>
-  <programme start="20261018215900 -0300" stop="20261018222400 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Detective Conan Hd</title>
-    <desc lang="es">Un cliente muere durante la ceremonia de té. Conan descubre el motivo oculto entre los invitados.</desc>
-  </programme>
-  <programme start="20261018222400 -0300" stop="20261018224900 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Detective Conan Hd</title>
-    <desc lang="es">Un mensaje críptico conduce al asesino. Conan descifra la información justo a tiempo.</desc>
-  </programme>
-  <programme start="20261018224900 -0300" stop="20261018230200 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Music Videos</title>
-  </programme>
-  <programme start="20261018230200 -0300" stop="20261018232500 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Jiraiya Y La Olimpiada Ninja</title>
-    <desc lang="es">Wild regresa como músico errante con su guitarra, ahora perseguido por agentes del clan que quieren su poder eléctrico. Jiraiya lo protege mientras Wild descubre que la amistad vale más que la libertad solitaria.</desc>
-  </programme>
-  <programme start="20261018232500 -0300" stop="20261018234800 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Jiraiya Y La Olimpiada Ninja</title>
-    <desc lang="es">El Clan de los Hechiceros invoca una bestia colosal que amenaza con destruir una ciudad entera. Jiraiya debe enfrentarla con todo lo que tiene en la batalla más destructiva de la serie hasta ahora.</desc>
-  </programme>
-  <programme start="20261018234800 -0300" stop="20261018235900 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Music Videos</title>
-  </programme>
-  <programme start="20261018235900 -0300" stop="20261019002200 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Jiraiya Y La Olimpiada Ninja</title>
-    <desc lang="es">El poderoso robot Jiraishin, vehículo de combate de Jiraiya, despega por primera vez al límite de sus capacidades. La batalla aérea contra el clan define una nueva era en la guerra ninja.</desc>
-  </programme>
-  <programme start="20261019002200 -0300" stop="20261019004500 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Jiraiya Y La Olimpiada Ninja</title>
-    <desc lang="es">Una banda de ladrones ninja disfrazados de gatos atacan museos y robaron joyas en la oscuridad. Jiraiya debe rastrear a los Devil Cats antes de que entreguen su botín al Clan de los Hechiceros.</desc>
-  </programme>
-  <programme start="20261019004500 -0300" stop="20261019010000 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Music Videos</title>
-  </programme>
-  <programme start="20261019010000 -0300" stop="20261019012500 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Saint Seiya: The Lost Canvas - Hades Mythology</title>
-    <desc lang="es">El poderoso Santo de Acuario, Dégel, hace su aparición para proteger el Santuario. Su cosmo helado es tan intenso que puede congelar hasta el alma de sus enemigos.</desc>
-  </programme>
-  <programme start="20261019012500 -0300" stop="20261019014900 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Saint Seiya: The Lost Canvas - Hades Mythology</title>
-    <desc lang="es">El poderoso Santo de Acuario, Dégel, hace su aparición para proteger el Santuario. Su cosmo helado es tan intenso que puede congelar hasta el alma de sus enemigos.</desc>
-  </programme>
-  <programme start="20261019014900 -0300" stop="20261019020200 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Music Videos</title>
-  </programme>
-  <programme start="20261019020200 -0300" stop="20261019022600 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">One Piece Silvermine</title>
-    <desc lang="es">La tripulación se acerca al dominio de Big Mom.</desc>
-  </programme>
-  <programme start="20261019022600 -0300" stop="20261019025000 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">One Piece Silvermine</title>
-    <desc lang="es">Se revela más información sobre la familia de Sanji.</desc>
-  </programme>
-  <programme start="20261019025000 -0300" stop="20261019030200 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Music Videos</title>
-  </programme>
-  <programme start="20261019030200 -0300" stop="20261019040500 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Abogado Sin Ley</title>
-    <desc lang="es">Sangpil cae en la trampa de Ohju y es acusado del asesinato de su tío Daewoong sus aliados luchan desesperadamente para probar su inocencia ante un tribunal hostil. Para empeorar las cosas, un viejo conocido aparece y pone en riesgo la vida de Sangpil.</desc>
-  </programme>
-  <programme start="20261019040500 -0300" stop="20261019051000 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Mi Mentiroso Adorable</title>
-    <desc lang="es">Doha le cuenta a Solhee la historia de la muerte de su ex novia. Los secretos del pasado salen a la luz y la verdad sobre aquella noche trágica comienza a tomar forma.</desc>
-  </programme>
-  <programme start="20261019051000 -0300" stop="20261019053400 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Brave 10</title>
-    <desc lang="es">Un ataque sorpresa pone en peligro la fortaleza de Yukimura. Los Valientes luchan para defender su territorio.</desc>
-  </programme>
-  <programme start="20261019053400 -0300" stop="20261019055800 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Brave 10</title>
-    <desc lang="es">Saizo se enfrenta a un enemigo casi invencible. La batalla pone a prueba sus límites físicos y mentales.</desc>
-  </programme>
-  <programme start="20261019055800 -0300" stop="20261019060000 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Music Videos</title>
-  </programme>
-  <programme start="20261019060000 -0300" stop="20261019062300 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">All Out !!</title>
-    <desc lang="es">Kanagawa juega su primer partido oficial del torneo prefectural con una mezcla de nervios, caos y momentos de brillantez inesperada. Gion encuentra en la presión del partido real una concentración que nunca había demostrado en los entrenamientos.</desc>
-  </programme>
-  <programme start="20261019062300 -0300" stop="20261019064700 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">All Out !!</title>
-    <desc lang="es">Iwashimizu enfrenta en el torneo una situación que replica el momento traumático de su pasado, obligándolo a elegir entre huir o superarlo definitivamente. Su decisión en ese instante es el clímax de su arco personal y uno de los momentos más aplaudidos de toda la serie.</desc>
-  </programme>
-  <programme start="20261019064700 -0300" stop="20261019070100 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Music Videos</title>
-  </programme>
-  <programme start="20261019070100 -0300" stop="20261019072600 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Detective Conan Hd</title>
-    <desc lang="es">Un cliente muere durante la ceremonia de té. Conan descubre el motivo oculto entre los invitados.</desc>
-  </programme>
-  <programme start="20261019072600 -0300" stop="20261019075100 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Detective Conan Hd</title>
-    <desc lang="es">Un mensaje críptico conduce al asesino. Conan descifra la información justo a tiempo.</desc>
-  </programme>
-  <programme start="20261019075100 -0300" stop="20261019080100 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Music Videos</title>
-  </programme>
-  <programme start="20261019080100 -0300" stop="20261019082500 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Jiraiya Y La Olimpiada Ninja</title>
-    <desc lang="es">El poderoso robot Jiraishin, vehículo de combate de Jiraiya, despega por primera vez al límite de sus capacidades. La batalla aérea contra el clan define una nueva era en la guerra ninja.</desc>
-  </programme>
-  <programme start="20261019082500 -0300" stop="20261019084800 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Jiraiya Y La Olimpiada Ninja</title>
-    <desc lang="es">Una banda de ladrones ninja disfrazados de gatos atacan museos y robaron joyas en la oscuridad. Jiraiya debe rastrear a los Devil Cats antes de que entreguen su botín al Clan de los Hechiceros.</desc>
-  </programme>
-  <programme start="20261019084800 -0300" stop="20261019090200 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Music Videos</title>
-  </programme>
-  <programme start="20261019090200 -0300" stop="20261019092700 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Saint Seiya: The Lost Canvas - Hades Mythology</title>
-    <desc lang="es">El poderoso Santo de Acuario, Dégel, hace su aparición para proteger el Santuario. Su cosmo helado es tan intenso que puede congelar hasta el alma de sus enemigos.</desc>
-  </programme>
-  <programme start="20261019092700 -0300" stop="20261019095100 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Saint Seiya: The Lost Canvas - Hades Mythology</title>
-    <desc lang="es">Dégel enfrenta a los espectros de Hades en una batalla glacial y despiadada. Su lealtad al Santuario es inquebrantable, aunque ello le cueste la vida.</desc>
-  </programme>
-  <programme start="20261019095100 -0300" stop="20261019100100 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Music Videos</title>
-  </programme>
-  <programme start="20261019100100 -0300" stop="20261019102600 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Saint Seiya: The Lost Canvas - Hades Mythology</title>
-    <desc lang="es">Yo, el espectro de Pisces, ataca a los Santos con su temible poder ilusorio. Tenma debe superar sus miedos internos para vencer a este poderoso enemigo.</desc>
-  </programme>
-  <programme start="20261019102600 -0300" stop="20261019105000 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Saint Seiya: The Lost Canvas - Hades Mythology</title>
-    <desc lang="es">Los Santos se adentran en las profundidades del reino de Hades. Allí descubren las almas perdidas de guerreros caídos que claman por la libertad.</desc>
-  </programme>
-  <programme start="20261019105000 -0300" stop="20261019110100 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Music Videos</title>
-  </programme>
-  <programme start="20261019110100 -0300" stop="20261019112400 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">One Piece Silvermine</title>
-    <desc lang="es">La tripulación se acerca al dominio de Big Mom.</desc>
-  </programme>
-  <programme start="20261019112400 -0300" stop="20261019114800 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">One Piece Silvermine</title>
-    <desc lang="es">Se revela más información sobre la familia de Sanji.</desc>
-  </programme>
-  <programme start="20261019114800 -0300" stop="20261019120000 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Music Videos</title>
-  </programme>
-  <programme start="20261019120000 -0300" stop="20261019122400 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">One Piece Silvermine</title>
-    <desc lang="es">La tripulación comprende el poder del Yonkou.</desc>
-  </programme>
-  <programme start="20261019122400 -0300" stop="20261019124800 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">One Piece Silvermine</title>
-    <desc lang="es">Luffy promete traer a Sanji de vuelta cueste lo que cueste.</desc>
-  </programme>
-  <programme start="20261019124800 -0300" stop="20261019130300 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Music Videos</title>
-  </programme>
-  <programme start="20261019130300 -0300" stop="20261019140600 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Abogado Sin Ley</title>
-    <desc lang="es">Sangpil cae en la trampa de Ohju y es acusado del asesinato de su tío Daewoong sus aliados luchan desesperadamente para probar su inocencia ante un tribunal hostil. Para empeorar las cosas, un viejo conocido aparece y pone en riesgo la vida de Sangpil.</desc>
-  </programme>
-  <programme start="20261019140600 -0300" stop="20261019151000 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Abogado Sin Ley</title>
-    <desc lang="es">Jaeyi visita a Sangpil en el hospital, angustiada por sus heridas, mientras el juicio por el asesinato de Daewoong continúa con giros inesperados. Se forman nuevas alianzas en la sombra y el testigo más impredecible toma la palabra en el estrado.</desc>
-  </programme>
-  <programme start="20261019151000 -0300" stop="20261019161400 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Mi Mentiroso Adorable</title>
-    <desc lang="es">Doha le cuenta a Solhee la historia de la muerte de su ex novia. Los secretos del pasado salen a la luz y la verdad sobre aquella noche trágica comienza a tomar forma.</desc>
-  </programme>
-  <programme start="20261019161400 -0300" stop="20261019172000 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Mi Mentiroso Adorable</title>
-    <desc lang="es">Doha no quiere que Kangmin arreste a Eomho, esperando que él haya encontrado el perdón. Los sentimientos entre Solhee y Doha se profundizan mientras la investigación avanza.</desc>
-  </programme>
-  <programme start="20261019172000 -0300" stop="20261019174400 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Brave 10</title>
-    <desc lang="es">Un ataque sorpresa pone en peligro la fortaleza de Yukimura. Los Valientes luchan para defender su territorio.</desc>
-  </programme>
-  <programme start="20261019174400 -0300" stop="20261019180800 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Brave 10</title>
-    <desc lang="es">Saizo se enfrenta a un enemigo casi invencible. La batalla pone a prueba sus límites físicos y mentales.</desc>
-  </programme>
-  <programme start="20261019180800 -0300" stop="20261019183100 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Brave 10</title>
-    <desc lang="es">El poder de Isanami se descontrola y amenaza a aliados y enemigos. Saizo intenta salvarla antes de que sea demasiado tarde.</desc>
-  </programme>
-  <programme start="20261019183100 -0300" stop="20261019185500 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Brave 10</title>
-    <desc lang="es">Los Valientes consolidan su lealtad a Yukimura. Se preparan para la confrontación final contra sus enemigos.</desc>
-  </programme>
-  <programme start="20261019185500 -0300" stop="20261019190000 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Music Videos</title>
-  </programme>
-  <programme start="20261019190000 -0300" stop="20261019192300 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">All Out !!</title>
-    <desc lang="es">Kanagawa juega su primer partido oficial del torneo prefectural con una mezcla de nervios, caos y momentos de brillantez inesperada. Gion encuentra en la presión del partido real una concentración que nunca había demostrado en los entrenamientos.</desc>
-  </programme>
-  <programme start="20261019192300 -0300" stop="20261019194700 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">All Out !!</title>
-    <desc lang="es">Iwashimizu enfrenta en el torneo una situación que replica el momento traumático de su pasado, obligándolo a elegir entre huir o superarlo definitivamente. Su decisión en ese instante es el clímax de su arco personal y uno de los momentos más aplaudidos de toda la serie.</desc>
-  </programme>
-  <programme start="20261019194700 -0300" stop="20261019195900 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Music Videos</title>
-  </programme>
-  <programme start="20261019195900 -0300" stop="20261019202200 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">All Out !!</title>
-    <desc lang="es">El equipo avanza en el torneo superando rivales que los subestiman por su falta de experiencia y su apariencia desorganizada. Cada victoria revela una faceta nueva del equipo y consolida la confianza colectiva que los entrenamientos solos no podían haber construido.</desc>
-  </programme>
-  <programme start="20261019202200 -0300" stop="20261019204600 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">All Out !!</title>
-    <desc lang="es">Las lesiones y el agotamiento acumulado empiezan a pasarle factura al equipo en la fase avanzada del torneo. El tema de jugar con dolor y de conocer los propios límites se aborda con una honestidad que distingue a esta serie de otros animes deportivos más fantásticos.</desc>
-  </programme>
-  <programme start="20261019204600 -0300" stop="20261019210000 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Music Videos</title>
   </programme>
 </tv>
