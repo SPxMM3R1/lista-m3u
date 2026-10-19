@@ -2012,10 +2012,10 @@ PREFERRED_LOGOS = {
     "Sky Sports Main Event": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports-main-event.png",
     "Sky Sports Arena": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports.svg",
     "TNT Sports 3": f"{LOCAL_LOGOS_PUBLIC_BASE}/tnt-sports-3.png",
-    "TNT Sports 4 Reino Unido": (
-        "https://raw.githubusercontent.com/tv-logo/tv-logos/main/"
-        "countries/united-kingdom/tnt-sports-4-uk.png"
-    ),
+    # Familias exactas (2026-10-19): mismo lienzo y misma marca, solo cambia el número.
+    "TNT Sports 2 Reino Unido": f"{LOCAL_LOGOS_PUBLIC_BASE}/tnt-sports-2.png",
+    "TNT Sports 4 Reino Unido": f"{LOCAL_LOGOS_PUBLIC_BASE}/tnt-sports-4.png",
+    "Eurosport 1 España": f"{LOCAL_LOGOS_PUBLIC_BASE}/eurosport-1.png",
     "CNN": f"{LOCAL_LOGOS_PUBLIC_BASE}/cnn.png",
     "Eurosport 1": f"{LOCAL_LOGOS_PUBLIC_BASE}/eurosport-1.png",
     "MTV Hits": f"{LOCAL_LOGOS_PUBLIC_BASE}/mtv-hits.png",
@@ -2035,7 +2035,7 @@ PREFERRED_LOGOS = {
     "Sky Sport NBA Italia": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports.svg",
     "Sky Sport Uno Italia": f"{LOCAL_LOGOS_PUBLIC_BASE}/sky-sports.svg",
     "Eurosport 2 UK": f"{LOCAL_LOGOS_PUBLIC_BASE}/eurosport.svg",
-    "Eurosport 2 España": f"{LOCAL_LOGOS_PUBLIC_BASE}/eurosport.svg",
+    "Eurosport 2 España": f"{LOCAL_LOGOS_PUBLIC_BASE}/eurosport-2.png",
     "Eurosport 2 Germany": f"{LOCAL_LOGOS_PUBLIC_BASE}/eurosport.svg",
     "Eurosport 2 Italia": f"{LOCAL_LOGOS_PUBLIC_BASE}/eurosport.svg",
     "Eurosport 4 TIMVISION Italia": f"{LOCAL_LOGOS_PUBLIC_BASE}/eurosport.svg",
