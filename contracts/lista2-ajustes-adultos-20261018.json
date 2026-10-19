@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "atUtc": "2026-10-19T01:05:00Z",
+  "authorization": "Usuario: «borras las 24 si son sd, mide las 322, 3 deja solos las de adultos. y de las que eliinaste devuelve toda señal de adultos».",
+  "scope": "Solo Lista 2 (filas m3u con sourceList 2.m3u). Lista 1 no se toca: sin cambios y layout L1 identico.",
+  "deleted": {
+    "rows": 26,
+    "detail": "3 de «24 Horas» (720x480, SD; #57 24 HORAS y #356-357 Canal 24 Horas) + 23 filas entre 540p y 614p. Se conservaron las de adultos de ese grupo: Playboy (720x576), Sextreme (720x576) y Venus (720x576)."
+  },
+  "restored": {
+    "rows": 27,
+    "detail": "Todas las senales de adultos eliminadas en las purgas de esta sesion: Playboy x8, Venus x14, Sextreme/sextrem x4, HUSTLER TV x1 (copias que eran 480p). Se excluyeron falsos positivos de la regla por nombre: Adult Swim x12 y Clover x3 (no son de adultos; Adult Swim conserva 4 copias activas).",
+    "placement": "Se insertaron en su lugar alfabetico: el bloque de Lista 2 se reordeno por su clave de nombre vigente (invariante que exige tests/test_m6foot_reference), con el movimiento de numeros en cascada esperado (Playboy #1808-1812, Sextreme #1901-1905, HUSTLER #1534, Venus #2442-2443)."
+  },
+  "pending": {
+    "measure322": "Corrida ffmpeg en rama temporal tmp-medicion-322 (workflow tmp-verify-322) para medir las 322 filas activas sin dato; con el resultado se purgaran las SD <=480p salvo las de adultos.",
+    "panCandidates": "Sigue pendiente la purga de las ~1.049 candidatas pan-regionales."
+  },
+  "countsAfter": {
+    "list1": 56,
+    "list2Published": 2464,
+    "layoutL2Activos": 2442,
+    "catalog": 6599
+  },
+  "verification": {
+    "python": "400 pruebas (18 omitidas; fallo local ajeno: copia del contrato compartido en VibeM3U)",
+    "javascript": "57",
+    "partition": "principal=56, externa=2464, catalogo=6599",
+    "list1": "sin cambios; layout L1 identico",
+    "sortCheck": "bloque Lista 2 ordenado por clave de nombre (sortedOk) y array por order (orderOk)"
+  }
+}
