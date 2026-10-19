@@ -49,6 +49,6 @@
   },
   "untouched": "Identidad (tvg-id), URL, nombre y grupo intactos; las 56 filas previas de Lista 1 quedan identicas (verificado).",
   "tests": "401 Python (18 omitidas; unico fallo local ajeno: copia del contrato compartido en VibeM3U) y 57 JS; nuevos tests del encadenado Claro de ETC en test_claro_synopsis/test_epg_fragments.",
-  "pending": "Publicacion del fix y verificacion final remota.",
+  "pending": "Publicado y verificado el 2026-10-19: fixes b886ff4 (Claro) y 08e41244 (campo trial) en main; al quedar valido el layout, Pedidos de la app aplico las 6 bajas pendientes. epg.xml e indice con los 60 bloques; la union del 19-10 dejo epg-pending.json solo con Meganoticias (ETC fuera).",
   "fixTrial": "Correccion 2026-10-19: se quito el campo `trial:false` de la fila (el definitivo no lleva el campo; validateLayout lo rechazaba y bloqueaba las bajas de la app, p. ej. la de ESPN 7)."
 }

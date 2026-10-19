@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "atUtc": "2026-10-19T04:05:00Z",
+  "authorization": "Usuario: «desde el 672 al 683 agregalos a lista 1 como espn 7, como iran como backups, mira como se construye eso. El 679 sera el principal y los demas su backup».",
+  "change": "El bloque de filas PublicDirect «ESPN 7» de Lista 2 pasa a Lista 1: principal PublicDirect.ac1fca2303c88b6a69359958 (la fila que el usuario veía como 679) con backupm3u hacia 8 filas; las otras 3 filas del bloque ya estaban en papelera desde la app y no se reactivan.",
+  "mapping": {
+    "vistaDelUsuario": "Lista 2 #672–#683: 12 filas «ESPN 7» (grupo Deportes, en prueba) en la lista publicada del 18-10.",
+    "principal": {
+      "id": "PublicDirect.ac1fca2303c88b6a69359958",
+      "vistaUsuarioNumber": 679,
+      "list1NumberAfter": 64,
+      "trial": "sin campo (definitivo)",
+      "logo": "logos/espn-7.png",
+      "epg": "co1 / ESPN.7.HD.co"
+    },
+    "backups": [
+      "PublicDirect.415f7d17f3e03b63985d8463",
+      "PublicDirect.41918e20a413e2063f33fc88",
+      "PublicDirect.6719ac9d921f49f9d81cf3fa",
+      "PublicDirect.846158e9de0c9b067fc3a8fe",
+      "PublicDirect.8e879e47dc30b747bfe27608",
+      "PublicDirect.9fda775089cc4fe6a4628f6d",
+      "PublicDirect.e8b9807dfe2d90ff6ae4ad5a",
+      "PublicDirect.f7fc1cb9dd3a2e6e18bb69e4"
+    ],
+    "deletedByApp": [
+      "PublicDirect.60556c84c6c42ac11ac28687",
+      "PublicDirect.e909c3249ae9d6531e728bb8",
+      "PublicDirect.f0130027636eae38729f16b5"
+    ],
+    "otrosEspn7ActivosEnLista2": [
+      "ESPN7.co@Direct181",
+      "Nauta.52bb87a2e2911ed34f7ae3bc@Nauta"
+    ]
+  },
+  "mecanismo": {
+    "campo": "backupm3u (layout, solo filas M3U): ids estables de otras filas M3U activas, en orden; la app las oculta y las prueba si el principal falla (VibeM3U 0.5.93+).",
+    "limite": "8 respaldos por fila (validateLayout/setBackupM3u); este grupo usa los 8.",
+    "politicaPrueba": "Los 8 respaldos quedan con trial:true en Lista 1: se publican, pero no entran al mantenimiento ni a la compuerta EPG (main_playlist_channels = 58) y la app los oculta."
+  },
+  "epg": {
+    "override": "epg-overrides.json: PublicDirect.ac1fca2303c88b6a69359958 -> co1 / ESPN.7.HD.co",
+    "feed": "EPGShare CO1 incluye ESPN.7.HD.co (verificado 2026-10-19: 48 programas en el feed; el histórico del Nauta ESPN 7 ya usaba esta guía).",
+    "resultado": "47 programas en el fragmento y en epg.xml; 69,48 h futuras al construir; el canal no figura en epg-pending.json."
+  },
+  "listas": {
+    "antes": {
+      "list1Publicada": 57,
+      "list2Publicada": 1433,
+      "list2LayoutActivos": 1410,
+      "catalogo": 6599
+    },
+    "despues": {
+      "list1Publicada": 66,
+      "list2Publicada": 1424,
+      "list2LayoutActivos": 1401,
+      "catalogo": 6599
+    },
+    "numeracion": "Lista 1 1–66 y Lista 2 67–1.467 sin huecos (normalizeLists). Las filas sobre el bloque movido conservan su número (el crecimiento de Lista 1 compensa la salida); las inferiores suben 9. Las 57 filas previas de Lista 1 conservan identidad y orden relativo.",
+    "rebase": "La base se movió durante el trabajo por bajas de la app (TUDN, TV Chile, UCV, TVN LOCAL, Unimas Usa, Ve Plus Panregional…); el bloque se reconstruyó sobre la base nueva y las cifras de arriba ya incluyen esas bajas."
+  },
+  "validacion": {
+    "validateLayout": "sin problemas",
+    "suites": "401 Python (18 omitidas; único fallo local ajeno: copia del contrato compartido en VibeM3U) y 57 JS.",
+    "testM6foot": "test_m6foot_reference actualizado: acepta filas M6Foot en papelera desde la app (hoy ESPN Deportes 71, ESPN ARG 87, ESPN 7 93 y TUDN 106) y exige el contrato completo solo a las activas (esos tests ya fallaban en origin/main antes de este cambio).",
+    "epg": "EPG dirigida + ensamblado sin red: 58 canales, 4.899 programas; pendiente único Meganoticias.cl (~8,4 h de 18 h)."
+  },
+  "pendiente": "Push y verificación remota."
+}

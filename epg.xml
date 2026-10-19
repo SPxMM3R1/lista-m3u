@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, FreeEPG, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-description-policy="verified-source-only" data-description-programmes="2906" data-description-channels="49" data-next-refresh-at="2026-10-19T09:00:00+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u" data-generated-at="2026-10-19T03:07:03+00:00">
+<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, FreeEPG, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-description-policy="verified-source-only" data-description-programmes="2906" data-description-channels="49" data-next-refresh-at="2026-10-19T09:00:00+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u" data-generated-at="2026-10-19T03:36:25+00:00">
   <channel id="0104" data-guide="parrilla real conservada" data-guide-source="epg-publicada-conservada">
     <display-name>TVN</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvn.png" />
@@ -228,6 +228,10 @@
   <channel id="PublicDirect.3ba5922c6040fadb816835b1" data-guide="parrilla real" data-guide-source="claro-sinopsis">
     <display-name>ETC TV</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/etc-tv.png" />
+  </channel>
+  <channel id="PublicDirect.ac1fca2303c88b6a69359958" data-guide="parrilla real" data-guide-source="co1">
+    <display-name>ESPN 7</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-7.png" />
   </channel>
   <channel id="unitedkingdom|vavoo_SKY%20SPORTS%20MAIN%20EVENT%7Cgroup%3Auk@TvVoo" data-guide="parrilla real conservada" data-guide-source="epg-publicada-conservada" data-app-alias-of="SkySportsMainEvent.uk@TvVoo">
     <display-name>Sky Sports Main Event</display-name>
@@ -545,10 +549,6 @@
   </programme>
   <programme start="20261025003000 -0300" stop="20261025023000 -0300" channel="0102">
     <title lang="es">Cierre de transmisiones</title>
-  </programme>
-  <programme start="20261018153000 -0300" stop="20261018183000 -0300" channel="0104">
-    <title lang="es">Chile Conectado</title>
-    <desc lang="es">Programa de información y noticias sobre Chile y los chilenos realizado desde regiones</desc>
   </programme>
   <programme start="20261018183000 -0300" stop="20261018210000 -0300" channel="0104">
     <title lang="es">MasterChef Chile</title>
@@ -1305,10 +1305,6 @@
   <programme start="20261019235000 -0300" stop="20261020005000 -0300" channel="0124">
     <title lang="es">Micrófono abierto</title>
   </programme>
-  <programme start="20261018173000 -0300" stop="20261018183000 -0300" channel="0201">
-    <title lang="es">24 Horas Deportes</title>
-    <desc lang="es">Lo más destacado del día en diferentes disciplinas. Sigue la actualidad deportiva nacional e internacional a través de TVN.</desc>
-  </programme>
   <programme start="20261018183000 -0300" stop="20261018190000 -0300" channel="0201">
     <title lang="es">24 Horas a la Hora</title>
     <desc lang="es">Noticiero, con despachos en directo y corresponsalías en todo el mundo.</desc>
@@ -1630,9 +1626,6 @@
   <programme start="20261021200000 -0300" stop="20261021210000 -0300" channel="0201">
     <title lang="es">24 Horas Deportes</title>
   </programme>
-  <programme start="20261018180000 -0300" stop="20261018183000 -0300" channel="1153">
-    <title lang="es">CHV Noticias te ayuda</title>
-  </programme>
   <programme start="20261018183000 -0300" stop="20261018190000 -0300" channel="1153">
     <title lang="es">Hoy en el Mundo: Resumen semanal</title>
   </programme>
@@ -1722,10 +1715,6 @@
   </programme>
   <programme start="20261019230000 -0300" stop="20261020003000 -0300" channel="1153">
     <title lang="es">Chilevisión noticias informa</title>
-  </programme>
-  <programme start="20261018180000 -0300" stop="20261018183000 -0300" channel="13Cultura.cl@DPS">
-    <title lang="es">Carnaval del Sur</title>
-    <desc lang="es">Documental que cubre el Carnaval del Sur, el que celebra con la comunidad la identidad de la gente que vive en la zona, combinando artes escénicas y la divulgación científica con una puesta en valor de su patrimonio natural y cultural.</desc>
   </programme>
   <programme start="20261018183000 -0300" stop="20261018190000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Desafío 2030</title>
@@ -2843,10 +2832,6 @@
     <rating system="ES">
       <value>Apta</value>
     </rating>
-  </programme>
-  <programme channel="ArirangTV.kr" start="20261018180000 -0300" stop="20261018183000 -0300">
-    <title lang="pl">Moo No Plan</title>
-    <episode-num system="onscreen">E3</episode-num>
   </programme>
   <programme channel="ArirangTV.kr" start="20261018183000 -0300" stop="20261018190000 -0300">
     <title lang="pl">I'm Live</title>
@@ -5872,10 +5857,6 @@
       <value>Apta</value>
     </rating>
   </programme>
-  <programme start="20261018180000 -0300" stop="20261018183000 -0300" channel="DW.de">
-    <title lang="es">Visión futuro</title>
-    <desc lang="es">La emisión de DW sobre ciencia. Dirigido a todos los que se interesan por la ciencia y la investigación en Alemania y Europa. En un lenguaje asequible, con una atractiva presentación y siempre al tanto de las nuevas tendencias.</desc>
-  </programme>
   <programme start="20261018183000 -0300" stop="20261018190000 -0300" channel="DW.de">
     <title lang="es">Euromaxx - vida y cultura en Europa</title>
     <desc lang="es">Europa en toda su diversidad y fascinación: estilos de vida, tendencias, cultura, sociedad y glamour. Euromaxx es un programa diario de DW siete días a la semana, 365 días al año. Euromaxx, el espacio sobre la vida cotidiana y la cultura de Europa.</desc>
@@ -6417,19 +6398,6 @@
   </programme>
   <programme start="20261022013000 -0300" stop="20261022020000 -0300" channel="DW.de">
     <title lang="es">Aquí estoy</title>
-  </programme>
-  <programme channel="DWEnglish.de" start="20261018180200 -0300" stop="20261018181500 -0300">
-    <title lang="fr">Best of DW-online Content</title>
-    <sub-title lang="fr">online Content</sub-title>
-    <category lang="fr">Documentaire de société</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/7/4/15216476.jpg" />
-  </programme>
-  <programme channel="DWEnglish.de" start="20261018181500 -0300" stop="20261018183000 -0300">
-    <title lang="fr">Reporter DW</title>
-    <category lang="fr">Documentaire de société</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/3/8/15215838.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/1/2/8/15215821.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/9/7/15215795.jpg" />
   </programme>
   <programme channel="DWEnglish.de" start="20261018183000 -0300" stop="20261018190000 -0300">
     <title lang="fr">Tomorrow Today</title>
@@ -9274,35 +9242,6 @@
       <value>Apta</value>
     </rating>
   </programme>
-  <programme channel="France24.fr" start="20261018180000 -0300" stop="20261018181500 -0300">
-    <title lang="fr">Noticias</title>
-    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
-    <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/0/5/15194509.jpg" />
-    <episode-num system="onscreen">E25</episode-num>
-  </programme>
-  <programme channel="France24.fr" start="20261018181500 -0300" stop="20261018182300 -0300">
-    <title lang="fr">Cultura</title>
-    <desc lang="es">Cómo nos relatan el mundo los cineastas, los novelistas y los artistas en general? France 24 sale al encuentro de una cultura comprometida con su época.</desc>
-    <category lang="fr">Magazine culturel</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/7/6/6/15194667.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/6/6/15194664.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/5/6/15194659.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/6/15194666.jpg" />
-    <episode-num system="onscreen">E2</episode-num>
-  </programme>
-  <programme channel="France24.fr" start="20261018182300 -0300" stop="20261018183000 -0300">
-    <title lang="fr">En foco</title>
-    <desc lang="es">Un reportaje único sobre temas que a menudo están por fuera de las noticias.</desc>
-    <category lang="fr">Magazine d'information</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/4/5/15194545.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/9/4/15194496.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/1/5/15194515.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/4/3/15184348.jpg" />
-    <episode-num system="onscreen">E2</episode-num>
-  </programme>
   <programme channel="France24.fr" start="20261018183000 -0300" stop="20261018184600 -0300">
     <title lang="fr">Noticias</title>
     <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
@@ -11335,30 +11274,6 @@
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/0/7/15194708.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/0/1/7/15194710.jpg" />
     <episode-num system="onscreen">E2</episode-num>
-  </programme>
-  <programme channel="France24.fr@English" start="20261018180000 -0300" stop="20261018181500 -0300">
-    <title lang="fr">Le journal France 24</title>
-    <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/0/2/15220206.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/6/1/15220164.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/6/1/15220169.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/0/5/15194509.jpg" />
-  </programme>
-  <programme channel="France24.fr@English" start="20261018181500 -0300" stop="20261018181600 -0300">
-    <title lang="fr">Le journal France 24</title>
-    <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/0/2/15220206.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/6/1/15220164.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/6/1/15220169.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/0/5/15194509.jpg" />
-  </programme>
-  <programme channel="France24.fr@English" start="20261018181600 -0300" stop="20261018183000 -0300">
-    <title lang="fr">Sports Sunday</title>
-    <category lang="fr">Magazine sportif</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/6/3/15221364.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/1/6/3/15221361.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/2/6/3/15221362.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/0/5/3/15184350.jpg" />
   </programme>
   <programme channel="France24.fr@English" start="20261018183000 -0300" stop="20261018184500 -0300">
     <title lang="fr">Le journal France 24</title>
@@ -13580,10 +13495,6 @@
   </programme>
   <programme start="20261019080000 -0300" stop="20261019090000 -0300" channel="Meganoticias.cl">
     <title lang="es">Meganoticias update</title>
-  </programme>
-  <programme start="20261018180000 -0300" stop="20261018181000 -0300" channel="NHKWorldJapan.jp">
-    <title lang="en">NHK Newsline</title>
-    <desc lang="en">NHK NEWSLINE brings you up to date with the latest from Japan, Asia and around the world. Our team covers breaking news and major developments, with trusted anchors to tie it all together.</desc>
   </programme>
   <programme start="20261018181000 -0300" stop="20261018184000 -0300" channel="NHKWorldJapan.jp">
     <title lang="en">J-melo</title>
@@ -16506,14 +16417,422 @@
   <programme start="20261019204600 -0300" stop="20261019210000 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
     <title lang="es">Music Videos</title>
   </programme>
-  <programme start="20261018175500 -0300" stop="20261018183000 -0300" channel="PublicDirect.d6cca6d4aa23a69d50439c22">
-    <title lang="en">ATP Tour Uncovered</title>
-    <sub-title lang="en">ATP Tour: This Week</sub-title>
-    <desc lang="es">Los momentos más destacados de semana.</desc>
-    <category lang="en">Series</category>
-    <category lang="en">Tennis</category>
-    <icon src="http://dtil.tmsimg.com/assets/p8659881_b_h8_ab.jpg?w=960&amp;h=540" />
-    <previously-shown />
+  <programme start="20261018160000 -0400" stop="20261018193000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Fútbol Americano NFL</title>
+    <sub-title lang="es">Arizona Cardinals vs. Los Angeles Rams</sub-title>
+    <desc lang="es">Arizona Cardinals busca su primer triunfo frente a Los Angeles Rams desde 2024, encuentro en el que se impuso por 41 a 10. En la temporada pasada, los Rams mantuvieron una marca de 4-2 contra equipos de la NFC Oeste.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261018193000 -0400" stop="20261018200000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">UEFA Champions League Weekly</title>
+    <desc lang="es">Momentos destacados, entrevistas y toda la información de la jornada semanal de la UEFA Champions League.</desc>
+    <date>2004</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261018200000 -0400" stop="20261018220000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Fútbol Eredivisie</title>
+    <sub-title lang="es">FC Groningen vs. Ajax</sub-title>
+    <desc lang="es">Fecha 9 de la Eredivisie temporada 2026-27. Groningen, en sexto lugar del torneo, busca aprovechar la localía para superar a Ajax, en quinto. Desde el Euroborg, en Groningen.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261018220000 -0400" stop="20261019000000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Fútbol Bundesliga</title>
+    <sub-title lang="es">Bayern Munich vs. RB Leipzig</sub-title>
+    <desc lang="es">Acción de la jornada 6 de la Bundesliga 2026-27. Los Bávaros buscan el liderato y Leipzig su segunda victoria al hilo.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261019000000 -0400" stop="20261019010000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">ESPN Compact</title>
+    <sub-title lang="es">Premier Padel: Milán P1, final femenina</sub-title>
+    <desc lang="es">Resumen de la final femenina de Premier Padel Milán P1. Disputado el 18 de octubre de 2026, en el Allianz Cloud, en Milán, Italia.</desc>
+    <date>2026</date>
+    <episode-num system="onscreen">E377</episode-num>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261019010000 -0400" stop="20261019020000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">ESPN Compact</title>
+    <sub-title lang="es">Premier Padel: Milán P1, final masculina</sub-title>
+    <desc lang="es">Resumen de la final masculina de Premier Padel Milán P1. Disputado el 18 de octubre de 2026, en el Allianz Cloud, en Milán, Italia.</desc>
+    <date>2026</date>
+    <episode-num system="onscreen">E374</episode-num>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261019020000 -0400" stop="20261019030000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">ESPN Compact</title>
+    <sub-title lang="es">ATP Masters 1000: Rolex Shanghai Masters, final</sub-title>
+    <desc lang="es">Los momentos más destacados de la final individual del Rolex Shanghai Masters 2026, parte del ATP Masters 1000. Desde el Qizhong Forest Sports City Arena, en Shanghái, China. Disputado el 18 de octubre de 2026.</desc>
+    <date>2026</date>
+    <episode-num system="onscreen">E368</episode-num>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261019030000 -0400" stop="20261019050000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">ESPN 7 Sur</title>
+    <desc lang="es">Programación de ESPN Sur.</desc>
+    <date>2024</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261019050000 -0400" stop="20261019090000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">ESPN 7 Sur</title>
+    <desc lang="es">Programación de ESPN Sur.</desc>
+    <date>2024</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261019090000 -0400" stop="20261019130000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">ESPN 7 Sur</title>
+    <desc lang="es">Programación de ESPN Sur.</desc>
+    <date>2024</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261019130000 -0400" stop="20261019150000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">ESPN 7 Sur</title>
+    <desc lang="es">Programación de ESPN Sur.</desc>
+    <date>2024</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261019150000 -0400" stop="20261019230000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Fútbol Bundesliga</title>
+    <sub-title lang="es">Bayern Munich vs. RB Leipzig</sub-title>
+    <desc lang="es">Acción de la jornada 6 de la Bundesliga 2026-27. Los Bávaros buscan el liderato y Leipzig su segunda victoria al hilo.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261019230000 -0400" stop="20261020010000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Fútbol Eredivisie</title>
+    <sub-title lang="es">FC Groningen vs. Ajax</sub-title>
+    <desc lang="es">Fecha 9 de la Eredivisie temporada 2026-27. Groningen, en sexto lugar del torneo, busca aprovechar la localía para superar a Ajax, en quinto. Desde el Euroborg, en Groningen.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261020010000 -0400" stop="20261020020000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Bundesliga Highlights Show</title>
+    <desc lang="es">Disfruta los juegos de las 34 jornadas de una de las ligas más prestigiosas a nivel mundial.</desc>
+    <date>2020</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261020020000 -0400" stop="20261020023000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">UEFA Champions League Weekly</title>
+    <desc lang="es">Momentos destacados, entrevistas y toda la información de la jornada semanal de la UEFA Champions League.</desc>
+    <date>2004</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261020023000 -0400" stop="20261020030000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">FIM Road Racing World Championship Highlights</title>
+    <desc lang="es">Recopilación de los momentos más emocionantes de las carreras del campeonato mundial de motociclismo.</desc>
+    <date>2005</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261020030000 -0400" stop="20261020040000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">ESPN Compact</title>
+    <sub-title lang="es">Premier Padel: Milán P1, final femenina</sub-title>
+    <desc lang="es">Resumen de la final femenina de Premier Padel Milán P1. Disputado el 18 de octubre de 2026, en el Allianz Cloud, en Milán, Italia.</desc>
+    <date>2026</date>
+    <episode-num system="onscreen">E377</episode-num>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261020040000 -0400" stop="20261020050000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">ESPN Compact</title>
+    <sub-title lang="es">Premier Padel: Milán P1, final masculina</sub-title>
+    <desc lang="es">Resumen de la final masculina de Premier Padel Milán P1. Disputado el 18 de octubre de 2026, en el Allianz Cloud, en Milán, Italia.</desc>
+    <date>2026</date>
+    <episode-num system="onscreen">E374</episode-num>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261020050000 -0400" stop="20261020080000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Fútbol Americano NFL</title>
+    <sub-title lang="es">Chicago Bears vs. Atlanta Falcons</sub-title>
+    <desc lang="es">Semana 6 de la temporada regular 2026 de la NFL. Desde el Mercedes Benz-Stadium, en Atlanta. Chicago Bears lidera la serie histórica 16-14. En la campaña pasada, Atlanta Falcons mantuvo una marca de 7-5 ante equipos de la Conferencia Nacional.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261020080000 -0400" stop="20261020083000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Aguas arriba</title>
+    <desc lang="es">La experiencia de la pesca con mosca en Latinoamérica. La búsqueda de truchas en la Patagonia, "sea trout" y salmones en Chile, dorados en el norte de Argentina y las magníficas especies como "bonefish", "permit" y "tarpon" de Centroamérica y Caribe.</desc>
+    <date>2018</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261020083000 -0400" stop="20261020090000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">FIM Road Racing World Championship Highlights</title>
+    <desc lang="es">Recopilación de los momentos más emocionantes de las carreras del campeonato mundial de motociclismo.</desc>
+    <date>2005</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261020090000 -0400" stop="20261020110000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Fútbol EFL Championship</title>
+    <sub-title lang="es">Watford vs. Charlton Athletic</sub-title>
+    <desc lang="es">Acción de la jornada 11 de la EFL temporada 2026-27. Watford busca salir de la zona de descenso y Charlton Athletic romper su racha de dos empates.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261020110000 -0400" stop="20261020120000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">ESPN Compact</title>
+    <sub-title lang="es">Premier Padel: Milán P1, final femenina</sub-title>
+    <desc lang="es">Resumen de la final femenina de Premier Padel Milán P1. Disputado el 18 de octubre de 2026, en el Allianz Cloud, en Milán, Italia.</desc>
+    <date>2026</date>
+    <episode-num system="onscreen">E377</episode-num>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261020120000 -0400" stop="20261020130000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">ESPN Compact</title>
+    <sub-title lang="es">Premier Padel: Milán P1, semifinal masculina</sub-title>
+    <desc lang="es">Resumen de la semifinal masculina de Premier Padel Milán P1. Disputado el 17 de octubre de 2026, en el Allianz Cloud, en Milán, Italia.</desc>
+    <date>2026</date>
+    <episode-num system="onscreen">E370</episode-num>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261020130000 -0400" stop="20261020140000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">ESPN Compact</title>
+    <sub-title lang="es">Premier Padel: Milán P1, final masculina</sub-title>
+    <desc lang="es">Resumen de la final masculina de Premier Padel Milán P1. Disputado el 18 de octubre de 2026, en el Allianz Cloud, en Milán, Italia.</desc>
+    <date>2026</date>
+    <episode-num system="onscreen">E374</episode-num>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261020140000 -0400" stop="20261020143000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">FIM Road Racing World Championship Highlights</title>
+    <desc lang="es">Recopilación de los momentos más emocionantes de las carreras del campeonato mundial de motociclismo.</desc>
+    <date>2005</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261020143000 -0400" stop="20261020144000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Premier Padel Tennis</title>
+    <sub-title lang="es">Cápsula Mundial 2024</sub-title>
+    <desc lang="es">Los mejores momentos del Mundial de Pádel 2024. Realizado del 28 de octubre al 2 de noviembre de 2024, en Doha, Catar.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261020144000 -0400" stop="20261020150000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Fútbol UEFA Champions League</title>
+    <sub-title lang="es">VfB Stuttgart vs. Atlético de Madrid</sub-title>
+    <desc lang="es">Acción de la jornada 3 de la fase de liga de la UEFA Champions League 2026-27. Stuttgart busca su tercera victoria y el Atleti mantenerse en zona de clasificación.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261020150000 -0400" stop="20261020160000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">ESPN Compact</title>
+    <sub-title lang="es">Premier Padel: Milán P1, semifinal femenina</sub-title>
+    <desc lang="es">Resumen de la semifinal femenina de Premier Padel Milán P1. Disputado el 17 de octubre de 2026, en el Allianz Cloud, en Milán, Italia.</desc>
+    <date>2026</date>
+    <episode-num system="onscreen">E369</episode-num>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261020160000 -0400" stop="20261020170000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">ESPN Compact</title>
+    <sub-title lang="es">Premier Padel: Milán P1, semifinal masculina</sub-title>
+    <desc lang="es">Resumen de la semifinal masculina de Premier Padel Milán P1. Disputado el 17 de octubre de 2026, en el Allianz Cloud, en Milán, Italia.</desc>
+    <date>2026</date>
+    <episode-num system="onscreen">E370</episode-num>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261020170000 -0400" stop="20261020190000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Fútbol Bundesliga</title>
+    <sub-title lang="es">Bayer 04 Leverkusen vs. SC Freiburg</sub-title>
+    <desc lang="es">Acción de la jornada 6 de la Bundesliga 2026-27. Leverkusen busca su tercera victoria al hilo y Freiburg retener el liderato.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261020190000 -0400" stop="20261020200000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Bundesliga Highlights Show</title>
+    <desc lang="es">Disfruta los juegos de las 34 jornadas de una de las ligas más prestigiosas a nivel mundial.</desc>
+    <date>2020</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261020200000 -0400" stop="20261020210000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">NFL Semanal</title>
+    <desc lang="es">La mejor cobertura y toda la acción del fútbol americano.</desc>
+    <date>2002</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261020210000 -0400" stop="20261020220000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Fútbol UEFA Champions League</title>
+    <sub-title lang="es">Sabah FK vs. Borussia Dortmund</sub-title>
+    <desc lang="es">Acción de la jornada 3 de la fase de liga de la UEFA Champions League 2026-27. Sabah busca su segunda victoria al hilo y Dortmund mantenerse en zona de clasificación.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261020220000 -0400" stop="20261020230000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">UEFA Europa &amp; Conference League Magazine</title>
+    <desc lang="es">Noticias, entrevistas, momentos destacados, historias y análisis de los equipos de la UEFA Europa League y la UEFA Conference League.</desc>
+    <date>2021</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261020230000 -0400" stop="20261021010000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Tenis ATP Rolex Shanghai Masters 2026</title>
+    <sub-title lang="es">Final</sub-title>
+    <desc lang="es">Cobertura de la gran final del Shangai Masters 2026 de la ATP. Desde la Qizhong Forest Sports City Arena.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261021010000 -0400" stop="20261021030000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Fútbol UEFA Champions League</title>
+    <sub-title lang="es">VfB Stuttgart vs. Atlético de Madrid</sub-title>
+    <desc lang="es">Acción de la jornada 3 de la fase de liga de la UEFA Champions League 2026-27. Stuttgart busca su tercera victoria y el Atleti mantenerse en zona de clasificación.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261021030000 -0400" stop="20261021050000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Fútbol UEFA Champions League</title>
+    <sub-title lang="es">Fenerbahçe vs. Slavia Praha</sub-title>
+    <desc lang="es">Acción de la jornada 3 de la fase de liga de la UEFA Champions League 2026-27. Fenerbahce busca su primera victoria y Slavia Praga sus primeros puntos.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261021050000 -0400" stop="20261021080000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Fútbol Americano NFL</title>
+    <sub-title lang="es">Dallas Cowboys vs. Green Bay Packers</sub-title>
+    <desc lang="es">Green Bay Packers recibe a Dallas Cowboys en la semana 6 de la NFL. La semana pasada, Green Bay venció a Chicago por 31-7 y acumula dos victorias consecutivas. Dallas llega tras una derrota por 24-16 ante Tampa Bay.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261021080000 -0400" stop="20261021090000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">UEFA Champions League Highlights</title>
+    <desc lang="es">Resultados y las mejores jugadas de la Copa UEFA de clubes Campeones.</desc>
+    <date>2004</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261021090000 -0400" stop="20261021110000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Fútbol UEFA Champions League</title>
+    <sub-title lang="es">FC Porto vs. PSV</sub-title>
+    <desc lang="es">Acción de la jornada 3 de la fase de liga de la UEFA Champions League 2026-27. Porto busca sus primeros puntos y PSV su primera victoria.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261021110000 -0400" stop="20261021120000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">NFL Semanal</title>
+    <desc lang="es">La mejor cobertura y toda la acción del fútbol americano.</desc>
+    <date>2002</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261021120000 -0400" stop="20261021121000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Premier Padel Tennis</title>
+    <sub-title lang="es">Cápsula Mundial 2024</sub-title>
+    <desc lang="es">Los mejores momentos del Mundial de Pádel 2024. Realizado del 28 de octubre al 2 de noviembre de 2024, en Doha, Catar.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261021121000 -0400" stop="20261021144000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Hockey NHL</title>
+    <sub-title lang="es">Tampa Bay Lightning vs. Vegas Golden Knights</sub-title>
+    <desc lang="es">Toda la acción del hockey sobre hielo de la NHL.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261021144000 -0400" stop="20261021170000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Fútbol UEFA Champions League</title>
+    <sub-title lang="es">Club Brujas vs. RC Lens</sub-title>
+    <desc lang="es">Acción de la jornada 3 de la fase de liga de la UEFA Champions League 2026-27. Brujas busca su segunda victoria al hilo y Lens mantenerse en zona de clasificación.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261021170000 -0400" stop="20261021190000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Fútbol UEFA Champions League</title>
+    <sub-title lang="es">Como vs. Manchester United</sub-title>
+    <desc lang="es">Acción de la jornada 3 de la fase de liga de la UEFA Champions League 2026-27. Como y Manchester United buscan ganar tras perder.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261021190000 -0400" stop="20261021210000 -0400" channel="PublicDirect.ac1fca2303c88b6a69359958">
+    <title lang="es">Fútbol UEFA Champions League</title>
+    <sub-title lang="es">Bayern Munich vs. Arsenal</sub-title>
+    <desc lang="es">Acción de la jornada 3 de la fase de liga de la UEFA Champions League 2026-27. Los Bávaros buscan ganar tras empatar y los Gunners su tercera victoria al hilo.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
   </programme>
   <programme start="20261018183000 -0300" stop="20261018193000 -0300" channel="PublicDirect.d6cca6d4aa23a69d50439c22">
     <title lang="es">Live: Scrum</title>
@@ -18614,11 +18933,6 @@
     <title lang="es">Los inicios de Jonathan Paredes en el Cliff Diving</title>
     <desc lang="es">Antes de la Serie Mundial de Cliff Diving 2016, Jonathan Paredes regresa a su natal México para revivir los lugares y personas que marcaron su camino desde Acapulco hasta la élite mundial.</desc>
   </programme>
-  <programme start="20261018174413 -0300" stop="20261018180824 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">UnBRAKEable</title>
-    <sub-title lang="en">Patrick Seabase takes on the Swiss Alps</sub-title>
-    <desc lang="en">Patrick Seabase rides the most iconic mountain passes of the Swiss Alps. One day, one gear, no brakes.</desc>
-  </programme>
   <programme start="20261018180824 -0300" stop="20261018184854 -0300" channel="RedBullWorldEnglish.int">
     <title lang="en">Program information unavailable at this time</title>
   </programme>
@@ -18908,17 +19222,6 @@
   </programme>
   <programme start="20261019170000 -0300" stop="20261019180000 -0300" channel="RewindTV.cl@SD">
     <title lang="es">Live</title>
-  </programme>
-  <programme channel="SkySportsF1.uk" start="20261018173000 -0300" stop="20261018183000 -0300">
-    <title lang="en">British Kart Champs Highlights</title>
-    <desc lang="en">Highlights from the 2026 season of the British Kart Championship, with the 10th round emanating from Silverstone.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Motor Sports</category>
-    <icon src="https://images.metadata.sky.com/pd-image/1be88244-69e9-47dd-ba28-837476b5eec9/16-9" />
-    <episode-num system="xmltv_ns">.9.</episode-num>
-    <rating system="UK">
-      <value>U</value>
-    </rating>
   </programme>
   <programme channel="SkySportsF1.uk" start="20261018183000 -0300" stop="20261018193000 -0300">
     <title lang="en">Singapore F1 GP: Sprint</title>
@@ -19826,17 +20129,6 @@
     <category lang="en">Sports</category>
     <category lang="en">Motor Sports</category>
     <icon src="https://images.metadata.sky.com/pd-image/5bf9fdd0-da54-4ed2-b9e2-499774bdad64/16-9" />
-    <episode-num system="xmltv_ns">.9.</episode-num>
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme channel="SkySportsF1UHD.uk" start="20261018173000 -0300" stop="20261018183000 -0300">
-    <title lang="en">British Kart Champs Highlights</title>
-    <desc lang="en">Highlights from the 2026 season of the British Kart Championship, with the 10th round emanating from Silverstone.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Motor Sports</category>
-    <icon src="https://images.metadata.sky.com/pd-image/1be88244-69e9-47dd-ba28-837476b5eec9/16-9" />
     <episode-num system="xmltv_ns">.9.</episode-num>
     <rating system="UK">
       <value>U</value>
@@ -21367,14 +21659,6 @@
     <icon src="https://images.metadata.sky.com/pd-image/45453377-7941-4aa5-b6cf-d2975702b9c3/16-9" />
     <episode-num system="xmltv_ns">.81.</episode-num>
   </programme>
-  <programme channel="SkySportsPremierLeague.uk" start="20261018180000 -0300" stop="20261018183000 -0300">
-    <title lang="en">PL: Brighton v Crystal Palace Hlts</title>
-    <desc lang="en">Rivals Brighton and Palace meet on Super Sunday. Fabian Hurzeler's Seagulls continue to go from strength to strength, while the Eagles' outlook also improved by beating Forest 3-1. (18.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Football</category>
-    <icon src="https://images.metadata.sky.com/pd-image/8ecd6a95-0afb-44d1-b942-bf5a48dc316e/16-9" />
-    <episode-num system="onscreen">10</episode-num>
-  </programme>
   <programme channel="SkySportsPremierLeague.uk" start="20261018183000 -0300" stop="20261018190000 -0300">
     <title lang="en">PL: Bournemouth v Sunderland Hlts</title>
     <desc lang="en">An out-of-touch Sunderland visit the South Coast on Super Sunday as Regis Le Bris attempts to steady the ship away to fellow strugglers Bournemouth - still without a win. (18.</desc>
@@ -22795,13 +23079,6 @@
     <icon src="https://images.metadata.sky.com/pd-image/fd318efc-10a5-4d13-9531-1080eb71d4dd/16-9" />
     <episode-num system="xmltv_ns">.105.</episode-num>
   </programme>
-  <programme start="20261018171100 -0300" stop="20261018183300 -0300" channel="StingrayClassica.ca">
-    <title lang="en">Chamber music by Mozart and Shostakovich</title>
-    <desc lang="en">French violinist Renaud Capuçon appears at the festival Les Coups de Cœur de Chantilly, presenting a chamber music program consisting of classical and 20th century repertoire. He performs with the soloists of the International Menuhin Music Academy.</desc>
-    <date>2026</date>
-    <icon src="https://metadata-static.plex.tv/6/gracenote/654ab8a22f09f160aba16e464bc619dc.jpg" />
-    <episode-num system="onscreen">S2026</episode-num>
-  </programme>
   <programme start="20261018183300 -0300" stop="20261018193800 -0300" channel="StingrayClassica.ca">
     <title lang="en">Beethoven: Symphony No. 3 in E-flat major, Op. 55</title>
     <desc lang="en">Maestro Herbert Blomstedt makes his debut with the Lucerne Festival Orchestra at 2020's Lucerne Festival conducting Ludwig van Beethoven's celebrated Symphony No 3 in E-flat major, Op 55, Eroica.</desc>
@@ -24178,19 +24455,6 @@
     <sub-title lang="en">All the best moments from matchday seven of the Italian top flight</sub-title>
     <desc lang="en">All the best moments from matchday seven of the Italian top flight, including Bologna v Inter Milan, Venezia v Napoli, Juventus v Lazio, and AC Milan v Atalanta.</desc>
     <icon src="https://tv.assets.pressassociation.io/1731c1d2-44f6-5119-b04c-77686e1b1ca7.jpg" />
-  </programme>
-  <programme channel="TVEInternacionalAmerica.es@HD" start="20261018174200 -0300" stop="20261018183500 -0300">
-    <title lang="es">La vuelta al mundo en 80 likes</title>
-    <desc lang="es">La periodista Eva Rojas y el creador de contenido Carlo Cuñado visitan varias ciudades en busca de los lugares más virales.</desc>
-    <credits>
-      <actor>Eva Rojas</actor>
-      <actor>Carlo Cuñado</actor>
-      <director>Nahúm Varas</director>
-    </credits>
-    <date>2026</date>
-    <category lang="es">Travel</category>
-    <icon src="http://dtil.tmsimg.com/assets/p32150053_b_h11_aa.jpg?w=960&amp;h=540" />
-    <previously-shown />
   </programme>
   <programme channel="TVEInternacionalAmerica.es@HD" start="20261018183500 -0300" stop="20261018190500 -0300">
     <title lang="es">Esto es España</title>
