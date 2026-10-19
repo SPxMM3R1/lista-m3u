@@ -9,7 +9,7 @@
 
 ## Hoy, en una mirada
 
-- **Papelera de todos los TLC (2026-10-19)**: a pedido («Elimina todos los TLC») se mandaron a la **papelera reversible** las 2 filas activas: #388 «DISCOVERY TLC» (`PublicDirect.931e0192…`) y #1241 «TLC» (`PublicDirect.c319f5dc…`). Las otras 24 filas TLC ya estaban en papelera (varias por la app el mismo día) y no se reactivan. **Lista 1 no se toca** (66); Lista 2 publicada 1.419 → **1.417** (layout L2 1.396 → 1.394); catálogo 6.599. Registro `contracts/lista2-purga-tlc-20261019.json`. Suites: 401 Python (18 omitidas; único fallo local ajeno) y 58 JS. **Pendiente en esta entrada**: push y verificación remota.
+- **Papelera de todos los TLC (2026-10-19)**: a pedido («Elimina todos los TLC») se mandaron a la **papelera reversible** las 2 filas activas: #388 «DISCOVERY TLC» (`PublicDirect.931e0192…`) y #1241 «TLC» (`PublicDirect.c319f5dc…`). Las otras 24 filas TLC ya estaban en papelera (varias por la app el mismo día) y no se reactivan. **Lista 1 no se toca** (66); Lista 2 publicada 1.419 → **1.417** (layout L2 1.396 → 1.394); catálogo 6.599. Registro `contracts/lista2-purga-tlc-20261019.json`. Suites: 401 Python (18 omitidas; único fallo local ajeno) y 58 JS. **Publicado y verificado (2026-10-19)**: commit `3717f2b2`; canales `39327802592`, editor `39327802636` y dirigido `39327803013` success. Remoto: **0 TLC** en Lista 1 y Lista 2 (los 2 ids quedan solo en el catálogo, en papelera); Lista 1 = 66 y Lista 2 = 1.412 al verificar (la app siguió borrando ESPN 6 durante la corrida).
 
 - **Logos ESPN unificados (2026-10-19, mockup aprobado «Aplica»)**: `logos/espn.svg` y `logos/espn-{2,3,4,5,7}.png` comparten rojo `#E52534`, lienzo 512×97 y la misma palabra «ESPN» (misma altura y posición); los números tienen la misma altura y separación; ESPN sin número centra la palabra al mismo tamaño. Mismas rutas, sin cambios de referencias. Antes había tres rojos y ESPN se veía más grande.
 - **Nombres ESPN sin «Sur» ni «HD» (2026-10-19)**: a pedido del usuario, #37 `WinSports.co@Direct181` se llama «ESPN 3», #38 `ESPN4.co@Direct181` «ESPN 4» y #39 `WinPlusFutbol.co@Direct181` «ESPN 5» (antes «ESPN 3 Sur», «ESPN 4 HD», «ESPN 5 Sur»). Solo cambia el nombre visible: identidad, número, URL, logo y guía intactos.
@@ -218,7 +218,7 @@
 
 ## Bitácora (más reciente arriba)
 
-- **2026-10-19 / papelera de todos los TLC**: 2 activos («DISCOVERY TLC» #388 y «TLC» #1241) a la papelera reversible; Lista 1 intacta; Lista 2 publicada 1.417 (layout 1.394). Registro `contracts/lista2-purga-tlc-20261019.json`. Publicación pendiente en esta entrada.
+- **2026-10-19 / papelera de todos los TLC**: 2 activos («DISCOVERY TLC» #388 y «TLC» #1241) a la papelera reversible; Lista 1 intacta; Lista 2 publicada 1.417 (layout 1.394). Registro `contracts/lista2-purga-tlc-20261019.json`. Publicado y verificado: `3717f2b2`; dirigido `39327803013` y canales `39327802592` success; remoto sin TLC activos.
 - **2026-10-19**: logos ESPN/2/3/4/5/7 unificados (color, tamaño, alineación).
 - **2026-10-19**: ESPN 3 Sur/4 HD/5 Sur → ESPN 3/4/5 (solo nombre visible).
 - **2026-10-19**: guía de ESPN 7 → UY1 `[ESPN7SS]` (CO1 no coincidía con la señal); los demás ESPN verificados sin cambios.
