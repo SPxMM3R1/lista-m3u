@@ -9,6 +9,7 @@
 
 ## Hoy, en una mirada
 
+- **Logos ESPN unificados (2026-10-19, mockup aprobado «Aplica»)**: `logos/espn.svg` y `logos/espn-{2,3,4,5,7}.png` comparten rojo `#E52534`, lienzo 512×97 y la misma palabra «ESPN» (misma altura y posición); los números tienen la misma altura y separación; ESPN sin número centra la palabra al mismo tamaño. Mismas rutas, sin cambios de referencias. Antes había tres rojos y ESPN se veía más grande.
 - **Nombres ESPN sin «Sur» ni «HD» (2026-10-19)**: a pedido del usuario, #37 `WinSports.co@Direct181` se llama «ESPN 3», #38 `ESPN4.co@Direct181` «ESPN 4» y #39 `WinPlusFutbol.co@Direct181` «ESPN 5» (antes «ESPN 3 Sur», «ESPN 4 HD», «ESPN 5 Sur»). Solo cambia el nombre visible: identidad, número, URL, logo y guía intactos.
 - **Guías de los ESPN revisadas contra la señal (2026-10-19, 15:07 Chile)**: ESPN (SportsCenter), ESPN 2 (Serie A Monza–Cagliari), ESPN 3 Sur (ESPN Compact de pádel Milán P1), ESPN 4 (rugby URBA) y ESPN 5 Sur (Süper Lig Trabzonspor–Beşiktaş) coincidían. ESPN 7 no: emitía el Masters de Shanghái y CO1 `ESPN.7.HD.co` decía «ESPN 7 Sur» y luego un bloque de 8 h de Bundesliga. Su guía pasa a UY1 `[ESPN7SS].ESPN.7.uy` (Shanghái en vivo, descripciones completas) con relleno UY1 `ESPN.7.HD.uy`.
 - **ESPN 7 en el 40 con sus 8 respaldos (2026-10-19, corrección)**: ESPN 7 era un canal principal (`PublicDirect.ac1fca2303c88b6a69359958`) con 8 respaldos, no 9 canales; el movimiento anterior (`1361ebd8`) los trató como filas sueltas y la numeración de `normalizeLists` daba número visible a los respaldos (ESPN 7 en el 46 y salto 39→46). Ahora los respaldos/preferidas van después de todos los visibles: ESPN 7 = 40 (principal y respaldos intactos), XITE Hits = 41, Lista 1 visible 1–58, Lista 2 desde el 59; numeración visible 1–1.453 sin huecos. Test nuevo en `editor-core.test.mjs`; `test_m6foot_reference` ordena solo los visibles. 401 Python y 58 JS.
@@ -215,6 +216,7 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-19**: logos ESPN/2/3/4/5/7 unificados (color, tamaño, alineación).
 - **2026-10-19**: ESPN 3 Sur/4 HD/5 Sur → ESPN 3/4/5 (solo nombre visible).
 - **2026-10-19**: guía de ESPN 7 → UY1 `[ESPN7SS]` (CO1 no coincidía con la señal); los demás ESPN verificados sin cambios.
 - **2026-10-19**: respaldos sin número visible; ESPN 7 (principal + 8 respaldos) en el 40 (ver «Hoy»).
