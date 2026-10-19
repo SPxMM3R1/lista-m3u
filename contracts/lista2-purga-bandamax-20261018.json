@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "atUtc": "2026-10-19T02:20:00Z",
+  "authorization": "Usuario: ?Elimina todo lo que diga bandamax?.",
+  "scope": "Solo Lista 2. Lista 1 no se toca (0 coincidencias; m3u.m3u/1.m3u sin cambios).",
+  "removedRows": 11,
+  "removedNames": [
+    "ALCATEL BANDAMAX",
+    "BANDA MAX (x4)",
+    "Banda Max",
+    "Bandamax",
+    "BANDAMAX (x2)",
+    "BANDAMAX VIX",
+    "CANAL 42 BANDA MAX"
+  ],
+  "notes": "Se incluyeron las variantes con espacio (BANDA MAX), VIX y el slot CANAL 42. La fila #472 BANDAMAX ya estaba en papelera desde la purga de <=480p.",
+  "countsAfter": {
+    "list1": 56,
+    "list2Published": 1500,
+    "layoutL2Activos": 1477,
+    "catalog": 6599
+  },
+  "verification": {
+    "python": "400 pruebas (18 omitidas; unico fallo local ajeno: copia del contrato compartido en VibeM3U)",
+    "partition": "principal=56, externa=1500, catalogo=6599",
+    "list1": "sin cambios; layout L1 identico"
+  },
+  "pending": "Push y verificacion remota en esta entrada."
+}
