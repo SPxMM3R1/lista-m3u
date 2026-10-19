@@ -119,10 +119,19 @@ class M6FootReferenceTest(unittest.TestCase):
         self.assertEqual(len(EXPECTED), len(ids))
         self.assertEqual(sum(1 for row in rows if row["state"] == "active"), len(numbers))
         self.assertEqual(document["channels"], sorted(document["channels"], key=lambda row: row["order"]))
+        # Los respaldos de otro canal no se ven en la app y van al final (normalizeLists,
+        # 2026-10-19): el orden alfabético es el de los canales visibles.
+        linked = {
+            target
+            for row in document["channels"]
+            if row["state"] == "active"
+            for target in list(row.get("backupm3u", [])) + ([row["preferredM3u"]] if row.get("preferredM3u") else [])
+        }
         block = [
             row
             for row in document["channels"]
             if row["state"] == "active" and row.get("sourceList") == "2.m3u"
+            and row.get("tvgId") not in linked
         ]
         self.assertEqual([sort_key(row) for row in block], sorted(sort_key(row) for row in block))
 

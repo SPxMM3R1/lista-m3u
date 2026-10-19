@@ -232,14 +232,29 @@ export function validateLayout(layout) {
 /**
  * Orden y números canónicos (2026-10-18, pedido del usuario): solo existen Lista 1 y Lista 2.
  * Activos de Lista 1 por su orden, luego activos de Lista 2, luego ocultos y papelera; los
- * activos se numeran 1..N sin huecos. Es idempotente: se aplica al publicar desde el editor,
- * al aplicar la papelera de la app y al dar de alta.
+ * activos se numeran 1..N sin huecos. Los respaldos (`backupm3u`) y señales preferidas
+ * (`preferredM3u`) de otro canal no se ven solos en la app: van después de todos los canales
+ * visibles, para que la numeración visible no tenga huecos. Es idempotente: se aplica al
+ * publicar desde el editor, al aplicar la papelera de la app y al dar de alta.
  */
 export function normalizeLists(layout) {
   const current = structuredClone(layout);
   const listRank = (row) => (row.sourceList === "1.m3u" ? 0 : row.sourceList === "2.m3u" ? 1 : 2);
   const byOrder = (a, b) => listRank(a) - listRank(b) || compareRows(a, b);
-  const active = current.channels.filter((row) => row.state === "active").sort(byOrder);
+  // Respaldos y señales preferidas de otro canal (2026-10-19, ESPN 7 con 8 respaldos): la app
+  // los esconde dentro de ese canal, así que no ocupan números visibles; van al final.
+  const activeRows = current.channels.filter((row) => row.state === "active");
+  const linked = new Set();
+  for (const row of activeRows) {
+    for (const id of [...(Array.isArray(row.backupm3u) ? row.backupm3u : []), row.preferredM3u]) {
+      if (typeof id === "string" && id && id !== row.tvgId) linked.add(id);
+    }
+  }
+  const isLinked = (row) => row.kind === "m3u" && linked.has(row.tvgId);
+  const active = [
+    ...activeRows.filter((row) => !isLinked(row)).sort(byOrder),
+    ...activeRows.filter(isLinked).sort(byOrder),
+  ];
   const hidden = current.channels.filter((row) => row.state === "hidden").sort(compareRows);
   const deleted = current.channels.filter((row) => row.state === "deleted").sort(compareRows);
   const others = current.channels.filter((row) => !["active", "hidden", "deleted"].includes(row.state));

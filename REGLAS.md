@@ -65,7 +65,9 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
   La app ya no agrega canales que ninguna lista encendida trae.
 - **Numeración sin huecos**: activos de Lista 1 (por orden) del 1 en adelante y luego Lista 2,
   sin huecos (`normalizeLists`, aplicado al publicar desde el editor, en la papelera de la app y
-  al dar de alta). Una fila no cruza de lista por su número: se cambia con «Lista de publicación».
+  al dar de alta). Los respaldos (`backupm3u`) y señales preferidas (`preferredM3u`) de otro
+  canal no se ven solos en la app: van después de todos los canales visibles y no ocupan
+  números visibles (2026-10-19, ESPN 7 con 8 respaldos). Una fila no cruza de lista por su número: se cambia con «Lista de publicación».
 - Los respaldos M3U usan identidades estables (`tvg-id`) en `backupm3u`, nunca enlaces HLS firmados.
   Se admiten filas HTTP(S) y referencias Nauta activas `Nauta.<24 hex>@Nauta` explícitamente enlazadas
   (soporte de app desde 0.5.93). Las referencias de otros resolutores no se admiten. La app oculta

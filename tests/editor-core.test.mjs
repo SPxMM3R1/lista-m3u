@@ -865,3 +865,20 @@ test("solo Lista 1 y Lista 2: proveedores en su lista y números sin huecos (202
   delete withoutList.channels.find((row) => row.kind === "provider").sourceList;
   assert.ok(validateLayout(withoutList).some((problem) => problem.includes("Lista 1 o Lista 2")));
 });
+
+test("los respaldos de un canal no ocupan números visibles (ESPN 7, 2026-10-19)", () => {
+  const row = (tvgId, order, extra = {}) => ({ kind: "m3u", tvgId, name: tvgId, group: "G", sourceList: "1.m3u",
+    state: "active", order, number: order, ...extra });
+  const layout = { schemaVersion: 1, excludedM3u: [], channels: [
+    row("espn5", 1),
+    row("b1", 2), row("b2", 3),
+    row("espn7", 4, { backupm3u: ["b1", "b2"] }),
+    row("xite", 5),
+    { ...row("l2", 6), sourceList: "2.m3u" },
+  ] };
+  const normalized = normalizeLists(layout);
+  const numbers = Object.fromEntries(normalized.channels.map((r) => [r.tvgId, r.number]));
+  assert.deepEqual([numbers.espn5, numbers.espn7, numbers.xite, numbers.l2], [1, 2, 3, 4]);
+  assert.ok(numbers.b1 > 4 && numbers.b2 > 4, "los respaldos van después de todos los visibles");
+  assert.deepEqual(normalizeLists(normalized), normalized, "es idempotente");
+});
