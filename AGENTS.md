@@ -66,6 +66,39 @@ agente debe poder retomar el trabajo solo con lo que está en el repositorio.
 
 ## Cómo trabajar
 
+- **Respaldos directos de Canal 13 y Telehit Música (2026-10-20)**: el usuario autorizó
+  `0107` Canal 13 → `PublicDirect.11c6a7fffcaf7ba1d61e1186`,
+  `PublicDirect.12d30345143460844b8f968c`, `PublicDirect.2be182422f69d962afae4053`,
+  `PublicDirect.711575de282125c84171bbee`, `PublicDirect.79f8514f8e1ffebfaf54d33c` y
+  `PublicDirect.8baa0cba55b71f39a6480ef5`, más `TelehitMusica.mx@SD` →
+  `PublicDirect.a8ae71c151a6f81599bff876`. Los seis Canal 13 mostraron en fotograma la
+  misma transmisión que el principal; el candidato Telehit mostró su logo y un videoclip,
+  mientras el principal no decodificó en esa comprobación. Las siete filas de respaldo siguen
+  activas/en prueba en Lista 2; no se cambian nombre, numeración, logo, EPG ni membresía. No
+  recrear antiguos respaldos Canal 13 que fueron eliminados. Contrato y prueba:
+  `contracts/canal13-telehit-backups-20261020.json` y
+  `tests/test_channel_quality_backups.py`.
+
+- **Canales Alcatel trasladados a Lista 1 (2026-10-20)**: se movieron los IDs
+  `PublicDirect.a247897d9a490d19fa633661` (AXN), `PublicDirect.39057ce89326a34e33998e2e`
+  (History Channel 2), `PublicDirect.8da65ba545fa9fd2512f9901` (History Channel),
+  `PublicDirect.9c28a0d10a09856e98930cdc` (Sony Channel),
+  `PublicDirect.376c74e4d0452f743fd2c811` (Sony Movies),
+  `PublicDirect.8b604de41196cd4fe991d551` (Studio Universal),
+  `PublicDirect.12addda8ba8591c579cdebfa` (Telehit),
+  `PublicDirect.bf407e29eec656d628dfa2d7` (Universal TV) y
+  `PublicDirect.1701b6c4abbcc431fb481536` (USA Network) desde Lista 2. Telehit queda
+  inmediatamente después de `TelehitMusica.mx@SD` (#49); los otros ocho al final del bloque
+  visible de Lista 1. Las siete filas salvo AXN y Sony Movies tienen guía exacta por EPGShare
+  y salen de prueba; AXN/Sony Movies conservan `trial:true` y sin EPG porque sus fotogramas
+  identifican el canal, pero no verifican una parrilla exacta. No asignarles guía solo por logo,
+  marca o similitud. El `PublicDirect.a8ae71c151a6f81599bff876` (#099, Telehit Música) sigue en
+  Lista 2/en prueba como respaldo unidireccional del Telehit Música #49. Fuentes exactas,
+  logos, prueba y cobertura están en `contracts/alcatel-lista1-20261020.json` y
+  `tests/test_alcatel_lista1.py`. Logo USA Network: SVG local de Wikimedia Commons; respetar
+  su atribución en el contrato. No inferir una orden para el #087: la mención quedó mezclada
+  con audio de la TV y no identificó inequívocamente el canal.
+
 - **Lifetime fuera de Lista 2 (2026-10-20)**: el pedido retiró las 6 filas activas y movió también 1 fila ya oculta a la papelera reversible; 6 Lifetime ya estaban en papelera. Las 13 identidades quedan en `state=deleted` y `presentation-overrides.json` → `excluded_m3u`; no purgar del inventario canónico ni reactivarlas sin pedido. IDs movidos ahora: `PublicDirect.56754519b208272f813efa8b`, `PublicDirect.168172718097d5c2e389e80b`, `PublicDirect.36a879c02cd2241bb94ff8dc`, `PublicDirect.70c503824b2b6892277eb898`, `PublicDirect.786426cb935b350b1b1e0fd3`, `PublicDirect.41e25f3499c794eeaef6a163`, `PublicDirect.2825c7ecdabfa5cbd36dc05a`. Aplicar con `setRowState` → `normalizeLists` → `buildPresentationOverrides` → `python targeted_update.py --mode presentation`, sellando `approval=chat`. Lista 2 bajó de 1.197 a 1.191; Lista 1, EPG y resolutores no cambian.
 - **Alias de Lifetime en Lista 2 (2026-10-20)**: la revisión posterior detectó la fila activa `PublicDirect.c34a1a8f5d57352e3d6b4bf1` (#856), cuyo nombre de origen es `LIFE TIME-IXP [IP ...]` y nombre visible `LIFE TIME`. También va a la papelera reversible (`state=deleted`), conservando el inventario canónico. Al pedir retirar todos los Lifetime, incluir grafías con y sin espacio. Tras `targeted_update.py --mode presentation`, Lista 2 queda en 1.190 entradas; Lista 1, EPG y resolutores no cambian.
 - **Limpieza de nombres visibles de Lista 2 (2026-10-18)**: a pedido explícito se limpian `displayName` y se reordena el bloque alfabéticamente. Reglas seguras: prefijos `@DIG -`, `*`, `ZX`, `Z `, `ENC#`, `E##`, `A1##-`, `X##-`, `Z##-`, `H#E# -`, `L#E#`, `L# H# -`, `MPTS #`, dígito+`ESPN`; marcadores `IXP`, `EZ-TRA`, `ENVÍO`, `SRT`, `(clone)`; tokens `HD`/`FHD`. Ampliación aprobada el mismo día («sí, limpia todo», segundo lote): las formas pegadas también se eliminan completas — `HD`/`UHD` a fin de palabra o tras dígito (`ESPN 4HD`→`ESPN 4`, `Nat-GeoHD`→`Nat-Geo`, y `HD2` como unidad: `CARACOL TV HD2`→`CARACOL TV`, `RCN HD2`→`RCN`), sufijos `_COSTA`/`TRANSCODIFICADO` y basura con `///` (con o sin espacios: `RCN /// Digiscast`→`RCN`). Al renombrar, la reclasificación alfabética mueve posiciones en cascada dentro del bloque: es esperado. No tocar marcas con dígitos integrados (A3 Cine, CDN2/37, L1 MAX, 3ABN, HBO2, Canal 5/13) ni `tvg-id`, URL o `name` de origen; los `UHD` de filas de proveedor del complemento (Sky Sports) no son editables. Lección asociada: `is_tvvoo_ar_channel` debe resolver la identidad estable por `tvg-id` primero — un nombre visible limpio que coincide con una clave Vavoo (p. ej. «ESPN 3») no debe heredar sus alias ni caer del filtro de salud de la lista externa. Conservar las regresiones en `tests/test_runtime_policy.py` y `tests/test_channel_quality_backups.py`.

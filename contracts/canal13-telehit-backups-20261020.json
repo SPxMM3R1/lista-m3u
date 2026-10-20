@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-20",
+  "project": "Lista M3U",
+  "links": [
+    {
+      "primaryTvgId": "0107",
+      "displayName": "Canal 13",
+      "backupTvgIds": [
+        "PublicDirect.11c6a7fffcaf7ba1d61e1186",
+        "PublicDirect.12d30345143460844b8f968c",
+        "PublicDirect.2be182422f69d962afae4053",
+        "PublicDirect.711575de282125c84171bbee",
+        "PublicDirect.79f8514f8e1ffebfaf54d33c",
+        "PublicDirect.8baa0cba55b71f39a6480ef5"
+      ],
+      "validation": "FFmpeg decoded a frame from all six candidates; visual comparison showed the Canal 13 logo and the same current broadcast as the official primary."
+    },
+    {
+      "primaryTvgId": "TelehitMusica.mx@SD",
+      "displayName": "Telehit Música",
+      "backupTvgIds": [
+        "PublicDirect.a8ae71c151a6f81599bff876"
+      ],
+      "validation": "FFmpeg decoded a candidate frame showing the Telehit Música logo and a music video. The primary did not decode in this check; the user explicitly requested this one-way backup."
+    }
+  ],
+  "limits": "These are point-in-time checks, not proof of continuous availability. Backup rows stay active, in trial, and in Lista 2. No EPG or logo mapping changed."
+}

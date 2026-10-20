@@ -1,0 +1,186 @@
+{
+  "date": "2026-10-20",
+  "project": "Lista M3U",
+  "baseCommit": "199a7fdab3e781d85718d1dad72794cf59dd1bfd",
+  "change": "Move selected Alcatel direct channels from Lista 2 to Lista 1, assign local logos and exact EPG where verified, and retain the requested Telehit Música backup.",
+  "layout": {
+    "telehitPosition": {
+      "primaryTvgId": "TelehitMusica.mx@SD",
+      "primaryNumberBeforeMove": 49,
+      "insertedTvgId": "PublicDirect.12addda8ba8591c579cdebfa",
+      "displayName": "Telehit",
+      "relation": "immediately after Telehit Música"
+    },
+    "appendedToVisibleLista1InOrder": [
+      "PublicDirect.a247897d9a490d19fa633661",
+      "PublicDirect.39057ce89326a34e33998e2e",
+      "PublicDirect.8da65ba545fa9fd2512f9901",
+      "PublicDirect.9c28a0d10a09856e98930cdc",
+      "PublicDirect.376c74e4d0452f743fd2c811",
+      "PublicDirect.8b604de41196cd4fe991d551",
+      "PublicDirect.bf407e29eec656d628dfa2d7",
+      "PublicDirect.1701b6c4abbcc431fb481536"
+    ],
+    "totalMoved": 9,
+    "trialWithoutVerifiedGuide": [
+      "PublicDirect.a247897d9a490d19fa633661",
+      "PublicDirect.376c74e4d0452f743fd2c811"
+    ]
+  },
+  "notApplied": [
+    {
+      "reference": "087",
+      "reason": "The utterance overlapped TV speech and did not identify an unambiguous channel; no row was moved based on that fragment."
+    }
+  ],
+  "channels": [
+    {
+      "tvgId": "PublicDirect.a247897d9a490d19fa633661",
+      "displayName": "AXN",
+      "logo": "logos/catalogue/axnlatinamerica-us.png",
+      "epg": null,
+      "state": "active",
+      "trial": true,
+      "frameEvidence": "AXN logo visible; a promo/ad was present, so the current programme was not identified from this frame. No EPG was assigned by logo or name alone."
+    },
+    {
+      "tvgId": "PublicDirect.39057ce89326a34e33998e2e",
+      "displayName": "History Channel 2",
+      "logo": "logos/catalogue/history2latinamerica-us.png",
+      "epg": {
+        "source": "pa1",
+        "sourceId": "Canal.History.2.(Panamá).pa",
+        "programmes": 33,
+        "coverageThroughUtc": "2026-10-22T00:10:00Z"
+      },
+      "state": "active",
+      "trial": false,
+      "frameEvidence": "H2/History 2 logo and the programme Milagros decodificados were visible."
+    },
+    {
+      "tvgId": "PublicDirect.8da65ba545fa9fd2512f9901",
+      "displayName": "History Channel",
+      "logo": "logos/catalogue/history-channel-lam.png",
+      "epg": {
+        "source": "pa1",
+        "sourceId": "Canal.History.(Panamá).pa",
+        "programmes": 41,
+        "coverageThroughUtc": "2026-10-22T00:15:00Z"
+      },
+      "state": "active",
+      "trial": false,
+      "frameEvidence": "History logo and Búsqueda Alienígena were visible."
+    },
+    {
+      "tvgId": "PublicDirect.9c28a0d10a09856e98930cdc",
+      "displayName": "Sony Channel",
+      "logo": "logos/catalogue/sonychannelandes-us.png",
+      "epg": {
+        "source": "pa1",
+        "sourceId": "Canal.Sony.(Panamá).pa",
+        "programmes": 32,
+        "coverageThroughUtc": "2026-10-22T01:00:00Z"
+      },
+      "state": "active",
+      "trial": false,
+      "frameEvidence": "Sony Channel logo and an Uncharted scene were visible; the contemporaneous schedule matched Uncharted before Sing 2."
+    },
+    {
+      "tvgId": "PublicDirect.376c74e4d0452f743fd2c811",
+      "displayName": "Sony Movies",
+      "logo": "logos/catalogue/sonymovieslatinamerica-us.png",
+      "epg": null,
+      "state": "active",
+      "trial": true,
+      "frameEvidence": "Sony Movies logo and movie content were visible, but the exact programme/feed was not confirmed. No guide assigned from similarity alone."
+    },
+    {
+      "tvgId": "PublicDirect.8b604de41196cd4fe991d551",
+      "displayName": "Studio Universal",
+      "logo": "logos/catalogue/studiouniversallatinamerica-us.png",
+      "epg": {
+        "source": "pa1",
+        "sourceId": "Canal.Studio.Universal.(Panamá).pa",
+        "programmes": 16,
+        "coverageThroughUtc": "2026-10-22T01:00:00Z"
+      },
+      "state": "active",
+      "trial": false,
+      "frameEvidence": "Studio Universal logo and movie content were visible; the contemporaneous schedule included Super 8."
+    },
+    {
+      "tvgId": "PublicDirect.12addda8ba8591c579cdebfa",
+      "displayName": "Telehit",
+      "logo": "logos/catalogue/telehit-mx.png",
+      "epg": {
+        "source": "mx1",
+        "sourceId": "Canal.Telehit.mx",
+        "programmes": 82,
+        "coverageThroughUtc": "2026-10-23T05:30:00Z"
+      },
+      "state": "active",
+      "trial": false,
+      "frameEvidence": "Telehit logo and a music video were visible."
+    },
+    {
+      "tvgId": "PublicDirect.bf407e29eec656d628dfa2d7",
+      "displayName": "Universal TV",
+      "logo": "logos/catalogue/universaltvlatinamerica-us.png",
+      "epg": {
+        "source": "pa1",
+        "sourceId": "Canal.Universal.TV.(Panamá).pa",
+        "programmes": 40,
+        "coverageThroughUtc": "2026-10-22T00:20:00Z"
+      },
+      "state": "active",
+      "trial": false,
+      "frameEvidence": "Universal TV logo and Chicago Fire content were visible, matching the guide."
+    },
+    {
+      "tvgId": "PublicDirect.1701b6c4abbcc431fb481536",
+      "displayName": "USA Network",
+      "logo": "logos/catalogue/usa-network-us.svg",
+      "epg": {
+        "source": "pa1",
+        "sourceId": "Canal.USA.Network.(Panamá).pa",
+        "programmes": 70,
+        "coverageThroughUtc": "2026-10-23T00:00:00Z"
+      },
+      "state": "active",
+      "trial": false,
+      "frameEvidence": "USA Network watermark and Blue Bloods content were visible, matching the guide."
+    }
+  ],
+  "telehitMusicaBackup": {
+    "primaryTvgId": "TelehitMusica.mx@SD",
+    "backupTvgId": "PublicDirect.a8ae71c151a6f81599bff876",
+    "backupDisplayName": "Telehit Música",
+    "backupSourceList": "2.m3u",
+    "backupState": "active",
+    "backupTrial": true,
+    "evidence": "The candidate frame showed Telehit Música logo and a music video; the primary did not decode in that check."
+  },
+  "usaNetworkLogoSource": {
+    "asset": "logos/catalogue/usa-network-us.svg",
+    "source": "https://commons.wikimedia.org/wiki/File:USA_Network_2020.svg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/8/84/USA_Network_2020.svg"
+  },
+  "epgValidation": {
+    "generatedLocally": true,
+    "minimumFutureHours": 12,
+    "targetChannelsWithCoverageGaps": [],
+    "otherExistingLista1Warnings": [
+      "AlJazeera.qa",
+      "DAZNF1.es@TvVoo",
+      "Eurosport2.es@TvVoo",
+      "Vavoo.es.EUROSPORT1@TvVoo"
+    ]
+  },
+  "publication": {
+    "status": "local, not yet pushed",
+    "remoteBaseCommit": "199a7fdab3e781d85718d1dad72794cf59dd1bfd",
+    "note": "The eight intervening remote app-trash commits for CHV/HBO were retained and not revived."
+  },
+  "evidenceWindowUtc": "2026-10-20T21:28:29Z through approximately 2026-10-20T21:39:00Z",
+  "limits": "Frame checks confirm visible branding/content at the sampled moment, not continuous availability, geography, or long-term stability."
+}

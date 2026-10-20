@@ -1,0 +1,131 @@
+import json
+import unittest
+from pathlib import Path
+
+import update_m3u as runner
+
+
+ROOT = Path(__file__).resolve().parents[1]
+
+ALCATEL_LISTA1 = {
+    "PublicDirect.a247897d9a490d19fa633661": {
+        "name": "AXN",
+        "logo": "logos/catalogue/axnlatinamerica-us.png",
+        "trial": True,
+    },
+    "PublicDirect.39057ce89326a34e33998e2e": {
+        "name": "History Channel 2",
+        "logo": "logos/catalogue/history2latinamerica-us.png",
+        "trial": False,
+    },
+    "PublicDirect.8da65ba545fa9fd2512f9901": {
+        "name": "History Channel",
+        "logo": "logos/catalogue/history-channel-lam.png",
+        "trial": False,
+    },
+    "PublicDirect.9c28a0d10a09856e98930cdc": {
+        "name": "Sony Channel",
+        "logo": "logos/catalogue/sonychannelandes-us.png",
+        "trial": False,
+    },
+    "PublicDirect.376c74e4d0452f743fd2c811": {
+        "name": "Sony Movies",
+        "logo": "logos/catalogue/sonymovieslatinamerica-us.png",
+        "trial": True,
+    },
+    "PublicDirect.8b604de41196cd4fe991d551": {
+        "name": "Studio Universal",
+        "logo": "logos/catalogue/studiouniversallatinamerica-us.png",
+        "trial": False,
+    },
+    "PublicDirect.12addda8ba8591c579cdebfa": {
+        "name": "Telehit",
+        "logo": "logos/catalogue/telehit-mx.png",
+        "trial": False,
+    },
+    "PublicDirect.bf407e29eec656d628dfa2d7": {
+        "name": "Universal TV",
+        "logo": "logos/catalogue/universaltvlatinamerica-us.png",
+        "trial": False,
+    },
+    "PublicDirect.1701b6c4abbcc431fb481536": {
+        "name": "USA Network",
+        "logo": "logos/catalogue/usa-network-us.svg",
+        "trial": False,
+    },
+}
+
+EPG_OVERRIDES = {
+    "PublicDirect.39057ce89326a34e33998e2e": ("pa1", "Canal.History.2.(Panamá).pa"),
+    "PublicDirect.8da65ba545fa9fd2512f9901": ("pa1", "Canal.History.(Panamá).pa"),
+    "PublicDirect.9c28a0d10a09856e98930cdc": ("pa1", "Canal.Sony.(Panamá).pa"),
+    "PublicDirect.8b604de41196cd4fe991d551": ("pa1", "Canal.Studio.Universal.(Panamá).pa"),
+    "PublicDirect.12addda8ba8591c579cdebfa": ("mx1", "Canal.Telehit.mx"),
+    "PublicDirect.bf407e29eec656d628dfa2d7": ("pa1", "Canal.Universal.TV.(Panamá).pa"),
+    "PublicDirect.1701b6c4abbcc431fb481536": ("pa1", "Canal.USA.Network.(Panamá).pa"),
+}
+
+
+class AlcatelLista1Test(unittest.TestCase):
+    def test_requested_channels_have_clean_names_logos_and_expected_epg_state(self):
+        layout = json.loads((ROOT / "data/channel-editor-layout.json").read_text(encoding="utf-8"))
+        rows = {row["tvgId"]: row for row in layout["channels"] if row.get("tvgId")}
+        presentation = json.loads((ROOT / "presentation-overrides.json").read_text(encoding="utf-8"))
+        epg = json.loads((ROOT / "epg-overrides.json").read_text(encoding="utf-8"))["channels"]
+
+        for channel_id, expected in ALCATEL_LISTA1.items():
+            with self.subTest(channel=channel_id):
+                row = rows[channel_id]
+                self.assertEqual("1.m3u", row["sourceList"])
+                self.assertEqual("active", row["state"])
+                self.assertEqual(expected["name"], row["displayName"])
+                self.assertEqual(expected["name"], presentation["names"][channel_id])
+                self.assertEqual(expected["logo"], row["logoPath"])
+                self.assertEqual(expected["logo"], presentation["logos"][channel_id])
+                self.assertTrue((ROOT / expected["logo"]).is_file())
+                self.assertEqual(expected["trial"], row.get("trial", False))
+                self.assertEqual(expected["trial"], channel_id in presentation["trial_m3u"])
+
+        for channel_id, (source, source_id) in EPG_OVERRIDES.items():
+            self.assertEqual({"source": source, "source_id": source_id}, epg[channel_id])
+        self.assertNotIn("PublicDirect.a247897d9a490d19fa633661", epg)
+        self.assertNotIn("PublicDirect.376c74e4d0452f743fd2c811", epg)
+
+    def test_telehit_and_requested_rows_are_ordered_in_lista1_only(self):
+        layout = json.loads((ROOT / "data/channel-editor-layout.json").read_text(encoding="utf-8"))
+        rows = {row["tvgId"]: row for row in layout["channels"] if row.get("tvgId")}
+        telehit_musica = rows["TelehitMusica.mx@SD"]
+        telehit = rows["PublicDirect.12addda8ba8591c579cdebfa"]
+        self.assertEqual(telehit_musica["number"] + 1, telehit["number"])
+        self.assertEqual("Telehit Música", telehit_musica["displayName"])
+        self.assertEqual("logos/catalogue/telehitmusica-mx.png", telehit_musica["logoPath"])
+
+        main_ids = {
+            channel.tvg_id
+            for channel in runner.parse_channels((ROOT / "m3u.m3u").read_text(encoding="utf-8").splitlines())
+        }
+        external_ids = {
+            channel.tvg_id
+            for channel in runner.parse_channels((ROOT / "m3u-externa.m3u").read_text(encoding="utf-8").splitlines())
+        }
+        self.assertTrue(set(ALCATEL_LISTA1).issubset(main_ids))
+        self.assertTrue(set(ALCATEL_LISTA1).isdisjoint(external_ids))
+        self.assertIn("TelehitMusica.mx@SD", main_ids)
+        self.assertIn("PublicDirect.a8ae71c151a6f81599bff876", external_ids)
+
+    def test_telehit_musica_backup_remains_hidden_in_lista2_and_in_trial(self):
+        layout = json.loads((ROOT / "data/channel-editor-layout.json").read_text(encoding="utf-8"))
+        rows = {row["tvgId"]: row for row in layout["channels"] if row.get("tvgId")}
+        primary = rows["TelehitMusica.mx@SD"]
+        backup_id = "PublicDirect.a8ae71c151a6f81599bff876"
+        backup = rows[backup_id]
+        self.assertEqual([backup_id], primary["backupm3u"])
+        self.assertEqual("1.m3u", primary["sourceList"])
+        self.assertEqual("2.m3u", backup["sourceList"])
+        self.assertIs(backup.get("trial"), True)
+        self.assertEqual("Telehit Música", backup["displayName"])
+        self.assertEqual("logos/catalogue/telehitmusica-mx.png", backup["logoPath"])
+
+
+if __name__ == "__main__":
+    unittest.main()

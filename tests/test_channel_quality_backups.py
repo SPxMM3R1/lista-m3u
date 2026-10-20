@@ -17,6 +17,15 @@ ESPN1_BACKUPS = [
     "Nauta.dac26a78f5bdf111bc9b9ffc@Nauta",  # ESPN 1 | Sur
     "Nauta.81dc69c20557da0672921475@Nauta",  # ESPN 1 | Chile
 ]
+CANAL13_DIRECT_BACKUPS = [
+    "PublicDirect.11c6a7fffcaf7ba1d61e1186",
+    "PublicDirect.12d30345143460844b8f968c",
+    "PublicDirect.2be182422f69d962afae4053",
+    "PublicDirect.711575de282125c84171bbee",
+    "PublicDirect.79f8514f8e1ffebfaf54d33c",
+    "PublicDirect.8baa0cba55b71f39a6480ef5",
+]
+TELEHIT_MUSICA_BACKUPS = ["PublicDirect.a8ae71c151a6f81599bff876"]
 # Primeras bajas desde la app (2026-10-11). Las siguientes, hechas desde la app o el editor,
 # se leen del layout: cualquier fila «deleted» es una decisión del usuario y no rompe pruebas.
 FIRST_APP_TRASHED_NAUTA = {
@@ -152,7 +161,7 @@ class NautaChannelsAreOptInTest(unittest.TestCase):
         tvn_entry = next(line for line in playlist if line.startswith("#EXTINF") and 'tvg-id="0104"' in line)
         self.assertIn('x-resolver="tvn"', tvn_entry)
 
-    def test_canal13_uses_only_its_official_row(self):
+    def test_canal13_keeps_the_official_row_and_requested_backups(self):
         rows = {
             row["tvgId"]: row for row in self.layout["channels"]
             if row.get("kind") == "m3u" and row.get("tvgId")
@@ -162,7 +171,7 @@ class NautaChannelsAreOptInTest(unittest.TestCase):
         self.assertEqual("active", canal13["state"])
         self.assertEqual("1.m3u", canal13["sourceList"])
         self.assertNotIn("preferredM3u", canal13)
-        self.assertFalse(canal13.get("backupm3u"))
+        self.assertEqual(CANAL13_DIRECT_BACKUPS, canal13["backupm3u"])
         self.assertFalse(canal13.get("backupTvVoo"))
         playlist = (ROOT / "m3u.m3u").read_text(encoding="utf-8").splitlines()
         canal13_index = next(index for index, line in enumerate(playlist)
@@ -187,6 +196,8 @@ class NautaChannelsAreOptInTest(unittest.TestCase):
 
 class ExplicitDirectBackupLinksTest(unittest.TestCase):
     EXPECTED = {
+        "0107": CANAL13_DIRECT_BACKUPS,
+        "TelehitMusica.mx@SD": TELEHIT_MUSICA_BACKUPS,
         "PublicDirect.d9973a3bfb28634698473218": [
             "PublicDirect.19fbfbd8b220cd0fb65ac244",
         ],
@@ -234,6 +245,14 @@ class ExplicitDirectBackupLinksTest(unittest.TestCase):
                     linked_ids.append(backup_id)
 
         self.assertEqual(len(linked_ids), len(set(linked_ids)))
+
+    def test_new_canal13_and_telehit_backups_remain_trial_rows_in_list_two(self):
+        layout = json.loads((ROOT / "data/channel-editor-layout.json").read_text(encoding="utf-8"))
+        rows = {row["tvgId"]: row for row in layout["channels"] if row.get("tvgId")}
+        for backup_id in [*CANAL13_DIRECT_BACKUPS, *TELEHIT_MUSICA_BACKUPS]:
+            with self.subTest(backup=backup_id):
+                self.assertEqual("2.m3u", rows[backup_id]["sourceList"])
+                self.assertIs(rows[backup_id].get("trial"), True)
 
 
 class EspnChilePlacementTest(unittest.TestCase):
