@@ -1,9 +1,15 @@
 <?xml version='1.0' encoding='utf-8'?>
 <tv data-fragment-of="13Cultura.cl@DPS">
-  <channel id="13Cultura.cl@DPS" data-guide="parrilla real" data-guide-source="canal13-13go-oficial">
+  <channel id="13Cultura.cl@DPS" data-guide="parrilla real conservada" data-guide-source="epg-publicada-conservada">
     <display-name>13 Cultura</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/13cultura.png" />
   </channel>
+  <programme start="20261020010000 -0300" stop="20261020020000 -0300" channel="13Cultura.cl@DPS">
+    <title lang="es">Al sur del mundo : Los mineros del carbón</title>
+  </programme>
+  <programme start="20261020020000 -0300" stop="20261020020100 -0300" channel="13Cultura.cl@DPS">
+    <title lang="es">Cultura indómita : Isla Utila, Honduras</title>
+  </programme>
   <programme start="20261020020100 -0300" stop="20261020025500 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Ciudadanas</title>
     <sub-title lang="es">Ciudadanas | Capítulo 01 - Transporte</sub-title>
@@ -99,6 +105,7 @@
   <programme start="20261020181400 -0300" stop="20261020191800 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Lugares que Hablan</title>
     <sub-title lang="es">Lugares Que Hablan | Puerto Gala y el ventisquero colgante Queulat</sub-title>
+    <desc lang="es">T4 -Ep.17: Calbuco. Acompaña a Pancho Saavedra en una nueva temporada de Lugares de hablan.</desc>
     <category lang="es">None</category>
   </programme>
   <programme start="20261020191800 -0300" stop="20261020201300 -0300" channel="13Cultura.cl@DPS">
@@ -140,29 +147,24 @@
     <desc lang="es">Acompaña a Federico Sánchez y Marcelo Comparini a recorrer Estados Unidos.</desc>
     <category lang="es">['travel-tourism']</category>
   </programme>
-  <programme start="20261020003000 -0300" stop="20261020010000 -0300" channel="13Cultura.cl@DPS">
-    <title lang="es">Teatro abierto</title>
-  </programme>
-  <programme start="20261020010000 -0300" stop="20261020020000 -0300" channel="13Cultura.cl@DPS">
-    <title lang="es">Al sur del mundo : Los mineros del carbón</title>
-  </programme>
-  <programme start="20261020020000 -0300" stop="20261020020100 -0300" channel="13Cultura.cl@DPS">
-    <title lang="es">Cultura indómita : Isla Utila, Honduras</title>
-  </programme>
   <programme start="20261021020300 -0300" stop="20261021030000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Cultura indómita : Los Arhuacos en Colombia</title>
+    <desc lang="es">T1 -Ep.17: Los Arhuacos En Colombia. Cultura Indómita será un recorrido por los destinos más fascinantes de Sudamérica.</desc>
   </programme>
   <programme start="20261021030000 -0300" stop="20261021040000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Recomiendo Chile : Futrono</title>
+    <desc lang="es">T14 -Ep.7: Limari. Recomiendo Chile es una serie documental que aporta una mirada moderna hacia la gastronomía tradicional de nuestro país.</desc>
   </programme>
   <programme start="20261021040000 -0300" stop="20261021050000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Lugares que hablan : Marchigue, tierra de tradiciones</title>
   </programme>
   <programme start="20261021050000 -0300" stop="20261021060000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Cultura indómita : Los Arhuacos en Colombia</title>
+    <desc lang="es">T1 -Ep.17: Los Arhuacos En Colombia. Cultura Indómita será un recorrido por los destinos más fascinantes de Sudamérica.</desc>
   </programme>
   <programme start="20261021060000 -0300" stop="20261021070000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Recomiendo Chile : Futrono</title>
+    <desc lang="es">T14 -Ep.7: Limari. Recomiendo Chile es una serie documental que aporta una mirada moderna hacia la gastronomía tradicional de nuestro país.</desc>
   </programme>
   <programme start="20261021070000 -0300" stop="20261021080000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Al sur del mundo : Punucapa: El alma del río Cruces</title>
@@ -223,34 +225,5 @@
   </programme>
   <programme start="20261021233000 -0300" stop="20261022003000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Energía Infinita : Adaptación en las ciudades</title>
-  </programme>
-  <programme start="20261019200900 -0300" stop="20261019210000 -0300" channel="13Cultura.cl@DPS">
-    <title lang="es">City Tour On Tour: USA</title>
-    <sub-title lang="es">City Tour On Tour: USA | San Diego</sub-title>
-    <desc lang="es">Acompaña a Federico Sánchez y Marcelo Comparini a recorrer Estados Unidos.</desc>
-    <category lang="es">['travel-tourism']</category>
-  </programme>
-  <programme start="20261019210000 -0300" stop="20261019215500 -0300" channel="13Cultura.cl@DPS">
-    <title lang="es">Ciudadanas</title>
-    <sub-title lang="es">Ciudadanas | Capítulo 01 - Transporte</sub-title>
-    <desc lang="es">Conoce historias de mujeres protagonistas</desc>
-    <category lang="es">['reality']</category>
-  </programme>
-  <programme start="20261019215500 -0300" stop="20261019231000 -0300" channel="13Cultura.cl@DPS">
-    <title lang="es">Siempre hay un chileno</title>
-    <sub-title lang="es">Siempre hay un chileno | T5 | Costa Azul</sub-title>
-    <desc lang="es">Recorremos diferentes partes del mundo, ciudades y pueblos, donde siempre, pero siempre, hay un chileno.</desc>
-    <category lang="es">['travel-tourism']</category>
-  </programme>
-  <programme start="20261019231000 -0300" stop="20261020001500 -0300" channel="13Cultura.cl@DPS">
-    <title lang="es">Lugares que Hablan</title>
-    <sub-title lang="es">Lugares Que Hablan | Puerto Gala y el ventisquero colgante Queulat</sub-title>
-    <desc lang="es">T4 -Ep.21: Laguna Del Laja. Acompaña a Pancho Saavedra en una nueva temporada de Lugares de hablan.</desc>
-    <category lang="es">None</category>
-  </programme>
-  <programme start="20261020001500 -0300" stop="20261020003000 -0300" channel="13Cultura.cl@DPS">
-    <title lang="es">Cultura Salvaje</title>
-    <sub-title lang="es">Cultura Salvaje | Capítulo 02</sub-title>
-    <category lang="es">None</category>
   </programme>
 </tv>
