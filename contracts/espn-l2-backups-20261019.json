@@ -5,8 +5,8 @@
   "change": "Se subió el tope repo-side de backupm3u de 8 a 16 y se rehízo la selección solo con 720p60 (y el único 480p como último recurso): 45 respaldos en #35 (14), #36 (11), #37 (8), #39 (5) y #40 (7). Se revisaron los 8 respaldos actuales de ESPN 7: todos 1280x720 @ 59.94 y rótulo ESPN7; no hay filas ESPN 7 activas en Lista 2, así que se conservan los 8.",
   "criteria": "Solo 59.94/60 fps. Todos los 1080p (1920x1080 y 1280x1080) quedan fuera por pedido. Coincidencia por rótulo OSD y nombre; no se exige el mismo evento porque la captura de referencia puede caer en publicidad. El orden deja primero los 8 que usa la app actual.",
   "limit": 16,
-  "appLimit": 8,
-  "appPending": "VibeM3U todavía corta en 8 (PublishedPlaybackCatalog.java: ids.size() < 8). Los respaldos 9–16 quedan escritos en el layout, pero la app actual solo usa los primeros 8; requiere la contraparte de la app.",
+  "appLimit": 16,
+  "appPending": "Resuelto en VibeM3U 0.6.23 (versionCode 232): PublishedPlaybackCatalog.MAX_DIRECT_BACKUPS = 16.",
   "excluded": [
     "ESPN2.co@Direct181: se deja independiente en Lista 2 (decisión 2026-10-16).",
     "PublicDirect.9fc08fec9b53b602b7ce875e: auditoría EPG mx1; queda en Lista 2.",
@@ -414,5 +414,15 @@
   },
   "validation": "apply.mjs validó el layout (validateLayout con tope 16), selló con approval.source=chat y regeneró presentation; targeted_update --mode presentation dejó la partición 112/1281/6599. Los 45 respaldos están activos en Lista 1 con trial=true y fuera de m3u-externa.m3u. build_site_data.py construyó el bundle con 5.172 canales y 491 logos.",
   "tests": "402 Python (18 omitidas; único fallo local ajeno: copia del contrato compartido en VibeM3U) y 58 JS.",
-  "pendiente": "Publicado y verificado (2026-10-19): editorial 53cae403; canales 39353448871 (faa96172); dirigido 39353448978 (10cfc66c); editor 39353448933; Highfly 39353449007/39354466625 (46e2dad5/94bcb013). Raw: Lista 1 112, Lista 2 1281, catalogo 6599; 45 respaldos con 14/11/8/5/7. La app VibeM3U sigue cortando en 8."
+  "pendiente": "Publicado y verificado (2026-10-19): editorial 53cae403; canales 39353448871 (faa96172); dirigido 39353448978 (10cfc66c); editor 39353448933; Highfly 39353449007/39354466625 (46e2dad5/94bcb013). Raw: Lista 1 112, Lista 2 1281, catalogo 6599; 45 respaldos con 14/11/8/5/7. VibeM3U 0.6.23/232 ya usa hasta 16; APK VibeM3U-v0.6.23.apk 2.846.435 bytes, SHA-256 ec91fda30639a93538ae51d4471e516dedd6f3497c5044ba5d4c7ac98d5d0613, release no draft.",
+  "appRelease": {
+    "version": "0.6.23",
+    "versionCode": 232,
+    "tag": "v0.6.23",
+    "apk": "VibeM3U-v0.6.23.apk",
+    "bytes": 2846435,
+    "sha256": "ec91fda30639a93538ae51d4471e516dedd6f3497c5044ba5d4c7ac98d5d0613",
+    "androidCi": 39355569525,
+    "publishApk": 39355575294
+  }
 }
