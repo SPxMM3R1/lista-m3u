@@ -267,7 +267,7 @@ class PlaylistOrderTests(unittest.TestCase):
         catalog_ids = {channel.tvg_id for channel in catalog_channels}
         external_ids = {channel.tvg_id for channel in external_channels}
 
-        self.assertEqual(len(block), 17)
+        self.assertEqual(len(block), 40)  # 2026-10-20: +23 TvVoo a pedido del usuario
         self.assertTrue(block <= catalog_ids)
         self.assertTrue(block.isdisjoint(external_ids))
         selected = update_m3u.external_publication_channel_ids(

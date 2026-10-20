@@ -191,7 +191,8 @@ EXTERNAL_MANUAL_EXCLUDED_CHANNEL_IDS = frozenset(
 # usuario el runner ya no las agrega a Lista 2. Siguen en ``channel-catalog.m3u``
 # como inventario de reintento. No es un tombstone del editor: no se toca
 # ``layout.excludedM3u`` ni ``presentation.excluded_m3u``.
-# No ampliar ni reducir este bloque sin pedido explicito.
+# No ampliar ni reducir este bloque sin pedido explicito. 2026-10-20: a pedido del usuario
+# («2») se bloquearon las 23 entradas TvVoo del complemento que no tenían fila en el editor.
 EXTERNAL_TVVOO_COMPLEMENT_BLOCK_IDS = frozenset(
     {
         "Eurosport1.fr@TvVoo",
@@ -211,6 +212,29 @@ EXTERNAL_TVVOO_COMPLEMENT_BLOCK_IDS = frozenset(
         "Vavoo.uk.SKYSPORTGOLF@TvVoo",
         "Vavoo.uk.TNTSPORTESPN@TvVoo",
         "Vavoo.uk.TNTSPORTS5@TvVoo",
+        "Eurosport1.de@TvVoo",
+        "Eurosport2.it@TvVoo",
+        "Eurosport2.uk@TvVoo",
+        "SkySport24.it@TvVoo",
+        "SkySportCalcio.it@TvVoo",
+        "SkySportF1.de@TvVoo",
+        "SkySportMax.it@TvVoo",
+        "SkySportTennis.de@TvVoo",
+        "SkySportsFootball.uk@TvVoo",
+        "SkySportsNFL.uk@TvVoo",
+        "Vavoo.de.SKYSPORT10@TvVoo",
+        "Vavoo.de.SKYSPORT3@TvVoo",
+        "Vavoo.de.SKYSPORT4@TvVoo",
+        "Vavoo.de.SKYSPORT5@TvVoo",
+        "Vavoo.de.SKYSPORT6@TvVoo",
+        "Vavoo.de.SKYSPORT7@TvVoo",
+        "Vavoo.de.SKYSPORT8@TvVoo",
+        "Vavoo.de.SKYSPORT9@TvVoo",
+        "Vavoo.it.SKYSPORTFOOTBALLLIVEDURINGEVENTSONLY@TvVoo",
+        "Vavoo.it.SKYSPORTGOLF@TvVoo",
+        "Vavoo.it.SKYSPORTTENNIS@TvVoo",
+        "Vavoo.uk.SKYSPORTSF1@TvVoo",
+        "Vavoo.uk.SKYSPORTSPREMIERLEAGUE@TvVoo",
     }
 )
 # Estas senales dinamicas conservan su resolutor para renovar la fuente justo
