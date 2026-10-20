@@ -76,8 +76,11 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
 - **Respaldos ESPN 60 fps (2026-10-19)**: los respaldos ESPN se aceptan solo si el
   stream está a 59.94/60 fps y muestra el mismo rótulo OSD; se guardan como
   `backupm3u` en la señal de Lista 1 y las filas pasan a Lista 1 en prueba.
-  ESPN 7 conserva sus 8 respaldos; `ESPN2.co@Direct181` sigue independiente y no
-  se usa como respaldo de #36. Registro `contracts/espn-l2-backups-20261019.json`.
+  Se excluyen los 1080p: 45 respaldos 720p60 (un 480p al final) en #35 14,
+  #36 11, #37 8, #39 5 y #40 7; tope 16. ESPN 7 conserva sus 8 (720p60
+  verificados); `ESPN2.co@Direct181` sigue independiente y no se usa como
+  respaldo de #36. La app VibeM3U aún corta en 8; el tope 16 requiere su
+  contraparte. Registro `contracts/espn-l2-backups-20261019.json`.
 - Los respaldos M3U usan identidades estables (`tvg-id`) en `backupm3u`, nunca enlaces HLS firmados.
   Se admiten filas HTTP(S) y referencias Nauta activas `Nauta.<24 hex>@Nauta` explícitamente enlazadas
   (soporte de app desde 0.5.93). Las referencias de otros resolutores no se admiten. La app oculta

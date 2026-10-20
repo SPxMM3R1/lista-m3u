@@ -280,7 +280,7 @@ class Espn2PlacementTest(unittest.TestCase):
         # 2026-10-19: #36 puede tener respaldos 60 fps, pero el segundo feed
         # (ESPN2.co@Direct181) sigue independiente y fuera de backupm3u.
         self.assertTrue(target.get("backupm3u"))
-        self.assertLessEqual(len(target["backupm3u"]), 8)
+        self.assertLessEqual(len(target["backupm3u"]), 16)
         self.assertNotIn("ESPN2.co@Direct181", target.get("backupm3u", []))
         for backup_id in target["backupm3u"]:
             backup = next(row for row in rows if row.get("tvgId") == backup_id)

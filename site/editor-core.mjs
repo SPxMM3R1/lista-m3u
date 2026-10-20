@@ -157,12 +157,12 @@ export function validateLayout(layout) {
     }
     if (row.backupm3u !== undefined) {
       const ids = Array.isArray(row.backupm3u) ? row.backupm3u : [];
-      const valid = row.kind === "m3u" && Array.isArray(row.backupm3u) && ids.length > 0 && ids.length <= 8
+      const valid = row.kind === "m3u" && Array.isArray(row.backupm3u) && ids.length > 0 && ids.length <= 16
         && new Set(ids).size === ids.length
         && ids.every((value) => typeof value === "string" && value !== row.tvgId && value !== row.preferredM3u
           && layout.channels.some((item) => item.kind === "m3u" && item.tvgId === value
             && (!isNautaM3uRow(item) || (isStableNautaId(item.tvgId) && item.state === "active"))));
-      if (!valid) problems.push(String(row.name || id) + ": los respaldos deben ser otras filas M3U reproducibles, con HTTP(S) o identidad Nauta estable activa (hasta 8, sin repetir).");
+      if (!valid) problems.push(String(row.name || id) + ": los respaldos deben ser otras filas M3U reproducibles, con HTTP(S) o identidad Nauta estable activa (hasta 16, sin repetir).");
     }
     if (row.displayName !== undefined && (
       typeof row.displayName !== "string"
@@ -534,7 +534,7 @@ export function setBackupM3u(layout, key, tvgIds) {
     .map((item) => item.tvgId));
   const ids = [...new Set((tvgIds ?? []).filter((value) => directIds.has(value)
     && value !== row.tvgId && value !== row.preferredM3u))];
-  if (ids.length) row.backupm3u = ids.slice(0, 8);
+  if (ids.length) row.backupm3u = ids.slice(0, 16);
   else delete row.backupm3u;
   return current;
 }
