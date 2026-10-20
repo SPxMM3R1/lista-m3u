@@ -1,0 +1,43 @@
+{
+  "date": "2026-10-20",
+  "project": "Lista M3U",
+  "change": "Use the formerly linked Lista 2 source as the sole stream source for the stable Telehit Música entry; retire the duplicate source row and place Telehit before Telehit Música.",
+  "positions": {
+    "telehit": {
+      "tvgId": "PublicDirect.12addda8ba8591c579cdebfa",
+      "number": 49
+    },
+    "telehitMusica": {
+      "tvgId": "TelehitMusica.mx@SD",
+      "number": 50
+    }
+  },
+  "streamSource": {
+    "stableTvgId": "TelehitMusica.mx@SD",
+    "formerSourceTvgId": "PublicDirect.a8ae71c151a6f81599bff876",
+    "formerSourceNumber": 99,
+    "selection": "The stable Telehit Música row now points to the former #099 source. The former #099 row is deleted from publication and is not retained as a backup.",
+    "validation": "A previous point-in-time FFmpeg check decoded a frame from the former #099 source; the frame showed Telehit Música branding and a music video. This does not establish continuous availability."
+  },
+  "identityAndPresentation": {
+    "stableTvgIdPreserved": true,
+    "backupm3uRemoved": true,
+    "logo": "logos/catalogue/telehitmusica-mx.png",
+    "logoDecision": "Preserve the existing historical Telehit Música logo asset; no new asset is introduced.",
+    "epg": "Keep the existing TelehitMusica.mx@SD EPG mapping unchanged."
+  },
+  "validation": {
+    "targetedTests": [
+      "python -m unittest discover -s tests -p test_alcatel_lista1.py",
+      "python -m unittest discover -s tests -p test_channel_quality_backups.py"
+    ],
+    "fullSuites": {
+      "python": "406 tests passed, 19 skipped",
+      "javascript": "58 tests passed",
+      "gitDiffCheck": "passed"
+    }
+  },
+  "publication": {
+    "status": "pending"
+  }
+}

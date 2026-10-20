@@ -96,7 +96,9 @@ class AlcatelLista1Test(unittest.TestCase):
         rows = {row["tvgId"]: row for row in layout["channels"] if row.get("tvgId")}
         telehit_musica = rows["TelehitMusica.mx@SD"]
         telehit = rows["PublicDirect.12addda8ba8591c579cdebfa"]
-        self.assertEqual(telehit_musica["number"] + 1, telehit["number"])
+        self.assertEqual(49, telehit["number"])
+        self.assertEqual(50, telehit_musica["number"])
+        self.assertEqual(telehit["number"] + 1, telehit_musica["number"])
         self.assertEqual("Telehit Música", telehit_musica["displayName"])
         self.assertEqual("logos/catalogue/telehitmusica-mx.png", telehit_musica["logoPath"])
 
@@ -111,20 +113,31 @@ class AlcatelLista1Test(unittest.TestCase):
         self.assertTrue(set(ALCATEL_LISTA1).issubset(main_ids))
         self.assertTrue(set(ALCATEL_LISTA1).isdisjoint(external_ids))
         self.assertIn("TelehitMusica.mx@SD", main_ids)
-        self.assertIn("PublicDirect.a8ae71c151a6f81599bff876", external_ids)
+        self.assertNotIn("PublicDirect.a8ae71c151a6f81599bff876", external_ids)
 
-    def test_telehit_musica_backup_remains_hidden_in_lista2_and_in_trial(self):
+    def test_telehit_musica_uses_the_former_backup_as_its_only_source(self):
         layout = json.loads((ROOT / "data/channel-editor-layout.json").read_text(encoding="utf-8"))
         rows = {row["tvgId"]: row for row in layout["channels"] if row.get("tvgId")}
         primary = rows["TelehitMusica.mx@SD"]
         backup_id = "PublicDirect.a8ae71c151a6f81599bff876"
         backup = rows[backup_id]
-        self.assertEqual([backup_id], primary["backupm3u"])
+        self.assertNotIn("backupm3u", primary)
         self.assertEqual("1.m3u", primary["sourceList"])
         self.assertEqual("2.m3u", backup["sourceList"])
+        self.assertEqual("active", primary["state"])
+        self.assertEqual("deleted", backup["state"])
         self.assertIs(backup.get("trial"), True)
         self.assertEqual("Telehit Música", backup["displayName"])
         self.assertEqual("logos/catalogue/telehitmusica-mx.png", backup["logoPath"])
+
+        canonical = {
+            channel.tvg_id: channel
+            for channel in runner.parse_channels(
+                (ROOT / "channel-catalog.m3u").read_text(encoding="utf-8").splitlines()
+            )
+        }
+        self.assertEqual(canonical[backup_id].url, canonical["TelehitMusica.mx@SD"].url)
+        self.assertEqual("logos/catalogue/telehitmusica-mx.png", primary["logoPath"])
 
 
 if __name__ == "__main__":

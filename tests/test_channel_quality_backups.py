@@ -25,7 +25,6 @@ CANAL13_DIRECT_BACKUPS = [
     "PublicDirect.79f8514f8e1ffebfaf54d33c",
     "PublicDirect.8baa0cba55b71f39a6480ef5",
 ]
-TELEHIT_MUSICA_BACKUPS = ["PublicDirect.a8ae71c151a6f81599bff876"]
 # Primeras bajas desde la app (2026-10-11). Las siguientes, hechas desde la app o el editor,
 # se leen del layout: cualquier fila «deleted» es una decisión del usuario y no rompe pruebas.
 FIRST_APP_TRASHED_NAUTA = {
@@ -197,7 +196,6 @@ class NautaChannelsAreOptInTest(unittest.TestCase):
 class ExplicitDirectBackupLinksTest(unittest.TestCase):
     EXPECTED = {
         "0107": CANAL13_DIRECT_BACKUPS,
-        "TelehitMusica.mx@SD": TELEHIT_MUSICA_BACKUPS,
         "PublicDirect.d9973a3bfb28634698473218": [
             "PublicDirect.19fbfbd8b220cd0fb65ac244",
         ],
@@ -246,10 +244,10 @@ class ExplicitDirectBackupLinksTest(unittest.TestCase):
 
         self.assertEqual(len(linked_ids), len(set(linked_ids)))
 
-    def test_new_canal13_and_telehit_backups_remain_trial_rows_in_list_two(self):
+    def test_new_canal13_backups_remain_trial_rows_in_list_two(self):
         layout = json.loads((ROOT / "data/channel-editor-layout.json").read_text(encoding="utf-8"))
         rows = {row["tvgId"]: row for row in layout["channels"] if row.get("tvgId")}
-        for backup_id in [*CANAL13_DIRECT_BACKUPS, *TELEHIT_MUSICA_BACKUPS]:
+        for backup_id in CANAL13_DIRECT_BACKUPS:
             with self.subTest(backup=backup_id):
                 self.assertEqual("2.m3u", rows[backup_id]["sourceList"])
                 self.assertIs(rows[backup_id].get("trial"), True)
