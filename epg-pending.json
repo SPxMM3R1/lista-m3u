@@ -1,25 +1,39 @@
 {
   "schema": 1,
-  "updated_at": "2026-10-20T01:37:50.171152Z",
+  "updated_at": "2026-10-20T02:26:16.854645Z",
   "channels": [
     "Meganoticias.cl",
-    "Vavoo.es.EUROSPORT1@TvVoo"
+    "DAZNF1.es@TvVoo",
+    "Vavoo.es.EUROSPORT1@TvVoo",
+    "Eurosport2.es@TvVoo"
   ],
   "details": {
+    "DAZNF1.es@TvVoo": {
+      "kind": "guia-corta",
+      "futureHours": 17.9,
+      "requiredHours": 18.0,
+      "gaps": []
+    },
+    "Eurosport2.es@TvVoo": {
+      "kind": "guia-corta",
+      "futureHours": 17.6,
+      "requiredHours": 18.0,
+      "gaps": []
+    },
     "Meganoticias.cl": {
       "kind": "hueco",
-      "futureHours": 25.4,
+      "futureHours": 24.6,
       "requiredHours": 18.0,
       "gaps": [
         [
-          "2026-10-20T01:37:46Z",
+          "2026-10-20T02:26:14Z",
           "2026-10-20T03:00:00Z"
         ]
       ]
     },
     "Vavoo.es.EUROSPORT1@TvVoo": {
       "kind": "guia-corta",
-      "futureHours": 16.4,
+      "futureHours": 15.6,
       "requiredHours": 18.0,
       "gaps": []
     }
