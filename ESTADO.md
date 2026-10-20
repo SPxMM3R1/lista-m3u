@@ -16,7 +16,11 @@
   `logos/catalogue/telehitmusica-mx.png` (el mismo asset histórico) y la EPG existente. La
   verificación previa del antiguo #099 decodificó un fotograma con logo Telehit Música y un
   videoclip; es una prueba puntual, no disponibilidad continua. Listas locales regeneradas:
-  Lista 1 **117**, Lista 2 **1.175**. Cambio: `contracts/telehit-musica-only-source-20261020.json`.
+  Lista 1 **117**, Lista 2 **1.175**. **Publicado y verificado**: commit editorial `c694e103`;
+  cambios dirigidos `39512268589`; runner `39512268649` → `0e4b4826`; EPG `39513260968` →
+  `4ee02186`; Pages `39512268628`. Raw en `4ee02186` confirma Telehit #49, Telehit Música #50,
+  #099 excluido, misma fuente bajo el ID estable, logo HTTP 200 y guía con 99 programas.
+  Suites locales: 406 Python (19 saltadas), 58 JS. Cambio: `contracts/telehit-musica-only-source-20261020.json`.
 
 - **Canales Alcatel trasladados a Lista 1 (2026-10-20)**: nueve filas solicitadas pasaron de
   Lista 2 a Lista 1, con nombres visibles limpios y logos locales. AXN, History 2, History,
@@ -281,7 +285,7 @@
   suite completa: 406 pruebas Python (19 saltadas) y 58 JavaScript; `git diff --check` limpio.
   Al normalizarse los vínculos, los seis backups Canal 13 quedan al final de Lista 2 como filas
   vinculadas, sin cambiar su relación ni estado activo/en prueba. Contrato
-  `contracts/telehit-musica-only-source-20261020.json`. Commit/push y publicación pendientes.
+  `contracts/telehit-musica-only-source-20261020.json`. Publicación y Raw verificados arriba.
 
 - **2026-10-20 — Canales Alcatel a Lista 1**: a pedido se promovieron nueve IDs directos,
   con Telehit originalmente inmediatamente después del Telehit Música #49 y los otros ocho al final del bloque
@@ -292,15 +296,17 @@
   Telehit se invirtió después; véase la entrada más reciente. `targeted_update.py --mode
   presentation` produjo inicialmente Lista 1=117 y Lista 2=1.176 sin reintroducir las bajas recientes de
   CHV/HBO. La EPG dirigida cubre los siete IDs por más de 12 h; quedan cuatro avisos de guías
-  cortas ajenos a este cambio. Pruebas completas y publicación pendientes.
+  cortas ajenos a este cambio. La promoción inicial se publicó en `10b0f615`; los workflows
+  terminaron correctamente. El cambio posterior de Telehit se documenta en la entrada anterior.
 
 - **2026-10-20 — Respaldos directos para Canal 13 y Telehit Música**: a pedido, se enlazaron
   los seis IDs 177–182 al `tvg-id` oficial `0107` y el 099 a `TelehitMusica.mx@SD`.
   Comprobación puntual por FFmpeg y fotogramas: los seis Canal 13 corresponden al mismo
   canal/programa que el principal; el candidato Telehit muestra su logo y un videoclip, pero
   el principal no abrió en esa pasada. Se conservaron en Lista 2 y en prueba. No se cambió
-  ninguna lista, numeración, EPG, logo o resolutor. Sello `approval=chat` actualizado; suites,
-  revisión final del diff y publicación pendientes.
+  ninguna lista, numeración, EPG, logo o resolutor en esa edición inicial. Se publicó en
+  `10b0f615`; el vínculo Telehit se sustituyó después, según la entrada más reciente. Los seis
+  enlaces Canal 13 siguen activos/en prueba en Lista 2.
 
 - **2026-10-20 / alias residual LIFE TIME**: se encontró `PublicDirect.c34a1a8f5d57352e3d6b4bf1` (#856, `LIFE TIME-IXP` → visible `LIFE TIME`) activo tras la primera purga por buscar el nombre sin espacio. Papelera reversible y `approval=chat`; regeneradas `2.m3u` y `m3u-externa.m3u` con `targeted_update.py --mode presentation`. Lista 2 1.191 → 1.190; Lista 1, EPG y resolutores intactos. Validación: partición editorial correcta, 402 pruebas Python (19 omitidas), 58 JS y `git diff --check` limpio.
 - **2026-10-20 / Lifetime fuera de Lista 2**: 6 activas y 1 oculta pasan a `deleted`; otras 6 ya estaban en la papelera. Las 13 identidades Lifetime están excluidas de las listas activas y siguen en `channel-catalog.m3u`. Lista 2 1.197 → 1.191; Lista 1 108 sin cambios. EPG y resolutores intactos.

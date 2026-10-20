@@ -15,7 +15,7 @@
   "streamSource": {
     "stableTvgId": "TelehitMusica.mx@SD",
     "formerSourceTvgId": "PublicDirect.a8ae71c151a6f81599bff876",
-    "formerSourceNumber": 99,
+    "formerUserFacingReference": "#099",
     "selection": "The stable Telehit Música row now points to the former #099 source. The former #099 row is deleted from publication and is not retained as a backup.",
     "validation": "A previous point-in-time FFmpeg check decoded a frame from the former #099 source; the frame showed Telehit Música branding and a music video. This does not establish continuous availability."
   },
@@ -38,6 +38,30 @@
     }
   },
   "publication": {
-    "status": "pending"
+    "status": "published and verified",
+    "editorialCommit": "c694e103e07b7e36cbb56d356be81e4bd3091b44",
+    "targetedWorkflow": "39512268589",
+    "channelRunner": {
+      "workflow": "39512268649",
+      "publishedCommit": "0e4b4826fe55bcf8c23d36be67ca4e89a625ae89"
+    },
+    "epgWorkflow": {
+      "workflow": "39513260968",
+      "publishedCommit": "4ee0218652292555629d287a63ae99813ac2255d"
+    },
+    "catalogEditorWorkflow": "39512268628",
+    "rawVerification": {
+      "commit": "4ee0218652292555629d287a63ae99813ac2255d",
+      "lista1Entries": 117,
+      "lista2Entries": 1175,
+      "telehitNumber": 49,
+      "telehitMusicaNumber": 50,
+      "former099Published": false,
+      "former099Excluded": true,
+      "sourceMatchesFormer099": true,
+      "historicLogoHttpStatus": 200,
+      "epgChannelPresent": true,
+      "epgProgrammeEntries": 99
+    }
   }
 }

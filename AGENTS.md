@@ -76,8 +76,11 @@ agente debe poder retomar el trabajo solo con lo que está en el repositorio.
   `contracts/canal13-telehit-backups-20261020.json` fue sustituido por la instrucción posterior
   del 2026-10-20: la fuente comprobada del antiguo #099 ahora es la única fuente del ID estable
   `TelehitMusica.mx@SD`; #099 queda `deleted`, fuera de Lista 2 y sin `backupm3u`. Estado vigente:
-  `contracts/telehit-musica-only-source-20261020.json`. Prueba Canal 13:
-  `tests/test_channel_quality_backups.py`.
+  `contracts/telehit-musica-only-source-20261020.json`. Publicado: editorial `c694e103`,
+  dirigido `39512268589`, runner `39512268649` → `0e4b4826`, EPG `39513260968` → `4ee02186`;
+  Raw en `4ee02186` confirma Lista 1=117, Lista 2=1.175, orden #49/#50, #099 excluido,
+  origen transferido, logo HTTP 200 e ID de EPG presente. Suites: 406 Python (19 skips), 58 JS.
+  Prueba Canal 13: `tests/test_channel_quality_backups.py`.
 
 - **Canales Alcatel trasladados a Lista 1 (2026-10-20)**: se movieron los IDs
   `PublicDirect.a247897d9a490d19fa633661` (AXN), `PublicDirect.39057ce89326a34e33998e2e`
@@ -102,8 +105,9 @@ agente debe poder retomar el trabajo solo con lo que está en el repositorio.
   su atribución en el contrato. No inferir una orden para el #087: la mención quedó mezclada
   con audio de la TV y no identificó inequívocamente el canal. Publicado en `main` como
   `10b0f615`; luego el runner `39504518968` publicó `b1d69f8d` y EPG `39505567288` publicó
-  `ebf8e006`. GitHub Raw confirma 117 filas en Lista 1, 1.176 en Lista 2, los nueve IDs en la
-  primera y el #099 aún en la externa; las siete guías nuevas tienen cobertura continua de
+  `ebf8e006`. En esa publicación inicial GitHub Raw confirmó 117 filas en Lista 1, 1.176 en Lista 2,
+  los nueve IDs en la primera y el #099 aún en la externa; ese estado fue supersedido por el cambio
+  `c694e103` y sus publicaciones posteriores, descritos arriba. Las siete guías nuevas tienen cobertura continua de
   más de 12 h. `Publicar cambios dirigidos` (`39505004472`) marcó error porque su modo parcial
   no admite cambios de membresía EPG; el workflow EPG completo sí terminó y publicó. El run
   de canales iniciado por el push se canceló antes de jobs por coincidir con la ventana
