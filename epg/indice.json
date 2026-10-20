@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generatedAt": "2026-10-20T20:51:55Z",
+ "generatedAt": "2026-10-20T22:03:05Z",
  "channels": [
   {
    "id": "0104",
@@ -9,7 +9,7 @@
    "keys": [
     "m3u:0104"
    ],
-   "guideSource": "tvn-oficial",
+   "guideSource": "cl",
    "manual": false,
    "lastStop": "2026-10-23T00:00:00Z"
   },
@@ -20,7 +20,7 @@
    "keys": [
     "m3u:0105"
    ],
-   "guideSource": "mega-oficial",
+   "guideSource": "cl",
    "manual": false,
    "lastStop": "2026-10-23T00:05:00Z"
   },
@@ -31,7 +31,7 @@
    "keys": [
     "m3u:0106"
    ],
-   "guideSource": "zapping-guia-publica",
+   "guideSource": "cl",
    "manual": false,
    "lastStop": "2026-10-26T03:30:00Z"
   },
@@ -42,7 +42,7 @@
    "keys": [
     "m3u:0107"
    ],
-   "guideSource": "canal13-abierto-oficial",
+   "guideSource": "cl",
    "manual": false,
    "lastStop": "2026-10-23T07:00:00Z"
   },
@@ -64,7 +64,7 @@
    "keys": [
     "m3u:0201"
    ],
-   "guideSource": "zapping-guia-publica",
+   "guideSource": "cl",
    "manual": false,
    "lastStop": "2026-10-23T00:00:00Z"
   },
@@ -152,7 +152,7 @@
    "keys": [
     "m3u:DW.de"
    ],
-   "guideSource": "dw-espanol-oficial",
+   "guideSource": "mx1",
    "manual": false,
    "lastStop": "2026-10-23T05:00:00Z"
   },
@@ -163,7 +163,7 @@
    "keys": [
     "m3u:DWEnglish.de"
    ],
-   "guideSource": "dw-english-oficial",
+   "guideSource": "fr",
    "manual": false,
    "lastStop": "2026-10-23T00:00:00Z"
   },
@@ -555,6 +555,17 @@
    "lastStop": "2026-10-23T05:30:00Z"
   },
   {
+   "id": "PublicDirect.12addda8ba8591c579cdebfa",
+   "file": "PublicDirect.12addda8ba8591c579cdebfa.xml",
+   "name": "Telehit",
+   "keys": [
+    "m3u:PublicDirect.12addda8ba8591c579cdebfa"
+   ],
+   "guideSource": "mx1",
+   "manual": false,
+   "lastStop": "2026-10-23T05:30:00Z"
+  },
+  {
    "id": "M1.ua@SD",
    "file": "M1.ua@SD.xml",
    "name": "M1",
@@ -616,7 +627,7 @@
    "keys": [
     "m3u:RedBullWorldEnglish.int"
    ],
-   "guideSource": "red-bull-oficial",
+   "guideSource": "pluto",
    "manual": false,
    "lastStop": "2026-10-21T22:04:15Z"
   },
@@ -663,6 +674,72 @@
    "guideSource": "claro-sinopsis",
    "manual": false,
    "lastStop": "2026-10-21T13:59:00Z"
+  },
+  {
+   "id": "PublicDirect.39057ce89326a34e33998e2e",
+   "file": "PublicDirect.39057ce89326a34e33998e2e.xml",
+   "name": "History Channel 2",
+   "keys": [
+    "m3u:PublicDirect.39057ce89326a34e33998e2e"
+   ],
+   "guideSource": "pa1",
+   "manual": false,
+   "lastStop": "2026-10-22T00:10:00Z"
+  },
+  {
+   "id": "PublicDirect.8da65ba545fa9fd2512f9901",
+   "file": "PublicDirect.8da65ba545fa9fd2512f9901.xml",
+   "name": "History Channel",
+   "keys": [
+    "m3u:PublicDirect.8da65ba545fa9fd2512f9901"
+   ],
+   "guideSource": "pa1",
+   "manual": false,
+   "lastStop": "2026-10-22T00:15:00Z"
+  },
+  {
+   "id": "PublicDirect.9c28a0d10a09856e98930cdc",
+   "file": "PublicDirect.9c28a0d10a09856e98930cdc.xml",
+   "name": "Sony Channel",
+   "keys": [
+    "m3u:PublicDirect.9c28a0d10a09856e98930cdc"
+   ],
+   "guideSource": "pa1",
+   "manual": false,
+   "lastStop": "2026-10-22T01:00:00Z"
+  },
+  {
+   "id": "PublicDirect.8b604de41196cd4fe991d551",
+   "file": "PublicDirect.8b604de41196cd4fe991d551.xml",
+   "name": "Studio Universal",
+   "keys": [
+    "m3u:PublicDirect.8b604de41196cd4fe991d551"
+   ],
+   "guideSource": "pa1",
+   "manual": false,
+   "lastStop": "2026-10-22T01:00:00Z"
+  },
+  {
+   "id": "PublicDirect.bf407e29eec656d628dfa2d7",
+   "file": "PublicDirect.bf407e29eec656d628dfa2d7.xml",
+   "name": "Universal TV",
+   "keys": [
+    "m3u:PublicDirect.bf407e29eec656d628dfa2d7"
+   ],
+   "guideSource": "pa1",
+   "manual": false,
+   "lastStop": "2026-10-22T00:20:00Z"
+  },
+  {
+   "id": "PublicDirect.1701b6c4abbcc431fb481536",
+   "file": "PublicDirect.1701b6c4abbcc431fb481536.xml",
+   "name": "USA Network",
+   "keys": [
+    "m3u:PublicDirect.1701b6c4abbcc431fb481536"
+   ],
+   "guideSource": "pa1",
+   "manual": false,
+   "lastStop": "2026-10-23T00:00:00Z"
   }
  ]
 }
