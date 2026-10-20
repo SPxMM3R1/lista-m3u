@@ -1,16 +1,28 @@
 {
   "schemaVersion": 1,
-  "atUtc": "2026-10-20T01:25:12Z",
-  "authorization": "Usuario: «Habian mas de 8 y quedaron fuera?» → «2» (subir el tope) y «Y aplica la logica para espn 7, los 1080 dejalos afuera por ahora para todos».",
-  "change": "Se subió el tope repo-side de backupm3u de 8 a 16 y se rehízo la selección solo con 720p60 (y el único 480p como último recurso): 45 respaldos en #35 (14), #36 (11), #37 (8), #39 (5) y #40 (7). Se revisaron los 8 respaldos actuales de ESPN 7: todos 1280x720 @ 59.94 y rótulo ESPN7; no hay filas ESPN 7 activas en Lista 2, así que se conservan los 8.",
-  "criteria": "Solo 59.94/60 fps. Todos los 1080p (1920x1080 y 1280x1080) quedan fuera por pedido. Coincidencia por rótulo OSD y nombre; no se exige el mismo evento porque la captura de referencia puede caer en publicidad. El orden deja primero los 8 que usa la app actual.",
+  "atUtc": "2026-10-20T02:19:51Z",
+  "authorization": "Usuario: «Que parte de que los respaldos espn fueran solo 720p a 60fps, no se entendio?» y «Hay varios a 30fps».",
+  "change": "Solo 1280x720 con r_frame_rate 60. Se quitaron el 480p y 3 streams con avg 59.94 pero r_frame_rate 30. Quedan 41 respaldos en #35 (12), #36 (10), #37 (8), #39 (4) y #40 (7), más 8 de ESPN 7.",
+  "criteria": "1280x720 y r_frame_rate 60000/1001; no se acepta avg 60 si r es 30. Sin 1080 ni 480. Coincidencia por OSD y nombre.",
   "limit": 16,
   "appLimit": 16,
-  "appPending": "Resuelto en VibeM3U 0.6.23 (versionCode 232): PublishedPlaybackCatalog.MAX_DIRECT_BACKUPS = 16.",
+  "appPending": "Resuelto en VibeM3U 0.6.23 (232).",
+  "appRelease": {
+    "version": "0.6.23",
+    "versionCode": 232,
+    "tag": "v0.6.23",
+    "apk": "VibeM3U-v0.6.23.apk",
+    "bytes": 2846435,
+    "sha256": "ec91fda30639a93538ae51d4471e516dedd6f3497c5044ba5d4c7ac98d5d0613",
+    "androidCi": 39355569525,
+    "publishApk": 39355575294
+  },
   "excluded": [
     "ESPN2.co@Direct181: se deja independiente en Lista 2 (decisión 2026-10-16).",
     "PublicDirect.9fc08fec9b53b602b7ce875e: auditoría EPG mx1; queda en Lista 2.",
-    "Todos los candidatos con height >= 1080: fuera por pedido explícito («los 1080 dejalos afuera por ahora para todos»)."
+    "Todos los 1080p (1920x1080 y 1280x1080): fuera por pedido.",
+    "El 480p PublicDirect.f0fa6b37cb971c681b0d09b6: fuera; solo 720p.",
+    "PublicDirect.925bf8e9e6c2861e30226d3a, PublicDirect.7f8acb0c7365f70bc5f07e21 y PublicDirect.7b33a82dca560712171ccf55: avg 59.94 pero r_frame_rate 30; fuera."
   ],
   "targets": [
     {
@@ -21,100 +33,98 @@
         {
           "tvgId": "PublicDirect.9803b3858eb1f551dc55bb66",
           "name": "ESPN_COL",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
         },
         {
           "tvgId": "PublicDirect.160c2cb1e8f8ab7da88c8f6b",
           "name": "ESPN",
-          "fps": 59.94,
-          "width": 1280,
-          "height": 720
-        },
-        {
-          "tvgId": "PublicDirect.925bf8e9e6c2861e30226d3a",
-          "name": "ESPN",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
         },
         {
           "tvgId": "PublicDirect.09d27a791649fd8ece22c9da",
           "name": "ESPN",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
         },
         {
           "tvgId": "PublicDirect.101f497805f32d1b12b1553d",
           "name": "ESPN",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
         },
         {
           "tvgId": "PublicDirect.4b049f33fec700f920c7a19b",
           "name": "ESPN",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
         },
         {
           "tvgId": "PublicDirect.52e2a90f3dee03a0fe8d012c",
           "name": "ESPN",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
         },
         {
           "tvgId": "PublicDirect.56d8924c8436259a52fce4e5",
           "name": "ESPN",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
         },
         {
           "tvgId": "PublicDirect.815fbeb4ed050a21a53444ed",
           "name": "ESPN",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
         },
         {
           "tvgId": "PublicDirect.dcd8868ec2ff980d13c48e61",
           "name": "ESPN",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
         },
         {
           "tvgId": "PublicDirect.e6323513bd9687fbebbd3408",
           "name": "ESPN",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
         },
         {
           "tvgId": "PublicDirect.ed257af8545fbd169b50f189",
           "name": "ESPN",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
         },
         {
           "tvgId": "PublicDirect.f3f466356fcf500b5d2d69ae",
           "name": "ESPN",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
-        },
-        {
-          "tvgId": "PublicDirect.f0fa6b37cb971c681b0d09b6",
-          "name": "ESPN",
-          "fps": 59.94,
-          "width": 720,
-          "height": 480
         }
       ]
     },
@@ -126,77 +136,80 @@
         {
           "tvgId": "PublicDirect.0b08745e3db22dec9d49648a",
           "name": "ESPN 2",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
         },
         {
           "tvgId": "PublicDirect.21b740ebf12edc120fe22f81",
           "name": "ESPN 2",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
         },
         {
           "tvgId": "PublicDirect.41364d2a9d006e1c2050f21b",
           "name": "ESPN 2",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
         },
         {
           "tvgId": "PublicDirect.b77f1d29fbaf37804e8fc000",
           "name": "ESPN 2",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
         },
         {
           "tvgId": "PublicDirect.ce8756a8f2f3c2420f26865f",
           "name": "ESPN 2",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
         },
         {
           "tvgId": "PublicDirect.ffc0253de60974af959e3220",
           "name": "ESPN 2",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
         },
         {
           "tvgId": "PublicDirect.29545f73b4791cab07ecb4ed",
           "name": "ESPN 2",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
         },
         {
           "tvgId": "PublicDirect.42095e66e7aa9b52a50125ae",
           "name": "ESPN 2",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
         },
         {
           "tvgId": "PublicDirect.4d0eb277fe4eb7e15a73dd7a",
           "name": "ESPN 2",
-          "fps": 59.94,
-          "width": 1280,
-          "height": 720
-        },
-        {
-          "tvgId": "PublicDirect.7f8acb0c7365f70bc5f07e21",
-          "name": "ESPN 2",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
         },
         {
           "tvgId": "PublicDirect.78f61ec86ce277cda1ad39f6",
           "name": "ESPN 2 (146)",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
         }
@@ -210,56 +223,64 @@
         {
           "tvgId": "PublicDirect.01a707099056fe8688ce5d0b",
           "name": "ESPN 3",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
         },
         {
           "tvgId": "PublicDirect.0be3dafc87397bb527a0eba2",
           "name": "ESPN 3",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
         },
         {
           "tvgId": "PublicDirect.29ce9a32b090eb790015a2e5",
           "name": "ESPN 3",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
         },
         {
           "tvgId": "PublicDirect.446eb5946d9e6996e27abc78",
           "name": "ESPN 3",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
         },
         {
           "tvgId": "PublicDirect.86989f7c634714e72803f142",
           "name": "ESPN 3",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
         },
         {
           "tvgId": "PublicDirect.d1484c227bed7e7987e0c647",
           "name": "ESPN 3",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
         },
         {
           "tvgId": "PublicDirect.d2620c76f6ba590fea0f2085",
           "name": "ESPN 3",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
         },
         {
           "tvgId": "PublicDirect.dc6855efb9035607de683047",
           "name": "ESPN 3",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
         }
@@ -273,35 +294,32 @@
         {
           "tvgId": "PublicDirect.bc1cc78f509f57eee0e09ccc",
           "name": "ESPN 5",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
         },
         {
           "tvgId": "PublicDirect.c89ec6435039defded0a1de2",
           "name": "ESPN 5",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
         },
         {
           "tvgId": "PublicDirect.e68eb1914a6f5713fbfb97fa",
           "name": "ESPN 5",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
         },
         {
           "tvgId": "PublicDirect.feeaa817e5b32bdb2a07a3a9",
           "name": "ESPN 5",
-          "fps": 59.94,
-          "width": 1280,
-          "height": 720
-        },
-        {
-          "tvgId": "PublicDirect.7b33a82dca560712171ccf55",
-          "name": "ESPN 5 Sur (ESPN07)",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
         }
@@ -315,49 +333,56 @@
         {
           "tvgId": "ESPN6.co@Direct181",
           "name": "ESPN 6",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
         },
         {
           "tvgId": "PublicDirect.5c1cfec4bf3e4c0613742865",
           "name": "ESPN 6",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
         },
         {
           "tvgId": "PublicDirect.652fd7bc84d7b4cf7f041a13",
           "name": "ESPN 6",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
         },
         {
           "tvgId": "PublicDirect.7755e8564b0a908a45895ac9",
           "name": "ESPN 6",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
         },
         {
           "tvgId": "PublicDirect.8ec9b91a89c1d10f5a09dd34",
           "name": "ESPN 6",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
         },
         {
           "tvgId": "PublicDirect.a2393059934691816e983c51",
           "name": "ESPN 6",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
         },
         {
           "tvgId": "PublicDirect.a4c150205cd76e5cb0c45065",
           "name": "ESPN 6",
-          "fps": 59.94,
+          "avgFps": "60000/1001",
+          "rfps": "60000/1001",
           "width": 1280,
           "height": 720
         }
@@ -378,11 +403,12 @@
     ]
   },
   "skipped": {
-    "ESPN 4 #38": "no hubo candidatos ESPN4 a 60 fps.",
-    "1080p": "41 candidatos 60 fps con height 1080 quedaron fuera por pedido.",
-    "45 URLs": "no respondieron (404/timeout).",
-    "26 URLs": "respondieron por debajo de 60 fps.",
-    "8 sin destino": "ESPN Premium (7) y ESPN 1 (1) no tienen señal en Lista 1."
+    "ESPN 4": "sin candidatos",
+    "1080p": "41 fuera",
+    "480p": "1 fuera",
+    "30 fps reales": "3 fuera",
+    "sin respuesta": "45",
+    "sin destino": "8"
   },
   "counts": {
     "antes": {
@@ -392,37 +418,21 @@
       "catalogo": 6599
     },
     "despues": {
-      "activos": 1387,
-      "list1Publicada": 112,
-      "list2Publicada": 1281,
+      "activos": 1382,
+      "list1Publicada": 108,
+      "list2Publicada": 1280,
       "catalogo": 6599,
-      "visibles": 1328,
-      "filasEnlazadas": 59
+      "visibles": 1327,
+      "filasEnlazadas": 55
     }
   },
   "evidence": {
-    "carpeta": "outputs/espn-l2-backups-20261019/ (local, no versionada)",
-    "probe": "164 URLs ESPN de Lista 2; 119 responden; 93 a ~60 fps; 41 en 1080 excluidos; 51 en 720 y 1 en 480.",
-    "capturas": "86 del primer lote + 4 adicionales (38, 41, 67, 72) + 8 de ESPN 7 = 98 imágenes.",
-    "hojas": [
-      "sheets/referencias.jpg",
-      "sheets/hoja-01.jpg ... hoja-08.jpg",
-      "sheets/seleccion-1.jpg",
-      "sheets/seleccion-2.jpg",
-      "sheets/faltantes-espn7.jpg"
-    ]
+    "carpeta": "outputs/espn-l2-backups-20261019/",
+    "probe": "164 URLs; 119 responden; 93 avg60; 41 en 1080; 3 r30.",
+    "recheck": "49 respaldos: todos 1280x720 r60.",
+    "capturas": "98 imágenes."
   },
-  "validation": "apply.mjs validó el layout (validateLayout con tope 16), selló con approval.source=chat y regeneró presentation; targeted_update --mode presentation dejó la partición 112/1281/6599. Los 45 respaldos están activos en Lista 1 con trial=true y fuera de m3u-externa.m3u. build_site_data.py construyó el bundle con 5.172 canales y 491 logos.",
-  "tests": "402 Python (18 omitidas; único fallo local ajeno: copia del contrato compartido en VibeM3U) y 58 JS.",
-  "pendiente": "Publicado y verificado (2026-10-19): editorial 53cae403; canales 39353448871 (faa96172); dirigido 39353448978 (10cfc66c); editor 39353448933; Highfly 39353449007/39354466625 (46e2dad5/94bcb013). Raw: Lista 1 112, Lista 2 1281, catalogo 6599; 45 respaldos con 14/11/8/5/7. VibeM3U 0.6.23/232 ya usa hasta 16; APK VibeM3U-v0.6.23.apk 2.846.435 bytes, SHA-256 ec91fda30639a93538ae51d4471e516dedd6f3497c5044ba5d4c7ac98d5d0613, release no draft.",
-  "appRelease": {
-    "version": "0.6.23",
-    "versionCode": 232,
-    "tag": "v0.6.23",
-    "apk": "VibeM3U-v0.6.23.apk",
-    "bytes": 2846435,
-    "sha256": "ec91fda30639a93538ae51d4471e516dedd6f3497c5044ba5d4c7ac98d5d0613",
-    "androidCi": 39355569525,
-    "publishApk": 39355575294
-  }
+  "validation": "fix-720/fix-30fps/reorder + targeted_update: 108/1280/6599; 41 respaldos en L1 trial; ESPN7 8.",
+  "tests": "402 Python (18 omitidas) y 58 JS en verde.",
+  "pendiente": "Publicación y verificación remota pendientes."
 }
