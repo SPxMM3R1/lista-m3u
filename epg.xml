@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, FreeEPG, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-description-policy="verified-source-only" data-description-programmes="2997" data-description-channels="55" data-next-refresh-at="2026-10-21T02:11:42+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u" data-generated-at="2026-10-20T23:12:19+00:00">
+<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, FreeEPG, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-description-policy="verified-source-only" data-description-programmes="2973" data-description-channels="55" data-next-refresh-at="2026-10-21T02:45:17+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u" data-generated-at="2026-10-20T23:45:53+00:00">
   <channel id="0104" data-guide="parrilla real" data-guide-source="cl">
     <display-name>TVN</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvn.png" />
@@ -8,7 +8,7 @@
     <display-name>Mega</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/mega.png" />
   </channel>
-  <channel id="0106" data-guide="parrilla real" data-guide-source="chilevision-oficial">
+  <channel id="0106" data-guide="parrilla real" data-guide-source="cl">
     <display-name>CHV</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/chv.png" />
   </channel>
@@ -221,7 +221,7 @@
     <display-name>TVE Internacional</display-name>
     <icon src="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/international/tve-internacional-int.png" />
   </channel>
-  <channel id="RedBullWorldEnglish.int" data-guide="parrilla oficial Red Bull" data-guide-source="red-bull-oficial">
+  <channel id="RedBullWorldEnglish.int" data-guide="parrilla real" data-guide-source="pluto">
     <display-name>RedBull TV World</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/red-bull-tv.png" />
   </channel>
@@ -986,66 +986,118 @@
   <programme start="20261023200000 -0300" stop="20261023220000 -0300" channel="0105">
     <title lang="es">Meganoticias Prime</title>
   </programme>
-  <programme start="20261020080000 -0300" stop="20261020153000 -0300" channel="0106">
-    <title lang="es">Contigo en la Mañana</title>
+  <programme start="20261020130000 -0300" stop="20261020153000 -0300" channel="0106">
+    <title lang="es">Chilevisión Noticias Tarde</title>
   </programme>
-  <programme start="20261020153000 -0300" stop="20261020171500 -0300" channel="0106">
-    <title lang="es">Contigo en Directo</title>
+  <programme start="20261020153000 -0300" stop="20261020183000 -0300" channel="0106">
+    <title lang="es">Contigo en directo</title>
     <desc lang="es">Conducido por Humberto Sichel quíen debate los temas de actualidad junto con un panel de expertos.</desc>
   </programme>
-  <programme start="20261020171500 -0300" stop="20261020223000 -0300" channel="0106">
-    <title lang="es">Plan Perfecto</title>
+  <programme start="20261020183000 -0300" stop="20261020203000 -0300" channel="0106">
+    <title lang="es">Plan perfecto</title>
     <desc lang="es">El programa se centra en las últimas noticias del espectáculo nacional, novedades en moda, astrología y mucho más. Cuenta con un panel de primer nivel que incluye a Paulina Rojas, Pablo Candia, Marcelo Rojas, Cony Capelli y Cecilia Gutiérrez</desc>
   </programme>
-  <programme start="20261020223000 -0300" stop="20261021013000 -0300" channel="0106">
-    <title lang="es">Fiebre de Canto</title>
-    <desc lang="es">Competencia musical donde participantes muestran su talento vocal frente a un jurado y público en vivo.</desc>
+  <programme start="20261020203000 -0300" stop="20261020224500 -0300" channel="0106">
+    <title lang="es">Chilevisión noticias central</title>
   </programme>
-  <programme start="20261021013000 -0300" stop="20261021080000 -0300" channel="0106">
-    <title lang="es">Traicionada</title>
-    <desc lang="es">Asya descubre la infidelidad de su esposo y emprende un plan de venganza que cambiará su vida.</desc>
+  <programme start="20261020224500 -0300" stop="20261021001000 -0300" channel="0106">
+    <title lang="es">Bahar</title>
   </programme>
-  <programme start="20261021080000 -0300" stop="20261021153000 -0300" channel="0106">
-    <title lang="es">Contigo en la Mañana</title>
+  <programme start="20261021001000 -0300" stop="20261021021000 -0300" channel="0106">
+    <title lang="es">Plan perfecto</title>
+  </programme>
+  <programme start="20261021021000 -0300" stop="20261021030500 -0300" channel="0106">
+    <title lang="es">Justicia</title>
+  </programme>
+  <programme start="20261021030500 -0300" stop="20261021054500 -0300" channel="0106">
+    <title lang="es">Programación Trasnoche</title>
+  </programme>
+  <programme start="20261021054500 -0300" stop="20261021063000 -0300" channel="0106">
+    <title lang="es">Primera página</title>
+  </programme>
+  <programme start="20261021063000 -0300" stop="20261021080000 -0300" channel="0106">
+    <title lang="es">Contigo CHV Noticias A.M.</title>
+  </programme>
+  <programme start="20261021080000 -0300" stop="20261021130000 -0300" channel="0106">
+    <title lang="es">Contigo en la mañana</title>
     <desc lang="es">Magazine de la mañana conducido por Julio César Rodríguez y Monserrat Álvarez</desc>
   </programme>
-  <programme start="20261021153000 -0300" stop="20261021171500 -0300" channel="0106">
+  <programme start="20261021130000 -0300" stop="20261021153000 -0300" channel="0106">
+    <title lang="es">Chilevisión noticias tarde</title>
+  </programme>
+  <programme start="20261021153000 -0300" stop="20261021183000 -0300" channel="0106">
     <title lang="es">Contigo en Directo</title>
   </programme>
-  <programme start="20261021171500 -0300" stop="20261021223000 -0300" channel="0106">
-    <title lang="es">Plan Perfecto</title>
+  <programme start="20261021183000 -0300" stop="20261021203000 -0300" channel="0106">
+    <title lang="es">Plan perfecto</title>
   </programme>
-  <programme start="20261021223000 -0300" stop="20261022013000 -0300" channel="0106">
-    <title lang="es">Fiebre de Canto</title>
+  <programme start="20261021203000 -0300" stop="20261021224500 -0300" channel="0106">
+    <title lang="es">Chilevisión noticias central</title>
   </programme>
-  <programme start="20261022013000 -0300" stop="20261022080000 -0300" channel="0106">
-    <title lang="es">Traicionada</title>
+  <programme start="20261021224500 -0300" stop="20261022001000 -0300" channel="0106">
+    <title lang="es">Bahar</title>
   </programme>
-  <programme start="20261022080000 -0300" stop="20261022153000 -0300" channel="0106">
-    <title lang="es">Contigo en la Mañana</title>
+  <programme start="20261022001000 -0300" stop="20261022021000 -0300" channel="0106">
+    <title lang="es">Plan perfecto</title>
   </programme>
-  <programme start="20261022153000 -0300" stop="20261022171500 -0300" channel="0106">
+  <programme start="20261022021000 -0300" stop="20261022030500 -0300" channel="0106">
+    <title lang="es">Justicia</title>
+  </programme>
+  <programme start="20261022030500 -0300" stop="20261022054500 -0300" channel="0106">
+    <title lang="es">Programación Trasnoche</title>
+  </programme>
+  <programme start="20261022054500 -0300" stop="20261022063000 -0300" channel="0106">
+    <title lang="es">Primera Página</title>
+  </programme>
+  <programme start="20261022063000 -0300" stop="20261022080000 -0300" channel="0106">
+    <title lang="es">Contigo CHV Noticias A.M.</title>
+  </programme>
+  <programme start="20261022080000 -0300" stop="20261022130000 -0300" channel="0106">
+    <title lang="es">Contigo en la mañana</title>
+  </programme>
+  <programme start="20261022130000 -0300" stop="20261022153000 -0300" channel="0106">
+    <title lang="es">Chilevisión Noticias Tarde</title>
+  </programme>
+  <programme start="20261022153000 -0300" stop="20261022183000 -0300" channel="0106">
+    <title lang="es">Contigo en directo</title>
+  </programme>
+  <programme start="20261022183000 -0300" stop="20261022203000 -0300" channel="0106">
+    <title lang="es">Plan perfecto</title>
+  </programme>
+  <programme start="20261022203000 -0300" stop="20261022224000 -0300" channel="0106">
+    <title lang="es">Chilevisión noticias central</title>
+  </programme>
+  <programme start="20261022224000 -0300" stop="20261023005000 -0300" channel="0106">
+    <title lang="es">Detras del Muro</title>
+  </programme>
+  <programme start="20261023005000 -0300" stop="20261023030500 -0300" channel="0106">
+    <title lang="es">Detras del Muro</title>
+  </programme>
+  <programme start="20261023030500 -0300" stop="20261023054500 -0300" channel="0106">
+    <title lang="es">Programación Trasnoche</title>
+  </programme>
+  <programme start="20261023054500 -0300" stop="20261023063000 -0300" channel="0106">
+    <title lang="es">Primera página</title>
+  </programme>
+  <programme start="20261023063000 -0300" stop="20261023080000 -0300" channel="0106">
+    <title lang="es">Contigo CHV Noticias A.M.</title>
+  </programme>
+  <programme start="20261023080000 -0300" stop="20261023130000 -0300" channel="0106">
+    <title lang="es">Contigo en la mañana</title>
+  </programme>
+  <programme start="20261023130000 -0300" stop="20261023153000 -0300" channel="0106">
+    <title lang="es">Chilevisión noticias tarde</title>
+  </programme>
+  <programme start="20261023153000 -0300" stop="20261023183000 -0300" channel="0106">
     <title lang="es">Contigo en Directo</title>
   </programme>
-  <programme start="20261022171500 -0300" stop="20261022223000 -0300" channel="0106">
-    <title lang="es">Plan Perfecto</title>
+  <programme start="20261023183000 -0300" stop="20261023203000 -0300" channel="0106">
+    <title lang="es">Plan perfecto</title>
   </programme>
-  <programme start="20261022223000 -0300" stop="20261023013000 -0300" channel="0106">
-    <title lang="es">Club De La Comedia</title>
+  <programme start="20261023203000 -0300" stop="20261023224000 -0300" channel="0106">
+    <title lang="es">Chilevisión noticias central</title>
   </programme>
-  <programme start="20261023013000 -0300" stop="20261023080000 -0300" channel="0106">
-    <title lang="es">Traicionada</title>
-  </programme>
-  <programme start="20261023080000 -0300" stop="20261023153000 -0300" channel="0106">
-    <title lang="es">Contigo en la Mañana</title>
-  </programme>
-  <programme start="20261023153000 -0300" stop="20261023171500 -0300" channel="0106">
-    <title lang="es">Contigo en Directo</title>
-  </programme>
-  <programme start="20261023171500 -0300" stop="20261023223000 -0300" channel="0106">
-    <title lang="es">Plan Perfecto</title>
-  </programme>
-  <programme start="20261023223000 -0300" stop="20261024150000 -0300" channel="0106">
+  <programme start="20261023224000 -0300" stop="20261024150000 -0300" channel="0106">
     <title lang="es">Primer Plano</title>
   </programme>
   <programme start="20261024150000 -0300" stop="20261024222500 -0300" channel="0106">
@@ -2057,9 +2109,6 @@
     <title lang="es">Pasiones</title>
     <desc lang="es">Los casos más interesantes de personas con problemas amorosos, relatados por sus protagonistas quienes reciben consejos de la audiencia y un panel de expertos.</desc>
   </programme>
-  <programme start="20261020140000 -0300" stop="20261020143000 -0300" channel="45">
-    <title lang="es">Mithy el explorador</title>
-  </programme>
   <programme start="20261020143000 -0300" stop="20261020150000 -0300" channel="45">
     <title lang="es">Historias de la casa del árbol</title>
     <desc lang="es">Serie que nos muestra como cuatro amigos disfrutan al contar divertidas historias en la casa del árbol. Allí ríen, juegan y aprenden</desc>
@@ -2204,16 +2253,6 @@
   </programme>
   <programme start="20261021233000 -0300" stop="20261022001000 -0300" channel="45">
     <title lang="es">Nunca es late para aprender</title>
-  </programme>
-  <programme start="20261020140000 -0300" stop="20261020143000 -0300" channel="AlJazeera.qa">
-    <title lang="es">News Live</title>
-    <desc lang="es">News Live is a rolling news programme from Al Jazeera Media Network delivering up-to-the-minute coverage of breaking stories from around the world. Anchored by experienced journalists and supported by correspondents across continents, it brings viewers live reports, expert interviews, and on-the-ground updates as events unfold. From major political developments and conflicts to business, climate, and human interest stories, the programme keeps audiences informed with accurate, timely, and comprehensive global news coverage.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/9228/news_live.jpeg" />
-    <country lang="es">Estado De Catar</country>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
   <programme start="20261020143000 -0300" stop="20261020150000 -0300" channel="AlJazeera.qa">
     <title lang="es">Inside Story</title>
@@ -3201,9 +3240,6 @@
     <title lang="pl">Moo No Plan</title>
     <episode-num system="onscreen">E5</episode-num>
   </programme>
-  <programme start="20261020134314 -0300" stop="20261020144407 -0300" channel="AutenticHistory.de">
-    <title lang="en">Black Eagles</title>
-  </programme>
   <programme start="20261020144407 -0300" stop="20261020154410 -0300" channel="AutenticHistory.de">
     <title lang="en">Black Eagles</title>
   </programme>
@@ -3587,13 +3623,6 @@
   </programme>
   <programme start="20261025204131 -0300" stop="20261025214454 -0300" channel="AutenticHistory.de">
     <title lang="en">Hitler's Displaced War Children</title>
-  </programme>
-  <programme start="20261020140000 -0300" stop="20261020143000 -0300" channel="BBCNews.uk">
-    <title lang="en">The World Today with Maryam Moshiri</title>
-    <desc lang="en">Maryam Moshiri delivers the latest stories from around the world and interviews prominent figures to analyze various issues from multiple perspectives.</desc>
-    <date>2026</date>
-    <icon src="https://metadata-static.plex.tv/7/gracenote/73fe834bb7f0ad4cf90f177d97221722.jpg" />
-    <episode-num system="onscreen">S2026</episode-num>
   </programme>
   <programme start="20261020143000 -0300" stop="20261020150000 -0300" channel="BBCNews.uk">
     <title lang="en">The World Today with Maryam Moshiri</title>
@@ -5019,18 +5048,6 @@
     <icon src="https://metadata-static.plex.tv/f/gracenote/f0527239204291325874b6359444b839.jpg" />
     <episode-num system="onscreen">S2026</episode-num>
   </programme>
-  <programme start="20261020121500 -0300" stop="20261020143000 -0300" channel="DAZNF1.es@TvVoo">
-    <title lang="es">Grand Prix de Gran Bretaña</title>
-    <sub-title lang="es">Race</sub-title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
-    <date>2025</date>
-    <icon src="https://cdn.sincroguia.tv/storage/39978/c_formula_1_2025.jpeg" />
-    <country lang="es">Reino Unido</country>
-    <episode-num system="onscreen">S2025</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
-  </programme>
   <programme start="20261020143000 -0300" stop="20261020164500 -0300" channel="DAZNF1.es@TvVoo">
     <title lang="es">F1</title>
     <title lang="es">GP de México</title>
@@ -5054,16 +5071,6 @@
     <rating system="ES">
       <value>Apta</value>
     </rating>
-  </programme>
-  <programme start="20261020140000 -0300" stop="20261020141500 -0300" channel="DW.de">
-    <title lang="es">Patrimonio mundial</title>
-    <sub-title lang="es">Sucre: El legado de Simón Bolívar, Bolivia</sub-title>
-    <desc lang="es">Cartagena - La Fortaleza Española Del Caribe, Colombia. Cartagena le debe su riqueza a su privilegiada situación a orillas del Mar Caribe. Para los conquistadores españoles, era la ubicación ideal para establecer un asentamiento: cuenta con un puerto natural al fondo de una amplia bahía, protegida de mar abierto por unas islas, al tiempo que una cordillera dificulta el acceso por tierra. Es una de las primeras ciudades coloniales de Sudamérica.</desc>
-    <episode-num system="onscreen">S1999</episode-num>
-  </programme>
-  <programme start="20261020141500 -0300" stop="20261020143000 -0300" channel="DW.de">
-    <title lang="es">El reportero</title>
-    <desc lang="es">Con cámara en mano los reporteros de DW registran los sucesos de actualidad, los acontecimientos internacionales o las curiosidades de la vida cotidiana. Experimentan y relatan de cerca cómo cambian Alemania, Europa y el mundo ante sus ojos.</desc>
   </programme>
   <programme start="20261020143000 -0300" stop="20261020150000 -0300" channel="DW.de">
     <title lang="es">Primer Plano</title>
@@ -5305,12 +5312,14 @@
   </programme>
   <programme start="20261021210000 -0300" stop="20261021213000 -0300" channel="DW.de">
     <title lang="es">DW Noticias</title>
+    <desc lang="es">Explicaciones detalladas, análisis competentes, cobertura de la actualidad mundial: política, negocios, deporte y cultura. Perspectivas fascinantes más allá de los titulares. DW noticias: atando cabos para espectadores de todo el mundo.</desc>
   </programme>
   <programme start="20261021213000 -0300" stop="20261021220000 -0300" channel="DW.de">
     <title lang="es">Enfoque Europa: Países, gente, destinos</title>
   </programme>
   <programme start="20261021220000 -0300" stop="20261021221500 -0300" channel="DW.de">
     <title lang="es">DW Noticias</title>
+    <desc lang="es">Explicaciones detalladas, análisis competentes, cobertura de la actualidad mundial: política, negocios, deporte y cultura. Perspectivas fascinantes más allá de los titulares. DW noticias: atando cabos para espectadores de todo el mundo.</desc>
   </programme>
   <programme start="20261021221500 -0300" stop="20261021223000 -0300" channel="DW.de">
     <title lang="es">Economía</title>
@@ -5649,21 +5658,6 @@
   </programme>
   <programme start="20261024013000 -0300" stop="20261024020000 -0300" channel="DW.de">
     <title lang="es">Global es</title>
-  </programme>
-  <programme channel="DWEnglish.de" start="20261020140000 -0300" stop="20261020141500 -0300">
-    <title lang="fr">DW News</title>
-    <desc lang="es">Our deep dive format explains the stories that matter - with clarity, context and journalistic rigor. Each segment goes beyond the headlines to uncover what's driving key developments around the world, featuring sharp analysis, expert voices and exclusive on the ground insights from where events are unfolding.</desc>
-    <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/0/7/15708705.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/9/6/15708698.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/9/6/15708695.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/3/8/7/15215783.jpg" />
-  </programme>
-  <programme channel="DWEnglish.de" start="20261020141500 -0300" stop="20261020143000 -0300">
-    <title lang="fr">Best of DW-online Content</title>
-    <sub-title lang="fr">online Content</sub-title>
-    <category lang="fr">Documentaire de société</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/7/4/15216476.jpg" />
   </programme>
   <programme channel="DWEnglish.de" start="20261020143000 -0300" stop="20261020150000 -0300">
     <title lang="fr">Rev</title>
@@ -6729,6 +6723,7 @@
   </programme>
   <programme channel="DWEnglish.de" start="20261022110200 -0300" stop="20261022111500 -0300">
     <title lang="fr">DW News Focus</title>
+    <desc lang="es">Our deep dive format explains the stories that matter - with clarity, context and journalistic rigor. Each segment goes beyond the headlines to uncover what's driving key developments around the world, featuring sharp analysis, expert voices and exclusive on the ground insights from where events are unfolding.</desc>
     <category lang="fr">Journal</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/2/8/15215825.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/1/1/8/15215811.jpg" />
@@ -6742,6 +6737,7 @@
   </programme>
   <programme channel="DWEnglish.de" start="20261022120000 -0300" stop="20261022123000 -0300">
     <title lang="fr">DW News</title>
+    <desc lang="es">Our deep dive format explains the stories that matter - with clarity, context and journalistic rigor. Each segment goes beyond the headlines to uncover what's driving key developments around the world, featuring sharp analysis, expert voices and exclusive on the ground insights from where events are unfolding.</desc>
     <category lang="fr">Journal</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/0/7/15708705.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/9/6/15708698.jpg" />
@@ -6757,6 +6753,7 @@
   </programme>
   <programme channel="DWEnglish.de" start="20261022130000 -0300" stop="20261022133000 -0300">
     <title lang="fr">DW News</title>
+    <desc lang="es">Our deep dive format explains the stories that matter - with clarity, context and journalistic rigor. Each segment goes beyond the headlines to uncover what's driving key developments around the world, featuring sharp analysis, expert voices and exclusive on the ground insights from where events are unfolding.</desc>
     <category lang="fr">Journal</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/0/7/15708705.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/9/6/15708698.jpg" />
@@ -6773,6 +6770,7 @@
   </programme>
   <programme channel="DWEnglish.de" start="20261022140000 -0300" stop="20261022141500 -0300">
     <title lang="fr">DW News</title>
+    <desc lang="es">Our deep dive format explains the stories that matter - with clarity, context and journalistic rigor. Each segment goes beyond the headlines to uncover what's driving key developments around the world, featuring sharp analysis, expert voices and exclusive on the ground insights from where events are unfolding.</desc>
     <category lang="fr">Journal</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/0/7/15708705.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/9/6/15708698.jpg" />
@@ -7682,24 +7680,6 @@
     <category lang="es">UEFA</category>
     <category lang="es">Fútbol Español</category>
     <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
-  </programme>
-  <programme start="20261020140000 -0300" stop="20261020143000 -0300" channel="ESPN4.co@Direct181">
-    <title lang="es">Goles de la Ligue 1</title>
-    <sub-title lang="es">Goles de la Ligue 1: 2025-2026</sub-title>
-    <desc lang="es">Las jugadas y anotaciones más destacadas de la temporada 2025-26 de la Ligue 1.</desc>
-    <date>2025</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261020143000 -0300" stop="20261020144000 -0300" channel="ESPN4.co@Direct181">
-    <title lang="es">Fútbol internacional</title>
-    <sub-title lang="es">PSG: Campeón UEFA Champions League 2025-2026</sub-title>
-    <desc lang="es">El Paris Saint-Germain (PSG) se coronó campeón de la UEFA Champions League 2025-2026 al derrotar al Arsenal 4-3 en tanda de penales. Disputado el 30 de mayo de 2026.</desc>
-    <date>2026</date>
-    <rating system="MJColombia">
-      <value>AGE228</value>
-    </rating>
   </programme>
   <programme start="20261020144000 -0300" stop="20261020154000 -0300" channel="ESPN4.co@Direct181">
     <title lang="es">Italian Serie A Highlights</title>
@@ -8691,15 +8671,6 @@
     <rating system="ES">
       <value>Apta</value>
     </rating>
-  </programme>
-  <programme channel="France24.fr" start="20261020140000 -0300" stop="20261020143000 -0300">
-    <title lang="fr">Noticias</title>
-    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
-    <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/0/5/15194509.jpg" />
-    <episode-num system="onscreen">E25</episode-num>
   </programme>
   <programme channel="France24.fr" start="20261020143000 -0300" stop="20261020145400 -0300">
     <title lang="fr">Noticias</title>
@@ -10053,6 +10024,7 @@
   </programme>
   <programme channel="France24.fr" start="20261022000000 -0300" stop="20261022001500 -0300">
     <title lang="fr">Noticias</title>
+    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
     <category lang="fr">Journal</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
@@ -10079,6 +10051,7 @@
   </programme>
   <programme channel="France24.fr" start="20261022010000 -0300" stop="20261022011000 -0300">
     <title lang="fr">Noticias</title>
+    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
     <category lang="fr">Journal</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
@@ -10103,6 +10076,7 @@
   </programme>
   <programme channel="France24.fr" start="20261022013000 -0300" stop="20261022014000 -0300">
     <title lang="fr">Noticias</title>
+    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
     <category lang="fr">Journal</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
@@ -10127,6 +10101,7 @@
   </programme>
   <programme channel="France24.fr" start="20261022020000 -0300" stop="20261022021000 -0300">
     <title lang="fr">Noticias</title>
+    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
     <category lang="fr">Journal</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
@@ -10151,6 +10126,7 @@
   </programme>
   <programme channel="France24.fr" start="20261022023000 -0300" stop="20261022024000 -0300">
     <title lang="fr">Noticias</title>
+    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
     <category lang="fr">Journal</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
@@ -13297,10 +13273,6 @@
   <programme start="20261021233000 -0300" stop="20261022003000 -0300" channel="Meganoticias.cl">
     <title lang="es">Meganoticias hora cero</title>
   </programme>
-  <programme start="20261020140000 -0300" stop="20261020143000 -0300" channel="NHKWorldJapan.jp">
-    <title lang="en">NHK Newsline</title>
-    <desc lang="en">NHK NEWSLINE brings you up to date with the latest from Japan, Asia and around the world. Our team covers breaking news and major developments, with trusted anchors to tie it all together.</desc>
-  </programme>
   <programme start="20261020143000 -0300" stop="20261020150000 -0300" channel="NHKWorldJapan.jp">
     <title lang="en">Dining with the Chef</title>
     <sub-title lang="en">Rika's Tokyo Cuisine/ Miso-grilled Pork</sub-title>
@@ -15921,9 +15893,6 @@
     <desc lang="en">Visit specialty tofu makers across Tokyo that are deeply rooted in their local communities and see how the traditional food has come to be used in all kinds of cuisine, from east to west.</desc>
     <url>https://www3.nhk.or.jp/nhkworld/en/shows/oishii/</url>
   </programme>
-  <programme start="20261020133500 -0300" stop="20261020143000 -0300" channel="PublicDirect.12addda8ba8591c579cdebfa">
-    <title lang="es">Dale play</title>
-  </programme>
   <programme start="20261020143000 -0300" stop="20261020150000 -0300" channel="PublicDirect.12addda8ba8591c579cdebfa">
     <title lang="es">Playhit</title>
   </programme>
@@ -16259,9 +16228,6 @@
   </programme>
   <programme start="20261024013500 -0300" stop="20261024023000 -0300" channel="PublicDirect.12addda8ba8591c579cdebfa">
     <title lang="es">Rocool-A</title>
-  </programme>
-  <programme start="20261020133000 -0300" stop="20261020142000 -0300" channel="PublicDirect.1701b6c4abbcc431fb481536">
-    <title lang="es">Suits</title>
   </programme>
   <programme start="20261020142000 -0300" stop="20261020151000 -0300" channel="PublicDirect.1701b6c4abbcc431fb481536">
     <title lang="es">The Rainmaker</title>
@@ -17937,10 +17903,6 @@
   <programme start="20261023201000 -0300" stop="20261023210000 -0300" channel="PublicDirect.1701b6c4abbcc431fb481536">
     <title lang="es">Suits</title>
   </programme>
-  <programme start="20261020133500 -0300" stop="20261020143500 -0300" channel="PublicDirect.39057ce89326a34e33998e2e">
-    <title lang="es">Constructores de imperios</title>
-    <sub-title lang="es">El cinturon de oxido - Parte 2</sub-title>
-  </programme>
   <programme start="20261020143500 -0300" stop="20261020152500 -0300" channel="PublicDirect.39057ce89326a34e33998e2e">
     <title lang="es">Construyendo un Imperio</title>
     <sub-title lang="es">El Mundo de Da Vinci</sub-title>
@@ -18393,9 +18355,6 @@
   <programme start="20261021161800 -0300" stop="20261021171900 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
     <title lang="es">Mi Mentiroso Adorable</title>
     <desc lang="es">Se revela que la persona a quien Eomho apuñaló es Ethan, quien milagrosamente sigue con vida. Los lazos entre los personajes se tensan al borde del quiebre mientras la verdad se acerca.</desc>
-  </programme>
-  <programme start="20261020123000 -0300" stop="20261020144000 -0300" channel="PublicDirect.8b604de41196cd4fe991d551">
-    <title lang="es">El bebé de Bridget Jones</title>
   </programme>
   <programme start="20261020144000 -0300" stop="20261020170000 -0300" channel="PublicDirect.8b604de41196cd4fe991d551">
     <title lang="es">Posdata: Te Amo</title>
@@ -18954,10 +18913,6 @@
   </programme>
   <programme start="20261022194900 -0300" stop="20261022212100 -0300" channel="PublicDirect.8da65ba545fa9fd2512f9901">
     <title lang="es">Ovnis la conspiración</title>
-  </programme>
-  <programme start="20261020140500 -0300" stop="20261020143500 -0300" channel="PublicDirect.9c28a0d10a09856e98930cdc">
-    <title lang="es">Vecinos</title>
-    <sub-title lang="es">La historia de Jorjáis</sub-title>
   </programme>
   <programme start="20261020143500 -0300" stop="20261020150500 -0300" channel="PublicDirect.9c28a0d10a09856e98930cdc">
     <title lang="es">Vecinos</title>
@@ -19835,10 +19790,6 @@
     <icon src="http://www.reportv.com.ar/buscador/img/Programas/55546821.jpg" />
     <country lang="es">EE. UU</country>
     <episode-num system="onscreen">S2026</episode-num>
-  </programme>
-  <programme start="20261020135000 -0300" stop="20261020144000 -0300" channel="PublicDirect.bf407e29eec656d628dfa2d7">
-    <title lang="es">Maratón La ley y el orden UVE</title>
-    <sub-title lang="es">Novias rusas</sub-title>
   </programme>
   <programme start="20261020144000 -0300" stop="20261020153000 -0300" channel="PublicDirect.bf407e29eec656d628dfa2d7">
     <title lang="es">Maratón La ley y el orden UVE</title>
@@ -21760,16 +21711,6 @@
     <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003G6YKN.jpg?w=960&amp;h=540" />
     <previously-shown />
   </programme>
-  <programme start="20261020125100 -0300" stop="20261020142700 -0300" channel="QelloConcertsbyStingray.ca">
-    <title lang="en">Usher - Omg Tour (Live from London)</title>
-    <desc lang="en">Treating the crowd at London's O2 Arena to his signature brand of R&amp;B infused pop, Usher performed hits from recent albums Versus and Raymond V. Raymond, including DJ Got Us Falling in Love, There Goes My Baby, and OMG.</desc>
-    <date>2026</date>
-    <icon src="https://metadata-static.plex.tv/9/gracenote/9760fc6a083d078b6d7e61d60df60ad5.jpg" />
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="US">
-      <value>TV-PG</value>
-    </rating>
-  </programme>
   <programme start="20261020142700 -0300" stop="20261020155300 -0300" channel="QelloConcertsbyStingray.ca">
     <title lang="en">Lady Gaga -- Live in London 2013</title>
     <desc lang="en">Lady Gaga's performance at the iTunes Festival in London on Sept. 1, 2013 marks her first full concert since the Born This Way Ball.</desc>
@@ -23102,10 +23043,6 @@
     <category lang="en">Explore</category>
     <icon src="https://d11hei8e1dyf6i.cloudfront.net/RWILD/Default_Thumbnail.jpg" />
   </programme>
-  <programme start="20261020140911 -0300" stop="20261020143959 -0300" channel="RedBullChileEspanol.cl">
-    <title lang="es">Beyond the ROX - El entrenamiento fuera de temporada</title>
-    <desc lang="es">Los atletas de HYROX entrenan fuera de temporada para equilibrar su vida personal con la ambición, resistencia, recuperación y fuerza mental y física necesarias para competir con los 15 de élite.</desc>
-  </programme>
   <programme start="20261020143959 -0300" stop="20261020151908 -0300" channel="RedBullChileEspanol.cl">
     <title lang="es">Beyond the ROX: Jake Dearden llega a la Elite 15</title>
     <desc lang="es">Tras años de esfuerzo, Jake Dearden llega a la Elite 15 y enfrenta el reto de medirse con los mejores del mundo en la temporada 2024/25.</desc>
@@ -23254,18 +23191,6 @@
     <title lang="es">Red Bull Hardline 2026: MTB extremo en Canadá</title>
     <desc lang="es">Red Bull Hardline 2026 lleva a los mejores riders de MTB a Columbia Británica, Canadá, para enfrentarse a uno de los circuitos de descenso más extremos y exigentes del mundo.</desc>
   </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261020141100 -0300" stop="20261020144200 -0300">
-    <title>Padel</title>
-    <live />
-    <episode-num system="original-air-date">20261020171100 +0000</episode-num>
-    <desc>Beim Padel-Turnier P1 2026 in Pretoria treffen die besten Athleten aufeinander und sorgen für spannende Ballwechsel. Spektakuläre Smashes, mitreißende Dynamik und emotionale Höhepunkte prägen die Highlights dieses hochklassigen Sportspektakels.</desc>
-    <icon src="https://images.pluto.tv/series/6ab405e1a586c4b3c965db82/tile_1790182882139.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">6ab405e1a586c4b3c965db82</series-id>
-    <sub-title>Pretoria P1 2026 - Highlights</sub-title>
-    <category>Series</category>
-    <category>Sports</category>
-  </programme>
   <programme channel="RedBullWorldEnglish.int" start="20261020144200 -0300" stop="20261020151300 -0300">
     <title>Premier Padel Highlights</title>
     <live />
@@ -23326,7 +23251,7 @@
     <category>Series</category>
     <category>Sports</category>
   </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261020171400 -0300" stop="20261020182043 -0300">
+  <programme channel="RedBullWorldEnglish.int" start="20261020171400 -0300" stop="20261020191600 -0300">
     <title>Red Bull Cliff Diving World Series</title>
     <live />
     <episode-num system="original-air-date">20261020201400 +0000</episode-num>
@@ -23338,177 +23263,245 @@
     <category>Series</category>
     <category>Sports</category>
   </programme>
-  <programme start="20261020182043 -0300" stop="20261020193006 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">The Art of Flight</title>
-    <sub-title lang="en">Travis Rice and Curt Morgan's iconic snowboard film</sub-title>
-    <desc lang="en">Travis Rice and Curt Morgan's follow-up to That's It, That's All raises the bar of snowboarding – again.</desc>
+  <programme channel="RedBullWorldEnglish.int" start="20261020191600 -0300" stop="20261020201600 -0300">
+    <title>More Than a Dive</title>
+    <live />
+    <episode-num system="original-air-date">20261020221600 +0000</episode-num>
+    <desc>Zur Halbzeit der Red Bull Cliff Diving World Series 2026 zeigt die Weltelite in Kopenhagen Höchstleistungen. Vom Dach des Opernhauses bieten die Athleten trotz immensen Drucks extrem präzise Sprünge im kühlen Hafenwasser.</desc>
+    <icon src="https://images.pluto.tv/series/6853f511b54a02bbc47d4b8c/tile_1750332692021.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
+    <series-id system="pluto">6853f511b54a02bbc47d4b8c</series-id>
+    <sub-title>Highlights aus Kopenhagen</sub-title>
+    <category>Series</category>
+    <category>Sports</category>
   </programme>
-  <programme start="20261020193006 -0300" stop="20261020200121 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">Milestone</title>
-    <sub-title lang="en">An intimate portrayal of snowboarder Eero Ettala</sub-title>
-    <desc lang="en">Follow snowboarder Eero Ettala behind the scenes as he works on a video part while balancing family life.</desc>
+  <programme channel="RedBullWorldEnglish.int" start="20261020201600 -0300" stop="20261020204000 -0300">
+    <title>Reel Rock</title>
+    <live />
+    <episode-num system="original-air-date">20261020231600 +0000</episode-num>
+    <desc>Die Filmemacher sind mit Kameras bis ans Ende der Welt gereist, um unglaubliche Geschichten aufzunehmen. Die Reihe zeigt Siege, Fehlschläge und Durchhaltevermögen von Bergsteigern auf ihren Touren, die in das Unbekannte führen.</desc>
+    <icon src="https://images.pluto.tv/series/6853f52eb54a02bbc47d873c/tile_1751007704477.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
+    <series-id system="pluto">6853f52eb54a02bbc47d873c</series-id>
+    <sub-title>Jagd nach der ersten E12 der Welt</sub-title>
+    <category>Series</category>
+    <category>Sports</category>
   </programme>
-  <programme start="20261020200121 -0300" stop="20261020202818 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">Highlights from Red Bull Erzbergrodeo 2025</title>
-    <sub-title lang="en">Red Bull Erzbergrodeo 2025</sub-title>
-    <desc lang="en">Catch up on the highlights of the toughest Hard Enduro race on the planet - Red Bull Erzbergrodeo.</desc>
+  <programme channel="RedBullWorldEnglish.int" start="20261020204000 -0300" stop="20261020211100 -0300">
+    <title>Reel Rock</title>
+    <live />
+    <episode-num system="original-air-date">20261020234000 +0000</episode-num>
+    <desc>Maureen Beck wurde ohne linken Unterarm geboren. Das hindert die leidenschaftliche Kletterin jedoch nicht daran, im Leben wie im Leistungssport voller Elan voranzugehen und scheinbar unüberwindbare Barrieren einzureißen.</desc>
+    <icon src="https://images.pluto.tv/series/6853f52eb54a02bbc47d873c/tile_1751007704477.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
+    <series-id system="pluto">6853f52eb54a02bbc47d873c</series-id>
+    <sub-title>Stumped</sub-title>
+    <category>Series</category>
+    <category>Sports</category>
   </programme>
-  <programme start="20261020202818 -0300" stop="20261020205343 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">Moto Rider vs Enduro Race</title>
-    <sub-title lang="en">Carson Brown's epic ride at Red Bull Erzbergrodeo</sub-title>
-    <desc lang="en">Carson Brown returns to Red Bull Erzbergrodeo in 2025. Join his epic ride over rock faces and sharp sections.</desc>
+  <programme channel="RedBullWorldEnglish.int" start="20261020211100 -0300" stop="20261020212200 -0300">
+    <title>Dedicate</title>
+    <live />
+    <episode-num system="original-air-date">20261021001100 +0000</episode-num>
+    <desc>Der Südafrikaner Ryan Sandes versucht, den 100-Meilen-Ausdauerlauf der Western States in Rekordzeit zu gewinnen. Im Vorfeld des Rennens 2017 treibt sich Sandes an, indem er unter verschiedenen extremen Bedingungen trainiert.</desc>
+    <icon src="https://images.pluto.tv/series/6853f511b54a02bbc47d4d2a/tile_1750332852078.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
+    <series-id system="pluto">6853f511b54a02bbc47d4d2a</series-id>
+    <sub-title>100 Meilen im Westen</sub-title>
+    <category>Series</category>
+    <category>Sports</category>
   </programme>
-  <programme start="20261020205343 -0300" stop="20261020210054 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">From Castle to Castle</title>
-    <sub-title lang="en">F1 road trip from Czech Republic to Slovakia</sub-title>
-    <desc lang="en">David Coulthard takes a unique road trip from the castles of the Czech Republic to the castles of Slovakia.</desc>
+  <programme channel="RedBullWorldEnglish.int" start="20261020212200 -0300" stop="20261020225400 -0300">
+    <title>Red Bull Cliff Diving World Series</title>
+    <live />
+    <episode-num system="original-air-date">20261021002200 +0000</episode-num>
+    <desc>Zum Saisonauftakt der Red Bull Cliff Diving World Series in Bali, Indonesien, beweisen die Athleten Nervenstärke. Aus einer Höhe von über 20 Metern stürzen sie sich mit akrobatischen Manövern von den Klippen ins türkisfarbene Meer.</desc>
+    <icon src="https://images.pluto.tv/series/687fa104265d8a2eac70a878/tile_1763491912187.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
+    <series-id system="pluto">687fa104265d8a2eac70a878</series-id>
+    <sub-title>Indonesia 2026 - Highlights</sub-title>
+    <category>Series</category>
+    <category>Sports</category>
   </programme>
-  <programme start="20261020210054 -0300" stop="20261020212438 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">Lesotho</title>
-    <sub-title lang="en">Rob Warner’s Wild Rides S1E2</sub-title>
-    <desc lang="en">Mountain bikers Rob Warner and Matt Jones, head to Lesotho to experience a very different kind of racing.</desc>
+  <programme channel="RedBullWorldEnglish.int" start="20261020225400 -0300" stop="20261020234500 -0300">
+    <title>Red Bull Soapbox Race</title>
+    <live />
+    <episode-num system="original-air-date">20261021015400 +0000</episode-num>
+    <desc>In Amman verwandelt sich das "Red-Bull-Seifenkistenrennen" in ein farbenfrohes Spektakel: Kreative Fahrzeuge kämpfen sich durch einen wilden Parcours - voller Tempo, Drehungen und Crashs.</desc>
+    <icon src="https://images.pluto.tv/series/6853f51fb54a02bbc47d68a8/tile_1756170079193.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
+    <series-id system="pluto">6853f51fb54a02bbc47d68a8</series-id>
+    <sub-title>Amman</sub-title>
+    <category>Series</category>
+    <category>Sports</category>
   </programme>
-  <programme start="20261020212438 -0300" stop="20261020214831 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">Ecuador</title>
-    <sub-title lang="en">Rob Warner’s Wild Rides S1E3</sub-title>
-    <desc lang="en">Rob Warner travels to Ecuador with rising mountain biking star Finn Iles to take on the Cotopaxi in the Andes.</desc>
+  <programme channel="RedBullWorldEnglish.int" start="20261020234500 -0300" stop="20261021000500 -0300">
+    <title>Reel Rock</title>
+    <live />
+    <episode-num system="original-air-date">20261021024500 +0000</episode-num>
+    <desc>Die Big-Waller müssen auf ihrem 18-tägigen Weg zum Gipfel unter anderem einen Sturm überstehen.</desc>
+    <icon src="https://images.pluto.tv/series/6853f52eb54a02bbc47d873c/tile_1751007704477.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
+    <series-id system="pluto">6853f52eb54a02bbc47d873c</series-id>
+    <sub-title>Klettern: Reel Rock - Tobende Stürme</sub-title>
+    <category>Series</category>
+    <category>Sports</category>
   </programme>
-  <programme start="20261020214831 -0300" stop="20261020221355 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">EMIL – Every Mystery I’ve Lived</title>
-    <sub-title lang="en">Emil Johansson's comeback</sub-title>
-    <desc lang="en">Emil Johansson spent 2018 struggling with an autoimmune disease, but now he’s ready to make his comeback.</desc>
+  <programme channel="RedBullWorldEnglish.int" start="20261021000500 -0300" stop="20261021010000 -0300">
+    <title>RAFFL - The Captain's Code</title>
+    <live />
+    <episode-num system="original-air-date">20261021030500 +0000</episode-num>
+    <desc>Der 39-jährige Kapitän des EC Red Bull Salzburg Thomas Raffl wird durch die Saison 2025-26 begleitet. Dabei wird ein sehr persönliches Bild von ihm gezeichnet, das auch spannende und authentische Einblicke in sein Privatleben bietet.</desc>
+    <icon src="https://images.pluto.tv/series/6a0c1fd98eee0f23e7fe5a74/tile_1788840264816.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
+    <series-id system="pluto">6a0c1fd98eee0f23e7fe5a74</series-id>
+    <category>Series</category>
+    <category>Sports</category>
   </programme>
-  <programme start="20261020221355 -0300" stop="20261020224925 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">Past, Present, Future</title>
-    <sub-title lang="en">The rise of downhill prodigy Vali Höll</sub-title>
-    <desc lang="en">Vali Höll steps up to elite level, after a dominant junior career. How will she fare against the world’s best?</desc>
+  <programme channel="RedBullWorldEnglish.int" start="20261021010000 -0300" stop="20261021020000 -0300">
+    <title>More Than a Dive</title>
+    <live />
+    <episode-num system="original-air-date">20261021040000 +0000</episode-num>
+    <desc>Die Red Bull Cliff Diving World Series kehrt nach Bosnien und Herzegowina zurück.</desc>
+    <icon src="https://images.pluto.tv/series/6853f511b54a02bbc47d4b8c/tile_1750332692021.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
+    <series-id system="pluto">6853f511b54a02bbc47d4b8c</series-id>
+    <sub-title>Episode</sub-title>
+    <category>Series</category>
+    <category>Sports</category>
   </programme>
-  <programme start="20261020224925 -0300" stop="20261020231803 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">Shapes in the City</title>
-    <sub-title lang="en">A surrealist BMX photo project comes to life</sub-title>
-    <desc lang="en">Meet South African rider Murray Loubser and get a look at the team that brought this project to life.</desc>
+  <programme channel="RedBullWorldEnglish.int" start="20261021020000 -0300" stop="20261021030100 -0300">
+    <title>Cliff Diving</title>
+    <live />
+    <episode-num system="original-air-date">20261021050000 +0000</episode-num>
+    <desc>Der ehemalige World Series Champion Aidan Heslop steht vor dem härtesten Comeback seiner Karriere: In nur 44 Tagen will der Brite zurück an die Weltspitze und seinen Platz auf 27 m zurückerobern.</desc>
+    <icon src="https://images.pluto.tv/series/6a108bfd0eeacb3723f66ae7/tile_1779469310021.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
+    <series-id system="pluto">6a108bfd0eeacb3723f66ae7</series-id>
+    <sub-title>444 Days - Aidan Heslops Comeback</sub-title>
+    <category>Series</category>
+    <category>Sports</category>
   </programme>
-  <programme start="20261020231803 -0300" stop="20261020234203 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">Kenya</title>
-    <sub-title lang="en">Rob Warner’s Wild Rides S1E1</sub-title>
-    <desc lang="en">Former World Cup racer Rob Warner heads to Kenya with freeride pro Matt Jones to ride Mount Kenya.</desc>
+  <programme channel="RedBullWorldEnglish.int" start="20261021030100 -0300" stop="20261021045600 -0300">
+    <title>ADAC MX Masters Highlights</title>
+    <live />
+    <episode-num system="original-air-date">20261021060100 +0000</episode-num>
+    <desc>Beim vierten Stopp der ADAC MX Masters 2026 treten die Fahrer in Tensfeld auf anspruchsvollem Sand gegeneinander an. Starke Starts, enge Duelle und spektakuläre Sprünge sorgen für spannende Rennen, während die Piloten um wichtige Punkte kämpfen.</desc>
+    <icon src="https://images.pluto.tv/series/6867bb8e31b6562298ec4598/tile_1751628695977.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
+    <series-id system="pluto">6867bb8e31b6562298ec4598</series-id>
+    <sub-title>Tensfeld</sub-title>
+    <category>Series</category>
+    <category>Sports</category>
   </programme>
-  <programme start="20261020234203 -0300" stop="20261021000641 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">Nepal</title>
-    <sub-title lang="en">Rob Warner’s Wild Rides S1E4</sub-title>
-    <desc lang="en">Rob Warner and downhill pro Olly Wilkins ride around the world's tallest mountain range.</desc>
+  <programme channel="RedBullWorldEnglish.int" start="20261021045600 -0300" stop="20261021052700 -0300">
+    <title>Red Bull Erzbergrodeo</title>
+    <live />
+    <episode-num system="original-air-date">20261021075600 +0000</episode-num>
+    <desc>Es wird über das Red Bull Erzbergrodeo, dem weltweit härtesten Hard Enduro Rennen, berichtet.</desc>
+    <icon src="https://images.pluto.tv/series/68921cea99a2f3e74aa35d17/tile_1754406125087.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
+    <series-id system="pluto">68921cea99a2f3e74aa35d17</series-id>
+    <sub-title>Highlights</sub-title>
+    <category>Series</category>
+    <category>Sports</category>
   </programme>
-  <programme start="20261021000641 -0300" stop="20261021002921 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">Smile and fight</title>
-    <sub-title lang="en">Reel Rock S9E1</sub-title>
-    <desc lang="en">Can big wall climber Natalia Grossman handle the pressure of defending her IFSC World Cup Champion title?</desc>
+  <programme channel="RedBullWorldEnglish.int" start="20261021052700 -0300" stop="20261021062200 -0300">
+    <title>Rally Highlights</title>
+    <live />
+    <episode-num system="original-air-date">20261021082700 +0000</episode-num>
+    <desc>Finnlands Schotter kennt keine Gnade: Winzige Fehler entscheiden über Sekunden, Sieg und Absturz.</desc>
+    <icon src="https://images.pluto.tv/series/6a721b86de5e7239402f8d51/tile_1785863047237.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
+    <series-id system="pluto">6a721b86de5e7239402f8d51</series-id>
+    <sub-title>Finnland 2026</sub-title>
+    <category>Series</category>
+    <category>Sports</category>
   </programme>
-  <programme start="20261021002921 -0300" stop="20261021005339 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">Burning the flame part 1</title>
-    <sub-title lang="en">Reel Rock S9E2</sub-title>
-    <desc lang="en">Elite power duo Babsi and Jacopo attempt a coveted free ascent of the Nameless Tower in Pakistan.</desc>
+  <programme channel="RedBullWorldEnglish.int" start="20261021062200 -0300" stop="20261021065500 -0300">
+    <title>Motorsport - AvD Drift Championship</title>
+    <live />
+    <episode-num system="original-air-date">20261021092200 +0000</episode-num>
+    <desc>Lausitzring unter Drift-Spannung: Bei der Tuning World jagt die AvD Drift Championship quer durch schnelle Battles, präzise Manöver und Motorsport-Action mit maximalem Adrenalin.</desc>
+    <icon src="https://images.pluto.tv/series/698c458ce090dedcb2d2c605/tile_1770800564611.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
+    <series-id system="pluto">698c458ce090dedcb2d2c605</series-id>
+    <sub-title>AvD Drift Championship - S1 E4</sub-title>
+    <category>Series</category>
+    <category>Sports</category>
   </programme>
-  <programme start="20261021005339 -0300" stop="20261021011936 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">Burning the flame part 2</title>
-    <sub-title lang="en">Reel Rock S9E3</sub-title>
-    <desc lang="en">Babsi Zangerl and Jacopo Larcher’s two-year big wall climbing quest comes down to one short weather window.</desc>
+  <programme channel="RedBullWorldEnglish.int" start="20261021065500 -0300" stop="20261021072500 -0300">
+    <title>Motorsport - AvD Drift Championship</title>
+    <live />
+    <episode-num system="original-air-date">20261021095500 +0000</episode-num>
+    <desc>Erlebe jetzt den vierten Stopp der AvD Drift Championship am Nürburgring.</desc>
+    <icon src="https://images.pluto.tv/series/698c458ce090dedcb2d2c605/tile_1770800564611.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
+    <series-id system="pluto">698c458ce090dedcb2d2c605</series-id>
+    <sub-title>Nürburgring 2026</sub-title>
+    <category>Series</category>
+    <category>Sports</category>
   </programme>
-  <programme start="20261021011936 -0300" stop="20261021014455 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">Dna</title>
-    <sub-title lang="en">Reel Rock S9E4</sub-title>
-    <desc lang="en">French phenom Seb Bouin tackles what may be the world’s hardest sport climb in the Verdon Gorge.</desc>
+  <programme channel="RedBullWorldEnglish.int" start="20261021072500 -0300" stop="20261021075600 -0300">
+    <title>Motorsport - AvD Drift Championship</title>
+    <live />
+    <episode-num system="original-air-date">20261021102500 +0000</episode-num>
+    <desc>In dem Magazin spricht die Moderatorin über die "AvD DRIFT Championship".</desc>
+    <icon src="https://images.pluto.tv/series/698c458ce090dedcb2d2c605/tile_1770800564611.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
+    <series-id system="pluto">698c458ce090dedcb2d2c605</series-id>
+    <sub-title>Asia Arena (Oschersleben)</sub-title>
+    <category>Series</category>
+    <category>Sports</category>
   </programme>
-  <programme start="20261021014455 -0300" stop="20261021021034 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">House of the gods part 1</title>
-    <sub-title lang="en">Reel Rock S9E6</sub-title>
-    <desc lang="en">Leo Houlding, Anna Taylor and Waldo Etherington attempt a new route up Mount Roraima in the Amazonian Jungle.</desc>
+  <programme channel="RedBullWorldEnglish.int" start="20261021075600 -0300" stop="20261021082700 -0300">
+    <title>Mountainbike Highlights</title>
+    <live />
+    <episode-num system="original-air-date">20261021105600 +0000</episode-num>
+    <desc>Downhill Mountainbike-Rennen.</desc>
+    <icon src="https://images.pluto.tv/series/68750dc79017101f05cf5451/tile_1752517736075.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
+    <series-id system="pluto">68750dc79017101f05cf5451</series-id>
+    <sub-title>Red Bull Cerro Abajo Valparaiso</sub-title>
+    <category>Series</category>
+    <category>Sports</category>
   </programme>
-  <programme start="20261021021034 -0300" stop="20261021023133 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">House of the gods part 2</title>
-    <sub-title lang="en">Reel Rock S9E7</sub-title>
-    <desc lang="en">Anna Taylor must battle the hardest pitch yet to achieve the team's goal of a fully free ascent.</desc>
+  <programme channel="RedBullWorldEnglish.int" start="20261021082700 -0300" stop="20261021092700 -0300">
+    <title>MotoGP Highlights</title>
+    <live />
+    <episode-num system="original-air-date">20261021112700 +0000</episode-num>
+    <desc>Spielberg wird diesmal zum Gradmesser im Titelrennen: Beim Österreich-GP 2026 treffen Mut auf der Bremse, Tempo auf den Geraden und maximale Präzision aufeinander. Es werden darum die Highlights vom 16. Saisonlauf gezeigt.</desc>
+    <icon src="https://images.pluto.tv/series/68becc9d9889a990ed066eed/tile_1763491950915.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
+    <series-id system="pluto">68becc9d9889a990ed066eed</series-id>
+    <sub-title>GP Österreich 2026</sub-title>
+    <category>Series</category>
+    <category>Sports</category>
   </programme>
-  <programme start="20261021023133 -0300" stop="20261021023933 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">2014's best runs</title>
-    <sub-title lang="en">Red Bull Soapbox Race S1E1</sub-title>
-    <desc lang="en">Which teams pushed the fear to one side and smashed the speed limits in 2014? Hit play and find out.</desc>
+  <programme channel="RedBullWorldEnglish.int" start="20261021092700 -0300" stop="20261021102200 -0300">
+    <title>WRC Highlights</title>
+    <live />
+    <episode-num system="original-air-date">20261021122700 +0000</episode-num>
+    <desc>Die Sendung präsentiert die besten Momente zu den einzelnen Rennen der Rallye-Weltmeisterschaft. Dazu gibt es alle Analysen und Zusammenfassungen der verschiedenen Etappen des Wettbewerbs mit den einzelnen Fahrerwertungen.</desc>
+    <icon src="https://images.pluto.tv/series/6aa1275cef1ef94779a537fd/tile_1788946269302.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
+    <series-id system="pluto">6aa1275cef1ef94779a537fd</series-id>
+    <category>Series</category>
+    <category>Sports</category>
   </programme>
-  <programme start="20261021023933 -0300" stop="20261021024734 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">2014's best runs</title>
-    <sub-title lang="en">Red Bull Soapbox Race S1E1</sub-title>
-    <desc lang="en">Which teams pushed the fear to one side and smashed the speed limits in 2014? Hit play and find out.</desc>
+  <programme channel="RedBullWorldEnglish.int" start="20261021102200 -0300" stop="20261021112200 -0300">
+    <title>MotoGP Highlights</title>
+    <live />
+    <episode-num system="original-air-date">20261021132200 +0000</episode-num>
+    <desc>Beim 14. MotoGP-Lauf der Saison 2026 im spanischen Aragón nimmt der Titelkampf weiter an Fahrt auf. Auf der anspruchsvollen Strecke in Aragonien sorgen Highspeed-Passagen und enge Duelle für eine wichtige Vorentscheidung um die Punkte.</desc>
+    <icon src="https://images.pluto.tv/series/68becc9d9889a990ed066eed/tile_1763491950915.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
+    <series-id system="pluto">68becc9d9889a990ed066eed</series-id>
+    <sub-title>Race Review Aragonien</sub-title>
+    <category>Series</category>
+    <category>Sports</category>
   </programme>
-  <programme start="20261021024734 -0300" stop="20261021030007 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">2015's fan-favourite teams</title>
-    <sub-title lang="en">Red Bull Soapbox Race S4E2</sub-title>
-    <desc lang="en">How do win over a Red Bull Soapbox Race crowd? Destroying your racer and the course itself certainly helps.</desc>
-  </programme>
-  <programme start="20261021030007 -0300" stop="20261021033713 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">Veeco: A Volcom Filmmaking Documentary</title>
-    <sub-title lang="en">Veeco unveiled – untold stories behind groundbreaking films</sub-title>
-    <desc lang="en">Discover untold stories behind Volcom's groundbreaking films, from inception to adrenaline-fuelled execution.</desc>
-  </programme>
-  <programme start="20261021033713 -0300" stop="20261021040313 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">Freestyle football</title>
-    <sub-title lang="en">Pushing Progression S1E1</sub-title>
-    <desc lang="en">Three athletes from three different backgrounds use freestyle football to showcase their athleticism.</desc>
-  </programme>
-  <programme start="20261021040313 -0300" stop="20261021042715 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">A wild whitewater race</title>
-    <sub-title lang="en">Red Bull Rapids 2022</sub-title>
-    <desc lang="en">In this wild whitewater race teams create their own man-made vessels and race down a 234m rapids course.</desc>
-  </programme>
-  <programme start="20261021042715 -0300" stop="20261021045315 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">Kiteboarding</title>
-    <sub-title lang="en">Pushing Progression S1E5</sub-title>
-    <desc lang="en">Explore the evolution of kiteboarding and see how events like Red Bull King of the Air push its progression.</desc>
-  </programme>
-  <programme start="20261021045315 -0300" stop="20261021053403 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">How Luke Czepiela Landed a Plane on a Tiny Helipad</title>
-    <sub-title lang="en">The story behind Luke Czepiela’s iconic skyscraper plane landing</sub-title>
-    <desc lang="en">See rare BTS footage of an aviation marvel: landing a plane on Dubai’s Burj Al Arab tiny helipad.</desc>
-  </programme>
-  <programme start="20261021053403 -0300" stop="20261021060003 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">Freeride mountain biking</title>
-    <sub-title lang="en">Pushing Progression S1E4</sub-title>
-    <desc lang="en">Learn how Red Bull Red Bull Rampage and Formation have pushed the boundaries of progression in freeride MTB.</desc>
-  </programme>
-  <programme start="20261021060003 -0300" stop="20261021070408 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">Red Bull Straight Rhythm</title>
-    <sub-title lang="en">Red Bull Signature Series S2017E10</sub-title>
-    <desc lang="en">This new racing format pitted a field of 32 riders in a head-to-head showdown of pure MX racing.</desc>
-  </programme>
-  <programme start="20261021070408 -0300" stop="20261021074810 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">Red Bull Solus</title>
-    <sub-title lang="en">Red Bull Signature Series S2020E5</sub-title>
-    <desc lang="en">Thirteen of the world's leading skateboarders meet at Ryan Sheckler’s private skatepark for Red Bull Solus.</desc>
-  </programme>
-  <programme start="20261021074810 -0300" stop="20261021083213 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">Red Bull Imagination</title>
-    <sub-title lang="en">Red Bull Signature Series S2020E9</sub-title>
-    <desc lang="en">The world’s best freeriders descend on Tyler Bereman’s unique course to showcase their slopestyle creativity.</desc>
-  </programme>
-  <programme start="20261021083213 -0300" stop="20261021085615 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">Nepal</title>
-    <sub-title lang="en">Rob Warner’s Wild Rides S1E4</sub-title>
-    <desc lang="en">Rob Warner and downhill pro Olly Wilkins ride around the world's tallest mountain range.</desc>
-  </programme>
-  <programme start="20261021085615 -0300" stop="20261021093521 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">Reign and rise</title>
-    <sub-title lang="en">Unrideable S1E1</sub-title>
-    <desc lang="en">At Red Bull Erzbergrodeo, 2023's winner – Manuel Lettenbichler – faces rising star Mitch Brightmore.</desc>
-  </programme>
-  <programme start="20261021093521 -0300" stop="20261021101704 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">Changing perspectives</title>
-    <sub-title lang="en">Unrideable S1E2</sub-title>
-    <desc lang="en">Wade Young gives his all as a privateer in the 2024 Xross Hard Enduro Rally and Red Bull Romaniacs.</desc>
-  </programme>
-  <programme start="20261021101704 -0300" stop="20261021105712 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">Sacrifices</title>
-    <sub-title lang="en">Unrideable S1E4</sub-title>
-    <desc lang="en">Hard Enduro rivals Billy Bolt and Mario Román battle it out in Türkiye at the scenic 2024 Sea to Sky event.</desc>
-  </programme>
-  <programme start="20261021105712 -0300" stop="20261021113529 -0300" channel="RedBullWorldEnglish.int">
+  <programme start="20261021112200 -0300" stop="20261021113529 -0300" channel="RedBullWorldEnglish.int">
     <title lang="en">Through the pain</title>
     <sub-title lang="en">Unrideable S1E5</sub-title>
     <desc lang="en">Watch the drama as the FIM Hard Enduro World Championship 2024 finale plays out at 24MX Hixpania Hard Enduro.</desc>
@@ -26375,14 +26368,6 @@
     <icon src="https://images.metadata.sky.com/pd-image/95aa6def-5e47-4883-8e9d-7c2e811ec1d9/16-9" />
     <episode-num system="xmltv_ns">.22.</episode-num>
   </programme>
-  <programme channel="SkySportsPremierLeague.uk" start="20261020140000 -0300" stop="20261020143000 -0300">
-    <title lang="en">Match Officials Mic'd Up</title>
-    <desc lang="en">Pro Ref Chief Refereeing Officer Howard Webb joins Michael Owen in the studio to provide context and explanation behind refereeing decisions from the season so far using match footage.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Football</category>
-    <icon src="https://images.metadata.sky.com/pd-image/57687f47-ad7e-4333-a815-a295f0891b65/16-9" />
-    <episode-num system="xmltv_ns">.1.</episode-num>
-  </programme>
   <programme channel="SkySportsPremierLeague.uk" start="20261020143000 -0300" stop="20261020150000 -0300">
     <title lang="en">MNF: Spurs v Coventry City Hlts</title>
     <desc lang="en">A week on from dismantling Newcastle, Frank Lampard's Coventry feature on Monday Night Football again with a trip to Roberto De Zerbi's Tottenham in the Premier League. (19.</desc>
@@ -28229,18 +28214,6 @@
     <icon src="https://metadata-static.plex.tv/4/gracenote/4aac53b3d4b61cbd30dd7df1beb33abd.jpg" />
     <episode-num system="onscreen">S2020</episode-num>
   </programme>
-  <programme channel="TNTSports1.uk@TvVoo" start="20261020101500 -0300" stop="20261020141500 -0300">
-    <title lang="en">Live Women's International T20 Cricket</title>
-    <sub-title lang="en">India v Zimbabwe</sub-title>
-    <desc lang="en">India v Zimbabwe. Coverage of the third Twenty20 in the three-match series, which takes place at Shaheed Veer Narayan Singh International Cricket Stadium in Raipur.</desc>
-    <icon src="https://tv.assets.pressassociation.io/c7bb2b68-24a8-528a-8be6-92401b2ba4e4.jpg" />
-  </programme>
-  <programme channel="TNTSports1.uk@TvVoo" start="20261020141500 -0300" stop="20261020143000 -0300">
-    <title lang="en">The Breakdown</title>
-    <sub-title lang="en">Danny Jamieson heads to Sunderland to meet Régis Le Bris and Granit Xhaka</sub-title>
-    <desc lang="en">Danny Jamieson heads to Sunderland to meet Head Coach, Régis Le Bris, Director of Football, Florent Ghisolfi and Captain, Granit Xhaka.</desc>
-    <icon src="https://tv.assets.pressassociation.io/38afb329-f78d-5655-9f7d-84c2bb90fa1f.jpg" />
-  </programme>
   <programme channel="TNTSports1.uk@TvVoo" start="20261020143000 -0300" stop="20261020150000 -0300">
     <title lang="en">Premier League Netbusters</title>
     <sub-title lang="en">A fast-paced look at matchday seven of the top flight</sub-title>
@@ -29314,57 +29287,6 @@
     <sub-title lang="en">San Diego Wave FC v Boston Legacy (Kick-off 11.00pm)</sub-title>
     <desc lang="en">San Diego Wave FC v Boston Legacy (Kick-off 11.00pm). Coverage of the National Women's Soccer League match from Snapdragon Stadium.</desc>
     <icon src="https://tv.assets.pressassociation.io/6bd66904-2c63-56c8-836c-6fc82213811e.jpg" />
-  </programme>
-  <programme channel="TVEInternacionalAmerica.es@HD" start="20261020134500 -0300" stop="20261020143000 -0300">
-    <title lang="es">Saber y ganar</title>
-    <desc lang="es">Concursos que ponen a prueba los conocimientos y agilidad mental a través de un auténtico bombardeo de preguntas de ámbito general.</desc>
-    <credits>
-      <actor>Jordi Hurtado</actor>
-      <director>Sergi Schaaff</director>
-      <director>Abigail Schaaff</director>
-    </credits>
-    <date>1997</date>
-    <category lang="es">Educational</category>
-    <category lang="es">Game show</category>
-    <category lang="es">Entertainment</category>
-    <icon src="http://dtil.tmsimg.com/assets/p480768_b_h10_ae.jpg?w=960&amp;h=540" />
-    <previously-shown />
-    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
-      <value>L</value>
-    </rating>
-    <rating system="USA Parental Rating">
-      <value>TVG</value>
-    </rating>
-    <rating system="Canadian Parental Rating">
-      <value>G</value>
-    </rating>
-    <rating system="Régie du cinéma">
-      <value>G</value>
-    </rating>
-  </programme>
-  <programme channel="TVEInternacionalAmerica.es@HD" start="20261020143000 -0300" stop="20261020143200 -0300">
-    <title lang="es">Esto es España</title>
-    <desc lang="es">Un recorrido por la geografía española desde una perspectiva joven y moderna, con el foco puesto en la sostenibilidad, la diversidad y la oferta natural, cultural y social de la España del siglo XXI.</desc>
-    <credits>
-      <actor>Enrique Alex</actor>
-      <director>Enrique Alex</director>
-    </credits>
-    <date>2025</date>
-    <category lang="es">Documentary</category>
-    <icon src="http://dtil.tmsimg.com/assets/p30028848_b_h11_aa.jpg?w=960&amp;h=540" />
-    <previously-shown />
-  </programme>
-  <programme channel="TVEInternacionalAmerica.es@HD" start="20261020143200 -0300" stop="20261020143500 -0300">
-    <title lang="es">Esto es España</title>
-    <desc lang="es">Un recorrido por la geografía española desde una perspectiva joven y moderna, con el foco puesto en la sostenibilidad, la diversidad y la oferta natural, cultural y social de la España del siglo XXI.</desc>
-    <credits>
-      <actor>Enrique Alex</actor>
-      <director>Enrique Alex</director>
-    </credits>
-    <date>2025</date>
-    <category lang="es">Documentary</category>
-    <icon src="http://dtil.tmsimg.com/assets/p30028848_b_h11_aa.jpg?w=960&amp;h=540" />
-    <previously-shown />
   </programme>
   <programme channel="TVEInternacionalAmerica.es@HD" start="20261020143500 -0300" stop="20261020152500 -0300">
     <title lang="es">Malas lenguas</title>
@@ -31116,9 +31038,6 @@
     <icon src="http://dtil.tmsimg.com/assets/p33312437_b_h10_aa.jpg?w=960&amp;h=540" />
     <previously-shown />
   </programme>
-  <programme start="20261020133500 -0300" stop="20261020143000 -0300" channel="TelehitMusica.mx@SD">
-    <title lang="es">Suena el Dembow</title>
-  </programme>
   <programme start="20261020143000 -0300" stop="20261020150000 -0300" channel="TelehitMusica.mx@SD">
     <title lang="es">Playlist Telehit</title>
   </programme>
@@ -32710,9 +32629,6 @@
     <category lang="es">Fútbol</category>
     <icon src="http://www.reportv.com.ar/buscador/img/Programas/15838190.jpg" />
     <episode-num system="onscreen">S2026</episode-num>
-  </programme>
-  <programme start="20261020141000 -0300" stop="20261020144000 -0300" channel="WinSports.co@Direct181">
-    <title lang="es">FIM Road Racing World Championship Highlights</title>
   </programme>
   <programme start="20261020144000 -0300" stop="20261020154000 -0300" channel="WinSports.co@Direct181">
     <title lang="es">ESPN Compact</title>
@@ -35103,18 +35019,6 @@
     <icon src="https://images.metadata.sky.com/pd-image/95aa6def-5e47-4883-8e9d-7c2e811ec1d9/16-9" />
     <episode-num system="xmltv_ns">.22.</episode-num>
   </programme>
-  <programme start="20261020121500 -0300" stop="20261020143000 -0300" channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Grand Prix de Gran Bretaña</title>
-    <sub-title lang="es">Race</sub-title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
-    <date>2025</date>
-    <icon src="https://cdn.sincroguia.tv/storage/39978/c_formula_1_2025.jpeg" />
-    <country lang="es">Reino Unido</country>
-    <episode-num system="onscreen">S2025</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
-  </programme>
   <programme start="20261020143000 -0300" stop="20261020164500 -0300" channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo">
     <title lang="es">F1</title>
     <title lang="es">GP de México</title>
@@ -35138,18 +35042,6 @@
     <rating system="ES">
       <value>Apta</value>
     </rating>
-  </programme>
-  <programme channel="unitedkingdom|vavoo_TNT%20SPORT%201%7Cgroup%3Auk@TvVoo" start="20261020101500 -0300" stop="20261020141500 -0300">
-    <title lang="en">Live Women's International T20 Cricket</title>
-    <sub-title lang="en">India v Zimbabwe</sub-title>
-    <desc lang="en">India v Zimbabwe. Coverage of the third Twenty20 in the three-match series, which takes place at Shaheed Veer Narayan Singh International Cricket Stadium in Raipur.</desc>
-    <icon src="https://tv.assets.pressassociation.io/c7bb2b68-24a8-528a-8be6-92401b2ba4e4.jpg" />
-  </programme>
-  <programme channel="unitedkingdom|vavoo_TNT%20SPORT%201%7Cgroup%3Auk@TvVoo" start="20261020141500 -0300" stop="20261020143000 -0300">
-    <title lang="en">The Breakdown</title>
-    <sub-title lang="en">Danny Jamieson heads to Sunderland to meet Régis Le Bris and Granit Xhaka</sub-title>
-    <desc lang="en">Danny Jamieson heads to Sunderland to meet Head Coach, Régis Le Bris, Director of Football, Florent Ghisolfi and Captain, Granit Xhaka.</desc>
-    <icon src="https://tv.assets.pressassociation.io/38afb329-f78d-5655-9f7d-84c2bb90fa1f.jpg" />
   </programme>
   <programme channel="unitedkingdom|vavoo_TNT%20SPORT%201%7Cgroup%3Auk@TvVoo" start="20261020143000 -0300" stop="20261020150000 -0300">
     <title lang="en">Premier League Netbusters</title>
