@@ -177,7 +177,23 @@
     ]
   },
   "publication": {
-    "status": "local, not yet pushed",
+    "status": "published and verified",
+    "editorialCommit": "10b0f61545b7094ec118bc0d64262feaa96e61c1",
+    "runnerRun": "39504518968",
+    "runnerCommit": "b1d69f8df868aea0672162e6705f7c2efe6173f0",
+    "epgRun": "39505567288",
+    "epgCommit": "ebf8e006691aef7b59fb660330b6f89795d7a0a6",
+    "editorWorkflowRun": "39505004518",
+    "rawVerification": {
+      "lista1Entries": 117,
+      "lista2Entries": 1176,
+      "movedIdsInLista1": 9,
+      "movedIdsInLista2": 0,
+      "telehitMusicaBackupRemainsInLista2": true,
+      "usaNetworkLogoHttp": 200,
+      "newEpgChannelsWithContinuous12HourCoverage": 7
+    },
+    "targetedWorkflowWarning": "Run 39505004472 declined the EPG membership change because it requires a complete run; the complete EPG workflow succeeded afterward.",
     "remoteBaseCommit": "199a7fdab3e781d85718d1dad72794cf59dd1bfd",
     "note": "The eight intervening remote app-trash commits for CHV/HBO were retained and not revived."
   },

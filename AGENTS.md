@@ -97,7 +97,15 @@ agente debe poder retomar el trabajo solo con lo que está en el repositorio.
   logos, prueba y cobertura están en `contracts/alcatel-lista1-20261020.json` y
   `tests/test_alcatel_lista1.py`. Logo USA Network: SVG local de Wikimedia Commons; respetar
   su atribución en el contrato. No inferir una orden para el #087: la mención quedó mezclada
-  con audio de la TV y no identificó inequívocamente el canal.
+  con audio de la TV y no identificó inequívocamente el canal. Publicado en `main` como
+  `10b0f615`; luego el runner `39504518968` publicó `b1d69f8d` y EPG `39505567288` publicó
+  `ebf8e006`. GitHub Raw confirma 117 filas en Lista 1, 1.176 en Lista 2, los nueve IDs en la
+  primera y el #099 aún en la externa; las siete guías nuevas tienen cobertura continua de
+  más de 12 h. `Publicar cambios dirigidos` (`39505004472`) marcó error porque su modo parcial
+  no admite cambios de membresía EPG; el workflow EPG completo sí terminó y publicó. El run
+  de canales iniciado por el push se canceló antes de jobs por coincidir con la ventana
+  programada; esta última completó correctamente, así que no despachar otro runner sin una
+  necesidad nueva.
 
 - **Lifetime fuera de Lista 2 (2026-10-20)**: el pedido retiró las 6 filas activas y movió también 1 fila ya oculta a la papelera reversible; 6 Lifetime ya estaban en papelera. Las 13 identidades quedan en `state=deleted` y `presentation-overrides.json` → `excluded_m3u`; no purgar del inventario canónico ni reactivarlas sin pedido. IDs movidos ahora: `PublicDirect.56754519b208272f813efa8b`, `PublicDirect.168172718097d5c2e389e80b`, `PublicDirect.36a879c02cd2241bb94ff8dc`, `PublicDirect.70c503824b2b6892277eb898`, `PublicDirect.786426cb935b350b1b1e0fd3`, `PublicDirect.41e25f3499c794eeaef6a163`, `PublicDirect.2825c7ecdabfa5cbd36dc05a`. Aplicar con `setRowState` → `normalizeLists` → `buildPresentationOverrides` → `python targeted_update.py --mode presentation`, sellando `approval=chat`. Lista 2 bajó de 1.197 a 1.191; Lista 1, EPG y resolutores no cambian.
 - **Alias de Lifetime en Lista 2 (2026-10-20)**: la revisión posterior detectó la fila activa `PublicDirect.c34a1a8f5d57352e3d6b4bf1` (#856), cuyo nombre de origen es `LIFE TIME-IXP [IP ...]` y nombre visible `LIFE TIME`. También va a la papelera reversible (`state=deleted`), conservando el inventario canónico. Al pedir retirar todos los Lifetime, incluir grafías con y sin espacio. Tras `targeted_update.py --mode presentation`, Lista 2 queda en 1.190 entradas; Lista 1, EPG y resolutores no cambian.

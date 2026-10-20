@@ -15,12 +15,17 @@
   Universal TV y USA Network quedan al final del bloque visible. Se asignó EPG exacta a siete;
   AXN y Sony Movies siguen en prueba/sin guía mientras su programación no se confirme. El #099
   permanece en Lista 2/en prueba como respaldo de Telehit Música #49. Las listas materializadas
-  localmente tienen 117 entradas principales y 1.176 externas; se conservaron las bajas CHV/HBO
-  sincronizadas desde la app (`origin/main` `199a7fda`). La EPG dirigida local generó guía real
-  para los siete IDs confirmados, sin huecos dentro de 12 h y sin marcarlos pendientes; AXN y
-  Sony Movies no tienen asignación. La corrida advirtió cuatro guías preexistentes cortas
-  (Al Jazeera, DAZN F1, Eurosport 1/2 España), que no se modificaron. Cambio aún local, a la
-  espera de pruebas y publicación. Evidencia: `contracts/alcatel-lista1-20261020.json`.
+  publicadas tienen 117 entradas principales y 1.176 externas; se conservaron las bajas CHV/HBO
+  sincronizadas desde la app (`origin/main` `199a7fda`). Las siete guías nuevas quedaron con
+  programas y cobertura continua superior a 12 h; AXN y Sony Movies no tienen asignación y
+  continúan en prueba. Persisten cuatro avisos de guías preexistentes sin programación futura
+  (Al Jazeera, DAZN F1 y Eurosport 1/2 España), no causados por este cambio. **Publicado y
+  verificado**: commit editorial `10b0f615`; runner programado `39504518968` exitoso, con salida
+  `b1d69f8d`; EPG posterior `39505567288` exitosa, salida `ebf8e006`; editor Pages `39505004518`
+  exitoso. Raw confirma membresía y guía. El workflow dirigido `39505004472` falló al rechazar
+  correctamente el cambio de membresía EPG como no parcial (`epg.xml: cambio de membresía EPG;
+  requiere corrida completa`); la corrida completa de EPG posterior sí publicó y verificó la
+  guía. Evidencia: `contracts/alcatel-lista1-20261020.json`.
 
 - **Rescate de sincronización**: se conserva `stash@{0}` como copia reversible del trabajo
   previo a integrar `origin/main` `199a7fda`. Está basado en `e3f13b85` y precede las ocho
