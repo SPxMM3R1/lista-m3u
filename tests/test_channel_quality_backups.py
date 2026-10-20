@@ -277,7 +277,15 @@ class Espn2PlacementTest(unittest.TestCase):
         self.assertEqual(36, target["number"])
         self.assertEqual(35, espn["number"])
         self.assertEqual("ESPN 2", target["displayName"])
-        self.assertNotIn("backupm3u", target)
+        # 2026-10-19: #36 puede tener respaldos 60 fps, pero el segundo feed
+        # (ESPN2.co@Direct181) sigue independiente y fuera de backupm3u.
+        self.assertTrue(target.get("backupm3u"))
+        self.assertLessEqual(len(target["backupm3u"]), 8)
+        self.assertNotIn("ESPN2.co@Direct181", target.get("backupm3u", []))
+        for backup_id in target["backupm3u"]:
+            backup = next(row for row in rows if row.get("tvgId") == backup_id)
+            self.assertEqual("1.m3u", backup["sourceList"])
+            self.assertTrue(backup.get("trial"))
         # Renumeración sin huecos (2026-10-18): la segunda señal sigue en la Lista 2, después de
         # los 56 canales de la Lista 1.
         self.assertEqual("2.m3u", second_feed["sourceList"])
