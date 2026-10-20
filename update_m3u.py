@@ -185,6 +185,34 @@ EXTERNAL_MANUAL_EXCLUDED_CHANNEL_IDS = frozenset(
         "BBCEarth.uk",
     }
 )
+# Las 17 filas TvVoo del complemento con falla repetida en el sondeo del
+# 2026-10-19 (registro: contracts/lista2-ocultos-sondeo-20261019.json). No tienen
+# fila en el layout, asi que no se pueden ocultar desde el editor; a pedido del
+# usuario el runner ya no las agrega a Lista 2. Siguen en ``channel-catalog.m3u``
+# como inventario de reintento. No es un tombstone del editor: no se toca
+# ``layout.excludedM3u`` ni ``presentation.excluded_m3u``.
+# No ampliar ni reducir este bloque sin pedido explicito.
+EXTERNAL_TVVOO_COMPLEMENT_BLOCK_IDS = frozenset(
+    {
+        "Eurosport1.fr@TvVoo",
+        "SkySportNBA.it@TvVoo",
+        "SkySportPremierLeague.de@TvVoo",
+        "SkySportUno.it@TvVoo",
+        "SkySportsArena.uk@TvVoo",
+        "SkySportsMix.uk@TvVoo",
+        "Vavoo.de.SKYSPORT2@TvVoo",
+        "Vavoo.it.EUROSPORT1@TvVoo",
+        "Vavoo.it.EUROSPORT4TIMVISION@TvVoo",
+        "Vavoo.it.SKYSPORTF1@TvVoo",
+        "Vavoo.it.SKYSUPERTENNIS@TvVoo",
+        "Vavoo.nl.FOXSPORT4@TvVoo",
+        "Vavoo.nl.FOXSPORTS1@TvVoo",
+        "Vavoo.pl.EUROSPORT4@TvVoo",
+        "Vavoo.uk.SKYSPORTGOLF@TvVoo",
+        "Vavoo.uk.TNTSPORTESPN@TvVoo",
+        "Vavoo.uk.TNTSPORTS5@TvVoo",
+    }
+)
 # Estas senales dinamicas conservan su resolutor para renovar la fuente justo
 # antes de reproducir. El orden visual solicitado para la lista principal es:
 # Sky Sports F1, Sky Sports Tennis, Sky Sports Premier League, ESPN y ESPN 2.
@@ -4112,6 +4140,7 @@ def external_publication_channel_ids(
         for channel in channels
         if channel.tvg_id in external_ids
         and channel.tvg_id not in EXTERNAL_MANUAL_EXCLUDED_CHANNEL_IDS
+        and channel.tvg_id not in EXTERNAL_TVVOO_COMPLEMENT_BLOCK_IDS
         and (
             available_ids is None
             or channel.tvg_id in available_ids

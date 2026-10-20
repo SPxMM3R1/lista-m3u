@@ -1,13 +1,15 @@
-﻿# ESTADO.md — Lista M3U: puesta al día para cualquier agente
+# ESTADO.md — Lista M3U: puesta al día para cualquier agente
 
 > Léelo completo antes de trabajar, junto con `AGENTS.md` (cómo trabajar) y `REGLAS.md`
 > (reglas vigentes de ambos proyectos). App hermana: `SPxMM3R1/vibem3u` (su `ESTADO.md`
 > cubre la app). **Al terminar cualquier cambio, actualiza este archivo en el mismo commit**:
 > la sección «Hoy» si cambió el estado y una línea nueva en «Bitácora».
 
-Última actualización: **2026-10-18** (America/Santiago).
+Última actualización: **2026-10-19** (America/Santiago).
 
 ## Hoy, en una mirada
+
+- **17 filas TvVoo con falla repetida fuera de Lista 2 (2026-10-19)**: a pedido («Haz que no se vean, pero solo esas…») el runner ya no agrega a Lista 2 las **17 filas TvVoo del complemento** que fallaron en las dos pasadas del sondeo y que `contracts/lista2-ocultos-sondeo-20261019.json` dejó como no aplicables (`Eurosport1.fr`, `SkySportNBA.it`, `SkySportPremierLeague.de`, `SkySportUno.it`, `SkySportsArena.uk`, `SkySportsMix.uk`, `Vavoo.de.SKYSPORT2`, `Vavoo.it.EUROSPORT1`, `Vavoo.it.EUROSPORT4TIMVISION`, `Vavoo.it.SKYSPORTF1`, `Vavoo.it.SKYSUPERTENNIS`, `Vavoo.nl.FOXSPORT4`, `Vavoo.nl.FOXSPORTS1`, `Vavoo.pl.EUROSPORT4`, `Vavoo.uk.SKYSPORTGOLF`, `Vavoo.uk.TNTSPORTESPN` y `Vavoo.uk.TNTSPORTS5`). Regla cerrada `EXTERNAL_TVVOO_COMPLEMENT_BLOCK_IDS` en `update_m3u.external_publication_channel_ids`; no se usa `excluded_m3u` ni se toca el layout. Las 17 siguen en `channel-catalog.m3u`; las otras 24 del bloque siguen publicadas. Lista 2 1.343 → **1.326**; Lista 1 = 67 sin cambios; catálogo 6.599. Registro `contracts/tvvoo-complement-17-20261019.json`; regresión en `tests/test_playlist_order.py`. Suites: 402 Python (18 omitidas; único fallo local ajeno) y 58 JS. **Pendiente en esta entrada**: push y verificación remota.
 
 - **57 canales caídos de Lista 2 pasan a Ocultos (2026-10-19)**: a pedido («Elimina pero déjalo en una papelera diferente») los **57 directos** que repitieron falla en el doble sondeo (404/timeout/conexión rechazada, confirmados desde EE. UU. y Chile) pasan de activos a **Ocultos** (`state: hidden`, el cajón separado del editor — **NO** la Papelera reversible): no se publican en Lista 2, conservan identidad/URL y son recuperables. Las **17 filas TvVoo** del complemento del catálogo (sin fila de layout, resueltas por la app) no se pueden ocultar con este mecanismo y quedan como estaban. Lista 2 publicada 1.400 → **1.343** (layout L2 1.377 → 1.320); Lista 1 = 67 sin cambios. Registro `contracts/lista2-ocultos-sondeo-20261019.json`. Suites: 401 Python (18 omitidas; único fallo local ajeno) y 58 JS. **Publicado y verificado (2026-10-19)**: commit `49694b93`; canales `39338523711`, dirigido `39338523748`, editor `39338523769` y Highfly `39338523870`, todos success. Remoto: Lista 2 **1.343** (layout L2 1.320) sin los 57 (quedan solo en Ocultos, `approval: chat`); Lista 1 = 67; catálogo 6.599; de los 74 solo siguen las 17 TvVoo del complemento. Salidas automáticas `780b83ba`/`0b7c3efa`/`46e4a475`.
 
