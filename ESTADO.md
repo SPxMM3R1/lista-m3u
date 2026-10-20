@@ -5,10 +5,11 @@
 > cubre la app). **Al terminar cualquier cambio, actualiza este archivo en el mismo commit**:
 > la sección «Hoy» si cambió el estado y una línea nueva en «Bitácora».
 
-Última actualización: **2026-10-19** (America/Santiago).
+Última actualización: **2026-10-20** (America/Santiago).
 
 ## Hoy, en una mirada
 
+- **Lifetime fuera de Lista 2 (2026-10-20)**: 6 filas activas y 1 ya oculta pasan a la papelera reversible; 6 que ya estaban borradas se conservan. Las 13 filas Lifetime quedan en `state=deleted`, excluidas de las M3U pero preservadas en el inventario canónico. Lista 2: 1.197 → **1.191**; Lista 1: 108 sin cambios. No se toca EPG ni resolutores. No quedan coincidencias activas de Telemundo, Univision o «novela» en Lista 2; esas filas permanecen en papelera. Validación: 402 tests Python (19 omitidos), 58 JS y partición pública correcta.
 - **TvVoo fuera de Lista 2 (2026-10-20)**: 23 entradas TvVoo sin fila en el editor (quedaban al final de Lista 2) bloqueadas en `EXTERNAL_TVVOO_COMPLEMENT_BLOCK_IDS`. Lista 2 queda sin TvVoo; Lista 1 intacta.
 - **Corrección final: solo 720p real 60 (2026-10-19)**: solo **1280x720 con `r_frame_rate` 60**; se quitaron el 480p y 3 streams con avg 59.94 pero r_frame_rate 30. Quedan **41 respaldos** en #35 (12), #36 (10), #37 (8), #39 (4) y #40 (7), más 8 de ESPN 7. Lista 1 **108**, Lista 2 **1280**; catálogo 6.599. VibeM3U 0.6.23+ usa hasta 16. Registro `contracts/espn-l2-backups-20261019.json`. Suites: 402 Python/58 JS. **Publicado y verificado**: commit `0d2345fa`; raw Lista 1 108, Lista 2 1.280; 41 respaldos 1280x720 con `r_frame_rate` 60. VibeM3U 0.6.23 usa hasta 16.
 - **Corrección respaldos ESPN: tope 16 y solo no-1080 (2026-10-19)**: a pedido («2» y «los 1080 dejalos afuera por ahora para todos… aplica la lógica para ESPN 7») se subió el tope repo-side de `backupm3u` de 8 a **16** y se rehízo la selección: **45 respaldos 720p60** (#35 14, #36 11, #37 8, #39 5, #40 7; el único 480p de #35 queda al final). Se quitaron todos los 1080p (1920x1080 y 1280x1080). **ESPN 7**: los 8 respaldos actuales se revisaron con ffprobe y captura (1280x720 @ 59.94, rótulo ESPN7); no hay filas ESPN 7 activas en Lista 2, así que se conservan los 8. Lista 1 publicada 67 → **112**; Lista 2 1.326 → **1.281**; catálogo 6.599. **La app VibeM3U todavía corta en 8** (`PublishedPlaybackCatalog.java`, `ids.size() < 8`): los respaldos 9–16 están en el layout pero la app actual usa los primeros 8; requiere la contraparte de la app. Registro `contracts/espn-l2-backups-20261019.json`. Suites: 402 Python (18 omitidas; único fallo local ajeno) y 58 JS. **Publicado y verificado (2026-10-19)**: editorial `53cae403`; canales `39353448871` (commit `faa96172`); dirigido `39353448978` (commit `10cfc66c`); editor `39353448933`; Highfly `39353449007`/`39354466625` (commits `46e2dad5`/`94bcb013`). Raw: Lista 1 **112**, Lista 2 **1.281**, catálogo 6.599, 45 respaldos con 14/11/8/5/7; VibeM3U 0.6.23/232 ya usa hasta 16 (tag `v0.6.23`; APK 2.846.435 bytes, SHA-256 `ec91fda30639a93538ae51d4471e516dedd6f3497c5044ba5d4c7ac98d5d0613`).
@@ -233,6 +234,7 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-20 / Lifetime fuera de Lista 2**: 6 activas y 1 oculta pasan a `deleted`; otras 6 ya estaban en la papelera. Las 13 identidades Lifetime están excluidas de las listas activas y siguen en `channel-catalog.m3u`. Lista 2 1.197 → 1.191; Lista 1 108 sin cambios. EPG y resolutores intactos.
 - **2026-10-20**: 23 TvVoo fuera de Lista 2 (bloque de código).
 - **2026-10-19 / corrección final 720p real 60**: 480p y 3 streams r30 fuera; 41 respaldos (12/10/8/4/7); ESPN7 8. Lista 1 108, Lista 2 1280. Publicado: `0d2345fa`; raw 108/1.280.
 - **2026-10-19 / corrección respaldos ESPN**: tope 16; 1080 fuera; 45 respaldos 720p60 (#35 14, #36 11, #37 8, #39 5, #40 7); ESPN 7 conserva sus 8 (720p60 verificados). Lista 1 112, Lista 2 1.281. VibeM3U 0.6.23 ya usa hasta 16. Publicado y verificado: editorial `53cae403`; canales `39353448871`.
