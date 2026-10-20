@@ -31,5 +31,5 @@
   },
   "validacion": "targeted_update.py --mode presentation: partición 67/1326/6599; solo se quitaron los 17 ids, sin altas ni reordenamientos. Regresión: tests/test_playlist_order.py::test_tvvoo_european_complement_block_stays_out_of_list_two.",
   "tests": "402 Python (18 omitidas; único fallo local ajeno: copia del contrato compartido en VibeM3U) y 58 JS.",
-  "pendiente": "Publicación y verificación remota pendientes al crear este registro."
+  "pendiente": "Publicado y verificado (2026-10-19): commit editorial 6ed482af; el dirigido posterior d9a5dd7d solo retiro info_lines obsoletos de presentation-overrides.json. Raw: Lista 2 1.326 sin las 17, Lista 1 67, catalogo 6.599 con las 17; workflows editor 39346029277 y dirigido 39346029200, success."
 }
