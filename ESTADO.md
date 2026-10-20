@@ -9,6 +9,8 @@
 
 ## Hoy, en una mirada
 
+- **Corrección del logo de Telehit Música (2026-10-20)**: la fila estable #50 ahora usa el logo anterior `logos/catalogue/telehit-mx.png`, igual a Telehit #49. El asset dedicado `telehitmusica-mx.png` se conserva en la fila retirada #099; no se cambian fuente, EPG, posición ni identidad. Publicado y verificado en `main`.
+- **Auditoría de instrucciones pendientes (2026-10-20)**: el pedido de proponer categoría para cada canal y un reordenamiento completo aún no tiene entregable; Lista 1 conserva 12 canales activos en «Misceláneos». El último `epg-pending.json` (23:45 UTC) vuelve a marcar 0/18 h para cuatro canales de Lista 1: #20 Al Jazeera English, #28 DAZN F1, #33 Eurosport 1 España y #34 Eurosport 2 España. Requiere una pasada EPG dedicada; este cambio no altera guías.
 - **Telehit y Telehit Música (2026-10-20)**: se invirtieron sus posiciones: Telehit #49 y
   Telehit Música #50. Para Telehit Música se retiró la fuente directa que fallaba y se pasó la
   URL comprobada del antiguo #099 al ID estable `TelehitMusica.mx@SD`; #099 queda en papelera
@@ -272,6 +274,16 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-20 — Telehit Música vuelve al logo anterior**: tras comprobar que el commit de fuente
+  conservó `telehitmusica-mx.png`, se corrigió la fila estable `TelehitMusica.mx@SD` (#50) para
+  usar `logos/catalogue/telehit-mx.png`, el logo anterior del Telehit general. La fila #099 está
+  retirada y conserva su asset histórico; stream, EPG, orden y demás canales no cambian. Layout
+  sellado como `chat`; pruebas de catálogo, runner y editor ejecutadas antes de publicar.
+- **2026-10-20 — Auditoría de pedidos previos**: el snapshot `epg-pending.json` de 23:45 UTC aún
+  marca como insuficientes cuatro guías de Lista 1 (Al Jazeera English #20, DAZN F1 #28,
+  Eurosport 1 España #33, Eurosport 2 España #34; 0 h futuras frente a 18 h requeridas). La
+  solicitud de categorías individualizadas y propuesta de reordenamiento no tiene entregable
+  registrado; quedan 12 filas activas en Misceláneos. No se modificó EPG ni se cambiaron grupos.
 - **2026-10-20 — Telehit Música usa la antigua señal de respaldo como fuente única**: por pedido
   del usuario, se retiró el enlace directo previo del ID estable `TelehitMusica.mx@SD`, se le
   asignó la misma fuente antes publicada como `PublicDirect.a8ae71c151a6f81599bff876` (#099), y
