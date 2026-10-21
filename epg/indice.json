@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generatedAt": "2026-10-21T00:43:53Z",
+ "generatedAt": "2026-10-21T01:41:02Z",
  "channels": [
   {
    "id": "0104",
@@ -102,50 +102,6 @@
    "lastStop": "2026-10-22T03:20:00Z"
   },
   {
-   "id": "45",
-   "file": "45.xml",
-   "name": "NTV",
-   "keys": [
-    "m3u:45"
-   ],
-   "guideSource": "epg-publicada-conservada",
-   "manual": false,
-   "lastStop": "2026-10-22T03:10:00Z"
-  },
-  {
-   "id": "1437",
-   "file": "1437.xml",
-   "name": "TVN3",
-   "keys": [
-    "m3u:1437"
-   ],
-   "guideSource": "claro-sinopsis",
-   "manual": false,
-   "lastStop": "2026-10-21T21:15:00Z"
-  },
-  {
-   "id": "13Cultura.cl@DPS",
-   "file": "13Cultura.cl@DPS.xml",
-   "name": "13 Cultura",
-   "keys": [
-    "m3u:13Cultura.cl@DPS"
-   ],
-   "guideSource": "epg-publicada-conservada",
-   "manual": false,
-   "lastStop": "2026-10-22T03:30:00Z"
-  },
-  {
-   "id": "RewindTV.cl@SD",
-   "file": "RewindTV.cl@SD.xml",
-   "name": "RWND",
-   "keys": [
-    "m3u:RewindTV.cl@SD"
-   ],
-   "guideSource": "rewind-continuous",
-   "manual": false,
-   "lastStop": "2026-10-21T18:00:00Z"
-  },
-  {
    "id": "DW.de",
    "file": "DW.de.xml",
    "name": "DW Español",
@@ -232,6 +188,17 @@
    "guideSource": "plex1",
    "manual": false,
    "lastStop": "2026-10-23T23:30:00Z"
+  },
+  {
+   "id": "TVEInternacionalAmerica.es@HD",
+   "file": "TVEInternacionalAmerica.es@HD.xml",
+   "name": "TVE Internacional",
+   "keys": [
+    "m3u:TVEInternacionalAmerica.es@HD"
+   ],
+   "guideSource": "us2",
+   "manual": false,
+   "lastStop": "2026-10-24T05:10:00Z"
   },
   {
    "id": "SkySportsF1.uk",
@@ -467,6 +434,28 @@
    "lastStop": "2026-10-24T07:00:00Z"
   },
   {
+   "id": "RedBullWorldEnglish.int",
+   "file": "RedBullWorldEnglish.int.xml",
+   "name": "RedBull TV World",
+   "keys": [
+    "m3u:RedBullWorldEnglish.int"
+   ],
+   "guideSource": "red-bull-oficial",
+   "manual": false,
+   "lastStop": "2026-10-22T03:06:41Z"
+  },
+  {
+   "id": "RedBullChileEspanol.cl",
+   "file": "RedBullChileEspanol.cl.xml",
+   "name": "RedBull TV Español",
+   "keys": [
+    "m3u:RedBullChileEspanol.cl"
+   ],
+   "guideSource": "red-bull-es-oficial-page",
+   "manual": false,
+   "lastStop": "2026-10-22T02:40:50Z"
+  },
+  {
    "id": "XITEHits.nl@Germany",
    "file": "XITEHits.nl@Germany.xml",
    "name": "XITE Hits",
@@ -610,103 +599,15 @@
    "lastStop": "2026-10-24T00:38:00Z"
   },
   {
-   "id": "TVEInternacionalAmerica.es@HD",
-   "file": "TVEInternacionalAmerica.es@HD.xml",
-   "name": "TVE Internacional",
+   "id": "RewindTV.cl@SD",
+   "file": "RewindTV.cl@SD.xml",
+   "name": "RWND",
    "keys": [
-    "m3u:TVEInternacionalAmerica.es@HD"
+    "m3u:RewindTV.cl@SD"
    ],
-   "guideSource": "us2",
+   "guideSource": "rewind-continuous",
    "manual": false,
-   "lastStop": "2026-10-24T05:10:00Z"
-  },
-  {
-   "id": "RedBullWorldEnglish.int",
-   "file": "RedBullWorldEnglish.int.xml",
-   "name": "RedBull TV World",
-   "keys": [
-    "m3u:RedBullWorldEnglish.int"
-   ],
-   "guideSource": "pluto",
-   "manual": false,
-   "lastStop": "2026-10-21T23:57:47Z"
-  },
-  {
-   "id": "RedBullChileEspanol.cl",
-   "file": "RedBullChileEspanol.cl.xml",
-   "name": "RedBull TV Español",
-   "keys": [
-    "m3u:RedBullChileEspanol.cl"
-   ],
-   "guideSource": "red-bull-es-oficial-page",
-   "manual": false,
-   "lastStop": "2026-10-22T02:40:50Z"
-  },
-  {
-   "id": "AutenticHistory.de",
-   "file": "AutenticHistory.de.xml",
-   "name": "Autentic History",
-   "keys": [
-    "m3u:AutenticHistory.de"
-   ],
-   "guideSource": "epg-publicada-conservada",
-   "manual": false,
-   "lastStop": "2026-10-26T00:44:54Z"
-  },
-  {
-   "id": "RealWild.us",
-   "file": "RealWild.us.xml",
-   "name": "Real Wild",
-   "keys": [
-    "m3u:RealWild.us"
-   ],
-   "guideSource": "plex1",
-   "manual": false,
-   "lastStop": "2026-10-24T00:19:00Z"
-  },
-  {
-   "id": "PublicDirect.3ba5922c6040fadb816835b1",
-   "file": "PublicDirect.3ba5922c6040fadb816835b1.xml",
-   "name": "ETC TV",
-   "keys": [
-    "m3u:PublicDirect.3ba5922c6040fadb816835b1"
-   ],
-   "guideSource": "claro-sinopsis",
-   "manual": false,
-   "lastStop": "2026-10-21T20:19:00Z"
-  },
-  {
-   "id": "PublicDirect.39057ce89326a34e33998e2e",
-   "file": "PublicDirect.39057ce89326a34e33998e2e.xml",
-   "name": "History Channel 2",
-   "keys": [
-    "m3u:PublicDirect.39057ce89326a34e33998e2e"
-   ],
-   "guideSource": "pa1",
-   "manual": false,
-   "lastStop": "2026-10-23T01:00:00Z"
-  },
-  {
-   "id": "PublicDirect.8da65ba545fa9fd2512f9901",
-   "file": "PublicDirect.8da65ba545fa9fd2512f9901.xml",
-   "name": "History Channel",
-   "keys": [
-    "m3u:PublicDirect.8da65ba545fa9fd2512f9901"
-   ],
-   "guideSource": "pa1",
-   "manual": false,
-   "lastStop": "2026-10-23T00:21:00Z"
-  },
-  {
-   "id": "PublicDirect.9c28a0d10a09856e98930cdc",
-   "file": "PublicDirect.9c28a0d10a09856e98930cdc.xml",
-   "name": "Sony Channel",
-   "keys": [
-    "m3u:PublicDirect.9c28a0d10a09856e98930cdc"
-   ],
-   "guideSource": "pa1",
-   "manual": false,
-   "lastStop": "2026-10-23T01:00:00Z"
+   "lastStop": "2026-10-21T18:00:00Z"
   },
   {
    "id": "PublicDirect.8b604de41196cd4fe991d551",
@@ -714,6 +615,17 @@
    "name": "Studio Universal",
    "keys": [
     "m3u:PublicDirect.8b604de41196cd4fe991d551"
+   ],
+   "guideSource": "pa1",
+   "manual": false,
+   "lastStop": "2026-10-23T01:00:00Z"
+  },
+  {
+   "id": "PublicDirect.9c28a0d10a09856e98930cdc",
+   "file": "PublicDirect.9c28a0d10a09856e98930cdc.xml",
+   "name": "Sony Channel",
+   "keys": [
+    "m3u:PublicDirect.9c28a0d10a09856e98930cdc"
    ],
    "guideSource": "pa1",
    "manual": false,
@@ -740,6 +652,94 @@
    "guideSource": "pa1",
    "manual": false,
    "lastStop": "2026-10-24T00:00:00Z"
+  },
+  {
+   "id": "45",
+   "file": "45.xml",
+   "name": "NTV",
+   "keys": [
+    "m3u:45"
+   ],
+   "guideSource": "epg-publicada-conservada",
+   "manual": false,
+   "lastStop": "2026-10-22T03:10:00Z"
+  },
+  {
+   "id": "13Cultura.cl@DPS",
+   "file": "13Cultura.cl@DPS.xml",
+   "name": "13 Cultura",
+   "keys": [
+    "m3u:13Cultura.cl@DPS"
+   ],
+   "guideSource": "epg-publicada-conservada",
+   "manual": false,
+   "lastStop": "2026-10-22T03:30:00Z"
+  },
+  {
+   "id": "AutenticHistory.de",
+   "file": "AutenticHistory.de.xml",
+   "name": "Autentic History",
+   "keys": [
+    "m3u:AutenticHistory.de"
+   ],
+   "guideSource": "epg-publicada-conservada",
+   "manual": false,
+   "lastStop": "2026-10-26T00:44:54Z"
+  },
+  {
+   "id": "RealWild.us",
+   "file": "RealWild.us.xml",
+   "name": "Real Wild",
+   "keys": [
+    "m3u:RealWild.us"
+   ],
+   "guideSource": "plex1",
+   "manual": false,
+   "lastStop": "2026-10-24T00:19:00Z"
+  },
+  {
+   "id": "PublicDirect.8da65ba545fa9fd2512f9901",
+   "file": "PublicDirect.8da65ba545fa9fd2512f9901.xml",
+   "name": "History Channel",
+   "keys": [
+    "m3u:PublicDirect.8da65ba545fa9fd2512f9901"
+   ],
+   "guideSource": "pa1",
+   "manual": false,
+   "lastStop": "2026-10-23T00:21:00Z"
+  },
+  {
+   "id": "PublicDirect.39057ce89326a34e33998e2e",
+   "file": "PublicDirect.39057ce89326a34e33998e2e.xml",
+   "name": "History Channel 2",
+   "keys": [
+    "m3u:PublicDirect.39057ce89326a34e33998e2e"
+   ],
+   "guideSource": "pa1",
+   "manual": false,
+   "lastStop": "2026-10-23T01:00:00Z"
+  },
+  {
+   "id": "1437",
+   "file": "1437.xml",
+   "name": "TVN3",
+   "keys": [
+    "m3u:1437"
+   ],
+   "guideSource": "claro-sinopsis",
+   "manual": false,
+   "lastStop": "2026-10-21T21:15:00Z"
+  },
+  {
+   "id": "PublicDirect.3ba5922c6040fadb816835b1",
+   "file": "PublicDirect.3ba5922c6040fadb816835b1.xml",
+   "name": "ETC TV",
+   "keys": [
+    "m3u:PublicDirect.3ba5922c6040fadb816835b1"
+   ],
+   "guideSource": "claro-sinopsis",
+   "manual": false,
+   "lastStop": "2026-10-21T20:19:00Z"
   }
  ]
 }
