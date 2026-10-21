@@ -758,6 +758,10 @@ FRANCE24_ES_1080_URL = (
 EPG_SOURCES = {
     "cl": "https://epgshare01.online/epgshare01/epg_ripper_CL1.xml.gz",
     "es": "https://epgshare01.online/epgshare01/epg_ripper_ES1.xml.gz",
+    # Guía diaria de Movistar/Orange (2026-10-20). EPGShare ES1 dejó de publicar
+    # futuro para Al Jazeera, DAZN F1 y Eurosport España; esta fuente rellena
+    # solo después de la última emisión de ES1 y nunca la reemplaza.
+    "es2": "https://oscarbc96.github.io/epg-spain/guide.xml.gz",
     "mx1": "https://epgshare01.online/epgshare01/epg_ripper_MX1.xml.gz",
     "fr": "https://epgshare01.online/epgshare01/epg_ripper_FR1.xml.gz",
     "de": "https://epgshare01.online/epgshare01/epg_ripper_DE1.xml.gz",
@@ -1157,6 +1161,13 @@ PLUTO_BACKUP_CHANNELS = {
 # Feeds EPGShare que continúan una guía oficial corta: la oficial manda y el
 # respaldo solo aporta lo que viene después de su último programa.
 EPGSHARE_BACKUP_CHANNELS: dict[str, tuple[str, str]] = {
+    # EPGShare ES1 quedó sin futuro para estas cuatro señales el 2026-10-20.
+    # La guía de Movistar/Orange (es2) rellena el tramo posterior con la
+    # parrilla española real.
+    "AlJazeera.qa": ("es2", "AlJazeera.qa"),
+    "DAZNF1.es@TvVoo": ("es2", "DAZNF1.uk"),
+    "Vavoo.es.EUROSPORT1@TvVoo": ("es2", "Eurosport1.fr"),
+    "Eurosport2.es@TvVoo": ("es2", "Eurosport2.fr"),
     "DW.de": ("mx1", "Canal.DW.(Latinoamérica).mx"),
     "DWEnglish.de": ("fr", "DW-TV.fr"),
     # ESPN 2 TvVoo usa solo [ESP2LS] y la última guía publicada: no hay

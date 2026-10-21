@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "atUtc": "2026-10-21T02:09:42Z",
+  "authorization": "Usuario: «Arregla las epg» (2026-10-20).",
+  "cause": "EPGShare ES1 dejó de publicar futuro para Al Jazeera English, DAZN F1 y Eurosport 1/2 España: sus últimos programas terminaban entre 20:00 y 23:00 del 2026-10-20.",
+  "change": "Se agregó la guía diaria de Movistar/Orange como fuente es2 y cuatro respaldos en EPGSHARE_BACKUP_CHANNELS. La fuente primaria ES1 no se reemplaza: es2 solo rellena el tramo posterior.",
+  "source": {
+    "name": "es2",
+    "url": "https://oscarbc96.github.io/epg-spain/guide.xml.gz",
+    "producer": "oscarbc96/epg-spain (Movistar Plus+/Orange, daily)"
+  },
+  "backups": [
+    {
+      "channel": "AlJazeera.qa",
+      "es2Id": "AlJazeera.qa",
+      "programmes": 92,
+      "future": 84,
+      "lastStop": "2026-10-23T04:00:00-04:00"
+    },
+    {
+      "channel": "DAZNF1.es@TvVoo",
+      "es2Id": "DAZNF1.uk",
+      "programmes": 36,
+      "future": 31,
+      "lastStop": "2026-10-23T05:03:00-04:00"
+    },
+    {
+      "channel": "Vavoo.es.EUROSPORT1@TvVoo",
+      "es2Id": "Eurosport1.fr",
+      "programmes": 37,
+      "future": 33,
+      "lastStop": "2026-10-23T04:30:00-04:00"
+    },
+    {
+      "channel": "Eurosport2.es@TvVoo",
+      "es2Id": "Eurosport2.fr",
+      "programmes": 45,
+      "future": 41,
+      "lastStop": "2026-10-23T04:30:00-04:00"
+    }
+  ],
+  "result": {
+    "pendingBefore": 4,
+    "pendingAfter": 0,
+    "warnings": 0,
+    "fragmentsChanged": 52,
+    "epgChannels": 74,
+    "epgProgrammes": 5518
+  },
+  "validation": "epg-pending.json vacío; los cuatro fragmentos tienen 84/31/33/41 programas futuros; epg.xml con 5.518 programas y 66 canales; 410 Python (18 omitidas) y 58 JS en verde.",
+  "pendiente": "Publicación y verificación remota pendientes."
+}

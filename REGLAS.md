@@ -94,6 +94,12 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
 
 ## 4. EPG
 
+- **Respaldo EPG español (2026-10-20)**: si EPGShare ES1 queda sin futuro, `es2`
+  (`https://oscarbc96.github.io/epg-spain/guide.xml.gz`, Movistar/Orange) rellena
+  después de ES1 para `AlJazeera.qa`, `DAZNF1.es@TvVoo`, `Vavoo.es.EUROSPORT1@TvVoo`
+  y `Eurosport2.es@TvVoo`. No reemplaza la fuente primaria; regresión
+  `tests/test_epg_es_backups.py`.
+
 - Sinopsis (`donate_epg_descriptions`): la parrilla no cambia, pero si el programa publicado no trae descripción se toma la de otra fuente del mismo canal cuando se superpone al menos a la mitad y el título coincide (sin tildes ni marcas como «(estreno)»; «Chilevisión» = «CHV»; mismo nombre antes de «:» o « - »). Donantes de sinopsis que nunca entran a la parrilla (ids `sinopsis:`): Zapping (`ZAPPING_DESCRIPTION_CHANNELS`; su guía HTML da 403 desde GitHub, así que en Actions casi no aporta) y Claro Video (`claro-sinopsis`, `CLARO_SYNOPSIS_CHANNELS`, la principal en Actions). La clave pública del cliente web de Claro (`authpt`) se lee de clarovideo.com en cada corrida y nunca se guarda en el repo. Si no calza la hora, se acepta el mismo título a menos de 3 h (Claro trae parrillas corridas), nunca el de otro día. Sin coincidencia, el programa queda sin descripción: no se inventa texto. `dwe` de Zapping es DW Español, no DW English.
 - Solo Lista 1 más los canales gestionados con fuente.
 - **France 24 English** (`France24.fr@English`): nunca publicar el marcador de fuente `(EN)` en los campos visibles de la programación (`title`, `sub-title`, `desc` y `category`). Limpiarlo sin distinguir mayúsculas/minúsculas solo para esa identidad; no alterar France 24 Español ni otros canales.
