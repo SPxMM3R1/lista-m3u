@@ -96,8 +96,9 @@ class AlcatelLista1Test(unittest.TestCase):
         rows = {row["tvgId"]: row for row in layout["channels"] if row.get("tvgId")}
         telehit_musica = rows["TelehitMusica.mx@SD"]
         telehit = rows["PublicDirect.12addda8ba8591c579cdebfa"]
-        self.assertEqual(48, telehit["number"])
-        self.assertEqual(49, telehit_musica["number"])
+        # 2026-10-21: RWND pasó al primer lugar de Música (#41) y Telehit bajó uno.
+        self.assertEqual(49, telehit["number"])
+        self.assertEqual(50, telehit_musica["number"])
         self.assertEqual(telehit["number"] + 1, telehit_musica["number"])
         self.assertEqual("Telehit Música", telehit_musica["displayName"])
         # 2026-10-21: logo blanco «TELEHIT MÚSICA» (el que se usaba hasta el 20-10), a pedido.
