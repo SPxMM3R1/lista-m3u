@@ -275,10 +275,10 @@ class EspnChilePlacementTest(unittest.TestCase):
         target = next(row for row in rows if row.get("tvgId") == self.TARGET_ID)
         tnt4 = next(row for row in rows if row.get("kind") == "provider" and row.get("displayName") == "TNT Sports 4")
         ordered = sorted(rows, key=lambda row: row["order"])
-        self.assertEqual(35, target["number"])
-        self.assertEqual(32, tnt4["number"])
+        self.assertEqual(32, target["number"])
+        self.assertEqual(29, tnt4["number"])
         self.assertEqual("ESPN", target["displayName"])
-        # Tras TNT Sports 4 quedan los dos Eurosport España (33/34) y luego ESPN.
+        # Tras TNT Sports 4 quedan los dos Eurosport España (30/31) y luego ESPN.
         self.assertEqual(target, ordered[ordered.index(tnt4) + 3])
         self.assertEqual(len(rows), len({row["number"] for row in rows}))
 
@@ -297,17 +297,17 @@ class Espn2PlacementTest(unittest.TestCase):
     TARGET_ID = "PublicDirect.d6cca6d4aa23a69d50439c22"
     ESPN_ID = "ESPN.co@Direct181"
 
-    def test_espn_2_feeds_are_independent_at_36_and_in_list_2(self):
+    def test_espn_2_feeds_are_independent_at_33_and_in_list_2(self):
         layout = json.loads((ROOT / "data/channel-editor-layout.json").read_text(encoding="utf-8"))
         rows = [row for row in layout["channels"] if row.get("state") == "active"]
         target = next(row for row in rows if row.get("tvgId") == self.TARGET_ID)
         second_feed = next(row for row in rows if row.get("tvgId") == "ESPN2.co@Direct181")
         espn = next(row for row in rows if row.get("tvgId") == self.ESPN_ID)
         ordered = sorted(rows, key=lambda row: row["order"])
-        self.assertEqual(36, target["number"])
-        self.assertEqual(35, espn["number"])
+        self.assertEqual(33, target["number"])
+        self.assertEqual(32, espn["number"])
         self.assertEqual("ESPN 2", target["displayName"])
-        # 2026-10-19: #36 puede tener respaldos 60 fps, pero el segundo feed
+        # 2026-10-19: #33 puede tener respaldos 60 fps, pero el segundo feed
         # (ESPN2.co@Direct181) sigue independiente y fuera de backupm3u.
         self.assertTrue(target.get("backupm3u"))
         self.assertLessEqual(len(target["backupm3u"]), 16)
@@ -343,15 +343,15 @@ class Espn4PlacementTest(unittest.TestCase):
     TARGET_ID = "ESPN4.co@Direct181"
     ESPN3_ID = "WinSports.co@Direct181"
 
-    def test_espn4_is_after_espn3_sur_at_number_38(self):
+    def test_espn4_is_after_espn3_sur_at_number_35(self):
         layout = json.loads((ROOT / "data/channel-editor-layout.json").read_text(encoding="utf-8"))
         rows = [row for row in layout["channels"] if row.get("state") == "active"]
         target = next(row for row in rows if row.get("tvgId") == self.TARGET_ID)
         espn3 = next(row for row in rows if row.get("tvgId") == self.ESPN3_ID)
         ordered = sorted(rows, key=lambda row: row["order"])
         # Renumeración sin huecos (2026-10-18): el hueco del 37 desapareció.
-        self.assertEqual(38, target["number"])
-        self.assertEqual(37, espn3["number"])
+        self.assertEqual(35, target["number"])
+        self.assertEqual(34, espn3["number"])
         self.assertEqual("ESPN 4", target["displayName"])
         self.assertEqual(target, ordered[ordered.index(espn3) + 1])
         self.assertEqual(len(rows), len({row["number"] for row in rows}))

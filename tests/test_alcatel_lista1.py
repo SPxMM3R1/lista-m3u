@@ -96,8 +96,8 @@ class AlcatelLista1Test(unittest.TestCase):
         rows = {row["tvgId"]: row for row in layout["channels"] if row.get("tvgId")}
         telehit_musica = rows["TelehitMusica.mx@SD"]
         telehit = rows["PublicDirect.12addda8ba8591c579cdebfa"]
-        self.assertEqual(49, telehit["number"])
-        self.assertEqual(50, telehit_musica["number"])
+        self.assertEqual(48, telehit["number"])
+        self.assertEqual(49, telehit_musica["number"])
         self.assertEqual(telehit["number"] + 1, telehit_musica["number"])
         self.assertEqual("Telehit Música", telehit_musica["displayName"])
         self.assertEqual("logos/catalogue/telehitmusica-mx.png", telehit_musica["logoPath"])

@@ -1,0 +1,582 @@
+{
+  "schemaVersion": 1,
+  "atUtc": "2026-10-21T01:28:57Z",
+  "authorization": "Usuario: «Hazlo como creas que es mejor, pero rapido» sobre la propuesta PROPUESTA_CATEGORIAS_LISTA1_20261020.md.",
+  "change": "Se aplicó la propuesta completa de categorías y orden para los 68 canales visibles de Lista 1: 12 categorías, 44 cambios de group y 59 cambios de número. Los 52 respaldos de Lista 1 conservan identidad, grupo, orden relativo y vínculos.",
+  "scope": "Solo Lista 1 visible (68). No se tocan nombres, identidad, logos, EPG, fuentes, resolutores, estados ni respaldos. Lista 2 conserva su orden y conteo.",
+  "categories": [
+    "Anime y cultura gamer",
+    "Cine",
+    "Deportes",
+    "Documentales, cultura, historia y naturaleza",
+    "Entretenimiento, reality y humor",
+    "Generalista internacional",
+    "Infantil y familiar",
+    "Música y conciertos",
+    "Nacionales generalistas",
+    "Noticias internacionales",
+    "Noticias nacionales",
+    "Series y ficción"
+  ],
+  "changes": {
+    "groupChanges": 44,
+    "orderChanges": 59,
+    "unchanged": 9,
+    "backupsUntouched": 52
+  },
+  "mapping": [
+    {
+      "position": 1,
+      "tvgId": "0104",
+      "label": "TVN",
+      "category": "Nacionales generalistas",
+      "number": 1,
+      "group": "Nacionales generalistas"
+    },
+    {
+      "position": 2,
+      "tvgId": "0105",
+      "label": "Mega",
+      "category": "Nacionales generalistas",
+      "number": 2,
+      "group": "Nacionales generalistas"
+    },
+    {
+      "position": 3,
+      "tvgId": "0106",
+      "label": "CHV",
+      "category": "Nacionales generalistas",
+      "number": 3,
+      "group": "Nacionales generalistas"
+    },
+    {
+      "position": 4,
+      "tvgId": "0107",
+      "label": "Canal 13",
+      "category": "Nacionales generalistas",
+      "number": 4,
+      "group": "Nacionales generalistas"
+    },
+    {
+      "position": 5,
+      "tvgId": "0102",
+      "label": "La Red",
+      "category": "Nacionales generalistas",
+      "number": 5,
+      "group": "Nacionales generalistas"
+    },
+    {
+      "position": 6,
+      "tvgId": "0201",
+      "label": "24 Horas",
+      "category": "Noticias nacionales",
+      "number": 6,
+      "group": "Noticias nacionales"
+    },
+    {
+      "position": 7,
+      "tvgId": "Meganoticias.cl",
+      "label": "Meganoticias",
+      "category": "Noticias nacionales",
+      "number": 7,
+      "group": "Noticias nacionales"
+    },
+    {
+      "position": 8,
+      "tvgId": "1153",
+      "label": "CHV Noticias",
+      "category": "Noticias nacionales",
+      "number": 8,
+      "group": "Noticias nacionales"
+    },
+    {
+      "position": 9,
+      "tvgId": "0124",
+      "label": "T13",
+      "category": "Noticias nacionales",
+      "number": 9,
+      "group": "Noticias nacionales"
+    },
+    {
+      "position": 10,
+      "tvgId": "DW.de",
+      "label": "DW Español",
+      "category": "Noticias internacionales",
+      "number": 10,
+      "group": "Noticias internacionales"
+    },
+    {
+      "position": 11,
+      "tvgId": "DWEnglish.de",
+      "label": "DW English",
+      "category": "Noticias internacionales",
+      "number": 11,
+      "group": "Noticias internacionales"
+    },
+    {
+      "position": 12,
+      "tvgId": "NHKWorldJapan.jp",
+      "label": "NHK World Japan",
+      "category": "Noticias internacionales",
+      "number": 12,
+      "group": "Noticias internacionales"
+    },
+    {
+      "position": 13,
+      "tvgId": "ArirangTV.kr",
+      "label": "Arirang TV",
+      "category": "Noticias internacionales",
+      "number": 13,
+      "group": "Noticias internacionales"
+    },
+    {
+      "position": 14,
+      "tvgId": "France24.fr",
+      "label": "France 24 Español",
+      "category": "Noticias internacionales",
+      "number": 14,
+      "group": "Noticias internacionales"
+    },
+    {
+      "position": 15,
+      "tvgId": "France24.fr@English",
+      "label": "France 24 English",
+      "category": "Noticias internacionales",
+      "number": 15,
+      "group": "Noticias internacionales"
+    },
+    {
+      "position": 16,
+      "tvgId": "AlJazeera.qa",
+      "label": "Al Jazeera English",
+      "category": "Noticias internacionales",
+      "number": 16,
+      "group": "Noticias internacionales"
+    },
+    {
+      "position": 17,
+      "tvgId": "BBCNews.uk",
+      "label": "BBC News",
+      "category": "Noticias internacionales",
+      "number": 17,
+      "group": "Noticias internacionales"
+    },
+    {
+      "position": 18,
+      "tvgId": "TVEInternacionalAmerica.es@HD",
+      "label": "TVE Internacional",
+      "category": "Generalista internacional",
+      "number": 18,
+      "group": "Generalista internacional"
+    },
+    {
+      "position": 19,
+      "tvgId": "SkySportsF1.uk",
+      "label": "Sky Sports F1",
+      "category": "Deportes",
+      "number": 19,
+      "group": "Deportes"
+    },
+    {
+      "position": 20,
+      "tvgId": "SkySportsF1UHD.uk",
+      "label": "Sky Sports F1 UHD",
+      "category": "Deportes",
+      "number": 20,
+      "group": "Deportes"
+    },
+    {
+      "position": 21,
+      "tvgId": "SkySportsTennis.uk",
+      "label": "Sky Sports Tennis",
+      "category": "Deportes",
+      "number": 21,
+      "group": "Deportes"
+    },
+    {
+      "position": 22,
+      "tvgId": "unitedkingdom|vavoo_SKY%20SPORTS%20MAIN%20EVENT%7Cgroup%3Auk",
+      "label": "Sky Sports Main Event",
+      "category": "Deportes",
+      "number": 22,
+      "group": "Deportes"
+    },
+    {
+      "position": 23,
+      "tvgId": "SkySportsMainEventUHD.uk",
+      "label": "Sky Sports Main Event UHD",
+      "category": "Deportes",
+      "number": 23,
+      "group": "Deportes"
+    },
+    {
+      "position": 24,
+      "tvgId": "SkySportsPremierLeague.uk",
+      "label": "Sky Sports Premier League",
+      "category": "Deportes",
+      "number": 24,
+      "group": "Deportes"
+    },
+    {
+      "position": 25,
+      "tvgId": "spain|vavoo_DAZN%20F1%7Cgroup%3Aes",
+      "label": "DAZN F1",
+      "category": "Deportes",
+      "number": 25,
+      "group": "Deportes"
+    },
+    {
+      "position": 26,
+      "tvgId": "unitedkingdom|vavoo_TNT%20SPORT%201%7Cgroup%3Auk",
+      "label": "TNT Sport 1",
+      "category": "Deportes",
+      "number": 26,
+      "group": "Deportes"
+    },
+    {
+      "position": 27,
+      "tvgId": "unitedkingdom|vavoo_TNT%20SPORT%202%7Cgroup%3Auk",
+      "label": "TNT Sport 2",
+      "category": "Deportes",
+      "number": 27,
+      "group": "Deportes"
+    },
+    {
+      "position": 28,
+      "tvgId": "unitedkingdom|vavoo_TNT%20SPORTS%203%7Cgroup%3Auk",
+      "label": "TNT Sports 3",
+      "category": "Deportes",
+      "number": 28,
+      "group": "Deportes"
+    },
+    {
+      "position": 29,
+      "tvgId": "unitedkingdom|vavoo_TNT%20SPORT%204%7Cgroup%3Auk",
+      "label": "TNT Sport 4",
+      "category": "Deportes",
+      "number": 29,
+      "group": "Deportes"
+    },
+    {
+      "position": 30,
+      "tvgId": "spain|vavoo_EUROSPORT%201%7Cgroup%3Aes",
+      "label": "Eurosport 1",
+      "category": "Deportes",
+      "number": 30,
+      "group": "Deportes"
+    },
+    {
+      "position": 31,
+      "tvgId": "spain|vavoo_EUROSPORT%202%7Cgroup%3Aes",
+      "label": "Eurosport 2",
+      "category": "Deportes",
+      "number": 31,
+      "group": "Deportes"
+    },
+    {
+      "position": 32,
+      "tvgId": "ESPN.co@Direct181",
+      "label": "ESPN",
+      "category": "Deportes",
+      "number": 32,
+      "group": "Deportes"
+    },
+    {
+      "position": 33,
+      "tvgId": "PublicDirect.d6cca6d4aa23a69d50439c22",
+      "label": "ESPN 2",
+      "category": "Deportes",
+      "number": 33,
+      "group": "Deportes"
+    },
+    {
+      "position": 34,
+      "tvgId": "WinSports.co@Direct181",
+      "label": "Win Sports",
+      "category": "Deportes",
+      "number": 34,
+      "group": "Deportes"
+    },
+    {
+      "position": 35,
+      "tvgId": "ESPN4.co@Direct181",
+      "label": "ESPN 4",
+      "category": "Deportes",
+      "number": 35,
+      "group": "Deportes"
+    },
+    {
+      "position": 36,
+      "tvgId": "WinPlusFutbol.co@Direct181",
+      "label": "Win+ Fútbol",
+      "category": "Deportes",
+      "number": 36,
+      "group": "Deportes"
+    },
+    {
+      "position": 37,
+      "tvgId": "ESPN7.co@Direct181",
+      "label": "ESPN 7",
+      "category": "Deportes",
+      "number": 37,
+      "group": "Deportes"
+    },
+    {
+      "position": 38,
+      "tvgId": "PublicDirect.ac1fca2303c88b6a69359958",
+      "label": "ESPN 7 (fila directa adicional)",
+      "category": "Deportes",
+      "number": 38,
+      "group": "Deportes"
+    },
+    {
+      "position": 39,
+      "tvgId": "RedBullWorldEnglish.int",
+      "label": "Red Bull TV World",
+      "category": "Deportes",
+      "number": 39,
+      "group": "Deportes"
+    },
+    {
+      "position": 40,
+      "tvgId": "RedBullChileEspanol.cl",
+      "label": "Red Bull TV Español",
+      "category": "Deportes",
+      "number": 40,
+      "group": "Deportes"
+    },
+    {
+      "position": 41,
+      "tvgId": "XITEHits.nl@Germany",
+      "label": "XITE Hits",
+      "category": "Música y conciertos",
+      "number": 41,
+      "group": "Música y conciertos"
+    },
+    {
+      "position": 42,
+      "tvgId": "XITENuevoLatino.us",
+      "label": "XITE Nuevo Latino",
+      "category": "Música y conciertos",
+      "number": 42,
+      "group": "Música y conciertos"
+    },
+    {
+      "position": 43,
+      "tvgId": "XITESiempreLatino.us",
+      "label": "XITE Siempre Latino",
+      "category": "Música y conciertos",
+      "number": 43,
+      "group": "Música y conciertos"
+    },
+    {
+      "position": 44,
+      "tvgId": "XITE80sFlashback.us",
+      "label": "XITE 80s Flashback",
+      "category": "Música y conciertos",
+      "number": 44,
+      "group": "Música y conciertos"
+    },
+    {
+      "position": 45,
+      "tvgId": "XITE90sThrowback.us",
+      "label": "XITE 90s Throwback",
+      "category": "Música y conciertos",
+      "number": 45,
+      "group": "Música y conciertos"
+    },
+    {
+      "position": 46,
+      "tvgId": "XITERockxMetal.nl",
+      "label": "XITE Rock x Metal",
+      "category": "Música y conciertos",
+      "number": 46,
+      "group": "Música y conciertos"
+    },
+    {
+      "position": 47,
+      "tvgId": "XITEJustChill.nl",
+      "label": "XITE Just Chill",
+      "category": "Música y conciertos",
+      "number": 47,
+      "group": "Música y conciertos"
+    },
+    {
+      "position": 48,
+      "tvgId": "PublicDirect.12addda8ba8591c579cdebfa",
+      "label": "Telehit (fila Telehit MD2)",
+      "category": "Música y conciertos",
+      "number": 48,
+      "group": "Música y conciertos"
+    },
+    {
+      "position": 49,
+      "tvgId": "TelehitMusica.mx@SD",
+      "label": "Telehit Música",
+      "category": "Música y conciertos",
+      "number": 49,
+      "group": "Música y conciertos"
+    },
+    {
+      "position": 50,
+      "tvgId": "M1.ua@SD",
+      "label": "M1",
+      "category": "Música y conciertos",
+      "number": 50,
+      "group": "Música y conciertos"
+    },
+    {
+      "position": 51,
+      "tvgId": "M2.ua@SD",
+      "label": "M2",
+      "category": "Música y conciertos",
+      "number": 51,
+      "group": "Música y conciertos"
+    },
+    {
+      "position": 52,
+      "tvgId": "QelloConcertsbyStingray.ca",
+      "label": "Qello Concerts by Stingray",
+      "category": "Música y conciertos",
+      "number": 52,
+      "group": "Música y conciertos"
+    },
+    {
+      "position": 53,
+      "tvgId": "StingrayClassica.ca",
+      "label": "Stingray Classica",
+      "category": "Música y conciertos",
+      "number": 53,
+      "group": "Música y conciertos"
+    },
+    {
+      "position": 54,
+      "tvgId": "RewindTV.cl@SD",
+      "label": "RWND",
+      "category": "Música y conciertos",
+      "number": 54,
+      "group": "Música y conciertos"
+    },
+    {
+      "position": 55,
+      "tvgId": "PublicDirect.376c74e4d0452f743fd2c811",
+      "label": "Sony Movies (fila Sony Movie MD1)",
+      "category": "Cine",
+      "number": 55,
+      "group": "Cine"
+    },
+    {
+      "position": 56,
+      "tvgId": "PublicDirect.8b604de41196cd4fe991d551",
+      "label": "Studio Universal",
+      "category": "Cine",
+      "number": 56,
+      "group": "Cine"
+    },
+    {
+      "position": 57,
+      "tvgId": "PublicDirect.a247897d9a490d19fa633661",
+      "label": "AXN (fila AXN MD2)",
+      "category": "Series y ficción",
+      "number": 57,
+      "group": "Series y ficción"
+    },
+    {
+      "position": 58,
+      "tvgId": "PublicDirect.9c28a0d10a09856e98930cdc",
+      "label": "Sony Channel (fila Sony Channel MD1)",
+      "category": "Series y ficción",
+      "number": 58,
+      "group": "Series y ficción"
+    },
+    {
+      "position": 59,
+      "tvgId": "PublicDirect.bf407e29eec656d628dfa2d7",
+      "label": "Universal",
+      "category": "Series y ficción",
+      "number": 59,
+      "group": "Series y ficción"
+    },
+    {
+      "position": 60,
+      "tvgId": "PublicDirect.1701b6c4abbcc431fb481536",
+      "label": "USA",
+      "category": "Series y ficción",
+      "number": 60,
+      "group": "Series y ficción"
+    },
+    {
+      "position": 61,
+      "tvgId": "45",
+      "label": "NTV",
+      "category": "Infantil y familiar",
+      "number": 61,
+      "group": "Infantil y familiar"
+    },
+    {
+      "position": 62,
+      "tvgId": "13Cultura.cl@DPS",
+      "label": "13 Cultura",
+      "category": "Documentales, cultura, historia y naturaleza",
+      "number": 62,
+      "group": "Documentales, cultura, historia y naturaleza"
+    },
+    {
+      "position": 63,
+      "tvgId": "AutenticHistory.de",
+      "label": "Autentic History",
+      "category": "Documentales, cultura, historia y naturaleza",
+      "number": 63,
+      "group": "Documentales, cultura, historia y naturaleza"
+    },
+    {
+      "position": 64,
+      "tvgId": "RealWild.us",
+      "label": "Real Wild",
+      "category": "Documentales, cultura, historia y naturaleza",
+      "number": 64,
+      "group": "Documentales, cultura, historia y naturaleza"
+    },
+    {
+      "position": 65,
+      "tvgId": "PublicDirect.8da65ba545fa9fd2512f9901",
+      "label": "History Channel 1 (fila History MD1)",
+      "category": "Documentales, cultura, historia y naturaleza",
+      "number": 65,
+      "group": "Documentales, cultura, historia y naturaleza"
+    },
+    {
+      "position": 66,
+      "tvgId": "PublicDirect.39057ce89326a34e33998e2e",
+      "label": "History Channel 2",
+      "category": "Documentales, cultura, historia y naturaleza",
+      "number": 66,
+      "group": "Documentales, cultura, historia y naturaleza"
+    },
+    {
+      "position": 67,
+      "tvgId": "1437",
+      "label": "TVN3",
+      "category": "Entretenimiento, reality y humor",
+      "number": 67,
+      "group": "Entretenimiento, reality y humor"
+    },
+    {
+      "position": 68,
+      "tvgId": "PublicDirect.3ba5922c6040fadb816835b1",
+      "label": "ETC TV",
+      "category": "Anime y cultura gamer",
+      "number": 68,
+      "group": "Anime y cultura gamer"
+    }
+  ],
+  "m3u": "Se actualizaron 68 info_lines en presentation-overrides.json para que group-title y orden coincidan con el layout.",
+  "counts": {
+    "list1": 120,
+    "list2Publicada": 1172,
+    "catalogo": 6599
+  },
+  "validation": "68/68 coinciden con la propuesta en layout y M3U; 52 respaldos L1 intactos; partición 120/1172/6599; 408 Python (18 omitidas) y 58 JS en verde.",
+  "app": "Los filtros de la app se arman de channel.getGroup(); no requiere APK nueva.",
+  "pendiente": "Publicación y verificación remota pendientes."
+}

@@ -186,7 +186,7 @@ agente debe poder retomar el trabajo solo con lo que está en el repositorio.
 - **M6Foot (2026-10-18, solo Lista 2)**: las 19 señales del addon «Canales Deportivos» viven en Lista 2 (`M6Foot.<id>@M6Foot`, `vibem3u://resolver/m6foot/<id>`, en prueba, sin EPG). La resolución es tokenless y ocurre en VibeM3U 0.6.15+: página `m6foot.click/player/3/<id>`, embed `navytitle.net`, `_econfig` (base64 en 4 partes, reorden `[2,0,3,1]`) y HLS firmado con `Referer: https://navytitle.net/` solo en RAM; nunca se persiste la URL firmada. El motor `m6foot` está en `ALLOWED_RESOLVER_ENGINES`, `build_resolver_catalog`, `resolver_attributes_for` y `m6foot_reference.py`; `validate_playlist_resolvers` exige identidad y atributos exactos. Regresión: `tests/test_m6foot_reference.py`; registro `contracts/m6foot-list2-20261018.json`. Lista 1 no se modifica. La fuente es un agregador de terceros (puede bloquear IPs o rotar): no prometer disponibilidad. Desde el 2026-10-19 quedan **15 activas**: ESPN Deportes (M6Foot.71), ESPN ARG (M6Foot.87), ESPN 7 (M6Foot.93) y TUDN (M6Foot.106) fueron enviadas a la papelera desde la app; la regresión acepta filas en papelera y no las reactiva.
 
 - Tests obligatorios antes de commitear:
-  - `python -m unittest discover -s tests -p "test_*.py"` (402 pruebas, 18 omitidas previstas; incluye contrato, regresiones Nauta/M6Foot/editor, EPG visual y RWND).
+  - `python -m unittest discover -s tests -p "test_*.py"` (408 pruebas, 18 omitidas previstas; incluye contrato, regresiones Nauta/M6Foot/editor, EPG visual y RWND).
   - `node --test tests/app-requests.test.mjs tests/editor-core.test.mjs tests/layout-contract.test.mjs` (58 pruebas; incluye el flujo de pedidos de la app y la fusión de bajas en el editor).
 - Validar el editor local sin tocar el repo: `python scripts/build_site_data.py --output <carpeta temp>` (solo acepta salidas dentro de la carpeta temporal).
 - Commits en español con prefijo: `feat(editor)`, `fix(resolvers)`, `feat(epg)`, `fix(catalogo)`, `chore(...)`.
@@ -241,6 +241,8 @@ agente debe poder retomar el trabajo solo con lo que está en el repositorio.
 - `deploy-site.yml` publica el editor en GitHub Pages cuando cambian `site/**` o `scripts/build_site_data.py`.
 
 ## Reglas funcionales vigentes
+
+- **Categorías y orden de Lista 1 (2026-10-20)**: los 68 visibles usan las 12 categorías de `PROPUESTA_CATEGORIAS_LISTA1_20261020.md` y el orden 1–68; 44 cambios de `group` y 59 de número. Los 52 respaldos de Lista 1 no cambian de identidad, grupo, orden relativo ni vínculos. La app arma los filtros con `channel.getGroup()` (sin APK); la M3U se alinea con 68 `info_lines`. Registro `contracts/lista1-categorias-orden-20261020.json`. No reordenar/recategorizar sin una propuesta nueva.
 
 - **Solo Lista 1 y Lista 2 (2026-10-18)**: toda fila (M3U o TvVoo/Highfly) tiene `sourceList` y queda escrita en su archivo; números 1..N sin huecos, Lista 1 primero (`normalizeLists`). Detalle en `REGLAS.md` §3. Migración: los 13 proveedores (antes «virtuales», números 22–34) pasaron a ser filas de Lista 1; Lista 1 = 56 (1–56), Lista 2 = 4.860 filas de layout (57–4.916). Requiere VibeM3U 0.6.16+ para que el interruptor de la Lista 1 también controle esos canales (versiones anteriores los muestran igual, sin duplicar). Registro: `contracts/two-lists-20261018.json`.
 
