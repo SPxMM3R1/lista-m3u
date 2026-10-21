@@ -9,6 +9,7 @@
 
 ## Hoy, en una mirada
 
+- **epg-2.xml sin copias (2026-10-21)**: 1.011 de 1.154 canales de Lista 2 comparten guía con otro; el archivo baja de 44 MB a 6 MB. Necesita VibeM3U 0.6.27 (publicada antes).
 - **EPG en dos archivos (2026-10-21)**: `epg.xml` (Lista 1, 2,4 MB) y `epg-2.xml` (Lista 2, 47 MB). La app baja la de Lista 2 solo si esa lista está activada (usa el `x-tvg-url` de cada M3U). Antes era un solo `epg.xml` de 50 MB.
 - **Corrección manual de guía, Sony Channel #58 (2026-10-21)**: el tramo 20:05–22:20 UTC decía «El hombre araña 3» (PA1); el usuario vio la 2. Todas las fuentes tienen el horario correcto pero ninguna el título, así que va en `epg/manual/PublicDirect.9c28a0d10a09856e98930cdc.xml`.
 - **Categoría «Series» (2026-10-21)**: «Series y ficción» se llama «Series» (4 canales).
@@ -287,6 +288,7 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-21**: epg-2.xml con guías compartidas (44 → 6 MB).
 - **2026-10-21**: EPG separada: epg.xml (Lista 1) y epg-2.xml (Lista 2).
 - **2026-10-21**: corrección manual del título «El Hombre Araña 2» en Sony Channel #58.
 - **2026-10-21**: categoría «Series».

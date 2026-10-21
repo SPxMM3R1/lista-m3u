@@ -7024,6 +7024,68 @@ def epg_list2_ids() -> set[str]:
     }
 
 
+EPG_SHARED_GUIDE_ATTRIBUTE = "data-guide-of"
+
+
+def dedupe_shared_guides(root: ET.Element) -> int:
+    """Una sola copia de cada guía idéntica (epg-2.xml, 2026-10-21).
+
+    De ~1.150 canales de Lista 2 solo ~140 guías son distintas (p. ej. 25 ESPN 6 con la
+    misma fuente). El primer canal de cada grupo conserva sus programas; los demás quedan
+    como ``<channel id="X" data-guide-of="Y">`` sin programas. VibeM3U 0.6.27+ lo entiende.
+    Devuelve cuántos canales pasaron a compartir guía.
+    """
+    by_channel: dict[str, list[ET.Element]] = {}
+    for programme in root.findall("programme"):
+        by_channel.setdefault(programme.get("channel", ""), []).append(programme)
+
+    def signature(items: list[ET.Element]) -> bytes:
+        parts = []
+        for item in items:
+            clone = copy.copy(item)
+            clone.attrib = {key: value for key, value in item.attrib.items() if key != "channel"}
+            parts.append(ET.tostring(clone, encoding="utf-8"))
+        return b"\n".join(sorted(parts))
+
+    owner_by_signature: dict[bytes, str] = {}
+    aliases: dict[str, str] = {}
+    for channel in root.findall("channel"):
+        channel_id = channel.get("id", "")
+        items = by_channel.get(channel_id)
+        if not items or channel.get("data-app-alias-of"):
+            continue
+        key = signature(items)
+        owner = owner_by_signature.setdefault(key, channel_id)
+        if owner != channel_id:
+            aliases[channel_id] = owner
+    if not aliases:
+        return 0
+    for channel in root.findall("channel"):
+        owner = aliases.get(channel.get("id", ""))
+        if owner:
+            channel.set(EPG_SHARED_GUIDE_ATTRIBUTE, owner)
+    for programme in list(root.findall("programme")):
+        if programme.get("channel", "") in aliases:
+            root.remove(programme)
+    return len(aliases)
+
+
+def expand_shared_guides(root: ET.Element) -> None:
+    """Inverso de :func:`dedupe_shared_guides`: cada canal vuelve a tener sus programas."""
+    sources: dict[str, list[ET.Element]] = {}
+    for programme in root.findall("programme"):
+        sources.setdefault(programme.get("channel", ""), []).append(programme)
+    for channel in root.findall("channel"):
+        owner = channel.get(EPG_SHARED_GUIDE_ATTRIBUTE)
+        if not owner:
+            continue
+        del channel.attrib[EPG_SHARED_GUIDE_ATTRIBUTE]
+        for programme in sources.get(owner, []):
+            clone = copy.deepcopy(programme)
+            clone.set("channel", channel.get("id", ""))
+            root.append(clone)
+
+
 def read_combined_epg() -> bytes:
     """epg.xml + epg-2.xml en un solo documento (para actualizar y volver a separar)."""
     data = EPG_PATH.read_bytes()
@@ -7031,6 +7093,7 @@ def read_combined_epg() -> bytes:
         return data
     root = ET.fromstring(data)
     second = ET.fromstring(EPG2_PATH.read_bytes())
+    expand_shared_guides(second)
     present = {element.get("id", "") for element in root.findall("channel")}
     channels = [element for element in second.findall("channel") if element.get("id", "") not in present]
     moved = {element.get("id", "") for element in channels}
@@ -7062,6 +7125,7 @@ def split_epg_documents(data: bytes, list2_ids: set[str]) -> tuple[bytes, bytes]
                 part.remove(element)
         if keep_second:
             part.set("data-epg-scope", EXTERNAL_PLAYLIST.name)
+            dedupe_shared_guides(part)
         documents.append(ET.tostring(part, encoding="utf-8", xml_declaration=True) + b"\n")
     return documents[0], documents[1]
 

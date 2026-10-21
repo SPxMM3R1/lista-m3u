@@ -51,3 +51,33 @@ class SplitEpgTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class SharedGuideTests(unittest.TestCase):
+    """2026-10-21: epg-2.xml guarda cada guía idéntica una sola vez (data-guide-of)."""
+
+    DOC = b"""<?xml version='1.0' encoding='utf-8'?>
+<tv>
+  <channel id="a"><display-name>A</display-name></channel>
+  <channel id="b"><display-name>B</display-name></channel>
+  <channel id="c"><display-name>C</display-name></channel>
+  <programme start="20261021120000 +0000" stop="20261021130000 +0000" channel="a"><title>X</title></programme>
+  <programme start="20261021120000 +0000" stop="20261021130000 +0000" channel="b"><title>X</title></programme>
+  <programme start="20261021120000 +0000" stop="20261021130000 +0000" channel="c"><title>Y</title></programme>
+</tv>
+"""
+
+    def test_identical_guides_are_stored_once_and_expand_back(self) -> None:
+        root = ET.fromstring(self.DOC)
+        self.assertEqual(1, update_m3u.dedupe_shared_guides(root))
+        channels = {c.get("id"): c for c in root.findall("channel")}
+        self.assertEqual("a", channels["b"].get("data-guide-of"))
+        self.assertEqual(["a", "c"], [p.get("channel") for p in root.findall("programme")])
+        update_m3u.expand_shared_guides(root)
+        self.assertEqual({"a", "b", "c"}, {p.get("channel") for p in root.findall("programme")})
+        self.assertIsNone(root.find("channel[@id='b']").get("data-guide-of"))
+
+    def test_list_one_guide_is_never_shared(self) -> None:
+        first, second = update_m3u.split_epg_documents(self.DOC, {"b", "c"})
+        self.assertNotIn(b"data-guide-of", first)
+        self.assertNotIn(b"data-guide-of", second)  # b y c tienen guías distintas
