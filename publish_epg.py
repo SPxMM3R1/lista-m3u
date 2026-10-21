@@ -68,19 +68,31 @@ def index_only_timestamp_changed(old: bytes, new: bytes) -> bool:
     return before == after
 
 
-def keep_published_guide_if_prune_only(now: datetime | None = None) -> bool:
-    """Si epg.xml solo perdió programas terminados, deja la versión publicada. Devuelve si lo hizo."""
-    now = now or datetime.now(timezone.utc)
-    published = _git_bytes("show", "HEAD:epg.xml")
+def _keep_file_if_prune_only(name: str, now: datetime) -> bool:
+    published = _git_bytes("show", f"HEAD:{name}")
     try:
-        with open("epg.xml", "rb") as handle:
+        with open(name, "rb") as handle:
             current = handle.read()
     except OSError:
         return False
     if published is None or published == current or not is_prune_only(published, current, now):
         return False
-    with open("epg.xml", "wb") as handle:
+    with open(name, "wb") as handle:
         handle.write(published)
+    return True
+
+
+def keep_published_guide_if_prune_only(now: datetime | None = None) -> bool:
+    """Si una guía solo perdió programas terminados, deja la versión publicada. Devuelve si lo hizo.
+
+    Desde 2026-10-21 hay dos guías: epg.xml (Lista 1) y epg-2.xml (Lista 2); cada una se
+    evalúa por separado. Devuelve si epg.xml se conservó (y entonces también el índice).
+    """
+    now = now or datetime.now(timezone.utc)
+    if _keep_file_if_prune_only("epg-2.xml", now):
+        print("EPG 2: solo se quitaban programas terminados; se mantiene la guía publicada.")
+    if not _keep_file_if_prune_only("epg.xml", now):
+        return False
     published_index = _git_bytes("show", "HEAD:epg/indice.json")
     try:
         with open("epg/indice.json", "rb") as handle:
@@ -128,7 +140,7 @@ def push_with_rebase() -> int:
 def main() -> int:
     keep_published_guide_if_prune_only()
     subprocess.run(
-        ["git", "add", "-A", "--", "epg.xml", "epg", "epg-run-state.json", "epg-pending.json"],
+        ["git", "add", "-A", "--", "epg.xml", "epg-2.xml", "epg", "epg-run-state.json", "epg-pending.json"],
         check=True,
     )
     subprocess.run(["git", "config", "user.name", "Actualizador"], check=True)

@@ -16,6 +16,7 @@ on:
       - "presentation-overrides.json"
       - "epg-manual-overrides.xml"
       - "epg.xml"
+      - "epg-2.xml"
       - "change_plan.py"
       - "targeted_update.py"
       - "update_m3u.py"
@@ -100,7 +101,7 @@ jobs:
         id: publish
         shell: bash
         run: |
-          files=(m3u.m3u m3u-externa.m3u 1.m3u 2.m3u channel-catalog.m3u epg.xml epg stream-overrides.json epg-overrides.json presentation-overrides.json epg-manual-overrides.xml)
+          files=(m3u.m3u m3u-externa.m3u 1.m3u 2.m3u channel-catalog.m3u epg.xml epg-2.xml epg stream-overrides.json epg-overrides.json presentation-overrides.json epg-manual-overrides.xml)
           if [ -d logos ]; then files+=(logos); fi
           if [ -z "$(git status --porcelain -- "${files[@]}")" ]; then
             echo "No hay artefactos dirigidos nuevos para publicar."
@@ -146,7 +147,7 @@ jobs:
         run: |
           set -euo pipefail
           base="https://raw.githubusercontent.com/${{ github.repository }}/$PUBLISHED_COMMIT"
-          for file in m3u.m3u m3u-externa.m3u 1.m3u 2.m3u channel-catalog.m3u epg.xml stream-overrides.json epg-overrides.json presentation-overrides.json epg-manual-overrides.xml; do
+          for file in m3u.m3u m3u-externa.m3u 1.m3u 2.m3u channel-catalog.m3u epg.xml epg-2.xml stream-overrides.json epg-overrides.json presentation-overrides.json epg-manual-overrides.xml; do
             if ! git cat-file -e "$PUBLISHED_COMMIT:$file" 2>/dev/null; then
               continue
             fi

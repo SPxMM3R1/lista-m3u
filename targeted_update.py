@@ -787,7 +787,8 @@ def apply_epg(
     if len(selected) != len(target_ids):
         missing = sorted(target_ids - {channel.tvg_id for channel in selected})
         raise RuntimeError("EPG dirigida: faltan canales: " + ", ".join(missing))
-    existing = EPG_PATH.read_bytes()
+    # epg.xml + epg-2.xml juntos: un canal de Lista 2 vive en epg-2.xml (2026-10-21).
+    existing = update_m3u.read_combined_epg()
     if "epg.xml" in plan.changed_files and "epg.xml" in after:
         replacement = _epg_subset(
             after["epg.xml"].encode("utf-8"),
@@ -811,9 +812,7 @@ def apply_epg(
         main_target_ids,
         optional_target_ids,
     )
-    temporary_output = EPG_PATH.with_suffix(".xml.tmp")
-    temporary_output.write_bytes(merged)
-    temporary_output.replace(EPG_PATH)
+    update_m3u.write_split_epg(merged)
     # Guía por canal (2026-10-12): el cambio dirigido también queda en el fragmento de cada
     # canal; si no, la próxima unión lo pisaría con la guía anterior.
     fragments = update_m3u.epg_fragments.split_epg(merged)

@@ -71,6 +71,10 @@ HIGHFLY_BITRATE_PATTERN = re.compile(
     re.IGNORECASE,
 )
 EPG_PATH = Path(__file__).with_name("epg.xml")
+# Guía separada por lista (2026-10-21, pedido del usuario): epg.xml lleva Lista 1 y la
+# selección gestionada; epg-2.xml lleva solo las guías de Lista 2. La app descarga la guía
+# del x-tvg-url de cada lista activa, así que epg-2.xml solo se baja con Lista 2 encendida.
+EPG2_PATH = Path(__file__).with_name("epg-2.xml")
 # Guía por canal (2026-10-12): fragmentos automáticos y correcciones manuales por canal.
 EPG_DATA_DIR = Path(__file__).with_name("epg")
 EPG_FRAGMENTS_DIR = EPG_DATA_DIR / epg_fragments.FRAGMENTS_DIRNAME
@@ -117,6 +121,7 @@ def restrict_channels_to_scope(
 
 PUBLIC_RAW_BASE = "https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main"
 EPG_PUBLIC_URL = f"{PUBLIC_RAW_BASE}/epg.xml"
+EPG2_PUBLIC_URL = f"{PUBLIC_RAW_BASE}/epg-2.xml"
 LOCAL_LOGOS_PUBLIC_BASE = f"{PUBLIC_RAW_BASE}/logos"
 RESOLVER_SCHEMA_VERSION = 1
 # This is the base version of the checked-in resolver rules. The writer keeps
@@ -5662,11 +5667,11 @@ def xmltv_datetime(value: str) -> datetime:
     return datetime.strptime(match.group(1) + " " + offset, "%Y%m%d%H%M%S %z")
 
 
-def ensure_playlist_epg_url(lines: list[str]) -> bool:
+def ensure_playlist_epg_url(lines: list[str], url: str | None = None) -> bool:
     if not lines or not lines[0].startswith("#EXTM3U"):
         raise ValueError("la lista no tiene una cabecera #EXTM3U valida")
     header = re.sub(r'\s+(?:x-tvg-url|url-tvg)="[^"]*"', "", lines[0])
-    expected = f'{header} x-tvg-url="{EPG_PUBLIC_URL}"'
+    expected = f'{header} x-tvg-url="{url or EPG_PUBLIC_URL}"'
     if lines[0] == expected:
         return False
     lines[0] = expected
@@ -7004,6 +7009,74 @@ def epg_scope_channels() -> tuple[list[Channel], set[str]]:
     return unique, seen
 
 
+def epg_list2_ids() -> set[str]:
+    """Ids de la guía que son solo de Lista 2 (van a epg-2.xml, no a epg.xml)."""
+    main_ids = {channel.tvg_id for channel in main_playlist_channels() if channel.tvg_id}
+    extra_ids = {channel.tvg_id for channel in epg_scope_extra_channels(main_ids) if channel.tvg_id}
+    l2_map = load_epg_l2_map()
+    if not l2_map or not EXTERNAL_PLAYLIST.is_file():
+        return set()
+    lines = EXTERNAL_PLAYLIST.read_text(encoding="utf-8-sig").splitlines()
+    return {
+        channel.tvg_id
+        for channel in parse_channels(lines)
+        if channel.tvg_id in l2_map and channel.tvg_id not in main_ids and channel.tvg_id not in extra_ids
+    }
+
+
+def read_combined_epg() -> bytes:
+    """epg.xml + epg-2.xml en un solo documento (para actualizar y volver a separar)."""
+    data = EPG_PATH.read_bytes()
+    if not EPG2_PATH.is_file():
+        return data
+    root = ET.fromstring(data)
+    second = ET.fromstring(EPG2_PATH.read_bytes())
+    present = {element.get("id", "") for element in root.findall("channel")}
+    channels = [element for element in second.findall("channel") if element.get("id", "") not in present]
+    moved = {element.get("id", "") for element in channels}
+    insert_at = len(root.findall("channel"))
+    for offset, element in enumerate(channels):
+        root.insert(insert_at + offset, element)
+    for programme in second.findall("programme"):
+        if programme.get("channel", "") in moved:
+            root.append(programme)
+    return ET.tostring(root, encoding="utf-8", xml_declaration=True) + b"\n"
+
+
+def split_epg_documents(data: bytes, list2_ids: set[str]) -> tuple[bytes, bytes]:
+    """(epg.xml, epg-2.xml): Lista 2 aparte; los alias de la app siguen a su canal."""
+    root = ET.fromstring(data)
+    second_ids = {
+        element.get("id", "")
+        for element in root.findall("channel")
+        if element.get("id", "") in list2_ids or element.get("data-app-alias-of", "") in list2_ids
+    }
+    documents = []
+    for keep_second in (False, True):
+        part = ET.fromstring(data)
+        for element in list(part.findall("channel")):
+            if (element.get("id", "") in second_ids) != keep_second:
+                part.remove(element)
+        for element in list(part.findall("programme")):
+            if (element.get("channel", "") in second_ids) != keep_second:
+                part.remove(element)
+        if keep_second:
+            part.set("data-epg-scope", EXTERNAL_PLAYLIST.name)
+        documents.append(ET.tostring(part, encoding="utf-8", xml_declaration=True) + b"\n")
+    return documents[0], documents[1]
+
+
+def write_split_epg(data: bytes, list2_ids: set[str] | None = None) -> None:
+    """Escribe epg.xml (sin Lista 2) y epg-2.xml (solo Lista 2) desde una guía completa."""
+    first, second = split_epg_documents(data, epg_list2_ids() if list2_ids is None else set(list2_ids))
+    for path, content in ((EPG_PATH, first), (EPG2_PATH, second)):
+        if path.is_file() and path.read_bytes() == content:
+            continue
+        temporary = path.with_name(f".{path.name}.tmp")
+        temporary.write_bytes(content)
+        temporary.replace(path)
+
+
 def fetch_epg_part_to_dir(name: str, directory: Path) -> int:
     """Descarga una parte (con reintentos si falla) y la deja en ``directory``."""
     if name not in epg_part_names():
@@ -8336,9 +8409,13 @@ def assemble_epg_from_fragments(
     if include_manual:
         data = add_app_epg_aliases(data)
     data, _ = filter_epg_to_channel_ids(data, set(scope_ids))
-    temporary = output_path.with_suffix(".xml.tmp")
-    temporary.write_bytes(data)
-    temporary.replace(output_path)
+    if output_path == EPG_PATH:
+        # Una guía por lista (2026-10-21): Lista 2 va aparte en epg-2.xml.
+        write_split_epg(data)
+    else:
+        temporary = output_path.with_suffix(".xml.tmp")
+        temporary.write_bytes(data)
+        temporary.replace(output_path)
     pending, details = epg_assembled_pending(data, scope_ids, main_ids, now)
     if include_manual and output_path == EPG_PATH:
         try:
@@ -10901,11 +10978,19 @@ def verify_published_copy(
 
 
 def sync_short_playlist_aliases() -> list[Path]:
-    """Keep the official one-character playlist aliases byte-for-byte current."""
+    """Keep the official one-character playlist aliases byte-for-byte current.
+
+    Antes de copiar, cada lista canónica apunta a su guía (2026-10-21): Lista 1 a
+    epg.xml y Lista 2 a epg-2.xml. Todos los escritores de listas pasan por aquí.
+    """
     changed: list[Path] = []
     for canonical, alias in SHORT_PLAYLIST_ALIASES:
         if not canonical.is_file():
             raise RuntimeError(f"falta la lista canonica para el alias: {canonical.name}")
+        lines = canonical.read_text(encoding="utf-8-sig").splitlines()
+        url = EPG2_PUBLIC_URL if canonical == EXTERNAL_PLAYLIST else EPG_PUBLIC_URL
+        if lines and ensure_playlist_epg_url(lines, url):
+            canonical.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
         content = canonical.read_bytes()
         if alias.is_file() and alias.read_bytes() == content:
             continue

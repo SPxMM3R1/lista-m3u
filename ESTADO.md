@@ -9,6 +9,7 @@
 
 ## Hoy, en una mirada
 
+- **EPG en dos archivos (2026-10-21)**: `epg.xml` (Lista 1, 2,4 MB) y `epg-2.xml` (Lista 2, 47 MB). La app baja la de Lista 2 solo si esa lista está activada (usa el `x-tvg-url` de cada M3U). Antes era un solo `epg.xml` de 50 MB.
 - **Corrección manual de guía, Sony Channel #58 (2026-10-21)**: el tramo 20:05–22:20 UTC decía «El hombre araña 3» (PA1); el usuario vio la 2. Todas las fuentes tienen el horario correcto pero ninguna el título, así que va en `epg/manual/PublicDirect.9c28a0d10a09856e98930cdc.xml`.
 - **Categoría «Series» (2026-10-21)**: «Series y ficción» se llama «Series» (4 canales).
 - **Guía de Sony Movies #55 (2026-10-21)**: fuente Claro Argentina («SONY MOVIES HD»), verificada con lo que vio el usuario («El Vengador Fantasma», 21:20–23:15 UTC). El canal deja de estar en prueba. Los Sony Movies de Lista 2 están mapeados a us2 (EE. UU.), que no coincide.
@@ -286,6 +287,7 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-21**: EPG separada: epg.xml (Lista 1) y epg-2.xml (Lista 2).
 - **2026-10-21**: corrección manual del título «El Hombre Araña 2» en Sony Channel #58.
 - **2026-10-21**: categoría «Series».
 - **2026-10-21**: guía Claro Argentina para Sony Movies #55.
