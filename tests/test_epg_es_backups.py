@@ -1,3 +1,4 @@
+# Verificado en la corrida EPG 39531971168 (2026-10-21).
 import unittest
 
 import update_m3u
