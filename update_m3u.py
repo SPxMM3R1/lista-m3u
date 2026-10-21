@@ -715,9 +715,14 @@ OPTIONAL_EPG_CHANNEL_IDS: set[str] = set()
 # publica el programa actual y los siguientes; Claro trae la semana con los mismos
 # horarios (verificado: Aquelarre 19:00, ¿Dónde está Elisa? 20:00, Mea Culpa 21:00).
 # TVN3 deja de ser opcional: si se queda sin guía, se informa como pendiente.
-# Excepción cerrada: TVN3 (2026-10-13, respaldo tras Zapping) y ETC TV
-# (2026-10-18, fuente principal verificada con fotogramas del stream).
-CLARO_SCHEDULE_FALLBACK_IDS = frozenset({"1437", "PublicDirect.3ba5922c6040fadb816835b1"})
+# Excepción cerrada: TVN3 (2026-10-13, respaldo tras Zapping), ETC TV
+# (2026-10-18, fuente principal verificada con fotogramas del stream) y Sony
+# Movies #55 (2026-10-21, Claro Argentina; ver CLARO_REGION_CHANNELS).
+CLARO_SCHEDULE_FALLBACK_IDS = frozenset({
+    "1437",
+    "PublicDirect.3ba5922c6040fadb816835b1",
+    "PublicDirect.376c74e4d0452f743fd2c811",
+})
 NHK_MASTER_URL = "https://masterpl.hls.nhkworld.jp/hls/w/live/smarttv.m3u8"
 # EPGShare01 no entregó una parrilla actual para estas pruebas; se mantienen
 # sin guía en vez de rellenarlas con continuidad genérica.
@@ -1126,6 +1131,13 @@ CLARO_SYNOPSIS_CHANNELS = {
     # ETC TV: verificado con fotogramas del stream el 2026-10-18; la guía de
     # Zapping para este id no coincide con la señal, así que Claro es la fuente.
     "PublicDirect.3ba5922c6040fadb816835b1": "793354",  # ETC TV HD
+}
+# Canales cuya parrilla Claro sale de otra región (la de CLARO_SYNOPSIS_CHANNELS es
+# Chile): tvg-id → (región de la API, group_id). Sony Movies #55 (2026-10-21): el
+# usuario vio «El Vengador Fantasma» y Claro Argentina «SONY MOVIES HD» lo tenía de
+# 21:20 a 23:15 UTC; las guías us2/uy1 (Sony Movie Channel de EE. UU.) no coinciden.
+CLARO_REGION_CHANNELS = {
+    "PublicDirect.376c74e4d0452f743fd2c811": ("argentina", "1151743"),  # SONY MOVIES HD (Claro Argentina)
 }
 TECNOCENTRO_EPG_URL = "https://tecnocentro.cl/"
 # Respaldo real por canal cuando la fuente principal no entrega bloques.

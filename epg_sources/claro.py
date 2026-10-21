@@ -19,6 +19,7 @@ from urllib.parse import urlencode
 
 from update_m3u import (
     BROWSER_USER_AGENT,
+    CLARO_REGION_CHANNELS,
     CLARO_SYNOPSIS_CHANNELS,
     Channel,
     ZAPPING_DESCRIPTION_ID_PREFIX,
@@ -107,16 +108,37 @@ def claro_synopsis_programmes(
 def fetch_claro_synopsis_epg(
     channels: list[Channel], now: datetime
 ) -> tuple[bytes | None, dict[str, str]]:
-    wanted = {
-        channel.tvg_id: CLARO_SYNOPSIS_CHANNELS[channel.tvg_id]
-        for channel in channels
-        if channel.tvg_id in CLARO_SYNOPSIS_CHANNELS
-    }
-    if not wanted:
+    # Una consulta por región: Chile para CLARO_SYNOPSIS_CHANNELS y la que indique
+    # CLARO_REGION_CHANNELS (p. ej. Sony Movies desde Claro Argentina, 2026-10-21).
+    by_region: dict[str, dict[str, str]] = {}
+    for channel in channels:
+        if channel.tvg_id in CLARO_SYNOPSIS_CHANNELS:
+            by_region.setdefault("chile", {})[channel.tvg_id] = CLARO_SYNOPSIS_CHANNELS[channel.tvg_id]
+        elif channel.tvg_id in CLARO_REGION_CHANNELS:
+            region, group_id = CLARO_REGION_CHANNELS[channel.tvg_id]
+            by_region.setdefault(region, {})[channel.tvg_id] = group_id
+    if not by_region:
         return None, {}
     key = claro_web_app_key()
     begin = (now - timedelta(hours=6)).astimezone(timezone.utc)
     end = (now + timedelta(days=2)).astimezone(timezone.utc)
+    programmes: dict[str, list[tuple[datetime, datetime, str, str]]] = {}
+    for region, wanted in by_region.items():
+        programmes.update(_fetch_claro_region(key, region, wanted, begin, end))
+    errors = {
+        target_id: "Claro no publicó sinopsis para este canal"
+        for wanted in by_region.values()
+        for target_id in wanted
+        if target_id not in programmes
+    }
+    if not programmes:
+        return None, errors
+    return _claro_xmltv(programmes), errors
+
+
+def _fetch_claro_region(
+    key: str, region: str, wanted: dict[str, str], begin: datetime, end: datetime
+) -> dict[str, list[tuple[datetime, datetime, str, str]]]:
     query = urlencode({
         "device_id": "web",
         "device_category": "web",
@@ -128,7 +150,7 @@ def fetch_claro_synopsis_epg(
         "authpn": "webclient",
         "authpt": key,
         "api_version": "v5.93",
-        "region": "chile",
+        "region": region,
         "date_from": begin.strftime("%Y%m%d%H%M%S"),
         "date_to": end.strftime("%Y%m%d%H%M%S"),
         "quantity": "2000",
@@ -136,15 +158,11 @@ def fetch_claro_synopsis_epg(
     headers = {"User-Agent": BROWSER_USER_AGENT, "Accept": "application/json"}
     status, body, _ = fetch_bytes(f"{CLARO_EPG_URL}?{query}", headers, timeout=90, limit=40_000_000)
     if status != 200:
-        raise ValueError(f"guía Claro HTTP {status}")
-    programmes = claro_synopsis_programmes(json.loads(body.decode("utf-8")), wanted)
-    errors = {
-        target_id: "Claro no publicó sinopsis para este canal"
-        for target_id in wanted
-        if target_id not in programmes
-    }
-    if not programmes:
-        return None, errors
+        raise ValueError(f"guía Claro ({region}) HTTP {status}")
+    return claro_synopsis_programmes(json.loads(body.decode("utf-8")), wanted)
+
+
+def _claro_xmltv(programmes: dict[str, list[tuple[datetime, datetime, str, str]]]) -> bytes:
     root = ET.Element("tv", {
         "generator-info-name": "lista-m3u Claro Video synopsis importer",
         "source-info-name": "Claro Video (solo sinopsis)",
@@ -159,4 +177,4 @@ def fetch_claro_synopsis_epg(
             ET.SubElement(programme, "title", {"lang": "es"}).text = title
             if synopsis:
                 ET.SubElement(programme, "desc", {"lang": "es"}).text = synopsis
-    return ET.tostring(root, encoding="utf-8", xml_declaration=True), errors
+    return ET.tostring(root, encoding="utf-8", xml_declaration=True)

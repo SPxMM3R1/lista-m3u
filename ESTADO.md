@@ -9,6 +9,7 @@
 
 ## Hoy, en una mirada
 
+- **Guía de Sony Movies #55 (2026-10-21)**: fuente Claro Argentina («SONY MOVIES HD»), verificada con lo que vio el usuario («El Vengador Fantasma», 21:20–23:15 UTC). El canal deja de estar en prueba. Los Sony Movies de Lista 2 están mapeados a us2 (EE. UU.), que no coincide.
 - **Categoría «Música» (2026-10-21)**: «Música y conciertos» se llama «Música»; RWND pasa al #41, primero de la categoría (los demás bajan uno hasta Stingray Classica #54).
 - **Logo blanco de Telehit Música (2026-10-21)**: #49 usa `logos/telehit-musica-mx.png` (el blanco que tenía hasta el 20-10); el negro no se veía sobre la TV.
 - **EPG de 51 MB requiere VibeM3U 0.6.24 (2026-10-21)**: la EPG con Lista 2 pesa ~51 MB; VibeM3U 0.6.23 usaba un límite de 32 MB y caché de 48 MB, descartaba la guía completa y por eso canales como el **#1005** no mostraban programación. VibeM3U **0.6.24/233** sube `MAX_EPG_BYTES` a 64 MB y la caché a 160 MB. APK `VibeM3U-v0.6.24.apk`, 2.846.439 bytes, SHA-256 `beece82a5e4afd0e42f6284c9c1ed7ceee519123c3a9ed294b2a24aaa6ecdef8`; CI `39673098447` y release `39673648320` success. Actualizar la app antes de recargar la EPG.
@@ -283,6 +284,7 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-21**: guía Claro Argentina para Sony Movies #55.
 - **2026-10-21**: categoría «Música» y RWND #41.
 - **2026-10-21**: Telehit Música (#49) con el logo blanco histórico.
 - **2026-10-21 / EPG 51 MB**: VibeM3U 0.6.24/233 sube límites 32/48→64/160 MB; el #1005 ya puede cargar la EPG completa. APK SHA-256 beece82a…

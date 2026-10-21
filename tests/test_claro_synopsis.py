@@ -40,10 +40,17 @@ class ClaroSynopsisTests(unittest.TestCase):
         # parrilla de Claro como respaldo de horario (coincide con Zapping);
         # ETC TV la usa como fuente principal (verificada con fotogramas del
         # stream: la guía de Zapping para ETC no coincide con la señal).
+        # 2026-10-21: Sony Movies #55 usa la parrilla de Claro Argentina
+        # (verificada: el usuario vio «El Vengador Fantasma» a esa hora).
         self.assertEqual(
-            frozenset({"1437", "PublicDirect.3ba5922c6040fadb816835b1"}),
+            frozenset({"1437", "PublicDirect.3ba5922c6040fadb816835b1",
+                       "PublicDirect.376c74e4d0452f743fd2c811"}),
             update_m3u.CLARO_SCHEDULE_FALLBACK_IDS,
         )
+        self.assertEqual(("argentina", "1151743"),
+                         update_m3u.CLARO_REGION_CHANNELS["PublicDirect.376c74e4d0452f743fd2c811"])
+        self.assertEqual(update_m3u.CLARO_SYNOPSIS_PART,
+                         update_m3u.epg_source_chain("PublicDirect.376c74e4d0452f743fd2c811")[0][0])
         for target_id in update_m3u.CLARO_SYNOPSIS_CHANNELS:
             if target_id in update_m3u.CLARO_SCHEDULE_FALLBACK_IDS:
                 continue

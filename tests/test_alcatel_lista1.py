@@ -31,7 +31,8 @@ ALCATEL_LISTA1 = {
     "PublicDirect.376c74e4d0452f743fd2c811": {
         "name": "Sony Movies",
         "logo": "logos/catalogue/sonymovieslatinamerica-us.png",
-        "trial": True,
+        # 2026-10-21: definitivo para recibir guía (Claro Argentina), a pedido.
+        "trial": False,
     },
     "PublicDirect.8b604de41196cd4fe991d551": {
         "name": "Studio Universal",
