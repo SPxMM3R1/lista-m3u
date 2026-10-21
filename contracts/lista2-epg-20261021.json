@@ -56,5 +56,5 @@
   ],
   "mechanism": "epg-l2-map.json + load_epg_l2_map(); epg_scope_channels() suma Lista 2 mapeada; refresh_epg() usa ese alcance; build_epg_fragments() reconstruye por canal. Guias parciales quedan en epg-pending, sin continuidad inventada.",
   "validation": "412 Python (18 omitidas) y 58 JS en verde; 1.166 IDs y 292 nombres mapeados; EPG local 1.240 canales/89.502 programas; 9 pendientes; 5 nombres sin fuente.",
-  "pendiente": "Publicación y verificación remota pendientes."
+  "pendiente": "Publicado y verificado: commit 79e312ca; EPG workflow 39592375275 success; dirigido 39592795235 success; Raw 1.240 canales/89.502 programas; 9 pendientes y 5 nombres sin fuente."
 }
