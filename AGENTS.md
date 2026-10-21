@@ -73,8 +73,11 @@ agente debe poder retomar el trabajo solo con lo que está en el repositorio.
   `PublicDirect.12d30345143460844b8f968c`, `PublicDirect.2be182422f69d962afae4053`,
   `PublicDirect.711575de282125c84171bbee`, `PublicDirect.79f8514f8e1ffebfaf54d33c` y
   `PublicDirect.8baa0cba55b71f39a6480ef5`. Los seis Canal 13 mostraron en fotograma la
-  misma transmisión que el principal; siguen activos/en prueba en Lista 2. No recrear antiguos
-  respaldos Canal 13 que fueron eliminados. El vínculo Telehit Música del contrato histórico
+  misma transmisión que el principal; siguen activos/en prueba y vinculados al principal en Lista 1.
+  Se movieron desde Lista 2 para que estén disponibles al seleccionar respaldos en VibeM3U,
+  incluso cuando el usuario no carga Lista 2. Mantener la señal oficial como principal y no
+  mostrar los seis IDs como canales independientes. No recrear antiguos respaldos Canal 13 que
+  fueron eliminados. El vínculo Telehit Música del contrato histórico
   `contracts/canal13-telehit-backups-20261020.json` fue sustituido por la instrucción posterior
   del 2026-10-20: la fuente comprobada del antiguo #099 ahora es la única fuente del ID estable
   `TelehitMusica.mx@SD`; #099 queda `deleted`, fuera de Lista 2 y sin `backupm3u`. Estado vigente:

@@ -244,13 +244,26 @@ class ExplicitDirectBackupLinksTest(unittest.TestCase):
 
         self.assertEqual(len(linked_ids), len(set(linked_ids)))
 
-    def test_new_canal13_backups_remain_trial_rows_in_list_two(self):
+    def test_canal13_backups_are_trial_rows_in_list_one_and_published_there(self):
         layout = json.loads((ROOT / "data/channel-editor-layout.json").read_text(encoding="utf-8"))
         rows = {row["tvgId"]: row for row in layout["channels"] if row.get("tvgId")}
+        presentation = json.loads((ROOT / "presentation-overrides.json").read_text(encoding="utf-8"))
+        main_order = presentation["orders"]["m3u.m3u"]
+        external_order = presentation["orders"]["m3u-externa.m3u"]
+        main_ids = {channel.tvg_id for channel in runner.parse_channels(
+            (ROOT / "m3u.m3u").read_text(encoding="utf-8").splitlines()
+        )}
+        external_ids = {channel.tvg_id for channel in runner.parse_channels(
+            (ROOT / "m3u-externa.m3u").read_text(encoding="utf-8").splitlines()
+        )}
         for backup_id in CANAL13_DIRECT_BACKUPS:
             with self.subTest(backup=backup_id):
-                self.assertEqual("2.m3u", rows[backup_id]["sourceList"])
+                self.assertEqual("1.m3u", rows[backup_id]["sourceList"])
                 self.assertIs(rows[backup_id].get("trial"), True)
+                self.assertIn(backup_id, main_order)
+                self.assertNotIn(backup_id, external_order)
+                self.assertIn(backup_id, main_ids)
+                self.assertNotIn(backup_id, external_ids)
 
 
 class EspnChilePlacementTest(unittest.TestCase):
