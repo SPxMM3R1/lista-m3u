@@ -9,6 +9,7 @@
 
 ## Hoy, en una mirada
 
+- **Logo blanco de Telehit Música (2026-10-21)**: #49 usa `logos/telehit-musica-mx.png` (el blanco que tenía hasta el 20-10); el negro no se veía sobre la TV.
 - **EPG de 51 MB requiere VibeM3U 0.6.24 (2026-10-21)**: la EPG con Lista 2 pesa ~51 MB; VibeM3U 0.6.23 usaba un límite de 32 MB y caché de 48 MB, descartaba la guía completa y por eso canales como el **#1005** no mostraban programación. VibeM3U **0.6.24/233** sube `MAX_EPG_BYTES` a 64 MB y la caché a 160 MB. APK `VibeM3U-v0.6.24.apk`, 2.846.439 bytes, SHA-256 `beece82a5e4afd0e42f6284c9c1ed7ceee519123c3a9ed294b2a24aaa6ecdef8`; CI `39673098447` y release `39673648320` success. Actualizar la app antes de recargar la EPG.
 - **EPG de Lista 2 — cierre (2026-10-21)**: **1.166 de 1.171 IDs** (292 nombres) con guía real y futuro ≥18 h; quedan **5 nombres sin fuente** (ADULTOS, ANTENA 3 CINE, ESPN Plus, Mega 2, sextrem) y **9 pendientes** (4 sin guía, 5 guía corta). EPG local: **1.240 canales y 89.502 programas** (56 MB). Se corrigieron Venus, Paramount, H2, Kanal D Drama, Antena 3 y Europa. Registro `contracts/lista2-epg-20261021.json`. Suites: 412 Python (18 omitidas) y 58 JS. **Publicado y verificado**: commit `79e312ca`; EPG `39592375275` success; dirigido `39592795235` success; Raw 1.240 canales/89.502 programas; 9 pendientes y 5 nombres sin fuente.
 - **Categorías sin «generalista» (2026-10-21)**: a pedido del usuario se renombraron `Nacionales generalistas` → `Nacionales` y `Generalista internacional` → `Internacional` en las 6 filas visibles (TVN, Mega, CHV, Canal 13, La Red y TVE Internacional). No cambian orden, identidad, logos, EPG ni respaldos. La app arma los filtros con `group` (sin APK); M3U y catálogo se regeneraron. Suites: 410 Python (18 omitidas) y 58 JS. **Publicado y verificado**: commit `5dcdbe9b`; raw Lista 1 120, Lista 2 1.171; `Nacionales` e `Internacional` sin «generalista»; runner `9e3bc0e3`.
@@ -281,6 +282,7 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-21**: Telehit Música (#49) con el logo blanco histórico.
 - **2026-10-21 / EPG 51 MB**: VibeM3U 0.6.24/233 sube límites 32/48→64/160 MB; el #1005 ya puede cargar la EPG completa. APK SHA-256 beece82a…
 - **2026-10-21 / EPG Lista 2 cierre**: 1.166/1.171 IDs; 292 nombres; 5 sin fuente; 9 pendientes; EPG 1.240 canales/89.502 programas. Publicado: `79e312ca`; EPG `39592375275` success; Raw 1.240/89.502.
 - **2026-10-21 / categorías sin «generalista»**: `Nacionales generalistas`→`Nacionales` y `Generalista internacional`→`Internacional`; 6 filas. Publicado: `5dcdbe9b`; raw 120/1.171; runner `9e3bc0e3`.

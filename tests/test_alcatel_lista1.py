@@ -100,7 +100,8 @@ class AlcatelLista1Test(unittest.TestCase):
         self.assertEqual(49, telehit_musica["number"])
         self.assertEqual(telehit["number"] + 1, telehit_musica["number"])
         self.assertEqual("Telehit Música", telehit_musica["displayName"])
-        self.assertEqual("logos/catalogue/telehitmusica-mx.png", telehit_musica["logoPath"])
+        # 2026-10-21: logo blanco «TELEHIT MÚSICA» (el que se usaba hasta el 20-10), a pedido.
+        self.assertEqual("logos/telehit-musica-mx.png", telehit_musica["logoPath"])
 
         main_ids = {
             channel.tvg_id
@@ -137,7 +138,7 @@ class AlcatelLista1Test(unittest.TestCase):
             )
         }
         self.assertEqual(canonical[backup_id].url, canonical["TelehitMusica.mx@SD"].url)
-        self.assertEqual("logos/catalogue/telehitmusica-mx.png", primary["logoPath"])
+        self.assertEqual("logos/telehit-musica-mx.png", primary["logoPath"])
 
 
 if __name__ == "__main__":
