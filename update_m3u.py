@@ -10861,13 +10861,16 @@ def verify_published_copy(
 ) -> bool:
     expected = path.read_text(encoding="utf-8-sig").replace("\r\n", "\n")
     separator = "&" if "?" in url else "?"
+    large = expected_prefix != "#EXTM3U"
+    if large:
+        attempts = max(attempts, 8)
     for attempt in range(attempts):
         cache_busted = f"{url}{separator}verify={int(time.time())}-{attempt}"
         try:
             _, body, _ = fetch_bytes(
                 cache_busted,
                 {"User-Agent": PLAYER_USER_AGENT, "Cache-Control": "no-cache"},
-                limit=10_485_760,
+                limit=134_217_728,
             )
             published = body.decode("utf-8-sig", "replace").replace("\r\n", "\n")
             if published == expected and published.startswith(expected_prefix):
@@ -10881,7 +10884,7 @@ def verify_published_copy(
         except Exception as error:
             print(f"  [REINTENTO] No se pudo leer el raw: {error}")
         if attempt + 1 < attempts:
-            time.sleep(2.0)
+            time.sleep(5.0 if large else 2.0)
     return False
 
 
