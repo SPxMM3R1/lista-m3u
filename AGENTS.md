@@ -243,7 +243,7 @@ agente debe poder retomar el trabajo solo con lo que está en el repositorio.
 
 ## Reglas funcionales vigentes
 
-- **Categorías y orden de Lista 1 (2026-10-20)**: los 68 visibles usan las 12 categorías de `PROPUESTA_CATEGORIAS_LISTA1_20261020.md` y el orden 1–68; 44 cambios de `group` y 59 de número. Los 52 respaldos de Lista 1 no cambian de identidad, grupo, orden relativo ni vínculos. La app arma los filtros con `channel.getGroup()` (sin APK); la M3U se alinea con 68 `info_lines`. Registro `contracts/lista1-categorias-orden-20261020.json`. No reordenar/recategorizar sin una propuesta nueva.
+- **Categorías y orden de Lista 1 (2026-10-20)**: los 68 visibles usan las 12 categorías de `PROPUESTA_CATEGORIAS_LISTA1_20261020.md` y el orden 1–68; 44 cambios de `group` y 59 de número. Los 52 respaldos de Lista 1 no cambian de identidad, grupo, orden relativo ni vínculos. La app arma los filtros con `channel.getGroup()` (sin APK); la M3U se alinea con 68 `info_lines`. Registro `contracts/lista1-categorias-orden-20261020.json`. Las categorías se llaman `Nacionales` e `Internacional` (sin la palabra «generalista»). No reordenar/recategorizar sin una propuesta nueva.
 
 - **Solo Lista 1 y Lista 2 (2026-10-18)**: toda fila (M3U o TvVoo/Highfly) tiene `sourceList` y queda escrita en su archivo; números 1..N sin huecos, Lista 1 primero (`normalizeLists`). Detalle en `REGLAS.md` §3. Migración: los 13 proveedores (antes «virtuales», números 22–34) pasaron a ser filas de Lista 1; Lista 1 = 56 (1–56), Lista 2 = 4.860 filas de layout (57–4.916). Requiere VibeM3U 0.6.16+ para que el interruptor de la Lista 1 también controle esos canales (versiones anteriores los muestran igual, sin duplicar). Registro: `contracts/two-lists-20261018.json`.
 

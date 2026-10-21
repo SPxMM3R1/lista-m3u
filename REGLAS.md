@@ -63,7 +63,7 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
   con `x-resolver-stable-id` = `catalogKey`, para que la app les dé número y orden). La regla
   «solo app» de TvVoo/Highfly queda únicamente para identidades que nadie asignó a una lista.
   La app ya no agrega canales que ninguna lista encendida trae.
-- **Categorías y orden de Lista 1 (2026-10-20)**: los 68 canales visibles usan las 12 categorías y el orden 1–68 de `PROPUESTA_CATEGORIAS_LISTA1_20261020.md`; 44 cambios de `group` y 59 de número. Los 52 respaldos de Lista 1 conservan identidad, grupo, orden relativo y vínculos. La app arma los filtros con `group` (sin APK); la M3U se alinea con `info_lines`. Registro `contracts/lista1-categorias-orden-20261020.json`.
+- **Categorías y orden de Lista 1 (2026-10-20)**: los 68 canales visibles usan las 12 categorías y el orden 1–68 de `PROPUESTA_CATEGORIAS_LISTA1_20261020.md`; 44 cambios de `group` y 59 de número. Los 52 respaldos de Lista 1 conservan identidad, grupo, orden relativo y vínculos. La app arma los filtros con `group` (sin APK); la M3U se alinea con `info_lines`. Las categorías se llaman `Nacionales` e `Internacional` (sin «generalista»). Registro `contracts/lista1-categorias-orden-20261020.json`.
 - **Numeración sin huecos**: activos de Lista 1 (por orden) del 1 en adelante y luego Lista 2,
   sin huecos (`normalizeLists`, aplicado al publicar desde el editor, en la papelera de la app y
   al dar de alta). Los respaldos (`backupm3u`) y señales preferidas (`preferredM3u`) de otro

@@ -16,11 +16,11 @@ Estado: **propuesta documentada; no aplicada al catálogo**.
 
 | Posición propuesta | Categoría | Canal (etiqueta descriptiva) | Posición actual | ID estable (`tvgId` / `catalogKey`) |
 |---:|---|---|---:|---|
-| 1 | Nacionales generalistas | TVN | 1 | `0104` |
-| 2 | Nacionales generalistas | Mega | 2 | `0105` |
-| 3 | Nacionales generalistas | CHV | 3 | `0106` |
-| 4 | Nacionales generalistas | Canal 13 | 4 | `0107` |
-| 5 | Nacionales generalistas | La Red | 5 | `0102` |
+| 1 | Nacionales | TVN | 1 | `0104` |
+| 2 | Nacionales | Mega | 2 | `0105` |
+| 3 | Nacionales | CHV | 3 | `0106` |
+| 4 | Nacionales | Canal 13 | 4 | `0107` |
+| 5 | Nacionales | La Red | 5 | `0102` |
 | 6 | Noticias nacionales | 24 Horas | 6 | `0201` |
 | 7 | Noticias nacionales | Meganoticias | 7 | `Meganoticias.cl` |
 | 8 | Noticias nacionales | CHV Noticias | 8 | `1153` |
@@ -33,7 +33,7 @@ Estado: **propuesta documentada; no aplicada al catálogo**.
 | 15 | Noticias internacionales | France 24 English | 19 | `France24.fr@English` |
 | 16 | Noticias internacionales | Al Jazeera English | 20 | `AlJazeera.qa` |
 | 17 | Noticias internacionales | BBC News | 21 | `BBCNews.uk` |
-| 18 | Generalista internacional | TVE Internacional | 55 | `TVEInternacionalAmerica.es@HD` |
+| 18 | Internacional | TVE Internacional | 55 | `TVEInternacionalAmerica.es@HD` |
 | 19 | Deportes | Sky Sports F1 | 22 | `SkySportsF1.uk` |
 | 20 | Deportes | Sky Sports F1 UHD | 23 | `SkySportsF1UHD.uk` |
 | 21 | Deportes | Sky Sports Tennis | 24 | `SkySportsTennis.uk` |
@@ -87,7 +87,7 @@ Estado: **propuesta documentada; no aplicada al catálogo**.
 
 ## Lectura de la propuesta
 
-- **Noticias internacionales (10–17)** y **generalista internacional (18)** son subbloques consecutivos para mantener juntas las señales del exterior sin clasificar TVE Internacional como canal de noticias.
+- **Noticias internacionales (10–17)** y **internacional (18)** son subbloques consecutivos para mantener juntas las señales del exterior sin clasificar TVE Internacional como canal de noticias.
 - **Deportes (19–40)** conserva el orden interno actual de los veinte canales deportivos; agrega Red Bull World y Red Bull Español al final del bloque, por su orientación a deportes y eventos.
 - **Música y conciertos (41–54)** conserva el orden interno de los trece canales musicales actuales y coloca RWND en el cierre del bloque, conforme a la corrección del usuario.
 - Se conservan los doce encabezados acordados. **Estilo de vida, cocina y hogar** queda vacío porque no hay una señal visible de Lista 1 que encaje claramente; no se fuerza una asignación.
