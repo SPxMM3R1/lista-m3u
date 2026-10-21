@@ -9,6 +9,7 @@
 
 ## Hoy, en una mirada
 
+- **Categoría «Series» (2026-10-21)**: «Series y ficción» se llama «Series» (4 canales).
 - **Guía de Sony Movies #55 (2026-10-21)**: fuente Claro Argentina («SONY MOVIES HD»), verificada con lo que vio el usuario («El Vengador Fantasma», 21:20–23:15 UTC). El canal deja de estar en prueba. Los Sony Movies de Lista 2 están mapeados a us2 (EE. UU.), que no coincide.
 - **Categoría «Música» (2026-10-21)**: «Música y conciertos» se llama «Música»; RWND pasa al #41, primero de la categoría (los demás bajan uno hasta Stingray Classica #54).
 - **Logo blanco de Telehit Música (2026-10-21)**: #49 usa `logos/telehit-musica-mx.png` (el blanco que tenía hasta el 20-10); el negro no se veía sobre la TV.
@@ -284,6 +285,7 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-21**: categoría «Series».
 - **2026-10-21**: guía Claro Argentina para Sony Movies #55.
 - **2026-10-21**: categoría «Música» y RWND #41.
 - **2026-10-21**: Telehit Música (#49) con el logo blanco histórico.
