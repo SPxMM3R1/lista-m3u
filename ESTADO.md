@@ -9,7 +9,7 @@
 
 ## Hoy, en una mirada
 
-- **60 fps reales y logo histórico de Telehit Música (2026-10-20)**: medí los 49 respaldos ESPN con **framemd5** (6 s decodificados, no metadatos): 3 no eran 60 — `PublicDirect.9803b385…` 29.97, `PublicDirect.0b08745e…` 404 y `PublicDirect.0be3dafc…` 25.23 — y se quitaron. Quedan **38 respaldos ESPN** (#35 11, #36 9, #37 7, #39 4, #40 7) más 8 de ESPN 7. Lista 1 **120**, Lista 2 **1.172**; catálogo 6.599. Además, #50 `TelehitMusica.mx@SD` vuelve al logo histórico `logos/catalogue/telehitmusica-mx.png`. Registros `contracts/espn-l2-backups-20261019.json` y `contracts/telehit-musica-only-source-20261020.json`. **Pendiente**: publicación.
+- **60 fps reales y logo histórico de Telehit Música (2026-10-20)**: medí los 49 respaldos ESPN con **framemd5** (6 s decodificados, no metadatos): 3 no eran 60 — `PublicDirect.9803b385…` 29.97, `PublicDirect.0b08745e…` 404 y `PublicDirect.0be3dafc…` 25.23 — y se quitaron. Quedan **38 respaldos ESPN** (#35 11, #36 9, #37 7, #39 4, #40 7) más 8 de ESPN 7. Lista 1 **120**, Lista 2 **1.172**; catálogo 6.599. Además, #50 `TelehitMusica.mx@SD` vuelve al logo histórico `logos/catalogue/telehitmusica-mx.png`. Registros `contracts/espn-l2-backups-20261019.json` y `contracts/telehit-musica-only-source-20261020.json`. **Publicado y verificado**: commit `c1a60c7f`; raw Lista 1 120, Lista 2 1.172; 38 respaldos ESPN + 8 de ESPN 7, todos 60 fps reales; logo histórico de Telehit Música en #50.
 - **Logo blanco de Studio Universal (2026-10-20)**: la señal principal #66 de Lista 1 y sus dos filas activas en Lista 2 usan `logos/catalogue/studiouniversallatinamerica-white.png`. Se generó recoloreando solo los píxeles visibles del asset local a blanco, preservando alfa, tamaño y formas; el logo oscuro original permanece para candidatos/inventario no seleccionados. El alcance no cambia fuente, EPG, número ni orden.
 - **Corrección del logo de Telehit Música (2026-10-20)**: la fila estable #50 ahora usa el logo anterior `logos/catalogue/telehit-mx.png`, igual a Telehit #49. El asset dedicado `telehitmusica-mx.png` se conserva en la fila retirada #099; no se cambian fuente, EPG, posición ni identidad. Publicado y verificado en `main`.
 - **Auditoría de instrucciones pendientes (2026-10-20)**: el pedido de proponer categoría para cada canal y un reordenamiento completo aún no tiene entregable; Lista 1 conserva 12 canales activos en «Misceláneos». El último `epg-pending.json` (23:45 UTC) vuelve a marcar 0/18 h para cuatro canales de Lista 1: #20 Al Jazeera English, #28 DAZN F1, #33 Eurosport 1 España y #34 Eurosport 2 España. Requiere una pasada EPG dedicada; este cambio no altera guías.
@@ -276,7 +276,7 @@
 
 ## Bitácora (más reciente arriba)
 
-- **2026-10-20 / 60 fps reales y logo Telehit**: framemd5 descartó 29.97, 404 y 25.23; quedan 38 ESPN + 8; logo histórico en #50. Lista 1 120, Lista 2 1.172. Pendiente publicación.
+- **2026-10-20 / 60 fps reales y logo Telehit**: framemd5 descartó 29.97, 404 y 25.23; quedan 38 ESPN + 8; logo histórico en #50. Lista 1 120, Lista 2 1.172. Publicado: `c1a60c7f`; raw 120/1.172.
 - **2026-10-20 — Logo blanco de Studio Universal**: se creó la variante local
   `logos/catalogue/studiouniversallatinamerica-white.png` a partir del asset vigente, sustituyendo
   el RGB de los píxeles visibles por blanco y conservando exactamente dimensiones y alfa. Se
