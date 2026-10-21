@@ -100,7 +100,7 @@ class AlcatelLista1Test(unittest.TestCase):
         self.assertEqual(50, telehit_musica["number"])
         self.assertEqual(telehit["number"] + 1, telehit_musica["number"])
         self.assertEqual("Telehit Música", telehit_musica["displayName"])
-        self.assertEqual("logos/catalogue/telehit-mx.png", telehit_musica["logoPath"])
+        self.assertEqual("logos/catalogue/telehitmusica-mx.png", telehit_musica["logoPath"])
 
         main_ids = {
             channel.tvg_id
@@ -137,7 +137,7 @@ class AlcatelLista1Test(unittest.TestCase):
             )
         }
         self.assertEqual(canonical[backup_id].url, canonical["TelehitMusica.mx@SD"].url)
-        self.assertEqual("logos/catalogue/telehit-mx.png", primary["logoPath"])
+        self.assertEqual("logos/catalogue/telehitmusica-mx.png", primary["logoPath"])
 
 
 if __name__ == "__main__":

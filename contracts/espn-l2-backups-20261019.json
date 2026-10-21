@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "atUtc": "2026-10-20T02:19:51Z",
-  "authorization": "Usuario: «Que parte de que los respaldos espn fueran solo 720p a 60fps, no se entendio?» y «Hay varios a 30fps».",
-  "change": "Solo 1280x720 con r_frame_rate 60. Se quitaron el 480p y 3 streams con avg 59.94 pero r_frame_rate 30. Quedan 41 respaldos en #35 (12), #36 (10), #37 (8), #39 (4) y #40 (7), más 8 de ESPN 7.",
-  "criteria": "1280x720 y r_frame_rate 60000/1001; no se acepta avg 60 si r es 30. Sin 1080 ni 480. Coincidencia por OSD y nombre.",
+  "atUtc": "2026-10-21T00:58:32Z",
+  "authorization": "Usuario: «Revisa que los respaldos de espn sean a 60fps todos y de verdad. Restaura el logo istorico de telehit musica».",
+  "change": "Verificación con framemd5 (fotogramas decodificados, no metadatos): 46 de 49 respaldos ESPN son 60 reales; se quitaron 29.97, 25.23 y un 404. Quedan 38 en #35 11, #36 9, #37 7, #39 4 y #40 7, más 8 de ESPN 7. También se restauró el logo histórico de Telehit Música.",
+  "criteria": "60 fps reales medidos con framemd5 sobre 6 s decodificados; 1280x720. Se descartó avg/r_frame_rate como única prueba.",
   "limit": 16,
   "appLimit": 16,
   "appPending": "Resuelto en VibeM3U 0.6.23 (232).",
@@ -30,14 +30,6 @@
       "number": 35,
       "displayName": "ESPN",
       "backups": [
-        {
-          "tvgId": "PublicDirect.9803b3858eb1f551dc55bb66",
-          "name": "ESPN_COL",
-          "avgFps": "60000/1001",
-          "rfps": "60000/1001",
-          "width": 1280,
-          "height": 720
-        },
         {
           "tvgId": "PublicDirect.160c2cb1e8f8ab7da88c8f6b",
           "name": "ESPN",
@@ -134,14 +126,6 @@
       "displayName": "ESPN 2",
       "backups": [
         {
-          "tvgId": "PublicDirect.0b08745e3db22dec9d49648a",
-          "name": "ESPN 2",
-          "avgFps": "60000/1001",
-          "rfps": "60000/1001",
-          "width": 1280,
-          "height": 720
-        },
-        {
           "tvgId": "PublicDirect.21b740ebf12edc120fe22f81",
           "name": "ESPN 2",
           "avgFps": "60000/1001",
@@ -222,14 +206,6 @@
       "backups": [
         {
           "tvgId": "PublicDirect.01a707099056fe8688ce5d0b",
-          "name": "ESPN 3",
-          "avgFps": "60000/1001",
-          "rfps": "60000/1001",
-          "width": 1280,
-          "height": 720
-        },
-        {
-          "tvgId": "PublicDirect.0be3dafc87397bb527a0eba2",
           "name": "ESPN 3",
           "avgFps": "60000/1001",
           "rfps": "60000/1001",
@@ -406,33 +382,32 @@
     "ESPN 4": "sin candidatos",
     "1080p": "41 fuera",
     "480p": "1 fuera",
-    "30 fps reales": "3 fuera",
+    "30 fps reales": "3 fuera: PublicDirect.9803b385... 29.97, PublicDirect.0b08745e... 404, PublicDirect.0be3dafc... 25.23",
     "sin respuesta": "45",
     "sin destino": "8"
   },
   "counts": {
     "antes": {
-      "activos": 1387,
-      "list1Publicada": 67,
-      "list2Publicada": 1326,
+      "activos": 1309,
+      "list1Publicada": 120,
+      "list2Publicada": 1172,
       "catalogo": 6599
     },
     "despues": {
-      "activos": 1382,
-      "list1Publicada": 108,
-      "list2Publicada": 1280,
+      "activos": 1309,
+      "list1Publicada": 120,
+      "list2Publicada": 1172,
       "catalogo": 6599,
-      "visibles": 1327,
-      "filasEnlazadas": 55
+      "visibles": 1251,
+      "filasEnlazadas": 58
     }
   },
   "evidence": {
     "carpeta": "outputs/espn-l2-backups-20261019/",
-    "probe": "164 URLs; 119 responden; 93 avg60; 41 en 1080; 3 r30.",
-    "recheck": "49 respaldos: todos 1280x720 r60.",
+    "trueFps": "49 medidos con framemd5; 46 con fpsTotal>=55 y fpsUnique>=48; 3 fuera.",
     "capturas": "98 imágenes."
   },
-  "validation": "fix-720/fix-30fps/reorder + targeted_update: 108/1280/6599; 41 respaldos en L1 trial; ESPN7 8.",
+  "validation": "fix-true-fps + reorder-l2 + targeted_update: 120/1172/6599; 38 respaldos ESPN en L1 trial; ESPN7 8; logo Telehit Música restaurado.",
   "tests": "402 Python (18 omitidas) y 58 JS en verde.",
-  "pendiente": "Publicado y verificado (2026-10-19): commit 0d2345fa; raw Lista 1 108, Lista 2 1280, catalogo 6599; 41 respaldos 1280x720 con r_frame_rate 60000/1001; app VibeM3U 0.6.23 usa hasta 16."
+  "pendiente": "Publicación y verificación remota pendientes."
 }

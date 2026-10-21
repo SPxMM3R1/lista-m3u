@@ -22,8 +22,8 @@
   "identityAndPresentation": {
     "stableTvgIdPreserved": true,
     "backupm3uRemoved": true,
-    "logo": "logos/catalogue/telehit-mx.png",
-    "logoDecision": "Use the previous general Telehit logo on the stable Telehit Música row as requested; retain the specific historical asset on retired #099.",
+    "logo": "logos/catalogue/telehitmusica-mx.png",
+    "logoDecision": "Restaurado el logo histórico específico en #50 por pedido del 2026-10-20; telehit-mx.png queda para Telehit general. No revertir sin instrucción.",
     "epg": "Keep the existing TelehitMusica.mx@SD EPG mapping unchanged."
   },
   "validation": {
@@ -63,5 +63,11 @@
       "epgChannelPresent": true,
       "epgProgrammeEntries": 99
     }
+  },
+  "logoCorrection20261020": {
+    "logoTvgId": "TelehitMusica.mx@SD",
+    "logo": "logos/catalogue/telehitmusica-mx.png",
+    "request": "Restaura el logo istorico de telehit musica",
+    "pending": "publicación"
   }
 }

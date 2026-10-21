@@ -76,8 +76,8 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
 - **Respaldos ESPN 60 fps (2026-10-19)**: los respaldos ESPN se aceptan solo si el
   stream está a 59.94/60 fps y muestra el mismo rótulo OSD; se guardan como
   `backupm3u` en la señal de Lista 1 y las filas pasan a Lista 1 en prueba.
-  Solo 1280x720 con `r_frame_rate` 60: 41 respaldos en #35 12, #36 10,
-  #37 8, #39 4 y #40 7; sin 1080 ni 480; tope 16. ESPN 7 conserva sus 8 (720p60
+  Solo 1280x720 con 60 fps reales (framemd5, no solo metadatos): 38 respaldos
+  en #35 11, #36 9, #37 7, #39 4 y #40 7; sin 1080 ni 480; tope 16. ESPN 7 conserva sus 8 (720p60
   verificados); `ESPN2.co@Direct181` sigue independiente y no se usa como
   respaldo de #36. VibeM3U 0.6.23+ (`MAX_DIRECT_BACKUPS = 16`) usa hasta 16.
   Registro `contracts/espn-l2-backups-20261019.json`.
