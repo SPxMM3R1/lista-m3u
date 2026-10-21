@@ -24,11 +24,11 @@
     "unresolvedNames": 6,
     "unresolvedIds": 12,
     "epgChannels": 1233,
-    "epgProgrammes": 88928,
+    "epgProgrammes": 88485,
     "pendingChannels": 32,
     "pendingKinds": {
-      "guia-corta": 4,
-      "sin-guia": 28
+      "sin-guia": 27,
+      "guia-corta": 5
     }
   },
   "sources": {
@@ -56,6 +56,6 @@
     "sextrem"
   ],
   "mechanism": "epg-l2-map.json + load_epg_l2_map(); epg_scope_channels() suma Lista 2 mapeada; refresh_epg() usa ese alcance; build_epg_fragments() reconstruye por canal. Guias parciales quedan en epg-pending, sin continuidad inventada.",
-  "validation": "412 Python (18 omitidas) y 58 JS en verde; 1.159 IDs mapeados; 1.225 canales EPG y 88.928 programas; 32 pendientes reales; 6 nombres sin fuente.",
-  "pendiente": "Publicación y verificación remota pendientes."
+  "validation": "412 Python (18 omitidas) y 58 JS en verde; 1.159 IDs mapeados; Raw 1.233 canales y 88.485 programas; 32 pendientes reales; 6 nombres (12 IDs) sin fuente.",
+  "pendiente": "Publicado y verificado: commit e49e6372; EPG workflow 39590454996 success; dirigido 39591023592 success."
 }
