@@ -1459,7 +1459,9 @@ class TvnEpgTests(unittest.TestCase):
 
             with patch.object(update_m3u, "EPG_PATH", epg_path), patch.object(
                 update_m3u, "DEFAULT_PLAYLIST", public_playlist
-            ), patch.object(update_m3u, "CHANNEL_CATALOG_PATH", catalog_path):
+            ), patch.object(update_m3u, "CHANNEL_CATALOG_PATH", catalog_path), patch.object(
+                update_m3u, "load_epg_l2_map", return_value={}
+            ):
                 status = update_m3u.refresh_epg([active, retired])
             published_root = ET.fromstring(epg_path.read_bytes())
 

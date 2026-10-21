@@ -94,6 +94,11 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
 
 ## 4. EPG
 
+- **EPG de Lista 2 (2026-10-21)**: solo se asigna una guía por `epg-l2-map.json`
+  cuando la fuente real tiene ≥18 h futuras; los parciales quedan en `epg-pending`.
+  `epg_scope_channels()` y `refresh_epg()` incluyen los IDs mapeados; no inventar
+  continuidad. Registro `contracts/lista2-epg-20261021.json`.
+
 - **Respaldo EPG español (2026-10-20)**: si EPGShare ES1 queda sin futuro, `es2`
   (`https://oscarbc96.github.io/epg-spain/guide.xml.gz`, Movistar/Orange) rellena
   después de ES1 para `AlJazeera.qa`, `DAZNF1.es@TvVoo`, `Vavoo.es.EUROSPORT1@TvVoo`

@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "atUtc": "2026-10-21T10:51:18Z",
+  "authorization": "Usuario: «Buscale epg a toda la lista 2 revisa con screenshots para determinar programación adecuada» y «todo».",
+  "scope": "Lista 2 publicada (1.171 filas, 297 nombres unicos). No se inventan guias: solo fuentes EPG reales con al menos 18 h futuras.",
+  "screenshots": {
+    "uniqueNames": 297,
+    "captured": 246,
+    "failed": 34,
+    "withoutDirectUrl": 17,
+    "sheets": 12,
+    "folder": "outputs/lista2-epg-audit-20261021/"
+  },
+  "matching": {
+    "epgNamesIndexed": 8833,
+    "exactNames": 200,
+    "fuzzyNames": 56,
+    "withoutMatch": 41,
+    "manualAliases": 91
+  },
+  "coverage": {
+    "mappedIds": 1159,
+    "mappedNames": 291,
+    "unresolvedNames": 6,
+    "unresolvedIds": 12,
+    "epgChannels": 1233,
+    "epgProgrammes": 88928,
+    "pendingChannels": 32,
+    "pendingKinds": {
+      "guia-corta": 4,
+      "sin-guia": 28
+    }
+  },
+  "sources": {
+    "mx1": 722,
+    "co1": 165,
+    "ar1": 77,
+    "uy1": 68,
+    "us2": 39,
+    "es": 22,
+    "nl": 19,
+    "fr": 18,
+    "cl": 8,
+    "pl": 7,
+    "de": 5,
+    "es2": 5,
+    "pt1": 2,
+    "uk1": 2
+  },
+  "unresolved": [
+    "ADULTOS",
+    "ANTENA 3 CINE (102)",
+    "ESPN Plus",
+    "Europa",
+    "Mega 2",
+    "sextrem"
+  ],
+  "mechanism": "epg-l2-map.json + load_epg_l2_map(); epg_scope_channels() suma Lista 2 mapeada; refresh_epg() usa ese alcance; build_epg_fragments() reconstruye por canal. Guias parciales quedan en epg-pending, sin continuidad inventada.",
+  "validation": "412 Python (18 omitidas) y 58 JS en verde; 1.159 IDs mapeados; 1.225 canales EPG y 88.928 programas; 32 pendientes reales; 6 nombres sin fuente.",
+  "pendiente": "Publicación y verificación remota pendientes."
+}

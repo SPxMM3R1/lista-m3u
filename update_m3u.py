@@ -97,6 +97,7 @@ HEALTH_TIMESTAMP_FIELDS = frozenset({"last_checked_at", "last_ok_at", "last_reso
 HEALTH_TIMESTAMP_REFRESH = timedelta(hours=24)
 RESOLVER_CATALOG_PATH = Path(__file__).with_name("resolver-catalog.json")
 EPG_PENDING_PATH = Path(__file__).with_name("epg-pending.json")
+EPG_L2_MAP_PATH = Path(__file__).with_name("epg-l2-map.json")
 # Alcance del mantenimiento de canales. Con ``main`` la validacion, renovacion,
 # reparacion, salud y logos corren solo sobre la lista principal; Lista 2 se
 # conserva como se publico y el catalogo igual recibe la reconciliacion
@@ -1038,6 +1039,28 @@ EPG_PROGRAMME_SOURCES = {
     if channel_id not in PERMANENTLY_REMOVED_CHANNEL_IDS
     or channel_id in RESTORED_EXTERNAL_CHANNEL_IDS
 }
+def load_epg_l2_map() -> dict[str, tuple[str, str]]:
+    """Mapeos EPG de Lista 2 (nombres exactos, verificados con capturas)."""
+    path = EPG_L2_MAP_PATH
+    if not path.is_file():
+        return {}
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    raw = payload.get("channels", payload)
+    if not isinstance(raw, dict):
+        raise ValueError("epg-l2-map.json: channels debe ser un objeto")
+    result: dict[str, tuple[str, str]] = {}
+    for target_id, entry in raw.items():
+        if not isinstance(entry, dict):
+            continue
+        source = str(entry.get("source", "")).strip()
+        source_id = str(entry.get("source_id", "")).strip()
+        if source and source_id:
+            result[str(target_id)] = (source, source_id)
+    return result
+
+
+for _l2_id, _l2_source in load_epg_l2_map().items():
+    EPG_PROGRAMME_SOURCES.setdefault(_l2_id, _l2_source)
 # Zapping publica una guia HTML con marcas Unix absolutas para el programa
 # actual, hoy y manana. Se usa solo para senales chilenas donde la fuente
 # agregada estaba desplazada o no entregaba una parrilla util. TVN, Mega,
@@ -6942,13 +6965,31 @@ def collect_epg_parts(
 
 
 def epg_scope_channels() -> tuple[list[Channel], set[str]]:
-    """Canales de la EPG (Lista 1 + selección gestionada) y sus ids."""
+    """Canales de la EPG (Lista 1 + selección gestionada + Lista 2 mapeada)."""
     apply_epg_overrides()
     main_channels = main_playlist_channels()
     main_ids = {channel.tvg_id for channel in main_channels if channel.tvg_id}
     extra_channels = epg_scope_extra_channels(main_ids)
-    channels = main_channels + extra_channels
-    return channels, {channel.tvg_id for channel in channels if channel.tvg_id}
+    l2_map = load_epg_l2_map()
+    list2_channels = []
+    if l2_map and EXTERNAL_PLAYLIST.is_file():
+        list2_lines = EXTERNAL_PLAYLIST.read_text(encoding="utf-8-sig").splitlines()
+        for channel in parse_channels(list2_lines):
+            if (
+                channel.tvg_id in l2_map
+                and channel.tvg_id not in main_ids
+                and channel.tvg_id not in {item.tvg_id for item in extra_channels}
+            ):
+                list2_channels.append(channel)
+    channels = main_channels + extra_channels + list2_channels
+    unique: list[Channel] = []
+    seen: set[str] = set()
+    for channel in channels:
+        if not channel.tvg_id or channel.tvg_id in seen:
+            continue
+        seen.add(channel.tvg_id)
+        unique.append(channel)
+    return unique, seen
 
 
 def fetch_epg_part_to_dir(name: str, directory: Path) -> int:
@@ -7453,6 +7494,8 @@ def build_epg(
         # completa, queda pendiente y visible en el reporte; nunca se rellena.
         if count:
             guide_types[channel_id] = "parrilla real parcial"
+            if not is_main_channel:
+                pending_channels.append(channel_id)
         else:
             guide_types[channel_id] = "pendiente de guia"
             guide_sources[channel_id] = guide_sources.get(channel_id, "pendiente")
@@ -7964,23 +8007,31 @@ def refresh_epg(
     preserve_on_shared_failure: bool = True,
 ) -> dict:
     apply_epg_overrides()
-    # `channels` is retained for call-site compatibility, but the effective
-    # scope is always Lista 1 plus the managed app-only channels.
     main_channels = main_playlist_channels()
     main_ids = {channel.tvg_id for channel in main_channels if channel.tvg_id}
     extra_channels = epg_scope_extra_channels(main_ids)
     extra_ids = {channel.tvg_id for channel in extra_channels if channel.tvg_id}
-    channels = main_channels + extra_channels
+    l2_map = load_epg_l2_map()
+    list2_channels = [
+        channel
+        for channel in epg_scope_channels()[0]
+        if channel.tvg_id in l2_map
+        and channel.tvg_id not in main_ids
+        and channel.tvg_id not in extra_ids
+    ]
+    list2_ids = {channel.tvg_id for channel in list2_channels if channel.tvg_id}
+    channels = main_channels + extra_channels + list2_channels
     output_path = output_path or EPG_PATH
     now = datetime.now(timezone.utc)
-    expected_ids = main_ids | extra_ids
+    expected_ids = main_ids | extra_ids | list2_ids
     main_minimum_future_by_channel = {
         channel_id: EPG_MAIN_MINIMUM_FUTURE for channel_id in main_ids
     }
     optional_empty_ids = EPG_ALLOWED_EMPTY_IDS | extra_ids
     print(
         f"Alcance EPG: {DEFAULT_PLAYLIST.name} ({len(main_ids)} canales) + "
-        f"seleccion gestionada ({len(extra_ids)} canales opcionales)"
+        f"seleccion gestionada ({len(extra_ids)} canales opcionales) + "
+        f"Lista 2 mapeada ({len(list2_ids)} canales)"
     )
     existing_status = None
     existing_data: bytes | None = None
@@ -8365,7 +8416,7 @@ def build_epg_fragments(
         assemble_epg_from_fragments(include_manual=False, output_path=base, now=now)
         try:
             status = refresh_epg(
-                main_playlist_channels(),
+                epg_scope_channels()[0],
                 force=True,
                 output_path=base,
                 parts_dir=parts_dir,

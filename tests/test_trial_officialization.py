@@ -116,10 +116,13 @@ class TrialOfficializationTest(unittest.TestCase):
                 for tvg_id in expected:
                     lrow=layout_by_id[tvg_id]
                     if lrow['state']=='active' and lrow.get('sourceList')=='2.m3u':
-                        self.assertFalse(
-                            any(name!='epg-publicada-conservada' for name,_ in runner.epg_source_chain(tvg_id)),
-                            'la purga de Lista 2 ya no debe conservar fuentes',
-                        )
+                        # Desde 2026-10-21 Lista 2 puede tener EPG, pero solo
+                        # mediante un mapeo explícito en epg-l2-map.json.
+                        allowed=set(runner.load_epg_l2_map())
+                        for name,_ in runner.epg_source_chain(tvg_id):
+                            if name=='epg-publicada-conservada':
+                                continue
+                            self.assertIn(tvg_id,allowed)
             finally:
                 runner.EPG_PROGRAMME_SOURCES.clear();runner.EPG_PROGRAMME_SOURCES.update(real)
 
