@@ -9,6 +9,7 @@
 
 ## Hoy, en una mirada
 
+- **Logo blanco de Studio Universal (2026-10-20)**: la señal principal #66 de Lista 1 y sus dos filas activas en Lista 2 usan `logos/catalogue/studiouniversallatinamerica-white.png`. Se generó recoloreando solo los píxeles visibles del asset local a blanco, preservando alfa, tamaño y formas; el logo oscuro original permanece para candidatos/inventario no seleccionados. El alcance no cambia fuente, EPG, número ni orden.
 - **Corrección del logo de Telehit Música (2026-10-20)**: la fila estable #50 ahora usa el logo anterior `logos/catalogue/telehit-mx.png`, igual a Telehit #49. El asset dedicado `telehitmusica-mx.png` se conserva en la fila retirada #099; no se cambian fuente, EPG, posición ni identidad. Publicado y verificado en `main`.
 - **Auditoría de instrucciones pendientes (2026-10-20)**: el pedido de proponer categoría para cada canal y un reordenamiento completo aún no tiene entregable; Lista 1 conserva 12 canales activos en «Misceláneos». El último `epg-pending.json` (23:45 UTC) vuelve a marcar 0/18 h para cuatro canales de Lista 1: #20 Al Jazeera English, #28 DAZN F1, #33 Eurosport 1 España y #34 Eurosport 2 España. Requiere una pasada EPG dedicada; este cambio no altera guías.
 - **Telehit y Telehit Música (2026-10-20)**: se invirtieron sus posiciones: Telehit #49 y
@@ -274,6 +275,13 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-20 — Logo blanco de Studio Universal**: se creó la variante local
+  `logos/catalogue/studiouniversallatinamerica-white.png` a partir del asset vigente, sustituyendo
+  el RGB de los píxeles visibles por blanco y conservando exactamente dimensiones y alfa. Se
+  asignó a las tres filas activas que usaban el logo oscuro (#66 Lista 1; #1019 y #1026 Lista 2);
+  no se sustituyó el arte base de los candidatos ni se alteraron EPG, fuentes o numeración.
+  `targeted_update.py --mode presentation`, test de píxeles/transparencia y suites completas Python
+  y JavaScript pasaron; el sello de aprobación del layout quedó validado.
 - **2026-10-20 — Telehit Música vuelve al logo anterior**: tras comprobar que el commit de fuente
   conservó `telehitmusica-mx.png`, se corrigió la fila estable `TelehitMusica.mx@SD` (#50) para
   usar `logos/catalogue/telehit-mx.png`, el logo anterior del Telehit general. La fila #099 está

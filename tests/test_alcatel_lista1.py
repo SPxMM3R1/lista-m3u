@@ -35,7 +35,7 @@ ALCATEL_LISTA1 = {
     },
     "PublicDirect.8b604de41196cd4fe991d551": {
         "name": "Studio Universal",
-        "logo": "logos/catalogue/studiouniversallatinamerica-us.png",
+        "logo": "logos/catalogue/studiouniversallatinamerica-white.png",
         "trial": False,
     },
     "PublicDirect.12addda8ba8591c579cdebfa": {
