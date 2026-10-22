@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generatedAt": "2026-10-22T21:54:04Z",
+ "generatedAt": "2026-10-22T22:07:13Z",
  "channels": [
   {
    "id": "0104",
@@ -9,7 +9,7 @@
    "keys": [
     "m3u:0104"
    ],
-   "guideSource": "tvn-oficial",
+   "guideSource": "cl",
    "manual": false,
    "lastStop": "2026-10-24T03:45:00Z"
   },
@@ -20,7 +20,7 @@
    "keys": [
     "m3u:0105"
    ],
-   "guideSource": "mega-oficial",
+   "guideSource": "cl",
    "manual": false,
    "lastStop": "2026-10-24T03:30:00Z"
   },
@@ -31,7 +31,7 @@
    "keys": [
     "m3u:0106"
    ],
-   "guideSource": "zapping-guia-publica",
+   "guideSource": "cl",
    "manual": false,
    "lastStop": "2026-10-26T03:30:00Z"
   },
@@ -42,7 +42,7 @@
    "keys": [
     "m3u:0107"
    ],
-   "guideSource": "canal13-abierto-oficial",
+   "guideSource": "cl",
    "manual": false,
    "lastStop": "2026-10-25T06:50:00Z"
   },
@@ -64,7 +64,7 @@
    "keys": [
     "m3u:0201"
    ],
-   "guideSource": "zapping-guia-publica",
+   "guideSource": "cl",
    "manual": false,
    "lastStop": "2026-10-24T03:00:00Z"
   },
@@ -108,7 +108,7 @@
    "keys": [
     "m3u:DW.de"
    ],
-   "guideSource": "dw-espanol-oficial",
+   "guideSource": "mx1",
    "manual": false,
    "lastStop": "2026-10-24T05:00:00Z"
   },
@@ -119,7 +119,7 @@
    "keys": [
     "m3u:DWEnglish.de"
    ],
-   "guideSource": "dw-english-oficial",
+   "guideSource": "fr",
    "manual": false,
    "lastStop": "2026-10-24T00:00:00Z"
   },
@@ -440,7 +440,7 @@
    "keys": [
     "m3u:RedBullWorldEnglish.int"
    ],
-   "guideSource": "red-bull-oficial",
+   "guideSource": "pluto",
    "manual": false,
    "lastStop": "2026-10-23T23:05:23Z"
   },
@@ -755,9 +755,20 @@
   {
    "id": "PublicDirect.0a04274ad9d7d306dc29ce60",
    "file": "PublicDirect.0a04274ad9d7d306dc29ce60.xml",
-   "name": "Otro - A&E",
+   "name": "A&E",
    "keys": [
     "m3u:PublicDirect.0a04274ad9d7d306dc29ce60"
+   ],
+   "guideSource": "mx1",
+   "manual": false,
+   "lastStop": "2026-10-24T05:00:00Z"
+  },
+  {
+   "id": "PublicDirect.19fbfbd8b220cd0fb65ac244",
+   "file": "PublicDirect.19fbfbd8b220cd0fb65ac244.xml",
+   "name": "A&E",
+   "keys": [
+    "m3u:PublicDirect.19fbfbd8b220cd0fb65ac244"
    ],
    "guideSource": "mx1",
    "manual": false,
@@ -1061,6 +1072,17 @@
    "lastStop": "2026-10-24T06:03:00Z"
   },
   {
+   "id": "AMC.co@Direct181",
+   "file": "AMC.co@Direct181.xml",
+   "name": "AMC",
+   "keys": [
+    "m3u:AMC.co@Direct181"
+   ],
+   "guideSource": "mx1",
+   "manual": false,
+   "lastStop": "2026-10-24T06:30:00Z"
+  },
+  {
    "id": "PublicDirect.249ed65759bdf19c7a64ac83",
    "file": "PublicDirect.249ed65759bdf19c7a64ac83.xml",
    "name": "AMC",
@@ -1110,6 +1132,17 @@
    "name": "AMC",
    "keys": [
     "m3u:PublicDirect.463a3cbd127eb31ba30b0f4c"
+   ],
+   "guideSource": "mx1",
+   "manual": false,
+   "lastStop": "2026-10-24T06:30:00Z"
+  },
+  {
+   "id": "PublicDirect.5c8f98d3876cb07b0c0884f6",
+   "file": "PublicDirect.5c8f98d3876cb07b0c0884f6.xml",
+   "name": "AMC",
+   "keys": [
+    "m3u:PublicDirect.5c8f98d3876cb07b0c0884f6"
    ],
    "guideSource": "mx1",
    "manual": false,
@@ -1314,6 +1347,17 @@
    "lastStop": "2026-10-24T05:36:00Z"
   },
   {
+   "id": "PublicDirect.21d595905b477139407f7250",
+   "file": "PublicDirect.21d595905b477139407f7250.xml",
+   "name": "Animal Planet",
+   "keys": [
+    "m3u:PublicDirect.21d595905b477139407f7250"
+   ],
+   "guideSource": "mx1",
+   "manual": false,
+   "lastStop": "2026-10-24T05:36:00Z"
+  },
+  {
    "id": "PublicDirect.25c1c7ace949976ca8d31f69",
    "file": "PublicDirect.25c1c7ace949976ca8d31f69.xml",
    "name": "Animal Planet",
@@ -1338,7 +1382,7 @@
   {
    "id": "PublicDirect.3a1787a300a17820db5a0bc5",
    "file": "PublicDirect.3a1787a300a17820db5a0bc5.xml",
-   "name": "CANAL 52 Animal Planet",
+   "name": "Animal Planet",
    "keys": [
     "m3u:PublicDirect.3a1787a300a17820db5a0bc5"
    ],
@@ -1514,7 +1558,7 @@
   {
    "id": "PublicDirect.06b0ac8fbd093e6a11cb3f30",
    "file": "PublicDirect.06b0ac8fbd093e6a11cb3f30.xml",
-   "name": "Atres Series",
+   "name": "Atreseries",
    "keys": [
     "m3u:PublicDirect.06b0ac8fbd093e6a11cb3f30"
    ],
@@ -1525,7 +1569,7 @@
   {
    "id": "PublicDirect.0f527e1f5ca5ad6be218a5fd",
    "file": "PublicDirect.0f527e1f5ca5ad6be218a5fd.xml",
-   "name": "Atres Series",
+   "name": "Atreseries",
    "keys": [
     "m3u:PublicDirect.0f527e1f5ca5ad6be218a5fd"
    ],
@@ -1536,7 +1580,7 @@
   {
    "id": "PublicDirect.1cc8fb0220a5a7859876f504",
    "file": "PublicDirect.1cc8fb0220a5a7859876f504.xml",
-   "name": "Atres Series",
+   "name": "Atreseries",
    "keys": [
     "m3u:PublicDirect.1cc8fb0220a5a7859876f504"
    ],
@@ -1547,7 +1591,7 @@
   {
    "id": "PublicDirect.2df9705398080726866c9721",
    "file": "PublicDirect.2df9705398080726866c9721.xml",
-   "name": "Atres Series",
+   "name": "Atreseries",
    "keys": [
     "m3u:PublicDirect.2df9705398080726866c9721"
    ],
@@ -1558,7 +1602,7 @@
   {
    "id": "PublicDirect.3fa7edd6bfab42bb8c1f3e15",
    "file": "PublicDirect.3fa7edd6bfab42bb8c1f3e15.xml",
-   "name": "Atres Series",
+   "name": "Atreseries",
    "keys": [
     "m3u:PublicDirect.3fa7edd6bfab42bb8c1f3e15"
    ],
@@ -1569,13 +1613,24 @@
   {
    "id": "PublicDirect.53d19ce9f06d728046c8039c",
    "file": "PublicDirect.53d19ce9f06d728046c8039c.xml",
-   "name": "Atr3s",
+   "name": "Atreseries",
    "keys": [
     "m3u:PublicDirect.53d19ce9f06d728046c8039c"
    ],
    "guideSource": "co1",
    "manual": false,
    "lastStop": "2026-10-24T00:45:00Z"
+  },
+  {
+   "id": "PublicDirect.07595a53d0527c27f68b4e29",
+   "file": "PublicDirect.07595a53d0527c27f68b4e29.xml",
+   "name": "AXN",
+   "keys": [
+    "m3u:PublicDirect.07595a53d0527c27f68b4e29"
+   ],
+   "guideSource": "mx1",
+   "manual": false,
+   "lastStop": "2026-10-24T05:35:00Z"
   },
   {
    "id": "PublicDirect.0a371d9f673afc6f1da936fd",
@@ -1811,7 +1866,7 @@
   {
    "id": "PublicDirect.baf256a60ecb200d152de395",
    "file": "PublicDirect.baf256a60ecb200d152de395.xml",
-   "name": "AXN Latin America - p",
+   "name": "AXN",
    "keys": [
     "m3u:PublicDirect.baf256a60ecb200d152de395"
    ],
@@ -1862,6 +1917,72 @@
    "guideSource": "nl",
    "manual": false,
    "lastStop": "2026-10-25T01:00:00Z"
+  },
+  {
+   "id": "PublicDirect.11c6a7fffcaf7ba1d61e1186",
+   "file": "PublicDirect.11c6a7fffcaf7ba1d61e1186.xml",
+   "name": "Canal 13",
+   "keys": [
+    "m3u:PublicDirect.11c6a7fffcaf7ba1d61e1186"
+   ],
+   "guideSource": "cl",
+   "manual": false,
+   "lastStop": "2026-10-24T00:00:00Z"
+  },
+  {
+   "id": "PublicDirect.12d30345143460844b8f968c",
+   "file": "PublicDirect.12d30345143460844b8f968c.xml",
+   "name": "Canal 13",
+   "keys": [
+    "m3u:PublicDirect.12d30345143460844b8f968c"
+   ],
+   "guideSource": "cl",
+   "manual": false,
+   "lastStop": "2026-10-24T00:00:00Z"
+  },
+  {
+   "id": "PublicDirect.2be182422f69d962afae4053",
+   "file": "PublicDirect.2be182422f69d962afae4053.xml",
+   "name": "Canal 13",
+   "keys": [
+    "m3u:PublicDirect.2be182422f69d962afae4053"
+   ],
+   "guideSource": "cl",
+   "manual": false,
+   "lastStop": "2026-10-24T00:00:00Z"
+  },
+  {
+   "id": "PublicDirect.711575de282125c84171bbee",
+   "file": "PublicDirect.711575de282125c84171bbee.xml",
+   "name": "Canal 13",
+   "keys": [
+    "m3u:PublicDirect.711575de282125c84171bbee"
+   ],
+   "guideSource": "cl",
+   "manual": false,
+   "lastStop": "2026-10-24T00:00:00Z"
+  },
+  {
+   "id": "PublicDirect.79f8514f8e1ffebfaf54d33c",
+   "file": "PublicDirect.79f8514f8e1ffebfaf54d33c.xml",
+   "name": "Canal 13",
+   "keys": [
+    "m3u:PublicDirect.79f8514f8e1ffebfaf54d33c"
+   ],
+   "guideSource": "cl",
+   "manual": false,
+   "lastStop": "2026-10-24T00:00:00Z"
+  },
+  {
+   "id": "PublicDirect.8baa0cba55b71f39a6480ef5",
+   "file": "PublicDirect.8baa0cba55b71f39a6480ef5.xml",
+   "name": "Canal 13",
+   "keys": [
+    "m3u:PublicDirect.8baa0cba55b71f39a6480ef5"
+   ],
+   "guideSource": "cl",
+   "manual": false,
+   "lastStop": "2026-10-24T00:00:00Z"
   },
   {
    "id": "PublicDirect.11e2d6f2d20ea8500bc4a261",
@@ -1976,7 +2097,7 @@
   {
    "id": "PublicDirect.b45325694cec25787e2f01af",
    "file": "PublicDirect.b45325694cec25787e2f01af.xml",
-   "name": "Cartoon Nt",
+   "name": "Cartoon Network",
    "keys": [
     "m3u:PublicDirect.b45325694cec25787e2f01af"
    ],
@@ -2009,7 +2130,7 @@
   {
    "id": "PublicDirect.ea2ff15fb7e0ef7886ac0418",
    "file": "PublicDirect.ea2ff15fb7e0ef7886ac0418.xml",
-   "name": "Canal 22 Cartoon Network",
+   "name": "Cartoon Network",
    "keys": [
     "m3u:PublicDirect.ea2ff15fb7e0ef7886ac0418"
    ],
@@ -2161,6 +2282,17 @@
    "lastStop": "2026-10-24T00:00:00Z"
   },
   {
+   "id": "Cinecanal.co@Direct181",
+   "file": "Cinecanal.co@Direct181.xml",
+   "name": "Cinecanal",
+   "keys": [
+    "m3u:Cinecanal.co@Direct181"
+   ],
+   "guideSource": "mx1",
+   "manual": false,
+   "lastStop": "2026-10-24T06:22:00Z"
+  },
+  {
    "id": "PublicDirect.0910a8c9ef59b231dee2e175",
    "file": "PublicDirect.0910a8c9ef59b231dee2e175.xml",
    "name": "Cinecanal",
@@ -2295,7 +2427,7 @@
   {
    "id": "PublicDirect.7d974124acfe865221f5019c",
    "file": "PublicDirect.7d974124acfe865221f5019c.xml",
-   "name": "Canal 73 Cinecanal",
+   "name": "Cinecanal",
    "keys": [
     "m3u:PublicDirect.7d974124acfe865221f5019c"
    ],
@@ -2416,7 +2548,7 @@
   {
    "id": "PublicDirect.eb83a12b5f2954bff45461e2",
    "file": "PublicDirect.eb83a12b5f2954bff45461e2.xml",
-   "name": "Cinecanal Colombia (CC26)",
+   "name": "Cinecanal Colombia",
    "keys": [
     "m3u:PublicDirect.eb83a12b5f2954bff45461e2"
    ],
@@ -2537,24 +2669,13 @@
   {
    "id": "PublicDirect.eb9589f0b2625064d1b99394",
    "file": "PublicDirect.eb9589f0b2625064d1b99394.xml",
-   "name": "Claro SPORT2",
+   "name": "Claro Sports 2",
    "keys": [
     "m3u:PublicDirect.eb9589f0b2625064d1b99394"
    ],
    "guideSource": "fr",
    "manual": false,
    "lastStop": "2026-10-24T20:55:00Z"
-  },
-  {
-   "id": "PublicDirect.f12b31068d9ee4d35a25ed1f",
-   "file": "PublicDirect.f12b31068d9ee4d35a25ed1f.xml",
-   "name": "Claro Sports 3",
-   "keys": [
-    "m3u:PublicDirect.f12b31068d9ee4d35a25ed1f"
-   ],
-   "guideSource": "de",
-   "manual": false,
-   "lastStop": "2026-10-25T01:45:00Z"
   },
   {
    "id": "PublicDirect.b0520516f6e177b3c5a43813",
@@ -2603,7 +2724,7 @@
   {
    "id": "PublicDirect.1c67bd8e5eefc21d4142fb04",
    "file": "PublicDirect.1c67bd8e5eefc21d4142fb04.xml",
-   "name": "Comedi Central",
+   "name": "Comedy Central",
    "keys": [
     "m3u:PublicDirect.1c67bd8e5eefc21d4142fb04"
    ],
@@ -2966,7 +3087,7 @@
   {
    "id": "PublicDirect.30a20d476f04a8d483ea8916",
    "file": "PublicDirect.30a20d476f04a8d483ea8916.xml",
-   "name": "Home & Health",
+   "name": "Discovery Home & Health",
    "keys": [
     "m3u:PublicDirect.30a20d476f04a8d483ea8916"
    ],
@@ -2977,7 +3098,7 @@
   {
    "id": "PublicDirect.3c165c9276ab931849ccf92e",
    "file": "PublicDirect.3c165c9276ab931849ccf92e.xml",
-   "name": "Home & Health",
+   "name": "Discovery Home & Health",
    "keys": [
     "m3u:PublicDirect.3c165c9276ab931849ccf92e"
    ],
@@ -2988,7 +3109,7 @@
   {
    "id": "PublicDirect.3e3d1958bc5e1a581f2d3a2c",
    "file": "PublicDirect.3e3d1958bc5e1a581f2d3a2c.xml",
-   "name": "Discovery H&H",
+   "name": "Discovery Home & Health",
    "keys": [
     "m3u:PublicDirect.3e3d1958bc5e1a581f2d3a2c"
    ],
@@ -2999,7 +3120,7 @@
   {
    "id": "PublicDirect.49775863507f147e787c6d24",
    "file": "PublicDirect.49775863507f147e787c6d24.xml",
-   "name": "Home & Health",
+   "name": "Discovery Home & Health",
    "keys": [
     "m3u:PublicDirect.49775863507f147e787c6d24"
    ],
@@ -3010,7 +3131,7 @@
   {
    "id": "PublicDirect.5409959223884179fd4a9bf5",
    "file": "PublicDirect.5409959223884179fd4a9bf5.xml",
-   "name": "Discovery H&H",
+   "name": "Discovery Home & Health",
    "keys": [
     "m3u:PublicDirect.5409959223884179fd4a9bf5"
    ],
@@ -3021,7 +3142,7 @@
   {
    "id": "PublicDirect.827f01df2e2b6cd9450ab3e5",
    "file": "PublicDirect.827f01df2e2b6cd9450ab3e5.xml",
-   "name": "Home & Health",
+   "name": "Discovery Home & Health",
    "keys": [
     "m3u:PublicDirect.827f01df2e2b6cd9450ab3e5"
    ],
@@ -3032,7 +3153,7 @@
   {
    "id": "PublicDirect.99821dcd1bded6a849bd176b",
    "file": "PublicDirect.99821dcd1bded6a849bd176b.xml",
-   "name": "Home & Health",
+   "name": "Discovery Home & Health",
    "keys": [
     "m3u:PublicDirect.99821dcd1bded6a849bd176b"
    ],
@@ -3043,7 +3164,7 @@
   {
    "id": "PublicDirect.99e41dccadcbf7aa394faedf",
    "file": "PublicDirect.99e41dccadcbf7aa394faedf.xml",
-   "name": "Discovery H&H",
+   "name": "Discovery Home & Health",
    "keys": [
     "m3u:PublicDirect.99e41dccadcbf7aa394faedf"
    ],
@@ -3054,7 +3175,7 @@
   {
    "id": "PublicDirect.9f003265c0f3d22aad83ce84",
    "file": "PublicDirect.9f003265c0f3d22aad83ce84.xml",
-   "name": "Home & Health",
+   "name": "Discovery Home & Health",
    "keys": [
     "m3u:PublicDirect.9f003265c0f3d22aad83ce84"
    ],
@@ -3065,7 +3186,7 @@
   {
    "id": "PublicDirect.c7bad7a3db12748c3b6d1d4a",
    "file": "PublicDirect.c7bad7a3db12748c3b6d1d4a.xml",
-   "name": "Discovery H&H",
+   "name": "Discovery Home & Health",
    "keys": [
     "m3u:PublicDirect.c7bad7a3db12748c3b6d1d4a"
    ],
@@ -3076,7 +3197,7 @@
   {
    "id": "PublicDirect.d5559c7864a426bbb639f235",
    "file": "PublicDirect.d5559c7864a426bbb639f235.xml",
-   "name": "H&h",
+   "name": "Discovery Home & Health",
    "keys": [
     "m3u:PublicDirect.d5559c7864a426bbb639f235"
    ],
@@ -3087,7 +3208,7 @@
   {
    "id": "PublicDirect.de23769b06120b586bed0ac3",
    "file": "PublicDirect.de23769b06120b586bed0ac3.xml",
-   "name": "Home & Health",
+   "name": "Discovery Home & Health",
    "keys": [
     "m3u:PublicDirect.de23769b06120b586bed0ac3"
    ],
@@ -3098,7 +3219,7 @@
   {
    "id": "PublicDirect.ea6278a3b9f88ecd64a19d76",
    "file": "PublicDirect.ea6278a3b9f88ecd64a19d76.xml",
-   "name": "Discovery Home Health",
+   "name": "Discovery Home & Health",
    "keys": [
     "m3u:PublicDirect.ea6278a3b9f88ecd64a19d76"
    ],
@@ -3164,7 +3285,7 @@
   {
    "id": "PublicDirect.3ffb3bc8ab2a18bf6fbdd7a4",
    "file": "PublicDirect.3ffb3bc8ab2a18bf6fbdd7a4.xml",
-   "name": "Discovery Theather",
+   "name": "Discovery Theater",
    "keys": [
     "m3u:PublicDirect.3ffb3bc8ab2a18bf6fbdd7a4"
    ],
@@ -3186,7 +3307,7 @@
   {
    "id": "PublicDirect.6cfd7954915a29da1a31e438",
    "file": "PublicDirect.6cfd7954915a29da1a31e438.xml",
-   "name": "Disc Theather",
+   "name": "Discovery Theater",
    "keys": [
     "m3u:PublicDirect.6cfd7954915a29da1a31e438"
    ],
@@ -3197,7 +3318,7 @@
   {
    "id": "PublicDirect.73f723df5a9d1193862f0d33",
    "file": "PublicDirect.73f723df5a9d1193862f0d33.xml",
-   "name": "Disc Theather",
+   "name": "Discovery Theater",
    "keys": [
     "m3u:PublicDirect.73f723df5a9d1193862f0d33"
    ],
@@ -3230,7 +3351,7 @@
   {
    "id": "PublicDirect.b63c050525dde158c55c09df",
    "file": "PublicDirect.b63c050525dde158c55c09df.xml",
-   "name": "Discovery Theather",
+   "name": "Discovery Theater",
    "keys": [
     "m3u:PublicDirect.b63c050525dde158c55c09df"
    ],
@@ -3241,7 +3362,7 @@
   {
    "id": "PublicDirect.b7334ae4ec0c4def3fd367db",
    "file": "PublicDirect.b7334ae4ec0c4def3fd367db.xml",
-   "name": "Disc Theather",
+   "name": "Discovery Theater",
    "keys": [
     "m3u:PublicDirect.b7334ae4ec0c4def3fd367db"
    ],
@@ -3263,7 +3384,7 @@
   {
    "id": "PublicDirect.c6228c9711433418079a21f2",
    "file": "PublicDirect.c6228c9711433418079a21f2.xml",
-   "name": "Disc Theather",
+   "name": "Discovery Theater",
    "keys": [
     "m3u:PublicDirect.c6228c9711433418079a21f2"
    ],
@@ -3285,7 +3406,7 @@
   {
    "id": "PublicDirect.d3b8d6f855a45516f96301b5",
    "file": "PublicDirect.d3b8d6f855a45516f96301b5.xml",
-   "name": "Disc Theather",
+   "name": "Discovery Theater",
    "keys": [
     "m3u:PublicDirect.d3b8d6f855a45516f96301b5"
    ],
@@ -3307,7 +3428,7 @@
   {
    "id": "PublicDirect.dd108cc896c904c73acf8368",
    "file": "PublicDirect.dd108cc896c904c73acf8368.xml",
-   "name": "Disc Theather",
+   "name": "Discovery Theater",
    "keys": [
     "m3u:PublicDirect.dd108cc896c904c73acf8368"
    ],
@@ -3318,7 +3439,7 @@
   {
    "id": "PublicDirect.e45612c4e304fd7ca70dc624",
    "file": "PublicDirect.e45612c4e304fd7ca70dc624.xml",
-   "name": "Disc Theather",
+   "name": "Discovery Theater",
    "keys": [
     "m3u:PublicDirect.e45612c4e304fd7ca70dc624"
    ],
@@ -3615,7 +3736,7 @@
   {
    "id": "PublicDirect.a79785109ffd24e9af2718ab",
    "file": "PublicDirect.a79785109ffd24e9af2718ab.xml",
-   "name": "D-sport",
+   "name": "DSports",
    "keys": [
     "m3u:PublicDirect.a79785109ffd24e9af2718ab"
    ],
@@ -3626,11 +3747,33 @@
   {
    "id": "PublicDirect.0ed39511f734024b2ff7f9a2",
    "file": "PublicDirect.0ed39511f734024b2ff7f9a2.xml",
-   "name": "Gurmet",
+   "name": "El Gourmet",
    "keys": [
     "m3u:PublicDirect.0ed39511f734024b2ff7f9a2"
    ],
    "guideSource": "co1",
+   "manual": false,
+   "lastStop": "2026-10-24T00:00:00Z"
+  },
+  {
+   "id": "PublicDirect.09d27a791649fd8ece22c9da",
+   "file": "PublicDirect.09d27a791649fd8ece22c9da.xml",
+   "name": "ESPN",
+   "keys": [
+    "m3u:PublicDirect.09d27a791649fd8ece22c9da"
+   ],
+   "guideSource": "cl",
+   "manual": false,
+   "lastStop": "2026-10-24T00:00:00Z"
+  },
+  {
+   "id": "PublicDirect.101f497805f32d1b12b1553d",
+   "file": "PublicDirect.101f497805f32d1b12b1553d.xml",
+   "name": "ESPN",
+   "keys": [
+    "m3u:PublicDirect.101f497805f32d1b12b1553d"
+   ],
+   "guideSource": "cl",
    "manual": false,
    "lastStop": "2026-10-24T00:00:00Z"
   },
@@ -3644,6 +3787,17 @@
    "guideSource": "ar1",
    "manual": false,
    "lastStop": "2026-10-25T05:30:00Z"
+  },
+  {
+   "id": "PublicDirect.160c2cb1e8f8ab7da88c8f6b",
+   "file": "PublicDirect.160c2cb1e8f8ab7da88c8f6b.xml",
+   "name": "ESPN",
+   "keys": [
+    "m3u:PublicDirect.160c2cb1e8f8ab7da88c8f6b"
+   ],
+   "guideSource": "cl",
+   "manual": false,
+   "lastStop": "2026-10-24T00:00:00Z"
   },
   {
    "id": "PublicDirect.1f892d22eaed3e2aaa5a8bc6",
@@ -3670,7 +3824,7 @@
   {
    "id": "PublicDirect.3ad2ef9940e2175f07ba53b9",
    "file": "PublicDirect.3ad2ef9940e2175f07ba53b9.xml",
-   "name": "ESPN 1",
+   "name": "ESPN",
    "keys": [
     "m3u:PublicDirect.3ad2ef9940e2175f07ba53b9"
    ],
@@ -3692,7 +3846,7 @@
   {
    "id": "PublicDirect.3c93c3a97d11cf503ad2345f",
    "file": "PublicDirect.3c93c3a97d11cf503ad2345f.xml",
-   "name": "ESPN 1",
+   "name": "ESPN",
    "keys": [
     "m3u:PublicDirect.3c93c3a97d11cf503ad2345f"
    ],
@@ -3712,15 +3866,59 @@
    "lastStop": "2026-10-25T05:30:00Z"
   },
   {
+   "id": "PublicDirect.4b049f33fec700f920c7a19b",
+   "file": "PublicDirect.4b049f33fec700f920c7a19b.xml",
+   "name": "ESPN",
+   "keys": [
+    "m3u:PublicDirect.4b049f33fec700f920c7a19b"
+   ],
+   "guideSource": "cl",
+   "manual": false,
+   "lastStop": "2026-10-24T00:00:00Z"
+  },
+  {
    "id": "PublicDirect.4ded1fad9c0f880605cfe8fa",
    "file": "PublicDirect.4ded1fad9c0f880605cfe8fa.xml",
-   "name": "ESPN 1",
+   "name": "ESPN",
    "keys": [
     "m3u:PublicDirect.4ded1fad9c0f880605cfe8fa"
    ],
    "guideSource": "ar1",
    "manual": false,
    "lastStop": "2026-10-25T05:30:00Z"
+  },
+  {
+   "id": "PublicDirect.52e2a90f3dee03a0fe8d012c",
+   "file": "PublicDirect.52e2a90f3dee03a0fe8d012c.xml",
+   "name": "ESPN",
+   "keys": [
+    "m3u:PublicDirect.52e2a90f3dee03a0fe8d012c"
+   ],
+   "guideSource": "cl",
+   "manual": false,
+   "lastStop": "2026-10-24T00:00:00Z"
+  },
+  {
+   "id": "PublicDirect.56d8924c8436259a52fce4e5",
+   "file": "PublicDirect.56d8924c8436259a52fce4e5.xml",
+   "name": "ESPN",
+   "keys": [
+    "m3u:PublicDirect.56d8924c8436259a52fce4e5"
+   ],
+   "guideSource": "cl",
+   "manual": false,
+   "lastStop": "2026-10-24T00:00:00Z"
+  },
+  {
+   "id": "PublicDirect.815fbeb4ed050a21a53444ed",
+   "file": "PublicDirect.815fbeb4ed050a21a53444ed.xml",
+   "name": "ESPN",
+   "keys": [
+    "m3u:PublicDirect.815fbeb4ed050a21a53444ed"
+   ],
+   "guideSource": "cl",
+   "manual": false,
+   "lastStop": "2026-10-24T00:00:00Z"
   },
   {
    "id": "PublicDirect.925bf8e9e6c2861e30226d3a",
@@ -3791,7 +3989,7 @@
   {
    "id": "PublicDirect.cb15627abb48f22217500563",
    "file": "PublicDirect.cb15627abb48f22217500563.xml",
-   "name": "ESPN 1",
+   "name": "ESPN",
    "keys": [
     "m3u:PublicDirect.cb15627abb48f22217500563"
    ],
@@ -3822,6 +4020,28 @@
    "lastStop": "2026-10-25T05:30:00Z"
   },
   {
+   "id": "PublicDirect.dcd8868ec2ff980d13c48e61",
+   "file": "PublicDirect.dcd8868ec2ff980d13c48e61.xml",
+   "name": "ESPN",
+   "keys": [
+    "m3u:PublicDirect.dcd8868ec2ff980d13c48e61"
+   ],
+   "guideSource": "cl",
+   "manual": false,
+   "lastStop": "2026-10-24T00:00:00Z"
+  },
+  {
+   "id": "PublicDirect.e6323513bd9687fbebbd3408",
+   "file": "PublicDirect.e6323513bd9687fbebbd3408.xml",
+   "name": "ESPN",
+   "keys": [
+    "m3u:PublicDirect.e6323513bd9687fbebbd3408"
+   ],
+   "guideSource": "cl",
+   "manual": false,
+   "lastStop": "2026-10-24T00:00:00Z"
+  },
+  {
    "id": "PublicDirect.e9ba68c6b2f7f44a57ce29c9",
    "file": "PublicDirect.e9ba68c6b2f7f44a57ce29c9.xml",
    "name": "ESPN",
@@ -3833,6 +4053,17 @@
    "lastStop": "2026-10-25T05:30:00Z"
   },
   {
+   "id": "PublicDirect.ed257af8545fbd169b50f189",
+   "file": "PublicDirect.ed257af8545fbd169b50f189.xml",
+   "name": "ESPN",
+   "keys": [
+    "m3u:PublicDirect.ed257af8545fbd169b50f189"
+   ],
+   "guideSource": "cl",
+   "manual": false,
+   "lastStop": "2026-10-24T00:00:00Z"
+  },
+  {
    "id": "PublicDirect.f0fa6b37cb971c681b0d09b6",
    "file": "PublicDirect.f0fa6b37cb971c681b0d09b6.xml",
    "name": "ESPN",
@@ -3842,6 +4073,17 @@
    "guideSource": "ar1",
    "manual": false,
    "lastStop": "2026-10-25T05:30:00Z"
+  },
+  {
+   "id": "PublicDirect.f3f466356fcf500b5d2d69ae",
+   "file": "PublicDirect.f3f466356fcf500b5d2d69ae.xml",
+   "name": "ESPN",
+   "keys": [
+    "m3u:PublicDirect.f3f466356fcf500b5d2d69ae"
+   ],
+   "guideSource": "cl",
+   "manual": false,
+   "lastStop": "2026-10-24T00:00:00Z"
   },
   {
    "id": "PublicDirect.f58a422ec82de47f83818d39",
@@ -3943,6 +4185,28 @@
    "lastStop": "2026-10-24T00:00:00Z"
   },
   {
+   "id": "PublicDirect.21b740ebf12edc120fe22f81",
+   "file": "PublicDirect.21b740ebf12edc120fe22f81.xml",
+   "name": "ESPN 2",
+   "keys": [
+    "m3u:PublicDirect.21b740ebf12edc120fe22f81"
+   ],
+   "guideSource": "uy1",
+   "manual": false,
+   "lastStop": "2026-10-24T06:00:00Z"
+  },
+  {
+   "id": "PublicDirect.29545f73b4791cab07ecb4ed",
+   "file": "PublicDirect.29545f73b4791cab07ecb4ed.xml",
+   "name": "ESPN 2",
+   "keys": [
+    "m3u:PublicDirect.29545f73b4791cab07ecb4ed"
+   ],
+   "guideSource": "uy1",
+   "manual": false,
+   "lastStop": "2026-10-24T06:00:00Z"
+  },
+  {
    "id": "PublicDirect.303072897f547e395978196c",
    "file": "PublicDirect.303072897f547e395978196c.xml",
    "name": "ESPN 2",
@@ -3954,6 +4218,28 @@
    "lastStop": "2026-10-24T00:00:00Z"
   },
   {
+   "id": "PublicDirect.41364d2a9d006e1c2050f21b",
+   "file": "PublicDirect.41364d2a9d006e1c2050f21b.xml",
+   "name": "ESPN 2",
+   "keys": [
+    "m3u:PublicDirect.41364d2a9d006e1c2050f21b"
+   ],
+   "guideSource": "uy1",
+   "manual": false,
+   "lastStop": "2026-10-24T06:00:00Z"
+  },
+  {
+   "id": "PublicDirect.42095e66e7aa9b52a50125ae",
+   "file": "PublicDirect.42095e66e7aa9b52a50125ae.xml",
+   "name": "ESPN 2",
+   "keys": [
+    "m3u:PublicDirect.42095e66e7aa9b52a50125ae"
+   ],
+   "guideSource": "uy1",
+   "manual": false,
+   "lastStop": "2026-10-24T06:00:00Z"
+  },
+  {
    "id": "PublicDirect.4c4f25512dc26528b8133d9f",
    "file": "PublicDirect.4c4f25512dc26528b8133d9f.xml",
    "name": "ESPN 2",
@@ -3963,6 +4249,17 @@
    "guideSource": "ar1",
    "manual": false,
    "lastStop": "2026-10-24T00:00:00Z"
+  },
+  {
+   "id": "PublicDirect.4d0eb277fe4eb7e15a73dd7a",
+   "file": "PublicDirect.4d0eb277fe4eb7e15a73dd7a.xml",
+   "name": "ESPN 2",
+   "keys": [
+    "m3u:PublicDirect.4d0eb277fe4eb7e15a73dd7a"
+   ],
+   "guideSource": "uy1",
+   "manual": false,
+   "lastStop": "2026-10-24T06:00:00Z"
   },
   {
    "id": "PublicDirect.4d1dfc5f7e43cb512abcb0fd",
@@ -3985,6 +4282,17 @@
    "guideSource": "ar1",
    "manual": false,
    "lastStop": "2026-10-24T00:00:00Z"
+  },
+  {
+   "id": "PublicDirect.78f61ec86ce277cda1ad39f6",
+   "file": "PublicDirect.78f61ec86ce277cda1ad39f6.xml",
+   "name": "ESPN 2",
+   "keys": [
+    "m3u:PublicDirect.78f61ec86ce277cda1ad39f6"
+   ],
+   "guideSource": "uy1",
+   "manual": false,
+   "lastStop": "2026-10-24T06:00:00Z"
   },
   {
    "id": "PublicDirect.7d34c4271e91e27a6a9cca02",
@@ -4064,6 +4372,28 @@
    "lastStop": "2026-10-24T00:00:00Z"
   },
   {
+   "id": "PublicDirect.b77f1d29fbaf37804e8fc000",
+   "file": "PublicDirect.b77f1d29fbaf37804e8fc000.xml",
+   "name": "ESPN 2",
+   "keys": [
+    "m3u:PublicDirect.b77f1d29fbaf37804e8fc000"
+   ],
+   "guideSource": "uy1",
+   "manual": false,
+   "lastStop": "2026-10-24T06:00:00Z"
+  },
+  {
+   "id": "PublicDirect.ce8756a8f2f3c2420f26865f",
+   "file": "PublicDirect.ce8756a8f2f3c2420f26865f.xml",
+   "name": "ESPN 2",
+   "keys": [
+    "m3u:PublicDirect.ce8756a8f2f3c2420f26865f"
+   ],
+   "guideSource": "uy1",
+   "manual": false,
+   "lastStop": "2026-10-24T06:00:00Z"
+  },
+  {
    "id": "PublicDirect.d7639e806e2ab3af5d2ed1d1",
    "file": "PublicDirect.d7639e806e2ab3af5d2ed1d1.xml",
    "name": "ESPN 2",
@@ -4095,6 +4425,17 @@
    "guideSource": "ar1",
    "manual": false,
    "lastStop": "2026-10-24T00:00:00Z"
+  },
+  {
+   "id": "PublicDirect.ffc0253de60974af959e3220",
+   "file": "PublicDirect.ffc0253de60974af959e3220.xml",
+   "name": "ESPN 2",
+   "keys": [
+    "m3u:PublicDirect.ffc0253de60974af959e3220"
+   ],
+   "guideSource": "uy1",
+   "manual": false,
+   "lastStop": "2026-10-24T06:00:00Z"
   },
   {
    "id": "M6Foot.88@M6Foot",
@@ -4152,6 +4493,17 @@
    "lastStop": "2026-10-24T00:00:00Z"
   },
   {
+   "id": "PublicDirect.01a707099056fe8688ce5d0b",
+   "file": "PublicDirect.01a707099056fe8688ce5d0b.xml",
+   "name": "ESPN 3",
+   "keys": [
+    "m3u:PublicDirect.01a707099056fe8688ce5d0b"
+   ],
+   "guideSource": "cl",
+   "manual": false,
+   "lastStop": "2026-10-24T00:00:00Z"
+  },
+  {
    "id": "PublicDirect.0be3dafc87397bb527a0eba2",
    "file": "PublicDirect.0be3dafc87397bb527a0eba2.xml",
    "name": "ESPN 3",
@@ -4181,6 +4533,28 @@
     "m3u:PublicDirect.27ce32df0fdf69cae5b98fe6"
    ],
    "guideSource": "ar1",
+   "manual": false,
+   "lastStop": "2026-10-24T00:00:00Z"
+  },
+  {
+   "id": "PublicDirect.29ce9a32b090eb790015a2e5",
+   "file": "PublicDirect.29ce9a32b090eb790015a2e5.xml",
+   "name": "ESPN 3",
+   "keys": [
+    "m3u:PublicDirect.29ce9a32b090eb790015a2e5"
+   ],
+   "guideSource": "cl",
+   "manual": false,
+   "lastStop": "2026-10-24T00:00:00Z"
+  },
+  {
+   "id": "PublicDirect.446eb5946d9e6996e27abc78",
+   "file": "PublicDirect.446eb5946d9e6996e27abc78.xml",
+   "name": "ESPN 3",
+   "keys": [
+    "m3u:PublicDirect.446eb5946d9e6996e27abc78"
+   ],
+   "guideSource": "cl",
    "manual": false,
    "lastStop": "2026-10-24T00:00:00Z"
   },
@@ -4251,6 +4625,17 @@
    "lastStop": "2026-10-24T00:00:00Z"
   },
   {
+   "id": "PublicDirect.86989f7c634714e72803f142",
+   "file": "PublicDirect.86989f7c634714e72803f142.xml",
+   "name": "ESPN 3",
+   "keys": [
+    "m3u:PublicDirect.86989f7c634714e72803f142"
+   ],
+   "guideSource": "cl",
+   "manual": false,
+   "lastStop": "2026-10-24T00:00:00Z"
+  },
+  {
    "id": "PublicDirect.8a1b51c8de903fd12e191c4a",
    "file": "PublicDirect.8a1b51c8de903fd12e191c4a.xml",
    "name": "ESPN 3",
@@ -4313,6 +4698,39 @@
     "m3u:PublicDirect.b012cef742d548680a5d702f"
    ],
    "guideSource": "ar1",
+   "manual": false,
+   "lastStop": "2026-10-24T00:00:00Z"
+  },
+  {
+   "id": "PublicDirect.d1484c227bed7e7987e0c647",
+   "file": "PublicDirect.d1484c227bed7e7987e0c647.xml",
+   "name": "ESPN 3",
+   "keys": [
+    "m3u:PublicDirect.d1484c227bed7e7987e0c647"
+   ],
+   "guideSource": "cl",
+   "manual": false,
+   "lastStop": "2026-10-24T00:00:00Z"
+  },
+  {
+   "id": "PublicDirect.d2620c76f6ba590fea0f2085",
+   "file": "PublicDirect.d2620c76f6ba590fea0f2085.xml",
+   "name": "ESPN 3",
+   "keys": [
+    "m3u:PublicDirect.d2620c76f6ba590fea0f2085"
+   ],
+   "guideSource": "cl",
+   "manual": false,
+   "lastStop": "2026-10-24T00:00:00Z"
+  },
+  {
+   "id": "PublicDirect.dc6855efb9035607de683047",
+   "file": "PublicDirect.dc6855efb9035607de683047.xml",
+   "name": "ESPN 3",
+   "keys": [
+    "m3u:PublicDirect.dc6855efb9035607de683047"
+   ],
+   "guideSource": "cl",
    "manual": false,
    "lastStop": "2026-10-24T00:00:00Z"
   },
@@ -4823,6 +5241,28 @@
    "lastStop": "2026-10-24T00:00:00Z"
   },
   {
+   "id": "PublicDirect.bc1cc78f509f57eee0e09ccc",
+   "file": "PublicDirect.bc1cc78f509f57eee0e09ccc.xml",
+   "name": "ESPN 5",
+   "keys": [
+    "m3u:PublicDirect.bc1cc78f509f57eee0e09ccc"
+   ],
+   "guideSource": "uy1",
+   "manual": false,
+   "lastStop": "2026-10-24T03:00:00Z"
+  },
+  {
+   "id": "PublicDirect.c89ec6435039defded0a1de2",
+   "file": "PublicDirect.c89ec6435039defded0a1de2.xml",
+   "name": "ESPN 5",
+   "keys": [
+    "m3u:PublicDirect.c89ec6435039defded0a1de2"
+   ],
+   "guideSource": "uy1",
+   "manual": false,
+   "lastStop": "2026-10-24T03:00:00Z"
+  },
+  {
    "id": "PublicDirect.e13a9452e23f7604db14e269",
    "file": "PublicDirect.e13a9452e23f7604db14e269.xml",
    "name": "ESPN 5",
@@ -4832,6 +5272,17 @@
    "guideSource": "co1",
    "manual": false,
    "lastStop": "2026-10-24T00:00:00Z"
+  },
+  {
+   "id": "PublicDirect.e68eb1914a6f5713fbfb97fa",
+   "file": "PublicDirect.e68eb1914a6f5713fbfb97fa.xml",
+   "name": "ESPN 5",
+   "keys": [
+    "m3u:PublicDirect.e68eb1914a6f5713fbfb97fa"
+   ],
+   "guideSource": "uy1",
+   "manual": false,
+   "lastStop": "2026-10-24T03:00:00Z"
   },
   {
    "id": "PublicDirect.e952ec3a95b11de9bde9e2f4",
@@ -4867,15 +5318,37 @@
    "lastStop": "2026-10-24T00:00:00Z"
   },
   {
+   "id": "PublicDirect.feeaa817e5b32bdb2a07a3a9",
+   "file": "PublicDirect.feeaa817e5b32bdb2a07a3a9.xml",
+   "name": "ESPN 5",
+   "keys": [
+    "m3u:PublicDirect.feeaa817e5b32bdb2a07a3a9"
+   ],
+   "guideSource": "uy1",
+   "manual": false,
+   "lastStop": "2026-10-24T03:00:00Z"
+  },
+  {
    "id": "PublicDirect.7b33a82dca560712171ccf55",
    "file": "PublicDirect.7b33a82dca560712171ccf55.xml",
-   "name": "ESPN 5 Sur (ESPN07)",
+   "name": "ESPN 5 Sur",
    "keys": [
     "m3u:PublicDirect.7b33a82dca560712171ccf55"
    ],
    "guideSource": "co1",
    "manual": false,
    "lastStop": "2026-10-24T00:00:00Z"
+  },
+  {
+   "id": "ESPN6.co@Direct181",
+   "file": "ESPN6.co@Direct181.xml",
+   "name": "ESPN 6",
+   "keys": [
+    "m3u:ESPN6.co@Direct181"
+   ],
+   "guideSource": "co1",
+   "manual": false,
+   "lastStop": "2026-10-24T01:00:00Z"
   },
   {
    "id": "PublicDirect.11ec3e5f7504067ab1ffdd8b",
@@ -4944,6 +5417,39 @@
    "lastStop": "2026-10-24T01:00:00Z"
   },
   {
+   "id": "PublicDirect.5c1cfec4bf3e4c0613742865",
+   "file": "PublicDirect.5c1cfec4bf3e4c0613742865.xml",
+   "name": "ESPN 6",
+   "keys": [
+    "m3u:PublicDirect.5c1cfec4bf3e4c0613742865"
+   ],
+   "guideSource": "co1",
+   "manual": false,
+   "lastStop": "2026-10-24T01:00:00Z"
+  },
+  {
+   "id": "PublicDirect.652fd7bc84d7b4cf7f041a13",
+   "file": "PublicDirect.652fd7bc84d7b4cf7f041a13.xml",
+   "name": "ESPN 6",
+   "keys": [
+    "m3u:PublicDirect.652fd7bc84d7b4cf7f041a13"
+   ],
+   "guideSource": "co1",
+   "manual": false,
+   "lastStop": "2026-10-24T01:00:00Z"
+  },
+  {
+   "id": "PublicDirect.7755e8564b0a908a45895ac9",
+   "file": "PublicDirect.7755e8564b0a908a45895ac9.xml",
+   "name": "ESPN 6",
+   "keys": [
+    "m3u:PublicDirect.7755e8564b0a908a45895ac9"
+   ],
+   "guideSource": "co1",
+   "manual": false,
+   "lastStop": "2026-10-24T01:00:00Z"
+  },
+  {
    "id": "PublicDirect.88d47183663dc09dcf151949",
    "file": "PublicDirect.88d47183663dc09dcf151949.xml",
    "name": "ESPN 6",
@@ -4977,11 +5483,44 @@
    "lastStop": "2026-10-24T01:00:00Z"
   },
   {
+   "id": "PublicDirect.8ec9b91a89c1d10f5a09dd34",
+   "file": "PublicDirect.8ec9b91a89c1d10f5a09dd34.xml",
+   "name": "ESPN 6",
+   "keys": [
+    "m3u:PublicDirect.8ec9b91a89c1d10f5a09dd34"
+   ],
+   "guideSource": "co1",
+   "manual": false,
+   "lastStop": "2026-10-24T01:00:00Z"
+  },
+  {
    "id": "PublicDirect.9d6c3f1864f3f6a5265dd81e",
    "file": "PublicDirect.9d6c3f1864f3f6a5265dd81e.xml",
    "name": "ESPN 6",
    "keys": [
     "m3u:PublicDirect.9d6c3f1864f3f6a5265dd81e"
+   ],
+   "guideSource": "co1",
+   "manual": false,
+   "lastStop": "2026-10-24T01:00:00Z"
+  },
+  {
+   "id": "PublicDirect.a2393059934691816e983c51",
+   "file": "PublicDirect.a2393059934691816e983c51.xml",
+   "name": "ESPN 6",
+   "keys": [
+    "m3u:PublicDirect.a2393059934691816e983c51"
+   ],
+   "guideSource": "co1",
+   "manual": false,
+   "lastStop": "2026-10-24T01:00:00Z"
+  },
+  {
+   "id": "PublicDirect.a4c150205cd76e5cb0c45065",
+   "file": "PublicDirect.a4c150205cd76e5cb0c45065.xml",
+   "name": "ESPN 6",
+   "keys": [
+    "m3u:PublicDirect.a4c150205cd76e5cb0c45065"
    ],
    "guideSource": "co1",
    "manual": false,
@@ -5010,9 +5549,97 @@
    "lastStop": "2026-10-24T02:00:00Z"
   },
   {
+   "id": "PublicDirect.415f7d17f3e03b63985d8463",
+   "file": "PublicDirect.415f7d17f3e03b63985d8463.xml",
+   "name": "ESPN 7",
+   "keys": [
+    "m3u:PublicDirect.415f7d17f3e03b63985d8463"
+   ],
+   "guideSource": "uy1",
+   "manual": false,
+   "lastStop": "2026-10-24T05:00:00Z"
+  },
+  {
+   "id": "PublicDirect.41918e20a413e2063f33fc88",
+   "file": "PublicDirect.41918e20a413e2063f33fc88.xml",
+   "name": "ESPN 7",
+   "keys": [
+    "m3u:PublicDirect.41918e20a413e2063f33fc88"
+   ],
+   "guideSource": "uy1",
+   "manual": false,
+   "lastStop": "2026-10-24T05:00:00Z"
+  },
+  {
+   "id": "PublicDirect.6719ac9d921f49f9d81cf3fa",
+   "file": "PublicDirect.6719ac9d921f49f9d81cf3fa.xml",
+   "name": "ESPN 7",
+   "keys": [
+    "m3u:PublicDirect.6719ac9d921f49f9d81cf3fa"
+   ],
+   "guideSource": "uy1",
+   "manual": false,
+   "lastStop": "2026-10-24T05:00:00Z"
+  },
+  {
+   "id": "PublicDirect.846158e9de0c9b067fc3a8fe",
+   "file": "PublicDirect.846158e9de0c9b067fc3a8fe.xml",
+   "name": "ESPN 7",
+   "keys": [
+    "m3u:PublicDirect.846158e9de0c9b067fc3a8fe"
+   ],
+   "guideSource": "uy1",
+   "manual": false,
+   "lastStop": "2026-10-24T05:00:00Z"
+  },
+  {
+   "id": "PublicDirect.8e879e47dc30b747bfe27608",
+   "file": "PublicDirect.8e879e47dc30b747bfe27608.xml",
+   "name": "ESPN 7",
+   "keys": [
+    "m3u:PublicDirect.8e879e47dc30b747bfe27608"
+   ],
+   "guideSource": "uy1",
+   "manual": false,
+   "lastStop": "2026-10-24T05:00:00Z"
+  },
+  {
+   "id": "PublicDirect.9fda775089cc4fe6a4628f6d",
+   "file": "PublicDirect.9fda775089cc4fe6a4628f6d.xml",
+   "name": "ESPN 7",
+   "keys": [
+    "m3u:PublicDirect.9fda775089cc4fe6a4628f6d"
+   ],
+   "guideSource": "uy1",
+   "manual": false,
+   "lastStop": "2026-10-24T05:00:00Z"
+  },
+  {
+   "id": "PublicDirect.e8b9807dfe2d90ff6ae4ad5a",
+   "file": "PublicDirect.e8b9807dfe2d90ff6ae4ad5a.xml",
+   "name": "ESPN 7",
+   "keys": [
+    "m3u:PublicDirect.e8b9807dfe2d90ff6ae4ad5a"
+   ],
+   "guideSource": "uy1",
+   "manual": false,
+   "lastStop": "2026-10-24T05:00:00Z"
+  },
+  {
+   "id": "PublicDirect.f7fc1cb9dd3a2e6e18bb69e4",
+   "file": "PublicDirect.f7fc1cb9dd3a2e6e18bb69e4.xml",
+   "name": "ESPN 7",
+   "keys": [
+    "m3u:PublicDirect.f7fc1cb9dd3a2e6e18bb69e4"
+   ],
+   "guideSource": "uy1",
+   "manual": false,
+   "lastStop": "2026-10-24T05:00:00Z"
+  },
+  {
    "id": "PublicDirect.9803b3858eb1f551dc55bb66",
    "file": "PublicDirect.9803b3858eb1f551dc55bb66.xml",
-   "name": "Espn_col",
+   "name": "ESPN Colombia",
    "keys": [
     "m3u:PublicDirect.9803b3858eb1f551dc55bb66"
    ],
@@ -5133,7 +5760,7 @@
   {
    "id": "PublicDirect.2201f83fc559a57b1f972c36",
    "file": "PublicDirect.2201f83fc559a57b1f972c36.xml",
-   "name": "Europa",
+   "name": "Europa Europa",
    "keys": [
     "m3u:PublicDirect.2201f83fc559a57b1f972c36"
    ],
@@ -5144,7 +5771,7 @@
   {
    "id": "PublicDirect.2b05daec1434b8eeaf81ee75",
    "file": "PublicDirect.2b05daec1434b8eeaf81ee75.xml",
-   "name": "Europa",
+   "name": "Europa Europa",
    "keys": [
     "m3u:PublicDirect.2b05daec1434b8eeaf81ee75"
    ],
@@ -5155,7 +5782,7 @@
   {
    "id": "PublicDirect.2c9537e5b0961074e139b21a",
    "file": "PublicDirect.2c9537e5b0961074e139b21a.xml",
-   "name": "Europa",
+   "name": "Europa Europa",
    "keys": [
     "m3u:PublicDirect.2c9537e5b0961074e139b21a"
    ],
@@ -5166,7 +5793,7 @@
   {
    "id": "PublicDirect.38cd9ec09f8d7685075d5616",
    "file": "PublicDirect.38cd9ec09f8d7685075d5616.xml",
-   "name": "Europa",
+   "name": "Europa Europa",
    "keys": [
     "m3u:PublicDirect.38cd9ec09f8d7685075d5616"
    ],
@@ -5177,7 +5804,7 @@
   {
    "id": "PublicDirect.549107ff20f3eafa0f8c9580",
    "file": "PublicDirect.549107ff20f3eafa0f8c9580.xml",
-   "name": "Europa",
+   "name": "Europa Europa",
    "keys": [
     "m3u:PublicDirect.549107ff20f3eafa0f8c9580"
    ],
@@ -5199,7 +5826,7 @@
   {
    "id": "PublicDirect.a930bcedfff1ede1162c5b3d",
    "file": "PublicDirect.a930bcedfff1ede1162c5b3d.xml",
-   "name": "Europa",
+   "name": "Europa Europa",
    "keys": [
     "m3u:PublicDirect.a930bcedfff1ede1162c5b3d"
    ],
@@ -5210,7 +5837,7 @@
   {
    "id": "PublicDirect.f6f8eb978667c0dc8a7ad893",
    "file": "PublicDirect.f6f8eb978667c0dc8a7ad893.xml",
-   "name": "Europa",
+   "name": "Europa Europa",
    "keys": [
     "m3u:PublicDirect.f6f8eb978667c0dc8a7ad893"
    ],
@@ -5298,7 +5925,7 @@
   {
    "id": "PublicDirect.d30ff94217cc1ff6ba74dcc5",
    "file": "PublicDirect.d30ff94217cc1ff6ba74dcc5.xml",
-   "name": "CANAL 114 Film & arts",
+   "name": "Film & Arts",
    "keys": [
     "m3u:PublicDirect.d30ff94217cc1ff6ba74dcc5"
    ],
@@ -5375,7 +6002,7 @@
   {
    "id": "PublicDirect.b2824ff614b89dd34baf358e",
    "file": "PublicDirect.b2824ff614b89dd34baf358e.xml",
-   "name": "Food Netwoks",
+   "name": "Food Network",
    "keys": [
     "m3u:PublicDirect.b2824ff614b89dd34baf358e"
    ],
@@ -5617,7 +6244,7 @@
   {
    "id": "M6Foot.79@M6Foot",
    "file": "M6Foot.79@M6Foot.xml",
-   "name": "Fox Sport 2 ARG",
+   "name": "Fox Sports 2 ARG",
    "keys": [
     "m3u:M6Foot.79@M6Foot"
    ],
@@ -5661,7 +6288,7 @@
   {
    "id": "PublicDirect.c811d38531ca517ef70a50ed",
    "file": "PublicDirect.c811d38531ca517ef70a50ed.xml",
-   "name": "Fox Sport Premium",
+   "name": "Fox Sports Premium",
    "keys": [
     "m3u:PublicDirect.c811d38531ca517ef70a50ed"
    ],
@@ -6222,7 +6849,7 @@
   {
    "id": "PublicDirect.2abd3aff445429e27097a124",
    "file": "PublicDirect.2abd3aff445429e27097a124.xml",
-   "name": "Golden Premier",
+   "name": "Golden Premiere",
    "keys": [
     "m3u:PublicDirect.2abd3aff445429e27097a124"
    ],
@@ -6288,7 +6915,7 @@
   {
    "id": "PublicDirect.d5780e5c701cacefed65d4d7",
    "file": "PublicDirect.d5780e5c701cacefed65d4d7.xml",
-   "name": "Golden Premier",
+   "name": "Golden Premiere",
    "keys": [
     "m3u:PublicDirect.d5780e5c701cacefed65d4d7"
    ],
@@ -6332,7 +6959,7 @@
   {
    "id": "PublicDirect.97a303fee94d599d990841a0",
    "file": "PublicDirect.97a303fee94d599d990841a0.xml",
-   "name": "Golden Premier 2",
+   "name": "Golden Premiere 2",
    "keys": [
     "m3u:PublicDirect.97a303fee94d599d990841a0"
    ],
@@ -7190,7 +7817,7 @@
   {
    "id": "PublicDirect.609e478a6ca6804b5a9df79e",
    "file": "PublicDirect.609e478a6ca6804b5a9df79e.xml",
-   "name": "HBO Extreme",
+   "name": "HBO Xtreme",
    "keys": [
     "m3u:PublicDirect.609e478a6ca6804b5a9df79e"
    ],
@@ -7344,7 +7971,7 @@
   {
    "id": "PublicDirect.4f566137a791ab252816e606",
    "file": "PublicDirect.4f566137a791ab252816e606.xml",
-   "name": "The History Channel",
+   "name": "History",
    "keys": [
     "m3u:PublicDirect.4f566137a791ab252816e606"
    ],
@@ -7366,7 +7993,7 @@
   {
    "id": "PublicDirect.5301c25c15ff692e95f9a6d1",
    "file": "PublicDirect.5301c25c15ff692e95f9a6d1.xml",
-   "name": "History Channel",
+   "name": "History",
    "keys": [
     "m3u:PublicDirect.5301c25c15ff692e95f9a6d1"
    ],
@@ -7388,7 +8015,7 @@
   {
    "id": "PublicDirect.70c522a063969c9759068c62",
    "file": "PublicDirect.70c522a063969c9759068c62.xml",
-   "name": "History Channel",
+   "name": "History",
    "keys": [
     "m3u:PublicDirect.70c522a063969c9759068c62"
    ],
@@ -7399,7 +8026,7 @@
   {
    "id": "PublicDirect.829dfbf6cbe7ea4f023ed319",
    "file": "PublicDirect.829dfbf6cbe7ea4f023ed319.xml",
-   "name": "History Channel",
+   "name": "History",
    "keys": [
     "m3u:PublicDirect.829dfbf6cbe7ea4f023ed319"
    ],
@@ -7432,7 +8059,7 @@
   {
    "id": "PublicDirect.94b1bb25b09fddcf33bb39cb",
    "file": "PublicDirect.94b1bb25b09fddcf33bb39cb.xml",
-   "name": "History Channel",
+   "name": "History",
    "keys": [
     "m3u:PublicDirect.94b1bb25b09fddcf33bb39cb"
    ],
@@ -7443,7 +8070,7 @@
   {
    "id": "PublicDirect.9b830a93efe53ca73518dd99",
    "file": "PublicDirect.9b830a93efe53ca73518dd99.xml",
-   "name": "History Channel",
+   "name": "History",
    "keys": [
     "m3u:PublicDirect.9b830a93efe53ca73518dd99"
    ],
@@ -7498,7 +8125,7 @@
   {
    "id": "PublicDirect.b5c10ae93889080ac26771f2",
    "file": "PublicDirect.b5c10ae93889080ac26771f2.xml",
-   "name": "History Channel",
+   "name": "History",
    "keys": [
     "m3u:PublicDirect.b5c10ae93889080ac26771f2"
    ],
@@ -7509,7 +8136,7 @@
   {
    "id": "PublicDirect.c5fe9f5d15e6f507c0dd7fa6",
    "file": "PublicDirect.c5fe9f5d15e6f507c0dd7fa6.xml",
-   "name": "History Channel",
+   "name": "History",
    "keys": [
     "m3u:PublicDirect.c5fe9f5d15e6f507c0dd7fa6"
    ],
@@ -7520,7 +8147,7 @@
   {
    "id": "PublicDirect.d46d5979ce0d7046bf22a514",
    "file": "PublicDirect.d46d5979ce0d7046bf22a514.xml",
-   "name": "History Latin America",
+   "name": "History",
    "keys": [
     "m3u:PublicDirect.d46d5979ce0d7046bf22a514"
    ],
@@ -7564,7 +8191,7 @@
   {
    "id": "PublicDirect.db838279440b440794d1e2a3",
    "file": "PublicDirect.db838279440b440794d1e2a3.xml",
-   "name": "History Channel",
+   "name": "History",
    "keys": [
     "m3u:PublicDirect.db838279440b440794d1e2a3"
    ],
@@ -7586,7 +8213,7 @@
   {
    "id": "PublicDirect.f5bbcfe912b251f430fa60ef",
    "file": "PublicDirect.f5bbcfe912b251f430fa60ef.xml",
-   "name": "History Channel",
+   "name": "History",
    "keys": [
     "m3u:PublicDirect.f5bbcfe912b251f430fa60ef"
    ],
@@ -7619,7 +8246,7 @@
   {
    "id": "PublicDirect.751d43b0dd42be06d70b7313",
    "file": "PublicDirect.751d43b0dd42be06d70b7313.xml",
-   "name": "H2",
+   "name": "History 2",
    "keys": [
     "m3u:PublicDirect.751d43b0dd42be06d70b7313"
    ],
@@ -7652,7 +8279,7 @@
   {
    "id": "PublicDirect.e98325e0607661eb5928e3a0",
    "file": "PublicDirect.e98325e0607661eb5928e3a0.xml",
-   "name": "History Channel 2",
+   "name": "History 2",
    "keys": [
     "m3u:PublicDirect.e98325e0607661eb5928e3a0"
    ],
@@ -7685,7 +8312,7 @@
   {
    "id": "PublicDirect.13af23d4a0857fc5f43b46bf",
    "file": "PublicDirect.13af23d4a0857fc5f43b46bf.xml",
-   "name": "Discovery ID",
+   "name": "Investigation Discovery",
    "keys": [
     "m3u:PublicDirect.13af23d4a0857fc5f43b46bf"
    ],
@@ -7696,7 +8323,7 @@
   {
    "id": "PublicDirect.197933bb23322756ead9d479",
    "file": "PublicDirect.197933bb23322756ead9d479.xml",
-   "name": "Discovery ID",
+   "name": "Investigation Discovery",
    "keys": [
     "m3u:PublicDirect.197933bb23322756ead9d479"
    ],
@@ -7707,7 +8334,7 @@
   {
    "id": "PublicDirect.306e0a986add02d8009c65e5",
    "file": "PublicDirect.306e0a986add02d8009c65e5.xml",
-   "name": "ID",
+   "name": "Investigation Discovery",
    "keys": [
     "m3u:PublicDirect.306e0a986add02d8009c65e5"
    ],
@@ -7718,7 +8345,7 @@
   {
    "id": "PublicDirect.42c418e7b30c1db1f8705680",
    "file": "PublicDirect.42c418e7b30c1db1f8705680.xml",
-   "name": "Discovery ID",
+   "name": "Investigation Discovery",
    "keys": [
     "m3u:PublicDirect.42c418e7b30c1db1f8705680"
    ],
@@ -7729,7 +8356,7 @@
   {
    "id": "PublicDirect.4c4f7a0caa60f03d035eebee",
    "file": "PublicDirect.4c4f7a0caa60f03d035eebee.xml",
-   "name": "Discovery ID",
+   "name": "Investigation Discovery",
    "keys": [
     "m3u:PublicDirect.4c4f7a0caa60f03d035eebee"
    ],
@@ -7740,7 +8367,7 @@
   {
    "id": "PublicDirect.4f6975eae324c2c1f994c84f",
    "file": "PublicDirect.4f6975eae324c2c1f994c84f.xml",
-   "name": "Discovery ID",
+   "name": "Investigation Discovery",
    "keys": [
     "m3u:PublicDirect.4f6975eae324c2c1f994c84f"
    ],
@@ -7751,7 +8378,7 @@
   {
    "id": "PublicDirect.6790091d4fac91a57025aaf5",
    "file": "PublicDirect.6790091d4fac91a57025aaf5.xml",
-   "name": "ID",
+   "name": "Investigation Discovery",
    "keys": [
     "m3u:PublicDirect.6790091d4fac91a57025aaf5"
    ],
@@ -7762,7 +8389,7 @@
   {
    "id": "PublicDirect.6a54af3e8ed46a87c4e7d15a",
    "file": "PublicDirect.6a54af3e8ed46a87c4e7d15a.xml",
-   "name": "Discovery ID",
+   "name": "Investigation Discovery",
    "keys": [
     "m3u:PublicDirect.6a54af3e8ed46a87c4e7d15a"
    ],
@@ -7773,7 +8400,7 @@
   {
    "id": "PublicDirect.71c41d3b199f9dcc50eda2ff",
    "file": "PublicDirect.71c41d3b199f9dcc50eda2ff.xml",
-   "name": "Discovery ID",
+   "name": "Investigation Discovery",
    "keys": [
     "m3u:PublicDirect.71c41d3b199f9dcc50eda2ff"
    ],
@@ -7784,7 +8411,7 @@
   {
    "id": "PublicDirect.842dc61bbcd6d62333fa322e",
    "file": "PublicDirect.842dc61bbcd6d62333fa322e.xml",
-   "name": "Discovery ID",
+   "name": "Investigation Discovery",
    "keys": [
     "m3u:PublicDirect.842dc61bbcd6d62333fa322e"
    ],
@@ -7795,7 +8422,7 @@
   {
    "id": "PublicDirect.9b2d115c9d43fde5db3f1f67",
    "file": "PublicDirect.9b2d115c9d43fde5db3f1f67.xml",
-   "name": "ID",
+   "name": "Investigation Discovery",
    "keys": [
     "m3u:PublicDirect.9b2d115c9d43fde5db3f1f67"
    ],
@@ -7806,7 +8433,7 @@
   {
    "id": "PublicDirect.9d3516a195b67ada4e560cf0",
    "file": "PublicDirect.9d3516a195b67ada4e560cf0.xml",
-   "name": "Discovery ID",
+   "name": "Investigation Discovery",
    "keys": [
     "m3u:PublicDirect.9d3516a195b67ada4e560cf0"
    ],
@@ -7817,7 +8444,7 @@
   {
    "id": "PublicDirect.acd9d51c8af1341074512763",
    "file": "PublicDirect.acd9d51c8af1341074512763.xml",
-   "name": "ID",
+   "name": "Investigation Discovery",
    "keys": [
     "m3u:PublicDirect.acd9d51c8af1341074512763"
    ],
@@ -7828,7 +8455,7 @@
   {
    "id": "PublicDirect.b0cabc9ca633eac5cf311a92",
    "file": "PublicDirect.b0cabc9ca633eac5cf311a92.xml",
-   "name": "ID",
+   "name": "Investigation Discovery",
    "keys": [
     "m3u:PublicDirect.b0cabc9ca633eac5cf311a92"
    ],
@@ -7839,7 +8466,7 @@
   {
    "id": "PublicDirect.b5e9bf0ce83f39b51f1771e7",
    "file": "PublicDirect.b5e9bf0ce83f39b51f1771e7.xml",
-   "name": "Discovery ID",
+   "name": "Investigation Discovery",
    "keys": [
     "m3u:PublicDirect.b5e9bf0ce83f39b51f1771e7"
    ],
@@ -7850,7 +8477,7 @@
   {
    "id": "PublicDirect.bf72e295562f0d6d5419e6f4",
    "file": "PublicDirect.bf72e295562f0d6d5419e6f4.xml",
-   "name": "Discovery ID",
+   "name": "Investigation Discovery",
    "keys": [
     "m3u:PublicDirect.bf72e295562f0d6d5419e6f4"
    ],
@@ -7861,7 +8488,7 @@
   {
    "id": "PublicDirect.c2de00b5d0532e161f29242a",
    "file": "PublicDirect.c2de00b5d0532e161f29242a.xml",
-   "name": "Discovery ID",
+   "name": "Investigation Discovery",
    "keys": [
     "m3u:PublicDirect.c2de00b5d0532e161f29242a"
    ],
@@ -7872,7 +8499,7 @@
   {
    "id": "PublicDirect.cb748231ae0dc76bb6bf5dc3",
    "file": "PublicDirect.cb748231ae0dc76bb6bf5dc3.xml",
-   "name": "Discovery ID",
+   "name": "Investigation Discovery",
    "keys": [
     "m3u:PublicDirect.cb748231ae0dc76bb6bf5dc3"
    ],
@@ -7883,7 +8510,7 @@
   {
    "id": "PublicDirect.d56376275161ef53614ac137",
    "file": "PublicDirect.d56376275161ef53614ac137.xml",
-   "name": "Discovery Investigation",
+   "name": "Investigation Discovery",
    "keys": [
     "m3u:PublicDirect.d56376275161ef53614ac137"
    ],
@@ -7894,7 +8521,7 @@
   {
    "id": "PublicDirect.ee3f44e4b46b5c131cbd5e22",
    "file": "PublicDirect.ee3f44e4b46b5c131cbd5e22.xml",
-   "name": "Discovery ID",
+   "name": "Investigation Discovery",
    "keys": [
     "m3u:PublicDirect.ee3f44e4b46b5c131cbd5e22"
    ],
@@ -7905,7 +8532,7 @@
   {
    "id": "PublicDirect.f22564496f43f7a528b62b41",
    "file": "PublicDirect.f22564496f43f7a528b62b41.xml",
-   "name": "Discovery ID",
+   "name": "Investigation Discovery",
    "keys": [
     "m3u:PublicDirect.f22564496f43f7a528b62b41"
    ],
@@ -7916,7 +8543,7 @@
   {
    "id": "PublicDirect.f8075b5bb4a1777e34d29460",
    "file": "PublicDirect.f8075b5bb4a1777e34d29460.xml",
-   "name": "Discovery ID",
+   "name": "Investigation Discovery",
    "keys": [
     "m3u:PublicDirect.f8075b5bb4a1777e34d29460"
    ],
@@ -7949,7 +8576,7 @@
   {
    "id": "PublicDirect.4d983d2b5da5c3a7fc634347",
    "file": "PublicDirect.4d983d2b5da5c3a7fc634347.xml",
-   "name": "Mega TV",
+   "name": "Mega",
    "keys": [
     "m3u:PublicDirect.4d983d2b5da5c3a7fc634347"
    ],
@@ -8367,7 +8994,7 @@
   {
    "id": "PublicDirect.092a7b4980bc18ea62eaa362",
    "file": "PublicDirect.092a7b4980bc18ea62eaa362.xml",
-   "name": "Sony",
+   "name": "Sony Channel",
    "keys": [
     "m3u:PublicDirect.092a7b4980bc18ea62eaa362"
    ],
@@ -8378,7 +9005,7 @@
   {
    "id": "PublicDirect.1466181656df0432220c385a",
    "file": "PublicDirect.1466181656df0432220c385a.xml",
-   "name": "Sony",
+   "name": "Sony Channel",
    "keys": [
     "m3u:PublicDirect.1466181656df0432220c385a"
    ],
@@ -8411,7 +9038,7 @@
   {
    "id": "PublicDirect.569081452587f46445a4d99b",
    "file": "PublicDirect.569081452587f46445a4d99b.xml",
-   "name": "Sony",
+   "name": "Sony Channel",
    "keys": [
     "m3u:PublicDirect.569081452587f46445a4d99b"
    ],
@@ -8422,7 +9049,7 @@
   {
    "id": "PublicDirect.708343e2ae957320fb3de8da",
    "file": "PublicDirect.708343e2ae957320fb3de8da.xml",
-   "name": "Sony",
+   "name": "Sony Channel",
    "keys": [
     "m3u:PublicDirect.708343e2ae957320fb3de8da"
    ],
@@ -8433,7 +9060,7 @@
   {
    "id": "PublicDirect.769db073b7e7a2ea4d019d6a",
    "file": "PublicDirect.769db073b7e7a2ea4d019d6a.xml",
-   "name": "Sony",
+   "name": "Sony Channel",
    "keys": [
     "m3u:PublicDirect.769db073b7e7a2ea4d019d6a"
    ],
@@ -8444,7 +9071,7 @@
   {
    "id": "PublicDirect.8a8e460eebdbc3e9a8f067db",
    "file": "PublicDirect.8a8e460eebdbc3e9a8f067db.xml",
-   "name": "Sony",
+   "name": "Sony Channel",
    "keys": [
     "m3u:PublicDirect.8a8e460eebdbc3e9a8f067db"
    ],
@@ -8455,7 +9082,7 @@
   {
    "id": "PublicDirect.8df03f358fb9d7bc0a255b49",
    "file": "PublicDirect.8df03f358fb9d7bc0a255b49.xml",
-   "name": "Sony",
+   "name": "Sony Channel",
    "keys": [
     "m3u:PublicDirect.8df03f358fb9d7bc0a255b49"
    ],
@@ -8466,7 +9093,7 @@
   {
    "id": "PublicDirect.9bef859b7f4d3a1b5a725ef0",
    "file": "PublicDirect.9bef859b7f4d3a1b5a725ef0.xml",
-   "name": "Sony",
+   "name": "Sony Channel",
    "keys": [
     "m3u:PublicDirect.9bef859b7f4d3a1b5a725ef0"
    ],
@@ -8477,7 +9104,7 @@
   {
    "id": "PublicDirect.a2923077bd4db4a2968acbc1",
    "file": "PublicDirect.a2923077bd4db4a2968acbc1.xml",
-   "name": "Sony",
+   "name": "Sony Channel",
    "keys": [
     "m3u:PublicDirect.a2923077bd4db4a2968acbc1"
    ],
@@ -8488,7 +9115,7 @@
   {
    "id": "PublicDirect.a7198a5a92c2b4c0c9b13850",
    "file": "PublicDirect.a7198a5a92c2b4c0c9b13850.xml",
-   "name": "Sony",
+   "name": "Sony Channel",
    "keys": [
     "m3u:PublicDirect.a7198a5a92c2b4c0c9b13850"
    ],
@@ -8510,7 +9137,7 @@
   {
    "id": "PublicDirect.be910db056fc686ba28ca7ab",
    "file": "PublicDirect.be910db056fc686ba28ca7ab.xml",
-   "name": "Sony",
+   "name": "Sony Channel",
    "keys": [
     "m3u:PublicDirect.be910db056fc686ba28ca7ab"
    ],
@@ -8521,7 +9148,7 @@
   {
    "id": "PublicDirect.ca05755de4a6972d1d1a4463",
    "file": "PublicDirect.ca05755de4a6972d1d1a4463.xml",
-   "name": "Sony",
+   "name": "Sony Channel",
    "keys": [
     "m3u:PublicDirect.ca05755de4a6972d1d1a4463"
    ],
@@ -8532,7 +9159,7 @@
   {
    "id": "PublicDirect.cb6ae1755e0980018131d0b1",
    "file": "PublicDirect.cb6ae1755e0980018131d0b1.xml",
-   "name": "Sony",
+   "name": "Sony Channel",
    "keys": [
     "m3u:PublicDirect.cb6ae1755e0980018131d0b1"
    ],
@@ -8554,7 +9181,7 @@
   {
    "id": "PublicDirect.df5ee9b3dfa88577ec01a3f3",
    "file": "PublicDirect.df5ee9b3dfa88577ec01a3f3.xml",
-   "name": "Sony",
+   "name": "Sony Channel",
    "keys": [
     "m3u:PublicDirect.df5ee9b3dfa88577ec01a3f3"
    ],
@@ -8565,7 +9192,7 @@
   {
    "id": "PublicDirect.e3e9ab829f07fb8449af79fe",
    "file": "PublicDirect.e3e9ab829f07fb8449af79fe.xml",
-   "name": "Sony",
+   "name": "Sony Channel",
    "keys": [
     "m3u:PublicDirect.e3e9ab829f07fb8449af79fe"
    ],
@@ -8576,7 +9203,7 @@
   {
    "id": "PublicDirect.f662a63ead0b7d212a473103",
    "file": "PublicDirect.f662a63ead0b7d212a473103.xml",
-   "name": "Sony",
+   "name": "Sony Channel",
    "keys": [
     "m3u:PublicDirect.f662a63ead0b7d212a473103"
    ],
@@ -8587,7 +9214,7 @@
   {
    "id": "PublicDirect.fb2c90c9afa51ffa98769f79",
    "file": "PublicDirect.fb2c90c9afa51ffa98769f79.xml",
-   "name": "Sony",
+   "name": "Sony Channel",
    "keys": [
     "m3u:PublicDirect.fb2c90c9afa51ffa98769f79"
    ],
@@ -8675,7 +9302,7 @@
   {
    "id": "PublicDirect.7f6baff100b6c49e36f074aa",
    "file": "PublicDirect.7f6baff100b6c49e36f074aa.xml",
-   "name": "Sony Movie",
+   "name": "Sony Movies",
    "keys": [
     "m3u:PublicDirect.7f6baff100b6c49e36f074aa"
    ],
@@ -8708,7 +9335,7 @@
   {
    "id": "PublicDirect.b876645de12d3ba71eb80e18",
    "file": "PublicDirect.b876645de12d3ba71eb80e18.xml",
-   "name": "Sony Muvies",
+   "name": "Sony Movies",
    "keys": [
     "m3u:PublicDirect.b876645de12d3ba71eb80e18"
    ],
@@ -8719,7 +9346,7 @@
   {
    "id": "PublicDirect.bffcc5ae049e305b7c924f02",
    "file": "PublicDirect.bffcc5ae049e305b7c924f02.xml",
-   "name": "CANAL 69 Sony Movies",
+   "name": "Sony Movies",
    "keys": [
     "m3u:PublicDirect.bffcc5ae049e305b7c924f02"
    ],
@@ -9203,7 +9830,7 @@
   {
    "id": "PublicDirect.9804e88ad6f7543a377ed3c1",
    "file": "PublicDirect.9804e88ad6f7543a377ed3c1.xml",
-   "name": "Canal 59 Star Channel",
+   "name": "Star Channel",
    "keys": [
     "m3u:PublicDirect.9804e88ad6f7543a377ed3c1"
    ],
@@ -9225,7 +9852,7 @@
   {
    "id": "PublicDirect.a965a2a6458c3beaa3eb3eab",
    "file": "PublicDirect.a965a2a6458c3beaa3eb3eab.xml",
-   "name": "Start Channel",
+   "name": "Star Channel",
    "keys": [
     "m3u:PublicDirect.a965a2a6458c3beaa3eb3eab"
    ],
@@ -9302,7 +9929,7 @@
   {
    "id": "PublicDirect.e2bef64dff23586b4ec67853",
    "file": "PublicDirect.e2bef64dff23586b4ec67853.xml",
-   "name": "St☆r Channel",
+   "name": "Star Channel",
    "keys": [
     "m3u:PublicDirect.e2bef64dff23586b4ec67853"
    ],
@@ -9346,7 +9973,7 @@
   {
    "id": "PublicDirect.c7b59e1a7dca958753a19e2f",
    "file": "PublicDirect.c7b59e1a7dca958753a19e2f.xml",
-   "name": "STAR Colombia (ST30)",
+   "name": "Star Colombia",
    "keys": [
     "m3u:PublicDirect.c7b59e1a7dca958753a19e2f"
    ],
@@ -9489,7 +10116,7 @@
   {
    "id": "PublicDirect.2f6c1fe7ab4be0a02d5f54d9",
    "file": "PublicDirect.2f6c1fe7ab4be0a02d5f54d9.xml",
-   "name": "CANAL 58 (Studio Universal )",
+   "name": "Studio Universal",
    "keys": [
     "m3u:PublicDirect.2f6c1fe7ab4be0a02d5f54d9"
    ],
@@ -9588,7 +10215,7 @@
   {
    "id": "PublicDirect.bf6ec8230c2b5c6250e390af",
    "file": "PublicDirect.bf6ec8230c2b5c6250e390af.xml",
-   "name": "Estudio Universal",
+   "name": "Studio Universal",
    "keys": [
     "m3u:PublicDirect.bf6ec8230c2b5c6250e390af"
    ],
@@ -9610,7 +10237,7 @@
   {
    "id": "PublicDirect.c239c57686df265bb88b82af",
    "file": "PublicDirect.c239c57686df265bb88b82af.xml",
-   "name": "Studio Universal In",
+   "name": "Studio Universal",
    "keys": [
     "m3u:PublicDirect.c239c57686df265bb88b82af"
    ],
@@ -9698,7 +10325,7 @@
   {
    "id": "PublicDirect.1ef9fd209b74be28021f8e36",
    "file": "PublicDirect.1ef9fd209b74be28021f8e36.xml",
-   "name": "Tbs",
+   "name": "TBS",
    "keys": [
     "m3u:PublicDirect.1ef9fd209b74be28021f8e36"
    ],
@@ -9709,7 +10336,7 @@
   {
    "id": "PublicDirect.f68787f63a1ef4a6143bcb28",
    "file": "PublicDirect.f68787f63a1ef4a6143bcb28.xml",
-   "name": "Tbs",
+   "name": "TBS",
    "keys": [
     "m3u:PublicDirect.f68787f63a1ef4a6143bcb28"
    ],
@@ -9720,7 +10347,7 @@
   {
    "id": "PublicDirect.a52c913a30233f55dc54d10c",
    "file": "PublicDirect.a52c913a30233f55dc54d10c.xml",
-   "name": "Tcm",
+   "name": "TCM",
    "keys": [
     "m3u:PublicDirect.a52c913a30233f55dc54d10c"
    ],
@@ -9731,7 +10358,7 @@
   {
    "id": "PublicDirect.bc93a58942bfdbe0bd4390c6",
    "file": "PublicDirect.bc93a58942bfdbe0bd4390c6.xml",
-   "name": "Tcm",
+   "name": "TCM",
    "keys": [
     "m3u:PublicDirect.bc93a58942bfdbe0bd4390c6"
    ],
@@ -9742,7 +10369,7 @@
   {
    "id": "PublicDirect.c8032d842d0982e4a6f08d44",
    "file": "PublicDirect.c8032d842d0982e4a6f08d44.xml",
-   "name": "Tcm",
+   "name": "TCM",
    "keys": [
     "m3u:PublicDirect.c8032d842d0982e4a6f08d44"
    ],
@@ -9753,7 +10380,7 @@
   {
    "id": "PublicDirect.f5ff1fc4a352eef23ab8b2de",
    "file": "PublicDirect.f5ff1fc4a352eef23ab8b2de.xml",
-   "name": "Tcm",
+   "name": "TCM",
    "keys": [
     "m3u:PublicDirect.f5ff1fc4a352eef23ab8b2de"
    ],
@@ -9797,7 +10424,7 @@
   {
    "id": "PublicDirect.9be6822a5c250724d0894661",
    "file": "PublicDirect.9be6822a5c250724d0894661.xml",
-   "name": "CANAL 43 Telehit",
+   "name": "Telehit",
    "keys": [
     "m3u:PublicDirect.9be6822a5c250724d0894661"
    ],
@@ -10171,7 +10798,7 @@
   {
    "id": "PublicDirect.010f444428fa52b60e612c1f",
    "file": "PublicDirect.010f444428fa52b60e612c1f.xml",
-   "name": "TNT Serie",
+   "name": "TNT Series",
    "keys": [
     "m3u:PublicDirect.010f444428fa52b60e612c1f"
    ],
@@ -10325,7 +10952,7 @@
   {
    "id": "PublicDirect.8dd033066d79b8cd5a89feb7",
    "file": "PublicDirect.8dd033066d79b8cd5a89feb7.xml",
-   "name": "TNT Serie",
+   "name": "TNT Series",
    "keys": [
     "m3u:PublicDirect.8dd033066d79b8cd5a89feb7"
    ],
@@ -10523,7 +11150,7 @@
   {
    "id": "PublicDirect.02c28cc191936f0158a3289f",
    "file": "PublicDirect.02c28cc191936f0158a3289f.xml",
-   "name": "TNT Sports Premiun",
+   "name": "TNT Sports Premium",
    "keys": [
     "m3u:PublicDirect.02c28cc191936f0158a3289f"
    ],
@@ -10556,7 +11183,7 @@
   {
    "id": "PublicDirect.b5751130732e4a7c272ee53d",
    "file": "PublicDirect.b5751130732e4a7c272ee53d.xml",
-   "name": "TNT Sports Premiun",
+   "name": "TNT Sports Premium",
    "keys": [
     "m3u:PublicDirect.b5751130732e4a7c272ee53d"
    ],
@@ -10567,7 +11194,7 @@
   {
    "id": "PublicDirect.c44a168b5a0acf782cace81c",
    "file": "PublicDirect.c44a168b5a0acf782cace81c.xml",
-   "name": "TNT Sports Premiun",
+   "name": "TNT Sports Premium",
    "keys": [
     "m3u:PublicDirect.c44a168b5a0acf782cace81c"
    ],
@@ -10666,7 +11293,7 @@
   {
    "id": "PublicDirect.08b71ab74a14ddfe4de5715b",
    "file": "PublicDirect.08b71ab74a14ddfe4de5715b.xml",
-   "name": "Universal",
+   "name": "Universal Channel",
    "keys": [
     "m3u:PublicDirect.08b71ab74a14ddfe4de5715b"
    ],
@@ -10677,7 +11304,7 @@
   {
    "id": "PublicDirect.09e9986c9d630fdf51ccb69a",
    "file": "PublicDirect.09e9986c9d630fdf51ccb69a.xml",
-   "name": "Universal",
+   "name": "Universal Channel",
    "keys": [
     "m3u:PublicDirect.09e9986c9d630fdf51ccb69a"
    ],
@@ -10743,7 +11370,7 @@
   {
    "id": "PublicDirect.81e9474de15b1c7f4335e742",
    "file": "PublicDirect.81e9474de15b1c7f4335e742.xml",
-   "name": "Universal",
+   "name": "Universal Channel",
    "keys": [
     "m3u:PublicDirect.81e9474de15b1c7f4335e742"
    ],
@@ -10754,7 +11381,7 @@
   {
    "id": "PublicDirect.86e7554e5c59c9fe02e0db9e",
    "file": "PublicDirect.86e7554e5c59c9fe02e0db9e.xml",
-   "name": "Universal",
+   "name": "Universal Channel",
    "keys": [
     "m3u:PublicDirect.86e7554e5c59c9fe02e0db9e"
    ],
@@ -10765,7 +11392,7 @@
   {
    "id": "PublicDirect.8a6449ff9b420f66e78c1060",
    "file": "PublicDirect.8a6449ff9b420f66e78c1060.xml",
-   "name": "Universal",
+   "name": "Universal Channel",
    "keys": [
     "m3u:PublicDirect.8a6449ff9b420f66e78c1060"
    ],
@@ -10787,7 +11414,7 @@
   {
    "id": "PublicDirect.ac9d91daa7e403bccc9b4464",
    "file": "PublicDirect.ac9d91daa7e403bccc9b4464.xml",
-   "name": "Universal",
+   "name": "Universal Channel",
    "keys": [
     "m3u:PublicDirect.ac9d91daa7e403bccc9b4464"
    ],
@@ -10809,7 +11436,7 @@
   {
    "id": "PublicDirect.ceb1d9bc995f581c33d39760",
    "file": "PublicDirect.ceb1d9bc995f581c33d39760.xml",
-   "name": "Universal Channel In",
+   "name": "Universal Channel",
    "keys": [
     "m3u:PublicDirect.ceb1d9bc995f581c33d39760"
    ],
@@ -10842,7 +11469,7 @@
   {
    "id": "PublicDirect.ed0426b680dd2b5c50327429",
    "file": "PublicDirect.ed0426b680dd2b5c50327429.xml",
-   "name": "Universal",
+   "name": "Universal Channel",
    "keys": [
     "m3u:PublicDirect.ed0426b680dd2b5c50327429"
    ],
@@ -11194,7 +11821,7 @@
   {
    "id": "PublicDirect.178aedd9b3775b11e67551fd",
    "file": "PublicDirect.178aedd9b3775b11e67551fd.xml",
-   "name": "Universal Premier",
+   "name": "Universal Premiere",
    "keys": [
     "m3u:PublicDirect.178aedd9b3775b11e67551fd"
    ],
@@ -11304,7 +11931,7 @@
   {
    "id": "PublicDirect.dd464015b920d57e1f210772",
    "file": "PublicDirect.dd464015b920d57e1f210772.xml",
-   "name": "Universal Premier",
+   "name": "Universal Premiere",
    "keys": [
     "m3u:PublicDirect.dd464015b920d57e1f210772"
    ],
@@ -11315,7 +11942,7 @@
   {
    "id": "PublicDirect.1ba8e8c0e020c6c5aeb141dc",
    "file": "PublicDirect.1ba8e8c0e020c6c5aeb141dc.xml",
-   "name": "Universal Premier 2",
+   "name": "Universal Premiere 2",
    "keys": [
     "m3u:PublicDirect.1ba8e8c0e020c6c5aeb141dc"
    ],
@@ -11722,7 +12349,7 @@
   {
    "id": "PublicDirect.002008144f227e74fb6bae14",
    "file": "PublicDirect.002008144f227e74fb6bae14.xml",
-   "name": "Warner",
+   "name": "Warner Channel",
    "keys": [
     "m3u:PublicDirect.002008144f227e74fb6bae14"
    ],
@@ -11733,7 +12360,7 @@
   {
    "id": "PublicDirect.093bb99c1603f4b3468dfc69",
    "file": "PublicDirect.093bb99c1603f4b3468dfc69.xml",
-   "name": "Warner",
+   "name": "Warner Channel",
    "keys": [
     "m3u:PublicDirect.093bb99c1603f4b3468dfc69"
    ],
@@ -11744,7 +12371,7 @@
   {
    "id": "PublicDirect.15e0854ad4db1c8cbd9d6239",
    "file": "PublicDirect.15e0854ad4db1c8cbd9d6239.xml",
-   "name": "Warner TV",
+   "name": "Warner Channel",
    "keys": [
     "m3u:PublicDirect.15e0854ad4db1c8cbd9d6239"
    ],
@@ -11755,7 +12382,7 @@
   {
    "id": "PublicDirect.323e6ab4ceaa91d75717039d",
    "file": "PublicDirect.323e6ab4ceaa91d75717039d.xml",
-   "name": "Warner",
+   "name": "Warner Channel",
    "keys": [
     "m3u:PublicDirect.323e6ab4ceaa91d75717039d"
    ],
@@ -11766,7 +12393,7 @@
   {
    "id": "PublicDirect.3bb9a820dcfbf5e129da906a",
    "file": "PublicDirect.3bb9a820dcfbf5e129da906a.xml",
-   "name": "Warner",
+   "name": "Warner Channel",
    "keys": [
     "m3u:PublicDirect.3bb9a820dcfbf5e129da906a"
    ],
@@ -11788,7 +12415,7 @@
   {
    "id": "PublicDirect.5a53ee0b598caafe694a52bf",
    "file": "PublicDirect.5a53ee0b598caafe694a52bf.xml",
-   "name": "Warner",
+   "name": "Warner Channel",
    "keys": [
     "m3u:PublicDirect.5a53ee0b598caafe694a52bf"
    ],
@@ -11799,7 +12426,7 @@
   {
    "id": "PublicDirect.61775a26cb5c62126e2b2749",
    "file": "PublicDirect.61775a26cb5c62126e2b2749.xml",
-   "name": "Warner",
+   "name": "Warner Channel",
    "keys": [
     "m3u:PublicDirect.61775a26cb5c62126e2b2749"
    ],
@@ -11810,7 +12437,7 @@
   {
    "id": "PublicDirect.69012de99c76e56342a01748",
    "file": "PublicDirect.69012de99c76e56342a01748.xml",
-   "name": "Warner",
+   "name": "Warner Channel",
    "keys": [
     "m3u:PublicDirect.69012de99c76e56342a01748"
    ],
@@ -11821,7 +12448,7 @@
   {
    "id": "PublicDirect.6a250ad48a224626ca765f2d",
    "file": "PublicDirect.6a250ad48a224626ca765f2d.xml",
-   "name": "Warner",
+   "name": "Warner Channel",
    "keys": [
     "m3u:PublicDirect.6a250ad48a224626ca765f2d"
    ],
@@ -11832,7 +12459,7 @@
   {
    "id": "PublicDirect.7e0204cd92ccf32fcd9d03fc",
    "file": "PublicDirect.7e0204cd92ccf32fcd9d03fc.xml",
-   "name": "Warner",
+   "name": "Warner Channel",
    "keys": [
     "m3u:PublicDirect.7e0204cd92ccf32fcd9d03fc"
    ],
@@ -11854,7 +12481,7 @@
   {
    "id": "PublicDirect.9e247ea75f4f2455e409cd8f",
    "file": "PublicDirect.9e247ea75f4f2455e409cd8f.xml",
-   "name": "Warner",
+   "name": "Warner Channel",
    "keys": [
     "m3u:PublicDirect.9e247ea75f4f2455e409cd8f"
    ],
@@ -11865,7 +12492,7 @@
   {
    "id": "PublicDirect.9ee692efc1aaa3007562bd47",
    "file": "PublicDirect.9ee692efc1aaa3007562bd47.xml",
-   "name": "Warner",
+   "name": "Warner Channel",
    "keys": [
     "m3u:PublicDirect.9ee692efc1aaa3007562bd47"
    ],
@@ -11876,7 +12503,7 @@
   {
    "id": "PublicDirect.b39e9adb878335c289669c76",
    "file": "PublicDirect.b39e9adb878335c289669c76.xml",
-   "name": "Warner",
+   "name": "Warner Channel",
    "keys": [
     "m3u:PublicDirect.b39e9adb878335c289669c76"
    ],
@@ -11898,7 +12525,7 @@
   {
    "id": "PublicDirect.cfc7fffa791f5a159f124297",
    "file": "PublicDirect.cfc7fffa791f5a159f124297.xml",
-   "name": "Warner",
+   "name": "Warner Channel",
    "keys": [
     "m3u:PublicDirect.cfc7fffa791f5a159f124297"
    ],
@@ -11909,7 +12536,7 @@
   {
    "id": "PublicDirect.d46f163adecb24b7579c453e",
    "file": "PublicDirect.d46f163adecb24b7579c453e.xml",
-   "name": "Warner",
+   "name": "Warner Channel",
    "keys": [
     "m3u:PublicDirect.d46f163adecb24b7579c453e"
    ],
@@ -11920,7 +12547,7 @@
   {
    "id": "PublicDirect.de3e91d7c885d797352686e1",
    "file": "PublicDirect.de3e91d7c885d797352686e1.xml",
-   "name": "Warner",
+   "name": "Warner Channel",
    "keys": [
     "m3u:PublicDirect.de3e91d7c885d797352686e1"
    ],
@@ -11931,7 +12558,7 @@
   {
    "id": "PublicDirect.f4d4b1f839db7eb08c7e181e",
    "file": "PublicDirect.f4d4b1f839db7eb08c7e181e.xml",
-   "name": "Warner",
+   "name": "Warner Channel",
    "keys": [
     "m3u:PublicDirect.f4d4b1f839db7eb08c7e181e"
    ],
@@ -11949,72 +12576,6 @@
    "guideSource": "mx1",
    "manual": false,
    "lastStop": "2026-10-24T06:06:00Z"
-  },
-  {
-   "id": "PublicDirect.19fbfbd8b220cd0fb65ac244",
-   "file": "PublicDirect.19fbfbd8b220cd0fb65ac244.xml",
-   "name": "A&E",
-   "keys": [
-    "m3u:PublicDirect.19fbfbd8b220cd0fb65ac244"
-   ],
-   "guideSource": "mx1",
-   "manual": false,
-   "lastStop": "2026-10-24T05:00:00Z"
-  },
-  {
-   "id": "AMC.co@Direct181",
-   "file": "AMC.co@Direct181.xml",
-   "name": "AMC",
-   "keys": [
-    "m3u:AMC.co@Direct181"
-   ],
-   "guideSource": "mx1",
-   "manual": false,
-   "lastStop": "2026-10-24T06:30:00Z"
-  },
-  {
-   "id": "PublicDirect.5c8f98d3876cb07b0c0884f6",
-   "file": "PublicDirect.5c8f98d3876cb07b0c0884f6.xml",
-   "name": "AMC",
-   "keys": [
-    "m3u:PublicDirect.5c8f98d3876cb07b0c0884f6"
-   ],
-   "guideSource": "mx1",
-   "manual": false,
-   "lastStop": "2026-10-24T06:30:00Z"
-  },
-  {
-   "id": "PublicDirect.21d595905b477139407f7250",
-   "file": "PublicDirect.21d595905b477139407f7250.xml",
-   "name": "Animal Planet",
-   "keys": [
-    "m3u:PublicDirect.21d595905b477139407f7250"
-   ],
-   "guideSource": "mx1",
-   "manual": false,
-   "lastStop": "2026-10-24T05:36:00Z"
-  },
-  {
-   "id": "PublicDirect.07595a53d0527c27f68b4e29",
-   "file": "PublicDirect.07595a53d0527c27f68b4e29.xml",
-   "name": "AXN",
-   "keys": [
-    "m3u:PublicDirect.07595a53d0527c27f68b4e29"
-   ],
-   "guideSource": "mx1",
-   "manual": false,
-   "lastStop": "2026-10-24T05:35:00Z"
-  },
-  {
-   "id": "Cinecanal.co@Direct181",
-   "file": "Cinecanal.co@Direct181.xml",
-   "name": "Cinecanal",
-   "keys": [
-    "m3u:Cinecanal.co@Direct181"
-   ],
-   "guideSource": "mx1",
-   "manual": false,
-   "lastStop": "2026-10-24T06:22:00Z"
   },
   {
    "id": "SkySportsRacing.uk",
