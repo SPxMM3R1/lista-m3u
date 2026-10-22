@@ -1,9 +1,25 @@
 <?xml version='1.0' encoding='utf-8'?>
 <tv data-fragment-of="45">
-  <channel id="45" data-guide="parrilla real" data-guide-source="zapping-guia-publica">
+  <channel id="45" data-guide="parrilla real conservada" data-guide-source="epg-publicada-conservada">
     <display-name>NTV</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/ntv.svg" />
   </channel>
+  <programme start="20261021160000 -0300" stop="20261021163000 -0300" channel="45">
+    <title lang="es">Humanos</title>
+  </programme>
+  <programme start="20261021163000 -0300" stop="20261021170000 -0300" channel="45">
+    <title lang="es">Academia de superhéroes</title>
+  </programme>
+  <programme start="20261021170000 -0300" stop="20261021173000 -0300" channel="45">
+    <title lang="es">Quique H detective</title>
+    <desc lang="es">Famoso por intentar cazar gallinas, a menudo engañado por el Gallo Claudio</desc>
+  </programme>
+  <programme start="20261021173000 -0300" stop="20261021200000 -0300" channel="45">
+    <title lang="es">Efecto N</title>
+  </programme>
+  <programme start="20261021200000 -0300" stop="20261021203000 -0300" channel="45">
+    <title lang="es">¿Qué sucede?</title>
+  </programme>
   <programme start="20261021203000 -0300" stop="20261021210000 -0300" channel="45">
     <title lang="es">Ideas Rompe-Cráneos</title>
     <desc lang="es">Serie de animación que presenta los descubrimientos técnicos y científicos más asombrosos que modificaron el rumbo de la humanidad.</desc>
@@ -21,22 +37,6 @@
   <programme start="20261021233000 -0300" stop="20261022001000 -0300" channel="45">
     <title lang="es">Nunca Es Late Para Aprender</title>
     <desc lang="es">Buscará acercar distintos contenidos científicos a la audiencia. A través de conversaciones, experimentos en vivo</desc>
-  </programme>
-  <programme start="20261021160000 -0300" stop="20261021163000 -0300" channel="45">
-    <title lang="es">Humanos</title>
-  </programme>
-  <programme start="20261021163000 -0300" stop="20261021170000 -0300" channel="45">
-    <title lang="es">Academia de superhéroes</title>
-  </programme>
-  <programme start="20261021170000 -0300" stop="20261021173000 -0300" channel="45">
-    <title lang="es">Quique H detective</title>
-    <desc lang="es">Famoso por intentar cazar gallinas, a menudo engañado por el Gallo Claudio</desc>
-  </programme>
-  <programme start="20261021173000 -0300" stop="20261021200000 -0300" channel="45">
-    <title lang="es">Efecto N</title>
-  </programme>
-  <programme start="20261021200000 -0300" stop="20261021203000 -0300" channel="45">
-    <title lang="es">¿Qué sucede?</title>
   </programme>
   <programme start="20261022001000 -0300" stop="20261022004500 -0300" channel="45">
     <title lang="es">Hora 25</title>
@@ -101,12 +101,14 @@
   </programme>
   <programme start="20261022133000 -0300" stop="20261022140000 -0300" channel="45">
     <title lang="es">Animales de mi tierra</title>
+    <desc lang="es">Esta serie mezcla imágenes reales y dibujos animados para mostrar la vida de animales característicos de Chile y Sudamérica</desc>
   </programme>
   <programme start="20261022140000 -0300" stop="20261022143000 -0300" channel="45">
     <title lang="es">Mithy el explorador</title>
   </programme>
   <programme start="20261022143000 -0300" stop="20261022150000 -0300" channel="45">
     <title lang="es">Historias de la casa del árbol</title>
+    <desc lang="es">Serie que nos muestra como cuatro amigos disfrutan al contar divertidas historias en la casa del árbol. Allí ríen, juegan y aprenden</desc>
   </programme>
   <programme start="20261022150000 -0300" stop="20261022160000 -0300" channel="45">
     <title lang="es">Boca sucia</title>

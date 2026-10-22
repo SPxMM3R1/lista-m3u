@@ -1,9 +1,21 @@
 <?xml version='1.0' encoding='utf-8'?>
 <tv data-fragment-of="Meganoticias.cl">
-  <channel id="Meganoticias.cl" data-guide="parrilla real" data-guide-source="zapping-guia-publica">
+  <channel id="Meganoticias.cl" data-guide="parrilla real conservada" data-guide-source="epg-publicada-conservada">
     <display-name>Meganoticias</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/meganoticias.png" />
   </channel>
+  <programme start="20261021153000 -0300" stop="20261021170000 -0300" channel="Meganoticias.cl">
+    <title lang="es">La tarde en vivo</title>
+  </programme>
+  <programme start="20261021170000 -0300" stop="20261021183000 -0300" channel="Meganoticias.cl">
+    <title lang="es">Meganoticias ahora PM</title>
+  </programme>
+  <programme start="20261021183000 -0300" stop="20261021191500 -0300" channel="Meganoticias.cl">
+    <title lang="es">Meganoticias mundo</title>
+  </programme>
+  <programme start="20261021191500 -0300" stop="20261021193000 -0300" channel="Meganoticias.cl">
+    <title lang="es">MegaDeportes</title>
+  </programme>
   <programme start="20261021193000 -0300" stop="20261021201000 -0300" channel="Meganoticias.cl">
     <title lang="es">Megatiempo PM</title>
   </programme>
@@ -18,18 +30,6 @@
   </programme>
   <programme start="20261021233000 -0300" stop="20261022000000 -0300" channel="Meganoticias.cl">
     <title lang="es">Meganoticias Hora Cero</title>
-  </programme>
-  <programme start="20261021153000 -0300" stop="20261021170000 -0300" channel="Meganoticias.cl">
-    <title lang="es">La tarde en vivo</title>
-  </programme>
-  <programme start="20261021170000 -0300" stop="20261021183000 -0300" channel="Meganoticias.cl">
-    <title lang="es">Meganoticias ahora PM</title>
-  </programme>
-  <programme start="20261021183000 -0300" stop="20261021191500 -0300" channel="Meganoticias.cl">
-    <title lang="es">Meganoticias mundo</title>
-  </programme>
-  <programme start="20261021191500 -0300" stop="20261021193000 -0300" channel="Meganoticias.cl">
-    <title lang="es">MegaDeportes</title>
   </programme>
   <programme start="20261022000000 -0300" stop="20261022003000 -0300" channel="Meganoticias.cl">
     <title lang="es">Meganoticias hora cero</title>
@@ -99,6 +99,7 @@
   </programme>
   <programme start="20261022201500 -0300" stop="20261022203000 -0300" channel="Meganoticias.cl">
     <title lang="es">Megainvestiga</title>
+    <desc lang="es">Encuentre aquí todas las noticias de mega investiga en videos, artículos, fotos, virales y las últimas noticias de mega investiga que suceden en Chile.</desc>
   </programme>
   <programme start="20261022203000 -0300" stop="20261022212000 -0300" channel="Meganoticias.cl">
     <title lang="es">Con peras y manzanas</title>

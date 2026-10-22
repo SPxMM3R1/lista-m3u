@@ -1,9 +1,21 @@
 <?xml version='1.0' encoding='utf-8'?>
 <tv data-fragment-of="0124">
-  <channel id="0124" data-guide="parrilla real" data-guide-source="zapping-guia-publica">
+  <channel id="0124" data-guide="parrilla real conservada" data-guide-source="epg-publicada-conservada">
     <display-name>T13</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/t13.svg" />
   </channel>
+  <programme start="20261021153000 -0300" stop="20261021180000 -0300" channel="0124">
+    <title lang="es">En Vivo</title>
+    <desc lang="es">Durante la tarde, todas las noticias mas relevantes de la actualidad.</desc>
+  </programme>
+  <programme start="20261021180000 -0300" stop="20261021190000 -0300" channel="0124">
+    <title lang="es">Me enteré por la prensa</title>
+    <desc lang="es">Me enteré por la prensa es un espacio diario de actualidad política emitido en vivo y en directo. Conducido por la periodista Mónica Pérez, el programa aborda la contingencia nacional a través de debates con panelistas, entrevistas a invitados y un despliegue periodístico en terreno con móviles en directo desde los principales centros del acontecer político, como el Palacio de La Moneda y el Congreso Nacional.</desc>
+  </programme>
+  <programme start="20261021190000 -0300" stop="20261021193000 -0300" channel="0124">
+    <title lang="es">Hablemos a las 12</title>
+    <desc lang="es">El prestigioso periodista abordará con un entrevistado temáticas de contingencia y actualidad.</desc>
+  </programme>
   <programme start="20261021193000 -0300" stop="20261021202500 -0300" channel="0124">
     <title lang="es">Estamos en Vivo</title>
     <desc lang="es">Completa revisión de lo que está sucediendo al minuto en las calles de Santiago y en las regiones de Chile. Además, tendrá un invitado en estudio para profundizar sobre algún tema periodístico de interés.</desc>
@@ -23,18 +35,6 @@
   <programme start="20261021225000 -0300" stop="20261021235000 -0300" channel="0124">
     <title lang="es">Me enteré por la prensa</title>
     <desc lang="es">Me enteré por la prensa es un espacio diario de actualidad política emitido en vivo y en directo. Conducido por la periodista Mónica Pérez, el programa aborda la contingencia nacional a través de debates con panelistas, entrevistas a invitados y un despliegue periodístico en terreno con móviles en directo desde los principales centros del acontecer político, como el Palacio de La Moneda y el Congreso Nacional.</desc>
-  </programme>
-  <programme start="20261021153000 -0300" stop="20261021180000 -0300" channel="0124">
-    <title lang="es">En Vivo</title>
-    <desc lang="es">Durante la tarde, todas las noticias mas relevantes de la actualidad.</desc>
-  </programme>
-  <programme start="20261021180000 -0300" stop="20261021190000 -0300" channel="0124">
-    <title lang="es">Me enteré por la prensa</title>
-    <desc lang="es">Me enteré por la prensa es un espacio diario de actualidad política emitido en vivo y en directo. Conducido por la periodista Mónica Pérez, el programa aborda la contingencia nacional a través de debates con panelistas, entrevistas a invitados y un despliegue periodístico en terreno con móviles en directo desde los principales centros del acontecer político, como el Palacio de La Moneda y el Congreso Nacional.</desc>
-  </programme>
-  <programme start="20261021190000 -0300" stop="20261021193000 -0300" channel="0124">
-    <title lang="es">Hablemos a las 12</title>
-    <desc lang="es">El prestigioso periodista abordará con un entrevistado temáticas de contingencia y actualidad.</desc>
   </programme>
   <programme start="20261021235000 -0300" stop="20261022002000 -0300" channel="0124">
     <title lang="es">Sin intereses</title>
@@ -101,15 +101,19 @@
   </programme>
   <programme start="20261022152000 -0300" stop="20261022153000 -0300" channel="0124">
     <title lang="es">El tiempo</title>
+    <desc lang="es">Información climatológica de Chile</desc>
   </programme>
   <programme start="20261022153000 -0300" stop="20261022180000 -0300" channel="0124">
     <title lang="es">En Vivo</title>
+    <desc lang="es">Durante la tarde, todas las noticias mas relevantes de la actualidad.</desc>
   </programme>
   <programme start="20261022180000 -0300" stop="20261022190000 -0300" channel="0124">
     <title lang="es">Me enteré por la prensa</title>
+    <desc lang="es">Me enteré por la prensa es un espacio diario de actualidad política emitido en vivo y en directo. Conducido por la periodista Mónica Pérez, el programa aborda la contingencia nacional a través de debates con panelistas, entrevistas a invitados y un despliegue periodístico en terreno con móviles en directo desde los principales centros del acontecer político, como el Palacio de La Moneda y el Congreso Nacional.</desc>
   </programme>
   <programme start="20261022190000 -0300" stop="20261022193000 -0300" channel="0124">
     <title lang="es">Conexión Europa</title>
+    <desc lang="es">Es un ciclo de entrevistas contingentes de economía, educación y cultural entre Chile y la Unión Europea conducido por Cristina González.</desc>
   </programme>
   <programme start="20261022193000 -0300" stop="20261022200000 -0300" channel="0124">
     <title lang="es">Estamos en vivo</title>

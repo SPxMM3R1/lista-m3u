@@ -1,9 +1,19 @@
 <?xml version='1.0' encoding='utf-8'?>
 <tv data-fragment-of="0107">
-  <channel id="0107" data-guide="parrilla real" data-guide-source="canal13-abierto-oficial">
+  <channel id="0107" data-guide="parrilla real conservada" data-guide-source="epg-publicada-conservada">
     <display-name>Canal 13</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/canal13.png" />
   </channel>
+  <programme start="20261021153000 -0300" stop="20261021170000 -0300" channel="0107">
+    <title lang="es">Vale Todo</title>
+  </programme>
+  <programme start="20261021170000 -0300" stop="20261021193000 -0300" channel="0107">
+    <title lang="es">Alfombra Roja</title>
+  </programme>
+  <programme start="20261021193000 -0300" stop="20261021210000 -0300" channel="0107">
+    <title lang="es">Qué Dice Chile</title>
+    <desc lang="es">Dos grupos de cuatro personas competirán entre sí para nombrar las respuestas más populares de una encuesta con el fin de ganar un premio en dinero. Un duelo de memoria, rapidez e ingenio donde los equipos competirán para descifrar el verdadero pensamiento de los chilenos.</desc>
+  </programme>
   <programme start="20261021210000 -0300" stop="20261021223000 -0300" channel="0107">
     <title lang="es">Teletrece Central</title>
     <desc lang="es">El informativo central de Canal 13 entrega cada noche una mirada panorámica de la actualidad noticiosa de Chile y el mundo, con notas en profundidad y reportajes que dan cuenta del amplio despliegue informativo.</desc>
@@ -33,6 +43,7 @@
   </programme>
   <programme start="20261022050000 -0300" stop="20261022060000 -0300" channel="0107">
     <title lang="es">3x3</title>
+    <desc lang="es">Despierta junto al informativo en un formato libre y distendido que da inicio a nuestra programación.</desc>
     <category lang="es">[]</category>
   </programme>
   <programme start="20261022060000 -0300" stop="20261022075000 -0300" channel="0107">
@@ -52,6 +63,7 @@
   </programme>
   <programme start="20261022152008 -0300" stop="20261022153020 -0300" channel="0107">
     <title lang="es">El Tiempo (Tarde)</title>
+    <desc lang="es">Información climatológica de Chile</desc>
     <category lang="es">[]</category>
   </programme>
   <programme start="20261022153020 -0300" stop="20261022170000 -0300" channel="0107">
@@ -129,15 +141,5 @@
   <programme start="20261024020000 -0300" stop="20261024035500 -0300" channel="0107">
     <title lang="es">Alfombra Roja (Lo Mejor)</title>
     <category lang="es">[]</category>
-  </programme>
-  <programme start="20261021170000 -0300" stop="20261021193000 -0300" channel="0107">
-    <title lang="es">Alfombra Roja</title>
-  </programme>
-  <programme start="20261021193000 -0300" stop="20261021210000 -0300" channel="0107">
-    <title lang="es">Qué Dice Chile</title>
-    <desc lang="es">Dos grupos de cuatro personas competirán entre sí para nombrar las respuestas más populares de una encuesta con el fin de ganar un premio en dinero. Un duelo de memoria, rapidez e ingenio donde los equipos competirán para descifrar el verdadero pensamiento de los chilenos.</desc>
-  </programme>
-  <programme start="20261021153000 -0300" stop="20261021170000 -0300" channel="0107">
-    <title lang="es">Vale Todo</title>
   </programme>
 </tv>
