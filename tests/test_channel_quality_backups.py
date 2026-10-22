@@ -170,7 +170,8 @@ class NautaChannelsAreOptInTest(unittest.TestCase):
         self.assertEqual("active", canal13["state"])
         self.assertEqual("1.m3u", canal13["sourceList"])
         self.assertNotIn("preferredM3u", canal13)
-        self.assertEqual(CANAL13_DIRECT_BACKUPS, canal13["backupm3u"])
+        # 2026-10-22: sin respaldos directos; sus señales son canales independientes de Lista 2.
+        self.assertNotIn("backupm3u", canal13)
         self.assertFalse(canal13.get("backupTvVoo"))
         playlist = (ROOT / "m3u.m3u").read_text(encoding="utf-8").splitlines()
         canal13_index = next(index for index, line in enumerate(playlist)
@@ -214,56 +215,27 @@ class ExplicitDirectBackupLinksTest(unittest.TestCase):
         ],
     }
 
-    def test_requested_hd_rows_use_only_the_explicit_direct_backups(self):
+    def test_former_direct_backups_are_independent_list_2_channels(self):
+        # 2026-10-22, pedido del usuario: «Pasa todos los respaldos directos a la lista 2. Deja
+        # solo los respaldos que sean de TvVoo» / «pásalos como canales independientes».
         layout = json.loads((ROOT / "data/channel-editor-layout.json").read_text(encoding="utf-8"))
         rows = {row["tvgId"]: row for row in layout["channels"] if row.get("tvgId")}
-        published_ids = set()
-        for name in ("m3u.m3u", "m3u-externa.m3u"):
-            published_ids |= {
-                channel.tvg_id
-                for channel in runner.parse_channels(
-                    (ROOT / name).read_text(encoding="utf-8").splitlines()
-                )
-            }
-        linked_ids = []
-
-        for primary_id, backup_ids in self.EXPECTED.items():
-            with self.subTest(primary=primary_id):
-                primary = rows[primary_id]
-                self.assertEqual("m3u", primary["kind"])
-                self.assertEqual("active", primary["state"])
-                self.assertEqual(backup_ids, primary["backupm3u"])
-                self.assertIn(primary_id, published_ids)
-                for backup_id in backup_ids:
-                    backup = rows[backup_id]
-                    self.assertEqual("m3u", backup["kind"])
-                    self.assertEqual("active", backup["state"])
-                    self.assertIn(backup_id, published_ids)
-                    self.assertFalse(backup.get("backupm3u"), "no bidirectional backup cycle")
-                    linked_ids.append(backup_id)
-
-        self.assertEqual(len(linked_ids), len(set(linked_ids)))
-
-    def test_canal13_backups_are_trial_rows_in_list_one_and_published_there(self):
-        layout = json.loads((ROOT / "data/channel-editor-layout.json").read_text(encoding="utf-8"))
-        rows = {row["tvgId"]: row for row in layout["channels"] if row.get("tvgId")}
-        presentation = json.loads((ROOT / "presentation-overrides.json").read_text(encoding="utf-8"))
-        main_order = presentation["orders"]["m3u.m3u"]
-        external_order = presentation["orders"]["m3u-externa.m3u"]
+        active = [row for row in layout["channels"] if row.get("state") == "active"]
+        self.assertFalse([row["tvgId"] for row in active if row.get("backupm3u")])
+        self.assertFalse([row["tvgId"] for row in active if row.get("preferredM3u")])
         main_ids = {channel.tvg_id for channel in runner.parse_channels(
-            (ROOT / "m3u.m3u").read_text(encoding="utf-8").splitlines()
-        )}
+            (ROOT / "m3u.m3u").read_text(encoding="utf-8").splitlines())}
         external_ids = {channel.tvg_id for channel in runner.parse_channels(
-            (ROOT / "m3u-externa.m3u").read_text(encoding="utf-8").splitlines()
-        )}
-        for backup_id in CANAL13_DIRECT_BACKUPS:
-            with self.subTest(backup=backup_id):
-                self.assertEqual("1.m3u", rows[backup_id]["sourceList"])
-                self.assertIs(rows[backup_id].get("trial"), True)
-                self.assertIn(backup_id, main_order)
-                self.assertNotIn(backup_id, external_order)
-                self.assertIn(backup_id, main_ids)
-                self.assertNotIn(backup_id, external_ids)
+            (ROOT / "m3u-externa.m3u").read_text(encoding="utf-8").splitlines())}
+        for primary_id, former in self.EXPECTED.items():
+            with self.subTest(primary=primary_id):
+                self.assertEqual("active", rows[primary_id]["state"])
+                for backup_id in former:
+                    backup = rows[backup_id]
+                    self.assertEqual("active", backup["state"])
+                    self.assertEqual("2.m3u", backup["sourceList"])
+                    self.assertIn(backup_id, external_ids)
+                    self.assertNotIn(backup_id, main_ids)
 
 
 class EspnChilePlacementTest(unittest.TestCase):
@@ -307,15 +279,8 @@ class Espn2PlacementTest(unittest.TestCase):
         self.assertEqual(33, target["number"])
         self.assertEqual(32, espn["number"])
         self.assertEqual("ESPN 2", target["displayName"])
-        # 2026-10-19: #33 puede tener respaldos 60 fps, pero el segundo feed
-        # (ESPN2.co@Direct181) sigue independiente y fuera de backupm3u.
-        self.assertTrue(target.get("backupm3u"))
-        self.assertLessEqual(len(target["backupm3u"]), 16)
-        self.assertNotIn("ESPN2.co@Direct181", target.get("backupm3u", []))
-        for backup_id in target["backupm3u"]:
-            backup = next(row for row in rows if row.get("tvgId") == backup_id)
-            self.assertEqual("1.m3u", backup["sourceList"])
-            self.assertTrue(backup.get("trial"))
+        # 2026-10-22: sin respaldos directos (pasaron a Lista 2 como canales independientes).
+        self.assertFalse(target.get("backupm3u"))
         # Renumeración sin huecos (2026-10-18): la segunda señal sigue en la Lista 2, después de
         # los 56 canales de la Lista 1.
         self.assertEqual("2.m3u", second_feed["sourceList"])
