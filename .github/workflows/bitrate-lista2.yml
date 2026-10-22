@@ -1,0 +1,61 @@
+name: Medir bitrate Lista 2
+
+# Solo medición: no cambia el catálogo ni publica nada. Se lanza a mano.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  medir:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5]
+    name: fragmento ${{ matrix.shard }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: ffmpeg
+        run: ffprobe -version | head -1
+      - name: Medir canales
+        run: python tools/probe_bitrate.py --shard ${{ matrix.shard }} --shards 6 --out bitrate-${{ matrix.shard }}.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bitrate-${{ matrix.shard }}
+          path: bitrate-${{ matrix.shard }}.json
+
+  resumen:
+    needs: medir
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: bitrate-*
+          path: partes
+          merge-multiple: true
+      - name: Juntar y resumir
+        run: |
+          python - <<'PY'
+          import json, glob
+          rows = []
+          for f in sorted(glob.glob("partes/bitrate-*.json")):
+              rows += json.load(open(f, encoding="utf-8"))
+          rows.sort(key=lambda r: r["name"].lower())
+          json.dump(rows, open("bitrate-lista2.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+          ok = [r for r in rows if r["ok"]]
+          with open("resumen.md", "w", encoding="utf-8") as out:
+              out.write(f"# Bitrate Lista 2\n\nMedidos: {len(ok)} de {len(rows)}\n\n")
+              out.write("| Canal | Resolución | FPS | kbps |\n|---|---|---|---|\n")
+              for r in ok:
+                  out.write(f"| {r['name']} | {r.get('width')}x{r.get('height')} | {r.get('fps')} | {r.get('kbps')} |\n")
+          PY
+          cat resumen.md >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bitrate-lista2
+          path: |
+            bitrate-lista2.json
+            resumen.md
