@@ -30,7 +30,8 @@ class Lista2EpgMapTest(unittest.TestCase):
         lines = (ROOT / "m3u-externa.m3u").read_text(encoding="utf-8").splitlines()
         published = set(re.findall(r'tvg-id="([^"]+)"', chr(10).join(lines)))
         self.assertTrue((set(mapping) & published).issubset(ids))
-        self.assertGreaterEqual(len(scope), 1100)
+        # Lista 2 baja con la papelera desde la app (A3Cine, 2026-10-22): piso como el del mapa.
+        self.assertGreaterEqual(len(scope), 1000)
 
 
 if __name__ == "__main__":
