@@ -18,8 +18,11 @@ jobs:
     name: fragmento ${{ matrix.shard }}
     steps:
       - uses: actions/checkout@v4
-      - name: ffmpeg
-        run: ffprobe -version | head -1
+      - name: Instalar ffmpeg
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          ffprobe -version | head -1
       - name: Medir canales
         run: python tools/probe_bitrate.py --shard ${{ matrix.shard }} --shards 6 --out bitrate-${{ matrix.shard }}.json
       - uses: actions/upload-artifact@v4
