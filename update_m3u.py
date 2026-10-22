@@ -77,7 +77,7 @@ EPG_PATH = Path(__file__).with_name("epg.xml")
 EPG2_PATH = Path(__file__).with_name("epg-2.xml")
 # 2026-10-21: la app publicada (0.6.24) todavía no expande data-guide-of.
 # Mantener epg-2.xml completo; activar la compresión cuando exista VibeM3U >=0.6.27.
-EPG2_SHARED_GUIDES = False
+EPG2_SHARED_GUIDES = True
 # Guía por canal (2026-10-12): fragmentos automáticos y correcciones manuales por canal.
 EPG_DATA_DIR = Path(__file__).with_name("epg")
 EPG_FRAGMENTS_DIR = EPG_DATA_DIR / epg_fragments.FRAGMENTS_DIRNAME
