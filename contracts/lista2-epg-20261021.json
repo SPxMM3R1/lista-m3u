@@ -24,12 +24,13 @@
     "unresolvedNames": 5,
     "unresolvedIds": 5,
     "epgChannels": 1159,
-    "epgProgrammes": 66248,
-    "pendingChannels": 26,
+    "epgProgrammes": 12679,
+    "pendingChannels": 36,
     "pendingKinds": {
-      "guia-corta": 22,
+      "guia-corta": 32,
       "sin-guia": 4
-    }
+    },
+    "epg2SharedGuides": 955
   },
   "sources": {
     "mx1": 722,
@@ -59,13 +60,12 @@
   "pendiente": "Publicación y verificación remota pendientes.",
   "appRequirement": {
     "app": "VibeM3U",
-    "minimumVersion": "0.6.24",
-    "versionCode": 233,
-    "maxEpgBytes": 67108864,
-    "cacheBytes": 167772160,
-    "apk": "VibeM3U-v0.6.24.apk",
-    "apkBytes": 2846439,
-    "sha256": "beece82a5e4afd0e42f6284c9c1ed7ceee519123c3a9ed294b2a24aaa6ecdef8",
-    "reason": "epg-2.xml completo pesa 39,2 MB; 0.6.24 (límite 64 MB, caché 160 MB) lo carga. La compresión data-guide-of queda desactivada hasta 0.6.27."
+    "minimumVersion": "0.6.27",
+    "latestVersion": "0.6.30",
+    "latestVersionCode": 239,
+    "apk": "VibeM3U-v0.6.30.apk",
+    "apkBytes": 2860975,
+    "sha256": "421e5c7414e6c38445e264a20f29feec499ad76034b49b8550d7fe7e480b1836",
+    "reason": "epg-2.xml comprimido (~5,3 MB, 955 guías compartidas); 0.6.27+ expande data-guide-of. No usar 0.6.24."
   }
 }

@@ -9,7 +9,7 @@
 
 ## Hoy, en una mirada
 
-- **Limpieza y normalización de Lista 2 (2026-10-21)**: a pedido se pasaron a Papelera **28 filas** activas: HGTV (5), Hola TV (11), HTV (3), drama (3), La Liga (3) y MTV (3). Se normalizaron **496 nombres**: marcadores `(NNN)`, sufijos de calidad y variantes de marca; `NatGeo`/`Nat Geo`/`NAT GEO`/`NATGEO` quedan como **National Geographic**. Lista 1 **120**, Lista 2 **1.089**; `epg-2.xml` completo (39,2 MB, sin `data-guide-of`) y 26 pendientes. VibeM3U 0.6.24 lo carga; la compresión compartida queda desactivada hasta 0.6.27. Registros `contracts/lista2-cleanup-20261021.json` y `contracts/lista2-epg-20261021.json`. Suites: 417 Python (18 omitidas) y 58 JS. **Pendiente**: publicación.
+- **Limpieza y normalización de Lista 2 (2026-10-21)**: a pedido se pasaron a Papelera **28 filas** activas: HGTV (5), Hola TV (11), HTV (3), drama (3), La Liga (3) y MTV (3). Se normalizaron **496 nombres**: marcadores `(NNN)`, sufijos de calidad y variantes de marca; `NatGeo`/`Nat Geo`/`NAT GEO`/`NATGEO` quedan como **National Geographic**. Lista 1 **120**, Lista 2 **1.089**; `epg-2.xml` comprimido (5,3 MB, 955 guías compartidas) y 36 pendientes. VibeM3U 0.6.27+ (última 0.6.30) expande `data-guide-of`. Registros `contracts/lista2-cleanup-20261021.json` y `contracts/lista2-epg-20261021.json`. Suites: 417 Python (18 omitidas) y 58 JS. **Pendiente**: publicación.
 - **epg-2.xml sin copias (2026-10-21)**: 1.011 de 1.154 canales de Lista 2 comparten guía con otro; el archivo baja de 44 MB a 6 MB. Necesita VibeM3U 0.6.27 (publicada antes).
 - **EPG en dos archivos (2026-10-21)**: `epg.xml` (Lista 1, 2,4 MB) y `epg-2.xml` (Lista 2, 47 MB). La app baja la de Lista 2 solo si esa lista está activada (usa el `x-tvg-url` de cada M3U). Antes era un solo `epg.xml` de 50 MB.
 - **Corrección manual de guía, Sony Channel #58 (2026-10-21)**: el tramo 20:05–22:20 UTC decía «El hombre araña 3» (PA1); el usuario vio la 2. Todas las fuentes tienen el horario correcto pero ninguna el título, así que va en `epg/manual/PublicDirect.9c28a0d10a09856e98930cdc.xml`.
@@ -17,7 +17,7 @@
 - **Guía de Sony Movies #55 (2026-10-21)**: fuente Claro Argentina («SONY MOVIES HD»), verificada con lo que vio el usuario («El Vengador Fantasma», 21:20–23:15 UTC). El canal deja de estar en prueba. Los Sony Movies de Lista 2 están mapeados a us2 (EE. UU.), que no coincide.
 - **Categoría «Música» (2026-10-21)**: «Música y conciertos» se llama «Música»; RWND pasa al #41, primero de la categoría (los demás bajan uno hasta Stingray Classica #54).
 - **Logo blanco de Telehit Música (2026-10-21)**: #49 usa `logos/telehit-musica-mx.png` (el blanco que tenía hasta el 20-10); el negro no se veía sobre la TV.
-- **EPG de 51 MB requiere VibeM3U 0.6.24 (2026-10-21)**: la EPG con Lista 2 pesa ~51 MB; VibeM3U 0.6.23 usaba un límite de 32 MB y caché de 48 MB, descartaba la guía completa y por eso canales como el **#1005** no mostraban programación. VibeM3U **0.6.24/233** sube `MAX_EPG_BYTES` a 64 MB y la caché a 160 MB. APK `VibeM3U-v0.6.24.apk`, 2.846.439 bytes, SHA-256 `beece82a5e4afd0e42f6284c9c1ed7ceee519123c3a9ed294b2a24aaa6ecdef8`; CI `39673098447` y release `39673648320` success. Actualizar la app antes de recargar la EPG.
+- **EPG 2 comprimida y app mínima (2026-10-22)**: `epg-2.xml` usa `data-guide-of` (~5,3 MB, 955 guías compartidas). VibeM3U **0.6.27+** la expande; la última es 0.6.30/239. La 0.6.24 no entiende esa compresión y no debe usarse con esta guía. APK `VibeM3U-v0.6.30.apk`.
 - **EPG de Lista 2 — cierre (2026-10-21)**: **1.166 de 1.171 IDs** (292 nombres) con guía real y futuro ≥18 h; quedan **5 nombres sin fuente** (ADULTOS, ANTENA 3 CINE, ESPN Plus, Mega 2, sextrem) y **9 pendientes** (4 sin guía, 5 guía corta). EPG local: **1.240 canales y 89.502 programas** (56 MB). Se corrigieron Venus, Paramount, H2, Kanal D Drama, Antena 3 y Europa. Registro `contracts/lista2-epg-20261021.json`. Suites: 412 Python (18 omitidas) y 58 JS. **Publicado y verificado**: commit `79e312ca`; EPG `39592375275` success; dirigido `39592795235` success; Raw 1.240 canales/89.502 programas; 9 pendientes y 5 nombres sin fuente.
 - **Categorías sin «generalista» (2026-10-21)**: a pedido del usuario se renombraron `Nacionales generalistas` → `Nacionales` y `Generalista internacional` → `Internacional` en las 6 filas visibles (TVN, Mega, CHV, Canal 13, La Red y TVE Internacional). No cambian orden, identidad, logos, EPG ni respaldos. La app arma los filtros con `group` (sin APK); M3U y catálogo se regeneraron. Suites: 410 Python (18 omitidas) y 58 JS. **Publicado y verificado**: commit `5dcdbe9b`; raw Lista 1 120, Lista 2 1.171; `Nacionales` e `Internacional` sin «generalista»; runner `9e3bc0e3`.
 - **EPG española: 4 guías arregladas (2026-10-20)**: EPGShare ES1 quedó sin futuro para Al Jazeera English, DAZN F1 y Eurosport 1/2 España. Se agregó la guía diaria de Movistar/Orange como fuente `es2` y cuatro respaldos: `AlJazeera.qa`, `DAZNF1.uk`, `Eurosport1.fr` y `Eurosport2.fr`. Resultado: **84/31/33/41 programas futuros**, `epg-pending.json` vacío, **0 avisos**, 52 fragmentos reconstruidos y `epg.xml` con 5.518 programas/66 canales. Registro `contracts/epg-es-movistar-backup-20261020.json`. Suites: 410 Python (18 omitidas) y 58 JS. **Publicado y verificado**: commit `baab6a86`; workflow EPG `39531971168` success; `epg-pending.json` vacío y 84/31/33/41 programas futuros.
@@ -289,7 +289,7 @@
 
 ## Bitácora (más reciente arriba)
 
-- **2026-10-21 / limpieza y nombres Lista 2**: 28 bajas (HGTV, Hola, HTV, drama, La Liga, MTV); 496 nombres normalizados; L1 120, L2 1.089; EPG2 completo 39,2 MB. Pendiente publicación.
+- **2026-10-21 / limpieza y nombres Lista 2**: 28 bajas (HGTV, Hola, HTV, drama, La Liga, MTV); 496 nombres normalizados; L1 120, L2 1.089; EPG2 comprimido 5,3 MB. Pendiente publicación.
 - **2026-10-21**: epg-2.xml con guías compartidas (44 → 6 MB).
 - **2026-10-21**: EPG separada: epg.xml (Lista 1) y epg-2.xml (Lista 2).
 - **2026-10-21**: corrección manual del título «El Hombre Araña 2» en Sony Channel #58.
@@ -297,7 +297,7 @@
 - **2026-10-21**: guía Claro Argentina para Sony Movies #55.
 - **2026-10-21**: categoría «Música» y RWND #41.
 - **2026-10-21**: Telehit Música (#49) con el logo blanco histórico.
-- **2026-10-21 / EPG 51 MB**: VibeM3U 0.6.24/233 sube límites 32/48→64/160 MB; el #1005 ya puede cargar la EPG completa. APK SHA-256 beece82a…
+- **2026-10-22 / EPG 2 comprimida**: `epg-2.xml` 5,3 MB con 955 guías compartidas; app 0.6.27+ (0.6.30/239) las expande. La 0.6.24 queda obsoleta para esta guía.
 - **2026-10-21 / EPG Lista 2 cierre**: 1.166/1.171 IDs; 292 nombres; 5 sin fuente; 9 pendientes; EPG 1.240 canales/89.502 programas. Publicado: `79e312ca`; EPG `39592375275` success; Raw 1.240/89.502.
 - **2026-10-21 / categorías sin «generalista»**: `Nacionales generalistas`→`Nacionales` y `Generalista internacional`→`Internacional`; 6 filas. Publicado: `5dcdbe9b`; raw 120/1.171; runner `9e3bc0e3`.
 - **2026-10-20 / EPG española**: fuente es2 (Movistar/Orange) como respaldo; 4 guías con 84/31/33/41 futuros; pending vacío y 0 avisos. Publicado: `baab6a86`; workflow EPG `39531971168` success.

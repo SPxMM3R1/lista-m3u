@@ -94,9 +94,9 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
 
 ## 4. EPG
 
-- **EPG grande y app mínima (2026-10-21)**: con Lista 2 la EPG ronda 51 MB; VibeM3U
-  0.6.24/233 o superior es obligatoria (`MAX_EPG_BYTES=64 MB`, caché 160 MB).
-  0.6.23 y anteriores descartaban el archivo y dejaban canales como #1005 sin guía.
+- **EPG 2 comprimida (2026-10-22)**: `epg-2.xml` usa `data-guide-of` (~5,3 MB,
+  955 guías compartidas). VibeM3U 0.6.27+ (última 0.6.30/239) expande la guía;
+  la 0.6.24 no la entiende y no debe usarse con esta EPG.
 - **EPG de Lista 2 (2026-10-21)**: solo se asigna una guía por `epg-l2-map.json`
   cuando la fuente real tiene ≥18 h futuras; los parciales quedan en `epg-pending`.
   `epg_scope_channels()` y `refresh_epg()` incluyen los IDs mapeados; no inventar
