@@ -75,6 +75,9 @@ EPG_PATH = Path(__file__).with_name("epg.xml")
 # selección gestionada; epg-2.xml lleva solo las guías de Lista 2. La app descarga la guía
 # del x-tvg-url de cada lista activa, así que epg-2.xml solo se baja con Lista 2 encendida.
 EPG2_PATH = Path(__file__).with_name("epg-2.xml")
+# 2026-10-21: la app publicada (0.6.24) todavía no expande data-guide-of.
+# Mantener epg-2.xml completo; activar la compresión cuando exista VibeM3U >=0.6.27.
+EPG2_SHARED_GUIDES = False
 # Guía por canal (2026-10-12): fragmentos automáticos y correcciones manuales por canal.
 EPG_DATA_DIR = Path(__file__).with_name("epg")
 EPG_FRAGMENTS_DIR = EPG_DATA_DIR / epg_fragments.FRAGMENTS_DIRNAME
@@ -7125,7 +7128,8 @@ def split_epg_documents(data: bytes, list2_ids: set[str]) -> tuple[bytes, bytes]
                 part.remove(element)
         if keep_second:
             part.set("data-epg-scope", EXTERNAL_PLAYLIST.name)
-            dedupe_shared_guides(part)
+            if EPG2_SHARED_GUIDES:
+                dedupe_shared_guides(part)
         documents.append(ET.tostring(part, encoding="utf-8", xml_declaration=True) + b"\n")
     return documents[0], documents[1]
 

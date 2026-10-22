@@ -9,6 +9,7 @@
 
 ## Hoy, en una mirada
 
+- **Limpieza y normalización de Lista 2 (2026-10-21)**: a pedido se pasaron a Papelera **28 filas** activas: HGTV (5), Hola TV (11), HTV (3), drama (3), La Liga (3) y MTV (3). Se normalizaron **496 nombres**: marcadores `(NNN)`, sufijos de calidad y variantes de marca; `NatGeo`/`Nat Geo`/`NAT GEO`/`NATGEO` quedan como **National Geographic**. Lista 1 **120**, Lista 2 **1.089**; `epg-2.xml` completo (39,2 MB, sin `data-guide-of`) y 26 pendientes. VibeM3U 0.6.24 lo carga; la compresión compartida queda desactivada hasta 0.6.27. Registros `contracts/lista2-cleanup-20261021.json` y `contracts/lista2-epg-20261021.json`. Suites: 417 Python (18 omitidas) y 58 JS. **Pendiente**: publicación.
 - **epg-2.xml sin copias (2026-10-21)**: 1.011 de 1.154 canales de Lista 2 comparten guía con otro; el archivo baja de 44 MB a 6 MB. Necesita VibeM3U 0.6.27 (publicada antes).
 - **EPG en dos archivos (2026-10-21)**: `epg.xml` (Lista 1, 2,4 MB) y `epg-2.xml` (Lista 2, 47 MB). La app baja la de Lista 2 solo si esa lista está activada (usa el `x-tvg-url` de cada M3U). Antes era un solo `epg.xml` de 50 MB.
 - **Corrección manual de guía, Sony Channel #58 (2026-10-21)**: el tramo 20:05–22:20 UTC decía «El hombre araña 3» (PA1); el usuario vio la 2. Todas las fuentes tienen el horario correcto pero ninguna el título, así que va en `epg/manual/PublicDirect.9c28a0d10a09856e98930cdc.xml`.
@@ -288,6 +289,7 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-21 / limpieza y nombres Lista 2**: 28 bajas (HGTV, Hola, HTV, drama, La Liga, MTV); 496 nombres normalizados; L1 120, L2 1.089; EPG2 completo 39,2 MB. Pendiente publicación.
 - **2026-10-21**: epg-2.xml con guías compartidas (44 → 6 MB).
 - **2026-10-21**: EPG separada: epg.xml (Lista 1) y epg-2.xml (Lista 2).
 - **2026-10-21**: corrección manual del título «El Hombre Araña 2» en Sony Channel #58.

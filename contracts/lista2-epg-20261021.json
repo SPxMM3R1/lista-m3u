@@ -19,16 +19,16 @@
     "manualAliases": 91
   },
   "coverage": {
-    "mappedIds": 1166,
-    "mappedNames": 292,
+    "mappedIds": 1084,
+    "mappedNames": 255,
     "unresolvedNames": 5,
     "unresolvedIds": 5,
-    "epgChannels": 1240,
-    "epgProgrammes": 89502,
-    "pendingChannels": 9,
+    "epgChannels": 1159,
+    "epgProgrammes": 66248,
+    "pendingChannels": 26,
     "pendingKinds": {
-      "sin-guia": 4,
-      "guia-corta": 5
+      "guia-corta": 22,
+      "sin-guia": 4
     }
   },
   "sources": {
@@ -56,7 +56,7 @@
   ],
   "mechanism": "epg-l2-map.json + load_epg_l2_map(); epg_scope_channels() suma Lista 2 mapeada; refresh_epg() usa ese alcance; build_epg_fragments() reconstruye por canal. Guias parciales quedan en epg-pending, sin continuidad inventada.",
   "validation": "412 Python (18 omitidas) y 58 JS en verde; 1.166 IDs y 292 nombres mapeados; EPG local 1.240 canales/89.502 programas; 9 pendientes; 5 nombres sin fuente.",
-  "pendiente": "Publicado y verificado: commit 79e312ca; EPG workflow 39592375275 success; dirigido 39592795235 success; Raw 1.240 canales/89.502 programas; 9 pendientes y 5 nombres sin fuente.",
+  "pendiente": "Publicación y verificación remota pendientes.",
   "appRequirement": {
     "app": "VibeM3U",
     "minimumVersion": "0.6.24",
@@ -66,6 +66,6 @@
     "apk": "VibeM3U-v0.6.24.apk",
     "apkBytes": 2846439,
     "sha256": "beece82a5e4afd0e42f6284c9c1ed7ceee519123c3a9ed294b2a24aaa6ecdef8",
-    "reason": "El epg.xml de ~51 MB supera el límite 32/48 MB de 0.6.23; el #1005 y el resto de Lista 2 no cargaban guía."
+    "reason": "epg-2.xml completo pesa 39,2 MB; 0.6.24 (límite 64 MB, caché 160 MB) lo carga. La compresión data-guide-of queda desactivada hasta 0.6.27."
   }
 }
