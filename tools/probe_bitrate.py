@@ -53,12 +53,17 @@ def probe(item):
         packets = run(["ffprobe", "-v", "error", "-read_intervals", f"%+{SECONDS}", "-show_entries",
                        "packet=size,pts_time", "-of", "csv=p=0", url])
         sizes, times = [], []
+        # ffprobe imprime «pts_time,size,» (algunas filas traen pts N/A y se descartan).
         for row in packets.splitlines():
-            parts = row.split(",")
-            if len(parts) == 2 and parts[0].isdigit() and parts[1] not in ("", "N/A"):
-                sizes.append(int(parts[0]))
-                times.append(float(parts[1]))
+            fields = [field for field in row.split(",") if field not in ("", "N/A")]
+            if len(fields) == 2 and fields[1].isdigit():
+                try:
+                    times.append(float(fields[0]))
+                except ValueError:
+                    continue
+                sizes.append(int(fields[1]))
         if len(times) > 10 and max(times) - min(times) > 1:
+            # Ventana de SECONDS segundos: si el canal da más, solo cuentan los paquetes de esa ventana.
             duration = max(times) - min(times)
             result["kbps"] = round(sum(sizes) * 8 / duration / 1000)
             result["ok"] = True
