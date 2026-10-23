@@ -59,9 +59,20 @@ def interval_for(part: str) -> timedelta:
 
 def retry_after(part: str, failures: int) -> timedelta:
     """30 min, 1 h, 2 h… sin pasar del ritmo normal de la fuente."""
+    interval = interval_for(part)
     if failures <= 0:
-        return interval_for(part)
-    return min(interval_for(part), FIRST_RETRY * (2 ** (failures - 1)))
+        return interval
+
+    # No calcular FIRST_RETRY * 2 ** failures antes de limitarlo: una fuente
+    # que falla muchas veces acaba desbordando timedelta antes de llegar a min().
+    # La espera se satura al ritmo normal en unas pocas iteraciones, incluso si
+    # el contador lleva años acumulándose.
+    delay = FIRST_RETRY
+    remaining_doublings = failures - 1
+    while remaining_doublings > 0 and delay < interval:
+        delay = min(interval, delay * 2)
+        remaining_doublings -= 1
+    return min(interval, delay)
 
 
 def load_state(path: Path = STATE_PATH) -> dict:

@@ -183,6 +183,17 @@ class DispatcherTest(unittest.TestCase):
         self.assertEqual(timedelta(hours=6), epg_dispatch.retry_after("tvn-oficial", 9))
         self.assertEqual(timedelta(minutes=30), epg_dispatch.retry_after("tvn-oficial", 1))
 
+    def test_backoff_saturates_without_overflow_after_repeated_failures(self):
+        # Reproduce la secuencia que hizo caer Actions: 36 → 37 fallos de una fuente.
+        state = {"schema": 1, "parts": {"canal13": {"failures": 36}}}
+        recorded = epg_dispatch.record(state, ["canal13"], {"canal13": False}, NOW)
+        self.assertEqual(37, recorded["parts"]["canal13"]["failures"])
+        self.assertEqual("2026-10-13T00:00:00Z", recorded["parts"]["canal13"]["nextDue"])
+
+        # Incluso un contador desproporcionado no construye una exponencial enorme.
+        self.assertEqual(timedelta(hours=6), epg_dispatch.retry_after("canal13", 10**100))
+        self.assertEqual(timedelta(hours=2), epg_dispatch.retry_after("red-bull", 10**100))
+
 
 class RunnerIntegrationTest(unittest.TestCase):
     def test_every_channel_maps_to_known_parts(self):

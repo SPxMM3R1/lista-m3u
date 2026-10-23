@@ -5,10 +5,11 @@
 > cubre la app). **Al terminar cualquier cambio, actualiza este archivo en el mismo commit**:
 > la sección «Hoy» si cambió el estado y una línea nueva en «Bitácora».
 
-Última actualización: **2026-10-20** (America/Santiago).
+Última actualización: **2026-10-23** (America/Santiago).
 
 ## Hoy, en una mirada
 
+- **Reparación del despachador EPG (2026-10-23)**: el contador de fallos de `epg/estado.json` podía alcanzar 37; `retry_after()` construía `30 min × 2^(fallos−1)` antes de aplicar el tope y desbordaba `timedelta`, haciendo fallar el registro y saltar la publicación aunque la unión de guías hubiera terminado. El cálculo ahora se satura en unas pocas iteraciones al ritmo de la fuente. La regresión reproduce 36→37 fallos y verifica también contadores extremos; un resultado vacío de una fuente seguirá siendo un fallo/reintento, pero ya no derribará el workflow. Pendiente tras publicar: observar una ejecución EPG completa y confirmar su salida remota.
 - **Lista 2 ordenada por bitrate (2026-10-22)**: 917 canales medidos en el runner (mayor primero, mediana 2.272 kbps); 179 sin medir al final en orden alfabético. Medición en el workflow `bitrate-lista2` (manual, solo lectura).
 - **Respaldos directos → canales independientes de Lista 2 (2026-10-22)**: a pedido («Pasa todos los respaldos directos a la lista 2. Deja solo los respaldos que sean de TVBoo» / «pásalos como canales independientes, no como que sigan siendo respaldo») se quitaron todos los `backupm3u` (12 canales; no había `preferredM3u`) y sus **58 señales** quedaron como canales visibles de Lista 2 en orden alfabético: 52 venían de Lista 1 (Canal 13 ×6, ESPN ×11, ESPN 2 ×9, ESPN 3 ×7, ESPN 5 ×4, ESPN 6 ×7, ESPN 7 ×8) y 6 ya estaban en Lista 2 (A&E, AMC ×2, Animal Planet, AXN, Cinecanal). Se conservan `backupTvVoo` y `backupCountries`. Lista 1 visible sin cambios de número (68 filas activas); Lista 2 1.096. Las 52 nuevas reciben guía en `epg-l2-map.json` con la fuente de su canal de origen (`confidence: backup-of:<id>`). Registro `contracts/respaldos-directos-a-lista2-20261022.json`. Tests de respaldos actualizados a la regla nueva.
 - **Nombres oficiales de Lista 2 y orden alfabético (2026-10-22)**: a pedido («Necesito que renombres lo que se note que es el mismo canal a la manera correcta» → «Nombre oficial, solo visible» → vista previa aprobada «Aplica y reordena») se cambió solo `displayName` de **163 filas** activas (42 nombres destino; 185 → 136 nombres distintos), p. ej. Disc/Discovery Theather → Discovery Theater, Discovery H&H/Home & Health/H&h → Discovery Home & Health, Discovery ID/ID → Investigation Discovery, Sony → Sony Channel, Warner/Warner TV → Warner Channel, History Channel → History, H2 → History 2, prefijos «CANAL NN» fuera. Mapa en `contracts/lista2-nombres-oficiales-20261022.json`. Sin tocar señales regionales (Sur/ARG/Co/Oeste/Este/Andes), canales distintos (familia Golden, Telehit Música, Warner Bros) ni dudosos («Discovery», «Claro Sports», «Golden_s», «Universal Premiere O», «Telehit Latinio», «Fox», «Alcatel …»). Bloque Lista 2 reordenado con la clave del contrato (`sort_key` de `test_m6foot_reference`): 841 filas renumeradas, Lista 1 intacta. `test_epg_l2_map` baja el piso de alcance a 1.000 (la papelera desde la app dejó 1.092). Suites: 417 Python (19 omitidas) y 58 JS.
@@ -292,6 +293,7 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-23 / reparación del registro EPG**: se reemplazó la exponencial sin límite en `epg_dispatch.retry_after()` por backoff saturado al intervalo de cada fuente; el error solo aparecía tras muchas fallas persistentes (36→37). Prueba de regresión agregada a `tests/test_epg_fragments.py`. 417 pruebas Python (19 omitidas) y 58 JavaScript pasan; `git diff --check` limpio. Publicación y comprobación de una corrida EPG quedan pendientes.
 - **2026-10-21 / limpieza y nombres Lista 2**: 28 bajas (HGTV, Hola, HTV, drama, La Liga, MTV); 496 nombres normalizados; L1 120, L2 1.089; EPG2 comprimido 5,3 MB. Pendiente publicación.
 - **2026-10-21**: epg-2.xml con guías compartidas (44 → 6 MB).
 - **2026-10-21**: EPG separada: epg.xml (Lista 1) y epg-2.xml (Lista 2).
