@@ -133,7 +133,15 @@ class M6FootReferenceTest(unittest.TestCase):
             if row["state"] == "active" and row.get("sourceList") == "2.m3u"
             and row.get("tvgId") not in linked
         ]
-        self.assertEqual([sort_key(row) for row in block], sorted(sort_key(row) for row in block))
+        # 2026-10-22: el bloque de Lista 2 va por bitrate medido (mayor primero); los sin medir,
+        # al final en orden alfabético (contracts/bitrate-lista2-20261022.json).
+        measured = {
+            item["tvg_id"]: item["kbps"]
+            for item in json.loads((ROOT / "contracts/bitrate-lista2-20261022.json").read_text(encoding="utf-8"))
+            if item.get("ok")
+        }
+        ranks = [(0, -measured[row["tvgId"]]) if row.get("tvgId") in measured else (1, 0) for row in block]
+        self.assertEqual(ranks, sorted(ranks))
 
     def test_layout_is_sealed_and_rows_reach_lista_2(self):
         document = layout()
