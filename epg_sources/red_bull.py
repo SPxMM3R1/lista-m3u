@@ -27,6 +27,7 @@ from update_m3u import (
 __all__ = [
     "normalize_red_bull_schedule",
     "red_bull_page_schedule",
+    "clean_red_bull_title",
     "red_bull_request_country",
     "red_bull_chile_schedule",
     "red_bull_api_schedule",
@@ -35,17 +36,30 @@ __all__ = [
 ]
 
 
+# «EN VIVO» de la página de Red Bull, con o sin dos puntos y en cualquier parte del título
+# («EN VIVO: EN VIVO Red Bull…», «Final - en vivo»). Pedido del usuario (2026-10-24).
+_RED_BULL_LIVE_MARK = re.compile(r"[\s:\-|·]*\ben\s+vivo\b[\s:\-|·]*", re.IGNORECASE)
+
+
+def clean_red_bull_title(title: str) -> str:
+    """Quita la marca «en vivo» del título; si no queda nada, devuelve el original."""
+    cleaned = re.sub(r"\s+", " ", _RED_BULL_LIVE_MARK.sub(" ", title)).strip()
+    return cleaned or title.strip()
+
+
 def normalize_red_bull_schedule(schedule: list[dict]) -> list[dict]:
     """Return a chronological, non-overlapping linear guide."""
     ordered: list[dict] = []
     sortable: list[tuple[datetime, dict]] = []
-    for item in schedule:
+    for source in schedule:
         try:
-            start = datetime.fromisoformat(item["start_time"].replace("Z", "+00:00"))
-            stop = datetime.fromisoformat(item["end_time"].replace("Z", "+00:00"))
+            start = datetime.fromisoformat(source["start_time"].replace("Z", "+00:00"))
+            stop = datetime.fromisoformat(source["end_time"].replace("Z", "+00:00"))
         except (KeyError, TypeError, ValueError):
             continue
         if stop > start:
+            item = dict(source)
+            item["title"] = clean_red_bull_title(str(source.get("title", "")))
             sortable.append((start, item))
 
     # The API can briefly return duplicate or overlapping cards while its guide

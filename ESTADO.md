@@ -301,6 +301,7 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-24 — Red Bull sin «EN VIVO»**: pedido del usuario. `normalize_red_bull_schedule` quita la marca «en vivo» de cualquier título (prefijo con o sin dos puntos, o en medio) antes de escribir la guía, para todas las fuentes Red Bull (`clean_red_bull_title`). Si el título queda vacío, se conserva el original. Pruebas en `tests/test_red_bull_titles.py`; suite Python completa en verde.
 - **2026-10-24 — AXN (57) oficial**: quitado `trial` de la fila #57 y de `trial_m3u`; layout sellado `chat` (`f80a40c2…`); guía Claro Argentina `claro:argentina:762275` entra al alcance EPG. Tests: suite Python completa (`unittest discover`) y 58 JS en verde.
 - **2026-10-23 / reparación del registro EPG**: se reemplazó la exponencial sin límite en `epg_dispatch.retry_after()` por backoff saturado al intervalo de cada fuente. Suite completa: 417 pruebas Python (19 omitidas) y 58 JavaScript; pruebas posteriores de separación y mapa de EPG también pasan. Commit `60cb4687`, publicado en `main`; corrida EPG `40017721905` y publicación del runner `bcb31112` success; GitHub Raw verificó 2.653 programas exactos en `epg.xml`. Las fuentes Canal 13 C y Sky devolvieron cero documentos (37 fallos; nuevo intento en 6 h) y el reporte conservó 5 canales de Lista 1 sin programas; su causa queda por investigar, separada del overflow corregido.
 - **2026-10-21 / limpieza y nombres Lista 2**: 28 bajas (HGTV, Hola, HTV, drama, La Liga, MTV); 496 nombres normalizados; L1 120, L2 1.089; EPG2 comprimido 5,3 MB. Pendiente publicación.
