@@ -4,20 +4,20 @@
   "source": "Lista 2: guía Claro Video por familia (una por canal real) + EPGShare de respaldo; nombres exactos + alias manuales",
   "count": 1153,
   "bySource": {
-    "claro-guia": 976,
-    "mx1": 93,
-    "co1": 27,
-    "es": 11,
+    "claro-guia": 1014,
+    "mx1": 70,
+    "co1": 20,
     "uy1": 9,
     "us2": 9,
+    "es": 8,
     "fr": 8,
-    "ar1": 5,
     "es2": 4,
-    "cl": 3,
     "nl": 3,
     "de": 2,
     "uk1": 2,
-    "pt1": 1
+    "cl": 2,
+    "pt1": 1,
+    "ar1": 1
   },
   "channels": {
     "AMC.co@Direct181": {
@@ -69,15 +69,15 @@
       }
     },
     "ESPN4.br@Direct181": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:927643",
-      "source_name": "ESPN 4 (Claro colombia)",
+      "source": "pa1",
+      "source_id": "Canal.ESPN.4.(Panamá).pa",
+      "source_name": "Canal.ESPN.4.(Panamá).pa",
       "l2_name": "ESPN 4",
       "group": "Deportes",
-      "confidence": "claro-familia",
+      "confidence": "guía fija verificada con fotogramas; respaldo Claro de la misma señal",
       "backup": {
-        "source": "co1",
-        "source_id": "ESPN.4.co"
+        "source": "claro-guia",
+        "source_id": "claro:panama:816448"
       }
     },
     "FX.co@Direct181": {
@@ -169,14 +169,16 @@
       "screenshot": null
     },
     "M6Foot.88@M6Foot": {
-      "source": "ar1",
-      "source_id": "Canal.ESPN.2.(Bolivia).ar",
-      "source_name": "Canal ESPN 2 (Bolivia)",
+      "source": "claro-guia",
+      "source_id": "claro:colombia:788718",
+      "source_name": "ESPN 2 NEW (Claro colombia)",
       "l2_name": "ESPN 2 ARG",
       "group": "Deportes",
-      "confidence": "exact",
-      "futureHours": 61.4,
-      "screenshot": null
+      "confidence": "claro-familia (ESPN 2)",
+      "backup": {
+        "source": "ar1",
+        "source_id": "Canal.ESPN.2.(Bolivia).ar"
+      }
     },
     "M6Foot.89@M6Foot": {
       "source": "claro-guia",
@@ -299,15 +301,15 @@
       }
     },
     "Nauta.52bb87a2e2911ed34f7ae3bc@Nauta": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:927622",
-      "source_name": "ESPN 7 (Claro colombia)",
+      "source": "co1",
+      "source_id": "ESPN.7.HD.co",
+      "source_name": "ESPN.7.HD.co",
       "l2_name": "ESPN 7",
       "group": "Nauta",
-      "confidence": "claro-familia",
+      "confidence": "guía fija verificada con fotogramas; respaldo Claro de la misma señal",
       "backup": {
-        "source": "co1",
-        "source_id": "ESPN.7.HD.co"
+        "source": "claro-guia",
+        "source_id": "claro:colombia:927622"
       }
     },
     "Nauta.57d13b9b10bcbdc51d4dab10@Nauta": {
@@ -347,14 +349,16 @@
       }
     },
     "Nauta.81dc69c20557da0672921475@Nauta": {
-      "source": "co1",
-      "source_id": "ESPN.7.HD.co",
-      "source_name": "ESPN 7 HD",
-      "l2_name": "ESPN 1 | Chile",
+      "source": "claro-guia",
+      "source_id": "claro:colombia:788650",
+      "source_name": "ESPN NEW (Claro colombia)",
+      "l2_name": "ESPN 1 Chile",
       "group": "Nauta",
-      "confidence": "alias",
-      "futureHours": 63.3,
-      "screenshot": null
+      "confidence": "claro-familia (ESPN)",
+      "backup": {
+        "source": "co1",
+        "source_id": "ESPN.7.HD.co"
+      }
     },
     "Nauta.8c5a91e0b8d25e158a9afa6f@Nauta": {
       "source": "claro-guia",
@@ -393,14 +397,16 @@
       }
     },
     "Nauta.b0e158ffa085b177eadaaca6@Nauta": {
-      "source": "cl",
-      "source_id": "Canal.HBO.Plus.cl",
-      "source_name": "Canal HBO Plus",
+      "source": "claro-guia",
+      "source_id": "claro:colombia:792130",
+      "source_name": "HBO PLUS HD (Claro colombia)",
       "l2_name": "HBO Plus Oeste",
       "group": "Nauta · HD",
-      "confidence": "alias",
-      "futureHours": 38.6,
-      "screenshot": null
+      "confidence": "claro-familia (HBO Plus)",
+      "backup": {
+        "source": "cl",
+        "source_id": "Canal.HBO.Plus.cl"
+      }
     },
     "Nauta.b5a185bf8235a26035237746@Nauta": {
       "source": "claro-guia",
@@ -427,24 +433,28 @@
       }
     },
     "Nauta.c89a873414ec166795c59f26@Nauta": {
-      "source": "co1",
-      "source_id": "ESPN.4.co",
-      "source_name": "ESPN 4",
-      "l2_name": "ESPN 4 | Sur",
+      "source": "claro-guia",
+      "source_id": "claro:colombia:927643",
+      "source_name": "ESPN 4 (Claro colombia)",
+      "l2_name": "ESPN 4 Sur",
       "group": "Nauta · Entretenimiento",
-      "confidence": "exact",
-      "futureHours": 62.2,
-      "screenshot": null
+      "confidence": "claro-familia (ESPN 4)",
+      "backup": {
+        "source": "co1",
+        "source_id": "ESPN.4.co"
+      }
     },
     "Nauta.dac26a78f5bdf111bc9b9ffc@Nauta": {
-      "source": "co1",
-      "source_id": "ESPN.7.HD.co",
-      "source_name": "ESPN 7 HD",
-      "l2_name": "ESPN 1 | Sur",
+      "source": "claro-guia",
+      "source_id": "claro:colombia:788650",
+      "source_name": "ESPN NEW (Claro colombia)",
+      "l2_name": "ESPN 1 Sur",
       "group": "Nauta",
-      "confidence": "alias",
-      "futureHours": 63.3,
-      "screenshot": null
+      "confidence": "claro-familia (ESPN)",
+      "backup": {
+        "source": "co1",
+        "source_id": "ESPN.7.HD.co"
+      }
     },
     "Nauta.ed0ed0370e182f10a4e96f3d@Nauta": {
       "source": "claro-guia",
@@ -483,14 +493,16 @@
       }
     },
     "PublicDirect.003eb6109e7102731d0317e2": {
-      "source": "mx1",
-      "source_id": "Canal.Universal.Premiere.mx",
-      "source_name": "Canal Universal Premiere",
-      "l2_name": "UNIVERSAL PREMIERE O",
+      "source": "claro-guia",
+      "source_id": "claro:colombia:1193454",
+      "source_name": "UNIVERSAL PREMIERE HD (Claro colombia)",
+      "l2_name": "Universal Premiere O",
       "group": "Deportes",
-      "confidence": "alias",
-      "futureHours": 66.8,
-      "screenshot": "universal-premiere-o-cde92ac0.jpg"
+      "confidence": "claro-familia (Universal Premiere)",
+      "backup": {
+        "source": "mx1",
+        "source_id": "Canal.Universal.Premiere.mx"
+      }
     },
     "PublicDirect.0075f09b6962c4c7653bed0d": {
       "source": "claro-guia",
@@ -1625,14 +1637,16 @@
       "screenshot": "a-e-5f5d886a.jpg"
     },
     "PublicDirect.1ba8e8c0e020c6c5aeb141dc": {
-      "source": "mx1",
-      "source_id": "Canal.Universal.Premiere.mx",
-      "source_name": "Canal Universal Premiere",
-      "l2_name": "UNIVERSAL PREMIER 2",
+      "source": "claro-guia",
+      "source_id": "claro:colombia:1193454",
+      "source_name": "UNIVERSAL PREMIERE HD (Claro colombia)",
+      "l2_name": "Universal Premiere 2",
       "group": "Deportes",
-      "confidence": "alias",
-      "futureHours": 66.8,
-      "screenshot": "universal-premier-2-f452dcdb.jpg"
+      "confidence": "claro-familia (Universal Premiere)",
+      "backup": {
+        "source": "mx1",
+        "source_id": "Canal.Universal.Premiere.mx"
+      }
     },
     "PublicDirect.1c4bc73a4451234e9fac2d4e": {
       "source": "mx1",
@@ -1669,14 +1683,16 @@
       }
     },
     "PublicDirect.1c67bd8e5eefc21d4142fb04": {
-      "source": "mx1",
-      "source_id": "Canal.Comedy.Central.(México).mx",
-      "source_name": "Canal Comedy Central (México)",
-      "l2_name": "COMEDI CENTRAL",
+      "source": "claro-guia",
+      "source_id": "claro:panama:816391",
+      "source_name": "COMEDY CENTRAL HD (Claro panama)",
+      "l2_name": "Comedy Central",
       "group": "Misceláneos",
-      "confidence": "alias",
-      "futureHours": 66.5,
-      "screenshot": "comedi-central-98c0c320.jpg"
+      "confidence": "claro-familia",
+      "backup": {
+        "source": "mx1",
+        "source_id": "Canal.Comedy.Central.(México).mx"
+      }
     },
     "PublicDirect.1c8dde5e33ace243b12dbe2d": {
       "source": "mx1",
@@ -2381,14 +2397,16 @@
       }
     },
     "PublicDirect.2f94f68563ee3b5cf130751e": {
-      "source": "ar1",
-      "source_id": "Canal.ESPN.2.(Bolivia).ar",
-      "source_name": "Canal ESPN 2 (Bolivia)",
-      "l2_name": "ESPN 2 SUR",
+      "source": "claro-guia",
+      "source_id": "claro:colombia:788718",
+      "source_name": "ESPN 2 NEW (Claro colombia)",
+      "l2_name": "ESPN 2 Sur",
       "group": "Deportes",
-      "confidence": "exact",
-      "futureHours": 61.4,
-      "screenshot": "espn-2-sur-9d43927b.jpg"
+      "confidence": "claro-familia (ESPN 2)",
+      "backup": {
+        "source": "ar1",
+        "source_id": "Canal.ESPN.2.(Bolivia).ar"
+      }
     },
     "PublicDirect.2fef14bd9771fbcbc8d7101c": {
       "source": "claro-guia",
@@ -3317,14 +3335,16 @@
       }
     },
     "PublicDirect.407d28ccdc7135cd084b9242": {
-      "source": "mx1",
-      "source_id": "Canal.Universal.Premiere.mx",
-      "source_name": "Canal Universal Premiere",
-      "l2_name": "UNIVERSAL PREMIERE O",
+      "source": "claro-guia",
+      "source_id": "claro:colombia:1193454",
+      "source_name": "UNIVERSAL PREMIERE HD (Claro colombia)",
+      "l2_name": "Universal Premiere O",
       "group": "Deportes",
-      "confidence": "alias",
-      "futureHours": 66.8,
-      "screenshot": "universal-premiere-o-cde92ac0.jpg"
+      "confidence": "claro-familia (Universal Premiere)",
+      "backup": {
+        "source": "mx1",
+        "source_id": "Canal.Universal.Premiere.mx"
+      }
     },
     "PublicDirect.40b798064d95eb1daaeec6eb": {
       "source": "claro-guia",
@@ -3599,14 +3619,16 @@
       }
     },
     "PublicDirect.4618ca933a684c7fa487c3e2": {
-      "source": "mx1",
-      "source_id": "Canal.Comedy.Central.(México).mx",
-      "source_name": "Canal Comedy Central (México)",
+      "source": "claro-guia",
+      "source_id": "claro:panama:816391",
+      "source_name": "COMEDY CENTRAL HD (Claro panama)",
       "l2_name": "Comedy Central",
       "group": "Misceláneos",
-      "confidence": "exact",
-      "futureHours": 66.6,
-      "screenshot": "comedy-central-c313ff93.jpg"
+      "confidence": "claro-familia",
+      "backup": {
+        "source": "mx1",
+        "source_id": "Canal.Comedy.Central.(México).mx"
+      }
     },
     "PublicDirect.4632500f34ff36be893d6bfe": {
       "source": "claro-guia",
@@ -4473,14 +4495,16 @@
       }
     },
     "PublicDirect.59e117c4c6041a9c6c07e749": {
-      "source": "mx1",
-      "source_id": "Canal.Distrito.Comedia.mx",
-      "source_name": "Canal Distrito Comedia",
-      "l2_name": "DistritoComedia",
+      "source": "claro-guia",
+      "source_id": "claro:costarica:1023614",
+      "source_name": "DISTRITO COMEDIA HD (Claro costarica)",
+      "l2_name": "Distrito Comedia",
       "group": "Misceláneos",
-      "confidence": "exact",
-      "futureHours": 66.9,
-      "screenshot": "distritocomedia-52e309c1.jpg"
+      "confidence": "claro-familia",
+      "backup": {
+        "source": "mx1",
+        "source_id": "Canal.Distrito.Comedia.mx"
+      }
     },
     "PublicDirect.5a22443a3f672adf92312ddb": {
       "source": "claro-guia",
@@ -4675,22 +4699,28 @@
       }
     },
     "PublicDirect.5d3617f4b5483e2a8a549b4b": {
-      "source": "co1",
-      "source_id": "Love.Nature.co",
-      "source_name": "Love.Nature.co",
+      "source": "claro-guia",
+      "source_id": "claro:chile:1029498",
+      "source_name": "LOVE NATURE HD (Claro chile)",
       "l2_name": "Love Nature",
       "group": "Misceláneos",
-      "confidence": "epgshare (sin Claro)"
+      "confidence": "claro-familia",
+      "backup": {
+        "source": "co1",
+        "source_id": "Love.Nature.co"
+      }
     },
     "PublicDirect.5d4f764b7a02c8c0833a1606": {
-      "source": "mx1",
-      "source_id": "Canal.Comedy.Central.(México).mx",
-      "source_name": "Canal Comedy Central (México)",
+      "source": "claro-guia",
+      "source_id": "claro:panama:816391",
+      "source_name": "COMEDY CENTRAL HD (Claro panama)",
       "l2_name": "Comedy Central",
       "group": "Misceláneos",
-      "confidence": "exact",
-      "futureHours": 66.6,
-      "screenshot": "comedy-central-c313ff93.jpg"
+      "confidence": "claro-familia",
+      "backup": {
+        "source": "mx1",
+        "source_id": "Canal.Comedy.Central.(México).mx"
+      }
     },
     "PublicDirect.5d69ccc8f850fcea91db8aaf": {
       "source": "claro-guia",
@@ -4717,14 +4747,16 @@
       }
     },
     "PublicDirect.5dd19cf93ea689df5971236d": {
-      "source": "mx1",
-      "source_id": "Canal.Comedy.Central.(México).mx",
-      "source_name": "Canal Comedy Central (México)",
+      "source": "claro-guia",
+      "source_id": "claro:panama:816391",
+      "source_name": "COMEDY CENTRAL HD (Claro panama)",
       "l2_name": "Comedy Central",
       "group": "Misceláneos",
-      "confidence": "exact",
-      "futureHours": 66.6,
-      "screenshot": "comedy-central-c313ff93.jpg"
+      "confidence": "claro-familia",
+      "backup": {
+        "source": "mx1",
+        "source_id": "Canal.Comedy.Central.(México).mx"
+      }
     },
     "PublicDirect.5dd94287df6823b27b81f2c0": {
       "source": "claro-guia",
@@ -4751,14 +4783,16 @@
       }
     },
     "PublicDirect.5e1edfeb4161cb6762dd4c44": {
-      "source": "es",
-      "source_id": "Syfy.es",
-      "source_name": "Syfy",
-      "l2_name": "SYFY",
+      "source": "claro-guia",
+      "source_id": "claro:panama:816364",
+      "source_name": "SYFY HD (Claro panama)",
+      "l2_name": "Syfy",
       "group": "Películas",
-      "confidence": "exact",
-      "futureHours": 59.3,
-      "screenshot": "syfy-cb2c2adc.jpg"
+      "confidence": "claro-familia",
+      "backup": {
+        "source": "es",
+        "source_id": "Syfy.es"
+      }
     },
     "PublicDirect.5e6c19ccd06f899ba2f0d349": {
       "source": "claro-guia",
@@ -4773,14 +4807,16 @@
       }
     },
     "PublicDirect.5eb6e4ea07959f5a0b4fb5e1": {
-      "source": "es",
-      "source_id": "Syfy.es",
-      "source_name": "Syfy",
-      "l2_name": "SYFY",
+      "source": "claro-guia",
+      "source_id": "claro:panama:816364",
+      "source_name": "SYFY HD (Claro panama)",
+      "l2_name": "Syfy",
       "group": "Películas",
-      "confidence": "exact",
-      "futureHours": 59.3,
-      "screenshot": "syfy-cb2c2adc.jpg"
+      "confidence": "claro-familia",
+      "backup": {
+        "source": "es",
+        "source_id": "Syfy.es"
+      }
     },
     "PublicDirect.5eba59481eb06288d194d0fd": {
       "source": "claro-guia",
@@ -4995,14 +5031,16 @@
       }
     },
     "PublicDirect.63ea2529c5850cd74832c80c": {
-      "source": "mx1",
-      "source_id": "Canal.Comedy.Central.(México).mx",
-      "source_name": "Canal Comedy Central (México)",
+      "source": "claro-guia",
+      "source_id": "claro:panama:816391",
+      "source_name": "COMEDY CENTRAL HD (Claro panama)",
       "l2_name": "Comedy Central",
       "group": "Misceláneos",
-      "confidence": "exact",
-      "futureHours": 66.6,
-      "screenshot": "comedy-central-c313ff93.jpg"
+      "confidence": "claro-familia",
+      "backup": {
+        "source": "mx1",
+        "source_id": "Canal.Comedy.Central.(México).mx"
+      }
     },
     "PublicDirect.6421177d9d195392840e377b": {
       "source": "claro-guia",
@@ -5053,14 +5091,16 @@
       }
     },
     "PublicDirect.64e51e37d5adc24e93a70b04": {
-      "source": "mx1",
-      "source_id": "Canal.Universal.Premiere.mx",
-      "source_name": "Canal Universal Premiere",
-      "l2_name": "UNIVERSAL PREMIERE O",
+      "source": "claro-guia",
+      "source_id": "claro:colombia:1193454",
+      "source_name": "UNIVERSAL PREMIERE HD (Claro colombia)",
+      "l2_name": "Universal Premiere O",
       "group": "Deportes",
-      "confidence": "alias",
-      "futureHours": 66.8,
-      "screenshot": "universal-premiere-o-cde92ac0.jpg"
+      "confidence": "claro-familia (Universal Premiere)",
+      "backup": {
+        "source": "mx1",
+        "source_id": "Canal.Universal.Premiere.mx"
+      }
     },
     "PublicDirect.650a768cd537cb17d491e369": {
       "source": "us2",
@@ -5073,14 +5113,16 @@
       "screenshot": "stingray-concerts-02bcf263.jpg"
     },
     "PublicDirect.6571a71732b0a12994095f13": {
-      "source": "mx1",
-      "source_id": "Canal.Universal.Cinema.mx",
-      "source_name": "Canal Universal Cinema",
-      "l2_name": "UNIVERSAL CINEMA ESTE",
+      "source": "claro-guia",
+      "source_id": "claro:colombia:1194071",
+      "source_name": "UNIVERSAL CINEMA HD (Claro colombia)",
+      "l2_name": "Universal Cinema Este",
       "group": "Películas",
-      "confidence": "alias",
-      "futureHours": 68.0,
-      "screenshot": "universal-cinema-este-d215e722.jpg"
+      "confidence": "claro-familia (Universal Cinema)",
+      "backup": {
+        "source": "mx1",
+        "source_id": "Canal.Universal.Cinema.mx"
+      }
     },
     "PublicDirect.65bf9e6c1fa9d5fa3dd8c480": {
       "source": "es",
@@ -5285,14 +5327,16 @@
       }
     },
     "PublicDirect.6c35b765909beafc8055510c": {
-      "source": "mx1",
-      "source_id": "Canal.Universal.Cinema.mx",
-      "source_name": "Canal Universal Cinema",
-      "l2_name": "UNIVERSAL CINEMA ESTE",
+      "source": "claro-guia",
+      "source_id": "claro:colombia:1194071",
+      "source_name": "UNIVERSAL CINEMA HD (Claro colombia)",
+      "l2_name": "Universal Cinema Este",
       "group": "Películas",
-      "confidence": "alias",
-      "futureHours": 68.0,
-      "screenshot": "universal-cinema-este-d215e722.jpg"
+      "confidence": "claro-familia (Universal Cinema)",
+      "backup": {
+        "source": "mx1",
+        "source_id": "Canal.Universal.Cinema.mx"
+      }
     },
     "PublicDirect.6c5432ae88c22353b86b62c0": {
       "source": "claro-guia",
@@ -5893,14 +5937,16 @@
       }
     },
     "PublicDirect.7b33a82dca560712171ccf55": {
-      "source": "co1",
-      "source_id": "ESPN.5.co",
-      "source_name": "ESPN 5",
-      "l2_name": "ESPN 5 Sur (ESPN07)",
+      "source": "claro-guia",
+      "source_id": "claro:colombia:728273",
+      "source_name": "ESPN 5 (Claro colombia)",
+      "l2_name": "ESPN 5 Sur",
       "group": "Deportes",
-      "confidence": "exact",
-      "futureHours": 61.4,
-      "screenshot": "espn-5-sur-espn07-359b949c.jpg"
+      "confidence": "claro-familia (ESPN 5)",
+      "backup": {
+        "source": "co1",
+        "source_id": "ESPN.5.co"
+      }
     },
     "PublicDirect.7ba564f651c493872cf8f969": {
       "source": "claro-guia",
@@ -5927,14 +5973,16 @@
       }
     },
     "PublicDirect.7c8d4b8df3edac7b0635d166": {
-      "source": "mx1",
-      "source_id": "Canal.Universal.Premiere.mx",
-      "source_name": "Canal Universal Premiere",
-      "l2_name": "UNIVERSAL PREMIERE O",
+      "source": "claro-guia",
+      "source_id": "claro:colombia:1193454",
+      "source_name": "UNIVERSAL PREMIERE HD (Claro colombia)",
+      "l2_name": "Universal Premiere O",
       "group": "Deportes",
-      "confidence": "alias",
-      "futureHours": 66.8,
-      "screenshot": "universal-premiere-o-cde92ac0.jpg"
+      "confidence": "claro-familia (Universal Premiere)",
+      "backup": {
+        "source": "mx1",
+        "source_id": "Canal.Universal.Premiere.mx"
+      }
     },
     "PublicDirect.7ce158def96b73a1d5920cd7": {
       "source": "claro-guia",
@@ -6553,14 +6601,16 @@
       }
     },
     "PublicDirect.89a3a1276860b5cd35930ab4": {
-      "source": "es",
-      "source_id": "Syfy.es",
-      "source_name": "Syfy",
-      "l2_name": "SYFY",
+      "source": "claro-guia",
+      "source_id": "claro:panama:816364",
+      "source_name": "SYFY HD (Claro panama)",
+      "l2_name": "Syfy",
       "group": "Películas",
-      "confidence": "exact",
-      "futureHours": 59.3,
-      "screenshot": "syfy-cb2c2adc.jpg"
+      "confidence": "claro-familia",
+      "backup": {
+        "source": "es",
+        "source_id": "Syfy.es"
+      }
     },
     "PublicDirect.89a8672bcc58484103dd6e9b": {
       "source": "claro-guia",
@@ -6695,14 +6745,16 @@
       }
     },
     "PublicDirect.8bad088d2ec55d60010b9bd1": {
-      "source": "mx1",
-      "source_id": "Canal.Golden.Multiplex.mx",
-      "source_name": "Canal Golden Multiplex",
-      "l2_name": "GOLDEN_S",
+      "source": "claro-guia",
+      "source_id": "claro:colombia:758534",
+      "source_name": "GOLDEN HD (Claro colombia)",
+      "l2_name": "Golden_s",
       "group": "Películas",
-      "confidence": "alias",
-      "futureHours": 67.7,
-      "screenshot": "golden-s-fa67170f.jpg"
+      "confidence": "claro-familia (Golden)",
+      "backup": {
+        "source": "mx1",
+        "source_id": "Canal.Golden.Multiplex.mx"
+      }
     },
     "PublicDirect.8c084cb8a041625ac497ac1d": {
       "source": "claro-guia",
@@ -7081,14 +7133,16 @@
       }
     },
     "PublicDirect.95d769b11198d2c83e958f73": {
-      "source": "mx1",
-      "source_id": "Canal.Space.(México).mx",
-      "source_name": "Canal Space (México)",
+      "source": "claro-guia",
+      "source_id": "claro:colombia:773894",
+      "source_name": "SPACE (Claro colombia)",
       "l2_name": "COD Space",
       "group": "Películas",
-      "confidence": "alias",
-      "futureHours": 67.5,
-      "screenshot": "cod-space-c9b02df9.jpg"
+      "confidence": "claro-familia (Space)",
+      "backup": {
+        "source": "mx1",
+        "source_id": "Canal.Space.(México).mx"
+      }
     },
     "PublicDirect.95dc38c57417b7a924198218": {
       "source": "claro-guia",
@@ -7103,14 +7157,16 @@
       }
     },
     "PublicDirect.96f54058e30b40aa7d89115d": {
-      "source": "mx1",
-      "source_id": "Canal.Universal.Cinema.mx",
-      "source_name": "Canal Universal Cinema",
-      "l2_name": "UNIVERSAL-CINEMA-ESTE",
+      "source": "claro-guia",
+      "source_id": "claro:colombia:1194071",
+      "source_name": "UNIVERSAL CINEMA HD (Claro colombia)",
+      "l2_name": "Universal Cinema Este",
       "group": "Películas",
-      "confidence": "alias",
-      "futureHours": 68.0,
-      "screenshot": "universal-cinema-este-31aa87d0.jpg"
+      "confidence": "claro-familia (Universal Cinema)",
+      "backup": {
+        "source": "mx1",
+        "source_id": "Canal.Universal.Cinema.mx"
+      }
     },
     "PublicDirect.96ff5f6664ea382264a8320d": {
       "source": "claro-guia",
@@ -7637,14 +7693,16 @@
       }
     },
     "PublicDirect.a070bbe48b6e908eb5333d63": {
-      "source": "ar1",
-      "source_id": "Canal.ESPN.(Argentina).ar",
-      "source_name": "Canal ESPN (Argentina)",
-      "l2_name": "ESPN 1 SUR/Liga",
+      "source": "claro-guia",
+      "source_id": "claro:colombia:788650",
+      "source_name": "ESPN NEW (Claro colombia)",
+      "l2_name": "ESPN 1 SUR Liga",
       "group": "Deportes",
-      "confidence": "alias",
-      "futureHours": 90.8,
-      "screenshot": null
+      "confidence": "claro-familia (ESPN)",
+      "backup": {
+        "source": "ar1",
+        "source_id": "Canal.ESPN.(Argentina).ar"
+      }
     },
     "PublicDirect.a12c2fbe780516d208c7dd4a": {
       "source": "claro-guia",
@@ -8797,14 +8855,16 @@
       }
     },
     "PublicDirect.b570149d1f3523ef88f3a5bb": {
-      "source": "co1",
-      "source_id": "ESPN.co",
-      "source_name": "ESPN",
-      "l2_name": "ESPN EXTRA",
+      "source": "claro-guia",
+      "source_id": "claro:colombia:788650",
+      "source_name": "ESPN NEW (Claro colombia)",
+      "l2_name": "ESPN Extra",
       "group": "Deportes",
-      "confidence": "alias",
-      "futureHours": 61.3,
-      "screenshot": "espn-extra-9203016f.jpg"
+      "confidence": "claro-familia (ESPN)",
+      "backup": {
+        "source": "co1",
+        "source_id": "ESPN.co"
+      }
     },
     "PublicDirect.b5751130732e4a7c272ee53d": {
       "source": "co1",
@@ -9387,14 +9447,16 @@
       }
     },
     "PublicDirect.c24bafe955d4b278233073d8": {
-      "source": "mx1",
-      "source_id": "Canal.Universal.Cinema.mx",
-      "source_name": "Canal Universal Cinema",
-      "l2_name": "UNIVERSAL CINEMA ESTE",
+      "source": "claro-guia",
+      "source_id": "claro:colombia:1194071",
+      "source_name": "UNIVERSAL CINEMA HD (Claro colombia)",
+      "l2_name": "Universal Cinema Este",
       "group": "Películas",
-      "confidence": "alias",
-      "futureHours": 68.0,
-      "screenshot": "universal-cinema-este-d215e722.jpg"
+      "confidence": "claro-familia (Universal Cinema)",
+      "backup": {
+        "source": "mx1",
+        "source_id": "Canal.Universal.Cinema.mx"
+      }
     },
     "PublicDirect.c24ff2271024afba38ba9841": {
       "source": "claro-guia",
@@ -9525,12 +9587,16 @@
       }
     },
     "PublicDirect.c5fe220d460977b5522b0a13": {
-      "source": "mx1",
-      "source_id": "Canal.Golden.Plus.mx",
-      "source_name": "Canal.Golden.Plus.mx",
+      "source": "claro-guia",
+      "source_id": "claro:colombia:758534",
+      "source_name": "GOLDEN HD (Claro colombia)",
       "l2_name": "Golden Plus",
       "group": "Películas",
-      "confidence": "epgshare (sin Claro)"
+      "confidence": "claro-familia (Golden)",
+      "backup": {
+        "source": "mx1",
+        "source_id": "Canal.Golden.Plus.mx"
+      }
     },
     "PublicDirect.c5fe9f5d15e6f507c0dd7fa6": {
       "source": "mx1",
@@ -9603,14 +9669,16 @@
       }
     },
     "PublicDirect.c7b59e1a7dca958753a19e2f": {
-      "source": "mx1",
-      "source_id": "Canal.Star.Channel.(México).mx",
-      "source_name": "Canal Star Channel (México)",
-      "l2_name": "STAR Colombia (ST30)",
+      "source": "claro-guia",
+      "source_id": "claro:argentina:762301",
+      "source_name": "STAR CHANNEL (Claro argentina)",
+      "l2_name": "Star Colombia",
       "group": "Misceláneos",
-      "confidence": "exact",
-      "futureHours": 67.9,
-      "screenshot": "star-colombia-st30-b1574643.jpg"
+      "confidence": "claro-familia (Star Channel)",
+      "backup": {
+        "source": "mx1",
+        "source_id": "Canal.Star.Channel.(México).mx"
+      }
     },
     "PublicDirect.c7bad7a3db12748c3b6d1d4a": {
       "source": "claro-guia",
@@ -10759,14 +10827,16 @@
       }
     },
     "PublicDirect.dc6e0b858cd050a0ba64b515": {
-      "source": "mx1",
-      "source_id": "Canal.Universal.Cinema.mx",
-      "source_name": "Canal Universal Cinema",
-      "l2_name": "UNIVERSAL CINEMA ESTE",
+      "source": "claro-guia",
+      "source_id": "claro:colombia:1194071",
+      "source_name": "UNIVERSAL CINEMA HD (Claro colombia)",
+      "l2_name": "Universal Cinema Este",
       "group": "Películas",
-      "confidence": "alias",
-      "futureHours": 68.0,
-      "screenshot": "universal-cinema-este-d215e722.jpg"
+      "confidence": "claro-familia (Universal Cinema)",
+      "backup": {
+        "source": "mx1",
+        "source_id": "Canal.Universal.Cinema.mx"
+      }
     },
     "PublicDirect.dc6e1d4f5bbf0f75deeb8cf7": {
       "source": "claro-guia",
@@ -11737,12 +11807,16 @@
       "screenshot": "stingray-concerts-02bcf263.jpg"
     },
     "PublicDirect.edc3a37181c9a6915fb578c6": {
-      "source": "co1",
-      "source_id": "Love.Nature.co",
-      "source_name": "Love.Nature.co",
+      "source": "claro-guia",
+      "source_id": "claro:chile:1029498",
+      "source_name": "LOVE NATURE HD (Claro chile)",
       "l2_name": "Love Nature",
       "group": "Misceláneos",
-      "confidence": "epgshare (sin Claro)"
+      "confidence": "claro-familia",
+      "backup": {
+        "source": "co1",
+        "source_id": "Love.Nature.co"
+      }
     },
     "PublicDirect.eddceca56daca37b6b9df15d": {
       "source": "claro-guia",
@@ -11973,14 +12047,16 @@
       }
     },
     "PublicDirect.f3e686834ca7d7d97c85f348": {
-      "source": "mx1",
-      "source_id": "Canal.Universal.Cinema.mx",
-      "source_name": "Canal Universal Cinema",
-      "l2_name": "UNIVERSAL CINEMA ESTE",
+      "source": "claro-guia",
+      "source_id": "claro:colombia:1194071",
+      "source_name": "UNIVERSAL CINEMA HD (Claro colombia)",
+      "l2_name": "Universal Cinema Este",
       "group": "Películas",
-      "confidence": "alias",
-      "futureHours": 68.0,
-      "screenshot": "universal-cinema-este-d215e722.jpg"
+      "confidence": "claro-familia (Universal Cinema)",
+      "backup": {
+        "source": "mx1",
+        "source_id": "Canal.Universal.Cinema.mx"
+      }
     },
     "PublicDirect.f4d4b1f839db7eb08c7e181e": {
       "source": "claro-guia",
@@ -12007,14 +12083,16 @@
       }
     },
     "PublicDirect.f52105024bbc46d4cd6e37f0": {
-      "source": "ar1",
-      "source_id": "Canal.ESPN.2.(Bolivia).ar",
-      "source_name": "Canal ESPN 2 (Bolivia)",
-      "l2_name": "ESPN 2 CO",
+      "source": "claro-guia",
+      "source_id": "claro:colombia:788718",
+      "source_name": "ESPN 2 NEW (Claro colombia)",
+      "l2_name": "ESPN 2 Co",
       "group": "Deportes",
-      "confidence": "alias",
-      "futureHours": 61.3,
-      "screenshot": "espn-2-co-e9b9c38c.jpg"
+      "confidence": "claro-familia (ESPN 2)",
+      "backup": {
+        "source": "ar1",
+        "source_id": "Canal.ESPN.2.(Bolivia).ar"
+      }
     },
     "PublicDirect.f53af047cee1cbacbd2f00b5": {
       "source": "claro-guia",
@@ -12077,14 +12155,16 @@
       }
     },
     "PublicDirect.f5d780fff0f3a2146af424bb": {
-      "source": "mx1",
-      "source_id": "Canal.Universal.Cinema.mx",
-      "source_name": "Canal Universal Cinema",
-      "l2_name": "UNIVERSAL CINEMA ESTE",
+      "source": "claro-guia",
+      "source_id": "claro:colombia:1194071",
+      "source_name": "UNIVERSAL CINEMA HD (Claro colombia)",
+      "l2_name": "Universal Cinema Este",
       "group": "Películas",
-      "confidence": "alias",
-      "futureHours": 68.0,
-      "screenshot": "universal-cinema-este-d215e722.jpg"
+      "confidence": "claro-familia (Universal Cinema)",
+      "backup": {
+        "source": "mx1",
+        "source_id": "Canal.Universal.Cinema.mx"
+      }
     },
     "PublicDirect.f5ff1fc4a352eef23ab8b2de": {
       "source": "claro-guia",
@@ -12453,14 +12533,16 @@
       }
     },
     "PublicDirect.fe8012537d4b52a34d2778bd": {
-      "source": "mx1",
-      "source_id": "Canal.Universal.Premiere.mx",
-      "source_name": "Canal Universal Premiere",
-      "l2_name": "UNIVERSAL PREMIERE O",
-      "group": "Deportes",
-      "confidence": "alias",
-      "futureHours": 66.8,
-      "screenshot": "universal-premiere-o-cde92ac0.jpg"
+      "source": "claro-guia",
+      "source_id": "claro:colombia:1193454",
+      "source_name": "UNIVERSAL PREMIERE HD (Claro colombia)",
+      "l2_name": "Universal Premiere O",
+      "group": "Películas",
+      "confidence": "claro-familia (Universal Premiere)",
+      "backup": {
+        "source": "mx1",
+        "source_id": "Canal.Universal.Premiere.mx"
+      }
     },
     "PublicDirect.fe958068300ce42709379699": {
       "source": "mx1",

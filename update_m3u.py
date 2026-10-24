@@ -1112,11 +1112,15 @@ def load_epg_l2_map() -> dict[str, tuple[str, str]]:
 
 
 for _l2_id, _l2_source in load_epg_l2_map().items():
+    # Una guía fija verificada con fotogramas (p. ej. DSports andino, ESPN 4 Norte) manda sobre
+    # la de la familia en Lista 2.
     EPG_PROGRAMME_SOURCES.setdefault(_l2_id, _l2_source)
 # Canales con guía Claro: tvg-id → (región, group_id).
+# Incluye los respaldos Claro de canales con guía fija verificada (ESPN 4 Norte, ESPN 7).
 CLARO_GUIDE_CHANNELS: dict[str, tuple[str, str]] = {
     _l2_id: _claro_key
-    for _l2_id, (_l2_source_name, _l2_source_id) in load_epg_l2_map().items()
+    for _l2_id, (_l2_source_name, _l2_source_id) in [
+        *load_epg_l2_map().items(), *load_epg_l2_backups().items()]
     if _l2_source_name == CLARO_GUIDE_PART
     and (_claro_key := claro_guide_key(_l2_source_id)) is not None
 }
