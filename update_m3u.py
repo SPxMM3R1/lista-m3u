@@ -1258,6 +1258,9 @@ RED_BULL_OFFICIAL_EPG_URL = "https://api.redbull.tv/v3/epg?complete=true"
 # different regional schedule; do not use the global v3 EPG as the primary
 # source for RedBullChileEspanol.cl.
 RED_BULL_SPANISH_EPG_PAGE = "https://www.redbull.tv/es_CL/epg"
+# TV World (RedBullWorldEnglish.int) usa la misma página chilena en inglés (2026-10-24, pedido
+# del usuario): la rail «World of Red Bull» de en_CL. La API global daba otra parrilla.
+RED_BULL_ENGLISH_CHILE_EPG_PAGE = "https://www.redbull.tv/en_CL/epg"
 # Red Bull entrega la parrilla según el país del visitante (la ruta es_CL no
 # basta): desde GitHub (EE. UU.) la página traía otra región. Su propio servidor
 # le pasa la IP del visitante en X-Forwarded-For, y la página y la API la

@@ -464,10 +464,10 @@ class TvnEpgTests(unittest.TestCase):
             "https://epgshare01.online/epgshare01/epg_ripper_MX1.xml.gz",
         )
         update_m3u.apply_epg_overrides()
-        # 2026-10-24: Telehit Música usa Claro Ecuador; MX1 queda de respaldo.
+        # 2026-10-24: Telehit Música usa Claro Guatemala (Mixología); distinto de Telehit.
         self.assertEqual(
             update_m3u.EPG_PROGRAMME_SOURCES["TelehitMusica.mx@SD"],
-            ("claro-guia", "claro:ecuador:1129472"),
+            ("claro-guia", "claro:guatemala:1413182"),
         )
         self.assertIn(("mx1", "Canal.Telehit.Música.mx"),
                       update_m3u.epg_source_chain("TelehitMusica.mx@SD"))

@@ -91,7 +91,8 @@ class AlcatelLista1Test(unittest.TestCase):
         for channel_id, (source, source_id) in EPG_OVERRIDES.items():
             self.assertEqual("claro-guia", epg[channel_id]["source"])
             self.assertEqual({"source": source, "source_id": source_id}, epg[channel_id]["backup"])
-        self.assertNotIn("PublicDirect.a247897d9a490d19fa633661", epg)
+        # AXN #57: guía Claro Argentina (Criminal Minds) verificada con el fotograma.
+        self.assertEqual("claro-guia", epg["PublicDirect.a247897d9a490d19fa633661"]["source"])
         self.assertNotIn("PublicDirect.376c74e4d0452f743fd2c811", epg)
 
     def test_telehit_and_requested_rows_are_ordered_in_lista1_only(self):

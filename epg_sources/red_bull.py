@@ -70,14 +70,18 @@ def normalize_red_bull_schedule(schedule: list[dict]) -> list[dict]:
     return ordered
 
 
-def red_bull_page_schedule(now: datetime) -> list[dict]:
-    """Read the Spanish World of Red Bull rail from the official TV guide page."""
+def red_bull_page_schedule(
+    now: datetime,
+    page: str = RED_BULL_SPANISH_EPG_PAGE,
+    lang: str = "es",
+) -> list[dict]:
+    """Read the World of Red Bull rail from a Chilean Red Bull TV guide page (es_CL o en_CL)."""
     status, body, _ = fetch_bytes(
-        RED_BULL_SPANISH_EPG_PAGE,
+        page,
         {
             "User-Agent": BROWSER_USER_AGENT,
             "Accept": "text/html,application/xhtml+xml,*/*",
-            "Accept-Language": "es-CL,es;q=0.9",
+            "Accept-Language": "en-US,en;q=0.9" if lang == "en" else "es-CL,es;q=0.9",
             "X-Forwarded-For": RED_BULL_CHILE_FORWARDED_FOR,
         },
         timeout=90,
@@ -142,7 +146,7 @@ def red_bull_page_schedule(now: datetime) -> list[dict]:
                 "subheading": card.get("subheading"),
                 "short_description": card.get("short_description"),
                 "long_description": card.get("long_description"),
-                "lang": "es",
+                "lang": lang,
             }
         )
     schedule = normalize_red_bull_schedule(schedule)
@@ -299,6 +303,15 @@ def fetch_red_bull_schedules(
     errors: dict[str, str] = {}
     for channel_id, locale in RED_BULL_CHANNEL_LOCALES.items():
         if channel_id not in expected_ids:
+            continue
+        if channel_id == RED_BULL_WORLD_ID:
+            # TV World: solo la página chilena en inglés (la API global trae otra parrilla).
+            try:
+                schedules[channel_id] = red_bull_page_schedule(
+                    now, RED_BULL_ENGLISH_CHILE_EPG_PAGE, "en")
+                source_names.add("red-bull-en-cl-page")
+            except Exception as page_error:
+                errors[f"red_bull:{channel_id}"] = f"pagina en_CL: {page_error}"
             continue
         if channel_id == RED_BULL_CHILE_ID:
             try:
