@@ -23,13 +23,14 @@ def channel(name: str, tvg_id: str) -> update_m3u.Channel:
 
 class TvnEpgTests(unittest.TestCase):
     def test_direct_espn_181_uses_the_chilean_guide(self) -> None:
+        # 2026-10-24: guía Claro Chile (verificada con fotograma: Arsenal vs Everton); la
+        # EPGShare chilena anterior queda de respaldo.
         target = "ESPN.co@Direct181"
-        source = ("cl", "Canal.ESPN.(Chile).cl")
+        source = ("claro-guia", "claro:chile:793457")
         overrides = json.loads(Path("epg-overrides.json").read_text(encoding="utf-8"))
-        self.assertEqual(
-            {"source": source[0], "source_id": source[1]},
-            overrides["channels"][target],
-        )
+        entry = overrides["channels"][target]
+        self.assertEqual(source, (entry["source"], entry["source_id"]))
+        self.assertEqual({"source": "cl", "source_id": "Canal.ESPN.(Chile).cl"}, entry["backup"])
         with patch.dict(update_m3u.EPG_PROGRAMME_SOURCES, {target: source}):
             chain = update_m3u.epg_source_chain(target)
             self.assertEqual(source, chain[0])
@@ -37,11 +38,11 @@ class TvnEpgTests(unittest.TestCase):
 
     def test_espn5_uses_verified_spanish_feed_not_portuguese_sd_entry(self) -> None:
         target = "WinPlusFutbol.co@Direct181"
-        self.assertEqual(("uy1", "ESPN.5.HD.uy"), update_m3u.EPG_PROGRAMME_SOURCES[target])
+        update_m3u.apply_epg_overrides()
+        # 2026-10-24: Claro Paraguay (fotograma Köln vs Schalke); la UY1 en español respalda.
+        self.assertEqual(("claro-guia", "claro:paraguay:952450"), update_m3u.EPG_PROGRAMME_SOURCES[target])
         self.assertIn(("uy1", "ESPN.5.HD.uy"), update_m3u.epg_source_chain(target))
         self.assertNotIn(("uy1", "[ESPN5SD].ESPN.5.uy"), update_m3u.epg_source_chain(target))
-        self.assertEqual(frozenset({"uy1"}), update_m3u.epgshare_source_names_for(
-            [channel("ESPN 5 Sur", target)]))
 
     def test_espn5_fresh_correct_feed_replaces_wrong_published_guide_without_time_shift(self) -> None:
         target = "WinPlusFutbol.co@Direct181"
@@ -462,21 +463,24 @@ class TvnEpgTests(unittest.TestCase):
             update_m3u.EPG_SOURCES["mx1"],
             "https://epgshare01.online/epgshare01/epg_ripper_MX1.xml.gz",
         )
+        update_m3u.apply_epg_overrides()
+        # 2026-10-24: Telehit Música usa Claro Ecuador; MX1 queda de respaldo.
         self.assertEqual(
             update_m3u.EPG_PROGRAMME_SOURCES["TelehitMusica.mx@SD"],
-            ("mx1", "Canal.Telehit.Música.mx"),
+            ("claro-guia", "claro:ecuador:1129472"),
         )
+        self.assertIn(("mx1", "Canal.Telehit.Música.mx"),
+                      update_m3u.epg_source_chain("TelehitMusica.mx@SD"))
 
     def test_epgshare_scope_skips_feeds_without_catalogue_targets(self) -> None:
         sources = update_m3u.epgshare_source_names_for(
             [
                 channel("TVN", "0104"),
                 channel("La Red", "0102"),
-                channel("Telehit Música", "TelehitMusica.mx@SD"),
             ]
         )
 
-        self.assertEqual(sources, frozenset({"cl", "mx1"}))
+        self.assertEqual(sources, frozenset({"cl"}))
         self.assertNotIn("au1", update_m3u.EPG_SOURCES)
         self.assertNotIn("sg1", update_m3u.EPG_SOURCES)
         self.assertNotIn("ng1", update_m3u.EPG_SOURCES)

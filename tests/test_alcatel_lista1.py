@@ -87,8 +87,10 @@ class AlcatelLista1Test(unittest.TestCase):
                 self.assertEqual(expected["trial"], row.get("trial", False))
                 self.assertEqual(expected["trial"], channel_id in presentation["trial_m3u"])
 
+        # 2026-10-24: guía Claro elegida con fotograma; la anterior queda de respaldo.
         for channel_id, (source, source_id) in EPG_OVERRIDES.items():
-            self.assertEqual({"source": source, "source_id": source_id}, epg[channel_id])
+            self.assertEqual("claro-guia", epg[channel_id]["source"])
+            self.assertEqual({"source": source, "source_id": source_id}, epg[channel_id]["backup"])
         self.assertNotIn("PublicDirect.a247897d9a490d19fa633661", epg)
         self.assertNotIn("PublicDirect.376c74e4d0452f743fd2c811", epg)
 

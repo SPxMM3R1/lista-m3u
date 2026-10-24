@@ -28,7 +28,7 @@ __all__ = [
 def fetch_sky_official_epg(
     channels: list[Channel], now: datetime
 ) -> tuple[bytes | None, str | None]:
-    """Import the public Sky linear schedule for the four TvVoo Sky channels."""
+    """Guía lineal pública de Sky UK para los canales Sky Sports, TNT Sports y France 24."""
     targets = {
         channel.tvg_id: SKY_OFFICIAL_EPG_CHANNELS[channel.tvg_id]
         for channel in channels
@@ -124,7 +124,10 @@ def fetch_sky_official_epg(
                             if season is not None and episode is not None
                             else str(season if season is not None else episode)
                         )
-                    counts[target_id] += 1
+                    # Varios canales pueden compartir una señal Sky (HD y UHD): todos cuentan.
+                    for channel_id, sid in targets.items():
+                        if sid == source_id:
+                            counts[channel_id] += 1
         missing = [channel_id for channel_id, count in counts.items() if count == 0]
         if missing:
             raise ValueError("Sky sin eventos vigentes: " + ", ".join(missing))

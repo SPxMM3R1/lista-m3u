@@ -822,6 +822,21 @@ SKY_OFFICIAL_EPG_SCHEDULE_URL = "https://awk.epgsky.com/hawk/linear/schedule"
 SKY_OFFICIAL_EPG_CHANNELS = {
     "SkySportsMix.uk@TvVoo": "4091",
     "SkySportsNews.uk@TvVoo": "1340",
+    # 2026-10-24: EPGShare UK1 dejó de traer futuro. Guía oficial de Sky UK (sid de
+    # /hawk/linear/services/4101/1). Los UHD de Highfly son la misma señal que el HD.
+    "SkySportsMainEvent.uk@TvVoo": "4002",
+    "SkySportsMainEventUHD.uk": "4002",
+    "SkySportsPremierLeague.uk": "4010",
+    "SkySportsF1.uk": "3835",
+    "SkySportsF1UHD.uk": "3835",
+    "SkySportsTennis.uk": "1284",
+    "TNTSports1.uk": "3625",
+    "TNTSports2.uk": "3627",
+    "TNTSports3.uk@TvVoo": "3629",
+    "Vavoo.uk.TNTSPORTS4@TvVoo": "4040",
+    "SkySportsRacing.uk": "4032",
+    # FRANCE 24 HD de Sky UK es la señal en inglés.
+    "France24.fr@English": "1121",
 }
 AUTENTIC_HISTORY_EPG_SOURCE = "autentic-history-oficial"
 AUTENTIC_HISTORY_PAGE = "https://watch.whaletvplus.com/"
@@ -7883,6 +7898,7 @@ def apply_epg_overrides(path: Path = EPG_OVERRIDES_PATH) -> dict[str, tuple[str,
         NHK_OFFICIAL_EPG_SOURCE,
         SKY_OFFICIAL_EPG_SOURCE,
         AUTENTIC_HISTORY_EPG_SOURCE,
+        CLARO_GUIDE_PART,
     }
     applied: dict[str, tuple[str, str]] = {}
     for channel_id, raw_entry in raw_channels.items():
@@ -7899,6 +7915,17 @@ def apply_epg_overrides(path: Path = EPG_OVERRIDES_PATH) -> dict[str, tuple[str,
         stable_id = str(channel_id).strip()
         if not stable_id:
             raise ValueError(f"{path.name}: contiene un tvg-id vacio")
+        if source == CLARO_GUIDE_PART:
+            # Guía Claro por canal (2026-10-24): región elegida comparando un fotograma de la
+            # señal con lo que emitía cada región de Claro.
+            claro_key = claro_guide_key(source_id)
+            if claro_key is None:
+                raise ValueError(f"{path.name}: {channel_id} source_id Claro inválido: {source_id}")
+            CLARO_GUIDE_CHANNELS[stable_id] = claro_key
+        backup = raw_entry.get("backup")
+        if isinstance(backup, dict) and backup.get("source") and backup.get("source_id"):
+            # La guía anterior rellena lo que la nueva no cubra.
+            EPGSHARE_BACKUP_CHANNELS[stable_id] = (str(backup["source"]), str(backup["source_id"]))
         EPG_PROGRAMME_SOURCES[stable_id] = (source, source_id)
         applied[stable_id] = (source, source_id)
     if applied:
