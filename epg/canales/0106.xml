@@ -1,9 +1,16 @@
 <?xml version='1.0' encoding='utf-8'?>
 <tv data-fragment-of="0106">
-  <channel id="0106" data-guide="parrilla real" data-guide-source="zapping-guia-publica">
+  <channel id="0106" data-guide="parrilla real" data-guide-source="cl">
     <display-name>CHV</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/chv.png" />
   </channel>
+  <programme start="20261023203000 -0300" stop="20261023224000 -0300" channel="0106">
+    <title lang="es">Chilevisión noticias central</title>
+  </programme>
+  <programme start="20261023224000 -0300" stop="20261024000000 -0300" channel="0106">
+    <title lang="es">Primer Plano</title>
+    <desc lang="es">Los mejores momentos, entrevistas, fotos, notas y escándalos del Estelar de la Farándula que marcan pauta en el mundo del entretenimiento.</desc>
+  </programme>
   <programme start="20261024000000 -0300" stop="20261024015500 -0300" channel="0106">
     <title lang="es">Traicionada</title>
     <desc lang="es">Asya descubre la infidelidad de su esposo y emprende un plan de venganza que cambiará su vida.</desc>
@@ -92,13 +99,5 @@
   </programme>
   <programme start="20261025223500 -0300" stop="20261026010000 -0300" channel="0106">
     <title lang="es">Primer plano</title>
-  </programme>
-  <programme start="20261023171500 -0300" stop="20261023223000 -0300" channel="0106">
-    <title lang="es">Plan Perfecto</title>
-    <desc lang="es">El programa se centra en las últimas noticias del espectáculo nacional, novedades en moda, astrología y mucho más. Cuenta con un panel de primer nivel que incluye a Paulina Rojas, Pablo Candia, Marcelo Rojas, Cony Capelli y Cecilia Gutiérrez</desc>
-  </programme>
-  <programme start="20261023223000 -0300" stop="20261024000000 -0300" channel="0106">
-    <title lang="es">Primer Plano</title>
-    <desc lang="es">Los mejores momentos, entrevistas, fotos, notas y escándalos del Estelar de la Farándula que marcan pauta en el mundo del entretenimiento.</desc>
   </programme>
 </tv>
