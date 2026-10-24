@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "source": "vibem3u-android",
-  "selectionSignature": "sha256:848157e6c359f9b6d7a181eda60722e1c10f8897e2f943e38dbc184579fd9724",
-  "publishedAt": "2026-10-15T22:05:30.921Z",
+  "selectionSignature": "sha256:63beb1bd4de1a0ba6381fea038e20eb97682ac5b331fc2494749d39b46e545d7",
+  "publishedAt": "2026-10-24T00:39:12.852Z",
   "sources": [
     {
       "provider": "tvvoo",
@@ -40,43 +40,13 @@
         },
         {
           "provider": "tvvoo",
-          "catalogKey": "unitedkingdom|vavoo_TNT%20SPORT%201%7Cgroup%3Auk",
-          "providerResourceId": "unitedkingdom|vavoo_TNT%20SPORT%201%7Cgroup%3Auk",
-          "name": "TNT SPORT 1",
-          "group": "Deportes",
-          "category": "Sport",
-          "identityState": "canonical",
-          "order": 3,
-          "country": "Reino Unido",
-          "countryKey": "unitedkingdom",
-          "aliases": [
-            "vavoo_TNT%20SPORT%201%7Cgroup%3Auk"
-          ]
-        },
-        {
-          "provider": "tvvoo",
-          "catalogKey": "unitedkingdom|vavoo_TNT%20SPORT%202%7Cgroup%3Auk",
-          "providerResourceId": "unitedkingdom|vavoo_TNT%20SPORT%202%7Cgroup%3Auk",
-          "name": "TNT SPORT 2",
-          "group": "Deportes",
-          "category": "Sport",
-          "identityState": "canonical",
-          "order": 4,
-          "country": "Reino Unido",
-          "countryKey": "unitedkingdom",
-          "aliases": [
-            "vavoo_TNT%20SPORT%202%7Cgroup%3Auk"
-          ]
-        },
-        {
-          "provider": "tvvoo",
           "catalogKey": "unitedkingdom|vavoo_TNT%20SPORTS%203%7Cgroup%3Auk",
           "providerResourceId": "unitedkingdom|vavoo_TNT%20SPORTS%203%7Cgroup%3Auk",
           "name": "TNT SPORTS 3",
           "group": "Deportes",
           "category": "Sport",
           "identityState": "canonical",
-          "order": 5,
+          "order": 3,
           "country": "Reino Unido",
           "countryKey": "unitedkingdom",
           "aliases": [
@@ -91,7 +61,7 @@
           "group": "Deportes",
           "category": "Sport",
           "identityState": "canonical",
-          "order": 6,
+          "order": 4,
           "country": "Reino Unido",
           "countryKey": "unitedkingdom",
           "aliases": [
@@ -106,7 +76,7 @@
           "group": "Deportes",
           "category": "Sport",
           "identityState": "canonical",
-          "order": 7,
+          "order": 5,
           "country": "España",
           "countryKey": "spain",
           "aliases": [
@@ -121,7 +91,7 @@
           "group": "Deportes",
           "category": "Sport",
           "identityState": "canonical",
-          "order": 8,
+          "order": 6,
           "country": "España",
           "countryKey": "spain",
           "aliases": [
@@ -188,6 +158,28 @@
           "identityState": "canonical",
           "order": 5,
           "resolverSlug": "334343434"
+        },
+        {
+          "provider": "highfly",
+          "catalogKey": "TNTSports1.uk",
+          "providerResourceId": "leaf:uk434344",
+          "name": "TNT SPORT 1",
+          "group": "Deportes",
+          "category": "Sport",
+          "identityState": "canonical",
+          "order": 6,
+          "resolverSlug": "uk434344"
+        },
+        {
+          "provider": "highfly",
+          "catalogKey": "TNTSports2.uk",
+          "providerResourceId": "leaf:uk-tnt4343443",
+          "name": "TNT SPORT 2",
+          "group": "Deportes",
+          "category": "Sport",
+          "identityState": "canonical",
+          "order": 7,
+          "resolverSlug": "uk-tnt4343443"
         }
       ],
       "manifestUrl": "https://sports.highfly.to/manifest.json"

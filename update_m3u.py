@@ -478,6 +478,10 @@ HIGHFLY_RESOLVER_CHANNELS = {
     "SkySportsMainEventUHD.uk": "now-sky-sports-main-event",
     "SkySportsPremierLeague.uk": "now-4994949494",
     "SkySportsTennis.uk": "now-s34434",
+    # TNT Sports 1 y 2 en Highfly (2026-10-24, pedido del usuario: Highfly principal y su
+    # TvVoo de respaldo).
+    "TNTSports1.uk": "uk434344",
+    "TNTSports2.uk": "uk-tnt4343443",
 }
 
 
@@ -866,6 +870,8 @@ EPG_PROGRAMME_SOURCES = {
     "SkySportsMainEventUHD.uk": ("uk1", "SkySpMainEvHD.uk"),
     "SkySportsPremierLeague.uk": ("uk1", "SkySp.PL.HD.uk"),
     "SkySportsTennis.uk": ("uk1", "SkySp.Tennis.HD.uk"),
+    "TNTSports1.uk": ("uk1", "TNT.Sports.1.HD.uk"),
+    "TNTSports2.uk": ("uk1", "TNT.Sports.2.HD.uk"),
     "SkySportsMix.uk@TvVoo": (SKY_OFFICIAL_EPG_SOURCE, "4091"),
     "SkySportsNews.uk@TvVoo": (SKY_OFFICIAL_EPG_SOURCE, "1340"),
     "PremierSports1.ie": ("uk1", "Premier.Sports.1.HD.uk"),
@@ -5434,6 +5440,7 @@ def parse_highfly_live_resolver_map(payload: bytes | str | dict) -> dict[str, st
         stable_id: str | None = None
         is_uhd = bool(re.search(r"\((?:4k|uhd|8k)\)|\b(?:4k|uhd|8k)\b", searchable))
         is_sky_main_event = bool(re.search(r"\bsky\s+sports?\b.*\bmain\s+event\b", searchable))
+        tnt_match = re.search(r"\btnt\s+sports?\s+([12])\b", searchable)
         if is_sky_f1 and is_uhd:
             # La hoja 4K es otro canal (Sky Sports F1 UHD, Premium): no reemplaza a la FHD.
             stable_id = "SkySportsF1UHD.uk"
@@ -5447,6 +5454,8 @@ def parse_highfly_live_resolver_map(payload: bytes | str | dict) -> dict[str, st
             stable_id = "SkySportsTennis.uk"
         elif is_sky_premier_league:
             stable_id = "SkySportsPremierLeague.uk"
+        elif tnt_match:
+            stable_id = f"TNTSports{tnt_match.group(1)}.uk"
 
         if stable_id and stable_id not in resolver_map:
             resolver_map[stable_id] = slug

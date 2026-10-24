@@ -687,51 +687,39 @@
     },
     {
       "kind": "provider",
-      "provider": "tvvoo",
-      "catalogKey": "unitedkingdom|vavoo_TNT%20SPORT%201%7Cgroup%3Auk",
-      "providerResourceId": "unitedkingdom|vavoo_TNT%20SPORT%201%7Cgroup%3Auk",
+      "provider": "highfly",
+      "catalogKey": "TNTSports1.uk",
+      "providerResourceId": "leaf:uk434344",
+      "resolverSlug": "uk434344",
       "name": "TNT SPORT 1",
       "group": "Deportes",
       "category": "Sport",
-      "country": "Reino Unido",
-      "countryKey": "unitedkingdom",
-      "aliases": [
-        "vavoo_TNT%20SPORT%201%7Cgroup%3Auk"
-      ],
-      "resolverAliases": [
-        "vavoo_TNT%20SPORT%201%7Cgroup%3Auk"
-      ],
       "identityState": "canonical",
       "sourceList": "1.m3u",
       "logoPath": "logos/tnt-sports-1.png",
       "displayName": "TNT Sports 1",
       "order": 26,
       "number": 26,
-      "state": "active"
+      "state": "active",
+      "backupTvVoo": "unitedkingdom|vavoo_TNT%20SPORT%201%7Cgroup%3Auk"
     },
     {
       "kind": "provider",
-      "provider": "tvvoo",
-      "catalogKey": "unitedkingdom|vavoo_TNT%20SPORT%202%7Cgroup%3Auk",
-      "providerResourceId": "unitedkingdom|vavoo_TNT%20SPORT%202%7Cgroup%3Auk",
+      "provider": "highfly",
+      "catalogKey": "TNTSports2.uk",
+      "providerResourceId": "leaf:uk-tnt4343443",
+      "resolverSlug": "uk-tnt4343443",
       "name": "TNT SPORT 2",
       "group": "Deportes",
       "category": "Sport",
-      "country": "Reino Unido",
-      "countryKey": "unitedkingdom",
-      "aliases": [
-        "vavoo_TNT%20SPORT%202%7Cgroup%3Auk"
-      ],
-      "resolverAliases": [
-        "vavoo_TNT%20SPORT%202%7Cgroup%3Auk"
-      ],
       "identityState": "canonical",
       "sourceList": "1.m3u",
       "logoPath": "logos/tnt-sports-2.png",
       "displayName": "TNT Sports 2",
       "order": 27,
       "number": 27,
-      "state": "active"
+      "state": "active",
+      "backupTvVoo": "unitedkingdom|vavoo_TNT%20SPORT%202%7Cgroup%3Auk"
     },
     {
       "kind": "provider",
@@ -63433,7 +63421,7 @@
     }
   ],
   "approval": {
-    "source": "app",
-    "sha256": "b4c2b6a839b459188ae91fa5ef7771fd2146e4564a0bd4ebd5860e362e5dc486"
+    "source": "chat",
+    "sha256": "c1d545c4cc5ccaf572f33313647034d475e1565034b93ef90b3b398ee454dded"
   }
 }
