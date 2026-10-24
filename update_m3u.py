@@ -1080,6 +1080,11 @@ EPG_PROGRAMME_SOURCES = {
 # guía y epg-2.xml la guarda una vez (``data-guide-of``). Su EPGShare anterior queda de
 # respaldo (``backup`` en epg-l2-map.json).
 CLARO_GUIDE_PART = "claro-guia"
+# GatoTV (2026-10-24): guía por canal para señales que Claro y EPGShare no cubren. Cada
+# clave es el slug de gatotv.com/canal/<slug>; los programas salen con canal gatotv:<slug>.
+GATOTV_PART = "gatotv"
+GATOTV_ID_PREFIX = "gatotv:"
+GATOTV_CHANNELS: dict[str, str] = {}
 CLARO_GUIDE_ID_PREFIX = "claro:"
 
 
@@ -1139,6 +1144,9 @@ CLARO_GUIDE_CHANNELS: dict[str, tuple[str, str]] = {
     if _l2_source_name == CLARO_GUIDE_PART
     and (_claro_key := claro_guide_key(_l2_source_id)) is not None
 }
+for _l2_id, (_l2_source_name, _l2_source_id) in load_epg_l2_map().items():
+    if _l2_source_name == GATOTV_PART and _l2_source_id.startswith(GATOTV_ID_PREFIX):
+        GATOTV_CHANNELS[_l2_id] = _l2_source_id[len(GATOTV_ID_PREFIX):]
 # Zapping publica una guia HTML con marcas Unix absolutas para el programa
 # actual, hoy y manana. Se usa solo para senales chilenas donde la fuente
 # agregada estaba desplazada o no entregaba una parrilla util. TVN, Mega,
@@ -6884,6 +6892,7 @@ def epg_part_names() -> list[str]:
         UKRAINIAN_PART,
         CLARO_SYNOPSIS_PART,
         CLARO_GUIDE_PART,
+        GATOTV_PART,
     ]
 
 
@@ -6893,7 +6902,7 @@ def missing_epg_part(name: str) -> EpgPart:
     if name == RED_BULL_PART:
         return EpgPart(errors={"red_bull:todas": detail})
     if name in {ZAPPING_EPG_SOURCE, TECNOCENTRO_PART, UKRAINIAN_PART, CLARO_SYNOPSIS_PART,
-                CLARO_GUIDE_PART}:
+                CLARO_GUIDE_PART, GATOTV_PART}:
         return EpgPart(errors={f"{name}:todas": detail})
     return EpgPart(errors={name: detail})
 
@@ -6965,6 +6974,7 @@ def fetch_epg_part(
         UKRAINIAN_PART: fetch_ukrainian_music_epg,
         CLARO_SYNOPSIS_PART: fetch_claro_synopsis_epg,
         CLARO_GUIDE_PART: fetch_claro_guide_epg,
+        GATOTV_PART: fetch_gatotv_epg,
     }
     if name not in fetchers:
         raise ValueError(f"parte EPG desconocida: {name}")
@@ -8483,7 +8493,7 @@ def epg_part_for_source(source_name: str) -> str | None:
     if source_name in EPG_SOURCES:
         return EPGSHARE_PART
     if source_name in {ZAPPING_EPG_SOURCE, TECNOCENTRO_PART, UKRAINIAN_PART, CLARO_SYNOPSIS_PART,
-                       CLARO_GUIDE_PART}:
+                       CLARO_GUIDE_PART, GATOTV_PART}:
         return source_name
     return None
 
@@ -12220,6 +12230,7 @@ from epg_sources.zapping import *  # noqa: E402,F401,F403
 from epg_sources.ukrainian import *  # noqa: E402,F401,F403
 from epg_sources.tecnocentro import *  # noqa: E402,F401,F403
 from epg_sources.claro import *  # noqa: E402,F401,F403
+from epg_sources.gatotv import *  # noqa: E402,F401,F403
 
 
 if __name__ == "__main__":

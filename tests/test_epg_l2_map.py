@@ -25,6 +25,9 @@ class Lista2EpgMapTest(unittest.TestCase):
                 if source == update_m3u.CLARO_GUIDE_PART:
                     self.assertIsNotNone(update_m3u.claro_guide_key(source_id))
                     self.assertIn(target_id, update_m3u.CLARO_GUIDE_CHANNELS)
+                elif source == update_m3u.GATOTV_PART:
+                    self.assertTrue(source_id.startswith(update_m3u.GATOTV_ID_PREFIX))
+                    self.assertIn(target_id, update_m3u.GATOTV_CHANNELS)
                 else:
                     self.assertIn(source, update_m3u.EPG_SOURCES)
                 self.assertTrue(source_id)
