@@ -11,7 +11,7 @@ ALCATEL_LISTA1 = {
     "PublicDirect.a247897d9a490d19fa633661": {
         "name": "AXN",
         "logo": "logos/catalogue/axnlatinamerica-us.png",
-        "trial": True,
+        "trial": False,
     },
     "PublicDirect.39057ce89326a34e33998e2e": {
         "name": "History Channel 2",
