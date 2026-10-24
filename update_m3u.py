@@ -1058,6 +1058,39 @@ EPG_PROGRAMME_SOURCES = {
     if channel_id not in PERMANENTLY_REMOVED_CHANNEL_IDS
     or channel_id in RESTORED_EXTERNAL_CHANNEL_IDS
 }
+# Guía Claro Video por familia de canales de Lista 2 (2026-10-24, pedido del usuario: una sola
+# guía por canal, no una por cada copia). EPGShare dejó de traer futuro para la mayoría de los
+# canales de pago latinoamericanos; Claro publica dos días por región. Cada familia (Warner,
+# Fox, AXN…) apunta a un solo ``claro:<región>:<group_id>``: todas sus copias reciben la misma
+# guía y epg-2.xml la guarda una vez (``data-guide-of``). Su EPGShare anterior queda de
+# respaldo (``backup`` en epg-l2-map.json).
+CLARO_GUIDE_PART = "claro-guia"
+CLARO_GUIDE_ID_PREFIX = "claro:"
+
+
+def claro_guide_key(source_id: str) -> tuple[str, str] | None:
+    """``claro:<región>:<group_id>`` → (región, group_id)."""
+    if not source_id.startswith(CLARO_GUIDE_ID_PREFIX):
+        return None
+    parts = source_id.split(":")
+    if len(parts) != 3 or not parts[1] or not parts[2].isdigit():
+        return None
+    return parts[1], parts[2]
+
+
+def load_epg_l2_backups() -> dict[str, tuple[str, str]]:
+    """Respaldo EPGShare de cada canal de Lista 2 con guía Claro."""
+    if not EPG_L2_MAP_PATH.is_file():
+        return {}
+    payload = json.loads(EPG_L2_MAP_PATH.read_text(encoding="utf-8"))
+    result: dict[str, tuple[str, str]] = {}
+    for target_id, entry in (payload.get("channels") or {}).items():
+        backup = entry.get("backup") if isinstance(entry, dict) else None
+        if isinstance(backup, dict) and backup.get("source") and backup.get("source_id"):
+            result[str(target_id)] = (str(backup["source"]), str(backup["source_id"]))
+    return result
+
+
 def load_epg_l2_map() -> dict[str, tuple[str, str]]:
     """Mapeos EPG de Lista 2 (nombres exactos, verificados con capturas)."""
     path = EPG_L2_MAP_PATH
@@ -1080,6 +1113,13 @@ def load_epg_l2_map() -> dict[str, tuple[str, str]]:
 
 for _l2_id, _l2_source in load_epg_l2_map().items():
     EPG_PROGRAMME_SOURCES.setdefault(_l2_id, _l2_source)
+# Canales con guía Claro: tvg-id → (región, group_id).
+CLARO_GUIDE_CHANNELS: dict[str, tuple[str, str]] = {
+    _l2_id: _claro_key
+    for _l2_id, (_l2_source_name, _l2_source_id) in load_epg_l2_map().items()
+    if _l2_source_name == CLARO_GUIDE_PART
+    and (_claro_key := claro_guide_key(_l2_source_id)) is not None
+}
 # Zapping publica una guia HTML con marcas Unix absolutas para el programa
 # actual, hoy y manana. Se usa solo para senales chilenas donde la fuente
 # agregada estaba desplazada o no entregaba una parrilla util. TVN, Mega,
@@ -1232,6 +1272,9 @@ EPGSHARE_BACKUP_CHANNELS: dict[str, tuple[str, str]] = {
     # ESPN.7.HD.uy trae la misma parrilla y solo rellena después.
     "PublicDirect.ac1fca2303c88b6a69359958": ("uy1", "ESPN.7.HD.uy"),
 }
+# Lista 2 con guía Claro: su EPGShare anterior rellena lo que Claro no cubra.
+for _l2_id, _l2_backup in load_epg_l2_backups().items():
+    EPGSHARE_BACKUP_CHANNELS.setdefault(_l2_id, _l2_backup)
 RED_BULL_CHANNEL_LOCALES = {
     RED_BULL_WORLD_ID: "en",
     RED_BULL_CHILE_ID: "es",
@@ -6821,6 +6864,7 @@ def epg_part_names() -> list[str]:
         TECNOCENTRO_PART,
         UKRAINIAN_PART,
         CLARO_SYNOPSIS_PART,
+        CLARO_GUIDE_PART,
     ]
 
 
@@ -6829,7 +6873,8 @@ def missing_epg_part(name: str) -> EpgPart:
     detail = "parte no disponible en esta corrida"
     if name == RED_BULL_PART:
         return EpgPart(errors={"red_bull:todas": detail})
-    if name in {ZAPPING_EPG_SOURCE, TECNOCENTRO_PART, UKRAINIAN_PART, CLARO_SYNOPSIS_PART}:
+    if name in {ZAPPING_EPG_SOURCE, TECNOCENTRO_PART, UKRAINIAN_PART, CLARO_SYNOPSIS_PART,
+                CLARO_GUIDE_PART}:
         return EpgPart(errors={f"{name}:todas": detail})
     return EpgPart(errors={name: detail})
 
@@ -6900,6 +6945,7 @@ def fetch_epg_part(
         TECNOCENTRO_PART: fetch_tecnocentro_epg,
         UKRAINIAN_PART: fetch_ukrainian_music_epg,
         CLARO_SYNOPSIS_PART: fetch_claro_synopsis_epg,
+        CLARO_GUIDE_PART: fetch_claro_guide_epg,
     }
     if name not in fetchers:
         raise ValueError(f"parte EPG desconocida: {name}")
@@ -8405,7 +8451,8 @@ def epg_part_for_source(source_name: str) -> str | None:
         return source_name
     if source_name in EPG_SOURCES:
         return EPGSHARE_PART
-    if source_name in {ZAPPING_EPG_SOURCE, TECNOCENTRO_PART, UKRAINIAN_PART, CLARO_SYNOPSIS_PART}:
+    if source_name in {ZAPPING_EPG_SOURCE, TECNOCENTRO_PART, UKRAINIAN_PART, CLARO_SYNOPSIS_PART,
+                       CLARO_GUIDE_PART}:
         return source_name
     return None
 

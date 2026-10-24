@@ -19,6 +19,8 @@ from urllib.parse import urlencode
 
 from update_m3u import (
     BROWSER_USER_AGENT,
+    CLARO_GUIDE_CHANNELS,
+    CLARO_GUIDE_ID_PREFIX,
     CLARO_REGION_CHANNELS,
     CLARO_SYNOPSIS_CHANNELS,
     Channel,
@@ -32,6 +34,7 @@ __all__ = [
     "claro_web_app_key",
     "claro_synopsis_programmes",
     "fetch_claro_synopsis_epg",
+    "fetch_claro_guide_epg",
 ]
 
 CLARO_WEB_URL = "https://www.clarovideo.com/chile/homeuser"
@@ -134,6 +137,61 @@ def fetch_claro_synopsis_epg(
     if not programmes:
         return None, errors
     return _claro_xmltv(programmes), errors
+
+
+def fetch_claro_guide_epg(
+    channels: list[Channel], now: datetime
+) -> tuple[bytes | None, dict[str, str]]:
+    """Guía Claro de Lista 2: una consulta por región y una guía por familia.
+
+    Cada programa sale con canal ``claro:<región>:<group_id>``; los canales de una misma
+    familia apuntan a esa misma clave (epg-l2-map.json), así la guía se arma una sola vez.
+    """
+    wanted_by_region: dict[str, dict[str, str]] = {}
+    for channel in channels:
+        key = CLARO_GUIDE_CHANNELS.get(channel.tvg_id)
+        if key is None:
+            continue
+        region, group_id = key
+        wanted_by_region.setdefault(region, {})[
+            f"{CLARO_GUIDE_ID_PREFIX}{region}:{group_id}"] = group_id
+    if not wanted_by_region:
+        return None, {}
+    app_key = claro_web_app_key()
+    begin = (now - timedelta(hours=6)).astimezone(timezone.utc)
+    end = (now + timedelta(days=2)).astimezone(timezone.utc)
+    programmes: dict[str, list[tuple[datetime, datetime, str, str]]] = {}
+    errors: dict[str, str] = {}
+    for region, wanted in sorted(wanted_by_region.items()):
+        try:
+            programmes.update(_fetch_claro_region(app_key, region, wanted, begin, end))
+        except Exception as error:  # una región caída no bloquea las demás
+            errors[f"{region}:todas"] = f"{type(error).__name__}: {error}"
+    for wanted in wanted_by_region.values():
+        for key in wanted:
+            if key not in programmes:
+                errors.setdefault(key, "Claro no publicó guía para este canal")
+    if not programmes:
+        return None, errors
+    return _claro_guide_xmltv(programmes), errors
+
+
+def _claro_guide_xmltv(programmes: dict[str, list[tuple[datetime, datetime, str, str]]]) -> bytes:
+    root = ET.Element("tv", {
+        "generator-info-name": "lista-m3u Claro Video guide importer",
+        "source-info-name": "Claro Video (guía por región)",
+    })
+    for key, items in sorted(programmes.items()):
+        for start, stop, title, synopsis in items:
+            programme = ET.SubElement(root, "programme", {
+                "start": xmltv_format_chile(start),
+                "stop": xmltv_format_chile(stop),
+                "channel": key,
+            })
+            ET.SubElement(programme, "title", {"lang": "es"}).text = title
+            if synopsis:
+                ET.SubElement(programme, "desc", {"lang": "es"}).text = synopsis
+    return ET.tostring(root, encoding="utf-8", xml_declaration=True)
 
 
 def _fetch_claro_region(

@@ -89,3 +89,31 @@ class ClaroSynopsisTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ClaroFamilyGuideTest(unittest.TestCase):
+    def test_one_request_per_region_and_one_guide_per_family(self) -> None:
+        from datetime import datetime, timezone
+        from unittest.mock import patch
+        import update_m3u
+
+        start = datetime(2026, 10, 24, 12, tzinfo=timezone.utc)
+        stop = datetime(2026, 10, 24, 13, tzinfo=timezone.utc)
+        calls = []
+
+        def fake_region(key, region, wanted, begin, end):
+            calls.append((region, dict(wanted)))
+            return {name: [(start, stop, "Película", "")] for name in wanted}
+
+        channels = [update_m3u.Channel(tvg_id=tid, name=tid, url="http://x/a.m3u8", url_line=0)
+                    for tid in ("a", "b", "c")]
+        guide = {"a": ("colombia", "1"), "b": ("colombia", "1"), "c": ("argentina", "2")}
+        with patch.object(claro, "CLARO_GUIDE_CHANNELS", guide), \
+                patch.object(claro, "claro_web_app_key", return_value="k"), \
+                patch.object(claro, "_fetch_claro_region", side_effect=fake_region):
+            data, errors = claro.fetch_claro_guide_epg(channels, start)
+        self.assertEqual({}, errors)
+        self.assertEqual(
+            [("argentina", {"claro:argentina:2": "2"}), ("colombia", {"claro:colombia:1": "1"})],
+            calls)
+        self.assertEqual(2, data.count(b"<programme "))
