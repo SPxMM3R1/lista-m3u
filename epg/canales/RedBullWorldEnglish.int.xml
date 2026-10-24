@@ -1,9 +1,21 @@
 <?xml version='1.0' encoding='utf-8'?>
 <tv data-fragment-of="RedBullWorldEnglish.int">
-  <channel id="RedBullWorldEnglish.int" data-guide="parrilla real parcial" data-guide-source="pluto">
+  <channel id="RedBullWorldEnglish.int" data-guide="parrilla real parcial" data-guide-source="epg-publicada-conservada">
     <display-name>RedBull TV World</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/red-bull-tv.png" />
   </channel>
+  <programme channel="RedBullWorldEnglish.int" start="20261024050000 -0300" stop="20261024061200 -0300">
+    <title>MotoGP</title>
+    <live />
+    <episode-num system="original-air-date">20261024080000 +0000</episode-num>
+    <desc>Vom Phillip Island Grand Prix Circuit in Phillip Island, Victoria, Australien.</desc>
+    <icon src="https://images.pluto.tv/series/685bc8deb66727eb740c095d/tile_1750845665940.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
+    <series-id system="pluto">685bc8deb66727eb740c095d</series-id>
+    <sub-title>GP Australien: 1. Qualifying</sub-title>
+    <category>Series</category>
+    <category>Sports</category>
+  </programme>
   <programme channel="RedBullWorldEnglish.int" start="20261024061200 -0300" stop="20261024091500 -0300">
     <title>MotoGP</title>
     <live />
@@ -215,41 +227,5 @@
     <sub-title>GP Australien: Rennen</sub-title>
     <category>Sports</category>
     <category>Series</category>
-  </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261024032800 -0300" stop="20261024043700 -0300">
-    <title>Red Bull Soapbox Race</title>
-    <live />
-    <episode-num system="original-air-date">20261024062800 +0000</episode-num>
-    <desc>Genieße die 50 beliebtesten Designs und Momente der Red Bull Seifenkistenrennen von 2014 bis 2025.</desc>
-    <icon src="https://images.pluto.tv/series/6853f51fb54a02bbc47d68a8/tile_1756170079193.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">6853f51fb54a02bbc47d68a8</series-id>
-    <sub-title>50 Publikumslieblinge</sub-title>
-    <category>Series</category>
-    <category>Sports</category>
-  </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261024043700 -0300" stop="20261024050000 -0300">
-    <title>Red Bull Durchgespielt</title>
-    <live />
-    <episode-num system="original-air-date">20261024073700 +0000</episode-num>
-    <desc>Persönlichkeiten aus der Deutschrap-Welt treten an einem Spieltisch gegeneinander an. Zwischen Quiz, Battles, Fans und Karma-Feldern zocken unter anderem Aria und Jerrvsan.</desc>
-    <icon src="https://images.pluto.tv/series/6a0af1995992de5f722bfdc4/tile_1779109321293.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">6a0af1995992de5f722bfdc4</series-id>
-    <sub-title>Das Deutschrap-Quiz</sub-title>
-    <category>Series</category>
-    <category>Sports</category>
-  </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261024050000 -0300" stop="20261024061200 -0300">
-    <title>MotoGP</title>
-    <live />
-    <episode-num system="original-air-date">20261024080000 +0000</episode-num>
-    <desc>Vom Phillip Island Grand Prix Circuit in Phillip Island, Victoria, Australien.</desc>
-    <icon src="https://images.pluto.tv/series/685bc8deb66727eb740c095d/tile_1750845665940.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">685bc8deb66727eb740c095d</series-id>
-    <sub-title>GP Australien: 1. Qualifying</sub-title>
-    <category>Series</category>
-    <category>Sports</category>
   </programme>
 </tv>
