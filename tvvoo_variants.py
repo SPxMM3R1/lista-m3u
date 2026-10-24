@@ -173,14 +173,31 @@ def siblings_for(selected_alias: str, entries: list[tuple[str, str]], code: str 
 
 
 def active_tvvoo_rows(layout: dict) -> list[dict]:
-    return [
-        row for row in layout.get("channels") or []
-        if isinstance(row, dict)
-        and row.get("kind") == "provider"
-        and row.get("provider") == "tvvoo"
-        and row.get("state") == "active"
-        and "|" in str(row.get("catalogKey") or "")
-    ]
+    """Canales TvVoo activos y respaldos TvVoo (``backupTvVoo``) de otros canales.
+
+    Desde 2026-10-24 también entra el respaldo TvVoo de un canal con otra fuente principal
+    (p. ej. TNT Sports 1/2 con Highfly): sin esto sus hermanas desaparecían del archivo y la
+    app solo tenía la señal TvVoo exacta, sin HD/FHD/BACKUP cuando esa cae.
+    """
+    rows: list[dict] = []
+    seen: set[str] = set()
+    for row in layout.get("channels") or []:
+        if not isinstance(row, dict) or row.get("state") != "active":
+            continue
+        if row.get("kind") == "provider" and row.get("provider") == "tvvoo":
+            key = str(row.get("catalogKey") or "")
+            entry = row
+        else:
+            key = str(row.get("backupTvVoo") or "")
+            entry = {
+                "catalogKey": key,
+                "countryKey": key.split("|", 1)[0],
+                "backupCountries": row.get("backupCountries") or [],
+            }
+        if "|" in key and key not in seen:
+            seen.add(key)
+            rows.append(entry)
+    return rows
 
 
 def fetch_catalog(code: str) -> dict:

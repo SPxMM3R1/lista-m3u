@@ -62,6 +62,29 @@ class TvVooVariantRules(unittest.TestCase):
         )
 
 
+class TvVooBackupRows(unittest.TestCase):
+    def test_backup_of_another_provider_keeps_its_siblings(self) -> None:
+        # 2026-10-24: TNT Sports 1/2 pasaron a Highfly con su TvVoo de respaldo; sus hermanas
+        # TvVoo deben seguir en el archivo para la app.
+        layout = {"channels": [
+            {"kind": "provider", "provider": "highfly", "state": "active",
+             "catalogKey": "TNTSports1.uk",
+             "backupTvVoo": "unitedkingdom|vavoo_TNT%20SPORT%201%7Cgroup%3Auk"},
+            {"kind": "provider", "provider": "tvvoo", "state": "active",
+             "catalogKey": "unitedkingdom|vavoo_TNT%20SPORTS%203%7Cgroup%3Auk",
+             "countryKey": "unitedkingdom"},
+            {"kind": "provider", "provider": "highfly", "state": "deleted",
+             "catalogKey": "TNTSports2.uk",
+             "backupTvVoo": "unitedkingdom|vavoo_TNT%20SPORT%202%7Cgroup%3Auk"},
+        ]}
+        rows = tv.active_tvvoo_rows(layout)
+        self.assertEqual(
+            ["unitedkingdom|vavoo_TNT%20SPORT%201%7Cgroup%3Auk",
+             "unitedkingdom|vavoo_TNT%20SPORTS%203%7Cgroup%3Auk"],
+            [row["catalogKey"] for row in rows])
+        self.assertEqual("unitedkingdom", rows[0]["countryKey"])
+
+
 class TvVooUkVerifiedSignals(unittest.TestCase):
     def siblings(self, chosen, *candidates, code="uk"):
         catalog = entries(code, chosen, *candidates)
