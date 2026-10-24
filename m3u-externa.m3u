@@ -3,8 +3,6 @@
 # Películas
 #EXTINF:-1 tvg-id="PublicDirect.cfb76dff0b00c717a1bbc160" group-title="Películas",AMC
 http://177.234.218.66:8084/play/a002/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.fc07c90f07c3fa8b11b8ed11" group-title="Películas",HBO 2
-http://45.189.151.7:8000/play/a06v/index.m3u8
 
 # Misceláneos
 #EXTINF:-1 tvg-id="PublicDirect.5914629f04aa0a50b078495a" group-title="Misceláneos",Animal Planet
@@ -3183,5 +3181,7 @@ http://181.78.106.127:5000/play/a0so/index.m3u8
 http://181.78.106.127:5000/play/ca071/index.m3u8
 
 # Deportes
+#EXTINF:-1 tvg-id="Vavoo.uk.TNTSPORTS2@TvVoo" tvg-name="TNT Sports 2 Reino Unido" tvg-country="UK" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tnt-sports-2.png" group-title="Deportes" x-resolver="tvvoo" x-resolver-endpoint="https://tvvoo.hayd.uk/stream/tv" x-resolver-ids="vavoo_TNT%20SPORT%202%7Cgroup%3Auk;vavoo_TNT%20SPORTS%202%20HD%7Cgroup%3Auk;vavoo_TNT%20SPORTS%202%7Cgroup%3Auk" x-resolver-refresh="on_play" x-resolver-recipe="bounded-payload-v1",TNT Sports 2 Reino Unido
+http://tvvoo.hayd.uk/live/manifest.m3u8?url=https%3A%2F%2Fvavoo.to%2Fvavoo-iptv%2Fplay%2F3189901205171728e31586
 #EXTINF:-1 tvg-id="SkySportsRacing.uk" tvg-name="Sky Sports Racing" tvg-country="GB" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/sky-sports-racing.png" x-resolver="tvvoo" x-resolver-endpoint="https://tvvoo.hayd.uk/stream/tv" x-resolver-ids="vavoo_SKY%20SPORTS%20RACING%7Cgroup%3Auk;vavoo_SKY%20SPORTS%20RACING%20HD%7Cgroup%3Auk" x-resolver-refresh="on_play" x-resolver-recipe="bounded-payload-v1",Sky Sports Racing
 http://tvvoo.hayd.uk/live/manifest.m3u8?url=https%3A%2F%2Fvavoo.to%2Fvavoo-iptv%2Fplay%2F16306975244cebe740777a
