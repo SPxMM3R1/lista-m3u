@@ -1,0 +1,78 @@
+name: Actualizar números de respaldos
+
+# Última prioridad (2026-10-24): corre cuando terminan los workflows que cambian el catálogo o las
+# listas, espera a que no quede ninguno corriendo y solo entonces pone al día los números de
+# backups.json. El emparejamiento es por tvg-id; el número es de referencia.
+on:
+  workflow_run:
+    workflows:
+      - Pedidos de la app
+      - Publicar cambios dirigidos
+      - Actualizar canales M3U
+      - Publicar editor del catálogo
+    types: [completed]
+  schedule:
+    - cron: "40 5 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: backup-numbers
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Esperar a que terminen los demás workflows del catálogo
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          for attempt in $(seq 1 40); do
+            busy=0
+            for wf in app-requests.yml targeted-changes.yml update-channels.yml deploy-site.yml; do
+              n=$(gh run list -R "$REPO" --workflow "$wf" --limit 10 --json status \
+                  -q '[.[] | select(.status != "completed")] | length')
+              busy=$((busy + n))
+            done
+            if [ "$busy" -eq 0 ]; then echo "Nada más corriendo; sigue."; exit 0; fi
+            echo "Hay $busy ejecuciones del catálogo en curso; espera 30 s ($attempt/40)."
+            sleep 30
+          done
+          echo "Siguen corriendo después de 20 min; se actualiza igual (solo toca backups.json)."
+
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Poner al día los números
+        run: python scripts/refresh_backup_numbers.py
+
+      - name: Publicar si cambió
+        shell: bash
+        run: |
+          if [ -z "$(git status --porcelain -- backups.json)" ]; then
+            echo "Sin cambios."
+            exit 0
+          fi
+          git config user.name "Actualizador de respaldos"
+          git config user.email "m3u-bot@users.noreply.github.com"
+          git add backups.json
+          git commit -m "Actualiza números de backups.json [skip ci]"
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then exit 0; fi
+            git fetch origin main
+            git rebase origin/main || { git rebase --abort; git reset --hard origin/main; python scripts/refresh_backup_numbers.py; git add backups.json; git commit -m "Actualiza números de backups.json [skip ci]" || exit 0; }
+          done
+          echo "No se pudo publicar después de 3 intentos."
+          exit 1
