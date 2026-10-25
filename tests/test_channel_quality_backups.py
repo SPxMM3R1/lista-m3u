@@ -207,9 +207,8 @@ class ExplicitDirectBackupLinksTest(unittest.TestCase):
         "PublicDirect.e6a2bc5a013c1c5b9656d441": [
             "PublicDirect.21d595905b477139407f7250",
         ],
-        "PublicDirect.1162bcbccc1aa298b25757a3": [
-            "PublicDirect.07595a53d0527c27f68b4e29",
-        ],
+        # AXN 842 (PublicDirect.1162bcbc…) salió de esta lista el 2026-10-25: el usuario lo pasó a
+        # backups.json como respaldo del AXN de Lista 1. Su antiguo respaldo (AXN 210) sigue activo.
         "PublicDirect.9840c70e010eb35fb900c6b4": [
             "Cinecanal.co@Direct181",
         ],
