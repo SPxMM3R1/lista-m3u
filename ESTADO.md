@@ -301,6 +301,7 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-10-25 — TNT a Lista 1 (059, Cine)**: pedido del usuario. «Z TNT [IP 177.234.218.66]» (`PublicDirect.ef0023b2…`, era el 86 de Lista 2) pasa a Lista 1 al final de Cine (059), oficial (sin `trial`), con nombre «TNT [IP 177.234.218.66]» y visible «TNT». Su misma guía Claro Colombia (`claro:colombia:773875`, respaldo MX) pasa a `epg-overrides.json`. Suites en verde.
 - **2026-10-25 — Studio Universal 82 a respaldo**: el usuario confirmó que la copia 82 de Lista 2 (`PublicDirect.1ac169f4…`, «STUDIO UNIVERSAL [IP 45.189.151.7]») es la misma señal que el 058 de Lista 1; pasa a `backups.json` (79 copias en 13 canales). Suites en verde.
 - **2026-10-25 — Prueba de respaldos explícitos al día**: el commit `50009d4b` se subió con `test_channel_quality_backups` en rojo (el comando no se detuvo ante el fallo). La prueba exigía que AXN 842 (`PublicDirect.1162bcbc…`) siguiera activo en Lista 2 por la decisión del 2026-10-22; ahora el usuario lo pasó a respaldo del AXN de Lista 1. Se quita ese par de la prueba (AXN 210 sigue activo). Suite 430 (19 omitidas) en verde.
 - **2026-10-25 — AXN: 6 copias dudosas también a respaldo**: pedido del usuario. AXN 686, 745 (0,61), 746, 765, 812 y 842 (0,44–0,57) pasan a `backups.json` (AXN queda con 9 respaldos; total 78). Suites en verde.
