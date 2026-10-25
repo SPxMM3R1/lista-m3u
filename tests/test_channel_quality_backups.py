@@ -23,7 +23,8 @@ CANAL13_DIRECT_BACKUPS = [
     "PublicDirect.2be182422f69d962afae4053",
     "PublicDirect.711575de282125c84171bbee",
     "PublicDirect.79f8514f8e1ffebfaf54d33c",
-    "PublicDirect.8baa0cba55b71f39a6480ef5",
+    # PublicDirect.8baa0cba… (Canal 13 HD 190.108.91.206) pasó a backups.json el 2026-10-25:
+    # segunda búsqueda de clones, misma señal por audio (0.988).
 ]
 # Primeras bajas desde la app (2026-10-11). Las siguientes, hechas desde la app o el editor,
 # se leen del layout: cualquier fila «deleted» es una decisión del usuario y no rompe pruebas.

@@ -19,7 +19,8 @@ class Lista2EpgMapTest(unittest.TestCase):
         # 2026-10-21: el mapa puede conservar canales que después fueron a la papelera; la
         # guía solo se arma para los publicados (ver test de alcance).
         # 2026-10-24: Lista 2 bajó a ~945 publicados (respaldos a backups.json, adultos a Lista 1).
-        self.assertGreaterEqual(len(set(mapping) & published), 900)
+        # 2026-10-25: segunda búsqueda de clones (56 a backups.json, 18 sin señal a papelera): ~870.
+        self.assertGreaterEqual(len(set(mapping) & published), 800)
         for target_id, (source, source_id) in mapping.items():
             with self.subTest(channel=target_id):
                 # 2026-10-24: guía Claro por familia (claro:<región>:<group_id>) o EPGShare.

@@ -9,7 +9,8 @@ WHITE_LOGO = "logos/catalogue/studiouniversallatinamerica-white.png"
 ACTIVE_ROWS = {
     "PublicDirect.8b604de41196cd4fe991d551": "1.m3u",
     "Nauta.b9df5eea317035bd5bda31cf@Nauta": "2.m3u",
-    "PublicDirect.52f6bff32710f7c83abeda34": "2.m3u",
+    # PublicDirect.52f6bff3… (Studio Universal HD 45.171.64.30) pasó a backups.json el
+    # 2026-10-25 como respaldo del Studio Universal de Lista 1 (misma señal por audio).
 }
 
 
