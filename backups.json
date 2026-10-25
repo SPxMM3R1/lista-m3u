@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-10-24",
+  "updated": "2026-10-25",
   "description": "Copias (casi todas de Lista 2) que respaldan a un canal de Lista 1: misma señal, confirmada con captura. Esas copias ya no se publican en Lista 2; la app las prueba en orden si la señal principal falla.",
   "fields": {
     "channels.<clave>": "tvg-id del canal principal en Lista 1 (la identidad estable; el número puede cambiar).",
@@ -14,6 +14,62 @@
     "backups[].group / logo / url / guide": "Grupo, logo, dirección de reproducción y guía de la copia."
   },
   "channels": {
+    "0105": {
+      "display_name": "Mega",
+      "list": "Lista 1",
+      "number": 2,
+      "group": "Nacionales",
+      "source_name": "Mega",
+      "guide": {
+        "source": "",
+        "source_id": ""
+      },
+      "verified": "2026-10-25: misma señal por audio con desfase (coincidencia 0.894).",
+      "backups": [
+        {
+          "tvg_id": "PublicDirect.f4e53f65646dcab8c6e535c9",
+          "display_name": "Mega",
+          "source_name": "MEGA HD [IP 45.173.231.22]",
+          "from_list": "Lista 2",
+          "from_number": 577,
+          "group": "Misceláneos",
+          "logo": "logos/lista2/5c8bc538ef6b.png",
+          "url": "http://45.173.231.22:8000/play/a06s/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:chile:793481"
+          }
+        }
+      ]
+    },
+    "ESPN.co@Direct181": {
+      "display_name": "ESPN",
+      "list": "Lista 1",
+      "number": 32,
+      "group": "Deportes",
+      "source_name": "ESPN HD [IP 181]",
+      "guide": {
+        "source": "claro-guia",
+        "source_id": "claro:chile:793457"
+      },
+      "verified": "2026-10-25: misma señal por audio con desfase (coincidencia 0.884).",
+      "backups": [
+        {
+          "tvg_id": "PublicDirect.52e2a90f3dee03a0fe8d012c",
+          "display_name": "ESPN",
+          "source_name": "ESPN HD [IP 190.60.46.228]",
+          "from_list": "Lista 2",
+          "from_number": 168,
+          "group": "Deportes",
+          "logo": "logos/lista2/13038c11f312.png",
+          "url": "http://190.60.46.228:8888/play/a02b/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:788650"
+          }
+        }
+      ]
+    },
     "ESPN4.co@Direct181": {
       "display_name": "ESPN 4",
       "list": "Lista 1",
@@ -626,6 +682,104 @@
           "guide": {
             "source": "",
             "source_id": ""
+          }
+        }
+      ]
+    },
+    "PublicDirect.376c74e4d0452f743fd2c811": {
+      "display_name": "Sony Movies",
+      "list": "Lista 1",
+      "number": 57,
+      "group": "Cine",
+      "source_name": "ALCATEL SONY MOVIE MD1 [IP 177.234.218.66]",
+      "guide": {
+        "source": "",
+        "source_id": ""
+      },
+      "verified": "2026-10-25: misma señal por audio con desfase (coincidencia 0.799, 0.732).",
+      "backups": [
+        {
+          "tvg_id": "PublicDirect.dfb814f1d8534e6fbbedbe92",
+          "display_name": "Sony Movies",
+          "source_name": "SRT SONY MOVIES [IP 181.78.12.119]",
+          "from_list": "Lista 2",
+          "from_number": 146,
+          "group": "Películas",
+          "logo": "logos/catalogue/sonymovieslatinamerica-us.png",
+          "url": "http://181.78.12.119:16123/play/a0de/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:1191161"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.7f6baff100b6c49e36f074aa",
+          "display_name": "Sony Movies",
+          "source_name": "SONY MOVIE-IXP [IP 138.59.177.78]",
+          "from_list": "Lista 2",
+          "from_number": 186,
+          "group": "Películas",
+          "logo": "logos/lista2/17a70ff21c33.png",
+          "url": "http://138.59.177.78:9999/play/a07d/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:1191161"
+          }
+        }
+      ]
+    },
+    "PublicDirect.a247897d9a490d19fa633661": {
+      "display_name": "AXN",
+      "list": "Lista 1",
+      "number": 59,
+      "group": "Series",
+      "source_name": "ALCATEL AXN MD2 [IP 177.234.218.66]",
+      "guide": {
+        "source": "claro-guia",
+        "source_id": "claro:argentina:762275"
+      },
+      "verified": "2026-10-25: misma señal por audio con desfase (coincidencia 0.833, 1.0, 0.795).",
+      "backups": [
+        {
+          "tvg_id": "PublicDirect.928c1c8ada8e43a38cdf3af2",
+          "display_name": "AXN",
+          "source_name": "AXN [IP 38.87.224.19]",
+          "from_list": "Lista 2",
+          "from_number": 747,
+          "group": "Películas",
+          "logo": "logos/lista2/fbba45e116d6.png",
+          "url": "http://38.87.224.19:2220/play/a02s/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:927652"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.214a06af16ca70f6e6e912a4",
+          "display_name": "AXN",
+          "source_name": "AXN HD [IP 181.78.106.127]",
+          "from_list": "Lista 2",
+          "from_number": 872,
+          "group": "Películas",
+          "logo": "logos/lista2/fbba45e116d6.png",
+          "url": "http://181.78.106.127:5000/play/ca085/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:927652"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.a88c1367b44959250b3ef9a3",
+          "display_name": "AXN",
+          "source_name": "AXN HD [IP 138.59.177.78]",
+          "from_list": "Lista 2",
+          "from_number": 875,
+          "group": "Películas",
+          "logo": "logos/lista2/fbba45e116d6.png",
+          "url": "http://138.59.177.78:9999/play/a0kf/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:927652"
           }
         }
       ]
