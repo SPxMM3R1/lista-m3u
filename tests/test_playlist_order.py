@@ -16,6 +16,18 @@ def extinf(tvg_id: str, name: str, group: str = "legacy") -> str:
     )
 
 
+class AdultCategoryTests(unittest.TestCase):
+    def test_venus_and_sextreme_are_adult_even_from_another_group(self):
+        # 2026-10-25, pedido del usuario: Venus venía de «Misceláneos» en la fuente.
+        for name in ("VENUS [IP 200.115.120.1]", "Venus", "Sextreme [IP 190.108.83.69]", "sextrem"):
+            channel = update_m3u.Channel(name=name, url="http://example.test/x.m3u8", url_line=1,
+                                         group="Misceláneos", tvg_id="x")
+            self.assertEqual("Adultos", update_m3u.content_category_for(channel), name)
+        hbo = update_m3u.Channel(name="HBO XTREME HD", url="http://example.test/h.m3u8", url_line=1,
+                                 group="Películas", tvg_id="h")
+        self.assertEqual("Películas", update_m3u.content_category_for(hbo))
+
+
 class PlaylistOrderTests(unittest.TestCase):
     def test_official_short_aliases_match_canonical_playlists(self) -> None:
         for canonical, alias in update_m3u.SHORT_PLAYLIST_ALIASES:

@@ -2568,7 +2568,7 @@ MOVIE_NAME_PATTERN = re.compile(
 ADULT_NAME_PATTERN = re.compile(
     r"(?:\badult\b|\berotic(?:a|s)?\b|\bporn(?:o)?\b|\bxxx\b|"
     r"\bplayboy\b|\bprivate\s+(?:tv|channel|xxx)\b|\bbrazzers\b|"
-    r"\bhustler\b|\bpenthouse\b|"
+    r"\bhustler\b|\bpenthouse\b|\bvenus\b|\bsextreme?\b|"
     r"\bredlight\b|\bdorcel\b|\bvivid\b|\berotik\b|\bbeate\b|\b18\s*\+)",
     re.IGNORECASE,
 )
