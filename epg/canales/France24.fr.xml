@@ -1,47 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 <tv data-fragment-of="France24.fr">
-  <channel id="France24.fr" data-guide="parrilla real" data-guide-source="fr">
+  <channel id="France24.fr" data-guide="parrilla real conservada" data-guide-source="epg-publicada-conservada">
     <display-name>France 24 Español</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/france24.svg" />
   </channel>
-  <programme channel="France24.fr" start="20261024143000 -0300" stop="20261024144500 -0300">
-    <title lang="fr">Noticias</title>
-    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
-    <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/0/5/15194509.jpg" />
-    <episode-num system="onscreen">E31</episode-num>
-  </programme>
-  <programme channel="France24.fr" start="20261024144500 -0300" stop="20261024150000 -0300">
-    <title lang="fr">Ellas hoy</title>
-    <desc lang="es">El programa de quienes impulsan el cambio en un mundo todavía dominado por los hombres. Iniciativas de hombres y de mujeres que luchan por sociedades con mayor igualdad de género.</desc>
-    <category lang="fr">Magazine de société</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/3/6/15194635.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/0/2/6/15194620.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/1/6/15194618.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/3/2/6/15194623.jpg" />
-    <episode-num system="onscreen">E3</episode-num>
-  </programme>
-  <programme channel="France24.fr" start="20261024150000 -0300" stop="20261024151500 -0300">
-    <title lang="fr">Noticias</title>
-    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
-    <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/0/5/15194509.jpg" />
-    <episode-num system="onscreen">E37</episode-num>
-  </programme>
-  <programme channel="France24.fr" start="20261024151500 -0300" stop="20261024153000 -0300">
-    <title lang="fr">En primera plana</title>
-    <desc lang="es">Cada semana, analistas y corresponsales de la prensa extranjera basados en París comentan lo más candente de la actualidad. Una mirada aguda desde la Ciudad de la Luz.</desc>
-    <category lang="fr">Magazine d'information</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/2/7/15194729.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/1/2/7/15194721.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/1/7/15194714.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/2/7/15194726.jpg" />
-    <episode-num system="onscreen">E3</episode-num>
-  </programme>
   <programme channel="France24.fr" start="20261024153000 -0300" stop="20261024154500 -0300">
     <title lang="fr">Noticias</title>
     <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
@@ -294,6 +256,18 @@
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/9/4/15194494.jpg" />
     <episode-num system="onscreen">E2</episode-num>
   </programme>
+  <programme start="20261024210000 -0300" stop="20261024211500 -0300" channel="France24.fr">
+    <title lang="es">Noticias</title>
+    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
+  </programme>
+  <programme start="20261024211500 -0300" stop="20261024212000 -0300" channel="France24.fr">
+    <title lang="es">Economia</title>
+    <desc lang="es">Para estar al día en la actualidad económica, los tipos de cambio o los movimientos de la globalización y las grandes y pequeñas empresas.</desc>
+  </programme>
+  <programme start="20261024212000 -0300" stop="20261024220000 -0300" channel="France24.fr">
+    <title lang="es">El Debate</title>
+    <desc lang="es">Santiago López y sus invitados analizan el tema noticioso de la semana y responden en directo a los comentarios en las redes sociales: ElDebateF24</desc>
+  </programme>
   <programme channel="France24.fr" start="20261024220000 -0300" stop="20261024221500 -0300">
     <title lang="fr">Noticias</title>
     <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
@@ -312,6 +286,10 @@
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/3/2/7/15194723.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/3/4/5/15184543.jpg" />
     <episode-num system="onscreen">E2</episode-num>
+  </programme>
+  <programme start="20261024222000 -0300" stop="20261024223000 -0300" channel="France24.fr">
+    <title lang="es">Desinformando</title>
+    <desc lang="es">Encuentra los últimos artículos y mira programas de televisión y informes relacionados con Desinformación en France 24.</desc>
   </programme>
   <programme channel="France24.fr" start="20261024223000 -0300" stop="20261024224500 -0300">
     <title lang="fr">Noticias</title>
@@ -1162,6 +1140,7 @@
   </programme>
   <programme channel="France24.fr" start="20261025171500 -0300" stop="20261025172400 -0300">
     <title lang="fr">Los observadores</title>
+    <desc lang="es">Un programa colaborativo realizado a partir de videos, fotografías y testimonios enviados por testigos de primera mano, que se verifican en la redacción de France 24. Un programa emblemático por su dimensión humana y participativa.</desc>
     <category lang="fr">Magazine d'information</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/1/6/6/15194661.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/4/6/15194648.jpg" />
@@ -1171,6 +1150,7 @@
   </programme>
   <programme channel="France24.fr" start="20261025172400 -0300" stop="20261025173000 -0300">
     <title lang="fr">En foco</title>
+    <desc lang="es">Un reportaje único sobre temas que a menudo están por fuera de las noticias.</desc>
     <category lang="fr">Magazine d'information</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/4/5/15194545.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/9/4/15194496.jpg" />
@@ -1189,6 +1169,7 @@
   </programme>
   <programme channel="France24.fr" start="20261025174500 -0300" stop="20261025180000 -0300">
     <title lang="fr">Expreso de Oriente</title>
+    <desc lang="es">Las ultimas noticias politicas y sociales de Medio Oriente con informes de nuestros corresponsales en terreno.</desc>
     <category lang="fr">Magazine d'information</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/9/4/15194498.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/8/4/15701488.jpg" />
@@ -1205,6 +1186,7 @@
   </programme>
   <programme channel="France24.fr" start="20261025181500 -0300" stop="20261025182300 -0300">
     <title lang="fr">Cultura</title>
+    <desc lang="es">Cómo nos relatan el mundo los cineastas, los novelistas y los artistas en general? France 24 sale al encuentro de una cultura comprometida con su época.</desc>
     <category lang="fr">Magazine culturel</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/7/6/6/15194667.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/6/6/15194664.jpg" />
@@ -1214,6 +1196,7 @@
   </programme>
   <programme channel="France24.fr" start="20261025182300 -0300" stop="20261025183000 -0300">
     <title lang="fr">En foco</title>
+    <desc lang="es">Un reportaje único sobre temas que a menudo están por fuera de las noticias.</desc>
     <category lang="fr">Magazine d'information</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/4/5/15194545.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/9/4/15194496.jpg" />
@@ -1301,6 +1284,7 @@
   </programme>
   <programme channel="France24.fr" start="20261025201500 -0300" stop="20261025202000 -0300">
     <title lang="fr">En foco</title>
+    <desc lang="es">Un reportaje único sobre temas que a menudo están por fuera de las noticias.</desc>
     <category lang="fr">Magazine d'information</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/4/5/15194545.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/9/4/15194496.jpg" />
@@ -1746,6 +1730,7 @@
   </programme>
   <programme channel="France24.fr" start="20261026063000 -0300" stop="20261026064000 -0300">
     <title lang="fr">Noticias</title>
+    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
     <category lang="fr">Journal</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
@@ -1772,6 +1757,7 @@
   </programme>
   <programme channel="France24.fr" start="20261026070000 -0300" stop="20261026071000 -0300">
     <title lang="fr">Noticias</title>
+    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
     <category lang="fr">Journal</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
@@ -1798,6 +1784,7 @@
   </programme>
   <programme channel="France24.fr" start="20261026073000 -0300" stop="20261026074000 -0300">
     <title lang="fr">Noticias</title>
+    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
     <category lang="fr">Journal</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
@@ -1824,6 +1811,7 @@
   </programme>
   <programme channel="France24.fr" start="20261026080000 -0300" stop="20261026081000 -0300">
     <title lang="fr">Noticias</title>
+    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
     <category lang="fr">Journal</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
@@ -1848,6 +1836,7 @@
   </programme>
   <programme channel="France24.fr" start="20261026083000 -0300" stop="20261026084000 -0300">
     <title lang="fr">Noticias</title>
+    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
     <category lang="fr">Journal</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
@@ -1870,6 +1859,7 @@
   </programme>
   <programme channel="France24.fr" start="20261026090000 -0300" stop="20261026093000 -0300">
     <title lang="fr">Noticias</title>
+    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
     <category lang="fr">Journal</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
@@ -2259,21 +2249,5 @@
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/6/6/15194669.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/2/7/6/15194672.jpg" />
     <episode-num system="onscreen">E3</episode-num>
-  </programme>
-  <programme start="20261024210000 -0300" stop="20261024211500 -0300" channel="France24.fr">
-    <title lang="es">Noticias</title>
-    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
-  </programme>
-  <programme start="20261024211500 -0300" stop="20261024212000 -0300" channel="France24.fr">
-    <title lang="es">Economia</title>
-    <desc lang="es">Para estar al día en la actualidad económica, los tipos de cambio o los movimientos de la globalización y las grandes y pequeñas empresas.</desc>
-  </programme>
-  <programme start="20261024212000 -0300" stop="20261024220000 -0300" channel="France24.fr">
-    <title lang="es">El Debate</title>
-    <desc lang="es">Santiago López y sus invitados analizan el tema noticioso de la semana y responden en directo a los comentarios en las redes sociales: ElDebateF24</desc>
-  </programme>
-  <programme start="20261024222000 -0300" stop="20261024223000 -0300" channel="France24.fr">
-    <title lang="es">Desinformando</title>
-    <desc lang="es">Encuentra los últimos artículos y mira programas de televisión y informes relacionados con Desinformación en France 24.</desc>
   </programme>
 </tv>

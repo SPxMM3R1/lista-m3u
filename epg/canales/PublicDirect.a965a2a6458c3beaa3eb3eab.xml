@@ -1,20 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 <tv data-fragment-of="PublicDirect.a965a2a6458c3beaa3eb3eab">
-  <channel id="PublicDirect.a965a2a6458c3beaa3eb3eab" data-guide="parrilla real" data-guide-source="fr">
+  <channel id="PublicDirect.a965a2a6458c3beaa3eb3eab" data-guide="parrilla real conservada" data-guide-source="epg-publicada-conservada">
     <display-name>Star Channel</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/51f215686b48.png" />
   </channel>
-  <programme channel="PublicDirect.a965a2a6458c3beaa3eb3eab" start="20261024142100 -0300" stop="20261024151000 -0300">
-    <title lang="fr">Les Real Housewives de New York</title>
-    <desc lang="fr">Bienvenue à New York, chez les femmes au foyer les plus extravagantes de la côte Est, où tout n'est que luxe, calme et volupté. Ou presque ! Car dans la ville qui ne dort jamais, les scandales vont bon train, les disputes se multiplient et les amitiés se font et se défont à un rythme infernal.</desc>
-    <date>2018</date>
-    <category lang="fr">Documentaire</category>
-    <icon src="https://focus.telerama.fr/252x168/80/2026/10/14/0931d8ce9ae64d3d9ea43c05944c19d2.jpg" />
-    <country lang="fr">Etats-Unis</country>
-    <rating>
-      <value>10</value>
-    </rating>
-  </programme>
   <programme channel="PublicDirect.a965a2a6458c3beaa3eb3eab" start="20261024151000 -0300" stop="20261024160100 -0300">
     <title lang="fr">Les Real Housewives de New York</title>
     <desc lang="fr">Bienvenue à New York, chez les femmes au foyer les plus extravagantes de la côte Est, où tout n'est que luxe, calme et volupté. Ou presque ! Car dans la ville qui ne dort jamais, les scandales vont bon train, les disputes se multiplient et les amitiés se font et se défont à un rythme infernal.</desc>
@@ -182,6 +171,10 @@
     <rating>
       <value>10</value>
     </rating>
+  </programme>
+  <programme start="20261024230700 -0300" stop="20261024235300 -0300" channel="PublicDirect.a965a2a6458c3beaa3eb3eab">
+    <title lang="es">Depredador: La presa</title>
+    <desc lang="es">Naru, una hábil guerrera comanche criada por los mejores cazadores de las Grandes Llanuras en el siglo XVIII, lucha por proteger a su tribu de uno de los primeros depredadores altamente evolucionados en aterrizar en la Tierra.</desc>
   </programme>
   <programme channel="PublicDirect.a965a2a6458c3beaa3eb3eab" start="20261024235300 -0300" stop="20261025001900 -0300">
     <title lang="fr">L'incroyable famille Kardashian</title>
@@ -1128,9 +1121,5 @@
     <category lang="fr">Série</category>
     <icon src="https://focus.telerama.fr/252x168/80/2026/05/27/e6d2341df7ae4deda9ace6c55544051e.jpg" />
     <country lang="fr">Etats-Unis</country>
-  </programme>
-  <programme start="20261024230700 -0300" stop="20261024235300 -0300" channel="PublicDirect.a965a2a6458c3beaa3eb3eab">
-    <title lang="es">Depredador: La presa</title>
-    <desc lang="es">Naru, una hábil guerrera comanche criada por los mejores cazadores de las Grandes Llanuras en el siglo XVIII, lucha por proteger a su tribu de uno de los primeros depredadores altamente evolucionados en aterrizar en la Tierra.</desc>
   </programme>
 </tv>
