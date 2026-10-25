@@ -69,6 +69,12 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
   al dar de alta). Los respaldos (`backupm3u`) y señales preferidas (`preferredM3u`) de otro
   canal no se ven solos en la app: van después de todos los canales visibles y no ocupan
   números visibles (2026-10-19, ESPN 7 con 8 respaldos). Una fila no cruza de lista por su número: se cambia con «Lista de publicación».
+- **Adultos de mejor calidad al final de Lista 2 (2026-10-25)**: las copias de adultos de mayor
+  resolución que no son la señal principal de Lista 1 van al final de Lista 2 (después de Nauta y
+  M6Foot), con `group: "Adultos"` y `trial: true`. Hoy: Brazzers TV, Venus Tv, VENUS RADIO TV y
+  ADULTOS 1–10. Manda sobre el orden por bitrate de Lista 2 para esas filas. Comparar señales de
+  adultos solo por huella de fotograma; todo canal del grupo «Adultos» debe estar en
+  `adultos.json`.
 - **Complemento TvVoo (2026-10-19)**: las 17 filas TvVoo del complemento con falla repetida
   no se publican en Lista 2; el runner las omite con `EXTERNAL_TVVOO_COMPLEMENT_BLOCK_IDS`
   y las conserva en `channel-catalog.m3u`. No es un tombstone ni se usa `excluded_m3u`;

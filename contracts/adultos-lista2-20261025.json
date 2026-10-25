@@ -1,0 +1,175 @@
+{
+  "schema": 1,
+  "date": "2026-10-25",
+  "request": "agregar al final de Lista 2 los canales de adultos de mejor calidad (Brazzers TV, Venus Tv, VENUS RADIO TV, ADULTOS 1-10)",
+  "decision": "Se reactivan 13 filas que ya existian en el layout en papelera (state=deleted). No se crean identidades nuevas. group=Adultos, trial=true, sourceList=2.m3u, al final de Lista 2 (despues de Nauta y M6Foot).",
+  "rules": {
+    "list": "2.m3u",
+    "group": "Adultos",
+    "trial": true,
+    "order": "despues del ultimo canal de Lista 2 (Nauta y M6Foot incluidos)",
+    "adultos_json": "los 13 tvg-id ya estaban en adultos.json (50 ids); la app los oculta sin clave",
+    "comparison": "solo por huella de fotograma (framemd5 / aHash 8x8 en gris), nunca mirando el contenido"
+  },
+  "channels": [
+    {
+      "tvg_id": "PublicDirect.611041b791c77e57b0831623",
+      "display_name": "Brazzers TV",
+      "source_name": "BRAZZERS TV [IP 200.115.120.1]",
+      "url": "http://200.115.120.1:8000/play/ca98/index.m3u8",
+      "resolution": "1920x1080",
+      "fps": 50,
+      "kbps": 2787,
+      "logo": "logos/lista2/brand_brazzers.png",
+      "previous": "Lista 1, papelera"
+    },
+    {
+      "tvg_id": "PublicDirect.1abf4474e1f3f29b70d71a03",
+      "display_name": "Venus Tv",
+      "source_name": "Venus Tv [IP 138.59.227.20]",
+      "url": "http://138.59.227.20:8000/play/a0fc/index.m3u8",
+      "resolution": "1920x1080",
+      "fps": 25,
+      "kbps": 2301,
+      "logo": null,
+      "previous": "Lista 2, papelera"
+    },
+    {
+      "tvg_id": "PublicDirect.0fdcde11e1250f52aa149c8f",
+      "display_name": "VENUS RADIO TV",
+      "source_name": "VENUS RADIO TV [IP 190.128.214.97]",
+      "url": "http://190.128.214.97:64333/play/a02v/index.m3u8",
+      "resolution": "1920x1080",
+      "fps": 25,
+      "kbps": 2307,
+      "logo": null,
+      "previous": "Lista 2, papelera"
+    },
+    {
+      "tvg_id": "PublicDirect.24a6ad8c7c081886d48dab4b",
+      "display_name": "ADULTOS 1",
+      "source_name": "ADULTOS 1 [IP 177.234.218.66]",
+      "url": "http://177.234.218.66:8084/play/a091/index.m3u8",
+      "resolution": "1280x720",
+      "fps": 25,
+      "kbps": 1780,
+      "logo": null
+    },
+    {
+      "tvg_id": "PublicDirect.fb685864e25513e9957f3212",
+      "display_name": "ADULTOS 2",
+      "source_name": "ADULTOS 2 [IP 177.234.218.66]",
+      "url": "http://177.234.218.66:8084/play/a092/index.m3u8",
+      "resolution": "1280x720",
+      "fps": 25,
+      "kbps": 1780,
+      "logo": null
+    },
+    {
+      "tvg_id": "PublicDirect.265aa780cd512ed0698e4465",
+      "display_name": "ADULTOS 3",
+      "source_name": "ADULTOS 3 [IP 177.234.218.66]",
+      "url": "http://177.234.218.66:8084/play/a093/index.m3u8",
+      "resolution": "1280x720",
+      "fps": 25,
+      "kbps": 1780,
+      "logo": null
+    },
+    {
+      "tvg_id": "PublicDirect.a0d01f76df0915446fff9f2d",
+      "display_name": "ADULTOS 4",
+      "source_name": "ADULTOS 4 [IP 177.234.218.66]",
+      "url": "http://177.234.218.66:8084/play/a094/index.m3u8",
+      "resolution": "1280x720",
+      "fps": 25,
+      "kbps": 1780,
+      "logo": null
+    },
+    {
+      "tvg_id": "PublicDirect.82c1cfe1958fde3d4a7349d4",
+      "display_name": "ADULTOS 5",
+      "source_name": "ADULTOS 5 [IP 177.234.218.66]",
+      "url": "http://177.234.218.66:8084/play/a095/index.m3u8",
+      "resolution": "1280x720",
+      "fps": 25,
+      "kbps": 1780,
+      "logo": null
+    },
+    {
+      "tvg_id": "PublicDirect.7403b602e798262aa32fdc10",
+      "display_name": "ADULTOS 6",
+      "source_name": "ADULTOS 6 [IP 177.234.218.66]",
+      "url": "http://177.234.218.66:8084/play/a096/index.m3u8",
+      "resolution": "1280x720",
+      "fps": 25,
+      "kbps": 1780,
+      "logo": null
+    },
+    {
+      "tvg_id": "PublicDirect.c68d9bdb5131e451b513f365",
+      "display_name": "ADULTOS 7",
+      "source_name": "ADULTOS 7 [IP 177.234.218.66]",
+      "url": "http://177.234.218.66:8084/play/a097/index.m3u8",
+      "resolution": "1280x720",
+      "fps": 25,
+      "kbps": 1780,
+      "logo": null
+    },
+    {
+      "tvg_id": "PublicDirect.1eeaefba050d362a9c44f878",
+      "display_name": "ADULTOS 8",
+      "source_name": "ADULTOS 8 [IP 177.234.218.66]",
+      "url": "http://177.234.218.66:8084/play/a098/index.m3u8",
+      "resolution": "1280x720",
+      "fps": 25,
+      "kbps": 1780,
+      "logo": null
+    },
+    {
+      "tvg_id": "PublicDirect.08a604268e68ce7fee42eab9",
+      "display_name": "ADULTOS 9",
+      "source_name": "ADULTOS 9 [IP 177.234.218.66]",
+      "url": "http://177.234.218.66:8084/play/a099/index.m3u8",
+      "resolution": "1280x720",
+      "fps": 25,
+      "kbps": 1780,
+      "logo": null
+    },
+    {
+      "tvg_id": "PublicDirect.6ab9b36bf0cf09082ad54017",
+      "display_name": "ADULTOS 10",
+      "source_name": "ADULTOS 10 [IP 177.234.218.66]",
+      "url": "http://177.234.218.66:8084/play/a09a/index.m3u8",
+      "resolution": "1280x720",
+      "fps": 25,
+      "kbps": 1780,
+      "logo": null
+    }
+  ],
+  "fingerprint_findings": {
+    "method": "aHash 8x8 en escala de grises sobre fotograma decodificado",
+    "venus_tv_1080_is_distinct": true,
+    "venus_radio_tv_is_distinct": true,
+    "note": "Venus de Lista 1 #56 coincide con 720x576 (138.59.227.20) y 720x480 60 (190.108.83.69). Venus Tv 1080p y VENUS RADIO TV son otras senales."
+  },
+  "search": {
+    "tnt_sports_uk": "sin fuente HTTP directa en este momento: DRM cenc.mpd (DAZN/AIV), redirecciones a reproductor, tokens, credenciales o playlists proxy sin stream",
+    "adult_new_brands": "ninguna: el inventario ya tiene Playboy, Venus, Sextreme, Brazzers, Hustler y ADULTOS 1-10",
+    "pending": {
+      "cdn.adultiptv.net": "45/45 abren sin credenciales (1280x720 25fps con audio); 24 categorias distintas tras deduplicar por huella. Sin decidir.",
+      "stingray_pop_adult": "ofrecido, sin respuesta"
+    }
+  },
+  "counts": {
+    "lista1_active": 78,
+    "lista2_active": 839,
+    "lista2_published": 821,
+    "catalog": 6601
+  },
+  "tests": {
+    "python": "437 pruebas, 18 omitidas",
+    "javascript": 58,
+    "new": "tests/test_adultos_json.py (6 casos)",
+    "updated": "tests/test_m6foot_reference.py: el grupo Adultos queda fuera del orden por bitrate y debe cerrar Lista 2"
+  }
+}

@@ -127,11 +127,20 @@ class M6FootReferenceTest(unittest.TestCase):
             if row["state"] == "active"
             for target in list(row.get("backupm3u", [])) + ([row["preferredM3u"]] if row.get("preferredM3u") else [])
         }
+        # 2026-10-25: los canales de adultos van al final de Lista 2 por pedido explícito del
+        # usuario («agregar al final de Lista 2 los canales de adultos»), fuera del orden por
+        # bitrate. Se validan aparte, más abajo.
+        adults = [
+            row
+            for row in document["channels"]
+            if row["state"] == "active" and row.get("sourceList") == "2.m3u"
+            and row.get("tvgId") not in linked and row.get("group") == "Adultos"
+        ]
         block = [
             row
             for row in document["channels"]
             if row["state"] == "active" and row.get("sourceList") == "2.m3u"
-            and row.get("tvgId") not in linked
+            and row.get("tvgId") not in linked and row.get("group") != "Adultos"
         ]
         # 2026-10-22: el bloque de Lista 2 va por bitrate medido (mayor primero); los sin medir,
         # al final en orden alfabético (contracts/bitrate-lista2-20261022.json).
@@ -142,6 +151,14 @@ class M6FootReferenceTest(unittest.TestCase):
         }
         ranks = [(0, -measured[row["tvgId"]]) if row.get("tvgId") in measured else (1, 0) for row in block]
         self.assertEqual(ranks, sorted(ranks))
+        # Los adultos cierran Lista 2: ninguna fila no-adulto puede quedar después de ellos.
+        if adults:
+            last_adult = max(row["order"] for row in adults)
+            self.assertTrue(
+                all(row["order"] < last_adult for row in block),
+                "los canales de adultos deben ir al final de Lista 2",
+            )
+            self.assertEqual(adults, sorted(adults, key=lambda row: row["order"]))
 
     def test_layout_is_sealed_and_rows_reach_lista_2(self):
         document = layout()
