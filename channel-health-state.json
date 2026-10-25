@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-10-25T04:35:25Z",
+  "updated_at": "2026-10-25T04:47:13Z",
   "failure_threshold": 1,
   "automatic_partition": {
     "schema": 1,
@@ -272,11 +272,11 @@
       "resolver": "highfly",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-10-25T04:35:25Z",
-      "last_ok_at": "2026-10-25T04:35:25Z",
+      "last_checked_at": "2026-10-25T04:47:13Z",
+      "last_ok_at": "2026-10-25T04:47:13Z",
       "identity_only": false,
-      "last_resolver_validated_at": "2026-10-25T04:35:25Z",
-      "resolver_url_hash": "5e828f17fd88ae42"
+      "last_resolver_validated_at": "2026-10-25T04:47:13Z",
+      "resolver_url_hash": "8f0ec1d00bf83e9b"
     },
     "SkySportsF1UHD.uk": {
       "name": "Sky Sports F1",
@@ -286,11 +286,11 @@
       "resolver": "highfly",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-10-25T04:35:25Z",
-      "last_ok_at": "2026-10-25T04:35:25Z",
+      "last_checked_at": "2026-10-25T04:47:13Z",
+      "last_ok_at": "2026-10-25T04:47:13Z",
       "identity_only": false,
-      "last_resolver_validated_at": "2026-10-25T04:35:25Z",
-      "resolver_url_hash": "5e828f17fd88ae42"
+      "last_resolver_validated_at": "2026-10-25T04:47:13Z",
+      "resolver_url_hash": "8f0ec1d00bf83e9b"
     },
     "SkySportsTennis.uk": {
       "name": "Sky Sports Tennis",
@@ -300,11 +300,11 @@
       "resolver": "highfly",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-10-25T04:35:25Z",
-      "last_ok_at": "2026-10-25T04:35:25Z",
+      "last_checked_at": "2026-10-25T04:47:13Z",
+      "last_ok_at": "2026-10-25T04:47:13Z",
       "identity_only": false,
-      "last_resolver_validated_at": "2026-10-25T04:35:25Z",
-      "resolver_url_hash": "7a4aff1220b0a5f4"
+      "last_resolver_validated_at": "2026-10-25T04:47:13Z",
+      "resolver_url_hash": "6c97e49f70625454"
     },
     "SkySportsMainEventUHD.uk": {
       "name": "Sky Sports Main Event",
@@ -327,8 +327,8 @@
       "playlist": "main",
       "resolver": "highfly",
       "status": "temporarily_unavailable",
-      "consecutive_failures": 52,
-      "last_checked_at": "2026-10-25T04:35:25Z",
+      "consecutive_failures": 53,
+      "last_checked_at": "2026-10-25T04:47:13Z",
       "last_ok_at": "2026-10-19T15:10:50Z",
       "identity_only": false,
       "last_resolver_validated_at": "2026-10-19T15:10:50Z",
@@ -596,9 +596,9 @@
       "group": "Deportes",
       "playlist": "main",
       "resolver": "tvvoo",
-      "status": "functional",
-      "consecutive_failures": 0,
-      "last_checked_at": "2026-10-24T05:13:23Z",
+      "status": "temporarily_unavailable",
+      "consecutive_failures": 1,
+      "last_checked_at": "2026-10-25T04:47:13Z",
       "last_ok_at": "2026-10-24T05:13:23Z",
       "identity_only": false,
       "last_resolver_validated_at": "2026-10-24T05:13:23Z",
@@ -610,13 +610,13 @@
       "group": "Deportes",
       "playlist": "main",
       "resolver": "tvvoo",
-      "status": "temporarily_unavailable",
-      "consecutive_failures": 1,
-      "last_checked_at": "2026-10-25T04:35:25Z",
-      "last_ok_at": "2026-10-25T03:55:30Z",
+      "status": "recovered",
+      "consecutive_failures": 0,
+      "last_checked_at": "2026-10-25T04:47:13Z",
+      "last_ok_at": "2026-10-25T04:47:13Z",
       "identity_only": false,
-      "last_resolver_validated_at": "2026-10-25T03:55:30Z",
-      "resolver_url_hash": "a3c07ef433e6eb5e"
+      "last_resolver_validated_at": "2026-10-25T04:47:13Z",
+      "resolver_url_hash": "17df6e053928fb4c"
     },
     "Eurosport2.es@TvVoo": {
       "name": "Eurosport 2 Espa\u00f1a",
@@ -638,12 +638,12 @@
       "group": "Deportes",
       "playlist": "main",
       "resolver": "tvvoo",
-      "status": "temporarily_unavailable",
-      "consecutive_failures": 1,
-      "last_checked_at": "2026-10-25T04:35:25Z",
-      "last_ok_at": "2026-10-25T02:05:27Z",
+      "status": "recovered",
+      "consecutive_failures": 0,
+      "last_checked_at": "2026-10-25T04:47:13Z",
+      "last_ok_at": "2026-10-25T04:47:13Z",
       "identity_only": false,
-      "last_resolver_validated_at": "2026-10-25T02:05:27Z",
+      "last_resolver_validated_at": "2026-10-25T04:47:13Z",
       "resolver_url_hash": "105e9f89ac492111"
     },
     "ESPN.co@Direct181": {
@@ -814,6 +814,42 @@
       "last_ok_at": "2026-10-25T02:05:27Z",
       "identity_only": false
     },
+    "PublicDirect.7af273823473ac60f6ed4a64": {
+      "name": "Space",
+      "tvg_id": "PublicDirect.7af273823473ac60f6ed4a64",
+      "group": "Pel\u00edculas",
+      "playlist": "main",
+      "resolver": "direct",
+      "status": "functional",
+      "consecutive_failures": 0,
+      "last_checked_at": "2026-10-25T04:47:13Z",
+      "last_ok_at": "2026-10-25T04:47:13Z",
+      "identity_only": false
+    },
+    "PublicDirect.ef0023b214fe77f7918ee36f": {
+      "name": "TNT",
+      "tvg_id": "PublicDirect.ef0023b214fe77f7918ee36f",
+      "group": "Pel\u00edculas",
+      "playlist": "main",
+      "resolver": "direct",
+      "status": "functional",
+      "consecutive_failures": 0,
+      "last_checked_at": "2026-10-25T04:47:13Z",
+      "last_ok_at": "2026-10-25T04:47:13Z",
+      "identity_only": false
+    },
+    "PublicDirect.de3e91d7c885d797352686e1": {
+      "name": "Warner Channel",
+      "tvg_id": "PublicDirect.de3e91d7c885d797352686e1",
+      "group": "Pel\u00edculas",
+      "playlist": "main",
+      "resolver": "direct",
+      "status": "functional",
+      "consecutive_failures": 0,
+      "last_checked_at": "2026-10-25T04:47:13Z",
+      "last_ok_at": "2026-10-25T04:47:13Z",
+      "identity_only": false
+    },
     "PublicDirect.ac1fca2303c88b6a69359958": {
       "name": "ESPN 7",
       "tvg_id": "PublicDirect.ac1fca2303c88b6a69359958",
@@ -838,6 +874,18 @@
       "last_ok_at": "2026-10-25T03:34:37Z",
       "identity_only": false
     },
+    "PublicDirect.cebcfb582dcb68fc751f5ac5": {
+      "name": "Sextreme",
+      "tvg_id": "PublicDirect.cebcfb582dcb68fc751f5ac5",
+      "group": "Adultos",
+      "playlist": "main",
+      "resolver": "direct",
+      "status": "functional",
+      "consecutive_failures": 0,
+      "last_checked_at": "2026-10-25T04:47:13Z",
+      "last_ok_at": "2026-10-25T04:47:13Z",
+      "identity_only": false
+    },
     "PublicDirect.3ba5922c6040fadb816835b1": {
       "name": "ETC TV",
       "tvg_id": "PublicDirect.3ba5922c6040fadb816835b1",
@@ -858,11 +906,11 @@
       "resolver": "highfly",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-10-25T04:35:25Z",
-      "last_ok_at": "2026-10-25T04:35:25Z",
+      "last_checked_at": "2026-10-25T04:47:13Z",
+      "last_ok_at": "2026-10-25T04:47:13Z",
       "identity_only": false,
-      "last_resolver_validated_at": "2026-10-25T04:35:25Z",
-      "resolver_url_hash": "947bed35532b35da"
+      "last_resolver_validated_at": "2026-10-25T04:47:13Z",
+      "resolver_url_hash": "17d473ef31f3a8c6"
     },
     "TNTSports2.uk": {
       "name": "TNT Sports 2",
@@ -872,11 +920,11 @@
       "resolver": "highfly",
       "status": "renewed",
       "consecutive_failures": 0,
-      "last_checked_at": "2026-10-25T04:35:25Z",
-      "last_ok_at": "2026-10-25T04:35:25Z",
+      "last_checked_at": "2026-10-25T04:47:13Z",
+      "last_ok_at": "2026-10-25T04:47:13Z",
       "identity_only": false,
-      "last_resolver_validated_at": "2026-10-25T04:35:25Z",
-      "resolver_url_hash": "5047a11045d6120c"
+      "last_resolver_validated_at": "2026-10-25T04:47:13Z",
+      "resolver_url_hash": "2e78102fe780afcb"
     },
     "TNTSports1.uk@TvVoo": {
       "name": "TNT Sports 1",
