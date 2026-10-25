@@ -1,0 +1,691 @@
+{
+  "schema": 1,
+  "fecha": "2026-10-25",
+  "pedido": "Buscar canales de adultos en foros de IPTV y sumar lo que sea nuevo (aprobado: ?Todo: 33 + 17 = 50?).",
+  "hallazgos_foros": {
+    "resumen": "Las listas de foros repiten las mismas redes (adultiptv / redtraffic / iptvxxx). Los nombres de marca de esas listas son etiquetas cosm?ticas, no se?ales de esas marcas.",
+    "etiquetas_falsas": {
+      "PenthouseX": "https://live.redtraffic.xyz/pornstar.m3u8",
+      "PrivateX": "https://live.redtraffic.xyz/cuckold.m3u8",
+      "RedlightX": "https://live.redtraffic.xyz/russian.m3u8",
+      "BRAZZERS": "https://live.redtraffic.xyz/bigtits.m3u8",
+      "VENUS": "https://live.redtraffic.xyz/interracial.m3u8",
+      "HOT": "https://live.redtraffic.xyz/blowjob.m3u8",
+      "Dusk": "https://live.redtraffic.xyz/milf.m3u8",
+      "Juice": "https://live.redtraffic.xyz/bigass.m3u8",
+      "YouPorn": "https://live.redtraffic.xyz/pov.m3u8"
+    },
+    "listas_revisadas": [
+      "iptvmate.net/files/xxx.m3u (42 entradas)",
+      "iptvmate.net/files/adult.m3u (42 entradas)",
+      "sacuar/MyIPTV Play1.m3u (94 entradas)",
+      "adultm3u.com (25 y 15 entradas)",
+      "dzhoni/iPTV-FREE-LIST iPTV-Free-List_XXX.m3u (id?ntica a xxx_free.m3u)",
+      "m3u.cl (categor?a XXX)",
+      "tecnoguia.net: 3 pastebins (wCnH-1-iptvadultos-CDX2, sfym-m3uadultos-2SDK, K-adultos11VtaQaMC) -> 404",
+      "dwyob.weebly.com -> venta de suscripci?n, sin enlaces"
+    ],
+    "marcas_nuevas": [],
+    "nota": "No se encontr? ninguna marca nueva (Penthouse, Private, RedLight, Hustler nueva, etc.) fuera del inventario."
+  },
+  "adultiptv": {
+    "host": "cdn.adultiptv.net",
+    "categorias_probadas": 41,
+    "categorias_que_abren": 41,
+    "senales_distintas": 33,
+    "resolucion": "1280x720 25 fps en todas",
+    "grupos_repetidos": {
+      "ebony=squirt=skinny=medium=young=arab": "una sola se?al (se conserva ebony)",
+      "amateur=indian": "una sola se?al (se conserva amateur)",
+      "bbw=hentai": "una sola se?al (se conserva bbw)",
+      "massage=outdoor": "una sola se?al (se conserva massage)"
+    },
+    "descartado": "xc.adultiptv.net/live/adultiptv/adultiptv/N.m3u8: lleva usuario y contrase?a demo en la ruta; solo se usa la forma limpia cdn.adultiptv.net/<categoria>.m3u8"
+  },
+  "mycamtv": {
+    "host": "live.mycamtv.com",
+    "categorias": 17,
+    "resolucion_1080p30": [
+      "arab",
+      "ebony",
+      "medium",
+      "skinny",
+      "squirt",
+      "teen",
+      "white",
+      "young"
+    ],
+    "resolucion_720p25": [
+      "anal",
+      "asian",
+      "bigass",
+      "bigtits",
+      "blonde",
+      "blowjob",
+      "brunette",
+      "latina",
+      "milf"
+    ],
+    "nota": "Proveedor distinto de adultiptv: todas las categor?as abren y son se?ales separadas por huella de 3 cuadros."
+  },
+  "altas": [
+    {
+      "tvgId": "PublicDirect.f847ce65f874f8cd9f8e97e5",
+      "nombre": "Amateur",
+      "familia": "adultiptv",
+      "categoria": "amateur",
+      "url": "https://cdn.adultiptv.net/amateur.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.40deb1b0c8ebe1a49023c9ef",
+      "nombre": "Anal",
+      "familia": "adultiptv",
+      "categoria": "anal",
+      "url": "https://cdn.adultiptv.net/anal.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.ce770e46799bd77f5475c2be",
+      "nombre": "Asian",
+      "familia": "adultiptv",
+      "categoria": "asian",
+      "url": "https://cdn.adultiptv.net/asian.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.fec29a1a07860ebdd6d5c617",
+      "nombre": "BBW",
+      "familia": "adultiptv",
+      "categoria": "bbw",
+      "url": "https://cdn.adultiptv.net/bbw.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.c732fbd9027bf1a6e5008d55",
+      "nombre": "Big Ass",
+      "familia": "adultiptv",
+      "categoria": "bigass",
+      "url": "https://cdn.adultiptv.net/bigass.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.74fd2fcd23061df2a5b0cfe3",
+      "nombre": "Big Dick",
+      "familia": "adultiptv",
+      "categoria": "bigdick",
+      "url": "https://cdn.adultiptv.net/bigdick.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.3dc8768c01ea255d6691e7a4",
+      "nombre": "Big Tits",
+      "familia": "adultiptv",
+      "categoria": "bigtits",
+      "url": "https://cdn.adultiptv.net/bigtits.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.09ade85a73135e04055fc1da",
+      "nombre": "Blonde",
+      "familia": "adultiptv",
+      "categoria": "blonde",
+      "url": "https://cdn.adultiptv.net/blonde.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.0d56ed98515e99c01600443a",
+      "nombre": "Blowjob",
+      "familia": "adultiptv",
+      "categoria": "blowjob",
+      "url": "https://cdn.adultiptv.net/blowjob.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.3472ad74d02bc3122539071d",
+      "nombre": "Brunette",
+      "familia": "adultiptv",
+      "categoria": "brunette",
+      "url": "https://cdn.adultiptv.net/brunette.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.501684947acedb463f273748",
+      "nombre": "Cams Anal",
+      "familia": "mycamtv",
+      "categoria": "anal",
+      "url": "https://live.mycamtv.com/anal.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.2005afafc77154677ee27cd7",
+      "nombre": "Cams Arab",
+      "familia": "mycamtv",
+      "categoria": "arab",
+      "url": "https://live.mycamtv.com/arab.m3u8",
+      "calidad": {
+        "ancho": 1920,
+        "alto": 1080,
+        "fps": 30.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.e9a6c6c1310bab0c9c661344",
+      "nombre": "Cams Asian",
+      "familia": "mycamtv",
+      "categoria": "asian",
+      "url": "https://live.mycamtv.com/asian.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.c4ab440523b58455895eed20",
+      "nombre": "Cams Big Ass",
+      "familia": "mycamtv",
+      "categoria": "bigass",
+      "url": "https://live.mycamtv.com/bigass.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.43bbd26771bb3000ec5edbd5",
+      "nombre": "Cams Big Tits",
+      "familia": "mycamtv",
+      "categoria": "bigtits",
+      "url": "https://live.mycamtv.com/bigtits.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.f8957a928b075b06796751d7",
+      "nombre": "Cams Blonde",
+      "familia": "mycamtv",
+      "categoria": "blonde",
+      "url": "https://live.mycamtv.com/blonde.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.1e788218bb81280f51996295",
+      "nombre": "Cams Blowjob",
+      "familia": "mycamtv",
+      "categoria": "blowjob",
+      "url": "https://live.mycamtv.com/blowjob.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.8b5568e72ec2d9b2c046795f",
+      "nombre": "Cams Brunette",
+      "familia": "mycamtv",
+      "categoria": "brunette",
+      "url": "https://live.mycamtv.com/brunette.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.c10b3e5ff0c0ccba0f34e7c8",
+      "nombre": "Cams Ebony",
+      "familia": "mycamtv",
+      "categoria": "ebony",
+      "url": "https://live.mycamtv.com/ebony.m3u8",
+      "calidad": {
+        "ancho": 1920,
+        "alto": 1080,
+        "fps": 30.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.a77bdc92cea15dfe929c70cc",
+      "nombre": "Cams Latina",
+      "familia": "mycamtv",
+      "categoria": "latina",
+      "url": "https://live.mycamtv.com/latina.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.cd6434070ec2079ce2f5a3b6",
+      "nombre": "Cams Medium",
+      "familia": "mycamtv",
+      "categoria": "medium",
+      "url": "https://live.mycamtv.com/medium.m3u8",
+      "calidad": {
+        "ancho": 1920,
+        "alto": 1080,
+        "fps": 30.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.49d1f94894592d577f1cbafa",
+      "nombre": "Cams MILF",
+      "familia": "mycamtv",
+      "categoria": "milf",
+      "url": "https://live.mycamtv.com/milf.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.5ac770d7b1c9d145f5f8c4fe",
+      "nombre": "Cams Skinny",
+      "familia": "mycamtv",
+      "categoria": "skinny",
+      "url": "https://live.mycamtv.com/skinny.m3u8",
+      "calidad": {
+        "ancho": 1920,
+        "alto": 1080,
+        "fps": 30.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.cb70ba2beeaa7761ee12ec22",
+      "nombre": "Cams Squirt",
+      "familia": "mycamtv",
+      "categoria": "squirt",
+      "url": "https://live.mycamtv.com/squirt.m3u8",
+      "calidad": {
+        "ancho": 1920,
+        "alto": 1080,
+        "fps": 30.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.7730662e39b71af49919eb74",
+      "nombre": "Cams Teen",
+      "familia": "mycamtv",
+      "categoria": "teen",
+      "url": "https://live.mycamtv.com/teen.m3u8",
+      "calidad": {
+        "ancho": 1920,
+        "alto": 1080,
+        "fps": 30.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.72d6f5d126e68becf032fac1",
+      "nombre": "Cams White",
+      "familia": "mycamtv",
+      "categoria": "white",
+      "url": "https://live.mycamtv.com/white.m3u8",
+      "calidad": {
+        "ancho": 1920,
+        "alto": 1080,
+        "fps": 30.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.6bd465418ff00505395c59de",
+      "nombre": "Cams Young",
+      "familia": "mycamtv",
+      "categoria": "young",
+      "url": "https://live.mycamtv.com/young.m3u8",
+      "calidad": {
+        "ancho": 1920,
+        "alto": 1080,
+        "fps": 30.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.b1da63b074c8c3ec2953ed3d",
+      "nombre": "Compilation",
+      "familia": "adultiptv",
+      "categoria": "compilation",
+      "url": "https://cdn.adultiptv.net/compilation.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.0e4bf237bf5cff06b970f773",
+      "nombre": "Cuckold",
+      "familia": "adultiptv",
+      "categoria": "cuckold",
+      "url": "https://cdn.adultiptv.net/cuckold.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.37f42b30fa103c1cf6736203",
+      "nombre": "Ebony",
+      "familia": "adultiptv",
+      "categoria": "ebony",
+      "url": "https://cdn.adultiptv.net/ebony.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.1c6e0119c5ea1b6e5e89471b",
+      "nombre": "Fetish",
+      "familia": "adultiptv",
+      "categoria": "fetish",
+      "url": "https://cdn.adultiptv.net/fetish.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.fa51170ac7cb191870e2784d",
+      "nombre": "Gangbang",
+      "familia": "adultiptv",
+      "categoria": "gangbang",
+      "url": "https://cdn.adultiptv.net/gangbang.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.932f138f9b396467476e1c8d",
+      "nombre": "Gay",
+      "familia": "adultiptv",
+      "categoria": "gay",
+      "url": "https://cdn.adultiptv.net/gay.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.7710d0d24c39098351ef64be",
+      "nombre": "Hardcore",
+      "familia": "adultiptv",
+      "categoria": "hardcore",
+      "url": "https://cdn.adultiptv.net/hardcore.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.4337f839313a25d4e2cd855f",
+      "nombre": "Interracial",
+      "familia": "adultiptv",
+      "categoria": "interracial",
+      "url": "https://cdn.adultiptv.net/interracial.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.4d2f721650b11ef6cad645a2",
+      "nombre": "Japanese",
+      "familia": "adultiptv",
+      "categoria": "japanese",
+      "url": "https://cdn.adultiptv.net/japanese.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.10ad27dc681a868f182af036",
+      "nombre": "Latina",
+      "familia": "adultiptv",
+      "categoria": "latina",
+      "url": "https://cdn.adultiptv.net/latina.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.d924c3a182563e24714020ae",
+      "nombre": "Lesbian",
+      "familia": "adultiptv",
+      "categoria": "lesbian",
+      "url": "https://cdn.adultiptv.net/lesbian.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.12b8de5b8d9c99131000003e",
+      "nombre": "Live Cams",
+      "familia": "adultiptv",
+      "categoria": "livecams",
+      "url": "https://cdn.adultiptv.net/livecams.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.84ca208b9bb6be9bef3d60dd",
+      "nombre": "Massage",
+      "familia": "adultiptv",
+      "categoria": "massage",
+      "url": "https://cdn.adultiptv.net/massage.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.f3ab6b8b00955c0e08414261",
+      "nombre": "Mature",
+      "familia": "adultiptv",
+      "categoria": "mature",
+      "url": "https://cdn.adultiptv.net/mature.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.66d536dd541c370e0d995963",
+      "nombre": "MILF",
+      "familia": "adultiptv",
+      "categoria": "milf",
+      "url": "https://cdn.adultiptv.net/milf.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.973150470d66db43873f6b69",
+      "nombre": "Pornstar",
+      "familia": "adultiptv",
+      "categoria": "pornstar",
+      "url": "https://cdn.adultiptv.net/pornstar.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.5c7237e7e8f8a242f72cf48e",
+      "nombre": "POV",
+      "familia": "adultiptv",
+      "categoria": "pov",
+      "url": "https://cdn.adultiptv.net/pov.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.32d739696dec545b9dc134fa",
+      "nombre": "Rough",
+      "familia": "adultiptv",
+      "categoria": "rough",
+      "url": "https://cdn.adultiptv.net/rough.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.a8ae7ee6119eaa2ef8cf48bd",
+      "nombre": "Russian",
+      "familia": "adultiptv",
+      "categoria": "russian",
+      "url": "https://cdn.adultiptv.net/russian.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.79936b7b2d830a39a9439171",
+      "nombre": "Teen",
+      "familia": "adultiptv",
+      "categoria": "teen",
+      "url": "https://cdn.adultiptv.net/teen.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.1c34806a511278d3d5fb7cac",
+      "nombre": "Threesome",
+      "familia": "adultiptv",
+      "categoria": "threesome",
+      "url": "https://cdn.adultiptv.net/threesome.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.23f3c0116996e8adfc1dc3da",
+      "nombre": "Vintage",
+      "familia": "adultiptv",
+      "categoria": "vintage",
+      "url": "https://cdn.adultiptv.net/vintage.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    },
+    {
+      "tvgId": "PublicDirect.c9681dd06528b2bf691c16fb",
+      "nombre": "White",
+      "familia": "adultiptv",
+      "categoria": "white",
+      "url": "https://cdn.adultiptv.net/white.m3u8",
+      "calidad": {
+        "ancho": 1280,
+        "alto": 720,
+        "fps": 25.0
+      }
+    }
+  ],
+  "estado": {
+    "grupo": "Adultos",
+    "sourceList": "2.m3u",
+    "trial": true,
+    "posicion": "al final de Lista 2, despu?s de Nauta y M6Foot",
+    "numeros": "918?967",
+    "adultos_json": "100 ids (los 50 nuevos ya estaban ocultos tras la clave porque se sumaron a adultos.json)"
+  },
+  "reglas_aplicadas": [
+    "identidad PublicDirect = SHA256(ETIQUETA||host|ruta)[:24], verificada contra filas existentes",
+    "adultos comparados solo por huella de fotograma (8x8 gris, 3 cuadros), nunca mirando el contenido",
+    "sin logo: no hay arte propio verificado para estas se?ales",
+    "en prueba y sin EPG"
+  ],
+  "pruebas": {
+    "python": "437 (18 omitidas)",
+    "js": "58"
+  }
+}

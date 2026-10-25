@@ -75,6 +75,13 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
   ADULTOS 1–10. Manda sobre el orden por bitrate de Lista 2 para esas filas. Comparar señales de
   adultos solo por huella de fotograma; todo canal del grupo «Adultos» debe estar en
   `adultos.json`.
+- **50 adultos nuevos de `adultiptv` y `MyCamTV` (2026-10-25)**: 33 señales de
+  `cdn.adultiptv.net/<categoría>.m3u8` y 17 de `live.mycamtv.com/<categoría>.m3u8` al final de
+  Lista 2 (#918–967), `group: "Adultos"`, `trial: true`, sin logo ni EPG, con sus `tvg-id` en
+  `adultos.json` (100 ids). Nunca usar `xc.adultiptv.net/live/adultiptv/adultiptv/N.m3u8`
+  (credenciales demo en la ruta). Las listas de foros son espejos de adultiptv/redtraffic y sus
+  marcas (PenthouseX, PrivateX, RedlightX, BRAZZERS, VENUS…) son etiquetas cosméticas, no
+  señales de esas marcas. Registro `contracts/adultos-foros-20261025.json`.
 - **Complemento TvVoo (2026-10-19)**: las 17 filas TvVoo del complemento con falla repetida
   no se publican en Lista 2; el runner las omite con `EXTERNAL_TVVOO_COMPLEMENT_BLOCK_IDS`
   y las conserva en `channel-catalog.m3u`. No es un tombstone ni se usa `excluded_m3u`;
