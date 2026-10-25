@@ -18,7 +18,8 @@ class Lista2EpgMapTest(unittest.TestCase):
         published = set(re.findall(r'tvg-id="([^"]+)"', "\n".join(lines)))
         # 2026-10-21: el mapa puede conservar canales que después fueron a la papelera; la
         # guía solo se arma para los publicados (ver test de alcance).
-        self.assertGreaterEqual(len(set(mapping) & published), 1000)
+        # 2026-10-24: Lista 2 bajó a ~945 publicados (respaldos a backups.json, adultos a Lista 1).
+        self.assertGreaterEqual(len(set(mapping) & published), 900)
         for target_id, (source, source_id) in mapping.items():
             with self.subTest(channel=target_id):
                 # 2026-10-24: guía Claro por familia (claro:<región>:<group_id>) o EPGShare.
@@ -39,7 +40,7 @@ class Lista2EpgMapTest(unittest.TestCase):
         published = set(re.findall(r'tvg-id="([^"]+)"', chr(10).join(lines)))
         self.assertTrue((set(mapping) & published).issubset(ids))
         # Lista 2 baja con la papelera desde la app (A3Cine, 2026-10-22): piso como el del mapa.
-        self.assertGreaterEqual(len(scope), 1000)
+        self.assertGreaterEqual(len(scope), 900)
 
 
 class Lista2ClaroFamilyGuideTest(unittest.TestCase):

@@ -717,10 +717,13 @@ class PlaylistOrderTests(unittest.TestCase):
                 update_m3u.load_health_state(),
             ),
         )
+        # 2026-10-24: una identidad excluida en el editor (excluded_m3u) no se publica aunque
+        # sea candidata restaurada (Sky Sports Racing, línea TvVoo huérfana).
+        excluded = set(update_m3u.load_presentation_overrides().get("excluded_m3u", []))
         self.assertTrue(
             all(
                 (channel.tvg_id in {item.tvg_id for item in external_channels})
-                == (channel.tvg_id in external_ids)
+                == (channel.tvg_id in external_ids and channel.tvg_id not in excluded)
                 for channel in restored
             )
         )
