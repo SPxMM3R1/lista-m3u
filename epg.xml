@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, FreeEPG, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-description-policy="verified-source-only" data-description-programmes="51051" data-description-channels="1003" data-next-refresh-at="2026-10-25T12:42:00+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u" data-generated-at="2026-10-25T04:20:27+00:00">
+<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, FreeEPG, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-description-policy="verified-source-only" data-description-programmes="51051" data-description-channels="1003" data-next-refresh-at="2026-10-25T12:42:00+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u" data-generated-at="2026-10-25T04:36:22+00:00">
   <channel id="0104" data-guide="parrilla real" data-guide-source="tvn-oficial">
     <display-name>TVN</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvn.png" />
@@ -231,6 +231,10 @@
   <channel id="PublicDirect.8b604de41196cd4fe991d551" data-guide="parrilla real" data-guide-source="claro-guia">
     <display-name>Studio Universal</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/studiouniversallatinamerica-white.png" />
+  </channel>
+  <channel id="PublicDirect.ef0023b214fe77f7918ee36f" data-guide="parrilla real" data-guide-source="claro-guia">
+    <display-name>TNT</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/ffdb88d6fb18.png" />
   </channel>
   <channel id="PublicDirect.a247897d9a490d19fa633661" data-guide="parrilla real" data-guide-source="claro-guia">
     <display-name>AXN</display-name>
@@ -1027,10 +1031,6 @@
   <programme start="20261027203000 -0300" stop="20261027224500 -0300" channel="0106">
     <title lang="es">Chilevisión noticias central</title>
   </programme>
-  <programme start="20261024171000 -0300" stop="20261024193500 -0300" channel="0107">
-    <title lang="es">El Hombre Araña 2</title>
-    <desc lang="es">Siendo un nerd y torpe por naturaleza, la vida de Peter Parker (Tobey Maguire) ha dado un giro inesperado cuando es mordido accidentalmente por una araña radiactiva. De la noche a la mañana Peter se transforma y es capaz de crear telarañas que son disparadas desde sus muñecas, la habilidad de adherirse a las paredes, fuerza increíble y un primordial sentido arácnido. Utilizando un traje hecho en casa, Peter está dispuesto a cambiar la vida que le rodea, sea como sea. Cuando un criminal asesina a su tío Ben, él descubre que “con un gran poder viene una gran responsabilidad”. Peter se convierte en un peleador contra el crimen conocido como El Hombre Araña.</desc>
-  </programme>
   <programme start="20261024193500 -0300" stop="20261024210000 -0300" channel="0107">
     <title lang="es">Lugares que hablan</title>
   </programme>
@@ -1209,10 +1209,6 @@
   <programme start="20261027191500 -0300" stop="20261027210000 -0300" channel="0107">
     <title lang="es">Que dice Chile</title>
   </programme>
-  <programme start="20261024190000 -0300" stop="20261024193000 -0300" channel="0124">
-    <title lang="es">Vida y salud</title>
-    <desc lang="es">Abordamos diferentes temas de salud en donde entrevistamos a un médico en particular para hablar sobre el tema.</desc>
-  </programme>
   <programme start="20261024193000 -0300" stop="20261024200000 -0300" channel="0124">
     <title lang="es">Mercado en vivo</title>
     <desc lang="es">Programa de economía con Cristian Pino.</desc>
@@ -1341,10 +1337,6 @@
   </programme>
   <programme start="20261025225000 -0300" stop="20261026010000 -0300" channel="0124">
     <title lang="es">Mesa central</title>
-  </programme>
-  <programme start="20261024190000 -0300" stop="20261024193000 -0300" channel="0201">
-    <title lang="es">Más motor</title>
-    <desc lang="es">Noticias y análisis de todo lo que sucede en los diferentes torneos internacionales de automovilismo, como el campeonato RallyMobil, la Fórmula Uno y el Mundial de Rally, junto con los lanzamientos más destacados de la industria automotriz nacional y mundial.</desc>
   </programme>
   <programme start="20261024193000 -0300" stop="20261024200000 -0300" channel="0201">
     <title lang="es">24 Horas a la Hora</title>
@@ -1803,10 +1795,6 @@
   <programme start="20261025230000 -0300" stop="20261026000000 -0300" channel="1153">
     <title lang="es">Reportajes: CHV Noticias</title>
   </programme>
-  <programme start="20261024190000 -0300" stop="20261024193000 -0300" channel="13Cultura.cl@DPS">
-    <title lang="es">Aerials : Río Biobío, obras de Francisco Aravena, Templo Votivo y Cartagena</title>
-    <desc lang="es">T1 -Ep.3: Río Biobío, Obras De Francisco Aravena, Templo Votivo Y Cartagena. Aerials es una experiencia que viviremos en 13C junto a María Elena Dresel, donde podremos volar y registrar lo mejor de Chile desde el cielo.</desc>
-  </programme>
   <programme start="20261024193000 -0300" stop="20261024203000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">City Tour</title>
     <desc lang="es">T17 -Ep.33: City Tour. Acompaña a Federico Sánchez y Marcelo Comparini en su vuelta a 13C. Recorreran la ciudad en busca de historias, referentes y anécdotas.</desc>
@@ -2145,12 +2133,6 @@
   </programme>
   <programme start="20261025230000 -0300" stop="20261026000000 -0300" channel="45">
     <title lang="es">Hacedor de hambre patrimonial</title>
-  </programme>
-  <programme start="20261024190000 -0300" stop="20261024193000 -0300" channel="AlJazeera.qa">
-    <title lang="es">News Live</title>
-    <desc lang="es">Boletín informativo de Al Jazeera que hace un repaso en profundidad de las últimas noticias del día en vivo, desde Asia, África, Europa y las Américas.</desc>
-    <icon src="https://estatico.emisiondof6.com/recorte/n/dispficha/MALJAZEP1368635" />
-    <image>https://estatico.emisiondof6.com/recorte/n/vegend/MALJAZEF1368635.jpg</image>
   </programme>
   <programme start="20261024193000 -0300" stop="20261024200000 -0300" channel="AlJazeera.qa">
     <title lang="es">The Bottom Line</title>
@@ -2678,10 +2660,6 @@
     <desc lang="es">Boletín informativo de Al Jazeera que hace un repaso en profundidad de las últimas noticias del día en vivo, desde Asia, África, Europa y las Américas.</desc>
     <icon src="https://estatico.emisiondof6.com/recorte/n/dispficha/MALJAZEP1368635" />
     <image>https://estatico.emisiondof6.com/recorte/n/vegend/MALJAZEF1368635.jpg</image>
-  </programme>
-  <programme channel="ArirangTV.kr" start="20261024190000 -0300" stop="20261024193000 -0300">
-    <title lang="pl">Vibe In Action: K-initiative</title>
-    <episode-num system="onscreen">E8</episode-num>
   </programme>
   <programme channel="ArirangTV.kr" start="20261024193000 -0300" stop="20261024200000 -0300">
     <title lang="pl">Arirang Special</title>
@@ -3919,13 +3897,6 @@
   </programme>
   <programme start="20261029201102 -0300" stop="20261029211133 -0300" channel="AutenticHistory.de">
     <title lang="en">What Went Wrong</title>
-  </programme>
-  <programme start="20261024190000 -0300" stop="20261024193000 -0300" channel="BBCNews.uk">
-    <title lang="en">BBC News</title>
-    <desc lang="en">Twenty-four hours a day, the latest national and international stories as they break.</desc>
-    <date>2026</date>
-    <icon src="https://metadata-static.plex.tv/f/gracenote/f0527239204291325874b6359444b839.jpg" />
-    <episode-num system="onscreen">S2026</episode-num>
   </programme>
   <programme start="20261024193000 -0300" stop="20261024200000 -0300" channel="BBCNews.uk">
     <title lang="en">Talking Business</title>
@@ -5503,10 +5474,6 @@
     <episode-num system="xmltv_ns">0.11.0/1</episode-num>
     <episode-num system="onscreen">S01E12</episode-num>
     <image>https://estatico.emisiondof6.com/recorte/n/vegend/F4079521.jpg</image>
-  </programme>
-  <programme start="20261024191500 -0300" stop="20261024193000 -0300" channel="DW.de">
-    <title lang="es">El reportero</title>
-    <desc lang="es">Con cámara en mano los reporteros de DW registran los sucesos de actualidad, los acontecimientos internacionales o las curiosidades de la vida cotidiana. Experimentan y relatan de cerca cómo cambian Alemania, Europa y el mundo ante sus ojos.</desc>
   </programme>
   <programme start="20261024193000 -0300" stop="20261024200000 -0300" channel="DW.de">
     <title lang="es">Enlaces: Ventana Abierta Al Mundo Digital</title>
@@ -8814,16 +8781,6 @@
     <episode-num system="onscreen">S01E03</episode-num>
     <image>https://estatico.emisiondof6.com/recorte/n/vegend/F4467500.jpg</image>
   </programme>
-  <programme channel="France24.fr" start="20261024191500 -0300" stop="20261024193000 -0300">
-    <title lang="fr">Africa 7 días</title>
-    <desc lang="es">La actualidad política, social y cultural del continente africano, con análisis y reportajes exclusivos.</desc>
-    <category lang="fr">Magazine de découvertes</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/3/0/7/15194703.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/9/6/15194698.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/9/6/15194695.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/9/6/15194699.jpg" />
-    <episode-num system="onscreen">E2</episode-num>
-  </programme>
   <programme channel="France24.fr" start="20261024193000 -0300" stop="20261024194500 -0300">
     <title lang="fr">Noticias</title>
     <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
@@ -10287,16 +10244,6 @@
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/6/6/15194669.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/2/7/6/15194672.jpg" />
     <episode-num system="onscreen">E3</episode-num>
-  </programme>
-  <programme start="20261024191500 -0300" stop="20261024192100 -0300" channel="France24.fr@English">
-    <title lang="en">French Connections</title>
-    <desc lang="en">A quirky insiders guide to understanding France and the French from the sublime to the ridiculous.</desc>
-    <episode-num system="onscreen">0</episode-num>
-  </programme>
-  <programme start="20261024192100 -0300" stop="20261024193000 -0300" channel="France24.fr@English">
-    <title lang="en">Fashion</title>
-    <desc lang="en">All the best of the Parisian catwalks paired with an exclusive behind-the-scenes look at the iconic names shaping Haute Couture today and beyond.</desc>
-    <episode-num system="onscreen">0</episode-num>
   </programme>
   <programme start="20261024193000 -0300" stop="20261024194500 -0300" channel="France24.fr@English">
     <title lang="en">News</title>
@@ -16556,11 +16503,6 @@
     <title lang="es">Monster Hunter: La cacería comienza</title>
     <desc lang="es">La teniente Artemis y sus leales soldados son transportados de nuestro mundo a un mundo de monstruos peligrosos y poderosos que gobiernan sus dominios con una ferocidad mortal.</desc>
   </programme>
-  <programme start="20261024183100 -0300" stop="20261024193100 -0300" channel="PublicDirect.39057ce89326a34e33998e2e">
-    <title lang="es">Destrucción Decodificada</title>
-    <sub-title lang="es">Tierra, aire y mar</sub-title>
-    <desc lang="es">Un recorrido a través del tiempo para explorar eventos inolvidables y trascendentales que cambiaron la vida. Profundiza en la ciencia detrás de cada evento, arrojando luz sobre elementos fascinantes y brindando comprensión.</desc>
-  </programme>
   <programme start="20261024193100 -0300" stop="20261024203600 -0300" channel="PublicDirect.39057ce89326a34e33998e2e">
     <title lang="es">La ruta</title>
     <sub-title lang="es">Venezuela</sub-title>
@@ -16765,10 +16707,6 @@
   <programme start="20261026202100 -0300" stop="20261026210900 -0300" channel="PublicDirect.39057ce89326a34e33998e2e">
     <title lang="es">Maravillas modernas el mundo de las máquinas</title>
     <sub-title lang="es">Maquinaria pesada</sub-title>
-  </programme>
-  <programme start="20261024185900 -0300" stop="20261024192400 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Detective Conan Hd</title>
-    <desc lang="es">Un reloj revela la hora exacta del crimen. Conan demuestra la coartada falsa del asesino.</desc>
   </programme>
   <programme start="20261024192400 -0300" stop="20261024194900 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
     <title lang="es">Detective Conan Hd</title>
@@ -17414,24 +17352,6 @@
   <programme start="20261026202800 -0300" stop="20261026212100 -0300" channel="PublicDirect.8da65ba545fa9fd2512f9901">
     <title lang="es">Increíble con Dan Aykroyd</title>
     <sub-title lang="es">Misiones impactantes</sub-title>
-  </programme>
-  <programme start="20261024175100 -0300" stop="20261024192100 -0300" channel="PublicDirect.942f65e48445596971fc7249">
-    <title lang="es">Las grandes seductoras naturales buscan complacer</title>
-    <desc lang="es">¡Grandes y naturales, perfectamente redondos y firmes, que piden a gritos ser apretados! ¡Sus enormes pechos se sacuden y se agitan mientras las chicas son penetradas por miembros duros de un hombre!</desc>
-    <credits>
-      <actor>Roxie Sinner</actor>
-      <actor>Valentina Nappi</actor>
-      <actor>Angel Youngs</actor>
-    </credits>
-    <date>2026</date>
-    <category lang="es">Movie</category>
-    <category lang="es">Adults only</category>
-    <category lang="es">Erotic</category>
-    <icon src="http://dtil.tmsimg.com/assets/p29791366_b_h8_aa.jpg?w=960&amp;h=540" />
-    <previously-shown />
-    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
-      <value>A18</value>
-    </rating>
   </programme>
   <programme start="20261024192100 -0300" stop="20261024205100 -0300" channel="PublicDirect.942f65e48445596971fc7249">
     <title lang="es">F... hasta el fondo pero no me rompas</title>
@@ -18523,10 +18443,6 @@
     <title lang="es">NCIS / The Helpers</title>
     <desc lang="es">Un equipo de agentes especiales del Servicio de Investigación Criminal de la Marina de los Estados Unidos, liderados por el agente especial Leroy Jethro Gibbs, investiga los crímenes que se cometen dentro del Cuerpo Naval.</desc>
   </programme>
-  <programme start="20261024181100 -0300" stop="20261024193600 -0300" channel="PublicDirect.a4e711feeaae6c78b06460eb">
-    <title lang="es">Playboy</title>
-    <desc lang="es">Tit. Original: Playboy. Erótico</desc>
-  </programme>
   <programme start="20261024193600 -0300" stop="20261024200000 -0300" channel="PublicDirect.a4e711feeaae6c78b06460eb">
     <title lang="es">Playboy</title>
     <desc lang="es">Tit. Original: Playboy. Erótico</desc>
@@ -18706,14 +18622,6 @@
   <programme start="20261025213200 -0300" stop="20261025215700 -0300" channel="PublicDirect.a4e711feeaae6c78b06460eb">
     <title lang="es">Playboy</title>
     <desc lang="es">Tit. Original: Playboy. Erótico</desc>
-  </programme>
-  <programme start="20261024163000 -0300" stop="20261024193000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="es">Live: Fútbol Americano Universitario</title>
-    <desc lang="es">Desde Bryant-Denny Stadium en Tuscaloosa, Ala.</desc>
-    <category lang="es">Sports</category>
-    <category lang="es">Football</category>
-    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG0036E40V.jpg?w=960&amp;h=540" />
-    <premiere />
   </programme>
   <programme start="20261024193000 -0300" stop="20261024200000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
     <title lang="en">UEFA Champions League Weekly</title>
@@ -20287,6 +20195,360 @@
     <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003P9HEK.jpg?w=960&amp;h=540" />
     <previously-shown />
   </programme>
+  <programme start="20261024182400 -0300" stop="20261024202600 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">Una Esposa de Mentira</title>
+    <desc lang="es">Un cirujano plástico trata de seducir a una maestra de escuela mucho más joven que él, para lograrlo recluta a su fiel asistente para que finja ser su ex esposa, con el fin de encubrir una mentira sin importancia. Cuando más mentiras aparecen, los hijos de su asistente se ven involucrados y todo el mundo se dirige a un fin de semana en Hawái que cambiará la vida de todos.</desc>
+    <credits>
+      <director>Dennis Dugan</director>
+      <actor>Adam Sandler</actor>
+      <actor>Jennifer Aniston</actor>
+      <actor>Nicole Kidman</actor>
+      <actor>Brooklyn Decker</actor>
+      <actor>Bailee Madison</actor>
+      <actor>Nick Swardson</actor>
+      <actor>Carol Ann Susi</actor>
+      <actor>Griffin Gluck</actor>
+      <producer>Jack Giarraputo</producer>
+      <producer>Adam Sandler</producer>
+      <composer>Rupert Gregson-Williams</composer>
+    </credits>
+    <date>2011</date>
+    <category lang="es">Comedia</category>
+    <category lang="es">Romance</category>
+    <category lang="es">Película</category>
+    <icon src="https://imagenes.gatotv.com/categorias/peliculas/miniatura/una_esposa_de_mentira.jpg" />
+    <rating system="MX">
+      <value>PG-13</value>
+    </rating>
+    <star-rating system="MX">
+      <value>6.0</value>
+    </star-rating>
+  </programme>
+  <programme start="20261024202600 -0300" stop="20261024215700 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">Shrek</title>
+    <desc lang="es">En el pantano alejado donde vive, el ogro verde y solitario Shrek recibe la visita de una horda de personajes de cuentos de hadas que dicen que sus casas son amenazadas por el diabólico Lord Farquaad. Para empeorar las cosas, Shrek está en la misma situación y, acompañado por un burro fiel, pero que no para de hablar, decide hacerle una propuesta al villano: rescatará a la bella princesa Fiona, que fue prometida a Farquaad. Pero, cuando Shrek y el burro logran rescatarla, queda claro que no solo él está enamorado de ella, sino que Fiona también guarda un gran secreto.</desc>
+  </programme>
+  <programme start="20261024215700 -0300" stop="20261024221000 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">Shrek 2</title>
+    <desc lang="es">Poco después de su luna de miel, Shrek y la princesa Fiona reciben una invitación para visitar a sus padres, el rey y la reina del Reino Muy, Muy Lejano. Junto con el burro, que no se despega de ellos, los recién casados siguen viaje. Pero, cuando llegan, Shrek y el rey no logran entenderse y el matrimonio se pone tenso. Para empeorar las cosas, el Hada Madrina descubre que Fiona y Shrek se casaron y le recuerda al rey un acuerdo que ellos hicieron años atrás, de que Fiona estaba prometida al hijo del hada, el Príncipe Encantador. Ahora, el monarca deberá pedir ayuda al célebre matador de ogros Gato con Botas para que la historia tenga el fin que desea.</desc>
+  </programme>
+  <programme start="20261024221000 -0300" stop="20261025000000 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">Shrek 3</title>
+    <desc lang="es">Cuando su nuevo suegro, el rey Harold, se enferma, Shrek tiene la presión de ser el próximo heredero del reino Muy Muy Lejano. Como no quiere mudarse de su adorado pantano, Shrek recluta a sus amigos Burro y Gato para que lo ayuden a traer al rebelde Artie al reinado, para que sea el nuevo rey.</desc>
+  </programme>
+  <programme start="20261025000000 -0300" stop="20261025014500 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">Shrek Para Siempre</title>
+    <desc lang="es">Con el deseo de volver a los tiempos en los que era un aterrador y despreocupado ogro, Shrek firma un contrato con el malvado y ambicioso Rumpelstiltskin para volver a ser el mismo de antes. Sin embargo, el pacto termina revolucionando su vida y la de los que lo rodean: Burro ya no recuerda a su mejor amigo, Fiona es una princesa guerrera que no siente nada por él y el Gato con Botas es la mascota consentida de Fiona. Ahora Shrek tiene sólo veinticuatro horas para recuperar a sus amigos y esposa y revertir el contrato para recobrar su vida y salvar a su reino del malvado villano.</desc>
+  </programme>
+  <programme start="20261025014500 -0300" stop="20261025035700 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">Día De Entrenamiento</title>
+    <desc lang="es">Denzel Washington es Alonzo Harris, un oficial veterano del departamento de narcóticos encargado de entrenar a Jake Hoyt, un agente novato de la Policía de Los Ángeles, interpretado por Ethan Hawke. Harris estuvo de acuerdo en darle una oportunidad a Hoyt en su equipo con un entrenamiento de un día, durante el cual Hoyt deberá probar sus méritos. Sin embargo, a medida que pasa el día, se hace cada vez más claro para el novato que su experimentado mentor cruzó la línea entre lo correcto y lo equivocado de manera alarmante, amenazando sus propios códigos de moral y justicia.</desc>
+  </programme>
+  <programme start="20261025035700 -0300" stop="20261025052800 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">Los Cazamuertos</title>
+    <desc lang="es">Un grupo de desventurados investigadores paranormales de un reality show van a la casa más embrujada de México en busca de un mejor rating. Sin embargo, cuando los oscuros secretos de la mansión comienzan a revelarse, los presentadores de dan cuenta rápidamente de que esta casa no es ningún engaño. Sin ningún tipo de habilidad para cazar fantasmas y ningún otro tipo de habilidad, el equipo deberá descubrir cómo derrotar a los fantasmas y escapar.</desc>
+  </programme>
+  <programme start="20261025052800 -0300" stop="20261025070800 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">Sniper: El Legado</title>
+    <desc lang="es">Un francotirador Chad Michael Collins, Sniper: Legacy decide vengar a su padre, un veterano militar Tom Berenger, Pelotón abatido por un traidor de la unidad. Pronto descubre que lo han engañado y que lo están utilizando como carnada. Quinta parte de la saga Blanco Perfecto.</desc>
+  </programme>
+  <programme start="20261025070800 -0300" stop="20261025074500 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">Hollywood One On One 2026</title>
+    <desc lang="es">Disfruta de las mejores entrevistas con las personalidades de Hollywood</desc>
+  </programme>
+  <programme start="20261025074500 -0300" stop="20261025080000 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">Hollywood One On One</title>
+    <desc lang="es">Disfruta de las mejores entrevistas con las personalidades de Hollywood</desc>
+  </programme>
+  <programme start="20261025080000 -0300" stop="20261025083800 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">Hollywood One On One 2026</title>
+    <desc lang="es">Disfruta de las mejores entrevistas con las personalidades de Hollywood</desc>
+  </programme>
+  <programme start="20261025083800 -0300" stop="20261025085300 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">Hollywood One On One</title>
+    <desc lang="es">Disfruta de las mejores entrevistas con las personalidades de Hollywood</desc>
+  </programme>
+  <programme start="20261025085300 -0300" stop="20261025103100 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">Hotel Transylvania 3</title>
+    <desc lang="es">El conde Drácula y sus acompañantes participan en un crucero para monstruos amantes del mar, sin saber que su barco está siendo requisado por la familia Van Helsing, que odia a los monstruos.</desc>
+  </programme>
+  <programme start="20261025103100 -0300" stop="20261025125300 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">Un Sueño Posible</title>
+    <desc lang="es">Sandra Bullock ganó su primer Oscar al interpretar el papel de una bondadosa y decidida ama de casa que adopta a un adolescente sin techo y lo ayuda a convertirse en un exitoso atleta. Michael Big Mike Oher no tiene idea de quien sea su padre. Su madre es drogadicta. Él fue muy poco a la escuela y no posee muchas habilidades. Pero su madre adoptiva, apoyada por su familia pudiente, pronto se hace cargo y se compromete a darle al chico todas las oportunidades para que pueda vencer. Cuando Michael muestra interés por el fútbol americano, ella se dedica a ayudarlo e incluso le da al técnico algunas ideas de cómo aprovechar mejor las habilidades del muchacho.</desc>
+  </programme>
+  <programme start="20261025125300 -0300" stop="20261025143100 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">Shrek</title>
+    <desc lang="es">En el pantano alejado donde vive, el ogro verde y solitario Shrek recibe la visita de una horda de personajes de cuentos de hadas que dicen que sus casas son amenazadas por el diabólico Lord Farquaad. Para empeorar las cosas, Shrek está en la misma situación y, acompañado por un burro fiel, pero que no para de hablar, decide hacerle una propuesta al villano: rescatará a la bella princesa Fiona, que fue prometida a Farquaad. Pero, cuando Shrek y el burro logran rescatarla, queda claro que no solo él está enamorado de ella, sino que Fiona también guarda un gran secreto.</desc>
+  </programme>
+  <programme start="20261025143100 -0300" stop="20261025161100 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">Shrek 2</title>
+    <desc lang="es">Poco después de su luna de miel, Shrek y la princesa Fiona reciben una invitación para visitar a sus padres, el rey y la reina del Reino Muy, Muy Lejano. Junto con el burro, que no se despega de ellos, los recién casados siguen viaje. Pero, cuando llegan, Shrek y el rey no logran entenderse y el matrimonio se pone tenso. Para empeorar las cosas, el Hada Madrina descubre que Fiona y Shrek se casaron y le recuerda al rey un acuerdo que ellos hicieron años atrás, de que Fiona estaba prometida al hijo del hada, el Príncipe Encantador. Ahora, el monarca deberá pedir ayuda al célebre matador de ogros Gato con Botas para que la historia tenga el fin que desea.</desc>
+  </programme>
+  <programme start="20261025161100 -0300" stop="20261025175000 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">Shrek 3</title>
+    <desc lang="es">Cuando su nuevo suegro, el rey Harold, se enferma, Shrek tiene la presión de ser el próximo heredero del reino Muy Muy Lejano. Como no quiere mudarse de su adorado pantano, Shrek recluta a sus amigos Burro y Gato para que lo ayuden a traer al rebelde Artie al reinado, para que sea el nuevo rey.</desc>
+  </programme>
+  <programme start="20261025175000 -0300" stop="20261025193100 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">Shrek Para Siempre</title>
+    <desc lang="es">Con el deseo de volver a los tiempos en los que era un aterrador y despreocupado ogro, Shrek firma un contrato con el malvado y ambicioso Rumpelstiltskin para volver a ser el mismo de antes. Sin embargo, el pacto termina revolucionando su vida y la de los que lo rodean: Burro ya no recuerda a su mejor amigo, Fiona es una princesa guerrera que no siente nada por él y el Gato con Botas es la mascota consentida de Fiona. Ahora Shrek tiene sólo veinticuatro horas para recuperar a sus amigos y esposa y revertir el contrato para recobrar su vida y salvar a su reino del malvado villano.</desc>
+  </programme>
+  <programme start="20261025193100 -0300" stop="20261025214300 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">Una Esposa De Mentira</title>
+    <desc lang="es">Danny es un exitoso cirujano plástico que miente constantemente para conquistar mujeres. Pero esto se convierte en un gran problema cuando conoce a la mujer de sus sueños. Para cubrir sus mentiras y acercarse a ella, Danny les pide a su leal asistente y a sus hijos que simulen ser su familia. Cuando se desatan más mentiras, viajan todos juntos a Hawái, donde vivirán un fin de semana alocado y fuera de lo común.</desc>
+  </programme>
+  <programme start="20261025214300 -0300" stop="20261026000000 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">Desconocido</title>
+    <desc lang="es">Liam Neeson es un científico que se dirigía a una convención en Berlín sufre un accidente de tránsito y cae en coma. Al despertar, descubre que un impostor lo ha sustituido y que ni siquiera su esposa Diane Kruger lo reconoce. Mientras intentan asesinar</desc>
+  </programme>
+  <programme start="20261026000000 -0300" stop="20261026000200 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">Una Esposa de Mentira</title>
+    <desc lang="es">Un cirujano plástico trata de seducir a una maestra de escuela mucho más joven que él, para lograrlo recluta a su fiel asistente para que finja ser su ex esposa, con el fin de encubrir una mentira sin importancia. Cuando más mentiras aparecen, los hijos de su asistente se ven involucrados y todo el mundo se dirige a un fin de semana en Hawái que cambiará la vida de todos.</desc>
+    <credits>
+      <director>Dennis Dugan</director>
+      <actor>Adam Sandler</actor>
+      <actor>Jennifer Aniston</actor>
+      <actor>Nicole Kidman</actor>
+      <actor>Brooklyn Decker</actor>
+      <actor>Bailee Madison</actor>
+      <actor>Nick Swardson</actor>
+      <actor>Carol Ann Susi</actor>
+      <actor>Griffin Gluck</actor>
+      <producer>Jack Giarraputo</producer>
+      <producer>Adam Sandler</producer>
+      <composer>Rupert Gregson-Williams</composer>
+    </credits>
+    <date>2011</date>
+    <category lang="es">Comedia</category>
+    <category lang="es">Romance</category>
+    <category lang="es">Película</category>
+    <icon src="https://imagenes.gatotv.com/categorias/peliculas/miniatura/una_esposa_de_mentira.jpg" />
+    <rating system="MX">
+      <value>PG-13</value>
+    </rating>
+    <star-rating system="MX">
+      <value>6.0</value>
+    </star-rating>
+  </programme>
+  <programme start="20261026000200 -0300" stop="20261026025700 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">Dune: Part Two</title>
+    <desc lang="es">Duna: Parte Dos explora el viaje mítico de Paul Atreides (Timothée Chalamet) mientras se une a Chani (Zendaya) y los Fremen en una guerra de venganza contra los conspiradores que destruyeron a su familia. Al enfrentarse a una elección entre el amor de su vida y el destino del universo conocido, Paul se esfuerza por evitar un futuro terrible que solo él puede prever.</desc>
+    <credits>
+      <director>Denis Villeneuve</director>
+      <actor>Timothée Chalamet</actor>
+      <actor>Zendaya</actor>
+      <actor>Rebecca Ferguson</actor>
+      <actor>Josh Brolin</actor>
+      <actor>Austin Butler</actor>
+      <actor>Florence Pugh</actor>
+      <actor>Dave Bautista</actor>
+      <actor>Christopher Walken</actor>
+      <producer>Mary Parent</producer>
+      <producer>Cale Boyter</producer>
+      <composer>Hans Zimmer</composer>
+    </credits>
+    <date>2024</date>
+    <category lang="es">Acción</category>
+    <category lang="es">Aventura</category>
+    <category lang="es">Drama</category>
+    <category lang="es">Ciencia Ficción</category>
+    <category lang="es">Película</category>
+    <icon src="https://imagenes.gatotv.com/categorias/peliculas/miniatura/duna_parte_dos.jpg" />
+    <rating system="MX">
+      <value>PG-13</value>
+    </rating>
+    <star-rating system="MX">
+      <value>9.0</value>
+    </star-rating>
+  </programme>
+  <programme start="20261026025700 -0300" stop="20261026044000 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">Sniper Legacy</title>
+  </programme>
+  <programme start="20261026044000 -0300" stop="20261026062300 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">Sniper Fuego oculto</title>
+  </programme>
+  <programme start="20261026062300 -0300" stop="20261026073800 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">All Souls</title>
+  </programme>
+  <programme start="20261026073800 -0300" stop="20261026090000 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">Hollywood one on one</title>
+  </programme>
+  <programme start="20261026090000 -0300" stop="20261026091500 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">Hollywood one on one</title>
+  </programme>
+  <programme start="20261026091500 -0300" stop="20261026091600 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">TNT Buzz</title>
+  </programme>
+  <programme start="20261026091600 -0300" stop="20261026110400 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">Contagio</title>
+  </programme>
+  <programme start="20261026110400 -0300" stop="20261026125800 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">Dos inútiles en patrulla</title>
+  </programme>
+  <programme start="20261026125800 -0300" stop="20261026151900 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">El último gran héroe</title>
+  </programme>
+  <programme start="20261026151900 -0300" stop="20261026174300 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">El Fugitivo</title>
+  </programme>
+  <programme start="20261026174300 -0300" stop="20261026194400 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">Desconocido</title>
+  </programme>
+  <programme start="20261026194400 -0300" stop="20261026224500 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">Dune: Part Two</title>
+    <desc lang="es">Duna: Parte Dos explora el viaje mítico de Paul Atreides (Timothée Chalamet) mientras se une a Chani (Zendaya) y los Fremen en una guerra de venganza contra los conspiradores que destruyeron a su familia. Al enfrentarse a una elección entre el amor de su vida y el destino del universo conocido, Paul se esfuerza por evitar un futuro terrible que solo él puede prever.</desc>
+    <credits>
+      <director>Denis Villeneuve</director>
+      <actor>Timothée Chalamet</actor>
+      <actor>Zendaya</actor>
+      <actor>Rebecca Ferguson</actor>
+      <actor>Josh Brolin</actor>
+      <actor>Austin Butler</actor>
+      <actor>Florence Pugh</actor>
+      <actor>Dave Bautista</actor>
+      <actor>Christopher Walken</actor>
+      <producer>Mary Parent</producer>
+      <producer>Cale Boyter</producer>
+      <composer>Hans Zimmer</composer>
+    </credits>
+    <date>2024</date>
+    <category lang="es">Acción</category>
+    <category lang="es">Aventura</category>
+    <category lang="es">Drama</category>
+    <category lang="es">Ciencia Ficción</category>
+    <category lang="es">Película</category>
+    <icon src="https://imagenes.gatotv.com/categorias/peliculas/miniatura/duna_parte_dos.jpg" />
+    <rating system="MX">
+      <value>PG-13</value>
+    </rating>
+    <star-rating system="MX">
+      <value>9.0</value>
+    </star-rating>
+  </programme>
+  <programme start="20261026224500 -0300" stop="20261027010000 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">El Hombre Araña</title>
+    <desc lang="es">Siendo un nerd y torpe por naturaleza, la vida de Peter Parker (Tobey Maguire) ha dado un giro inesperado cuando es mordido accidentalmente por una araña radiactiva. De la noche a la mañana Peter se transforma y es capaz de crear telarañas que son disparadas desde sus muñecas, la habilidad de adherirse a las paredes, fuerza increíble y un primordial sentido arácnido. Utilizando un traje hecho en casa, Peter está dispuesto a cambiar la vida que le rodea, sea como sea. Cuando un criminal asesina a su tío Ben, él descubre que “con un gran poder viene una gran responsabilidad”. Peter se convierte en un peleador contra el crimen conocido como El Hombre Araña.</desc>
+    <credits>
+      <director>Sam Raimi</director>
+      <actor>Tobey Maguire</actor>
+      <actor>Willem Dafoe</actor>
+      <actor>Kirsten Dunst</actor>
+      <actor>James Franco</actor>
+      <actor>Cliff Robertson</actor>
+      <actor>Rosemary Harris</actor>
+      <producer>Laura Ziskin</producer>
+      <producer>Ian Bryce</producer>
+      <composer>Danny Elfman</composer>
+    </credits>
+    <date>2002</date>
+    <category lang="es">Acción</category>
+    <category lang="es">Aventura</category>
+    <icon src="https://imagenes.gatotv.com/categorias/peliculas/miniatura/el_hombre_arana.jpg" />
+    <rating system="MX">
+      <value>PG-13</value>
+    </rating>
+    <star-rating system="MX">
+      <value>7.0</value>
+    </star-rating>
+  </programme>
+  <programme start="20261027010000 -0300" stop="20261027031400 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">Día de entrenamiento</title>
+  </programme>
+  <programme start="20261027031400 -0300" stop="20261027050200 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">Sniper Fuego oculto</title>
+  </programme>
+  <programme start="20261027050200 -0300" stop="20261027071100 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">El último gran héroe</title>
+  </programme>
+  <programme start="20261027071100 -0300" stop="20261027085300 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">En brazos de un asesino</title>
+  </programme>
+  <programme start="20261027085300 -0300" stop="20261027085600 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">TNT Buzz</title>
+  </programme>
+  <programme start="20261027085600 -0300" stop="20261027085700 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">TNT Buzz</title>
+  </programme>
+  <programme start="20261027085700 -0300" stop="20261027090000 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">TNT Buzz</title>
+  </programme>
+  <programme start="20261027090000 -0300" stop="20261027094800 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">Contagio</title>
+  </programme>
+  <programme start="20261027094800 -0300" stop="20261027112300 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">Los renegados</title>
+  </programme>
+  <programme start="20261027112300 -0300" stop="20261027134400 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">El Fugitivo</title>
+  </programme>
+  <programme start="20261027134400 -0300" stop="20261027152900 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">Medio Muerto</title>
+  </programme>
+  <programme start="20261027152900 -0300" stop="20261027180100 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">Batman inicia</title>
+  </programme>
+  <programme start="20261027180100 -0300" stop="20261027201700 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">Batman regresa</title>
+  </programme>
+  <programme start="20261027201700 -0300" stop="20261027222600 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">El Hombre Araña</title>
+    <desc lang="es">Siendo un nerd y torpe por naturaleza, la vida de Peter Parker (Tobey Maguire) ha dado un giro inesperado cuando es mordido accidentalmente por una araña radiactiva. De la noche a la mañana Peter se transforma y es capaz de crear telarañas que son disparadas desde sus muñecas, la habilidad de adherirse a las paredes, fuerza increíble y un primordial sentido arácnido. Utilizando un traje hecho en casa, Peter está dispuesto a cambiar la vida que le rodea, sea como sea. Cuando un criminal asesina a su tío Ben, él descubre que “con un gran poder viene una gran responsabilidad”. Peter se convierte en un peleador contra el crimen conocido como El Hombre Araña.</desc>
+    <credits>
+      <director>Sam Raimi</director>
+      <actor>Tobey Maguire</actor>
+      <actor>Willem Dafoe</actor>
+      <actor>Kirsten Dunst</actor>
+      <actor>James Franco</actor>
+      <actor>Cliff Robertson</actor>
+      <actor>Rosemary Harris</actor>
+      <producer>Laura Ziskin</producer>
+      <producer>Ian Bryce</producer>
+      <composer>Danny Elfman</composer>
+    </credits>
+    <date>2002</date>
+    <category lang="es">Acción</category>
+    <category lang="es">Aventura</category>
+    <icon src="https://imagenes.gatotv.com/categorias/peliculas/miniatura/el_hombre_arana.jpg" />
+    <rating system="MX">
+      <value>PG-13</value>
+    </rating>
+    <star-rating system="MX">
+      <value>7.0</value>
+    </star-rating>
+  </programme>
+  <programme start="20261027222600 -0300" stop="20261028010000 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">El hombre araña 3</title>
+    <desc lang="es">Siendo un nerd y torpe por naturaleza, la vida de Peter Parker (Tobey Maguire) ha dado un giro inesperado cuando es mordido accidentalmente por una araña radiactiva. De la noche a la mañana Peter se transforma y es capaz de crear telarañas que son disparadas desde sus muñecas, la habilidad de adherirse a las paredes, fuerza increíble y un primordial sentido arácnido. Utilizando un traje hecho en casa, Peter está dispuesto a cambiar la vida que le rodea, sea como sea. Cuando un criminal asesina a su tío Ben, él descubre que “con un gran poder viene una gran responsabilidad”. Peter se convierte en un peleador contra el crimen conocido como El Hombre Araña.</desc>
+  </programme>
+  <programme start="20261028010000 -0300" stop="20261028025600 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
+    <title lang="es">Titanes del Pacífico: La Insurrección</title>
+    <desc lang="es">El conflicto que abarca todo el mundo entre monstruos de destrucción en masa de otro mundo y las súper máquinas pilotadas por humanos construidas para vencerlos fue solo un preludio al asalto general al levantamiento de la humanidad en "Pacific Rim". El rebelde Jake Pentecost (John Boyega), quien una vez fue un piloto de Jaeger cuyo legendario padre dio su vida para asegurar la victoria de la humanidad contra los monstruosos "Kaiju".</desc>
+    <credits>
+      <director>Steven S. DeKnight</director>
+      <actor>John Boyega</actor>
+      <actor>Scott Eastwood</actor>
+      <actor>Cailee Spaeny</actor>
+      <actor>Jing Tian</actor>
+      <actor>Charlie Day</actor>
+      <actor>Burn Gorman</actor>
+      <actor>Rinko Kikuchi</actor>
+      <actor>Adria Arjona</actor>
+      <producer>John Boyega</producer>
+      <producer>Cale Boyter</producer>
+      <composer>John Paesano</composer>
+    </credits>
+    <date>2018</date>
+    <category lang="es">Acción</category>
+    <category lang="es">Aventura</category>
+    <category lang="es">Ciencia Ficción</category>
+    <category lang="es">Película</category>
+    <icon src="https://imagenes.gatotv.com/categorias/peliculas/miniatura/pacific_rim_uprising.jpg" />
+    <rating system="MX">
+      <value>PG-13</value>
+    </rating>
+    <star-rating system="MX">
+      <value>6.0</value>
+    </star-rating>
+  </programme>
   <programme start="20261024174700 -0300" stop="20261024210200 -0300" channel="QelloConcertsbyStingray.ca">
     <title lang="en">Peter Frampton - FCA! 35 Tour: An Evening With Peter Frampton</title>
     <desc lang="en">In 2011, Grammy Award winning guitarist Peter Frampton embarked on a world tour celebrating the 35th anniversary of his multi-platinum selling live album Frampton Comes Alive!</desc>
@@ -21389,10 +21651,6 @@
     <category lang="en">Explore</category>
     <icon src="https://d11hei8e1dyf6i.cloudfront.net/RWILD/Default_Thumbnail.jpg" />
   </programme>
-  <programme start="20261024183328 -0300" stop="20261024192819 -0300" channel="RedBullChileEspanol.cl">
-    <title lang="es">Red Bull Stratos - saltando desde la estratosfera</title>
-    <desc lang="es">Red Bull Stratos llevó a Felix Baumgartner a romper la barrera del sonido saltando desde la estratosfera, dejando un legado en la exploración aeroespacial y las transmisiones en directo.</desc>
-  </programme>
   <programme start="20261024192819 -0300" stop="20261024201555 -0300" channel="RedBullChileEspanol.cl">
     <title lang="es">7 maratones en 7 días, en 7 continentes</title>
     <desc lang="es">Tras meses de entrenamiento, Michelle comienza The Great World Race, un desafío de running que la lleva desde Ciudad del Cabo hasta la Antártida.</desc>
@@ -21476,18 +21734,6 @@
   <programme start="20261025214611 -0300" stop="20261025234329 -0300" channel="RedBullChileEspanol.cl">
     <title lang="es">And Two If By Sea - rivalidad de gemelos en el surf</title>
     <desc lang="es">Los gemelos CJ y Damien Hobgood enfrentan una rivalidad en el surf profesional mientras buscan diferenciarse y construir su propio camino dentro del mismo deporte.</desc>
-  </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261024185700 -0300" stop="20261024192700 -0300">
-    <title>Pro Climbing League</title>
-    <live />
-    <episode-num system="original-air-date">20261024215700 +0000</episode-num>
-    <desc>Kopf-an-Kopf bis zum Titel: In London liefern sich die weltbesten Kletterer auf identischen Routen einen explosiven KO-Wettkampf voller Tempo, Druck und Präzision.</desc>
-    <icon src="https://images.pluto.tv/series/6a3528a21718969e36bd2722/tile_1792793095637.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">6a3528a21718969e36bd2722</series-id>
-    <sub-title>2026 London - Highlights</sub-title>
-    <category>Sports</category>
-    <category>Series</category>
   </programme>
   <programme channel="RedBullWorldEnglish.int" start="20261024192700 -0300" stop="20261024195400 -0300">
     <title>Mission 2TO4</title>
@@ -23084,11 +23330,6 @@
     <desc lang="en">The New York Knicks compete with the Detroit Pistons in the NBA.</desc>
     <episode-num system="onscreen">6</episode-num>
   </programme>
-  <programme start="20261024190000 -0300" stop="20261024193000 -0300" channel="SkySportsPremierLeague.uk">
-    <title lang="en">PL: Arsenal v Everton Highlights</title>
-    <desc lang="en">Collecting six wins out of seven, Arsenal's defence of the Premier League title continues at the Emirates with the visit of Everton - whose unbeaten start came to an end last week. (24.10)</desc>
-    <episode-num system="onscreen">S2026E349</episode-num>
-  </programme>
   <programme start="20261024193000 -0300" stop="20261024200000 -0300" channel="SkySportsPremierLeague.uk">
     <title lang="en">FNF: Ipswich v Nott'm Forest Hlts</title>
     <desc lang="en">Friday Night Football comes from Portman Road, home to Gary O'Neil's Ipswich Town - who entertain Oliver Glasner and Nottingham Forest in the Premier League. (23.10)</desc>
@@ -23673,11 +23914,6 @@
     <title lang="en">Premier League Netbusters</title>
     <desc lang="en">Relive the action from the Premier League in a unique way with fast-paced highlights using alternative angles, featuring every goal from every game.</desc>
     <episode-num system="onscreen">S2026E09</episode-num>
-  </programme>
-  <programme start="20261024180000 -0300" stop="20261024193000 -0300" channel="SkySportsTennis.uk">
-    <title lang="en">Tennis Highlights</title>
-    <desc lang="en">World number one Elena Rybakina, defending her title in Ningbo, competes in a semi-final clash at the WTA 500 against the number six seed Diana Shnaider. (24.10)</desc>
-    <episode-num system="onscreen">30</episode-num>
   </programme>
   <programme start="20261024193000 -0300" stop="20261024200000 -0300" channel="SkySportsTennis.uk">
     <title lang="en">WTA All Access Magazine 2026</title>
@@ -24713,11 +24949,6 @@
     <sub-title lang="en">Action from the event in Santiago, Chile</sub-title>
     <desc lang="en">Action from the event in Santiago, Chile.</desc>
     <icon src="https://tv.assets.pressassociation.io/342df65a-5608-557b-8d0b-8317b4c7052d.jpg" />
-  </programme>
-  <programme start="20261024190000 -0300" stop="20261024193000 -0300" channel="TNTSports2.uk">
-    <title lang="en">MotoGP: Australia Sprint Race</title>
-    <desc lang="en">Sprint race action from the Grand Prix of Australia at the Phillip Island Grand Prix Circuit. Marco Bezzecchi overcame an unfortunate seagull incident to win here last season.</desc>
-    <episode-num system="onscreen">0</episode-num>
   </programme>
   <programme start="20261024193000 -0300" stop="20261024200000 -0300" channel="TNTSports2.uk">
     <title lang="en">Live MotoGP: Australia Warm-Up</title>
@@ -26913,10 +27144,6 @@
       <value>10</value>
     </rating>
   </programme>
-  <programme start="20261024184000 -0300" stop="20261024193500 -0300" channel="TelehitMusica.mx@SD">
-    <title lang="es">Musicología</title>
-    <desc lang="es">Un mix de los éxitos de todos los tiempos, lo mejor de la música actual y un poco de todo.</desc>
-  </programme>
   <programme start="20261024193500 -0300" stop="20261024203000 -0300" channel="TelehitMusica.mx@SD">
     <title lang="es">Reggaetown</title>
     <desc lang="es">La mejor selección de música urbana de todos los tiempos.</desc>
@@ -27227,14 +27454,6 @@
   </programme>
   <programme start="20261028013500 -0300" stop="20261028023000 -0300" channel="TelehitMusica.mx@SD">
     <title lang="es">Suena el Dembow</title>
-  </programme>
-  <programme start="20261024183000 -0300" stop="20261024193000 -0300" channel="Vavoo.es.EUROSPORT1@TvVoo">
-    <title lang="es">Copa del mundo de esquí alpino F - Sölden</title>
-    <desc lang="es">La prueba de Sölden inaugura oficialmente la temporada de la Copa del Mundo femenina de esquí alpino. El espectacular glaciar Rettenbach acoge el eslalon gigante con sus dos mangas técnicas.</desc>
-    <icon src="https://estatico.emisiondof6.com/recorte/n/dispficha/MESPP4430126" />
-    <episode-num system="xmltv_ns">0.0.0/1</episode-num>
-    <episode-num system="onscreen">S01E01</episode-num>
-    <image>https://estatico.emisiondof6.com/recorte/n/vegend/MESPF4430126.jpg</image>
   </programme>
   <programme start="20261024193000 -0300" stop="20261024203000 -0300" channel="Vavoo.es.EUROSPORT1@TvVoo">
     <title lang="es">Copa del mundo de esquí alpino F - Sölden</title>
@@ -31670,14 +31889,6 @@
     <sub-title lang="en">Action from the women's superprestige in Overijse, Belgium</sub-title>
     <desc lang="en">Action from the women's superprestige in Overijse, Belgium.</desc>
     <icon src="https://tv.assets.pressassociation.io/ab53ba84-e8b4-52d8-8194-ded31f89a1d2.jpg" />
-  </programme>
-  <programme start="20261024183000 -0300" stop="20261024193000 -0300" channel="spain|vavoo_EUROSPORT%201%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Copa del mundo de esquí alpino F - Sölden</title>
-    <desc lang="es">La prueba de Sölden inaugura oficialmente la temporada de la Copa del Mundo femenina de esquí alpino. El espectacular glaciar Rettenbach acoge el eslalon gigante con sus dos mangas técnicas.</desc>
-    <icon src="https://estatico.emisiondof6.com/recorte/n/dispficha/MESPP4430126" />
-    <episode-num system="xmltv_ns">0.0.0/1</episode-num>
-    <episode-num system="onscreen">S01E01</episode-num>
-    <image>https://estatico.emisiondof6.com/recorte/n/vegend/MESPF4430126.jpg</image>
   </programme>
   <programme start="20261024193000 -0300" stop="20261024203000 -0300" channel="spain|vavoo_EUROSPORT%201%7Cgroup%3Aes@TvVoo">
     <title lang="es">Copa del mundo de esquí alpino F - Sölden</title>
