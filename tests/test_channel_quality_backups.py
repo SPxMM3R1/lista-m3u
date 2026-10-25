@@ -18,10 +18,8 @@ ESPN1_BACKUPS = [
     "Nauta.81dc69c20557da0672921475@Nauta",  # ESPN 1 | Chile
 ]
 CANAL13_DIRECT_BACKUPS = [
-    "PublicDirect.11c6a7fffcaf7ba1d61e1186",
-    "PublicDirect.12d30345143460844b8f968c",
-    "PublicDirect.2be182422f69d962afae4053",
-    "PublicDirect.711575de282125c84171bbee",
+    # 11c6a7ff…, 12d30345…, 2be18242… y 711575de… pasaron a backups.json el 2026-10-25
+    # (audio dudoso 0,48; respaldo por decisión del usuario).
     "PublicDirect.79f8514f8e1ffebfaf54d33c",
     # PublicDirect.8baa0cba… (Canal 13 HD 190.108.91.206) pasó a backups.json el 2026-10-25:
     # segunda búsqueda de clones, misma señal por audio (0.988).

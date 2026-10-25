@@ -41,7 +41,8 @@ class Lista2EpgMapTest(unittest.TestCase):
         published = set(re.findall(r'tvg-id="([^"]+)"', chr(10).join(lines)))
         self.assertTrue((set(mapping) & published).issubset(ids))
         # Lista 2 baja con la papelera desde la app (A3Cine, 2026-10-22): piso como el del mapa.
-        self.assertGreaterEqual(len(scope), 900)
+        # 2026-10-25: tras las búsquedas de clones Lista 2 publica ~910.
+        self.assertGreaterEqual(len(scope), 850)
 
 
 class Lista2ClaroFamilyGuideTest(unittest.TestCase):
