@@ -1,9 +1,21 @@
 <?xml version='1.0' encoding='utf-8'?>
 <tv data-fragment-of="RedBullWorldEnglish.int">
-  <channel id="RedBullWorldEnglish.int" data-guide="parrilla real parcial" data-guide-source="pluto">
+  <channel id="RedBullWorldEnglish.int" data-guide="parrilla real parcial" data-guide-source="epg-publicada-conservada">
     <display-name>RedBull TV World</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/red-bull-tv.png" />
   </channel>
+  <programme channel="RedBullWorldEnglish.int" start="20261025001700 -0300" stop="20261025004400 -0300">
+    <title>UCI Mountainbike Weltcup Highlights</title>
+    <live />
+    <episode-num system="original-air-date">20261025031700 +0000</episode-num>
+    <desc>Leogang zündet vier Tage Weltcup-Action: XCO, Downhill und Weltklasse-Trails im Salzburgerland.</desc>
+    <icon src="https://images.pluto.tv/series/6853f527b54a02bbc47d7862/tile_1763491849529.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
+    <date>19700101</date>
+    <series-id system="pluto">6853f527b54a02bbc47d7862</series-id>
+    <sub-title>Highlights - Leogang</sub-title>
+    <category>Sports</category>
+    <category>Series</category>
+  </programme>
   <programme channel="RedBullWorldEnglish.int" start="20261025004400 -0300" stop="20261025013800 -0300">
     <title>Red Bull TV</title>
     <live />
@@ -216,29 +228,5 @@
     <sub-title>Red Bull Seifenkistenrennen - S11 E3</sub-title>
     <category>Series</category>
     <category>Sports</category>
-  </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261024202000 -0300" stop="20261025001700 -0300">
-    <title>MotoGP</title>
-    <live />
-    <episode-num system="original-air-date">20261024232000 +0000</episode-num>
-    <desc>Vom Phillip Island Grand Prix Circuit in Phillip Island, Victoria, Australien.</desc>
-    <icon src="https://images.pluto.tv/series/685bc8deb66727eb740c095d/tile_1750845665940.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">685bc8deb66727eb740c095d</series-id>
-    <sub-title>GP Australien: Rennen</sub-title>
-    <category>Sports</category>
-    <category>Series</category>
-  </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261025001700 -0300" stop="20261025004400 -0300">
-    <title>UCI Mountainbike Weltcup Highlights</title>
-    <live />
-    <episode-num system="original-air-date">20261025031700 +0000</episode-num>
-    <desc>Leogang zündet vier Tage Weltcup-Action: XCO, Downhill und Weltklasse-Trails im Salzburgerland.</desc>
-    <icon src="https://images.pluto.tv/series/6853f527b54a02bbc47d7862/tile_1763491849529.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">6853f527b54a02bbc47d7862</series-id>
-    <sub-title>Highlights - Leogang</sub-title>
-    <category>Sports</category>
-    <category>Series</category>
   </programme>
 </tv>
