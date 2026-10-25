@@ -1,0 +1,66 @@
+{
+  "schema": 1,
+  "date": "2026-10-25",
+  "scope": "hosts numericos publicados en Lista 1 (m3u.m3u)",
+  "request": "Revisa las ip de la lista 1 y vee si en esos servidores puedes encontrar as señales qe n tengamos",
+  "method": {
+    "endpoint": "http://<host:puerto>/playlist.m3u8",
+    "note": "Endpoint publico documentado de Astra HTTP Play sobre host:puerto ya publicado. Sin barrido de puertos, sin credenciales, sin IP fuera del inventario.",
+    "dedupe": "URL exacta contra channel-catalog.m3u + nombre normalizado (NFD sin marcas, minusculas, sin signos) contra catalogo y layout",
+    "verification": "ffprobe/ffmpeg dos pasadas (video y audio decodificados) + fotogramas a 3 s y 25 s"
+  },
+  "lista1_rows": 78,
+  "numeric_hosts": 12,
+  "servers": [
+    {"host": "138.59.227.20:8000", "entries": 163, "known": 152, "unmatched": 11, "opened": 2},
+    {"host": "158.172.217.18:8000", "entries": 79, "known": 70, "unmatched": 9, "opened": 0},
+    {"host": "177.234.218.66:8084", "entries": 83, "known": 80, "unmatched": 3, "opened": 2},
+    {"host": "181.224.200.5:2277", "entries": 48, "known": 46, "unmatched": 2, "opened": 0},
+    {"host": "181.78.12.119:16123", "entries": 104, "known": 104, "unmatched": 0, "opened": 0},
+    {"host": "181.78.14.26:4000", "entries": 137, "known": 135, "unmatched": 2, "opened": 0},
+    {"host": "181.78.211.244:8000", "entries": 114, "known": 114, "unmatched": 0, "opened": 0},
+    {"host": "190.108.83.69:8000", "entries": 146, "known": 141, "unmatched": 5, "opened": 3},
+    {"host": "190.110.96.238:8000", "entries": 129, "known": 122, "unmatched": 7, "opened": 1},
+    {"host": "200.7.99.59:8000", "entries": 174, "known": 172, "unmatched": 2, "opened": 1},
+    {"host": "15.204.246.24:8080", "entries": 0, "known": 0, "unmatched": 0, "opened": 0, "note": "TVN oficial: 404 en /playlist.m3u8"},
+    {"host": "31.43.191.202:8008", "entries": 0, "known": 0, "unmatched": 0, "opened": 0, "note": "Eurosport 1 Espana: 404 en /playlist.m3u8"}
+  ],
+  "totals": {"entries": 1177, "known_by_url": 1136, "known_by_name": 19, "unmatched": 41, "opened_video": 6, "new_channels": 2},
+  "candidates": [
+    {
+      "label": "13-LAJA 5 TV",
+      "proposed_tvg_id": "PublicDirect.94882052190dee29904d1424",
+      "url": "http://190.110.96.238:8000/play/a071/index.m3u8",
+      "host": "190.110.96.238:8000",
+      "path": "/play/a071/index.m3u8",
+      "video": "1280x720",
+      "audio": true,
+      "evidence": "Fotogramas a 3 s y 25 s: partido en vivo, marcador Laja 3-1 Maipu, reloj 5:02, estadio CMPC, logo 5.",
+      "category_hint": "Nacionales (canal local chileno, Laja, Biobio)",
+      "status": "propuesto, no dado de alta",
+      "note": "Entra en la excepcion permanente del usuario por ser chileno."
+    },
+    {
+      "label": "A G WEST",
+      "proposed_tvg_id": "PublicDirect.2b469d67b84bfe52f2dc17af",
+      "url": "http://190.108.83.69:8000/play/a0c9/index.m3u8",
+      "host": "190.108.83.69:8000",
+      "path": "/play/a0c9/index.m3u8",
+      "video": "1920x1080",
+      "audio": true,
+      "evidence": "Fotogramas a 3 s y 25 s: misma pelicula con rotulo 'ESTAS VIENDO EL OESTE LOCO (1967)' y logo WEST.",
+      "category_hint": "Cine (canal de peliculas del oeste)",
+      "status": "propuesto, no dado de alta"
+    }
+  ],
+  "discarded": [
+    {"name": "GEN HD2", "host": "138.59.227.20:8000", "reason": "GEN de Paraguay ya presente en el mismo servidor (/play/a0fk/)"},
+    {"name": "ALCATEL TELEVICENTRO TVC", "host": "177.234.218.66:8084", "reason": "Televicentro (logo TVC) ya con 6 copias en el catalogo"},
+    {"name": "zzfsefd", "host": "177.234.218.66:8084", "reason": "El fotograma es Discovery Channel; ya presente"},
+    {"name": "Foz de Yguazu", "host": "138.59.227.20:8000", "reason": "Camara de transito (catve.com) sin audio, no es canal"},
+    {"name": "RADIO BETHEL", "host": "190.108.83.69:8000", "reason": "Solo audio (radio)"},
+    {"name": "EMISORAS //RADIO", "host": "200.7.99.59:8000", "reason": "Solo audio (radio)"},
+    {"names": ["Canal 8 Villarrica", "Farra Play Tv", "Mbocayaty Tv", "Monumental Tv Digital", "Natalicio Tv", "SNT IPTV", "Teleclasica", "Tv Eventos HD", "Tv Max Oviedo", "Farra Play", "GOL TV", "NETPLAY HD", "e40", "UP"], "reason": "404 Not Found en las dos pasadas: listadas pero no publicadas"}
+  ],
+  "publication": "sin cambios: no se dio de alta nada, pendiente de aprobacion explicita"
+}
