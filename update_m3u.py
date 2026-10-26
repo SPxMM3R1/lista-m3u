@@ -1179,6 +1179,8 @@ ZAPPING_EPG_CHANNELS = {
     "45": "ntv",
     "1437": "tvn3",
     "13C.cl@SD": "13cable",
+    # TNT Sports Premium (Chile), 030 de Lista 1: la guía de Zapping es tntsportshd (Liga de Primera).
+    "PublicDirect.b5751130732e4a7c272ee53d": "tntsportshd",
 }
 # Canales cuya parrilla manda otra fuente (La Red, solo su oficial; Arirang y
 # France 24, EPGShare) pero que en Zapping tienen sinopsis reales. De Zapping se
