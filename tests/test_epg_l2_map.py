@@ -20,8 +20,9 @@ class Lista2EpgMapTest(unittest.TestCase):
         # guía solo se arma para los publicados (ver test de alcance).
         # 2026-10-24: Lista 2 bajó a ~945 publicados (respaldos a backups.json, adultos a Lista 1).
         # 2026-10-25: segunda búsqueda de clones (56 a backups.json, 18 sin señal a papelera): ~870.
-        # 2026-10-26: tres copias de HBO 2 pasaron a la papelera desde la app: ~795 publicados.
-        self.assertGreaterEqual(len(set(mapping) & published), 790)
+        # 2026-10-26: tres copias de HBO 2 pasaron a la papelera desde la app y 21 Star Channel a
+        # respaldo: ~770 publicados.
+        self.assertGreaterEqual(len(set(mapping) & published), 765)
         for target_id, (source, source_id) in mapping.items():
             with self.subTest(channel=target_id):
                 # 2026-10-24: guía Claro por familia (claro:<región>:<group_id>) o EPGShare.
