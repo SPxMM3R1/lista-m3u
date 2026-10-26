@@ -143,25 +143,32 @@ class M6FootReferenceTest(unittest.TestCase):
             if row["state"] == "active" and row.get("sourceList") == "2.m3u"
             and row.get("tvgId") not in linked and row.get("group") != "Adultos"
         ]
-        # 2026-10-25, pedido del usuario: el bloque de Lista 2 va por resolución, luego fps, luego
-        # bitrate y luego nombre. Los sin medir van al final, en orden alfabético
-        # (contracts/bitrate-lista2-20261022.json).
+        # 2026-10-25, pedido del usuario: primero se agrupan por nombre (A–Z); dentro de cada nombre,
+        # resolución, luego fps, luego bitrate medido y luego el nombre. Los sin medir van al final
+        # de su nombre (contracts/bitrate-lista2-20261022.json). Nauta y M6Foot van después.
         measured = {
             item["tvg_id"]: item
             for item in json.loads((ROOT / "contracts/bitrate-lista2-20261022.json").read_text(encoding="utf-8"))
             if item.get("ok") and item.get("height")
         }
 
+        def name_of(row):
+            return str(row.get("displayName") or row.get("name") or "").strip().lower()
+
         def rank(row):
             item = measured.get(row.get("tvgId"))
             if item is None:
-                return (1,)
+                return (name_of(row), 1, 0, 0, 0, 0)
             fps = float(Fraction(item.get("fps") or "0"))
-            name = str(row.get("displayName") or row.get("name") or "").lower()
-            return (0, -item["height"], -(item.get("width") or 0), -fps, -(item.get("kbps") or 0), name)
+            return (name_of(row), 0, -item["height"], -(item.get("width") or 0), -fps, -(item.get("kbps") or 0))
 
-        ranks = [rank(row) for row in block]
+        main_block = [row for row in block if not str(row.get("tvgId", "")).startswith(("Nauta.", "M6Foot."))]
+        ranks = [rank(row) for row in main_block]
         self.assertEqual(ranks, sorted(ranks))
+        last_main = max(row["order"] for row in main_block)
+        for row in block:
+            if str(row.get("tvgId", "")).startswith(("Nauta.", "M6Foot.")):
+                self.assertGreater(row["order"], last_main)
         # Los adultos cierran Lista 2: ninguna fila no-adulto puede quedar después de ellos.
         if adults:
             last_adult = max(row["order"] for row in adults)
