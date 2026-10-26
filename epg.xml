@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, FreeEPG, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-description-policy="verified-source-only" data-description-programmes="41387" data-description-channels="864" data-next-refresh-at="2026-10-26T08:05:00+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u" data-generated-at="2026-10-25T22:51:00+00:00">
+<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, FreeEPG, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-description-policy="verified-source-only" data-description-programmes="39643" data-description-channels="859" data-next-refresh-at="2026-10-26T08:05:00+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u" data-generated-at="2026-10-26T01:36:22+00:00">
   <channel id="0104" data-guide="parrilla real" data-guide-source="cl">
     <display-name>TVN</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvn.png" />
@@ -116,6 +116,10 @@
     <display-name>TNT Sports 4 Reino Unido</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tnt-sports-4.png" />
   </channel>
+  <channel id="PublicDirect.b5751130732e4a7c272ee53d" data-guide="parrilla real" data-guide-source="co1">
+    <display-name>TNT Sports Premium</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tnt-sports-1.png" />
+  </channel>
   <channel id="Vavoo.es.EUROSPORT1@TvVoo" data-guide="parrilla real" data-guide-source="es">
     <display-name>Eurosport 1 España</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/eurosport-1.png" />
@@ -152,7 +156,7 @@
     <display-name>ESPN 7</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-7.png" />
   </channel>
-  <channel id="RedBullWorldEnglish.int" data-guide="parrilla real parcial" data-guide-source="pluto">
+  <channel id="RedBullWorldEnglish.int" data-guide="parrilla real parcial" data-guide-source="epg-publicada-conservada">
     <display-name>RedBull TV World</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/red-bull-tv.png" />
   </channel>
@@ -332,12 +336,6 @@
     <display-name>Eurosport 2 España</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/eurosport-2.png" />
   </channel>
-  <programme start="20261025120000 -0300" stop="20261025140000 -0300" channel="0102">
-    <title lang="es">Al fondo hay sitio</title>
-  </programme>
-  <programme start="20261025140000 -0300" stop="20261025150000 -0300" channel="0102">
-    <title lang="es">Hudson &amp; Rex</title>
-  </programme>
   <programme start="20261025150000 -0300" stop="20261025200000 -0300" channel="0102">
     <title lang="es">A3D</title>
     <desc lang="es">Espacio que pone a tu alcance una amplia gama de productos para el hogar, belleza, cuidado del cuerpo y salud, ofreciéndote la satisfacción, exclusividad, calidad y servicios que mereces.</desc>
@@ -620,10 +618,6 @@
   <programme start="20261101003000 -0300" stop="20261101023000 -0300" channel="0102">
     <title lang="es">Cierre de transmisiones</title>
   </programme>
-  <programme start="20261025133000 -0300" stop="20261025150000 -0300" channel="0104">
-    <title lang="es">24 Horas al Día</title>
-    <desc lang="es">Segunda edición noticiosa del día.</desc>
-  </programme>
   <programme start="20261025150000 -0300" stop="20261025183000 -0300" channel="0104">
     <title lang="es">Chile Conectado</title>
     <desc lang="es">Programa de información y noticias sobre Chile y los chilenos realizado desde regiones</desc>
@@ -749,13 +743,6 @@
   </programme>
   <programme start="20261027190000 -0300" stop="20261027210000 -0300" channel="0104">
     <title lang="es">¡Ahora caigo!</title>
-  </programme>
-  <programme start="20261025130000 -0300" stop="20261025145500 -0300" channel="0105">
-    <title lang="es">Meganoticias actualiza</title>
-    <desc lang="es">Noticiero con las informaciones más relevantes de Chile y el mundo.</desc>
-  </programme>
-  <programme start="20261025145500 -0300" stop="20261025150000 -0300" channel="0105">
-    <title lang="es">El tiempo</title>
   </programme>
   <programme start="20261025150000 -0300" stop="20261025170000 -0300" channel="0105">
     <title lang="es">De Paseo</title>
@@ -883,9 +870,6 @@
   <programme start="20261027210500 -0300" stop="20261027211200 -0300" channel="0105">
     <title lang="es">Como la vida misma</title>
   </programme>
-  <programme start="20261025130000 -0300" stop="20261025150000 -0300" channel="0106">
-    <title lang="es">Chilevisión Noticias Tarde</title>
-  </programme>
   <programme start="20261025150000 -0300" stop="20261025180000 -0300" channel="0106">
     <title lang="es">Sabingo</title>
     <desc lang="es">Programa familiar que se te acompañará las tardes de sábado y domingo. En la conducción Millaray Viera y Juan Pablo Queraltó</desc>
@@ -962,11 +946,6 @@
   </programme>
   <programme start="20261027203000 -0300" stop="20261027224500 -0300" channel="0106">
     <title lang="es">Chilevisión noticias central</title>
-  </programme>
-  <programme start="20261025123000 -0300" stop="20261025143000 -0300" channel="0107">
-    <title lang="es">Teletrece</title>
-    <sub-title lang="es">Tarde</sub-title>
-    <desc lang="es">Cuando ya ha terminado la mañana, este informativo presenta las informaciones más importantes que están en desarrollo, con móviles en directo y comentarios que dan más contexto a la jornada.</desc>
   </programme>
   <programme start="20261025143000 -0300" stop="20261025165000 -0300" channel="0107">
     <title lang="es">Ashfall</title>
@@ -1095,22 +1074,6 @@
     <title lang="es">Teletrece Noche</title>
     <category lang="es">[]</category>
   </programme>
-  <programme start="20261025130000 -0300" stop="20261025143000 -0300" channel="0124">
-    <title lang="es">Teletrece tarde</title>
-    <desc lang="es">Cuando ya ha terminado la mañana, este informativo presenta las informaciones más importantes que están en desarrollo, con móviles en directo y comentarios que dan más contexto a la jornada.</desc>
-  </programme>
-  <programme start="20261025143000 -0300" stop="20261025150000 -0300" channel="0124">
-    <title lang="es">Sin intereses</title>
-    <desc lang="es">En una conversación deslenguada, nuestros invitados nos cuentan sus aciertos y errores financieros ¿cuál es el tuyo?</desc>
-  </programme>
-  <programme start="20261025150000 -0300" stop="20261025153000 -0300" channel="0124">
-    <title lang="es">#Emprendedores</title>
-    <desc lang="es">Espacio de noticias vinculadas con el emprendimiento, postulaciones y tips asociados con la innovación y las Pymes.</desc>
-  </programme>
-  <programme start="20261025153000 -0300" stop="20261025160000 -0300" channel="0124">
-    <title lang="es">Conexión Europa</title>
-    <desc lang="es">Es un ciclo de entrevistas contingentes de economía, educación y cultural entre Chile y la Unión Europea conducido por Cristina González.</desc>
-  </programme>
   <programme start="20261025160000 -0300" stop="20261025170000 -0300" channel="0124">
     <title lang="es">Reportajes T13</title>
     <desc lang="es">Los mejores y más interesantes reportajes de la actualidad nacional e internacional.</desc>
@@ -1236,21 +1199,6 @@
   </programme>
   <programme start="20261026235000 -0300" stop="20261027005000 -0300" channel="0124">
     <title lang="es">Micrófono abierto</title>
-  </programme>
-  <programme start="20261025133000 -0300" stop="20261025150000 -0300" channel="0201">
-    <title lang="es">24 Horas Central</title>
-  </programme>
-  <programme start="20261025150000 -0300" stop="20261025153000 -0300" channel="0201">
-    <title lang="es">Exponencial</title>
-    <desc lang="es">Su objetivo principal es acercar la Inteligencia Artificial IA a la ciudadanía mediante conversaciones públicas, transversales y educativas</desc>
-  </programme>
-  <programme start="20261025153000 -0300" stop="20261025160000 -0300" channel="0201">
-    <title lang="es">Mirada Económica</title>
-    <desc lang="es">La señal noticiosa 24H realiza estos reportajes de actualidad, que son emitidos en forma exclusiva al exterior.</desc>
-  </programme>
-  <programme start="20261025160000 -0300" stop="20261025163000 -0300" channel="0201">
-    <title lang="es">24 Horas a la Hora</title>
-    <desc lang="es">Noticiero, con despachos en directo y corresponsalías en todo el mundo.</desc>
   </programme>
   <programme start="20261025163000 -0300" stop="20261025170000 -0300" channel="0201">
     <title lang="es">24 Horas Deportes</title>
@@ -1479,15 +1427,6 @@
   <programme start="20261027200000 -0300" stop="20261027210000 -0300" channel="0201">
     <title lang="es">24 Horas Deportes</title>
   </programme>
-  <programme start="20261025130000 -0300" stop="20261025150000 -0300" channel="1153">
-    <title lang="es">CHV Noticias tarde</title>
-  </programme>
-  <programme start="20261025150000 -0300" stop="20261025153000 -0300" channel="1153">
-    <title lang="es">Espectacular</title>
-  </programme>
-  <programme start="20261025153000 -0300" stop="20261025163000 -0300" channel="1153">
-    <title lang="es">CHV futuro</title>
-  </programme>
   <programme start="20261025163000 -0300" stop="20261025170000 -0300" channel="1153">
     <title lang="es">Team Chile al día</title>
   </programme>
@@ -1595,19 +1534,6 @@
   </programme>
   <programme start="20261026231000 -0300" stop="20261027003000 -0300" channel="1153">
     <title lang="es">Chilevisión noticias informa</title>
-  </programme>
-  <programme start="20261025133000 -0300" stop="20261025140000 -0300" channel="13Cultura.cl@DPS">
-    <title lang="es">Seafood lovers : En búsqueda de la cojinova y otros productos</title>
-  </programme>
-  <programme start="20261025140000 -0300" stop="20261025150000 -0300" channel="13Cultura.cl@DPS">
-    <title lang="es">Recomiendo Chile : Futaleufú y Palena</title>
-  </programme>
-  <programme start="20261025150000 -0300" stop="20261025160000 -0300" channel="13Cultura.cl@DPS">
-    <title lang="es">Al sur del mundo : La guitarra chilena en la Araucanía</title>
-  </programme>
-  <programme start="20261025160000 -0300" stop="20261025163000 -0300" channel="13Cultura.cl@DPS">
-    <title lang="es">Llegó la Navidad con Lore Salinas</title>
-    <desc lang="es">T2 -Ep.2. Especial de navidad conducido por Lorena Salinas.</desc>
   </programme>
   <programme start="20261025163000 -0300" stop="20261025173000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Energía Infinita</title>
@@ -1772,18 +1698,6 @@
   <programme start="20261026233000 -0300" stop="20261027003000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">El crucero</title>
   </programme>
-  <programme start="20261025130000 -0300" stop="20261025143000 -0300" channel="1437">
-    <title lang="es">Festival de la una</title>
-    <desc lang="es">Programa, que incluye música popular, humor, concursos y participación del público.</desc>
-  </programme>
-  <programme start="20261025143000 -0300" stop="20261025150000 -0300" channel="1437">
-    <title lang="es">31 minutos</title>
-    <desc lang="es">El noticiero más veraz de la televisión.</desc>
-  </programme>
-  <programme start="20261025150000 -0300" stop="20261025160000 -0300" channel="1437">
-    <title lang="es">Patiperros</title>
-    <desc lang="es">El espacio mostraba la vida, historias y experiencias de los chilenos que decidieron emigrar y vivir en distintos países alrededor de los cinco continentes</desc>
-  </programme>
   <programme start="20261025160000 -0300" stop="20261025170000 -0300" channel="1437">
     <title lang="es">Patiperros</title>
     <desc lang="es">El espacio mostraba la vida, historias y experiencias de los chilenos que decidieron emigrar y vivir en distintos países alrededor de los cinco continentes</desc>
@@ -1863,16 +1777,6 @@
   <programme start="20261026160000 -0300" stop="20261026170000 -0300" channel="1437">
     <title lang="es">Legado: Tierra Adentro</title>
     <desc lang="es">El legado de Tierradentro se compone principalmente de sus hipogeos subterráneos, sus urnas funerarias y su arte rupestre.</desc>
-  </programme>
-  <programme start="20261025133000 -0300" stop="20261025143000 -0300" channel="45">
-    <title lang="es">Tripulantes, ¡a jugar!</title>
-    <desc lang="es">Programa de edu-entretención está enfocado a niños y niñas entre los 4 a 10 años</desc>
-  </programme>
-  <programme start="20261025143000 -0300" stop="20261025150000 -0300" channel="45">
-    <title lang="es">10 cosas que no sabías</title>
-  </programme>
-  <programme start="20261025150000 -0300" stop="20261025152000 -0300" channel="45">
-    <title lang="es">Quiero saber</title>
   </programme>
   <programme start="20261025152000 -0300" stop="20261025180000 -0300" channel="45">
     <title lang="es">Maratón</title>
@@ -1995,46 +1899,6 @@
   </programme>
   <programme start="20261026230000 -0300" stop="20261027000000 -0300" channel="45">
     <title lang="es">Entrada Liberada</title>
-  </programme>
-  <programme start="20261025133000 -0300" stop="20261025140000 -0300" channel="AlJazeera.qa">
-    <title lang="es">Inside Story</title>
-    <desc lang="es">Inside Story is a flagship daily current affairs programme from Al Jazeera Media Network that brings together influential policymakers, regional experts, journalists, and academics to debate the world's most urgent issues. Covering geopolitics, conflict, economics, climate change, elections, and human rights, the show goes beyond headlines to unpack context, competing narratives, and consequences. Through incisive questioning and diverse global perspectives, it challenges assumptions and helps audiences better understand the forces reshaping societies and international relations.</desc>
-    <date>2023</date>
-    <icon src="https://cdn.sincroguia.tv/storage/9330/c_inside_story_1.jpeg" />
-    <country lang="es">Estado De Catar</country>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
-  </programme>
-  <programme start="20261025140000 -0300" stop="20261025150000 -0300" channel="AlJazeera.qa">
-    <title lang="es">Newshour</title>
-    <desc lang="es">News Hour is a flagship hourly news programme from Al Jazeera Media Network that delivers comprehensive global coverage of breaking developments, politics, business, climate, and human interest stories. Anchored by experienced journalists and supported by an extensive network of international correspondents, the show provides live updates, expert analysis, and in-depth reports. It connects audiences to events as they unfold, offering clarity, context, and multiple perspectives on the stories shaping the world each day.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/9336/c_newshour.jpeg" />
-    <country lang="es">Estado De Catar</country>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
-  </programme>
-  <programme start="20261025150000 -0300" stop="20261025153000 -0300" channel="AlJazeera.qa">
-    <title lang="es">News Live</title>
-    <desc lang="es">News Live is a rolling news programme from Al Jazeera Media Network delivering up-to-the-minute coverage of breaking stories from around the world. Anchored by experienced journalists and supported by correspondents across continents, it brings viewers live reports, expert interviews, and on-the-ground updates as events unfold. From major political developments and conflicts to business, climate, and human interest stories, the programme keeps audiences informed with accurate, timely, and comprehensive global news coverage.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/9228/news_live.jpeg" />
-    <country lang="es">Estado De Catar</country>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
-  </programme>
-  <programme start="20261025153000 -0300" stop="20261025160000 -0300" channel="AlJazeera.qa">
-    <title lang="es">Talk to Al Jazeera</title>
-    <desc lang="es">Talk to Al Jazeera is a long-running interview programme that features in-depth conversations with world leaders, policymakers, activists, journalists, and thinkers from across the globe. Through candid, extended interviews, it explores personal journeys, political decisions, and major international events in detail. The programme gives space for nuanced discussion, often going beyond headlines to uncover context, motivations, and consequences. By presenting diverse perspectives and regional voices, it helps audiences better understand the complexities of global affairs and the human stories behind them, fostering dialogue and cross-cultural understanding worldwide.</desc>
-    <date>2025</date>
-    <icon src="https://cdn.sincroguia.tv/storage/9338/c_talk_to_al_jazeera.jpeg" />
-    <country lang="es">Estado De Catar</country>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
   <programme start="20261025160000 -0300" stop="20261025170000 -0300" channel="AlJazeera.qa">
     <title lang="es">Head to Head</title>
@@ -2914,22 +2778,6 @@
     <desc lang="es">Boletín informativo de Al Jazeera que hace un repaso en profundidad de las últimas noticias del día en vivo, desde Asia, África, Europa y las Américas.</desc>
     <icon src="https://estatico.emisiondof6.com/recorte/n/dispficha/MALJAZEP1368635" />
     <image>https://estatico.emisiondof6.com/recorte/n/vegend/MALJAZEF1368635.jpg</image>
-  </programme>
-  <programme channel="ArirangTV.kr" start="20261025130000 -0300" stop="20261025140000 -0300">
-    <title lang="pl">Gugak The Music Of Korea</title>
-    <episode-num system="onscreen">E143</episode-num>
-  </programme>
-  <programme channel="ArirangTV.kr" start="20261025140000 -0300" stop="20261025150000 -0300">
-    <title lang="pl">Simply K-pop</title>
-    <episode-num system="onscreen">E7</episode-num>
-  </programme>
-  <programme channel="ArirangTV.kr" start="20261025150000 -0300" stop="20261025153000 -0300">
-    <title lang="pl">Vibe In Action: K-initiative</title>
-    <episode-num system="onscreen">E8</episode-num>
-  </programme>
-  <programme channel="ArirangTV.kr" start="20261025153000 -0300" stop="20261025163000 -0300">
-    <title lang="pl">Arirang Prime</title>
-    <episode-num system="onscreen">E249</episode-num>
   </programme>
   <programme channel="ArirangTV.kr" start="20261025163000 -0300" stop="20261025170000 -0300">
     <title lang="pl">Arirang Special</title>
@@ -3867,15 +3715,6 @@
     <title lang="pl">Show K-pop</title>
     <episode-num system="onscreen">E2</episode-num>
   </programme>
-  <programme start="20261025130220 -0300" stop="20261025140252 -0300" channel="AutenticHistory.de">
-    <title lang="en">What Went Wrong</title>
-  </programme>
-  <programme start="20261025140252 -0300" stop="20261025150317 -0300" channel="AutenticHistory.de">
-    <title lang="en">What Went Wrong</title>
-  </programme>
-  <programme start="20261025150317 -0300" stop="20261025160336 -0300" channel="AutenticHistory.de">
-    <title lang="en">D-Day: Wings Of Victory</title>
-  </programme>
   <programme start="20261025160336 -0300" stop="20261025170422 -0300" channel="AutenticHistory.de">
     <title lang="en">Frozen Secrets</title>
   </programme>
@@ -4244,48 +4083,6 @@
   </programme>
   <programme start="20261030202120 -0300" stop="20261030211149 -0300" channel="AutenticHistory.de">
     <title lang="en">The End Of Red October</title>
-  </programme>
-  <programme start="20261025133000 -0300" stop="20261025140000 -0300" channel="BBCNews.uk">
-    <title lang="en">Talking Business</title>
-    <desc lang="en">The host sits down with experts to shed light on various issues from the business world and interviews them on the latest innovations in technology.</desc>
-    <date>2026</date>
-    <icon src="https://metadata-static.plex.tv/d/gracenote/d352e21e4f734f2acd79ef7e383a954e.jpg" />
-    <episode-num system="onscreen">S2026</episode-num>
-  </programme>
-  <programme start="20261025140000 -0300" stop="20261025150000 -0300" channel="BBCNews.uk">
-    <title lang="en">BBC News</title>
-    <desc lang="en">Twenty-four hours a day, the latest national and international stories as they break.</desc>
-    <date>2026</date>
-    <icon src="https://metadata-static.plex.tv/f/gracenote/f0527239204291325874b6359444b839.jpg" />
-    <episode-num system="onscreen">S2026</episode-num>
-  </programme>
-  <programme start="20261025150000 -0300" stop="20261025153000 -0300" channel="BBCNews.uk">
-    <title lang="en">BBC News</title>
-    <desc lang="en">Twenty-four hours a day, the latest national and international stories as they break.</desc>
-    <date>2026</date>
-    <icon src="https://metadata-static.plex.tv/f/gracenote/f0527239204291325874b6359444b839.jpg" />
-    <episode-num system="onscreen">S2026</episode-num>
-  </programme>
-  <programme start="20261025153000 -0300" stop="20261025154500 -0300" channel="BBCNews.uk">
-    <title lang="en">BBC News</title>
-    <desc lang="en">Twenty-four hours a day, the latest national and international stories as they break.</desc>
-    <date>2026</date>
-    <icon src="https://metadata-static.plex.tv/f/gracenote/f0527239204291325874b6359444b839.jpg" />
-    <episode-num system="onscreen">S2026</episode-num>
-  </programme>
-  <programme start="20261025154500 -0300" stop="20261025160000 -0300" channel="BBCNews.uk">
-    <title lang="en">BBC News</title>
-    <desc lang="en">Twenty-four hours a day, the latest national and international stories as they break.</desc>
-    <date>2026</date>
-    <icon src="https://metadata-static.plex.tv/f/gracenote/f0527239204291325874b6359444b839.jpg" />
-    <episode-num system="onscreen">S2026</episode-num>
-  </programme>
-  <programme start="20261025160000 -0300" stop="20261025163000 -0300" channel="BBCNews.uk">
-    <title lang="en">BBC News</title>
-    <desc lang="en">Twenty-four hours a day, the latest national and international stories as they break.</desc>
-    <date>2026</date>
-    <icon src="https://metadata-static.plex.tv/f/gracenote/f0527239204291325874b6359444b839.jpg" />
-    <episode-num system="onscreen">S2026</episode-num>
   </programme>
   <programme start="20261025163000 -0300" stop="20261025170000 -0300" channel="BBCNews.uk">
     <title lang="en">BBC News</title>
@@ -5685,30 +5482,6 @@
     <icon src="https://metadata-static.plex.tv/3/gracenote/3873c240ae2c29128ea775314beff4f3.jpg" />
     <episode-num system="onscreen">S2026</episode-num>
   </programme>
-  <programme start="20261025125500 -0300" stop="20261025140000 -0300" channel="DAZNF1.es@TvVoo">
-    <title lang="es">F1 - GP de Estados Unidos</title>
-    <sub-title lang="es">Clasificación</sub-title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/84/41.jpg" />
-    <country lang="es">Estados Unidos</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
-  </programme>
-  <programme start="20261025140000 -0300" stop="20261025150000 -0300" channel="DAZNF1.es@TvVoo">
-    <title lang="es">F1 Academy: USA Grand Prix</title>
-    <sub-title lang="es">Carrera 3</sub-title>
-    <desc lang="es">F1 Academy es una serie de carreras para mujeres cuyo objetivo es centrarse en el desarrollo y la preparación de jóvenes pilotos para progresar a niveles más altos de competencia. Ver más.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/84/41.jpg" />
-    <country lang="es">Estados Unidos</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
-  </programme>
   <programme start="20261025150000 -0300" stop="20261025170000 -0300" channel="DAZNF1.es@TvVoo">
     <title lang="es">Previo carrera</title>
     <sub-title lang="es">Estados Unidos</sub-title>
@@ -6166,33 +5939,6 @@
     <episode-num system="xmltv_ns">0.14.0/1</episode-num>
     <episode-num system="onscreen">S01E15</episode-num>
     <image>https://estatico.emisiondof6.com/recorte/n/vegend/F4200855.jpg</image>
-  </programme>
-  <programme start="20261025133000 -0300" stop="20261025140000 -0300" channel="DW.de">
-    <title lang="es">Euromaxx - vida y cultura en Europa</title>
-    <desc lang="es">Europa en toda su diversidad y fascinación: estilos de vida, tendencias, cultura, sociedad y glamour. Euromaxx es un programa diario de DW siete días a la semana, 365 días al año. Euromaxx, el espacio sobre la vida cotidiana y la cultura de Europa.</desc>
-  </programme>
-  <programme start="20261025140000 -0300" stop="20261025141500 -0300" channel="DW.de">
-    <title lang="es">DW analiza</title>
-    <desc lang="es">DW Analiza pone en contexto las noticias de actualidad internacional, analiza el trasfondo de los hechos y habla con expertos para conocer todos los ángulos de la noticia.</desc>
-  </programme>
-  <programme start="20261025141500 -0300" stop="20261025150000 -0300" channel="DW.de">
-    <title lang="es">DocFilm</title>
-    <sub-title lang="es">Mujeres en una profesión poco habitual: Ser albañila en Alemania</sub-title>
-  </programme>
-  <programme start="20261025150000 -0300" stop="20261025151500 -0300" channel="DW.de">
-    <title lang="es">DW Noticias</title>
-    <desc lang="es">Explicaciones detalladas, análisis competentes, cobertura de la actualidad mundial: política, negocios, deporte y cultura. Perspectivas fascinantes más allá de los titulares. DW noticias: atando cabos para espectadores de todo el mundo.</desc>
-  </programme>
-  <programme start="20261025151500 -0300" stop="20261025153000 -0300" channel="DW.de">
-    <title lang="es">Transformar la economía</title>
-  </programme>
-  <programme start="20261025153000 -0300" stop="20261025160000 -0300" channel="DW.de">
-    <title lang="es">Enlaces: Ventana Abierta Al Mundo Digital</title>
-    <desc lang="es">Cómo influye y cambia Internet nuestra vida? El magacín informa sobre las últimas tendencias en la cultura de la red y presenta curiosas ideas de usuarios y profesionales de Internet. Nuestro viaje semanal al mundo digital.</desc>
-  </programme>
-  <programme start="20261025160000 -0300" stop="20261025163000 -0300" channel="DW.de">
-    <title lang="es">Zona docu</title>
-    <desc lang="es">Calculo, Luego Existo - Inteligencia Artificial E Identidad Humana. Creatividad, emociones..La inteligencia artificial avanza hacia dominios profundamente humanos. Y se plantea una pregunta existencial: qué es lo que nos hace ser lo que somos cuando se cuestiona la unicidad del ser humano?</desc>
   </programme>
   <programme start="20261025163000 -0300" stop="20261025170000 -0300" channel="DW.de">
     <title lang="es">Eco Latinoamérica</title>
@@ -6784,71 +6530,6 @@
   </programme>
   <programme start="20261029013000 -0300" stop="20261029020000 -0300" channel="DW.de">
     <title lang="es">Aquí estoy</title>
-  </programme>
-  <programme channel="DWEnglish.de" start="20261025133000 -0300" stop="20261025140000 -0300">
-    <title lang="fr">Afrimaxx</title>
-    <category lang="fr">Magazine de découvertes</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/0/4/15216404.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/3/0/4/15216403.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/0/0/4/15216400.jpg" />
-  </programme>
-  <programme channel="DWEnglish.de" start="20261025140000 -0300" stop="20261025141500 -0300">
-    <title lang="fr">DW News</title>
-    <desc lang="es">Our deep dive format explains the stories that matter - with clarity, context and journalistic rigor. Each segment goes beyond the headlines to uncover what's driving key developments around the world, featuring sharp analysis, expert voices and exclusive on the ground insights from where events are unfolding.</desc>
-    <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/0/7/15708705.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/9/6/15708698.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/9/6/15708695.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/3/8/7/15215783.jpg" />
-  </programme>
-  <programme channel="DWEnglish.de" start="20261025141500 -0300" stop="20261025143000 -0300">
-    <title lang="fr">Sports Life</title>
-    <desc lang="fr">Donjeta Sadiku is a supremely talented boxer with multiple titles to her name. But there is a problem: Donjeta comes from Kosovo, a state whose sovereignty many other countries refuse to recognize. That means she can't compete everywhere, which is impacting her international career. Donjeta doesn't only face opposition in the ring, but also outside of it due to politics.</desc>
-    <category lang="fr">Magazine sportif</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/3/0/2/15702203.jpg" />
-  </programme>
-  <programme channel="DWEnglish.de" start="20261025143000 -0300" stop="20261025150000 -0300">
-    <title lang="fr">Euromaxx</title>
-    <sub-title lang="fr">Lifestyle Europe</sub-title>
-    <category lang="fr">Magazine culturel</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/3/3/8/15215833.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/0/8/15215805.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/8/7/15215784.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/2/2/8/15215822.jpg" />
-  </programme>
-  <programme channel="DWEnglish.de" start="20261025150000 -0300" stop="20261025151500 -0300">
-    <title lang="fr">DW News</title>
-    <desc lang="es">Our deep dive format explains the stories that matter - with clarity, context and journalistic rigor. Each segment goes beyond the headlines to uncover what's driving key developments around the world, featuring sharp analysis, expert voices and exclusive on the ground insights from where events are unfolding.</desc>
-    <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/0/7/15708705.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/9/6/15708698.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/9/6/15708695.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/3/8/7/15215783.jpg" />
-  </programme>
-  <programme channel="DWEnglish.de" start="20261025151500 -0300" stop="20261025153000 -0300">
-    <title lang="fr">Shift</title>
-    <sub-title lang="fr">Living in the Digital Age</sub-title>
-    <category lang="fr">Magazine scientifique</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/4/9/16143946.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/4/9/16143944.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/7/9/15204975.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/2/8/15215826.jpg" />
-  </programme>
-  <programme channel="DWEnglish.de" start="20261025153000 -0300" stop="20261025160000 -0300">
-    <title lang="fr">Rev</title>
-    <category lang="fr">Magazine de société</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/6/8/15215864.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/3/6/8/15215863.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/5/8/15215858.jpg" />
-  </programme>
-  <programme channel="DWEnglish.de" start="20261025160000 -0300" stop="20261025161500 -0300">
-    <title lang="fr">DW News</title>
-    <desc lang="es">Our deep dive format explains the stories that matter - with clarity, context and journalistic rigor. Each segment goes beyond the headlines to uncover what's driving key developments around the world, featuring sharp analysis, expert voices and exclusive on the ground insights from where events are unfolding.</desc>
-    <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/0/7/15708705.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/9/6/15708698.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/9/6/15708695.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/3/8/7/15215783.jpg" />
   </programme>
   <programme channel="DWEnglish.de" start="20261025161500 -0300" stop="20261025170000 -0300">
     <title lang="fr">Zwischen Zar und Hitler - Das Erbe der Weißen Armee</title>
@@ -8105,30 +7786,6 @@
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/0/8/15215808.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/3/8/15215836.jpg" />
   </programme>
-  <programme start="20261025135000 -0300" stop="20261025155500 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">Lecce vs. Juventus</title>
-    <sub-title lang="es">Fútbol: Serie A</sub-title>
-  </programme>
-  <programme start="20261025155500 -0300" stop="20261025163000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">SportsCenter</title>
-    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
-    <category lang="es">Deporte</category>
-    <category lang="es">Fútbol Americano</category>
-    <category lang="es">Baloncesto</category>
-    <category lang="es">Béisbol</category>
-    <category lang="es">Básquetbol</category>
-    <category lang="es">Fútbol Italiano</category>
-    <category lang="es">Major League Baseball</category>
-    <category lang="es">Fútbol Mexicano</category>
-    <category lang="es">MLB</category>
-    <category lang="es">NBA</category>
-    <category lang="es">Noticias</category>
-    <category lang="es">NFL</category>
-    <category lang="es">Fútbol</category>
-    <category lang="es">UEFA</category>
-    <category lang="es">Fútbol Español</category>
-    <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
-  </programme>
   <programme start="20261025163000 -0300" stop="20261025184000 -0300" channel="ESPN.co@Direct181">
     <title lang="es">Paris Saint-Germain vs. Olympique de Lyon</title>
     <sub-title lang="es">Fútbol: Ligue 1</sub-title>
@@ -8736,10 +8393,6 @@
     <category lang="es">Fútbol Español</category>
     <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
   </programme>
-  <programme start="20261025133000 -0300" stop="20261025140000 -0300" channel="ESPN4.co@Direct181">
-    <title lang="es">NFL Live desde México</title>
-    <desc lang="es">Disfrute de lo mejor de la National Football League.</desc>
-  </programme>
   <programme start="20261025140000 -0300" stop="20261025203000 -0300" channel="ESPN4.co@Direct181">
     <title lang="es">NFL RedZone</title>
     <desc lang="es">Se recapitulan todos los juegos de la NFL con las mejores anotaciones dentro de las 20 yardas.</desc>
@@ -9166,28 +8819,6 @@
       <value>TE</value>
     </rating>
   </programme>
-  <programme start="20261025125600 -0300" stop="20261025135500 -0300" channel="ESPN7.co@Direct181">
-    <title lang="es">Tapia / Coello vs. Lebrón / Augsburger - Premier Padel Final Masculina</title>
-    <desc lang="es">El Premier Padel es un circuito internacional de pádel organizado por la Federación Internacional de Pádel, que cuenta con el apoyo de la Professional Padel Association PPA, que reúne a los jugadores y jugadoras profesionales del deporte, y el patrocinio de la empresa Qatar Sports Investments QSI.</desc>
-  </programme>
-  <programme start="20261025135500 -0300" stop="20261025143500 -0300" channel="ESPN7.co@Direct181">
-    <title lang="es">F1 Academy</title>
-    <sub-title lang="es">Austin: Carrera de pista invertida</sub-title>
-    <desc lang="es">Acción de la carrera con pista invertida de la F1 Academy temporada 2026. Desde el Circuito de las Américas, en Austin, Texas.</desc>
-    <date>2026</date>
-    <rating system="MJColombia">
-      <value>AGE228</value>
-    </rating>
-  </programme>
-  <programme start="20261025143500 -0300" stop="20261025144500 -0300" channel="ESPN7.co@Direct181">
-    <title lang="es">Fútbol internacional</title>
-    <sub-title lang="es">PSG: Campeón UEFA Champions League 2025-2026</sub-title>
-    <desc lang="es">El Paris Saint-Germain (PSG) se coronó campeón de la UEFA Champions League 2025-2026 al derrotar al Arsenal 4-3 en tanda de penales. Disputado el 30 de mayo de 2026.</desc>
-    <date>2026</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
   <programme start="20261025144500 -0300" stop="20261025164500 -0300" channel="ESPN7.co@Direct181">
     <title lang="es">ESPN KnockOut</title>
     <sub-title lang="es">Emmanuel Navarrete vs. O'Shaquie Foster</sub-title>
@@ -9580,42 +9211,6 @@
     <date>2026</date>
     <rating system="MJColombia">
       <value>AGE228</value>
-    </rating>
-  </programme>
-  <programme start="20261025133000 -0300" stop="20261025140000 -0300" channel="Eurosport2.es@TvVoo">
-    <title lang="es">Copa del mundo de esquí alpino M - Sölden</title>
-    <sub-title lang="es">Eslalon gigante - 2ª manga</sub-title>
-    <desc lang="es">Como suele ser tradicional, la cita de Sölden inaugura la Copa del mundo de esquí alpino. Se disputa en el glaciar Rettenbach (Austria) con un exigente eslalon gigante masculino que reúne a la élite mundial del esquí. El pentacampeón Marco Odermatt es el rival a batir.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/84/41.jpg" />
-    <country lang="es">Austria</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
-  </programme>
-  <programme start="20261025140000 -0300" stop="20261025150000 -0300" channel="Eurosport2.es@TvVoo">
-    <title lang="es">GP de Francia - ISU Grand Prix</title>
-    <sub-title lang="es">Programa libre parejas</sub-title>
-    <desc lang="es">El GP de Francia inaugura la prestigiosa temporada del Grand Prix de Patinaje Artístico. Del 23 al 25 de octubre en Angers, la élite mundial compite en categorías individual, parejas y danza sobre hielo para clasificar a la gran final.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/43479/c_isu_figure_skating_grand_prix_de_france_2026.jpeg" />
-    <country lang="es">Francia</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
-  </programme>
-  <programme start="20261025150000 -0300" stop="20261025160000 -0300" channel="Eurosport2.es@TvVoo">
-    <title lang="es">GP de Francia - ISU Grand Prix</title>
-    <sub-title lang="es">Programa libre M</sub-title>
-    <desc lang="es">El GP de Francia inaugura la prestigiosa temporada del Grand Prix de Patinaje Artístico. Del 23 al 25 de octubre en Angers, la élite mundial compite en categorías individual, parejas y danza sobre hielo para clasificar a la gran final.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/43479/c_isu_figure_skating_grand_prix_de_france_2026.jpeg" />
-    <country lang="es">Francia</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
     </rating>
   </programme>
   <programme start="20261025160000 -0300" stop="20261025170000 -0300" channel="Eurosport2.es@TvVoo">
@@ -10104,105 +9699,6 @@
     <episode-num system="xmltv_ns">0.7.0/1</episode-num>
     <episode-num system="onscreen">S01E08</episode-num>
     <image>https://estatico.emisiondof6.com/recorte/n/vegend/F4468108.jpg</image>
-  </programme>
-  <programme channel="France24.fr" start="20261025134500 -0300" stop="20261025140000 -0300">
-    <title lang="fr">Africa 7 días</title>
-    <desc lang="es">La actualidad política, social y cultural del continente africano, con análisis y reportajes exclusivos.</desc>
-    <category lang="fr">Magazine de découvertes</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/3/0/7/15194703.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/9/6/15194698.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/9/6/15194695.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/9/6/15194699.jpg" />
-    <episode-num system="onscreen">E2</episode-num>
-  </programme>
-  <programme channel="France24.fr" start="20261025140000 -0300" stop="20261025141500 -0300">
-    <title lang="fr">Noticias</title>
-    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
-    <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/0/5/15194509.jpg" />
-    <episode-num system="onscreen">E51</episode-num>
-  </programme>
-  <programme channel="France24.fr" start="20261025141500 -0300" stop="20261025143000 -0300">
-    <title lang="fr">Programa a determinar</title>
-    <category lang="fr">Documentaire de société</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/1/2/4/16141421.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/0/2/4/16141420.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/2/1/5/15194512.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/2/1/6/15703612.jpg" />
-    <episode-num system="onscreen">E4</episode-num>
-  </programme>
-  <programme channel="France24.fr" start="20261025143000 -0300" stop="20261025144500 -0300">
-    <title lang="fr">Noticias</title>
-    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
-    <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/0/5/15194509.jpg" />
-    <episode-num system="onscreen">E44</episode-num>
-  </programme>
-  <programme channel="France24.fr" start="20261025144500 -0300" stop="20261025150000 -0300">
-    <title lang="fr">Corresponsales</title>
-    <desc lang="es">Una invitación a dar una vuelta al mundo de la mano de las mejores producciones de nuestra red global de corresponsales.</desc>
-    <category lang="fr">Magazine d'information</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/2/3/6/15194632.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/2/6/15194624.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/1/2/6/15194621.jpg" />
-    <episode-num system="onscreen">E3</episode-num>
-  </programme>
-  <programme channel="France24.fr" start="20261025150000 -0300" stop="20261025151500 -0300">
-    <title lang="fr">Noticias</title>
-    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
-    <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/0/5/15194509.jpg" />
-    <episode-num system="onscreen">E52</episode-num>
-  </programme>
-  <programme channel="France24.fr" start="20261025151500 -0300" stop="20261025153000 -0300">
-    <title lang="fr">Escala en París</title>
-    <desc lang="es">Una cita semanal con personalidades de las artes, la ciencia, la política y el deporte que viven en París o la visitan. Más que una escala, un puente entre París y América Latina.</desc>
-    <category lang="fr">Magazine d'information</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/0/3/6/15194630.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/8/4/15701486.jpg" />
-    <episode-num system="onscreen">E3</episode-num>
-  </programme>
-  <programme channel="France24.fr" start="20261025153000 -0300" stop="20261025154500 -0300">
-    <title lang="fr">Noticias</title>
-    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
-    <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/0/5/15194509.jpg" />
-    <episode-num system="onscreen">E45</episode-num>
-  </programme>
-  <programme channel="France24.fr" start="20261025154500 -0300" stop="20261025160000 -0300">
-    <title lang="fr">Aquí América</title>
-    <desc lang="es">Toda la información del continente americano, de norte a sur, enriquecida con la mirada de los corresponsales de France 24.</desc>
-    <category lang="fr">Magazine de découvertes</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/0/7/15194709.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/1/6/15703616.jpg" />
-    <episode-num system="onscreen">E3</episode-num>
-  </programme>
-  <programme channel="France24.fr" start="20261025160000 -0300" stop="20261025161500 -0300">
-    <title lang="fr">Noticias</title>
-    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
-    <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/0/5/15194509.jpg" />
-    <episode-num system="onscreen">E53</episode-num>
-  </programme>
-  <programme channel="France24.fr" start="20261025161500 -0300" stop="20261025163000 -0300">
-    <title lang="fr">En primera plana</title>
-    <desc lang="es">Cada semana, analistas y corresponsales de la prensa extranjera basados en París comentan lo más candente de la actualidad. Una mirada aguda desde la Ciudad de la Luz.</desc>
-    <category lang="fr">Magazine d'information</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/2/7/15194729.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/1/2/7/15194721.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/1/7/15194714.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/2/7/15194726.jpg" />
-    <episode-num system="onscreen">E3</episode-num>
   </programme>
   <programme channel="France24.fr" start="20261025163000 -0300" stop="20261025164500 -0300">
     <title lang="fr">Noticias</title>
@@ -12311,122 +11807,6 @@
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/0/7/15194708.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/0/1/7/15194710.jpg" />
     <episode-num system="onscreen">E3</episode-num>
-  </programme>
-  <programme channel="France24.fr@English" start="20261025134500 -0300" stop="20261025140000 -0300">
-    <title lang="fr">Talking Europe</title>
-    <desc lang="es">Politicians activists and researchers debate the issues facing the EU and an interview a special guest.</desc>
-    <category lang="fr">Magazine de société</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/7/2/15220278.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/0/5/2/15220250.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/1/9/1/15220191.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/6/2/15220264.jpg" />
-  </programme>
-  <programme channel="France24.fr@English" start="20261025140000 -0300" stop="20261025141500 -0300">
-    <title lang="fr">Le journal France 24</title>
-    <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/0/2/15220206.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/6/1/15220164.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/6/1/15220169.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/0/5/15194509.jpg" />
-  </programme>
-  <programme channel="France24.fr@English" start="20261025141500 -0300" stop="20261025143000 -0300">
-    <title lang="fr">Spotlight</title>
-    <desc lang="es">France 24s prime time interview of the day goes beyond the headlines join us as news making guests from around the globe go in depth on the stories that matter.</desc>
-    <category lang="fr">Interview</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/0/5/3/15220350.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/4/3/15220346.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/3/15220334.jpg" />
-  </programme>
-  <programme channel="France24.fr@English" start="20261025143000 -0300" stop="20261025144500 -0300">
-    <title lang="fr">Le journal France 24</title>
-    <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/0/2/15220206.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/6/1/15220164.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/6/1/15220169.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/0/5/15194509.jpg" />
-  </programme>
-  <programme channel="France24.fr@English" start="20261025144500 -0300" stop="20261025150000 -0300">
-    <title lang="fr">Global Grid</title>
-    <desc lang="es">France 24s International Affairs Editors come on set to give you their take on world events sharing analysis context and key perspectives.</desc>
-    <category lang="fr">Magazine d'information</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/2/6/2/15220262.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/1/0/2/15220201.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/3/4/2/15220243.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/8/1/15220186.jpg" />
-  </programme>
-  <programme channel="France24.fr@English" start="20261025150000 -0300" stop="20261025151300 -0300">
-    <title lang="fr">Le journal France 24</title>
-    <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/0/2/15220206.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/6/1/15220164.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/6/1/15220169.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/0/5/15194509.jpg" />
-  </programme>
-  <programme channel="France24.fr@English" start="20261025151300 -0300" stop="20261025151400 -0300">
-    <title lang="fr">Le journal France 24</title>
-    <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/0/2/15220206.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/6/1/15220164.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/6/1/15220169.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/0/5/15194509.jpg" />
-  </programme>
-  <programme channel="France24.fr@English" start="20261025151400 -0300" stop="20261025153000 -0300">
-    <title lang="fr">Tête à tête</title>
-    <desc lang="es">An interview with a personality from the world of economics politics culture or diplomacy.</desc>
-    <category lang="fr">Débat</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/1/1/0/15221011.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/0/0/15221008.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/0/0/15221006.jpg" />
-  </programme>
-  <programme channel="France24.fr@English" start="20261025153000 -0300" stop="20261025154300 -0300">
-    <title lang="fr">Le journal France 24</title>
-    <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/0/2/15220206.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/6/1/15220164.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/6/1/15220169.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/0/5/15194509.jpg" />
-  </programme>
-  <programme channel="France24.fr@English" start="20261025154300 -0300" stop="20261025154400 -0300">
-    <title lang="fr">Le journal France 24</title>
-    <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/0/2/15220206.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/6/1/15220164.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/6/1/15220169.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/0/5/15194509.jpg" />
-  </programme>
-  <programme channel="France24.fr@English" start="20261025154400 -0300" stop="20261025160000 -0300">
-    <title lang="fr">People and Profit</title>
-    <desc lang="es">The business show that goes beyond the numbers and the corporate jargon! We break down major business stories and look at how they affect our lives.</desc>
-    <category lang="fr">Magazine d'information</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/3/7/15220738.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/7/15220734.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/1/3/7/15220731.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/3/7/15220736.jpg" />
-  </programme>
-  <programme channel="France24.fr@English" start="20261025160000 -0300" stop="20261025161500 -0300">
-    <title lang="fr">Le journal France 24</title>
-    <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/0/2/15220206.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/6/1/15220164.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/6/1/15220169.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/0/5/15194509.jpg" />
-  </programme>
-  <programme channel="France24.fr@English" start="20261025161500 -0300" stop="20261025161600 -0300">
-    <title lang="fr">Le journal France 24</title>
-    <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/0/2/15220206.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/6/1/15220164.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/6/1/15220169.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/0/5/15194509.jpg" />
-  </programme>
-  <programme channel="France24.fr@English" start="20261025161600 -0300" stop="20261025163000 -0300">
-    <title lang="fr">The 51 Percent</title>
-    <desc lang="es">A program about women who are reshaping our world highlighting their achievements challenges and lasting impact across societies.</desc>
-    <category lang="fr">Magazine de société</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/3/5/3/15220353.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/4/3/15220348.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/7/3/3/15220337.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/1/5/3/15220351.jpg" />
   </programme>
   <programme channel="France24.fr@English" start="20261025163000 -0300" stop="20261025164500 -0300">
     <title lang="fr">Le journal France 24</title>
@@ -14615,15 +13995,6 @@
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/1/8/2/15220281.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/0/8/3/15184380.jpg" />
   </programme>
-  <programme start="20261025072500 -0300" stop="20261025140000 -0300" channel="M1.ua@SD">
-    <title lang="uk">M1 Hits</title>
-  </programme>
-  <programme start="20261025140000 -0300" stop="20261025144000 -0300" channel="M1.ua@SD">
-    <title lang="uk">Час кохати</title>
-  </programme>
-  <programme start="20261025144000 -0300" stop="20261025152000 -0300" channel="M1.ua@SD">
-    <title lang="uk">Хіт-парад «СвоєРідне»</title>
-  </programme>
   <programme start="20261025152000 -0300" stop="20261025190000 -0300" channel="M1.ua@SD">
     <title lang="uk">M1 Hits</title>
   </programme>
@@ -14744,9 +14115,6 @@
   <programme start="20261030190000 -0300" stop="20261031050000 -0300" channel="M1.ua@SD">
     <title lang="uk">M1 Hits</title>
   </programme>
-  <programme start="20261025130000 -0300" stop="20261025140000 -0300" channel="M2.ua@SD">
-    <title lang="uk">Хіт-парад «Золота жар-птиця»</title>
-  </programme>
   <programme start="20261025140000 -0300" stop="20261025164000 -0300" channel="M2.ua@SD">
     <title lang="uk">Чорноморські ігри 2017. Гала-концерт</title>
   </programme>
@@ -14794,9 +14162,6 @@
   </programme>
   <programme start="20261030190000 -0300" stop="20261031054000 -0300" channel="M2.ua@SD">
     <title lang="uk">Хіти Нон-стоп</title>
-  </programme>
-  <programme start="20261025130000 -0300" stop="20261025150000 -0300" channel="Meganoticias.cl">
-    <title lang="es">Meganoticias actualiza</title>
   </programme>
   <programme start="20261025150000 -0300" stop="20261025203000 -0300" channel="Meganoticias.cl">
     <title lang="es">Megainvestiga</title>
@@ -14856,49 +14221,6 @@
   </programme>
   <programme start="20261026080000 -0300" stop="20261026090000 -0300" channel="Meganoticias.cl">
     <title lang="es">Meganoticias update</title>
-  </programme>
-  <programme start="20261025131000 -0300" stop="20261025140000 -0300" channel="NHKWorldJapan.jp">
-    <title lang="en">Somewhere Street</title>
-    <sub-title lang="en">Cadiz</sub-title>
-    <desc lang="en">Cadiz is located in Andalusia, in southern Spain. This historic port city has been a center of maritime trade since ancient times, with a history stretching back to before the Common Era.</desc>
-    <url>https://www3.nhk.or.jp/nhkworld/en/shows/somewhere/</url>
-  </programme>
-  <programme start="20261025140000 -0300" stop="20261025141000 -0300" channel="NHKWorldJapan.jp">
-    <title lang="en">NHK Newsline</title>
-    <desc lang="en">NHK NEWSLINE brings you up to date with the latest from Japan, Asia and around the world. Our team covers breaking news and major developments, with trusted anchors to tie it all together.</desc>
-  </programme>
-  <programme start="20261025141000 -0300" stop="20261025142500 -0300" channel="NHKWorldJapan.jp">
-    <title lang="en">Laugh Then Think: Japan's Offbeat Science</title>
-    <sub-title lang="en">Slime Mold Intelligence</sub-title>
-    <desc lang="en">Slime molds can navigate mazes and design optimal transport networks for humans. These brainless, ancient organisms help Nakagaki Toshiyuki explore the essence of life and intelligence.</desc>
-    <url>https://www3.nhk.or.jp/nhkworld/en/shows/laughthink/</url>
-  </programme>
-  <programme start="20261025142500 -0300" stop="20261025143000 -0300" channel="NHKWorldJapan.jp">
-    <title lang="en">Core Kyoto mini</title>
-    <sub-title lang="en">Furniture Restoration: Giving life to treasured heirlooms</sub-title>
-    <desc lang="en">Watch a professional furniture cleaner return a chest of draws to its former glory.</desc>
-  </programme>
-  <programme start="20261025143000 -0300" stop="20261025144500 -0300" channel="NHKWorldJapan.jp">
-    <title lang="en">Easy Japanese for Work</title>
-    <sub-title lang="en">#43 Determining what is worrying a client</sub-title>
-    <desc lang="en">Today: determining what is worrying a client. Lin Zhipeng, from China, works at a real estate firm. In a roleplay challenge, he must determine what is worrying his client.</desc>
-    <url>https://www3.nhk.or.jp/nhkworld/en/shows/easyjapaneseforwork/</url>
-  </programme>
-  <programme start="20261025144500 -0300" stop="20261025150000 -0300" channel="NHKWorldJapan.jp">
-    <title lang="en">Zero Waste Life</title>
-    <sub-title lang="en">Bicycle Upcycle Cycle</sub-title>
-    <desc lang="en">Bicycle lover Yamamoto Atsushi makes items like handbags from old bicycle parts. Unable to simply watch them being discarded, he sees giving them new purpose as his true calling.</desc>
-    <url>https://www3.nhk.or.jp/nhkworld/en/shows/zerowaste/</url>
-  </programme>
-  <programme start="20261025150000 -0300" stop="20261025160000 -0300" channel="NHKWorldJapan.jp">
-    <title lang="en">Documentary 360</title>
-    <sub-title lang="en">Silenced by History: Voices of Minamata Disease Victims</sub-title>
-    <desc lang="en">A new study has shed light on the true extent of the suffering caused by Minamata disease. This program follows the efforts of those trying to give voice to the overlooked victims of Minamata.</desc>
-    <url>https://www3.nhk.or.jp/nhkworld/en/shows/minamatadisease/</url>
-  </programme>
-  <programme start="20261025160000 -0300" stop="20261025161000 -0300" channel="NHKWorldJapan.jp">
-    <title lang="en">NHK Newsline</title>
-    <desc lang="en">NHK NEWSLINE brings you up to date with the latest from Japan, Asia and around the world. Our team covers breaking news and major developments, with trusted anchors to tie it all together.</desc>
   </programme>
   <programme start="20261025161000 -0300" stop="20261025170000 -0300" channel="NHKWorldJapan.jp">
     <title lang="en">Core Kyoto Special</title>
@@ -17710,14 +17032,6 @@
     <title lang="en">NHK Newsline</title>
     <desc lang="en">NHK NEWSLINE brings you up to date with the latest from Japan, Asia and around the world. Our team covers breaking news and major developments, with trusted anchors to tie it all together.</desc>
   </programme>
-  <programme start="20261025132800 -0300" stop="20261025145800 -0300" channel="PublicDirect.0e14c75479967e3c4cc2b30d">
-    <title lang="es">Sextreme</title>
-    <desc lang="es">Tit. Original: Sextreme. Erótico</desc>
-  </programme>
-  <programme start="20261025145800 -0300" stop="20261025163000 -0300" channel="PublicDirect.0e14c75479967e3c4cc2b30d">
-    <title lang="es">Sextreme</title>
-    <desc lang="es">Tit. Original: Sextreme. Erótico</desc>
-  </programme>
   <programme start="20261025163000 -0300" stop="20261025170000 -0300" channel="PublicDirect.0e14c75479967e3c4cc2b30d">
     <title lang="es">Sextreme</title>
     <desc lang="es">Tit. Original: Sextreme. Erótico</desc>
@@ -17781,21 +17095,6 @@
   <programme start="20261026120000 -0300" stop="20261026133000 -0300" channel="PublicDirect.0e14c75479967e3c4cc2b30d">
     <title lang="es">Sextreme</title>
     <desc lang="es">Tit. Original: Sextreme. Erótico</desc>
-  </programme>
-  <programme start="20261025133500 -0300" stop="20261025143000 -0300" channel="PublicDirect.12addda8ba8591c579cdebfa">
-    <title lang="es">Rainbowlist</title>
-    <desc lang="es">Lo mejor de los himnos, canciones emblemáticas y los más colorido de videos de la comunidad LGBT+</desc>
-  </programme>
-  <programme start="20261025143000 -0300" stop="20261025152500 -0300" channel="PublicDirect.12addda8ba8591c579cdebfa">
-    <title lang="es">Time to music</title>
-    <desc lang="es">La más grande rotación de bloques de videos.</desc>
-  </programme>
-  <programme start="20261025152500 -0300" stop="20261025160000 -0300" channel="PublicDirect.12addda8ba8591c579cdebfa">
-    <title lang="es">Playhit</title>
-  </programme>
-  <programme start="20261025160000 -0300" stop="20261025162500 -0300" channel="PublicDirect.12addda8ba8591c579cdebfa">
-    <title lang="es">Double play</title>
-    <desc lang="es">La más grande rotación de bloques de videos.</desc>
   </programme>
   <programme start="20261025162500 -0300" stop="20261025172000 -0300" channel="PublicDirect.12addda8ba8591c579cdebfa">
     <title lang="es">Super beats</title>
@@ -18143,63 +17442,6 @@
   </programme>
   <programme start="20261029013500 -0300" stop="20261029023000 -0300" channel="PublicDirect.12addda8ba8591c579cdebfa">
     <title lang="es">Horoscopía</title>
-  </programme>
-  <programme start="20261025133000 -0300" stop="20261025142000 -0300" channel="PublicDirect.1701b6c4abbcc431fb481536">
-    <title lang="es">Blue Bloods</title>
-    <desc lang="es">Blue Bloods es una serie Americana de procedimientos policiales de la cadena CBS, grabada en la ciudad de Nueva York.Los Reagan son una familia que sus miembros se dedican a investigar el crimen en el departamento de policías de la ciudad de Nueva York (NYPD).</desc>
-    <credits>
-      <actor>Will Estes</actor>
-      <actor>Donnie Wahlberg</actor>
-      <actor>Tom Selleck</actor>
-      <actor>Bridget Moynahan</actor>
-    </credits>
-    <date>2010</date>
-    <category lang="es">Crimen</category>
-    <category lang="es">Drama</category>
-    <category lang="es">Programa</category>
-    <category lang="es">Serie</category>
-    <icon src="https://imagenes.gatotv.com/categorias/programas/miniatura/blue_bloods.png" />
-    <star-rating system="MX">
-      <value>7.0</value>
-    </star-rating>
-  </programme>
-  <programme start="20261025142000 -0300" stop="20261025151000 -0300" channel="PublicDirect.1701b6c4abbcc431fb481536">
-    <title lang="es">Blue Bloods</title>
-    <desc lang="es">Blue Bloods es una serie Americana de procedimientos policiales de la cadena CBS, grabada en la ciudad de Nueva York.Los Reagan son una familia que sus miembros se dedican a investigar el crimen en el departamento de policías de la ciudad de Nueva York (NYPD).</desc>
-    <credits>
-      <actor>Will Estes</actor>
-      <actor>Donnie Wahlberg</actor>
-      <actor>Tom Selleck</actor>
-      <actor>Bridget Moynahan</actor>
-    </credits>
-    <date>2010</date>
-    <category lang="es">Crimen</category>
-    <category lang="es">Drama</category>
-    <category lang="es">Programa</category>
-    <category lang="es">Serie</category>
-    <icon src="https://imagenes.gatotv.com/categorias/programas/miniatura/blue_bloods.png" />
-    <star-rating system="MX">
-      <value>7.0</value>
-    </star-rating>
-  </programme>
-  <programme start="20261025151000 -0300" stop="20261025160000 -0300" channel="PublicDirect.1701b6c4abbcc431fb481536">
-    <title lang="es">Blue Bloods</title>
-    <desc lang="es">Blue Bloods es una serie Americana de procedimientos policiales de la cadena CBS, grabada en la ciudad de Nueva York.Los Reagan son una familia que sus miembros se dedican a investigar el crimen en el departamento de policías de la ciudad de Nueva York (NYPD).</desc>
-    <credits>
-      <actor>Will Estes</actor>
-      <actor>Donnie Wahlberg</actor>
-      <actor>Tom Selleck</actor>
-      <actor>Bridget Moynahan</actor>
-    </credits>
-    <date>2010</date>
-    <category lang="es">Crimen</category>
-    <category lang="es">Drama</category>
-    <category lang="es">Programa</category>
-    <category lang="es">Serie</category>
-    <icon src="https://imagenes.gatotv.com/categorias/programas/miniatura/blue_bloods.png" />
-    <star-rating system="MX">
-      <value>7.0</value>
-    </star-rating>
   </programme>
   <programme start="20261025160000 -0300" stop="20261025165000 -0300" channel="PublicDirect.1701b6c4abbcc431fb481536">
     <title lang="es">Blue Bloods</title>
@@ -19341,14 +18583,6 @@
   <programme start="20261027201000 -0300" stop="20261027210000 -0300" channel="PublicDirect.1701b6c4abbcc431fb481536">
     <title lang="es">Suits</title>
   </programme>
-  <programme start="20261025122400 -0300" stop="20261025135400 -0300" channel="PublicDirect.376c74e4d0452f743fd2c811">
-    <title lang="es">Inframundo: El despertar</title>
-    <desc lang="es">La humanidad ha descubierto la existencia tanto del clan de los vampiros como del de los licántropos, y se ha lanzado a una lucha encarnizada para erradicar ambas especies.</desc>
-  </programme>
-  <programme start="20261025135400 -0300" stop="20261025155000 -0300" channel="PublicDirect.376c74e4d0452f743fd2c811">
-    <title lang="es">El vengador fantasma</title>
-    <desc lang="es">Johnny Blaze hace un pacto con Mefistófeles, entregándole su alma a cambio de la salud de su adorado padre. Pero, luego, Mefistófeles le propone a Johnny anular su contrato si se convierte en el vengador fantasma.</desc>
-  </programme>
   <programme start="20261025155000 -0300" stop="20261025180000 -0300" channel="PublicDirect.376c74e4d0452f743fd2c811">
     <title lang="es">Presagio</title>
     <desc lang="es">Un profesor de astronomía viudo abre una cápsula del tiempo que ha estado enterrada durante años en el colegio de su hijo. En ella encuentra predicciones escalofriantes: algunas ya han sucedido mientras que otras aún no.</desc>
@@ -19428,21 +18662,6 @@
   <programme start="20261026153400 -0300" stop="20261026170900 -0300" channel="PublicDirect.376c74e4d0452f743fd2c811">
     <title lang="es">Lake Placid vs. Anaconda</title>
     <desc lang="es">Dos peligrosas criaturas han escapado de un laboratorio y la comunidad cercana está a punto de vivir su peor pesadilla. Un cocodrilo y una anaconda sostendrán un brutal enfrentamiento, mientras acaban con todo lo que se cruza en su camino.</desc>
-  </programme>
-  <programme start="20261025134200 -0300" stop="20261025143600 -0300" channel="PublicDirect.39057ce89326a34e33998e2e">
-    <title lang="es">Exploración Azteca</title>
-    <sub-title lang="es">El Origen</sub-title>
-    <desc lang="es">Estamos a punto de emprender un viaje a través del tiempo y el espacio tras unos de los mayores misterios del Imperio Azteca. Su vertiginoso ascenso, su súbita expansión y su trágica caída ante los españoles.</desc>
-  </programme>
-  <programme start="20261025143600 -0300" stop="20261025153000 -0300" channel="PublicDirect.39057ce89326a34e33998e2e">
-    <title lang="es">Exploración Azteca</title>
-    <sub-title lang="es">El Corazón del Imperio</sub-title>
-    <desc lang="es">Estamos a punto de emprender un viaje a través del tiempo y el espacio tras unos de los mayores misterios del Imperio Azteca. Su vertiginoso ascenso, su súbita expansión y su trágica caída ante los españoles.</desc>
-  </programme>
-  <programme start="20261025153000 -0300" stop="20261025162500 -0300" channel="PublicDirect.39057ce89326a34e33998e2e">
-    <title lang="es">Exploración Azteca</title>
-    <sub-title lang="es">Un Imperio Se Levanta</sub-title>
-    <desc lang="es">Estamos a punto de emprender un viaje a través del tiempo y el espacio tras unos de los mayores misterios del Imperio Azteca. Su vertiginoso ascenso, su súbita expansión y su trágica caída ante los españoles.</desc>
   </programme>
   <programme start="20261025162500 -0300" stop="20261025172000 -0300" channel="PublicDirect.39057ce89326a34e33998e2e">
     <title lang="es">Exploración Azteca</title>
@@ -19677,18 +18896,6 @@
     <title lang="es">Los Secretos de la Biblia</title>
     <sub-title lang="es">El verdadero Jesus</sub-title>
   </programme>
-  <programme start="20261025130000 -0300" stop="20261025140500 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Abogado Sin Ley</title>
-    <desc lang="es">Jaeyi se cruza con Hyunjoo, su madre desaparecida hace 18 años, sin reconocerla. Ohju se entera del regreso de Hyunjoo y conspira con crueldad contra Sangpil tras perder el control de sus acciones por las maniobras del abogado.</desc>
-  </programme>
-  <programme start="20261025140500 -0300" stop="20261025150900 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Abogado Sin Ley</title>
-    <desc lang="es">Sangpil cae en la trampa de Ohju y es acusado del asesinato de su tío Daewoong sus aliados luchan desesperadamente para probar su inocencia ante un tribunal hostil. Para empeorar las cosas, un viejo conocido aparece y pone en riesgo la vida de Sangpil.</desc>
-  </programme>
-  <programme start="20261025150900 -0300" stop="20261025161300 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
-    <title lang="es">Mi Mentiroso Adorable</title>
-    <desc lang="es">Deukchan se enfurece al saber que Solhee conoce el pasado de Doha. La tensión aumenta cuando las circunstancias ponen en peligro la frágil confianza que los protagonistas han construido.</desc>
-  </programme>
   <programme start="20261025161300 -0300" stop="20261025171800 -0300" channel="PublicDirect.3ba5922c6040fadb816835b1">
     <title lang="es">Mi Mentiroso Adorable</title>
     <desc lang="es">Doha le cuenta a Solhee la historia de la muerte de su ex novia. Los secretos del pasado salen a la luz y la verdad sobre aquella noche trágica comienza a tomar forma.</desc>
@@ -19912,14 +19119,6 @@
     <title lang="es">Mi Mentiroso Adorable</title>
     <desc lang="es">Doha no quiere que Kangmin arreste a Eomho, esperando que él haya encontrado el perdón. Los sentimientos entre Solhee y Doha se profundizan mientras la investigación avanza.</desc>
   </programme>
-  <programme start="20261025132800 -0300" stop="20261025145800 -0300" channel="PublicDirect.4ba8626e117d1fb292bce6b6">
-    <title lang="es">Sextreme</title>
-    <desc lang="es">Tit. Original: Sextreme. Erótico</desc>
-  </programme>
-  <programme start="20261025145800 -0300" stop="20261025163000 -0300" channel="PublicDirect.4ba8626e117d1fb292bce6b6">
-    <title lang="es">Sextreme</title>
-    <desc lang="es">Tit. Original: Sextreme. Erótico</desc>
-  </programme>
   <programme start="20261025163000 -0300" stop="20261025170000 -0300" channel="PublicDirect.4ba8626e117d1fb292bce6b6">
     <title lang="es">Sextreme</title>
     <desc lang="es">Tit. Original: Sextreme. Erótico</desc>
@@ -19981,14 +19180,6 @@
     <desc lang="es">Tit. Original: Sextreme. Erótico</desc>
   </programme>
   <programme start="20261026120000 -0300" stop="20261026133000 -0300" channel="PublicDirect.4ba8626e117d1fb292bce6b6">
-    <title lang="es">Sextreme</title>
-    <desc lang="es">Tit. Original: Sextreme. Erótico</desc>
-  </programme>
-  <programme start="20261025132800 -0300" stop="20261025145800 -0300" channel="PublicDirect.54e50970cbc9ac1cc42e9613">
-    <title lang="es">Sextreme</title>
-    <desc lang="es">Tit. Original: Sextreme. Erótico</desc>
-  </programme>
-  <programme start="20261025145800 -0300" stop="20261025163000 -0300" channel="PublicDirect.54e50970cbc9ac1cc42e9613">
     <title lang="es">Sextreme</title>
     <desc lang="es">Tit. Original: Sextreme. Erótico</desc>
   </programme>
@@ -20055,39 +19246,6 @@
   <programme start="20261026120000 -0300" stop="20261026133000 -0300" channel="PublicDirect.54e50970cbc9ac1cc42e9613">
     <title lang="es">Sextreme</title>
     <desc lang="es">Tit. Original: Sextreme. Erótico</desc>
-  </programme>
-  <programme start="20261025115100 -0300" stop="20261025142200 -0300" channel="PublicDirect.7af273823473ac60f6ed4a64">
-    <title lang="es">Misión: Imposible - Repercusión</title>
-    <desc lang="es">En una peligrosa tarea para recuperar el plutonio robado, Ethan Hunt (Tom Cruise) elige salvar a su equipo sobre completar la misión, permitiendo que las armas nucleares caigan en manos de una red mortal de operativos altamente calificados que intentan destruir la civilización. Ahora, con el mundo en riesgo Ethan y su equipo del IMF se ven obligados a convertirse en socios – sin estar convencidos – con el agente de la CIA, August Walker (Henry Cavill) mientras ellos corren contra el tiempo para detener la lluvia nuclear.</desc>
-    <credits>
-      <director>Christopher McQuarrie</director>
-      <actor>Tom Cruise</actor>
-      <actor>Rebecca Ferguson</actor>
-      <actor>Simon Pegg</actor>
-      <actor>Ving Rhames</actor>
-      <actor>Michelle Monaghan</actor>
-      <actor>Alec Baldwin</actor>
-      <actor>Sean Harris</actor>
-      <actor>Henry Cavill</actor>
-      <producer>Tom Cruise</producer>
-      <producer>J. J. Abrams</producer>
-    </credits>
-    <date>2018</date>
-    <category lang="es">Acción</category>
-    <category lang="es">Aventura</category>
-    <category lang="es">Suspenso</category>
-    <category lang="es">Película</category>
-    <icon src="https://imagenes.gatotv.com/categorias/peliculas/miniatura/mision_imposible_repercusion.jpg" />
-    <rating system="MX">
-      <value>PG-13</value>
-    </rating>
-    <star-rating system="MX">
-      <value>8.0</value>
-    </star-rating>
-  </programme>
-  <programme start="20261025142200 -0300" stop="20261025160000 -0300" channel="PublicDirect.7af273823473ac60f6ed4a64">
-    <title lang="es">Furia salvaje</title>
-    <desc lang="es">Un rudo policía del Brooklyn encuentra al rival de su infancia, ahora como vendedor de crack y cocaína. Lamentablemente cuando decide atraparlo, el criminal mata a su compañero y mejor amigo.</desc>
   </programme>
   <programme start="20261025160000 -0300" stop="20261025170000 -0300" channel="PublicDirect.7af273823473ac60f6ed4a64">
     <title lang="es">COPEC RallyMobil 2026</title>
@@ -20427,10 +19585,6 @@
   <programme start="20261029010000 -0300" stop="20261029024200 -0300" channel="PublicDirect.7af273823473ac60f6ed4a64">
     <title lang="es">La monja</title>
   </programme>
-  <programme start="20261025123000 -0300" stop="20261025143500 -0300" channel="PublicDirect.8b604de41196cd4fe991d551">
-    <title lang="es">Rocky Balboa</title>
-    <desc lang="es">Cuando un canal de cable transmite una simulación que predice que un Rocky Balboa en su apogeo ganaría la pelea contra el actual campeón de peso pesado, el envejecido y retirado Balboa comienza a considerar su regreso al ring.</desc>
-  </programme>
   <programme start="20261025143500 -0300" stop="20261025171000 -0300" channel="PublicDirect.8b604de41196cd4fe991d551">
     <title lang="es">Creed: Corazón de Campeón</title>
     <desc lang="es">Adonis Johnson (Michael B. Jordan) nunca conoció a su famoso padre, el campeón mundial de pesos pesados Apollo Creed, quien murió antes de que él naciera. Aun así, no se puede negar que lleva el boxeo en la sangre, por lo cual Adonis viaja a Filadelfia, el lugar donde se llevó a cabo la legendaria pelea entre Apollo y un duro principiante llamado Rocky Balboa.Una vez llegado a “la ciudad del amor fraternal”, Adonis va a buscar a Rocky (Sylvester Stallone) y le pide que sea su entrenador. A pesar de insistir en que está retirado del mundo de las peleas, Rocky ve en Adonis la misma fuerza y determinación que Apollo, el feroz rival que terminó convirtiéndose en su amigo más cercano. Finalmente, Rocky acepta entrenar al joven luchador a pesar de estar él mismo contra un oponente mucho más letal que cualquiera al que se haya enfrentado en el ring.Con Rocky de su lado, no pasará mucho tiempo hasta que Adonis consiga su oportunidad de competir por un título, pero ¿podrá desarrollar no solo su impulso sino también el corazón de un verdadero luchador antes de entrar al ring?</desc>
@@ -20720,21 +19874,6 @@
   </programme>
   <programme start="20261027193500 -0300" stop="20261027220000 -0300" channel="PublicDirect.8b604de41196cd4fe991d551">
     <title lang="es">Stargate, La Puerta del Tiempo</title>
-  </programme>
-  <programme start="20261025132300 -0300" stop="20261025142300 -0300" channel="PublicDirect.8da65ba545fa9fd2512f9901">
-    <title lang="es">Operación de Espionaje</title>
-    <sub-title lang="es">Parte 2</sub-title>
-    <desc lang="es">T1 -Ep.2. En 1939, el mundo estaba al borde de la guerra. Un enigmático hombre de negocios canadiense, William Stephenson, se embarcó en una misión que cambiaría la historia. Sus adversarios eran formidables: Adolf Hitler, el dictador malévolo, y Charles Lindbergh, el héroe de Estados Unidos.</desc>
-  </programme>
-  <programme start="20261025142300 -0300" stop="20261025151800 -0300" channel="PublicDirect.8da65ba545fa9fd2512f9901">
-    <title lang="es">Proyecto imposible</title>
-    <sub-title lang="es">Los grandes avances de la tecnología</sub-title>
-    <desc lang="es">T1 -Ep.10: Los Grandes Avances De La Tecnología. Las nuevas tecnologías que se están desarrollando en el campo de la ingeniería avanzan a pasos agigantados: la motocicleta de producción más rápida, un tren más veloz que la velocidad del sonido y la primera planta energía de fusión nuclear del planeta.</desc>
-  </programme>
-  <programme start="20261025151800 -0300" stop="20261025161200 -0300" channel="PublicDirect.8da65ba545fa9fd2512f9901">
-    <title lang="es">Gigantes de la industria mega marcas</title>
-    <sub-title lang="es">Choque de los titanes de la computación</sub-title>
-    <desc lang="es">T2 -Ep.10: Choque De Los Titanes De La Computación. Un diseñador de juegos llamado Steve Jobs comienza una empresa de computadoras personales en el garaje de sus padres. Pero cuando contrata la ayuda de Bill Gates, un diseñador de software, comienza una de las mayores rivalidades en la historia de la industria estadounidense.</desc>
   </programme>
   <programme start="20261025161200 -0300" stop="20261025164300 -0300" channel="PublicDirect.8da65ba545fa9fd2512f9901">
     <title lang="es">México entre dos mundos</title>
@@ -21088,42 +20227,6 @@
   <programme start="20261027205900 -0300" stop="20261027212400 -0300" channel="PublicDirect.8da65ba545fa9fd2512f9901">
     <title lang="es">La evidencia está entre nosotros</title>
     <sub-title lang="es">El ovni en la ventana y la ciudad subacuática</sub-title>
-  </programme>
-  <programme start="20261025132600 -0300" stop="20261025145600 -0300" channel="PublicDirect.942f65e48445596971fc7249">
-    <title lang="es">Rubia t...</title>
-    <desc lang="es">Un pesado semental bombea rubias de cuerpos firmes y pechos grandes. Ella le envuelve el mástil con sus melones antes de hacerlo llegar al éxtasis con la boca.</desc>
-    <credits>
-      <actor>Ema Karter</actor>
-      <actor>Patty Michova</actor>
-      <actor>Rebeca Linares</actor>
-    </credits>
-    <date>2024</date>
-    <category lang="es">Movie</category>
-    <category lang="es">Adults only</category>
-    <category lang="es">Erotic</category>
-    <icon src="http://dtil.tmsimg.com/assets/p28370214_b_h8_ac.jpg?w=960&amp;h=540" />
-    <previously-shown />
-    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
-      <value>A18</value>
-    </rating>
-  </programme>
-  <programme start="20261025145600 -0300" stop="20261025162400 -0300" channel="PublicDirect.942f65e48445596971fc7249">
-    <title lang="es">Jengibres apilados</title>
-    <desc lang="es">Bellezas pelirrojas de grandes bustos son poseídas y reciben descargas de jugo de amor.</desc>
-    <credits>
-      <actor>Scarlett Jones</actor>
-      <actor>Bess Breast</actor>
-      <actor>Abigaiil Morris</actor>
-    </credits>
-    <date>2024</date>
-    <category lang="es">Adults only</category>
-    <category lang="es">Special</category>
-    <category lang="es">Erotic</category>
-    <icon src="http://dtil.tmsimg.com/assets/p27635025_i_h8_aa.jpg?w=960&amp;h=540" />
-    <previously-shown />
-    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
-      <value>A18</value>
-    </rating>
   </programme>
   <programme start="20261025162400 -0300" stop="20261025175300 -0300" channel="PublicDirect.942f65e48445596971fc7249">
     <title lang="es">Locura de t...</title>
@@ -22168,14 +21271,6 @@
       <value>A18</value>
     </rating>
   </programme>
-  <programme start="20261025132800 -0300" stop="20261025145800 -0300" channel="PublicDirect.965a61e081b5ea8575f7a11f">
-    <title lang="es">Sextreme</title>
-    <desc lang="es">Tit. Original: Sextreme. Erótico</desc>
-  </programme>
-  <programme start="20261025145800 -0300" stop="20261025163000 -0300" channel="PublicDirect.965a61e081b5ea8575f7a11f">
-    <title lang="es">Sextreme</title>
-    <desc lang="es">Tit. Original: Sextreme. Erótico</desc>
-  </programme>
   <programme start="20261025163000 -0300" stop="20261025170000 -0300" channel="PublicDirect.965a61e081b5ea8575f7a11f">
     <title lang="es">Sextreme</title>
     <desc lang="es">Tit. Original: Sextreme. Erótico</desc>
@@ -22239,9 +21334,6 @@
   <programme start="20261026120000 -0300" stop="20261026133000 -0300" channel="PublicDirect.965a61e081b5ea8575f7a11f">
     <title lang="es">Sextreme</title>
     <desc lang="es">Tit. Original: Sextreme. Erótico</desc>
-  </programme>
-  <programme start="20261025123500 -0300" stop="20261025143000 -0300" channel="PublicDirect.9c28a0d10a09856e98930cdc">
-    <title lang="es">Zathura una aventura espacial</title>
   </programme>
   <programme start="20261025143000 -0300" stop="20261025164500 -0300" channel="PublicDirect.9c28a0d10a09856e98930cdc">
     <title lang="es">Especial Dulce venganza Escuadrón suicida</title>
@@ -22611,18 +21703,6 @@
       <value>7.0</value>
     </star-rating>
   </programme>
-  <programme start="20261025134000 -0300" stop="20261025143500 -0300" channel="PublicDirect.a247897d9a490d19fa633661">
-    <title lang="es">Maratón Criminal Minds / Middle Man</title>
-    <desc lang="es">La UAC es una sección del FBI donde trabajan un grupo de perfiladores quienes se mueven por todo el territorio de los Estados Unidos para asesorar a las policías locales en la búsqueda y captura de los asesinos en serie.</desc>
-  </programme>
-  <programme start="20261025143500 -0300" stop="20261025153000 -0300" channel="PublicDirect.a247897d9a490d19fa633661">
-    <title lang="es">Maratón Criminal Minds / Reflection of Desire</title>
-    <desc lang="es">La UAC es una sección del FBI donde trabajan un grupo de perfiladores quienes se mueven por todo el territorio de los Estados Unidos para asesorar a las policías locales en la búsqueda y captura de los asesinos en serie.</desc>
-  </programme>
-  <programme start="20261025153000 -0300" stop="20261025162500 -0300" channel="PublicDirect.a247897d9a490d19fa633661">
-    <title lang="es">Maratón Criminal Minds / Into the Woods</title>
-    <desc lang="es">La UAC es una sección del FBI donde trabajan un grupo de perfiladores quienes se mueven por todo el territorio de los Estados Unidos para asesorar a las policías locales en la búsqueda y captura de los asesinos en serie.</desc>
-  </programme>
   <programme start="20261025162500 -0300" stop="20261025172500 -0300" channel="PublicDirect.a247897d9a490d19fa633661">
     <title lang="es">NCIS / Peacekeeper</title>
     <desc lang="es">Un equipo de agentes especiales del Servicio de Investigación Criminal de la Marina de los Estados Unidos, liderados por el agente especial Leroy Jethro Gibbs, investiga los crímenes que se cometen dentro del Cuerpo Naval.</desc>
@@ -22722,173 +21802,6 @@
   <programme start="20261026124500 -0300" stop="20261026134000 -0300" channel="PublicDirect.a247897d9a490d19fa633661">
     <title lang="es">Maratón Criminal Minds / 25 to Life</title>
     <desc lang="es">La UAC es una sección del FBI donde trabajan un grupo de perfiladores quienes se mueven por todo el territorio de los Estados Unidos para asesorar a las policías locales en la búsqueda y captura de los asesinos en serie.</desc>
-  </programme>
-  <programme start="20261025133000 -0300" stop="20261025135400 -0300" channel="PublicDirect.a4e711feeaae6c78b06460eb">
-    <title lang="en">Lights, Camera, Play</title>
-    <desc lang="es">Parejas, sensualidad, encuentros candentes donde las mujeres dominan todos los fetiches que tienen en mente. ¡La oscuridad ilumina sus fantasías!</desc>
-    <date>2019</date>
-    <category lang="en">Adults only</category>
-    <category lang="en">Erotic</category>
-    <icon src="http://dtil.tmsimg.com/assets/p17135026_b_h10_ab.jpg?w=960&amp;h=540" />
-    <previously-shown />
-    <rating system="USA Parental Rating">
-      <value>TVMA</value>
-    </rating>
-    <rating system="Régie du cinéma">
-      <value>18+</value>
-    </rating>
-    <rating system="Canadian Parental Rating">
-      <value>18+</value>
-    </rating>
-    <rating system="Dirección General de Radio, Televisión y Cinematografía">
-      <value>D</value>
-    </rating>
-    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
-      <value>A18</value>
-    </rating>
-  </programme>
-  <programme start="20261025135400 -0300" stop="20261025141800 -0300" channel="PublicDirect.a4e711feeaae6c78b06460eb">
-    <title lang="en">Lights, Camera, Play</title>
-    <desc lang="es">Parejas, sensualidad, encuentros candentes donde las mujeres dominan todos los fetiches que tienen en mente. ¡La oscuridad ilumina sus fantasías!</desc>
-    <date>2019</date>
-    <category lang="en">Adults only</category>
-    <category lang="en">Erotic</category>
-    <icon src="http://dtil.tmsimg.com/assets/p17135026_b_h10_ab.jpg?w=960&amp;h=540" />
-    <previously-shown />
-    <rating system="USA Parental Rating">
-      <value>TVMA</value>
-    </rating>
-    <rating system="Régie du cinéma">
-      <value>18+</value>
-    </rating>
-    <rating system="Canadian Parental Rating">
-      <value>18+</value>
-    </rating>
-    <rating system="Dirección General de Radio, Televisión y Cinematografía">
-      <value>D</value>
-    </rating>
-    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
-      <value>A18</value>
-    </rating>
-  </programme>
-  <programme start="20261025141800 -0300" stop="20261025144400 -0300" channel="PublicDirect.a4e711feeaae6c78b06460eb">
-    <title lang="es">Encuentros cruzados</title>
-    <desc lang="es">Una administradora de un edificio será testigo de situaciones que despiertan las más apasionantes fantasías de los inquilinos.</desc>
-    <credits>
-      <director>Luis Sens</director>
-      <actor>Avril Pilot</actor>
-    </credits>
-    <date>2013</date>
-    <category lang="es">Adults only</category>
-    <category lang="es">Erotic</category>
-    <icon src="http://dtil.tmsimg.com/assets/p9840488_b_h8_aa.jpg?w=960&amp;h=540" />
-    <previously-shown />
-    <rating system="USA Parental Rating">
-      <value>TVMA</value>
-    </rating>
-    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
-      <value>18</value>
-    </rating>
-    <rating system="Canadian Parental Rating">
-      <value>18+</value>
-    </rating>
-    <rating system="Régie du cinéma">
-      <value>18+</value>
-    </rating>
-  </programme>
-  <programme start="20261025144400 -0300" stop="20261025150900 -0300" channel="PublicDirect.a4e711feeaae6c78b06460eb">
-    <title lang="es">Casting Online</title>
-    <desc lang="es">Ornella realiza sus castings de forma online, ella dispone su computadora y un proyector, ahí es donde comienza la acción con las historias más eróticas y estimulantes.</desc>
-    <category lang="es">Series</category>
-    <category lang="es">Adults only</category>
-    <category lang="es">Erotic</category>
-    <icon src="http://dtil.tmsimg.com/assets/p9328543_b_h8_aa.jpg?w=960&amp;h=540" />
-    <episode-num system="onscreen">S1 E4</episode-num>
-    <previously-shown />
-    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
-      <value>18</value>
-    </rating>
-    <rating system="USA Parental Rating">
-      <value>TVMA</value>
-    </rating>
-    <rating system="Canadian Parental Rating">
-      <value>18+</value>
-    </rating>
-    <rating system="Régie du cinéma">
-      <value>18+</value>
-    </rating>
-  </programme>
-  <programme start="20261025150900 -0300" stop="20261025153400 -0300" channel="PublicDirect.a4e711feeaae6c78b06460eb">
-    <title lang="en">Toyride</title>
-    <sub-title lang="en">Hollywood; Pipedream</sub-title>
-    <desc lang="es">Los juguetes eróticos de Pipedream.</desc>
-    <date>2017</date>
-    <category lang="en">Series</category>
-    <category lang="en">Adults only</category>
-    <category lang="en">Erotic</category>
-    <icon src="http://dtil.tmsimg.com/assets/p13883131_b_h8_ab.jpg?w=960&amp;h=540" />
-    <episode-num system="onscreen">S1 E10</episode-num>
-    <previously-shown />
-    <rating system="USA Parental Rating">
-      <value>TVMA</value>
-    </rating>
-    <rating system="Canadian Parental Rating">
-      <value>18+</value>
-    </rating>
-    <rating system="Régie du cinéma">
-      <value>18+</value>
-    </rating>
-    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
-      <value>18</value>
-    </rating>
-  </programme>
-  <programme start="20261025153400 -0300" stop="20261025160000 -0300" channel="PublicDirect.a4e711feeaae6c78b06460eb">
-    <title lang="en">e-Rotic</title>
-    <desc lang="es">América traviesa, una página web de clips hardcore y shows pornográficos en directo; Emily Marilyn.</desc>
-    <date>2009</date>
-    <category lang="en">Series</category>
-    <category lang="en">Adults only</category>
-    <category lang="en">Erotic</category>
-    <icon src="http://dtil.tmsimg.com/assets/p3561696_b_h8_ab.jpg?w=960&amp;h=540" />
-    <episode-num system="onscreen">S1 E1</episode-num>
-    <previously-shown />
-    <rating system="USA Parental Rating">
-      <value>TVMA</value>
-    </rating>
-    <rating system="Canadian Parental Rating">
-      <value>18+</value>
-    </rating>
-    <rating system="Régie du cinéma">
-      <value>18+</value>
-    </rating>
-    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
-      <value>18</value>
-    </rating>
-  </programme>
-  <programme start="20261025160000 -0300" stop="20261025162700 -0300" channel="PublicDirect.a4e711feeaae6c78b06460eb">
-    <title lang="es">Encuentros cruzados</title>
-    <desc lang="es">Una administradora de un edificio será testigo de situaciones que despiertan las más apasionantes fantasías de los inquilinos.</desc>
-    <credits>
-      <director>Luis Sens</director>
-      <actor>Avril Pilot</actor>
-    </credits>
-    <date>2013</date>
-    <category lang="es">Adults only</category>
-    <category lang="es">Erotic</category>
-    <icon src="http://dtil.tmsimg.com/assets/p9840488_b_h8_aa.jpg?w=960&amp;h=540" />
-    <previously-shown />
-    <rating system="USA Parental Rating">
-      <value>TVMA</value>
-    </rating>
-    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
-      <value>18</value>
-    </rating>
-    <rating system="Canadian Parental Rating">
-      <value>18+</value>
-    </rating>
-    <rating system="Régie du cinéma">
-      <value>18+</value>
-    </rating>
   </programme>
   <programme start="20261025162700 -0300" stop="20261025165300 -0300" channel="PublicDirect.a4e711feeaae6c78b06460eb">
     <title lang="es">Encuentros cruzados</title>
@@ -26246,20 +25159,6 @@
       <value>TVMA</value>
     </rating>
   </programme>
-  <programme start="20261025120000 -0300" stop="20261025140000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
-    <title lang="es">ESPN KnockOut</title>
-    <sub-title lang="es">Legacy Fighting Alliance 244: Jake Woodley vs. Zayne Havener</sub-title>
-    <desc lang="es">Jake Woodley se enfrenta a Zayne Havene por el título de peso medio. Desde el Foxwoods Resort Casino, en Mashantucket, Estados Unidos.</desc>
-    <credits>
-      <actor>Renato Bermúdez</actor>
-    </credits>
-    <date>2026</date>
-    <category lang="es">Series</category>
-    <category lang="es">Boxing</category>
-    <icon src="http://dtil.tmsimg.com/assets/p16919782_b_h8_aa.jpg?w=960&amp;h=540" />
-    <episode-num system="onscreen">E528</episode-num>
-    <previously-shown />
-  </programme>
   <programme start="20261025140000 -0300" stop="20261025170000 -0300" channel="PublicDirect.ac1fca2303c88b6a69359958">
     <title lang="es">Live: Fútbol Americano NFL</title>
     <desc lang="es">Semana 7 de la temporada regular 2026 de la NFL. Desde el U.S. Bank Stadium, en Mineápolis. Minnesota Vikings registra una marca de 2-0 como local. Por su parte, Indianapolis Colts lidera la serie histórica 18-9-1.</desc>
@@ -26666,19 +25565,357 @@
     <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003N2XR3.jpg?w=960&amp;h=540" />
     <previously-shown />
   </programme>
-  <programme start="20261025135000 -0300" stop="20261025144000 -0300" channel="PublicDirect.bf407e29eec656d628dfa2d7">
-    <title lang="es">Maratón La ley y el orden UVE</title>
-    <sub-title lang="es">Corrosivo</sub-title>
-    <desc lang="es">T13 -Ep.15: Coto de Caza. El crimen interfiere en el viaje romántico de Benson y Haden y los lleva a cuestionarse su relación después de que una investigación sobre una prostituta desaparecida conduce a los detectives a un delincuente reincidente y a una búsqueda desesperada para poder salvar a su víctima actual.</desc>
+  <programme start="20261025161100 -0300" stop="20261025175000 -0300" channel="PublicDirect.b5751130732e4a7c272ee53d">
+    <title lang="es">Shrek tercero</title>
+    <desc lang="es">Shrek y sus amigos van en busca del verdadero heredero de la Tierra Muy Muy Lejana, mientras la Princesa Fiona intenta evitar que el Príncipe Encantador ocupe el trono.</desc>
+    <date>2007</date>
+    <country lang="es">Estados Unidos,Austria</country>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
   </programme>
-  <programme start="20261025144000 -0300" stop="20261025153000 -0300" channel="PublicDirect.bf407e29eec656d628dfa2d7">
-    <title lang="es">Law &amp; Order</title>
-    <sub-title lang="es">Nueva Normalidad</sub-title>
+  <programme start="20261025175000 -0300" stop="20261025193100 -0300" channel="PublicDirect.b5751130732e4a7c272ee53d">
+    <title lang="es">Shrek para siempre</title>
+    <desc lang="es">Después de que Rumpelstiltskin lo engaña para hacer un pacto, Shrek se encuentra a sí mismo en una versión alterna de Muy Muy Lejano, donde él y Fiona nunca se conocieron.</desc>
+    <date>2010</date>
+    <country lang="es">Estados Unidos,Francia</country>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
   </programme>
-  <programme start="20261025153000 -0300" stop="20261025162000 -0300" channel="PublicDirect.bf407e29eec656d628dfa2d7">
-    <title lang="es">Maratón La ley y el orden UVE</title>
-    <sub-title lang="es">Coto de caza</sub-title>
-    <desc lang="es">T13 -Ep.17: Justicia Denegada. Cuando traen una víctima de violación a la sala de emergencias después de un ataque largo y brutal, la detective Benson reconoce el estilo de un violador del que creía que se había cerrado el caso ocho años atrás.</desc>
+  <programme start="20261025193100 -0300" stop="20261025214300 -0300" channel="PublicDirect.b5751130732e4a7c272ee53d">
+    <title lang="es">Una esposa de mentira</title>
+    <desc lang="es">El cirujano Danny decide contratar a su ayudante Katherine, una madre soltera con hijos, para que finjan ser su familia. Su intención es demostrarle a Palmer que su amor por ella es tan grande que está a punto de divorciarse de su mujer.</desc>
+    <date>2011</date>
+    <country lang="es">Estados Unidos</country>
+    <rating system="MJColombia">
+      <value>AGE229</value>
+    </rating>
+  </programme>
+  <programme start="20261025214300 -0300" stop="20261026000000 -0300" channel="PublicDirect.b5751130732e4a7c272ee53d">
+    <title lang="es">Desconocido</title>
+    <desc lang="es">Durante una visita a Berlín con su mujer, el doctor Martín Harris sufre un accidente de tráfico y entra en estado de coma. Al despertar, descubre que alguien ha usurpado su identidad y decide emprender una frenética investigación.</desc>
+    <date>2011</date>
+    <country lang="es">Reino Unido,Alemania,Francia,Estados Unidos</country>
+    <rating system="MJColombia">
+      <value>AGE227</value>
+    </rating>
+  </programme>
+  <programme start="20261026000000 -0300" stop="20261026030700 -0300" channel="PublicDirect.b5751130732e4a7c272ee53d">
+    <title lang="es">Dune: Part Two</title>
+    <desc lang="es">Paul Atreides se une a Chani y a los Fremen mientras busca venganza contra los conspiradores que destruyeron a su familia. Paul se enfrenta a una elección entre el amor de su vida y el destino del universo, y debe evitar un futuro terrible.</desc>
+    <date>2024</date>
+    <country lang="es">Estados Unidos,Canadá,Emiratos Árabes Unidos,Hungría,Italia,Nueva Zelanda,Jordania,Gambia</country>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261026030700 -0300" stop="20261026044800 -0300" channel="PublicDirect.b5751130732e4a7c272ee53d">
+    <title lang="es">Sniper: Legacy</title>
+    <desc lang="es">Después que varios líderes militares son asesinados, Brandon sigue la pista de los asesinos ante la noticia que su padre también podría estar entre las víctimas.</desc>
+    <date>2014</date>
+    <country lang="es">Estados Unidos</country>
+    <rating system="MJColombia">
+      <value>+18</value>
+    </rating>
+  </programme>
+  <programme start="20261026044800 -0300" stop="20261026062900 -0300" channel="PublicDirect.b5751130732e4a7c272ee53d">
+    <title lang="es">Sniper: Fuego oculto</title>
+    <desc lang="es">Los francotiradores de élite Brandon Beckett y Richard Miller deben proteger un gaseoducto de un grupo de terroristas. Su misión es peligrosa, ya que varios francotiradores son asesinados por un tirador fantasma.</desc>
+    <date>2016</date>
+    <country lang="es">Estados Unidos</country>
+    <rating system="MJColombia">
+      <value>+18</value>
+    </rating>
+  </programme>
+  <programme start="20261026062900 -0300" stop="20261026074300 -0300" channel="PublicDirect.b5751130732e4a7c272ee53d">
+    <title lang="es">All Souls</title>
+    <desc lang="es">River, una joven a la que detuvieron en posesión de una pequeña cantidad de droga, es obligada por la policía a trabajar como informante secreta y enviada a cumplir una peligrosa misión que puede costarle lo que más ama en el mundo, su hija.</desc>
+    <date>2023</date>
+    <country lang="es">Estados Unidos</country>
+    <rating system="MJColombia">
+      <value>+18</value>
+    </rating>
+  </programme>
+  <programme start="20261026074300 -0300" stop="20261026080000 -0300" channel="PublicDirect.b5751130732e4a7c272ee53d">
+    <title lang="es">Hollywood One on One</title>
+    <desc lang="es">Las celebridades de Hollywood dan cuenta de su vida personal y profesional, y se sinceran sobre sus próximos proyectos.</desc>
+    <date>1993</date>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261026080000 -0300" stop="20261026094200 -0300" channel="PublicDirect.b5751130732e4a7c272ee53d">
+    <title lang="es">Contagio</title>
+    <desc lang="es">El mundo está sumido en el terror, mientras los médicos se apresuran en encontrar una cura para un virus que se propaga rápidamente y que mata en cuestión de días.</desc>
+    <date>2011</date>
+    <country lang="es">Estados Unidos</country>
+    <rating system="MJColombia">
+      <value>AGE227</value>
+    </rating>
+  </programme>
+  <programme start="20261026094200 -0300" stop="20261026113100 -0300" channel="PublicDirect.b5751130732e4a7c272ee53d">
+    <title lang="es">Dos inútiles en patrulla</title>
+    <desc lang="es">Jimmy y Paul son dos detectives del Departamento de Policía de Nueva York que siguen el rastro de una carísima tarjeta de béisbol de 1952 que fue robada, por lo que se enfrentarán a un gánster despiadado y apasionado por los objetos antiguos.</desc>
+    <date>2010</date>
+    <country lang="es">Estados Unidos</country>
+    <rating system="MJColombia">
+      <value>+18</value>
+    </rating>
+  </programme>
+  <programme start="20261026113100 -0300" stop="20261026135600 -0300" channel="PublicDirect.b5751130732e4a7c272ee53d">
+    <title lang="es">El último gran héroe</title>
+    <desc lang="es">Un joven aficionado al cine es transportado dentro de una película con su héroe favorito tras recibir un boleto mágico.</desc>
+    <date>1993</date>
+    <country lang="es">Estados Unidos</country>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261026135600 -0300" stop="20261026162100 -0300" channel="PublicDirect.b5751130732e4a7c272ee53d">
+    <title lang="es">El fugitivo</title>
+    <desc lang="es">La vida del doctor Richard Kimble, un reputado cirujano de Chicago, se desmorona cuando su mujer es brutalmente asesinada por un misterioso hombre y él es acusado del crimen.</desc>
+    <date>1993</date>
+    <country lang="es">Estados Unidos</country>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261026162100 -0300" stop="20261026182500 -0300" channel="PublicDirect.b5751130732e4a7c272ee53d">
+    <title lang="es">Desconocido</title>
+    <desc lang="es">Durante una visita a Berlín con su mujer, el doctor Martín Harris sufre un accidente de tráfico y entra en estado de coma. Al despertar, descubre que alguien ha usurpado su identidad y decide emprender una frenética investigación.</desc>
+    <date>2011</date>
+    <country lang="es">Reino Unido,Alemania,Francia,Estados Unidos</country>
+    <rating system="MJColombia">
+      <value>AGE227</value>
+    </rating>
+  </programme>
+  <programme start="20261026182500 -0300" stop="20261026213800 -0300" channel="PublicDirect.b5751130732e4a7c272ee53d">
+    <title lang="es">Dune: Part Two</title>
+    <desc lang="es">Paul Atreides se une a Chani y a los Fremen mientras busca venganza contra los conspiradores que destruyeron a su familia. Paul se enfrenta a una elección entre el amor de su vida y el destino del universo, y debe evitar un futuro terrible.</desc>
+    <date>2024</date>
+    <country lang="es">Estados Unidos,Canadá,Emiratos Árabes Unidos,Hungría,Italia,Nueva Zelanda,Jordania,Gambia</country>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261026213800 -0300" stop="20261027000000 -0300" channel="PublicDirect.b5751130732e4a7c272ee53d">
+    <title lang="es">El hombre araña</title>
+    <desc lang="es">Mordido por una araña genéticamente modificada, un estudiante de secundaria tímido y torpe obtiene increíbles capacidades como arácnido. Pronto comprenderá que su cometido es utilizarlas para luchar contra el mal y defender a sus vecinos.</desc>
+    <date>2002</date>
+    <country lang="es">Estados Unidos</country>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261027000000 -0300" stop="20261027015100 -0300" channel="PublicDirect.b5751130732e4a7c272ee53d">
+    <title lang="es">El paseo</title>
+    <desc lang="es">Las aventuras de la familia Peinado que realiza un viaje en carro desde Bogotá a Cartagena, Colombia.</desc>
+    <date>2010</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261027015100 -0300" stop="20261027033900 -0300" channel="PublicDirect.b5751130732e4a7c272ee53d">
+    <title lang="es">Sniper: Fuego oculto</title>
+    <desc lang="es">Los francotiradores de élite Brandon Beckett y Richard Miller deben proteger un gaseoducto de un grupo de terroristas. Su misión es peligrosa, ya que varios francotiradores son asesinados por un tirador fantasma.</desc>
+    <date>2016</date>
+    <country lang="es">Estados Unidos</country>
+    <rating system="MJColombia">
+      <value>+18</value>
+    </rating>
+  </programme>
+  <programme start="20261027033900 -0300" stop="20261027054700 -0300" channel="PublicDirect.b5751130732e4a7c272ee53d">
+    <title lang="es">El último gran héroe</title>
+    <desc lang="es">Un joven aficionado al cine es transportado dentro de una película con su héroe favorito tras recibir un boleto mágico.</desc>
+    <date>1993</date>
+    <country lang="es">Estados Unidos</country>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261027054700 -0300" stop="20261027072900 -0300" channel="PublicDirect.b5751130732e4a7c272ee53d">
+    <title lang="es">En brazos de un asesino</title>
+    <desc lang="es">Víctor es un sicario que visita la casa de un narcotraficante para cobrar un trabajo. Allí se encuentra con Sarai, una joven que lleva los últimos 9 años secuestrada, e intentará rescatarla de las garras de su captor.</desc>
+    <date>2019</date>
+    <rating system="MJColombia">
+      <value>+18</value>
+    </rating>
+  </programme>
+  <programme start="20261027072900 -0300" stop="20261027073900 -0300" channel="PublicDirect.b5751130732e4a7c272ee53d">
+    <title lang="es">Hollywood One on One</title>
+    <desc lang="es">Las celebridades de Hollywood dan cuenta de su vida personal y profesional, y se sinceran sobre sus próximos proyectos.</desc>
+    <date>1993</date>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261027073900 -0300" stop="20261027074800 -0300" channel="PublicDirect.b5751130732e4a7c272ee53d">
+    <title lang="es">Hollywood One on One</title>
+    <desc lang="es">Las celebridades de Hollywood dan cuenta de su vida personal y profesional, y se sinceran sobre sus próximos proyectos.</desc>
+    <date>1993</date>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261027074800 -0300" stop="20261027080000 -0300" channel="PublicDirect.b5751130732e4a7c272ee53d">
+    <title lang="es">Hollywood One on One</title>
+    <desc lang="es">Las celebridades de Hollywood dan cuenta de su vida personal y profesional, y se sinceran sobre sus próximos proyectos.</desc>
+    <date>1993</date>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261027080000 -0300" stop="20261027092800 -0300" channel="PublicDirect.b5751130732e4a7c272ee53d">
+    <title lang="es">Los renegados</title>
+    <desc lang="es">Una banda de ladrones que se considera a sí misma una versión contemporánea de Robin Hood le pide ayuda a un ladrón de fama internacional para robar un cargamento de lingotes de oro escondidos debajo de una prisión.</desc>
+    <date>2021</date>
+    <country lang="es">Estados Unidos</country>
+    <rating system="MJColombia">
+      <value>+18</value>
+    </rating>
+  </programme>
+  <programme start="20261027092800 -0300" stop="20261027115700 -0300" channel="PublicDirect.b5751130732e4a7c272ee53d">
+    <title lang="es">El fugitivo</title>
+    <desc lang="es">La vida del doctor Richard Kimble, un reputado cirujano de Chicago, se desmorona cuando su mujer es brutalmente asesinada por un misterioso hombre y él es acusado del crimen.</desc>
+    <date>1993</date>
+    <country lang="es">Estados Unidos</country>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261027115700 -0300" stop="20261027135100 -0300" channel="PublicDirect.b5751130732e4a7c272ee53d">
+    <title lang="es">Medio muerto</title>
+    <desc lang="es">Un agente lucha con rufianes que tienen tomado Alcatraz para obtener la ubicación de la fortuna en oro de un convicto.</desc>
+    <date>2002</date>
+    <country lang="es">Estados Unidos</country>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261027135100 -0300" stop="20261027163200 -0300" channel="PublicDirect.b5751130732e4a7c272ee53d">
+    <title lang="es">Batman inicia</title>
+    <desc lang="es">Después de la muerte de sus padres, el joven heredero Bruce Wayne se convierte en un vengador enmascarado que lucha contra las fuerzas del mal en Ciudad Gótica.</desc>
+    <date>2005</date>
+    <country lang="es">Estados Unidos</country>
+    <rating system="MJColombia">
+      <value>AGE229</value>
+    </rating>
+  </programme>
+  <programme start="20261027163200 -0300" stop="20261027185700 -0300" channel="PublicDirect.b5751130732e4a7c272ee53d">
+    <title lang="es">Batman regresa</title>
+    <desc lang="es">El superhéroe de la capa negra se enfrenta a Gatubela y salva a la sombría Ciudad Gótica de los malévolos planes del Pingüino.</desc>
+    <date>1992</date>
+    <country lang="es">Estados Unidos,Reino Unido</country>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261027185700 -0300" stop="20261027212100 -0300" channel="PublicDirect.b5751130732e4a7c272ee53d">
+    <title lang="es">El hombre araña</title>
+    <desc lang="es">Mordido por una araña genéticamente modificada, un estudiante de secundaria tímido y torpe obtiene increíbles capacidades como arácnido. Pronto comprenderá que su cometido es utilizarlas para luchar contra el mal y defender a sus vecinos.</desc>
+    <date>2002</date>
+    <country lang="es">Estados Unidos</country>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261027212100 -0300" stop="20261028000000 -0300" channel="PublicDirect.b5751130732e4a7c272ee53d">
+    <title lang="es">El Hombre Araña 3</title>
+    <desc lang="es">Peter Parker sufre una terrible transformación cuando su traje de Hombre Araña se vuelve negro y libera una personalidad oscura y vengativa.</desc>
+    <date>2007</date>
+    <country lang="es">Estados Unidos</country>
+    <rating system="MJColombia">
+      <value>AGE227</value>
+    </rating>
+  </programme>
+  <programme start="20261028000000 -0300" stop="20261028023000 -0300" channel="PublicDirect.b5751130732e4a7c272ee53d">
+    <title lang="es">NBA series 2026-2027</title>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>+18</value>
+    </rating>
+  </programme>
+  <programme start="20261028023000 -0300" stop="20261028042000 -0300" channel="PublicDirect.b5751130732e4a7c272ee53d">
+    <title lang="es">Titanes del pacífico: La insurrección</title>
+    <desc lang="es">Una raza alienígena intenta destruir la Tierra. A la humanidad solo le queda una esperanza, que Jake Pendergast, un prometedor piloto del programa de defensa que abandonó su carrera para dedicarse al crimen, acepte el reto de salvar el planeta.</desc>
+    <date>2018</date>
+    <country lang="es">Estados Unidos,China,Reino Unido</country>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261028042000 -0300" stop="20261028061000 -0300" channel="PublicDirect.b5751130732e4a7c272ee53d">
+    <title lang="es">On the Line</title>
+    <desc lang="es">Un antiguo detective sufre una estafa telefónica, al igual que algunos de sus compañeros y familiares, por lo que sigue la pista y se infiltra en la organización responsable del crimen, donde se encuentra con el cerebro que está detrás de la trampa.</desc>
+    <date>2021</date>
+    <country lang="es">KR</country>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261028061000 -0300" stop="20261028080000 -0300" channel="PublicDirect.b5751130732e4a7c272ee53d">
+    <title lang="es">La Chica del Casillero</title>
+    <desc lang="es">Una bebé es abandonada en un equipaje de una estación de metro. La chica es criada por una familia de mafiosos y educada como un criminal.</desc>
+    <date>2015</date>
+    <country lang="es">KR</country>
+    <rating system="MJColombia">
+      <value>+18</value>
+    </rating>
+  </programme>
+  <programme start="20261028080000 -0300" stop="20261028094400 -0300" channel="PublicDirect.b5751130732e4a7c272ee53d">
+    <title lang="es">Medio muerto</title>
+    <desc lang="es">Un agente lucha con rufianes que tienen tomado Alcatraz para obtener la ubicación de la fortuna en oro de un convicto.</desc>
+    <date>2002</date>
+    <country lang="es">Estados Unidos</country>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261028094400 -0300" stop="20261028120300 -0300" channel="PublicDirect.b5751130732e4a7c272ee53d">
+    <title lang="es">Batman regresa</title>
+    <desc lang="es">El superhéroe de la capa negra se enfrenta a Gatubela y salva a la sombría Ciudad Gótica de los malévolos planes del Pingüino.</desc>
+    <date>1992</date>
+    <country lang="es">Estados Unidos,Reino Unido</country>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261028120300 -0300" stop="20261028142000 -0300" channel="PublicDirect.b5751130732e4a7c272ee53d">
+    <title lang="es">El hombre araña</title>
+    <desc lang="es">Mordido por una araña genéticamente modificada, un estudiante de secundaria tímido y torpe obtiene increíbles capacidades como arácnido. Pronto comprenderá que su cometido es utilizarlas para luchar contra el mal y defender a sus vecinos.</desc>
+    <date>2002</date>
+    <country lang="es">Estados Unidos</country>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261028142000 -0300" stop="20261028163600 -0300" channel="PublicDirect.b5751130732e4a7c272ee53d">
+    <title lang="es">Blue Beetle</title>
+    <desc lang="es">El Escarabajo, una antigua reliquia extraterrestre, elige al estudiante Jaime Reyes como el huésped simbiótico en cuyo cuerpo resguardarse. A partir de ese momento, Jaime desarrolla una armadura que le otorga poderes increíbles e impredecibles.</desc>
+    <date>2023</date>
+    <country lang="es">Estados Unidos,México</country>
+    <rating system="MJColombia">
+      <value>AGE227</value>
+    </rating>
+  </programme>
+  <programme start="20261028163600 -0300" stop="20261028183500 -0300" channel="PublicDirect.b5751130732e4a7c272ee53d">
+    <title lang="es">Titanes del pacífico: La insurrección</title>
+    <desc lang="es">Una raza alienígena intenta destruir la Tierra. A la humanidad solo le queda una esperanza, que Jake Pendergast, un prometedor piloto del programa de defensa que abandonó su carrera para dedicarse al crimen, acepte el reto de salvar el planeta.</desc>
+    <date>2018</date>
+    <country lang="es">Estados Unidos,China,Reino Unido</country>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261028183500 -0300" stop="20261028212400 -0300" channel="PublicDirect.b5751130732e4a7c272ee53d">
+    <title lang="es">El Hombre Araña 3</title>
+    <desc lang="es">Peter Parker sufre una terrible transformación cuando su traje de Hombre Araña se vuelve negro y libera una personalidad oscura y vengativa.</desc>
+    <date>2007</date>
+    <country lang="es">Estados Unidos</country>
+    <rating system="MJColombia">
+      <value>AGE227</value>
+    </rating>
   </programme>
   <programme start="20261025162000 -0300" stop="20261025171000 -0300" channel="PublicDirect.bf407e29eec656d628dfa2d7">
     <title lang="es">Maratón La ley y el orden UVE</title>
@@ -27701,14 +26938,6 @@
     <title lang="es">Maratón La ley y el orden UVE</title>
     <sub-title lang="es">La reputación perdida</sub-title>
   </programme>
-  <programme start="20261025132800 -0300" stop="20261025145800 -0300" channel="PublicDirect.cebcfb582dcb68fc751f5ac5">
-    <title lang="es">Sextreme</title>
-    <desc lang="es">Tit. Original: Sextreme. Erótico</desc>
-  </programme>
-  <programme start="20261025145800 -0300" stop="20261025163000 -0300" channel="PublicDirect.cebcfb582dcb68fc751f5ac5">
-    <title lang="es">Sextreme</title>
-    <desc lang="es">Tit. Original: Sextreme. Erótico</desc>
-  </programme>
   <programme start="20261025163000 -0300" stop="20261025170000 -0300" channel="PublicDirect.cebcfb582dcb68fc751f5ac5">
     <title lang="es">Sextreme</title>
     <desc lang="es">Tit. Original: Sextreme. Erótico</desc>
@@ -27772,23 +27001,6 @@
   <programme start="20261026120000 -0300" stop="20261026133000 -0300" channel="PublicDirect.cebcfb582dcb68fc751f5ac5">
     <title lang="es">Sextreme</title>
     <desc lang="es">Tit. Original: Sextreme. Erótico</desc>
-  </programme>
-  <programme start="20261025132500 -0300" stop="20261025152500 -0300" channel="PublicDirect.d6cca6d4aa23a69d50439c22">
-    <title lang="es">Live: Fútbol Bundesliga</title>
-    <desc lang="es">Acción de la jornada 7 de la Bundesliga 2026-27. Freiburg busca el liderato y los Bávaros mantenerse en la cima.</desc>
-    <category lang="es">Sports</category>
-    <category lang="es">Soccer</category>
-    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003B161X.jpg?w=960&amp;h=540" />
-    <premiere />
-  </programme>
-  <programme start="20261025152500 -0300" stop="20261025163000 -0300" channel="PublicDirect.d6cca6d4aa23a69d50439c22">
-    <title lang="en">ESPN Compact</title>
-    <desc lang="es">Compacto de la jornada 8 de la Premier League 2026-27. Disputado el 24 de octubre de 2026 en Villa Park.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Classic Sport Event</category>
-    <icon src="http://dtil.tmsimg.com/assets/p9595055_b_h10_ac.jpg?w=960&amp;h=540" />
-    <episode-num system="onscreen">E384</episode-num>
-    <previously-shown />
   </programme>
   <programme start="20261025163000 -0300" stop="20261025184000 -0300" channel="PublicDirect.d6cca6d4aa23a69d50439c22">
     <title lang="es">Live: Fútbol Serie A</title>
@@ -28486,35 +27698,6 @@
     <category lang="es">Soccer</category>
     <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003BK0D2.jpg?w=960&amp;h=540" />
     <previously-shown />
-  </programme>
-  <programme start="20261025115400 -0300" stop="20261025141200 -0300" channel="PublicDirect.de3e91d7c885d797352686e1">
-    <title lang="es">Jack Reacher: Bajo la Mira</title>
-    <desc lang="es">En un día común y corriente, un experto francotirador dispara y mata a cinco personas sin razón alguna. La policía rápidamente encuentra al asesino y lo encierra pero este en lugar de confesar de lo que hizo simplemente repite la frase “Encuentren a Jack Reacher”. Luego de leer en las noticias Jack Reacher (Tom Cruise) se presenta y empieza a investigar el porqué de estos hechos.</desc>
-    <credits>
-      <director>Christopher McQuarrie</director>
-      <actor>Tom Cruise</actor>
-      <actor>Rosamund Pike</actor>
-      <actor>Richard Jenkins</actor>
-      <actor>Werner Herzog</actor>
-      <actor>David Oyelowo</actor>
-      <producer>Tom Cruise</producer>
-      <producer>Paula Wagner</producer>
-    </credits>
-    <date>2012</date>
-    <category lang="es">Acción</category>
-    <category lang="es">Crimen</category>
-    <category lang="es">Suspenso</category>
-    <icon src="https://imagenes.gatotv.com/categorias/peliculas/miniatura/jack_reacher_bajo_la_mira.jpg" />
-    <rating system="MX">
-      <value>PG-13</value>
-    </rating>
-    <star-rating system="MX">
-      <value>7.0</value>
-    </star-rating>
-  </programme>
-  <programme start="20261025141200 -0300" stop="20261025162000 -0300" channel="PublicDirect.de3e91d7c885d797352686e1">
-    <title lang="es">Jack Reacher: Never Go Back</title>
-    <desc lang="es">Cuando Mayor Susan Turner es incriminada por traición, Jack Reacher descubre que ella es el blanco de una conspiración del gobierno. Juntos, arriesgarán todo para derribar una organización que no se detendrá ante nada para proteger sus secretos.</desc>
   </programme>
   <programme start="20261025162000 -0300" stop="20261025182800 -0300" channel="PublicDirect.de3e91d7c885d797352686e1">
     <title lang="es">Escuadrón suicida</title>
@@ -30731,13 +29914,6 @@
   <programme start="20261029010000 -0300" stop="20261029025900 -0300" channel="PublicDirect.de3e91d7c885d797352686e1">
     <title lang="es">Barbie</title>
   </programme>
-  <programme start="20261025133000 -0300" stop="20261025153000 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
-    <title lang="es">Sunderland vs. Leeds United</title>
-    <sub-title lang="es">Fútbol: Premier League</sub-title>
-  </programme>
-  <programme start="20261025153000 -0300" stop="20261025154500 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
-    <title lang="es">Premier League 2026-27: Post partido</title>
-  </programme>
   <programme start="20261025154500 -0300" stop="20261025171800 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
     <title lang="es">Shrek</title>
   </programme>
@@ -31145,29 +30321,6 @@
   </programme>
   <programme start="20261029010000 -0300" stop="20261029024200 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
     <title lang="es">Mamá para rato</title>
-  </programme>
-  <programme start="20261025132600 -0300" stop="20261025152500 -0300" channel="QelloConcertsbyStingray.ca">
-    <title lang="en">Supertramp: Breakfast In America: Live in Paris</title>
-    <desc lang="en">Supertramp's Breakfast In America was the biggest selling album in the world in 1979. Following the album's release Supertramp embarked on a 10-month world tour which arrived in Paris at the end of November.</desc>
-    <date>2026</date>
-    <icon src="https://metadata-static.plex.tv/4/gracenote/45b89b5feae45f1215ad83265f7b1b4f.jpg" />
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="US">
-      <value>TV-PG</value>
-    </rating>
-  </programme>
-  <programme start="20261025152500 -0300" stop="20261025162400 -0300" channel="QelloConcertsbyStingray.ca">
-    <title lang="en">Beyoncé - Sound of Change</title>
-    <desc lang="en">The Sound Of Change was a benefit concert held at Twickenham Stadium, London, England, as part of the Chime For Change initiative, founded by Beyoncé with the help of actress Salma Hayek and Gucci's creative director, Frida Giannini.</desc>
-    <date>2025</date>
-    <category lang="en">Music</category>
-    <category lang="en">Special</category>
-    <category lang="en">Entertainment</category>
-    <icon src="https://metadata-static.plex.tv/3/gracenote/3a6be564c263ab7a2d3a5ff0510e6678.jpg" />
-    <episode-num system="onscreen">S2025</episode-num>
-    <rating system="US">
-      <value>TV-PG</value>
-    </rating>
   </programme>
   <programme start="20261025162400 -0300" stop="20261025180000 -0300" channel="QelloConcertsbyStingray.ca">
     <title lang="en">John Mellencamp - Plain Spoken: Live in Chicago</title>
@@ -31582,30 +30735,6 @@
     <episode-num system="onscreen">S2026</episode-num>
     <rating system="US">
       <value>TV-PG</value>
-    </rating>
-  </programme>
-  <programme start="20261025133700 -0300" stop="20261025144600 -0300" channel="RealWild.us">
-    <title lang="en">Wild Mexico</title>
-    <sub-title lang="en">Mountain Worlds</sub-title>
-    <desc lang="en">Black bears thrive as a young agave farmer harvests plants for Mexico's famed tequila.</desc>
-    <date>2017</date>
-    <category lang="en">Explore</category>
-    <icon src="https://d11hei8e1dyf6i.cloudfront.net/RWILD/Default_Thumbnail.jpg" />
-    <episode-num system="onscreen">S1 E1</episode-num>
-    <rating system="US">
-      <value>NR</value>
-    </rating>
-  </programme>
-  <programme start="20261025144600 -0300" stop="20261025155300 -0300" channel="RealWild.us">
-    <title lang="en">Wild Mexico</title>
-    <sub-title lang="en">Forests Of the Maya</sub-title>
-    <desc lang="en">Maya temples overlook Yucatan forests and a vast, mysterious underwater cave network.</desc>
-    <date>2017</date>
-    <category lang="en">Explore</category>
-    <icon src="https://d11hei8e1dyf6i.cloudfront.net/RWILD/Default_Thumbnail.jpg" />
-    <episode-num system="onscreen">S1 E2</episode-num>
-    <rating system="US">
-      <value>NR</value>
     </rating>
   </programme>
   <programme start="20261025155300 -0300" stop="20261025170200 -0300" channel="RealWild.us">
@@ -32402,41 +31531,17 @@
     <title lang="es">ANYTIME - Mountain bike freeride llevado al límite</title>
     <desc lang="es">Una nueva generación de riders de élite lleva el freeride en mountain bike a otro nivel, explorando terrenos extremos y empujando los límites del deporte en esta película ganadora de un Emmy® 2025.</desc>
   </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261025130300 -0300" stop="20261025135400 -0300">
-    <title>Red Bull Soapbox Race</title>
-    <live />
-    <episode-num system="original-air-date">20261025160300 +0000</episode-num>
-    <desc>Im indischen Hyderabad entfacht das Red Bull Seifenkistenrennen das absolute Chaos.</desc>
-    <icon src="https://images.pluto.tv/series/6853f51fb54a02bbc47d68a8/tile_1756170079193.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">6853f51fb54a02bbc47d68a8</series-id>
-    <sub-title>Hyderabad 2024</sub-title>
-    <category>Series</category>
-    <category>Sports</category>
+  <programme start="20261026161010 -0300" stop="20261026164651 -0300" channel="RedBullChileEspanol.cl">
+    <title lang="es">20 años de Red Bull Valparaíso Cerro Abajo</title>
+    <desc lang="es">Revivimos los 20 años de la icónica carrera de downhill urbano que nació como una idea entre amigos y se convirtió en Red Bull Valparaíso Cerro Abajo, la más grande del mundo.</desc>
   </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261025135400 -0300" stop="20261025140800 -0300">
-    <title>Red Bull Seifenkistenrennen Highlights</title>
-    <live />
-    <episode-num system="original-air-date">20261025165400 +0000</episode-num>
-    <desc>Ein geniales Transformator-Design, tanzende Väter der Extraklasse und eine flammende Hexe, die in einem Feuerwerk untergeht, haben die Herzen der Zuschauer 2019 erobert.</desc>
-    <icon src="https://images.pluto.tv/series/6853f51ab54a02bbc47d5e22/tile_1763491970448.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">6853f51ab54a02bbc47d5e22</series-id>
-    <sub-title>Fan-Favoriten - E6</sub-title>
-    <category>Series</category>
-    <category>Sports</category>
+  <programme start="20261026164651 -0300" stop="20261026174740 -0300" channel="RedBullChileEspanol.cl">
+    <title lang="es">Fabio Wibmer – Video Game: Detrás de cámaras</title>
+    <desc lang="es">Fabio Wibmer y su equipo revelan el proceso detrás de Video Game, una de las producciones de bike más creativas de 2022, filmada durante 70 días y llena de retos técnicos y visuales.</desc>
   </programme>
-  <programme channel="RedBullWorldEnglish.int" start="20261025140800 -0300" stop="20261025155500 -0300">
-    <title>Red Bull Soapbox Race</title>
-    <live />
-    <episode-num system="original-air-date">20261025170800 +0000</episode-num>
-    <desc>Beim Red Bull Seifenkistenrennen 2024 in London waren 59 Teams dabei, die sich auf einem kniffligen Parcours im Alexandra Palace abwärts bewegten und dabei versuchten, ihre von der Schwerkraft angetriebenen Fahrzeuge intakt zu halten.</desc>
-    <icon src="https://images.pluto.tv/series/6853f51fb54a02bbc47d68a8/tile_1756170079193.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>19700101</date>
-    <series-id system="pluto">6853f51fb54a02bbc47d68a8</series-id>
-    <sub-title>Alexandra Palace</sub-title>
-    <category>Series</category>
-    <category>Sports</category>
+  <programme start="20261026174740 -0300" stop="20261026205234 -0300" channel="RedBullChileEspanol.cl">
+    <title lang="es">Red Bull Hardline 2026: MTB extremo en Canadá</title>
+    <desc lang="es">Red Bull Hardline 2026 lleva a los mejores riders de MTB a Columbia Británica, Canadá, para enfrentarse a uno de los circuitos de descenso más extremos y exigentes del mundo.</desc>
   </programme>
   <programme channel="RedBullWorldEnglish.int" start="20261025155500 -0300" stop="20261025164600 -0300">
     <title>Red Bull Soapbox Race</title>
@@ -32693,43 +31798,6 @@
   </programme>
   <programme start="20261026130000 -0300" stop="20261026140000 -0300" channel="RewindTV.cl@SD">
     <title lang="es">Live</title>
-  </programme>
-  <programme channel="SkySportsF1.uk" start="20261025135000 -0300" stop="20261025144000 -0300">
-    <title lang="en">Live F1 Academy: Race 3</title>
-    <desc lang="en">The third and final all-female F1 Academy race of the weekend in Austin, Texas.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Motor Sports</category>
-    <icon src="https://images.metadata.sky.com/pd-image/6ba095c0-9793-4d67-aad3-a37cced578f6/16-9" />
-    <episode-num system="xmltv_ns">.29.</episode-num>
-  </programme>
-  <programme channel="SkySportsF1.uk" start="20261025144000 -0300" stop="20261025144500 -0300">
-    <title lang="en">F1 Flying Lap: Austin</title>
-    <desc lang="en">Powered by Audi, Karun Chandhok hits iconic race tracks in a high-performance Audi, combining real laps with sim data to break down racing lines, braking points and elite-level performance.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Motor Sports</category>
-    <icon src="https://images.metadata.sky.com/pd-image/0b191091-a4f3-4b55-bcbe-282a34c6d3ae/16-9" />
-  </programme>
-  <programme channel="SkySportsF1.uk" start="20261025144500 -0300" stop="20261025145500 -0300">
-    <title lang="en">Martin Brundle Chats to Kimi</title>
-    <desc lang="en">Sky F1's Martin Brundle joins 2026 world championship pacesetter Kimi Antonelli for a chat about the young Italian's incredible season.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Motor Sports</category>
-    <icon src="https://images.metadata.sky.com/pd-image/45d4c063-b376-4517-9c99-9739c871878e/16-9" />
-  </programme>
-  <programme channel="SkySportsF1.uk" start="20261025145500 -0300" stop="20261025152500 -0300">
-    <title lang="en">Ted's Quali Notebook: US</title>
-    <desc lang="en">Ted Kravitz is live as he gathers reactions from inside the paddock and reviews all the biggest stories from qualifying at the Circuit of The Americas for the United States Grand Prix.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Motor Sports</category>
-    <icon src="https://images.metadata.sky.com/pd-image/be796369-a7a4-4114-9531-5d099d7bdcdd/16-9" />
-    <episode-num system="xmltv_ns">.261.</episode-num>
-  </programme>
-  <programme channel="SkySportsF1.uk" start="20261025152500 -0300" stop="20261025153000 -0300">
-    <title lang="en">F1 Flying Lap: Austin</title>
-    <desc lang="en">Powered by Audi, Karun Chandhok hits iconic race tracks in a high-performance Audi, combining real laps with sim data to break down racing lines, braking points and elite-level performance.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Motor Sports</category>
-    <icon src="https://images.metadata.sky.com/pd-image/0b191091-a4f3-4b55-bcbe-282a34c6d3ae/16-9" />
   </programme>
   <programme channel="SkySportsF1.uk" start="20261025153000 -0300" stop="20261025165500 -0300">
     <title lang="en">Live Grand Prix Sunday: US</title>
@@ -33640,43 +32708,6 @@
       <value>U</value>
     </rating>
   </programme>
-  <programme channel="SkySportsF1UHD.uk" start="20261025135000 -0300" stop="20261025144000 -0300">
-    <title lang="en">Live F1 Academy: Race 3</title>
-    <desc lang="en">The third and final all-female F1 Academy race of the weekend in Austin, Texas.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Motor Sports</category>
-    <icon src="https://images.metadata.sky.com/pd-image/6ba095c0-9793-4d67-aad3-a37cced578f6/16-9" />
-    <episode-num system="xmltv_ns">.29.</episode-num>
-  </programme>
-  <programme channel="SkySportsF1UHD.uk" start="20261025144000 -0300" stop="20261025144500 -0300">
-    <title lang="en">F1 Flying Lap: Austin</title>
-    <desc lang="en">Powered by Audi, Karun Chandhok hits iconic race tracks in a high-performance Audi, combining real laps with sim data to break down racing lines, braking points and elite-level performance.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Motor Sports</category>
-    <icon src="https://images.metadata.sky.com/pd-image/0b191091-a4f3-4b55-bcbe-282a34c6d3ae/16-9" />
-  </programme>
-  <programme channel="SkySportsF1UHD.uk" start="20261025144500 -0300" stop="20261025145500 -0300">
-    <title lang="en">Martin Brundle Chats to Kimi</title>
-    <desc lang="en">Sky F1's Martin Brundle joins 2026 world championship pacesetter Kimi Antonelli for a chat about the young Italian's incredible season.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Motor Sports</category>
-    <icon src="https://images.metadata.sky.com/pd-image/45d4c063-b376-4517-9c99-9739c871878e/16-9" />
-  </programme>
-  <programme channel="SkySportsF1UHD.uk" start="20261025145500 -0300" stop="20261025152500 -0300">
-    <title lang="en">Ted's Quali Notebook: US</title>
-    <desc lang="en">Ted Kravitz is live as he gathers reactions from inside the paddock and reviews all the biggest stories from qualifying at the Circuit of The Americas for the United States Grand Prix.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Motor Sports</category>
-    <icon src="https://images.metadata.sky.com/pd-image/be796369-a7a4-4114-9531-5d099d7bdcdd/16-9" />
-    <episode-num system="xmltv_ns">.261.</episode-num>
-  </programme>
-  <programme channel="SkySportsF1UHD.uk" start="20261025152500 -0300" stop="20261025153000 -0300">
-    <title lang="en">F1 Flying Lap: Austin</title>
-    <desc lang="en">Powered by Audi, Karun Chandhok hits iconic race tracks in a high-performance Audi, combining real laps with sim data to break down racing lines, braking points and elite-level performance.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Motor Sports</category>
-    <icon src="https://images.metadata.sky.com/pd-image/0b191091-a4f3-4b55-bcbe-282a34c6d3ae/16-9" />
-  </programme>
   <programme channel="SkySportsF1UHD.uk" start="20261025153000 -0300" stop="20261025165500 -0300">
     <title lang="en">Live Grand Prix Sunday: US</title>
     <desc lang="en">Join Sky Sports F1 on the grid ahead of the start of the race at the United States Grand Prix in Austin, Texas.</desc>
@@ -34586,14 +33617,6 @@
       <value>U</value>
     </rating>
   </programme>
-  <programme channel="SkySportsMainEvent.uk@TvVoo" start="20261025132500 -0300" stop="20261025160000 -0300">
-    <title lang="en">Live PL: Sunderland v Leeds United</title>
-    <desc lang="en">Regis Le Bris' struggling Sunderland, rooted to the foot of the Premier League table, take on Leeds on Super Sunday. The Black Cats have slipped to four straight defeats.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Football</category>
-    <icon src="https://images.metadata.sky.com/pd-image/a49a4db0-6af1-49c2-abf3-db4b1f049456/16-9" />
-    <episode-num system="xmltv_ns">.7.</episode-num>
-  </programme>
   <programme channel="SkySportsMainEvent.uk@TvVoo" start="20261025160000 -0300" stop="20261025165500 -0300">
     <title lang="en">Live Grand Prix Sunday: US</title>
     <desc lang="en">Join Sky Sports F1 on the grid ahead of the start of the race at the United States Grand Prix in Austin, Texas.</desc>
@@ -35004,14 +34027,6 @@
     <icon src="https://images.metadata.sky.com/pd-image/3a03bb97-9a84-4cfb-8980-40b94ddf030c/16-9" />
     <episode-num system="xmltv_ns">.88.</episode-num>
   </programme>
-  <programme channel="SkySportsMainEventUHD.uk" start="20261025132500 -0300" stop="20261025160000 -0300">
-    <title lang="en">Live PL: Sunderland v Leeds United</title>
-    <desc lang="en">Regis Le Bris' struggling Sunderland, rooted to the foot of the Premier League table, take on Leeds on Super Sunday. The Black Cats have slipped to four straight defeats.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Football</category>
-    <icon src="https://images.metadata.sky.com/pd-image/a49a4db0-6af1-49c2-abf3-db4b1f049456/16-9" />
-    <episode-num system="xmltv_ns">.7.</episode-num>
-  </programme>
   <programme channel="SkySportsMainEventUHD.uk" start="20261025160000 -0300" stop="20261025165500 -0300">
     <title lang="en">Live Grand Prix Sunday: US</title>
     <desc lang="en">Join Sky Sports F1 on the grid ahead of the start of the race at the United States Grand Prix in Austin, Texas.</desc>
@@ -35421,14 +34436,6 @@
     <category lang="en">Baseball</category>
     <icon src="https://images.metadata.sky.com/pd-image/3a03bb97-9a84-4cfb-8980-40b94ddf030c/16-9" />
     <episode-num system="xmltv_ns">.88.</episode-num>
-  </programme>
-  <programme channel="SkySportsPremierLeague.uk" start="20261025130000 -0300" stop="20261025163000 -0300">
-    <title lang="en">Live PL: Sunderland v Leeds United</title>
-    <desc lang="en">Regis Le Bris' struggling Sunderland, rooted to the foot of the Premier League table, take on Leeds on Super Sunday. The Black Cats have slipped to four straight defeats.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Football</category>
-    <icon src="https://images.metadata.sky.com/pd-image/a49a4db0-6af1-49c2-abf3-db4b1f049456/16-9" />
-    <episode-num system="xmltv_ns">.7.</episode-num>
   </programme>
   <programme channel="SkySportsPremierLeague.uk" start="20261025163000 -0300" stop="20261025171500 -0300">
     <title lang="en">Boss with Jamie Carragher: Alonso</title>
@@ -36575,80 +35582,6 @@
     <icon src="https://images.metadata.sky.com/pd-image/efd6ab5a-86b0-43f6-a1d1-8772c50943aa/16-9" />
     <episode-num system="xmltv_ns">.7.</episode-num>
   </programme>
-  <programme channel="SkySportsTennis.uk" start="20261025123000 -0300" stop="20261025143000 -0300">
-    <title lang="en">Live: ATP Brussels Final</title>
-    <desc lang="en">Germany's Jan-Lennard Struff, a win away from a first tour-level title since 2024, targets ATP 250 triumph in the Belgian capital in a meeting with Dutchman Tallon Griekspoor.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Tennis</category>
-    <icon src="https://images.metadata.sky.com/pd-image/748af931-c34f-4800-ba43-1f5a954bf443/16-9" />
-    <episode-num system="xmltv_ns">.77.</episode-num>
-  </programme>
-  <programme channel="SkySportsTennis.uk" start="20261025143000 -0300" stop="20261025144500 -0300">
-    <title lang="en">ATP Final: Madrid</title>
-    <desc lang="en">Eyeing a historic fifth consecutive ATP Masters 1000 title, world number one Jannik Sinner meets familiar rival and two-time Madrid Open champion Alexander Zverev. (03.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Tennis</category>
-    <icon src="https://images.metadata.sky.com/pd-image/20a636db-91f3-418e-a973-642a5807bbba/16-9" />
-    <episode-num system="onscreen">05</episode-num>
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme channel="SkySportsTennis.uk" start="20261025144500 -0300" stop="20261025150000 -0300">
-    <title lang="en">ATP Final: Rome</title>
-    <desc lang="en">World number one Jannik Sinner, a win away from completing the Career Golden Masters, meets first-time Rome finalist Casper Ruud - who trails 4-0 in head-to-head meetings. (17.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Tennis</category>
-    <icon src="https://images.metadata.sky.com/pd-image/80d05ca1-8c57-42a0-964e-47701d919e6a/16-9" />
-    <episode-num system="onscreen">05</episode-num>
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme channel="SkySportsTennis.uk" start="20261025150000 -0300" stop="20261025151500 -0300">
-    <title lang="en">ATP Final: Shanghai</title>
-    <desc lang="en">In an all-Spanish decider, one of 2026's breakout stars Rafael Jodar - competing in a first ATP Masters00 final - meets Alejandro Davidovich Fokina, who stunned Zverev. (18.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Tennis</category>
-    <icon src="https://images.metadata.sky.com/pd-image/f2ea5be1-d6ed-474a-9671-8c5214b37d2c/16-9" />
-    <episode-num system="onscreen">10</episode-num>
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme channel="SkySportsTennis.uk" start="20261025151500 -0300" stop="20261025153000 -0300">
-    <title lang="en">WTA Final: Wuhan</title>
-    <desc lang="en">Sonay Kartal's dream week in Wuhan concludes with the biggest match of her career, as the Brit competes in her first WTA00 final against French Open runner-up Maja Chwalinska. (18.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Tennis</category>
-    <icon src="https://images.metadata.sky.com/pd-image/934fe0bc-103b-4946-8a6a-bf4045c423a1/16-9" />
-    <episode-num system="onscreen">10</episode-num>
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme channel="SkySportsTennis.uk" start="20261025153000 -0300" stop="20261025160000 -0300">
-    <title lang="en">ATP Tour This Week</title>
-    <desc lang="en">Step behind the scenes of men's professional tennis throughout the 2026 season on the ATP Tour with special features, interviews and much more.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Tennis</category>
-    <icon src="https://images.metadata.sky.com/pd-image/fd318efc-10a5-4d13-9531-1080eb71d4dd/16-9" />
-    <episode-num system="xmltv_ns">.105.</episode-num>
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
-  <programme channel="SkySportsTennis.uk" start="20261025160000 -0300" stop="20261025163000 -0300">
-    <title lang="en">WTA All Access Magazine 2026</title>
-    <desc lang="en">Go behind the scenes with an all-access look at the stars of the WTA Tour as they compete at premier events throughout the season.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Tennis</category>
-    <icon src="https://images.metadata.sky.com/pd-image/68946dc1-b03c-421c-afbe-f1ec3bf92c06/16-9" />
-    <episode-num system="xmltv_ns">.4.</episode-num>
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
   <programme channel="SkySportsTennis.uk" start="20261025163000 -0300" stop="20261025183000 -0300">
     <title lang="en">WTA Final: Osaka</title>
     <desc lang="en">A chance for Ashlyn Krueger to recapture the Osaka crown as the 2023 champion meets Czech star Katerina Siniakova - who competes for her first singles title since 2023. (24.</desc>
@@ -36966,19 +35899,6 @@
     <rating system="UK">
       <value>U</value>
     </rating>
-  </programme>
-  <programme start="20261025125400 -0300" stop="20261025143300 -0300" channel="StingrayClassica.ca">
-    <title lang="en">Triple Concerto, Op. 56 &amp; Symphonie Fantastique</title>
-    <date>2026</date>
-    <icon src="https://metadata-static.plex.tv/a/gracenote/a56be03605a1618b4c36b2d62ddf9237.jpg" />
-    <episode-num system="onscreen">S2026</episode-num>
-  </programme>
-  <programme start="20261025143300 -0300" stop="20261025155900 -0300" channel="StingrayClassica.ca">
-    <title lang="en">Works by Mendelssohn &amp; Hensel</title>
-    <desc lang="en">A 2020 performance of Mendelssohn and Hensel at the Mendelssohn House in Leipzig, Germany.</desc>
-    <date>2026</date>
-    <icon src="https://metadata-static.plex.tv/1/gracenote/159c8db41b8e4a758a5a077e57363095.jpg" />
-    <episode-num system="onscreen">S2026</episode-num>
   </programme>
   <programme start="20261025155900 -0300" stop="20261025175000 -0300" channel="StingrayClassica.ca">
     <title lang="en">Mahler: Symphony No. 8</title>
@@ -37371,36 +36291,6 @@
     <date>2026</date>
     <icon src="https://metadata-static.plex.tv/1/gracenote/1b55fe2562ae7eb192974a1634890943.jpg" />
     <episode-num system="onscreen">S2026</episode-num>
-  </programme>
-  <programme channel="TNTSports1.uk" start="20261025111500 -0300" stop="20261025143000 -0300">
-    <title lang="en">Live: The Gallagher PREM</title>
-    <sub-title lang="en">Harlequins v Saracens (Kick-off 3.00pm)</sub-title>
-    <desc lang="en">Harlequins v Saracens (Kick-off 3.00pm). Coverage of the match from the fourth round of fixtures at Twickenham Stoop.</desc>
-    <icon src="https://tv.assets.pressassociation.io/d77cc1d0-baf0-505b-b59b-47969bd19e60.jpg" />
-  </programme>
-  <programme channel="TNTSports1.uk" start="20261025143000 -0300" stop="20261025144500 -0300">
-    <title lang="en">The Breakdown</title>
-    <sub-title lang="en">Chris Ashton, Austin Healey and Ben Kay are invited to a wine tasting at Saracens</sub-title>
-    <desc lang="en">Chris Ashton, Austin Healey and Ben Kay are invited to a wine tasting at Saracens where they chat with the management and squad including Owen Farrell, Joe Shaw and Brendan Venter.</desc>
-    <icon src="https://tv.assets.pressassociation.io/de070dc5-b3d3-591b-8352-60c31e28bbc0.jpg" />
-  </programme>
-  <programme channel="TNTSports1.uk" start="20261025144500 -0300" stop="20261025151500 -0300">
-    <title lang="en">Ella Toone's Away Days</title>
-    <sub-title lang="en">A behind the scenes look at the life and travels of England and Manchester United star Ella Toone</sub-title>
-    <desc lang="en">A behind the scenes look at the life and travels of England and Manchester United star Ella Toone.</desc>
-    <icon src="https://tv.assets.pressassociation.io/7f6da8d0-8984-5ad2-b34d-41680cdd8fee.jpg" />
-  </programme>
-  <programme channel="TNTSports1.uk" start="20261025151500 -0300" stop="20261025153000 -0300">
-    <title lang="en">Under the Lights</title>
-    <sub-title lang="en">A look at memorable European Nights at Celtic Park</sub-title>
-    <desc lang="en">A look at memorable European Nights at Celtic Park.</desc>
-    <icon src="https://tv.assets.pressassociation.io/f1aa882b-e0a6-5eab-952b-b852f9967ba7.jpg" />
-  </programme>
-  <programme channel="TNTSports1.uk" start="20261025153000 -0300" stop="20261025163000 -0300">
-    <title lang="en">Serie A</title>
-    <sub-title lang="en">Napoli v AS Roma</sub-title>
-    <desc lang="en">Napoli v AS Roma.</desc>
-    <icon src="https://tv.assets.pressassociation.io/85e4a3b4-e457-53f7-bef3-1112c9593d20.jpg" />
   </programme>
   <programme channel="TNTSports1.uk" start="20261025163000 -0300" stop="20261025184500 -0300">
     <title lang="en">Live: Serie A</title>
@@ -37876,24 +36766,6 @@
     <desc lang="en">Kansas City Current v Washington Spirit.</desc>
     <icon src="https://tv.assets.pressassociation.io/420b2906-1a25-530a-bcff-ae1ecbea18d4.jpg" />
   </programme>
-  <programme channel="TNTSports2.uk" start="20261025130000 -0300" stop="20261025140000 -0300">
-    <title lang="en">MotoGP</title>
-    <sub-title lang="en">The Grand Prix of Australia MotoGP race</sub-title>
-    <desc lang="en">The Grand Prix of Australia MotoGP race. Action from the 18th round of the season at Phillip Island Grand Prix Circuit.</desc>
-    <icon src="https://tv.assets.pressassociation.io/41a21248-7575-5850-a040-530a66a2f862.jpg" />
-  </programme>
-  <programme channel="TNTSports2.uk" start="20261025140000 -0300" stop="20261025143000 -0300">
-    <title lang="en">UCI Mountain Bike World Series Review</title>
-    <sub-title lang="en">A review of the Ligure Enduro in Italy</sub-title>
-    <desc lang="en">A review of the Ligure Enduro in Italy.</desc>
-    <icon src="https://tv.assets.pressassociation.io/0cdb78c2-f269-5d0d-a107-9044373c84ff.jpg" />
-  </programme>
-  <programme channel="TNTSports2.uk" start="20261025143000 -0300" stop="20261025160000 -0300">
-    <title lang="en">Ultimate Pool</title>
-    <sub-title lang="en">Action from week two and the second semi-final of the Ultimate Pool League</sub-title>
-    <desc lang="en">Action from week two and the second semi-final of the Ultimate Pool League.</desc>
-    <icon src="https://tv.assets.pressassociation.io/b5e7d318-58bd-579d-a8e8-438e3f406540.jpg" />
-  </programme>
   <programme channel="TNTSports2.uk" start="20261025160000 -0300" stop="20261025190000 -0300">
     <title lang="en">Live: Northern Ireland Open Snooker</title>
     <sub-title lang="en">Coverage of the second session of the final</sub-title>
@@ -38361,24 +37233,6 @@
     <sub-title lang="en">Including action from the Parkdean Resorts Masters 2026</sub-title>
     <desc lang="en">Angling magazine show presented by Rob Hughes and Andy Ford, including action from the Parkdean Resorts Masters 2026.</desc>
     <icon src="https://tv.assets.pressassociation.io/1892c78f-040e-53d2-ab5f-fd86f55a392a.jpg" />
-  </programme>
-  <programme channel="TNTSports3.uk@TvVoo" start="20261025130000 -0300" stop="20261025153000 -0300">
-    <title lang="en">MLB</title>
-    <sub-title lang="en">Action from Milwaukee Brewers v Tampa Bay Rays in game two of the World Series</sub-title>
-    <desc lang="en">Action from Milwaukee Brewers v Tampa Bay Rays in game two of the World Series.</desc>
-    <icon src="https://tv.assets.pressassociation.io/2b096d06-4f18-5387-bf8d-6fedf7d9afe0.jpg" />
-  </programme>
-  <programme channel="TNTSports3.uk@TvVoo" start="20261025153000 -0300" stop="20261025160000 -0300">
-    <title lang="en">Men's Alpine Skiing World Cup</title>
-    <sub-title lang="en">Action from the first run of the giant slalom in Solden, Austria</sub-title>
-    <desc lang="en">Action from the first run of the giant slalom in Solden, Austria.</desc>
-    <icon src="https://tv.assets.pressassociation.io/111d8338-90b8-57eb-a4b5-b1f79cd9a7fd.jpg" />
-  </programme>
-  <programme channel="TNTSports3.uk@TvVoo" start="20261025160000 -0300" stop="20261025163000 -0300">
-    <title lang="en">Men's Alpine Skiing World Cup</title>
-    <sub-title lang="en">Action from the second run of the giant slalom in Solden, Austria</sub-title>
-    <desc lang="en">Action from the second run of the giant slalom in Solden, Austria.</desc>
-    <icon src="https://tv.assets.pressassociation.io/dcb5cbbf-b0b0-5796-bdb5-0a477fa1ba82.jpg" />
   </programme>
   <programme channel="TNTSports3.uk@TvVoo" start="20261025163000 -0300" stop="20261025170000 -0300">
     <title lang="en">Cyclocross</title>
@@ -38979,44 +37833,6 @@
     <sub-title lang="en">A look at the biggest stories and best action from round four</sub-title>
     <desc lang="en">A look at the biggest stories and best action from round four, including Leicester Tigers v Northampton Saints, Bristol Bears v Exeter Chiefs, and Gloucester Rugby v Bath Rugby.</desc>
     <icon src="https://tv.assets.pressassociation.io/c7bd23e9-0e6a-5944-ba59-b4fcf8beac9a.jpg" />
-  </programme>
-  <programme channel="TVEInternacionalAmerica.es@HD" start="20261025134500 -0300" stop="20261025141500 -0300">
-    <title lang="es">Flash moda</title>
-    <desc lang="es">Una revista informativa sobre el mundo de la moda presentado por Nieves Álvarez.</desc>
-    <credits>
-      <actor>Nieves Álvarez</actor>
-      <director>Jesús María Montes Fernández</director>
-    </credits>
-    <date>2014</date>
-    <category lang="es">Entertainment</category>
-    <category lang="es">Fashion</category>
-    <icon src="http://dtil.tmsimg.com/assets/p32115030_b_h10_aa.jpg?w=960&amp;h=540" />
-    <previously-shown />
-    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
-      <value>L</value>
-    </rating>
-    <rating system="USA Parental Rating">
-      <value>TVG</value>
-    </rating>
-    <rating system="Canadian Parental Rating">
-      <value>G</value>
-    </rating>
-    <rating system="Régie du cinéma">
-      <value>G</value>
-    </rating>
-  </programme>
-  <programme channel="TVEInternacionalAmerica.es@HD" start="20261025141500 -0300" stop="20261025161000 -0300">
-    <title lang="es">D corazón</title>
-    <desc lang="es">Un repaso a toda la actualidad social de España.</desc>
-    <credits>
-      <actor>Anne Igartiburu</actor>
-      <actor>Paula Peña</actor>
-      <director>Eva Hernandez</director>
-    </credits>
-    <date>2024</date>
-    <category lang="es">Newsmagazine</category>
-    <icon src="http://dtil.tmsimg.com/assets/p26523743_b_h10_ab.jpg?w=960&amp;h=540" />
-    <previously-shown />
   </programme>
   <programme channel="TVEInternacionalAmerica.es@HD" start="20261025161000 -0300" stop="20261025165500 -0300">
     <title lang="es">Saber y ganar - Fin de semana</title>
@@ -40747,17 +39563,6 @@
       <value>L</value>
     </rating>
   </programme>
-  <programme start="20261025133500 -0300" stop="20261025143000 -0300" channel="TelehitMusica.mx@SD">
-    <title lang="es">90s Pop Hits</title>
-    <desc lang="es">Los hits del pop de los 90s.</desc>
-  </programme>
-  <programme start="20261025143000 -0300" stop="20261025150000 -0300" channel="TelehitMusica.mx@SD">
-    <title lang="es">Playlist Telehit</title>
-  </programme>
-  <programme start="20261025150000 -0300" stop="20261025155500 -0300" channel="TelehitMusica.mx@SD">
-    <title lang="es">Super Hits</title>
-    <desc lang="es">La más grande rotación de bloques de videos.</desc>
-  </programme>
   <programme start="20261025155500 -0300" stop="20261025165000 -0300" channel="TelehitMusica.mx@SD">
     <title lang="es">Telehitazos</title>
     <desc lang="es">Un programa al que decidimos darle un giro para volverlo 100 música indie, rock de los 80s, 90s y 2000s.</desc>
@@ -41071,27 +39876,6 @@
   </programme>
   <programme start="20261029013500 -0300" stop="20261029023000 -0300" channel="TelehitMusica.mx@SD">
     <title lang="es">Suena el Dembow</title>
-  </programme>
-  <programme start="20261025130000 -0300" stop="20261025140000 -0300" channel="Vavoo.es.EUROSPORT1@TvVoo">
-    <title lang="es">Global Champions Tour - El Cairo</title>
-    <desc lang="es">El Global Champions Tour de El Cairo es la final del circuito hípico de salto de obstáculos de máximo nivel. Reúne a la élite mundial y a los mejores caballos en escenarios históricos de Egipto, compitiendo por millonarios premios en la disciplina de 5 estrellas.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/84/41.jpg" />
-    <country lang="es">Egipto</country>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
-  </programme>
-  <programme start="20261025140000 -0300" stop="20261025150000 -0300" channel="Vavoo.es.EUROSPORT1@TvVoo">
-    <title lang="es">Abierto de Irlanda del Norte de snooker</title>
-    <sub-title lang="es">Final</sub-title>
-    <desc lang="es">El Abierto de Irlanda del Norte de snooker se disputa del 18 al 25 de octubre en el Waterfront Hall de Belfast. Es un torneo clave de las Home Nations Series donde la élite busca el trofeo Alex Higgins. El inglés Jack Lisowski se impuso en 2025.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/43129/c_northern_ireland_open.jpeg" />
-    <episode-num system="onscreen">S2627</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
   <programme start="20261025150000 -0300" stop="20261025180000 -0300" channel="Vavoo.es.EUROSPORT1@TvVoo">
     <title lang="es">Abierto de Irlanda del Norte de snooker</title>
@@ -41595,24 +40379,6 @@
     <episode-num system="onscreen">S01E01</episode-num>
     <image>https://estatico.emisiondof6.com/recorte/n/vegend/MESPF4433703.jpg</image>
   </programme>
-  <programme channel="Vavoo.uk.TNTSPORTS4@TvVoo" start="20261025051500 -0300" stop="20261025140000 -0300">
-    <title lang="en">Live: Women's One-Day International Cricket</title>
-    <sub-title lang="en">India v Zimbabwe</sub-title>
-    <desc lang="en">India v Zimbabwe. Coverage of the second ODI in the three-match series, which takes place at Baroda Cricket Association Stadium in Vadodara.</desc>
-    <icon src="https://tv.assets.pressassociation.io/a3a1f215-3d10-56b5-983d-e911f86657a8.jpg" />
-  </programme>
-  <programme channel="Vavoo.uk.TNTSPORTS4@TvVoo" start="20261025140000 -0300" stop="20261025150000 -0300">
-    <title lang="en">International T20 Cricket Highlights</title>
-    <sub-title lang="en">New Zealand v India</sub-title>
-    <desc lang="en">New Zealand v India. Action from the second Twenty20 in the five-match series, which took place at Hagley Oval in Christchurch.</desc>
-    <icon src="https://tv.assets.pressassociation.io/d027079d-b322-59ef-97fc-4f5bbdd6bd09.jpg" />
-  </programme>
-  <programme channel="Vavoo.uk.TNTSPORTS4@TvVoo" start="20261025150000 -0300" stop="20261025160000 -0300">
-    <title lang="en">World Rally Raid Championship</title>
-    <sub-title lang="en">Action from the fourth round of the season in Morocco</sub-title>
-    <desc lang="en">Action from the fourth round of the season in Morocco.</desc>
-    <icon src="https://tv.assets.pressassociation.io/7cc7a8e9-0ef3-5875-9cc5-c2624fb3c639.jpg" />
-  </programme>
   <programme channel="Vavoo.uk.TNTSPORTS4@TvVoo" start="20261025160000 -0300" stop="20261025170000 -0300">
     <title lang="en">FIA World Endurance Championship Highlights</title>
     <sub-title lang="en">Action from the 6 Hours of Barcelona</sub-title>
@@ -42092,16 +40858,6 @@
     <sub-title lang="en">Amanda Nunes v Valentina Shevchenko at UFC 215</sub-title>
     <desc lang="en">A look back at the closely-contested bantamweight clash between Amanda Nunes and Valentina Shevchenko at UFC 215 in Edmonton, Alberta, from September 2017.</desc>
     <icon src="https://tv.assets.pressassociation.io/0bab7e8f-d955-52bc-8ed1-d59928cb0357.jpg" />
-  </programme>
-  <programme start="20261025120000 -0300" stop="20261025140000 -0300" channel="WinPlusFutbol.co@Direct181">
-    <title lang="es">Top 14 Rugby Union</title>
-    <sub-title lang="es">Vannes vs. Clermont, Fecha 7, Stade de la Rabine</sub-title>
-    <desc lang="es">Vive las emociones de los partidos de la 128º edición del Top 14, el campeonato francés de Rugby Union, donde se enfrentan los catorce mejores equipos de.</desc>
-    <date>2026</date>
-    <category lang="es">Rugby</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/1994086107.jpg" />
-    <country lang="es">Francia</country>
-    <episode-num system="onscreen">S2026</episode-num>
   </programme>
   <programme start="20261025140000 -0300" stop="20261025170000 -0300" channel="WinPlusFutbol.co@Direct181">
     <title lang="es">NFL</title>
@@ -42624,14 +41380,6 @@
     <country lang="es">EE. UU</country>
     <episode-num system="onscreen">S2026</episode-num>
   </programme>
-  <programme start="20261025132000 -0300" stop="20261025142000 -0300" channel="WinSports.co@Direct181">
-    <title lang="es">Atlético de Madrid vs. Deportivo La Coruña</title>
-    <sub-title lang="es">Fútbol LaLiga</sub-title>
-    <desc lang="es">Laliga Soccer. La Primera División de España conocida como LaLiga o, por motivos de patrocinio, como LaLiga Santander es la máxima categoría masculina del sistema de ligas de España y la principal competición a nivel de clubes del país.</desc>
-  </programme>
-  <programme start="20261025142000 -0300" stop="20261025155000 -0300" channel="WinSports.co@Direct181">
-    <title lang="es">Messi Cup 2026</title>
-  </programme>
   <programme start="20261025155000 -0300" stop="20261025172000 -0300" channel="WinSports.co@Direct181">
     <title lang="es">Messi Cup 2026</title>
   </programme>
@@ -42796,15 +41544,6 @@
   <programme start="20261027190000 -0300" stop="20261027210000 -0300" channel="WinSports.co@Direct181">
     <title lang="es">Sassuolo vs. Lazio</title>
     <sub-title lang="es">Fútbol: Serie A</sub-title>
-  </programme>
-  <programme start="20261025130000 -0300" stop="20261025150000 -0300" channel="XITE80sFlashback.us">
-    <title lang="en">Totally Awesome 80s</title>
-    <desc lang="en">Fuel your afternoon with a powerhouse of 80s music video hits.</desc>
-    <category lang="en">Music</category>
-    <icon src="https://demp3evtv0qgp.cloudfront.net/F80BK/80s-flashback.png" />
-    <rating system="US">
-      <value>NR</value>
-    </rating>
   </programme>
   <programme start="20261025150000 -0300" stop="20261025190000 -0300" channel="XITE80sFlashback.us">
     <title lang="en">80s Afternoon Anthems</title>
@@ -43054,15 +41793,6 @@
     <desc lang="en">Simply the best 80s music video hits.</desc>
     <category lang="en">Music</category>
     <icon src="https://demp3evtv0qgp.cloudfront.net/F80BK/80s-flashback.png" />
-    <rating system="US">
-      <value>NR</value>
-    </rating>
-  </programme>
-  <programme start="20261025130000 -0300" stop="20261025150000 -0300" channel="XITE90sThrowback.us">
-    <title lang="en">You Go 90s!</title>
-    <desc lang="en">90s music video hits to help you power through the afternoon.</desc>
-    <category lang="en">Music</category>
-    <icon src="https://demp3evtv0qgp.cloudfront.net/T90BK/you-go-90-s-16_9.png" />
     <rating system="US">
       <value>NR</value>
     </rating>
@@ -43319,15 +42049,6 @@
       <value>NR</value>
     </rating>
   </programme>
-  <programme start="20261025130000 -0300" stop="20261025160000 -0300" channel="XITEHits.nl@Germany">
-    <title lang="en">Nonstop Hits</title>
-    <desc lang="en">Check out the hottest music videos of the moment.</desc>
-    <category lang="en">Music</category>
-    <icon src="https://demp3evtv0qgp.cloudfront.net/XITUS/us-nonstop-hits-16_9.png" />
-    <rating system="US">
-      <value>14</value>
-    </rating>
-  </programme>
   <programme start="20261025160000 -0300" stop="20261025190000 -0300" channel="XITEHits.nl@Germany">
     <title lang="en">Hits All Afternoon</title>
     <desc lang="en">Need a pick me up? Here are some uplifting music videos that will give you energy for the hardest part of the day.</desc>
@@ -43551,15 +42272,6 @@
     <icon src="https://demp3evtv0qgp.cloudfront.net/XITUS/glo-hits-now_-the-ultimate-collection-16_9.png" />
     <rating system="US">
       <value>14</value>
-    </rating>
-  </programme>
-  <programme start="20261025130000 -0300" stop="20261025150000 -0300" channel="XITEJustChill.nl">
-    <title lang="en">Laidback Lounge</title>
-    <desc lang="en">Unwind with these laidback music videos, live performances, and acoustic sessions.</desc>
-    <category lang="en">Music</category>
-    <icon src="https://demp3evtv0qgp.cloudfront.net/laidback-lounge-16_9.png" />
-    <rating system="US">
-      <value>NR</value>
     </rating>
   </programme>
   <programme start="20261025150000 -0300" stop="20261025190000 -0300" channel="XITEJustChill.nl">
@@ -43814,15 +42526,6 @@
       <value>NR</value>
     </rating>
   </programme>
-  <programme start="20261025110000 -0300" stop="20261025150000 -0300" channel="XITENuevoLatino.us">
-    <title lang="en">Nonstop Latin Hits</title>
-    <desc lang="en">Tune in for a rhythm-packed midday fiesta that'll have you moving and grooving.</desc>
-    <category lang="en">Music</category>
-    <icon src="https://demp3evtv0qgp.cloudfront.net/XNULA/nonstop-latin-hits-16_9.png" />
-    <rating system="US">
-      <value>TV-14</value>
-    </rating>
-  </programme>
   <programme start="20261025150000 -0300" stop="20261025170000 -0300" channel="XITENuevoLatino.us">
     <title lang="en">Todo Latin Hits</title>
     <desc lang="en">Feel the never-ending Latin heatwave with these hot hits.</desc>
@@ -44075,15 +42778,6 @@
       <value>TV-14</value>
     </rating>
   </programme>
-  <programme start="20261025130000 -0300" stop="20261025150000 -0300" channel="XITERockxMetal.nl">
-    <title lang="en">Rock Out At Noon</title>
-    <desc lang="en">These electrifying Rock anthems will keep you energized throughout the day.</desc>
-    <category lang="en">Music</category>
-    <icon src="https://demp3evtv0qgp.cloudfront.net/XITRK/rock-out-at-noon-16_9.png" />
-    <rating system="US">
-      <value>NR</value>
-    </rating>
-  </programme>
   <programme start="20261025150000 -0300" stop="20261025190000 -0300" channel="XITERockxMetal.nl">
     <title lang="en">Rock Unstoppable</title>
     <desc lang="en">Tune in for non-stop Rock and Metal hits.</desc>
@@ -44334,15 +43028,6 @@
     <icon src="https://demp3evtv0qgp.cloudfront.net/XITRK/amplified-anthems-16_9.png" />
     <rating system="US">
       <value>NR</value>
-    </rating>
-  </programme>
-  <programme start="20261025130000 -0300" stop="20261025150000 -0300" channel="XITESiempreLatino.us">
-    <title lang="en">Latin Icons At Noon</title>
-    <desc lang="en">Travel through time and relive these iconic Latin music moments.</desc>
-    <category lang="en">Music</category>
-    <icon src="https://demp3evtv0qgp.cloudfront.net/XITSL/latin-icons-at-noon-16_9.png" />
-    <rating system="US">
-      <value>14</value>
     </rating>
   </programme>
   <programme start="20261025150000 -0300" stop="20261025190000 -0300" channel="XITESiempreLatino.us">
@@ -44623,14 +43308,6 @@
     <rating system="US">
       <value>14</value>
     </rating>
-  </programme>
-  <programme channel="unitedkingdom|vavoo_SKY%20SPORTS%20MAIN%20EVENT%7Cgroup%3Auk@TvVoo" start="20261025132500 -0300" stop="20261025160000 -0300">
-    <title lang="en">Live PL: Sunderland v Leeds United</title>
-    <desc lang="en">Regis Le Bris' struggling Sunderland, rooted to the foot of the Premier League table, take on Leeds on Super Sunday. The Black Cats have slipped to four straight defeats.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Football</category>
-    <icon src="https://images.metadata.sky.com/pd-image/a49a4db0-6af1-49c2-abf3-db4b1f049456/16-9" />
-    <episode-num system="xmltv_ns">.7.</episode-num>
   </programme>
   <programme channel="unitedkingdom|vavoo_SKY%20SPORTS%20MAIN%20EVENT%7Cgroup%3Auk@TvVoo" start="20261025160000 -0300" stop="20261025165500 -0300">
     <title lang="en">Live Grand Prix Sunday: US</title>
@@ -45041,30 +43718,6 @@
     <category lang="en">Baseball</category>
     <icon src="https://images.metadata.sky.com/pd-image/3a03bb97-9a84-4cfb-8980-40b94ddf030c/16-9" />
     <episode-num system="xmltv_ns">.88.</episode-num>
-  </programme>
-  <programme start="20261025125500 -0300" stop="20261025140000 -0300" channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo">
-    <title lang="es">F1 - GP de Estados Unidos</title>
-    <sub-title lang="es">Clasificación</sub-title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/84/41.jpg" />
-    <country lang="es">Estados Unidos</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
-  </programme>
-  <programme start="20261025140000 -0300" stop="20261025150000 -0300" channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo">
-    <title lang="es">F1 Academy: USA Grand Prix</title>
-    <sub-title lang="es">Carrera 3</sub-title>
-    <desc lang="es">F1 Academy es una serie de carreras para mujeres cuyo objetivo es centrarse en el desarrollo y la preparación de jóvenes pilotos para progresar a niveles más altos de competencia. Ver más.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/84/41.jpg" />
-    <country lang="es">Estados Unidos</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
   <programme start="20261025150000 -0300" stop="20261025170000 -0300" channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo">
     <title lang="es">Previo carrera</title>
@@ -45523,24 +44176,6 @@
     <episode-num system="xmltv_ns">0.14.0/1</episode-num>
     <episode-num system="onscreen">S01E15</episode-num>
     <image>https://estatico.emisiondof6.com/recorte/n/vegend/F4200855.jpg</image>
-  </programme>
-  <programme channel="unitedkingdom|vavoo_TNT%20SPORTS%203%7Cgroup%3Auk@TvVoo" start="20261025130000 -0300" stop="20261025153000 -0300">
-    <title lang="en">MLB</title>
-    <sub-title lang="en">Action from Milwaukee Brewers v Tampa Bay Rays in game two of the World Series</sub-title>
-    <desc lang="en">Action from Milwaukee Brewers v Tampa Bay Rays in game two of the World Series.</desc>
-    <icon src="https://tv.assets.pressassociation.io/2b096d06-4f18-5387-bf8d-6fedf7d9afe0.jpg" />
-  </programme>
-  <programme channel="unitedkingdom|vavoo_TNT%20SPORTS%203%7Cgroup%3Auk@TvVoo" start="20261025153000 -0300" stop="20261025160000 -0300">
-    <title lang="en">Men's Alpine Skiing World Cup</title>
-    <sub-title lang="en">Action from the first run of the giant slalom in Solden, Austria</sub-title>
-    <desc lang="en">Action from the first run of the giant slalom in Solden, Austria.</desc>
-    <icon src="https://tv.assets.pressassociation.io/111d8338-90b8-57eb-a4b5-b1f79cd9a7fd.jpg" />
-  </programme>
-  <programme channel="unitedkingdom|vavoo_TNT%20SPORTS%203%7Cgroup%3Auk@TvVoo" start="20261025160000 -0300" stop="20261025163000 -0300">
-    <title lang="en">Men's Alpine Skiing World Cup</title>
-    <sub-title lang="en">Action from the second run of the giant slalom in Solden, Austria</sub-title>
-    <desc lang="en">Action from the second run of the giant slalom in Solden, Austria.</desc>
-    <icon src="https://tv.assets.pressassociation.io/dcb5cbbf-b0b0-5796-bdb5-0a477fa1ba82.jpg" />
   </programme>
   <programme channel="unitedkingdom|vavoo_TNT%20SPORTS%203%7Cgroup%3Auk@TvVoo" start="20261025163000 -0300" stop="20261025170000 -0300">
     <title lang="en">Cyclocross</title>
@@ -46142,24 +44777,6 @@
     <desc lang="en">A look at the biggest stories and best action from round four, including Leicester Tigers v Northampton Saints, Bristol Bears v Exeter Chiefs, and Gloucester Rugby v Bath Rugby.</desc>
     <icon src="https://tv.assets.pressassociation.io/c7bd23e9-0e6a-5944-ba59-b4fcf8beac9a.jpg" />
   </programme>
-  <programme channel="unitedkingdom|vavoo_TNT%20SPORT%204%7Cgroup%3Auk@TvVoo" start="20261025051500 -0300" stop="20261025140000 -0300">
-    <title lang="en">Live: Women's One-Day International Cricket</title>
-    <sub-title lang="en">India v Zimbabwe</sub-title>
-    <desc lang="en">India v Zimbabwe. Coverage of the second ODI in the three-match series, which takes place at Baroda Cricket Association Stadium in Vadodara.</desc>
-    <icon src="https://tv.assets.pressassociation.io/a3a1f215-3d10-56b5-983d-e911f86657a8.jpg" />
-  </programme>
-  <programme channel="unitedkingdom|vavoo_TNT%20SPORT%204%7Cgroup%3Auk@TvVoo" start="20261025140000 -0300" stop="20261025150000 -0300">
-    <title lang="en">International T20 Cricket Highlights</title>
-    <sub-title lang="en">New Zealand v India</sub-title>
-    <desc lang="en">New Zealand v India. Action from the second Twenty20 in the five-match series, which took place at Hagley Oval in Christchurch.</desc>
-    <icon src="https://tv.assets.pressassociation.io/d027079d-b322-59ef-97fc-4f5bbdd6bd09.jpg" />
-  </programme>
-  <programme channel="unitedkingdom|vavoo_TNT%20SPORT%204%7Cgroup%3Auk@TvVoo" start="20261025150000 -0300" stop="20261025160000 -0300">
-    <title lang="en">World Rally Raid Championship</title>
-    <sub-title lang="en">Action from the fourth round of the season in Morocco</sub-title>
-    <desc lang="en">Action from the fourth round of the season in Morocco.</desc>
-    <icon src="https://tv.assets.pressassociation.io/7cc7a8e9-0ef3-5875-9cc5-c2624fb3c639.jpg" />
-  </programme>
   <programme channel="unitedkingdom|vavoo_TNT%20SPORT%204%7Cgroup%3Auk@TvVoo" start="20261025160000 -0300" stop="20261025170000 -0300">
     <title lang="en">FIA World Endurance Championship Highlights</title>
     <sub-title lang="en">Action from the 6 Hours of Barcelona</sub-title>
@@ -46639,27 +45256,6 @@
     <sub-title lang="en">Amanda Nunes v Valentina Shevchenko at UFC 215</sub-title>
     <desc lang="en">A look back at the closely-contested bantamweight clash between Amanda Nunes and Valentina Shevchenko at UFC 215 in Edmonton, Alberta, from September 2017.</desc>
     <icon src="https://tv.assets.pressassociation.io/0bab7e8f-d955-52bc-8ed1-d59928cb0357.jpg" />
-  </programme>
-  <programme start="20261025130000 -0300" stop="20261025140000 -0300" channel="spain|vavoo_EUROSPORT%201%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Global Champions Tour - El Cairo</title>
-    <desc lang="es">El Global Champions Tour de El Cairo es la final del circuito hípico de salto de obstáculos de máximo nivel. Reúne a la élite mundial y a los mejores caballos en escenarios históricos de Egipto, compitiendo por millonarios premios en la disciplina de 5 estrellas.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/84/41.jpg" />
-    <country lang="es">Egipto</country>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
-  </programme>
-  <programme start="20261025140000 -0300" stop="20261025150000 -0300" channel="spain|vavoo_EUROSPORT%201%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Abierto de Irlanda del Norte de snooker</title>
-    <sub-title lang="es">Final</sub-title>
-    <desc lang="es">El Abierto de Irlanda del Norte de snooker se disputa del 18 al 25 de octubre en el Waterfront Hall de Belfast. Es un torneo clave de las Home Nations Series donde la élite busca el trofeo Alex Higgins. El inglés Jack Lisowski se impuso en 2025.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/43129/c_northern_ireland_open.jpeg" />
-    <episode-num system="onscreen">S2627</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
   <programme start="20261025150000 -0300" stop="20261025180000 -0300" channel="spain|vavoo_EUROSPORT%201%7Cgroup%3Aes@TvVoo">
     <title lang="es">Abierto de Irlanda del Norte de snooker</title>
@@ -47162,42 +45758,6 @@
     <episode-num system="xmltv_ns">0.0.0/1</episode-num>
     <episode-num system="onscreen">S01E01</episode-num>
     <image>https://estatico.emisiondof6.com/recorte/n/vegend/MESPF4433703.jpg</image>
-  </programme>
-  <programme start="20261025133000 -0300" stop="20261025140000 -0300" channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Copa del mundo de esquí alpino M - Sölden</title>
-    <sub-title lang="es">Eslalon gigante - 2ª manga</sub-title>
-    <desc lang="es">Como suele ser tradicional, la cita de Sölden inaugura la Copa del mundo de esquí alpino. Se disputa en el glaciar Rettenbach (Austria) con un exigente eslalon gigante masculino que reúne a la élite mundial del esquí. El pentacampeón Marco Odermatt es el rival a batir.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/84/41.jpg" />
-    <country lang="es">Austria</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
-  </programme>
-  <programme start="20261025140000 -0300" stop="20261025150000 -0300" channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo">
-    <title lang="es">GP de Francia - ISU Grand Prix</title>
-    <sub-title lang="es">Programa libre parejas</sub-title>
-    <desc lang="es">El GP de Francia inaugura la prestigiosa temporada del Grand Prix de Patinaje Artístico. Del 23 al 25 de octubre en Angers, la élite mundial compite en categorías individual, parejas y danza sobre hielo para clasificar a la gran final.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/43479/c_isu_figure_skating_grand_prix_de_france_2026.jpeg" />
-    <country lang="es">Francia</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
-  </programme>
-  <programme start="20261025150000 -0300" stop="20261025160000 -0300" channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo">
-    <title lang="es">GP de Francia - ISU Grand Prix</title>
-    <sub-title lang="es">Programa libre M</sub-title>
-    <desc lang="es">El GP de Francia inaugura la prestigiosa temporada del Grand Prix de Patinaje Artístico. Del 23 al 25 de octubre en Angers, la élite mundial compite en categorías individual, parejas y danza sobre hielo para clasificar a la gran final.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/43479/c_isu_figure_skating_grand_prix_de_france_2026.jpeg" />
-    <country lang="es">Francia</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
   <programme start="20261025160000 -0300" stop="20261025170000 -0300" channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo">
     <title lang="es">Copa del mundo de esquí alpino M - Sölden</title>
