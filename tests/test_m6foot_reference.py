@@ -1,4 +1,5 @@
 """Referencias tokenless M6Foot y las 19 filas editoriales de Lista 2 (2026-10-18)."""
+from fractions import Fraction
 import json
 import re
 import unittest
@@ -142,14 +143,24 @@ class M6FootReferenceTest(unittest.TestCase):
             if row["state"] == "active" and row.get("sourceList") == "2.m3u"
             and row.get("tvgId") not in linked and row.get("group") != "Adultos"
         ]
-        # 2026-10-22: el bloque de Lista 2 va por bitrate medido (mayor primero); los sin medir,
-        # al final en orden alfabético (contracts/bitrate-lista2-20261022.json).
+        # 2026-10-25, pedido del usuario: el bloque de Lista 2 va por resolución, luego fps, luego
+        # bitrate y luego nombre. Los sin medir van al final, en orden alfabético
+        # (contracts/bitrate-lista2-20261022.json).
         measured = {
-            item["tvg_id"]: item["kbps"]
+            item["tvg_id"]: item
             for item in json.loads((ROOT / "contracts/bitrate-lista2-20261022.json").read_text(encoding="utf-8"))
-            if item.get("ok")
+            if item.get("ok") and item.get("height")
         }
-        ranks = [(0, -measured[row["tvgId"]]) if row.get("tvgId") in measured else (1, 0) for row in block]
+
+        def rank(row):
+            item = measured.get(row.get("tvgId"))
+            if item is None:
+                return (1,)
+            fps = float(Fraction(item.get("fps") or "0"))
+            name = str(row.get("displayName") or row.get("name") or "").lower()
+            return (0, -item["height"], -(item.get("width") or 0), -fps, -(item.get("kbps") or 0), name)
+
+        ranks = [rank(row) for row in block]
         self.assertEqual(ranks, sorted(ranks))
         # Los adultos cierran Lista 2: ninguna fila no-adulto puede quedar después de ellos.
         if adults:
