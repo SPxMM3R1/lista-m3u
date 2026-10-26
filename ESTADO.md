@@ -803,3 +803,4 @@
   - Editor con selección múltiple.
 - **2026-09-25 y antes**: editor web local, logos históricos, Highfly y TvVoo gestionados
   desde el editor, listas 1 y 2.
+- **2026-10-26 / Star Channel de Lista 2 a mx1**: el 681 (`PublicDirect.389f219f3c7fdbbda989bda5`) mostraba «O'Dessa» y «Los Simpson» en la guía Claro Argentina 762301. Se remapearon las 25 filas Star de esa familia a mx1 `Canal.Star.Channel.(México).mx` en `epg-l2-map.json`, sin respaldo Claro. Captura mx1 del 21-oct (`outputs/lista2-epg-audit-20261021/capturas/star-channel-7c901b16.jpg`) muestra «CASTLE: SEASON 8» con logo Star. Pendiente: confirmar con la guía mx1 actual y una captura del 681 de hoy.
