@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-10-25",
+  "updated": "2026-10-26",
   "description": "Copias (casi todas de Lista 2) que respaldan a un canal de Lista 1: misma señal, confirmada con captura. Esas copias ya no se publican en Lista 2; la app las prueba en orden si la señal principal falla.",
   "fields": {
     "channels.<clave>": "tvg-id del canal principal en Lista 1 (la identidad estable; el número puede cambiar).",
@@ -14,6 +14,48 @@
     "backups[].group / logo / url / guide": "Grupo, logo, dirección de reproducción y guía de la copia."
   },
   "channels": {
+    "0104": {
+      "display_name": "TVN",
+      "list": "Lista 1",
+      "number": 1,
+      "group": "Nacionales",
+      "source_name": "TVN",
+      "guide": {
+        "source": "",
+        "source_id": ""
+      },
+      "verified": "; 2026-10-25: TVN HD [IP 190.108.83.69] respaldo por pedido del usuario (224 de Lista 2), sin prueba de audio.; 2026-10-25: TVN HD [IP 45.173.231.22] respaldo por pedido del usuario (268 de Lista 2, en el 265 al momento del cambio), sin prueba de audio.",
+      "backups": [
+        {
+          "tvg_id": "PublicDirect.26f00869eaf82b85d56a3e37",
+          "display_name": "TVN",
+          "source_name": "TVN HD [IP 190.108.83.69]",
+          "from_list": "Lista 2",
+          "from_number": 224,
+          "group": "Misceláneos",
+          "logo": "logos/lista2/6df4c8f86c82.png",
+          "url": "http://190.108.83.69:8000/play/a03f/index.m3u8",
+          "guide": {
+            "source": "",
+            "source_id": ""
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.c5b34b8ed73ac37c31803adf",
+          "display_name": "TVN",
+          "source_name": "TVN HD [IP 45.173.231.22]",
+          "from_list": "Lista 2",
+          "from_number": 265,
+          "group": "Misceláneos",
+          "logo": "logos/lista2/6df4c8f86c82.png",
+          "url": "http://45.173.231.22:8000/play/a06l/index.m3u8",
+          "guide": {
+            "source": "",
+            "source_id": ""
+          }
+        }
+      ]
+    },
     "0105": {
       "display_name": "Mega",
       "list": "Lista 1",
@@ -42,10 +84,150 @@
         }
       ]
     },
+    "0107": {
+      "display_name": "Canal 13",
+      "list": "Lista 1",
+      "number": 4,
+      "group": "Nacionales",
+      "source_name": "Canal 13",
+      "guide": {
+        "source": "",
+        "source_id": ""
+      },
+      "verified": "2026-10-25 (2.ª búsqueda): Canal 13 HD [IP 190.108.91.206] misma señal por audio (0.988); 2026-10-25: Canal 13 [IP 45.173.231.22] audio dudoso (0.48), respaldo por decisión del usuario; 2026-10-25: Canal 13 HD [IP 45.173.231.22] · señal 2 audio dudoso (0.48), respaldo por decisión del usuario; 2026-10-25: Canal 13 HD [IP 45.173.231.22] audio dudoso (0.48), respaldo por decisión del usuario; 2026-10-25: Canal 13 HD [IP 190.108.83.69] audio dudoso (0.476), respaldo por decisión del usuario; 2026-10-25: Canal 13 HD [IP 200.7.99.59] respaldo por pedido del usuario (135 de Lista 2), sin prueba de audio.",
+      "backups": [
+        {
+          "tvg_id": "PublicDirect.8baa0cba55b71f39a6480ef5",
+          "display_name": "Canal 13",
+          "source_name": "Canal 13 HD [IP 190.108.91.206]",
+          "from_list": "Lista 2",
+          "from_number": 246,
+          "group": "Misceláneos",
+          "logo": "logos/lista2/f7006cefaf7a.png",
+          "url": "http://190.108.91.206:9050/play/a02v/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:888838"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.2be182422f69d962afae4053",
+          "display_name": "Canal 13",
+          "source_name": "Canal 13 [IP 45.173.231.22]",
+          "from_list": "Lista 2",
+          "from_number": 168,
+          "group": "Misceláneos",
+          "logo": "logos/lista2/f7006cefaf7a.png",
+          "url": "http://45.173.231.22:8000/play/a08h/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:888838"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.711575de282125c84171bbee",
+          "display_name": "Canal 13",
+          "source_name": "Canal 13 HD [IP 45.173.231.22] · señal 2",
+          "from_list": "Lista 2",
+          "from_number": 209,
+          "group": "Misceláneos",
+          "logo": "logos/lista2/f7006cefaf7a.png",
+          "url": "http://45.173.231.22:8000/play/a027/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:888838"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.11c6a7fffcaf7ba1d61e1186",
+          "display_name": "Canal 13",
+          "source_name": "Canal 13 HD [IP 45.173.231.22]",
+          "from_list": "Lista 2",
+          "from_number": 222,
+          "group": "Misceláneos",
+          "logo": "logos/lista2/f7006cefaf7a.png",
+          "url": "http://45.173.231.22:8000/play/a083/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:888838"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.12d30345143460844b8f968c",
+          "display_name": "Canal 13",
+          "source_name": "Canal 13 HD [IP 190.108.83.69]",
+          "from_list": "Lista 2",
+          "from_number": 223,
+          "group": "Misceláneos",
+          "logo": "logos/lista2/f7006cefaf7a.png",
+          "url": "http://190.108.83.69:8000/play/a02v/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:888838"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.79f8514f8e1ffebfaf54d33c",
+          "display_name": "Canal 13",
+          "source_name": "Canal 13 HD [IP 200.7.99.59]",
+          "from_list": "Lista 2",
+          "from_number": 135,
+          "group": "Misceláneos",
+          "logo": "logos/lista2/f7006cefaf7a.png",
+          "url": "http://200.7.99.59:8000/play/a0je/index.m3u8",
+          "guide": {
+            "source": "",
+            "source_id": ""
+          }
+        }
+      ]
+    },
+    "PublicDirect.b5751130732e4a7c272ee53d": {
+      "display_name": "TNT Sports Premium (Chile)",
+      "list": "Lista 1",
+      "number": 30,
+      "group": "Deportes",
+      "source_name": "TNT Sports Premiun HD [IP 190.108.91.206]",
+      "guide": {
+        "source": "",
+        "source_id": ""
+      },
+      "verified": "; 2026-10-25: TNT Sports Premiun HD [IP 190.108.83.69] respaldo por pedido del usuario (237 de Lista 2), sin prueba de audio.; 2026-10-25: TNT Sports Premium SD [IP 45.173.231.22] respaldo por pedido del usuario (269 de Lista 2, en el 265 al momento del cambio), sin prueba de audio.",
+      "backups": [
+        {
+          "tvg_id": "PublicDirect.c44a168b5a0acf782cace81c",
+          "display_name": "TNT Sports Premium",
+          "source_name": "TNT Sports Premiun HD [IP 190.108.83.69]",
+          "from_list": "Lista 2",
+          "from_number": 237,
+          "group": "Deportes",
+          "logo": "logos/tnt-sports-1.png",
+          "url": "http://190.108.83.69:8000/play/a03i/index.m3u8",
+          "guide": {
+            "source": "",
+            "source_id": ""
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.38a0753b2f8c3979d74bd90d",
+          "display_name": "TNT Sports Premium",
+          "source_name": "TNT Sports Premium SD [IP 45.173.231.22]",
+          "from_list": "Lista 2",
+          "from_number": 265,
+          "group": "Deportes",
+          "logo": "logos/tnt-sports-1.png",
+          "url": "http://45.173.231.22:8000/play/a06f/index.m3u8",
+          "guide": {
+            "source": "",
+            "source_id": ""
+          }
+        }
+      ]
+    },
     "ESPN.co@Direct181": {
       "display_name": "ESPN",
       "list": "Lista 1",
-      "number": 32,
+      "number": 33,
       "group": "Deportes",
       "source_name": "ESPN HD [IP 181]",
       "guide": {
@@ -154,10 +336,178 @@
         }
       ]
     },
+    "PublicDirect.d6cca6d4aa23a69d50439c22": {
+      "display_name": "ESPN 2",
+      "list": "Lista 1",
+      "number": 34,
+      "group": "Deportes",
+      "source_name": "ESPN 2 HD [IP 181.224.200.5]",
+      "guide": {
+        "source": "claro-guia",
+        "source_id": "claro:chile:793494"
+      },
+      "verified": "2026-10-25 (2.ª búsqueda): ESPN 2 HD [IP 190.108.83.69] misma señal por audio (0.771); 2026-10-25 (2.ª búsqueda): ESPN 2 [IP 38.87.224.19] misma señal por audio (0.828); 2026-10-25 (2.ª búsqueda): ESPN 2 HD [IP 45.173.231.22] · señal 2 misma señal por audio (0.604); 2026-10-25: ESPN 2 [IP 38.134.250.110] audio dudoso (0.527), respaldo por decisión del usuario; 2026-10-25: ESPN 2 HD [IP 158.172.217.18] audio dudoso (0.41), respaldo por decisión del usuario",
+      "backups": [
+        {
+          "tvg_id": "PublicDirect.4d0eb277fe4eb7e15a73dd7a",
+          "display_name": "ESPN 2",
+          "source_name": "ESPN 2 HD [IP 190.108.83.69]",
+          "from_list": "Lista 2",
+          "from_number": 256,
+          "group": "Deportes",
+          "logo": "logos/lista2/c5f053da5123.png",
+          "url": "http://190.108.83.69:8000/play/a0an/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:788718"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.b77f1d29fbaf37804e8fc000",
+          "display_name": "ESPN 2",
+          "source_name": "ESPN 2 [IP 38.87.224.19]",
+          "from_list": "Lista 2",
+          "from_number": 808,
+          "group": "Deportes",
+          "logo": "logos/lista2/c5f053da5123.png",
+          "url": "http://38.87.224.19:2220/play/a00u/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:788718"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.29545f73b4791cab07ecb4ed",
+          "display_name": "ESPN 2",
+          "source_name": "ESPN 2 HD [IP 45.173.231.22] · señal 2",
+          "from_list": "Lista 2",
+          "from_number": 818,
+          "group": "Deportes",
+          "logo": "logos/lista2/c5f053da5123.png",
+          "url": "http://45.173.231.22:8000/play/a06p/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:788718"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.4d1dfc5f7e43cb512abcb0fd",
+          "display_name": "ESPN 2",
+          "source_name": "ESPN 2 [IP 38.134.250.110]",
+          "from_list": "Lista 2",
+          "from_number": 189,
+          "group": "Deportes",
+          "logo": "logos/lista2/c5f053da5123.png",
+          "url": "http://38.134.250.110:8000/play/a00r/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:788718"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.21b740ebf12edc120fe22f81",
+          "display_name": "ESPN 2",
+          "source_name": "ESPN 2 HD [IP 158.172.217.18]",
+          "from_list": "Lista 2",
+          "from_number": 239,
+          "group": "Deportes",
+          "logo": "logos/lista2/c5f053da5123.png",
+          "url": "http://158.172.217.18:8000/play/a0ny/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:788718"
+          }
+        }
+      ]
+    },
+    "WinSports.co@Direct181": {
+      "display_name": "ESPN 3",
+      "list": "Lista 1",
+      "number": 35,
+      "group": "Deportes",
+      "source_name": "Win Sports [IP 181]",
+      "guide": {
+        "source": "claro-guia",
+        "source_id": "claro:chile:907763"
+      },
+      "verified": "2026-10-25 (2.ª búsqueda): ESPN 3 HD [IP 45.173.231.22] · señal 2 misma señal por audio (0.972); 2026-10-25 (2.ª búsqueda): ESPN 3 [IP 38.87.224.19] misma señal por audio (0.801); 2026-10-25: ESPN 3 HD [IP 181.78.211.244] audio dudoso (0.578), respaldo por decisión del usuario; 2026-10-25: ESPN 3 HD [IP 190.60.46.228] audio dudoso (0.522), respaldo por decisión del usuario; 2026-10-25: ESPN 3 HD [IP 181.224.200.5] audio dudoso (0.516), respaldo por decisión del usuario",
+      "backups": [
+        {
+          "tvg_id": "PublicDirect.446eb5946d9e6996e27abc78",
+          "display_name": "ESPN 3",
+          "source_name": "ESPN 3 HD [IP 45.173.231.22] · señal 2",
+          "from_list": "Lista 2",
+          "from_number": 154,
+          "group": "Deportes",
+          "logo": "logos/lista2/dce9fe4d3a4a.png",
+          "url": "http://45.173.231.22:8000/play/a08n/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:927562"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.f7f68bf4948df78cdd294fcb",
+          "display_name": "ESPN 3",
+          "source_name": "ESPN 3 [IP 38.87.224.19]",
+          "from_list": "Lista 2",
+          "from_number": 741,
+          "group": "Deportes",
+          "logo": "logos/lista2/dce9fe4d3a4a.png",
+          "url": "http://38.87.224.19:2220/play/a01m/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:927562"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.29ce9a32b090eb790015a2e5",
+          "display_name": "ESPN 3",
+          "source_name": "ESPN 3 HD [IP 181.78.211.244]",
+          "from_list": "Lista 2",
+          "from_number": 455,
+          "group": "Deportes",
+          "logo": "logos/lista2/dce9fe4d3a4a.png",
+          "url": "http://181.78.211.244:8000/play/a0c1/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:927562"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.dc6855efb9035607de683047",
+          "display_name": "ESPN 3",
+          "source_name": "ESPN 3 HD [IP 190.60.46.228]",
+          "from_list": "Lista 2",
+          "from_number": 537,
+          "group": "Deportes",
+          "logo": "logos/lista2/dce9fe4d3a4a.png",
+          "url": "http://190.60.46.228:8888/play/a024/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:927562"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.e784484328dae82c294d41e7",
+          "display_name": "ESPN 3",
+          "source_name": "ESPN 3 HD [IP 181.224.200.5]",
+          "from_list": "Lista 2",
+          "from_number": 833,
+          "group": "Deportes",
+          "logo": "logos/lista2/dce9fe4d3a4a.png",
+          "url": "http://181.224.200.5:2277/play/a02g/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:927562"
+          }
+        }
+      ]
+    },
     "ESPN4.co@Direct181": {
       "display_name": "ESPN 4",
       "list": "Lista 1",
-      "number": 35,
+      "number": 36,
       "group": "Deportes",
       "source_name": "ESPN 4 HD [IP 181]",
       "guide": {
@@ -462,10 +812,164 @@
         }
       ]
     },
+    "WinPlusFutbol.co@Direct181": {
+      "display_name": "ESPN 5",
+      "list": "Lista 1",
+      "number": 37,
+      "group": "Deportes",
+      "source_name": "Win+ Fútbol [IP 181]",
+      "guide": {
+        "source": "claro-guia",
+        "source_id": "claro:paraguay:952450"
+      },
+      "verified": "2026-10-25 (2.ª búsqueda): ESPN 5 HD [IP 45.173.231.22] · señal 2 misma señal por audio (0.736); 2026-10-25 (2.ª búsqueda): ESPN 5 HD [IP 190.60.46.228] misma señal por audio (0.618); 2026-10-25 (2.ª búsqueda): L3E2 - ESPN 5 [IP 190.128.214.97] misma señal por audio (0.963)",
+      "backups": [
+        {
+          "tvg_id": "PublicDirect.01e1afe82d12393e0bf8e52f",
+          "display_name": "ESPN 5",
+          "source_name": "ESPN 5 HD [IP 45.173.231.22] · señal 2",
+          "from_list": "Lista 2",
+          "from_number": 441,
+          "group": "Deportes",
+          "logo": "logos/lista2/a8d7ca91a64e.png",
+          "url": "http://45.173.231.22:8000/play/a02e/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:728273"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.c89ec6435039defded0a1de2",
+          "display_name": "ESPN 5",
+          "source_name": "ESPN 5 HD [IP 190.60.46.228]",
+          "from_list": "Lista 2",
+          "from_number": 495,
+          "group": "Deportes",
+          "logo": "logos/lista2/a8d7ca91a64e.png",
+          "url": "http://190.60.46.228:8888/play/a04l/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:728273"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.e13a9452e23f7604db14e269",
+          "display_name": "ESPN 5",
+          "source_name": "L3E2 - ESPN 5 [IP 190.128.214.97]",
+          "from_list": "Lista 2",
+          "from_number": 841,
+          "group": "Deportes",
+          "logo": "logos/lista2/a8d7ca91a64e.png",
+          "url": "http://190.128.214.97:64333/play/a01j/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:728273"
+          }
+        }
+      ]
+    },
+    "ESPN7.co@Direct181": {
+      "display_name": "ESPN 6",
+      "list": "Lista 1",
+      "number": 38,
+      "group": "Deportes",
+      "source_name": "ESPN 7 [IP 181]",
+      "guide": {
+        "source": "claro-guia",
+        "source_id": "claro:chile:793440"
+      },
+      "verified": "2026-10-25 (2.ª búsqueda): ESPN 6 HD [IP 190.61.90.17] misma señal por audio (0.878); 2026-10-25 (2.ª búsqueda): ESPN 6 HD [IP 181.78.197.59] misma señal por audio (0.628); 2026-10-25 (2.ª búsqueda): ESPN 6 HD [IP 72.1.184.5] misma señal por audio (0.843); 2026-10-25 (2.ª búsqueda): ESPN 6 HD [IP 181.119.177.253] misma señal por audio (0.998); 2026-10-25 (2.ª búsqueda): ESPN-6HD [IP 167.249.23.102] misma señal por audio (0.93); 2026-10-25: ESPN 6 [IP 38.134.250.110] audio dudoso (0.483), respaldo por decisión del usuario",
+      "backups": [
+        {
+          "tvg_id": "PublicDirect.9d6c3f1864f3f6a5265dd81e",
+          "display_name": "ESPN 6",
+          "source_name": "ESPN 6 HD [IP 190.61.90.17]",
+          "from_list": "Lista 2",
+          "from_number": 392,
+          "group": "Deportes",
+          "logo": "logos/lista2/9331900af0d3.png",
+          "url": "http://190.61.90.17:40000/play/a0kj/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:927634"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.1fff9caea3983eb723fefd11",
+          "display_name": "ESPN 6",
+          "source_name": "ESPN 6 HD [IP 181.78.197.59]",
+          "from_list": "Lista 2",
+          "from_number": 414,
+          "group": "Deportes",
+          "logo": "logos/lista2/9331900af0d3.png",
+          "url": "http://181.78.197.59:8000/play/a08c/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:927634"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.89a8672bcc58484103dd6e9b",
+          "display_name": "ESPN 6",
+          "source_name": "ESPN 6 HD [IP 72.1.184.5]",
+          "from_list": "Lista 2",
+          "from_number": 427,
+          "group": "Deportes",
+          "logo": "logos/lista2/9331900af0d3.png",
+          "url": "http://72.1.184.5:8089/play/a05u/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:927634"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.11ec3e5f7504067ab1ffdd8b",
+          "display_name": "ESPN 6",
+          "source_name": "ESPN 6 HD [IP 181.119.177.253]",
+          "from_list": "Lista 2",
+          "from_number": 439,
+          "group": "Deportes",
+          "logo": "logos/lista2/9331900af0d3.png",
+          "url": "http://181.119.177.253:8000/play/a0cn/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:927634"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.aae0e4d768441ca11372edec",
+          "display_name": "ESPN 6",
+          "source_name": "ESPN-6HD [IP 167.249.23.102]",
+          "from_list": "Lista 2",
+          "from_number": 450,
+          "group": "Deportes",
+          "logo": "logos/lista2/9331900af0d3.png",
+          "url": "http://167.249.23.102:8000/play/ESPN-6HD/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:927634"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.42b77aa45bb375245eb9420a",
+          "display_name": "ESPN 6",
+          "source_name": "ESPN 6 [IP 38.134.250.110]",
+          "from_list": "Lista 2",
+          "from_number": 183,
+          "group": "Deportes",
+          "logo": "logos/lista2/9331900af0d3.png",
+          "url": "http://38.134.250.110:8000/play/a017/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:927634"
+          }
+        }
+      ]
+    },
     "PublicDirect.ac1fca2303c88b6a69359958": {
       "display_name": "ESPN 7",
       "list": "Lista 1",
-      "number": 38,
+      "number": 39,
       "group": "Deportes",
       "source_name": "@DIG - ESPN 7 HD [IP 181.78.14.26]",
       "guide": {
@@ -577,7 +1081,7 @@
     "PublicDirect.12addda8ba8591c579cdebfa": {
       "display_name": "Telehit",
       "list": "Lista 1",
-      "number": 49,
+      "number": 50,
       "group": "Música",
       "source_name": "ALCATEL TELEHIT MD 2 [IP 177.234.218.66]",
       "guide": {
@@ -647,7 +1151,7 @@
     "TelehitMusica.mx@SD": {
       "display_name": "Telehit Música",
       "list": "Lista 1",
-      "number": 50,
+      "number": 51,
       "group": "Música",
       "source_name": "Telehit Música",
       "guide": {
@@ -675,7 +1179,7 @@
     "PublicDirect.a4e711feeaae6c78b06460eb": {
       "display_name": "Playboy",
       "list": "Lista 1",
-      "number": 55,
+      "number": 56,
       "group": "Adultos",
       "source_name": "Playboy HD [IP 190.108.83.69]",
       "guide": {
@@ -745,7 +1249,7 @@
     "PublicDirect.942f65e48445596971fc7249": {
       "display_name": "Venus",
       "list": "Lista 1",
-      "number": 56,
+      "number": 57,
       "group": "Adultos",
       "source_name": "Venus [IP 158.172.217.18] · señal 3",
       "guide": {
@@ -899,7 +1403,7 @@
     "PublicDirect.376c74e4d0452f743fd2c811": {
       "display_name": "Sony Movies",
       "list": "Lista 1",
-      "number": 62,
+      "number": 63,
       "group": "Cine",
       "source_name": "ALCATEL SONY MOVIE MD1 [IP 177.234.218.66]",
       "guide": {
@@ -1067,7 +1571,7 @@
     "PublicDirect.8b604de41196cd4fe991d551": {
       "display_name": "Studio Universal",
       "list": "Lista 1",
-      "number": 63,
+      "number": 64,
       "group": "Cine",
       "source_name": "ALCATEL STUDIO UNIVERSAL [IP 177.234.218.66]",
       "guide": {
@@ -1246,10 +1750,248 @@
         }
       ]
     },
+    "PublicDirect.ef0023b214fe77f7918ee36f": {
+      "display_name": "TNT",
+      "list": "Lista 1",
+      "number": 65,
+      "group": "Cine",
+      "source_name": "TNT [IP 177.234.218.66]",
+      "guide": {
+        "source": "claro-guia",
+        "source_id": "claro:colombia:773875"
+      },
+      "verified": "2026-10-25 (2.ª búsqueda): TNT HD [IP 190.61.90.17] misma señal por audio (0.89); 2026-10-25 (2.ª búsqueda): TNT HD [IP 181.78.106.127] misma señal por audio (0.864); 2026-10-25: TNT-IXP [IP 138.59.177.78] audio dudoso (0.477), respaldo por decisión del usuario",
+      "backups": [
+        {
+          "tvg_id": "PublicDirect.5e6c19ccd06f899ba2f0d349",
+          "display_name": "TNT",
+          "source_name": "TNT HD [IP 190.61.90.17]",
+          "from_list": "Lista 2",
+          "from_number": 819,
+          "group": "Películas",
+          "logo": "logos/lista2/ffdb88d6fb18.png",
+          "url": "http://190.61.90.17:40000/play/a0hu/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:773875"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.60c32bd5a8fad9f7e995811d",
+          "display_name": "TNT",
+          "source_name": "TNT HD [IP 181.78.106.127]",
+          "from_list": "Lista 2",
+          "from_number": 1002,
+          "group": "Películas",
+          "logo": "logos/lista2/ffdb88d6fb18.png",
+          "url": "http://181.78.106.127:5000/play/ca077/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:773875"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.3ae63d7fca8c892b666fdbd5",
+          "display_name": "TNT",
+          "source_name": "TNT-IXP [IP 138.59.177.78]",
+          "from_list": "Lista 2",
+          "from_number": 106,
+          "group": "Películas",
+          "logo": "logos/lista2/ffdb88d6fb18.png",
+          "url": "http://138.59.177.78:9999/play/a061/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:773875"
+          }
+        }
+      ]
+    },
+    "PublicDirect.7af273823473ac60f6ed4a64": {
+      "display_name": "Space",
+      "list": "Lista 1",
+      "number": 66,
+      "group": "Cine",
+      "source_name": "SPACE [IP 177.234.218.66]",
+      "guide": {
+        "source": "claro-guia",
+        "source_id": "claro:colombia:773894"
+      },
+      "verified": "2026-10-25 (2.ª búsqueda): SPACE HD [IP 181.119.177.253] misma señal por audio (0.604); 2026-10-25 (2.ª búsqueda): Space [IP 45.171.64.30] misma señal por audio (0.728); 2026-10-25 (2.ª búsqueda): SPACE-IXP [IP 138.59.177.78] misma señal por audio (0.872); 2026-10-25: SPACE ENVIO [IP 138.94.3.106] audio dudoso (0.582), respaldo por decisión del usuario; 2026-10-25: SPACE HD [IP 45.166.93.156] audio dudoso (0.529), respaldo por decisión del usuario; 2026-10-25: SPACE HD [IP 190.61.90.17] audio dudoso (0.529), respaldo por decisión del usuario; 2026-10-25: SPACE HD [IP 181.78.106.127] audio dudoso (0.477), respaldo por decisión del usuario; 2026-10-25: SPACE HD [IP 138.59.177.78] audio dudoso (0.587), respaldo por decisión del usuario",
+      "backups": [
+        {
+          "tvg_id": "PublicDirect.99a7a4d324e2b3896660cbc5",
+          "display_name": "Space",
+          "source_name": "SPACE HD [IP 181.119.177.253]",
+          "from_list": "Lista 2",
+          "from_number": 486,
+          "group": "Películas",
+          "logo": "logos/lista2/4d1aa64874b5.png",
+          "url": "http://181.119.177.253:8000/play/a0el/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:773894"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.a84d272d82351c313e421803",
+          "display_name": "Space",
+          "source_name": "Space [IP 45.171.64.30]",
+          "from_list": "Lista 2",
+          "from_number": 487,
+          "group": "Películas",
+          "logo": "logos/catalogue/space-ar.png",
+          "url": "http://45.171.64.30:6060/play/a04n/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:773894"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.6da5cf320d4764d0c9bdb102",
+          "display_name": "Space",
+          "source_name": "SPACE-IXP [IP 138.59.177.78]",
+          "from_list": "Lista 2",
+          "from_number": 527,
+          "group": "Películas",
+          "logo": "logos/lista2/4d1aa64874b5.png",
+          "url": "http://138.59.177.78:9999/play/a06j/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:773894"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.c754673e1b407bd6b821b802",
+          "display_name": "Space",
+          "source_name": "SPACE ENVIO [IP 138.94.3.106]",
+          "from_list": "Lista 2",
+          "from_number": 224,
+          "group": "Películas",
+          "logo": "logos/lista2/4d1aa64874b5.png",
+          "url": "http://138.94.3.106:8000/play/a01r/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:773894"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.13cbf449a082adcd453fe88c",
+          "display_name": "Space",
+          "source_name": "SPACE HD [IP 45.166.93.156]",
+          "from_list": "Lista 2",
+          "from_number": 480,
+          "group": "Películas",
+          "logo": "logos/lista2/4d1aa64874b5.png",
+          "url": "http://45.166.93.156:9999/play/a0fh/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:773894"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.5dfceb64af27c574205b251c",
+          "display_name": "Space",
+          "source_name": "SPACE HD [IP 190.61.90.17]",
+          "from_list": "Lista 2",
+          "from_number": 486,
+          "group": "Películas",
+          "logo": "logos/lista2/4d1aa64874b5.png",
+          "url": "http://190.61.90.17:40000/play/a0iz/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:773894"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.71d5eac7a10237e44fe62f74",
+          "display_name": "Space",
+          "source_name": "SPACE HD [IP 181.78.106.127]",
+          "from_list": "Lista 2",
+          "from_number": 915,
+          "group": "Películas",
+          "logo": "logos/lista2/4d1aa64874b5.png",
+          "url": "http://181.78.106.127:5000/play/ca072/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:773894"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.8dde3bf0f515ec4760b9d024",
+          "display_name": "Space",
+          "source_name": "SPACE HD [IP 138.59.177.78]",
+          "from_list": "Lista 2",
+          "from_number": 916,
+          "group": "Películas",
+          "logo": "logos/lista2/4d1aa64874b5.png",
+          "url": "http://138.59.177.78:9999/play/a0kv/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:773894"
+          }
+        }
+      ]
+    },
+    "PublicDirect.de3e91d7c885d797352686e1": {
+      "display_name": "Warner Channel",
+      "list": "Lista 1",
+      "number": 67,
+      "group": "Cine",
+      "source_name": "WARNER [IP 177.234.218.66]",
+      "guide": {
+        "source": "claro-guia",
+        "source_id": "claro:colombia:927626"
+      },
+      "verified": "2026-10-25 (2.ª búsqueda): WARNER HD [IP 138.59.177.78] misma señal por audio (0.708); 2026-10-25: WARNER HD [IP 181.119.177.253] audio dudoso (0.435), respaldo por decisión del usuario; 2026-10-25: WARNER HD [IP 181.78.106.127] audio dudoso (0.524), respaldo por decisión del usuario",
+      "backups": [
+        {
+          "tvg_id": "PublicDirect.b39e9adb878335c289669c76",
+          "display_name": "Warner Channel",
+          "source_name": "WARNER HD [IP 138.59.177.78]",
+          "from_list": "Lista 2",
+          "from_number": 840,
+          "group": "Películas",
+          "logo": "logos/lista2/b3ed65890466.png",
+          "url": "http://138.59.177.78:9999/play/a0lt/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:927626"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.3bb9a820dcfbf5e129da906a",
+          "display_name": "Warner Channel",
+          "source_name": "WARNER HD [IP 181.119.177.253]",
+          "from_list": "Lista 2",
+          "from_number": 476,
+          "group": "Películas",
+          "logo": "logos/lista2/b3ed65890466.png",
+          "url": "http://181.119.177.253:8000/play/a0eg/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:927626"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.093bb99c1603f4b3468dfc69",
+          "display_name": "Warner Channel",
+          "source_name": "WARNER HD [IP 181.78.106.127]",
+          "from_list": "Lista 2",
+          "from_number": 946,
+          "group": "Películas",
+          "logo": "logos/lista2/b3ed65890466.png",
+          "url": "http://181.78.106.127:5000/play/ca071/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:927626"
+          }
+        }
+      ]
+    },
     "PublicDirect.a247897d9a490d19fa633661": {
       "display_name": "AXN",
       "list": "Lista 1",
-      "number": 67,
+      "number": 68,
       "group": "Series",
       "source_name": "ALCATEL AXN MD2 [IP 177.234.218.66]",
       "guide": {
@@ -1473,7 +2215,7 @@
     "PublicDirect.9c28a0d10a09856e98930cdc": {
       "display_name": "Sony Channel",
       "list": "Lista 1",
-      "number": 68,
+      "number": 69,
       "group": "Series",
       "source_name": "ALCATEL SONY CHANNEL MD1 [IP 177.234.218.66]",
       "guide": {
@@ -1778,10 +2520,80 @@
         }
       ]
     },
+    "PublicDirect.bf407e29eec656d628dfa2d7": {
+      "display_name": "Universal TV",
+      "list": "Lista 1",
+      "number": 70,
+      "group": "Series",
+      "source_name": "ALCATEL UNIVERSAL [IP 177.234.218.66]",
+      "guide": {
+        "source": "claro-guia",
+        "source_id": "claro:chile:793485"
+      },
+      "verified": "2026-10-25 (2.ª búsqueda): UNIVERSAL CHANNEL HD [IP 190.108.83.69] misma señal por audio (0.613); 2026-10-25 (2.ª búsqueda): UNIVERSAL CHANNEL HD [IP 190.108.91.206] misma señal por audio (0.908); 2026-10-25: UNIVERSAL CHANNEL [IP 38.87.224.19] audio dudoso (0.561), respaldo por decisión del usuario; 2026-10-25: UNIVERSAL CHANNEL HD [IP 190.60.46.228] audio dudoso (0.552), respaldo por decisión del usuario",
+      "backups": [
+        {
+          "tvg_id": "PublicDirect.0eb916e1e45c52aaf40cc864",
+          "display_name": "Universal Channel",
+          "source_name": "UNIVERSAL CHANNEL HD [IP 190.108.83.69]",
+          "from_list": "Lista 2",
+          "from_number": 274,
+          "group": "Películas",
+          "logo": "logos/lista2/93453859f775.png",
+          "url": "http://190.108.83.69:8000/play/a031/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:927639"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.8061aa7594a6d2cc9e8ae2f7",
+          "display_name": "Universal Channel",
+          "source_name": "UNIVERSAL CHANNEL HD [IP 190.108.91.206]",
+          "from_list": "Lista 2",
+          "from_number": 523,
+          "group": "Películas",
+          "logo": "logos/lista2/93453859f775.png",
+          "url": "http://190.108.91.206:9050/play/a031/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:927639"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.a6ae5e3bc090766c793f70a7",
+          "display_name": "Universal Channel",
+          "source_name": "UNIVERSAL CHANNEL [IP 38.87.224.19]",
+          "from_list": "Lista 2",
+          "from_number": 494,
+          "group": "Películas",
+          "logo": "logos/lista2/93453859f775.png",
+          "url": "http://38.87.224.19:2220/play/a017/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:927639"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.d6aa1140448d3f02eedae537",
+          "display_name": "Universal Channel",
+          "source_name": "UNIVERSAL CHANNEL HD [IP 190.60.46.228]",
+          "from_list": "Lista 2",
+          "from_number": 938,
+          "group": "Películas",
+          "logo": "logos/lista2/93453859f775.png",
+          "url": "http://190.60.46.228:8888/play/a01z/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:927639"
+          }
+        }
+      ]
+    },
     "PublicDirect.1701b6c4abbcc431fb481536": {
       "display_name": "USA Network",
       "list": "Lista 1",
-      "number": 70,
+      "number": 71,
       "group": "Series",
       "source_name": "ALCATEL USA [IP 177.234.218.66]",
       "guide": {
@@ -1876,738 +2688,10 @@
         }
       ]
     },
-    "0107": {
-      "display_name": "Canal 13",
-      "list": "Lista 1",
-      "number": 4,
-      "group": "Nacionales",
-      "source_name": "Canal 13",
-      "guide": {
-        "source": "",
-        "source_id": ""
-      },
-      "verified": "2026-10-25 (2.ª búsqueda): Canal 13 HD [IP 190.108.91.206] misma señal por audio (0.988); 2026-10-25: Canal 13 [IP 45.173.231.22] audio dudoso (0.48), respaldo por decisión del usuario; 2026-10-25: Canal 13 HD [IP 45.173.231.22] · señal 2 audio dudoso (0.48), respaldo por decisión del usuario; 2026-10-25: Canal 13 HD [IP 45.173.231.22] audio dudoso (0.48), respaldo por decisión del usuario; 2026-10-25: Canal 13 HD [IP 190.108.83.69] audio dudoso (0.476), respaldo por decisión del usuario; 2026-10-25: Canal 13 HD [IP 200.7.99.59] respaldo por pedido del usuario (135 de Lista 2), sin prueba de audio.",
-      "backups": [
-        {
-          "tvg_id": "PublicDirect.8baa0cba55b71f39a6480ef5",
-          "display_name": "Canal 13",
-          "source_name": "Canal 13 HD [IP 190.108.91.206]",
-          "from_list": "Lista 2",
-          "from_number": 246,
-          "group": "Misceláneos",
-          "logo": "logos/lista2/f7006cefaf7a.png",
-          "url": "http://190.108.91.206:9050/play/a02v/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:888838"
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.2be182422f69d962afae4053",
-          "display_name": "Canal 13",
-          "source_name": "Canal 13 [IP 45.173.231.22]",
-          "from_list": "Lista 2",
-          "from_number": 168,
-          "group": "Misceláneos",
-          "logo": "logos/lista2/f7006cefaf7a.png",
-          "url": "http://45.173.231.22:8000/play/a08h/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:888838"
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.711575de282125c84171bbee",
-          "display_name": "Canal 13",
-          "source_name": "Canal 13 HD [IP 45.173.231.22] · señal 2",
-          "from_list": "Lista 2",
-          "from_number": 209,
-          "group": "Misceláneos",
-          "logo": "logos/lista2/f7006cefaf7a.png",
-          "url": "http://45.173.231.22:8000/play/a027/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:888838"
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.11c6a7fffcaf7ba1d61e1186",
-          "display_name": "Canal 13",
-          "source_name": "Canal 13 HD [IP 45.173.231.22]",
-          "from_list": "Lista 2",
-          "from_number": 222,
-          "group": "Misceláneos",
-          "logo": "logos/lista2/f7006cefaf7a.png",
-          "url": "http://45.173.231.22:8000/play/a083/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:888838"
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.12d30345143460844b8f968c",
-          "display_name": "Canal 13",
-          "source_name": "Canal 13 HD [IP 190.108.83.69]",
-          "from_list": "Lista 2",
-          "from_number": 223,
-          "group": "Misceláneos",
-          "logo": "logos/lista2/f7006cefaf7a.png",
-          "url": "http://190.108.83.69:8000/play/a02v/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:888838"
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.79f8514f8e1ffebfaf54d33c",
-          "display_name": "Canal 13",
-          "source_name": "Canal 13 HD [IP 200.7.99.59]",
-          "from_list": "Lista 2",
-          "from_number": 135,
-          "group": "Misceláneos",
-          "logo": "logos/lista2/f7006cefaf7a.png",
-          "url": "http://200.7.99.59:8000/play/a0je/index.m3u8",
-          "guide": {
-            "source": "",
-            "source_id": ""
-          }
-        }
-      ]
-    },
-    "PublicDirect.d6cca6d4aa23a69d50439c22": {
-      "display_name": "ESPN 2",
-      "list": "Lista 1",
-      "number": 33,
-      "group": "Deportes",
-      "source_name": "ESPN 2 HD [IP 181.224.200.5]",
-      "guide": {
-        "source": "claro-guia",
-        "source_id": "claro:chile:793494"
-      },
-      "verified": "2026-10-25 (2.ª búsqueda): ESPN 2 HD [IP 190.108.83.69] misma señal por audio (0.771); 2026-10-25 (2.ª búsqueda): ESPN 2 [IP 38.87.224.19] misma señal por audio (0.828); 2026-10-25 (2.ª búsqueda): ESPN 2 HD [IP 45.173.231.22] · señal 2 misma señal por audio (0.604); 2026-10-25: ESPN 2 [IP 38.134.250.110] audio dudoso (0.527), respaldo por decisión del usuario; 2026-10-25: ESPN 2 HD [IP 158.172.217.18] audio dudoso (0.41), respaldo por decisión del usuario",
-      "backups": [
-        {
-          "tvg_id": "PublicDirect.4d0eb277fe4eb7e15a73dd7a",
-          "display_name": "ESPN 2",
-          "source_name": "ESPN 2 HD [IP 190.108.83.69]",
-          "from_list": "Lista 2",
-          "from_number": 256,
-          "group": "Deportes",
-          "logo": "logos/lista2/c5f053da5123.png",
-          "url": "http://190.108.83.69:8000/play/a0an/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:788718"
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.b77f1d29fbaf37804e8fc000",
-          "display_name": "ESPN 2",
-          "source_name": "ESPN 2 [IP 38.87.224.19]",
-          "from_list": "Lista 2",
-          "from_number": 808,
-          "group": "Deportes",
-          "logo": "logos/lista2/c5f053da5123.png",
-          "url": "http://38.87.224.19:2220/play/a00u/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:788718"
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.29545f73b4791cab07ecb4ed",
-          "display_name": "ESPN 2",
-          "source_name": "ESPN 2 HD [IP 45.173.231.22] · señal 2",
-          "from_list": "Lista 2",
-          "from_number": 818,
-          "group": "Deportes",
-          "logo": "logos/lista2/c5f053da5123.png",
-          "url": "http://45.173.231.22:8000/play/a06p/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:788718"
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.4d1dfc5f7e43cb512abcb0fd",
-          "display_name": "ESPN 2",
-          "source_name": "ESPN 2 [IP 38.134.250.110]",
-          "from_list": "Lista 2",
-          "from_number": 189,
-          "group": "Deportes",
-          "logo": "logos/lista2/c5f053da5123.png",
-          "url": "http://38.134.250.110:8000/play/a00r/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:788718"
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.21b740ebf12edc120fe22f81",
-          "display_name": "ESPN 2",
-          "source_name": "ESPN 2 HD [IP 158.172.217.18]",
-          "from_list": "Lista 2",
-          "from_number": 239,
-          "group": "Deportes",
-          "logo": "logos/lista2/c5f053da5123.png",
-          "url": "http://158.172.217.18:8000/play/a0ny/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:788718"
-          }
-        }
-      ]
-    },
-    "WinSports.co@Direct181": {
-      "display_name": "ESPN 3",
-      "list": "Lista 1",
-      "number": 34,
-      "group": "Deportes",
-      "source_name": "Win Sports [IP 181]",
-      "guide": {
-        "source": "claro-guia",
-        "source_id": "claro:chile:907763"
-      },
-      "verified": "2026-10-25 (2.ª búsqueda): ESPN 3 HD [IP 45.173.231.22] · señal 2 misma señal por audio (0.972); 2026-10-25 (2.ª búsqueda): ESPN 3 [IP 38.87.224.19] misma señal por audio (0.801); 2026-10-25: ESPN 3 HD [IP 181.78.211.244] audio dudoso (0.578), respaldo por decisión del usuario; 2026-10-25: ESPN 3 HD [IP 190.60.46.228] audio dudoso (0.522), respaldo por decisión del usuario; 2026-10-25: ESPN 3 HD [IP 181.224.200.5] audio dudoso (0.516), respaldo por decisión del usuario",
-      "backups": [
-        {
-          "tvg_id": "PublicDirect.446eb5946d9e6996e27abc78",
-          "display_name": "ESPN 3",
-          "source_name": "ESPN 3 HD [IP 45.173.231.22] · señal 2",
-          "from_list": "Lista 2",
-          "from_number": 154,
-          "group": "Deportes",
-          "logo": "logos/lista2/dce9fe4d3a4a.png",
-          "url": "http://45.173.231.22:8000/play/a08n/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:927562"
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.f7f68bf4948df78cdd294fcb",
-          "display_name": "ESPN 3",
-          "source_name": "ESPN 3 [IP 38.87.224.19]",
-          "from_list": "Lista 2",
-          "from_number": 741,
-          "group": "Deportes",
-          "logo": "logos/lista2/dce9fe4d3a4a.png",
-          "url": "http://38.87.224.19:2220/play/a01m/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:927562"
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.29ce9a32b090eb790015a2e5",
-          "display_name": "ESPN 3",
-          "source_name": "ESPN 3 HD [IP 181.78.211.244]",
-          "from_list": "Lista 2",
-          "from_number": 455,
-          "group": "Deportes",
-          "logo": "logos/lista2/dce9fe4d3a4a.png",
-          "url": "http://181.78.211.244:8000/play/a0c1/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:927562"
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.dc6855efb9035607de683047",
-          "display_name": "ESPN 3",
-          "source_name": "ESPN 3 HD [IP 190.60.46.228]",
-          "from_list": "Lista 2",
-          "from_number": 537,
-          "group": "Deportes",
-          "logo": "logos/lista2/dce9fe4d3a4a.png",
-          "url": "http://190.60.46.228:8888/play/a024/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:927562"
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.e784484328dae82c294d41e7",
-          "display_name": "ESPN 3",
-          "source_name": "ESPN 3 HD [IP 181.224.200.5]",
-          "from_list": "Lista 2",
-          "from_number": 833,
-          "group": "Deportes",
-          "logo": "logos/lista2/dce9fe4d3a4a.png",
-          "url": "http://181.224.200.5:2277/play/a02g/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:927562"
-          }
-        }
-      ]
-    },
-    "WinPlusFutbol.co@Direct181": {
-      "display_name": "ESPN 5",
-      "list": "Lista 1",
-      "number": 36,
-      "group": "Deportes",
-      "source_name": "Win+ Fútbol [IP 181]",
-      "guide": {
-        "source": "claro-guia",
-        "source_id": "claro:paraguay:952450"
-      },
-      "verified": "2026-10-25 (2.ª búsqueda): ESPN 5 HD [IP 45.173.231.22] · señal 2 misma señal por audio (0.736); 2026-10-25 (2.ª búsqueda): ESPN 5 HD [IP 190.60.46.228] misma señal por audio (0.618); 2026-10-25 (2.ª búsqueda): L3E2 - ESPN 5 [IP 190.128.214.97] misma señal por audio (0.963)",
-      "backups": [
-        {
-          "tvg_id": "PublicDirect.01e1afe82d12393e0bf8e52f",
-          "display_name": "ESPN 5",
-          "source_name": "ESPN 5 HD [IP 45.173.231.22] · señal 2",
-          "from_list": "Lista 2",
-          "from_number": 441,
-          "group": "Deportes",
-          "logo": "logos/lista2/a8d7ca91a64e.png",
-          "url": "http://45.173.231.22:8000/play/a02e/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:728273"
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.c89ec6435039defded0a1de2",
-          "display_name": "ESPN 5",
-          "source_name": "ESPN 5 HD [IP 190.60.46.228]",
-          "from_list": "Lista 2",
-          "from_number": 495,
-          "group": "Deportes",
-          "logo": "logos/lista2/a8d7ca91a64e.png",
-          "url": "http://190.60.46.228:8888/play/a04l/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:728273"
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.e13a9452e23f7604db14e269",
-          "display_name": "ESPN 5",
-          "source_name": "L3E2 - ESPN 5 [IP 190.128.214.97]",
-          "from_list": "Lista 2",
-          "from_number": 841,
-          "group": "Deportes",
-          "logo": "logos/lista2/a8d7ca91a64e.png",
-          "url": "http://190.128.214.97:64333/play/a01j/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:728273"
-          }
-        }
-      ]
-    },
-    "ESPN7.co@Direct181": {
-      "display_name": "ESPN 6",
-      "list": "Lista 1",
-      "number": 37,
-      "group": "Deportes",
-      "source_name": "ESPN 7 [IP 181]",
-      "guide": {
-        "source": "claro-guia",
-        "source_id": "claro:chile:793440"
-      },
-      "verified": "2026-10-25 (2.ª búsqueda): ESPN 6 HD [IP 190.61.90.17] misma señal por audio (0.878); 2026-10-25 (2.ª búsqueda): ESPN 6 HD [IP 181.78.197.59] misma señal por audio (0.628); 2026-10-25 (2.ª búsqueda): ESPN 6 HD [IP 72.1.184.5] misma señal por audio (0.843); 2026-10-25 (2.ª búsqueda): ESPN 6 HD [IP 181.119.177.253] misma señal por audio (0.998); 2026-10-25 (2.ª búsqueda): ESPN-6HD [IP 167.249.23.102] misma señal por audio (0.93); 2026-10-25: ESPN 6 [IP 38.134.250.110] audio dudoso (0.483), respaldo por decisión del usuario",
-      "backups": [
-        {
-          "tvg_id": "PublicDirect.9d6c3f1864f3f6a5265dd81e",
-          "display_name": "ESPN 6",
-          "source_name": "ESPN 6 HD [IP 190.61.90.17]",
-          "from_list": "Lista 2",
-          "from_number": 392,
-          "group": "Deportes",
-          "logo": "logos/lista2/9331900af0d3.png",
-          "url": "http://190.61.90.17:40000/play/a0kj/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:927634"
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.1fff9caea3983eb723fefd11",
-          "display_name": "ESPN 6",
-          "source_name": "ESPN 6 HD [IP 181.78.197.59]",
-          "from_list": "Lista 2",
-          "from_number": 414,
-          "group": "Deportes",
-          "logo": "logos/lista2/9331900af0d3.png",
-          "url": "http://181.78.197.59:8000/play/a08c/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:927634"
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.89a8672bcc58484103dd6e9b",
-          "display_name": "ESPN 6",
-          "source_name": "ESPN 6 HD [IP 72.1.184.5]",
-          "from_list": "Lista 2",
-          "from_number": 427,
-          "group": "Deportes",
-          "logo": "logos/lista2/9331900af0d3.png",
-          "url": "http://72.1.184.5:8089/play/a05u/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:927634"
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.11ec3e5f7504067ab1ffdd8b",
-          "display_name": "ESPN 6",
-          "source_name": "ESPN 6 HD [IP 181.119.177.253]",
-          "from_list": "Lista 2",
-          "from_number": 439,
-          "group": "Deportes",
-          "logo": "logos/lista2/9331900af0d3.png",
-          "url": "http://181.119.177.253:8000/play/a0cn/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:927634"
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.aae0e4d768441ca11372edec",
-          "display_name": "ESPN 6",
-          "source_name": "ESPN-6HD [IP 167.249.23.102]",
-          "from_list": "Lista 2",
-          "from_number": 450,
-          "group": "Deportes",
-          "logo": "logos/lista2/9331900af0d3.png",
-          "url": "http://167.249.23.102:8000/play/ESPN-6HD/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:927634"
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.42b77aa45bb375245eb9420a",
-          "display_name": "ESPN 6",
-          "source_name": "ESPN 6 [IP 38.134.250.110]",
-          "from_list": "Lista 2",
-          "from_number": 183,
-          "group": "Deportes",
-          "logo": "logos/lista2/9331900af0d3.png",
-          "url": "http://38.134.250.110:8000/play/a017/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:927634"
-          }
-        }
-      ]
-    },
-    "PublicDirect.ef0023b214fe77f7918ee36f": {
-      "display_name": "TNT",
-      "list": "Lista 1",
-      "number": 64,
-      "group": "Cine",
-      "source_name": "TNT [IP 177.234.218.66]",
-      "guide": {
-        "source": "claro-guia",
-        "source_id": "claro:colombia:773875"
-      },
-      "verified": "2026-10-25 (2.ª búsqueda): TNT HD [IP 190.61.90.17] misma señal por audio (0.89); 2026-10-25 (2.ª búsqueda): TNT HD [IP 181.78.106.127] misma señal por audio (0.864); 2026-10-25: TNT-IXP [IP 138.59.177.78] audio dudoso (0.477), respaldo por decisión del usuario",
-      "backups": [
-        {
-          "tvg_id": "PublicDirect.5e6c19ccd06f899ba2f0d349",
-          "display_name": "TNT",
-          "source_name": "TNT HD [IP 190.61.90.17]",
-          "from_list": "Lista 2",
-          "from_number": 819,
-          "group": "Películas",
-          "logo": "logos/lista2/ffdb88d6fb18.png",
-          "url": "http://190.61.90.17:40000/play/a0hu/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:773875"
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.60c32bd5a8fad9f7e995811d",
-          "display_name": "TNT",
-          "source_name": "TNT HD [IP 181.78.106.127]",
-          "from_list": "Lista 2",
-          "from_number": 1002,
-          "group": "Películas",
-          "logo": "logos/lista2/ffdb88d6fb18.png",
-          "url": "http://181.78.106.127:5000/play/ca077/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:773875"
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.3ae63d7fca8c892b666fdbd5",
-          "display_name": "TNT",
-          "source_name": "TNT-IXP [IP 138.59.177.78]",
-          "from_list": "Lista 2",
-          "from_number": 106,
-          "group": "Películas",
-          "logo": "logos/lista2/ffdb88d6fb18.png",
-          "url": "http://138.59.177.78:9999/play/a061/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:773875"
-          }
-        }
-      ]
-    },
-    "PublicDirect.7af273823473ac60f6ed4a64": {
-      "display_name": "Space",
-      "list": "Lista 1",
-      "number": 65,
-      "group": "Cine",
-      "source_name": "SPACE [IP 177.234.218.66]",
-      "guide": {
-        "source": "claro-guia",
-        "source_id": "claro:colombia:773894"
-      },
-      "verified": "2026-10-25 (2.ª búsqueda): SPACE HD [IP 181.119.177.253] misma señal por audio (0.604); 2026-10-25 (2.ª búsqueda): Space [IP 45.171.64.30] misma señal por audio (0.728); 2026-10-25 (2.ª búsqueda): SPACE-IXP [IP 138.59.177.78] misma señal por audio (0.872); 2026-10-25: SPACE ENVIO [IP 138.94.3.106] audio dudoso (0.582), respaldo por decisión del usuario; 2026-10-25: SPACE HD [IP 45.166.93.156] audio dudoso (0.529), respaldo por decisión del usuario; 2026-10-25: SPACE HD [IP 190.61.90.17] audio dudoso (0.529), respaldo por decisión del usuario; 2026-10-25: SPACE HD [IP 181.78.106.127] audio dudoso (0.477), respaldo por decisión del usuario; 2026-10-25: SPACE HD [IP 138.59.177.78] audio dudoso (0.587), respaldo por decisión del usuario",
-      "backups": [
-        {
-          "tvg_id": "PublicDirect.99a7a4d324e2b3896660cbc5",
-          "display_name": "Space",
-          "source_name": "SPACE HD [IP 181.119.177.253]",
-          "from_list": "Lista 2",
-          "from_number": 486,
-          "group": "Películas",
-          "logo": "logos/lista2/4d1aa64874b5.png",
-          "url": "http://181.119.177.253:8000/play/a0el/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:773894"
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.a84d272d82351c313e421803",
-          "display_name": "Space",
-          "source_name": "Space [IP 45.171.64.30]",
-          "from_list": "Lista 2",
-          "from_number": 487,
-          "group": "Películas",
-          "logo": "logos/catalogue/space-ar.png",
-          "url": "http://45.171.64.30:6060/play/a04n/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:773894"
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.6da5cf320d4764d0c9bdb102",
-          "display_name": "Space",
-          "source_name": "SPACE-IXP [IP 138.59.177.78]",
-          "from_list": "Lista 2",
-          "from_number": 527,
-          "group": "Películas",
-          "logo": "logos/lista2/4d1aa64874b5.png",
-          "url": "http://138.59.177.78:9999/play/a06j/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:773894"
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.c754673e1b407bd6b821b802",
-          "display_name": "Space",
-          "source_name": "SPACE ENVIO [IP 138.94.3.106]",
-          "from_list": "Lista 2",
-          "from_number": 224,
-          "group": "Películas",
-          "logo": "logos/lista2/4d1aa64874b5.png",
-          "url": "http://138.94.3.106:8000/play/a01r/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:773894"
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.13cbf449a082adcd453fe88c",
-          "display_name": "Space",
-          "source_name": "SPACE HD [IP 45.166.93.156]",
-          "from_list": "Lista 2",
-          "from_number": 480,
-          "group": "Películas",
-          "logo": "logos/lista2/4d1aa64874b5.png",
-          "url": "http://45.166.93.156:9999/play/a0fh/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:773894"
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.5dfceb64af27c574205b251c",
-          "display_name": "Space",
-          "source_name": "SPACE HD [IP 190.61.90.17]",
-          "from_list": "Lista 2",
-          "from_number": 486,
-          "group": "Películas",
-          "logo": "logos/lista2/4d1aa64874b5.png",
-          "url": "http://190.61.90.17:40000/play/a0iz/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:773894"
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.71d5eac7a10237e44fe62f74",
-          "display_name": "Space",
-          "source_name": "SPACE HD [IP 181.78.106.127]",
-          "from_list": "Lista 2",
-          "from_number": 915,
-          "group": "Películas",
-          "logo": "logos/lista2/4d1aa64874b5.png",
-          "url": "http://181.78.106.127:5000/play/ca072/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:773894"
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.8dde3bf0f515ec4760b9d024",
-          "display_name": "Space",
-          "source_name": "SPACE HD [IP 138.59.177.78]",
-          "from_list": "Lista 2",
-          "from_number": 916,
-          "group": "Películas",
-          "logo": "logos/lista2/4d1aa64874b5.png",
-          "url": "http://138.59.177.78:9999/play/a0kv/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:773894"
-          }
-        }
-      ]
-    },
-    "PublicDirect.de3e91d7c885d797352686e1": {
-      "display_name": "Warner Channel",
-      "list": "Lista 1",
-      "number": 66,
-      "group": "Cine",
-      "source_name": "WARNER [IP 177.234.218.66]",
-      "guide": {
-        "source": "claro-guia",
-        "source_id": "claro:colombia:927626"
-      },
-      "verified": "2026-10-25 (2.ª búsqueda): WARNER HD [IP 138.59.177.78] misma señal por audio (0.708); 2026-10-25: WARNER HD [IP 181.119.177.253] audio dudoso (0.435), respaldo por decisión del usuario; 2026-10-25: WARNER HD [IP 181.78.106.127] audio dudoso (0.524), respaldo por decisión del usuario",
-      "backups": [
-        {
-          "tvg_id": "PublicDirect.b39e9adb878335c289669c76",
-          "display_name": "Warner Channel",
-          "source_name": "WARNER HD [IP 138.59.177.78]",
-          "from_list": "Lista 2",
-          "from_number": 840,
-          "group": "Películas",
-          "logo": "logos/lista2/b3ed65890466.png",
-          "url": "http://138.59.177.78:9999/play/a0lt/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:927626"
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.3bb9a820dcfbf5e129da906a",
-          "display_name": "Warner Channel",
-          "source_name": "WARNER HD [IP 181.119.177.253]",
-          "from_list": "Lista 2",
-          "from_number": 476,
-          "group": "Películas",
-          "logo": "logos/lista2/b3ed65890466.png",
-          "url": "http://181.119.177.253:8000/play/a0eg/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:927626"
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.093bb99c1603f4b3468dfc69",
-          "display_name": "Warner Channel",
-          "source_name": "WARNER HD [IP 181.78.106.127]",
-          "from_list": "Lista 2",
-          "from_number": 946,
-          "group": "Películas",
-          "logo": "logos/lista2/b3ed65890466.png",
-          "url": "http://181.78.106.127:5000/play/ca071/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:927626"
-          }
-        }
-      ]
-    },
-    "PublicDirect.bf407e29eec656d628dfa2d7": {
-      "display_name": "Universal TV",
-      "list": "Lista 1",
-      "number": 69,
-      "group": "Series",
-      "source_name": "ALCATEL UNIVERSAL [IP 177.234.218.66]",
-      "guide": {
-        "source": "claro-guia",
-        "source_id": "claro:chile:793485"
-      },
-      "verified": "2026-10-25 (2.ª búsqueda): UNIVERSAL CHANNEL HD [IP 190.108.83.69] misma señal por audio (0.613); 2026-10-25 (2.ª búsqueda): UNIVERSAL CHANNEL HD [IP 190.108.91.206] misma señal por audio (0.908); 2026-10-25: UNIVERSAL CHANNEL [IP 38.87.224.19] audio dudoso (0.561), respaldo por decisión del usuario; 2026-10-25: UNIVERSAL CHANNEL HD [IP 190.60.46.228] audio dudoso (0.552), respaldo por decisión del usuario",
-      "backups": [
-        {
-          "tvg_id": "PublicDirect.0eb916e1e45c52aaf40cc864",
-          "display_name": "Universal Channel",
-          "source_name": "UNIVERSAL CHANNEL HD [IP 190.108.83.69]",
-          "from_list": "Lista 2",
-          "from_number": 274,
-          "group": "Películas",
-          "logo": "logos/lista2/93453859f775.png",
-          "url": "http://190.108.83.69:8000/play/a031/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:927639"
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.8061aa7594a6d2cc9e8ae2f7",
-          "display_name": "Universal Channel",
-          "source_name": "UNIVERSAL CHANNEL HD [IP 190.108.91.206]",
-          "from_list": "Lista 2",
-          "from_number": 523,
-          "group": "Películas",
-          "logo": "logos/lista2/93453859f775.png",
-          "url": "http://190.108.91.206:9050/play/a031/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:927639"
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.a6ae5e3bc090766c793f70a7",
-          "display_name": "Universal Channel",
-          "source_name": "UNIVERSAL CHANNEL [IP 38.87.224.19]",
-          "from_list": "Lista 2",
-          "from_number": 494,
-          "group": "Películas",
-          "logo": "logos/lista2/93453859f775.png",
-          "url": "http://38.87.224.19:2220/play/a017/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:927639"
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.d6aa1140448d3f02eedae537",
-          "display_name": "Universal Channel",
-          "source_name": "UNIVERSAL CHANNEL HD [IP 190.60.46.228]",
-          "from_list": "Lista 2",
-          "from_number": 938,
-          "group": "Películas",
-          "logo": "logos/lista2/93453859f775.png",
-          "url": "http://190.60.46.228:8888/play/a01z/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:927639"
-          }
-        }
-      ]
-    },
     "PublicDirect.8da65ba545fa9fd2512f9901": {
       "display_name": "History Channel",
       "list": "Lista 1",
-      "number": 75,
+      "number": 76,
       "group": "Documentales, cultura, historia y naturaleza",
       "source_name": "ALCATEL HISTORY MD1 [IP 177.234.218.66]",
       "guide": {
@@ -2705,7 +2789,7 @@
     "PublicDirect.39057ce89326a34e33998e2e": {
       "display_name": "History Channel 2",
       "list": "Lista 1",
-      "number": 76,
+      "number": 77,
       "group": "Documentales, cultura, historia y naturaleza",
       "source_name": "ALCATEL HISTORY 2 [IP 177.234.218.66]",
       "guide": {
@@ -2754,90 +2838,6 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927625"
-          }
-        }
-      ]
-    },
-    "0104": {
-      "display_name": "TVN",
-      "list": "Lista 1",
-      "number": 1,
-      "group": "Nacionales",
-      "source_name": "TVN",
-      "guide": {
-        "source": "",
-        "source_id": ""
-      },
-      "verified": "; 2026-10-25: TVN HD [IP 190.108.83.69] respaldo por pedido del usuario (224 de Lista 2), sin prueba de audio.; 2026-10-25: TVN HD [IP 45.173.231.22] respaldo por pedido del usuario (268 de Lista 2, en el 265 al momento del cambio), sin prueba de audio.",
-      "backups": [
-        {
-          "tvg_id": "PublicDirect.26f00869eaf82b85d56a3e37",
-          "display_name": "TVN",
-          "source_name": "TVN HD [IP 190.108.83.69]",
-          "from_list": "Lista 2",
-          "from_number": 224,
-          "group": "Misceláneos",
-          "logo": "logos/lista2/6df4c8f86c82.png",
-          "url": "http://190.108.83.69:8000/play/a03f/index.m3u8",
-          "guide": {
-            "source": "",
-            "source_id": ""
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.c5b34b8ed73ac37c31803adf",
-          "display_name": "TVN",
-          "source_name": "TVN HD [IP 45.173.231.22]",
-          "from_list": "Lista 2",
-          "from_number": 265,
-          "group": "Misceláneos",
-          "logo": "logos/lista2/6df4c8f86c82.png",
-          "url": "http://45.173.231.22:8000/play/a06l/index.m3u8",
-          "guide": {
-            "source": "",
-            "source_id": ""
-          }
-        }
-      ]
-    },
-    "PublicDirect.b5751130732e4a7c272ee53d": {
-      "display_name": "TNT Sports Premium (Chile)",
-      "list": "Lista 1",
-      "number": 30,
-      "group": "Deportes",
-      "source_name": "TNT Sports Premiun HD [IP 190.108.91.206]",
-      "guide": {
-        "source": "",
-        "source_id": ""
-      },
-      "verified": "; 2026-10-25: TNT Sports Premiun HD [IP 190.108.83.69] respaldo por pedido del usuario (237 de Lista 2), sin prueba de audio.; 2026-10-25: TNT Sports Premium SD [IP 45.173.231.22] respaldo por pedido del usuario (269 de Lista 2, en el 265 al momento del cambio), sin prueba de audio.",
-      "backups": [
-        {
-          "tvg_id": "PublicDirect.c44a168b5a0acf782cace81c",
-          "display_name": "TNT Sports Premium",
-          "source_name": "TNT Sports Premiun HD [IP 190.108.83.69]",
-          "from_list": "Lista 2",
-          "from_number": 237,
-          "group": "Deportes",
-          "logo": "logos/tnt-sports-1.png",
-          "url": "http://190.108.83.69:8000/play/a03i/index.m3u8",
-          "guide": {
-            "source": "",
-            "source_id": ""
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.38a0753b2f8c3979d74bd90d",
-          "display_name": "TNT Sports Premium",
-          "source_name": "TNT Sports Premium SD [IP 45.173.231.22]",
-          "from_list": "Lista 2",
-          "from_number": 265,
-          "group": "Deportes",
-          "logo": "logos/tnt-sports-1.png",
-          "url": "http://45.173.231.22:8000/play/a06f/index.m3u8",
-          "guide": {
-            "source": "",
-            "source_id": ""
           }
         }
       ]
