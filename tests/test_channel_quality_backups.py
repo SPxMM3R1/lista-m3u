@@ -20,7 +20,8 @@ ESPN1_BACKUPS = [
 CANAL13_DIRECT_BACKUPS = [
     # 11c6a7ff…, 12d30345…, 2be18242… y 711575de… pasaron a backups.json el 2026-10-25
     # (audio dudoso 0,48; respaldo por decisión del usuario).
-    "PublicDirect.79f8514f8e1ffebfaf54d33c",
+    # 79f8514f… (Canal 13 HD, 135 de Lista 2) pasó a backups.json el 2026-10-25 por pedido
+    # del usuario; ya no es canal independiente.
     # PublicDirect.8baa0cba… (Canal 13 HD 190.108.91.206) pasó a backups.json el 2026-10-25:
     # segunda búsqueda de clones, misma señal por audio (0.988).
 ]
@@ -245,11 +246,12 @@ class EspnChilePlacementTest(unittest.TestCase):
         target = next(row for row in rows if row.get("tvgId") == self.TARGET_ID)
         tnt4 = next(row for row in rows if row.get("kind") == "provider" and row.get("displayName") == "TNT Sports 4")
         ordered = sorted(rows, key=lambda row: row["order"])
-        self.assertEqual(32, target["number"])
+        # 2026-10-25: TNT Sports Premium (Chile) quedó en 30 (Lista 1).
+        self.assertEqual(33, target["number"])
         self.assertEqual(29, tnt4["number"])
         self.assertEqual("ESPN", target["displayName"])
-        # Tras TNT Sports 4 quedan los dos Eurosport España (30/31) y luego ESPN.
-        self.assertEqual(target, ordered[ordered.index(tnt4) + 3])
+        # Tras TNT Sports 4 quedan TNT Sports Premium (Chile) (30) y los dos Eurosport España (31/32), y luego ESPN.
+        self.assertEqual(target, ordered[ordered.index(tnt4) + 4])
         self.assertEqual(len(rows), len({row["number"] for row in rows}))
 
         presentation = json.loads((ROOT / "presentation-overrides.json").read_text(encoding="utf-8"))
@@ -274,8 +276,9 @@ class Espn2PlacementTest(unittest.TestCase):
         second_feed = next(row for row in rows if row.get("tvgId") == "ESPN2.co@Direct181")
         espn = next(row for row in rows if row.get("tvgId") == self.ESPN_ID)
         ordered = sorted(rows, key=lambda row: row["order"])
-        self.assertEqual(33, target["number"])
-        self.assertEqual(32, espn["number"])
+        # 2026-10-25: TNT Sports Premium (Chile) y el 135 movidos; ESPN 2 bajó a 34 y ESPN a 33.
+        self.assertEqual(34, target["number"])
+        self.assertEqual(33, espn["number"])
         self.assertEqual("ESPN 2", target["displayName"])
         # 2026-10-22: sin respaldos directos (pasaron a Lista 2 como canales independientes).
         self.assertFalse(target.get("backupm3u"))
@@ -313,8 +316,9 @@ class Espn4PlacementTest(unittest.TestCase):
         espn3 = next(row for row in rows if row.get("tvgId") == self.ESPN3_ID)
         ordered = sorted(rows, key=lambda row: row["order"])
         # Renumeración sin huecos (2026-10-18): el hueco del 37 desapareció.
-        self.assertEqual(35, target["number"])
-        self.assertEqual(34, espn3["number"])
+        # 2026-10-25: corrido +1 por TNT Sports Premium (Chile) en Lista 1.
+        self.assertEqual(36, target["number"])
+        self.assertEqual(35, espn3["number"])
         self.assertEqual("ESPN 4", target["displayName"])
         self.assertEqual(target, ordered[ordered.index(espn3) + 1])
         self.assertEqual(len(rows), len({row["number"] for row in rows}))

@@ -1886,7 +1886,7 @@
         "source": "",
         "source_id": ""
       },
-      "verified": "2026-10-25 (2.ª búsqueda): Canal 13 HD [IP 190.108.91.206] misma señal por audio (0.988); 2026-10-25: Canal 13 [IP 45.173.231.22] audio dudoso (0.48), respaldo por decisión del usuario; 2026-10-25: Canal 13 HD [IP 45.173.231.22] · señal 2 audio dudoso (0.48), respaldo por decisión del usuario; 2026-10-25: Canal 13 HD [IP 45.173.231.22] audio dudoso (0.48), respaldo por decisión del usuario; 2026-10-25: Canal 13 HD [IP 190.108.83.69] audio dudoso (0.476), respaldo por decisión del usuario",
+      "verified": "2026-10-25 (2.ª búsqueda): Canal 13 HD [IP 190.108.91.206] misma señal por audio (0.988); 2026-10-25: Canal 13 [IP 45.173.231.22] audio dudoso (0.48), respaldo por decisión del usuario; 2026-10-25: Canal 13 HD [IP 45.173.231.22] · señal 2 audio dudoso (0.48), respaldo por decisión del usuario; 2026-10-25: Canal 13 HD [IP 45.173.231.22] audio dudoso (0.48), respaldo por decisión del usuario; 2026-10-25: Canal 13 HD [IP 190.108.83.69] audio dudoso (0.476), respaldo por decisión del usuario; 2026-10-25: Canal 13 HD [IP 200.7.99.59] respaldo por pedido del usuario (135 de Lista 2), sin prueba de audio.",
       "backups": [
         {
           "tvg_id": "PublicDirect.8baa0cba55b71f39a6480ef5",
@@ -1956,6 +1956,20 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:888838"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.79f8514f8e1ffebfaf54d33c",
+          "display_name": "Canal 13",
+          "source_name": "Canal 13 HD [IP 200.7.99.59]",
+          "from_list": "Lista 2",
+          "from_number": 135,
+          "group": "Misceláneos",
+          "logo": "logos/lista2/f7006cefaf7a.png",
+          "url": "http://200.7.99.59:8000/play/a0je/index.m3u8",
+          "guide": {
+            "source": "",
+            "source_id": ""
           }
         }
       ]
@@ -2740,6 +2754,90 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927625"
+          }
+        }
+      ]
+    },
+    "0104": {
+      "display_name": "TVN",
+      "list": "Lista 1",
+      "number": 1,
+      "group": "Nacionales",
+      "source_name": "TVN",
+      "guide": {
+        "source": "",
+        "source_id": ""
+      },
+      "verified": "; 2026-10-25: TVN HD [IP 190.108.83.69] respaldo por pedido del usuario (224 de Lista 2), sin prueba de audio.; 2026-10-25: TVN HD [IP 45.173.231.22] respaldo por pedido del usuario (268 de Lista 2, en el 265 al momento del cambio), sin prueba de audio.",
+      "backups": [
+        {
+          "tvg_id": "PublicDirect.26f00869eaf82b85d56a3e37",
+          "display_name": "TVN",
+          "source_name": "TVN HD [IP 190.108.83.69]",
+          "from_list": "Lista 2",
+          "from_number": 224,
+          "group": "Misceláneos",
+          "logo": "logos/lista2/6df4c8f86c82.png",
+          "url": "http://190.108.83.69:8000/play/a03f/index.m3u8",
+          "guide": {
+            "source": "",
+            "source_id": ""
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.c5b34b8ed73ac37c31803adf",
+          "display_name": "TVN",
+          "source_name": "TVN HD [IP 45.173.231.22]",
+          "from_list": "Lista 2",
+          "from_number": 265,
+          "group": "Misceláneos",
+          "logo": "logos/lista2/6df4c8f86c82.png",
+          "url": "http://45.173.231.22:8000/play/a06l/index.m3u8",
+          "guide": {
+            "source": "",
+            "source_id": ""
+          }
+        }
+      ]
+    },
+    "PublicDirect.b5751130732e4a7c272ee53d": {
+      "display_name": "TNT Sports Premium (Chile)",
+      "list": "Lista 1",
+      "number": 30,
+      "group": "Deportes",
+      "source_name": "TNT Sports Premiun HD [IP 190.108.91.206]",
+      "guide": {
+        "source": "",
+        "source_id": ""
+      },
+      "verified": "; 2026-10-25: TNT Sports Premiun HD [IP 190.108.83.69] respaldo por pedido del usuario (237 de Lista 2), sin prueba de audio.; 2026-10-25: TNT Sports Premium SD [IP 45.173.231.22] respaldo por pedido del usuario (269 de Lista 2, en el 265 al momento del cambio), sin prueba de audio.",
+      "backups": [
+        {
+          "tvg_id": "PublicDirect.c44a168b5a0acf782cace81c",
+          "display_name": "TNT Sports Premium",
+          "source_name": "TNT Sports Premiun HD [IP 190.108.83.69]",
+          "from_list": "Lista 2",
+          "from_number": 237,
+          "group": "Deportes",
+          "logo": "logos/tnt-sports-1.png",
+          "url": "http://190.108.83.69:8000/play/a03i/index.m3u8",
+          "guide": {
+            "source": "",
+            "source_id": ""
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.38a0753b2f8c3979d74bd90d",
+          "display_name": "TNT Sports Premium",
+          "source_name": "TNT Sports Premium SD [IP 45.173.231.22]",
+          "from_list": "Lista 2",
+          "from_number": 265,
+          "group": "Deportes",
+          "logo": "logos/tnt-sports-1.png",
+          "url": "http://45.173.231.22:8000/play/a06f/index.m3u8",
+          "guide": {
+            "source": "",
+            "source_id": ""
           }
         }
       ]

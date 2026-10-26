@@ -101,8 +101,9 @@ class AlcatelLista1Test(unittest.TestCase):
         telehit_musica = rows["TelehitMusica.mx@SD"]
         telehit = rows["PublicDirect.12addda8ba8591c579cdebfa"]
         # 2026-10-21: RWND pasó al primer lugar de Música (#41) y Telehit bajó uno.
-        self.assertEqual(49, telehit["number"])
-        self.assertEqual(50, telehit_musica["number"])
+        # 2026-10-25: TNT Sports Premium (Chile) entró en Lista 1 (#30) y corrió todo +1.
+        self.assertEqual(50, telehit["number"])
+        self.assertEqual(51, telehit_musica["number"])
         self.assertEqual(telehit["number"] + 1, telehit_musica["number"])
         self.assertEqual("Telehit Música", telehit_musica["displayName"])
         # 2026-10-21: logo blanco «TELEHIT MÚSICA» (el que se usaba hasta el 20-10), a pedido.
