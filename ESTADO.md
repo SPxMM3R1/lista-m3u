@@ -304,6 +304,7 @@
 
 
 ## Bitácora (más reciente arriba)
+- **2026-10-25, HBO a Lista 1**: por pedido del usuario, HBO (ex Lista 2 516, HBO-IXP 138.59.177.78) y HBO 2 (ex Lista 2 534, 181.78.82.130) pasan a Lista 1 en el grupo «Cine», al final, con esos nombres. El de 181.78.82.130 que se veía como «HBO» (ex 517, HBO+ HD) se muestra ahora como «HBO +» en Lista 2.
 - **2026-10-25, bitrate redondeado a 500 kbps para ordenar**: pequeñas variaciones de kbps ya no mueven el orden dentro de cada nombre.
 - **2026-10-25, bitrate medido de nuevo y reorden**: workflow `bitrate-lista2` (run 40256592193): 789 de 842 canales medidos; snapshot `contracts/bitrate-lista2-20261025.json` (727 medidos dentro de los 882 de Lista 2 activa). Reordenada con esa medición. Sustituye la foto del 2026-10-22.
 - **2026-10-25, Lista 2 agrupada por nombre**: primero por nombre (A–Z) y dentro de cada nombre por resolución, fps, bitrate y nombre (pedido del usuario). 797 canales en 102 nombres; Nauta (16) y M6Foot (6) antes de los 63 del grupo «Adultos». Datos de bitrate del 2026-10-22: pueden estar viejos para canales que cambiaron de señal.
