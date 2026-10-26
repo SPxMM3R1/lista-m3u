@@ -304,6 +304,7 @@
 
 
 ## Bitácora (más reciente arriba)
+- **2026-10-25, bitrate redondeado a 500 kbps para ordenar**: pequeñas variaciones de kbps ya no mueven el orden dentro de cada nombre.
 - **2026-10-25, bitrate medido de nuevo y reorden**: workflow `bitrate-lista2` (run 40256592193): 789 de 842 canales medidos; snapshot `contracts/bitrate-lista2-20261025.json` (727 medidos dentro de los 882 de Lista 2 activa). Reordenada con esa medición. Sustituye la foto del 2026-10-22.
 - **2026-10-25, Lista 2 agrupada por nombre**: primero por nombre (A–Z) y dentro de cada nombre por resolución, fps, bitrate y nombre (pedido del usuario). 797 canales en 102 nombres; Nauta (16) y M6Foot (6) antes de los 63 del grupo «Adultos». Datos de bitrate del 2026-10-22: pueden estar viejos para canales que cambiaron de señal.
 - **2026-10-25, respaldos por pedido del usuario**: Lista 2 «135» Canal 13 HD (79f8514f…) a respaldo de Canal 13 (Lista 1, 0107); «162» TNT Sports Premium (b5751130…) pasa a Lista 1 como «TNT Sports Premium (Chile)» (#30, junto a TNT Sports 1–4); «224» TVN HD 190.108.83.69 (26f00869…) a respaldo de TVN (0104); «237» TNT Sports Premiun HD 190.108.83.69 (c44a168b…) a respaldo de TNT Sports Premium (Chile); «265» TVN HD 45.173.231.22 (c5b34b8e…) a respaldo de TVN; «265» TNT Sports Premium SD 45.173.231.22 (38a0753b…) a respaldo de TNT Sports Premium (Chile). Los números son los del catálogo al momento de cada cambio. Pruebas ajustadas a los números nuevos.

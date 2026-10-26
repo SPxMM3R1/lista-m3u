@@ -160,7 +160,8 @@ class M6FootReferenceTest(unittest.TestCase):
             if item is None:
                 return (name_of(row), 1, 0, 0, 0, 0)
             fps = float(Fraction(item.get("fps") or "0"))
-            return (name_of(row), 0, -item["height"], -(item.get("width") or 0), -fps, -(item.get("kbps") or 0))
+            # El bitrate se redondea a múltiplos de 500 kbps: pequeñas variaciones de medición no mueven el orden.
+            return (name_of(row), 0, -item["height"], -(item.get("width") or 0), -fps, -round((item.get("kbps") or 0) / 500))
 
         main_block = [row for row in block if not str(row.get("tvgId", "")).startswith(("Nauta.", "M6Foot."))]
         ranks = [rank(row) for row in main_block]
