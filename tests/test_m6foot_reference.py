@@ -145,10 +145,10 @@ class M6FootReferenceTest(unittest.TestCase):
         ]
         # 2026-10-25, pedido del usuario: primero se agrupan por nombre (A–Z); dentro de cada nombre,
         # resolución, luego fps, luego bitrate medido y luego el nombre. Los sin medir van al final
-        # de su nombre (contracts/bitrate-lista2-20261022.json). Nauta y M6Foot van después.
+        # de su nombre (contracts/bitrate-lista2-20261025.json). Nauta y M6Foot van después.
         measured = {
             item["tvg_id"]: item
-            for item in json.loads((ROOT / "contracts/bitrate-lista2-20261022.json").read_text(encoding="utf-8"))
+            for item in json.loads((ROOT / "contracts/bitrate-lista2-20261025.json").read_text(encoding="utf-8"))
             if item.get("ok") and item.get("height")
         }
 
