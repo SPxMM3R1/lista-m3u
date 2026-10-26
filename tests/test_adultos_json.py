@@ -55,32 +55,17 @@ class AdultosJsonTest(unittest.TestCase):
         self.assertFalse([item for item in document["channels"] if "adultswim" in item.lower().replace(".", "")])
 
     def test_the_reinstated_quality_rows_are_listed(self):
-        # 2026-10-25: Brazzers TV, Venus Tv, VENUS RADIO TV y ADULTOS 1–10 al final de Lista 2.
-        layout, document = load()
-        listed = set(document["channels"])
-        expected = {
-            "PublicDirect.611041b791c77e57b0831623",
-            "PublicDirect.1abf4474e1f3f29b70d71a03",
-            "PublicDirect.0fdcde11e1250f52aa149c8f",
-            "PublicDirect.24a6ad8c7c081886d48dab4b",
-            "PublicDirect.fb685864e25513e9957f3212",
-            "PublicDirect.265aa780cd512ed0698e4465",
-            "PublicDirect.a0d01f76df0915446fff9f2d",
-            "PublicDirect.82c1cfe1958fde3d4a7349d4",
-            "PublicDirect.7403b602e798262aa32fdc10",
-            "PublicDirect.c68d9bdb5131e451b513f365",
-            "PublicDirect.1eeaefba050d362a9c44f878",
-            "PublicDirect.08a604268e68ce7fee42eab9",
-            "PublicDirect.6ab9b36bf0cf09082ad54017",
-        }
-        self.assertEqual(set(), expected - listed)
-        by_id = {row.get("tvgId"): row for row in layout["channels"]}
-        for channel_id in sorted(expected):
-            row = by_id[channel_id]
-            self.assertEqual("active", row["state"])
-            self.assertEqual("2.m3u", row["sourceList"])
-            self.assertEqual("Adultos", row["group"])
-
+        # 2026-10-26: Brazzers TV pasó a Lista 1 y, por pedido del usuario, todo lo que quedaba
+        # de «Adultos» después de él en Lista 2 pasó a la papelera. Ninguna fila de Lista 2 con
+        # grupo «Adultos» debe seguir activa.
+        layout, _ = load()
+        leftovers = [
+            row["tvgId"] for row in layout["channels"]
+            if row.get("state") == "active" and row.get("sourceList") == "2.m3u" and row.get("group") == "Adultos"
+        ]
+        self.assertEqual([], leftovers)
+        brazzers = next(row for row in layout["channels"] if row.get("tvgId") == "PublicDirect.611041b791c77e57b0831623")
+        self.assertEqual(("active", "1.m3u", "Adultos"), (brazzers["state"], brazzers["sourceList"], brazzers["group"]))
 
 if __name__ == "__main__":
     unittest.main()
