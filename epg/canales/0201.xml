@@ -1,10 +1,16 @@
 <?xml version='1.0' encoding='utf-8'?>
 <tv data-fragment-of="0201">
-  <channel id="0201" data-guide="parrilla real" data-guide-source="zapping-guia-publica">
+  <channel id="0201" data-guide="parrilla real" data-guide-source="cl">
     <display-name>24 Horas</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/24-horas.svg" />
   </channel>
-  <programme start="20261027151800 -0300" stop="20261027153000 -0300" channel="0201">
+  <programme start="20261027130000 -0300" stop="20261027150000 -0300" channel="0201">
+    <title lang="es">24 Horas al Día</title>
+  </programme>
+  <programme start="20261027150000 -0300" stop="20261027151500 -0300" channel="0201">
+    <title lang="es">Ventana al Mundo</title>
+  </programme>
+  <programme start="20261027151500 -0300" stop="20261027153000 -0300" channel="0201">
     <title lang="es">Página 24</title>
   </programme>
   <programme start="20261027153000 -0300" stop="20261027160000 -0300" channel="0201">
@@ -15,41 +21,25 @@
     <desc lang="es">Noticias 24 es el noticiero central del canal 24 Horas de TVN Chile, la señal de noticias 24/7 de Televisión Nacional de Chile.</desc>
   </programme>
   <programme start="20261027180000 -0300" stop="20261027190000 -0300" channel="0201">
-    <title lang="es">Noticias 24 Radar</title>
+    <title lang="es">Noticias 24</title>
     <desc lang="es">Noticias 24 es el noticiero central del canal 24 Horas de TVN Chile, la señal de noticias 24/7 de Televisión Nacional de Chile.</desc>
   </programme>
   <programme start="20261027190000 -0300" stop="20261027200000 -0300" channel="0201">
-    <title lang="es">Noticias 24 Claves Del Día</title>
+    <title lang="es">Noticias 24</title>
     <desc lang="es">Noticias 24 es el noticiero central del canal 24 Horas de TVN Chile, la señal de noticias 24/7 de Televisión Nacional de Chile.</desc>
   </programme>
-  <programme start="20261027110000 -0300" stop="20261027123000 -0300" channel="0201">
-    <title lang="es">Mañana informativa</title>
-    <desc lang="es">Sigue las entrevistas de la Mañana Informativa de Canal 24 Horas, donde expertos y políticos analizan temas de contingencia política y de interés</desc>
-  </programme>
-  <programme start="20261027123000 -0300" stop="20261027130000 -0300" channel="0201">
-    <title lang="es">Vía Pública</title>
-    <desc lang="es">Un programa de debate y análisis sobre temas de actualidad.</desc>
-  </programme>
-  <programme start="20261027130000 -0300" stop="20261027150000 -0300" channel="0201">
-    <title lang="es">24 Horas Central</title>
-  </programme>
-  <programme start="20261027150000 -0300" stop="20261027151500 -0300" channel="0201">
-    <title lang="es">Ventana al Mundo</title>
-  </programme>
-  <programme start="20261027151500 -0300" stop="20261027151800 -0300" channel="0201">
-    <title lang="es">Entrevistas 24</title>
-  </programme>
   <programme start="20261027200000 -0300" stop="20261027210000 -0300" channel="0201">
-    <title lang="es">24 Horas Deportes</title>
+    <title lang="es">24 Horas</title>
+    <sub-title lang="es">Deportes</sub-title>
     <desc lang="es">Lo más destacado del día en diferentes disciplinas. Sigue la actualidad deportiva nacional e internacional a través de TVN.</desc>
   </programme>
   <programme start="20261027210000 -0300" stop="20261027223000 -0300" channel="0201">
-    <title lang="es">24 Horas Central</title>
+    <title lang="es">24 Horas</title>
+    <sub-title lang="es">Central</sub-title>
     <desc lang="es">Noticiero central, con despachos en directo y corresponsalías en todo el mundo.</desc>
   </programme>
   <programme start="20261027223000 -0300" stop="20261027224500 -0300" channel="0201">
-    <title lang="es">Entrevistas 24</title>
-    <desc lang="es">Espacio en el que conversamos con un invitado especial quien nos habla de la situación política, social, económica de Chile, o de tan variados temas de interés general para el ciudadano común.</desc>
+    <title lang="es">Página 24</title>
   </programme>
   <programme start="20261027224500 -0300" stop="20261027230000 -0300" channel="0201">
     <title lang="es">Entrevistas 24</title>
@@ -68,7 +58,8 @@
     <desc lang="es">Noticiero, con despachos en directo y corresponsalías en todo el mundo.</desc>
   </programme>
   <programme start="20261028010000 -0300" stop="20261028014500 -0300" channel="0201">
-    <title lang="es">24 horas al cierre</title>
+    <title lang="es">24 Horas</title>
+    <sub-title lang="es">- Al cierre</sub-title>
     <desc lang="es">La síntesis informativa de lo ocurrido en la jornada, con un enfoque en las noticias policiales de la noche.</desc>
   </programme>
   <programme start="20261028014500 -0300" stop="20261028020000 -0300" channel="0201">
@@ -92,7 +83,8 @@
     <desc lang="es">Noticiero, con despachos en directo y corresponsalías en todo el mundo.</desc>
   </programme>
   <programme start="20261028043000 -0300" stop="20261028050000 -0300" channel="0201">
-    <title lang="es">24 Horas Deportes</title>
+    <title lang="es">24 Horas</title>
+    <sub-title lang="es">Deportes</sub-title>
     <desc lang="es">Lo más destacado del día en diferentes disciplinas. Sigue la actualidad deportiva nacional e internacional a través de TVN.</desc>
   </programme>
   <programme start="20261028050000 -0300" stop="20261028053000 -0300" channel="0201">
@@ -104,28 +96,28 @@
     <desc lang="es">Espacio matutino de noticias, con toda la información de la jornada.</desc>
   </programme>
   <programme start="20261028060000 -0300" stop="20261028080000 -0300" channel="0201">
-    <title lang="es">24 Horas Central</title>
+    <title lang="es">24horas tu mañana</title>
   </programme>
   <programme start="20261028080000 -0300" stop="20261028083000 -0300" channel="0201">
     <title lang="es">Reporte Agrícola</title>
     <desc lang="es">Espacio conducido por el periodista Jose Ignacio Atenas, que busca explorar cómo los campos chilenos enfrentan los desafíos climáticos que cambian día a día. Análisis, entrevistas con expertos, infomración y noticias actualizada para todos.</desc>
   </programme>
   <programme start="20261028083000 -0300" stop="20261028104500 -0300" channel="0201">
-    <title lang="es">Mañana Informativa</title>
+    <title lang="es">La Mañana Informativa</title>
     <desc lang="es">Sigue las entrevistas de la Mañana Informativa de Canal 24 Horas, donde expertos y políticos analizan temas de contingencia política y de interés</desc>
   </programme>
   <programme start="20261028104500 -0300" stop="20261028110000 -0300" channel="0201">
-    <title lang="es">Entrevistas 24</title>
+    <title lang="es">Página 24</title>
   </programme>
   <programme start="20261028110000 -0300" stop="20261028123000 -0300" channel="0201">
-    <title lang="es">Mañana informativa</title>
+    <title lang="es">La Mañana Informativa</title>
     <desc lang="es">Sigue las entrevistas de la Mañana Informativa de Canal 24 Horas, donde expertos y políticos analizan temas de contingencia política y de interés</desc>
   </programme>
   <programme start="20261028123000 -0300" stop="20261028130000 -0300" channel="0201">
     <title lang="es">Vía Pública</title>
   </programme>
   <programme start="20261028130000 -0300" stop="20261028150000 -0300" channel="0201">
-    <title lang="es">24 Horas Central</title>
+    <title lang="es">24 Horas al Día</title>
   </programme>
   <programme start="20261028150000 -0300" stop="20261028153000 -0300" channel="0201">
     <title lang="es">Más motor</title>
@@ -143,13 +135,15 @@
     <title lang="es">Noticias 24</title>
   </programme>
   <programme start="20261028200000 -0300" stop="20261028210000 -0300" channel="0201">
-    <title lang="es">24 Horas Deportes</title>
+    <title lang="es">24 Horas</title>
+    <sub-title lang="es">Deportes</sub-title>
   </programme>
   <programme start="20261028210000 -0300" stop="20261028223000 -0300" channel="0201">
-    <title lang="es">24 Horas Central</title>
+    <title lang="es">24 Horas</title>
+    <sub-title lang="es">Central</sub-title>
   </programme>
   <programme start="20261028223000 -0300" stop="20261028224500 -0300" channel="0201">
-    <title lang="es">Ventana al mundo</title>
+    <title lang="es">Ventana al Mundo</title>
   </programme>
   <programme start="20261028224500 -0300" stop="20261028230000 -0300" channel="0201">
     <title lang="es">Entrevistas 24</title>
@@ -164,7 +158,8 @@
     <title lang="es">24 Horas a la Hora</title>
   </programme>
   <programme start="20261029010000 -0300" stop="20261029014500 -0300" channel="0201">
-    <title lang="es">24 horas al cierre</title>
+    <title lang="es">24 Horas</title>
+    <sub-title lang="es">- Al cierre</sub-title>
   </programme>
   <programme start="20261029014500 -0300" stop="20261029020000 -0300" channel="0201">
     <title lang="es">Entrevistas 24</title>
@@ -182,7 +177,8 @@
     <title lang="es">24 Horas a la Hora</title>
   </programme>
   <programme start="20261029043000 -0300" stop="20261029050000 -0300" channel="0201">
-    <title lang="es">24 Horas Deportes</title>
+    <title lang="es">24 Horas</title>
+    <sub-title lang="es">Deportes</sub-title>
   </programme>
   <programme start="20261029050000 -0300" stop="20261029053000 -0300" channel="0201">
     <title lang="es">Hora 24</title>
@@ -191,25 +187,25 @@
     <title lang="es">Previa 24</title>
   </programme>
   <programme start="20261029060000 -0300" stop="20261029080000 -0300" channel="0201">
-    <title lang="es">24 Horas Central</title>
+    <title lang="es">24horas tu mañana</title>
   </programme>
   <programme start="20261029080000 -0300" stop="20261029083000 -0300" channel="0201">
     <title lang="es">Exploradores</title>
   </programme>
   <programme start="20261029083000 -0300" stop="20261029104500 -0300" channel="0201">
-    <title lang="es">Mañana Informativa</title>
+    <title lang="es">La Mañana Informativa</title>
   </programme>
   <programme start="20261029104500 -0300" stop="20261029110000 -0300" channel="0201">
     <title lang="es">Entrevistas 24</title>
   </programme>
   <programme start="20261029110000 -0300" stop="20261029123000 -0300" channel="0201">
-    <title lang="es">Mañana informativa</title>
+    <title lang="es">La Mañana Informativa</title>
   </programme>
   <programme start="20261029123000 -0300" stop="20261029130000 -0300" channel="0201">
     <title lang="es">Vía Pública</title>
   </programme>
   <programme start="20261029130000 -0300" stop="20261029150000 -0300" channel="0201">
-    <title lang="es">24 Horas Central</title>
+    <title lang="es">24 Horas al Día</title>
   </programme>
   <programme start="20261029150000 -0300" stop="20261029151500 -0300" channel="0201">
     <title lang="es">24 Cuadros</title>
@@ -218,7 +214,7 @@
     <title lang="es">Entrevistas 24</title>
   </programme>
   <programme start="20261029153000 -0300" stop="20261029160000 -0300" channel="0201">
-    <title lang="es">Reporte minero y energético</title>
+    <title lang="es">Reporte Minero</title>
   </programme>
   <programme start="20261029160000 -0300" stop="20261029170000 -0300" channel="0201">
     <title lang="es">Noticias 24</title>
@@ -236,6 +232,7 @@
     <title lang="es">Noticias 24</title>
   </programme>
   <programme start="20261029200000 -0300" stop="20261029210000 -0300" channel="0201">
-    <title lang="es">24 Horas Deportes</title>
+    <title lang="es">24 Horas</title>
+    <sub-title lang="es">Deportes</sub-title>
   </programme>
 </tv>
