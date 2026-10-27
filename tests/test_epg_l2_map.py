@@ -23,7 +23,8 @@ class Lista2EpgMapTest(unittest.TestCase):
         # 2026-10-26: tres copias de HBO 2 pasaron a la papelera desde la app y 21 Star Channel a
         # respaldo: ~770 publicados.
         # 2026-10-26: 8 copias de HBO 2 a respaldo (backups.json): ~764; piso con margen.
-        self.assertGreaterEqual(len(set(mapping) & published), 750)
+        # 2026-10-27: 22 copias de FX a respaldo y papelera desde la app: ~736; piso con margen.
+        self.assertGreaterEqual(len(set(mapping) & published), 700)
         for target_id, (source, source_id) in mapping.items():
             with self.subTest(channel=target_id):
                 # 2026-10-24: guía Claro por familia (claro:<región>:<group_id>) o EPGShare.
@@ -46,7 +47,8 @@ class Lista2EpgMapTest(unittest.TestCase):
         # Lista 2 baja con la papelera desde la app (A3Cine, 2026-10-22): piso como el del mapa.
         # 2026-10-25: tras las búsquedas de clones Lista 2 publica ~910.
         # 2026-10-26: Star Channel y HBO 2 a respaldo: alcance ~847; piso con margen.
-        self.assertGreaterEqual(len(scope), 830)
+        # 2026-10-27: FX a respaldo: alcance ~820; piso con margen.
+        self.assertGreaterEqual(len(scope), 790)
 
 
 class Lista2ClaroFamilyGuideTest(unittest.TestCase):
