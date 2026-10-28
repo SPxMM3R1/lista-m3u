@@ -5831,7 +5831,8 @@ EPG_TITLE_WORD = re.compile(r"\b[^\W\d_]\w*\b")
 def _uppercase_known_acronyms(title: str) -> str:
     def fix(match: re.Match[str]) -> str:
         word = match.group(0)
-        if word.upper() in EPG_TITLE_MIXED_ACRONYMS and (word.islower() or word[1:].islower()):
+        # «XXX» va siempre en mayúscula, también la forma estilizada «xXx».
+        if word.upper() in EPG_TITLE_MIXED_ACRONYMS and (word.islower() or word[1:].islower() or word.upper() == "XXX"):
             return word.upper()
         return word
 
