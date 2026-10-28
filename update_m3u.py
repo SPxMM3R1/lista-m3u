@@ -5814,6 +5814,7 @@ EPG_TITLE_ACRONYMS = frozenset(
         "PGA",
         "SWAT",
         "WNBA",
+        "XXX",
         "TV",
         "TYC",
         "USA",

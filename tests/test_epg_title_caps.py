@@ -22,6 +22,8 @@ class EpgTitleCapsTest(unittest.TestCase):
         self.assertEqual("Previa ESPN", update_m3u.normalize_epg_title("Previa Espn"))
         self.assertEqual("TyC Sports", update_m3u.normalize_epg_title("TyC Sports"))
         self.assertEqual("Ella usa el auto", update_m3u.normalize_epg_title("Ella usa el auto"))
+        self.assertEqual("XXX: Reactivado", update_m3u.normalize_epg_title("Xxx: Reactivado"))
+        self.assertEqual("XXX", update_m3u.normalize_epg_title("XXX"))
 
     def test_times_are_not_touched(self) -> None:
         self.assertEqual("Partido 20:30 en vivo", update_m3u.normalize_epg_title("Partido 20:30 en vivo"))
