@@ -192,7 +192,7 @@
         "source": "",
         "source_id": ""
       },
-      "verified": "; 2026-10-25: TNT Sports Premiun HD [IP 190.108.83.69] respaldo por pedido del usuario (237 de Lista 2), sin prueba de audio.; 2026-10-25: TNT Sports Premium SD [IP 45.173.231.22] respaldo por pedido del usuario (269 de Lista 2, en el 265 al momento del cambio), sin prueba de audio.",
+      "verified": "; 2026-10-25: TNT Sports Premiun HD [IP 190.108.83.69] respaldo por pedido del usuario (237 de Lista 2), sin prueba de audio.; 2026-10-25: TNT Sports Premium SD [IP 45.173.231.22] respaldo por pedido del usuario (269 de Lista 2, en el 265 al momento del cambio), sin prueba de audio. | 2026-10-28: detector de clones sobre toda Lista 2; pasan solo copias estables (abren al primer intento y graban 60 s), misma resolución y fps que la de Lista 1, audio igual (correlación 731 0,687).",
       "backups": [
         {
           "tvg_id": "PublicDirect.c44a168b5a0acf782cace81c",
@@ -217,6 +217,20 @@
           "group": "Deportes",
           "logo": "logos/tnt-sports-1.png",
           "url": "http://45.173.231.22:8000/play/a06f/index.m3u8",
+          "guide": {
+            "source": "",
+            "source_id": ""
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.02c28cc191936f0158a3289f",
+          "display_name": "TNT Sports Premium (Chile)",
+          "source_name": "TNT Sports Premiun HD [IP 200.7.99.59]",
+          "from_list": "Lista 2",
+          "from_number": 731,
+          "group": "Deportes",
+          "logo": "logos/tnt-sports-1.png",
+          "url": "http://200.7.99.59:8000/play/a0k9/index.m3u8",
           "guide": {
             "source": "",
             "source_id": ""
@@ -346,7 +360,7 @@
         "source": "claro-guia",
         "source_id": "claro:chile:793494"
       },
-      "verified": "2026-10-25 (2.ª búsqueda): ESPN 2 HD [IP 190.108.83.69] misma señal por audio (0.771); 2026-10-25 (2.ª búsqueda): ESPN 2 [IP 38.87.224.19] misma señal por audio (0.828); 2026-10-25 (2.ª búsqueda): ESPN 2 HD [IP 45.173.231.22] · señal 2 misma señal por audio (0.604); 2026-10-25: ESPN 2 [IP 38.134.250.110] audio dudoso (0.527), respaldo por decisión del usuario; 2026-10-25: ESPN 2 HD [IP 158.172.217.18] audio dudoso (0.41), respaldo por decisión del usuario",
+      "verified": "2026-10-25 (2.ª búsqueda): ESPN 2 HD [IP 190.108.83.69] misma señal por audio (0.771); 2026-10-25 (2.ª búsqueda): ESPN 2 [IP 38.87.224.19] misma señal por audio (0.828); 2026-10-25 (2.ª búsqueda): ESPN 2 HD [IP 45.173.231.22] · señal 2 misma señal por audio (0.604); 2026-10-25: ESPN 2 [IP 38.134.250.110] audio dudoso (0.527), respaldo por decisión del usuario; 2026-10-25: ESPN 2 HD [IP 158.172.217.18] audio dudoso (0.41), respaldo por decisión del usuario | 2026-10-28: detector de clones sobre toda Lista 2; pasan solo copias estables (abren al primer intento y graban 60 s), misma resolución y fps que la de Lista 1, audio igual (correlación 342 0,7).",
       "backups": [
         {
           "tvg_id": "PublicDirect.4d0eb277fe4eb7e15a73dd7a",
@@ -416,6 +430,20 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:788718"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.41364d2a9d006e1c2050f21b",
+          "display_name": "ESPN 2",
+          "source_name": "ESPN 2 HD [IP 181.78.211.244]",
+          "from_list": "Lista 2",
+          "from_number": 342,
+          "group": "Deportes",
+          "logo": "logos/lista2/c5f053da5123.png",
+          "url": "http://181.78.211.244:8000/play/a0b3/index.m3u8",
+          "guide": {
+            "source": "",
+            "source_id": ""
           }
         }
       ]
@@ -1410,7 +1438,7 @@
         "source": "",
         "source_id": ""
       },
-      "verified": "2026-10-25: misma señal por audio con desfase (coincidencia 0.799, 0.732).; 2026-10-25 (2.ª búsqueda): Sony Movies HD [IP 72.1.184.5] misma señal por audio (0.796); 2026-10-25 (2.ª búsqueda): SONY MOVIES HD [IP 190.61.90.17] misma señal por audio (0.944); 2026-10-25 (2.ª búsqueda): ZXSONY MOVIES [IP 181.78.14.26] misma señal por audio (0.664); 2026-10-25 (2.ª búsqueda): @DIG - SONY MOVIES HD [IP 181.78.14.26] misma señal por audio (0.625); 2026-10-25: Sony Movies HD [IP 167.249.23.102] audio dudoso (0.487), respaldo por decisión del usuario; 2026-10-25: Sony Movies HD [IP 181.119.177.253] audio dudoso (0.487), respaldo por decisión del usuario; 2026-10-25: Sony Movies HD [IP 45.171.64.30] audio dudoso (0.597), respaldo por decisión del usuario; 2026-10-25: CANAL 69 Sony Movies HD [IP 45.5.118.152] audio dudoso (0.57), respaldo por decisión del usuario",
+      "verified": "2026-10-25: misma señal por audio con desfase (coincidencia 0.799, 0.732).; 2026-10-25 (2.ª búsqueda): Sony Movies HD [IP 72.1.184.5] misma señal por audio (0.796); 2026-10-25 (2.ª búsqueda): SONY MOVIES HD [IP 190.61.90.17] misma señal por audio (0.944); 2026-10-25 (2.ª búsqueda): ZXSONY MOVIES [IP 181.78.14.26] misma señal por audio (0.664); 2026-10-25 (2.ª búsqueda): @DIG - SONY MOVIES HD [IP 181.78.14.26] misma señal por audio (0.625); 2026-10-25: Sony Movies HD [IP 167.249.23.102] audio dudoso (0.487), respaldo por decisión del usuario; 2026-10-25: Sony Movies HD [IP 181.119.177.253] audio dudoso (0.487), respaldo por decisión del usuario; 2026-10-25: Sony Movies HD [IP 45.171.64.30] audio dudoso (0.597), respaldo por decisión del usuario; 2026-10-25: CANAL 69 Sony Movies HD [IP 45.5.118.152] audio dudoso (0.57), respaldo por decisión del usuario | 2026-10-28: detector de clones sobre toda Lista 2; pasan solo copias estables (abren al primer intento y graban 60 s), misma resolución y fps que la de Lista 1, audio igual (correlación 646 0,985).",
       "backups": [
         {
           "tvg_id": "PublicDirect.dfb814f1d8534e6fbbedbe92",
@@ -1564,6 +1592,20 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:1191161"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.71b54661d74565fd7fec19ec",
+          "display_name": "Sony Movies",
+          "source_name": "Sony Movies HD [IP 181.78.106.127]",
+          "from_list": "Lista 2",
+          "from_number": 646,
+          "group": "Películas",
+          "logo": "logos/lista2/17a70ff21c33.png",
+          "url": "http://181.78.106.127:5000/play/a0po/index.m3u8",
+          "guide": {
+            "source": "",
+            "source_id": ""
           }
         }
       ]
@@ -2054,7 +2096,7 @@
         "source": "claro-guia",
         "source_id": "claro:colombia:927626"
       },
-      "verified": "2026-10-25 (2.ª búsqueda): WARNER HD [IP 138.59.177.78] misma señal por audio (0.708); 2026-10-25: WARNER HD [IP 181.119.177.253] audio dudoso (0.435), respaldo por decisión del usuario; 2026-10-25: WARNER HD [IP 181.78.106.127] audio dudoso (0.524), respaldo por decisión del usuario",
+      "verified": "2026-10-25 (2.ª búsqueda): WARNER HD [IP 138.59.177.78] misma señal por audio (0.708); 2026-10-25: WARNER HD [IP 181.119.177.253] audio dudoso (0.435), respaldo por decisión del usuario; 2026-10-25: WARNER HD [IP 181.78.106.127] audio dudoso (0.524), respaldo por decisión del usuario | 2026-10-28: detector de clones sobre toda Lista 2; pasan solo copias estables (abren al primer intento y graban 60 s), misma resolución y fps que la de Lista 1, audio igual (correlación 818 0,736; 819 0,867; 820 0,867; 821 0,91).",
       "backups": [
         {
           "tvg_id": "PublicDirect.b39e9adb878335c289669c76",
@@ -2096,6 +2138,62 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927626"
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.9ee692efc1aaa3007562bd47",
+          "display_name": "Warner Channel",
+          "source_name": "WARNER HD [IP 190.61.90.17]",
+          "from_list": "Lista 2",
+          "from_number": 818,
+          "group": "Películas",
+          "logo": "logos/lista2/b3ed65890466.png",
+          "url": "http://190.61.90.17:40000/play/a0ho/index.m3u8",
+          "guide": {
+            "source": "",
+            "source_id": ""
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.d46f163adecb24b7579c453e",
+          "display_name": "Warner Channel",
+          "source_name": "WARNER HD [IP 167.249.23.102]",
+          "from_list": "Lista 2",
+          "from_number": 819,
+          "group": "Películas",
+          "logo": "logos/lista2/b3ed65890466.png",
+          "url": "http://167.249.23.102:8000/play/a0ag/index.m3u8",
+          "guide": {
+            "source": "",
+            "source_id": ""
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.69012de99c76e56342a01748",
+          "display_name": "Warner Channel",
+          "source_name": "WARNER HD [IP 45.171.64.30]",
+          "from_list": "Lista 2",
+          "from_number": 820,
+          "group": "Películas",
+          "logo": "logos/catalogue/warnerchannel-us.png",
+          "url": "http://45.171.64.30:6060/play/a03b/index.m3u8",
+          "guide": {
+            "source": "",
+            "source_id": ""
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.cfc7fffa791f5a159f124297",
+          "display_name": "Warner Channel",
+          "source_name": "WARNER HD [IP 45.166.93.156]",
+          "from_list": "Lista 2",
+          "from_number": 821,
+          "group": "Películas",
+          "logo": "logos/lista2/b3ed65890466.png",
+          "url": "http://45.166.93.156:9999/play/a08k/index.m3u8",
+          "guide": {
+            "source": "",
+            "source_id": ""
           }
         }
       ]
