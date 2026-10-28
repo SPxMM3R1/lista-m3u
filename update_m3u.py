@@ -5805,12 +5805,40 @@ EPG_TITLE_ACRONYMS = frozenset(
         "ANFP",
         "TNT",
         "DAZN",
+        "CSI",
+        "NCIS",
+        "FBI",
+        "CIA",
+        "HBO",
+        "AXN",
+        "NASA",
+        "NASCAR",
+        "PGA",
+        "SWAT",
+        "WNBA",
         "TV",
         "TYC",
         "USA",
         "EE.UU.",
     }
 )
+# Siglas en títulos con mayúsculas y minúsculas (2026-10-28): «Csi: Miami» → «CSI: Miami».
+# Solo palabras en minúscula o con inicial mayúscula (no toca «TyC»); «USA» queda fuera
+# porque en español «usa» es un verbo.
+EPG_TITLE_MIXED_ACRONYMS = EPG_TITLE_ACRONYMS - {"USA"}
+EPG_TITLE_WORD = re.compile(r"\b[^\W\d_]\w*\b")
+
+
+def _uppercase_known_acronyms(title: str) -> str:
+    def fix(match: re.Match[str]) -> str:
+        word = match.group(0)
+        if word.upper() in EPG_TITLE_MIXED_ACRONYMS and (word.islower() or word[1:].islower()):
+            return word.upper()
+        return word
+
+    return EPG_TITLE_WORD.sub(fix, title)
+
+
 # Mayúscula tras «:» (2026-10-04): «Fútbol: la final» → «Fútbol: La final». Solo con un
 # espacio después, para no tocar horas como «20:30».
 EPG_TITLE_AFTER_COLON = re.compile(r"(:\s+)([^\W\d_])")
@@ -5834,7 +5862,7 @@ def normalize_epg_title(value: object) -> str:
     title = html.unescape(re.sub(r"\s+", " ", str(value or ""))).strip()
     letters = [character for character in title if character.isalpha()]
     if not title or not letters or not all(character.isupper() for character in letters):
-        return _capitalize_after_colon(title)
+        return _capitalize_after_colon(_uppercase_known_acronyms(title))
 
     normalized_parts: list[str] = []
     for part in re.split(r"(\s+)", title):

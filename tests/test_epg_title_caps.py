@@ -15,6 +15,14 @@ class EpgTitleCapsTest(unittest.TestCase):
         self.assertEqual("Fútbol: La final", update_m3u.normalize_epg_title("Fútbol: la final"))
         self.assertEqual("Noticias: Edición Central", update_m3u.normalize_epg_title("NOTICIAS: EDICIÓN CENTRAL"))
 
+    def test_known_acronyms_uppercase_in_mixed_titles(self) -> None:
+        self.assertEqual("CSI: Miami", update_m3u.normalize_epg_title("Csi: Miami"))
+        self.assertEqual("CSI", update_m3u.normalize_epg_title("csi"))
+        self.assertEqual("NCIS: Los Ángeles", update_m3u.normalize_epg_title("Ncis: Los Ángeles"))
+        self.assertEqual("Previa ESPN", update_m3u.normalize_epg_title("Previa Espn"))
+        self.assertEqual("TyC Sports", update_m3u.normalize_epg_title("TyC Sports"))
+        self.assertEqual("Ella usa el auto", update_m3u.normalize_epg_title("Ella usa el auto"))
+
     def test_times_are_not_touched(self) -> None:
         self.assertEqual("Partido 20:30 en vivo", update_m3u.normalize_epg_title("Partido 20:30 en vivo"))
 
