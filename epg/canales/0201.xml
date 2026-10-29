@@ -1,9 +1,21 @@
 <?xml version='1.0' encoding='utf-8'?>
 <tv data-fragment-of="0201">
-  <channel id="0201" data-guide="parrilla real" data-guide-source="zapping-guia-publica">
+  <channel id="0201" data-guide="parrilla real conservada" data-guide-source="epg-publicada-conservada">
     <display-name>24 Horas</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/24-horas.svg" />
   </channel>
+  <programme start="20261029003000 -0300" stop="20261029010000 -0300" channel="0201">
+    <title lang="es">24 Horas a la Hora</title>
+    <desc lang="es">Noticiero, con despachos en directo y corresponsalías en todo el mundo.</desc>
+  </programme>
+  <programme start="20261029010000 -0300" stop="20261029014500 -0300" channel="0201">
+    <title lang="es">24 horas al cierre</title>
+    <desc lang="es">La síntesis informativa de lo ocurrido en la jornada, con un enfoque en las noticias policiales de la noche.</desc>
+  </programme>
+  <programme start="20261029014500 -0300" stop="20261029015500 -0300" channel="0201">
+    <title lang="es">Entrevistas 24</title>
+    <desc lang="es">Espacio en el que conversamos con un invitado especial quien nos habla de la situación política, social, económica de Chile, o de tan variados temas de interés general para el ciudadano común.</desc>
+  </programme>
   <programme start="20261029015500 -0300" stop="20261029024000 -0300" channel="0201">
     <title lang="es">24 horas a la hora</title>
     <desc lang="es">Noticiero, con despachos en directo y corresponsalías en todo el mundo.</desc>
@@ -23,37 +35,6 @@
   <programme start="20261029043000 -0300" stop="20261029050000 -0300" channel="0201">
     <title lang="es">24 Horas deportes</title>
     <desc lang="es">Noticiero, con despachos en directo y corresponsalías en todo el mundo.</desc>
-  </programme>
-  <programme start="20261028210000 -0300" stop="20261028223000 -0300" channel="0201">
-    <title lang="es">24 Horas Central</title>
-    <desc lang="es">Noticiero central, con despachos en directo y corresponsalías en todo el mundo.</desc>
-  </programme>
-  <programme start="20261028223000 -0300" stop="20261028224500 -0300" channel="0201">
-    <title lang="es">Ventana al mundo</title>
-  </programme>
-  <programme start="20261028224500 -0300" stop="20261028230000 -0300" channel="0201">
-    <title lang="es">Entrevistas 24</title>
-    <desc lang="es">Espacio en el que conversamos con un invitado especial quien nos habla de la situación política, social, económica de Chile, o de tan variados temas de interés general para el ciudadano común.</desc>
-  </programme>
-  <programme start="20261028230000 -0300" stop="20261029000000 -0300" channel="0201">
-    <title lang="es">Vía Pública</title>
-    <desc lang="es">Un programa de debate y análisis sobre temas de actualidad.</desc>
-  </programme>
-  <programme start="20261029000000 -0300" stop="20261029003000 -0300" channel="0201">
-    <title lang="es">24 Horas a la Hora</title>
-    <desc lang="es">Noticiero, con despachos en directo y corresponsalías en todo el mundo.</desc>
-  </programme>
-  <programme start="20261029003000 -0300" stop="20261029010000 -0300" channel="0201">
-    <title lang="es">24 Horas a la Hora</title>
-    <desc lang="es">Noticiero, con despachos en directo y corresponsalías en todo el mundo.</desc>
-  </programme>
-  <programme start="20261029010000 -0300" stop="20261029014500 -0300" channel="0201">
-    <title lang="es">24 horas al cierre</title>
-    <desc lang="es">La síntesis informativa de lo ocurrido en la jornada, con un enfoque en las noticias policiales de la noche.</desc>
-  </programme>
-  <programme start="20261029014500 -0300" stop="20261029015500 -0300" channel="0201">
-    <title lang="es">Entrevistas 24</title>
-    <desc lang="es">Espacio en el que conversamos con un invitado especial quien nos habla de la situación política, social, económica de Chile, o de tan variados temas de interés general para el ciudadano común.</desc>
   </programme>
   <programme start="20261029050000 -0300" stop="20261029053000 -0300" channel="0201">
     <title lang="es">Hora 24</title>
@@ -131,36 +112,47 @@
   </programme>
   <programme start="20261029223000 -0300" stop="20261029224500 -0300" channel="0201">
     <title lang="es">Escena 24</title>
+    <desc lang="es">Espacio que promueve y difunde una serie de actividades culturales de Chile de gran diversidad, entre ellas, teatro, ópera, cine, recitales de distintos géneros musicales, para todos los públicos para que nadie se quede afuera del entretenimiento.</desc>
   </programme>
   <programme start="20261029224500 -0300" stop="20261029230000 -0300" channel="0201">
     <title lang="es">DW analiza</title>
+    <desc lang="es">Ponemos en contexto la actualidad internacional y analizamos el contexto de los hechos. Hablamos con especialistas para conocer todos los ángulos de la noticia y presentamos todo con un lenguaje diferente que acerca temas complejos también al público más joven.</desc>
   </programme>
   <programme start="20261029230000 -0300" stop="20261030000000 -0300" channel="0201">
     <title lang="es">Estado Nacional</title>
+    <desc lang="es">Espacio de actualidad y debate político, trasmitido cada domingo. Éste cuenta, cada semana, con uno o dos invitados que nos ayudaran a conocer lo que sucede en nuestro país.</desc>
   </programme>
   <programme start="20261030000000 -0300" stop="20261030003000 -0300" channel="0201">
     <title lang="es">24 Horas a la Hora</title>
+    <desc lang="es">Noticiero, con despachos en directo y corresponsalías en todo el mundo.</desc>
   </programme>
   <programme start="20261030003000 -0300" stop="20261030010000 -0300" channel="0201">
     <title lang="es">24 Horas a la Hora</title>
+    <desc lang="es">Noticiero, con despachos en directo y corresponsalías en todo el mundo.</desc>
   </programme>
   <programme start="20261030010000 -0300" stop="20261030014500 -0300" channel="0201">
     <title lang="es">24 horas al cierre</title>
+    <desc lang="es">La síntesis informativa de lo ocurrido en la jornada, con un enfoque en las noticias policiales de la noche.</desc>
   </programme>
   <programme start="20261030014500 -0300" stop="20261030020000 -0300" channel="0201">
     <title lang="es">Entrevistas 24</title>
+    <desc lang="es">Espacio en el que conversamos con un invitado especial quien nos habla de la situación política, social, económica de Chile, o de tan variados temas de interés general para el ciudadano común.</desc>
   </programme>
   <programme start="20261030020000 -0300" stop="20261030023000 -0300" channel="0201">
     <title lang="es">24 Horas a la Hora</title>
+    <desc lang="es">Noticiero, con despachos en directo y corresponsalías en todo el mundo.</desc>
   </programme>
   <programme start="20261030023000 -0300" stop="20261030031500 -0300" channel="0201">
     <title lang="es">24 Horas a la Hora</title>
+    <desc lang="es">Noticiero, con despachos en directo y corresponsalías en todo el mundo.</desc>
   </programme>
   <programme start="20261030031500 -0300" stop="20261030034500 -0300" channel="0201">
     <title lang="es">24 Horas a la Hora</title>
+    <desc lang="es">Noticiero, con despachos en directo y corresponsalías en todo el mundo.</desc>
   </programme>
   <programme start="20261030034500 -0300" stop="20261030043000 -0300" channel="0201">
     <title lang="es">24 Horas a la Hora</title>
+    <desc lang="es">Noticiero, con despachos en directo y corresponsalías en todo el mundo.</desc>
   </programme>
   <programme start="20261030043000 -0300" stop="20261030050000 -0300" channel="0201">
     <title lang="es">24 Horas Deportes</title>
