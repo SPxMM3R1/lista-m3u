@@ -57,11 +57,18 @@ class AdultosJsonTest(unittest.TestCase):
     def test_the_reinstated_quality_rows_are_listed(self):
         # 2026-10-26: Brazzers TV pasó a Lista 1 y, por pedido del usuario, todo lo que quedaba
         # de «Adultos» después de él en Lista 2 pasó a la papelera. Ninguna fila de Lista 2 con
-        # grupo «Adultos» debe seguir activa.
+        # grupo «Adultos» debe seguir activa. Excepción (2026-10-28, pedido del usuario): los que
+        # volvieron de la papelera porque abrían («los canales que borré a propósito, también
+        # devuélvelos»), registrados en contracts/papelera-recuperados-20261028.json.
         layout, _ = load()
+        recovered = {
+            item["tvg_id"]
+            for item in json.loads((ROOT / "contracts/papelera-recuperados-20261028.json").read_text(encoding="utf-8"))
+        }
         leftovers = [
             row["tvgId"] for row in layout["channels"]
             if row.get("state") == "active" and row.get("sourceList") == "2.m3u" and row.get("group") == "Adultos"
+            and row["tvgId"] not in recovered
         ]
         self.assertEqual([], leftovers)
         brazzers = next(row for row in layout["channels"] if row.get("tvgId") == "PublicDirect.611041b791c77e57b0831623")

@@ -131,17 +131,26 @@ class M6FootReferenceTest(unittest.TestCase):
         # 2026-10-25: los canales de adultos van al final de Lista 2 por pedido explícito del
         # usuario («agregar al final de Lista 2 los canales de adultos»), fuera del orden por
         # bitrate. Se validan aparte, más abajo.
+        # 2026-10-28, pedido del usuario: lo que volvió de la papelera y abría va en un bloque
+        # propio al final de Lista 2 (después de Nauta y M6Foot), con la misma regla de orden y
+        # sus medidas en contracts/papelera-recuperados-20261028.json. Los adultos recuperados
+        # van dentro de ese bloque (desde 2026-10-26 Lista 2 ya no cierra con adultos).
+        recovered_measures = {
+            item["tvg_id"]: item
+            for item in json.loads((ROOT / "contracts/papelera-recuperados-20261028.json").read_text(encoding="utf-8"))
+        }
         adults = [
             row
             for row in document["channels"]
             if row["state"] == "active" and row.get("sourceList") == "2.m3u"
             and row.get("tvgId") not in linked and row.get("group") == "Adultos"
+            and row.get("tvgId") not in recovered_measures
         ]
         block = [
             row
             for row in document["channels"]
             if row["state"] == "active" and row.get("sourceList") == "2.m3u"
-            and row.get("tvgId") not in linked and row.get("group") != "Adultos"
+            and row.get("tvgId") not in linked and row not in adults
         ]
         # 2026-10-25, pedido del usuario: primero se agrupan por nombre (A–Z); dentro de cada nombre,
         # resolución, luego fps, luego bitrate medido y luego el nombre. Los sin medir van al final
@@ -163,13 +172,33 @@ class M6FootReferenceTest(unittest.TestCase):
             # El bitrate se redondea a múltiplos de 500 kbps: pequeñas variaciones de medición no mueven el orden.
             return (name_of(row), 0, -item["height"], -(item.get("width") or 0), -fps, -round((item.get("kbps") or 0) / 500))
 
-        main_block = [row for row in block if not str(row.get("tvgId", "")).startswith(("Nauta.", "M6Foot."))]
+        def recovered_rank(row):
+            item = recovered_measures[row["tvgId"]]
+            if not item.get("ok") or not item.get("height"):
+                return (name_of(row), 1, 0, 0, 0, 0)
+            # Algunas señales informan «0/0» fps: cuentan como 0.
+            fps_text = str(item.get("fps") or "0")
+            fps = 0.0 if fps_text.endswith("/0") else float(Fraction(fps_text))
+            return (name_of(row), 0, -item["height"], -(item.get("width") or 0), -fps, -round((item.get("kbps") or 0) / 500))
+
+        recovered = [row for row in block if row.get("tvgId") in recovered_measures]
+        main_block = [
+            row for row in block
+            if row.get("tvgId") not in recovered_measures
+            and not str(row.get("tvgId", "")).startswith(("Nauta.", "M6Foot."))
+        ]
         ranks = [rank(row) for row in main_block]
         self.assertEqual(ranks, sorted(ranks))
         last_main = max(row["order"] for row in main_block)
+        last_special = last_main
         for row in block:
             if str(row.get("tvgId", "")).startswith(("Nauta.", "M6Foot.")):
                 self.assertGreater(row["order"], last_main)
+                last_special = max(last_special, row["order"])
+        if recovered:
+            self.assertGreater(min(row["order"] for row in recovered), last_special)
+            ranks = [recovered_rank(row) for row in recovered]
+            self.assertEqual(ranks, sorted(ranks))
         # Los adultos cierran Lista 2: ninguna fila no-adulto puede quedar después de ellos.
         if adults:
             last_adult = max(row["order"] for row in adults)
