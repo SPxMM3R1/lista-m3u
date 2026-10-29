@@ -27,6 +27,13 @@ class AdultCategoryTests(unittest.TestCase):
                                  group="Películas", tvg_id="h")
         self.assertEqual("Películas", update_m3u.content_category_for(hbo))
 
+    def test_adult_swim_is_not_adult(self):
+        # 2026-10-28: Adult Swim es animación; «ADULT SWIM-IXP» no va a Adultos.
+        for name in ("ADULT SWIM-IXP [IP 138.59.177.78]", "Adult Swim"):
+            channel = update_m3u.Channel(name=name, url="http://example.test/a.m3u8", url_line=1,
+                                         group="Misceláneos", tvg_id="a")
+            self.assertNotEqual("Adultos", update_m3u.content_category_for(channel), name)
+
 
 class PlaylistOrderTests(unittest.TestCase):
     def test_official_short_aliases_match_canonical_playlists(self) -> None:
