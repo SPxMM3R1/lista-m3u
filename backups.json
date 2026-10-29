@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-10-28",
+  "updated": "2026-10-29",
   "description": "Copias (casi todas de Lista 2) que respaldan a un canal de Lista 1: misma señal, confirmada con captura. Esas copias ya no se publican en Lista 2; la app las prueba en orden si la señal principal falla.",
   "fields": {
     "channels.<clave>": "tvg-id del canal principal en Lista 1 (la identidad estable; el número puede cambiar).",
@@ -3654,10 +3654,66 @@
         }
       ]
     },
+    "PublicDirect.4d239300ca300e970c35d7aa": {
+      "display_name": "TNT Series",
+      "list": "Lista 1",
+      "number": 77,
+      "group": "Series",
+      "source_name": "TNT Series HD [IP 190.108.83.69]",
+      "guide": {
+        "source": "claro-guia",
+        "source_id": "claro:colombia:773938"
+      },
+      "verified": "2026-10-27: detector de clones sobre 26 copias de Lista 2; solo pasan las estables (abren al primer intento y graban 60 s), con la misma calidad que la de Lista 1 (1080p 59,94 fps, bitrate parecido) y audio igual (correlación 704 0,98; 711 0,82; 720 0,97).",
+      "backups": [
+        {
+          "tvg_id": "PublicDirect.b02d094166e8f2c8cbdd6182",
+          "display_name": "TNT Series",
+          "source_name": "TNT Series HD [IP 45.173.231.22]",
+          "from_list": "Lista 2",
+          "from_number": 704,
+          "group": "Películas",
+          "logo": "logos/lista2/64ea1fb88e61.png",
+          "url": "http://45.173.231.22:8000/play/a08g/index.m3u8",
+          "guide": {
+            "source": "",
+            "source_id": ""
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.85579c2e875841ee1d908162",
+          "display_name": "TNT Series",
+          "source_name": "TNT Series HD [IP 200.7.99.59]",
+          "from_list": "Lista 2",
+          "from_number": 711,
+          "group": "Películas",
+          "logo": "logos/lista2/64ea1fb88e61.png",
+          "url": "http://200.7.99.59:8000/play/a0jr/index.m3u8",
+          "guide": {
+            "source": "",
+            "source_id": ""
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.e94d7de99d2cc5404605cff2",
+          "display_name": "TNT Series",
+          "source_name": "TNT Series HD [IP 181.119.177.253]",
+          "from_list": "Lista 2",
+          "from_number": 720,
+          "group": "Películas",
+          "logo": "logos/lista2/64ea1fb88e61.png",
+          "url": "http://181.119.177.253:8000/play/a0cq/index.m3u8",
+          "guide": {
+            "source": "",
+            "source_id": ""
+          }
+        }
+      ]
+    },
     "PublicDirect.8da65ba545fa9fd2512f9901": {
       "display_name": "History Channel",
       "list": "Lista 1",
-      "number": 82,
+      "number": 83,
       "group": "Documentales, cultura, historia y naturaleza",
       "source_name": "ALCATEL HISTORY MD1 [IP 177.234.218.66]",
       "guide": {
@@ -3839,7 +3895,7 @@
     "PublicDirect.39057ce89326a34e33998e2e": {
       "display_name": "History Channel 2",
       "list": "Lista 1",
-      "number": 83,
+      "number": 84,
       "group": "Documentales, cultura, historia y naturaleza",
       "source_name": "ALCATEL HISTORY 2 [IP 177.234.218.66]",
       "guide": {
@@ -3927,62 +3983,6 @@
           "group": "Misceláneos",
           "logo": "logos/lista2/c6c5b96dfc9d.png",
           "url": "http://38.134.250.110:8000/play/a00p/index.m3u8",
-          "guide": {
-            "source": "",
-            "source_id": ""
-          }
-        }
-      ]
-    },
-    "PublicDirect.4d239300ca300e970c35d7aa": {
-      "display_name": "TNT Series",
-      "list": "Lista 1",
-      "number": 77,
-      "group": "Series",
-      "source_name": "TNT Series HD [IP 190.108.83.69]",
-      "guide": {
-        "source": "claro-guia",
-        "source_id": "claro:colombia:773938"
-      },
-      "verified": "2026-10-27: detector de clones sobre 26 copias de Lista 2; solo pasan las estables (abren al primer intento y graban 60 s), con la misma calidad que la de Lista 1 (1080p 59,94 fps, bitrate parecido) y audio igual (correlación 704 0,98; 711 0,82; 720 0,97).",
-      "backups": [
-        {
-          "tvg_id": "PublicDirect.b02d094166e8f2c8cbdd6182",
-          "display_name": "TNT Series",
-          "source_name": "TNT Series HD [IP 45.173.231.22]",
-          "from_list": "Lista 2",
-          "from_number": 704,
-          "group": "Películas",
-          "logo": "logos/lista2/64ea1fb88e61.png",
-          "url": "http://45.173.231.22:8000/play/a08g/index.m3u8",
-          "guide": {
-            "source": "",
-            "source_id": ""
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.85579c2e875841ee1d908162",
-          "display_name": "TNT Series",
-          "source_name": "TNT Series HD [IP 200.7.99.59]",
-          "from_list": "Lista 2",
-          "from_number": 711,
-          "group": "Películas",
-          "logo": "logos/lista2/64ea1fb88e61.png",
-          "url": "http://200.7.99.59:8000/play/a0jr/index.m3u8",
-          "guide": {
-            "source": "",
-            "source_id": ""
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.e94d7de99d2cc5404605cff2",
-          "display_name": "TNT Series",
-          "source_name": "TNT Series HD [IP 181.119.177.253]",
-          "from_list": "Lista 2",
-          "from_number": 720,
-          "group": "Películas",
-          "logo": "logos/lista2/64ea1fb88e61.png",
-          "url": "http://181.119.177.253:8000/play/a0cq/index.m3u8",
           "guide": {
             "source": "",
             "source_id": ""
