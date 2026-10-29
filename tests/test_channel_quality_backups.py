@@ -197,9 +197,8 @@ class NautaChannelsAreOptInTest(unittest.TestCase):
 class ExplicitDirectBackupLinksTest(unittest.TestCase):
     EXPECTED = {
         "0107": CANAL13_DIRECT_BACKUPS,
-        "PublicDirect.d9973a3bfb28634698473218": [
-            "PublicDirect.19fbfbd8b220cd0fb65ac244",
-        ],
+        # A&E (PublicDirect.d9973a3b… y su ex respaldo 19fbfbd8…) salió el 2026-10-29: el usuario
+        # pidió «elimina todos los a&e».
         "PublicDirect.8918c13cf06dc2f7416879f2": [
             "AMC.co@Direct181",
             "PublicDirect.5c8f98d3876cb07b0c0884f6",
