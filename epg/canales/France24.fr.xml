@@ -4,10 +4,6 @@
     <display-name>France 24 Español</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/france24.svg" />
   </channel>
-  <programme start="20261029204500 -0300" stop="20261029205100 -0300" channel="France24.fr">
-    <title lang="es">Cultura</title>
-    <desc lang="es">Cómo nos relatan el mundo los cineastas, los novelistas, los artistas? France 24 sale al encuentro de una cultura comprometida con su época.</desc>
-  </programme>
   <programme start="20261029205100 -0300" stop="20261029210000 -0300" channel="France24.fr">
     <title lang="es">Los Observadores</title>
     <desc lang="es">Un programa colaborativo realizado a partir de videos, fotografías y testimonios enviados por testigos de primera mano, que se verifican en la redacción de France 24. Un programa emblemático por su dimensión humana y participativa.</desc>
@@ -431,6 +427,10 @@
     <title lang="es">Desinformando</title>
     <desc lang="es">Encuentra los últimos artículos y mira programas de televisión y informes relacionados con Desinformación en France 24.</desc>
   </programme>
+  <programme start="20261030205100 -0300" stop="20261030210000 -0300" channel="France24.fr">
+    <title lang="es">Enlace</title>
+    <desc lang="es">Del Cono Sur a Norteamérica, de los Andes a Centroamérica: una cita semanal con los temas más importantes de los países del continente americano, presentada por los corresponsales de France 24.</desc>
+  </programme>
   <programme channel="France24.fr" start="20261029155000 -0300" stop="20261029160000 -0300">
     <title lang="fr">Ciencia y Tecnología</title>
     <desc lang="es">Los descubrimientos, los protagonistas y el acelerado ritmo de nuevas tecnologías que día a día sorprenden al mundo.</desc>
@@ -624,25 +624,40 @@
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/0/7/15534704.jpg" />
     <episode-num system="onscreen">E35</episode-num>
   </programme>
-  <programme start="20261029201500 -0300" stop="20261029203000 -0300" channel="France24.fr">
-    <title lang="es">En Contexto</title>
-    <desc lang="es">Este es un espacio diario dedicado a explorar más allá del titular, ofreciendo análisis en profundidad de una de las noticias más relevantes del día.</desc>
+  <programme channel="France24.fr" start="20261029201500 -0300" stop="20261029203000 -0300">
+    <title lang="fr">En Contexto</title>
+    <desc lang="fr">EN CONTEXTO.</desc>
+    <category lang="fr">Magazine</category>
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/5/2/15177255.jpg" />
   </programme>
-  <programme start="20261029203000 -0300" stop="20261029204000 -0300" channel="France24.fr">
-    <title lang="es">Boletin</title>
+  <programme channel="France24.fr" start="20261029203000 -0300" stop="20261029204000 -0300">
+    <title lang="fr">Noticias</title>
+    <desc lang="es">Las últimas noticias del mundo de la salud relevantes.</desc>
+    <category lang="fr">Journal</category>
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/5/15194534.jpg" />
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/5/15194566.jpg" />
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/0/5/15194509.jpg" />
+    <episode-num system="onscreen">E111</episode-num>
   </programme>
-  <programme start="20261029204000 -0300" stop="20261029204500 -0300" channel="France24.fr">
-    <title lang="es">En Foco</title>
+  <programme channel="France24.fr" start="20261029204000 -0300" stop="20261029204500 -0300">
+    <title lang="fr">En foco</title>
     <desc lang="es">Un reportaje único sobre temas que a menudo están por fuera de las noticias.</desc>
-  </programme>
-  <programme channel="France24.fr" start="20261030205100 -0300" stop="20261030210000 -0300">
-    <title lang="fr">Enlace</title>
     <category lang="fr">Magazine d'information</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/2/6/6/15194662.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/4/6/15194649.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/2/9/4/15701492.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/3/6/15194636.jpg" />
-    <episode-num system="onscreen">E3</episode-num>
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/4/5/15194545.jpg" />
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/9/4/15194496.jpg" />
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/1/5/15194515.jpg" />
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/4/3/15184348.jpg" />
+    <episode-num system="onscreen">E4</episode-num>
+  </programme>
+  <programme channel="France24.fr" start="20261029204500 -0300" stop="20261029205100 -0300">
+    <title lang="fr">Cultura</title>
+    <desc lang="es">Cómo nos relatan el mundo los cineastas, los novelistas, los artistas? France 24 sale al encuentro de una cultura comprometida con su época.</desc>
+    <category lang="fr">Magazine culturel</category>
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/7/6/6/15194667.jpg" />
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/6/6/15194664.jpg" />
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/5/6/15194659.jpg" />
+    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/6/6/15194666.jpg" />
+    <episode-num system="onscreen">E4</episode-num>
   </programme>
   <programme channel="France24.fr" start="20261030210000 -0300" stop="20261030212000 -0300">
     <title lang="fr">Noticias</title>
@@ -734,6 +749,7 @@
   </programme>
   <programme channel="France24.fr" start="20261030235000 -0300" stop="20261031000000 -0300">
     <title lang="fr">Enlace</title>
+    <desc lang="es">Del Cono Sur a Norteamérica, de los Andes a Centroamérica: una cita semanal con los temas más importantes de los países del continente americano, presentada por los corresponsales de France 24.</desc>
     <category lang="fr">Magazine d'information</category>
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/2/6/6/15194662.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/4/6/15194649.jpg" />
