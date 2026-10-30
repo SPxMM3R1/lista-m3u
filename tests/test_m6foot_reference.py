@@ -154,10 +154,13 @@ class M6FootReferenceTest(unittest.TestCase):
         ]
         # 2026-10-25, pedido del usuario: primero se agrupan por nombre (A–Z); dentro de cada nombre,
         # resolución, luego fps, luego bitrate medido y luego el nombre. Los sin medir van al final
-        # de su nombre (contracts/bitrate-lista2-20261025.json). Nauta y M6Foot van después.
+        # de su nombre. Nauta y M6Foot van después.
+        # 2026-10-29, pedido del usuario («Vuelve a reordenar la lista 2 completa. Por nombre y
+        # calidad»): medición nueva de todo Lista 2 (contracts/bitrate-lista2-20261029.json) y un
+        # solo orden; el bloque de recuperados de la papelera se mezcla con el principal.
         measured = {
             item["tvg_id"]: item
-            for item in json.loads((ROOT / "contracts/bitrate-lista2-20261025.json").read_text(encoding="utf-8"))
+            for item in json.loads((ROOT / "contracts/bitrate-lista2-20261029.json").read_text(encoding="utf-8"))
             if item.get("ok") and item.get("height")
         }
 
@@ -168,24 +171,14 @@ class M6FootReferenceTest(unittest.TestCase):
             item = measured.get(row.get("tvgId"))
             if item is None:
                 return (name_of(row), 1, 0, 0, 0, 0)
-            fps = float(Fraction(item.get("fps") or "0"))
+            fps_text = str(item.get("fps") or "0")
+            fps = 0.0 if fps_text.endswith("/0") else float(Fraction(fps_text))
             # El bitrate se redondea a múltiplos de 500 kbps: pequeñas variaciones de medición no mueven el orden.
             return (name_of(row), 0, -item["height"], -(item.get("width") or 0), -fps, -round((item.get("kbps") or 0) / 500))
 
-        def recovered_rank(row):
-            item = recovered_measures[row["tvgId"]]
-            if not item.get("ok") or not item.get("height"):
-                return (name_of(row), 1, 0, 0, 0, 0)
-            # Algunas señales informan «0/0» fps: cuentan como 0.
-            fps_text = str(item.get("fps") or "0")
-            fps = 0.0 if fps_text.endswith("/0") else float(Fraction(fps_text))
-            return (name_of(row), 0, -item["height"], -(item.get("width") or 0), -fps, -round((item.get("kbps") or 0) / 500))
-
-        recovered = [row for row in block if row.get("tvgId") in recovered_measures]
         main_block = [
             row for row in block
-            if row.get("tvgId") not in recovered_measures
-            and not str(row.get("tvgId", "")).startswith(("Nauta.", "M6Foot."))
+            if not str(row.get("tvgId", "")).startswith(("Nauta.", "M6Foot."))
         ]
         ranks = [rank(row) for row in main_block]
         self.assertEqual(ranks, sorted(ranks))
@@ -195,10 +188,6 @@ class M6FootReferenceTest(unittest.TestCase):
             if str(row.get("tvgId", "")).startswith(("Nauta.", "M6Foot.")):
                 self.assertGreater(row["order"], last_main)
                 last_special = max(last_special, row["order"])
-        if recovered:
-            self.assertGreater(min(row["order"] for row in recovered), last_special)
-            ranks = [recovered_rank(row) for row in recovered]
-            self.assertEqual(ranks, sorted(ranks))
         # Los adultos cierran Lista 2: ninguna fila no-adulto puede quedar después de ellos.
         if adults:
             last_adult = max(row["order"] for row in adults)
