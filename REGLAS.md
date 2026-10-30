@@ -15,15 +15,9 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
 
 ## 2. Identidad de canales
 
-- **Decisión posterior, 2026-10-13 («Todas las pruebas»)**: se autoriza pasar los 247 activos en prueba de Lista 1 a definitivos. La excepción Nauta vigente es ahora la lista exacta de 42 referencias en `site/editor-core.mjs`/`update_m3u.py`: cuatro históricas más las 38 seleccionadas en esta tanda (`contracts/trial-officialization-20261013.json`). La lista de cuatro que sigue abajo describe la primera excepción histórica, no el límite actual. Futuras altas Nauta siguen en prueba; ocultos/papelera no se restauran. Definitivo es un estado editorial y no equivale a guía completa: sin fuente/identidad regional inequívoca, la EPG y/o logo queda pendiente informado, jamás se inventa Live o se usa otra región por semejanza.
+- **Decisión posterior, 2026-10-13 («Todas las pruebas»)**: se autoriza pasar los 247 activos en prueba de Lista 1 a definitivos. Definitivo es un estado editorial y no equivale a guía completa: sin fuente/identidad regional inequívoca, la EPG y/o logo queda pendiente informado, jamás se inventa Live o se usa otra región por semejanza.
 
-- Nauta es una fuente candidata del editor **local** y se incorpora solo cuando el usuario selecciona explícitamente uno o varios canales candidatos en una acción; no se importa el catálogo completo ni se repone automáticamente. Los no seleccionados no figuran en el layout, inventario canónico, Lista 1/2 ni EPG. Al añadirlos: Lista 1 o Lista 2 (regla actualizada el 2026-10-17 a pedido del usuario: «Cambia las reglas necesarias, todo lo demas a lista 2»), en prueba y sin EPG; la EPG publicada sigue limitada a Lista 1. **Excepción cerrada de oficiales verificados**: `Nauta.52bb87a2e2911ed34f7ae3bc@Nauta` (`nautatv_catalog|ESPN 7 HD`), `Nauta.4dec2794ee77cb450b79aa5b@Nauta` (`nautatv_catalog|ESPN 1 | Argentina`), `Nauta.267720adcfe18e0c87fca46c@Nauta` (`nautatv_catalog|ESPN 1 | Mexico`) y `Nauta.d6c4cf31e1a88709b605ac8f@Nauta` (`cat_7|MTV Live`) pueden estar definitivos y entrar a la EPG de Lista 1. La lista exacta vive también en `site/editor-core.mjs` y `update_m3u.py`; no ampliarla sin verificación y petición editorial. Los demás Nauta siguen en prueba. ID editorial determinista por nombre exacto con región/calidad original (`Nauta.<SHA256(nombre exacto)[:24]>@Nauta`); localizador tokenless catálogo + nombre, nunca el ID opaco del addon ni enlace HLS. Las exclusiones de membresía de la lista publicada no deben tombstonear candidatos; las bajas históricas explícitas sí permanecen excluidas del selector. La app consulta los recursos actuales en RAM y valida HLS/segmento. No se infieren logos ni EPG para altas nuevas. Compatible con VibeM3U 0.5.81+.
-
-- La vista «Todos los canales» de Nauta reúne todos los catálogos TV del manifiesto y conserva en cada candidato su categoría real para resolverlo. Las bajas históricas pueden verse identificadas como retiradas, pero no seleccionarse; esto no equivale a restaurarlas. Si falla alguna categoría, la vista completa muestra el error y pide reintentar.
-
-- Las filas Nauta son independientes por defecto: no importar ni enlazar parejas masivamente. Excepción editorial cerrada, habilitada desde VibeM3U 0.5.93: ESPN 1 Sur (`Nauta.dac26a78f5bdf111bc9b9ffc@Nauta`) y ESPN 1 Chile (`Nauta.81dc69c20557da0672921475@Nauta`) son respaldos de ESPN 1 Argentina (`Nauta.4dec2794ee77cb450b79aa5b@Nauta`). `backupm3u` almacena sus identidades estables, no URLs; la app usa los localizadores Nauta tokenless y el resolutor normal. No restaurar los 55 vínculos base→HD anteriores ni ampliar esta pareja sin petición explícita.
-
-- **M6Foot (2026-10-18, solo Lista 2)**: las 19 señales del addon «Canales Deportivos» viven en Lista 2 (`M6Foot.<id>@M6Foot`), en prueba y sin EPG. La identidad es el ID de reproductor y la URI es tokenless `vibem3u://resolver/m6foot/<id>`. VibeM3U 0.6.15+ resuelve en RAM (página del reproductor, embed, `_econfig`, HLS firmado) y usa `Referer: https://navytitle.net/` para los segmentos; nunca se publican URLs firmadas. Lista 1 no se toca. Es un agregador de terceros: puede bloquear IPs o cambiar; ante fallo, el canal queda sin señal y no se rellena por parecido.
+- **Nauta y M6Foot retirados por completo (2026-10-29, pedido del usuario «Puedes eliminar esos resolutores por completo? 100% Limpio?»)**: no quedan filas, guías, respaldos, código del generador, fuente del editor ni resolutores en la app. No volver a agregarlos sin pedido nuevo; los registros en `contracts/` y `data/app-requests/` quedan como historia.
 
 - Identidad estable: `tvg-id` (M3U), `catalogKey` (Highfly) y `countryKey|alias` (TvVoo).
 - `providerResourceId`, `resolverSlug`, `leaf:` y las URL HLS rotan: nunca son identidad.
@@ -70,8 +64,7 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
   canal no se ven solos en la app: van después de todos los canales visibles y no ocupan
   números visibles (2026-10-19, ESPN 7 con 8 respaldos). Una fila no cruza de lista por su número: se cambia con «Lista de publicación».
 - **Adultos de mejor calidad al final de Lista 2 (2026-10-25)**: las copias de adultos de mayor
-  resolución que no son la señal principal de Lista 1 van al final de Lista 2 (después de Nauta y
-  M6Foot), con `group: "Adultos"` y `trial: true`. Hoy: Brazzers TV, Venus Tv, VENUS RADIO TV y
+  resolución que no son la señal principal de Lista 1 van al final de Lista 2, con `group: "Adultos"` y `trial: true`. Hoy: Brazzers TV, Venus Tv, VENUS RADIO TV y
   ADULTOS 1–10. Manda sobre el orden por bitrate de Lista 2 para esas filas. Comparar señales de
   adultos solo por huella de fotograma; todo canal del grupo «Adultos» debe estar en
   `adultos.json`.
@@ -96,10 +89,8 @@ enlazados; si algo de aquí contradice un documento antiguo, manda este. Última
   respaldo de #36. VibeM3U 0.6.23+ (`MAX_DIRECT_BACKUPS = 16`) usa hasta 16.
   Registro `contracts/espn-l2-backups-20261019.json`.
 - Los respaldos M3U usan identidades estables (`tvg-id`) en `backupm3u`, nunca enlaces HLS firmados.
-  Se admiten filas HTTP(S) y referencias Nauta activas `Nauta.<24 hex>@Nauta` explícitamente enlazadas
-  (soporte de app desde 0.5.93). Las referencias de otros resolutores no se admiten. La app oculta
-  las filas enlazadas y resuelve Nauta con `vibem3u://resolver/nauta/<catálogo|nombre exacto>` al
-  reproducir; no publicar IDs opacos, URLs de proveedor ni credenciales.
+  Se admiten solo filas HTTP(S); las referencias de resolutores no se admiten. La app oculta
+  las filas enlazadas; no publicar IDs opacos, URLs de proveedor ni credenciales.
 - Un cambio editorial no requiere APK nueva.
 - Vigencia de variantes TvVoo: tras una consulta correcta, renovar `generatedAt` cada
   24 h aunque las variantes no cambien (la app las descarta a los 7 días). Si falló

@@ -30,12 +30,9 @@ import {
 import {
   canonicalTvVooAlias,
   highflyIdentity,
-  loadAllNautaCatalogs,
   loadAllTvVooCatalogs,
   loadHighflyCatalog,
   loadTvVooCatalog,
-  parseNautaCategories,
-  parseNautaCatalog,
   normalizeProviderName,
   parseHighflyCatalog,
   parseHighflyCatalogJson,
@@ -475,127 +472,6 @@ test("adding several channels at once numbers them in selection order", () => {
   assert.deepEqual(validateLayout(next), []);
 });
 
-test("Nauta candidates can be selected together and toggled independently", () => {
-  const first = { kind: "m3u", tvgId: "Nauta.one", name: "Primero" };
-  const second = { kind: "m3u", tvgId: "Nauta.two", name: "Segundo" };
-  const both = toggleSelectedAvailableRow(toggleSelectedAvailableRow(new Map(), first), second);
-  const oneRemoved = toggleSelectedAvailableRow(both, first);
-
-  assert.deepEqual([...both.values()], [first, second]);
-  assert.deepEqual([...oneRemoved.values()], [second]);
-});
-
-test("multiple selected Nauta rows are appended as trial channels in Lista 1", () => {
-  const candidates = [
-    { kind: "m3u", tvgId: "Nauta.aaaaaaaaaaaaaaaaaaaaaaaa@Nauta", name: "Uno [Nauta]", sourceList: "1.m3u", nautaCatalog: "cat_4", nautaName: "Uno", trial: true },
-    { kind: "m3u", tvgId: "Nauta.bbbbbbbbbbbbbbbbbbbbbbbb@Nauta", name: "Dos [Nauta]", sourceList: "1.m3u", nautaCatalog: "cat_4", nautaName: "Dos", trial: true },
-  ];
-  const selected = candidates.reduce(toggleSelectedAvailableRow, new Map());
-  const layout = [...selected.values()].reduce(addRow, { schemaVersion: 1, channels: [] });
-
-  assert.deepEqual(validateLayout(layout), []);
-  assert.deepEqual(layout.channels.map(({ tvgId, number, sourceList, trial }) => [tvgId, number, sourceList, trial]), [
-    [candidates[0].tvgId, 1, "1.m3u", true],
-    [candidates[1].tvgId, 2, "1.m3u", true],
-  ]);
-});
-
-test("Nauta source creates stable trial rows for Lista 1 without exposing provider resources", () => {
-  const categories = parseNautaCategories({ categories: [
-    { id: "nautatv_catalog", name: "Todos los canales" },
-    { id: "cat_4", name: "Deportes" },
-    { id: "opaque-category", name: "No compatible" },
-  ] });
-  assert.deepEqual(categories, [
-    { id: "nautatv_catalog", name: "Todos los canales" },
-    { id: "cat_4", name: "Deportes" },
-  ]);
-
-  const rows = parseNautaCatalog({
-    category: { id: "cat_4", name: "Deportes" },
-    channels: [
-      { tvgId: "Nauta.0123456789abcdef01234567@Nauta", name: " ESPN 1 | Chile", categoryId: "cat_4", opaqueId: "must-not-survive" },
-      { tvgId: "Nauta.0123456789abcdef01234567@Nauta", name: " ESPN 1 | Chile", categoryId: "cat_4" },
-      { tvgId: "invalid", name: "No identity", categoryId: "cat_4" },
-      { tvgId: "Nauta.aaaaaaaaaaaaaaaaaaaaaaaa@Nauta", name: "wrong group", categoryId: "cat_11" },
-    ],
-  }, categories[1]);
-  assert.equal(rows.length, 1);
-  assert.equal(rows[0].name, "ESPN 1 | Chile [Nauta]");
-  assert.equal(rows[0].nautaName, " ESPN 1 | Chile");
-  assert.equal(rows[0].nautaCatalog, "cat_4");
-  assert.equal(rows[0].sourceList, "1.m3u");
-  assert.equal(rows[0].trial, true);
-  assert.equal(JSON.stringify(rows).includes("must-not-survive"), false);
-
-  const next = addRow({ schemaVersion: 1, channels: [] }, rows[0]);
-  assert.deepEqual(validateLayout(next), []);
-  assert.equal(next.channels[0].nautaName, " ESPN 1 | Chile");
-  const presentation = buildPresentationOverrides(next, {
-    schema: 1,
-    orders: {},
-    trial_m3u: [],
-    excluded_m3u: [rows[0].tvgId],
-  });
-  assert.deepEqual(presentation.orders["m3u.m3u"], [rows[0].tvgId]);
-  assert.deepEqual(presentation.trial_m3u, [rows[0].tvgId]);
-  assert.equal(presentation.excluded_m3u.includes(rows[0].tvgId), false);
-});
-
-test("the complete Nauta view combines every category without truncation or changing locators", async () => {
-  const categories = [
-    { id: "nautatv_catalog", name: "Portada" },
-    { id: "cat_1", name: "Entretenimiento" },
-    { id: "cat_4", name: "Deportes" },
-  ];
-  const makeRows = (category, offset) => Array.from({ length: 170 }, (_, index) => {
-    const ordinal = index + offset;
-    return {
-      tvgId: `Nauta.${String(ordinal).padStart(24, "0")}@Nauta`,
-      nautaName: `Canal ${ordinal}`,
-      nautaCatalog: category.id,
-    };
-  });
-  const byCategory = new Map([
-    ["nautatv_catalog", makeRows(categories[0], 0)],
-    ["cat_1", makeRows(categories[1], 169)],
-    ["cat_4", makeRows(categories[2], 339)],
-  ]);
-  const progress = [];
-  let active = 0;
-  let maximumActive = 0;
-  const rows = await loadAllNautaCatalogs(categories, {
-    concurrency: 2,
-    loadCatalog: async (category) => {
-      active++;
-      maximumActive = Math.max(maximumActive, active);
-      await new Promise((resolve) => setTimeout(resolve, category.id === "nautatv_catalog" ? 10 : 1));
-      active--;
-      return byCategory.get(category.id);
-    },
-    onProgress: (done, total) => progress.push([done, total]),
-  });
-  assert.equal(rows.length, 509);
-  assert.equal(maximumActive, 2);
-  assert.deepEqual(progress.at(-1), [3, 3]);
-  assert.equal(rows.find((row) => row.nautaName === "Canal 169").nautaCatalog, "nautatv_catalog");
-  assert.equal(rows.find((row) => row.nautaName === "Canal 508").nautaCatalog, "cat_4");
-  assert.equal(rows[0].nautaName, "Canal 0");
-});
-
-test("the complete Nauta view fails visibly when any category is unavailable", async () => {
-  const categories = [
-    { id: "nautatv_catalog", name: "Portada" },
-    { id: "cat_4", name: "Deportes" },
-  ];
-  await assert.rejects(loadAllNautaCatalogs(categories, {
-    loadCatalog: async (category) => {
-      if (category.id === "cat_4") throw new Error("Sin conexión");
-      return [{ tvgId: "Nauta.aaaaaaaaaaaaaaaaaaaaaaaa@Nauta", nautaName: "Uno", nautaCatalog: category.id }];
-    },
-  }), /fallaron 1 de 2 categorías \(Deportes\)/);
-});
-
 test("change review counts Highfly locator rotations without counting new rows", () => {
   const before = sampleLayout();
   const after = structuredClone(before);
@@ -685,36 +561,6 @@ test("trial M3U rows are published as trial_m3u and can be promoted", () => {
   assert.deepEqual(buildPresentationOverrides(promoted, presentation).trial_m3u, []);
 });
 
-test("only the exact approved Nauta rows may be permanent", () => {
-  const approved = [
-    ["Nauta.52bb87a2e2911ed34f7ae3bc@Nauta", "nautatv_catalog", "ESPN 7 HD"],
-    ["Nauta.4dec2794ee77cb450b79aa5b@Nauta", "nautatv_catalog", "ESPN 1 | Argentina"],
-    ["Nauta.267720adcfe18e0c87fca46c@Nauta", "nautatv_catalog", "ESPN 1 | Mexico"],
-    ["Nauta.d6c4cf31e1a88709b605ac8f@Nauta", "cat_7", "MTV Live"],
-  ];
-  for (const [tvgId, nautaCatalog, nautaName] of approved) {
-    const layout = {
-      schemaVersion: 1,
-      excludedM3u: [],
-      channels: [{
-        kind: "m3u", tvgId, name: `${nautaName} [Nauta]`, displayName: nautaName,
-        sourceList: "1.m3u", nautaCatalog, nautaName,
-        order: 1, number: 37, state: "active",
-      }],
-    };
-    assert.deepEqual(validateLayout(layout), [], tvgId);
-    assert.deepEqual(buildPresentationOverrides(layout, null).trial_m3u, [], tvgId);
-  }
-  const row = {
-    kind: "m3u", tvgId: approved[1][0], name: "ESPN 1 | Argentina [Nauta]",
-    sourceList: "1.m3u", nautaCatalog: approved[1][1], nautaName: approved[1][2],
-    order: 1, number: 37, state: "active",
-  };
-  const layout = { schemaVersion: 1, excludedM3u: [], channels: [row] };
-  assert.ok(validateLayout({ ...layout, channels: [{ ...row, tvgId: "Nauta.aaaaaaaaaaaaaaaaaaaaaaaa@Nauta" }] }).length);
-  assert.ok(validateLayout({ ...layout, channels: [{ ...row, nautaCatalog: "cat_4" }] }).length);
-});
-
 test("only M3U rows can be in trial", () => {
   const layout = {
     schemaVersion: 1,
@@ -797,27 +643,6 @@ test("a direct row keeps an ordered list of backup M3U rows", () => {
   broken.channels[0].backupm3u = ["NoExiste"];
   assert.ok(validateLayout(broken).some((problem) => problem.includes("respaldos")));
   assert.equal(setBackupM3u(linked, "m3u:0104", []).channels[0].backupm3u, undefined);
-});
-
-test("only stable active Nauta rows can be configured as dynamic M3U backups", () => {
-  const layout = {
-    schemaVersion: 1,
-    excludedM3u: [],
-    channels: [
-      { kind: "m3u", tvgId: "0104", name: "TVN", sourceList: "1.m3u", order: 1, number: 1, state: "active" },
-      { kind: "m3u", tvgId: "Nauta.0123456789abcdef01234567@Nauta", name: "Canal X [Nauta]", sourceList: "1.m3u", nautaCatalog: "cat_4", nautaName: "Canal X", order: 2, number: 2, state: "active", trial: true },
-    ],
-  };
-  const linked = setBackupM3u(layout, "m3u:0104", [layout.channels[1].tvgId]);
-  assert.deepEqual(linked.channels[0].backupm3u, [layout.channels[1].tvgId]);
-  assert.deepEqual(validateLayout(linked), []);
-  const broken = structuredClone(layout);
-  broken.channels[1].tvgId = "Nauta.not-a-stable-id@Nauta";
-  broken.channels[0].backupm3u = [broken.channels[1].tvgId];
-  assert.ok(validateLayout(broken).some((problem) => problem.includes("identidad Nauta estable")));
-  const inactive = structuredClone(layout);
-  inactive.channels[1].state = "deleted";
-  assert.equal(setBackupM3u(inactive, "m3u:0104", [inactive.channels[1].tvgId]).channels[0].backupm3u, undefined);
 });
 
 test("guía manual: horas XMLTV, combinación y XML igual que el ensamblador", async () => {

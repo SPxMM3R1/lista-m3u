@@ -117,7 +117,7 @@ class FragmentTest(unittest.TestCase):
         self.assertTrue(epg_fragments.should_replace(None, filler, NOW, titles))
 
     def test_filenames_are_safe_and_reversible(self):
-        for channel_id in ["0104", "Nauta.52bb@Nauta", "Vavoo.es.ESPN2@TvVoo", "a/b:c"]:
+        for channel_id in ["0104", "Vavoo.es.ESPN2@TvVoo", "a/b:c"]:
             name = epg_fragments.fragment_filename(channel_id)
             self.assertNotIn("/", name)
             self.assertNotIn(":", name)

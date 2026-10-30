@@ -5,8 +5,6 @@ const TVVOO_ORIGIN = "https://tvvoo.hayd.uk";
 const MAX_MANIFEST_BYTES = 512 * 1024;
 const MAX_HIGHFLY_BYTES = 2 * 1024 * 1024;
 const MAX_TVVOO_BYTES = 8 * 1024 * 1024;
-const NAUTA_CATEGORY_ID = /^(?:cat_[0-9]+|nautatv_catalog)$/;
-const NAUTA_TVG_ID = /^Nauta\.[a-f0-9]{24}@Nauta$/;
 const REQUEST_TIMEOUT_MS = 20_000;
 
 const COUNTRY_KEYS = {
@@ -47,100 +45,6 @@ const COUNTRY_LABELS = {
 
 function text(value, maximum = 240) {
   return typeof value === "string" ? value.replace(/[\u0000-\u001f\u007f]/g, " ").trim().slice(0, maximum) : "";
-}
-
-function exactNautaName(value) {
-  if (typeof value !== "string" || !value.trim() || value.length > 200
-    || /[\u0000-\u001f\u007f\\?#]/.test(value) || value.includes("://")) return "";
-  return value;
-}
-
-export function parseNautaCategories(document) {
-  if (!Array.isArray(document?.categories)) throw new Error("Nauta devolvió un manifiesto sin categorías reconocibles.");
-  const result = [];
-  const seen = new Set();
-  for (const item of document.categories) {
-    const id = text(item?.id, 64);
-    const name = text(item?.name, 120);
-    if (item?.type && item.type !== "tv") continue;
-    if (!NAUTA_CATEGORY_ID.test(id) || !name || seen.has(id)) continue;
-    seen.add(id);
-    result.push({ id, name });
-  }
-  if (!result.length) throw new Error("El manifiesto Nauta no publicó categorías de TV compatibles.");
-  return result;
-}
-
-export function parseNautaCatalog(document, category) {
-  const selectedId = text(category?.id, 64);
-  const selectedName = text(category?.name, 120);
-  if (!NAUTA_CATEGORY_ID.test(selectedId) || !selectedName) throw new Error("La categoría Nauta seleccionada no es válida.");
-  if (document?.category?.id !== selectedId || !Array.isArray(document?.channels)) {
-    throw new Error("Nauta devolvió un catálogo con un formato no reconocido.");
-  }
-  const seen = new Set();
-  const rows = [];
-  for (const item of document.channels) {
-    const nautaName = exactNautaName(item?.name);
-    const tvgId = text(item?.tvgId, 64);
-    if (!nautaName || item?.categoryId !== selectedId || !NAUTA_TVG_ID.test(tvgId) || seen.has(tvgId)) continue;
-    seen.add(tvgId);
-    const displayName = nautaName.trim();
-    rows.push({
-      kind: "m3u",
-      tvgId,
-      name: /\s\[Nauta\]$/i.test(displayName) ? displayName : `${displayName} [Nauta]`,
-      group: selectedId === "nautatv_catalog" ? "Nauta" : `Nauta · ${selectedName}`,
-      category: selectedName,
-      sourceList: "1.m3u",
-      trial: true,
-      nautaCatalog: selectedId,
-      nautaName,
-    });
-  }
-  return rows;
-}
-
-export async function loadAllNautaCatalogs(
-  categories,
-  { loadCatalog, concurrency = 4, onProgress } = {},
-) {
-  const list = Array.isArray(categories) ? categories.filter((item) => NAUTA_CATEGORY_ID.test(item?.id)) : [];
-  if (!list.length || typeof loadCatalog !== "function") {
-    throw new Error("Carga primero las categorías Nauta para consultar el catálogo completo.");
-  }
-  const results = new Array(list.length);
-  const failures = [];
-  const workers = Math.max(1, Math.min(Number(concurrency) || 4, list.length));
-  let next = 0;
-  let completed = 0;
-  async function run() {
-    while (next < list.length) {
-      const index = next++;
-      const category = list[index];
-      try {
-        const rows = await loadCatalog(category);
-        if (!Array.isArray(rows) || rows.some((row) => row.nautaCatalog !== category.id)) {
-          throw new Error("Nauta devolvió canales de otra categoría.");
-        }
-        results[index] = rows;
-      } catch {
-        failures.push(category.name || category.id);
-      } finally {
-        completed++;
-        onProgress?.(completed, list.length);
-      }
-    }
-  }
-  await Promise.all(Array.from({ length: workers }, run));
-  if (failures.length) {
-    throw new Error(`No se completó el catálogo Nauta: fallaron ${failures.length} de ${list.length} categorías (${failures.join(", ")}). Actualiza el catálogo para reintentar.`);
-  }
-  const unique = new Map();
-  for (const rows of results) {
-    for (const row of rows) if (!unique.has(row.tvgId)) unique.set(row.tvgId, row);
-  }
-  return [...unique.values()].sort((left, right) => left.nautaName.localeCompare(right.nautaName, "es", { numeric: true, sensitivity: "base" }));
 }
 
 export function normalizeProviderName(value) {

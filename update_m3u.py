@@ -30,8 +30,6 @@ from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 import epg_fragments
 import vibem3u_selection
-import m6foot_reference
-import nauta_reference
 
 if __name__ == "__main__":
     # epg_sources importa desde update_m3u: al ejecutarse como script debe
@@ -130,7 +128,7 @@ RESOLVER_SCHEMA_VERSION = 1
 # This is the base version of the checked-in resolver rules. The writer keeps
 # the patch component monotonic when the checked-in alias map changes.
 RESOLVER_CATALOG_VERSION = "2026.10.05.1"
-ALLOWED_RESOLVER_ENGINES = {"tvn", "meganoticias", "tvvoo", "highfly", "nauta", "m6foot"}
+ALLOWED_RESOLVER_ENGINES = {"tvn", "meganoticias", "tvvoo", "highfly"}
 TVVOO_RECIPE_ID = "bounded-payload-v1"
 TVVOO_VALIDATION_MODE = "media-signature-v1"
 MAIN_PLAYLIST_RESOLVERS = frozenset({"direct", "tvn", "meganoticias"})
@@ -844,17 +842,6 @@ AUTENTIC_HISTORY_CHANNEL_ID = "931186243466302968"
 FRANCE24_ENGLISH_EPG_CHANNEL_ID = "France24.fr@English"
 FRANCE24_ENGLISH_MARKER = re.compile(r"\s*\(\s*EN\s*\)\s*", re.IGNORECASE)
 EPG_PROGRAMME_SOURCES = {
-    # ESPN 7 Sudamérica: la identidad Nauta permanece fija aunque el recurso rote.
-    # EPGShare CO1/UY1 publican la misma parrilla; CO1 ofrece este ID vigente.
-    "Nauta.52bb87a2e2911ed34f7ae3bc@Nauta": ("co1", "ESPN.7.HD.co"),
-    # ESPN 1 Nauta: fuentes regionales exactas; los IDs públicos permanecen estables.
-    "Nauta.4dec2794ee77cb450b79aa5b@Nauta": ("ar1", "Canal.ESPN.(Argentina).ar"),
-    # La guía MX es regional; puede describir bloques/eventos sin que un fotograma promo
-    # aislado coincida con el título actual. Mantener la fuente exacta, sin desplazar horarios.
-    "Nauta.267720adcfe18e0c87fca46c@Nauta": ("mx1", "ESPN.MX.mx"),
-    # MTV Live Nauta: MTVLIVE.us2 publica la parrilla musical «Epic.Awesome.Videos»;
-    # se verificó el logo MTV LIVE y contenido musical en cuadros contemporáneos.
-    "Nauta.d6c4cf31e1a88709b605ac8f@Nauta": ("us2", "MTVLIVE.us2"),
     "0104": ("cl", "Canal.TVN.(Chile).cl"),
     "0105": ("cl", "Canal.Mega.(Chile).cl"),
     "0106": ("cl", "Canal.Chilevisi\u00f3n.(CHV).cl"),
@@ -1937,22 +1924,6 @@ def build_resolver_catalog(*, catalog_version: str | None = None) -> dict:
         "schemaVersion": RESOLVER_SCHEMA_VERSION,
         "catalogVersion": catalog_version or RESOLVER_CATALOG_VERSION,
         "providers": [
-            {
-                "id": "nauta", "name": "Nauta", "engine": "nauta",
-                "enabledByDefault": True, "cacheTtlSeconds": 300,
-                "match": {"tvgIdSuffixes": ["@Nauta"]},
-                "config": {"endpointBase": "https://stremio-addon-wheat.vercel.app"},
-            },
-            {
-                "id": "m6foot", "name": "M6Foot", "engine": "m6foot",
-                "enabledByDefault": True, "cacheTtlSeconds": 300,
-                "match": {"tvgIdSuffixes": ["@M6Foot"]},
-                "config": {
-                    "pageBase": "https://m6foot.click/player/3/",
-                    "embedBase": "https://navytitle.net/embed/",
-                    "embedReferer": "https://navytitle.net/",
-                },
-            },
             {
                 "id": "tvn",
                 "name": "TVN",
@@ -4027,10 +3998,6 @@ def apply_vibem3u_selection(
 
 
 def resolver_attributes_for(channel: Channel) -> dict[str, str]:
-    if nauta_reference.parse_reference(channel.url):
-        return {"x-resolver": "nauta", "x-resolver-refresh": "on_play"}
-    if m6foot_reference.parse_reference(channel.url):
-        return {"x-resolver": "m6foot", "x-resolver-refresh": "on_play"}
     if has_tvvoo_reference_scheme(channel):
         # The EXTINF line is authoritative for a reference.  Its aliases,
         # logo and any presentation fields must survive a catalogue update;
@@ -4068,142 +4035,6 @@ def resolver_attributes_for(channel: Channel) -> dict[str, str]:
             "x-resolver-refresh": "on_play",
         }
     return {}
-
-
-# Nauta defaults to trial. Only these exact editorially approved references may
-# leave trial (2026-10-13: all 38 existing trials explicitly selected by the user).
-# Approval of status/identity does not invent or certify a regional programme feed.
-VERIFIED_NAUTA_OFFICIAL_REFERENCES = {
-    "Nauta.52bb87a2e2911ed34f7ae3bc@Nauta": ("nautatv_catalog", "ESPN 7 HD"),
-    "Nauta.4dec2794ee77cb450b79aa5b@Nauta": ("nautatv_catalog", "ESPN 1 | Argentina"),
-    "Nauta.267720adcfe18e0c87fca46c@Nauta": ("nautatv_catalog", "ESPN 1 | Mexico"),
-    "Nauta.d6c4cf31e1a88709b605ac8f@Nauta": ("cat_7", "MTV Live"),
-    "Nauta.7b8890eac450f9cc89b06b84@Nauta": ("cat_32", "Fox Sports 2 | HD"),
-    "Nauta.dac26a78f5bdf111bc9b9ffc@Nauta": ("nautatv_catalog", "ESPN 1 | Sur"),
-    "Nauta.81dc69c20557da0672921475@Nauta": ("nautatv_catalog", "ESPN 1 | Chile"),
-    "Nauta.4b4253b78f7157b8904ec72c@Nauta": ("nautatv_catalog", "ESPN HD | Colombia"),
-    "Nauta.53db56d7f89e01787fcc2212@Nauta": ("nautatv_catalog", "ESPN Plus HD"),
-    "Nauta.62dfd1657568e0d60c81317a@Nauta": ("cat_4", "DSports"),
-    "Nauta.2e4fdeff5f4d1b547b864b23@Nauta": ("cat_4", "DSports HD"),
-    "Nauta.ce1580586a531d205ccfc107@Nauta": ("cat_4", "Fox Sports Sur"),
-    "Nauta.1dac8e0993a937726c21cc09@Nauta": ("cat_4", "DSports 2 HD"),
-    "Nauta.45ff33783b4d83062083ddb7@Nauta": ("cat_4", "DSports 2"),
-    "Nauta.05e59597043a9182d2a7fc0b@Nauta": ("nautatv_catalog", "HBO"),
-    "Nauta.4b191940bee2bd4c855de777@Nauta": ("nautatv_catalog", "HBO 2"),
-    "Nauta.5e0764312e17cd8dbca87fbe@Nauta": ("nautatv_catalog", "HBO 2 HD"),
-    "Nauta.4cc2aa2f00babf217d641fd6@Nauta": ("nautatv_catalog", "HBO Family"),
-    "Nauta.2c79f52754dcec190b01cd93@Nauta": ("nautatv_catalog", "HBO Family HD"),
-    "Nauta.69a2d4671c91e6eb2081468e@Nauta": ("nautatv_catalog", "HBO HD"),
-    "Nauta.2543531f37454701c960421c@Nauta": ("cat_3", "HBO Mundi"),
-    "Nauta.8c5a91e0b8d25e158a9afa6f@Nauta": ("nautatv_catalog", "HBO Plus"),
-    "Nauta.b5a185bf8235a26035237746@Nauta": ("nautatv_catalog", "HBO Plus HD"),
-    "Nauta.b0e158ffa085b177eadaaca6@Nauta": ("cat_32", "HBO Plus Oeste HD"),
-    "Nauta.14fae38bc645c4c8b6315d89@Nauta": ("nautatv_catalog", "HBO Pop"),
-    "Nauta.5108e1f90fd559d0c4387658@Nauta": ("nautatv_catalog", "HBO Xtreme"),
-    "Nauta.19ade992e1408ad4cbf1d4d8@Nauta": ("nautatv_catalog", "HBO Xtreme HD"),
-    "Nauta.080d3c6ad99b6cbcad144a59@Nauta": ("nautatv_catalog", "AXN HD"),
-    "Nauta.547c2a892ba50d5ca20e2851@Nauta": ("cat_32", "Cinemax HD"),
-    "Nauta.5f7d8d7874eeaacd4c3233ad@Nauta": ("nautatv_catalog", "Discovery Channel HD"),
-    "Nauta.33b5775c2e5269c09297139c@Nauta": ("cat_5", "Discovery Theater HD"),
-    "Nauta.dc823421ba8a32dea334cd9c@Nauta": ("nautatv_catalog", "Discovery Turbo"),
-    "Nauta.0615fb29ef6cee14db5b3c78@Nauta": ("cat_32", "Discovery Turbo HD"),
-    "Nauta.9716fec189bb7b466e1bd9af@Nauta": ("nautatv_catalog", "Discovery World"),
-    "Nauta.7437112a4b992980a550d16a@Nauta": ("cat_32", "ESPN HD"),
-    "Nauta.ed0ed0370e182f10a4e96f3d@Nauta": ("cat_32", "ESPN 3 HD"),
-    "Nauta.c89a873414ec166795c59f26@Nauta": ("cat_1", "ESPN 4 | Sur"),
-    "Nauta.57d13b9b10bcbdc51d4dab10@Nauta": ("cat_32", "Fox Sports HD"),
-    "Nauta.a87610ac946968a5f280ec57@Nauta": ("cat_32", "Star Channel HD"),
-    "Nauta.b9df5eea317035bd5bda31cf@Nauta": ("cat_32", "Studio Universal HD"),
-    "Nauta.bbe4eb27708b3113521f61fe@Nauta": ("cat_7", "Telehit"),
-    "Nauta.7d15e6854c48e815dea1edf7@Nauta": ("cat_32", "Telehit HD"),
-}
-
-
-def apply_editor_nauta_channels(
-    lines: list[str],
-    layout_path: Path = CHANNEL_EDITOR_LAYOUT_PATH,
-) -> bool:
-    """Materialize Nauta rows created by the local editor in the canonical inventory.
-
-    Only tokenless category/name locators cross this boundary. Provider resource IDs and stream
-    URLs are deliberately ignored; only exact references in the verified-official
-    allowlist may leave trial.
-    """
-    if not layout_path.is_file():
-        return False
-    try:
-        payload = json.loads(layout_path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError) as error:
-        raise ValueError(f"{layout_path.name} no es JSON valido: {error}") from error
-    rows = payload.get("channels") if isinstance(payload, dict) else None
-    if not isinstance(rows, list):
-        raise ValueError(f"{layout_path.name}: channels debe ser una lista")
-
-    existing: dict[str, Channel] = {}
-    for channel in parse_channels(lines):
-        if channel.tvg_id in existing:
-            raise ValueError(f"{layout_path.name}: ID duplicado en el catalogo Nauta: {channel.tvg_id}")
-        if channel.tvg_id:
-            existing[channel.tvg_id] = channel
-
-    additions: list[tuple[str, str, str, str]] = []
-    for row in rows:
-        if not isinstance(row, dict) or row.get("kind") != "m3u":
-            continue
-        has_catalog = "nautaCatalog" in row
-        has_name = "nautaName" in row
-        if not has_catalog and not has_name:
-            continue
-        if has_catalog != has_name:
-            raise ValueError("Una fila Nauta debe incluir categoria y nombre exacto")
-        catalog = row.get("nautaCatalog")
-        exact_name = row.get("nautaName")
-        channel_id = str(row.get("tvgId", "")).strip()
-        display_name = row.get("name")
-        if not isinstance(catalog, str) or not isinstance(exact_name, str):
-            raise ValueError("La referencia Nauta debe contener texto valido")
-        try:
-            nauta_reference.locator(catalog, exact_name)
-        except ValueError as error:
-            raise ValueError("La referencia Nauta de la fuente local no es valida") from error
-        if channel_id != nauta_reference.channel_id(exact_name):
-            raise ValueError("El tvg-id Nauta no coincide con el nombre exacto")
-        verified_official = (
-            VERIFIED_NAUTA_OFFICIAL_REFERENCES.get(channel_id) == (catalog, exact_name)
-            and "trial" not in row
-        )
-        if row.get("sourceList") not in {"1.m3u", "2.m3u"} or (row.get("trial") is not True and not verified_official):
-            raise ValueError("Nauta se publica solo en Lista 1 o Lista 2 y en prueba, salvo referencias oficiales verificadas")
-        if not isinstance(display_name, str) or not display_name.strip() or len(display_name) > 240 \
-                or re.search(r"[\r\n\x00-\x1f\x7f]", display_name):
-            raise ValueError("El nombre visible del canal Nauta no es valido")
-        if row.get("state") not in {"active", "hidden", "deleted"}:
-            raise ValueError("El estado editorial del canal Nauta no es valido")
-        additions.append((channel_id, catalog, exact_name, display_name.strip()))
-
-    changed = False
-    for channel_id, catalog, exact_name, display_name in additions:
-        current = existing.get(channel_id)
-        if current is not None:
-            if nauta_reference.parse_reference(current.url) != (catalog, exact_name):
-                raise ValueError(f"{channel_id}: el tvg-id Nauta ya existe con otra referencia")
-            continue
-        url = nauta_reference.reference(catalog, exact_name)
-        lines.extend((
-            f'#EXTINF:-1 tvg-id="{channel_id}" group-title="Nauta" '
-            f'x-resolver="nauta" x-resolver-refresh="on_play",{display_name}',
-            url,
-        ))
-        existing[channel_id] = Channel(
-            tvg_id=channel_id,
-            name=display_name,
-            url=url,
-            group="Nauta",
-            info_line=len(lines) - 2,
-            url_line=len(lines) - 1,
-        )
-        changed = True
-    return changed
 
 
 def resolver_engine_for(channel: Channel) -> str:
@@ -4905,8 +4736,6 @@ def validate_resolver_catalog(path: Path = RESOLVER_CATALOG_PATH) -> dict:
         "papacito.cfd",
         "sports.highfly.to",
         "raw.githubusercontent.com",
-        "m6foot.click",
-        "navytitle.net",
     }
     for url in iter_catalog_urls(catalog):
         parsed = urlparse(url.replace("{streamId}", "stream").replace("{id}", "id"))
@@ -4956,21 +4785,7 @@ def validate_playlist_resolvers(lines: list[str]) -> dict[str, int]:
             if (match := re.search(rf'\b{re.escape(name)}="([^"]*)"', line))
         }
         if urlparse(channel.url).scheme == "vibem3u":
-            reference = nauta_reference.parse_reference(channel.url)
-            if reference:
-                if channel.tvg_id != nauta_reference.channel_id(reference[1]):
-                    raise ValueError(f"{channel.name}: referencia Nauta inválida")
-                if attrs != {"x-resolver": "nauta", "x-resolver-refresh": "on_play"}:
-                    raise ValueError(f"{channel.name}: contrato Nauta inválido")
-                counts["nauta"] += 1
-                continue
-            player_id = m6foot_reference.parse_reference(channel.url)
-            if not player_id or channel.tvg_id != m6foot_reference.channel_id(player_id):
-                raise ValueError(f"{channel.name}: referencia M6Foot inválida")
-            if attrs != {"x-resolver": "m6foot", "x-resolver-refresh": "on_play"}:
-                raise ValueError(f"{channel.name}: contrato M6Foot inválido")
-            counts["m6foot"] += 1
-            continue
+            raise ValueError(f"{channel.name}: referencia interna sin resolutor")
         if has_tvvoo_reference_scheme(channel):
             if not is_tvvoo_reference(channel):
                 raise ValueError(f"{channel.name}: referencia TvVoo invalida")
@@ -8795,9 +8610,7 @@ def check_channel(
     allow_ci_geo_block: bool = False,
 ) -> CheckResult:
     if urlparse(channel.url).scheme == "vibem3u":
-        valid = nauta_reference.parse_reference(channel.url) is not None
-        return CheckResult(channel.name, channel.url, valid,
-                           "referencia Nauta; resolución exclusiva en app" if valid else "referencia interna inválida")
+        return CheckResult(channel.name, channel.url, False, "referencia interna inválida")
     if has_tvvoo_reference_scheme(channel):
         valid = is_tvvoo_reference(channel)
         return CheckResult(
@@ -11461,8 +11274,6 @@ def main() -> int:
         else playlist
     )
     lines = source_playlist.read_text(encoding="utf-8-sig").splitlines()
-    if source_playlist.resolve() == CHANNEL_CATALOG_PATH.resolve():
-        apply_editor_nauta_channels(lines)
     presentation_overrides = load_presentation_overrides()
     apply_presentation_overrides(lines, source_playlist.name, presentation_overrides)
     catalogue_before_update = parse_channels(lines)

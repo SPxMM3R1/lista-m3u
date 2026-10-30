@@ -4,7 +4,6 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
-import nauta_reference
 import update_m3u as runner
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -17,12 +16,8 @@ class TrialOfficializationTest(unittest.TestCase):
         self.assertEqual(247,len(rows))
         self.assertEqual(247,len({r['tvgId'] for r in rows}))
         self.assertTrue(all(r['previousTrial'] is True and r['trial'] is False for r in rows))
-        nauta=[r for r in rows if r.get('nautaName')]
-        self.assertEqual(38,len(nauta))
-        self.assertEqual(42,len(runner.VERIFIED_NAUTA_OFFICIAL_REFERENCES))
-        for row in nauta:
-            self.assertEqual(row['tvgId'],nauta_reference.channel_id(row['nautaName']))
-            self.assertEqual((row['nautaCatalog'],row['nautaName']),runner.VERIFIED_NAUTA_OFFICIAL_REFERENCES[row['tvgId']])
+        # Las 38 filas Nauta del registro son historia: Nauta se retiró por completo el 2026-10-29.
+        self.assertEqual(38,len([r for r in rows if r.get('nautaName')]))
 
     def test_curated_guides_are_explicit_and_pending_rows_have_no_guessed_source(self):
         audit=json.loads(AUDIT.read_text(encoding='utf-8'))
@@ -46,10 +41,6 @@ class TrialOfficializationTest(unittest.TestCase):
     def test_emulator_confirmed_guides_have_exact_sources_and_coverage(self):
         audit=json.loads(AUDIT.read_text(encoding='utf-8'))
         expected={
-            'Nauta.080d3c6ad99b6cbcad144a59@Nauta':('cl','Canal.AXN.(Chile).cl','NCIS: Los Ángeles'),
-            'Nauta.547c2a892ba50d5ca20e2851@Nauta':('mx1','Canal.Cinemax.(México).mx','Master Z The Ip Man Legacy'),
-            'Nauta.7437112a4b992980a550d16a@Nauta':('mx1','ESPN.MX.mx','FIFA Eliminatorias de la Copa Mundial Femenina 2027'),
-            'Nauta.a87610ac946968a5f280ec57@Nauta':('co1','STAR.CHANNEL.co','El exótico Hotel Marigold'),
             'PublicDirect.749260224cb34a60ab4d8755':('co1','Sony.co','My Wife and Kids'),
             'PublicDirect.be7f7ba12ab6004903c96227':('co1','HBO.Family.co','Andrew Garfield'),
             'PublicDirect.5218fd5abba92fea1b812142':('co1','E!.Entertainment.TV.co','Vanderpump Rules'),
@@ -160,27 +151,6 @@ class TrialOfficializationTest(unittest.TestCase):
         ae=rows['PublicDirect.19fbfbd8b220cd0fb65ac244']['epg']
         self.assertEqual('no_exact_current_programme_match',ae['reason'])
         self.assertEqual(5,ae['candidateCount'])
-
-    def test_fox_sports_2_uses_the_visual_confirmed_mexico_feed(self):
-        audit=json.loads(AUDIT.read_text(encoding='utf-8'))
-        stable_id='Nauta.7b8890eac450f9cc89b06b84@Nauta'
-        row=next(r for r in audit['channels'] if r['tvgId']==stable_id)
-        guide=row['epg']
-        expected=('mx1','Canal.Fox.Sports.2.(México).mx')
-        self.assertEqual('matched',guide['status'])
-        self.assertEqual(expected,(guide['source'],guide['source_id']))
-        self.assertGreaterEqual(guide['coverageHours'],12)
-        self.assertIn('#FOXGOL',guide['evidence'])
-        before=dict(runner.EPG_PROGRAMME_SOURCES)
-        try:
-            runner.apply_epg_overrides()
-            self.assertEqual(expected,runner.EPG_PROGRAMME_SOURCES[stable_id])
-            self.assertIn(expected,runner.epg_source_chain(stable_id))
-            channel=next((c for c in runner.main_playlist_channels() if c.tvg_id==stable_id),None)
-            if channel is not None:
-                self.assertEqual(frozenset({'mx1'}),runner.epgshare_source_names_for([channel]))
-        finally:
-            runner.EPG_PROGRAMME_SOURCES.clear();runner.EPG_PROGRAMME_SOURCES.update(before)
 
     def test_guatemala_feed_maps_only_the_five_explicit_guatemala_channels(self):
         audit=json.loads(AUDIT.read_text(encoding='utf-8'))

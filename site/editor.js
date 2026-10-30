@@ -34,12 +34,9 @@ import {
 } from "./editor-core.mjs";
 import {
   loadAllTvVooCatalogs,
-  loadAllNautaCatalogs,
   loadHighflyCatalog,
   loadTvVooCatalog,
   loadTvVooManifest,
-  parseNautaCategories,
-  parseNautaCatalog,
   parseHighflyCatalogJson,
   parseTvVooCatalogJson,
   parseTvVooManifestJson,
@@ -124,8 +121,6 @@ const elements = {
   tvvooManifestStatus: $("#tvvoo-manifest-status"),
   tvvooCatalogJson: $("#tvvoo-catalog-json"),
   tvvooJsonStatus: $("#tvvoo-json-status"),
-  nautaCategoryField: $("#nauta-category-field"),
-  nautaCategory: $("#nauta-category"),
   previewDialog: $("#preview-dialog"),
   previewVideo: $("#preview-video"),
   previewStatus: $("#preview-status"),
@@ -138,7 +133,6 @@ const TVVOO_ALL_LABEL = "Todos los países";
 const providerCache = {
   highfly: { rows: [], loadedAt: 0, status: "idle", error: "", pending: null, requestId: 0, optionsByKey: new Map() },
   tvvoo: { countries: [], loadedAt: 0, status: "idle", error: "", pending: null, requestId: 0, catalogs: new Map() },
-  nauta: { categories: [], loadedAt: 0, status: "idle", error: "", pending: null, requestId: 0, catalogs: new Map() },
 };
 
 let state = null;
@@ -146,8 +140,6 @@ let activeView = "active";
 let sourceFilter = "all";
 let addSource = "m3u";
 let selectedTvVooCatalogId = "vavoo_tv_es";
-const NAUTA_ALL_ID = "all-nauta-categories";
-let selectedNautaCategoryId = NAUTA_ALL_ID;
 let selectedKey = "";
 let selectedAvailableRows = new Map();
 let activeLogoFilter = "current";
@@ -808,7 +800,7 @@ function renderInspector() {
     preferredGroup.append(preferredSelect, node("p", "backup-note", "La app abre primero esa señal y, si falla, la de este canal. El canal elegido deja de verse solo en la app."));
     fragment.append(preferredGroup);
 
-    // Respaldos M3U: la app los resuelve en orden, incluidas referencias Nauta estables.
+    // Respaldos M3U: la app los resuelve en orden.
     const backupsGroup = node("section", "detail-group backup-group");
     backupsGroup.append(node("h3", "", "Respaldos del canal"));
     const current = Array.isArray(row.backupm3u) ? row.backupm3u : [];
@@ -831,11 +823,7 @@ function renderInspector() {
     const placeholder = node("option", "", current.length ? "Agregar otro respaldo…" : "Sin respaldos · agregar…");
     placeholder.value = "";
     addSelect.append(placeholder);
-    for (const item of m3uRows.filter((candidate) => {
-      const stableNauta = /^Nauta\.[0-9a-f]{24}@Nauta$/i.test(String(candidate.tvgId ?? ""));
-      const isNauta = candidate.nautaCatalog !== undefined || /^Nauta\./i.test(String(candidate.tvgId ?? ""));
-      return !isNauta || stableNauta;
-    })) {
+    for (const item of m3uRows) {
       if (current.includes(item.tvgId) || item.tvgId === row.preferredM3u) continue;
       const option = node("option", "", `${String(item.number).padStart(3, "0")} · ${channelName(item)}`);
       option.value = item.tvgId;
@@ -844,7 +832,7 @@ function renderInspector() {
     addSelect.addEventListener("change", () => {
       if (addSelect.value) changeLayout(setBackupM3u(state.layout, rowKey(row), [...current, addSelect.value]));
     });
-    backupsGroup.append(addSelect, node("p", "backup-note", "Si falla la señal, la app pasa a estas en orden. Los canales enlazados no aparecen solos; Nauta se resuelve al reproducir."));
+    backupsGroup.append(addSelect, node("p", "backup-note", "Si falla la señal, la app pasa a estas en orden. Los canales enlazados no aparecen solos."));
     fragment.append(backupsGroup);
   }
 
@@ -1345,13 +1333,6 @@ function tvvooCatalogEntry(catalogId) {
   return providerCache.tvvoo.catalogs.get(catalogId);
 }
 
-function nautaCatalogEntry(catalogId) {
-  if (!providerCache.nauta.catalogs.has(catalogId)) {
-    providerCache.nauta.catalogs.set(catalogId, { rows: [], loadedAt: 0, status: "idle", error: "", pending: null, requestId: 0, progress: null });
-  }
-  return providerCache.nauta.catalogs.get(catalogId);
-}
-
 function setJsonStatus(element, message, status = "ready") {
   element.textContent = message;
   element.dataset.state = status;
@@ -1369,20 +1350,6 @@ function setTvVooCountries(countries) {
     return option;
   }));
   elements.tvvooCountry.value = selectedTvVooCatalogId;
-}
-
-function setNautaCategories(categories) {
-  const options = [{ id: NAUTA_ALL_ID, name: "Todos los canales · catálogo completo" }, ...categories];
-  elements.nautaCategory.replaceChildren(...options.map((category) => {
-    const option = node("option", "", nautaCategoryLabel(category));
-    option.value = category.id;
-    return option;
-  }));
-  elements.nautaCategory.value = selectedNautaCategoryId;
-}
-
-function nautaCategoryLabel(category) {
-  return category.id === "nautatv_catalog" ? "Portada Nauta" : category.name;
 }
 
 function invalidateProviderRequest(source) {
@@ -1453,9 +1420,8 @@ function updateAvailableSourceControls() {
     tab.setAttribute("aria-pressed", String(active));
   });
   elements.tvvooCountryField.hidden = addSource !== "tvvoo";
-  elements.nautaCategoryField.hidden = addSource !== "nauta";
   elements.refreshProviderCatalog.hidden = addSource === "m3u";
-  elements.manualCatalog.hidden = addSource === "m3u" || addSource === "nauta";
+  elements.manualCatalog.hidden = addSource === "m3u";
   elements.highflyJsonPanel.hidden = addSource !== "highfly";
   elements.tvvooJsonPanel.hidden = addSource !== "tvvoo";
   const directCount = state.catalog.filter((row) => row.kind === "m3u").length;
@@ -1466,12 +1432,6 @@ function updateAvailableSourceControls() {
   document.querySelector('[data-source-count="tvvoo"]').textContent = providerCache.tvvoo.countries.length
     ? `${providerCache.tvvoo.countries.length} países`
     : providerCache.tvvoo.status === "loading" ? "…" : "—";
-  const nautaAll = providerCache.nauta.catalogs.get(NAUTA_ALL_ID);
-  document.querySelector('[data-source-count="nauta"]').textContent = nautaAll?.status === "ready"
-    ? `${nautaAll.rows.length} canales`
-    : providerCache.nauta.categories.length
-    ? `${providerCache.nauta.categories.length} cat.`
-    : providerCache.nauta.status === "loading" ? "…" : "—";
 
   if (addSource === "m3u") {
     elements.providerStatus.textContent = `${directCount} canales de Lista 1 y Lista 2 disponibles en el catálogo del repositorio.`;
@@ -1491,37 +1451,6 @@ function updateAvailableSourceControls() {
           : "El catálogo Highfly se consultará automáticamente al abrir esta fuente.";
     elements.providerStatus.dataset.state = source.status === "error" ? "error" : source.status;
     elements.refreshProviderCatalog.disabled = source.status === "loading";
-    return;
-  }
-
-  if (addSource === "nauta") {
-    const source = providerCache.nauta;
-    const catalog = source.catalogs.get(selectedNautaCategoryId) ?? null;
-    const category = selectedNautaCategoryId === NAUTA_ALL_ID
-      ? { name: "todas las categorías" }
-      : source.categories.find((item) => item.id === selectedNautaCategoryId);
-    const categoryLabel = category ? nautaCategoryLabel(category) : "Nauta";
-    elements.providerStatus.textContent = !LOCAL_MODE
-      ? "Nauta solo se consulta desde el editor local. Abre la web con el auxiliar de VibeM3U."
-      : source.status === "loading"
-        ? "Consultando categorías Nauta…"
-        : source.status === "error"
-          ? `${source.error} Usa “Actualizar catálogo” para volver a intentar.`
-          : catalog?.status === "loading"
-            ? catalog.progress
-              ? `Cargando ${catalog.progress.done} de ${catalog.progress.total} categorías Nauta…`
-              : `Cargando canales de ${categoryLabel}…`
-            : catalog?.status === "error"
-              ? `${catalog.error} Usa “Actualizar catálogo” para volver a intentar.`
-              : catalog?.rows.length
-                ? `${countText(catalog.rows.length, "canal encontrado", "canales encontrados")} en ${categoryLabel}. Los ya agregados o retirados se muestran sin poder seleccionarse; puedes añadir varios de los demás a Lista 1 en prueba, sin EPG.`
-                : category
-                  ? `Fuente Nauta · ${categoryLabel}. Los nombres exactos se conservarán para resolverlos al reproducir.`
-                  : "Carga el catálogo Nauta para elegir una categoría.";
-    elements.providerStatus.dataset.state = !LOCAL_MODE || source.status === "error" || catalog?.status === "error"
-      ? "error"
-      : catalog?.status ?? source.status;
-    elements.refreshProviderCatalog.disabled = source.status === "loading" || catalog?.status === "loading";
     return;
   }
 
@@ -1560,7 +1489,6 @@ function updateAvailableSourceControls() {
 function sourceCandidates() {
   if (addSource === "m3u") return state.catalog.filter((row) => row.kind === "m3u");
   if (addSource === "highfly") return providerCache.highfly.rows;
-  if (addSource === "nauta") return nautaCatalogEntry(selectedNautaCategoryId).rows;
   return tvvooCatalogEntry(selectedTvVooCatalogId).rows;
 }
 
@@ -1569,11 +1497,11 @@ function availableRows() {
   const unique = new Map();
   for (const row of sourceCandidates()) {
     const key = rowKey(row);
-    if (!key || (addSource !== "nauta" && present.has(key))) continue;
+    if (!key || present.has(key)) continue;
     unique.set(key, row);
   }
   const query = elements.availableSearch.value.trim().toLocaleLowerCase("es");
-  return [...unique.values()].filter((row) => addSource === "nauta" || rowVisible(row))
+  return [...unique.values()].filter((row) => rowVisible(row))
     .filter((row) => !query || rowSearchText(row).includes(query));
 }
 
@@ -1589,8 +1517,6 @@ function renderAvailable() {
     ? providerCache.highfly
     : addSource === "tvvoo"
       ? (tvvooCatalogEntry(selectedTvVooCatalogId).status === "idle" ? providerCache.tvvoo : tvvooCatalogEntry(selectedTvVooCatalogId))
-      : addSource === "nauta"
-        ? (nautaCatalogEntry(selectedNautaCategoryId).status === "idle" ? providerCache.nauta : nautaCatalogEntry(selectedNautaCategoryId))
       : null;
   if (sourceState?.status === "loading") {
     fragment.append(node("p", "available-empty catalog-loading", "Cargando canales del proveedor…"));
@@ -1599,34 +1525,20 @@ function renderAvailable() {
   } else if (!rows.length) {
     const emptyText = addSource === "m3u"
       ? "No hay canales nuevos de las listas M3U con esa búsqueda."
-      : addSource === "nauta"
-        ? "No hay canales Nauta nuevos con esa búsqueda. Prueba otro nombre o categoría."
-        : "No hay canales nuevos con esa búsqueda. Prueba otro nombre o país.";
+      : "No hay canales nuevos con esa búsqueda. Prueba otro nombre o país.";
     fragment.append(node("p", "available-empty", emptyText));
   } else {
-    const nautaPresent = new Set(state.layout.channels.map((row) => row.tvgId));
-    const nautaPublished = new Set(state.catalog.filter((row) => row.kind === "m3u").map((row) => row.tvgId));
-    const nautaRetired = new Set(state.layout.excludedM3u ?? []);
-    const displayedRows = addSource === "nauta" ? rows : rows.slice(0, 250);
-    displayedRows.forEach((row) => {
+    rows.slice(0, 250).forEach((row) => {
       const key = rowKey(row);
-      const unavailable = row.nautaCatalog
-        ? nautaPresent.has(row.tvgId) ? "Ya agregado"
-          : nautaPublished.has(row.tvgId) ? "Ya publicado"
-          : nautaRetired.has(row.tvgId) ? "Retirado anteriormente" : ""
-        : "";
-      const selected = !unavailable && selectedAvailableRows.has(key);
+      const selected = selectedAvailableRows.has(key);
       const item = document.createElement("button");
       item.type = "button";
-      item.className = `available-row${selected ? " is-checked" : ""}${unavailable ? " is-unavailable" : ""}`;
-      item.disabled = Boolean(unavailable);
+      item.className = `available-row${selected ? " is-checked" : ""}`;
       item.setAttribute("aria-pressed", String(selected));
       item.append(makeLogo(row));
       item.append(node("span", "available-name", row.name));
       const variantCount = Array.isArray(row.options) ? row.options.length : 0;
-      const sourceText = row.nautaCatalog
-        ? unavailable || `Nauta · ${row.nautaCatalog === "nautatv_catalog" ? "Portada" : row.category}`
-        : row.provider === "highfly"
+      const sourceText = row.provider === "highfly"
         ? `${row.identityState === "provisional" ? "Highfly · provisional" : "Highfly"}${variantCount > 1 ? ` · ${variantCount} señales` : ""}`
         : sourceName(row);
       const source = node("span", "source-label", sourceText);
@@ -1640,7 +1552,7 @@ function renderAvailable() {
       });
       fragment.append(item);
     });
-    if (addSource !== "nauta" && rows.length > 250) fragment.append(node("p", "available-empty", `Hay ${rows.length} opciones; afina la búsqueda para verlas.`));
+    if (rows.length > 250) fragment.append(node("p", "available-empty", `Hay ${rows.length} opciones; afina la búsqueda para verlas.`));
   }
   elements.availableList.replaceChildren(fragment);
   updateAvailableSelection();
@@ -1648,15 +1560,7 @@ function renderAvailable() {
 
 function updateAvailableSelection() {
   const count = selectedAvailableRows.size;
-  const isNauta = addSource === "nauta";
   elements.addSelected.disabled = count === 0;
-  if (isNauta) {
-    elements.addSelected.textContent = count ? `Añadir seleccionados (${count})` : "Añadir seleccionados";
-    elements.availableSelectionNote.textContent = count
-      ? `${countText(count, "canal Nauta marcado", "canales Nauta marcados")}. ${count === 1 ? "Se añadirá" : "Se añadirán juntos"} a Lista 1, en prueba y sin EPG.`
-      : "Selecciona uno o varios canales Nauta para añadirlos juntos a Lista 1, en prueba y sin EPG.";
-    return;
-  }
   elements.addSelected.textContent = count ? `Añadir seleccionados (${count})` : "Añadir seleccionados";
   elements.availableSelectionNote.textContent = count
     ? `${countText(count, "canal marcado", "canales marcados")}. Pulsa “Añadir seleccionados” para incorporarlos.`
@@ -1670,7 +1574,6 @@ function addSelectedChannels() {
   for (const row of selectedAvailableRows.values()) {
     const key = rowKey(row);
     if (layout.channels.some((candidate) => rowKey(candidate) === key)) continue;
-    if (row.nautaCatalog && (layout.excludedM3u ?? []).includes(row.tvgId)) continue;
     const logoPath = row.logoOverride || row.logoPath || suggestLogo(row, logoContext());
     layout = addRow(layout, logoPath ? { ...row, logoPath } : row);
     addedKeys.push(key);
@@ -1866,129 +1769,6 @@ async function ensureAllTvVooCatalog(force = false) {
   return pending;
 }
 
-async function fetchLocalNauta(path) {
-  if (!LOCAL_MODE) throw new Error("Nauta solo se consulta desde el editor local. Abre la web con el auxiliar de VibeM3U.");
-  const controller = new AbortController();
-  const timeout = window.setTimeout(() => controller.abort(), 20_000);
-  try {
-    const response = await fetch(path, {
-      method: "GET",
-      headers: { Accept: "application/json" },
-      cache: "no-store",
-      credentials: "omit",
-      signal: controller.signal,
-    });
-    let payload;
-    try { payload = await response.json(); }
-    catch { throw new Error("El auxiliar local devolvió una respuesta no válida para Nauta."); }
-    if (!response.ok) throw new Error(payload.error || `Nauta respondió con error local ${response.status}.`);
-    return payload;
-  } catch (error) {
-    if (error?.name === "AbortError") throw new Error("La consulta local de Nauta tardó demasiado; vuelve a intentar.");
-    throw error;
-  } finally {
-    window.clearTimeout(timeout);
-  }
-}
-
-async function ensureNautaCategories(force = false) {
-  const source = providerCache.nauta;
-  if (!LOCAL_MODE) {
-    source.status = "error";
-    source.error = "Nauta solo se consulta desde el editor local. Abre la web con el auxiliar de VibeM3U.";
-    renderAvailable();
-    throw new Error(source.error);
-  }
-  if (!force && source.pending) return source.pending;
-  if (!force && source.categories.length && Date.now() - source.loadedAt < PROVIDER_CACHE_MS) return source.categories;
-  source.status = "loading";
-  source.error = "";
-  renderAvailable();
-  const requestId = ++source.requestId;
-  let pending;
-  pending = fetchLocalNauta("/api/nauta/categories")
-    .then((document) => parseNautaCategories(document))
-    .then((categories) => {
-      if (source.requestId !== requestId) return source.categories;
-      source.categories = categories;
-      source.loadedAt = Date.now();
-      source.status = "ready";
-      if (selectedNautaCategoryId !== NAUTA_ALL_ID && !categories.some((item) => item.id === selectedNautaCategoryId)) {
-        selectedNautaCategoryId = NAUTA_ALL_ID;
-      }
-      setNautaCategories(categories);
-      return categories;
-    })
-    .catch((error) => {
-      if (source.requestId !== requestId) return source.categories;
-      source.status = "error";
-      source.error = error.message || "No se pudieron leer las categorías Nauta.";
-      throw error;
-    })
-    .finally(() => {
-      if (source.requestId === requestId && source.pending === pending) {
-        source.pending = null;
-        renderAvailable();
-      }
-    });
-  source.pending = pending;
-  return pending;
-}
-
-async function ensureNautaCatalog(categoryId = selectedNautaCategoryId, force = false) {
-  await ensureNautaCategories();
-  const allCategories = categoryId === NAUTA_ALL_ID;
-  const category = allCategories
-    ? { id: NAUTA_ALL_ID, name: "todas las categorías" }
-    : providerCache.nauta.categories.find((item) => item.id === categoryId);
-  if (!category) throw new Error("La categoría Nauta ya no está disponible. Actualiza la fuente.");
-  const catalog = nautaCatalogEntry(categoryId);
-  if (!force && catalog.pending) return catalog.pending;
-  if (!force && catalog.rows.length && Date.now() - catalog.loadedAt < PROVIDER_CACHE_MS) return catalog.rows;
-  catalog.status = "loading";
-  catalog.error = "";
-  catalog.progress = allCategories ? { done: 0, total: providerCache.nauta.categories.length } : null;
-  renderAvailable();
-  const requestId = ++catalog.requestId;
-  let pending;
-  const loadOne = (item) => fetchLocalNauta(`/api/nauta/catalog?category=${encodeURIComponent(item.id)}`)
-    .then((document) => parseNautaCatalog(document, item));
-  const loading = allCategories
-    ? loadAllNautaCatalogs(providerCache.nauta.categories, {
-      loadCatalog: loadOne,
-      onProgress(done, total) {
-        if (catalog.requestId !== requestId) return;
-        catalog.progress = { done, total };
-        renderAvailable();
-      },
-    })
-    : loadOne(category);
-  pending = loading
-    .then((rows) => {
-      if (catalog.requestId !== requestId) return catalog.rows;
-      catalog.rows = rows;
-      catalog.loadedAt = Date.now();
-      catalog.status = "ready";
-      catalog.progress = null;
-      return rows;
-    })
-    .catch((error) => {
-      if (catalog.requestId !== requestId) return catalog.rows;
-      catalog.status = "error";
-      catalog.error = error.message || "No se pudo leer el catálogo Nauta.";
-      catalog.progress = null;
-      throw error;
-    })
-    .finally(() => {
-      if (catalog.requestId === requestId && catalog.pending === pending) {
-        catalog.pending = null;
-        renderAvailable();
-      }
-    });
-  catalog.pending = pending;
-  return pending;
-}
-
 async function selectAddSource(source) {
   selectedAvailableRows.clear();
   addSource = source;
@@ -1999,9 +1779,6 @@ async function selectAddSource(source) {
     else if (source === "tvvoo") {
       await ensureTvVooManifest();
       await ensureTvVooCatalog(selectedTvVooCatalogId);
-    } else if (source === "nauta") {
-      await ensureNautaCategories();
-      await ensureNautaCatalog(selectedNautaCategoryId);
     }
   } catch {
     // The source panel renders the error and exposes an explicit retry action.
@@ -2014,9 +1791,6 @@ async function refreshSelectedProviderCatalog() {
     else if (addSource === "tvvoo") {
       await ensureTvVooManifest(true);
       await ensureTvVooCatalog(selectedTvVooCatalogId, true);
-    } else if (addSource === "nauta") {
-      await ensureNautaCategories(true);
-      await ensureNautaCatalog(selectedNautaCategoryId, true);
     }
   } catch {
     // Error copy is rendered in the dialog; do not hide it behind a toast.
@@ -2337,12 +2111,6 @@ elements.tvvooCountry.addEventListener("change", () => {
   selectedTvVooCatalogId = elements.tvvooCountry.value;
   renderAvailable();
   void ensureTvVooCatalog(selectedTvVooCatalogId).catch(() => {});
-});
-elements.nautaCategory.addEventListener("change", () => {
-  selectedAvailableRows.clear();
-  selectedNautaCategoryId = elements.nautaCategory.value;
-  renderAvailable();
-  void ensureNautaCatalog(selectedNautaCategoryId).catch(() => {});
 });
 elements.refreshProviderCatalog.addEventListener("click", refreshSelectedProviderCatalog);
 elements.manualCatalog.addEventListener("toggle", () => {

@@ -1,63 +1,9 @@
 const LAYOUT_FIELDS = [
   "kind", "provider", "catalogKey", "providerResourceId", "resolverSlug",
   "tvgId", "name", "group", "category", "country", "countryKey",
-  "aliases", "resolverAliases", "identityState", "sourceList", "nautaCatalog", "nautaName", "logoPath",
+  "aliases", "resolverAliases", "identityState", "sourceList", "logoPath",
   "logoOverride", "displayName", "order", "number", "state", "trial", "backupTvVoo", "preferredM3u", "backupm3u", "backupCountries",
 ];
-
-function isNautaM3uRow(row) {
-  return row?.kind === "m3u" && (row.nautaCatalog !== undefined || /^Nauta\./i.test(String(row.tvgId ?? "")));
-}
-
-function isStableNautaId(value) {
-  return typeof value === "string" && /^Nauta\.[0-9a-f]{24}@Nauta$/i.test(value);
-}
-
-// Explicitly approved existing references: editorial status, not a guarantee of EPG.
-const OFFICIAL_NAUTA_REFERENCES = new Set([
-  "Nauta.52bb87a2e2911ed34f7ae3bc@Nauta|nautatv_catalog|ESPN 7 HD",
-  "Nauta.4dec2794ee77cb450b79aa5b@Nauta|nautatv_catalog|ESPN 1 | Argentina",
-  "Nauta.267720adcfe18e0c87fca46c@Nauta|nautatv_catalog|ESPN 1 | Mexico",
-  "Nauta.d6c4cf31e1a88709b605ac8f@Nauta|cat_7|MTV Live",
-  "Nauta.7b8890eac450f9cc89b06b84@Nauta|cat_32|Fox Sports 2 | HD",
-  "Nauta.dac26a78f5bdf111bc9b9ffc@Nauta|nautatv_catalog|ESPN 1 | Sur",
-  "Nauta.81dc69c20557da0672921475@Nauta|nautatv_catalog|ESPN 1 | Chile",
-  "Nauta.4b4253b78f7157b8904ec72c@Nauta|nautatv_catalog|ESPN HD | Colombia",
-  "Nauta.53db56d7f89e01787fcc2212@Nauta|nautatv_catalog|ESPN Plus HD",
-  "Nauta.62dfd1657568e0d60c81317a@Nauta|cat_4|DSports",
-  "Nauta.2e4fdeff5f4d1b547b864b23@Nauta|cat_4|DSports HD",
-  "Nauta.ce1580586a531d205ccfc107@Nauta|cat_4|Fox Sports Sur",
-  "Nauta.1dac8e0993a937726c21cc09@Nauta|cat_4|DSports 2 HD",
-  "Nauta.45ff33783b4d83062083ddb7@Nauta|cat_4|DSports 2",
-  "Nauta.05e59597043a9182d2a7fc0b@Nauta|nautatv_catalog|HBO",
-  "Nauta.4b191940bee2bd4c855de777@Nauta|nautatv_catalog|HBO 2",
-  "Nauta.5e0764312e17cd8dbca87fbe@Nauta|nautatv_catalog|HBO 2 HD",
-  "Nauta.4cc2aa2f00babf217d641fd6@Nauta|nautatv_catalog|HBO Family",
-  "Nauta.2c79f52754dcec190b01cd93@Nauta|nautatv_catalog|HBO Family HD",
-  "Nauta.69a2d4671c91e6eb2081468e@Nauta|nautatv_catalog|HBO HD",
-  "Nauta.2543531f37454701c960421c@Nauta|cat_3|HBO Mundi",
-  "Nauta.8c5a91e0b8d25e158a9afa6f@Nauta|nautatv_catalog|HBO Plus",
-  "Nauta.b5a185bf8235a26035237746@Nauta|nautatv_catalog|HBO Plus HD",
-  "Nauta.b0e158ffa085b177eadaaca6@Nauta|cat_32|HBO Plus Oeste HD",
-  "Nauta.14fae38bc645c4c8b6315d89@Nauta|nautatv_catalog|HBO Pop",
-  "Nauta.5108e1f90fd559d0c4387658@Nauta|nautatv_catalog|HBO Xtreme",
-  "Nauta.19ade992e1408ad4cbf1d4d8@Nauta|nautatv_catalog|HBO Xtreme HD",
-  "Nauta.080d3c6ad99b6cbcad144a59@Nauta|nautatv_catalog|AXN HD",
-  "Nauta.547c2a892ba50d5ca20e2851@Nauta|cat_32|Cinemax HD",
-  "Nauta.5f7d8d7874eeaacd4c3233ad@Nauta|nautatv_catalog|Discovery Channel HD",
-  "Nauta.33b5775c2e5269c09297139c@Nauta|cat_5|Discovery Theater HD",
-  "Nauta.dc823421ba8a32dea334cd9c@Nauta|nautatv_catalog|Discovery Turbo",
-  "Nauta.0615fb29ef6cee14db5b3c78@Nauta|cat_32|Discovery Turbo HD",
-  "Nauta.9716fec189bb7b466e1bd9af@Nauta|nautatv_catalog|Discovery World",
-  "Nauta.7437112a4b992980a550d16a@Nauta|cat_32|ESPN HD",
-  "Nauta.ed0ed0370e182f10a4e96f3d@Nauta|cat_32|ESPN 3 HD",
-  "Nauta.c89a873414ec166795c59f26@Nauta|cat_1|ESPN 4 | Sur",
-  "Nauta.57d13b9b10bcbdc51d4dab10@Nauta|cat_32|Fox Sports HD",
-  "Nauta.a87610ac946968a5f280ec57@Nauta|cat_32|Star Channel HD",
-  "Nauta.b9df5eea317035bd5bda31cf@Nauta|cat_32|Studio Universal HD",
-  "Nauta.bbe4eb27708b3113521f61fe@Nauta|cat_7|Telehit",
-  "Nauta.7d15e6854c48e815dea1edf7@Nauta|cat_32|Telehit HD",
-]);
 
 export function stableId(row) {
   const value = row?.kind === "provider" ? row.catalogKey : row?.tvgId;
@@ -160,9 +106,8 @@ export function validateLayout(layout) {
       const valid = row.kind === "m3u" && Array.isArray(row.backupm3u) && ids.length > 0 && ids.length <= 16
         && new Set(ids).size === ids.length
         && ids.every((value) => typeof value === "string" && value !== row.tvgId && value !== row.preferredM3u
-          && layout.channels.some((item) => item.kind === "m3u" && item.tvgId === value
-            && (!isNautaM3uRow(item) || (isStableNautaId(item.tvgId) && item.state === "active"))));
-      if (!valid) problems.push(String(row.name || id) + ": los respaldos deben ser otras filas M3U reproducibles, con HTTP(S) o identidad Nauta estable activa (hasta 16, sin repetir).");
+          && layout.channels.some((item) => item.kind === "m3u" && item.tvgId === value));
+      if (!valid) problems.push(String(row.name || id) + ": los respaldos deben ser otras filas M3U reproducibles (hasta 16, sin repetir).");
     }
     if (row.displayName !== undefined && (
       typeof row.displayName !== "string"
@@ -204,18 +149,7 @@ export function validateLayout(layout) {
     } else if (!["1.m3u", "2.m3u"].includes(row.sourceList)) {
       problems.push(`${row.name || id}: selecciona Lista 1 o Lista 2.`);
     }
-    if (row.nautaCatalog !== undefined || row.nautaName !== undefined) {
-      const validNauta = row.kind === "m3u"
-        && /^(?:cat_[0-9]+|nautatv_catalog)$/.test(row.nautaCatalog ?? "")
-        && typeof row.nautaName === "string" && row.nautaName.trim().length > 0 && row.nautaName.length <= 200
-        && !/[\u0000-\u001f\u007f\\?#]/.test(row.nautaName) && !row.nautaName.includes("://")
-        && /^Nauta\.[a-f0-9]{24}@Nauta$/.test(row.tvgId ?? "")
-        && (row.sourceList === "1.m3u" || row.sourceList === "2.m3u")
-        && (row.trial === true || (row.trial === undefined
-          && OFFICIAL_NAUTA_REFERENCES.has(`${row.tvgId}|${row.nautaCatalog}|${row.nautaName}`)));
-      if (!validNauta) problems.push(`${row.name || id}: la referencia Nauta requiere identidad estable, Lista 1 o 2 y estado en prueba (salvo referencias oficiales).`);
-    }
-    const visibleFields = [row.name, row.displayName, row.group, row.category, row.country, row.countryKey, row.nautaName, row.alias, row.aliases, row.resolverAliases];
+    const visibleFields = [row.name, row.displayName, row.group, row.category, row.country, row.countryKey, row.alias, row.aliases, row.resolverAliases];
     const flatValues = visibleFields.flatMap((value) => Array.isArray(value) ? value : [value]);
     if (flatValues.some((value) => typeof value === "string" && /(https?:\/\/|\.m3u8?(?:\b|\?)|access_token=|token=|signature=|hdnts=)/i.test(value))) {
       problems.push(`${row.name || id}: no se permiten URLs de reproducción ni credenciales en el catálogo.`);
@@ -529,8 +463,7 @@ export function setBackupM3u(layout, key, tvgIds) {
   const row = current.channels.find((item) => rowKey(item) === key);
   if (!row || row.kind !== "m3u") return current;
   const directIds = new Set(current.channels
-    .filter((item) => item.kind === "m3u" && (!isNautaM3uRow(item)
-      || (isStableNautaId(item.tvgId) && item.state === "active")))
+    .filter((item) => item.kind === "m3u")
     .map((item) => item.tvgId));
   const ids = [...new Set((tvgIds ?? []).filter((value) => directIds.has(value)
     && value !== row.tvgId && value !== row.preferredM3u))];

@@ -1,39 +1,7 @@
 {
   "schemaVersion": 1,
-  "catalogVersion": "2026.10.05.4",
+  "catalogVersion": "2026.10.05.5",
   "providers": [
-    {
-      "id": "nauta",
-      "name": "Nauta",
-      "engine": "nauta",
-      "enabledByDefault": true,
-      "cacheTtlSeconds": 300,
-      "match": {
-        "tvgIdSuffixes": [
-          "@Nauta"
-        ]
-      },
-      "config": {
-        "endpointBase": "https://stremio-addon-wheat.vercel.app"
-      }
-    },
-    {
-      "id": "m6foot",
-      "name": "M6Foot",
-      "engine": "m6foot",
-      "enabledByDefault": true,
-      "cacheTtlSeconds": 300,
-      "match": {
-        "tvgIdSuffixes": [
-          "@M6Foot"
-        ]
-      },
-      "config": {
-        "pageBase": "https://m6foot.click/player/3/",
-        "embedBase": "https://navytitle.net/embed/",
-        "embedReferer": "https://navytitle.net/"
-      }
-    },
     {
       "id": "tvn",
       "name": "TVN",

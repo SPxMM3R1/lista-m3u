@@ -6,13 +6,13 @@ import catalog_approval
 # coincidir, el sello del editor nunca validaría y las fotos fijas volverían a estorbar.
 FIXTURE = {
     "schemaVersion": 1,
-    "excludedM3u": ["Nauta.x@Nauta"],
+    "excludedM3u": ["PublicDirect.x"],
     "channels": [{
         "kind": "m3u", "tvgId": "0104", "name": "TVN «HD» ñandú | 24/7", "group": "Nacionales",
         "sourceList": "1.m3u", "order": 1, "number": 1, "state": "deleted",
     }],
 }
-DIGEST = "adb879b4c6a25b3aa1e76ffac96886dc4466b5e75dd681464a2985846dcb8281"
+DIGEST = "002cce3d08ee144e979dbb8bed8f1fe3959af44aaf0d6c60eb05574d2020bf4a"
 
 
 class CatalogApprovalTest(unittest.TestCase):

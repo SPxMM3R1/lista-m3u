@@ -8,8 +8,6 @@ ROOT = Path(__file__).resolve().parents[1]
 WHITE_LOGO = "logos/catalogue/studiouniversallatinamerica-white.png"
 ACTIVE_ROWS = {
     "PublicDirect.8b604de41196cd4fe991d551": "1.m3u",
-    # Nauta.b9df5eea… (Studio Universal HD Nauta) lo mandó el usuario a la papelera desde la
-    # app el 2026-10-25.
     # PublicDirect.52f6bff3… (Studio Universal HD 45.171.64.30) pasó a backups.json el
     # 2026-10-25 como respaldo del Studio Universal de Lista 1 (misma señal por audio).
 }

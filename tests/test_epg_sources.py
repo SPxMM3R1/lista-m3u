@@ -69,19 +69,6 @@ class OfficialEpgSourcesTest(unittest.TestCase):
         )
 
 
-class PromotedNautaEpgSourcesTest(unittest.TestCase):
-    def test_espn1_and_mtv_live_use_their_regional_guides(self) -> None:
-        expected = {
-            "Nauta.4dec2794ee77cb450b79aa5b@Nauta": ("ar1", "Canal.ESPN.(Argentina).ar"),
-            "Nauta.267720adcfe18e0c87fca46c@Nauta": ("mx1", "ESPN.MX.mx"),
-            "Nauta.d6c4cf31e1a88709b605ac8f@Nauta": ("us2", "MTVLIVE.us2"),
-        }
-        for stable_id, source in expected.items():
-            with self.subTest(stable_id=stable_id):
-                self.assertEqual(source, update_m3u.EPG_PROGRAMME_SOURCES[stable_id])
-                self.assertIn(source, update_m3u.epg_source_chain(stable_id))
-
-
 class RedBullChileTest(unittest.TestCase):
     """Red Bull reparte la parrilla por país: se pide como visita chilena."""
 
