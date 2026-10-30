@@ -146,6 +146,6 @@ class ClaroFamilyGuideTest(unittest.TestCase):
         applied = update_m3u.apply_epg_overrides()
         self.assertEqual(("claro-guia", "claro:paraguay:952481"), applied[golden])
         self.assertEqual(("paraguay", "952481"), update_m3u.CLARO_GUIDE_CHANNELS[golden])
-        self.assertEqual(("peru", "816041"), update_m3u.CLARO_GUIDE_BACKUP_CHANNELS[golden])
-        self.assertEqual(("claro-guia", "claro:peru:816041"), update_m3u.EPGSHARE_BACKUP_CHANNELS[golden])
+        self.assertEqual(("guatemala", "889155"), update_m3u.CLARO_GUIDE_BACKUP_CHANNELS[golden])
+        self.assertEqual(("claro-guia", "claro:guatemala:889155"), update_m3u.EPGSHARE_BACKUP_CHANNELS[golden])
 

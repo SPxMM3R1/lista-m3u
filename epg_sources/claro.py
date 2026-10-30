@@ -84,7 +84,8 @@ def claro_synopsis_programmes(
     como los «Music Videos» de ETC TV): la parrilla de Claro tambien alimenta
     horarios (CLARO_SCHEDULE_FALLBACK_IDS) y sin ellos quedarian huecos.
     """
-    channels = payload.get("response", {}).get("channels", [])
+    # Claro Perú responde «response: null» a GitHub Actions (2026-10-29).
+    channels = (payload.get("response") or {}).get("channels") or []
     by_group = {str(channel.get("group_id")): channel for channel in channels if isinstance(channel, dict)}
     result: dict[str, list[tuple[datetime, datetime, str, str]]] = {}
     for target_id, group_id in wanted.items():
