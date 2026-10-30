@@ -48,7 +48,8 @@ class Lista2EpgMapTest(unittest.TestCase):
         # 2026-10-25: tras las búsquedas de clones Lista 2 publica ~910.
         # 2026-10-26: Star Channel y HBO 2 a respaldo: alcance ~847; piso con margen.
         # 2026-10-27: FX a respaldo: alcance ~820; piso con margen.
-        self.assertGreaterEqual(len(scope), 790)
+        # 2026-10-30: bajas desde la app y 11 canales sin señal: alcance ~786; piso con margen.
+        self.assertGreaterEqual(len(scope), 760)
 
 
 class Lista2ClaroFamilyGuideTest(unittest.TestCase):
