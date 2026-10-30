@@ -45,11 +45,16 @@ class ExplicitDirectBackupLinksTest(unittest.TestCase):
             (ROOT / "m3u.m3u").read_text(encoding="utf-8").splitlines())}
         external_ids = {channel.tvg_id for channel in runner.parse_channels(
             (ROOT / "m3u-externa.m3u").read_text(encoding="utf-8").splitlines())}
+        # Una fila «deleted» es una baja del usuario desde la app (2026-10-30: FX, AMC…): se omite.
         for primary_id, former in self.EXPECTED.items():
             with self.subTest(primary=primary_id):
+                if rows[primary_id]["state"] == "deleted":
+                    continue
                 self.assertEqual("active", rows[primary_id]["state"])
                 for backup_id in former:
                     backup = rows[backup_id]
+                    if backup["state"] == "deleted":
+                        continue
                     self.assertEqual("active", backup["state"])
                     self.assertEqual("2.m3u", backup["sourceList"])
                     self.assertIn(backup_id, external_ids)

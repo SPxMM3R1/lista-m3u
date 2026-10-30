@@ -19,7 +19,9 @@ class BackupsJsonTest(unittest.TestCase):
                 row = self.rows.get(key)
                 self.assertIsNotNone(row, "el canal principal no está en el catálogo")
                 self.assertEqual("1.m3u", row.get("sourceList"))
-                self.assertIn(row.get("state"), {"active", "hidden"})
+                # Un principal mandado a la papelera desde la app (FX, 2026-10-30) conserva su
+                # registro de respaldos por si se recupera.
+                self.assertIn(row.get("state"), {"active", "hidden", "deleted"})
 
     def test_every_copy_is_out_of_the_lists_and_fully_described(self):
         app_fields = {"tvg_id", "display_name", "url", "group"}
