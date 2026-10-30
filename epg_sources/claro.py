@@ -19,6 +19,7 @@ from urllib.parse import urlencode
 
 from update_m3u import (
     BROWSER_USER_AGENT,
+    CLARO_GUIDE_BACKUP_CHANNELS,
     CLARO_GUIDE_CHANNELS,
     CLARO_GUIDE_ID_PREFIX,
     CLARO_REGION_CHANNELS,
@@ -149,12 +150,13 @@ def fetch_claro_guide_epg(
     """
     wanted_by_region: dict[str, dict[str, str]] = {}
     for channel in channels:
-        key = CLARO_GUIDE_CHANNELS.get(channel.tvg_id)
-        if key is None:
-            continue
-        region, group_id = key
-        wanted_by_region.setdefault(region, {})[
-            f"{CLARO_GUIDE_ID_PREFIX}{region}:{group_id}"] = group_id
+        for table in (CLARO_GUIDE_CHANNELS, CLARO_GUIDE_BACKUP_CHANNELS):
+            key = table.get(channel.tvg_id)
+            if key is None:
+                continue
+            region, group_id = key
+            wanted_by_region.setdefault(region, {})[
+                f"{CLARO_GUIDE_ID_PREFIX}{region}:{group_id}"] = group_id
     if not wanted_by_region:
         return None, {}
     app_key = claro_web_app_key()

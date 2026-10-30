@@ -1144,6 +1144,10 @@ CLARO_GUIDE_CHANNELS: dict[str, tuple[str, str]] = {
     if _l2_source_name == CLARO_GUIDE_PART
     and (_claro_key := claro_guide_key(_l2_source_id)) is not None
 }
+# Respaldo Claro de un canal cuya guía principal también es Claro (2026-10-29, Golden de
+# Lista 1): CLARO_GUIDE_CHANNELS guarda una sola clave por canal, así que la del respaldo va
+# aparte para que la guía de esa región también se descargue.
+CLARO_GUIDE_BACKUP_CHANNELS: dict[str, tuple[str, str]] = {}
 for _l2_id, (_l2_source_name, _l2_source_id) in load_epg_l2_map().items():
     if _l2_source_name == GATOTV_PART and _l2_source_id.startswith(GATOTV_ID_PREFIX):
         GATOTV_CHANNELS[_l2_id] = _l2_source_id[len(GATOTV_ID_PREFIX):]
@@ -7968,6 +7972,12 @@ def apply_epg_overrides(path: Path = EPG_OVERRIDES_PATH) -> dict[str, tuple[str,
             CLARO_GUIDE_CHANNELS[stable_id] = claro_key
         backup = raw_entry.get("backup")
         if isinstance(backup, dict) and backup.get("source") and backup.get("source_id"):
+            if backup["source"] == CLARO_GUIDE_PART:
+                backup_key = claro_guide_key(str(backup["source_id"]))
+                if backup_key is None:
+                    raise ValueError(
+                        f"{path.name}: {channel_id} respaldo Claro inválido: {backup['source_id']}")
+                CLARO_GUIDE_BACKUP_CHANNELS[stable_id] = backup_key
             # La guía anterior rellena lo que la nueva no cubra.
             EPGSHARE_BACKUP_CHANNELS[stable_id] = (str(backup["source"]), str(backup["source_id"]))
         EPG_PROGRAMME_SOURCES[stable_id] = (source, source_id)

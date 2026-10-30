@@ -117,3 +117,35 @@ class ClaroFamilyGuideTest(unittest.TestCase):
             [("argentina", {"claro:argentina:2": "2"}), ("colombia", {"claro:colombia:1": "1"})],
             calls)
         self.assertEqual(2, data.count(b"<programme "))
+
+    def test_claro_backup_region_is_also_fetched(self) -> None:
+        # Golden de Lista 1 (2026-10-29): guía Claro Paraguay con respaldo Claro Perú.
+        from datetime import datetime, timezone
+        from unittest.mock import patch
+        import update_m3u
+
+        start = datetime(2026, 10, 29, 12, tzinfo=timezone.utc)
+        calls = []
+
+        def fake_region(key, region, wanted, begin, end):
+            calls.append((region, dict(wanted)))
+            return {name: [(start, start, "Jumanji", "")] for name in wanted}
+
+        channels = [update_m3u.Channel(tvg_id="g", name="g", url="http://x/a.m3u8", url_line=0)]
+        with patch.object(claro, "CLARO_GUIDE_CHANNELS", {"g": ("paraguay", "952481")}),                 patch.object(claro, "CLARO_GUIDE_BACKUP_CHANNELS", {"g": ("peru", "816041")}),                 patch.object(claro, "claro_web_app_key", return_value="k"),                 patch.object(claro, "_fetch_claro_region", side_effect=fake_region):
+            _data, errors = claro.fetch_claro_guide_epg(channels, start)
+        self.assertEqual({}, errors)
+        self.assertEqual(
+            [("paraguay", {"claro:paraguay:952481": "952481"}), ("peru", {"claro:peru:816041": "816041"})],
+            calls)
+
+    def test_golden_lista1_uses_claro_paraguay_with_claro_peru_backup(self) -> None:
+        import update_m3u
+
+        golden = "PublicDirect.2f668b9b183e85d1f177f70d"
+        applied = update_m3u.apply_epg_overrides()
+        self.assertEqual(("claro-guia", "claro:paraguay:952481"), applied[golden])
+        self.assertEqual(("paraguay", "952481"), update_m3u.CLARO_GUIDE_CHANNELS[golden])
+        self.assertEqual(("peru", "816041"), update_m3u.CLARO_GUIDE_BACKUP_CHANNELS[golden])
+        self.assertEqual(("claro-guia", "claro:peru:816041"), update_m3u.EPGSHARE_BACKUP_CHANNELS[golden])
+
