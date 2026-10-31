@@ -2,9 +2,9 @@
   "schema": 2,
   "generatedAt": "2026-10-24",
   "source": "Lista 2: guía Claro Video por familia (una por canal real) + EPGShare de respaldo; nombres exactos + alias manuales",
-  "count": 1019,
+  "count": 1021,
   "bySource": {
-    "claro-guia": 905,
+    "claro-guia": 907,
     "mx1": 29,
     "co1": 36,
     "gatotv": 14,
@@ -12035,6 +12035,30 @@
       "l2_name": "HBO",
       "group": "Películas",
       "confidence": "claro-familia"
+    },
+    "PublicDirect.5b41b6bdd94296f8d1a9f0c2": {
+      "source": "claro-guia",
+      "source_id": "claro:colombia:820390",
+      "source_name": "HBO POP (Claro colombia)",
+      "l2_name": "HBO Pop",
+      "group": "Películas",
+      "confidence": "claro-familia",
+      "backup": {
+        "source": "mx1",
+        "source_id": "Canal.HBO.Pop.mx"
+      }
+    },
+    "PublicDirect.ce5de2a82b721b51a5ce6177": {
+      "source": "claro-guia",
+      "source_id": "claro:colombia:927654",
+      "source_name": "STUDIO UNIVERSAL (Claro colombia)",
+      "l2_name": "Studio Universal",
+      "group": "Películas",
+      "confidence": "claro-familia",
+      "backup": {
+        "source": "mx1",
+        "source_id": "Canal.Studio.Universal.(México).mx"
+      }
     }
   },
   "unresolvedNames": [
