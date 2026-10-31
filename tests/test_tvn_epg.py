@@ -693,6 +693,27 @@ class TvnEpgTests(unittest.TestCase):
         )
         self.assertFalse(main_status["ok"])
 
+    def test_tecnocentro_drops_interleaved_overlapping_schedule(self) -> None:
+        # TNT Sports Premium (2026-10-31): la página intercala una segunda parrilla.
+        def item(start, stop, title):
+            return ('<div class="schedule-item"><div class="schedule-time">'
+                    f'{start} - {stop}</div><div class="schedule-title">{title}</div></div>')
+        page = "".join([
+            item("13:30", "15:30", "Coquimbo vs. La Calera"),
+            item("14:15", "15:15", "Intercalado"),
+            item("15:30", "17:30", "Colo-Colo vs. U. de Chile"),
+            item("17:15", "19:15", "Otro intercalado"),
+            item("17:30", "18:00", "Previa"),
+        ]).encode()
+        now = datetime(2026, 10, 31, 16, tzinfo=timezone.utc)
+        def fetch(url, *args, **kwargs):
+            return 200, (page if "date=2026-10-31" in url else b""), {}
+        with patch.object(tecnocentro, "fetch_bytes", side_effect=fetch):
+            data, errors = tecnocentro.fetch_tecnocentro_epg([channel("TVN", "0104")], now)
+        titles = [p.findtext("title") for p in ET.fromstring(data).findall("programme")]
+        self.assertEqual(["Coquimbo vs. La Calera", "Colo-Colo vs. U. de Chile", "Previa"], titles)
+        self.assertEqual({}, errors)
+
     def test_partial_official_guide_uses_tecnocentro_backup(self) -> None:
         now = datetime(2026, 9, 26, 18, tzinfo=timezone.utc)
         tvn = channel("TVN", "0104")

@@ -76,6 +76,10 @@ def fetch_tecnocentro_epg(
     found_by_target = {target_id: 0 for target_id in target_ids}
     chile_today = now.astimezone(CHILE_TIMEZONE).date()
     seen: set[tuple[str, str, str, str]] = set()
+    # Algunas páginas de TecnoCentro intercalan una segunda parrilla que se superpone
+    # (TNT Sports Premium, 2026-10-31): se conserva la secuencia continua y se descarta
+    # todo bloque que empieza antes de que termine el último conservado.
+    last_stop_by_target: dict[str, datetime] = {}
 
     for offset in (0, 1):
         schedule_day = chile_today + timedelta(days=offset)
@@ -114,7 +118,9 @@ def fetch_tecnocentro_epg(
                     start = datetime.combine(
                         base_day, start_clock, tzinfo=CHILE_TIMEZONE
                     )
-                    while previous_start is not None and start <= previous_start:
+                    # Solo cruza al día siguiente si la hora retrocede de verdad (medianoche):
+                    # dos bloques intercalados a la misma hora no son del día siguiente.
+                    while previous_start is not None and start < previous_start - timedelta(hours=6):
                         start += timedelta(days=1)
                     stop = datetime.combine(
                         start.date(), stop_clock, tzinfo=CHILE_TIMEZONE
@@ -133,7 +139,11 @@ def fetch_tecnocentro_epg(
                     key = (target_id, start.isoformat(), stop.isoformat(), title)
                     if key in seen:
                         continue
+                    last_stop = last_stop_by_target.get(target_id)
+                    if last_stop is not None and start < last_stop:
+                        continue
                     seen.add(key)
+                    last_stop_by_target[target_id] = stop
                     programme = ET.SubElement(
                         root,
                         "programme",
