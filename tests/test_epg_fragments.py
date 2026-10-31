@@ -156,6 +156,13 @@ class DispatcherTest(unittest.TestCase):
         state = epg_dispatch.record(state, ["cae"], {"cae": True}, NOW)
         self.assertEqual([], epg_dispatch.failing_sources(state))
 
+    def test_official_sources_without_channels_are_not_requested(self):
+        # 13C borrado (2026-10-31): su guía oficial se pedía igual y contaba como fallo.
+        fake = type("M", (), {})()
+        fake.OFFICIAL_EPG_SOURCES = [type("S", (), {"name": n})() for n in ("tvn-oficial", "canal13-13c-oficial")]
+        fake.epg_channel_parts = lambda channel_id: {"0104": {"tvn-oficial", "epgshare"}}.get(channel_id, set())
+        self.assertEqual({"canal13-13c-oficial"}, epg_dispatch.unused_official_parts(fake, ["0104", "otro"]))
+
     def test_short_guides_leave_a_notice_and_renew_before_running_out(self):
         index = {"channels": [
             {"id": "corto", "name": "Corto", "lastStop": "2026-10-12T19:30:00Z"},

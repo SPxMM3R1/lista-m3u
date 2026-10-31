@@ -207,6 +207,18 @@ def write_output(name: str, value: str) -> None:
             handle.write(f"{name}={value}\n")
 
 
+def unused_official_parts(update_m3u, scope_ids: list[str]) -> set[str]:
+    """Fuentes oficiales sin ningún canal en el alcance de la EPG (2026-10-31).
+
+    Ej.: 13C quedó borrado y su guía oficial se seguía pidiendo: sin canal al que
+    asignarla, cada corrida contaba como fallo.
+    """
+    used: set[str] = set()
+    for channel_id in scope_ids:
+        used |= update_m3u.epg_channel_parts(channel_id)
+    return {source.name for source in update_m3u.OFFICIAL_EPG_SOURCES} - used
+
+
 def command_plan(args: argparse.Namespace) -> int:
     import update_m3u  # noqa: PLC0415 (carga pesada: solo al planificar)
 
@@ -220,8 +232,10 @@ def command_plan(args: argparse.Namespace) -> int:
     if args.all:
         forced = set(all_parts)
     needed: set[str] = set()
+    unused: set[str] = set()
     try:
         scope_ids, _ = update_m3u.epg_scope_order()
+        unused = unused_official_parts(update_m3u, scope_ids)
         existing = set(update_m3u.epg_fragments.read_dir(update_m3u.EPG_FRAGMENTS_DIR))
         for channel_id in scope_ids:
             if channel_id not in existing:
@@ -234,7 +248,10 @@ def command_plan(args: argparse.Namespace) -> int:
             needed |= update_m3u.epg_channel_parts(channel_id)
     except Exception as error:  # noqa: BLE001 (sin alcance, se planifica por ritmo)
         print(f"AVISO: no se pudo revisar canales sin fragmento: {error}", file=sys.stderr)
-    parts = due_parts(load_state(), all_parts, now_utc(), needed=needed, forced=forced)
+    if unused:
+        print("Fuentes oficiales sin canales (no se piden): " + ", ".join(sorted(unused)))
+    candidates = [part for part in all_parts if part not in unused or part in forced]
+    parts = due_parts(load_state(), candidates, now_utc(), needed=needed, forced=forced)
     print("Partes a renovar: " + (", ".join(parts) if parts else "ninguna"))
     write_output("parts", json.dumps(parts))
     write_output("any", "true" if parts else "false")
@@ -256,6 +273,12 @@ def command_record(args: argparse.Namespace) -> int:
     skip = set(update_m3u.EPG_ALLOWED_EMPTY_IDS) | {update_m3u.EPG_MAIN_LIVE_CHANNEL_ID}
     notices = build_notices(channel_horizons(load_index(), now, skip))
     state["avisos"] = {"updatedAt": stamp(now), "channels": notices}
+    try:
+        scope_ids, _ = update_m3u.epg_scope_order()
+        for part in unused_official_parts(update_m3u, scope_ids):
+            state["parts"].pop(part, None)
+    except Exception as error:  # noqa: BLE001 (sin alcance, el estado queda como estaba)
+        print(f"AVISO: no se pudieron quitar fuentes sin canales: {error}", file=sys.stderr)
     print_notices(notices)
     save_state(state)
     failed = sorted(part for part in planned if not results[part])
