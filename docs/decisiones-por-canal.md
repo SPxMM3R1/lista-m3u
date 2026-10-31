@@ -120,3 +120,4 @@
 ## Agregado el 2026-10-31
 
 - **480p con copia mejor (2026-10-31, aclaración del usuario)**: «copia en mejor calidad» es en Lista 1 **o** Lista 2. Una copia de Lista 2 en 480p o menos va a la papelera si el mismo canal está en Lista 1 en más resolución (medir ambos; comprobar identidad por fotograma si el nombre difiere). Si Lista 1 está igual o peor, la copia de Lista 2 se queda. Registro `contracts/lista2-480p-con-lista1-20261031.json`.
+- **Lista 2 sin Univision, UniMás, Telemundo, Pasiones ni novelas (2026-10-18, reiterado 2026-10-31)**: no se publican en Lista 2. Si se vuelve a recuperar la papelera, excluirlos (el 2026-10-28 volvieron 95 copias por esa vía). Registro `contracts/lista2-univision-telemundo-20261031.json`.
