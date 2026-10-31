@@ -177,6 +177,29 @@ def record(state: dict, planned: list[str], results: dict[str, bool], now: datet
     return state
 
 
+ALERT_MIN_FAILURES = 8
+
+
+def failing_sources(state: dict, min_failures: int = ALERT_MIN_FAILURES) -> list[dict]:
+    """Fuentes con ``min_failures`` o más fallos seguidos, la peor primero."""
+    rows = []
+    for part, entry in (state.get("parts") or {}).items():
+        failures = int(entry.get("failures", 0))
+        if failures >= min_failures:
+            rows.append({"part": part, "failures": failures,
+                         "lastSuccess": entry.get("lastSuccess"), "lastAttempt": entry.get("lastAttempt")})
+    return sorted(rows, key=lambda row: (-row["failures"], row["part"]))
+
+
+def alert_body(rows: list[dict], min_failures: int = ALERT_MIN_FAILURES) -> str:
+    lines = [f"Fuentes EPG con {min_failures} o más fallos seguidos (según `epg/estado.json`).",
+             "Cada canal conserva su última guía buena; esto avisa que la fuente no se renueva.", "",
+             "| Fuente | Fallos seguidos | Último éxito |", "|---|---|---|"]
+    for row in rows:
+        lines.append(f"| `{row['part']}` | {row['failures']} | {row['lastSuccess'] or 'nunca registrado'} |")
+    return "\n".join(lines) + "\n"
+
+
 def write_output(name: str, value: str) -> None:
     output = os.environ.get("GITHUB_OUTPUT")
     if output:
@@ -247,6 +270,16 @@ def command_record(args: argparse.Namespace) -> int:
     return 0
 
 
+def command_alerts(args: argparse.Namespace) -> int:
+    rows = failing_sources(load_state(), args.min_failures)
+    body = alert_body(rows, args.min_failures)
+    if args.body:
+        Path(args.body).write_text(body, encoding="utf-8")
+    print(body if rows else "Sin fuentes EPG con fallos seguidos.")
+    write_output("count", str(len(rows)))
+    return 0
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     sub = parser.add_subparsers(dest="command", required=True)
@@ -256,8 +289,11 @@ def main() -> int:
     rec = sub.add_parser("record")
     rec.add_argument("--planned", default="")
     rec.add_argument("--parts-dir", type=Path)
+    alerts = sub.add_parser("alerts")
+    alerts.add_argument("--min-failures", type=int, default=ALERT_MIN_FAILURES)
+    alerts.add_argument("--body", help="archivo donde escribir el cuerpo de la alerta")
     args = parser.parse_args()
-    return command_plan(args) if args.command == "plan" else command_record(args)
+    return {"plan": command_plan, "record": command_record, "alerts": command_alerts}[args.command](args)
 
 
 if __name__ == "__main__":

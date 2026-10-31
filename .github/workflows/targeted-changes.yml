@@ -81,6 +81,9 @@ jobs:
       - name: Ejecutar pruebas offline
         run: python -m unittest discover -s tests -p "test_*.py"
 
+      - name: Revisar deriva layout → órdenes publicados
+        run: node --test tests/derived-drift.test.mjs
+
       - name: Aplicar cambio dirigido del push
         if: github.event_name == 'push'
         env:

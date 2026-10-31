@@ -146,6 +146,16 @@ class DispatcherTest(unittest.TestCase):
         self.assertEqual([], epg_dispatch.due_parts(state, ["a", "b"], NOW + timedelta(minutes=5),
                                                     needed={"b"}))
 
+    def test_alert_lists_sources_with_repeated_failures(self):
+        state = epg_dispatch.record({"schema": 1, "parts": {}}, ["ok", "cae"], {"ok": True, "cae": False}, NOW)
+        for _ in range(epg_dispatch.ALERT_MIN_FAILURES - 1):
+            state = epg_dispatch.record(state, ["cae"], {"cae": False}, NOW)
+        rows = epg_dispatch.failing_sources(state)
+        self.assertEqual(["cae"], [row["part"] for row in rows])
+        self.assertIn("| `cae` | 8 | nunca registrado |", epg_dispatch.alert_body(rows))
+        state = epg_dispatch.record(state, ["cae"], {"cae": True}, NOW)
+        self.assertEqual([], epg_dispatch.failing_sources(state))
+
     def test_short_guides_leave_a_notice_and_renew_before_running_out(self):
         index = {"channels": [
             {"id": "corto", "name": "Corto", "lastStop": "2026-10-12T19:30:00Z"},

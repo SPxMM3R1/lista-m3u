@@ -1,0 +1,45 @@
+name: Alertas de fuentes EPG
+# Una vez al día revisa epg/estado.json: si una fuente lleva ALERT_MIN_FAILURES (8) o más
+# fallos seguidos, abre o actualiza la issue «Fuentes EPG caídas» (etiqueta epg-fuentes-caidas).
+# Cuando ya no queda ninguna, la cierra. No toca archivos del repo.
+on:
+  schedule:
+    - cron: "0 13 * * *"
+  workflow_dispatch:
+permissions:
+  contents: read
+  issues: write
+concurrency:
+  group: epg-alertas
+  cancel-in-progress: true
+jobs:
+  alertas:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Revisar fuentes
+        id: check
+        run: python epg_dispatch.py alerts --body alerta.md
+      - name: Abrir, actualizar o cerrar la issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          COUNT: ${{ steps.check.outputs.count }}
+        shell: bash
+        run: |
+          label=epg-fuentes-caidas
+          gh label create "$label" --color B60205 --description "Fuentes EPG con fallos seguidos" 2>/dev/null || true
+          number=$(gh issue list --label "$label" --state open --json number --jq '.[0].number // empty')
+          if [ "${COUNT:-0}" -gt 0 ]; then
+            if [ -n "$number" ]; then
+              gh issue edit "$number" --body-file alerta.md
+            else
+              gh issue create --title "Fuentes EPG caídas" --label "$label" --body-file alerta.md
+            fi
+          elif [ -n "$number" ]; then
+            gh issue close "$number" --comment "Todas las fuentes EPG volvieron a responder."
+          fi
