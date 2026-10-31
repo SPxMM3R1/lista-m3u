@@ -1,0 +1,842 @@
+{
+ "fecha": "2026-10-31",
+ "pedido": "«Aplica a ambas» (optimizar logos: lado máximo 512 px, PNG optimizado, mismo nombre y URL)",
+ "regla": "PNG fuera de logos/history/: si pasa de 512 px se reduce a 512 px por lado (si no queda más pesado); si no, se recomprime cuando pesa > 60 KB y baja al menos 10 %; los que seguían sobre 60 KB pasan a paleta de 256 colores sin tramado (palette_256)",
+ "logos": {
+  "logos/13cultura.png": {
+   "original_sha256": "b8429aa504aca9f437b9e966cefde61453ace6f0efa35ef642d5cd5ceac31ddd",
+   "optimized_sha256": "418fb39504b93e33ff4ff4520e2a0ac417459458764af5497f889838fe130490",
+   "original_bytes": 104088,
+   "optimized_bytes": 28271,
+   "original_size": [
+    1280,
+    1280
+   ],
+   "optimized_size": [
+    512,
+    512
+   ]
+  },
+  "logos/13go-mosca.png": {
+   "original_sha256": "297a58a3e3448854740c715b9fefe664c75730ec575c13fa3f10180eb3d1de81",
+   "optimized_sha256": "53f257d488bea1d393b36424298b88c647811960b4a3361e8abd288ca95ef311",
+   "original_bytes": 138096,
+   "optimized_bytes": 40462,
+   "original_size": [
+    1254,
+    1254
+   ],
+   "optimized_size": [
+    512,
+    512
+   ]
+  },
+  "logos/24-horas.png": {
+   "original_sha256": "83e55499ab7ea4631d357858eac7e916369efbf3eee9b75cc9408f604a964fa4",
+   "optimized_sha256": "d5c19ee1552b09aebe445ae24bb5c96f4426ef9f5537a8f18d5ca724f60f29a2",
+   "original_bytes": 57736,
+   "optimized_bytes": 56761,
+   "original_size": [
+    512,
+    516
+   ],
+   "optimized_size": [
+    508,
+    512
+   ]
+  },
+  "logos/arirang.png": {
+   "original_sha256": "90d59af57721e184453ff93d1a44ce4f96efe3e6ffb3275dc5d2203c68ec0501",
+   "optimized_sha256": "5a600365b0930e56b93a05dba6de972d1698ca411d8c3d34f5383ba18d47f57b",
+   "original_bytes": 57617,
+   "optimized_bytes": 25459,
+   "original_size": [
+    2872,
+    740
+   ],
+   "optimized_size": [
+    512,
+    132
+   ]
+  },
+  "logos/bbc-news-transparent.png": {
+   "original_sha256": "e16737285d33a3f07ce0772e094be5055e56ef718611d678788b95cb6aed7268",
+   "optimized_sha256": "840b166fef70604b57c1a92995415b644566558f729886d57d35b6e955a62ab9",
+   "original_bytes": 43483,
+   "optimized_bytes": 39181,
+   "original_size": [
+    781,
+    500
+   ],
+   "optimized_size": [
+    512,
+    328
+   ]
+  },
+  "logos/hbo2-usuario.png": {
+   "original_sha256": "c36b0ed5c589a19c56544aca5766e3d89bfcb856bdfe55cb9bdae71473a99e6f",
+   "optimized_sha256": "7f0657f745edd8fd082ca27f73ffd2c720bb44cec78b9646680aab1f711cbc92",
+   "original_bytes": 20538,
+   "optimized_bytes": 20428,
+   "original_size": [
+    671,
+    205
+   ],
+   "optimized_size": [
+    512,
+    156
+   ]
+  },
+  "logos/rewind-v2.png": {
+   "original_sha256": "6b1c26185ec9279cb3d3beaa6818f1e5ef90edca8ee4a8c6758d7963d0c00791",
+   "optimized_sha256": "0b948062aec814629ba039fc5835c87085d5aa152206a50be383db2f37c73d33",
+   "original_bytes": 722736,
+   "optimized_bytes": 7870,
+   "original_size": [
+    1254,
+    1254
+   ],
+   "optimized_size": [
+    512,
+    512
+   ],
+   "palette_256": true
+  },
+  "logos/sky-sport-f1-de.png": {
+   "original_sha256": "3e620d8c5fa859c1213891a7db9a5c3b1881f9b9f463df332f38edc15e07559e",
+   "optimized_sha256": "ebeb6007c5f69a018e1fdb503fd84ab52e9b45009b7cb2c3765285119a1ab253",
+   "original_bytes": 242073,
+   "optimized_bytes": 33287,
+   "original_size": [
+    1760,
+    280
+   ],
+   "optimized_size": [
+    512,
+    81
+   ]
+  },
+  "logos/sky-sports-f1-uhd.png": {
+   "original_sha256": "426c8f08c6494a89d87cfbd7356bd21b665e529737b682c943539b2dec70d815",
+   "optimized_sha256": "d0d7de0b01f97b4ce7eadd6b72278661181f7854d1bf29411208038fabb4b56c",
+   "original_bytes": 71240,
+   "optimized_bytes": 32729,
+   "original_size": [
+    1125,
+    377
+   ],
+   "optimized_size": [
+    512,
+    172
+   ]
+  },
+  "logos/sky-sports-f1.png": {
+   "original_sha256": "4de11219b27925a7fbb9a04be9c6e0137eaf119dcb83db607cf2f4f366571dbd",
+   "optimized_sha256": "addb6ef3167c0107dd10db899186d6e5caed22ceeb6b3dc85768286aa9de8f92",
+   "original_bytes": 82321,
+   "optimized_bytes": 42484,
+   "original_size": [
+    870,
+    377
+   ],
+   "optimized_size": [
+    512,
+    222
+   ]
+  },
+  "logos/sky-sports-main-event-uhd.png": {
+   "original_sha256": "5bc60dbaf0b4eefada781e22287784e28d05677800e4c4102b151d41a5e27802",
+   "optimized_sha256": "5b5d58fc8583f921c033c2ff3f8078c710db4177e9d6c3e251d00d07c1e59d3c",
+   "original_bytes": 88019,
+   "optimized_bytes": 44146,
+   "original_size": [
+    1125,
+    377
+   ],
+   "optimized_size": [
+    512,
+    172
+   ]
+  },
+  "logos/sky-sports-main-event.png": {
+   "original_sha256": "e45cc704da43d77265d050b14eec7f90a8463df16327d5b2b7b82a8951fa808c",
+   "optimized_sha256": "46fc5b9678921c5266f3c45655903bc9c4cc15ddbed80d7d30ae3c02397e4d41",
+   "original_bytes": 89705,
+   "optimized_bytes": 59728,
+   "original_size": [
+    870,
+    377
+   ],
+   "optimized_size": [
+    512,
+    222
+   ]
+  },
+  "logos/sky-sports-premier-league.png": {
+   "original_sha256": "f43116b0f2dcc52d52a868283447b8e2d5d11d66d5d3b2b4b1aa27fa1e657e4a",
+   "optimized_sha256": "f1b16e9b89e4e50bd63f7d883ac59b249f13265b850a0e92407aa00076775188",
+   "original_bytes": 109747,
+   "optimized_bytes": 59873,
+   "original_size": [
+    870,
+    377
+   ],
+   "optimized_size": [
+    512,
+    222
+   ]
+  },
+  "logos/sky-sports-tennis.png": {
+   "original_sha256": "21403880442a39958a5ab0cc4d5b631db23d522a8a278f04368c69a952c7f4b4",
+   "optimized_sha256": "ac7688c31b85bd9b5b9be7f47a3927dfb253e4a6a8596111f42a3d2573793ab4",
+   "original_bytes": 86752,
+   "optimized_bytes": 45159,
+   "original_size": [
+    870,
+    377
+   ],
+   "optimized_size": [
+    512,
+    222
+   ]
+  },
+  "logos/stingray-concerts.png": {
+   "original_sha256": "e30842b34e6b1326c3e627ae3f305b6f8d777a5bfe646668b118b579375afb3b",
+   "optimized_sha256": "f59d42645070e2b94ca29ff96eb57622aadd73e309337e2b34e17394023ec32c",
+   "original_bytes": 382341,
+   "optimized_bytes": 51394,
+   "original_size": [
+    1774,
+    887
+   ],
+   "optimized_size": [
+    512,
+    256
+   ]
+  },
+  "logos/totalmusic-2000s.png": {
+   "original_sha256": "b770fa2dd8d0ef1429204ee2e6b4827aafc3fd069ba6d49c8cdb12486ab0aaa2",
+   "optimized_sha256": "ecd74fb8e119c812ea85644621fb66c2ddfe3fa6b295e48c2ac77220adb2fef5",
+   "original_bytes": 107167,
+   "optimized_bytes": 36678,
+   "original_size": [
+    3965,
+    1114
+   ],
+   "optimized_size": [
+    512,
+    144
+   ]
+  },
+  "logos/totalmusic-80s.png": {
+   "original_sha256": "b949bff591085220e14aa8ba9fffbb404f8d13d82167d0deac76f76f9000379d",
+   "optimized_sha256": "62bfd22c93e913cf65bacc5f4b220c5036d72fc7c02d655fc0f71566d58c6df6",
+   "original_bytes": 246531,
+   "optimized_bytes": 50275,
+   "original_size": [
+    1920,
+    737
+   ],
+   "optimized_size": [
+    512,
+    197
+   ]
+  },
+  "logos/totalmusic-concerts.png": {
+   "original_sha256": "be90a80111a091118c2e5c54a442a02aab27895cfc65d44467787942c4deaf3b",
+   "optimized_sha256": "08d4da435a5a6e9e0422e44e3237b94252ec5c0de84c769e2fccc188b81b70f0",
+   "original_bytes": 50119,
+   "optimized_bytes": 33754,
+   "original_size": [
+    4096,
+    2304
+   ],
+   "optimized_size": [
+    512,
+    288
+   ]
+  },
+  "logos/totalmusic-dance.png": {
+   "original_sha256": "8b82595602125cf85ab6bb5c31c3e87470c5f3468af74d09c2b8bab845dda6ab",
+   "optimized_sha256": "ae031b5a8f84579f81af346f992b40b78b45d66ede871705822da3952c007bb0",
+   "original_bytes": 44916,
+   "optimized_bytes": 29045,
+   "original_size": [
+    4096,
+    2304
+   ],
+   "optimized_size": [
+    512,
+    288
+   ]
+  },
+  "logos/catalogue/amclatinamerica-us.png": {
+   "original_sha256": "6da084f825659b4e7d0e462fee3275f3139e1c75415d6ca65e66022d446d90f0",
+   "optimized_sha256": "5b605cc5bc86294dcf751f757c84ad865c448c18a1d17345a8799015b3c2861a",
+   "original_bytes": 12806,
+   "optimized_bytes": 10680,
+   "original_size": [
+    960,
+    540
+   ],
+   "optimized_size": [
+    512,
+    288
+   ]
+  },
+  "logos/catalogue/animalplanetlatinamerica-us.png": {
+   "original_sha256": "464514a7806510e97cba52383c09f2a2893ad71dd744f440ea9aac0c64f8a170",
+   "optimized_sha256": "f2990656ac564aad6aa96a5d6b544571e6e20291f11b9f1d7bc7ee69923ec484",
+   "original_bytes": 26889,
+   "optimized_bytes": 24343,
+   "original_size": [
+    960,
+    564
+   ],
+   "optimized_size": [
+    512,
+    301
+   ]
+  },
+  "logos/catalogue/aymsports-mx.png": {
+   "original_sha256": "5a1982930fb9dc8c8b1bbaa7ac02642564437145b61dfb3b605b7b555f49368c",
+   "optimized_sha256": "ef7be85fce32eb5172455c2037fa36082813003be858b3a2ad36079a1872615a",
+   "original_bytes": 184569,
+   "optimized_bytes": 32004,
+   "original_size": [
+    512,
+    465
+   ],
+   "optimized_size": [
+    512,
+    465
+   ],
+   "palette_256": true
+  },
+  "logos/catalogue/canal7-gt.png": {
+   "original_sha256": "c37f95c10b70199cd4eea3107a16c3abba3e18e26d040c0e44cd592ee742d2a3",
+   "optimized_sha256": "b639928454c8ecd42e6b2f0ebf004fa979eeed5d1d110f6fba02e3efca394b83",
+   "original_bytes": 82271,
+   "optimized_bytes": 60008,
+   "original_size": [
+    867,
+    614
+   ],
+   "optimized_size": [
+    512,
+    363
+   ]
+  },
+  "logos/catalogue/cartoonitolatinamerica-us.png": {
+   "original_sha256": "186695d0e85e8f43d1bd269d25a886859046dfa9c4b5fde257b4010467b505a6",
+   "optimized_sha256": "e3cb7ebc79d8624c22ca1a94f570a6e9b9e288b44c5807099ef031a4f12a11c1",
+   "original_bytes": 18054,
+   "optimized_bytes": 15067,
+   "original_size": [
+    960,
+    213
+   ],
+   "optimized_size": [
+    512,
+    114
+   ]
+  },
+  "logos/catalogue/cartoonnetworklatinamerica-us.png": {
+   "original_sha256": "dea066a08fbed902c08aa2fea0d642f4bd0ce8c80e87e16e12e0f67047cb6cc4",
+   "optimized_sha256": "ddd1b3de0649b48de5cd49a6bec0a6b8c3ffd7ed8a8f118f5cb13e6b92acd9cd",
+   "original_bytes": 19736,
+   "optimized_bytes": 15915,
+   "original_size": [
+    960,
+    557
+   ],
+   "optimized_size": [
+    512,
+    297
+   ]
+  },
+  "logos/catalogue/cinecanal-us.png": {
+   "original_sha256": "b92de53a1ba1b86ebce940d5a1578adbc7ec227bdb2bc65ac3f393c7de945236",
+   "optimized_sha256": "f2ce77ae71ca08df8af798ace7fcde8c297ca8c41f348c949b6d454ed58ba8b7",
+   "original_bytes": 23167,
+   "optimized_bytes": 14651,
+   "original_size": [
+    960,
+    518
+   ],
+   "optimized_size": [
+    512,
+    276
+   ]
+  },
+  "logos/catalogue/cnnchile-cl.png": {
+   "original_sha256": "466c7d9d4c3f8e318d76dddffaf2e0e94f02292af076b15e4c6a681b143d7b56",
+   "optimized_sha256": "5ef40d8f47f584f2f45c7dc00fca11492f2b0ffb7bcc6295d43ca19da69d94a1",
+   "original_bytes": 66737,
+   "optimized_bytes": 49268,
+   "original_size": [
+    512,
+    403
+   ],
+   "optimized_size": [
+    512,
+    403
+   ]
+  },
+  "logos/catalogue/discoverychannellatinamerica-us.png": {
+   "original_sha256": "6d42cd67796a2a723561637ac866cebce6ccbea58cbb66454921637494508f83",
+   "optimized_sha256": "363497e0299dbf75399cbc729024b7c22632c116dfe513acf43268bbc0db2156",
+   "original_bytes": 15670,
+   "optimized_bytes": 11729,
+   "original_size": [
+    960,
+    199
+   ],
+   "optimized_size": [
+    512,
+    106
+   ]
+  },
+  "logos/catalogue/discoveryhomehealthlatinamerica-mx.png": {
+   "original_sha256": "cb5239c12ce03184c8bf50d3cc9bec9bc1204fd5331314ac97d9492e08ef6c46",
+   "optimized_sha256": "d6c8fedcca2e23cc3c2d02c66b119c4d2c095d8d5609c958acbe5487510a95d2",
+   "original_bytes": 215947,
+   "optimized_bytes": 9519,
+   "original_size": [
+    960,
+    605
+   ],
+   "optimized_size": [
+    512,
+    323
+   ],
+   "palette_256": true
+  },
+  "logos/catalogue/discoverykidslatinamerica-us.png": {
+   "original_sha256": "387f33e09217edbbf2c30a3975ae7569f5ddd4dabea37d5563090811cf31cbd9",
+   "optimized_sha256": "287d73c10d8614eadc248c05892db85707c1b9766bd75e0121f728bef76dca00",
+   "original_bytes": 48882,
+   "optimized_bytes": 47790,
+   "original_size": [
+    960,
+    981
+   ],
+   "optimized_size": [
+    501,
+    512
+   ]
+  },
+  "logos/catalogue/elatinamerica-us.png": {
+   "original_sha256": "3e352e646006efcebb0633eb85d4a1bef91be8e0e35b75f3f3f01bf095850c70",
+   "optimized_sha256": "8ef39a51d063de456ae6953b73f0ac65d3f624574d00ed43f914977da00b8c4a",
+   "original_bytes": 107105,
+   "optimized_bytes": 20616,
+   "original_size": [
+    500,
+    1607
+   ],
+   "optimized_size": [
+    159,
+    512
+   ]
+  },
+  "logos/catalogue/fxlatinamerica-us.png": {
+   "original_sha256": "a45a294253044cf25c4ad9e0b5365c2c0d32499c8f3c5a6fa8b7cf397354411e",
+   "optimized_sha256": "76c8afd13c09186a6b71efdf0005231db9b370f33ab47cff0951365b6d2853eb",
+   "original_bytes": 10196,
+   "optimized_bytes": 7541,
+   "original_size": [
+    960,
+    573
+   ],
+   "optimized_size": [
+    512,
+    306
+   ]
+  },
+  "logos/catalogue/golfchannellatinamerica-us.png": {
+   "original_sha256": "29952bfe063df59a8a9a5caa9ed96c14dfd28c39ac8997c55bf45c9e65ed4f93",
+   "optimized_sha256": "dde65ddc5bab874fc2cf91144dd8c9f3bd33559844cf3c64daf8345dc82ce779",
+   "original_bytes": 129693,
+   "optimized_bytes": 51392,
+   "original_size": [
+    960,
+    203
+   ],
+   "optimized_size": [
+    512,
+    108
+   ]
+  },
+  "logos/catalogue/guatevision-gt.png": {
+   "original_sha256": "8392b45b4dfcad54a9e8d325b6b63141f37c84cdbf317db1d6d9790adfb0f64e",
+   "optimized_sha256": "836b66f614c5bf16b675cf123b6b8f2cf4a1bb5566e31c906701029f3dbf07b5",
+   "original_bytes": 61580,
+   "optimized_bytes": 52696,
+   "original_size": [
+    511,
+    196
+   ],
+   "optimized_size": [
+    511,
+    196
+   ]
+  },
+  "logos/catalogue/hbo2latinamerica-us.png": {
+   "original_sha256": "ce01cee671720b3009e5a89be8b11178bf69e75c00c137c233029fc3971ac9b4",
+   "optimized_sha256": "971b4005c8461dadec0f4e9148e488bec4685a10dfb97067f255bb35aa1f8652",
+   "original_bytes": 21402,
+   "optimized_bytes": 19540,
+   "original_size": [
+    960,
+    290
+   ],
+   "optimized_size": [
+    512,
+    155
+   ]
+  },
+  "logos/catalogue/hbofamilylatinamerica-us.png": {
+   "original_sha256": "51bcc4ca121254b1279e4b0a51c2c1fdfb34d8354de95d164ca65fdd21e02dc0",
+   "optimized_sha256": "797413d150113ec84b70d76e65c4ec5e6b5d28d106871cdfe0663c231212f7ea",
+   "original_bytes": 29260,
+   "optimized_bytes": 24147,
+   "original_size": [
+    960,
+    744
+   ],
+   "optimized_size": [
+    512,
+    397
+   ]
+  },
+  "logos/catalogue/hbolatinamerica-us.png": {
+   "original_sha256": "33ffa429b962ae872272cf580abf361dd68625654fc0317d17328e709f0e873c",
+   "optimized_sha256": "474fc6df49fa8447f5f4112075806229eebbbadd21239d3872625cb1c2fcef31",
+   "original_bytes": 12810,
+   "optimized_bytes": 10357,
+   "original_size": [
+    960,
+    396
+   ],
+   "optimized_size": [
+    512,
+    211
+   ]
+  },
+  "logos/catalogue/hbomundilatinamerica-us.png": {
+   "original_sha256": "973615502094b80eac180d30c212f327e31df097d702b65220bd318e1ff68876",
+   "optimized_sha256": "c790800cbb50645211bea37bb5aea46da9e1d002728c5d8dc1b284ca59732b3d",
+   "original_bytes": 20771,
+   "optimized_bytes": 16492,
+   "original_size": [
+    960,
+    655
+   ],
+   "optimized_size": [
+    512,
+    349
+   ]
+  },
+  "logos/catalogue/hbopluslatinamerica-us.png": {
+   "original_sha256": "530fac862c24a4b016e8b1406006fe4fece7c184fde0d55dff9a30e32f268bd5",
+   "optimized_sha256": "037b4509967b3594e03db0fe7e4cb27d92b176c67fd6c1673daedf342731ef82",
+   "original_bytes": 18013,
+   "optimized_bytes": 17381,
+   "original_size": [
+    960,
+    308
+   ],
+   "optimized_size": [
+    512,
+    164
+   ]
+  },
+  "logos/catalogue/hbopoplatinamerica-us.png": {
+   "original_sha256": "d6528beac08081f5922202adca87845f67968840831fb1991e4a6128a0c5f3b1",
+   "optimized_sha256": "f2c9a3ad165fdd8f78566df0ed49d8210a122c14998b73c098ab1aff3b15fd7b",
+   "original_bytes": 20351,
+   "optimized_bytes": 16334,
+   "original_size": [
+    960,
+    697
+   ],
+   "optimized_size": [
+    512,
+    372
+   ]
+  },
+  "logos/catalogue/hboxtremelatinamerica-us.png": {
+   "original_sha256": "b22fb56297cae9f075ef6017c67cf4df0e5f8218aa010168a504e0d8f425ec77",
+   "optimized_sha256": "13465737a27996191359b17891404c18d840ac979fddfdab8130789e36e421a2",
+   "original_bytes": 27040,
+   "optimized_bytes": 21695,
+   "original_size": [
+    960,
+    649
+   ],
+   "optimized_size": [
+    512,
+    346
+   ]
+  },
+  "logos/catalogue/investigationdiscoverylatinamerica-us.png": {
+   "original_sha256": "810c402cdf75a057dfe1cfe1ad91ac2bdc91e9be3a231875e5774d514c395cb1",
+   "optimized_sha256": "338c098b524634335ef4177ae06554917987bb7cfa184d7f8e28dd395afb67e0",
+   "original_bytes": 27434,
+   "optimized_bytes": 21328,
+   "original_size": [
+    960,
+    550
+   ],
+   "optimized_size": [
+    512,
+    293
+   ]
+  },
+  "logos/catalogue/lifetimelatinamerica-us.png": {
+   "original_sha256": "1bcb173aa43113f7e237e8e5ae02c2aa62fd5badfcf5ec96b3d167349df1393a",
+   "optimized_sha256": "708198dcbe33b3969b43e1e451e66714172fda176784e571fdf880110d026ba9",
+   "original_bytes": 36357,
+   "optimized_bytes": 36153,
+   "original_size": [
+    960,
+    292
+   ],
+   "optimized_size": [
+    512,
+    156
+   ]
+  },
+  "logos/catalogue/nationalgeographiclatinamerica-us.png": {
+   "original_sha256": "562182afb02a2d1b2fb16496fde207d70e8f845425ea66c95caaebd986602990",
+   "optimized_sha256": "49ea86a484a95558f1e596aa308ce1d8e3abbb3ce9a2bd840536c6b1f3b1f836",
+   "original_bytes": 19589,
+   "optimized_bytes": 17530,
+   "original_size": [
+    960,
+    283
+   ],
+   "optimized_size": [
+    512,
+    151
+   ]
+  },
+  "logos/catalogue/rhematv-gt.png": {
+   "original_sha256": "d05ed1f948c9b07d1124d7c444f84ee80a7e2a546f5b6a41962007adb8ec436b",
+   "optimized_sha256": "1cb0974451f977fe1513b991f4f2c0ee726c8b37dfe2256780e87c32f62b34cd",
+   "original_bytes": 148306,
+   "optimized_bytes": 16649,
+   "original_size": [
+    512,
+    459
+   ],
+   "optimized_size": [
+    512,
+    459
+   ],
+   "palette_256": true
+  },
+  "logos/catalogue/sonychannelandes-us.png": {
+   "original_sha256": "61a7ee5a9a86caa329e48539fcf1ba5a22aec62808c66f4917321ba194e01c88",
+   "optimized_sha256": "7a73a683effe890e4b8507e371a479c7bc0ead800ec863332c5f3231125dc885",
+   "original_bytes": 352821,
+   "optimized_bytes": 16878,
+   "original_size": [
+    960,
+    960
+   ],
+   "optimized_size": [
+    512,
+    512
+   ],
+   "palette_256": true
+  },
+  "logos/catalogue/starchannellatinamerica-us.png": {
+   "original_sha256": "b3a4de81be127d073cc0990e3c1efc56772634fd602793cc71d911d6c8087136",
+   "optimized_sha256": "7d8ada72095b22aeed2e7f842d5446aab921256ddd296a43d36ee2380fdb792e",
+   "original_bytes": 43996,
+   "optimized_bytes": 38680,
+   "original_size": [
+    960,
+    555
+   ],
+   "optimized_size": [
+    512,
+    296
+   ]
+  },
+  "logos/catalogue/studiouniversallatinamerica-us.png": {
+   "original_sha256": "5bf03323a08e5b8e95db8bcdaf628a63fbc96ad069e8a15f59ebfde2d757da4c",
+   "optimized_sha256": "df05a501b389cb987d0f637ce95908dc99d605b667ab31ee44797ddc9a4ede51",
+   "original_bytes": 29030,
+   "optimized_bytes": 13207,
+   "original_size": [
+    960,
+    285
+   ],
+   "optimized_size": [
+    512,
+    152
+   ]
+  },
+  "logos/catalogue/studiouniversallatinamerica-white.png": {
+   "original_sha256": "e94c529f4fbec9b02cbbfc4a746a5ddf9de2e8cc31c9ba64502f5ee54c41396e",
+   "optimized_sha256": "578fed6027038aae296aa0cfaa233efed73dc983fcd666f37ecb20b82dc550d1",
+   "original_bytes": 25989,
+   "optimized_bytes": 11176,
+   "original_size": [
+    960,
+    285
+   ],
+   "optimized_size": [
+    512,
+    152
+   ]
+  },
+  "logos/catalogue/tlclatinamerica-us.png": {
+   "original_sha256": "65166094b50be01a24702b480ea5a289ce34f24c5d8b117517c94dcdddfc7984",
+   "optimized_sha256": "21b91c951c11b1b89581f22516bf0b18450ac70b36bf46e1c7a8787c6b89fc97",
+   "original_bytes": 15324,
+   "optimized_bytes": 13028,
+   "original_size": [
+    960,
+    461
+   ],
+   "optimized_size": [
+    512,
+    246
+   ]
+  },
+  "logos/catalogue/tntlatinamerica-us.png": {
+   "original_sha256": "38ed8af47d56121247d0782ad62d767725434c4857ed586c38d43a67da17a4b8",
+   "optimized_sha256": "23ff6df46542ba97b678cd93656d785e61d826d38b4e1dbad9befcbf7f853ebc",
+   "original_bytes": 16602,
+   "optimized_bytes": 12475,
+   "original_size": [
+    960,
+    960
+   ],
+   "optimized_size": [
+    512,
+    512
+   ]
+  },
+  "logos/catalogue/tntnovelas-us.png": {
+   "original_sha256": "7931ec9f29ff4f86895abdb767b585b978155374f7955b4b0b003b20dd23ee43",
+   "optimized_sha256": "b493cac928f343d7dc610d97e862e727a45d0e10182fb79fc2a17989ac4bd81a",
+   "original_bytes": 46337,
+   "optimized_bytes": 21715,
+   "original_size": [
+    1920,
+    540
+   ],
+   "optimized_size": [
+    512,
+    144
+   ]
+  },
+  "logos/catalogue/universaltvlatinamerica-us.png": {
+   "original_sha256": "c18e195a025676f5278555281687d66fe2fa2aad3611e71eebb9a831b664ce86",
+   "optimized_sha256": "b2a8b03d6e691cc5276e5fb3875089329920c05eb2b679835a06d08d911736bd",
+   "original_bytes": 44090,
+   "optimized_bytes": 39236,
+   "original_size": [
+    960,
+    528
+   ],
+   "optimized_size": [
+    512,
+    282
+   ]
+  },
+  "logos/catalogue/univisionlatinamerica-mx.png": {
+   "original_sha256": "7c6065c4054f8f3e15577a504dcf4307c038f3d3d80d06b5ac7d732df765560d",
+   "optimized_sha256": "9d9500a73146c8b3a3b441656025b113077e5d380e0df8b009790cde4f6f786e",
+   "original_bytes": 46112,
+   "optimized_bytes": 37589,
+   "original_size": [
+    960,
+    794
+   ],
+   "optimized_size": [
+    512,
+    423
+   ]
+  },
+  "logos/catalogue/warnerchannel-us.png": {
+   "original_sha256": "6872c0cf2a1de83824eec499fe93853401ae659e9601aa0bfb00322f2d3d65aa",
+   "optimized_sha256": "b997d05280eaa5642f21ac8202567d51d71207ab6a2944bf9ed5899983ed4e75",
+   "original_bytes": 35302,
+   "optimized_bytes": 27308,
+   "original_size": [
+    960,
+    896
+   ],
+   "optimized_size": [
+    512,
+    478
+   ]
+  },
+  "logos/catalogue/babytv-uk.png": {
+   "original_sha256": "69bf073e12c3917994ea11139b71bb7cc8a4e2d9f3bd5cf06cfd309d80922cce",
+   "original_bytes": 130619,
+   "original_size": [
+    353,
+    353
+   ],
+   "optimized_sha256": "7c946abbcc8fdcc037169c6e255dafb9419cefa8921aed985a5c89ed59911f26",
+   "optimized_bytes": 22191,
+   "optimized_size": [
+    353,
+    353
+   ],
+   "palette_256": true
+  },
+  "logos/catalogue/esportsmaxtv-ve.png": {
+   "original_sha256": "7c8103c31ea00c5a1a0782e849ec6073e83beae4c7d1d3ece604df4a34813d4b",
+   "original_bytes": 70221,
+   "original_size": [
+    387,
+    379
+   ],
+   "optimized_sha256": "582603c0ba0558bc1fb429e0fbdb44239f7bf0034870d83415438b6984b8f4c8",
+   "optimized_bytes": 18162,
+   "optimized_size": [
+    387,
+    379
+   ],
+   "palette_256": true
+  },
+  "logos/catalogue/fox-sports-2-lam.png": {
+   "original_sha256": "445511552cb006728d395779a9b6a5aeff1a328424a96e8121bdc87e7c802e0a",
+   "original_bytes": 76160,
+   "original_size": [
+    512,
+    231
+   ],
+   "optimized_sha256": "006b000f179663fa6ba4ca1df164d001ad117a0363ed4ba336098c3b963fc079",
+   "optimized_bytes": 13798,
+   "optimized_size": [
+    512,
+    231
+   ],
+   "palette_256": true
+  },
+  "logos/catalogue/sonymovieslatinamerica-us.png": {
+   "original_sha256": "76e902c6d49ae76b2f26d9d08d1b01a3f8c0dc54cfc21f1f967b5bca02006b66",
+   "original_bytes": 96860,
+   "original_size": [
+    500,
+    502
+   ],
+   "optimized_sha256": "2f54ee3740f3c1ca7142b09bb3bcda49db2c50593ea54dd3b68baa71ede367d8",
+   "optimized_bytes": 12920,
+   "optimized_size": [
+    500,
+    502
+   ],
+   "palette_256": true
+  }
+ }
+}

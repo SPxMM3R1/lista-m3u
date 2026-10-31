@@ -91,6 +91,7 @@ agente debe poder retomar el trabajo solo con lo que está en el repositorio.
 - `deploy-site.yml` publica el editor en GitHub Pages cuando cambian `site/**` o `scripts/build_site_data.py`.
 - **Alertas de fuentes EPG (2026-10-31)**: `epg-alertas.yml` corre a diario (13:00 UTC) `python epg_dispatch.py alerts`: si una fuente de `epg/estado.json` lleva `ALERT_MIN_FAILURES` (8) o más fallos seguidos, abre o actualiza la issue «Fuentes EPG caídas» (etiqueta `epg-fuentes-caidas`) y la cierra cuando vuelven todas. No escribe en el repo.
 - **Deriva layout → órdenes (2026-10-31)**: `tests/derived-drift.test.mjs` (también en `targeted-changes.yml`) exige que los órdenes de Lista 1/2 en `presentation-overrides.json` salgan del layout: puede faltar una fila activa (el runner quita las no disponibles), nunca sobrar una borrada ni cambiar el orden. Excepción declarada: `EXTERNAL_DASH_TAIL_CHANNEL_IDS` (DASH) va al final de Lista 2; las sondas deportivas ya no (2026-10-31).
+- **Logos livianos (2026-10-31)**: fuera de `logos/history/`, ningún PNG pasa de 64 KB y uno de más de 512 px debe pesar ≤ 40 KB (`tests/test_logo_size.py`). Un logo nuevo: lado máximo 512 px, `optimize=True` y, si sigue pesado, paleta de 256 colores. Registro con hash original → optimizado: `contracts/logos-optimizados-20261031.json` (la prueba de `trial-officialization` lo acepta).
 - `outputs/` está en `.gitignore` (2026-10-31): fotogramas, propuestas y auditorías locales no se publican; lo que deba quedar va a `contracts/` o `docs/`.
 
 ## Reglas funcionales vigentes

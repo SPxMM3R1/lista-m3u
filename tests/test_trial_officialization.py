@@ -8,6 +8,7 @@ import update_m3u as runner
 
 ROOT=Path(__file__).resolve().parents[1]
 AUDIT=ROOT/'contracts/trial-officialization-20261013.json'
+OPTIMIZED=json.loads((ROOT/'contracts/logos-optimizados-20261031.json').read_text(encoding='utf-8'))['logos']
 
 class TrialOfficializationTest(unittest.TestCase):
     def test_authorization_is_closed_to_exact_existing_references(self):
@@ -248,7 +249,14 @@ class TrialOfficializationTest(unittest.TestCase):
         for asset in audit['assets']:
             self.assertTrue(asset['path'].startswith('logos/catalogue/'))
             self.assertTrue(asset['path'].endswith(('.png','.svg')))
-            self.assertEqual(asset['sha256'],hashlib.sha256((ROOT/asset['path']).read_bytes()).hexdigest())
+            # Logos optimizados el 2026-10-31: se acepta la versión liviana solo si el
+            # contrato de optimización registra la cadena original -> optimizado.
+            current=hashlib.sha256((ROOT/asset['path']).read_bytes()).hexdigest()
+            optimized=OPTIMIZED.get(asset['path'],{})
+            if optimized.get('original_sha256')==asset['sha256']:
+                self.assertEqual(optimized['optimized_sha256'],current)
+            else:
+                self.assertEqual(asset['sha256'],current)
             self.assertTrue(asset['url'].startswith('https://'))
 
 if __name__=='__main__': unittest.main()
