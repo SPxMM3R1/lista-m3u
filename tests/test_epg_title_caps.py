@@ -12,7 +12,7 @@ class EpgTitleCapsTest(unittest.TestCase):
         self.assertEqual("NFL: Partido Del Día", update_m3u.normalize_epg_title("NFL: PARTIDO DEL DÍA"))
 
     def test_letter_after_colon_is_uppercase(self) -> None:
-        self.assertEqual("Fútbol: La final", update_m3u.normalize_epg_title("Fútbol: la final"))
+        self.assertEqual("Noticias: La final", update_m3u.normalize_epg_title("Noticias: la final"))
         self.assertEqual("Noticias: Edición Central", update_m3u.normalize_epg_title("NOTICIAS: EDICIÓN CENTRAL"))
 
     def test_known_acronyms_uppercase_in_mixed_titles(self) -> None:
@@ -31,6 +31,28 @@ class EpgTitleCapsTest(unittest.TestCase):
 
     def test_normal_text_is_untouched(self) -> None:
         self.assertEqual("La ley y el orden", update_m3u.normalize_epg_title("La ley y el orden"))
+
+    def test_category_prefixes_are_removed(self) -> None:
+        # 2026-10-31, pedido del usuario: el partido «directamente», sin la liga delante.
+        cases = {
+            "Fútbol Chileno Primera División : Coquimbo Unido vs. CD Unión La Calera":
+                "Coquimbo Unido vs. CD Unión La Calera",
+            "Baloncesto NBA : Portland Trail Blazers vs. Los Angeles Lakers":
+                "Portland Trail Blazers vs. Los Angeles Lakers",
+            "Fútbol: Previa : Liga de Primera 2026": "Previa: Liga de Primera 2026",
+            "Live: WTA Tokyo Final": "WTA Tokyo Final",
+            "Live PL: Liverpool v Arsenal": "Liverpool v Arsenal",
+            "Live NBA: Thunder @ Cavaliers": "Thunder @ Cavaliers",
+            "SNF: Aston Villa v Fulham Hlts": "Aston Villa v Fulham Hlts",
+            "Replay : Históricos clásicos universitarios": "Replay: Históricos clásicos universitarios",
+        }
+        for source, expected in cases.items():
+            self.assertEqual(expected, update_m3u.normalize_epg_title(source), source)
+
+    def test_names_that_belong_to_the_title_stay(self) -> None:
+        for title in ("Live", "UFC 333: Volkanovski vs Evloev", "Duelo de parrillas: Flay vs. Symon",
+                      "Maze Runner: La cura mortal", "Fútbol Chileno Primera División", "CSI: Miami"):
+            self.assertEqual(title, update_m3u.normalize_epg_title(title))
 
 
 if __name__ == "__main__":

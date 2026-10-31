@@ -5657,9 +5657,37 @@ def _capitalize_after_colon(title: str) -> str:
     )
 
 
+# Prefijos que sobran en los títulos (2026-10-31, pedido del usuario: «que diga
+# directamente» el partido). Deporte o liga antes de un partido, el deporte solo como
+# prefijo y «Live» delante. Los subtítulos de películas y series («Maze Runner: La cura
+# mortal») y los nombres de evento («UFC 333: …») no se tocan.
+EPG_TITLE_SPORT = (
+    r"(?:F[úu]tbol|Baloncesto|B[áa]squetbol|Tenis|Rugby|Hockey|V[óo]leibol|B[ée]isbol|Balonmano)"
+)
+EPG_TITLE_MATCH = re.compile(r"\S\s+(?:vs\.?|v\.?|@)\s+\S", re.IGNORECASE)
+EPG_TITLE_LEAGUE_HEAD = re.compile(
+    rf"^(?:{EPG_TITLE_SPORT}\b[^:|]{{0,45}}|[A-Z]{{2,5}}|Serie A)\s*:\s+(?P<rest>.+)$"
+)
+EPG_TITLE_SPORT_ONLY_HEAD = re.compile(rf"^{EPG_TITLE_SPORT}\s*:\s+(?P<rest>.+)$", re.IGNORECASE)
+EPG_TITLE_LIVE_HEAD = re.compile(r"^Live(?::\s+|\s+(?=[^:]{1,30}:\s))")
+
+
+def strip_epg_title_prefixes(title: str) -> str:
+    """Quita los prefijos de categoría que no aportan al título."""
+    title = EPG_TITLE_LIVE_HEAD.sub("", title, count=1)
+    sport_only = EPG_TITLE_SPORT_ONLY_HEAD.match(title)
+    if sport_only:
+        title = sport_only.group("rest")
+    league = EPG_TITLE_LEAGUE_HEAD.match(title)
+    if league and EPG_TITLE_MATCH.search(league.group("rest")):
+        title = league.group("rest")
+    return re.sub(r"\s+:\s+", ": ", title).strip()
+
+
 def normalize_epg_title(value: object) -> str:
     """Make all-uppercase source titles readable without changing normal text."""
     title = html.unescape(re.sub(r"\s+", " ", str(value or ""))).strip()
+    title = strip_epg_title_prefixes(title)
     letters = [character for character in title if character.isalpha()]
     if not title or not letters or not all(character.isupper() for character in letters):
         return _capitalize_after_colon(_uppercase_known_acronyms(title))
