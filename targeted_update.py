@@ -584,7 +584,7 @@ def apply_presentation(
     )
     updated[PROJECT_ROOT / "m3u-externa.m3u"] = update_m3u.move_external_research_blocks_to_end(
         updated[PROJECT_ROOT / "m3u-externa.m3u"],
-        update_m3u.EXTERNAL_RESEARCH_TAIL_CHANNEL_IDS,
+        frozenset(),
         update_m3u.EXTERNAL_DASH_TAIL_CHANNEL_IDS,
     )
     _validate_partition(updated)

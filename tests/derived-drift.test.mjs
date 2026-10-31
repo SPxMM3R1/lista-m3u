@@ -8,9 +8,9 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { buildPresentationOverrides } from "../site/editor-core.mjs";
 
-// Excepción vigente: update_m3u.EXTERNAL_RESEARCH_TAIL_CHANNEL_IDS (sondas deportivas de
-// 2026-09-13) van al final de Lista 2 a propósito. Si esa regla cambia, actualizar aquí.
-const RESEARCH_TAIL = /@Direct(FreeCast|CDN77|Linear|Tubi|45|170)$/;
+// Excepción vigente: update_m3u.EXTERNAL_DASH_TAIL_CHANNEL_IDS va al final de Lista 2 a
+// propósito (formato DASH). Si esa regla cambia, actualizar aquí.
+const DASH_TAIL = new Set(["MNBSport.mn@DirectDASH"]);
 
 const read = (path) => JSON.parse(readFileSync(new URL(`../${path}`, import.meta.url), "utf8"));
 
@@ -23,7 +23,7 @@ test("los órdenes de Lista 1 y Lista 2 salen del layout", () => {
     const expected = new Set(generated[file]);
     const extra = published.filter((id) => !expected.has(id));
     assert.deepEqual(extra, [], `${file}: filas publicadas que el layout no tiene activas`);
-    const ordered = published.filter((id) => !RESEARCH_TAIL.test(id));
+    const ordered = published.filter((id) => !DASH_TAIL.has(id));
     const kept = new Set(ordered);
     assert.deepEqual(ordered, generated[file].filter((id) => kept.has(id)), `${file}: orden distinto al del layout`);
   }

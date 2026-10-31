@@ -412,29 +412,9 @@ DIRECT_PROBE_CHANNEL_IDS = frozenset(
 # HLS directas, pero con un parser MPD separado. El conjunto es deliberado:
 # un MPD no entra al catalogo publicado solo por devolver HTTP 200.
 DASH_PROBE_CHANNEL_IDS = frozenset({"MNBSport.mn@DirectDASH"})
-# Bloques que se muestran al final de la lista 2 para poder inspeccionarlos
-# manualmente sin mezclar sus candidatos con el catálogo cotidiano. DASH queda
-# en un bloque aún más final para que sea fácil distinguir el formato.
-EXTERNAL_RESEARCH_TAIL_CHANNEL_IDS = frozenset(
-    {
-        "FTFSports.us@DirectCDN77",
-        "FTFSports.us@DirectLinear",
-        "FuboSportsNetwork.us@DirectTubi",
-        "BandSports.br@Direct45",
-        "BandSports.br@Direct170",
-        "RedBullTV.int@DirectFreeCast",
-        "FIFAPlusEnglish.int@DirectFreeCast",
-        "FIFAPlusWomen.int@DirectFreeCast",
-        "Esport3.es@DirectFreeCast",
-        "Belarus5.by@DirectFreeCast",
-        "TJKTV.tj@DirectFreeCast",
-        "Stadium.us@DirectFreeCast",
-        "SportsGrid.us@DirectFreeCast",
-        "FUELTV.int@DirectFreeCast",
-        "WorldOfFreesports.int@DirectFreeCast",
-        "TraceSportStars.int@DirectFreeCast",
-    }
-)
+# Bloque DASH al final de la lista 2: el formato se distingue a simple vista. Las sondas
+# deportivas de 2026-09-13 ya no van al final (2026-10-31, pedido del usuario): se ordenan
+# por nombre y calidad como el resto de Lista 2.
 EXTERNAL_DASH_TAIL_CHANNEL_IDS = frozenset({"MNBSport.mn@DirectDASH"})
 # TVN y Meganoticias son resolutores gestionados por la aplicacion: la lista
 # conserva sus masters oficiales y VibeM3U obtiene la autorizacion al abrir el
@@ -11920,7 +11900,7 @@ def main() -> int:
     )
     candidate_external_lines = move_external_research_blocks_to_end(
         candidate_external_lines,
-        EXTERNAL_RESEARCH_TAIL_CHANNEL_IDS,
+        frozenset(),
         EXTERNAL_DASH_TAIL_CHANNEL_IDS,
     )
     apply_presentation_overrides(
