@@ -108,6 +108,7 @@
 
 
 ## Bitácora (más reciente arriba)
+- **2026-10-31, CI de publicación dirigida**: `tests/test_logo_size.py` importaba PIL y el CI no la tiene: «Publicar cambios dirigidos» falló 8 veces desde las ~16:00 (listas y overrides ya estaban subidos; faltaban catálogo/EPG dirigidos). La prueba lee el tamaño del encabezado PNG; se relanzó la publicación.
 - **2026-10-31, Lista 2 sin copias de 540p o menos**: 94 copias a la papelera (medidas con ffprobe), haya o no copia mejor; quedan las 3 con variante HLS mayor. Lista 1 sin cambios.
 - **2026-10-31, AXN: copias de Lista 2 como respaldo**: pedido del usuario («los AXN que están juntos en la lista dos… déjalos todos como backup del AXN que está en la lista 1»). Las 6 copias de AXN de Lista 2 (101–106; todas abren en 1080p) pasan a `backups.json` del AXN #69 (`PublicDirect.a247897d9a490d19fa633661`) y salen de Lista 2. AXN queda con 21 respaldos, todos abriendo; la app (`PublishedDirectBackups.MAX_PER_CHANNEL = 8`) solo prueba los primeros 8.
 - **2026-10-31, Lista 2 sin Animal Planet**: pedido del usuario («Elimina todos los Animal Planet.»). Las 20 copias de Lista 2 a la papelera (Lista 1 no tenía). Registro `contracts/lista2-animal-planet-20261031.json`.
