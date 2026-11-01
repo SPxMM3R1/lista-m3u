@@ -5,10 +5,11 @@
 > cubre la app). **Al terminar cualquier cambio, actualiza este archivo en el mismo commit**:
 > la sección «Hoy» si cambió el estado y una línea nueva en «Bitácora».
 
-Última actualización: **2026-10-31** (America/Santiago).
+Última actualización: **2026-11-01** (America/Santiago).
 
 ## Hoy, en una mirada
 
+- **2026-11-01, candidatos iptv-org en Lista 2**: por pedido explícito del usuario («Agrega los candidatos de la última corrida a la lista 2… solo para probar»), se agregan 10.970 URLs distintas como filas M3U en prueba, sin EPG ni logos asignados. Se omitieron 179 enlaces ya presentes en el catálogo y se apartaron 225 entradas con posibles credenciales, firmas u otros datos sensibles. Son candidatos, no señales verificadas: la mayoría no tiene fotograma. El runner no admite líneas `#EXTVLCOPT`, por lo que 758 cabeceras públicas compatibles se conservan como atributos EXTINF; cookies, autorización y valores sensibles se excluyen. El nombre se extrae de la coma exterior a las comillas. No se modifican las identidades de proveedor ni Lista 1. Copia local previa: `copias-lista2/lista2-antes-iptvorg-20261101.m3u` y archivo ZIP completo, sobre el commit `efc84f4a`; contrastar cualquier restauración con los cambios posteriores. Validación local: partición del runner, batería Python y 53 tests JS; verificar después la publicación y ejecuciones de GitHub. Contraparte publicada: VibeM3U 0.6.51, commit `aaa8d484`, CI `41334882817`, Release `41335308333`.
 - **Medición de respaldos para el selector de VibeM3U (2026-10-31, mockup «V2 · Pulso» aprobado: «Aplica la B2… todo» → V2)**: `scripts/measure_backup_quality.py` + workflow `backup-quality.yml` (diario y a mano) guardan en `backups.json` la calidad medida del principal y de cada copia; la app dibuja una barra por señal con alto = bitrate. Pruebas `tests/test_measure_backup_quality.py`.
 - **2026-10-31, Lista 2 sin TUDN**: pedido del usuario («elimina los tudn»). Las 9 copias (TUDN, TUDN MX, TUDN USA) a la papelera; Lista 1 no tenía. Registro `contracts/lista2-tudn-20261031.json`.
 - **Lista 2 sin Claro Sports (2026-10-31)**: pedido del usuario («Elimina los claros port.»). Las 6 copias (Claro Sports 2 ×5, Claro Sports 3 ×1) a la papelera; Lista 1 no tenía. Registro `contracts/lista2-claro-sports-20261031.json`.
@@ -113,6 +114,8 @@
 
 
 ## Bitácora (más reciente arriba)
+
+- **2026-11-01**: importación en prueba de candidatos de iptv-org a Lista 2; exclusiones y copia de seguridad descritas en «Hoy».
 - **2026-10-31, calidad de respaldos en backups.json**: script y workflow diario para las barras del selector de VibeM3U 0.6.48.
 - **2026-10-31, Lista 2 sin TUDN**: pedido del usuario («elimina los tudn»). Las 9 copias (TUDN, TUDN MX, TUDN USA) a la papelera; Lista 1 no tenía.
 - **2026-10-31, Lista 2 sin Claro Sports**: 6 copias a la papelera.
