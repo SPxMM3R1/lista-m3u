@@ -1,18 +1,29 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-01T14:00:30.890090Z",
+  "updated_at": "2026-11-01T18:26:23.113075Z",
   "channels": [
+    "Meganoticias.cl",
     "DW.de",
     "RedBullWorldEnglish.int",
+    "PublicDirect.376c74e4d0452f743fd2c811",
+    "PublicDirect.de3e91d7c885d797352686e1",
+    "PublicDirect.a247897d9a490d19fa633661",
+    "1437",
     "PublicDirect.2abd3aff445429e27097a124",
     "PublicDirect.5e1edfeb4161cb6762dd4c44",
     "PublicDirect.5eb6e4ea07959f5a0b4fb5e1",
     "PublicDirect.21b804df59b50c2512cf115f"
   ],
   "details": {
+    "1437": {
+      "kind": "guia-corta",
+      "futureHours": 16.6,
+      "requiredHours": 18.0,
+      "gaps": []
+    },
     "DW.de": {
       "kind": "hueco",
-      "futureHours": 64.0,
+      "futureHours": 59.6,
       "requiredHours": 18.0,
       "gaps": [
         [
@@ -21,9 +32,20 @@
         ]
       ]
     },
+    "Meganoticias.cl": {
+      "kind": "hueco",
+      "futureHours": 32.6,
+      "requiredHours": 18.0,
+      "gaps": [
+        [
+          "2026-11-02T12:00:00Z",
+          "2026-11-02T12:25:50Z"
+        ]
+      ]
+    },
     "PublicDirect.21b804df59b50c2512cf115f": {
       "kind": "hueco",
-      "futureHours": 63.3,
+      "futureHours": 58.9,
       "requiredHours": 24.0,
       "gaps": [
         [
@@ -34,7 +56,7 @@
     },
     "PublicDirect.2abd3aff445429e27097a124": {
       "kind": "hueco",
-      "futureHours": 63.1,
+      "futureHours": 58.6,
       "requiredHours": 24.0,
       "gaps": [
         [
@@ -51,9 +73,15 @@
         ]
       ]
     },
+    "PublicDirect.376c74e4d0452f743fd2c811": {
+      "kind": "guia-corta",
+      "futureHours": 15.7,
+      "requiredHours": 18.0,
+      "gaps": []
+    },
     "PublicDirect.5e1edfeb4161cb6762dd4c44": {
       "kind": "hueco",
-      "futureHours": 56.6,
+      "futureHours": 52.2,
       "requiredHours": 24.0,
       "gaps": [
         [
@@ -64,7 +92,7 @@
     },
     "PublicDirect.5eb6e4ea07959f5a0b4fb5e1": {
       "kind": "hueco",
-      "futureHours": 56.6,
+      "futureHours": 52.2,
       "requiredHours": 24.0,
       "gaps": [
         [
@@ -73,9 +101,21 @@
         ]
       ]
     },
+    "PublicDirect.a247897d9a490d19fa633661": {
+      "kind": "guia-corta",
+      "futureHours": 16.6,
+      "requiredHours": 18.0,
+      "gaps": []
+    },
+    "PublicDirect.de3e91d7c885d797352686e1": {
+      "kind": "guia-corta",
+      "futureHours": 17.8,
+      "requiredHours": 18.0,
+      "gaps": []
+    },
     "RedBullWorldEnglish.int": {
       "kind": "guia-corta",
-      "futureHours": 13.1,
+      "futureHours": 8.6,
       "requiredHours": 18.0,
       "gaps": []
     }
