@@ -37,6 +37,7 @@ agente debe poder retomar el trabajo solo con lo que está en el repositorio.
 - Editor web: `site/` (JS puro). La lógica pura vive en `site/editor-core.mjs` y `site/provider-catalog.mjs` con tests en `tests/editor-core.test.mjs`. Se sirve con el auxiliar `VibeM3U/local-catalog`.
 - Datos editoriales publicados: `data/channel-editor-layout.json` (orden, número, visibilidad y logos que lee la app), `data/vibem3u-selection.json` (declaración de proveedores para el runner) y `presentation-overrides.json` (órdenes y exclusiones).
 - **Resolutores TvVoo por identidad estable (2026-10-15)**: `resolver_attributes_for()` usa primero `tvg-id` en `TVVOO_STREAM_RESOLVER_IDS_BY_TVG_ID`; el título visible nunca debe convertir una fila directa en TvVoo. La búsqueda heredada por nombre solo sirve para IDs `@TvVoo` no cargados desde el catálogo o cuando no hay catálogo en el checkout. Conservar los alias para las identidades estables y mantener la regresión del ESPN directo en `tests/test_targeted_update.py`.
+- **Importar candidatos respetando bajas permanentes (2026-11-01)**: al incorporar canales externos a Lista 2, filtrar los nombres rechazados por `remove_permanently_removed_channels()` antes de declarar filas en `channel-catalog.m3u`, `2.m3u`, el layout y los órdenes de `presentation-overrides.json`. No dejar IDs excluidos en el orden editorial: el runner falla al detectar referencias sin fila. La regresión `tests/test_iptvorg_exclusions.py` compara los candidatos importados con el filtro permanente.
 
 ## Límites
 
@@ -64,7 +65,7 @@ agente debe poder retomar el trabajo solo con lo que está en el repositorio.
 
 
 - Tests obligatorios antes de commitear:
-  - `python -m unittest discover -s tests -p "test_*.py"` (412 pruebas, 6 omitidas previstas; incluye contrato, regresiones del editor, EPG visual, RWND y tamaño de `AGENTS.md`/`ESTADO.md`).
+  - `python -m unittest discover -s tests -p "test_*.py"` (422 pruebas, 7 omitidas previstas; incluye contrato, regresiones del editor, exclusiones permanentes de candidatos, EPG visual, RWND y tamaño de `AGENTS.md`/`ESTADO.md`).
   - `node --test tests/*.mjs` (53 pruebas; incluye el flujo de pedidos de la app, la fusión de bajas en el editor y la deriva layout → órdenes de `presentation-overrides.json`).
 - Validar el editor local sin tocar el repo: `python scripts/build_site_data.py --output <carpeta temp>` (solo acepta salidas dentro de la carpeta temporal).
 - Commits en español con prefijo: `feat(editor)`, `fix(resolvers)`, `feat(epg)`, `fix(catalogo)`, `chore(...)`.
