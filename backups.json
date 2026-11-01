@@ -11,7 +11,9 @@
     "backups[]": "Copias en el orden en que la app las prueba.",
     "backups[].tvg_id / display_name / source_name": "Identidad, nombre visible y nombre original de la copia.",
     "backups[].from_list / from_number": "Lista y número que tenía la copia antes de pasar a respaldo.",
-    "backups[].group / logo / url / guide": "Grupo, logo, dirección de reproducción y guía de la copia."
+    "backups[].group / logo / url / guide": "Grupo, logo, dirección de reproducción y guía de la copia.",
+    "principal_quality / backups[].quality": "Medición de la señal (variante HLS mayor): height, width, fps, kbps y ok (abrió y se midió). La app VibeM3U dibuja con esto las barras del selector de respaldos.",
+    "quality_measured": "Fecha y hora UTC de la última medición (scripts/measure_backup_quality.py)."
   },
   "channels": {
     "0104": {
@@ -38,6 +40,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 2252,
+            "ok": true
           }
         },
         {
@@ -52,6 +61,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 2252,
+            "ok": true
           }
         }
       ]
@@ -80,9 +96,23 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:chile:793481"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 4202,
+            "ok": true
           }
         }
-      ]
+      ],
+      "principal_quality": {
+        "height": 1080,
+        "width": 1920,
+        "fps": 29.97,
+        "kbps": 4020,
+        "ok": true
+      }
     },
     "0107": {
       "display_name": "Canal 13",
@@ -108,6 +138,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:888838"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 2829,
+            "ok": true
           }
         },
         {
@@ -122,6 +159,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:888838"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 2829,
+            "ok": true
           }
         },
         {
@@ -136,6 +180,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:888838"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 2829,
+            "ok": true
           }
         },
         {
@@ -150,6 +201,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:888838"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 2829,
+            "ok": true
           }
         },
         {
@@ -164,6 +222,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:888838"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 2829,
+            "ok": true
           }
         },
         {
@@ -178,9 +243,23 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 2709,
+            "ok": true
           }
         }
-      ]
+      ],
+      "principal_quality": {
+        "height": 0,
+        "width": 0,
+        "fps": 0.0,
+        "kbps": 0,
+        "ok": false
+      }
     },
     "PublicDirect.b5751130732e4a7c272ee53d": {
       "display_name": "TNT Sports Premium (Chile)",
@@ -206,6 +285,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 3499,
+            "ok": true
           }
         },
         {
@@ -220,6 +306,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 3499,
+            "ok": true
           }
         },
         {
@@ -234,9 +327,23 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 3683,
+            "ok": true
           }
         }
-      ]
+      ],
+      "principal_quality": {
+        "height": 1080,
+        "width": 1920,
+        "fps": 59.94,
+        "kbps": 3652,
+        "ok": true
+      }
     },
     "ESPN.co@Direct181": {
       "display_name": "ESPN",
@@ -262,6 +369,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:788650"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 3114,
+            "ok": true
           }
         },
         {
@@ -276,6 +390,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:788650"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 3114,
+            "ok": true
           }
         },
         {
@@ -290,6 +411,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:788650"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 3114,
+            "ok": true
           }
         },
         {
@@ -304,6 +432,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:788650"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 3114,
+            "ok": true
           }
         },
         {
@@ -318,6 +453,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:788650"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 3209,
+            "ok": true
           }
         },
         {
@@ -332,6 +474,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:788650"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 3209,
+            "ok": true
           }
         },
         {
@@ -346,9 +495,23 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:788650"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 3047,
+            "ok": true
           }
         }
-      ]
+      ],
+      "principal_quality": {
+        "height": 720,
+        "width": 1280,
+        "fps": 59.94,
+        "kbps": 3043,
+        "ok": true
+      }
     },
     "PublicDirect.d6cca6d4aa23a69d50439c22": {
       "display_name": "ESPN 2",
@@ -374,6 +537,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:788718"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 2304,
+            "ok": true
           }
         },
         {
@@ -388,6 +558,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:788718"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 2628,
+            "ok": true
           }
         },
         {
@@ -402,6 +579,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:788718"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 2304,
+            "ok": true
           }
         },
         {
@@ -416,6 +600,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:788718"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 30.0,
+            "kbps": 3153,
+            "ok": true
           }
         },
         {
@@ -430,6 +621,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:788718"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 2364,
+            "ok": true
           }
         },
         {
@@ -444,9 +642,23 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 2302,
+            "ok": true
           }
         }
-      ]
+      ],
+      "principal_quality": {
+        "height": 720,
+        "width": 1280,
+        "fps": 59.94,
+        "kbps": 2304,
+        "ok": true
+      }
     },
     "WinSports.co@Direct181": {
       "display_name": "ESPN 3",
@@ -472,6 +684,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927562"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 2473,
+            "ok": true
           }
         },
         {
@@ -486,6 +705,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927562"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 29.97,
+            "kbps": 2242,
+            "ok": true
           }
         },
         {
@@ -500,6 +726,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927562"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 2473,
+            "ok": true
           }
         },
         {
@@ -514,6 +747,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927562"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 2473,
+            "ok": true
           }
         },
         {
@@ -528,9 +768,23 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927562"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 2256,
+            "ok": true
           }
         }
-      ]
+      ],
+      "principal_quality": {
+        "height": 720,
+        "width": 1280,
+        "fps": 59.94,
+        "kbps": 2473,
+        "ok": true
+      }
     },
     "ESPN4.co@Direct181": {
       "display_name": "ESPN 4",
@@ -556,6 +810,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:argentina:888068"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 5603,
+            "ok": true
           }
         },
         {
@@ -570,6 +831,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:argentina:888068"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 30.0,
+            "kbps": 4205,
+            "ok": true
           }
         },
         {
@@ -584,6 +852,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:argentina:888068"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 3003,
+            "ok": true
           }
         },
         {
@@ -598,6 +873,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:argentina:888068"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 2927,
+            "ok": true
           }
         },
         {
@@ -612,6 +894,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:argentina:888068"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 3003,
+            "ok": true
           }
         },
         {
@@ -626,6 +915,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:argentina:888068"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 0,
+            "ok": false
           }
         },
         {
@@ -640,6 +936,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:argentina:888068"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 2608,
+            "ok": true
           }
         },
         {
@@ -654,6 +957,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:argentina:888068"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 2608,
+            "ok": true
           }
         },
         {
@@ -668,6 +978,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:argentina:888068"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 2608,
+            "ok": true
           }
         },
         {
@@ -682,6 +999,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:argentina:888068"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 2608,
+            "ok": true
           }
         },
         {
@@ -696,6 +1020,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:argentina:888068"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 3003,
+            "ok": true
           }
         },
         {
@@ -710,6 +1041,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:argentina:888068"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 30.0,
+            "kbps": 2664,
+            "ok": true
           }
         },
         {
@@ -724,6 +1062,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:argentina:888068"
+          },
+          "quality": {
+            "height": 0,
+            "width": 0,
+            "fps": 0.0,
+            "kbps": 0,
+            "ok": false
           }
         },
         {
@@ -738,6 +1083,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:argentina:888068"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1539,
+            "ok": true
           }
         },
         {
@@ -752,6 +1104,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:argentina:888068"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1539,
+            "ok": true
           }
         },
         {
@@ -766,6 +1125,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:argentina:888068"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1539,
+            "ok": true
           }
         },
         {
@@ -780,6 +1146,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:argentina:888068"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1539,
+            "ok": true
           }
         },
         {
@@ -794,6 +1167,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:argentina:888068"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1539,
+            "ok": true
           }
         },
         {
@@ -808,6 +1188,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:argentina:888068"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1540,
+            "ok": true
           }
         },
         {
@@ -822,6 +1209,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:argentina:888068"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1540,
+            "ok": true
           }
         },
         {
@@ -836,9 +1230,23 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:argentina:888068"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1540,
+            "ok": true
           }
         }
-      ]
+      ],
+      "principal_quality": {
+        "height": 720,
+        "width": 1280,
+        "fps": 59.94,
+        "kbps": 3022,
+        "ok": true
+      }
     },
     "WinPlusFutbol.co@Direct181": {
       "display_name": "ESPN 5",
@@ -864,6 +1272,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:728273"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 3495,
+            "ok": true
           }
         },
         {
@@ -878,6 +1293,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:728273"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 3495,
+            "ok": true
           }
         },
         {
@@ -892,9 +1314,23 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:728273"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 30.0,
+            "kbps": 1113,
+            "ok": true
           }
         }
-      ]
+      ],
+      "principal_quality": {
+        "height": 720,
+        "width": 1280,
+        "fps": 59.94,
+        "kbps": 3495,
+        "ok": true
+      }
     },
     "ESPN7.co@Direct181": {
       "display_name": "ESPN 6",
@@ -920,6 +1356,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927634"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 2258,
+            "ok": true
           }
         },
         {
@@ -934,6 +1377,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927634"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 2258,
+            "ok": true
           }
         },
         {
@@ -948,6 +1398,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927634"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 2258,
+            "ok": true
           }
         },
         {
@@ -962,6 +1419,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927634"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 2258,
+            "ok": true
           }
         },
         {
@@ -976,6 +1440,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927634"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 2357,
+            "ok": true
           }
         },
         {
@@ -990,9 +1461,23 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927634"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 30.0,
+            "kbps": 3345,
+            "ok": true
           }
         }
-      ]
+      ],
+      "principal_quality": {
+        "height": 720,
+        "width": 1280,
+        "fps": 59.94,
+        "kbps": 3256,
+        "ok": true
+      }
     },
     "PublicDirect.ac1fca2303c88b6a69359958": {
       "display_name": "ESPN 7",
@@ -1018,6 +1503,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:paraguay:953254"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 3022,
+            "ok": true
           }
         },
         {
@@ -1032,6 +1524,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:paraguay:953254"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 3022,
+            "ok": true
           }
         },
         {
@@ -1046,6 +1545,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:paraguay:953254"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 3022,
+            "ok": true
           }
         },
         {
@@ -1060,6 +1566,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:paraguay:953254"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 3022,
+            "ok": true
           }
         },
         {
@@ -1074,6 +1587,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:paraguay:953254"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 3022,
+            "ok": true
           }
         },
         {
@@ -1088,6 +1608,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:paraguay:953254"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 3022,
+            "ok": true
           }
         },
         {
@@ -1102,9 +1629,23 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:paraguay:953254"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 3022,
+            "ok": true
           }
         }
-      ]
+      ],
+      "principal_quality": {
+        "height": 720,
+        "width": 1280,
+        "fps": 59.94,
+        "kbps": 4751,
+        "ok": true
+      }
     },
     "PublicDirect.12addda8ba8591c579cdebfa": {
       "display_name": "Telehit",
@@ -1130,6 +1671,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:778863"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 2839,
+            "ok": true
           }
         },
         {
@@ -1144,6 +1692,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:778863"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 2839,
+            "ok": true
           }
         },
         {
@@ -1158,6 +1713,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:778863"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 3727,
+            "ok": true
           }
         },
         {
@@ -1172,9 +1734,23 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:778863"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 3246,
+            "ok": true
           }
         }
-      ]
+      ],
+      "principal_quality": {
+        "height": 1080,
+        "width": 1920,
+        "fps": 59.94,
+        "kbps": 3135,
+        "ok": true
+      }
     },
     "TelehitMusica.mx@SD": {
       "display_name": "Telehit Música",
@@ -1200,9 +1776,23 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:guatemala:1413182"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 30.0,
+            "kbps": 3912,
+            "ok": true
           }
         }
-      ]
+      ],
+      "principal_quality": {
+        "height": 1080,
+        "width": 1920,
+        "fps": 59.94,
+        "kbps": 4185,
+        "ok": true
+      }
     },
     "PublicDirect.a4e711feeaae6c78b06460eb": {
       "display_name": "Playboy",
@@ -1228,6 +1818,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 29.97,
+            "kbps": 1402,
+            "ok": true
           }
         },
         {
@@ -1242,6 +1839,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 29.97,
+            "kbps": 1402,
+            "ok": true
           }
         },
         {
@@ -1256,6 +1860,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 29.97,
+            "kbps": 1402,
+            "ok": true
           }
         },
         {
@@ -1270,9 +1881,23 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 29.97,
+            "kbps": 1402,
+            "ok": true
           }
         }
-      ]
+      ],
+      "principal_quality": {
+        "height": 720,
+        "width": 1280,
+        "fps": 29.97,
+        "kbps": 1402,
+        "ok": true
+      }
     },
     "PublicDirect.942f65e48445596971fc7249": {
       "display_name": "Venus",
@@ -1298,6 +1923,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 480,
+            "width": 720,
+            "fps": 29.97,
+            "kbps": 1472,
+            "ok": true
           }
         },
         {
@@ -1312,6 +1944,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 480,
+            "width": 720,
+            "fps": 29.97,
+            "kbps": 1472,
+            "ok": true
           }
         },
         {
@@ -1326,6 +1965,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 0,
+            "width": 0,
+            "fps": 0.0,
+            "kbps": 0,
+            "ok": false
           }
         },
         {
@@ -1340,6 +1986,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 480,
+            "width": 544,
+            "fps": 29.97,
+            "kbps": 1096,
+            "ok": true
           }
         },
         {
@@ -1354,6 +2007,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 480,
+            "width": 544,
+            "fps": 29.97,
+            "kbps": 1089,
+            "ok": true
           }
         },
         {
@@ -1368,6 +2028,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 480,
+            "width": 544,
+            "fps": 29.97,
+            "kbps": 1089,
+            "ok": true
           }
         },
         {
@@ -1382,6 +2049,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 576,
+            "width": 720,
+            "fps": 50.0,
+            "kbps": 626,
+            "ok": true
           }
         },
         {
@@ -1396,6 +2070,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 480,
+            "width": 544,
+            "fps": 29.97,
+            "kbps": 1073,
+            "ok": true
           }
         },
         {
@@ -1410,6 +2091,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 480,
+            "width": 720,
+            "fps": 59.94,
+            "kbps": 931,
+            "ok": true
           }
         },
         {
@@ -1424,9 +2112,23 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 480,
+            "width": 720,
+            "fps": 59.94,
+            "kbps": 931,
+            "ok": true
           }
         }
-      ]
+      ],
+      "principal_quality": {
+        "height": 480,
+        "width": 720,
+        "fps": 29.97,
+        "kbps": 1472,
+        "ok": true
+      }
     },
     "PublicDirect.376c74e4d0452f743fd2c811": {
       "display_name": "Sony Movies",
@@ -1452,6 +2154,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:1191161"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 30.0,
+            "kbps": 3942,
+            "ok": true
           }
         },
         {
@@ -1466,6 +2175,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:1191161"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 30.0,
+            "kbps": 3858,
+            "ok": true
           }
         },
         {
@@ -1480,6 +2196,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:1191161"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 5587,
+            "ok": true
           }
         },
         {
@@ -1494,6 +2217,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:1191161"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1344,
+            "ok": true
           }
         },
         {
@@ -1508,6 +2238,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:1191161"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1255,
+            "ok": true
           }
         },
         {
@@ -1522,6 +2259,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:1191161"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 3326,
+            "ok": true
           }
         },
         {
@@ -1536,6 +2280,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:1191161"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 4124,
+            "ok": true
           }
         },
         {
@@ -1550,6 +2301,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:1191161"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1348,
+            "ok": true
           }
         },
         {
@@ -1564,6 +2322,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:1191161"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1348,
+            "ok": true
           }
         },
         {
@@ -1578,6 +2343,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:1191161"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1348,
+            "ok": true
           }
         },
         {
@@ -1592,6 +2364,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:1191161"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1348,
+            "ok": true
           }
         },
         {
@@ -1606,9 +2385,23 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1348,
+            "ok": true
           }
         }
-      ]
+      ],
+      "principal_quality": {
+        "height": 1080,
+        "width": 1920,
+        "fps": 59.94,
+        "kbps": 3314,
+        "ok": true
+      }
     },
     "PublicDirect.8b604de41196cd4fe991d551": {
       "display_name": "Studio Universal",
@@ -1634,6 +2427,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927654"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 4456,
+            "ok": true
           }
         },
         {
@@ -1648,6 +2448,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927654"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 3486,
+            "ok": true
           }
         },
         {
@@ -1662,6 +2469,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927654"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 30.0,
+            "kbps": 4262,
+            "ok": true
           }
         },
         {
@@ -1676,6 +2490,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927654"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1874,
+            "ok": true
           }
         },
         {
@@ -1690,6 +2511,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927654"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1827,
+            "ok": true
           }
         },
         {
@@ -1704,6 +2532,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927654"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 2365,
+            "ok": true
           }
         },
         {
@@ -1718,6 +2553,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927654"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 2365,
+            "ok": true
           }
         },
         {
@@ -1732,6 +2574,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927654"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 2365,
+            "ok": true
           }
         },
         {
@@ -1746,6 +2595,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927654"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 2365,
+            "ok": true
           }
         },
         {
@@ -1760,6 +2616,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927654"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 2426,
+            "ok": true
           }
         },
         {
@@ -1774,6 +2637,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927654"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1986,
+            "ok": true
           }
         },
         {
@@ -1788,9 +2658,23 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927654"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 2149,
+            "ok": true
           }
         }
-      ]
+      ],
+      "principal_quality": {
+        "height": 1080,
+        "width": 1920,
+        "fps": 41.0,
+        "kbps": 3574,
+        "ok": true
+      }
     },
     "PublicDirect.ef0023b214fe77f7918ee36f": {
       "display_name": "TNT",
@@ -1816,6 +2700,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:773875"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1217,
+            "ok": true
           }
         },
         {
@@ -1830,6 +2721,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:773875"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1291,
+            "ok": true
           }
         },
         {
@@ -1844,9 +2742,23 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:773875"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 4306,
+            "ok": true
           }
         }
-      ]
+      ],
+      "principal_quality": {
+        "height": 1080,
+        "width": 1920,
+        "fps": 29.97,
+        "kbps": 2548,
+        "ok": true
+      }
     },
     "PublicDirect.7af273823473ac60f6ed4a64": {
       "display_name": "Space",
@@ -1872,6 +2784,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:773894"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 49.0,
+            "kbps": 2050,
+            "ok": true
           }
         },
         {
@@ -1886,6 +2805,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:773894"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 49.0,
+            "kbps": 2050,
+            "ok": true
           }
         },
         {
@@ -1900,6 +2826,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:773894"
+          },
+          "quality": {
+            "height": 0,
+            "width": 0,
+            "fps": 0.0,
+            "kbps": 0,
+            "ok": false
           }
         },
         {
@@ -1914,6 +2847,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:773894"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 3031,
+            "ok": true
           }
         },
         {
@@ -1928,6 +2868,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:773894"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 49.0,
+            "kbps": 2096,
+            "ok": true
           }
         },
         {
@@ -1942,6 +2889,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:773894"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 49.0,
+            "kbps": 2010,
+            "ok": true
           }
         },
         {
@@ -1956,6 +2910,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:773894"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 49.0,
+            "kbps": 2096,
+            "ok": true
           }
         },
         {
@@ -1970,6 +2931,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:773894"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 35.0,
+            "kbps": 2096,
+            "ok": true
           }
         },
         {
@@ -1984,6 +2952,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 30.0,
+            "kbps": 4199,
+            "ok": true
           }
         },
         {
@@ -1998,6 +2973,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 30.0,
+            "kbps": 3733,
+            "ok": true
           }
         },
         {
@@ -2012,6 +2994,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 30.0,
+            "kbps": 3927,
+            "ok": true
           }
         },
         {
@@ -2026,6 +3015,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 3085,
+            "ok": true
           }
         },
         {
@@ -2040,6 +3036,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 2258,
+            "ok": true
           }
         },
         {
@@ -2054,6 +3057,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 35.0,
+            "kbps": 2005,
+            "ok": true
           }
         },
         {
@@ -2068,6 +3078,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 32.54,
+            "kbps": 2005,
+            "ok": true
           }
         },
         {
@@ -2082,9 +3099,23 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 0,
+            "width": 0,
+            "fps": 0.0,
+            "kbps": 0,
+            "ok": false
           }
         }
-      ]
+      ],
+      "principal_quality": {
+        "height": 1080,
+        "width": 1920,
+        "fps": 29.97,
+        "kbps": 5277,
+        "ok": true
+      }
     },
     "PublicDirect.de3e91d7c885d797352686e1": {
       "display_name": "Warner Channel",
@@ -2110,6 +3141,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927626"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 1971,
+            "ok": true
           }
         },
         {
@@ -2124,6 +3162,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927626"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 2065,
+            "ok": true
           }
         },
         {
@@ -2138,6 +3183,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927626"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 1971,
+            "ok": true
           }
         },
         {
@@ -2152,6 +3204,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 2065,
+            "ok": true
           }
         },
         {
@@ -2166,6 +3225,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 2065,
+            "ok": true
           }
         },
         {
@@ -2180,6 +3246,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 2065,
+            "ok": true
           }
         },
         {
@@ -2194,9 +3267,23 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 1971,
+            "ok": true
           }
         }
-      ]
+      ],
+      "principal_quality": {
+        "height": 1080,
+        "width": 1920,
+        "fps": 59.94,
+        "kbps": 4745,
+        "ok": true
+      }
     },
     "PublicDirect.0812ad5e7a912f09fdebd000": {
       "display_name": "HBO 2",
@@ -2222,6 +3309,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 0,
+            "width": 0,
+            "fps": 0.0,
+            "kbps": 0,
+            "ok": false
           }
         },
         {
@@ -2236,6 +3330,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 20.0,
+            "kbps": 2329,
+            "ok": true
           }
         },
         {
@@ -2250,6 +3351,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 20.0,
+            "kbps": 2329,
+            "ok": true
           }
         },
         {
@@ -2264,6 +3372,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 20.0,
+            "kbps": 2329,
+            "ok": true
           }
         },
         {
@@ -2278,6 +3393,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 20.0,
+            "kbps": 2329,
+            "ok": true
           }
         },
         {
@@ -2292,6 +3414,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 20.0,
+            "kbps": 2329,
+            "ok": true
           }
         },
         {
@@ -2306,6 +3435,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 20.0,
+            "kbps": 2329,
+            "ok": true
           }
         },
         {
@@ -2320,9 +3456,23 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 20.0,
+            "kbps": 2329,
+            "ok": true
           }
         }
-      ]
+      ],
+      "principal_quality": {
+        "height": 1080,
+        "width": 1920,
+        "fps": 24.25,
+        "kbps": 2581,
+        "ok": true
+      }
     },
     "PublicDirect.389f219f3c7fdbbda989bda5": {
       "display_name": "Star Channel",
@@ -2348,6 +3498,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1305,
+            "ok": true
           }
         },
         {
@@ -2362,6 +3519,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1121,
+            "ok": true
           }
         },
         {
@@ -2376,6 +3540,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1206,
+            "ok": true
           }
         },
         {
@@ -2390,6 +3561,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1121,
+            "ok": true
           }
         },
         {
@@ -2404,6 +3582,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1121,
+            "ok": true
           }
         },
         {
@@ -2418,6 +3603,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1121,
+            "ok": true
           }
         },
         {
@@ -2432,6 +3624,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1001,
+            "ok": true
           }
         },
         {
@@ -2446,6 +3645,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1001,
+            "ok": true
           }
         },
         {
@@ -2460,6 +3666,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 1967,
+            "ok": true
           }
         },
         {
@@ -2474,6 +3687,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 1914,
+            "ok": true
           }
         },
         {
@@ -2488,6 +3708,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 1914,
+            "ok": true
           }
         },
         {
@@ -2502,6 +3729,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 1914,
+            "ok": true
           }
         },
         {
@@ -2516,6 +3750,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 30.0,
+            "kbps": 2601,
+            "ok": true
           }
         },
         {
@@ -2530,6 +3771,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 1914,
+            "ok": true
           }
         },
         {
@@ -2544,6 +3792,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 1914,
+            "ok": true
           }
         },
         {
@@ -2558,6 +3813,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 1914,
+            "ok": true
           }
         },
         {
@@ -2572,6 +3834,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 1914,
+            "ok": true
           }
         },
         {
@@ -2586,6 +3855,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 1818,
+            "ok": true
           }
         },
         {
@@ -2600,6 +3876,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 0,
+            "width": 0,
+            "fps": 0.0,
+            "kbps": 0,
+            "ok": false
           }
         },
         {
@@ -2614,6 +3897,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 29.97,
+            "kbps": 3736,
+            "ok": true
           }
         },
         {
@@ -2628,9 +3918,23 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 1012,
+            "ok": true
           }
         }
-      ]
+      ],
+      "principal_quality": {
+        "height": 1080,
+        "width": 1920,
+        "fps": 59.94,
+        "kbps": 1128,
+        "ok": true
+      }
     },
     "PublicDirect.a247897d9a490d19fa633661": {
       "display_name": "AXN",
@@ -2656,6 +3960,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927652"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1108,
+            "ok": true
           }
         },
         {
@@ -2670,6 +3981,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927652"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1035,
+            "ok": true
           }
         },
         {
@@ -2684,6 +4002,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927652"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1105,
+            "ok": true
           }
         },
         {
@@ -2698,6 +4023,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927652"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1135,
+            "ok": true
           }
         },
         {
@@ -2712,6 +4044,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927652"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1148,
+            "ok": true
           }
         },
         {
@@ -2726,6 +4065,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927652"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1135,
+            "ok": true
           }
         },
         {
@@ -2740,6 +4086,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927652"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1013,
+            "ok": true
           }
         },
         {
@@ -2754,6 +4107,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927652"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1105,
+            "ok": true
           }
         },
         {
@@ -2768,6 +4128,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927652"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1105,
+            "ok": true
           }
         },
         {
@@ -2782,6 +4149,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927652"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1133,
+            "ok": true
           }
         },
         {
@@ -2796,6 +4170,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927652"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1143,
+            "ok": true
           }
         },
         {
@@ -2810,6 +4191,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927652"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1143,
+            "ok": true
           }
         },
         {
@@ -2824,6 +4212,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927652"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1163,
+            "ok": true
           }
         },
         {
@@ -2838,6 +4233,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927652"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 3118,
+            "ok": true
           }
         },
         {
@@ -2852,6 +4254,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927652"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 4014,
+            "ok": true
           }
         },
         {
@@ -2866,6 +4275,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927652"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 3252,
+            "ok": true
           }
         },
         {
@@ -2880,6 +4296,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927652"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1058,
+            "ok": true
           }
         },
         {
@@ -2894,6 +4317,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927652"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1145,
+            "ok": true
           }
         },
         {
@@ -2908,6 +4338,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927652"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 3108,
+            "ok": true
           }
         },
         {
@@ -2922,6 +4359,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927652"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 3119,
+            "ok": true
           }
         },
         {
@@ -2936,9 +4380,23 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927652"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 3538,
+            "ok": true
           }
         }
-      ]
+      ],
+      "principal_quality": {
+        "height": 1080,
+        "width": 1920,
+        "fps": 59.94,
+        "kbps": 3119,
+        "ok": true
+      }
     },
     "PublicDirect.9c28a0d10a09856e98930cdc": {
       "display_name": "Sony Channel",
@@ -2964,6 +4422,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927636"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 3783,
+            "ok": true
           }
         },
         {
@@ -2978,6 +4443,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927636"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 30.0,
+            "kbps": 4073,
+            "ok": true
           }
         },
         {
@@ -2992,6 +4464,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927636"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 3091,
+            "ok": true
           }
         },
         {
@@ -3006,6 +4485,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927636"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1457,
+            "ok": true
           }
         },
         {
@@ -3020,6 +4506,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927636"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 2069,
+            "ok": true
           }
         },
         {
@@ -3034,6 +4527,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927636"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 2010,
+            "ok": true
           }
         },
         {
@@ -3048,6 +4548,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927636"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 2069,
+            "ok": true
           }
         },
         {
@@ -3062,6 +4569,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927636"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 1716,
+            "ok": true
           }
         },
         {
@@ -3076,6 +4590,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927636"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1354,
+            "ok": true
           }
         },
         {
@@ -3090,6 +4611,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927636"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 2069,
+            "ok": true
           }
         },
         {
@@ -3104,6 +4632,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927636"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 2006,
+            "ok": true
           }
         },
         {
@@ -3118,6 +4653,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927636"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 1952,
+            "ok": true
           }
         },
         {
@@ -3132,6 +4674,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927636"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1621,
+            "ok": true
           }
         },
         {
@@ -3146,6 +4695,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927636"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1498,
+            "ok": true
           }
         },
         {
@@ -3160,6 +4716,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927636"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1354,
+            "ok": true
           }
         },
         {
@@ -3174,6 +4737,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927636"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1439,
+            "ok": true
           }
         },
         {
@@ -3188,6 +4758,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927636"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 3789,
+            "ok": true
           }
         },
         {
@@ -3202,6 +4779,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927636"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 2006,
+            "ok": true
           }
         },
         {
@@ -3216,6 +4800,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927636"
+          },
+          "quality": {
+            "height": 0,
+            "width": 0,
+            "fps": 0.0,
+            "kbps": 0,
+            "ok": false
           }
         },
         {
@@ -3230,6 +4821,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927636"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 3352,
+            "ok": true
           }
         },
         {
@@ -3244,9 +4842,23 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927636"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 1322,
+            "ok": true
           }
         }
-      ]
+      ],
+      "principal_quality": {
+        "height": 1080,
+        "width": 1920,
+        "fps": 59.94,
+        "kbps": 3060,
+        "ok": true
+      }
     },
     "PublicDirect.bf407e29eec656d628dfa2d7": {
       "display_name": "Universal TV",
@@ -3272,6 +4884,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927639"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1635,
+            "ok": true
           }
         },
         {
@@ -3286,6 +4905,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927639"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1572,
+            "ok": true
           }
         },
         {
@@ -3300,6 +4926,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927639"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1420,
+            "ok": true
           }
         },
         {
@@ -3314,9 +4947,23 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927639"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1635,
+            "ok": true
           }
         }
-      ]
+      ],
+      "principal_quality": {
+        "height": 1080,
+        "width": 1920,
+        "fps": 29.97,
+        "kbps": 2987,
+        "ok": true
+      }
     },
     "PublicDirect.1701b6c4abbcc431fb481536": {
       "display_name": "USA Network",
@@ -3342,6 +4989,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:chile:1030254"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 4779,
+            "ok": true
           }
         },
         {
@@ -3356,6 +5010,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:chile:1030254"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 4779,
+            "ok": true
           }
         },
         {
@@ -3370,6 +5031,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:chile:1030254"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 4917,
+            "ok": true
           }
         },
         {
@@ -3384,6 +5052,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:chile:1030254"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1610,
+            "ok": true
           }
         },
         {
@@ -3398,6 +5073,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:chile:1030254"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 54.0,
+            "kbps": 2651,
+            "ok": true
           }
         },
         {
@@ -3412,9 +5094,23 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:chile:1030254"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 36.0,
+            "kbps": 2047,
+            "ok": true
           }
         }
-      ]
+      ],
+      "principal_quality": {
+        "height": 1080,
+        "width": 1920,
+        "fps": 57.0,
+        "kbps": 2106,
+        "ok": true
+      }
     },
     "PublicDirect.4d239300ca300e970c35d7aa": {
       "display_name": "TNT Series",
@@ -3440,6 +5136,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 2501,
+            "ok": true
           }
         },
         {
@@ -3454,6 +5157,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 2693,
+            "ok": true
           }
         },
         {
@@ -3468,9 +5178,23 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1525,
+            "ok": true
           }
         }
-      ]
+      ],
+      "principal_quality": {
+        "height": 1080,
+        "width": 1920,
+        "fps": 59.94,
+        "kbps": 2448,
+        "ok": true
+      }
     },
     "PublicDirect.5dcc9d45e7f72f13df740d70": {
       "display_name": "Adult Swim",
@@ -3496,6 +5220,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927691"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 0,
+            "ok": false
           }
         },
         {
@@ -3510,9 +5241,23 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927691"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 30.0,
+            "kbps": 3987,
+            "ok": true
           }
         }
-      ]
+      ],
+      "principal_quality": {
+        "height": 1080,
+        "width": 1920,
+        "fps": 29.97,
+        "kbps": 2527,
+        "ok": true
+      }
     },
     "FX.co@Direct181": {
       "display_name": "FX",
@@ -3538,6 +5283,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 2153,
+            "ok": true
           }
         },
         {
@@ -3552,6 +5304,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 2159,
+            "ok": true
           }
         },
         {
@@ -3566,6 +5325,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1765,
+            "ok": true
           }
         },
         {
@@ -3580,6 +5346,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 2159,
+            "ok": true
           }
         },
         {
@@ -3594,6 +5367,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1814,
+            "ok": true
           }
         },
         {
@@ -3608,6 +5388,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 2159,
+            "ok": true
           }
         },
         {
@@ -3622,6 +5409,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1661,
+            "ok": true
           }
         },
         {
@@ -3636,6 +5430,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1814,
+            "ok": true
           }
         },
         {
@@ -3650,6 +5451,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1814,
+            "ok": true
           }
         },
         {
@@ -3664,6 +5472,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1814,
+            "ok": true
           }
         },
         {
@@ -3678,6 +5493,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1822,
+            "ok": true
           }
         },
         {
@@ -3692,6 +5514,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1814,
+            "ok": true
           }
         },
         {
@@ -3706,6 +5535,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1958,
+            "ok": true
           }
         },
         {
@@ -3720,6 +5556,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1958,
+            "ok": true
           }
         },
         {
@@ -3734,6 +5577,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1822,
+            "ok": true
           }
         },
         {
@@ -3748,6 +5598,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 30.0,
+            "kbps": 2375,
+            "ok": true
           }
         },
         {
@@ -3762,6 +5619,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 30.0,
+            "kbps": 2237,
+            "ok": true
           }
         },
         {
@@ -3776,6 +5640,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 30.0,
+            "kbps": 2557,
+            "ok": true
           }
         },
         {
@@ -3790,6 +5661,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 29.97,
+            "kbps": 4737,
+            "ok": true
           }
         },
         {
@@ -3804,6 +5682,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 29.97,
+            "kbps": 3855,
+            "ok": true
           }
         },
         {
@@ -3818,6 +5703,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 0,
+            "ok": false
           }
         },
         {
@@ -3832,6 +5724,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 4730,
+            "ok": true
           }
         }
       ]
@@ -3860,6 +5759,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927653"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1894,
+            "ok": true
           }
         },
         {
@@ -3874,6 +5780,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927653"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1894,
+            "ok": true
           }
         },
         {
@@ -3888,6 +5801,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927653"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1894,
+            "ok": true
           }
         },
         {
@@ -3902,6 +5822,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927653"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1894,
+            "ok": true
           }
         },
         {
@@ -3916,6 +5843,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927653"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 1894,
+            "ok": true
           }
         },
         {
@@ -3930,6 +5864,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927653"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 30.0,
+            "kbps": 3371,
+            "ok": true
           }
         },
         {
@@ -3944,6 +5885,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 0,
+            "ok": false
           }
         },
         {
@@ -3958,6 +5906,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 3574,
+            "ok": true
           }
         },
         {
@@ -3972,6 +5927,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 43.0,
+            "kbps": 2021,
+            "ok": true
           }
         },
         {
@@ -3986,6 +5948,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 43.0,
+            "kbps": 2021,
+            "ok": true
           }
         },
         {
@@ -4000,6 +5969,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 43.0,
+            "kbps": 1933,
+            "ok": true
           }
         },
         {
@@ -4014,9 +5990,23 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 43.0,
+            "kbps": 2021,
+            "ok": true
           }
         }
-      ]
+      ],
+      "principal_quality": {
+        "height": 1080,
+        "width": 1920,
+        "fps": 59.94,
+        "kbps": 3367,
+        "ok": true
+      }
     },
     "PublicDirect.39057ce89326a34e33998e2e": {
       "display_name": "History Channel 2",
@@ -4042,6 +6032,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927625"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 30.0,
+            "kbps": 4232,
+            "ok": true
           }
         },
         {
@@ -4056,6 +6053,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927625"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 3727,
+            "ok": true
           }
         },
         {
@@ -4070,6 +6074,13 @@
           "guide": {
             "source": "claro-guia",
             "source_id": "claro:colombia:927625"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 30.0,
+            "kbps": 4185,
+            "ok": true
           }
         },
         {
@@ -4084,6 +6095,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 3341,
+            "ok": true
           }
         },
         {
@@ -4098,6 +6116,13 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 5519,
+            "ok": true
           }
         },
         {
@@ -4112,9 +6137,24 @@
           "guide": {
             "source": "",
             "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 2621,
+            "ok": true
           }
         }
-      ]
+      ],
+      "principal_quality": {
+        "height": 1080,
+        "width": 1920,
+        "fps": 59.94,
+        "kbps": 3520,
+        "ok": true
+      }
     }
-  }
+  },
+  "quality_measured": "2026-11-01 01:47 UTC"
 }
