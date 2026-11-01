@@ -1,13 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
 <tv data-fragment-of="0106">
-  <channel id="0106" data-guide="parrilla real conservada" data-guide-source="epg-publicada-conservada">
+  <channel id="0106" data-guide="parrilla real" data-guide-source="zapping-guia-publica">
     <display-name>CHV</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/chv.png" />
   </channel>
-  <programme start="20261101083000 -0300" stop="20261101130000 -0300" channel="0106">
-    <title lang="es">CHV Noticias AM - Fin de semana</title>
-  </programme>
-  <programme start="20261101130000 -0300" stop="20261101144500 -0300" channel="0106">
+  <programme start="20261101124000 -0300" stop="20261101144500 -0300" channel="0106">
     <title lang="es">CHV Noticias tarde</title>
   </programme>
   <programme start="20261101144500 -0300" stop="20261101160000 -0300" channel="0106">
@@ -19,7 +16,13 @@
   <programme start="20261101180000 -0300" stop="20261101202000 -0300" channel="0106">
     <title lang="es">Sabingo</title>
   </programme>
-  <programme start="20261101202000 -0300" stop="20261101223500 -0300" channel="0106">
+  <programme start="20261101202000 -0300" stop="20261101223000 -0300" channel="0106">
+    <title lang="es">CHV Noticias central</title>
+  </programme>
+  <programme start="20261101083000 -0300" stop="20261101124000 -0300" channel="0106">
+    <title lang="es">CHV Noticias A.M. Fin de semana</title>
+  </programme>
+  <programme start="20261101223000 -0300" stop="20261101223500 -0300" channel="0106">
     <title lang="es">Chilevisión noticias central</title>
   </programme>
   <programme start="20261101223500 -0300" stop="20261102004500 -0300" channel="0106">
@@ -43,6 +46,7 @@
   </programme>
   <programme start="20261102080000 -0300" stop="20261102130000 -0300" channel="0106">
     <title lang="es">Contigo en la mañana</title>
+    <desc lang="es">Magazine de la mañana conducido por Julio César Rodríguez y Monserrat Álvarez</desc>
   </programme>
   <programme start="20261102130000 -0300" stop="20261102153000 -0300" channel="0106">
     <title lang="es">Chilevisión noticias tarde</title>
