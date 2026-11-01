@@ -113,7 +113,7 @@
 
 
 ## Bitácora (más reciente arriba)
-- **2026-10-31, calidad de respaldos en backups.json**: script y workflow diario para las barras del selector de VibeM3U 0.6.47.
+- **2026-10-31, calidad de respaldos en backups.json**: script y workflow diario para las barras del selector de VibeM3U 0.6.48.
 - **2026-10-31, Lista 2 sin TUDN**: pedido del usuario («elimina los tudn»). Las 9 copias (TUDN, TUDN MX, TUDN USA) a la papelera; Lista 1 no tenía.
 - **2026-10-31, Lista 2 sin Claro Sports**: 6 copias a la papelera.
 - **2026-10-31, Lista 2 reordenada**: nombre, resolución y bitrate exacto; el primero de cada nombre es el de más calidad medida.

@@ -1,6 +1,6 @@
 """Mide la calidad de cada canal con respaldos y de sus copias en backups.json (2026-10-31).
 
-Pedido del usuario: el selector de respaldos de la app (VibeM3U 0.6.47, mockup «V2 · Pulso»)
+Pedido del usuario: el selector de respaldos de la app (VibeM3U 0.6.48, mockup «V2 · Pulso»)
 dibuja una barra por señal cuyo alto es su bitrate. Este script mide el principal (su URL en
 ``m3u.m3u``, si no depende de un resolutor) y cada copia con ``tools/probe_bitrate.probe``
 (variante HLS mayor) y guarda en backups.json:
