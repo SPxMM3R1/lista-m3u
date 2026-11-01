@@ -9,6 +9,7 @@
 
 ## Hoy, en una mirada
 
+- **Lista 2 sin Claro Sports (2026-10-31)**: pedido del usuario («Elimina los claros port.»). Las 6 copias (Claro Sports 2 ×5, Claro Sports 3 ×1) a la papelera; Lista 1 no tenía. Registro `contracts/lista2-claro-sports-20261031.json`.
 - **Lista 2 reordenada por nombre, resolución y bitrate (2026-10-31)**: pedido del usuario («Vuelve a reordenar la lista 2 con primero nombre, segundo resolución, y tercero el bitrate, la idea es que el primer canal siempre sea el de mejor calidad»). Medición nueva en GitHub (673 de 694 medidas) con la variante HLS mayor; `tools/probe_bitrate.py` corregido (tomaba la primera variante y sumaba el bitrate de todas). 710 filas de Lista 2; las sin medir quedan al final de su nombre. Registro `contracts/bitrate-lista2-20261031.json`.
 - **Studio Universal y HBO Pop restaurados en Lista 2 (2026-10-31)**: pedido del usuario («restaura solo la de estudio y la de HBO»). Se habían borrado como 480p por medir solo la primera variante; hoy dan 1080p. Vuelven junto a sus copias (HBO Pop 482, Studio Universal 626) con la misma guía Claro que sus hermanas. Mega [VTR] (también mal medida) no se restauró: Mega ya está en Lista 1. Registro `contracts/lista2-restaurados-1080p-20261031.json`.
 - **Lista 2 sin copias de 540p o menos (2026-10-31)**: pedido del usuario («Elimina todo lo que sea 480 o 540p, independiente si están con mayor calidad o no»). Se midieron con ffprobe las 872 filas activas: 94 copias de Lista 2 a 540 líneas o menos (480p, 544×480, 360p, 960×540 y 1920×540) a la papelera, aunque no tuvieran otra copia mejor (C, Claro Cinema, CNN Chile, Concert Channel, Euro Channel, H2, ID, Multicinema, Russia Today, HBO Signature, Venus y otras). Se quedan FIFA+ English, FIFA+ Women y Fox Sports Cloudfront: su lista HLS trae 720p o 1080p. Lista 1 no se tocó. Corrección (mismo día): se había dicho que Lista 1 tenía 23 canales a 540p o menos; era un error de medición (ffprobe con `-select_streams v:0` mide solo la primera variante de una lista HLS). Midiendo todas las variantes, 21 llegan a 720p/1080p y solo Venus (57) y ETC TV (82) son 480p reales. Las 94 borradas de Lista 2 se volvieron a medir así: todas tienen una sola variante y ninguna supera 540p. Lista 2 queda en 708. Registro `contracts/lista2-540p-o-menos-20261031.json`.
@@ -110,6 +111,7 @@
 
 
 ## Bitácora (más reciente arriba)
+- **2026-10-31, Lista 2 sin Claro Sports**: 6 copias a la papelera.
 - **2026-10-31, Lista 2 reordenada**: nombre, resolución y bitrate exacto; el primero de cada nombre es el de más calidad medida.
 - **2026-10-31, restaurados Studio Universal y HBO Pop**: dos copias de Lista 2 borradas como 480p que miden 1080p.
 - **2026-10-31, CI de publicación dirigida**: `tests/test_logo_size.py` importaba PIL y el CI no la tiene: «Publicar cambios dirigidos» falló 8 veces desde las ~16:00 (listas y overrides ya estaban subidos; faltaban catálogo/EPG dirigidos). La prueba lee el tamaño del encabezado PNG; se relanzó la publicación.
