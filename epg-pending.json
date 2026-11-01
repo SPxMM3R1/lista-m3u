@@ -1,22 +1,31 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-01T07:02:16.938761Z",
+  "updated_at": "2026-11-01T13:08:31.201203Z",
   "channels": [
+    "DW.de",
     "RedBullWorldEnglish.int",
     "PublicDirect.2abd3aff445429e27097a124",
-    "PublicDirect.52d971073c8762905f7e1224",
+    "PublicDirect.5e1edfeb4161cb6762dd4c44",
+    "PublicDirect.5eb6e4ea07959f5a0b4fb5e1",
     "PublicDirect.21b804df59b50c2512cf115f"
   ],
   "details": {
-    "PublicDirect.21b804df59b50c2512cf115f": {
+    "DW.de": {
       "kind": "hueco",
-      "futureHours": 70.3,
-      "requiredHours": 24.0,
+      "futureHours": 64.9,
+      "requiredHours": 18.0,
       "gaps": [
         [
-          "2026-11-01T07:01:46Z",
-          "2026-11-01T07:47:00Z"
-        ],
+          "2026-11-02T05:00:00Z",
+          "2026-11-02T06:00:00Z"
+        ]
+      ]
+    },
+    "PublicDirect.21b804df59b50c2512cf115f": {
+      "kind": "hueco",
+      "futureHours": 64.2,
+      "requiredHours": 24.0,
+      "gaps": [
         [
           "2026-11-02T04:03:00Z",
           "2026-11-02T04:55:00Z"
@@ -25,41 +34,48 @@
     },
     "PublicDirect.2abd3aff445429e27097a124": {
       "kind": "hueco",
-      "futureHours": 46.4,
+      "futureHours": 63.9,
       "requiredHours": 24.0,
       "gaps": [
         [
-          "2026-11-01T09:25:00Z",
-          "2026-11-01T11:52:00Z"
-        ],
-        [
-          "2026-11-01T18:47:00Z",
+          "2026-11-01T19:47:00Z",
           "2026-11-01T20:17:00Z"
         ],
         [
           "2026-11-02T03:00:00Z",
-          "2026-11-02T04:40:00Z"
+          "2026-11-02T04:00:00Z"
+        ],
+        [
+          "2026-11-02T12:32:00Z",
+          "2026-11-02T13:07:59Z"
         ]
       ]
     },
-    "PublicDirect.52d971073c8762905f7e1224": {
+    "PublicDirect.5e1edfeb4161cb6762dd4c44": {
       "kind": "hueco",
-      "futureHours": 71.3,
+      "futureHours": 57.5,
       "requiredHours": 24.0,
       "gaps": [
         [
-          "2026-11-01T07:01:46Z",
-          "2026-11-01T07:17:00Z"
-        ],
+          "2026-11-02T12:04:43Z",
+          "2026-11-02T12:05:00Z"
+        ]
+      ]
+    },
+    "PublicDirect.5eb6e4ea07959f5a0b4fb5e1": {
+      "kind": "hueco",
+      "futureHours": 57.5,
+      "requiredHours": 24.0,
+      "gaps": [
         [
-          "2026-11-01T08:04:00Z",
-          "2026-11-01T08:46:00Z"
+          "2026-11-02T12:04:43Z",
+          "2026-11-02T12:05:00Z"
         ]
       ]
     },
     "RedBullWorldEnglish.int": {
       "kind": "guia-corta",
-      "futureHours": 11.8,
+      "futureHours": 13.9,
       "requiredHours": 18.0,
       "gaps": []
     }
