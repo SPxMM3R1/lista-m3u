@@ -4,6 +4,7 @@ name: Pedidos de la app
 # Aquí se aplica con las mismas funciones del editor web y las listas públicas se regeneran
 # sin red (modo presentation), todo en un solo commit. No se relanza el runner completo de
 # canales: los runners programados siguen a su hora sin pedidos extra en cola.
+# VibeM3U 0.6.52+: «Conservar» deja pedidos keep/unkeep que solo actualizan data/app-keep.json.
 on:
   push:
     branches:
@@ -40,7 +41,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          files=(data/app-requests data/channel-editor-layout.json data/vibem3u-selection.json presentation-overrides.json
+          files=(data/app-requests data/app-keep.json data/channel-editor-layout.json data/vibem3u-selection.json presentation-overrides.json
                  m3u.m3u m3u-externa.m3u 1.m3u 2.m3u channel-catalog.m3u resolver-catalog.json)
           for attempt in 1 2 3 4 5; do
             summary=$(node scripts/apply_app_requests.mjs | tail -n 1)
@@ -53,8 +54,8 @@ jobs:
               python targeted_update.py --mode presentation
             fi
             git add -A -- "${files[@]}"
-            names=$(node -e 'const s=JSON.parse(process.argv[1]);console.log(s.applied.map(a=>a.name).join(", ")||"pedidos inválidos")' "$summary")
-            git commit -q -m "Papelera desde la app: $names"
+            message=$(node -e 'const s=JSON.parse(process.argv[1]);const t=s.applied.map(a=>a.name).join(", ");const k=(s.kept||[]).length;console.log(t?"Papelera desde la app: "+t+(k?` (+${k} conservar)`:""):k?`Conservar desde la app: ${k} cambio${k===1?"":"s"}`:"Papelera desde la app: pedidos inválidos")' "$summary")
+            git commit -q -m "$message"
             if git push; then
               if [ "$applied" != "0" ]; then echo "APPLIED=$applied" >> "$GITHUB_ENV"; fi
               exit 0

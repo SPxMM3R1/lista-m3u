@@ -1,8 +1,11 @@
 // Pedidos de la app (VibeM3U 0.5.90+): la TV deja un JSON en data/app-requests/ y este script lo
 // aplica con las mismas funciones del editor web, para que la TV y el editor no puedan divergir.
 //
-// Hoy solo existe «trash»: enviar una fila a la papelera (state = "deleted"), igual que el botón
-// Papelera del editor. Desde la papelera del editor se recupera o se borra para siempre.
+// «trash»: enviar una fila a la papelera (state = "deleted"), igual que el botón Papelera del
+// editor. Desde la papelera del editor se recupera o se borra para siempre.
+// «keep» / «unkeep» (VibeM3U 0.6.52, 2026-11-01): marcar o desmarcar una fila como conservada en
+// data/app-keep.json. No cambia el catálogo: sirve para que el usuario revise la lista desde la TV
+// y después pida «elimina lo no conservado» (todo menos las 648 señales previas de Lista 2).
 //
 // Uso: node scripts/apply_app_requests.mjs [--root <repo>]
 // Escribe los tres documentos del editor, borra los pedidos procesados (válidos o no) e imprime
@@ -26,11 +29,13 @@ export const FILES = {
   layout: "data/channel-editor-layout.json",
   selection: "data/vibem3u-selection.json",
   presentation: "presentation-overrides.json",
+  keep: "data/app-keep.json",
 };
+export const ACTIONS = new Set(["trash", "keep", "unkeep"]);
 export const REQUESTS_DIR = "data/app-requests";
 const MAX_REQUEST_BYTES = 4096;
 
-/** Valida un pedido; devuelve {rowKey, name} o un texto de error. */
+/** Valida un pedido; devuelve {action, rowKey, name} o un texto de error. */
 export function parseRequest(text) {
   if (typeof text !== "string" || text.length > MAX_REQUEST_BYTES) return "pedido demasiado grande";
   let value;
@@ -40,11 +45,11 @@ export function parseRequest(text) {
     return "JSON inválido";
   }
   if (!value || value.schema !== 1) return "esquema no soportado";
-  if (value.action !== "trash") return `acción no soportada: ${String(value.action)}`;
+  if (!ACTIONS.has(value.action)) return `acción no soportada: ${String(value.action)}`;
   const key = typeof value.rowKey === "string" ? value.rowKey.trim() : "";
   if (!/^(m3u:[^\s]{1,512}|provider:(tvvoo|highfly):[^\s]{1,512})$/.test(key)) return "rowKey inválida";
   const name = typeof value.name === "string" ? value.name.replace(/[\u0000-\u001f]/g, " ").trim().slice(0, 120) : "";
-  return { rowKey: key, name };
+  return { action: value.action, rowKey: key, name };
 }
 
 /** El mismo documento que publica el editor web (layoutDocument). */
@@ -61,7 +66,9 @@ export function editorLayoutDocument(layout) {
 export async function applyRequests(documents, requests) {
   let layout = documents.layout;
   const applied = [];
+  const kept = [];
   const skipped = [];
+  const keep = new Set(Array.isArray(documents.keep?.rowKeys) ? documents.keep.rowKeys : []);
   for (const request of requests) {
     const parsed = parseRequest(request.text);
     if (typeof parsed === "string") {
@@ -71,6 +78,12 @@ export async function applyRequests(documents, requests) {
     const row = layout.channels.find((item) => rowKey(item) === parsed.rowKey);
     if (!row) {
       skipped.push({ file: request.file, reason: `no existe ${parsed.rowKey}` });
+      continue;
+    }
+    if (parsed.action !== "trash") {
+      if (parsed.action === "keep") keep.add(parsed.rowKey);
+      else keep.delete(parsed.rowKey);
+      kept.push({ action: parsed.action, rowKey: parsed.rowKey, name: row.displayName || row.name || parsed.name });
       continue;
     }
     if (row.state === "deleted") {
@@ -85,7 +98,9 @@ export async function applyRequests(documents, requests) {
   if (problems.length) throw new Error(`El catálogo quedaría inválido: ${problems.join(" | ")}`);
   return {
     applied,
+    kept,
     skipped,
+    keep: { schema: 1, rowKeys: [...keep].sort((a, b) => a.localeCompare(b)) },
     layout: finalLayout,
     presentation: buildPresentationOverrides(finalLayout, documents.presentation),
     selection: applied.length
@@ -106,7 +121,12 @@ async function main() {
     return;
   }
   const read = (path) => JSON.parse(readFileSync(join(root, path), "utf8"));
-  const documents = { layout: read(FILES.layout), selection: read(FILES.selection), presentation: read(FILES.presentation) };
+  const documents = {
+    layout: read(FILES.layout),
+    selection: read(FILES.selection),
+    presentation: read(FILES.presentation),
+    keep: existsSync(join(root, FILES.keep)) ? read(FILES.keep) : { schema: 1, rowKeys: [] },
+  };
   const requests = files.map((file) => ({ file, text: readFileSync(join(dir, file), "utf8") }));
   const result = await applyRequests(documents, requests);
   if (result.applied.length) {
@@ -115,10 +135,12 @@ async function main() {
     writeFileSync(join(root, FILES.presentation), formatJson(result.presentation));
     writeFileSync(join(root, FILES.selection), formatJson(result.selection));
   }
+  if (result.kept.length) writeFileSync(join(root, FILES.keep), formatJson(result.keep));
   for (const file of files) unlinkSync(join(dir, file));
+  for (const item of result.kept) console.error(`${item.action === "keep" ? "Conservar" : "Quitar de conservados"}: ${item.name} (${item.rowKey})`);
   for (const item of result.applied) console.error(`Papelera: ${item.number ?? "-"} ${item.name} (${item.rowKey})`);
   for (const item of result.skipped) console.error(`Omitido ${item.file}: ${item.reason}`);
-  console.log(JSON.stringify({ applied: result.applied, skipped: result.skipped, files: files.length }));
+  console.log(JSON.stringify({ applied: result.applied, kept: result.kept, skipped: result.skipped, files: files.length }));
 }
 
 if (import.meta.url === `file://${process.argv[1]}` || process.argv[1]?.endsWith("apply_app_requests.mjs")) {

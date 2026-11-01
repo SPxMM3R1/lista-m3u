@@ -57,10 +57,25 @@ test("pedidos inválidos, repetidos o de filas inexistentes se omiten sin tocar 
   assert.equal(result.layout.channels.find((row) => row.tvgId === "0104").state, "active");
 });
 
+test("«keep» y «unkeep» marcan filas conservadas sin tocar el catálogo", async () => {
+  const docs = documents();
+  docs.keep = { schema: 1, rowKeys: ["m3u:0105"] };
+  const result = await applyRequests(docs, [
+    { file: "a.json", text: request("m3u:0104", { action: "keep" }) },
+    { file: "b.json", text: request("m3u:0105", { action: "unkeep" }) },
+    { file: "c.json", text: request("m3u:no-existe", { action: "keep" }) },
+  ]);
+  assert.equal(result.applied.length, 0);
+  assert.equal(result.kept.length, 2);
+  assert.equal(result.skipped.length, 1);
+  assert.deepEqual(result.keep.rowKeys, ["m3u:0104"]);
+  assert.ok(result.layout.channels.every((row) => row.state === "active"));
+});
+
 test("parseRequest rechaza claves con formato ajeno al editor", () => {
   assert.equal(typeof parseRequest(request("tvvoo:x")), "string");
   assert.equal(typeof parseRequest(request("provider:desconocido:x")), "string");
-  assert.deepEqual(parseRequest(request("m3u:0104")), { rowKey: "m3u:0104", name: "x" });
+  assert.deepEqual(parseRequest(request("m3u:0104")), { action: "trash", rowKey: "m3u:0104", name: "x" });
 });
 
 test("publicar desde el editor conserva las bajas hechas en la app mientras estaba abierto", async () => {
