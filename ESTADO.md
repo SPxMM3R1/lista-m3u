@@ -9,6 +9,7 @@
 
 ## Hoy, en una mirada
 
+- **2026-10-31, Lista 2 sin TUDN**: pedido del usuario («elimina los tudn»). Las 9 copias (TUDN, TUDN MX, TUDN USA) a la papelera; Lista 1 no tenía. Registro `contracts/lista2-tudn-20261031.json`.
 - **Lista 2 sin Claro Sports (2026-10-31)**: pedido del usuario («Elimina los claros port.»). Las 6 copias (Claro Sports 2 ×5, Claro Sports 3 ×1) a la papelera; Lista 1 no tenía. Registro `contracts/lista2-claro-sports-20261031.json`.
 - **Lista 2 reordenada por nombre, resolución y bitrate (2026-10-31)**: pedido del usuario («Vuelve a reordenar la lista 2 con primero nombre, segundo resolución, y tercero el bitrate, la idea es que el primer canal siempre sea el de mejor calidad»). Medición nueva en GitHub (673 de 694 medidas) con la variante HLS mayor; `tools/probe_bitrate.py` corregido (tomaba la primera variante y sumaba el bitrate de todas). 710 filas de Lista 2; las sin medir quedan al final de su nombre. Registro `contracts/bitrate-lista2-20261031.json`.
 - **Studio Universal y HBO Pop restaurados en Lista 2 (2026-10-31)**: pedido del usuario («restaura solo la de estudio y la de HBO»). Se habían borrado como 480p por medir solo la primera variante; hoy dan 1080p. Vuelven junto a sus copias (HBO Pop 482, Studio Universal 626) con la misma guía Claro que sus hermanas. Mega [VTR] (también mal medida) no se restauró: Mega ya está en Lista 1. Registro `contracts/lista2-restaurados-1080p-20261031.json`.
@@ -111,6 +112,7 @@
 
 
 ## Bitácora (más reciente arriba)
+- **2026-10-31, Lista 2 sin TUDN**: pedido del usuario («elimina los tudn»). Las 9 copias (TUDN, TUDN MX, TUDN USA) a la papelera; Lista 1 no tenía.
 - **2026-10-31, Lista 2 sin Claro Sports**: 6 copias a la papelera.
 - **2026-10-31, Lista 2 reordenada**: nombre, resolución y bitrate exacto; el primero de cada nombre es el de más calidad medida.
 - **2026-10-31, restaurados Studio Universal y HBO Pop**: dos copias de Lista 2 borradas como 480p que miden 1080p.
