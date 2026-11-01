@@ -10,8 +10,10 @@ import argparse
 import json
 import re
 import subprocess
+import urllib.request
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
+from urllib.parse import urljoin
 
 SECONDS = 8
 TIMEOUT = 25
@@ -37,10 +39,36 @@ def run(args: list[str]) -> str:
     return subprocess.run(args, capture_output=True, text=True, timeout=TIMEOUT).stdout
 
 
+STREAM_INF = re.compile(r"#EXT-X-STREAM-INF:([^\n]*)\n\s*([^#\s][^\n]*)")
+
+
+def best_variant(url: str) -> tuple[str, int]:
+    """Variante mayor de una lista maestra HLS (2026-10-31): ffprobe sobre la maestra toma
+    la primera variante como video y suma al bitrate los paquetes de todas. Devuelve la URL
+    de la variante con más resolución (y luego más BANDWIDTH) y cuántas variantes hay."""
+    try:
+        request = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(request, timeout=TIMEOUT) as response:
+            text = response.read(300_000).decode("utf-8", "replace")
+            base = response.geturl()
+    except (OSError, ValueError):
+        return url, 0
+    best, count = None, 0
+    for attributes, target in STREAM_INF.findall(text.replace("\r", "")):
+        count += 1
+        resolution = re.search(r"RESOLUTION=(\d+)x(\d+)", attributes)
+        bandwidth = re.search(r"(?<![-A-Z])BANDWIDTH=(\d+)", attributes)
+        key = (int(resolution.group(2)) if resolution else 0, int(bandwidth.group(1)) if bandwidth else 0)
+        if best is None or key > best[0]:
+            best = (key, urljoin(base, target.strip()))
+    return (best[1], count) if best and count > 1 else (url, count)
+
+
 def probe(item):
     tvg_id, name, url = item
     result = {"tvg_id": tvg_id, "name": name, "url": url, "ok": False}
     try:
+        url, result["variantes"] = best_variant(url)
         info = json.loads(run(["ffprobe", "-v", "error", "-print_format", "json", "-show_streams",
                                "-analyzeduration", "4000000", "-probesize", "2000000", url]) or "{}")
         video = next((s for s in info.get("streams", []) if s.get("codec_type") == "video"), None)
