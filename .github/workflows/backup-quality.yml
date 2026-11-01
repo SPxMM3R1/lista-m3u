@@ -1,0 +1,58 @@
+name: Medir calidad de respaldos
+
+# 2026-10-31: mide el principal y cada copia de backups.json (alto, fps, bitrate, si abre) para
+# las barras del selector de respaldos de VibeM3U. Solo toca backups.json.
+on:
+  schedule:
+    - cron: "15 9 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: backup-numbers
+  cancel-in-progress: false
+
+jobs:
+  medir:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar ffmpeg
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+
+      - name: Medir
+        run: python scripts/measure_backup_quality.py --save "$RUNNER_TEMP/calidad.json"
+
+      - name: Publicar si cambió
+        shell: bash
+        run: |
+          if [ -z "$(git status --porcelain -- backups.json)" ]; then
+            echo "Sin cambios."
+            exit 0
+          fi
+          git config user.name "Actualizador de respaldos"
+          git config user.email "m3u-bot@users.noreply.github.com"
+          git add backups.json
+          git commit -m "Mide calidad de respaldos en backups.json [skip ci]"
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then exit 0; fi
+            git fetch origin main
+            git reset --hard origin/main
+            python scripts/measure_backup_quality.py --apply "$RUNNER_TEMP/calidad.json"
+            git add backups.json
+            git commit -m "Mide calidad de respaldos en backups.json [skip ci]" || exit 0
+          done
+          echo "No se pudo publicar después de 3 intentos."
+          exit 1
