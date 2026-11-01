@@ -52,6 +52,15 @@ def principal_urls(path: Path) -> dict[str, str]:
 
 def summary(result: dict) -> dict:
     """Lo que lee la app: alto, ancho, fps, kbps y si abrió."""
+    # Cuadros reales medidos (paquetes de video por segundo); si no, lo que declara ffprobe.
+    if result.get("fps_measured"):
+        return {
+            "height": int(result.get("height") or 0),
+            "width": int(result.get("width") or 0),
+            "fps": round(float(result["fps_measured"]), 2),
+            "kbps": int(result.get("kbps") or 0),
+            "ok": bool(result.get("ok") and result.get("height")),
+        }
     fps = 0.0
     text = str(result.get("fps") or "0")
     if text and not text.endswith("/0"):

@@ -16,6 +16,8 @@ from pathlib import Path
 from urllib.parse import urljoin
 
 SECONDS = 8
+# Cuadros decodificados para medir los fps reales (decodificar es más caro que leer paquetes).
+FRAME_SECONDS = 3
 TIMEOUT = 25
 ATTR = re.compile(r'(\S+?)="([^"]*)"')
 
@@ -78,23 +80,39 @@ def probe(item):
                           fps=video.get("avg_frame_rate"), video_codec=video.get("codec_name"))
         if audio:
             result.update(audio_codec=audio.get("codec_name"), audio_channels=audio.get("channels"))
-        packets = run(["ffprobe", "-v", "error", "-read_intervals", f"%+{SECONDS}", "-show_entries",
-                       "packet=size,pts_time", "-of", "csv=p=0", url])
+        packets = json.loads(run(["ffprobe", "-v", "error", "-read_intervals", f"%+{SECONDS}",
+                                  "-show_entries", "packet=size,pts_time",
+                                  "-of", "json", url]) or "{}").get("packets", [])
         sizes, times = [], []
-        # ffprobe imprime «pts_time,size,» (algunas filas traen pts N/A y se descartan).
-        for row in packets.splitlines():
-            fields = [field for field in row.split(",") if field not in ("", "N/A")]
-            if len(fields) == 2 and fields[1].isdigit():
-                try:
-                    times.append(float(fields[0]))
-                except ValueError:
-                    continue
-                sizes.append(int(fields[1]))
+        # Algunas filas traen pts N/A: se descartan.
+        for packet in packets:
+            try:
+                moment = float(packet.get("pts_time"))
+                size = int(packet.get("size"))
+            except (TypeError, ValueError):
+                continue
+            times.append(moment)
+            sizes.append(size)
         if len(times) > 10 and max(times) - min(times) > 1:
             # Ventana de SECONDS segundos: si el canal da más, solo cuentan los paquetes de esa ventana.
             duration = max(times) - min(times)
             result["kbps"] = round(sum(sizes) * 8 / duration / 1000)
             result["ok"] = True
+        frames = json.loads(run(["ffprobe", "-v", "error", "-select_streams", "v:0", "-read_intervals",
+                                 f"%+{FRAME_SECONDS}", "-show_entries", "frame=pts_time", "-of", "json",
+                                 url]) or "{}").get("frames", [])
+        frame_times = []
+        for frame in frames:
+            try:
+                frame_times.append(float(frame.get("pts_time")))
+            except (TypeError, ValueError):
+                continue
+        if len(frame_times) > 10 and max(frame_times) - min(frame_times) > 1:
+            # Cuadros reales por segundo (2026-11-01): en 1080i ffprobe declara 59,94 (campos)
+            # y cada campo llega como paquete aparte, pero se decodifican 29,97 cuadros, que es
+            # lo que muestra el OSD de la app.
+            span = max(frame_times) - min(frame_times)
+            result["fps_measured"] = round((len(frame_times) - 1) / span, 2)
         result["mide_s"] = round(duration, 1) if result["ok"] else None
     except (subprocess.TimeoutExpired, OSError, json.JSONDecodeError) as error:
         result["error"] = type(error).__name__

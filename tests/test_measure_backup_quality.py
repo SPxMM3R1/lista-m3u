@@ -22,6 +22,12 @@ class MeasureBackupQualityTest(unittest.TestCase):
             measure.summary({"ok": False, "fps": "0/0"}),
         )
 
+    def test_summary_prefers_decoded_frame_rate(self):
+        # 1080i: ffprobe declara 60000/1001 (campos) pero se decodifican 29,97 cuadros (OSD).
+        self.assertEqual(29.97, measure.summary(
+            {"ok": True, "height": 1080, "width": 1920, "fps": "60000/1001", "fps_measured": 29.97, "kbps": 3000}
+        )["fps"])
+
     def test_principal_urls_skip_resolvers(self):
         with tempfile.TemporaryDirectory() as folder:
             playlist = Path(folder) / "m3u.m3u"
