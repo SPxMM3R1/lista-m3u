@@ -1,5 +1,6 @@
-"""Orden de Lista 2 por nombre, resolución y bitrate (2026-10-31)."""
+"""Orden de Lista 2: categoría A–Z (2026-11-01) y, dentro, nombre, resolución y bitrate (2026-10-31)."""
 import json
+import unicodedata
 import unittest
 from pathlib import Path
 
@@ -8,7 +9,7 @@ LAYOUT_PATH = ROOT / "data/channel-editor-layout.json"
 
 
 class Lista2OrderTest(unittest.TestCase):
-    def test_lista2_is_sorted_by_name_and_quality(self):
+    def test_lista2_is_sorted_by_category_then_name_and_quality(self):
         document = json.loads(LAYOUT_PATH.read_text(encoding="utf-8"))
         self.assertEqual(document["channels"], sorted(document["channels"], key=lambda row: row["order"]))
         # Los respaldos de otro canal no se ven en la app y van al final (normalizeLists).
@@ -43,8 +44,22 @@ class Lista2OrderTest(unittest.TestCase):
             # Bitrate exacto (sin redondear): el primero de cada nombre es siempre el de más calidad medida.
             return (name_of(row), 0, -item["height"], -(item.get("width") or 0), -(item.get("kbps") or 0))
 
-        ranks = [rank(row) for row in block]
-        self.assertEqual(ranks, sorted(ranks))
+        def fold(text):
+            text = unicodedata.normalize("NFD", str(text or ""))
+            return "".join(char for char in text if not unicodedata.combining(char)).lower()
+
+        # Pedido del usuario (2026-11-01: «ordena por categoría… alfabético de categoría, no del
+        # canal»): las categorías van A–Z, cada una en un solo bloque. Dentro de cada categoría las
+        # señales de antes siguen por nombre y calidad; los candidatos iptv-org conservan su orden.
+        groups = [fold(row.get("group")) for row in block]
+        self.assertEqual(groups, sorted(groups))
+        for group in set(groups):
+            ranks = [
+                rank(row)
+                for row in block
+                if fold(row.get("group")) == group and not str(row.get("tvgId")).startswith("IPTVOrg.")
+            ]
+            self.assertEqual(ranks, sorted(ranks), group)
 
 
 if __name__ == "__main__":
