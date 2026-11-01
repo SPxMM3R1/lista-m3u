@@ -1,5 +1,4 @@
-"""Orden de Lista 2 por nombre y calidad (2026-10-29)."""
-from fractions import Fraction
+"""Orden de Lista 2 por nombre, resolución y bitrate (2026-10-31)."""
 import json
 import unittest
 from pathlib import Path
@@ -24,12 +23,13 @@ class Lista2OrderTest(unittest.TestCase):
             for row in document["channels"]
             if row["state"] == "active" and row.get("sourceList") == "2.m3u" and row.get("tvgId") not in linked
         ]
-        # Pedido del usuario (2026-10-25, repetido el 2026-10-29: «Vuelve a reordenar la lista 2
-        # completa. Por nombre y calidad»): nombre A–Z y, dentro de cada nombre, resolución, fps y
-        # bitrate medido (contracts/bitrate-lista2-20261029.json). Los sin medir van al final de su nombre.
+        # Pedido del usuario (2026-10-31: «Vuelve a reordenar la lista 2 con primero nombre, segundo
+        # resolución, y tercero el bitrate… que el primer canal siempre sea el de mejor calidad»):
+        # nombre A–Z y, dentro de cada nombre, resolución y bitrate medidos con la variante HLS mayor
+        # (contracts/bitrate-lista2-20261031.json). Los sin medir van al final de su nombre.
         measured = {
             item["tvg_id"]: item
-            for item in json.loads((ROOT / "contracts/bitrate-lista2-20261029.json").read_text(encoding="utf-8"))
+            for item in json.loads((ROOT / "contracts/bitrate-lista2-20261031.json").read_text(encoding="utf-8"))
             if item.get("ok") and item.get("height")
         }
 
@@ -39,12 +39,9 @@ class Lista2OrderTest(unittest.TestCase):
         def rank(row):
             item = measured.get(row.get("tvgId"))
             if item is None:
-                return (name_of(row), 1, 0, 0, 0, 0)
-            # Algunas señales informan «0/0» fps: cuentan como 0.
-            fps_text = str(item.get("fps") or "0")
-            fps = 0.0 if fps_text.endswith("/0") else float(Fraction(fps_text))
-            # El bitrate se redondea a múltiplos de 500 kbps: pequeñas variaciones de medición no mueven el orden.
-            return (name_of(row), 0, -item["height"], -(item.get("width") or 0), -fps, -round((item.get("kbps") or 0) / 500))
+                return (name_of(row), 1, 0, 0, 0)
+            # Bitrate exacto (sin redondear): el primero de cada nombre es siempre el de más calidad medida.
+            return (name_of(row), 0, -item["height"], -(item.get("width") or 0), -(item.get("kbps") or 0))
 
         ranks = [rank(row) for row in block]
         self.assertEqual(ranks, sorted(ranks))
