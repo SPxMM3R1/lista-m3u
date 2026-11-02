@@ -475,6 +475,15 @@ class TvnEpgTests(unittest.TestCase):
         self.assertIn(("mx1", "Canal.Telehit.Música.mx"),
                       update_m3u.epg_source_chain("TelehitMusica.mx@SD"))
 
+    def test_hbo_uses_gatotv_from_overrides(self) -> None:
+        # 2026-11-02 (pedido del usuario «Para HBOs saca de GatoTV»): un override GatoTV registra
+        # su slug y deja la guía anterior de respaldo.
+        target = "PublicDirect.9b6311dbc0425cf6e545649a"
+        update_m3u.apply_epg_overrides()
+        self.assertEqual(("gatotv", "gatotv:hbo_latinoamerica"), update_m3u.EPG_PROGRAMME_SOURCES[target])
+        self.assertEqual("hbo_latinoamerica", update_m3u.GATOTV_CHANNELS[target])
+        self.assertIn(("mx1", "Canal.HBO.(México).mx"), update_m3u.epg_source_chain(target))
+
     def test_epgshare_scope_skips_feeds_without_catalogue_targets(self) -> None:
         sources = update_m3u.epgshare_source_names_for(
             [

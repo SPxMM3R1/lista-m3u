@@ -7770,6 +7770,7 @@ def apply_epg_overrides(path: Path = EPG_OVERRIDES_PATH) -> dict[str, tuple[str,
         SKY_OFFICIAL_EPG_SOURCE,
         AUTENTIC_HISTORY_EPG_SOURCE,
         CLARO_GUIDE_PART,
+        GATOTV_PART,
     }
     applied: dict[str, tuple[str, str]] = {}
     for channel_id, raw_entry in raw_channels.items():
@@ -7793,6 +7794,11 @@ def apply_epg_overrides(path: Path = EPG_OVERRIDES_PATH) -> dict[str, tuple[str,
             if claro_key is None:
                 raise ValueError(f"{path.name}: {channel_id} source_id Claro inválido: {source_id}")
             CLARO_GUIDE_CHANNELS[stable_id] = claro_key
+        if source == GATOTV_PART:
+            # GatoTV por canal (2026-11-02, HBO): «gatotv:<slug>» de gatotv.com/canal/<slug>.
+            if not source_id.startswith(GATOTV_ID_PREFIX) or len(source_id) <= len(GATOTV_ID_PREFIX):
+                raise ValueError(f"{path.name}: {channel_id} source_id GatoTV inválido: {source_id}")
+            GATOTV_CHANNELS[stable_id] = source_id[len(GATOTV_ID_PREFIX):]
         backup = raw_entry.get("backup")
         if isinstance(backup, dict) and backup.get("source") and backup.get("source_id"):
             if backup["source"] == CLARO_GUIDE_PART:
