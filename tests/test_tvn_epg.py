@@ -25,12 +25,13 @@ class TvnEpgTests(unittest.TestCase):
     def test_direct_espn_181_uses_the_chilean_guide(self) -> None:
         # 2026-10-24: guía Claro Chile (verificada con fotograma: Arsenal vs Everton); la
         # EPGShare chilena anterior queda de respaldo.
+        # 2026-11-01: EPGShare CL1 (misma parrilla) primero; Claro Chile de respaldo.
         target = "ESPN.co@Direct181"
-        source = ("claro-guia", "claro:chile:793457")
+        source = ("cl", "Canal.ESPN.(Chile).cl")
         overrides = json.loads(Path("epg-overrides.json").read_text(encoding="utf-8"))
         entry = overrides["channels"][target]
         self.assertEqual(source, (entry["source"], entry["source_id"]))
-        self.assertEqual({"source": "cl", "source_id": "Canal.ESPN.(Chile).cl"}, entry["backup"])
+        self.assertEqual({"source": "claro-guia", "source_id": "claro:chile:793457"}, entry["backup"])
         with patch.dict(update_m3u.EPG_PROGRAMME_SOURCES, {target: source}):
             chain = update_m3u.epg_source_chain(target)
             self.assertEqual(source, chain[0])
@@ -40,7 +41,8 @@ class TvnEpgTests(unittest.TestCase):
         target = "WinPlusFutbol.co@Direct181"
         update_m3u.apply_epg_overrides()
         # 2026-10-24: Claro Paraguay (fotograma Köln vs Schalke); la UY1 en español respalda.
-        self.assertEqual(("claro-guia", "claro:paraguay:952450"), update_m3u.EPG_PROGRAMME_SOURCES[target])
+        # 2026-11-01: la UY1 en español (misma parrilla) primero; Claro Paraguay de respaldo.
+        self.assertEqual(("uy1", "ESPN.5.HD.uy"), update_m3u.EPG_PROGRAMME_SOURCES[target])
         self.assertIn(("uy1", "ESPN.5.HD.uy"), update_m3u.epg_source_chain(target))
         self.assertNotIn(("uy1", "[ESPN5SD].ESPN.5.uy"), update_m3u.epg_source_chain(target))
 
@@ -465,9 +467,10 @@ class TvnEpgTests(unittest.TestCase):
         )
         update_m3u.apply_epg_overrides()
         # 2026-10-24: Telehit Música usa Claro Guatemala (Mixología); distinto de Telehit.
+        # 2026-11-01: EPGShare MX1 (misma parrilla) primero; Claro Guatemala de respaldo.
         self.assertEqual(
             update_m3u.EPG_PROGRAMME_SOURCES["TelehitMusica.mx@SD"],
-            ("claro-guia", "claro:guatemala:1413182"),
+            ("mx1", "Canal.Telehit.Música.mx"),
         )
         self.assertIn(("mx1", "Canal.Telehit.Música.mx"),
                       update_m3u.epg_source_chain("TelehitMusica.mx@SD"))

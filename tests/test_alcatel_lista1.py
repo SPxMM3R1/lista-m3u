@@ -88,11 +88,16 @@ class AlcatelLista1Test(unittest.TestCase):
                 self.assertEqual(expected["trial"], channel_id in presentation["trial_m3u"])
 
         # 2026-10-24: guía Claro elegida con fotograma; la anterior queda de respaldo.
+        # 2026-11-01 (pedido del usuario «cambiar todas las de Claro a EPG Share»): donde EPGShare
+        # tiene la misma parrilla, va primero y Claro queda de respaldo.
         for channel_id, (source, source_id) in EPG_OVERRIDES.items():
-            self.assertEqual("claro-guia", epg[channel_id]["source"])
-            self.assertEqual({"source": source, "source_id": source_id}, epg[channel_id]["backup"])
-        # AXN #57: guía Claro Argentina (Criminal Minds) verificada con el fotograma.
-        self.assertEqual("claro-guia", epg["PublicDirect.a247897d9a490d19fa633661"]["source"])
+            entry = epg[channel_id]
+            if entry["source"] == "claro-guia":
+                self.assertEqual({"source": source, "source_id": source_id}, entry["backup"])
+            else:
+                self.assertEqual("claro-guia", entry["backup"]["source"])
+        # AXN #57: Claro Argentina (Criminal Minds, fotograma) queda de respaldo de AXN UY1.
+        self.assertEqual("claro-guia", epg["PublicDirect.a247897d9a490d19fa633661"]["backup"]["source"])
         self.assertNotIn("PublicDirect.376c74e4d0452f743fd2c811", epg)
 
     def test_telehit_and_requested_rows_are_ordered_in_lista1_only(self):

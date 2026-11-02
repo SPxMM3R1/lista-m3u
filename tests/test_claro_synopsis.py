@@ -144,8 +144,8 @@ class ClaroFamilyGuideTest(unittest.TestCase):
 
         golden = "PublicDirect.2f668b9b183e85d1f177f70d"
         applied = update_m3u.apply_epg_overrides()
-        self.assertEqual(("claro-guia", "claro:paraguay:952481"), applied[golden])
-        self.assertEqual(("paraguay", "952481"), update_m3u.CLARO_GUIDE_CHANNELS[golden])
-        self.assertEqual(("guatemala", "889155"), update_m3u.CLARO_GUIDE_BACKUP_CHANNELS[golden])
-        self.assertEqual(("claro-guia", "claro:guatemala:889155"), update_m3u.EPGSHARE_BACKUP_CHANNELS[golden])
+        # 2026-11-01: EPGShare CO1 (misma parrilla) primero; Claro Paraguay de respaldo.
+        self.assertEqual(("co1", "GOLDEN.HD.co"), applied[golden])
+        self.assertEqual(("paraguay", "952481"), update_m3u.CLARO_GUIDE_BACKUP_CHANNELS[golden])
+        self.assertEqual(("claro-guia", "claro:paraguay:952481"), update_m3u.EPGSHARE_BACKUP_CHANNELS[golden])
 
