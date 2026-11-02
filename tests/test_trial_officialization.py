@@ -9,6 +9,8 @@ import update_m3u as runner
 ROOT=Path(__file__).resolve().parents[1]
 AUDIT=ROOT/'contracts/trial-officialization-20261013.json'
 OPTIMIZED=json.loads((ROOT/'contracts/logos-optimizados-20261031.json').read_text(encoding='utf-8'))['logos']
+# Logos editados a pedido del usuario (2026-11-01, History 2 con letras blancas): misma cadena.
+OPTIMIZED.update(json.loads((ROOT/'contracts/logos-editados-20261101.json').read_text(encoding='utf-8'))['logos'])
 
 class TrialOfficializationTest(unittest.TestCase):
     def test_authorization_is_closed_to_exact_existing_references(self):
