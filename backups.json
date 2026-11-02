@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-10-31",
+  "updated": "2026-11-01",
   "description": "Copias (casi todas de Lista 2) que respaldan a un canal de Lista 1: misma señal, confirmada con captura. Esas copias ya no se publican en Lista 2; la app las prueba en orden si la señal principal falla.",
   "fields": {
     "channels.<clave>": "tvg-id del canal principal en Lista 1 (la identidad estable; el número puede cambiar).",
@@ -1804,7 +1804,7 @@
         "source": "",
         "source_id": ""
       },
-      "verified": "2026-10-24: todas abren; copias con la misma imagen que la principal primero. No se compararon a la vista (contenido para adultos).",
+      "verified": "2026-10-24: todas abren; copias con la misma imagen que la principal primero. No se compararon a la vista (contenido para adultos).; 2026-11-01 (pedido del usuario «El canal Playboy del 082 déjalo como backup de los otros»): se suma el Playboy de Lista 2 (082, Playboy HD [IP 200.7.99.59], 1080p).",
       "backups": [
         {
           "tvg_id": "PublicDirect.5b84987cb127792ffa6e0ffe",
@@ -1888,6 +1888,20 @@
             "fps": 29.97,
             "kbps": 1515,
             "ok": true
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.cf672adef0fd7e9d66a16400",
+          "display_name": "Playboy",
+          "source_name": "Playboy HD [IP 200.7.99.59]",
+          "from_list": "Lista 2",
+          "from_number": 82,
+          "group": "Adultos",
+          "logo": "logos/lista2/45698fbc3e27.png",
+          "url": "http://200.7.99.59:8000/play/a0j9/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:argentina:766262"
           }
         }
       ],
