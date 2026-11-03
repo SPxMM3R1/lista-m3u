@@ -1413,15 +1413,6 @@
         "source_id": "claro:colombia:1194071"
       }
     },
-    "PublicDirect.5bb38c5c93187a54854b8f8f": {
-      "source": "uy1",
-      "source_id": "UNIVERSAL.CINEMA.HD.uy",
-      "verified": "2026-11-01: pedido del usuario («¿Podrías cambiar todas las de Claro a EPG Share? Porque parece que todas están igual», tras HBO y Adult Swim); EPGShare UY1 UNIVERSAL.CINEMA.HD.uy tiene la misma parrilla que Claro (13 de 20 programas con el mismo título y hora ±3 min); Claro queda de respaldo.",
-      "backup": {
-        "source": "claro-guia",
-        "source_id": "claro:colombia:1194071"
-      }
-    },
     "PublicDirect.49854aa2ac00919d765f58d5": {
       "source": "uy1",
       "source_id": "[UNICO].Universal.Comedy.uy",
@@ -1516,6 +1507,15 @@
       "source": "gatotv",
       "source_id": "gatotv:warner_tv_sur",
       "verified": "2026-11-02: pedido del usuario («El 782 Warner, puedes ponerle como Warner Sur y darle la EPG de Warner TV Sur»). La señal no abrió desde Chile al revisarla; guía puesta a pedido."
+    },
+    "IPTVOrg.UniversalCinema.us-SD": {
+      "source": "uy1",
+      "source_id": "UNIVERSAL.CINEMA.HD.uy",
+      "verified": "2026-11-03: Universal Cinema (728 de Lista 2) pasa a Lista 1 a pedido del usuario; hereda la guía de su clon PublicDirect.5bb38c5c93187a54854b8f8f. 2026-11-01: pedido del usuario («¿Podrías cambiar todas las de Claro a EPG Share? Porque parece que todas están igual», tras HBO y Adult Swim); EPGShare UY1 UNIVERSAL.CINEMA.HD.uy tiene la misma parrilla que Claro (13 de 20 programas con el mismo título y hora ±3 min); Claro queda de respaldo.",
+      "backup": {
+        "source": "claro-guia",
+        "source_id": "claro:colombia:1194071"
+      }
     }
   }
 }

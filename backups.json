@@ -13617,48 +13617,6 @@
         "ok": true
       }
     },
-    "PublicDirect.5bb38c5c93187a54854b8f8f": {
-      "display_name": "Universal Cinema",
-      "list": "Lista 2",
-      "number": 429,
-      "group": "Películas",
-      "source_name": "UNIVERSAL CINEMA [IP 38.87.224.19]",
-      "guide": {
-        "source": "uy1",
-        "source_id": "UNIVERSAL.CINEMA.HD.uy"
-      },
-      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.",
-      "backups": [
-        {
-          "tvg_id": "IPTVOrg.UniversalCinema.us-SD",
-          "display_name": "Universal Cinema (1080p)",
-          "source_name": "Universal Cinema (1080p)",
-          "from_list": "Lista 2",
-          "from_number": 729,
-          "group": "Películas",
-          "logo": "",
-          "url": "http://45.167.1.138:8000/play/a06m",
-          "guide": {
-            "source": "",
-            "source_id": ""
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 29.97,
-            "kbps": 1420,
-            "ok": true
-          }
-        }
-      ],
-      "principal_quality": {
-        "height": 1080,
-        "width": 1920,
-        "fps": 29.97,
-        "kbps": 1834,
-        "ok": true
-      }
-    },
     "PublicDirect.f3e686834ca7d7d97c85f348": {
       "display_name": "Universal Cinema Este",
       "list": "Lista 2",
@@ -14580,6 +14538,48 @@
         "width": 1920,
         "fps": 29.97,
         "kbps": 5115,
+        "ok": true
+      }
+    },
+    "IPTVOrg.UniversalCinema.us-SD": {
+      "display_name": "Universal Cinema",
+      "list": "Lista 1",
+      "number": 61,
+      "group": "Cine",
+      "source_name": "Universal Cinema (1080p)",
+      "guide": {
+        "source": "uy1",
+        "source_id": "UNIVERSAL.CINEMA.HD.uy"
+      },
+      "verified": "2026-11-03 (pedido del usuario «728 a lista 1» / «Era Universal Cinema, pero ve específicamente el que yo te pedí»): el 728 de Lista 2 pasa a Lista 1 como principal; su clon de Lista 2 (correlación ≥ 0,85, outputs/clones-20261102b) queda de respaldo.",
+      "backups": [
+        {
+          "tvg_id": "PublicDirect.5bb38c5c93187a54854b8f8f",
+          "display_name": "Universal Cinema",
+          "source_name": "UNIVERSAL CINEMA [IP 38.87.224.19]",
+          "from_list": "Lista 2",
+          "from_number": 429,
+          "group": "Películas",
+          "logo": "logos/lista2/26b4119750c7.png",
+          "url": "http://38.87.224.19:2220/play/a01l/index.m3u8",
+          "guide": {
+            "source": "uy1",
+            "source_id": "UNIVERSAL.CINEMA.HD.uy"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 1834,
+            "ok": true
+          }
+        }
+      ],
+      "principal_quality": {
+        "height": 1080,
+        "width": 1920,
+        "fps": 29.97,
+        "kbps": 1420,
         "ok": true
       }
     }
