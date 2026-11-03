@@ -3106,10 +3106,52 @@
         "interlaced": true
       }
     },
+    "IPTVOrg.UniversalCinema.us-SD": {
+      "display_name": "Universal Cinema",
+      "list": "Lista 1",
+      "number": 61,
+      "group": "Cine",
+      "source_name": "Universal Cinema (1080p)",
+      "guide": {
+        "source": "uy1",
+        "source_id": "UNIVERSAL.CINEMA.HD.uy"
+      },
+      "verified": "2026-11-03 (pedido del usuario «728 a lista 1» / «Era Universal Cinema, pero ve específicamente el que yo te pedí»): el 728 de Lista 2 pasa a Lista 1 como principal; su clon de Lista 2 (correlación ≥ 0,85, outputs/clones-20261102b) queda de respaldo.",
+      "backups": [
+        {
+          "tvg_id": "PublicDirect.5bb38c5c93187a54854b8f8f",
+          "display_name": "Universal Cinema",
+          "source_name": "UNIVERSAL CINEMA [IP 38.87.224.19]",
+          "from_list": "Lista 2",
+          "from_number": 429,
+          "group": "Películas",
+          "logo": "logos/lista2/26b4119750c7.png",
+          "url": "http://38.87.224.19:2220/play/a01l/index.m3u8",
+          "guide": {
+            "source": "uy1",
+            "source_id": "UNIVERSAL.CINEMA.HD.uy"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 1834,
+            "ok": true
+          }
+        }
+      ],
+      "principal_quality": {
+        "height": 1080,
+        "width": 1920,
+        "fps": 29.97,
+        "kbps": 1420,
+        "ok": true
+      }
+    },
     "PublicDirect.ef0023b214fe77f7918ee36f": {
       "display_name": "TNT",
       "list": "Lista 1",
-      "number": 61,
+      "number": 62,
       "group": "Cine",
       "source_name": "TNT [IP 177.234.218.66]",
       "guide": {
@@ -3197,7 +3239,7 @@
     "PublicDirect.7af273823473ac60f6ed4a64": {
       "display_name": "Space",
       "list": "Lista 1",
-      "number": 62,
+      "number": 63,
       "group": "Cine",
       "source_name": "SPACE [IP 177.234.218.66]",
       "guide": {
@@ -3571,7 +3613,7 @@
     "PublicDirect.de3e91d7c885d797352686e1": {
       "display_name": "Warner Channel",
       "list": "Lista 1",
-      "number": 63,
+      "number": 64,
       "group": "Cine",
       "source_name": "WARNER [IP 177.234.218.66]",
       "guide": {
@@ -3747,7 +3789,7 @@
     "PublicDirect.0812ad5e7a912f09fdebd000": {
       "display_name": "HBO 2",
       "list": "Lista 1",
-      "number": 65,
+      "number": 66,
       "group": "Cine",
       "source_name": "HBO 2 HD [IP 181.78.82.130]",
       "guide": {
@@ -3945,7 +3987,7 @@
     "PublicDirect.389f219f3c7fdbbda989bda5": {
       "display_name": "Star Channel",
       "list": "Lista 1",
-      "number": 66,
+      "number": 67,
       "group": "Cine",
       "source_name": "STAR CHANNEL HD [IP 190.108.83.69]",
       "guide": {
@@ -4429,7 +4471,7 @@
     "PublicDirect.2f668b9b183e85d1f177f70d": {
       "display_name": "Golden",
       "list": "Lista 1",
-      "number": 67,
+      "number": 68,
       "group": "Cine",
       "source_name": "ALCATEL GOLDEN [IP 177.234.218.66]",
       "guide": {
@@ -4534,7 +4576,7 @@
     "PublicDirect.d232b1eca5d8562c42007165": {
       "display_name": "Golden Edge",
       "list": "Lista 1",
-      "number": 68,
+      "number": 69,
       "group": "Cine",
       "source_name": "ALCATEL GOLDEN EDGE MD2 [IP 177.234.218.66]",
       "guide": {
@@ -4576,7 +4618,7 @@
     "PublicDirect.a247897d9a490d19fa633661": {
       "display_name": "AXN",
       "list": "Lista 1",
-      "number": 69,
+      "number": 70,
       "group": "Series",
       "source_name": "ALCATEL AXN MD2 [IP 177.234.218.66]",
       "guide": {
@@ -5060,7 +5102,7 @@
     "PublicDirect.9c28a0d10a09856e98930cdc": {
       "display_name": "Sony Channel",
       "list": "Lista 1",
-      "number": 70,
+      "number": 71,
       "group": "Series",
       "source_name": "ALCATEL SONY CHANNEL MD1 [IP 177.234.218.66]",
       "guide": {
@@ -5544,7 +5586,7 @@
     "PublicDirect.bf407e29eec656d628dfa2d7": {
       "display_name": "Universal TV",
       "list": "Lista 1",
-      "number": 71,
+      "number": 72,
       "group": "Series",
       "source_name": "ALCATEL UNIVERSAL [IP 177.234.218.66]",
       "guide": {
@@ -5654,7 +5696,7 @@
     "PublicDirect.1701b6c4abbcc431fb481536": {
       "display_name": "USA Network",
       "list": "Lista 1",
-      "number": 72,
+      "number": 73,
       "group": "Series",
       "source_name": "ALCATEL USA [IP 177.234.218.66]",
       "guide": {
@@ -5808,7 +5850,7 @@
     "PublicDirect.4d239300ca300e970c35d7aa": {
       "display_name": "TNT Series",
       "list": "Lista 1",
-      "number": 73,
+      "number": 74,
       "group": "Series",
       "source_name": "TNT Series HD [IP 190.108.83.69]",
       "guide": {
@@ -6106,7 +6148,7 @@
     "PublicDirect.5dcc9d45e7f72f13df740d70": {
       "display_name": "Adult Swim",
       "list": "Lista 1",
-      "number": 74,
+      "number": 75,
       "group": "Series",
       "source_name": "Z ADULT SWIM [IP 177.234.218.66]",
       "guide": {
@@ -6172,7 +6214,7 @@
     "PublicDirect.11e2d6f2d20ea8500bc4a261": {
       "display_name": "Cartoon Network",
       "list": "Lista 1",
-      "number": 76,
+      "number": 77,
       "group": "Infantil y familiar",
       "source_name": "Z CARTOON NETWORK [IP 177.234.218.66]",
       "guide": {
@@ -6796,7 +6838,7 @@
     "PublicDirect.8da65ba545fa9fd2512f9901": {
       "display_name": "History Channel",
       "list": "Lista 1",
-      "number": 80,
+      "number": 81,
       "group": "Documentales, cultura, historia y naturaleza",
       "source_name": "ALCATEL HISTORY MD1 [IP 177.234.218.66]",
       "guide": {
@@ -7082,7 +7124,7 @@
     "PublicDirect.39057ce89326a34e33998e2e": {
       "display_name": "History Channel 2",
       "list": "Lista 1",
-      "number": 81,
+      "number": 82,
       "group": "Documentales, cultura, historia y naturaleza",
       "source_name": "ALCATEL HISTORY 2 [IP 177.234.218.66]",
       "guide": {
@@ -7236,7 +7278,7 @@
     "IPTVOrg.LoveNature.ca-4K": {
       "display_name": "Love Nature 4K (2160p) [Geo-blocked]",
       "list": "Lista 2",
-      "number": 83,
+      "number": 84,
       "group": "Aire libre",
       "source_name": "Love Nature 4K (2160p) [Geo-blocked]",
       "guide": {
@@ -7299,7 +7341,7 @@
     "PublicDirect.4ded1fad9c0f880605cfe8fa": {
       "display_name": "ESPN",
       "list": "Lista 2",
-      "number": 91,
+      "number": 92,
       "group": "Deportes",
       "source_name": "ESPN 1 ENVIO [IP 181.79.86.130]",
       "guide": {
@@ -7343,7 +7385,7 @@
     "PublicDirect.fe6d030216472a0f5ef9070f": {
       "display_name": "ESPN 2",
       "list": "Lista 2",
-      "number": 94,
+      "number": 95,
       "group": "Deportes",
       "source_name": "ESPN 2 HD [IP 45.166.93.156]",
       "guide": {
@@ -7563,7 +7605,7 @@
     "PublicDirect.42095e66e7aa9b52a50125ae": {
       "display_name": "ESPN 2",
       "list": "Lista 2",
-      "number": 100,
+      "number": 101,
       "group": "Deportes",
       "source_name": "ESPN 2 HD [IP 45.173.231.22]",
       "guide": {
@@ -7607,7 +7649,7 @@
     "PublicDirect.70687441d630ed78b80f7044": {
       "display_name": "ESPN 3",
       "list": "Lista 2",
-      "number": 106,
+      "number": 107,
       "group": "Deportes",
       "source_name": "ESPN 3 HD [IP 181.119.177.253]",
       "guide": {
@@ -7717,7 +7759,7 @@
     "PublicDirect.d1484c227bed7e7987e0c647": {
       "display_name": "ESPN 3",
       "list": "Lista 2",
-      "number": 117,
+      "number": 118,
       "group": "Deportes",
       "source_name": "ESPN 3 HD [IP 190.108.83.69]",
       "guide": {
@@ -7761,7 +7803,7 @@
     "PublicDirect.86989f7c634714e72803f142": {
       "display_name": "ESPN 3",
       "list": "Lista 2",
-      "number": 118,
+      "number": 119,
       "group": "Deportes",
       "source_name": "ESPN 3 HD [IP 45.173.231.22]",
       "guide": {
@@ -7805,7 +7847,7 @@
     "PublicDirect.fd9760d46756a2caf2496601": {
       "display_name": "ESPN 5",
       "list": "Lista 2",
-      "number": 125,
+      "number": 126,
       "group": "Deportes",
       "source_name": "ESPN 5 HD [IP 181.78.197.59]",
       "guide": {
@@ -7915,7 +7957,7 @@
     "PublicDirect.bc1cc78f509f57eee0e09ccc": {
       "display_name": "ESPN 5",
       "list": "Lista 2",
-      "number": 126,
+      "number": 127,
       "group": "Deportes",
       "source_name": "ESPN 5 HD [IP 200.7.99.59]",
       "guide": {
@@ -7981,7 +8023,7 @@
     "PublicDirect.200b6a8c8b13286206245c7d": {
       "display_name": "ESPN 6 4k",
       "list": "Lista 2",
-      "number": 131,
+      "number": 132,
       "group": "Deportes",
       "source_name": "ESPN 6 4k [IP 138.59.177.78]",
       "guide": {
@@ -8090,7 +8132,7 @@
     "PublicDirect.9cd6da14085f95bfe651ca1e": {
       "display_name": "ESPN Premium",
       "list": "Lista 2",
-      "number": 136,
+      "number": 137,
       "group": "Deportes",
       "source_name": "ESPN Premium HD [IP 181.78.211.244]",
       "guide": {
@@ -8222,7 +8264,7 @@
     "IPTVOrg.ESPNPremium.ar-HD": {
       "display_name": "ESPN Premium HD (1080p)",
       "list": "Lista 2",
-      "number": 137,
+      "number": 138,
       "group": "Deportes",
       "source_name": "ESPN Premium HD (1080p)",
       "guide": {
@@ -8265,7 +8307,7 @@
     "PublicDirect.2bb3242fa5e8a4c0a55a024b": {
       "display_name": "Golden Premiere",
       "list": "Lista 2",
-      "number": 144,
+      "number": 145,
       "group": "Deportes",
       "source_name": "Golden Premiere HD [IP 138.59.177.78]",
       "guide": {
@@ -8349,7 +8391,7 @@
     "PublicDirect.792c9413cb2a98e7c3d972f6": {
       "display_name": "la liga",
       "list": "Lista 2",
-      "number": 153,
+      "number": 154,
       "group": "Deportes",
       "source_name": "la liga [IP 45.171.64.30]",
       "guide": {
@@ -8391,7 +8433,7 @@
     "PublicDirect.617b574fa232cce423379651": {
       "display_name": "Universal Premiere",
       "list": "Lista 2",
-      "number": 168,
+      "number": 169,
       "group": "Deportes",
       "source_name": "UNIVERSAL PREMIERE HD [IP 45.5.118.152]",
       "guide": {
@@ -8580,7 +8622,7 @@
     "PublicDirect.7c8d4b8df3edac7b0635d166": {
       "display_name": "Universal Premiere O",
       "list": "Lista 2",
-      "number": 170,
+      "number": 171,
       "group": "Deportes",
       "source_name": "UNIVERSAL PREMIERE O HD [IP 181.119.177.253]",
       "guide": {
@@ -8685,7 +8727,7 @@
     "PublicDirect.36857621e77d520e601badcf": {
       "display_name": "Discovery Channel",
       "list": "Lista 2",
-      "number": 210,
+      "number": 211,
       "group": "Misceláneos",
       "source_name": "Z DISCOVERY CHANNEL [IP 177.234.218.66]",
       "guide": {
@@ -8769,7 +8811,7 @@
     "PublicDirect.a94ffbb995ce99ad986d92cc": {
       "display_name": "Discovery Channel",
       "list": "Lista 2",
-      "number": 214,
+      "number": 215,
       "group": "Misceláneos",
       "source_name": "Discovery Channel HD [IP 72.1.184.5]",
       "guide": {
@@ -8937,7 +8979,7 @@
     "PublicDirect.e8d09ffc2c224c3c5eed0fe6": {
       "display_name": "Discovery Channel",
       "list": "Lista 2",
-      "number": 216,
+      "number": 217,
       "group": "Misceláneos",
       "source_name": "Discovery Channel HD [IP 181.78.211.244]",
       "guide": {
@@ -9084,7 +9126,7 @@
     "PublicDirect.375a0c2e7f0b6d3d1fb8c5c4": {
       "display_name": "Discovery Science",
       "list": "Lista 2",
-      "number": 219,
+      "number": 220,
       "group": "Misceláneos",
       "source_name": "Z DISCOVERY SCIENCE [IP 177.234.218.66]",
       "guide": {
@@ -9147,7 +9189,7 @@
     "PublicDirect.3c96353d8e3bf508d2157d81": {
       "display_name": "Discovery Theater",
       "list": "Lista 2",
-      "number": 221,
+      "number": 222,
       "group": "Misceláneos",
       "source_name": "Discovery Theater HD [IP 38.87.224.19]",
       "guide": {
@@ -9483,7 +9525,7 @@
     "PublicDirect.c4712375281c919db4593df8": {
       "display_name": "Discovery World",
       "list": "Lista 2",
-      "number": 227,
+      "number": 228,
       "group": "Misceláneos",
       "source_name": "Discovery World HD [IP 181.78.82.130]",
       "guide": {
@@ -9840,7 +9882,7 @@
     "PublicDirect.ee9d652b97bb303f0853c7a5": {
       "display_name": "History",
       "list": "Lista 2",
-      "number": 233,
+      "number": 234,
       "group": "Misceláneos",
       "source_name": "HISTORY [IP 38.87.224.19]",
       "guide": {
@@ -9924,7 +9966,7 @@
     "PublicDirect.5301c25c15ff692e95f9a6d1": {
       "display_name": "History",
       "list": "Lista 2",
-      "number": 236,
+      "number": 237,
       "group": "Misceláneos",
       "source_name": "History Channel HD [IP 181.78.211.244]",
       "guide": {
@@ -9966,7 +10008,7 @@
     "PublicDirect.cb748231ae0dc76bb6bf5dc3": {
       "display_name": "Investigation Discovery",
       "list": "Lista 2",
-      "number": 242,
+      "number": 243,
       "group": "Misceláneos",
       "source_name": "Discovery ID HD [IP 138.59.177.78]",
       "guide": {
@@ -10092,7 +10134,7 @@
     "PublicDirect.ee3f44e4b46b5c131cbd5e22": {
       "display_name": "Investigation Discovery",
       "list": "Lista 2",
-      "number": 245,
+      "number": 246,
       "group": "Misceláneos",
       "source_name": "Discovery ID HD [IP 190.61.90.17]",
       "guide": {
@@ -10239,7 +10281,7 @@
     "PublicDirect.4f6975eae324c2c1f994c84f": {
       "display_name": "Investigation Discovery",
       "list": "Lista 2",
-      "number": 246,
+      "number": 247,
       "group": "Misceláneos",
       "source_name": "ID Discovery [IP 138.94.3.106]",
       "guide": {
@@ -10281,7 +10323,7 @@
     "PublicDirect.02a2f71002ec112d786a28f5": {
       "display_name": "National Geographic",
       "list": "Lista 2",
-      "number": 255,
+      "number": 256,
       "group": "Misceláneos",
       "source_name": "MPTS 1 NATIONAL GEOGRAPHIC [IP 177.234.218.66]",
       "guide": {
@@ -10386,7 +10428,7 @@
     "PublicDirect.8a5d0371ff496197a85a71b8": {
       "display_name": "National Geographic",
       "list": "Lista 2",
-      "number": 260,
+      "number": 261,
       "group": "Misceláneos",
       "source_name": "Nat Geo HD [IP 181.78.106.127]",
       "guide": {
@@ -10449,7 +10491,7 @@
     "PublicDirect.1896252947da838aa08e5139": {
       "display_name": "National Geographic",
       "list": "Lista 2",
-      "number": 261,
+      "number": 262,
       "group": "Misceláneos",
       "source_name": "Nat Geo HD [IP 181.78.197.59]",
       "guide": {
@@ -10638,7 +10680,7 @@
     "PublicDirect.5fa93eee31589e2105958c0e": {
       "display_name": "National Geographic",
       "list": "Lista 2",
-      "number": 265,
+      "number": 266,
       "group": "Misceláneos",
       "source_name": "Nat Geo HD [IP 200.7.99.59]",
       "guide": {
@@ -10680,7 +10722,7 @@
     "PublicDirect.08b71ab74a14ddfe4de5715b": {
       "display_name": "Universal Channel",
       "list": "Lista 2",
-      "number": 274,
+      "number": 275,
       "group": "Misceláneos",
       "source_name": "SRT UNIVERSAL [IP 181.78.12.119]",
       "guide": {
@@ -10722,7 +10764,7 @@
     "IPTVOrg.MTVBiggestPop.us-US": {
       "display_name": "MTV Biggest Pop (1080p)",
       "list": "Lista 2",
-      "number": 275,
+      "number": 276,
       "group": "Música",
       "source_name": "MTV Biggest Pop (1080p)",
       "guide": {
@@ -10764,7 +10806,7 @@
     "IPTVOrg.MTVFlowLatino.us-SD": {
       "display_name": "MTV Flow Latino (720p)",
       "list": "Lista 2",
-      "number": 281,
+      "number": 282,
       "group": "Música",
       "source_name": "MTV Flow Latino (720p)",
       "guide": {
@@ -10806,7 +10848,7 @@
     "PublicDirect.650a768cd537cb17d491e369": {
       "display_name": "Stingray Concerts",
       "list": "Lista 2",
-      "number": 286,
+      "number": 287,
       "group": "Música",
       "source_name": "Stingray Concerts HD [IP 190.108.83.69]",
       "guide": {
@@ -10848,7 +10890,7 @@
     "PublicDirect.8918c13cf06dc2f7416879f2": {
       "display_name": "AMC",
       "list": "Lista 2",
-      "number": 293,
+      "number": 294,
       "group": "Películas",
       "source_name": "AMC HD [IP 45.171.64.30]",
       "guide": {
@@ -11121,7 +11163,7 @@
     "PublicDirect.2bc3084ebbc2631038c24a40": {
       "display_name": "Cinecanal",
       "list": "Lista 2",
-      "number": 302,
+      "number": 303,
       "group": "Películas",
       "source_name": "2ENC1 - CINECANAL [IP 190.128.214.97]",
       "guide": {
@@ -11520,7 +11562,7 @@
     "PublicDirect.2beeea3de6952cc8ea889299": {
       "display_name": "DHE",
       "list": "Lista 2",
-      "number": 311,
+      "number": 312,
       "group": "Películas",
       "source_name": "@DIG - DHE HD [IP 181.78.14.26]",
       "guide": {
@@ -11877,7 +11919,7 @@
     "PublicDirect.d30ff94217cc1ff6ba74dcc5": {
       "display_name": "Film & Arts",
       "list": "Lista 2",
-      "number": 315,
+      "number": 316,
       "group": "Películas",
       "source_name": "CANAL 114 Film & arts HD [IP 45.5.118.152]",
       "guide": {
@@ -12045,7 +12087,7 @@
     "PublicDirect.c8d21159e094babd5e121069": {
       "display_name": "Golden",
       "list": "Lista 2",
-      "number": 320,
+      "number": 321,
       "group": "Películas",
       "source_name": "GOLDEN ENVIO [IP 138.94.3.106]",
       "guide": {
@@ -12129,7 +12171,7 @@
     "PublicDirect.1d8ef51b5eceaa358dc91792": {
       "display_name": "Golden Edge",
       "list": "Lista 2",
-      "number": 327,
+      "number": 328,
       "group": "Películas",
       "source_name": "GOLDEN EDGE [IP 138.94.3.106]",
       "guide": {
@@ -12171,7 +12213,7 @@
     "PublicDirect.47a91c70846ac4782681b555": {
       "display_name": "HBO 2",
       "list": "Lista 2",
-      "number": 346,
+      "number": 347,
       "group": "Películas",
       "source_name": "HBO2 HD [IP 190.128.214.97]",
       "guide": {
@@ -12213,7 +12255,7 @@
     "PublicDirect.0d6d3840583e80578bf2d9d7": {
       "display_name": "HBO Family",
       "list": "Lista 2",
-      "number": 352,
+      "number": 353,
       "group": "Películas",
       "source_name": "HBO Family HD [IP 181.119.177.253]",
       "guide": {
@@ -12318,7 +12360,7 @@
     "PublicDirect.74b1d039a89a6947afe30ac0": {
       "display_name": "HBO Plus",
       "list": "Lista 2",
-      "number": 362,
+      "number": 363,
       "group": "Películas",
       "source_name": "HBO PLUS-IXP [IP 138.59.177.78]",
       "guide": {
@@ -12465,7 +12507,7 @@
     "PublicDirect.ed2f1446ddbf0b5ac126fcdf": {
       "display_name": "HBO Pop",
       "list": "Lista 2",
-      "number": 365,
+      "number": 366,
       "group": "Películas",
       "source_name": "HBO POP HD [IP 181.78.82.130]",
       "guide": {
@@ -12591,7 +12633,7 @@
     "PublicDirect.e1bd14954343adc40818b7c7": {
       "display_name": "HBO Xtreme",
       "list": "Lista 2",
-      "number": 367,
+      "number": 368,
       "group": "Películas",
       "source_name": "HBO XTREME [IP 181.78.197.59]",
       "guide": {
@@ -12843,7 +12885,7 @@
     "PublicDirect.790905cfadbe2be744826933": {
       "display_name": "Space",
       "list": "Lista 2",
-      "number": 378,
+      "number": 379,
       "group": "Películas",
       "source_name": "Space HD [IP 190.108.91.206]",
       "guide": {
@@ -12969,7 +13011,7 @@
     "PublicDirect.e221e27dc18d5a97a4054237": {
       "display_name": "Star TVE",
       "list": "Lista 2",
-      "number": 383,
+      "number": 384,
       "group": "Películas",
       "source_name": "Star TVE HD [IP 138.59.177.78]",
       "guide": {
@@ -13074,7 +13116,7 @@
     "PublicDirect.80d40db0a91ceee32b8b226c": {
       "display_name": "Studio Universal",
       "list": "Lista 2",
-      "number": 390,
+      "number": 391,
       "group": "Películas",
       "source_name": "Studio Universal HD [IP 181.119.177.253]",
       "guide": {
@@ -13116,7 +13158,7 @@
     "PublicDirect.b944cbda127f265385bb249c": {
       "display_name": "TNT",
       "list": "Lista 2",
-      "number": 399,
+      "number": 400,
       "group": "Películas",
       "source_name": "TNT ENVIO [IP 138.94.3.106]",
       "guide": {
@@ -13179,7 +13221,7 @@
     "PublicDirect.f7860545d45db8d5592cd048": {
       "display_name": "TNT",
       "list": "Lista 2",
-      "number": 402,
+      "number": 403,
       "group": "Películas",
       "source_name": "TNT HD_COSTA [IP 181.79.86.130]",
       "guide": {
@@ -13242,7 +13284,7 @@
     "PublicDirect.7554066ef6c62834091c13b8": {
       "display_name": "TNT",
       "list": "Lista 2",
-      "number": 403,
+      "number": 404,
       "group": "Películas",
       "source_name": "TNT HD [IP 45.173.231.22]",
       "guide": {
@@ -13389,7 +13431,7 @@
     "PublicDirect.e50daff0a069fd95e033632b": {
       "display_name": "TNT",
       "list": "Lista 2",
-      "number": 404,
+      "number": 405,
       "group": "Películas",
       "source_name": "TNT HD [IP 72.1.184.5]",
       "guide": {
@@ -13452,7 +13494,7 @@
     "PublicDirect.ce4513de1def96235d652d6c": {
       "display_name": "TNT",
       "list": "Lista 2",
-      "number": 408,
+      "number": 409,
       "group": "Películas",
       "source_name": "TNT HD [IP 45.5.118.152]",
       "guide": {
@@ -13494,7 +13536,7 @@
     "PublicDirect.8dd033066d79b8cd5a89feb7": {
       "display_name": "TNT Series",
       "list": "Lista 2",
-      "number": 414,
+      "number": 415,
       "group": "Películas",
       "source_name": "TNT SERIE HD_COSTA [IP 138.94.3.106]",
       "guide": {
@@ -13536,7 +13578,7 @@
     "PublicDirect.ac9d91daa7e403bccc9b4464": {
       "display_name": "Universal Channel",
       "list": "Lista 2",
-      "number": 417,
+      "number": 418,
       "group": "Películas",
       "source_name": "UNIVERSAL [IP 138.59.177.78]",
       "guide": {
@@ -14538,48 +14580,6 @@
         "width": 1920,
         "fps": 29.97,
         "kbps": 5115,
-        "ok": true
-      }
-    },
-    "IPTVOrg.UniversalCinema.us-SD": {
-      "display_name": "Universal Cinema",
-      "list": "Lista 1",
-      "number": 61,
-      "group": "Cine",
-      "source_name": "Universal Cinema (1080p)",
-      "guide": {
-        "source": "uy1",
-        "source_id": "UNIVERSAL.CINEMA.HD.uy"
-      },
-      "verified": "2026-11-03 (pedido del usuario «728 a lista 1» / «Era Universal Cinema, pero ve específicamente el que yo te pedí»): el 728 de Lista 2 pasa a Lista 1 como principal; su clon de Lista 2 (correlación ≥ 0,85, outputs/clones-20261102b) queda de respaldo.",
-      "backups": [
-        {
-          "tvg_id": "PublicDirect.5bb38c5c93187a54854b8f8f",
-          "display_name": "Universal Cinema",
-          "source_name": "UNIVERSAL CINEMA [IP 38.87.224.19]",
-          "from_list": "Lista 2",
-          "from_number": 429,
-          "group": "Películas",
-          "logo": "logos/lista2/26b4119750c7.png",
-          "url": "http://38.87.224.19:2220/play/a01l/index.m3u8",
-          "guide": {
-            "source": "uy1",
-            "source_id": "UNIVERSAL.CINEMA.HD.uy"
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 29.97,
-            "kbps": 1834,
-            "ok": true
-          }
-        }
-      ],
-      "principal_quality": {
-        "height": 1080,
-        "width": 1920,
-        "fps": 29.97,
-        "kbps": 1420,
         "ok": true
       }
     }
