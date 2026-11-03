@@ -590,12 +590,12 @@
     },
     {
       "kind": "m3u",
-      "tvgId": "PublicDirect.b5751130732e4a7c272ee53d",
-      "name": "TNT Sports Premium (Chile)",
+      "tvgId": "PublicDirect.475329883c23116340a88ef6",
+      "name": "TNT Sports Premium SD [IP 190.60.46.228]",
       "group": "Deportes",
       "sourceList": "1.m3u",
       "logoPath": "logos/tnt-sports-premium.png",
-      "displayName": "TNT Sports Premium (Chile)",
+      "displayName": "TNT Sports Premium",
       "order": 30,
       "number": 30,
       "state": "active"
@@ -6270,12 +6270,24 @@
     },
     {
       "kind": "m3u",
+      "tvgId": "PublicDirect.b5751130732e4a7c272ee53d",
+      "name": "TNT Sports Premium (Chile)",
+      "group": "Deportes",
+      "sourceList": "1.m3u",
+      "logoPath": "logos/tnt-sports-premium.png",
+      "displayName": "TNT Sports Premium (Chile)",
+      "order": 479,
+      "number": 30,
+      "state": "deleted"
+    },
+    {
+      "kind": "m3u",
       "tvgId": "IPTVOrg.HBOAsia.sg-Taiwan",
       "name": "HBO Asia Taiwan (1080p)",
       "group": "Películas",
       "country": "",
       "sourceList": "2.m3u",
-      "order": 479,
+      "order": 480,
       "number": 326,
       "state": "deleted",
       "trial": true
@@ -6287,7 +6299,7 @@
       "group": "Películas",
       "country": "",
       "sourceList": "2.m3u",
-      "order": 480,
+      "order": 481,
       "number": 325,
       "state": "deleted",
       "trial": true
@@ -6299,7 +6311,7 @@
       "group": "Películas",
       "country": "",
       "sourceList": "2.m3u",
-      "order": 481,
+      "order": 482,
       "number": 324,
       "state": "deleted",
       "trial": true
@@ -6312,7 +6324,7 @@
       "sourceList": "2.m3u",
       "logoPath": "logos/lista2/dce9fe4d3a4a.png",
       "displayName": "ESPN 3",
-      "order": 482,
+      "order": 483,
       "number": 112,
       "state": "deleted",
       "trial": true
@@ -6326,7 +6338,7 @@
       "logoPath": "logos/espn-3.png",
       "logoOverride": "logos/espn-3.png",
       "displayName": "ESPN 3",
-      "order": 483,
+      "order": 484,
       "number": 113,
       "state": "deleted"
     },
@@ -6338,7 +6350,7 @@
       "sourceList": "2.m3u",
       "logoPath": "logos/lista2/dce9fe4d3a4a.png",
       "displayName": "ESPN 3",
-      "order": 484,
+      "order": 485,
       "number": 114,
       "state": "deleted",
       "trial": true
@@ -6351,7 +6363,7 @@
       "sourceList": "2.m3u",
       "logoPath": "logos/lista2/dce9fe4d3a4a.png",
       "displayName": "ESPN 3",
-      "order": 485,
+      "order": 486,
       "number": 119,
       "state": "deleted",
       "trial": true
@@ -6365,7 +6377,7 @@
       "logoPath": "logos/espn-4.png",
       "logoOverride": "logos/espn-4.png",
       "displayName": "ESPN 4",
-      "order": 486,
+      "order": 487,
       "number": 121,
       "state": "deleted"
     },
@@ -6379,7 +6391,7 @@
       "logoPath": "logos/espn.svg",
       "logoOverride": "logos/espn-4.png",
       "displayName": "ESPN 4",
-      "order": 487,
+      "order": 488,
       "number": 122,
       "state": "deleted"
     },
@@ -6391,7 +6403,7 @@
       "sourceList": "2.m3u",
       "logoPath": "logos/lista2/9331900af0d3.png",
       "displayName": "ESPN 6",
-      "order": 488,
+      "order": 489,
       "number": 131,
       "state": "deleted",
       "trial": true
@@ -6403,7 +6415,7 @@
       "group": "Deportes",
       "sourceList": "2.m3u",
       "displayName": "ESPN 6 4k",
-      "order": 489,
+      "order": 490,
       "number": 132,
       "state": "deleted",
       "trial": true
@@ -6416,7 +6428,7 @@
       "sourceList": "2.m3u",
       "logoPath": "logos/lista2/brand_golden_premier.png",
       "displayName": "Golden Premiere",
-      "order": 490,
+      "order": 491,
       "number": 145,
       "state": "deleted",
       "trial": true
@@ -6429,7 +6441,7 @@
       "sourceList": "2.m3u",
       "logoPath": "logos/lista2/brand_golden_premier.png",
       "displayName": "Golden Premiere 2",
-      "order": 491,
+      "order": 492,
       "number": 149,
       "state": "deleted",
       "trial": true
@@ -6442,21 +6454,8 @@
       "sourceList": "2.m3u",
       "logoPath": "logos/lista2/brand_golden_premier.png",
       "displayName": "Golden Premiere 2",
-      "order": 492,
-      "number": 151,
-      "state": "deleted",
-      "trial": true
-    },
-    {
-      "kind": "m3u",
-      "tvgId": "PublicDirect.475329883c23116340a88ef6",
-      "name": "TNT Sports Premium SD [IP 190.60.46.228]",
-      "group": "Deportes",
-      "sourceList": "2.m3u",
-      "logoPath": "logos/tnt-sports-premium.png",
-      "displayName": "TNT Sports Premium",
       "order": 493,
-      "number": 165,
+      "number": 151,
       "state": "deleted",
       "trial": true
     },
@@ -193452,7 +193451,7 @@
     }
   ],
   "approval": {
-    "source": "app",
-    "sha256": "a4804cad7688d10362be06f411f2777f73f7e78bf8ac97353968d9b89116a168"
+    "source": "chat",
+    "sha256": "cb2c6d246bfa9839c96c011e23da8264d98ac0ead972beb6c42f1516d43f2b75"
   }
 }
