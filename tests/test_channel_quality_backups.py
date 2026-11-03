@@ -97,7 +97,6 @@ class Espn2PlacementTest(unittest.TestCase):
         layout = json.loads((ROOT / "data/channel-editor-layout.json").read_text(encoding="utf-8"))
         rows = [row for row in layout["channels"] if row.get("state") == "active"]
         target = next(row for row in rows if row.get("tvgId") == self.TARGET_ID)
-        second_feed = next(row for row in rows if row.get("tvgId") == "ESPN2.co@Direct181")
         espn = next(row for row in rows if row.get("tvgId") == self.ESPN_ID)
         ordered = sorted(rows, key=lambda row: row["order"])
         # 2026-10-25: TNT Sports Premium (Chile) y el 135 movidos; ESPN 2 bajó a 34 y ESPN a 33.
@@ -106,15 +105,13 @@ class Espn2PlacementTest(unittest.TestCase):
         self.assertEqual("ESPN 2", target["displayName"])
         # 2026-10-22: sin respaldos directos (pasaron a Lista 2 como canales independientes).
         self.assertFalse(target.get("backupm3u"))
-        # Renumeración sin huecos (2026-10-18): la segunda señal sigue en la Lista 2, después de
-        # los 56 canales de la Lista 1.
-        self.assertEqual("2.m3u", second_feed["sourceList"])
-        self.assertGreater(second_feed["number"], 56)
-        # La limpieza de Lista 2 (2026-10-18) quitó "HD" del nombre visible; la
-        # independencia sigue garantizada por la identidad estable (tvg-id).
-        self.assertEqual("ESPN 2", second_feed["displayName"])
-        self.assertEqual("active", second_feed["state"])
-        self.assertFalse(any(second_feed["tvgId"] in row.get("backupm3u", []) for row in rows))
+        # 2026-11-02: la segunda señal (ESPN2.co@Direct181) es clon de otro ESPN 2 de Lista 2 y
+        # pasó a ser su respaldo en backups.json (pedido del usuario: clones con la lógica de Lista 1);
+        # sigue sin ser respaldo del ESPN 2 de Lista 1.
+        backups = json.loads((ROOT / "backups.json").read_text(encoding="utf-8"))["channels"]
+        self.assertNotIn("ESPN2.co@Direct181",
+                         [copy["tvg_id"] for copy in backups.get(self.TARGET_ID, {}).get("backups", [])])
+        self.assertFalse(any("ESPN2.co@Direct181" in row.get("backupm3u", []) for row in rows))
         self.assertEqual(target, ordered[ordered.index(espn) + 1])
         self.assertEqual(len(rows), len({row["number"] for row in rows}))
 

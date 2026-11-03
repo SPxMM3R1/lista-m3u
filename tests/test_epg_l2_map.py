@@ -13,7 +13,8 @@ class Lista2EpgMapTest(unittest.TestCase):
 
     def test_mapping_covers_the_published_list_and_known_sources(self):
         mapping = update_m3u.load_epg_l2_map()
-        self.assertGreaterEqual(len(mapping), 1000)
+        # 2026-11-02: los clones de Lista 2 pasaron a backups.json y salieron del mapa (~770).
+        self.assertGreaterEqual(len(mapping), 700)
         lines = (ROOT / "m3u-externa.m3u").read_text(encoding="utf-8").splitlines()
         published = set(re.findall(r'tvg-id="([^"]+)"', "\n".join(lines)))
         # 2026-10-21: el mapa puede conservar canales que después fueron a la papelera; la
@@ -25,7 +26,8 @@ class Lista2EpgMapTest(unittest.TestCase):
         # 2026-10-26: 8 copias de HBO 2 a respaldo (backups.json): ~764; piso con margen.
         # 2026-10-27: 22 copias de FX a respaldo y papelera desde la app: ~736; piso con margen.
         # 2026-11-01: bajas desde la app (FX, Star, HBO…): 549 mapeados publicados; piso con margen.
-        self.assertGreaterEqual(len(set(mapping) & published), 480)
+        # 2026-11-02: con los clones como respaldo quedan ~300 publicados mapeados.
+        self.assertGreaterEqual(len(set(mapping) & published), 260)
         for target_id, (source, source_id) in mapping.items():
             with self.subTest(channel=target_id):
                 # 2026-10-24: guía Claro por familia (claro:<región>:<group_id>) o EPGShare.
@@ -51,14 +53,15 @@ class Lista2EpgMapTest(unittest.TestCase):
         # 2026-10-27: FX a respaldo: alcance ~820; piso con margen.
         # 2026-10-30: bajas desde la app y 11 canales sin señal: alcance ~786; piso con margen.
         # 2026-11-01: bajas desde la app: alcance ~630; piso con margen.
-        self.assertGreaterEqual(len(scope), 560)
+        # 2026-11-02: clones de Lista 2 a respaldo: alcance ~380; piso con margen.
+        self.assertGreaterEqual(len(scope), 340)
 
 
 class Lista2ClaroFamilyGuideTest(unittest.TestCase):
     def test_family_copies_share_one_claro_guide_with_epgshare_backup(self):
         mapping = json.loads((ROOT / "epg-l2-map.json").read_text(encoding="utf-8"))["channels"]
         claro = {tid: entry for tid, entry in mapping.items() if entry["source"] == update_m3u.CLARO_GUIDE_PART}
-        self.assertGreaterEqual(len(claro), 900)
+        self.assertGreaterEqual(len(claro), 600)
         # Una guía por familia: muchas copias, pocas claves.
         self.assertLessEqual(len({entry["source_id"] for entry in claro.values()}), 100)
         for target_id, entry in claro.items():

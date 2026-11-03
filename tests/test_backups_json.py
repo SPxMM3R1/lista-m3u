@@ -18,7 +18,9 @@ class BackupsJsonTest(unittest.TestCase):
             with self.subTest(channel=entry["display_name"]):
                 row = self.rows.get(key)
                 self.assertIsNotNone(row, "el canal principal no está en el catálogo")
-                self.assertEqual("1.m3u", row.get("sourceList"))
+                # 2026-11-02 (pedido del usuario «agrúpalo en la misma lista 2, pero con la lógica de
+                # la lista 1»): también hay principales de Lista 2 con sus clones de respaldo.
+                self.assertIn(row.get("sourceList"), {"1.m3u", "2.m3u"})
                 # Un principal mandado a la papelera desde la app (FX, 2026-10-30) conserva su
                 # registro de respaldos por si se recupera.
                 self.assertIn(row.get("state"), {"active", "hidden", "deleted"})
