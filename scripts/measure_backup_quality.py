@@ -60,6 +60,7 @@ def summary(result: dict) -> dict:
             "fps": round(float(result["fps_measured"]), 2),
             "kbps": int(result.get("kbps") or 0),
             "ok": bool(result.get("ok") and result.get("height")),
+            "interlaced": bool(result.get("interlaced")),
         }
     fps = 0.0
     text = str(result.get("fps") or "0")
@@ -75,6 +76,7 @@ def summary(result: dict) -> dict:
         "fps": fps,
         "kbps": int(result.get("kbps") or 0),
         "ok": ok,
+        "interlaced": bool(result.get("interlaced")),
     }
 
 

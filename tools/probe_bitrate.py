@@ -99,9 +99,13 @@ def probe(item):
             result["kbps"] = round(sum(sizes) * 8 / duration / 1000)
             result["ok"] = True
         frames = json.loads(run(["ffprobe", "-v", "error", "-select_streams", "v:0", "-read_intervals",
-                                 f"%+{FRAME_SECONDS}", "-show_entries", "frame=pts_time", "-of", "json",
+                                 f"%+{FRAME_SECONDS}", "-show_entries", "frame=pts_time,interlaced_frame", "-of", "json",
                                  url]) or "{}").get("frames", [])
         frame_times = []
+        # Entrelazada (2026-11-02, VibeM3U 0.6.55 muestra «1080i»): la mayoría de los cuadros
+        # decodificados vienen marcados interlaced_frame = 1.
+        if frames:
+            result["interlaced"] = sum(1 for f in frames if str(f.get("interlaced_frame")) == "1") * 2 > len(frames)
         for frame in frames:
             try:
                 frame_times.append(float(frame.get("pts_time")))

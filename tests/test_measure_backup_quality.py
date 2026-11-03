@@ -14,11 +14,11 @@ SPEC.loader.exec_module(measure)
 class MeasureBackupQualityTest(unittest.TestCase):
     def test_summary_keeps_what_the_app_reads(self):
         self.assertEqual(
-            {"height": 1080, "width": 1920, "fps": 29.97, "kbps": 2600, "ok": True},
+            {"height": 1080, "width": 1920, "fps": 29.97, "kbps": 2600, "ok": True, "interlaced": False},
             measure.summary({"ok": True, "height": 1080, "width": 1920, "fps": "30000/1001", "kbps": 2600}),
         )
         self.assertEqual(
-            {"height": 0, "width": 0, "fps": 0.0, "kbps": 0, "ok": False},
+            {"height": 0, "width": 0, "fps": 0.0, "kbps": 0, "ok": False, "interlaced": False},
             measure.summary({"ok": False, "fps": "0/0"}),
         )
 
@@ -27,6 +27,11 @@ class MeasureBackupQualityTest(unittest.TestCase):
         self.assertEqual(29.97, measure.summary(
             {"ok": True, "height": 1080, "width": 1920, "fps": "60000/1001", "fps_measured": 29.97, "kbps": 3000}
         )["fps"])
+
+    def test_summary_marks_interlaced(self):
+        # 2026-11-02: VibeM3U 0.6.55 muestra «1080i» con interlaced = True.
+        self.assertTrue(measure.summary(
+            {"ok": True, "height": 1080, "fps_measured": 29.97, "kbps": 3000, "interlaced": True})["interlaced"])
 
     def test_principal_urls_skip_resolvers(self):
         with tempfile.TemporaryDirectory() as folder:
