@@ -1,27 +1,39 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-03T05:14:30.821127Z",
+  "updated_at": "2026-11-03T10:39:34.219430Z",
   "channels": [
     "RedBullWorldEnglish.int",
-    "PublicDirect.5e1edfeb4161cb6762dd4c44",
-    "PublicDirect.5eb6e4ea07959f5a0b4fb5e1"
+    "PublicDirect.376c74e4d0452f743fd2c811",
+    "1437",
+    "PublicDirect.52d971073c8762905f7e1224"
   ],
   "details": {
-    "PublicDirect.5e1edfeb4161cb6762dd4c44": {
+    "1437": {
       "kind": "guia-corta",
-      "futureHours": 23.0,
-      "requiredHours": 24.0,
+      "futureHours": 16.3,
+      "requiredHours": 18.0,
       "gaps": []
     },
-    "PublicDirect.5eb6e4ea07959f5a0b4fb5e1": {
+    "PublicDirect.376c74e4d0452f743fd2c811": {
       "kind": "guia-corta",
-      "futureHours": 23.0,
-      "requiredHours": 24.0,
+      "futureHours": 16.7,
+      "requiredHours": 18.0,
       "gaps": []
+    },
+    "PublicDirect.52d971073c8762905f7e1224": {
+      "kind": "hueco",
+      "futureHours": 91.6,
+      "requiredHours": 24.0,
+      "gaps": [
+        [
+          "2026-11-04T06:39:00Z",
+          "2026-11-04T10:39:08Z"
+        ]
+      ]
     },
     "RedBullWorldEnglish.int": {
       "kind": "guia-corta",
-      "futureHours": 13.3,
+      "futureHours": 13.4,
       "requiredHours": 18.0,
       "gaps": []
     }
