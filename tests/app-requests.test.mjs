@@ -99,3 +99,84 @@ test("el sello del layout coincide con el de las pruebas Python y se renueva al 
   const stale = { ...fixture, approval: { source: "app", sha256: "viejo" } };
   assert.deepEqual((await approveLayout(stale, "editor")).approval, { source: "editor", sha256: digest });
 });
+
+function promoteDocuments() {
+  const base = documents();
+  base.layout.channels = [
+    { kind: "m3u", tvgId: "L1", name: "Fuente", displayName: "Cine", group: "Cine", sourceList: "1.m3u", order: 1, number: 1, state: "active" },
+    { kind: "m3u", tvgId: "P", name: "Fuente P", displayName: "Canal", group: "Películas", sourceList: "2.m3u", logoPath: "logos/p.png", trial: true, order: 2, number: 2, state: "active" },
+    { kind: "m3u", tvgId: "Z", name: "Otro", group: "Noticias", sourceList: "2.m3u", order: 3, number: 3, state: "active" },
+    { kind: "m3u", tvgId: "B1", name: "Fuente B1", group: "Misceláneos", sourceList: "2.m3u", logoPath: "logos/b.png", order: 4, number: 4, state: "deleted" },
+    { kind: "m3u", tvgId: "B2", name: "Fuente B2", group: "Misceláneos", sourceList: "2.m3u", order: 5, number: 5, state: "deleted" },
+  ];
+  base.presentation = { schema: 1, orders: {}, logos: {}, names: {}, info_lines: { P: '#EXTINF:-1 tvg-id="P",Canal' } };
+  base.backups = { schema: 1, updated: "2026-01-01", channels: {
+    A: { display_name: "A", backups: [] },
+    P: { display_name: "Canal", list: "Lista 2", number: 2, source_name: "Fuente P", guide: { source: "g", source_id: "1" },
+      principal_quality: { kbps: 100 }, backups: [
+        { tvg_id: "B1", source_name: "Fuente B1", quality: { kbps: 300 } },
+        { tvg_id: "B2", source_name: "Fuente B2", quality: { kbps: 200 } },
+      ] },
+    C: { display_name: "C", backups: [] },
+  } };
+  base.overrides = { channels: { P: { source: "g", source_id: "1" }, B1: { source: "vieja", source_id: "9" } } };
+  base.l2Map = { count: 1, channels: { P: { source: "g", source_id: "1" } } };
+  return base;
+}
+const promote = (rowKey, backupTvgId) => JSON.stringify({ schema: 1, action: "promote-backup", rowKey, name: "x", backupTvgId });
+
+test("promover un respaldo: la señal va a la papelera y el respaldo toma su lugar", async () => {
+  const result = await applyRequests(promoteDocuments(), [{ file: "a.json", text: promote("m3u:P", "B1") }]);
+  assert.equal(result.skipped.length, 0);
+  assert.equal(result.applied[0].promoted, "B1");
+  const row = (id) => result.layout.channels.find((item) => item.tvgId === id);
+  assert.equal(row("P").state, "deleted");
+  assert.equal(row("B1").state, "active");
+  assert.equal(row("B1").number, 2, "conserva el número");
+  assert.equal(row("Z").number, 3, "los demás no se corren");
+  assert.equal(row("B1").displayName, "Canal");
+  assert.equal(row("B1").group, "Películas");
+  assert.equal(row("B1").logoPath, "logos/p.png");
+  assert.equal(row("B1").trial, true);
+  assert.equal(row("B2").state, "deleted", "el otro respaldo sigue siendo respaldo");
+  assert.deepEqual(Object.keys(result.backups.channels), ["A", "B1", "C"], "misma posición en el archivo");
+  const entry = result.backups.channels.B1;
+  assert.deepEqual(entry.backups.map((item) => item.tvg_id), ["B2"], "la señal anterior no queda de respaldo");
+  assert.equal(entry.source_name, "Fuente B1");
+  assert.equal(entry.principal_quality.kbps, 300);
+  assert.deepEqual(entry.guide, { source: "g", source_id: "1" });
+  assert.deepEqual(result.overrides.channels, { B1: { source: "g", source_id: "1" } }, "la guía sigue al canal");
+  assert.deepEqual(result.l2Map.channels, { B1: { source: "g", source_id: "1" } });
+  assert.equal(result.presentation.info_lines.B1, '#EXTINF:-1 tvg-id="B1",Canal');
+  assert.ok(result.presentation.excluded_m3u.includes("P"));
+  assert.ok(!result.presentation.excluded_m3u.includes("B1"));
+});
+
+test("promover el último respaldo deja el canal sin entrada de respaldos", async () => {
+  const base = promoteDocuments();
+  base.backups.channels.P.backups.pop();
+  const result = await applyRequests(base, [{ file: "a.json", text: promote("m3u:P", "B1") }]);
+  assert.equal(result.applied.length, 1);
+  assert.deepEqual(Object.keys(result.backups.channels), ["A", "C"]);
+});
+
+test("un respaldo ajeno o sin fila se omite sin tocar nada", async () => {
+  const base = promoteDocuments();
+  base.backups.channels.P.backups.push({ tvg_id: "SIN-FILA", quality: {} });
+  const result = await applyRequests(base, [
+    { file: "a.json", text: promote("m3u:P", "Z") },
+    { file: "b.json", text: promote("m3u:P", "SIN-FILA") },
+    { file: "c.json", text: promote("m3u:Z", "B1") },
+  ]);
+  assert.equal(result.applied.length, 0);
+  assert.equal(result.skipped.length, 3);
+  assert.equal(result.layout.channels.find((item) => item.tvgId === "P").state, "active");
+  assert.ok("P" in result.backups.channels);
+});
+
+test("parseRequest exige un respaldo válido para promover y solo en filas M3U", () => {
+  assert.equal(parseRequest(promote("provider:tvvoo:x", "B1")), "respaldo inválido");
+  assert.equal(parseRequest(promote("m3u:P", "con espacio")), "respaldo inválido");
+  assert.equal(parseRequest(JSON.stringify({ schema: 1, action: "promote-backup", rowKey: "m3u:P" })), "respaldo inválido");
+  assert.deepEqual(parseRequest(promote("m3u:P", "B1")), { rowKey: "m3u:P", name: "x", backupTvgId: "B1" });
+});
