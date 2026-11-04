@@ -1,346 +1,174 @@
 #EXTM3U x-tvg-url="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/epg-2.xml"
 
-# Aire libre
-#EXTINF:-1 tvg-id="IPTVOrg.LoveNature.ca-4K" tvg-name="Love Nature 4K (2160p) [Geo-blocked]" group-title="Aire libre",Love Nature 4K (2160p) [Geo-blocked]
-https://pb-ehs1glsha1juy.akamaized.net/Love_Nature_4K.m3u8
-#EXTINF:-1 tvg-id="IPTVOrg.RedBullTV.at-EUMENA" tvg-name="Red Bull TV (1080p)" group-title="Aire libre",Red Bull TV (1080p)
-https://3ea22335.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWdiX1JlZEJ1bGxUVl9ITFM/playlist.m3u8
-#EXTINF:-1 tvg-id="IPTVOrg.RedBullTV.at-AU" tvg-name="Red Bull TV AU (1080p)" group-title="Aire libre",Red Bull TV AU (1080p)
-https://db34cc6127ac459db55cab5f97cd66b9.mediatailor.us-west-2.amazonaws.com/v1/master/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-680-WORBAUENFAST-WHALETVPLUS/680/whaletvplus/hls/master/playlist.m3u8
-#EXTINF:-1 tvg-id="IPTVOrg.RedBullTV.at-ES" tvg-name="Red Bull TV ES (1080p)" group-title="Aire libre",Red Bull TV ES (1080p)
-https://886bd3fbc782459f8de7555d32d7e9ce.mediatailor.us-west-2.amazonaws.com/v1/master/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-957-WORBLATAMESFAST-WHALETVPLUS/957/whaletvplus/hls/master/playlist.m3u8
+# Películas
+#EXTINF:-1 tvg-id="PublicDirect.8918c13cf06dc2f7416879f2" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/amclatinamerica-us.png",AMC
+http://45.171.64.30:6060/play/a02h/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.2bc3084ebbc2631038c24a40" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/c8528fe169b9.png",Cinecanal
+http://190.128.214.97:64333/play/a03e/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.2beeea3de6952cc8ea889299" group-title="Películas",DHE
+http://181.78.14.26:4000/play/a03o/index.m3u8
 
-# Animación
-#EXTINF:-1 tvg-id="IPTVOrg.MAXAnime.ve-SD" tvg-name="MAX Anime (1080p)" group-title="Animación",MAX Anime (1080p)
-https://cdnlive.klicgo.net/maxanime/live/playlist.m3u8
-#EXTINF:-1 tvg-id="IPTVOrg.Tooncast.us-Argentina" tvg-name="Tooncast Argentina (720p)" group-title="Animación",Tooncast Argentina (720p)
-http://45.134.141.161:2200/ARG/Tooncast/index.m3u8
-#EXTINF:-1 tvg-id="IPTVOrg.Tooncast.us-SouthAmerica" tvg-name="Tooncast SouthAmerica (480p)" group-title="Animación",Tooncast SouthAmerica (480p)
-http://190.61.42.218:9000/play/a06i/index.m3u8
+# Misceláneos
+#EXTINF:-1 tvg-id="PublicDirect.36857621e77d520e601badcf" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/85d1bdbc581b.png",Discovery Channel
+http://177.234.218.66:8084/play/a09l/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.a94ffbb995ce99ad986d92cc" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/85d1bdbc581b.png",Discovery Channel
+http://72.1.184.5:8089/play/a062/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.e8d09ffc2c224c3c5eed0fe6" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/85d1bdbc581b.png",Discovery Channel
+http://181.78.211.244:8000/play/a0c4/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.375a0c2e7f0b6d3d1fb8c5c4" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/ab599ffecb92.png",Discovery Science
+http://177.234.218.66:8084/play/a09k/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.3c96353d8e3bf508d2157d81" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/00b50f9bc248.png",Discovery Theater
+http://38.87.224.19:2220/play/a03z/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.c4712375281c919db4593df8" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/739683f8f16d.png",Discovery World
+http://181.78.82.130:8000/play/a0s5/index.m3u8
 
 # Deportes
 #EXTINF:-1 tvg-id="PublicDirect.4ded1fad9c0f880605cfe8fa" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/espn-lam.png",ESPN
 http://181.79.86.130:8000/play/a02l/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.160c2cb1e8f8ab7da88c8f6b" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/13038c11f312.png",ESPN
-http://200.7.99.59:8000/play/a0h5/index.m3u8
-#EXTINF:-1 tvg-id="IPTVOrg.ESPN.us-HD" tvg-name="ESPN (United States) HD (720p)" group-title="Deportes",ESPN (United States) HD (720p)
-http://85.237.89.160:9590/usa-s/ESPN-HD/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.fe6d030216472a0f5ef9070f" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/c5f053da5123.png",ESPN 2
 http://45.166.93.156:9999/play/a0hy/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.b67d781dac0752813f09c500" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/c5f053da5123.png",ESPN 2
-http://138.59.177.78:9999/play/a0fa/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.303072897f547e395978196c" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/c5f053da5123.png",ESPN 2
-http://168.196.127.137:6001/play/a090/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.998cb2683994b92227d7ac8e" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/c5f053da5123.png",ESPN 2
-http://138.59.177.78:9999/play/a0n4/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.7f8acb0c7365f70bc5f07e21" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/c5f053da5123.png",ESPN 2
-http://190.61.47.54:8000/play/a005/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.ce8756a8f2f3c2420f26865f" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/c5f053da5123.png",ESPN 2
-http://200.7.99.59:8000/play/a0jl/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.42095e66e7aa9b52a50125ae" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/c5f053da5123.png",ESPN 2
 http://45.173.231.22:8000/play/a08a/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.78f61ec86ce277cda1ad39f6" group-title="Deportes",ESPN 2
-http://45.189.151.7:8000/play/a06j/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.a2c30df1a44aefaa23dd938e" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/c5f053da5123.png",ESPN 2
-http://138.59.227.20:8000/play/a098/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.0b08745e3db22dec9d49648a" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/c5f053da5123.png",ESPN 2
-http://181.78.14.26:4000/play/a02p/index.m3u8
-#EXTINF:-1 tvg-id="IPTVOrg.ESPN2.us-HD" tvg-name="ESPN 2 (United States) HD (720p)" group-title="Deportes",ESPN 2 (United States) HD (720p)
-http://85.237.89.160:9590/usa-s/ESPN-2-HD/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.8a5300eedbb2bd838899a498" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/dce9fe4d3a4a.png",ESPN 3
-http://181.78.82.130:8000/play/a0n5/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.70687441d630ed78b80f7044" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/dce9fe4d3a4a.png",ESPN 3
 http://181.119.177.253:8000/play/a0cm/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.afa5fbaa663b126f3dd2a07f" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/dce9fe4d3a4a.png",ESPN 3
-http://45.5.118.152:8000/play/a009/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.5119fba9888eabcc79201bde" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/dce9fe4d3a4a.png",ESPN 3
-http://138.59.177.78:9999/play/a07v/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.490528e0ea82baeb364da5b8" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/dce9fe4d3a4a.png",ESPN 3
-http://168.196.127.137:6001/play/a091/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.647e6d5d026ca0131e06742d" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/dce9fe4d3a4a.png",ESPN 3
-http://181.78.197.59:8000/play/a081/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.0be3dafc87397bb527a0eba2" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/dce9fe4d3a4a.png",ESPN 3
-http://190.61.47.54:8000/play/a02u/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.01a707099056fe8688ce5d0b" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/dce9fe4d3a4a.png",ESPN 3
-http://181.78.14.26:4000/play/a02q/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.deca0eae5fdc4f601e7e6555" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/dce9fe4d3a4a.png",ESPN 3
-http://138.59.227.20:8000/play/a09a/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.d1484c227bed7e7987e0c647" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/dce9fe4d3a4a.png",ESPN 3
 http://190.108.83.69:8000/play/a039/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.9985582a47482ffecafc0e73" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/c422dc5ede7d.png",ESPN 4
 http://138.59.177.78:9999/play/a07w/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.7de9ce389ea5576eeb4adccb" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/c422dc5ede7d.png",ESPN 4
-http://168.196.127.137:6001/play/a05k/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.b20da956a2c6d668c329f1b7" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/c422dc5ede7d.png",ESPN 4
-http://181.78.14.26:4000/play/a0d2/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.effbe7a65381e6ac04591e58" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/a8d7ca91a64e.png",ESPN 5
-http://138.59.177.78:9999/play/a07x/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.fd9760d46756a2caf2496601" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/a8d7ca91a64e.png",ESPN 5
 http://181.78.197.59:8000/play/a074/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.bc1cc78f509f57eee0e09ccc" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/a8d7ca91a64e.png",ESPN 5
 http://200.7.99.59:8000/play/a0jm/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.7b33a82dca560712171ccf55" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/a8d7ca91a64e.png",ESPN 5 Sur
-http://190.61.47.54:8000/play/a00a/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.ff00193f7498f277c98a9a56" group-title="Deportes",ESPN 6
-http://168.196.127.137:6001/play/a092/index.m3u8
-#EXTINF:-1 tvg-id="ESPN6.co@Direct181" tvg-name="ESPN 6" tvg-country="CO" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/espn-6-lam.png",ESPN 6
-http://181.78.12.119:16123/play/ch20/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.f76def453257b4671384bef7" group-title="Deportes",ESPN 6 Sur (ESPN 09)
-http://190.61.47.54:8000/play/a00b/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.6719ac9d921f49f9d81cf3fa" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/dcf1ed2a85b6.png",ESPN 7
-http://200.7.99.59:8000/play/a0pa/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.7a74b6bb5335426d7a0ed8f5" group-title="Deportes",ESPN 7 Sur (ESPN 10)
-http://190.61.47.54:8000/play/a033/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.9803b3858eb1f551dc55bb66" group-title="Deportes",ESPN Colombia
-http://181.78.211.244:8000/play/a08q/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.9cd6da14085f95bfe651ca1e" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/6190602ff1da.png",ESPN Premium
 http://181.78.211.244:8005/play/a0b5/index.m3u8
 #EXTINF:-1 tvg-id="IPTVOrg.ESPNPremium.ar-HD" tvg-name="ESPN Premium HD (1080p)" group-title="Deportes",ESPN Premium HD (1080p)
 http://158.172.155.130:8000/play/a0ao/index.m3u8
-#EXTINF:-1 tvg-id="IPTVOrg.Eurosport1.fr-Spain" tvg-name="Eurosport 1 Spain (576p)" group-title="Deportes",Eurosport 1 Spain (576p)
-http://45.134.141.161:2200/ARG/Eurosport_1_HD/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.3d5dfc4dd1f5a8a68d6c2ca9" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/281faebaa577.png",Fox Sports
-http://138.59.177.78:9999/play/a080/index.m3u8
-#EXTINF:-1 tvg-id="FoxSports1.us@Direct" tvg-name="Fox Sports 1" tvg-country="US" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/fox-sports.svg" group-title="Deportes",Fox Sports 1
-http://85.237.89.160:9590/usa-s/FOX-SPORTS-1/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.e2a4717c87af3abd943518e3" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/9d01eab7c700.png",Fox Sports 2
-http://138.59.227.20:8000/play/a09b/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.999960b05b8c81c9d62c2232" group-title="Deportes",Fox Sports 2
-http://45.189.151.7:8000/play/a06n/index.m3u8
-#EXTINF:-1 tvg-id="IPTVOrg.FoxSports.ar-HD" tvg-name="Fox Sports HD" group-title="Deportes",Fox Sports HD
-http://45.184.109.10/live/69393EAE6ADBC65A68F942022362A202/1552.m3u8
+
+# Series
+#EXTINF:-1 tvg-id="IPTVOrg.EuropaEuropa.ar-SD" tvg-name="Europa Europa (1080p)" group-title="Series",Europa Europa (1080p)
+https://iptv.bitred.cl/EUROPAEUROPA_HD/index.m3u8
+
+# Películas
+#EXTINF:-1 tvg-id="PublicDirect.d30ff94217cc1ff6ba74dcc5" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/0c9de14638b7.png",Film & Arts
+http://45.5.118.152:8000/play/a09n/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.c8d21159e094babd5e121069" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/765f1257f5fd.png",Golden
+http://138.94.3.106:8000/play/a00s/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.1d8ef51b5eceaa358dc91792" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/9aa8194ea952.png",Golden Edge
+http://138.94.3.106:8000/play/a00n/index.m3u8
+
+# Deportes
 #EXTINF:-1 tvg-id="PublicDirect.2abd3aff445429e27097a124" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/brand_golden_premier.png",Golden Premiere
 http://138.59.177.78:9999/play/a095/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.3f1646d62fd252dd11f4cb3b" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/brand_golden_premier.png",Golden Premiere
-http://72.1.184.5:8089/play/a07d/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.4e3f8c2900998331dd82ca81" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/brand_golden_premier.png",Golden Premiere 2
 http://181.78.197.59:8000/play/a07a/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.97a303fee94d599d990841a0" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/brand_golden_premier.png",Golden Premiere 2
-http://138.59.177.78:9999/play/a094/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.a2f1d2d3c903ef7672da8003" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/brand_golden_premier.png",Golden Premiere 2
-http://168.196.127.137:6001/play/a042/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.45bc0296091e21b03e74dee2" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/brand_golden_premier.png",Golden Premiere 2
-http://72.1.184.5:8089/play/a07e/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.792c9413cb2a98e7c3d972f6" group-title="Deportes",la liga
-http://45.171.64.30:6060/play/a05i/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.a3b4bf18d284bb25d0e2a391" group-title="Deportes",LA LIGA CDN
-http://45.166.93.156:9999/play/a00b/index.m3u8
-#EXTINF:-1 tvg-id="IPTVOrg.MaxSport1.bg-SD" tvg-name="Max Sport 1 (720p)" group-title="Deportes" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36x",Max Sport 1 (720p)
-http://213.91.179.28:8000/play/a0as
-#EXTINF:-1 tvg-id="IPTVOrg.MaxSport2.bg-SD" tvg-name="Max Sport 2 (720p)" group-title="Deportes" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",Max Sport 2 (720p)
-http://213.91.179.28:8000/play/a0at
-#EXTINF:-1 tvg-id="IPTVOrg.MaxSport3.bg-SD" tvg-name="Max Sport 3 (720p)" group-title="Deportes" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",Max Sport 3 (720p)
-http://213.91.179.28:8000/play/a0ar
-#EXTINF:-1 tvg-id="IPTVOrg.MaxSport4.bg-SD" tvg-name="Max Sport 4" group-title="Deportes" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.3",Max Sport 4
-http://213.91.179.28:8000/play/a05n
-#EXTINF:-1 tvg-id="PublicDirect.acb4d53cbdbe02d5ffd7cba3" group-title="Deportes",MULTIPREMIER
-http://177.234.218.66:8084/play/a08w/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.6e3cb7d6d13b2525f01a48cc" group-title="Deportes",MULTIPREMIER
-http://181.78.211.244:8000/play/a01h/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.f5619a41a224ab60c6402930" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/5b54e22449e6.png",TNT Sports
-http://190.128.214.97:64333/play/a03c/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.cc61e9e026dcb4fd5eec5621" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/5b54e22449e6.png",TNT Sports
-http://181.78.106.127:5000/play/ca026/index.m3u8
-#EXTINF:-1 tvg-id="IPTVOrg.TNTSports.ar-HD" tvg-name="TNT Sports (Argentina)" group-title="Deportes",TNT Sports (Argentina)
-http://45.184.109.10/live/69393EAE6ADBC65A68F942022362A202/86.m3u8
-#EXTINF:-1 tvg-id="IPTVOrg.TNTSportsPremium.cl-ArgentinaHD" tvg-name="TNT Sports Premium ArgentinaHD (1080p)" group-title="Deportes",TNT Sports Premium ArgentinaHD (1080p)
-http://181.78.79.131:8000/play/a0q9
-#EXTINF:-1 tvg-id="PublicDirect.63dd4c484c69555096bbde99" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/4c3990d18377.png",Universal Premiere
-http://200.115.120.1:8000/play/ca144/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.178aedd9b3775b11e67551fd" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/4c3990d18377.png",Universal Premiere
-http://138.59.177.78:9999/play/a09m/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.617b574fa232cce423379651" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/4c3990d18377.png",Universal Premiere
-http://45.5.118.152:8000/play/a0dn/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.1ba8e8c0e020c6c5aeb141dc" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/4c3990d18377.png",Universal Premiere 2
-http://138.59.177.78:9999/play/a09n/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.7c8d4b8df3edac7b0635d166" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/4c3990d18377.png",Universal Premiere O
-http://181.119.177.253:8000/play/a0d5/index.m3u8
 
-# Documentales
-#EXTINF:-1 tvg-id="IPTVOrg.History.bg-SD" tvg-name="History (Bulgaria)" group-title="Documentales" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.3",History (Bulgaria)
-http://213.91.179.28:8000/play/a0c1
-#EXTINF:-1 tvg-id="IPTVOrg.History.cz-SD" tvg-name="History (Czech Republic)" group-title="Documentales" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.3",History (Czech Republic)
-http://88.212.15.50/live/test_history/playlist.m3u8
-#EXTINF:-1 tvg-id="IPTVOrg.History.pl-SD" tvg-name="History (Poland) (576i)" group-title="Documentales",History (Poland) (576i)
-http://92.114.85.87:8015/play/a00c/index.m3u8
-#EXTINF:-1 tvg-id="IPTVOrg.HistoryAsia.us-SD" tvg-name="History Asia (720p)" group-title="Documentales",History Asia (720p)
-https://freem3u.xyz/api/live/play.m3u8?vid=9856
-#EXTINF:-1 tvg-id="IPTVOrg.HistoryLatinAmerica.us-South" tvg-name="History Latin America South" group-title="Documentales",History Latin America South
-http://45.184.109.10/live/69393EAE6ADBC65A68F942022362A202/37.m3u8
-
-# Entretenimiento
-#EXTINF:-1 tvg-id="IPTVOrg.DiscoveryChannelLatinAmerica.us-Brazil" tvg-name="Discovery Channel Latin America Brazil (720p)" group-title="Entretenimiento",Discovery Channel Latin America Brazil (720p)
-http://45.162.64.114/DISCOVERY_CHANNEL/index.m3u8
-#EXTINF:-1 tvg-id="IPTVOrg.DiscoveryChannelLatinAmerica.us-South" tvg-name="Discovery Channel Latin America South" group-title="Entretenimiento",Discovery Channel Latin America South
-http://45.184.109.10/live/69393EAE6ADBC65A68F942022362A202/20.m3u8
+# Películas
+#EXTINF:-1 tvg-id="PublicDirect.47a91c70846ac4782681b555" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/19016259cff2.png",HBO 2
+http://190.128.214.97:64333/play/a077/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.e1b60bf9c9b3622fb107f503" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/11d0e5a776c6.png",HBO Family
+http://190.61.90.17:40000/play/a0l5/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.74b1d039a89a6947afe30ac0" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/5d60a21c5de1.png",HBO Plus
+http://138.59.177.78:9999/play/a099/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.ed2f1446ddbf0b5ac126fcdf" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/f4499da27f78.png",HBO Pop
+http://181.78.82.130:8000/play/a0ec/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.e1bd14954343adc40818b7c7" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/hbo_xtreme.png",HBO Xtreme
+http://181.78.197.59:8000/play/a07h/index.m3u8
 
 # Misceláneos
-#EXTINF:-1 tvg-id="PublicDirect.d0ee5354a75d4bf0fe91c9c0" group-title="Misceláneos",ALCATEL BITME MD1
-http://177.234.218.66:8084/play/a07f/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.09c511adf46d47cd9055be3c" group-title="Misceláneos",ANIMASH
-http://181.78.121.15:8000/play/a00h/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.752c78c1625e51b3999ab40f" group-title="Misceláneos",BITME
-http://167.249.23.102:8000/play/a0ii/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.ba7176a05f1201fbba73245b" group-title="Misceláneos",BITME
-http://45.189.151.7:8000/play/a08a/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.6dfbccff83520a7c6b349887" group-title="Misceláneos",Cartoon Network
-http://45.189.151.7:8000/play/a05n/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.1f98cffbf58e566b01163549" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/c3389e519157.png",Cartoon Network
-http://181.78.82.130:8000/play/a0qz/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.72581c395909ec4f873b781c" group-title="Misceláneos",Discovery Channel
-http://45.189.151.7:8000/play/a067/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.36857621e77d520e601badcf" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/85d1bdbc581b.png",Discovery Channel
-http://177.234.218.66:8084/play/a09l/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.ffac9158940d7c82e1545ff2" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/85d1bdbc581b.png",Discovery Channel
-http://190.128.214.97:64333/play/a03a/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.2a38f33a87d2a19e898f9261" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/85d1bdbc581b.png",Discovery Channel
-http://138.94.3.106:8000/play/a00o/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.b00e73d7463cc2ba2fe3465f" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/85d1bdbc581b.png",Discovery Channel
-http://181.78.82.130:8000/play/a0lr/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.a94ffbb995ce99ad986d92cc" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/85d1bdbc581b.png",Discovery Channel
-http://72.1.184.5:8089/play/a062/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.e02817452313099e2488d8a6" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/85d1bdbc581b.png",Discovery Channel
-http://168.196.127.137:6001/play/a096/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.e8d09ffc2c224c3c5eed0fe6" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/85d1bdbc581b.png",Discovery Channel
-http://181.78.211.244:8000/play/a0c4/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.f8420ebee0e21b5e93744906" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/85d1bdbc581b.png",Discovery Channel
-http://138.59.227.20:8000/play/a08g/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.d1e015ad5bcc8aeb76b4e592" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/85d1bdbc581b.png",Discovery Channel
-http://181.78.14.26:4000/play/a03s/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.375a0c2e7f0b6d3d1fb8c5c4" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/ab599ffecb92.png",Discovery Science
-http://177.234.218.66:8084/play/a09k/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.c8b89662335324cb57b2221f" group-title="Misceláneos",Discovery Theater
-http://45.189.151.7:8000/play/a06b/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.3c96353d8e3bf508d2157d81" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/00b50f9bc248.png",Discovery Theater
-http://38.87.224.19:2220/play/a03z/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.62b41021824626f105b68d8a" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/00b50f9bc248.png",Discovery Theater
-http://181.78.82.130:8000/play/a0ko/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.a5ab4fb07b0b3f13f591b009" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoveryturbolatinamerica-us.png",Discovery Turbo
-http://38.134.250.110:8000/play/a01y/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.7e4fe7ff47c91a001130c27b" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/58c7e3697649.png",Discovery Turbo
-http://177.234.218.66:8084/play/a09r/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.da7efe7903c53b335396d8fb" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/58c7e3697649.png",Discovery Turbo
-http://181.78.14.26:4000/play/a02z/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.7773845aa90771bf2aae116b" group-title="Misceláneos",Discovery World
-http://45.189.151.7:8000/play/a06a/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.c4712375281c919db4593df8" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/739683f8f16d.png",Discovery World
-http://181.78.82.130:8000/play/a0s5/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.305177fef9fa178063075ed3" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoveryworld-us.png",Discovery World
-http://168.196.127.137:6001/play/a097/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.38cd9ec09f8d7685075d5616" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/4bc08cd16e8d.png",Europa Europa
-http://168.196.127.137:6001/play/a05v/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.ecb1fed88bf8d502af3237f2" group-title="Misceláneos",Eurosport 1
-http://200.115.120.1:8000/play/ca042/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.c5fe9f5d15e6f507c0dd7fa6" group-title="Misceláneos",History
-http://45.189.151.7:8000/play/a06s/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.ee9d652b97bb303f0853c7a5" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/e46c7431505e.png",History
 http://38.87.224.19:2220/play/a00y/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.00df0aae88e95a3004c160d6" group-title="Misceláneos",HISTORY
 http://181.78.14.26:4000/play/a0aj/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.9c051299ce5c523723b80049" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/e46c7431505e.png",History
-http://168.196.127.137:6001/play/a05i/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.829dfbf6cbe7ea4f023ed319" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/e46c7431505e.png",History
-http://45.173.231.22:8000/play/a05y/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.d56376275161ef53614ac137" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/5068e99dfdd8.png",Investigation Discovery
 http://177.234.218.66:8084/play/a09p/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.9d3516a195b67ada4e560cf0" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/5068e99dfdd8.png",Investigation Discovery
-http://38.134.250.110:8000/play/a00h/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.4f6975eae324c2c1f994c84f" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/5068e99dfdd8.png",Investigation Discovery
 http://138.94.3.106:8000/play/a03w/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.842dc61bbcd6d62333fa322e" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/5068e99dfdd8.png",Investigation Discovery
-http://168.196.127.137:6001/play/a09a/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.edc3a37181c9a6915fb578c6" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/e9e0a89aad14.png",Love Nature
-http://181.78.14.26:4000/play/a07h/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.5d3617f4b5483e2a8a549b4b" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/e9e0a89aad14.png",Love Nature
-http://181.224.200.5:2277/play/a036/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.e22a7e33229d6c0babc4500c" group-title="Misceláneos",MAX
-http://45.70.201.81:8000/play/a013/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.1b3c38cc1cae4e7c001a8806" group-title="Misceláneos",Max Anime
-http://181.79.86.130:8000/play/a07z/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.4cc955676f3165215cdeb3b0" group-title="Misceláneos",Max Anime
-http://138.94.3.106:8000/play/a07z/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.def76a1af57701f7a28175f3" group-title="Misceláneos",MAX ANIME TV (198)
-http://45.189.151.7:8000/play/a080/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.02a2f71002ec112d786a28f5" group-title="Misceláneos",National Geographic
-http://177.234.218.66:8084/play/a00b/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.e5e0308654582299e5fe5bc0" group-title="Misceláneos",National Geographic
-http://45.189.151.7:8000/play/a07a/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.8439c81460fa81df2ffccbed" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/4deec34b7976.png",National Geographic
-http://38.134.250.110:8000/play/a00m/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.f753ad9eb3f48c300c6fa4b4" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/4deec34b7976.png",National Geographic
-http://138.59.177.78:9999/play/a0n8/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.8a5d0371ff496197a85a71b8" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/4deec34b7976.png",National Geographic
-http://181.78.106.127:5000/play/ca060/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.1896252947da838aa08e5139" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/4deec34b7976.png",National Geographic
-http://181.78.197.59:8000/play/a083/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.e8de53646cc6e4185fabf9c7" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/4deec34b7976.png",National Geographic
-http://168.196.127.137:6001/play/a093/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.956ee9e1ecd09ce19202225f" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/4deec34b7976.png",National Geographic
-http://138.59.227.20:8000/play/a09f/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.b5fdf6c75f79bfb4bf24602c" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/4deec34b7976.png",National Geographic
-http://181.78.14.26:4000/play/a04p/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.5fa93eee31589e2105958c0e" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/4deec34b7976.png",National Geographic
-http://200.7.99.59:8000/play/a0l4/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.c7b59e1a7dca958753a19e2f" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/51f215686b48.png",Star Colombia
-http://190.61.47.54:8000/play/a035/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.b8f2efd55894cbc58af43798" group-title="Misceláneos",SUN
-http://138.59.177.78:9999/play/a0gm/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.2ff8907ccbfaca4bb9a229ac" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/64ea1fb88e61.png",TNT Series
-http://138.94.3.106:8000/play/a00l/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.21b804df59b50c2512cf115f" group-title="Misceláneos",Tooncast
-http://45.189.151.7:8000/play/a07o/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.ed298afe12119a4cf5b4860f" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/7a8d7e872b7b.png",Tooncast
-http://181.78.14.26:4000/play/a045/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.954663e62814e1b04ca634ba" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/7a8d7e872b7b.png",Tooncast
-http://181.78.211.244:8000/play/a08y/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.fe19a62490667aec9470c114" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/7a8d7e872b7b.png",Tooncast
-http://38.134.250.110:8000/play/a01t/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.2190cd7223897557e12a325f" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/6df4c8f86c82.png",TVN
-http://190.108.91.206:9050/play/a03f/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.08b71ab74a14ddfe4de5715b" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/93453859f775.png",Universal Channel
-http://181.78.12.119:16123/play/a0di/index.m3u8
+
+# Deportes
+#EXTINF:-1 tvg-id="PublicDirect.792c9413cb2a98e7c3d972f6" group-title="Deportes",la liga
+http://45.171.64.30:6060/play/a05i/index.m3u8
+
+# Aire libre
+#EXTINF:-1 tvg-id="IPTVOrg.LoveNature.ca-4K" tvg-name="Love Nature 4K (2160p) [Geo-blocked]" group-title="Aire libre",Love Nature 4K (2160p) [Geo-blocked]
+https://pb-ehs1glsha1juy.akamaized.net/Love_Nature_4K.m3u8
 
 # Música
 #EXTINF:-1 tvg-id="IPTVOrg.MTVBiggestPop.us-US" tvg-name="MTV Biggest Pop (1080p)" group-title="Música",MTV Biggest Pop (1080p)
 https://jmp2.uk/plu-5d14fd1a252d35decbc4080c.m3u8
-#EXTINF:-1 tvg-id="IPTVOrg.MTVBiggestPop.us-BR" tvg-name="MTV Biggest Pop BR (1080p)" group-title="Música",MTV Biggest Pop BR (1080p)
-https://jmp2.uk/plu-6047fbdbbb776a0007e7f2ff.m3u8
-#EXTINF:-1 tvg-id="IPTVOrg.MTVBiggestPop.us-CA" tvg-name="MTV Biggest Pop CA (1080p)" group-title="Música",MTV Biggest Pop CA (1080p)
-https://jmp2.uk/plu-65410176770cf1000866bf31.m3u8
-#EXTINF:-1 tvg-id="IPTVOrg.MTVClassic.us-BR" tvg-name="MTV Classic BR (720p)" group-title="Música",MTV Classic BR (720p)
-https://jmp2.uk/plu-66a01dcb8561260008b0a41d.m3u8
-#EXTINF:-1 tvg-id="IPTVOrg.MTVClassic.us-CA" tvg-name="MTV Classic CA (720p)" group-title="Música",MTV Classic CA (720p)
-https://jmp2.uk/plu-654100b4bdf3cf0008aa49c7.m3u8
-#EXTINF:-1 tvg-id="IPTVOrg.MTVClassic.us-LatAm" tvg-name="MTV Classic LatAm (720p)" group-title="Música",MTV Classic LatAm (720p)
-https://jmp2.uk/plu-66a11a21a79dea0008aa90ca.m3u8
 #EXTINF:-1 tvg-id="IPTVOrg.MTVFlowLatino.us-SD" tvg-name="MTV Flow Latino (720p)" group-title="Música",MTV Flow Latino (720p)
 https://jmp2.uk/plu-5d3609cd6a6c78d7672f2a81.m3u8
-#EXTINF:-1 tvg-id="IPTVOrg.MTVLive.us-SD" tvg-name="MTV Live (720p)" group-title="Música",MTV Live (720p)
-http://23.237.104.106:8080/USA_MTV_LIVE/index.m3u8
-#EXTINF:-1 tvg-id="IPTVOrg.MTVSpankinNew.us-US" tvg-name="MTV Spankin' New (1080p)" group-title="Música",MTV Spankin' New (1080p)
-https://jmp2.uk/plu-5d14fdb8ca91eedee1633117.m3u8
-#EXTINF:-1 tvg-id="IPTVOrg.MusicBoxClassic.cz-SD" tvg-name="Music Box Classic" group-title="Música",Music Box Classic
-http://88.212.15.50/live/mb_classic/index.m3u8
-#EXTINF:-1 tvg-id="IPTVOrg.MusicBoxHits.cz-SD" tvg-name="Music Box Hits" group-title="Música",Music Box Hits
-http://88.212.15.50/live/mb_hits/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.650a768cd537cb17d491e369" group-title="Música" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/stingray-concerts.png",Stingray Concerts
-http://190.108.83.69:8000/play/a00d/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.9be6822a5c250724d0894661" group-title="Música" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/30c73836013e.png",Telehit
-http://45.5.118.152:8000/play/a08r/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.88c0aa1e395841747d843fc3" group-title="Música",TeleHit
-http://200.115.120.1:8000/play/ca048/index.m3u8
 
-# Noticias
-#EXTINF:-1 tvg-id="IPTVOrg.CNNInternational.us-Europe" tvg-name="CNN International (1080p)" group-title="Noticias",CNN International (1080p)
-https://d3bp6dwmpbdajl.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-ury0meh5m4nzm/index.m3u8
-
-# Noticias internacionales
-#EXTINF:-1 tvg-id="PublicDirect.b10fe4fed499ea3d98d1d010" group-title="Noticias internacionales" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/b4c0a32ea39c.png",CNN Español
-http://190.61.47.54:8000/play/a02g/index.m3u8
+# Misceláneos
+#EXTINF:-1 tvg-id="PublicDirect.02a2f71002ec112d786a28f5" group-title="Misceláneos",National Geographic
+http://177.234.218.66:8084/play/a00b/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.8439c81460fa81df2ffccbed" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/4deec34b7976.png",National Geographic
+http://38.134.250.110:8000/play/a00m/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.8a5d0371ff496197a85a71b8" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/4deec34b7976.png",National Geographic
+http://181.78.106.127:5000/play/ca060/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.1896252947da838aa08e5139" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/4deec34b7976.png",National Geographic
+http://181.78.197.59:8000/play/a083/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.5fa93eee31589e2105958c0e" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/4deec34b7976.png",National Geographic
+http://200.7.99.59:8000/play/a0l4/index.m3u8
 
 # Películas
-#EXTINF:-1 tvg-id="PublicDirect.8918c13cf06dc2f7416879f2" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/amclatinamerica-us.png",AMC
-http://45.171.64.30:6060/play/a02h/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.a4fe5a0fae7ca652b8925373" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/4d1aa64874b5.png",Space
+http://200.7.99.59:8000/play/a0on/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.e221e27dc18d5a97a4054237" group-title="Películas",Star TVE
+http://138.59.177.78:9999/play/a0o4/index.m3u8
+
+# Música
+#EXTINF:-1 tvg-id="PublicDirect.650a768cd537cb17d491e369" group-title="Música" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/stingray-concerts.png",Stingray Concerts
+http://190.108.83.69:8000/play/a00d/index.m3u8
+
+# Películas
+#EXTINF:-1 tvg-id="PublicDirect.80d40db0a91ceee32b8b226c" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/eec19daab9fb.png",Studio Universal
+http://181.119.177.253:8000/play/a0db/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.b944cbda127f265385bb249c" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/ffdb88d6fb18.png",TNT
+http://138.94.3.106:8000/play/a02j/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.f7860545d45db8d5592cd048" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/ffdb88d6fb18.png",TNT
+http://181.79.86.130:8000/play/a05r/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.7554066ef6c62834091c13b8" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/ffdb88d6fb18.png",TNT
+http://45.173.231.22:8000/play/a060/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.e50daff0a069fd95e033632b" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/ffdb88d6fb18.png",TNT
+http://72.1.184.5:8089/play/a06p/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.ce4513de1def96235d652d6c" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/ffdb88d6fb18.png",TNT
+http://45.5.118.152:8000/play/a0di/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.8dd033066d79b8cd5a89feb7" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/64ea1fb88e61.png",TNT Series
+http://138.94.3.106:8000/play/a05s/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.ac9d91daa7e403bccc9b4464" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/93453859f775.png",Universal Channel
+http://138.59.177.78:9999/play/a08g/index.m3u8
+
+# Misceláneos
+#EXTINF:-1 tvg-id="PublicDirect.08b71ab74a14ddfe4de5715b" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/93453859f775.png",Universal Channel
+http://181.78.12.119:16123/play/a0di/index.m3u8
+
+# Películas
+#EXTINF:-1 tvg-id="PublicDirect.f3e686834ca7d7d97c85f348" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/26b4119750c7.png",Universal Cinema Este
+http://181.119.177.253:8000/play/a0cw/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.49854aa2ac00919d765f58d5" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/a950d02694dd.png",Universal Comedy
+http://45.166.93.156:9999/play/a0ev/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.d48635571a0af3b28d47db03" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/universalcrime-us.png",Universal Crime
+http://45.171.64.30:6060/play/a03s/index.m3u8
+
+# Deportes
+#EXTINF:-1 tvg-id="PublicDirect.617b574fa232cce423379651" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/4c3990d18377.png",Universal Premiere
+http://45.5.118.152:8000/play/a0dn/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.7c8d4b8df3edac7b0635d166" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/4c3990d18377.png",Universal Premiere O
+http://181.119.177.253:8000/play/a0d5/index.m3u8
+
+# Películas
+#EXTINF:-1 tvg-id="PublicDirect.69cbd30293c25b5e33acc71a" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/132bbe9e6d78.png",Universal Reality
+http://38.87.224.19:2220/play/a03t/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.5a53ee0b598caafe694a52bf" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/b3ed65890466.png",Warner Channel
+http://38.134.250.110:8000/play/a029/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.f8dfa6821b9fc2c7482d0661" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/b3ed65890466.png",Warner Channel
+http://190.108.83.69:8000/play/a04b/index.m3u8
+
+# Misceláneos
+#EXTINF:-1 tvg-id="PublicDirect.d0ee5354a75d4bf0fe91c9c0" group-title="Misceláneos",ALCATEL BITME MD1
+http://177.234.218.66:8084/play/a07f/index.m3u8
+
+# Películas
 #EXTINF:-1 tvg-id="IPTVOrg.AMC.us-EastHD" tvg-name="AMC (United States) (720p)" group-title="Películas",AMC (United States) (720p)
 http://23.239.31.26:8989/amc/index.m3u8
 #EXTINF:-1 tvg-id="IPTVOrg.AMCEurope.uk-Bulgary" tvg-name="AMC Europe Bulgary" group-title="Películas" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.3",AMC Europe Bulgary
@@ -351,12 +179,28 @@ http://15.204.246.24:8080/AMCHD/index.m3u8
 http://170.83.49.66:8083/AMCHD/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.f0dfcf052c83f09fed9ce8b7" group-title="Películas",AMC Series
 http://177.234.218.66:8084/play/a00g/index.m3u8
+
+# Misceláneos
+#EXTINF:-1 tvg-id="PublicDirect.09c511adf46d47cd9055be3c" group-title="Misceláneos",ANIMASH
+http://181.78.121.15:8000/play/a00h/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.752c78c1625e51b3999ab40f" group-title="Misceláneos",BITME
+http://167.249.23.102:8000/play/a0ii/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.ba7176a05f1201fbba73245b" group-title="Misceláneos",BITME
+http://45.189.151.7:8000/play/a08a/index.m3u8
+
+# Películas
 #EXTINF:-1 tvg-id="PublicDirect.ca35be4e5535188333003199" group-title="Películas",CANAL 120 DHE
 http://45.5.118.152:8000/play/a02n/index.m3u8
+
+# Misceláneos
+#EXTINF:-1 tvg-id="PublicDirect.6dfbccff83520a7c6b349887" group-title="Misceláneos",Cartoon Network
+http://45.189.151.7:8000/play/a05n/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.1f98cffbf58e566b01163549" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/c3389e519157.png",Cartoon Network
+http://181.78.82.130:8000/play/a0qz/index.m3u8
+
+# Películas
 #EXTINF:-1 tvg-id="PublicDirect.1c8dde5e33ace243b12dbe2d" group-title="Películas",Cinecanal
 http://45.189.151.7:8000/play/a060/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.2bc3084ebbc2631038c24a40" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/c8528fe169b9.png",Cinecanal
-http://190.128.214.97:64333/play/a03e/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.20e481bb0ccf56a4d00a307e" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/c8528fe169b9.png",Cinecanal
 http://38.134.250.110:8000/play/a00a/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.a2faf93b660f2cf57c1e2f19" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/c8528fe169b9.png",Cinecanal
@@ -371,28 +215,158 @@ http://138.121.15.230:9002/CINECANAL/index.m3u8
 http://45.184.109.10/live/69393EAE6ADBC65A68F942022362A202/17.m3u8
 #EXTINF:-1 tvg-id="IPTVOrg.CinemaxLatinAmerica.us-SD" tvg-name="Cinemax Latin America (720p)" group-title="Películas",Cinemax Latin America (720p)
 https://streaming.onnethn.com/CINEMAX/playlist.m3u8
+
+# Noticias internacionales
+#EXTINF:-1 tvg-id="PublicDirect.b10fe4fed499ea3d98d1d010" group-title="Noticias internacionales" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/b4c0a32ea39c.png",CNN Español
+http://190.61.47.54:8000/play/a02g/index.m3u8
+
+# Noticias
+#EXTINF:-1 tvg-id="IPTVOrg.CNNInternational.us-Europe" tvg-name="CNN International (1080p)" group-title="Noticias",CNN International (1080p)
+https://d3bp6dwmpbdajl.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-ury0meh5m4nzm/index.m3u8
+
+# Películas
 #EXTINF:-1 tvg-id="PublicDirect.727b6475106bd926971d0941" group-title="Películas",DHE
 http://181.78.82.130:8000/play/a0l4/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.2beeea3de6952cc8ea889299" group-title="Películas",DHE
-http://181.78.14.26:4000/play/a03o/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.25c9e1bc49b1b502cb7b6d8c" group-title="Películas",DHE
 http://138.59.177.78:9999/play/a08j/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.bf206adce05fce9ef95b62d1" group-title="Películas",DHE
 http://168.196.127.137:6001/play/a05x/index.m3u8
+
+# Misceláneos
+#EXTINF:-1 tvg-id="PublicDirect.72581c395909ec4f873b781c" group-title="Misceláneos",Discovery Channel
+http://45.189.151.7:8000/play/a067/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.ffac9158940d7c82e1545ff2" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/85d1bdbc581b.png",Discovery Channel
+http://190.128.214.97:64333/play/a03a/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.2a38f33a87d2a19e898f9261" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/85d1bdbc581b.png",Discovery Channel
+http://138.94.3.106:8000/play/a00o/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.b00e73d7463cc2ba2fe3465f" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/85d1bdbc581b.png",Discovery Channel
+http://181.78.82.130:8000/play/a0lr/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.e02817452313099e2488d8a6" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/85d1bdbc581b.png",Discovery Channel
+http://168.196.127.137:6001/play/a096/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.f8420ebee0e21b5e93744906" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/85d1bdbc581b.png",Discovery Channel
+http://138.59.227.20:8000/play/a08g/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.d1e015ad5bcc8aeb76b4e592" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/85d1bdbc581b.png",Discovery Channel
+http://181.78.14.26:4000/play/a03s/index.m3u8
+
+# Entretenimiento
+#EXTINF:-1 tvg-id="IPTVOrg.DiscoveryChannelLatinAmerica.us-Brazil" tvg-name="Discovery Channel Latin America Brazil (720p)" group-title="Entretenimiento",Discovery Channel Latin America Brazil (720p)
+http://45.162.64.114/DISCOVERY_CHANNEL/index.m3u8
+#EXTINF:-1 tvg-id="IPTVOrg.DiscoveryChannelLatinAmerica.us-South" tvg-name="Discovery Channel Latin America South" group-title="Entretenimiento",Discovery Channel Latin America South
+http://45.184.109.10/live/69393EAE6ADBC65A68F942022362A202/20.m3u8
+
+# Misceláneos
+#EXTINF:-1 tvg-id="PublicDirect.c8b89662335324cb57b2221f" group-title="Misceláneos",Discovery Theater
+http://45.189.151.7:8000/play/a06b/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.62b41021824626f105b68d8a" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/00b50f9bc248.png",Discovery Theater
+http://181.78.82.130:8000/play/a0ko/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.a5ab4fb07b0b3f13f591b009" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoveryturbolatinamerica-us.png",Discovery Turbo
+http://38.134.250.110:8000/play/a01y/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.7e4fe7ff47c91a001130c27b" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/58c7e3697649.png",Discovery Turbo
+http://177.234.218.66:8084/play/a09r/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.da7efe7903c53b335396d8fb" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/58c7e3697649.png",Discovery Turbo
+http://181.78.14.26:4000/play/a02z/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.7773845aa90771bf2aae116b" group-title="Misceláneos",Discovery World
+http://45.189.151.7:8000/play/a06a/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.305177fef9fa178063075ed3" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoveryworld-us.png",Discovery World
+http://168.196.127.137:6001/play/a097/index.m3u8
+
+# Deportes
+#EXTINF:-1 tvg-id="PublicDirect.160c2cb1e8f8ab7da88c8f6b" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/13038c11f312.png",ESPN
+http://200.7.99.59:8000/play/a0h5/index.m3u8
+#EXTINF:-1 tvg-id="IPTVOrg.ESPN.us-HD" tvg-name="ESPN (United States) HD (720p)" group-title="Deportes",ESPN (United States) HD (720p)
+http://85.237.89.160:9590/usa-s/ESPN-HD/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.b67d781dac0752813f09c500" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/c5f053da5123.png",ESPN 2
+http://138.59.177.78:9999/play/a0fa/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.303072897f547e395978196c" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/c5f053da5123.png",ESPN 2
+http://168.196.127.137:6001/play/a090/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.998cb2683994b92227d7ac8e" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/c5f053da5123.png",ESPN 2
+http://138.59.177.78:9999/play/a0n4/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.7f8acb0c7365f70bc5f07e21" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/c5f053da5123.png",ESPN 2
+http://190.61.47.54:8000/play/a005/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.ce8756a8f2f3c2420f26865f" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/c5f053da5123.png",ESPN 2
+http://200.7.99.59:8000/play/a0jl/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.78f61ec86ce277cda1ad39f6" group-title="Deportes",ESPN 2
+http://45.189.151.7:8000/play/a06j/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.0b08745e3db22dec9d49648a" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/c5f053da5123.png",ESPN 2
+http://181.78.14.26:4000/play/a02p/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.a2c30df1a44aefaa23dd938e" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/c5f053da5123.png",ESPN 2
+http://138.59.227.20:8000/play/a098/index.m3u8
+#EXTINF:-1 tvg-id="IPTVOrg.ESPN2.us-HD" tvg-name="ESPN 2 (United States) HD (720p)" group-title="Deportes",ESPN 2 (United States) HD (720p)
+http://85.237.89.160:9590/usa-s/ESPN-2-HD/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.8a5300eedbb2bd838899a498" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/dce9fe4d3a4a.png",ESPN 3
+http://181.78.82.130:8000/play/a0n5/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.afa5fbaa663b126f3dd2a07f" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/dce9fe4d3a4a.png",ESPN 3
+http://45.5.118.152:8000/play/a009/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.5119fba9888eabcc79201bde" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/dce9fe4d3a4a.png",ESPN 3
+http://138.59.177.78:9999/play/a07v/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.490528e0ea82baeb364da5b8" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/dce9fe4d3a4a.png",ESPN 3
+http://168.196.127.137:6001/play/a091/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.647e6d5d026ca0131e06742d" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/dce9fe4d3a4a.png",ESPN 3
+http://181.78.197.59:8000/play/a081/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.0be3dafc87397bb527a0eba2" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/dce9fe4d3a4a.png",ESPN 3
+http://190.61.47.54:8000/play/a02u/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.01a707099056fe8688ce5d0b" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/dce9fe4d3a4a.png",ESPN 3
+http://181.78.14.26:4000/play/a02q/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.deca0eae5fdc4f601e7e6555" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/dce9fe4d3a4a.png",ESPN 3
+http://138.59.227.20:8000/play/a09a/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.7de9ce389ea5576eeb4adccb" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/c422dc5ede7d.png",ESPN 4
+http://168.196.127.137:6001/play/a05k/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.b20da956a2c6d668c329f1b7" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/c422dc5ede7d.png",ESPN 4
+http://181.78.14.26:4000/play/a0d2/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.effbe7a65381e6ac04591e58" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/a8d7ca91a64e.png",ESPN 5
+http://138.59.177.78:9999/play/a07x/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.7b33a82dca560712171ccf55" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/a8d7ca91a64e.png",ESPN 5 Sur
+http://190.61.47.54:8000/play/a00a/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.ff00193f7498f277c98a9a56" group-title="Deportes",ESPN 6
+http://168.196.127.137:6001/play/a092/index.m3u8
+#EXTINF:-1 tvg-id="ESPN6.co@Direct181" tvg-name="ESPN 6" tvg-country="CO" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/espn-6-lam.png",ESPN 6
+http://181.78.12.119:16123/play/ch20/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.f76def453257b4671384bef7" group-title="Deportes",ESPN 6 Sur (ESPN 09)
+http://190.61.47.54:8000/play/a00b/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.6719ac9d921f49f9d81cf3fa" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/dcf1ed2a85b6.png",ESPN 7
+http://200.7.99.59:8000/play/a0pa/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.7a74b6bb5335426d7a0ed8f5" group-title="Deportes",ESPN 7 Sur (ESPN 10)
+http://190.61.47.54:8000/play/a033/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.9803b3858eb1f551dc55bb66" group-title="Deportes",ESPN Colombia
+http://181.78.211.244:8000/play/a08q/index.m3u8
+
+# Películas
 #EXTINF:-1 tvg-id="PublicDirect.5c9e17c3abb1f5f9fe1a3c54" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/4bc08cd16e8d.png",Europa Europa
 http://138.59.227.20:8000/play/a07t/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.d30ff94217cc1ff6ba74dcc5" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/0c9de14638b7.png",Film & Arts
-http://45.5.118.152:8000/play/a09n/index.m3u8
+
+# Misceláneos
+#EXTINF:-1 tvg-id="PublicDirect.38cd9ec09f8d7685075d5616" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/4bc08cd16e8d.png",Europa Europa
+http://168.196.127.137:6001/play/a05v/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.ecb1fed88bf8d502af3237f2" group-title="Misceláneos",Eurosport 1
+http://200.115.120.1:8000/play/ca042/index.m3u8
+
+# Deportes
+#EXTINF:-1 tvg-id="IPTVOrg.Eurosport1.fr-Spain" tvg-name="Eurosport 1 Spain (576p)" group-title="Deportes",Eurosport 1 Spain (576p)
+http://45.134.141.161:2200/ARG/Eurosport_1_HD/index.m3u8
+
+# Películas
 #EXTINF:-1 tvg-id="PublicDirect.f68150aa206f6104ca8a7385" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/0c9de14638b7.png",Film & Arts
 http://168.196.127.137:6001/play/a05q/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.af118ca0ac7bcfb47e5f8f7b" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/0c9de14638b7.png",Film & Arts
 http://138.59.227.20:8000/play/a075/index.m3u8
+
+# Deportes
+#EXTINF:-1 tvg-id="PublicDirect.3d5dfc4dd1f5a8a68d6c2ca9" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/281faebaa577.png",Fox Sports
+http://138.59.177.78:9999/play/a080/index.m3u8
+#EXTINF:-1 tvg-id="FoxSports1.us@Direct" tvg-name="Fox Sports 1" tvg-country="US" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/fox-sports.svg" group-title="Deportes",Fox Sports 1
+http://85.237.89.160:9590/usa-s/FOX-SPORTS-1/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.e2a4717c87af3abd943518e3" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/9d01eab7c700.png",Fox Sports 2
+http://138.59.227.20:8000/play/a09b/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.999960b05b8c81c9d62c2232" group-title="Deportes",Fox Sports 2
+http://45.189.151.7:8000/play/a06n/index.m3u8
+#EXTINF:-1 tvg-id="IPTVOrg.FoxSports.ar-HD" tvg-name="Fox Sports HD" group-title="Deportes",Fox Sports HD
+http://45.184.109.10/live/69393EAE6ADBC65A68F942022362A202/1552.m3u8
+
+# Películas
 #EXTINF:-1 tvg-id="PublicDirect.3f58446ef351852e99879bee" group-title="Películas",FX
 http://45.189.151.7:8000/play/a06o/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.9feb6557a654814bec8e1b1c" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/765f1257f5fd.png",Golden
 http://181.78.14.26:4000/play/a078/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.c8d21159e094babd5e121069" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/765f1257f5fd.png",Golden
-http://138.94.3.106:8000/play/a00s/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.af5c1590dfc48ed538b666a0" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/765f1257f5fd.png",Golden
 http://181.78.14.26:4000/play/a0a4/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.31bd9ad846a380cd3488426e" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/765f1257f5fd.png",Golden
@@ -405,42 +379,42 @@ http://190.61.47.54:8000/play/a00j/index.m3u8
 http://181.78.14.26:4000/play/a079/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.876e0605afb2c221254832b4" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/9aa8194ea952.png",Golden Edge
 http://181.78.14.26:4000/play/a0a5/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.1d8ef51b5eceaa358dc91792" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/9aa8194ea952.png",Golden Edge
-http://138.94.3.106:8000/play/a00n/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.c5fe220d460977b5522b0a13" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/765f1257f5fd.png",Golden Plus
 http://181.78.106.127:5000/play/ca078/index.m3u8
+
+# Deportes
+#EXTINF:-1 tvg-id="PublicDirect.3f1646d62fd252dd11f4cb3b" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/brand_golden_premier.png",Golden Premiere
+http://72.1.184.5:8089/play/a07d/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.97a303fee94d599d990841a0" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/brand_golden_premier.png",Golden Premiere 2
+http://138.59.177.78:9999/play/a094/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.a2f1d2d3c903ef7672da8003" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/brand_golden_premier.png",Golden Premiere 2
+http://168.196.127.137:6001/play/a042/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.45bc0296091e21b03e74dee2" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/brand_golden_premier.png",Golden Premiere 2
+http://72.1.184.5:8089/play/a07e/index.m3u8
+
+# Películas
 #EXTINF:-1 tvg-id="PublicDirect.a0c86ca5a9d600ea527243eb" group-title="Películas",HBO
 http://45.5.118.152:8000/play/a0bm/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.a5eed3b841e19a98f94e2d72" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/fdba246778ca.png",HBO +
 http://181.78.82.130:8000/play/a0re/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.fc07c90f07c3fa8b11b8ed11" group-title="Películas",HBO 2
 http://45.189.151.7:8000/play/a06v/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.47a91c70846ac4782681b555" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/19016259cff2.png",HBO 2
-http://190.128.214.97:64333/play/a077/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.7ba564f651c493872cf8f969" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/19016259cff2.png",HBO 2
 http://168.196.127.137:6001/play/a04g/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.c9a179f36540c93c7e6a67b6" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/11d0e5a776c6.png",HBO Family
 http://181.78.82.130:8000/play/a0l6/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.e1b60bf9c9b3622fb107f503" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/11d0e5a776c6.png",HBO Family
-http://190.61.90.17:40000/play/a0l5/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.1102eb11b008a30834083357" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/11d0e5a776c6.png",HBO Family
 http://168.196.127.137:6001/play/a04i/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.d11c19f0d0d4f85f6fb752df" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/11d0e5a776c6.png",HBO Family
 http://72.1.184.5:8089/play/a07r/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.5fe44230ccba52e2f9fe2291" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/5d60a21c5de1.png",HBO Plus
 http://200.115.120.1:8000/play/ca137/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.74b1d039a89a6947afe30ac0" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/5d60a21c5de1.png",HBO Plus
-http://138.59.177.78:9999/play/a099/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.a60aeeeb2381bd9d9f00b8cb" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/5d60a21c5de1.png",HBO Plus
 http://168.196.127.137:6001/play/a04h/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.e0a6d657d2100f24327dd88d" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/5d60a21c5de1.png",HBO Plus
 http://72.1.184.5:8089/play/a07q/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.ed2f1446ddbf0b5ac126fcdf" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/f4499da27f78.png",HBO Pop
-http://181.78.82.130:8000/play/a0ec/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.a55e878f085b95fe8a88af03" group-title="Películas",HBO Xtreme
 http://45.189.151.7:8000/play/a06w/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.e1bd14954343adc40818b7c7" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/hbo_xtreme.png",HBO Xtreme
-http://181.78.197.59:8000/play/a07h/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.579ae1fb8ad5c8e997143abb" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/hbo_xtreme.png",HBO Xtreme
 http://138.59.177.78:9999/play/a0bs/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.609e478a6ca6804b5a9df79e" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/hbo_xtreme.png",HBO Xtreme
@@ -449,6 +423,116 @@ http://138.59.177.78:9999/play/a09a/index.m3u8
 http://168.196.127.137:6001/play/a04j/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.0cf0cd1dc60687d103628a80" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/hbo_xtreme.png",HBO Xtreme
 http://72.1.184.5:8089/play/a07s/index.m3u8
+
+# Misceláneos
+#EXTINF:-1 tvg-id="PublicDirect.c5fe9f5d15e6f507c0dd7fa6" group-title="Misceláneos",History
+http://45.189.151.7:8000/play/a06s/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.9c051299ce5c523723b80049" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/e46c7431505e.png",History
+http://168.196.127.137:6001/play/a05i/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.829dfbf6cbe7ea4f023ed319" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/e46c7431505e.png",History
+http://45.173.231.22:8000/play/a05y/index.m3u8
+
+# Documentales
+#EXTINF:-1 tvg-id="IPTVOrg.History.bg-SD" tvg-name="History (Bulgaria)" group-title="Documentales" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.3",History (Bulgaria)
+http://213.91.179.28:8000/play/a0c1
+#EXTINF:-1 tvg-id="IPTVOrg.History.cz-SD" tvg-name="History (Czech Republic)" group-title="Documentales" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.3",History (Czech Republic)
+http://88.212.15.50/live/test_history/playlist.m3u8
+#EXTINF:-1 tvg-id="IPTVOrg.History.pl-SD" tvg-name="History (Poland) (576i)" group-title="Documentales",History (Poland) (576i)
+http://92.114.85.87:8015/play/a00c/index.m3u8
+#EXTINF:-1 tvg-id="IPTVOrg.HistoryAsia.us-SD" tvg-name="History Asia (720p)" group-title="Documentales",History Asia (720p)
+https://freem3u.xyz/api/live/play.m3u8?vid=9856
+#EXTINF:-1 tvg-id="IPTVOrg.HistoryLatinAmerica.us-South" tvg-name="History Latin America South" group-title="Documentales",History Latin America South
+http://45.184.109.10/live/69393EAE6ADBC65A68F942022362A202/37.m3u8
+
+# Misceláneos
+#EXTINF:-1 tvg-id="PublicDirect.9d3516a195b67ada4e560cf0" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/5068e99dfdd8.png",Investigation Discovery
+http://38.134.250.110:8000/play/a00h/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.842dc61bbcd6d62333fa322e" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/5068e99dfdd8.png",Investigation Discovery
+http://168.196.127.137:6001/play/a09a/index.m3u8
+
+# Deportes
+#EXTINF:-1 tvg-id="PublicDirect.a3b4bf18d284bb25d0e2a391" group-title="Deportes",LA LIGA CDN
+http://45.166.93.156:9999/play/a00b/index.m3u8
+
+# Misceláneos
+#EXTINF:-1 tvg-id="PublicDirect.edc3a37181c9a6915fb578c6" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/e9e0a89aad14.png",Love Nature
+http://181.78.14.26:4000/play/a07h/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.5d3617f4b5483e2a8a549b4b" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/e9e0a89aad14.png",Love Nature
+http://181.224.200.5:2277/play/a036/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.e22a7e33229d6c0babc4500c" group-title="Misceláneos",MAX
+http://45.70.201.81:8000/play/a013/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.1b3c38cc1cae4e7c001a8806" group-title="Misceláneos",Max Anime
+http://181.79.86.130:8000/play/a07z/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.4cc955676f3165215cdeb3b0" group-title="Misceláneos",Max Anime
+http://138.94.3.106:8000/play/a07z/index.m3u8
+
+# Animación
+#EXTINF:-1 tvg-id="IPTVOrg.MAXAnime.ve-SD" tvg-name="MAX Anime (1080p)" group-title="Animación",MAX Anime (1080p)
+https://cdnlive.klicgo.net/maxanime/live/playlist.m3u8
+
+# Misceláneos
+#EXTINF:-1 tvg-id="PublicDirect.def76a1af57701f7a28175f3" group-title="Misceláneos",MAX ANIME TV (198)
+http://45.189.151.7:8000/play/a080/index.m3u8
+
+# Deportes
+#EXTINF:-1 tvg-id="IPTVOrg.MaxSport1.bg-SD" tvg-name="Max Sport 1 (720p)" group-title="Deportes" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36x",Max Sport 1 (720p)
+http://213.91.179.28:8000/play/a0as
+#EXTINF:-1 tvg-id="IPTVOrg.MaxSport2.bg-SD" tvg-name="Max Sport 2 (720p)" group-title="Deportes" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",Max Sport 2 (720p)
+http://213.91.179.28:8000/play/a0at
+#EXTINF:-1 tvg-id="IPTVOrg.MaxSport3.bg-SD" tvg-name="Max Sport 3 (720p)" group-title="Deportes" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",Max Sport 3 (720p)
+http://213.91.179.28:8000/play/a0ar
+#EXTINF:-1 tvg-id="IPTVOrg.MaxSport4.bg-SD" tvg-name="Max Sport 4" group-title="Deportes" http-user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.3",Max Sport 4
+http://213.91.179.28:8000/play/a05n
+
+# Música
+#EXTINF:-1 tvg-id="IPTVOrg.MTVBiggestPop.us-BR" tvg-name="MTV Biggest Pop BR (1080p)" group-title="Música",MTV Biggest Pop BR (1080p)
+https://jmp2.uk/plu-6047fbdbbb776a0007e7f2ff.m3u8
+#EXTINF:-1 tvg-id="IPTVOrg.MTVBiggestPop.us-CA" tvg-name="MTV Biggest Pop CA (1080p)" group-title="Música",MTV Biggest Pop CA (1080p)
+https://jmp2.uk/plu-65410176770cf1000866bf31.m3u8
+#EXTINF:-1 tvg-id="IPTVOrg.MTVClassic.us-BR" tvg-name="MTV Classic BR (720p)" group-title="Música",MTV Classic BR (720p)
+https://jmp2.uk/plu-66a01dcb8561260008b0a41d.m3u8
+#EXTINF:-1 tvg-id="IPTVOrg.MTVClassic.us-CA" tvg-name="MTV Classic CA (720p)" group-title="Música",MTV Classic CA (720p)
+https://jmp2.uk/plu-654100b4bdf3cf0008aa49c7.m3u8
+#EXTINF:-1 tvg-id="IPTVOrg.MTVClassic.us-LatAm" tvg-name="MTV Classic LatAm (720p)" group-title="Música",MTV Classic LatAm (720p)
+https://jmp2.uk/plu-66a11a21a79dea0008aa90ca.m3u8
+#EXTINF:-1 tvg-id="IPTVOrg.MTVLive.us-SD" tvg-name="MTV Live (720p)" group-title="Música",MTV Live (720p)
+http://23.237.104.106:8080/USA_MTV_LIVE/index.m3u8
+#EXTINF:-1 tvg-id="IPTVOrg.MTVSpankinNew.us-US" tvg-name="MTV Spankin' New (1080p)" group-title="Música",MTV Spankin' New (1080p)
+https://jmp2.uk/plu-5d14fdb8ca91eedee1633117.m3u8
+
+# Deportes
+#EXTINF:-1 tvg-id="PublicDirect.acb4d53cbdbe02d5ffd7cba3" group-title="Deportes",MULTIPREMIER
+http://177.234.218.66:8084/play/a08w/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.6e3cb7d6d13b2525f01a48cc" group-title="Deportes",MULTIPREMIER
+http://181.78.211.244:8000/play/a01h/index.m3u8
+
+# Música
+#EXTINF:-1 tvg-id="IPTVOrg.MusicBoxClassic.cz-SD" tvg-name="Music Box Classic" group-title="Música",Music Box Classic
+http://88.212.15.50/live/mb_classic/index.m3u8
+#EXTINF:-1 tvg-id="IPTVOrg.MusicBoxHits.cz-SD" tvg-name="Music Box Hits" group-title="Música",Music Box Hits
+http://88.212.15.50/live/mb_hits/index.m3u8
+
+# Misceláneos
+#EXTINF:-1 tvg-id="PublicDirect.e5e0308654582299e5fe5bc0" group-title="Misceláneos",National Geographic
+http://45.189.151.7:8000/play/a07a/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.f753ad9eb3f48c300c6fa4b4" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/4deec34b7976.png",National Geographic
+http://138.59.177.78:9999/play/a0n8/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.e8de53646cc6e4185fabf9c7" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/4deec34b7976.png",National Geographic
+http://168.196.127.137:6001/play/a093/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.956ee9e1ecd09ce19202225f" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/4deec34b7976.png",National Geographic
+http://138.59.227.20:8000/play/a09f/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.b5fdf6c75f79bfb4bf24602c" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/4deec34b7976.png",National Geographic
+http://181.78.14.26:4000/play/a04p/index.m3u8
+
+# Aire libre
+#EXTINF:-1 tvg-id="IPTVOrg.RedBullTV.at-EUMENA" tvg-name="Red Bull TV (1080p)" group-title="Aire libre",Red Bull TV (1080p)
+https://3ea22335.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWdiX1JlZEJ1bGxUVl9ITFM/playlist.m3u8
+#EXTINF:-1 tvg-id="IPTVOrg.RedBullTV.at-AU" tvg-name="Red Bull TV AU (1080p)" group-title="Aire libre",Red Bull TV AU (1080p)
+https://db34cc6127ac459db55cab5f97cd66b9.mediatailor.us-west-2.amazonaws.com/v1/master/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-680-WORBAUENFAST-WHALETVPLUS/680/whaletvplus/hls/master/playlist.m3u8
+#EXTINF:-1 tvg-id="IPTVOrg.RedBullTV.at-ES" tvg-name="Red Bull TV ES (1080p)" group-title="Aire libre",Red Bull TV ES (1080p)
+https://886bd3fbc782459f8de7555d32d7e9ce.mediatailor.us-west-2.amazonaws.com/v1/master/ba62fe743df0fe93366eba3a257d792884136c7f/LINEAR-957-WORBLATAMESFAST-WHALETVPLUS/957/whaletvplus/hls/master/playlist.m3u8
+
+# Películas
 #EXTINF:-1 tvg-id="PublicDirect.68f85dd0f314a681d7a5e4d5" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/17a70ff21c33.png",Sony Movies
 http://138.59.177.78:9999/play/a0o3/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.c654cca542edf1f9e899fd88" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/17a70ff21c33.png",Sony Movies
@@ -459,18 +543,30 @@ http://45.162.64.114/SONY_MOVIES/index.m3u8
 https://a-cdn.klowdtv.com/live1/smc_720p/playlist.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.9d0c97cf9be9bc9ff848aa7d" group-title="Películas",Space
 http://45.189.151.7:8000/play/a07g/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.a4fe5a0fae7ca652b8925373" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/4d1aa64874b5.png",Space
-http://200.7.99.59:8000/play/a0on/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.2e30d57b3f3172aa472e0e6f" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/4d1aa64874b5.png",Space
 http://168.196.127.137:6001/play/a08w/index.m3u8
+
+# Relajación
+#EXTINF:-1 tvg-id="IPTVOrg.SpaceLivepoweredbysen.uk-SD" tvg-name="Space Live powered by sen (1080p)" group-title="Relajación",Space Live powered by sen (1080p)
+https://linear-1224.frequency.stream/dist/lg-uk/1224/hls/master/playlist.m3u8
+
+# Películas
 #EXTINF:-1 tvg-id="PublicDirect.3ceba53433bdee01804a089a" group-title="Películas",Star Channel
 http://138.59.177.78:9999/play/a071/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.e2bef64dff23586b4ec67853" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/51f215686b48.png",Star Channel
 http://181.78.82.130:8000/play/a0rg/index.m3u8
 #EXTINF:-1 tvg-id="IPTVOrg.StarChannelLatinAmerica.us-South" tvg-name="Star Channel Latin America South" group-title="Películas",Star Channel Latin America South
 http://45.184.109.10/live/69393EAE6ADBC65A68F942022362A202/51.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.e221e27dc18d5a97a4054237" group-title="Películas",Star TVE
-http://138.59.177.78:9999/play/a0o4/index.m3u8
+
+# Misceláneos
+#EXTINF:-1 tvg-id="PublicDirect.c7b59e1a7dca958753a19e2f" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/51f215686b48.png",Star Colombia
+http://190.61.47.54:8000/play/a035/index.m3u8
+
+# Series
+#EXTINF:-1 tvg-id="IPTVOrg.StarTrek.us-LatAm" tvg-name="Star Trek LatAm" group-title="Series",Star Trek LatAm
+https://jmp2.uk/plu-5ec5761aabe4690007f6e047.m3u8
+
+# Películas
 #EXTINF:-1 tvg-id="PublicDirect.dd5e0814732a6d3df33a64ac" group-title="Películas",Star TVE
 http://168.196.127.137:6001/play/a05z/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.aa2e0c5477ad6f0d06e77063" group-title="Películas",Studio Universal
@@ -483,10 +579,18 @@ http://38.134.250.110:8000/play/a006/index.m3u8
 http://181.78.82.130:8000/play/a0mh/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.3686a714cd9ba54ef7966266" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/eec19daab9fb.png",Studio Universal
 http://45.166.93.156:9999/play/a0is/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.80d40db0a91ceee32b8b226c" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/eec19daab9fb.png",Studio Universal
-http://181.119.177.253:8000/play/a0db/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.f839213ef33ffd619082a0d7" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/eec19daab9fb.png",Studio Universal
 http://200.7.99.59:8000/play/a0gx/index.m3u8
+
+# Sin categoría
+#EXTINF:-1 tvg-id="IPTVOrg.StudioUniversalLatinAmerica.us-South" tvg-name="Studio Universal Latin America South" group-title="Sin categoría",Studio Universal Latin America South
+http://45.184.109.10/live/69393EAE6ADBC65A68F942022362A202/53.m3u8
+
+# Misceláneos
+#EXTINF:-1 tvg-id="PublicDirect.b8f2efd55894cbc58af43798" group-title="Misceláneos",SUN
+http://138.59.177.78:9999/play/a0gm/index.m3u8
+
+# Películas
 #EXTINF:-1 tvg-id="PublicDirect.5e1edfeb4161cb6762dd4c44" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/b5e1660e4fbf.png",Syfy
 http://38.134.250.110:8000/play/a001/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.5eb6e4ea07959f5a0b4fb5e1" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/b5e1660e4fbf.png",Syfy
@@ -499,46 +603,96 @@ http://177.234.218.66:8084/play/a09f/index.m3u8
 http://181.78.14.26:4000/play/a04d/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.bc93a58942bfdbe0bd4390c6" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/9857f32f74d4.png",TCM
 http://190.61.47.54:8000/play/a02e/index.m3u8
+
+# Sin categoría
+#EXTINF:-1 tvg-id="IPTVOrg.TCMLatinAmerica.us-Chile" tvg-name="TCM Latin America Chile (1080p)" group-title="Sin categoría",TCM Latin America Chile (1080p)
+https://streaming.onnethn.com/TCM_HD/playlist.m3u8
+
+# Música
+#EXTINF:-1 tvg-id="PublicDirect.9be6822a5c250724d0894661" group-title="Música" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/30c73836013e.png",Telehit
+http://45.5.118.152:8000/play/a08r/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.88c0aa1e395841747d843fc3" group-title="Música",TeleHit
+http://200.115.120.1:8000/play/ca048/index.m3u8
+
+# Películas
 #EXTINF:-1 tvg-id="PublicDirect.2aad2170fbc593ab98d1cf56" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/ffdb88d6fb18.png",TNT
 http://181.78.82.130:8000/play/a0lu/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.b944cbda127f265385bb249c" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/ffdb88d6fb18.png",TNT
-http://138.94.3.106:8000/play/a02j/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.60a05b5f354da79fa4fbd9a6" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/ffdb88d6fb18.png",TNT
 http://190.128.214.97:64333/play/a03d/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.9ddae93fd019e9d8fec581e6" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/ffdb88d6fb18.png",TNT
 http://38.134.250.110:8000/play/a009/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.f7860545d45db8d5592cd048" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/ffdb88d6fb18.png",TNT
-http://181.79.86.130:8000/play/a05r/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.7554066ef6c62834091c13b8" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/ffdb88d6fb18.png",TNT
-http://45.173.231.22:8000/play/a060/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.e50daff0a069fd95e033632b" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/ffdb88d6fb18.png",TNT
-http://72.1.184.5:8089/play/a06p/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.3079b1e5252fa8e2cc433cd7" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/ffdb88d6fb18.png",TNT
 http://45.171.64.30:6060/play/a03i/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.25eb1fe7802f67a5513dedbd" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/ffdb88d6fb18.png",TNT
 http://138.59.177.78:9999/play/a0nn/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.9f15295edbeeed582f0858db" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/ffdb88d6fb18.png",TNT
 http://138.59.177.78:9999/play/a0eg/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.ce4513de1def96235d652d6c" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/ffdb88d6fb18.png",TNT
-http://45.5.118.152:8000/play/a0di/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.693c1121902a005368e3cb1f" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/ffdb88d6fb18.png",TNT
 http://138.59.227.20:8000/play/a08b/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.cf9734a38c69016d0cf13193" group-title="Películas",TNT Movies
 http://45.189.151.7:8000/play/a07n/index.m3u8
+
+# Series
+#EXTINF:-1 tvg-id="IPTVOrg.TNTNovelas.us-Panregional" tvg-name="TNT Novelas (1080p)" group-title="Series",TNT Novelas (1080p)
+http://190.93.224.42/TNT-NOVELAS/index.m3u8
+
+# Películas
 #EXTINF:-1 tvg-id="PublicDirect.52d971073c8762905f7e1224" group-title="Películas",TNT Series
 http://45.189.151.7:8000/play/a07l/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.a364b43fa94c078b8e878552" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/64ea1fb88e61.png",TNT Series
 http://190.61.47.54:8000/play/a021/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.3cc3365779e8776b58dc2d05" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/64ea1fb88e61.png",TNT Series
 http://38.134.250.110:8000/play/a00f/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.8dd033066d79b8cd5a89feb7" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/64ea1fb88e61.png",TNT Series
-http://138.94.3.106:8000/play/a05s/index.m3u8
+
+# Misceláneos
+#EXTINF:-1 tvg-id="PublicDirect.2ff8907ccbfaca4bb9a229ac" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/64ea1fb88e61.png",TNT Series
+http://138.94.3.106:8000/play/a00l/index.m3u8
+
+# Películas
 #EXTINF:-1 tvg-id="PublicDirect.76b647759c6c9ca8134477c0" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/64ea1fb88e61.png",TNT Series
 http://200.7.99.59:8000/play/a0h3/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.a38eefffb51368a6a8cee94e" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/64ea1fb88e61.png",TNT Series
 http://138.59.227.20:8000/play/a08c/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.ac9d91daa7e403bccc9b4464" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/93453859f775.png",Universal Channel
-http://138.59.177.78:9999/play/a08g/index.m3u8
+
+# Deportes
+#EXTINF:-1 tvg-id="PublicDirect.f5619a41a224ab60c6402930" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/5b54e22449e6.png",TNT Sports
+http://190.128.214.97:64333/play/a03c/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.cc61e9e026dcb4fd5eec5621" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/5b54e22449e6.png",TNT Sports
+http://181.78.106.127:5000/play/ca026/index.m3u8
+#EXTINF:-1 tvg-id="IPTVOrg.TNTSports.ar-HD" tvg-name="TNT Sports (Argentina)" group-title="Deportes",TNT Sports (Argentina)
+http://45.184.109.10/live/69393EAE6ADBC65A68F942022362A202/86.m3u8
+#EXTINF:-1 tvg-id="IPTVOrg.TNTSportsPremium.cl-ArgentinaHD" tvg-name="TNT Sports Premium ArgentinaHD (1080p)" group-title="Deportes",TNT Sports Premium ArgentinaHD (1080p)
+http://181.78.79.131:8000/play/a0q9
+
+# Misceláneos
+#EXTINF:-1 tvg-id="PublicDirect.21b804df59b50c2512cf115f" group-title="Misceláneos",Tooncast
+http://45.189.151.7:8000/play/a07o/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.ed298afe12119a4cf5b4860f" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/7a8d7e872b7b.png",Tooncast
+http://181.78.14.26:4000/play/a045/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.954663e62814e1b04ca634ba" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/7a8d7e872b7b.png",Tooncast
+http://181.78.211.244:8000/play/a08y/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.fe19a62490667aec9470c114" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/7a8d7e872b7b.png",Tooncast
+http://38.134.250.110:8000/play/a01t/index.m3u8
+
+# Animación
+#EXTINF:-1 tvg-id="IPTVOrg.Tooncast.us-Argentina" tvg-name="Tooncast Argentina (720p)" group-title="Animación",Tooncast Argentina (720p)
+http://45.134.141.161:2200/ARG/Tooncast/index.m3u8
+#EXTINF:-1 tvg-id="IPTVOrg.Tooncast.us-SouthAmerica" tvg-name="Tooncast SouthAmerica (480p)" group-title="Animación",Tooncast SouthAmerica (480p)
+http://190.61.42.218:9000/play/a06i/index.m3u8
+
+# Religión
+#EXTINF:-1 tvg-id="IPTVOrg.TVUniversal.br-SD" tvg-name="TV Universal (480p)" group-title="Religión",TV Universal (480p)
+https://644398c.ha.azioncdn.net/primary/tvuniversal_480p.sdp/playlist.m3u8
+#EXTINF:-1 tvg-id="IPTVOrg.TVUniversalEcuador.ec-SD" tvg-name="TV Universal Ecuador (720p)" group-title="Religión",TV Universal Ecuador (720p)
+https://cdn.mycloudstream.io/hls/live/broadcast/uwcedjt2/index.m3u8
+#EXTINF:-1 tvg-id="IPTVOrg.TVUniversalUruguay.uy-SD" tvg-name="TV Universal Uruguay" group-title="Religión",TV Universal Uruguay
+https://stream.universal.org.uy/hls/0/stream.m3u8
+
+# Misceláneos
+#EXTINF:-1 tvg-id="PublicDirect.2190cd7223897557e12a325f" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/6df4c8f86c82.png",TVN
+http://190.108.91.206:9050/play/a03f/index.m3u8
+
+# Películas
 #EXTINF:-1 tvg-id="PublicDirect.86e7554e5c59c9fe02e0db9e" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/93453859f775.png",Universal Channel
 http://181.78.82.130:8000/play/a0mw/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.09e9986c9d630fdf51ccb69a" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/93453859f775.png",Universal Channel
@@ -551,69 +705,41 @@ http://138.94.3.106:8000/play/a02m/index.m3u8
 http://181.78.14.26:4000/play/a09q/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.5cb6903e38df303515d88bd7" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/93453859f775.png",Universal Channel
 http://45.189.151.7:8000/play/a07q/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.bcef261196b2e0a52b241dab" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/93453859f775.png",Universal Channel
-http://200.7.99.59:8000/play/a0jj/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.8a6449ff9b420f66e78c1060" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/93453859f775.png",Universal Channel
 http://138.59.227.20:8000/play/a09i/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.bcef261196b2e0a52b241dab" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/93453859f775.png",Universal Channel
+http://200.7.99.59:8000/play/a0jj/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.f28f2b24bf2e399d3f6b6c4b" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/26b4119750c7.png",Universal Cinema
 http://200.115.120.1:8000/play/ca145/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.d18112ee4d4517987251af1f" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/26b4119750c7.png",Universal Cinema
 http://138.59.177.78:9999/play/a0nd/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.ab61048297d4bc3dbce3ebe5" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/26b4119750c7.png",Universal Cinema
 http://190.61.90.17:40000/play/a0kt/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.f3e686834ca7d7d97c85f348" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/26b4119750c7.png",Universal Cinema Este
-http://181.119.177.253:8000/play/a0cw/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.dc6e0b858cd050a0ba64b515" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/universalcinema-us.png",Universal Cinema Este
 http://168.196.127.137:6001/play/a09b/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.49854aa2ac00919d765f58d5" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/a950d02694dd.png",Universal Comedy
-http://45.166.93.156:9999/play/a0ev/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.0c771b659f8c5acc963919db" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/06b667507a50.png",Universal Crime
 http://200.115.120.1:8000/play/ca143/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.d48635571a0af3b28d47db03" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/universalcrime-us.png",Universal Crime
-http://45.171.64.30:6060/play/a03s/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.69cbd30293c25b5e33acc71a" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/132bbe9e6d78.png",Universal Reality
-http://38.87.224.19:2220/play/a03t/index.m3u8
+
+# Deportes
+#EXTINF:-1 tvg-id="PublicDirect.63dd4c484c69555096bbde99" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/4c3990d18377.png",Universal Premiere
+http://200.115.120.1:8000/play/ca144/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.178aedd9b3775b11e67551fd" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/4c3990d18377.png",Universal Premiere
+http://138.59.177.78:9999/play/a09m/index.m3u8
+#EXTINF:-1 tvg-id="PublicDirect.1ba8e8c0e020c6c5aeb141dc" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/4c3990d18377.png",Universal Premiere 2
+http://138.59.177.78:9999/play/a09n/index.m3u8
+
+# Películas
 #EXTINF:-1 tvg-id="PublicDirect.062d27a799c8fb8103501297" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/132bbe9e6d78.png",Universal Reality
 http://138.59.177.78:9999/play/a0ns/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.d83a074be3e9c913cabbc66d" group-title="Películas",USA
 http://200.7.99.59:8000/play/a0hw/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.785a54175e5f358fdf7db256" group-title="Películas",Warner Bros
 http://45.189.151.7:8000/play/a06z/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.5a53ee0b598caafe694a52bf" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/b3ed65890466.png",Warner Channel
-http://38.134.250.110:8000/play/a029/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.61775a26cb5c62126e2b2749" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/b3ed65890466.png",Warner Channel
 http://181.78.82.130:8000/play/a0oq/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.f8dfa6821b9fc2c7482d0661" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/b3ed65890466.png",Warner Channel
-http://190.108.83.69:8000/play/a04b/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.323e6ab4ceaa91d75717039d" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/b3ed65890466.png",Warner Channel
 http://181.78.197.59:8000/play/a07s/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.b1a437e6e4662642251e690e" group-title="Películas",Warner Channel
 http://138.59.227.20:8000/play/a09d/index.m3u8
 #EXTINF:-1 tvg-id="IPTVOrg.WarnerChannel.us-South" tvg-name="Warner Sur" group-title="Películas",Warner Sur
 http://45.184.109.10/live/69393EAE6ADBC65A68F942022362A202/68.m3u8
-
-# Relajación
-#EXTINF:-1 tvg-id="IPTVOrg.SpaceLivepoweredbysen.uk-SD" tvg-name="Space Live powered by sen (1080p)" group-title="Relajación",Space Live powered by sen (1080p)
-https://linear-1224.frequency.stream/dist/lg-uk/1224/hls/master/playlist.m3u8
-
-# Religión
-#EXTINF:-1 tvg-id="IPTVOrg.TVUniversal.br-SD" tvg-name="TV Universal (480p)" group-title="Religión",TV Universal (480p)
-https://644398c.ha.azioncdn.net/primary/tvuniversal_480p.sdp/playlist.m3u8
-#EXTINF:-1 tvg-id="IPTVOrg.TVUniversalEcuador.ec-SD" tvg-name="TV Universal Ecuador (720p)" group-title="Religión",TV Universal Ecuador (720p)
-https://cdn.mycloudstream.io/hls/live/broadcast/uwcedjt2/index.m3u8
-#EXTINF:-1 tvg-id="IPTVOrg.TVUniversalUruguay.uy-SD" tvg-name="TV Universal Uruguay" group-title="Religión",TV Universal Uruguay
-https://stream.universal.org.uy/hls/0/stream.m3u8
-
-# Series
-#EXTINF:-1 tvg-id="IPTVOrg.EuropaEuropa.ar-SD" tvg-name="Europa Europa (1080p)" group-title="Series",Europa Europa (1080p)
-https://iptv.bitred.cl/EUROPAEUROPA_HD/index.m3u8
-#EXTINF:-1 tvg-id="IPTVOrg.StarTrek.us-LatAm" tvg-name="Star Trek LatAm" group-title="Series",Star Trek LatAm
-https://jmp2.uk/plu-5ec5761aabe4690007f6e047.m3u8
-#EXTINF:-1 tvg-id="IPTVOrg.TNTNovelas.us-Panregional" tvg-name="TNT Novelas (1080p)" group-title="Series",TNT Novelas (1080p)
-http://190.93.224.42/TNT-NOVELAS/index.m3u8
-
-# Sin categoría
-#EXTINF:-1 tvg-id="IPTVOrg.StudioUniversalLatinAmerica.us-South" tvg-name="Studio Universal Latin America South" group-title="Sin categoría",Studio Universal Latin America South
-http://45.184.109.10/live/69393EAE6ADBC65A68F942022362A202/53.m3u8
-#EXTINF:-1 tvg-id="IPTVOrg.TCMLatinAmerica.us-Chile" tvg-name="TCM Latin America Chile (1080p)" group-title="Sin categoría",TCM Latin America Chile (1080p)
-https://streaming.onnethn.com/TCM_HD/playlist.m3u8
