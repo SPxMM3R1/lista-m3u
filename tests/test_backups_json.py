@@ -13,6 +13,11 @@ class BackupsJsonTest(unittest.TestCase):
         layout = json.loads((ROOT / "data" / "channel-editor-layout.json").read_text(encoding="utf-8"))
         self.rows = {row.get("tvgId"): row for row in layout["channels"] if row.get("tvgId")}
 
+    def test_file_fits_what_the_app_accepts(self):
+        # 2026-11-04: pasó los 512 KiB de la app y las TVs dejaron de actualizarlo sin aviso. VibeM3U
+        # 0.6.58 acepta 4 MiB (PublishedDirectBackups.MAX_BYTES); se avisa antes de llegar.
+        self.assertLess((ROOT / "backups.json").stat().st_size, 3 * 1024 * 1024)
+
     def test_every_principal_is_an_active_list_one_channel(self):
         for key, entry in self.doc["channels"].items():
             with self.subTest(channel=entry["display_name"]):
