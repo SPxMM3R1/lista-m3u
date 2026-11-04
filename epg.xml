@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, FreeEPG, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-description-policy="verified-source-only" data-description-programmes="12105" data-description-channels="284" data-next-refresh-at="2026-11-04T13:54:00+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u" data-generated-at="2026-11-04T01:11:01+00:00">
+<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, FreeEPG, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-description-policy="verified-source-only" data-description-programmes="11896" data-description-channels="275" data-next-refresh-at="2026-11-04T13:54:00+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u" data-generated-at="2026-11-04T01:23:50+00:00">
   <channel id="0104" data-guide="parrilla real" data-guide-source="cl">
     <display-name>TVN</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvn.png" />
@@ -156,7 +156,7 @@
     <display-name>ESPN 7</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-7.png" />
   </channel>
-  <channel id="RedBullWorldEnglish.int" data-guide="parrilla real parcial" data-guide-source="pluto">
+  <channel id="RedBullWorldEnglish.int" data-guide="parrilla real parcial" data-guide-source="epg-publicada-conservada">
     <display-name>RedBull TV World</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/red-bull-tv.png" />
   </channel>
@@ -603,10 +603,6 @@
   </programme>
   <programme start="20261110003000 -0300" stop="20261110023000 -0300" channel="0102">
     <title lang="es">Cierre de transmisiones</title>
-  </programme>
-  <programme start="20261103150000 -0300" stop="20261103161500 -0300" channel="0104">
-    <title lang="es">Pampa Ilusión</title>
-    <desc lang="es">Una apasionada historia donde el amor no respeta tradiciones y suele quebrar con los esquemas de la época, todo ello enmarcado en la salitrera chilena Pampa Ilusión.</desc>
   </programme>
   <programme start="20261103161500 -0300" stop="20261103173000 -0300" channel="0104">
     <title lang="es">La promesa</title>
@@ -5842,10 +5838,6 @@
     <episode-num system="onscreen">S01E15</episode-num>
     <image>https://estatico.emisiondof6.com/recorte/n/vegend/F4458413.jpg</image>
   </programme>
-  <programme start="20261103160000 -0300" stop="20261103161500 -0300" channel="DW.de">
-    <title lang="es">Todo deporte</title>
-    <desc lang="es">Todo deporte les trae las grandes y las pequeñas historias en torno al deporte en todo el mundo. Les mostramos cómo el deporte es capaz de cambiar la vida y cómo es un espejo de nuestra existencia.</desc>
-  </programme>
   <programme start="20261103161500 -0300" stop="20261103170000 -0300" channel="DW.de">
     <title lang="es">Zona docu</title>
     <desc lang="es">Gas Peligroso - A La Caza De Las Fugas De Metano. Investigadores de todo el mundo miden concentraciones cada vez mayores de metano en la atmósfera. Este gas peligroso para el clima es responsable de una cuarta parte del calentamiento global. Por qué se producen tantas fugas de metano?</desc>
@@ -6253,12 +6245,6 @@
   <programme start="20261106021500 -0300" stop="20261106030000 -0300" channel="DW.de">
     <title lang="es">DocFilm</title>
     <sub-title lang="es">Nuestra memoria: Un sistema de almacenamiento fenomenal</sub-title>
-  </programme>
-  <programme channel="DWEnglish.de" start="20261103160200 -0300" stop="20261103161500 -0300">
-    <title lang="fr">DW News Focus</title>
-    <desc lang="es">Our deep dive format explains the stories that matter - with clarity, context and journalistic rigor. Each segment goes beyond the headlines to uncover what's driving key developments around the world, featuring sharp analysis, expert voices and exclusive on the ground insights from where events are unfolding.</desc>
-    <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/7/1/0/15204017.jpg" />
   </programme>
   <programme channel="DWEnglish.de" start="20261103161500 -0300" stop="20261103163000 -0300">
     <title lang="fr">Best of DW-online Content</title>
@@ -9168,14 +9154,6 @@
     <episode-num system="onscreen">S01E03</episode-num>
     <image>https://estatico.emisiondof6.com/recorte/n/vegend/MESP2F4441517.jpg</image>
   </programme>
-  <programme start="20261103160000 -0300" stop="20261103161500 -0300" channel="France24.fr">
-    <title lang="es">Noticias</title>
-    <desc lang="es">Un completo resumen de la actualidad internacional.</desc>
-    <date>2017</date>
-    <category lang="es">Noticiero</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/4787687.jpg" />
-    <country lang="es">Francia</country>
-  </programme>
   <programme start="20261103161500 -0300" stop="20261103163000 -0300" channel="France24.fr">
     <title lang="es">África 7 días</title>
     <desc lang="es">En este programa, presentado por Andrés Meza, la audiencia conocerá más sobre el desarrollo, costumbres y cultura del continente que cuenta con una extensión de 303 millones de kilómetros cuadrados.</desc>
@@ -11215,14 +11193,6 @@
     <date>2023</date>
     <category lang="es">Magazine</category>
     <icon src="http://www.reportv.com.ar/buscador/img/Programas/26030541.jpg" />
-  </programme>
-  <programme channel="France24.fr@English" start="20261103160000 -0300" stop="20261103162000 -0300">
-    <title lang="fr">Le journal France 24</title>
-    <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/0/2/15220206.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/6/1/15220164.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/6/1/15220169.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/0/5/15194509.jpg" />
   </programme>
   <programme channel="France24.fr@English" start="20261103162000 -0300" stop="20261103163000 -0300">
     <title lang="fr">Sport (France 24 English)</title>
@@ -19294,16 +19264,6 @@
       <value>6.0/10</value>
     </star-rating>
   </programme>
-  <programme start="20261103160900 -0300" stop="20261103162000 -0300" channel="PublicDirect.11e2d6f2d20ea8500bc4a261">
-    <title lang="es">Los jóvenes titanes en acción</title>
-    <sub-title lang="es">El aguadios</sub-title>
-    <desc lang="es">Robin descubre que los aguacates son superalimentos excepcionales que pueden conferirle superpoderes a quien los consuma.</desc>
-    <date>2017</date>
-    <episode-num system="onscreen">E21</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
   <programme start="20261103162000 -0300" stop="20261103163100 -0300" channel="PublicDirect.11e2d6f2d20ea8500bc4a261">
     <title lang="es">Los jóvenes titanes en acción</title>
     <sub-title lang="es">Alejarse</sub-title>
@@ -23627,16 +23587,6 @@
       <value>+18</value>
     </rating>
   </programme>
-  <programme start="20261103152500 -0300" stop="20261103161300 -0300" channel="PublicDirect.39057ce89326a34e33998e2e">
-    <title lang="es">Genios Ancestrales</title>
-    <sub-title lang="es">El Imperio romano</sub-title>
-    <desc lang="es">Los textos antiguos ayudan a explicar las tecnologías avanzadas del Imperio Romano.</desc>
-    <date>2014</date>
-    <episode-num system="onscreen">E9</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
   <programme start="20261103161300 -0300" stop="20261103170100 -0300" channel="PublicDirect.39057ce89326a34e33998e2e">
     <title lang="es">Maravillas modernas</title>
     <sub-title lang="es">El mundo de las máquinas: Herramientas eléctricas</sub-title>
@@ -24407,43 +24357,6 @@
     <country lang="es">Estados Unidos</country>
     <rating system="MJColombia">
       <value>+18</value>
-    </rating>
-  </programme>
-  <programme start="20261103154900 -0300" stop="20261103161600 -0300" channel="PublicDirect.5dcc9d45e7f72f13df740d70">
-    <title lang="en">Dragon Ball Z</title>
-    <sub-title lang="en">The Dark Prince Returns</sub-title>
-    <desc lang="es">En un asalto total contra Vegeta, Bobbidi usa su poder para deshacer al desprevenido Príncipe desde dentro. Vegeta es despojado de sus buenas cualidades por el malvado mago y se convierte en el guerrero sin corazón que alguna vez fue.</desc>
-    <credits>
-      <actor>Masako Nozawa</actor>
-      <actor>Jouji Yanami</actor>
-      <actor>Toshio Furukawa</actor>
-    </credits>
-    <date>1994</date>
-    <category lang="en">Series</category>
-    <category lang="en">Anime</category>
-    <category lang="en">Children</category>
-    <category lang="en">Fantasy</category>
-    <category lang="en">Action</category>
-    <icon src="http://dtil.tmsimg.com/assets/p14343421_b_h10_ag.jpg?w=960&amp;h=540" />
-    <episode-num system="onscreen">S1 E228</episode-num>
-    <previously-shown />
-    <rating system="USA Parental Rating">
-      <value>TVPG</value>
-    </rating>
-    <rating system="Canadian Parental Rating">
-      <value>PG</value>
-    </rating>
-    <rating system="Australian Classification Board">
-      <value>PG</value>
-    </rating>
-    <rating system="Arcom">
-      <value>-10</value>
-    </rating>
-    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
-      <value>A10</value>
-    </rating>
-    <rating system="방송통신심의위원회">
-      <value>15</value>
     </rating>
   </programme>
   <programme start="20261103161600 -0300" stop="20261103164100 -0300" channel="PublicDirect.5dcc9d45e7f72f13df740d70">
@@ -31741,24 +31654,6 @@
     <sub-title lang="es">Olas y ruedas</sub-title>
     <desc lang="es">T6 -Ep.163: Lo Mejor De: Olas Y Ruedas. En este episodio especial de Cazadores de Tesoros, Mike y Frank viajan a través de las carreteras estadounidenses en busca de Olas y Ruedas. Una combinación de tesoros oxidados de la historia del surf y el automovilismo. Estarán listos para las olas de negociaciones?</desc>
   </programme>
-  <programme start="20261103145400 -0300" stop="20261103162300 -0300" channel="PublicDirect.942f65e48445596971fc7249">
-    <title lang="es">Lesbianas que necesitan p...</title>
-    <desc lang="es">Las lesbianas son expertas cuando se trata de complacer a la pareja, pero a veces incluso ellas necesitan un miembro macizo.</desc>
-    <credits>
-      <actor>Brandi Love</actor>
-      <actor>Holly Hotwife</actor>
-      <actor>Lena Paul</actor>
-    </credits>
-    <date>2023</date>
-    <category lang="es">Movie</category>
-    <category lang="es">Adults only</category>
-    <category lang="es">Erotic</category>
-    <icon src="http://dtil.tmsimg.com/assets/p24770130_b_h8_aa.jpg?w=960&amp;h=540" />
-    <previously-shown />
-    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
-      <value>A18</value>
-    </rating>
-  </programme>
   <programme start="20261103162300 -0300" stop="20261103175100 -0300" channel="PublicDirect.942f65e48445596971fc7249">
     <title lang="es">Ebony mistic y sus amigas</title>
     <desc lang="es">Hermosas mujeres de ébano tienen sexo con legendarios sementales negros.</desc>
@@ -32943,16 +32838,6 @@
   </programme>
   <programme start="20261106030000 -0300" stop="20261106052500 -0300" channel="PublicDirect.9b6311dbc0425cf6e545649a">
     <title lang="es">Pecadores</title>
-  </programme>
-  <programme start="20261103154500 -0300" stop="20261103161500 -0300" channel="PublicDirect.9c28a0d10a09856e98930cdc">
-    <title lang="es">My Wife and Kids</title>
-    <sub-title lang="es">Michael's Sandwich</sub-title>
-    <desc lang="es">Michael hace un emparedado para llevarlo en el avión, pero al llegar tarde al aeropuerto, los guardias de seguridad sospechan de él.</desc>
-    <date>2005</date>
-    <episode-num system="onscreen">E22</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
   </programme>
   <programme start="20261103161500 -0300" stop="20261103175000 -0300" channel="PublicDirect.9c28a0d10a09856e98930cdc">
     <title lang="es">Space Jam: El juego del siglo</title>
@@ -34807,29 +34692,6 @@
     <icon src="http://www.reportv.com.ar/buscador/img/Programas/4314972.jpg" />
     <country lang="es">EE. UU</country>
     <episode-num system="onscreen">S13 E8</episode-num>
-  </programme>
-  <programme start="20261103155100 -0300" stop="20261103161700 -0300" channel="PublicDirect.a4e711feeaae6c78b06460eb">
-    <title lang="en">e-Rotic</title>
-    <desc lang="es">Katy conoce a la sensación gótica desnuda Apnea.</desc>
-    <date>2009</date>
-    <category lang="en">Series</category>
-    <category lang="en">Adults only</category>
-    <category lang="en">Erotic</category>
-    <icon src="http://dtil.tmsimg.com/assets/p3561696_b_h8_ab.jpg?w=960&amp;h=540" />
-    <episode-num system="onscreen">S1 E4</episode-num>
-    <previously-shown />
-    <rating system="USA Parental Rating">
-      <value>TVMA</value>
-    </rating>
-    <rating system="Canadian Parental Rating">
-      <value>18+</value>
-    </rating>
-    <rating system="Régie du cinéma">
-      <value>18+</value>
-    </rating>
-    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
-      <value>18</value>
-    </rating>
   </programme>
   <programme start="20261103161700 -0300" stop="20261103164000 -0300" channel="PublicDirect.a4e711feeaae6c78b06460eb">
     <title lang="es">Encuentros cruzados</title>
@@ -41867,17 +41729,6 @@
   <programme start="20261104110000 -0300" stop="20261104120000 -0300" channel="RewindTV.cl@SD">
     <title lang="es">Live</title>
   </programme>
-  <programme channel="SkySportsF1.uk" start="20261103153000 -0300" stop="20261103161500 -0300">
-    <title lang="en">Ted's Notebook: Mexico City</title>
-    <desc lang="en">Ted Kravitz is live following the Mexico City Grand Prix, as he shares his thoughts on the race while gathering reaction from the paddock.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Motor Sports</category>
-    <icon src="https://images.metadata.sky.com/pd-image/3a4a152a-90e7-4826-9002-1c16c15125e5/16-9" />
-    <episode-num system="xmltv_ns">.286.</episode-num>
-    <rating system="UK">
-      <value>U</value>
-    </rating>
-  </programme>
   <programme channel="SkySportsF1.uk" start="20261103161500 -0300" stop="20261103171500 -0300">
     <title lang="en">Mexico City F1 GP Highlights</title>
     <desc lang="en">It's lights out for the Mexico City Grand Prix. Lewis Hamilton takes a record 105th career pole, and a first for Ferrari. George Russell and Charles Leclerc complete the top three. (01.</desc>
@@ -42371,17 +42222,6 @@
     <category lang="en">Motor Sports</category>
     <icon src="https://images.metadata.sky.com/pd-image/857322d2-1114-4e7e-8367-8bd736da2deb/16-9" />
     <episode-num system="xmltv_ns">.39.</episode-num>
-  </programme>
-  <programme channel="SkySportsF1UHD.uk" start="20261103153000 -0300" stop="20261103161500 -0300">
-    <title lang="en">Ted's Notebook: Mexico City</title>
-    <desc lang="en">Ted Kravitz is live following the Mexico City Grand Prix, as he shares his thoughts on the race while gathering reaction from the paddock.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Motor Sports</category>
-    <icon src="https://images.metadata.sky.com/pd-image/3a4a152a-90e7-4826-9002-1c16c15125e5/16-9" />
-    <episode-num system="xmltv_ns">.286.</episode-num>
-    <rating system="UK">
-      <value>U</value>
-    </rating>
   </programme>
   <programme channel="SkySportsF1UHD.uk" start="20261103161500 -0300" stop="20261103171500 -0300">
     <title lang="en">Mexico City F1 GP Highlights</title>
