@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-04",
+  "updated": "2026-11-05",
   "description": "Copias (casi todas de Lista 2) que respaldan a un canal de Lista 1: misma señal, confirmada con captura. Esas copias ya no se publican en Lista 2; la app las prueba en orden si la señal principal falla.",
   "fields": {
     "channels.<clave>": "tvg-id del canal principal en Lista 1 (la identidad estable; el número puede cambiar).",
@@ -12810,40 +12810,18 @@
         }
       ]
     },
-    "PublicDirect.ee9d652b97bb303f0853c7a5": {
+    "PublicDirect.b5c10ae93889080ac26771f2": {
       "display_name": "History",
       "list": "Lista 2",
       "number": 110,
       "group": "Misceláneos",
-      "source_name": "HISTORY [IP 38.87.224.19]",
+      "source_name": "History Channel HD [IP 190.108.83.69]",
       "guide": {
         "source": "pa1",
         "source_id": "Canal.History.(Panamá).pa"
       },
       "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-03 (tercera ronda, «Da otra pasada de búsqueda de clones»; regla: «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261103c); principal = mejor resolución, bitrate y fps; respaldos en ese orden.",
       "backups": [
-        {
-          "tvg_id": "PublicDirect.b5c10ae93889080ac26771f2",
-          "display_name": "History",
-          "source_name": "History Channel HD [IP 190.108.83.69]",
-          "from_list": "Lista 2",
-          "from_number": 372,
-          "group": "Misceláneos",
-          "logo": "logos/lista2/e46c7431505e.png",
-          "url": "http://190.108.83.69:8000/play/a045/index.m3u8",
-          "guide": {
-            "source": "pa1",
-            "source_id": "Canal.History.(Panamá).pa"
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 29.97,
-            "kbps": 1778,
-            "ok": true,
-            "interlaced": true
-          }
-        },
         {
           "tvg_id": "PublicDirect.70c522a063969c9759068c62",
           "display_name": "History",
@@ -12954,7 +12932,15 @@
             "interlaced": true
           }
         }
-      ]
+      ],
+      "principal_quality": {
+        "height": 1080,
+        "width": 1920,
+        "fps": 29.97,
+        "kbps": 1778,
+        "ok": true,
+        "interlaced": true
+      }
     },
     "PublicDirect.d56376275161ef53614ac137": {
       "display_name": "Investigation Discovery",
