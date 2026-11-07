@@ -16,7 +16,8 @@ class Lista2EpgMapTest(unittest.TestCase):
         # 2026-11-02: los clones de Lista 2 pasaron a backups.json y salieron del mapa (~770).
         # 2026-11-03: tercera ronda de clones: 681.
         # 2026-11-04: clones de Lista 2 a respaldo de Lista 1: 649.
-        self.assertGreaterEqual(len(mapping), 620)
+        # 2026-11-07: revisión de Lista 2 (37 clones a respaldo, 27 sin señal a la papelera): 603.
+        self.assertGreaterEqual(len(mapping), 590)
         lines = (ROOT / "m3u-externa.m3u").read_text(encoding="utf-8").splitlines()
         published = set(re.findall(r'tvg-id="([^"]+)"', "\n".join(lines)))
         # 2026-10-21: el mapa puede conservar canales que después fueron a la papelera; la
@@ -33,7 +34,8 @@ class Lista2EpgMapTest(unittest.TestCase):
         # 2026-11-03: tercera ronda de clones (34 más a respaldo): 210.
         # 2026-11-04: 25 clones de Lista 2 a respaldo de Lista 1: 178.
         # 2026-11-06: bajas desde la app: 143; el piso alto dejó fallando al runner de canales.
-        self.assertGreaterEqual(len(set(mapping) & published), 110)
+        # 2026-11-07: revisión de Lista 2 (clones a respaldo, 27 sin señal a la papelera): 97.
+        self.assertGreaterEqual(len(set(mapping) & published), 90)
         for target_id, (source, source_id) in mapping.items():
             with self.subTest(channel=target_id):
                 # 2026-10-24: guía Claro por familia (claro:<región>:<group_id>) o EPGShare.
@@ -64,7 +66,8 @@ class Lista2EpgMapTest(unittest.TestCase):
         # 2026-11-03: tercera ronda de clones: alcance 293.
         # 2026-11-04: clones de Lista 2 a respaldo de Lista 1: alcance 261.
         # 2026-11-06: bajas desde la app: alcance 227.
-        self.assertGreaterEqual(len(scope), 190)
+        # 2026-11-07: revisión de Lista 2 (clones a respaldo y 27 sin señal a la papelera): alcance 181.
+        self.assertGreaterEqual(len(scope), 170)
 
 
 class Lista2ClaroFamilyGuideTest(unittest.TestCase):
@@ -73,7 +76,8 @@ class Lista2ClaroFamilyGuideTest(unittest.TestCase):
         claro = {tid: entry for tid, entry in mapping.items() if entry["source"] == update_m3u.CLARO_GUIDE_PART}
         # 2026-11-03: tercera ronda de clones: 579.
         # 2026-11-04: clones de Lista 2 a respaldo de Lista 1: 549.
-        self.assertGreaterEqual(len(claro), 520)
+        # 2026-11-07: revisión de Lista 2 (clones por audio y guías comprobadas con fotograma): 499.
+        self.assertGreaterEqual(len(claro), 480)
         # Una guía por familia: muchas copias, pocas claves.
         self.assertLessEqual(len({entry["source_id"] for entry in claro.values()}), 100)
         for target_id, entry in claro.items():

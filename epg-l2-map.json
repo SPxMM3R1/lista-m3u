@@ -2,7 +2,7 @@
   "schema": 2,
   "generatedAt": "2026-10-24",
   "source": "Lista 2: guía Claro Video por familia (una por canal real) + EPGShare de respaldo; nombres exactos + alias manuales",
-  "count": 649,
+  "count": 603,
   "bySource": {
     "claro-guia": 902,
     "mx1": 29,
@@ -246,18 +246,6 @@
         "source_id": "Canal.HBO.2.Latinoamérica.mx"
       }
     },
-    "PublicDirect.08b71ab74a14ddfe4de5715b": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:927639",
-      "source_name": "UNIVERSAL (Claro colombia)",
-      "l2_name": "Universal Channel",
-      "group": "Noticias internacionales",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.Universal.TV.(México).mx"
-      }
-    },
     "PublicDirect.092a7b4980bc18ea62eaa362": {
       "source": "claro-guia",
       "source_id": "claro:colombia:927636",
@@ -399,18 +387,6 @@
       "confidence": "exact",
       "futureHours": 67.9,
       "screenshot": "amc-06f745c5.jpg"
-    },
-    "PublicDirect.0cf0cd1dc60687d103628a80": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:820471",
-      "source_name": "HBO XTREME (Claro colombia)",
-      "l2_name": "HBO Xtreme",
-      "group": "Películas",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.HBO.Xtreme.mx"
-      }
     },
     "PublicDirect.0d06221d837f42c1f97a784b": {
       "source": "claro-guia",
@@ -610,18 +586,6 @@
       "futureHours": 66.3,
       "screenshot": "fox-sv-4133fbbd.jpg"
     },
-    "PublicDirect.13970e032fe3865c30c0d850": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:927654",
-      "source_name": "STUDIO UNIVERSAL (Claro colombia)",
-      "l2_name": "Studio Universal",
-      "group": "Películas",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.Studio.Universal.(México).mx"
-      }
-    },
     "PublicDirect.13bc86f5819ddef61e19ef7d": {
       "source": "claro-guia",
       "source_id": "claro:argentina:766244",
@@ -734,18 +698,6 @@
       "backup": {
         "source": "mx1",
         "source_id": "Canal.Space.(México).mx"
-      }
-    },
-    "PublicDirect.1896252947da838aa08e5139": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:728274",
-      "source_name": "NATIONAL GEOGRAPHIC (Claro colombia)",
-      "l2_name": "National Geographic",
-      "group": "Misceláneos",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "co1",
-        "source_id": "NAT.GEO.co"
       }
     },
     "PublicDirect.1971fdca894c0a019307d380": {
@@ -1044,18 +996,6 @@
         "source_id": "Canal.A&E.(México).mx"
       }
     },
-    "PublicDirect.2a38f33a87d2a19e898f9261": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:790564",
-      "source_name": "DISCOVERY CHANNEL HD (Claro colombia)",
-      "l2_name": "Discovery Channel",
-      "group": "Misceláneos",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.Discovery.Channel.(México).mx"
-      }
-    },
     "PublicDirect.2aad2170fbc593ab98d1cf56": {
       "source": "claro-guia",
       "source_id": "claro:colombia:773875",
@@ -1343,16 +1283,11 @@
       }
     },
     "PublicDirect.36857621e77d520e601badcf": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:790564",
-      "source_name": "DISCOVERY CHANNEL HD (Claro colombia)",
+      "source": "co1",
+      "source_id": "Discovery.Channel.co",
       "l2_name": "Discovery Channel",
-      "group": "Misceláneos",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.Discovery.Channel.(México).mx"
-      }
+      "confidence": "fotograma-20261107",
+      "verified": "2026-11-07: fotograma comparado con la guía a la misma hora (outputs/lista2-revision-20261107): «Contrabando en la frontera»"
     },
     "PublicDirect.36a9f8e269aec59b8606b24a": {
       "source": "mx1",
@@ -1636,28 +1571,6 @@
         "source_id": "Canal.Studio.Universal.(México).mx"
       }
     },
-    "PublicDirect.3f1646d62fd252dd11f4cb3b": {
-      "source": "gatotv",
-      "source_id": "gatotv:golden_premier",
-      "source_name": "GatoTV Golden Premiere",
-      "l2_name": "Golden Premiere",
-      "group": "Deportes",
-      "confidence": "gatotv · marca verificada; título con fotograma sin confirmar",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.Golden.Premier.2.mx"
-      }
-    },
-    "PublicDirect.3f58446ef351852e99879bee": {
-      "source": "mx1",
-      "source_id": "Canal.FX.(México).mx",
-      "source_name": "Canal FX (México)",
-      "l2_name": "FX (151)",
-      "group": "Películas",
-      "confidence": "exact",
-      "futureHours": 67.7,
-      "screenshot": "fx-151-059be18a.jpg"
-    },
     "PublicDirect.3f8591bd83da71b628685e18": {
       "source": "claro-guia",
       "source_id": "claro:colombia:793558",
@@ -1778,18 +1691,6 @@
         "source_id": "Canal.History.(México).mx"
       }
     },
-    "PublicDirect.45bc0296091e21b03e74dee2": {
-      "source": "gatotv",
-      "source_id": "gatotv:golden_premier_2",
-      "source_name": "GatoTV Golden Premiere 2",
-      "l2_name": "Golden Premiere 2",
-      "group": "Deportes",
-      "confidence": "gatotv · marca verificada; título con fotograma sin confirmar",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.Golden.Premier.2.mx"
-      }
-    },
     "PublicDirect.45e0f5e36fe40ddc65dc454c": {
       "source": "claro-guia",
       "source_id": "claro:colombia:773894",
@@ -1872,18 +1773,6 @@
       "backup": {
         "source": "mx1",
         "source_id": "Canal.Studio.Universal.(México).mx"
-      }
-    },
-    "PublicDirect.490528e0ea82baeb364da5b8": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:927562",
-      "source_name": "ESPN 3 HD (Claro colombia)",
-      "l2_name": "ESPN 3",
-      "group": "Deportes",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "ar1",
-        "source_id": "Canal.ESPN.3.(Argentina).ar"
       }
     },
     "PublicDirect.49854aa2ac00919d765f58d5": {
@@ -2026,18 +1915,6 @@
         "source_id": "The.HISTORY.Channel.de"
       }
     },
-    "PublicDirect.4f6975eae324c2c1f994c84f": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:927658",
-      "source_name": "DISCOVERY ID HD (Claro colombia)",
-      "l2_name": "Investigation Discovery",
-      "group": "Misceláneos",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "uy1",
-        "source_id": "DISCOVERY.ID.HD.uy"
-      }
-    },
     "PublicDirect.4f6fe1167c8755fb415eed00": {
       "source": "claro-guia",
       "source_id": "claro:colombia:1160519",
@@ -2080,18 +1957,6 @@
       "backup": {
         "source": "es",
         "source_id": "Playboy.TV.es"
-      }
-    },
-    "PublicDirect.5119fba9888eabcc79201bde": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:927562",
-      "source_name": "ESPN 3 HD (Claro colombia)",
-      "l2_name": "ESPN 3",
-      "group": "Deportes",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "ar1",
-        "source_id": "Canal.ESPN.3.(Argentina).ar"
       }
     },
     "PublicDirect.523b1b4c8542bde0f4f8fdbe": {
@@ -2196,18 +2061,6 @@
         "source_id": "Canal.Cartoon.Network.(México).mx"
       }
     },
-    "PublicDirect.579ae1fb8ad5c8e997143abb": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:820471",
-      "source_name": "HBO XTREME (Claro colombia)",
-      "l2_name": "HBO Xtreme",
-      "group": "Películas",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.HBO.Xtreme.mx"
-      }
-    },
     "PublicDirect.58481f9f48301fb284ce2b9d": {
       "source": "claro-guia",
       "source_id": "claro:mexico:762801",
@@ -2257,16 +2110,11 @@
       }
     },
     "PublicDirect.5a53ee0b598caafe694a52bf": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:927626",
-      "source_name": "WARNER CHANNEL (Claro colombia)",
+      "source": "co1",
+      "source_id": "Warner.Channel.co",
       "l2_name": "Warner Channel",
-      "group": "Películas",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.Warner.TV.(México).mx"
-      }
+      "confidence": "fotograma-20261107",
+      "verified": "2026-11-07: fotograma comparado con la guía a la misma hora (outputs/lista2-revision-20261107): «Batman y Robin»"
     },
     "PublicDirect.5b84987cb127792ffa6e0ffe": {
       "source": "claro-guia",
@@ -2302,18 +2150,6 @@
       "backup": {
         "source": "mx1",
         "source_id": "Canal.Europa.Europa.mx"
-      }
-    },
-    "PublicDirect.5cb6903e38df303515d88bd7": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:927639",
-      "source_name": "UNIVERSAL (Claro colombia)",
-      "l2_name": "Universal Channel",
-      "group": "Películas",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.Universal.TV.(México).mx"
       }
     },
     "PublicDirect.5cc5dd33956e413105f639f2": {
@@ -2388,18 +2224,6 @@
         "source_id": "Canal.Space.(México).mx"
       }
     },
-    "PublicDirect.5e1edfeb4161cb6762dd4c44": {
-      "source": "claro-guia",
-      "source_id": "claro:panama:816364",
-      "source_name": "SYFY HD (Claro panama)",
-      "l2_name": "Syfy",
-      "group": "Películas",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "es",
-        "source_id": "Syfy.es"
-      }
-    },
     "PublicDirect.5e6c19ccd06f899ba2f0d349": {
       "source": "claro-guia",
       "source_id": "claro:colombia:773875",
@@ -2410,18 +2234,6 @@
       "backup": {
         "source": "mx1",
         "source_id": "Canal.TNT.(México).mx"
-      }
-    },
-    "PublicDirect.5eb6e4ea07959f5a0b4fb5e1": {
-      "source": "claro-guia",
-      "source_id": "claro:panama:816364",
-      "source_name": "SYFY HD (Claro panama)",
-      "l2_name": "Syfy",
-      "group": "Películas",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "es",
-        "source_id": "Syfy.es"
       }
     },
     "PublicDirect.5eba59481eb06288d194d0fd": {
@@ -2449,28 +2261,11 @@
       }
     },
     "PublicDirect.5fd8b4563385ffbe6b49361b": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:773940",
-      "source_name": "CINECANAL (Claro colombia)",
+      "source": "co1",
+      "source_id": "Cinecanal.co",
       "l2_name": "Cinecanal",
-      "group": "Películas",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.Cinecanal.(México).mx"
-      }
-    },
-    "PublicDirect.5fe44230ccba52e2f9fe2291": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:792130",
-      "source_name": "HBO PLUS HD (Claro colombia)",
-      "l2_name": "HBO Plus",
-      "group": "Películas",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.HBO.Plus.mx"
-      }
+      "confidence": "fotograma-20261107",
+      "verified": "2026-11-07: fotograma comparado con la guía a la misma hora (outputs/lista2-revision-20261107): «Pelotas en juego»"
     },
     "PublicDirect.6011ccb5bea399726223b7be": {
       "source": "claro-guia",
@@ -2508,18 +2303,6 @@
         "source_id": "Canal.History.(México).mx"
       }
     },
-    "PublicDirect.609e478a6ca6804b5a9df79e": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:820471",
-      "source_name": "HBO XTREME (Claro colombia)",
-      "l2_name": "HBO Xtreme",
-      "group": "Películas",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.HBO.Xtreme.mx"
-      }
-    },
     "PublicDirect.60a05b5f354da79fa4fbd9a6": {
       "source": "claro-guia",
       "source_id": "claro:colombia:773875",
@@ -2554,18 +2337,6 @@
       "futureHours": 86.6,
       "screenshot": "brazzers-tv-8fe0b295.jpg"
     },
-    "PublicDirect.61775a26cb5c62126e2b2749": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:927626",
-      "source_name": "WARNER CHANNEL (Claro colombia)",
-      "l2_name": "Warner Channel",
-      "group": "Películas",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.Warner.TV.(México).mx"
-      }
-    },
     "PublicDirect.617b574fa232cce423379651": {
       "source": "claro-guia",
       "source_id": "claro:colombia:1193454",
@@ -2576,18 +2347,6 @@
       "backup": {
         "source": "mx1",
         "source_id": "Canal.Universal.Premiere.mx"
-      }
-    },
-    "PublicDirect.62b41021824626f105b68d8a": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:739491",
-      "source_name": "DISCOVERY THEATER (Claro colombia)",
-      "l2_name": "Discovery Theater",
-      "group": "Misceláneos",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.Discovery.Theater.(Latinoamérica).mx"
       }
     },
     "PublicDirect.63dd4c484c69555096bbde99": {
@@ -2602,18 +2361,6 @@
         "source_id": "Canal.Universal.Premiere.mx"
       }
     },
-    "PublicDirect.647e6d5d026ca0131e06742d": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:927562",
-      "source_name": "ESPN 3 HD (Claro colombia)",
-      "l2_name": "ESPN 3",
-      "group": "Deportes",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "ar1",
-        "source_id": "Canal.ESPN.3.(Argentina).ar"
-      }
-    },
     "PublicDirect.64e4459ffad1bf1140128495": {
       "source": "claro-guia",
       "source_id": "claro:colombia:927654",
@@ -2625,16 +2372,6 @@
         "source": "mx1",
         "source_id": "Canal.Studio.Universal.(México).mx"
       }
-    },
-    "PublicDirect.650a768cd537cb17d491e369": {
-      "source": "us2",
-      "source_id": "Once.us2",
-      "source_name": "Once",
-      "l2_name": "Stingray Concerts",
-      "group": "Misceláneos",
-      "confidence": "alias",
-      "futureHours": 66.3,
-      "screenshot": "stingray-concerts-02bcf263.jpg"
     },
     "PublicDirect.65bf9e6c1fa9d5fa3dd8c480": {
       "source": "es",
@@ -2836,18 +2573,6 @@
         "source_id": "Canal.AXN.(México).mx"
       }
     },
-    "PublicDirect.70687441d630ed78b80f7044": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:927562",
-      "source_name": "ESPN 3 HD (Claro colombia)",
-      "l2_name": "ESPN 3",
-      "group": "Deportes",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "ar1",
-        "source_id": "Canal.ESPN.3.(Argentina).ar"
-      }
-    },
     "PublicDirect.708343e2ae957320fb3de8da": {
       "source": "claro-guia",
       "source_id": "claro:colombia:927636",
@@ -2895,16 +2620,6 @@
         "source": "mx1",
         "source_id": "Canal.Space.(México).mx"
       }
-    },
-    "PublicDirect.72581c395909ec4f873b781c": {
-      "source": "mx1",
-      "source_id": "Canal.Discovery.Channel.(México).mx",
-      "source_name": "Canal Discovery Channel (México)",
-      "l2_name": "DISCOVERY CHANNEL (134)",
-      "group": "Misceláneos",
-      "confidence": "exact",
-      "futureHours": 66.8,
-      "screenshot": "discovery-channel-134-0ec3e569.jpg"
     },
     "PublicDirect.72c2a7b8b53e6a19804ed7f5": {
       "source": "claro-guia",
@@ -2988,18 +2703,6 @@
         "source_id": "[H2LAME].History.2.uy"
       }
     },
-    "PublicDirect.7554066ef6c62834091c13b8": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:773875",
-      "source_name": "TNT (Claro colombia)",
-      "l2_name": "TNT",
-      "group": "Películas",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.TNT.(México).mx"
-      }
-    },
     "PublicDirect.7586c0e88ff65756fb66d3b3": {
       "source": "claro-guia",
       "source_id": "claro:colombia:927625",
@@ -3047,16 +2750,6 @@
         "source": "mx1",
         "source_id": "Canal.Golf.Channel.(Latinoamérica).mx"
       }
-    },
-    "PublicDirect.7773845aa90771bf2aae116b": {
-      "source": "uy1",
-      "source_id": "DISCOVERY.WORLD.HD.uy",
-      "source_name": "DISCOVERY WORLD HD",
-      "l2_name": "DISCOVERY WORLD (137)",
-      "group": "Misceláneos",
-      "confidence": "exact",
-      "futureHours": 64.4,
-      "screenshot": "discovery-world-137-1b2c9356.jpg"
     },
     "PublicDirect.78077c046429ad5d88cf8732": {
       "source": "claro-guia",
@@ -3260,30 +2953,6 @@
         "source_id": "Canal.Universal.TV.(México).mx"
       }
     },
-    "PublicDirect.81e9474de15b1c7f4335e742": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:927639",
-      "source_name": "UNIVERSAL (Claro colombia)",
-      "l2_name": "Universal Channel",
-      "group": "Películas",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.Universal.TV.(México).mx"
-      }
-    },
-    "PublicDirect.829dfbf6cbe7ea4f023ed319": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:927653",
-      "source_name": "HISTORY CHANNEL HD (Claro colombia)",
-      "l2_name": "History",
-      "group": "Misceláneos",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.History.(México).mx"
-      }
-    },
     "PublicDirect.837fb25e7f8051dda80e590c": {
       "source": "claro-guia",
       "source_id": "claro:colombia:778863",
@@ -3309,16 +2978,11 @@
       }
     },
     "PublicDirect.842dc61bbcd6d62333fa322e": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:927658",
-      "source_name": "DISCOVERY ID HD (Claro colombia)",
+      "source": "mx1",
+      "source_id": "Canal.Investigation.Discovery.(México).mx",
       "l2_name": "Investigation Discovery",
-      "group": "Misceláneos",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "uy1",
-        "source_id": "DISCOVERY.ID.HD.uy"
-      }
+      "confidence": "fotograma-20261107",
+      "verified": "2026-11-07: fotograma comparado con la guía a la misma hora (outputs/lista2-revision-20261107): «Cuando el mal se disfraza»"
     },
     "PublicDirect.853a40a707cc09dae16e8205": {
       "source": "claro-guia",
@@ -3452,18 +3116,6 @@
         "source_id": "ESPN.6.HD.co"
       }
     },
-    "PublicDirect.8a5300eedbb2bd838899a498": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:927562",
-      "source_name": "ESPN 3 HD (Claro colombia)",
-      "l2_name": "ESPN 3",
-      "group": "Deportes",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "ar1",
-        "source_id": "Canal.ESPN.3.(Argentina).ar"
-      }
-    },
     "PublicDirect.8a5d0371ff496197a85a71b8": {
       "source": "claro-guia",
       "source_id": "claro:colombia:728274",
@@ -3477,16 +3129,11 @@
       }
     },
     "PublicDirect.8a6449ff9b420f66e78c1060": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:927639",
-      "source_name": "UNIVERSAL (Claro colombia)",
-      "l2_name": "Universal Channel",
-      "group": "Películas",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.Universal.TV.(México).mx"
-      }
+      "source": "uy1",
+      "source_id": "UNIVERSAL.HD.uy",
+      "l2_name": "Universal TV",
+      "confidence": "fotograma-20261107",
+      "verified": "2026-11-07: fotograma comparado con la guía a la misma hora (outputs/lista2-revision-20261107): «La ley y el orden: UVE»"
     },
     "PublicDirect.8a8e460eebdbc3e9a8f067db": {
       "source": "claro-guia",
@@ -3820,27 +3467,12 @@
         "source_id": "Canal.ESPN.(Argentina).ar"
       }
     },
-    "PublicDirect.97a303fee94d599d990841a0": {
-      "source": "gatotv",
-      "source_id": "gatotv:golden_premier_2",
-      "source_name": "GatoTV Golden Premiere 2",
-      "l2_name": "Golden Premiere 2",
-      "group": "Deportes",
-      "confidence": "gatotv · marca verificada; título con fotograma sin confirmar",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.Golden.Premier.2.mx"
-      }
-    },
     "PublicDirect.9803b3858eb1f551dc55bb66": {
-      "source": "ar1",
-      "source_id": "Canal.ESPN.(Argentina).ar",
-      "source_name": "Canal ESPN (Argentina)",
-      "l2_name": "ESPN_COL",
-      "group": "Deportes",
-      "confidence": "exact",
-      "futureHours": 90.9,
-      "screenshot": "espn-col-4d848224.jpg"
+      "source": "co1",
+      "source_id": "ESPN.co",
+      "l2_name": "ESPN Colombia",
+      "confidence": "fotograma-20261107",
+      "verified": "2026-11-07: fotograma comparado con la guía a la misma hora (outputs/lista2-revision-20261107): «Mainz–Bayern»"
     },
     "PublicDirect.9804e88ad6f7543a377ed3c1": {
       "source": "co1",
@@ -3887,16 +3519,6 @@
         "source": "ar1",
         "source_id": "Canal.ESPN.2.(Bolivia).ar"
       }
-    },
-    "PublicDirect.999960b05b8c81c9d62c2232": {
-      "source": "mx1",
-      "source_id": "FOX.SPORTS.2.mx",
-      "source_name": "FOX SPORTS 2",
-      "l2_name": "FOX SPORT 2 (150)",
-      "group": "Deportes",
-      "confidence": "exact",
-      "futureHours": 91.4,
-      "screenshot": "fox-sport-2-150-a4ade95b.jpg"
     },
     "PublicDirect.99a7a4d324e2b3896660cbc5": {
       "source": "claro-guia",
@@ -3982,18 +3604,6 @@
         "source_id": "ESPN.4.co"
       }
     },
-    "PublicDirect.9cd6da14085f95bfe651ca1e": {
-      "source": "claro-guia",
-      "source_id": "claro:argentina:888160",
-      "source_name": "ESPN PREMIUM (Claro argentina)",
-      "l2_name": "ESPN Premium",
-      "group": "Deportes",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "nl",
-        "source_id": "ESPN.Premium.nl"
-      }
-    },
     "PublicDirect.9d0c97cf9be9bc9ff848aa7d": {
       "source": "mx1",
       "source_id": "Canal.Space.(México).mx",
@@ -4003,18 +3613,6 @@
       "confidence": "exact",
       "futureHours": 67.6,
       "screenshot": "space-180-f1fa3603.jpg"
-    },
-    "PublicDirect.9d3516a195b67ada4e560cf0": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:927658",
-      "source_name": "DISCOVERY ID HD (Claro colombia)",
-      "l2_name": "Investigation Discovery",
-      "group": "Misceláneos",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "uy1",
-        "source_id": "DISCOVERY.ID.HD.uy"
-      }
     },
     "PublicDirect.9d35287bbc62e957a55db8ad": {
       "source": "claro-guia",
@@ -4051,16 +3649,11 @@
       }
     },
     "PublicDirect.9ddae93fd019e9d8fec581e6": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:773875",
-      "source_name": "TNT (Claro colombia)",
+      "source": "co1",
+      "source_id": "TNT.co",
       "l2_name": "TNT",
-      "group": "Películas",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.TNT.(México).mx"
-      }
+      "confidence": "fotograma-20261107",
+      "verified": "2026-11-07: fotograma comparado con la guía a la misma hora (outputs/lista2-revision-20261107): «Hotel Transylvania 3»"
     },
     "PublicDirect.9e247ea75f4f2455e409cd8f": {
       "source": "claro-guia",
@@ -4084,18 +3677,6 @@
       "backup": {
         "source": "mx1",
         "source_id": "Canal.Warner.TV.(México).mx"
-      }
-    },
-    "PublicDirect.9f15295edbeeed582f0858db": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:773875",
-      "source_name": "TNT (Claro colombia)",
-      "l2_name": "TNT",
-      "group": "Películas",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.TNT.(México).mx"
       }
     },
     "PublicDirect.a12c2fbe780516d208c7dd4a": {
@@ -4300,40 +3881,6 @@
         "source_id": "Canal.TCM.(México).mx"
       }
     },
-    "PublicDirect.a55e878f085b95fe8a88af03": {
-      "source": "mx1",
-      "source_id": "Canal.HBO.Xtreme.mx",
-      "source_name": "Canal HBO Xtreme",
-      "l2_name": "HBO XTREME (159)",
-      "group": "Películas",
-      "confidence": "exact",
-      "futureHours": 68,
-      "screenshot": "hbo-xtreme-159-b4c5f856.jpg"
-    },
-    "PublicDirect.a5ab4fb07b0b3f13f591b009": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:790838",
-      "source_name": "DISCOVERY TURBO HD (Claro colombia)",
-      "l2_name": "Discovery Turbo",
-      "group": "Misceláneos",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.Discovery.Turbo.(Latinoamérica).mx"
-      }
-    },
-    "PublicDirect.a5eed3b841e19a98f94e2d72": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:750911",
-      "source_name": "HBO HD (Claro colombia)",
-      "l2_name": "HBO",
-      "group": "Películas",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.HBO.(México).mx"
-      }
-    },
     "PublicDirect.a60aeeeb2381bd9d9f00b8cb": {
       "source": "claro-guia",
       "source_id": "claro:colombia:792130",
@@ -4500,18 +4047,6 @@
         "source_id": "Canal.FX.(México).mx"
       }
     },
-    "PublicDirect.a94ffbb995ce99ad986d92cc": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:790564",
-      "source_name": "DISCOVERY CHANNEL HD (Claro colombia)",
-      "l2_name": "Discovery Channel",
-      "group": "Misceláneos",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.Discovery.Channel.(México).mx"
-      }
-    },
     "PublicDirect.a965a2a6458c3beaa3eb3eab": {
       "source": "co1",
       "source_id": "STAR.CHANNEL.co",
@@ -4523,16 +4058,6 @@
         "source": "cl",
         "source_id": "Canal.Star.Channel.(Chile).cl"
       }
-    },
-    "PublicDirect.aa2e0c5477ad6f0d06e77063": {
-      "source": "mx1",
-      "source_id": "Canal.Studio.Universal.(México).mx",
-      "source_name": "Canal Studio Universal (México)",
-      "l2_name": "Studio Universal",
-      "group": "Películas",
-      "confidence": "exact",
-      "futureHours": 66.9,
-      "screenshot": "studio-universal-ef714686.jpg"
     },
     "PublicDirect.aa6d79fc42df35321bf8cd19": {
       "source": "claro-guia",
@@ -4603,18 +4128,6 @@
       "confidence": "exact",
       "futureHours": 61.4,
       "screenshot": null
-    },
-    "PublicDirect.ac9d91daa7e403bccc9b4464": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:927639",
-      "source_name": "UNIVERSAL (Claro colombia)",
-      "l2_name": "Universal Channel",
-      "group": "Películas",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.Universal.TV.(México).mx"
-      }
     },
     "PublicDirect.ad3043e77c0c699273fddbda": {
       "source": "co1",
@@ -4862,18 +4375,6 @@
         "source_id": "ESPN.co"
       }
     },
-    "PublicDirect.b5fdf6c75f79bfb4bf24602c": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:728274",
-      "source_name": "NATIONAL GEOGRAPHIC (Claro colombia)",
-      "l2_name": "National Geographic",
-      "group": "Misceláneos",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "uy1",
-        "source_id": "NATGEO.HD.uy"
-      }
-    },
     "PublicDirect.b67d781dac0752813f09c500": {
       "source": "claro-guia",
       "source_id": "claro:colombia:788718",
@@ -4947,16 +4448,11 @@
       }
     },
     "PublicDirect.b944cbda127f265385bb249c": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:773875",
-      "source_name": "TNT (Claro colombia)",
+      "source": "co1",
+      "source_id": "TNT.co",
       "l2_name": "TNT",
-      "group": "Películas",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.TNT.(México).mx"
-      }
+      "confidence": "fotograma-20261107",
+      "verified": "2026-11-07: fotograma comparado con la guía a la misma hora (outputs/lista2-revision-20261107): «Hotel Transylvania 3»"
     },
     "PublicDirect.baa6e106f5c5393743f6d770": {
       "source": "co1",
@@ -4983,16 +4479,11 @@
       }
     },
     "PublicDirect.bcef261196b2e0a52b241dab": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:927639",
-      "source_name": "UNIVERSAL (Claro colombia)",
-      "l2_name": "Universal Channel",
-      "group": "Películas",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.Universal.TV.(México).mx"
-      }
+      "source": "uy1",
+      "source_id": "UNIVERSAL.HD.uy",
+      "l2_name": "Universal TV",
+      "confidence": "fotograma-20261107",
+      "verified": "2026-11-07: fotograma comparado con la guía a la misma hora (outputs/lista2-revision-20261107): «La ley y el orden: UVE»"
     },
     "PublicDirect.be910db056fc686ba28ca7ab": {
       "source": "claro-guia",
@@ -5194,28 +4685,6 @@
         "source_id": "TVN.CHILE.HD.uy"
       }
     },
-    "PublicDirect.c5fe220d460977b5522b0a13": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:758534",
-      "source_name": "GOLDEN HD (Claro colombia)",
-      "l2_name": "Golden Plus",
-      "group": "Películas",
-      "confidence": "claro-familia (Golden)",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.Golden.Plus.mx"
-      }
-    },
-    "PublicDirect.c5fe9f5d15e6f507c0dd7fa6": {
-      "source": "mx1",
-      "source_id": "Canal.History.(México).mx",
-      "source_name": "Canal History (México)",
-      "l2_name": "HISTORY CHANNEL (155)",
-      "group": "Misceláneos",
-      "confidence": "exact",
-      "futureHours": 66.8,
-      "screenshot": "history-channel-155-e4cf7210.jpg"
-    },
     "PublicDirect.c754673e1b407bd6b821b802": {
       "source": "claro-guia",
       "source_id": "claro:colombia:773894",
@@ -5299,16 +4768,6 @@
         "source": "mx1",
         "source_id": "Canal.A&E.(México).mx"
       }
-    },
-    "PublicDirect.c8b89662335324cb57b2221f": {
-      "source": "mx1",
-      "source_id": "Canal.Discovery.Theater.(Latinoamérica).mx",
-      "source_name": "Canal Discovery Theater (Latinoamérica)",
-      "l2_name": "DISCOVERY THEATER (138)",
-      "group": "Misceláneos",
-      "confidence": "exact",
-      "futureHours": 38,
-      "screenshot": "discovery-theater-138-13832e77.jpg"
     },
     "PublicDirect.c9a179f36540c93c7e6a67b6": {
       "source": "claro-guia",
@@ -5406,18 +4865,6 @@
         "source_id": "FOX.SPORTS.mx"
       }
     },
-    "PublicDirect.cc61e9e026dcb4fd5eec5621": {
-      "source": "claro-guia",
-      "source_id": "claro:argentina:888143",
-      "source_name": "TNT SPORTS ARGENTINA (Claro argentina)",
-      "l2_name": "TNT Sports",
-      "group": "Deportes",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "co1",
-        "source_id": "TNT.co"
-      }
-    },
     "PublicDirect.ccfcedc43b8e75dd468cc7be": {
       "source": "claro-guia",
       "source_id": "claro:colombia:927636",
@@ -5464,18 +4911,6 @@
       "backup": {
         "source": "mx1",
         "source_id": "Canal.Space.(México).mx"
-      }
-    },
-    "PublicDirect.ceb1d9bc995f581c33d39760": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:927639",
-      "source_name": "UNIVERSAL (Claro colombia)",
-      "l2_name": "Universal Channel",
-      "group": "Películas",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "nl",
-        "source_id": "E!.nl"
       }
     },
     "PublicDirect.cebcfb582dcb68fc751f5ac5": {
@@ -5534,18 +4969,6 @@
         "source_id": "Canal.Warner.TV.(México).mx"
       }
     },
-    "PublicDirect.d11c19f0d0d4f85f6fb752df": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:792165",
-      "source_name": "HBO FAMILY CHANNEL (Claro colombia)",
-      "l2_name": "HBO Family",
-      "group": "Películas",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "co1",
-        "source_id": "HBO.Family.co"
-      }
-    },
     "PublicDirect.d16bfed0839c4b0d642e0443": {
       "source": "claro-guia",
       "source_id": "claro:argentina:762204",
@@ -5580,18 +5003,6 @@
       "backup": {
         "source": "ar1",
         "source_id": "Canal.ESPN.(Argentina).ar"
-      }
-    },
-    "PublicDirect.d1e015ad5bcc8aeb76b4e592": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:790564",
-      "source_name": "DISCOVERY CHANNEL HD (Claro colombia)",
-      "l2_name": "Discovery Channel",
-      "group": "Misceláneos",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.Discovery.Channel.(México).mx"
       }
     },
     "PublicDirect.d23b15ecdd5d905703051a49": {
@@ -5842,18 +5253,6 @@
         "source_id": "Canal.A&E.(México).mx"
       }
     },
-    "PublicDirect.da7efe7903c53b335396d8fb": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:790838",
-      "source_name": "DISCOVERY TURBO HD (Claro colombia)",
-      "l2_name": "Discovery Turbo",
-      "group": "Misceláneos",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.Discovery.Turbo.(Latinoamérica).mx"
-      }
-    },
     "PublicDirect.dc350278d6be840be54b93f3": {
       "source": "claro-guia",
       "source_id": "claro:argentina:888068",
@@ -6008,18 +5407,6 @@
         "source_id": "Canal.Discovery.Channel.(México).mx"
       }
     },
-    "PublicDirect.e0a6d657d2100f24327dd88d": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:792130",
-      "source_name": "HBO PLUS HD (Claro colombia)",
-      "l2_name": "HBO Plus",
-      "group": "Películas",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.HBO.Plus.mx"
-      }
-    },
     "PublicDirect.e13a9452e23f7604db14e269": {
       "source": "claro-guia",
       "source_id": "claro:colombia:728273",
@@ -6044,30 +5431,6 @@
         "source_id": "[VNUS].Venus.uy"
       }
     },
-    "PublicDirect.e1b60bf9c9b3622fb107f503": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:792165",
-      "source_name": "HBO FAMILY CHANNEL (Claro colombia)",
-      "l2_name": "HBO Family",
-      "group": "Películas",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "co1",
-        "source_id": "HBO.Family.co"
-      }
-    },
-    "PublicDirect.e1bd14954343adc40818b7c7": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:820471",
-      "source_name": "HBO XTREME (Claro colombia)",
-      "l2_name": "HBO Xtreme",
-      "group": "Películas",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.HBO.Xtreme.mx"
-      }
-    },
     "PublicDirect.e1c86459165d594efd77199c": {
       "source": "claro-guia",
       "source_id": "claro:colombia:927652",
@@ -6089,18 +5452,6 @@
       "confidence": "exact",
       "futureHours": 61.5,
       "screenshot": "star-tve-73bbba8d.jpg"
-    },
-    "PublicDirect.e2a4717c87af3abd943518e3": {
-      "source": "claro-guia",
-      "source_id": "claro:mexico:762801",
-      "source_name": "FOX SPORTS 2 (Claro mexico)",
-      "l2_name": "Fox Sports 2",
-      "group": "Deportes",
-      "confidence": "claro-familia · verificada con fotograma 2026-10-24",
-      "backup": {
-        "source": "mx1",
-        "source_id": "FOX.SPORTS.2.mx"
-      }
     },
     "PublicDirect.e2aa4f237f94860eff3baa07": {
       "source": "claro-guia",
@@ -6337,16 +5688,11 @@
       }
     },
     "PublicDirect.eb83a12b5f2954bff45461e2": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:773940",
-      "source_name": "CINECANAL (Claro colombia)",
-      "l2_name": "Cinecanal Colombia",
-      "group": "Películas",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.Cinecanal.(México).mx"
-      }
+      "source": "co1",
+      "source_id": "Cinecanal.co",
+      "l2_name": "Cinecanal",
+      "confidence": "fotograma-20261107",
+      "verified": "2026-11-07: fotograma comparado con la guía a la misma hora (outputs/lista2-revision-20261107): «Pelotas en juego»"
     },
     "PublicDirect.eb8aa7bd39c31783c15354ba": {
       "source": "claro-guia",
@@ -6372,16 +5718,6 @@
         "source_id": "Canal.History.2.(México).mx"
       }
     },
-    "PublicDirect.ecb1fed88bf8d502af3237f2": {
-      "source": "fr",
-      "source_id": "Eurosport.1.fr",
-      "source_name": "Eurosport 1",
-      "l2_name": "EUROS PORT 1",
-      "group": "Noticias internacionales",
-      "confidence": "exact",
-      "futureHours": 82.9,
-      "screenshot": "euros-port-1-23ada1ec.jpg"
-    },
     "PublicDirect.ecddcc7921cbc792f7559477": {
       "source": "claro-guia",
       "source_id": "claro:colombia:1191161",
@@ -6395,16 +5731,11 @@
       }
     },
     "PublicDirect.ed0426b680dd2b5c50327429": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:927639",
-      "source_name": "UNIVERSAL (Claro colombia)",
-      "l2_name": "Universal Channel",
-      "group": "Películas",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.Universal.TV.(México).mx"
-      }
+      "source": "mx1",
+      "source_id": "Canal.Studio.Universal.(México).mx",
+      "l2_name": "Studio Universal",
+      "confidence": "fotograma-20261107",
+      "verified": "2026-11-07: fotograma comparado con la guía a la misma hora (outputs/lista2-revision-20261107): «mismo contenido que el 257 en el fotograma»"
     },
     "PublicDirect.ed298afe12119a4cf5b4860f": {
       "source": "claro-guia",
@@ -6594,18 +5925,6 @@
         "source_id": "Canal.Universal.Cinema.mx"
       }
     },
-    "PublicDirect.f3e686834ca7d7d97c85f348": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:1194071",
-      "source_name": "UNIVERSAL CINEMA HD (Claro colombia)",
-      "l2_name": "Universal Cinema Este",
-      "group": "Películas",
-      "confidence": "claro-familia (Universal Cinema)",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.Universal.Cinema.mx"
-      }
-    },
     "PublicDirect.f4d4b1f839db7eb08c7e181e": {
       "source": "claro-guia",
       "source_id": "claro:colombia:927626",
@@ -6628,30 +5947,6 @@
       "backup": {
         "source": "cl",
         "source_id": "Canal.Mega.(Chile).cl"
-      }
-    },
-    "PublicDirect.f5619a41a224ab60c6402930": {
-      "source": "claro-guia",
-      "source_id": "claro:argentina:888143",
-      "source_name": "TNT SPORTS ARGENTINA (Claro argentina)",
-      "l2_name": "TNT Sports",
-      "group": "Deportes",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "co1",
-        "source_id": "TNT.co"
-      }
-    },
-    "PublicDirect.f5ff1fc4a352eef23ab8b2de": {
-      "source": "claro-guia",
-      "source_id": "claro:argentina:762274",
-      "source_name": "TCM (Claro argentina)",
-      "l2_name": "TCM",
-      "group": "Películas",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.TCM.(México).mx"
       }
     },
     "PublicDirect.f662a63ead0b7d212a473103": {
@@ -6701,16 +5996,11 @@
       }
     },
     "PublicDirect.f7860545d45db8d5592cd048": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:773875",
-      "source_name": "TNT (Claro colombia)",
+      "source": "uy1",
+      "source_id": "TNT.HD.uy",
       "l2_name": "TNT",
-      "group": "Películas",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.TNT.(México).mx"
-      }
+      "confidence": "fotograma-20261107",
+      "verified": "2026-11-07: fotograma comparado con la guía a la misma hora (outputs/lista2-revision-20261107): «Linterna verde»"
     },
     "PublicDirect.f796ea9d5404f52f140bbb17": {
       "source": "co1",
@@ -6785,16 +6075,11 @@
       }
     },
     "PublicDirect.f8dfa6821b9fc2c7482d0661": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:927626",
-      "source_name": "WARNER CHANNEL (Claro colombia)",
+      "source": "co1",
+      "source_id": "Warner.Channel.co",
       "l2_name": "Warner Channel",
-      "group": "Películas",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.Warner.TV.(México).mx"
-      }
+      "confidence": "fotograma-20261107",
+      "verified": "2026-11-07: fotograma comparado con la guía a la misma hora (outputs/lista2-revision-20261107): «Batman y Robin»"
     },
     "PublicDirect.f9e1ffa26fdc6d876cf201ad": {
       "source": "claro-guia",
@@ -6843,16 +6128,6 @@
         "source": "us2",
         "source_id": "Sony.Movie.Channel.HD.us2"
       }
-    },
-    "PublicDirect.fc07c90f07c3fa8b11b8ed11": {
-      "source": "co1",
-      "source_id": "HBO.2.co",
-      "source_name": "HBO 2",
-      "l2_name": "HBO 2 (158)",
-      "group": "Películas",
-      "confidence": "exact",
-      "futureHours": 62.4,
-      "screenshot": "hbo-2-158-29831254.jpg"
     },
     "PublicDirect.fc9e38770f9e19dcc8901fbb": {
       "source": "claro-guia",
@@ -6922,18 +6197,6 @@
       "backup": {
         "source": "cl",
         "source_id": "Canal.Star.Channel.(Chile).cl"
-      }
-    },
-    "PublicDirect.ffac9158940d7c82e1545ff2": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:790564",
-      "source_name": "DISCOVERY CHANNEL HD (Claro colombia)",
-      "l2_name": "Discovery Channel",
-      "group": "Misceláneos",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.Discovery.Channel.(México).mx"
       }
     },
     "SkySportsRacing.uk": {
@@ -7254,14 +6517,6 @@
         "source_id": "[ESP2LS].ESPN.2.uy"
       }
     },
-    "PublicDirect.78f61ec86ce277cda1ad39f6": {
-      "source": "uy1",
-      "source_id": "[ESP2LS].ESPN.2.uy",
-      "source_name": "[ESP2LS].ESPN.2.uy",
-      "l2_name": "ESPN 2",
-      "group": "Deportes",
-      "confidence": "backup-of:PublicDirect.d6cca6d4aa23a69d50439c22"
-    },
     "PublicDirect.29ce9a32b090eb790015a2e5": {
       "source": "claro-guia",
       "source_id": "claro:colombia:927562",
@@ -7551,28 +6806,18 @@
       }
     },
     "PublicDirect.d56376275161ef53614ac137": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:927658",
-      "source_name": "DISCOVERY ID HD (Claro colombia)",
+      "source": "co1",
+      "source_id": "ID.-.Investigation.Discovery.co",
       "l2_name": "Investigation Discovery",
-      "group": "Misceláneos",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "uy1",
-        "source_id": "DISCOVERY.ID.HD.uy"
-      }
+      "confidence": "fotograma-20261107",
+      "verified": "2026-11-07: fotograma comparado con la guía a la misma hora (outputs/lista2-revision-20261107): «Detalles de un crimen»"
     },
     "PublicDirect.fd80dec5e49afad511890000": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:773940",
-      "source_name": "CINECANAL (Claro colombia)",
+      "source": "co1",
+      "source_id": "Cinecanal.co",
       "l2_name": "Cinecanal",
-      "group": "Películas",
-      "confidence": "claro-familia",
-      "backup": {
-        "source": "mx1",
-        "source_id": "Canal.Cinecanal.(México).mx"
-      }
+      "confidence": "fotograma-20261107",
+      "verified": "2026-11-07: fotograma comparado con la guía a la misma hora (outputs/lista2-revision-20261107): «Pelotas en juego»"
     },
     "PublicDirect.b5c10ae93889080ac26771f2": {
       "source": "claro-guia",
@@ -7586,16 +6831,6 @@
         "source_id": "Canal.History.(México).mx"
       }
     },
-    "PublicDirect.000f14242d85e934a73066e8": {
-      "source": "mx1",
-      "source_id": "Canal.National.Geographic.(México).mx",
-      "source_name": "Canal National Geographic (México)",
-      "l2_name": "National Geographic",
-      "group": "Misceláneos",
-      "confidence": "exact",
-      "futureHours": 66.5,
-      "screenshot": null
-    },
     "PublicDirect.52d0b67fa9f1eb5e764ba233": {
       "source": "claro-guia",
       "source_id": "claro:colombia:728274",
@@ -7607,6 +6842,104 @@
         "source": "uy1",
         "source_id": "NATGEO.HD.uy"
       }
+    },
+    "IPTVOrg.Cinecanal.us-Pacific": {
+      "source": "co1",
+      "source_id": "Cinecanal.co",
+      "l2_name": "Cinecanal",
+      "confidence": "fotograma-20261107",
+      "verified": "2026-11-07: fotograma comparado con la guía a la misma hora (outputs/lista2-revision-20261107): «Pelotas en juego»"
+    },
+    "PublicDirect.f76def453257b4671384bef7": {
+      "source": "uy1",
+      "source_id": "ESPN.6.HD.uy",
+      "l2_name": "ESPN 6",
+      "confidence": "fotograma-20261107",
+      "verified": "2026-11-07: fotograma comparado con la guía a la misma hora (outputs/lista2-revision-20261107): «AEK–Real Madrid»"
+    },
+    "PublicDirect.7a74b6bb5335426d7a0ed8f5": {
+      "source": "uy1",
+      "source_id": "ESPN.7.HD.uy",
+      "l2_name": "ESPN 7",
+      "confidence": "fotograma-20261107",
+      "verified": "2026-11-07: fotograma comparado con la guía a la misma hora (outputs/lista2-revision-20261107): «Dortmund–Elversberg»"
+    },
+    "PublicDirect.2beeea3de6952cc8ea889299": {
+      "source": "co1",
+      "source_id": "DHE.HD.co",
+      "l2_name": "DHE",
+      "confidence": "fotograma-20261107",
+      "verified": "2026-11-07: fotograma comparado con la guía a la misma hora (outputs/lista2-revision-20261107): «Píxeles»"
+    },
+    "PublicDirect.bf206adce05fce9ef95b62d1": {
+      "source": "co1",
+      "source_id": "DHE.HD.co",
+      "l2_name": "DHE",
+      "confidence": "fotograma-20261107",
+      "verified": "2026-11-07: fotograma comparado con la guía a la misma hora (outputs/lista2-revision-20261107): «Píxeles»"
+    },
+    "PublicDirect.d0ee5354a75d4bf0fe91c9c0": {
+      "source": "mx1",
+      "source_id": "Canal.BitMe.mx",
+      "l2_name": "Bitme",
+      "confidence": "fotograma-20261107",
+      "verified": "2026-11-07: fotograma comparado con la guía a la misma hora (outputs/lista2-revision-20261107): «Un gallo con muchos huevos»"
+    },
+    "IPTVOrg.ESPN.us-HD": {
+      "source": "us2",
+      "source_id": "ESPN.HD.us2",
+      "l2_name": "ESPN EE. UU.",
+      "confidence": "fotograma-20261107",
+      "verified": "2026-11-07: fotograma comparado con la guía a la misma hora (outputs/lista2-revision-20261107): «College GameDay (cartel ESPN con partidos ACC)»"
+    },
+    "FoxSports1.us@Direct": {
+      "source": "us2",
+      "source_id": "FS1.HD.us2",
+      "l2_name": "Fox Sports 1",
+      "confidence": "fotograma-20261107",
+      "verified": "2026-11-07: fotograma comparado con la guía a la misma hora (outputs/lista2-revision-20261107): «NASCAR Craftsman Truck Series, Homestead»"
+    },
+    "IPTVOrg.MTVBiggestPop.us-BR": {
+      "source": "pluto",
+      "source_id": "6047fbdbbb776a0007e7f2ff",
+      "l2_name": "MTV Biggest Pop",
+      "confidence": "fotograma-20261107",
+      "verified": "2026-11-07: fotograma comparado con la guía a la misma hora (outputs/lista2-revision-20261107): «guía Pluto del mismo canal (id de la URL)»"
+    },
+    "IPTVOrg.MTVClassic.us-BR": {
+      "source": "pluto",
+      "source_id": "66a01dcb8561260008b0a41d",
+      "l2_name": "MTV Classic",
+      "confidence": "fotograma-20261107",
+      "verified": "2026-11-07: fotograma comparado con la guía a la misma hora (outputs/lista2-revision-20261107): «guía Pluto del mismo canal (id de la URL)»"
+    },
+    "IPTVOrg.MTVClassic.us-CA": {
+      "source": "pluto",
+      "source_id": "654100b4bdf3cf0008aa49c7",
+      "l2_name": "MTV Classic",
+      "confidence": "fotograma-20261107",
+      "verified": "2026-11-07: fotograma comparado con la guía a la misma hora (outputs/lista2-revision-20261107): «guía Pluto del mismo canal (id de la URL)»"
+    },
+    "IPTVOrg.MTVClassic.us-LatAm": {
+      "source": "pluto",
+      "source_id": "66a11a21a79dea0008aa90ca",
+      "l2_name": "MTV Classic",
+      "confidence": "fotograma-20261107",
+      "verified": "2026-11-07: fotograma comparado con la guía a la misma hora (outputs/lista2-revision-20261107): «guía Pluto del mismo canal (id de la URL)»"
+    },
+    "IPTVOrg.MTVSpankinNew.us-US": {
+      "source": "pluto",
+      "source_id": "5d14fdb8ca91eedee1633117",
+      "l2_name": "MTV Spankin' New",
+      "confidence": "fotograma-20261107",
+      "verified": "2026-11-07: fotograma comparado con la guía a la misma hora (outputs/lista2-revision-20261107): «guía Pluto del mismo canal (id de la URL)»"
+    },
+    "PublicDirect.b8f2efd55894cbc58af43798": {
+      "source": "cl",
+      "source_id": "Canal.Sun.Channel.cl",
+      "l2_name": "Sun Channel",
+      "confidence": "fotograma-20261107",
+      "verified": "2026-11-07: fotograma comparado con la guía a la misma hora (outputs/lista2-revision-20261107): «una sola parrilla en todas las regiones; fotograma no concluyente»"
     }
   },
   "unresolvedNames": [

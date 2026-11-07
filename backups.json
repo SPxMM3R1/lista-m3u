@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-05",
+  "updated": "2026-11-07",
   "description": "Copias (casi todas de Lista 2) que respaldan a un canal de Lista 1: misma señal, confirmada con captura. Esas copias ya no se publican en Lista 2; la app las prueba en orden si la señal principal falla.",
   "fields": {
     "channels.<clave>": "tvg-id del canal principal en Lista 1 (la identidad estable; el número puede cambiar).",
@@ -282,7 +282,7 @@
         "source": "tecnocentro",
         "source_id": "LCH546"
       },
-      "verified": "2026-10-25: TNT Sports Premiun HD [IP 190.108.83.69] respaldo por pedido del usuario (237 de Lista 2), sin prueba de audio.; 2026-10-25: TNT Sports Premium SD [IP 45.173.231.22] respaldo por pedido del usuario (269 de Lista 2, en el 265 al momento del cambio), sin prueba de audio. | 2026-10-28: detector de clones sobre toda Lista 2; pasan solo copias estables (abren al primer intento y graban 60 s), misma resolución y fps que la de Lista 1, audio igual (correlación 731 0,687).; 2026-11-03 (tercera ronda, «Da otra pasada de búsqueda de clones»; regla: «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261103c); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-03 (pedido del usuario «Prueba esas 2 ahora» → «Okas hazlo»): 30 s a ritmo real al mismo tiempo: IP 190.60.46.228 fluida y limpia (1080i, ~1,5–2,2 Mbps); IP 190.108.91.206 trabada (119 cuadros en 30 s) y con imagen rota. La primera pasa a principal; la segunda queda primera en los respaldos.",
+      "verified": "2026-10-25: TNT Sports Premiun HD [IP 190.108.83.69] respaldo por pedido del usuario (237 de Lista 2), sin prueba de audio.; 2026-10-25: TNT Sports Premium SD [IP 45.173.231.22] respaldo por pedido del usuario (269 de Lista 2, en el 265 al momento del cambio), sin prueba de audio. | 2026-10-28: detector de clones sobre toda Lista 2; pasan solo copias estables (abren al primer intento y graban 60 s), misma resolución y fps que la de Lista 1, audio igual (correlación 731 0,687).; 2026-11-03 (tercera ronda, «Da otra pasada de búsqueda de clones»; regla: «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261103c); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-03 (pedido del usuario «Prueba esas 2 ahora» → «Okas hazlo»): 30 s a ritmo real al mismo tiempo: IP 190.60.46.228 fluida y limpia (1080i, ~1,5–2,2 Mbps); IP 190.108.91.206 trabada (119 cuadros en 30 s) y con imagen rota. La primera pasa a principal; la segunda queda primera en los respaldos.; 2026-11-07 (pedido «Haz nuevas pruebas de clones lista 2, también identifica cada canal de la lista 2, dale logo y epg»): clones por audio de a pares (130 s, pista en español, envolvente, desfase ±90 s) en dos pasadas; clon = ≥ 0,6 en una pasada (ESPN: en las dos). outputs/lista2-revision-20261107.",
       "backups": [
         {
           "tvg_id": "PublicDirect.b5751130732e4a7c272ee53d",
@@ -371,6 +371,50 @@
             "ok": true,
             "interlaced": true
           }
+        },
+        {
+          "tvg_id": "PublicDirect.cc61e9e026dcb4fd5eec5621",
+          "display_name": "TNT Sports Premium",
+          "source_name": "TNT SPORT [IP 181.78.106.127]",
+          "from_list": "Lista 2",
+          "from_number": 281,
+          "group": "Deportes",
+          "logo": "logos/lista2/5b54e22449e6.png",
+          "url": "http://181.78.106.127:5000/play/ca026/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:argentina:888143"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 0,
+            "kbps": 0,
+            "ok": true
+          },
+          "audio_corr": 0.917
+        },
+        {
+          "tvg_id": "IPTVOrg.TNTSportsPremium.cl-ArgentinaHD",
+          "display_name": "TNT Sports Premium",
+          "source_name": "TNT Sports Premium ArgentinaHD (1080p)",
+          "from_list": "Lista 2",
+          "from_number": 283,
+          "group": "Deportes",
+          "logo": "",
+          "url": "http://181.78.79.131:8000/play/a0q9",
+          "guide": {
+            "source": "",
+            "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 0,
+            "kbps": 0,
+            "ok": true
+          },
+          "audio_corr": 0.966
         }
       ],
       "principal_quality": {
@@ -3648,7 +3692,7 @@
         "source": "uy1",
         "source_id": "UNIVERSAL.CINEMA.HD.uy"
       },
-      "verified": "2026-11-03 (pedido del usuario «728 a lista 1» / «Era Universal Cinema, pero ve específicamente el que yo te pedí»): el 728 de Lista 2 pasa a Lista 1 como principal; su clon de Lista 2 (correlación ≥ 0,85, outputs/clones-20261102b) queda de respaldo.; 2026-11-04 (pedido del usuario «Revisa la lista 1 con los que agrupaste en lista 2»): mismo canal por fotograma simultáneo idéntico o audio ≥ 0,6 con la pista en español (outputs/l1-vs-l2-20261103); las rondas de noviembre comparaban solo imagen y no los detectaron.",
+      "verified": "2026-11-03 (pedido del usuario «728 a lista 1» / «Era Universal Cinema, pero ve específicamente el que yo te pedí»): el 728 de Lista 2 pasa a Lista 1 como principal; su clon de Lista 2 (correlación ≥ 0,85, outputs/clones-20261102b) queda de respaldo.; 2026-11-04 (pedido del usuario «Revisa la lista 1 con los que agrupaste en lista 2»): mismo canal por fotograma simultáneo idéntico o audio ≥ 0,6 con la pista en español (outputs/l1-vs-l2-20261103); las rondas de noviembre comparaban solo imagen y no los detectaron.; 2026-11-07 (pedido «Haz nuevas pruebas de clones lista 2, también identifica cada canal de la lista 2, dale logo y epg»): clones por audio de a pares (130 s, pista en español, envolvente, desfase ±90 s) en dos pasadas; clon = ≥ 0,6 en una pasada (ESPN: en las dos). outputs/lista2-revision-20261107.",
       "backups": [
         {
           "tvg_id": "PublicDirect.5bb38c5c93187a54854b8f8f",
@@ -3714,6 +3758,138 @@
             "kbps": 0,
             "ok": false,
             "interlaced": false
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.f3e686834ca7d7d97c85f348",
+          "display_name": "Universal Cinema",
+          "source_name": "UNIVERSAL CINEMA ESTE HD [IP 181.119.177.253]",
+          "from_list": "Lista 2",
+          "from_number": 126,
+          "group": "Películas",
+          "logo": "logos/lista2/26b4119750c7.png",
+          "url": "http://181.119.177.253:8000/play/a0cw/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:1194071"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 0,
+            "kbps": 0,
+            "ok": true
+          },
+          "audio_corr": 0.99
+        },
+        {
+          "tvg_id": "PublicDirect.96f54058e30b40aa7d89115d",
+          "display_name": "Universal Cinema Este",
+          "source_name": "UNIVERSAL-CINEMA-ESTEHD [IP 167.249.23.102]",
+          "from_list": "Lista 2",
+          "from_number": 731,
+          "group": "Películas",
+          "logo": "logos/lista2/26b4119750c7.png",
+          "url": "http://167.249.23.102:8000/play/UNIVERSAL-CINEMA-ESTEHD/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:1194071"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 1532,
+            "ok": true,
+            "interlaced": true
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.c24bafe955d4b278233073d8",
+          "display_name": "Universal Cinema Este",
+          "source_name": "UNIVERSAL CINEMA ESTE HD [IP 45.166.93.156]",
+          "from_list": "Lista 2",
+          "from_number": 732,
+          "group": "Películas",
+          "logo": "logos/lista2/26b4119750c7.png",
+          "url": "http://45.166.93.156:9999/play/a0i9/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:1194071"
+          },
+          "quality": {
+            "height": 0,
+            "width": 0,
+            "fps": 0.0,
+            "kbps": 0,
+            "ok": false,
+            "interlaced": false
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.6571a71732b0a12994095f13",
+          "display_name": "Universal Cinema Este",
+          "source_name": "UNIVERSAL CINEMA ESTE HD [IP 181.78.106.127]",
+          "from_list": "Lista 2",
+          "from_number": 733,
+          "group": "Películas",
+          "logo": "logos/lista2/26b4119750c7.png",
+          "url": "http://181.78.106.127:5000/play/ca083/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:1194071"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 1532,
+            "ok": true,
+            "interlaced": true
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.6c35b765909beafc8055510c",
+          "display_name": "Universal Cinema Este",
+          "source_name": "UNIVERSAL CINEMA ESTE HD [IP 72.1.184.5]",
+          "from_list": "Lista 2",
+          "from_number": 735,
+          "group": "Películas",
+          "logo": "logos/lista2/26b4119750c7.png",
+          "url": "http://72.1.184.5:8089/play/a06g/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:1194071"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 1517,
+            "ok": true,
+            "interlaced": true
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.f5d780fff0f3a2146af424bb",
+          "display_name": "Universal Cinema Este",
+          "source_name": "UNIVERSAL CINEMA ESTE HD [IP 138.59.177.78]",
+          "from_list": "Lista 2",
+          "from_number": 489,
+          "group": "Películas",
+          "logo": "logos/lista2/26b4119750c7.png",
+          "url": "http://138.59.177.78:9999/play/a0fj/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:1194071"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 1517,
+            "ok": true,
+            "interlaced": true
           }
         }
       ],
@@ -5628,7 +5804,7 @@
         "source": "uy1",
         "source_id": "GOLDEN.EDGE.HD.uy"
       },
-      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-03 (pedido del usuario «¿Por qué los Golden no los pusiste como backup del Golden que ya está en la lista 1? Si yo los veo transmitiendo lo mismo»): fotogramas simultáneos con la misma película (Forrest Gump en Golden; misma escena en Golden Edge); las capturas de 40 s no llegaban a 0,85 por imagen oscura y quieta.",
+      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-03 (pedido del usuario «¿Por qué los Golden no los pusiste como backup del Golden que ya está en la lista 1? Si yo los veo transmitiendo lo mismo»): fotogramas simultáneos con la misma película (Forrest Gump en Golden; misma escena en Golden Edge); las capturas de 40 s no llegaban a 0,85 por imagen oscura y quieta.; 2026-11-07 (pedido «Haz nuevas pruebas de clones lista 2, también identifica cada canal de la lista 2, dale logo y epg»): clones por audio de a pares (130 s, pista en español, envolvente, desfase ±90 s) en dos pasadas; clon = ≥ 0,6 en una pasada (ESPN: en las dos). outputs/lista2-revision-20261107.",
       "backups": [
         {
           "tvg_id": "PublicDirect.876e0605afb2c221254832b4",
@@ -5739,6 +5915,28 @@
             "ok": true,
             "interlaced": true
           }
+        },
+        {
+          "tvg_id": "PublicDirect.c5fe220d460977b5522b0a13",
+          "display_name": "Golden Edge",
+          "source_name": "GOLDEN PLUS [IP 181.78.106.127]",
+          "from_list": "Lista 2",
+          "from_number": 192,
+          "group": "Películas",
+          "logo": "logos/lista2/765f1257f5fd.png",
+          "url": "http://181.78.106.127:5000/play/ca078/index.m3u8",
+          "guide": {
+            "source": "cl",
+            "source_id": "Canal.Golden.Plus.cl"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 0,
+            "kbps": 0,
+            "ok": true
+          },
+          "audio_corr": 0.96
         }
       ],
       "principal_quality": {
@@ -6728,7 +6926,7 @@
         "source": "claro-guia",
         "source_id": "claro:chile:793485"
       },
-      "verified": "2026-10-25 (2.ª búsqueda): UNIVERSAL CHANNEL HD [IP 190.108.83.69] misma señal por audio (0.613); 2026-10-25 (2.ª búsqueda): UNIVERSAL CHANNEL HD [IP 190.108.91.206] misma señal por audio (0.908); 2026-10-25: UNIVERSAL CHANNEL [IP 38.87.224.19] audio dudoso (0.561), respaldo por decisión del usuario; 2026-10-25: UNIVERSAL CHANNEL HD [IP 190.60.46.228] audio dudoso (0.552), respaldo por decisión del usuario",
+      "verified": "2026-10-25 (2.ª búsqueda): UNIVERSAL CHANNEL HD [IP 190.108.83.69] misma señal por audio (0.613); 2026-10-25 (2.ª búsqueda): UNIVERSAL CHANNEL HD [IP 190.108.91.206] misma señal por audio (0.908); 2026-10-25: UNIVERSAL CHANNEL [IP 38.87.224.19] audio dudoso (0.561), respaldo por decisión del usuario; 2026-10-25: UNIVERSAL CHANNEL HD [IP 190.60.46.228] audio dudoso (0.552), respaldo por decisión del usuario; 2026-11-07 (pedido «Haz nuevas pruebas de clones lista 2, también identifica cada canal de la lista 2, dale logo y epg»): clones por audio de a pares (130 s, pista en español, envolvente, desfase ±90 s) en dos pasadas; clon = ≥ 0,6 en una pasada (ESPN: en las dos). outputs/lista2-revision-20261107.",
       "backups": [
         {
           "tvg_id": "PublicDirect.0eb916e1e45c52aaf40cc864",
@@ -6817,6 +7015,182 @@
             "ok": true,
             "interlaced": true
           }
+        },
+        {
+          "tvg_id": "PublicDirect.ceb1d9bc995f581c33d39760",
+          "display_name": "Universal TV",
+          "source_name": "@DIG - UNIVERSAL CHANNEL HD IN [IP 181.78.14.26]",
+          "from_list": "Lista 2",
+          "from_number": 286,
+          "group": "Películas",
+          "logo": "logos/lista2/93453859f775.png",
+          "url": "http://181.78.14.26:4000/play/a09q/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:927639"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 0,
+            "kbps": 0,
+            "ok": true
+          },
+          "audio_corr": 0.989
+        },
+        {
+          "tvg_id": "PublicDirect.ac9d91daa7e403bccc9b4464",
+          "display_name": "Universal TV",
+          "source_name": "UNIVERSAL [IP 138.59.177.78]",
+          "from_list": "Lista 2",
+          "from_number": 124,
+          "group": "Películas",
+          "logo": "logos/lista2/93453859f775.png",
+          "url": "http://138.59.177.78:9999/play/a08g/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:927639"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 0,
+            "kbps": 0,
+            "ok": true
+          },
+          "audio_corr": 0.96
+        },
+        {
+          "tvg_id": "PublicDirect.f70b307c60292b91e739a622",
+          "display_name": "Universal Channel",
+          "source_name": "UNIVERSAL CHANNEL HD [IP 45.173.231.22]",
+          "from_list": "Lista 2",
+          "from_number": 479,
+          "group": "Películas",
+          "logo": "logos/lista2/93453859f775.png",
+          "url": "http://45.173.231.22:8000/play/a02d/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:927639"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 1222,
+            "ok": true,
+            "interlaced": true
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.0dfc11743d308e161d88323e",
+          "display_name": "Universal Channel",
+          "source_name": "UNIVERSAL CHANNEL [IP 181.78.211.244]",
+          "from_list": "Lista 2",
+          "from_number": 481,
+          "group": "Películas",
+          "logo": "logos/lista2/93453859f775.png",
+          "url": "http://181.78.211.244:8000/play/a0bw/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:927639"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 1216,
+            "ok": true,
+            "interlaced": true
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.e906fb6f8901f6080b49f785",
+          "display_name": "Universal Channel",
+          "source_name": "UNIVERSAL CHANNEL HD [IP 181.224.200.5]",
+          "from_list": "Lista 2",
+          "from_number": 480,
+          "group": "Películas",
+          "logo": "logos/lista2/93453859f775.png",
+          "url": "http://181.224.200.5:2277/play/a0ak/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:927639"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 59.94,
+            "kbps": 519,
+            "ok": true,
+            "interlaced": false
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.08b71ab74a14ddfe4de5715b",
+          "display_name": "Universal TV",
+          "source_name": "SRT UNIVERSAL [IP 181.78.12.119]",
+          "from_list": "Lista 2",
+          "from_number": 125,
+          "group": "Misceláneos",
+          "logo": "logos/lista2/93453859f775.png",
+          "url": "http://181.78.12.119:16123/play/a0di/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:927639"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 0,
+            "kbps": 0,
+            "ok": true
+          },
+          "audio_corr": 0.987
+        },
+        {
+          "tvg_id": "PublicDirect.53d7d48393bde15bef051655",
+          "display_name": "Universal Channel",
+          "source_name": "@DIG - UNIVERSAL CHANNEL HD [IP 181.78.14.26]",
+          "from_list": "Lista 2",
+          "from_number": 712,
+          "group": "Películas",
+          "logo": "logos/lista2/93453859f775.png",
+          "url": "http://181.78.14.26:4000/play/a03f/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:927639"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 3884,
+            "ok": true,
+            "interlaced": true
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.13970e032fe3865c30c0d850",
+          "display_name": "Universal TV",
+          "source_name": "STUDIO UNIVERSAL [IP 38.134.250.110]",
+          "from_list": "Lista 2",
+          "from_number": 259,
+          "group": "Películas",
+          "logo": "logos/lista2/eec19daab9fb.png",
+          "url": "http://38.134.250.110:8000/play/a006/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:927654"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 0,
+            "kbps": 0,
+            "ok": true
+          },
+          "audio_corr": 0.998
         }
       ],
       "principal_quality": {
@@ -6838,7 +7212,7 @@
         "source": "claro-guia",
         "source_id": "claro:chile:1030254"
       },
-      "verified": "Captura 2026-10-24: mismo programa (Blue Bloods) y logo USA en las 6 copias.",
+      "verified": "Captura 2026-10-24: mismo programa (Blue Bloods) y logo USA en las 6 copias.; 2026-11-07 (pedido «Haz nuevas pruebas de clones lista 2, también identifica cada canal de la lista 2, dale logo y epg»): clones por audio de a pares (130 s, pista en español, envolvente, desfase ±90 s) en dos pasadas; clon = ≥ 0,6 en una pasada (ESPN: en las dos). outputs/lista2-revision-20261107.",
       "backups": [
         {
           "tvg_id": "PublicDirect.8f571b2a21b35586ddf0a162",
@@ -6971,6 +7345,28 @@
             "ok": true,
             "interlaced": true
           }
+        },
+        {
+          "tvg_id": "PublicDirect.5e1edfeb4161cb6762dd4c44",
+          "display_name": "USA Network",
+          "source_name": "SYFY [IP 38.134.250.110]",
+          "from_list": "Lista 2",
+          "from_number": 263,
+          "group": "Películas",
+          "logo": "logos/lista2/b5e1660e4fbf.png",
+          "url": "http://38.134.250.110:8000/play/a001/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:panama:816364"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 0,
+            "kbps": 0,
+            "ok": true
+          },
+          "audio_corr": 0.677
         }
       ],
       "principal_quality": {
@@ -9278,7 +9674,7 @@
         "source": "",
         "source_id": ""
       },
-      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.",
+      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-07 (pedido «Haz nuevas pruebas de clones lista 2, también identifica cada canal de la lista 2, dale logo y epg»): clones por audio de a pares (130 s, pista en español, envolvente, desfase ±90 s) en dos pasadas; clon = ≥ 0,6 en una pasada (ESPN: en las dos). outputs/lista2-revision-20261107.",
       "backups": [
         {
           "tvg_id": "PublicDirect.4d0e0db3fdae2beb2450408b",
@@ -9631,6 +10027,28 @@
             "ok": true,
             "interlaced": true
           }
+        },
+        {
+          "tvg_id": "PublicDirect.25c9e1bc49b1b502cb7b6d8c",
+          "display_name": "DHE",
+          "source_name": "DHE-IXP [IP 138.59.177.78]",
+          "from_list": "Lista 2",
+          "from_number": 138,
+          "group": "Películas",
+          "logo": "",
+          "url": "http://138.59.177.78:9999/play/a08j/index.m3u8",
+          "guide": {
+            "source": "",
+            "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 0,
+            "kbps": 0,
+            "ok": true
+          },
+          "audio_corr": 0.986
         }
       ]
     },
@@ -9644,7 +10062,7 @@
         "source": "claro-guia",
         "source_id": "claro:colombia:790564"
       },
-      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.",
+      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-07 (pedido «Haz nuevas pruebas de clones lista 2, también identifica cada canal de la lista 2, dale logo y epg»): clones por audio de a pares (130 s, pista en español, envolvente, desfase ±90 s) en dos pasadas; clon = ≥ 0,6 en una pasada (ESPN: en las dos). outputs/lista2-revision-20261107.; 2026-11-07: recibe 7 respaldos del 89 (Discovery Channel), que no abrió en dos intentos y fue a la papelera; clon por audio 0,82 (primera pasada).",
       "backups": [
         {
           "tvg_id": "PublicDirect.76f85d8e18ca914171dde970",
@@ -9711,21 +10129,51 @@
             "ok": true,
             "interlaced": false
           }
-        }
-      ]
-    },
-    "PublicDirect.a94ffbb995ce99ad986d92cc": {
-      "display_name": "Discovery Channel",
-      "list": "Lista 2",
-      "number": 89,
-      "group": "Misceláneos",
-      "source_name": "Discovery Channel HD [IP 72.1.184.5]",
-      "guide": {
-        "source": "claro-guia",
-        "source_id": "claro:colombia:790564"
-      },
-      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.",
-      "backups": [
+        },
+        {
+          "tvg_id": "PublicDirect.2a38f33a87d2a19e898f9261",
+          "display_name": "Discovery Channel",
+          "source_name": "DISCOVERY CHANNEL ENVIO [IP 138.94.3.106]",
+          "from_list": "Lista 2",
+          "from_number": 142,
+          "group": "Misceláneos",
+          "logo": "logos/lista2/85d1bdbc581b.png",
+          "url": "http://138.94.3.106:8000/play/a00o/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:790564"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 0,
+            "kbps": 0,
+            "ok": true
+          },
+          "audio_corr": 0.993
+        },
+        {
+          "tvg_id": "PublicDirect.d1e015ad5bcc8aeb76b4e592",
+          "display_name": "Discovery Channel",
+          "source_name": "@DIG - DISCOVERY CHANNEL [IP 181.78.14.26]",
+          "from_list": "Lista 2",
+          "from_number": 146,
+          "group": "Misceláneos",
+          "logo": "logos/lista2/85d1bdbc581b.png",
+          "url": "http://181.78.14.26:4000/play/a03s/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:790564"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 0,
+            "kbps": 0,
+            "ok": true
+          },
+          "audio_corr": 0.97
+        },
         {
           "tvg_id": "PublicDirect.858f679b078df35e14c40057",
           "display_name": "Discovery Channel",
@@ -10096,7 +10544,7 @@
         "source": "cl",
         "source_id": "Canal.Discovery.Theater.(Latinoamérica).cl"
       },
-      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.",
+      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-07 (pedido «Haz nuevas pruebas de clones lista 2, también identifica cada canal de la lista 2, dale logo y epg»): clones por audio de a pares (130 s, pista en español, envolvente, desfase ±90 s) en dos pasadas; clon = ≥ 0,6 en una pasada (ESPN: en las dos). outputs/lista2-revision-20261107.",
       "backups": [
         {
           "tvg_id": "PublicDirect.7f4a11bfdb24dfc4d52c7eee",
@@ -10427,6 +10875,28 @@
             "ok": true,
             "interlaced": true
           }
+        },
+        {
+          "tvg_id": "PublicDirect.62b41021824626f105b68d8a",
+          "display_name": "Discovery Theater",
+          "source_name": "Discovery Theater HD [IP 181.78.82.130]",
+          "from_list": "Lista 2",
+          "from_number": 150,
+          "group": "Misceláneos",
+          "logo": "logos/lista2/00b50f9bc248.png",
+          "url": "http://181.78.82.130:8000/play/a0ko/index.m3u8",
+          "guide": {
+            "source": "cl",
+            "source_id": "Canal.Discovery.Theater.(Latinoamérica).cl"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 0,
+            "kbps": 0,
+            "ok": true
+          },
+          "audio_corr": 0.849
         }
       ]
     },
@@ -11892,7 +12362,7 @@
         "source": "gatotv",
         "source_id": "gatotv:golden_premier"
       },
-      "verified": "2026-11-03 (tercera ronda, «Da otra pasada de búsqueda de clones»; regla: «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261103c); principal = mejor resolución, bitrate y fps; respaldos en ese orden.",
+      "verified": "2026-11-03 (tercera ronda, «Da otra pasada de búsqueda de clones»; regla: «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261103c); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-07 (pedido «Haz nuevas pruebas de clones lista 2, también identifica cada canal de la lista 2, dale logo y epg»): clones por audio de a pares (130 s, pista en español, envolvente, desfase ±90 s) en dos pasadas; clon = ≥ 0,6 en una pasada (ESPN: en las dos). outputs/lista2-revision-20261107.",
       "backups": [
         {
           "tvg_id": "PublicDirect.2bb3242fa5e8a4c0a55a024b",
@@ -11981,6 +12451,28 @@
             "ok": true,
             "interlaced": true
           }
+        },
+        {
+          "tvg_id": "PublicDirect.3f1646d62fd252dd11f4cb3b",
+          "display_name": "Golden Premiere",
+          "source_name": "Golden Premiere HD [IP 72.1.184.5]",
+          "from_list": "Lista 2",
+          "from_number": 193,
+          "group": "Deportes",
+          "logo": "logos/lista2/brand_golden_premier.png",
+          "url": "http://72.1.184.5:8089/play/a07d/index.m3u8",
+          "guide": {
+            "source": "gatotv",
+            "source_id": "gatotv:golden_premier"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 0,
+            "kbps": 0,
+            "ok": true
+          },
+          "audio_corr": 0.993
         }
       ]
     },
@@ -11994,7 +12486,7 @@
         "source": "gatotv",
         "source_id": "gatotv:golden_premier_2"
       },
-      "verified": "2026-11-03 (tercera ronda, «Da otra pasada de búsqueda de clones»; regla: «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261103c); principal = mejor resolución, bitrate y fps; respaldos en ese orden.",
+      "verified": "2026-11-03 (tercera ronda, «Da otra pasada de búsqueda de clones»; regla: «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261103c); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-07 (pedido «Haz nuevas pruebas de clones lista 2, también identifica cada canal de la lista 2, dale logo y epg»): clones por audio de a pares (130 s, pista en español, envolvente, desfase ±90 s) en dos pasadas; clon = ≥ 0,6 en una pasada (ESPN: en las dos). outputs/lista2-revision-20261107.",
       "backups": [
         {
           "tvg_id": "PublicDirect.d84df79781f515426d6c7a05",
@@ -12039,240 +12531,50 @@
             "ok": true,
             "interlaced": true
           }
-        }
-      ]
-    },
-    "PublicDirect.e1b60bf9c9b3622fb107f503": {
-      "display_name": "HBO Family",
-      "list": "Lista 2",
-      "number": 106,
-      "group": "Películas",
-      "source_name": "HBO Family HD [IP 190.61.90.17]",
-      "guide": {
-        "source": "gatotv",
-        "source_id": "gatotv:hbo_family_latinoamerica"
-      },
-      "verified": "2026-11-03 (tercera ronda, «Da otra pasada de búsqueda de clones»; regla: «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261103c); principal = mejor resolución, bitrate y fps; respaldos en ese orden.",
-      "backups": [
-        {
-          "tvg_id": "PublicDirect.de8c7abfcbebb9419cf6347f",
-          "display_name": "HBO Family",
-          "source_name": "HBO Family HD [IP 181.78.197.59]",
-          "from_list": "Lista 2",
-          "from_number": 356,
-          "group": "Películas",
-          "logo": "logos/lista2/11d0e5a776c6.png",
-          "url": "http://181.78.197.59:8000/play/a07g/index.m3u8",
-          "guide": {
-            "source": "gatotv",
-            "source_id": "gatotv:hbo_family_latinoamerica"
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 23.98,
-            "kbps": 2412,
-            "ok": true,
-            "interlaced": false
-          }
         },
         {
-          "tvg_id": "PublicDirect.0d6d3840583e80578bf2d9d7",
-          "display_name": "HBO Family",
-          "source_name": "HBO Family HD [IP 181.119.177.253]",
+          "tvg_id": "PublicDirect.97a303fee94d599d990841a0",
+          "display_name": "Golden Premiere 2",
+          "source_name": "GOLDEN PREMIER 2-IXP [IP 138.59.177.78]",
           "from_list": "Lista 2",
-          "from_number": 353,
-          "group": "Películas",
-          "logo": "logos/lista2/11d0e5a776c6.png",
-          "url": "http://181.119.177.253:8000/play/a010/index.m3u8",
+          "from_number": 194,
+          "group": "Deportes",
+          "logo": "logos/lista2/brand_golden_premier.png",
+          "url": "http://138.59.177.78:9999/play/a094/index.m3u8",
           "guide": {
             "source": "gatotv",
-            "source_id": "gatotv:hbo_family_latinoamerica"
+            "source_id": "gatotv:golden_premier_2"
           },
           "quality": {
             "height": 1080,
             "width": 1920,
-            "fps": 23.98,
-            "kbps": 2412,
-            "ok": true,
-            "interlaced": false
-          }
+            "fps": 0,
+            "kbps": 0,
+            "ok": true
+          },
+          "audio_corr": 0.956
         },
         {
-          "tvg_id": "PublicDirect.be7f7ba12ab6004903c96227",
-          "display_name": "HBO Family",
-          "source_name": "HBO Family [IP 45.171.64.30]",
+          "tvg_id": "PublicDirect.45bc0296091e21b03e74dee2",
+          "display_name": "Golden Premiere 2",
+          "source_name": "Golden Premiere 2 HD [IP 72.1.184.5]",
           "from_list": "Lista 2",
-          "from_number": 586,
-          "group": "Películas",
-          "logo": "logos/catalogue/hbofamilylatinamerica-us.png",
-          "url": "http://45.171.64.30:6060/play/a00k/index.m3u8",
+          "from_number": 196,
+          "group": "Deportes",
+          "logo": "logos/lista2/brand_golden_premier.png",
+          "url": "http://72.1.184.5:8089/play/a07e/index.m3u8",
           "guide": {
             "source": "gatotv",
-            "source_id": "gatotv:hbo_family_latinoamerica"
+            "source_id": "gatotv:golden_premier_2"
           },
           "quality": {
             "height": 1080,
             "width": 1920,
-            "fps": 23.98,
-            "kbps": 2412,
-            "ok": true,
-            "interlaced": false
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.a6befa4fabce7b0e9c0b0a7b",
-          "display_name": "HBO Family",
-          "source_name": "HBO Family HD [IP 167.249.23.102]",
-          "from_list": "Lista 2",
-          "from_number": 589,
-          "group": "Películas",
-          "logo": "logos/lista2/11d0e5a776c6.png",
-          "url": "http://167.249.23.102:8000/play/a07i/index.m3u8",
-          "guide": {
-            "source": "gatotv",
-            "source_id": "gatotv:hbo_family_latinoamerica"
+            "fps": 0,
+            "kbps": 0,
+            "ok": true
           },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 23.98,
-            "kbps": 2412,
-            "ok": true,
-            "interlaced": false
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.272f05beecdf72e780b17590",
-          "display_name": "HBO Family",
-          "source_name": "HBO Family HD [IP 181.78.106.127]",
-          "from_list": "Lista 2",
-          "from_number": 590,
-          "group": "Películas",
-          "logo": "logos/lista2/11d0e5a776c6.png",
-          "url": "http://181.78.106.127:5000/play/a0o8/index.m3u8",
-          "guide": {
-            "source": "gatotv",
-            "source_id": "gatotv:hbo_family_latinoamerica"
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 23.98,
-            "kbps": 2402,
-            "ok": true,
-            "interlaced": false
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.dc6e1d4f5bbf0f75deeb8cf7",
-          "display_name": "HBO Family",
-          "source_name": "HBO Family HD [IP 190.108.91.206]",
-          "from_list": "Lista 2",
-          "from_number": 594,
-          "group": "Películas",
-          "logo": "logos/lista2/11d0e5a776c6.png",
-          "url": "http://190.108.91.206:9050/play/a03x/index.m3u8",
-          "guide": {
-            "source": "gatotv",
-            "source_id": "gatotv:hbo_family_latinoamerica"
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 17.13,
-            "kbps": 1013,
-            "ok": true,
-            "interlaced": true
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.ff94143330f710d62fdcd0cc",
-          "display_name": "HBO Family",
-          "source_name": "HBO Family HD [IP 190.60.46.228]",
-          "from_list": "Lista 2",
-          "from_number": 358,
-          "group": "Películas",
-          "logo": "logos/lista2/11d0e5a776c6.png",
-          "url": "http://190.60.46.228:8888/play/a02c/index.m3u8",
-          "guide": {
-            "source": "gatotv",
-            "source_id": "gatotv:hbo_family_latinoamerica"
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 29.97,
-            "kbps": 1805,
-            "ok": true,
-            "interlaced": true
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.21e0253dadefa3304e080ea3",
-          "display_name": "HBO Family",
-          "source_name": "HBO Family HD [IP 45.173.231.22]",
-          "from_list": "Lista 2",
-          "from_number": 359,
-          "group": "Películas",
-          "logo": "logos/lista2/11d0e5a776c6.png",
-          "url": "http://45.173.231.22:8000/play/a073/index.m3u8",
-          "guide": {
-            "source": "gatotv",
-            "source_id": "gatotv:hbo_family_latinoamerica"
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 29.97,
-            "kbps": 1920,
-            "ok": true,
-            "interlaced": true
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.d2b31d0e5f2e67486e33e05e",
-          "display_name": "HBO Family",
-          "source_name": "HBO Family HD [IP 190.108.83.69]",
-          "from_list": "Lista 2",
-          "from_number": 360,
-          "group": "Películas",
-          "logo": "logos/lista2/11d0e5a776c6.png",
-          "url": "http://190.108.83.69:8000/play/a03x/index.m3u8",
-          "guide": {
-            "source": "gatotv",
-            "source_id": "gatotv:hbo_family_latinoamerica"
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 29.97,
-            "kbps": 1756,
-            "ok": true,
-            "interlaced": true
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.92b121c9b5bd638f7a514821",
-          "display_name": "HBO Family",
-          "source_name": "HBO FAMILY-IXP [IP 138.59.177.78]",
-          "from_list": "Lista 2",
-          "from_number": 355,
-          "group": "Películas",
-          "logo": "logos/lista2/11d0e5a776c6.png",
-          "url": "http://138.59.177.78:9999/play/a097/index.m3u8",
-          "guide": {
-            "source": "gatotv",
-            "source_id": "gatotv:hbo_family_latinoamerica"
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 23.98,
-            "kbps": 2432,
-            "ok": true,
-            "interlaced": false
-          }
+          "audio_corr": 0.86
         }
       ]
     },
@@ -12286,7 +12588,7 @@
         "source": "gatotv",
         "source_id": "gatotv:hbo_plus"
       },
-      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.",
+      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-07 (pedido «Haz nuevas pruebas de clones lista 2, también identifica cada canal de la lista 2, dale logo y epg»): clones por audio de a pares (130 s, pista en español, envolvente, desfase ±90 s) en dos pasadas; clon = ≥ 0,6 en una pasada (ESPN: en las dos). outputs/lista2-revision-20261107.",
       "backups": [
         {
           "tvg_id": "PublicDirect.e3aac7e984eabd6b5bb15019",
@@ -12419,6 +12721,50 @@
             "ok": true,
             "interlaced": true
           }
+        },
+        {
+          "tvg_id": "PublicDirect.a5eed3b841e19a98f94e2d72",
+          "display_name": "HBO Plus",
+          "source_name": "HBO+ HD [IP 181.78.82.130]",
+          "from_list": "Lista 2",
+          "from_number": 212,
+          "group": "Películas",
+          "logo": "logos/lista2/fdba246778ca.png",
+          "url": "http://181.78.82.130:8000/play/a0re/index.m3u8",
+          "guide": {
+            "source": "gatotv",
+            "source_id": "gatotv:hbo_plus"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 0,
+            "kbps": 0,
+            "ok": true
+          },
+          "audio_corr": 0.832
+        },
+        {
+          "tvg_id": "PublicDirect.5fe44230ccba52e2f9fe2291",
+          "display_name": "HBO Plus",
+          "source_name": "HBO Plus [IP 200.115.120.1]",
+          "from_list": "Lista 2",
+          "from_number": 218,
+          "group": "Películas",
+          "logo": "logos/lista2/5d60a21c5de1.png",
+          "url": "http://200.115.120.1:8000/play/ca137/index.m3u8",
+          "guide": {
+            "source": "gatotv",
+            "source_id": "gatotv:hbo_plus"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 0,
+            "kbps": 0,
+            "ok": true
+          },
+          "audio_corr": 0.711
         }
       ]
     },
@@ -12556,7 +12902,7 @@
         "source": "gatotv",
         "source_id": "gatotv:hbo_xtreme"
       },
-      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.",
+      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-07 (pedido «Haz nuevas pruebas de clones lista 2, también identifica cada canal de la lista 2, dale logo y epg»): clones por audio de a pares (130 s, pista en español, envolvente, desfase ±90 s) en dos pasadas; clon = ≥ 0,6 en una pasada (ESPN: en las dos). outputs/lista2-revision-20261107.",
       "backups": [
         {
           "tvg_id": "PublicDirect.28662cead2191552d8aa5a24",
@@ -12799,6 +13145,28 @@
             "ok": true,
             "interlaced": true
           }
+        },
+        {
+          "tvg_id": "PublicDirect.609e478a6ca6804b5a9df79e",
+          "display_name": "HBO Xtreme",
+          "source_name": "HBO EXTREME-IXP [IP 138.59.177.78]",
+          "from_list": "Lista 2",
+          "from_number": 223,
+          "group": "Películas",
+          "logo": "logos/lista2/hbo_xtreme.png",
+          "url": "http://138.59.177.78:9999/play/a09a/index.m3u8",
+          "guide": {
+            "source": "gatotv",
+            "source_id": "gatotv:hbo_xtreme"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 0,
+            "kbps": 0,
+            "ok": true
+          },
+          "audio_corr": 0.975
         }
       ]
     },
@@ -12812,7 +13180,7 @@
         "source": "pa1",
         "source_id": "Canal.History.(Panamá).pa"
       },
-      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-03 (tercera ronda, «Da otra pasada de búsqueda de clones»; regla: «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261103c); principal = mejor resolución, bitrate y fps; respaldos en ese orden.",
+      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-03 (tercera ronda, «Da otra pasada de búsqueda de clones»; regla: «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261103c); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-07 (pedido «Haz nuevas pruebas de clones lista 2, también identifica cada canal de la lista 2, dale logo y epg»): clones por audio de a pares (130 s, pista en español, envolvente, desfase ±90 s) en dos pasadas; clon = ≥ 0,6 en una pasada (ESPN: en las dos). outputs/lista2-revision-20261107.",
       "backups": [
         {
           "tvg_id": "PublicDirect.70c522a063969c9759068c62",
@@ -12923,6 +13291,28 @@
             "ok": true,
             "interlaced": true
           }
+        },
+        {
+          "tvg_id": "PublicDirect.829dfbf6cbe7ea4f023ed319",
+          "display_name": "History Channel",
+          "source_name": "History Channel HD [IP 45.173.231.22]",
+          "from_list": "Lista 2",
+          "from_number": 228,
+          "group": "Misceláneos",
+          "logo": "logos/lista2/e46c7431505e.png",
+          "url": "http://45.173.231.22:8000/play/a05y/index.m3u8",
+          "guide": {
+            "source": "pa1",
+            "source_id": "Canal.History.(Panamá).pa"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 0,
+            "kbps": 0,
+            "ok": true
+          },
+          "audio_corr": 0.993
         }
       ]
     },
@@ -12936,7 +13326,7 @@
         "source": "claro-guia",
         "source_id": "claro:colombia:927658"
       },
-      "verified": "2026-11-03 (tercera ronda, «Da otra pasada de búsqueda de clones»; regla: «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261103c); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-03 (pedido del usuario «deja ese servidor como principal… de cada canal que tenga backups»): la señal de 177.234.218.66 (AC-3 español, probada fluida a 29,97 fps) pasa a principal; la anterior queda primera en los respaldos.",
+      "verified": "2026-11-03 (tercera ronda, «Da otra pasada de búsqueda de clones»; regla: «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261103c); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-03 (pedido del usuario «deja ese servidor como principal… de cada canal que tenga backups»): la señal de 177.234.218.66 (AC-3 español, probada fluida a 29,97 fps) pasa a principal; la anterior queda primera en los respaldos.; 2026-11-07 (pedido «Haz nuevas pruebas de clones lista 2, también identifica cada canal de la lista 2, dale logo y epg»): clones por audio de a pares (130 s, pista en español, envolvente, desfase ±90 s) en dos pasadas; clon = ≥ 0,6 en una pasada (ESPN: en las dos). outputs/lista2-revision-20261107.",
       "backups": [
         {
           "tvg_id": "PublicDirect.c2de00b5d0532e161f29242a",
@@ -13267,21 +13657,29 @@
             "ok": true,
             "interlaced": true
           }
-        }
-      ]
-    },
-    "PublicDirect.4f6975eae324c2c1f994c84f": {
-      "display_name": "Investigation Discovery",
-      "list": "Lista 2",
-      "number": 112,
-      "group": "Misceláneos",
-      "source_name": "ID Discovery [IP 138.94.3.106]",
-      "guide": {
-        "source": "claro-guia",
-        "source_id": "claro:colombia:927658"
-      },
-      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-03 (tercera ronda, «Da otra pasada de búsqueda de clones»; regla: «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261103c); principal = mejor resolución, bitrate y fps; respaldos en ese orden.",
-      "backups": [
+        },
+        {
+          "tvg_id": "PublicDirect.4f6975eae324c2c1f994c84f",
+          "display_name": "Investigation Discovery",
+          "source_name": "ID Discovery [IP 138.94.3.106]",
+          "from_list": "Lista 2",
+          "from_number": 112,
+          "group": "Misceláneos",
+          "logo": "logos/lista2/5068e99dfdd8.png",
+          "url": "http://138.94.3.106:8000/play/a03w/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:927658"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 0,
+            "kbps": 0,
+            "ok": true
+          },
+          "audio_corr": 0.928
+        },
         {
           "tvg_id": "PublicDirect.42c418e7b30c1db1f8705680",
           "display_name": "Investigation Discovery",
@@ -13325,6 +13723,28 @@
             "ok": true,
             "interlaced": true
           }
+        },
+        {
+          "tvg_id": "PublicDirect.9d3516a195b67ada4e560cf0",
+          "display_name": "Investigation Discovery",
+          "source_name": "DISCOVERY ID [IP 38.134.250.110]",
+          "from_list": "Lista 2",
+          "from_number": 234,
+          "group": "Misceláneos",
+          "logo": "logos/lista2/5068e99dfdd8.png",
+          "url": "http://38.134.250.110:8000/play/a00h/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:927658"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 0,
+            "kbps": 0,
+            "ok": true
+          },
+          "audio_corr": 0.799
         }
       ]
     },
@@ -13458,86 +13878,6 @@
         }
       ]
     },
-    "PublicDirect.000f14242d85e934a73066e8": {
-      "display_name": "National Geographic",
-      "list": "Lista 2",
-      "number": 114,
-      "group": "Misceláneos",
-      "source_name": "Nat Geo HD [IP 72.1.184.5]",
-      "guide": {
-        "source": "mx1",
-        "source_id": "Canal.National.Geographic.(México).mx"
-      },
-      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.",
-      "backups": [
-        {
-          "tvg_id": "PublicDirect.94baefbcd1c5c229cb011f45",
-          "display_name": "National Geographic",
-          "source_name": "Nat Geo HD [IP 138.59.177.78] · señal 2",
-          "from_list": "Lista 2",
-          "from_number": 412,
-          "group": "Misceláneos",
-          "logo": "logos/lista2/4deec34b7976.png",
-          "url": "http://138.59.177.78:9999/play/a0fd/index.m3u8",
-          "guide": {
-            "source": "co1",
-            "source_id": "NAT.GEO.co"
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 29.97,
-            "kbps": 2376,
-            "ok": true,
-            "interlaced": true
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.397960c8f5b1026d7c771aaa",
-          "display_name": "National Geographic",
-          "source_name": "Nat Geo HD [IP 45.166.93.156]",
-          "from_list": "Lista 2",
-          "from_number": 413,
-          "group": "Misceláneos",
-          "logo": "logos/lista2/4deec34b7976.png",
-          "url": "http://45.166.93.156:9999/play/a0i1/index.m3u8",
-          "guide": {
-            "source": "co1",
-            "source_id": "NAT.GEO.co"
-          },
-          "quality": {
-            "height": 0,
-            "width": 0,
-            "fps": 0.0,
-            "kbps": 0,
-            "ok": false,
-            "interlaced": false
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.765c046abf19047564e8770f",
-          "display_name": "National Geographic",
-          "source_name": "Nat-GeoHD [IP 167.249.23.102]",
-          "from_list": "Lista 2",
-          "from_number": 414,
-          "group": "Misceláneos",
-          "logo": "logos/lista2/4deec34b7976.png",
-          "url": "http://167.249.23.102:8000/play/Nat-GeoHD/index.m3u8",
-          "guide": {
-            "source": "co1",
-            "source_id": "NAT.GEO.co"
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 29.97,
-            "kbps": 2376,
-            "ok": true,
-            "interlaced": true
-          }
-        }
-      ]
-    },
     "IPTVOrg.MTVFlowLatino.us-SD": {
       "display_name": "MTV Flow Latino (720p)",
       "list": "Lista 2",
@@ -13584,7 +13924,7 @@
         "source": "co1",
         "source_id": "NAT.GEO.co"
       },
-      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.",
+      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-07 (pedido «Haz nuevas pruebas de clones lista 2, también identifica cada canal de la lista 2, dale logo y epg»): clones por audio de a pares (130 s, pista en español, envolvente, desfase ±90 s) en dos pasadas; clon = ≥ 0,6 en una pasada (ESPN: en las dos). outputs/lista2-revision-20261107.; 2026-11-07: recibe 3 respaldos del 114 (National Geographic), que no abrió en dos intentos y fue a la papelera; mismo canal según el fotograma, sin prueba de audio.",
       "backups": [
         {
           "tvg_id": "PublicDirect.2fef14bd9771fbcbc8d7101c",
@@ -13629,21 +13969,29 @@
             "ok": true,
             "interlaced": false
           }
-        }
-      ]
-    },
-    "PublicDirect.1896252947da838aa08e5139": {
-      "display_name": "National Geographic",
-      "list": "Lista 2",
-      "number": 116,
-      "group": "Misceláneos",
-      "source_name": "Nat Geo HD [IP 181.78.197.59]",
-      "guide": {
-        "source": "co1",
-        "source_id": "NAT.GEO.co"
-      },
-      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.",
-      "backups": [
+        },
+        {
+          "tvg_id": "PublicDirect.1896252947da838aa08e5139",
+          "display_name": "National Geographic",
+          "source_name": "Nat Geo HD [IP 181.78.197.59]",
+          "from_list": "Lista 2",
+          "from_number": 116,
+          "group": "Misceláneos",
+          "logo": "logos/lista2/4deec34b7976.png",
+          "url": "http://181.78.197.59:8000/play/a083/index.m3u8",
+          "guide": {
+            "source": "co1",
+            "source_id": "NAT.GEO.co"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 0,
+            "kbps": 0,
+            "ok": true
+          },
+          "audio_corr": 0.993
+        },
         {
           "tvg_id": "PublicDirect.5ccbf698d00dc2fb62882172",
           "display_name": "National Geographic",
@@ -13816,6 +14164,72 @@
             "width": 1920,
             "fps": 6.08,
             "kbps": 774,
+            "ok": true,
+            "interlaced": true
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.94baefbcd1c5c229cb011f45",
+          "display_name": "National Geographic",
+          "source_name": "Nat Geo HD [IP 138.59.177.78] · señal 2",
+          "from_list": "Lista 2",
+          "from_number": 412,
+          "group": "Misceláneos",
+          "logo": "logos/lista2/4deec34b7976.png",
+          "url": "http://138.59.177.78:9999/play/a0fd/index.m3u8",
+          "guide": {
+            "source": "co1",
+            "source_id": "NAT.GEO.co"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 2376,
+            "ok": true,
+            "interlaced": true
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.397960c8f5b1026d7c771aaa",
+          "display_name": "National Geographic",
+          "source_name": "Nat Geo HD [IP 45.166.93.156]",
+          "from_list": "Lista 2",
+          "from_number": 413,
+          "group": "Misceláneos",
+          "logo": "logos/lista2/4deec34b7976.png",
+          "url": "http://45.166.93.156:9999/play/a0i1/index.m3u8",
+          "guide": {
+            "source": "co1",
+            "source_id": "NAT.GEO.co"
+          },
+          "quality": {
+            "height": 0,
+            "width": 0,
+            "fps": 0.0,
+            "kbps": 0,
+            "ok": false,
+            "interlaced": false
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.765c046abf19047564e8770f",
+          "display_name": "National Geographic",
+          "source_name": "Nat-GeoHD [IP 167.249.23.102]",
+          "from_list": "Lista 2",
+          "from_number": 414,
+          "group": "Misceláneos",
+          "logo": "logos/lista2/4deec34b7976.png",
+          "url": "http://167.249.23.102:8000/play/Nat-GeoHD/index.m3u8",
+          "guide": {
+            "source": "co1",
+            "source_id": "NAT.GEO.co"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 2376,
             "ok": true,
             "interlaced": true
           }
@@ -14232,7 +14646,7 @@
         "source": "claro-guia",
         "source_id": "claro:colombia:773875"
       },
-      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.",
+      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-07 (pedido «Haz nuevas pruebas de clones lista 2, también identifica cada canal de la lista 2, dale logo y epg»): clones por audio de a pares (130 s, pista en español, envolvente, desfase ±90 s) en dos pasadas; clon = ≥ 0,6 en una pasada (ESPN: en las dos). outputs/lista2-revision-20261107.",
       "backups": [
         {
           "tvg_id": "PublicDirect.2f63850f0c5ee9da8791017b",
@@ -14277,21 +14691,29 @@
             "ok": true,
             "interlaced": true
           }
-        }
-      ]
-    },
-    "PublicDirect.7554066ef6c62834091c13b8": {
-      "display_name": "TNT",
-      "list": "Lista 2",
-      "number": 123,
-      "group": "Películas",
-      "source_name": "TNT HD [IP 45.173.231.22]",
-      "guide": {
-        "source": "claro-guia",
-        "source_id": "claro:colombia:773875"
-      },
-      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.",
-      "backups": [
+        },
+        {
+          "tvg_id": "PublicDirect.7554066ef6c62834091c13b8",
+          "display_name": "TNT",
+          "source_name": "TNT HD [IP 45.173.231.22]",
+          "from_list": "Lista 2",
+          "from_number": 123,
+          "group": "Películas",
+          "logo": "logos/lista2/ffdb88d6fb18.png",
+          "url": "http://45.173.231.22:8000/play/a060/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:773875"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 0,
+            "kbps": 0,
+            "ok": true
+          },
+          "audio_corr": 0.994
+        },
         {
           "tvg_id": "PublicDirect.d0ff393b5e69a7926553f135",
           "display_name": "TNT",
@@ -14420,246 +14842,6 @@
             "width": 1920,
             "fps": 29.97,
             "kbps": 1836,
-            "ok": true,
-            "interlaced": true
-          }
-        }
-      ]
-    },
-    "PublicDirect.ac9d91daa7e403bccc9b4464": {
-      "display_name": "Universal Channel",
-      "list": "Lista 2",
-      "number": 124,
-      "group": "Películas",
-      "source_name": "UNIVERSAL [IP 138.59.177.78]",
-      "guide": {
-        "source": "claro-guia",
-        "source_id": "claro:colombia:927639"
-      },
-      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.",
-      "backups": [
-        {
-          "tvg_id": "PublicDirect.f70b307c60292b91e739a622",
-          "display_name": "Universal Channel",
-          "source_name": "UNIVERSAL CHANNEL HD [IP 45.173.231.22]",
-          "from_list": "Lista 2",
-          "from_number": 479,
-          "group": "Películas",
-          "logo": "logos/lista2/93453859f775.png",
-          "url": "http://45.173.231.22:8000/play/a02d/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:927639"
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 29.97,
-            "kbps": 1222,
-            "ok": true,
-            "interlaced": true
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.0dfc11743d308e161d88323e",
-          "display_name": "Universal Channel",
-          "source_name": "UNIVERSAL CHANNEL [IP 181.78.211.244]",
-          "from_list": "Lista 2",
-          "from_number": 481,
-          "group": "Películas",
-          "logo": "logos/lista2/93453859f775.png",
-          "url": "http://181.78.211.244:8000/play/a0bw/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:927639"
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 29.97,
-            "kbps": 1216,
-            "ok": true,
-            "interlaced": true
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.e906fb6f8901f6080b49f785",
-          "display_name": "Universal Channel",
-          "source_name": "UNIVERSAL CHANNEL HD [IP 181.224.200.5]",
-          "from_list": "Lista 2",
-          "from_number": 480,
-          "group": "Películas",
-          "logo": "logos/lista2/93453859f775.png",
-          "url": "http://181.224.200.5:2277/play/a0ak/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:927639"
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 59.94,
-            "kbps": 519,
-            "ok": true,
-            "interlaced": false
-          }
-        }
-      ]
-    },
-    "PublicDirect.08b71ab74a14ddfe4de5715b": {
-      "display_name": "Universal Channel",
-      "list": "Lista 2",
-      "number": 125,
-      "group": "Misceláneos",
-      "source_name": "SRT UNIVERSAL [IP 181.78.12.119]",
-      "guide": {
-        "source": "claro-guia",
-        "source_id": "claro:colombia:927639"
-      },
-      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.",
-      "backups": [
-        {
-          "tvg_id": "PublicDirect.53d7d48393bde15bef051655",
-          "display_name": "Universal Channel",
-          "source_name": "@DIG - UNIVERSAL CHANNEL HD [IP 181.78.14.26]",
-          "from_list": "Lista 2",
-          "from_number": 712,
-          "group": "Películas",
-          "logo": "logos/lista2/93453859f775.png",
-          "url": "http://181.78.14.26:4000/play/a03f/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:927639"
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 29.97,
-            "kbps": 3884,
-            "ok": true,
-            "interlaced": true
-          }
-        }
-      ]
-    },
-    "PublicDirect.f3e686834ca7d7d97c85f348": {
-      "display_name": "Universal Cinema Este",
-      "list": "Lista 2",
-      "number": 126,
-      "group": "Películas",
-      "source_name": "UNIVERSAL CINEMA ESTE HD [IP 181.119.177.253]",
-      "guide": {
-        "source": "claro-guia",
-        "source_id": "claro:colombia:1194071"
-      },
-      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.",
-      "backups": [
-        {
-          "tvg_id": "PublicDirect.96f54058e30b40aa7d89115d",
-          "display_name": "Universal Cinema Este",
-          "source_name": "UNIVERSAL-CINEMA-ESTEHD [IP 167.249.23.102]",
-          "from_list": "Lista 2",
-          "from_number": 731,
-          "group": "Películas",
-          "logo": "logos/lista2/26b4119750c7.png",
-          "url": "http://167.249.23.102:8000/play/UNIVERSAL-CINEMA-ESTEHD/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:1194071"
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 29.97,
-            "kbps": 1532,
-            "ok": true,
-            "interlaced": true
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.c24bafe955d4b278233073d8",
-          "display_name": "Universal Cinema Este",
-          "source_name": "UNIVERSAL CINEMA ESTE HD [IP 45.166.93.156]",
-          "from_list": "Lista 2",
-          "from_number": 732,
-          "group": "Películas",
-          "logo": "logos/lista2/26b4119750c7.png",
-          "url": "http://45.166.93.156:9999/play/a0i9/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:1194071"
-          },
-          "quality": {
-            "height": 0,
-            "width": 0,
-            "fps": 0.0,
-            "kbps": 0,
-            "ok": false,
-            "interlaced": false
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.6571a71732b0a12994095f13",
-          "display_name": "Universal Cinema Este",
-          "source_name": "UNIVERSAL CINEMA ESTE HD [IP 181.78.106.127]",
-          "from_list": "Lista 2",
-          "from_number": 733,
-          "group": "Películas",
-          "logo": "logos/lista2/26b4119750c7.png",
-          "url": "http://181.78.106.127:5000/play/ca083/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:1194071"
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 29.97,
-            "kbps": 1532,
-            "ok": true,
-            "interlaced": true
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.6c35b765909beafc8055510c",
-          "display_name": "Universal Cinema Este",
-          "source_name": "UNIVERSAL CINEMA ESTE HD [IP 72.1.184.5]",
-          "from_list": "Lista 2",
-          "from_number": 735,
-          "group": "Películas",
-          "logo": "logos/lista2/26b4119750c7.png",
-          "url": "http://72.1.184.5:8089/play/a06g/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:1194071"
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 29.97,
-            "kbps": 1517,
-            "ok": true,
-            "interlaced": true
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.f5d780fff0f3a2146af424bb",
-          "display_name": "Universal Cinema Este",
-          "source_name": "UNIVERSAL CINEMA ESTE HD [IP 138.59.177.78]",
-          "from_list": "Lista 2",
-          "from_number": 489,
-          "group": "Películas",
-          "logo": "logos/lista2/26b4119750c7.png",
-          "url": "http://138.59.177.78:9999/play/a0fj/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:1194071"
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 29.97,
-            "kbps": 1517,
             "ok": true,
             "interlaced": true
           }
@@ -14968,7 +15150,7 @@
         "source": "claro-guia",
         "source_id": "claro:colombia:927626"
       },
-      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.",
+      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-07 (pedido «Haz nuevas pruebas de clones lista 2, también identifica cada canal de la lista 2, dale logo y epg»): clones por audio de a pares (130 s, pista en español, envolvente, desfase ±90 s) en dos pasadas; clon = ≥ 0,6 en una pasada (ESPN: en las dos). outputs/lista2-revision-20261107.",
       "backups": [
         {
           "tvg_id": "PublicDirect.15e0854ad4db1c8cbd9d6239",
@@ -15013,6 +15195,28 @@
             "ok": true,
             "interlaced": true
           }
+        },
+        {
+          "tvg_id": "PublicDirect.61775a26cb5c62126e2b2749",
+          "display_name": "Warner Channel",
+          "source_name": "Warner [IP 181.78.82.130]",
+          "from_list": "Lista 2",
+          "from_number": 290,
+          "group": "Películas",
+          "logo": "logos/lista2/b3ed65890466.png",
+          "url": "http://181.78.82.130:8000/play/a0oq/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:927626"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 0,
+            "kbps": 0,
+            "ok": true
+          },
+          "audio_corr": 0.974
         }
       ]
     },
@@ -15661,6 +15865,616 @@
             "fps": 0.0,
             "kbps": 0,
             "ok": false,
+            "interlaced": false
+          }
+        }
+      ]
+    },
+    "PublicDirect.9b6311dbc0425cf6e545649a": {
+      "display_name": "HBO",
+      "list": "Lista 1",
+      "number": 66,
+      "group": "Cine",
+      "source_name": "HBO-IXP [IP 138.59.177.78]",
+      "guide": {
+        "source": "gatotv",
+        "source_id": "gatotv:hbo_latinoamerica"
+      },
+      "verified": "2026-11-07 (pedido «Haz nuevas pruebas de clones lista 2, también identifica cada canal de la lista 2, dale logo y epg»): clones por audio de a pares (130 s, pista en español, envolvente, desfase ±90 s) en dos pasadas; clon = ≥ 0,6 en una pasada (ESPN: en las dos). outputs/lista2-revision-20261107.",
+      "backups": [
+        {
+          "tvg_id": "PublicDirect.a0c86ca5a9d600ea527243eb",
+          "display_name": "HBO",
+          "source_name": "CANAL 62 HBO HD [IP 45.5.118.152]",
+          "from_list": "Lista 2",
+          "from_number": 197,
+          "group": "Películas",
+          "logo": "",
+          "url": "http://45.5.118.152:8000/play/a0bm/index.m3u8",
+          "guide": {
+            "source": "",
+            "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 0,
+            "kbps": 0,
+            "ok": true
+          },
+          "audio_corr": 0.997
+        }
+      ]
+    },
+    "PublicDirect.d0ee5354a75d4bf0fe91c9c0": {
+      "display_name": "ALCATEL BITME MD1",
+      "list": "Lista 2",
+      "number": 129,
+      "group": "Misceláneos",
+      "source_name": "ALCATEL BITME MD1 [IP 177.234.218.66]",
+      "guide": {
+        "source": "",
+        "source_id": ""
+      },
+      "verified": "2026-11-07 (pedido «Haz nuevas pruebas de clones lista 2, también identifica cada canal de la lista 2, dale logo y epg»): clones por audio de a pares (130 s, pista en español, envolvente, desfase ±90 s) en dos pasadas; clon = ≥ 0,6 en una pasada (ESPN: en las dos). outputs/lista2-revision-20261107.",
+      "backups": [
+        {
+          "tvg_id": "PublicDirect.752c78c1625e51b3999ab40f",
+          "display_name": "Bitme",
+          "source_name": "BITME [IP 167.249.23.102]",
+          "from_list": "Lista 2",
+          "from_number": 132,
+          "group": "Misceláneos",
+          "logo": "",
+          "url": "http://167.249.23.102:8000/play/a0ii/index.m3u8",
+          "guide": {
+            "source": "",
+            "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 0,
+            "kbps": 0,
+            "ok": true
+          },
+          "audio_corr": 0.727
+        }
+      ]
+    },
+    "PublicDirect.7e4fe7ff47c91a001130c27b": {
+      "display_name": "Discovery Turbo",
+      "list": "Lista 2",
+      "number": 152,
+      "group": "Misceláneos",
+      "source_name": "Z DISCOVERY TURBO [IP 177.234.218.66]",
+      "guide": {
+        "source": "claro-guia",
+        "source_id": "claro:colombia:790838"
+      },
+      "verified": "2026-11-07 (pedido «Haz nuevas pruebas de clones lista 2, también identifica cada canal de la lista 2, dale logo y epg»): clones por audio de a pares (130 s, pista en español, envolvente, desfase ±90 s) en dos pasadas; clon = ≥ 0,6 en una pasada (ESPN: en las dos). outputs/lista2-revision-20261107.",
+      "backups": [
+        {
+          "tvg_id": "PublicDirect.a5ab4fb07b0b3f13f591b009",
+          "display_name": "Discovery Turbo",
+          "source_name": "Discovery Turbo [IP 38.134.250.110]",
+          "from_list": "Lista 2",
+          "from_number": 151,
+          "group": "Misceláneos",
+          "logo": "logos/catalogue/discoveryturbolatinamerica-us.png",
+          "url": "http://38.134.250.110:8000/play/a01y/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:790838"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 0,
+            "kbps": 0,
+            "ok": true
+          },
+          "audio_corr": 0.929
+        },
+        {
+          "tvg_id": "PublicDirect.da7efe7903c53b335396d8fb",
+          "display_name": "Discovery Turbo",
+          "source_name": "@DIG - DISCOVERY TURBO HD [IP 181.78.14.26]",
+          "from_list": "Lista 2",
+          "from_number": 153,
+          "group": "Misceláneos",
+          "logo": "logos/lista2/58c7e3697649.png",
+          "url": "http://181.78.14.26:4000/play/a02z/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:790838"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 0,
+            "kbps": 0,
+            "ok": true
+          },
+          "audio_corr": 0.697
+        }
+      ]
+    },
+    "IPTVOrg.MTVBiggestPop.us-BR": {
+      "display_name": "MTV Biggest Pop BR (1080p)",
+      "list": "Lista 2",
+      "number": 242,
+      "group": "Música",
+      "source_name": "MTV Biggest Pop BR (1080p)",
+      "guide": {
+        "source": "",
+        "source_id": ""
+      },
+      "verified": "2026-11-07 (pedido «Haz nuevas pruebas de clones lista 2, también identifica cada canal de la lista 2, dale logo y epg»): clones por audio de a pares (130 s, pista en español, envolvente, desfase ±90 s) en dos pasadas; clon = ≥ 0,6 en una pasada (ESPN: en las dos). outputs/lista2-revision-20261107.",
+      "backups": [
+        {
+          "tvg_id": "IPTVOrg.MTVBiggestPop.us-CA",
+          "display_name": "MTV Biggest Pop",
+          "source_name": "MTV Biggest Pop CA (1080p)",
+          "from_list": "Lista 2",
+          "from_number": 243,
+          "group": "Música",
+          "logo": "",
+          "url": "https://jmp2.uk/plu-65410176770cf1000866bf31.m3u8",
+          "guide": {
+            "source": "",
+            "source_id": ""
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 0,
+            "kbps": 0,
+            "ok": true
+          },
+          "audio_corr": 0.987
+        }
+      ]
+    },
+    "PublicDirect.1b3c38cc1cae4e7c001a8806": {
+      "display_name": "Max Anime",
+      "list": "Lista 2",
+      "number": 239,
+      "group": "Misceláneos",
+      "source_name": "Max Anime [IP 181.79.86.130]",
+      "guide": {
+        "source": "",
+        "source_id": ""
+      },
+      "verified": "2026-11-07 (pedido «Haz nuevas pruebas de clones lista 2, también identifica cada canal de la lista 2, dale logo y epg»): clones por audio de a pares (130 s, pista en español, envolvente, desfase ±90 s) en dos pasadas; clon = ≥ 0,6 en una pasada (ESPN: en las dos). outputs/lista2-revision-20261107.",
+      "backups": [
+        {
+          "tvg_id": "PublicDirect.4cc955676f3165215cdeb3b0",
+          "display_name": "Max Anime",
+          "source_name": "Max Anime [IP 138.94.3.106]",
+          "from_list": "Lista 2",
+          "from_number": 240,
+          "group": "Misceláneos",
+          "logo": "",
+          "url": "http://138.94.3.106:8000/play/a07z/index.m3u8",
+          "guide": {
+            "source": "",
+            "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 0,
+            "kbps": 0,
+            "ok": true
+          },
+          "audio_corr": 0.911
+        },
+        {
+          "tvg_id": "IPTVOrg.MAXAnime.ve-SD",
+          "display_name": "Max Anime",
+          "source_name": "MAX Anime (1080p)",
+          "from_list": "Lista 2",
+          "from_number": 241,
+          "group": "Animación",
+          "logo": "",
+          "url": "https://cdnlive.klicgo.net/maxanime/live/playlist.m3u8",
+          "guide": {
+            "source": "",
+            "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 0,
+            "kbps": 0,
+            "ok": true
+          },
+          "audio_corr": 0.905
+        }
+      ]
+    },
+    "PublicDirect.f753ad9eb3f48c300c6fa4b4": {
+      "display_name": "National Geographic",
+      "list": "Lista 2",
+      "number": 251,
+      "group": "Misceláneos",
+      "source_name": "Nat Geo HD [IP 138.59.177.78]",
+      "guide": {
+        "source": "co1",
+        "source_id": "NAT.GEO.co"
+      },
+      "verified": "2026-11-07 (pedido «Haz nuevas pruebas de clones lista 2, también identifica cada canal de la lista 2, dale logo y epg»): clones por audio de a pares (130 s, pista en español, envolvente, desfase ±90 s) en dos pasadas; clon = ≥ 0,6 en una pasada (ESPN: en las dos). outputs/lista2-revision-20261107.",
+      "backups": [
+        {
+          "tvg_id": "PublicDirect.b5fdf6c75f79bfb4bf24602c",
+          "display_name": "National Geographic",
+          "source_name": "@DIG - NATGEO HD [IP 181.78.14.26]",
+          "from_list": "Lista 2",
+          "from_number": 253,
+          "group": "Misceláneos",
+          "logo": "logos/lista2/4deec34b7976.png",
+          "url": "http://181.78.14.26:4000/play/a04p/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:728274"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 0,
+            "kbps": 0,
+            "ok": true
+          },
+          "audio_corr": 0.882
+        }
+      ]
+    },
+    "PublicDirect.c239c57686df265bb88b82af": {
+      "display_name": "Studio Universal",
+      "list": "Lista 2",
+      "number": 258,
+      "group": "Películas",
+      "source_name": "@DIG - STUDIO UNIVERSAL HD IN [IP 181.78.14.26]",
+      "guide": {
+        "source": "claro-guia",
+        "source_id": "claro:colombia:927654"
+      },
+      "verified": "2026-11-07 (pedido «Haz nuevas pruebas de clones lista 2, también identifica cada canal de la lista 2, dale logo y epg»): clones por audio de a pares (130 s, pista en español, envolvente, desfase ±90 s) en dos pasadas; clon = ≥ 0,6 en una pasada (ESPN: en las dos). outputs/lista2-revision-20261107.",
+      "backups": [
+        {
+          "tvg_id": "PublicDirect.aa2e0c5477ad6f0d06e77063",
+          "display_name": "Studio Universal",
+          "source_name": "@DIG - STUDIO UNIVERSAL HD [IP 181.78.14.26]",
+          "from_list": "Lista 2",
+          "from_number": 257,
+          "group": "Películas",
+          "logo": "",
+          "url": "http://181.78.14.26:4000/play/a03e/index.m3u8",
+          "guide": {
+            "source": "mx1",
+            "source_id": "Canal.Studio.Universal.(México).mx"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 0,
+            "kbps": 0,
+            "ok": true
+          },
+          "audio_corr": 0.845
+        },
+        {
+          "tvg_id": "PublicDirect.81e9474de15b1c7f4335e742",
+          "display_name": "Studio Universal",
+          "source_name": "UNIVERSAL [IP 38.134.250.110]",
+          "from_list": "Lista 2",
+          "from_number": 284,
+          "group": "Películas",
+          "logo": "logos/lista2/93453859f775.png",
+          "url": "http://38.134.250.110:8000/play/a005/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:927639"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 0,
+            "kbps": 0,
+            "ok": true
+          },
+          "audio_corr": 0.862
+        }
+      ]
+    },
+    "PublicDirect.a52c913a30233f55dc54d10c": {
+      "display_name": "TCM",
+      "list": "Lista 2",
+      "number": 266,
+      "group": "Películas",
+      "source_name": "Z TCM [IP 177.234.218.66]",
+      "guide": {
+        "source": "uy1",
+        "source_id": "TCM.uy"
+      },
+      "verified": "2026-11-07 (pedido «Haz nuevas pruebas de clones lista 2, también identifica cada canal de la lista 2, dale logo y epg»): clones por audio de a pares (130 s, pista en español, envolvente, desfase ±90 s) en dos pasadas; clon = ≥ 0,6 en una pasada (ESPN: en las dos). outputs/lista2-revision-20261107.",
+      "backups": [
+        {
+          "tvg_id": "PublicDirect.f5ff1fc4a352eef23ab8b2de",
+          "display_name": "TCM",
+          "source_name": "@DIG - TCM HD [IP 181.78.14.26]",
+          "from_list": "Lista 2",
+          "from_number": 267,
+          "group": "Películas",
+          "logo": "logos/lista2/9857f32f74d4.png",
+          "url": "http://181.78.14.26:4000/play/a04d/index.m3u8",
+          "guide": {
+            "source": "uy1",
+            "source_id": "TCM.uy"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 0,
+            "kbps": 0,
+            "ok": true
+          },
+          "audio_corr": 0.692
+        },
+        {
+          "tvg_id": "IPTVOrg.TCMLatinAmerica.us-Chile",
+          "display_name": "TCM",
+          "source_name": "TCM Latin America Chile (1080p)",
+          "from_list": "Lista 2",
+          "from_number": 269,
+          "group": "Sin categoría",
+          "logo": "",
+          "url": "https://streaming.onnethn.com/TCM_HD/playlist.m3u8",
+          "guide": {
+            "source": "",
+            "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 0,
+            "kbps": 0,
+            "ok": true
+          },
+          "audio_corr": 0.927
+        }
+      ]
+    },
+    "PublicDirect.c9a179f36540c93c7e6a67b6": {
+      "display_name": "HBO Family",
+      "list": "Lista 2",
+      "number": 202,
+      "group": "Películas",
+      "source_name": "HBO Family HD [IP 181.78.82.130]",
+      "guide": {
+        "source": "gatotv",
+        "source_id": "gatotv:hbo_family_latinoamerica"
+      },
+      "verified": "2026-11-07: recibe 10 respaldos del 106 (HBO Family), que no abrió en dos intentos y fue a la papelera; mismo canal según el fotograma, sin prueba de audio.",
+      "backups": [
+        {
+          "tvg_id": "PublicDirect.de8c7abfcbebb9419cf6347f",
+          "display_name": "HBO Family",
+          "source_name": "HBO Family HD [IP 181.78.197.59]",
+          "from_list": "Lista 2",
+          "from_number": 356,
+          "group": "Películas",
+          "logo": "logos/lista2/11d0e5a776c6.png",
+          "url": "http://181.78.197.59:8000/play/a07g/index.m3u8",
+          "guide": {
+            "source": "gatotv",
+            "source_id": "gatotv:hbo_family_latinoamerica"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 23.98,
+            "kbps": 2412,
+            "ok": true,
+            "interlaced": false
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.0d6d3840583e80578bf2d9d7",
+          "display_name": "HBO Family",
+          "source_name": "HBO Family HD [IP 181.119.177.253]",
+          "from_list": "Lista 2",
+          "from_number": 353,
+          "group": "Películas",
+          "logo": "logos/lista2/11d0e5a776c6.png",
+          "url": "http://181.119.177.253:8000/play/a010/index.m3u8",
+          "guide": {
+            "source": "gatotv",
+            "source_id": "gatotv:hbo_family_latinoamerica"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 23.98,
+            "kbps": 2412,
+            "ok": true,
+            "interlaced": false
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.be7f7ba12ab6004903c96227",
+          "display_name": "HBO Family",
+          "source_name": "HBO Family [IP 45.171.64.30]",
+          "from_list": "Lista 2",
+          "from_number": 586,
+          "group": "Películas",
+          "logo": "logos/catalogue/hbofamilylatinamerica-us.png",
+          "url": "http://45.171.64.30:6060/play/a00k/index.m3u8",
+          "guide": {
+            "source": "gatotv",
+            "source_id": "gatotv:hbo_family_latinoamerica"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 23.98,
+            "kbps": 2412,
+            "ok": true,
+            "interlaced": false
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.a6befa4fabce7b0e9c0b0a7b",
+          "display_name": "HBO Family",
+          "source_name": "HBO Family HD [IP 167.249.23.102]",
+          "from_list": "Lista 2",
+          "from_number": 589,
+          "group": "Películas",
+          "logo": "logos/lista2/11d0e5a776c6.png",
+          "url": "http://167.249.23.102:8000/play/a07i/index.m3u8",
+          "guide": {
+            "source": "gatotv",
+            "source_id": "gatotv:hbo_family_latinoamerica"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 23.98,
+            "kbps": 2412,
+            "ok": true,
+            "interlaced": false
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.272f05beecdf72e780b17590",
+          "display_name": "HBO Family",
+          "source_name": "HBO Family HD [IP 181.78.106.127]",
+          "from_list": "Lista 2",
+          "from_number": 590,
+          "group": "Películas",
+          "logo": "logos/lista2/11d0e5a776c6.png",
+          "url": "http://181.78.106.127:5000/play/a0o8/index.m3u8",
+          "guide": {
+            "source": "gatotv",
+            "source_id": "gatotv:hbo_family_latinoamerica"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 23.98,
+            "kbps": 2402,
+            "ok": true,
+            "interlaced": false
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.dc6e1d4f5bbf0f75deeb8cf7",
+          "display_name": "HBO Family",
+          "source_name": "HBO Family HD [IP 190.108.91.206]",
+          "from_list": "Lista 2",
+          "from_number": 594,
+          "group": "Películas",
+          "logo": "logos/lista2/11d0e5a776c6.png",
+          "url": "http://190.108.91.206:9050/play/a03x/index.m3u8",
+          "guide": {
+            "source": "gatotv",
+            "source_id": "gatotv:hbo_family_latinoamerica"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 17.13,
+            "kbps": 1013,
+            "ok": true,
+            "interlaced": true
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.ff94143330f710d62fdcd0cc",
+          "display_name": "HBO Family",
+          "source_name": "HBO Family HD [IP 190.60.46.228]",
+          "from_list": "Lista 2",
+          "from_number": 358,
+          "group": "Películas",
+          "logo": "logos/lista2/11d0e5a776c6.png",
+          "url": "http://190.60.46.228:8888/play/a02c/index.m3u8",
+          "guide": {
+            "source": "gatotv",
+            "source_id": "gatotv:hbo_family_latinoamerica"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 1805,
+            "ok": true,
+            "interlaced": true
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.21e0253dadefa3304e080ea3",
+          "display_name": "HBO Family",
+          "source_name": "HBO Family HD [IP 45.173.231.22]",
+          "from_list": "Lista 2",
+          "from_number": 359,
+          "group": "Películas",
+          "logo": "logos/lista2/11d0e5a776c6.png",
+          "url": "http://45.173.231.22:8000/play/a073/index.m3u8",
+          "guide": {
+            "source": "gatotv",
+            "source_id": "gatotv:hbo_family_latinoamerica"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 1920,
+            "ok": true,
+            "interlaced": true
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.d2b31d0e5f2e67486e33e05e",
+          "display_name": "HBO Family",
+          "source_name": "HBO Family HD [IP 190.108.83.69]",
+          "from_list": "Lista 2",
+          "from_number": 360,
+          "group": "Películas",
+          "logo": "logos/lista2/11d0e5a776c6.png",
+          "url": "http://190.108.83.69:8000/play/a03x/index.m3u8",
+          "guide": {
+            "source": "gatotv",
+            "source_id": "gatotv:hbo_family_latinoamerica"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 1756,
+            "ok": true,
+            "interlaced": true
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.92b121c9b5bd638f7a514821",
+          "display_name": "HBO Family",
+          "source_name": "HBO FAMILY-IXP [IP 138.59.177.78]",
+          "from_list": "Lista 2",
+          "from_number": 355,
+          "group": "Películas",
+          "logo": "logos/lista2/11d0e5a776c6.png",
+          "url": "http://138.59.177.78:9999/play/a097/index.m3u8",
+          "guide": {
+            "source": "gatotv",
+            "source_id": "gatotv:hbo_family_latinoamerica"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 23.98,
+            "kbps": 2432,
+            "ok": true,
             "interlaced": false
           }
         }
