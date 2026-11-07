@@ -31,6 +31,34 @@ def reference_lines() -> list[str]:
 
 
 class TvVooReferenceTests(unittest.TestCase):
+    def test_legacy_public_id_keeps_exact_verified_reference_identity(self) -> None:
+        legacy = "SkySportsMainEvent.uk@TvVoo"
+        stable = update_m3u.TVVOO_LEGACY_REFERENCE_KEYS[legacy]
+        alias = stable.split("|", 1)[1]
+        lines = [line.replace(REFERENCE_ID, stable).replace(REFERENCE_ALIAS, alias)
+                 for line in reference_lines()]
+        lines[1] = lines[1].replace(stable + "@TvVoo", legacy)
+        from urllib.parse import quote
+        lines[2] = "tvvoo://channel/" + quote(stable, safe="")
+        lines.extend(['#EXTINF:-1 tvg-id="Meganoticias.cl" x-resolver="meganoticias" '
+                      'x-resolver-refresh="on_play",Meganoticias', 'https://example.invalid/mega.m3u8'])
+        with patch.dict(update_m3u.HIGHFLY_RESOLVER_CHANNELS, {}, clear=True), patch.dict(
+                update_m3u.TVVOO_STREAM_RESOLVER_IDS, {}, clear=True):
+            self.assertEqual(1, update_m3u.validate_playlist_resolvers(lines)["tvvoo"])
+        lines[1] = lines[1].replace(legacy, "DAZNF1.es@TvVoo")
+        with self.assertRaisesRegex(ValueError, "tvg-id no coincide"):
+            update_m3u.validate_playlist_resolvers(lines)
+
+    def test_retired_public_url_becomes_reference_without_changing_metadata(self) -> None:
+        lines = reference_lines()
+        lines[1] = lines[1].replace(',Sky 1', f' x-resolver-stable-id="{REFERENCE_ID}",Sky 1')
+        lines[2] = "https://tvvoo.hayd.uk/live/manifest.m3u8?url=old"
+        original_info = lines[1]
+        self.assertTrue(update_m3u.pin_resolver_metadata(lines))
+        self.assertEqual(original_info, lines[1])
+        self.assertEqual(REFERENCE_URI, lines[2])
+        self.assertFalse(update_m3u.pin_resolver_metadata(lines))
+
     def test_reference_is_metadata_only_and_is_not_probed_or_renewed(self) -> None:
         channel = update_m3u.parse_channels(reference_lines())[0]
         self.assertTrue(update_m3u.is_tvvoo_reference(channel))

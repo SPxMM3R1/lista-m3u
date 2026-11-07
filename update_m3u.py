@@ -22,7 +22,7 @@ import urllib.request
 import xml.etree.ElementTree as ET
 from collections.abc import Callable, Iterable
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import parse_qsl, quote, unquote, urlencode, urljoin, urlparse
@@ -4172,6 +4172,17 @@ def is_direct_probe(channel: Channel) -> bool:
 
 STABLE_ID_ATTRIBUTE = "x-resolver-stable-id"
 
+# Existing public IDs keep their EPG/logo/history when the retired source becomes
+# a tokenless reference. This closed mapping cannot authorize another alias.
+TVVOO_LEGACY_REFERENCE_KEYS = {
+    "SkySportsMainEvent.uk@TvVoo": "unitedkingdom|vavoo_SKY%20SPORTS%20MAIN%20EVENT%7Cgroup%3Auk",
+    "DAZNF1.es@TvVoo": "spain|vavoo_DAZN%20F1%7Cgroup%3Aes",
+    "TNTSports3.uk@TvVoo": "unitedkingdom|vavoo_TNT%20SPORTS%203%7Cgroup%3Auk",
+    "Vavoo.uk.TNTSPORTS4@TvVoo": "unitedkingdom|vavoo_TNT%20SPORT%204%7Cgroup%3Auk",
+    "Vavoo.es.EUROSPORT1@TvVoo": "spain|vavoo_EUROSPORT%201%7Cgroup%3Aes",
+    "Eurosport2.es@TvVoo": "spain|vavoo_EUROSPORT%202%7Cgroup%3Aes",
+}
+
 
 def with_stable_id_attribute(line: str, stable_id: str) -> str:
     """Set or remove ``x-resolver-stable-id`` (clave TvVoo del editor) on an EXTINF line."""
@@ -4604,6 +4615,27 @@ def pin_resolver_metadata(lines: list[str]) -> bool:
     for channel in parse_channels(lines):
         if channel.info_line < 0:
             continue
+        # The shared public addon was retired. Keep its editorial identity,
+        # never its /live/ URL, which now redirects to an HTML guide.
+        attrs = dict(_M3U_ATTRIBUTE_PATTERN.findall(lines[channel.info_line]))
+        stable_id = attrs.get(STABLE_ID_ATTRIBUTE, "")
+        if (attrs.get("x-resolver") == "tvvoo" and stable_id
+                and urlparse(channel.url).hostname == "tvvoo.hayd.uk"):
+            if (channel.tvg_id != stable_id + "@TvVoo"
+                    and TVVOO_LEGACY_REFERENCE_KEYS.get(channel.tvg_id) != stable_id):
+                raise ValueError(f"{channel.tvg_id}: migración TvVoo sin identidad canónica verificada")
+            reference = "tvvoo://channel/" + quote(stable_id, safe="")
+            if not is_tvvoo_reference(replace(channel, url=reference)):
+                raise ValueError(f"{channel.tvg_id}: identidad TvVoo inválida")
+            country = stable_id.split("|", 1)[0]
+            if attrs.get("x-resolver-country", country) != country:
+                raise ValueError(f"{channel.tvg_id}: país TvVoo distinto de la identidad")
+            if "x-resolver-country" not in attrs:
+                metadata, _, title = lines[channel.info_line].rpartition(",")
+                lines[channel.info_line] = f'{metadata} x-resolver-country="{country}",{title}'
+            lines[channel.url_line] = reference
+            changed = True
+            continue
         if is_tvvoo_reference(channel):
             # App-exported references have no renewable HLS metadata.  Do not
             # rewrite their aliases or URI while normalizing legacy entries.
@@ -4797,7 +4829,8 @@ def validate_playlist_resolvers(lines: list[str]) -> dict[str, int]:
                 raise ValueError(
                     f"{channel.name}: x-resolver-id no coincide con el URI TvVoo"
                 )
-            if channel.tvg_id and channel.tvg_id != stable_id + "@TvVoo":
+            if (channel.tvg_id and channel.tvg_id != stable_id + "@TvVoo"
+                    and TVVOO_LEGACY_REFERENCE_KEYS.get(channel.tvg_id) != stable_id):
                 raise ValueError(
                     f"{channel.name}: tvg-id no coincide con el stableId TvVoo"
                 )

@@ -32,13 +32,14 @@ import re
 import sys
 import urllib.request
 from datetime import datetime, timedelta, timezone
+from functools import lru_cache
 from pathlib import Path
 from urllib.parse import quote, unquote
 
 ROOT = Path(__file__).resolve().parent
 LAYOUT_PATH = ROOT / "data" / "channel-editor-layout.json"
 OUTPUT_PATH = ROOT / "data" / "tvvoo-variantes.json"
-CATALOG_URL = "https://tvvoo.hayd.uk/catalog/tv/vavoo_tv_{code}.json"
+CATALOG_URL = "https://raw.githubusercontent.com/qwertyuiop8899/tvvoo/main/src/channels/lists.json"
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124 Safari/537.36"
 MAX_BYTES = 8 * 1024 * 1024
 MAX_SIBLINGS = 7
@@ -200,16 +201,43 @@ def active_tvvoo_rows(layout: dict) -> list[dict]:
     return rows
 
 
-def fetch_catalog(code: str) -> dict:
+@lru_cache(maxsize=1)
+def fetch_source_list() -> list:
     request = urllib.request.Request(
-        CATALOG_URL.format(code=code),
+        CATALOG_URL,
         headers={"User-Agent": USER_AGENT, "Accept": "application/json"},
     )
     with urllib.request.urlopen(request, timeout=60) as response:
         body = response.read(MAX_BYTES + 1)
     if len(body) > MAX_BYTES:
         raise ValueError(f"catálogo TvVoo {code} excede {MAX_BYTES} bytes")
-    return json.loads(body.decode("utf-8"))
+    payload = json.loads(body.decode("utf-8"))
+    if not isinstance(payload, list) or not payload:
+        raise ValueError("inventario público TvVoo vacío o inválido")
+    return payload
+
+
+def catalog_from_source_list(rows: list, code: str) -> dict:
+    countries = {value: key for key, value in COUNTRY_CODES.items()}
+    expected = countries.get(code)
+    if expected is None:
+        raise ValueError("país TvVoo desconocido")
+    metas = []
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        country = re.sub(r"[^a-z]", "", str(row.get("country", "")).lower())
+        name = str(row.get("name", "")).strip()
+        if country == expected and name:
+            metas.append({"id": "vavoo_" + _encode_alias_part(name + "|group:" + code), "name": name})
+    if not metas:
+        # Missing country is a failed fetch, not proof that all its aliases vanished.
+        raise ValueError(f"inventario TvVoo sin país {code}; conservar variantes anteriores")
+    return {"metas": metas}
+
+
+def fetch_catalog(code: str) -> dict:
+    return catalog_from_source_list(fetch_source_list(), code)
 
 
 def backup_countries(row: dict) -> list[str]:

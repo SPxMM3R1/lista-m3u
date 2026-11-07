@@ -13,6 +13,17 @@ def entries(code, *names):
 
 
 class TvVooVariantRules(unittest.TestCase):
+    def test_official_inventory_keeps_country_and_exact_alias(self) -> None:
+        payload = tv.catalog_from_source_list([
+            {"name": "TNT SPORTS 3", "country": "United Kingdom"},
+            {"name": "TNT SPORTS 3", "country": "Germany"},
+        ], "uk")
+        self.assertEqual(entries("uk", "TNT SPORTS 3"), tv.catalog_entries(payload, "uk"))
+
+    def test_missing_source_country_preserves_prior_variants_as_failure(self) -> None:
+        with self.assertRaisesRegex(ValueError, "conservar variantes"):
+            tv.catalog_from_source_list([{"name": "A", "country": "Spain"}], "it")
+
     def test_quality_and_backup_marks_are_removed(self) -> None:
         for name in ("SKY SPORTS MIX HD", "SKY SPORTS MIX FHD", "SKY SPORTS MIX (BACKUP)",
                      "SKY SPORTS MIX HD (BACKUP 2)", "SKY SPORTS MIX UHD", "SKY SPORTS MIX HD+",
