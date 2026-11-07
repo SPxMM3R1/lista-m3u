@@ -5,10 +5,14 @@
 > cubre la app). **Al terminar cualquier cambio, actualiza este archivo en el mismo commit**:
 > la sección «Hoy» si cambió el estado y una línea nueva en «Bitácora».
 
-Última actualización: **2026-11-03** (America/Santiago).
+Última actualización: **2026-11-07** (America/Santiago).
 
 ## Hoy, en una mirada
 
+- **Guía de ESPN 3, ESPN 5 y Red Bull TV World corregida (2026-11-07, pedidos del usuario «Espn 3 dice atp y están dando golf», «Para espn 5 no hay una más detallada? están dando wre vs wol» y «la de redbull world está mal»)**. Las tres se verificaron con fotogramas:
+  - **ESPN 3** (`WinSports.co@Direct181`): la señal daba golf, el DP World Tour de Abu Dabi (fotograma 09:53 de Chile), y UY1 `ESPN.3.HD.uy` anunciaba ATP. Pasa a EPGShare CO1 `ESPN.3.co`, que anunciaba esa tercera ronda. Claro sigue de respaldo.
+  - **ESPN 5** (`WinPlusFutbol.co@Direct181`): pasa a CO1 `ESPN.5.co`. Tiene el mismo horario que UY1 y además pone los equipos en `<sub-title>` («Wrexham vs. Wolverhampton Wanderers», fotograma 09:55). **Ojo:** VibeM3U solo lee `<title>` y `<desc>`, así que el subtítulo aún no se ve en la TV. Mostrarlo requiere juntar título y subtítulo en la lista o leer `sub-title` en la app; es decisión pendiente del usuario.
+  - **Red Bull TV World** (`RedBullWorldEnglish.int`, señal `BoRB-AT`): `epg_sources/red_bull.py` usaba `RED_BULL_ENGLISH_CHILE_EPG_PAGE` sin importarla. El runner fallaba («name … is not defined») y caía a Pluto, que publicaba un bloque de 8 h de «Padel». La página en_CL también anunciaba pádel, pero la señal daba escalada: a las 12:57 UTC en la Antártida y a las 13:10 UTC en roca. La API global (`api.redbull.tv/v3/epg`) traía justo esos programas («Sufferfest – below zero» y «The best things in life are free»), con la misma parrilla vista desde EE. UU. Ahora World usa la API global y, si falla, el relay nzxmltv (canal 10001), que coincide en horarios. Se quitó el caso especial en_CL y el respaldo Pluto. Tres pruebas nuevas cubren este camino. Red Bull TV Español sigue con la página es_CL.
 - **TvVoo, ruta directa (2026-11-06)**: seis URL de Lista 1 y sus filas canónicas pasan a referencias estables; membresía, orden y metadatos visibles intactos. El runner deja de consultar la instancia retirada y marca `identity_only`. Variantes desde el inventario oficial de GitHub, con retención ante país ausente. Requiere la ruta nativa de VibeM3U 0.6.59. Prueba Android: 3/6 fuentes validadas; las tres españolas siguen con 502/timeout. Detalle y evidencia en `docs/tvvoo.md`.
 
 
@@ -151,6 +155,7 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-11-07**: guía ESPN 3 y ESPN 5 → EPGShare CO1 (fotogramas: golf de Abu Dabi y Wrexham vs. Wolves). Red Bull TV World vuelve a la API global con el relay de respaldo; se corrigió el import que faltaba y se quitaron la página en_CL y Pluto, que anunciaban pádel mientras la señal daba escalada.
 - **2026-11-06, referencias TvVoo**: corregida la reaplicación de presentaciones antiguas que borraba los alias durante `--sync-resolver-contract`. El comando completo reconcilia 13/13 selecciones, sin pendientes, y valida 1.494 TvVoo. Regresión añadida antes de repetir CI.
 
 

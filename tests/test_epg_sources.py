@@ -100,6 +100,36 @@ class RedBullChileTest(unittest.TestCase):
                 red_bull.red_bull_chile_schedule(NOW)
         page.assert_not_called()
 
+
+class RedBullWorldTest(unittest.TestCase):
+    """TV World (BoRB-AT): API global y relay; 2026-11-07 la página en_CL daba otra rail."""
+
+    def test_world_reads_the_global_api(self) -> None:
+        with patch.object(red_bull, "red_bull_api_schedule", return_value=["api"]) as api, \
+                patch.object(red_bull, "red_bull_page_schedule") as page:
+            schedules, sources, errors = red_bull.fetch_red_bull_schedules(
+                {update_m3u.RED_BULL_WORLD_ID}, NOW)
+        self.assertEqual({update_m3u.RED_BULL_WORLD_ID: ["api"]}, schedules)
+        self.assertEqual({"red-bull-oficial"}, sources)
+        self.assertEqual({}, errors)
+        api.assert_called_once_with("en")
+        page.assert_not_called()
+
+    def test_world_falls_back_to_the_relay(self) -> None:
+        with patch.object(red_bull, "red_bull_api_schedule", side_effect=ValueError("caida")), \
+                patch.object(red_bull, "red_bull_relay_schedule", return_value=["relay"]):
+            schedules, sources, errors = red_bull.fetch_red_bull_schedules(
+                {update_m3u.RED_BULL_WORLD_ID}, NOW)
+        self.assertEqual({update_m3u.RED_BULL_WORLD_ID: ["relay"]}, schedules)
+        self.assertEqual({"red-bull-relay"}, sources)
+        self.assertEqual({}, errors)
+
+    def test_world_has_no_pluto_backup(self) -> None:
+        self.assertNotIn(
+            ("pluto", "5e7cb84a172a0f0007da69e4"),
+            update_m3u.epg_source_chain(update_m3u.RED_BULL_WORLD_ID),
+        )
+
 if __name__ == "__main__":
     unittest.main()
 

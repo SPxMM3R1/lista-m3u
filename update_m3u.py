@@ -1235,9 +1235,10 @@ RED_BULL_OFFICIAL_EPG_URL = "https://api.redbull.tv/v3/epg?complete=true"
 # different regional schedule; do not use the global v3 EPG as the primary
 # source for RedBullChileEspanol.cl.
 RED_BULL_SPANISH_EPG_PAGE = "https://www.redbull.tv/es_CL/epg"
-# TV World (RedBullWorldEnglish.int) usa la misma página chilena en inglés (2026-10-24, pedido
-# del usuario): la rail «World of Red Bull» de en_CL. La API global daba otra parrilla.
-RED_BULL_ENGLISH_CHILE_EPG_PAGE = "https://www.redbull.tv/en_CL/epg"
+# TV World (RedBullWorldEnglish.int, señal BoRB-AT) usa la API global y, si falla, el relay
+# (canal 10001). Del 2026-10-24 al 2026-11-07 usó la página en_CL, pero el 2026-11-07 esa
+# página anunciaba pádel mientras la señal daba escalada, igual que la API (fotogramas
+# 12:57 y 13:10 UTC). Además el import faltaba y el runner caía a Pluto, que también daba pádel.
 # Red Bull entrega la parrilla según el país del visitante (la ruta es_CL no
 # basta): desde GitHub (EE. UU.) la página traía otra región. Su propio servidor
 # le pasa la IP del visitante en X-Forwarded-For, y la página y la API la
@@ -1249,11 +1250,9 @@ RED_BULL_CHILE_FORWARDED_FOR = "200.1.123.46"
 RED_BULL_RELAY_EPG_URL = "https://nzxmltv.com/iptv/redbull.xml"
 RED_BULL_WORLD_ID = "RedBullWorldEnglish.int"
 RED_BULL_CHILE_ID = "RedBullChileEspanol.cl"
-# Respaldo verificable del canal Red Bull TV World cuando la API oficial no
-# responde desde el ejecutor (Pluto TV, feed que el runner ya descarga).
-PLUTO_BACKUP_CHANNELS = {
-    RED_BULL_WORLD_ID: "5e7cb84a172a0f0007da69e4",
-}
+# Pluto TV ya no respalda a Red Bull TV World: su canal 5e7cb84a172a0f0007da69e4 anunciaba un
+# bloque de 8 h de «Padel» el 2026-11-07 mientras la señal daba escalada. Respaldo: el relay.
+PLUTO_BACKUP_CHANNELS: dict[str, str] = {}
 # Feeds EPGShare que continúan una guía oficial corta: la oficial manda y el
 # respaldo solo aporta lo que viene después de su último programa.
 EPGSHARE_BACKUP_CHANNELS: dict[str, tuple[str, str]] = {

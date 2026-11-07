@@ -318,15 +318,6 @@ def fetch_red_bull_schedules(
     for channel_id, locale in RED_BULL_CHANNEL_LOCALES.items():
         if channel_id not in expected_ids:
             continue
-        if channel_id == RED_BULL_WORLD_ID:
-            # TV World: solo la página chilena en inglés (la API global trae otra parrilla).
-            try:
-                schedules[channel_id] = red_bull_page_schedule(
-                    now, RED_BULL_ENGLISH_CHILE_EPG_PAGE, "en")
-                source_names.add("red-bull-en-cl-page")
-            except Exception as page_error:
-                errors[f"red_bull:{channel_id}"] = f"pagina en_CL: {page_error}"
-            continue
         if channel_id == RED_BULL_CHILE_ID:
             try:
                 schedules[channel_id] = red_bull_chile_schedule(now)

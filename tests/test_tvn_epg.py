@@ -42,13 +42,15 @@ class TvnEpgTests(unittest.TestCase):
         update_m3u.apply_epg_overrides()
         # 2026-10-24: Claro Paraguay (fotograma Köln vs Schalke); la UY1 en español respalda.
         # 2026-11-01: la UY1 en español (misma parrilla) primero; Claro Paraguay de respaldo.
-        self.assertEqual(("uy1", "ESPN.5.HD.uy"), update_m3u.EPG_PROGRAMME_SOURCES[target])
-        self.assertIn(("uy1", "ESPN.5.HD.uy"), update_m3u.epg_source_chain(target))
+        # 2026-11-07: CO1 (fotograma Wrexham vs. Wolves, trae el partido en el subtítulo).
+        self.assertEqual(("co1", "ESPN.5.co"), update_m3u.EPG_PROGRAMME_SOURCES[target])
+        self.assertIn(("co1", "ESPN.5.co"), update_m3u.epg_source_chain(target))
         self.assertNotIn(("uy1", "[ESPN5SD].ESPN.5.uy"), update_m3u.epg_source_chain(target))
 
     def test_espn5_fresh_correct_feed_replaces_wrong_published_guide_without_time_shift(self) -> None:
         target = "WinPlusFutbol.co@Direct181"
         fresh = ET.Element("tv")
+        fresh_uy = ET.Element("tv")
         previous = ET.Element("tv")
         slots = [
             ("20261006000000 +0000", "20261006020000 +0000", "Francia vs. Bélgica"),
@@ -56,15 +58,15 @@ class TvnEpgTests(unittest.TestCase):
         ]
         for start, stop, subtitle in slots:
             good = ET.SubElement(fresh, "programme", {
-                "channel": "ESPN.5.HD.uy", "start": start, "stop": stop})
+                "channel": "ESPN.5.co", "start": start, "stop": stop})
             ET.SubElement(good, "title", {"lang": "es"}).text = "UEFA Nations League"
             ET.SubElement(good, "sub-title", {"lang": "es"}).text = subtitle
-            for root, source in [(fresh, "[ESPN5SD].ESPN.5.uy"), (previous, target)]:
+            for root, source in [(fresh_uy, "[ESPN5SD].ESPN.5.uy"), (previous, target)]:
                 wrong = ET.SubElement(root, "programme", {
                     "channel": source, "start": start, "stop": stop})
                 ET.SubElement(wrong, "title", {"lang": "pt"}).text = "Boxe Internacional"
         output, status = update_m3u.build_epg(
-            {"uy1": ET.tostring(fresh), update_m3u.PUBLISHED_EPG_FALLBACK_SOURCE: ET.tostring(previous)},
+            {"co1": ET.tostring(fresh), "uy1": ET.tostring(fresh_uy), update_m3u.PUBLISHED_EPG_FALLBACK_SOURCE: ET.tostring(previous)},
             [channel("ESPN 5 Sur", target)], {},
             now=datetime(2026, 10, 6, 2, 5, tzinfo=timezone.utc))
         published = ET.fromstring(output)
@@ -76,7 +78,7 @@ class TvnEpgTests(unittest.TestCase):
         for programme, (start, stop, _) in zip(programmes, slots):
             self.assertEqual(update_m3u.xmltv_datetime(start), update_m3u.xmltv_datetime(programme.get("start")))
             self.assertEqual(update_m3u.xmltv_datetime(stop), update_m3u.xmltv_datetime(programme.get("stop")))
-        self.assertEqual("uy1", status["guide_sources"][target])
+        self.assertEqual("co1", status["guide_sources"][target])
 
     def test_epg_generated_at_parses_xmltv_timestamp_as_utc(self) -> None:
         root = ET.Element("tv", {"data-generated-at": "2026-08-28T18:00:00-04:00"})
