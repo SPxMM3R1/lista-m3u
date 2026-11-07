@@ -151,6 +151,9 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-11-06, referencias TvVoo**: corregida la reaplicación de presentaciones antiguas que borraba los alias durante `--sync-resolver-contract`. El comando completo reconcilia 13/13 selecciones, sin pendientes, y valida 1.494 TvVoo. Regresión añadida antes de repetir CI.
+
+
 - **2026-11-06**: TvVoo público retirado: migración de seis URL a referencias con identidad explícita y variantes desde el inventario oficial. La reproducción queda en la app nativa 0.6.59; el estado del runner es `identity_only`, nunca prueba de video. Ver `docs/tvvoo.md`.
 
 

@@ -31,6 +31,16 @@ def reference_lines() -> list[str]:
 
 
 class TvVooReferenceTests(unittest.TestCase):
+    def test_old_presentation_snapshot_cannot_strip_reference_routing(self) -> None:
+        lines = reference_lines()
+        channel = update_m3u.parse_channels(lines)[0]
+        old = f'#EXTINF:-1 tvg-id="{channel.tvg_id}" group-title="Cultura",Sky 1'
+        update_m3u.apply_presentation_overrides(lines, "1.m3u", {
+            "info_lines": {channel.tvg_id: old}, "orders": {}, "logos": {}, "names": {}})
+        self.assertIn(f'x-resolver-ids="{REFERENCE_ALIAS}"', lines[1])
+        self.assertIn('x-resolver-country="unitedkingdom"', lines[1])
+        self.assertTrue(update_m3u.is_tvvoo_reference(update_m3u.parse_channels(lines)[0]))
+
     def test_legacy_public_id_keeps_exact_verified_reference_identity(self) -> None:
         legacy = "SkySportsMainEvent.uk@TvVoo"
         stable = update_m3u.TVVOO_LEGACY_REFERENCE_KEYS[legacy]

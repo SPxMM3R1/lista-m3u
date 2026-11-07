@@ -67,7 +67,7 @@ agente debe poder retomar el trabajo solo con lo que está en el repositorio.
 
 
 - Tests obligatorios antes de commitear:
-  - `python -m unittest discover -s tests -p "test_*.py"` (429 pruebas, 7 omitidas previstas; incluye contrato, regresiones del editor, exclusiones permanentes de candidatos, EPG visual, RWND y tamaño de `AGENTS.md`/`ESTADO.md`).
+  - `python -m unittest discover -s tests -p "test_*.py"` (430 pruebas, 7 omitidas previstas; incluye contrato, regresiones del editor, exclusiones permanentes de candidatos, EPG visual, RWND y tamaño de `AGENTS.md`/`ESTADO.md`).
   - `node --test tests/*.mjs` (57 pruebas; incluye el flujo de pedidos de la app, la fusión de bajas en el editor y la deriva layout → órdenes de `presentation-overrides.json`).
 - Validar el editor local sin tocar el repo: `python scripts/build_site_data.py --output <carpeta temp>` (solo acepta salidas dentro de la carpeta temporal).
 - Commits en español con prefijo: `feat(editor)`, `fix(resolvers)`, `feat(epg)`, `fix(catalogo)`, `chore(...)`.

@@ -4454,6 +4454,13 @@ def apply_presentation_overrides(
         resolver_attributes = resolver_attributes_for(channel)
         override = info_lines.get(channel.tvg_id)
         if override:
+            if is_tvvoo_reference(channel):
+                # A presentation snapshot may predate the reference migration.
+                # Keep current routing metadata while applying its visible fields.
+                current_attrs = dict(_M3U_ATTRIBUTE_PATTERN.findall(lines[channel.info_line]))
+                resolver_attributes = {key: value for key, value in current_attrs.items()
+                                       if key in RESOLVER_ATTRIBUTE_NAMES or key == "x-resolver-country"}
+                override = re.sub(r'\s+x-resolver-country="[^"]*"', "", str(override))
             updated = with_resolver_attributes(
                 str(override), resolver_attributes
             )
