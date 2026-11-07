@@ -438,10 +438,14 @@ RESOLVER_ATTRIBUTE_NAMES = (
     "x-resolver-refresh",
     "x-resolver-recipe",
 )
-# 2026-11-06: ya no se publica un manifiesto Highfly genérico. El addon gratis exige un código
-# por dispositivo (sports.highfly.to/<código>/manifest.json, en /configure tras un CAPTCHA) y
-# sin él responde «Please reinstall the addon». El código es privado: cada TV lo guarda en
-# Opciones › URL del manifiesto Highfly, y un x-resolver-manifest en la lista lo pisaría.
+# 2026-11-06: el addon gratis de Highfly exige un código por dispositivo (se saca una vez en
+# /configure; sin él responde «Please reinstall the addon»). El usuario decidió publicarlo en la
+# lista («es de la instancia free, no veo la necesidad de dejarlo como secreto») para que ninguna
+# TV tenga que pegarlo. Si Highfly lo bloquea, se saca otro en /configure y se cambia aquí.
+HIGHFLY_MANIFEST_URL = (
+    "https://sports.highfly.to/"
+    "64c35d24-2033-4e06-be39-7068d59358d2.7f98f438f84e2006/manifest.json"
+)
 # El manifiesto público sigue respondiendo y sirve solo para saber si el servicio está arriba.
 HIGHFLY_PUBLIC_MANIFEST_URL = "https://sports.highfly.to/manifest.json"
 HIGHFLY_RESOLVER_CHANNELS = {
@@ -1991,6 +1995,7 @@ def build_resolver_catalog(*, catalog_version: str | None = None) -> dict:
                     "directTemplate": (
                         "https://papacito.cfd/m3u/{id}/live.m3u8"
                     ),
+                    "manifestUrl": HIGHFLY_MANIFEST_URL,
                     "allowHttpFallback": True,
                 },
             },
@@ -3960,6 +3965,7 @@ def apply_vibem3u_selection(
         expected_attributes = {
             "x-resolver": "highfly",
             "x-resolver-id": item.row.resolver_slug,
+            "x-resolver-manifest": HIGHFLY_MANIFEST_URL,
             "x-resolver-refresh": "on_play",
         }
         updated_info = with_resolver_attributes(
@@ -4011,6 +4017,7 @@ def resolver_attributes_for(channel: Channel) -> dict[str, str]:
         return {
             "x-resolver": "highfly",
             "x-resolver-id": highfly_slug,
+            "x-resolver-manifest": HIGHFLY_MANIFEST_URL,
             "x-resolver-refresh": "on_play",
         }
     return {}
@@ -4740,8 +4747,9 @@ def validate_resolver_catalog(path: Path = RESOLVER_CATALOG_PATH) -> dict:
     }
     if aliases != expected_aliases:
         raise ValueError("los aliases TvVoo no coinciden con la fuente del actualizador")
-    if by_id["highfly"].get("config", {}).get("manifestUrl"):
-        raise ValueError("Highfly no publica manifiesto: el código va en cada TV")
+    highfly_manifest = by_id["highfly"].get("config", {}).get("manifestUrl")
+    if highfly_manifest != HIGHFLY_MANIFEST_URL or "/configure" in highfly_manifest:
+        raise ValueError("Highfly debe apuntar al manifest.json con el código configurado")
     return catalog
 
 
@@ -4843,11 +4851,10 @@ def validate_playlist_resolvers(lines: list[str]) -> dict[str, int]:
             if attrs.get("x-resolver-recipe") != TVVOO_RECIPE_ID:
                 raise ValueError(f"{channel.name}: receta TvVoo ausente o desconocida")
         elif engine == "highfly":
-            if not attrs.get("x-resolver-id"):
+            if not attrs.get("x-resolver-id") or not attrs.get("x-resolver-manifest"):
                 raise ValueError(f"{channel.name}: Highfly incompleto")
-            # 2026-11-06: sin manifiesto en la lista; el código Highfly va en cada TV.
-            if attrs.get("x-resolver-manifest"):
-                raise ValueError(f"{channel.name}: Highfly no debe fijar manifiesto en la lista")
+            if "/configure" in attrs["x-resolver-manifest"]:
+                raise ValueError(f"{channel.name}: Highfly apunta a HTML configure")
             if not HIGHFLY_LEAF_ID_PATTERN.fullmatch(
                 f"leaf:{attrs['x-resolver-id']}"
             ):

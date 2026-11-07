@@ -453,7 +453,7 @@ class SkyF1ProviderSeparationTest(unittest.TestCase):
             "#EXTM3U",
             '#EXTINF:-1 tvg-id="SkySportsF1.uk" tvg-name="Sky Sports F1" '
             f'x-tvvoo-aliases="{self.ALIAS}" x-resolver="highfly" x-resolver-id="now-34343434" '
-            'x-resolver-refresh="on_play",Sky Sports F1',
+            f'x-resolver-manifest="{update_m3u.HIGHFLY_MANIFEST_URL}" x-resolver-refresh="on_play",Sky Sports F1',
             "https://papacito.cfd/m3u/now-34343434/live.m3u8",
         ]
 

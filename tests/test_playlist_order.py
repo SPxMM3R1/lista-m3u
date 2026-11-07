@@ -1499,7 +1499,7 @@ class PlaylistOrderTests(unittest.TestCase):
             {
                 "x-resolver": "highfly",
                 "x-resolver-id": "now-s34434",
-                # 2026-11-06: sin x-resolver-manifest; el código Highfly va en cada TV.
+                "x-resolver-manifest": update_m3u.HIGHFLY_MANIFEST_URL,
                 "x-resolver-refresh": "on_play",
             },
         )
