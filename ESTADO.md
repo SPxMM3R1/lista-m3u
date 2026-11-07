@@ -161,3 +161,9 @@
 
 - **2026-11-01**: importación en prueba de candidatos de iptv-org a Lista 2; exclusiones y copia de seguridad descritas en «Hoy».
 - Más antiguo: `docs/bitacora/<año>-<mes>.md`.
+
+### Cierre TvVoo — 2026-11-07
+- Cambios del runner `08abe33` y `ce96409`, seguidos por publicación automática de artefactos. Runner completo `42329413083`: correcto. Raw verificado: seis referencias `tvvoo://channel/`, aliases y claves estables presentes; IDs/orden conservados.
+- Contraparte VibeM3U publicada **0.6.59/268**, tag `2e2ed9d` (cliente `6705c13`, parser `a296a98`, auxiliar `2e2ed9d`). CI `42330554604` y release `42372890583` correctos. APK público 2.944.565 bytes, SHA-256 `c299b21473c3188a4c8774e0d6fe4335af1f2b4b4252e1911358809fc064f106`; firma compatible comprobada.
+- El parser Android requiere el mapa cerrado de seis IDs históricos equivalente a `TVVOO_LEGACY_REFERENCE_KEYS`: una app anterior puede omitir referencias migradas. Actualizar a 0.6.59.
+- Prueba de transporte Android: 4/6 (Main Event, TNT 3/4, Eurosport 1). TNT 3 con video real y selector de versiones comprobado. DAZN F1/Eurosport 2 siguen con 502/403 de origen; alias Main Event mostró Sky Sports News en la referencia local. No cambiar nombre/EPG por ello. `identity_only` no acredita reproducción.

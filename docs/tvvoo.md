@@ -39,3 +39,11 @@ La presentación guardada nunca debe quitar alias/country de una referencia.
 `apply_presentation_overrides` conserva los metadatos de enrutamiento actuales
 al aplicar nombres, grupos y logos antiguos. Validación real de sincronización:
 13 selecciones reconciliadas, 0 pendientes y contrato con 1.494 identidades TvVoo.
+
+Entrega coordinada verificada el 2026-11-07: runner 42329413083 correcto;
+VibeM3U v0.6.59/268 publicado (tag 2e2ed9d), CI 42330554604 y Release
+42372890583 correctos. El parser de esa versión admite los seis IDs históricos
+mediante tabla cerrada; versiones previas pueden omitir las nuevas referencias.
+El éxito del runner valida identidad/publicación, no que todas las fuentes
+estén emitiendo. DAZN F1 y Eurosport 2 fallaron en origen en la prueba Android;
+Main Event mostró otro feed en la referencia local. No se altera EPG ni identidad.

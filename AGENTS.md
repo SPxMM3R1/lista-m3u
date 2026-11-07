@@ -128,3 +128,5 @@ agente debe poder retomar el trabajo solo con lo que está en el repositorio.
 - `RESOLVER_RECIPE_CONTRACT.md` y `VAVOO_TVVOO_SOLUCIONES_VIBEM3U.md`.
 - `LOCAL_CATALOG_EDITOR.md` (editor local y auxiliar).
 - `PRODUCT.md` y `README.md` (descripción vigente del producto).
+
+- Compatibilidad TvVoo publicada: VibeM3U >=0.6.59/268 admite los seis IDs históricos de `TVVOO_LEGACY_REFERENCE_KEYS` sin alterar la EPG; conservar equivalencia cerrada con `M3uParser.legacyTvVooIdentity`. Runner 42329413083 correcto y APK tag 2e2ed9d publicado. Evidencias/límites en ESTADO.md.
