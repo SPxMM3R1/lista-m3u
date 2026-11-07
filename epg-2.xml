@@ -1,8 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, FreeEPG, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-description-policy="verified-source-only" data-description-programmes="7987" data-description-channels="171" data-next-refresh-at="2026-11-08T08:11:08+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u-externa.m3u" data-generated-at="2026-11-07T22:22:33+00:00">
+<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, FreeEPG, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-description-policy="verified-source-only" data-description-programmes="7987" data-description-channels="171" data-next-refresh-at="2026-11-08T08:11:08+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u-externa.m3u" data-generated-at="2026-11-07T22:32:56+00:00">
   <channel id="PublicDirect.8918c13cf06dc2f7416879f2" data-guide="parrilla real" data-guide-source="uy1">
     <display-name>AMC</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/amclatinamerica-us.png" />
+  </channel>
+  <channel id="PublicDirect.d0ee5354a75d4bf0fe91c9c0" data-guide="parrilla real" data-guide-source="mx1">
+    <display-name>ALCATEL BITME MD1</display-name>
   </channel>
   <channel id="PublicDirect.fd80dec5e49afad511890000" data-guide="parrilla real" data-guide-source="co1">
     <display-name>Cinecanal</display-name>
@@ -26,6 +29,10 @@
   <channel id="PublicDirect.3c96353d8e3bf508d2157d81" data-guide="parrilla real" data-guide-source="cl">
     <display-name>Discovery Theater</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/00b50f9bc248.png" />
+  </channel>
+  <channel id="PublicDirect.7e4fe7ff47c91a001130c27b" data-guide="parrilla real" data-guide-source="mx1">
+    <display-name>Discovery Turbo</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/58c7e3697649.png" />
   </channel>
   <channel id="PublicDirect.c4712375281c919db4593df8" data-guide="parrilla real" data-guide-source="uy1">
     <display-name>Discovery World</display-name>
@@ -63,6 +70,10 @@
     <display-name>Golden Premiere 2</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/brand_golden_premier.png" />
   </channel>
+  <channel id="PublicDirect.c9a179f36540c93c7e6a67b6" data-guide="parrilla real" data-guide-source="ar1">
+    <display-name>HBO Family</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/11d0e5a776c6.png" />
+  </channel>
   <channel id="PublicDirect.74b1d039a89a6947afe30ac0" data-guide="parrilla real" data-guide-source="ar1">
     <display-name>HBO Plus</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/5d60a21c5de1.png" />
@@ -79,11 +90,18 @@
     <display-name>Investigation Discovery</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/5068e99dfdd8.png" />
   </channel>
-  <channel id="PublicDirect.8a5d0371ff496197a85a71b8" data-guide="parrilla real" data-guide-source="co1">
+  <channel id="IPTVOrg.MTVBiggestPop.us-BR" data-guide="parrilla real parcial" data-guide-source="pluto">
+    <display-name>MTV Biggest Pop BR (1080p)</display-name>
+  </channel>
+  <channel id="PublicDirect.f753ad9eb3f48c300c6fa4b4" data-guide="parrilla real" data-guide-source="co1">
     <display-name>National Geographic</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/4deec34b7976.png" />
   </channel>
-  <channel id="PublicDirect.5fa93eee31589e2105958c0e" data-guide="parrilla real" data-guide-source="co1" data-guide-of="PublicDirect.8a5d0371ff496197a85a71b8">
+  <channel id="PublicDirect.8a5d0371ff496197a85a71b8" data-guide="parrilla real" data-guide-source="co1" data-guide-of="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <display-name>National Geographic</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/4deec34b7976.png" />
+  </channel>
+  <channel id="PublicDirect.5fa93eee31589e2105958c0e" data-guide="parrilla real" data-guide-source="co1" data-guide-of="PublicDirect.f753ad9eb3f48c300c6fa4b4">
     <display-name>National Geographic</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/4deec34b7976.png" />
   </channel>
@@ -93,6 +111,14 @@
   </channel>
   <channel id="PublicDirect.e221e27dc18d5a97a4054237" data-guide="parrilla real" data-guide-source="co1">
     <display-name>Star TVE</display-name>
+  </channel>
+  <channel id="PublicDirect.c239c57686df265bb88b82af" data-guide="parrilla real" data-guide-source="mx1">
+    <display-name>Studio Universal</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/eec19daab9fb.png" />
+  </channel>
+  <channel id="PublicDirect.a52c913a30233f55dc54d10c" data-guide="parrilla real" data-guide-source="uy1">
+    <display-name>TCM</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/9857f32f74d4.png" />
   </channel>
   <channel id="PublicDirect.b944cbda127f265385bb249c" data-guide="parrilla real" data-guide-source="co1">
     <display-name>TNT</display-name>
@@ -110,19 +136,16 @@
     <display-name>Warner Channel</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/b3ed65890466.png" />
   </channel>
-  <channel id="PublicDirect.d0ee5354a75d4bf0fe91c9c0" data-guide="parrilla real" data-guide-source="mx1">
-    <display-name>ALCATEL BITME MD1</display-name>
-  </channel>
   <channel id="PublicDirect.5fd8b4563385ffbe6b49361b" data-guide="parrilla real" data-guide-source="co1" data-guide-of="PublicDirect.fd80dec5e49afad511890000">
     <display-name>Cinecanal</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/c8528fe169b9.png" />
   </channel>
+  <channel id="IPTVOrg.Cinecanal.us-Pacific" data-guide="parrilla real" data-guide-source="co1" data-guide-of="PublicDirect.fd80dec5e49afad511890000">
+    <display-name>Cinecanal Pacific (1080p)</display-name>
+  </channel>
   <channel id="PublicDirect.eb83a12b5f2954bff45461e2" data-guide="parrilla real" data-guide-source="co1" data-guide-of="PublicDirect.fd80dec5e49afad511890000">
     <display-name>Cinecanal Colombia</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/c8528fe169b9.png" />
-  </channel>
-  <channel id="IPTVOrg.Cinecanal.us-Pacific" data-guide="parrilla real" data-guide-source="co1" data-guide-of="PublicDirect.fd80dec5e49afad511890000">
-    <display-name>Cinecanal Pacific (1080p)</display-name>
   </channel>
   <channel id="PublicDirect.b10fe4fed499ea3d98d1d010" data-guide="parrilla real" data-guide-source="mx1">
     <display-name>CNN Español</display-name>
@@ -143,10 +166,6 @@
     <display-name>Discovery Channel</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/85d1bdbc581b.png" />
   </channel>
-  <channel id="PublicDirect.7e4fe7ff47c91a001130c27b" data-guide="parrilla real" data-guide-source="mx1">
-    <display-name>Discovery Turbo</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/58c7e3697649.png" />
-  </channel>
   <channel id="PublicDirect.305177fef9fa178063075ed3" data-guide="parrilla real" data-guide-source="uy1" data-guide-of="PublicDirect.c4712375281c919db4593df8">
     <display-name>Discovery World</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoveryworld-us.png" />
@@ -154,9 +173,6 @@
   <channel id="PublicDirect.160c2cb1e8f8ab7da88c8f6b" data-guide="parrilla real" data-guide-source="cl">
     <display-name>ESPN</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/13038c11f312.png" />
-  </channel>
-  <channel id="IPTVOrg.ESPN.us-HD" data-guide="parrilla real" data-guide-source="us2">
-    <display-name>ESPN (United States) HD (720p)</display-name>
   </channel>
   <channel id="PublicDirect.b67d781dac0752813f09c500" data-guide="parrilla real" data-guide-source="ar1" data-guide-of="PublicDirect.fe6d030216472a0f5ef9070f">
     <display-name>ESPN 2</display-name>
@@ -182,10 +198,6 @@
     <display-name>ESPN 2</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/c5f053da5123.png" />
   </channel>
-  <channel id="PublicDirect.afa5fbaa663b126f3dd2a07f" data-guide="parrilla real" data-guide-source="mx1">
-    <display-name>ESPN 3</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/dce9fe4d3a4a.png" />
-  </channel>
   <channel id="PublicDirect.deca0eae5fdc4f601e7e6555" data-guide="parrilla real" data-guide-source="uy1">
     <display-name>ESPN 3</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/dce9fe4d3a4a.png" />
@@ -206,18 +218,25 @@
     <display-name>ESPN 5 Sur</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/a8d7ca91a64e.png" />
   </channel>
-  <channel id="ESPN6.co@Direct181" data-guide="parrilla real" data-guide-source="uy1">
-    <display-name>ESPN 6</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/espn-6-lam.png" />
-  </channel>
   <channel id="PublicDirect.f76def453257b4671384bef7" data-guide="parrilla real" data-guide-source="uy1">
     <display-name>ESPN 6 Sur (ESPN 09)</display-name>
   </channel>
-  <channel id="PublicDirect.7a74b6bb5335426d7a0ed8f5" data-guide="parrilla real" data-guide-source="uy1" data-guide-of="ESPN6.co@Direct181">
+  <channel id="PublicDirect.7a74b6bb5335426d7a0ed8f5" data-guide="parrilla real" data-guide-source="uy1">
     <display-name>ESPN 7 Sur (ESPN 10)</display-name>
+  </channel>
+  <channel id="ESPN6.co@Direct181" data-guide="parrilla real" data-guide-source="uy1" data-guide-of="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <display-name>ESPN 6</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/espn-6-lam.png" />
   </channel>
   <channel id="PublicDirect.9803b3858eb1f551dc55bb66" data-guide="parrilla real" data-guide-source="co1">
     <display-name>ESPN Colombia</display-name>
+  </channel>
+  <channel id="IPTVOrg.ESPN.us-HD" data-guide="parrilla real" data-guide-source="us2">
+    <display-name>ESPN (United States) HD (720p)</display-name>
+  </channel>
+  <channel id="PublicDirect.afa5fbaa663b126f3dd2a07f" data-guide="parrilla real" data-guide-source="mx1">
+    <display-name>ESPN 3</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/dce9fe4d3a4a.png" />
   </channel>
   <channel id="PublicDirect.5c9e17c3abb1f5f9fe1a3c54" data-guide="parrilla real" data-guide-source="ar1">
     <display-name>Europa Europa</display-name>
@@ -251,10 +270,6 @@
     <display-name>HBO 2</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/19016259cff2.png" />
   </channel>
-  <channel id="PublicDirect.c9a179f36540c93c7e6a67b6" data-guide="parrilla real" data-guide-source="ar1">
-    <display-name>HBO Family</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/11d0e5a776c6.png" />
-  </channel>
   <channel id="PublicDirect.1102eb11b008a30834083357" data-guide="parrilla real" data-guide-source="ar1" data-guide-of="PublicDirect.c9a179f36540c93c7e6a67b6">
     <display-name>HBO Family</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/11d0e5a776c6.png" />
@@ -283,9 +298,6 @@
     <display-name>Love Nature</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/e9e0a89aad14.png" />
   </channel>
-  <channel id="IPTVOrg.MTVBiggestPop.us-BR" data-guide="parrilla real parcial" data-guide-source="pluto">
-    <display-name>MTV Biggest Pop BR (1080p)</display-name>
-  </channel>
   <channel id="IPTVOrg.MTVClassic.us-BR" data-guide="parrilla real parcial" data-guide-source="pluto">
     <display-name>MTV Classic BR (720p)</display-name>
   </channel>
@@ -298,11 +310,7 @@
   <channel id="IPTVOrg.MTVSpankinNew.us-US" data-guide="parrilla real parcial" data-guide-source="pluto">
     <display-name>MTV Spankin' New (1080p)</display-name>
   </channel>
-  <channel id="PublicDirect.f753ad9eb3f48c300c6fa4b4" data-guide="parrilla real" data-guide-source="co1" data-guide-of="PublicDirect.8a5d0371ff496197a85a71b8">
-    <display-name>National Geographic</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/4deec34b7976.png" />
-  </channel>
-  <channel id="PublicDirect.956ee9e1ecd09ce19202225f" data-guide="parrilla real" data-guide-source="co1" data-guide-of="PublicDirect.8a5d0371ff496197a85a71b8">
+  <channel id="PublicDirect.956ee9e1ecd09ce19202225f" data-guide="parrilla real" data-guide-source="co1" data-guide-of="PublicDirect.f753ad9eb3f48c300c6fa4b4">
     <display-name>National Geographic</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/4deec34b7976.png" />
   </channel>
@@ -313,9 +321,9 @@
   <channel id="PublicDirect.dd5e0814732a6d3df33a64ac" data-guide="parrilla real" data-guide-source="co1" data-guide-of="PublicDirect.e221e27dc18d5a97a4054237">
     <display-name>Star TVE</display-name>
   </channel>
-  <channel id="PublicDirect.c239c57686df265bb88b82af" data-guide="parrilla real" data-guide-source="mx1">
-    <display-name>Studio Universal</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/eec19daab9fb.png" />
+  <channel id="PublicDirect.ed0426b680dd2b5c50327429" data-guide="parrilla real" data-guide-source="mx1">
+    <display-name>Universal Channel</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/93453859f775.png" />
   </channel>
   <channel id="PublicDirect.f839213ef33ffd619082a0d7" data-guide="parrilla real" data-guide-source="mx1" data-guide-of="PublicDirect.c239c57686df265bb88b82af">
     <display-name>Studio Universal</display-name>
@@ -323,10 +331,6 @@
   </channel>
   <channel id="PublicDirect.b8f2efd55894cbc58af43798" data-guide="parrilla real" data-guide-source="cl">
     <display-name>SUN</display-name>
-  </channel>
-  <channel id="PublicDirect.a52c913a30233f55dc54d10c" data-guide="parrilla real" data-guide-source="uy1">
-    <display-name>TCM</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/9857f32f74d4.png" />
   </channel>
   <channel id="PublicDirect.bc93a58942bfdbe0bd4390c6" data-guide="parrilla real" data-guide-source="uy1" data-guide-of="PublicDirect.a52c913a30233f55dc54d10c">
     <display-name>TCM</display-name>
@@ -360,10 +364,6 @@
     <display-name>TNT Series</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/64ea1fb88e61.png" />
   </channel>
-  <channel id="PublicDirect.ed0426b680dd2b5c50327429" data-guide="parrilla real" data-guide-source="mx1">
-    <display-name>Universal Channel</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/93453859f775.png" />
-  </channel>
   <channel id="PublicDirect.8a6449ff9b420f66e78c1060" data-guide="parrilla real" data-guide-source="uy1">
     <display-name>Universal Channel</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/93453859f775.png" />
@@ -372,396 +372,6 @@
     <display-name>Universal Channel</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/93453859f775.png" />
   </channel>
-  <programme start="20261107112500 -0300" stop="20261107133000 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">Bundesliga</title>
-    <sub-title lang="es">Borussia Dortmund vs. SV Elversberg, Fecha 9, Signal Iduna Park</sub-title>
-    <desc lang="es">Vive las emociones de los partidos de la 64º edición de la Bundesliga, donde compiten los equipos de primera división del fútbol alemán.</desc>
-    <date>2026</date>
-    <category lang="es">Fútbol</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/1627061412.jpg" />
-    <country lang="es">Alemania</country>
-    <episode-num system="onscreen">S2026</episode-num>
-  </programme>
-  <programme start="20261107133000 -0300" stop="20261107134500 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">International Friendly</title>
-    <title lang="xx">Aston Villa Campeón UEL 2025-2026</title>
-    <desc lang="es">Compacto de partidos amistosos internacionales.</desc>
-    <date>2000</date>
-    <category lang="es">Fútbol</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/37874110.jpg" />
-  </programme>
-  <programme start="20261107134500 -0300" stop="20261107144500 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">UEFA Europa League Highlights</title>
-    <desc lang="es">Los mejores momentos de la UEFA Europa League, el segundo torneo de clubes más importante del Viejo Continente.</desc>
-    <date>2000</date>
-    <category lang="es">Fútbol</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/4687715.jpg" />
-  </programme>
-  <programme start="20261107144500 -0300" stop="20261107165500 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">Argentina liga profesional de futbol</title>
-    <title lang="xx">Grupo A, Estadio Mario Alberto Kempes</title>
-    <sub-title lang="es">Talleres (Cba.) vs. Estudiantes (LP), Fecha 16 - Grupo A, Estadio Mario Alberto Kempes</sub-title>
-    <desc lang="es">Vive los partidos del segundo torneo de la 97º edición de la Primera División del fútbol argentino Serán 30 equipos divididos en 2 zonas Los mejores 8 de cada una accederán a la instancia final de playoffs.</desc>
-    <date>2026</date>
-    <category lang="es">Fútbol</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/1988892808.jpg" />
-    <country lang="es">Argentina</country>
-    <episode-num system="onscreen">S0</episode-num>
-  </programme>
-  <programme start="20261107165500 -0300" stop="20261107171500 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">International Friendly</title>
-    <title lang="xx">PSG Campeón UCL 2025-2026</title>
-    <desc lang="es">Compacto de partidos amistosos internacionales.</desc>
-    <date>2000</date>
-    <category lang="es">Fútbol</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/37874110.jpg" />
-  </programme>
-  <programme start="20261107171500 -0300" stop="20261107192500 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">Argentina liga profesional de futbol</title>
-    <title lang="xx">Grupo B, Estadio Dr. Lisandro de la Torre</title>
-    <sub-title lang="es">Rosario Central vs. Estudiantes (RC), Fecha 16 - Grupo B, Estadio Dr. Lisandro de la Torre</sub-title>
-    <desc lang="es">Vive los partidos del segundo torneo de la 97º edición de la Primera División del fútbol argentino Serán 30 equipos divididos en 2 zonas Los mejores 8 de cada una accederán a la instancia final de playoffs.</desc>
-    <date>2026</date>
-    <category lang="es">Fútbol</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/1988892808.jpg" />
-    <country lang="es">Argentina</country>
-    <episode-num system="onscreen">S0</episode-num>
-  </programme>
-  <programme start="20261107192500 -0300" stop="20261107193000 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">International Friendly</title>
-    <title lang="xx">Aston Villa Campeón UEL 2025-2026</title>
-    <desc lang="es">Compacto de partidos amistosos internacionales.</desc>
-    <date>2000</date>
-    <category lang="es">Fútbol</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/37874110.jpg" />
-  </programme>
-  <programme start="20261107193000 -0300" stop="20261107200000 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">El show de la Copa Libertadores</title>
-    <desc lang="es">El mejor resumen de los partidos de la Copa Conmebol Libertadores: goles, jugadas, polémicas, los mejores jugadores son parte de este imperdible show con lo mejor del fútbol de nuestro continente.</desc>
-    <date>2000</date>
-    <category lang="es">Fútbol</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/15720360.jpg" />
-  </programme>
-  <programme start="20261107200000 -0300" stop="20261107210000 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">UEFA Champions League Highlights</title>
-    <desc lang="es">Las mejores jugadas y todos los goles de la ultima fecha del torneo más importante de Europa.</desc>
-    <date>2000</date>
-    <category lang="es">Fútbol</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/563418.jpg" />
-  </programme>
-  <programme start="20261107210000 -0300" stop="20261107213000 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">UEFA Champions League Weekly</title>
-    <desc lang="es">La revista semanal de la UEFA Champions League con entrevistas, notas y curiosidades del torneo de clubes más importante del mundo.</desc>
-    <date>2021</date>
-    <category lang="es">Fútbol</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/4530666.jpg" />
-  </programme>
-  <programme start="20261107213000 -0300" stop="20261108020000 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">NCAAF Football</title>
-    <title lang="xx">Georgia vs. Ole Miss, Vaught-Hemingway Stadium, Oxford, MS, USA</title>
-    <desc lang="es">Cobertura de la acción del fútbol universitario de la NCAA, con equipos que compiten en enfrentamientos clave a lo largo de la temporada.</desc>
-    <date>2000</date>
-    <category lang="es">Fútbol americano</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/1992528247.jpg" />
-    <country lang="es">EE. UU</country>
-  </programme>
-  <programme start="20261108020000 -0300" stop="20261108030000 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">UEFA Europa League Highlights</title>
-    <desc lang="es">Los mejores momentos de la UEFA Europa League, el segundo torneo de clubes más importante del Viejo Continente.</desc>
-    <date>2000</date>
-    <category lang="es">Fútbol</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/4687715.jpg" />
-  </programme>
-  <programme start="20261108030000 -0300" stop="20261108040000 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">Dutch League Highlights</title>
-    <desc lang="es">Los goles del fútbol holandés.</desc>
-    <date>2000</date>
-    <category lang="es">Fútbol</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/1067622.jpg" />
-  </programme>
-  <programme start="20261108040000 -0300" stop="20261108060000 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">UEFA Champions League</title>
-    <title lang="xx">Fase de Liga, Estadio de la Cerámica</title>
-    <sub-title lang="es">Villarreal (Esp) vs. Paris Saint-Germain (Fra), Fecha 4 - Fase de Liga, Estadio de la Cer�mica</sub-title>
-    <desc lang="es">Vive los partidos de la 72º edición de la UEFA Champions League, la competición internacional de fútbol más prestigiosa a nivel de clubes de Europa.</desc>
-    <date>2026</date>
-    <category lang="es">Fútbol</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/1989235825.jpg" />
-    <episode-num system="onscreen">S2026</episode-num>
-  </programme>
-  <programme start="20261108060000 -0300" stop="20261108062500 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">International Friendly</title>
-    <title lang="xx">PSG Campeón UCL 2025-2026</title>
-    <desc lang="es">Compacto de partidos amistosos internacionales.</desc>
-    <date>2000</date>
-    <category lang="es">Fútbol</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/37874110.jpg" />
-  </programme>
-  <programme start="20261108062500 -0300" stop="20261108082500 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">UEFA Champions League</title>
-    <title lang="xx">Fase de Liga, Spotify Camp Nou</title>
-    <sub-title lang="es">Barcelona (Esp) vs. Aston Villa (Ing), Fecha 4 - Fase de Liga, Spotify Camp Nou</sub-title>
-    <desc lang="es">Vive los partidos de la 72º edición de la UEFA Champions League, la competición internacional de fútbol más prestigiosa a nivel de clubes de Europa.</desc>
-    <date>2026</date>
-    <category lang="es">Fútbol</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/1989235825.jpg" />
-    <episode-num system="onscreen">S2026</episode-num>
-  </programme>
-  <programme start="20261108082500 -0300" stop="20261108085500 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">EFL Highlights</title>
-    <desc lang="es">Revive los mejores momentos de los partidos de la segunda división de Inglaterra, la English Football League Championship, con un total de 24 equipos que competirán por el trofeo y el ascenso a la Primera división.</desc>
-    <date>2000</date>
-    <category lang="es">Fútbol</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/1992427546.jpg" />
-    <country lang="es">Inglaterra</country>
-  </programme>
-  <programme start="20261108085500 -0300" stop="20261108092500 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">UEFA Champions League Weekly</title>
-    <desc lang="es">La revista semanal de la UEFA Champions League con entrevistas, notas y curiosidades del torneo de clubes más importante del mundo.</desc>
-    <date>2021</date>
-    <category lang="es">Fútbol</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/4530666.jpg" />
-  </programme>
-  <programme start="20261108092500 -0300" stop="20261108102500 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">UEFA Champions League Highlights</title>
-    <desc lang="es">Las mejores jugadas y todos los goles de la ultima fecha del torneo más importante de Europa.</desc>
-    <date>2000</date>
-    <category lang="es">Fútbol</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/563418.jpg" />
-  </programme>
-  <programme start="20261108102500 -0300" stop="20261108112500 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">UEFA Champions League Highlights</title>
-    <desc lang="es">Las mejores jugadas y todos los goles de la ultima fecha del torneo más importante de Europa.</desc>
-    <date>2000</date>
-    <category lang="es">Fútbol</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/563418.jpg" />
-  </programme>
-  <programme start="20261108112500 -0300" stop="20261108133000 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">Bundesliga</title>
-    <sub-title lang="es">Borussia Dortmund vs. SV Elversberg, Fecha 9, Signal Iduna Park</sub-title>
-    <desc lang="es">Vive las emociones de los partidos de la 64º edición de la Bundesliga, donde compiten los equipos de primera división del fútbol alemán.</desc>
-    <date>2026</date>
-    <category lang="es">Fútbol</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/1627061412.jpg" />
-    <country lang="es">Alemania</country>
-    <episode-num system="onscreen">S2026</episode-num>
-  </programme>
-  <programme start="20261108133000 -0300" stop="20261108134500 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">International Friendly</title>
-    <title lang="xx">Aston Villa Campeón UEL 2025-2026</title>
-    <desc lang="es">Compacto de partidos amistosos internacionales.</desc>
-    <date>2000</date>
-    <category lang="es">Fútbol</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/37874110.jpg" />
-  </programme>
-  <programme start="20261108134500 -0300" stop="20261108144500 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">UEFA Europa League Highlights</title>
-    <desc lang="es">Los mejores momentos de la UEFA Europa League, el segundo torneo de clubes más importante del Viejo Continente.</desc>
-    <date>2000</date>
-    <category lang="es">Fútbol</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/4687715.jpg" />
-  </programme>
-  <programme start="20261108144500 -0300" stop="20261108165500 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">Argentina liga profesional de futbol</title>
-    <title lang="xx">Grupo A, Estadio Mario Alberto Kempes</title>
-    <sub-title lang="es">Talleres (Cba.) vs. Estudiantes (LP), Fecha 16 - Grupo A, Estadio Mario Alberto Kempes</sub-title>
-    <desc lang="es">Vive los partidos del segundo torneo de la 97º edición de la Primera División del fútbol argentino Serán 30 equipos divididos en 2 zonas Los mejores 8 de cada una accederán a la instancia final de playoffs.</desc>
-    <date>2026</date>
-    <category lang="es">Fútbol</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/1988892808.jpg" />
-    <country lang="es">Argentina</country>
-    <episode-num system="onscreen">S0</episode-num>
-  </programme>
-  <programme start="20261108165500 -0300" stop="20261108171500 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">International Friendly</title>
-    <title lang="xx">PSG Campeón UCL 2025-2026</title>
-    <desc lang="es">Compacto de partidos amistosos internacionales.</desc>
-    <date>2000</date>
-    <category lang="es">Fútbol</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/37874110.jpg" />
-  </programme>
-  <programme start="20261108171500 -0300" stop="20261108192500 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">Argentina liga profesional de futbol</title>
-    <title lang="xx">Grupo B, Estadio Dr. Lisandro de la Torre</title>
-    <sub-title lang="es">Rosario Central vs. Estudiantes (RC), Fecha 16 - Grupo B, Estadio Dr. Lisandro de la Torre</sub-title>
-    <desc lang="es">Vive los partidos del segundo torneo de la 97º edición de la Primera División del fútbol argentino Serán 30 equipos divididos en 2 zonas Los mejores 8 de cada una accederán a la instancia final de playoffs.</desc>
-    <date>2026</date>
-    <category lang="es">Fútbol</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/1988892808.jpg" />
-    <country lang="es">Argentina</country>
-    <episode-num system="onscreen">S0</episode-num>
-  </programme>
-  <programme start="20261108192500 -0300" stop="20261108193000 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">International Friendly</title>
-    <title lang="xx">Aston Villa Campeón UEL 2025-2026</title>
-    <desc lang="es">Compacto de partidos amistosos internacionales.</desc>
-    <date>2000</date>
-    <category lang="es">Fútbol</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/37874110.jpg" />
-  </programme>
-  <programme start="20261108193000 -0300" stop="20261108200000 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">El show de la Copa Libertadores</title>
-    <desc lang="es">El mejor resumen de los partidos de la Copa Conmebol Libertadores: goles, jugadas, polémicas, los mejores jugadores son parte de este imperdible show con lo mejor del fútbol de nuestro continente.</desc>
-    <date>2000</date>
-    <category lang="es">Fútbol</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/15720360.jpg" />
-  </programme>
-  <programme start="20261108200000 -0300" stop="20261108210000 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">UEFA Champions League Highlights</title>
-    <desc lang="es">Las mejores jugadas y todos los goles de la ultima fecha del torneo más importante de Europa.</desc>
-    <date>2000</date>
-    <category lang="es">Fútbol</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/563418.jpg" />
-  </programme>
-  <programme start="20261108210000 -0300" stop="20261108213000 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">UEFA Champions League Weekly</title>
-    <desc lang="es">La revista semanal de la UEFA Champions League con entrevistas, notas y curiosidades del torneo de clubes más importante del mundo.</desc>
-    <date>2021</date>
-    <category lang="es">Fútbol</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/4530666.jpg" />
-  </programme>
-  <programme start="20261108213000 -0300" stop="20261109010000 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">NCAAF Football</title>
-    <title lang="xx">Georgia vs. Ole Miss, Vaught-Hemingway Stadium, Oxford, MS, USA</title>
-    <desc lang="es">Cobertura de la acción del fútbol universitario de la NCAA, con equipos que compiten en enfrentamientos clave a lo largo de la temporada.</desc>
-    <date>2000</date>
-    <category lang="es">Fútbol americano</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/1992528247.jpg" />
-    <country lang="es">EE. UU</country>
-  </programme>
-  <programme start="20261109010000 -0300" stop="20261109013000 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">El show de la Copa Libertadores</title>
-    <desc lang="es">El mejor resumen de los partidos de la Copa Conmebol Libertadores: goles, jugadas, polémicas, los mejores jugadores son parte de este imperdible show con lo mejor del fútbol de nuestro continente.</desc>
-    <date>2000</date>
-    <category lang="es">Fútbol</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/15720360.jpg" />
-  </programme>
-  <programme start="20261109013000 -0300" stop="20261109040000 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">NBA</title>
-    <title lang="xx">NBA Global Games, Arena CDMX</title>
-    <sub-title lang="es">Denver Nuggets vs. Indiana Pacers, Temporada regular - NBA Global Games, Arena CDMX</sub-title>
-    <desc lang="es">Vive los partidos de la 81º temporada de la NBA, la competición norteamericana de baloncesto que reúne a los basquetbolistas más talentosos del mundo.</desc>
-    <date>2026</date>
-    <category lang="es">Básquet</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/1948700499.jpg" />
-    <country lang="es">EE. UU</country>
-    <episode-num system="onscreen">S2026</episode-num>
-  </programme>
-  <programme start="20261109040000 -0300" stop="20261109060000 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">The Best of Padel World Cup</title>
-    <title lang="xx">Final femenina</title>
-    <desc lang="es">Mira los momentos más destacados de la Copa Mundial de Padel FIP en su edición del 2026, celebrada en Doha,.</desc>
-    <date>2026</date>
-    <category lang="es">Pádel</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/1997213681.jpg" />
-    <country lang="es">Catar</country>
-  </programme>
-  <programme start="20261109060000 -0300" stop="20261109080000 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">The Best of Padel World Cup</title>
-    <title lang="xx">Final masculina</title>
-    <desc lang="es">Mira los momentos más destacados de la Copa Mundial de Padel FIP en su edición del 2026, celebrada en Doha,.</desc>
-    <date>2026</date>
-    <category lang="es">Pádel</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/1997213681.jpg" />
-    <country lang="es">Catar</country>
-  </programme>
-  <programme start="20261109080000 -0300" stop="20261109082000 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">International Friendly</title>
-    <title lang="xx">PSG Campeón UCL 2025-2026</title>
-    <desc lang="es">Compacto de partidos amistosos internacionales.</desc>
-    <date>2000</date>
-    <category lang="es">Fútbol</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/37874110.jpg" />
-  </programme>
-  <programme start="20261109082000 -0300" stop="20261109102000 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">English League Championship</title>
-    <sub-title lang="es">Wrexham vs. Wolverhampton Wanderers, Fecha 15, SToK Racecourse</sub-title>
-    <desc lang="es">Vive los partidos de la 25º edición de la segunda división de Inglaterra, la English Football League Championship con un total de 24 equipos que competirán por el trofeo y el ascenso a la Primera división.</desc>
-    <date>2026</date>
-    <category lang="es">Fútbol</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/1994327737.jpg" />
-    <country lang="es">Inglaterra</country>
-    <episode-num system="onscreen">S2026</episode-num>
-  </programme>
-  <programme start="20261109102000 -0300" stop="20261109122500 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">Eredivisie</title>
-    <sub-title lang="es">FC Twente vs. Ajax, Fecha 12, De Grolsch Veste</sub-title>
-    <desc lang="es">Vive las emociones de los partidos de la 71º edición de la Eredivisie, la máxima competición profesional de fútbol en Países Bajos que reúne a los equipos más destacados del país en encuentros cargados de adrenalina y competencia.</desc>
-    <date>2026</date>
-    <category lang="es">Fútbol</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/1994323568.jpg" />
-    <country lang="es">Países Bajos</country>
-    <episode-num system="onscreen">S2026</episode-num>
-  </programme>
-  <programme start="20261109122500 -0300" stop="20261109125000 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">International Friendly</title>
-    <title lang="xx">PSG Campeón UCL 2025-2026</title>
-    <desc lang="es">Compacto de partidos amistosos internacionales.</desc>
-    <date>2000</date>
-    <category lang="es">Fútbol</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/37874110.jpg" />
-  </programme>
-  <programme start="20261109125000 -0300" stop="20261109135000 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">UEFA Champions League Highlights</title>
-    <desc lang="es">Las mejores jugadas y todos los goles de la ultima fecha del torneo más importante de Europa.</desc>
-    <date>2000</date>
-    <category lang="es">Fútbol</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/563418.jpg" />
-  </programme>
-  <programme start="20261109135000 -0300" stop="20261109160000 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">Serie A</title>
-    <sub-title lang="es">Inter vs. Como, Fecha 11, Stadio Giuseppe Meazza</sub-title>
-    <desc lang="es">Vive las emociones de los partidos de la 125º edición de la Serie A, la máxima competición futbolística de Italia, la cual es organizada por la Lega Nazionale Professionisti.</desc>
-    <date>2026</date>
-    <category lang="es">Fútbol</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/37646479.jpg" />
-    <country lang="es">Italia</country>
-    <episode-num system="onscreen">S2026</episode-num>
-  </programme>
-  <programme start="20261109160000 -0300" stop="20261109180000 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">NFL</title>
-    <sub-title lang="es">New York Giants vs. Philadelphia Eagles, Fecha 9, Lincoln Financial Field</sub-title>
-    <desc lang="es">Vive los partidos de la edición 107º de la NFL El público podrá disfrutar de los encuentros más emocionantes de la mayor liga de fútbol americano profesional de Estados Unidos.</desc>
-    <date>2026</date>
-    <category lang="es">Fútbol americano</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/55546821.jpg" />
-    <country lang="es">EE. UU</country>
-    <episode-num system="onscreen">S2026</episode-num>
-  </programme>
-  <programme start="20261109180000 -0300" stop="20261109213000 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">NFL</title>
-    <sub-title lang="es">Arizona Cardinals vs. Seattle Seahawks, Fecha 9, Lumen Field</sub-title>
-    <desc lang="es">Vive los partidos de la edición 107º de la NFL El público podrá disfrutar de los encuentros más emocionantes de la mayor liga de fútbol americano profesional de Estados Unidos.</desc>
-    <date>2026</date>
-    <category lang="es">Fútbol americano</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/55546821.jpg" />
-    <country lang="es">EE. UU</country>
-    <episode-num system="onscreen">S2026</episode-num>
-  </programme>
-  <programme start="20261109213000 -0300" stop="20261109220000 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">El show de la Copa Libertadores</title>
-    <desc lang="es">El mejor resumen de los partidos de la Copa Conmebol Libertadores: goles, jugadas, polémicas, los mejores jugadores son parte de este imperdible show con lo mejor del fútbol de nuestro continente.</desc>
-    <date>2000</date>
-    <category lang="es">Fútbol</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/15720360.jpg" />
-  </programme>
-  <programme start="20261109220000 -0300" stop="20261109230000 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">UEFA Champions League Highlights</title>
-    <desc lang="es">Las mejores jugadas y todos los goles de la ultima fecha del torneo más importante de Europa.</desc>
-    <date>2000</date>
-    <category lang="es">Fútbol</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/563418.jpg" />
-  </programme>
-  <programme start="20261109230000 -0300" stop="20261110040000 -0300" channel="ESPN6.co@Direct181">
-    <title lang="es">Bundesliga</title>
-    <sub-title lang="es">Hoffenheim vs. Schalke 04, Fecha 9, PreZero Arena</sub-title>
-    <desc lang="es">Vive las emociones de los partidos de la 64º edición de la Bundesliga, donde compiten los equipos de primera división del fútbol alemán.</desc>
-    <date>2026</date>
-    <category lang="es">Fútbol</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/1627061412.jpg" />
-    <country lang="es">Alemania</country>
-    <episode-num system="onscreen">S2026</episode-num>
-  </programme>
   <programme channel="FoxSports1.us@Direct" start="20261107130000 -0300" stop="20261107140000 -0300">
     <title lang="en">Big Noon Kickoff</title>
     <desc lang="en">College football pregame show covering the top college football games from the country's best conferences, beginning each Saturday on FOX.</desc>
@@ -6357,10 +5967,6 @@
     <title lang="es">Expedición a lo desconocido</title>
     <sub-title lang="es">Busca de oro en el Atlántico</sub-title>
   </programme>
-  <programme start="20261107130000 -0300" stop="20261107133000 -0300" channel="PublicDirect.3d5dfc4dd1f5a8a68d6c2ca9">
-    <title lang="es">WomenS Football Weekly</title>
-    <desc lang="es">Vive toda la acción y lo más emocionante del deporte a nivel mundial.</desc>
-  </programme>
   <programme start="20261107133000 -0300" stop="20261107134500 -0300" channel="PublicDirect.3d5dfc4dd1f5a8a68d6c2ca9">
     <title lang="es">The Fifth Quarter</title>
     <desc lang="es">Luke Abbate es un atleta popular de la escuela secundaria que juega lacrosse y fútbol americano. Cuando el joven de 15 años muere en un accidente automovilístico provocado por un conductor adolescente imprudente después de un entrenamiento de lacrosse en febrero de 2006, el hermano mayor de Luke, Jon Abbate , se motiva para que el equipo de fútbol americano Wake Forest Demon Deacons tenga éxito en su próxima temporada.</desc>
@@ -7570,9 +7176,6 @@
     <category lang="es">UEFA</category>
     <category lang="es">Fútbol Español</category>
     <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
-  </programme>
-  <programme start="20261107112600 -0300" stop="20261107133000 -0300" channel="PublicDirect.4e3f8c2900998331dd82ca81">
-    <title lang="es">Resistencia</title>
   </programme>
   <programme start="20261107133000 -0300" stop="20261107151300 -0300" channel="PublicDirect.4e3f8c2900998331dd82ca81">
     <title lang="es">Me late chocolate</title>
@@ -9494,6 +9097,386 @@
     <rating system="MJColombia">
       <value>+14</value>
     </rating>
+  </programme>
+  <programme start="20261107133000 -0300" stop="20261107134500 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">International Friendly</title>
+    <title lang="xx">Aston Villa Campeón UEL 2025-2026</title>
+    <desc lang="es">Compacto de partidos amistosos internacionales.</desc>
+    <date>2000</date>
+    <category lang="es">Fútbol</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/37874110.jpg" />
+  </programme>
+  <programme start="20261107134500 -0300" stop="20261107144500 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">UEFA Europa League Highlights</title>
+    <desc lang="es">Los mejores momentos de la UEFA Europa League, el segundo torneo de clubes más importante del Viejo Continente.</desc>
+    <date>2000</date>
+    <category lang="es">Fútbol</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/4687715.jpg" />
+  </programme>
+  <programme start="20261107144500 -0300" stop="20261107165500 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">Argentina liga profesional de futbol</title>
+    <title lang="xx">Grupo A, Estadio Mario Alberto Kempes</title>
+    <sub-title lang="es">Talleres (Cba.) vs. Estudiantes (LP), Fecha 16 - Grupo A, Estadio Mario Alberto Kempes</sub-title>
+    <desc lang="es">Vive los partidos del segundo torneo de la 97º edición de la Primera División del fútbol argentino Serán 30 equipos divididos en 2 zonas Los mejores 8 de cada una accederán a la instancia final de playoffs.</desc>
+    <date>2026</date>
+    <category lang="es">Fútbol</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/1988892808.jpg" />
+    <country lang="es">Argentina</country>
+    <episode-num system="onscreen">S0</episode-num>
+  </programme>
+  <programme start="20261107165500 -0300" stop="20261107171500 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">International Friendly</title>
+    <title lang="xx">PSG Campeón UCL 2025-2026</title>
+    <desc lang="es">Compacto de partidos amistosos internacionales.</desc>
+    <date>2000</date>
+    <category lang="es">Fútbol</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/37874110.jpg" />
+  </programme>
+  <programme start="20261107171500 -0300" stop="20261107192500 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">Argentina liga profesional de futbol</title>
+    <title lang="xx">Grupo B, Estadio Dr. Lisandro de la Torre</title>
+    <sub-title lang="es">Rosario Central vs. Estudiantes (RC), Fecha 16 - Grupo B, Estadio Dr. Lisandro de la Torre</sub-title>
+    <desc lang="es">Vive los partidos del segundo torneo de la 97º edición de la Primera División del fútbol argentino Serán 30 equipos divididos en 2 zonas Los mejores 8 de cada una accederán a la instancia final de playoffs.</desc>
+    <date>2026</date>
+    <category lang="es">Fútbol</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/1988892808.jpg" />
+    <country lang="es">Argentina</country>
+    <episode-num system="onscreen">S0</episode-num>
+  </programme>
+  <programme start="20261107192500 -0300" stop="20261107193000 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">International Friendly</title>
+    <title lang="xx">Aston Villa Campeón UEL 2025-2026</title>
+    <desc lang="es">Compacto de partidos amistosos internacionales.</desc>
+    <date>2000</date>
+    <category lang="es">Fútbol</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/37874110.jpg" />
+  </programme>
+  <programme start="20261107193000 -0300" stop="20261107200000 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">El show de la Copa Libertadores</title>
+    <desc lang="es">El mejor resumen de los partidos de la Copa Conmebol Libertadores: goles, jugadas, polémicas, los mejores jugadores son parte de este imperdible show con lo mejor del fútbol de nuestro continente.</desc>
+    <date>2000</date>
+    <category lang="es">Fútbol</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/15720360.jpg" />
+  </programme>
+  <programme start="20261107200000 -0300" stop="20261107210000 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">UEFA Champions League Highlights</title>
+    <desc lang="es">Las mejores jugadas y todos los goles de la ultima fecha del torneo más importante de Europa.</desc>
+    <date>2000</date>
+    <category lang="es">Fútbol</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/563418.jpg" />
+  </programme>
+  <programme start="20261107210000 -0300" stop="20261107213000 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">UEFA Champions League Weekly</title>
+    <desc lang="es">La revista semanal de la UEFA Champions League con entrevistas, notas y curiosidades del torneo de clubes más importante del mundo.</desc>
+    <date>2021</date>
+    <category lang="es">Fútbol</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/4530666.jpg" />
+  </programme>
+  <programme start="20261107213000 -0300" stop="20261108020000 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">NCAAF Football</title>
+    <title lang="xx">Georgia vs. Ole Miss, Vaught-Hemingway Stadium, Oxford, MS, USA</title>
+    <desc lang="es">Cobertura de la acción del fútbol universitario de la NCAA, con equipos que compiten en enfrentamientos clave a lo largo de la temporada.</desc>
+    <date>2000</date>
+    <category lang="es">Fútbol americano</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/1992528247.jpg" />
+    <country lang="es">EE. UU</country>
+  </programme>
+  <programme start="20261108020000 -0300" stop="20261108030000 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">UEFA Europa League Highlights</title>
+    <desc lang="es">Los mejores momentos de la UEFA Europa League, el segundo torneo de clubes más importante del Viejo Continente.</desc>
+    <date>2000</date>
+    <category lang="es">Fútbol</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/4687715.jpg" />
+  </programme>
+  <programme start="20261108030000 -0300" stop="20261108040000 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">Dutch League Highlights</title>
+    <desc lang="es">Los goles del fútbol holandés.</desc>
+    <date>2000</date>
+    <category lang="es">Fútbol</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/1067622.jpg" />
+  </programme>
+  <programme start="20261108040000 -0300" stop="20261108060000 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">UEFA Champions League</title>
+    <title lang="xx">Fase de Liga, Estadio de la Cerámica</title>
+    <sub-title lang="es">Villarreal (Esp) vs. Paris Saint-Germain (Fra), Fecha 4 - Fase de Liga, Estadio de la Cer�mica</sub-title>
+    <desc lang="es">Vive los partidos de la 72º edición de la UEFA Champions League, la competición internacional de fútbol más prestigiosa a nivel de clubes de Europa.</desc>
+    <date>2026</date>
+    <category lang="es">Fútbol</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/1989235825.jpg" />
+    <episode-num system="onscreen">S2026</episode-num>
+  </programme>
+  <programme start="20261108060000 -0300" stop="20261108062500 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">International Friendly</title>
+    <title lang="xx">PSG Campeón UCL 2025-2026</title>
+    <desc lang="es">Compacto de partidos amistosos internacionales.</desc>
+    <date>2000</date>
+    <category lang="es">Fútbol</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/37874110.jpg" />
+  </programme>
+  <programme start="20261108062500 -0300" stop="20261108082500 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">UEFA Champions League</title>
+    <title lang="xx">Fase de Liga, Spotify Camp Nou</title>
+    <sub-title lang="es">Barcelona (Esp) vs. Aston Villa (Ing), Fecha 4 - Fase de Liga, Spotify Camp Nou</sub-title>
+    <desc lang="es">Vive los partidos de la 72º edición de la UEFA Champions League, la competición internacional de fútbol más prestigiosa a nivel de clubes de Europa.</desc>
+    <date>2026</date>
+    <category lang="es">Fútbol</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/1989235825.jpg" />
+    <episode-num system="onscreen">S2026</episode-num>
+  </programme>
+  <programme start="20261108082500 -0300" stop="20261108085500 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">EFL Highlights</title>
+    <desc lang="es">Revive los mejores momentos de los partidos de la segunda división de Inglaterra, la English Football League Championship, con un total de 24 equipos que competirán por el trofeo y el ascenso a la Primera división.</desc>
+    <date>2000</date>
+    <category lang="es">Fútbol</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/1992427546.jpg" />
+    <country lang="es">Inglaterra</country>
+  </programme>
+  <programme start="20261108085500 -0300" stop="20261108092500 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">UEFA Champions League Weekly</title>
+    <desc lang="es">La revista semanal de la UEFA Champions League con entrevistas, notas y curiosidades del torneo de clubes más importante del mundo.</desc>
+    <date>2021</date>
+    <category lang="es">Fútbol</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/4530666.jpg" />
+  </programme>
+  <programme start="20261108092500 -0300" stop="20261108102500 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">UEFA Champions League Highlights</title>
+    <desc lang="es">Las mejores jugadas y todos los goles de la ultima fecha del torneo más importante de Europa.</desc>
+    <date>2000</date>
+    <category lang="es">Fútbol</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/563418.jpg" />
+  </programme>
+  <programme start="20261108102500 -0300" stop="20261108112500 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">UEFA Champions League Highlights</title>
+    <desc lang="es">Las mejores jugadas y todos los goles de la ultima fecha del torneo más importante de Europa.</desc>
+    <date>2000</date>
+    <category lang="es">Fútbol</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/563418.jpg" />
+  </programme>
+  <programme start="20261108112500 -0300" stop="20261108133000 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">Bundesliga</title>
+    <sub-title lang="es">Borussia Dortmund vs. SV Elversberg, Fecha 9, Signal Iduna Park</sub-title>
+    <desc lang="es">Vive las emociones de los partidos de la 64º edición de la Bundesliga, donde compiten los equipos de primera división del fútbol alemán.</desc>
+    <date>2026</date>
+    <category lang="es">Fútbol</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/1627061412.jpg" />
+    <country lang="es">Alemania</country>
+    <episode-num system="onscreen">S2026</episode-num>
+  </programme>
+  <programme start="20261108133000 -0300" stop="20261108134500 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">International Friendly</title>
+    <title lang="xx">Aston Villa Campeón UEL 2025-2026</title>
+    <desc lang="es">Compacto de partidos amistosos internacionales.</desc>
+    <date>2000</date>
+    <category lang="es">Fútbol</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/37874110.jpg" />
+  </programme>
+  <programme start="20261108134500 -0300" stop="20261108144500 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">UEFA Europa League Highlights</title>
+    <desc lang="es">Los mejores momentos de la UEFA Europa League, el segundo torneo de clubes más importante del Viejo Continente.</desc>
+    <date>2000</date>
+    <category lang="es">Fútbol</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/4687715.jpg" />
+  </programme>
+  <programme start="20261108144500 -0300" stop="20261108165500 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">Argentina liga profesional de futbol</title>
+    <title lang="xx">Grupo A, Estadio Mario Alberto Kempes</title>
+    <sub-title lang="es">Talleres (Cba.) vs. Estudiantes (LP), Fecha 16 - Grupo A, Estadio Mario Alberto Kempes</sub-title>
+    <desc lang="es">Vive los partidos del segundo torneo de la 97º edición de la Primera División del fútbol argentino Serán 30 equipos divididos en 2 zonas Los mejores 8 de cada una accederán a la instancia final de playoffs.</desc>
+    <date>2026</date>
+    <category lang="es">Fútbol</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/1988892808.jpg" />
+    <country lang="es">Argentina</country>
+    <episode-num system="onscreen">S0</episode-num>
+  </programme>
+  <programme start="20261108165500 -0300" stop="20261108171500 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">International Friendly</title>
+    <title lang="xx">PSG Campeón UCL 2025-2026</title>
+    <desc lang="es">Compacto de partidos amistosos internacionales.</desc>
+    <date>2000</date>
+    <category lang="es">Fútbol</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/37874110.jpg" />
+  </programme>
+  <programme start="20261108171500 -0300" stop="20261108192500 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">Argentina liga profesional de futbol</title>
+    <title lang="xx">Grupo B, Estadio Dr. Lisandro de la Torre</title>
+    <sub-title lang="es">Rosario Central vs. Estudiantes (RC), Fecha 16 - Grupo B, Estadio Dr. Lisandro de la Torre</sub-title>
+    <desc lang="es">Vive los partidos del segundo torneo de la 97º edición de la Primera División del fútbol argentino Serán 30 equipos divididos en 2 zonas Los mejores 8 de cada una accederán a la instancia final de playoffs.</desc>
+    <date>2026</date>
+    <category lang="es">Fútbol</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/1988892808.jpg" />
+    <country lang="es">Argentina</country>
+    <episode-num system="onscreen">S0</episode-num>
+  </programme>
+  <programme start="20261108192500 -0300" stop="20261108193000 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">International Friendly</title>
+    <title lang="xx">Aston Villa Campeón UEL 2025-2026</title>
+    <desc lang="es">Compacto de partidos amistosos internacionales.</desc>
+    <date>2000</date>
+    <category lang="es">Fútbol</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/37874110.jpg" />
+  </programme>
+  <programme start="20261108193000 -0300" stop="20261108200000 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">El show de la Copa Libertadores</title>
+    <desc lang="es">El mejor resumen de los partidos de la Copa Conmebol Libertadores: goles, jugadas, polémicas, los mejores jugadores son parte de este imperdible show con lo mejor del fútbol de nuestro continente.</desc>
+    <date>2000</date>
+    <category lang="es">Fútbol</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/15720360.jpg" />
+  </programme>
+  <programme start="20261108200000 -0300" stop="20261108210000 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">UEFA Champions League Highlights</title>
+    <desc lang="es">Las mejores jugadas y todos los goles de la ultima fecha del torneo más importante de Europa.</desc>
+    <date>2000</date>
+    <category lang="es">Fútbol</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/563418.jpg" />
+  </programme>
+  <programme start="20261108210000 -0300" stop="20261108213000 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">UEFA Champions League Weekly</title>
+    <desc lang="es">La revista semanal de la UEFA Champions League con entrevistas, notas y curiosidades del torneo de clubes más importante del mundo.</desc>
+    <date>2021</date>
+    <category lang="es">Fútbol</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/4530666.jpg" />
+  </programme>
+  <programme start="20261108213000 -0300" stop="20261109010000 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">NCAAF Football</title>
+    <title lang="xx">Georgia vs. Ole Miss, Vaught-Hemingway Stadium, Oxford, MS, USA</title>
+    <desc lang="es">Cobertura de la acción del fútbol universitario de la NCAA, con equipos que compiten en enfrentamientos clave a lo largo de la temporada.</desc>
+    <date>2000</date>
+    <category lang="es">Fútbol americano</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/1992528247.jpg" />
+    <country lang="es">EE. UU</country>
+  </programme>
+  <programme start="20261109010000 -0300" stop="20261109013000 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">El show de la Copa Libertadores</title>
+    <desc lang="es">El mejor resumen de los partidos de la Copa Conmebol Libertadores: goles, jugadas, polémicas, los mejores jugadores son parte de este imperdible show con lo mejor del fútbol de nuestro continente.</desc>
+    <date>2000</date>
+    <category lang="es">Fútbol</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/15720360.jpg" />
+  </programme>
+  <programme start="20261109013000 -0300" stop="20261109040000 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">NBA</title>
+    <title lang="xx">NBA Global Games, Arena CDMX</title>
+    <sub-title lang="es">Denver Nuggets vs. Indiana Pacers, Temporada regular - NBA Global Games, Arena CDMX</sub-title>
+    <desc lang="es">Vive los partidos de la 81º temporada de la NBA, la competición norteamericana de baloncesto que reúne a los basquetbolistas más talentosos del mundo.</desc>
+    <date>2026</date>
+    <category lang="es">Básquet</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/1948700499.jpg" />
+    <country lang="es">EE. UU</country>
+    <episode-num system="onscreen">S2026</episode-num>
+  </programme>
+  <programme start="20261109040000 -0300" stop="20261109060000 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">The Best of Padel World Cup</title>
+    <title lang="xx">Final femenina</title>
+    <desc lang="es">Mira los momentos más destacados de la Copa Mundial de Padel FIP en su edición del 2026, celebrada en Doha,.</desc>
+    <date>2026</date>
+    <category lang="es">Pádel</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/1997213681.jpg" />
+    <country lang="es">Catar</country>
+  </programme>
+  <programme start="20261109060000 -0300" stop="20261109080000 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">The Best of Padel World Cup</title>
+    <title lang="xx">Final masculina</title>
+    <desc lang="es">Mira los momentos más destacados de la Copa Mundial de Padel FIP en su edición del 2026, celebrada en Doha,.</desc>
+    <date>2026</date>
+    <category lang="es">Pádel</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/1997213681.jpg" />
+    <country lang="es">Catar</country>
+  </programme>
+  <programme start="20261109080000 -0300" stop="20261109082000 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">International Friendly</title>
+    <title lang="xx">PSG Campeón UCL 2025-2026</title>
+    <desc lang="es">Compacto de partidos amistosos internacionales.</desc>
+    <date>2000</date>
+    <category lang="es">Fútbol</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/37874110.jpg" />
+  </programme>
+  <programme start="20261109082000 -0300" stop="20261109102000 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">English League Championship</title>
+    <sub-title lang="es">Wrexham vs. Wolverhampton Wanderers, Fecha 15, SToK Racecourse</sub-title>
+    <desc lang="es">Vive los partidos de la 25º edición de la segunda división de Inglaterra, la English Football League Championship con un total de 24 equipos que competirán por el trofeo y el ascenso a la Primera división.</desc>
+    <date>2026</date>
+    <category lang="es">Fútbol</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/1994327737.jpg" />
+    <country lang="es">Inglaterra</country>
+    <episode-num system="onscreen">S2026</episode-num>
+  </programme>
+  <programme start="20261109102000 -0300" stop="20261109122500 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">Eredivisie</title>
+    <sub-title lang="es">FC Twente vs. Ajax, Fecha 12, De Grolsch Veste</sub-title>
+    <desc lang="es">Vive las emociones de los partidos de la 71º edición de la Eredivisie, la máxima competición profesional de fútbol en Países Bajos que reúne a los equipos más destacados del país en encuentros cargados de adrenalina y competencia.</desc>
+    <date>2026</date>
+    <category lang="es">Fútbol</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/1994323568.jpg" />
+    <country lang="es">Países Bajos</country>
+    <episode-num system="onscreen">S2026</episode-num>
+  </programme>
+  <programme start="20261109122500 -0300" stop="20261109125000 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">International Friendly</title>
+    <title lang="xx">PSG Campeón UCL 2025-2026</title>
+    <desc lang="es">Compacto de partidos amistosos internacionales.</desc>
+    <date>2000</date>
+    <category lang="es">Fútbol</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/37874110.jpg" />
+  </programme>
+  <programme start="20261109125000 -0300" stop="20261109135000 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">UEFA Champions League Highlights</title>
+    <desc lang="es">Las mejores jugadas y todos los goles de la ultima fecha del torneo más importante de Europa.</desc>
+    <date>2000</date>
+    <category lang="es">Fútbol</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/563418.jpg" />
+  </programme>
+  <programme start="20261109135000 -0300" stop="20261109160000 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">Serie A</title>
+    <sub-title lang="es">Inter vs. Como, Fecha 11, Stadio Giuseppe Meazza</sub-title>
+    <desc lang="es">Vive las emociones de los partidos de la 125º edición de la Serie A, la máxima competición futbolística de Italia, la cual es organizada por la Lega Nazionale Professionisti.</desc>
+    <date>2026</date>
+    <category lang="es">Fútbol</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/37646479.jpg" />
+    <country lang="es">Italia</country>
+    <episode-num system="onscreen">S2026</episode-num>
+  </programme>
+  <programme start="20261109160000 -0300" stop="20261109180000 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">NFL</title>
+    <sub-title lang="es">New York Giants vs. Philadelphia Eagles, Fecha 9, Lincoln Financial Field</sub-title>
+    <desc lang="es">Vive los partidos de la edición 107º de la NFL El público podrá disfrutar de los encuentros más emocionantes de la mayor liga de fútbol americano profesional de Estados Unidos.</desc>
+    <date>2026</date>
+    <category lang="es">Fútbol americano</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/55546821.jpg" />
+    <country lang="es">EE. UU</country>
+    <episode-num system="onscreen">S2026</episode-num>
+  </programme>
+  <programme start="20261109180000 -0300" stop="20261109213000 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">NFL</title>
+    <sub-title lang="es">Arizona Cardinals vs. Seattle Seahawks, Fecha 9, Lumen Field</sub-title>
+    <desc lang="es">Vive los partidos de la edición 107º de la NFL El público podrá disfrutar de los encuentros más emocionantes de la mayor liga de fútbol americano profesional de Estados Unidos.</desc>
+    <date>2026</date>
+    <category lang="es">Fútbol americano</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/55546821.jpg" />
+    <country lang="es">EE. UU</country>
+    <episode-num system="onscreen">S2026</episode-num>
+  </programme>
+  <programme start="20261109213000 -0300" stop="20261109220000 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">El show de la Copa Libertadores</title>
+    <desc lang="es">El mejor resumen de los partidos de la Copa Conmebol Libertadores: goles, jugadas, polémicas, los mejores jugadores son parte de este imperdible show con lo mejor del fútbol de nuestro continente.</desc>
+    <date>2000</date>
+    <category lang="es">Fútbol</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/15720360.jpg" />
+  </programme>
+  <programme start="20261109220000 -0300" stop="20261109230000 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">UEFA Champions League Highlights</title>
+    <desc lang="es">Las mejores jugadas y todos los goles de la ultima fecha del torneo más importante de Europa.</desc>
+    <date>2000</date>
+    <category lang="es">Fútbol</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/563418.jpg" />
+  </programme>
+  <programme start="20261109230000 -0300" stop="20261110040000 -0300" channel="PublicDirect.7a74b6bb5335426d7a0ed8f5">
+    <title lang="es">Bundesliga</title>
+    <sub-title lang="es">Hoffenheim vs. Schalke 04, Fecha 9, PreZero Arena</sub-title>
+    <desc lang="es">Vive las emociones de los partidos de la 64º edición de la Bundesliga, donde compiten los equipos de primera división del fútbol alemán.</desc>
+    <date>2026</date>
+    <category lang="es">Fútbol</category>
+    <icon src="http://www.reportv.com.ar/buscador/img/Programas/1627061412.jpg" />
+    <country lang="es">Alemania</country>
+    <episode-num system="onscreen">S2026</episode-num>
   </programme>
   <programme start="20261107115000 -0300" stop="20261107135500 -0300" channel="PublicDirect.7b33a82dca560712171ccf55">
     <title lang="es">Fútbol Premier League</title>
@@ -12105,12 +12088,6 @@
   <programme start="20261110040800 -0300" stop="20261110071000 -0300" channel="PublicDirect.7ba564f651c493872cf8f969">
     <title lang="es">The Batman</title>
   </programme>
-  <programme start="20261107123900 -0300" stop="20261107132300 -0300" channel="PublicDirect.7e4fe7ff47c91a001130c27b">
-    <title lang="es">Alto Octanaje en Las Vegas</title>
-    <sub-title lang="es">La maldición del auto embrujado</sub-title>
-    <desc lang="es">T4 -Ep.10: La Maldición Del Auto Embrujado. El auto del amigo de Steve está embrujado. La suspensión y el motor no entran y generan más trabajo en la carrocería, y cuando el motor no arranca, pierden la fecha de entrega acordada.</desc>
-    <episode-num system="onscreen">S4 E8</episode-num>
-  </programme>
   <programme start="20261107132300 -0300" stop="20261107140800 -0300" channel="PublicDirect.7e4fe7ff47c91a001130c27b">
     <title lang="es">Mexicánicos</title>
     <desc lang="es">T11 -Ep.8. Martín y su equipo deben restaurar y personalizar una combi para el legendario músico Fher Olvera, recreando la que Maná usaba en sus primeros tiempos. Además fabricarán un escenario itinerante para destinado a impulsar el arte joven en Tlajomulco.</desc>
@@ -13512,603 +13489,6 @@
     <category lang="es">Comedia</category>
     <icon src="http://www.reportv.com.ar/buscador/img/Programas/10386027.jpg" />
     <country lang="es">EE. UU</country>
-  </programme>
-  <programme start="20261107123500 -0300" stop="20261107133600 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">El salvaje Dr. Ole</title>
-    <sub-title lang="es">En peligro de extinción</sub-title>
-    <desc lang="es">Doc. Ole ayuda a devolver al lobo gris mexicano, una especie en peligro de extinción, a la vida silvestre de Arizona y libera un búho después de tratarle la pata.</desc>
-    <date>2021</date>
-    <episode-num system="onscreen">E3</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
-  <programme start="20261107133600 -0300" stop="20261107143600 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Dra. K: Animales exóticos</title>
-    <sub-title lang="es">Liberando a Willie</sub-title>
-    <desc lang="es">La Dra. K se apresura para tratar a una cabra mascota con cálculos renales, que debe someterse a dos cirugías.</desc>
-    <date>2015</date>
-    <episode-num system="onscreen">E6</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
-  <programme start="20261107143600 -0300" stop="20261107153500 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Dr. Oakley, Yukon Vet</title>
-    <sub-title lang="es">Hasta el colmillo</sub-title>
-    <desc lang="es">La doctora Oakley examina a dos toros de cría enfermos, sobre quienes recae la responsabilidad de perpetuar una ganadería. Además, un jabalí presenta una lesión en un colmillo y un mochuelo depara una sorpresa a los veterinarios.</desc>
-    <date>2018</date>
-    <episode-num system="onscreen">E9</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
-  <programme start="20261107153500 -0300" stop="20261107163500 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Amistades insólitas</title>
-    <sub-title lang="es">El cerdo y su perro</sub-title>
-    <desc lang="es">Este episodio nos cuenta tiernas historias sobre la sólida amistad entre animales de distinta especie.</desc>
-    <date>2016</date>
-    <episode-num system="onscreen">E2</episode-num>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261107163500 -0300" stop="20261107173600 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Ciudades encontradas con Albert Lin</title>
-    <sub-title lang="es">Los guerreros de las nubes</sub-title>
-    <desc lang="es">Albert Lin explora Perú en busca de la ciudad perdida de los Guerreros de las Nubes.</desc>
-    <date>2023</date>
-    <episode-num system="onscreen">E3</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
-  <programme start="20261107173600 -0300" stop="20261107183800 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Los mejores destinos del mundo: Guizhou</title>
-    <desc lang="es">Una aventura a través de la increíble Guizhou, China, con el explorador y fotógrafo Ben Horton. Se descubre la naturaleza mística, atracciones icónicas y maravillas ocultas de Guizhou.</desc>
-    <date>2024</date>
-    <rating system="MJColombia">
-      <value>AGE228</value>
-    </rating>
-  </programme>
-  <programme start="20261107183800 -0300" stop="20261107193600 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Secretos de cuerpos antiguos</title>
-    <sub-title lang="es">Ötzi: El primer caso no resuelto del mundo</sub-title>
-    <desc lang="es">En las montañas del norte de Italia, unos montañistas hacen un hallazgo espeluznante: encuentran unos restos humanos en un glaciar, que resultan ser los de la momia de hielo más antigua del mundo, y cuya causa de muerte se debió a un homicidio.</desc>
-    <date>2024</date>
-    <episode-num system="onscreen">E1</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
-  <programme start="20261107193600 -0300" stop="20261107205900 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">El último secreto de Cleopatra</title>
-    <desc lang="es">La búsqueda de 20 años de Kathleen Martínez por la tumba de Cleopatra la lleva a ella y a un equipo costa afuera para explorar un misterioso sitio sumergido.</desc>
-    <date>2025</date>
-    <rating system="MJColombia">
-      <value>AGE228</value>
-    </rating>
-  </programme>
-  <programme start="20261107205900 -0300" stop="20261107220200 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Imperio salvaje</title>
-    <sub-title lang="es">La roca del leopardo</sub-title>
-    <desc lang="es">Saba caza en los árboles y en las colinas del corazón de su territorio. Es solitaria, sigilosa, prácticamente invisible y una leoparda asesina sin rival. Es la cazadora más espectacular y más ingeniosa que ha habido nunca en el reino salvaje.</desc>
-    <date>2016</date>
-    <episode-num system="onscreen">E1</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
-  <programme start="20261107220200 -0300" stop="20261107230600 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Planeta hostil</title>
-    <sub-title lang="es">Montañas</sub-title>
-    <desc lang="es">Las montañas más altas alojan a leopardos de las nieves, águilas reales, cabras de las Rocosas y barnaclas cariblancas. Pero solo los más resistentes pueden soportar el clima extremo, la escasez de alimento y el oxígeno limitado de estos picos.</desc>
-    <date>2019</date>
-    <episode-num system="onscreen">E1</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
-  <programme start="20261107230600 -0300" stop="20261108000700 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Secretos de los elefantes</title>
-    <sub-title lang="es">Desierto</sub-title>
-    <desc lang="es">Se revelan los secretos de las últimas familias de elefantes que quedan en los desiertos de Namibia y cómo se adaptan a este duro entorno para garantizar su supervivencia.</desc>
-    <date>2023</date>
-    <episode-num system="onscreen">E2</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
-  <programme start="20261108000700 -0300" stop="20261108010200 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Alerta aeropuerto: Sao Paulo</title>
-    <sub-title lang="es">Santos estupefacientes</sub-title>
-    <desc lang="es">La policía revisa las pertenencias de una mujer de comportamiento singular, mientras lidian con sus problemas de salud. En la zona de registro de maletas, los agentes deben frenar la huida de un joven que viajaba a África.</desc>
-    <episode-num system="onscreen">E2</episode-num>
-    <rating system="MJColombia">
-      <value>AGE228</value>
-    </rating>
-  </programme>
-  <programme start="20261108010200 -0300" stop="20261108020300 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Alerta aeropuerto</title>
-    <sub-title lang="es">Seducido en la web</sub-title>
-    <desc lang="es">Un señor que afirma haber sido engañado por una mujer que conoció en Internet, y que le pidió transportar un maletín a España sin sospechar que tenía droga; interceptan una silla odontológica repleta de cocaína; un envase de vino con cocaína líquida.</desc>
-    <date>2015</date>
-    <episode-num system="onscreen">E1</episode-num>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261108020300 -0300" stop="20261108024700 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Mayday: Catástrofes aéreas</title>
-    <sub-title lang="es">Derretimiento sobre Katmandú</sub-title>
-    <desc lang="es">Al aterrizar en uno de los aeropuertos más desafiantes del mundo, un avión de pasajeros llega como si fuera un avión de combate, se sale de la pista y estalla en llamas.</desc>
-    <date>2021</date>
-    <episode-num system="onscreen">E4</episode-num>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261108024700 -0300" stop="20261108033400 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Secreto en los océanos</title>
-    <sub-title lang="es">Submarinos nazis</sub-title>
-    <desc lang="es">Una mirada a las naves submarinas alemanas, las primeras armas invisibles del mundo.</desc>
-    <date>2019</date>
-    <episode-num system="onscreen">E3</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
-  <programme start="20261108033400 -0300" stop="20261108041800 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Solo contra el mundo</title>
-    <sub-title lang="es">Volcán de la isla</sub-title>
-    <desc lang="es">El aventurero Hazen Audel se enfrenta a una densa selva, aguas salvajes e imponentes cascadas mientras asciende a la cima del monte Gharat, donde se une a miembros de la tribu Salkon en una cacería con cuya carne celebrarán un banquete.</desc>
-    <date>2018</date>
-    <episode-num system="onscreen">E3</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
-  <programme start="20261108041800 -0300" stop="20261108050200 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Alerta aeropuerto</title>
-    <sub-title lang="es">Seducido en la web</sub-title>
-    <desc lang="es">Un señor que afirma haber sido engañado por una mujer que conoció en Internet, y que le pidió transportar un maletín a España sin sospechar que tenía droga; interceptan una silla odontológica repleta de cocaína; un envase de vino con cocaína líquida.</desc>
-    <date>2015</date>
-    <episode-num system="onscreen">E1</episode-num>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261108050200 -0300" stop="20261108054600 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Alerta Aeropuerto: Roma</title>
-    <sub-title lang="es">El regalo prometido</sub-title>
-    <desc lang="es">La policía antidrogas investiga a una pasajera que viaja con una cantidad excesiva de pijamas. Además, la Unidad Investigativa de Fronteras se alarma ante la llegada de una supuesta pareja de turistas. Los agentes investigan a cinco mujeres moldavas.</desc>
-    <date>2020</date>
-    <episode-num system="onscreen">E4</episode-num>
-    <rating system="MJColombia">
-      <value>+18</value>
-    </rating>
-  </programme>
-  <programme start="20261108054600 -0300" stop="20261108063300 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Secreto en los océanos</title>
-    <sub-title lang="es">Golfo de México</sub-title>
-    <desc lang="es">Los secretos más peligrosos del golfo de México salen a la luz.</desc>
-    <date>2018</date>
-    <episode-num system="onscreen">E3</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
-  <programme start="20261108063300 -0300" stop="20261108070000 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Hacia lo desconocido</title>
-    <sub-title lang="es">El renacer</sub-title>
-    <desc lang="es">El legendario montañero Conrad Anker sufre un ataque al corazón cuando intentaba ascender por primera vez al pico más alto del Himalaya aún sin escalar.</desc>
-    <date>2022</date>
-    <episode-num system="onscreen">E4</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
-  <programme start="20261108070000 -0300" stop="20261108075400 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Secreto en los océanos</title>
-    <sub-title lang="es">La historia secreta de Londres</sub-title>
-    <desc lang="es">Se revela la historia secreta de Londres, la capital de Inglaterra.</desc>
-    <date>2019</date>
-    <episode-num system="onscreen">E10</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
-  <programme start="20261108075400 -0300" stop="20261108085300 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Ciudades perdidas con Albert Lin</title>
-    <sub-title lang="es">Los secretos de Petra</sub-title>
-    <desc lang="es">Albert Lin viaja a Petra, Jordania, para conocer los orígenes de la famosa ciudad. Aprende que fue construida por los nabateos e investiga sobre sus ciudades y templos.</desc>
-    <date>2019</date>
-    <episode-num system="onscreen">E5</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
-  <programme start="20261108085300 -0300" stop="20261108095600 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Mayday: Catástrofes aéreas</title>
-    <sub-title lang="es">Catástrofe en control</sub-title>
-    <desc lang="es">Una tripulación kazaja se las arregla para aterrizar un avión incontrolable y los investigadores deben determinar cómo es posible que permitieran el despegue de un avión recién revisado cuando contaba con un fallo fatídico.</desc>
-    <date>2023</date>
-    <episode-num system="onscreen">E5</episode-num>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261108095600 -0300" stop="20261108105500 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Alerta aeropuerto</title>
-    <sub-title lang="es">Doble riesgo</sub-title>
-    <desc lang="es">Una supuesta pareja tiene un ingenioso plan para llevar varios kilos de cocaína. Un pasajero es detenido con unos gramos de cocaína dentro de unas grageas de vitamina. Un joven que lleva cápsulas de cocaína en su organismo es capturado, pero colapsa.</desc>
-    <episode-num system="onscreen">E3</episode-num>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261108105500 -0300" stop="20261108115600 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Gordon Ramsay: Sabores extremos</title>
-    <sub-title lang="es">Costa accidentada de Portugal</sub-title>
-    <desc lang="es">El chef Ramsay descubre el espíritu rudo y la sencillez de la cocina en el país marinero de Portugal.</desc>
-    <date>2021</date>
-    <episode-num system="onscreen">E2</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
-  <programme start="20261108115600 -0300" stop="20261108125500 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Restaurantes del fin del mundo</title>
-    <sub-title lang="es">Un granero en la isla de Maine</sub-title>
-    <desc lang="es">A veinte kilómetros de la costa de Maine, Kristen Kish viaja a la isla North Haven, donde la chef Carolynn se prepara para darle su toque sureño al menú del restaurante Turner Farm. Kristen descubre lo especial de la leche de cabra.</desc>
-    <date>2023</date>
-    <episode-num system="onscreen">E3</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
-  <programme start="20261108125500 -0300" stop="20261108135700 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Parques nacionales de Estados Unidos</title>
-    <sub-title lang="es">Badlands</sub-title>
-    <desc lang="es">El Parque Nacional de Badlands, en Dakota del Sur, es una tierra de belleza agreste, hogar de un mar de hierba, agujas rocosas y algunas de las especies más emblemáticas de Estados Unidos.</desc>
-    <date>2022</date>
-    <episode-num system="onscreen">E4</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
-  <programme start="20261108135700 -0300" stop="20261108145700 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Los mejores trenes de la historia</title>
-    <sub-title lang="es">Ferrocarril de las Barrancas del Cobre</sub-title>
-    <desc lang="es">El tren El Chepe es una maravilla de la ingeniería mexicana que tardó 100 años en construirse a través de la región del cañón más grande del mundo, el Cañón del Cobre.</desc>
-    <date>2022</date>
-    <episode-num system="onscreen">E3</episode-num>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261108145700 -0300" stop="20261108155700 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Sabores caseros con Antoni Porowski</title>
-    <sub-title lang="es">La búsqueda italiana de Justin Theroux</sub-title>
-    <desc lang="es">Para descubrir los orígenes de un plato de pasta familiar, Antoni lleva a Justin en un viaje por la carretera italiana lleno de deliciosos descubrimientos y sorprendentes revelaciones.</desc>
-    <date>2025</date>
-    <episode-num system="onscreen">E3</episode-num>
-    <rating system="MJColombia">
-      <value>AGE228</value>
-    </rating>
-  </programme>
-  <programme start="20261108155700 -0300" stop="20261108170400 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Lo mejor del mundo con Antoni Porowski</title>
-    <sub-title lang="es">Ciudad de México</sub-title>
-    <desc lang="es">Antoni descubre las experiencias turísticas más destacadas de la Ciudad de México, desde la gastronomía con estrellas Michelin hasta las noches de lucha libre en la catedral de este deporte.</desc>
-    <date>2026</date>
-    <episode-num system="onscreen">E1</episode-num>
-    <rating system="MJColombia">
-      <value>AGE228</value>
-    </rating>
-  </programme>
-  <programme start="20261108170400 -0300" stop="20261108184000 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Titanic: The Digital Resurrection</title>
-    <desc lang="es">El escaneo de vanguardia crea un gemelo digital del Titanic para una investigación tridimensional inmersiva.</desc>
-    <date>2025</date>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
-  <programme start="20261108184000 -0300" stop="20261108205900 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Glass</title>
-    <desc lang="es">El guardia de seguridad David Dunn usa sus habilidades sobrenaturales para rastrear a Kevin Wendell Crumb, un hombre que tiene veinticuatro personalidades, y a un misterioso cerebro criminal.</desc>
-    <date>2019</date>
-    <country lang="es">Estados Unidos</country>
-    <rating system="MJColombia">
-      <value>AGE227</value>
-    </rating>
-  </programme>
-  <programme start="20261108205900 -0300" stop="20261108220000 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Huracán katrina: La carrera contra el tiempo</title>
-    <sub-title lang="es">La tormenta que se avecina</sub-title>
-    <desc lang="es">Los residentes de Nueva Orleans se preparan para el desastre que la ira del huracán Katrina dejará a su paso.</desc>
-    <date>2025</date>
-    <episode-num system="onscreen">E1</episode-num>
-    <rating system="MJColombia">
-      <value>AGE228</value>
-    </rating>
-  </programme>
-  <programme start="20261108220000 -0300" stop="20261108230000 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Lobos de cerca con Bertie Gregory</title>
-    <date>2026</date>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
-  <programme start="20261108230000 -0300" stop="20261109000100 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Incredible Animal Journeys</title>
-    <sub-title lang="es">Home at the End of the Earth</sub-title>
-    <desc lang="es">Cuando se vive en el fin del mundo, no hay lugar como el hogar.</desc>
-    <date>2023</date>
-    <episode-num system="onscreen">E4</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
-  <programme start="20261109000100 -0300" stop="20261109010100 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Alerta aeropuerto: Lima</title>
-    <sub-title lang="es">Blancas aventuras</sub-title>
-    <desc lang="es">Gracias a los rayos X, los agentes detectan anomalías en una maleta destinada a un vuelo que está a punto de despegar. Mientras tanto, el calor pone en evidencia a dos pasajeros y deberán rendir explicaciones ante la policía antidrogas.</desc>
-    <date>2019</date>
-    <episode-num system="onscreen">E2</episode-num>
-    <rating system="MJColombia">
-      <value>AGE228</value>
-    </rating>
-  </programme>
-  <programme start="20261109010100 -0300" stop="20261109020100 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Alerta Aeropuerto: Madrid</title>
-    <sub-title lang="es">Peso pesado</sub-title>
-    <desc lang="es">Un ciudadano español recién llegado de Colombia es apartado por los oficiales de estupefacientes para un control más exhaustivo luego de una entrevista de rutina.</desc>
-    <date>2019</date>
-    <episode-num system="onscreen">E3</episode-num>
-    <rating system="MJColombia">
-      <value>+18</value>
-    </rating>
-  </programme>
-  <programme start="20261109020100 -0300" stop="20261109024500 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Mayday: Catástrofes aéreas</title>
-    <sub-title lang="es">Misión desastre</sub-title>
-    <desc lang="es">En una misión de reabastecimiento de combustible durante la Guerra del Golfo, un avión cisterna de la Fuerza Aérea de Estados Unidos pierde dos motores y la tripulación lucha por llevar el avión dañado a Yeda, Arabia Saudita.</desc>
-    <date>2021</date>
-    <episode-num system="onscreen">E7</episode-num>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261109024500 -0300" stop="20261109033200 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Secreto en los océanos</title>
-    <sub-title lang="es">Guerra civil en el agua</sub-title>
-    <desc lang="es">Un grupo de arqueólogos marinos e historiadores buscan los pecios perdidos de la guerra civil estadounidense. El océano oculta todavía muchos secretos que, cuando sean develados, ayudarán a explicar cómo se desarrolló el conflicto bélico.</desc>
-    <date>2019</date>
-    <episode-num system="onscreen">E5</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
-  <programme start="20261109033200 -0300" stop="20261109041600 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Solo contra el mundo</title>
-    <sub-title lang="es">Jungla mortal</sub-title>
-    <desc lang="es">Hazen Audel se abre camino a través de la densa jungla de Guyana y lucha contra las aguas llenas de depredadores hambrientos, como pirañas y un enorme caimán, para localizar a un grupo de miembros de la tribu Macushi.</desc>
-    <date>2018</date>
-    <episode-num system="onscreen">E1</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
-  <programme start="20261109041600 -0300" stop="20261109050000 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Alerta aeropuerto</title>
-    <sub-title lang="es">Escala criminal</sub-title>
-    <desc lang="es">Cargamento de cocaína diluida es detectado en inofensivos productos para el cabello; se encuentra una maleta de mano con 26 kilos de estupefacientes; interceptan un cargamento de cocaína líquida camuflada dentro de latas de jugo de borojó.</desc>
-    <date>2016</date>
-    <episode-num system="onscreen">E2</episode-num>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261109050000 -0300" stop="20261109054400 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Alerta Aeropuerto: Roma</title>
-    <sub-title lang="es">Santos y pecadores</sub-title>
-    <desc lang="es">La policía antidrogas intenta descubrir qué esconde un pasajero en sus zapatos. Las vacaciones de tres supuestos amigos se ven amenazadas. Los agentes antidrogas investigan a una pasajera que no hace más que rezar.</desc>
-    <date>2020</date>
-    <episode-num system="onscreen">E5</episode-num>
-    <rating system="MJColombia">
-      <value>+18</value>
-    </rating>
-  </programme>
-  <programme start="20261109054400 -0300" stop="20261109063200 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Secreto en los océanos</title>
-    <sub-title lang="es">Los misterios del Mediterráneo</sub-title>
-    <desc lang="es">Los secretos de las civilizaciones antiguas perdidas salen a la luz cuando se drena el Mediterráneo.</desc>
-    <date>2018</date>
-    <episode-num system="onscreen">E4</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
-  <programme start="20261109063200 -0300" stop="20261109070000 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Hacia lo desconocido</title>
-    <sub-title lang="es">Caída de película</sub-title>
-    <desc lang="es">Durante el rodaje de una película deportiva, el esquiador Ángel Collinson cae desde una montaña de más de 300 metros en uno de los espolones más escarpados de Alaska.</desc>
-    <date>2022</date>
-    <episode-num system="onscreen">E2</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
-  <programme start="20261109070000 -0300" stop="20261109074600 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Tesoros perdidos de Egipto</title>
-    <sub-title lang="es">El éxito de Ramsés</sub-title>
-    <desc lang="es">Los egiptólogos descubren el palacio escondido de Ramsés, e intentan develar todos los secretos que oculta.</desc>
-    <date>2020</date>
-    <episode-num system="onscreen">E5</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
-  <programme start="20261109074600 -0300" stop="20261109084900 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Secreto en los océanos</title>
-    <sub-title lang="es">Los secretos del Lago Ness</sub-title>
-    <desc lang="es">Finalmente, se vacía el lago para develar la identidad del monstruo.</desc>
-    <date>2019</date>
-    <episode-num system="onscreen">E11</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
-  <programme start="20261109084900 -0300" stop="20261109095000 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Ciudades perdidas con Albert Lin</title>
-    <sub-title lang="es">Los secretos de Machu Picchu</sub-title>
-    <desc lang="es">Albert Lin viaja a las montañas peruanas para explorar los orígenes de Machu Picchu. Albert encuentra evidencia de que existió una civilización más antigua que los incas.</desc>
-    <date>2019</date>
-    <episode-num system="onscreen">E6</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
-  <programme start="20261109095000 -0300" stop="20261109105000 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Mayday: Catástrofes aéreas</title>
-    <sub-title lang="es">Catástrofe en cabina</sub-title>
-    <desc lang="es">La ventana de la cabina del vuelo 8633 de Sichuan Airlines explota, lo que obliga a la tripulación a luchar contra vientos huracanados y falta de oxígeno para aterrizar el avión de manera segura.</desc>
-    <date>2023</date>
-    <episode-num system="onscreen">E6</episode-num>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261109105000 -0300" stop="20261109115100 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Alerta aeropuerto</title>
-    <sub-title lang="es">Falsa inocencia</sub-title>
-    <desc lang="es">Una pasajera intenta llevar 9 kilos de cocaína a París; una cama esconde un cargamento de marihuana; un pasajero podría llevar droga inyectada en sus prótesis de glúteos. Una madre intentaba sacar del país de manera ilegal a su hija.</desc>
-    <date>2015</date>
-    <episode-num system="onscreen">E4</episode-num>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261109115100 -0300" stop="20261109125100 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Gordon Ramsay: Sabores extremos</title>
-    <sub-title lang="es">Sol de medianoche de Finlandia</sub-title>
-    <desc lang="es">El chef Ramsay explora Laponia, en el norte de Finlandia jugando fútbol de pantano, navegando por rápidos feroces, pescando pescado blanco y cocinando en una sauna antes de enfrentarse cara a cara con el chef Kim Mikkola.</desc>
-    <date>2021</date>
-    <episode-num system="onscreen">E10</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
-  <programme start="20261109125100 -0300" stop="20261109135200 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Salvajemente famosos el desafío</title>
-    <sub-title lang="es">Rob Riggle en el desierto de la Gran Cuenca</sub-title>
-    <desc lang="es">Bear somete a Rob Riggle a una serie de pruebas de supervivencia de hombre de montaña.</desc>
-    <date>2022</date>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
-  <programme start="20261109135200 -0300" stop="20261109145200 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Solo contra el mundo</title>
-    <sub-title lang="es">Desierto e infierno</sub-title>
-    <desc lang="es">Hazen Audel se aventura en el inexorable y suntuoso desierto australiano en busca de un escondido oasis de agua dulce.</desc>
-    <date>2017</date>
-    <episode-num system="onscreen">E4</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
-  <programme start="20261109145200 -0300" stop="20261109155300 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Mayday: Catástrofes aéreas</title>
-    <sub-title lang="es">Sin advertencias</sub-title>
-    <desc lang="es">Un avión de turbohélice se acerca a un aeropuerto remoto en Papúa, Indonesia, cuando desaparece misteriosamente. El humo ondulante en la cima de una montaña cercana lleva a los equipos de búsqueda y rescate a los restos.</desc>
-    <date>2020</date>
-    <episode-num system="onscreen">E7</episode-num>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261109155300 -0300" stop="20261109165600 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Secreto en los océanos</title>
-    <sub-title lang="es">Los secretos del Lago Ness</sub-title>
-    <desc lang="es">Finalmente, se vacía el lago para develar la identidad del monstruo.</desc>
-    <date>2019</date>
-    <episode-num system="onscreen">E11</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
-  <programme start="20261109165600 -0300" stop="20261109175700 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Ciudades encontradas con Albert Lin</title>
-    <sub-title lang="es">Milagro en el desierto</sub-title>
-    <desc lang="es">Albert Lin se enfrenta a los desiertos y las montañas de Omán, buscando la tierra perdida de Magan, una civilización árabe olvidada cuyas preciadas exportaciones reforzaban a los más poderosos imperios de la Edad del Bronce.</desc>
-    <date>2023</date>
-    <episode-num system="onscreen">E6</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
-  <programme start="20261109175700 -0300" stop="20261109185800 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Tesoros perdidos de Egipto</title>
-    <sub-title lang="es">Ramsés al poder</sub-title>
-    <desc lang="es">Los arqueólogos descubren nuevas pruebas sobre el reinado de Ramsés el Grande.</desc>
-    <date>2021</date>
-    <episode-num system="onscreen">E3</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
-  <programme start="20261109185800 -0300" stop="20261109195800 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Alerta aeropuerto: Sao Paulo</title>
-    <sub-title lang="es">Oculto en la piel</sub-title>
-    <desc lang="es">El equipo de inteligencia se encarga de interceptar un envío de droga a Hong Kong, mientras los agentes migratorios investigan los verdaderos motivos de viaje de dos supuestos turistas indios.</desc>
-    <episode-num system="onscreen">E4</episode-num>
-    <rating system="MJColombia">
-      <value>AGE228</value>
-    </rating>
-  </programme>
-  <programme start="20261109195800 -0300" stop="20261109205900 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Alerta aeropuerto</title>
-    <desc lang="es">La policía de El Dorado enfrenta casos conmovedores cuando el narcotráfico utiliza a personas vulnerables: desde quien lleva ingenuamente una encomienda, hasta desempleados que arriesgan su vida.</desc>
-    <date>2015</date>
-    <episode-num system="onscreen">E4</episode-num>
-    <rating system="MJColombia">
-      <value>AGE228</value>
-    </rating>
-  </programme>
-  <programme start="20261109205900 -0300" stop="20261109220400 -0300" channel="PublicDirect.8a5d0371ff496197a85a71b8">
-    <title lang="es">Contrabandistas con Mariana Van Zeller</title>
-    <sub-title lang="es">Cocaína</sub-title>
-    <desc lang="es">Mariana investiga por qué la producción de cocaína está en su punto más alto.</desc>
-    <date>2020</date>
-    <episode-num system="onscreen">E6</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
-  <programme start="20261107124000 -0300" stop="20261107133000 -0300" channel="PublicDirect.8a6449ff9b420f66e78c1060">
-    <title lang="es">FBI</title>
-    <sub-title lang="es">3 a favor, 3 en contra</sub-title>
-    <desc lang="es">La agente especial Maggie Bell y su compañero, Omar Adom 'OA' Zidan, aportan todo su talento, intelecto y experiencia técnica para investigar con tenacidad casos de gran magnitud y mantener a salvo a Nueva York y al país.</desc>
-    <credits>
-      <actor>Courtney Gonzalez</actor>
-      <actor>Ebonee Noel</actor>
-      <actor>Missy Peregrym</actor>
-      <actor>Jeremy Sisto</actor>
-      <actor>Zeeko Zaki</actor>
-      <actor>Jonathan Avigdori</actor>
-      <actor>Assibey Blake</actor>
-      <actor>Mac Brandt</actor>
-      <actor>Kenya Brome</actor>
-      <actor>Chris Carlock</actor>
-    </credits>
-    <date>2018</date>
-    <category lang="es">Drama</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/8217569.jpg" />
-    <country lang="es">EE. UU</country>
-    <episode-num system="onscreen">S8 E16</episode-num>
   </programme>
   <programme start="20261107133000 -0300" stop="20261107142000 -0300" channel="PublicDirect.8a6449ff9b420f66e78c1060">
     <title lang="es">Chicago Med</title>
@@ -15974,15 +15354,6 @@
   </programme>
   <programme start="20261110041000 -0300" stop="20261110060000 -0300" channel="PublicDirect.941ee56bf19a78260d3aa16e">
     <title lang="es">12 Horas para Sobrevivir</title>
-  </programme>
-  <programme start="20261107112500 -0300" stop="20261107132500 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
-    <title lang="es">Fútbol Bundesliga</title>
-    <sub-title lang="es">1. FSV Mainz 05 vs. Bayern Munich</sub-title>
-    <desc lang="es">Acción de la jornada 9 de la Bundesliga 2026-27. Mainz 05 busca romper su racha de dos derrotas y los Bávaros retener el liderato.</desc>
-    <date>2026</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
   </programme>
   <programme start="20261107132500 -0300" stop="20261107142000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
     <title lang="es">SportsCenter+</title>
@@ -20812,9 +20183,6 @@
     <star-rating system="MX">
       <value>7.0</value>
     </star-rating>
-  </programme>
-  <programme start="20261107130000 -0300" stop="20261107133000 -0300" channel="PublicDirect.b8f2efd55894cbc58af43798">
-    <title lang="es">Destinos místicos</title>
   </programme>
   <programme start="20261107133000 -0300" stop="20261107140000 -0300" channel="PublicDirect.b8f2efd55894cbc58af43798">
     <title lang="es">¡Aquí estoy!</title>
@@ -25914,14 +25282,6 @@
     <country lang="es">EE. UU</country>
     <episode-num system="onscreen">S5 E3</episode-num>
   </programme>
-  <programme start="20261107112500 -0300" stop="20261107133000 -0300" channel="PublicDirect.deca0eae5fdc4f601e7e6555">
-    <title lang="es">Fútbol Bundesliga</title>
-    <desc lang="es">Acción de la jornada 9 de la Bundesliga 2026-27. Dortmund busca el liderato y Elversberg puestos europeos.</desc>
-    <category lang="es">Sports</category>
-    <category lang="es">Soccer</category>
-    <icon src="http://dtil.tmsimg.com/assets/GNLZZGG003B1WW5.jpg?w=960&amp;h=540" />
-    <premiere />
-  </programme>
   <programme start="20261107133000 -0300" stop="20261107135500 -0300" channel="PublicDirect.deca0eae5fdc4f601e7e6555">
     <title lang="en">UEFA Champions League Weekly</title>
     <desc lang="es">Momentos destacados, entrevistas y toda la información de la jornada semanal de la UEFA Champions League.</desc>
@@ -28498,6 +27858,581 @@
     <title lang="es">Rescate de vida silvestre de Malawi</title>
     <sub-title lang="es">Atrápame si puedes</sub-title>
     <desc lang="es">Amanda y Mandy prueban todos los trucos del libro para ayudar a una hiena atrapada, un león amenaza una aldea y el plan del equipo para liberar a una manada de 13 monos se ve frustrado por una cirugía de último minuto y astutos artistas del escape.</desc>
+    <date>2020</date>
+    <episode-num system="onscreen">E6</episode-num>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261107123500 -0300" stop="20261107133600 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">El salvaje Dr. Ole</title>
+    <sub-title lang="es">En peligro de extinción</sub-title>
+    <desc lang="es">Doc. Ole ayuda a devolver al lobo gris mexicano, una especie en peligro de extinción, a la vida silvestre de Arizona y libera un búho después de tratarle la pata.</desc>
+    <date>2021</date>
+    <episode-num system="onscreen">E3</episode-num>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261107133600 -0300" stop="20261107143600 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Dra. K: Animales exóticos</title>
+    <sub-title lang="es">Liberando a Willie</sub-title>
+    <desc lang="es">La Dra. K se apresura para tratar a una cabra mascota con cálculos renales, que debe someterse a dos cirugías.</desc>
+    <date>2015</date>
+    <episode-num system="onscreen">E6</episode-num>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261107143600 -0300" stop="20261107153500 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Dr. Oakley, Yukon Vet</title>
+    <sub-title lang="es">Hasta el colmillo</sub-title>
+    <desc lang="es">La doctora Oakley examina a dos toros de cría enfermos, sobre quienes recae la responsabilidad de perpetuar una ganadería. Además, un jabalí presenta una lesión en un colmillo y un mochuelo depara una sorpresa a los veterinarios.</desc>
+    <date>2018</date>
+    <episode-num system="onscreen">E9</episode-num>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261107153500 -0300" stop="20261107163500 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Amistades insólitas</title>
+    <sub-title lang="es">El cerdo y su perro</sub-title>
+    <desc lang="es">Este episodio nos cuenta tiernas historias sobre la sólida amistad entre animales de distinta especie.</desc>
+    <date>2016</date>
+    <episode-num system="onscreen">E2</episode-num>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261107163500 -0300" stop="20261107173600 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Ciudades encontradas con Albert Lin</title>
+    <sub-title lang="es">Los guerreros de las nubes</sub-title>
+    <desc lang="es">Albert Lin explora Perú en busca de la ciudad perdida de los Guerreros de las Nubes.</desc>
+    <date>2023</date>
+    <episode-num system="onscreen">E3</episode-num>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261107173600 -0300" stop="20261107183800 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Los mejores destinos del mundo: Guizhou</title>
+    <desc lang="es">Una aventura a través de la increíble Guizhou, China, con el explorador y fotógrafo Ben Horton. Se descubre la naturaleza mística, atracciones icónicas y maravillas ocultas de Guizhou.</desc>
+    <date>2024</date>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261107183800 -0300" stop="20261107193600 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Secretos de cuerpos antiguos</title>
+    <sub-title lang="es">Ötzi: El primer caso no resuelto del mundo</sub-title>
+    <desc lang="es">En las montañas del norte de Italia, unos montañistas hacen un hallazgo espeluznante: encuentran unos restos humanos en un glaciar, que resultan ser los de la momia de hielo más antigua del mundo, y cuya causa de muerte se debió a un homicidio.</desc>
+    <date>2024</date>
+    <episode-num system="onscreen">E1</episode-num>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261107193600 -0300" stop="20261107205900 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">El último secreto de Cleopatra</title>
+    <desc lang="es">La búsqueda de 20 años de Kathleen Martínez por la tumba de Cleopatra la lleva a ella y a un equipo costa afuera para explorar un misterioso sitio sumergido.</desc>
+    <date>2025</date>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261107205900 -0300" stop="20261107220200 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Imperio salvaje</title>
+    <sub-title lang="es">La roca del leopardo</sub-title>
+    <desc lang="es">Saba caza en los árboles y en las colinas del corazón de su territorio. Es solitaria, sigilosa, prácticamente invisible y una leoparda asesina sin rival. Es la cazadora más espectacular y más ingeniosa que ha habido nunca en el reino salvaje.</desc>
+    <date>2016</date>
+    <episode-num system="onscreen">E1</episode-num>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261107220200 -0300" stop="20261107230600 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Planeta hostil</title>
+    <sub-title lang="es">Montañas</sub-title>
+    <desc lang="es">Las montañas más altas alojan a leopardos de las nieves, águilas reales, cabras de las Rocosas y barnaclas cariblancas. Pero solo los más resistentes pueden soportar el clima extremo, la escasez de alimento y el oxígeno limitado de estos picos.</desc>
+    <date>2019</date>
+    <episode-num system="onscreen">E1</episode-num>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261107230600 -0300" stop="20261108000700 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Secretos de los elefantes</title>
+    <sub-title lang="es">Desierto</sub-title>
+    <desc lang="es">Se revelan los secretos de las últimas familias de elefantes que quedan en los desiertos de Namibia y cómo se adaptan a este duro entorno para garantizar su supervivencia.</desc>
+    <date>2023</date>
+    <episode-num system="onscreen">E2</episode-num>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261108000700 -0300" stop="20261108010200 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Alerta aeropuerto: Sao Paulo</title>
+    <sub-title lang="es">Santos estupefacientes</sub-title>
+    <desc lang="es">La policía revisa las pertenencias de una mujer de comportamiento singular, mientras lidian con sus problemas de salud. En la zona de registro de maletas, los agentes deben frenar la huida de un joven que viajaba a África.</desc>
+    <episode-num system="onscreen">E2</episode-num>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261108010200 -0300" stop="20261108020300 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Alerta aeropuerto</title>
+    <sub-title lang="es">Seducido en la web</sub-title>
+    <desc lang="es">Un señor que afirma haber sido engañado por una mujer que conoció en Internet, y que le pidió transportar un maletín a España sin sospechar que tenía droga; interceptan una silla odontológica repleta de cocaína; un envase de vino con cocaína líquida.</desc>
+    <date>2015</date>
+    <episode-num system="onscreen">E1</episode-num>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261108020300 -0300" stop="20261108024700 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Mayday: Catástrofes aéreas</title>
+    <sub-title lang="es">Derretimiento sobre Katmandú</sub-title>
+    <desc lang="es">Al aterrizar en uno de los aeropuertos más desafiantes del mundo, un avión de pasajeros llega como si fuera un avión de combate, se sale de la pista y estalla en llamas.</desc>
+    <date>2021</date>
+    <episode-num system="onscreen">E4</episode-num>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261108024700 -0300" stop="20261108033400 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Secreto en los océanos</title>
+    <sub-title lang="es">Submarinos nazis</sub-title>
+    <desc lang="es">Una mirada a las naves submarinas alemanas, las primeras armas invisibles del mundo.</desc>
+    <date>2019</date>
+    <episode-num system="onscreen">E3</episode-num>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261108033400 -0300" stop="20261108041800 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Solo contra el mundo</title>
+    <sub-title lang="es">Volcán de la isla</sub-title>
+    <desc lang="es">El aventurero Hazen Audel se enfrenta a una densa selva, aguas salvajes e imponentes cascadas mientras asciende a la cima del monte Gharat, donde se une a miembros de la tribu Salkon en una cacería con cuya carne celebrarán un banquete.</desc>
+    <date>2018</date>
+    <episode-num system="onscreen">E3</episode-num>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261108041800 -0300" stop="20261108050200 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Alerta aeropuerto</title>
+    <sub-title lang="es">Seducido en la web</sub-title>
+    <desc lang="es">Un señor que afirma haber sido engañado por una mujer que conoció en Internet, y que le pidió transportar un maletín a España sin sospechar que tenía droga; interceptan una silla odontológica repleta de cocaína; un envase de vino con cocaína líquida.</desc>
+    <date>2015</date>
+    <episode-num system="onscreen">E1</episode-num>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261108050200 -0300" stop="20261108054600 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Alerta Aeropuerto: Roma</title>
+    <sub-title lang="es">El regalo prometido</sub-title>
+    <desc lang="es">La policía antidrogas investiga a una pasajera que viaja con una cantidad excesiva de pijamas. Además, la Unidad Investigativa de Fronteras se alarma ante la llegada de una supuesta pareja de turistas. Los agentes investigan a cinco mujeres moldavas.</desc>
+    <date>2020</date>
+    <episode-num system="onscreen">E4</episode-num>
+    <rating system="MJColombia">
+      <value>+18</value>
+    </rating>
+  </programme>
+  <programme start="20261108054600 -0300" stop="20261108063300 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Secreto en los océanos</title>
+    <sub-title lang="es">Golfo de México</sub-title>
+    <desc lang="es">Los secretos más peligrosos del golfo de México salen a la luz.</desc>
+    <date>2018</date>
+    <episode-num system="onscreen">E3</episode-num>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261108063300 -0300" stop="20261108070000 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Hacia lo desconocido</title>
+    <sub-title lang="es">El renacer</sub-title>
+    <desc lang="es">El legendario montañero Conrad Anker sufre un ataque al corazón cuando intentaba ascender por primera vez al pico más alto del Himalaya aún sin escalar.</desc>
+    <date>2022</date>
+    <episode-num system="onscreen">E4</episode-num>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261108070000 -0300" stop="20261108075400 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Secreto en los océanos</title>
+    <sub-title lang="es">La historia secreta de Londres</sub-title>
+    <desc lang="es">Se revela la historia secreta de Londres, la capital de Inglaterra.</desc>
+    <date>2019</date>
+    <episode-num system="onscreen">E10</episode-num>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261108075400 -0300" stop="20261108085300 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Ciudades perdidas con Albert Lin</title>
+    <sub-title lang="es">Los secretos de Petra</sub-title>
+    <desc lang="es">Albert Lin viaja a Petra, Jordania, para conocer los orígenes de la famosa ciudad. Aprende que fue construida por los nabateos e investiga sobre sus ciudades y templos.</desc>
+    <date>2019</date>
+    <episode-num system="onscreen">E5</episode-num>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261108085300 -0300" stop="20261108095600 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Mayday: Catástrofes aéreas</title>
+    <sub-title lang="es">Catástrofe en control</sub-title>
+    <desc lang="es">Una tripulación kazaja se las arregla para aterrizar un avión incontrolable y los investigadores deben determinar cómo es posible que permitieran el despegue de un avión recién revisado cuando contaba con un fallo fatídico.</desc>
+    <date>2023</date>
+    <episode-num system="onscreen">E5</episode-num>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261108095600 -0300" stop="20261108105500 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Alerta aeropuerto</title>
+    <sub-title lang="es">Doble riesgo</sub-title>
+    <desc lang="es">Una supuesta pareja tiene un ingenioso plan para llevar varios kilos de cocaína. Un pasajero es detenido con unos gramos de cocaína dentro de unas grageas de vitamina. Un joven que lleva cápsulas de cocaína en su organismo es capturado, pero colapsa.</desc>
+    <episode-num system="onscreen">E3</episode-num>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261108105500 -0300" stop="20261108115600 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Gordon Ramsay: Sabores extremos</title>
+    <sub-title lang="es">Costa accidentada de Portugal</sub-title>
+    <desc lang="es">El chef Ramsay descubre el espíritu rudo y la sencillez de la cocina en el país marinero de Portugal.</desc>
+    <date>2021</date>
+    <episode-num system="onscreen">E2</episode-num>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261108115600 -0300" stop="20261108125500 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Restaurantes del fin del mundo</title>
+    <sub-title lang="es">Un granero en la isla de Maine</sub-title>
+    <desc lang="es">A veinte kilómetros de la costa de Maine, Kristen Kish viaja a la isla North Haven, donde la chef Carolynn se prepara para darle su toque sureño al menú del restaurante Turner Farm. Kristen descubre lo especial de la leche de cabra.</desc>
+    <date>2023</date>
+    <episode-num system="onscreen">E3</episode-num>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261108125500 -0300" stop="20261108135700 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Parques nacionales de Estados Unidos</title>
+    <sub-title lang="es">Badlands</sub-title>
+    <desc lang="es">El Parque Nacional de Badlands, en Dakota del Sur, es una tierra de belleza agreste, hogar de un mar de hierba, agujas rocosas y algunas de las especies más emblemáticas de Estados Unidos.</desc>
+    <date>2022</date>
+    <episode-num system="onscreen">E4</episode-num>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261108135700 -0300" stop="20261108145700 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Los mejores trenes de la historia</title>
+    <sub-title lang="es">Ferrocarril de las Barrancas del Cobre</sub-title>
+    <desc lang="es">El tren El Chepe es una maravilla de la ingeniería mexicana que tardó 100 años en construirse a través de la región del cañón más grande del mundo, el Cañón del Cobre.</desc>
+    <date>2022</date>
+    <episode-num system="onscreen">E3</episode-num>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261108145700 -0300" stop="20261108155700 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Sabores caseros con Antoni Porowski</title>
+    <sub-title lang="es">La búsqueda italiana de Justin Theroux</sub-title>
+    <desc lang="es">Para descubrir los orígenes de un plato de pasta familiar, Antoni lleva a Justin en un viaje por la carretera italiana lleno de deliciosos descubrimientos y sorprendentes revelaciones.</desc>
+    <date>2025</date>
+    <episode-num system="onscreen">E3</episode-num>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261108155700 -0300" stop="20261108170400 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Lo mejor del mundo con Antoni Porowski</title>
+    <sub-title lang="es">Ciudad de México</sub-title>
+    <desc lang="es">Antoni descubre las experiencias turísticas más destacadas de la Ciudad de México, desde la gastronomía con estrellas Michelin hasta las noches de lucha libre en la catedral de este deporte.</desc>
+    <date>2026</date>
+    <episode-num system="onscreen">E1</episode-num>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261108170400 -0300" stop="20261108184000 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Titanic: The Digital Resurrection</title>
+    <desc lang="es">El escaneo de vanguardia crea un gemelo digital del Titanic para una investigación tridimensional inmersiva.</desc>
+    <date>2025</date>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261108184000 -0300" stop="20261108205900 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Glass</title>
+    <desc lang="es">El guardia de seguridad David Dunn usa sus habilidades sobrenaturales para rastrear a Kevin Wendell Crumb, un hombre que tiene veinticuatro personalidades, y a un misterioso cerebro criminal.</desc>
+    <date>2019</date>
+    <country lang="es">Estados Unidos</country>
+    <rating system="MJColombia">
+      <value>AGE227</value>
+    </rating>
+  </programme>
+  <programme start="20261108205900 -0300" stop="20261108220000 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Huracán katrina: La carrera contra el tiempo</title>
+    <sub-title lang="es">La tormenta que se avecina</sub-title>
+    <desc lang="es">Los residentes de Nueva Orleans se preparan para el desastre que la ira del huracán Katrina dejará a su paso.</desc>
+    <date>2025</date>
+    <episode-num system="onscreen">E1</episode-num>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261108220000 -0300" stop="20261108230000 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Lobos de cerca con Bertie Gregory</title>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261108230000 -0300" stop="20261109000100 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Incredible Animal Journeys</title>
+    <sub-title lang="es">Home at the End of the Earth</sub-title>
+    <desc lang="es">Cuando se vive en el fin del mundo, no hay lugar como el hogar.</desc>
+    <date>2023</date>
+    <episode-num system="onscreen">E4</episode-num>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261109000100 -0300" stop="20261109010100 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Alerta aeropuerto: Lima</title>
+    <sub-title lang="es">Blancas aventuras</sub-title>
+    <desc lang="es">Gracias a los rayos X, los agentes detectan anomalías en una maleta destinada a un vuelo que está a punto de despegar. Mientras tanto, el calor pone en evidencia a dos pasajeros y deberán rendir explicaciones ante la policía antidrogas.</desc>
+    <date>2019</date>
+    <episode-num system="onscreen">E2</episode-num>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261109010100 -0300" stop="20261109020100 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Alerta Aeropuerto: Madrid</title>
+    <sub-title lang="es">Peso pesado</sub-title>
+    <desc lang="es">Un ciudadano español recién llegado de Colombia es apartado por los oficiales de estupefacientes para un control más exhaustivo luego de una entrevista de rutina.</desc>
+    <date>2019</date>
+    <episode-num system="onscreen">E3</episode-num>
+    <rating system="MJColombia">
+      <value>+18</value>
+    </rating>
+  </programme>
+  <programme start="20261109020100 -0300" stop="20261109024500 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Mayday: Catástrofes aéreas</title>
+    <sub-title lang="es">Misión desastre</sub-title>
+    <desc lang="es">En una misión de reabastecimiento de combustible durante la Guerra del Golfo, un avión cisterna de la Fuerza Aérea de Estados Unidos pierde dos motores y la tripulación lucha por llevar el avión dañado a Yeda, Arabia Saudita.</desc>
+    <date>2021</date>
+    <episode-num system="onscreen">E7</episode-num>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261109024500 -0300" stop="20261109033200 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Secreto en los océanos</title>
+    <sub-title lang="es">Guerra civil en el agua</sub-title>
+    <desc lang="es">Un grupo de arqueólogos marinos e historiadores buscan los pecios perdidos de la guerra civil estadounidense. El océano oculta todavía muchos secretos que, cuando sean develados, ayudarán a explicar cómo se desarrolló el conflicto bélico.</desc>
+    <date>2019</date>
+    <episode-num system="onscreen">E5</episode-num>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261109033200 -0300" stop="20261109041600 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Solo contra el mundo</title>
+    <sub-title lang="es">Jungla mortal</sub-title>
+    <desc lang="es">Hazen Audel se abre camino a través de la densa jungla de Guyana y lucha contra las aguas llenas de depredadores hambrientos, como pirañas y un enorme caimán, para localizar a un grupo de miembros de la tribu Macushi.</desc>
+    <date>2018</date>
+    <episode-num system="onscreen">E1</episode-num>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261109041600 -0300" stop="20261109050000 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Alerta aeropuerto</title>
+    <sub-title lang="es">Escala criminal</sub-title>
+    <desc lang="es">Cargamento de cocaína diluida es detectado en inofensivos productos para el cabello; se encuentra una maleta de mano con 26 kilos de estupefacientes; interceptan un cargamento de cocaína líquida camuflada dentro de latas de jugo de borojó.</desc>
+    <date>2016</date>
+    <episode-num system="onscreen">E2</episode-num>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261109050000 -0300" stop="20261109054400 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Alerta Aeropuerto: Roma</title>
+    <sub-title lang="es">Santos y pecadores</sub-title>
+    <desc lang="es">La policía antidrogas intenta descubrir qué esconde un pasajero en sus zapatos. Las vacaciones de tres supuestos amigos se ven amenazadas. Los agentes antidrogas investigan a una pasajera que no hace más que rezar.</desc>
+    <date>2020</date>
+    <episode-num system="onscreen">E5</episode-num>
+    <rating system="MJColombia">
+      <value>+18</value>
+    </rating>
+  </programme>
+  <programme start="20261109054400 -0300" stop="20261109063200 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Secreto en los océanos</title>
+    <sub-title lang="es">Los misterios del Mediterráneo</sub-title>
+    <desc lang="es">Los secretos de las civilizaciones antiguas perdidas salen a la luz cuando se drena el Mediterráneo.</desc>
+    <date>2018</date>
+    <episode-num system="onscreen">E4</episode-num>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261109063200 -0300" stop="20261109070000 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Hacia lo desconocido</title>
+    <sub-title lang="es">Caída de película</sub-title>
+    <desc lang="es">Durante el rodaje de una película deportiva, el esquiador Ángel Collinson cae desde una montaña de más de 300 metros en uno de los espolones más escarpados de Alaska.</desc>
+    <date>2022</date>
+    <episode-num system="onscreen">E2</episode-num>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261109070000 -0300" stop="20261109074600 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Tesoros perdidos de Egipto</title>
+    <sub-title lang="es">El éxito de Ramsés</sub-title>
+    <desc lang="es">Los egiptólogos descubren el palacio escondido de Ramsés, e intentan develar todos los secretos que oculta.</desc>
+    <date>2020</date>
+    <episode-num system="onscreen">E5</episode-num>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261109074600 -0300" stop="20261109084900 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Secreto en los océanos</title>
+    <sub-title lang="es">Los secretos del Lago Ness</sub-title>
+    <desc lang="es">Finalmente, se vacía el lago para develar la identidad del monstruo.</desc>
+    <date>2019</date>
+    <episode-num system="onscreen">E11</episode-num>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261109084900 -0300" stop="20261109095000 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Ciudades perdidas con Albert Lin</title>
+    <sub-title lang="es">Los secretos de Machu Picchu</sub-title>
+    <desc lang="es">Albert Lin viaja a las montañas peruanas para explorar los orígenes de Machu Picchu. Albert encuentra evidencia de que existió una civilización más antigua que los incas.</desc>
+    <date>2019</date>
+    <episode-num system="onscreen">E6</episode-num>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261109095000 -0300" stop="20261109105000 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Mayday: Catástrofes aéreas</title>
+    <sub-title lang="es">Catástrofe en cabina</sub-title>
+    <desc lang="es">La ventana de la cabina del vuelo 8633 de Sichuan Airlines explota, lo que obliga a la tripulación a luchar contra vientos huracanados y falta de oxígeno para aterrizar el avión de manera segura.</desc>
+    <date>2023</date>
+    <episode-num system="onscreen">E6</episode-num>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261109105000 -0300" stop="20261109115100 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Alerta aeropuerto</title>
+    <sub-title lang="es">Falsa inocencia</sub-title>
+    <desc lang="es">Una pasajera intenta llevar 9 kilos de cocaína a París; una cama esconde un cargamento de marihuana; un pasajero podría llevar droga inyectada en sus prótesis de glúteos. Una madre intentaba sacar del país de manera ilegal a su hija.</desc>
+    <date>2015</date>
+    <episode-num system="onscreen">E4</episode-num>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261109115100 -0300" stop="20261109125100 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Gordon Ramsay: Sabores extremos</title>
+    <sub-title lang="es">Sol de medianoche de Finlandia</sub-title>
+    <desc lang="es">El chef Ramsay explora Laponia, en el norte de Finlandia jugando fútbol de pantano, navegando por rápidos feroces, pescando pescado blanco y cocinando en una sauna antes de enfrentarse cara a cara con el chef Kim Mikkola.</desc>
+    <date>2021</date>
+    <episode-num system="onscreen">E10</episode-num>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261109125100 -0300" stop="20261109135200 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Salvajemente famosos el desafío</title>
+    <sub-title lang="es">Rob Riggle en el desierto de la Gran Cuenca</sub-title>
+    <desc lang="es">Bear somete a Rob Riggle a una serie de pruebas de supervivencia de hombre de montaña.</desc>
+    <date>2022</date>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261109135200 -0300" stop="20261109145200 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Solo contra el mundo</title>
+    <sub-title lang="es">Desierto e infierno</sub-title>
+    <desc lang="es">Hazen Audel se aventura en el inexorable y suntuoso desierto australiano en busca de un escondido oasis de agua dulce.</desc>
+    <date>2017</date>
+    <episode-num system="onscreen">E4</episode-num>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261109145200 -0300" stop="20261109155300 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Mayday: Catástrofes aéreas</title>
+    <sub-title lang="es">Sin advertencias</sub-title>
+    <desc lang="es">Un avión de turbohélice se acerca a un aeropuerto remoto en Papúa, Indonesia, cuando desaparece misteriosamente. El humo ondulante en la cima de una montaña cercana lleva a los equipos de búsqueda y rescate a los restos.</desc>
+    <date>2020</date>
+    <episode-num system="onscreen">E7</episode-num>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261109155300 -0300" stop="20261109165600 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Secreto en los océanos</title>
+    <sub-title lang="es">Los secretos del Lago Ness</sub-title>
+    <desc lang="es">Finalmente, se vacía el lago para develar la identidad del monstruo.</desc>
+    <date>2019</date>
+    <episode-num system="onscreen">E11</episode-num>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261109165600 -0300" stop="20261109175700 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Ciudades encontradas con Albert Lin</title>
+    <sub-title lang="es">Milagro en el desierto</sub-title>
+    <desc lang="es">Albert Lin se enfrenta a los desiertos y las montañas de Omán, buscando la tierra perdida de Magan, una civilización árabe olvidada cuyas preciadas exportaciones reforzaban a los más poderosos imperios de la Edad del Bronce.</desc>
+    <date>2023</date>
+    <episode-num system="onscreen">E6</episode-num>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261109175700 -0300" stop="20261109185800 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Tesoros perdidos de Egipto</title>
+    <sub-title lang="es">Ramsés al poder</sub-title>
+    <desc lang="es">Los arqueólogos descubren nuevas pruebas sobre el reinado de Ramsés el Grande.</desc>
+    <date>2021</date>
+    <episode-num system="onscreen">E3</episode-num>
+    <rating system="MJColombia">
+      <value>+14</value>
+    </rating>
+  </programme>
+  <programme start="20261109185800 -0300" stop="20261109195800 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Alerta aeropuerto: Sao Paulo</title>
+    <sub-title lang="es">Oculto en la piel</sub-title>
+    <desc lang="es">El equipo de inteligencia se encarga de interceptar un envío de droga a Hong Kong, mientras los agentes migratorios investigan los verdaderos motivos de viaje de dos supuestos turistas indios.</desc>
+    <episode-num system="onscreen">E4</episode-num>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261109195800 -0300" stop="20261109205900 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Alerta aeropuerto</title>
+    <desc lang="es">La policía de El Dorado enfrenta casos conmovedores cuando el narcotráfico utiliza a personas vulnerables: desde quien lleva ingenuamente una encomienda, hasta desempleados que arriesgan su vida.</desc>
+    <date>2015</date>
+    <episode-num system="onscreen">E4</episode-num>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261109205900 -0300" stop="20261109220400 -0300" channel="PublicDirect.f753ad9eb3f48c300c6fa4b4">
+    <title lang="es">Contrabandistas con Mariana Van Zeller</title>
+    <sub-title lang="es">Cocaína</sub-title>
+    <desc lang="es">Mariana investiga por qué la producción de cocaína está en su punto más alto.</desc>
     <date>2020</date>
     <episode-num system="onscreen">E6</episode-num>
     <rating system="MJColombia">
