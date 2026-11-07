@@ -1,43 +1,55 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-07T13:20:19.275690Z",
+  "updated_at": "2026-11-07T13:41:42.454777Z",
   "channels": [
     "RedBullWorldEnglish.int",
     "PublicDirect.3d5dfc4dd1f5a8a68d6c2ca9",
     "PublicDirect.e2a4717c87af3abd943518e3",
     "PublicDirect.999960b05b8c81c9d62c2232",
     "PublicDirect.a5eed3b841e19a98f94e2d72",
+    "PublicDirect.7ba564f651c493872cf8f969",
     "PublicDirect.5e1edfeb4161cb6762dd4c44",
     "PublicDirect.5eb6e4ea07959f5a0b4fb5e1"
   ],
   "details": {
     "PublicDirect.3d5dfc4dd1f5a8a68d6c2ca9": {
       "kind": "guia-corta",
-      "futureHours": 21.7,
+      "futureHours": 21.3,
       "requiredHours": 24.0,
       "gaps": []
     },
     "PublicDirect.5e1edfeb4161cb6762dd4c44": {
       "kind": "guia-corta",
-      "futureHours": 20.3,
+      "futureHours": 19.9,
       "requiredHours": 24.0,
       "gaps": []
     },
     "PublicDirect.5eb6e4ea07959f5a0b4fb5e1": {
       "kind": "guia-corta",
-      "futureHours": 20.3,
+      "futureHours": 19.9,
       "requiredHours": 24.0,
       "gaps": []
     },
+    "PublicDirect.7ba564f651c493872cf8f969": {
+      "kind": "hueco",
+      "futureHours": 41.8,
+      "requiredHours": 24.0,
+      "gaps": [
+        [
+          "2026-11-08T13:35:00Z",
+          "2026-11-08T13:41:31Z"
+        ]
+      ]
+    },
     "PublicDirect.999960b05b8c81c9d62c2232": {
       "kind": "guia-corta",
-      "futureHours": 16.7,
+      "futureHours": 16.3,
       "requiredHours": 24.0,
       "gaps": []
     },
     "PublicDirect.a5eed3b841e19a98f94e2d72": {
       "kind": "hueco",
-      "futureHours": 41.8,
+      "futureHours": 41.4,
       "requiredHours": 24.0,
       "gaps": [
         [
@@ -48,13 +60,13 @@
     },
     "PublicDirect.e2a4717c87af3abd943518e3": {
       "kind": "guia-corta",
-      "futureHours": 22.2,
+      "futureHours": 21.8,
       "requiredHours": 24.0,
       "gaps": []
     },
     "RedBullWorldEnglish.int": {
       "kind": "guia-corta",
-      "futureHours": 13.9,
+      "futureHours": 13.6,
       "requiredHours": 18.0,
       "gaps": []
     }
