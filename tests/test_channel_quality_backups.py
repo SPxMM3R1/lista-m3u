@@ -72,6 +72,7 @@ class EspnChilePlacementTest(unittest.TestCase):
         ordered = sorted(rows, key=lambda row: row["order"])
         # 2026-10-25: TNT Sports Premium (Chile) quedó en 30 (Lista 1).
         # 2026-11-04: corrido +1 por CNN en Lista 1 (18).
+        # 2026-11-08: Lista 2 corrida +2 por Music Box Hits y Classic en Lista 1 (57-58).
         self.assertEqual(34, target["number"])
         self.assertEqual(30, tnt4["number"])
         self.assertEqual("ESPN", target["displayName"])
@@ -112,13 +113,13 @@ class Espn2PlacementTest(unittest.TestCase):
         # 2026-10-22: sin respaldos directos (pasaron a Lista 2 como canales independientes).
         self.assertFalse(target.get("backupm3u"))
         # Cada señal se llevó sus respaldos: ESPN2.co@Direct181 sigue con la 45.173.231.22 (ahora en Lista 1)
-        # y la señal anterior conserva los suyos en Lista 2 (97).
+        # y la señal anterior conserva los suyos en Lista 2 (99).
         backups = json.loads((ROOT / "backups.json").read_text(encoding="utf-8"))["channels"]
         self.assertIn("ESPN2.co@Direct181", [copy["tvg_id"] for copy in backups[self.TARGET_ID]["backups"]])
         self.assertEqual(("Lista 1", 35), (backups[self.TARGET_ID]["list"], backups[self.TARGET_ID]["number"]))
-        self.assertEqual(("Lista 2", 97), (backups[self.OLD_ID]["list"], backups[self.OLD_ID]["number"]))
+        self.assertEqual(("Lista 2", 99), (backups[self.OLD_ID]["list"], backups[self.OLD_ID]["number"]))
         old = next(row for row in rows if row.get("tvgId") == self.OLD_ID)
-        self.assertEqual(("2.m3u", 97), (old["sourceList"], old["number"]))
+        self.assertEqual(("2.m3u", 99), (old["sourceList"], old["number"]))
         self.assertFalse(any("ESPN2.co@Direct181" in row.get("backupm3u", []) for row in rows))
         self.assertEqual(target, ordered[ordered.index(espn) + 1])
         self.assertEqual(len(rows), len({row["number"] for row in rows}))

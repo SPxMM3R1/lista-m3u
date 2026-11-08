@@ -788,6 +788,8 @@ EPG_SOURCES = {
     "plex1": "https://epgshare01.online/epgshare01/epg_ripper_PLEX1.xml.gz",
     "tr1": "https://epgshare01.online/epgshare01/epg_ripper_TR1.xml.gz",
     "it1": "https://epgshare01.online/epgshare01/epg_ripper_IT1.xml.gz",
+    # Music Box Hits y Classic de Lista 1 (2026-11-08): EPGShare CZ1 trae su parrilla.
+    "cz1": "https://epgshare01.online/epgshare01/epg_ripper_CZ1.xml.gz",
     # PlutoTV es la fuente de parrilla real para los canales lineales Pluto
     # usados por MTV. No se generan bloques de continuidad para esos IDs.
     "pluto": "https://i.mjh.nz/PlutoTV/all.xml.gz",
