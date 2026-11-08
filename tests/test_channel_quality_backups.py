@@ -85,13 +85,17 @@ class EspnChilePlacementTest(unittest.TestCase):
             order = presentation["orders"][playlist_name]
             target_index = order.index(self.TARGET_ID)
             if playlist_name != "channel-catalog.m3u":
-                self.assertEqual("PublicDirect.d6cca6d4aa23a69d50439c22", order[target_index + 1])
+                # 2026-11-07: el ESPN 2 de Lista 1 pasa a ser la señal 45.173.231.22 (intercambio pedido por el usuario).
+                self.assertEqual("PublicDirect.42095e66e7aa9b52a50125ae", order[target_index + 1])
             channels = runner.parse_channels((ROOT / playlist_name).read_text(encoding="utf-8").splitlines())
             self.assertEqual("ESPN", next(channel.name for channel in channels if channel.tvg_id == self.TARGET_ID))
 
 
 class Espn2PlacementTest(unittest.TestCase):
-    TARGET_ID = "PublicDirect.d6cca6d4aa23a69d50439c22"
+    # 2026-11-07 (pedido del usuario «intercambiar el espn2 que está en lista 1 con el 094… con backups y todo»):
+    # la señal 45.173.231.22 (antes Lista 2 #97) ocupa el 35 con su respaldo; la 181.224.200.5 pasó al 97 de Lista 2.
+    TARGET_ID = "PublicDirect.42095e66e7aa9b52a50125ae"
+    OLD_ID = "PublicDirect.d6cca6d4aa23a69d50439c22"
     ESPN_ID = "ESPN.co@Direct181"
 
     def test_espn_2_feeds_are_independent_at_33_and_in_list_2(self):
@@ -107,12 +111,14 @@ class Espn2PlacementTest(unittest.TestCase):
         self.assertEqual("ESPN 2", target["displayName"])
         # 2026-10-22: sin respaldos directos (pasaron a Lista 2 como canales independientes).
         self.assertFalse(target.get("backupm3u"))
-        # 2026-11-02: la segunda señal (ESPN2.co@Direct181) es clon de otro ESPN 2 de Lista 2 y
-        # pasó a ser su respaldo en backups.json (pedido del usuario: clones con la lógica de Lista 1);
-        # sigue sin ser respaldo del ESPN 2 de Lista 1.
+        # Cada señal se llevó sus respaldos: ESPN2.co@Direct181 sigue con la 45.173.231.22 (ahora en Lista 1)
+        # y la señal anterior conserva los suyos en Lista 2 (97).
         backups = json.loads((ROOT / "backups.json").read_text(encoding="utf-8"))["channels"]
-        self.assertNotIn("ESPN2.co@Direct181",
-                         [copy["tvg_id"] for copy in backups.get(self.TARGET_ID, {}).get("backups", [])])
+        self.assertIn("ESPN2.co@Direct181", [copy["tvg_id"] for copy in backups[self.TARGET_ID]["backups"]])
+        self.assertEqual(("Lista 1", 35), (backups[self.TARGET_ID]["list"], backups[self.TARGET_ID]["number"]))
+        self.assertEqual(("Lista 2", 97), (backups[self.OLD_ID]["list"], backups[self.OLD_ID]["number"]))
+        old = next(row for row in rows if row.get("tvgId") == self.OLD_ID)
+        self.assertEqual(("2.m3u", 97), (old["sourceList"], old["number"]))
         self.assertFalse(any("ESPN2.co@Direct181" in row.get("backupm3u", []) for row in rows))
         self.assertEqual(target, ordered[ordered.index(espn) + 1])
         self.assertEqual(len(rows), len({row["number"] for row in rows}))
