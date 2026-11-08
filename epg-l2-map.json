@@ -2,7 +2,7 @@
   "schema": 2,
   "generatedAt": "2026-10-24",
   "source": "Lista 2: guía Claro Video por familia (una por canal real) + EPGShare de respaldo; nombres exactos + alias manuales",
-  "count": 603,
+  "count": 604,
   "bySource": {
     "claro-guia": 902,
     "mx1": 29,
@@ -6940,6 +6940,18 @@
       "l2_name": "Sun Channel",
       "confidence": "fotograma-20261107",
       "verified": "2026-11-07: fotograma comparado con la guía a la misma hora (outputs/lista2-revision-20261107): «una sola parrilla en todas las regiones; fotograma no concluyente»"
+    },
+    "PublicDirect.d6cca6d4aa23a69d50439c22": {
+      "source": "cl",
+      "source_id": "Canal.ESPN.2.(Chile).cl",
+      "l2_name": "ESPN 2",
+      "group": "Deportes",
+      "confidence": "intercambio-20261107",
+      "verified": "2026-11-07: la señal 181.224.200.5 baja de Lista 1 (35) a Lista 2 (97) por pedido del usuario («intercambiar el espn2 que está en lista 1 con el 094… con backups y todo») y conserva la guía que tenía en Lista 1 (epg-overrides.json: EPGShare CL Chile, Claro Chile de respaldo).",
+      "backup": {
+        "source": "claro-guia",
+        "source_id": "claro:chile:793494"
+      }
     }
   },
   "unresolvedNames": [
