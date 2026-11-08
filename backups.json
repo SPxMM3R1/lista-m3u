@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-07",
+  "updated": "2026-11-08",
   "description": "Copias (casi todas de Lista 2) que respaldan a un canal de Lista 1: misma señal, confirmada con captura. Esas copias ya no se publican en Lista 2; la app las prueba en orden si la señal principal falla.",
   "fields": {
     "channels.<clave>": "tvg-id del canal principal en Lista 1 (la identidad estable; el número puede cambiar).",
@@ -604,181 +604,27 @@
         "interlaced": false
       }
     },
-    "PublicDirect.d6cca6d4aa23a69d50439c22": {
+    "PublicDirect.42095e66e7aa9b52a50125ae": {
       "display_name": "ESPN 2",
-      "list": "Lista 2",
-      "number": 97,
+      "list": "Lista 1",
+      "number": 35,
       "group": "Deportes",
-      "source_name": "ESPN 2 HD [IP 181.224.200.5]",
+      "source_name": "ESPN 2 HD [IP 45.173.231.22]",
       "guide": {
-        "source": "claro-guia",
-        "source_id": "claro:chile:793494"
+        "source": "uy1",
+        "source_id": "[ESP2LS].ESPN.2.uy"
       },
-      "verified": "2026-10-25 (2.ª búsqueda): ESPN 2 HD [IP 190.108.83.69] misma señal por audio (0.771); 2026-10-25 (2.ª búsqueda): ESPN 2 [IP 38.87.224.19] misma señal por audio (0.828); 2026-10-25 (2.ª búsqueda): ESPN 2 HD [IP 45.173.231.22] · señal 2 misma señal por audio (0.604); 2026-10-25: ESPN 2 [IP 38.134.250.110] audio dudoso (0.527), respaldo por decisión del usuario; 2026-10-25: ESPN 2 HD [IP 158.172.217.18] audio dudoso (0.41), respaldo por decisión del usuario | 2026-10-28: detector de clones sobre toda Lista 2; pasan solo copias estables (abren al primer intento y graban 60 s), misma resolución y fps que la de Lista 1, audio igual (correlación 342 0,7).; 2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-04 (pedido del usuario «Revisa la lista 1 con los que agrupaste en lista 2»): mismo canal por fotograma simultáneo idéntico o audio ≥ 0,6 con la pista en español (outputs/l1-vs-l2-20261103); las rondas de noviembre comparaban solo imagen y no los detectaron.",
+      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.",
       "backups": [
         {
-          "tvg_id": "PublicDirect.4d0eb277fe4eb7e15a73dd7a",
+          "tvg_id": "ESPN2.co@Direct181",
           "display_name": "ESPN 2",
-          "source_name": "ESPN 2 HD [IP 190.108.83.69]",
+          "source_name": "ESPN 2 HD [IP 181]",
           "from_list": "Lista 2",
-          "from_number": 256,
+          "from_number": 117,
           "group": "Deportes",
-          "logo": "logos/lista2/c5f053da5123.png",
-          "url": "http://190.108.83.69:8000/play/a0an/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:788718"
-          },
-          "quality": {
-            "height": 720,
-            "width": 1280,
-            "fps": 59.94,
-            "kbps": 2028,
-            "ok": true,
-            "interlaced": false
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.b77f1d29fbaf37804e8fc000",
-          "display_name": "ESPN 2",
-          "source_name": "ESPN 2 [IP 38.87.224.19]",
-          "from_list": "Lista 2",
-          "from_number": 808,
-          "group": "Deportes",
-          "logo": "logos/lista2/c5f053da5123.png",
-          "url": "http://38.87.224.19:2220/play/a00u/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:788718"
-          },
-          "quality": {
-            "height": 720,
-            "width": 1280,
-            "fps": 59.94,
-            "kbps": 2625,
-            "ok": true,
-            "interlaced": false
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.29545f73b4791cab07ecb4ed",
-          "display_name": "ESPN 2",
-          "source_name": "ESPN 2 HD [IP 45.173.231.22] · señal 2",
-          "from_list": "Lista 2",
-          "from_number": 818,
-          "group": "Deportes",
-          "logo": "logos/lista2/c5f053da5123.png",
-          "url": "http://45.173.231.22:8000/play/a06p/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:788718"
-          },
-          "quality": {
-            "height": 720,
-            "width": 1280,
-            "fps": 59.94,
-            "kbps": 2028,
-            "ok": true,
-            "interlaced": false
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.4d1dfc5f7e43cb512abcb0fd",
-          "display_name": "ESPN 2",
-          "source_name": "ESPN 2 [IP 38.134.250.110]",
-          "from_list": "Lista 2",
-          "from_number": 189,
-          "group": "Deportes",
-          "logo": "logos/lista2/c5f053da5123.png",
-          "url": "http://38.134.250.110:8000/play/a00r/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:788718"
-          },
-          "quality": {
-            "height": 720,
-            "width": 1280,
-            "fps": 30.0,
-            "kbps": 3332,
-            "ok": true,
-            "interlaced": false
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.21b740ebf12edc120fe22f81",
-          "display_name": "ESPN 2",
-          "source_name": "ESPN 2 HD [IP 158.172.217.18]",
-          "from_list": "Lista 2",
-          "from_number": 239,
-          "group": "Deportes",
-          "logo": "logos/lista2/c5f053da5123.png",
-          "url": "http://158.172.217.18:8000/play/a0ny/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:788718"
-          },
-          "quality": {
-            "height": 720,
-            "width": 1280,
-            "fps": 59.94,
-            "kbps": 1982,
-            "ok": true,
-            "interlaced": false
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.41364d2a9d006e1c2050f21b",
-          "display_name": "ESPN 2",
-          "source_name": "ESPN 2 HD [IP 181.78.211.244]",
-          "from_list": "Lista 2",
-          "from_number": 342,
-          "group": "Deportes",
-          "logo": "logos/lista2/c5f053da5123.png",
-          "url": "http://181.78.211.244:8000/play/a0b3/index.m3u8",
-          "guide": {
-            "source": "",
-            "source_id": ""
-          },
-          "quality": {
-            "height": 720,
-            "width": 1280,
-            "fps": 59.94,
-            "kbps": 1837,
-            "ok": true,
-            "interlaced": false
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.ffc0253de60974af959e3220",
-          "display_name": "ESPN 2",
-          "source_name": "ESPN 2 HD [IP 190.60.46.228]",
-          "from_list": "Lista 2",
-          "from_number": 103,
-          "group": "Deportes",
-          "logo": "logos/lista2/c5f053da5123.png",
-          "url": "http://190.60.46.228:8888/play/a062/index.m3u8",
-          "guide": {
-            "source": "uy1",
-            "source_id": "[ESP2LS].ESPN.2.uy"
-          },
-          "quality": {
-            "height": 720,
-            "width": 1280,
-            "fps": 59.94,
-            "kbps": 1946,
-            "ok": true,
-            "interlaced": false
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.7f8acb0c7365f70bc5f07e21",
-          "display_name": "ESPN 2",
-          "source_name": "ESPN 2 [IP 190.61.47.54]",
-          "from_list": "Lista 2",
-          "from_number": 192,
-          "group": "Deportes",
-          "logo": "logos/lista2/c5f053da5123.png",
-          "url": "http://190.61.47.54:8000/play/a005/index.m3u8",
+          "logo": "logos/espn-2.png",
+          "url": "http://181.78.12.119:16123/play/ch17/index.m3u8",
           "guide": {
             "source": "ar1",
             "source_id": "Canal.ESPN.2.(Bolivia).ar"
@@ -786,13 +632,21 @@
           "quality": {
             "height": 720,
             "width": 1280,
-            "fps": 11.35,
-            "kbps": 4828,
+            "fps": 59.94,
+            "kbps": 1913,
             "ok": true,
-            "interlaced": true
+            "interlaced": false
           }
         }
-      ]
+      ],
+      "principal_quality": {
+        "height": 720,
+        "width": 1280,
+        "fps": 59.94,
+        "kbps": 1913,
+        "ok": true,
+        "interlaced": false
+      }
     },
     "WinSports.co@Direct181": {
       "display_name": "ESPN 3",
@@ -11177,27 +11031,181 @@
         }
       ]
     },
-    "PublicDirect.42095e66e7aa9b52a50125ae": {
+    "PublicDirect.d6cca6d4aa23a69d50439c22": {
       "display_name": "ESPN 2",
-      "list": "Lista 1",
-      "number": 35,
+      "list": "Lista 2",
+      "number": 97,
       "group": "Deportes",
-      "source_name": "ESPN 2 HD [IP 45.173.231.22]",
+      "source_name": "ESPN 2 HD [IP 181.224.200.5]",
       "guide": {
-        "source": "uy1",
-        "source_id": "[ESP2LS].ESPN.2.uy"
+        "source": "claro-guia",
+        "source_id": "claro:chile:793494"
       },
-      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.",
+      "verified": "2026-10-25 (2.ª búsqueda): ESPN 2 HD [IP 190.108.83.69] misma señal por audio (0.771); 2026-10-25 (2.ª búsqueda): ESPN 2 [IP 38.87.224.19] misma señal por audio (0.828); 2026-10-25 (2.ª búsqueda): ESPN 2 HD [IP 45.173.231.22] · señal 2 misma señal por audio (0.604); 2026-10-25: ESPN 2 [IP 38.134.250.110] audio dudoso (0.527), respaldo por decisión del usuario; 2026-10-25: ESPN 2 HD [IP 158.172.217.18] audio dudoso (0.41), respaldo por decisión del usuario | 2026-10-28: detector de clones sobre toda Lista 2; pasan solo copias estables (abren al primer intento y graban 60 s), misma resolución y fps que la de Lista 1, audio igual (correlación 342 0,7).; 2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-04 (pedido del usuario «Revisa la lista 1 con los que agrupaste en lista 2»): mismo canal por fotograma simultáneo idéntico o audio ≥ 0,6 con la pista en español (outputs/l1-vs-l2-20261103); las rondas de noviembre comparaban solo imagen y no los detectaron.",
       "backups": [
         {
-          "tvg_id": "ESPN2.co@Direct181",
+          "tvg_id": "PublicDirect.4d0eb277fe4eb7e15a73dd7a",
           "display_name": "ESPN 2",
-          "source_name": "ESPN 2 HD [IP 181]",
+          "source_name": "ESPN 2 HD [IP 190.108.83.69]",
           "from_list": "Lista 2",
-          "from_number": 117,
+          "from_number": 256,
           "group": "Deportes",
-          "logo": "logos/espn-2.png",
-          "url": "http://181.78.12.119:16123/play/ch17/index.m3u8",
+          "logo": "logos/lista2/c5f053da5123.png",
+          "url": "http://190.108.83.69:8000/play/a0an/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:788718"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 2028,
+            "ok": true,
+            "interlaced": false
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.b77f1d29fbaf37804e8fc000",
+          "display_name": "ESPN 2",
+          "source_name": "ESPN 2 [IP 38.87.224.19]",
+          "from_list": "Lista 2",
+          "from_number": 808,
+          "group": "Deportes",
+          "logo": "logos/lista2/c5f053da5123.png",
+          "url": "http://38.87.224.19:2220/play/a00u/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:788718"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 2625,
+            "ok": true,
+            "interlaced": false
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.29545f73b4791cab07ecb4ed",
+          "display_name": "ESPN 2",
+          "source_name": "ESPN 2 HD [IP 45.173.231.22] · señal 2",
+          "from_list": "Lista 2",
+          "from_number": 818,
+          "group": "Deportes",
+          "logo": "logos/lista2/c5f053da5123.png",
+          "url": "http://45.173.231.22:8000/play/a06p/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:788718"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 2028,
+            "ok": true,
+            "interlaced": false
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.4d1dfc5f7e43cb512abcb0fd",
+          "display_name": "ESPN 2",
+          "source_name": "ESPN 2 [IP 38.134.250.110]",
+          "from_list": "Lista 2",
+          "from_number": 189,
+          "group": "Deportes",
+          "logo": "logos/lista2/c5f053da5123.png",
+          "url": "http://38.134.250.110:8000/play/a00r/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:788718"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 30.0,
+            "kbps": 3332,
+            "ok": true,
+            "interlaced": false
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.21b740ebf12edc120fe22f81",
+          "display_name": "ESPN 2",
+          "source_name": "ESPN 2 HD [IP 158.172.217.18]",
+          "from_list": "Lista 2",
+          "from_number": 239,
+          "group": "Deportes",
+          "logo": "logos/lista2/c5f053da5123.png",
+          "url": "http://158.172.217.18:8000/play/a0ny/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:788718"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 1982,
+            "ok": true,
+            "interlaced": false
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.41364d2a9d006e1c2050f21b",
+          "display_name": "ESPN 2",
+          "source_name": "ESPN 2 HD [IP 181.78.211.244]",
+          "from_list": "Lista 2",
+          "from_number": 342,
+          "group": "Deportes",
+          "logo": "logos/lista2/c5f053da5123.png",
+          "url": "http://181.78.211.244:8000/play/a0b3/index.m3u8",
+          "guide": {
+            "source": "",
+            "source_id": ""
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 1837,
+            "ok": true,
+            "interlaced": false
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.ffc0253de60974af959e3220",
+          "display_name": "ESPN 2",
+          "source_name": "ESPN 2 HD [IP 190.60.46.228]",
+          "from_list": "Lista 2",
+          "from_number": 103,
+          "group": "Deportes",
+          "logo": "logos/lista2/c5f053da5123.png",
+          "url": "http://190.60.46.228:8888/play/a062/index.m3u8",
+          "guide": {
+            "source": "uy1",
+            "source_id": "[ESP2LS].ESPN.2.uy"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 59.94,
+            "kbps": 1946,
+            "ok": true,
+            "interlaced": false
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.7f8acb0c7365f70bc5f07e21",
+          "display_name": "ESPN 2",
+          "source_name": "ESPN 2 [IP 190.61.47.54]",
+          "from_list": "Lista 2",
+          "from_number": 192,
+          "group": "Deportes",
+          "logo": "logos/lista2/c5f053da5123.png",
+          "url": "http://190.61.47.54:8000/play/a005/index.m3u8",
           "guide": {
             "source": "ar1",
             "source_id": "Canal.ESPN.2.(Bolivia).ar"
@@ -11205,21 +11213,13 @@
           "quality": {
             "height": 720,
             "width": 1280,
-            "fps": 59.94,
-            "kbps": 1913,
+            "fps": 11.35,
+            "kbps": 4828,
             "ok": true,
-            "interlaced": false
+            "interlaced": true
           }
         }
-      ],
-      "principal_quality": {
-        "height": 720,
-        "width": 1280,
-        "fps": 59.94,
-        "kbps": 1913,
-        "ok": true,
-        "interlaced": false
-      }
+      ]
     },
     "PublicDirect.70687441d630ed78b80f7044": {
       "display_name": "ESPN 3",
@@ -13729,7 +13729,7 @@
     "PublicDirect.f753ad9eb3f48c300c6fa4b4": {
       "display_name": "National Geographic",
       "list": "Lista 2",
-      "number": 116,
+      "number": 115,
       "group": "Misceláneos",
       "source_name": "Nat Geo HD [IP 138.59.177.78]",
       "guide": {
@@ -13766,7 +13766,7 @@
     "PublicDirect.8a5d0371ff496197a85a71b8": {
       "display_name": "National Geographic",
       "list": "Lista 2",
-      "number": 117,
+      "number": 116,
       "group": "Misceláneos",
       "source_name": "Nat Geo HD [IP 181.78.106.127]",
       "guide": {
@@ -14089,7 +14089,7 @@
     "PublicDirect.5fa93eee31589e2105958c0e": {
       "display_name": "National Geographic",
       "list": "Lista 2",
-      "number": 118,
+      "number": 117,
       "group": "Misceláneos",
       "source_name": "Nat Geo HD [IP 200.7.99.59]",
       "guide": {
@@ -14125,7 +14125,7 @@
     "PublicDirect.a4fe5a0fae7ca652b8925373": {
       "display_name": "Space",
       "list": "Lista 2",
-      "number": 119,
+      "number": 118,
       "group": "Películas",
       "source_name": "Space HD [IP 200.7.99.59]",
       "guide": {
@@ -14271,7 +14271,7 @@
     "PublicDirect.e221e27dc18d5a97a4054237": {
       "display_name": "Star TVE",
       "list": "Lista 2",
-      "number": 120,
+      "number": 119,
       "group": "Películas",
       "source_name": "Star TVE HD [IP 138.59.177.78]",
       "guide": {
@@ -14373,7 +14373,7 @@
     "PublicDirect.650a768cd537cb17d491e369": {
       "display_name": "Stingray Concerts",
       "list": "Lista 2",
-      "number": 121,
+      "number": 120,
       "group": "Música",
       "source_name": "Stingray Concerts HD [IP 190.108.83.69]",
       "guide": {
@@ -14431,7 +14431,7 @@
     "PublicDirect.c239c57686df265bb88b82af": {
       "display_name": "Studio Universal",
       "list": "Lista 2",
-      "number": 122,
+      "number": 121,
       "group": "Películas",
       "source_name": "@DIG - STUDIO UNIVERSAL HD IN [IP 181.78.14.26]",
       "guide": {
@@ -14491,7 +14491,7 @@
     "PublicDirect.a52c913a30233f55dc54d10c": {
       "display_name": "TCM",
       "list": "Lista 2",
-      "number": 123,
+      "number": 122,
       "group": "Películas",
       "source_name": "Z TCM [IP 177.234.218.66]",
       "guide": {
@@ -14551,7 +14551,7 @@
     "PublicDirect.b944cbda127f265385bb249c": {
       "display_name": "TNT",
       "list": "Lista 2",
-      "number": 124,
+      "number": 123,
       "group": "Películas",
       "source_name": "TNT ENVIO [IP 138.94.3.106]",
       "guide": {
@@ -14609,7 +14609,7 @@
     "PublicDirect.f7860545d45db8d5592cd048": {
       "display_name": "TNT",
       "list": "Lista 2",
-      "number": 125,
+      "number": 124,
       "group": "Películas",
       "source_name": "TNT HD_COSTA [IP 181.79.86.130]",
       "guide": {
@@ -14822,7 +14822,7 @@
     "PublicDirect.5a53ee0b598caafe694a52bf": {
       "display_name": "Warner Channel",
       "list": "Lista 2",
-      "number": 126,
+      "number": 125,
       "group": "Películas",
       "source_name": "WARNER [IP 38.134.250.110]",
       "guide": {
@@ -14924,7 +14924,7 @@
     "PublicDirect.f8dfa6821b9fc2c7482d0661": {
       "display_name": "Warner Channel",
       "list": "Lista 2",
-      "number": 127,
+      "number": 126,
       "group": "Películas",
       "source_name": "Warner Channel HD [IP 190.108.83.69]",
       "guide": {
