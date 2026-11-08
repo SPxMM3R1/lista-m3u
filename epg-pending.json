@@ -1,8 +1,14 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-08T00:23:26.070331Z",
+  "updated_at": "2026-11-08T01:47:08.333805Z",
   "channels": [
+    "PublicDirect.3c96353d8e3bf508d2157d81",
+    "PublicDirect.74b1d039a89a6947afe30ac0",
     "IPTVOrg.MTVBiggestPop.us-BR",
+    "PublicDirect.a4fe5a0fae7ca652b8925373",
+    "PublicDirect.3d5dfc4dd1f5a8a68d6c2ca9",
+    "PublicDirect.a60aeeeb2381bd9d9f00b8cb",
+    "PublicDirect.9c051299ce5c523723b80049",
     "IPTVOrg.MTVClassic.us-BR",
     "IPTVOrg.MTVClassic.us-CA",
     "IPTVOrg.MTVClassic.us-LatAm",
@@ -12,37 +18,83 @@
   "details": {
     "IPTVOrg.MTVBiggestPop.us-BR": {
       "kind": "guia-corta",
-      "futureHours": 11.6,
+      "futureHours": 10.2,
       "requiredHours": 24.0,
       "gaps": []
     },
     "IPTVOrg.MTVClassic.us-BR": {
       "kind": "guia-corta",
-      "futureHours": 10.8,
+      "futureHours": 9.5,
       "requiredHours": 24.0,
       "gaps": []
     },
     "IPTVOrg.MTVClassic.us-CA": {
       "kind": "guia-corta",
-      "futureHours": 10.8,
+      "futureHours": 9.4,
       "requiredHours": 24.0,
       "gaps": []
     },
     "IPTVOrg.MTVClassic.us-LatAm": {
       "kind": "guia-corta",
-      "futureHours": 10.9,
+      "futureHours": 9.5,
       "requiredHours": 24.0,
       "gaps": []
     },
     "IPTVOrg.MTVSpankinNew.us-US": {
       "kind": "guia-corta",
-      "futureHours": 11.6,
+      "futureHours": 10.2,
       "requiredHours": 24.0,
       "gaps": []
     },
+    "PublicDirect.3c96353d8e3bf508d2157d81": {
+      "kind": "guia-corta",
+      "futureHours": 22.8,
+      "requiredHours": 24.0,
+      "gaps": []
+    },
+    "PublicDirect.3d5dfc4dd1f5a8a68d6c2ca9": {
+      "kind": "guia-corta",
+      "futureHours": 23.2,
+      "requiredHours": 24.0,
+      "gaps": []
+    },
+    "PublicDirect.74b1d039a89a6947afe30ac0": {
+      "kind": "hueco",
+      "futureHours": 47.2,
+      "requiredHours": 24.0,
+      "gaps": [
+        [
+          "2026-11-09T01:04:00Z",
+          "2026-11-09T01:46:58Z"
+        ]
+      ]
+    },
+    "PublicDirect.9c051299ce5c523723b80049": {
+      "kind": "guia-corta",
+      "futureHours": 22.8,
+      "requiredHours": 24.0,
+      "gaps": []
+    },
+    "PublicDirect.a4fe5a0fae7ca652b8925373": {
+      "kind": "guia-corta",
+      "futureHours": 22.6,
+      "requiredHours": 24.0,
+      "gaps": []
+    },
+    "PublicDirect.a60aeeeb2381bd9d9f00b8cb": {
+      "kind": "hueco",
+      "futureHours": 47.2,
+      "requiredHours": 24.0,
+      "gaps": [
+        [
+          "2026-11-09T01:04:00Z",
+          "2026-11-09T01:46:58Z"
+        ]
+      ]
+    },
     "PublicDirect.b8f2efd55894cbc58af43798": {
       "kind": "guia-corta",
-      "futureHours": 23.6,
+      "futureHours": 22.2,
       "requiredHours": 24.0,
       "gaps": []
     }
