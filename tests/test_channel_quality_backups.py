@@ -113,13 +113,13 @@ class Espn2PlacementTest(unittest.TestCase):
         # 2026-10-22: sin respaldos directos (pasaron a Lista 2 como canales independientes).
         self.assertFalse(target.get("backupm3u"))
         # Cada señal se llevó sus respaldos: ESPN2.co@Direct181 sigue con la 45.173.231.22 (ahora en Lista 1)
-        # y la señal anterior conserva los suyos en Lista 2 (99).
+        # y la señal anterior conserva los suyos en Lista 2 (101 desde el orden A–Z del 2026-11-09).
         backups = json.loads((ROOT / "backups.json").read_text(encoding="utf-8"))["channels"]
         self.assertIn("ESPN2.co@Direct181", [copy["tvg_id"] for copy in backups[self.TARGET_ID]["backups"]])
         self.assertEqual(("Lista 1", 35), (backups[self.TARGET_ID]["list"], backups[self.TARGET_ID]["number"]))
-        self.assertEqual(("Lista 2", 99), (backups[self.OLD_ID]["list"], backups[self.OLD_ID]["number"]))
+        self.assertEqual(("Lista 2", 101), (backups[self.OLD_ID]["list"], backups[self.OLD_ID]["number"]))
         old = next(row for row in rows if row.get("tvgId") == self.OLD_ID)
-        self.assertEqual(("2.m3u", 99), (old["sourceList"], old["number"]))
+        self.assertEqual(("2.m3u", 101), (old["sourceList"], old["number"]))
         self.assertFalse(any("ESPN2.co@Direct181" in row.get("backupm3u", []) for row in rows))
         self.assertEqual(target, ordered[ordered.index(espn) + 1])
         self.assertEqual(len(rows), len({row["number"] for row in rows}))

@@ -36,7 +36,8 @@ class Lista2EpgMapTest(unittest.TestCase):
         # 2026-11-06: bajas desde la app: 143; el piso alto dejó fallando al runner de canales.
         # 2026-11-07: revisión de Lista 2 (clones a respaldo, 27 sin señal a la papelera): 97.
         # 2026-11-08: bajas desde la app y Eurosport 1 España a Lista 1: 89.
-        self.assertGreaterEqual(len(set(mapping) & published), 80)
+        # 2026-11-09: bajas desde la app (Lista 2 queda en 90): 66.
+        self.assertGreaterEqual(len(set(mapping) & published), 60)
         for target_id, (source, source_id) in mapping.items():
             with self.subTest(channel=target_id):
                 # 2026-10-24: guía Claro por familia (claro:<región>:<group_id>) o EPGShare.
@@ -68,7 +69,8 @@ class Lista2EpgMapTest(unittest.TestCase):
         # 2026-11-04: clones de Lista 2 a respaldo de Lista 1: alcance 261.
         # 2026-11-06: bajas desde la app: alcance 227.
         # 2026-11-07: revisión de Lista 2 (clones a respaldo y 27 sin señal a la papelera): alcance 181.
-        self.assertGreaterEqual(len(scope), 170)
+        # 2026-11-09: bajas desde la app (Lista 2 queda en 90): alcance 152.
+        self.assertGreaterEqual(len(scope), 140)
 
 
 class Lista2ClaroFamilyGuideTest(unittest.TestCase):
