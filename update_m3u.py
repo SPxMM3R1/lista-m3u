@@ -1264,6 +1264,8 @@ EPGSHARE_BACKUP_CHANNELS: dict[str, tuple[str, str]] = {
     "AlJazeera.qa": ("es2", "AlJazeera.qa"),
     "DAZNF1.es@TvVoo": ("es2", "DAZNF1.uk"),
     "Vavoo.es.EUROSPORT1@TvVoo": ("es2", "Eurosport1.fr"),
+    # Eurosport 1 de Lista 1 es la directa desde 2026-11-08; hereda el relleno del TvVoo.
+    "IPTVOrg.Eurosport1.fr-Spain": ("es2", "Eurosport1.fr"),
     "Eurosport2.es@TvVoo": ("es2", "Eurosport2.fr"),
     "DW.de": ("mx1", "Canal.DW.(Latinoamérica).mx"),
     "DWEnglish.de": ("fr", "DW-TV.fr"),
