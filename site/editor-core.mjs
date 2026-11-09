@@ -96,9 +96,13 @@ export function validateLayout(layout) {
       const countries = Array.isArray(row.backupCountries) ? row.backupCountries : [];
       const known = ["albania", "arabia", "bulgaria", "balkans", "germany", "spain", "france", "italy",
         "netherlands", "poland", "portugal", "romania", "russia", "turkey", "unitedkingdom"];
-      const valid = row.kind === "provider" && row.provider === "tvvoo" && countries.length > 0 && countries.length <= 6
+      // Fila TvVoo, o señal directa con respaldo TvVoo (2026-11-08, Eurosport 1): el país propio es el del respaldo.
+      const isTvVoo = row.kind === "provider" && row.provider === "tvvoo";
+      const ownCountry = isTvVoo ? row.countryKey : String(row.backupTvVoo || "").split("|", 1)[0];
+      const valid = (isTvVoo || (acceptsTvVooBackup(row) && typeof row.backupTvVoo === "string" && row.backupTvVoo.includes("|")))
+        && countries.length > 0 && countries.length <= 6
         && new Set(countries).size === countries.length
-        && countries.every((value) => known.includes(value) && value !== row.countryKey);
+        && countries.every((value) => known.includes(value) && value !== ownCountry);
       if (!valid) problems.push(`${row.name || id}: los países de respaldo deben ser países TvVoo distintos del propio (hasta 6).`);
     }
     if (row.backupm3u !== undefined) {
