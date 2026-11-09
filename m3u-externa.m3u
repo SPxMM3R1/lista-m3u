@@ -187,20 +187,8 @@ http://181.78.12.119:16123/play/ch20/index.m3u8
 http://181.78.211.244:8000/play/a08q/index.m3u8
 #EXTINF:-1 tvg-id="IPTVOrg.ESPN.us-HD" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/espn-us.png" tvg-name="ESPN (United States) HD (720p)" group-title="Deportes",ESPN EE. UU.
 http://85.237.89.160:9590/usa-s/ESPN-HD/index.m3u8
-#EXTINF:-1 tvg-id="PublicDirect.afa5fbaa663b126f3dd2a07f" group-title="Deportes" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/dce9fe4d3a4a.png",ESPN México
-http://45.5.118.152:8000/play/a009/index.m3u8
 
 # Películas
-#EXTINF:-1 tvg-id="PublicDirect.5c9e17c3abb1f5f9fe1a3c54" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/4bc08cd16e8d.png",Europa Europa
-http://138.59.227.20:8000/play/a07t/index.m3u8
-
-# Misceláneos
-#EXTINF:-1 tvg-id="PublicDirect.38cd9ec09f8d7685075d5616" group-title="Misceláneos" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/4bc08cd16e8d.png",Europa Europa
-http://168.196.127.137:6001/play/a05v/index.m3u8
-
-# Películas
-#EXTINF:-1 tvg-id="PublicDirect.f68150aa206f6104ca8a7385" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/0c9de14638b7.png",Film & Arts
-http://168.196.127.137:6001/play/a05q/index.m3u8
 #EXTINF:-1 tvg-id="PublicDirect.af118ca0ac7bcfb47e5f8f7b" group-title="Películas" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/0c9de14638b7.png",Film & Arts
 http://138.59.227.20:8000/play/a075/index.m3u8
 
@@ -267,5 +255,5 @@ http://200.7.99.59:8000/play/a0jj/index.m3u8
 http://138.59.227.20:8000/play/a09d/index.m3u8
 
 # Deportes
-#EXTINF:-1 tvg-id="Vavoo.es.EUROSPORT1@TvVoo" tvg-name="Eurosport 1 España" tvg-country="ES" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/eurosport-1.png" group-title="Deportes" x-vibem3u-selection="managed" x-resolver="tvvoo" x-resolver-endpoint="https://tvvoo.hayd.uk/stream/tv" x-resolver-ids="vavoo_EUROSPORT%201%20HD%7Cgroup%3Aes;vavoo_EUROSPORT%201%7Cgroup%3Aes" x-resolver-refresh="on_play" x-resolver-recipe="bounded-payload-v1" x-resolver-country="spain" x-resolver-stable-id="spain|vavoo_EUROSPORT%201%7Cgroup%3Aes",Eurosport 1 España
+#EXTINF:-1 tvg-id="Vavoo.es.EUROSPORT1@TvVoo" tvg-name="Eurosport 1 España" tvg-country="ES" tvg-logo="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/eurosport-1.png" group-title="Deportes" x-vibem3u-selection="managed" x-resolver="tvvoo" x-resolver-endpoint="https://tvvoo.hayd.uk/stream/tv" x-resolver-ids="vavoo_EUROSPORT%201%20HD%7Cgroup%3Aes;vavoo_EUROSPORT%201%7Cgroup%3Aes" x-resolver-refresh="on_play" x-resolver-recipe="bounded-payload-v1" x-resolver-country="spain",Eurosport 1 España
 tvvoo://channel/spain%7Cvavoo_EUROSPORT%25201%257Cgroup%253Aes
