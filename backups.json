@@ -11496,40 +11496,18 @@
         }
       ]
     },
-    "IPTVOrg.EuropaEuropa.ar-SD": {
+    "PublicDirect.549107ff20f3eafa0f8c9580": {
       "display_name": "Europa Europa (1080p)",
       "list": "Lista 2",
       "number": 104,
       "group": "Series",
-      "source_name": "Europa Europa (1080p)",
+      "source_name": "Europa HD [IP 181.78.106.127]",
       "guide": {
         "source": "",
         "source_id": ""
       },
       "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-03 (tercera ronda, «Da otra pasada de búsqueda de clones»; regla: «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261103c); principal = mejor resolución, bitrate y fps; respaldos en ese orden.",
       "backups": [
-        {
-          "tvg_id": "PublicDirect.549107ff20f3eafa0f8c9580",
-          "display_name": "Europa Europa",
-          "source_name": "Europa HD [IP 181.78.106.127]",
-          "from_list": "Lista 2",
-          "from_number": 366,
-          "group": "Misceláneos",
-          "logo": "logos/lista2/4bc08cd16e8d.png",
-          "url": "http://181.78.106.127:5000/play/a0pn/index.m3u8",
-          "guide": {
-            "source": "ar1",
-            "source_id": "Canal.Europa.Europa.ar"
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 29.97,
-            "kbps": 2276,
-            "ok": true,
-            "interlaced": true
-          }
-        },
         {
           "tvg_id": "PublicDirect.a930bcedfff1ede1162c5b3d",
           "display_name": "Europa Europa",
@@ -11640,7 +11618,15 @@
             "interlaced": true
           }
         }
-      ]
+      ],
+      "principal_quality": {
+        "height": 1080,
+        "width": 1920,
+        "fps": 29.97,
+        "kbps": 2276,
+        "ok": true,
+        "interlaced": true
+      }
     },
     "PublicDirect.d30ff94217cc1ff6ba74dcc5": {
       "display_name": "Film & Arts",
