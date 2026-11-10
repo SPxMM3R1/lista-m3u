@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-09",
+  "updated": "2026-11-10",
   "description": "Copias (casi todas de Lista 2) que respaldan a un canal de Lista 1: misma señal, confirmada con captura. Esas copias ya no se publican en Lista 2; la app las prueba en orden si la señal principal falla.",
   "fields": {
     "channels.<clave>": "tvg-id del canal principal en Lista 1 (la identidad estable; el número puede cambiar).",
@@ -266,7 +266,7 @@
       "principal_quality": {
         "height": 0,
         "width": 0,
-        "fps": 0.0,
+        "fps": 0,
         "kbps": 0,
         "ok": false,
         "interlaced": false
@@ -1182,7 +1182,7 @@
           "quality": {
             "height": 720,
             "width": 1280,
-            "fps": 30.0,
+            "fps": 30,
             "kbps": 2719,
             "ok": true,
             "interlaced": false
@@ -1204,7 +1204,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -1226,7 +1226,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -1248,7 +1248,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -1336,7 +1336,7 @@
           "quality": {
             "height": 1080,
             "width": 1920,
-            "fps": 30.0,
+            "fps": 30,
             "kbps": 1066,
             "ok": true,
             "interlaced": false
@@ -1512,7 +1512,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -1534,7 +1534,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -1578,7 +1578,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -2304,7 +2304,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -2348,7 +2348,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -2370,7 +2370,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -2392,7 +2392,7 @@
           "quality": {
             "height": 576,
             "width": 720,
-            "fps": 25.0,
+            "fps": 25,
             "kbps": 731,
             "ok": true,
             "interlaced": true
@@ -2502,7 +2502,7 @@
           "quality": {
             "height": 1080,
             "width": 1920,
-            "fps": 30.0,
+            "fps": 30,
             "kbps": 3666,
             "ok": true,
             "interlaced": false
@@ -2524,7 +2524,7 @@
           "quality": {
             "height": 1080,
             "width": 1920,
-            "fps": 30.0,
+            "fps": 30,
             "kbps": 3412,
             "ok": true,
             "interlaced": false
@@ -2546,7 +2546,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -2568,7 +2568,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -2590,7 +2590,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -2788,7 +2788,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -2854,7 +2854,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -3052,7 +3052,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -3162,7 +3162,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -3184,7 +3184,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -3272,7 +3272,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -3339,7 +3339,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -3383,7 +3383,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -3449,7 +3449,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -3515,7 +3515,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -3647,7 +3647,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -3735,7 +3735,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -3757,7 +3757,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -3801,7 +3801,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -3889,7 +3889,7 @@
           "quality": {
             "height": 1080,
             "width": 1920,
-            "fps": 30.0,
+            "fps": 30,
             "kbps": 3930,
             "ok": true,
             "interlaced": false
@@ -3911,7 +3911,7 @@
           "quality": {
             "height": 720,
             "width": 1280,
-            "fps": 30.0,
+            "fps": 30,
             "kbps": 2308,
             "ok": true,
             "interlaced": false
@@ -3933,7 +3933,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -4131,7 +4131,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -4308,7 +4308,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -4418,7 +4418,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -4770,7 +4770,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -4946,7 +4946,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -5166,7 +5166,7 @@
           "quality": {
             "height": 1080,
             "width": 1920,
-            "fps": 30.0,
+            "fps": 30,
             "kbps": 3871,
             "ok": true,
             "interlaced": false
@@ -5188,7 +5188,7 @@
           "quality": {
             "height": 1080,
             "width": 1920,
-            "fps": 30.0,
+            "fps": 30,
             "kbps": 3828,
             "ok": true,
             "interlaced": false
@@ -5210,7 +5210,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -5232,7 +5232,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -5893,7 +5893,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -6047,7 +6047,7 @@
           "quality": {
             "height": 1080,
             "width": 1920,
-            "fps": 30.0,
+            "fps": 30,
             "kbps": 4257,
             "ok": true,
             "interlaced": false
@@ -6179,7 +6179,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -6267,7 +6267,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -6421,7 +6421,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -7130,7 +7130,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -7152,7 +7152,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -7174,7 +7174,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -7306,7 +7306,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -7614,7 +7614,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -7914,7 +7914,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -8134,7 +8134,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -8200,7 +8200,7 @@
           "quality": {
             "height": 1080,
             "width": 1920,
-            "fps": 30.0,
+            "fps": 30,
             "kbps": 3680,
             "ok": true,
             "interlaced": false
@@ -8310,7 +8310,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -8464,7 +8464,7 @@
           "quality": {
             "height": 1080,
             "width": 1920,
-            "fps": 30.0,
+            "fps": 30,
             "kbps": 3673,
             "ok": true,
             "interlaced": false
@@ -8508,7 +8508,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -8640,7 +8640,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -8662,7 +8662,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -8874,7 +8874,7 @@
           "quality": {
             "height": 1080,
             "width": 1920,
-            "fps": 30.0,
+            "fps": 30,
             "kbps": 1404,
             "ok": true,
             "interlaced": false
@@ -9109,7 +9109,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -9475,7 +9475,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -9563,7 +9563,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -9638,40 +9638,18 @@
         }
       ]
     },
-    "PublicDirect.36857621e77d520e601badcf": {
+    "PublicDirect.76f85d8e18ca914171dde970": {
       "display_name": "Discovery Channel",
       "list": "Lista 2",
       "number": 95,
       "group": "Misceláneos",
-      "source_name": "Z DISCOVERY CHANNEL [IP 177.234.218.66]",
+      "source_name": "DISCOVERY CHANNEL-IXP [IP 138.59.177.78]",
       "guide": {
         "source": "claro-guia",
         "source_id": "claro:colombia:790564"
       },
       "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-07 (pedido «Haz nuevas pruebas de clones lista 2, también identifica cada canal de la lista 2, dale logo y epg»): clones por audio de a pares (130 s, pista en español, envolvente, desfase ±90 s) en dos pasadas; clon = ≥ 0,6 en una pasada (ESPN: en las dos). outputs/lista2-revision-20261107.; 2026-11-07: recibe 7 respaldos del 89 (Discovery Channel), que no abrió en dos intentos y fue a la papelera; clon por audio 0,82 (primera pasada).",
       "backups": [
-        {
-          "tvg_id": "PublicDirect.76f85d8e18ca914171dde970",
-          "display_name": "Discovery Channel",
-          "source_name": "DISCOVERY CHANNEL-IXP [IP 138.59.177.78]",
-          "from_list": "Lista 2",
-          "from_number": 294,
-          "group": "Misceláneos",
-          "logo": "logos/catalogue/discoverychannellatinamerica-us.png",
-          "url": "http://138.59.177.78:9999/play/a09p/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:790564"
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 29.97,
-            "kbps": 3743,
-            "ok": true,
-            "interlaced": true
-          }
-        },
         {
           "tvg_id": "PublicDirect.101b3340a0bc6784e2295382",
           "display_name": "Discovery Channel",
@@ -9778,7 +9756,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -9866,7 +9844,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -9916,7 +9894,15 @@
             "interlaced": true
           }
         }
-      ]
+      ],
+      "principal_quality": {
+        "height": 1080,
+        "width": 1920,
+        "fps": 29.97,
+        "kbps": 3743,
+        "ok": true,
+        "interlaced": true
+      }
     },
     "PublicDirect.e8d09ffc2c224c3c5eed0fe6": {
       "display_name": "Discovery Channel",
@@ -10092,7 +10078,7 @@
           "quality": {
             "height": 720,
             "width": 1280,
-            "fps": 30.0,
+            "fps": 30,
             "kbps": 3350,
             "ok": true,
             "interlaced": false
@@ -10186,7 +10172,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -10208,7 +10194,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -10398,7 +10384,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -10442,7 +10428,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -10486,7 +10472,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -10611,7 +10597,7 @@
           "quality": {
             "height": 1080,
             "width": 1920,
-            "fps": 30.0,
+            "fps": 30,
             "kbps": 2656,
             "ok": true,
             "interlaced": false
@@ -10671,7 +10657,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -10693,7 +10679,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -10715,7 +10701,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -10751,7 +10737,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -11037,7 +11023,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -11059,7 +11045,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -11130,7 +11116,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -11262,7 +11248,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -11364,7 +11350,7 @@
           "quality": {
             "height": 720,
             "width": 1280,
-            "fps": 30.0,
+            "fps": 30,
             "kbps": 3054,
             "ok": true,
             "interlaced": false
@@ -11488,7 +11474,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -11767,7 +11753,7 @@
           "quality": {
             "height": 720,
             "width": 1280,
-            "fps": 30.0,
+            "fps": 30,
             "kbps": 2308,
             "ok": true,
             "interlaced": false
@@ -11803,7 +11789,7 @@
           "quality": {
             "height": 720,
             "width": 1280,
-            "fps": 30.0,
+            "fps": 30,
             "kbps": 2431,
             "ok": true,
             "interlaced": false
@@ -11839,7 +11825,7 @@
           "quality": {
             "height": 720,
             "width": 1280,
-            "fps": 30.0,
+            "fps": 30,
             "kbps": 2308,
             "ok": true,
             "interlaced": false
@@ -11898,7 +11884,7 @@
           "quality": {
             "height": 720,
             "width": 1280,
-            "fps": 30.0,
+            "fps": 30,
             "kbps": 2295,
             "ok": true,
             "interlaced": false
@@ -12058,7 +12044,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -12094,7 +12080,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -12116,7 +12102,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -12306,7 +12292,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -12410,7 +12396,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -12491,7 +12477,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -12579,7 +12565,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -12659,7 +12645,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -12703,7 +12689,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -12747,7 +12733,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -12893,7 +12879,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -12915,7 +12901,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -12937,7 +12923,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -13039,7 +13025,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -13083,7 +13069,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -13185,7 +13171,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -13207,7 +13193,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -13251,7 +13237,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -13543,7 +13529,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -13837,7 +13823,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -14116,7 +14102,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -14182,7 +14168,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -14424,7 +14410,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -14513,7 +14499,7 @@
           "quality": {
             "height": 1080,
             "width": 1920,
-            "fps": 30.0,
+            "fps": 30,
             "kbps": 2552,
             "ok": true,
             "interlaced": false
@@ -14888,7 +14874,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -14910,7 +14896,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -15172,7 +15158,7 @@
           "quality": {
             "height": 0,
             "width": 0,
-            "fps": 0.0,
+            "fps": 0,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -15252,7 +15238,7 @@
           "quality": {
             "height": 1080,
             "width": 1920,
-            "fps": 25.0,
+            "fps": 25,
             "kbps": 3829,
             "ok": true,
             "interlaced": true
@@ -15274,7 +15260,7 @@
           "quality": {
             "height": 1080,
             "width": 1920,
-            "fps": 50.0,
+            "fps": 50,
             "kbps": 0,
             "ok": false,
             "interlaced": false
@@ -15643,7 +15629,7 @@
           "quality": {
             "height": 1080,
             "width": 1920,
-            "fps": 30.0,
+            "fps": 30,
             "kbps": 2651,
             "ok": true,
             "interlaced": false
@@ -15665,7 +15651,7 @@
           "quality": {
             "height": 1080,
             "width": 1920,
-            "fps": 30.0,
+            "fps": 30,
             "kbps": 2651,
             "ok": true,
             "interlaced": false
@@ -15687,7 +15673,7 @@
           "quality": {
             "height": 1080,
             "width": 1920,
-            "fps": 30.0,
+            "fps": 30,
             "kbps": 2651,
             "ok": true,
             "interlaced": false
@@ -15709,7 +15695,7 @@
           "quality": {
             "height": 1080,
             "width": 1920,
-            "fps": 30.0,
+            "fps": 30,
             "kbps": 2651,
             "ok": true,
             "interlaced": false
