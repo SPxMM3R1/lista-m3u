@@ -1,29 +1,32 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-10T04:05:34.768957Z",
+  "updated_at": "2026-11-10T07:56:46.529583Z",
   "channels": [
     "AlJazeera.qa",
     "DAZNF1.es@TvVoo",
     "IPTVOrg.Eurosport1.fr-Spain",
     "Eurosport2.es@TvVoo",
-    "RedBullWorldEnglish.int",
     "Vavoo.es.EUROSPORT1@TvVoo",
     "PublicDirect.d1c8093442ebb8a94f8cb541",
     "PublicDirect.68696bca1787ea6c42d08166",
     "PublicDirect.ff00193f7498f277c98a9a56",
+    "PublicDirect.11ec3e5f7504067ab1ffdd8b",
+    "PublicDirect.1fff9caea3983eb723fefd11",
+    "PublicDirect.aae0e4d768441ca11372edec",
     "PublicDirect.200b6a8c8b13286206245c7d",
+    "PublicDirect.3d5dfc4dd1f5a8a68d6c2ca9",
     "IPTVOrg.MTVClassic.us-BR",
     "IPTVOrg.MTVClassic.us-CA"
   ],
   "details": {
     "AlJazeera.qa": {
-      "kind": "guia-corta",
+      "kind": "sin-guia",
       "futureHours": 0.0,
       "requiredHours": 18.0,
       "gaps": []
     },
     "DAZNF1.es@TvVoo": {
-      "kind": "guia-corta",
+      "kind": "sin-guia",
       "futureHours": 0.0,
       "requiredHours": 18.0,
       "gaps": []
@@ -42,50 +45,63 @@
     },
     "IPTVOrg.MTVClassic.us-BR": {
       "kind": "guia-corta",
-      "futureHours": 13.1,
+      "futureHours": 15.1,
       "requiredHours": 24.0,
       "gaps": []
     },
     "IPTVOrg.MTVClassic.us-CA": {
       "kind": "guia-corta",
-      "futureHours": 13.1,
+      "futureHours": 15.3,
+      "requiredHours": 24.0,
+      "gaps": []
+    },
+    "PublicDirect.11ec3e5f7504067ab1ffdd8b": {
+      "kind": "guia-corta",
+      "futureHours": 21.1,
+      "requiredHours": 24.0,
+      "gaps": []
+    },
+    "PublicDirect.1fff9caea3983eb723fefd11": {
+      "kind": "guia-corta",
+      "futureHours": 21.1,
       "requiredHours": 24.0,
       "gaps": []
     },
     "PublicDirect.200b6a8c8b13286206245c7d": {
       "kind": "guia-corta",
-      "futureHours": 22.9,
+      "futureHours": 19.1,
+      "requiredHours": 24.0,
+      "gaps": []
+    },
+    "PublicDirect.3d5dfc4dd1f5a8a68d6c2ca9": {
+      "kind": "guia-corta",
+      "futureHours": 21.6,
       "requiredHours": 24.0,
       "gaps": []
     },
     "PublicDirect.68696bca1787ea6c42d08166": {
       "kind": "guia-corta",
-      "futureHours": 22.9,
+      "futureHours": 19.1,
+      "requiredHours": 24.0,
+      "gaps": []
+    },
+    "PublicDirect.aae0e4d768441ca11372edec": {
+      "kind": "guia-corta",
+      "futureHours": 21.1,
       "requiredHours": 24.0,
       "gaps": []
     },
     "PublicDirect.d1c8093442ebb8a94f8cb541": {
       "kind": "guia-corta",
-      "futureHours": 22.9,
+      "futureHours": 19.1,
       "requiredHours": 24.0,
       "gaps": []
     },
     "PublicDirect.ff00193f7498f277c98a9a56": {
       "kind": "guia-corta",
-      "futureHours": 22.9,
+      "futureHours": 19.1,
       "requiredHours": 24.0,
       "gaps": []
-    },
-    "RedBullWorldEnglish.int": {
-      "kind": "hueco",
-      "futureHours": 25.9,
-      "requiredHours": 18.0,
-      "gaps": [
-        [
-          "2026-11-10T05:58:33Z",
-          "2026-11-10T06:00:00Z"
-        ]
-      ]
     },
     "Vavoo.es.EUROSPORT1@TvVoo": {
       "kind": "sin-guia",
