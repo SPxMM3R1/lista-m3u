@@ -8546,84 +8546,18 @@
         "interlaced": true
       }
     },
-    "PublicDirect.8918c13cf06dc2f7416879f2": {
+    "PublicDirect.b8d68bcc53d0374118476dfc": {
       "display_name": "AMC",
       "list": "Lista 2",
       "number": 86,
       "group": "Películas",
-      "source_name": "AMC HD [IP 45.171.64.30]",
+      "source_name": "AMC HD [IP 181.78.197.59]",
       "guide": {
         "source": "uy1",
         "source_id": "AMC.HD.uy"
       },
       "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-03 (tercera ronda, «Da otra pasada de búsqueda de clones»; regla: «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261103c); principal = mejor resolución, bitrate y fps; respaldos en ese orden.",
       "backups": [
-        {
-          "tvg_id": "PublicDirect.463a3cbd127eb31ba30b0f4c",
-          "display_name": "AMC",
-          "source_name": "AMC HD [IP 181.119.177.253]",
-          "from_list": "Lista 2",
-          "from_number": 465,
-          "group": "Películas",
-          "logo": "logos/lista2/5bd8ea093b5b.png",
-          "url": "http://181.119.177.253:8000/play/a0dg/index.m3u8",
-          "guide": {
-            "source": "uy1",
-            "source_id": "AMC.HD.uy"
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 29.97,
-            "kbps": 2408,
-            "ok": true,
-            "interlaced": true
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.8c362f04e0a6ec0ade385554",
-          "display_name": "AMC",
-          "source_name": "AMC HD [IP 167.249.23.102]",
-          "from_list": "Lista 2",
-          "from_number": 466,
-          "group": "Películas",
-          "logo": "logos/lista2/5bd8ea093b5b.png",
-          "url": "http://167.249.23.102:8000/play/a0gh/index.m3u8",
-          "guide": {
-            "source": "uy1",
-            "source_id": "AMC.HD.uy"
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 29.97,
-            "kbps": 2388,
-            "ok": true,
-            "interlaced": true
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.b8d68bcc53d0374118476dfc",
-          "display_name": "AMC",
-          "source_name": "AMC HD [IP 181.78.197.59]",
-          "from_list": "Lista 2",
-          "from_number": 468,
-          "group": "Películas",
-          "logo": "logos/lista2/5bd8ea093b5b.png",
-          "url": "http://181.78.197.59:8000/play/a06w/index.m3u8",
-          "guide": {
-            "source": "uy1",
-            "source_id": "AMC.HD.uy"
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 29.97,
-            "kbps": 2408,
-            "ok": true,
-            "interlaced": true
-          }
-        },
         {
           "tvg_id": "PublicDirect.bdfb0871d6f1445b2c0991f3",
           "display_name": "AMC",
@@ -8844,7 +8778,15 @@
             "interlaced": true
           }
         }
-      ]
+      ],
+      "principal_quality": {
+        "height": 1080,
+        "width": 1920,
+        "fps": 29.97,
+        "kbps": 2408,
+        "ok": true,
+        "interlaced": true
+      }
     },
     "PublicDirect.d0ee5354a75d4bf0fe91c9c0": {
       "display_name": "ALCATEL BITME MD1",
