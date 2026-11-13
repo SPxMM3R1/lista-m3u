@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-13T08:40:30.999842Z",
+  "updated_at": "2026-11-13T17:09:24.038423Z",
   "channels": [
-    "PublicDirect.3d5dfc4dd1f5a8a68d6c2ca9",
+    "RedBullWorldEnglish.int",
     "PublicDirect.2abd3aff445429e27097a124",
     "IPTVOrg.MTVClassic.us-BR",
     "IPTVOrg.MTVClassic.us-CA"
@@ -10,31 +10,35 @@
   "details": {
     "IPTVOrg.MTVClassic.us-BR": {
       "kind": "guia-corta",
-      "futureHours": 13.6,
+      "futureHours": 14.2,
       "requiredHours": 24.0,
       "gaps": []
     },
     "IPTVOrg.MTVClassic.us-CA": {
       "kind": "guia-corta",
-      "futureHours": 13.5,
+      "futureHours": 14.0,
       "requiredHours": 24.0,
       "gaps": []
     },
     "PublicDirect.2abd3aff445429e27097a124": {
       "kind": "hueco",
-      "futureHours": 44.4,
+      "futureHours": 62.7,
       "requiredHours": 24.0,
       "gaps": [
         [
           "2026-11-13T20:27:00Z",
           "2026-11-13T22:01:00Z"
+        ],
+        [
+          "2026-11-14T08:50:00Z",
+          "2026-11-14T12:45:00Z"
         ]
       ]
     },
-    "PublicDirect.3d5dfc4dd1f5a8a68d6c2ca9": {
+    "RedBullWorldEnglish.int": {
       "kind": "guia-corta",
-      "futureHours": 23.3,
-      "requiredHours": 24.0,
+      "futureHours": 15.0,
+      "requiredHours": 18.0,
       "gaps": []
     }
   }
