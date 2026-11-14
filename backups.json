@@ -15254,70 +15254,10 @@
         }
       ]
     },
-    "PublicDirect.c239c57686df265bb88b82af": {
-      "display_name": "Studio Universal",
-      "list": "Lista 2",
-      "number": 140,
-      "group": "Películas",
-      "source_name": "@DIG - STUDIO UNIVERSAL HD IN [IP 181.78.14.26]",
-      "guide": {
-        "source": "claro-guia",
-        "source_id": "claro:colombia:927654"
-      },
-      "verified": "2026-11-07 (pedido «Haz nuevas pruebas de clones lista 2, también identifica cada canal de la lista 2, dale logo y epg»): clones por audio de a pares (130 s, pista en español, envolvente, desfase ±90 s) en dos pasadas; clon = ≥ 0,6 en una pasada (ESPN: en las dos). outputs/lista2-revision-20261107.",
-      "backups": [
-        {
-          "tvg_id": "PublicDirect.aa2e0c5477ad6f0d06e77063",
-          "display_name": "Studio Universal",
-          "source_name": "@DIG - STUDIO UNIVERSAL HD [IP 181.78.14.26]",
-          "from_list": "Lista 2",
-          "from_number": 257,
-          "group": "Películas",
-          "logo": "",
-          "url": "http://181.78.14.26:4000/play/a03e/index.m3u8",
-          "guide": {
-            "source": "mx1",
-            "source_id": "Canal.Studio.Universal.(México).mx"
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 29.97,
-            "kbps": 4368,
-            "ok": true,
-            "interlaced": true
-          },
-          "audio_corr": 0.845
-        },
-        {
-          "tvg_id": "PublicDirect.81e9474de15b1c7f4335e742",
-          "display_name": "Studio Universal",
-          "source_name": "UNIVERSAL [IP 38.134.250.110]",
-          "from_list": "Lista 2",
-          "from_number": 284,
-          "group": "Películas",
-          "logo": "logos/lista2/93453859f775.png",
-          "url": "http://38.134.250.110:8000/play/a005/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:927639"
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 29.97,
-            "kbps": 2621,
-            "ok": true,
-            "interlaced": false
-          },
-          "audio_corr": 0.862
-        }
-      ]
-    },
     "PublicDirect.f7860545d45db8d5592cd048": {
       "display_name": "TNT",
       "list": "Lista 2",
-      "number": 140,
+      "number": 139,
       "group": "Películas",
       "source_name": "TNT HD_COSTA [IP 181.79.86.130]",
       "guide": {
@@ -15524,6 +15464,66 @@
             "ok": true,
             "interlaced": true
           }
+        }
+      ]
+    },
+    "PublicDirect.c239c57686df265bb88b82af": {
+      "display_name": "Studio Universal",
+      "list": "Lista 2",
+      "number": 140,
+      "group": "Películas",
+      "source_name": "@DIG - STUDIO UNIVERSAL HD IN [IP 181.78.14.26]",
+      "guide": {
+        "source": "claro-guia",
+        "source_id": "claro:colombia:927654"
+      },
+      "verified": "2026-11-07 (pedido «Haz nuevas pruebas de clones lista 2, también identifica cada canal de la lista 2, dale logo y epg»): clones por audio de a pares (130 s, pista en español, envolvente, desfase ±90 s) en dos pasadas; clon = ≥ 0,6 en una pasada (ESPN: en las dos). outputs/lista2-revision-20261107.",
+      "backups": [
+        {
+          "tvg_id": "PublicDirect.aa2e0c5477ad6f0d06e77063",
+          "display_name": "Studio Universal",
+          "source_name": "@DIG - STUDIO UNIVERSAL HD [IP 181.78.14.26]",
+          "from_list": "Lista 2",
+          "from_number": 257,
+          "group": "Películas",
+          "logo": "",
+          "url": "http://181.78.14.26:4000/play/a03e/index.m3u8",
+          "guide": {
+            "source": "mx1",
+            "source_id": "Canal.Studio.Universal.(México).mx"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 4368,
+            "ok": true,
+            "interlaced": true
+          },
+          "audio_corr": 0.845
+        },
+        {
+          "tvg_id": "PublicDirect.81e9474de15b1c7f4335e742",
+          "display_name": "Studio Universal",
+          "source_name": "UNIVERSAL [IP 38.134.250.110]",
+          "from_list": "Lista 2",
+          "from_number": 284,
+          "group": "Películas",
+          "logo": "logos/lista2/93453859f775.png",
+          "url": "http://38.134.250.110:8000/play/a005/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:927639"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 2621,
+            "ok": true,
+            "interlaced": false
+          },
+          "audio_corr": 0.862
         }
       ]
     },
