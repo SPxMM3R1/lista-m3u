@@ -1,0 +1,53 @@
+{
+  "fecha": "2026-11-13",
+  "pedido": "«Quiero recuperar el canal RWND (Rewind TV Chile) en VibeM3U… Investiga el fallo y, si encuentras una vía de reproducción compatible con clientes externos, impleméntala»",
+  "canal": {
+    "tvg_id": "RewindTV.cl@SD",
+    "name": "RWND",
+    "group": "Música",
+    "number": 43,
+    "logo": "logos/rewind-v2.png",
+    "epg": "solo continuidad Live (rewind-continuous)"
+  },
+  "url_anterior": "https://tls-cl.cdnz.cl/rewindtv/live/playlist.m3u8",
+  "url_nueva": "https://www.rewindmusic.cl/stream/hls/playlist.m3u8",
+  "causa": {
+    "url_anterior": "HTTP 404 de nginx con cuerpo vacío (GET y HEAD, con y sin User-Agent) desde después del 2026-11-06T23:35:57Z, último chequeo sano del runner. La ruta del CDN ya no existe.",
+    "no_es": "No es 403, ni falta de cookie, ni login, ni cierre de conexión del servidor."
+  },
+  "verificacion": {
+    "manifiesto": "HTTP 200, #EXTM3U, master con una variante 1920x1080 (avc1.4d4028 + mp4a.40.2)",
+    "variante": "chunklist_w<N>.m3u8, HTTP 200, 3 segmentos",
+    "segmento": "media_w<N>_<seq>.ts, HTTP 200, primer byte 0x47 (sincronía MPEG-TS)",
+    "sin_cookies": true,
+    "sin_referer": true,
+    "user_agents_probados": [
+      "sin UA",
+      "VLC/3.0.20 LibVLC/3.0.20",
+      "Mozilla/5.0 … Chrome/126.0.0.0",
+      "VibeM3U/0.6.61 (Android)",
+      "ExoPlayerLib/1.4.1"
+    ],
+    "desde_chile": "ffmpeg: 332 cuadros en 12 s a 29,97 fps; fotograma con el logo RWND y «PIDE TU VIDEO www.rewindmusic.cl»",
+    "desde_github": "runner 43533126767 (Azure centralus, 132.196.55.98): master, variante y segmento HTTP 200 con los cuatro User-Agent; URL anterior HTTP 404",
+    "error_1010": "bloqueo de browser integrity de Cloudflare por User-Agent; no reproducible y no depende de cookies",
+    "error_502": "no reproducido en ninguna prueba"
+  },
+  "acceso_terceros": {
+    "distribucion": "https://www.rewindmusic.cl/distribucion es un formulario B2B (SRT, HLS, RTMP u otro formato, condiciones por operador). No publica endpoint ni token.",
+    "tv": "https://www.rewindmusic.cl/tv vincula un televisor a una cuenta REWIND de la plataforma interactiva (programar videos); no controla el canal lineal.",
+    "resolutor": "No corresponde: la URL pública no se firma ni caduca por sesión."
+  },
+  "pendiente": [
+    "Probar en emulador o Android TV (no había emulador ni equipo adb en el PC; el usuario pidió «no hagas prueba»).",
+    "Si Rewind retira el endpoint del reproductor, pedir el HLS de distribución por /distribucion."
+  ],
+  "archivos": [
+    "channel-catalog.m3u",
+    "1.m3u",
+    "m3u.m3u",
+    "docs/decisiones-por-canal.md",
+    "ESTADO.md",
+    "AGENTS.md"
+  ]
+}
