@@ -11687,7 +11687,7 @@
     "PublicDirect.2abd3aff445429e27097a124": {
       "display_name": "Golden Premiere",
       "list": "Lista 2",
-      "number": 104,
+      "number": 102,
       "group": "Deportes",
       "source_name": "GOLDEN PREMIER-IXP [IP 138.59.177.78]",
       "guide": {
@@ -11812,7 +11812,7 @@
     "PublicDirect.4e3f8c2900998331dd82ca81": {
       "display_name": "Golden Premiere 2",
       "list": "Lista 2",
-      "number": 105,
+      "number": 103,
       "group": "Deportes",
       "source_name": "Golden Premiere 2 HD [IP 181.78.197.59]",
       "guide": {
@@ -12326,7 +12326,7 @@
     "PublicDirect.c9a179f36540c93c7e6a67b6": {
       "display_name": "HBO Family",
       "list": "Lista 2",
-      "number": 121,
+      "number": 119,
       "group": "Películas",
       "source_name": "HBO Family HD [IP 181.78.82.130]",
       "guide": {
@@ -12560,7 +12560,7 @@
     "PublicDirect.74b1d039a89a6947afe30ac0": {
       "display_name": "HBO Plus",
       "list": "Lista 2",
-      "number": 122,
+      "number": 120,
       "group": "Películas",
       "source_name": "HBO PLUS-IXP [IP 138.59.177.78]",
       "guide": {
@@ -12752,7 +12752,7 @@
     "PublicDirect.ed2f1446ddbf0b5ac126fcdf": {
       "display_name": "HBO Pop",
       "list": "Lista 2",
-      "number": 124,
+      "number": 122,
       "group": "Películas",
       "source_name": "HBO POP HD [IP 181.78.82.130]",
       "guide": {
@@ -12876,7 +12876,7 @@
     "PublicDirect.e1bd14954343adc40818b7c7": {
       "display_name": "HBO Xtreme",
       "list": "Lista 2",
-      "number": 125,
+      "number": 123,
       "group": "Películas",
       "source_name": "HBO XTREME [IP 181.78.197.59]",
       "guide": {
@@ -13155,7 +13155,7 @@
     "PublicDirect.d56376275161ef53614ac137": {
       "display_name": "Investigation Discovery",
       "list": "Lista 2",
-      "number": 126,
+      "number": 124,
       "group": "Misceláneos",
       "source_name": "Z DISCOVERY INVESTIGATION [IP 177.234.218.66]",
       "guide": {
@@ -13586,6 +13586,64 @@
         }
       ]
     },
+    "IPTVOrg.LoveNature.ca-4K": {
+      "display_name": "Love Nature 4K (2160p) [Geo-blocked]",
+      "list": "Lista 2",
+      "number": 127,
+      "group": "Aire libre",
+      "source_name": "Love Nature 4K (2160p) [Geo-blocked]",
+      "guide": {
+        "source": "",
+        "source_id": ""
+      },
+      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.",
+      "backups": [
+        {
+          "tvg_id": "IPTVOrg.LoveNature.ca-HD",
+          "display_name": "Love Nature HD (1080p)",
+          "source_name": "Love Nature HD (1080p)",
+          "from_list": "Lista 2",
+          "from_number": 84,
+          "group": "Aire libre",
+          "logo": "",
+          "url": "https://mumbai-edge.smartplaytv.in/LoveNature/index.m3u8",
+          "guide": {
+            "source": "",
+            "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 3555,
+            "ok": true,
+            "interlaced": false
+          }
+        },
+        {
+          "tvg_id": "IPTVOrg.LoveNature.ca-SD",
+          "display_name": "Love Nature (1080p)",
+          "source_name": "Love Nature (1080p)",
+          "from_list": "Lista 2",
+          "from_number": 83,
+          "group": "Aire libre",
+          "logo": "",
+          "url": "https://aegis-cloudfront-1.tubi.video/6d6d0f24-8445-4b4c-bdf6-44f9e38beaa4/playlist.m3u8",
+          "guide": {
+            "source": "",
+            "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 3533,
+            "ok": true,
+            "interlaced": false
+          }
+        }
+      ]
+    },
     "PublicDirect.49854aa2ac00919d765f58d5": {
       "display_name": "Universal Comedy",
       "list": "Lista 2",
@@ -13966,64 +14024,6 @@
         }
       ]
     },
-    "IPTVOrg.LoveNature.ca-4K": {
-      "display_name": "Love Nature 4K (2160p) [Geo-blocked]",
-      "list": "Lista 2",
-      "number": 129,
-      "group": "Aire libre",
-      "source_name": "Love Nature 4K (2160p) [Geo-blocked]",
-      "guide": {
-        "source": "",
-        "source_id": ""
-      },
-      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.",
-      "backups": [
-        {
-          "tvg_id": "IPTVOrg.LoveNature.ca-HD",
-          "display_name": "Love Nature HD (1080p)",
-          "source_name": "Love Nature HD (1080p)",
-          "from_list": "Lista 2",
-          "from_number": 84,
-          "group": "Aire libre",
-          "logo": "",
-          "url": "https://mumbai-edge.smartplaytv.in/LoveNature/index.m3u8",
-          "guide": {
-            "source": "",
-            "source_id": ""
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 29.97,
-            "kbps": 3555,
-            "ok": true,
-            "interlaced": false
-          }
-        },
-        {
-          "tvg_id": "IPTVOrg.LoveNature.ca-SD",
-          "display_name": "Love Nature (1080p)",
-          "source_name": "Love Nature (1080p)",
-          "from_list": "Lista 2",
-          "from_number": 83,
-          "group": "Aire libre",
-          "logo": "",
-          "url": "https://aegis-cloudfront-1.tubi.video/6d6d0f24-8445-4b4c-bdf6-44f9e38beaa4/playlist.m3u8",
-          "guide": {
-            "source": "",
-            "source_id": ""
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 29.97,
-            "kbps": 3533,
-            "ok": true,
-            "interlaced": false
-          }
-        }
-      ]
-    },
     "PublicDirect.617b574fa232cce423379651": {
       "display_name": "Universal Premiere",
       "list": "Lista 2",
@@ -14214,6 +14214,43 @@
         }
       ]
     },
+    "PublicDirect.f753ad9eb3f48c300c6fa4b4": {
+      "display_name": "National Geographic",
+      "list": "Lista 2",
+      "number": 130,
+      "group": "Misceláneos",
+      "source_name": "Nat Geo HD [IP 138.59.177.78]",
+      "guide": {
+        "source": "co1",
+        "source_id": "NAT.GEO.co"
+      },
+      "verified": "2026-11-07 (pedido «Haz nuevas pruebas de clones lista 2, también identifica cada canal de la lista 2, dale logo y epg»): clones por audio de a pares (130 s, pista en español, envolvente, desfase ±90 s) en dos pasadas; clon = ≥ 0,6 en una pasada (ESPN: en las dos). outputs/lista2-revision-20261107.",
+      "backups": [
+        {
+          "tvg_id": "PublicDirect.b5fdf6c75f79bfb4bf24602c",
+          "display_name": "National Geographic",
+          "source_name": "@DIG - NATGEO HD [IP 181.78.14.26]",
+          "from_list": "Lista 2",
+          "from_number": 253,
+          "group": "Misceláneos",
+          "logo": "logos/lista2/4deec34b7976.png",
+          "url": "http://181.78.14.26:4000/play/a04p/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:728274"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 29.97,
+            "kbps": 3817,
+            "ok": true,
+            "interlaced": false
+          },
+          "audio_corr": 0.882
+        }
+      ]
+    },
     "PublicDirect.7c8d4b8df3edac7b0635d166": {
       "display_name": "Universal Premiere O",
       "list": "Lista 2",
@@ -14316,215 +14353,10 @@
         }
       ]
     },
-    "PublicDirect.69cbd30293c25b5e33acc71a": {
-      "display_name": "Universal Reality",
-      "list": "Lista 2",
-      "number": 132,
-      "group": "Películas",
-      "source_name": "UNIVERSAL REALITY [IP 38.87.224.19]",
-      "guide": {
-        "source": "uy1",
-        "source_id": "[UNIRE].Universal.Reality.uy"
-      },
-      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-03 (tercera ronda, «Da otra pasada de búsqueda de clones»; regla: «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261103c); principal = mejor resolución, bitrate y fps; respaldos en ese orden.",
-      "backups": [
-        {
-          "tvg_id": "PublicDirect.2ae5a898fa61394c6471fbe5",
-          "display_name": "Universal Reality",
-          "source_name": "UNIVERSAL REALITY HD [IP 45.5.118.152]",
-          "from_list": "Lista 2",
-          "from_number": 759,
-          "group": "Películas",
-          "logo": "logos/lista2/132bbe9e6d78.png",
-          "url": "http://45.5.118.152:8000/play/a0do/index.m3u8",
-          "guide": {
-            "source": "uy1",
-            "source_id": "[UNIRE].Universal.Reality.uy"
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 29.97,
-            "kbps": 1797,
-            "ok": true,
-            "interlaced": true
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.460df5a097347614b1a47a60",
-          "display_name": "Universal Reality",
-          "source_name": "UNIVERSAL REALITY HD [IP 181.78.106.127]",
-          "from_list": "Lista 2",
-          "from_number": 760,
-          "group": "Películas",
-          "logo": "logos/lista2/132bbe9e6d78.png",
-          "url": "http://181.78.106.127:5000/play/a0qw/index.m3u8",
-          "guide": {
-            "source": "uy1",
-            "source_id": "[UNIRE].Universal.Reality.uy"
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 29.97,
-            "kbps": 1797,
-            "ok": true,
-            "interlaced": true
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.675895e83c0f55f5cc80a8b1",
-          "display_name": "Universal Reality",
-          "source_name": "UNIVERSAL REALITY HD [IP 181.119.177.253]",
-          "from_list": "Lista 2",
-          "from_number": 763,
-          "group": "Películas",
-          "logo": "logos/lista2/132bbe9e6d78.png",
-          "url": "http://181.119.177.253:8000/play/a0d6/index.m3u8",
-          "guide": {
-            "source": "uy1",
-            "source_id": "[UNIRE].Universal.Reality.uy"
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 29.97,
-            "kbps": 1797,
-            "ok": true,
-            "interlaced": true
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.68375171b247d425fd30920e",
-          "display_name": "Universal Reality",
-          "source_name": "UNIVERSAL REALITY HD [IP 72.1.184.5]",
-          "from_list": "Lista 2",
-          "from_number": 765,
-          "group": "Películas",
-          "logo": "logos/lista2/132bbe9e6d78.png",
-          "url": "http://72.1.184.5:8089/play/a07f/index.m3u8",
-          "guide": {
-            "source": "uy1",
-            "source_id": "[UNIRE].Universal.Reality.uy"
-          },
-          "quality": {
-            "height": 0,
-            "width": 0,
-            "fps": 0.0,
-            "kbps": 0,
-            "ok": false,
-            "interlaced": false
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.4e1bb837eb5688c6fed187e2",
-          "display_name": "Universal Reality",
-          "source_name": "UNIVERSAL REALITY HD [IP 190.61.90.17]",
-          "from_list": "Lista 2",
-          "from_number": 766,
-          "group": "Películas",
-          "logo": "logos/lista2/132bbe9e6d78.png",
-          "url": "http://190.61.90.17:40000/play/a0i3/index.m3u8",
-          "guide": {
-            "source": "uy1",
-            "source_id": "[UNIRE].Universal.Reality.uy"
-          },
-          "quality": {
-            "height": 0,
-            "width": 0,
-            "fps": 0.0,
-            "kbps": 0,
-            "ok": false,
-            "interlaced": false
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.b8e5b5845e20b5c304bc8303",
-          "display_name": "Universal Reality",
-          "source_name": "UNIVERSAL REALITY-IXP [IP 138.59.177.78]",
-          "from_list": "Lista 2",
-          "from_number": 437,
-          "group": "Películas",
-          "logo": "logos/lista2/132bbe9e6d78.png",
-          "url": "http://138.59.177.78:9999/play/a09o/index.m3u8",
-          "guide": {
-            "source": "uy1",
-            "source_id": "[UNIRE].Universal.Reality.uy"
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 29.97,
-            "kbps": 1822,
-            "ok": true,
-            "interlaced": true
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.695f6163061aa17f27e60183",
-          "display_name": "Universal Reality",
-          "source_name": "UNIVERSAL REALITY HD [IP 45.166.93.156]",
-          "from_list": "Lista 2",
-          "from_number": 438,
-          "group": "Películas",
-          "logo": "logos/lista2/132bbe9e6d78.png",
-          "url": "http://45.166.93.156:9999/play/a0et/index.m3u8",
-          "guide": {
-            "source": "uy1",
-            "source_id": "[UNIRE].Universal.Reality.uy"
-          },
-          "quality": {
-            "height": 0,
-            "width": 0,
-            "fps": 0.0,
-            "kbps": 0,
-            "ok": false,
-            "interlaced": false
-          }
-        }
-      ]
-    },
-    "PublicDirect.f753ad9eb3f48c300c6fa4b4": {
-      "display_name": "National Geographic",
-      "list": "Lista 2",
-      "number": 132,
-      "group": "Misceláneos",
-      "source_name": "Nat Geo HD [IP 138.59.177.78]",
-      "guide": {
-        "source": "co1",
-        "source_id": "NAT.GEO.co"
-      },
-      "verified": "2026-11-07 (pedido «Haz nuevas pruebas de clones lista 2, también identifica cada canal de la lista 2, dale logo y epg»): clones por audio de a pares (130 s, pista en español, envolvente, desfase ±90 s) en dos pasadas; clon = ≥ 0,6 en una pasada (ESPN: en las dos). outputs/lista2-revision-20261107.",
-      "backups": [
-        {
-          "tvg_id": "PublicDirect.b5fdf6c75f79bfb4bf24602c",
-          "display_name": "National Geographic",
-          "source_name": "@DIG - NATGEO HD [IP 181.78.14.26]",
-          "from_list": "Lista 2",
-          "from_number": 253,
-          "group": "Misceláneos",
-          "logo": "logos/lista2/4deec34b7976.png",
-          "url": "http://181.78.14.26:4000/play/a04p/index.m3u8",
-          "guide": {
-            "source": "claro-guia",
-            "source_id": "claro:colombia:728274"
-          },
-          "quality": {
-            "height": 720,
-            "width": 1280,
-            "fps": 29.97,
-            "kbps": 3817,
-            "ok": true,
-            "interlaced": false
-          },
-          "audio_corr": 0.882
-        }
-      ]
-    },
     "PublicDirect.8a5d0371ff496197a85a71b8": {
       "display_name": "National Geographic",
       "list": "Lista 2",
-      "number": 133,
+      "number": 131,
       "group": "Misceláneos",
       "source_name": "Nat Geo HD [IP 181.78.106.127]",
       "guide": {
@@ -14844,10 +14676,178 @@
         }
       ]
     },
+    "PublicDirect.69cbd30293c25b5e33acc71a": {
+      "display_name": "Universal Reality",
+      "list": "Lista 2",
+      "number": 132,
+      "group": "Películas",
+      "source_name": "UNIVERSAL REALITY [IP 38.87.224.19]",
+      "guide": {
+        "source": "uy1",
+        "source_id": "[UNIRE].Universal.Reality.uy"
+      },
+      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-03 (tercera ronda, «Da otra pasada de búsqueda de clones»; regla: «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261103c); principal = mejor resolución, bitrate y fps; respaldos en ese orden.",
+      "backups": [
+        {
+          "tvg_id": "PublicDirect.2ae5a898fa61394c6471fbe5",
+          "display_name": "Universal Reality",
+          "source_name": "UNIVERSAL REALITY HD [IP 45.5.118.152]",
+          "from_list": "Lista 2",
+          "from_number": 759,
+          "group": "Películas",
+          "logo": "logos/lista2/132bbe9e6d78.png",
+          "url": "http://45.5.118.152:8000/play/a0do/index.m3u8",
+          "guide": {
+            "source": "uy1",
+            "source_id": "[UNIRE].Universal.Reality.uy"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 1797,
+            "ok": true,
+            "interlaced": true
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.460df5a097347614b1a47a60",
+          "display_name": "Universal Reality",
+          "source_name": "UNIVERSAL REALITY HD [IP 181.78.106.127]",
+          "from_list": "Lista 2",
+          "from_number": 760,
+          "group": "Películas",
+          "logo": "logos/lista2/132bbe9e6d78.png",
+          "url": "http://181.78.106.127:5000/play/a0qw/index.m3u8",
+          "guide": {
+            "source": "uy1",
+            "source_id": "[UNIRE].Universal.Reality.uy"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 1797,
+            "ok": true,
+            "interlaced": true
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.675895e83c0f55f5cc80a8b1",
+          "display_name": "Universal Reality",
+          "source_name": "UNIVERSAL REALITY HD [IP 181.119.177.253]",
+          "from_list": "Lista 2",
+          "from_number": 763,
+          "group": "Películas",
+          "logo": "logos/lista2/132bbe9e6d78.png",
+          "url": "http://181.119.177.253:8000/play/a0d6/index.m3u8",
+          "guide": {
+            "source": "uy1",
+            "source_id": "[UNIRE].Universal.Reality.uy"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 1797,
+            "ok": true,
+            "interlaced": true
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.68375171b247d425fd30920e",
+          "display_name": "Universal Reality",
+          "source_name": "UNIVERSAL REALITY HD [IP 72.1.184.5]",
+          "from_list": "Lista 2",
+          "from_number": 765,
+          "group": "Películas",
+          "logo": "logos/lista2/132bbe9e6d78.png",
+          "url": "http://72.1.184.5:8089/play/a07f/index.m3u8",
+          "guide": {
+            "source": "uy1",
+            "source_id": "[UNIRE].Universal.Reality.uy"
+          },
+          "quality": {
+            "height": 0,
+            "width": 0,
+            "fps": 0.0,
+            "kbps": 0,
+            "ok": false,
+            "interlaced": false
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.4e1bb837eb5688c6fed187e2",
+          "display_name": "Universal Reality",
+          "source_name": "UNIVERSAL REALITY HD [IP 190.61.90.17]",
+          "from_list": "Lista 2",
+          "from_number": 766,
+          "group": "Películas",
+          "logo": "logos/lista2/132bbe9e6d78.png",
+          "url": "http://190.61.90.17:40000/play/a0i3/index.m3u8",
+          "guide": {
+            "source": "uy1",
+            "source_id": "[UNIRE].Universal.Reality.uy"
+          },
+          "quality": {
+            "height": 0,
+            "width": 0,
+            "fps": 0.0,
+            "kbps": 0,
+            "ok": false,
+            "interlaced": false
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.b8e5b5845e20b5c304bc8303",
+          "display_name": "Universal Reality",
+          "source_name": "UNIVERSAL REALITY-IXP [IP 138.59.177.78]",
+          "from_list": "Lista 2",
+          "from_number": 437,
+          "group": "Películas",
+          "logo": "logos/lista2/132bbe9e6d78.png",
+          "url": "http://138.59.177.78:9999/play/a09o/index.m3u8",
+          "guide": {
+            "source": "uy1",
+            "source_id": "[UNIRE].Universal.Reality.uy"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 1822,
+            "ok": true,
+            "interlaced": true
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.695f6163061aa17f27e60183",
+          "display_name": "Universal Reality",
+          "source_name": "UNIVERSAL REALITY HD [IP 45.166.93.156]",
+          "from_list": "Lista 2",
+          "from_number": 438,
+          "group": "Películas",
+          "logo": "logos/lista2/132bbe9e6d78.png",
+          "url": "http://45.166.93.156:9999/play/a0et/index.m3u8",
+          "guide": {
+            "source": "uy1",
+            "source_id": "[UNIRE].Universal.Reality.uy"
+          },
+          "quality": {
+            "height": 0,
+            "width": 0,
+            "fps": 0.0,
+            "kbps": 0,
+            "ok": false,
+            "interlaced": false
+          }
+        }
+      ]
+    },
     "PublicDirect.5fa93eee31589e2105958c0e": {
       "display_name": "National Geographic",
       "list": "Lista 2",
-      "number": 135,
+      "number": 133,
       "group": "Misceláneos",
       "source_name": "Nat Geo HD [IP 200.7.99.59]",
       "guide": {
@@ -14883,7 +14883,7 @@
     "PublicDirect.a4fe5a0fae7ca652b8925373": {
       "display_name": "Space",
       "list": "Lista 2",
-      "number": 136,
+      "number": 134,
       "group": "Películas",
       "source_name": "Space HD [IP 200.7.99.59]",
       "guide": {
@@ -15029,7 +15029,7 @@
     "PublicDirect.e221e27dc18d5a97a4054237": {
       "display_name": "Star TVE",
       "list": "Lista 2",
-      "number": 137,
+      "number": 135,
       "group": "Películas",
       "source_name": "Star TVE HD [IP 138.59.177.78]",
       "guide": {
@@ -15131,7 +15131,7 @@
     "PublicDirect.650a768cd537cb17d491e369": {
       "display_name": "Stingray Concerts",
       "list": "Lista 2",
-      "number": 139,
+      "number": 137,
       "group": "Música",
       "source_name": "Stingray Concerts HD [IP 190.108.83.69]",
       "guide": {
@@ -15183,6 +15183,66 @@
             "ok": false,
             "interlaced": false
           }
+        }
+      ]
+    },
+    "PublicDirect.a52c913a30233f55dc54d10c": {
+      "display_name": "TCM",
+      "list": "Lista 2",
+      "number": 138,
+      "group": "Películas",
+      "source_name": "Z TCM [IP 177.234.218.66]",
+      "guide": {
+        "source": "uy1",
+        "source_id": "TCM.uy"
+      },
+      "verified": "2026-11-07 (pedido «Haz nuevas pruebas de clones lista 2, también identifica cada canal de la lista 2, dale logo y epg»): clones por audio de a pares (130 s, pista en español, envolvente, desfase ±90 s) en dos pasadas; clon = ≥ 0,6 en una pasada (ESPN: en las dos). outputs/lista2-revision-20261107.",
+      "backups": [
+        {
+          "tvg_id": "PublicDirect.f5ff1fc4a352eef23ab8b2de",
+          "display_name": "TCM",
+          "source_name": "@DIG - TCM HD [IP 181.78.14.26]",
+          "from_list": "Lista 2",
+          "from_number": 267,
+          "group": "Películas",
+          "logo": "logos/lista2/9857f32f74d4.png",
+          "url": "http://181.78.14.26:4000/play/a04d/index.m3u8",
+          "guide": {
+            "source": "uy1",
+            "source_id": "TCM.uy"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 1722,
+            "ok": true,
+            "interlaced": true
+          },
+          "audio_corr": 0.692
+        },
+        {
+          "tvg_id": "IPTVOrg.TCMLatinAmerica.us-Chile",
+          "display_name": "TCM",
+          "source_name": "TCM Latin America Chile (1080p)",
+          "from_list": "Lista 2",
+          "from_number": 269,
+          "group": "Sin categoría",
+          "logo": "",
+          "url": "https://streaming.onnethn.com/TCM_HD/playlist.m3u8",
+          "guide": {
+            "source": "",
+            "source_id": ""
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 4310,
+            "ok": true,
+            "interlaced": false
+          },
+          "audio_corr": 0.927
         }
       ]
     },
@@ -15246,70 +15306,10 @@
         }
       ]
     },
-    "PublicDirect.a52c913a30233f55dc54d10c": {
-      "display_name": "TCM",
-      "list": "Lista 2",
-      "number": 140,
-      "group": "Películas",
-      "source_name": "Z TCM [IP 177.234.218.66]",
-      "guide": {
-        "source": "uy1",
-        "source_id": "TCM.uy"
-      },
-      "verified": "2026-11-07 (pedido «Haz nuevas pruebas de clones lista 2, también identifica cada canal de la lista 2, dale logo y epg»): clones por audio de a pares (130 s, pista en español, envolvente, desfase ±90 s) en dos pasadas; clon = ≥ 0,6 en una pasada (ESPN: en las dos). outputs/lista2-revision-20261107.",
-      "backups": [
-        {
-          "tvg_id": "PublicDirect.f5ff1fc4a352eef23ab8b2de",
-          "display_name": "TCM",
-          "source_name": "@DIG - TCM HD [IP 181.78.14.26]",
-          "from_list": "Lista 2",
-          "from_number": 267,
-          "group": "Películas",
-          "logo": "logos/lista2/9857f32f74d4.png",
-          "url": "http://181.78.14.26:4000/play/a04d/index.m3u8",
-          "guide": {
-            "source": "uy1",
-            "source_id": "TCM.uy"
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 29.97,
-            "kbps": 1722,
-            "ok": true,
-            "interlaced": true
-          },
-          "audio_corr": 0.692
-        },
-        {
-          "tvg_id": "IPTVOrg.TCMLatinAmerica.us-Chile",
-          "display_name": "TCM",
-          "source_name": "TCM Latin America Chile (1080p)",
-          "from_list": "Lista 2",
-          "from_number": 269,
-          "group": "Sin categoría",
-          "logo": "",
-          "url": "https://streaming.onnethn.com/TCM_HD/playlist.m3u8",
-          "guide": {
-            "source": "",
-            "source_id": ""
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 29.97,
-            "kbps": 4310,
-            "ok": true,
-            "interlaced": false
-          },
-          "audio_corr": 0.927
-        }
-      ]
-    },
     "PublicDirect.f7860545d45db8d5592cd048": {
       "display_name": "TNT",
       "list": "Lista 2",
-      "number": 145,
+      "number": 143,
       "group": "Películas",
       "source_name": "TNT HD_COSTA [IP 181.79.86.130]",
       "guide": {
@@ -15522,7 +15522,7 @@
     "PublicDirect.5a53ee0b598caafe694a52bf": {
       "display_name": "Warner Channel",
       "list": "Lista 2",
-      "number": 151,
+      "number": 149,
       "group": "Películas",
       "source_name": "WARNER [IP 38.134.250.110]",
       "guide": {
@@ -15624,7 +15624,7 @@
     "PublicDirect.f8dfa6821b9fc2c7482d0661": {
       "display_name": "Warner Channel",
       "list": "Lista 2",
-      "number": 152,
+      "number": 150,
       "group": "Películas",
       "source_name": "Warner Channel HD [IP 190.108.83.69]",
       "guide": {
