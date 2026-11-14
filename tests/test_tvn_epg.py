@@ -43,8 +43,11 @@ class TvnEpgTests(unittest.TestCase):
         # 2026-10-24: Claro Paraguay (fotograma Köln vs Schalke); la UY1 en español respalda.
         # 2026-11-01: la UY1 en español (misma parrilla) primero; Claro Paraguay de respaldo.
         # 2026-11-07: CO1 (fotograma Wrexham vs. Wolves, trae el partido en el subtítulo).
-        self.assertEqual(("co1", "ESPN.5.co"), update_m3u.EPG_PROGRAMME_SOURCES[target])
-        self.assertIn(("co1", "ESPN.5.co"), update_m3u.epg_source_chain(target))
+        # 2026-11-14: Claro Paraguay otra vez (fotograma final ATP Estocolmo Fritz vs. Tirante,
+        # que CO1 dejaba como «ESPN 5 Sur»); CO1 queda de respaldo.
+        self.assertEqual(("claro-guia", "claro:paraguay:952450"), update_m3u.EPG_PROGRAMME_SOURCES[target])
+        self.assertEqual(("paraguay", "952450"), update_m3u.CLARO_GUIDE_CHANNELS[target])
+        self.assertEqual(("co1", "ESPN.5.co"), update_m3u.EPGSHARE_BACKUP_CHANNELS[target])
         self.assertNotIn(("uy1", "[ESPN5SD].ESPN.5.uy"), update_m3u.epg_source_chain(target))
 
     def test_espn5_fresh_correct_feed_replaces_wrong_published_guide_without_time_shift(self) -> None:
