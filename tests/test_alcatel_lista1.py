@@ -75,8 +75,12 @@ class AlcatelLista1Test(unittest.TestCase):
         epg = json.loads((ROOT / "epg-overrides.json").read_text(encoding="utf-8"))["channels"]
 
         for channel_id, expected in ALCATEL_LISTA1.items():
+            row = rows.get(channel_id)
+            if row is None or row.get("state") != "active":
+                # 2026-11-13: el usuario borró Studio Universal desde la app; las bajas
+                # desde la TV mandan (ver AGENTS.md) y no se re-crean sin pedido.
+                continue
             with self.subTest(channel=channel_id):
-                row = rows[channel_id]
                 self.assertEqual("1.m3u", row["sourceList"])
                 self.assertEqual("active", row["state"])
                 self.assertEqual(expected["name"], row["displayName"])
@@ -91,6 +95,8 @@ class AlcatelLista1Test(unittest.TestCase):
         # 2026-11-01 (pedido del usuario «cambiar todas las de Claro a EPG Share»): donde EPGShare
         # tiene la misma parrilla, va primero y Claro queda de respaldo.
         for channel_id, (source, source_id) in EPG_OVERRIDES.items():
+            if channel_id not in epg or rows.get(channel_id, {}).get("state") != "active":
+                continue
             entry = epg[channel_id]
             if entry["source"] == "claro-guia":
                 self.assertEqual({"source": source, "source_id": source_id}, entry["backup"])
@@ -123,7 +129,12 @@ class AlcatelLista1Test(unittest.TestCase):
             channel.tvg_id
             for channel in runner.parse_channels((ROOT / "m3u-externa.m3u").read_text(encoding="utf-8").splitlines())
         }
-        self.assertTrue(set(ALCATEL_LISTA1).issubset(main_ids))
+        active_alcatel = {
+            channel_id
+            for channel_id in ALCATEL_LISTA1
+            if rows.get(channel_id, {}).get("state") == "active"
+        }
+        self.assertTrue(active_alcatel.issubset(main_ids))
         self.assertTrue(set(ALCATEL_LISTA1).isdisjoint(external_ids))
         self.assertIn("TelehitMusica.mx@SD", main_ids)
         self.assertNotIn("PublicDirect.a8ae71c151a6f81599bff876", external_ids)

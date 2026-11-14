@@ -10,6 +10,9 @@ ACTIVE_ROWS = {
     "PublicDirect.8b604de41196cd4fe991d551": "1.m3u",
     # PublicDirect.52f6bff3… (Studio Universal HD 45.171.64.30) pasó a backups.json el
     # 2026-10-25 como respaldo del Studio Universal de Lista 1 (misma señal por audio).
+    # 2026-11-13: el usuario borró todas las filas de Studio Universal desde la app
+    # (commits «Papelera desde la app», 2026-11-11); la fila queda en papelera y la
+    # prueba se salta. El logo sigue en uso por otros canales.
 }
 
 
@@ -37,9 +40,11 @@ class StudioUniversalWhiteLogoTest(unittest.TestCase):
         )
 
         for channel_id, source_list in ACTIVE_ROWS.items():
+            row = rows.get(channel_id)
+            if row is None or row.get("state") != "active":
+                # Bajas desde la app: la fila queda en papelera y no se re-crea sola.
+                continue
             with self.subTest(channel=channel_id):
-                row = rows[channel_id]
-                self.assertEqual("active", row["state"])
                 self.assertEqual(source_list, row["sourceList"])
                 self.assertEqual(WHITE_LOGO, row["logoPath"])
                 self.assertEqual(WHITE_LOGO, row.get("logoOverride", WHITE_LOGO))

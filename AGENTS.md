@@ -58,17 +58,8 @@ agente debe poder retomar el trabajo solo con lo que está en el repositorio.
 - **Restauración de bajas de la app (2026-10-17)**: las filas borradas desde la app se rastrean por los commits «Papelera desde la app» (comparación de estados por commit, nunca por nombres). Por pedido explícito se restauraron solo las no Nauta, al final de Lista 2 en orden alfabético; las 37 Nauta eliminadas quedan en papelera (si alguna vez se restauran, solo pueden volver a Lista 1 — regla dura). Los números en conflicto con activos se reasignan por encima del máximo; los libres se conservan. Las filas con salud `temporarily_unavailable` quedan activas pero sin publicar hasta revalidar; las purgadas por bajas definitivas (`channel-number-exclusions-*`) no se recrean sin pedido explícito. Registro: `contracts/app-deleted-restore-20261017.json`.
 - **Nauta y M6Foot retirados por completo (2026-10-29, pedido del usuario «Puedes eliminar esos resolutores por completo? 100% Limpio?»)**: se borraron sus 90 filas del layout y del catálogo, sus guías (`epg/canales`, `epg-overrides.json`, `epg-l2-map.json`), su estado de salud, el código del generador (`nauta_reference.py`, `m6foot_reference.py`, validaciones y `apply_editor_nauta_channels`), la fuente Nauta del editor web y sus proveedores en `resolver-catalog.json`. En VibeM3U se quitaron sus resolutores (y el Vavoo directo, que ya no se usaba); `ResolverCatalog` ignora `nauta`/`m6foot` si un catálogo viejo los trae. Los registros de `contracts/` y `data/app-requests/` quedan como historia. No volver a agregarlos sin pedido nuevo.
 
-
-
-
-
-
-
-
-
-
 - Tests obligatorios antes de commitear:
-  - `python -m unittest discover -s tests -p "test_*.py"` (430 pruebas, 7 omitidas previstas; incluye contrato, regresiones del editor, exclusiones permanentes de candidatos, EPG visual, RWND y tamaño de `AGENTS.md`/`ESTADO.md`).
+  - `python -m unittest discover -s tests -p "test_*.py"` (434 pruebas, 6 omitidas previstas; incluye contrato, regresiones del editor, exclusiones permanentes de candidatos, EPG visual, RWND y tamaño de `AGENTS.md`/`ESTADO.md`; no fijan números de Lista 2 ni exigen filas activas).
   - `node --test tests/*.mjs` (57 pruebas; incluye el flujo de pedidos de la app, la fusión de bajas en el editor y la deriva layout → órdenes de `presentation-overrides.json`).
 - Validar el editor local sin tocar el repo: `python scripts/build_site_data.py --output <carpeta temp>` (solo acepta salidas dentro de la carpeta temporal).
 - Commits en español con prefijo: `feat(editor)`, `fix(resolvers)`, `feat(epg)`, `fix(catalogo)`, `chore(...)`.
@@ -79,10 +70,6 @@ agente debe poder retomar el trabajo solo con lo que está en el repositorio.
 - Verificación de publicaciones: el Raw de GitHub cachea minutos; comprobar con `git show origin/main:<archivo>` o raw fijado al SHA del commit.
 
 ## Publicación automática
-
-
-
-
 
 - `presentation-overrides.json` › `orders`: `1.m3u`/`2.m3u` son alias de `m3u.m3u`/`m3u-externa.m3u` y deben ser idénticos (lo exige el contrato de publicación); `buildPresentationOverrides` del editor los sincroniza.
 - **Canales en prueba** (2026-10-04): una fila M3U con `trial: true` en `data/channel-editor-layout.json` (botón «Oficializar» en el editor) se publica en `presentation-overrides.json` como `trial_m3u`. El runner la publica tal cual en Lista 1 pero la deja fuera del mantenimiento (no la valida, repara, degrada ni cuenta en la salud), de la EPG (`main_playlist_channels` la excluye) y de la compuerta EPG de Lista 1. `external_list_disabled: true` en el manifiesto deja Lista 2 vacía (`m3u-externa.m3u`/`2.m3u` solo con cabecera). Un nombre visible no puede repetir el nombre de un canal con resolutor (p. ej. «ESPN 3»): rompe el contrato de resolutores.

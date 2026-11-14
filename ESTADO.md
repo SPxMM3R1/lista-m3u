@@ -74,7 +74,7 @@
 - **EPG**: 47 canales. Cada canal mezcla sus fuentes por prioridad (`epg_source_chain`): la de
   más arriba manda donde tiene programas y las demás solo rellenan huecos. Horizonte típico
   30–190 h.
-- **Tests**: 412 Python (`python -m unittest discover -s tests -p "test_*.py"`; 6 omitidas) y 53 JS
+- **Tests**: 434 Python (`python -m unittest discover -s tests -p "test_*.py"`; 6 omitidas) y 57 JS
   (`node --test tests/*.mjs`).
 
 - **Octubre de 2026 y antes**: `docs/estado-anterior.md` (entradas antiguas de esta sección) y `docs/bitacora/` (bitácora por mes).
@@ -131,6 +131,7 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-11-13**: las pruebas del catálogo toleran las bajas desde la app (Studio Universal, AMC, ESPN 7, Warner) y dejan de fijar números de Lista 2, que se compacta con cada baja. Suite en verde: 434 Python y 57 JS.
 - **2026-11-13**: RWND pasa del CDN `tls-cl.cdnz.cl` (404 desde el 2026-11-06) al manifiesto público del reproductor web `www.rewindmusic.cl/stream/hls/playlist.m3u8`. Sin cookies ni token; verificado con ffmpeg (fotograma real) y desde GitHub Actions. Sin resolutor; identidad, número, logo y EPG Live intactos.
 - **2026-11-09**: ESPN 3 sin respaldo TvVoo (solo sus 11 directos); Lista 2 en orden alfabético en un solo bloque.
 - **2026-11-08**: Eurosport 1 de Lista 1 pasa a la señal directa (ex Lista 2 #165), con TvVoo España y 6 países de respaldo.
