@@ -98,6 +98,12 @@ class AlcatelLista1Test(unittest.TestCase):
             if channel_id not in epg or rows.get(channel_id, {}).get("state") != "active":
                 continue
             entry = epg[channel_id]
+            if channel_id == "PublicDirect.bf407e29eec656d628dfa2d7":
+                # 2026-11-14 (fotograma: La ley y el orden donde UY1 y Claro Chile decían FBI):
+                # Universal TV pasa a CO1 sin respaldo; Claro Chile es la otra señal.
+                self.assertEqual(("co1", "Universal.TV.co"), (entry["source"], entry["source_id"]))
+                self.assertNotIn("backup", entry)
+                continue
             if entry["source"] == "claro-guia":
                 self.assertEqual({"source": source, "source_id": source_id}, entry["backup"])
             else:
