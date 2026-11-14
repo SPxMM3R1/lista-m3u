@@ -7538,16 +7538,29 @@ def build_epg(
                 if not items:
                     continue
                 added = 0
-                for start, stop, programme in items:
+                # Desfase fijo del canal (shift_minutes en epg-overrides.json): la guía publicada
+                # anterior ya viene corrida, así que no se vuelve a correr.
+                shift = (
+                    EPG_SHIFT_BY_TARGET.get(target_id)
+                    if source_name != PUBLISHED_EPG_FALLBACK_SOURCE
+                    else None
+                )
+                for source_start, source_stop, programme in items:
+                    start, stop = (
+                        (source_start + shift, source_stop + shift)
+                        if shift
+                        else (source_start, source_stop)
+                    )
                     for segment_start, segment_stop in free_segments(start, stop, covered):
                         # Un respaldo no rellena el pasado que se recortó de la fuente principal.
                         if segment_stop <= now - EPG_PAST_RETENTION:
                             continue
                         copied = localize_xmltv_programme(programme)
-                        if segment_start != start:
-                            # Ya estaba al aire cuando termina la fuente de más prioridad.
+                        if segment_start != source_start:
+                            # Ya estaba al aire cuando termina la fuente de más prioridad,
+                            # o el canal tiene desfase.
                             copied.set("start", xmltv_format_chile(segment_start))
-                        if segment_stop != stop:
+                        if segment_stop != source_stop:
                             copied.set("stop", xmltv_format_chile(segment_stop))
                         forced_title = FORCED_EPG_TITLES.get(target_id)
                         if forced_title:
@@ -7789,6 +7802,10 @@ def build_epg(
     return output, status
 
 
+# tvg-id → desfase fijo de su guía (shift_minutes en epg-overrides.json).
+EPG_SHIFT_BY_TARGET: dict[str, timedelta] = {}
+
+
 def apply_epg_overrides(path: Path = EPG_OVERRIDES_PATH) -> dict[str, tuple[str, str]]:
     """Apply token-free per-channel EPG source overrides when configured."""
     if not path.exists():
@@ -7858,6 +7875,14 @@ def apply_epg_overrides(path: Path = EPG_OVERRIDES_PATH) -> dict[str, tuple[str,
                 CLARO_GUIDE_BACKUP_CHANNELS[stable_id] = backup_key
             # La guía anterior rellena lo que la nueva no cubra.
             EPGSHARE_BACKUP_CHANNELS[stable_id] = (str(backup["source"]), str(backup["source_id"]))
+        shift_minutes = raw_entry.get("shift_minutes")
+        if shift_minutes is not None:
+            # Desfase fijo medido con fotogramas (2026-11-14, TNT: Claro marca ~10 min antes).
+            if isinstance(shift_minutes, bool) or not isinstance(shift_minutes, int)                     or not -120 <= shift_minutes <= 120 or shift_minutes == 0:
+                raise ValueError(f"{path.name}: {channel_id} shift_minutes inválido: {shift_minutes}")
+            EPG_SHIFT_BY_TARGET[stable_id] = timedelta(minutes=shift_minutes)
+        else:
+            EPG_SHIFT_BY_TARGET.pop(stable_id, None)
         EPG_PROGRAMME_SOURCES[stable_id] = (source, source_id)
         applied[stable_id] = (source, source_id)
     if applied:
