@@ -7538,11 +7538,12 @@ def build_epg(
                 if not items:
                     continue
                 added = 0
-                # Desfase fijo del canal (shift_minutes en epg-overrides.json): la guía publicada
-                # anterior ya viene corrida, así que no se vuelve a correr.
+                # Desfase fijo del canal (shift_minutes en epg-overrides.json): solo corre la
+                # fuente principal medida. La guía publicada anterior ya viene corrida y el
+                # respaldo es otra señal con su propio horario (TNT México no va con Claro).
                 shift = (
                     EPG_SHIFT_BY_TARGET.get(target_id)
-                    if source_name != PUBLISHED_EPG_FALLBACK_SOURCE
+                    if EPG_PROGRAMME_SOURCES.get(target_id) == (source_name, source_id)
                     else None
                 )
                 for source_start, source_stop, programme in items:
@@ -8454,6 +8455,20 @@ def epg_channel_parts(channel_id: str) -> set[str]:
     return parts  # type: ignore[return-value]
 
 
+def epg_primary_part(channel_id: str) -> str | None:
+    """Parte de la fuente principal de un canal (la primera de su cadena que se descarga)."""
+    for name, _ in epg_source_chain(channel_id):
+        part = epg_part_for_source(name)
+        if part is not None:
+            return part
+    return None
+
+
+# Si en una corrida solo se descargó el respaldo de un canal, su guía anterior (de la
+# fuente principal) se conserva mientras le queden estas horas de guía real.
+EPG_BACKUP_ONLY_KEEP_HORIZON = timedelta(hours=12)
+
+
 def epg_scope_order() -> tuple[list[str], set[str]]:
     """Ids de la EPG en el orden de Lista 1 + selección gestionada, y los de Lista 1."""
     channels, _ = epg_scope_channels()
@@ -8639,6 +8654,16 @@ def build_epg_fragments(
         touched = all_channels or bool(epg_channel_parts(channel_id) & fetched_parts)
         if channel_id in old and not touched:
             continue  # Ninguna de sus fuentes se descargó: su fragmento no se toca.
+        primary = epg_primary_part(channel_id)
+        if (channel_id in old and not all_channels and primary is not None
+                and primary not in fetched_parts):
+            # Solo llegó un respaldo (2026-11-14, TNT: una corrida de epgshare cambió la
+            # guía de Claro por la de TNT México): la guía anterior de la principal manda
+            # mientras siga cubriendo el futuro.
+            real_stop = epg_fragments.real_future_stop(old[channel_id], now, EPG_FILLER_TITLES)
+            if real_stop is not None and real_stop >= now + EPG_BACKUP_ONLY_KEEP_HORIZON:
+                kept.append(channel_id)
+                continue
         if epg_fragments.should_replace(old.get(channel_id), fragment, now, EPG_FILLER_TITLES):
             if epg_fragments.write_fragment(EPG_FRAGMENTS_DIR, channel_id, fragment):
                 changed.append(channel_id)

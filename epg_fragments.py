@@ -110,6 +110,12 @@ def _real_future_stop(fragment: bytes | None, now: datetime,
     return latest
 
 
+def real_future_stop(fragment: bytes | None, now: datetime,
+                     filler_titles: frozenset[str] = frozenset()) -> datetime | None:
+    """Fin del último programa real que aún no termina (None si no hay o es relleno)."""
+    return _real_future_stop(fragment, now, filler_titles)
+
+
 def should_replace(old: bytes | None, new: bytes, now: datetime,
                    filler_titles: frozenset[str] = frozenset()) -> bool:
     """Un canal solo pierde guía real si la nueva también la trae y llega igual o más lejos.
