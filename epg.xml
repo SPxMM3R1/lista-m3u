@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, FreeEPG, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-description-policy="verified-source-only" data-description-programmes="8319" data-description-channels="123" data-next-refresh-at="2026-11-14T13:06:00+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u" data-generated-at="2026-11-14T01:16:21+00:00">
+<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, FreeEPG, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-description-policy="verified-source-only" data-description-programmes="8319" data-description-channels="123" data-next-refresh-at="2026-11-14T13:06:00+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u" data-generated-at="2026-11-14T01:47:45+00:00">
   <channel id="0104" data-guide="parrilla real" data-guide-source="zapping-guia-publica">
     <display-name>TVN</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvn.png" />
@@ -159,6 +159,10 @@
   <channel id="PublicDirect.ac1fca2303c88b6a69359958" data-guide="parrilla real" data-guide-source="uy1">
     <display-name>ESPN 7</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-7.png" />
+  </channel>
+  <channel id="PublicDirect.9803b3858eb1f551dc55bb66" data-guide="parrilla real" data-guide-source="co1">
+    <display-name>ESPN Colombia</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/espn-lam.png" />
   </channel>
   <channel id="RedBullWorldEnglish.int" data-guide="parrilla oficial Red Bull" data-guide-source="red-bull-oficial">
     <display-name>RedBull TV World</display-name>
@@ -857,10 +861,6 @@
   <programme start="20261116190000 -0300" stop="20261116210000 -0300" channel="0104">
     <title lang="es">¡Ahora caigo!</title>
   </programme>
-  <programme start="20261113154500 -0300" stop="20261113164500 -0300" channel="0105">
-    <title lang="es">Carmen Gloria: Fuerte y Claro</title>
-    <desc lang="es">Programa conducido por Carmen Gloria Arroyo, que combinará contingencia, casos reales y análisis de actualidad.</desc>
-  </programme>
   <programme start="20261113164500 -0300" stop="20261113172000 -0300" channel="0105">
     <title lang="es">La Baronesa</title>
     <desc lang="es">Aurora Valdés es una mujer que hará todo por proteger el legado de su familia. Pero los secretos, el poder y el control pondrán a prueba los vínculos que durante años creyó inquebrantables.</desc>
@@ -1093,9 +1093,6 @@
   </programme>
   <programme start="20261116203000 -0300" stop="20261116224500 -0300" channel="0106">
     <title lang="es">Chilevisión noticias central</title>
-  </programme>
-  <programme start="20261113153000 -0300" stop="20261113163000 -0300" channel="0107">
-    <title lang="es">Vale Todo</title>
   </programme>
   <programme start="20261113163000 -0300" stop="20261113170500 -0300" channel="0107">
     <title lang="es">Machos</title>
@@ -1667,9 +1664,6 @@
   <programme start="20261116201500 -0300" stop="20261116210000 -0300" channel="0201">
     <title lang="es">Sin miedo</title>
   </programme>
-  <programme start="20261113153000 -0300" stop="20261113163000 -0300" channel="1153">
-    <title lang="es">CHV futuro</title>
-  </programme>
   <programme start="20261113163000 -0300" stop="20261113170000 -0300" channel="1153">
     <title lang="es">Reportajes: CHV Noticias</title>
   </programme>
@@ -1774,9 +1768,6 @@
   </programme>
   <programme start="20261114230000 -0300" stop="20261115000000 -0300" channel="1153">
     <title lang="es">Reportajes: CHV Noticias</title>
-  </programme>
-  <programme start="20261113160000 -0300" stop="20261113163000 -0300" channel="13Cultura.cl@DPS">
-    <title lang="es">Llegó la Navidad con Lore Salinas</title>
   </programme>
   <programme start="20261113163000 -0300" stop="20261113170000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">Desafío 2030</title>
@@ -1998,9 +1989,6 @@
     <title lang="es">Alguien Te Mira</title>
     <desc lang="es">Misterio y drama envuelven las vidas de cuatro amigos quienes, después de ser testigos de un asesinato, se enredan en medio de la investigación para encontrar a un asesino en serie quien actúa bajo un mismo modus operandi con todas sus víctimas y quien desencadenará una serie de eventos inesperados</desc>
   </programme>
-  <programme start="20261113160000 -0300" stop="20261113163000 -0300" channel="45">
-    <title lang="es">Humanos</title>
-  </programme>
   <programme start="20261113163000 -0300" stop="20261113170000 -0300" channel="45">
     <title lang="es">Academia de superhéroes</title>
   </programme>
@@ -2130,16 +2118,6 @@
   </programme>
   <programme start="20261114230000 -0300" stop="20261115000000 -0300" channel="45">
     <title lang="es">Nunca es late para aprender</title>
-  </programme>
-  <programme start="20261113160000 -0300" stop="20261113163000 -0300" channel="AlJazeera.qa">
-    <title lang="es">News Live</title>
-    <desc lang="es">News Live is a rolling news programme from Al Jazeera Media Network delivering up-to-the-minute coverage of breaking stories from around the world. Anchored by experienced journalists and supported by correspondents across continents, it brings viewers live reports, expert interviews, and on-the-ground updates as events unfold. From major political developments and conflicts to business, climate, and human interest stories, the programme keeps audiences informed with accurate, timely, and comprehensive global news coverage.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/9228/news_live.jpeg" />
-    <country lang="es">Estado De Catar</country>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
   <programme start="20261113163000 -0300" stop="20261113170000 -0300" channel="AlJazeera.qa">
     <title lang="es">Counting the Cost</title>
@@ -3310,10 +3288,6 @@
       <value>Apta</value>
     </rating>
   </programme>
-  <programme channel="ArirangTV.kr" start="20261113160000 -0300" stop="20261113163000 -0300">
-    <title lang="pl">Within The Frame</title>
-    <episode-num system="onscreen">E5</episode-num>
-  </programme>
   <programme channel="ArirangTV.kr" start="20261113163000 -0300" stop="20261113165000 -0300">
     <title lang="pl">Exploring Korean Literature C</title>
     <episode-num system="onscreen">E8</episode-num>
@@ -4214,9 +4188,6 @@
     <title lang="pl">News Generation</title>
     <episode-num system="onscreen">E3</episode-num>
   </programme>
-  <programme start="20261113153337 -0300" stop="20261113162359 -0300" channel="AutenticHistory.de">
-    <title lang="en">Hitler's Eastern Headquarter - The Wolf's Lair</title>
-  </programme>
   <programme start="20261113162359 -0300" stop="20261113172452 -0300" channel="AutenticHistory.de">
     <title lang="en">What Went Wrong</title>
   </programme>
@@ -4522,13 +4493,6 @@
   </programme>
   <programme start="20261117200757 -0300" stop="20261117210353 -0300" channel="AutenticHistory.de">
     <title lang="en">Mafia Queens</title>
-  </programme>
-  <programme start="20261113160000 -0300" stop="20261113163000 -0300" channel="BBCNews.uk">
-    <title lang="en">The World Today with Maryam Moshiri</title>
-    <desc lang="en">Maryam Moshiri delivers the latest stories from around the world and interviews prominent figures to analyze various issues from multiple perspectives.</desc>
-    <date>2026</date>
-    <icon src="https://metadata-static.plex.tv/7/gracenote/73fe834bb7f0ad4cf90f177d97221722.jpg" />
-    <episode-num system="onscreen">S2026</episode-num>
   </programme>
   <programme start="20261113163000 -0300" stop="20261113165500 -0300" channel="BBCNews.uk">
     <title lang="en">The World Today with Maryam Moshiri</title>
@@ -6871,12 +6835,6 @@
   <programme start="20261117023000 -0300" stop="20261117030000 -0300" channel="DW.de">
     <title lang="es">Eco Latinoamérica</title>
   </programme>
-  <programme channel="DWEnglish.de" start="20261113161500 -0300" stop="20261113163000 -0300">
-    <title lang="fr">Best of DW-online Content</title>
-    <sub-title lang="fr">online Content</sub-title>
-    <category lang="fr">Documentaire de société</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/7/4/15216476.jpg" />
-  </programme>
   <programme channel="DWEnglish.de" start="20261113163000 -0300" stop="20261113170000 -0300">
     <title lang="fr">Eco Africa</title>
     <sub-title lang="fr">The Environment Magazine</sub-title>
@@ -7946,26 +7904,6 @@
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/3/6/8/15215863.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/5/8/15215858.jpg" />
   </programme>
-  <programme start="20261113160000 -0300" stop="20261113163000 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">SportsCenter</title>
-    <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
-    <category lang="es">Deporte</category>
-    <category lang="es">Fútbol Americano</category>
-    <category lang="es">Baloncesto</category>
-    <category lang="es">Béisbol</category>
-    <category lang="es">Básquetbol</category>
-    <category lang="es">Fútbol Italiano</category>
-    <category lang="es">Major League Baseball</category>
-    <category lang="es">Fútbol Mexicano</category>
-    <category lang="es">MLB</category>
-    <category lang="es">NBA</category>
-    <category lang="es">Noticias</category>
-    <category lang="es">NFL</category>
-    <category lang="es">Fútbol</category>
-    <category lang="es">UEFA</category>
-    <category lang="es">Fútbol Español</category>
-    <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
-  </programme>
   <programme start="20261113163000 -0300" stop="20261113184000 -0300" channel="ESPN.co@Direct181">
     <title lang="es">Fútbol UEFA Nations League</title>
   </programme>
@@ -8655,15 +8593,6 @@
     <category lang="es">UEFA</category>
     <category lang="es">Fútbol Español</category>
     <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
-  </programme>
-  <programme start="20261113143000 -0300" stop="20261113163000 -0300" channel="ESPN4.co@Direct181">
-    <title lang="es">Fútbol Femenino UEFA Champions League</title>
-    <sub-title lang="es">FC Barcelona vs. Arsenal</sub-title>
-    <desc lang="es">Acción de la jornada 4 de la UWCL 2026-27. Barcelona busca su cuarta victoria al hilo y las Gunners su segunda victoria al hilo.</desc>
-    <date>2026</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
   </programme>
   <programme start="20261113163000 -0300" stop="20261113184500 -0300" channel="ESPN4.co@Direct181">
     <title lang="es">Fútbol UEFA Nations League</title>
@@ -10206,25 +10135,6 @@
     <rating system="ES">
       <value>Apta</value>
     </rating>
-  </programme>
-  <programme start="20261113161500 -0300" stop="20261113163000 -0300" channel="France24.fr">
-    <title lang="es">Ventana a Europa</title>
-    <desc lang="es">Las últimas noticias políticas y sociales del continente europeo con informes de nuestros corresponsales.</desc>
-    <credits>
-      <actor>Laura Garzón Rincón</actor>
-    </credits>
-    <date>2024</date>
-    <category lang="es">Noticiero</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/1991718666.jpg" />
-    <country lang="es">Francia</country>
-  </programme>
-  <programme start="20261113163000 -0300" stop="20261113164500 -0300" channel="France24.fr">
-    <title lang="es">Noticias</title>
-    <desc lang="es">Un completo resumen de la actualidad internacional.</desc>
-    <date>2017</date>
-    <category lang="es">Noticiero</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/4787687.jpg" />
-    <country lang="es">Francia</country>
   </programme>
   <programme start="20261113164500 -0300" stop="20261113170000 -0300" channel="France24.fr">
     <title lang="es">Corresponsales</title>
@@ -13475,31 +13385,6 @@
     <date>2022</date>
     <category lang="es">Noticiero</category>
     <icon src="http://www.reportv.com.ar/buscador/img/Programas/1992244005.jpg" />
-  </programme>
-  <programme channel="France24.fr@English" start="20261113161600 -0300" stop="20261113163000 -0300">
-    <title lang="fr">People and Profit</title>
-    <desc lang="es">The business show that goes beyond the numbers and the corporate jargon! We break down major business stories and look at how they affect our lives.</desc>
-    <category lang="fr">Magazine d'information</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/3/7/15220738.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/3/7/15220734.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/1/3/7/15220731.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/3/7/15220736.jpg" />
-  </programme>
-  <programme channel="France24.fr@English" start="20261113163000 -0300" stop="20261113164500 -0300">
-    <title lang="fr">Le journal France 24</title>
-    <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/0/2/15220206.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/6/1/15220164.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/6/1/15220169.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/0/5/15194509.jpg" />
-  </programme>
-  <programme channel="France24.fr@English" start="20261113164500 -0300" stop="20261113164600 -0300">
-    <title lang="fr">Le journal France 24</title>
-    <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/0/2/15220206.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/4/6/1/15220164.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/6/1/15220169.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/9/0/5/15194509.jpg" />
   </programme>
   <programme channel="France24.fr@English" start="20261113164600 -0300" stop="20261113170000 -0300">
     <title lang="fr">Across Africa</title>
@@ -19781,12 +19666,6 @@
   <programme start="20261114223000 -0300" stop="20261115000000 -0300" channel="Meganoticias.cl">
     <title lang="es">Megainvestiga</title>
   </programme>
-  <programme start="20261113160000 -0300" stop="20261113163000 -0300" channel="NHKWorldJapan.jp">
-    <title lang="en">Medical Frontiers</title>
-    <sub-title lang="en">Treating COPD for Longevity</sub-title>
-    <desc lang="en">Chronic obstructive pulmonary disease, or COPD, not only leads to breathing difficulties but also affects the lungs, heart and brain. We explore countermeasures based on a large-scale study in Japan.</desc>
-    <url>https://www3.nhk.or.jp/nhkworld/en/shows/medicalfrontiers/</url>
-  </programme>
   <programme start="20261113163000 -0300" stop="20261113170000 -0300" channel="NHKWorldJapan.jp">
     <title lang="en">Japan Delish</title>
     <sub-title lang="en">Udon</sub-title>
@@ -24531,34 +24410,6 @@
       <value>5.0/10</value>
     </star-rating>
   </programme>
-  <programme start="20261113160800 -0300" stop="20261113161900 -0300" channel="PublicDirect.11e2d6f2d20ea8500bc4a261">
-    <title lang="es">Los jóvenes titanes en acción</title>
-    <sub-title lang="es">Dónde exactamente en el globo está Carl Sanpedro</sub-title>
-    <desc lang="es">Los Titanes viajan a la India para detener a Carl Sanpedro y aprenden sobre el deporte del cricket.</desc>
-    <date>2020</date>
-    <episode-num system="onscreen">E20</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
-  <programme start="20261113161900 -0300" stop="20261113162900 -0300" channel="PublicDirect.11e2d6f2d20ea8500bc4a261">
-    <title lang="es">Los jóvenes titanes en acción</title>
-    <sub-title lang="es">Dónde exactamente en el globo está Carl Sanpedro</sub-title>
-    <desc lang="es">En el enfrentamiento épico final con Carl Sanpedro, los Titanes se dirigen a Croacia, el hogar de los dragones y los zombis de hielo.</desc>
-    <date>2020</date>
-    <episode-num system="onscreen">E21</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
-  <programme start="20261113162900 -0300" stop="20261113164300 -0300" channel="PublicDirect.11e2d6f2d20ea8500bc4a261">
-    <title lang="es">Hora de aventura</title>
-    <desc lang="es">Finn, de doce años, lucha contra el mal en la Tierra de Ooo. Con la ayuda de su canino mágico, Jake, Finn recorre la Tierra de Ooo reparando las injusticias y luchando contra el mal.</desc>
-    <date>2010</date>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
   <programme start="20261113164300 -0300" stop="20261113165400 -0300" channel="PublicDirect.11e2d6f2d20ea8500bc4a261">
     <title lang="es">Hora de aventura</title>
     <sub-title lang="es">Chicas con ojos en blanco</sub-title>
@@ -27107,13 +26958,6 @@
       <value>TE</value>
     </rating>
   </programme>
-  <programme start="20261113153000 -0300" stop="20261113163000 -0300" channel="PublicDirect.12addda8ba8591c579cdebfa">
-    <title lang="es">Double Play</title>
-    <desc lang="es">Disfrute de los mejores videos musicales.</desc>
-    <date>2024</date>
-    <category lang="es">Musical</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/1992791447.jpg" />
-  </programme>
   <programme start="20261113163000 -0300" stop="20261113173000 -0300" channel="PublicDirect.12addda8ba8591c579cdebfa">
     <title lang="es">Rocool-A</title>
     <desc lang="es">Espacio músical para poner de todo, siempre éxitos, pero pueden ser de ayer, hoy o lo más nuevo.</desc>
@@ -27745,28 +27589,6 @@
     <date>2000</date>
     <category lang="es">Musical</category>
     <icon src="http://www.reportv.com.ar/buscador/img/Programas/899605.jpg" />
-  </programme>
-  <programme start="20261113154500 -0300" stop="20261113163500 -0300" channel="PublicDirect.1701b6c4abbcc431fb481536">
-    <title lang="es">The Rookie</title>
-    <sub-title lang="es">Cinco minutos</sub-title>
-    <desc lang="es">En una edad en la que la mayoría de la gente está en el momento culminante de su carrera, Nolan deja de lado su cómoda vida pueblerina y se muda a Los Ángeles para hacer realidad su sueño de ser policía.</desc>
-    <credits>
-      <actor>Nathan Fillion</actor>
-      <actor>Alyssa Diaz</actor>
-      <actor>Eric Winter</actor>
-      <actor>Mercedes Mason</actor>
-      <actor>Afton Williamson</actor>
-      <actor>Mircea Monroe</actor>
-      <actor>Atticus Batacan</actor>
-      <actor>David DeSantos</actor>
-      <actor>Titus Makin</actor>
-      <actor>Melissa O'Neil</actor>
-    </credits>
-    <date>2018</date>
-    <category lang="es">Policial</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/8217003.jpg" />
-    <country lang="es">EE. UU</country>
-    <episode-num system="onscreen">S4 E2</episode-num>
   </programme>
   <programme start="20261113163500 -0300" stop="20261113172500 -0300" channel="PublicDirect.1701b6c4abbcc431fb481536">
     <title lang="es">Blue Bloods</title>
@@ -29947,16 +29769,6 @@
     <icon src="http://www.reportv.com.ar/buscador/img/Programas/1575034.jpg" />
     <country lang="es">EE. UU</country>
     <episode-num system="onscreen">S1 E1</episode-num>
-  </programme>
-  <programme start="20261113152400 -0300" stop="20261113162100 -0300" channel="PublicDirect.1e188ecfa187cff642af518c">
-    <title lang="es">CSI: Miami</title>
-    <sub-title lang="es">Friendly Fire</sub-title>
-    <desc lang="es">Un asesino utiliza un arma inusual para asesinar a un genio.</desc>
-    <date>2012</date>
-    <episode-num system="onscreen">E12</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
   </programme>
   <programme start="20261113162100 -0300" stop="20261113171200 -0300" channel="PublicDirect.1e188ecfa187cff642af518c">
     <title lang="es">CSI: Miami</title>
@@ -32542,9 +32354,6 @@
       <value>+14</value>
     </rating>
   </programme>
-  <programme start="20261113160000 -0300" stop="20261113163000 -0300" channel="PublicDirect.42095e66e7aa9b52a50125ae">
-    <title lang="es">F Táctico</title>
-  </programme>
   <programme start="20261113163000 -0300" stop="20261113184500 -0300" channel="PublicDirect.42095e66e7aa9b52a50125ae">
     <title lang="es">Fútbol UEFA Nations League</title>
     <desc lang="es">Acción del partido del Grupo 2 de la Liga A de la UEFA Nations League 2026-27. Desde la Johan Cruijff ArenA.</desc>
@@ -32872,43 +32681,6 @@
   </programme>
   <programme start="20261114224500 -0300" stop="20261115035500 -0300" channel="PublicDirect.475329883c23116340a88ef6">
     <title lang="es">One Championship</title>
-  </programme>
-  <programme start="20261113155800 -0300" stop="20261113162500 -0300" channel="PublicDirect.5dcc9d45e7f72f13df740d70">
-    <title lang="en">Dragon Ball Z</title>
-    <sub-title lang="en">Unlikely Friendship</sub-title>
-    <desc lang="es">Majin Boo continúa aterrorizando a la humanidad, pero aparece un salvador solitario: Mr. Satán. Su golpe Megatón no será suficiente para detener al monstruo, pero este improbable héroe puede tener algunas sorpresas reservadas para Boo.</desc>
-    <credits>
-      <actor>Masako Nozawa</actor>
-      <actor>Jouji Yanami</actor>
-      <actor>Toshio Furukawa</actor>
-    </credits>
-    <date>1995</date>
-    <category lang="en">Series</category>
-    <category lang="en">Anime</category>
-    <category lang="en">Children</category>
-    <category lang="en">Fantasy</category>
-    <category lang="en">Action</category>
-    <icon src="http://dtil.tmsimg.com/assets/p14343421_b_h10_ag.jpg?w=960&amp;h=540" />
-    <episode-num system="onscreen">S1 E252</episode-num>
-    <previously-shown />
-    <rating system="USA Parental Rating">
-      <value>TVPG</value>
-    </rating>
-    <rating system="Canadian Parental Rating">
-      <value>PG</value>
-    </rating>
-    <rating system="Arcom">
-      <value>-10</value>
-    </rating>
-    <rating system="Australian Classification Board">
-      <value>PG</value>
-    </rating>
-    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
-      <value>A10</value>
-    </rating>
-    <rating system="방송통신심의위원회">
-      <value>15</value>
-    </rating>
   </programme>
   <programme start="20261113162500 -0300" stop="20261113165000 -0300" channel="PublicDirect.5dcc9d45e7f72f13df740d70">
     <title lang="en">Justice League</title>
@@ -39658,31 +39430,6 @@
       <value>15</value>
     </rating>
   </programme>
-  <programme start="20261113160500 -0300" stop="20261113162300 -0300" channel="PublicDirect.611041b791c77e57b0831623">
-    <title lang="nl">Rough F..k At The BBQ</title>
-    <desc lang="nl">Angel Youngs and her scrawny boyfriend are at a backyard BBQ, where she sets her eyes on another party guest Manuel Ferrera, flirting heavily and sneakily fooling around with him behind her man's back.</desc>
-    <credits>
-      <actor>Angel Youngs</actor>
-      <actor>Manuel Ferrara</actor>
-    </credits>
-    <category lang="nl">Erotiek</category>
-    <category lang="nl">Erotisch</category>
-    <icon src="https://staticqbr-prod-nl.gnp.cloud.ziggogo.tv/image-service/ImagesEPG/EventImages/p29009964_b_v12_ac.jpg?supportsTransparency=false" />
-    <rating>
-      <value>18</value>
-    </rating>
-  </programme>
-  <programme start="20261113162300 -0300" stop="20261113164500 -0300" channel="PublicDirect.611041b791c77e57b0831623">
-    <title lang="nl">The Elephant Dude</title>
-    <desc lang="nl">Dylan is home from college with his best friend and college roommate Diego. They're having a relaxing evening playing video games when Dylan's dad's new girlfriend, Taylor, comes into clean up.</desc>
-    <category lang="nl">Erotiek</category>
-    <category lang="nl">Erotisch</category>
-    <icon src="https://staticqbr-prod-nl.gnp.cloud.ziggogo.tv/image-service/ImagesEPG/EventImages/p32917714_b_v12_ab.jpg?supportsTransparency=false" />
-    <country lang="nl">US</country>
-    <rating>
-      <value>18</value>
-    </rating>
-  </programme>
   <programme start="20261113164500 -0300" stop="20261113170800 -0300" channel="PublicDirect.611041b791c77e57b0831623">
     <title lang="nl">Casual A..l Friday</title>
     <desc lang="nl">When pervy office worker Mick Blue is caught watching porn by his boss Kenzie Taylor, he thinks he is in trouble. Luckily though, Kenzie is just as horny as he is.</desc>
@@ -42399,11 +42146,6 @@
       <value>AGE227</value>
     </rating>
   </programme>
-  <programme start="20261113155100 -0300" stop="20261113163800 -0300" channel="PublicDirect.8da65ba545fa9fd2512f9901">
-    <title lang="es">Casos insólitos de la historia</title>
-    <sub-title lang="es">Ballena explosiva, ataque de cocodrilo, desastre en aeroshow de dallas y caos en el teleférico</sub-title>
-    <desc lang="es">T1 -Ep.1: Ballena Explosiva, Ataque De Cocodrilo, Desastre En Aeroshow De Dallas Y Caos En El Teleférico. Tony Harris analiza los momentos más impactantes captados en cámara: un padre intenta salvar a un domador de caimanes de un ataque. Dos aviones militares chocan en un show aéreo en Dallas. Unos esquiadores son lanzados de una aerosilla fuera de control en Rusia. Y el extraño caso de la explosión de una ballena con dinamita en 1970.</desc>
-  </programme>
   <programme start="20261113163800 -0300" stop="20261113172800 -0300" channel="PublicDirect.8da65ba545fa9fd2512f9901">
     <title lang="es">Desastres en tiempo real</title>
     <sub-title lang="es">Inundaciones</sub-title>
@@ -42909,24 +42651,6 @@
   <programme start="20261115204700 -0300" stop="20261115213700 -0300" channel="PublicDirect.8da65ba545fa9fd2512f9901">
     <title lang="es">Casos insólitos de la historia</title>
     <sub-title lang="es">Pitones en el techo, escape en túnel de tren, accidente aéreo sospechoso y choque del concorde ruso</sub-title>
-  </programme>
-  <programme start="20261113145300 -0300" stop="20261113162000 -0300" channel="PublicDirect.942f65e48445596971fc7249">
-    <title lang="es">Avistaje de t...</title>
-    <desc lang="es">En la calle, las chicas se muestran a los desprevenidos transeúntes. Así consiguen grandes y buenos orgasmos.</desc>
-    <credits>
-      <actor>Amirah Adara</actor>
-      <actor>Vicky Love</actor>
-      <actor>Julia Roca</actor>
-    </credits>
-    <date>2017</date>
-    <category lang="es">Movie</category>
-    <category lang="es">Adults only</category>
-    <category lang="es">Erotic</category>
-    <icon src="http://dtil.tmsimg.com/assets/p14461013_b_h8_aa.jpg?w=960&amp;h=540" />
-    <previously-shown />
-    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
-      <value>18</value>
-    </rating>
   </programme>
   <programme start="20261113162000 -0300" stop="20261113175000 -0300" channel="PublicDirect.942f65e48445596971fc7249">
     <title lang="es">MILF hambrientas de Dong</title>
@@ -43978,6 +43702,432 @@
     </rating>
     <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
       <value>A18</value>
+    </rating>
+  </programme>
+  <programme start="20261113163000 -0300" stop="20261113184000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">Fútbol UEFA Nations League</title>
+    <sub-title lang="es">Serbia vs. Alemania</sub-title>
+    <desc lang="es">Acción del partido del Grupo 2 de la Liga A de la UEFA Nations League 2026-27. Desde el Stadion Rajko Mitic.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261113184000 -0300" stop="20261113200000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">Balón dividido</title>
+    <desc lang="es">El análisis y la actualidad del fútbol de Colombia, a cargo de grandes especialistas. Además, los informes con la última información de cada equipo y la palabra de los protagonistas.</desc>
+    <date>2010</date>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261113200000 -0300" stop="20261113210000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">Equipo F</title>
+    <desc lang="es">Todas las novedades del fútbol mundial, los principales torneos internacionales, latinoamericanos por el mundo y mucho más.</desc>
+    <date>2021</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261113210000 -0300" stop="20261113230000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
+    <date>1979</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261113230000 -0300" stop="20261114010000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">Equipo F</title>
+    <desc lang="es">Todas las novedades del fútbol mundial, los principales torneos internacionales, latinoamericanos por el mundo y mucho más.</desc>
+    <date>2021</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261114010000 -0300" stop="20261114020000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
+    <date>1979</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261114020000 -0300" stop="20261114030000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
+    <date>1979</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261114030000 -0300" stop="20261114040000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
+    <date>1979</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261114040000 -0300" stop="20261114050000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
+    <date>1979</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261114050000 -0300" stop="20261114060000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
+    <date>1979</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261114060000 -0300" stop="20261114070000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
+    <date>1979</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261114070000 -0300" stop="20261114080000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
+    <date>1979</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261114080000 -0300" stop="20261114104500 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">Nations Championship 2026</title>
+    <sub-title lang="es">Italia vs. Argentina</sub-title>
+    <desc lang="es">El Azurri se enfrenta a Los Pumas en la quinta ronda de la Serie Norte del Nations Championship 2026. Desde el estadio Luigi Ferraris, en Génova. Italia.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261114104500 -0300" stop="20261114125500 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">Fútbol UEFA Nations League</title>
+    <sub-title lang="es">Kosovo vs. Israel</sub-title>
+    <desc lang="es">Acción del partido del Grupo 3 de la Liga B de la UEFA Nations League 2026-27. Desde el Fadil Vokrri Stadium.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261114125500 -0300" stop="20261114134500 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">SportsCenter+</title>
+    <desc lang="es">Programación exclusiva del noticiero deportivo más visto en el mundo.</desc>
+    <date>2023</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261114134500 -0300" stop="20261114155500 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">Fútbol UEFA Nations League</title>
+    <sub-title lang="es">Noruega vs. Gales</sub-title>
+    <desc lang="es">Acción del partido del Grupo 4 de la Liga A de la UEFA Nations League 2026-27. Desde el Ullevaal Stadion.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261114155500 -0300" stop="20261114163000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">SportsCenter+</title>
+    <desc lang="es">Programación exclusiva del noticiero deportivo más visto en el mundo.</desc>
+    <date>2023</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261114163000 -0300" stop="20261114184000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">Fútbol UEFA Nations League</title>
+    <sub-title lang="es">Portugal vs. Dinamarca</sub-title>
+    <desc lang="es">Acción del partido del Grupo 4 de la Liga A de la UEFA Nations League 2026-27. Desde el Estádio Municipal de Braga.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261114184000 -0300" stop="20261114203000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
+    <date>1979</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261114203000 -0300" stop="20261114220000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">ESPN F10</title>
+    <desc lang="es">Los fines de semana se llenan de fútbol. Tras la finalización del partido de la fecha de la Copa de la Liga Profesional del fútbol argentino, llega el mejor análisis.</desc>
+    <date>2020</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261114220000 -0300" stop="20261115020000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">ESPN KnockOut</title>
+    <sub-title lang="es">Diego Pacheco vs. Darius Fulghum</sub-title>
+    <desc lang="es">Diego Pacheco y Darius Fulghum cruzan puños en una pelea de peso medio pactada a 12 asaltos por el título WBC plata y WBO Internacional. Desde el Dignity Health Sports Park, en Carson, California.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261115020000 -0300" stop="20261115030000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
+    <date>1979</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261115030000 -0300" stop="20261115040000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
+    <date>1979</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261115040000 -0300" stop="20261115050000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
+    <date>1979</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261115050000 -0300" stop="20261115060000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
+    <date>1979</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261115060000 -0300" stop="20261115070000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
+    <date>1979</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261115070000 -0300" stop="20261115080000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
+    <date>1979</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261115080000 -0300" stop="20261115090000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
+    <date>1979</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261115090000 -0300" stop="20261115104500 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">SportsCenter+</title>
+    <desc lang="es">Programación exclusiva del noticiero deportivo más visto en el mundo.</desc>
+    <date>2023</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261115104500 -0300" stop="20261115125500 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">Fútbol UEFA Nations League</title>
+    <sub-title lang="es">Chipre vs. Montenegro</sub-title>
+    <desc lang="es">Acción del partido del Grupo 2 de la Liga C de la UEFA Nations League 2026-27. Desde el Alphamega Stadium.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261115125500 -0300" stop="20261115163000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">SportsCenter+</title>
+    <desc lang="es">Programación exclusiva del noticiero deportivo más visto en el mundo.</desc>
+    <date>2023</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261115163000 -0300" stop="20261115184000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">Fútbol UEFA Nations League</title>
+    <sub-title lang="es">España vs. Inglaterra</sub-title>
+    <desc lang="es">Acción del partido del Grupo 3 de la Liga A de la UEFA Nations League 2026-27. Desde el Bernabéu, en Madrid.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261115184000 -0300" stop="20261115230000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
+    <date>1979</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261115230000 -0300" stop="20261116000000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
+    <date>1979</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261116000000 -0300" stop="20261116010000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
+    <date>1979</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261116010000 -0300" stop="20261116020000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
+    <date>1979</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261116020000 -0300" stop="20261116030000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
+    <date>1979</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261116030000 -0300" stop="20261116040000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
+    <date>1979</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261116040000 -0300" stop="20261116050000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
+    <date>1979</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261116050000 -0300" stop="20261116060000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
+    <date>1979</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261116060000 -0300" stop="20261116070000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
+    <date>1979</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261116070000 -0300" stop="20261116080000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
+    <date>1979</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261116080000 -0300" stop="20261116090000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
+    <date>1979</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261116090000 -0300" stop="20261116100000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
+    <date>1979</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261116100000 -0300" stop="20261116120000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">Tenis Nitto ATP Finals 2026</title>
+    <sub-title lang="es">Round-Robin Día 2</sub-title>
+    <desc lang="es">Segundo día de competencia por el 2026 Nitto ATP Finals. Desde el Inalpi Arena, en la ciudad de Turín.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261116120000 -0300" stop="20261116130000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
+    <date>1979</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261116130000 -0300" stop="20261116140000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
+    <date>1979</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261116140000 -0300" stop="20261116160000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
+    <date>1979</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261116160000 -0300" stop="20261116163000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">SportsCenter</title>
+    <desc lang="es">El noticiero de ESPN con la más amplia cobertura y noticias de los eventos deportivos.</desc>
+    <date>1979</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261116163000 -0300" stop="20261116184000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">Fútbol UEFA Nations League</title>
+    <sub-title lang="es">Alemania vs. Países Bajos</sub-title>
+    <desc lang="es">Acción del partido del Grupo 2 de la Liga A de la UEFA Nations League 2026-27. Desde el Olympiastadion.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261116184000 -0300" stop="20261116193000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">Balón dividido</title>
+    <desc lang="es">El análisis y la actualidad del fútbol de Colombia, a cargo de grandes especialistas. Además, los informes con la última información de cada equipo y la palabra de los protagonistas.</desc>
+    <date>2010</date>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261116193000 -0300" stop="20261116210000 -0300" channel="PublicDirect.9803b3858eb1f551dc55bb66">
+    <title lang="es">ESPN F360</title>
+    <desc lang="es">Análisis, debate y comentarios de las noticias más relevantes del fútbol nacional, así como a nivel mundial.</desc>
+    <date>2025</date>
+    <rating system="MJColombia">
+      <value>AGE228</value>
     </rating>
   </programme>
   <programme start="20261113150500 -0300" stop="20261113170100 -0300" channel="PublicDirect.9b6311dbc0425cf6e545649a">
@@ -45045,29 +45195,6 @@
     <rating system="MJColombia">
       <value>AGE227</value>
     </rating>
-  </programme>
-  <programme start="20261113153000 -0300" stop="20261113162500 -0300" channel="PublicDirect.a247897d9a490d19fa633661">
-    <title lang="es">S.w.a.t.</title>
-    <title lang="xx">Quandary</title>
-    <sub-title lang="es">Enigma</sub-title>
-    <desc lang="es">Daniel 'Hondo' Harrelson, un teniente SWAT, se ve dividido entre la lealtad a las calles y el deber con sus compañeros oficiales, cuando lo asignan para dirigir una unidad que estará encargada de detener los crímenes en Los Ángeles.</desc>
-    <credits>
-      <actor>Shemar Moore</actor>
-      <actor>Kenny Johnson</actor>
-      <actor>David Lim</actor>
-      <actor>Lina Esco</actor>
-      <actor>Lou Ferrigno Jr</actor>
-      <actor>Jay Harrington</actor>
-      <actor>Stephanie Sigman</actor>
-      <actor>Patrick St Esprit</actor>
-      <actor>Aaron Bledsoe</actor>
-      <actor>Jim Garrity</actor>
-    </credits>
-    <date>2017</date>
-    <category lang="es">Acción</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/4920903.jpg" />
-    <country lang="es">EE. UU</country>
-    <episode-num system="onscreen">S5 E20</episode-num>
   </programme>
   <programme start="20261113162500 -0300" stop="20261113172500 -0300" channel="PublicDirect.a247897d9a490d19fa633661">
     <title lang="es">NCIS</title>
@@ -46958,27 +47085,6 @@
     <icon src="http://www.reportv.com.ar/buscador/img/Programas/9204487.jpg" />
     <country lang="es">EE. UU</country>
     <episode-num system="onscreen">S16 E22</episode-num>
-  </programme>
-  <programme start="20261113160600 -0300" stop="20261113163000 -0300" channel="PublicDirect.a4e711feeaae6c78b06460eb">
-    <title lang="en">Passion Diaries</title>
-    <desc lang="es">Se desvelan las fantasías más profundas y los secretos más inconfesables dentro de un mundo embriagador de sensualidad e intimidad.</desc>
-    <date>2023</date>
-    <category lang="en">Adults only</category>
-    <category lang="en">Erotic</category>
-    <icon src="http://dtil.tmsimg.com/assets/p25522353_b_h10_ab.jpg?w=960&amp;h=540" />
-    <previously-shown />
-    <rating system="Régie du cinéma">
-      <value>18+</value>
-    </rating>
-    <rating system="USA Parental Rating">
-      <value>TVMA</value>
-    </rating>
-    <rating system="Canadian Parental Rating">
-      <value>18+</value>
-    </rating>
-    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
-      <value>A18</value>
-    </rating>
   </programme>
   <programme start="20261113163000 -0300" stop="20261113165400 -0300" channel="PublicDirect.a4e711feeaae6c78b06460eb">
     <title lang="en">SexArt</title>
@@ -53791,30 +53897,6 @@
     <title lang="es">Atrápame Si Puedes</title>
     <desc lang="es">Un experimentado agente del FBI persigue a Frank Abagnale Jr. quien, antes de cumplir 19 años, falsificó con éxito cheques por valor de millones de dólares mientras se hacía pasar por piloto de Pan Am, médico y fiscal.</desc>
   </programme>
-  <programme start="20261113143200 -0300" stop="20261113161900 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
-    <title lang="es">¿Qué Pasó Ayer? Parte III</title>
-    <desc lang="es">The Hangover Part III. Se reúnen nuevamente Phil (Bradley Cooper), Stu (Ed Helms), Alan (Zach Galifianakis) y Doug (Justin Bartha), esta vez sin una boda o una despedida de soltero. ¿Qué podría salir mal?, ¿Verdad?</desc>
-    <credits>
-      <director>Todd Phillips</director>
-      <actor>Bradley Cooper</actor>
-      <actor>Ed Helms</actor>
-      <actor>Zach Galifianakis</actor>
-      <actor>Justin Bartha</actor>
-      <producer>Todd Phillips</producer>
-      <producer>Daniel Goldberg</producer>
-      <composer>Christophe Beck</composer>
-    </credits>
-    <date>2013</date>
-    <category lang="es">Comedia</category>
-    <category lang="es">Película</category>
-    <icon src="https://imagenes.gatotv.com/categorias/peliculas/miniatura/que_paso_ayer_parte_iii.jpg" />
-    <rating system="MX">
-      <value>R</value>
-    </rating>
-    <star-rating system="MX">
-      <value>6.0</value>
-    </star-rating>
-  </programme>
   <programme start="20261113161900 -0300" stop="20261113182400 -0300" channel="PublicDirect.ef0023b214fe77f7918ee36f">
     <title lang="es">Los Goonies</title>
     <desc lang="es">En esta aventura como las de antes, un grupo de niños sale en busca de un tesoro escondido.</desc>
@@ -56615,14 +56697,6 @@
     <desc lang="en">Highlights from the season-ending stop on the 2026 GB3 Championship calendar from Circuit de Barcelona-Catalunya.</desc>
     <episode-num system="onscreen">17</episode-num>
   </programme>
-  <programme channel="SkySportsMainEvent.uk@TvVoo" start="20261113160000 -0300" stop="20261113163000 -0300">
-    <title lang="en">Live PGA Tour Golf</title>
-    <desc lang="en">Second-round play from the PGA Tour's Austin Championship, held at Omni Barton Creek Resort and Spa in Texas.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Golf</category>
-    <icon src="https://images.metadata.sky.com/pd-image/0701fff1-2351-45f4-b39b-af5ebb0a6460/16-9" />
-    <episode-num system="xmltv_ns">.157.</episode-num>
-  </programme>
   <programme channel="SkySportsMainEvent.uk@TvVoo" start="20261113163000 -0300" stop="20261113190000 -0300">
     <title lang="en">Tennis: Andreeva v Shnaider</title>
     <desc lang="en">Looking to complete a clean group-stage sweep, Mirra Andreeva - already guaranteed a place in the semi-finals on WTA Finals debut - faces an out-of-contention Karolina Muchova.</desc>
@@ -56821,14 +56895,6 @@
     <desc lang="en">The Boston Celtics take on the Orlando Magic in the NBA.</desc>
     <episode-num system="onscreen">12</episode-num>
   </programme>
-  <programme channel="SkySportsMainEventUHD.uk" start="20261113160000 -0300" stop="20261113163000 -0300">
-    <title lang="en">Live PGA Tour Golf</title>
-    <desc lang="en">Second-round play from the PGA Tour's Austin Championship, held at Omni Barton Creek Resort and Spa in Texas.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Golf</category>
-    <icon src="https://images.metadata.sky.com/pd-image/0701fff1-2351-45f4-b39b-af5ebb0a6460/16-9" />
-    <episode-num system="xmltv_ns">.157.</episode-num>
-  </programme>
   <programme channel="SkySportsMainEventUHD.uk" start="20261113163000 -0300" stop="20261113190000 -0300">
     <title lang="en">Tennis: Andreeva v Shnaider</title>
     <desc lang="en">Looking to complete a clean group-stage sweep, Mirra Andreeva - already guaranteed a place in the semi-finals on WTA Finals debut - faces an out-of-contention Karolina Muchova.</desc>
@@ -57026,14 +57092,6 @@
     <title lang="en">Magic @ Celtics</title>
     <desc lang="en">The Boston Celtics take on the Orlando Magic in the NBA.</desc>
     <episode-num system="onscreen">12</episode-num>
-  </programme>
-  <programme channel="SkySportsPremierLeague.uk" start="20261113160000 -0300" stop="20261113163000 -0300">
-    <title lang="en">Premier League The Big Interview</title>
-    <desc lang="en">Alan Shearer reflects on a childhood where his eye for goal came naturally, and led to a career that ended with him setting a Premier League goalscoring record that remains unchallenged.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Football</category>
-    <icon src="https://images.metadata.sky.com/pd-image/6d573911-7cac-4777-881d-cce4dd3a8f4c/16-9" />
-    <episode-num system="xmltv_ns">.12.</episode-num>
   </programme>
   <programme channel="SkySportsPremierLeague.uk" start="20261113163000 -0300" stop="20261113170000 -0300">
     <title lang="en">PL Stories: Mikel Arteta</title>
@@ -57587,16 +57645,6 @@
     <title lang="en">Premier League Years 2010/11</title>
     <desc lang="en">As Sky Sports celebrates 24 years as the home of the Premier League, a look at memorable moments from the 2010-2011 season. The relegation battle went down to the final day of the season.</desc>
     <episode-num system="onscreen">19</episode-num>
-  </programme>
-  <programme channel="SkySportsTennis.uk" start="20261113161500 -0300" stop="20261113163000 -0300">
-    <title lang="en">Rome Memories</title>
-    <desc lang="en">Take a trip down memory lane on the ATP Tour with a look at the Italian Open at the Foro Italico in Rome.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Tennis</category>
-    <icon src="https://images.metadata.sky.com/pd-image/4062cf3a-050f-4d47-8b47-2f87702b25d4/16-9" />
-    <rating system="UK">
-      <value>U</value>
-    </rating>
   </programme>
   <programme channel="SkySportsTennis.uk" start="20261113163000 -0300" stop="20261113190000 -0300">
     <title lang="en">Tennis: Andreeva v Shnaider</title>
@@ -58738,12 +58786,6 @@
     <desc lang="en">Australia v England. Highlights of the second ODI in the three-match series, which took place at Adelaide Oval.</desc>
     <icon src="https://tv.assets.pressassociation.io/15107c24-b4db-5d17-83ab-848d6b49886f.jpg" />
   </programme>
-  <programme channel="TNTSports2.uk" start="20261113160000 -0300" stop="20261113163000 -0300">
-    <title lang="en">A-League Highlights</title>
-    <sub-title lang="en">Action from the fourth round of fixtures</sub-title>
-    <desc lang="en">Action from the fourth round of fixtures.</desc>
-    <icon src="https://tv.assets.pressassociation.io/ef3cf960-e77e-5503-a718-808b71863e58.jpg" />
-  </programme>
   <programme channel="TNTSports2.uk" start="20261113163000 -0300" stop="20261113170000 -0300">
     <title lang="en">Ninja A-League Women Highlights</title>
     <sub-title lang="en">Action from the fourth round of fixtures</sub-title>
@@ -59792,22 +59834,6 @@
     <sub-title lang="en">Action from the women's Superprestige Merksplas in Merksplas, Belgium</sub-title>
     <desc lang="en">Action from the women's Superprestige Merksplas in Merksplas, Belgium.</desc>
     <icon src="https://tv.assets.pressassociation.io/12598006-c794-54b4-818e-ea1c6bee6c36.jpg" />
-  </programme>
-  <programme channel="TVEInternacionalAmerica.es@HD" start="20261113154000 -0300" stop="20261113163500 -0300">
-    <title lang="es">Malas lenguas</title>
-    <desc lang="es">Espacio de actualidad en el que, con humor, se desmontan bulos que circulan en los medios de comunicación y las redes sociales. Las herramientas de verificación ofrecen un análisis detallado de titulares, declaraciones e imágenes.</desc>
-    <credits>
-      <actor>Gonzalo Miró</actor>
-      <actor>Esther Palomera</actor>
-      <director>Jesús Cintora</director>
-      <director>Rafael Muñiz</director>
-      <director>Ana Bravo</director>
-    </credits>
-    <date>2025</date>
-    <category lang="es">Newsmagazine</category>
-    <category lang="es">Entertainment</category>
-    <icon src="http://dtil.tmsimg.com/assets/p30070177_b_h10_aa.jpg?w=960&amp;h=540" />
-    <previously-shown />
   </programme>
   <programme channel="TVEInternacionalAmerica.es@HD" start="20261113163500 -0300" stop="20261113170000 -0300">
     <title lang="es">España sin asfalto</title>
@@ -63740,15 +63766,6 @@
       <value>TE</value>
     </rating>
   </programme>
-  <programme start="20261113143000 -0300" stop="20261113163000 -0300" channel="WinSports.co@Direct181">
-    <title lang="es">Fútbol Serie A</title>
-    <sub-title lang="es">Parma vs. Bologna</sub-title>
-    <desc lang="es">Acción de la fecha 11. Pama enfrenta a Bolonia. Desde el Stadio Ennio Tardini. Los visitantes quieren seguir escalando en la tabla y aspirar a puestos de competiciones europeas.</desc>
-    <date>2026</date>
-    <rating system="MJColombia">
-      <value>AGE228</value>
-    </rating>
-  </programme>
   <programme start="20261113163000 -0300" stop="20261113170000 -0300" channel="WinSports.co@Direct181">
     <title lang="es">Acción de la NBA</title>
     <desc lang="es">Programa semanal con reportajes, entrevistas y toda la información de la liga de baloncesto más espectacular: la NBA. Incluye resúmenes de los partidos de la jornada y entrevistas a los personajes más destacados.</desc>
@@ -66142,14 +66159,6 @@
     <rating system="US">
       <value>TV-14</value>
     </rating>
-  </programme>
-  <programme channel="unitedkingdom|vavoo_SKY%20SPORTS%20MAIN%20EVENT%7Cgroup%3Auk@TvVoo" start="20261113160000 -0300" stop="20261113163000 -0300">
-    <title lang="en">Live PGA Tour Golf</title>
-    <desc lang="en">Second-round play from the PGA Tour's Austin Championship, held at Omni Barton Creek Resort and Spa in Texas.</desc>
-    <category lang="en">Sports</category>
-    <category lang="en">Golf</category>
-    <icon src="https://images.metadata.sky.com/pd-image/0701fff1-2351-45f4-b39b-af5ebb0a6460/16-9" />
-    <episode-num system="xmltv_ns">.157.</episode-num>
   </programme>
   <programme channel="unitedkingdom|vavoo_SKY%20SPORTS%20MAIN%20EVENT%7Cgroup%3Auk@TvVoo" start="20261113163000 -0300" stop="20261113190000 -0300">
     <title lang="en">Tennis: Andreeva v Shnaider</title>
