@@ -33,22 +33,36 @@ GATOTV_DAYS = 3
 _OFFSET = re.compile(r"utcOffset:\s*(-?\d+(?:\.\d+)?)")
 _ROW = re.compile(
     r'<time datetime="(\d\d):(\d\d)">.*?<time datetime="(\d\d):(\d\d)">.*?'
-    r'div_program_title_on_channel">\s*<span>(.*?)</span>',
+    r'div_program_title_on_channel">\s*(?:<a[^>]*>)?\s*<span>(.*?)</span>(.*)',
     re.S,
 )
+# Después del título, la fila trae la sinopsis antes de cerrar la columna (2026-11-14, HBO
+# casi no tenía detalle: GatoTV lo publicaba y el lector solo tomaba el título).
+_DESC = re.compile(r"^\s*(?:</a>)?\s*</div>(.*?)</div>", re.S)
 
 
-def gatotv_programmes(page: str, day: date) -> list[tuple[datetime, datetime, str]]:
-    """Programas de una página de GatoTV, en UTC."""
+def _clean(text: str) -> str:
+    return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", text))).strip()
+
+
+def gatotv_programmes(page: str, day: date) -> list[tuple[datetime, datetime, str, str]]:
+    """Programas de una página de GatoTV, en UTC: (inicio, fin, título, sinopsis o "")."""
     offset_match = _OFFSET.search(page)
     if not offset_match:
         raise ValueError("GatoTV sin utcOffset")
     offset = timedelta(hours=float(offset_match.group(1)))
-    result: list[tuple[datetime, datetime, str]] = []
-    for index, (sh, sm, eh, em, raw_title) in enumerate(_ROW.findall(page)):
-        title = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", "", raw_title))).strip()
+    result: list[tuple[datetime, datetime, str, str]] = []
+    # Una fila por <tr>: así una sinopsis nunca se cuela de una fila a la siguiente.
+    rows = [match for match in (_ROW.search(chunk) for chunk in re.split(r"<tr\b", page)) if match]
+    for index, match in enumerate(rows):
+        sh, sm, eh, em, raw_title, rest = match.groups()
+        title = _clean(raw_title)
         if not title:
             continue
+        description_match = _DESC.match(rest)
+        description = _clean(description_match.group(1)) if description_match else ""
+        if len(description) < 25 or description.casefold() == title.casefold():
+            description = ""  # «Película.», el título repetido: rótulos, no sinopsis
         start_local = datetime(day.year, day.month, day.day, int(sh), int(sm))
         stop_local = datetime(day.year, day.month, day.day, int(eh), int(em))
         if index == 0 and start_local > stop_local:
@@ -58,7 +72,7 @@ def gatotv_programmes(page: str, day: date) -> list[tuple[datetime, datetime, st
         start = (start_local - offset).replace(tzinfo=timezone.utc)
         stop = (stop_local - offset).replace(tzinfo=timezone.utc)
         if stop > start:
-            result.append((start, stop, title))
+            result.append((start, stop, title, description))
     return result
 
 
@@ -89,7 +103,7 @@ def fetch_gatotv_epg(
             except Exception as error:  # un día caído no borra los demás
                 errors[f"{slug}:{day}"] = f"{type(error).__name__}: {error}"
                 continue
-            for start, stop, title in items:
+            for start, stop, title, description in items:
                 if (start, title) in seen:
                     continue
                 seen.add((start, title))
@@ -99,6 +113,8 @@ def fetch_gatotv_epg(
                     "channel": GATOTV_ID_PREFIX + slug,
                 })
                 ET.SubElement(programme, "title", {"lang": "es"}).text = title
+                if description:
+                    ET.SubElement(programme, "desc", {"lang": "es"}).text = description
         if not seen:
             errors.setdefault(slug, "GatoTV sin programas")
     if not len(root):
