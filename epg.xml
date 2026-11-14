@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, FreeEPG, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-description-policy="verified-source-only" data-description-programmes="5727" data-description-channels="104" data-next-refresh-at="2026-11-15T10:03:00+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u" data-generated-at="2026-11-14T22:20:29+00:00">
+<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, FreeEPG, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-description-policy="verified-source-only" data-description-programmes="5727" data-description-channels="104" data-next-refresh-at="2026-11-15T10:03:00+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u" data-generated-at="2026-11-14T22:27:50+00:00">
   <channel id="0104" data-guide="parrilla real" data-guide-source="zapping-guia-publica">
     <display-name>TVN</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvn.png" />
@@ -227,6 +227,10 @@
   <channel id="StingrayClassica.ca" data-guide="parrilla real" data-guide-source="plex1">
     <display-name>Stingray Classica</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/stingray-classica-official.svg" />
+  </channel>
+  <channel id="PublicDirect.650a768cd537cb17d491e369" data-guide="parrilla real" data-guide-source="us2">
+    <display-name>Stingray Concerts</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/stingray-concerts.png" />
   </channel>
   <channel id="IPTVOrg.MusicBoxHits.cz-SD" data-guide="parrilla real" data-guide-source="cz1">
     <display-name>Music Box Hits</display-name>
@@ -9054,13 +9058,6 @@
       <value>Apta</value>
     </rating>
   </programme>
-  <programme start="20261114131500 -0300" stop="20261114132300 -0300" channel="France24.fr">
-    <title lang="es">En foco</title>
-    <desc lang="es">Un reportaje sobre temas que a menudo están por fuera de las noticias.</desc>
-    <date>2017</date>
-    <category lang="es">Interés general</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/4774104.jpg" />
-  </programme>
   <programme start="20261114132300 -0300" stop="20261114133000 -0300" channel="France24.fr">
     <title lang="es">Migrantes</title>
     <desc lang="es">Un programa dedicado a las tribulaciones (y también los logros y las alegrías) de millones de personas que, en América Latina y en el mundo, dejan sus países en busca de una vida mejor.</desc>
@@ -14845,20 +14842,6 @@
       <value>Apta</value>
     </rating>
   </programme>
-  <programme channel="IPTVOrg.MTVClassic.us-BR" start="20261114130600 -0300" stop="20261114132700 -0300">
-    <title>10's Hits</title>
-    <episode-num system="onscreen">S01E24</episode-num>
-    <episode-num system="pluto">68795a39655e1e05782ad16d</episode-num>
-    <episode-num system="original-air-date">20000101000000 +0000</episode-num>
-    <desc>Gangnam Style (Psy), Humble (Kendrick Lamar), Shape of You (Ed Sheeran), Mama (Jonas Blue ft. William Singe), That's What I Like (Bruno Mars)</desc>
-    <icon src="https://images.pluto.tv/series/687959e8655e1e05781474e2/tile_1752783342898.jpg?fill=blur&amp;fit=fill&amp;fm=jpg&amp;h=900&amp;q=75&amp;w=900" />
-    <date>20000101</date>
-    <series-id system="pluto">687959e8655e1e05781474e2</series-id>
-    <sub-title>Gangnam Style (Psy), Humble (Kendrick Lamar), Shape of You (Ed Sheeran), Mama (Jonas Blue ft. William Singe), That's What I Like (Bruno Mars)</sub-title>
-    <category>Music</category>
-    <category>Pop</category>
-    <category>Series</category>
-  </programme>
   <programme channel="IPTVOrg.MTVClassic.us-BR" start="20261114132700 -0300" stop="20261114135400 -0300">
     <title>90s Hits</title>
     <episode-num system="onscreen">S01E14</episode-num>
@@ -16878,11 +16861,6 @@
   </programme>
   <programme start="20261115223000 -0300" stop="20261116000000 -0300" channel="Meganoticias.cl">
     <title lang="es">Megainvestiga</title>
-  </programme>
-  <programme start="20261114132000 -0300" stop="20261114132500 -0300" channel="NHKWorldJapan.jp">
-    <title lang="en">Hit the Road 5minutes</title>
-    <sub-title lang="en">Gunma</sub-title>
-    <desc lang="en">To truly enjoy Gunma, travel by car is key. We start from Takasaki, where the bullet train stops, and make our way to Kusatsu hot springs, with world Heritage sites and local food along the way.</desc>
   </programme>
   <programme start="20261114132500 -0300" stop="20261114133000 -0300" channel="NHKWorldJapan.jp">
     <title lang="en">Ukiyoe EDO-LIFE</title>
@@ -24942,10 +24920,6 @@
     <rating system="MJColombia">
       <value>+18</value>
     </rating>
-  </programme>
-  <programme start="20261114110000 -0300" stop="20261114132500 -0300" channel="PublicDirect.376c74e4d0452f743fd2c811">
-    <title lang="es">Mujercitas</title>
-    <desc lang="es">Amy, Jo, Beth y Meg son cuatro hermanas en plena adolescencia, que viven con su madre en una Norteamérica que sufre lejanamente su Guerra Civil.</desc>
   </programme>
   <programme start="20261114132500 -0300" stop="20261114154500 -0300" channel="PublicDirect.376c74e4d0452f743fd2c811">
     <title lang="es">Un diario para Jordan</title>
@@ -33939,12 +33913,6 @@
     <rating system="MJColombia">
       <value>AGE227</value>
     </rating>
-  </programme>
-  <programme start="20261114123900 -0300" stop="20261114132200 -0300" channel="PublicDirect.7e4fe7ff47c91a001130c27b">
-    <title lang="es">Alto Octanaje en Las Vegas</title>
-    <sub-title lang="es">El hombre de hierro y el mullet</sub-title>
-    <desc lang="es">T4 -Ep.1: El Hombre De Hierro Y El Mullet. Steve y el equipo deben ponerse creativos cuando deben construir un rat rod para un cliente que es un trabajador metalúrgico. Justin comete un gran error, y Steve se ocupa de un Coronet de 1967.</desc>
-    <episode-num system="onscreen">S4 E9</episode-num>
   </programme>
   <programme start="20261114132200 -0300" stop="20261114140700 -0300" channel="PublicDirect.7e4fe7ff47c91a001130c27b">
     <title lang="es">Alto Octanaje En Las Vegas</title>
@@ -46368,11 +46336,6 @@
     <title lang="es">Pushing Progression - Freerunning</title>
     <desc lang="es">Tony Hawk y figuras influyentes como Jason Paul y Pasha Petkuns cuentan la historia del freerunning competitivo.</desc>
   </programme>
-  <programme start="20261114130623 -0300" stop="20261114132712 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">NST Snow Super Sessions – Utah</title>
-    <sub-title lang="en">Natural Selection Tour 2026</sub-title>
-    <desc lang="en">Results from three NST Snow Super Sessions determine who goes on to YETI Natural Selection Snow in Revelstoke.</desc>
-  </programme>
   <programme start="20261114132712 -0300" stop="20261114141115 -0300" channel="RedBullWorldEnglish.int">
     <title lang="en">Volare: Valentino Guseli</title>
     <sub-title lang="en">The life of an Australian snowboarding prodigy</sub-title>
@@ -48144,13 +48107,6 @@
     <title lang="en">ATP Final: Stockholm</title>
     <desc lang="en">Top seed Taylor Fritz, through to his sixth tour-level final of 2026, competes for the Stockholm title in a clash with first-time finalist Thiago Agustin Tirante of Argentina. (14.11)</desc>
     <episode-num system="onscreen">61</episode-num>
-  </programme>
-  <programme start="20261114120700 -0300" stop="20261114132400 -0300" channel="StingrayClassica.ca">
-    <title lang="en">A Tribute to Vienna</title>
-    <desc lang="en">Chamber music ensemble The Philharmonics pays tribute to the music of Vienna from Vienna's Café Sperl; the ensemble consists of musicians from the Vienna Philharmonic and the Berlin Philharmonic.</desc>
-    <date>2026</date>
-    <icon src="https://metadata-static.plex.tv/7/gracenote/7287f4e8a0fba9a37e37d0fe63b5d40a.jpg" />
-    <episode-num system="onscreen">S2026</episode-num>
   </programme>
   <programme start="20261114132400 -0300" stop="20261114144500 -0300" channel="StingrayClassica.ca">
     <title lang="en">Mahler, The Song of the Earth</title>
