@@ -8462,6 +8462,8 @@ def epg_channel_parts(channel_id: str) -> set[str]:
 
 def epg_primary_part(channel_id: str) -> str | None:
     """Parte de la fuente principal de un canal (la primera de su cadena que se descarga)."""
+    if channel_id in RED_BULL_CHANNEL_LOCALES:
+        return RED_BULL_PART
     for name, _ in epg_source_chain(channel_id):
         part = epg_part_for_source(name)
         if part is not None:
@@ -8675,7 +8677,7 @@ def build_epg_fragments(
         if channel_id in old and not touched:
             continue  # Ninguna de sus fuentes se descargó: su fragmento no se toca.
         primary = epg_primary_part(channel_id)
-        if (channel_id in old and not all_channels and primary is not None
+        if (channel_id in old and fetched_parts is not None and primary is not None
                 and primary not in fetched_parts):
             # Solo llegó un respaldo (2026-11-14, TNT: una corrida de epgshare cambió la
             # guía de Claro por la de TNT México): la guía anterior de la principal manda

@@ -52,6 +52,12 @@ class BackupOnlyRunTests(unittest.TestCase):
         result = self.run_build(old, {update_m3u.CLARO_GUIDE_PART})
         self.assertEqual(result["changed"], [CHANNEL])
 
+    def test_synopsis_fetch_does_not_replace_undownloaded_primary_schedule(self):
+        old = guide({CHANNEL: [(-1, 1, "De Claro"), (1, 30, "De Claro 2")]}, "claro-guia")
+        result = self.run_build(old, {update_m3u.EPGSHARE_PART, update_m3u.CLARO_SYNOPSIS_PART})
+        self.assertEqual(result["changed"], [])
+        self.assertIn(CHANNEL, result["kept"])
+
     def test_backup_fills_when_old_guide_runs_out(self):
         old = guide({CHANNEL: [(-1, 1, "De Claro"), (1, 3, "De Claro 2")]}, "claro-guia")
         result = self.run_build(old, {update_m3u.EPGSHARE_PART})
