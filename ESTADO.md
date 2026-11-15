@@ -9,7 +9,7 @@
 
 ## Hoy, en una mirada
 
-- **EPG Lista 1 (2026-11-15)**: recuperadas fuentes de HBO Xtreme y Love Nature 4K, respaldo UY1 para HBO Plus y API oficial para TNT Sports Premium. RWND se renueva al unir y los pendientes se miden a 24 h. Ver `docs/epg.md`.
+- **EPG Lista 1 (2026-11-15)**: guías para HBO Xtreme, Love Nature 4K y TNT Sports Premium, respaldos para HBO Plus y Sony Movies. RWND se renueva al unir y los pendientes se miden a 24 h. Ver `docs/epg.md`.
 
 - **History Channel #092, guía adelantada 10 minutos (2026-11-15)**: el usuario reportó «Gigantes de la industria: Mega marcas» a las 15:48 mientras EPGShare PA1 indicaba «Derrochadores Ancestrales» hasta las 15:55. Se deja `shift_minutes: -10` provisional para `PublicDirect.8da65ba545fa9fd2512f9901`, sin cambiar señal, fuente ni History 2; falta verificar inicio real de un segundo programa. Ver `docs/decisiones-por-canal.md`.
 
