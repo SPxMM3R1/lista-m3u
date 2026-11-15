@@ -8,6 +8,8 @@
 
 ## Excepción editorial puntual
 
+- **Love Nature 4K (2026-11-15)**: EPGShare PLEX1 `plex.tv.Love.Nature.plex`. Capturas de la señal a las 20:05 UTC (arrecife) y 20:11 UTC (cría en mantas) coinciden con el cambio de Into the Blue a Baby Animals a las 20:09 UTC. CO1 seguía con arrecifes y PL indicaba osos. El número puede cambiar con la edición del catálogo, por eso el override usa `IPTVOrg.LoveNature.ca-4K`.
+
 - **TNT Sports Premium (2026-11-15)**: la guía prioriza el feed `CDFH_CL` de la web oficial. TecnoCentro intercalaba dos secuencias y el tramo 08:10–09:40 quedaba vacío. La API oficial publica el programa de 07:35 a 09:40 hora de Chile. TecnoCentro queda como respaldo para intervalos sin datos oficiales.
 
 - **2026-11-15, revisión de Lista 1**: la unión mide continuidad de 24 h para los pendientes y recalcula RWND aunque no descargue fuentes. HBO Xtreme recupera el par CO1/Claro Colombia del mismo ID (20 de 21 programas coincidentes en el contrato del 01-11). HBO Plus conserva GatoTV y usa UY1 como respaldo después de comprobar los mismos títulos y horas en el fin de la parrilla de GatoTV del 15-11.
