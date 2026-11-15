@@ -1,12 +1,14 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-14T22:51:51.145012Z",
+  "updated_at": "2026-11-15T01:17:10.594726Z",
   "channels": [
     "PublicDirect.650a768cd537cb17d491e369",
     "IPTVOrg.MTVClassic.us-BR",
     "PublicDirect.e1bd14954343adc40818b7c7",
     "IPTVOrg.LoveNature.ca-4K",
-    "IPTVOrg.MTVClassic.us-CA"
+    "PublicDirect.3c96353d8e3bf508d2157d81",
+    "IPTVOrg.MTVClassic.us-CA",
+    "PublicDirect.a4fe5a0fae7ca652b8925373"
   ],
   "details": {
     "IPTVOrg.LoveNature.ca-4K": {
@@ -17,13 +19,19 @@
     },
     "IPTVOrg.MTVClassic.us-BR": {
       "kind": "guia-corta",
-      "futureHours": 14.2,
+      "futureHours": 11.8,
       "requiredHours": 18.0,
       "gaps": []
     },
     "IPTVOrg.MTVClassic.us-CA": {
       "kind": "guia-corta",
-      "futureHours": 14.4,
+      "futureHours": 11.9,
+      "requiredHours": 24.0,
+      "gaps": []
+    },
+    "PublicDirect.3c96353d8e3bf508d2157d81": {
+      "kind": "guia-corta",
+      "futureHours": 23.3,
       "requiredHours": 24.0,
       "gaps": []
     },
@@ -31,6 +39,12 @@
       "kind": "sin-guia",
       "futureHours": 0.0,
       "requiredHours": 18.0,
+      "gaps": []
+    },
+    "PublicDirect.a4fe5a0fae7ca652b8925373": {
+      "kind": "guia-corta",
+      "futureHours": 23.0,
+      "requiredHours": 24.0,
       "gaps": []
     },
     "PublicDirect.e1bd14954343adc40818b7c7": {
