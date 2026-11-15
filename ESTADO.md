@@ -5,9 +5,11 @@
 > cubre la app). **Al terminar cualquier cambio, actualiza este archivo en el mismo commit**:
 > la sección «Hoy» si cambió el estado y una línea nueva en «Bitácora».
 
-Última actualización: **2026-11-13** (America/Santiago).
+Última actualización: **2026-11-15** (America/Santiago).
 
 ## Hoy, en una mirada
+
+- **History Channel #092, guía adelantada 10 minutos (2026-11-15)**: el usuario reportó «Gigantes de la industria: Mega marcas» a las 15:48 mientras EPGShare PA1 indicaba «Derrochadores Ancestrales» hasta las 15:55. Se deja `shift_minutes: -10` provisional para `PublicDirect.8da65ba545fa9fd2512f9901`, sin cambiar señal, fuente ni History 2; falta verificar inicio real de un segundo programa. Ver `docs/decisiones-por-canal.md`.
 
 - **National Geographic unidos (2026-11-15, pedido del usuario «¿Por qué los Natgeo no están como backups entre ellos?», aplicado con «las 3 aplícalas»)**: fotogramas simultáneos del 2026-11-14 de los 4 National Geographic de Lista 2: misma escena («Secretos de cuerpos antiguos») con segundos de desfase entre servidores; por eso las rondas de clones (fotograma en el mismo instante) no los unieron. Principal `PublicDirect.5fa93eee31589e2105958c0e` (200.7.99.59, 1080p 59,94, AC3; los otros eran 1080p 29,97 o 1280×1080). Los otros tres (`f753ad9e`, `8a5d0371`, `956ee9e1`) quedan en `state: deleted` en el layout y pasan a `backups.json` como respaldos del principal junto con sus copias: 19 respaldos. Lista 2 queda con un solo National Geographic (#125). Scripts `outputs/natgeo-unir-20261115/`.
 - **Stingray iConcerts a Lista 1 (2026-11-14, pedido del usuario «134 stingray a lista 1»)**: la única Stingray publicada en Lista 2 era «Stingray Concerts» (`PublicDirect.650a768cd537cb17d491e369`, 132 del layout; la TV del usuario la tenía en el 134 por filas borradas). Fotogramas simultáneos: lleva la marca «Stingray iConcerts» (concierto de The Doobie Brothers) y no es el Qello Concerts de Lista 1 (#56, en tanda a esa hora). Pasa a Lista 1 en Música #58, después de Stingray Classica, con su nombre real «Stingray iConcerts» y logo `logos/stingray-iconcerts.png` (tv-logo/tv-logos, España: blanco y cian); el anterior era el de Qello, en negro. Sin guía (no tenía en Lista 2). `backups.json` al día (2 respaldos). Script `outputs/stingray-iconcerts-l1-20261114/mover.mjs`.
@@ -141,6 +143,8 @@
 
 
 ## Bitácora (más reciente arriba)
+
+- **2026-11-15**: corrección provisional de 10 min de adelanto en la guía del History Channel #092 (observación del usuario 15:48; necesita corroborar segunda transición).
 
 - **2026-11-13**: el 094 de la TV (Discovery Turbo) pasa a Lista 1 como #85; ESPN Colombia, movido antes por error, vuelve a Lista 2.
 - **2026-11-13**: guía de HBO 2 de GatoTV a EPGShare México (GatoTV daba otra película).
