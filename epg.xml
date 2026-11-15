@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, FreeEPG, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-description-policy="verified-source-only" data-description-programmes="5645" data-description-channels="97" data-next-refresh-at="2026-11-16T07:19:08+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u" data-generated-at="2026-11-15T20:12:13+00:00">
+<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, FreeEPG, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-description-policy="verified-source-only" data-description-programmes="5723" data-description-channels="98" data-next-refresh-at="2026-11-16T07:19:08+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u" data-generated-at="2026-11-15T20:15:11+00:00">
   <channel id="0104" data-guide="parrilla real" data-guide-source="zapping-guia-publica">
     <display-name>TVN</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvn.png" />
@@ -356,7 +356,7 @@
     <display-name>Love Nature</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/e9e0a89aad14.png" />
   </channel>
-  <channel id="IPTVOrg.LoveNature.ca-4K" data-guide="pendiente de guia" data-guide-source="pendiente">
+  <channel id="IPTVOrg.LoveNature.ca-4K" data-guide="parrilla real" data-guide-source="plex1">
     <display-name>Love Nature 4K</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/e9e0a89aad14.png" />
   </channel>
@@ -684,10 +684,6 @@
   </programme>
   <programme start="20261122003000 -0300" stop="20261122023000 -0300" channel="0102">
     <title lang="es">Cierre de transmisiones</title>
-  </programme>
-  <programme start="20261115093000 -0300" stop="20261115111500 -0300" channel="0104">
-    <title lang="es">Estado Nacional</title>
-    <desc lang="es">Espacio de actualidad y debate político, trasmitido cada domingo. Éste cuenta, cada semana, con uno o dos invitados que nos ayudaran a conocer lo que sucede en nuestro país.</desc>
   </programme>
   <programme start="20261115111500 -0300" stop="20261115112000 -0300" channel="0104">
     <title lang="es">El Ministro y Yo</title>
@@ -5388,9 +5384,6 @@
       <value>Apta</value>
     </rating>
   </programme>
-  <programme start="20261115110000 -0300" stop="20261115111500 -0300" channel="DW.de">
-    <title lang="es">Economía</title>
-  </programme>
   <programme start="20261115111500 -0300" stop="20261115113000 -0300" channel="DW.de">
     <title lang="es">Plaza Fráncfort</title>
   </programme>
@@ -5832,12 +5825,6 @@
   </programme>
   <programme start="20261118020000 -0300" stop="20261118030000 -0300" channel="DW.de">
     <title lang="es">Zona docu</title>
-  </programme>
-  <programme channel="DWEnglish.de" start="20261115110200 -0300" stop="20261115111500 -0300">
-    <title lang="fr">DW News Focus</title>
-    <desc lang="fr">Our deep dive format explains the stories that matter - with clarity, context and journalistic rigor. Each segment goes beyond the headlines to uncover what's driving key developments around the world, featuring sharp analysis, expert voices and exclusive on the ground insights from where events are unfolding.</desc>
-    <category lang="fr">Journal</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/7/1/0/15204017.jpg" />
   </programme>
   <programme channel="DWEnglish.de" start="20261115111500 -0300" stop="20261115113000 -0300">
     <title lang="fr">Shift</title>
@@ -7425,15 +7412,6 @@
     <category lang="es">Fútbol Español</category>
     <icon src="https://imagenes.gatotv.com/categorias/noticieros/miniatura/sportscenter.png" />
   </programme>
-  <programme start="20261115092000 -0300" stop="20261115111500 -0300" channel="ESPN4.co@Direct181">
-    <title lang="es">Nations Championship 2026</title>
-    <sub-title lang="es">Italia vs. Argentina</sub-title>
-    <desc lang="es">El Azurri se enfrenta a Los Pumas en la quinta ronda de la Serie Norte del Nations Championship 2026. Desde el estadio Luigi Ferraris, en Génova. Italia.</desc>
-    <date>2026</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
   <programme start="20261115111500 -0300" stop="20261115143000 -0300" channel="ESPN4.co@Direct181">
     <title lang="es">Fútbol Americano NFL</title>
     <sub-title lang="es">New England Patriots vs. Detroit Lions</sub-title>
@@ -8383,14 +8361,6 @@
     <rating system="ES">
       <value>Apta</value>
     </rating>
-  </programme>
-  <programme start="20261115110000 -0300" stop="20261115111500 -0300" channel="France24.fr">
-    <title lang="es">Noticias</title>
-    <desc lang="es">Un completo resumen de la actualidad internacional.</desc>
-    <date>2017</date>
-    <category lang="es">Noticiero</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/4787687.jpg" />
-    <country lang="es">Francia</country>
   </programme>
   <programme start="20261115111500 -0300" stop="20261115112100 -0300" channel="France24.fr">
     <title lang="es">Des-Informando</title>
@@ -10814,15 +10784,6 @@
     <date>2018</date>
     <category lang="es">Entrevista</category>
     <icon src="http://www.reportv.com.ar/buscador/img/Programas/9163104.jpg" />
-  </programme>
-  <programme channel="France24.fr@English" start="20261115111000 -0300" stop="20261115111500 -0300">
-    <title lang="fr">Tech 24</title>
-    <desc lang="es">The latest trends in the world of high-tech and the impact of digital revolutions on everyday life.</desc>
-    <category lang="fr">Magazine scientifique</category>
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/2/5/15220528.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/5/2/5/15220525.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/3/2/5/15220523.jpg" />
-    <icon src="http://static-cdn.tv.sfr.net/data/img/pl/7/2/5/15220527.jpg" />
   </programme>
   <programme channel="France24.fr@English" start="20261115111500 -0300" stop="20261115113000 -0300">
     <title lang="fr">Across Africa</title>
@@ -15185,6 +15146,976 @@
     <episode-num system="onscreen">S2627</episode-num>
     <rating system="ES">
       <value>Apta</value>
+    </rating>
+  </programme>
+  <programme start="20261115110100 -0300" stop="20261115120500 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">The Magic Circle of the Reef</title>
+    <sub-title lang="en">The Pelagics: Eat and Swim</sub-title>
+    <desc lang="en">Occupy the zone between seabed and surface with the reef’s placid travellers.</desc>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01054870.jpg" />
+    <episode-num system="onscreen">S1 E4</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261115120500 -0300" stop="20261115130400 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">The Quick and The Slow</title>
+    <desc lang="en">Weigh the evolutionary advantages of nature’s speed demons and slowpokes.</desc>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01052710.jpg" />
+    <episode-num system="onscreen">S1 E1</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261115130400 -0300" stop="20261115140400 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Wild Taiwan</title>
+    <sub-title lang="en">Jungle Island</sub-title>
+    <desc lang="en">Explore the untamed heart of Taiwan, where spring brings both risk and reward.</desc>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01055166.jpg" />
+    <episode-num system="onscreen">S1 E1</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261115140400 -0300" stop="20261115150500 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Into the Blue: The Wonders of the Coral Triangle</title>
+    <sub-title lang="en">Forgotten Islands</sub-title>
+    <desc lang="en">It's the center of the coral triangle, the most unspoiled reefs in Indonesia.</desc>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01055167.jpg" />
+    <episode-num system="onscreen">S1 E1</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261115150500 -0300" stop="20261115160700 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Into the Blue: The Wonders of the Coral Triangle</title>
+    <sub-title lang="en">Raja Ampat</sub-title>
+    <desc lang="en">The Archipelago of Raja Ampat is at the heart of the Coral Triangle. It's 1500 islands of untamed wilderness.</desc>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01055167.jpg" />
+    <episode-num system="onscreen">S1 E2</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261115160700 -0300" stop="20261115170900 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Into the Blue: The Wonders of the Coral Triangle</title>
+    <sub-title lang="en">Komodo</sub-title>
+    <desc lang="en">It's the Komodo National Park, home of the Komodo dragon.</desc>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01055167.jpg" />
+    <episode-num system="onscreen">S1 E3</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261115170900 -0300" stop="20261115174000 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Baby Animals</title>
+    <sub-title lang="en">Surrogate Families</sub-title>
+    <desc lang="en">Baby wombats, leopards, polar bears, and quolls get a human helping hand.</desc>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01057737.jpg" />
+    <episode-num system="onscreen">S2 E1</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261115174000 -0300" stop="20261115181200 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Baby Animals</title>
+    <sub-title lang="en">Herd Mentality</sub-title>
+    <desc lang="en">Discover the advantages babies gain from growing up in a large animal group.</desc>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01057737.jpg" />
+    <episode-num system="onscreen">S2 E2</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261115181200 -0300" stop="20261115184300 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Baby Animals</title>
+    <sub-title lang="en">Endangered Species</sub-title>
+    <desc lang="en">Once nearly extinct, see babies of endangered species thrive in zoos worldwide.</desc>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01057737.jpg" />
+    <episode-num system="onscreen">S2 E3</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261115184300 -0300" stop="20261115191400 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Baby Animals</title>
+    <sub-title lang="en">Joined At The Hip</sub-title>
+    <desc lang="en">Meet some lucky animal babies who have families ready to protect them.</desc>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01057737.jpg" />
+    <episode-num system="onscreen">S2 E4</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261115191400 -0300" stop="20261115194600 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Baby Animals</title>
+    <sub-title lang="en">Ugly Cute</sub-title>
+    <desc lang="en">Visit four funny-looking babies to learn how appearance can affect survival.</desc>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01057737.jpg" />
+    <episode-num system="onscreen">S2 E5</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261115194600 -0300" stop="20261115201800 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Baby Animals</title>
+    <sub-title lang="en">Primate Families</sub-title>
+    <desc lang="en">See how different primate babies grow and adapt to an ever-changing environment.</desc>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01057737.jpg" />
+    <episode-num system="onscreen">S2 E6</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261115201800 -0300" stop="20261115211700 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">The Quick and The Slow</title>
+    <desc lang="en">Weigh the evolutionary advantages of nature’s speed demons and slowpokes.</desc>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01052710.jpg" />
+    <episode-num system="onscreen">S1 E1</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261115211700 -0300" stop="20261115221600 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Wild Taiwan</title>
+    <sub-title lang="en">Jungle Island</sub-title>
+    <desc lang="en">Explore the untamed heart of Taiwan, where spring brings both risk and reward.</desc>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01055166.jpg" />
+    <episode-num system="onscreen">S1 E1</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261115221600 -0300" stop="20261115231800 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Into the Blue: The Wonders of the Coral Triangle</title>
+    <sub-title lang="en">Forgotten Islands</sub-title>
+    <desc lang="en">It's the center of the coral triangle, the most unspoiled reefs in Indonesia.</desc>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01055167.jpg" />
+    <episode-num system="onscreen">S1 E1</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261115231800 -0300" stop="20261116002000 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Into the Blue: The Wonders of the Coral Triangle</title>
+    <sub-title lang="en">Raja Ampat</sub-title>
+    <desc lang="en">The Archipelago of Raja Ampat is at the heart of the Coral Triangle. It's 1500 islands of untamed wilderness.</desc>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01055167.jpg" />
+    <episode-num system="onscreen">S1 E2</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261116002000 -0300" stop="20261116012100 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Into the Blue: The Wonders of the Coral Triangle</title>
+    <sub-title lang="en">Komodo</sub-title>
+    <desc lang="en">It's the Komodo National Park, home of the Komodo dragon.</desc>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01055167.jpg" />
+    <episode-num system="onscreen">S1 E3</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261116012100 -0300" stop="20261116015300 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Baby Animals</title>
+    <sub-title lang="en">Surrogate Families</sub-title>
+    <desc lang="en">Baby wombats, leopards, polar bears, and quolls get a human helping hand.</desc>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01057737.jpg" />
+    <episode-num system="onscreen">S2 E1</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261116015300 -0300" stop="20261116022400 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Baby Animals</title>
+    <sub-title lang="en">Herd Mentality</sub-title>
+    <desc lang="en">Discover the advantages babies gain from growing up in a large animal group.</desc>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01057737.jpg" />
+    <episode-num system="onscreen">S2 E2</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261116022400 -0300" stop="20261116025500 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Baby Animals</title>
+    <sub-title lang="en">Endangered Species</sub-title>
+    <desc lang="en">Once nearly extinct, see babies of endangered species thrive in zoos worldwide.</desc>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01057737.jpg" />
+    <episode-num system="onscreen">S2 E3</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261116025500 -0300" stop="20261116032700 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Baby Animals</title>
+    <sub-title lang="en">Joined At The Hip</sub-title>
+    <desc lang="en">Meet some lucky animal babies who have families ready to protect them.</desc>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01057737.jpg" />
+    <episode-num system="onscreen">S2 E4</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261116032700 -0300" stop="20261116035800 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Baby Animals</title>
+    <sub-title lang="en">Ugly Cute</sub-title>
+    <desc lang="en">Visit four funny-looking babies to learn how appearance can affect survival.</desc>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01057737.jpg" />
+    <episode-num system="onscreen">S2 E5</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261116035800 -0300" stop="20261116045700 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Secrets Of Wild Australia</title>
+    <sub-title lang="en">Secret Life of the Flying Fox</sub-title>
+    <desc lang="en">The grey-headed flying fox is the largest fruit-eating bat in Australia.</desc>
+    <date>2020</date>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01042197.jpg" />
+    <episode-num system="onscreen">S1 E4</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261116045700 -0300" stop="20261116055500 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Africa's Wild Horizons</title>
+    <sub-title lang="en">The Waterberg - Mountains of Life</sub-title>
+    <desc lang="en">Meet South African animals on a land that was formed before terrestrial life.</desc>
+    <date>2016</date>
+    <category lang="en">Explore</category>
+    <icon src="https://metadata-static.plex.tv/7/gracenote/7aef490cc731f6e5f6cdb6a32fd4a1e0.jpg" />
+    <episode-num system="onscreen">S1 E1</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261116055500 -0300" stop="20261116065700 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">The Magic Circle of the Reef</title>
+    <sub-title lang="en">Little Giants: The Benthonics</sub-title>
+    <desc lang="en">Visit the seabed and meet the specially adapted species that nourish the reef.</desc>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01054870.jpg" />
+    <episode-num system="onscreen">S1 E3</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261116065700 -0300" stop="20261116080000 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">The Magic Circle of the Reef</title>
+    <sub-title lang="en">The Pelagics: Eat and Swim</sub-title>
+    <desc lang="en">Occupy the zone between seabed and surface with the reef’s placid travellers.</desc>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01054870.jpg" />
+    <episode-num system="onscreen">S1 E4</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261116080000 -0300" stop="20261116090000 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Secrets Of Wild Australia</title>
+    <sub-title lang="en">Secret Life of Mini Marsupials</sub-title>
+    <desc lang="en">Quokkas and quolls highlight the differences within a unique group of species.</desc>
+    <date>2020</date>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01042197.jpg" />
+    <episode-num system="onscreen">S1 E5</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261116090000 -0300" stop="20261116095900 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Africa's Wild Horizons</title>
+    <sub-title lang="en">Vrederfort Dome - Crater of Life</sub-title>
+    <desc lang="en">Learn how life thrives at the site of a two-billion-year-old meteorite crash.</desc>
+    <date>2016</date>
+    <category lang="en">Explore</category>
+    <icon src="https://metadata-static.plex.tv/7/gracenote/7aef490cc731f6e5f6cdb6a32fd4a1e0.jpg" />
+    <episode-num system="onscreen">S1 E2</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261116095900 -0300" stop="20261116105700 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Galapagos</title>
+    <sub-title lang="en">The New Beginning</sub-title>
+    <desc lang="en">Meet the islands’ unique species and see Darwin’s theory of evolution in action.</desc>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01054399.jpg" />
+    <episode-num system="onscreen">S1 E2</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261116105700 -0300" stop="20261116120000 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Whale With Steve Backshall</title>
+    <sub-title lang="en">Whales and Us</sub-title>
+    <desc lang="en">Cozy up with humpbacks and dolphins and explore their similarities to humans.</desc>
+    <date>2023</date>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/LoveNature_thumb_1920x1080.jpg" />
+    <episode-num system="onscreen">S1 E1</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261116120000 -0300" stop="20261116125900 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Undiscovered Vistas</title>
+    <sub-title lang="en">Bahamas</sub-title>
+    <desc lang="en">Birds, turtles, and iguanas find sanctuary in one million protected acres.</desc>
+    <date>2015</date>
+    <category lang="en">Explore</category>
+    <icon src="https://metadata-static.plex.tv/8/gracenote/807662c2f80ca2751e90c29c94219d12.jpg" />
+    <episode-num system="onscreen">S1 E6</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261116125900 -0300" stop="20261116140100 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Shadowlands</title>
+    <sub-title lang="en">Life In Dark Water</sub-title>
+    <desc lang="en">Hear how winter’s arrival triggers survival instincts in a range of creatures.</desc>
+    <date>2021</date>
+    <category lang="en">Explore</category>
+    <icon src="https://image.tmdb.org/t/p/original/dDtu4KUPtguaBXnEhm00YhetvgM.jpg" />
+    <episode-num system="onscreen">S1 E2</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261116140100 -0300" stop="20261116150200 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Great Blue Wild</title>
+    <sub-title lang="en">Bahamas</sub-title>
+    <desc lang="en">From blue holes to manatees, discover the underwater world of the Bahamas.</desc>
+    <date>2015</date>
+    <category lang="en">Explore</category>
+    <icon src="https://metadata-static.plex.tv/6/gracenote/6a7a44512d2f5efa2c5ab014278b663a.jpg" />
+    <episode-num system="onscreen">S1 E3</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261116150200 -0300" stop="20261116160400 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Secrets of the Enchanted Waters</title>
+    <sub-title lang="en">Coasts</sub-title>
+    <desc lang="en">Get swept up in orca hunts and the struggle for survival along Earth’s coasts.</desc>
+    <date>2025</date>
+    <category lang="en">Explore</category>
+    <icon src="https://metadata-static.plex.tv/3/gracenote/328c6527cc21d1bd2c198bd4e758221d.jpg" />
+    <episode-num system="onscreen">S1 E2</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261116160400 -0300" stop="20261116170300 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Whale Guardian</title>
+    <desc lang="en">Join marine biologist Nan Houser’s quest to protect the ocean’s humpback whales.</desc>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01054905.jpg" />
+    <episode-num system="onscreen">S1 E1</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261116170300 -0300" stop="20261116180800 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">The Magic Circle of the Reef</title>
+    <sub-title lang="en">The Pelagics: Eat and Swim</sub-title>
+    <desc lang="en">Occupy the zone between seabed and surface with the reef’s placid travellers.</desc>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01054870.jpg" />
+    <episode-num system="onscreen">S1 E4</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261116180800 -0300" stop="20261116191200 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Lionfish: New Pirates of the Caribbean</title>
+    <desc lang="en">Meet the coolest fish on the block and see why it threatens entire ecosystems.</desc>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01052744.jpg" />
+    <episode-num system="onscreen">S1 E1</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261116191200 -0300" stop="20261116201500 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Alien Abyss</title>
+    <sub-title lang="en">Allies and Adversaries</sub-title>
+    <desc lang="en">Study strange-but-rewarding partnerships between some truly odd ocean dwellers.</desc>
+    <date>2022</date>
+    <category lang="en">Explore</category>
+    <icon src="https://artworks.thetvdb.com/banners/v4/series/418155/backgrounds/68201d5b476c1.jpg" />
+    <episode-num system="onscreen">S1 E2</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261116201500 -0300" stop="20261116211300 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Undiscovered Vistas</title>
+    <sub-title lang="en">Bahamas</sub-title>
+    <desc lang="en">Birds, turtles, and iguanas find sanctuary in one million protected acres.</desc>
+    <date>2015</date>
+    <category lang="en">Explore</category>
+    <icon src="https://metadata-static.plex.tv/8/gracenote/807662c2f80ca2751e90c29c94219d12.jpg" />
+    <episode-num system="onscreen">S1 E6</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261116211300 -0300" stop="20261116221600 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Shadowlands</title>
+    <sub-title lang="en">Life In Dark Water</sub-title>
+    <desc lang="en">Hear how winter’s arrival triggers survival instincts in a range of creatures.</desc>
+    <date>2021</date>
+    <category lang="en">Explore</category>
+    <icon src="https://image.tmdb.org/t/p/original/dDtu4KUPtguaBXnEhm00YhetvgM.jpg" />
+    <episode-num system="onscreen">S1 E2</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261116221600 -0300" stop="20261116231800 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Great Blue Wild</title>
+    <sub-title lang="en">Bahamas</sub-title>
+    <desc lang="en">From blue holes to manatees, discover the underwater world of the Bahamas.</desc>
+    <date>2015</date>
+    <category lang="en">Explore</category>
+    <icon src="https://metadata-static.plex.tv/6/gracenote/6a7a44512d2f5efa2c5ab014278b663a.jpg" />
+    <episode-num system="onscreen">S1 E3</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261116231800 -0300" stop="20261117002100 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Secrets of the Enchanted Waters</title>
+    <sub-title lang="en">Coasts</sub-title>
+    <desc lang="en">Get swept up in orca hunts and the struggle for survival along Earth’s coasts.</desc>
+    <date>2025</date>
+    <category lang="en">Explore</category>
+    <icon src="https://metadata-static.plex.tv/3/gracenote/328c6527cc21d1bd2c198bd4e758221d.jpg" />
+    <episode-num system="onscreen">S1 E2</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261117002100 -0300" stop="20261117012000 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Whale Guardian</title>
+    <desc lang="en">Join marine biologist Nan Houser’s quest to protect the ocean’s humpback whales.</desc>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01054905.jpg" />
+    <episode-num system="onscreen">S1 E1</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261117012000 -0300" stop="20261117022500 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">The Magic Circle of the Reef</title>
+    <sub-title lang="en">The Pelagics: Eat and Swim</sub-title>
+    <desc lang="en">Occupy the zone between seabed and surface with the reef’s placid travellers.</desc>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01054870.jpg" />
+    <episode-num system="onscreen">S1 E4</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261117022500 -0300" stop="20261117032900 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Lionfish: New Pirates of the Caribbean</title>
+    <desc lang="en">Meet the coolest fish on the block and see why it threatens entire ecosystems.</desc>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01052744.jpg" />
+    <episode-num system="onscreen">S1 E1</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261117032900 -0300" stop="20261117043100 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Alien Abyss</title>
+    <sub-title lang="en">Allies and Adversaries</sub-title>
+    <desc lang="en">Study strange-but-rewarding partnerships between some truly odd ocean dwellers.</desc>
+    <date>2022</date>
+    <category lang="en">Explore</category>
+    <icon src="https://artworks.thetvdb.com/banners/v4/series/418155/backgrounds/68201d5b476c1.jpg" />
+    <episode-num system="onscreen">S1 E2</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261117043100 -0300" stop="20261117053200 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Secrets Of Wild Australia</title>
+    <sub-title lang="en">Secret Life of Mini Marsupials</sub-title>
+    <desc lang="en">Quokkas and quolls highlight the differences within a unique group of species.</desc>
+    <date>2020</date>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01042197.jpg" />
+    <episode-num system="onscreen">S1 E5</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261117053200 -0300" stop="20261117063000 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Africa's Wild Horizons</title>
+    <sub-title lang="en">Vrederfort Dome - Crater of Life</sub-title>
+    <desc lang="en">Learn how life thrives at the site of a two-billion-year-old meteorite crash.</desc>
+    <date>2016</date>
+    <category lang="en">Explore</category>
+    <icon src="https://metadata-static.plex.tv/7/gracenote/7aef490cc731f6e5f6cdb6a32fd4a1e0.jpg" />
+    <episode-num system="onscreen">S1 E2</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261117063000 -0300" stop="20261117072900 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Galapagos</title>
+    <sub-title lang="en">The New Beginning</sub-title>
+    <desc lang="en">Meet the islands’ unique species and see Darwin’s theory of evolution in action.</desc>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01054399.jpg" />
+    <episode-num system="onscreen">S1 E2</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261117072900 -0300" stop="20261117080000 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">City Wildlife Rescue</title>
+    <sub-title lang="en">The Fox &amp; The Possums</sub-title>
+    <desc lang="en">See the teams collaborate to heal a rescued fox and care for injured songbirds.</desc>
+    <date>2020</date>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01042258.jpg" />
+    <episode-num system="onscreen">S1 E6</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261117080000 -0300" stop="20261117090000 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Secrets Of Wild Australia</title>
+    <sub-title lang="en">Secret Life of Bugs &amp; Butterflies</sub-title>
+    <desc lang="en">Australia’s tropical forests are packed with a diversity of fascinating insects.</desc>
+    <date>2020</date>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01042197.jpg" />
+    <episode-num system="onscreen">S1 E6</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261117090000 -0300" stop="20261117100500 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Africa's Wild Horizons</title>
+    <sub-title lang="en">Wild Swaziland</sub-title>
+    <desc lang="en">Learn about keystone species living in a kingdom made of forests and savanna.</desc>
+    <date>2016</date>
+    <category lang="en">Explore</category>
+    <icon src="https://metadata-static.plex.tv/7/gracenote/7aef490cc731f6e5f6cdb6a32fd4a1e0.jpg" />
+    <episode-num system="onscreen">S1 E4</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261117100500 -0300" stop="20261117110700 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Weird, Wild &amp; Wonderful</title>
+    <desc lang="en">Investigate the colourful, quirky survival tactics of Africa’s amazing animals.</desc>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01050681.jpg" />
+    <episode-num system="onscreen">S1 E1</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261117110700 -0300" stop="20261117121400 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Under the Sea</title>
+    <sub-title lang="en">Oddities</sub-title>
+    <desc lang="en">Salute stranger-than-fiction sea creatures and their incredible adaptations.</desc>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01051644.jpg" />
+    <episode-num system="onscreen">S1 E4</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261117121400 -0300" stop="20261117131500 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Africa's Hunters</title>
+    <sub-title lang="en">The Hungry Leopard</sub-title>
+    <desc lang="en">An older leopard struggles to survive a pride of scavenging lions.</desc>
+    <date>2017</date>
+    <category lang="en">Explore</category>
+    <icon src="https://metadata-static.plex.tv/4/gracenote/4c2d3dd00e0461cc356552d49a70bb85.jpg" />
+    <episode-num system="onscreen">S1 E1</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261117131500 -0300" stop="20261117141600 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Africa's Hunters</title>
+    <sub-title lang="en">A Leopard's Last Stand</sub-title>
+    <desc lang="en">An older leopard faces her most serious challenge: a younger, healthier rival.</desc>
+    <date>2017</date>
+    <category lang="en">Explore</category>
+    <icon src="https://metadata-static.plex.tv/4/gracenote/4c2d3dd00e0461cc356552d49a70bb85.jpg" />
+    <episode-num system="onscreen">S1 E2</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261117141600 -0300" stop="20261117151900 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">New Kids in the Wild</title>
+    <sub-title lang="en">Ravi The Baby Lion Tailed Macaque</sub-title>
+    <desc lang="en">Enter the rainforest, where a baby macaque must learn the law of the jungle.</desc>
+    <category lang="en">Explore</category>
+    <icon src="https://image.tmdb.org/t/p/original/9b65wDJI22LzX2irxZJMR6XG6g7.jpg" />
+    <episode-num system="onscreen">S1 E5</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261117151900 -0300" stop="20261117162200 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">New Kids in the Wild</title>
+    <sub-title lang="en">Lola the Sea Lion Pup</sub-title>
+    <desc lang="en">Cheer on baby sea lion Lola as she faces a beachy battlefield and hungry orcas.</desc>
+    <date>2023</date>
+    <category lang="en">Explore</category>
+    <icon src="https://image.tmdb.org/t/p/original/9b65wDJI22LzX2irxZJMR6XG6g7.jpg" />
+    <episode-num system="onscreen">S2 E2</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261117162200 -0300" stop="20261117172500 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Dawn to Dusk</title>
+    <sub-title lang="en">Hot Day In The New World</sub-title>
+    <desc lang="en">Join South American marine and land animals as they live out their daily dramas.</desc>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01050673.jpg" />
+    <episode-num system="onscreen">S1 E1</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261117172500 -0300" stop="20261117182800 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Becoming Orangutan</title>
+    <sub-title lang="en">Growing Pains</sub-title>
+    <desc lang="en">Explore student growing pains and learn why Dilla’s fate is suddenly in doubt.</desc>
+    <date>2022</date>
+    <category lang="en">Explore</category>
+    <icon src="https://metadata-static.plex.tv/8/gracenote/848c63b517bbefe6cbd7526c8adb647a.jpg" />
+    <episode-num system="onscreen">S1 E3</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261117182800 -0300" stop="20261117193100 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Orangutan Jungle School</title>
+    <sub-title lang="en">Absent Friends</sub-title>
+    <desc lang="en">Track down Lahei, who’s gone AWOL, and see who earns their post-college freedom.</desc>
+    <date>2023</date>
+    <category lang="en">Explore</category>
+    <icon src="https://metadata-static.plex.tv/8/gracenote/8512d5f10614de9ae07cd4e267f0d710.jpg" />
+    <episode-num system="onscreen">S3 E5</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261117193100 -0300" stop="20261117203400 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Orangutan Jungle School</title>
+    <sub-title lang="en">Graduation Day</sub-title>
+    <desc lang="en">Bid a fond farewell to old friends and celebrate Molly and Bumi’s big move.</desc>
+    <date>2023</date>
+    <category lang="en">Explore</category>
+    <icon src="https://metadata-static.plex.tv/8/gracenote/8512d5f10614de9ae07cd4e267f0d710.jpg" />
+    <episode-num system="onscreen">S3 E6</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261117203400 -0300" stop="20261117213500 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Africa's Hunters</title>
+    <sub-title lang="en">The Hungry Leopard</sub-title>
+    <desc lang="en">An older leopard struggles to survive a pride of scavenging lions.</desc>
+    <date>2017</date>
+    <category lang="en">Explore</category>
+    <icon src="https://metadata-static.plex.tv/4/gracenote/4c2d3dd00e0461cc356552d49a70bb85.jpg" />
+    <episode-num system="onscreen">S1 E1</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261117213500 -0300" stop="20261117223600 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Africa's Hunters</title>
+    <sub-title lang="en">A Leopard's Last Stand</sub-title>
+    <desc lang="en">An older leopard faces her most serious challenge: a younger, healthier rival.</desc>
+    <date>2017</date>
+    <category lang="en">Explore</category>
+    <icon src="https://metadata-static.plex.tv/4/gracenote/4c2d3dd00e0461cc356552d49a70bb85.jpg" />
+    <episode-num system="onscreen">S1 E2</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261117223600 -0300" stop="20261117233900 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">New Kids in the Wild</title>
+    <sub-title lang="en">Ravi The Baby Lion Tailed Macaque</sub-title>
+    <desc lang="en">Enter the rainforest, where a baby macaque must learn the law of the jungle.</desc>
+    <category lang="en">Explore</category>
+    <icon src="https://image.tmdb.org/t/p/original/9b65wDJI22LzX2irxZJMR6XG6g7.jpg" />
+    <episode-num system="onscreen">S1 E5</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261117233900 -0300" stop="20261118004200 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">New Kids in the Wild</title>
+    <sub-title lang="en">Lola the Sea Lion Pup</sub-title>
+    <desc lang="en">Cheer on baby sea lion Lola as she faces a beachy battlefield and hungry orcas.</desc>
+    <date>2023</date>
+    <category lang="en">Explore</category>
+    <icon src="https://image.tmdb.org/t/p/original/9b65wDJI22LzX2irxZJMR6XG6g7.jpg" />
+    <episode-num system="onscreen">S2 E2</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261118004200 -0300" stop="20261118014500 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Dawn to Dusk</title>
+    <sub-title lang="en">Hot Day In The New World</sub-title>
+    <desc lang="en">Join South American marine and land animals as they live out their daily dramas.</desc>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01050673.jpg" />
+    <episode-num system="onscreen">S1 E1</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261118014500 -0300" stop="20261118024700 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Becoming Orangutan</title>
+    <sub-title lang="en">Growing Pains</sub-title>
+    <desc lang="en">Explore student growing pains and learn why Dilla’s fate is suddenly in doubt.</desc>
+    <date>2022</date>
+    <category lang="en">Explore</category>
+    <icon src="https://metadata-static.plex.tv/8/gracenote/848c63b517bbefe6cbd7526c8adb647a.jpg" />
+    <episode-num system="onscreen">S1 E3</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261118024700 -0300" stop="20261118035000 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Orangutan Jungle School</title>
+    <sub-title lang="en">Absent Friends</sub-title>
+    <desc lang="en">Track down Lahei, who’s gone AWOL, and see who earns their post-college freedom.</desc>
+    <date>2023</date>
+    <category lang="en">Explore</category>
+    <icon src="https://metadata-static.plex.tv/8/gracenote/8512d5f10614de9ae07cd4e267f0d710.jpg" />
+    <episode-num system="onscreen">S3 E5</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261118035000 -0300" stop="20261118045300 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Orangutan Jungle School</title>
+    <sub-title lang="en">Graduation Day</sub-title>
+    <desc lang="en">Bid a fond farewell to old friends and celebrate Molly and Bumi’s big move.</desc>
+    <date>2023</date>
+    <category lang="en">Explore</category>
+    <icon src="https://metadata-static.plex.tv/8/gracenote/8512d5f10614de9ae07cd4e267f0d710.jpg" />
+    <episode-num system="onscreen">S3 E6</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261118045300 -0300" stop="20261118055400 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Secrets Of Wild Australia</title>
+    <sub-title lang="en">Secret Life of Bugs &amp; Butterflies</sub-title>
+    <desc lang="en">Australia’s tropical forests are packed with a diversity of fascinating insects.</desc>
+    <date>2020</date>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01042197.jpg" />
+    <episode-num system="onscreen">S1 E6</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261118055400 -0300" stop="20261118065800 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Africa's Wild Horizons</title>
+    <sub-title lang="en">Wild Swaziland</sub-title>
+    <desc lang="en">Learn about keystone species living in a kingdom made of forests and savanna.</desc>
+    <date>2016</date>
+    <category lang="en">Explore</category>
+    <icon src="https://metadata-static.plex.tv/7/gracenote/7aef490cc731f6e5f6cdb6a32fd4a1e0.jpg" />
+    <episode-num system="onscreen">S1 E4</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261118065800 -0300" stop="20261118080000 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Weird, Wild &amp; Wonderful</title>
+    <desc lang="en">Investigate the colourful, quirky survival tactics of Africa’s amazing animals.</desc>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01050681.jpg" />
+    <episode-num system="onscreen">S1 E1</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261118085800 -0300" stop="20261118095700 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Africa's Wild Horizons</title>
+    <sub-title lang="en">The Kalahari</sub-title>
+    <desc lang="en">Discover how life thrives in an array of habitats, despite the harsh conditions.</desc>
+    <date>2016</date>
+    <category lang="en">Explore</category>
+    <icon src="https://metadata-static.plex.tv/7/gracenote/7aef490cc731f6e5f6cdb6a32fd4a1e0.jpg" />
+    <episode-num system="onscreen">S1 E5</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261118095700 -0300" stop="20261118110200 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Wild Hunters</title>
+    <sub-title lang="en">Eagles and Hawks</sub-title>
+    <desc lang="en">Witness the power and majesty of birds of prey in the wild.</desc>
+    <date>2019</date>
+    <category lang="en">Explore</category>
+    <icon src="https://image.tmdb.org/t/p/original/xLA0v3ccrW3z6AXPQgObvY8ZWM4.jpg" />
+    <episode-num system="onscreen">S1 E10</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261118110200 -0300" stop="20261118120800 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Extreme Snakes</title>
+    <sub-title lang="en">Australia</sub-title>
+    <desc lang="en">Uncover the hidden secrets of Australia’s most remarkable, adaptable reptiles.</desc>
+    <date>2023</date>
+    <category lang="en">Explore</category>
+    <icon src="https://metadata-static.plex.tv/6/gracenote/651a8eea4c770d68cf68b5fea630a18a.jpg" />
+    <episode-num system="onscreen">S1 E1</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261118120800 -0300" stop="20261118131000 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">The Hungry Games: Alaska’s Big Bear Challenge</title>
+    <sub-title lang="en">Welcome to The Tundra</sub-title>
+    <desc lang="en">Stand back as the lean, mean, newly awake bears brawl over spring resources.</desc>
+    <date>2024</date>
+    <category lang="en">Explore</category>
+    <icon src="https://image.tmdb.org/t/p/original/8TZIUO5j9XJeN3LSAJFWlrMZ91t.jpg" />
+    <episode-num system="onscreen">S1 E1</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261118131000 -0300" stop="20261118140700 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Croc Watch and Hippo Watch with Steve Backshall</title>
+    <desc lang="en">Search for legendary monster crocs and encounter the granddaddy of them all.</desc>
+    <date>2024</date>
+    <category lang="en">Explore</category>
+    <icon src="https://metadata-static.plex.tv/1/gracenote/1e2fb115f77cfc39b36031db45d019b3.jpg" />
+    <episode-num system="onscreen">S1 E2</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261118140700 -0300" stop="20261118150700 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Wild Wild Bunch</title>
+    <sub-title lang="en">Armed and Deadly</sub-title>
+    <desc lang="en">Examine the razor-sharp claws, teeth, and senses of these wild killing machines.</desc>
+    <date>2024</date>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01052707.jpg" />
+    <episode-num system="onscreen">S1 E1</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261118150700 -0300" stop="20261118161000 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Wild Wild Bunch</title>
+    <sub-title lang="en">Cool Calculating Killers</sub-title>
+    <desc lang="en">See the mental gifts that put some killers head and shoulders above the pack.</desc>
+    <date>2024</date>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01052707.jpg" />
+    <episode-num system="onscreen">S1 E2</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261118161000 -0300" stop="20261118171200 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">The Hungry Games: Alaska’s Big Bear Challenge</title>
+    <sub-title lang="en">Slammin’ Salmon</sub-title>
+    <desc lang="en">Witness the bears’ frantic dash to stuff their faces during the July salmon run.</desc>
+    <date>2024</date>
+    <category lang="en">Explore</category>
+    <icon src="https://image.tmdb.org/t/p/original/8TZIUO5j9XJeN3LSAJFWlrMZ91t.jpg" />
+    <episode-num system="onscreen">S1 E2</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261118171200 -0300" stop="20261118181500 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Wild Hunters</title>
+    <sub-title lang="en">Bears</sub-title>
+    <desc lang="en">See how the changing seasons drive bears to extreme behaviour.</desc>
+    <date>2019</date>
+    <category lang="en">Explore</category>
+    <icon src="https://image.tmdb.org/t/p/original/xLA0v3ccrW3z6AXPQgObvY8ZWM4.jpg" />
+    <episode-num system="onscreen">S1 E5</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261118181500 -0300" stop="20261118191500 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Cheetah Against All Odds</title>
+    <desc lang="en">Track cheetah sisters Koppie and Nyika as they fight for their cubs’ survival.</desc>
+    <category lang="en">Explore</category>
+    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01054514.jpg" />
+    <episode-num system="onscreen">S1 E1</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261118191500 -0300" stop="20261118201900 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">Wild Hunters</title>
+    <sub-title lang="en">Snakes</sub-title>
+    <desc lang="en">See how the venomous bites and suffocating embraces of snakes turn lethal.</desc>
+    <date>2019</date>
+    <category lang="en">Explore</category>
+    <icon src="https://image.tmdb.org/t/p/original/xLA0v3ccrW3z6AXPQgObvY8ZWM4.jpg" />
+    <episode-num system="onscreen">S1 E3</episode-num>
+    <rating system="US">
+      <value>PG</value>
+    </rating>
+  </programme>
+  <programme start="20261118201900 -0300" stop="20261118212100 -0300" channel="IPTVOrg.LoveNature.ca-4K">
+    <title lang="en">The Hungry Games: Alaska’s Big Bear Challenge</title>
+    <sub-title lang="en">Welcome to The Tundra</sub-title>
+    <desc lang="en">Stand back as the lean, mean, newly awake bears brawl over spring resources.</desc>
+    <date>2024</date>
+    <category lang="en">Explore</category>
+    <icon src="https://image.tmdb.org/t/p/original/8TZIUO5j9XJeN3LSAJFWlrMZ91t.jpg" />
+    <episode-num system="onscreen">S1 E1</episode-num>
+    <rating system="US">
+      <value>PG</value>
     </rating>
   </programme>
   <programme channel="IPTVOrg.MusicBoxClassic.cz-SD" start="20261115110000 -0300" stop="20261115120000 -0300">
@@ -31642,21 +32573,6 @@
       <value>15</value>
     </rating>
   </programme>
-  <programme start="20261115105100 -0300" stop="20261115111400 -0300" channel="PublicDirect.611041b791c77e57b0831623">
-    <title lang="nl">Office S..k And F..k</title>
-    <desc lang="nl">Cherie Deville doesn't want to work! Can you blame her? Who does? She's never wanted to, but she hasn't found that special guy, that sugar daddy to make her the trophy wife. Her boss, Mazee, might be the perfect mark.</desc>
-    <credits>
-      <actor>Cherie DeVille</actor>
-      <actor>Mazee</actor>
-    </credits>
-    <category lang="nl">Erotiek</category>
-    <category lang="nl">Erotisch</category>
-    <icon src="https://staticqbr-prod-nl.gnp.cloud.ziggogo.tv/image-service/ImagesEPG/EventImages/p31611753_b_v12_ab.jpg?supportsTransparency=false" />
-    <country lang="nl">GB</country>
-    <rating>
-      <value>18</value>
-    </rating>
-  </programme>
   <programme start="20261115111400 -0300" stop="20261115113700 -0300" channel="PublicDirect.611041b791c77e57b0831623">
     <title lang="nl">What Kind Of S....y Uniform Is That?</title>
     <desc lang="nl">All Aspen Reign wants to do is prove she can pull her own weight around here. The busty brunette is having a hard time convincing her man that her work uniform is totally normal and not at all taking advantage of her sexy curves.</desc>
@@ -43799,10 +44715,6 @@
     <rating system="MJColombia">
       <value>+14</value>
     </rating>
-  </programme>
-  <programme start="20261115105300 -0300" stop="20261115111400 -0300" channel="PublicDirect.de3e91d7c885d797352686e1">
-    <title lang="es">Two And A Half Men</title>
-    <desc lang="es">T7 -Ep.21: Gumby With A Pokey. Ahora que Charlie perdió su licencia de conducir, Jake se ha convertido en su chofer personal. Más adelante, Alan tiene intenciones de asistir a la fiesta de cumpleaños de Chelsea.</desc>
   </programme>
   <programme start="20261115111400 -0300" stop="20261115122800 -0300" channel="PublicDirect.de3e91d7c885d797352686e1">
     <title lang="es">Alfa</title>
