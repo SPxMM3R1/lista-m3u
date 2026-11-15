@@ -13812,18 +13812,54 @@
         }
       ]
     },
-    "PublicDirect.f753ad9eb3f48c300c6fa4b4": {
+    "PublicDirect.5fa93eee31589e2105958c0e": {
       "display_name": "National Geographic",
       "list": "Lista 2",
       "number": 125,
       "group": "Misceláneos",
-      "source_name": "Nat Geo HD [IP 138.59.177.78]",
+      "source_name": "Nat Geo HD [IP 200.7.99.59]",
       "guide": {
         "source": "co1",
         "source_id": "NAT.GEO.co"
       },
-      "verified": "2026-11-07 (pedido «Haz nuevas pruebas de clones lista 2, también identifica cada canal de la lista 2, dale logo y epg»): clones por audio de a pares (130 s, pista en español, envolvente, desfase ±90 s) en dos pasadas; clon = ≥ 0,6 en una pasada (ESPN: en las dos). outputs/lista2-revision-20261107.",
+      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden. 2026-11-15 (pedido del usuario «¿Por qué los Natgeo no están como backups entre ellos?», aplicado con «aplícalas»): fotogramas simultáneos del 2026-11-14 muestran que los 4 National Geographic de Lista 2 son la misma señal con segundos de desfase; se suman como respaldos f753ad9e, 8a5d0371 y 956ee9e1 con sus copias. Principal: 200.7.99.59 (1080p 59,94, AC3).",
       "backups": [
+        {
+          "tvg_id": "PublicDirect.04af4fb36023746d7905e70c",
+          "display_name": "National Geographic",
+          "source_name": "NAT GEO-IXP [IP 138.59.177.78]",
+          "from_list": "Lista 2",
+          "from_number": 296,
+          "group": "Misceláneos",
+          "logo": "logos/lista2/4deec34b7976.png",
+          "url": "http://138.59.177.78:9999/play/a086/index.m3u8",
+          "guide": {
+            "source": "co1",
+            "source_id": "NAT.GEO.co"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 29.97,
+            "kbps": 2721,
+            "ok": true,
+            "interlaced": false
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.f753ad9eb3f48c300c6fa4b4",
+          "display_name": "National Geographic",
+          "source_name": "Nat Geo HD [IP 138.59.177.78]",
+          "from_list": "Lista 2",
+          "from_number": 125,
+          "group": "Misceláneos",
+          "logo": "logos/lista2/4deec34b7976.png",
+          "url": "http://138.59.177.78:9999/play/a0n8/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:728274"
+          }
+        },
         {
           "tvg_id": "PublicDirect.b5fdf6c75f79bfb4bf24602c",
           "display_name": "National Geographic",
@@ -13846,21 +13882,21 @@
             "interlaced": false
           },
           "audio_corr": 0.882
-        }
-      ]
-    },
-    "PublicDirect.8a5d0371ff496197a85a71b8": {
-      "display_name": "National Geographic",
-      "list": "Lista 2",
-      "number": 126,
-      "group": "Misceláneos",
-      "source_name": "Nat Geo HD [IP 181.78.106.127]",
-      "guide": {
-        "source": "co1",
-        "source_id": "NAT.GEO.co"
-      },
-      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-07 (pedido «Haz nuevas pruebas de clones lista 2, también identifica cada canal de la lista 2, dale logo y epg»): clones por audio de a pares (130 s, pista en español, envolvente, desfase ±90 s) en dos pasadas; clon = ≥ 0,6 en una pasada (ESPN: en las dos). outputs/lista2-revision-20261107.; 2026-11-07: recibe 3 respaldos del 114 (National Geographic), que no abrió en dos intentos y fue a la papelera; mismo canal según el fotograma, sin prueba de audio.",
-      "backups": [
+        },
+        {
+          "tvg_id": "PublicDirect.8a5d0371ff496197a85a71b8",
+          "display_name": "National Geographic",
+          "source_name": "Nat Geo HD [IP 181.78.106.127]",
+          "from_list": "Lista 2",
+          "from_number": 126,
+          "group": "Misceláneos",
+          "logo": "logos/lista2/4deec34b7976.png",
+          "url": "http://181.78.106.127:5000/play/ca060/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:728274"
+          }
+        },
         {
           "tvg_id": "PublicDirect.2fef14bd9771fbcbc8d7101c",
           "display_name": "National Geographic",
@@ -14169,6 +14205,20 @@
             "ok": true,
             "interlaced": true
           }
+        },
+        {
+          "tvg_id": "PublicDirect.956ee9e1ecd09ce19202225f",
+          "display_name": "National Geographic",
+          "source_name": "Nat Geo HD [IP 138.59.227.20]",
+          "from_list": "Lista 2",
+          "from_number": 127,
+          "group": "Misceláneos",
+          "logo": "logos/lista2/4deec34b7976.png",
+          "url": "http://138.59.227.20:8000/play/a09f/index.m3u8",
+          "guide": {
+            "source": "claro-guia",
+            "source_id": "claro:colombia:728274"
+          }
         }
       ]
     },
@@ -14358,42 +14408,6 @@
             "kbps": 1208,
             "ok": true,
             "interlaced": true
-          }
-        }
-      ]
-    },
-    "PublicDirect.5fa93eee31589e2105958c0e": {
-      "display_name": "National Geographic",
-      "list": "Lista 2",
-      "number": 128,
-      "group": "Misceláneos",
-      "source_name": "Nat Geo HD [IP 200.7.99.59]",
-      "guide": {
-        "source": "co1",
-        "source_id": "NAT.GEO.co"
-      },
-      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.",
-      "backups": [
-        {
-          "tvg_id": "PublicDirect.04af4fb36023746d7905e70c",
-          "display_name": "National Geographic",
-          "source_name": "NAT GEO-IXP [IP 138.59.177.78]",
-          "from_list": "Lista 2",
-          "from_number": 296,
-          "group": "Misceláneos",
-          "logo": "logos/lista2/4deec34b7976.png",
-          "url": "http://138.59.177.78:9999/play/a086/index.m3u8",
-          "guide": {
-            "source": "co1",
-            "source_id": "NAT.GEO.co"
-          },
-          "quality": {
-            "height": 720,
-            "width": 1280,
-            "fps": 29.97,
-            "kbps": 2721,
-            "ok": true,
-            "interlaced": false
           }
         }
       ]
