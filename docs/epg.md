@@ -8,6 +8,8 @@
 
 ## Excepción editorial puntual
 
+- **Verificación publicada (2026-11-15, 17:22 Chile)**: runner `43757125425`, salida `f12369d4`. Lista 1: 95 canales, 94 con programa vigente y 93 con 24 h continuas. iConcerts #058 entrega imagen pero las guías candidatas no coinciden con el directo. TVN3 #095 conserva Zapping y Claro, con 21,6 h en el corte. Universal Cinema salió por una baja de la app ajena al cambio de EPG. Suite local: 444 pruebas, 7 omitidas, sin fallos. La app y el catálogo no requieren commits relacionados.
+
 - **Pruebas de alcance (2026-11-15)**: se comprueban los IDs exactos de las listas publicadas y sus mapas. Las bajas desde la app habían dejado obsoletos dos mínimos numéricos de las pruebas y bloqueaban la validación, aunque el alcance era correcto.
 
 - **Conservación de fuentes (2026-11-15)**: una descarga de sinopsis Claro no reemplaza una parrilla principal vigente si su fuente no se descargó. El planificador reconoce Red Bull como parte principal de sus dos canales.
