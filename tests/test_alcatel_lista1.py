@@ -58,7 +58,6 @@ ALCATEL_LISTA1 = {
 
 EPG_OVERRIDES = {
     "PublicDirect.39057ce89326a34e33998e2e": ("pa1", "Canal.History.2.(Panamá).pa"),
-    "PublicDirect.8da65ba545fa9fd2512f9901": ("pa1", "Canal.History.(Panamá).pa"),
     "PublicDirect.9c28a0d10a09856e98930cdc": ("pa1", "Canal.Sony.(Panamá).pa"),
     "PublicDirect.8b604de41196cd4fe991d551": ("pa1", "Canal.Studio.Universal.(Panamá).pa"),
     "PublicDirect.12addda8ba8591c579cdebfa": ("mx1", "Canal.Telehit.mx"),
@@ -110,7 +109,12 @@ class AlcatelLista1Test(unittest.TestCase):
                 self.assertEqual("claro-guia", entry["backup"]["source"])
         # AXN #57: Claro Argentina (Criminal Minds, fotograma) queda de respaldo de AXN UY1.
         self.assertEqual("claro-guia", epg["PublicDirect.a247897d9a490d19fa633661"]["backup"]["source"])
-        self.assertNotIn("PublicDirect.376c74e4d0452f743fd2c811", epg)
+        sony = epg["PublicDirect.376c74e4d0452f743fd2c811"]
+        self.assertEqual(("gatotv", "gatotv:sony_movies_latinoamerica"),
+                         (sony["source"], sony["source_id"]))
+        history = epg["PublicDirect.8da65ba545fa9fd2512f9901"]
+        self.assertEqual(("co1", "History.Channel.co"), (history["source"], history["source_id"]))
+        self.assertEqual("claro-guia", history["backup"]["source"])
 
     def test_telehit_and_requested_rows_are_ordered_in_lista1_only(self):
         layout = json.loads((ROOT / "data/channel-editor-layout.json").read_text(encoding="utf-8"))
