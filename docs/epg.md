@@ -8,6 +8,8 @@
 
 ## Excepción editorial puntual
 
+- **TNT Sports Premium (2026-11-15)**: la guía prioriza el feed `CDFH_CL` de la web oficial. TecnoCentro intercalaba dos secuencias y el tramo 08:10–09:40 quedaba vacío. La API oficial publica el programa de 07:35 a 09:40 hora de Chile. TecnoCentro queda como respaldo para intervalos sin datos oficiales.
+
 - **2026-11-15, revisión de Lista 1**: la unión mide continuidad de 24 h para los pendientes y recalcula RWND aunque no descargue fuentes. HBO Xtreme recupera el par CO1/Claro Colombia del mismo ID (20 de 21 programas coincidentes en el contrato del 01-11). HBO Plus conserva GatoTV y usa UY1 como respaldo después de comprobar los mismos títulos y horas en el fin de la parrilla de GatoTV del 15-11.
 
 - **Guías compartidas en epg-2.xml (2026-10-21)**: a pedido («hay muchos repetidos, no podemos comprimir la epg 2?»), `split_epg_documents` aplica `dedupe_shared_guides` a epg-2.xml: cada guía idéntica se guarda una vez y los demás canales quedan `<channel id="X" data-guide-of="Y">` sin programas (1.011 de 1.154 canales; 44 MB → 6 MB). `read_combined_epg` los expande antes de actualizar (`expand_shared_guides`). epg.xml (Lista 1) nunca se comparte. Requiere VibeM3U ≥0.6.27. Test en `tests/test_split_epg.py`; `test_epg_l2_map` acepta ids del mapa que luego fueron a la papelera.

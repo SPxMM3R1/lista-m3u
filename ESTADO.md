@@ -9,7 +9,7 @@
 
 ## Hoy, en una mirada
 
-- **EPG Lista 1 (2026-11-15)**: restaurada la asociación de HBO Xtreme; HBO Plus tiene respaldo UY1. La unión renueva RWND y reporta pendientes a 24 h. Evidencia y límites en `docs/epg.md`.
+- **EPG Lista 1 (2026-11-15)**: HBO Xtreme recupera guía, HBO Plus tiene respaldo UY1 y TNT Sports Premium pasa a su API oficial. La unión renueva RWND y reporta pendientes a 24 h. Ver `docs/epg.md`.
 
 - **History Channel #092, guía adelantada 10 minutos (2026-11-15)**: el usuario reportó «Gigantes de la industria: Mega marcas» a las 15:48 mientras EPGShare PA1 indicaba «Derrochadores Ancestrales» hasta las 15:55. Se deja `shift_minutes: -10` provisional para `PublicDirect.8da65ba545fa9fd2512f9901`, sin cambiar señal, fuente ni History 2; falta verificar inicio real de un segundo programa. Ver `docs/decisiones-por-canal.md`.
 

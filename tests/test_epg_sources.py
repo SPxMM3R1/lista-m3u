@@ -1,15 +1,39 @@
+import json
 import unittest
+import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from unittest.mock import patch
 
 import update_m3u
-from epg_sources import red_bull
+from epg_sources import red_bull, tnt_sports
 
 NOW = datetime(2026, 9, 27, 12, tzinfo=timezone.utc)
 
 
 class OfficialEpgSourcesTest(unittest.TestCase):
     """Cada fuente EPG oficial vive en epg_sources/ y falla sola."""
+
+    def test_tnt_premium_uses_only_chile_feed_and_provider_offset(self):
+        show = {"title": "", "originalTitle": "Partido", "begin": "2026-11-16T07:35:00",
+                "end": "2026-11-16T09:40:00"}
+        body = json.dumps({
+            "com.turner.dmtla.schedule.dto.ScheduleDTO": {
+                "offset": "-03:00", "feeds": [
+                    {"code": "OTHER", "shows": [{**show, "originalTitle": "Otra señal"}]},
+                    {"code": "CDFH_CL", "shows": [show, show]},
+                ],
+            },
+        }).encode()
+        with patch.object(tnt_sports, "fetch_bytes", return_value=(200, body, {})):
+            data, error = tnt_sports.fetch_tnt_sports_premium_epg(
+                [type("Target", (), {"tvg_id": tnt_sports.TARGET})()], NOW
+            )
+        self.assertIsNone(error)
+        programme, = ET.fromstring(data).findall("programme")
+        self.assertEqual("20261116073500 -0300", programme.get("start"))
+        self.assertEqual("Partido", programme.findtext("title"))
+        self.assertEqual(("tnt-sports-premium-oficial", "CDFH_CL"),
+                         update_m3u.epg_source_chain(tnt_sports.TARGET)[0])
 
     def test_every_source_has_its_fetch_function(self) -> None:
         names = [source.name for source in update_m3u.OFFICIAL_EPG_SOURCES]

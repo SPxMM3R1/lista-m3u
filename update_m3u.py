@@ -6713,6 +6713,10 @@ class OfficialEpgSource:
 # cubren el mismo canal). Un fallo de una fuente oficial nunca bloquea la
 # guía: ese canal cae a la siguiente fuente (Zapping, EPGShare, TecnoCentro).
 OFFICIAL_EPG_SOURCES: tuple[OfficialEpgSource, ...] = (
+    OfficialEpgSource(
+        "tnt-sports-premium-oficial", "fetch_tnt_sports_premium_epg",
+        {"PublicDirect.475329883c23116340a88ef6": "CDFH_CL"},
+    ),
     OfficialEpgSource(CANAL13_MAIN_EPG_SOURCE, "fetch_canal13_main_official_epg", {"0107": "0107"}),
     OfficialEpgSource(MEGA_OFFICIAL_EPG_SOURCE, "fetch_mega_official_epg", {"0105": "0105"}),
     OfficialEpgSource(TVN_OFFICIAL_EPG_SOURCE, "fetch_tvn_official_epg", {"0104": "0104"}),
@@ -12215,6 +12219,7 @@ from epg_sources.ukrainian import *  # noqa: E402,F401,F403
 from epg_sources.tecnocentro import *  # noqa: E402,F401,F403
 from epg_sources.claro import *  # noqa: E402,F401,F403
 from epg_sources.gatotv import *  # noqa: E402,F401,F403
+from epg_sources.tnt_sports import *  # noqa: E402,F401,F403
 
 
 if __name__ == "__main__":
