@@ -134,7 +134,7 @@ class EpgPendingDetailsTest(unittest.TestCase):
         self.assertEqual(details["corta"]["gaps"], [])
         self.assertEqual(details["hueco"]["kind"], "hueco")
         self.assertEqual(details["hueco"]["gaps"], [["2026-09-29T12:00:00Z", "2026-09-29T13:00:00Z"]])
-        self.assertEqual(details["hueco"]["requiredHours"], 18.0)
+        self.assertEqual(details["hueco"]["requiredHours"], 24.0)
 
 
 if __name__ == "__main__":

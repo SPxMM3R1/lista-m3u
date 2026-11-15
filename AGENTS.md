@@ -110,7 +110,7 @@ agente debe poder retomar el trabajo solo con lo que está en el repositorio.
 
 - `ESTADO.md` (puesta al día: estado de hoy, pendientes, preferencias del usuario y bitácora reciente).
 - `docs/decisiones-por-canal.md`: decisiones vigentes de canales puntuales (búscalo por nombre o tvg-id antes de tocar un canal).
-- `docs/epg.md`: reglas vigentes de la guía (fuentes, overrides, mapa de Lista 2, workflows).
+- `docs/epg.md`: EPG, control de las próximas 24 h en Lista 1 y continuidad RWND.
 - `docs/respaldos.md`: reglas vigentes de respaldos (TvVoo, `backups.json`, variantes).
 - `docs/historial-operativo.md`, `docs/estado-anterior.md` y `docs/bitacora/`: historia; contexto, no reglas.
 - `VIBEM3U_ID_CONTRACT_EPG_LOGOS.md` (contrato de identidad, EPG y logos).

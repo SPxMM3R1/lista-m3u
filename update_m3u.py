@@ -1305,6 +1305,7 @@ EPG_REFRESH_INTERVAL = timedelta(hours=6)
 # interval, rather than ending twelve hours after the last runner started.
 EPG_MAIN_MINIMUM_FUTURE = timedelta(hours=12)
 EPG_MAIN_CONTINUITY_BUFFER = EPG_MAIN_MINIMUM_FUTURE + EPG_REFRESH_INTERVAL
+EPG_MAIN_PUBLISHED_COVERAGE = timedelta(hours=24)
 EPG_NON_MAIN_MINIMUM_FUTURE = timedelta(hours=24)
 EPG_MAIN_FALLBACK_TITLE = "Programación por confirmar"
 EPG_MAIN_LIVE_CHANNEL_ID = "RewindTV.cl@SD"
@@ -6018,7 +6019,7 @@ def epg_pending_details(
     details: dict[str, dict] = {}
     for channel_id in sorted(set(pending_ids)):
         horizon = (
-            EPG_MAIN_CONTINUITY_BUFFER if channel_id in main_ids else EPG_NON_MAIN_MINIMUM_FUTURE
+            EPG_MAIN_PUBLISHED_COVERAGE if channel_id in main_ids else EPG_NON_MAIN_MINIMUM_FUTURE
         )
         stops = []
         for programme in root.findall("programme"):
@@ -8505,7 +8506,7 @@ def epg_assembled_pending(data: bytes, scope_ids: list[str], main_ids: set[str],
     for channel_id in scope_ids:
         if channel_id in EPG_ALLOWED_EMPTY_IDS or channel_id == EPG_MAIN_LIVE_CHANNEL_ID:
             continue
-        horizon = EPG_MAIN_CONTINUITY_BUFFER if channel_id in main_ids else EPG_NON_MAIN_MINIMUM_FUTURE
+        horizon = EPG_MAIN_PUBLISHED_COVERAGE if channel_id in main_ids else EPG_NON_MAIN_MINIMUM_FUTURE
         if channel_id in filler_channels or epg_coverage_gaps(
             root, {channel_id}, now=now, minimum_future=horizon
         ):
@@ -8536,6 +8537,21 @@ def assemble_epg_from_fragments(
     if include_manual:
         data = add_app_epg_aliases(data)
     data, _ = filter_epg_to_channel_ids(data, set(scope_ids))
+    if EPG_MAIN_LIVE_CHANNEL_ID in main_ids:
+        # RWND is generated even when the dispatcher only assembles existing fragments.
+        root = ET.fromstring(data)
+        if root.find(f"channel[@id='{EPG_MAIN_LIVE_CHANNEL_ID}']") is None:
+            channel = ET.Element("channel", {
+                "id": EPG_MAIN_LIVE_CHANNEL_ID,
+                "data-guide-source": "rewind-continuous",
+            })
+            ET.SubElement(channel, "display-name").text = "RWND"
+            root.insert(0, channel)
+        replace_rewind_live_schedule(
+            root, now=now, minimum_future=EPG_MAIN_PUBLISHED_COVERAGE + EPG_REFRESH_INTERVAL
+        )
+        data = ET.tostring(root, encoding="utf-8", xml_declaration=True) + b"\n"
+        missing = [channel_id for channel_id in missing if channel_id != EPG_MAIN_LIVE_CHANNEL_ID]
     if output_path == EPG_PATH:
         # Una guía por lista (2026-10-21): Lista 2 va aparte en epg-2.xml.
         write_split_epg(data)

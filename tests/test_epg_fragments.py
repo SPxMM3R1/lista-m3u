@@ -259,6 +259,26 @@ class RunnerIntegrationTest(unittest.TestCase):
         self.assertEqual("lista-m3u updater", root.get("generator-info-name"))
 
 
+    def test_assembly_refreshes_rwnd_without_downloaded_sources(self):
+        target = update_m3u.EPG_MAIN_LIVE_CHANNEL_ID
+        with tempfile.TemporaryDirectory() as temporary:
+            base = Path(temporary)
+            output = base / "epg.xml"
+            with patch.object(update_m3u, "EPG_FRAGMENTS_DIR", base / "canales"), \
+                    patch.object(update_m3u, "EPG_ROOT_META_PATH", base / "raiz.json"), \
+                    patch.object(update_m3u, "epg_scope_order", return_value=([target], {target})):
+                update_m3u.assemble_epg_from_fragments(include_manual=False, output_path=output, now=NOW)
+            root = ET.fromstring(output.read_bytes())
+        self.assertEqual("RWND", root.findtext("channel/display-name"))
+        self.assertFalse(update_m3u.epg_coverage_gaps(
+            root, {target}, now=NOW, minimum_future=timedelta(hours=24)
+        ))
+        rows = root.findall("programme")
+        self.assertTrue(rows)
+        for row in rows:
+            self.assertEqual(["title"], [child.tag for child in row])
+            self.assertEqual("Live", row.findtext("title"))
+
     def test_index_links_editor_rows_to_guide_files(self):
         with tempfile.TemporaryDirectory() as temporary:
             index_path = Path(temporary) / "indice.json"
