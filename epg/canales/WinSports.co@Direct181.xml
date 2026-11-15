@@ -1,17 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 <tv data-fragment-of="WinSports.co@Direct181">
-  <channel id="WinSports.co@Direct181" data-guide="parrilla real conservada" data-guide-source="epg-publicada-conservada">
+  <channel id="WinSports.co@Direct181" data-guide="parrilla real" data-guide-source="co1">
     <display-name>ESPN 3</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-3.png" />
   </channel>
-  <programme start="20261114133000 -0300" stop="20261114183000 -0300" channel="WinSports.co@Direct181">
-    <title lang="es">Copa Potrero</title>
-    <desc lang="es">Cobertura de la Copa Potrero 2024, un torneo de fútbol 7 organizado por Sergio "Kun" Agüero.</desc>
-    <date>2024</date>
-    <rating system="MJColombia">
-      <value>AGE228</value>
-    </rating>
-  </programme>
   <programme start="20261114183000 -0300" stop="20261114193000 -0300" channel="WinSports.co@Direct181">
     <title lang="es">ESPN KnockOut</title>
     <desc lang="es">Ciclo de boxeo con los mejores combates en directo y en español para toda Latinoamérica en ESPN.</desc>
@@ -72,7 +64,7 @@
     <desc lang="es">Acción del partido del Grupo 1 de la Liga A de la UEFA Nations League 2026-27. Desde el Gursel Aksel Stadium.</desc>
     <date>2026</date>
     <rating system="MJColombia">
-      <value>AGE228</value>
+      <value>+18</value>
     </rating>
   </programme>
   <programme start="20261115040000 -0300" stop="20261115060000 -0300" channel="WinSports.co@Direct181">
@@ -215,7 +207,7 @@
   <programme start="20261116020000 -0300" stop="20261116030000 -0300" channel="WinSports.co@Direct181">
     <title lang="es">ESPN Compact</title>
     <sub-title lang="es">FAGE WTA Finals Indian Wells Final</sub-title>
-    <desc lang="es">Los mejores resúmenes y momentos destacados de los eventos deportivos más importantes a nivel mundial.</desc>
+    <desc lang="es">Se define a las dos mejores jugadoras del WTA Finals 2026 en los partidos Mirra Andreeva contra Jessica Pegula y Linda Noskova contra Elina Svitolina. Desde el Indian Wells Tennis Garden, en California.</desc>
     <date>2026</date>
     <episode-num system="onscreen">E432</episode-num>
     <rating system="MJColombia">
@@ -299,12 +291,22 @@
       <value>AGE228</value>
     </rating>
   </programme>
-  <programme start="20261116183000 -0300" stop="20261116203000 -0300" channel="WinSports.co@Direct181">
-    <title lang="es">ESPN 3 Sur</title>
-    <desc lang="es">Programación deportiva.</desc>
-    <date>2024</date>
+  <programme start="20261116183000 -0300" stop="20261116193000 -0300" channel="WinSports.co@Direct181">
+    <title lang="es">Equitación</title>
+    <sub-title lang="es">GP San Jorge</sub-title>
+    <desc lang="es">Acción del Gran Premio San Jorge Village 2026. Desde el Country San Jorge Village, en Los Polvorines.</desc>
+    <date>2026</date>
     <rating system="MJColombia">
-      <value>AGE228</value>
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261116193000 -0300" stop="20261116203000 -0300" channel="WinSports.co@Direct181">
+    <title lang="es">Fútbol UEFA Nations League</title>
+    <sub-title lang="es">España vs. Inglaterra</sub-title>
+    <desc lang="es">Acción del partido del Grupo 3 de la Liga A de la UEFA Nations League 2026-27. Desde el Bernabéu, en Madrid.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>TE</value>
     </rating>
   </programme>
   <programme start="20261116203000 -0300" stop="20261116213000 -0300" channel="WinSports.co@Direct181">
@@ -313,6 +315,149 @@
     <date>2018</date>
     <rating system="MJColombia">
       <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261116213000 -0300" stop="20261116220000 -0300" channel="WinSports.co@Direct181">
+    <title lang="es">SailGP: Racing on the Edge</title>
+    <desc lang="es">Una recopilación de imágenes sobre la competencia internacional de vela. Se abunda sobre el torneo, los orígenes de las primeras rivalidades y se informa sobre los catamaranes F50 desarrollados especialmente para las carreras.</desc>
+    <date>2021</date>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261116220000 -0300" stop="20261116230000 -0300" channel="WinSports.co@Direct181">
+    <title lang="es">Fútbol UEFA Nations League</title>
+    <sub-title lang="es">Alemania vs. Países Bajos</sub-title>
+    <desc lang="es">Acción del partido del Grupo 2 de la Liga A de la UEFA Nations League 2026-27. Desde el Olympiastadion.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261116230000 -0300" stop="20261116233000 -0300" channel="WinSports.co@Direct181">
+    <title lang="es">FIM Road Racing World Championship Highlights</title>
+    <desc lang="es">Recopilación de los momentos más emocionantes de las carreras del campeonato mundial de motociclismo.</desc>
+    <date>2005</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261116233000 -0300" stop="20261117003000 -0300" channel="WinSports.co@Direct181">
+    <title lang="es">ESPN Compact</title>
+    <sub-title lang="es">Finales ATP</sub-title>
+    <desc lang="es">Los momentos más destacados del primer día de actividades de las Finales ATP 2026. Desde el Inalpi Arena, en Turín, Italia. Disputado el 15 de noviembre de 2026.</desc>
+    <date>2026</date>
+    <episode-num system="onscreen">E429</episode-num>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261117003000 -0300" stop="20261117013000 -0300" channel="WinSports.co@Direct181">
+    <title lang="es">ESPN Compact</title>
+    <sub-title lang="es">Finales ATP</sub-title>
+    <desc lang="es">Los momentos más destacados del primer día de actividades de las Finales ATP 2026. Desde el Inalpi Arena, en Turín, Italia. Disputado el 15 de noviembre de 2026.</desc>
+    <date>2026</date>
+    <episode-num system="onscreen">E429</episode-num>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261117013000 -0300" stop="20261117020000 -0300" channel="WinSports.co@Direct181">
+    <title lang="es">Acción de la NBA</title>
+    <desc lang="es">Programa semanal con reportajes, entrevistas y toda la información de la liga de baloncesto más espectacular: la NBA. Incluye resúmenes de los partidos de la jornada y entrevistas a los personajes más destacados.</desc>
+    <date>2009</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261117020000 -0300" stop="20261117040000 -0300" channel="WinSports.co@Direct181">
+    <title lang="es">ESPN KnockOut</title>
+    <sub-title lang="es">Diego Pacheco vs. Darius Fulghum</sub-title>
+    <desc lang="es">Diego Pacheco y Darius Fulghum cruzan puños en una pelea de peso medio pactada a 12 asaltos por el título WBC plata y WBO Internacional. Desde el Dignity Health Sports Park, en Carson, California.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261117040000 -0300" stop="20261117060000 -0300" channel="WinSports.co@Direct181">
+    <title lang="es">Fútbol UEFA Nations League</title>
+    <sub-title lang="es">Portugal vs. Dinamarca</sub-title>
+    <desc lang="es">Acción del partido del Grupo 4 de la Liga A de la UEFA Nations League 2026-27. Desde el Estádio Municipal de Braga.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261117060000 -0300" stop="20261117070000 -0300" channel="WinSports.co@Direct181">
+    <title lang="es">ESPN Compact</title>
+    <sub-title lang="es">Premier Pádel Dubái P1: Final masculina</sub-title>
+    <desc lang="es">Los momentos más destacados de la final masculina del Premier Pádel Dubái P1 2026. Desde el Complejo Deportivo de Dubái, en Emiratos Árabes Unidos. Disputado el 15 de noviembre de 2026.</desc>
+    <date>2026</date>
+    <episode-num system="onscreen">E437</episode-num>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261117070000 -0300" stop="20261117090000 -0300" channel="WinSports.co@Direct181">
+    <title lang="es">Fútbol UEFA Nations League</title>
+    <sub-title lang="es">Kazajstán vs. Eslovaquia</sub-title>
+    <desc lang="es">Fecha 6 del Grupo C3 de la UEFA Nations League 2026-27. Kazajistán se enfrenta a Eslovaquia. Desde el Astana Arena, en Astaná, Kazajistán.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261117090000 -0300" stop="20261117110000 -0300" channel="WinSports.co@Direct181">
+    <title lang="es">Fútbol UEFA Nations League</title>
+    <sub-title lang="es">Bielorrusia vs. Albania</sub-title>
+    <desc lang="es">Acción del partido del Grupo 1 de la Liga C de la UEFA Nations League 2026-27.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261117110000 -0300" stop="20261117113000 -0300" channel="WinSports.co@Direct181">
+    <title lang="es">FIM Road Racing World Championship Highlights</title>
+    <desc lang="es">Recopilación de los momentos más emocionantes de las carreras del campeonato mundial de motociclismo.</desc>
+    <date>2005</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261117113000 -0300" stop="20261117133000 -0300" channel="WinSports.co@Direct181">
+    <title lang="es">Fútbol UEFA Nations League</title>
+    <sub-title lang="es">Islandia vs. Luxemburgo</sub-title>
+    <desc lang="es">Acción del partido del Grupo 4 de la Liga C de la UEFA Nations League 2026-27. Desde el Laugardalsvöllur.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261117133000 -0300" stop="20261117183000 -0300" channel="WinSports.co@Direct181">
+    <title lang="es">Copa Potrero</title>
+    <desc lang="es">Cobertura de la Copa Potrero 2024, un torneo de fútbol 7 organizado por Sergio "Kun" Agüero.</desc>
+    <date>2024</date>
+    <rating system="MJColombia">
+      <value>AGE228</value>
+    </rating>
+  </programme>
+  <programme start="20261117183000 -0300" stop="20261117193000 -0300" channel="WinSports.co@Direct181">
+    <title lang="es">ESPN Compact</title>
+    <sub-title lang="es">Premier Pádel Dubái P1: Final masculina</sub-title>
+    <desc lang="es">Los momentos más destacados de la final masculina del Premier Pádel Dubái P1 2026. Desde el Complejo Deportivo de Dubái, en Emiratos Árabes Unidos. Disputado el 15 de noviembre de 2026.</desc>
+    <date>2026</date>
+    <episode-num system="onscreen">E437</episode-num>
+    <rating system="MJColombia">
+      <value>TE</value>
+    </rating>
+  </programme>
+  <programme start="20261117193000 -0300" stop="20261117213000 -0300" channel="WinSports.co@Direct181">
+    <title lang="es">Fútbol UEFA Nations League</title>
+    <sub-title lang="es">Kazajstán vs. Eslovaquia</sub-title>
+    <desc lang="es">Fecha 6 del Grupo C3 de la UEFA Nations League 2026-27. Kazajistán se enfrenta a Eslovaquia. Desde el Astana Arena, en Astaná, Kazajistán.</desc>
+    <date>2026</date>
+    <rating system="MJColombia">
+      <value>AGE228</value>
     </rating>
   </programme>
 </tv>
