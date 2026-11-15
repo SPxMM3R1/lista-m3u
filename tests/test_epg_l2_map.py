@@ -11,34 +11,13 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 class Lista2EpgMapTest(unittest.TestCase):
     """La EPG de Lista 2 solo usa IDs publicados y fuentes conocidas."""
 
-    def test_mapping_covers_the_published_list_and_known_sources(self):
+    def test_mapping_uses_known_sources(self):
         mapping = update_m3u.load_epg_l2_map()
         # 2026-11-02: los clones de Lista 2 pasaron a backups.json y salieron del mapa (~770).
         # 2026-11-03: tercera ronda de clones: 681.
         # 2026-11-04: clones de Lista 2 a respaldo de Lista 1: 649.
         # 2026-11-07: revisión de Lista 2 (37 clones a respaldo, 27 sin señal a la papelera): 603.
         self.assertGreaterEqual(len(mapping), 590)
-        lines = (ROOT / "m3u-externa.m3u").read_text(encoding="utf-8").splitlines()
-        published = set(re.findall(r'tvg-id="([^"]+)"', "\n".join(lines)))
-        # 2026-10-21: el mapa puede conservar canales que después fueron a la papelera; la
-        # guía solo se arma para los publicados (ver test de alcance).
-        # 2026-10-24: Lista 2 bajó a ~945 publicados (respaldos a backups.json, adultos a Lista 1).
-        # 2026-10-25: segunda búsqueda de clones (56 a backups.json, 18 sin señal a papelera): ~870.
-        # 2026-10-26: tres copias de HBO 2 pasaron a la papelera desde la app y 21 Star Channel a
-        # respaldo: ~770 publicados.
-        # 2026-10-26: 8 copias de HBO 2 a respaldo (backups.json): ~764; piso con margen.
-        # 2026-10-27: 22 copias de FX a respaldo y papelera desde la app: ~736; piso con margen.
-        # 2026-11-01: bajas desde la app (FX, Star, HBO…): 549 mapeados publicados; piso con margen.
-        # 2026-11-02: con los clones como respaldo quedan ~300 publicados mapeados.
-        # 2026-11-03: segunda ronda de clones (62 más a respaldo): ~243.
-        # 2026-11-03: tercera ronda de clones (34 más a respaldo): 210.
-        # 2026-11-04: 25 clones de Lista 2 a respaldo de Lista 1: 178.
-        # 2026-11-06: bajas desde la app: 143; el piso alto dejó fallando al runner de canales.
-        # 2026-11-07: revisión de Lista 2 (clones a respaldo, 27 sin señal a la papelera): 97.
-        # 2026-11-08: bajas desde la app y Eurosport 1 España a Lista 1: 89.
-        # 2026-11-09: bajas desde la app (Lista 2 queda en 90): 66.
-        # 2026-11-13: bajas desde la app (Lista 2 publicada queda en 52): 44.
-        self.assertGreaterEqual(len(set(mapping) & published), 40)
         for target_id, (source, source_id) in mapping.items():
             with self.subTest(channel=target_id):
                 # 2026-10-24: guía Claro por familia (claro:<región>:<group_id>) o EPGShare.
@@ -57,22 +36,13 @@ class Lista2EpgMapTest(unittest.TestCase):
         mapping = update_m3u.load_epg_l2_map()
         lines = (ROOT / "m3u-externa.m3u").read_text(encoding="utf-8").splitlines()
         published = set(re.findall(r'tvg-id="([^"]+)"', chr(10).join(lines)))
-        self.assertTrue((set(mapping) & published).issubset(ids))
-        # Lista 2 baja con la papelera desde la app (A3Cine, 2026-10-22): piso como el del mapa.
-        # 2026-10-25: tras las búsquedas de clones Lista 2 publica ~910.
-        # 2026-10-26: Star Channel y HBO 2 a respaldo: alcance ~847; piso con margen.
-        # 2026-10-27: FX a respaldo: alcance ~820; piso con margen.
-        # 2026-10-30: bajas desde la app y 11 canales sin señal: alcance ~786; piso con margen.
-        # 2026-11-01: bajas desde la app: alcance ~630; piso con margen.
-        # 2026-11-02: clones de Lista 2 a respaldo: alcance ~380; piso con margen.
-        # 2026-11-03: segunda ronda de clones: alcance ~325.
-        # 2026-11-03: tercera ronda de clones: alcance 293.
-        # 2026-11-04: clones de Lista 2 a respaldo de Lista 1: alcance 261.
-        # 2026-11-06: bajas desde la app: alcance 227.
-        # 2026-11-07: revisión de Lista 2 (clones a respaldo y 27 sin señal a la papelera): alcance 181.
-        # 2026-11-09: bajas desde la app (Lista 2 queda en 90): alcance 152.
-        # 2026-11-13: bajas desde la app (Lista 2 publicada queda en 52): alcance 129.
-        self.assertGreaterEqual(len(scope), 120)
+        main_ids = {channel.tvg_id for channel in update_m3u.main_playlist_channels()}
+        extra_ids = {channel.tvg_id for channel in update_m3u.epg_scope_extra_channels(main_ids)}
+        # Las bajas desde la app cambian el tamaño sin romper el contrato.
+        expected_ids = main_ids | extra_ids | (set(mapping) & published)
+        self.assertEqual(expected_ids, ids)
+        self.assertEqual(expected_ids, {channel.tvg_id for channel in scope})
+        self.assertEqual(len(expected_ids), len(scope))
 
 
 class Lista2ClaroFamilyGuideTest(unittest.TestCase):
