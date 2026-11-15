@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-14",
+  "updated": "2026-11-15",
   "description": "Copias (casi todas de Lista 2) que respaldan a un canal de Lista 1: misma señal, confirmada con captura. Esas copias ya no se publican en Lista 2; la app las prueba en orden si la señal principal falla.",
   "fields": {
     "channels.<clave>": "tvg-id del canal principal en Lista 1 (la identidad estable; el número puede cambiar).",
@@ -13143,7 +13143,7 @@
     "PublicDirect.9cd6da14085f95bfe651ca1e": {
       "display_name": "ESPN Premium",
       "list": "Lista 2",
-      "number": 108,
+      "number": 107,
       "group": "Deportes",
       "source_name": "ESPN Premium HD [IP 181.78.211.244]",
       "guide": {
@@ -13327,7 +13327,7 @@
     "IPTVOrg.ESPNPremium.ar-HD": {
       "display_name": "ESPN Premium HD (1080p)",
       "list": "Lista 2",
-      "number": 109,
+      "number": 108,
       "group": "Deportes",
       "source_name": "ESPN Premium HD (1080p)",
       "guide": {
@@ -13363,7 +13363,7 @@
     "PublicDirect.549107ff20f3eafa0f8c9580": {
       "display_name": "Europa Europa (1080p)",
       "list": "Lista 2",
-      "number": 110,
+      "number": 109,
       "group": "Series",
       "source_name": "Europa HD [IP 181.78.106.127]",
       "guide": {
@@ -13487,7 +13487,7 @@
     "PublicDirect.2abd3aff445429e27097a124": {
       "display_name": "Golden Premiere",
       "list": "Lista 2",
-      "number": 111,
+      "number": 110,
       "group": "Deportes",
       "source_name": "GOLDEN PREMIER-IXP [IP 138.59.177.78]",
       "guide": {
@@ -13815,7 +13815,7 @@
     "PublicDirect.f753ad9eb3f48c300c6fa4b4": {
       "display_name": "National Geographic",
       "list": "Lista 2",
-      "number": 127,
+      "number": 126,
       "group": "Misceláneos",
       "source_name": "Nat Geo HD [IP 138.59.177.78]",
       "guide": {
@@ -13849,200 +13849,10 @@
         }
       ]
     },
-    "PublicDirect.49854aa2ac00919d765f58d5": {
-      "display_name": "Universal Comedy",
-      "list": "Lista 2",
-      "number": 128,
-      "group": "Películas",
-      "source_name": "UNIVERSAL COMEDY HD [IP 45.166.93.156]",
-      "guide": {
-        "source": "uy1",
-        "source_id": "[UNICO].Universal.Comedy.uy"
-      },
-      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.",
-      "backups": [
-        {
-          "tvg_id": "PublicDirect.cd9c7e5eece5976869e162af",
-          "display_name": "Universal Comedy",
-          "source_name": "UNIVERSAL COMEDY-IXP [IP 138.59.177.78]",
-          "from_list": "Lista 2",
-          "from_number": 737,
-          "group": "Películas",
-          "logo": "logos/lista2/a950d02694dd.png",
-          "url": "http://138.59.177.78:9999/play/a09k/index.m3u8",
-          "guide": {
-            "source": "uy1",
-            "source_id": "[UNICO].Universal.Comedy.uy"
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 29.97,
-            "kbps": 1133,
-            "ok": true,
-            "interlaced": true
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.22cb921d17ab9ad9392491ea",
-          "display_name": "Universal Comedy",
-          "source_name": "UNIVERSAL COMEDY HD [IP 181.78.106.127]",
-          "from_list": "Lista 2",
-          "from_number": 738,
-          "group": "Películas",
-          "logo": "logos/lista2/a950d02694dd.png",
-          "url": "http://181.78.106.127:5000/play/a0qy/index.m3u8",
-          "guide": {
-            "source": "uy1",
-            "source_id": "[UNICO].Universal.Comedy.uy"
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 29.97,
-            "kbps": 1164,
-            "ok": true,
-            "interlaced": true
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.a460cd6ef4e1fa2f8d921969",
-          "display_name": "Universal Comedy",
-          "source_name": "UNIVERSAL COMEDY HD [IP 72.1.184.5]",
-          "from_list": "Lista 2",
-          "from_number": 740,
-          "group": "Películas",
-          "logo": "logos/lista2/a950d02694dd.png",
-          "url": "http://72.1.184.5:8089/play/a07i/index.m3u8",
-          "guide": {
-            "source": "uy1",
-            "source_id": "[UNICO].Universal.Comedy.uy"
-          },
-          "quality": {
-            "height": 0,
-            "width": 0,
-            "fps": 0.0,
-            "kbps": 0,
-            "ok": false,
-            "interlaced": false
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.88ad179e092c6e324544bd9b",
-          "display_name": "Universal Comedy",
-          "source_name": "UNIVERSAL COMEDY HD [IP 181.119.177.253]",
-          "from_list": "Lista 2",
-          "from_number": 741,
-          "group": "Películas",
-          "logo": "logos/lista2/a950d02694dd.png",
-          "url": "http://181.119.177.253:8000/play/a0d8/index.m3u8",
-          "guide": {
-            "source": "uy1",
-            "source_id": "[UNICO].Universal.Comedy.uy"
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 29.97,
-            "kbps": 1208,
-            "ok": true,
-            "interlaced": true
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.760b2c3b1354cd82b8a647bc",
-          "display_name": "Universal Comedy",
-          "source_name": "UNIVERSAL COMEDY HD [IP 45.171.64.30]",
-          "from_list": "Lista 2",
-          "from_number": 743,
-          "group": "Películas",
-          "logo": "logos/catalogue/universalcomedy-us.png",
-          "url": "http://45.171.64.30:6060/play/a03t/index.m3u8",
-          "guide": {
-            "source": "uy1",
-            "source_id": "[UNICO].Universal.Comedy.uy"
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 29.97,
-            "kbps": 1208,
-            "ok": true,
-            "interlaced": true
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.c969af86db5606db87d4a4af",
-          "display_name": "Universal Comedy",
-          "source_name": "UNIVERSAL COMEDY HD [IP 45.5.118.152]",
-          "from_list": "Lista 2",
-          "from_number": 745,
-          "group": "Películas",
-          "logo": "logos/lista2/a950d02694dd.png",
-          "url": "http://45.5.118.152:8000/play/a0dq/index.m3u8",
-          "guide": {
-            "source": "uy1",
-            "source_id": "[UNICO].Universal.Comedy.uy"
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 29.97,
-            "kbps": 1208,
-            "ok": true,
-            "interlaced": true
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.3e20ef18fa92079770e197b3",
-          "display_name": "Universal Comedy",
-          "source_name": "UNIVERSAL COMEDY HD [IP 190.61.90.17]",
-          "from_list": "Lista 2",
-          "from_number": 744,
-          "group": "Películas",
-          "logo": "logos/lista2/a950d02694dd.png",
-          "url": "http://190.61.90.17:40000/play/a0i5/index.m3u8",
-          "guide": {
-            "source": "uy1",
-            "source_id": "[UNICO].Universal.Comedy.uy"
-          },
-          "quality": {
-            "height": 0,
-            "width": 0,
-            "fps": 0.0,
-            "kbps": 0,
-            "ok": false,
-            "interlaced": false
-          }
-        },
-        {
-          "tvg_id": "PublicDirect.74dd6c75e704e39d4e5b3714",
-          "display_name": "Universal Comedy",
-          "source_name": "UNIVERSAL COMEDY HD [IP 138.59.177.78]",
-          "from_list": "Lista 2",
-          "from_number": 493,
-          "group": "Películas",
-          "logo": "logos/lista2/a950d02694dd.png",
-          "url": "http://138.59.177.78:9999/play/a0no/index.m3u8",
-          "guide": {
-            "source": "uy1",
-            "source_id": "[UNICO].Universal.Comedy.uy"
-          },
-          "quality": {
-            "height": 1080,
-            "width": 1920,
-            "fps": 29.97,
-            "kbps": 1208,
-            "ok": true,
-            "interlaced": true
-          }
-        }
-      ]
-    },
     "PublicDirect.8a5d0371ff496197a85a71b8": {
       "display_name": "National Geographic",
       "list": "Lista 2",
-      "number": 128,
+      "number": 127,
       "group": "Misceláneos",
       "source_name": "Nat Geo HD [IP 181.78.106.127]",
       "guide": {
@@ -14362,6 +14172,196 @@
         }
       ]
     },
+    "PublicDirect.49854aa2ac00919d765f58d5": {
+      "display_name": "Universal Comedy",
+      "list": "Lista 2",
+      "number": 128,
+      "group": "Películas",
+      "source_name": "UNIVERSAL COMEDY HD [IP 45.166.93.156]",
+      "guide": {
+        "source": "uy1",
+        "source_id": "[UNICO].Universal.Comedy.uy"
+      },
+      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.; 2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.",
+      "backups": [
+        {
+          "tvg_id": "PublicDirect.cd9c7e5eece5976869e162af",
+          "display_name": "Universal Comedy",
+          "source_name": "UNIVERSAL COMEDY-IXP [IP 138.59.177.78]",
+          "from_list": "Lista 2",
+          "from_number": 737,
+          "group": "Películas",
+          "logo": "logos/lista2/a950d02694dd.png",
+          "url": "http://138.59.177.78:9999/play/a09k/index.m3u8",
+          "guide": {
+            "source": "uy1",
+            "source_id": "[UNICO].Universal.Comedy.uy"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 1133,
+            "ok": true,
+            "interlaced": true
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.22cb921d17ab9ad9392491ea",
+          "display_name": "Universal Comedy",
+          "source_name": "UNIVERSAL COMEDY HD [IP 181.78.106.127]",
+          "from_list": "Lista 2",
+          "from_number": 738,
+          "group": "Películas",
+          "logo": "logos/lista2/a950d02694dd.png",
+          "url": "http://181.78.106.127:5000/play/a0qy/index.m3u8",
+          "guide": {
+            "source": "uy1",
+            "source_id": "[UNICO].Universal.Comedy.uy"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 1164,
+            "ok": true,
+            "interlaced": true
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.a460cd6ef4e1fa2f8d921969",
+          "display_name": "Universal Comedy",
+          "source_name": "UNIVERSAL COMEDY HD [IP 72.1.184.5]",
+          "from_list": "Lista 2",
+          "from_number": 740,
+          "group": "Películas",
+          "logo": "logos/lista2/a950d02694dd.png",
+          "url": "http://72.1.184.5:8089/play/a07i/index.m3u8",
+          "guide": {
+            "source": "uy1",
+            "source_id": "[UNICO].Universal.Comedy.uy"
+          },
+          "quality": {
+            "height": 0,
+            "width": 0,
+            "fps": 0.0,
+            "kbps": 0,
+            "ok": false,
+            "interlaced": false
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.88ad179e092c6e324544bd9b",
+          "display_name": "Universal Comedy",
+          "source_name": "UNIVERSAL COMEDY HD [IP 181.119.177.253]",
+          "from_list": "Lista 2",
+          "from_number": 741,
+          "group": "Películas",
+          "logo": "logos/lista2/a950d02694dd.png",
+          "url": "http://181.119.177.253:8000/play/a0d8/index.m3u8",
+          "guide": {
+            "source": "uy1",
+            "source_id": "[UNICO].Universal.Comedy.uy"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 1208,
+            "ok": true,
+            "interlaced": true
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.760b2c3b1354cd82b8a647bc",
+          "display_name": "Universal Comedy",
+          "source_name": "UNIVERSAL COMEDY HD [IP 45.171.64.30]",
+          "from_list": "Lista 2",
+          "from_number": 743,
+          "group": "Películas",
+          "logo": "logos/catalogue/universalcomedy-us.png",
+          "url": "http://45.171.64.30:6060/play/a03t/index.m3u8",
+          "guide": {
+            "source": "uy1",
+            "source_id": "[UNICO].Universal.Comedy.uy"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 1208,
+            "ok": true,
+            "interlaced": true
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.c969af86db5606db87d4a4af",
+          "display_name": "Universal Comedy",
+          "source_name": "UNIVERSAL COMEDY HD [IP 45.5.118.152]",
+          "from_list": "Lista 2",
+          "from_number": 745,
+          "group": "Películas",
+          "logo": "logos/lista2/a950d02694dd.png",
+          "url": "http://45.5.118.152:8000/play/a0dq/index.m3u8",
+          "guide": {
+            "source": "uy1",
+            "source_id": "[UNICO].Universal.Comedy.uy"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 1208,
+            "ok": true,
+            "interlaced": true
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.3e20ef18fa92079770e197b3",
+          "display_name": "Universal Comedy",
+          "source_name": "UNIVERSAL COMEDY HD [IP 190.61.90.17]",
+          "from_list": "Lista 2",
+          "from_number": 744,
+          "group": "Películas",
+          "logo": "logos/lista2/a950d02694dd.png",
+          "url": "http://190.61.90.17:40000/play/a0i5/index.m3u8",
+          "guide": {
+            "source": "uy1",
+            "source_id": "[UNICO].Universal.Comedy.uy"
+          },
+          "quality": {
+            "height": 0,
+            "width": 0,
+            "fps": 0.0,
+            "kbps": 0,
+            "ok": false,
+            "interlaced": false
+          }
+        },
+        {
+          "tvg_id": "PublicDirect.74dd6c75e704e39d4e5b3714",
+          "display_name": "Universal Comedy",
+          "source_name": "UNIVERSAL COMEDY HD [IP 138.59.177.78]",
+          "from_list": "Lista 2",
+          "from_number": 493,
+          "group": "Películas",
+          "logo": "logos/lista2/a950d02694dd.png",
+          "url": "http://138.59.177.78:9999/play/a0no/index.m3u8",
+          "guide": {
+            "source": "uy1",
+            "source_id": "[UNICO].Universal.Comedy.uy"
+          },
+          "quality": {
+            "height": 1080,
+            "width": 1920,
+            "fps": 29.97,
+            "kbps": 1208,
+            "ok": true,
+            "interlaced": true
+          }
+        }
+      ]
+    },
     "PublicDirect.d48635571a0af3b28d47db03": {
       "display_name": "Universal Crime",
       "list": "Lista 2",
@@ -14552,6 +14552,42 @@
         }
       ]
     },
+    "PublicDirect.5fa93eee31589e2105958c0e": {
+      "display_name": "National Geographic",
+      "list": "Lista 2",
+      "number": 129,
+      "group": "Misceláneos",
+      "source_name": "Nat Geo HD [IP 200.7.99.59]",
+      "guide": {
+        "source": "co1",
+        "source_id": "NAT.GEO.co"
+      },
+      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.",
+      "backups": [
+        {
+          "tvg_id": "PublicDirect.04af4fb36023746d7905e70c",
+          "display_name": "National Geographic",
+          "source_name": "NAT GEO-IXP [IP 138.59.177.78]",
+          "from_list": "Lista 2",
+          "from_number": 296,
+          "group": "Misceláneos",
+          "logo": "logos/lista2/4deec34b7976.png",
+          "url": "http://138.59.177.78:9999/play/a086/index.m3u8",
+          "guide": {
+            "source": "co1",
+            "source_id": "NAT.GEO.co"
+          },
+          "quality": {
+            "height": 720,
+            "width": 1280,
+            "fps": 29.97,
+            "kbps": 2721,
+            "ok": true,
+            "interlaced": false
+          }
+        }
+      ]
+    },
     "PublicDirect.617b574fa232cce423379651": {
       "display_name": "Universal Premiere",
       "list": "Lista 2",
@@ -14738,42 +14774,6 @@
             "kbps": 653,
             "ok": true,
             "interlaced": true
-          }
-        }
-      ]
-    },
-    "PublicDirect.5fa93eee31589e2105958c0e": {
-      "display_name": "National Geographic",
-      "list": "Lista 2",
-      "number": 130,
-      "group": "Misceláneos",
-      "source_name": "Nat Geo HD [IP 200.7.99.59]",
-      "guide": {
-        "source": "co1",
-        "source_id": "NAT.GEO.co"
-      },
-      "verified": "2026-11-02 (pedido del usuario «todo lo que sea clon entre ellos, agrúpalo en la misma lista 2, pero con la lógica de la lista 1»): clones por fotogramas tomados al mismo tiempo (correlación ≥ 0,85, outputs/clones-20261102); principal = mejor resolución, bitrate y fps; respaldos en ese orden.",
-      "backups": [
-        {
-          "tvg_id": "PublicDirect.04af4fb36023746d7905e70c",
-          "display_name": "National Geographic",
-          "source_name": "NAT GEO-IXP [IP 138.59.177.78]",
-          "from_list": "Lista 2",
-          "from_number": 296,
-          "group": "Misceláneos",
-          "logo": "logos/lista2/4deec34b7976.png",
-          "url": "http://138.59.177.78:9999/play/a086/index.m3u8",
-          "guide": {
-            "source": "co1",
-            "source_id": "NAT.GEO.co"
-          },
-          "quality": {
-            "height": 720,
-            "width": 1280,
-            "fps": 29.97,
-            "kbps": 2721,
-            "ok": true,
-            "interlaced": false
           }
         }
       ]
