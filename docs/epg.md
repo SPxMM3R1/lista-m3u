@@ -8,6 +8,8 @@
 
 ## Excepción editorial puntual
 
+- **History Channel (2026-11-15)**: CO1 `History.Channel.co` publica la misma secuencia que PA1 en la ventana comparada y más de 48 h futuras. Se conserva el adelanto provisional de 10 min y el respaldo Claro Colombia.
+
 - **Sony Movies (2026-11-15)**: GatoTV Latinoamérica completa el final de la parrilla de Claro Argentina. Se compararon 18 inicios y títulos seguidos publicados para el mismo ID. Claro conserva prioridad donde publica datos.
 
 - **Love Nature 4K (2026-11-15)**: EPGShare PLEX1 `plex.tv.Love.Nature.plex`. Capturas de la señal a las 20:05 UTC (arrecife) y 20:11 UTC (cría en mantas) coinciden con el cambio de Into the Blue a Baby Animals a las 20:09 UTC. CO1 seguía con arrecifes y PL indicaba osos. El número puede cambiar con la edición del catálogo, por eso el override usa `IPTVOrg.LoveNature.ca-4K`.
