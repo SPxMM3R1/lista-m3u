@@ -147,33 +147,12 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-11-16**: `ESTADO.md` pasó los 60 000 bytes con la revisión de guía de Lista 1 y la prueba de tamaño bloqueó «Actualizar canales M3U» y «Publicar cambios dirigidos»; la bitácora del 1 al 9 de noviembre pasa a `docs/bitacora/2026-11.md` y el cierre TvVoo del 2026-11-07 a `docs/historial-operativo.md`.
 - **2026-11-15**: corrección provisional de 10 min de adelanto en la guía del History Channel #092 (observación del usuario 15:48; necesita corroborar segunda transición).
 
 - **2026-11-13**: el 094 de la TV (Discovery Turbo) pasa a Lista 1 como #85; ESPN Colombia, movido antes por error, vuelve a Lista 2.
 - **2026-11-13**: guía de HBO 2 de GatoTV a EPGShare México (GatoTV daba otra película).
 - **2026-11-13**: las pruebas del catálogo toleran las bajas desde la app (Studio Universal, AMC, ESPN 7, Warner) y dejan de fijar números de Lista 2, que se compacta con cada baja. Suite en verde: 434 Python y 57 JS.
 - **2026-11-13**: RWND pasa del CDN `tls-cl.cdnz.cl` (404 desde el 2026-11-06) al manifiesto público del reproductor web `www.rewindmusic.cl/stream/hls/playlist.m3u8`. Sin cookies ni token; verificado con ffmpeg (fotograma real) y desde GitHub Actions. Sin resolutor; identidad, número, logo y EPG Live intactos.
-- **2026-11-09**: ESPN 3 sin respaldo TvVoo (solo sus 11 directos); Lista 2 en orden alfabético en un solo bloque.
-- **2026-11-08**: Eurosport 1 de Lista 1 pasa a la señal directa (ex Lista 2 #165), con TvVoo España y 6 países de respaldo.
-- **2026-11-08**: Music Box Hits y Music Box Classic pasan de Lista 2 a Lista 1 (57 y 58, en Música), oficializados con guía EPGShare CZ1.
-- **2026-11-08**: 31 respaldos ESPN 1080i pasan a Lista 2 como canales sueltos (Lista 2: 159).
-- **2026-11-07**: ESPN 2 de Lista 1 (35) intercambiado con el 97 de Lista 2, cada señal con sus respaldos y su guía.
-- **2026-11-07**: logo para los 7 de Lista 2 que no tenían; prueba nueva que exige logo en todas las listas publicadas.
-- **2026-11-07**: revisión de Lista 2: identidad, 37 clones a respaldo (audio, dos pasadas), 35 guías corregidas con fotograma y 19 quitadas, 9 logos nuevos, 38 nombres y 27 sin señal a la papelera. Lista 2: 128.
-- **2026-11-07**: guía ESPN 3 y ESPN 5 → EPGShare CO1 (fotogramas: golf de Abu Dabi y Wrexham vs. Wolves). Red Bull TV World vuelve a la API global con el relay de respaldo; se corrigió el import que faltaba y se quitaron la página en_CL y Pluto, que anunciaban pádel mientras la señal daba escalada.
-- **2026-11-06, referencias TvVoo**: corregida la reaplicación de presentaciones antiguas que borraba los alias durante `--sync-resolver-contract`. El comando completo reconcilia 13/13 selecciones, sin pendientes, y valida 1.494 TvVoo. Regresión añadida antes de repetir CI.
 
-
-- **2026-11-06**: TvVoo público retirado: migración de seis URL a referencias con identidad explícita y variantes desde el inventario oficial. La reproducción queda en la app nativa 0.6.59; el estado del runner es `identity_only`, nunca prueba de video. Ver `docs/tvvoo.md`.
-
-
-- **2026-11-01**: reconciliadas 38 exclusiones permanentes que hicieron fallar el runner de la importación iptv-org; quedan 10.932 candidatas en prueba.
-
-- **2026-11-01**: importación en prueba de candidatos de iptv-org a Lista 2; exclusiones y copia de seguridad descritas en «Hoy».
-- Más antiguo: `docs/bitacora/<año>-<mes>.md`.
-
-### Cierre TvVoo — 2026-11-07
-- Cambios del runner `08abe33` y `ce96409`, seguidos por publicación automática de artefactos. Runner completo `42329413083`: correcto. Raw verificado: seis referencias `tvvoo://channel/`, aliases y claves estables presentes; IDs/orden conservados.
-- Contraparte VibeM3U publicada **0.6.59/268**, tag `2e2ed9d` (cliente `6705c13`, parser `a296a98`, auxiliar `2e2ed9d`). CI `42330554604` y release `42372890583` correctos. APK público 2.944.565 bytes, SHA-256 `c299b21473c3188a4c8774e0d6fe4335af1f2b4b4252e1911358809fc064f106`; firma compatible comprobada.
-- El parser Android requiere el mapa cerrado de seis IDs históricos equivalente a `TVVOO_LEGACY_REFERENCE_KEYS`: una app anterior puede omitir referencias migradas. Actualizar a 0.6.59.
-- Prueba de transporte Android: 4/6 (Main Event, TNT 3/4, Eurosport 1). TNT 3 con video real y selector de versiones comprobado. DAZN F1/Eurosport 2 siguen con 502/403 de origen; alias Main Event mostró Sky Sports News en la referencia local. No cambiar nombre/EPG por ello. `identity_only` no acredita reproducción.
+- Más antiguo: `docs/bitacora/<año>-<mes>.md` (2026-11-01 a 2026-11-09 en `docs/bitacora/2026-11.md`); el cierre TvVoo del 2026-11-07, en `docs/historial-operativo.md`.
