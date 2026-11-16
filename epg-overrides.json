@@ -176,14 +176,13 @@
       "verified": "2026-10-25: EPGShare Uruguay con títulos reales; 8 de 8 inicios coinciden con Claro Argentina 766244 (que solo trae «Venus»)"
     },
     "PublicDirect.ef0023b214fe77f7918ee36f": {
-      "source": "claro-guia",
-      "source_id": "claro:colombia:773875",
-      "verified": "2026-10-25: misma guía que tenía en Lista 2 (Claro Colombia), que el usuario confirmó que funcionaba. 2026-11-14: pedido del usuario «TNT tiene un error de 10 minutos en la guía, se muestra antes»; fotogramas cada 30 s: «Sing: ¡Ven y canta!» empezó a las 12:27 (Chile) y Claro Colombia la marcaba a las 12:10 (el final de «El juego del crimen» con «Ya comienza Sing» seguía a las 12:26); shift_minutes 17. Segunda medición 14:25–14:45: el especial de los Latin Grammy fue de 14:26:30 a 14:29:30 y «Kung Fu Panda» (logo de DreamWorks) empezó ~14:29:40, cuando Claro la marcaba a las 14:18 (+11,5 min); el desfase varía, queda en 12 (más cerca de la medición nueva y de los 10 que vio el usuario)",
+      "source": "pa1",
+      "source_id": "Canal.TNT.(Panamá).pa",
+      "verified": "2026-10-25: misma guía que tenía en Lista 2 (Claro Colombia), que el usuario confirmó que funcionaba. 2026-11-14: pedido del usuario «TNT tiene un error de 10 minutos en la guía, se muestra antes»; fotogramas cada 30 s: «Sing: ¡Ven y canta!» empezó a las 12:27 (Chile) y Claro Colombia la marcaba a las 12:10 (el final de «El juego del crimen» con «Ya comienza Sing» seguía a las 12:26); shift_minutes 17. Segunda medición 14:25–14:45: el especial de los Latin Grammy fue de 14:26:30 a 14:29:30 y «Kung Fu Panda» (logo de DreamWorks) empezó ~14:29:40, cuando Claro la marcaba a las 14:18 (+11,5 min); el desfase varía, queda en 12 (más cerca de la medición nueva y de los 10 que vio el usuario) | 2026-11-16: revisión de guía de Lista 1 (pedido del usuario «revisa la epg de toda la lista 1»): fotogramas 20:52 y 21:03 UTC con «Animales fantásticos: Los crímenes de Grindelwald» (Eddie Redmayne y Dan Fogler en un café de París) mientras Claro Colombia marcaba «Protegiendo al enemigo» (19:29–21:37 con el desfase de 12). EPGShare PA1 «Canal.TNT.(Panamá).pa» la tiene de 20:00 a 22:27: pasa a fuente principal sin desfase; Claro Colombia queda de respaldo (sin desfase: el respaldo no lo admite; solo rellena lo que PA1 no cubra).",
       "backup": {
-        "source": "mx1",
-        "source_id": "Canal.TNT.(México).mx"
-      },
-      "shift_minutes": 12
+        "source": "claro-guia",
+        "source_id": "claro:colombia:773875"
+      }
     },
     "PublicDirect.7af273823473ac60f6ed4a64": {
       "source": "co1",
