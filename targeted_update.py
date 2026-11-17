@@ -498,6 +498,9 @@ def _validate_partition(updated: dict[Path, list[str]]) -> None:
 
 def _write_playlists(updated: dict[Path, list[str]]) -> None:
     for path, lines in updated.items():
+        if path.name == "m3u-externa.m3u":
+            # Bloque TvVoo de Lista 2 (fuera del layout y del catálogo): siempre al final.
+            lines = update_m3u.with_tvvoo_catalog_block(lines)
         new_text = "\n".join(lines) + "\n"
         if path.read_text(encoding="utf-8-sig") == new_text:
             continue

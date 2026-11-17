@@ -43,6 +43,12 @@ EXTERNAL_PLAYLIST = Path(__file__).with_name("m3u-externa.m3u")
 # Son copias generadas de las salidas canónicas, no un acortador externo.
 SHORT_DIRECT_PLAYLIST = Path(__file__).with_name("1.m3u")
 SHORT_EXTERNAL_PLAYLIST = Path(__file__).with_name("2.m3u")
+# Catálogo completo de Vavoo al final de Lista 2 (2026-11-17, pedido del usuario). Va en un
+# M3U aparte, no en el layout: con 8.000 filas en el layout la memoria de VibeM3U crecía sin
+# parar. Lo genera tools/build_lista2_tvvoo_block.py; se pega al escribir la Lista 2 y las
+# validaciones de la partición lo ignoran (no es parte del catálogo canónico).
+TVVOO_CATALOG_BLOCK_PATH = Path(__file__).with_name("data") / "lista2-tvvoo-bloque.m3u"
+TVVOO_CATALOG_BLOCK_ATTRIBUTE = "x-vibem3u-block"
 SHORT_PLAYLIST_ALIASES = (
     (DEFAULT_PLAYLIST, SHORT_DIRECT_PLAYLIST),
     (EXTERNAL_PLAYLIST, SHORT_EXTERNAL_PLAYLIST),
@@ -4110,6 +4116,39 @@ def external_vavoo_channel_is_allowed(channel: Channel) -> bool:
     )
 
 
+def strip_tvvoo_catalog_block(lines: list[str]) -> list[str]:
+    """La lista sin las entradas del bloque TvVoo (su #EXTINF y la línea de URL siguiente)."""
+    marker = f'{TVVOO_CATALOG_BLOCK_ATTRIBUTE}="tvvoo-catalogo"'
+    result: list[str] = []
+    skip_url = False
+    for line in lines:
+        if skip_url:
+            skip_url = False
+            if line and not line.startswith("#"):
+                continue
+        if line.startswith("#EXTINF") and marker in line:
+            skip_url = True
+            continue
+        result.append(line)
+    return result
+
+
+def with_tvvoo_catalog_block(lines: list[str], path: Path | None = None) -> list[str]:
+    """La lista con el bloque TvVoo al final (una sola vez, aunque ya lo trajera)."""
+    block_path = TVVOO_CATALOG_BLOCK_PATH if path is None else path
+    base = strip_tvvoo_catalog_block(lines)
+    while base and not base[-1].strip():
+        base.pop()
+    if not block_path.is_file():
+        return base
+    block = [
+        line
+        for line in block_path.read_text(encoding="utf-8-sig").splitlines()
+        if line and not line.startswith("#EXTM3U")
+    ]
+    return base + block
+
+
 def external_publication_channel_ids(
     channels: list[Channel],
     external_ids: set[str] | frozenset[str],
@@ -4970,6 +5009,7 @@ def validate_public_playlist_partition(
     excluded_ids: set[str] | frozenset[str] = frozenset(),
 ) -> dict[str, int]:
     """Prove that both public lists match their explicit membership policy."""
+    external_lines = strip_tvvoo_catalog_block(external_lines)
     catalog_channels = parse_channels(catalog_lines)
     catalog = playlist_records_by_id(catalog_lines, label=CHANNEL_CATALOG_PATH.name)
     main_channels = parse_channels(main_lines)
@@ -12131,7 +12171,7 @@ def main() -> int:
         )
     elif external_publication["publication_ready"]:
         EXTERNAL_PLAYLIST.write_text(
-            "\n".join(candidate_external_lines) + "\n",
+            "\n".join(with_tvvoo_catalog_block(candidate_external_lines)) + "\n",
             encoding="utf-8",
             newline="\n",
         )
