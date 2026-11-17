@@ -9,6 +9,8 @@
 
 ## Hoy, en una mirada
 
+- EPG publicada y comprobada el 17/11 a las 19:15: 94/95 con las próximas 24 h continuas. Solo falta Stingray iConcerts #058. Evidencia y fuentes en `docs/epg.md`.
+
 - 2026-11-17: Claro limita los resultados según el inicio consultado. Si la parrilla regional queda corta, se consulta otra ventana a +18 h y se unen los eventos por canal e inicio. Comprobado con TVN3 de Claro Chile.
 
 - **Revisión de guía de Lista 1 (2026-11-16, pedido del usuario «revisa la epg de toda la lista 1»)**: cobertura de los 95 canales (91 con programa actual, más de 6 h adelante y sin huecos) y fotograma de 75 con el título de la guía encima. Calzan todos salvo **TNT** (`PublicDirect.ef0023b214fe77f7918ee36f`): daba «Animales fantásticos: Los crímenes de Grindelwald» (20:52 y 21:03 UTC) y Claro Colombia marcaba «Protegiendo al enemigo»; pasa a EPGShare PA1 `Canal.TNT.(Panamá).pa` (20:00–22:27 esa película), sin desfase, con Claro Colombia de respaldo. Sin cambio: TNT Series es una maratón real de «CSI: Miami» (rótulo «MARATÓN»); Space «Desconocido» es el título de la película (Unknown); Discovery Turbo calza («Texas Metal» de 20:58); History hoy iba ~25 min atrasado respecto de CO1 cuando el 15 iba adelantado: el desfase no es fijo y se deja el −10 provisional; TNT Sports Premium transmitía un partido en vivo que ninguna fuente tenía; 13 Cultura en negro. Stingray iConcerts: solo EPGShare PT1 `Stingray.iConcerts.HD.pt` tiene datos y su parrilla no calzó con el fotograma (Rock am Ring a las 21:04); sigue sin guía mientras se mide. 20 canales sin fotograma desde el entorno (Sky, DAZN, TNT Sports UK, TVN, Meganoticias, Star Channel, History 2…).

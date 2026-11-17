@@ -1,5 +1,7 @@
 # EPG: reglas vigentes
 
+- Publicación `ebb48dc9`, 17/11 a las 19:15 de Santiago: 94 de 95 canales con 24 h continuas, incluida la continuidad de RWND. TVN3 superó el día con Zapping + Claro. El #058 emite con marca Stingray iConcerts y descriptor de servicio «Stingray Concerts HD». El segmento MPEG-TS examinado no contenía tabla EIT. Falta una guía del mismo feed con horas comprobadas; no asignar Concert Channel, Qello ni un desfase europeo por parecido.
+
 - 2026-11-17: El despachador adelanta las fuentes de una señal de Lista 1 al quedar menos de 25 h de parrilla: 24 h objetivo más dos ciclos de media hora. Los proveedores pueden publicar un horizonte menor.
 
 - 2026-11-17: Movistar Plus España publica tres días por señal (MVF1, ESP, ESP2). Su API identifica el canal en cada evento y entrega horas Unix en milisegundos. El XML es2 consultado el 17/11 terminaba el 6/11.
