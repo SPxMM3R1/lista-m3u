@@ -200,6 +200,27 @@ def _claro_guide_xmltv(programmes: dict[str, list[tuple[datetime, datetime, str,
 def _fetch_claro_region(
     key: str, region: str, wanted: dict[str, str], begin: datetime, end: datetime
 ) -> dict[str, list[tuple[datetime, datetime, str, str]]]:
+    programmes = _fetch_claro_window(key, region, wanted, begin, end)
+    # Claro limita la ventana según date_from aunque date_to pida dos días.
+    resume = begin + timedelta(hours=18)
+    short = {channel: wanted[channel] for channel, items in programmes.items()
+             if max(item[1] for item in items) < begin + timedelta(hours=36)}
+    if not short or resume >= end:
+        return programmes
+    try:
+        following = _fetch_claro_window(key, region, short, resume, end)
+    except (OSError, ValueError, RuntimeError):
+        return programmes
+    for channel, items in following.items():
+        by_start = {event[0]: event for event in programmes[channel]}
+        by_start.update((event[0], event) for event in items)
+        programmes[channel] = [by_start[start] for start in sorted(by_start)]
+    return programmes
+
+
+def _fetch_claro_window(
+    key: str, region: str, wanted: dict[str, str], begin: datetime, end: datetime
+) -> dict[str, list[tuple[datetime, datetime, str, str]]]:
     query = urlencode({
         "device_id": "web",
         "device_category": "web",

@@ -1,5 +1,7 @@
 # EPG: reglas vigentes
 
+- 2026-11-17: Claro limita los resultados según el inicio consultado. Si la parrilla regional queda corta, se consulta otra ventana a +18 h y se unen los eventos por canal e inicio. Comprobado con TVN3 de Claro Chile.
+
 > Movidas desde `AGENTS.md` el 2026-10-31 sin cambiar el texto. **Léelo antes de tocar la guía** (fuentes, `epg-overrides.json`, `epg-l2-map.json`, workflows de EPG). Cada bloque conserva la sección de `AGENTS.md` de la que salió.
 
 ## Qué es este repositorio

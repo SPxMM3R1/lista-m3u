@@ -37,11 +37,13 @@ agente debe poder retomar el trabajo solo con lo que está en el repositorio.
 - Editor web: `site/` (JS puro). La lógica pura vive en `site/editor-core.mjs` y `site/provider-catalog.mjs` con tests en `tests/editor-core.test.mjs`. Se sirve con el auxiliar `VibeM3U/local-catalog`.
 - Datos editoriales publicados: `data/channel-editor-layout.json` (orden, número, visibilidad y logos que lee la app), `data/vibem3u-selection.json` (declaración de proveedores para el runner) y `presentation-overrides.json` (órdenes y exclusiones).
 - **Resolutores TvVoo por identidad estable (2026-10-15)**: `resolver_attributes_for()` usa primero `tvg-id` en `TVVOO_STREAM_RESOLVER_IDS_BY_TVG_ID`; el título visible nunca debe convertir una fila directa en TvVoo. La búsqueda heredada por nombre solo sirve para IDs `@TvVoo` no cargados desde el catálogo o cuando no hay catálogo en el checkout. Conservar los alias para las identidades estables y mantener la regresión del ESPN directo en `tests/test_targeted_update.py`.
-- **Importar candidatos respetando bajas permanentes (2026-11-01)**: al incorporar canales externos a Lista 2, filtrar los nombres rechazados por `remove_permanently_removed_channels()` antes de declarar filas en `channel-catalog.m3u`, `2.m3u`, el layout y los órdenes de `presentation-overrides.json`. No dejar IDs excluidos en el orden editorial: el runner falla al detectar referencias sin fila. La regresión `tests/test_iptvorg_exclusions.py` compara los candidatos importados con el filtro permanente.
+- Lista 2: filtrar bajas permanentes antes de importar candidatos. Ver `tests/test_iptvorg_exclusions.py`.
+- Para EPG de Claro consultar ambas ventanas descritas en `docs/epg.md`.
 
 - **TvVoo tras el retiro público (2026-11-06)**: ver `docs/tvvoo.md`. Migrar solo el host retirado con identidad explícita a `tvvoo://channel/...`; el runner acredita identidad, no reproducción. VibeM3U 0.6.59 usa Vavoo directo. Las variantes salen del inventario oficial de GitHub; país ausente conserva su copia anterior. Nunca inferir un feed o una EPG de un alias que entrega otra señal.
 
 ## Límites
+
 
 - No modificar el checkout de VibeM3U desde aquí ni mover archivos entre repositorios. Un commit por repositorio.
 - La identidad pública es `catalogKey` (Highfly) o `countryKey|alias` (TvVoo). `providerResourceId`, `resolverSlug` y las URL HLS son referencias que pueden rotar; nunca usarlas como identidad.

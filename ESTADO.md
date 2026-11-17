@@ -5,9 +5,11 @@
 > cubre la app). **Al terminar cualquier cambio, actualiza este archivo en el mismo commit**:
 > la sección «Hoy» si cambió el estado y una línea nueva en «Bitácora».
 
-Última actualización: **2026-11-15** (America/Santiago).
+Última actualización: **2026-11-17** (America/Santiago).
 
 ## Hoy, en una mirada
+
+- 2026-11-17: Claro limita los resultados según el inicio consultado. Si la parrilla regional queda corta, se consulta otra ventana a +18 h y se unen los eventos por canal e inicio. Comprobado con TVN3 de Claro Chile.
 
 - **Revisión de guía de Lista 1 (2026-11-16, pedido del usuario «revisa la epg de toda la lista 1»)**: cobertura de los 95 canales (91 con programa actual, más de 6 h adelante y sin huecos) y fotograma de 75 con el título de la guía encima. Calzan todos salvo **TNT** (`PublicDirect.ef0023b214fe77f7918ee36f`): daba «Animales fantásticos: Los crímenes de Grindelwald» (20:52 y 21:03 UTC) y Claro Colombia marcaba «Protegiendo al enemigo»; pasa a EPGShare PA1 `Canal.TNT.(Panamá).pa` (20:00–22:27 esa película), sin desfase, con Claro Colombia de respaldo. Sin cambio: TNT Series es una maratón real de «CSI: Miami» (rótulo «MARATÓN»); Space «Desconocido» es el título de la película (Unknown); Discovery Turbo calza («Texas Metal» de 20:58); History hoy iba ~25 min atrasado respecto de CO1 cuando el 15 iba adelantado: el desfase no es fijo y se deja el −10 provisional; TNT Sports Premium transmitía un partido en vivo que ninguna fuente tenía; 13 Cultura en negro. Stingray iConcerts: solo EPGShare PT1 `Stingray.iConcerts.HD.pt` tiene datos y su parrilla no calzó con el fotograma (Rock am Ring a las 21:04); sigue sin guía mientras se mide. 20 canales sin fotograma desde el entorno (Sky, DAZN, TNT Sports UK, TVN, Meganoticias, Star Channel, History 2…).
 - **EPG Lista 1 (2026-11-15)**: se reparan TNT Sports Premium, HBO Xtreme, HBO Plus, Sony Movies, Love Nature 4K e History. RWND se renueva al unir y los pendientes se miden a 24 h. Ver `docs/epg.md`.
@@ -115,6 +117,8 @@
 ## Bitácora (más reciente arriba)
 
 - **2026-11-17**: catálogo completo de Vavoo en Lista 2 sin pasar por el layout: `tools/build_lista2_tvvoo_block.py` genera `data/lista2-tvvoo-bloque.m3u` (8.265 canales tvvoo://, por país; sin exclusiones permanentes ni canales ya publicados) y el runner (`with_tvvoo_catalog_block`) y `targeted_update.py` lo pegan al final de `m3u-externa.m3u`/`2.m3u`; la validación de la partición lo ignora. En el emulador: Lista 2 de 8.279 canales, memoria Java estable en 55–70 MB, canales del bloque abren. Para regenerar el bloque: correr el script y publicar.
+- 2026-11-17: Segunda ventana de programación Claro para cubrir el día siguiente.
+
 - **2026-11-17**: el bloque TvVoo de Lista 2 sale del layout: con 8.000 filas la memoria de VibeM3U crecía sin parar y la TV quedaba en negro con audio («validando segmento inicial»). Layout, selección, presentación y `channel-catalog.m3u` vuelven al estado previo al bloque (layout compacto, 3,4 MB). Quedan los scripts (`tools/append_tvvoo_catalog_to_list2.mjs`, `tools/add_tvvoo_catalog_entries.py`) y la captura para reintentar cuando la app soporte catálogos grandes.
 - **2026-11-17**: fuera del bloque TvVoo de Lista 2 los 108 canales que coinciden con `PERMANENTLY_REMOVED_CHANNEL_NAME_PATTERNS` (TRT, RMC, Bloomberg TV, DAZN FAST…): el runner retira sus fichas y la fila caía sobre una ficha antigua («migración TvVoo sin identidad canónica»). Lista en `contracts/lista2-tvvoo-excluidos-20261117.json`; bloque: 8.265 filas.
 - **2026-11-17**: el bloque TvVoo de Lista 2 dejó a la TV sin layout ni variantes (VibeM3U: 8 MB y 256 KiB). Layout y `tvvoo-variantes.json` ahora compactos (7,6 MB y 233 KB); las variantes tienen tope de 240 KB y descartan primero filas de Lista 2. Conciliación indexada; fichas `tvvoo://` exactas para el bloque (0 pendientes); fuera del bloque 9 canales que ya están en Lista 1.
