@@ -234,7 +234,7 @@ def command_plan(args: argparse.Namespace) -> int:
     needed: set[str] = set()
     unused: set[str] = set()
     try:
-        scope_ids, _ = update_m3u.epg_scope_order()
+        scope_ids, main_ids = update_m3u.epg_scope_order()
         unused = unused_official_parts(update_m3u, scope_ids)
         existing = set(update_m3u.epg_fragments.read_dir(update_m3u.EPG_FRAGMENTS_DIR))
         for channel_id in scope_ids:
@@ -242,7 +242,14 @@ def command_plan(args: argparse.Namespace) -> int:
                 needed |= update_m3u.epg_channel_parts(channel_id)
         # Renovación anticipada: canales a punto de quedarse sin guía adelantan sus fuentes.
         skip = set(update_m3u.EPG_ALLOWED_EMPTY_IDS) | {update_m3u.EPG_MAIN_LIVE_CHANNEL_ID}
-        notices = build_notices(channel_horizons(load_index(), now_utc(), skip))
+        horizons = channel_horizons(load_index(), now_utc(), skip)
+        # Reservar dos ciclos de despacho para renovar antes del mínimo editorial.
+        target_hours = (update_m3u.EPG_MAIN_PUBLISHED_COVERAGE + 2 * FIRST_RETRY).total_seconds() / 3600
+        for channel_id in main_ids & horizons.keys():
+            hours = horizons[channel_id]["hours"]
+            if hours is not None and hours < target_hours:
+                needed |= update_m3u.epg_channel_parts(channel_id)
+        notices = build_notices(horizons)
         print_notices(notices)
         for channel_id in urgent_channels(notices) & set(scope_ids):
             needed |= update_m3u.epg_channel_parts(channel_id)

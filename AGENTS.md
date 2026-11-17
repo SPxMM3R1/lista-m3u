@@ -44,6 +44,8 @@ agente debe poder retomar el trabajo solo con lo que está en el repositorio.
 
 ## Límites
 
+- 2026-11-17: Lista 1: renovar fuentes con margen de una hora sobre el objetivo diario.
+
 - 2026-11-17: EPG deportiva española: comprobar el código de señal de Movistar Plus (ver `docs/epg.md`).
 
 

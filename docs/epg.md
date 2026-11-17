@@ -1,5 +1,7 @@
 # EPG: reglas vigentes
 
+- 2026-11-17: El despachador adelanta las fuentes de una señal de Lista 1 al quedar menos de 25 h de parrilla: 24 h objetivo más dos ciclos de media hora. Los proveedores pueden publicar un horizonte menor.
+
 - 2026-11-17: Movistar Plus España publica tres días por señal (MVF1, ESP, ESP2). Su API identifica el canal en cada evento y entrega horas Unix en milisegundos. El XML es2 consultado el 17/11 terminaba el 6/11.
 
 - 2026-11-17: Claro limita los resultados según el inicio consultado. Si la parrilla regional queda corta, se consulta otra ventana a +18 h y se unen los eventos por canal e inicio. Comprobado con TVN3 de Claro Chile.
