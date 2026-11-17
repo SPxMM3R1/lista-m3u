@@ -44,6 +44,8 @@ agente debe poder retomar el trabajo solo con lo que está en el repositorio.
 
 ## Límites
 
+- 2026-11-17: EPG deportiva española: comprobar el código de señal de Movistar Plus (ver `docs/epg.md`).
+
 
 - No modificar el checkout de VibeM3U desde aquí ni mover archivos entre repositorios. Un commit por repositorio.
 - La identidad pública es `catalogKey` (Highfly) o `countryKey|alias` (TvVoo). `providerResourceId`, `resolverSlug` y las URL HLS son referencias que pueden rotar; nunca usarlas como identidad.

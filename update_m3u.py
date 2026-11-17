@@ -6755,10 +6755,21 @@ class OfficialEpgSource:
     replaces: tuple[tuple[str, str], ...] | None = None
 
 
+MOVISTAR_SPAIN_FEEDS = {
+    "DAZNF1.es@TvVoo": "MVF1",
+    "IPTVOrg.Eurosport1.fr-Spain": "ESP",
+    "Eurosport2.es@TvVoo": "ESP2",
+}
+
 # Orden = prioridad al construir la guía (una fuente posterior gana si dos
 # cubren el mismo canal). Un fallo de una fuente oficial nunca bloquea la
 # guía: ese canal cae a la siguiente fuente (Zapping, EPGShare, TecnoCentro).
 OFFICIAL_EPG_SOURCES: tuple[OfficialEpgSource, ...] = (
+    OfficialEpgSource(
+        "movistar-plus-es", "fetch_movistar_spain_epg",
+        MOVISTAR_SPAIN_FEEDS,
+        replaces=(),
+    ),
     OfficialEpgSource(
         "tnt-sports-premium-oficial", "fetch_tnt_sports_premium_epg",
         {"PublicDirect.475329883c23116340a88ef6": "CDFH_CL"},
@@ -12267,6 +12278,7 @@ from epg_sources.ukrainian import *  # noqa: E402,F401,F403
 from epg_sources.tecnocentro import *  # noqa: E402,F401,F403
 from epg_sources.claro import *  # noqa: E402,F401,F403
 from epg_sources.gatotv import *  # noqa: E402,F401,F403
+from epg_sources.movistar_spain import fetch_movistar_spain_epg
 from epg_sources.tnt_sports import *  # noqa: E402,F401,F403
 
 
