@@ -53,3 +53,8 @@ mediante tabla cerrada; versiones previas pueden omitir las nuevas referencias.
 El éxito del runner valida identidad/publicación, no que todas las fuentes
 estén emitiendo. DAZN F1 y Eurosport 2 fallaron en origen en la prueba Android;
 Main Event mostró otro feed en la referencia local. No se altera EPG ni identidad.
+
+El inventario de GitHub no es el catálogo real: Vavoo (`POST https://kool.to/mediahubmx-catalog.json`
+con firma de `/api/app/ping`, como `VavooSessionClient`) tenía el 2026-11-17 Italia y nombres
+distintos (p. ej. «TNT SPORT 1», no «TNT SPORTS 1»). Antes de dar por muerto un alias, buscarlo
+ahí y probarlo en la app con fotograma. Detalle en la bitácora de `ESTADO.md` del 2026-11-17.

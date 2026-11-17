@@ -147,15 +147,10 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-11-17**: catálogo vivo de Vavoo (kool.to, 9.553 canales, Italia incluida) ≠ inventario de GitHub: en Reino Unido no existe «TNT SPORTS 1» ni «BT SPORT 2»; sí «TNT SPORT 1/2/4», «TNT SPORTS 2/3/4/ESPN» y «BT SPORT 1/3/ESPN» (con HD/BACKUP). Fotogramas en la app: TNT 1 = «TNT SPORT 1», «BT SPORT 1 HD», «BT SPORT 1 (BACKUP)»; TNT 3 = «BT SPORT 3 HD»; TNT 4 = «BT SPORT ESPN HD»; Al Jazeera English 1080p = «AL JAZEERA|group:uk». No abren: «AL JAZEERA HD» uk, «ALJAZEERA ENGLISH» bg. Las variantes de TNT 2 («BT SPORT 2», «BT SPORT 2 HD») no existen en Vavoo. Sin cambios en listas.
 - **2026-11-17**: prueba en VibeM3U (emulador, fotograma y guía) de los TvVoo de Reino Unido. Lista 1 #23 Sky Sports Tennis, #28–#31 TNT Sports 1–4 abren con su señal y guía, aunque el inventario nuevo use «TNT SPORTS N» (la app resuelve los nombres viejos). Alias sueltos: «BT SPORT 3»→TNT 3, «BT SPORT ESPN»→TNT 4, «TNT SPORT 2» y «TNT SPORTS 2»→TNT 2 (720p) entregan video; «TNT SPORTS 1», «TNT SPORTS 1 (BACKUP)» y «BT SPORT 2» no abren; «TNT SPORT 1» y «BT SPORT 1» solo mostraron comerciales. Sin cambios en listas.
 - **2026-11-16**: las variantes TvVoo (`data/tvvoo-variantes.json`, respaldos por país de Eurosport 1 y 2) estaban congeladas desde el 2026-11-07: Italia falta en el inventario y ese «fallo» impedía renovar la fecha, así que la app las descartaba a los 7 días. Un país ausente ya no bloquea la renovación; sus variantes se conservan.
 - **2026-11-16**: el editor de catálogo carga la lista TvVoo desde el inventario oficial de GitHub (`lists.json`), igual que `tvvoo_variants.py`, porque `tvvoo.hayd.uk` está retirada.
 - **2026-11-16**: `ESTADO.md` pasó los 60 000 bytes con la revisión de guía de Lista 1 y la prueba de tamaño bloqueó «Actualizar canales M3U» y «Publicar cambios dirigidos»; la bitácora del 1 al 9 de noviembre pasa a `docs/bitacora/2026-11.md` y el cierre TvVoo del 2026-11-07 a `docs/historial-operativo.md`.
-- **2026-11-15**: corrección provisional de 10 min de adelanto en la guía del History Channel #092 (observación del usuario 15:48; necesita corroborar segunda transición).
 
-- **2026-11-13**: el 094 de la TV (Discovery Turbo) pasa a Lista 1 como #85; ESPN Colombia, movido antes por error, vuelve a Lista 2.
-- **2026-11-13**: guía de HBO 2 de GatoTV a EPGShare México (GatoTV daba otra película).
-- **2026-11-13**: las pruebas del catálogo toleran las bajas desde la app (Studio Universal, AMC, ESPN 7, Warner) y dejan de fijar números de Lista 2, que se compacta con cada baja. Suite en verde: 434 Python y 57 JS.
-- **2026-11-13**: RWND pasa del CDN `tls-cl.cdnz.cl` (404 desde el 2026-11-06) al manifiesto público del reproductor web `www.rewindmusic.cl/stream/hls/playlist.m3u8`. Sin cookies ni token; verificado con ffmpeg (fotograma real) y desde GitHub Actions. Sin resolutor; identidad, número, logo y EPG Live intactos.
-
-- Más antiguo: `docs/bitacora/<año>-<mes>.md` (2026-11-01 a 2026-11-09 en `docs/bitacora/2026-11.md`); el cierre TvVoo del 2026-11-07, en `docs/historial-operativo.md`.
+- Más antiguo: `docs/bitacora/<año>-<mes>.md` (2026-11-01 a 2026-11-15 en `docs/bitacora/2026-11.md`); el cierre TvVoo del 2026-11-07, en `docs/historial-operativo.md`.
