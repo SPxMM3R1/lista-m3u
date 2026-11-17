@@ -147,6 +147,7 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-11-17**: prueba en VibeM3U (emulador, fotograma y guía) de los TvVoo de Reino Unido. Lista 1 #23 Sky Sports Tennis, #28–#31 TNT Sports 1–4 abren con su señal y guía, aunque el inventario nuevo use «TNT SPORTS N» (la app resuelve los nombres viejos). Alias sueltos: «BT SPORT 3»→TNT 3, «BT SPORT ESPN»→TNT 4, «TNT SPORT 2» y «TNT SPORTS 2»→TNT 2 (720p) entregan video; «TNT SPORTS 1», «TNT SPORTS 1 (BACKUP)» y «BT SPORT 2» no abren; «TNT SPORT 1» y «BT SPORT 1» solo mostraron comerciales. Sin cambios en listas.
 - **2026-11-16**: las variantes TvVoo (`data/tvvoo-variantes.json`, respaldos por país de Eurosport 1 y 2) estaban congeladas desde el 2026-11-07: Italia falta en el inventario y ese «fallo» impedía renovar la fecha, así que la app las descartaba a los 7 días. Un país ausente ya no bloquea la renovación; sus variantes se conservan.
 - **2026-11-16**: el editor de catálogo carga la lista TvVoo desde el inventario oficial de GitHub (`lists.json`), igual que `tvvoo_variants.py`, porque `tvvoo.hayd.uk` está retirada.
 - **2026-11-16**: `ESTADO.md` pasó los 60 000 bytes con la revisión de guía de Lista 1 y la prueba de tamaño bloqueó «Actualizar canales M3U» y «Publicar cambios dirigidos»; la bitácora del 1 al 9 de noviembre pasa a `docs/bitacora/2026-11.md` y el cierre TvVoo del 2026-11-07 a `docs/historial-operativo.md`.
