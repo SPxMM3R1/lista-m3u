@@ -45,7 +45,7 @@ class HighflyLiveTest(unittest.TestCase):
              "providerResourceId": "leaf:now-545445", "order": 1}]}]}
         with tempfile.TemporaryDirectory() as tmp:
             lp, sp = Path(tmp) / "layout.json", Path(tmp) / "selection.json"
-            lp.write_text(highfly_live._dump(layout), encoding="utf-8")
+            lp.write_text(highfly_live._dump(layout, True), encoding="utf-8")  # layout compacto (2026-11-17)
             sp.write_text(highfly_live._dump(selection), encoding="utf-8")
             applied = highfly_live.sync_files({"SkySportsF1.uk": "now-344343"}, lp, sp)
             self.assertEqual(2, len(applied))

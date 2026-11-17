@@ -203,6 +203,10 @@ def reconcile_selection(
     variants = load_tvvoo_variants() if tvvoo_variants is None else tvvoo_variants
 
     channels = list(catalog_channels)
+    # Índice por tvg-id y por alias (2026-11-17): con el catálogo TvVoo completo en Lista 2
+    # (8.382 filas) recorrer todas las fichas por fila tardaba horas. Solo preselecciona;
+    # cada candidata se confirma con _match_row, así que el resultado es el mismo.
+    catalog_index = _CatalogIndex(channels, catalog_lines)
     matched: list[ResolvedSelection] = []
     pending: list[dict[str, str]] = []
     for row in document.rows:
@@ -210,21 +214,28 @@ def reconcile_selection(
             pending.append(_pending(row, "identity_provisional"))
             continue
         candidates: list[tuple[int, str]] = []
-        for index, channel in enumerate(channels):
-            match = _match_row(row, channel, catalog_lines)
+        for position in catalog_index.candidates(row):
+            match = _match_row(row, channels[position], catalog_lines)
             if match:
-                candidates.append((index, match))
+                candidates.append((position, match))
         if not candidates and row.provider == "tvvoo" and variants.get(row.catalog_key):
             # «SKY SPORTS MIX (BACKUP)» no figura en el catálogo, pero su hermana
             # «SKY SPORTS MIX» sí: es el mismo canal y comparte su ficha (guía y logo).
             widened = replace(row, aliases=row.aliases + variants[row.catalog_key])
-            for index, channel in enumerate(channels):
-                match = _match_row(widened, channel, catalog_lines)
+            for position in catalog_index.candidates(widened):
+                match = _match_row(widened, channels[position], catalog_lines)
                 if match:
-                    candidates.append((index, "catalogKey=variant-alias"))
+                    candidates.append((position, "catalogKey=variant-alias"))
         if not candidates:
             pending.append(_pending(row, "catalog_not_found"))
             continue
+        if len(candidates) > 1 and row.provider == "tvvoo":
+            # La ficha con la identidad exacta (tvg-id = catalogKey@TvVoo) gana a las que solo
+            # comparten un alias (2026-11-17: bloque TvVoo completo de Lista 2 frente a fichas
+            # antiguas del addon retirado).
+            exact = [candidate for candidate in candidates if candidate[1] == "catalogKey=tvg-id"]
+            if len(exact) == 1:
+                candidates = exact
         if len(candidates) > 1 and row.provider == "tvvoo":
             # Una eleccion TvVoo suele existir tambien como fila espejo
             # "@TvVoo" en la lista externa. La fila canonica del catalogo tiene
@@ -352,6 +363,40 @@ def _validate_catalog_key(provider: str, value: str, filename: str) -> None:
         raise SelectionError(f"{filename}: catalogKey no puede ser un localizador")
     if provider == "tvvoo" and not TVVOO_KEY_PATTERN.fullmatch(value):
         raise SelectionError(f"{filename}: catalogKey TvVoo debe ser country|vavoo_alias")
+
+
+class _CatalogIndex:
+    """Fichas por tvg-id y por alias TvVoo (sin codificar) de su línea #EXTINF."""
+
+    def __init__(self, channels: list[Any], lines: list[str]) -> None:
+        self.by_tvg_id: dict[str, list[int]] = {}
+        self.by_alias: dict[str, list[int]] = {}
+        for position, channel in enumerate(channels):
+            tvg_id = str(getattr(channel, "tvg_id", "") or "")
+            self.by_tvg_id.setdefault(tvg_id, []).append(position)
+            info_index = getattr(channel, "info_line", -1)
+            if not isinstance(info_index, int) or not 0 <= info_index < len(lines):
+                continue
+            aliases = {
+                unquote(alias)
+                for value in re.findall(r'\bx-(?:resolver-ids|tvvoo-aliases)="([^"]*)"', lines[info_index])
+                for alias in value.split(";")
+                if alias
+            }
+            for alias in aliases:
+                self.by_alias.setdefault(alias, []).append(position)
+
+    def candidates(self, row: SelectionRow) -> list[int]:
+        found: set[int] = set()
+        found.update(self.by_tvg_id.get(row.catalog_key, ()))
+        if row.provider != "highfly":
+            found.update(self.by_tvg_id.get(row.catalog_key + "@TvVoo", ()))
+            stable_alias = row.catalog_key.split("|", 1)[1] if "|" in row.catalog_key else ""
+            keys = {stable_alias, unquote(stable_alias)}
+            keys.update(alias for value in row.aliases for alias in (value, unquote(value)))
+            for key in keys:
+                found.update(self.by_alias.get(key, ()))
+        return sorted(found)
 
 
 def _match_row(row: SelectionRow, channel: Any, lines: list[str]) -> str:

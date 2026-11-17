@@ -35,7 +35,10 @@ SCHEMA = 1
 # para cada catalogKey. Solo cambian resolverSlug/providerResourceId: ni números, ni estados,
 # ni nombres; por eso un sello de aprobación válido se renueva con su mismo origen.
 
-def _dump(document: dict) -> str:
+def _dump(document: dict, compact: bool = False) -> str:
+    # El layout va compacto desde 2026-11-17 (límite de 8 MB de VibeM3U); la selección, con sangría.
+    if compact:
+        return json.dumps(document, ensure_ascii=False, separators=(",", ":")) + "\n"
     return json.dumps(document, ensure_ascii=False, indent=2) + "\n"
 
 
@@ -80,18 +83,19 @@ def sync_files(current: dict[str, str], layout_path: Path = LAYOUT_PATH,
     if not current:
         return []
     applied = []
-    for path, sync in ((layout_path, sync_layout_document), (selection_path, sync_selection_document)):
+    for path, sync, compact in ((layout_path, sync_layout_document, True),
+                                (selection_path, sync_selection_document, False)):
         try:
             text = path.read_text(encoding="utf-8")
             document = json.loads(text)
         except (OSError, ValueError):
             continue
-        if _dump(document) != text.replace("\r\n", "\n"):
+        if _dump(document, compact) != text.replace("\r\n", "\n"):
             print(f"  [--] {path.name}: formato distinto al esperado; ids Highfly sin sincronizar")
             continue
         changes = sync(document, current)
         if changes:
-            path.write_text(_dump(document), encoding="utf-8", newline="\n")
+            path.write_text(_dump(document, compact), encoding="utf-8", newline="\n")
             applied += [f"{path.name} · {change}" for change in changes]
     return applied
 

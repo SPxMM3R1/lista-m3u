@@ -35,6 +35,7 @@ import {
   buildPresentationOverrides,
   approveLayout,
   formatJson,
+  formatCompactJson,
 } from "../site/editor-core.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -74,6 +75,18 @@ const COUNTRY_CODE_BY_KEY = {
   france: "fr", italy: "it", netherlands: "nl", poland: "pl", portugal: "pt", romania: "ro",
   russia: "ru", turkey: "tr", unitedkingdom: "uk",
 };
+
+const LISTA1_DUPLICATES = new Set([
+  "unitedkingdom|vavoo_SKY%20SPORTS%20F1%7Cgroup%3Auk",
+  "unitedkingdom|vavoo_SKY%20SPORTS%20F1%20FHD%7Cgroup%3Auk",
+  "unitedkingdom|vavoo_SKY%20SPORTS%20F1%20HD%7Cgroup%3Auk",
+  "unitedkingdom|vavoo_SKY%20SPORTS%20MAIN%20EVENT%20HD%7Cgroup%3Auk",
+  "unitedkingdom|vavoo_SKY%20SPORTS%20RACING%20HD%7Cgroup%3Auk",
+  "unitedkingdom|vavoo_TNT%20SPORT%201%7Cgroup%3Auk",
+  "unitedkingdom|vavoo_TNT%20SPORT%202%7Cgroup%3Auk",
+  "unitedkingdom|vavoo_TNT%20SPORTS%202%7Cgroup%3Auk",
+  "unitedkingdom|vavoo_TNT%20SPORTS%204%7Cgroup%3Auk"
+]);
 
 async function readJson(relative) {
   return JSON.parse(await readFile(path.join(ROOT, relative), "utf8"));
@@ -182,6 +195,9 @@ async function main() {
   const appendedKeys = new Set();
   for (const { row, country, meta } of candidates) {
     const key = row.catalogKey;
+    // Mismo canal que una fila de Lista 1 (comparte sus alias en el catálogo): no se repite en
+    // Lista 2; la conciliación lo rechaza como «listas incompatibles» (2026-11-17).
+    if (LISTA1_DUPLICATES.has(key)) continue;
     const countryStats = (stats.perCountry[country.name] ??= { added: 0, reactivated: 0, skipped: 0 });
     const existing = existingByKey.get(key) ?? [];
     if (existing.some((item) => item.state !== "deleted")) {
@@ -273,7 +289,7 @@ async function main() {
     tvvooBlockNotInRunnerCatalog: "Filas sin entrada en channel-catalog.m3u: el runner las deja pendientes (catalog_not_found) hasta que exista su entrada.",
   };
 
-  await writeFile(path.join(ROOT, LAYOUT), formatJson(sealed));
+  await writeFile(path.join(ROOT, LAYOUT), formatCompactJson(sealed));
   await writeFile(path.join(ROOT, SELECTION), formatJson(selection));
   await writeFile(path.join(ROOT, PRESENTATION), formatJson(presentation));
   await writeFile(path.join(ROOT, REGISTRY), formatJson(registry));

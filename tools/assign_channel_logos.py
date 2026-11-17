@@ -195,7 +195,7 @@ def assign(apply: bool) -> int:
         for label in pending:
             print("  " + label)
     if apply and changed:
-        LAYOUT_PATH.write_text(json.dumps(layout, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        LAYOUT_PATH.write_text(json.dumps(layout, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
     print(f"{changed} logos {'asignados' if apply else 'por asignar (usa --apply)'}")
     return 0
 

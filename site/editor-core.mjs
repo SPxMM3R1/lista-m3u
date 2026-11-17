@@ -560,6 +560,15 @@ export function formatJson(value) {
   return `${JSON.stringify(value, null, 2)}\n`;
 }
 
+/**
+ * El layout se guarda compacto (2026-11-17): con el bloque TvVoo de Lista 2 pesaba 10,5 MB con
+ * sangría y VibeM3U rechaza más de 8 MB (PublishedPlaybackCatalog.MAX_BYTES). Mismo texto que
+ * `json.dumps(..., ensure_ascii=False, separators=(",", ":"))` en Python.
+ */
+export function formatCompactJson(value) {
+  return `${JSON.stringify(value)}\n`;
+}
+
 // Palabras que describen calidad, respaldo o variante gráfica: no cambian qué canal es.
 const LOGO_NOISE_WORDS = new Set([
   "hd", "fhd", "uhd", "sd", "4k", "8k", "hevc", "backup", "logopedia", "transparent",

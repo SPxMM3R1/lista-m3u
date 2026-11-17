@@ -1854,6 +1854,12 @@ def load_checked_in_tvvoo_aliases(
         if not line.startswith("#EXTINF:") or 'x-resolver="tvvoo"' not in line:
             continue
         attributes = dict(_M3U_ATTRIBUTE_PATTERN.findall(line))
+        stable_id = attributes.get("x-resolver-stable-id", "")
+        if stable_id and attributes.get("tvg-id") == stable_id + "@TvVoo":
+            # Ficha tvvoo:// con identidad exacta (bloque TvVoo de Lista 2, 2026-11-17): la app
+            # resuelve con los alias de su propia línea; no va a compatibilityAliases, que
+            # VibeM3U limita a 256 KiB.
+            continue
         name = attributes.get("tvg-name") or line.rsplit(",", 1)[-1].strip()
         values = tuple(
             alias

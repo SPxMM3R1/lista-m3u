@@ -6,6 +6,7 @@ import {
   assignChannelPosition,
   compareRows,
   formatJson,
+  formatCompactJson,
   moveRowFiltered,
   removePermanently,
   normalizeLists,
@@ -1866,7 +1867,7 @@ async function currentDocuments() {
   const selection = await buildSelectionDocument(layout, state.selection);
   const presentation = buildPresentationOverrides(layout, state.presentation);
   return {
-    [FILES.layout]: formatJson(layout),
+    [FILES.layout]: formatCompactJson(layout),
     [FILES.selection]: formatJson(selection),
     [FILES.presentation]: formatJson(presentation),
   };
