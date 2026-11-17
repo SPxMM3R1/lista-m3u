@@ -1,24 +1,92 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-17T02:00:28.213965Z",
+  "updated_at": "2026-11-17T10:01:59.064448Z",
   "channels": [
+    "Meganoticias.cl",
+    "1153",
+    "0124",
     "RedBullWorldEnglish.int",
     "RedBullChileEspanol.cl",
     "PublicDirect.650a768cd537cb17d491e369",
     "PublicDirect.de3e91d7c885d797352686e1",
+    "45",
+    "13Cultura.cl@DPS",
     "1437",
+    "SkySportsMix.uk@TvVoo",
+    "SkySportsNews.uk@TvVoo",
+    "Eurosport1.fr@TvVoo",
+    "Eurosport1.de@TvVoo",
+    "MTVHits.fr@TvVoo",
     "PublicDirect.3c96353d8e3bf508d2157d81"
   ],
   "details": {
+    "0124": {
+      "kind": "guia-corta",
+      "futureHours": 19.1,
+      "requiredHours": 24.0,
+      "gaps": []
+    },
+    "1153": {
+      "kind": "guia-corta",
+      "futureHours": 18.9,
+      "requiredHours": 24.0,
+      "gaps": []
+    },
+    "13Cultura.cl@DPS": {
+      "kind": "guia-corta",
+      "futureHours": 18.4,
+      "requiredHours": 24.0,
+      "gaps": []
+    },
     "1437": {
       "kind": "guia-corta",
-      "futureHours": 21.0,
+      "futureHours": 14.4,
+      "requiredHours": 24.0,
+      "gaps": []
+    },
+    "45": {
+      "kind": "guia-corta",
+      "futureHours": 18.4,
+      "requiredHours": 24.0,
+      "gaps": []
+    },
+    "Eurosport1.de@TvVoo": {
+      "kind": "hueco",
+      "futureHours": 63.9,
+      "requiredHours": 24.0,
+      "gaps": [
+        [
+          "2026-11-18T00:30:00Z",
+          "2026-11-18T07:30:00Z"
+        ]
+      ]
+    },
+    "Eurosport1.fr@TvVoo": {
+      "kind": "guia-corta",
+      "futureHours": 17.4,
+      "requiredHours": 24.0,
+      "gaps": []
+    },
+    "MTVHits.fr@TvVoo": {
+      "kind": "hueco",
+      "futureHours": 94.4,
+      "requiredHours": 24.0,
+      "gaps": [
+        [
+          "2026-11-17T08:33:58Z",
+          "2026-11-17T11:00:00Z"
+        ]
+      ]
+    },
+    "Meganoticias.cl": {
+      "kind": "guia-corta",
+      "futureHours": 18.4,
       "requiredHours": 24.0,
       "gaps": []
     },
     "PublicDirect.3c96353d8e3bf508d2157d81": {
       "kind": "guia-corta",
-      "futureHours": 23.4,
+      "futureHours": 16.8,
       "requiredHours": 24.0,
       "gaps": []
     },
@@ -30,19 +98,31 @@
     },
     "PublicDirect.de3e91d7c885d797352686e1": {
       "kind": "guia-corta",
-      "futureHours": 23.1,
+      "futureHours": 16.6,
       "requiredHours": 24.0,
       "gaps": []
     },
     "RedBullChileEspanol.cl": {
       "kind": "guia-corta",
-      "futureHours": 21.8,
+      "futureHours": 15.2,
       "requiredHours": 24.0,
       "gaps": []
     },
     "RedBullWorldEnglish.int": {
       "kind": "guia-corta",
-      "futureHours": 18.9,
+      "futureHours": 12.3,
+      "requiredHours": 24.0,
+      "gaps": []
+    },
+    "SkySportsMix.uk@TvVoo": {
+      "kind": "sin-guia",
+      "futureHours": 0.0,
+      "requiredHours": 24.0,
+      "gaps": []
+    },
+    "SkySportsNews.uk@TvVoo": {
+      "kind": "sin-guia",
+      "futureHours": 0.0,
       "requiredHours": 24.0,
       "gaps": []
     }
