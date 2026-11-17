@@ -115,8 +115,8 @@ class TvVooUkVerifiedSignals(unittest.TestCase):
         self.assertEqual(["BT SPORT 2 HD", "BT SPORT 2"], self.siblings(
             "TNT SPORT 2", "BT SPORT 2", "BT SPORT 2 HD", "BT SPORT 2 (BACKUP)"))
 
-    def test_tnt_three_rejects_bt_hd_with_different_program(self):
-        self.assertEqual(["TNT SPORTS 3 HD", "BT SPORT 3"], self.siblings(
+    def test_tnt_three_adds_bt_hd_but_not_unverified_backup(self):
+        self.assertEqual(["TNT SPORTS 3 HD", "BT SPORT 3 HD", "BT SPORT 3"], self.siblings(
             "TNT SPORTS 3", "BT SPORT 3", "TNT SPORTS 3 HD", "BT SPORT 3 HD", "BT SPORT 3 (BACKUP)"))
 
     def test_bt_espn_is_tnt_four_not_espn_us(self):
@@ -141,12 +141,12 @@ class TvVooUkVerifiedSignals(unittest.TestCase):
         self.assertEqual([candidates[0][0]], tv.siblings_for(chosen, candidates, "uk"))
 
     def test_unverified_selected_bt_variant_does_not_inherit_verified_signal(self):
-        self.assertEqual([], self.siblings("BT SPORT 3 HD", "BT SPORT 3", "TNT SPORTS 3"))
+        self.assertEqual([], self.siblings("BT SPORT 3 (BACKUP)", "BT SPORT 3", "TNT SPORTS 3"))
 
     def test_retention_never_restores_rejected_signal_even_on_catalog_failure(self):
         chosen = entries("uk", "TNT SPORTS 3")[0][0]
         key = "unitedkingdom|" + chosen
-        valid, rejected = [alias for alias, _ in entries("uk", "BT SPORT 3", "BT SPORT 3 HD")]
+        valid, rejected = [alias for alias, _ in entries("uk", "BT SPORT 3", "BT SPORT 3 (BACKUP)")]
         for failed in (set(), {"unitedkingdom"}):
             merged, _ = tv.merge_with_previous({}, {"channels": {key: [valid, rejected]}}, {key}, failed)
             self.assertEqual({key: [valid]}, merged)
