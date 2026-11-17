@@ -75,6 +75,10 @@ UK_VERIFIED_SIGNALS = {
     "TNT SPORTS 3": 3, "TNT SPORTS 3 HD": 3, "BT SPORT 3": 3,
     "TNT SPORT 4": 4, "TNT SPORTS 4 HD": 4,
     "BT SPORT ESPN": 4, "BT SPORT ESPN HD": 4,
+    # 2026-11-17: comprobadas en la app con fotograma, mismo programa que el canal a la vez
+    # (BT SPORT 1 HD: documental de TNT Sports 1; TNT SPORTS 2: la misma pelea de UFC).
+    # BT SPORT 3 HD sigue fuera: antes mostró otro programa.
+    "BT SPORT 1 HD": 1, "TNT SPORTS 2": 2,
 }
 UK_VERIFIED_FAMILIES = {"BT SPORT 1", "BT SPORT 2", "BT SPORT 3", "BT SPORT ESPN",
                         "TNT SPORT 1", "TNT SPORT 2", "TNT SPORTS 3", "TNT SPORT 4",

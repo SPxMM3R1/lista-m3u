@@ -103,8 +103,13 @@ class TvVooUkVerifiedSignals(unittest.TestCase):
         return [names[alias] for alias in tv.siblings_for(catalog[0][0], catalog, code)]
 
     def test_tnt_one_has_only_verified_bt_backups(self):
-        self.assertEqual(["BT SPORT 1", "BT SPORT 1 (BACKUP)"], self.siblings(
+        # BT SPORT 1 HD se comprobó con fotograma el 2026-11-17.
+        self.assertEqual(["BT SPORT 1 HD", "BT SPORT 1", "BT SPORT 1 (BACKUP)"], self.siblings(
             "TNT SPORT 1", "BT SPORT 1", "BT SPORT 1 (BACKUP)", "BT SPORT 1 HD", "BT SPORT 2"))
+
+    def test_tnt_two_adds_verified_tnt_sports_two_and_keeps_bt(self):
+        self.assertEqual(["BT SPORT 2 HD", "BT SPORT 2", "TNT SPORTS 2"], self.siblings(
+            "TNT SPORT 2", "BT SPORT 2", "BT SPORT 2 HD", "TNT SPORTS 2", "TNT SPORTS 1"))
 
     def test_tnt_two_has_bt_two_and_hd_but_not_unverified_backup(self):
         self.assertEqual(["BT SPORT 2 HD", "BT SPORT 2"], self.siblings(
@@ -132,7 +137,7 @@ class TvVooUkVerifiedSignals(unittest.TestCase):
 
     def test_selected_entry_missing_from_catalog_keeps_verified_backups(self):
         chosen = entries("uk", "TNT SPORT 1")[0][0]
-        candidates = entries("uk", "BT SPORT 1", "BT SPORT 1 HD")
+        candidates = entries("uk", "BT SPORT 1", "BT SPORT 2 HD")
         self.assertEqual([candidates[0][0]], tv.siblings_for(chosen, candidates, "uk"))
 
     def test_unverified_selected_bt_variant_does_not_inherit_verified_signal(self):
