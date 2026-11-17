@@ -49,6 +49,8 @@ COUNTRIES = {
     "Turkey": ("turkey", "tr", "Turquía"),
 }
 FIRST = ("unitedkingdom", "spain")
+# Países quitados del bloque por pedido del usuario (2026-11-17).
+EXCLUDED_COUNTRIES = {"turkey", "romania", "poland", "netherlands", "bulgaria", "balkans", "albania"}
 
 
 def encode_alias_part(value: str) -> str:
@@ -115,6 +117,8 @@ def main() -> int:
         if not country or not name:
             continue
         country_key, code, label = country
+        if country_key in EXCLUDED_COUNTRIES:
+            continue
         if any(pattern.search(name) for pattern in update_m3u.PERMANENTLY_REMOVED_CHANNEL_NAME_PATTERNS):
             skipped["excluido"] += 1
             continue

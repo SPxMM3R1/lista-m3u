@@ -116,6 +116,7 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-11-17**: el bloque TvVoo de Lista 2 deja fuera Turquía, Rumania, Polonia, Países Bajos, Bulgaria, Balcanes y Albania (pedido del usuario; `EXCLUDED_COUNTRIES` en `tools/build_lista2_tvvoo_block.py`): quedan 5.276 canales de Reino Unido, España, Alemania, Arabia, Francia, Italia, Portugal y Rusia.
 - 2026-11-17: DAZN F1 y Eurosport 1/2 de España incorporan la parrilla directa de Movistar Plus.
 
 - **2026-11-17**: catálogo completo de Vavoo en Lista 2 sin pasar por el layout: `tools/build_lista2_tvvoo_block.py` genera `data/lista2-tvvoo-bloque.m3u` (8.265 canales tvvoo://, por país; sin exclusiones permanentes ni canales ya publicados) y el runner (`with_tvvoo_catalog_block`) y `targeted_update.py` lo pegan al final de `m3u-externa.m3u`/`2.m3u`; la validación de la partición lo ignora. En el emulador: Lista 2 de 8.279 canales, memoria Java estable en 55–70 MB, canales del bloque abren. Para regenerar el bloque: correr el script y publicar.
