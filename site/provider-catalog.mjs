@@ -1,7 +1,8 @@
 const HIGHFLY_MANIFEST_URL = "https://sports.highfly.to/manifest.json";
 const HIGHFLY_CATALOG_URL = "https://sports.highfly.to/catalog/sport/sports_live.json";
-const TVVOO_MANIFEST_URL = "https://tvvoo.hayd.uk/manifest.json";
-const TVVOO_ORIGIN = "https://tvvoo.hayd.uk";
+// Inventario oficial de TvVoo: el mismo que usa tvvoo_variants.py. La instancia
+// tvvoo.hayd.uk está retirada (redirige a una guía).
+const TVVOO_INVENTORY_URL = "https://raw.githubusercontent.com/qwertyuiop8899/tvvoo/main/src/channels/lists.json";
 const MAX_MANIFEST_BYTES = 512 * 1024;
 const MAX_HIGHFLY_BYTES = 2 * 1024 * 1024;
 const MAX_TVVOO_BYTES = 8 * 1024 * 1024;
@@ -288,6 +289,53 @@ export function parseTvVooCatalogJson(raw, country) {
   return rows;
 }
 
+// Igual que catalog_entries/catalog_from_source_list en tvvoo_variants.py: la clave de país
+// del inventario se compara en minúsculas y solo con letras a-z.
+function inventoryCountryKey(row) {
+  return String(row?.country ?? "").toLowerCase().replace(/[^a-z]/g, "");
+}
+
+function inventoryName(row) {
+  return String(row?.name ?? "").trim();
+}
+
+/** Canales de un país (code «uk», «es», …) del inventario, en el formato de un catálogo regional. */
+export function tvvooCatalogFromInventory(rows, code) {
+  const expected = COUNTRY_KEYS[code];
+  if (!expected) throw new Error("País TvVoo desconocido.");
+  const metas = [];
+  for (const row of Array.isArray(rows) ? rows : []) {
+    const name = inventoryName(row);
+    if (inventoryCountryKey(row) !== expected || !name) continue;
+    const category = text(row.category, 80);
+    metas.push({
+      id: "vavoo_" + encodeAliasPart(name + "|group:" + code),
+      name,
+      genres: category ? [category] : [],
+    });
+  }
+  if (!metas.length) throw new Error(`El inventario TvVoo no trae canales de ${COUNTRY_LABELS[code] ?? code}.`);
+  return { metas };
+}
+
+/** Países con al menos un canal en el inventario, con la misma forma que parseTvVooManifest. */
+export function tvvooCountriesFromInventory(rows) {
+  const codeByKey = new Map(Object.entries(COUNTRY_KEYS).map(([code, key]) => [key, code]));
+  const present = new Set();
+  for (const row of Array.isArray(rows) ? rows : []) {
+    const code = codeByKey.get(inventoryCountryKey(row));
+    if (code && inventoryName(row)) present.add(code);
+  }
+  const countries = [...present].map((code) => ({
+    id: `vavoo_tv_${code}`,
+    code,
+    countryKey: COUNTRY_KEYS[code],
+    name: COUNTRY_LABELS[code] ?? code.toUpperCase(),
+  }));
+  if (!countries.length) throw new Error("El inventario TvVoo no trae canales de ningún país conocido.");
+  return countries.sort((left, right) => left.id === "vavoo_tv_es" ? -1 : right.id === "vavoo_tv_es" ? 1 : left.name.localeCompare(right.name, "es"));
+}
+
 async function fetchJson(url, maximumBytes, fetchImpl, signal, unavailableMessage) {
   const expectedOrigin = new URL(url).origin;
   const controller = new AbortController();
@@ -372,18 +420,44 @@ export async function loadHighflyCatalog({ fetchImpl = globalThis.fetch, registr
   return parseHighflyCatalog(document, registry);
 }
 
+// El inventario se descarga una sola vez por fetchImpl mientras dura una carga:
+// loadAllTvVooCatalogs pide cada país por separado. Caduca tras TVVOO_INVENTORY_TTL_MS
+// para que «Actualizar catálogo» vuelva a consultar GitHub. Si falla, se olvida.
+const TVVOO_INVENTORY_TTL_MS = 60_000;
+const tvvooInventoryCache = new WeakMap();
+
+function fetchTvVooInventory(fetchImpl) {
+  // Sin el AbortSignal de quien llama: el inventario lo comparten otras cargas en curso.
+  return fetchJson(TVVOO_INVENTORY_URL, MAX_TVVOO_BYTES, fetchImpl, undefined, "TvVoo no está disponible ahora.")
+    .then((rows) => {
+      if (!Array.isArray(rows) || !rows.length) throw new Error("TvVoo no está disponible ahora. El inventario no es una lista válida.");
+      return rows;
+    });
+}
+
+function loadTvVooInventory(fetchImpl) {
+  const cached = tvvooInventoryCache.get(fetchImpl);
+  if (cached && Date.now() - cached.at < TVVOO_INVENTORY_TTL_MS) return cached.promise;
+  const promise = fetchTvVooInventory(fetchImpl).catch((error) => {
+    if (tvvooInventoryCache.get(fetchImpl)?.promise === promise) tvvooInventoryCache.delete(fetchImpl);
+    throw error;
+  });
+  tvvooInventoryCache.set(fetchImpl, { at: Date.now(), promise });
+  return promise;
+}
+
 export async function loadTvVooManifest({ fetchImpl = globalThis.fetch, signal } = {}) {
-  const document = await fetchJson(TVVOO_MANIFEST_URL, MAX_MANIFEST_BYTES, fetchImpl, signal, "TvVoo no está disponible ahora.");
-  return parseTvVooManifest(document);
+  const rows = await loadTvVooInventory(fetchImpl);
+  if (signal?.aborted) throw new Error("La carga de TvVoo se canceló.");
+  return tvvooCountriesFromInventory(rows);
 }
 
 export async function loadTvVooCatalog(catalogId, country, { fetchImpl = globalThis.fetch, signal } = {}) {
   const safeId = text(catalogId, 64).toLowerCase();
   if (!/^vavoo_tv_[a-z]{2}$/.test(safeId) || country?.id !== safeId) throw new Error("El catálogo TvVoo seleccionado no es válido.");
-  const url = `${TVVOO_ORIGIN}/catalog/tv/${safeId}.json`;
-  const document = await fetchJson(url, MAX_TVVOO_BYTES, fetchImpl, signal, "TvVoo no está disponible ahora.");
-  if (!Array.isArray(document?.metas)) throw new Error("TvVoo devolvió un catálogo sin canales reconocibles.");
-  return parseTvVooCatalog(document, country);
+  const rows = await loadTvVooInventory(fetchImpl);
+  if (signal?.aborted) throw new Error("La carga de TvVoo se canceló.");
+  return parseTvVooCatalog(tvvooCatalogFromInventory(rows, country.code), country);
 }
 
 export async function loadAllTvVooCatalogs(
@@ -391,7 +465,7 @@ export async function loadAllTvVooCatalogs(
   { fetchImpl = globalThis.fetch, signal, concurrency = 6, onProgress } = {},
 ) {
   const list = Array.isArray(countries) ? countries.filter((country) => country?.id) : [];
-  if (!list.length) throw new Error("Carga primero el manifiesto TvVoo o actualiza el catálogo para elegir un país.");
+  if (!list.length) throw new Error("Carga primero la lista de países de TvVoo o actualiza el catálogo para elegir un país.");
   const workers = Math.max(1, Math.min(Number(concurrency) || 6, list.length));
   const rows = [];
   const seen = new Set();

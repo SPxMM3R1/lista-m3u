@@ -147,6 +147,7 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-11-16**: el editor de catálogo carga la lista TvVoo desde el inventario oficial de GitHub (`lists.json`), igual que `tvvoo_variants.py`, porque `tvvoo.hayd.uk` está retirada.
 - **2026-11-16**: `ESTADO.md` pasó los 60 000 bytes con la revisión de guía de Lista 1 y la prueba de tamaño bloqueó «Actualizar canales M3U» y «Publicar cambios dirigidos»; la bitácora del 1 al 9 de noviembre pasa a `docs/bitacora/2026-11.md` y el cierre TvVoo del 2026-11-07 a `docs/historial-operativo.md`.
 - **2026-11-15**: corrección provisional de 10 min de adelanto en la guía del History Channel #092 (observación del usuario 15:48; necesita corroborar segunda transición).
 

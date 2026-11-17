@@ -24,6 +24,11 @@ sin resolver enlaces ni tokens. Un país ausente (Italia no está en ese archivo
 se considera fallo y conserva sus variantes anteriores. Nunca interpretar una
 lista vacía como desaparición de todas las señales de un país.
 
+El editor de catálogo (`site/provider-catalog.mjs`) usa el mismo inventario que `tvvoo_variants.py`:
+el `lists.json` de ese repositorio. Filtra por país igual que el runner (país en minúsculas sin
+caracteres fuera de a-z y nombre no vacío). Un país sin canales en el inventario se informa como
+fallo de esa carga, no como lista vacía.
+
 Pruebas de la ruta nativa en VibeTV, 2026-11-07 02:21–02:22 UTC:
 Sky Sports Main Event, TNT Sports 3, TNT Sports 4 y Eurosport 1 superaron playlist y segmento.
 TNT 3 y 4 además mostraron video real (rugby y cricket) en la app. DAZN F1 y

@@ -1398,7 +1398,7 @@ function useTvVooJson() {
     const country = providerCache.tvvoo.countries.find((item) => item.id === selectedTvVooCatalogId);
     if (!country) throw new Error(selectedTvVooCatalogId === TVVOO_ALL_ID
       ? "Elige un país concreto (no “Todos los países”) para pegar su JSON."
-      : "Carga primero el manifiesto TvVoo o actualiza el catálogo para elegir un país.");
+      : "Carga primero la lista de países de TvVoo o actualiza el catálogo para elegir un país.");
     const rows = parseTvVooCatalogJson(elements.tvvooCatalogJson.value, country);
     const catalog = tvvooCatalogEntry(country.id);
     invalidateProviderRequest(catalog);
@@ -1466,7 +1466,7 @@ function updateAvailableSourceControls() {
     : providerCache.tvvoo.status === "error"
       ? `${providerCache.tvvoo.error} Usa “Actualizar catálogo” para volver a intentar.`
       : !selectedLabel
-        ? "Carga el manifiesto TvVoo o actualiza el catálogo para elegir un país."
+        ? "Carga la lista de países de TvVoo o actualiza el catálogo para elegir un país."
         : catalog?.status === "loading"
             ? (allCountries && catalog.progress
                 ? `Cargando ${catalog.progress.done} de ${catalog.progress.total} países…`
@@ -1675,7 +1675,7 @@ async function ensureTvVooManifest(force = false) {
     .catch((error) => {
       if (source.requestId !== requestId) return source.countries;
       source.status = "error";
-      source.error = error.message || "No se pudo leer el manifiesto TvVoo.";
+      source.error = error.message || "No se pudo leer el inventario TvVoo.";
       throw error;
     })
     .finally(() => {
@@ -1730,7 +1730,7 @@ async function ensureAllTvVooCatalog(force = false) {
   const catalog = tvvooCatalogEntry(TVVOO_ALL_ID);
   if (!force && catalog.pending) return catalog.pending;
   if (!force && catalog.rows.length && Date.now() - catalog.loadedAt < PROVIDER_CACHE_MS) return catalog.rows;
-  if (!source.countries.length) throw new Error("Carga primero el manifiesto TvVoo o actualiza el catálogo para elegir un país.");
+  if (!source.countries.length) throw new Error("Carga primero la lista de países de TvVoo o actualiza el catálogo para elegir un país.");
   catalog.status = "loading";
   catalog.error = "";
   catalog.progress = { done: 0, total: source.countries.length };

@@ -33,6 +33,7 @@ import {
   loadAllTvVooCatalogs,
   loadHighflyCatalog,
   loadTvVooCatalog,
+  loadTvVooManifest,
   normalizeProviderName,
   parseHighflyCatalog,
   parseHighflyCatalogJson,
@@ -40,6 +41,8 @@ import {
   parseTvVooCatalogJson,
   parseTvVooManifest,
   parseTvVooManifestJson,
+  tvvooCatalogFromInventory,
+  tvvooCountriesFromInventory,
 } from "../site/provider-catalog.mjs";
 
 globalThis.crypto ??= webcrypto;
@@ -406,30 +409,64 @@ test("deleting a channel frees its number for the following ones", () => {
   );
 });
 
-test("TvVoo loads every country at once and tolerates partial failures", async () => {
-  const countries = [
-    { id: "vavoo_tv_es", code: "es", countryKey: "spain", name: "España" },
-    { id: "vavoo_tv_uk", code: "uk", countryKey: "unitedkingdom", name: "Reino Unido" },
-    { id: "vavoo_tv_fr", code: "fr", countryKey: "france", name: "Francia" },
-  ];
-  const respond = (url, body) => ({
-    ok: true,
-    status: 200,
-    url,
-    headers: { get: () => null },
-    text: async () => JSON.stringify(body),
-  });
-  const fetchImpl = async (url) => {
-    if (url === "https://tvvoo.hayd.uk/catalog/tv/vavoo_tv_es.json") {
-      return respond(url, { metas: [{ id: "vavoo_ESPN%201|group:es", name: "ESPN 1" }] });
-    }
-    if (url === "https://tvvoo.hayd.uk/catalog/tv/vavoo_tv_uk.json") {
-      return respond(url, { metas: [{ id: "vavoo_SKY%20SPORTS%20F1|group:uk", name: "Sky Sports F1" }] });
-    }
-    throw new Error("country unavailable");
+const TVVOO_INVENTORY_URL = "https://raw.githubusercontent.com/qwertyuiop8899/tvvoo/main/src/channels/lists.json";
+
+/** Simula el inventario oficial de TvVoo; cualquier otra URL de TvVoo debe considerarse un error. */
+function tvvooInventoryFetch(body, calls = []) {
+  return async (url) => {
+    calls.push(url);
+    if (url !== TVVOO_INVENTORY_URL) throw new Error("Unexpected endpoint");
+    return {
+      ok: true,
+      status: 200,
+      url,
+      headers: { get: () => null },
+      text: async () => JSON.stringify(body),
+    };
   };
+}
+
+const TVVOO_TEST_COUNTRIES = [
+  { id: "vavoo_tv_es", code: "es", countryKey: "spain", name: "España" },
+  { id: "vavoo_tv_uk", code: "uk", countryKey: "unitedkingdom", name: "Reino Unido" },
+  { id: "vavoo_tv_fr", code: "fr", countryKey: "france", name: "Francia" },
+];
+
+test("TvVoo inventory rows become the same aliases the Python runner writes", () => {
+  const country = { id: "vavoo_tv_uk", code: "uk", countryKey: "unitedkingdom", name: "Reino Unido" };
+  const catalog = tvvooCatalogFromInventory([
+    { name: "SKY SPORTS F1 HD", country: "United Kingdom", logo: null, category: null },
+    { name: "Otro país", country: "Spain", logo: null, category: null },
+  ], "uk");
+
+  assert.equal(catalog.metas.length, 1);
+  assert.equal(catalog.metas[0].id, "vavoo_SKY%20SPORTS%20F1%20HD%7Cgroup%3Auk");
+  assert.deepEqual(catalog.metas[0].genres, []);
+  assert.equal(parseTvVooCatalog(catalog, country)[0].alias, "vavoo_SKY%20SPORTS%20F1%20HD%7Cgroup%3Auk");
+  assert.throws(() => tvvooCatalogFromInventory([{ name: "ESPN 1", country: "Spain" }], "it"), /no trae canales de Italia/);
+});
+
+test("TvVoo inventory lists only countries with channels, Spanish first", () => {
+  const countries = tvvooCountriesFromInventory([
+    { name: "Sky Sports F1", country: "United Kingdom" },
+    { name: "ESPN 1", country: "Spain" },
+    { name: "Canal sin nombre", country: "Germany" },
+    { name: "   ", country: "Germany" },
+    { name: "Bundesliga", country: "Germany" },
+  ]);
+
+  assert.deepEqual(countries.map((country) => country.id), ["vavoo_tv_es", "vavoo_tv_de", "vavoo_tv_uk"]);
+  assert.deepEqual(countries[0], { id: "vavoo_tv_es", code: "es", countryKey: "spain", name: "España" });
+  assert.throws(() => tvvooCountriesFromInventory([{ name: "Sin país", country: "Atlantis" }]), /ningún país conocido/);
+});
+
+test("TvVoo loads every country at once and tolerates partial failures", async () => {
+  const fetchImpl = tvvooInventoryFetch([
+    { name: "ESPN 1", country: "Spain", logo: null, category: null },
+    { name: "Sky Sports F1", country: "United Kingdom", logo: null, category: null },
+  ]);
   const progress = [];
-  const result = await loadAllTvVooCatalogs(countries, {
+  const result = await loadAllTvVooCatalogs(TVVOO_TEST_COUNTRIES, {
     fetchImpl,
     concurrency: 2,
     onProgress: (done) => progress.push(done),
@@ -445,8 +482,51 @@ test("TvVoo loads every country at once and tolerates partial failures", async (
   assert.equal(progress.length, 3);
 
   await assert.rejects(
-    loadAllTvVooCatalogs(countries, { fetchImpl: async () => { throw new Error("offline"); } }),
+    loadAllTvVooCatalogs(TVVOO_TEST_COUNTRIES, { fetchImpl: async () => { throw new Error("offline"); } }),
     /no entregó canales/,
+  );
+});
+
+test("TvVoo downloads the inventory once for all countries of one load", async () => {
+  const calls = [];
+  const fetchImpl = tvvooInventoryFetch([
+    { name: "ESPN 1", country: "Spain" },
+    { name: "Sky Sports F1", country: "United Kingdom" },
+    { name: "Ligue 1 Live", country: "France" },
+  ], calls);
+
+  const result = await loadAllTvVooCatalogs(TVVOO_TEST_COUNTRIES, { fetchImpl, concurrency: 3 });
+
+  assert.equal(result.rows.length, 3);
+  assert.deepEqual(result.failures, []);
+  assert.deepEqual(calls, [TVVOO_INVENTORY_URL]);
+});
+
+test("a country absent from the TvVoo inventory is a failure, never an exception", async () => {
+  const countries = [
+    { id: "vavoo_tv_es", code: "es", countryKey: "spain", name: "España" },
+    { id: "vavoo_tv_it", code: "it", countryKey: "italy", name: "Italia" },
+  ];
+  const fetchImpl = tvvooInventoryFetch([{ name: "ESPN 1", country: "Spain" }]);
+
+  const result = await loadAllTvVooCatalogs(countries, { fetchImpl });
+  assert.deepEqual(result.failures, ["Italia"]);
+  assert.equal(result.rows.length, 1);
+
+  await assert.rejects(
+    loadTvVooCatalog("vavoo_tv_it", countries[1], { fetchImpl }),
+    /no trae canales de Italia/,
+  );
+});
+
+test("TvVoo inventory must be a non-empty array of rows", async () => {
+  await assert.rejects(
+    loadTvVooManifest({ fetchImpl: tvvooInventoryFetch([]) }),
+    /no es una lista válida/,
+  );
+  await assert.rejects(
+    loadTvVooManifest({ fetchImpl: tvvooInventoryFetch({ metas: [] }) }),
+    /no es una lista válida/,
   );
 });
 
