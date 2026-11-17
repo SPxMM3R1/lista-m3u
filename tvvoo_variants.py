@@ -43,6 +43,10 @@ CATALOG_URL = "https://raw.githubusercontent.com/qwertyuiop8899/tvvoo/main/src/c
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124 Safari/537.36"
 MAX_BYTES = 8 * 1024 * 1024
 MAX_SIBLINGS = 7
+# VibeM3U rechaza el archivo entero sobre 256 KiB (PublishedTvVooVariants.MAX_BYTES): sin él la
+# app se queda sin respaldos TvVoo, también los de Lista 1. Se escribe compacto y, si aun así
+# pasa este tope, se descartan primero variantes de filas de Lista 2 (2026-11-17).
+APP_MAX_BYTES = 240 * 1024
 # Error de un país que no figura en el inventario (Italia desde 2026-11): el inventario sí se
 # descargó. Sus variantes se conservan, pero no impide renovar la fecha del resto; si la
 # bloqueara, el archivo envejecería para siempre y la app descartaría todos los respaldos
@@ -355,6 +359,49 @@ def merge_with_previous(
     return {key: aliases[:MAX_SIBLINGS] for key, aliases in merged.items()}, missing
 
 
+def _dump(document: dict) -> str:
+    return json.dumps(document, ensure_ascii=False, separators=(",", ":")) + "\n"
+
+
+def lista2_only_keys(layout: dict) -> list[str]:
+    """catalogKey TvVoo de filas activas de Lista 2 que Lista 1 no usa, del final hacia atrás."""
+    lista1 = set()
+    lista2 = []
+    for row in layout.get("channels") or []:
+        if not isinstance(row, dict) or row.get("state") != "active":
+            continue
+        keys = [str(row.get("catalogKey") or ""), str(row.get("backupTvVoo") or "")]
+        if row.get("sourceList") == "2.m3u":
+            lista2 += [key for key in keys if key]
+        else:
+            lista1.update(key for key in keys if key)
+    return [key for key in reversed(lista2) if key not in lista1]
+
+
+def fit_app_limit(channels: dict, missing: dict, droppable: list[str],
+                  limit: int = APP_MAX_BYTES) -> tuple[dict, dict]:
+    """Quita variantes de ``droppable`` (en ese orden) hasta que el archivo quepa en ``limit``."""
+    def size() -> int:
+        probe = {"schema": 1, "generatedAt": "2026-01-01T00:00:00Z",
+                 "channels": channels, "missing": missing}
+        return len(_dump(probe).encode("utf-8"))
+    if size() <= limit:
+        return channels, missing
+    channels, missing = dict(channels), dict(missing)
+    dropped = 0
+    for key in droppable:
+        if key not in channels:
+            continue
+        del channels[key]
+        for marker in [marker for marker in missing if marker.startswith(key + " ")]:
+            del missing[marker]
+        dropped += 1
+        if size() <= limit:
+            break
+    print(f"Variantes TvVoo: {dropped} filas de Lista 2 sin variantes para no pasar {limit} bytes")
+    return channels, missing
+
+
 def timestamp_refresh_due(previous: dict, now: datetime) -> bool:
     """Fecha ausente/inválida o con 24 h: hay que renovar tras consultar con éxito."""
     try:
@@ -385,6 +432,7 @@ def main() -> int:
     # No rejuvenecer un respaldo conservado solo porque el proveedor está caído.
     provider_errors = [error for error in errors.values() if ABSENT_COUNTRY not in error]
     refresh_timestamp = bool(channels) and not provider_errors and timestamp_refresh_due(previous, now)
+    channels, missing = fit_app_limit(channels, missing, lista2_only_keys(layout))
     if (previous.get("channels") == channels
             and (previous.get("missing") or {}) == missing
             and not refresh_timestamp):
@@ -397,7 +445,7 @@ def main() -> int:
         # Corridas seguidas en que cada hermana conservada faltó en el catálogo.
         "missing": dict(sorted(missing.items())),
     }
-    OUTPUT_PATH.write_text(json.dumps(document, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    OUTPUT_PATH.write_text(_dump(document), encoding="utf-8")
     print(f"Variantes TvVoo: {len(channels)} canales con hermanas")
     return 0
 

@@ -289,5 +289,19 @@ class TvVooVariantFreshness(unittest.TestCase):
         self.assertEqual([new_alias, self.alias], published["channels"][self.key])
 
 
+
+class TvVooVariantAppLimit(unittest.TestCase):
+    def test_drops_lista2_variants_first_to_fit_the_app_limit(self) -> None:
+        channels = {f"spain|vavoo_C{i}%7Cgroup%3Aes": ["vavoo_X" * 40] for i in range(30)}
+        keep = "unitedkingdom|vavoo_TNT%20SPORT%201%7Cgroup%3Auk"
+        channels[keep] = ["vavoo_BT%20SPORT%201%7Cgroup%3Auk"]
+        droppable = [key for key in channels if key != keep]
+        fitted, _ = tv.fit_app_limit(channels, {}, droppable, limit=3000)
+        self.assertIn(keep, fitted)
+        self.assertLess(len(fitted), len(channels))
+        self.assertLessEqual(len(tv._dump({"schema": 1, "generatedAt": "2026-01-01T00:00:00Z",
+                                          "channels": fitted, "missing": {}}).encode()), 3000)
+
+
 if __name__ == "__main__":
     unittest.main()
