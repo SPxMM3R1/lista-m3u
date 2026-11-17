@@ -43,6 +43,11 @@ CATALOG_URL = "https://raw.githubusercontent.com/qwertyuiop8899/tvvoo/main/src/c
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124 Safari/537.36"
 MAX_BYTES = 8 * 1024 * 1024
 MAX_SIBLINGS = 7
+# Error de un país que no figura en el inventario (Italia desde 2026-11): el inventario sí se
+# descargó. Sus variantes se conservan, pero no impide renovar la fecha del resto; si la
+# bloqueara, el archivo envejecería para siempre y la app descartaría todos los respaldos
+# a los 7 días (pasó del 2026-11-07 al 2026-11-16 con los Eurosport, que piden Italia).
+ABSENT_COUNTRY = "inventario TvVoo sin país"
 # El catálogo de TvVoo omite entradas de una consulta a otra (2026-10-01: «SKY SPORTS MIX
 # HD» faltó en una consulta y volvió en la siguiente). Una hermana publicada se conserva
 # hasta que falte en esta cantidad de corridas seguidas.
@@ -232,7 +237,7 @@ def catalog_from_source_list(rows: list, code: str) -> dict:
             metas.append({"id": "vavoo_" + _encode_alias_part(name + "|group:" + code), "name": name})
     if not metas:
         # Missing country is a failed fetch, not proof that all its aliases vanished.
-        raise ValueError(f"inventario TvVoo sin país {code}; conservar variantes anteriores")
+        raise ValueError(f"{ABSENT_COUNTRY} {code}; conservar variantes anteriores")
     return {"metas": metas}
 
 
@@ -373,7 +378,8 @@ def main() -> int:
     channels, missing = merge_with_previous(channels, previous, active_keys, failed_countries)
     now = datetime.now(timezone.utc).replace(microsecond=0)
     # No rejuvenecer un respaldo conservado solo porque el proveedor está caído.
-    refresh_timestamp = bool(channels) and not errors and timestamp_refresh_due(previous, now)
+    provider_errors = [error for error in errors.values() if ABSENT_COUNTRY not in error]
+    refresh_timestamp = bool(channels) and not provider_errors and timestamp_refresh_due(previous, now)
     if (previous.get("channels") == channels
             and (previous.get("missing") or {}) == missing
             and not refresh_timestamp):

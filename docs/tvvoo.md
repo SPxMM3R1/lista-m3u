@@ -21,7 +21,8 @@ al extractor configurado por el usuario, sin consultar la instancia retirada.
 Las variantes se obtienen del inventario del código oficial
 https://github.com/qwertyuiop8899/tvvoo/blob/main/src/channels/lists.json
 sin resolver enlaces ni tokens. Un país ausente (Italia no está en ese archivo)
-se considera fallo y conserva sus variantes anteriores. Nunca interpretar una
+se considera fallo y conserva sus variantes anteriores. Desde el 2026-11-16 ese caso no impide renovar
+`generatedAt` (antes congelaba el archivo y la app descartaba todas las variantes a los 7 días). Nunca interpretar una
 lista vacía como desaparición de todas las señales de un país.
 
 El editor de catálogo (`site/provider-catalog.mjs`) usa el mismo inventario que `tvvoo_variants.py`:

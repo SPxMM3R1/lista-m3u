@@ -256,6 +256,13 @@ class TvVooVariantFreshness(unittest.TestCase):
         previous = self.previous(timedelta(days=8))
         self.assertEqual(previous, self.run_main(previous, errors={"de": "TimeoutError"}))
 
+    def test_country_absent_from_inventory_does_not_freeze_the_timestamp(self) -> None:
+        previous = self.previous(timedelta(days=8))
+        errors = {"it": f"ValueError: {tv.ABSENT_COUNTRY} it; conservar variantes anteriores"}
+        published = self.run_main(previous, errors=errors)
+        self.assertEqual("2026-10-02T12:00:00Z", published["generatedAt"])
+        self.assertEqual(previous["channels"], published["channels"])
+
     def test_missing_invalid_naive_or_future_timestamp_is_repaired(self) -> None:
         for timestamp in (None, "invalid", "2026-10-01T12:00:00", "2026-10-03T12:00:00Z"):
             with self.subTest(timestamp=timestamp):
