@@ -118,6 +118,7 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-11-17**: el bloque TvVoo de Lista 2 queda solo con canales deportivos y musicales (pedido del usuario): categoría del inventario (Sport/Music) o, sin categoría, el nombre (`SPORT_PATTERN`/`MUSIC_PATTERN` en `tools/build_lista2_tvvoo_block.py`). 1.491 canales: Reino Unido 134, España 54, Alemania 596, Arabia 296, Francia 198, Italia 66, Portugal 85, Rusia 62.
 - **2026-11-17**: el bloque TvVoo de Lista 2 deja fuera Turquía, Rumania, Polonia, Países Bajos, Bulgaria, Balcanes y Albania (pedido del usuario; `EXCLUDED_COUNTRIES` en `tools/build_lista2_tvvoo_block.py`): quedan 5.276 canales de Reino Unido, España, Alemania, Arabia, Francia, Italia, Portugal y Rusia.
 - 2026-11-17: Renovación anticipada de fuentes de Lista 1 al bajar de 25 h; incluye principal y respaldos.
 

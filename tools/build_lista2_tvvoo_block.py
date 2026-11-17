@@ -51,6 +51,32 @@ COUNTRIES = {
 FIRST = ("unitedkingdom", "spain")
 # Países quitados del bloque por pedido del usuario (2026-11-17).
 EXCLUDED_COUNTRIES = {"turkey", "romania", "poland", "netherlands", "bulgaria", "balkans", "albania"}
+# Solo canales deportivos o musicales (pedido del usuario, 2026-11-17). Manda la categoría del
+# inventario si la hay (Sport/Music); si no, el nombre.
+KEEP_CATEGORIES = {"sport", "music"}
+SPORT_PATTERN = re.compile(
+    r"SPORT|SPOR\b|DEPORT|ESPN|DAZN|BEIN|BE IN|ARENA|FOOTBALL|FUTBOL|FÚTBOL|FUSSBALL|CALCIO|"
+    r"\bF1\b|FORMULA|MOTOR|AUTOMOTO|RACING|GOLF|TENNIS|TENIS|NBA|NFL|NHL|MLB|UFC|WWE|MMA|"
+    r"FIGHT|BOXING|BOX ?NATION|LALIGA|LA LIGA|LIGA|BUNDESLIGA|SERIE A|PREMIER|CHAMPIONS|"
+    r"MATCH|SETANTA|ELEVEN|EQUIPE|OLYMP|CYCLING|RUGBY|CRICKET|SNOOKER|DARTS|HORSE|TRACK|"
+    r"EXTREME|OUTDOOR|HUNT|FISHING|PESCA|CAZA|\bSKI\b|TOROS|SUPERTENNIS|SPORTITALIA|MILAN TV|"
+    r"INTER TV|JUVENTUS|REAL MADRID|BARCA|BARÇA|MUTV|LFCTV|CHELSEA|CLUB TV|"
+    r"СПОРТ|МАТЧ|ФУТБОЛ|ХОККЕЙ|БОКС|رياض|سبورت|الكأس|ALKASS|AL KASS|SSC|AD SPORT|ABU DHABI SPORT|ON TIME|ON SPORT",
+    re.IGNORECASE,
+)
+MUSIC_PATTERN = re.compile(
+    r"MUSIC|MUSIK|MUSICA|MÚSICA|MUSIQUE|MUZ|МУЗ|MTV|VH1|VIVA|TRACE|MEZZO|STINGRAY|CLUBLAND|"
+    r"KISS|BOX HITS|\bHITS?\b|NRJ|M6 MUSIC|MCM|FOLK|MELODY|MAZZIKA|ROTANA (?:MUSIC|CLIP)|"
+    r"\bRU\.?TV|ЖАРА|ШАНСОН|BRIDGE|CLASSICA|JAZZ|ROCK|\bPOP\b|CONCERT|DANCE|LOUNGE|SCHLAGER|"
+    r"\bRADIO\b|DELUXE|XITE|4FUN|ESKA|POLO TV|\bDISCO\b|KARAOKE|TV ROCK|RTL ZWEI MUSIC|موسيق|أغاني|اغاني",
+    re.IGNORECASE,
+)
+
+
+def is_sport_or_music(name: str, category: str | None) -> bool:
+    if category:
+        return category.strip().lower() in KEEP_CATEGORIES
+    return bool(SPORT_PATTERN.search(name) or MUSIC_PATTERN.search(name))
 
 
 def encode_alias_part(value: str) -> str:
@@ -127,7 +153,11 @@ def main() -> int:
         if key in taken_keys or unquote(alias) in taken_aliases:
             skipped["en lista"] += 1
             continue
-        logo = (logos.get(f"{country_key}|{name.lower()}") or {}).get("logoPath") or f"logos/tvvoo-paises/{code}.svg"
+        meta = logos.get(f"{country_key}|{name.lower()}") or {}
+        if not is_sport_or_music(name, meta.get("category")):
+            skipped["no deportivo ni musical"] = skipped.get("no deportivo ni musical", 0) + 1
+            continue
+        logo = meta.get("logoPath") or f"logos/tvvoo-paises/{code}.svg"
         rows.append((country_key, label, name, key, logo))
 
     order = {key: index for index, key in enumerate(FIRST)}
