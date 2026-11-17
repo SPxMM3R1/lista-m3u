@@ -57,7 +57,7 @@ KEEP_CATEGORIES = {"sport", "music"}
 SPORT_PATTERN = re.compile(
     r"SPORT|SPOR\b|DEPORT|ESPN|DAZN|BEIN|BE IN|ARENA|FOOTBALL|FUTBOL|FÚTBOL|FUSSBALL|CALCIO|"
     r"\bF1\b|FORMULA|MOTOR|AUTOMOTO|RACING|GOLF|TENNIS|TENIS|NBA|NFL|NHL|MLB|UFC|WWE|MMA|"
-    r"FIGHT|BOXING|BOX ?NATION|LALIGA|LA LIGA|LIGA|BUNDESLIGA|SERIE A|PREMIER|CHAMPIONS|"
+    r"FIGHT|BOXING|BOX ?NATION|LALIGA|LA LIGA|LIGA|BUNDESLIGA|SERIE A|\bPREMIER\b|CHAMPIONS|"
     r"MATCH|SETANTA|ELEVEN|EQUIPE|OLYMP|CYCLING|RUGBY|CRICKET|SNOOKER|DARTS|HORSE|TRACK|"
     r"EXTREME|OUTDOOR|HUNT|FISHING|PESCA|CAZA|\bSKI\b|TOROS|SUPERTENNIS|SPORTITALIA|MILAN TV|"
     r"INTER TV|JUVENTUS|REAL MADRID|BARCA|BARÇA|MUTV|LFCTV|CHELSEA|CLUB TV|"
@@ -73,7 +73,13 @@ MUSIC_PATTERN = re.compile(
 )
 
 
-def is_sport_or_music(name: str, category: str | None) -> bool:
+# Excepción pedida por el usuario: todos los canales de TVE (RTVE) de España se quedan.
+TVE_PATTERN = re.compile(r"\bTVE\b|\bRTVE\b|^LA [12]\b|24 HORAS|^CLAN\b|TELEDEPORTE", re.IGNORECASE)
+
+
+def is_sport_or_music(name: str, category: str | None, country_key: str = "") -> bool:
+    if country_key == "spain" and TVE_PATTERN.search(name):
+        return True
     if category:
         return category.strip().lower() in KEEP_CATEGORIES
     return bool(SPORT_PATTERN.search(name) or MUSIC_PATTERN.search(name))
@@ -154,7 +160,7 @@ def main() -> int:
             skipped["en lista"] += 1
             continue
         meta = logos.get(f"{country_key}|{name.lower()}") or {}
-        if not is_sport_or_music(name, meta.get("category")):
+        if not is_sport_or_music(name, meta.get("category"), country_key):
             skipped["no deportivo ni musical"] = skipped.get("no deportivo ni musical", 0) + 1
             continue
         logo = meta.get("logoPath") or f"logos/tvvoo-paises/{code}.svg"
