@@ -76,6 +76,7 @@ const COUNTRY_CODE_BY_KEY = {
   russia: "ru", turkey: "tr", unitedkingdom: "uk",
 };
 
+const PERMANENT_EXCLUSIONS = new Set(JSON.parse(await readFile(path.join(ROOT, "contracts/lista2-tvvoo-excluidos-20261117.json"), "utf8")).catalogKeys);
 const LISTA1_DUPLICATES = new Set([
   "unitedkingdom|vavoo_SKY%20SPORTS%20F1%7Cgroup%3Auk",
   "unitedkingdom|vavoo_SKY%20SPORTS%20F1%20FHD%7Cgroup%3Auk",
@@ -198,6 +199,8 @@ async function main() {
     // Mismo canal que una fila de Lista 1 (comparte sus alias en el catálogo): no se repite en
     // Lista 2; la conciliación lo rechaza como «listas incompatibles» (2026-11-17).
     if (LISTA1_DUPLICATES.has(key)) continue;
+    // Exclusiones permanentes del runner (TRT, RMC, Bloomberg TV…): sus fichas se retiran.
+    if (PERMANENT_EXCLUSIONS.has(key)) continue;
     const countryStats = (stats.perCountry[country.name] ??= { added: 0, reactivated: 0, skipped: 0 });
     const existing = existingByKey.get(key) ?? [];
     if (existing.some((item) => item.state !== "deleted")) {

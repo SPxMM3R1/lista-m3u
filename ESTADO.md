@@ -147,6 +147,7 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-11-17**: fuera del bloque TvVoo de Lista 2 los 108 canales que coinciden con `PERMANENTLY_REMOVED_CHANNEL_NAME_PATTERNS` (TRT, RMC, Bloomberg TV, DAZN FAST…): el runner retira sus fichas y la fila caía sobre una ficha antigua («migración TvVoo sin identidad canónica»). Lista en `contracts/lista2-tvvoo-excluidos-20261117.json`; bloque: 8.265 filas.
 - **2026-11-17**: el bloque TvVoo de Lista 2 dejó a la TV sin layout ni variantes (VibeM3U: 8 MB y 256 KiB). Layout y `tvvoo-variantes.json` ahora compactos (7,6 MB y 233 KB); las variantes tienen tope de 240 KB y descartan primero filas de Lista 2. Conciliación indexada; fichas `tvvoo://` exactas para el bloque (0 pendientes); fuera del bloque 9 canales que ya están en Lista 1.
 - **2026-11-17**: catálogo completo de Vavoo al final de Lista 2 (pedido del usuario): 8382 filas TvVoo desde la captura del catálogo vivo `data/tvvoo-catalogo-vivo-20261117.json` (un canal por nombre y país, sin sufijo de servidor; Italia incluida), por país (Reino Unido, España y luego A–Z). Logos del inventario descargados a `logos/tvvoo-inventario/` y, sin logo, el genérico del país en `logos/tvvoo-paises/`. Script `tools/append_tvvoo_catalog_to_list2.mjs`. Reemplaza «TvVoo fuera de Lista 2» (2026-10-20) para este bloque; el resto de Lista 2 sigue A–Z.
 - **2026-11-17**: por pedido del usuario, TNT Sports 3 suma la variante «BT SPORT 3 HD» (antes excluida por otro programa; hoy mostró TNT Sports 3).
