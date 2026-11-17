@@ -17,14 +17,17 @@ from urllib.parse import parse_qsl, unquote, urlparse
 
 
 SCHEMA_VERSION = 1
-MAX_DOCUMENT_BYTES = 262_144
+# 8 MiB (antes 256 KiB): desde 2026-11-17 la selección declara el catálogo TvVoo completo de
+# Lista 2 (~8.400 filas, ~4,4 MB). Sigue siendo un tope para no aceptar un manifiesto desbordado.
+MAX_DOCUMENT_BYTES = 8 * 1024 * 1024
 ALLOWED_PROVIDERS = frozenset({"highfly", "tvvoo"})
 SELECTION_MARKER_ATTRIBUTE = "x-vibem3u-selection"
 SELECTION_MARKER_VALUE = "managed"
 HIGHFLY_RESOURCE_PATTERN = re.compile(r"^leaf:[a-z0-9][a-z0-9_-]{1,127}$", re.IGNORECASE)
 HIGHFLY_SLUG_PATTERN = re.compile(r"^[a-z0-9][a-z0-9_-]{1,127}$", re.IGNORECASE)
 TVVOO_KEY_PATTERN = re.compile(r"^[A-Za-z0-9_-]+\|vavoo_[^|\s]+(?:\|group:[^|\s]+)?$")
-SAFE_KEY_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._@|:%-]{0,255}$")
+# «*» entra desde 2026-11-17: el editor (encodeURIComponent) no escapa los nombres «[SHM*] …» del catálogo TvVoo.
+SAFE_KEY_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._@|:%*-]{0,255}$")
 SENSITIVE_KEY_PATTERN = re.compile(
     r"(?:token|password|passwd|secret|serverkey|signature|authorization|cookie|credential)",
     re.IGNORECASE,

@@ -1,5 +1,6 @@
 """Orden de Lista 2: todo en un solo bloque A–Z, sin separar los con respaldos (2026-11-09)."""
 import json
+import re
 import unicodedata
 import unittest
 from pathlib import Path
@@ -24,6 +25,10 @@ class Lista2OrderTest(unittest.TestCase):
             for row in document["channels"]
             if row["state"] == "active" and row.get("sourceList") == "2.m3u" and row.get("tvgId") not in linked
         ]
+        # El bloque TvVoo del 2026-11-17 (catálogo completo por país, pedido del usuario) va al final
+        # de Lista 2 y no sigue A–Z: se verifica aparte, abajo. El resto del bloque sí sigue A–Z.
+        tvvoo_block = [row for row in block if row.get("kind") == "provider" and row.get("provider") == "tvvoo"]
+        block = [row for row in block if not (row.get("kind") == "provider" and row.get("provider") == "tvvoo")]
         # Dentro de un mismo nombre, la de más calidad medida primero (2026-10-31); sin medir al final.
         measured = {
             item["tvg_id"]: item
@@ -47,6 +52,24 @@ class Lista2OrderTest(unittest.TestCase):
         ranks = [rank(row) for row in block]
         self.assertEqual(ranks, sorted(ranks))
 
+        # Bloque TvVoo (2026-11-17): va después de todas las demás filas de Lista 2, agrupado por
+        # país (Reino Unido, España, luego el resto por nombre en español) y por nombre dentro del país.
+        lista2 = [
+            row
+            for row in document["channels"]
+            if row["state"] == "active" and row.get("sourceList") == "2.m3u"
+        ]
+        if tvvoo_block:
+            first = lista2.index(tvvoo_block[0])
+            self.assertEqual(lista2[first:], tvvoo_block, "el bloque TvVoo debe ir al final de Lista 2")
+            countries = []
+            for row in tvvoo_block:
+                if not countries or countries[-1] != row["countryKey"]:
+                    self.assertNotIn(row["countryKey"], countries, "cada país del bloque va en un solo tramo")
+                    countries.append(row["countryKey"])
+            self.assertEqual(countries[:2], ["unitedkingdom", "spain"])
+            # Dentro del país el orden es el de localeCompare("es") de JS (símbolos, espacios y
+            # paréntesis incluidos), que Python no reproduce: no se verifica aquí.
 
 if __name__ == "__main__":
     unittest.main()
