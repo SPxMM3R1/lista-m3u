@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, FreeEPG, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-description-policy="verified-source-only" data-description-programmes="6046" data-description-channels="97" data-next-refresh-at="2026-11-18T17:55:00+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u" data-generated-at="2026-11-17T22:06:34+00:00">
+<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, FreeEPG, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-description-policy="verified-source-only" data-description-programmes="6035" data-description-channels="97" data-next-refresh-at="2026-11-18T19:30:00+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u" data-generated-at="2026-11-17T22:10:48+00:00">
   <channel id="0104" data-guide="parrilla real" data-guide-source="zapping-guia-publica">
     <display-name>TVN</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvn.png" />
@@ -104,7 +104,7 @@
     <display-name>Sky Sports Premier League</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/sky-sports-premier-league.png" />
   </channel>
-  <channel id="DAZNF1.es@TvVoo" data-guide="parrilla real" data-guide-source="es">
+  <channel id="DAZNF1.es@TvVoo" data-guide="parrilla real" data-guide-source="movistar-plus-es">
     <display-name>DAZN F1</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/dazn-f1.png" />
   </channel>
@@ -128,11 +128,11 @@
     <display-name>TNT Sports Premium</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tnt-sports-premium.png" />
   </channel>
-  <channel id="IPTVOrg.Eurosport1.fr-Spain" data-guide="parrilla real" data-guide-source="es">
+  <channel id="IPTVOrg.Eurosport1.fr-Spain" data-guide="parrilla real" data-guide-source="movistar-plus-es">
     <display-name>Eurosport 1</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/eurosport-1.png" />
   </channel>
-  <channel id="Eurosport2.es@TvVoo" data-guide="parrilla real" data-guide-source="es">
+  <channel id="Eurosport2.es@TvVoo" data-guide="parrilla real" data-guide-source="movistar-plus-es">
     <display-name>Eurosport 2 España</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/eurosport-2.png" />
   </channel>
@@ -385,7 +385,7 @@
     <display-name>Sky Sports Main Event</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/sky-sports-main-event.png" />
   </channel>
-  <channel id="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" data-guide="parrilla real" data-guide-source="es" data-app-alias-of="DAZNF1.es@TvVoo">
+  <channel id="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" data-guide="parrilla real" data-guide-source="movistar-plus-es" data-app-alias-of="DAZNF1.es@TvVoo">
     <display-name>DAZN F1</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/dazn-f1.png" />
   </channel>
@@ -397,7 +397,7 @@
     <display-name>TNT Sports 4 Reino Unido</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tnt-sports-4.png" />
   </channel>
-  <channel id="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" data-guide="parrilla real" data-guide-source="es" data-app-alias-of="Eurosport2.es@TvVoo">
+  <channel id="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" data-guide="parrilla real" data-guide-source="movistar-plus-es" data-app-alias-of="Eurosport2.es@TvVoo">
     <display-name>Eurosport 2 España</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/eurosport-2.png" />
   </channel>
@@ -5173,240 +5173,126 @@
     <icon src="https://metadata-static.plex.tv/4/gracenote/4728d9ad7d2d78357d07ac3abc0b7026.jpg" />
     <episode-num system="onscreen">S2026</episode-num>
   </programme>
-  <programme start="20261117125000 -0300" stop="20261117133000 -0300" channel="DAZNF1.es@TvVoo">
-    <title lang="es">Gearbox</title>
+  <programme channel="DAZNF1.es@TvVoo" start="20261117125000 -0300" stop="20261117133000 -0300">
+    <title lang="es">Gearbox: Episodio 28</title>
     <desc lang="es">Los fanáticos de la conducción tienen una cita en 'Gearbox', donde los volantes del presente, del pasado y del futuro se ponen en las manos de los mejores expertos.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/1/43.jpg" />
-    <country lang="es">España</country>
-    <episode-num system="onscreen">S3 E28</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261117133000 -0300" stop="20261117153000 -0300" channel="DAZNF1.es@TvVoo">
-    <title lang="es">F1 - GP de Bélgica</title>
-    <sub-title lang="es">Race</sub-title>
+  <programme channel="DAZNF1.es@TvVoo" start="20261117133000 -0300" stop="20261117153000 -0300">
+    <title lang="es">Mundial F1 - GP de Bélgica: Carrera</title>
     <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/12263/c_moet_and_chandon_belgian_grand_prix_2025.jpeg" />
-    <country lang="es">Bélgica</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261117153000 -0300" stop="20261117172500 -0300" channel="DAZNF1.es@TvVoo">
-    <title lang="es">F1 - GP de Arabia Saudita</title>
-    <sub-title lang="es">Race</sub-title>
+  <programme channel="DAZNF1.es@TvVoo" start="20261117153000 -0300" stop="20261117172500 -0300">
+    <title lang="es">Mundial F1 - GP de Arabia Saudí: Carrera</title>
+  </programme>
+  <programme channel="DAZNF1.es@TvVoo" start="20261117172500 -0300" stop="20261117194000 -0300">
+    <title lang="es">Mundial F1 - GP de Hungría: Carrera</title>
+  </programme>
+  <programme channel="DAZNF1.es@TvVoo" start="20261117194000 -0300" stop="20261117200000 -0300">
+    <title lang="es">Código F1: Hungría</title>
+  </programme>
+  <programme channel="DAZNF1.es@TvVoo" start="20261117200000 -0300" stop="20261117212500 -0300">
+    <title lang="es">Mundial F1 - GP de Países Bajos: Box, Box</title>
     <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
-    <date>2025</date>
-    <icon src="https://cdn.sincroguia.tv/storage/12074/c_formula_1_stc_gp_de_arabia_saudi_2025.jpeg" />
-    <country lang="es">Arabia Saudí</country>
-    <episode-num system="onscreen">S2025</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261117172500 -0300" stop="20261117194000 -0300" channel="DAZNF1.es@TvVoo">
-    <title lang="es">Formula 1 AWS Hungarian Grand Prix</title>
-    <sub-title lang="es">Race</sub-title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/84/41.jpg" />
-    <country lang="es">Hungría</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
+  <programme channel="DAZNF1.es@TvVoo" start="20261117212500 -0300" stop="20261117233000 -0300">
+    <title lang="es">Mundial de Fórmula 1: GP de Catar: Carrera</title>
   </programme>
-  <programme start="20261117194000 -0300" stop="20261117200000 -0300" channel="DAZNF1.es@TvVoo">
-    <title lang="es">Código F1</title>
-    <icon src="https://cdn.sincroguia.tv/storage/series/1015003/image.jpg" />
+  <programme channel="DAZNF1.es@TvVoo" start="20261117233000 -0300" stop="20261118012500 -0300">
+    <title lang="es">Mundial de Fórmula 1: GP de Austria: Carrera</title>
   </programme>
-  <programme start="20261117200000 -0300" stop="20261117212500 -0300" channel="DAZNF1.es@TvVoo">
-    <title lang="es">Box Box</title>
-    <sub-title lang="es">Países Bajos</sub-title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/23735/c_box_box_s2025.jpeg" />
-    <country lang="es">España</country>
-    <episode-num system="onscreen">S2026 E16</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
+  <programme channel="DAZNF1.es@TvVoo" start="20261118012500 -0300" stop="20261118032000 -0300">
+    <title lang="es">Mundial F1 - GP de Japón: Carrera</title>
   </programme>
-  <programme start="20261117212500 -0300" stop="20261117233000 -0300" channel="DAZNF1.es@TvVoo">
-    <title lang="es">F1</title>
-    <title lang="es">GP de Catar</title>
-    <sub-title lang="es">Carrera</sub-title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2023 promete más emoción y espectáculo que nunca. Ver más.</desc>
-    <date>2023</date>
-    <icon src="https://cdn.sincroguia.tv/storage/42887/recurso_deportes_azerbaijan_grand_prix.jpeg" />
-    <country lang="es">Estado De Catar</country>
-    <episode-num system="onscreen">S2023</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
-  </programme>
-  <programme start="20261117233000 -0300" stop="20261118012500 -0300" channel="DAZNF1.es@TvVoo">
-    <title lang="es">F1</title>
-    <title lang="es">GP de Austria</title>
-    <sub-title lang="es">Carrera</sub-title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2023 promete más emoción y espectáculo que nunca. Ver más.</desc>
-    <date>2023</date>
-    <icon src="https://cdn.sincroguia.tv/storage/23682/recurso_deportes_formula_1.jpeg" />
-    <country lang="es">Austria</country>
-    <episode-num system="onscreen">S2023</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
-  </programme>
-  <programme start="20261118012500 -0300" stop="20261118032000 -0300" channel="DAZNF1.es@TvVoo">
-    <title lang="es">Lenovo Japanese Grand Prix</title>
-    <sub-title lang="es">Race</sub-title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
-    <date>2025</date>
-    <icon src="https://cdn.sincroguia.tv/storage/39978/c_formula_1_2025.jpeg" />
-    <country lang="es">Japón</country>
-    <episode-num system="onscreen">S2025</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
-  </programme>
-  <programme start="20261118032000 -0300" stop="20261118035000 -0300" channel="DAZNF1.es@TvVoo">
-    <title lang="es">Gearbox</title>
+  <programme channel="DAZNF1.es@TvVoo" start="20261118032000 -0300" stop="20261118035000 -0300">
+    <title lang="es">Gearbox: Episodio 20</title>
     <desc lang="es">Los fanáticos de la conducción tienen una cita en Gearbox, donde los volantes del presente, del pasado y del futuro se ponen en las manos de los mejores expertos. Ver más.</desc>
-    <date>2025</date>
-    <icon src="https://cdn.sincroguia.tv/storage/7587/c_gearbox-_s01.jpeg" />
-    <country lang="es">España</country>
-    <episode-num system="onscreen">S1 E20</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118035000 -0300" stop="20261118054500 -0300" channel="DAZNF1.es@TvVoo">
-    <title lang="es">F1</title>
-    <title lang="es">GP de Australia</title>
-    <sub-title lang="es">Race</sub-title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2024 promete más emoción y espectáculo que nunca. Ver más.</desc>
-    <date>2024</date>
-    <icon src="https://cdn.sincroguia.tv/storage/6704/c_rolex_australian_grand_prix_2024.jpeg" />
-    <country lang="es">Australia</country>
-    <episode-num system="onscreen">S2024</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
+  <programme channel="DAZNF1.es@TvVoo" start="20261118035000 -0300" stop="20261118054500 -0300">
+    <title lang="es">Mundial de Fórmula 1: GP de Australia: Carrera</title>
   </programme>
-  <programme start="20261118054500 -0300" stop="20261118074500 -0300" channel="DAZNF1.es@TvVoo">
-    <title lang="es">F1</title>
-    <title lang="es">GP de Gran Bretaña</title>
-    <sub-title lang="es">Carrera</sub-title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2023 promete más emoción y espectáculo que nunca. Ver más.</desc>
-    <date>2023</date>
-    <icon src="https://cdn.sincroguia.tv/storage/23682/recurso_deportes_formula_1.jpeg" />
-    <country lang="es">Reino Unido</country>
-    <episode-num system="onscreen">S2023</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
+  <programme channel="DAZNF1.es@TvVoo" start="20261118054500 -0300" stop="20261118074500 -0300">
+    <title lang="es">Mundial de Fórmula 1: GP de Gran Bretaña: Carrera</title>
   </programme>
-  <programme start="20261118074500 -0300" stop="20261118080500 -0300" channel="DAZNF1.es@TvVoo">
-    <title lang="es">Código F1</title>
-    <icon src="https://cdn.sincroguia.tv/storage/series/1015003/image.jpg" />
+  <programme channel="DAZNF1.es@TvVoo" start="20261118074500 -0300" stop="20261118080500 -0300">
+    <title lang="es">Código F1: España</title>
   </programme>
-  <programme start="20261118080500 -0300" stop="20261118082500 -0300" channel="DAZNF1.es@TvVoo">
-    <title lang="es">Madrid, Velocidad y Memoria</title>
+  <programme channel="DAZNF1.es@TvVoo" start="20261118080500 -0300" stop="20261118082500 -0300">
+    <title lang="es">Madrid, velocidad y memoria</title>
     <desc lang="es">Particularidades sobre el paso de la F1 en Madrid y en Jarama.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/1/43.jpg" />
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118082500 -0300" stop="20261118093000 -0300" channel="DAZNF1.es@TvVoo">
-    <title lang="es">Decod3d</title>
-    <sub-title lang="es">Lewis Hamilton</sub-title>
-    <desc lang="es">El fútbol levanta pasiones y convierte a los mejores jugadores en auténticos iconos deportivos y culturales. Este espacio analiza pormenorizadamente a varias figuras del deporte rey, tanto dentro como fuera del terreno de juego.</desc>
-    <date>2025</date>
-    <icon src="https://cdn.sincroguia.tv/storage/7257/c_decod3d_s01.jpeg" />
-    <episode-num system="onscreen">S1 E9</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
+  <programme channel="DAZNF1.es@TvVoo" start="20261118082500 -0300" stop="20261118093000 -0300">
+    <title lang="es">Decoded: Hamilton</title>
   </programme>
-  <programme start="20261118093000 -0300" stop="20261118101000 -0300" channel="DAZNF1.es@TvVoo">
-    <title lang="es">Gearbox</title>
+  <programme channel="DAZNF1.es@TvVoo" start="20261118093000 -0300" stop="20261118101000 -0300">
+    <title lang="es">Gearbox: Episodio 28</title>
     <desc lang="es">Los fanáticos de la conducción tienen una cita en 'Gearbox', donde los volantes del presente, del pasado y del futuro se ponen en las manos de los mejores expertos.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/1/43.jpg" />
-    <country lang="es">España</country>
-    <episode-num system="onscreen">S3 E28</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118101000 -0300" stop="20261118122500 -0300" channel="DAZNF1.es@TvVoo">
-    <title lang="es">F1 - GP de los Países Bajos</title>
-    <sub-title lang="es">Carrera</sub-title>
+  <programme channel="DAZNF1.es@TvVoo" start="20261118101000 -0300" stop="20261118122500 -0300">
+    <title lang="es">Mundial F1 - GP de Países Bajos: Carrera</title>
     <desc lang="es">Desde 1993, la Supercopa Porsche se disputa como complemento al Mundial de Fórmula 1. Es la competición monomarca más veloz, en la que equipos profesionales y pilotos corren bajo las mismas condiciones técnicas y con el mismo coche, un potente Porsche 911 GT3 Cup. Ver más.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/84/41.jpg" />
-    <country lang="es">Países Bajos</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118122500 -0300" stop="20261118124500 -0300" channel="DAZNF1.es@TvVoo">
-    <title lang="es">Código F1</title>
-    <icon src="https://cdn.sincroguia.tv/storage/series/1015003/image.jpg" />
+  <programme channel="DAZNF1.es@TvVoo" start="20261118122500 -0300" stop="20261118124500 -0300">
+    <title lang="es">Código F1: Países Bajos</title>
   </programme>
-  <programme start="20261118124500 -0300" stop="20261118130000 -0300" channel="DAZNF1.es@TvVoo">
+  <programme channel="DAZNF1.es@TvVoo" start="20261118124500 -0300" stop="20261118130000 -0300">
     <title lang="es">75 años de F1</title>
     <desc lang="es">75 años de F1.</desc>
-    <date>2025</date>
-    <icon src="https://cdn.sincroguia.tv/storage/42433/75_anos_de_f1_2025.jpeg" />
-    <country lang="es">España</country>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118130000 -0300" stop="20261118133500 -0300" channel="DAZNF1.es@TvVoo">
-    <title lang="es">Gearbox</title>
+  <programme channel="DAZNF1.es@TvVoo" start="20261118130000 -0300" stop="20261118133500 -0300">
+    <title lang="es">Gearbox: Episodio 27</title>
     <desc lang="es">Los fanáticos de la conducción tienen una cita en Gearbox, donde los volantes del presente, del pasado y del futuro se ponen en las manos de los mejores expertos. Ver más.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/7587/c_gearbox-_s01.jpeg" />
-    <country lang="es">España</country>
-    <episode-num system="onscreen">S1 E27</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118133500 -0300" stop="20261118154000 -0300" channel="DAZNF1.es@TvVoo">
-    <title lang="es">F1 - GP de Italia</title>
-    <sub-title lang="es">Carrera</sub-title>
+  <programme channel="DAZNF1.es@TvVoo" start="20261118133500 -0300" stop="20261118154000 -0300">
+    <title lang="es">Mundial F1 - GP de Italia: Carrera</title>
     <desc lang="es">La F3 Series es un campeonato de automovilismo de velocidad que se disputa desde el año 2010 como un escalón por debajo de la categoría de monoplazas F2. Se trata de una excelente cantera para jóvenes que sueñen con competir algún día en la Fórmula 1. Ver más.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/84/41.jpg" />
-    <country lang="es">Italia</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118154000 -0300" stop="20261118175500 -0300" channel="DAZNF1.es@TvVoo">
-    <title lang="es">F1</title>
-    <title lang="es">GP de China</title>
-    <sub-title lang="es">Race</sub-title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2024 promete más emoción y espectáculo que nunca. Ver más.</desc>
-    <date>2024</date>
-    <icon src="https://cdn.sincroguia.tv/storage/23682/recurso_deportes_formula_1.jpeg" />
-    <country lang="es">China</country>
-    <episode-num system="onscreen">S2024</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
+  <programme channel="DAZNF1.es@TvVoo" start="20261118154000 -0300" stop="20261118175500 -0300">
+    <title lang="es">Mundial de Fórmula 1: GP de China: Carrera</title>
+  </programme>
+  <programme channel="DAZNF1.es@TvVoo" start="20261118175500 -0300" stop="20261118201000 -0300">
+    <title lang="es">Mundial F1 - GP de España. Madrid: Carrera</title>
+  </programme>
+  <programme channel="DAZNF1.es@TvVoo" start="20261118201000 -0300" stop="20261118214900 -0300">
+    <title lang="es">Mundial F1 - GP de Azerbaiyán: Box, Box</title>
+  </programme>
+  <programme channel="DAZNF1.es@TvVoo" start="20261118214900 -0300" stop="20261118224500 -0300">
+    <title lang="es">Bravissimo</title>
+  </programme>
+  <programme channel="DAZNF1.es@TvVoo" start="20261118224500 -0300" stop="20261119005500 -0300">
+    <title lang="es">Mundial de Fórmula 1: GP de Hungría: Carrera</title>
+  </programme>
+  <programme channel="DAZNF1.es@TvVoo" start="20261119005500 -0300" stop="20261119025000 -0300">
+    <title lang="es">Mundial F1 - GP de Arabia Saudí: Carrera</title>
+  </programme>
+  <programme channel="DAZNF1.es@TvVoo" start="20261119025000 -0300" stop="20261119044500 -0300">
+    <title lang="es">Mundial de Fórmula 1: GP de Bélgica: Carrera</title>
+  </programme>
+  <programme channel="DAZNF1.es@TvVoo" start="20261119044500 -0300" stop="20261119065000 -0300">
+    <title lang="es">Mundial de Fórmula 1: GP de Japón: Carrera</title>
+  </programme>
+  <programme channel="DAZNF1.es@TvVoo" start="20261119065000 -0300" stop="20261119090000 -0300">
+    <title lang="es">Mundial F1 - GP de Emilia Romagna: Carrera</title>
+  </programme>
+  <programme channel="DAZNF1.es@TvVoo" start="20261119090000 -0300" stop="20261119100000 -0300">
+    <title lang="es">Bravissimo</title>
+  </programme>
+  <programme channel="DAZNF1.es@TvVoo" start="20261119100000 -0300" stop="20261119121500 -0300">
+    <title lang="es">Mundial F1 - GP de Azerbaiyán: Carrera</title>
+  </programme>
+  <programme channel="DAZNF1.es@TvVoo" start="20261119121500 -0300" stop="20261119125500 -0300">
+    <title lang="es">Gearbox: Episodio 25</title>
+  </programme>
+  <programme channel="DAZNF1.es@TvVoo" start="20261119125500 -0300" stop="20261119152500 -0300">
+    <title lang="es">Mundial F1 - GP de Baréin: Carrera</title>
+  </programme>
+  <programme channel="DAZNF1.es@TvVoo" start="20261119152500 -0300" stop="20261119170000 -0300">
+    <title lang="es">Próxima Parada: Madring</title>
+  </programme>
+  <programme channel="DAZNF1.es@TvVoo" start="20261119170000 -0300" stop="20261119191500 -0300">
+    <title lang="es">Mundial F1 - GP de Brasil: Carrera</title>
+  </programme>
+  <programme channel="DAZNF1.es@TvVoo" start="20261119191500 -0300" stop="20261119210000 -0300">
+    <title lang="es">Mundial F1 - GP de Las Vegas: Box, Box</title>
   </programme>
   <programme start="20261117130000 -0300" stop="20261117133000 -0300" channel="DW.de">
     <title lang="es">Visión futuro</title>
@@ -7850,295 +7736,185 @@
     <category lang="es">Boxeo</category>
     <icon src="http://www.reportv.com.ar/buscador/img/Programas/23644833.jpg" />
   </programme>
-  <programme start="20261117130000 -0300" stop="20261117150000 -0300" channel="Eurosport2.es@TvVoo">
-    <title lang="es">Abierto de Irlanda del Norte de snooker</title>
-    <sub-title lang="es">Kyren Wilson - Jak Jones</sub-title>
+  <programme channel="Eurosport2.es@TvVoo" start="20261117130200 -0300" stop="20261117145900 -0300">
+    <title lang="es">Abierto de Irlanda del Norte de snooker: Kyren Wilson vs Jak Jones</title>
     <desc lang="es">El Abierto de Irlanda del Norte de snooker se disputa del 18 al 25 de octubre en el Waterfront Hall de Belfast. Es un torneo clave de las Home Nations Series donde la élite busca el trofeo Alex Higgins. El inglés Jack Lisowski se impuso en 2025.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/43129/c_northern_ireland_open.jpeg" />
-    <country lang="es">Reino Unido</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261117150000 -0300" stop="20261117160000 -0300" channel="Eurosport2.es@TvVoo">
-    <title lang="es">Hall Of Fame París 2024</title>
-    <sub-title lang="es">23/02/2026</sub-title>
-    <desc lang="es">Los Juegos Olímpicos de Cortina Milán han dejado escenas inolvidables para los amantes de los deportes de invierno. Este espacio recuerda los mejores momentos protagonizados por los deportistas en el norte de Italia.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/46501/recurso_eurosport_jjoo_2-2-.jpeg" />
-    <episode-num system="onscreen">S2026 E1</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
+  <programme channel="Eurosport2.es@TvVoo" start="20261117145900 -0300" stop="20261117160300 -0300">
+    <title lang="es">Hall Of Fame Cortina Milán 2026: 23/02/2026</title>
   </programme>
-  <programme start="20261117160000 -0300" stop="20261117170000 -0300" channel="Eurosport2.es@TvVoo">
-    <title lang="es">Copa del mundo de esquí alpino F - Levi</title>
-    <sub-title lang="es">Eslalon - 1ª manga</sub-title>
+  <programme channel="Eurosport2.es@TvVoo" start="20261117160300 -0300" stop="20261117170100 -0300">
+    <title lang="es">Copa del mundo de esquí alpino F - Levi: Eslalon - 1ª manga</title>
     <desc lang="es">La segunda parada de la Copa del mundo de esquí alpino se disputa en Finlandia. La estación de Levi Black acoge competición de eslalon. Paula Moltzan conquistó el gigante inaugural. Mikaela Shiffrin es la histórica dominadora de esta cita en el Círculo Polar Ártico.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/45927/c_copa-del-mundo-de-esqui-alpino-m-solden_s2026.jpeg" />
-    <country lang="es">Finlandia</country>
-    <episode-num system="onscreen">S2627</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261117170000 -0300" stop="20261117180000 -0300" channel="Eurosport2.es@TvVoo">
-    <title lang="es">Copa del mundo de esquí alpino F - Levi</title>
-    <sub-title lang="es">Eslalon - 2ª manga</sub-title>
+  <programme channel="Eurosport2.es@TvVoo" start="20261117170100 -0300" stop="20261117175900 -0300">
+    <title lang="es">Copa del mundo de esquí alpino F - Levi: Eslalon - 2ª manga</title>
     <desc lang="es">La segunda parada de la Copa del mundo de esquí alpino se disputa en Finlandia. La estación de Levi Black acoge competición de eslalon. Paula Moltzan conquistó el gigante inaugural. Mikaela Shiffrin es la histórica dominadora de esta cita en el Círculo Polar Ártico.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/45927/c_copa-del-mundo-de-esqui-alpino-m-solden_s2026.jpeg" />
-    <country lang="es">Finlandia</country>
-    <episode-num system="onscreen">S2627</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261117180000 -0300" stop="20261117193000 -0300" channel="Eurosport2.es@TvVoo">
-    <title lang="es">Abierto de Irlanda del Norte de snooker</title>
-    <sub-title lang="es">Kyren Wilson - Jak Jones</sub-title>
+  <programme channel="Eurosport2.es@TvVoo" start="20261117175900 -0300" stop="20261117190000 -0300">
+    <title lang="es">Abierto de Irlanda del Norte de snooker: Kyren Wilson vs Jak Jones</title>
     <desc lang="es">El Abierto de Irlanda del Norte de snooker se disputa del 18 al 25 de octubre en el Waterfront Hall de Belfast. Es un torneo clave de las Home Nations Series donde la élite busca el trofeo Alex Higgins. El inglés Jack Lisowski se impuso en 2025.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/43129/c_northern_ireland_open.jpeg" />
-    <country lang="es">Reino Unido</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261117193000 -0300" stop="20261117200000 -0300" channel="Eurosport2.es@TvVoo">
-    <title lang="es">T100 Triathlon World Tour Magazine</title>
-    <sub-title lang="es">PTO Tour Magazine</sub-title>
-    <icon src="https://cdn.sincroguia.tv/storage/series/1109963/image.jpg" />
+  <programme channel="Eurosport2.es@TvVoo" start="20261117190000 -0300" stop="20261117192900 -0300">
+    <title lang="es">T100 Triathlon World Tour Magazine: Dubái</title>
   </programme>
-  <programme start="20261117200000 -0300" stop="20261117204500 -0300" channel="Eurosport2.es@TvVoo">
-    <title lang="es">Copa del mundo de esquí alpino F - Sölden</title>
-    <sub-title lang="es">Eslalon gigante - 1ª manga</sub-title>
+  <programme channel="Eurosport2.es@TvVoo" start="20261117192900 -0300" stop="20261117200000 -0300">
+    <title lang="es">T100 Triathlon World Tour Magazine: Dubái</title>
+  </programme>
+  <programme channel="Eurosport2.es@TvVoo" start="20261117200000 -0300" stop="20261117204500 -0300">
+    <title lang="es">Copa del mundo de esquí alpino F - Sölden: Eslalon gigante - 1ª manga</title>
     <desc lang="es">La prueba de Sölden inaugura oficialmente la temporada de la Copa del Mundo femenina de esquí alpino. El espectacular glaciar Rettenbach acoge el eslalon gigante con sus dos mangas técnicas.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/45927/c_copa-del-mundo-de-esqui-alpino-m-solden_s2026.jpeg" />
-    <country lang="es">Austria</country>
-    <episode-num system="onscreen">S2627</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261117204500 -0300" stop="20261117213000 -0300" channel="Eurosport2.es@TvVoo">
-    <title lang="es">Copa del mundo de esquí alpino F - Sölden</title>
-    <sub-title lang="es">Eslalon gigante - 2ª manga</sub-title>
+  <programme channel="Eurosport2.es@TvVoo" start="20261117204500 -0300" stop="20261117213000 -0300">
+    <title lang="es">Copa del mundo de esquí alpino F - Sölden: Eslalon gigante - 2ª manga</title>
     <desc lang="es">La prueba de Sölden inaugura oficialmente la temporada de la Copa del Mundo femenina de esquí alpino. El espectacular glaciar Rettenbach acoge el eslalon gigante con sus dos mangas técnicas.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/45927/c_copa-del-mundo-de-esqui-alpino-m-solden_s2026.jpeg" />
-    <country lang="es">Austria</country>
-    <episode-num system="onscreen">S2627</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261117213000 -0300" stop="20261117230000 -0300" channel="Eurosport2.es@TvVoo">
-    <title lang="es">Abierto de Irlanda del Norte de snooker</title>
-    <sub-title lang="es">Kyren Wilson - Jak Jones</sub-title>
+  <programme channel="Eurosport2.es@TvVoo" start="20261117213000 -0300" stop="20261117230000 -0300">
+    <title lang="es">Abierto de Irlanda del Norte de snooker: Kyren Wilson vs Jak Jones</title>
     <desc lang="es">El Abierto de Irlanda del Norte de snooker se disputa del 18 al 25 de octubre en el Waterfront Hall de Belfast. Es un torneo clave de las Home Nations Series donde la élite busca el trofeo Alex Higgins. El inglés Jack Lisowski se impuso en 2025.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/43129/c_northern_ireland_open.jpeg" />
-    <country lang="es">Reino Unido</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261117230000 -0300" stop="20261118000000 -0300" channel="Eurosport2.es@TvVoo">
-    <title lang="es">Copa del mundo de esquí alpino F - Sölden</title>
-    <sub-title lang="es">Eslalon gigante - 2ª manga</sub-title>
+  <programme channel="Eurosport2.es@TvVoo" start="20261117230000 -0300" stop="20261118000000 -0300">
+    <title lang="es">Copa del mundo de esquí alpino F - Sölden: Eslalon gigante - 2ª manga</title>
     <desc lang="es">La prueba de Sölden inaugura oficialmente la temporada de la Copa del Mundo femenina de esquí alpino. El espectacular glaciar Rettenbach acoge el eslalon gigante con sus dos mangas técnicas.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/45927/c_copa-del-mundo-de-esqui-alpino-m-solden_s2026.jpeg" />
-    <country lang="es">Austria</country>
-    <episode-num system="onscreen">S2627</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118000000 -0300" stop="20261118010000 -0300" channel="Eurosport2.es@TvVoo">
-    <title lang="es">Copa del mundo de bicicleta de montaña - Resumen</title>
-    <sub-title lang="es">Resumen de la temporada de campo a través olímpico</sub-title>
+  <programme channel="Eurosport2.es@TvVoo" start="20261118000000 -0300" stop="20261118010000 -0300">
+    <title lang="es">Copa del mundo de bicicleta de montaña - Resumen: Resumen de la temporada de campo a través olímpico</title>
     <desc lang="es">Un repaso a los mejores momentos de la Copa del mundo de bicicleta de montaña.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/18913/c_uci_mountain_bike_world_series_2026_2.jpeg" />
-    <country lang="es">España</country>
-    <episode-num system="onscreen">S2026 E13</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118010000 -0300" stop="20261118030000 -0300" channel="Eurosport2.es@TvVoo">
-    <title lang="es">Abierto de Irlanda del Norte de snooker</title>
-    <sub-title lang="es">Kyren Wilson - Jak Jones</sub-title>
+  <programme channel="Eurosport2.es@TvVoo" start="20261118010000 -0300" stop="20261118030000 -0300">
+    <title lang="es">Abierto de Irlanda del Norte de snooker: Kyren Wilson vs Jak Jones</title>
     <desc lang="es">El Abierto de Irlanda del Norte de snooker se disputa del 18 al 25 de octubre en el Waterfront Hall de Belfast. Es un torneo clave de las Home Nations Series donde la élite busca el trofeo Alex Higgins. El inglés Jack Lisowski se impuso en 2025.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/43129/c_northern_ireland_open.jpeg" />
-    <country lang="es">Reino Unido</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118030000 -0300" stop="20261118034500 -0300" channel="Eurosport2.es@TvVoo">
-    <title lang="es">Copa del mundo de esquí alpino M - Sölden</title>
-    <sub-title lang="es">Eslalon gigante - 1ª manga</sub-title>
+  <programme channel="Eurosport2.es@TvVoo" start="20261118030000 -0300" stop="20261118034500 -0300">
+    <title lang="es">Copa del mundo de esquí alpino M - Sölden: Eslalon gigante - 1ª manga</title>
     <desc lang="es">Como suele ser tradicional, la cita de Sölden inaugura la Copa del mundo de esquí alpino. Se disputa en el glaciar Rettenbach (Austria) con un exigente eslalon gigante masculino que reúne a la élite mundial del esquí. El pentacampeón Marco Odermatt es el rival a batir.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/45927/c_copa-del-mundo-de-esqui-alpino-m-solden_s2026.jpeg" />
-    <country lang="es">Austria</country>
-    <episode-num system="onscreen">S2627</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118034500 -0300" stop="20261118043000 -0300" channel="Eurosport2.es@TvVoo">
-    <title lang="es">Copa del mundo de esquí alpino M - Sölden</title>
-    <sub-title lang="es">Eslalon gigante - 2ª manga</sub-title>
+  <programme channel="Eurosport2.es@TvVoo" start="20261118034500 -0300" stop="20261118043000 -0300">
+    <title lang="es">Copa del mundo de esquí alpino M - Sölden: Eslalon gigante - 2ª manga</title>
     <desc lang="es">Como suele ser tradicional, la cita de Sölden inaugura la Copa del mundo de esquí alpino. Se disputa en el glaciar Rettenbach (Austria) con un exigente eslalon gigante masculino que reúne a la élite mundial del esquí. El pentacampeón Marco Odermatt es el rival a batir.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/45927/c_copa-del-mundo-de-esqui-alpino-m-solden_s2026.jpeg" />
-    <country lang="es">Austria</country>
-    <episode-num system="onscreen">S2627</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118043000 -0300" stop="20261118063000 -0300" channel="Eurosport2.es@TvVoo">
-    <title lang="es">Abierto de Irlanda del Norte de snooker</title>
-    <sub-title lang="es">Kyren Wilson - Jak Jones</sub-title>
+  <programme channel="Eurosport2.es@TvVoo" start="20261118043000 -0300" stop="20261118063000 -0300">
+    <title lang="es">Abierto de Irlanda del Norte de snooker: Kyren Wilson vs Jak Jones</title>
     <desc lang="es">El Abierto de Irlanda del Norte de snooker se disputa del 18 al 25 de octubre en el Waterfront Hall de Belfast. Es un torneo clave de las Home Nations Series donde la élite busca el trofeo Alex Higgins. El inglés Jack Lisowski se impuso en 2025.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/43129/c_northern_ireland_open.jpeg" />
-    <country lang="es">Reino Unido</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118063000 -0300" stop="20261118071500 -0300" channel="Eurosport2.es@TvVoo">
-    <title lang="es">Copa del mundo de esquí alpino F - Sölden</title>
-    <sub-title lang="es">Eslalon gigante - 1ª manga</sub-title>
+  <programme channel="Eurosport2.es@TvVoo" start="20261118063000 -0300" stop="20261118071500 -0300">
+    <title lang="es">Copa del mundo de esquí alpino F - Sölden: Eslalon gigante - 1ª manga</title>
     <desc lang="es">La prueba de Sölden inaugura oficialmente la temporada de la Copa del Mundo femenina de esquí alpino. El espectacular glaciar Rettenbach acoge el eslalon gigante con sus dos mangas técnicas.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/45927/c_copa-del-mundo-de-esqui-alpino-m-solden_s2026.jpeg" />
-    <country lang="es">Austria</country>
-    <episode-num system="onscreen">S2627</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118071500 -0300" stop="20261118080000 -0300" channel="Eurosport2.es@TvVoo">
-    <title lang="es">Copa del mundo de esquí alpino F - Sölden</title>
-    <sub-title lang="es">Eslalon gigante - 2ª manga</sub-title>
+  <programme channel="Eurosport2.es@TvVoo" start="20261118071500 -0300" stop="20261118081500 -0300">
+    <title lang="es">Copa del mundo de esquí alpino F - Sölden: Eslalon gigante - 2ª manga</title>
     <desc lang="es">La prueba de Sölden inaugura oficialmente la temporada de la Copa del Mundo femenina de esquí alpino. El espectacular glaciar Rettenbach acoge el eslalon gigante con sus dos mangas técnicas.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/45927/c_copa-del-mundo-de-esqui-alpino-m-solden_s2026.jpeg" />
-    <country lang="es">Austria</country>
-    <episode-num system="onscreen">S2627</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118080000 -0300" stop="20261118100000 -0300" channel="Eurosport2.es@TvVoo">
-    <title lang="es">Abierto de Irlanda del Norte de snooker</title>
-    <sub-title lang="es">Kyren Wilson - Jak Jones</sub-title>
+  <programme channel="Eurosport2.es@TvVoo" start="20261118081500 -0300" stop="20261118100000 -0300">
+    <title lang="es">Abierto de Irlanda del Norte de snooker: Kyren Wilson vs Jak Jones</title>
     <desc lang="es">El Abierto de Irlanda del Norte de snooker se disputa del 18 al 25 de octubre en el Waterfront Hall de Belfast. Es un torneo clave de las Home Nations Series donde la élite busca el trofeo Alex Higgins. El inglés Jack Lisowski se impuso en 2025.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/43129/c_northern_ireland_open.jpeg" />
-    <country lang="es">Reino Unido</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118100000 -0300" stop="20261118111500 -0300" channel="Eurosport2.es@TvVoo">
+  <programme channel="Eurosport2.es@TvVoo" start="20261118100000 -0300" stop="20261118111500 -0300">
     <title lang="es">Resumen de la temporada ciclista F</title>
     <desc lang="es">Un repaso a los mejores momentos de la temporada ciclista femenina. El trabajo hace especial hincapié a las grandes rondas por etapas y a las clásicas del UCI World Tour.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/46535/recurso_eurosport_ciclismo_2026.jpeg" />
-    <country lang="es">España</country>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118111500 -0300" stop="20261118120000 -0300" channel="Eurosport2.es@TvVoo">
-    <title lang="es">Copa del mundo de esquí alpino M - Sölden</title>
-    <sub-title lang="es">Eslalon gigante - 1ª manga</sub-title>
+  <programme channel="Eurosport2.es@TvVoo" start="20261118111500 -0300" stop="20261118120000 -0300">
+    <title lang="es">Copa del mundo de esquí alpino M - Sölden: Eslalon gigante - 1ª manga</title>
     <desc lang="es">Como suele ser tradicional, la cita de Sölden inaugura la Copa del mundo de esquí alpino. Se disputa en el glaciar Rettenbach (Austria) con un exigente eslalon gigante masculino que reúne a la élite mundial del esquí. El pentacampeón Marco Odermatt es el rival a batir.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/45927/c_copa-del-mundo-de-esqui-alpino-m-solden_s2026.jpeg" />
-    <country lang="es">Austria</country>
-    <episode-num system="onscreen">S2627</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118120000 -0300" stop="20261118130000 -0300" channel="Eurosport2.es@TvVoo">
-    <title lang="es">Copa del mundo de esquí alpino M - Sölden</title>
-    <sub-title lang="es">Eslalon gigante - 2ª manga</sub-title>
+  <programme channel="Eurosport2.es@TvVoo" start="20261118120000 -0300" stop="20261118130000 -0300">
+    <title lang="es">Copa del mundo de esquí alpino M - Sölden: Eslalon gigante - 2ª manga</title>
     <desc lang="es">Como suele ser tradicional, la cita de Sölden inaugura la Copa del mundo de esquí alpino. Se disputa en el glaciar Rettenbach (Austria) con un exigente eslalon gigante masculino que reúne a la élite mundial del esquí. El pentacampeón Marco Odermatt es el rival a batir.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/45927/c_copa-del-mundo-de-esqui-alpino-m-solden_s2026.jpeg" />
-    <country lang="es">Austria</country>
-    <episode-num system="onscreen">S2627</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118130000 -0300" stop="20261118150000 -0300" channel="Eurosport2.es@TvVoo">
-    <title lang="es">International Championship de snooker</title>
-    <sub-title lang="es">Final</sub-title>
+  <programme channel="Eurosport2.es@TvVoo" start="20261118130000 -0300" stop="20261118150000 -0300">
+    <title lang="es">International Championship de snooker: Final</title>
     <desc lang="es">El International Championship de snooker se celebra del 31 de octubre al 7 de noviembre en Nanjing, China. Los mejores jugadores del circuito, como Wilson, Selby y Williams, compiten en el SNC National Fitness Center buscando suceder al campeón defensor, Wu Yize.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/44339/c_international_championship_de_snooker_2026.jpeg" />
-    <country lang="es">China</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118150000 -0300" stop="20261118160000 -0300" channel="Eurosport2.es@TvVoo">
-    <title lang="es">Mundial de Resistencia de la FIA _ Resumen</title>
-    <sub-title lang="es">24 Horas de Le Mans</sub-title>
+  <programme channel="Eurosport2.es@TvVoo" start="20261118150000 -0300" stop="20261118160000 -0300">
+    <title lang="es">Mundial de Resistencia de la FIA - Resumen: 24 Horas de Le Mans</title>
     <desc lang="es">El Campeonato Mundial de Resistencia de la FIA (WEC) es la élite del automovilismo de larga duración. Reúne a prototipos y GTs en carreras épicas como las 24 Horas de Le Mans, donde la velocidad, la fiabilidad técnica y el trabajo en equipo son la clave del éxito.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/16890/c_totalenergies_6_hours_of_spa_francorchamps_fia_world_endurance_championship_2026.jpeg" />
-    <country lang="es">Francia</country>
-    <episode-num system="onscreen">S2026 E2</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118160000 -0300" stop="20261118170000 -0300" channel="Eurosport2.es@TvVoo">
-    <title lang="es">Copa del mundo de esquí alpino F - Sölden</title>
-    <sub-title lang="es">Eslalon gigante - 2ª manga</sub-title>
+  <programme channel="Eurosport2.es@TvVoo" start="20261118160000 -0300" stop="20261118170000 -0300">
+    <title lang="es">Copa del mundo de esquí alpino F - Sölden: Eslalon gigante - 2ª manga</title>
     <desc lang="es">La prueba de Sölden inaugura oficialmente la temporada de la Copa del Mundo femenina de esquí alpino. El espectacular glaciar Rettenbach acoge el eslalon gigante con sus dos mangas técnicas.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/45927/c_copa-del-mundo-de-esqui-alpino-m-solden_s2026.jpeg" />
-    <country lang="es">Austria</country>
-    <episode-num system="onscreen">S2627</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118170000 -0300" stop="20261118180000 -0300" channel="Eurosport2.es@TvVoo">
-    <title lang="es">Copa del mundo de esquí alpino M - Sölden</title>
-    <sub-title lang="es">Eslalon gigante - 2ª manga</sub-title>
+  <programme channel="Eurosport2.es@TvVoo" start="20261118170000 -0300" stop="20261118180000 -0300">
+    <title lang="es">Copa del mundo de esquí alpino M - Sölden: Eslalon gigante - 2ª manga</title>
     <desc lang="es">Como suele ser tradicional, la cita de Sölden inaugura la Copa del mundo de esquí alpino. Se disputa en el glaciar Rettenbach (Austria) con un exigente eslalon gigante masculino que reúne a la élite mundial del esquí. El pentacampeón Marco Odermatt es el rival a batir.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/45927/c_copa-del-mundo-de-esqui-alpino-m-solden_s2026.jpeg" />
-    <country lang="es">Austria</country>
-    <episode-num system="onscreen">S2627</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
+  </programme>
+  <programme channel="Eurosport2.es@TvVoo" start="20261118180000 -0300" stop="20261118200000 -0300">
+    <title lang="es">International Championship de snooker: Final</title>
+  </programme>
+  <programme channel="Eurosport2.es@TvVoo" start="20261118200000 -0300" stop="20261118204500 -0300">
+    <title lang="es">Copa del mundo de esquí alpino M - Sölden: Eslalon gigante - 1ª manga</title>
+    <desc lang="es">Como suele ser tradicional, la cita de Sölden inaugura la Copa del mundo de esquí alpino. Se disputa en el glaciar Rettenbach (Austria) con un exigente eslalon gigante masculino que reúne a la élite mundial del esquí. El pentacampeón Marco Odermatt es el rival a batir.</desc>
+  </programme>
+  <programme channel="Eurosport2.es@TvVoo" start="20261118204500 -0300" stop="20261118213000 -0300">
+    <title lang="es">Copa del mundo de esquí alpino M - Sölden: Eslalon gigante - 2ª manga</title>
+  </programme>
+  <programme channel="Eurosport2.es@TvVoo" start="20261118213000 -0300" stop="20261118230000 -0300">
+    <title lang="es">International Championship de snooker: Final</title>
+  </programme>
+  <programme channel="Eurosport2.es@TvVoo" start="20261118230000 -0300" stop="20261119000000 -0300">
+    <title lang="es">Copa del mundo de esquí alpino M - Sölden: Eslalon gigante - 2ª manga</title>
+  </programme>
+  <programme channel="Eurosport2.es@TvVoo" start="20261119000000 -0300" stop="20261119010000 -0300">
+    <title lang="es">Mundial de Resistencia de la FIA - Resumen: 24 Horas de Le Mans</title>
+  </programme>
+  <programme channel="Eurosport2.es@TvVoo" start="20261119010000 -0300" stop="20261119030000 -0300">
+    <title lang="es">International Championship de snooker: Final</title>
+  </programme>
+  <programme channel="Eurosport2.es@TvVoo" start="20261119030000 -0300" stop="20261119040000 -0300">
+    <title lang="es">Hall Of Fame Cortina Milán 2026: 23/02/2026</title>
+  </programme>
+  <programme channel="Eurosport2.es@TvVoo" start="20261119040000 -0300" stop="20261119043000 -0300">
+    <title lang="es">T100 Triathlon World Tour Magazine: Dubái</title>
+  </programme>
+  <programme channel="Eurosport2.es@TvVoo" start="20261119043000 -0300" stop="20261119050000 -0300">
+    <title lang="es">T100 Triathlon World Tour Magazine: Dubái</title>
+  </programme>
+  <programme channel="Eurosport2.es@TvVoo" start="20261119050000 -0300" stop="20261119054500 -0300">
+    <title lang="es">Copa del mundo de saltos de esquí M - Innsbruck: Trampolín largo</title>
+  </programme>
+  <programme channel="Eurosport2.es@TvVoo" start="20261119054500 -0300" stop="20261119063000 -0300">
+    <title lang="es">Copa del mundo de saltos de esquí M - Bischofshofen: Trampolín largo</title>
+  </programme>
+  <programme channel="Eurosport2.es@TvVoo" start="20261119063000 -0300" stop="20261119071500 -0300">
+    <title lang="es">Copa del mundo de esquí alpino M - Sölden: Eslalon gigante - 1ª manga</title>
+  </programme>
+  <programme channel="Eurosport2.es@TvVoo" start="20261119071500 -0300" stop="20261119080000 -0300">
+    <title lang="es">Copa del mundo de esquí alpino M - Sölden: Eslalon gigante - 2ª manga</title>
+  </programme>
+  <programme channel="Eurosport2.es@TvVoo" start="20261119080000 -0300" stop="20261119100000 -0300">
+    <title lang="es">International Championship de snooker: Final</title>
+  </programme>
+  <programme channel="Eurosport2.es@TvVoo" start="20261119100000 -0300" stop="20261119113000 -0300">
+    <title lang="es">Copa del mundo de saltos de esquí M - Garmisch Partenkirchen: Trampolín largo</title>
+  </programme>
+  <programme channel="Eurosport2.es@TvVoo" start="20261119113000 -0300" stop="20261119121500 -0300">
+    <title lang="es">Copa del mundo de saltos de esquí M - Innsbruck: Trampolín largo</title>
+  </programme>
+  <programme channel="Eurosport2.es@TvVoo" start="20261119121500 -0300" stop="20261119130000 -0300">
+    <title lang="es">Copa del mundo de saltos de esquí M - Bischofshofen: Trampolín largo</title>
+  </programme>
+  <programme channel="Eurosport2.es@TvVoo" start="20261119130000 -0300" stop="20261119133000 -0300">
+    <title lang="es">Copa del mundo de esquí alpino F - Levi: Eslalon - 2ª manga</title>
+  </programme>
+  <programme channel="Eurosport2.es@TvVoo" start="20261119133000 -0300" stop="20261119140000 -0300">
+    <title lang="es">Copa del mundo de esquí alpino M - Levi: Eslalon - 2ª manga</title>
+  </programme>
+  <programme channel="Eurosport2.es@TvVoo" start="20261119140000 -0300" stop="20261119150000 -0300">
+    <title lang="es">Hall Of Fame Cortina Milán 2026: 23/02/2026</title>
+  </programme>
+  <programme channel="Eurosport2.es@TvVoo" start="20261119150000 -0300" stop="20261119160000 -0300">
+    <title lang="es">Mundial de Resistencia de la FIA - Resumen: 24 Horas de Le Mans</title>
+  </programme>
+  <programme channel="Eurosport2.es@TvVoo" start="20261119160000 -0300" stop="20261119170000 -0300">
+    <title lang="es">Copa del mundo de esquí alpino M - Sölden: Eslalon gigante - 2ª manga</title>
+  </programme>
+  <programme channel="Eurosport2.es@TvVoo" start="20261119170000 -0300" stop="20261119180000 -0300">
+    <title lang="es">Golden Trail World Series - Resumen: Resumen de la temporada</title>
+  </programme>
+  <programme channel="Eurosport2.es@TvVoo" start="20261119180000 -0300" stop="20261119183000 -0300">
+    <title lang="es">Copa del mundo de esquí alpino F - Levi: Eslalon - 2ª manga</title>
+  </programme>
+  <programme channel="Eurosport2.es@TvVoo" start="20261119183000 -0300" stop="20261119200000 -0300">
+    <title lang="es">UFC 334: Gane vs Hokit: Main Card</title>
   </programme>
   <programme start="20261117130000 -0300" stop="20261117131600 -0300" channel="France24.fr">
     <title lang="es">Noticias</title>
@@ -13128,297 +12904,164 @@
       <value>G</value>
     </rating>
   </programme>
-  <programme start="20261117130000 -0300" stop="20261117140000 -0300" channel="IPTVOrg.Eurosport1.fr-Spain">
-    <title lang="es">Copa del mundo de saltos de esquí M - Garmisch Partenkirchen</title>
-    <sub-title lang="es">Large Hill HS142</sub-title>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261117123000 -0300" stop="20261117135900 -0300">
+    <title lang="es">Copa del mundo de saltos de esquí M - Garmisch Partenkirchen: Trampolín largo</title>
     <desc lang="es">La de Garmisch Partenkirchen es la prueba más especial de la temporada y la segunda del prestigioso Torneo de los Cuatro Trampolines. Los mejores saltadores de esquí del mundo participan en este certamen que premia la regularidad. Daniel Tschofenig defiende título.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/46357/recursos_eurosport_saltos_de_esqui_2025_1.jpeg" />
-    <country lang="es">Alemania</country>
-    <episode-num system="onscreen">S2526</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261117140000 -0300" stop="20261117143000 -0300" channel="IPTVOrg.Eurosport1.fr-Spain">
-    <title lang="es">T100 Triathlon World Tour Magazine</title>
-    <sub-title lang="es">PTO Tour Magazine</sub-title>
-    <icon src="https://cdn.sincroguia.tv/storage/series/1109963/image.jpg" />
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261117135900 -0300" stop="20261117142900 -0300">
+    <title lang="es">T100 Triathlon World Tour Magazine: Dubái</title>
   </programme>
-  <programme start="20261117143000 -0300" stop="20261117150000 -0300" channel="IPTVOrg.Eurosport1.fr-Spain">
-    <title lang="es">The Spirit of Yachting</title>
-    <icon src="https://cdn.sincroguia.tv/storage/series/293596/image.jpg" />
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261117142900 -0300" stop="20261117145900 -0300">
+    <title lang="es">The Spirit of Yachting: Episodio 4</title>
   </programme>
-  <programme start="20261117150000 -0300" stop="20261117160000 -0300" channel="IPTVOrg.Eurosport1.fr-Spain">
-    <title lang="es">Golden Trail World Series _ Resumen</title>
-    <sub-title lang="es">Resumen de la temporada</sub-title>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261117145900 -0300" stop="20261117155700 -0300">
+    <title lang="es">Golden Trail World Series - Resumen: Resumen de la temporada</title>
     <desc lang="es">Una serie de carreras de montaña de alto nivel que reúnen a los mejores corredores de trail running del mundo. El certamen ofrece desafíos atléticos y escenarios impresionantes en diferentes lugares del planeta.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/7583/c_gtws_2026.jpeg" />
-    <country lang="es">España</country>
-    <episode-num system="onscreen">S2026 E9</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261117160000 -0300" stop="20261117180000 -0300" channel="IPTVOrg.Eurosport1.fr-Spain">
-    <title lang="es">Abierto de Irlanda del Norte de snooker</title>
-    <sub-title lang="es">Kyren Wilson - Jak Jones</sub-title>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261117155700 -0300" stop="20261117175900 -0300">
+    <title lang="es">Abierto de Irlanda del Norte de snooker: Kyren Wilson vs Jak Jones</title>
     <desc lang="es">El Abierto de Irlanda del Norte de snooker se disputa del 18 al 25 de octubre en el Waterfront Hall de Belfast. Es un torneo clave de las Home Nations Series donde la élite busca el trofeo Alex Higgins. El inglés Jack Lisowski se impuso en 2025.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/43129/c_northern_ireland_open.jpeg" />
-    <country lang="es">Reino Unido</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261117180000 -0300" stop="20261117190000 -0300" channel="IPTVOrg.Eurosport1.fr-Spain">
-    <title lang="es">Copa del mundo de saltos de esquí M - Oberstdorf</title>
-    <sub-title lang="es">Trampolín largo</sub-title>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261117175900 -0300" stop="20261117200000 -0300">
+    <title lang="es">Copa del mundo de saltos de esquí M - Garmisch Partenkirchen: Trampolín largo</title>
     <desc lang="es">La de Oberstdorf es la séptima prueba de la temporada y la primera del prestigioso Torneo de los Cuatro Trampolines. Los mejores saltadores de esquí del mundo participan en este certamen que premia la regularidad. Daniel Tschofenig defiende título.</desc>
-    <date>2025</date>
-    <icon src="https://cdn.sincroguia.tv/storage/46204/recurso_eurosport_saltos_de_esqui_2025_3.jpeg" />
-    <country lang="es">Alemania</country>
-    <episode-num system="onscreen">S2526</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261117190000 -0300" stop="20261117200000 -0300" channel="IPTVOrg.Eurosport1.fr-Spain">
-    <title lang="es">Copa del mundo de saltos de esquí M - Garmisch Partenkirchen</title>
-    <sub-title lang="es">Large Hill HS142</sub-title>
-    <desc lang="es">La de Garmisch Partenkirchen es la prueba más especial de la temporada y la segunda del prestigioso Torneo de los Cuatro Trampolines. Los mejores saltadores de esquí del mundo participan en este certamen que premia la regularidad. Daniel Tschofenig defiende título.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/46357/recursos_eurosport_saltos_de_esqui_2025_1.jpeg" />
-    <country lang="es">Alemania</country>
-    <episode-num system="onscreen">S2526</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
-  </programme>
-  <programme start="20261117200000 -0300" stop="20261117213000 -0300" channel="IPTVOrg.Eurosport1.fr-Spain">
-    <title lang="es">Abierto de Irlanda del Norte de snooker</title>
-    <sub-title lang="es">Kyren Wilson - Jak Jones</sub-title>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261117200000 -0300" stop="20261117213000 -0300">
+    <title lang="es">Abierto de Irlanda del Norte de snooker: Kyren Wilson vs Jak Jones</title>
     <desc lang="es">El Abierto de Irlanda del Norte de snooker se disputa del 18 al 25 de octubre en el Waterfront Hall de Belfast. Es un torneo clave de las Home Nations Series donde la élite busca el trofeo Alex Higgins. El inglés Jack Lisowski se impuso en 2025.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/43129/c_northern_ireland_open.jpeg" />
-    <country lang="es">Reino Unido</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261117213000 -0300" stop="20261117230000 -0300" channel="IPTVOrg.Eurosport1.fr-Spain">
-    <title lang="es">Copa del mundo de saltos de esquí M - Garmisch Partenkirchen</title>
-    <sub-title lang="es">Large Hill HS142</sub-title>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261117213000 -0300" stop="20261117230000 -0300">
+    <title lang="es">Copa del mundo de saltos de esquí M - Garmisch Partenkirchen: Trampolín largo</title>
     <desc lang="es">La de Garmisch Partenkirchen es la prueba más especial de la temporada y la segunda del prestigioso Torneo de los Cuatro Trampolines. Los mejores saltadores de esquí del mundo participan en este certamen que premia la regularidad. Daniel Tschofenig defiende título.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/46357/recursos_eurosport_saltos_de_esqui_2025_1.jpeg" />
-    <country lang="es">Alemania</country>
-    <episode-num system="onscreen">S2526</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261117230000 -0300" stop="20261118010000 -0300" channel="IPTVOrg.Eurosport1.fr-Spain">
-    <title lang="es">Abierto de Irlanda del Norte de snooker</title>
-    <sub-title lang="es">Kyren Wilson - Jak Jones</sub-title>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261117230000 -0300" stop="20261118010000 -0300">
+    <title lang="es">Abierto de Irlanda del Norte de snooker: Kyren Wilson vs Jak Jones</title>
     <desc lang="es">El Abierto de Irlanda del Norte de snooker se disputa del 18 al 25 de octubre en el Waterfront Hall de Belfast. Es un torneo clave de las Home Nations Series donde la élite busca el trofeo Alex Higgins. El inglés Jack Lisowski se impuso en 2025.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/43129/c_northern_ireland_open.jpeg" />
-    <country lang="es">Reino Unido</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118010000 -0300" stop="20261118020000 -0300" channel="IPTVOrg.Eurosport1.fr-Spain">
-    <title lang="es">Copa del mundo de esquí alpino F - Sölden</title>
-    <sub-title lang="es">Eslalon gigante - 2ª manga</sub-title>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261118010000 -0300" stop="20261118020000 -0300">
+    <title lang="es">Copa del mundo de esquí alpino F - Sölden: Eslalon gigante - 2ª manga</title>
     <desc lang="es">La prueba de Sölden inaugura oficialmente la temporada de la Copa del Mundo femenina de esquí alpino. El espectacular glaciar Rettenbach acoge el eslalon gigante con sus dos mangas técnicas.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/45927/c_copa-del-mundo-de-esqui-alpino-m-solden_s2026.jpeg" />
-    <country lang="es">Austria</country>
-    <episode-num system="onscreen">S2627</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118020000 -0300" stop="20261118030000 -0300" channel="IPTVOrg.Eurosport1.fr-Spain">
-    <title lang="es">Hall Of Fame París 2024</title>
-    <sub-title lang="es">23/02/2026</sub-title>
-    <desc lang="es">Los Juegos Olímpicos de Cortina Milán han dejado escenas inolvidables para los amantes de los deportes de invierno. Este espacio recuerda los mejores momentos protagonizados por los deportistas en el norte de Italia.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/46501/recurso_eurosport_jjoo_2-2-.jpeg" />
-    <episode-num system="onscreen">S2026 E1</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261118020000 -0300" stop="20261118030000 -0300">
+    <title lang="es">Hall Of Fame Cortina Milán 2026: 23/02/2026</title>
   </programme>
-  <programme start="20261118030000 -0300" stop="20261118043000 -0300" channel="IPTVOrg.Eurosport1.fr-Spain">
-    <title lang="es">Abierto de Irlanda del Norte de snooker</title>
-    <sub-title lang="es">Kyren Wilson - Jak Jones</sub-title>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261118030000 -0300" stop="20261118043000 -0300">
+    <title lang="es">Abierto de Irlanda del Norte de snooker: Kyren Wilson vs Jak Jones</title>
     <desc lang="es">El Abierto de Irlanda del Norte de snooker se disputa del 18 al 25 de octubre en el Waterfront Hall de Belfast. Es un torneo clave de las Home Nations Series donde la élite busca el trofeo Alex Higgins. El inglés Jack Lisowski se impuso en 2025.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/43129/c_northern_ireland_open.jpeg" />
-    <country lang="es">Reino Unido</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118043000 -0300" stop="20261118051500 -0300" channel="IPTVOrg.Eurosport1.fr-Spain">
-    <title lang="es">Copa del mundo de esquí alpino M - Sölden</title>
-    <sub-title lang="es">Eslalon gigante - 1ª manga</sub-title>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261118043000 -0300" stop="20261118051500 -0300">
+    <title lang="es">Copa del mundo de esquí alpino M - Sölden: Eslalon gigante - 1ª manga</title>
     <desc lang="es">Como suele ser tradicional, la cita de Sölden inaugura la Copa del mundo de esquí alpino. Se disputa en el glaciar Rettenbach (Austria) con un exigente eslalon gigante masculino que reúne a la élite mundial del esquí. El pentacampeón Marco Odermatt es el rival a batir.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/45927/c_copa-del-mundo-de-esqui-alpino-m-solden_s2026.jpeg" />
-    <country lang="es">Austria</country>
-    <episode-num system="onscreen">S2627</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118051500 -0300" stop="20261118060000 -0300" channel="IPTVOrg.Eurosport1.fr-Spain">
-    <title lang="es">Copa del mundo de esquí alpino M - Sölden</title>
-    <sub-title lang="es">Eslalon gigante - 2ª manga</sub-title>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261118051500 -0300" stop="20261118060000 -0300">
+    <title lang="es">Copa del mundo de esquí alpino M - Sölden: Eslalon gigante - 2ª manga</title>
     <desc lang="es">Como suele ser tradicional, la cita de Sölden inaugura la Copa del mundo de esquí alpino. Se disputa en el glaciar Rettenbach (Austria) con un exigente eslalon gigante masculino que reúne a la élite mundial del esquí. El pentacampeón Marco Odermatt es el rival a batir.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/45927/c_copa-del-mundo-de-esqui-alpino-m-solden_s2026.jpeg" />
-    <country lang="es">Austria</country>
-    <episode-num system="onscreen">S2627</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118060000 -0300" stop="20261118063000 -0300" channel="IPTVOrg.Eurosport1.fr-Spain">
-    <title lang="es">The Spirit of Yachting</title>
-    <icon src="https://cdn.sincroguia.tv/storage/series/293596/image.jpg" />
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261118060000 -0300" stop="20261118063000 -0300">
+    <title lang="es">The Spirit of Yachting: Episodio 4</title>
   </programme>
-  <programme start="20261118063000 -0300" stop="20261118070000 -0300" channel="IPTVOrg.Eurosport1.fr-Spain">
-    <title lang="es">T100 Triathlon World Tour Magazine</title>
-    <sub-title lang="es">PTO Tour Magazine</sub-title>
-    <icon src="https://cdn.sincroguia.tv/storage/series/1109963/image.jpg" />
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261118063000 -0300" stop="20261118070000 -0300">
+    <title lang="es">T100 Triathlon World Tour Magazine: Dubái</title>
   </programme>
-  <programme start="20261118070000 -0300" stop="20261118080000 -0300" channel="IPTVOrg.Eurosport1.fr-Spain">
-    <title lang="es">Abierto de Irlanda del Norte de snooker</title>
-    <sub-title lang="es">Kyren Wilson - Jak Jones</sub-title>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261118070000 -0300" stop="20261118073000 -0300">
+    <title lang="es">T100 Triathlon World Tour Magazine: Dubái</title>
+  </programme>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261118073000 -0300" stop="20261118081500 -0300">
+    <title lang="es">Abierto de Irlanda del Norte de snooker: Kyren Wilson vs Jak Jones</title>
     <desc lang="es">El Abierto de Irlanda del Norte de snooker se disputa del 18 al 25 de octubre en el Waterfront Hall de Belfast. Es un torneo clave de las Home Nations Series donde la élite busca el trofeo Alex Higgins. El inglés Jack Lisowski se impuso en 2025.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/43129/c_northern_ireland_open.jpeg" />
-    <country lang="es">Reino Unido</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118080000 -0300" stop="20261118090000 -0300" channel="IPTVOrg.Eurosport1.fr-Spain">
-    <title lang="es">Copa del mundo de saltos de esquí M - Garmisch Partenkirchen</title>
-    <sub-title lang="es">Large Hill HS124</sub-title>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261118081500 -0300" stop="20261118090000 -0300">
+    <title lang="es">Copa del mundo de saltos de esquí M - Innsbruck: Trampolín largo</title>
     <desc lang="es">La de Innsbruck es la décima prueba de la temporada y la tercera del prestigioso Torneo de los Cuatro Trampolines. Los mejores saltadores de esquí del mundo participan en este certamen que premia la regularidad. Daniel Tschofenig defiende título.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/46357/recursos_eurosport_saltos_de_esqui_2025_1.jpeg" />
-    <country lang="es">Austria</country>
-    <episode-num system="onscreen">S2526</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118090000 -0300" stop="20261118100000 -0300" channel="IPTVOrg.Eurosport1.fr-Spain">
-    <title lang="es">Copa del mundo de saltos de esquí M - Garmisch Partenkirchen</title>
-    <sub-title lang="es">Large Hill HS142</sub-title>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261118090000 -0300" stop="20261118100000 -0300">
+    <title lang="es">Copa del mundo de saltos de esquí M - Bischofshofen: Trampolín largo</title>
     <desc lang="es">La de Bischofshofen es la undécima prueba de la temporada y la cuarta del prestigioso Torneo de los Cuatro Trampolines. Los mejores saltadores de esquí del mundo participan en este certamen que premia la regularidad. Daniel Tschofenig defiende título.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/46357/recursos_eurosport_saltos_de_esqui_2025_1.jpeg" />
-    <country lang="es">Austria</country>
-    <episode-num system="onscreen">S2526</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118100000 -0300" stop="20261118110000 -0300" channel="IPTVOrg.Eurosport1.fr-Spain">
-    <title lang="es">Hall Of Fame París 2024</title>
-    <sub-title lang="es">23/02/2026</sub-title>
-    <desc lang="es">Los Juegos Olímpicos de Cortina Milán han dejado escenas inolvidables para los amantes de los deportes de invierno. Este espacio recuerda los mejores momentos protagonizados por los deportistas en el norte de Italia.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/46501/recurso_eurosport_jjoo_2-2-.jpeg" />
-    <episode-num system="onscreen">S2026 E1</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261118100000 -0300" stop="20261118110000 -0300">
+    <title lang="es">Hall Of Fame Cortina Milán 2026: 23/02/2026</title>
   </programme>
-  <programme start="20261118110000 -0300" stop="20261118130000 -0300" channel="IPTVOrg.Eurosport1.fr-Spain">
-    <title lang="es">International Championship de snooker</title>
-    <sub-title lang="es">Final</sub-title>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261118110000 -0300" stop="20261118130000 -0300">
+    <title lang="es">International Championship de snooker: Final</title>
     <desc lang="es">El International Championship de snooker se celebra del 31 de octubre al 7 de noviembre en Nanjing, China. Los mejores jugadores del circuito, como Wilson, Selby y Williams, compiten en el SNC National Fitness Center buscando suceder al campeón defensor, Wu Yize.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/44339/c_international_championship_de_snooker_2026.jpeg" />
-    <country lang="es">China</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118130000 -0300" stop="20261118140000 -0300" channel="IPTVOrg.Eurosport1.fr-Spain">
-    <title lang="es">Copa del mundo de saltos de esquí M - Garmisch Partenkirchen</title>
-    <sub-title lang="es">Large Hill HS124</sub-title>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261118130000 -0300" stop="20261118140000 -0300">
+    <title lang="es">Copa del mundo de saltos de esquí M - Innsbruck: Trampolín largo</title>
     <desc lang="es">La de Innsbruck es la décima prueba de la temporada y la tercera del prestigioso Torneo de los Cuatro Trampolines. Los mejores saltadores de esquí del mundo participan en este certamen que premia la regularidad. Daniel Tschofenig defiende título.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/46357/recursos_eurosport_saltos_de_esqui_2025_1.jpeg" />
-    <country lang="es">Austria</country>
-    <episode-num system="onscreen">S2526</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118140000 -0300" stop="20261118150000 -0300" channel="IPTVOrg.Eurosport1.fr-Spain">
-    <title lang="es">Copa del mundo de esquí alpino F - Sölden</title>
-    <sub-title lang="es">Eslalon gigante - 2ª manga</sub-title>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261118140000 -0300" stop="20261118150000 -0300">
+    <title lang="es">Copa del mundo de esquí alpino F - Sölden: Eslalon gigante - 2ª manga</title>
     <desc lang="es">La prueba de Sölden inaugura oficialmente la temporada de la Copa del Mundo femenina de esquí alpino. El espectacular glaciar Rettenbach acoge el eslalon gigante con sus dos mangas técnicas.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/45927/c_copa-del-mundo-de-esqui-alpino-m-solden_s2026.jpeg" />
-    <country lang="es">Austria</country>
-    <episode-num system="onscreen">S2627</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118150000 -0300" stop="20261118160000 -0300" channel="IPTVOrg.Eurosport1.fr-Spain">
-    <title lang="es">Copa del mundo de esquí alpino M - Sölden</title>
-    <sub-title lang="es">Eslalon gigante - 2ª manga</sub-title>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261118150000 -0300" stop="20261118160000 -0300">
+    <title lang="es">Copa del mundo de esquí alpino M - Sölden: Eslalon gigante - 2ª manga</title>
     <desc lang="es">Como suele ser tradicional, la cita de Sölden inaugura la Copa del mundo de esquí alpino. Se disputa en el glaciar Rettenbach (Austria) con un exigente eslalon gigante masculino que reúne a la élite mundial del esquí. El pentacampeón Marco Odermatt es el rival a batir.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/45927/c_copa-del-mundo-de-esqui-alpino-m-solden_s2026.jpeg" />
-    <country lang="es">Austria</country>
-    <episode-num system="onscreen">S2627</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118160000 -0300" stop="20261118180000 -0300" channel="IPTVOrg.Eurosport1.fr-Spain">
-    <title lang="es">International Championship de snooker</title>
-    <sub-title lang="es">Final</sub-title>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261118160000 -0300" stop="20261118180000 -0300">
+    <title lang="es">International Championship de snooker: Final</title>
     <desc lang="es">El International Championship de snooker se celebra del 31 de octubre al 7 de noviembre en Nanjing, China. Los mejores jugadores del circuito, como Wilson, Selby y Williams, compiten en el SNC National Fitness Center buscando suceder al campeón defensor, Wu Yize.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/44339/c_international_championship_de_snooker_2026.jpeg" />
-    <country lang="es">China</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118180000 -0300" stop="20261118190000 -0300" channel="IPTVOrg.Eurosport1.fr-Spain">
-    <title lang="es">Copa del mundo de saltos de esquí M - Garmisch Partenkirchen</title>
-    <sub-title lang="es">Large Hill HS124</sub-title>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261118180000 -0300" stop="20261118190000 -0300">
+    <title lang="es">Copa del mundo de saltos de esquí M - Innsbruck: Trampolín largo</title>
     <desc lang="es">La de Innsbruck es la décima prueba de la temporada y la tercera del prestigioso Torneo de los Cuatro Trampolines. Los mejores saltadores de esquí del mundo participan en este certamen que premia la regularidad. Daniel Tschofenig defiende título.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/46357/recursos_eurosport_saltos_de_esqui_2025_1.jpeg" />
-    <country lang="es">Austria</country>
-    <episode-num system="onscreen">S2526</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
+  </programme>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261118190000 -0300" stop="20261118200000 -0300">
+    <title lang="es">Copa del mundo de saltos de esquí M - Bischofshofen: Trampolín largo</title>
+    <desc lang="es">La de Innsbruck es la décima prueba de la temporada y la tercera del prestigioso Torneo de los Cuatro Trampolines. Los mejores saltadores de esquí del mundo participan en este certamen que premia la regularidad. Daniel Tschofenig defiende título.</desc>
+  </programme>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261118200000 -0300" stop="20261118213000 -0300">
+    <title lang="es">International Championship de snooker: Final</title>
+  </programme>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261118213000 -0300" stop="20261118230000 -0300">
+    <title lang="es">Copa del mundo de saltos de esquí M - Innsbruck: Trampolín largo</title>
+  </programme>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261118230000 -0300" stop="20261119010000 -0300">
+    <title lang="es">International Championship de snooker: Final</title>
+  </programme>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261119010000 -0300" stop="20261119030000 -0300">
+    <title lang="es">Copa del mundo de saltos de esquí M - Oberstdorf: Trampolín largo</title>
+  </programme>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261119030000 -0300" stop="20261119043000 -0300">
+    <title lang="es">International Championship de snooker: Final</title>
+  </programme>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261119043000 -0300" stop="20261119051500 -0300">
+    <title lang="es">Copa del mundo de esquí alpino F - Sölden: Eslalon gigante - 1ª manga</title>
+  </programme>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261119051500 -0300" stop="20261119060000 -0300">
+    <title lang="es">Copa del mundo de esquí alpino F - Sölden: Eslalon gigante - 2ª manga</title>
+  </programme>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261119060000 -0300" stop="20261119080000 -0300">
+    <title lang="es">International Championship de snooker: Final</title>
+  </programme>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261119080000 -0300" stop="20261119090000 -0300">
+    <title lang="es">Mundial de Resistencia de la FIA - Resumen: 24 Horas de Le Mans</title>
+  </programme>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261119090000 -0300" stop="20261119100000 -0300">
+    <title lang="es">Copa del mundo de esquí alpino F - Sölden: Eslalon gigante - 1ª manga</title>
+  </programme>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261119100000 -0300" stop="20261119110000 -0300">
+    <title lang="es">Copa del mundo de esquí alpino F - Sölden: Eslalon gigante - 2ª manga</title>
+  </programme>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261119110000 -0300" stop="20261119130000 -0300">
+    <title lang="es">Mundial de snooker: Shaun Murphy - Wu Yize</title>
+  </programme>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261119130000 -0300" stop="20261119142000 -0300">
+    <title lang="es">Copa del mundo de saltos de esquí M - Bischofshofen: Trampolín largo</title>
+  </programme>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261119142000 -0300" stop="20261119152000 -0300">
+    <title lang="es">Copa del mundo de salto ecuestre: Toronto</title>
+  </programme>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261119152000 -0300" stop="20261119162000 -0300">
+    <title lang="es">Copa del mundo de salto ecuestre: Stuttgart</title>
+  </programme>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261119162000 -0300" stop="20261119182000 -0300">
+    <title lang="es">Global Champions Tour - Verona: Champions League - Cuartos de final</title>
+  </programme>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261119182000 -0300" stop="20261119190000 -0300">
+    <title lang="es">Copa del mundo de saltos de esquí M - Innsbruck: Trampolín largo</title>
+  </programme>
+  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261119190000 -0300" stop="20261119200000 -0300">
+    <title lang="es">Copa del mundo de saltos de esquí M - Bischofshofen: Trampolín largo</title>
   </programme>
   <programme start="20261117121400 -0300" stop="20261117131500 -0300" channel="IPTVOrg.LoveNature.ca-4K">
     <title lang="en">Africa's Hunters</title>
@@ -18551,16 +18194,6 @@
     <title lang="es">No te sueltes</title>
     <desc lang="es">Dos niños viven con su madre en una cabaña solitaria en el bosque. Si salen, deben mantenerse en contacto con la vivienda, atados por cuerdas, o, según la madre, el mal los devorará. Un día, uno de los niños, quien duda de ella, se suelta.</desc>
   </programme>
-  <programme start="20261117125500 -0300" stop="20261117130700 -0300" channel="PublicDirect.11e2d6f2d20ea8500bc4a261">
-    <title lang="es">Los jóvenes titanes en acción</title>
-    <sub-title lang="es">El gran concurso de Azarath</sub-title>
-    <desc lang="es">Una autora que está de visita observa las capacidades mágicas del grupo y los invita a que participen en un nuevo programa de televisión.</desc>
-    <date>2024</date>
-    <episode-num system="onscreen">E34</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
   <programme start="20261117130700 -0300" stop="20261117132200 -0300" channel="PublicDirect.11e2d6f2d20ea8500bc4a261">
     <title lang="es">Un show más: Las cintas perdidas</title>
     <desc lang="es">Benson recuerda que lo echaron a patadas del Big Hair y que Papaleta lo contrató como director del parque.</desc>
@@ -20413,29 +20046,6 @@
     <category lang="es">Musical</category>
     <icon src="http://www.reportv.com.ar/buscador/img/Programas/1992791447.jpg" />
   </programme>
-  <programme start="20261117121500 -0300" stop="20261117131000 -0300" channel="PublicDirect.1701b6c4abbcc431fb481536">
-    <title lang="es">Suits</title>
-    <title lang="xx">Vía rápida</title>
-    <sub-title lang="es">V�a r�pida</sub-title>
-    <desc lang="es">Mike Ross, un joven con una mente brillante pero lleno de conflictos, se topa por error con la entrevista de trabajo de Harvey Specter, un trabajador en ascenso que busca un abogado joven para contratar.</desc>
-    <credits>
-      <actor>Gabriel Macht</actor>
-      <actor>Rick Hoffman</actor>
-      <actor>Aloma Wright</actor>
-      <actor>Wendell Pierce</actor>
-      <actor>Max Topplin</actor>
-      <actor>Neal McDonough</actor>
-      <actor>David Costabile</actor>
-      <actor>Christina Cole</actor>
-      <actor>Paul Schulze</actor>
-      <actor>Brandon Firla</actor>
-    </credits>
-    <date>2011</date>
-    <category lang="es">Comedia</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/4521824.jpg" />
-    <country lang="es">EE. UU</country>
-    <episode-num system="onscreen">S1 E4</episode-num>
-  </programme>
   <programme start="20261117131000 -0300" stop="20261117140500 -0300" channel="PublicDirect.1701b6c4abbcc431fb481536">
     <title lang="es">Suits</title>
     <sub-title lang="es">Secretos sucios</sub-title>
@@ -21987,16 +21597,6 @@
     <icon src="http://www.reportv.com.ar/buscador/img/Programas/4521337.jpg" />
     <country lang="es">EE. UU</country>
     <episode-num system="onscreen">S6 E3</episode-num>
-  </programme>
-  <programme start="20261117121100 -0300" stop="20261117130900 -0300" channel="PublicDirect.1e188ecfa187cff642af518c">
-    <title lang="es">CSI: Miami</title>
-    <sub-title lang="es">Speed Kills</sub-title>
-    <desc lang="es">Un hombre es hallado muerto después de una noche de aventuras románticas, los detectives inmediatamente sospechan de una de sus chicas, pero el caso se cambia cuando se descubre que la víctima atestiguó un asalto.</desc>
-    <date>2004</date>
-    <episode-num system="onscreen">E8</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
   </programme>
   <programme start="20261117130900 -0300" stop="20261117140800 -0300" channel="PublicDirect.1e188ecfa187cff642af518c">
     <title lang="es">CSI: Miami</title>
@@ -29696,16 +29296,6 @@
     </rating>
     <rating system="UK Content Provider">
       <value>15</value>
-    </rating>
-  </programme>
-  <programme start="20261117124400 -0300" stop="20261117130700 -0300" channel="PublicDirect.611041b791c77e57b0831623">
-    <title lang="nl">When Good F..ks Evil</title>
-    <desc lang="nl">They say we've all got an angel and a devil on our shoulders, but what happens when the two are left alone in the bedroom?</desc>
-    <category lang="nl">Erotiek</category>
-    <category lang="nl">Erotisch</category>
-    <icon src="https://staticqbr-prod-nl.gnp.cloud.ziggogo.tv/image-service/ImagesEPG/EventImages/p29552291_b_v12_ab.jpg?supportsTransparency=false" />
-    <rating>
-      <value>18</value>
     </rating>
   </programme>
   <programme start="20261117130700 -0300" stop="20261117133300 -0300" channel="PublicDirect.611041b791c77e57b0831623">
@@ -40498,9 +40088,6 @@
       <value>+14</value>
     </rating>
   </programme>
-  <programme start="20261117114800 -0300" stop="20261117130700 -0300" channel="PublicDirect.c9a179f36540c93c7e6a67b6">
-    <title lang="es">Amigos salvajes 2</title>
-  </programme>
   <programme start="20261117130700 -0300" stop="20261117153600 -0300" channel="PublicDirect.c9a179f36540c93c7e6a67b6">
     <title lang="es">Harry Potter y las Reliquias de la Muerte</title>
     <desc lang="es">Séptima y última aventura de Harry Potter donde junto con Ron y Hermonie deberá encontrar y destruir a Voldemort sin ayuda alguna.</desc>
@@ -45961,6 +45548,26 @@
     <title lang="en">Reign and rise</title>
     <sub-title lang="en">Unrideable S1E1</sub-title>
     <desc lang="en">At Red Bull Erzbergrodeo, 2023's winner – Manuel Lettenbichler – faces rising star Mitch Brightmore.</desc>
+  </programme>
+  <programme start="20261118182119 -0300" stop="20261118190301 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">Changing perspectives</title>
+    <sub-title lang="en">Unrideable S1E2</sub-title>
+    <desc lang="en">Wade Young gives his all as a privateer in the 2024 Xross Hard Enduro Rally and Red Bull Romaniacs.</desc>
+  </programme>
+  <programme start="20261118190301 -0300" stop="20261118194726 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">New horizons</title>
+    <sub-title lang="en">Unrideable S1E3</sub-title>
+    <desc lang="en">Manuel Lettenbichler’s 2024 season suffers a setback as he battles the Brightmore brothers and Matt Green.</desc>
+  </programme>
+  <programme start="20261118194726 -0300" stop="20261118202734 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">Sacrifices</title>
+    <sub-title lang="en">Unrideable S1E4</sub-title>
+    <desc lang="en">Hard Enduro rivals Billy Bolt and Mario Román battle it out in Türkiye at the scenic 2024 Sea to Sky event.</desc>
+  </programme>
+  <programme start="20261118202734 -0300" stop="20261118210515 -0300" channel="RedBullWorldEnglish.int">
+    <title lang="en">Through the pain</title>
+    <sub-title lang="en">Unrideable S1E5</sub-title>
+    <desc lang="en">Watch the drama as the FIM Hard Enduro World Championship 2024 finale plays out at 24MX Hixpania Hard Enduro.</desc>
   </programme>
   <programme start="20261117120500 -0300" stop="20261117143000 -0300" channel="SkySportsF1.uk">
     <title lang="en">Sao Paulo F1 Grand Prix</title>
@@ -53711,240 +53318,126 @@
     <desc lang="en">Round-up of the sports news with live analysis and comments, plus extended interviews with the headline makers.</desc>
     <episode-num system="onscreen">111</episode-num>
   </programme>
-  <programme start="20261117125000 -0300" stop="20261117133000 -0300" channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Gearbox</title>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261117125000 -0300" stop="20261117133000 -0300">
+    <title lang="es">Gearbox: Episodio 28</title>
     <desc lang="es">Los fanáticos de la conducción tienen una cita en 'Gearbox', donde los volantes del presente, del pasado y del futuro se ponen en las manos de los mejores expertos.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/1/43.jpg" />
-    <country lang="es">España</country>
-    <episode-num system="onscreen">S3 E28</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261117133000 -0300" stop="20261117153000 -0300" channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo">
-    <title lang="es">F1 - GP de Bélgica</title>
-    <sub-title lang="es">Race</sub-title>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261117133000 -0300" stop="20261117153000 -0300">
+    <title lang="es">Mundial F1 - GP de Bélgica: Carrera</title>
     <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/12263/c_moet_and_chandon_belgian_grand_prix_2025.jpeg" />
-    <country lang="es">Bélgica</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261117153000 -0300" stop="20261117172500 -0300" channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo">
-    <title lang="es">F1 - GP de Arabia Saudita</title>
-    <sub-title lang="es">Race</sub-title>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261117153000 -0300" stop="20261117172500 -0300">
+    <title lang="es">Mundial F1 - GP de Arabia Saudí: Carrera</title>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261117172500 -0300" stop="20261117194000 -0300">
+    <title lang="es">Mundial F1 - GP de Hungría: Carrera</title>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261117194000 -0300" stop="20261117200000 -0300">
+    <title lang="es">Código F1: Hungría</title>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261117200000 -0300" stop="20261117212500 -0300">
+    <title lang="es">Mundial F1 - GP de Países Bajos: Box, Box</title>
     <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
-    <date>2025</date>
-    <icon src="https://cdn.sincroguia.tv/storage/12074/c_formula_1_stc_gp_de_arabia_saudi_2025.jpeg" />
-    <country lang="es">Arabia Saudí</country>
-    <episode-num system="onscreen">S2025</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261117172500 -0300" stop="20261117194000 -0300" channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Formula 1 AWS Hungarian Grand Prix</title>
-    <sub-title lang="es">Race</sub-title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/84/41.jpg" />
-    <country lang="es">Hungría</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261117212500 -0300" stop="20261117233000 -0300">
+    <title lang="es">Mundial de Fórmula 1: GP de Catar: Carrera</title>
   </programme>
-  <programme start="20261117194000 -0300" stop="20261117200000 -0300" channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Código F1</title>
-    <icon src="https://cdn.sincroguia.tv/storage/series/1015003/image.jpg" />
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261117233000 -0300" stop="20261118012500 -0300">
+    <title lang="es">Mundial de Fórmula 1: GP de Austria: Carrera</title>
   </programme>
-  <programme start="20261117200000 -0300" stop="20261117212500 -0300" channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Box Box</title>
-    <sub-title lang="es">Países Bajos</sub-title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/23735/c_box_box_s2025.jpeg" />
-    <country lang="es">España</country>
-    <episode-num system="onscreen">S2026 E16</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261118012500 -0300" stop="20261118032000 -0300">
+    <title lang="es">Mundial F1 - GP de Japón: Carrera</title>
   </programme>
-  <programme start="20261117212500 -0300" stop="20261117233000 -0300" channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo">
-    <title lang="es">F1</title>
-    <title lang="es">GP de Catar</title>
-    <sub-title lang="es">Carrera</sub-title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2023 promete más emoción y espectáculo que nunca. Ver más.</desc>
-    <date>2023</date>
-    <icon src="https://cdn.sincroguia.tv/storage/42887/recurso_deportes_azerbaijan_grand_prix.jpeg" />
-    <country lang="es">Estado De Catar</country>
-    <episode-num system="onscreen">S2023</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
-  </programme>
-  <programme start="20261117233000 -0300" stop="20261118012500 -0300" channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo">
-    <title lang="es">F1</title>
-    <title lang="es">GP de Austria</title>
-    <sub-title lang="es">Carrera</sub-title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2023 promete más emoción y espectáculo que nunca. Ver más.</desc>
-    <date>2023</date>
-    <icon src="https://cdn.sincroguia.tv/storage/23682/recurso_deportes_formula_1.jpeg" />
-    <country lang="es">Austria</country>
-    <episode-num system="onscreen">S2023</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
-  </programme>
-  <programme start="20261118012500 -0300" stop="20261118032000 -0300" channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Lenovo Japanese Grand Prix</title>
-    <sub-title lang="es">Race</sub-title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
-    <date>2025</date>
-    <icon src="https://cdn.sincroguia.tv/storage/39978/c_formula_1_2025.jpeg" />
-    <country lang="es">Japón</country>
-    <episode-num system="onscreen">S2025</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
-  </programme>
-  <programme start="20261118032000 -0300" stop="20261118035000 -0300" channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Gearbox</title>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261118032000 -0300" stop="20261118035000 -0300">
+    <title lang="es">Gearbox: Episodio 20</title>
     <desc lang="es">Los fanáticos de la conducción tienen una cita en Gearbox, donde los volantes del presente, del pasado y del futuro se ponen en las manos de los mejores expertos. Ver más.</desc>
-    <date>2025</date>
-    <icon src="https://cdn.sincroguia.tv/storage/7587/c_gearbox-_s01.jpeg" />
-    <country lang="es">España</country>
-    <episode-num system="onscreen">S1 E20</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118035000 -0300" stop="20261118054500 -0300" channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo">
-    <title lang="es">F1</title>
-    <title lang="es">GP de Australia</title>
-    <sub-title lang="es">Race</sub-title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2024 promete más emoción y espectáculo que nunca. Ver más.</desc>
-    <date>2024</date>
-    <icon src="https://cdn.sincroguia.tv/storage/6704/c_rolex_australian_grand_prix_2024.jpeg" />
-    <country lang="es">Australia</country>
-    <episode-num system="onscreen">S2024</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261118035000 -0300" stop="20261118054500 -0300">
+    <title lang="es">Mundial de Fórmula 1: GP de Australia: Carrera</title>
   </programme>
-  <programme start="20261118054500 -0300" stop="20261118074500 -0300" channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo">
-    <title lang="es">F1</title>
-    <title lang="es">GP de Gran Bretaña</title>
-    <sub-title lang="es">Carrera</sub-title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2023 promete más emoción y espectáculo que nunca. Ver más.</desc>
-    <date>2023</date>
-    <icon src="https://cdn.sincroguia.tv/storage/23682/recurso_deportes_formula_1.jpeg" />
-    <country lang="es">Reino Unido</country>
-    <episode-num system="onscreen">S2023</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261118054500 -0300" stop="20261118074500 -0300">
+    <title lang="es">Mundial de Fórmula 1: GP de Gran Bretaña: Carrera</title>
   </programme>
-  <programme start="20261118074500 -0300" stop="20261118080500 -0300" channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Código F1</title>
-    <icon src="https://cdn.sincroguia.tv/storage/series/1015003/image.jpg" />
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261118074500 -0300" stop="20261118080500 -0300">
+    <title lang="es">Código F1: España</title>
   </programme>
-  <programme start="20261118080500 -0300" stop="20261118082500 -0300" channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Madrid, Velocidad y Memoria</title>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261118080500 -0300" stop="20261118082500 -0300">
+    <title lang="es">Madrid, velocidad y memoria</title>
     <desc lang="es">Particularidades sobre el paso de la F1 en Madrid y en Jarama.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/1/43.jpg" />
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118082500 -0300" stop="20261118093000 -0300" channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Decod3d</title>
-    <sub-title lang="es">Lewis Hamilton</sub-title>
-    <desc lang="es">El fútbol levanta pasiones y convierte a los mejores jugadores en auténticos iconos deportivos y culturales. Este espacio analiza pormenorizadamente a varias figuras del deporte rey, tanto dentro como fuera del terreno de juego.</desc>
-    <date>2025</date>
-    <icon src="https://cdn.sincroguia.tv/storage/7257/c_decod3d_s01.jpeg" />
-    <episode-num system="onscreen">S1 E9</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261118082500 -0300" stop="20261118093000 -0300">
+    <title lang="es">Decoded: Hamilton</title>
   </programme>
-  <programme start="20261118093000 -0300" stop="20261118101000 -0300" channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Gearbox</title>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261118093000 -0300" stop="20261118101000 -0300">
+    <title lang="es">Gearbox: Episodio 28</title>
     <desc lang="es">Los fanáticos de la conducción tienen una cita en 'Gearbox', donde los volantes del presente, del pasado y del futuro se ponen en las manos de los mejores expertos.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/1/43.jpg" />
-    <country lang="es">España</country>
-    <episode-num system="onscreen">S3 E28</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118101000 -0300" stop="20261118122500 -0300" channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo">
-    <title lang="es">F1 - GP de los Países Bajos</title>
-    <sub-title lang="es">Carrera</sub-title>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261118101000 -0300" stop="20261118122500 -0300">
+    <title lang="es">Mundial F1 - GP de Países Bajos: Carrera</title>
     <desc lang="es">Desde 1993, la Supercopa Porsche se disputa como complemento al Mundial de Fórmula 1. Es la competición monomarca más veloz, en la que equipos profesionales y pilotos corren bajo las mismas condiciones técnicas y con el mismo coche, un potente Porsche 911 GT3 Cup. Ver más.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/84/41.jpg" />
-    <country lang="es">Países Bajos</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118122500 -0300" stop="20261118124500 -0300" channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Código F1</title>
-    <icon src="https://cdn.sincroguia.tv/storage/series/1015003/image.jpg" />
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261118122500 -0300" stop="20261118124500 -0300">
+    <title lang="es">Código F1: Países Bajos</title>
   </programme>
-  <programme start="20261118124500 -0300" stop="20261118130000 -0300" channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo">
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261118124500 -0300" stop="20261118130000 -0300">
     <title lang="es">75 años de F1</title>
     <desc lang="es">75 años de F1.</desc>
-    <date>2025</date>
-    <icon src="https://cdn.sincroguia.tv/storage/42433/75_anos_de_f1_2025.jpeg" />
-    <country lang="es">España</country>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118130000 -0300" stop="20261118133500 -0300" channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Gearbox</title>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261118130000 -0300" stop="20261118133500 -0300">
+    <title lang="es">Gearbox: Episodio 27</title>
     <desc lang="es">Los fanáticos de la conducción tienen una cita en Gearbox, donde los volantes del presente, del pasado y del futuro se ponen en las manos de los mejores expertos. Ver más.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/7587/c_gearbox-_s01.jpeg" />
-    <country lang="es">España</country>
-    <episode-num system="onscreen">S1 E27</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118133500 -0300" stop="20261118154000 -0300" channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo">
-    <title lang="es">F1 - GP de Italia</title>
-    <sub-title lang="es">Carrera</sub-title>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261118133500 -0300" stop="20261118154000 -0300">
+    <title lang="es">Mundial F1 - GP de Italia: Carrera</title>
     <desc lang="es">La F3 Series es un campeonato de automovilismo de velocidad que se disputa desde el año 2010 como un escalón por debajo de la categoría de monoplazas F2. Se trata de una excelente cantera para jóvenes que sueñen con competir algún día en la Fórmula 1. Ver más.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/84/41.jpg" />
-    <country lang="es">Italia</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118154000 -0300" stop="20261118175500 -0300" channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo">
-    <title lang="es">F1</title>
-    <title lang="es">GP de China</title>
-    <sub-title lang="es">Race</sub-title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2024 promete más emoción y espectáculo que nunca. Ver más.</desc>
-    <date>2024</date>
-    <icon src="https://cdn.sincroguia.tv/storage/23682/recurso_deportes_formula_1.jpeg" />
-    <country lang="es">China</country>
-    <episode-num system="onscreen">S2024</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261118154000 -0300" stop="20261118175500 -0300">
+    <title lang="es">Mundial de Fórmula 1: GP de China: Carrera</title>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261118175500 -0300" stop="20261118201000 -0300">
+    <title lang="es">Mundial F1 - GP de España. Madrid: Carrera</title>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261118201000 -0300" stop="20261118214900 -0300">
+    <title lang="es">Mundial F1 - GP de Azerbaiyán: Box, Box</title>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261118214900 -0300" stop="20261118224500 -0300">
+    <title lang="es">Bravissimo</title>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261118224500 -0300" stop="20261119005500 -0300">
+    <title lang="es">Mundial de Fórmula 1: GP de Hungría: Carrera</title>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261119005500 -0300" stop="20261119025000 -0300">
+    <title lang="es">Mundial F1 - GP de Arabia Saudí: Carrera</title>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261119025000 -0300" stop="20261119044500 -0300">
+    <title lang="es">Mundial de Fórmula 1: GP de Bélgica: Carrera</title>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261119044500 -0300" stop="20261119065000 -0300">
+    <title lang="es">Mundial de Fórmula 1: GP de Japón: Carrera</title>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261119065000 -0300" stop="20261119090000 -0300">
+    <title lang="es">Mundial F1 - GP de Emilia Romagna: Carrera</title>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261119090000 -0300" stop="20261119100000 -0300">
+    <title lang="es">Bravissimo</title>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261119100000 -0300" stop="20261119121500 -0300">
+    <title lang="es">Mundial F1 - GP de Azerbaiyán: Carrera</title>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261119121500 -0300" stop="20261119125500 -0300">
+    <title lang="es">Gearbox: Episodio 25</title>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261119125500 -0300" stop="20261119152500 -0300">
+    <title lang="es">Mundial F1 - GP de Baréin: Carrera</title>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261119152500 -0300" stop="20261119170000 -0300">
+    <title lang="es">Próxima Parada: Madring</title>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261119170000 -0300" stop="20261119191500 -0300">
+    <title lang="es">Mundial F1 - GP de Brasil: Carrera</title>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261119191500 -0300" stop="20261119210000 -0300">
+    <title lang="es">Mundial F1 - GP de Las Vegas: Box, Box</title>
   </programme>
   <programme start="20261117130000 -0300" stop="20261117133000 -0300" channel="unitedkingdom|vavoo_TNT%20SPORTS%203%7Cgroup%3Auk@TvVoo">
     <title lang="en">UCoL: Trabzonspor v Hearts</title>
@@ -54534,294 +54027,184 @@
     <desc lang="en">Washington Spirit v Utah Royals.</desc>
     <icon src="https://tv.assets.pressassociation.io/510664e2-19e2-5f32-a6e6-34578c06651b.jpg" />
   </programme>
-  <programme start="20261117130000 -0300" stop="20261117150000 -0300" channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Abierto de Irlanda del Norte de snooker</title>
-    <sub-title lang="es">Kyren Wilson - Jak Jones</sub-title>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261117130200 -0300" stop="20261117145900 -0300">
+    <title lang="es">Abierto de Irlanda del Norte de snooker: Kyren Wilson vs Jak Jones</title>
     <desc lang="es">El Abierto de Irlanda del Norte de snooker se disputa del 18 al 25 de octubre en el Waterfront Hall de Belfast. Es un torneo clave de las Home Nations Series donde la élite busca el trofeo Alex Higgins. El inglés Jack Lisowski se impuso en 2025.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/43129/c_northern_ireland_open.jpeg" />
-    <country lang="es">Reino Unido</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261117150000 -0300" stop="20261117160000 -0300" channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Hall Of Fame París 2024</title>
-    <sub-title lang="es">23/02/2026</sub-title>
-    <desc lang="es">Los Juegos Olímpicos de Cortina Milán han dejado escenas inolvidables para los amantes de los deportes de invierno. Este espacio recuerda los mejores momentos protagonizados por los deportistas en el norte de Italia.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/46501/recurso_eurosport_jjoo_2-2-.jpeg" />
-    <episode-num system="onscreen">S2026 E1</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261117145900 -0300" stop="20261117160300 -0300">
+    <title lang="es">Hall Of Fame Cortina Milán 2026: 23/02/2026</title>
   </programme>
-  <programme start="20261117160000 -0300" stop="20261117170000 -0300" channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Copa del mundo de esquí alpino F - Levi</title>
-    <sub-title lang="es">Eslalon - 1ª manga</sub-title>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261117160300 -0300" stop="20261117170100 -0300">
+    <title lang="es">Copa del mundo de esquí alpino F - Levi: Eslalon - 1ª manga</title>
     <desc lang="es">La segunda parada de la Copa del mundo de esquí alpino se disputa en Finlandia. La estación de Levi Black acoge competición de eslalon. Paula Moltzan conquistó el gigante inaugural. Mikaela Shiffrin es la histórica dominadora de esta cita en el Círculo Polar Ártico.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/45927/c_copa-del-mundo-de-esqui-alpino-m-solden_s2026.jpeg" />
-    <country lang="es">Finlandia</country>
-    <episode-num system="onscreen">S2627</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261117170000 -0300" stop="20261117180000 -0300" channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Copa del mundo de esquí alpino F - Levi</title>
-    <sub-title lang="es">Eslalon - 2ª manga</sub-title>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261117170100 -0300" stop="20261117175900 -0300">
+    <title lang="es">Copa del mundo de esquí alpino F - Levi: Eslalon - 2ª manga</title>
     <desc lang="es">La segunda parada de la Copa del mundo de esquí alpino se disputa en Finlandia. La estación de Levi Black acoge competición de eslalon. Paula Moltzan conquistó el gigante inaugural. Mikaela Shiffrin es la histórica dominadora de esta cita en el Círculo Polar Ártico.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/45927/c_copa-del-mundo-de-esqui-alpino-m-solden_s2026.jpeg" />
-    <country lang="es">Finlandia</country>
-    <episode-num system="onscreen">S2627</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261117180000 -0300" stop="20261117193000 -0300" channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Abierto de Irlanda del Norte de snooker</title>
-    <sub-title lang="es">Kyren Wilson - Jak Jones</sub-title>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261117175900 -0300" stop="20261117190000 -0300">
+    <title lang="es">Abierto de Irlanda del Norte de snooker: Kyren Wilson vs Jak Jones</title>
     <desc lang="es">El Abierto de Irlanda del Norte de snooker se disputa del 18 al 25 de octubre en el Waterfront Hall de Belfast. Es un torneo clave de las Home Nations Series donde la élite busca el trofeo Alex Higgins. El inglés Jack Lisowski se impuso en 2025.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/43129/c_northern_ireland_open.jpeg" />
-    <country lang="es">Reino Unido</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261117193000 -0300" stop="20261117200000 -0300" channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo">
-    <title lang="es">T100 Triathlon World Tour Magazine</title>
-    <sub-title lang="es">PTO Tour Magazine</sub-title>
-    <icon src="https://cdn.sincroguia.tv/storage/series/1109963/image.jpg" />
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261117190000 -0300" stop="20261117192900 -0300">
+    <title lang="es">T100 Triathlon World Tour Magazine: Dubái</title>
   </programme>
-  <programme start="20261117200000 -0300" stop="20261117204500 -0300" channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Copa del mundo de esquí alpino F - Sölden</title>
-    <sub-title lang="es">Eslalon gigante - 1ª manga</sub-title>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261117192900 -0300" stop="20261117200000 -0300">
+    <title lang="es">T100 Triathlon World Tour Magazine: Dubái</title>
+  </programme>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261117200000 -0300" stop="20261117204500 -0300">
+    <title lang="es">Copa del mundo de esquí alpino F - Sölden: Eslalon gigante - 1ª manga</title>
     <desc lang="es">La prueba de Sölden inaugura oficialmente la temporada de la Copa del Mundo femenina de esquí alpino. El espectacular glaciar Rettenbach acoge el eslalon gigante con sus dos mangas técnicas.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/45927/c_copa-del-mundo-de-esqui-alpino-m-solden_s2026.jpeg" />
-    <country lang="es">Austria</country>
-    <episode-num system="onscreen">S2627</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261117204500 -0300" stop="20261117213000 -0300" channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Copa del mundo de esquí alpino F - Sölden</title>
-    <sub-title lang="es">Eslalon gigante - 2ª manga</sub-title>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261117204500 -0300" stop="20261117213000 -0300">
+    <title lang="es">Copa del mundo de esquí alpino F - Sölden: Eslalon gigante - 2ª manga</title>
     <desc lang="es">La prueba de Sölden inaugura oficialmente la temporada de la Copa del Mundo femenina de esquí alpino. El espectacular glaciar Rettenbach acoge el eslalon gigante con sus dos mangas técnicas.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/45927/c_copa-del-mundo-de-esqui-alpino-m-solden_s2026.jpeg" />
-    <country lang="es">Austria</country>
-    <episode-num system="onscreen">S2627</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261117213000 -0300" stop="20261117230000 -0300" channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Abierto de Irlanda del Norte de snooker</title>
-    <sub-title lang="es">Kyren Wilson - Jak Jones</sub-title>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261117213000 -0300" stop="20261117230000 -0300">
+    <title lang="es">Abierto de Irlanda del Norte de snooker: Kyren Wilson vs Jak Jones</title>
     <desc lang="es">El Abierto de Irlanda del Norte de snooker se disputa del 18 al 25 de octubre en el Waterfront Hall de Belfast. Es un torneo clave de las Home Nations Series donde la élite busca el trofeo Alex Higgins. El inglés Jack Lisowski se impuso en 2025.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/43129/c_northern_ireland_open.jpeg" />
-    <country lang="es">Reino Unido</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261117230000 -0300" stop="20261118000000 -0300" channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Copa del mundo de esquí alpino F - Sölden</title>
-    <sub-title lang="es">Eslalon gigante - 2ª manga</sub-title>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261117230000 -0300" stop="20261118000000 -0300">
+    <title lang="es">Copa del mundo de esquí alpino F - Sölden: Eslalon gigante - 2ª manga</title>
     <desc lang="es">La prueba de Sölden inaugura oficialmente la temporada de la Copa del Mundo femenina de esquí alpino. El espectacular glaciar Rettenbach acoge el eslalon gigante con sus dos mangas técnicas.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/45927/c_copa-del-mundo-de-esqui-alpino-m-solden_s2026.jpeg" />
-    <country lang="es">Austria</country>
-    <episode-num system="onscreen">S2627</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118000000 -0300" stop="20261118010000 -0300" channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Copa del mundo de bicicleta de montaña - Resumen</title>
-    <sub-title lang="es">Resumen de la temporada de campo a través olímpico</sub-title>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261118000000 -0300" stop="20261118010000 -0300">
+    <title lang="es">Copa del mundo de bicicleta de montaña - Resumen: Resumen de la temporada de campo a través olímpico</title>
     <desc lang="es">Un repaso a los mejores momentos de la Copa del mundo de bicicleta de montaña.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/18913/c_uci_mountain_bike_world_series_2026_2.jpeg" />
-    <country lang="es">España</country>
-    <episode-num system="onscreen">S2026 E13</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118010000 -0300" stop="20261118030000 -0300" channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Abierto de Irlanda del Norte de snooker</title>
-    <sub-title lang="es">Kyren Wilson - Jak Jones</sub-title>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261118010000 -0300" stop="20261118030000 -0300">
+    <title lang="es">Abierto de Irlanda del Norte de snooker: Kyren Wilson vs Jak Jones</title>
     <desc lang="es">El Abierto de Irlanda del Norte de snooker se disputa del 18 al 25 de octubre en el Waterfront Hall de Belfast. Es un torneo clave de las Home Nations Series donde la élite busca el trofeo Alex Higgins. El inglés Jack Lisowski se impuso en 2025.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/43129/c_northern_ireland_open.jpeg" />
-    <country lang="es">Reino Unido</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118030000 -0300" stop="20261118034500 -0300" channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Copa del mundo de esquí alpino M - Sölden</title>
-    <sub-title lang="es">Eslalon gigante - 1ª manga</sub-title>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261118030000 -0300" stop="20261118034500 -0300">
+    <title lang="es">Copa del mundo de esquí alpino M - Sölden: Eslalon gigante - 1ª manga</title>
     <desc lang="es">Como suele ser tradicional, la cita de Sölden inaugura la Copa del mundo de esquí alpino. Se disputa en el glaciar Rettenbach (Austria) con un exigente eslalon gigante masculino que reúne a la élite mundial del esquí. El pentacampeón Marco Odermatt es el rival a batir.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/45927/c_copa-del-mundo-de-esqui-alpino-m-solden_s2026.jpeg" />
-    <country lang="es">Austria</country>
-    <episode-num system="onscreen">S2627</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118034500 -0300" stop="20261118043000 -0300" channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Copa del mundo de esquí alpino M - Sölden</title>
-    <sub-title lang="es">Eslalon gigante - 2ª manga</sub-title>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261118034500 -0300" stop="20261118043000 -0300">
+    <title lang="es">Copa del mundo de esquí alpino M - Sölden: Eslalon gigante - 2ª manga</title>
     <desc lang="es">Como suele ser tradicional, la cita de Sölden inaugura la Copa del mundo de esquí alpino. Se disputa en el glaciar Rettenbach (Austria) con un exigente eslalon gigante masculino que reúne a la élite mundial del esquí. El pentacampeón Marco Odermatt es el rival a batir.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/45927/c_copa-del-mundo-de-esqui-alpino-m-solden_s2026.jpeg" />
-    <country lang="es">Austria</country>
-    <episode-num system="onscreen">S2627</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118043000 -0300" stop="20261118063000 -0300" channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Abierto de Irlanda del Norte de snooker</title>
-    <sub-title lang="es">Kyren Wilson - Jak Jones</sub-title>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261118043000 -0300" stop="20261118063000 -0300">
+    <title lang="es">Abierto de Irlanda del Norte de snooker: Kyren Wilson vs Jak Jones</title>
     <desc lang="es">El Abierto de Irlanda del Norte de snooker se disputa del 18 al 25 de octubre en el Waterfront Hall de Belfast. Es un torneo clave de las Home Nations Series donde la élite busca el trofeo Alex Higgins. El inglés Jack Lisowski se impuso en 2025.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/43129/c_northern_ireland_open.jpeg" />
-    <country lang="es">Reino Unido</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118063000 -0300" stop="20261118071500 -0300" channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Copa del mundo de esquí alpino F - Sölden</title>
-    <sub-title lang="es">Eslalon gigante - 1ª manga</sub-title>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261118063000 -0300" stop="20261118071500 -0300">
+    <title lang="es">Copa del mundo de esquí alpino F - Sölden: Eslalon gigante - 1ª manga</title>
     <desc lang="es">La prueba de Sölden inaugura oficialmente la temporada de la Copa del Mundo femenina de esquí alpino. El espectacular glaciar Rettenbach acoge el eslalon gigante con sus dos mangas técnicas.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/45927/c_copa-del-mundo-de-esqui-alpino-m-solden_s2026.jpeg" />
-    <country lang="es">Austria</country>
-    <episode-num system="onscreen">S2627</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118071500 -0300" stop="20261118080000 -0300" channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Copa del mundo de esquí alpino F - Sölden</title>
-    <sub-title lang="es">Eslalon gigante - 2ª manga</sub-title>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261118071500 -0300" stop="20261118081500 -0300">
+    <title lang="es">Copa del mundo de esquí alpino F - Sölden: Eslalon gigante - 2ª manga</title>
     <desc lang="es">La prueba de Sölden inaugura oficialmente la temporada de la Copa del Mundo femenina de esquí alpino. El espectacular glaciar Rettenbach acoge el eslalon gigante con sus dos mangas técnicas.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/45927/c_copa-del-mundo-de-esqui-alpino-m-solden_s2026.jpeg" />
-    <country lang="es">Austria</country>
-    <episode-num system="onscreen">S2627</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118080000 -0300" stop="20261118100000 -0300" channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Abierto de Irlanda del Norte de snooker</title>
-    <sub-title lang="es">Kyren Wilson - Jak Jones</sub-title>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261118081500 -0300" stop="20261118100000 -0300">
+    <title lang="es">Abierto de Irlanda del Norte de snooker: Kyren Wilson vs Jak Jones</title>
     <desc lang="es">El Abierto de Irlanda del Norte de snooker se disputa del 18 al 25 de octubre en el Waterfront Hall de Belfast. Es un torneo clave de las Home Nations Series donde la élite busca el trofeo Alex Higgins. El inglés Jack Lisowski se impuso en 2025.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/43129/c_northern_ireland_open.jpeg" />
-    <country lang="es">Reino Unido</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118100000 -0300" stop="20261118111500 -0300" channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo">
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261118100000 -0300" stop="20261118111500 -0300">
     <title lang="es">Resumen de la temporada ciclista F</title>
     <desc lang="es">Un repaso a los mejores momentos de la temporada ciclista femenina. El trabajo hace especial hincapié a las grandes rondas por etapas y a las clásicas del UCI World Tour.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/46535/recurso_eurosport_ciclismo_2026.jpeg" />
-    <country lang="es">España</country>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118111500 -0300" stop="20261118120000 -0300" channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Copa del mundo de esquí alpino M - Sölden</title>
-    <sub-title lang="es">Eslalon gigante - 1ª manga</sub-title>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261118111500 -0300" stop="20261118120000 -0300">
+    <title lang="es">Copa del mundo de esquí alpino M - Sölden: Eslalon gigante - 1ª manga</title>
     <desc lang="es">Como suele ser tradicional, la cita de Sölden inaugura la Copa del mundo de esquí alpino. Se disputa en el glaciar Rettenbach (Austria) con un exigente eslalon gigante masculino que reúne a la élite mundial del esquí. El pentacampeón Marco Odermatt es el rival a batir.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/45927/c_copa-del-mundo-de-esqui-alpino-m-solden_s2026.jpeg" />
-    <country lang="es">Austria</country>
-    <episode-num system="onscreen">S2627</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118120000 -0300" stop="20261118130000 -0300" channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Copa del mundo de esquí alpino M - Sölden</title>
-    <sub-title lang="es">Eslalon gigante - 2ª manga</sub-title>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261118120000 -0300" stop="20261118130000 -0300">
+    <title lang="es">Copa del mundo de esquí alpino M - Sölden: Eslalon gigante - 2ª manga</title>
     <desc lang="es">Como suele ser tradicional, la cita de Sölden inaugura la Copa del mundo de esquí alpino. Se disputa en el glaciar Rettenbach (Austria) con un exigente eslalon gigante masculino que reúne a la élite mundial del esquí. El pentacampeón Marco Odermatt es el rival a batir.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/45927/c_copa-del-mundo-de-esqui-alpino-m-solden_s2026.jpeg" />
-    <country lang="es">Austria</country>
-    <episode-num system="onscreen">S2627</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118130000 -0300" stop="20261118150000 -0300" channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo">
-    <title lang="es">International Championship de snooker</title>
-    <sub-title lang="es">Final</sub-title>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261118130000 -0300" stop="20261118150000 -0300">
+    <title lang="es">International Championship de snooker: Final</title>
     <desc lang="es">El International Championship de snooker se celebra del 31 de octubre al 7 de noviembre en Nanjing, China. Los mejores jugadores del circuito, como Wilson, Selby y Williams, compiten en el SNC National Fitness Center buscando suceder al campeón defensor, Wu Yize.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/44339/c_international_championship_de_snooker_2026.jpeg" />
-    <country lang="es">China</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118150000 -0300" stop="20261118160000 -0300" channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Mundial de Resistencia de la FIA _ Resumen</title>
-    <sub-title lang="es">24 Horas de Le Mans</sub-title>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261118150000 -0300" stop="20261118160000 -0300">
+    <title lang="es">Mundial de Resistencia de la FIA - Resumen: 24 Horas de Le Mans</title>
     <desc lang="es">El Campeonato Mundial de Resistencia de la FIA (WEC) es la élite del automovilismo de larga duración. Reúne a prototipos y GTs en carreras épicas como las 24 Horas de Le Mans, donde la velocidad, la fiabilidad técnica y el trabajo en equipo son la clave del éxito.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/16890/c_totalenergies_6_hours_of_spa_francorchamps_fia_world_endurance_championship_2026.jpeg" />
-    <country lang="es">Francia</country>
-    <episode-num system="onscreen">S2026 E2</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118160000 -0300" stop="20261118170000 -0300" channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Copa del mundo de esquí alpino F - Sölden</title>
-    <sub-title lang="es">Eslalon gigante - 2ª manga</sub-title>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261118160000 -0300" stop="20261118170000 -0300">
+    <title lang="es">Copa del mundo de esquí alpino F - Sölden: Eslalon gigante - 2ª manga</title>
     <desc lang="es">La prueba de Sölden inaugura oficialmente la temporada de la Copa del Mundo femenina de esquí alpino. El espectacular glaciar Rettenbach acoge el eslalon gigante con sus dos mangas técnicas.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/45927/c_copa-del-mundo-de-esqui-alpino-m-solden_s2026.jpeg" />
-    <country lang="es">Austria</country>
-    <episode-num system="onscreen">S2627</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
-  <programme start="20261118170000 -0300" stop="20261118180000 -0300" channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Copa del mundo de esquí alpino M - Sölden</title>
-    <sub-title lang="es">Eslalon gigante - 2ª manga</sub-title>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261118170000 -0300" stop="20261118180000 -0300">
+    <title lang="es">Copa del mundo de esquí alpino M - Sölden: Eslalon gigante - 2ª manga</title>
     <desc lang="es">Como suele ser tradicional, la cita de Sölden inaugura la Copa del mundo de esquí alpino. Se disputa en el glaciar Rettenbach (Austria) con un exigente eslalon gigante masculino que reúne a la élite mundial del esquí. El pentacampeón Marco Odermatt es el rival a batir.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/45927/c_copa-del-mundo-de-esqui-alpino-m-solden_s2026.jpeg" />
-    <country lang="es">Austria</country>
-    <episode-num system="onscreen">S2627</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
+  </programme>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261118180000 -0300" stop="20261118200000 -0300">
+    <title lang="es">International Championship de snooker: Final</title>
+  </programme>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261118200000 -0300" stop="20261118204500 -0300">
+    <title lang="es">Copa del mundo de esquí alpino M - Sölden: Eslalon gigante - 1ª manga</title>
+    <desc lang="es">Como suele ser tradicional, la cita de Sölden inaugura la Copa del mundo de esquí alpino. Se disputa en el glaciar Rettenbach (Austria) con un exigente eslalon gigante masculino que reúne a la élite mundial del esquí. El pentacampeón Marco Odermatt es el rival a batir.</desc>
+  </programme>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261118204500 -0300" stop="20261118213000 -0300">
+    <title lang="es">Copa del mundo de esquí alpino M - Sölden: Eslalon gigante - 2ª manga</title>
+  </programme>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261118213000 -0300" stop="20261118230000 -0300">
+    <title lang="es">International Championship de snooker: Final</title>
+  </programme>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261118230000 -0300" stop="20261119000000 -0300">
+    <title lang="es">Copa del mundo de esquí alpino M - Sölden: Eslalon gigante - 2ª manga</title>
+  </programme>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261119000000 -0300" stop="20261119010000 -0300">
+    <title lang="es">Mundial de Resistencia de la FIA - Resumen: 24 Horas de Le Mans</title>
+  </programme>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261119010000 -0300" stop="20261119030000 -0300">
+    <title lang="es">International Championship de snooker: Final</title>
+  </programme>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261119030000 -0300" stop="20261119040000 -0300">
+    <title lang="es">Hall Of Fame Cortina Milán 2026: 23/02/2026</title>
+  </programme>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261119040000 -0300" stop="20261119043000 -0300">
+    <title lang="es">T100 Triathlon World Tour Magazine: Dubái</title>
+  </programme>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261119043000 -0300" stop="20261119050000 -0300">
+    <title lang="es">T100 Triathlon World Tour Magazine: Dubái</title>
+  </programme>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261119050000 -0300" stop="20261119054500 -0300">
+    <title lang="es">Copa del mundo de saltos de esquí M - Innsbruck: Trampolín largo</title>
+  </programme>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261119054500 -0300" stop="20261119063000 -0300">
+    <title lang="es">Copa del mundo de saltos de esquí M - Bischofshofen: Trampolín largo</title>
+  </programme>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261119063000 -0300" stop="20261119071500 -0300">
+    <title lang="es">Copa del mundo de esquí alpino M - Sölden: Eslalon gigante - 1ª manga</title>
+  </programme>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261119071500 -0300" stop="20261119080000 -0300">
+    <title lang="es">Copa del mundo de esquí alpino M - Sölden: Eslalon gigante - 2ª manga</title>
+  </programme>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261119080000 -0300" stop="20261119100000 -0300">
+    <title lang="es">International Championship de snooker: Final</title>
+  </programme>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261119100000 -0300" stop="20261119113000 -0300">
+    <title lang="es">Copa del mundo de saltos de esquí M - Garmisch Partenkirchen: Trampolín largo</title>
+  </programme>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261119113000 -0300" stop="20261119121500 -0300">
+    <title lang="es">Copa del mundo de saltos de esquí M - Innsbruck: Trampolín largo</title>
+  </programme>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261119121500 -0300" stop="20261119130000 -0300">
+    <title lang="es">Copa del mundo de saltos de esquí M - Bischofshofen: Trampolín largo</title>
+  </programme>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261119130000 -0300" stop="20261119133000 -0300">
+    <title lang="es">Copa del mundo de esquí alpino F - Levi: Eslalon - 2ª manga</title>
+  </programme>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261119133000 -0300" stop="20261119140000 -0300">
+    <title lang="es">Copa del mundo de esquí alpino M - Levi: Eslalon - 2ª manga</title>
+  </programme>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261119140000 -0300" stop="20261119150000 -0300">
+    <title lang="es">Hall Of Fame Cortina Milán 2026: 23/02/2026</title>
+  </programme>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261119150000 -0300" stop="20261119160000 -0300">
+    <title lang="es">Mundial de Resistencia de la FIA - Resumen: 24 Horas de Le Mans</title>
+  </programme>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261119160000 -0300" stop="20261119170000 -0300">
+    <title lang="es">Copa del mundo de esquí alpino M - Sölden: Eslalon gigante - 2ª manga</title>
+  </programme>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261119170000 -0300" stop="20261119180000 -0300">
+    <title lang="es">Golden Trail World Series - Resumen: Resumen de la temporada</title>
+  </programme>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261119180000 -0300" stop="20261119183000 -0300">
+    <title lang="es">Copa del mundo de esquí alpino F - Levi: Eslalon - 2ª manga</title>
+  </programme>
+  <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261119183000 -0300" stop="20261119200000 -0300">
+    <title lang="es">UFC 334: Gane vs Hokit: Main Card</title>
   </programme>
 <programme start="20261117190000 -0300" stop="20261118010000 -0300" channel="RewindTV.cl@SD"><title lang="es">Live</title></programme><programme start="20261118010000 -0300" stop="20261118070000 -0300" channel="RewindTV.cl@SD"><title lang="es">Live</title></programme><programme start="20261118070000 -0300" stop="20261118130000 -0300" channel="RewindTV.cl@SD"><title lang="es">Live</title></programme><programme start="20261118130000 -0300" stop="20261118190000 -0300" channel="RewindTV.cl@SD"><title lang="es">Live</title></programme><programme start="20261118190000 -0300" stop="20261119010000 -0300" channel="RewindTV.cl@SD"><title lang="es">Live</title></programme><programme start="20261119010000 -0300" stop="20261119020000 -0300" channel="RewindTV.cl@SD"><title lang="es">Live</title></programme></tv>
