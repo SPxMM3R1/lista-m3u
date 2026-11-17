@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, FreeEPG, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-description-policy="verified-source-only" data-description-programmes="5961" data-description-channels="99" data-next-refresh-at="2026-11-18T14:00:00+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u" data-generated-at="2026-11-17T21:02:58+00:00">
+<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, FreeEPG, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-description-policy="verified-source-only" data-description-programmes="5961" data-description-channels="99" data-next-refresh-at="2026-11-18T14:00:00+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u" data-generated-at="2026-11-17T21:27:13+00:00">
   <channel id="0104" data-guide="parrilla real" data-guide-source="zapping-guia-publica">
     <display-name>TVN</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvn.png" />
@@ -380,6 +380,10 @@
     <display-name>TVN3</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvn3.svg" />
     <url>https://www.tvn.cl/tvn3</url>
+  </channel>
+  <channel id="Vavoo.es.EUROSPORT1@TvVoo" data-guide="parrilla real" data-guide-source="es">
+    <display-name>Eurosport 1 España</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/eurosport-1.png" />
   </channel>
   <channel id="unitedkingdom|vavoo_SKY%20SPORTS%20MAIN%20EVENT%7Cgroup%3Auk@TvVoo" data-guide="parrilla real" data-guide-source="sky-oficial" data-app-alias-of="SkySportsMainEvent.uk@TvVoo">
     <display-name>Sky Sports Main Event</display-name>
@@ -5236,18 +5240,6 @@
     <icon src="https://metadata-static.plex.tv/4/gracenote/4728d9ad7d2d78357d07ac3abc0b7026.jpg" />
     <episode-num system="onscreen">S2026</episode-num>
   </programme>
-  <programme start="20261117102000 -0300" stop="20261117122500 -0300" channel="DAZNF1.es@TvVoo">
-    <title lang="es">Pirelli British Grand Prix</title>
-    <sub-title lang="es">Race</sub-title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/84/41.jpg" />
-    <country lang="es">Reino Unido</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
-  </programme>
   <programme start="20261117122500 -0300" stop="20261117125000 -0300" channel="DAZNF1.es@TvVoo">
     <title lang="es">Código F1</title>
     <icon src="https://cdn.sincroguia.tv/storage/series/1015003/image.jpg" />
@@ -8269,22 +8261,6 @@
     <rating system="ES">
       <value>Apta</value>
     </rating>
-  </programme>
-  <programme start="20261117120000 -0300" stop="20261117121500 -0300" channel="France24.fr">
-    <title lang="es">Noticias</title>
-    <desc lang="es">Un completo resumen de la actualidad internacional.</desc>
-    <date>2017</date>
-    <category lang="es">Noticiero</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/4787687.jpg" />
-    <country lang="es">Francia</country>
-  </programme>
-  <programme start="20261117121500 -0300" stop="20261117122000 -0300" channel="France24.fr">
-    <title lang="es">Revista de prensa</title>
-    <desc lang="es">¿Qué dicen y cómo cubren los principales medios digitales de todo el mundo el tema del día? Nuestros columnistas revisan las principales portadas de la prensa internacional así como los debates que la alimentan.</desc>
-    <date>2012</date>
-    <category lang="es">Periodístico</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/19694629.jpg" />
-    <country lang="es">Francia</country>
   </programme>
   <programme start="20261117122000 -0300" stop="20261117130000 -0300" channel="France24.fr">
     <title lang="es">El debate</title>
@@ -13627,17 +13603,6 @@
       <value>Apta</value>
     </rating>
   </programme>
-  <programme start="20261117110700 -0300" stop="20261117121400 -0300" channel="IPTVOrg.LoveNature.ca-4K">
-    <title lang="en">Under the Sea</title>
-    <sub-title lang="en">Oddities</sub-title>
-    <desc lang="en">Salute stranger-than-fiction sea creatures and their incredible adaptations.</desc>
-    <category lang="en">Explore</category>
-    <icon src="http://d190bhqtoid3b.cloudfront.net/Images/S3/LNENG/HF_A01051644.jpg" />
-    <episode-num system="onscreen">S1 E4</episode-num>
-    <rating system="US">
-      <value>PG</value>
-    </rating>
-  </programme>
   <programme start="20261117121400 -0300" stop="20261117131500 -0300" channel="IPTVOrg.LoveNature.ca-4K">
     <title lang="en">Africa's Hunters</title>
     <sub-title lang="en">The Hungry Leopard</sub-title>
@@ -18363,36 +18328,6 @@
     <desc lang="en">Ohno-Matsui Kyoko is an expert in high myopia-severe nearsightedness. She runs the world's first specialized clinic, and pushes the boundaries of diagnosis and treatment.</desc>
     <url>https://www3.nhk.or.jp/nhkworld/en/shows/frontrunners/</url>
   </programme>
-  <programme start="20261117103500 -0300" stop="20261117122100 -0300" channel="PublicDirect.0812ad5e7a912f09fdebd000">
-    <title lang="es">Karate Kid: Leyendas</title>
-    <desc lang="es">En Karate Kid: Leyendas, tras una tragedia familiar, el prodigio del kun fu Li Fong (Ben Wang) es desarraigado de su hogar en Pekín y obligado a mudarse a Nueva York con su madre. Li lucha por superar su pasado mientras intenta integrarse con sus nuevos compañeros de clase, y aunque no quiere pelear, los problemas parecen acecharlo por todas partes. Cuando un nuevo amigo necesita su ayuda, Li participa en una competición de karate, pero sus habilidades por sí solas no son suficientes. Su profesor de kung fu, el Sr. Han (Jackie Chan), recluta al Karate Kid original, Daniel LaRusso (Ralph Macchio), y Li aprende una nueva forma de luchar, fusionando sus dos estilos en uno para el duelo definitivo de artes marciales.</desc>
-    <credits>
-      <director>Jonathan Entwistle</director>
-      <actor>Jackie Chan</actor>
-      <actor>Ralph Macchio</actor>
-      <actor>Ben Wang</actor>
-      <actor>Joshua Jackson</actor>
-      <actor>Sadie Stanley</actor>
-      <actor>Ming-Na Wen</actor>
-      <actor>Aramis Knight</actor>
-      <actor>Shaunette Renée Wilson</actor>
-      <producer>Karen Rosenfelt</producer>
-      <composer>Dominic Lewis</composer>
-    </credits>
-    <date>2025</date>
-    <category lang="es">Acción</category>
-    <category lang="es">Drama</category>
-    <category lang="es">Familia</category>
-    <category lang="es">Deporte</category>
-    <category lang="es">Película</category>
-    <icon src="https://imagenes.gatotv.com/categorias/peliculas/miniatura/karate_kid_leyendas.jpg" />
-    <rating system="MX">
-      <value>PG-13</value>
-    </rating>
-    <star-rating system="MX">
-      <value>6.0</value>
-    </star-rating>
-  </programme>
   <programme start="20261117122100 -0300" stop="20261117140700 -0300" channel="PublicDirect.0812ad5e7a912f09fdebd000">
     <title lang="es">Compañera Perfecta</title>
     <desc lang="es">Tras una escapada de fin de semana, un hombre se está dando cuenta de que está perdiendo el control de su Androide y se está volviendo loca, sangrienta y violenta.</desc>
@@ -18802,23 +18737,6 @@
   <programme start="20261120024600 -0300" stop="20261120043400 -0300" channel="PublicDirect.0812ad5e7a912f09fdebd000">
     <title lang="es">No te sueltes</title>
     <desc lang="es">Dos niños viven con su madre en una cabaña solitaria en el bosque. Si salen, deben mantenerse en contacto con la vivienda, atados por cuerdas, o, según la madre, el mal los devorará. Un día, uno de los niños, quien duda de ella, se suelta.</desc>
-  </programme>
-  <programme start="20261117115200 -0300" stop="20261117120400 -0300" channel="PublicDirect.11e2d6f2d20ea8500bc4a261">
-    <title lang="es">El maravillosamente extraño mundo de Gumball</title>
-    <desc lang="es">Gumball Watterson arrastra a su hermano Darwin, su hermana Anaís y el resto de la ciudad de Elmore a sus aventuras.</desc>
-    <date>2025</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
-  <programme start="20261117120400 -0300" stop="20261117121400 -0300" channel="PublicDirect.11e2d6f2d20ea8500bc4a261">
-    <title lang="es">Los jóvenes titanes en acción</title>
-    <sub-title lang="es">Piratas</sub-title>
-    <desc lang="es">Beast Boy participa en un combate entre Aqualad y Raven.</desc>
-    <date>2014</date>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
   </programme>
   <programme start="20261117121400 -0300" stop="20261117122900 -0300" channel="PublicDirect.11e2d6f2d20ea8500bc4a261">
     <title lang="es">Los jóvenes titanes en acción</title>
@@ -20716,29 +20634,6 @@
     <category lang="es">Musical</category>
     <icon src="http://www.reportv.com.ar/buscador/img/Programas/1992791447.jpg" />
   </programme>
-  <programme start="20261117112000 -0300" stop="20261117121500 -0300" channel="PublicDirect.1701b6c4abbcc431fb481536">
-    <title lang="es">The Rookie</title>
-    <title lang="xx">Corazón valiente</title>
-    <sub-title lang="es">Coraz�n valiente</sub-title>
-    <desc lang="es">En una edad en la que la mayoría de la gente está en el momento culminante de su carrera, Nolan deja de lado su cómoda vida pueblerina y se muda a Los Ángeles para hacer realidad su sueño de ser policía.</desc>
-    <credits>
-      <actor>Nathan Fillion</actor>
-      <actor>Alyssa Diaz</actor>
-      <actor>Eric Winter</actor>
-      <actor>Mercedes Mason</actor>
-      <actor>Afton Williamson</actor>
-      <actor>Mircea Monroe</actor>
-      <actor>Atticus Batacan</actor>
-      <actor>David DeSantos</actor>
-      <actor>Titus Makin</actor>
-      <actor>Melissa O'Neil</actor>
-    </credits>
-    <date>2018</date>
-    <category lang="es">Policial</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/8217003.jpg" />
-    <country lang="es">EE. UU</country>
-    <episode-num system="onscreen">S3 E12</episode-num>
-  </programme>
   <programme start="20261117121500 -0300" stop="20261117131000 -0300" channel="PublicDirect.1701b6c4abbcc431fb481536">
     <title lang="es">Suits</title>
     <title lang="xx">Vía rápida</title>
@@ -22314,16 +22209,6 @@
     <country lang="es">EE. UU</country>
     <episode-num system="onscreen">S6 E3</episode-num>
   </programme>
-  <programme start="20261117105300 -0300" stop="20261117121100 -0300" channel="PublicDirect.1e188ecfa187cff642af518c">
-    <title lang="es">CSI: Miami</title>
-    <sub-title lang="es">Crime Wave</sub-title>
-    <desc lang="es">Cuando una gran ola se dirige a Miami, Caruso y el equipo deben detener a unos ladrones de bancos que intentan sacar provecho del desastre natural.</desc>
-    <date>2004</date>
-    <episode-num system="onscreen">E7</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
   <programme start="20261117121100 -0300" stop="20261117130900 -0300" channel="PublicDirect.1e188ecfa187cff642af518c">
     <title lang="es">CSI: Miami</title>
     <sub-title lang="es">Speed Kills</sub-title>
@@ -23782,16 +23667,6 @@
       <value>AGE227</value>
     </rating>
   </programme>
-  <programme start="20261117112500 -0300" stop="20261117121500 -0300" channel="PublicDirect.39057ce89326a34e33998e2e">
-    <title lang="es">Construyendo un imperio</title>
-    <sub-title lang="es">Los persas</sub-title>
-    <desc lang="es">A los persas les debemos el Mausoleo de Halicarnaso, una de las siete maravillas del mundo y otras grandes obras de ingeniería.</desc>
-    <date>2006</date>
-    <episode-num system="onscreen">E9</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
   <programme start="20261117121500 -0300" stop="20261117130500 -0300" channel="PublicDirect.39057ce89326a34e33998e2e">
     <title lang="es">Inventos legendarios</title>
     <sub-title lang="es">Los mejores monumentos de la antigüedad</sub-title>
@@ -24902,43 +24777,6 @@
   </programme>
   <programme channel="PublicDirect.475329883c23116340a88ef6" start="20261119233000 -0300" stop="20261120013000 -0300">
     <title lang="es">Deportes La Serena Vs Colo Colo</title>
-  </programme>
-  <programme start="20261117114500 -0300" stop="20261117121200 -0300" channel="PublicDirect.5dcc9d45e7f72f13df740d70">
-    <title lang="en">Dragon Ball Z</title>
-    <sub-title lang="en">Time Struggle</sub-title>
-    <desc lang="es">Antes de que pueda desatar su furia contra los Guerreros Z restantes, Majin Boo es persuadido a entrar en la Cámara del Tiempo Hiperbólica.</desc>
-    <credits>
-      <actor>Masako Nozawa</actor>
-      <actor>Jouji Yanami</actor>
-      <actor>Toshio Furukawa</actor>
-    </credits>
-    <date>1995</date>
-    <category lang="en">Series</category>
-    <category lang="en">Anime</category>
-    <category lang="en">Children</category>
-    <category lang="en">Fantasy</category>
-    <category lang="en">Action</category>
-    <icon src="http://dtil.tmsimg.com/assets/p14343421_b_h10_ag.jpg?w=960&amp;h=540" />
-    <episode-num system="onscreen">S1 E257</episode-num>
-    <previously-shown />
-    <rating system="USA Parental Rating">
-      <value>TVPG</value>
-    </rating>
-    <rating system="Canadian Parental Rating">
-      <value>PG</value>
-    </rating>
-    <rating system="Arcom">
-      <value>-10</value>
-    </rating>
-    <rating system="Australian Classification Board">
-      <value>PG</value>
-    </rating>
-    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
-      <value>A10</value>
-    </rating>
-    <rating system="방송통신심의위원회">
-      <value>15</value>
-    </rating>
   </programme>
   <programme start="20261117121200 -0300" stop="20261117123900 -0300" channel="PublicDirect.5dcc9d45e7f72f13df740d70">
     <title lang="en">Dragon Ball Z</title>
@@ -30163,20 +30001,6 @@
     </rating>
     <rating system="UK Content Provider">
       <value>15</value>
-    </rating>
-  </programme>
-  <programme start="20261117120000 -0300" stop="20261117122200 -0300" channel="PublicDirect.611041b791c77e57b0831623">
-    <title lang="nl">Lollypop's Masturbation Tour</title>
-    <desc lang="nl">Welcome to Lollypop's intimate masturbation tour. Sit back and enjoy the view as this sexy porn star shows you how she likes to touch herself, up close and personal. When you think it could not get any better, Victor Ray shows up to lend a hand.</desc>
-    <credits>
-      <actor>Lolly Pop</actor>
-      <actor>Victor Ray</actor>
-    </credits>
-    <category lang="nl">Erotiek</category>
-    <category lang="nl">Erotisch</category>
-    <icon src="https://staticqbr-prod-nl.gnp.cloud.ziggogo.tv/image-service/ImagesEPG/EventImages/p31081863_b_v12_ab.jpg?supportsTransparency=false" />
-    <rating>
-      <value>18</value>
     </rating>
   </programme>
   <programme start="20261117122200 -0300" stop="20261117124400 -0300" channel="PublicDirect.611041b791c77e57b0831623">
@@ -40442,16 +40266,6 @@
     <icon src="http://www.reportv.com.ar/buscador/img/Programas/5464092.jpg" />
     <country lang="es">EE. UU</country>
   </programme>
-  <programme start="20261117112000 -0300" stop="20261117121000 -0300" channel="PublicDirect.bf407e29eec656d628dfa2d7">
-    <title lang="es">Chicago Fire</title>
-    <sub-title lang="es">La magia de ser amigos</sub-title>
-    <desc lang="es">Una visita inesperada desconcierta a Casey. Kidd paga el precio de intentar abarcar demasiado. Cruz se embarca en una misión para reparar uno de los juguetes viejos de Otis.</desc>
-    <date>2019</date>
-    <episode-num system="onscreen">E9</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
   <programme start="20261117121000 -0300" stop="20261117130000 -0300" channel="PublicDirect.bf407e29eec656d628dfa2d7">
     <title lang="es">Chicago Fire</title>
     <sub-title lang="es">Mantener nuestro terreno</sub-title>
@@ -41974,16 +41788,6 @@
     <icon src="http://www.reportv.com.ar/buscador/img/Programas/1760339.jpg" />
     <country lang="es">EE. UU</country>
   </programme>
-  <programme start="20261117112000 -0300" stop="20261117121100 -0300" channel="PublicDirect.d56376275161ef53614ac137">
-    <title lang="es">Casados con secretos</title>
-    <sub-title lang="es">La mujer sospechosa</sub-title>
-    <desc lang="es">Dana MacKay es hallada golpeada hasta morir mientras su esposo estaba de viaje, y la principal sospechosa es una mujer que ha estado persiguiendo a MacKay durante un mes; un mensaje de texto sale a la luz para revelar el misterio.</desc>
-    <date>2018</date>
-    <episode-num system="onscreen">E8</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
   <programme start="20261117121100 -0300" stop="20261117130100 -0300" channel="PublicDirect.d56376275161ef53614ac137">
     <title lang="es">La peor pesadilla</title>
     <sub-title lang="es">Intenciones crueles</sub-title>
@@ -42643,10 +42447,6 @@
     <rating system="MJColombia">
       <value>+14</value>
     </rating>
-  </programme>
-  <programme start="20261117115500 -0300" stop="20261117121700 -0300" channel="PublicDirect.de3e91d7c885d797352686e1">
-    <title lang="es">The Big Bang Theory</title>
-    <desc lang="es">T10 -Ep.12: The Holiday Summation. Sheldon y Amy visitan a Leonard y Penny por primera vez desde las fiestas y comparten detalles sobre su terrible viaje a Texas. Laurie Metcalf regresa como la madre de Sheldon.</desc>
   </programme>
   <programme start="20261117121700 -0300" stop="20261117123600 -0300" channel="PublicDirect.de3e91d7c885d797352686e1">
     <title lang="es">The Big Bang Theory</title>
@@ -43898,16 +43698,6 @@
   </programme>
   <programme start="20261121014500 -0300" stop="20261121034000 -0300" channel="PublicDirect.ed2f1446ddbf0b5ac126fcdf">
     <title lang="es">Amigos con beneficios</title>
-  </programme>
-  <programme start="20261117111000 -0300" stop="20261117120500 -0300" channel="PublicDirect.edc3a37181c9a6915fb578c6">
-    <title lang="es">Ningaloo: La maravilla oceánica de Australia</title>
-    <sub-title lang="es">Colisiones</sub-title>
-    <desc lang="es">La historia de Ningaloo es una letanía de poderosas colisiones y cataclismos. Las antiguas criaturas, tanto diminutas como enormes, aún prosperan en Ningaloo.</desc>
-    <date>2023</date>
-    <episode-num system="onscreen">E1</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
   </programme>
   <programme start="20261117120500 -0300" stop="20261117130000 -0300" channel="PublicDirect.edc3a37181c9a6915fb578c6">
     <title lang="es">Ningaloo: La maravilla oceánica de Australia</title>
@@ -46111,10 +45901,6 @@
       <value>NR</value>
     </rating>
   </programme>
-  <programme start="20261117111253 -0300" stop="20261117120324 -0300" channel="RedBullChileEspanol.cl">
-    <title lang="es">Red Bull Soapbox Race: Coches sin motor en Texas</title>
-    <desc lang="es">Equipos construyen sus propios coches sin motor para desafiar una pista empinada llena de obstáculos en Dallas, Texas, donde la competencia se basa en velocidad y creatividad de diseño.</desc>
-  </programme>
   <programme start="20261117120324 -0300" stop="20261117123438 -0300" channel="RedBullChileEspanol.cl">
     <title lang="es">El ABC de MotoGP - Todo lo que necesitas saber</title>
     <desc lang="es">Guía esencial sobre MotoGP™, la categoría más alta del motociclismo, con información clave sobre reglas, términos y estructura del deporte.</desc>
@@ -46278,11 +46064,6 @@
   <programme start="20261118153019 -0300" stop="20261118161904 -0300" channel="RedBullChileEspanol.cl">
     <title lang="es">Inside Pro Surfing – icónicas olas de Australia</title>
     <desc lang="es">Los mejores surfistas del mundo compiten en el Margaret River Pro 2026, una de las paradas más exigentes del Championship Tour de la WSL en las icónicas olas de Australia Occidental.</desc>
-  </programme>
-  <programme start="20261117120231 -0300" stop="20261117121925 -0300" channel="RedBullWorldEnglish.int">
-    <title lang="en">Yeah buddy – part 1</title>
-    <sub-title lang="en">Reel Rock S10E1</sub-title>
-    <desc lang="en">Aussie climbing prodigy Angie Scarth-Johnson and Hazel Findlay explore Mallorca’s deep-water soloing routes.</desc>
   </programme>
   <programme start="20261117121925 -0300" stop="20261117123632 -0300" channel="RedBullWorldEnglish.int">
     <title lang="en">Yeah buddy – part 2</title>
@@ -46591,11 +46372,6 @@
     <title lang="en">Reign and rise</title>
     <sub-title lang="en">Unrideable S1E1</sub-title>
     <desc lang="en">At Red Bull Erzbergrodeo, 2023's winner – Manuel Lettenbichler – faces rising star Mitch Brightmore.</desc>
-  </programme>
-  <programme start="20261117091500 -0300" stop="20261117120500 -0300" channel="SkySportsF1.uk">
-    <title lang="en">Mexico City F1 Grand Prix</title>
-    <desc lang="en">It's lights out for the Mexico City Grand Prix. Lewis Hamilton takes a record 105th career pole, and a first for Ferrari. George Russell and Charles Leclerc complete the top three. (01.11)</desc>
-    <episode-num system="onscreen">183</episode-num>
   </programme>
   <programme start="20261117120500 -0300" stop="20261117143000 -0300" channel="SkySportsF1.uk">
     <title lang="en">Sao Paulo F1 Grand Prix</title>
@@ -46925,11 +46701,6 @@
     <title lang="en">F1 Drivers' Press Conference</title>
     <desc lang="en">Ahead of the Las Vegas Grand Prix, the drivers sit down to answer questions from the world's media.</desc>
     <episode-num system="onscreen">41</episode-num>
-  </programme>
-  <programme start="20261117091500 -0300" stop="20261117120500 -0300" channel="SkySportsF1UHD.uk">
-    <title lang="en">Mexico City F1 Grand Prix</title>
-    <desc lang="en">It's lights out for the Mexico City Grand Prix. Lewis Hamilton takes a record 105th career pole, and a first for Ferrari. George Russell and Charles Leclerc complete the top three. (01.11)</desc>
-    <episode-num system="onscreen">183</episode-num>
   </programme>
   <programme start="20261117120500 -0300" stop="20261117143000 -0300" channel="SkySportsF1UHD.uk">
     <title lang="en">Sao Paulo F1 Grand Prix</title>
@@ -48037,11 +47808,6 @@
     <title lang="en">Premier League Years 16/17</title>
     <desc lang="en">A look back at some classic Premier League seasons. Here, relive the 2016-17 campaign, a season in which a charismatic Italian manager brought the title back to west London.</desc>
     <episode-num system="onscreen">25</episode-num>
-  </programme>
-  <programme start="20261117120000 -0300" stop="20261117121500 -0300" channel="SkySportsTennis.uk">
-    <title lang="en">WTA Final: Cincinnati</title>
-    <desc lang="en">Coco Gauff and Jess Pegula contest the first all-American Cincinnati women's final since 1970. World number three Pegula leads former champion Gauff 5-4 in the pair's head-to-head record.</desc>
-    <episode-num system="onscreen">41</episode-num>
   </programme>
   <programme start="20261117121500 -0300" stop="20261117123000 -0300" channel="SkySportsTennis.uk">
     <title lang="en">WTA Final: Beijing</title>
@@ -51370,6 +51136,310 @@
   <programme start="20261120023000 -0300" stop="20261120030000 -0300" channel="TelehitMusica.mx@SD">
     <title lang="es">Playlist Telehit</title>
   </programme>
+  <programme start="20261117110000 -0300" stop="20261117130000 -0300" channel="Vavoo.es.EUROSPORT1@TvVoo">
+    <title lang="es">Abierto de Irlanda del Norte de snooker</title>
+    <sub-title lang="es">Kyren Wilson - Jak Jones</sub-title>
+    <desc lang="es">El Abierto de Irlanda del Norte de snooker se disputa del 18 al 25 de octubre en el Waterfront Hall de Belfast. Es un torneo clave de las Home Nations Series donde la élite busca el trofeo Alex Higgins. El inglés Jack Lisowski se impuso en 2025.</desc>
+    <date>2026</date>
+    <icon src="https://cdn.sincroguia.tv/storage/43129/c_northern_ireland_open.jpeg" />
+    <country lang="es">Reino Unido</country>
+    <episode-num system="onscreen">S2026</episode-num>
+    <rating system="ES">
+      <value>Apta</value>
+    </rating>
+  </programme>
+  <programme start="20261117130000 -0300" stop="20261117140000 -0300" channel="Vavoo.es.EUROSPORT1@TvVoo">
+    <title lang="es">Copa del mundo de saltos de esquí M - Garmisch Partenkirchen</title>
+    <sub-title lang="es">Large Hill HS142</sub-title>
+    <desc lang="es">La de Garmisch Partenkirchen es la prueba más especial de la temporada y la segunda del prestigioso Torneo de los Cuatro Trampolines. Los mejores saltadores de esquí del mundo participan en este certamen que premia la regularidad. Daniel Tschofenig defiende título.</desc>
+    <date>2026</date>
+    <icon src="https://cdn.sincroguia.tv/storage/46357/recursos_eurosport_saltos_de_esqui_2025_1.jpeg" />
+    <country lang="es">Alemania</country>
+    <episode-num system="onscreen">S2526</episode-num>
+    <rating system="ES">
+      <value>Apta</value>
+    </rating>
+  </programme>
+  <programme start="20261117140000 -0300" stop="20261117143000 -0300" channel="Vavoo.es.EUROSPORT1@TvVoo">
+    <title lang="es">T100 Triathlon World Tour Magazine</title>
+    <sub-title lang="es">PTO Tour Magazine</sub-title>
+    <icon src="https://cdn.sincroguia.tv/storage/series/1109963/image.jpg" />
+  </programme>
+  <programme start="20261117143000 -0300" stop="20261117150000 -0300" channel="Vavoo.es.EUROSPORT1@TvVoo">
+    <title lang="es">The Spirit of Yachting</title>
+    <icon src="https://cdn.sincroguia.tv/storage/series/293596/image.jpg" />
+  </programme>
+  <programme start="20261117150000 -0300" stop="20261117160000 -0300" channel="Vavoo.es.EUROSPORT1@TvVoo">
+    <title lang="es">Golden Trail World Series _ Resumen</title>
+    <sub-title lang="es">Resumen de la temporada</sub-title>
+    <desc lang="es">Una serie de carreras de montaña de alto nivel que reúnen a los mejores corredores de trail running del mundo. El certamen ofrece desafíos atléticos y escenarios impresionantes en diferentes lugares del planeta.</desc>
+    <date>2026</date>
+    <icon src="https://cdn.sincroguia.tv/storage/7583/c_gtws_2026.jpeg" />
+    <country lang="es">España</country>
+    <episode-num system="onscreen">S2026 E9</episode-num>
+    <rating system="ES">
+      <value>Apta</value>
+    </rating>
+  </programme>
+  <programme start="20261117160000 -0300" stop="20261117180000 -0300" channel="Vavoo.es.EUROSPORT1@TvVoo">
+    <title lang="es">Abierto de Irlanda del Norte de snooker</title>
+    <sub-title lang="es">Kyren Wilson - Jak Jones</sub-title>
+    <desc lang="es">El Abierto de Irlanda del Norte de snooker se disputa del 18 al 25 de octubre en el Waterfront Hall de Belfast. Es un torneo clave de las Home Nations Series donde la élite busca el trofeo Alex Higgins. El inglés Jack Lisowski se impuso en 2025.</desc>
+    <date>2026</date>
+    <icon src="https://cdn.sincroguia.tv/storage/43129/c_northern_ireland_open.jpeg" />
+    <country lang="es">Reino Unido</country>
+    <episode-num system="onscreen">S2026</episode-num>
+    <rating system="ES">
+      <value>Apta</value>
+    </rating>
+  </programme>
+  <programme start="20261117180000 -0300" stop="20261117190000 -0300" channel="Vavoo.es.EUROSPORT1@TvVoo">
+    <title lang="es">Copa del mundo de saltos de esquí M - Oberstdorf</title>
+    <sub-title lang="es">Trampolín largo</sub-title>
+    <desc lang="es">La de Oberstdorf es la séptima prueba de la temporada y la primera del prestigioso Torneo de los Cuatro Trampolines. Los mejores saltadores de esquí del mundo participan en este certamen que premia la regularidad. Daniel Tschofenig defiende título.</desc>
+    <date>2025</date>
+    <icon src="https://cdn.sincroguia.tv/storage/46204/recurso_eurosport_saltos_de_esqui_2025_3.jpeg" />
+    <country lang="es">Alemania</country>
+    <episode-num system="onscreen">S2526</episode-num>
+    <rating system="ES">
+      <value>Apta</value>
+    </rating>
+  </programme>
+  <programme start="20261117190000 -0300" stop="20261117200000 -0300" channel="Vavoo.es.EUROSPORT1@TvVoo">
+    <title lang="es">Copa del mundo de saltos de esquí M - Garmisch Partenkirchen</title>
+    <sub-title lang="es">Large Hill HS142</sub-title>
+    <desc lang="es">La de Garmisch Partenkirchen es la prueba más especial de la temporada y la segunda del prestigioso Torneo de los Cuatro Trampolines. Los mejores saltadores de esquí del mundo participan en este certamen que premia la regularidad. Daniel Tschofenig defiende título.</desc>
+    <date>2026</date>
+    <icon src="https://cdn.sincroguia.tv/storage/46357/recursos_eurosport_saltos_de_esqui_2025_1.jpeg" />
+    <country lang="es">Alemania</country>
+    <episode-num system="onscreen">S2526</episode-num>
+    <rating system="ES">
+      <value>Apta</value>
+    </rating>
+  </programme>
+  <programme start="20261117200000 -0300" stop="20261117213000 -0300" channel="Vavoo.es.EUROSPORT1@TvVoo">
+    <title lang="es">Abierto de Irlanda del Norte de snooker</title>
+    <sub-title lang="es">Kyren Wilson - Jak Jones</sub-title>
+    <desc lang="es">El Abierto de Irlanda del Norte de snooker se disputa del 18 al 25 de octubre en el Waterfront Hall de Belfast. Es un torneo clave de las Home Nations Series donde la élite busca el trofeo Alex Higgins. El inglés Jack Lisowski se impuso en 2025.</desc>
+    <date>2026</date>
+    <icon src="https://cdn.sincroguia.tv/storage/43129/c_northern_ireland_open.jpeg" />
+    <country lang="es">Reino Unido</country>
+    <episode-num system="onscreen">S2026</episode-num>
+    <rating system="ES">
+      <value>Apta</value>
+    </rating>
+  </programme>
+  <programme start="20261117213000 -0300" stop="20261117230000 -0300" channel="Vavoo.es.EUROSPORT1@TvVoo">
+    <title lang="es">Copa del mundo de saltos de esquí M - Garmisch Partenkirchen</title>
+    <sub-title lang="es">Large Hill HS142</sub-title>
+    <desc lang="es">La de Garmisch Partenkirchen es la prueba más especial de la temporada y la segunda del prestigioso Torneo de los Cuatro Trampolines. Los mejores saltadores de esquí del mundo participan en este certamen que premia la regularidad. Daniel Tschofenig defiende título.</desc>
+    <date>2026</date>
+    <icon src="https://cdn.sincroguia.tv/storage/46357/recursos_eurosport_saltos_de_esqui_2025_1.jpeg" />
+    <country lang="es">Alemania</country>
+    <episode-num system="onscreen">S2526</episode-num>
+    <rating system="ES">
+      <value>Apta</value>
+    </rating>
+  </programme>
+  <programme start="20261117230000 -0300" stop="20261118010000 -0300" channel="Vavoo.es.EUROSPORT1@TvVoo">
+    <title lang="es">Abierto de Irlanda del Norte de snooker</title>
+    <sub-title lang="es">Kyren Wilson - Jak Jones</sub-title>
+    <desc lang="es">El Abierto de Irlanda del Norte de snooker se disputa del 18 al 25 de octubre en el Waterfront Hall de Belfast. Es un torneo clave de las Home Nations Series donde la élite busca el trofeo Alex Higgins. El inglés Jack Lisowski se impuso en 2025.</desc>
+    <date>2026</date>
+    <icon src="https://cdn.sincroguia.tv/storage/43129/c_northern_ireland_open.jpeg" />
+    <country lang="es">Reino Unido</country>
+    <episode-num system="onscreen">S2026</episode-num>
+    <rating system="ES">
+      <value>Apta</value>
+    </rating>
+  </programme>
+  <programme start="20261118010000 -0300" stop="20261118020000 -0300" channel="Vavoo.es.EUROSPORT1@TvVoo">
+    <title lang="es">Copa del mundo de esquí alpino F - Sölden</title>
+    <sub-title lang="es">Eslalon gigante - 2ª manga</sub-title>
+    <desc lang="es">La prueba de Sölden inaugura oficialmente la temporada de la Copa del Mundo femenina de esquí alpino. El espectacular glaciar Rettenbach acoge el eslalon gigante con sus dos mangas técnicas.</desc>
+    <date>2026</date>
+    <icon src="https://cdn.sincroguia.tv/storage/45927/c_copa-del-mundo-de-esqui-alpino-m-solden_s2026.jpeg" />
+    <country lang="es">Austria</country>
+    <episode-num system="onscreen">S2627</episode-num>
+    <rating system="ES">
+      <value>Apta</value>
+    </rating>
+  </programme>
+  <programme start="20261118020000 -0300" stop="20261118030000 -0300" channel="Vavoo.es.EUROSPORT1@TvVoo">
+    <title lang="es">Hall Of Fame París 2024</title>
+    <sub-title lang="es">23/02/2026</sub-title>
+    <desc lang="es">Los Juegos Olímpicos de Cortina Milán han dejado escenas inolvidables para los amantes de los deportes de invierno. Este espacio recuerda los mejores momentos protagonizados por los deportistas en el norte de Italia.</desc>
+    <date>2026</date>
+    <icon src="https://cdn.sincroguia.tv/storage/46501/recurso_eurosport_jjoo_2-2-.jpeg" />
+    <episode-num system="onscreen">S2026 E1</episode-num>
+    <rating system="ES">
+      <value>Apta</value>
+    </rating>
+  </programme>
+  <programme start="20261118030000 -0300" stop="20261118043000 -0300" channel="Vavoo.es.EUROSPORT1@TvVoo">
+    <title lang="es">Abierto de Irlanda del Norte de snooker</title>
+    <sub-title lang="es">Kyren Wilson - Jak Jones</sub-title>
+    <desc lang="es">El Abierto de Irlanda del Norte de snooker se disputa del 18 al 25 de octubre en el Waterfront Hall de Belfast. Es un torneo clave de las Home Nations Series donde la élite busca el trofeo Alex Higgins. El inglés Jack Lisowski se impuso en 2025.</desc>
+    <date>2026</date>
+    <icon src="https://cdn.sincroguia.tv/storage/43129/c_northern_ireland_open.jpeg" />
+    <country lang="es">Reino Unido</country>
+    <episode-num system="onscreen">S2026</episode-num>
+    <rating system="ES">
+      <value>Apta</value>
+    </rating>
+  </programme>
+  <programme start="20261118043000 -0300" stop="20261118051500 -0300" channel="Vavoo.es.EUROSPORT1@TvVoo">
+    <title lang="es">Copa del mundo de esquí alpino M - Sölden</title>
+    <sub-title lang="es">Eslalon gigante - 1ª manga</sub-title>
+    <desc lang="es">Como suele ser tradicional, la cita de Sölden inaugura la Copa del mundo de esquí alpino. Se disputa en el glaciar Rettenbach (Austria) con un exigente eslalon gigante masculino que reúne a la élite mundial del esquí. El pentacampeón Marco Odermatt es el rival a batir.</desc>
+    <date>2026</date>
+    <icon src="https://cdn.sincroguia.tv/storage/45927/c_copa-del-mundo-de-esqui-alpino-m-solden_s2026.jpeg" />
+    <country lang="es">Austria</country>
+    <episode-num system="onscreen">S2627</episode-num>
+    <rating system="ES">
+      <value>Apta</value>
+    </rating>
+  </programme>
+  <programme start="20261118051500 -0300" stop="20261118060000 -0300" channel="Vavoo.es.EUROSPORT1@TvVoo">
+    <title lang="es">Copa del mundo de esquí alpino M - Sölden</title>
+    <sub-title lang="es">Eslalon gigante - 2ª manga</sub-title>
+    <desc lang="es">Como suele ser tradicional, la cita de Sölden inaugura la Copa del mundo de esquí alpino. Se disputa en el glaciar Rettenbach (Austria) con un exigente eslalon gigante masculino que reúne a la élite mundial del esquí. El pentacampeón Marco Odermatt es el rival a batir.</desc>
+    <date>2026</date>
+    <icon src="https://cdn.sincroguia.tv/storage/45927/c_copa-del-mundo-de-esqui-alpino-m-solden_s2026.jpeg" />
+    <country lang="es">Austria</country>
+    <episode-num system="onscreen">S2627</episode-num>
+    <rating system="ES">
+      <value>Apta</value>
+    </rating>
+  </programme>
+  <programme start="20261118060000 -0300" stop="20261118063000 -0300" channel="Vavoo.es.EUROSPORT1@TvVoo">
+    <title lang="es">The Spirit of Yachting</title>
+    <icon src="https://cdn.sincroguia.tv/storage/series/293596/image.jpg" />
+  </programme>
+  <programme start="20261118063000 -0300" stop="20261118070000 -0300" channel="Vavoo.es.EUROSPORT1@TvVoo">
+    <title lang="es">T100 Triathlon World Tour Magazine</title>
+    <sub-title lang="es">PTO Tour Magazine</sub-title>
+    <icon src="https://cdn.sincroguia.tv/storage/series/1109963/image.jpg" />
+  </programme>
+  <programme start="20261118070000 -0300" stop="20261118080000 -0300" channel="Vavoo.es.EUROSPORT1@TvVoo">
+    <title lang="es">Abierto de Irlanda del Norte de snooker</title>
+    <sub-title lang="es">Kyren Wilson - Jak Jones</sub-title>
+    <desc lang="es">El Abierto de Irlanda del Norte de snooker se disputa del 18 al 25 de octubre en el Waterfront Hall de Belfast. Es un torneo clave de las Home Nations Series donde la élite busca el trofeo Alex Higgins. El inglés Jack Lisowski se impuso en 2025.</desc>
+    <date>2026</date>
+    <icon src="https://cdn.sincroguia.tv/storage/43129/c_northern_ireland_open.jpeg" />
+    <country lang="es">Reino Unido</country>
+    <episode-num system="onscreen">S2026</episode-num>
+    <rating system="ES">
+      <value>Apta</value>
+    </rating>
+  </programme>
+  <programme start="20261118080000 -0300" stop="20261118090000 -0300" channel="Vavoo.es.EUROSPORT1@TvVoo">
+    <title lang="es">Copa del mundo de saltos de esquí M - Garmisch Partenkirchen</title>
+    <sub-title lang="es">Large Hill HS124</sub-title>
+    <desc lang="es">La de Innsbruck es la décima prueba de la temporada y la tercera del prestigioso Torneo de los Cuatro Trampolines. Los mejores saltadores de esquí del mundo participan en este certamen que premia la regularidad. Daniel Tschofenig defiende título.</desc>
+    <date>2026</date>
+    <icon src="https://cdn.sincroguia.tv/storage/46357/recursos_eurosport_saltos_de_esqui_2025_1.jpeg" />
+    <country lang="es">Austria</country>
+    <episode-num system="onscreen">S2526</episode-num>
+    <rating system="ES">
+      <value>Apta</value>
+    </rating>
+  </programme>
+  <programme start="20261118090000 -0300" stop="20261118100000 -0300" channel="Vavoo.es.EUROSPORT1@TvVoo">
+    <title lang="es">Copa del mundo de saltos de esquí M - Garmisch Partenkirchen</title>
+    <sub-title lang="es">Large Hill HS142</sub-title>
+    <desc lang="es">La de Bischofshofen es la undécima prueba de la temporada y la cuarta del prestigioso Torneo de los Cuatro Trampolines. Los mejores saltadores de esquí del mundo participan en este certamen que premia la regularidad. Daniel Tschofenig defiende título.</desc>
+    <date>2026</date>
+    <icon src="https://cdn.sincroguia.tv/storage/46357/recursos_eurosport_saltos_de_esqui_2025_1.jpeg" />
+    <country lang="es">Austria</country>
+    <episode-num system="onscreen">S2526</episode-num>
+    <rating system="ES">
+      <value>Apta</value>
+    </rating>
+  </programme>
+  <programme start="20261118100000 -0300" stop="20261118110000 -0300" channel="Vavoo.es.EUROSPORT1@TvVoo">
+    <title lang="es">Hall Of Fame París 2024</title>
+    <sub-title lang="es">23/02/2026</sub-title>
+    <desc lang="es">Los Juegos Olímpicos de Cortina Milán han dejado escenas inolvidables para los amantes de los deportes de invierno. Este espacio recuerda los mejores momentos protagonizados por los deportistas en el norte de Italia.</desc>
+    <date>2026</date>
+    <icon src="https://cdn.sincroguia.tv/storage/46501/recurso_eurosport_jjoo_2-2-.jpeg" />
+    <episode-num system="onscreen">S2026 E1</episode-num>
+    <rating system="ES">
+      <value>Apta</value>
+    </rating>
+  </programme>
+  <programme start="20261118110000 -0300" stop="20261118130000 -0300" channel="Vavoo.es.EUROSPORT1@TvVoo">
+    <title lang="es">International Championship de snooker</title>
+    <sub-title lang="es">Final</sub-title>
+    <desc lang="es">El International Championship de snooker se celebra del 31 de octubre al 7 de noviembre en Nanjing, China. Los mejores jugadores del circuito, como Wilson, Selby y Williams, compiten en el SNC National Fitness Center buscando suceder al campeón defensor, Wu Yize.</desc>
+    <date>2026</date>
+    <icon src="https://cdn.sincroguia.tv/storage/44339/c_international_championship_de_snooker_2026.jpeg" />
+    <country lang="es">China</country>
+    <episode-num system="onscreen">S2026</episode-num>
+    <rating system="ES">
+      <value>Apta</value>
+    </rating>
+  </programme>
+  <programme start="20261118130000 -0300" stop="20261118140000 -0300" channel="Vavoo.es.EUROSPORT1@TvVoo">
+    <title lang="es">Copa del mundo de saltos de esquí M - Garmisch Partenkirchen</title>
+    <sub-title lang="es">Large Hill HS124</sub-title>
+    <desc lang="es">La de Innsbruck es la décima prueba de la temporada y la tercera del prestigioso Torneo de los Cuatro Trampolines. Los mejores saltadores de esquí del mundo participan en este certamen que premia la regularidad. Daniel Tschofenig defiende título.</desc>
+    <date>2026</date>
+    <icon src="https://cdn.sincroguia.tv/storage/46357/recursos_eurosport_saltos_de_esqui_2025_1.jpeg" />
+    <country lang="es">Austria</country>
+    <episode-num system="onscreen">S2526</episode-num>
+    <rating system="ES">
+      <value>Apta</value>
+    </rating>
+  </programme>
+  <programme start="20261118140000 -0300" stop="20261118150000 -0300" channel="Vavoo.es.EUROSPORT1@TvVoo">
+    <title lang="es">Copa del mundo de esquí alpino F - Sölden</title>
+    <sub-title lang="es">Eslalon gigante - 2ª manga</sub-title>
+    <desc lang="es">La prueba de Sölden inaugura oficialmente la temporada de la Copa del Mundo femenina de esquí alpino. El espectacular glaciar Rettenbach acoge el eslalon gigante con sus dos mangas técnicas.</desc>
+    <date>2026</date>
+    <icon src="https://cdn.sincroguia.tv/storage/45927/c_copa-del-mundo-de-esqui-alpino-m-solden_s2026.jpeg" />
+    <country lang="es">Austria</country>
+    <episode-num system="onscreen">S2627</episode-num>
+    <rating system="ES">
+      <value>Apta</value>
+    </rating>
+  </programme>
+  <programme start="20261118150000 -0300" stop="20261118160000 -0300" channel="Vavoo.es.EUROSPORT1@TvVoo">
+    <title lang="es">Copa del mundo de esquí alpino M - Sölden</title>
+    <sub-title lang="es">Eslalon gigante - 2ª manga</sub-title>
+    <desc lang="es">Como suele ser tradicional, la cita de Sölden inaugura la Copa del mundo de esquí alpino. Se disputa en el glaciar Rettenbach (Austria) con un exigente eslalon gigante masculino que reúne a la élite mundial del esquí. El pentacampeón Marco Odermatt es el rival a batir.</desc>
+    <date>2026</date>
+    <icon src="https://cdn.sincroguia.tv/storage/45927/c_copa-del-mundo-de-esqui-alpino-m-solden_s2026.jpeg" />
+    <country lang="es">Austria</country>
+    <episode-num system="onscreen">S2627</episode-num>
+    <rating system="ES">
+      <value>Apta</value>
+    </rating>
+  </programme>
+  <programme start="20261118160000 -0300" stop="20261118180000 -0300" channel="Vavoo.es.EUROSPORT1@TvVoo">
+    <title lang="es">International Championship de snooker</title>
+    <sub-title lang="es">Final</sub-title>
+    <desc lang="es">El International Championship de snooker se celebra del 31 de octubre al 7 de noviembre en Nanjing, China. Los mejores jugadores del circuito, como Wilson, Selby y Williams, compiten en el SNC National Fitness Center buscando suceder al campeón defensor, Wu Yize.</desc>
+    <date>2026</date>
+    <icon src="https://cdn.sincroguia.tv/storage/44339/c_international_championship_de_snooker_2026.jpeg" />
+    <country lang="es">China</country>
+    <episode-num system="onscreen">S2026</episode-num>
+    <rating system="ES">
+      <value>Apta</value>
+    </rating>
+  </programme>
+  <programme start="20261118180000 -0300" stop="20261118190000 -0300" channel="Vavoo.es.EUROSPORT1@TvVoo">
+    <title lang="es">Copa del mundo de saltos de esquí M - Garmisch Partenkirchen</title>
+    <sub-title lang="es">Large Hill HS124</sub-title>
+    <desc lang="es">La de Innsbruck es la décima prueba de la temporada y la tercera del prestigioso Torneo de los Cuatro Trampolines. Los mejores saltadores de esquí del mundo participan en este certamen que premia la regularidad. Daniel Tschofenig defiende título.</desc>
+    <date>2026</date>
+    <icon src="https://cdn.sincroguia.tv/storage/46357/recursos_eurosport_saltos_de_esqui_2025_1.jpeg" />
+    <country lang="es">Austria</country>
+    <episode-num system="onscreen">S2526</episode-num>
+    <rating system="ES">
+      <value>Apta</value>
+    </rating>
+  </programme>
   <programme start="20261117120000 -0300" stop="20261117130000 -0300" channel="Vavoo.uk.TNTSPORTS4@TvVoo">
     <title lang="en">Exeter Chiefs v Harlequins</title>
     <desc lang="en">Exeter Chiefs host Harlequins at Sandy Park, with both sides desperate for points as they look to climb the Gallagher PREM table.</desc>
@@ -54486,18 +54556,6 @@
     <title lang="en">Sky Sports News</title>
     <desc lang="en">Round-up of the sports news with live analysis and comments, plus extended interviews with the headline makers.</desc>
     <episode-num system="onscreen">111</episode-num>
-  </programme>
-  <programme start="20261117102000 -0300" stop="20261117122500 -0300" channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo">
-    <title lang="es">Pirelli British Grand Prix</title>
-    <sub-title lang="es">Race</sub-title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
-    <date>2026</date>
-    <icon src="https://cdn.sincroguia.tv/storage/84/41.jpg" />
-    <country lang="es">Reino Unido</country>
-    <episode-num system="onscreen">S2026</episode-num>
-    <rating system="ES">
-      <value>Apta</value>
-    </rating>
   </programme>
   <programme start="20261117122500 -0300" stop="20261117125000 -0300" channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo">
     <title lang="es">Código F1</title>
