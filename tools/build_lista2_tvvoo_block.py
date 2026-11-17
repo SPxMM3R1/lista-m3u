@@ -50,7 +50,7 @@ COUNTRIES = {
 }
 FIRST = ("unitedkingdom", "spain")
 # Países quitados del bloque por pedido del usuario (2026-11-17).
-EXCLUDED_COUNTRIES = {"turkey", "romania", "poland", "netherlands", "bulgaria", "balkans", "albania"}
+EXCLUDED_COUNTRIES = {"turkey", "romania", "poland", "netherlands", "bulgaria", "balkans", "albania", "russia"}
 # Solo canales deportivos o musicales (pedido del usuario, 2026-11-17). Manda la categoría del
 # inventario si la hay (Sport/Music); si no, el nombre.
 KEEP_CATEGORIES = {"sport", "music"}
