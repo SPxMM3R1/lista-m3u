@@ -180,3 +180,20 @@ test("parseRequest exige un respaldo válido para promover y solo en filas M3U",
   assert.equal(parseRequest(JSON.stringify({ schema: 1, action: "promote-backup", rowKey: "m3u:P" })), "respaldo inválido");
   assert.deepEqual(parseRequest(promote("m3u:P", "B1")), { rowKey: "m3u:P", name: "x", backupTvgId: "B1" });
 });
+
+test("la papelera de un canal del bloque TvVoo de Lista 2 lo anota sin tocar el layout", async () => {
+  const key = "unitedkingdom|vavoo_4MUSIC%7Cgroup%3Auk";
+  const docs = documents();
+  docs.blockKeys = new Set([key]);
+  docs.blockTrash = { canales: [] };
+  const before = JSON.stringify(docs.layout);
+  const result = await applyRequests(docs, [{ file: "a.json", text: request(`provider:tvvoo:${key}`) }]);
+  assert.equal(result.applied.length, 1);
+  assert.equal(result.applied[0].block, true);
+  assert.deepEqual(result.blockTrash.canales, [key]);
+  assert.equal(JSON.stringify(docs.layout), before);
+  const again = await applyRequests({ ...docs, blockTrash: result.blockTrash },
+    [{ file: "b.json", text: request(`provider:tvvoo:${key}`) }]);
+  assert.equal(again.applied.length, 0);
+  assert.match(again.skipped[0].reason, /papelera/);
+});

@@ -42,7 +42,8 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           files=(data/app-requests data/channel-editor-layout.json data/vibem3u-selection.json presentation-overrides.json
                  backups.json epg-overrides.json epg-l2-map.json
-                 m3u.m3u m3u-externa.m3u 1.m3u 2.m3u channel-catalog.m3u resolver-catalog.json)
+                 m3u.m3u m3u-externa.m3u 1.m3u 2.m3u channel-catalog.m3u resolver-catalog.json
+                 data/lista2-tvvoo-papelera.json data/lista2-tvvoo-bloque.m3u)
           for attempt in 1 2 3 4 5; do
             summary=$(node scripts/apply_app_requests.mjs | tail -n 1)
             echo "$summary"
@@ -50,6 +51,9 @@ jobs:
             applied=$(node -e 'console.log(JSON.parse(process.argv[1]).applied.length)' "$summary")
             if [ "$applied" != "0" ]; then
               # Igual que un cambio editorial dirigido: sin consultar proveedores.
+              # Bloque TvVoo de Lista 2: deja fuera lo que la app mandó a la papelera.
+              python tools/build_lista2_tvvoo_block.py
+              python update_m3u.py --refresh-tvvoo-block
               python update_m3u.py --sync-resolver-contract
               python targeted_update.py --mode presentation
             fi

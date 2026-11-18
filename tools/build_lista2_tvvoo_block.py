@@ -29,6 +29,8 @@ LAYOUT = ROOT / "data" / "channel-editor-layout.json"
 OUTPUT = ROOT / "data" / "lista2-tvvoo-bloque.m3u"
 # Canales que no abrieron en dos pasadas de prueba («país|nombre»); se omiten (2026-11-17).
 DEAD = ROOT / "contracts" / "lista2-tvvoo-sin-respuesta-20261117.json"
+# Canales mandados a la papelera desde la app (catalogKey; scripts/apply_app_requests.mjs).
+TRASH = ROOT / "data" / "lista2-tvvoo-papelera.json"
 RAW = "https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/"
 BLOCK_ATTRIBUTE = update_m3u.TVVOO_CATALOG_BLOCK_ATTRIBUTE
 
@@ -144,6 +146,7 @@ def main() -> int:
             taken_aliases.update(unquote(alias) for alias in value.split(";") if alias)
 
     dead = set(json.loads(DEAD.read_text(encoding="utf-8"))["canales"]) if DEAD.is_file() else set()
+    trash = set(json.loads(TRASH.read_text(encoding="utf-8")).get("canales", [])) if TRASH.is_file() else set()
     rows = []
     skipped = {"excluido": 0, "en lista": 0}
     for item in snapshot:
@@ -159,6 +162,9 @@ def main() -> int:
             continue
         alias = "vavoo_" + encode_alias_part(f"{name}|group:{code}")
         key = f"{country_key}|{alias}"
+        if key in trash:
+            skipped["papelera"] = skipped.get("papelera", 0) + 1
+            continue
         if key in taken_keys or unquote(alias) in taken_aliases:
             skipped["en lista"] += 1
             continue

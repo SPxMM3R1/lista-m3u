@@ -11241,6 +11241,11 @@ def main() -> int:
     parser.add_argument("--verify-published", metavar="URL")
     parser.add_argument("--verify-epg-published", metavar="URL")
     parser.add_argument(
+        "--refresh-tvvoo-block",
+        action="store_true",
+        help="vuelve a pegar data/lista2-tvvoo-bloque.m3u al final de la Lista 2, sin red",
+    )
+    parser.add_argument(
         "--sync-resolver-contract",
         action="store_true",
         help="genera metadatos M3U y resolver-catalog.json sin usar la red",
@@ -11320,6 +11325,14 @@ def main() -> int:
         help="actualiza solo canales, resolutores y salud; no toca la EPG",
     )
     args = parser.parse_args()
+    if args.refresh_tvvoo_block:
+        current = EXTERNAL_PLAYLIST.read_text(encoding="utf-8-sig").splitlines()
+        EXTERNAL_PLAYLIST.write_text(
+            "\n".join(with_tvvoo_catalog_block(current)) + "\n", encoding="utf-8", newline="\n"
+        )
+        sync_short_playlist_aliases()
+        print("Bloque TvVoo de Lista 2 actualizado")
+        return 0
 
     playlist = args.playlist.resolve()
     if args.list_channel_parts:

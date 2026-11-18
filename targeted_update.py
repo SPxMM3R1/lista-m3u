@@ -218,13 +218,18 @@ def _changed_presentation_orders(
             continue
         if path not in before or path not in after:
             continue
+        # El bloque TvVoo de Lista 2 no tiene orden editorial: va siempre al final.
         before_ids = [
             channel.tvg_id
-            for channel in update_m3u.parse_channels(before[path].splitlines())
+            for channel in update_m3u.parse_channels(
+                update_m3u.strip_tvvoo_catalog_block(before[path].splitlines())
+            )
         ]
         after_ids = [
             channel.tvg_id
-            for channel in update_m3u.parse_channels(after[path].splitlines())
+            for channel in update_m3u.parse_channels(
+                update_m3u.strip_tvvoo_catalog_block(after[path].splitlines())
+            )
         ]
         if before_ids != after_ids:
             orders[path] = after_ids

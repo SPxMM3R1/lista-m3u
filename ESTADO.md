@@ -118,6 +118,8 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-11-18**: `targeted_update.py` ya no copia el bloque TvVoo al orden de Lista 2 en `presentation-overrides.json` (lo había hecho dos veces, con 8.279 IDs); se restauró el orden del layout (29) y vuelve a pasar `tests/derived-drift.test.mjs`.
+- **2026-11-18**: la papelera de la app sirve para los canales del bloque TvVoo de Lista 2 (no tienen fila en el layout; antes el pedido se omitía con «no existe»): `scripts/apply_app_requests.mjs` los anota en `data/lista2-tvvoo-papelera.json`, el flujo «Pedidos de la app» corre `tools/build_lista2_tvvoo_block.py` y `update_m3u.py --refresh-tvvoo-block`. Ese script además guarda el layout compacto (escribía con sangría).
 - **2026-11-18**: fuera del bloque TvVoo de Lista 2 otros 75 canales que fallan con una prueba que imita a VibeM3U (User-Agent Chrome de `TvVooStreamResolver`, firma TS/fMP4 de `HlsStreamValidator`, nombre exacto o relajado); la primera prueba era más permisiva. Muestra en la app (emulador, 40 canales): 36 abrieron. Bloque: 758 canales.
 - **2026-11-17**: fuera del bloque TvVoo de Lista 2 los 620 canales que no abrieron en dos pasadas de prueba local (firma Vavoo, resolve y segmento HLS, como la app; pedido del usuario). Lista en `contracts/lista2-tvvoo-sin-respuesta-20261117.json`, que `tools/build_lista2_tvvoo_block.py` omite. Bloque: 833 canales.
 - **2026-11-17**: fuera del bloque TvVoo de Lista 2 todo Rusia (pedido del usuario; `EXCLUDED_COUNTRIES`).

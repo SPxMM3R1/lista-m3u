@@ -6,6 +6,9 @@
 // backups.json colgando de esa fila: al recuperarla vuelven con ella.
 // «promote-backup» (VibeM3U 0.6.57): la fila va a la papelera y uno de sus respaldos toma su lugar,
 // con el mismo número, nombre, grupo, logo y guía; los demás respaldos pasan al nuevo principal.
+// Canales del bloque TvVoo de Lista 2 (data/lista2-tvvoo-bloque.m3u, 2026-11-18): no tienen fila en
+// el layout; la papelera los anota en data/lista2-tvvoo-papelera.json y
+// tools/build_lista2_tvvoo_block.py los deja fuera del bloque.
 //
 // Uso: node scripts/apply_app_requests.mjs [--root <repo>]
 // Escribe los tres documentos del editor, borra los pedidos procesados (válidos o no) e imprime
@@ -17,6 +20,7 @@ import {
   buildSelectionDocument,
   approveLayout,
   compareRows,
+  formatCompactJson,
   formatJson,
   normalizeLists,
   rowKey,
@@ -30,6 +34,18 @@ export const FILES = {
   selection: "data/vibem3u-selection.json",
   presentation: "presentation-overrides.json",
 };
+export const BLOCK_FILES = {
+  block: "data/lista2-tvvoo-bloque.m3u",
+  trash: "data/lista2-tvvoo-papelera.json",
+};
+
+/** catalogKey de cada canal del bloque TvVoo (tvg-id «<catalogKey>@TvVoo»). */
+export function blockKeys(text) {
+  const keys = new Set();
+  for (const match of String(text ?? "").matchAll(/^#EXTINF[^\n]*tvg-id="([^"]+)@TvVoo"/gm)) keys.add(match[1]);
+  return keys;
+}
+
 // Solo cambian al promover un respaldo.
 export const PROMOTE_FILES = {
   backups: "backups.json",
@@ -125,6 +141,17 @@ export async function applyRequests(documents, requests) {
       continue;
     }
     const row = layout.channels.find((item) => rowKey(item) === parsed.rowKey);
+    const blockKey = parsed.rowKey.startsWith("provider:tvvoo:") ? parsed.rowKey.slice("provider:tvvoo:".length) : "";
+    if (!row && blockKey && !parsed.backupTvgId && documents.blockKeys?.has(blockKey)) {
+      const trash = (documents.blockTrash ??= { canales: [] });
+      if (trash.canales.includes(blockKey)) {
+        skipped.push({ file: request.file, reason: `${parsed.name || blockKey} ya estaba en la papelera` });
+        continue;
+      }
+      trash.canales = [...trash.canales, blockKey].sort();
+      applied.push({ rowKey: parsed.rowKey, name: parsed.name || blockKey, number: null, block: true });
+      continue;
+    }
     if (!row) {
       skipped.push({ file: request.file, reason: `no existe ${parsed.rowKey}` });
       continue;
@@ -152,12 +179,13 @@ export async function applyRequests(documents, requests) {
   return {
     applied,
     skipped,
+    blockTrash: documents.blockTrash,
     layout: finalLayout,
     presentation: buildPresentationOverrides(finalLayout, documents.presentation),
     backups: documents.backups,
     overrides: documents.overrides,
     l2Map: documents.l2Map,
-    selection: applied.length
+    selection: applied.some((item) => !item.block)
       ? await buildSelectionDocument(finalLayout, documents.selection)
       : documents.selection,
   };
@@ -177,11 +205,22 @@ async function main() {
   const read = (path) => JSON.parse(readFileSync(join(root, path), "utf8"));
   const documents = { layout: read(FILES.layout), selection: read(FILES.selection), presentation: read(FILES.presentation),
     backups: read(PROMOTE_FILES.backups), overrides: read(PROMOTE_FILES.overrides), l2Map: read(PROMOTE_FILES.l2Map) };
+  const blockPath = join(root, BLOCK_FILES.block);
+  documents.blockKeys = existsSync(blockPath) ? blockKeys(readFileSync(blockPath, "utf8")) : new Set();
+  const trashPath = join(root, BLOCK_FILES.trash);
+  documents.blockTrash = existsSync(trashPath) ? JSON.parse(readFileSync(trashPath, "utf8")) : { canales: [] };
   const requests = files.map((file) => ({ file, text: readFileSync(join(dir, file), "utf8") }));
   const result = await applyRequests(documents, requests);
-  if (result.applied.length) {
+  if (result.applied.some((item) => item.block)) {
+    writeFileSync(trashPath, formatJson({
+      motivo: "Canales del bloque TvVoo de Lista 2 enviados a la papelera desde la app.",
+      ...result.blockTrash,
+    }));
+  }
+  if (result.applied.some((item) => !item.block)) {
     // Pedido del usuario desde su TV: se sella igual que una publicación del editor.
-    writeFileSync(join(root, FILES.layout), formatJson(await approveLayout(result.layout, "app")));
+    // Layout compacto (VibeM3U rechaza más de 8 MB; ver formatCompactJson).
+    writeFileSync(join(root, FILES.layout), formatCompactJson(await approveLayout(result.layout, "app")));
     writeFileSync(join(root, FILES.presentation), formatJson(result.presentation));
     writeFileSync(join(root, FILES.selection), formatJson(result.selection));
   }
