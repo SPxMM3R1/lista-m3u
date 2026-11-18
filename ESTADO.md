@@ -118,6 +118,7 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-11-18**: vuelven al bloque TvVoo de Lista 2 los 17 canales que el usuario mandó a la papelera desde la app (WWE, Barça TV, Real Madrid TV, 24 Horas, VH1…): no abrían por una caída general de Vavoo (`mediahubmx-catalog.json` responde «Internal error» en kool.to y vavoo.to), no por el canal.
 - **2026-11-18**: aplicados a mano tres pedidos de papelera de la app que llegaron antes del arreglo y se omitieron: ZAP VIVA (Portugal), 4MUSIC y EUROSPORT 1 (Reino Unido), del bloque TvVoo de Lista 2.
 - **2026-11-18**: `targeted_update.py` ya no copia el bloque TvVoo al orden de Lista 2 en `presentation-overrides.json` (lo había hecho dos veces, con 8.279 IDs); se restauró el orden del layout (29) y vuelve a pasar `tests/derived-drift.test.mjs`.
 - **2026-11-18**: la papelera de la app sirve para los canales del bloque TvVoo de Lista 2 (no tienen fila en el layout; antes el pedido se omitía con «no existe»): `scripts/apply_app_requests.mjs` los anota en `data/lista2-tvvoo-papelera.json`, el flujo «Pedidos de la app» corre `tools/build_lista2_tvvoo_block.py` y `update_m3u.py --refresh-tvvoo-block`. Ese script además guarda el layout compacto (escribía con sangría).
