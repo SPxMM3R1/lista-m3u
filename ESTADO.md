@@ -118,6 +118,7 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-11-17**: fuera del bloque TvVoo de Lista 2 los 620 canales que no abrieron en dos pasadas de prueba local (firma Vavoo, resolve y segmento HLS, como la app; pedido del usuario). Lista en `contracts/lista2-tvvoo-sin-respuesta-20261117.json`, que `tools/build_lista2_tvvoo_block.py` omite. Bloque: 833 canales.
 - **2026-11-17**: fuera del bloque TvVoo de Lista 2 todo Rusia (pedido del usuario; `EXCLUDED_COUNTRIES`).
 - **2026-11-17**: en el bloque deportivo/musical de Lista 2 se quedan también todos los canales de TVE de España (pedido del usuario, `TVE_PATTERN`): La 1, La 2, 24 Horas, Clan, Teledeporte, Star TVE, TVE Internacional, RTVE. Bloque: 1.515 canales.
 - **2026-11-17**: el bloque TvVoo de Lista 2 queda solo con canales deportivos y musicales (pedido del usuario): categoría del inventario (Sport/Music) o, sin categoría, el nombre (`SPORT_PATTERN`/`MUSIC_PATTERN` en `tools/build_lista2_tvvoo_block.py`). 1.491 canales: Reino Unido 134, España 54, Alemania 596, Arabia 296, Francia 198, Italia 66, Portugal 85, Rusia 62.

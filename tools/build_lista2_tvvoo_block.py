@@ -27,6 +27,8 @@ SNAPSHOT = ROOT / "data" / "tvvoo-catalogo-vivo-20261117.json"
 LOGOS = ROOT / "contracts" / "tvvoo-logos-lista2-20261117.json"
 LAYOUT = ROOT / "data" / "channel-editor-layout.json"
 OUTPUT = ROOT / "data" / "lista2-tvvoo-bloque.m3u"
+# Canales que no abrieron en dos pasadas de prueba («país|nombre»); se omiten (2026-11-17).
+DEAD = ROOT / "contracts" / "lista2-tvvoo-sin-respuesta-20261117.json"
 RAW = "https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/"
 BLOCK_ATTRIBUTE = update_m3u.TVVOO_CATALOG_BLOCK_ATTRIBUTE
 
@@ -141,6 +143,7 @@ def main() -> int:
         for value in re.findall(r'\bx-(?:resolver-ids|tvvoo-aliases)="([^"]*)"', line):
             taken_aliases.update(unquote(alias) for alias in value.split(";") if alias)
 
+    dead = set(json.loads(DEAD.read_text(encoding="utf-8"))["canales"]) if DEAD.is_file() else set()
     rows = []
     skipped = {"excluido": 0, "en lista": 0}
     for item in snapshot:
@@ -158,6 +161,9 @@ def main() -> int:
         key = f"{country_key}|{alias}"
         if key in taken_keys or unquote(alias) in taken_aliases:
             skipped["en lista"] += 1
+            continue
+        if f"{label}|{name}" in dead:
+            skipped["sin respuesta"] = skipped.get("sin respuesta", 0) + 1
             continue
         meta = logos.get(f"{country_key}|{name.lower()}") or {}
         if not is_sport_or_music(name, meta.get("category"), country_key):
