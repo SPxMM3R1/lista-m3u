@@ -118,6 +118,7 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-11-18**: fuera del bloque TvVoo de Lista 2 otros 75 canales que fallan con una prueba que imita a VibeM3U (User-Agent Chrome de `TvVooStreamResolver`, firma TS/fMP4 de `HlsStreamValidator`, nombre exacto o relajado); la primera prueba era más permisiva. Muestra en la app (emulador, 40 canales): 36 abrieron. Bloque: 758 canales.
 - **2026-11-17**: fuera del bloque TvVoo de Lista 2 los 620 canales que no abrieron en dos pasadas de prueba local (firma Vavoo, resolve y segmento HLS, como la app; pedido del usuario). Lista en `contracts/lista2-tvvoo-sin-respuesta-20261117.json`, que `tools/build_lista2_tvvoo_block.py` omite. Bloque: 833 canales.
 - **2026-11-17**: fuera del bloque TvVoo de Lista 2 todo Rusia (pedido del usuario; `EXCLUDED_COUNTRIES`).
 - **2026-11-17**: en el bloque deportivo/musical de Lista 2 se quedan también todos los canales de TVE de España (pedido del usuario, `TVE_PATTERN`): La 1, La 2, 24 Horas, Clan, Teledeporte, Star TVE, TVE Internacional, RTVE. Bloque: 1.515 canales.
