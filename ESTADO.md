@@ -5,9 +5,11 @@
 > cubre la app). **Al terminar cualquier cambio, actualiza este archivo en el mismo commit**:
 > la sección «Hoy» si cambió el estado y una línea nueva en «Bitácora».
 
-Última actualización: **2026-11-17** (America/Santiago).
+Última actualización: **2026-11-19** (America/Santiago).
 
 ## Hoy, en una mirada
+
+- **Lista 2 sin TvVoo (2026-11-19, pedido del usuario «Elimina todos los vavoo en lista 2 por ahora»)**: salen de la lista publicada los 759 canales TvVoo: 758 del bloque `data/lista2-tvvoo-bloque.m3u` y la línea huérfana `Vavoo.es.EUROSPORT1@TvVoo` (queda como tombstone en `presentation-overrides.json` › `excluded_m3u`). El bloque queda apagado con `TVVOO_CATALOG_BLOCK_ENABLED = False` en `update_m3u.py`: el archivo del bloque y sus herramientas se conservan y se reactiva poniéndolo en `True`. Lista 1 y sus TvVoo no cambian. Lista 2 publicada: 13 canales (29 activos en el layout; las otras 16 filas ya estaban sin publicar desde antes de este cambio). Registro: `contracts/lista2-sin-tvvoo-20261119.json`.
 
 - EPG publicada y comprobada el 17/11 a las 19:15: 94/95 con las próximas 24 h continuas. Solo falta Stingray iConcerts #058. Evidencia y fuentes en `docs/epg.md`.
 
@@ -61,7 +63,7 @@
 - **EPG**: 47 canales. Cada canal mezcla sus fuentes por prioridad (`epg_source_chain`): la de
   más arriba manda donde tiene programas y las demás solo rellenan huecos. Horizonte típico
   30–190 h.
-- **Tests**: 434 Python (`python -m unittest discover -s tests -p "test_*.py"`; 6 omitidas) y 57 JS
+- **Tests**: 447 Python (`python -m unittest discover -s tests -p "test_*.py"`; 6 omitidas) y 63 JS
   (`node --test tests/*.mjs`).
 
 - **Octubre de 2026 y del 1 al 4 de noviembre**: `docs/estado-anterior.md` (entradas antiguas de esta sección) y `docs/bitacora/` (bitácora por mes).
@@ -118,6 +120,7 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-11-19**: Lista 2 sin TvVoo por pedido del usuario («por ahora»): 758 canales del bloque + la línea huérfana de Eurosport 1 España. Se apaga el bloque con `TVVOO_CATALOG_BLOCK_ENABLED = False` (se conserva el archivo y se reactiva con `True`). Lista 1 intacta.
 - **2026-11-18**: vuelven al bloque TvVoo de Lista 2 los 17 canales que el usuario mandó a la papelera desde la app (WWE, Barça TV, Real Madrid TV, 24 Horas, VH1…): no abrían por una caída general de Vavoo (`mediahubmx-catalog.json` responde «Internal error» en kool.to y vavoo.to), no por el canal.
 - **2026-11-18**: aplicados a mano tres pedidos de papelera de la app que llegaron antes del arreglo y se omitieron: ZAP VIVA (Portugal), 4MUSIC y EUROSPORT 1 (Reino Unido), del bloque TvVoo de Lista 2.
 - **2026-11-18**: `targeted_update.py` ya no copia el bloque TvVoo al orden de Lista 2 en `presentation-overrides.json` (lo había hecho dos veces, con 8.279 IDs); se restauró el orden del layout (29) y vuelve a pasar `tests/derived-drift.test.mjs`.

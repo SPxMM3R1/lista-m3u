@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "fecha": "2026-11-19",
+  "pedido": "Elimina todos los vavoo en lista 2 por ahora",
+  "alcance": "Lista 2 publicada (m3u-externa.m3u y su alias 2.m3u)",
+  "retirados": {
+    "bloque_tvvoo": 758,
+    "huerfanos": [
+      "Vavoo.es.EUROSPORT1@TvVoo"
+    ],
+    "total": 759
+  },
+  "interruptor": {
+    "archivo": "update_m3u.py",
+    "constante": "TVVOO_CATALOG_BLOCK_ENABLED",
+    "valor": false,
+    "nota": "with_tvvoo_catalog_block retira lo ya publicado y no vuelve a pegar data/lista2-tvvoo-bloque.m3u"
+  },
+  "se_conserva": [
+    "data/lista2-tvvoo-bloque.m3u",
+    "tools/build_lista2_tvvoo_block.py",
+    "data/lista2-tvvoo-papelera.json",
+    "data/tvvoo-catalogo-vivo-20261117.json"
+  ],
+  "tombstone": {
+    "archivo": "presentation-overrides.json",
+    "campo": "excluded_m3u",
+    "ids": [
+      "Vavoo.es.EUROSPORT1@TvVoo"
+    ]
+  },
+  "lista_1": "sin cambios (sus TvVoo siguen publicados)",
+  "lista_2_publicada": 13,
+  "reactivar": [
+    "Poner TVVOO_CATALOG_BLOCK_ENABLED = True en update_m3u.py",
+    "Ejecutar python update_m3u.py --refresh-tvvoo-block y publicar"
+  ]
+}

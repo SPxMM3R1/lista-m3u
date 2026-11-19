@@ -49,6 +49,10 @@ SHORT_EXTERNAL_PLAYLIST = Path(__file__).with_name("2.m3u")
 # validaciones de la partición lo ignoran (no es parte del catálogo canónico).
 TVVOO_CATALOG_BLOCK_PATH = Path(__file__).with_name("data") / "lista2-tvvoo-bloque.m3u"
 TVVOO_CATALOG_BLOCK_ATTRIBUTE = "x-vibem3u-block"
+# 2026-11-19: pedido del usuario «Elimina todos los vavoo en lista 2 por ahora». Con esto en
+# False la Lista 2 se publica sin el bloque (las filas ya publicadas se quitan al escribirla);
+# el archivo del bloque se conserva generado para reactivarlo poniendo True, sin más cambios.
+TVVOO_CATALOG_BLOCK_ENABLED = False
 SHORT_PLAYLIST_ALIASES = (
     (DEFAULT_PLAYLIST, SHORT_DIRECT_PLAYLIST),
     (EXTERNAL_PLAYLIST, SHORT_EXTERNAL_PLAYLIST),
@@ -4135,10 +4139,13 @@ def strip_tvvoo_catalog_block(lines: list[str]) -> list[str]:
 
 def with_tvvoo_catalog_block(lines: list[str], path: Path | None = None) -> list[str]:
     """La lista con el bloque TvVoo al final (una sola vez, aunque ya lo trajera)."""
-    block_path = TVVOO_CATALOG_BLOCK_PATH if path is None else path
     base = strip_tvvoo_catalog_block(lines)
     while base and not base[-1].strip():
         base.pop()
+    if not TVVOO_CATALOG_BLOCK_ENABLED:
+        # 2026-11-18: bloque apagado a pedido del usuario; se retira lo ya publicado.
+        return base
+    block_path = TVVOO_CATALOG_BLOCK_PATH if path is None else path
     if not block_path.is_file():
         return base
     block = [
@@ -11331,7 +11338,11 @@ def main() -> int:
             "\n".join(with_tvvoo_catalog_block(current)) + "\n", encoding="utf-8", newline="\n"
         )
         sync_short_playlist_aliases()
-        print("Bloque TvVoo de Lista 2 actualizado")
+        print(
+            "Bloque TvVoo de Lista 2 actualizado"
+            if TVVOO_CATALOG_BLOCK_ENABLED
+            else "Bloque TvVoo de Lista 2 desactivado: se retiró de la lista publicada"
+        )
         return 0
 
     playlist = args.playlist.resolve()
