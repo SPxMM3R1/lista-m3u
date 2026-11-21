@@ -1168,6 +1168,17 @@ ZAPPING_EPG_CHANNELS = {
     "45": "ntv",
     "1437": "tvn3",
     "13C.cl@SD": "13cable",
+    # ESPN de Lista 1 con la guía de Chile (2026-11-21, pedido del usuario: «el ESPN 1 es Chile,
+    # el 2 también debe ser Chile, los demás también»). Zapping solo entrega hoy el programa
+    # actual y unas horas (nowplaying): manda en ese tramo y epg-overrides.json rellena el resto.
+    # Fotograma 20:37: coincidieron ESPN, 2, 4, 5 y 7; ESPN 3 y 6 mostraban otro partido.
+    "ESPN.co@Direct181": "espn",
+    "PublicDirect.42095e66e7aa9b52a50125ae": "espn2",
+    "WinSports.co@Direct181": "espn3",
+    "ESPN4.co@Direct181": "espn4",
+    "WinPlusFutbol.co@Direct181": "espn5cl",
+    "ESPN7.co@Direct181": "espn6cl",
+    "PublicDirect.ac1fca2303c88b6a69359958": "espn7cl",
 }
 # Canales cuya parrilla manda otra fuente (La Red, solo su oficial; Arirang y
 # France 24, EPGShare) pero que en Zapping tienen sinopsis reales. De Zapping se

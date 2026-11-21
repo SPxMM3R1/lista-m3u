@@ -34,7 +34,9 @@ class TvnEpgTests(unittest.TestCase):
         self.assertEqual({"source": "claro-guia", "source_id": "claro:chile:793457"}, entry["backup"])
         with patch.dict(update_m3u.EPG_PROGRAMME_SOURCES, {target: source}):
             chain = update_m3u.epg_source_chain(target)
-            self.assertEqual(source, chain[0])
+            # 2026-11-21: Zapping Chile (espn) manda en las horas cercanas; CL1 rellena el resto.
+            self.assertEqual((update_m3u.ZAPPING_EPG_SOURCE, target), chain[0])
+            self.assertEqual(source, chain[1])
             self.assertNotIn(("co1", "ESPN.co"), chain)
 
     def test_espn5_uses_verified_spanish_feed_not_portuguese_sd_entry(self) -> None:
