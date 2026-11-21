@@ -113,8 +113,10 @@ class AlcatelLista1Test(unittest.TestCase):
         self.assertEqual(("gatotv", "gatotv:sony_movies_latinoamerica"),
                          (sony["source"], sony["source_id"]))
         history = epg["PublicDirect.8da65ba545fa9fd2512f9901"]
-        self.assertEqual(("co1", "History.Channel.co"), (history["source"], history["source_id"]))
-        self.assertEqual("claro-guia", history["backup"]["source"])
+        # 2026-11-21: parrilla de Chile (fotograma «Grandes escapes»); Colombia queda de respaldo.
+        self.assertEqual(("cl", "Canal.History.(Chile).cl"), (history["source"], history["source_id"]))
+        self.assertEqual(("co1", "History.Channel.co"), (history["backup"]["source"], history["backup"]["source_id"]))
+        self.assertNotIn("shift_minutes", history)
 
     def test_telehit_and_requested_rows_are_ordered_in_lista1_only(self):
         layout = json.loads((ROOT / "data/channel-editor-layout.json").read_text(encoding="utf-8"))

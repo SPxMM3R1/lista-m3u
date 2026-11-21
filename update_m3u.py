@@ -1179,6 +1179,10 @@ ZAPPING_EPG_CHANNELS = {
     "WinPlusFutbol.co@Direct181": "espn5cl",
     "ESPN7.co@Direct181": "espn6cl",
     "PublicDirect.ac1fca2303c88b6a69359958": "espn7cl",
+    # History y History 2 con la parrilla de Chile (2026-11-21, fotograma: «Grandes escapes con
+    # Morgan Freeman» en History; la guía colombiana tenía otra programación).
+    "PublicDirect.8da65ba545fa9fd2512f9901": "history",
+    "PublicDirect.39057ce89326a34e33998e2e": "h2",
 }
 # Canales cuya parrilla manda otra fuente (La Red, solo su oficial; Arirang y
 # France 24, EPGShare) pero que en Zapping tienen sinopsis reales. De Zapping se
