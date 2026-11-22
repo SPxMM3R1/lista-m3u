@@ -11604,6 +11604,10 @@ def main() -> int:
     )
     if args.validate_public_lists_only:
         validate_resolver_contract(lines)
+        # Se compara contra el catálogo que escribió el runner, no contra ``lines``: este proceso
+        # vuelve a consultar Highfly y, si una señal tiene varias hojas, puede elegir otra
+        # (2026-11-22, TNT Sports 2: «la salida publica no adopto la URL o los metadatos»).
+        written_catalog_lines = source_playlist.read_text(encoding="utf-8-sig").splitlines()
         validation_catalog_ids = set(
             stable_channel_ids(catalogue_before_update, label=CHANNEL_CATALOG_PATH.name)
         )
@@ -11615,7 +11619,7 @@ def main() -> int:
             raise ValueError("la membresia validada de m3u.m3u no puede estar vacia")
         if MAINTENANCE_MAIN_ONLY:
             validate_public_playlist_partition(
-                lines,
+                written_catalog_lines,
                 DEFAULT_PLAYLIST.read_text(encoding="utf-8-sig").splitlines(),
                 [],
                 validation_main_ids,
@@ -11627,7 +11631,7 @@ def main() -> int:
             validation_catalog_ids - set(validation_main_ids) - set(excluded_m3u_ids)
         )
         validate_public_playlist_partition(
-            lines,
+            written_catalog_lines,
             DEFAULT_PLAYLIST.read_text(encoding="utf-8-sig").splitlines(),
             EXTERNAL_PLAYLIST.read_text(encoding="utf-8-sig").splitlines(),
             validation_main_ids,
