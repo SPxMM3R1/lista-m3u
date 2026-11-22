@@ -1,16 +1,18 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-22T20:04:52.402895Z",
+  "updated_at": "2026-11-22T23:33:23.993599Z",
   "channels": [
     "RedBullChileEspanol.cl",
     "RedBullWorldEnglish.int",
     "45",
+    "IPTVOrg.MusicBoxHits.cz-SD",
+    "IPTVOrg.MusicBoxClassic.cz-SD",
     "PublicDirect.650a768cd537cb17d491e369"
   ],
   "details": {
     "45": {
       "kind": "hueco",
-      "futureHours": 30.9,
+      "futureHours": 27.4,
       "requiredHours": 24.0,
       "gaps": [
         [
@@ -18,6 +20,18 @@
           "2026-11-23T11:00:00Z"
         ]
       ]
+    },
+    "IPTVOrg.MusicBoxClassic.cz-SD": {
+      "kind": "guia-corta",
+      "futureHours": 23.4,
+      "requiredHours": 24.0,
+      "gaps": []
+    },
+    "IPTVOrg.MusicBoxHits.cz-SD": {
+      "kind": "guia-corta",
+      "futureHours": 23.4,
+      "requiredHours": 24.0,
+      "gaps": []
     },
     "PublicDirect.650a768cd537cb17d491e369": {
       "kind": "sin-guia",
@@ -27,7 +41,7 @@
     },
     "RedBullChileEspanol.cl": {
       "kind": "guia-corta",
-      "futureHours": 23.2,
+      "futureHours": 21.4,
       "requiredHours": 24.0,
       "gaps": []
     },
