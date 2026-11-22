@@ -4525,13 +4525,20 @@ def apply_presentation_overrides(
         resolver_attributes = resolver_attributes_for(channel)
         override = info_lines.get(channel.tvg_id)
         if override:
+            current_attrs = dict(_M3U_ATTRIBUTE_PATTERN.findall(lines[channel.info_line]))
             if is_tvvoo_reference(channel):
                 # A presentation snapshot may predate the reference migration.
                 # Keep current routing metadata while applying its visible fields.
-                current_attrs = dict(_M3U_ATTRIBUTE_PATTERN.findall(lines[channel.info_line]))
                 resolver_attributes = {key: value for key, value in current_attrs.items()
                                        if key in RESOLVER_ATTRIBUTE_NAMES or key == "x-resolver-country"}
                 override = re.sub(r'\s+x-resolver-country="[^"]*"', "", str(override))
+            elif current_attrs.get("x-resolver") == "highfly":
+                # Highfly rota sus slugs a diario: el catálogo ya trae el vigente (layout). La
+                # tabla de resolver_attributes_for busca por nombre y Sky Sports F1 y F1 UHD se
+                # llaman igual, así que devolvía el slug del otro canal (2026-11-21/22: el runner
+                # fallaba con «la salida publica no adopto la URL o los metadatos»).
+                resolver_attributes = {key: value for key, value in current_attrs.items()
+                                       if key in RESOLVER_ATTRIBUTE_NAMES}
             updated = with_resolver_attributes(
                 str(override), resolver_attributes
             )

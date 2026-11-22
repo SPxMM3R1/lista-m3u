@@ -128,5 +128,25 @@ class HighflyLiveTest(unittest.TestCase):
             self.assertEqual("2026-09-28T15:00:00Z", json.loads(path.read_text(encoding="utf-8"))["generatedAt"])
 
 
+
+class HighflyPresentationSlugTest(unittest.TestCase):
+    def test_saved_info_line_keeps_the_current_rotated_slug(self) -> None:
+        # 2026-11-22: Sky Sports F1 y F1 UHD se llaman igual; la línea guardada en
+        # presentation-overrides no debe devolverle al UHD el slug del F1 normal.
+        manifest = "https://sports.highfly.to/x/manifest.json"
+        lines = [
+            "#EXTM3U",
+            '#EXTINF:-1 tvg-id="SkySportsF1UHD.uk" tvg-name="Sky Sports F1" x-resolver="highfly" '
+            f'x-resolver-id="4k-sky-sports-f13334" x-resolver-manifest="{manifest}" x-resolver-refresh="on_play",Sky Sports F1',
+            "https://papacito.cfd/m3u/x/live.m3u8",
+        ]
+        saved = ('#EXTINF:-1 tvg-id="SkySportsF1UHD.uk" tvg-name="Sky Sports F1" group-title="Deportes" '
+                 'x-resolver="highfly" x-resolver-id="now-sky-sports-f1" x-resolver-refresh="on_play",Sky Sports F1')
+        update_m3u.apply_presentation_overrides(lines, "1.m3u", {
+            "info_lines": {"SkySportsF1UHD.uk": saved}, "orders": {}, "logos": {}, "names": {}})
+        self.assertIn('x-resolver-id="4k-sky-sports-f13334"', lines[1])
+        self.assertIn('group-title="Deportes"', lines[1])
+
+
 if __name__ == "__main__":
     unittest.main()
