@@ -64,7 +64,7 @@ class ExplicitDirectBackupLinksTest(unittest.TestCase):
 class EspnChilePlacementTest(unittest.TestCase):
     TARGET_ID = "ESPN.co@Direct181"
 
-    def test_espn_is_after_tnt_sports_4_at_the_matching_number(self):
+    def test_espn_opens_sports_at_21(self):
         layout = json.loads((ROOT / "data/channel-editor-layout.json").read_text(encoding="utf-8"))
         rows = [row for row in layout["channels"] if row.get("state") == "active"]
         target = next(row for row in rows if row.get("tvgId") == self.TARGET_ID)
@@ -74,11 +74,11 @@ class EspnChilePlacementTest(unittest.TestCase):
         # 2026-11-04: corrido +1 por CNN en Lista 1 (18).
         # 2026-11-08: Lista 2 corrida +2 por Music Box Hits y Classic en Lista 1 (57-58).
         # 2026-11-14: corrido +1 por Star TVE en Lista 1 (20).
-        self.assertEqual(35, target["number"])
-        self.assertEqual(31, tnt4["number"])
+        # 2026-11-22: reorden aprobado; Deportes abre con ESPN (21), justo después de Star TVE.
+        self.assertEqual(21, target["number"])
+        self.assertEqual(40, tnt4["number"])
         self.assertEqual("ESPN", target["displayName"])
-        # Tras TNT Sports 4 quedan TNT Sports Premium (Chile) (30) y los dos Eurosport España (31/32), y luego ESPN.
-        self.assertEqual(target, ordered[ordered.index(tnt4) + 4])
+        self.assertEqual("Star TVE", ordered[ordered.index(target) - 1].get("displayName"))
         self.assertEqual(len(rows), len({row["number"] for row in rows}))
 
         presentation = json.loads((ROOT / "presentation-overrides.json").read_text(encoding="utf-8"))
@@ -100,7 +100,7 @@ class Espn2PlacementTest(unittest.TestCase):
     OLD_ID = "PublicDirect.d6cca6d4aa23a69d50439c22"
     ESPN_ID = "ESPN.co@Direct181"
 
-    def test_espn_2_is_at_36_and_old_list_2_feed_is_trashed(self):
+    def test_espn_2_is_at_22_and_old_list_2_feed_is_trashed(self):
         layout = json.loads((ROOT / "data/channel-editor-layout.json").read_text(encoding="utf-8"))
         rows = [row for row in layout["channels"] if row.get("state") == "active"]
         target = next(row for row in rows if row.get("tvgId") == self.TARGET_ID)
@@ -109,8 +109,9 @@ class Espn2PlacementTest(unittest.TestCase):
         # 2026-10-25: TNT Sports Premium (Chile) y el 135 movidos; ESPN 2 bajó a 34 y ESPN a 33.
         # 2026-11-04: corrido +1 por CNN en Lista 1 (18).
         # 2026-11-14: corrido +1 por Star TVE en Lista 1 (20).
-        self.assertEqual(36, target["number"])
-        self.assertEqual(35, espn["number"])
+        # 2026-11-22: reorden aprobado (Deportes abre con ESPN 1–7).
+        self.assertEqual(22, target["number"])
+        self.assertEqual(21, espn["number"])
         self.assertEqual("ESPN 2", target["displayName"])
         # 2026-10-22: sin respaldos directos (pasaron a Lista 2 como canales independientes).
         self.assertFalse(target.get("backupm3u"))
@@ -120,7 +121,7 @@ class Espn2PlacementTest(unittest.TestCase):
         # contra el layout y la lista publicada en vez de fijar un número.
         backups = json.loads((ROOT / "backups.json").read_text(encoding="utf-8"))["channels"]
         self.assertIn("ESPN2.co@Direct181", [copy["tvg_id"] for copy in backups[self.TARGET_ID]["backups"]])
-        self.assertEqual(("Lista 1", 36), (backups[self.TARGET_ID]["list"], backups[self.TARGET_ID]["number"]))
+        self.assertEqual("Lista 1", backups[self.TARGET_ID]["list"])
         # 2026-11-22: la señal anterior (Lista 2) fue a la papelera por pedido del usuario
         # («El ESPN 2 que está en la lista 2, mándala a papelera»).
         old = next(row for row in layout["channels"] if row.get("tvgId") == self.OLD_ID)
@@ -144,7 +145,7 @@ class Espn4PlacementTest(unittest.TestCase):
     TARGET_ID = "ESPN4.co@Direct181"
     ESPN3_ID = "WinSports.co@Direct181"
 
-    def test_espn4_is_after_espn3_sur_at_number_35(self):
+    def test_espn4_is_after_espn3_sur_at_number_24(self):
         layout = json.loads((ROOT / "data/channel-editor-layout.json").read_text(encoding="utf-8"))
         rows = [row for row in layout["channels"] if row.get("state") == "active"]
         target = next(row for row in rows if row.get("tvgId") == self.TARGET_ID)
@@ -154,8 +155,9 @@ class Espn4PlacementTest(unittest.TestCase):
         # 2026-10-25: corrido +1 por TNT Sports Premium (Chile) en Lista 1.
         # 2026-11-04: corrido +1 por CNN en Lista 1 (18).
         # 2026-11-14: corrido +1 por Star TVE en Lista 1 (20).
-        self.assertEqual(38, target["number"])
-        self.assertEqual(37, espn3["number"])
+        # 2026-11-22: reorden aprobado.
+        self.assertEqual(24, target["number"])
+        self.assertEqual(23, espn3["number"])
         self.assertEqual("ESPN 4", target["displayName"])
         self.assertEqual(target, ordered[ordered.index(espn3) + 1])
         self.assertEqual(len(rows), len({row["number"] for row in rows}))
