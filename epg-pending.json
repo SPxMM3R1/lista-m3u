@@ -1,12 +1,24 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-22T09:38:57.428850Z",
+  "updated_at": "2026-11-22T16:37:41.402310Z",
   "channels": [
     "RedBullWorldEnglish.int",
     "RedBullChileEspanol.cl",
-    "PublicDirect.650a768cd537cb17d491e369"
+    "PublicDirect.650a768cd537cb17d491e369",
+    "45"
   ],
   "details": {
+    "45": {
+      "kind": "hueco",
+      "futureHours": 34.4,
+      "requiredHours": 24.0,
+      "gaps": [
+        [
+          "2026-11-23T10:35:00Z",
+          "2026-11-23T11:00:00Z"
+        ]
+      ]
+    },
     "PublicDirect.650a768cd537cb17d491e369": {
       "kind": "sin-guia",
       "futureHours": 0.0,
@@ -15,7 +27,7 @@
     },
     "RedBullChileEspanol.cl": {
       "kind": "guia-corta",
-      "futureHours": 20.4,
+      "futureHours": 19.9,
       "requiredHours": 24.0,
       "gaps": []
     },
