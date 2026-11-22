@@ -5881,22 +5881,82 @@ def normalize_styled_caps(value: str) -> str:
     return text[:1].upper() + text[1:] if text else text
 
 
-def normalize_styled_caps_in_epg(data: bytes) -> bytes:
-    """Aplica ``normalize_styled_caps`` al unir fragmentos: los fragmentos guardados solo se
-    reemplazan al quedarse sin futuro, así el cambio se ve de inmediato en epg.xml."""
-    root = ET.fromstring(data)
-    changed = False
+EPG_CAPS_WORD = re.compile(r"[A-Za-zÀ-ÿ]+")
+
+
+EPG_CAPS_MIN_PLAIN_USES = 3
+EPG_CAPS_KEEP_ACRONYMS = frozenset({"NWSL", "MILF", "GILF", "DILF", "CONCACAF", "CONMEBOL", "LALIGA",
+                                    "FIBA", "KNVB", "CMLL", "COVID", "BRICS", "CDMX", "LASK"})
+
+
+def epg_plain_vocabulary(root: ET.Element) -> set[str]:
+    """Palabras que la propia guía escribe en forma normal («world», «World»).
+
+    Una palabra que aparece así en algún título o descripción es una palabra, no una sigla:
+    su versión en mayúsculas («WORLD») se puede corregir sin riesgo. Las siglas reales
+    (KNVB, CMLL, LASK) nunca aparecen como «Knvb», así que se respetan.
+    """
+    uses: dict[str, int] = {}
     for programme in root.findall("programme"):
-        if programme.get("channel") not in EPG_STYLED_CAPS_CHANNELS:
-            continue
+        for element_name in ("title", "sub-title", "desc"):
+            text = programme.findtext(element_name) or ""
+            for word in EPG_CAPS_WORD.findall(text):
+                if len(word) >= 4 and (word.islower() or (word[0].isupper() and word[1:].islower())):
+                    key = word.lower()
+                    uses[key] = uses.get(key, 0) + 1
+    # Varias apariciones: una sola puede ser una sigla escrita al pasar («Nwsl»).
+    return {word for word, count in uses.items() if count >= EPG_CAPS_MIN_PLAIN_USES}
+
+
+def normalize_caps_words(value: str, vocabulary: set[str]) -> str:
+    """En un título con minúsculas, «RICE in JAPAN» → «Rice in Japan» si «rice»/«japan» son
+    palabras normales de la guía. Respeta siglas conocidas y títulos enteros en mayúsculas
+    (de esos se encarga ``normalize_epg_title``)."""
+    if not any(character.islower() for character in value):
+        return value
+
+    def fix(match: re.Match[str]) -> str:
+        word = match.group(0)
+        if (len(word) < 4 or not word.isupper() or word in EPG_TITLE_ACRONYMS
+                or word in EPG_STYLED_CAPS_KEEP or word in EPG_CAPS_KEEP_ACRONYMS
+                or word.lower() not in vocabulary):
+            return word
+        return word[:1] + word[1:].lower()
+
+    return EPG_CAPS_WORD.sub(fix, value)
+
+
+def normalize_caps_in_epg_root(root: ET.Element) -> int:
+    """Corrige las mayúsculas de estilo en títulos y subtítulos; devuelve cuántos cambió.
+
+    Pedido del usuario (2026-11-22): «mayúsculas en la epg, como NEWS… haz que no vuelva a
+    pasar». Vale para todos los canales (vocabulario de la propia guía) y, en
+    ``EPG_STYLED_CAPS_CHANNELS``, además para marcas como «BOSAI» o «DOSUKOI».
+    """
+    vocabulary = epg_plain_vocabulary(root)
+    changed = 0
+    for programme in root.findall("programme"):
+        styled = programme.get("channel") in EPG_STYLED_CAPS_CHANNELS
         for element_name in ("title", "sub-title"):
             element = programme.find(element_name)
-            if element is not None and element.text:
-                fixed = normalize_styled_caps(element.text)
-                if fixed != element.text:
-                    element.text = fixed
-                    changed = True
-    return ET.tostring(root, encoding="utf-8", xml_declaration=True) if changed else data
+            if element is None or not element.text:
+                continue
+            fixed = normalize_caps_words(element.text, vocabulary)
+            if styled:
+                fixed = normalize_styled_caps(fixed)
+            if fixed != element.text:
+                element.text = fixed
+                changed += 1
+    return changed
+
+
+def normalize_styled_caps_in_epg(data: bytes) -> bytes:
+    """Aplica ``normalize_caps_in_epg_root`` al unir fragmentos: los fragmentos guardados solo
+    se reemplazan al quedarse sin futuro, así el cambio se ve de inmediato en epg.xml."""
+    root = ET.fromstring(data)
+    if not normalize_caps_in_epg_root(root):
+        return data
+    return ET.tostring(root, encoding="utf-8", xml_declaration=True)
 
 
 def normalize_epg_description(value: object) -> str:
@@ -7800,13 +7860,11 @@ def build_epg(
     # aquí, justo antes de publicar, cubre EPGShare, Zapping, fuentes oficiales
     # y continuidad sin obligar a cada importador a repetir la misma regla.
     for programme in root.findall("programme"):
-        styled_caps = programme.get("channel") in EPG_STYLED_CAPS_CHANNELS
         for element_name in ("title", "sub-title"):
             element = programme.find(element_name)
             if element is not None and element.text:
                 element.text = normalize_epg_title(element.text)
-                if styled_caps:
-                    element.text = normalize_styled_caps(element.text)
+    normalize_caps_in_epg_root(root)
 
     description_status = sanitize_xmltv_descriptions(root)
     root.set("data-description-policy", "verified-source-only")

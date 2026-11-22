@@ -74,5 +74,39 @@ class StyledCapsChannelsTest(unittest.TestCase):
         self.assertEqual({"NHKWorldJapan.jp", "AlJazeera.qa"}, set(update_m3u.EPG_STYLED_CAPS_CHANNELS))
 
 
+
+class CapsWordsEverywhereTest(unittest.TestCase):
+    """2026-11-22: «haz que no vuelva a pasar» — vale para todos los canales."""
+
+    vocabulary = {"rice", "japan", "grand", "sumo", "love", "island", "news", "friends", "hokkaido"}
+
+    def test_words_written_normally_elsewhere_are_fixed(self) -> None:
+        cases = {
+            "RICE in JAPAN": "Rice in Japan",
+            "LOVE ISLAND S4 Ep22": "Love Island S4 Ep22",
+            "NEWS Live": "News Live",
+            "HOKKAIDO Part 3": "Hokkaido Part 3",
+        }
+        for raw, expected in cases.items():
+            with self.subTest(raw=raw):
+                self.assertEqual(expected, update_m3u.normalize_caps_words(raw, self.vocabulary))
+
+    def test_acronyms_and_numerals_are_kept(self) -> None:
+        for title in ("Bodo/Glimt v LASK", "FC Twente vs. Ajax - KNVB", "Lo Mejor de DSPORTS Fight",
+                      "Sterling and Lolo Wood CLXIV", "NWSL Final: Washington v Kansas", "El ADN de Jesús"):
+            with self.subTest(title=title):
+                self.assertEqual(title, update_m3u.normalize_caps_words(title, self.vocabulary | {"nwsl", "lask"}))
+
+    def test_published_guide_has_no_styled_caps_left(self) -> None:
+        import xml.etree.ElementTree as ET
+        from pathlib import Path
+        path = Path(__file__).resolve().parents[1] / "epg.xml"
+        if not path.is_file():
+            self.skipTest("sin epg.xml")
+        root = ET.parse(path).getroot()
+        self.assertEqual(0, update_m3u.normalize_caps_in_epg_root(root),
+                         "epg.xml trae palabras en mayúsculas de estilo: revisar normalize_caps_in_epg_root")
+
+
 if __name__ == "__main__":
     unittest.main()
