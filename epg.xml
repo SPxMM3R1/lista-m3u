@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, FreeEPG, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-description-policy="verified-source-only" data-description-programmes="6079" data-description-channels="94" data-next-refresh-at="2026-11-23T16:16:26+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u" data-generated-at="2026-11-22T19:04:03+00:00">
+<tv generator-info-name="lista-m3u updater" source-info-name="EPGShare01, FreeEPG, Zapping, TecnoCentro, fuentes oficiales y relay GitHub" data-description-policy="verified-source-only" data-description-programmes="5910" data-description-channels="94" data-next-refresh-at="2026-11-23T16:16:26+00:00" data-main-continuity-hours="18" data-continuity-policy="real-sources-only-except-rewind" data-epg-scope="m3u.m3u" data-generated-at="2026-11-22T19:35:48+00:00">
   <channel id="0104" data-guide="parrilla real" data-guide-source="zapping-guia-publica">
     <display-name>TVN</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvn.png" />
@@ -40,9 +40,29 @@
     <display-name>DW Español</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/dw.svg" />
   </channel>
+  <channel id="France24.fr" data-guide="parrilla real" data-guide-source="uy1">
+    <display-name>France 24 Español</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/france24.svg" />
+  </channel>
+  <channel id="IPTVOrg.CNNInternational.us-Europe" data-guide="parrilla real" data-guide-source="us2">
+    <display-name>CNN</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/cnn.png" />
+  </channel>
+  <channel id="BBCNews.uk" data-guide="parrilla real" data-guide-source="plex1">
+    <display-name>BBC News</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/bbc-news-earth-style.svg" />
+  </channel>
+  <channel id="AlJazeera.qa" data-guide="parrilla real" data-guide-source="es">
+    <display-name>Al Jazeera English</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/aljazeera.svg?v=2" />
+  </channel>
   <channel id="DWEnglish.de" data-guide="parrilla real" data-guide-source="dw-english-oficial">
     <display-name>DW English</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/dw.svg" />
+  </channel>
+  <channel id="France24.fr@English" data-guide="parrilla real" data-guide-source="sky-oficial">
+    <display-name>France 24 English</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/france24.svg" />
   </channel>
   <channel id="NHKWorldJapan.jp" data-guide="parrilla real" data-guide-source="nhk-world-oficial">
     <display-name>NHK World Japan</display-name>
@@ -52,26 +72,6 @@
     <display-name>Arirang TV</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/arirang.png" />
   </channel>
-  <channel id="France24.fr" data-guide="parrilla real" data-guide-source="uy1">
-    <display-name>France 24 Español</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/france24.svg" />
-  </channel>
-  <channel id="France24.fr@English" data-guide="parrilla real" data-guide-source="sky-oficial">
-    <display-name>France 24 English</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/france24.svg" />
-  </channel>
-  <channel id="AlJazeera.qa" data-guide="parrilla real" data-guide-source="es">
-    <display-name>Al Jazeera English</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/aljazeera.svg?v=2" />
-  </channel>
-  <channel id="BBCNews.uk" data-guide="parrilla real" data-guide-source="plex1">
-    <display-name>BBC News</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/bbc-news-earth-style.svg" />
-  </channel>
-  <channel id="IPTVOrg.CNNInternational.us-Europe" data-guide="parrilla real" data-guide-source="us2">
-    <display-name>CNN</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/cnn.png" />
-  </channel>
   <channel id="TVEInternacionalAmerica.es@HD" data-guide="parrilla real" data-guide-source="us2">
     <display-name>TVE Internacional</display-name>
     <icon src="https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/international/tve-internacional-int.png" />
@@ -79,62 +79,6 @@
   <channel id="PublicDirect.e221e27dc18d5a97a4054237" data-guide="parrilla real" data-guide-source="co1">
     <display-name>Star TVE</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/star-tve.png" />
-  </channel>
-  <channel id="SkySportsF1.uk" data-guide="parrilla real" data-guide-source="sky-oficial">
-    <display-name>Sky Sports F1</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/sky-sports-f1.png" />
-  </channel>
-  <channel id="SkySportsF1UHD.uk" data-guide="parrilla real" data-guide-source="sky-oficial">
-    <display-name>Sky Sports F1</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/sky-sports-f1-uhd.png" />
-  </channel>
-  <channel id="SkySportsTennis.uk" data-guide="parrilla real" data-guide-source="sky-oficial">
-    <display-name>Sky Sports Tennis</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/sky-sports-tennis.png" />
-  </channel>
-  <channel id="SkySportsMainEvent.uk@TvVoo" data-guide="parrilla real" data-guide-source="sky-oficial">
-    <display-name>Sky Sports Main Event</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/sky-sports-main-event.png" />
-  </channel>
-  <channel id="SkySportsMainEventUHD.uk" data-guide="parrilla real" data-guide-source="sky-oficial">
-    <display-name>Sky Sports Main Event</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/sky-sports-main-event-uhd.png" />
-  </channel>
-  <channel id="SkySportsPremierLeague.uk" data-guide="parrilla real" data-guide-source="sky-oficial">
-    <display-name>Sky Sports Premier League</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/sky-sports-premier-league.png" />
-  </channel>
-  <channel id="DAZNF1.es@TvVoo" data-guide="parrilla real" data-guide-source="movistar-plus-es">
-    <display-name>DAZN F1</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/dazn-f1.png" />
-  </channel>
-  <channel id="TNTSports1.uk" data-guide="parrilla real" data-guide-source="sky-oficial">
-    <display-name>TNT Sports 1</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tnt-sports-1.png" />
-  </channel>
-  <channel id="TNTSports2.uk" data-guide="parrilla real" data-guide-source="sky-oficial">
-    <display-name>TNT Sports 2</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tnt-sports-2.png" />
-  </channel>
-  <channel id="TNTSports3.uk@TvVoo" data-guide="parrilla real" data-guide-source="sky-oficial">
-    <display-name>TNT Sports 3</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tnt-sports-3.png" />
-  </channel>
-  <channel id="Vavoo.uk.TNTSPORTS4@TvVoo" data-guide="parrilla real" data-guide-source="sky-oficial">
-    <display-name>TNT Sports 4 Reino Unido</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tnt-sports-4.png" />
-  </channel>
-  <channel id="PublicDirect.475329883c23116340a88ef6" data-guide="parrilla real" data-guide-source="tnt-sports-premium-oficial">
-    <display-name>TNT Sports Premium</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tnt-sports-premium.png" />
-  </channel>
-  <channel id="IPTVOrg.Eurosport1.fr-Spain" data-guide="parrilla real" data-guide-source="movistar-plus-es">
-    <display-name>Eurosport 1</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/eurosport-1.png" />
-  </channel>
-  <channel id="Eurosport2.es@TvVoo" data-guide="parrilla real" data-guide-source="movistar-plus-es">
-    <display-name>Eurosport 2 España</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/eurosport-2.png" />
   </channel>
   <channel id="ESPN.co@Direct181" data-guide="parrilla real" data-guide-source="zapping-guia-publica">
     <display-name>ESPN</display-name>
@@ -164,97 +108,101 @@
     <display-name>ESPN 7</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/espn-7.png" />
   </channel>
-  <channel id="RedBullWorldEnglish.int" data-guide="pendiente de guia" data-guide-source="pendiente">
-    <display-name>RedBull TV World</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/red-bull-tv.png" />
+  <channel id="PublicDirect.475329883c23116340a88ef6" data-guide="parrilla real" data-guide-source="tnt-sports-premium-oficial">
+    <display-name>TNT Sports Premium</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tnt-sports-premium.png" />
+  </channel>
+  <channel id="SkySportsF1.uk" data-guide="parrilla real" data-guide-source="sky-oficial">
+    <display-name>Sky Sports F1</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/sky-sports-f1.png" />
+  </channel>
+  <channel id="SkySportsF1UHD.uk" data-guide="parrilla real" data-guide-source="sky-oficial">
+    <display-name>Sky Sports F1</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/sky-sports-f1-uhd.png" />
+  </channel>
+  <channel id="SkySportsTennis.uk" data-guide="parrilla real" data-guide-source="sky-oficial">
+    <display-name>Sky Sports Tennis</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/sky-sports-tennis.png" />
+  </channel>
+  <channel id="SkySportsMainEvent.uk@TvVoo" data-guide="parrilla real" data-guide-source="sky-oficial">
+    <display-name>Sky Sports Main Event</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/sky-sports-main-event.png" />
+  </channel>
+  <channel id="SkySportsMainEventUHD.uk" data-guide="parrilla real" data-guide-source="sky-oficial">
+    <display-name>Sky Sports Main Event</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/sky-sports-main-event-uhd.png" />
+  </channel>
+  <channel id="SkySportsPremierLeague.uk" data-guide="parrilla real" data-guide-source="sky-oficial">
+    <display-name>Sky Sports Premier League</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/sky-sports-premier-league.png" />
+  </channel>
+  <channel id="TNTSports1.uk" data-guide="parrilla real" data-guide-source="sky-oficial">
+    <display-name>TNT Sports 1</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tnt-sports-1.png" />
+  </channel>
+  <channel id="TNTSports2.uk" data-guide="parrilla real" data-guide-source="sky-oficial">
+    <display-name>TNT Sports 2</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tnt-sports-2.png" />
+  </channel>
+  <channel id="TNTSports3.uk@TvVoo" data-guide="parrilla real" data-guide-source="sky-oficial">
+    <display-name>TNT Sports 3</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tnt-sports-3.png" />
+  </channel>
+  <channel id="Vavoo.uk.TNTSPORTS4@TvVoo" data-guide="parrilla real" data-guide-source="sky-oficial">
+    <display-name>TNT Sports 4 Reino Unido</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tnt-sports-4.png" />
+  </channel>
+  <channel id="DAZNF1.es@TvVoo" data-guide="parrilla real" data-guide-source="movistar-plus-es">
+    <display-name>DAZN F1</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/dazn-f1.png" />
+  </channel>
+  <channel id="IPTVOrg.Eurosport1.fr-Spain" data-guide="parrilla real" data-guide-source="movistar-plus-es">
+    <display-name>Eurosport 1</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/eurosport-1.png" />
+  </channel>
+  <channel id="Eurosport2.es@TvVoo" data-guide="parrilla real" data-guide-source="movistar-plus-es">
+    <display-name>Eurosport 2 España</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/eurosport-2.png" />
   </channel>
   <channel id="RedBullChileEspanol.cl" data-guide="parrilla oficial Red Bull" data-guide-source="red-bull-es-oficial-page">
     <display-name>RedBull TV Español</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/red-bull-tv.png" />
   </channel>
-  <channel id="RewindTV.cl@SD" data-guide="Live" data-guide-source="rewind-continuous">
-    <display-name>RWND</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/rewind-v2.png" />
+  <channel id="RedBullWorldEnglish.int" data-guide="pendiente de guia" data-guide-source="pendiente">
+    <display-name>RedBull TV World</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/red-bull-tv.png" />
   </channel>
-  <channel id="XITEHits.nl@Germany" data-guide="parrilla real" data-guide-source="plex1">
-    <display-name>XITE Hits</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/xite.svg" />
+  <channel id="PublicDirect.9b6311dbc0425cf6e545649a" data-guide="parrilla real" data-guide-source="gatotv">
+    <display-name>HBO</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/hbo-blanco-logoworld.png" />
   </channel>
-  <channel id="XITENuevoLatino.us" data-guide="parrilla real" data-guide-source="plex1">
-    <display-name>XITE Nuevo Latino</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/xite.svg" />
+  <channel id="PublicDirect.0812ad5e7a912f09fdebd000" data-guide="parrilla real" data-guide-source="mx1">
+    <display-name>HBO 2</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/hbo2-usuario-blanco.png" />
   </channel>
-  <channel id="XITESiempreLatino.us" data-guide="parrilla real" data-guide-source="plex1">
-    <display-name>XITE Siempre Latino</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/xite.svg" />
+  <channel id="PublicDirect.74b1d039a89a6947afe30ac0" data-guide="parrilla real" data-guide-source="gatotv">
+    <display-name>HBO Plus</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/5d60a21c5de1.png" />
   </channel>
-  <channel id="XITE80sFlashback.us" data-guide="parrilla real" data-guide-source="plex1">
-    <display-name>XITE 80s Flashback</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/xite.svg" />
+  <channel id="PublicDirect.c9a179f36540c93c7e6a67b6" data-guide="parrilla real" data-guide-source="gatotv">
+    <display-name>HBO Family</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/11d0e5a776c6.png" />
   </channel>
-  <channel id="XITE90sThrowback.us" data-guide="parrilla real" data-guide-source="plex1">
-    <display-name>XITE 90s Throwback</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/xite.svg" />
+  <channel id="PublicDirect.ed2f1446ddbf0b5ac126fcdf" data-guide="parrilla real" data-guide-source="gatotv">
+    <display-name>HBO Pop</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/f4499da27f78.png" />
   </channel>
-  <channel id="XITERockxMetal.nl" data-guide="parrilla real" data-guide-source="plex1">
-    <display-name>XITE Rock x Metal</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/xite.svg" />
+  <channel id="PublicDirect.e1bd14954343adc40818b7c7" data-guide="parrilla real" data-guide-source="co1">
+    <display-name>HBO Xtreme</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/hbo_xtreme.png" />
   </channel>
-  <channel id="XITEJustChill.nl" data-guide="parrilla real" data-guide-source="plex1">
-    <display-name>XITE Just Chill</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/xite.svg" />
+  <channel id="PublicDirect.fd80dec5e49afad511890000" data-guide="parrilla real" data-guide-source="co1">
+    <display-name>Cinecanal</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/c8528fe169b9.png" />
   </channel>
-  <channel id="PublicDirect.12addda8ba8591c579cdebfa" data-guide="parrilla real" data-guide-source="uy1">
-    <display-name>Telehit</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/telehit-mx.png" />
-  </channel>
-  <channel id="TelehitMusica.mx@SD" data-guide="parrilla real" data-guide-source="mx1">
-    <display-name>Telehit Música</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/telehit-musica-mx.png" />
-  </channel>
-  <channel id="M1.ua@SD" data-guide="parrilla real" data-guide-source="ukrainian-official">
-    <display-name>M1</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/m1.png" />
-  </channel>
-  <channel id="M2.ua@SD" data-guide="parrilla real" data-guide-source="ukrainian-official">
-    <display-name>M2</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/m2.png" />
-  </channel>
-  <channel id="QelloConcertsbyStingray.ca" data-guide="parrilla real" data-guide-source="plex1">
-    <display-name>Qello Concerts by Stingray</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/qello.png" />
-  </channel>
-  <channel id="StingrayClassica.ca" data-guide="parrilla real" data-guide-source="plex1">
-    <display-name>Stingray Classica</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/stingray-classica-official.svg" />
-  </channel>
-  <channel id="PublicDirect.650a768cd537cb17d491e369" data-guide="pendiente de guia" data-guide-source="pendiente">
-    <display-name>Stingray iConcerts</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/stingray-iconcerts.png" />
-  </channel>
-  <channel id="IPTVOrg.MusicBoxHits.cz-SD" data-guide="parrilla real" data-guide-source="cz1">
-    <display-name>Music Box Hits</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/music-box-hits.png" />
-  </channel>
-  <channel id="IPTVOrg.MusicBoxClassic.cz-SD" data-guide="parrilla real" data-guide-source="cz1">
-    <display-name>Music Box Classic</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/music-box-classic.png" />
-  </channel>
-  <channel id="PublicDirect.a4e711feeaae6c78b06460eb" data-guide="parrilla real" data-guide-source="uy1">
-    <display-name>Playboy</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/45698fbc3e27.png" />
-  </channel>
-  <channel id="PublicDirect.942f65e48445596971fc7249" data-guide="parrilla real" data-guide-source="uy1">
-    <display-name>Venus</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/eb4a659dba75.png" />
-  </channel>
-  <channel id="PublicDirect.611041b791c77e57b0831623" data-guide="parrilla real" data-guide-source="nl">
-    <display-name>Brazzers TV</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/brazzers-minimal.png" />
-  </channel>
-  <channel id="PublicDirect.376c74e4d0452f743fd2c811" data-guide="parrilla real" data-guide-source="claro-sinopsis">
-    <display-name>Sony Movies</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/sonymovieslatinamerica-us.png" />
+  <channel id="PublicDirect.389f219f3c7fdbbda989bda5" data-guide="parrilla real" data-guide-source="co1">
+    <display-name>Star Channel</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/51f215686b48.png" />
   </channel>
   <channel id="PublicDirect.ef0023b214fe77f7918ee36f" data-guide="parrilla real" data-guide-source="pa1">
     <display-name>TNT</display-name>
@@ -268,33 +216,13 @@
     <display-name>Warner Channel</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/b3ed65890466.png" />
   </channel>
-  <channel id="PublicDirect.9b6311dbc0425cf6e545649a" data-guide="parrilla real" data-guide-source="gatotv">
-    <display-name>HBO</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/hbo-blanco-logoworld.png" />
+  <channel id="PublicDirect.376c74e4d0452f743fd2c811" data-guide="parrilla real" data-guide-source="claro-sinopsis">
+    <display-name>Sony Movies</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/sonymovieslatinamerica-us.png" />
   </channel>
-  <channel id="PublicDirect.0812ad5e7a912f09fdebd000" data-guide="parrilla real" data-guide-source="mx1">
-    <display-name>HBO 2</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/hbo2-usuario-blanco.png" />
-  </channel>
-  <channel id="PublicDirect.c9a179f36540c93c7e6a67b6" data-guide="parrilla real" data-guide-source="gatotv">
-    <display-name>HBO Family</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/11d0e5a776c6.png" />
-  </channel>
-  <channel id="PublicDirect.74b1d039a89a6947afe30ac0" data-guide="parrilla real" data-guide-source="gatotv">
-    <display-name>HBO Plus</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/5d60a21c5de1.png" />
-  </channel>
-  <channel id="PublicDirect.ed2f1446ddbf0b5ac126fcdf" data-guide="parrilla real" data-guide-source="gatotv">
-    <display-name>HBO Pop</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/f4499da27f78.png" />
-  </channel>
-  <channel id="PublicDirect.e1bd14954343adc40818b7c7" data-guide="parrilla real" data-guide-source="co1">
-    <display-name>HBO Xtreme</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/hbo_xtreme.png" />
-  </channel>
-  <channel id="PublicDirect.389f219f3c7fdbbda989bda5" data-guide="parrilla real" data-guide-source="co1">
-    <display-name>Star Channel</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/51f215686b48.png" />
+  <channel id="PublicDirect.b8d68bcc53d0374118476dfc" data-guide="parrilla real" data-guide-source="uy1">
+    <display-name>AMC</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/amc-blanco.png" />
   </channel>
   <channel id="PublicDirect.2f668b9b183e85d1f177f70d" data-guide="parrilla real" data-guide-source="co1">
     <display-name>Golden</display-name>
@@ -304,21 +232,13 @@
     <display-name>Golden Edge</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/9aa8194ea952.png" />
   </channel>
-  <channel id="PublicDirect.b8d68bcc53d0374118476dfc" data-guide="parrilla real" data-guide-source="uy1">
-    <display-name>AMC</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/amc-blanco.png" />
-  </channel>
-  <channel id="PublicDirect.fd80dec5e49afad511890000" data-guide="parrilla real" data-guide-source="co1">
-    <display-name>Cinecanal</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/c8528fe169b9.png" />
+  <channel id="PublicDirect.2abd3aff445429e27097a124" data-guide="parrilla real" data-guide-source="gatotv">
+    <display-name>Golden Premiere</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/brand_golden_premier.png" />
   </channel>
   <channel id="PublicDirect.4d0e0db3fdae2beb2450408b" data-guide="parrilla real" data-guide-source="co1">
     <display-name>DHE</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/dhe.png" />
-  </channel>
-  <channel id="PublicDirect.2abd3aff445429e27097a124" data-guide="parrilla real" data-guide-source="gatotv">
-    <display-name>Golden Premiere</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/brand_golden_premier.png" />
   </channel>
   <channel id="PublicDirect.549107ff20f3eafa0f8c9580" data-guide="parrilla real" data-guide-source="ar1">
     <display-name>Europa Europa</display-name>
@@ -348,53 +268,13 @@
     <display-name>Adult Swim</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/5054e465a674.png" />
   </channel>
-  <channel id="45" data-guide="parrilla real parcial" data-guide-source="zapping-guia-publica">
-    <display-name>NTV</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/ntv.svg" />
-  </channel>
-  <channel id="PublicDirect.11e2d6f2d20ea8500bc4a261" data-guide="parrilla real" data-guide-source="co1">
-    <display-name>Cartoon Network</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/c3389e519157.png" />
-  </channel>
-  <channel id="13Cultura.cl@DPS" data-guide="parrilla real" data-guide-source="canal13-13go-oficial">
-    <display-name>13 Cultura</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/13cultura.png" />
-  </channel>
-  <channel id="AutenticHistory.de" data-guide="parrilla real" data-guide-source="autentic-history-oficial">
-    <display-name>Autentic History</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/autentic-history.svg" />
-  </channel>
-  <channel id="RealWild.us" data-guide="parrilla real" data-guide-source="plex1">
-    <display-name>Real Wild</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/real-wild.png" />
-  </channel>
-  <channel id="PublicDirect.edc3a37181c9a6915fb578c6" data-guide="parrilla real" data-guide-source="co1">
-    <display-name>Love Nature</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/e9e0a89aad14.png" />
-  </channel>
-  <channel id="IPTVOrg.LoveNature.ca-4K" data-guide="parrilla real" data-guide-source="plex1">
-    <display-name>Love Nature 4K</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/e9e0a89aad14.png" />
-  </channel>
-  <channel id="PublicDirect.8da65ba545fa9fd2512f9901" data-guide="parrilla real" data-guide-source="zapping-guia-publica">
-    <display-name>History Channel</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/history-channel-lam.png" />
-  </channel>
-  <channel id="PublicDirect.39057ce89326a34e33998e2e" data-guide="parrilla real" data-guide-source="zapping-guia-publica">
-    <display-name>History Channel 2</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/history2latinamerica-us.png" />
-  </channel>
-  <channel id="PublicDirect.7e4fe7ff47c91a001130c27b" data-guide="parrilla real" data-guide-source="claro-guia">
-    <display-name>Discovery Turbo</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/58c7e3697649.png" />
-  </channel>
-  <channel id="PublicDirect.d56376275161ef53614ac137" data-guide="parrilla real" data-guide-source="co1">
-    <display-name>Investigation Discovery</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/5068e99dfdd8.png" />
-  </channel>
   <channel id="PublicDirect.76f85d8e18ca914171dde970" data-guide="parrilla real" data-guide-source="co1">
     <display-name>Discovery Channel</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/discoverychannellatinamerica-us.png" />
+  </channel>
+  <channel id="PublicDirect.c4712375281c919db4593df8" data-guide="parrilla real" data-guide-source="uy1">
+    <display-name>Discovery World</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/739683f8f16d.png" />
   </channel>
   <channel id="PublicDirect.375a0c2e7f0b6d3d1fb8c5c4" data-guide="parrilla real" data-guide-source="mx1">
     <display-name>Discovery Science</display-name>
@@ -404,26 +284,142 @@
     <display-name>Discovery Theater</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/00b50f9bc248.png" />
   </channel>
-  <channel id="PublicDirect.c4712375281c919db4593df8" data-guide="parrilla real" data-guide-source="uy1">
-    <display-name>Discovery World</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/739683f8f16d.png" />
+  <channel id="PublicDirect.7e4fe7ff47c91a001130c27b" data-guide="parrilla real" data-guide-source="claro-guia">
+    <display-name>Discovery Turbo</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/58c7e3697649.png" />
+  </channel>
+  <channel id="PublicDirect.d56376275161ef53614ac137" data-guide="parrilla real" data-guide-source="co1">
+    <display-name>Investigation Discovery</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/5068e99dfdd8.png" />
   </channel>
   <channel id="PublicDirect.5fa93eee31589e2105958c0e" data-guide="parrilla real" data-guide-source="co1">
     <display-name>National Geographic</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/4deec34b7976.png" />
+  </channel>
+  <channel id="PublicDirect.8da65ba545fa9fd2512f9901" data-guide="parrilla real" data-guide-source="zapping-guia-publica">
+    <display-name>History Channel</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/history-channel-lam.png" />
+  </channel>
+  <channel id="PublicDirect.39057ce89326a34e33998e2e" data-guide="parrilla real" data-guide-source="zapping-guia-publica">
+    <display-name>History Channel 2</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/history2latinamerica-us.png" />
+  </channel>
+  <channel id="AutenticHistory.de" data-guide="parrilla real" data-guide-source="autentic-history-oficial">
+    <display-name>Autentic History</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/autentic-history.svg" />
+  </channel>
+  <channel id="PublicDirect.edc3a37181c9a6915fb578c6" data-guide="parrilla real" data-guide-source="co1">
+    <display-name>Love Nature</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/e9e0a89aad14.png" />
+  </channel>
+  <channel id="IPTVOrg.LoveNature.ca-4K" data-guide="parrilla real" data-guide-source="plex1">
+    <display-name>Love Nature 4K</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/e9e0a89aad14.png" />
+  </channel>
+  <channel id="RealWild.us" data-guide="parrilla real" data-guide-source="plex1">
+    <display-name>Real Wild</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/real-wild.png" />
+  </channel>
+  <channel id="13Cultura.cl@DPS" data-guide="parrilla real" data-guide-source="canal13-13go-oficial">
+    <display-name>13 Cultura</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/13cultura.png" />
+  </channel>
+  <channel id="PublicDirect.11e2d6f2d20ea8500bc4a261" data-guide="parrilla real" data-guide-source="co1">
+    <display-name>Cartoon Network</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/c3389e519157.png" />
+  </channel>
+  <channel id="45" data-guide="parrilla real parcial" data-guide-source="zapping-guia-publica">
+    <display-name>NTV</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/ntv.svg" />
   </channel>
   <channel id="1437" data-guide="parrilla real" data-guide-source="zapping-guia-publica">
     <display-name>TVN3</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tvn3.svg" />
     <url>https://www.tvn.cl/tvn3</url>
   </channel>
+  <channel id="RewindTV.cl@SD" data-guide="Live" data-guide-source="rewind-continuous">
+    <display-name>RWND</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/rewind-v2.png" />
+  </channel>
+  <channel id="PublicDirect.12addda8ba8591c579cdebfa" data-guide="parrilla real" data-guide-source="uy1">
+    <display-name>Telehit</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/catalogue/telehit-mx.png" />
+  </channel>
+  <channel id="TelehitMusica.mx@SD" data-guide="parrilla real" data-guide-source="mx1">
+    <display-name>Telehit Música</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/telehit-musica-mx.png" />
+  </channel>
+  <channel id="XITEHits.nl@Germany" data-guide="parrilla real" data-guide-source="plex1">
+    <display-name>XITE Hits</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/xite.svg" />
+  </channel>
+  <channel id="XITENuevoLatino.us" data-guide="parrilla real" data-guide-source="plex1">
+    <display-name>XITE Nuevo Latino</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/xite.svg" />
+  </channel>
+  <channel id="XITESiempreLatino.us" data-guide="parrilla real" data-guide-source="plex1">
+    <display-name>XITE Siempre Latino</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/xite.svg" />
+  </channel>
+  <channel id="XITE80sFlashback.us" data-guide="parrilla real" data-guide-source="plex1">
+    <display-name>XITE 80s Flashback</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/xite.svg" />
+  </channel>
+  <channel id="XITE90sThrowback.us" data-guide="parrilla real" data-guide-source="plex1">
+    <display-name>XITE 90s Throwback</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/xite.svg" />
+  </channel>
+  <channel id="XITERockxMetal.nl" data-guide="parrilla real" data-guide-source="plex1">
+    <display-name>XITE Rock x Metal</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/xite.svg" />
+  </channel>
+  <channel id="XITEJustChill.nl" data-guide="parrilla real" data-guide-source="plex1">
+    <display-name>XITE Just Chill</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/xite.svg" />
+  </channel>
+  <channel id="M1.ua@SD" data-guide="parrilla real" data-guide-source="ukrainian-official">
+    <display-name>M1</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/m1.png" />
+  </channel>
+  <channel id="M2.ua@SD" data-guide="parrilla real" data-guide-source="ukrainian-official">
+    <display-name>M2</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/m2.png" />
+  </channel>
+  <channel id="IPTVOrg.MusicBoxHits.cz-SD" data-guide="parrilla real" data-guide-source="cz1">
+    <display-name>Music Box Hits</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/music-box-hits.png" />
+  </channel>
+  <channel id="IPTVOrg.MusicBoxClassic.cz-SD" data-guide="parrilla real" data-guide-source="cz1">
+    <display-name>Music Box Classic</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/music-box-classic.png" />
+  </channel>
+  <channel id="QelloConcertsbyStingray.ca" data-guide="parrilla real" data-guide-source="plex1">
+    <display-name>Qello Concerts by Stingray</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/qello.png" />
+  </channel>
+  <channel id="StingrayClassica.ca" data-guide="parrilla real" data-guide-source="plex1">
+    <display-name>Stingray Classica</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/stingray-classica-official.svg" />
+  </channel>
+  <channel id="PublicDirect.650a768cd537cb17d491e369" data-guide="pendiente de guia" data-guide-source="pendiente">
+    <display-name>Stingray iConcerts</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/stingray-iconcerts.png" />
+  </channel>
+  <channel id="PublicDirect.a4e711feeaae6c78b06460eb" data-guide="parrilla real" data-guide-source="uy1">
+    <display-name>Playboy</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/45698fbc3e27.png" />
+  </channel>
+  <channel id="PublicDirect.942f65e48445596971fc7249" data-guide="parrilla real" data-guide-source="uy1">
+    <display-name>Venus</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/lista2/eb4a659dba75.png" />
+  </channel>
+  <channel id="PublicDirect.611041b791c77e57b0831623" data-guide="parrilla real" data-guide-source="nl">
+    <display-name>Brazzers TV</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/brazzers-minimal.png" />
+  </channel>
   <channel id="unitedkingdom|vavoo_SKY%20SPORTS%20MAIN%20EVENT%7Cgroup%3Auk@TvVoo" data-guide="parrilla real" data-guide-source="sky-oficial" data-app-alias-of="SkySportsMainEvent.uk@TvVoo">
     <display-name>Sky Sports Main Event</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/sky-sports-main-event.png" />
-  </channel>
-  <channel id="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" data-guide="parrilla real" data-guide-source="movistar-plus-es" data-app-alias-of="DAZNF1.es@TvVoo">
-    <display-name>DAZN F1</display-name>
-    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/dazn-f1.png" />
   </channel>
   <channel id="unitedkingdom|vavoo_TNT%20SPORTS%203%7Cgroup%3Auk@TvVoo" data-guide="parrilla real" data-guide-source="sky-oficial" data-app-alias-of="TNTSports3.uk@TvVoo">
     <display-name>TNT Sports 3</display-name>
@@ -432,6 +428,10 @@
   <channel id="unitedkingdom|vavoo_TNT%20SPORT%204%7Cgroup%3Auk@TvVoo" data-guide="parrilla real" data-guide-source="sky-oficial" data-app-alias-of="Vavoo.uk.TNTSPORTS4@TvVoo">
     <display-name>TNT Sports 4 Reino Unido</display-name>
     <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/tnt-sports-4.png" />
+  </channel>
+  <channel id="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" data-guide="parrilla real" data-guide-source="movistar-plus-es" data-app-alias-of="DAZNF1.es@TvVoo">
+    <display-name>DAZN F1</display-name>
+    <icon src="https://raw.githubusercontent.com/SPxMM3R1/lista-m3u/main/logos/dazn-f1.png" />
   </channel>
   <channel id="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" data-guide="parrilla real" data-guide-source="movistar-plus-es" data-app-alias-of="Eurosport2.es@TvVoo">
     <display-name>Eurosport 2 España</display-name>
@@ -1113,10 +1113,6 @@
   <programme start="20261124203000 -0300" stop="20261124224500 -0300" channel="0106">
     <title lang="es">Chilevisión noticias central</title>
   </programme>
-  <programme start="20261122085000 -0300" stop="20261122103000 -0300" channel="0107">
-    <title lang="es">Teletrece a la hora | Actualidad nacional, deportiva y espectáculos</title>
-    <desc lang="es">Informativo matinal con la revisión de las noticias más relevantes de las últimas horas, con despachos en directo y entrevistas a personajes relevantes del acontecer nacional.</desc>
-  </programme>
   <programme start="20261122103000 -0300" stop="20261122123009 -0300" channel="0107">
     <title lang="es">Mesa central | Análisis político, económico y entrevistas parlamentarias</title>
     <desc lang="es">Las noticias más importantes y toda la actualidad de la semana con Iván Valenzuela</desc>
@@ -1276,10 +1272,6 @@
   <programme start="20261125021512 -0300" stop="20261125040000 -0300" channel="0107">
     <title lang="es">Teletrece Noche</title>
     <category lang="es">[]</category>
-  </programme>
-  <programme start="20261122085500 -0300" stop="20261122103000 -0300" channel="0124">
-    <title lang="es">Teletrece a la hora | Emergencia en Peñalolén y noticias de la jornada</title>
-    <desc lang="es">Informativo matinal con la revisión de las noticias más relevantes de las últimas horas, con despachos en directo y entrevistas a personajes relevantes del acontecer nacional.</desc>
   </programme>
   <programme start="20261122103000 -0300" stop="20261122124000 -0300" channel="0124">
     <title lang="es">Mesa central | Crisis de Isapres, seguridad y encuesta Criteria</title>
@@ -1821,10 +1813,6 @@
   </programme>
   <programme start="20261123231000 -0300" stop="20261124003000 -0300" channel="1153">
     <title lang="es">Chilevisión noticias informa</title>
-  </programme>
-  <programme start="20261122093000 -0300" stop="20261122103000 -0300" channel="13Cultura.cl@DPS">
-    <title lang="es">Carlo cocina, vive sustentable</title>
-    <desc lang="es">T1 -Ep.34: Ensalada En Canastos Integrales. Pechugas De Pollo Rellenas. Malvaviscos Caseros.. Carlos Von Muhlenbrock nos lleva a un viaje culinario con las mejores recetas y emprendimientos</desc>
   </programme>
   <programme start="20261122103000 -0300" stop="20261122110000 -0300" channel="13Cultura.cl@DPS">
     <title lang="es">El camino del fuego</title>
@@ -3195,10 +3183,6 @@
       <value>Apta</value>
     </rating>
   </programme>
-  <programme channel="ArirangTV.kr" start="20261122100000 -0300" stop="20261122103000 -0300">
-    <title lang="pl">Pocket Soundtrack</title>
-    <episode-num system="onscreen">E4</episode-num>
-  </programme>
   <programme channel="ArirangTV.kr" start="20261122103000 -0300" stop="20261122110000 -0300">
     <title lang="pl">Arirang Special</title>
     <episode-num system="onscreen">E238</episode-num>
@@ -3967,6 +3951,218 @@
     <title lang="pl">News Generation</title>
     <episode-num system="onscreen">E4</episode-num>
   </programme>
+  <programme channel="ArirangTV.kr" start="20261126030000 -0300" stop="20261126033000 -0300">
+    <title lang="pl">Moo No Plan</title>
+    <episode-num system="onscreen">E9</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126033000 -0300" stop="20261126035000 -0300">
+    <title lang="pl">K-culture Minutes: K-stage</title>
+    <episode-num system="onscreen">E47</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126035000 -0300" stop="20261126040000 -0300">
+    <title lang="pl">Smartbiz Accel 2</title>
+    <episode-num system="onscreen">E507</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126040000 -0300" stop="20261126042000 -0300">
+    <title lang="pl">K-sports Beyond</title>
+    <episode-num system="onscreen">E3</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126042000 -0300" stop="20261126043000 -0300">
+    <title lang="pl">Exploring Korean Literature B</title>
+    <episode-num system="onscreen">E9</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126043000 -0300" stop="20261126050000 -0300">
+    <title lang="pl">2026 Come Together Music Fest</title>
+    <episode-num system="onscreen">E2</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126050000 -0300" stop="20261126053000 -0300">
+    <title lang="pl">The Daily Report</title>
+    <episode-num system="onscreen">E1</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126053000 -0300" stop="20261126060000 -0300">
+    <title lang="pl">Press Perspective</title>
+    <episode-num system="onscreen">E1</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126060000 -0300" stop="20261126070000 -0300">
+    <title lang="pl">Simply K-pop</title>
+    <episode-num system="onscreen">E12</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126070000 -0300" stop="20261126073000 -0300">
+    <title lang="pl">Premium Collection B</title>
+    <episode-num system="onscreen">E213</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126073000 -0300" stop="20261126080000 -0300">
+    <title lang="pl">Countryside Escape</title>
+    <episode-num system="onscreen">E9</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126080000 -0300" stop="20261126083000 -0300">
+    <title lang="pl">Newscenter</title>
+    <episode-num system="onscreen">E1</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126083000 -0300" stop="20261126090000 -0300">
+    <title lang="pl">Within The Frame</title>
+    <episode-num system="onscreen">E1</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126090000 -0300" stop="20261126093000 -0300">
+    <title lang="pl">K-culture Dive</title>
+    <episode-num system="onscreen">E4</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126093000 -0300" stop="20261126095000 -0300">
+    <title lang="pl">K-culture Minutes: K-stage</title>
+    <episode-num system="onscreen">E47</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126095000 -0300" stop="20261126100000 -0300">
+    <title lang="pl">Smartbiz Accel 2</title>
+    <episode-num system="onscreen">E507</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126100000 -0300" stop="20261126102000 -0300">
+    <title lang="pl">K-sports Beyond</title>
+    <episode-num system="onscreen">E3</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126102000 -0300" stop="20261126103000 -0300">
+    <title lang="pl">Exploring Korean Literature B</title>
+    <episode-num system="onscreen">E9</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126103000 -0300" stop="20261126110000 -0300">
+    <title lang="pl">2026 Come Together Music Fest</title>
+    <episode-num system="onscreen">E2</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126110000 -0300" stop="20261126113000 -0300">
+    <title lang="pl">Press Perspective</title>
+    <episode-num system="onscreen">E4</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126113000 -0300" stop="20261126115000 -0300">
+    <title lang="pl">The Grand Heritage K-asmr</title>
+    <episode-num system="onscreen">E11</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126115000 -0300" stop="20261126120000 -0300">
+    <title lang="pl">The Grand Heritage Four Seasons</title>
+    <episode-num system="onscreen">E3</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126120000 -0300" stop="20261126123000 -0300">
+    <title lang="pl">News Generation</title>
+    <episode-num system="onscreen">E4</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126123000 -0300" stop="20261126130000 -0300">
+    <title lang="pl">Moo No Plan</title>
+    <episode-num system="onscreen">E9</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126130000 -0300" stop="20261126133000 -0300">
+    <title lang="pl">Premium Collection B</title>
+    <episode-num system="onscreen">E195</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126133000 -0300" stop="20261126140000 -0300">
+    <title lang="pl">Re: Space</title>
+    <episode-num system="onscreen">E10</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126140000 -0300" stop="20261126150000 -0300">
+    <title lang="pl">Simply K-pop</title>
+    <episode-num system="onscreen">E12</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126150000 -0300" stop="20261126153000 -0300">
+    <title lang="pl">K-culture Dive</title>
+    <episode-num system="onscreen">E4</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126153000 -0300" stop="20261126160000 -0300">
+    <title lang="pl">2026 Come Together Music Fest</title>
+    <episode-num system="onscreen">E2</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126160000 -0300" stop="20261126163000 -0300">
+    <title lang="pl">Within The Frame</title>
+    <episode-num system="onscreen">E4</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126163000 -0300" stop="20261126165000 -0300">
+    <title lang="pl">K-culture Minutes: K-stage</title>
+    <episode-num system="onscreen">E47</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126165000 -0300" stop="20261126170000 -0300">
+    <title lang="pl">K-chat: Travel In Korea</title>
+    <episode-num system="onscreen">E9</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126170000 -0300" stop="20261126173000 -0300">
+    <title lang="pl">Countryside Escape</title>
+    <episode-num system="onscreen">E9</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126173000 -0300" stop="20261126175000 -0300">
+    <title lang="pl">The Grand Heritage K-asmr</title>
+    <episode-num system="onscreen">E11</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126175000 -0300" stop="20261126180000 -0300">
+    <title lang="pl">The Grand Heritage Four Seasons</title>
+    <episode-num system="onscreen">E3</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126180000 -0300" stop="20261126190000 -0300">
+    <title lang="pl">Simply K-pop</title>
+    <episode-num system="onscreen">E12</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126190000 -0300" stop="20261126191500 -0300">
+    <title lang="pl">K-culture Minutes: K-people</title>
+    <episode-num system="onscreen">E23</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126191500 -0300" stop="20261126193000 -0300">
+    <title lang="pl">K-culture Minutes: K-people</title>
+    <episode-num system="onscreen">E24</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126193000 -0300" stop="20261126195000 -0300">
+    <title lang="pl">K-sports Beyond</title>
+    <episode-num system="onscreen">E4</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126195000 -0300" stop="20261126200000 -0300">
+    <title lang="pl">Heritage Walks With Little Friend</title>
+    <episode-num system="onscreen">E2</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126200000 -0300" stop="20261126203000 -0300">
+    <title lang="pl">Moo No Plan</title>
+    <episode-num system="onscreen">E10</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126203000 -0300" stop="20261126205000 -0300">
+    <title lang="pl">K-culture Minutes: K-now</title>
+    <episode-num system="onscreen">E47</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126205000 -0300" stop="20261126210000 -0300">
+    <title lang="pl">K-chat: Travel In Korea</title>
+    <episode-num system="onscreen">E10</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126210000 -0300" stop="20261126213000 -0300">
+    <title lang="pl">The Making Of K-pop</title>
+    <episode-num system="onscreen">E4</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126213000 -0300" stop="20261126220000 -0300">
+    <title lang="pl">Countryside Escape</title>
+    <episode-num system="onscreen">E10</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126220000 -0300" stop="20261126223000 -0300">
+    <title lang="pl">New Day At Arirang</title>
+    <episode-num system="onscreen">E1</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126223000 -0300" stop="20261126230000 -0300">
+    <title lang="pl">News Generation</title>
+    <episode-num system="onscreen">E1</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261126230000 -0300" stop="20261127000000 -0300">
+    <title lang="pl">Culture Crunch</title>
+    <episode-num system="onscreen">E1</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261127000000 -0300" stop="20261127003000 -0300">
+    <title lang="pl">Arirang News 12:00</title>
+    <episode-num system="onscreen">E1</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261127003000 -0300" stop="20261127005000 -0300">
+    <title lang="pl">K-sports Beyond</title>
+    <episode-num system="onscreen">E4</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261127005000 -0300" stop="20261127020000 -0300">
+    <title lang="pl">Show K-pop</title>
+    <episode-num system="onscreen">E6</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261127020000 -0300" stop="20261127023000 -0300">
+    <title lang="pl">K-culture Dive</title>
+    <episode-num system="onscreen">E1</episode-num>
+  </programme>
+  <programme channel="ArirangTV.kr" start="20261127023000 -0300" stop="20261127030000 -0300">
+    <title lang="pl">News Generation</title>
+    <episode-num system="onscreen">E5</episode-num>
+  </programme>
   <programme start="20261122100208 -0300" stop="20261122105953 -0300" channel="AutenticHistory.de">
     <title lang="en">U32 - Germany's Submarine Soldier</title>
   </programme>
@@ -4374,13 +4570,6 @@
   </programme>
   <programme start="20261127205642 -0300" stop="20261127215726 -0300" channel="AutenticHistory.de">
     <title lang="en">The Power Of Celtic Women</title>
-  </programme>
-  <programme start="20261122100000 -0300" stop="20261122103000 -0300" channel="BBCNews.uk">
-    <title lang="en">BBC News</title>
-    <desc lang="en">Twenty-four hours a day, the latest national and international stories as they break.</desc>
-    <date>2026</date>
-    <icon src="https://metadata-static.plex.tv/f/gracenote/f0527239204291325874b6359444b839.jpg" />
-    <episode-num system="onscreen">S2026</episode-num>
   </programme>
   <programme start="20261122103000 -0300" stop="20261122110000 -0300" channel="BBCNews.uk">
     <title lang="en">Tech Now</title>
@@ -5878,10 +6067,6 @@
     <icon src="https://metadata-static.plex.tv/3/gracenote/3873c240ae2c29128ea775314beff4f3.jpg" />
     <episode-num system="onscreen">S2026</episode-num>
   </programme>
-  <programme channel="DAZNF1.es@TvVoo" start="20261122085600 -0300" stop="20261122101500 -0300">
-    <title lang="es">Mundial F1 - GP de Las Vegas: Clasificación</title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2026 promete más emoción y espectáculo que nunca. Ver más.</desc>
-  </programme>
   <programme channel="DAZNF1.es@TvVoo" start="20261122101500 -0300" stop="20261122110000 -0300">
     <title lang="es">Gearbox: Episodio 29</title>
     <desc lang="es">Los fanáticos de la conducción tienen una cita en 'Gearbox', donde los volantes del presente, del pasado y del futuro se ponen en las manos de los mejores expertos.</desc>
@@ -6008,10 +6193,6 @@
   </programme>
   <programme channel="DAZNF1.es@TvVoo" start="20261124175700 -0300" stop="20261124201100 -0300">
     <title lang="es">Mundial F1 - GP de Hungría: Carrera</title>
-  </programme>
-  <programme start="20261122100000 -0300" stop="20261122101500 -0300" channel="DW.de">
-    <title lang="es">Engánchate a la economía</title>
-    <sub-title lang="es">Más allá de los titulares</sub-title>
   </programme>
   <programme start="20261122101500 -0300" stop="20261122110000 -0300" channel="DW.de">
     <title lang="es">Zona docu</title>
@@ -7637,11 +7818,6 @@
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/8/0/8/15215808.jpg" />
     <icon src="http://static-cdn.tv.sfr.net/data/img/pl/6/3/8/15215836.jpg" />
   </programme>
-  <programme start="20261122082000 -0300" stop="20261122102500 -0300" channel="ESPN.co@Direct181">
-    <title lang="es">Juventus vs. Venezia</title>
-    <sub-title lang="es">Serie A</sub-title>
-    <desc lang="es">Serie A Soccer. La Serie A de Italia en España también conocida popularmente como calcio y llamada oficialmente, por motivos de patrocinio, como Serie A TIM es la máxima categoría del sistema de ligas italiano, organizada por la Lega Nazionale Professionisti LNP desde 1946, tras suceder a la Federación Italiana de Fútbol FIGC y convertirse en 2010 en la Lega Nazionale Professionisti Serie A LNPA. La Serie A es considerada una de las cinco grandes ligas europeas junto con la Premier League inglesa, la Primera División española, la Bundesliga alemana y la Ligue 1 francesa, ocupando el tercer puesto del coeficiente UEFA. Según la Federación Internacional de Historia y Estadística de Fútbol IFFHS, es la primera liga más relevante del mundo.</desc>
-  </programme>
   <programme start="20261122102500 -0300" stop="20261122105000 -0300" channel="ESPN.co@Direct181">
     <title lang="es">SportsCenter</title>
     <desc lang="es">SportsCenter (Sports Center) es un noticiero deportivo de televisión de la cadena ESPN. SportsCenter muestra repeticiones de las mejores jugadas del día así como también lo más sobresaliente en el deporte alrededor del mundo. En Latinoamérica SportsCenter se transmite por todos los canales de ESPN los cuales incluye ESPN Deportes (Estados Unidos) ESPN, ESPN2 y ESPN+.</desc>
@@ -9087,32 +9263,6 @@
   </programme>
   <programme channel="Eurosport2.es@TvVoo" start="20261124180000 -0300" stop="20261124200000 -0300">
     <title lang="es">Abierto de Gran Bretaña de snooker: Mark Selby vs Jak Jones</title>
-  </programme>
-  <programme start="20261122100000 -0300" stop="20261122101500 -0300" channel="France24.fr">
-    <title lang="es">Noticias</title>
-    <desc lang="es">Un completo resumen de la actualidad internacional.</desc>
-    <date>2017</date>
-    <category lang="es">Noticiero</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/4787687.jpg" />
-    <country lang="es">Francia</country>
-  </programme>
-  <programme start="20261122101500 -0300" stop="20261122102300 -0300" channel="France24.fr">
-    <title lang="es">Medio ambiente</title>
-    <desc lang="es">Calentamiento global, especies en extinción, destrucción de bosques, contaminación: la Tierra es un planeta con muchas amenazas Pero también lleno de ideas innovadoras y soluciones sostenibles.</desc>
-    <credits>
-      <actor>María Clara Calle Aguirre</actor>
-    </credits>
-    <date>2023</date>
-    <category lang="es">Noticiero</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/25615647.jpg" />
-    <country lang="es">Francia</country>
-  </programme>
-  <programme start="20261122102300 -0300" stop="20261122103000 -0300" channel="France24.fr">
-    <title lang="es">En foco</title>
-    <desc lang="es">Un reportaje sobre temas que a menudo están por fuera de las noticias.</desc>
-    <date>2017</date>
-    <category lang="es">Interés general</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/4774104.jpg" />
   </programme>
   <programme start="20261122103000 -0300" stop="20261122104500 -0300" channel="France24.fr">
     <title lang="es">Noticias</title>
@@ -11471,16 +11621,6 @@
     <date>2018</date>
     <category lang="es">Entrevista</category>
     <icon src="http://www.reportv.com.ar/buscador/img/Programas/9163104.jpg" />
-  </programme>
-  <programme start="20261122100000 -0300" stop="20261122101200 -0300" channel="France24.fr@English">
-    <title lang="en">News</title>
-    <desc lang="en">An international news bulletin presented live from the newsroom.</desc>
-    <episode-num system="onscreen">0</episode-num>
-  </programme>
-  <programme start="20261122101200 -0300" stop="20261122103000 -0300" channel="France24.fr@English">
-    <title lang="en">Paris des Arts</title>
-    <desc lang="en">A cultural wander through Paris with an artist. Valerie Fayolle builds bridges from one art form to another from one artist to another from France to the rest of the world.</desc>
-    <episode-num system="onscreen">0</episode-num>
   </programme>
   <programme start="20261122103000 -0300" stop="20261122104200 -0300" channel="France24.fr@English">
     <title lang="en">News</title>
@@ -14501,10 +14641,6 @@
       <value>G</value>
     </rating>
   </programme>
-  <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261122093000 -0300" stop="20261122103000 -0300">
-    <title lang="es">Copa del mundo de esquí alpino M - Gurgl: Eslalon - 2ª manga</title>
-    <desc lang="es">La parada de Gurgl en la Copa del Mundo de esquí alpino cuenta con pruebas de eslalon en la exigente pista Kirchenkar de Hochgurgl, situada a más de 2.000 metros de altitud. Este evento marca el inicio de la temporada de invierno en el Tirol.</desc>
-  </programme>
   <programme channel="IPTVOrg.Eurosport1.fr-Spain" start="20261122103000 -0300" stop="20261122113000 -0300">
     <title lang="es">Copa del mundo de saltos de esquí M - Lillehammer: Clasificación - Día 2</title>
     <desc lang="es">El histórico trampolín de Lysgardsbakken vuelve a ser el gran escenario de apertura de la temporada invernal en la Copa del mundo de saltos de esquí. Del 20 al 22 de noviembre, los mejores especialistas pretenden empezar con buen pie en la cita noruega.</desc>
@@ -16277,10 +16413,6 @@
   </programme>
   <programme start="20261123233000 -0300" stop="20261124003000 -0300" channel="Meganoticias.cl">
     <title lang="es">Meganoticias hora cero</title>
-  </programme>
-  <programme start="20261122100000 -0300" stop="20261122101000 -0300" channel="NHKWorldJapan.jp">
-    <title lang="en">NHK Newsline</title>
-    <desc lang="en">NHK NEWSLINE brings you up to date with the latest from Japan, Asia and around the world. Our team covers breaking news and major developments, with trusted anchors to tie it all together.</desc>
   </programme>
   <programme start="20261122101000 -0300" stop="20261122110000 -0300" channel="NHKWorldJapan.jp">
     <title lang="en">The Lost Textile of Ryukyu</title>
@@ -19839,15 +19971,6 @@
       <value>G</value>
     </rating>
   </programme>
-  <programme start="20261122090200 -0300" stop="20261122103200 -0300" channel="PublicDirect.11e2d6f2d20ea8500bc4a261">
-    <title lang="es">Angry Birds: La película</title>
-    <desc lang="es">La historia se desarrolla en una isla poblada por aves felices que no vuelan. En este paraíso, Red, un pájaro con muy mal genio, el veloz Chuck y el volátil Bomb nunca encajaron. Todo cambia cuando llegan a la isla unos misteriosos cerditos verdes.</desc>
-    <date>2016</date>
-    <country lang="es">Finlandia,Estados Unidos</country>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
-  </programme>
   <programme start="20261122103200 -0300" stop="20261122104400 -0300" channel="PublicDirect.11e2d6f2d20ea8500bc4a261">
     <title lang="es">Escandalositos</title>
     <sub-title lang="es">El osito Teddi</sub-title>
@@ -22230,13 +22353,6 @@
       <value>+14</value>
     </rating>
   </programme>
-  <programme start="20261122093000 -0300" stop="20261122103000 -0300" channel="PublicDirect.12addda8ba8591c579cdebfa">
-    <title lang="es">Super Beats</title>
-    <desc lang="es">Convierte tu hogar en una pista de baile, con las mezclas de los DJs latinoamericanos más talentosos y creativos, a través de este espacio que convierte los éxitos del momento de tus estrellas favoritas en soundtrack de tus fiestas.</desc>
-    <date>2000</date>
-    <category lang="es">Musical</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/899605.jpg" />
-  </programme>
   <programme start="20261122103000 -0300" stop="20261122113000 -0300" channel="PublicDirect.12addda8ba8591c579cdebfa">
     <title lang="es">Daebak K-pop</title>
     <desc lang="es">Lo más cool del k pop actual.</desc>
@@ -22735,28 +22851,6 @@
     <date>2024</date>
     <category lang="es">Musical</category>
     <icon src="http://www.reportv.com.ar/buscador/img/Programas/1992791447.jpg" />
-  </programme>
-  <programme start="20261122092000 -0300" stop="20261122101000 -0300" channel="PublicDirect.1701b6c4abbcc431fb481536">
-    <title lang="es">The Rookie</title>
-    <sub-title lang="es">Al rojo vivo</sub-title>
-    <desc lang="es">En una edad en la que la mayoría de la gente está en el momento culminante de su carrera, Nolan deja de lado su cómoda vida pueblerina y se muda a Los Ángeles para hacer realidad su sueño de ser policía.</desc>
-    <credits>
-      <actor>Nathan Fillion</actor>
-      <actor>Alyssa Diaz</actor>
-      <actor>Eric Winter</actor>
-      <actor>Mercedes Mason</actor>
-      <actor>Afton Williamson</actor>
-      <actor>Mircea Monroe</actor>
-      <actor>Atticus Batacan</actor>
-      <actor>David DeSantos</actor>
-      <actor>Titus Makin</actor>
-      <actor>Melissa O'Neil</actor>
-    </credits>
-    <date>2018</date>
-    <category lang="es">Policial</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/8217003.jpg" />
-    <country lang="es">EE. UU</country>
-    <episode-num system="onscreen">S4 E4</episode-num>
   </programme>
   <programme start="20261122101000 -0300" stop="20261122110000 -0300" channel="PublicDirect.1701b6c4abbcc431fb481536">
     <title lang="es">Blue Bloods</title>
@@ -25509,12 +25603,6 @@
       <value>AGE228</value>
     </rating>
   </programme>
-  <programme start="20261122093600 -0300" stop="20261122102400 -0300" channel="PublicDirect.375a0c2e7f0b6d3d1fb8c5c4">
-    <title lang="es">Megaconstrucciones</title>
-    <sub-title lang="es">El rascacielos más alto del mundo</sub-title>
-    <desc lang="es">Danny Forsters escala y explica la estructura del Centro Mundial de Finanzas de Shanghái, el edificio más alto del mundo.</desc>
-    <episode-num system="onscreen">S6 E3</episode-num>
-  </programme>
   <programme start="20261122102400 -0300" stop="20261122111200 -0300" channel="PublicDirect.375a0c2e7f0b6d3d1fb8c5c4">
     <title lang="es">Leyendas perdidas con Megan Fox</title>
     <sub-title lang="es">Stonehenge: La rocas curativas</sub-title>
@@ -25932,10 +26020,6 @@
     <sub-title lang="es">Riddle of the Child Mummies</sub-title>
     <episode-num system="onscreen">S1 E10</episode-num>
   </programme>
-  <programme start="20261122100000 -0300" stop="20261122103000 -0300" channel="PublicDirect.376c74e4d0452f743fd2c811">
-    <title lang="es">Enloqueciendo Contigo</title>
-    <desc lang="es">Temporada 1 | Episodio 15</desc>
-  </programme>
   <programme start="20261122103000 -0300" stop="20261122110000 -0300" channel="PublicDirect.376c74e4d0452f743fd2c811">
     <title lang="es">Enloqueciendo contigo / Estoy feliz por ti</title>
     <desc lang="es">En la Ciudad de México, una pareja conformada por Jimena y Pablo tendrá que esquivar los obstáculos y problemas que involucran la convivencia, mientras intentan seguir adelante en sus trabajos y con sus familias y amigos.</desc>
@@ -26150,16 +26234,6 @@
   <programme start="20261125014400 -0300" stop="20261125035400 -0300" channel="PublicDirect.376c74e4d0452f743fd2c811">
     <title lang="es">El Justiciero (The Equalizer)</title>
     <desc lang="es">Un hombre que ahora tiene una nueva y calmada vida cambia cuando conoce a una chica que se encuentra bajo el control de unos violentos mafiosos Rusos.</desc>
-  </programme>
-  <programme start="20261122092700 -0300" stop="20261122103300 -0300" channel="PublicDirect.389f219f3c7fdbbda989bda5">
-    <title lang="es">Scrubs</title>
-    <sub-title lang="es">My Dumb Luck</sub-title>
-    <desc lang="es">J.D. y Turk quieren aprovecharse cuando el Dr. Cox no puede diagnosticar a uno de sus pacientes; Elliot y Carla tratan de convencer a la administración de que no obliguen al Dr. Kelso que se retire.</desc>
-    <date>2008</date>
-    <episode-num system="onscreen">E9</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
   </programme>
   <programme start="20261122103300 -0300" stop="20261122125900 -0300" channel="PublicDirect.389f219f3c7fdbbda989bda5">
     <title lang="es">Alta fidelidad</title>
@@ -26468,14 +26542,6 @@
   </programme>
   <programme start="20261124225500 -0300" stop="20261124225700 -0300" channel="PublicDirect.389f219f3c7fdbbda989bda5">
     <title lang="es">See How They Run</title>
-  </programme>
-  <programme start="20261122093100 -0300" stop="20261122102200 -0300" channel="PublicDirect.39057ce89326a34e33998e2e">
-    <title lang="es">Rivales por siempre</title>
-    <desc lang="es">Las vidas y el enfrentamiento de los hermanos Dassler, fundadores de las marcas deportivas alemanas Adidas y Puma.</desc>
-    <date>2017</date>
-    <rating system="MJColombia">
-      <value>TE</value>
-    </rating>
   </programme>
   <programme start="20261122102200 -0300" stop="20261122111100 -0300" channel="PublicDirect.39057ce89326a34e33998e2e">
     <title lang="es">Desastres en tiempo real</title>
@@ -27147,11 +27213,6 @@
     <rating system="MJColombia">
       <value>+14</value>
     </rating>
-  </programme>
-  <programme start="20261122093600 -0300" stop="20261122102400 -0300" channel="PublicDirect.3c96353d8e3bf508d2157d81">
-    <title lang="es">Misterios del castillo</title>
-    <sub-title lang="es">Ladrón de libros, la duquesa bígama, absurdo</sub-title>
-    <desc lang="es">En este episodio, una abadía en la cima de una montaña en Francia es el escenario de un audaz robo, una historia impactante se desarrolla en una finca inglesa y el propietario de una mansión de Kansas inventa una droga maravillosa.</desc>
   </programme>
   <programme start="20261122102400 -0300" stop="20261122111200 -0300" channel="PublicDirect.3c96353d8e3bf508d2157d81">
     <title lang="es">El museo embrujado</title>
@@ -28130,77 +28191,170 @@
       <value>+18</value>
     </rating>
   </programme>
-  <programme start="20261122094000 -0300" stop="20261122100500 -0300" channel="PublicDirect.5dcc9d45e7f72f13df740d70">
-    <title lang="en">Dexter's Laboratory</title>
-    <sub-title lang="en">Dee Dee Be Deep; 911; Down in the Dumps</sub-title>
-    <desc lang="es">Dee Dee's singing keeps her out of the choir; emergency tests annoy Dexter.</desc>
-    <credits>
-      <actor>Christine Cavanaugh</actor>
-      <actor>Jeff Bennett</actor>
-      <actor>Kath Soucie</actor>
-    </credits>
-    <date>1997</date>
-    <category lang="en">Series</category>
-    <category lang="en">Animated</category>
-    <category lang="en">Children</category>
-    <category lang="en">Comedy</category>
-    <icon src="http://dtil.tmsimg.com/assets/p10515912_b_h10_aa.jpg?w=960&amp;h=540" />
-    <episode-num system="onscreen">S2 E17</episode-num>
-    <previously-shown />
-    <rating system="USA Parental Rating">
-      <value>TVG</value>
-    </rating>
-    <rating system="Freiwillige Selbstkontrolle Fernsehen">
-      <value>0</value>
-    </rating>
-    <rating system="Australian Classification Board">
-      <value>PG</value>
-    </rating>
-    <rating system="Canadian Parental Rating">
-      <value>G</value>
-    </rating>
-    <rating system="Régie du cinéma">
-      <value>G</value>
-    </rating>
-    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
-      <value>L</value>
-    </rating>
+  <programme start="20261122083500 -0300" stop="20261122104000 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">El nuevísimo testamento</title>
   </programme>
-  <programme start="20261122100500 -0300" stop="20261122102900 -0300" channel="PublicDirect.5dcc9d45e7f72f13df740d70">
-    <title lang="en">Dexter's Laboratory</title>
-    <sub-title lang="en">Muffin King; Unfortunate Cookie</sub-title>
-    <desc lang="es">Dexter and Dee Dee visit Chinatown; Dad loves Mom's muffins.</desc>
-    <credits>
-      <actor>Christine Cavanaugh</actor>
-      <actor>Jeff Bennett</actor>
-      <actor>Kath Soucie</actor>
-    </credits>
-    <date>1997</date>
-    <category lang="en">Series</category>
-    <category lang="en">Animated</category>
-    <category lang="en">Children</category>
-    <category lang="en">Comedy</category>
-    <icon src="http://dtil.tmsimg.com/assets/p10515912_b_h10_aa.jpg?w=960&amp;h=540" />
-    <episode-num system="onscreen">S2 E18</episode-num>
-    <previously-shown />
-    <rating system="USA Parental Rating">
-      <value>TVG</value>
-    </rating>
-    <rating system="Freiwillige Selbstkontrolle Fernsehen">
-      <value>0</value>
-    </rating>
-    <rating system="Australian Classification Board">
-      <value>PG</value>
-    </rating>
-    <rating system="Canadian Parental Rating">
-      <value>G</value>
-    </rating>
-    <rating system="Régie du cinéma">
-      <value>G</value>
-    </rating>
-    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
-      <value>L</value>
-    </rating>
+  <programme start="20261122104000 -0300" stop="20261122124000 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">Palazzina LAF</title>
+  </programme>
+  <programme start="20261122124000 -0300" stop="20261122142000 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">Puede besar al novio</title>
+  </programme>
+  <programme start="20261122142000 -0300" stop="20261122161000 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">Cosas del amor</title>
+  </programme>
+  <programme start="20261122161000 -0300" stop="20261122180500 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">Mujeres al Poder</title>
+  </programme>
+  <programme start="20261122180500 -0300" stop="20261122195500 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">Mari(dos)</title>
+  </programme>
+  <programme start="20261122195500 -0300" stop="20261122220000 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">Montalbano</title>
+    <episode-num system="onscreen">S7 E16</episode-num>
+  </programme>
+  <programme start="20261122220000 -0300" stop="20261122235500 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">La segunda oportunidad</title>
+  </programme>
+  <programme start="20261122235500 -0300" stop="20261123015500 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">Palazzina LAF</title>
+  </programme>
+  <programme start="20261123015500 -0300" stop="20261123035000 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">Mujeres al Poder</title>
+  </programme>
+  <programme start="20261123035000 -0300" stop="20261123053000 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">Puede besar al novio</title>
+  </programme>
+  <programme start="20261123053000 -0300" stop="20261123060000 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">El hijo muerto</title>
+  </programme>
+  <programme start="20261123060000 -0300" stop="20261123080500 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">Montalbano</title>
+    <episode-num system="onscreen">S9 E24</episode-num>
+  </programme>
+  <programme start="20261123080500 -0300" stop="20261123094000 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">Puede besar al novio</title>
+  </programme>
+  <programme start="20261123094000 -0300" stop="20261123100500 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">Paxmal, la estación intermedia</title>
+  </programme>
+  <programme start="20261123100500 -0300" stop="20261123120000 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">Cosas del amor</title>
+  </programme>
+  <programme start="20261123120000 -0300" stop="20261123140000 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">Montalbano</title>
+    <episode-num system="onscreen">S9 E24</episode-num>
+  </programme>
+  <programme start="20261123140000 -0300" stop="20261123160500 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">Mujeres al Poder</title>
+  </programme>
+  <programme start="20261123160500 -0300" stop="20261123175500 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">Mari(dos)</title>
+  </programme>
+  <programme start="20261123175500 -0300" stop="20261123200500 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">Casa en llamas</title>
+  </programme>
+  <programme start="20261123200500 -0300" stop="20261123220000 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">La segunda oportunidad</title>
+  </programme>
+  <programme start="20261123220000 -0300" stop="20261123235500 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">Montalbano</title>
+    <episode-num system="onscreen">S7 E17</episode-num>
+  </programme>
+  <programme start="20261123235500 -0300" stop="20261124015000 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">La Primera Nevada</title>
+  </programme>
+  <programme start="20261124015000 -0300" stop="20261124040000 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">Casa en llamas</title>
+  </programme>
+  <programme start="20261124040000 -0300" stop="20261124060000 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">La segunda oportunidad</title>
+  </programme>
+  <programme start="20261124060000 -0300" stop="20261124075500 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">Montalbano</title>
+    <episode-num system="onscreen">S9 E25</episode-num>
+  </programme>
+  <programme start="20261124075500 -0300" stop="20261124081000 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">El leon</title>
+  </programme>
+  <programme start="20261124081000 -0300" stop="20261124101000 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">No basta una vida</title>
+  </programme>
+  <programme start="20261124101000 -0300" stop="20261124120000 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">La Primera Nevada</title>
+  </programme>
+  <programme start="20261124120000 -0300" stop="20261124141000 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">Montalbano</title>
+    <episode-num system="onscreen">S9 E25</episode-num>
+  </programme>
+  <programme start="20261124141000 -0300" stop="20261124160500 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">Mi semana con Marilyn</title>
+  </programme>
+  <programme start="20261124160500 -0300" stop="20261124180500 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">La maldición de Rookford</title>
+  </programme>
+  <programme start="20261124180500 -0300" stop="20261124200500 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">No basta una vida</title>
+  </programme>
+  <programme start="20261124200500 -0300" stop="20261124220000 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">La Primera Nevada</title>
+  </programme>
+  <programme start="20261124220000 -0300" stop="20261124225500 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">Sisi</title>
+    <episode-num system="onscreen">S3 E3</episode-num>
+  </programme>
+  <programme start="20261124225500 -0300" stop="20261124234500 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">Citas Barcelona</title>
+    <episode-num system="onscreen">S2 E4</episode-num>
+  </programme>
+  <programme start="20261124234500 -0300" stop="20261125013500 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">La inmensidad</title>
+  </programme>
+  <programme start="20261125013500 -0300" stop="20261125032000 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">Mi semana con Marilyn</title>
+  </programme>
+  <programme start="20261125032000 -0300" stop="20261125060000 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">El libro negro</title>
+  </programme>
+  <programme start="20261125060000 -0300" stop="20261125080000 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">Montalbano</title>
+    <episode-num system="onscreen">S9 E26</episode-num>
+  </programme>
+  <programme start="20261125080000 -0300" stop="20261125102000 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">El almirante</title>
+  </programme>
+  <programme start="20261125102000 -0300" stop="20261125120000 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">El intercambio</title>
+  </programme>
+  <programme start="20261125120000 -0300" stop="20261125135500 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">Montalbano</title>
+    <episode-num system="onscreen">S9 E26</episode-num>
+  </programme>
+  <programme start="20261125135500 -0300" stop="20261125155500 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">No basta una vida</title>
+  </programme>
+  <programme start="20261125155500 -0300" stop="20261125181500 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">El almirante</title>
+  </programme>
+  <programme start="20261125181500 -0300" stop="20261125200000 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">Escuadrón de élite</title>
+  </programme>
+  <programme start="20261125200000 -0300" stop="20261125220000 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">Mil cortes</title>
+  </programme>
+  <programme start="20261125220000 -0300" stop="20261125230500 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">Babylon Berlin</title>
+    <episode-num system="onscreen">S5 E3</episode-num>
+  </programme>
+  <programme start="20261125230500 -0300" stop="20261126000500 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">Sisi</title>
+    <episode-num system="onscreen">S2 E1</episode-num>
+  </programme>
+  <programme start="20261126000500 -0300" stop="20261126020500 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">Mil cortes</title>
+  </programme>
+  <programme start="20261126020500 -0300" stop="20261126035000 -0300" channel="PublicDirect.549107ff20f3eafa0f8c9580">
+    <title lang="es">Escuadrón de élite</title>
   </programme>
   <programme start="20261122102900 -0300" stop="20261122105500 -0300" channel="PublicDirect.5dcc9d45e7f72f13df740d70">
     <title lang="en">Naruto</title>
@@ -34041,31 +34195,6 @@
       <value>+14</value>
     </rating>
   </programme>
-  <programme start="20261122094500 -0300" stop="20261122101000 -0300" channel="PublicDirect.611041b791c77e57b0831623">
-    <title lang="nl">When Nobody Is Looking...</title>
-    <desc lang="nl">Angela White is bored and horny, diddling her p...y while she awaits a furniture delivery. The furniture company usually sends buffoons to help her, but this time, they have sent Alex Mack and Summer Col.</desc>
-    <credits>
-      <actor>Angela White</actor>
-      <actor>Alex Mack</actor>
-      <actor>Summer Col</actor>
-    </credits>
-    <category lang="nl">Erotiek</category>
-    <category lang="nl">Erotisch</category>
-    <icon src="https://staticqbr-prod-nl.gnp.cloud.ziggogo.tv/image-service/ImagesEPG/EventImages/p28322910_b_v12_ab.jpg?supportsTransparency=false" />
-    <rating>
-      <value>18</value>
-    </rating>
-  </programme>
-  <programme start="20261122101000 -0300" stop="20261122102800 -0300" channel="PublicDirect.611041b791c77e57b0831623">
-    <title lang="nl">Thicc and Thiccer</title>
-    <desc lang="nl">Ethan and Daphne are a loving and content couple. That is, until a new roommate Jadynn comes home and shakes the foundation of their relationship. Neither Ethan nor Daphne can resist Jadynn's adorable look and swooping curves.</desc>
-    <category lang="nl">Erotiek</category>
-    <category lang="nl">Erotisch</category>
-    <icon src="https://staticqbr-prod-nl.gnp.cloud.ziggogo.tv/image-service/ImagesEPG/EventImages/p29835660_b_v12_ab.jpg?supportsTransparency=false" />
-    <rating>
-      <value>18</value>
-    </rating>
-  </programme>
   <programme start="20261122102800 -0300" stop="20261122105100 -0300" channel="PublicDirect.611041b791c77e57b0831623">
     <title lang="nl">One Date, Double The P...y</title>
     <desc lang="nl">Xander Corvus is in for a very pleasant -and soon to be pleasurable- surprise when he discovers his date, Annie Charlotte (making her Brazzers debut) has not one, but TWO pussies!</desc>
@@ -36889,16 +37018,6 @@
     <icon src="http://www.reportv.com.ar/buscador/img/Programas/1993532637.jpg" />
     <country lang="es">EE. UU</country>
   </programme>
-  <programme start="20261122094300 -0300" stop="20261122103000 -0300" channel="PublicDirect.76f85d8e18ca914171dde970">
-    <title lang="es">Contrabando en la frontera</title>
-    <sub-title lang="es">Un momento de bombilla</sub-title>
-    <desc lang="es">Un cártel intenta introducir un último envío de sustancias a través de la frontera justo antes de medianoche.</desc>
-    <date>2023</date>
-    <episode-num system="onscreen">E4</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
-  </programme>
   <programme start="20261122103000 -0300" stop="20261122112100 -0300" channel="PublicDirect.76f85d8e18ca914171dde970">
     <title lang="es">Supervivencia al desnudo</title>
     <sub-title lang="es">De las cenizas</sub-title>
@@ -37853,12 +37972,6 @@
       <value>+18</value>
     </rating>
   </programme>
-  <programme start="20261122094200 -0300" stop="20261122102800 -0300" channel="PublicDirect.7e4fe7ff47c91a001130c27b">
-    <title lang="es">El dúo mecánico</title>
-    <sub-title lang="es">Harley y yo</sub-title>
-    <desc lang="es">T4 -Ep.7: Harley Y Yo. Richard le compra a Aaron una Harley-Davidson WLA 45 de 1942. El objetivo es devolverle el estilo de su época para hacerla participar en una carrera en la costa de Nueva Jersey, en apenas dos semanas.</desc>
-    <episode-num system="onscreen">S11 E2</episode-num>
-  </programme>
   <programme start="20261122102800 -0300" stop="20261122111200 -0300" channel="PublicDirect.7e4fe7ff47c91a001130c27b">
     <title lang="es">El dúo mecánico</title>
     <sub-title lang="es">Camaro</sub-title>
@@ -38655,25 +38768,6 @@
   </programme>
   <programme start="20261124205500 -0300" stop="20261124215100 -0300" channel="PublicDirect.8da65ba545fa9fd2512f9901">
     <title lang="es">Alienígenas ancestrales</title>
-  </programme>
-  <programme start="20261122085900 -0300" stop="20261122102900 -0300" channel="PublicDirect.942f65e48445596971fc7249">
-    <title lang="en">Coeds Drain Huge Dong</title>
-    <desc lang="es">Sensuales chicas de 18 años están ansiosas por probar un miembro enorme y sentirlo dentro de sus húmedas ranuras. Estas bellezas dejan a un lado tomar el sol, el yoga, y sus clases de conducción para disfrutar de ellos.</desc>
-    <credits>
-      <actor>Amalia Davis</actor>
-    </credits>
-    <date>2024</date>
-    <category lang="en">Movie</category>
-    <category lang="en">Adults only</category>
-    <category lang="en">Erotic</category>
-    <icon src="http://dtil.tmsimg.com/assets/p28433795_b_h8_aa.jpg?w=960&amp;h=540" />
-    <previously-shown />
-    <rating system="Kijkwijzer">
-      <value>18</value>
-    </rating>
-    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
-      <value>A18</value>
-    </rating>
   </programme>
   <programme start="20261122102900 -0300" stop="20261122115700 -0300" channel="PublicDirect.942f65e48445596971fc7249">
     <title lang="es">Acosada por mi madrastra</title>
@@ -44450,16 +44544,6 @@
     <country lang="es">Países Bajos</country>
     <episode-num system="onscreen">S2026</episode-num>
   </programme>
-  <programme start="20261122100000 -0300" stop="20261122102500 -0300" channel="PublicDirect.b8d68bcc53d0374118476dfc">
-    <title lang="es">Making the Movies</title>
-    <sub-title lang="es">Episodio 478</sub-title>
-    <desc lang="es">Making the Movies te cuenta todo lo que hay que saber sobre cómo cobran vida las películas Con todas las cosas emocionantes técnicas geniales, temas atractivos y todas las tendencias de producción de Hollywood.</desc>
-    <date>2022</date>
-    <category lang="es">Interés general</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/32030112.jpg" />
-    <country lang="es">Países Bajos</country>
-    <episode-num system="onscreen">S1</episode-num>
-  </programme>
   <programme start="20261122102500 -0300" stop="20261122121000 -0300" channel="PublicDirect.b8d68bcc53d0374118476dfc">
     <title lang="es">Aquí</title>
     <desc lang="es">Varias familias, de diferentes generaciones, vistas en una única habitación del hogar que formaron Una historia de amor, pérdida, risas y vida, desde un pasado muy remoto hasta un futuro próximo.</desc>
@@ -45142,16 +45226,6 @@
     <category lang="es">Acción</category>
     <icon src="http://www.reportv.com.ar/buscador/img/Programas/3827208.jpg" />
     <country lang="es">EE. UU</country>
-  </programme>
-  <programme start="20261122094000 -0300" stop="20261122103000 -0300" channel="PublicDirect.bf407e29eec656d628dfa2d7">
-    <title lang="es">Chicago Med</title>
-    <sub-title lang="es">Todas las cosas que podrían haber sido</sub-title>
-    <desc lang="es">Goodwin reasigna a un paciente con covid-19. Maggie ayuda a Halstead a tratar a un paciente que lleva 60 años en un pulmón de acero. Hammer aprende duras verdades sobre su madre.</desc>
-    <date>2022</date>
-    <episode-num system="onscreen">E14</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
   </programme>
   <programme start="20261122103000 -0300" stop="20261122112000 -0300" channel="PublicDirect.bf407e29eec656d628dfa2d7">
     <title lang="es">Chicago Med</title>
@@ -45860,20 +45934,6 @@
     <rating system="MJColombia">
       <value>+14</value>
     </rating>
-  </programme>
-  <programme start="20261122093600 -0300" stop="20261122102400 -0300" channel="PublicDirect.c4712375281c919db4593df8">
-    <title lang="es">Casas rodantes increíbles</title>
-    <sub-title lang="es">Marathon Coach, Volkner Mobil y un Airstream retro</sub-title>
-    <desc lang="es">Desde diseños futuristas a renovaciones multimillonarias de remolques clásicos, los diseñadores y artesanos llegan con máquinas únicas y extravagantes para entregarlas a sus clientes.</desc>
-    <credits>
-      <actor>Christopher L Parson</actor>
-      <actor>Chad Troyer</actor>
-    </credits>
-    <date>2013</date>
-    <category lang="es">Reality Show</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/10454729.jpg" />
-    <country lang="es">EE. UU</country>
-    <episode-num system="onscreen">S2 E5</episode-num>
   </programme>
   <programme start="20261122102400 -0300" stop="20261122111200 -0300" channel="PublicDirect.c4712375281c919db4593df8">
     <title lang="es">Pioneros de Polonia</title>
@@ -47972,26 +48032,6 @@
   <programme start="20261126022600 -0300" stop="20261126041100 -0300" channel="PublicDirect.c9a179f36540c93c7e6a67b6">
     <title lang="es">Otra oportunidad para amar</title>
   </programme>
-  <programme start="20261122081600 -0300" stop="20261122101400 -0300" channel="PublicDirect.d232b1eca5d8562c42007165">
-    <title lang="es">Inmortales</title>
-    <desc lang="es">Enloquecido por el poder, el rey Hiperión quema Grecia mientras busca el arco Epiro, arma con la que podrá liberar a los Titanes y dominar la Tierra Pero la esperanza renace cuando Zeus encomienda a Teseo la misión de acabar con el rey.</desc>
-    <credits>
-      <actor>Henry Cavill</actor>
-      <actor>Mickey Rourke</actor>
-      <actor>Stephen Dorff</actor>
-      <actor>Freida Pinto</actor>
-      <actor>Luke Evans</actor>
-      <actor>John Hurt</actor>
-      <actor>Joseph Morgan</actor>
-      <actor>Anne Day-Jones</actor>
-      <actor>Greg Bryk</actor>
-      <actor>Alan Van Sprang</actor>
-    </credits>
-    <date>2011</date>
-    <category lang="es">Acción</category>
-    <icon src="http://www.reportv.com.ar/buscador/img/Programas/19076339.jpg" />
-    <country lang="es">EE. UU</country>
-  </programme>
   <programme start="20261122101400 -0300" stop="20261122131400 -0300" channel="PublicDirect.d232b1eca5d8562c42007165">
     <title lang="es">Salvando al soldado Ryan</title>
     <desc lang="es">Durante la invasión de Normandía en plena Segunda Guerra Mundial, un grupo de soldados americanos asume su última gran misión: arriesgar sus vidas para encontrar y devolver a casa al soldado James Ryan.</desc>
@@ -48529,16 +48569,6 @@
     <category lang="es">Acción</category>
     <icon src="http://www.reportv.com.ar/buscador/img/Programas/3090298.jpg" />
     <country lang="es">México</country>
-  </programme>
-  <programme start="20261122093700 -0300" stop="20261122102900 -0300" channel="PublicDirect.d56376275161ef53614ac137">
-    <title lang="es">Traicionados</title>
-    <sub-title lang="es">Bella de negro</sub-title>
-    <desc lang="es">Kelly Bullwinkle es una típica estudiante de 17 años que forma parte de un peligroso triángulo amoroso. Cuando la encuentran muerta, la policía recurre a sus amigos.</desc>
-    <date>2019</date>
-    <episode-num system="onscreen">E7</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
   </programme>
   <programme start="20261122102900 -0300" stop="20261122112100 -0300" channel="PublicDirect.d56376275161ef53614ac137">
     <title lang="es">Homicidio en el pueblo</title>
@@ -49218,10 +49248,6 @@
       <value>+14</value>
     </rating>
   </programme>
-  <programme start="20261122100400 -0300" stop="20261122102800 -0300" channel="PublicDirect.de3e91d7c885d797352686e1">
-    <title lang="es">Two And A Half Men</title>
-    <desc lang="es">T2 -Ep.1: Back Off Mary Poppins. Alan se siente dolido cuando Charlie le pide que se quede fuera de la casa mientras sus amigos vienen a visitar. Luego las cosas empeoran cuando se entera que sus viejos amigos fueron a la casa de su ex para una reunión. Rose vive persiguiendo a Charlie por todas partes pero esta vez decide consolar al pobre Alan, pero nada parece ayudarlo hasta que Charlie lo invita a salir con sus amigotes.</desc>
-  </programme>
   <programme start="20261122102800 -0300" stop="20261122121300 -0300" channel="PublicDirect.de3e91d7c885d797352686e1">
     <title lang="es">Dicen Por Ahí..</title>
     <desc lang="es">Sarah Huttington, recién comprometida con su novio Jeff, viaja a su Pasadena natal para el casamiento de un pariente. En esa reunión familiar se filtra un rumor, un rumor que dice que el libro y la película El graduado están basados en la historia del mismísimo clan femenino Huttington. Esto quiere decir que la madre y la abuela de Sarah habrían tenido un romance fugaz con el mismo hombre, antes de casarse con sus respectivos maridos. Y también quiere decir que Sarah podría ser hija de un extraño cosa que explicaría el sentimiento constante que tiene de no pertenecer al mismo mundo que su familia. Con esta pila de dudas Sarah viaja de vuelta a San Francisco, en busca del hombre que habría formado los dos triángulos, en busca del verdadero Benjamin Braddock.</desc>
@@ -49413,15 +49439,6 @@
   <programme start="20261124062300 -0300" stop="20261124064600 -0300" channel="PublicDirect.de3e91d7c885d797352686e1">
     <title lang="es">Two And A Half Men</title>
     <desc lang="es">T2 -Ep.7: A Kosher Slaughterhouse Out In Fontana. Para poder ser un buen ejemplo para Jake, quien ha estado faltándole el respeto a su madre, Charlie y Alan se ponen de acuerdo para dar una fiesta en honor a su madre para celebrar sus logros como corredora de bienes raíces. Berta sugiere que contraten a su hermana Daisy, quien tiene una empresa que organiza eventos. Pero Daisy quien se acaba de divorciar está emocionalmente destruida y la fiesta sale muy distinta a cómo la esperaban</desc>
-  </programme>
-  <programme start="20261122083400 -0300" stop="20261122102900 -0300" channel="PublicDirect.e1bd14954343adc40818b7c7">
-    <title lang="es">Criaturas de la noche</title>
-    <desc lang="es">Horribles criaturas acechan a los sobrevivientes de una nave espacial estrellada en su búsqueda de un lugar seguro.</desc>
-    <date>2000</date>
-    <country lang="es">Estados Unidos</country>
-    <rating system="MJColombia">
-      <value>+18</value>
-    </rating>
   </programme>
   <programme start="20261122102900 -0300" stop="20261122120400 -0300" channel="PublicDirect.e1bd14954343adc40818b7c7">
     <title lang="es">Anaconda</title>
@@ -50565,16 +50582,6 @@
     <star-rating system="MX">
       <value>6.0</value>
     </star-rating>
-  </programme>
-  <programme start="20261122092000 -0300" stop="20261122101500 -0300" channel="PublicDirect.edc3a37181c9a6915fb578c6">
-    <title lang="es">África extrema</title>
-    <sub-title lang="es">La montaña del dragón: Sobreviviendo a la cumbre</sub-title>
-    <desc lang="es">El Drakensberg de Sudáfrica alberga gradientes climáticos y ecológicos.</desc>
-    <date>2016</date>
-    <episode-num system="onscreen">E1</episode-num>
-    <rating system="MJColombia">
-      <value>+14</value>
-    </rating>
   </programme>
   <programme start="20261122101500 -0300" stop="20261122111000 -0300" channel="PublicDirect.edc3a37181c9a6915fb578c6">
     <title lang="es">África extrema</title>
@@ -53089,10 +53096,6 @@
       <value>NR</value>
     </rating>
   </programme>
-  <programme start="20261122095859 -0300" stop="20261122102944 -0300" channel="RedBullChileEspanol.cl">
-    <title lang="es">Pushing Progression - la historia del kiteboarding</title>
-    <desc lang="es">La evolución del kiteboarding contada por atletas como Robby Naish y su impulso gracias a eventos clave como Red Bull King of the Air y Red Bull Megaloop.</desc>
-  </programme>
   <programme start="20261122102944 -0300" stop="20261122132050 -0300" channel="RedBullChileEspanol.cl">
     <title lang="es">Red Bull Batalla 2026 Final Nacional Colombia</title>
     <desc lang="es">Los mejores MCs de Colombia se enfrentan en la Final Nacional de Red Bull Batalla para conquistar el título y conseguir un lugar en la Final Internacional de Perú.</desc>
@@ -53176,14 +53179,6 @@
   <programme start="20261123154703 -0300" stop="20261123161626 -0300" channel="RedBullChileEspanol.cl">
     <title lang="es">Las mujeres rompen fronteras en Red Bull Rampage</title>
     <desc lang="es">Las riders de mountain bike de élite rompen barreras en el freeride al enfrentarse a los terrenos más desafiantes del Red Bull Rampage, mientras luchan por la igualdad y dejan un legado en su deporte.</desc>
-  </programme>
-  <programme start="20261122100000 -0300" stop="20261122100500 -0300" channel="SkySportsF1.uk">
-    <title lang="en">Flying Lap: Las Vegas</title>
-    <desc lang="en">Powered by Audi, see Sky F1's pundits hit iconic tracks in a high-performance Audi, combining laps with sim data to break down racing lines, braking points and elite-level performance.</desc>
-  </programme>
-  <programme start="20261122100500 -0300" stop="20261122101500 -0300" channel="SkySportsF1.uk">
-    <title lang="en">Kimi Antonelli - World Champion</title>
-    <desc lang="en">A special feature dedicated to Formula 1's youngest-ever world champion Kimi Antonelli, who clinched the title with a podium finish at the Mexico City Grand Prix.</desc>
   </programme>
   <programme start="20261122101500 -0300" stop="20261122111500 -0300" channel="SkySportsF1.uk">
     <title lang="en">Live Ferrari Challenge Europe</title>
@@ -53468,14 +53463,6 @@
     <title lang="en">Las Vegas F1 GP Highlights</title>
     <desc lang="en">It's lights out for the 2026 Las Vegas Grand Prix. Polesitter Max Verstappen is joined on the front row by George Russell, with Lando Norris and Isack Hadjar on the second row. (21.11)</desc>
     <episode-num system="onscreen">161</episode-num>
-  </programme>
-  <programme start="20261122100000 -0300" stop="20261122100500 -0300" channel="SkySportsF1UHD.uk">
-    <title lang="en">Flying Lap: Las Vegas</title>
-    <desc lang="en">Powered by Audi, see Sky F1's pundits hit iconic tracks in a high-performance Audi, combining laps with sim data to break down racing lines, braking points and elite-level performance.</desc>
-  </programme>
-  <programme start="20261122100500 -0300" stop="20261122101500 -0300" channel="SkySportsF1UHD.uk">
-    <title lang="en">Kimi Antonelli - World Champion</title>
-    <desc lang="en">A special feature dedicated to Formula 1's youngest-ever world champion Kimi Antonelli, who clinched the title with a podium finish at the Mexico City Grand Prix.</desc>
   </programme>
   <programme start="20261122101500 -0300" stop="20261122111500 -0300" channel="SkySportsF1UHD.uk">
     <title lang="en">Live Ferrari Challenge Europe</title>
@@ -54476,11 +54463,6 @@
     <desc lang="en">Relive the action from the Premier League in a unique way with fast-paced highlights using alternative angles, featuring every goal from every game.</desc>
     <episode-num system="onscreen">S2026E12</episode-num>
   </programme>
-  <programme start="20261122090000 -0300" stop="20261122103000 -0300" channel="SkySportsTennis.uk">
-    <title lang="en">ATP Finals Highlights</title>
-    <desc lang="en">In a semi-final showdown of former champions, two-time winner and top seed Alexander Zverev faces 2020 titlist Daniil Medvedev, who fell to Zverev in the final here five years ago. (21.11)</desc>
-    <episode-num system="onscreen">28</episode-num>
-  </programme>
   <programme start="20261122103000 -0300" stop="20261122104500 -0300" channel="SkySportsTennis.uk">
     <title lang="en">ATP Finals: Turin Final</title>
     <desc lang="en">World number one Carlos Alcaraz faces Italy's reigning ATP Finals champion Jannik Sinner in their sixth meeting of the year, marking the finale to the 2025 Tour season in Turin. (16.11)</desc>
@@ -55192,11 +55174,6 @@
     <category lang="en">Bingeworthy</category>
     <icon src="https://metadata-static.plex.tv/0/gracenote/071fece4c8c10cbda9df112bb86d6888.jpg" />
     <episode-num system="onscreen">S2020</episode-num>
-  </programme>
-  <programme start="20261122081500 -0300" stop="20261122103000 -0300" channel="TNTSports1.uk">
-    <title lang="en">Juventus v Venezia</title>
-    <desc lang="en">After a mixed start to the season, Luciano Spalletti's Juventus look to climb the Serie A table as they host a struggling Venezia side at the Allianz Stadium.</desc>
-    <episode-num system="onscreen">0</episode-num>
   </programme>
   <programme start="20261122103000 -0300" stop="20261122113000 -0300" channel="TNTSports1.uk">
     <title lang="en">1st Test: New Zealand v India</title>
@@ -56268,24 +56245,6 @@
     <sub-title lang="en">Atalanta v Inter Milan</sub-title>
     <desc lang="en">Atalanta v Inter Milan.</desc>
     <icon src="https://tv.assets.pressassociation.io/e22ede08-2af4-5744-987a-c82998183cc7.jpg" />
-  </programme>
-  <programme channel="TVEInternacionalAmerica.es@HD" start="20261122100000 -0300" stop="20261122102000 -0300">
-    <title lang="es">Objetivo igualdad</title>
-    <desc lang="es">Relatos y entrevistas que exponen los problemas de desigualdad entre hombres y mujeres de todo el mundo.</desc>
-    <credits>
-      <actor>Carolina Pecharroman</actor>
-      <director>Carolina Pecharroman</director>
-      <director>Paola Guerra</director>
-    </credits>
-    <date>2021</date>
-    <category lang="es">Entertainment</category>
-    <category lang="es">Educational</category>
-    <category lang="es">Talk</category>
-    <icon src="http://dtil.tmsimg.com/assets/p28357639_b_h10_aa.jpg?w=960&amp;h=540" />
-    <previously-shown />
-    <rating system="Departamento de Justiça, Classificação, Títulos e Qualificação">
-      <value>A10</value>
-    </rating>
   </programme>
   <programme channel="TVEInternacionalAmerica.es@HD" start="20261122102000 -0300" stop="20261122105500 -0300">
     <title lang="es">Conversatorios en Casa de América</title>
@@ -57939,11 +57898,6 @@
   <programme start="20261125023000 -0300" stop="20261125030000 -0300" channel="TelehitMusica.mx@SD">
     <title lang="es">Playlist Telehit</title>
   </programme>
-  <programme start="20261122093000 -0300" stop="20261122103000 -0300" channel="Vavoo.uk.TNTSPORTS4@TvVoo">
-    <title lang="en">Alpine Skiing World Cup</title>
-    <desc lang="en">Action from run two of the men's slalom in Gurgl, Austria. Can Lucas Pinheiro Braathen make it three wins from three so far in the 2026/27 Alpine Skiing World Cup?</desc>
-    <episode-num system="onscreen">0</episode-num>
-  </programme>
   <programme start="20261122103000 -0300" stop="20261122110000 -0300" channel="Vavoo.uk.TNTSPORTS4@TvVoo">
     <title lang="en">The Monuments</title>
     <desc lang="en">Kitzbuhel is the crown jewel of alpine skiing, home to the infamous Streif. We dive into the unparalleled prestige and dangers of the Hahnenkamm race.</desc>
@@ -58542,15 +58496,6 @@
     <date>2026</date>
     <rating system="MJColombia">
       <value>AGE228</value>
-    </rating>
-  </programme>
-  <programme start="20261122100000 -0300" stop="20261122102000 -0300" channel="WinSports.co@Direct181">
-    <title lang="es">Fútbol internacional</title>
-    <sub-title lang="es">PSG: Campeón UEFA Champions League 2025-2026</sub-title>
-    <desc lang="es">El Paris Saint-Germain (PSG) se coronó campeón de la UEFA Champions League 2025-2026 al derrotar al Arsenal 4-3 en tanda de penales. Disputado el 30 de mayo de 2026.</desc>
-    <date>2026</date>
-    <rating system="MJColombia">
-      <value>TE</value>
     </rating>
   </programme>
   <programme start="20261122102000 -0300" stop="20261122123000 -0300" channel="WinSports.co@Direct181">
@@ -61247,137 +61192,6 @@
     <desc lang="en">Round-up of the sports news with live analysis and comments, plus extended interviews with the headline makers.</desc>
     <episode-num system="onscreen">116</episode-num>
   </programme>
-  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261122085600 -0300" stop="20261122101500 -0300">
-    <title lang="es">Mundial F1 - GP de Las Vegas: Clasificación</title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2026 promete más emoción y espectáculo que nunca. Ver más.</desc>
-  </programme>
-  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261122101500 -0300" stop="20261122110000 -0300">
-    <title lang="es">Gearbox: Episodio 29</title>
-    <desc lang="es">Los fanáticos de la conducción tienen una cita en 'Gearbox', donde los volantes del presente, del pasado y del futuro se ponen en las manos de los mejores expertos.</desc>
-  </programme>
-  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261122110000 -0300" stop="20261122130300 -0300">
-    <title lang="es">Mundial F1 - GP de Las Vegas: Carrera</title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2026 promete más emoción y espectáculo que nunca. Ver más.</desc>
-  </programme>
-  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261122130300 -0300" stop="20261122144000 -0300">
-    <title lang="es">Mundial F1 - GP de Las Vegas: Box, Box</title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2026 promete más emoción y espectáculo que nunca. Ver más.</desc>
-  </programme>
-  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261122144000 -0300" stop="20261122154900 -0300">
-    <title lang="es">Mundial F1 - GP de Las Vegas: Libres 1</title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2026 promete más emoción y espectáculo que nunca. Ver más.</desc>
-  </programme>
-  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261122154900 -0300" stop="20261122165700 -0300">
-    <title lang="es">Mundial F1 - GP de Las Vegas: Libres 2</title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2026 promete más emoción y espectáculo que nunca. Ver más.</desc>
-  </programme>
-  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261122165700 -0300" stop="20261122180600 -0300">
-    <title lang="es">Mundial F1 - GP de Las Vegas: Libres 3</title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2026 promete más emoción y espectáculo que nunca. Ver más.</desc>
-  </programme>
-  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261122180600 -0300" stop="20261122192400 -0300">
-    <title lang="es">Mundial F1 - GP de Las Vegas: Clasificación</title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2026 promete más emoción y espectáculo que nunca. Ver más.</desc>
-  </programme>
-  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261122192400 -0300" stop="20261122212800 -0300">
-    <title lang="es">Mundial F1 - GP de Las Vegas: Carrera</title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2026 promete más emoción y espectáculo que nunca. Ver más.</desc>
-  </programme>
-  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261122212800 -0300" stop="20261122233300 -0300">
-    <title lang="es">Mundial F1 - GP de Barcelona. Catalunya: Carrera</title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
-  </programme>
-  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261122233300 -0300" stop="20261123012000 -0300">
-    <title lang="es">Mundial F1 - GP de Estados Unidos: Box, Box</title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
-  </programme>
-  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261123012000 -0300" stop="20261123032500 -0300">
-    <title lang="es">Mundial F1 - GP de Canadá: Carrera</title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
-  </programme>
-  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261123032500 -0300" stop="20261123052500 -0300">
-    <title lang="es">Mundial F1 - GP de Austria: Carrera</title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
-  </programme>
-  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261123052500 -0300" stop="20261123070500 -0300">
-    <title lang="es">Mundial F1 - GP de Gran Bretaña: Box, box</title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
-  </programme>
-  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261123070500 -0300" stop="20261123081000 -0300">
-    <title lang="es">Decoded: Hamilton</title>
-  </programme>
-  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261123081000 -0300" stop="20261123101500 -0300">
-    <title lang="es">Mundial de Fórmula 1: GP de Miami: Carrera</title>
-  </programme>
-  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261123101500 -0300" stop="20261123111500 -0300">
-    <title lang="es">Bravissimo</title>
-    <desc lang="es">El 25 de septiembre de 2005, Fernando Alonso hizo historia al convertirse en el primer campeón mundial español de Fórmula 1. Revivimos los mejores momentos de ese momento histórico junto a sus protagonistas.</desc>
-  </programme>
-  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261123111500 -0300" stop="20261123133500 -0300">
-    <title lang="es">Mundial F1 - GP de Singapur: Carrera</title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
-  </programme>
-  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261123133500 -0300" stop="20261123154500 -0300">
-    <title lang="es">Mundial F1 - GP de Países Bajos: Carrera</title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
-  </programme>
-  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261123154500 -0300" stop="20261123165500 -0300">
-    <title lang="es">Mundial F1 - GP de Singapur: Sprint</title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
-  </programme>
-  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261123165500 -0300" stop="20261123185000 -0300">
-    <title lang="es">Mundial de Fórmula 1: GP de Bélgica: Carrera</title>
-  </programme>
-  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261123185000 -0300" stop="20261123205500 -0300">
-    <title lang="es">Mundial de Fórmula 1: GP de Japón: Carrera</title>
-  </programme>
-  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261123205500 -0300" stop="20261123230500 -0300">
-    <title lang="es">Mundial F1 - GP de Estados Unidos: Carrera</title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
-  </programme>
-  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261123230500 -0300" stop="20261124000000 -0300">
-    <title lang="es">Mundial F1 - GP de China: Sprint</title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
-  </programme>
-  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261124000000 -0300" stop="20261124021000 -0300">
-    <title lang="es">Mundial F1 - GP de China: Carrera</title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
-  </programme>
-  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261124021000 -0300" stop="20261124041500 -0300">
-    <title lang="es">Mundial F1 - GP de Austria: Carrera</title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
-  </programme>
-  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261124041500 -0300" stop="20261124061500 -0300">
-    <title lang="es">Mundial de Fórmula 1: GP de Emilia Romagna: Carrera</title>
-  </programme>
-  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261124061500 -0300" stop="20261124082500 -0300">
-    <title lang="es">Mundial de Fórmula 1: GP de Estados Unidos: Carrera</title>
-  </programme>
-  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261124082500 -0300" stop="20261124103000 -0300">
-    <title lang="es">Mundial F1 - GP de Gran Bretaña: Carrera</title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
-  </programme>
-  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261124103000 -0300" stop="20261124111000 -0300">
-    <title lang="es">Gearbox: Episodio 28</title>
-    <desc lang="es">Los fanáticos de la conducción tienen una cita en 'Gearbox', donde los volantes del presente, del pasado y del futuro se ponen en las manos de los mejores expertos.</desc>
-  </programme>
-  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261124111000 -0300" stop="20261124131000 -0300">
-    <title lang="es">Mundial F1 - GP de Bélgica: Carrera</title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
-  </programme>
-  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261124131000 -0300" stop="20261124152700 -0300">
-    <title lang="es">Mundial F1 - GP de Gran Bretaña: Carrera</title>
-    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
-  </programme>
-  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261124152700 -0300" stop="20261124174000 -0300">
-    <title lang="es">Mundial de Fórmula 1: GP de México: Carrera</title>
-  </programme>
-  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261124174000 -0300" stop="20261124175700 -0300">
-    <title lang="es">Código F1: Las Vegas</title>
-  </programme>
-  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261124175700 -0300" stop="20261124201100 -0300">
-    <title lang="es">Mundial F1 - GP de Hungría: Carrera</title>
-  </programme>
   <programme start="20261122094500 -0300" stop="20261122110000 -0300" channel="unitedkingdom|vavoo_TNT%20SPORTS%203%7Cgroup%3Auk@TvVoo">
     <title lang="en">Longines Champions League</title>
     <desc lang="en">Action from the 2026 Global Champions League Super Cup final, taking place at the Veronafiere Exhibition Centre in Verona, Italy. Who will claim the big-money prize?</desc>
@@ -61835,11 +61649,6 @@
     <desc lang="en">Atalanta v Inter Milan.</desc>
     <icon src="https://tv.assets.pressassociation.io/e22ede08-2af4-5744-987a-c82998183cc7.jpg" />
   </programme>
-  <programme start="20261122093000 -0300" stop="20261122103000 -0300" channel="unitedkingdom|vavoo_TNT%20SPORT%204%7Cgroup%3Auk@TvVoo">
-    <title lang="en">Alpine Skiing World Cup</title>
-    <desc lang="en">Action from run two of the men's slalom in Gurgl, Austria. Can Lucas Pinheiro Braathen make it three wins from three so far in the 2026/27 Alpine Skiing World Cup?</desc>
-    <episode-num system="onscreen">0</episode-num>
-  </programme>
   <programme start="20261122103000 -0300" stop="20261122110000 -0300" channel="unitedkingdom|vavoo_TNT%20SPORT%204%7Cgroup%3Auk@TvVoo">
     <title lang="en">The Monuments</title>
     <desc lang="en">Kitzbuhel is the crown jewel of alpine skiing, home to the infamous Streif. We dive into the unparalleled prestige and dangers of the Hahnenkamm race.</desc>
@@ -62211,6 +62020,133 @@
     <sub-title lang="en">A look at Gallagher PREM side Gloucester Rugby</sub-title>
     <desc lang="en">A look at Gallagher PREM side Gloucester Rugby.</desc>
     <icon src="https://tv.assets.pressassociation.io/ea310e13-93ed-5ed6-9e6c-14520056df32.jpg" />
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261122101500 -0300" stop="20261122110000 -0300">
+    <title lang="es">Gearbox: Episodio 29</title>
+    <desc lang="es">Los fanáticos de la conducción tienen una cita en 'Gearbox', donde los volantes del presente, del pasado y del futuro se ponen en las manos de los mejores expertos.</desc>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261122110000 -0300" stop="20261122130300 -0300">
+    <title lang="es">Mundial F1 - GP de Las Vegas: Carrera</title>
+    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2026 promete más emoción y espectáculo que nunca. Ver más.</desc>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261122130300 -0300" stop="20261122144000 -0300">
+    <title lang="es">Mundial F1 - GP de Las Vegas: Box, Box</title>
+    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2026 promete más emoción y espectáculo que nunca. Ver más.</desc>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261122144000 -0300" stop="20261122154900 -0300">
+    <title lang="es">Mundial F1 - GP de Las Vegas: Libres 1</title>
+    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2026 promete más emoción y espectáculo que nunca. Ver más.</desc>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261122154900 -0300" stop="20261122165700 -0300">
+    <title lang="es">Mundial F1 - GP de Las Vegas: Libres 2</title>
+    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2026 promete más emoción y espectáculo que nunca. Ver más.</desc>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261122165700 -0300" stop="20261122180600 -0300">
+    <title lang="es">Mundial F1 - GP de Las Vegas: Libres 3</title>
+    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2026 promete más emoción y espectáculo que nunca. Ver más.</desc>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261122180600 -0300" stop="20261122192400 -0300">
+    <title lang="es">Mundial F1 - GP de Las Vegas: Clasificación</title>
+    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2026 promete más emoción y espectáculo que nunca. Ver más.</desc>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261122192400 -0300" stop="20261122212800 -0300">
+    <title lang="es">Mundial F1 - GP de Las Vegas: Carrera</title>
+    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2026 promete más emoción y espectáculo que nunca. Ver más.</desc>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261122212800 -0300" stop="20261122233300 -0300">
+    <title lang="es">Mundial F1 - GP de Barcelona. Catalunya: Carrera</title>
+    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261122233300 -0300" stop="20261123012000 -0300">
+    <title lang="es">Mundial F1 - GP de Estados Unidos: Box, Box</title>
+    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261123012000 -0300" stop="20261123032500 -0300">
+    <title lang="es">Mundial F1 - GP de Canadá: Carrera</title>
+    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261123032500 -0300" stop="20261123052500 -0300">
+    <title lang="es">Mundial F1 - GP de Austria: Carrera</title>
+    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261123052500 -0300" stop="20261123070500 -0300">
+    <title lang="es">Mundial F1 - GP de Gran Bretaña: Box, box</title>
+    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261123070500 -0300" stop="20261123081000 -0300">
+    <title lang="es">Decoded: Hamilton</title>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261123081000 -0300" stop="20261123101500 -0300">
+    <title lang="es">Mundial de Fórmula 1: GP de Miami: Carrera</title>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261123101500 -0300" stop="20261123111500 -0300">
+    <title lang="es">Bravissimo</title>
+    <desc lang="es">El 25 de septiembre de 2005, Fernando Alonso hizo historia al convertirse en el primer campeón mundial español de Fórmula 1. Revivimos los mejores momentos de ese momento histórico junto a sus protagonistas.</desc>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261123111500 -0300" stop="20261123133500 -0300">
+    <title lang="es">Mundial F1 - GP de Singapur: Carrera</title>
+    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261123133500 -0300" stop="20261123154500 -0300">
+    <title lang="es">Mundial F1 - GP de Países Bajos: Carrera</title>
+    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261123154500 -0300" stop="20261123165500 -0300">
+    <title lang="es">Mundial F1 - GP de Singapur: Sprint</title>
+    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261123165500 -0300" stop="20261123185000 -0300">
+    <title lang="es">Mundial de Fórmula 1: GP de Bélgica: Carrera</title>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261123185000 -0300" stop="20261123205500 -0300">
+    <title lang="es">Mundial de Fórmula 1: GP de Japón: Carrera</title>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261123205500 -0300" stop="20261123230500 -0300">
+    <title lang="es">Mundial F1 - GP de Estados Unidos: Carrera</title>
+    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261123230500 -0300" stop="20261124000000 -0300">
+    <title lang="es">Mundial F1 - GP de China: Sprint</title>
+    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261124000000 -0300" stop="20261124021000 -0300">
+    <title lang="es">Mundial F1 - GP de China: Carrera</title>
+    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261124021000 -0300" stop="20261124041500 -0300">
+    <title lang="es">Mundial F1 - GP de Austria: Carrera</title>
+    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261124041500 -0300" stop="20261124061500 -0300">
+    <title lang="es">Mundial de Fórmula 1: GP de Emilia Romagna: Carrera</title>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261124061500 -0300" stop="20261124082500 -0300">
+    <title lang="es">Mundial de Fórmula 1: GP de Estados Unidos: Carrera</title>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261124082500 -0300" stop="20261124103000 -0300">
+    <title lang="es">Mundial F1 - GP de Gran Bretaña: Carrera</title>
+    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261124103000 -0300" stop="20261124111000 -0300">
+    <title lang="es">Gearbox: Episodio 28</title>
+    <desc lang="es">Los fanáticos de la conducción tienen una cita en 'Gearbox', donde los volantes del presente, del pasado y del futuro se ponen en las manos de los mejores expertos.</desc>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261124111000 -0300" stop="20261124131000 -0300">
+    <title lang="es">Mundial F1 - GP de Bélgica: Carrera</title>
+    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261124131000 -0300" stop="20261124152700 -0300">
+    <title lang="es">Mundial F1 - GP de Gran Bretaña: Carrera</title>
+    <desc lang="es">Vuelven las rectas frenéticas, las curvas imposibles y los adelantamientos al límite: ya está aquí el Mundial de Fórmula 1. La temporada 2025 promete más emoción y espectáculo que nunca. Ver más.</desc>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261124152700 -0300" stop="20261124174000 -0300">
+    <title lang="es">Mundial de Fórmula 1: GP de México: Carrera</title>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261124174000 -0300" stop="20261124175700 -0300">
+    <title lang="es">Código F1: Las Vegas</title>
+  </programme>
+  <programme channel="spain|vavoo_DAZN%20F1%7Cgroup%3Aes@TvVoo" start="20261124175700 -0300" stop="20261124201100 -0300">
+    <title lang="es">Mundial F1 - GP de Hungría: Carrera</title>
   </programme>
   <programme channel="spain|vavoo_EUROSPORT%202%7Cgroup%3Aes@TvVoo" start="20261122094000 -0300" stop="20261122104500 -0300">
     <title lang="es">Trofeo X²O: Beringen - Carrera F</title>
