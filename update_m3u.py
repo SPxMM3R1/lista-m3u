@@ -5856,6 +5856,31 @@ def _fold_epg_description(value: str) -> str:
     return "".join(character for character in folded if not unicodedata.combining(character))
 
 
+# Canales cuya fuente escribe palabras sueltas en mayúsculas por estilo de marca
+# («RICE in JAPAN», «GRAND SUMO Highlights», «NEWSHOUR: The World Now»). Pedido del usuario
+# (2026-11-22, «mayúsculas en la epg, como NEWS»). Solo aquí: en otros canales esas palabras
+# suelen ser siglas reales (PSG, UCL, LASK) y no se tocan.
+EPG_STYLED_CAPS_CHANNELS = frozenset({"NHKWorldJapan.jp", "AlJazeera.qa"})
+EPG_STYLED_CAPS_KEEP = frozenset({"NHK", "TV", "DJ", "MV", "NHKWORLD"})
+
+
+def normalize_styled_caps(value: str) -> str:
+    """«RICE in JAPAN» → «Rice in Japan»: palabras de 3+ letras en mayúsculas pasan a «Xxx».
+
+    Respeta las siglas conocidas (``EPG_TITLE_ACRONYMS``), los códigos con números y las de
+    ``EPG_STYLED_CAPS_KEEP``.
+    """
+    def fix(match: re.Match[str]) -> str:
+        word = match.group(0)
+        if (len(word) < 3 or not word.isupper() or word in EPG_TITLE_ACRONYMS
+                or word in EPG_STYLED_CAPS_KEEP or _is_short_code(word)):
+            return word
+        return word[:1] + word[1:].lower()
+
+    text = re.sub(r"[A-Za-zÀ-ÿ0-9]+", fix, value)
+    return text[:1].upper() + text[1:] if text else text
+
+
 def normalize_epg_description(value: object) -> str:
     """Return a safe, source-backed XMLTV synopsis or an empty string.
 
@@ -7757,10 +7782,13 @@ def build_epg(
     # aquí, justo antes de publicar, cubre EPGShare, Zapping, fuentes oficiales
     # y continuidad sin obligar a cada importador a repetir la misma regla.
     for programme in root.findall("programme"):
+        styled_caps = programme.get("channel") in EPG_STYLED_CAPS_CHANNELS
         for element_name in ("title", "sub-title"):
             element = programme.find(element_name)
             if element is not None and element.text:
                 element.text = normalize_epg_title(element.text)
+                if styled_caps:
+                    element.text = normalize_styled_caps(element.text)
 
     description_status = sanitize_xmltv_descriptions(root)
     root.set("data-description-policy", "verified-source-only")

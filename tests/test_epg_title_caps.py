@@ -55,5 +55,24 @@ class EpgTitleCapsTest(unittest.TestCase):
             self.assertEqual(title, update_m3u.normalize_epg_title(title))
 
 
+
+class StyledCapsChannelsTest(unittest.TestCase):
+    def test_nhk_and_al_jazeera_words_in_caps_become_readable(self) -> None:
+        # 2026-11-22, pedido del usuario: «mayúsculas en la epg, como NEWS».
+        cases = {
+            "RICE in JAPAN": "Rice in Japan",
+            "NEWSHOUR: The World Now": "Newshour: The World Now",
+            "NHK WORLD Selection": "NHK World Selection",
+            "JAPAN DELISH 5min.": "Japan Delish 5min.",
+        }
+        for raw, expected in cases.items():
+            with self.subTest(raw=raw):
+                self.assertEqual(expected, update_m3u.normalize_styled_caps(update_m3u.normalize_epg_title(raw)))
+
+    def test_only_those_channels_are_listed(self) -> None:
+        # En otros canales PSG, UCL o LASK son siglas reales.
+        self.assertEqual({"NHKWorldJapan.jp", "AlJazeera.qa"}, set(update_m3u.EPG_STYLED_CAPS_CHANNELS))
+
+
 if __name__ == "__main__":
     unittest.main()
