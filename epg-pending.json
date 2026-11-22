@@ -1,14 +1,21 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-22T01:32:39.658036Z",
+  "updated_at": "2026-11-22T07:42:14.519928Z",
   "channels": [
     "RedBullWorldEnglish.int",
+    "RedBullChileEspanol.cl",
     "PublicDirect.650a768cd537cb17d491e369"
   ],
   "details": {
     "PublicDirect.650a768cd537cb17d491e369": {
       "kind": "sin-guia",
       "futureHours": 0.0,
+      "requiredHours": 24.0,
+      "gaps": []
+    },
+    "RedBullChileEspanol.cl": {
+      "kind": "guia-corta",
+      "futureHours": 22.3,
       "requiredHours": 24.0,
       "gaps": []
     },
