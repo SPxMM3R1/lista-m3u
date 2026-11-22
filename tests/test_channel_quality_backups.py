@@ -100,7 +100,7 @@ class Espn2PlacementTest(unittest.TestCase):
     OLD_ID = "PublicDirect.d6cca6d4aa23a69d50439c22"
     ESPN_ID = "ESPN.co@Direct181"
 
-    def test_espn_2_feeds_are_independent_at_33_and_in_list_2(self):
+    def test_espn_2_is_at_36_and_old_list_2_feed_is_trashed(self):
         layout = json.loads((ROOT / "data/channel-editor-layout.json").read_text(encoding="utf-8"))
         rows = [row for row in layout["channels"] if row.get("state") == "active"]
         target = next(row for row in rows if row.get("tvgId") == self.TARGET_ID)
@@ -121,10 +121,10 @@ class Espn2PlacementTest(unittest.TestCase):
         backups = json.loads((ROOT / "backups.json").read_text(encoding="utf-8"))["channels"]
         self.assertIn("ESPN2.co@Direct181", [copy["tvg_id"] for copy in backups[self.TARGET_ID]["backups"]])
         self.assertEqual(("Lista 1", 36), (backups[self.TARGET_ID]["list"], backups[self.TARGET_ID]["number"]))
-        old = next(row for row in rows if row.get("tvgId") == self.OLD_ID)
-        self.assertEqual("Lista 2", backups[self.OLD_ID]["list"])
-        self.assertEqual(("2.m3u", old["number"]), (old["sourceList"], backups[self.OLD_ID]["number"]))
-        self.assertGreater(old["number"], 85)
+        # 2026-11-22: la señal anterior (Lista 2) fue a la papelera por pedido del usuario
+        # («El ESPN 2 que está en la lista 2, mándala a papelera»).
+        old = next(row for row in layout["channels"] if row.get("tvgId") == self.OLD_ID)
+        self.assertEqual("deleted", old["state"])
         self.assertFalse(any("ESPN2.co@Direct181" in row.get("backupm3u", []) for row in rows))
         self.assertEqual(target, ordered[ordered.index(espn) + 1])
         self.assertEqual(len(rows), len({row["number"] for row in rows}))

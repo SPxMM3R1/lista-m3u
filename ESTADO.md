@@ -5,10 +5,11 @@
 > cubre la app). **Al terminar cualquier cambio, actualiza este archivo en el mismo commit**:
 > la sección «Hoy» si cambió el estado y una línea nueva en «Bitácora».
 
-Última actualización: **2026-11-19** (America/Santiago).
+Última actualización: **2026-11-22** (America/Santiago).
 
 ## Hoy, en una mirada
 
+- **Todo en Lista 1 (2026-11-22, pedido del usuario «Pasa a todos los canales de la lista 2 a la lista 1»)**: Lista 1 = 106 canales; Lista 2 publica solo la cabecera. Categorías cortas: Documentales, Entretenimiento, Infantil y Cine (Películas se unió a Cine). En Lista 2 quedan 16 filas que no abren y no se publican (14 «HBO», Telehit Latino, Band Sports). Guía sin solapes (0 de 98 canales). Reorden completo de la guía: propuesto, pendiente de aprobación.
 - **Lista 2 sin TvVoo (2026-11-19, pedido del usuario «Elimina todos los vavoo en lista 2 por ahora»)**: salen de la lista publicada los 759 canales TvVoo: 758 del bloque `data/lista2-tvvoo-bloque.m3u` y la línea huérfana `Vavoo.es.EUROSPORT1@TvVoo` (queda como tombstone en `presentation-overrides.json` › `excluded_m3u`). El bloque queda apagado con `TVVOO_CATALOG_BLOCK_ENABLED = False` en `update_m3u.py`: el archivo del bloque y sus herramientas se conservan y se reactiva poniéndolo en `True`. Lista 1 y sus TvVoo no cambian. Lista 2 publicada: 13 canales (29 activos en el layout; las otras 16 filas ya estaban sin publicar desde antes de este cambio). Registro: `contracts/lista2-sin-tvvoo-20261119.json`.
 
 - EPG publicada y comprobada el 17/11 a las 19:15: 94/95 con las próximas 24 h continuas. Solo falta Stingray iConcerts #058. Evidencia y fuentes en `docs/epg.md`.
@@ -120,6 +121,7 @@
 
 ## Bitácora (más reciente arriba)
 
+- **2026-11-22**: Lista 2 → Lista 1 (`outputs/l2-a-l1-20261122/mover.mjs`). Se mueven los 13 publicados menos dos a la papelera: ESPN 2 de Lista 2 (`PublicDirect.d6cca6…`, pedido) y el Discovery Channel `PublicDirect.e8d09f…` (mismo 1080p60, 2.307 kbps frente a 3.686 del que queda, `76f85d…`, con guía de fotograma). Entran: ESPN Premium ×2 (siguen en prueba: sin guía en ninguna fuente) tras ESPN 7; Cinecanal, DHE, Golden Premiere y Europa Europa al final de Cine; Discovery Channel/Science/Theater/World y National Geographic al final de Documentales. Guías: las de `epg-l2-map.json` pasan a `epg-overrides.json`; Europa Europa sin guía antes → AR1 (MX1 respaldo), fotograma 15:51 con «Cosas del amor». Categorías renombradas en layout, `info_lines` y catálogo (40 líneas; HBO/Golden decían «Películas» en la lista publicada). Arreglo: `targeted_update` escribía una lista vacía con ~14.000 líneas de cabeceras del catálogo; ahora solo `#EXTM3U` (prueba nueva).
 - **2026-11-22**: «que no vuelva a pasar»: la corrección de mayúsculas de estilo en la guía vale para todos los canales. Una palabra en mayúsculas (4+ letras) de un título con minúsculas pasa a «Xxxx» si la propia guía la escribe normal 3+ veces (`epg_plain_vocabulary`); las siglas reales (LASK, KNVB, CMLL, NWSL…) no aparecen así y se respetan (`EPG_CAPS_KEEP_ACRONYMS` para casos dudosos). Se aplica al construir y al unir `epg.xml`; `tests/test_epg_title_caps.py` falla si el epg.xml publicado vuelve a traerlas.
 - **2026-11-22**: títulos de la guía con palabras en mayúsculas por estilo de marca (NHK World Japan: «RICE in JAPAN», «GRAND SUMO Highlights»; Al Jazeera English: «NEWSHOUR», «NEWS 30min») pasan a «Rice in Japan», «Newshour…» (pedido del usuario: «mayúsculas en la epg, como NEWS»). `normalize_styled_caps` solo en `EPG_STYLED_CAPS_CHANNELS`; en el resto esas palabras suelen ser siglas (PSG, UCL, LASK).
 - **2026-11-22**: segunda causa del fallo de «Actualizar canales M3U»: la verificación final (`--validate-public-lists-only`, proceso aparte) volvía a consultar Highfly y, con señales de varias hojas (TNT Sports 2), elegía otra distinta de la que publicó el runner. Ahora compara las listas contra el catálogo que escribió el runner.

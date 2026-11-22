@@ -373,7 +373,10 @@ def reorder_playlist_lines(lines: list[str], desired_ids: list[str]) -> list[str
     """Rebuild presentation order while retaining current channel records."""
     channels = update_m3u.parse_channels(lines)
     if not channels:
-        return list(lines)
+        # Lista vacía (2026-11-22, Lista 2 entera pasó a Lista 1): solo la cabecera; sin esto
+        # quedaban miles de cabeceras de grupo y líneas en blanco heredadas del catálogo.
+        header = [line for line in lines if line.startswith("#EXTM3U")]
+        return header[:1] or ["#EXTM3U"]
     rank = {channel_id: index for index, channel_id in enumerate(desired_ids)}
     ordered = sorted(
         channels,
@@ -506,6 +509,9 @@ def _write_playlists(updated: dict[Path, list[str]]) -> None:
         if path.name == "m3u-externa.m3u":
             # Bloque TvVoo de Lista 2 (fuera del layout y del catálogo): siempre al final.
             lines = update_m3u.with_tvvoo_catalog_block(lines)
+        if path.suffix == ".m3u" and not update_m3u.parse_channels(lines):
+            # Lista sin canales: solo la cabecera, sin las cabeceras de grupo del catálogo.
+            lines = reorder_playlist_lines(lines, [])
         new_text = "\n".join(lines) + "\n"
         if path.read_text(encoding="utf-8-sig") == new_text:
             continue

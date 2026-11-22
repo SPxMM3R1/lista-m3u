@@ -263,6 +263,14 @@ class TargetedUpdateTest(unittest.TestCase):
         self.assertIn("# Sports", reordered)
         self.assertIn("# News", reordered)
 
+    def test_reorder_of_empty_list_keeps_only_the_header(self) -> None:
+        lines = ['#EXTM3U x-tvg-url="https://example.test/epg.xml"', "", "# Cine", "", "", "# Series", ""]
+
+        self.assertEqual(
+            ['#EXTM3U x-tvg-url="https://example.test/epg.xml"'],
+            reorder_playlist_lines(lines, []),
+        )
+
     def test_catalog_filter_reparses_line_offsets_after_presentation_reorder(self) -> None:
         lines = [
             "#EXTM3U",
