@@ -5881,6 +5881,24 @@ def normalize_styled_caps(value: str) -> str:
     return text[:1].upper() + text[1:] if text else text
 
 
+def normalize_styled_caps_in_epg(data: bytes) -> bytes:
+    """Aplica ``normalize_styled_caps`` al unir fragmentos: los fragmentos guardados solo se
+    reemplazan al quedarse sin futuro, así el cambio se ve de inmediato en epg.xml."""
+    root = ET.fromstring(data)
+    changed = False
+    for programme in root.findall("programme"):
+        if programme.get("channel") not in EPG_STYLED_CAPS_CHANNELS:
+            continue
+        for element_name in ("title", "sub-title"):
+            element = programme.find(element_name)
+            if element is not None and element.text:
+                fixed = normalize_styled_caps(element.text)
+                if fixed != element.text:
+                    element.text = fixed
+                    changed = True
+    return ET.tostring(root, encoding="utf-8", xml_declaration=True) if changed else data
+
+
 def normalize_epg_description(value: object) -> str:
     """Return a safe, source-backed XMLTV synopsis or an empty string.
 
@@ -8657,6 +8675,7 @@ def assemble_epg_from_fragments(
     if include_manual:
         data = add_app_epg_aliases(data)
     data, _ = filter_epg_to_channel_ids(data, set(scope_ids))
+    data = normalize_styled_caps_in_epg(data)
     if EPG_MAIN_LIVE_CHANNEL_ID in main_ids:
         # RWND is generated even when the dispatcher only assembles existing fragments.
         root = ET.fromstring(data)
