@@ -11,6 +11,30 @@ NOW = datetime(2026, 9, 27, 12, tzinfo=timezone.utc)
 
 
 class OfficialEpgSourcesTest(unittest.TestCase):
+    # Estas pruebas usan TVN (0104) como ejemplo de fuente oficial. Desde 2026-11-22 el 0104
+    # publicado usa GatoTV con "primary"; aquí se fija la cadena base (oficial, Zapping, CL).
+    def setUp(self):
+        original = update_m3u.apply_epg_overrides
+
+        def base_tvn():
+            update_m3u.EPG_PROGRAMME_SOURCES["0104"] = ("cl", "Canal.TVN.(Chile).cl")
+            update_m3u.GATOTV_CHANNELS.pop("0104", None)
+            update_m3u.EPG_OVERRIDE_PRIMARY_IDS.discard("0104")
+
+        def wrapped(*args, **kwargs):
+            result = original(*args, **kwargs)
+            base_tvn()
+            return result
+
+        for patcher in (patch.dict(update_m3u.EPG_PROGRAMME_SOURCES),
+                        patch.dict(update_m3u.GATOTV_CHANNELS),
+                        patch.object(update_m3u, "EPG_OVERRIDE_PRIMARY_IDS", set()),
+                        patch.object(update_m3u, "apply_epg_overrides", wrapped)):
+            patcher.start()
+            self.addCleanup(patcher.stop)
+        base_tvn()
+        super().setUp()
+
     """Cada fuente EPG oficial vive en epg_sources/ y falla sola."""
 
     def test_tnt_premium_uses_only_chile_feed_and_provider_offset(self):

@@ -22,6 +22,30 @@ def channel(name: str, tvg_id: str) -> update_m3u.Channel:
 
 
 class TvnEpgTests(unittest.TestCase):
+    # Estas pruebas usan TVN (0104) como ejemplo de fuente oficial. Desde 2026-11-22 el 0104
+    # publicado usa GatoTV con "primary"; aquí se fija la cadena base (oficial, Zapping, CL).
+    def setUp(self):
+        original = update_m3u.apply_epg_overrides
+
+        def base_tvn():
+            update_m3u.EPG_PROGRAMME_SOURCES["0104"] = ("cl", "Canal.TVN.(Chile).cl")
+            update_m3u.GATOTV_CHANNELS.pop("0104", None)
+            update_m3u.EPG_OVERRIDE_PRIMARY_IDS.discard("0104")
+
+        def wrapped(*args, **kwargs):
+            result = original(*args, **kwargs)
+            base_tvn()
+            return result
+
+        for patcher in (patch.dict(update_m3u.EPG_PROGRAMME_SOURCES),
+                        patch.dict(update_m3u.GATOTV_CHANNELS),
+                        patch.object(update_m3u, "EPG_OVERRIDE_PRIMARY_IDS", set()),
+                        patch.object(update_m3u, "apply_epg_overrides", wrapped)):
+            patcher.start()
+            self.addCleanup(patcher.stop)
+        base_tvn()
+        super().setUp()
+
     def test_direct_espn_181_uses_the_chilean_guide(self) -> None:
         # 2026-10-24: guía Claro Chile (verificada con fotograma: Arsenal vs Everton); la
         # EPGShare chilena anterior queda de respaldo.
