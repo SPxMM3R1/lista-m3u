@@ -1030,6 +1030,23 @@
         "source": "cl",
         "source_id": "Canal.TVN.(Chile).cl"
       }
+    },
+    "RedBullWorldEnglish.int": {
+      "source": "cz1",
+      "source_id": "Red.Bull.TV.cz",
+      "verified": "2026-11-23: la API global de Red Bull devuelve HTTP 404 desde GitHub Actions; EPGShare CZ1 publica la misma señal global (bloques «Take the Title» y «Program Red Bull TV» coinciden con la API local y con el relé). Se usa como respaldo declarativo, no como reemplazo de la fuente oficial."
+    },
+    "45": {
+      "source": "claro-guia",
+      "source_id": "claro:chile:908362",
+      "verified": "2026-11-23: la guía oficial de NTV y TecnoCentro dejan un hueco de 25 min (10:35–11:00 UTC); Claro Chile 908362 publica «Mi Perro Chocolo» 10:30–11:00. Claro manda para cubrir el tramo; Zapping y TecnoCentro rellenan lo que falte.",
+      "primary": true
+    },
+    "PublicDirect.650a768cd537cb17d491e369": {
+      "source": "pt1",
+      "source_id": "Stingray.iConcerts.HD.pt",
+      "shift_minutes": 60,
+      "verified": "2026-11-23 03:01 UTC: fotograma del directo con el logo Stingray iConcerts y Jethro Tull en el escenario; EPGShare PT1 anuncia «Jethro Tull - Live at Montreux, 2003» a las 02:00–03:57 UTC, o sea +60 min respecto de la señal. Se aplica el desfase medido; si el proveedor cambia el horario, volver a comprobar con fotograma."
     }
   }
 }
