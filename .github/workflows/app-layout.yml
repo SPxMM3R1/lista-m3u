@@ -1,0 +1,63 @@
+name: Catalogo liviano de la app
+
+# data/app-layout.json (2026-11-23): el layout del editor sin las ~16 mil filas borradas, que
+# es lo que lee VibeM3U desde la 0.6.72. Se rehace tras cada cambio del layout o de las listas:
+# por push (editor, agentes) y al terminar los flujos de bots, cuyos commits no disparan push.
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "data/channel-editor-layout.json"
+      - "m3u.m3u"
+      - "m3u-externa.m3u"
+      - "scripts/build_app_layout.py"
+  workflow_run:
+    workflows:
+      - Pedidos de la app
+      - Publicar cambios dirigidos
+      - Actualizar canales M3U
+      - Actualizar enlaces Highfly
+    types:
+      - completed
+    branches:
+      - main
+  schedule:
+    - cron: "10,40 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: m3u-app-layout
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Rehacer y publicar
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3 4 5; do
+            python scripts/build_app_layout.py
+            if [ -z "$(git status --porcelain -- data/app-layout.json)" ]; then echo "Al día"; exit 0; fi
+            git add data/app-layout.json
+            git commit -q -m "Catálogo liviano de la app [skip ci]"
+            if git push origin HEAD:main; then exit 0; fi
+            # Otro flujo publicó antes: se rehace sobre main actual.
+            git fetch -q origin main
+            git reset -q --hard origin/main
+            sleep $((attempt * 5))
+          done
+          exit 1
