@@ -75,8 +75,9 @@ class EspnChilePlacementTest(unittest.TestCase):
         # 2026-11-08: Lista 2 corrida +2 por Music Box Hits y Classic en Lista 1 (57-58).
         # 2026-11-14: corrido +1 por Star TVE en Lista 1 (20).
         # 2026-11-22: reorden aprobado; Deportes abre con ESPN (21), justo después de Star TVE.
+        # 2026-11-23: TNT Sports 4 queda en 39 tras el reorden de Lista 1.
         self.assertEqual(21, target["number"])
-        self.assertEqual(40, tnt4["number"])
+        self.assertEqual(39, tnt4["number"])
         self.assertEqual("ESPN", target["displayName"])
         self.assertEqual("Star TVE", ordered[ordered.index(target) - 1].get("displayName"))
         self.assertEqual(len(rows), len({row["number"] for row in rows}))
