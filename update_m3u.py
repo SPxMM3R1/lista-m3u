@@ -7387,6 +7387,10 @@ def epg_source_chain(target_id: str) -> list[tuple[str, str]]:
     chain: list[tuple[str, str]] = []
     forbidden: set[tuple[str, str]] = set()
     official: list[tuple[str, str]] = []
+    # Override con «primary» (2026-11-22, TVN): manda antes que la oficial y Zapping; esas
+    # solo rellenan lo que la fuente elegida no cubra.
+    if target_id in EPG_OVERRIDE_PRIMARY_IDS and target_id in EPG_PROGRAMME_SOURCES:
+        chain.append(EPG_PROGRAMME_SOURCES[target_id])
     # Una fuente oficial posterior en la tabla gana si dos cubren el canal.
     for source in reversed(OFFICIAL_EPG_SOURCES):
         if target_id in source.targets:
@@ -8000,6 +8004,8 @@ def build_epg(
 
 # tvg-id → desfase fijo de su guía (shift_minutes en epg-overrides.json).
 EPG_SHIFT_BY_TARGET: dict[str, timedelta] = {}
+# tvg-id cuyo override de epg-overrides.json lleva "primary": true.
+EPG_OVERRIDE_PRIMARY_IDS: set[str] = set()
 
 
 def apply_epg_overrides(path: Path = EPG_OVERRIDES_PATH) -> dict[str, tuple[str, str]]:
@@ -8079,6 +8085,10 @@ def apply_epg_overrides(path: Path = EPG_OVERRIDES_PATH) -> dict[str, tuple[str,
             EPG_SHIFT_BY_TARGET[stable_id] = timedelta(minutes=shift_minutes)
         else:
             EPG_SHIFT_BY_TARGET.pop(stable_id, None)
+        if raw_entry.get("primary") is True:
+            EPG_OVERRIDE_PRIMARY_IDS.add(stable_id)
+        else:
+            EPG_OVERRIDE_PRIMARY_IDS.discard(stable_id)
         EPG_PROGRAMME_SOURCES[stable_id] = (source, source_id)
         applied[stable_id] = (source, source_id)
     if applied:
