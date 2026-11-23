@@ -33,6 +33,22 @@ class EpgOverrides20261123Test(unittest.TestCase):
         self.assertEqual(("pt1", "Stingray.iConcerts.HD.pt", 60),
                          (entry["source"], entry["source_id"], entry["shift_minutes"]))
 
+    def test_espn_premium_chile_uses_gatotv_chile(self):
+        entry = self.channels["PublicDirect.9cd6da14085f95bfe651ca1e"]
+        self.assertEqual(("gatotv", "gatotv:espn_premium_chile"),
+                         (entry["source"], entry["source_id"]))
+
+    def test_espn_premium_argentina_uses_claro_argentina(self):
+        entry = self.channels["IPTVOrg.ESPNPremium.ar-HD"]
+        self.assertEqual(("claro-guia", "claro:argentina:888160"),
+                         (entry["source"], entry["source_id"]))
+
+    def test_trial_channels_with_country_guide_enter_epg_scope(self):
+        scope = {channel.tvg_id for channel in update_m3u.main_playlist_channels()}
+        self.assertIn("PublicDirect.9cd6da14085f95bfe651ca1e", scope)
+        self.assertIn("IPTVOrg.ESPNPremium.ar-HD", scope)
+        self.assertEqual(105, len(scope))
+
 
 if __name__ == "__main__":
     unittest.main()

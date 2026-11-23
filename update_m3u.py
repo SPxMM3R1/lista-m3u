@@ -8176,6 +8176,16 @@ def apply_epg_manual_overrides(
     return ET.tostring(root, encoding="utf-8", xml_declaration=True) + b"\n"
 
 
+# Canales en prueba que sí entran a la EPG por pedido explícito del usuario
+# (2026-11-23: «No puede quedar ningún canal sin programación»). Son dos feeds
+# ESPN Premium con guía de su país; siguen en prueba para no meterlos al
+# mantenimiento automático de canales, pero su parrilla sí se publica.
+EPG_TRIAL_GUIDE_IDS = frozenset({
+    "PublicDirect.9cd6da14085f95bfe651ca1e",  # ESPN Premium Chile (GatoTV)
+    "IPTVOrg.ESPNPremium.ar-HD",              # ESPN Premium Argentina (Claro)
+})
+
+
 def main_playlist_channels() -> list[Channel]:
     """Load the sole public EPG scope: the channels published in m3u.m3u."""
     if not DEFAULT_PLAYLIST.is_file():
@@ -8193,7 +8203,8 @@ def main_playlist_channels() -> list[Channel]:
     if len(set(channel_ids)) != len(channel_ids):
         raise RuntimeError(f"{DEFAULT_PLAYLIST.name} contiene tvg-id duplicados")
     # Los canales en prueba se publican, pero no tienen guía ni entran a su compuerta.
-    trial_ids = trial_m3u_ids()
+    # Excepción: los dos ESPN Premium con guía de país declarada (2026-11-23).
+    trial_ids = trial_m3u_ids() - EPG_TRIAL_GUIDE_IDS
     if trial_ids:
         channels = [channel for channel in channels if channel.tvg_id not in trial_ids]
         if not channels:
