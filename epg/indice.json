@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generatedAt": "2026-11-23T01:51:53Z",
+ "generatedAt": "2026-11-23T01:56:18Z",
  "channels": [
   {
    "id": "0104",
@@ -323,12 +323,36 @@
    "lastStop": "2026-11-25T00:00:00Z"
   },
   {
+   "id": "SkySportsF1UHD.uk",
+   "file": "SkySportsF1UHD.uk.xml",
+   "name": "Sky Sports F1",
+   "keys": [
+    "m3u:SkySportsF1UHD.uk",
+    "provider:highfly:SkySportsF1UHD.uk"
+   ],
+   "guideSource": "sky-oficial",
+   "manual": false,
+   "lastStop": "2026-11-25T00:00:00Z"
+  },
+  {
    "id": "SkySportsTennis.uk",
    "file": "SkySportsTennis.uk.xml",
    "name": "Sky Sports Tennis",
    "keys": [
     "m3u:SkySportsTennis.uk",
     "provider:highfly:SkySportsTennis.uk"
+   ],
+   "guideSource": "sky-oficial",
+   "manual": false,
+   "lastStop": "2026-11-25T00:00:00Z"
+  },
+  {
+   "id": "SkySportsMainEvent.uk@TvVoo",
+   "file": "SkySportsMainEvent.uk@TvVoo.xml",
+   "name": "Sky Sports Main Event",
+   "keys": [
+    "m3u:SkySportsMainEvent.uk@TvVoo",
+    "provider:tvvoo:unitedkingdom|vavoo_SKY%20SPORTS%20MAIN%20EVENT%7Cgroup%3Auk"
    ],
    "guideSource": "sky-oficial",
    "manual": false,
@@ -1133,28 +1157,6 @@
    "guideSource": "nl",
    "manual": false,
    "lastStop": "2026-11-26T00:07:00Z"
-  },
-  {
-   "id": "SkySportsF1UHD.uk",
-   "file": "SkySportsF1UHD.uk.xml",
-   "name": "Sky Sports F1",
-   "keys": [
-    "m3u:SkySportsF1UHD.uk"
-   ],
-   "guideSource": "sky-oficial",
-   "manual": false,
-   "lastStop": "2026-11-25T00:00:00Z"
-  },
-  {
-   "id": "SkySportsMainEvent.uk@TvVoo",
-   "file": "SkySportsMainEvent.uk@TvVoo.xml",
-   "name": "Sky Sports Main Event",
-   "keys": [
-    "m3u:SkySportsMainEvent.uk@TvVoo"
-   ],
-   "guideSource": "sky-oficial",
-   "manual": false,
-   "lastStop": "2026-11-25T00:00:00Z"
   }
  ]
 }
