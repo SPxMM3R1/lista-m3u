@@ -197,3 +197,30 @@ test("la papelera de un canal del bloque TvVoo de Lista 2 lo anota sin tocar el 
   assert.equal(again.applied.length, 0);
   assert.match(again.skipped[0].reason, /papelera/);
 });
+
+test("respaldo con URL fija: el canal conserva su tvg-id y solo cambia la señal", async () => {
+  const base = promoteDocuments();
+  base.streams = { schema: 1, channels: { OTRO: { url: "http://x/y.m3u8" } } };
+  base.backups.channels.P.backups[0].url = "http://45.0.0.1:8000/play/a06s/index.m3u8";
+  const result = await applyRequests(base, [{ file: "a.json", text: promote("m3u:P", "B1") }]);
+  assert.equal(result.applied[0].stream, "P");
+  const row = (id) => result.layout.channels.find((item) => item.tvgId === id);
+  assert.equal(row("P").state, "active", "la fila sigue siendo el canal");
+  assert.equal(row("B1").state, "deleted");
+  assert.equal(result.streams.channels.P.url, "http://45.0.0.1:8000/play/a06s/index.m3u8");
+  assert.ok(result.streams.channels.OTRO, "no toca otras señales fijadas");
+  assert.deepEqual(result.overrides.channels.P, { source: "g", source_id: "1" }, "la guía no se mueve");
+  assert.deepEqual(Object.keys(result.backups.channels), ["A", "P", "C"]);
+  assert.deepEqual(result.backups.channels.P.backups.map((item) => item.tvg_id), ["B2"]);
+  assert.equal(result.backups.channels.P.principal_quality.kbps, 300);
+});
+
+test("respaldo con URL firmada: se usa el cambio de fila", async () => {
+  const base = promoteDocuments();
+  base.streams = { schema: 1, channels: {} };
+  base.backups.channels.P.backups[0].url = "https://cdn/x.m3u8?token=abc";
+  const result = await applyRequests(base, [{ file: "a.json", text: promote("m3u:P", "B1") }]);
+  assert.equal(result.applied[0].stream, undefined);
+  assert.equal(result.layout.channels.find((item) => item.tvgId === "B1").state, "active");
+  assert.deepEqual(result.streams.channels, {});
+});

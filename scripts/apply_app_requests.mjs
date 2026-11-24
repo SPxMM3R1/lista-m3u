@@ -4,8 +4,11 @@
 // «trash»: enviar una fila a la papelera (state = "deleted"), igual que el botón Papelera del
 // editor. Desde la papelera del editor se recupera o se borra para siempre. Sus respaldos siguen en
 // backups.json colgando de esa fila: al recuperarla vuelven con ella.
-// «promote-backup» (VibeM3U 0.6.57): la fila va a la papelera y uno de sus respaldos toma su lugar,
-// con el mismo número, nombre, grupo, logo y guía; los demás respaldos pasan al nuevo principal.
+// «promote-backup» (VibeM3U 0.6.57): uno de sus respaldos pasa a ser la señal del canal.
+// Desde 2026-11-23 el canal conserva su tvg-id y solo cambia la URL (stream-overrides.json): muchas
+// guías y logos están amarrados al tvg-id en el runner (Mega «0105» perdió su guía oficial al tomar
+// el id del respaldo). Si el respaldo no tiene URL fija (resolutor, token) se usa el método anterior:
+// la fila va a la papelera y el respaldo toma su lugar con el mismo número, nombre, grupo, logo y guía.
 // Canales del bloque TvVoo de Lista 2 (data/lista2-tvvoo-bloque.m3u, 2026-11-18): no tienen fila en
 // el layout; la papelera los anota en data/lista2-tvvoo-papelera.json y
 // tools/build_lista2_tvvoo_block.py los deja fuera del bloque.
@@ -51,6 +54,7 @@ export const PROMOTE_FILES = {
   backups: "backups.json",
   overrides: "epg-overrides.json",
   l2Map: "epg-l2-map.json",
+  streams: "stream-overrides.json",
 };
 export const REQUESTS_DIR = "data/app-requests";
 const MAX_REQUEST_BYTES = 4096;
@@ -75,15 +79,48 @@ export function parseRequest(text) {
   return { rowKey: key, name, backupTvgId };
 }
 
+/** URL que se puede fijar en stream-overrides.json (misma regla que update_m3u.py). */
+export function isPersistableStreamUrl(url) {
+  let parsed;
+  try {
+    parsed = new URL(String(url ?? "").trim());
+  } catch {
+    return false;
+  }
+  if (!["http:", "https:"].includes(parsed.protocol) || !parsed.host || parsed.search || parsed.hash) return false;
+  const lowered = parsed.href.toLowerCase();
+  return !["/sunshine/", "access_token=", "token=", "serverkey", "sig=", "signature=", "hdnts=", "expires="]
+    .some((marker) => lowered.includes(marker));
+}
+
+/** Respaldo sin su copia: el resto queda colgando del mismo canal (sin respaldos, sin entrada). */
+function dropBackup(documents, channelId, entry, copy, newId = channelId) {
+  const rest = entry.backups.filter((item) => item !== copy);
+  // Misma posición en el archivo (diff mínimo); sin más respaldos el canal deja de tener entrada.
+  documents.backups.channels = Object.fromEntries(Object.entries(documents.backups.channels).flatMap(([id, value]) => {
+    if (id !== channelId) return [[id, value]];
+    return rest.length ? [[newId, { ...entry, source_name: copy.source_name, principal_quality: copy.quality, backups: rest }]] : [];
+  }));
+  documents.backups.updated = new Date().toISOString().slice(0, 10);
+}
+
 /**
- * Promueve el respaldo: cambia la fila en `layout` y mueve guía y respaldos en `documents`.
- * Devuelve un texto si no se puede, sin haber tocado nada.
+ * Promueve el respaldo: fija su URL en el mismo canal o, sin URL fija, cambia la fila en `layout` y
+ * mueve guía y respaldos en `documents`. Devuelve un texto si no se puede, sin haber tocado nada;
+ * si no, {stream: tvg-id} cuando quedó fijada la URL.
  */
 function promoteBackup(layout, documents, row, backupTvgId) {
   const oldId = row.tvgId;
   const entry = documents.backups?.channels?.[oldId];
   const copy = entry?.backups?.find((item) => item.tvg_id === backupTvgId);
   if (!copy) return `${backupTvgId} no es respaldo de ${oldId}`;
+  if (documents.streams && isPersistableStreamUrl(copy.url)) {
+    // Mismo canal, otra señal: guía, logo, número y favoritos no se mueven.
+    const channels = (documents.streams.channels ??= {});
+    channels[oldId] = { url: copy.url.trim(), reason: `respaldo promovido desde la app: ${backupTvgId}` };
+    dropBackup(documents, oldId, entry, copy);
+    return { stream: oldId };
+  }
   const next = layout.channels.find((item) => item.kind === "m3u" && item.tvgId === backupTvgId);
   if (!next || next.state !== "deleted") return `el respaldo ${backupTvgId} no tiene fila disponible`;
 
@@ -107,14 +144,8 @@ function promoteBackup(layout, documents, row, backupTvgId) {
   const infoLine = documents.presentation.info_lines?.[oldId];
   if (infoLine) documents.presentation.info_lines[backupTvgId] = infoLine.replace(`tvg-id="${oldId}"`, `tvg-id="${backupTvgId}"`);
 
-  const rest = entry.backups.filter((item) => item !== copy);
-  // Misma posición en el archivo (diff mínimo); sin más respaldos el canal deja de tener entrada.
-  documents.backups.channels = Object.fromEntries(Object.entries(documents.backups.channels).flatMap(([id, value]) => {
-    if (id !== oldId) return [[id, value]];
-    return rest.length ? [[backupTvgId, { ...entry, source_name: copy.source_name, principal_quality: copy.quality, backups: rest }]] : [];
-  }));
-  documents.backups.updated = new Date().toISOString().slice(0, 10);
-  return null;
+  dropBackup(documents, oldId, entry, copy, backupTvgId);
+  return {};
 }
 
 /** El mismo documento que publica el editor web (layoutDocument). */
@@ -162,12 +193,12 @@ export async function applyRequests(documents, requests) {
     }
     const name = row.displayName || row.name || parsed.name;
     if (parsed.backupTvgId) {
-      const problem = promoteBackup(layout, documents, row, parsed.backupTvgId);
-      if (problem) {
-        skipped.push({ file: request.file, reason: problem });
+      const outcome = promoteBackup(layout, documents, row, parsed.backupTvgId);
+      if (typeof outcome === "string") {
+        skipped.push({ file: request.file, reason: outcome });
         continue;
       }
-      applied.push({ rowKey: parsed.rowKey, name, number: row.number, promoted: parsed.backupTvgId });
+      applied.push({ rowKey: parsed.rowKey, name, number: row.number, promoted: parsed.backupTvgId, ...outcome });
       continue;
     }
     layout = setRowState(layout, parsed.rowKey, "deleted");
@@ -185,6 +216,7 @@ export async function applyRequests(documents, requests) {
     backups: documents.backups,
     overrides: documents.overrides,
     l2Map: documents.l2Map,
+    streams: documents.streams,
     selection: applied.some((item) => !item.block)
       ? await buildSelectionDocument(finalLayout, documents.selection)
       : documents.selection,
@@ -204,7 +236,8 @@ async function main() {
   }
   const read = (path) => JSON.parse(readFileSync(join(root, path), "utf8"));
   const documents = { layout: read(FILES.layout), selection: read(FILES.selection), presentation: read(FILES.presentation),
-    backups: read(PROMOTE_FILES.backups), overrides: read(PROMOTE_FILES.overrides), l2Map: read(PROMOTE_FILES.l2Map) };
+    backups: read(PROMOTE_FILES.backups), overrides: read(PROMOTE_FILES.overrides), l2Map: read(PROMOTE_FILES.l2Map),
+    streams: existsSync(join(root, PROMOTE_FILES.streams)) ? read(PROMOTE_FILES.streams) : { schema: 1, channels: {} } };
   const blockPath = join(root, BLOCK_FILES.block);
   documents.blockKeys = existsSync(blockPath) ? blockKeys(readFileSync(blockPath, "utf8")) : new Set();
   const trashPath = join(root, BLOCK_FILES.trash);
@@ -230,6 +263,7 @@ async function main() {
     writeFileSync(join(root, PROMOTE_FILES.backups), json(result.backups).replace(/\n/g, "\r\n"));
     writeFileSync(join(root, PROMOTE_FILES.overrides), json(result.overrides));
     writeFileSync(join(root, PROMOTE_FILES.l2Map), json(result.l2Map));
+    writeFileSync(join(root, PROMOTE_FILES.streams), json(result.streams));
   }
   for (const file of files) unlinkSync(join(dir, file));
   for (const item of result.applied) {

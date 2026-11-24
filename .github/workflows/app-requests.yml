@@ -41,7 +41,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           files=(data/app-requests data/channel-editor-layout.json data/vibem3u-selection.json presentation-overrides.json
-                 backups.json epg-overrides.json epg-l2-map.json
+                 backups.json epg-overrides.json epg-l2-map.json stream-overrides.json
                  m3u.m3u m3u-externa.m3u 1.m3u 2.m3u channel-catalog.m3u resolver-catalog.json
                  data/lista2-tvvoo-papelera.json data/lista2-tvvoo-bloque.m3u)
           for attempt in 1 2 3 4 5; do
@@ -56,6 +56,9 @@ jobs:
               python update_m3u.py --refresh-tvvoo-block
               python update_m3u.py --sync-resolver-contract
               python targeted_update.py --mode presentation
+              # Respaldo promovido con URL fija: la señal nueva entra ya a las listas (validada).
+              streams=$(node -e 'console.log(JSON.parse(process.argv[1]).applied.map(a=>a.stream).filter(Boolean).join(" "))' "$summary")
+              if [ -n "$streams" ]; then python targeted_update.py --mode stream --channel-ids $streams || echo "Aviso: la señal se fijó pero no se validó; la publica el runner"; fi
             fi
             git add -A -- "${files[@]}"
             names=$(node -e 'const s=JSON.parse(process.argv[1]);console.log(s.applied.map(a=>a.name).join(", ")||"pedidos inválidos")' "$summary")
